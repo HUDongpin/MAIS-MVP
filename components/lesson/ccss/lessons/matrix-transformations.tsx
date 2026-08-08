@@ -55,7 +55,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label="matrix transformation of a shape">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label={`${PRESETS[mi].name}: dashed original shape and its image under the matrix`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => {
               const c = i - R;
               return (

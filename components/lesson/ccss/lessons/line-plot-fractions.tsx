@@ -60,7 +60,9 @@ export default function Lesson() {
           <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
             <div className="text-xs font-bold uppercase tracking-wide text-[var(--ink-faint)]">Longest − shortest</div>
             <div className="font-mono text-lg font-black" style={{ color: MARK }}>
-              {frac(maxE)} − {frac(minE)} = {frac(diff)} inch
+              {/* One measurement can remain, where maxE === minE and the
+                  difference is 0 — "0 inch". */}
+              {frac(maxE)} − {frac(minE)} = {frac(diff)} {diff === 8 ? "inch" : "inches"}
             </div>
           </div>
 

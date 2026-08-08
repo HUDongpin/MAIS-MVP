@@ -37,7 +37,7 @@ export default function Lesson() {
 
       <Figure caption="Amplitude sets the height of the swing, period its length, midline its center.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label="sine model">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`Sine curve with amplitude ${A}, period ${period} and midline y = ${D}`}>
             {/* midline */}
             <line x1={MIDX} y1={r2(MIDY - D * yScale)} x2={W - PAD} y2={r2(MIDY - D * yScale)} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="5 4" />
             {/* max/min guides */}

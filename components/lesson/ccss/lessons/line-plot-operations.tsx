@@ -53,7 +53,7 @@ export default function Lesson() {
           <div className="-mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">cups of liquid</div>
 
           <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
-            <div className="font-mono text-[15px]">Total = <strong style={{ color: MARK }}>{simplify(totalEighths, 8)}</strong>{" "}cups, in {n} beakers</div>
+            <div className="font-mono text-[15px]">Total = <strong style={{ color: MARK }}>{simplify(totalEighths, 8)}</strong>{" "}{totalEighths === 8 ? "cup" : "cups"}, in {n} {n === 1 ? "beaker" : "beakers"}</div>
             <div className="mt-1 font-mono text-lg font-black">
               {simplify(totalEighths, 8)} ÷ {n} = <span style={{ color: MARK }}>{simplify(totalEighths, 8 * n)}</span> cup each
               <span className="text-[var(--ink-soft)]"> ({shareDecimal.toFixed(3)})</span>

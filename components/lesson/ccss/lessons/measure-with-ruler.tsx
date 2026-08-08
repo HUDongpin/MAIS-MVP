@@ -14,7 +14,8 @@ export default function Lesson() {
 
   const unitPx = small ? BIGU / 2 : BIGU;
   const count = small ? len * 2 : len;
-  const unitName = small ? "small units" : "big units";
+  // The stepper minimum is 1, where "1 small units" reads wrong.
+  const unitName = small ? "small unit" : "big unit";
   const barPx = len * BIGU;
 
   return (
@@ -44,7 +45,7 @@ export default function Lesson() {
           </FigureScroll>
 
           <div className="text-center">
-            <div className="text-3xl font-black" style={{ color: BAR }}>{count} {unitName}</div>
+            <div className="text-3xl font-black" style={{ color: BAR }}>{count} {unitName}{count === 1 ? "" : "s"}</div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
               The bar is the same length either way — {len} big units is the same as {len * 2} small units.
             </p>

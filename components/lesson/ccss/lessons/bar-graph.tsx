@@ -73,9 +73,9 @@ export default function Lesson() {
               <div key={cat.name} className="flex flex-col items-center gap-1">
                 <span className="text-xs font-bold" style={{ color: cat.color }}>{cat.name}</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setVals((p) => p.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={vals[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer ${cat.name}`}>−</button>
+                  <button type="button" onClick={() => setVals((p) => p.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={vals[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`One fewer ${cat.name}`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{vals[i]}</span>
-                  <button type="button" onClick={() => setVals((p) => p.map((v, j) => (j === i ? Math.min(MAXV, v + 1) : v)))} disabled={vals[i] >= MAXV} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more ${cat.name}`}>+</button>
+                  <button type="button" onClick={() => setVals((p) => p.map((v, j) => (j === i ? Math.min(MAXV, v + 1) : v)))} disabled={vals[i] >= MAXV} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`One more ${cat.name}`}>+</button>
                 </div>
               </div>
             ))}

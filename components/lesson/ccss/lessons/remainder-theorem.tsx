@@ -52,7 +52,7 @@ export default function Lesson() {
       <Figure caption="The curve meets the x-axis at each root. Evaluating p(a) gives the remainder on dividing by (x − a).">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
-            <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="cubic polynomial graph">
+            <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Cubic curve meeting the x-axis at ${distinct.join(", ")}, with the point at x = ${a} where p equals ${pa}`}>
               <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
               <line x1={sx(0)} y1={PAD} x2={sx(0)} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((x) => (

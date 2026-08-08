@@ -44,7 +44,7 @@ export default function Lesson() {
       <Figure caption="The orange triangle is the mean (balance point); the green line is the median (middle).">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
-            <svg width={W} height={130} viewBox={`0 0 ${W} 130`} className="mx-auto" role="img" aria-label="dot plot with mean and median">
+            <svg width={W} height={130} viewBox={`0 0 ${W} 130`} className="mx-auto" role="img" aria-label={`Dot plot of ${data.length} values with the mean at ${mean} marked by a triangle and the median at ${median} marked by a dashed line`}>
               <line x1={PAD} y1={100} x2={W - PAD} y2={100} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXV }, (_, i) => (
                 <text key={i} x={x(i + 1)} y={118} textAnchor="middle" fontSize={10} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i + 1}</text>

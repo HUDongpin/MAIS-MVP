@@ -35,8 +35,8 @@ export default function Lesson() {
             </div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
               {isEven
-                ? <>{pairs} pairs, none left over — and {n} = {pairs} + {pairs}.</>
-                : <>{pairs} pairs and 1 left over, with no partner.</>}
+                ? <>{pairs} {pairs === 1 ? "pair" : "pairs"}, none left over — and {n} = {pairs} + {pairs}.</>
+                : <>{pairs} {pairs === 1 ? "pair" : "pairs"} and 1 left over, with no partner.</>}
             </p>
           </div>
 

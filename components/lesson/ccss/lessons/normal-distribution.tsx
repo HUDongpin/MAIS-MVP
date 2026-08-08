@@ -38,7 +38,7 @@ export default function Lesson() {
 
       <Figure caption="Shade within ±z standard deviations to read off the percentage of data it contains.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label="normal distribution">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`Normal curve with mean ${mean} and standard deviation ${sd}, shaded within ${z} standard deviation${z === 1 ? "" : "s"} of the mean`}>
             <polygon points={shade.join(" ")} fill={ACCENT} fillOpacity={0.3} />
             <polyline points={pts.join(" ")} fill="none" stroke={ACCENT} strokeWidth={2.5} />
             <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />

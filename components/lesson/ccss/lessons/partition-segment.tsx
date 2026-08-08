@@ -32,7 +32,7 @@ export default function Lesson() {
 
       <Figure caption="The partition point moves the fraction t of the way from A toward B.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 310 }} role="img" aria-label="partitioning a segment">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 310 }} role="img" aria-label={`Segment from (${A.x}, ${A.y}) to (${B.x}, ${B.y}) with point P at (${px}, ${py}), ${ratio} quarter${ratio === 1 ? "" : "s"} of the way along`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />

@@ -32,7 +32,7 @@ export default function Lesson() {
 
       <Figure caption="The side lengths are the differences of the corner coordinates.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 360 }} role="img" aria-label="rectangle on a grid">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 360 }} role="img" aria-label={`Rectangle ${width} by ${height} on a coordinate grid, corners (${x1}, ${y1}), (${x2}, ${y1}), (${x2}, ${y2}) and (${x1}, ${y2})`}>
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />
