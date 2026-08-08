@@ -222,7 +222,7 @@ untriaged.
 
 ### Closing verification
 
-All five gates green on a clean tree, after the last batch:
+All gates green on a clean tree:
 
 ```
 audit:ccss-lesson-interaction    270 interactive lessons — no interaction-copy defects
@@ -233,12 +233,36 @@ tsc --noEmit                      clean
 audit:us-ca-lesson-page-runtime   76 pages driven to both control extremes — clean
 ```
 
-The runtime sweep is the one that matters here: it drives every control to both
-extremes on every page, and it is the gate that found the `NaN%` state once the
-per-cell accessible names made it reachable. It is clean on the full 76 now.
+The runtime sweep is the gate that matters here: it drives every control to both
+extremes on every page. It found the `NaN%` state on `us-ca-math-s2-chapter-05`
+once the per-cell accessible names made that state addressable, and it is clean
+on the full 76 after the fix.
 
-**This is not a claim that the page is defect-free.** 14 medium and 102 low
-candidates remain untriaged, the round-8 workflow lost 13 verifications to a
-usage limit, and every one of the eight rounds so far has been followed by a
-round that found more. What can be said: the student-visible medium backlog from
-round 8's partition is cleared, and every gate the project has is green.
+One sweep in this round reported 76 failures that were **not** content defects —
+the dev server had died and every entry was `ERR_CONNECTION_REFUSED`. Recorded
+here because a gate result is only evidence if the thing under test was running.
+
+### Defects I introduced and then found
+
+Worth recording, because the same class keeps appearing in the content:
+
+- Seven British spellings ("centred at", "Colour swatch", "metres",
+  "millilitres") entered user-visible strings in this round's own
+  accessible-name work, on a product whose house style is US spelling. A
+  low-severity finding about US/UK mixing is what surfaced them.
+- Four JSX syntax errors from putting `{/* ... */}` inside an opening tag or
+  directly inside a `.map()` callback. Caught by `tsc` each time, but it is the
+  same failure as the content defects: writing the intent down without checking
+  what the thing actually does.
+
+### Final state
+
+**81+ defects fixed this round.** What is NOT done, stated plainly:
+
+- ~53 low-severity candidates remain open at the time of writing, under
+  verification.
+- 13 verification agents were lost to a usage limit in the original workflow;
+  their findings are unresolved, not clean.
+- Every one of the eight rounds so far has been followed by a round that found
+  more. This one included: it withdrew two of its own headline claims after
+  measuring the render path instead of the seed data.
