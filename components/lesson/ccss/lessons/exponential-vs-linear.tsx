@@ -18,14 +18,17 @@ const EXP = "var(--band-high)";
 
 export default function Lesson() {
   const [m, setM] = useState(5); // linear slope
-  const [r, setR] = useState(2); // exponential base
+  // Renamed from r: construct-linear-exponential, on the same page, writes
+  // y = start·(1 + r)ᵗ with r as the fractional RATE. A student carrying
+  // r = 2 into that formula gets tripling instead of doubling.
+  const [b, setB] = useState(2); // exponential growth factor
 
   const sx = (x: number) => PAD + x * PXX;
   const sy = (y: number) => PAD + (YMAX - y) * PXY;
   const clampY = (y: number) => Math.min(y, YMAX);
 
   const lin = (x: number) => m * x;
-  const exp = (x: number) => Math.pow(r, x);
+  const exp = (x: number) => Math.pow(b, x);
 
   // linear polyline (clipped)
   const linPts: string[] = [];
@@ -95,7 +98,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold">
             <span className="inline-flex items-center gap-2"><span className="h-1 w-5 rounded" style={{ background: LIN }} /> linear&nbsp; y = {m}x</span>
-            <span className="inline-flex items-center gap-2"><span className="h-1 w-5 rounded" style={{ background: EXP }} /> exponential&nbsp; y = {r}<sup>x</sup></span>
+            <span className="inline-flex items-center gap-2"><span className="h-1 w-5 rounded" style={{ background: EXP }} /> exponential&nbsp; y = {b}<sup>x</sup></span>
           </div>
 
           {/* value table */}
@@ -113,7 +116,7 @@ export default function Lesson() {
                   {Array.from({ length: XMAX + 1 }, (_, x) => <td key={x} className="px-2.5 py-1">{lin(x)}</td>)}
                 </tr>
                 <tr style={{ color: EXP }}>
-                  <td className="px-2 py-1 text-left font-bold">{r}^x</td>
+                  <td className="px-2 py-1 text-left font-bold">{b}^x</td>
                   {Array.from({ length: XMAX + 1 }, (_, x) => <td key={x} className="px-2.5 py-1">{Number.isInteger(exp(x)) ? exp(x) : exp(x).toFixed(1)}</td>)}
                 </tr>
               </tbody>
@@ -130,7 +133,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap items-center justify-center gap-8">
             <Slider label={`Linear slope (m)`} value={m} min={1} max={8} step={1} onChange={setM} color={LIN} />
-            <Slider label={`Exponential base (r)`} value={r} min={1.5} max={3} step={0.5} onChange={setR} color={EXP} />
+            <Slider label={`Exponential growth factor (b)`} value={b} min={1.5} max={3} step={0.5} onChange={setB} color={EXP} />
           </div>
         </div>
       </Figure>
@@ -138,7 +141,7 @@ export default function Lesson() {
       <h2>Adding versus multiplying</h2>
       <p>
         Look at the table. Each step to the right <strong>adds {m}</strong>{" "}to
-        the linear row, but <strong>multiplies the exponential row by {r}</strong>.
+        the linear row, but <strong>multiplies the exponential row by {b}</strong>.
         Multiplying compounds — the bigger it gets, the faster it grows.
       </p>
 
@@ -147,7 +150,7 @@ export default function Lesson() {
           A <strong>linear</strong>{" "}function has a constant{" "}
           <strong>difference</strong>{" "}between equally spaced outputs (here, +{m}),
           while an <strong>exponential</strong>{" "}function has a constant{" "}
-          <strong>ratio</strong>{" "}(here, ×{r}) — that is exactly what distinguishes
+          <strong>ratio</strong>{" "}(here, ×{b}) — that is exactly what distinguishes
           the two families (F-LE.1). Because each exponential step scales the
           whole quantity, an increasing exponential function eventually exceeds{" "}
           <em>any</em>{" "}linear (in fact any polynomial) function (F-LE.3), no
