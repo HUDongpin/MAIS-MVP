@@ -19,6 +19,9 @@ export default function Lesson() {
   const perpSlope = -1 / m;
   const perpLabel = m === 1 ? "−1" : `−1/${m}`;
 
+  // Furthest x at which a line of this slope is still inside the ±R window.
+  const xClip = Math.min(R, R / Math.abs(m));
+  const xClipPerp = Math.min(R, R / Math.abs(perpSlope));
   const sx = (x: number) => PAD + (x + R) * CELL;
   const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
 
@@ -51,9 +54,11 @@ export default function Lesson() {
             <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* line 1 slope m through origin */}
-            <line x1={sx(-R)} y1={sy(-m * R)} x2={sx(R)} y2={sy(m * R)} stroke={ACCENT} strokeWidth={2.5} />
+            {/* Drawn to x = ±R regardless of slope: at m = 4 that is y = ±24 on
+                a ±6 grid, 374px outside a 308px viewBox. Clip in x instead. */}
+            <line x1={sx(-xClip)} y1={sy(-m * xClip)} x2={sx(xClip)} y2={sy(m * xClip)} stroke={ACCENT} strokeWidth={2.5} />
             {/* perpendicular slope -1/m */}
-            <line x1={sx(-R)} y1={sy(-perpSlope * R)} x2={sx(R)} y2={sy(perpSlope * R)} stroke="var(--band-upper)" strokeWidth={2.5} />
+            <line x1={sx(-xClipPerp)} y1={sy(-perpSlope * xClipPerp)} x2={sx(xClipPerp)} y2={sy(perpSlope * xClipPerp)} stroke="var(--band-upper)" strokeWidth={2.5} />
             <rect x={sx(0) - 6} y={sy(0) - 6} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
           </svg>
 

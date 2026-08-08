@@ -25,7 +25,14 @@ export default function Lesson() {
   const f = (t: number) => m * t + b;
   const fInv = (t: number) => (t - b) / m; // solve y = m x + b for x
 
+  // The x-interval over which a line stays inside the ±XR window in y.
+  const clipTo = (slope: number, intercept: number): [number, number] => {
+    const xs = [(-XR - intercept) / slope, (XR - intercept) / slope].sort((p, q) => p - q);
+    return [Math.max(-XR, xs[0]), Math.min(XR, xs[1])];
+  };
   const sx = (v: number) => PAD + (v + XR) * PXX;
+  const clipF = clipTo(m, b);
+  const clipI = clipTo(1 / m, -b / m);
   const sy = (v: number) => SIZE - PAD - (v + XR) * PXX;
 
   return (
@@ -54,8 +61,11 @@ export default function Lesson() {
             <line x1={sx(0)} y1={sy(-XR)} x2={sx(0)} y2={sy(XR)} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* y = x mirror */}
             <line x1={sx(-XR)} y1={sy(-XR)} x2={sx(XR)} y2={sy(XR)} stroke="var(--ink-faint)" strokeWidth={1.5} strokeDasharray="5 4" />
-            <line x1={sx(-XR)} y1={sy(f(-XR))} x2={sx(XR)} y2={sy(f(XR))} stroke={ACCENT} strokeWidth={2.5} />
-            <line x1={sx(-XR)} y1={sy(fInv(-XR))} x2={sx(XR)} y2={sy(fInv(XR))} stroke={INV} strokeWidth={2.5} />
+            {/* Both lines used to run the full −XR..XR in x regardless of where
+                that put them in y: at m = 4, b = 4 f(6) = 28 on a ±6 grid, drawn
+                502px outside a 340px viewBox. Each is clipped to the window. */}
+            <line x1={sx(clipF[0])} y1={sy(f(clipF[0]))} x2={sx(clipF[1])} y2={sy(f(clipF[1]))} stroke={ACCENT} strokeWidth={2.5} />
+            <line x1={sx(clipI[0])} y1={sy(fInv(clipI[0]))} x2={sx(clipI[1])} y2={sy(fInv(clipI[1]))} stroke={INV} strokeWidth={2.5} />
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono text-sm" style={{ borderColor: ACCENT }}>
