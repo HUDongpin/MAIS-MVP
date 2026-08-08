@@ -1690,77 +1690,77 @@ const californiaDomainAlignments: Record<string, CaliforniaDomainAlignmentRecord
   },
   "6.RP": {
     domainTitle: localizedText("Ratios and Proportional Relationships", "比與比例關係", "比与比例关系"),
-    standardIds: ["6.RP.1", "6.RP.2", "6.RP.3"],
+    standardIds: ["6.RP.A.1", "6.RP.A.2", "6.RP.A.3"],
     capabilitySummary: localizedText("Connect ratios, rates, percent, tables, double number lines, equations, and coordinate plots.")
   },
   "6.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
-    standardIds: ["6.NS.1", "6.NS.2", "6.NS.3", "6.NS.4", "6.NS.5", "6.NS.6", "6.NS.7", "6.NS.8"],
+    standardIds: ["6.NS.A.1", "6.NS.B.2", "6.NS.B.3", "6.NS.B.4", "6.NS.C.5", "6.NS.C.6", "6.NS.C.7", "6.NS.C.8"],
     capabilitySummary: localizedText("Use rational numbers, number-line position, coordinate-plane signs, and arithmetic fluency.")
   },
   "6.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
-    standardIds: ["6.EE.1", "6.EE.2", "6.EE.3", "6.EE.4", "6.EE.5", "6.EE.6", "6.EE.7", "6.EE.8", "6.EE.9"],
+    standardIds: ["6.EE.A.1", "6.EE.A.2", "6.EE.A.3", "6.EE.A.4", "6.EE.B.5", "6.EE.B.6", "6.EE.B.7", "6.EE.B.8", "6.EE.C.9"],
     capabilitySummary: localizedText("Represent variables, expressions, equations, inequalities, and dependent relationships.")
   },
   "6.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["6.G.1", "6.G.2", "6.G.3", "6.G.4"],
+    standardIds: ["6.G.A.1", "6.G.A.2", "6.G.A.3", "6.G.A.4"],
     capabilitySummary: localizedText("Find area, surface area, and volume using decomposition, nets, and coordinate geometry.")
   },
   "6.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
-    standardIds: ["6.SP.1", "6.SP.2", "6.SP.3", "6.SP.4", "6.SP.5"],
+    standardIds: ["6.SP.A.1", "6.SP.A.2", "6.SP.A.3", "6.SP.B.4", "6.SP.B.5"],
     capabilitySummary: localizedText("Describe statistical questions, distributions, center, variability, and data displays.")
   },
   "7.RP": {
     domainTitle: localizedText("Ratios and Proportional Relationships", "比與比例關係", "比与比例关系"),
-    standardIds: ["7.RP.1", "7.RP.2", "7.RP.3"],
+    standardIds: ["7.RP.A.1", "7.RP.A.2", "7.RP.A.3"],
     capabilitySummary: localizedText("Analyze proportional relationships, unit rates, graphs, equations, and percent reasoning.")
   },
   "7.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
-    standardIds: ["7.NS.1", "7.NS.2", "7.NS.3"],
+    standardIds: ["7.NS.A.1", "7.NS.A.2", "7.NS.A.3"],
     capabilitySummary: localizedText("Operate with signed rational numbers and connect operations to real-world constraints.")
   },
   "7.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
-    standardIds: ["7.EE.1", "7.EE.2", "7.EE.3", "7.EE.4"],
+    standardIds: ["7.EE.A.1", "7.EE.A.2", "7.EE.B.3", "7.EE.B.4"],
     capabilitySummary: localizedText("Use equivalent expressions and equations or inequalities to solve multi-step problems.")
   },
   "7.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["7.G.1", "7.G.2", "7.G.3", "7.G.4", "7.G.5", "7.G.6"],
+    standardIds: ["7.G.A.1", "7.G.A.2", "7.G.A.3", "7.G.B.4", "7.G.B.5", "7.G.B.6"],
     capabilitySummary: localizedText("Reason about scale drawings, circles, angles, area, surface area, and volume.")
   },
   "7.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
-    standardIds: ["7.SP.1", "7.SP.2", "7.SP.3", "7.SP.4", "7.SP.5", "7.SP.6", "7.SP.7", "7.SP.8"],
+    standardIds: ["7.SP.A.1", "7.SP.A.2", "7.SP.B.3", "7.SP.B.4", "7.SP.C.5", "7.SP.C.6", "7.SP.C.7", "7.SP.C.8"],
     capabilitySummary: localizedText("Use samples, comparisons, probability models, and simulations to make informal inferences.")
   },
   "8.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
-    standardIds: ["8.NS.1", "8.NS.2"],
+    standardIds: ["8.NS.A.1", "8.NS.A.2"],
     capabilitySummary: localizedText("Reason about rational and irrational numbers, approximations, and number-line placement.")
   },
   "8.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
-    standardIds: ["8.EE.1", "8.EE.2", "8.EE.3", "8.EE.4", "8.EE.5", "8.EE.6", "8.EE.7", "8.EE.8"],
+    standardIds: ["8.EE.A.1", "8.EE.A.2", "8.EE.A.3", "8.EE.A.4", "8.EE.B.5", "8.EE.B.6", "8.EE.C.7", "8.EE.C.8"],
     capabilitySummary: localizedText("Use exponents, roots, proportional lines, linear equations, and systems.")
   },
   "8.F": {
     domainTitle: localizedText("Functions", "函數", "函数"),
-    standardIds: ["8.F.1", "8.F.2", "8.F.3", "8.F.4", "8.F.5"],
+    standardIds: ["8.F.A.1", "8.F.A.2", "8.F.A.3", "8.F.B.4", "8.F.B.5"],
     capabilitySummary: localizedText("Compare functions across graphs, tables, equations, and verbal descriptions.")
   },
   "8.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
-    standardIds: ["8.G.1", "8.G.2", "8.G.3", "8.G.4", "8.G.5", "8.G.6", "8.G.7", "8.G.8", "8.G.9"],
+    standardIds: ["8.G.A.1", "8.G.A.2", "8.G.A.3", "8.G.A.4", "8.G.A.5", "8.G.B.6", "8.G.B.7", "8.G.B.8", "8.G.C.9"],
     capabilitySummary: localizedText("Use transformations, similarity, congruence, Pythagorean reasoning, and volume.")
   },
   "8.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
-    standardIds: ["8.SP.1", "8.SP.2", "8.SP.3", "8.SP.4"],
+    standardIds: ["8.SP.A.1", "8.SP.A.2", "8.SP.A.3", "8.SP.A.4"],
     capabilitySummary: localizedText("Investigate bivariate data with scatter plots, trend lines, and two-way tables.")
   },
   "N-RN": {
