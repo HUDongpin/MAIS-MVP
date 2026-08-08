@@ -28,7 +28,8 @@ export default function Lesson() {
         an <strong>improper fraction</strong>, multiply, then change back.
       </p>
 
-      <Figure caption="Each row is one batch of the recipe. Stack up k batches.">
+      {/* "k" is the React state name; the control is labelled "Batches". */}
+      <Figure caption={`Each row is one batch of the recipe. Stack up ${k} batches.`}>
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 text-center text-lg font-semibold">
             A recipe needs <strong>{w} {num}/{d}</strong>{" "}cups. You make <strong>{k}</strong>{" "}batches. How many cups?

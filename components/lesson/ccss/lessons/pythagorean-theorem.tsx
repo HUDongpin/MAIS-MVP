@@ -35,7 +35,7 @@ export default function Lesson() {
 
       <Figure caption="The two leg squares (a² and b²) together equal the hypotenuse square (c²).">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`right triangle ${a}, ${b}, hypotenuse`}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Right triangle with legs ${a} and ${b}, a square drawn on each leg and on the hypotenuse — the two smaller squares together have the same area as the largest`}>
             {/* square on leg a (below) */}
             <polygon points={poly([[0, 0], [a, 0], [a, -a], [0, -a]])} fill={LEGA} fillOpacity={0.5} stroke={LEGA} strokeWidth={1.5} />
             {/* square on leg b (left) */}

@@ -48,7 +48,9 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="slope ×0.1" value={m} min={8} max={20} onChange={setM} display={slope} />
+            {/* "slope ×0.1" made the buttons announce "Increase slope ×0.1",
+                which reads as multiply; they add and subtract 0.1. */}
+            <Stepper label="slope, in steps of 0.1" value={m} min={8} max={20} onChange={setM} display={slope} />
             <Stepper label="intercept" value={b} min={0} max={5} onChange={setB} display={b} />
           </div>
         </div>

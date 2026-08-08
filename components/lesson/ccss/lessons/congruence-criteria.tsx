@@ -57,7 +57,7 @@ export default function Lesson() {
 
           <div className="flex items-center gap-8">
             {[0, 1].map((k) => (
-              <svg key={k} width={150} height={130} viewBox="0 0 150 130" role="img" aria-label={`triangle ${k + 1}`}>
+              <svg key={k} width={150} height={130} viewBox="0 0 150 130" role="img" aria-label={`Triangle ${k + 1} of 2, with its ${c.name} parts marked: ${c.desc}`}>
                 <polygon points={`${V0[0]},${V0[1]} ${V1[0]},${V1[1]} ${V2[0]},${V2[1]}`} fill={ACCENT} fillOpacity={k === 0 ? 0.15 : 0.3} stroke={ACCENT} strokeWidth={2.5} />
                 {/* The old condition was true for all three criteria, so SSS —
                     "all three pairs of sides equal" — showed a single marked

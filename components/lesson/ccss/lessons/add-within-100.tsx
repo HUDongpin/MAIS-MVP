@@ -89,7 +89,10 @@ export default function Lesson() {
             {/* Re-clamp the amount whenever the base moves, or raising the base
                 with the amount already high re-creates the overflow. */}
             <Stepper label="Start number" value={base} min={10} max={89} onChange={(v) => { setBase(v); setAmt((p) => Math.max(1, Math.min(p, mode === "ones" ? Math.min(9, 99 - v) : mode === "tens" ? Math.floor((99 - v) / 10) : Math.floor(v / 10)))); }} />
-            <Stepper label={mode === "ones" ? "ones to add" : "tens"} value={amt} min={1} max={amtMax} onChange={setAmt} />
+            {/* In subtens mode delta = −amt × 10, so "Increase tens" removed
+                MORE ten-rods and lowered the answer. The name now says which
+                direction the amount runs. */}
+            <Stepper label={mode === "ones" ? "ones to add" : mode === "tens" ? "tens to add" : "tens to take away"} value={amt} min={1} max={amtMax} onChange={setAmt} />
           </div>
         </div>
       </Figure>

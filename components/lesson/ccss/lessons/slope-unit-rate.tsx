@@ -30,7 +30,7 @@ export default function Lesson() {
 
       <Figure caption="Two runners. The steeper line covers more distance each second — the bigger unit rate.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="two proportional lines">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={faster === "tie" ? `Two overlapping lines through the origin, both with slope ${mA}` : `Two lines through the origin, A with slope ${mA} and B with slope ${mB}`}>
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />

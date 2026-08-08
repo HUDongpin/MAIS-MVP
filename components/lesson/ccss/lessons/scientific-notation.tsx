@@ -57,10 +57,13 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Stepper label="c₁" value={c1} min={1} max={9} onChange={setC1} />
-            <Stepper label="e₁" value={e1} min={-5} max={8} onChange={setE1} />
-            <Stepper label="c₂" value={c2} min={1} max={9} onChange={setC2} />
-            <Stepper label="e₂" value={e2} min={-5} max={8} onChange={setE2} />
+            {/* The subscripts ₁/₂ are dropped at default symbol verbosity,
+                leaving two buttons named "Decrease c" and two named
+                "Decrease e". */}
+            <Stepper label="first coefficient" value={c1} min={1} max={9} onChange={setC1} />
+            <Stepper label="first exponent" value={e1} min={-5} max={8} onChange={setE1} />
+            <Stepper label="second coefficient" value={c2} min={1} max={9} onChange={setC2} />
+            <Stepper label="second exponent" value={e2} min={-5} max={8} onChange={setE2} />
           </div>
         </div>
       </Figure>

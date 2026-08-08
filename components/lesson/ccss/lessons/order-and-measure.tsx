@@ -18,6 +18,15 @@ export default function Lesson() {
   ]);
 
   const sorted = [...bars].sort((a, b) => a.len - b.len);
+  const minLen = sorted[0].len, maxLen = sorted[sorted.length - 1].len;
+  const rankWord = (len: number, all: typeof sorted) => {
+    if (minLen === maxLen) return "all the same";
+    const sharesMax = all.filter((x) => x.len === maxLen).length > 1;
+    const sharesMin = all.filter((x) => x.len === minLen).length > 1;
+    if (len === maxLen) return sharesMax ? "tied longest" : "longest";
+    if (len === minLen) return sharesMin ? "tied shortest" : "shortest";
+    return "middle";
+  };
   const setLen = (i: number, len: number) => setBars((prev) => prev.map((b, j) => (j === i ? { ...b, len } : b)));
 
   return (
@@ -34,7 +43,11 @@ export default function Lesson() {
             {sorted.map((bar, rank) => (
               <div key={bar.name} className="flex items-center gap-3">
                 <span className="w-16 shrink-0 text-right text-xs font-bold uppercase text-[var(--ink-faint)]">
-                  {rank === 0 ? "shortest" : rank === sorted.length - 1 ? "longest" : "middle"}
+                  {/* The word came from the sorted index alone, so at
+                      orange 5, blue 5, purple 3 the two equal strips were
+                      badged "middle" and "longest". The prose below already
+                      handled ties; this badge did not. */}
+                  {rankWord(bar.len, sorted)}
                 </span>
                 <div className="flex gap-0.5">
                   {Array.from({ length: bar.len }, (_, i) => (

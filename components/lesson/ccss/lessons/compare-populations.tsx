@@ -46,7 +46,7 @@ export default function Lesson() {
       <Figure caption="Two groups on one axis. Slide group B and watch the overlap — and the gap between means.">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
-            <svg width={W} height={150} viewBox={`0 0 ${W} 150`} className="mx-auto" role="img" aria-label="two dot plots">
+            <svg width={W} height={150} viewBox={`0 0 ${W} 150`} className="mx-auto" role="img" aria-label={`Two dot plots on a common axis: group A centred at ${meanA.toFixed(1)}, group B centred at ${meanB.toFixed(1)}`}>
               <line x1={PAD} y1={120} x2={W - PAD} y2={120} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXX + 1 }, (_, i) => (i % 2 === 0 ? <text key={i} x={x(i)} y={138} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i}</text> : null))}
               {dots(GROUP_A, A, 112)}
