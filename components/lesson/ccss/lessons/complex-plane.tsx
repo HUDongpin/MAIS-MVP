@@ -50,8 +50,11 @@ export default function Lesson() {
       <Figure caption="z and w as points. Their sum is the parallelogram diagonal; distance and midpoint work just like coordinates.">
         <div className="flex flex-col items-center gap-6">
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={`Complex plane showing z = ${a} ${b < 0 ? "−" : "+"} ${Math.abs(b)}i, w = ${c} ${d < 0 ? "−" : "+"} ${Math.abs(d)}i, and their sum ${sumRe} ${sumIm < 0 ? "−" : "+"} ${Math.abs(sumIm)}i`}>
+            {/* The round-6 fix grew the loop to 2·extent + 1 but left the offset
+                at the fixed R, so at extent 10 the grid ran v = −5..15 and drew
+                lines 44px past a 332px viewBox. The offset has to grow too. */}
             {Array.from({ length: 2 * extent + 1 }, (_, i) => {
-              const v = i - R;
+              const v = i - extent;
               return (
                 <g key={v} stroke="var(--line)" strokeWidth={1}>
                   <line x1={sx(v)} y1={sy(-extent)} x2={sx(v)} y2={sy(extent)} />
