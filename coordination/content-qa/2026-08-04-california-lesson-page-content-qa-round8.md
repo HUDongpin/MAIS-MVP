@@ -16,17 +16,23 @@ verified ones that were fixed, and states plainly what is left.
 
 ## Standard codes the app's own registry cannot resolve
 
-The visualization block on **18 live pages** cited its standards without the
-cluster letter:
+**Data defect, not a visible one** — see the correction note below.
 
-> The lab is aligned to CA.CCSS.Math.6.RP (**6.RP.1, 6.RP.2, 6.RP.3**)
-
-while every other block on the same page — and `data/ccss` — uses `6.RP.A.1`.
-All **81** short ids in the lab catalog fail `findStandard()`. Each maps to
+Every lab's `californiaAlignment.standardIds` for grades 6–8 cited its standards
+without the cluster letter: `6.RP.1` where `data/ccss` has `6.RP.A.1`. All **81**
+short ids in the lab catalog fail `findStandard()` outright, so any consumer that
+joins the lab catalog to the standards registry resolves nothing. Each maps to
 exactly one registry id (229 registry ids, zero ambiguous short forms), so the
 rewrite was mechanical.
 
-Pages whose lab cites codes no other block on the page uses: **16 → 3**.
+**Correction.** The first version of this report said these codes were visible on
+18 lesson pages and that "a teacher scanning for 6.RP.A.2 had no way to tell".
+That is wrong. The sentence carrying them lives in the visualization block's
+`content`, and `LessonView.tsx:2143` blanks that content before render (see
+"Withdrawn" below). Rendering `us-ca-math-p6-chapter-01` shows only
+`6.RP.A.1, 6.RP.A.2, 6.RP.A.3`, from the teacher guide and the coverage line —
+the short forms never reached a reader. The fix is still correct as a data-
+integrity fix; it fixed nothing a student or teacher could see.
 
 ## The page promising content it never renders
 
@@ -128,7 +134,9 @@ source. Any future lens over rendered copy must go through the render path.
 
 ## Also open, routed to the visualization-lab owner
 
-Now with exact instances rather than the vague note carried since round 6:
+Now with exact instances rather than the vague note carried since round 6. These
+live in the same non-rendered alignment metadata as the codes above, so they are
+a catalog-correctness issue rather than a visible one:
 
 | Page | Its standards | Its lab is aligned to |
 |---|---|---|
