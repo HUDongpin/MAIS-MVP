@@ -83,9 +83,9 @@ function FracControl({ label, num, den, onNum, onDen }: { label: string; num: nu
     <div className="flex flex-col items-center gap-2">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}: {num}/{den}</span>
       <div className="flex items-center gap-3">
-        <Mini label="numerator" value={num} min={1} max={den} onChange={onNum} />
+        <Mini label={`${label} numerator`} value={num} min={1} max={den} onChange={onNum} />
         <span className="text-2xl text-[var(--ink-faint)]">/</span>
-        <Mini label="denominator" value={den} min={2} max={8} onChange={onDen} />
+        <Mini label={`${label} denominator`} value={den} min={2} max={8} onChange={onDen} />
       </div>
     </div>
   );

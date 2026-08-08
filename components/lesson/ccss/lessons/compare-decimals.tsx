@@ -88,11 +88,11 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
         {/* The stepper stores hundredths, so this button moves the shown decimal
             by 0.1. Announcing it as "10" taught the exact place-value confusion
             4.NF.C.7 exists to correct. */}
-        <button type="button" onClick={() => set(value - 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label="minus one tenth">−0.1</button>
+        <button type="button" onClick={() => set(value - 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Decrease ${label} by one tenth`}>−0.1</button>
         <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-14 text-center font-mono text-xl font-black tabular-nums">{(value / 100).toFixed(2)}</span>
         <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label="plus one tenth">+0.1</button>
+        <button type="button" onClick={() => set(value + 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Increase ${label} by one tenth`}>+0.1</button>
       </div>
     </div>
   );
