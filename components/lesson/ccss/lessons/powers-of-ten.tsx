@@ -51,7 +51,7 @@ export default function Lesson() {
               {fmt(base)} {e > 0 ? "×" : "÷"} 10<sup>{Math.abs(e)}</sup> = <span style={{ color: ACCENT }}>{fmt(result)}</span>
             </div>
             <div className="mt-2 font-mono text-[15px] text-[var(--ink-soft)]">
-              10<sup>{zeros}</sup> = {magnitudeStr} · the decimal moves <strong>{zeros}</strong>{" "}place{zeros === 1 ? "" : "s"} to the <strong>{dir}</strong>
+              10<sup>{zeros}</sup> = {magnitudeStr} — the decimal moves <strong>{zeros}</strong>{" "}place{zeros === 1 ? "" : "s"} to the <strong>{dir}</strong>
             </div>
           </div>
 

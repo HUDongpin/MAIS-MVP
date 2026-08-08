@@ -44,7 +44,7 @@ export default function Lesson() {
             </div>
             <p className="mt-1 font-mono text-[15px] text-[var(--ink-soft)]">
               {sel > 0 && <>{valAt(sel)} = {valAt(sel - 1)} ÷ 10 </>}
-              {sel < 3 && <>· {valAt(sel)} = {valAt(sel + 1)} × 10</>}
+              {sel < 3 && <>— {valAt(sel)} = {valAt(sel + 1)} × 10</>}
             </p>
           </div>
         </div>

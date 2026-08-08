@@ -149,7 +149,9 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A ratio <strong>a : b</strong>{" "}generates equivalent ratios{" "}
-          <strong>(a·n) : (b·n)</strong>{" "}for every batch count{" "}
+          {/* The sibling block on this page writes multiplication as ×; a Grade 6
+            reader met the same operation two ways with nothing linking them. */}
+        <strong>(a × n) : (b × n)</strong>{" "}for every batch count{" "}
           <strong>n ≥ 1</strong>{" "}(6.RP.A.3). Every equivalent pair therefore holds
           the same <strong>rate</strong>: here each cup of flour is paired with{" "}
           {rateLabel} spoon{rate === 1 ? "" : "s"} of sugar, no matter the batch size. On the

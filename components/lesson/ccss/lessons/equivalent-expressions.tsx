@@ -53,7 +53,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center text-lg font-black" style={{ color: left === right ? "var(--band-upper)" : "var(--band-early)" }}>
-            {left} = {right} · same value ✓ (equivalent)
+            {left} = {right} — same value ✓ (equivalent)
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
