@@ -41,7 +41,7 @@ export default function Lesson() {
                       const inLine = r + 1 === sel.r || c + 1 === sel.c;
                       return (
                         <td key={c} className="p-0">
-                          <button type="button" onClick={() => setSel({ r: r + 1, c: c + 1 })} className="grid h-7 w-7 place-items-center rounded font-bold" style={{ background: isSel ? SEL : inLine ? LINE : "transparent", color: isSel ? "white" : "var(--ink-soft)" }} aria-label={`${r + 1} times ${c + 1}`}>
+                          <button type="button" onClick={() => setSel({ r: r + 1, c: c + 1 })} className="grid h-7 w-7 place-items-center rounded font-bold" style={{ background: isSel ? SEL : inLine ? LINE : "transparent", color: isSel ? "white" : "var(--ink-soft)" }} aria-label={`${r + 1} times ${c + 1} equals ${(r + 1) * (c + 1)}`}>
                             {(r + 1) * (c + 1)}
                           </button>
                         </td>

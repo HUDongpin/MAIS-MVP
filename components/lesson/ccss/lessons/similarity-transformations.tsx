@@ -52,13 +52,13 @@ export default function Lesson() {
       <Figure caption="Two triangles with the same two angles are similar — corresponding sides are proportional.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-8">
-            <svg width={150} height={120} viewBox="0 0 150 120" role="img" aria-label="small triangle">
+            <svg width={150} height={120} viewBox="0 0 150 120" role="img" aria-label={`Smaller triangle with angles ${a1}, ${a2} and ${a3} degrees`}>
               <polygon points={small.points} fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
               <text x={small.leftX} y={small.labelY} fontSize={11} fill="var(--band-upper)">{a1}°</text>
               <text x={small.rightX} y={small.labelY} fontSize={11} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>
             </svg>
             <span className="text-2xl font-black" style={{ color: ACCENT }}>~</span>
-            <svg width={190} height={150} viewBox="0 0 190 150" role="img" aria-label="large triangle">
+            <svg width={190} height={150} viewBox="0 0 190 150" role="img" aria-label={`Larger triangle with the same angles: ${a1}, ${a2} and ${a3} degrees`}>
               <polygon points={large.points} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />
               <text x={large.leftX} y={large.labelY} fontSize={12} fill="var(--band-upper)">{a1}°</text>
               <text x={large.rightX} y={large.labelY} fontSize={12} fill="var(--band-middle)">{valid ? a2 : "?"}°</text>

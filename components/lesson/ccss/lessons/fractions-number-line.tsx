@@ -142,8 +142,10 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
+            {/* The heading was a plain span, so the buttons under it announced
+                a bare number with nothing saying what it selects. */}
+            <div className="flex items-center gap-2" role="group" aria-label="Number of equal parts">
+              <span aria-hidden="true" className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
                 Equal parts
               </span>
               {[2, 3, 4, 5, 6, 8].map((nb) => (
@@ -151,6 +153,8 @@ export default function Lesson() {
                   key={nb}
                   type="button"
                   onClick={() => setDenominator(nb)}
+                  aria-label={`Split the whole into ${nb} equal parts`}
+                  aria-pressed={b === nb}
                   className="h-8 w-8 rounded-lg border text-sm font-bold"
                   style={
                     b === nb
