@@ -67,7 +67,7 @@ export default function Lesson() {
           <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             {op === "add"
               ? `${carryOnes ? "Ten ones make a new ten. " : ""}${carryTens ? "Ten tens make a new hundred. " : ""}${!carryOnes && !carryTens ? "No regrouping needed here." : ""}`
-              : "To subtract, break a hundred into tens or a ten into ones whenever you need more."}
+              : `To subtract, break a hundred into tens or a ten into ones whenever you need more.${a !== b ? " This model always takes the smaller number from the larger, so the order above may not match the order you set." : ""}`}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-8">

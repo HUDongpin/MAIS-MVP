@@ -94,9 +94,9 @@ function Stepper({ label, value, color, onChange }: { label: string; value: numb
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => onChange(Math.max(1, value - 1))} disabled={value <= 1} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Fewer ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(1, value - 1))} disabled={value <= 1} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`One fewer in the ${label}`}>−</button>
         <span className="w-7 text-center text-2xl font-black tabular-nums" style={{ color }}>{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(10, value + 1))} disabled={value >= 10} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`More ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(10, value + 1))} disabled={value >= 10} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`One more in the ${label}`}>+</button>
       </div>
     </div>
   );
