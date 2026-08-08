@@ -694,6 +694,35 @@ Two self-corrections on this slice, both caught before they became filed defects
    coordinate and a click-counter probe on the element showed the handler firing normally.
    **Always attach a click counter to the element before calling a control dead.**
 
+### D-13 — test-coverage — a practice-page regression suite runs nowhere, and is already RED
+
+**Found** 2026-08-08 (while fixing D-12) · **Status** filed, not fixed
+
+[`app/practice/practiceArenaPageRegressions.test.ts`](../app/practice/practiceArenaPageRegressions.test.ts)
+is referenced by **no runner and no CI job**, and unlike D-10's dormant file this one is
+**already failing**: *"Practice Arena renders the mission trail with tappable stepping stones"*
+asserts `data-testid="mission-trail"`, which the page no longer renders. Reproduced on plain
+`origin/main` (19/20) — nothing to do with D-12's change.
+
+So a regression guard for the Practice Arena has been broken for some time and `validate` stays
+green, because nothing executes it.
+
+**This also means D-12's own regression tests currently gate nothing.** They were added to this
+file — the natural home, since it already asserts on this page's source — before I checked whether
+anything runs it. That was the D-10 mistake repeated: *check the file is executed before trusting
+a test added to it.* The D-12 fix itself is landed and correct; only its guard is inert.
+
+Fix shape: `test:source-regressions` is the semantically right gate (it already runs a
+source-regression suite). Adding this file to it changes an npm script body, so it needs the same
+reviewed governance re-freeze as D-10 — now a known procedure. Then fix or delete the stale
+`mission-trail` assertion.
+
+**The wider pattern is now three-for-three:** every `*.test.ts` outside `components/**` that this
+loop has touched — `userStoreParentNoticePersistence`, `authRouteGuards`/`contentSafetySeed`, and
+now `practiceArenaPageRegressions` — was run by nothing. Only `components/**` has a
+discovery-based gate. **The durable fix is discovery for `lib/**` and `app/**`, not another
+hand-added entry.**
+
 ### D-12 — dead-control — Practice Arena "Start Mission" scrolls to an id that never renders
 
 **Slice** S04 · **Route** /practice · **Persona** HK Student Peter · **Found** 2026-08-08
@@ -757,6 +786,31 @@ underneath still intermittently prevents the login redirect.
 
 The cheapest next probe is (1): assert the submit button is enabled *and* no longer reads
 "Preparing secure login" before clicking, then see whether the flake disappears.
+
+#### D-12 CLOSED 2026-08-08 (PR #109) — with an evidence correction
+
+Fixed by following the file's own convention: `handleAdventureStartMission` now passes
+`adaptive-practice-round` and `mission-setup-filters` as fallbacks, exactly as its sibling
+`scrollToPracticeSection` call sites already did.
+
+**The runtime evidence originally filed for D-12 was invalid.** "Click produced no
+`scrollIntoView`" proved nothing, because `scrollToPracticeSection` wraps its work in
+`requestAnimationFrame` and the verification pane reports `document.visibilityState === "hidden"`,
+where **rAF never fires**. Under that condition every scroll control looks dead — including the
+fixed one, which is how the error surfaced.
+
+That also **partially retracts iteration 25's claim** that scroll interception "retires the
+scroll-controls-are-unverifiable limitation". It retires it only for handlers that call
+`scrollIntoView` synchronously. Anything deferred through rAF (or `setTimeout` in a throttled
+hidden tab) remains unverifiable in this pane, and a negative result there means nothing.
+
+D-12 stands on static evidence instead, which is independent of the pane: `"free-selection"` is a
+`PracticeSummaryMode` and is never rendered as an element id, and this was the only
+`scrollToPracticeSection` call site without a fallback.
+
+**Generalised lesson, now twice in one day** (after the D-11 rate-limit conclusion): when a probe
+reports failure for something that should work, suspect the probe. Both bad conclusions shared a
+tell — a result that stayed the same when it should have changed.
 
 ### D-11 — degraded (test reliability) — the parent auth-boundary e2e fails on a cold database
 **Status: FIX OPEN in PR #101** (2026-08-04, at the owner's direction — option (c), the env-gated
