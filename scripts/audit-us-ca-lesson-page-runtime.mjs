@@ -71,6 +71,7 @@ await context.addCookies([
 ]);
 
 const findings = [];
+const retried = [];
 const page = await context.newPage();
 let pageIssues = [];
 page.on("console", (m) => {
@@ -81,10 +82,24 @@ page.on("pageerror", (e) => pageIssues.push(`pageerror: ${e.message}`));
 for (const slug of slugs) {
   pageIssues = [];
   const url = `${BASE}/student/lessons/${slug}`;
-  try {
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90_000 });
-  } catch (error) {
-    findings.push({ rule: "render", slug, detail: `navigation failed: ${error.message.slice(0, 120)}` });
+  // A cold Next route compiles once and can exceed the timeout on first visit;
+  // that is not a content defect and not a dead server. Retry a timeout once,
+  // fail immediately on a refused connection, and report anything that fails
+  // twice. The sibling label-motion gate got this and this one did not.
+  let navigated = false;
+  let navError = "";
+  for (let attempt = 0; attempt < 2 && !navigated; attempt += 1) {
+    try {
+      await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90_000 });
+      navigated = true;
+    } catch (error) {
+      navError = error.message.split("\n")[0].slice(0, 120);
+      if (/ERR_CONNECTION_REFUSED|ECONNREFUSED/.test(navError)) break;
+      if (attempt === 0) retried.push(slug);
+    }
+  }
+  if (!navigated) {
+    findings.push({ rule: "render", slug, detail: `navigation failed twice: ${navError}` });
     continue;
   }
   await page.waitForTimeout(3000);
@@ -148,6 +163,7 @@ for (const slug of slugs) {
 await browser.close();
 
 console.log(`audit-us-ca-lesson-page-runtime: ${slugs.length} lesson pages driven to both control extremes`);
+if (retried.length) console.log(`  loaded on a retry after a first-visit compile timeout: ${retried.length}`);
 if (!findings.length) {
   console.log("✓ no runtime content defects");
   process.exit(0);
