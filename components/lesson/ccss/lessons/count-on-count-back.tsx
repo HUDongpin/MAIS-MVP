@@ -77,7 +77,17 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-2">
               {(["add", "sub"] as const).map((o) => (
-                <button key={o} type="button" onClick={() => { setOp(o); setJump((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - start : start))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                <button key={o} type="button" onClick={() => {
+                  // Switching op never re-clamped start, so start=20 survived
+                  // into add mode: jumpMax became 0, the line drew no hop arcs,
+                  // and the Jumps stepper still read 1 with both buttons
+                  // disabled — a count the figure contradicts and the child
+                  // cannot change.
+                  const nextStart = o === "add" ? Math.min(start, MAXN - 1) : Math.max(start, 1);
+                  setOp(o);
+                  setStart(nextStart);
+                  setJump((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - nextStart : nextStart)));
+                }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                   {o === "add" ? "Count on (+)" : "Count back (−)"}
                 </button>
               ))}

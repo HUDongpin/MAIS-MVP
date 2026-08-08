@@ -72,11 +72,12 @@ export default function Lesson() {
             </defs>
             {/* u from origin */}
             <line x1={sx(0)} y1={sy(0)} x2={sx(u.x)} y2={sy(u.y)} stroke={U} strokeWidth={3} markerEnd="url(#arr0)" />
-            {op === "add" && (
+            {/* From u's tip to the result IS the vector being added: +v for add,
+                −v for subtract. Sub mode used to draw +v from the origin at full
+                strength and again faded, so the caption's "adding the opposite"
+                had no arrow anywhere in the figure. */}
+            {(op === "add" || op === "sub") && (
               <line x1={sx(u.x)} y1={sy(u.y)} x2={sx(res.x)} y2={sy(res.y)} stroke={V} strokeWidth={3} markerEnd="url(#arr1)" />
-            )}
-            {op !== "add" && op !== "scale" && (
-              <line x1={sx(0)} y1={sy(0)} x2={sx(v.x)} y2={sy(v.y)} stroke={V} strokeWidth={3} markerEnd="url(#arr1)" />
             )}
             {op === "sub" && (
               <line x1={sx(0)} y1={sy(0)} x2={sx(v.x)} y2={sy(v.y)} stroke={V} strokeWidth={2} markerEnd="url(#arr1)" opacity={0.5} />
@@ -106,7 +107,7 @@ export default function Lesson() {
       <p>
         u + v = ⟨{u.x}+{v.x}, {u.y}+{v.y}⟩ = ⟨{u.x + v.x}, {u.y + v.y}⟩. Subtracting
         is adding the opposite. Multiplying by a <strong>scalar</strong>{" "}k
-        multiplies both components — k = {k} makes {k > 0 ? "a longer arrow in the same direction" : k < 0 ? "a flipped, reversed arrow" : "the zero vector"}.
+        multiplies both components — k = {k} makes {k > 1 ? "a longer arrow in the same direction" : k === 1 ? "no change at all" : k === 0 ? "the zero vector, a single point" : k > 0 ? "a shorter arrow in the same direction" : k < 0 ? "a flipped, reversed arrow" : "the zero vector"}.
       </p>
 
       <MathCheck>

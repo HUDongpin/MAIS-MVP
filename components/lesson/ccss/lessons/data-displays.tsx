@@ -6,7 +6,10 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const DATA = [3, 5, 6, 6, 7, 8, 8, 9, 10, 12, 14, 15];
-const MAXX = 16;
+// The last bin starts at 15 and is 3 wide, so the axis has to reach 18. At 16
+// the final bar was clipped at the viewport edge — 55px against its siblings'
+// 76px — in a display whose whole premise is equal-width intervals.
+const MAXX = 18;
 const PAD = 30;
 const STEP = 26;
 const W = MAXX * STEP + 2 * PAD;

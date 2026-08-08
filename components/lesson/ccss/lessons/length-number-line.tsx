@@ -49,9 +49,12 @@ export default function Lesson() {
                 </g>
               ))}
               {/* length arrow */}
-              <line x1={x(from)} y1={40} x2={x(to)} y2={40} stroke={color} strokeWidth={3} markerEnd="url(#lh)" />
+              {/* from/to are min/max, so in subtract mode the arrowhead sat on
+                  the START and pointed right — the caption says "where it lands
+                  is the answer". Draw it in jump order instead. */}
+              <line x1={x(start)} y1={40} x2={x(end)} y2={40} stroke={color} strokeWidth={3} markerEnd="url(#lh)" />
               <defs>
-                <marker id="lh" markerWidth="8" markerHeight="8" refX="6" refY="3" orient={op === "add" ? "auto" : "auto-start-reverse"}>
+                <marker id="lh" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
                   <path d="M0,0 L6,3 L0,6 Z" fill={color} />
                 </marker>
               </defs>
