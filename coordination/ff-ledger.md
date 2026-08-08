@@ -27,7 +27,7 @@ Personas (seeded, pwd `12345`): `HK Student Peter` (student-peter),
 | S05 roadmaps | /primary-roadmap, /secondary-roadmap, /student/roadmap/* | HK Student Peter | **clean** | 2026-08-04 | 9a1c0e4f | map controls verified by transform scale |
 | S06 student-assess | /student/assignments*, /assessment/[id], /student/assessments/[id] | HK Student Peter | **clean** | 2026-08-04 | 9a1c0e4f | graded write + cross-role loop verified |
 | S07 social-classroom | /classroom, /classroom/join, /forum, /messages | HK Student Peter | **clean** | 2026-08-04 | 9a1c0e4f | forum scoping + write verified; one observation |
-| S08 visualization | /visualization-lab*, /student/tools/visualizations* | HK Student Peter | **partial — routing + gating clean** | 2026-08-04 | 9a1c0e4f | lab controls not driven (pane vpH=0) |
+| S08 visualization | /visualization-lab*, /student/tools/visualizations* | HK Student Peter | **clean** | 2026-08-08 | 65fbb58053 | lab controls driven; activity recorded |
 | S09 teacher-core | /teacher, /teacher/dashboard, /teacher/analytics, /teacher/reports, /teacher/gradebook | HK Teacher Chan | **2 dead-control + 1 degraded** | 2026-08-03 | 9da2aa3ec8 | D-04a fixed in PR #96; D-04b/D-05 open |
 | S10 teacher-content | /teacher/assessments*, /teacher/assignments*, /teacher/lesson-kits*, /teacher/prep*, /teacher/resources, /teacher/review-lessons/* | HK Teacher Chan | **clean** (as far as the fixture allows) | 2026-08-04 | 2263f6ebf6 | 2 documented exclusions: upload form, review-lessons (no data) |
 | S11 teacher-ops-live | /teacher/operations*, /teacher/live*, /teacher/classroom-sessions*, /teacher/communications*, /teacher/inbox, /teacher/rewards, /teacher/safety, /teacher/classes*, /teacher/students/* | Teacher Phoebe | **partial — routing + authz clean** | 2026-08-03 | 9fbb04e0 | controls not driven; see S11 notes |
@@ -252,6 +252,35 @@ Near-miss (the eleventh): immediately after submit the page still read `/registe
 which looks like a silent success. It was a **pre-navigation read** — a second check a moment
 later showed `/dashboard` and an authenticated session. Same shape as the create-assignment case
 in S10. **After a submit that navigates, re-read before concluding anything.**
+
+### S08 — CLEAN, re-driven 2026-08-08 (lab controls driven)
+
+The lab's own controls had never been driven. At 1366x3200 all 32 fit on screen: Reset camera,
+Guide, Explore, scene selector, quality selector, transparent-render checkbox, Shot, Video, Pause
+and the value selectors. Explore, Guide and a scene change (`overview` -> `curve-detail`) all
+registered.
+
+**Activity is recorded server-side.** The lab posts to `/api/learning-events`, and the newest row
+is the visit itself:
+
+```json
+{"user_id":"student-peter","type":"page-view","source":"visualization-lab",
+ "grade":"S4","topic_id":"student-tools-visualizations-functions"}
+```
+
+Two near-misses, both resolved without filing:
+
+1. `visualization_sessions` and `visualization_events` were **0 after driving the lab**, which
+   reads as a P0 silent-failure. The network recorder settled it: the page issues
+   `GET /api/visualization-sessions` (a **read**) and never posts one — sessions are a different
+   concept from lab browsing. What it *does* post is `learning-events`, which lands correctly.
+2. `learning_events` filtered by `student_id` returned **0** while the collection held 22 rows —
+   it keys on **`user_id`**. That is the **fifth** collection in this app to key on `user_id`
+   where `student_id` was the natural guess (after attempts, mistakes, reward ledger, and the
+   assignment attempts). At this point it is the house convention, not an exception.
+
+Also confirms iteration 17's call: the grade rail reads **"S4 Your grade"** for this student, so
+the earlier "G1 Your grade" really was Teacher Scott's session and not a defect.
 
 ### S07 — CLEAN, no defects found (2026-08-04)
 
