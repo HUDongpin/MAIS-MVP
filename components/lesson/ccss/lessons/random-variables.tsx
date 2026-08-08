@@ -31,7 +31,9 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-end gap-1.5">
             {SUMS.map((s) => (
-              <button key={s} type="button" onClick={() => setHighlight(s)} className="flex flex-col items-center gap-1">
+              // The name was the concatenated children — "3/36 4" — with the
+              // trailing number never identified as the dice sum.
+              <button key={s} type="button" onClick={() => setHighlight(s)} aria-label={`Sum ${s}: ${WAYS[s - 2]} of 36 ways`} aria-pressed={s === highlight} className="flex flex-col items-center gap-1">
                 <span className="text-[10px] font-mono text-[var(--ink-faint)]">{WAYS[s - 2]}/36</span>
                 <div className="w-6 rounded-t" style={{ height: Math.round((WAYS[s - 2] / maxWays) * 110), background: s === highlight ? ACCENT : "color-mix(in srgb, var(--band-high) 40%, transparent)" }} />
                 <span className="text-xs font-bold" style={{ color: s === highlight ? ACCENT : "var(--ink-soft)" }}>{s}</span>

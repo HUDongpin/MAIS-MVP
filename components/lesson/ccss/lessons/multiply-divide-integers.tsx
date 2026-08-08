@@ -96,9 +96,12 @@ function Stepper({ label, value, onChange, allowZero = true }: { label: string; 
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= -6} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        {/* With allowZero false the zero-skip sends 0 back to the value it came
+            from, so at 1 the − button announced "Decrease" and changed nothing.
+            Disable it where the press cannot move. */}
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= -6 || (!allowZero && value === 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-9 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 6} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 6 || (!allowZero && value === -1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

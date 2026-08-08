@@ -47,7 +47,7 @@ export default function Lesson() {
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase text-[var(--ink-faint)]">each = </span>
               {[2, 5, 10].map((s) => (
-                <button key={s} type="button" onClick={() => setScale(s)} className="rounded-lg border px-3 py-1 text-sm font-bold" style={scale === s ? { background: "var(--band-upper)", color: "white", borderColor: "var(--band-upper)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
+                <button key={s} type="button" onClick={() => setScale(s)} aria-label={`Each icon stands for ${s}`} aria-pressed={scale === s} className="rounded-lg border px-3 py-1 text-sm font-bold" style={scale === s ? { background: "var(--band-upper)", color: "white", borderColor: "var(--band-upper)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
               ))}
             </div>
             {ROWS.map((row, i) => (
