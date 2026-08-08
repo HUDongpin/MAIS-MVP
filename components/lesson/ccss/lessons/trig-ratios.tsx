@@ -10,6 +10,14 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
 export default function Lesson() {
   const [angle, setAngle] = useState(37);
   const rad = (angle * Math.PI) / 180;
+  // The triangle used to be the fixed polygon "30,140 200,140 30,40", whose
+  // angle at the labelled vertex is 30.47° no matter what the slider says —
+  // so at θ = 75 the figure showed sin 0.507 beside a readout of 0.97. Build
+  // it from the angle, scaled to fit the 170×110 drawing area.
+  const RX = 30, RY = 140, MAX_ADJ = 170, MAX_OPP = 100;
+  const adjPx = Math.min(MAX_ADJ, MAX_OPP / Math.tan(rad));
+  const oppPx = adjPx * Math.tan(rad);
+  const bx = RX + adjPx, ty = RY - oppPx;
   const sin = r2(Math.sin(rad));
   const cos = r2(Math.cos(rad));
   const tan = r2(Math.tan(rad));
@@ -27,12 +35,12 @@ export default function Lesson() {
       <Figure caption="For angle θ: sin = opp/hyp, cos = adj/hyp, tan = opp/adj — the same for any similar right triangle.">
         <div className="flex flex-col items-center gap-6">
           <svg width={240} height={170} viewBox="0 0 240 170" role="img" aria-label={`Right triangle with its right angle marked, labeled theta = ${angle} degrees, with sides marked opposite, adjacent, and hyp`}>
-            <polygon points="30,140 200,140 30,40" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
+            <polygon points={`${RX},${RY} ${bx},${RY} ${RX},${ty}`} fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             <rect x={30} y={128} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
-            <text x={165} y={158} fontSize={12} fill="var(--band-upper)">θ = {angle}°</text>
-            <text x={110} y={158} fontSize={11} fill="var(--ink-faint)">adjacent</text>
-            <text x={8} y={95} fontSize={11} fill="var(--ink-faint)" transform="rotate(-90 12 95)">opposite</text>
-            <text x={118} y={82} fontSize={11} fill="var(--ink-faint)">hyp</text>
+            <text x={bx - 34} y={158} fontSize={12} fill="var(--band-upper)">θ = {angle}°</text>
+            <text x={(RX + bx) / 2 - 22} y={158} fontSize={11} fill="var(--ink-faint)">adjacent</text>
+            <text x={8} y={(RY + ty) / 2} fontSize={11} fill="var(--ink-faint)" transform={`rotate(-90 12 ${(RY + ty) / 2})`}>opposite</text>
+            <text x={(RX + bx) / 2} y={(RY + ty) / 2 - 4} fontSize={11} fill="var(--ink-faint)">hyp</text>
           </svg>
 
           <div className="grid grid-cols-3 gap-3 text-center font-mono">

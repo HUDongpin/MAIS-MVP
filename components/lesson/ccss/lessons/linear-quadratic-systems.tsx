@@ -6,7 +6,12 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const LINE = "var(--band-upper)";
-const XR = 4, YR = 10, PXX = 40, PXY = 15, PAD = 28;
+// Over the reachable grid m ∈ [−4,4], k ∈ [−4,8] the roots reach |x| = 5.46 and
+// y = 29.86 (both at m = ±4, k = 8). With XR = 4, YR = 10 the second dot fell
+// outside the clip in 52 of the 117 states while the label and the panel both
+// still said "2 intersections" — and the default state is clean, so a
+// spot-check never saw it. The window now holds every reachable root.
+const XR = 6, YR = 30, PXX = 40, PXY = 15, PAD = 28;
 const W = 2 * XR * PXX + 2 * PAD, H = YR * PXY + 2 * PAD;
 const r2 = (n: number) => Math.round(n * 100) / 100;
 

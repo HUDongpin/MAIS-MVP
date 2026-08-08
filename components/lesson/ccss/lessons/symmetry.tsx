@@ -25,8 +25,12 @@ const SHAPES: Shape[] = [
   },
   {
     key: "tri", name: "Equilateral triangle", count: 3,
-    shape: <polygon points="100,20 160,135 40,135" fill={FILL} fillOpacity={0.75} stroke="var(--ink)" strokeWidth={2} />,
-    lines: <>{dash(100, 12, 100, 135, "a")}{dash(40, 135, 130, 77, "b")}{dash(160, 135, 70, 77, "c")}</>,
+    // Was "100,20 160,135 40,135": sides 129.711 / 120.000 / 129.711 and angles
+    // 55.11 / 62.45 / 62.45 — labelled equilateral, drawn isosceles, in the one
+    // lesson about symmetry where the three fold lines depend on it. The apex
+    // is now at the true equilateral height, 135 − 60√3 = 31.077.
+    shape: <polygon points="100,31.08 160,135 40,135" fill={FILL} fillOpacity={0.75} stroke="var(--ink)" strokeWidth={2} />,
+    lines: <>{dash(100, 23, 100, 135, "a")}{dash(40, 135, 130, 83.04, "b")}{dash(160, 135, 70, 83.04, "c")}</>,
   },
 ];
 
