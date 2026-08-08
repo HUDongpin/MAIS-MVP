@@ -17,6 +17,7 @@ export default function Lesson() {
   const slope = m / 10;
 
   // x-range over which the fitted line stays within 0 <= y <= 14.
+  const clampY = (y: number) => Math.max(0, Math.min(14, y));
   const fitClip: [number, number] = (() => {
     const xs = [(0 - b) / slope, (14 - b) / slope].sort((p, q) => p - q);
     return [Math.max(0, xs[0]), Math.min(8, xs[1])];
@@ -42,7 +43,10 @@ export default function Lesson() {
             <line x1={PAD} y1={sy(0)} x2={W - PAD} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PAD} y1={sy(0)} x2={PAD} y2={PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* residual segments */}
-            {DATA.map(([x, y], i) => <line key={i} x1={sx(x)} y1={sy(y)} x2={sx(x)} y2={sy(pred(x))} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="3 2" />)}
+            {/* The residual segments use the same unclamped pred(x) as the
+                fitted line did, so they ran off the top whenever the line
+                would have. Clamped to the plotted y-range. */}
+            {DATA.map(([x, y], i) => <line key={i} x1={sx(x)} y1={sy(y)} x2={sx(x)} y2={sy(clampY(pred(x)))} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="3 2" />)}
             {/* pred(8) reaches 21 at slope 2.0, intercept 5, on a y-axis that
                 stops at 14 — the line ran 37px above the viewBox. Clip it to
                 the x-range where it is inside the plot. */}
