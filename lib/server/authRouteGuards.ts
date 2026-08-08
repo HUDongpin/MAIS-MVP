@@ -41,7 +41,7 @@ export const defaultLoginIdentifierMax = 12;
  * real; a deployment that never sets the variable is bit-for-bit unaffected.
  */
 export function loginIdentifierMaxFromEnv(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
   fallback: number = defaultLoginIdentifierMax
 ) {
   const parsed = Number.parseInt(env.HK_MATH_E2E_LOGIN_IDENTIFIER_MAX ?? "", 10);
