@@ -174,3 +174,48 @@ audit:us-ca-lesson-page-runtime  76 pages driven to both control extremes — cl
 `components/visualizations/three/threeDSceneMath.catalog.test.ts` fails at HEAD,
 before and after this round's changes (verified by restoring the file and
 re-running). It is a 3D launch-allocation contract, not lesson content.
+
+## Backlog triage (round 8 continued)
+
+The 97 student-visible medium candidates were worked through directly, no new
+agent fan-out. **48 more defects fixed**, taking round 8 to **81**. Classes:
+
+| Class | Fixed | Notable |
+|---|---:|---|
+| accessible name never changes while the figure does | 25 | `two-patterns-graph` byte-identical across all 16 reachable states; `linear-quadratic-systems` one name for two, one and no intersections |
+| controls sharing one name | 22 | swept library-wide: scanned all 270 lessons for the shape, 0 remain |
+| a button enabled where its press does nothing | 2 | `triangle-angles` (16 states, enumerated); `multiply-divide-integers` in ÷ mode |
+| state variable / key surfaced as a name | 8 | `order-of-operations` "a"–"d"; `matrix-equations` "a"–"f"; `equal-shares` "rect" |
+| plural against a value that reaches 1 | 6 | "fewer apple", "0 inch", "1 pairs and 1 left over" |
+| colour as the only channel (WCAG 1.4.1) | 3 | `arithmetic-patterns` and `gcf-lcm` marked highlights with fill alone, under captions pointing at them |
+| copy describing a figure that is not drawn | 4 | `complex-conjugates` captions a reflection in a file with no SVG; the `vectors` card promises a drag with no pointer handler |
+| division by an empty row | 1 | `two-way-tables` — see below |
+
+### The gate caught a defect this round created access to
+
+The runtime sweep found `NaN%` on `us-ca-math-s2-chapter-05` after the
+accessible-name fixes. The defect predates this round — every cell steps to 0, so
+a row total of 0 was always reachable — but the four cells previously shared two
+names ("decrease"/"increase"), so the sweep's control driver could not address
+them individually and never reached the state. Naming them per cell made it
+reachable and the gate found it on the next run.
+
+### Findings checked and refuted
+
+Three candidates were verified against the source and **not** changed:
+
+- `fit-function-residuals` — the paragraph mentions "the residual plot" as a
+  concept to examine, not as a claim about a plot on this page.
+- `exponential-vs-linear` vs `construct-linear-exponential` — alleged to collide
+  on the letter `r`. On screen the first renders `y = 2ˣ` with no letter at all;
+  only the second shows a literal `r`. No collision a student can see.
+- `volume-fractional` vs `surface-area-nets` — alleged `B × h` against bare `lw`.
+  `lw` is an internal variable; the figure renders its numeric value.
+
+### Still open
+
+14 medium candidates in 11 files, all needing per-case judgment rather than a
+sweep: `add-within-100`, `area-model`, `compare-populations`,
+`order-and-measure`, `ratio-double-number-line`, `slope-unit-rate`, and the
+cross-block standard-attribution questions. Plus the 102 low candidates,
+untriaged.
