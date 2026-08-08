@@ -98,6 +98,9 @@ jobs:
       - name: Run accommodations gate (IEP/504 resolver + student-experience wiring)
         run: npm run test:accommodations
 
+      - name: Run parent console persistence gate (notice acknowledgement receipts)
+        run: npm run test:parent-console
+
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 
