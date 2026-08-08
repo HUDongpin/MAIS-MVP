@@ -94,7 +94,9 @@ export default function Lesson() {
             style={{ maxHeight: 380 }}
             onPointerMove={onMove}
             onPointerUp={() => setDrag(null)}
-            role="img"
+            // role="img" made every child presentational, including the two
+            // draggable points the intro tells the reader to drag.
+            role="group"
             aria-label={`Line through (${p1.x}, ${p1.y}) and (${p2.x}, ${p2.y})`}
           >
             {/* grid */}

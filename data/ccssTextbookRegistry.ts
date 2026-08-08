@@ -1970,7 +1970,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Vectors: Magnitude and Direction",
     standardIds: ["N-VM.1","N-VM.2","N-VM.3"],
-    summary: "Drag an arrow's tail and tip to read off its components, length, and direction angle.",
+    summary: "Step the tail and tip coordinates to read off an arrow's components, length, and direction angle.",
     emoji: "➡️"
   }),
   "vector-operations": withNarration({

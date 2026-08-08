@@ -13,7 +13,10 @@ const ITEMS: Item[] = [
   { key: "segment", name: "Line segment", desc: "A straight path with two endpoints.", draw: <g><line x1={40} y1={60} x2={180} y2={60} stroke={C} strokeWidth={3} /><circle cx={40} cy={60} r={4} fill={INK} /><circle cx={180} cy={60} r={4} fill={INK} /></g> },
   { key: "ray", name: "Ray", desc: "Starts at a point and goes forever one way.", draw: <g><line x1={40} y1={60} x2={180} y2={60} stroke={C} strokeWidth={3} markerEnd="url(#arw)" /><circle cx={40} cy={60} r={4} fill={INK} /></g> },
   { key: "line", name: "Line", desc: "Straight and endless in both directions.", draw: <line x1={30} y1={60} x2={190} y2={60} stroke={C} strokeWidth={3} markerStart="url(#arw)" markerEnd="url(#arw)" /> },
-  { key: "angle", name: "Angle", desc: "Two rays meeting at a vertex (a corner).", draw: <g><line x1={60} y1={95} x2={180} y2={95} stroke={C} strokeWidth={3} /><line x1={60} y1={95} x2={150} y2={25} stroke={C} strokeWidth={3} /><circle cx={60} cy={95} r={4} fill={INK} /></g> },
+  // The description says "two rays", and the ray entry above marks its arrow
+  // with markerEnd — these two were drawn as bare segments in the one lesson
+  // that teaches the difference.
+  { key: "angle", name: "Angle", desc: "Two rays meeting at a vertex (a corner).", draw: <g><line x1={60} y1={95} x2={180} y2={95} stroke={C} strokeWidth={3} markerEnd="url(#arw)" /><line x1={60} y1={95} x2={150} y2={25} stroke={C} strokeWidth={3} markerEnd="url(#arw)" /><circle cx={60} cy={95} r={4} fill={INK} /></g> },
   { key: "parallel", name: "Parallel lines", desc: "Always the same distance apart — never meet.", draw: <g><line x1={30} y1={45} x2={190} y2={45} stroke={C} strokeWidth={3} /><line x1={30} y1={80} x2={190} y2={80} stroke={C} strokeWidth={3} /></g> },
   { key: "perp", name: "Perpendicular lines", desc: "Cross at a right angle (90°).", draw: <g><line x1={30} y1={65} x2={190} y2={65} stroke={C} strokeWidth={3} /><line x1={110} y1={20} x2={110} y2={110} stroke={C} strokeWidth={3} /><rect x={112} y={53} width={11} height={11} fill="none" stroke={INK} strokeWidth={1.5} /></g> },
 ];

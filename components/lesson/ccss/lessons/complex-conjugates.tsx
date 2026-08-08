@@ -31,7 +31,10 @@ export default function Lesson() {
         dividing complex numbers and to finding a number&apos;s size.
       </p>
 
-      <Figure caption="The conjugate reflects z across the real axis; z · z̄ = a² + b² is real and equals |z|².">
+      {/* There is no SVG in this lesson — the figure is the two values and the
+          formula rows below them — so "reflects across the real axis" pointed
+          at a picture that is not drawn. */}
+      <Figure caption="Flipping the sign of the imaginary part gives the conjugate; z · z̄ = a² + b² is real and equals |z|².">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-xl">
             <span>z = <strong style={{ color: ACCENT }}>{fmt(a, b)}</strong></span>
