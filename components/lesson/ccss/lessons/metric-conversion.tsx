@@ -43,7 +43,7 @@ export default function Lesson() {
       <Figure caption="Going to a smaller unit multiplies (more of them); going bigger divides.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-3">
-            <input type="number" value={value} min={0} onChange={(e) => setValue(Math.max(0, Number(e.target.value) || 0))} className="w-24 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-center text-xl font-black" aria-label="value" />
+            <input type="number" value={value} min={0} onChange={(e) => setValue(Math.max(0, Number(e.target.value) || 0))} className="w-24 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-center text-xl font-black" aria-label="value to convert" />
             <select value={from} onChange={(e) => setFrom(Number(e.target.value))} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 font-bold" aria-label="from unit">
               {UNITS.map((u, i) => <option key={u.key} value={i}>{u.name}</option>)}
             </select>

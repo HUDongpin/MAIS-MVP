@@ -55,13 +55,15 @@ export default function Lesson() {
           <div className="font-mono text-2xl font-black">= <span style={{ color: paren ? PAR : MUL }}>{result}</span></div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Stepper label="a" value={a} onChange={setA} />
-            <Stepper label="b" value={b} onChange={setB} />
+            {/* The letters are state names — the expression on screen shows
+                only their values, so "Decrease c" pointed at nothing. */}
+            <Stepper label="first number" value={a} onChange={setA} />
+            <Stepper label="second number" value={b} onChange={setB} />
             {/* c = 1 makes the two expressions algebraically identical
                 (their difference is a·(c−1)), so the page read "Same digits,
                 different answers" above two identical results. */}
-            <Stepper label="c" value={c} min={2} onChange={setC} />
-            <Stepper label="d" value={d} onChange={setD} />
+            <Stepper label="multiplier" value={c} min={2} onChange={setC} />
+            <Stepper label="number subtracted" value={d} onChange={setD} />
           </div>
         </div>
       </Figure>

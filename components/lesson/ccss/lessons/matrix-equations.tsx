@@ -56,12 +56,14 @@ export default function Lesson() {
           </div>
 
           <div className="grid grid-cols-3 gap-x-6 gap-y-2 sm:grid-cols-6">
-            <Stepper label="a" value={a} onChange={setA} />
-            <Stepper label="b" value={b} onChange={setB} />
-            <Stepper label="c" value={c} onChange={setC} />
-            <Stepper label="d" value={d} onChange={setD} />
-            <Stepper label="e" value={e} onChange={setE} />
-            <Stepper label="f" value={f} onChange={setF} />
+            {/* a–f are state names; the figure renders them by position inside
+                matrix A and vector b, and never as letters. */}
+            <Stepper label="A row 1 column 1" value={a} onChange={setA} />
+            <Stepper label="A row 1 column 2" value={b} onChange={setB} />
+            <Stepper label="A row 2 column 1" value={c} onChange={setC} />
+            <Stepper label="A row 2 column 2" value={d} onChange={setD} />
+            <Stepper label="b row 1" value={e} onChange={setE} />
+            <Stepper label="b row 2" value={f} onChange={setF} />
           </div>
         </div>
       </Figure>

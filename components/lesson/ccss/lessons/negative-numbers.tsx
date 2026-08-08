@@ -73,7 +73,7 @@ export default function Lesson() {
             </div>
           </div>
 
-          <input type="range" min={-R} max={R} value={v} onChange={(e) => setV(Number(e.target.value))} className="w-56 accent-[var(--band-middle)]" aria-label="value" />
+          <input type="range" min={-R} max={R} value={v} onChange={(e) => setV(Number(e.target.value))} className="w-56 accent-[var(--band-middle)]" aria-label={`${ctx.label} value, ${amount(v, ctx, true)}`} />
         </div>
       </Figure>
 

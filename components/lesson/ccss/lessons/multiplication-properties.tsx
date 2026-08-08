@@ -53,7 +53,7 @@ export default function Lesson() {
             {mode === "distribute" && (
               <div className="flex flex-col items-center gap-1">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Split at: {s}</span>
-                <input type="range" min={1} max={cols - 1} value={s} onChange={(e) => setSplit(Number(e.target.value))} className="w-28 accent-[var(--band-upper)]" aria-label="split" />
+                <input type="range" min={1} max={cols - 1} value={s} onChange={(e) => setSplit(Number(e.target.value))} className="w-28 accent-[var(--band-upper)]" aria-label={`Split the ${cols} columns after column ${s}`} />
               </div>
             )}
           </div>
