@@ -298,11 +298,43 @@ function answerCandidateStrings(value: string) {
   return candidates;
 }
 
+/**
+ * Forms a correct student types that differ from the stored answer only in
+ * how the number is written. Each is added as an extra variant rather than
+ * folded into normalizeAnswer, so the canonical form is unchanged.
+ *
+ * Deliberately narrow. A comma is stripped only inside a single numeric token
+ * in thousands position (1,234 -> 1234); stored answers include coordinate
+ * pairs like "(9, 6)", where stripping commas would produce "(96)".
+ */
+function numericTypingVariants(normalized: string) {
+  const out: string[] = [];
+
+  // 1,234 -> 1234, per token, only when the groups are exactly three digits
+  const thousands = normalized.replace(/\b\d{1,3}(?:,\d{3})+\b/g, (m) => m.replace(/,/g, ""));
+  if (thousands !== normalized) out.push(thousands);
+
+  // .5 -> 0.5   (students routinely omit the leading zero)
+  const leadingZero = normalized.replace(/(^|[^\d.])\.(\d)/g, "$10.$2");
+  if (leadingZero !== normalized) out.push(leadingZero);
+
+  // +3 -> 3   (signed-number lessons render "+6" themselves)
+  if (/^\+\d/.test(normalized)) out.push(normalized.slice(1));
+
+  // "3." -> "3", "circles." -> "circles"   (sentence punctuation, not a
+  // decimal point; no maths answer here legitimately ends in a full stop)
+  const trailingPeriod = normalized.replace(/([\d\p{L})\]])\.$/u, "$1");
+  if (trailingPeriod !== normalized) out.push(trailingPeriod);
+
+  return out;
+}
+
 function normalizedAnswerVariants(value: string) {
   const variants = new Set<string>();
 
   for (const normalized of answerCandidateStrings(value)) {
     variants.add(normalized);
+    for (const typed of numericTypingVariants(normalized)) variants.add(typed);
 
     // For mixed numbers the collapsed string ("13/7" from "1 3/7") is a
     // different value — offer the true improper fraction instead.
