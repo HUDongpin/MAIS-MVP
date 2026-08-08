@@ -32,7 +32,7 @@ Personas (seeded, pwd `12345`): `HK Student Peter` (student-peter),
 | S10 teacher-content | /teacher/assessments*, /teacher/assignments*, /teacher/lesson-kits*, /teacher/prep*, /teacher/resources, /teacher/review-lessons/* | HK Teacher Chan | **clean** (as far as the fixture allows) | 2026-08-04 | 2263f6ebf6 | 2 documented exclusions: upload form, review-lessons (no data) |
 | S11 teacher-ops-live | /teacher/operations*, /teacher/live*, /teacher/classroom-sessions*, /teacher/communications*, /teacher/inbox, /teacher/rewards, /teacher/safety, /teacher/classes*, /teacher/students/* | Teacher Phoebe | **partial — routing + authz clean** | 2026-08-03 | 9fbb04e0 | controls not driven; see S11 notes |
 | S12 parent-console | /parent, /parent/children/[id], /parent/connect, /parent/messages, /parent/notices, /parent/reports | Peter's Parent | **1 broken-effect + 3 degraded; authz sound** | 2026-08-03 | 8ade04f784 | D-06 fixed in PR #97; D-07/D-08/D-09 open |
-| S13 public-misc | /, /about, /register, /forgot-password, /reset-password, /change-password, /classroom/join (guest), /resource/[id] | guest | **partial — gating clean** | 2026-08-03 | 2263f6ebf6 | forms not driven; see S13 notes |
+| S13 public-misc | /, /about, /register, /forgot-password, /reset-password, /change-password, /classroom/join (guest), /resource/[id] | guest  | **clean** | 2026-08-08 | 4de1802d22 | registration wizard driven end to end |
 
 ## Defects
 
@@ -231,6 +231,27 @@ Two near-misses on this slice, both resolved by re-testing rather than by reason
    iteration-12 rate-limit probe; the S4 student's own server HTML carries no such marker.
    **Confirm which session the browser actually holds before reading per-user UI as a defect** —
    `GET /api/me` on the jar takes one command.
+
+### S13 — CLEAN, re-driven 2026-08-08 (registration verified end to end)
+
+The four-step registration wizard (Account type -> Curriculum -> Grade -> Account details) was
+never driven before; it is the only public write path in the product.
+
+```
+users before: 10
+wizard: Student -> California Math Practice Beta -> K -> details -> Create account
+users after : 11
+new row: student-4271b4ba… | s13-probe-user | s13probe@example.test
+```
+
+The account is created, the user is signed in automatically, and `/dashboard` renders
+"Welcome back, S13 Probe User" with course **California Math Practice Beta · K** and a K–G12
+grade rail — so every wizard selection is reflected in the resulting account, not just the name.
+
+Near-miss (the eleventh): immediately after submit the page still read `/register` with no alert,
+which looks like a silent success. It was a **pre-navigation read** — a second check a moment
+later showed `/dashboard` and an authenticated session. Same shape as the create-assignment case
+in S10. **After a submit that navigates, re-read before concluding anything.**
 
 ### S07 — CLEAN, no defects found (2026-08-04)
 
