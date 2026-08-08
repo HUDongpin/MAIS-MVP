@@ -2,6 +2,8 @@
 
 **23 defects fixed.** Round 8 partitioned three surfaces no earlier round had
 opened, using a 546-agent workflow with two adversarial refuters per candidate.
+One lens (locale) produced 9 high-severity candidates that adversarial
+verification correctly refuted — see "Withdrawn" below.
 
 | Lens | Partition | Coverage |
 |---|---|---|
@@ -85,44 +87,44 @@ screen-reader user cannot distinguish at all:
   reachable states, with `role="img"` suppressing every text node inside.
 - `real-number-closure` — two pickers rendering the identical item list.
 
-## Open: the language the page is in
+## Withdrawn: the "mixed language" finding
 
-**This one needs a product decision and is deliberately not fixed.**
+Nine of the 33 high-severity candidates claimed the page is served in a mix of
+English and Chinese. **They are wrong, and so was the first version of this
+report.** The measurement was taken on the seed data and never checked against
+what `LessonView` renders — the same mistake this QA effort keeps finding in the
+content itself.
 
-Nine of the 33 high-severity findings say the same thing: the California lesson
-page is served in a mix of English and Chinese. Measured across all 2,291
-localized strings:
+Two things the data-level measurement missed:
+
+1. `components/lesson/LessonView.tsx:2143` passes the visualization block through
+   `cleanLessonVisualizationContent`, which returns `""` for anything matching
+   `/Safeguard Review[\s\S]*Read me first/i`. Every locale of that block matches.
+   Checked across the corpus: **228 of 228** visualization strings (76 pages × 3
+   locales) are blanked before render. The "one Chinese paragraph inside an
+   English page" state does not exist.
+
+2. English-only is enforced, not incidental.
+   `tests/e2e/california-middle-school-textbook-english-only.spec.ts` logs in with
+   `language: "zh"` and a `US_CA_MATH` profile and asserts no CJK on California
+   surfaces.
+
+Verified empirically rather than by reading source: logging in through the app's
+own `/api/auth/login` with `language: "zh"` and `curriculumTrack: "US_CA_MATH"`,
+then rendering both page types:
 
 ```
-pages fully translated : 0
-pages fully English    : 0
-pages MIXED            : 76
+us-ca-math-p6-chapter-01        html.lang=en-HK   CJK lines: 0
+us-ca-math-k-k-nbt-teen-numbers html.lang=en-HK   CJK lines: 0
 ```
 
-On the 41 K-5 / micro-lesson pages, **exactly one** string is Chinese — the
-visualization-lab paragraph — inside an otherwise entirely English page. On the
-35 chapter pages, the scaffolded-practice and mistake-repair blocks are also
-Chinese while the lesson bodies and teacher guide are English.
+The California lesson page is uniformly English in every reachable state. There
+is no defect here, and the locale lens produced **zero** real findings. Its 8
+slices are recorded as covered and clean.
 
-The evidence points both ways, which is why this is not mine to settle:
-
-- **English-only is deliberate.** The round-1 report records "the K-5 pack is
-  English-only by design"; `textOnly()` and `localizedMicroLessonText()` are
-  purpose-named helpers that clone one English string into all three locale
-  slots; the authoring spec has no schema slot for a translation.
-- **But the page is reachable in Chinese.** `LanguageToggle.tsx` states that
-  every account keeps the full language menu because "the product UI is fully
-  bilingual", language is independent of curriculum profile, and
-  `textForLanguage` has no fallback — English reaches the screen unchanged.
-
-Either resolution is a small change; picking one is not a QA call:
-
-1. **Make the CA page consistently English** — have the visualization block
-   follow the same convention as the rest of the page it sits on. Small, safe,
-   matches the English-only lesson core.
-2. **Translate the CA chrome** — bring titles, descriptions and the K-5 blocks
-   up to the chapter pages' level. Larger, and the 270 interactive lessons stay
-   English regardless, so the page remains mixed.
+The lesson for the method: a partition that reads the data layer has not audited
+the page. Round 6 drove the browser; round 7 and this round's locale lens read
+source. Any future lens over rendered copy must go through the render path.
 
 ## Also open, routed to the visualization-lab owner
 
