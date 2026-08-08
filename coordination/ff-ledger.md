@@ -417,7 +417,24 @@ Note on method: the correct ledger field is **`amount`**, not `points` — summi
 a false zero. Same class as the `user_id` / `student_id` slip in S03. It is now four separate
 collections in this app whose field names had to be read from a raw row rather than guessed.
 
-#### `/teacher/safety` checked 2026-08-04 (iteration 24) — not drivable, no defect
+#### `/teacher/safety` RE-DRIVEN 2026-08-08 (post-seed) — CLEAN, triage verified end to end
+
+Once PR #103's seed exists the surface is fully drivable, and the whole triage chain holds:
+
+```
+baseline           counts {new:1, acknowledged:1, resolved:0, open:2}   tabs discriminate
+click Acknowledge  -> {new:0, acknowledged:2, ...}  flag records ackBy "HK Teacher Chan"
+type a note + Mark resolved
+                   -> {new:0, acknowledged:1, resolved:1, open:1}
+                      resolution_note == "S11-RESOLVE-PROBE reviewed with student"
+```
+
+Both state transitions persist, the acting teacher is attributed, the free-text resolution note
+round-trips exactly, and the filter tabs track the counts. **This is the surface that was
+previously recorded as "not drivable" — seeding turned an untestable row into a verified one**,
+which is the argument for seeding the remaining thin fixtures.
+
+#### `/teacher/safety` checked 2026-08-04 (iteration 24) — not drivable, no defect (superseded above)
 
 The triage filters read **All (0) / New (0) / Acknowledged (0) / Resolved (0)**, and
 `content_safety_flags` is **empty** in the store. So there is nothing to triage — an honest empty
@@ -728,6 +745,16 @@ re-reads on every mutation) and make the spec await a deterministic ready state 
 tolerating it. A test that passes only on the second run is worse than no test.
 
 ### D-10 — test-coverage — an entire persistence test file is run by nothing
+**Status: MERGED — PR #100 landed 2026-08-08 03:09Z.** The `test:parent-console` gate now runs in
+`validate`. Three `lib/server/**` test files feed it, each verified by negative control rather
+than assumed:
+
+| test file | guards | negative control |
+|---|---|---|
+| `userStoreParentNoticePersistence.test.ts` | D-07 receipt idempotency | revert the fix → 7/8 red |
+| `authRouteGuards.test.ts` (#101) | the D-11 override cannot weaken the limit | drop the `Math.max` floor → 11/14 red |
+| `contentSafetySeed.test.ts` (#103) | demo-off never seeds safety alerts | drop the `shouldSeedDemoUser()` guard → 10/11 red |
+
 **Status: RESOLVED for this file in PR #100** (2026-08-04, at the owner's direction). The
 governance allowlist was re-frozen as a reviewed change: `test:parent-console` added to
 `allowedScriptChanges`, hash `ca0774f1…` → `84168d8d…` recomputed with the gate's own algorithm,
@@ -1487,6 +1514,16 @@ and "the control was never found" indistinguishable. It is the account-switch me
   > **The ff-loop fixture is thinly seeded outside the student/teacher core. Re-driving these
   > surfaces without seeding data first will keep returning "not drivable" rather than new
   > information.**
+
+  **Acted on 2026-08-04 (owner request): `/teacher/safety` is seeded in PR #103** — one `new`
+  flag so triage is drivable and one `acknowledged` so the filter tabs discriminate, gated on
+  `shouldSeedDemoUser()` so no non-demo deployment ever shows fabricated child-safety alerts
+  (asserted first in the test file). Once it lands, **S11's safety triage becomes drivable and
+  should be re-driven**.
+
+  Deliberately **not** seeded: lesson-kits (the product documents authoring as
+  Mainland-textbook-only, so HK kits would fabricate unsupported state — needs a product decision,
+  not a fixture change) and review-lessons.
 
   The one remaining S11 surface with real data behind it is **notice composition**
   (`teacher_notices` = 3, `teacher_notice_recipients` = 3), which is also the teacher end of the
