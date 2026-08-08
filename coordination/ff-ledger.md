@@ -723,6 +723,44 @@ now `practiceArenaPageRegressions` — was run by nothing. Only `components/**` 
 discovery-based gate. **The durable fix is discovery for `lib/**` and `app/**`, not another
 hand-added entry.**
 
+#### D-13 QUANTIFIED 2026-08-08 — it is 105 files and 952 tests, not one file
+
+Measured rather than estimated, by listing every `*.test.ts` under `lib/` and `app/` and checking
+whether any runner, tsconfig or CI job references it:
+
+| | count |
+|---|---|
+| test files under `lib/` + `app/` | **156** |
+| referenced by a runner / CI | 51 |
+| **orphaned — executed by nothing** | **105** |
+| tests inside those orphans | **952** |
+| **currently FAILING** | **7** |
+
+The seven red tests, all invisible to CI today:
+
+- `California practice and onboarding surfaces do not render Primary/Secondary grade labels`
+- `California lesson entry does not expose candidate-only lesson seeds as live lessons`
+- `questions route uses the lightweight public question store`
+- `Practice Arena renders the mission trail with tappable stepping stones` (the one found via D-12)
+- `student activity persistence records question attempts and updates mistake rows through fake storage`
+- `teacher ops operations persistence builds teacher dashboard data through extracted storage selection`
+- `questionStore stays decoupled from authenticated app_state storage`
+
+**This is why discovery cannot simply be switched on.** Doing so turns `validate` red immediately —
+which is exactly what `scripts/run-component-tests.mjs` warns about in its own header ("when this
+gate was first assembled four of the `components/lesson` suites were red"). The component gate's
+authors hit this and fixed the suites first.
+
+**Recommended sequencing for an owner:**
+1. triage the 7 — each is a real assertion about California grade labels, question-store
+   decoupling, persistence or the practice page; fix or delete, do not skip silently;
+2. then add a discovery-based gate for `lib/**` and `app/**` modelled on the component gate,
+   which needs one reviewed governance re-freeze (procedure now established by #100);
+3. after that, 952 tests defend the codebase instead of decorating it.
+
+The prize is large and cheap: **952 existing tests, already written and 99.3% green, currently
+protecting nothing.**
+
 ### D-12 — dead-control — Practice Arena "Start Mission" scrolls to an id that never renders
 
 **Slice** S04 · **Route** /practice · **Persona** HK Student Peter · **Found** 2026-08-08
