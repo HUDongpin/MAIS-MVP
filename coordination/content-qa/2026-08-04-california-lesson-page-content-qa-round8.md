@@ -219,3 +219,26 @@ sweep: `add-within-100`, `area-model`, `compare-populations`,
 `order-and-measure`, `ratio-double-number-line`, `slope-unit-rate`, and the
 cross-block standard-attribution questions. Plus the 102 low candidates,
 untriaged.
+
+### Closing verification
+
+All five gates green on a clean tree, after the last batch:
+
+```
+audit:ccss-lesson-interaction    270 interactive lessons — no interaction-copy defects
+audit:us-ca-lesson-content        76 lessons, 614 blocks — no content defects
+test:ccss-textbook                class audit + assignment contract passed
+usCaliforniaLessons.test.ts       12 pass, 0 fail
+tsc --noEmit                      clean
+audit:us-ca-lesson-page-runtime   76 pages driven to both control extremes — clean
+```
+
+The runtime sweep is the one that matters here: it drives every control to both
+extremes on every page, and it is the gate that found the `NaN%` state once the
+per-cell accessible names made it reachable. It is clean on the full 76 now.
+
+**This is not a claim that the page is defect-free.** 14 medium and 102 low
+candidates remain untriaged, the round-8 workflow lost 13 verifications to a
+usage limit, and every one of the eight rounds so far has been followed by a
+round that found more. What can be said: the student-visible medium backlog from
+round 8's partition is cleared, and every gate the project has is green.
