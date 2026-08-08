@@ -63,8 +63,7 @@ export default function Lesson() {
       <h2>Reading the stacks</h2>
       <p>
         Each X is one measurement. Count a stack to see how many things had that
-        length. The tallest stack is the most common length — here,{" "}
-        {LENGTHS[maxIdx]} cm.
+        length. The tallest stack is the most common length{total === 0 ? " — step a count up to see one." : <>{" "}— here, {LENGTHS[maxIdx]} cm.</>}
       </p>
 
       <MathCheck>

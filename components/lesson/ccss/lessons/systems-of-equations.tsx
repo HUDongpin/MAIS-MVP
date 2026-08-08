@@ -55,7 +55,7 @@ export default function Lesson() {
             <span style={{ color: L2 }}>y = {m2}x + {b2}</span>
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="two lines and their intersection">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={parallel ? (b1 === b2 ? "two identical lines, every point shared" : "two parallel lines, no intersection") : inRange ? `two lines meeting at (${ix}, ${iy})` : "two lines whose intersection falls outside this grid"}>
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />

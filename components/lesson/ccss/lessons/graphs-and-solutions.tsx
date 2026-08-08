@@ -53,7 +53,7 @@ export default function Lesson() {
             <span style={{ color: G }}>g(x) = −x + 5</span>
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="two functions and their intersection">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={denom !== 0 ? "two functions and their intersection" : "two parallel functions, no intersection"}>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((x) => (
               <line key={x} x1={sx(x)} y1={PAD} x2={sx(x)} y2={H - PAD} stroke="var(--line)" strokeWidth={1} />
             ))}

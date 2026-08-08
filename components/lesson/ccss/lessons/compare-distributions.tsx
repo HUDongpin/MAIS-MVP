@@ -35,7 +35,9 @@ export default function Lesson() {
         <strong>outlier</strong>{" "}can drag the mean far more than the median.
       </p>
 
-      <Figure caption="Class A is tightly clustered; Class B is spread out. Same center, different consistency.">
+      {/* The figure is two panels of summary statistics and a button - there is
+          no dot plot to look "clustered" or "spread out". */}
+      <Figure caption="Compare the two summaries: near-equal centers, very different spread. Add the outlier and watch which measure moves.">
         <div className="flex flex-col items-center gap-6">
           <div className="grid w-full max-w-lg grid-cols-2 gap-4">
             <div className="rounded-xl border-2 p-3" style={{ borderColor: A_COL }}>

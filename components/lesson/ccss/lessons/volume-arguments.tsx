@@ -20,9 +20,10 @@ export default function Lesson() {
         cross-sections at every height, they have equal volume.
       </p>
 
-      <Figure caption="Lean a stack of coins and its volume doesn't change — same layers, same total. That's Cavalieri.">
+      <Figure caption="Lean the stack with the control: the layers never change, so neither does the volume. That's Cavalieri.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={200} viewBox="0 0 240 200" role="img" aria-label="sheared stack of layers">
+          {/* shear starts at 0, where the stack is perfectly straight. */}
+          <svg width={240} height={200} viewBox="0 0 240 200" role="img" aria-label={shear === 0 ? "a straight stack of eight equal layers" : "a leaning stack of eight equal layers"}>
             {Array.from({ length: 8 }, (_, i) => {
               const y = 176 - i * 20;
               const x = 60 + (i / 7) * lean;

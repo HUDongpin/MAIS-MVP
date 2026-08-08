@@ -31,7 +31,9 @@ export default function Lesson() {
         you cannot take away enough ones, borrow a ten.
       </p>
 
-      <Figure caption="The little red mark is the regroup — a carried ten (add) or a borrowed ten (subtract).">
+      {/* MARK is --band-early, the orange token; nothing red is drawn. Same
+          defect as add-subtract-algorithm, fixed in round 6. */}
+      <Figure caption="The little orange mark is the regroup — a carried ten (add) or a borrowed ten (subtract).">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (

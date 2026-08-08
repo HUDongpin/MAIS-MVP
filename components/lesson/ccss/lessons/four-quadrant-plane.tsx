@@ -59,7 +59,9 @@ export default function Lesson() {
             style={{ maxHeight: 380 }}
             onPointerDown={(e) => place(e.clientX, e.clientY)}
             role="img"
-            aria-label={`Point at (${p.x}, ${p.y}) in quadrant ${quadrant}`}
+            // quadrantOf returns "none" on an axis, which read as "in quadrant
+            // none". A screen reader gets the same wording the sighted reader gets.
+            aria-label={quadrant === "none" ? `Point at (${p.x}, ${p.y}), on an axis and in no quadrant` : `Point at (${p.x}, ${p.y}) in quadrant ${quadrant}`}
           >
             {/* grid */}
             {Array.from({ length: 2 * R + 1 }, (_, i) => {
