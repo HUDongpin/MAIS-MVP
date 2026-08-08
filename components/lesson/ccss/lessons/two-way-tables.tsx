@@ -45,9 +45,11 @@ export default function Lesson() {
                   {[0, 1].map((j) => (
                     <td key={j} className="p-1">
                       <div className="flex items-center justify-center gap-1">
-                        <button type="button" onClick={() => set(i, j, -1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label="decrease">−</button>
+                        {/* Eight buttons shared two names ("decrease"/"increase")
+                            with nothing tying one to its cell. */}
+                        <button type="button" onClick={() => set(i, j, -1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label={`Decrease ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>−</button>
                         <span className="w-6 text-lg font-black tabular-nums">{g[i][j]}</span>
-                        <button type="button" onClick={() => set(i, j, 1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label="increase">+</button>
+                        <button type="button" onClick={() => set(i, j, 1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label={`Increase ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>+</button>
                       </div>
                     </td>
                   ))}

@@ -37,8 +37,10 @@ export default function Lesson() {
       <Figure caption="Pick a power of ten. The decimal point jumps that many places.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
+            {/* The exponent is an inline <sup>, so the accessible name
+                concatenated to "×102" — "times one hundred and two". */}
             {EXPS.map((ex) => (
-              <button key={ex} type="button" onClick={() => setE(ex)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={e === ex ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+              <button key={ex} type="button" onClick={() => setE(ex)} aria-label={`${ex > 0 ? "Multiply" : "Divide"} by 10 to the power of ${Math.abs(ex)}`} aria-pressed={e === ex} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={e === ex ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                 {ex > 0 ? "×" : "÷"}10{Math.abs(ex) > 1 ? <sup>{Math.abs(ex)}</sup> : ""}
               </button>
             ))}

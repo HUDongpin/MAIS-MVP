@@ -61,10 +61,12 @@ export default function Lesson() {
               <div key={i} className="flex flex-col items-center gap-1">
                 <span className="text-xs font-bold text-[var(--ink-faint)]">({v[0]}, {v[1]})</span>
                 <div className="flex gap-1">
-                  <button type="button" onClick={() => setV(i, 0, -1)} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">←</button>
-                  <button type="button" onClick={() => setV(i, 0, 1)} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">→</button>
-                  <button type="button" onClick={() => setV(i, 1, 1)} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↑</button>
-                  <button type="button" onClick={() => setV(i, 1, -1)} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↓</button>
+                  {/* Twelve buttons announced only an arrow glyph; the vertex
+                      they move sat in an unassociated sibling span. */}
+                  <button type="button" onClick={() => setV(i, 0, -1)} aria-label={`Move vertex ${i + 1} left from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">←</button>
+                  <button type="button" onClick={() => setV(i, 0, 1)} aria-label={`Move vertex ${i + 1} right from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">→</button>
+                  <button type="button" onClick={() => setV(i, 1, 1)} aria-label={`Move vertex ${i + 1} up from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↑</button>
+                  <button type="button" onClick={() => setV(i, 1, -1)} aria-label={`Move vertex ${i + 1} down from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↓</button>
                 </div>
               </div>
             ))}

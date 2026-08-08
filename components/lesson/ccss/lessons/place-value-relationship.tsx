@@ -25,7 +25,9 @@ export default function Lesson() {
           <div className="flex items-end gap-2">
             {PLACE.map((place, i) => (
               <div key={i} className="flex flex-col items-center gap-1">
-                <button type="button" onClick={() => setSel(i)} className="grid h-16 w-16 place-items-center rounded-xl text-4xl font-black text-white" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
+                {/* The place name and the value are unassociated sibling spans,
+                    so all four tiles announced only their digit. */}
+                <button type="button" onClick={() => setSel(i)} aria-label={`${digit} in the ${NAMES[i]} place, worth ${digit * place}`} aria-pressed={i === sel} className="grid h-16 w-16 place-items-center rounded-xl text-4xl font-black text-white" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
                 <span className="text-[10px] font-semibold uppercase text-[var(--ink-faint)]">{NAMES[i]}</span>
                 <span className="font-mono text-xs font-bold" style={{ color: COLORS[i] }}>{digit * place}</span>
               </div>

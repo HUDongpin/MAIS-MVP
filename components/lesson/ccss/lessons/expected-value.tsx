@@ -36,9 +36,10 @@ export default function Lesson() {
               {values.map((v, i) => (
                 <tr key={i}>
                   <td className="px-3 py-1">
-                    <button type="button" onClick={() => setVal(i, -1)} className="mr-1 text-xs font-bold text-[var(--ink-faint)]">−</button>
+                    {/* Nothing tied a button to the row it edits. */}
+                    <button type="button" onClick={() => setVal(i, -1)} aria-label={`Decrease payoff for outcome ${i + 1}`} className="mr-1 text-xs font-bold text-[var(--ink-faint)]">−</button>
                     <span className="font-bold" style={{ color: v < 0 ? "var(--band-upper)" : "var(--ink)" }}>{v}</span>
-                    <button type="button" onClick={() => setVal(i, 1)} className="ml-1 text-xs font-bold text-[var(--ink-faint)]">+</button>
+                    <button type="button" onClick={() => setVal(i, 1)} aria-label={`Increase payoff for outcome ${i + 1}`} className="ml-1 text-xs font-bold text-[var(--ink-faint)]">+</button>
                   </td>
                   <td className="px-3 py-1">{probs[i]}/{totalW}</td>
                   <td className="px-3 py-1" style={{ color: ACCENT }}>{r2(v * probs[i] / totalW)}</td>

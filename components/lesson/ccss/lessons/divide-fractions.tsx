@@ -83,9 +83,11 @@ function FracControl({ label, color, num, den, onNum, onDen }: { label: string; 
     <div className="flex flex-col items-center gap-2">
       <span className="text-xs font-semibold uppercase tracking-wide" style={{ color }}>{label}: {num}/{den}</span>
       <div className="flex items-center gap-3">
-        <Mini label="numerator" value={num} min={1} max={den} onChange={onNum} />
+        {/* FracControl knows whether it is the Dividend or the Divisor; the
+            controls inside it did not. */}
+        <Mini label={`${label} numerator`} value={num} min={1} max={den} onChange={onNum} />
         <span className="text-2xl text-[var(--ink-faint)]">/</span>
-        <Mini label="denominator" value={den} min={2} max={8} onChange={onDen} />
+        <Mini label={`${label} denominator`} value={den} min={2} max={8} onChange={onDen} />
       </div>
     </div>
   );

@@ -167,9 +167,11 @@ function FractionControl({
         {label}: {num}/{den}
       </span>
       <div className="flex items-center gap-4">
-        <MiniStepper label="numerator" value={num} min={1} max={den} onChange={onNum} />
+        {/* Without the Across/Down prefix all four controls announced the
+            same two names. */}
+        <MiniStepper label={`${label} numerator`} value={num} min={1} max={den} onChange={onNum} />
         <span className="text-2xl text-[var(--ink-faint)]">/</span>
-        <MiniStepper label="denominator" value={den} min={2} max={5} onChange={onDen} />
+        <MiniStepper label={`${label} denominator`} value={den} min={2} max={5} onChange={onDen} />
       </div>
     </div>
   );

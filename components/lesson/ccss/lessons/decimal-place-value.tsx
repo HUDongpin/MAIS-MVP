@@ -29,7 +29,8 @@ export default function Lesson() {
               <div key={i} className="flex items-end">
                 {i === 2 && <span className="pb-6 text-3xl font-black">.</span>}
                 <div className="flex flex-col items-center gap-1">
-                  <button type="button" onClick={() => setSel(i)} className="grid h-14 w-14 place-items-center rounded-xl text-3xl font-black text-white" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
+                  {/* Four tiles, one announced name. */}
+                  <button type="button" onClick={() => setSel(i)} aria-label={`${digit} in the ${NAMES[i]} place, worth ${valAt(i)}`} aria-pressed={i === sel} className="grid h-14 w-14 place-items-center rounded-xl text-3xl font-black text-white" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
                   <span className="text-[9px] font-semibold uppercase text-[var(--ink-faint)]">{NAMES[i]}</span>
                   <span className="font-mono text-[11px] font-bold" style={{ color: COLORS[i] }}>{valAt(i)}</span>
                 </div>
