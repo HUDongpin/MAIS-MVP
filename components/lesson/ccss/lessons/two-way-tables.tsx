@@ -11,9 +11,14 @@ export default function Lesson() {
   const [g, setG] = useState([[18, 6], [7, 9]]); // [pet][movie]
 
   const rowTot = g.map((r) => r[0] + r[1]);
-  const pctPetYes = Math.round((g[0][0] / rowTot[0]) * 100);
-  const pctPetNo = Math.round((g[1][0] / rowTot[1]) * 100);
-  const association = Math.abs(pctPetYes - pctPetNo) >= 15;
+  // Every cell steps down to 0, so a row total of 0 is reachable and 0/0
+  // rendered "NaN%" in the table, the verdict panel and the paragraph.
+  // A row with nobody in it has no rate to report.
+  const pctPetYes = rowTot[0] > 0 ? Math.round((g[0][0] / rowTot[0]) * 100) : null;
+  const pctPetNo = rowTot[1] > 0 ? Math.round((g[1][0] / rowTot[1]) * 100) : null;
+  const comparable = pctPetYes !== null && pctPetNo !== null;
+  const association = comparable && Math.abs(pctPetYes - pctPetNo) >= 15;
+  const pct = (v: number | null) => (v === null ? "—" : `${v}%`);
 
   const set = (i: number, j: number, d: number) => setG((prev) => prev.map((r, ri) => r.map((v, ci) => (ri === i && ci === j ? Math.max(0, v + d) : v))));
 
@@ -54,7 +59,7 @@ export default function Lesson() {
                     </td>
                   ))}
                   <td className="p-2 font-bold text-[var(--ink-soft)]">{rowTot[i]}</td>
-                  <td className="p-2 font-black" style={{ color: ACCENT }}>{i === 0 ? pctPetYes : pctPetNo}%</td>
+                  <td className="p-2 font-black" style={{ color: ACCENT }}>{pct(i === 0 ? pctPetYes : pctPetNo)}</td>
                 </tr>
               ))}
             </tbody>
@@ -66,8 +71,10 @@ export default function Lesson() {
               // while the trigger is the absolute gap, so lowering the pet-owner
               // cell announced "Pet owners like animal movies (25%) much more
               // than non-owners (44%)" — the reverse of what the table showed.
-              ? `Association! Pet owners like animal movies (${pctPetYes}%) much ${pctPetYes > pctPetNo ? "more" : "less"} than non-owners (${pctPetNo}%).`
-              : `Little association — the two groups like movies at similar rates (${pctPetYes}% vs ${pctPetNo}%).`}
+              ? `Association! Pet owners like animal movies (${pct(pctPetYes)}) much ${(pctPetYes ?? 0) > (pctPetNo ?? 0) ? "more" : "less"} than non-owners (${pct(pctPetNo)}).`
+              : comparable
+                ? `Little association — the two groups like movies at similar rates (${pct(pctPetYes)} vs ${pct(pctPetNo)}).`
+                : "One row has nobody in it, so there is no rate to compare yet — add someone to both rows."}
           </div>
         </div>
       </Figure>
@@ -75,8 +82,8 @@ export default function Lesson() {
       <h2>Compare the percentages</h2>
       <p>
         Raw counts can mislead when group sizes differ, so convert to relative
-        frequencies within each row: {pctPetYes}% of pet owners like animal movies
-        versus {pctPetNo}% of non-owners. A big gap signals the two categories are
+        frequencies within each row: {pct(pctPetYes)} of pet owners like animal movies
+        versus {pct(pctPetNo)} of non-owners. A big gap signals the two categories are
         related.
       </p>
 
