@@ -44,19 +44,38 @@ const findings = [];
 let pagesInspected = 0;
 const pagesWithNoFigure = [];
 const pagesWithNoControl = [];
+const retried = [];
 const list = await slugs();
 
 for (const slug of list) {
   // A swallowed navigation error made this gate report "clean" against a dead
   // dev server — it found zero figures and concluded there was nothing wrong.
   // A gate that cannot fail is not evidence.
-  try {
-    await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "networkidle", timeout: 90000 });
-  } catch (error) {
-    console.error(`\n✗ ${slug} — navigation failed: ${error.message.split("\n")[0]}`);
-    console.error("  The audit cannot run without a reachable dev server. Aborting.");
-    await browser.close();
-    process.exit(2);
+  // A dead server and a first-visit compile look the same from here, so the two
+  // are told apart by behaviour: a refused connection aborts immediately, a
+  // timeout gets one retry (Next compiles a cold route once, then serves it).
+  let navigated = false;
+  for (let attempt = 0; attempt < 2 && !navigated; attempt += 1) {
+    try {
+      await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "networkidle", timeout: 90000 });
+      navigated = true;
+    } catch (error) {
+      const message = error.message.split("\n")[0];
+      const refused = /ERR_CONNECTION_REFUSED|ECONNREFUSED/.test(message);
+      if (refused) {
+        console.error(`\n✗ ${slug} — ${message}`);
+        console.error("  The dev server is not reachable. Aborting rather than reporting a pass.");
+        await browser.close();
+        process.exit(2);
+      }
+      if (attempt === 1) {
+        console.error(`\n✗ ${slug} — navigation failed twice: ${message}`);
+        console.error("  Aborting rather than reporting a pass over a page never loaded.");
+        await browser.close();
+        process.exit(2);
+      }
+      retried.push(slug);
+    }
   }
   await page.waitForTimeout(500);
 
@@ -103,6 +122,7 @@ console.log(`audit-us-ca-lesson-label-motion: ${list.length} lesson pages reques
 console.log(`  inspected (had at least one figure): ${pagesInspected}`);
 if (pagesWithNoFigure.length) console.log(`  skipped, no role=img/group figure on screen: ${pagesWithNoFigure.length}`);
 if (pagesWithNoControl.length) console.log(`  skipped, no enabled Increase/More control: ${pagesWithNoControl.length}`);
+if (retried.length) console.log(`  loaded on a retry after a first-visit compile timeout: ${retried.length}`);
 if (pagesInspected === 0) {
   console.error("✗ nothing was inspected — refusing to report a pass.");
   process.exit(2);
