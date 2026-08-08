@@ -694,6 +694,31 @@ Two self-corrections on this slice, both caught before they became filed defects
    coordinate and a click-counter probe on the element showed the handler firing normally.
    **Always attach a click counter to the element before calling a control dead.**
 
+### D-14 — env-only — a hermetic RAG manifest self-test fails intermittently inside `npm run check`
+
+**Found** 2026-08-08 (while gating the D-13 cluster-2 fix) · **Status** filed, not fixed
+
+`python3 scripts/build-mainland-pep-junior-paper-manifest.py --self-test` failed one
+`npm run check` run at `assert manifest["coverage"]["expectedSlotCoverage"]["S2:upper"] == 3`
+(line 472), then passed at the **same commit**:
+
+- standalone, 3 runs out of 3
+- chained after its immediate predecessor (`build-mainland-pep-junior-exam-manifest.py`)
+- inside a complete `npm run test:rag` — 257/257, every python self-test green
+
+The self-test is hermetic: it builds its own ZIPs inside a `TemporaryDirectory`, reads no repo
+content, and the script is byte-identical to the copy in the primary root. The earlier assertions
+in the same block (`totals.files == 6`, `ignoredVisibleFiles == 1`) passed while only the
+per-slot classification broke, so whatever perturbs it changes how entries are bucketed into
+`S2:upper` / `S2:lower` rather than how many are seen — mojibake ZIP-name decoding is the obvious
+suspect, and it is locale-sensitive.
+
+Not reproduced deterministically, so classified env-only rather than P0. It matters because
+`check` is the local gate every session runs before pushing: an intermittent red here trains
+people to re-run the gate until it is green, which is exactly the habit that lets a real failure
+through. Worth pinning the locale (`PYTHONUTF8=1` / explicit `LANG`) in the `test:rag` script
+before hunting further.
+
 ### D-13 — test-coverage — a practice-page regression suite runs nowhere, and is already RED
 
 **Found** 2026-08-08 (while fixing D-12) · **Status** filed, not fixed
@@ -760,6 +785,51 @@ authors hit this and fixed the suites first.
 
 The prize is large and cheap: **952 existing tests, already written and 99.3% green, currently
 protecting nothing.**
+
+#### D-13 TRIAGE PROGRESS — 3 of the 7 red tests resolved
+
+Step 1 of the sequencing above, one cluster per iteration. Every one so far has been a **stale
+assertion over intact behaviour**, not a live regression — which is itself the finding: these
+tests did not rot because the product broke, they rotted because nothing ran them while the code
+around them was legitimately refactored.
+
+| red test | verdict | landed |
+|---|---|---|
+| `Practice Arena renders the mission trail with tappable stepping stones` | stale — the trail moved to `components/practice/PracticeQuestPager.tsx`, feature intact (`data-testid` L202, `onClick` L255, `aria-current` L257); test repointed | PR #112 |
+| `questions route uses the lightweight public question store` | stale — see below | PR #113 (`a2489f3564`) |
+| `questionStore stays decoupled from authenticated app_state storage` | stale — see below | PR #113 (`a2489f3564`) |
+
+The questionStore pair asserted decoupling by forbidding any *mention* of `userStore` /
+`app_state` / `@/data/questions` in the source text. Both imports they flagged are deliberate,
+documented, guarded **dynamic** imports:
+
+- [`app/api/questions/route.ts:56`](../app/api/questions/route.ts:56) resolves
+  `getStudentAccommodations` only after `if (authenticated?.user.role !== "student") return 0;`,
+  under a comment written for precisely this constraint — loaded dynamically so anonymous/preview
+  traffic never pulls the userStore into this hot route's static graph.
+- [`lib/server/questionStore.ts:79`](../lib/server/questionStore.ts:79) lazily loads the curated
+  aggregate via `optionalQuestionModule`; its comment records that serving only the small server
+  base set had **emptied HK S3-S6 practice free selection**.
+
+The real property is *"not in the STATIC import graph"*, which a guarded `await import(...)`
+satisfies and a string match cannot distinguish. Assertions now scan static import lines only,
+and the route test additionally pins the student-only guard so the dynamic import cannot drift
+onto the anonymous path unnoticed.
+
+**Both files were also wired into the targeted server suite (17 -> 20 passing).** Fixing an
+orphaned test without giving it a runner just re-creates the defect — that is the D-10 lesson and
+it now applies to every cluster in this triage.
+
+**Remaining: 4 of 7.**
+
+- `California practice and onboarding surfaces do not render Primary/Secondary grade labels`
+- `California lesson entry does not expose candidate-only lesson seeds as live lessons`
+- `student activity persistence records question attempts and updates mistake rows through fake storage`
+- `teacher ops operations persistence builds teacher dashboard data through extracted storage selection`
+
+A caution for whoever finishes this: three-for-three "stale test, intact feature" is **not** a
+licence to assume the remaining four are stale. The two California ones assert
+curriculum-correctness that a user would see, so they deserve the opposite prior.
 
 ### D-12 — dead-control — Practice Arena "Start Mission" scrolls to an id that never renders
 
@@ -1228,12 +1298,57 @@ before landing.
 General lesson for this ledger: **`getByText` is an appearance assertion; `getByRole` is closer
 to an effect one.** Worth sweeping other specs for failure-path assertions that use `getByText`.
 
-Noted for a future iteration — `tests/e2e/helpers.ts:99` `logoutIfVisible()` is the weakest
-remaining anchor in this slice: its whole logout claim rests on
-`await expect(page).toHaveURL(/\/login/)`, which D-02 shows a live session satisfies, and
-when no logout control is found it returns with **zero** assertions, making "logged out"
-and "the control was never found" indistinguishable. It is the account-switch mechanism in
-~20 specs.
+### A-04 — `tests/e2e/helpers.ts:99` `logoutIfVisible()` (the account-switch mechanism)
+
+**Audited** 2026-08-08 · **Verdict** APPEARANCE-ONLY, and additionally **fails open** → not yet
+upgraded (this iteration's one fix was spent on the D-13 cluster).
+
+Flagged as the weakest remaining anchor after A-03; read in full it is worse than the note
+predicted, because it carries two independent defects rather than one.
+
+```ts
+const logoutButtons = page.getByRole("button", { name: /log out|登出/i });
+const count = await logoutButtons.count();
+for (let index = count - 1; index >= 0; index -= 1) {
+  const logout = logoutButtons.nth(index);
+  if (!(await logout.isVisible().catch(() => false))) continue;
+  await logout.click();
+  await expect(page).toHaveURL(/\/login/, { timeout: 30_000 });
+  return;
+}
+```
+
+**1. It fails open.** If the loop finds no visible control it returns having asserted *nothing*.
+"Logged out" and "the logout control has disappeared" are indistinguishable — the exact
+dead-control class this loop exists to catch, sitting in the helper ~20 specs use to change
+persona. A logout button that silently stopped rendering would not fail a single spec; the
+following spec would just re-run as the previous persona.
+
+**2. Its success assertion does not assert the effect.** `toHaveURL(/\/login/)` is satisfied by a
+live session — that is precisely what D-02 established. So even the happy path proves navigation,
+not de-authentication.
+
+**The effect is cheaply assertable here**, which makes this worth upgrading rather than merely
+documenting. Logout is stateless cookie-clearing —
+[`app/api/auth/logout/route.ts:14`](../app/api/auth/logout/route.ts:14) writes an empty
+`SESSION_COOKIE_NAME` with a zero max-age and nothing server-side to revoke — so "logged out"
+means exactly "this browser context no longer carries a valid session", and the app already
+exposes a guest-tolerant probe for that:
+
+```ts
+const state = await page.request.get("/api/auth/session-state?includeLessonEntry=false");
+expect((await state.json()).user).toBeNull();
+```
+
+[`app/api/auth/session-state/route.ts:21`](../app/api/auth/session-state/route.ts:21) returns
+`{ user: null }` for an unauthenticated caller and the full payload otherwise, so this
+distinguishes the two states that `toHaveURL` collapses. (`/api/me` would also work — it keeps a
+strict 401 contract — but session-state is the guest-tolerant twin and needs no error handling.)
+
+The fail-open branch should assert too: if no logout control is visible, the session must
+*already* be clear, and the same probe proves it. Both changes belong in one helper, so every
+spec that switches persona inherits them.
+
 
 ## Iteration log
 
@@ -1792,3 +1907,34 @@ and "the control was never found" indistinguishable. It is the account-switch me
   If the re-run fails at "Install dependencies" **again**, stop treating it as flake and
   investigate the runner/lockfile — this PR adds no dependencies, so a repeat would point at
   something environmental that the next iteration should file rather than retry around.
+
+- 2026-08-08 — iteration 26: **D-13 triage, cluster 2 of 7** — the two red tests asserting the
+  public questions path stays decoupled from authenticated storage.
+
+  Verdict **stale assertions, behaviour intact**, and for a reason worth generalising: both
+  forbade any *mention* of `userStore` / `app_state` / `@/data/questions` in the source, while the
+  constraint they stand for is *"not in the static import graph"*. The code had moved both imports
+  to guarded, commented, lazy `await import(...)` — which honours the constraint — and the string
+  match could not tell the two forms apart. Assertions now scan static import lines only; the
+  route test also pins the `role !== "student"` guard that keeps the dynamic import off the
+  anonymous path, so the property is asserted rather than approximated. Landed in PR #113
+  (`a2489f3564`), both files wired into the targeted server suite (17 -> 20).
+
+  Gates: type-check clean · targeted suite 20/20 · release-governance 84/84 · test:rag 257/257 ·
+  CI validate + teacher-parent-e2e + visualization-browser + snapshot all green.
+
+  Filed **D-14** (env-only): one `npm run check` run failed a hermetic python manifest self-test
+  that then passed 3/3 standalone, in-chain, and across a full `test:rag` at the same commit.
+  Recorded rather than chased — same-commit pass/fail is flake evidence, not a regression, and
+  the slice was not expanded to hunt it.
+
+  Audited legacy anchor **A-04** — `logoutIfVisible()`, the persona-switch helper in ~20 specs.
+  Two defects, not one: it **fails open** (no visible control -> returns with zero assertions, so
+  a vanished logout button fails nothing), and its success assertion `toHaveURL(/\/login/)` is
+  satisfied by a live session per D-02. Logout is stateless cookie-clearing, so the effect is
+  cheaply assertable via `/api/auth/session-state` returning `{user: null}`; the upgrade is
+  specified in A-04 and left for an iteration whose one fix is not already spent.
+
+  D-13 triage now stands at **3 of 7**, all three "stale test, intact feature". Noted in the
+  ledger that this is not a licence to presume the remaining four are stale — the two California
+  ones assert curriculum-correctness a user would see, and deserve the opposite prior.
