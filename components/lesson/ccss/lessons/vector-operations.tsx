@@ -53,7 +53,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label="vector operations">
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 330 }} role="img" aria-label={op === "scale" ? `Vector u ${u.x}, ${u.y} scaled by ${k} to ${res.x}, ${res.y} on a coordinate grid` : `Vectors u ${u.x}, ${u.y} and v ${v.x}, ${v.y} with their ${op === "add" ? "sum" : "difference"} ${res.x}, ${res.y} on a coordinate grid`}>
             {Array.from({ length: 2 * extent + 1 }, (_, i) => {
               const c = i - extent;
               return (

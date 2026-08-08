@@ -62,8 +62,12 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="Angle A" value={aAng} min={20} max={120} onChange={(v) => setAAng(Math.min(v, 160 - bAng))} />
-            <Stepper label="Angle B" value={bAng} min={20} max={120} onChange={(v) => setBAng(Math.min(v, 160 - aAng))} />
+            {/* The handlers clamp to 160 − the other angle, but the Stepper
+                disabled its + at the raw 120, so at A = 100, B = 60 the button
+                was enabled and pressing it changed nothing. The ceiling the
+                button obeys is now the ceiling the handler enforces. */}
+            <Stepper label="Angle A" value={aAng} min={20} max={Math.min(120, 160 - bAng)} onChange={setAAng} />
+            <Stepper label="Angle B" value={bAng} min={20} max={Math.min(120, 160 - aAng)} onChange={setBAng} />
           </div>
         </div>
       </Figure>

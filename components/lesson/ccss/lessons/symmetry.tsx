@@ -51,7 +51,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width="200" height="160" viewBox="0 0 200 160" role="img" aria-label={`${s.name} with ${s.count} lines of symmetry`}>
+          <svg width="200" height="160" viewBox="0 0 200 160" role="img" aria-label={show ? `${s.name} with its ${s.count} lines of symmetry drawn as dashed folds` : `${s.name} with no fold lines shown`}>
             {s.shape}
             {show && s.lines}
           </svg>

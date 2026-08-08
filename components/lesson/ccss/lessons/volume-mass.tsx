@@ -35,7 +35,7 @@ export default function Lesson() {
 
           {mode === "volume" ? (
             <>
-              <svg width="120" height="180" viewBox="0 0 120 180" role="img" aria-label={`beaker with ${liters} liters`}>
+              <svg width="120" height="180" viewBox="0 0 120 180" role="img" aria-label={`Beaker filled to ${ml} millilitres, which is ${liters} ${liters === 1 ? "litre" : "litres"}`}>
                 <rect x="30" y="10" width="60" height="160" rx="6" fill="none" stroke="var(--ink-soft)" strokeWidth="3" />
                 <rect x="33" y={13 + (1 - fillPct) * 154} width="54" height={fillPct * 154} fill={LIQ} fillOpacity={0.7} />
                 {[0, 0.5, 1, 1.5, 2].map((l) => (

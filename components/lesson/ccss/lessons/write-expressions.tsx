@@ -30,8 +30,10 @@ export default function Lesson() {
       <Figure caption="Read the words, predict the expression, then reveal it.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
+            {/* The visible text is just an ordinal, so the phrase each button
+                selects has to reach the accessible name. */}
             {EXAMPLES.map((e, i) => (
-              <button key={i} type="button" onClick={() => { setIdx(i); setReveal(false); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{i + 1}</button>
+              <button key={i} type="button" onClick={() => { setIdx(i); setReveal(false); }} aria-label={`Example ${i + 1}: ${e.words}`} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{i + 1}</button>
             ))}
           </div>
 

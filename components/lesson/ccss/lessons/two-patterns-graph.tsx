@@ -63,7 +63,7 @@ export default function Lesson() {
               </tbody>
             </table>
 
-            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 260 }} role="img" aria-label="graph of ordered pairs">
+            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 260 }} role="img" aria-label={`Five points ${terms.map((t) => `(${t.x}, ${t.y})`).join(", ")} rising in a straight line, y = ${ratio} times x`}>
               {Array.from({ length: N + 1 }, (_, i) => (
                 <g key={i} stroke="var(--line)" strokeWidth={1}>
                   <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />

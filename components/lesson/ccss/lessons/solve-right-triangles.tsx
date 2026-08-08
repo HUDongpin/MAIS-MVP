@@ -25,7 +25,7 @@ export default function Lesson() {
 
       <Figure caption="From a known distance and angle of elevation, tangent gives the height.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={180} viewBox="0 0 260 180" role="img" aria-label="angle of elevation to a building">
+          <svg width={260} height={180} viewBox="0 0 260 180" role="img" aria-label={`A ${angle} degree angle of elevation measured ${dist} metres from a building, giving a height of about ${height} metres`}>
             {/* ground */}
             <line x1={20} y1={150} x2={240} y2={150} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* building */}

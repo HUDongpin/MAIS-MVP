@@ -54,7 +54,9 @@ export default function Lesson() {
             className="max-w-full"
             style={{ maxHeight: 380 }}
             role="img"
-            aria-label={`Parabola y = ${fmt(a)}(x − ${fmt(h)})² + ${fmt(k)}`}
+            // Built with the same sign helpers as the visible formula box, which
+            // otherwise disagreed with it: "(x − −2)² + −3" versus "(x + 2)² − 3".
+            aria-label={`Parabola y = ${fmt(a)}(x ${sign(h)})² ${k < 0 ? `− ${-k}` : `+ ${k}`}`}
           >
             {/* grid */}
             {Array.from({ length: 2 * R + 1 }, (_, i) => {

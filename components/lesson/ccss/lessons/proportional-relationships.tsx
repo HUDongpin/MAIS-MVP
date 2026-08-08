@@ -51,7 +51,7 @@ export default function Lesson() {
               </tbody>
             </table>
 
-            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 250 }} role="img" aria-label="graph of y = kx">
+            <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} style={{ maxWidth: 250 }} role="img" aria-label={`Graph of y = ${k}x: a straight line through the origin passing through (1, ${k}) and (2, ${2 * k})`}>
               {Array.from({ length: N + 1 }, (_, i) => (
                 <g key={i} stroke="var(--line)" strokeWidth={1}>
                   <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />
