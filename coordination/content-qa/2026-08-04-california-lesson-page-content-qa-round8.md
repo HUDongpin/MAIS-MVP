@@ -291,14 +291,43 @@ were to announce r and h, but both SVGs are fixed schematics whose geometry
 ignores those values — r=1,h=2 and r=6,h=8 render identical pixels. Naming
 dimensions would have described a picture that does not change.
 
-### Not done
+### The two gaps this report carried, now closed
 
-- 3 low findings were not returned by their slice and remain unexamined.
-- 13 verification agents were lost to a usage limit in the original round-8
-  workflow; those findings are unresolved, not clean.
-- Two product decisions remain with the owner: 76 `extension` blocks have no
-  renderer, and 41 elementary pages discard their authored guided practice.
+Both were things I had listed as unresolved. Checking rather than assuming
+closed both:
 
-Eight rounds, each followed by one that found more — including this round, which
+**"3 low findings were not returned by their slice."** Wrong. All 53 were
+reported on — the count difference was two files carrying two findings each.
+Verified by matching every finding's file against the workflow journal: 51
+distinct files, 0 unreported.
+
+**"13 verification agents were lost to a usage limit."** Six of the seven named
+files were re-examined by the low-backlog workflow and resolved —
+`permutations-combinations`, `multiply-divide-words`, `place-value-blocks`,
+`polynomial-operations` and `position-words` confirmed and fixed;
+`multistep-rational` refuted ("every stepper does exactly what its name says").
+
+The seventh, `multiply-divide-integers`, was never re-examined, so I checked it
+directly. The claim was that the zero-skip in `set()` makes a button move the
+value against its own name. Enumerating every reachable value in both modes:
+
+```
+enabled buttons that do nothing:                    0
+enabled buttons that move the value the WRONG way:  0
+```
+
+Refuted. The `disabled` guards (`!allowZero && value === 1` / `=== -1`) already
+prevent exactly that case, and a comment in the file says so.
+
+### Still not done
+
+- Two product decisions belong to the owner, not to QA: 76 `extension` blocks
+  have no renderer, and 41 elementary pages discard their authored guided
+  practice in favour of four canned sentences.
+- The visualization-lab alignment mismatches (`s2-chapter-01`, `s2-chapter-04`,
+  `s3-chapter-03`) are catalog-correctness issues for that owner.
+
+Every round so far has been followed by one that found more, and this round
 withdrew two of its own headline claims after measuring the render path instead
-of the seed data. Nothing here supports calling the page finished.
+of the seed data. The round-8 backlog is closed; that is not the same as the
+page being finished.
