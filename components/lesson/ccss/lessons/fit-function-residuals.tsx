@@ -16,6 +16,11 @@ export default function Lesson() {
   const [b, setB] = useState(2);
   const slope = m / 10;
 
+  // x-range over which the fitted line stays within 0 <= y <= 14.
+  const fitClip: [number, number] = (() => {
+    const xs = [(0 - b) / slope, (14 - b) / slope].sort((p, q) => p - q);
+    return [Math.max(0, xs[0]), Math.min(8, xs[1])];
+  })();
   const sx = (x: number) => Math.round((PAD + (x / 8) * (W - 2 * PAD)) * 100) / 100;
   const sy = (y: number) => Math.round((H - PAD - (y / 14) * (H - 2 * PAD)) * 100) / 100;
   const pred = (x: number) => slope * x + b;
@@ -38,7 +43,10 @@ export default function Lesson() {
             <line x1={PAD} y1={sy(0)} x2={PAD} y2={PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* residual segments */}
             {DATA.map(([x, y], i) => <line key={i} x1={sx(x)} y1={sy(y)} x2={sx(x)} y2={sy(pred(x))} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="3 2" />)}
-            <line x1={sx(0)} y1={sy(pred(0))} x2={sx(8)} y2={sy(pred(8))} stroke={ACCENT} strokeWidth={2.5} />
+            {/* pred(8) reaches 21 at slope 2.0, intercept 5, on a y-axis that
+                stops at 14 — the line ran 37px above the viewBox. Clip it to
+                the x-range where it is inside the plot. */}
+            <line x1={sx(fitClip[0])} y1={sy(pred(fitClip[0]))} x2={sx(fitClip[1])} y2={sy(pred(fitClip[1]))} stroke={ACCENT} strokeWidth={2.5} />
             {DATA.map(([x, y], i) => <circle key={i} cx={sx(x)} cy={sy(y)} r={4} fill={DOT} />)}
           </svg>
 

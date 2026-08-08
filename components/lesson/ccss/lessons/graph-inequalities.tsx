@@ -20,9 +20,19 @@ export default function Lesson() {
   const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const yAt = (x: number) => m * x + b;
 
-  // shaded polygon: region above or below the line, within box
+  // Both the boundary line and the shaded polygon used yAt(±XR) unclamped. At
+  // m = −3, b = −3 that is y = −18 on a ±5 grid — 364px outside a 352px
+  // viewBox. Clamp the boundary into the window and build the region from the
+  // clamped samples, so the shading follows the line where it is visible and
+  // runs along the edge where the line has left the box.
+  const clampY = (y: number) => Math.max(-XR, Math.min(XR, y));
+  const STEPS = 40;
+  const boundary = Array.from({ length: STEPS + 1 }, (_, i) => {
+    const x = -XR + (i / STEPS) * 2 * XR;
+    return `${sx(x)},${sy(clampY(yAt(x)))}`;
+  });
   const topEdge = above ? XR : -XR;
-  const shade = `${sx(-XR)},${sy(yAt(-XR))} ${sx(XR)},${sy(yAt(XR))} ${sx(XR)},${sy(topEdge)} ${sx(-XR)},${sy(topEdge)}`;
+  const shade = [...boundary, `${sx(XR)},${sy(topEdge)}`, `${sx(-XR)},${sy(topEdge)}`].join(" ");
 
   return (
     <div className="prose-lesson max-w-none">
@@ -54,7 +64,7 @@ export default function Lesson() {
                 polygon; clamping only the line made it miss the edge of its own
                 half-plane by up to 30px, so the boundary did not bound the region.
                 The outer svg clips the overhang, exactly as it does the polygon. */}
-            <line x1={sx(-XR)} y1={sy(yAt(-XR))} x2={sx(XR)} y2={sy(yAt(XR))} stroke={ACCENT} strokeWidth={3} />
+            <polyline points={boundary.join(" ")} fill="none" stroke={ACCENT} strokeWidth={3} />
           </svg>
 
           <p className="m-0 max-w-md text-center text-sm text-[var(--ink-soft)]">
