@@ -49,7 +49,7 @@ export default function Lesson() {
 
       <Figure caption="z and w as points. Their sum is the parallelogram diagonal; distance and midpoint work just like coordinates.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="complex plane">
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={`Complex plane showing z = ${a} ${b < 0 ? "−" : "+"} ${Math.abs(b)}i, w = ${c} ${d < 0 ? "−" : "+"} ${Math.abs(d)}i, and their sum ${sumRe} ${sumIm < 0 ? "−" : "+"} ${Math.abs(sumIm)}i`}>
             {Array.from({ length: 2 * extent + 1 }, (_, i) => {
               const v = i - R;
               return (

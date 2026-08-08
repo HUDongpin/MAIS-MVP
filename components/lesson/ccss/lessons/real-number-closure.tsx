@@ -115,8 +115,10 @@ function Picker({ label, items, colors, idx, onPick }: { label: string; items: s
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
+        {/* Both pickers render the same items; only a plain <span> above each
+            row distinguished them, and it names neither button. */}
         {items.map((it, i) => (
-          <button key={it} type="button" onClick={() => onPick(i)} className="grid h-10 min-w-10 place-items-center rounded-lg border px-2 font-mono text-lg font-black" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: colors[i] }}>{it}</button>
+          <button key={it} type="button" onClick={() => onPick(i)} aria-label={`${label}: ${it}`} aria-pressed={idx === i} className="grid h-10 min-w-10 place-items-center rounded-lg border px-2 font-mono text-lg font-black" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: colors[i] }}>{it}</button>
         ))}
       </div>
     </div>
