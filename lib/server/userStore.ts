@@ -2517,6 +2517,65 @@ const seedClassEnrollments = (now: string): ClassEnrollmentRecord[] =>
     unitedStatesDemoUserId
   });
 
+/**
+ * Demo safety alerts, so `/teacher/safety` has something to triage.
+ *
+ * Without these the page renders All/New/Acknowledged/Resolved all at (0) and the triage flow
+ * cannot be exercised at all — it is indistinguishable from a broken surface (see S11 in
+ * coordination/ff-ledger.md). One `new` flag makes acknowledge/resolve drivable; one already
+ * `acknowledged` makes the filter tabs discriminate.
+ *
+ * Gated on `shouldSeedDemoUser()` exactly like the other demo seeds: a deployment with
+ * HK_MATH_ENABLE_DEMO_USER=false must never show fabricated child-safety alerts, which would be
+ * alarming and could mask a real one.
+ *
+ * The copy is deliberately the mildest category and obviously synthetic. This is demo data in a
+ * K-12 product; it needs to exercise the workflow, not depict distress.
+ */
+export const seedContentSafetyFlags = (now: string): ContentSafetyFlagRecord[] => {
+  if (!shouldSeedDemoUser()) return [];
+  const base = {
+    student_id: demoUserId,
+    student_name: "HK Student Peter",
+    category: "harassment" as const,
+    source: "student-input" as const,
+    matched_terms: ["demo-term"],
+    page: "/practice",
+    topic_id: null,
+    lesson_slug: null,
+    language: "en",
+    blocked_reply: false,
+    resolved_by: null,
+    resolved_by_name: null,
+    resolved_at: null,
+    resolution_note: null
+  };
+  return [
+    {
+      ...base,
+      id: "safety-flag-demo-new",
+      severity: "medium",
+      status: "new",
+      excerpt: "Sample flagged message used for the safety triage demo.",
+      created_at: now,
+      acknowledged_by: null,
+      acknowledged_by_name: null,
+      acknowledged_at: null
+    },
+    {
+      ...base,
+      id: "safety-flag-demo-acknowledged",
+      severity: "medium",
+      status: "acknowledged",
+      excerpt: "Sample flagged message that a teacher has already reviewed.",
+      created_at: now,
+      acknowledged_by: demoTeacherId,
+      acknowledged_by_name: "HK Teacher Chan",
+      acknowledged_at: now
+    }
+  ];
+};
+
 const seedForumThreadRecords = (now: string): ForumThreadRecord[] =>
   seedForumThreadRecordsFromTeacherOpsForum(now, {
     shouldSeedDemoUser,
@@ -2680,7 +2739,7 @@ function createInitialDatabase(): Database {
     ai_tutor_messages: [],
     ai_tutor_usage: [],
     ai_governance_events: [],
-    content_safety_flags: [],
+    content_safety_flags: seedContentSafetyFlags(now),
     class_ai_tutor_policies: [],
     nova_lens_runs: [],
     nova_lens_policy: defaultNovaLensPolicyRecordFromNovaLensPersistence(now),
