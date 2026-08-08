@@ -53,7 +53,9 @@ try {
     "--test",
     join(outputDir, "lib/server/authRouteGuards.test.js"),
     join(outputDir, "lib/server/contentSafetySeed.test.js"),
-    join(outputDir, "lib/server/userStoreParentNoticePersistence.test.js")
+    join(outputDir, "lib/server/userStoreParentNoticePersistence.test.js"),
+    join(outputDir, "lib/server/questionStore.test.js"),
+    join(outputDir, "app/api/questions/routeQuestionStore.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {

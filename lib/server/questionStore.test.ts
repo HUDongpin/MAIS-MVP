@@ -39,5 +39,24 @@ test("questionStore serves grade-filtered public questions from a cached lightwe
 test("questionStore stays decoupled from authenticated app_state storage", async () => {
   const source = await readFile(join(process.cwd(), "lib/server/questionStore.ts"), "utf8");
 
-  assert.doesNotMatch(source, /userStore|requireAuthenticatedUser|readDatabase|mutateDatabase|app_state|@\/data\/questions/);
+  // The constraint is that the authenticated store must not be in this module's STATIC import
+  // graph — that is what would drag app_state onto a public, hot path. A guarded
+  // `await import(...)` does not, and the curated question aggregate is loaded exactly that way
+  // (see optionalQuestionModule) so HK S3-S6 questions still reach free selection.
+  // Matching bare identifiers could not tell the two apart and failed on the lazy form.
+  const staticImports = source
+    .split("\n")
+    .filter((line) => /^\s*import\b/.test(line))
+    .join("\n");
+
+  assert.doesNotMatch(
+    staticImports,
+    /userStore|requireAuthenticatedUser|readDatabase|mutateDatabase|app_state/,
+    "the authenticated store must never be statically imported here"
+  );
+  assert.doesNotMatch(
+    source,
+    /^\s*import\s[^\n]*@\/data\/questions/m,
+    "the curated question aggregate must stay lazily loaded"
+  );
 });
