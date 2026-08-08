@@ -9,11 +9,31 @@ touching none of its triangle's three sides, two triangles joined by "~" that
 were not similar, a "curved, nonlinear path" drawn as four straight segments.
 Round 6 found those by reading files one at a time. Round 9 partitions the class.
 
-## Partition
+## Partition — and a correction to it
 
-All 270 lessons were scanned for the shape that produces this defect: SVG
-geometry from literal coordinates (`points="..."`, `cx={40}`, `d="M ..."`)
-alongside prose asserting a measurable relation. **26 candidates**, all measured.
+All 270 lessons were scanned for SVG geometry from literal coordinates alongside
+prose asserting a measurable relation. That scan returned **26 candidates**, all
+measured, and this report originally described that as the population.
+
+**It was a sample.** The scan tested only two patterns — `points="..."` /
+`d="M ..."` and two-or-more fixed `<circle cx={…}>`. A broader net (fixed
+coordinates on *any* shape element: `rect x/y`, `line x1/y1`, single circles,
+ellipses) finds **48** files. Round 9 measured 26 and skipped 22:
+
+```
+absolute-value          approximate-irrationals   area-perimeter-formulas
+area-triangles          circle-pi                 count-on-count-back
+data-displays           equivalent-fractions      estimate-population
+inequalities            length-number-line        mean-median
+negative-numbers        partition-equal-areas     perimeter
+round-decimals          rounding-multidigit       rounding
+scale-drawings          vector-operations         vectors
+volume-3d
+```
+
+This is the same error rounds 3, 5 and 8 made and this effort keeps documenting:
+a heuristic selection reported as a partition. The 22 are being measured as
+round 9b; until they are, round 9's coverage claim is 26/48, not 26/26.
 
 Each candidate finding then went to **two independent skeptics** — one
 recomputing the geometry from the file itself, one checking the proposed fix
