@@ -731,6 +731,33 @@ section that exists.
 An effect-asserting test should assert the **scroll target**, not that the button is clickable —
 clickability is exactly what made this look healthy for four iterations.
 
+#### D-11 UPDATE 2026-08-08 — the fix helped but did NOT eliminate the failure
+
+The rate-limit override is on main and correctly wired
+(`HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400` in `playwright.config.ts`,
+`loginIdentifier: { max: loginIdentifierMaxFromEnv() }`), and yet
+`parent-console.spec.ts:360` failed again with the identical signature —
+`helpers.ts:173`, stuck at `/login`, 18–19 polls.
+
+**It is a flake, proven on one commit:** branch `docs/ff-ledger-d12` produced a **success at
+05:47** and a **failure at 05:48** from the same tree (the `push` and `pull_request` runs). A
+docs-only markdown change cannot cause or fix this.
+
+So the earlier conclusion needs correcting: **the login rate limit was an amplifier, not the root
+cause.** Exhausting it turned an occasional flake into a hard, confusing failure, and removing
+that amplifier made failures rarer — recent history is overwhelmingly green — but something
+underneath still intermittently prevents the login redirect.
+
+**Do not treat D-11 as closed.** Remaining suspects, in the order worth checking:
+1. the hydration gate — `handleSubmit` returns early while `!isHydrated`, so a click landing
+   before hydration is swallowed with no feedback (the spec clicks as soon as the button exists);
+2. first-request compilation/cold-start latency on the e2e server, which has produced
+   `000` statuses and a 0-byte response elsewhere in this ledger;
+3. residual per-IP limiting (`loginIp` max 300) if runs overlap.
+
+The cheapest next probe is (1): assert the submit button is enabled *and* no longer reads
+"Preparing secure login" before clicking, then see whether the flake disappears.
+
 ### D-11 — degraded (test reliability) — the parent auth-boundary e2e fails on a cold database
 **Status: FIX OPEN in PR #101** (2026-08-04, at the owner's direction — option (c), the env-gated
 override). `HK_MATH_E2E_LOGIN_IDENTIFIER_MAX` is read only by `loginIdentifierMaxFromEnv()` and
