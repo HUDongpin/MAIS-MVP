@@ -1987,13 +1987,19 @@ export default function PracticePage() {
   }, []);
 
   const handleAdventureStartMission = useCallback(() => {
-    if (shouldShowFreeSelection) {
-      if (topicFilter === "all" && firstQuestionCatalogTopicId) setTopicFilter(firstQuestionCatalogTopicId);
-      scrollToPracticeSection("free-selection");
-      return;
+    if (shouldShowFreeSelection && topicFilter === "all" && firstQuestionCatalogTopicId) {
+      setTopicFilter(firstQuestionCatalogTopicId);
     }
 
-    scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection");
+    // "free-selection" is a PracticeSummaryMode, never a rendered element id, and
+    // scrollToPracticeSection silently skips targets it cannot find — so passing it alone made
+    // this button run and scroll nowhere. Every sibling call site already supplies
+    // "mission-setup-filters" as a fallback; this one did not.
+    scrollToPracticeSection(
+      shouldShowFreeSelection || !adaptivePlan ? "free-selection" : "adaptive-practice-round",
+      "adaptive-practice-round",
+      "mission-setup-filters"
+    );
   }, [adaptivePlan, firstQuestionCatalogTopicId, scrollToPracticeSection, shouldShowFreeSelection, topicFilter]);
 
   const islandStarTotal = practiceIslandStarTotal(islandStars);

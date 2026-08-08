@@ -272,3 +272,43 @@ test("Practice Arena stores completed round questions with the Adventure Island 
     /roundQuestions:\s*summary\.results\.map\(\(result\) => result\.question\)/
   );
 });
+
+/**
+ * D-12: "Start Mission" ran its handler and scrolled nowhere. It passed only "free-selection" to
+ * scrollToPracticeSection, which resolves ids with getElementById and silently skips misses —
+ * and "free-selection" is a PracticeSummaryMode, never a rendered element id.
+ *
+ * Asserts the SCROLL TARGETS, not that the button exists. The button always existed and always
+ * took the click; that is exactly why the defect survived four drives.
+ */
+test("Start Mission scrolls to a section that is actually rendered", () => {
+  const handler = practicePageSource.slice(
+    practicePageSource.indexOf("const handleAdventureStartMission")
+  ).slice(0, 900);
+
+  assert.doesNotMatch(
+    handler,
+    /scrollToPracticeSection\(\s*"free-selection"\s*\)/,
+    "passing only the never-rendered id is the D-12 regression"
+  );
+  assert.match(
+    handler,
+    /"adaptive-practice-round"/,
+    "must fall back to a section that renders"
+  );
+  assert.match(
+    handler,
+    /"mission-setup-filters"/,
+    "must use the same final fallback as every sibling scrollToPracticeSection call"
+  );
+});
+
+test("the fallback ids used by Start Mission are rendered on the page", () => {
+  for (const id of ["adaptive-practice-round", "mission-setup-filters"]) {
+    assert.match(
+      practicePageSource,
+      new RegExp(`id="${id}"`),
+      `${id} must exist as a real element id, or the fallback is decorative`
+    );
+  }
+});
