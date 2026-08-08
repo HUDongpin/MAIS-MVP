@@ -59,10 +59,10 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">x = {x}</span>
-              <input type="range" min={0} max={10} value={x} onChange={(e) => setX(Number(e.target.value))} className="w-44 accent-[var(--band-middle)]" aria-label="x" />
+              <input type="range" min={0} max={10} value={x} onChange={(e) => setX(Number(e.target.value))} className="w-44 accent-[var(--band-middle)]" aria-label="value of x" />
             </div>
-            <Stepper label={mode === "dist" ? "a" : "first coef"} value={a} onChange={setA} />
-            <Stepper label={mode === "dist" ? "b" : "second coef"} value={b} onChange={setB} />
+            <Stepper label={mode === "dist" ? "a" : "first coefficient"} value={a} onChange={setA} />
+            <Stepper label={mode === "dist" ? "b" : "second coefficient"} value={b} onChange={setB} />
           </div>
         </div>
       </Figure>

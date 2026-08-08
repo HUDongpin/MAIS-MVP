@@ -34,7 +34,7 @@ export default function Lesson() {
       {/* k reaches 0.5 and 1, where "stretches" is false. */}
       <Figure caption={`Dilating from the origin by k ${scale > 1 ? "enlarges the triangle" : scale < 1 ? "shrinks the triangle" : "leaves the triangle unchanged"}; each side scales by k, angles stay equal.`}>
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="dilation from the origin">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Triangle dilated from the origin by scale factor ${scale}, ${scale > 1 ? "larger than" : scale < 1 ? "smaller than" : "the same size as"} the dashed original`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />
@@ -55,7 +55,9 @@ export default function Lesson() {
             <span className="ml-2 text-xs text-[var(--ink-faint)]">lengths ×{scale}, angles unchanged</span>
           </div>
 
-          <Stepper label="scale ×0.5" value={k} min={1} max={4} onChange={setK} display={scale} />
+          {/* "scale ×0.5" read as a multiplicative step; the control moves the scale
+              factor additively, 0.5 at a time. */}
+          <Stepper label="scale factor, in steps of 0.5" value={k} min={1} max={4} onChange={setK} display={scale} />
         </div>
       </Figure>
 

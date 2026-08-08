@@ -50,7 +50,7 @@ export default function Lesson() {
 
       <Figure caption="Halves, thirds, or fourths — every piece is an equal share of the whole.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="170" height="170" viewBox="0 0 170 170" role="img" aria-label={`${shape} in ${parts} equal ${WORD[parts]}`}>
+          <svg width="170" height="170" viewBox="0 0 170 170" role="img" aria-label={`${shape === "circle" ? "A circle" : "A rectangle"} split into ${parts} equal ${WORD[parts]}`}>
             {shape === "circle" ? <Pie parts={parts} /> : <RectStrips parts={parts} vertical={vertical} />}
           </svg>
 

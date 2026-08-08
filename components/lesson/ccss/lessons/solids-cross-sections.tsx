@@ -40,7 +40,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={160} height={140} viewBox="0 0 160 140" role="img" aria-label={c.result}>
+          <svg width={160} height={140} viewBox="0 0 160 140" role="img" aria-label={`${c.name}: the cross-section drawn is ${c.shape === "hex" ? "a hexagon" : `a ${c.result}`}`}>
             {c.shape === "square" && <rect x={45} y={35} width={70} height={70} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />}
             {c.shape === "rect" && <rect x={35} y={30} width={90} height={80} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />}
             {c.shape === "circle" && <circle cx={80} cy={70} r={42} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2.5} />}

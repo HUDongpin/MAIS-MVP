@@ -22,7 +22,7 @@ export default function Lesson() {
 
       <Figure caption="Change the color, size, and direction all you like — it is still a triangle.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="180" height="180" viewBox="0 0 180 180" role="img" aria-label="a triangle">
+          <svg width="180" height="180" viewBox="0 0 180 180" role="img" aria-label={`A triangle, rotated ${rot} degrees and scaled to ${scale}× — still a triangle with 3 straight sides`}>
             {/* One centring mechanism, not two. The SVG transform attribute
                 already rotates about (90,90), and the CSS transform-origin was
                 applied on top of it, so the shape actually rotated about
@@ -54,7 +54,7 @@ export default function Lesson() {
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">color</span>
               <div className="flex gap-1.5">
                 {COLORS.map((c, i) => (
-                  <button key={c} type="button" onClick={() => setCi(i)} className="h-7 w-7 rounded-full border-2" style={{ background: c, borderColor: i === ci ? "var(--ink)" : "transparent" }} aria-label={`color ${i + 1}`} />
+                  <button key={c} type="button" onClick={() => setCi(i)} className="h-7 w-7 rounded-full border-2" style={{ background: c, borderColor: i === ci ? "var(--ink)" : "transparent" }} aria-label={`Colour swatch ${i + 1} of ${COLORS.length} — colour is not a defining attribute`} aria-pressed={i === ci} />
                 ))}
               </div>
             </div>

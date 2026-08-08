@@ -38,7 +38,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`${mode} plot`}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={mode === "dot" ? "dot plot" : mode === "histogram" ? "histogram" : "box plot"}>
             <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             {Array.from({ length: 11 }, (_, i) => i + 2).map((v) => (
               <text key={v} x={sx(v)} y={H - PAD + 15} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{v}</text>

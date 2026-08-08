@@ -37,7 +37,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`scatter ${s.name}`}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`Scatter plot with ${s.name === "none" ? "no correlation" : `${s.name.replace("+", "positive").replace("−", "negative")} correlation`}, r = ${s.r}`}>
             <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PAD} y1={H - PAD} x2={PAD} y2={PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             {s.pts.map(([x, y], i) => <circle key={i} cx={sx(x)} cy={sy(y)} r={5} fill={ACCENT} />)}
