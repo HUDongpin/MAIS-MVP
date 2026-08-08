@@ -120,11 +120,73 @@ audit:us-ca-lesson-page-runtime   76 pages, both extremes — clean
 audit:us-ca-lesson-label-motion   76/76 inspected — clean
 ```
 
+## Round 9b — the 22 files the partition had skipped
+
+Measuring them found **5 more defects, two of them high severity**. The skipped
+half was not the safe half.
+
+- **`length-number-line`** draws its arrow from `min(start,end)` to
+  `max(start,end)`, so in Subtract mode the arrowhead sits on the **starting**
+  point, pointing right — away from the answer — under a caption reading *"The
+  arrow is the length you add or subtract. Where it lands is the answer."*
+- **`vector-operations`** is captioned *"subtract by adding the opposite"* and
+  never drew the opposite: in Subtract mode it drew +v from the origin at full
+  strength **and again faded**, while −v appeared nowhere. With u = (4,2),
+  v = (−1,3) the second arrow now renders (1,−3) = −v exactly.
+- **`data-displays`** clipped its last histogram bar to 55px against its
+  siblings' 76px — the 15–17 bin **27.6% narrower** in a display whose premise is
+  equal-width intervals.
+- **`count-on-count-back`** never re-clamped `start` on an operation switch, so
+  start = 20 in Add mode drew **zero hop arcs while the Jumps stepper read 1**,
+  both its buttons disabled, beside a caption telling the child to count the
+  hops. All 42 (op, start) states now leave jumpMax ≥ 1.
+- **`vector-operations`** claimed *"k = 1 makes a longer arrow"* at a length
+  ratio of exactly 1.000.
+
+## The second gate: does anything draw outside its own viewBox?
+
+`audit:us-ca-lesson-figure-bounds` drives every control to both extremes and
+measures each element's box against its SVG viewBox. Five defects, all the same
+shape — a line drawn across the full domain with nothing tying it to the visible
+range:
+
+| Lesson | State | Outside |
+|---|---|---|
+| `inverse-functions` | m = 4, b = 4 → f(6) = 28 on a ±6 grid | **502px** of a 340px box |
+| `coordinate-proofs` | m = 4 → y = ±24 on a ±6 grid | **374px** of a 308px box |
+| `graph-inequalities` | m = −3, b = −3 → y = −18 on a ±5 grid | **364px** of a 352px box |
+| `fit-function-residuals` | slope 2.0, b 5 → y = 21 on a 14 axis | **37px** of a 210px box |
+| `complex-plane` | grid loop offset left at `R` while its length grew to `extent` | **44px** of a 332px box |
+
+Every fix verified by enumerating the full state space — 36, 4, 63, 78 and 14,641
+states respectively — all now 0.00px.
+
+## Two things I got wrong, and how
+
+**The gate reported false positives.** `getBBox()` returns an element's box in its
+*own* coordinate system and ignores ancestor transforms.
+`fractions-number-line` draws its marker inside `<g transform="translate(…)">`,
+so three elements read as up to 62px outside when all sit comfortably inside.
+Three of the first sweep's ten findings were that artifact. The gate now maps
+each box through `root.inverse() × own`. Verified both directions: the artifacts
+are gone, and reverting the two real fixes makes it report 502px and 374px again.
+
+**The gate undercounts.** It reported `graph-inequalities` at **4px** and
+`fit-function-residuals` at **17px**; the true worst cases are **364px** and
+**37px**. It drives each control to one extreme independently, so it lands on
+whatever combination that yields, not the worst one. It is reliable for *"something
+here escapes"* and useless as a measure of *how far*. The 4px reading was one
+pixel above my noise threshold and nearly got dismissed.
+
+**And one fix was half a fix.** Clipping `fit-function-residuals`' fitted line
+left its residual segments on the same unclamped `pred(x)`, so they escaped
+exactly when the line would have. The gate caught it on the next sweep.
+
 ## Still open
 
-- 26 of 270 lessons draw hard-coded geometry; the other 244 compute their
-  coordinates and were not measured by this lens. A computed figure can still be
-  wrong — round 6's `proportional-relationships` clamped its own line into
-  y = x — but it fails differently, and the runtime gates cover more of it.
+- 48 of 270 lessons draw fixed geometry and were measured by the first lens. The
+  other 222 compute their coordinates; the bounds gate covers the escape class
+  across all of them, but no lens has checked whether a *computed* figure has the
+  property its text claims.
 - The two product decisions remain with the owner: 76 `extension` blocks have no
   renderer, and 41 elementary pages discard their authored guided practice.
