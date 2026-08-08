@@ -96,6 +96,14 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   reactStrictMode: true,
   skipMiddlewareUrlNormalize: true,
+  // `ws` (AI Tutor voice + speech realtime routes) probes for the optional
+  // native `bufferutil` addon inside a try/catch. Bundling resolves that
+  // require to an empty module instead of throwing, so ws installs a masking
+  // path that calls `bufferUtil.mask` for frames >= 48 bytes and dies with
+  // "bufferUtil.mask is not a function" — thrown from inside ws's own 'open'
+  // handler, so the caller just hangs until its timeout. Loading ws from
+  // node_modules at runtime restores the pure-JS fallback.
+  serverExternalPackages: ["ws"],
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
   async redirects() {
     return [

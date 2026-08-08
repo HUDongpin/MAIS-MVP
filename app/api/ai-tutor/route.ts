@@ -1,8 +1,14 @@
 export const runtime = "edge";
 
-const defaultTotalDeadlineMs = 8_000;
-const defaultEdgeResponseReserveMs = 3_500;
+// Mirrors the resolver's own budget (app/api/ai-tutor/resolve/route.ts). Both
+// read AI_TUTOR_TOTAL_DEADLINE_MS, so the defaults have to agree or this edge
+// wrapper silently caps a resolver that was configured for longer.
+const defaultTotalDeadlineMs = 12_000;
+const defaultEdgeResponseGraceMs = 2_500;
 const maxTotalDeadlineMs = 12_000;
+// Kept in step with visionTotalDeadlineMs in the resolver: a turn with an image
+// grants itself a wider budget there, and this wrapper must outlast it.
+const visionTotalDeadlineMs = 18_000;
 
 function boundedNumber(value: string | undefined, fallback: number, min: number, max: number) {
   const parsed = Number(value);
@@ -14,9 +20,13 @@ function resolveAITutorTotalDeadlineMs(value: string | undefined) {
   return boundedNumber(value, defaultTotalDeadlineMs, 2_000, maxTotalDeadlineMs);
 }
 
+// This deadline is a backstop for a resolver that never answers at all, so it
+// has to sit *above* the resolver's budget. Subtracting a reserve instead left
+// a 4.5s window against a 10s resolver, which pre-empted every live reply with
+// the deadline fallback before the provider could return.
 function resolveAITutorEdgeDeadlineMs(totalDeadlineMs: number, value: string | undefined) {
-  const reserveMs = boundedNumber(value, defaultEdgeResponseReserveMs, 0, 5_000);
-  return Math.max(1_000, totalDeadlineMs - reserveMs);
+  const graceMs = boundedNumber(value, defaultEdgeResponseGraceMs, 500, 5_000);
+  return Math.max(totalDeadlineMs, visionTotalDeadlineMs) + graceMs;
 }
 
 function buildDeadlineTutorFallbackBody() {
@@ -140,11 +150,15 @@ function safeResolverBody(response: Response, body: unknown) {
   };
 }
 
-async function fetchResolver(request: Request, bodyText: string, signal: AbortSignal) {
+// Must stay bytes, never a string. Image attachments arrive as multipart bodies
+// with raw PNG/JPEG bytes in them; reading those with request.text() UTF-8
+// decodes the binary and replaces every invalid sequence with U+FFFD, so the
+// resolver rebuilt a corrupt data URL and the vision provider rejected it.
+async function fetchResolver(request: Request, body: ArrayBuffer, signal: AbortSignal) {
   return fetch(resolverUrl(request), {
     method: "POST",
     headers: resolverHeaders(request),
-    body: bodyText,
+    body,
     cache: "no-store",
     signal
   });
@@ -210,8 +224,8 @@ function streamAITutorPost(request: Request) {
       hardDeadline = setTimeout(sendDeadlineFallback, edgeDeadlineMs);
 
       try {
-        const bodyText = await request.text();
-        const response = await fetchResolver(request, bodyText, abortController.signal);
+        const requestBody = await request.arrayBuffer();
+        const response = await fetchResolver(request, requestBody, abortController.signal);
         if (closed) return;
 
         const resolved = safeResolverBody(response, await readResolverJson(response));
@@ -287,8 +301,8 @@ export async function POST(request: Request) {
   const hardDeadline = setTimeout(() => abortController.abort(), edgeDeadlineMs);
 
   try {
-    const bodyText = await request.text();
-    const response = await fetchResolver(request, bodyText, abortController.signal);
+    const requestBody = await request.arrayBuffer();
+    const response = await fetchResolver(request, requestBody, abortController.signal);
     const resolved = safeResolverBody(response, await readResolverJson(response));
     return jsonResponse(resolved.body, {
       headers: resolved.headers,

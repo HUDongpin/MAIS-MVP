@@ -6,6 +6,7 @@ import {
   createLLMProviderCircuitBreaker,
   extractLLMProviderReply,
   extractLLMProviderUsage,
+  normalizeEscapedProviderNewlines,
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
   readLLMProviderConfig,
@@ -205,6 +206,32 @@ test("Qwen request body uses DashScope chat-completion limits", () => {
   assert.equal("max_completion_tokens" in body, false);
 });
 
+test("Qwen request body disables DashScope thinking at the top level", () => {
+  const body = buildLLMProviderRequestBody({
+    model: "qwen3.7-max",
+    messages,
+    maxTokens: 400,
+    provider: "qwen"
+  }) as Record<string, unknown>;
+
+  // Qwen3 chat models think by default and overrun every tutor deadline.
+  // DashScope only honours this as a top-level field over plain HTTP, so an
+  // `extra_body`-nested flag here would be silently ignored.
+  assert.equal(body.enable_thinking, false);
+  assert.equal("extra_body" in body, false);
+});
+
+test("deepinfra request body leaves the Qwen thinking flag off the wire", () => {
+  const body = buildLLMProviderRequestBody({
+    model: "Qwen/Qwen3-VL-30B-A3B-Instruct",
+    messages,
+    maxTokens: 450,
+    provider: "deepinfra"
+  }) as Record<string, unknown>;
+
+  assert.equal("enable_thinking" in body, false);
+});
+
 test("provider timeout keeps AI Tutor below the serverless hard timeout edge", () => {
   assert.equal(resolveLLMProviderTimeoutMs(undefined), 8_000);
   assert.equal(resolveLLMProviderTimeoutMs("60000"), 12_000);
@@ -213,10 +240,14 @@ test("provider timeout keeps AI Tutor below the serverless hard timeout edge", (
 });
 
 test("AI Tutor text provider timeout preserves the Qwen-only deadline cap", () => {
-  assert.equal(resolveAITutorProviderTimeoutMs(undefined), 8_000);
+  // The default is the cap: the resolver clamps every attempt to the budget it
+  // actually has left, so a smaller default here only aborts live turns early.
+  assert.equal(resolveAITutorProviderTimeoutMs(undefined), 12_000);
   assert.equal(resolveAITutorProviderTimeoutMs("60000"), 12_000);
   assert.equal(resolveAITutorProviderTimeoutMs("50"), 250);
-  assert.equal(resolveAITutorProviderTimeoutMs("not-a-number"), 8_000);
+  assert.equal(resolveAITutorProviderTimeoutMs("not-a-number"), 12_000);
+  // Still never above the cap the serverless hard timeout allows.
+  assert.equal(resolveAITutorProviderTimeoutMs(undefined) <= 12_000, true);
 });
 
 test("DeepSeek resolved-IP transport preserves HTTPS server name and host metadata", () => {
@@ -364,4 +395,31 @@ test("deepinfra request body uses openai-compatible max_tokens without thinking 
   assert.equal(body.max_tokens, 450);
   assert.equal(body.stream, false);
   assert.equal("thinking" in body, false);
+});
+
+test("escaped provider newlines become real breaks without eating LaTeX macros", () => {
+  assert.equal(
+    normalizeEscapedProviderNewlines("First line.\\n\\nSecond line."),
+    "First line.\n\nSecond line."
+  );
+  assert.equal(
+    normalizeEscapedProviderNewlines("Answer?\\n- one step"),
+    "Answer?\n- one step"
+  );
+  assert.equal(
+    normalizeEscapedProviderNewlines("true?\\n\\nTry testing with"),
+    "true?\n\nTry testing with"
+  );
+
+  // Every LaTeX control word beginning with \n continues with a lowercase
+  // letter, so none of these may be rewritten.
+  const latex = "$a \\neq b$, $x \\nu$, $\\nabla f$, $A \\notin B$, $\\ngeq$";
+  assert.equal(normalizeEscapedProviderNewlines(latex), latex);
+  assert.equal(
+    normalizeEscapedProviderNewlines("$A \\subseteq B$\\n\\nSo $A \\neq B$."),
+    "$A \\subseteq B$\n\nSo $A \\neq B$."
+  );
+
+  // A reply that already uses real newlines is left exactly as it is.
+  assert.equal(normalizeEscapedProviderNewlines("Real\n\nbreaks"), "Real\n\nbreaks");
 });

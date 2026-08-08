@@ -57,6 +57,7 @@ import {
   extractLLMProviderReply,
   extractLLMProviderUsage,
   fetchLLMProviderResponse,
+  normalizeEscapedProviderNewlines,
   readAITutorProviderProfile,
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
@@ -196,8 +197,18 @@ const defaultMaxCompletionTokens = 450;
 const maxCompletionTokens = 600;
 const defaultDatabaseContextTimeoutMs = 1_500;
 const defaultQuotaLookupTimeoutMs = 1_000;
-const defaultTotalDeadlineMs = 10_000;
+// 12s is the documented p99 tutor latency SLA (AI_TUTOR_LIVE_TEXT_P99_LATENCY_MS).
+// A 10s default spent that budget on a fallback while the live Qwen reply was
+// still in flight, so the default now uses the whole SLA window; the typical
+// turn still lands around 6s, inside the p95 target.
+const defaultTotalDeadlineMs = 12_000;
 const maxTotalDeadlineMs = 12_000;
+// A turn carrying an image pays for the upload, the base64 data URL, and a
+// slower vision decode on the provider side. Measured end to end that lands
+// around 7-10s against ~5-6s for a text turn, which overran the text budget
+// every time and answered with a fallback instead of reading the photo.
+const visionTotalDeadlineMs = 18_000;
+const visionProviderTimeoutMs = 14_000;
 const providerAttemptReserveMs = 350;
 const retryMinimumRemainingMs = 900;
 const tutorTokenQuotaWindowMs = 5 * 60 * 60 * 1000;
@@ -504,6 +515,16 @@ function resolveAITutorTotalDeadlineMs(value: string | undefined) {
   return boundedNumber(value, defaultTotalDeadlineMs, 2_000, maxTotalDeadlineMs);
 }
 
+// Outer guard against a handler that never settles at all. It has to clear the
+// widest budget the handler can grant itself, or a vision turn gets cut off by
+// the very backstop that is supposed to be unreachable on a healthy request.
+function outerAITutorDeadlineMs() {
+  return Math.max(
+    resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS),
+    visionTotalDeadlineMs
+  );
+}
+
 function resolveAITutorLatencyAlertP95Ms(value: string | undefined) {
   return boundedNumber(value, 12_000, 1_000, 60_000);
 }
@@ -644,7 +665,7 @@ function buildSensitiveRequestReply(language: string, input: string) {
 function sanitizeTutorReplyForSensitiveEcho(reply: string, language: string, input: string) {
   const sanitized = sensitiveReplyReplacements.reduce(
     (current, [pattern, replacement]) => current.replace(pattern, replacement),
-    reply
+    normalizeEscapedProviderNewlines(reply)
   ).trim();
 
   if (sanitized && !sensitiveReplyPattern.test(sanitized)) return sanitized;
@@ -1888,7 +1909,9 @@ async function handleAITutorPost(
 ) {
   const requestStartedAt = options.startedAt ?? Date.now();
   const primaryProviderConfig = readProviderConfig();
-  const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
+  // Reassigned once attachments are known: remainingMs() reads this on every
+  // call, so widening it for a vision turn extends the live budget in place.
+  let totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
   const stageTimings: AITutorStageTimings = {};
   let latencyLogged = false;
   let finalProviderConfig: ProviderConfig | undefined;
@@ -2420,7 +2443,11 @@ async function handleAITutorPost(
   });
 
   const providerSelection = resolveProviderConfigForRequest(primaryProviderConfig, attachments);
-  const providerCandidates = providerSelection.usesVisionProvider || hasReadableImageAttachment(attachments)
+  const usesVisionInput = providerSelection.usesVisionProvider || hasReadableImageAttachment(attachments);
+  if (usesVisionInput) {
+    totalDeadlineMs = Math.max(totalDeadlineMs, visionTotalDeadlineMs);
+  }
+  const providerCandidates = usesVisionInput
     ? [providerSelection.config]
     : buildTextProviderCandidates(primaryProviderConfig);
   const firstProviderConfig = providerSelection.config;
@@ -2531,7 +2558,9 @@ async function handleAITutorPost(
   )
     ? Math.max(baseMaxTokens, maxCompletionTokens)
     : baseMaxTokens;
-  const providerTimeoutMs = resolveAITutorProviderTimeoutMs(process.env.AI_TUTOR_PROVIDER_TIMEOUT_MS);
+  const providerTimeoutMs = usesVisionInput
+    ? Math.max(resolveAITutorProviderTimeoutMs(process.env.AI_TUTOR_PROVIDER_TIMEOUT_MS), visionProviderTimeoutMs)
+    : resolveAITutorProviderTimeoutMs(process.env.AI_TUTOR_PROVIDER_TIMEOUT_MS);
 
   function remainingAttemptTimeoutMs(baseTimeoutMs: number) {
     const availableMs = remainingMs() - providerAttemptReserveMs;
@@ -3132,7 +3161,7 @@ async function handleAITutorPost(
 function streamAITutorPost(request: Request) {
   const encoder = new TextEncoder();
   const startedAt = Date.now();
-  const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
+  const totalDeadlineMs = outerAITutorDeadlineMs();
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       let closed = false;
@@ -3216,7 +3245,7 @@ export async function POST(request: Request) {
   }
 
   const startedAt = Date.now();
-  const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
+  const totalDeadlineMs = outerAITutorDeadlineMs();
   let hardDeadline: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([

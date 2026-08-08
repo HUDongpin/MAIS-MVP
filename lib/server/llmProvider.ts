@@ -99,8 +99,13 @@ export function resolveLLMProviderTimeoutMs(value: string | undefined, fallback 
   return boundedLLMNumber(value, fallback, 250, max);
 }
 
+// Defaults to the cap rather than a smaller sub-budget: the resolver already
+// clamps every attempt to the deadline it has left (remainingAttemptTimeoutMs),
+// so a lower value here only forfeits headroom the request was entitled to. An
+// 8s default aborted live Qwen turns that were still 1-2s from returning while
+// the 12s total budget sat unused. 12s is the documented p99 tutor SLA.
 export function resolveAITutorProviderTimeoutMs(value: string | undefined) {
-  return resolveLLMProviderTimeoutMs(value, 8_000, 12_000);
+  return resolveLLMProviderTimeoutMs(value, 12_000, 12_000);
 }
 
 export function resolveLLMMaxCompletionTokens(value: string | undefined, fallback = 450, max = 600) {
@@ -573,7 +578,24 @@ export function buildLLMProviderRequestBody({
     };
   }
 
-  if (provider === "qwen" || provider === "deepinfra") {
+  if (provider === "qwen") {
+    return {
+      model,
+      messages,
+      ...structuredOutput,
+      // Qwen3 chat models think by default on DashScope, which pushes even a
+      // trivial turn past every AI Tutor deadline (measured ~17-26s with
+      // thinking on vs ~5-6s off) and burns the token budget on
+      // reasoning_content the UI never renders. DashScope only accepts this as
+      // a top-level field on the OpenAI-compatible endpoint — `extra_body`
+      // nesting is an SDK convention and is silently ignored over plain HTTP.
+      enable_thinking: false,
+      stream: false,
+      max_tokens: maxTokens
+    };
+  }
+
+  if (provider === "deepinfra") {
     return {
       model,
       messages,
@@ -612,6 +634,17 @@ export function extractLLMTextContent(content: unknown): string {
   }
 
   return "";
+}
+
+// Qwen intermittently emits the two characters `\` + `n` where it means a line
+// break, so roughly a third of tutor replies render as one run-on paragraph
+// with visible "\n\n" in it. Unescaping blindly would wreck the LaTeX in the
+// same reply — `\neq`, `\nu`, `\nabla`, `\newline` all start with `\n`. Every
+// real macro continues with a lowercase letter, so only a `\n` followed by
+// something else (another backslash, punctuation, a capital, a space, the end)
+// is a line break the model failed to encode.
+export function normalizeEscapedProviderNewlines(reply: string) {
+  return reply.replace(/\\n(?![a-z])/g, "\n");
 }
 
 export function extractLLMProviderReply(value: unknown) {

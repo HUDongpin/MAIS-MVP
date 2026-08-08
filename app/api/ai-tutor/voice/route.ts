@@ -179,7 +179,13 @@ async function synthesizeQwenRealtimeVoice({
         return;
       }
 
-      socket.send(JSON.stringify(value));
+      // ws throws synchronously from inside its own event handlers, which would
+      // escape this promise and hang the request until the timeout fires.
+      try {
+        socket.send(JSON.stringify(value));
+      } catch (error) {
+        settleWithError(error instanceof Error ? error : new Error("qwen-realtime-send-failed"));
+      }
     }
 
     socket.on("open", () => {
@@ -327,7 +333,12 @@ export async function POST(request: Request) {
         "X-AI-Tutor-Voice-Model": providerConfig.model
       }
     });
-  } catch {
+  } catch (error) {
+    console.error("AI Tutor voice provider error", {
+      provider: "qwen",
+      model: providerConfig.model,
+      reason: error instanceof Error ? error.message : typeof error
+    });
     return NextResponse.json({ error: "AI Tutor voice playback is temporarily unavailable." }, { status: 502 });
   }
 }
