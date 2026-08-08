@@ -5,6 +5,7 @@ import test from "node:test";
 
 const practicePageSource = readFileSync(join(process.cwd(), "app/practice/page.tsx"), "utf8");
 const practiceQuestionCardSource = readFileSync(join(process.cwd(), "components/practice/PracticeQuestionCard.tsx"), "utf8");
+const practiceQuestPagerSource = readFileSync(join(process.cwd(), "components/practice/PracticeQuestPager.tsx"), "utf8");
 
 test("Practice Arena omits the California beta status summary panel", () => {
   assert.doesNotMatch(practicePageSource, /CaliforniaPracticeBetaPanel/);
@@ -145,9 +146,14 @@ test("Practice Arena wires island region selection into the mission flow", () =>
 });
 
 test("Practice Arena renders the mission trail with tappable stepping stones", () => {
-  assert.match(practicePageSource, /data-testid="mission-trail"/);
-  assert.match(practicePageSource, /aria-current=\{isCurrentStone \? "step" : undefined\}/);
-  assert.match(practicePageSource, /onClick=\{\(\) => goToIndex\(index\)\}/);
+  // The trail moved into components/practice/PracticeQuestPager.tsx, and the page now passes its
+  // test id as a prop. The behaviour this guards is unchanged — verified at runtime, where the
+  // active stone carries aria-current="step" and its siblings do not — so the assertions follow
+  // the markup rather than the page keeping it inline.
+  assert.match(practicePageSource, /testId="mission-trail"/, "the page must still name the trail");
+  assert.match(practiceQuestPagerSource, /data-testid=\{testId\}/);
+  assert.match(practiceQuestPagerSource, /aria-current=\{isCurrentStone \? "step" : undefined\}/);
+  assert.match(practiceQuestPagerSource, /onClick=\{\(\) => onSelect\(index\)\}/);
   assert.doesNotMatch(
     practicePageSource,
     /bg-gradient-to-r from-emerald-400 via-sky-400 to-blue-500/,
