@@ -22,7 +22,7 @@ Personas (seeded, pwd `12345`): `HK Student Peter` (student-peter),
 |---|---|---|---|---|---|---|
 | S01 auth-student-core | /login, /dashboard (incl. logout, bad-password path) | HK Student Peter | **1 P0 + 1 degraded (fixed) + 1 env-only** | 2026-08-03 | 52d1a1b53c | 31 controls on /login, ~50 on /dashboard driven; D-03 fixed in PR #95; D-01/D-02 open |
 | S02 student-progress | /progress, /learning-path, /personalized-learning, /adaptive-learning | HK Student Peter | **clean** | 2026-08-03 | 8ade04f784 | no defects; 2 routes are legacy aliases |
-| S03 lesson-surfaces | /lesson, /lesson/[slug], /student/lessons/* (incl. CA textbooks) | HK Student Peter | **partial — routing + answer chain clean** | 2026-08-03 | 2263f6ebf6 | section nav unverifiable (pane scroll); see S03 notes |
+| S03 lesson-surfaces | /lesson, /lesson/[slug], /student/lessons/* (incl. CA textbooks) | HK Student Peter | **clean** | 2026-08-08 | 6888427830 | section buttons verified by scroll interception |
 | S04 practice-games | /practice, /mistake-book, /games/*, /student/practice/games/* | HK Student Peter | **clean** (re-driven 2026-08-04) | 2026-08-04 | 2263f6ebf6 | UI answer flow verified; only "Start Mission" still unverifiable |
 | S05 roadmaps | /primary-roadmap, /secondary-roadmap, /student/roadmap/* | HK Student Peter | **clean** | 2026-08-04 | 9a1c0e4f | map controls verified by transform scale |
 | S06 student-assess | /student/assignments*, /assessment/[id], /student/assessments/[id] | HK Student Peter | **clean** | 2026-08-04 | 9a1c0e4f | graded write + cross-role loop verified |
@@ -390,6 +390,27 @@ reason worth knowing: the rate-limit counter lives in a **module-level in-memory
 silently resets mid-session. **Rate-limit behaviour cannot be reliably driven against `next dev`
 — use a production build.**
 
+
+#### S03 section buttons RESOLVED 2026-08-08 — not dead controls
+
+Previously undeterminable because the pane cannot scroll. Settled by **intercepting the scroll
+call** instead of watching the viewport: patch `Element.prototype.scrollIntoView` and
+`window.scrollTo`, click, and read what the handler asked for. Each button targets its own
+correctly-named anchor:
+
+| button | scrollIntoView target |
+|---|---|
+| 1.1 Concept explanation | `lesson-section-functions-concept` |
+| 1.2 Worked example | `lesson-section-functions-worked-example` |
+| 1.3 Interactive lab | `visualization` |
+| 1.4 Practice check | `lesson-practice` |
+
+**This technique retires the "scroll controls are unverifiable" limitation recorded since
+iteration 18** — and applying it to S04's "Start Mission" immediately exposed **D-12**, a real
+dead control that had looked merely unverifiable for four iterations. A control that *attempts*
+the right scroll and one that attempts nothing are indistinguishable on a frozen pane; the
+interceptor tells them apart.
+
 ### S03 — PARTIAL, no defects found (2026-08-03)
 
 **Routing clean.** `/lesson` → `/student/lessons` (308 alias) → `/student/lessons/functions` for an
@@ -672,6 +693,70 @@ Two self-corrections on this slice, both caught before they became filed defects
 2. "Night mode" looked like a dead control — my click had missed by ~113px. A DOM-derived
    coordinate and a click-counter probe on the element showed the handler firing normally.
    **Always attach a click counter to the element before calling a control dead.**
+
+### D-12 — dead-control — Practice Arena "Start Mission" scrolls to an id that never renders
+
+**Slice** S04 · **Route** /practice · **Persona** HK Student Peter · **Found** 2026-08-08
+**Status** filed, not fixed
+
+"Start Mission" is the Practice Arena's primary call to action. It registers a click and then
+does nothing.
+
+[`app/practice/page.tsx:1978`](../app/practice/page.tsx:1978) `scrollToPracticeSection` looks its
+target up with `document.getElementById(targetId)` and silently `continue`s when the element is
+absent. Both branches of `handleAdventureStartMission`
+([`:1989`](../app/practice/page.tsx:1989)) can pass `"free-selection"` — and **no element with
+that id is ever rendered**.
+
+Verified by intercepting the scroll rather than watching the viewport (the pane cannot scroll):
+
+```
+click "Start Mission"      -> clicks=1, scrolls=[]        (handler ran, no scroll attempted)
+click lesson 1.1/1.2/1.3/1.4 -> each fires scrollIntoView on its own anchor   (control comparison)
+
+document.getElementById("free-selection")        -> null
+document.getElementById("adaptive-practice-round") -> present
+ids on the page: practice-adventure-hero, practice-adventure-title,
+                 adaptive-practice-round, practice-question-jump
+```
+
+The destination is not missing — the practice question UI (including **Check Answer**) sits
+*inside* `#adaptive-practice-round`. Only the id being asked for is wrong.
+
+**Fix shape (small).** `scrollToPracticeSection` already takes varargs `...targetIds` precisely so
+callers can supply a fallback chain, but every call site passes a single id. Passing both, e.g.
+`scrollToPracticeSection("free-selection", "adaptive-practice-round")`, makes it land on the
+section that exists.
+
+An effect-asserting test should assert the **scroll target**, not that the button is clickable —
+clickability is exactly what made this look healthy for four iterations.
+
+#### D-11 UPDATE 2026-08-08 — the fix helped but did NOT eliminate the failure
+
+The rate-limit override is on main and correctly wired
+(`HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400` in `playwright.config.ts`,
+`loginIdentifier: { max: loginIdentifierMaxFromEnv() }`), and yet
+`parent-console.spec.ts:360` failed again with the identical signature —
+`helpers.ts:173`, stuck at `/login`, 18–19 polls.
+
+**It is a flake, proven on one commit:** branch `docs/ff-ledger-d12` produced a **success at
+05:47** and a **failure at 05:48** from the same tree (the `push` and `pull_request` runs). A
+docs-only markdown change cannot cause or fix this.
+
+So the earlier conclusion needs correcting: **the login rate limit was an amplifier, not the root
+cause.** Exhausting it turned an occasional flake into a hard, confusing failure, and removing
+that amplifier made failures rarer — recent history is overwhelmingly green — but something
+underneath still intermittently prevents the login redirect.
+
+**Do not treat D-11 as closed.** Remaining suspects, in the order worth checking:
+1. the hydration gate — `handleSubmit` returns early while `!isHydrated`, so a click landing
+   before hydration is swallowed with no feedback (the spec clicks as soon as the button exists);
+2. first-request compilation/cold-start latency on the e2e server, which has produced
+   `000` statuses and a 0-byte response elsewhere in this ledger;
+3. residual per-IP limiting (`loginIp` max 300) if runs overlap.
+
+The cheapest next probe is (1): assert the submit button is enabled *and* no longer reads
+"Preparing secure login" before clicking, then see whether the flake disappears.
 
 ### D-11 — degraded (test reliability) — the parent auth-boundary e2e fails on a cold database
 **Status: FIX OPEN in PR #101** (2026-08-04, at the owner's direction — option (c), the env-gated
