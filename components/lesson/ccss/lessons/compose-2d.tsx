@@ -17,7 +17,10 @@ export default function Lesson() {
   const [bi, setBi] = useState(0);
   const [joined, setJoined] = useState(false);
   const b = BUILDS[bi];
-  const gap = joined ? 0 : 34;
+  // At gap 34 the roof apex lands at y = 20 − 34 = −14, above the viewBox, so
+  // the separated "triangle" rendered with a flat top and four visible
+  // vertices. 18 keeps the apex at y = 2, inside the view.
+  const gap = joined ? 0 : 18;
 
   return (
     <div className="prose-lesson max-w-none">

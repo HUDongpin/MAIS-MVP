@@ -10,13 +10,21 @@ type Slice = { key: string; name: string; shape: string; desc: string; cut: stri
 const SLICES: Slice[] = [
   {
     key: "horiz", name: "Horizontal", shape: "Square", desc: "A cut parallel to the top and bottom gives a square the same size as a face.",
-    cut: "20,70 100,50 180,70 100,90",
+    // The old cut "20,70 100,50 180,70 100,90" had every edge at ±14.04° while
+    // the cube's two face directions are 0° and −26.57°, its area was exactly
+    // twice the face it claims to match (3200 vs 1600 px²), and it protruded
+    // past the solid on both sides. A horizontal section is the top face
+    // translated straight down.
+    cut: "40,90 120,90 160,70 80,70",
     section: <rect x={45} y={30} width={70} height={70} fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
   },
   {
     key: "diag", name: "Diagonal", shape: "Rectangle", desc: "A slanted cut from one edge to the opposite edge makes a longer rectangle.",
     cut: "30,40 170,40 150,120 50,120",
-    section: <rect x={35} y={40} width={90} height={55} fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
+    // A slant lengthens one pair of sides and leaves the other pair alone, so
+    // the short side must stay 70 like the square face; it was drawn 55.
+    // Long side = 70·√2 ≈ 99.
+    section: <rect x={30} y={35} width={99} height={70} fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
   },
   {
     key: "corner", name: "Corner", shape: "Triangle", desc: "Slicing off a corner through three edges makes a triangle.",

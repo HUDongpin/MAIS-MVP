@@ -67,7 +67,11 @@ export default function Lesson() {
                 {(c.name === "SSS" || c.name === "SAS") && <Ticks p={V0} q={V2} n={2} />}
                 {c.name === "SSS" && <Ticks p={V1} q={V2} n={3} />}
                 {(c.name === "ASA" || c.name === "SAS") && <path d="M 35 110 A 15 15 0 0 0 25 95.9" fill="none" stroke="var(--band-middle)" strokeWidth={2} />}
+                {/* The two marked angles measure 70.6° and 46.7°, so an identical
+                    single arc on each asserted an equality the triangle does not
+                    have. A double arc marks the second the way the side ticks do. */}
                 {c.name === "ASA" && <path d="M 115 110 A 15 15 0 0 1 119.7 99.1" fill="none" stroke="var(--band-middle)" strokeWidth={2} />}
+                {c.name === "ASA" && <path d="M 110 110 A 20 20 0 0 1 116.3 95.4" fill="none" stroke="var(--band-middle)" strokeWidth={2} />}
               </svg>
             ))}
           </div>
