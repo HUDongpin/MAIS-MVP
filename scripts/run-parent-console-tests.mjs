@@ -51,6 +51,7 @@ try {
 
   const passed = run("node", [
     "--test",
+    join(outputDir, "lib/server/authRouteGuards.test.js"),
     join(outputDir, "lib/server/userStoreParentNoticePersistence.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);

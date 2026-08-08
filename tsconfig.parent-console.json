@@ -8,6 +8,7 @@
     "outDir": ".tmp/parent-console-tests"
   },
   "files": [
+    "lib/server/authRouteGuards.test.ts",
     "lib/server/userStoreParentNoticePersistence.test.ts"
   ],
   "include": [],
