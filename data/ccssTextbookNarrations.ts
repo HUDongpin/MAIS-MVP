@@ -45,7 +45,7 @@ export const ccssTextbookNarrationOverrides: Record<string, string> = {
   "tens-and-ones":
     "Every two-digit number is built from tens and ones. Forty-seven is four ten-rods and seven little ones. Build a number with blocks — then find ten more and ten less in your head!",
   "compare-two-digit":
-    "Which number is bigger? Look at the tens first! More tens wins. If the tens tie, check the ones. Then point the hungry alligator mouth at the bigger number.",
+    "Which number is bigger? Look at the tens first! More tens wins. If the tens tie, check the ones. Then write >, =, or < between the two numbers.",
   "add-within-100":
     "Add big numbers with blocks: put the ones with the ones and the tens with the tens. If you collect ten little ones, bundle them into a brand-new ten!",
   "order-and-measure":

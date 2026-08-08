@@ -53,7 +53,10 @@ export default function Lesson() {
             <div className="font-mono text-lg font-black">
               2(<span style={{ color: LW }}>{lw}</span>) + 2(<span style={{ color: LH }}>{lh}</span>) + 2(<span style={{ color: WH }}>{wh}</span>) = <span style={{ color: "var(--band-upper)" }}>{surface}</span>
             </div>
-            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">Surface area = 2(lw + lh + wh) = {surface} sq units</div>
+            {/* The sibling volume lesson on this page writes the same kind of product
+                as "l × w × h" and "B × h"; bare juxtaposition was the only place
+                a Grade 6 reader had to infer the multiplication. */}
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">Surface area = 2(l × w + l × h + w × h) = {surface} sq units</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -75,7 +78,7 @@ export default function Lesson() {
         <p>
           A <strong>net</strong>{" "}unfolds a three-dimensional figure into its flat
           faces (6.G.A.4). The <strong>surface area</strong>{" "}is the total area of
-          the net: for a rectangular prism that is 2(lw + lh + wh) = {surface}.
+          the net: for a rectangular prism that is 2(l × w + l × h + w × h) = {surface}.
           Nets make surface area a straightforward area-addition problem.
         </p>
       </MathCheck>
