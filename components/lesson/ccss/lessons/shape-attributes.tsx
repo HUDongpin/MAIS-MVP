@@ -54,7 +54,7 @@ export default function Lesson() {
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">color</span>
               <div className="flex gap-1.5">
                 {COLORS.map((c, i) => (
-                  <button key={c} type="button" onClick={() => setCi(i)} className="h-7 w-7 rounded-full border-2" style={{ background: c, borderColor: i === ci ? "var(--ink)" : "transparent" }} aria-label={`Colour swatch ${i + 1} of ${COLORS.length} — colour is not a defining attribute`} aria-pressed={i === ci} />
+                  <button key={c} type="button" onClick={() => setCi(i)} className="h-7 w-7 rounded-full border-2" style={{ background: c, borderColor: i === ci ? "var(--ink)" : "transparent" }} aria-label={`Color swatch ${i + 1} of ${COLORS.length} — color is not a defining attribute`} aria-pressed={i === ci} />
                 ))}
               </div>
             </div>

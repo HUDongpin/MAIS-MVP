@@ -73,7 +73,7 @@ export default function Lesson() {
         {/* The old chain read "P(color) = (that color) ÷ (total) = 3 + 2 + 1
             over 6", i.e. P = 6/6 = 1 for every colour: the numerator shown was
             the sum of ALL counts. Show the per-colour fractions instead. */}
-        Every marble is equally likely to be drawn, so each colour&apos;s probability
+        Every marble is equally likely to be drawn, so each color&apos;s probability
         is its own count over the total: {counts.map((c, i) => `${c}/${total}`).join(", ")}. Those add to{" "}
         {counts.reduce((s, c) => s + c, 0)}/{total} = 1, because every outcome is counted exactly once.
       </p>

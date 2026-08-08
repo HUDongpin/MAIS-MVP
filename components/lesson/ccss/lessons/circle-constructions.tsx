@@ -47,7 +47,7 @@ export default function Lesson() {
       {/* The SVG draws the triangle, one circle and its centre - and, in
           tangent mode, a tangent with its radius and right angle. No bisector
           of either kind is ever drawn. */}
-      <Figure caption="Pick a construction: each one places its centre and circle on the same triangle.">
+      <Figure caption="Pick a construction: each one places its center and circle on the same triangle.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {MODES.map((mo, i) => (
