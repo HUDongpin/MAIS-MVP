@@ -39,16 +39,30 @@ const measure = (slack) =>
     if (vb.length !== 4 || vb.some((n) => !Number.isFinite(n))) return [];
     const [vx, vy, vw, vh] = vb;
     const out = [];
+    // getBBox() is in the element's OWN coordinate system and ignores ancestor
+    // transforms, so a <g transform="translate(...)"> marker reads as wildly
+    // out of bounds when it is not. Map the box through the element's matrix
+    // relative to the svg before comparing.
+    const root = svg.getScreenCTM();
     for (const el of svg.querySelectorAll("circle, rect, polygon, polyline, line, path, ellipse")) {
       let b;
       try { b = el.getBBox(); } catch { continue; }
       if (!b || (b.width === 0 && b.height === 0)) continue;
-      const over = Math.max(vx - b.x, vy - b.y, b.x + b.width - (vx + vw), b.y + b.height - (vy + vh));
+      let corners = [[b.x, b.y], [b.x + b.width, b.y], [b.x, b.y + b.height], [b.x + b.width, b.y + b.height]];
+      const own = el.getScreenCTM && el.getScreenCTM();
+      if (root && own) {
+        const m = root.inverse().multiply(own);
+        corners = corners.map(([px, py]) => [m.a * px + m.c * py + m.e, m.b * px + m.d * py + m.f]);
+      }
+      const xs = corners.map((c) => c[0]);
+      const ys = corners.map((c) => c[1]);
+      const over = Math.max(vx - Math.min(...xs), vy - Math.min(...ys), Math.max(...xs) - (vx + vw), Math.max(...ys) - (vy + vh));
       if (over > slack) {
         out.push({
           label: svg.getAttribute("aria-label") ?? "(unnamed figure)",
           tag: el.tagName,
           overflowPx: Math.round(over),
+          box: `${Math.round(Math.min(...xs))},${Math.round(Math.min(...ys))}`,
           viewBox: `${vx} ${vy} ${vw} ${vh}`,
         });
       }
