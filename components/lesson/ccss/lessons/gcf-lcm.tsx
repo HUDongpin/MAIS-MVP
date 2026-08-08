@@ -93,7 +93,8 @@ function Row({ label, nums, color, highlight }: { label: string; nums: number[];
     <div className="flex flex-wrap items-center gap-2">
       <span className="w-28 shrink-0 text-right text-xs font-bold" style={{ color }}>{label}:</span>
       {nums.map((n) => (
-        <span key={n} className="grid h-8 min-w-8 place-items-center rounded px-1.5 font-mono text-sm font-bold" style={{ background: highlight(n) ? "var(--band-high)" : "var(--surface-2)", color: highlight(n) ? "white" : "var(--ink-soft)" }}>{n}</span>
+        // The caption points at a highlight that existed only as a colour.
+        <span key={n} aria-label={highlight(n) ? `${n}, a shared multiple` : `${n}`} className="grid h-8 min-w-8 place-items-center rounded px-1.5 font-mono text-sm font-bold" style={{ background: highlight(n) ? "var(--band-high)" : "var(--surface-2)", color: highlight(n) ? "white" : "var(--ink-soft)", outline: highlight(n) ? "2px solid var(--ink)" : "none", outlineOffset: -2 }}>{n}</span>
       ))}
     </div>
   );

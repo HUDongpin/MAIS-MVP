@@ -51,7 +51,7 @@ export default function Lesson() {
             <span style={{ color: LINE }}>y = {m}x {addend(k)}</span>
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="line and parabola">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={`A line and a parabola meeting at ${sols.length} point${sols.length === 1 ? "" : "s"}`}>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((x) => (
               <line key={x} x1={sx(x)} y1={PAD} x2={sx(x)} y2={H - PAD} stroke="var(--line)" strokeWidth={1} />
             ))}

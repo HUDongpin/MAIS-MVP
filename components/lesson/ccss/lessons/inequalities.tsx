@@ -41,7 +41,7 @@ export default function Lesson() {
           <div className="font-mono text-3xl font-black">x {op} {c}</div>
 
           <FigureScroll>
-            <svg width={W} height={70} viewBox={`0 0 ${W} 70`} className="mx-auto" role="img" aria-label={`x ${op} ${c}`}>
+            <svg width={W} height={70} viewBox={`0 0 ${W} 70`} className="mx-auto" role="img" aria-label={`Number line with ${op === ">" || op === "<" ? "an open" : "a closed"} circle at ${c} and the ray shaded to the ${op === ">" || op === "≥" ? "right" : "left"}`}>
               <line x1={PAD} y1={40} x2={W - PAD} y2={40} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * R + 1 }, (_, i) => {
                 const n = i - R;

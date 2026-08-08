@@ -53,7 +53,10 @@ export default function Lesson() {
           <p className="m-0 max-w-md text-center text-lg font-semibold">
             {mode === "join" && <>There are {a} 🐟 in the tank. {b} more 🐟 are added. How many fish now?</>}
             {mode === "separate" && <>There are {a} 🍪 on the plate. {bSafe} 🍪 are eaten. How many are left?</>}
-            {mode === "three" && <>{a} 🎈 red, {b} 🎈 blue, and {c} 🎈 green. How many balloons in all?</>}
+            {/* All three groups render the same 🎈 glyph, separated only by CSS
+                opacity, so naming three colours described a figure the page
+                cannot draw. The groups are named by position instead. */}
+            {mode === "three" && <>{a} 🎈 in the first bunch, {b} 🎈 in the second, and {c} 🎈 in the third. How many balloons in all?</>}
           </p>
 
           <div className="flex max-w-lg flex-wrap justify-center gap-1 text-2xl">

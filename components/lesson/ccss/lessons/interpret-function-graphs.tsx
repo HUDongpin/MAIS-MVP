@@ -35,7 +35,7 @@ export default function Lesson() {
 
       <Figure caption="A rocket's height h(t). Read the peak, the intercepts, and the average rate of change on [a, b].">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="height versus time graph">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={`Height against time, peaking at (4, 8), with a dashed secant from t = ${a} to t = ${b} whose slope is ${avgRate}`}>
             {Array.from({ length: YMAX + 1 }, (_, i) => (
               <line key={i} x1={sx(0)} y1={sy(i)} x2={sx(XMAX)} y2={sy(i)} stroke="var(--line)" strokeWidth={1} />
             ))}

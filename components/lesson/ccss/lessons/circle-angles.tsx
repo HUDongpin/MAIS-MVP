@@ -31,7 +31,7 @@ export default function Lesson() {
 
       <Figure caption="The central angle (at the center) is twice any inscribed angle standing on the same arc.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={260} viewBox="0 0 260 260" role="img" aria-label="inscribed angle theorem">
+          <svg width={260} height={260} viewBox="0 0 260 260" role="img" aria-label={`Circle with a ${central} degree central angle and the ${inscribed} degree inscribed angle standing on the same arc`}>
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
             {/* central angle */}
             <line x1={CX} y1={CY} x2={A[0]} y2={A[1]} stroke={ACCENT} strokeWidth={2} />

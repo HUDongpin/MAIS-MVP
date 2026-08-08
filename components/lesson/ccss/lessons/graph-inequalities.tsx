@@ -40,7 +40,7 @@ export default function Lesson() {
             <button type="button" onClick={() => setAbove((v) => !v)} className="rounded-lg border border-[var(--line)] px-3 py-1 text-sm">flip ≥ / ≤</button>
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="linear inequality half-plane">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Half-plane for y ${above ? "≥" : "≤"} ${m}x + ${b}: boundary line drawn with the region ${above ? "above" : "below"} it shaded`}>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-XR)} x2={sx(v)} y2={sy(XR)} />

@@ -34,7 +34,7 @@ export default function Lesson() {
 
       <Figure caption="Adjust the line to run through the middle of the cloud. Then use it to predict.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="scatter plot with best-fit line">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={`Scatter plot of study hours against score with a line of slope ${m} and intercept ${b} laid over it`}>
             {[0, 20, 40, 60, 80, 100].map((y) => (
               <g key={y}>
                 <line x1={PAD} y1={sy(y)} x2={PAD + GW} y2={sy(y)} stroke="var(--line)" strokeWidth={1} />

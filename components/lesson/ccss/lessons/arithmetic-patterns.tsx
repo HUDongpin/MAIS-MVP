@@ -40,7 +40,10 @@ export default function Lesson() {
               const n = i + 1;
               const on = n % k === 0;
               return (
-                <div key={n} className="grid aspect-square place-items-center rounded text-[9px] font-bold tabular-nums sm:text-[11px]" style={{ background: on ? HL : "var(--surface-2)", color: on ? "white" : "var(--ink-faint)" }}>{n}</div>
+                // Colour was the only channel marking a multiple: no text, no
+                // outline, no accessible name. Now a ring carries it visually
+                // and the name carries it for a screen reader.
+                <div key={n} aria-label={on ? `${n}, a multiple of ${k}` : `${n}`} className="grid aspect-square place-items-center rounded text-[9px] font-bold tabular-nums sm:text-[11px]" style={{ background: on ? HL : "var(--surface-2)", color: on ? "white" : "var(--ink-faint)", outline: on ? "2px solid var(--ink)" : "none", outlineOffset: -2 }}>{n}</div>
               );
             })}
           </div>
