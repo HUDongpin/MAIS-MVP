@@ -40,7 +40,7 @@ export default function Lesson() {
               viewBox={`0 0 ${W + 2} ${H + 2}`}
               className="mx-auto max-w-full"
               role="img"
-              aria-label={`A ${rows} by ${cols} rectangle of unit squares`}
+              aria-label={s > 0 && s < cols ? `A ${rows} by ${cols} rectangle of unit squares, split after column ${s} into a ${rows} by ${s} part and a ${rows} by ${cols - s} part` : `A ${rows} by ${cols} rectangle of unit squares, not split`}
             >
               <g transform="translate(1,1)">
                 {Array.from({ length: rows }, (_, r) =>

@@ -86,14 +86,25 @@ export default function Lesson() {
   );
 }
 
+// The equation on screen is written in numerals only ("3x + 2 = 1x + 10"), so the
+// letters a, b, c and d name nothing a screen-reader user can locate. The buttons
+// pair the letter with the role that coefficient plays in the equation.
+const ROLE: Record<string, string | undefined> = {
+  a: "left-side x coefficient",
+  b: "left-side constant",
+  c: "right-side x coefficient",
+  d: "right-side constant",
+};
+
 function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
+  const role = ROLE[label] ?? label;
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}, the ${role}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums" style={{ color: ACCENT }}>{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(12, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(12, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}, the ${role}`}>+</button>
       </div>
     </div>
   );

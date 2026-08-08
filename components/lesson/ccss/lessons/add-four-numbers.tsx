@@ -48,7 +48,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             {nums.map((n, i) => (
-              <Stepper key={i} label={`#${i + 1}`} value={n} onChange={(v) => setN(i, v)} />
+              <Stepper key={i} label={`Addend ${i + 1}`} value={n} onChange={(v) => setN(i, v)} />
             ))}
           </div>
         </div>

@@ -57,7 +57,7 @@ export default function Lesson() {
             style={{ maxHeight: 400 }}
             onPointerDown={(e) => place(e.clientX, e.clientY)}
             role="img"
-            aria-label={`Point at (${p.x}, ${p.y})`}
+            aria-label={`Point at (${p.x}, ${p.y})${swapped ? `, with the swapped pair (${p.y}, ${p.x}) drawn as an outlined circle` : ", where x and y are equal, so no swapped point is drawn"}`}
           >
             {/* grid */}
             {Array.from({ length: N + 1 }, (_, i) => (

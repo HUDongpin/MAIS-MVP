@@ -43,9 +43,9 @@ export default function Lesson() {
                   {coin.label}
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.max(0, c - 1) : c)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer ${coin.name}`}>−</button>
+                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.max(0, c - 1) : c)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`one fewer ${coin.name}`}>−</button>
                   <span className="w-5 text-center text-lg font-black tabular-nums">{counts[i]}</span>
-                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.min(20, c + 1) : c)))} disabled={counts[i] >= 20} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more ${coin.name}`}>+</button>
+                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.min(20, c + 1) : c)))} disabled={counts[i] >= 20} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`one more ${coin.name}`}>+</button>
                 </div>
                 <span className="text-[10px] text-[var(--ink-faint)]">{counts[i]} × {coin.value}¢ = {counts[i] * coin.value}¢</span>
               </div>

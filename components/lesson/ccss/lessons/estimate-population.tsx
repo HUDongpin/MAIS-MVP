@@ -41,7 +41,13 @@ export default function Lesson() {
           </div>
 
           {/* interval bar */}
-          <svg width={320} height={60} viewBox="0 0 320 60" role="img" aria-label="confidence interval">
+          <svg
+            width={320}
+            height={60}
+            viewBox="0 0 320 60"
+            role="img"
+            aria-label={`95 percent confidence interval bar from ${lo} to ${hi} percent, marked at the ${phat} percent estimate, on an axis running from ${AXIS_MIN} to ${AXIS_MAX} percent`}
+          >
             <line x1={20} y1={30} x2={300} y2={30} stroke="var(--line)" strokeWidth={2} />
             {TICKS.map((v) => <text key={v} x={bx(v)} y={50} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{v}</text>)}
             <rect x={bx(lo)} y={22} width={r2(bx(hi) - bx(lo))} height={16} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} rx={3} />

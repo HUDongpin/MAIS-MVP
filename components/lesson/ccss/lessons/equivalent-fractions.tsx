@@ -109,6 +109,8 @@ export default function Lesson() {
                     key={nb}
                     type="button"
                     onClick={() => setDen(nb)}
+                    aria-label={`Set denominator to ${nb}`}
+                    aria-pressed={b === nb}
                     className="h-8 w-8 rounded-lg border text-sm font-bold"
                     style={
                       b === nb

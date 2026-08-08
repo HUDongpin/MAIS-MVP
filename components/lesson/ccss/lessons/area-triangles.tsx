@@ -55,7 +55,7 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <Stepper label="Base" value={b} min={2} max={8} onChange={(v) => { setB(v); setApex((p) => Math.min(p, v)); }} />
             <Stepper label="Height" value={h} min={2} max={6} onChange={setH} />
-            <Stepper label="Apex slide" value={apex} min={0} max={b} onChange={setApex} />
+            <Stepper label="Top corner position" value={apex} min={0} max={b} onChange={setApex} />
           </div>
         </div>
       </Figure>

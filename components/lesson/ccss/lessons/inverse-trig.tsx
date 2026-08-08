@@ -70,7 +70,7 @@ function Slider({ label, value, onChange }: { label: string; value: number; onCh
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}: <span style={{ color: ACCENT }}>{value}°</span></span>
-      <input type="range" min={10} max={80} step={5} value={value} onChange={(e) => onChange(Number(e.target.value))} className="w-56" style={{ accentColor: ACCENT }} aria-label={label} />
+      <input type="range" min={10} max={80} step={5} value={value} onChange={(e) => onChange(Number(e.target.value))} className="w-56" style={{ accentColor: ACCENT }} aria-label={`${label} in degrees`} aria-valuetext={`${value} degrees`} />
     </div>
   );
 }

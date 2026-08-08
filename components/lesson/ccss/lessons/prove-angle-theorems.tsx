@@ -38,7 +38,7 @@ export default function Lesson() {
 
       <Figure caption="One angle determines all eight. Equal angles are the same color; supplementary pairs sum to 180°.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={200} viewBox="0 0 260 200" role="img" aria-label="parallel lines cut by a transversal">
+          <svg width={260} height={200} viewBox="0 0 260 200" role="img" aria-label={`Two parallel lines cut by a transversal at ${a} degrees; four angles are marked, two of ${a} degrees and two of ${supp} degrees`}>
             {/* two parallel lines */}
             <line x1={20} y1={TOP_Y} x2={240} y2={TOP_Y} stroke="var(--ink-soft)" strokeWidth={2.5} />
             <line x1={20} y1={BOT_Y} x2={240} y2={BOT_Y} stroke="var(--ink-soft)" strokeWidth={2.5} />

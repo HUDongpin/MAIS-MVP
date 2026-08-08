@@ -33,7 +33,7 @@ export default function Lesson() {
 
       <Figure caption="A regular polygon carries onto itself under n reflections and n rotations.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`regular ${n}-gon symmetry`}>
+          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`Regular ${n}-gon with its ${n} dashed lines of symmetry`}>
             {symLines.map((l, i) => (
               <line key={i} x1={l[0]} y1={l[1]} x2={l[2]} y2={l[3]} stroke="var(--band-upper)" strokeWidth={1} strokeDasharray="4 3" opacity={0.7} />
             ))}

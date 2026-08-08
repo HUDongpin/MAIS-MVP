@@ -37,7 +37,7 @@ export default function Lesson() {
           </div>
 
           <FigureScroll>
-            <svg width={LWIDTH + 2 * PAD} height={90} viewBox={`0 0 ${LWIDTH + 2 * PAD} 90`} className="mx-auto" role="img" aria-label={`${n} between ${lower} and ${upper}`}>
+            <svg width={LWIDTH + 2 * PAD} height={90} viewBox={`0 0 ${LWIDTH + 2 * PAD} 90`} className="mx-auto" role="img" aria-label={n === lower ? `Number line from ${lower} to ${upper}, with ${n} marked exactly at the left end` : `${n} between ${lower} and ${upper}`}>
               <line x1={PAD} y1={55} x2={PAD + LWIDTH} y2={55} stroke="var(--ink-soft)" strokeWidth={2} />
               {/* endpoints */}
               {[["lower", lower, PAD], ["upper", upper, PAD + LWIDTH]].map(([key, val, xx]) => (

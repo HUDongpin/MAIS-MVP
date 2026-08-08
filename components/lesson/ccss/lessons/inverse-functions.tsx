@@ -43,7 +43,7 @@ export default function Lesson() {
             <span style={{ color: INV }}>f⁻¹(x) = (x {subB})/{m}</span>
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label="function and its inverse">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Graphs of f(x) = ${m}x ${addB} and its inverse f⁻¹(x) = (x ${subB})/${m}, reflected across the dashed line y = x`}>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-XR)} x2={sx(v)} y2={sy(XR)} />

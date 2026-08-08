@@ -27,7 +27,7 @@ export default function Lesson() {
 
       <Figure caption="Approximate a real object with a geometric solid, then apply density to estimate mass.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={140} height={180} viewBox="0 0 140 180" role="img" aria-label="tree trunk as a cylinder">
+          <svg width={140} height={180} viewBox="0 0 140 180" role="img" aria-label={`Cylinder modeling a tree trunk, labeled radius ${radius} cm`}>
             <ellipse cx={70} cy={30} rx={35} ry={11} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} />
             <path d="M 35 30 L 35 150 A 35 11 0 0 0 105 150 L 105 30" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2} />
             <text x={70} y={95} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">r = {radius} cm</text>

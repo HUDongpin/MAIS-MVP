@@ -34,7 +34,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="parallelogram">
+          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label={`Parallelogram with ${p.show === "sides" ? "its two opposite sides highlighted" : p.show === "angles" ? "dots marking its two opposite angles" : "both diagonals drawn, meeting at their shared midpoint"}`}>
             <polygon points="40,130 120,30 200,30 120,130" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             {p.show === "diagonals" && (
               <>

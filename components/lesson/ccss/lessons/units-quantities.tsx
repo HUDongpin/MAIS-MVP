@@ -74,11 +74,25 @@ export default function Lesson() {
   );
 }
 
-function Frac({ top, bot }: { top: string; bot: string; hi?: string }) {
+function Frac({ top, bot, hi }: { top: string; bot: string; hi?: string }) {
+  // Strike through the units named in `hi` (a line, not color alone) so the
+  // caption's "watch miles and hours cancel" is actually drawn in the chain.
+  const units = (hi ?? "").split(",").map((u) => u.trim()).filter(Boolean);
+  const mark = (text: string) =>
+    text.split(" ").map((word, i) => (
+      <span key={i}>
+        {i > 0 ? " " : ""}
+        {units.includes(word) ? (
+          <span className="line-through" style={{ color: ACCENT }}>{word}</span>
+        ) : (
+          word
+        )}
+      </span>
+    ));
   return (
     <span className="inline-flex flex-col items-center">
-      <span className="border-b-2 border-[var(--ink-soft)] px-2 pb-0.5">{top}</span>
-      <span className="px-2 pt-0.5">{bot}</span>
+      <span className="border-b-2 border-[var(--ink-soft)] px-2 pb-0.5">{mark(top)}</span>
+      <span className="px-2 pt-0.5">{mark(bot)}</span>
     </span>
   );
 }

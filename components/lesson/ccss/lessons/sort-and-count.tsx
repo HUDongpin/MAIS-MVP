@@ -48,9 +48,13 @@ export default function Lesson() {
       <Figure caption="Tap Sort to gather each kind of fruit into its own basket, then count.">
         <div className="flex flex-col items-center gap-6">
           {!sorted ? (
-            <div className="flex max-w-md flex-wrap justify-center gap-1.5 text-3xl">
+            <div
+              className="flex max-w-md flex-wrap justify-center gap-1.5 text-3xl"
+              role="img"
+              aria-label={`A jumbled pile of ${total} pieces of fruit: apples, bananas, and grapes all mixed together`}
+            >
               {jumbleItems.map((c, i) => (
-                <span key={i}>{CATS[c].emoji}</span>
+                <span key={i} aria-hidden="true">{CATS[c].emoji}</span>
               ))}
             </div>
           ) : (

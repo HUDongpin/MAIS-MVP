@@ -67,6 +67,9 @@ function Stepper({
   value: number;
   onChange: (n: number) => void;
 }) {
+  // "Hundreds" names the place; one press moves a single "hundred".
+  const SINGULAR: Record<string, string> = { Hundreds: "hundred", Tens: "ten", Ones: "one" };
+  const one = SINGULAR[label] ?? label;
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
@@ -78,7 +81,7 @@ function Stepper({
           onClick={() => onChange(Math.max(0, value - 1))}
           disabled={value === 0}
           className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40"
-          aria-label={`One fewer ${label}`}
+          aria-label={`One fewer ${one}`}
         >
           −
         </button>
@@ -90,7 +93,7 @@ function Stepper({
           onClick={() => onChange(Math.min(9, value + 1))}
           disabled={value === 9}
           className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40"
-          aria-label={`One more ${label}`}
+          aria-label={`One more ${one}`}
         >
           +
         </button>
@@ -169,7 +172,7 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A base-ten numeral is shorthand for a sum:{" "}
-          <strong>243 = 2 × 100 + 4 × 10 + 3 × 1</strong>. Each place is worth{" "}
+          <strong>243 = 200 + 40 + 3</strong>. Each place is worth{" "}
           <strong>ten times</strong>{" "}the place to its right, because ten ones
           bundle into one ten and ten tens bundle into one hundred (2.NBT.A.1).
           The blocks are an exact picture of that bundling — no rounding, no

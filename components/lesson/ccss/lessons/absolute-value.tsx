@@ -30,7 +30,7 @@ export default function Lesson() {
       <Figure caption="Order is left-to-right; absolute value is the distance from 0 (the arrows).">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
-            <svg width={W} height={110} viewBox={`0 0 ${W} 110`} className="mx-auto" role="img" aria-label={`a at ${a}, b at ${b}`}>
+            <svg width={W} height={110} viewBox={`0 0 ${W} 110`} className="mx-auto" role="img" aria-label={`Number line with a at ${a}, ${Math.abs(a)} unit${Math.abs(a) === 1 ? "" : "s"} from zero, and b at ${b}, ${Math.abs(b)} unit${Math.abs(b) === 1 ? "" : "s"} from zero`}>
               <line x1={PAD} y1={70} x2={W - PAD} y2={70} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * R + 1 }, (_, i) => {
                 const n = i - R;

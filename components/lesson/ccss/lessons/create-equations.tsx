@@ -35,7 +35,19 @@ export default function Lesson() {
             <div className="mt-1 text-sm text-[var(--ink-soft)]">m = ({total} − {base}) / {rate} = <strong style={{ color: ACCENT }}>{Number.isInteger(miles) ? miles : miles.toFixed(2)}</strong>{" "}miles</div>
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 260 }} role="img" aria-label="cost versus miles line">
+          <svg
+            width={W}
+            height={H}
+            viewBox={`0 0 ${W} ${H}`}
+            className="max-w-full"
+            style={{ maxHeight: 260 }}
+            role="img"
+            aria-label={`Line y = ${base} + ${rate}x, cost against miles${
+              Number.isInteger(miles) && miles >= 0 && miles <= XMAX
+                ? `, with the solution dot at ${miles} mile${miles === 1 ? "" : "s"} and a total of ${total}`
+                : ""
+            }`}
+          >
             {[0, 15, 30, 45, 60].map((y) => (
               <g key={y}>
                 <line x1={sx(0)} y1={sy(y)} x2={sx(XMAX)} y2={sy(y)} stroke="var(--line)" strokeWidth={1} />

@@ -45,7 +45,7 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="n (total)" value={n} min={2} max={9} onChange={(v) => setN(Math.max(v, r))} />
+            <Stepper label="n (total)" value={n} min={Math.max(2, r)} max={9} onChange={(v) => setN(Math.max(v, r))} />
             <Stepper label="r (chosen)" value={r} min={1} max={n} onChange={setR} />
           </div>
         </div>

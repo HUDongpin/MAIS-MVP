@@ -48,7 +48,12 @@ export default function Lesson() {
           <p className="m-0 max-w-md text-center text-[15px] text-[var(--ink-soft)]">{q.why}</p>
 
           {/* dot plot */}
-          <div className="flex items-end justify-center gap-5" style={{ minHeight: 90 }}>
+          <div
+            className="flex items-end justify-center gap-5"
+            style={{ minHeight: 90 }}
+            role="img"
+            aria-label={`Dot plot of the ages of ${DATA.length} students: ${values.map((v, i) => `${counts[i]} aged ${v}`).join(", ")}`}
+          >
             {values.map((v, i) => (
               <div key={v} className="flex flex-col items-center gap-1">
                 <div className="flex flex-col-reverse gap-0.5">

@@ -39,7 +39,9 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label={shape}>
+          {/* The drawing is a fixed schematic: r and h are not depicted or labeled
+              inside it, so the name says which solid is shown and nothing more. */}
+          <svg width="160" height="160" viewBox="0 0 160 160" role="img" aria-label={`Drawing of a ${shape}`}>
             {shape === "cylinder" && (
               <g fill={ACCENT} fillOpacity={0.4} stroke="var(--ink)" strokeWidth={2}>
                 <rect x={50} y={40} width={60} height={80} />

@@ -37,7 +37,11 @@ export default function Lesson() {
 
           <p className="m-0 max-w-md text-center text-lg font-semibold">{problem.text}</p>
 
-          <div className="flex flex-wrap justify-center gap-3">
+          <div
+            className="flex flex-wrap justify-center gap-3"
+            role="img"
+            aria-label={`${groups} baskets with ${per} apple${per === 1 ? "" : "s"} in each, ${total} apples in all`}
+          >
             {Array.from({ length: groups }, (_, g) => (
               <div key={g} className="flex flex-col items-center gap-1 rounded-lg border-2 border-dashed p-1.5 text-lg" style={{ borderColor: A }}>
                 <div className="flex flex-wrap justify-center" style={{ width: "3rem" }}>

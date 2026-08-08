@@ -12,7 +12,7 @@ function polyStr(c: number[]): string {
   for (let i = c.length - 1; i >= 0; i--) {
     if (c[i] === 0) continue;
     const v = c[i];
-    const term = i === 0 ? `${Math.abs(v)}` : `${Math.abs(v) === 1 ? "" : Math.abs(v)}x${i === 1 ? "" : "^" + i}`;
+    const term = i === 0 ? `${Math.abs(v)}` : `${Math.abs(v) === 1 ? "" : Math.abs(v)}x${i === 1 ? "" : String(i).replace(/\d/g, (d) => "⁰¹²³⁴⁵⁶⁷⁸⁹".charAt(Number(d)))}`;
     parts.push((parts.length === 0 ? (v < 0 ? "−" : "") : v < 0 ? " − " : " + ") + term);
   }
   return parts.join("") || "0";

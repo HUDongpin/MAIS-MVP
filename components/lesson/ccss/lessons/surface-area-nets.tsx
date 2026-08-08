@@ -38,7 +38,7 @@ export default function Lesson() {
 
       <Figure caption="The six faces come in three matching pairs. Add their areas for the surface area.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={totalW + 4} height={totalH + 4} viewBox={`0 0 ${totalW + 4} ${totalH + 4}`} className="max-w-full" role="img" aria-label="net of a rectangular prism">
+          <svg width={totalW + 4} height={totalH + 4} viewBox={`0 0 ${totalW + 4} ${totalH + 4}`} className="max-w-full" role="img" aria-label={`Unfolded net of a ${l} by ${w} by ${h} rectangular prism: six rectangles with face areas ${lw}, ${lh} and ${wh}, each appearing twice, totalling ${surface} square units`}>
             <g transform="translate(2,2)">
               {face(col, 0, l, w, LW, `${lw}`)}
               {face(0, w, w, h, WH, `${wh}`)}

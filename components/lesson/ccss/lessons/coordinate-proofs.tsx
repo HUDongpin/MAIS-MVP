@@ -33,7 +33,15 @@ export default function Lesson() {
 
       <Figure caption="Perpendicular lines have slopes that multiply to −1; parallel lines share a slope.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 310 }} role="img" aria-label="perpendicular slopes">
+          <svg
+            width={SIZE}
+            height={SIZE}
+            viewBox={`0 0 ${SIZE} ${SIZE}`}
+            className="max-w-full"
+            style={{ maxHeight: 310 }}
+            role="img"
+            aria-label={`Two lines through the origin crossing at a right angle: one of slope ${m}, one of slope ${perpLabel}`}
+          >
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />

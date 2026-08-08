@@ -33,7 +33,17 @@ export default function Lesson() {
           <button type="button" onClick={draw} className="rounded-lg px-5 py-2 font-bold text-white" style={{ background: ACCENT }}>Draw a sample of 20</button>
 
           <div className="w-full max-w-md">
-            <div className="flex h-24 items-end gap-1 overflow-x-auto rounded-lg bg-[var(--surface-2)] p-2">
+            <div
+              className="flex h-24 items-end gap-1 overflow-x-auto rounded-lg bg-[var(--surface-2)] p-2"
+              role="img"
+              aria-label={
+                samples.length === 0
+                  ? "Chart of sample proportions, currently empty"
+                  : samples.length === 1
+                    ? `Chart of sample proportions: one bar at ${samples[0]}%`
+                    : `Chart of ${samples.length} sample proportions, ranging from ${Math.min(...samples)}% to ${Math.max(...samples)}%, averaging ${mean}%`
+              }
+            >
               {samples.length === 0 && <span className="m-auto text-sm text-[var(--ink-faint)]">Click to start sampling…</span>}
               {samples.map((p, i) => (
                 <div key={i} className="w-3 flex-shrink-0 rounded-t" style={{ height: `${p}%`, background: ACCENT }} title={`${p}%`} />

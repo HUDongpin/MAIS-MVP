@@ -45,7 +45,9 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={180} height={180} viewBox="0 0 180 180" role="img" aria-label={solid}>
+          {/* The drawing is a fixed schematic: r and h are not depicted or labeled
+              inside it, so the name says which solid is shown and nothing more. */}
+          <svg width={180} height={180} viewBox="0 0 180 180" role="img" aria-label={`Drawing of a ${solid}`}>
             {solid === "cylinder" && (<>
               <ellipse cx={90} cy={40} rx={45} ry={14} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} />
               <path d="M 45 40 L 45 140 A 45 14 0 0 0 135 140 L 135 40" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2} />

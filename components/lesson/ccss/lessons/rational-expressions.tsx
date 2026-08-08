@@ -10,7 +10,7 @@ type Ex = { title: string; expr: string; steps: string[]; result: string };
 
 const EXAMPLES: Ex[] = [
   {
-    title: "Divide (long division)",
+    title: "Divide by factoring",
     expr: "(x² + 5x + 6) ÷ (x + 2)",
     steps: ["x² + 5x + 6 = (x + 2)(x + 3)", "cancel the (x + 2) factor"],
     result: "x + 3",

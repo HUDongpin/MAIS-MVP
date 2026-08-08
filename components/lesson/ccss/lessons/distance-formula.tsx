@@ -34,7 +34,19 @@ export default function Lesson() {
 
       <Figure caption="The dashed legs are the coordinate differences; the solid line is the distance.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label="distance between two points">
+          <svg
+            width={SIZE}
+            height={SIZE}
+            viewBox={`0 0 ${SIZE} ${SIZE}`}
+            className="max-w-full"
+            style={{ maxHeight: 340 }}
+            role="img"
+            aria-label={
+              dx === 0 && dy === 0
+                ? `Both points at (${p1.x}, ${p1.y}), so the distance is 0`
+                : `Points (${p1.x}, ${p1.y}) and (${p2.x}, ${p2.y}) joined by a line of length ${perfect ? dist : `about ${dist.toFixed(2)}`}, with a horizontal leg of ${dx} and a vertical leg of ${dy}`
+            }
+          >
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />

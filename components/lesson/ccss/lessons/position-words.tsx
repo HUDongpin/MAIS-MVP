@@ -49,10 +49,10 @@ export default function Lesson() {
                 key={p.key}
                 type="button"
                 onClick={() => setI(pi)}
-                className="rounded-lg border px-4 py-2 text-sm font-bold capitalize"
+                className="rounded-lg border px-4 py-2 text-sm font-bold"
                 style={pi === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
               >
-                {p.key}
+                {p.word}
               </button>
             ))}
           </div>

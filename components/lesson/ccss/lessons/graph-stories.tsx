@@ -72,7 +72,7 @@ export default function Lesson() {
           <div className="text-center">
             <div className="text-lg font-black" style={{ color: LINE }}>{s.title}</div>
             <p className="mt-1 max-w-md text-[15px] text-[var(--ink-soft)]">{s.desc}</p>
-            <div className="mt-1 text-xs font-bold uppercase" style={{ color: s.nonlinear ? "var(--band-early)" : "var(--band-upper)" }}>{s.nonlinear ? "nonlinear (curved)" : "piecewise linear (straight parts)"}</div>
+            <div className="mt-1 text-xs font-bold uppercase" style={{ color: s.nonlinear ? "var(--band-early)" : "var(--band-upper)" }}>{s.nonlinear ? "nonlinear (curved)" : s.path.trim().split(/\s+/).length > 2 ? "piecewise linear (straight parts)" : "linear (one straight line)"}</div>
           </div>
         </div>
       </Figure>

@@ -33,7 +33,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.name}>
+          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.draw === "parabola" ? "Parabola with its focus marked above the vertex and its directrix drawn the same distance below" : c.draw === "ellipse" ? "Ellipse with its two foci marked on the horizontal axis" : "Hyperbola with two branches and its two foci marked on the horizontal axis"}>
             <line x1={20} y1={95} x2={220} y2={95} stroke="var(--line)" strokeWidth={1} />
             <line x1={120} y1={20} x2={120} y2={170} stroke="var(--line)" strokeWidth={1} />
             {c.draw === "parabola" && (

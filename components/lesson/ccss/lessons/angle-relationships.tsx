@@ -47,7 +47,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width="260" height="200" viewBox="0 0 260 200" role="img" aria-label={`${REL[rel].name} angles`}>
+          <svg width="260" height="200" viewBox="0 0 260 200" role="img" aria-label={rel === "vert" ? `Vertical angles, both ${a} degrees` : `${REL[rel].name} angles of ${a} degrees and ${other} degrees`}>
             {rel === "comp" && (
               <g>
                 <line x1={CX} y1={CY} x2={pt(0).x} y2={pt(0).y} stroke="var(--ink)" strokeWidth={2.5} />
