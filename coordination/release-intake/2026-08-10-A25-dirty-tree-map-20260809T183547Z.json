@@ -1,0 +1,3681 @@
+{
+  "generatedAt": "2026-08-09T18:35:48.296Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "math diagram boundary integrity pre-merge",
+  "statusSignature": "b6d4357c25497c906816106d5250bbc0b1a35a85cf39d9620023d784fdc3776e",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T183547Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T183547Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 159,
+    "expandedStatusEntries": 159,
+    "trackedModified": 138,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 21,
+    "untrackedFiles": 21,
+    "unmappedEntries": 4,
+    "unblockedUnmappedEntries": 4,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 3,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "A05 Lesson pages and lesson content modules": 105,
+    "A06 Visualization Lab and interactive math runtime": 30,
+    "A04 Practice Arena, Mistake Book, and question data": 6,
+    "A11 QA and release quality": 6,
+    "A10 Tooling, docs, report, and coordination contract": 5,
+    "Unmapped owner needed": 4,
+    "A01 Home, layout, navigation, auth shell, and theme surface": 2,
+    "A24 Deterministic question-figure exact layer": 1
+  },
+  "sliceBuckets": {
+    "runtime app/API/data/public": 133,
+    "tests/regression evidence": 21,
+    "docs/coordination evidence": 5
+  },
+  "releaseHygieneEntries": [],
+  "unmappedEntries": [
+    {
+      "status": " M",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/mathDiagramGeometry.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    }
+  ],
+  "unblockedUnmappedEntries": [
+    {
+      "status": " M",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/mathDiagramGeometry.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    }
+  ],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": " M",
+      "path": "app/layout.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "app/layout.tsx",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1400,
+        "precedence": 0,
+        "matchedPathspec": "app/layout.tsx"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/mistake-book/page.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "app/mistake-book/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1698,
+        "precedence": 0,
+        "matchedPathspec": "app/mistake-book/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/layout/Navbar.tsx",
+      "owner": "A01 Home, layout, navigation, auth shell, and theme surface",
+      "ownerId": "A01",
+      "packageId": "A01-app-shell",
+      "matchedPathspec": "components/layout/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A01"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/layout/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/LessonView.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/WorkedExampleIllustration.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/CcssLessonAdapter.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/Figure.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/FigureScroll.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/figureScrollAffordance.test.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/add-angles.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/add-fractions-unlike.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/add-subtract-bignum.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/addition-rule.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/angle-relationships.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/angles-fraction-circle.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/arc-length-sector.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/area-perimeter-formulas.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/area-triangles.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/area-volume-surface.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/circle-angles.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/circle-constructions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/compare-fractions-4.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/compare-fractions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/compare-three-digit.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/compose-2d.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/congruence-criteria.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/conic-sections.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/construct-linear-exponential.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/constructions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/coordinate-proofs.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/counting-ten-frame.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/cross-sections.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/decimal-arithmetic.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/decimal-operations.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/decimal-place-value.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/decimals-fractions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/dependent-independent.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/divide-fractions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/divide-multidigit.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/divide-unit-fractions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/equal-sign-balance.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/equation-of-circle.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/estimate-population.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/expected-value.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/factors-multiples.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/figure-symmetry.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/fit-function-residuals.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/four-quadrant-plane.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/fractions-number-line.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/function-notation.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/graph-inequalities.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/graph-stories.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/growing-patterns.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/integer-arrows.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/integer-exponents.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/inverse-functions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/laws-sines-cosines.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/line-plot-fractions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/line-plot.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/linear-quadratic-systems.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/matrix-equations.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/measure-line-plot.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/metric-conversion.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/missing-addend.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/multiplicative-comparison.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/negative-numbers.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/periodic-models.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/place-value-blocks.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/place-value-relationship.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/position-words.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/precise-definitions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/proportional-relationships.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/protractor.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/prove-angle-theorems.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/prove-parallelogram-theorems.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/prove-triangle-theorems.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/random-variables.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/read-compare-decimals-thousandths.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/read-compare-multidigit.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/real-number-closure.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/round-decimals.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/rounding-multidigit.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/scatter-plots.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/set-operations-events.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/similarity-proofs.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/similarity-transformations.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/slope-explorer.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/solve-right-triangles.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/special-angle-values.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/systems-of-equations.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/time-five-minutes.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/time-to-minute.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/triangle-angles.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/triangle-area-sine.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/trig-identities.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/trig-ratios.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/trig-symmetry.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/two-patterns-graph.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/two-way-frequencies.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/two-way-tables.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/unit-circle.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/variables-expressions.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/volume-arguments.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/volume-mass.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/lessons/word-problems-100.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/ccss/preciseDefinitionsGeometry.test.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/onboarding/studentGuidedTourRegressions.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/CountingDotCards.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/HandwritingAnswerBoard.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/PracticeAdventureArenaShell.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/PracticeQuestPager.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/QuestionFigure.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/CalculusStatsLab.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/ConfiguredVisualizationLab.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/CoordinatePlaneDemo.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/FunctionGraphExplorer.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/FunctionModelComparer.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/GeometryExplorer.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/StembenchEulerLineDemo.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/ThreeDGraphSvgGeometry.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/ThreeDGraphSvgGeometry.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/VisualizationCard.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/VisualizationLabPage.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/configuredVisualizationLabRegressions.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/signature/ComparingLab.jsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/signature/CountingLab.jsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/ThreeDLabCanvas.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/ThreeDLabSceneRegistry.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/manim/MathFormulaOverlay.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/manim/mathEvidenceHarness.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/manim/mathEvidenceHarness.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/manim/mathFormulaCollision.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/manim/mathFormulaCollision.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/visualizations/three/threeDCanvasContract.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/handwritingRecognition.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/questionFigure.ts",
+      "owner": "A24 Deterministic question-figure exact layer",
+      "ownerId": "A24",
+      "packageId": "A24-question-figure-source-contract",
+      "matchedPathspec": "lib/questionFigure.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A24"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2100,
+        "precedence": 0,
+        "matchedPathspec": "lib/questionFigure.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "scripts/run-component-tests.mjs",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/lesson/ccss/mathDiagramBoundaryRegressions.test.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/lesson/workedExampleIllustrationBoundary.test.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/eulerLineGeometry.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/mathDiagramGeometry.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/mathDiagramResponsiveRegressions.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/projectedLabelPlacement.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/rawCurveGeometricClipping.test.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/rawCurveGeometry.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/three/ThreeDSceneBoundaryProbe.tsx",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/visualizations/three/manim/mathProjectedLabelPlacement.ts",
+      "owner": "A06 Visualization Lab and interactive math runtime",
+      "ownerId": "A06",
+      "packageId": "A06-visualization-runtime",
+      "matchedPathspec": "components/visualizations/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A06"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "components/visualizations/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-08-09-math-diagram-boundary-integrity.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/reports/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "coordination/reports/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/reports/2026-08-09-math-diagram-inventory.json",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/reports/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2098,
+        "precedence": 0,
+        "matchedPathspec": "coordination/reports/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/session-logs/2026-08-09-A11-diagram-boundary-integrity.md",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "coordination/session-logs/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "coordination/session-logs/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/mathDiagramGeometry.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "scripts/audit-math-diagram-inventory.ts",
+      "owner": "A10 Tooling, docs, report, and coordination contract",
+      "ownerId": "A10",
+      "packageId": "A10-tooling-docs-config",
+      "matchedPathspec": "scripts/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A10"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "scripts/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/math-canvas-paint-probe-hardening.spec.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/math-diagram-boundary.spec.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/math-diagram-runtime-paint-bounds.focused.spec.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/math-diagram-source-geometry.test.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/mathCanvasPaintBoundaryProbe.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "tests/e2e/mathDiagramBoundaryAudit.ts",
+      "owner": "A11 QA and release quality",
+      "ownerId": "A11",
+      "packageId": "A11-regression-evidence",
+      "matchedPathspec": "tests/e2e/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A11"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 998,
+        "precedence": 0,
+        "matchedPathspec": "tests/e2e/**"
+      },
+      "slice": "tests/regression evidence"
+    }
+  ]
+}
