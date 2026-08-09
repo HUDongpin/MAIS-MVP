@@ -92,3 +92,20 @@ test("projected label bounds describe the same final clamped placement used by C
     width: 192
   });
 });
+
+test("projected label bounds use the rendered text footprint instead of the global maximum", () => {
+  const placement = buildProjectedLabelPlacement([0, 0], { width: 226, height: 127 }, {
+    text: "comparison g(x)"
+  });
+
+  assert.deepEqual(placement.bounds, {
+    bottom: 33,
+    height: 25,
+    left: 8,
+    right: 114,
+    top: 8,
+    width: 106
+  });
+  assert.equal(placement.maxHeight, "25.00px");
+  assert.equal(placement.maxWidth, "106.00px");
+});

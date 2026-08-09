@@ -22,12 +22,24 @@ export type ProjectedLabelBounds = {
   width: number;
 };
 
+export type ProjectedLabelPlacementOptions = {
+  text?: string;
+};
+
 const maximumProjectedLabelHeightPx = 80;
 const maximumProjectedLabelWidthPx = 192;
 const viewportPaddingPx = 8;
 
 const clamp = (value: number, minimum: number, maximum: number) =>
   Math.min(maximum, Math.max(minimum, value));
+
+function estimatedTextWidth(text: string) {
+  return Array.from(text).reduce((width, character) => {
+    if (/\s/u.test(character)) return width + 3.5;
+    if (/[\u2E80-\u9FFF\uF900-\uFAFF]/u.test(character)) return width + 10;
+    return width + 6;
+  }, 0);
+}
 
 /**
  * Keeps a projected HTML label inside the measured canvas overlay. A centered
@@ -36,14 +48,25 @@ const clamp = (value: number, minimum: number, maximum: number) =>
  */
 export function buildProjectedLabelPlacement(
   screen: readonly [number, number],
-  viewport: ProjectionViewport
+  viewport: ProjectionViewport,
+  options: ProjectedLabelPlacementOptions = {}
 ): ProjectedLabelPlacement {
   const width = Math.max(1, viewport.width);
   const height = Math.max(1, viewport.height);
   const horizontalPadding = Math.min(viewportPaddingPx, width / 2);
   const verticalPadding = Math.min(viewportPaddingPx, height / 2);
-  const maxWidth = Math.max(0, Math.min(maximumProjectedLabelWidthPx, width - horizontalPadding * 2));
-  const maxHeight = Math.max(0, Math.min(maximumProjectedLabelHeightPx, height - verticalPadding * 2));
+  const availableWidth = Math.max(0, Math.min(maximumProjectedLabelWidthPx, width - horizontalPadding * 2));
+  const availableHeight = Math.max(0, Math.min(maximumProjectedLabelHeightPx, height - verticalPadding * 2));
+  const text = options.text?.trim() ?? "";
+  const contentWidth = text ? estimatedTextWidth(text) : availableWidth;
+  const maxWidth = text
+    ? Math.min(availableWidth, Math.max(32, Math.ceil(contentWidth + 18)))
+    : availableWidth;
+  const rowContentWidth = Math.max(1, maxWidth - 18);
+  const estimatedRows = text ? Math.max(1, Math.ceil(contentWidth / rowContentWidth)) : 1;
+  const maxHeight = text
+    ? Math.min(availableHeight, 10 + estimatedRows * 15)
+    : availableHeight;
   const horizontalGuard = Math.min(maxWidth / 2 + horizontalPadding, width / 2);
   const verticalGuard = Math.min(maxHeight / 2 + verticalPadding, height / 2);
   const x = clamp(screen[0], horizontalPadding, width - horizontalPadding);

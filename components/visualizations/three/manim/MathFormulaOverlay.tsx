@@ -222,7 +222,7 @@ export function MathFormulaOverlay({
       </div>
       <div data-viz-manim-projected-label-layer className="absolute inset-0">
         {projectedLabels.map((label) => {
-          const placement = buildProjectedLabelPlacement(label.screen, projectedLabelViewport);
+          const placement = buildProjectedLabelPlacement(label.screen, projectedLabelViewport, { text: label.text });
           return (
             <span
             key={label.id}

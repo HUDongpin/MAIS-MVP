@@ -31,7 +31,7 @@ export type FormulaOverlayCollisionDiagnostics = {
 
 export type FormulaOverlayCollisionInput = {
   formulaId: string;
-  projectedLabels: Pick<ProjectedLabelAnchor, "id" | "screen" | "visible">[];
+  projectedLabels: Pick<ProjectedLabelAnchor, "id" | "screen" | "text" | "visible">[];
   tokenCount: number;
   viewport: ProjectionViewport;
 };
@@ -146,7 +146,8 @@ export function buildFormulaOverlayCollisionDiagnostics(
       if (!label.visible) return false;
       const placement = buildProjectedLabelPlacement(
         [finite(label.screen[0], -1), finite(label.screen[1], -1)],
-        viewport
+        viewport,
+        { text: label.text }
       );
       const labelBox = {
         height: placement.bounds.height,
