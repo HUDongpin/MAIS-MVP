@@ -72,10 +72,23 @@ await context.addCookies([
 
 const findings = [];
 const retried = [];
+const infraNoise = [];
 const page = await context.newPage();
 let pageIssues = [];
 page.on("console", (m) => {
-  if (m.type() === "error") pageIssues.push(m.text());
+  if (m.type() === "error") {
+    const text = m.text();
+    // A dead or restarting dev server produces resource-load failures that have
+    // nothing to do with content. Counting them as content defects is how a
+    // sweep reported "5 runtime content defects" for a server that had died
+    // mid-run. Infrastructure noise is tallied separately and reported, so a
+    // degraded run is visible without being mistaken for a finding.
+    if (/ERR_CONNECTION_REFUSED|ERR_CONNECTION_RESET|ERR_ABORTED|Failed to load resource/i.test(text)) {
+      infraNoise.push(text.slice(0, 120));
+    } else {
+      pageIssues.push(text);
+    }
+  }
 });
 page.on("pageerror", (e) => pageIssues.push(`pageerror: ${e.message}`));
 
@@ -163,6 +176,10 @@ for (const slug of slugs) {
 await browser.close();
 
 console.log(`audit-us-ca-lesson-page-runtime: ${slugs.length} lesson pages driven to both control extremes`);
+if (infraNoise.length) {
+  console.log(`  resource-load failures ignored as infrastructure noise: ${infraNoise.length}`);
+  console.log("  (a dead dev server, not lesson content — re-run against a healthy server to trust this result)");
+}
 if (retried.length) console.log(`  loaded on a retry after a first-visit compile timeout: ${retried.length}`);
 if (!findings.length) {
   console.log("✓ no runtime content defects");
