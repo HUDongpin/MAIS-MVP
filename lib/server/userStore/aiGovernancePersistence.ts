@@ -844,6 +844,21 @@ export type AiGovernancePersistenceStoreDependencies = {
     database: AiGovernancePersistenceDatabase,
     input: { userId: string; grade?: GradeId }
   ) => PilotPlatformLoopData | null | Promise<PilotPlatformLoopData | null>;
+  resolveStudentAiTutorPolicyBeforeSnapshot?: (
+    userId: string,
+    signal?: AbortSignal
+  ) => ClassAiTutorPolicy | undefined | Promise<ClassAiTutorPolicy | undefined>;
+  consumeAiCapabilityRateLimitBeforeSnapshot?: (input: {
+    capability: AiCapability;
+    rules: AiCapabilityRateLimitRule[];
+    signal?: AbortSignal;
+    userId: string;
+    now: Date;
+  }) => AiCapabilityRateLimitDecision | undefined | Promise<AiCapabilityRateLimitDecision | undefined>;
+  readAiTutorRateLimitEventsAfterSnapshot?: (input: {
+    now: Date;
+    windowMs: number;
+  }) => AIGovernanceEventRecord[] | undefined | Promise<AIGovernanceEventRecord[] | undefined>;
   readDatabase: () => Promise<AiGovernancePersistenceDatabase>;
   mutateDatabase: <T>(mutator: (database: AiGovernancePersistenceDatabase) => T | Promise<T>) => Promise<T>;
 };
@@ -1757,6 +1772,9 @@ export function createAiGovernancePersistenceStore({
   pilotPlatformLoopDataFromDatabase = () => {
     throw new Error("AI governance pilot platform loop dependency is not configured.");
   },
+  resolveStudentAiTutorPolicyBeforeSnapshot,
+  consumeAiCapabilityRateLimitBeforeSnapshot,
+  readAiTutorRateLimitEventsAfterSnapshot,
   readDatabase
 }: AiGovernancePersistenceStoreDependencies) {
   return {
@@ -1909,7 +1927,10 @@ export function createAiGovernancePersistenceStore({
       });
     },
 
-    async resolveStudentAiTutorPolicy(userId: string) {
+    async resolveStudentAiTutorPolicy(userId: string, options: { signal?: AbortSignal } = {}) {
+      const preSnapshotPolicy = await resolveStudentAiTutorPolicyBeforeSnapshot?.(userId, options.signal);
+      if (preSnapshotPolicy !== undefined) return preSnapshotPolicy;
+
       const database = await readDatabase();
       const user = database.users.find((candidate) => candidate.id === userId);
       const now = currentTime().toISOString();
@@ -1934,14 +1955,25 @@ export function createAiGovernancePersistenceStore({
     async consumeAiCapabilityRateLimit({
       capability,
       rules,
+      signal,
       userId,
       now = currentTime()
     }: {
       capability: AiCapability;
       rules: AiCapabilityRateLimitRule[];
+      signal?: AbortSignal;
       userId: string;
       now?: Date;
     }): Promise<AiCapabilityRateLimitDecision> {
+      const preSnapshotDecision = await consumeAiCapabilityRateLimitBeforeSnapshot?.({
+        capability,
+        rules,
+        signal,
+        userId,
+        now
+      });
+      if (preSnapshotDecision !== undefined) return preSnapshotDecision;
+
       return mutateDatabase((database) => {
         const nowMs = now.getTime();
         const maxWindowMs = Math.max(...rules.map((rule) => rule.windowMs), 60 * 1000);
@@ -2026,12 +2058,21 @@ export function createAiGovernancePersistenceStore({
       const admin = database.users.find((candidate) => candidate.id === adminId);
       if (admin?.role !== "admin") return null;
 
+      const hotRateLimitEvents = await readAiTutorRateLimitEventsAfterSnapshot?.({ now, windowMs });
+      const hotRateLimitEventIds = new Set((hotRateLimitEvents ?? []).map((event) => event.id));
+      const governanceEvents = hotRateLimitEvents === undefined
+        ? database.ai_governance_events
+        : [
+            ...database.ai_governance_events.filter((event) => !hotRateLimitEventIds.has(event.id)),
+            ...hotRateLimitEvents
+          ];
+
       const cutoffMs = now.getTime() - windowMs;
       const usageRows = database.ai_tutor_usage.filter((usage) => {
         const createdAt = Date.parse(usage.created_at);
         return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime();
       });
-      const blockedEvents = database.ai_governance_events.filter((event) => {
+      const blockedEvents = governanceEvents.filter((event) => {
         const createdAt = Date.parse(event.created_at);
         return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime() && event.action !== "request-admitted";
       });
@@ -2040,7 +2081,7 @@ export function createAiGovernancePersistenceStore({
         generatedAt: now.toISOString(),
         windowMs,
         governance: summarizeAiGovernanceEvents({
-          events: database.ai_governance_events.map((event) => ({
+          events: governanceEvents.map((event) => ({
             action: event.action,
             capability: event.capability,
             createdAt: event.created_at,

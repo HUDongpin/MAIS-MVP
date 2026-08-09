@@ -63,6 +63,7 @@ function smokeConfig(args) {
   return {
     artifactDir: process.env.AI_TUTOR_LIVE_LATENCY_ARTIFACT_DIR || DEFAULT_ARTIFACT_DIR,
     baseUrl: stripTrailingSlash(args.baseUrl),
+    expectedModel: process.env.AI_TUTOR_LIVE_EXPECTED_MODEL || "qwen3.8-max",
     finalP95ThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FINAL_P95_MS, 8_000, 500, 60_000),
     finalP99ThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FINAL_P99_MS, 12_000, 500, 60_000),
     firstEventThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FIRST_EVENT_MS, 1_000, 100, 10_000),
@@ -473,6 +474,8 @@ function requestSseWithTiming(url, config, {
         let buffer = "";
         let finalBody = {};
         let finalEventMs = null;
+        let finalOk = null;
+        let finalStatus = null;
         let firstEventMs = null;
         let rawBytes = 0;
 
@@ -492,6 +495,8 @@ function requestSseWithTiming(url, config, {
               finalEventMs = Date.now() - startedAt;
               const parsedBody = parsed.data?.body;
               finalBody = parsedBody && typeof parsedBody === "object" ? parsedBody : {};
+              finalOk = typeof parsed.data?.ok === "boolean" ? parsed.data.ok : null;
+              finalStatus = Number.isInteger(parsed.data?.status) ? parsed.data.status : null;
             }
           }
         };
@@ -510,6 +515,8 @@ function requestSseWithTiming(url, config, {
             events,
             finalBody,
             finalEventMs: finalEventMs ?? Date.now() - startedAt,
+            finalOk,
+            finalStatus,
             firstEventMs,
             ok: status >= 200 && status < 300,
             rawBytes,
@@ -558,14 +565,29 @@ async function runTextSample(config, cookieHeader, index) {
     const providerStart = parsed.events.find((event) =>
       event.event === "status" && event.data?.phase === "provider-start"
     );
+    const provider = typeof providerStart?.data?.provider === "string" ? providerStart.data.provider : null;
+    const model = typeof providerStart?.data?.model === "string" ? providerStart.data.model : null;
+    const fallbackMode = finalMode?.includes("fallback")
+      || finalMode === "registration-required"
+      || finalMode === "quota-exceeded"
+      || finalMode === "vision-provider-required";
 
     return {
       eventCount: parsed.events.length,
       finalEventMs: parsed.finalEventMs,
+      finalOk: parsed.finalOk,
+      finalStatus: parsed.finalStatus,
       firstEventMs: parsed.firstEventMs,
       mode: finalMode,
-      ok: parsed.ok && Boolean(finalReply),
-      provider: typeof providerStart?.data?.provider === "string" ? providerStart.data.provider : null,
+      model,
+      ok: parsed.ok
+        && parsed.finalOk === true
+        && parsed.finalStatus === 200
+        && Boolean(finalReply)
+        && provider === "qwen"
+        && model === config.expectedModel
+        && !fallbackMode,
+      provider,
       rawBytes: parsed.rawBytes,
       replyChars: finalReply.length,
       status: parsed.status
@@ -575,8 +597,11 @@ async function runTextSample(config, cookieHeader, index) {
       errorKind: error instanceof Error ? error.name : "UnknownError",
       eventCount: 0,
       finalEventMs: Date.now() - startedAt,
+      finalOk: false,
+      finalStatus: null,
       firstEventMs: null,
       mode: null,
+      model: null,
       ok: false,
       provider: null,
       rawBytes: 0,
@@ -642,8 +667,17 @@ function summarizeText(samples, config) {
   const finalP99Ms = percentile(finalDurations, 99);
   const failures = [];
 
-  if (samples.some((sample) => !sample.ok)) failures.push("one or more text samples did not return a non-empty final/fallback reply");
+  if (samples.some((sample) => !sample.ok)) failures.push("one or more text samples did not prove a successful live provider reply");
   if (samples.some((sample) => sample.status !== 200)) failures.push("one or more text samples did not return HTTP 200");
+  if (samples.some((sample) => sample.finalOk !== true || sample.finalStatus !== 200)) {
+    failures.push("one or more text samples reported a failing SSE final envelope");
+  }
+  if (samples.some((sample) => sample.provider !== "qwen" || sample.model !== config.expectedModel)) {
+    failures.push(`one or more text samples did not expose qwen/${config.expectedModel} provider evidence`);
+  }
+  if (samples.some((sample) => sample.mode?.includes("fallback"))) {
+    failures.push("one or more text samples ended in fallback mode");
+  }
   if (samples.some((sample) => sample.firstEventMs === null)) failures.push("one or more text samples did not expose an SSE event");
   if (firstEventMaxMs !== null && firstEventMaxMs > config.firstEventThresholdMs) {
     failures.push(`first visible event max ${firstEventMaxMs}ms > ${config.firstEventThresholdMs}ms`);

@@ -951,6 +951,177 @@ test("AI governance persistence store evaluates durable rate limits and admin su
   assert.equal(summary?.recentBlockedEvents.some((event) => event.action === "rate-limit-blocked"), true);
 });
 
+test("AI governance admin summary replaces legacy Nova rate events with the dedicated Postgres ledger", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [
+      {
+        id: "legacy-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:00.000Z"
+      },
+      {
+        id: "other-capability-event",
+        user_id: "student-1",
+        capability: "lesson-audio",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:10.000Z"
+      },
+      {
+        id: "snapshot-cost-cap-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "rate-limit-blocked",
+        reason: "cost-cap-exceeded",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:20.000Z"
+      }
+    ],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: [{ id: "admin-1", role: "admin" }]
+  };
+  const store = createTestStore(database, {
+    readAiTutorRateLimitEventsAfterSnapshot: async () => [
+      {
+        id: "legacy-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:00.000Z"
+      },
+      {
+        id: "hot-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "rate-limit-blocked",
+        reason: "rate-limit",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:30.000Z"
+      }
+    ]
+  });
+
+  const summary = await store.getAiGovernanceSummaryForAdmin({
+    adminId: "admin-1",
+    now: new Date("2026-06-20T10:00:00.000Z"),
+    windowMs: 5 * 60_000
+  });
+
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.total, 3);
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.admitted, 1);
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.blocked, 2);
+  assert.equal(summary?.governance.byCapability["lesson-audio"]?.admitted, 1);
+  assert.equal(summary?.recentBlockedEvents.some((event) => event.reason === "cost-cap-exceeded"), true);
+});
+
+test("AI governance persistence uses narrow pre-snapshot hooks for Nova policy and rate admission", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  let snapshotReads = 0;
+  let snapshotMutations = 0;
+  const hookCalls: string[] = [];
+  const store = createAiGovernancePersistenceStore({
+    createId: () => "hot-event",
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    mutateDatabase: async (mutator) => {
+      snapshotMutations += 1;
+      return mutator(database);
+    },
+    resolveStudentAiTutorPolicyBeforeSnapshot: async (userId) => {
+      hookCalls.push(`policy:${userId}`);
+      return {
+        classId: "class-hot",
+        mode: "limited",
+        previousLiveMode: "limited",
+        perStudentMinuteLimit: 2,
+        perStudentHourLimit: 20,
+        fallbackOnFailure: true,
+        updatedBy: "teacher-hot",
+        updatedAt: "2026-06-20T10:00:00.000Z"
+      };
+    },
+    consumeAiCapabilityRateLimitBeforeSnapshot: async ({ capability, userId }) => {
+      hookCalls.push(`rate:${userId}:${capability}`);
+      return {
+        allowed: true,
+        reason: "ok",
+        retryAfterSeconds: 0,
+        remaining: 1,
+        resetAt: new Date("2026-06-20T10:01:00.000Z")
+      };
+    }
+  });
+
+  const policy = await store.resolveStudentAiTutorPolicy("student-hot");
+  const decision = await store.consumeAiCapabilityRateLimit({
+    capability: "ai-tutor-chat",
+    rules: [{ name: "minute", max: 2, windowMs: 60_000 }],
+    userId: "student-hot",
+    now: new Date("2026-06-20T10:00:00.000Z")
+  });
+
+  assert.equal(policy.classId, "class-hot");
+  assert.equal(decision.allowed, true);
+  assert.deepEqual(hookCalls, [
+    "policy:student-hot",
+    "rate:student-hot:ai-tutor-chat"
+  ]);
+  assert.equal(snapshotReads, 0);
+  assert.equal(snapshotMutations, 0);
+});
+
+test("AI governance persistence keeps snapshot fallback when narrow hooks are not applicable", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: [{ id: "student-snapshot", role: "student" }]
+  };
+  let snapshotReads = 0;
+  let snapshotMutations = 0;
+  const store = createAiGovernancePersistenceStore({
+    createId: () => "snapshot-event",
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    mutateDatabase: async (mutator) => {
+      snapshotMutations += 1;
+      return mutator(database);
+    },
+    resolveStudentAiTutorPolicyBeforeSnapshot: async () => undefined,
+    consumeAiCapabilityRateLimitBeforeSnapshot: async () => undefined
+  });
+
+  const policy = await store.resolveStudentAiTutorPolicy("student-snapshot");
+  const decision = await store.consumeAiCapabilityRateLimit({
+    capability: "ai-tutor-chat",
+    rules: [{ name: "minute", max: 2, windowMs: 60_000 }],
+    userId: "student-snapshot",
+    now: new Date("2026-06-20T10:00:00.000Z")
+  });
+
+  assert.equal(policy.classId, "default");
+  assert.equal(decision.allowed, true);
+  assert.equal(snapshotReads, 1);
+  assert.equal(snapshotMutations, 1);
+});
+
 test("AI governance persistence resolves pilot platform loop data through extracted boundary", async () => {
   const database: AiGovernancePersistenceDatabase = {
     ai_governance_events: [],
