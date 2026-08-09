@@ -382,6 +382,24 @@ test("circle and triangle labels stay inside their complete fixed SVG frames", (
   assert.equal(triangleStates, 210);
 });
 
+test("perpendicular-bisector compass arcs use their exact in-frame intersections", () => {
+  const constructions = source("constructions");
+  const radius = 95;
+  const halfSegment = 70;
+  const centerY = 100;
+  const intersectionX = 130;
+  const intersectionOffset = Math.sqrt(radius ** 2 - halfSegment ** 2);
+
+  assert.ok(intersectionX - (radius - halfSegment) > 0);
+  assert.ok(intersectionX + (radius - halfSegment) < 260);
+  assert.ok(centerY - intersectionOffset > 0);
+  assert.ok(centerY + intersectionOffset < 200);
+  assert.doesNotMatch(constructions, /<circle cx=\{60\} cy=\{100\} r=\{95\}/u);
+  assert.doesNotMatch(constructions, /<circle cx=\{200\} cy=\{100\} r=\{95\}/u);
+  assert.match(constructions, /A \$\{COMPASS_RADIUS\} \$\{COMPASS_RADIUS\} 0 0 1/u);
+  assert.match(constructions, /A \$\{COMPASS_RADIUS\} \$\{COMPASS_RADIUS\} 0 0 0/u);
+});
+
 test("confidence intervals and all original periodic states retain their full paint", () => {
   let intervalStates = 0;
   for (let samplePercent = 30; samplePercent <= 70; samplePercent += 2) {
