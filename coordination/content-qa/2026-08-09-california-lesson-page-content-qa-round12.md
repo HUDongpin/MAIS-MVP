@@ -95,10 +95,26 @@ audit:us-ca-lesson-label-motion   76/76 — clean
 audit:us-ca-lesson-page-runtime   re-running against a healthy server
 ```
 
-## Still open
+## Multiple choice, closed
 
-- Multiple-choice questions are graded by option matching and were not covered by
-  this gate; their options come from the same data the round-11 audit read, but
-  the *matching* path for them is untested here.
+The first version of this gate covered the 272 free-entry questions and named
+multiple choice as an open gap. Leaving a named gap unclosed is how rounds 3, 5
+and 9 turned "audited the risky ones" into a partition that wasn't, so it was
+closed immediately.
+
+Multiple choice grades through a different function — `questionAnswerMatches`
+resolves the stored answer against the options rather than comparing strings. The
+gate now asserts every such question has **exactly one** option that grades
+correct: none means the question cannot be answered right at all, several means
+two students who disagree are both marked right.
+
+**All 336 pass.** 272 + 336 = 608 — every checkpoint question on the California
+lesson pages is covered.
+
+Proven to fire before being trusted, on synthetic cases: a stored answer absent
+from its options yields 0 winners; options `0.5` and `1/2` against a stored `0.5`
+yield 2.
+
+## Still open
 - The two long-standing owner decisions: 76 `extension` blocks have no renderer,
   and 41 elementary pages discard their authored guided practice.
