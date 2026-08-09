@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import test from "node:test";
 
-const resolverRoutePath = new URL("../../app/api/ai-tutor/resolve/route.ts", import.meta.url);
-const edgeRoutePath = new URL("../../app/api/ai-tutor/route.ts", import.meta.url);
+const resolverRoutePath = join(process.cwd(), "app/api/ai-tutor/resolve/route.ts");
+const edgeRoutePath = join(process.cwd(), "app/api/ai-tutor/route.ts");
 
 test("Nova resolver runs auth, classroom policy, and rate admission through bounded fail-closed stages", async () => {
   const source = await readFile(resolverRoutePath, "utf8");

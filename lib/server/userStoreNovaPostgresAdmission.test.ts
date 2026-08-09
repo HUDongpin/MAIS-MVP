@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import test from "node:test";
 
-const userStorePath = new URL("./userStore.ts", import.meta.url);
+const userStorePath = join(process.cwd(), "lib/server/userStore.ts");
 
 test("Nova Postgres admission uses a narrow policy read and atomic per-user rate ledger", async () => {
   const source = await readFile(userStorePath, "utf8");
