@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import maisHomeBackground4k from "@/components/home/brand-assets/pedanova-home-background-4k-crisp.webp";
+import maisHomeBackground4k from "@/components/home/brand-assets/pedanova-home-background-20260809-owner-selected-white-stylus.png";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import type { LocalizedText } from "@/types";
 
@@ -56,7 +56,7 @@ export function PedaNovaHomeHero() {
         .pedanova-mobile-photo {
           background-repeat: no-repeat;
           background-size: auto 88%;
-          background-position: 78% 0;
+          background-position: 92% 0;
           filter: saturate(1.04) contrast(1.04) brightness(1.01);
         }
 
