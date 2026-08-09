@@ -44,16 +44,15 @@ function tokenize(input: string): Token[] {
     }
 
     if (/[0-9.]/.test(char)) {
-      let raw = "";
-      let dotSeen = false;
-      while (i < input.length && /[0-9.]/.test(input[i])) {
-        if (input[i] === ".") {
-          if (dotSeen) throw new Error("Malformed number");
-          dotSeen = true;
-        }
-        raw += input[i];
-        i += 1;
-      }
+      // Results may be formatted by JavaScript in scientific notation (1e+21,
+      // 1e-7). Treat the exponent as part of the number only when it is directly
+      // attached and contains digits. Spaces therefore preserve the distinct
+      // calculator-token meaning of `e` as Euler's constant (`2 e 2`).
+      const match = input.slice(i).match(/^(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?/);
+      if (!match) throw new Error("Malformed number");
+      const raw = match[0];
+      i += raw.length;
+      if (input[i] === ".") throw new Error("Malformed number");
       const value = Number.parseFloat(raw);
       if (!Number.isFinite(value)) throw new Error("Malformed number");
       tokens.push({ type: "num", value });
@@ -83,6 +82,7 @@ function tokenize(input: string): Token[] {
         tokens.push({ type: "const", value: "pi" });
         break;
       case "e":
+      case "ℯ":
         tokens.push({ type: "const", value: "e" });
         break;
       case "+":
@@ -183,7 +183,11 @@ function applyFunction(name: FunctionName, x: number, angleMode: CalculatorAngle
     case "cos":
       return Math.cos(toRadians(x));
     case "tan":
-      return Math.tan(toRadians(x));
+      {
+        const radians = toRadians(x);
+        if (Math.abs(Math.cos(radians)) < 1e-12) throw new Error("Domain error");
+        return Math.tan(radians);
+      }
     case "asin":
       if (x < -1 || x > 1) throw new Error("Domain error");
       return fromRadians(Math.asin(x));
@@ -406,4 +410,12 @@ export function evaluateExpression(input: string, angleMode: CalculatorAngleMode
   } catch {
     return null;
   }
+}
+
+// UI digits are discrete tokens but must remain adjacent (`1`, `0` -> `10`).
+// Encode only the standalone Euler-constant key with an internal glyph so it
+// cannot be swallowed as the exponent marker in `1e2`. Formatted result tokens
+// such as `1e+21` retain the ASCII e and therefore parse as scientific notation.
+export function evaluateExpressionTokens(tokens: readonly string[], angleMode: CalculatorAngleMode): number | null {
+  return evaluateExpression(tokens.map((token) => token === "e" ? "ℯ" : token).join(""), angleMode);
 }

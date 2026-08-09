@@ -53,6 +53,22 @@ test("decimals avoid floating-point noise", () => {
   assert.equal(formatCalculatorNumber(0.1 + 0.2), "0.3");
 });
 
+test("basic result chains retain guard digits beyond the rounded display", () => {
+  assert.equal(run("1 ÷ 3 =").display, "0.333333333333");
+  assert.equal(run("1 ÷ 3 = × 3 =").display, "1");
+  assert.equal(run("1 ÷ 7 = × 7 =").display, "1");
+});
+
+test("a result displayed as zero cannot leak a hidden nonzero value into later buttons", () => {
+  const underflow = "1 ÷ 1 0 0 0 0 0 0 0 0 0 0 0 = ÷ 1 0 0 =";
+  const state = run(underflow);
+  assert.equal(state.display, "0");
+  assert.equal(state.exactValue, 0);
+  assert.equal(run(`${underflow} sqrt`).display, "0");
+  assert.equal(run(`${underflow} neg sqrt`).display, "0");
+  assert.equal(run(`${underflow} × 1 0 0 0 0 0 0 0 0 0 0 0 =`).display, "0");
+});
+
 test("division, and divide-by-zero is an error that only clear recovers", () => {
   assert.equal(run("8 ÷ 2 =").display, "4");
   const errored = run("5 ÷ 0 =");
@@ -63,9 +79,28 @@ test("division, and divide-by-zero is an error that only clear recovers", () => 
   assert.deepEqual(run("5 ÷ 0 = AC"), initialCalculatorState);
 });
 
-test("percent, negate, and square root", () => {
+test("percent follows standard contextual calculator semantics", () => {
   assert.equal(run("5 0 %").display, "0.5");
+  assert.equal(run("1 0 0 + 1 5 % =").display, "115");
+  assert.equal(run("1 0 0 - 1 5 % =").display, "85");
   assert.equal(run("2 0 0 × 1 0 % =").display, "20");
+  assert.equal(run("2 0 0 ÷ 1 0 % =").display, "2000");
+});
+
+test("a contextual percent recipe survives an initial zero base", () => {
+  assert.equal(run("0 + 1 5 % = 1 0 0 =").display, "115");
+  assert.equal(run("0 - 1 5 % = 1 0 0 =").display, "85");
+});
+
+test("percent overflow enters the locked Error state until AC", () => {
+  const overflow = run("1 0 ^ 3 0 8 = + 2 0 0 %");
+  assert.equal(overflow.display, "Error");
+  assert.equal(overflow.error, true);
+  assert.equal(calculatorReducer(overflow, { type: "digit", value: "7" }).display, "Error");
+  assert.deepEqual(calculatorReducer(overflow, { type: "clear" }), initialCalculatorState);
+});
+
+test("negate and square root", () => {
   assert.equal(run("7 neg").display, "-7");
   assert.equal(run("7 neg neg").display, "7");
   assert.equal(run("9 sqrt").display, "3");
@@ -86,6 +121,28 @@ test("a fresh digit after equals starts a new calculation", () => {
   assert.equal(calculatorReducer(afterEquals, { type: "digit", value: "9" }).display, "9");
 });
 
+test("equals repeats the last operation and retains a contextual percent recipe", () => {
+  assert.equal(run("1 × 2 = = = =").display, "16");
+  assert.equal(run("2 + 3 = =").display, "8");
+
+  // Apple Calculator's percentage workflow retains +15% as the repeat recipe:
+  // 100 + 15% = 115, then entering 150 and pressing = produces 172.5.
+  assert.equal(run("1 0 0 + 1 5 % = 1 5 0 =").display, "172.5");
+  assert.equal(run("1 0 0 + 1 5 % = =").display, "132.25");
+
+  // AC removes the replay recipe as well as the visible calculation.
+  assert.equal(run("2 + 3 = AC 4 =").display, "4");
+});
+
+test("completed unary and percent operands survive operator chaining", () => {
+  assert.equal(run("1 0 0 + 1 5 % + 5 =").display, "120");
+  assert.equal(run("9 + 1 6 sqrt + 1 =").display, "14");
+  // A second operator replaces the pending operator while no right operand exists.
+  assert.equal(run("5 + × 2 =").display, "10");
+  // A fresh entry may still apply the retained repeat recipe on the next equals.
+  assert.equal(run("2 + 2 = 9 =").display, "11");
+});
+
 test("only one decimal point is allowed per number", () => {
   assert.equal(run("1 . 5 . 2").display, "1.52");
 });
@@ -101,6 +158,7 @@ test("trigonometry defaults to degrees and honours the angle-mode toggle", () =>
   assert.equal(run("3 0 sin").display, "0.5");
   assert.equal(run("9 0 cos").display, "0"); // ~6e-17 snaps to 0
   assert.equal(run("4 5 tan").display, "1");
+  assert.equal(run("9 0 tan").error, true);
   // Toggling to radians changes the result.
   assert.equal(run("rad 3 0 sin").display, formatCalculatorNumber(Math.sin(30)));
 });
