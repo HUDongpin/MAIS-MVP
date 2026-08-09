@@ -1179,6 +1179,36 @@ export async function auditMathDiagramPage(
         const hiddenOverflowX = clipsX ? horizontalCrossing : 0;
         const hiddenOverflowY = clipsY ? verticalCrossing : 0;
         if (ownsDiagramBoundary && (hiddenOverflowX > epsilon || hiddenOverflowY > epsilon)) {
+          // A deliberately bounded local scroller is a valid presentation for
+          // intrinsically wide mathematical diagrams: every pixel remains
+          // reachable without widening the page. Do not confuse the outer
+          // card's decorative clipping with loss of content when such a
+          // scroller sits between the SVG and that card. The reachability pass
+          // below still rejects centered content whose left edge cannot be
+          // reached from scrollLeft=0.
+          const boundaryRect = container.getBoundingClientRect();
+          let ancestor = svg.parentElement;
+          let hasBoundedLocalScroller = false;
+          while (ancestor && ancestor !== container) {
+            const ancestorStyle = getComputedStyle(ancestor);
+            const ancestorRect = ancestor.getBoundingClientRect();
+            const scrollsX = ancestorStyle.overflowX === "auto" || ancestorStyle.overflowX === "scroll";
+            if (
+              scrollsX &&
+              ancestor.scrollWidth > ancestor.clientWidth + epsilon &&
+              ancestorRect.left >= boundaryRect.left - epsilon &&
+              ancestorRect.right <= boundaryRect.right + epsilon
+            ) {
+              hasBoundedLocalScroller = true;
+              break;
+            }
+            ancestor = ancestor.parentElement;
+          }
+          if (hasBoundedLocalScroller) {
+            if (container === semanticSvgOwner || container === root) break;
+            container = container.parentElement;
+            continue;
+          }
           pushIssue({
             kind: "masked-container-overflow",
             surface: name,
@@ -1322,14 +1352,16 @@ export async function auditMathDiagramPage(
     }
 
     const figureStages = responsiveDiagramContainerCandidates.filter((candidate) =>
-      candidate.matches("[data-figure-stage],[data-figure-scroll-region]")
+      candidate.matches("[data-figure-stage],[data-figure-scroll-region],[data-viz-responsive-diagram-container]")
     );
     for (const [index, stage] of figureStages.entries()) {
       if (stage.scrollWidth <= stage.clientWidth + epsilon) continue;
       const stageRect = stage.getBoundingClientRect();
       const scrollOriginLeft = stageRect.left + stage.clientLeft;
       const descendants = Array.from(stage.querySelectorAll<Element>("*"))
-        .filter((element) => element.closest("[data-figure-stage],[data-figure-scroll-region]") === stage)
+        .filter((element) => element.closest(
+          "[data-figure-stage],[data-figure-scroll-region],[data-viz-responsive-diagram-container]"
+        ) === stage)
         .filter(isRenderedCandidate)
         .filter((element) => {
           let ancestor = element.parentElement;

@@ -103,6 +103,7 @@ const fullAudit = fullAuditValue === "1";
 const fullAuditNarrowingVariables = [
   "MATH_DIAGRAM_AUDIT_SURFACES",
   "MATH_DIAGRAM_AUDIT_IDS",
+  "MATH_DIAGRAM_AUDIT_CCSS_LESSON_IDS",
   "MATH_DIAGRAM_AUDIT_VIEWPORTS",
   "MATH_DIAGRAM_AUDIT_LANGUAGES",
   "MATH_DIAGRAM_AUDIT_THEMES"
@@ -139,6 +140,12 @@ const maxAttachedScreenshots = nonNegativeInteger(
 );
 const requestedIds = new Set(
   (process.env.MATH_DIAGRAM_AUDIT_IDS ?? "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean)
+);
+const requestedCcssLessonIds = new Set(
+  (process.env.MATH_DIAGRAM_AUDIT_CCSS_LESSON_IDS ?? "")
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean)
@@ -247,7 +254,7 @@ function selectedIds<T>(values: T[], idFor: (value: T) => string) {
 }
 
 function validateRequestedIds(inventory: DiagramInventory) {
-  if (requestedIdValidationComplete || requestedIds.size === 0) return;
+  if (requestedIdValidationComplete || (requestedIds.size === 0 && requestedCcssLessonIds.size === 0)) return;
   const knownIds = new Set<string>();
   if (requested("lesson")) inventory.lessonRoutes.forEach((route) => knownIds.add(route.topicId));
   if (requested("practice")) {
@@ -265,6 +272,14 @@ function validateRequestedIds(inventory: DiagramInventory) {
   const missing = Array.from(requestedIds).filter((id) => !knownIds.has(id));
   if (missing.length) {
     throw new Error(`MATH_DIAGRAM_AUDIT_IDS did not match any requested surface inventory: ${missing.join(", ")}`);
+  }
+  const knownCcssLessonIds = new Set(inventory.ccssLessons.map((lesson) => lesson.lessonId));
+  const missingCcssLessonIds = Array.from(requestedCcssLessonIds)
+    .filter((id) => !knownCcssLessonIds.has(id));
+  if (missingCcssLessonIds.length) {
+    throw new Error(
+      `MATH_DIAGRAM_AUDIT_CCSS_LESSON_IDS did not match the CCSS inventory: ${missingCcssLessonIds.join(", ")}`
+    );
   }
   requestedIdValidationComplete = true;
 }
@@ -1115,6 +1130,7 @@ test.describe("mathematical diagram boundary integrity", () => {
           })));
 
           for (const lessonId of new Set(route.interactiveLessonIds)) {
+            if (requestedCcssLessonIds.size > 0 && !requestedCcssLessonIds.has(lessonId)) continue;
             const expectedLesson = ccssLessonById.get(lessonId);
             if (!expectedLesson || expectedLesson.parentTopicIds[0] !== route.topicId) continue;
             const delegatedPolicies = expectedLesson.exceptionalStatePolicies.filter((policy) =>
@@ -1325,7 +1341,8 @@ test.describe("mathematical diagram boundary integrity", () => {
     const expectedVisits = routes.length * matrixStates.length;
     const expectedControlledLessonKeys = new Set(matrixStates.flatMap((matrix) => routes.flatMap((route) =>
       Array.from(new Set(route.interactiveLessonIds)).flatMap((lessonId) =>
-        ccssLessonById.get(lessonId)?.parentTopicIds[0] === route.topicId
+        (requestedCcssLessonIds.size === 0 || requestedCcssLessonIds.has(lessonId))
+          && ccssLessonById.get(lessonId)?.parentTopicIds[0] === route.topicId
           ? [`${matrix.language}|${matrix.theme}|${route.topicId}|${lessonId}`]
           : []
       )

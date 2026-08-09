@@ -155,4 +155,38 @@ test.describe("focused mathematical surface discovery and SVG paint bounds", () 
       detail: expect.stringContaining("mask")
     }));
   });
+
+  test("a bounded local scroller keeps a wide SVG reachable while hidden clipping still fails", async ({ page }) => {
+    await page.setViewportSize({ width: 400, height: 300 });
+    const render = async (scrollable: boolean) => {
+      await page.setContent(`
+        <main style="width:240px">
+          <section class="glass-panel" style="width:240px;overflow:hidden">
+            <div
+              ${scrollable ? "data-viz-responsive-diagram-container role=region tabindex=0 aria-label='Scrollable graph'" : ""}
+              style="width:220px;${scrollable ? "overflow-x:auto" : "overflow:hidden"}"
+            >
+              <svg data-viz-surface aria-label="Wide graph" viewBox="0 0 640 360" width="640" height="360">
+                <line x1="20" y1="180" x2="620" y2="180" stroke="black" />
+              </svg>
+            </div>
+          </section>
+        </main>
+      `);
+      return auditMathDiagramPage(page);
+    };
+
+    const reachable = await render(true);
+    expect(reachable.issues).not.toContainEqual(expect.objectContaining({
+      kind: "masked-container-overflow"
+    }));
+    expect(reachable.issues).not.toContainEqual(expect.objectContaining({
+      kind: "unreachable-scroll-content"
+    }));
+
+    const clipped = await render(false);
+    expect(clipped.issues).toContainEqual(expect.objectContaining({
+      kind: "masked-container-overflow"
+    }));
+  });
 });
