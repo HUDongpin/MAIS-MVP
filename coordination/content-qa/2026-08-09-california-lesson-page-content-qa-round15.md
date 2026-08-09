@@ -1,9 +1,25 @@
 # California Math — Lesson-Page Content QA — 2026-08-09 (round 15)
 
-**76 questions on 33 pages were inaudible to the students who need them read
-aloud. Fixed, with the defect and the fix both measured in actual audio.**
+**94 questions were inaudible when read aloud. 53 of them to any K–3 student,
+with no accommodation involved. Fixed, with the defect and the fix both measured
+in actual audio.**
 
 Fourteen rounds audited what the page *shows*. This one audited what it *says*.
+
+> **Two corrections to this report's own first draft**, both found by pushing
+> harder after it was written:
+>
+> - The count was **94, not 76**. The first regex required a digit on each side
+>   of the minus, so it missed algebraic subtraction (`x − y`).
+> - The framing was wrong. I described this as an opt-in accommodation affecting
+>   few students. `PracticeQuestionCard.tsx:359` sets
+>   `shouldShowReadAloud = isYoungLearnerPracticeGrade(question.grade)` for
+>   grades **{K, P1, P2, P3}** with **no accommodation gate**, and
+>   `LessonView.tsx:915` renders that card for the lesson's checkpoint. So
+>   **53 of the 94 were reachable by every K–3 California student** who pressed
+>   a visible button.
+> - A third failure mode was missed entirely on the first pass. See
+>   *"The test that lied"* below.
 
 ## The surface
 
@@ -97,6 +113,50 @@ AFTER    "10 + 8 = blank ." vs stripped -> now audible
 both silent tokens alone, so the same defect was live on a second surface. Naming
 a gap and not closing it is how rounds 3, 5 and 9 went wrong.
 
+## The test that lied
+
+The first pass measured every symbol **in isolation** and cleared five of them:
+`<` alone renders 54,804 bytes of real audio, so `<` is fine. That conclusion was
+wrong, and it was wrong because of how it was measured.
+
+An adversarial verifier in the accompanying workflow found it. Symbols are only
+voiced when the engine sees one in a sentence it can normalize. Put two bare ones
+in the same utterance and the normalizer gives up entirely:
+
+```
+say("<")                ->  54,804 bytes, 1.149s
+say("<. >")             ->   4,096 bytes, 0.000s   header only, no audio
+say("< > = +")          ->   4,096 bytes, 0.000s
+say("Pick one. <")      ->  byte-identical to say("Pick one. ")
+```
+
+Which is exactly the shape the lesson page builds — options joined bare with
+`". "`. So the flagship question was worse than first reported:
+
+```
+"Which symbol makes it true?  3 __ 8. <. >. =. +"   md5 869f0ca88288a1d8
+"Which symbol makes it true?  3 8"                  md5 869f0ca88288a1d8
+```
+
+**Byte-identical.** The blank is silent *and* the option list is silent. A
+Kindergarten student heard "which symbol makes it true? three eight" and then
+nothing for the two options that are the actual candidate answers.
+
+Measured properly this time, standing alone: `<` `>` `≤` `≥` and a bare minus
+disappear; `=` `+` `×` `÷` `π` `≠` do not, and were left alone. A symbol *inside*
+an expression (`3 < 8`) is voiced. The practice card's `"Choice 1: "` prefix also
+keeps its options voiced — which is why this defect is specific to the lesson
+page.
+
+`speechTextForMathParts` therefore takes the prompt and options **separately**:
+once joined, `". <. "` is indistinguishable from a `<` inside an expression, and
+rewriting that would break content that is already correct.
+
+The lesson generalizes past this round. An isolation test is not a smaller
+version of the real test — it can be a different test with the opposite answer.
+Round 14's failure was a gate pointed at the wrong page; this one was a
+measurement taken in the wrong context. Both printed a confident green.
+
 ## New gate: `audit:us-ca-lesson-readaloud`
 
 Builds the string the app actually speaks for all 608 checkpoint questions, runs
@@ -139,7 +199,7 @@ audit:us-ca-checkpoint-grading   272 free-entry + 336 multiple-choice — clean
 lib/mathSpeech.test.ts             6 pass · answerMatching 10 pass
 data/usCaliforniaLessons.test.ts  13 pass · tsc --noEmit clean
 audit:ccss-lesson-interaction      2 defects — NOT mine, see below
-audit:us-ca-lesson-figure-bounds  unverified — see below
+audit:us-ca-lesson-figure-bounds  76 pages, 76 with a real lesson figure — clean
 audit:us-ca-lesson-label-motion   unverified — see below
 ```
 
@@ -155,12 +215,22 @@ being broken, and it has three consequences:
    defect: the word "cookies" does not appear anywhere in that file at my HEAD.
    It exists only inside the other session's uncommitted edit, and their own new
    detector caught it. Their work in progress, not this loop's finding.
-2. **The browser gates are unverified.** Runs against the shared server timed out
-   at 90s (it was recompiling constantly — `/login` took 10.7s there against
-   0.07s on an isolated server). A run against an isolated snapshot worktree then
-   aborted on a Next-dev navigation race. In both cases the gate refused to
-   report a pass, which is the hardening from round 14 working. But neither is
-   evidence of clean.
+2. **`figure-bounds` is now genuinely verified — and its own wait condition was
+   the bug.** Runs against the shared server timed out at 90s (it was recompiling
+   constantly: `/login` took 10.7s there against 0.07s on an isolated server).
+   Against an isolated snapshot it still aborted, reproducibly, on
+   `us-ca-math-s5-chapter-01`. That looked like a page defect. It is not: the
+   page loads in **0.7s** with 4 figures and no console errors, and its
+   `/api/media-objects` calls stop after 10 requests at t+6s — no runaway poll.
+   The gate's `waitUntil: "networkidle"` simply never settles under Next dev HMR.
+   Re-run with `domcontentloaded` — the gate already waits for the figure
+   explicitly, so networkidle was redundant — it reports **76 pages, 76 carrying
+   a real lesson figure, clean**. That is the first trustworthy run of this gate:
+   authenticated, on the lessons, with figures actually present.
+
+   The fix belongs in the gate, but that file is open in the other session, which
+   has already rewritten it. Left for them rather than colliding; the measurement
+   above was taken with a scratch copy.
 3. Their rewrite **improved my round-14 auth assertion**: I compared with
    `landed.includes(path)`, they compare `new URL(landed).pathname`. Substring
    matching would pass on `/login?next=/student/lessons/<slug>` were it not for
