@@ -284,3 +284,160 @@ test("AI tutor edge wrapper preserves multipart attachment bytes", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("AI tutor edge stream forwards provider evidence only when the resolver attests it", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response(
+    JSON.stringify({ reply: "Use the difference-of-squares pattern." }),
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "X-MAIS-AI-Provider": "qwen",
+        "X-MAIS-AI-Model": "qwen3.8-max"
+      }
+    }
+  );
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const streamBody = await response.text();
+
+    assert.match(streamBody, /"phase":"provider-start"/);
+    assert.match(streamBody, /"provider":"qwen"/);
+    assert.match(streamBody, /"model":"qwen3\.8-max"/);
+    assert.match(streamBody, /"status":200,"ok":true/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge stream never fabricates provider evidence when resolver attestation is absent", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response(
+    JSON.stringify({ reply: "A local response without provider attestation." }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    }
+  );
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const streamBody = await response.text();
+
+    assert.doesNotMatch(streamBody, /"phase":"provider-start"/);
+    assert.match(streamBody, /event: final/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge deadline is an explicit failing final envelope", { timeout: 5_000 }, async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    const signal = init?.signal;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (signal?.aborted) abort();
+    else signal?.addEventListener("abort", abort, { once: true });
+  });
+
+  try {
+    await withEnv({
+      AI_TUTOR_TOTAL_DEADLINE_MS: "2000",
+      AI_TUTOR_EDGE_RESPONSE_RESERVE_MS: "5000"
+    }, async () => {
+      const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+        method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ input: "Give one hint." })
+      }));
+      const streamBody = await response.text();
+
+      assert.match(streamBody, /"phase":"deadline-fallback"/);
+      assert.match(streamBody, /"status":503,"ok":false/);
+      assert.match(streamBody, /"mode":"deadline-fallback"/);
+      assert.doesNotMatch(streamBody, /"phase":"provider-start"/);
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge JSON wrapper propagates an incoming client abort to the resolver", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwardedSignal: AbortSignal | undefined;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    forwardedSignal = init?.signal ?? undefined;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (forwardedSignal?.aborted) abort();
+    else forwardedSignal?.addEventListener("abort", abort, { once: true });
+  });
+  const incomingController = new AbortController();
+
+  try {
+    const responsePromise = postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: "Give one hint." }),
+      signal: incomingController.signal
+    }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    incomingController.abort(new Error("client-disconnected"));
+    const response = await responsePromise;
+
+    assert.equal(response.status, 503);
+    assert.equal(forwardedSignal?.aborted, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge stream cancellation aborts resolver work and clears later writes", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwardedSignal: AbortSignal | undefined;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    forwardedSignal = init?.signal ?? undefined;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (forwardedSignal?.aborted) abort();
+    else forwardedSignal?.addEventListener("abort", abort, { once: true });
+  });
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const reader = response.body?.getReader();
+    assert.ok(reader);
+    const first = await reader.read();
+    assert.equal(first.done, false);
+    await reader.cancel("consumer-cancelled");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    assert.equal(forwardedSignal?.aborted, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

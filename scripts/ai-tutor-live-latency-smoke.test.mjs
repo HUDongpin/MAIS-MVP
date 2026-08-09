@@ -52,6 +52,7 @@ function runSmoke(baseUrl, artifactDir, { includeBypass = true, includeCredentia
 }
 
 async function startProtectedFixture({
+  aiTutorSseBody,
   issueAppSessionCookie = true,
   issueBypassCookie,
   requireBypassCookie = true
@@ -122,12 +123,12 @@ async function startProtectedFixture({
         "Cache-Control": "no-store",
         "Content-Type": "text/event-stream; charset=utf-8"
       });
-      response.end([
+      response.end(aiTutorSseBody ?? [
         "event: status",
-        'data: {"phase":"provider-start","provider":"qwen"}',
+        'data: {"phase":"provider-start","provider":"qwen","model":"qwen3.8-max"}',
         "",
         "event: final",
-        'data: {"body":{"reply":"Use the difference of squares pattern.","mode":"live"}}',
+        'data: {"status":200,"ok":true,"body":{"reply":"Use the difference of squares pattern.","mode":"live"}}',
         "",
         ""
       ].join("\n"));
@@ -296,6 +297,62 @@ test("AI Tutor smoke skips bypass-cookie priming when no Vercel bypass is config
 
   const artifact = await readArtifact(artifactDir);
   assert.match(artifact, /"success": true/);
+  assertSensitiveValuesAbsent(result.stdout);
+  assertSensitiveValuesAbsent(result.stderr);
+  assertSensitiveValuesAbsent(artifact);
+});
+
+test("AI Tutor smoke rejects an SSE final failure even when HTTP is 200 and the reply is non-empty", { timeout: 10_000 }, async (t) => {
+  const artifactDir = await fs.mkdtemp(path.join(os.tmpdir(), "mais-ai-smoke-final-failure-"));
+  const fixture = await startProtectedFixture({
+    issueBypassCookie: true,
+    aiTutorSseBody: [
+      "event: status",
+      'data: {"phase":"accepted"}',
+      "",
+      "event: final",
+      'data: {"status":503,"ok":false,"body":{"reply":"Please retry.","mode":"preflight-timeout"}}',
+      "",
+      ""
+    ].join("\n")
+  });
+  t.after(async () => {
+    await fixture.close();
+    await fs.rm(artifactDir, { force: true, recursive: true });
+  });
+
+  const result = await runSmoke(fixture.baseUrl, artifactDir);
+  assert.notEqual(result.code, 0, "an SSE final failure must fail live-provider verification");
+  const artifact = await readArtifact(artifactDir);
+  assert.match(artifact, /"success": false/);
+  assertSensitiveValuesAbsent(result.stdout);
+  assertSensitiveValuesAbsent(result.stderr);
+  assertSensitiveValuesAbsent(artifact);
+});
+
+test("AI Tutor smoke rejects deadline fallback as live Qwen evidence", { timeout: 10_000 }, async (t) => {
+  const artifactDir = await fs.mkdtemp(path.join(os.tmpdir(), "mais-ai-smoke-deadline-fallback-"));
+  const fixture = await startProtectedFixture({
+    issueBypassCookie: true,
+    aiTutorSseBody: [
+      "event: status",
+      'data: {"phase":"provider-start","provider":"qwen"}',
+      "",
+      "event: final",
+      'data: {"status":200,"ok":true,"body":{"reply":"Professor Nova is taking longer than usual.","mode":"deadline-fallback"}}',
+      "",
+      ""
+    ].join("\n")
+  });
+  t.after(async () => {
+    await fixture.close();
+    await fs.rm(artifactDir, { force: true, recursive: true });
+  });
+
+  const result = await runSmoke(fixture.baseUrl, artifactDir);
+  assert.notEqual(result.code, 0, "a friendly deadline fallback is not proof of a live Qwen call");
+  const artifact = await readArtifact(artifactDir);
+  assert.match(artifact, /"success": false/);
   assertSensitiveValuesAbsent(result.stdout);
   assertSensitiveValuesAbsent(result.stderr);
   assertSensitiveValuesAbsent(artifact);

@@ -82,7 +82,11 @@ import {
   type LLMProviderMessage
 } from "@/lib/server/llmProvider";
 import {
+  evaluateAiCapabilityRateLimit,
+  mergeClassAiTutorPoliciesByStrictest,
   type AiCapability,
+  type AiCapabilityRateLimitDecision,
+  type AiCapabilityRateLimitRule,
   type AiGovernanceAuditAction
 } from "@/lib/server/aiGovernance";
 import {
@@ -109,10 +113,13 @@ import {
   aiTutorRecentMistakeContextLines as tutorRecentMistakeContextLinesFromAiGovernancePersistence,
   aiTutorRecentTutorMessageContextLines as tutorRecentTutorMessageContextLinesFromAiGovernancePersistence,
   aiGovernanceTeacherReviewQueueForPilot as teacherReviewQueueForPilotFromAiGovernancePersistence,
+  classAiTutorPolicyRecordToPublic as classAiTutorPolicyRecordToPublicFromAiGovernancePersistence,
   createAiGovernancePilotPlatformLoopDataBuilder as pilotPlatformLoopDataBuilderFromAiGovernancePersistence,
   createAiGovernancePersistenceStore,
+  defaultClassAiTutorPolicyRecord as defaultClassAiTutorPolicyRecordFromAiGovernancePersistence,
   mergeAiTutorScopeContextResult as mergeAiTutorScopeContextResultFromAiGovernancePersistence,
   normalizeClassAiTutorPolicyRecords as normalizeClassAiTutorPolicyRecordsFromAiGovernancePersistence,
+  normalizeClassAiTutorPolicyRecord as normalizeClassAiTutorPolicyRecordFromAiGovernancePersistence,
   normalizeAiGovernanceAdaptiveRecommendationCacheRecords as normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence,
   normalizeAiGovernanceEventRecords as normalizeAiGovernanceEventRecordsFromPersistence,
   normalizeAiGovernanceTutorMessageRecords as normalizeTutorMessageRecordsFromAiGovernancePersistence,
@@ -662,6 +669,7 @@ import type {
   ClassroomWorkSampleStatus,
   ClassroomLiveSession,
   ClassEnrollment,
+  ClassAiTutorPolicy,
   CurriculumProfile,
   CurriculumRegion,
   CurriculumTrack,
@@ -1900,7 +1908,7 @@ const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
 // Increment whenever any SQL in bootstrapPostgresStateTables changes.
-const hotAuthSchemaVersion = 1;
+const hotAuthSchemaVersion = 2;
 const hotAuthTableNames = [
   "auth_users",
   "auth_student_profiles",
@@ -3337,6 +3345,17 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await sql`
+        CREATE TABLE IF NOT EXISTS ai_governance_rate_limit_events (
+          id TEXT PRIMARY KEY,
+          user_id TEXT NOT NULL,
+          capability TEXT NOT NULL,
+          action TEXT NOT NULL CHECK (action IN ('request-admitted', 'rate-limit-blocked')),
+          reason TEXT NOT NULL,
+          metadata_json JSONB,
+          created_at TEXT NOT NULL
+        )
+      `;
+      await sql`
         CREATE TABLE IF NOT EXISTS projection_reward_point_ledger (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
@@ -3388,9 +3407,48 @@ async function bootstrapPostgresStateTables() {
       await sql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_teacher_idx ON projection_teacher_messages(teacher_id, last_message_at DESC)`;
       await sql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_class_idx ON projection_teacher_messages(class_id, last_message_at DESC)`;
       await sql`CREATE INDEX IF NOT EXISTS projection_ai_tutor_messages_user_idx ON projection_ai_tutor_messages(user_id, created_at DESC)`;
+      await sql`
+        CREATE INDEX IF NOT EXISTS ai_governance_rate_limit_events_user_capability_idx
+          ON ai_governance_rate_limit_events(user_id, capability, action, created_at ASC)
+      `;
       await sql`CREATE INDEX IF NOT EXISTS projection_reward_point_ledger_student_idx ON projection_reward_point_ledger(student_id, created_at DESC)`;
       await sql`CREATE INDEX IF NOT EXISTS projection_reward_redemptions_student_idx ON projection_reward_redemptions(student_id, requested_at DESC)`;
       await sql`CREATE INDEX IF NOT EXISTS projection_gamification_events_student_idx ON projection_gamification_events(student_id, created_at DESC)`;
+      await sql`
+        INSERT INTO ai_governance_rate_limit_events (
+          id,
+          user_id,
+          capability,
+          action,
+          reason,
+          metadata_json,
+          created_at
+        )
+        SELECT
+          event_record->>'id',
+          event_record->>'user_id',
+          event_record->>'capability',
+          event_record->>'action',
+          COALESCE(NULLIF(event_record->>'reason', ''), 'legacy-backfill'),
+          event_record->'metadata_json',
+          event_record->>'created_at'
+        FROM app_state AS state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(state.payload->'ai_governance_events') = 'array'
+              THEN state.payload->'ai_governance_events'
+            ELSE '[]'::jsonb
+          END
+        ) AS event_items(event_record)
+        WHERE state.id = ${stateRecordId}
+          AND event_record->>'action' IN ('request-admitted', 'rate-limit-blocked')
+          AND event_record->>'capability' = 'ai-tutor-chat'
+          AND COALESCE(event_record->>'id', '') <> ''
+          AND COALESCE(event_record->>'user_id', '') <> ''
+          AND COALESCE(event_record->>'capability', '') <> ''
+          AND COALESCE(event_record->>'created_at', '') <> ''
+        ON CONFLICT (id) DO NOTHING
+      `;
       await sql`
         INSERT INTO auth_schema_migrations (version, applied_at)
         VALUES (${hotAuthSchemaVersion}, NOW())
@@ -4853,6 +4911,352 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   return run;
 }
 
+type PostgresStudentAiTutorPolicyRow = {
+  class_id: unknown;
+  policy_record: unknown;
+  teacher_id: unknown;
+  updated_at: unknown;
+  user_role: unknown;
+};
+
+type PostgresAiTutorRateLimitEventRow = {
+  created_at: unknown;
+};
+
+type PostgresAiTutorGovernanceEventRow = {
+  action: unknown;
+  capability: unknown;
+  created_at: unknown;
+  id: unknown;
+  metadata_json: unknown;
+  reason: unknown;
+  user_id: unknown;
+};
+
+const aiTutorAdmissionStatementTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_ADMISSION_STATEMENT_TIMEOUT_MS,
+  1_500,
+  250,
+  4_000
+);
+const aiTutorAdmissionLockTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_ADMISSION_LOCK_TIMEOUT_MS,
+  600,
+  100,
+  2_000
+);
+
+function throwIfAiTutorAdmissionAborted(signal?: AbortSignal) {
+  if (!signal?.aborted) return;
+  throw new DOMException("AI Tutor admission was aborted.", "AbortError");
+}
+
+function defaultStudentAiTutorPolicy(now: string): ClassAiTutorPolicy {
+  return classAiTutorPolicyRecordToPublicFromAiGovernancePersistence(
+    defaultClassAiTutorPolicyRecordFromAiGovernancePersistence({
+      classId: "default",
+      now,
+      updatedBy: "system"
+    })
+  );
+}
+
+async function resolveStudentAiTutorPolicyFromPostgresHotPath(
+  userId: string,
+  signal?: AbortSignal
+): Promise<ClassAiTutorPolicy | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+
+  throwIfAiTutorAdmissionAborted(signal);
+  await ensurePostgresStateTable();
+  throwIfAiTutorAdmissionAborted(signal);
+
+  const rows = await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT
+        set_config('lock_timeout', ${`${aiTutorAdmissionLockTimeoutMs}ms`}, true),
+        set_config('statement_timeout', ${`${aiTutorAdmissionStatementTimeoutMs}ms`}, true)
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    const policyRows = await sql<PostgresStudentAiTutorPolicyRow[]>`
+      WITH authoritative_state AS (
+        SELECT payload
+        FROM app_state
+        WHERE id = ${stateRecordId}
+        LIMIT 1
+      ), student AS (
+        SELECT user_record->>'role' AS role
+        FROM authoritative_state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(payload->'users') = 'array' THEN payload->'users'
+            ELSE '[]'::jsonb
+          END
+        ) AS user_items(user_record)
+        WHERE user_record->>'id' = ${userId}
+        LIMIT 1
+      ), enrolled_classes AS (
+        SELECT
+          teacher_class_record->>'id' AS class_id,
+          teacher_class_record->>'teacher_id' AS teacher_id,
+          teacher_class_record->>'updated_at' AS updated_at
+        FROM authoritative_state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(payload->'class_enrollments') = 'array'
+              THEN payload->'class_enrollments'
+            ELSE '[]'::jsonb
+          END
+        ) AS enrollment_items(enrollment_record)
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(payload->'teacher_classes') = 'array'
+              THEN payload->'teacher_classes'
+            ELSE '[]'::jsonb
+          END
+        ) AS teacher_class_items(teacher_class_record)
+        WHERE enrollment_record->>'student_id' = ${userId}
+          AND teacher_class_record->>'id' = enrollment_record->>'class_id'
+      ), policy_records AS (
+        SELECT policy_record
+        FROM authoritative_state
+        CROSS JOIN LATERAL jsonb_array_elements(
+          CASE
+            WHEN jsonb_typeof(payload->'class_ai_tutor_policies') = 'array'
+              THEN payload->'class_ai_tutor_policies'
+            ELSE '[]'::jsonb
+          END
+        ) AS policy_items(policy_record)
+      )
+      SELECT
+        (SELECT role FROM student) AS user_role,
+        enrolled_class.class_id,
+        enrolled_class.teacher_id,
+        enrolled_class.updated_at,
+        policy.policy_record
+      FROM (SELECT 1) AS anchor
+      LEFT JOIN enrolled_classes AS enrolled_class ON TRUE
+      LEFT JOIN policy_records AS policy
+        ON policy.policy_record->>'class_id' = enrolled_class.class_id
+      ORDER BY enrolled_class.class_id ASC
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+    return policyRows;
+  });
+  throwIfAiTutorAdmissionAborted(signal);
+
+  const now = new Date().toISOString();
+  const fallback = defaultStudentAiTutorPolicy(now);
+  if (rows[0]?.user_role !== "student") return fallback;
+
+  const policies = rows.flatMap((row) => {
+    if (typeof row.class_id !== "string" || !row.class_id.trim()) return [];
+    const classId = row.class_id.trim();
+    const teacherId = typeof row.teacher_id === "string" && row.teacher_id.trim()
+      ? row.teacher_id.trim()
+      : "system";
+    const updatedAt = typeof row.updated_at === "string" && row.updated_at.trim()
+      ? row.updated_at
+      : now;
+    const policyRecord = normalizeClassAiTutorPolicyRecordFromAiGovernancePersistence(
+      row.policy_record,
+      now
+    ) ?? defaultClassAiTutorPolicyRecordFromAiGovernancePersistence({
+      classId,
+      now: updatedAt,
+      updatedBy: teacherId
+    });
+
+    return [classAiTutorPolicyRecordToPublicFromAiGovernancePersistence(policyRecord)];
+  });
+
+  return mergeClassAiTutorPoliciesByStrictest(policies, fallback);
+}
+
+async function consumeAiCapabilityRateLimitFromPostgresHotPath({
+  capability,
+  rules,
+  signal,
+  userId,
+  now
+}: {
+  capability: AiCapability;
+  rules: AiCapabilityRateLimitRule[];
+  signal?: AbortSignal;
+  userId: string;
+  now: Date;
+}): Promise<AiCapabilityRateLimitDecision | undefined> {
+  if (storageProvider !== "postgres" || capability !== "ai-tutor-chat") return undefined;
+
+  throwIfAiTutorAdmissionAborted(signal);
+  await ensurePostgresStateTable();
+  throwIfAiTutorAdmissionAborted(signal);
+
+  const lockKey = `${userId}:${capability}`;
+
+  const decision = await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT
+        set_config('lock_timeout', ${`${aiTutorAdmissionLockTimeoutMs}ms`}, true),
+        set_config('statement_timeout', ${`${aiTutorAdmissionStatementTimeoutMs}ms`}, true)
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    await sql`SELECT pg_advisory_xact_lock(hashtextextended(${lockKey}, 0))`;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    const clockRows = await sql<Array<{ decision_now: unknown }>>`
+      SELECT clock_timestamp() AS decision_now
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+    const databaseNow = new Date(String(clockRows[0]?.decision_now ?? ""));
+    const decisionNow = Number.isFinite(databaseNow.getTime()) ? databaseNow : now;
+    const maxWindowMs = Math.max(60_000, ...rules.map((rule) => rule.windowMs));
+    const retentionWindowMs = Math.max(maxWindowMs, 24 * 60 * 60 * 1_000);
+    const oldestRelevantAt = new Date(decisionNow.getTime() - maxWindowMs).toISOString();
+    const retentionCutoffAt = new Date(decisionNow.getTime() - retentionWindowMs).toISOString();
+    const decisionNowIso = decisionNow.toISOString();
+
+    const eventRows = await sql<PostgresAiTutorRateLimitEventRow[]>`
+      SELECT created_at
+      FROM ai_governance_rate_limit_events
+      WHERE user_id = ${userId}
+        AND capability = ${capability}
+        AND action = 'request-admitted'
+        AND created_at > ${oldestRelevantAt}
+        AND created_at <= ${decisionNowIso}
+      ORDER BY created_at ASC
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    const nextDecision = evaluateAiCapabilityRateLimit({
+      capability,
+      events: eventRows.flatMap((row) => {
+        if (typeof row.created_at !== "string" || !row.created_at.trim()) return [];
+        return [{ capability, userId, createdAt: row.created_at }];
+      }),
+      now: decisionNow,
+      rules,
+      userId
+    });
+    const metadata = {
+      remaining: nextDecision.remaining,
+      resetAt: nextDecision.resetAt.toISOString(),
+      retryAfterSeconds: nextDecision.retryAfterSeconds,
+      ...(nextDecision.rule ? { rule: nextDecision.rule.name } : {})
+    };
+
+    throwIfAiTutorAdmissionAborted(signal);
+    await sql`
+      INSERT INTO ai_governance_rate_limit_events (
+        id,
+        user_id,
+        capability,
+        action,
+        reason,
+        metadata_json,
+        created_at
+      ) VALUES (
+        ${`ai-governance-${randomUUID()}`},
+        ${userId},
+        ${capability},
+        ${nextDecision.allowed ? "request-admitted" : "rate-limit-blocked"},
+        ${nextDecision.reason},
+        ${JSON.stringify(metadata)}::jsonb,
+        ${decisionNowIso}
+      )
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    await sql`
+      DELETE FROM ai_governance_rate_limit_events
+      WHERE user_id = ${userId}
+        AND capability = ${capability}
+        AND created_at <= ${retentionCutoffAt}
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    await sql`
+      DELETE FROM ai_governance_rate_limit_events
+      WHERE id IN (
+        SELECT id
+        FROM ai_governance_rate_limit_events
+        WHERE user_id = ${userId}
+          AND capability = ${capability}
+          AND action = 'rate-limit-blocked'
+        ORDER BY created_at DESC, id DESC
+        OFFSET 100
+      )
+    `;
+    throwIfAiTutorAdmissionAborted(signal);
+
+    return nextDecision;
+  });
+
+  throwIfAiTutorAdmissionAborted(signal);
+  return decision;
+}
+
+async function readAiTutorRateLimitEventsFromPostgresHotPath({
+  now,
+  windowMs
+}: {
+  now: Date;
+  windowMs: number;
+}): Promise<AIGovernanceEventRecord[] | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+
+  await ensurePostgresStateTable();
+  const nowIso = now.toISOString();
+  const cutoffIso = new Date(now.getTime() - Math.max(0, windowMs)).toISOString();
+  const rows = await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT
+        set_config('lock_timeout', ${`${aiTutorAdmissionLockTimeoutMs}ms`}, true),
+        set_config('statement_timeout', ${`${aiTutorAdmissionStatementTimeoutMs}ms`}, true)
+    `;
+    return sql<PostgresAiTutorGovernanceEventRow[]>`
+      SELECT id, user_id, capability, action, reason, metadata_json, created_at
+      FROM ai_governance_rate_limit_events
+      WHERE capability = 'ai-tutor-chat'
+        AND created_at > ${cutoffIso}
+        AND created_at <= ${nowIso}
+      ORDER BY created_at ASC
+    `;
+  });
+
+  const events: AIGovernanceEventRecord[] = [];
+  for (const row of rows) {
+    if (
+      typeof row.id !== "string"
+      || typeof row.user_id !== "string"
+      || row.capability !== "ai-tutor-chat"
+      || (row.action !== "request-admitted" && row.action !== "rate-limit-blocked")
+      || typeof row.reason !== "string"
+      || typeof row.created_at !== "string"
+    ) {
+      continue;
+    }
+
+    const metadataJson = typeof row.metadata_json === "object"
+      && row.metadata_json !== null
+      && !Array.isArray(row.metadata_json)
+      ? row.metadata_json as Record<string, unknown>
+      : null;
+    events.push({
+      id: row.id,
+      user_id: row.user_id,
+      capability: "ai-tutor-chat",
+      action: row.action,
+      reason: row.reason,
+      metadata_json: metadataJson,
+      created_at: row.created_at
+    });
+  }
+  return events;
+}
+
 const toAuthenticatedUser = (database: Database, user: UserRecord): AuthenticatedUser | null =>
   authenticatedUserFromAuthDatabaseFromAuthSessionPersistence({
     database,
@@ -4902,6 +5306,9 @@ const aiGovernancePersistenceStore = createAiGovernancePersistenceStore({
     buildAITutorDatabaseContextFromDatabase(database as Database, userId, context),
   pilotPlatformLoopDataFromDatabase: (database, input) =>
     pilotPlatformLoopDataFromDatabase(database as Database, input),
+  resolveStudentAiTutorPolicyBeforeSnapshot: resolveStudentAiTutorPolicyFromPostgresHotPath,
+  consumeAiCapabilityRateLimitBeforeSnapshot: consumeAiCapabilityRateLimitFromPostgresHotPath,
+  readAiTutorRateLimitEventsAfterSnapshot: readAiTutorRateLimitEventsFromPostgresHotPath,
   readDatabase,
   mutateDatabase: async <T>(mutator: (database: AiGovernancePersistenceDatabase) => T | Promise<T>) => {
     const result = await mutateDatabase((database) => mutator(database));
