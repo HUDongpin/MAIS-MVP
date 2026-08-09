@@ -516,10 +516,27 @@ async function ccssDiagramDigest(page: Page, lessonId: string) {
     return surfaces.map((surface) => {
       const clone = surface.cloneNode(true) as HTMLElement;
       clone.querySelectorAll("button,input,select,textarea,footer,script,style").forEach((element) => element.remove());
+      // Figure overflow affordances are ResizeObserver-derived presentation
+      // state, not mathematical state. They can settle one microtask before or
+      // after an otherwise identical replay, so exclude only those volatile
+      // attributes/classes while retaining the full diagram subtree.
+      const normalizedNodes = [clone, ...Array.from(clone.querySelectorAll<HTMLElement>(
+        "[data-figure-stage],[data-figure-scroll-region]"
+      ))];
+      for (const node of normalizedNodes) {
+        node.removeAttribute("data-figure-overflowing");
+        node.removeAttribute("data-figure-scroll-needed");
+        node.removeAttribute("role");
+        node.removeAttribute("tabindex");
+        node.removeAttribute("aria-label");
+        for (const className of Array.from(node.classList)) {
+          if (className.startsWith("[mask-image:")) node.classList.remove(className);
+        }
+      }
       const box = surface.getBoundingClientRect();
       return {
         html: clone.outerHTML.replace(/\s+/gu, " "),
-        rect: [box.width, box.height],
+        rect: [box.width, box.height].map((value) => Math.round(value * 100) / 100),
         scroll: [surface.clientWidth, surface.scrollWidth, surface.clientHeight, surface.scrollHeight],
         canvas: surface instanceof HTMLCanvasElement
           ? [surface.width, surface.height, surface.toDataURL("image/png").slice(-256)]
@@ -538,7 +555,11 @@ async function resetCcssLessonState({
   theme
 }: MatrixState & { lessonId: string; page: Page; route: string }) {
   await page.setViewportSize({ width: 1440, height: 1100 });
-  await page.goto(route, { waitUntil: "domcontentloaded", timeout: 90_000 });
+  // State-graph replay can revisit the same rich lesson dozens of times. A
+  // non-critical deferred resource must not hold the reset on the browser's
+  // DOMContentLoaded event; the product-owned lesson-ready marker below is the
+  // authoritative hydration/readiness contract for this audit.
+  await page.goto(route, { waitUntil: "commit", timeout: 90_000 });
   expect(routePath(page.url()), `${lessonId} state replay must retain the lesson route`).toBe(routePath(route));
   await expect(page.locator('[data-lesson-ready="true"]')).toBeAttached({ timeout: 30_000 });
   await expect(page.locator("html")).toHaveAttribute("lang", htmlLanguagePattern[language], { timeout: 30_000 });
@@ -547,6 +568,7 @@ async function resetCcssLessonState({
   const root = page.locator(`[data-ccss-lesson="${lessonId}"]`);
   await expect(root).toHaveCount(1);
   await expect(root).toBeVisible();
+  await expect(root).toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
   await expect(root).toHaveAttribute("data-ccss-diagram-state-protocol", "finite-visible-button-state-graph-v2");
   await disableDiagramAuditMotion(page);
   await waitForDiagramLayoutStable(page, {
@@ -1135,7 +1157,12 @@ test.describe("mathematical diagram boundary integrity", () => {
                 ...matrix
               });
               if (replayedState.key !== sourceState.key) {
-                throw new Error(`${lessonId} CCSS button path did not replay stable state ${sourceState.key}`);
+                throw new Error(
+                  `${lessonId} CCSS button path did not replay stable state ${sourceState.key}; `
+                  + `path=${JSON.stringify(sourceState.path)} expectedDigest=${sourceState.digest} `
+                  + `actualDigest=${replayedState.digest} expectedRoster=${JSON.stringify(sourceState.roster)} `
+                  + `actualRoster=${JSON.stringify(replayedState.roster)}`
+                );
               }
 
               for (const control of replayedState.roster) {
@@ -1156,7 +1183,12 @@ test.describe("mathematical diagram boundary integrity", () => {
                   ...matrix
                 });
                 if (sourceReplay.key !== sourceState.key) {
-                  throw new Error(`${lessonId} CCSS button source state ${sourceState.key} changed during replay`);
+                  throw new Error(
+                    `${lessonId} CCSS button source state ${sourceState.key} changed during replay; `
+                    + `path=${JSON.stringify(sourceState.path)} control=${JSON.stringify(control)} `
+                    + `expectedDigest=${sourceState.digest} actualDigest=${sourceReplay.digest} `
+                    + `expectedRoster=${JSON.stringify(sourceState.roster)} actualRoster=${JSON.stringify(sourceReplay.roster)}`
+                  );
                 }
                 await clickCcssButtonIdentity(page, lessonId, control);
                 const nextRoster = await ccssButtonRoster(page, lessonId);

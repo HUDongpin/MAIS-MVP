@@ -12,6 +12,7 @@ const EPSILON = 0.01;
 const lessonDir = path.join(process.cwd(), "components/lesson/ccss/lessons");
 const source = (name: string) => readFileSync(path.join(lessonDir, `${name}.tsx`), "utf8");
 const lessonViewSource = () => readFileSync(path.join(process.cwd(), "components/lesson/LessonView.tsx"), "utf8");
+const ccssAdapterSource = () => readFileSync(path.join(process.cwd(), "components/lesson/ccss/CcssLessonAdapter.tsx"), "utf8");
 
 function assertRange(label: string, value: number, minimum: number, maximum: number) {
   assert.ok(
@@ -877,11 +878,17 @@ test("lesson practice grids allow every nested card to shrink to the viewport", 
 
 test("the loaded lesson root exposes one stable audit-ready marker", () => {
   const lessonView = lessonViewSource();
+  const ccssAdapter = ccssAdapterSource();
 
   assert.equal(lessonView.match(/data-lesson-ready="true"/gu)?.length ?? 0, 1);
   assert.match(
     lessonView,
     /<div\s+ref=\{lessonSelectionRootRef\}\s+data-lesson-ready="true"/u
+  );
+  assert.match(
+    ccssAdapter,
+    /data-ccss-diagram-hydrated=\{isHydrated \? "true" : "false"\}/u,
+    "CCSS diagrams must expose an explicit client-hydration readiness contract before state traversal"
   );
 });
 

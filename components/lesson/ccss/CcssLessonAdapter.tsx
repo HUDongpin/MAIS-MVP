@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ccssReadingBandForGrade, type CcssTextbookLessonMeta } from "@/data/ccssTextbookRegistry";
 
@@ -37,6 +37,11 @@ type CcssLessonAdapterProps = CcssLessonHostProps & {
 export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLessonAdapterProps) {
   const { recordLearningEvent } = useSettings();
   const readingBand = ccssReadingBandForGrade(meta.grade);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     recordLearningEvent({ type: "visualization-probe", source: "lesson", topicId });
@@ -45,6 +50,7 @@ export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLesson
   return (
     <div
       className={`ccss-lesson reading-${readingBand}`}
+      data-ccss-diagram-hydrated={isHydrated ? "true" : "false"}
       data-ccss-diagram-state-protocol="finite-visible-button-state-graph-v2"
       data-ccss-lesson={meta.slug}
     >
