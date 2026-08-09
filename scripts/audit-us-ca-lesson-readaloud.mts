@@ -20,7 +20,7 @@
  * was measured as audible, and a gate that fails on correct content is worse
  * than no gate (round 13).
  */
-import { speechTextForMath } from "../lib/mathSpeech";
+import { speechTextForMathParts } from "../lib/mathSpeech";
 import { usCaliforniaLessonSeeds } from "../data/usCaliforniaLessons";
 import { generatedCaliforniaQuestions } from "../data/usCaliforniaTopics";
 
@@ -36,6 +36,13 @@ const SILENT = [
   { name: "underscore blank (the thing being asked for is not voiced)", re: /_{2,}/ },
 ];
 
+/**
+ * Symbols that are silent standing alone as a whole option. Checked against the
+ * OPTION, not the joined string: once joined, ". <. " is indistinguishable from
+ * a "<" inside an expression, which is audible and must not be flagged.
+ */
+const SILENT_ALONE = new Set(["<", ">", "≤", "≥", "−", "-"]);
+
 let checked = 0;
 const defects: string[] = [];
 
@@ -43,12 +50,25 @@ for (const seed of seeds) {
   for (const id of seed.practiceQuestionIds ?? []) {
     const question: any = byId.get(id);
     if (!question) continue;
-    const parts = [text(question.prompt), ...((question.options ?? []).map(text))];
-    const spoken = speechTextForMath(parts.join(". "));
+    const rawOptions: string[] = (question.options ?? []).map(text);
+    const parts = [text(question.prompt), ...rawOptions];
+    const spoken = speechTextForMathParts(parts);
     checked += 1;
     for (const token of SILENT) {
       if (token.re.test(spoken)) {
         defects.push(`  ${seed.topicId} / ${id}\n      ${token.name}\n      spoken: ${spoken.slice(0, 110)}`);
+      }
+    }
+    // Re-derive the spoken option from the raw one and confirm the normalizer
+    // actually replaced it. Testing the raw option alone would flag content the
+    // fix already handles.
+    for (const option of rawOptions) {
+      const trimmed = option.trim();
+      if (!SILENT_ALONE.has(trimmed)) continue;
+      if (speechTextForMathParts([option]) === trimmed) {
+        defects.push(
+          `  ${seed.topicId} / ${id}\n      bare "${trimmed}" stands alone as an option and is not voiced\n      options: ${JSON.stringify(rawOptions)}`
+        );
       }
     }
   }

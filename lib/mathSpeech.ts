@@ -30,6 +30,50 @@
  *
  * This changes what is SPOKEN. It never touches what is displayed.
  */
+/**
+ * Symbols that vanish when they stand ALONE as a whole answer option.
+ *
+ * This is a different failure from the one above, and it only shows up in the
+ * production string. Measured the same way:
+ *
+ *   say("<")                -> 54,804 bytes of real audio
+ *   say("<. >")             ->  4,096 bytes, 0.000s — a header, no audio at all
+ *   say("Pick one. <")      -> byte-identical to say("Pick one. ")
+ *
+ * A symbol INSIDE an expression is fine — "3 < 8" is voiced — and the practice
+ * card's "Choice 1: " prefix also keeps it voiced. It is the bare, isolated
+ * option that disappears, which is exactly how the lesson page joins options.
+ *
+ * `=` `+` `×` `÷` `π` `≠` were each measured as audible standing alone and are
+ * deliberately absent from this table: replacing them would change output that
+ * is already correct.
+ */
+const SPOKEN_WHEN_ALONE: Record<string, string> = {
+  "<": "is less than",
+  ">": "is greater than",
+  "≤": "is less than or equal to",
+  "≥": "is greater than or equal to",
+  "−": "minus",
+  "-": "minus",
+};
+
+/**
+ * Builds the spoken string from a question's prompt and its options.
+ *
+ * Takes the parts separately rather than a pre-joined string, because whether a
+ * symbol is audible depends on whether it is a whole option or part of an
+ * expression — a distinction that is lost once the parts are joined.
+ */
+export function speechTextForMathParts(parts: string[]): string {
+  return parts
+    .map((part) => {
+      const alone = SPOKEN_WHEN_ALONE[part.trim()];
+      return alone ?? speechTextForMath(part);
+    })
+    .filter((part) => part.length > 0)
+    .join(". ");
+}
+
 export function speechTextForMath(text: string): string {
   if (!text) return text;
   return (

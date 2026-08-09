@@ -64,7 +64,7 @@ import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllu
 import { classifyPracticeIslandTopic } from "@/data/practiceIslandRegions";
 import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
-import { speechTextForMath } from "@/lib/mathSpeech";
+import { speechTextForMathParts } from "@/lib/mathSpeech";
 import {
   awardPracticeIslandStars,
   practiceIslandStarStorageKey,
@@ -830,10 +830,12 @@ function LessonQuestionPager({
                   const question = questions[currentIndex];
                   if (!question) return;
                   const parts = [t(question.prompt), ...(question.options ?? []).map((option) => t(option))];
-                  // Spoken, not displayed: a spaced minus and an underscore
-                  // blank are both silent in the browser's speech engine, so
-                  // "10 + 8 = ___." was read as "ten plus eight equals."
-                  readAloud.speak(speechTextForMath(parts.join(". ")));
+                  // Spoken, not displayed. Three things are silent in the
+                  // browser's speech engine: a spaced minus, an underscore
+                  // blank, and a bare "<" or ">" standing alone as an option.
+                  // Joined first, the last of those is undetectable, so the
+                  // parts are passed through separately.
+                  readAloud.speak(speechTextForMathParts(parts));
                 }}
                 aria-pressed={readAloud.speaking}
                 aria-label={readAloud.speaking

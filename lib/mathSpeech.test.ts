@@ -1,7 +1,34 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { speechTextForMath } from "./mathSpeech";
+import { speechTextForMath, speechTextForMathParts } from "./mathSpeech";
+
+test("speaks a bare comparison symbol that stands alone as an option", () => {
+  // Measured: say("<. >") produces a 4,096-byte header and no audio at all,
+  // while say("3 < 8") is voiced. Only the isolated option disappears.
+  assert.equal(
+    speechTextForMathParts(["Which symbol makes it true?  3 __ 8", "<", ">", "=", "+"]),
+    "Which symbol makes it true? 3 blank 8. is less than. is greater than. =. +"
+  );
+  assert.equal(
+    speechTextForMathParts(["Compare:  51 __ 57", "<", ">", "=", "+"]),
+    "Compare: 51 blank 57. is less than. is greater than. =. +"
+  );
+});
+
+test("leaves alone the standalone symbols that are already audible", () => {
+  // =, +, ×, ÷, π and ≠ were each measured as voiced standing alone.
+  assert.equal(speechTextForMathParts(["Pick", "=", "+", "×", "÷", "π", "≠"]), "Pick. =. +. ×. ÷. π. ≠");
+});
+
+test("does not rewrite a comparison symbol inside an expression", () => {
+  // "3 < 8" is voiced, so it must survive untouched.
+  assert.equal(speechTextForMathParts(["Is 3 < 8 true?", "yes", "no"]), "Is 3 < 8 true?. yes. no");
+});
+
+test("drops empty parts rather than emitting a bare separator", () => {
+  assert.equal(speechTextForMathParts(["Prompt", "", "  ", "answer"]), "Prompt. answer");
+});
 
 test("speaks the blank a student is asked to fill", () => {
   assert.equal(speechTextForMath("10 + 8 = ___."), "10 + 8 = blank .");
