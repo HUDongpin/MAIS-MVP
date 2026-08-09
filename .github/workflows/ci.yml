@@ -68,6 +68,9 @@ jobs:
           npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts
           node --test scripts/postgres-schema-fast-path.test.mjs scripts/vercel-region-config.test.mjs scripts/verify-vercel-postgres-region.test.mjs
 
+      - name: Test AI Tutor Vercel bypass-cookie smoke harness
+        run: node --test scripts/ai-tutor-live-latency-smoke.test.mjs
+
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
 
