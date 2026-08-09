@@ -98,6 +98,38 @@ function cookieHeaderFromSetCookie(value) {
     .join("; ");
 }
 
+function mergeCookieHeaders(...values) {
+  const cookies = new Map();
+  for (const value of values) {
+    for (const part of value.split(";")) {
+      const cookie = part.trim();
+      const separatorIndex = cookie.indexOf("=");
+      if (separatorIndex <= 0) continue;
+      const name = cookie.slice(0, separatorIndex).trim();
+      const cookieValue = cookie.slice(separatorIndex + 1).trim();
+      if (!name || !cookieValue) continue;
+      cookies.set(name, `${name}=${cookieValue}`);
+    }
+  }
+  return [...cookies.values()].join("; ");
+}
+
+function namedCookieFromSetCookie(value, name) {
+  const cookieHeader = cookieHeaderFromSetCookie(value);
+  return cookieHeader
+    .split(";")
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith(`${name}=`)) ?? "";
+}
+
+function vercelBypassCookieFromSetCookie(value) {
+  return namedCookieFromSetCookie(value, "_vercel_jwt");
+}
+
+function appSessionCookieFromSetCookie(value) {
+  return namedCookieFromSetCookie(value, "hk_math_session");
+}
+
 function loginCredentials() {
   const username = process.env.AI_TUTOR_LIVE_USERNAME;
   const password = process.env.AI_TUTOR_LIVE_PASSWORD;
@@ -113,9 +145,28 @@ function loginCredentials() {
   return null;
 }
 
+function requireLoginCredentials() {
+  const credentials = loginCredentials();
+  if (!credentials) {
+    throw new Error(
+      [
+        "Authenticated AI Tutor live latency smoke is disabled.",
+        "Set AI_TUTOR_LIVE_USERNAME and AI_TUTOR_LIVE_PASSWORD, or set AI_TUTOR_LIVE_USE_DEMO_LOGIN=1 for the demo account.",
+        "This guard is intentional because text probes can write production tutor message/usage records."
+      ].join(" ")
+    );
+  }
+  return credentials;
+}
+
+function vercelProtectionBypassSecret() {
+  return process.env.AI_TUTOR_LIVE_VERCEL_PROTECTION_BYPASS_SECRET
+    || process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+    || "";
+}
+
 function vercelProtectionBypassHeaders() {
-  const secret = process.env.AI_TUTOR_LIVE_VERCEL_PROTECTION_BYPASS_SECRET
-    || process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  const secret = vercelProtectionBypassSecret();
   return secret ? { "x-vercel-protection-bypass": secret } : {};
 }
 
@@ -225,25 +276,36 @@ function requestTextWithTiming(url, config, {
   });
 }
 
-async function login(baseUrl, config) {
-  const credentials = loginCredentials();
-  if (!credentials) {
-    throw new Error(
-      [
-        "Authenticated AI Tutor live latency smoke is disabled.",
-        "Set AI_TUTOR_LIVE_USERNAME and AI_TUTOR_LIVE_PASSWORD, or set AI_TUTOR_LIVE_USE_DEMO_LOGIN=1 for the demo account.",
-        "This guard is intentional because text probes can write production tutor message/usage records."
-      ].join(" ")
-    );
-  }
+async function primeVercelProtectionBypassCookie(baseUrl, config) {
+  if (!vercelProtectionBypassSecret()) return "";
 
+  try {
+    const response = await requestTextWithTiming(`${baseUrl}/api/ai-tutor/status`, config, {
+      headers: {
+        "Accept": "text/html",
+        "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
+        ...vercelProtectionBypassHeaders(),
+        "x-vercel-set-bypass-cookie": "true"
+      }
+    });
+    const cookieHeader = vercelBypassCookieFromSetCookie(response.headers["set-cookie"]);
+    if (response.status < 200 || response.status >= 400 || !cookieHeader) {
+      throw new Error("missing-bypass-cookie");
+    }
+    return cookieHeader;
+  } catch {
+    throw new Error("Vercel protection bypass cookie setup failed.");
+  }
+}
+
+async function login(baseUrl, config, credentials, protectionCookieHeader = "") {
   const response = await requestTextWithTiming(`${baseUrl}/api/auth/login`, config, {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-      ...vercelProtectionBypassHeaders()
+      ...(protectionCookieHeader ? { Cookie: protectionCookieHeader } : {})
     },
     body: JSON.stringify({
       username: credentials.username,
@@ -254,14 +316,14 @@ async function login(baseUrl, config) {
     })
   });
 
-  const cookieHeader = cookieHeaderFromSetCookie(response.headers["set-cookie"]);
+  const appSessionCookieHeader = appSessionCookieFromSetCookie(response.headers["set-cookie"]);
 
-  if (!response.ok || !cookieHeader) {
+  if (!response.ok || !appSessionCookieHeader) {
     throw new Error(`AI Tutor live latency smoke login failed with HTTP ${response.status}.`);
   }
 
   return {
-    cookieHeader,
+    cookieHeader: mergeCookieHeaders(protectionCookieHeader, appSessionCookieHeader),
     usernameRedacted: "configured"
   };
 }
@@ -478,7 +540,6 @@ async function runTextSample(config, cookieHeader, index) {
         "Accept": "text/event-stream",
         "Content-Type": "application/json",
         "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-        ...vercelProtectionBypassHeaders(),
         Cookie: cookieHeader
       },
       body: JSON.stringify({
@@ -526,13 +587,14 @@ async function runTextSample(config, cookieHeader, index) {
 }
 
 async function runTextSamples(config) {
-  const session = await login(config.baseUrl, config);
+  const credentials = requireLoginCredentials();
+  const protectionCookieHeader = await primeVercelProtectionBypassCookie(config.baseUrl, config);
+  const session = await login(config.baseUrl, config, credentials, protectionCookieHeader);
   const samples = [];
   await requestTextWithTiming(`${config.baseUrl}/api/ai-tutor`, config, {
     headers: {
       "Accept": "application/json",
       "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-      ...vercelProtectionBypassHeaders(),
       Cookie: session.cookieHeader
     }
   }).catch(() => undefined);
