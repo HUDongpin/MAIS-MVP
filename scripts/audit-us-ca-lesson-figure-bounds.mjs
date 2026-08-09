@@ -11,8 +11,10 @@
  * drawn element's bounding box against its own SVG viewBox. An element wholly
  * or partly outside is content the student cannot see.
  *
- * Usage:
- *   AUTH_SESSION_SECRET=... BASE_URL=http://localhost:3318 node scripts/audit-us-ca-lesson-figure-bounds.mjs [slug...]
+ * Usage — AUTH_SESSION_SECRET must match the dev server's (.claude/launch.json);
+ * without it the server rejects the cookie, redirects to /login, and this gate
+ * aborts rather than auditing a logged-out page:
+ *   AUTH_SESSION_SECRET=... BASE_URL=http://localhost:3318 npx tsx scripts/audit-us-ca-lesson-figure-bounds.mjs [slug...]
  */
 import { chromium } from "@playwright/test";
 import path from "node:path";
@@ -91,8 +93,30 @@ const ctx = await browser.newContext({
 });
 const page = await ctx.newPage();
 
+/**
+ * A rejected session cookie does not error — it redirects to /login, which
+ * renders 9 of its own icon <svg viewBox>. This gate then measured the login
+ * page 76 times and printed "76 with a figure inspected ✓". Loading *a* page is
+ * not loading *the* page, and that distinction has to be asserted, not assumed.
+ *
+ * Checked per navigation rather than once at startup so it also catches a
+ * session that expires mid-run.
+ */
+async function assertOnTheLesson(landed, slug, browser) {
+  if (landed.includes(`/student/lessons/${slug}`) && !landed.includes("/login")) return;
+  console.error(`\n✗ ${slug} — landed on ${landed}`);
+  console.error("  That is not the lesson. The session cookie was rejected, so this run would");
+  console.error("  audit a logged-out page and report it clean.");
+  if (!process.env.AUTH_SESSION_SECRET) {
+    console.error("  AUTH_SESSION_SECRET is unset — it must match the dev server's (.claude/launch.json).");
+  }
+  await browser.close();
+  process.exit(2);
+}
+
 const findings = [];
 let inspected = 0;
+let withLessonFigure = 0;
 const list = await slugs();
 
 for (const slug of list) {
@@ -111,9 +135,19 @@ for (const slug of list) {
       }
     }
   }
-  await page.waitForTimeout(400);
+  await assertOnTheLesson(page.url(), slug, browser);
+  // The lesson figures mount on hydration, after `networkidle`. A fixed 400ms
+  // wait was not reliably long enough — and every page carries ~24 decorative
+  // icon <svg viewBox> that ARE present immediately, so the old
+  // `svg[viewBox]` count reported "76 with a figure inspected" whether or not a
+  // single lesson figure had rendered. Wait for the real figure, and count it
+  // separately so coverage is stated rather than implied.
+  await page
+    .waitForSelector('svg[role="img"], svg[role="group"]', { timeout: 8000 })
+    .catch(() => {});
   if (!(await page.locator("svg[viewBox]").count())) continue;
   inspected += 1;
+  if (await page.locator('svg[role="img"], svg[role="group"]').count()) withLessonFigure += 1;
 
   for (const dir of [/^(Increase|One more|More )/i, /^(Decrease|One fewer|Fewer )/i]) {
     const buttons = await page.getByRole("button", { name: dir }).all();
@@ -130,9 +164,15 @@ for (const slug of list) {
 
 await browser.close();
 
-console.log(`audit-us-ca-lesson-figure-bounds: ${list.length} pages requested, ${inspected} with a figure inspected`);
+console.log(`audit-us-ca-lesson-figure-bounds: ${list.length} pages requested, ${inspected} inspected, ${withLessonFigure} of them carrying a real lesson figure (the rest only decorative icons)`);
 if (inspected === 0) {
   console.error("✗ nothing was inspected — refusing to report a pass.");
+  process.exit(2);
+}
+// Decorative icons are always in bounds, so a run that saw only icons proves
+// nothing about the figures this gate exists to check.
+if (withLessonFigure === 0) {
+  console.error("✗ no lesson figure rendered on any page — only decorative icons were measured, so this is not a pass.");
   process.exit(2);
 }
 if (!findings.length) {

@@ -11,8 +11,10 @@
  * Two rounds of this QA effort reported findings measured on source that the
  * render path contradicted. This measures the render path.
  *
- * Usage:
- *   AUTH_SESSION_SECRET=... BASE_URL=http://localhost:3318 node scripts/audit-us-ca-lesson-label-motion.mjs [slug...]
+ * Usage — AUTH_SESSION_SECRET must match the dev server's (.claude/launch.json);
+ * without it the server rejects the cookie, redirects to /login, and this gate
+ * aborts rather than auditing a logged-out page:
+ *   AUTH_SESSION_SECRET=... BASE_URL=http://localhost:3318 npx tsx scripts/audit-us-ca-lesson-label-motion.mjs [slug...]
  */
 import { chromium } from "@playwright/test";
 import path from "node:path";
@@ -77,7 +79,31 @@ for (const slug of list) {
       retried.push(slug);
     }
   }
-  await page.waitForTimeout(500);
+  // A rejected session cookie does not error — it redirects to /login. This
+  // gate then found zero figures on all 76 pages, and only its zero-coverage
+  // guard stopped it reporting a pass. Assert we are on the lesson, per
+  // navigation, so a session that expires mid-run is caught too.
+  const landed = page.url();
+  if (!landed.includes(`/student/lessons/${slug}`) || landed.includes("/login")) {
+    console.error(`\n✗ ${slug} — landed on ${landed}`);
+    console.error("  That is not the lesson. The session cookie was rejected, so this run would");
+    console.error("  audit a logged-out page.");
+    if (!process.env.AUTH_SESSION_SECRET) {
+      console.error("  AUTH_SESSION_SECRET is unset — it must match the dev server's (.claude/launch.json).");
+    }
+    await browser.close();
+    process.exit(2);
+  }
+
+  // `networkidle` is not enough: the interactive lesson figures mount on
+  // hydration, after the last request settles. A fixed 500ms wait found zero
+  // figures on all 76 pages while the DOM had them a beat later — and because
+  // zero figures is indistinguishable from a clean page, this gate's own
+  // zero-coverage guard was the only thing that caught it. Wait for the figure
+  // itself instead of guessing a duration.
+  await page
+    .waitForSelector('svg[role="img"], svg[role="group"]', { timeout: 8000 })
+    .catch(() => {});
 
   // snapshot every figure: its accessible name and the text inside it
   const snap = async () =>

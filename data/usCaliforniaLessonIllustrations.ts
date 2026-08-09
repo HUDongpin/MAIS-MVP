@@ -24,12 +24,18 @@ export const usCaliforniaLessonIllustrations = [
     id: "us-ca-math-p1-1-oa-add-subtract-concept",
     topicId: "us-ca-math-p1-1-oa-add-subtract",
     slot: "concept",
-    src: "/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-source-hd.png",
-    width: 2368,
-    height: 1536,
-    preserveRasterFidelity: true,
+    // Was add-subtract-stories-single-panel-source-hd.png, deleted: it drew 9
+    // blue stickers where every label around it said 8, and its ten-frame held
+    // 7 blue + 3 green = 10 counters under a "= 11" — a ten-frame cannot hold
+    // 11. In a Grade 1 lesson about counting objects into an equation, a child
+    // counting either manipulative got a different number from the page.
+    // This SVG tells the same story and draws it correctly: 8 stickers, then 3
+    // more, 11 in total (verified by counting its <use> elements).
+    src: "/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-concrete-to-abstract.svg",
+    width: 1600,
+    height: 900,
     alt: localized(
-      "Grade 1 addition model showing 8 blue stickers and 3 green stickers grouped together, then represented as 8 + 3 = 11."
+      "Grade 1 addition model showing 8 blue stickers joined with 3 green stickers, counted as 11 and written as 8 + 3 = 11."
     ),
     caption: localized(""),
     ragCardIds: [
