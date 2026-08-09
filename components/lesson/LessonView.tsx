@@ -196,10 +196,9 @@ const hiddenLessonIllustrationIds = new Set([
   "pep-high-s4-function-properties-worked-example",
   "pep-high-s4-sets-logic-worked-example"
 ]);
-const lessonAudioRates = [1, 1.25, 0.85] as const;
+const lessonAudioRates = [0.85, 1, 1.25] as const;
 const defaultLessonAudioRate: (typeof lessonAudioRates)[number] = 0.85;
 const lessonAudioQuickFallbackDelayMs = 2200;
-const lessonAudioWaveBars = [16, 28, 36, 22, 42, 30, 18, 38, 26, 20, 34, 24, 40, 22, 30, 18, 36, 26, 20, 32, 24, 38, 18, 30, 22, 42, 28, 18, 34, 24, 38, 20];
 const lessonBodyTextClassName = "text-xl font-bold leading-9 text-slate-700 dark:text-slate-200 sm:text-2xl sm:leading-10 [&_.katex]:font-bold";
 const lessonCelebrationPieces = Array.from({ length: 36 }, (_, index) => {
   const angle = ((index * 137.5) % 360) * (Math.PI / 180);
@@ -1016,14 +1015,6 @@ function LessonContentWithAnswerReveal({
 
 type LessonAudioPlaybackState = "idle" | "loading" | "ready" | "playing" | "paused" | "ended" | "error" | "auth-required";
 
-function LessonAudioPlayIcon() {
-  return (
-    <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M6.5 4.9c0-.86.94-1.38 1.66-.91l7.2 4.72c.65.42.65 1.36 0 1.78l-7.2 4.72c-.72.47-1.66-.05-1.66-.91V4.9Z" />
-    </svg>
-  );
-}
-
 function LessonAudioPauseIcon() {
   return (
     <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -1032,20 +1023,9 @@ function LessonAudioPauseIcon() {
   );
 }
 
-function LessonAudioSpeedIcon() {
-  return (
-    <svg aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24">
-      <path d="M5 16.5a8 8 0 1 1 14 0" />
-      <path d="M12 13l4-4" />
-      <path d="M8 18h8" />
-      <path d="M7 12h.01M17 12h.01" />
-    </svg>
-  );
-}
-
 function LessonAudioLoadingIcon() {
   return (
-    <svg aria-hidden="true" className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
+    <svg aria-hidden="true" className="h-5 w-5 animate-spin motion-reduce:animate-none" fill="none" viewBox="0 0 24 24">
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path className="opacity-90" d="M4 12a8 8 0 0 1 8-8" stroke="currentColor" strokeLinecap="round" strokeWidth="4" />
     </svg>
@@ -1061,7 +1041,7 @@ function formatLessonAudioTime(totalSeconds: number) {
 }
 
 function formatLessonAudioRate(rate: number) {
-  return Number.isInteger(rate) ? `${rate.toFixed(1)}x` : `${rate}x`;
+  return `${rate}x`;
 }
 
 function lessonAudioLanguageCode(language: Language) {
@@ -1198,11 +1178,6 @@ function ConceptAudioPlayer({
   const [durationSeconds, setDurationSeconds] = useState(() => estimateLessonAudioChunksDurationSeconds(audioChunks));
   const [rate, setRate] = useState<(typeof lessonAudioRates)[number]>(defaultLessonAudioRate);
   const isLoading = playbackState === "loading";
-  const progressPercent = playbackState === "ended"
-    ? 100
-    : durationSeconds
-      ? Math.min(100, Math.max(0, (elapsedSeconds / durationSeconds) * 100))
-      : 0;
   const canRequestAudio = settingsReady && Boolean(currentUser) && Boolean(audioText);
   const playButtonLabel = playbackState === "playing"
     ? t({ en: "Pause audio", zh: "暫停語音", zhHans: "暂停语音" })
@@ -1675,90 +1650,89 @@ function ConceptAudioPlayer({
     }
   }
 
-  function cycleRate() {
-    const currentIndex = lessonAudioRates.indexOf(rate);
-    const nextRate = lessonAudioRates[(currentIndex + 1) % lessonAudioRates.length] ?? defaultLessonAudioRate;
-    setRate(nextRate);
-  }
-
   return (
-    <section
+    <div
       aria-label={t({ en: `Audio guide for ${title}`, zh: `${title} 語音導讀`, zhHans: `${title} 语音导读` })}
-      className="mt-4 rounded-[1.5rem] border border-cyan-200/75 bg-white/85 p-3 shadow-lg shadow-cyan-500/10 backdrop-blur-xl dark:border-cyan-300/15 dark:bg-white/[0.055]"
+      className="flex max-w-full flex-wrap items-center justify-end gap-2 self-end sm:shrink-0 sm:self-auto"
+      role="group"
     >
       <audio ref={audioRef} preload="metadata" />
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-        <div className="flex min-w-0 items-center gap-3 lg:w-72">
-          <button
-            type="button"
-            onClick={togglePlayback}
-            disabled={isLoading || !canRequestAudio}
-            aria-label={playButtonLabel}
-            className="focus-ring inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-950 text-white shadow-lg shadow-slate-950/15 transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-slate-950"
-          >
-            {isLoading ? <LessonAudioLoadingIcon /> : playbackState === "playing" ? <LessonAudioPauseIcon /> : <LessonAudioPlayIcon />}
-          </button>
-          <div className="min-w-0">
-            <p className="truncate text-base font-black text-slate-950 dark:text-white">
-              {t({ en: "AI audio guide", zh: "AI 語音導讀", zhHans: "AI 语音导读" })}
-            </p>
-            <p className="truncate text-xs font-bold text-slate-500 dark:text-slate-400">
-              {statusText}
-            </p>
-          </div>
-        </div>
+      <button
+        type="button"
+        onClick={togglePlayback}
+        disabled={isLoading || !canRequestAudio}
+        aria-label={`${playButtonLabel}: ${title}`}
+        aria-busy={isLoading}
+        aria-pressed={playbackState === "playing"}
+        className={cn(
+          "focus-ring inline-grid size-11 shrink-0 place-items-center rounded-full border border-blue-500 bg-white text-blue-700 shadow-sm shadow-blue-500/10 transition-colors enabled:hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-blue-300 dark:bg-slate-950/75 dark:text-blue-200 dark:shadow-none dark:enabled:hover:bg-blue-400/10",
+          playbackState === "playing" && "border-blue-500 bg-blue-50 ring-4 ring-blue-100 dark:border-blue-300 dark:bg-blue-400/10 dark:ring-blue-400/15",
+          playbackState === "error" && "border-rose-300 text-rose-600 dark:border-rose-300/40 dark:text-rose-200"
+        )}
+        title={`${playButtonLabel} · ${statusText}`}
+      >
+        {isLoading
+          ? <LessonAudioLoadingIcon />
+          : playbackState === "playing"
+            ? <LessonAudioPauseIcon />
+            : playbackState === "error"
+              ? <SoundOffIcon className="size-5" />
+              : <ReadAloudIcon className="size-6" />}
+      </button>
 
-        <div className="min-w-0 flex-1 rounded-full border border-slate-200/85 bg-white px-4 py-3 dark:border-white/10 dark:bg-slate-950/35">
-          <div
-            aria-label={t({ en: "Audio progress", zh: "語音進度", zhHans: "语音进度" })}
-            aria-valuemax={100}
-            aria-valuemin={0}
-            aria-valuenow={Math.round(progressPercent)}
-            className="flex h-9 items-center gap-1 overflow-hidden"
-            role="progressbar"
-          >
-            {lessonAudioWaveBars.map((barHeight, index) => {
-              const active = progressPercent >= ((index + 1) / lessonAudioWaveBars.length) * 100;
-              return (
-                <span
-                  key={`${barHeight}-${index}`}
-                  aria-hidden="true"
-                  className={`w-1.5 shrink-0 rounded-full transition-colors duration-200 ${active ? "bg-cyan-500" : "bg-cyan-200 dark:bg-cyan-900/70"}`}
-                  style={{ height: `${barHeight}px` }}
-                />
-              );
-            })}
-          </div>
-        </div>
+      <div
+        aria-label={t({ en: `Playback speed for ${title}`, zh: `${title} 播放語速`, zhHans: `${title} 播放语速` })}
+        className="inline-flex rounded-full border border-slate-200/90 bg-slate-50/90 p-0.5 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none"
+        role="group"
+      >
+        {lessonAudioRates.map((audioRate) => {
+          const isActive = rate === audioRate;
 
-        <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-          <p className="min-w-24 text-sm font-bold tabular-nums text-slate-600 dark:text-slate-300">
-            {formatLessonAudioTime(elapsedSeconds)} / {formatLessonAudioTime(durationSeconds)}
-          </p>
-          <button
-            type="button"
-            onClick={cycleRate}
-            className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-700 transition hover:-translate-y-0.5 hover:bg-violet-100 dark:border-violet-300/20 dark:bg-violet-400/10 dark:text-violet-100 dark:hover:bg-violet-400/15"
-            aria-label={t({
-              en: `Playback speed ${formatLessonAudioRate(rate)}. Click to change speed.`,
-              zh: `播放語速 ${formatLessonAudioRate(rate)}。點擊切換語速。`,
-              zhHans: `播放语速 ${formatLessonAudioRate(rate)}。点击切换语速。`
-            })}
-            title={t({ en: "Change playback speed", zh: "切換播放語速", zhHans: "切换播放语速" })}
-          >
-            <LessonAudioSpeedIcon />
-            <span>{formatLessonAudioRate(rate)}</span>
-            <span>{t({ en: "Speed", zh: "語速", zhHans: "语速" })}</span>
-          </button>
-          <span className="sr-only">
-            {t({ en: "The reading voice is selected automatically from the lesson language.", zh: "朗讀音色會根據課節語言自動選擇。", zhHans: "朗读音色会根据课时语言自动选择。" })}
-          </span>
-        </div>
+          return (
+            <button
+              key={audioRate}
+              type="button"
+              onClick={() => setRate(audioRate)}
+              aria-label={t({
+                en: `${formatLessonAudioRate(audioRate)} playback speed for ${title}`,
+                zh: `${title} 使用 ${formatLessonAudioRate(audioRate)} 播放語速`,
+                zhHans: `${title} 使用 ${formatLessonAudioRate(audioRate)} 播放语速`
+              })}
+              aria-pressed={isActive}
+              className={cn(
+                "focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full px-2 text-xs font-black tabular-nums transition sm:text-sm",
+                isActive
+                  ? "bg-blue-600 text-white shadow-sm shadow-blue-600/20 dark:bg-blue-300 dark:text-slate-950"
+                  : "text-slate-500 hover:bg-white hover:text-blue-700 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-blue-100"
+              )}
+            >
+              {formatLessonAudioRate(audioRate)}
+            </button>
+          );
+        })}
       </div>
-      <p className="sr-only" aria-live="polite">
-        {statusText}. {formatLessonAudioTime(elapsedSeconds)} / {formatLessonAudioTime(durationSeconds)}.
+
+      {playbackState === "error" || playbackState === "auth-required" ? (
+        <p className={cn(
+          "w-full text-right text-xs font-bold",
+          playbackState === "error"
+            ? "text-rose-600 dark:text-rose-200"
+            : "text-amber-700 dark:text-amber-200"
+        )}>
+          {statusText}
+        </p>
+      ) : null}
+      <p className="sr-only" aria-atomic="true" aria-live="polite">
+        {statusText}
       </p>
-    </section>
+      <span className="sr-only">
+        {formatLessonAudioTime(elapsedSeconds)} / {formatLessonAudioTime(durationSeconds)}. {t({
+          en: "The reading voice is selected automatically from the lesson language.",
+          zh: "朗讀音色會根據課節語言自動選擇。",
+          zhHans: "朗读音色会根据课时语言自动选择。"
+        })}
+      </span>
+    </div>
   );
 }
 
@@ -3076,15 +3050,17 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                 ) : block.type === "worked-example" ? (
                   <div aria-hidden="true" className="mb-6 h-px w-full bg-slate-200/90 dark:bg-white/10" />
                 ) : null}
-                <MathText as="h2" text={blockTitle} className="text-2xl font-black text-slate-950 dark:text-white" />
-                {displayContent && (block.type === "concept" || block.type === "interactive-lesson") ? (
-                  <ConceptAudioPlayer
-                    content={displayContent}
-                    staticAudioOnly={lessonUsesStaticAudioOnly(lesson)}
-                    staticAudioUrl={staticLessonAudioUrlForBlock(lesson, block)}
-                    title={blockTitle}
-                  />
-                ) : null}
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <MathText as="h2" text={blockTitle} className="min-w-0 flex-1 text-2xl font-black text-slate-950 dark:text-white" />
+                  {displayContent && (block.type === "concept" || block.type === "interactive-lesson") ? (
+                    <ConceptAudioPlayer
+                      content={displayContent}
+                      staticAudioOnly={lessonUsesStaticAudioOnly(lesson)}
+                      staticAudioUrl={staticLessonAudioUrlForBlock(lesson, block)}
+                      title={blockTitle}
+                    />
+                  ) : null}
+                </div>
                 {block.type === "concept" ? illustrationFigures : null}
                 {block.type === "interactive-lesson" ? (
                   // Ported CCSS interactive lesson body. The block's text content is
