@@ -211,7 +211,7 @@ lib/mathSpeech.test.ts             6 pass · answerMatching 10 pass
 data/usCaliforniaLessons.test.ts  13 pass · tsc --noEmit clean
 audit:ccss-lesson-interaction      2 defects — NOT mine, see below
 audit:us-ca-lesson-figure-bounds  76 pages, 76 with a real lesson figure — clean
-audit:us-ca-lesson-label-motion   unverified — see below
+audit:us-ca-lesson-label-motion   76 pages, 76 inspected (18 had no control) — clean
 ```
 
 ## Not verified this round, and why
@@ -247,9 +247,25 @@ being broken, and it has three consequences:
    matching would pass on `/login?next=/student/lessons/<slug>` were it not for
    my separate `/login` check. Theirs is the better test.
 
+## Both browser gates verified
+
+For the first time since round 9, with coverage that means what it says:
+
+```
+figure-bounds   76 pages requested, 76 inspected, 76 carrying a REAL lesson figure
+label-motion    76 pages requested, 76 inspected, 18 skipped (no enabled control)
+```
+
+Round 14 established these had been auditing `/login`. Round 15 establishes they
+now audit the lessons, authenticated, with figures present — and find nothing.
+
 ## Still open
 
-- `toPlainMathText` rewrites `8^(1/3)` to `8^{1/3}` before speech.
+- ~~`toPlainMathText` rewrites `8^(1/3)` to `8^{1/3}` before speech.~~ **Fixed by
+  the other session** while this round was running: it now yields "8 to the power
+  of 1 over 3", superscripts become "to the power of 3", and `2^?` becomes "to
+  the power of unknown". They also extended this round's gate with a canary
+  asserting it. Uncommitted in their tree at time of writing.
 - The plural-agreement defect above, once the other session lands.
 - Both California illustration records remain unreachable (round 14).
 - 76 `extension` blocks have no renderer; 41 elementary pages discard their
