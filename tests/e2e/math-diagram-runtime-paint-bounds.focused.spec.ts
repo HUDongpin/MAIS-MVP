@@ -184,6 +184,26 @@ test.describe("focused mathematical surface discovery and SVG paint bounds", () 
       kind: "unreachable-scroll-content"
     }));
 
+    await page.setContent(`
+      <main style="width:240px">
+        <section class="glass-panel" style="width:240px;height:140px;overflow:hidden">
+          <div
+            data-viz-responsive-diagram-container role="region" tabindex="0" aria-label="Horizontally scrollable graph"
+            style="position:relative;top:80px;width:220px;overflow-x:auto"
+          >
+            <svg data-viz-surface aria-label="Vertically clipped graph" viewBox="0 0 640 100" width="640" height="100">
+              <line x1="20" y1="50" x2="620" y2="50" stroke="black" />
+            </svg>
+          </div>
+        </section>
+      </main>
+    `);
+    const wrongAxis = await auditMathDiagramPage(page);
+    expect(wrongAxis.issues).toContainEqual(expect.objectContaining({
+      kind: "masked-container-overflow",
+      surface: "Vertically clipped graph"
+    }));
+
     const clipped = await render(false);
     expect(clipped.issues).toContainEqual(expect.objectContaining({
       kind: "masked-container-overflow"

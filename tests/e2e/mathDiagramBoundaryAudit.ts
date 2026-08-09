@@ -1197,14 +1197,19 @@ export async function auditMathDiagramPage(
               scrollsX &&
               ancestor.scrollWidth > ancestor.clientWidth + epsilon &&
               ancestorRect.left >= boundaryRect.left - epsilon &&
-              ancestorRect.right <= boundaryRect.right + epsilon
+              ancestorRect.right <= boundaryRect.right + epsilon &&
+              ancestorRect.top >= boundaryRect.top - epsilon &&
+              ancestorRect.bottom <= boundaryRect.bottom + epsilon
             ) {
               hasBoundedLocalScroller = true;
               break;
             }
             ancestor = ancestor.parentElement;
           }
-          if (hasBoundedLocalScroller) {
+          // A horizontal scroller only proves horizontal reachability. It
+          // must never excuse content that still crosses a vertically hidden
+          // boundary.
+          if (hasBoundedLocalScroller && hiddenOverflowY <= epsilon) {
             if (container === semanticSvgOwner || container === root) break;
             container = container.parentElement;
             continue;
