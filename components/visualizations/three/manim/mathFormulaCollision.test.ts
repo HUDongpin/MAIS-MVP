@@ -24,7 +24,7 @@ const projectedLabel = {
   world: [0, 0, 0]
 } satisfies ProjectedLabelAnchor;
 
-test("detects mobile formula overlay collisions with projected 3D labels", () => {
+test("moves the mobile formula overlay to a safe corner when its preferred corner collides", () => {
   const diagnostics = buildFormulaOverlayCollisionDiagnostics({
     formulaId: "formula",
     projectedLabels: [projectedLabel],
@@ -34,21 +34,37 @@ test("detects mobile formula overlay collisions with projected 3D labels", () =>
   const attributes = formulaOverlayCollisionDataAttributes(diagnostics);
 
   assert.equal(diagnostics.mobileViewport, true);
-  assert.equal(diagnostics.collisionCount, 1);
-  assert.equal(diagnostics.collisionLabelIds, "label:curve");
-  assert.equal(diagnostics.safeAreaStatus, "collision");
+  assert.equal(diagnostics.collisionCount, 0);
+  assert.equal(diagnostics.collisionLabelIds, "none");
+  assert.equal(diagnostics.placement, "bottom-left");
+  assert.equal(diagnostics.safeAreaStatus, "safe");
   assert.equal(
     diagnostics.sourceContract,
     "Formula overlay collision: fixed-in-frame formula panel is checked against projected mobject labels for safe browser placement"
   );
   assert.match(diagnostics.summary, /formula=formula/);
-  assert.match(diagnostics.summary, /collisions=label:curve/);
-  assert.equal(attributes["data-viz-manim-formula-collision-count"], "1");
-  assert.equal(attributes["data-viz-manim-formula-collision-label-ids"], "label:curve");
+  assert.match(diagnostics.summary, /placement=bottom-left/);
+  assert.match(diagnostics.summary, /collisions=none/);
+  assert.equal(attributes["data-viz-manim-formula-collision-count"], "0");
+  assert.equal(attributes["data-viz-manim-formula-collision-label-ids"], "none");
   assert.equal(attributes["data-viz-manim-formula-mobile-viewport"], "true");
-  assert.equal(attributes["data-viz-manim-formula-safe-area-status"], "collision");
+  assert.equal(attributes["data-viz-manim-formula-placement"], "bottom-left");
+  assert.equal(attributes["data-viz-manim-formula-safe-area-status"], "safe");
   assert.equal(attributes["data-viz-manim-formula-safe-area-summary"], diagnostics.summary);
   assert.equal(attributes["data-viz-manim-formula-collision-source-contract"], FORMULA_OVERLAY_COLLISION_SOURCE_CONTRACT);
+});
+
+test("uses the final clamped label rectangle when an off-canvas anchor is relocated inward", () => {
+  const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+    formulaId: "formula",
+    projectedLabels: [{ ...projectedLabel, id: "label:edge", screen: [0, 0] }],
+    tokenCount: 1,
+    viewport: { height: 180, width: 320 }
+  });
+
+  assert.equal(diagnostics.placement, "bottom-left");
+  assert.equal(diagnostics.collisionCount, 0);
+  assert.equal(diagnostics.safeAreaStatus, "safe");
 });
 
 test("reports safe formula placement when projected labels stay outside the panel", () => {
@@ -62,6 +78,7 @@ test("reports safe formula placement when projected labels stay outside the pane
   assert.equal(diagnostics.mobileViewport, false);
   assert.equal(diagnostics.collisionCount, 0);
   assert.equal(diagnostics.collisionLabelIds, "none");
+  assert.equal(diagnostics.placement, "top-left");
   assert.equal(diagnostics.safeAreaStatus, "safe");
 });
 
@@ -77,10 +94,30 @@ test("serializes formula collision diagnostics as deterministic script-safe brow
 
   assert.doesNotMatch(json, /</);
   assert.equal(parsed.formulaId, "formula<script>");
-  assert.equal(parsed.collisionCount, 1);
-  assert.equal(parsed.collisionLabelIds, "label<script>:curve");
-  assert.equal(parsed.safeAreaStatus, "collision");
+  assert.equal(parsed.collisionCount, 0);
+  assert.equal(parsed.collisionLabelIds, "none");
+  assert.equal(parsed.placement, "bottom-left");
+  assert.equal(parsed.safeAreaStatus, "safe");
   assert.deepEqual(parsed.formulaBox, diagnostics.formulaBox);
   assert.equal(parsed.summary, diagnostics.summary);
   assert.equal(parsed.sourceContract, FORMULA_OVERLAY_COLLISION_SOURCE_CONTRACT);
+});
+
+test("fails closed when projected labels occupy every formula corner", () => {
+  const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+    formulaId: "formula",
+    projectedLabels: [
+      { ...projectedLabel, id: "label:top-left", screen: [40, 40] },
+      { ...projectedLabel, id: "label:top-right", screen: [280, 40] },
+      { ...projectedLabel, id: "label:bottom-left", screen: [40, 280] },
+      { ...projectedLabel, id: "label:bottom-right", screen: [280, 280] }
+    ],
+    tokenCount: 2,
+    viewport: { height: 320, width: 320 }
+  });
+
+  assert.equal(diagnostics.placement, "top-left");
+  assert.equal(diagnostics.collisionCount, 2);
+  assert.equal(diagnostics.collisionLabelIds, "label:top-left,label:top-right");
+  assert.equal(diagnostics.safeAreaStatus, "collision");
 });
