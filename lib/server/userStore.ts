@@ -3031,14 +3031,18 @@ function getPostgresClient() {
 
 async function hasCurrentPostgresSchemaMarker() {
   const sql = getPostgresClient();
-  const rows = await sql<Array<{ version: number }>>`
-    SELECT version
-    FROM auth_schema_migrations
-    WHERE version = ${hotAuthSchemaVersion}
-    LIMIT 1
+  const rows = await sql<Array<{ ready: boolean }>>`
+    SELECT (
+      EXISTS (
+        SELECT 1
+        FROM auth_schema_migrations
+        WHERE version = ${hotAuthSchemaVersion}
+      )
+      AND to_regclass('public.app_state') IS NOT NULL
+    ) AS ready
   `;
 
-  return rows.length > 0;
+  return rows[0]?.ready === true;
 }
 
 async function bootstrapPostgresStateTables() {

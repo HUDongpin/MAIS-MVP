@@ -11,6 +11,7 @@ test("userStore wires the migration marker probe ahead of the schema bootstrap",
   );
   assert.match(userStoreSource, /async function hasCurrentPostgresSchemaMarker\(\)/);
   assert.match(userStoreSource, /FROM auth_schema_migrations\s+WHERE version = \$\{hotAuthSchemaVersion\}/);
+  assert.match(userStoreSource, /to_regclass\('public\.app_state'\) IS NOT NULL/);
   assert.match(userStoreSource, /async function bootstrapPostgresStateTables\(\)/);
   assert.match(
     userStoreSource,
@@ -24,10 +25,12 @@ test("schema bootstrap records the current marker as its final SQL statement", (
   const bootstrapEnd = userStoreSource.indexOf("function parseStoredStatePayload", bootstrapStart);
   const bootstrapSource = userStoreSource.slice(bootstrapStart, bootstrapEnd);
   const markerInsert = bootstrapSource.indexOf("INSERT INTO auth_schema_migrations");
+  const schemaSqlStatements = bootstrapSource.match(/(?:await |return )?sql(?:<[^`]+>)?`/g) ?? [];
 
   assert.notEqual(bootstrapStart, -1);
   assert.notEqual(bootstrapEnd, -1);
   assert.notEqual(markerInsert, -1);
+  assert.equal(schemaSqlStatements.length, 68);
   assert.equal(markerInsert, bootstrapSource.lastIndexOf("INSERT INTO auth_schema_migrations"));
   assert.equal(markerInsert > bootstrapSource.lastIndexOf("CREATE INDEX IF NOT EXISTS"), true);
   assert.equal(markerInsert > bootstrapSource.lastIndexOf("CREATE TABLE IF NOT EXISTS"), true);
