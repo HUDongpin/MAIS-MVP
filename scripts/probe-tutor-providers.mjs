@@ -57,7 +57,7 @@ const providers = [
     name: "qwen",
     apiKey: env("QWEN_API_KEY"),
     apiUrl: env("QWEN_TEXT_API_URL") ?? env("QWEN_API_URL") ?? "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-    model: env("QWEN_TEXT_MODEL") ?? env("QWEN_MODEL") ?? "qwen3.7-plus"
+    model: env("QWEN_TEXT_MODEL") ?? env("QWEN_MODEL") ?? "qwen3.8-max"
   },
   {
     name: "deepseek",
@@ -105,6 +105,9 @@ async function probeProvider(provider, runs) {
               { role: "system", content: "You are a math tutor. Answer with only the requested value, no explanation." },
               { role: "user", content: item.prompt }
             ],
+            ...(provider.name === "qwen" && provider.model.trim().toLowerCase() === "qwen3.8-max"
+              ? { enable_thinking: false }
+              : {}),
             stream: false,
             max_tokens: 64
           })
