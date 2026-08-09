@@ -58,6 +58,7 @@ import {
 import {
   isValidQuestionFilter as isValidQuestionFilterFromQuestionFilter
 } from "@/lib/server/userStore/questionFilter";
+import { createPostgresSchemaReadinessGate } from "@/lib/server/userStore/postgresSchemaReadiness";
 import {
   buildKnowledgeComponents,
   classifyAdaptiveLLMError,
@@ -1898,6 +1899,7 @@ const stateRecordId = "primary";
 const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
+// Increment whenever any SQL in bootstrapPostgresStateTables changes.
 const hotAuthSchemaVersion = 1;
 const hotAuthTableNames = [
   "auth_users",
@@ -2817,7 +2819,6 @@ type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
 
 let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
-let postgresReady: Promise<void> | null = null;
 let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
@@ -3028,10 +3029,25 @@ function getPostgresClient() {
   return postgresClient;
 }
 
-async function ensurePostgresStateTable() {
-  if (!postgresReady) {
-    const sql = getPostgresClient();
-    postgresReady = sql`
+async function hasCurrentPostgresSchemaMarker() {
+  const sql = getPostgresClient();
+  const rows = await sql<Array<{ ready: boolean }>>`
+    SELECT (
+      EXISTS (
+        SELECT 1
+        FROM auth_schema_migrations
+        WHERE version = ${hotAuthSchemaVersion}
+      )
+      AND to_regclass('public.app_state') IS NOT NULL
+    ) AS ready
+  `;
+
+  return rows[0]?.ready === true;
+}
+
+async function bootstrapPostgresStateTables() {
+  const sql = getPostgresClient();
+  return sql`
       CREATE TABLE IF NOT EXISTS app_state (
         id TEXT PRIMARY KEY,
         tenant_id TEXT NOT NULL DEFAULT 'platform',
@@ -3381,10 +3397,12 @@ async function ensurePostgresStateTable() {
         ON CONFLICT (version) DO NOTHING
       `;
     });
-  }
-
-  return postgresReady;
 }
+
+const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
+  readCurrentMarker: hasCurrentPostgresSchemaMarker,
+  bootstrap: bootstrapPostgresStateTables
+});
 
 function parseStoredStatePayload(value: unknown) {
   if (typeof value === "string") {

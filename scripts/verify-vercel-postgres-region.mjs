@@ -4,6 +4,7 @@ import path from "node:path";
 
 const variableName = "POSTGRES_URL";
 const expectedTargets = ["preview", "production"];
+const expectedPostgresRegion = "aws-ap-southeast-1";
 const defaultVercelApiOrigin = "https://api.vercel.com";
 
 function parseArgs(argv) {
@@ -106,7 +107,7 @@ export function classifyPostgresUrl(value) {
   return {
     provider,
     region,
-    usWestNeon: provider === "neon" && region === "aws-us-west-2"
+    regionAligned: provider === "neon" && region === expectedPostgresRegion
   };
 }
 
@@ -115,7 +116,7 @@ export function summarizeVerification(results) {
     .filter((result) => result.status !== "verified")
     .map((result) => result.target);
   const misalignedTargets = results
-    .filter((result) => result.status === "verified" && !result.usWestNeon)
+    .filter((result) => result.status === "verified" && !result.regionAligned)
     .map((result) => result.target);
 
   return {
@@ -176,7 +177,7 @@ async function main() {
     const value = process.env.POSTGRES_URL?.trim();
     const result = value
       ? {
-          ok: classifyPostgresUrl(value).usWestNeon,
+          ok: classifyPostgresUrl(value).regionAligned,
           variable: variableName,
           target,
           status: "verified",
@@ -222,7 +223,7 @@ async function main() {
     variable: variableName,
     expected: {
       provider: "neon",
-      region: "aws-us-west-2"
+      region: expectedPostgresRegion
     },
     targets: results,
     summary

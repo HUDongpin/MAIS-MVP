@@ -63,6 +63,11 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run Postgres schema readiness and Singapore region gates
+        run: |
+          npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts
+          node --test scripts/postgres-schema-fast-path.test.mjs scripts/vercel-region-config.test.mjs scripts/verify-vercel-postgres-region.test.mjs
+
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
 
