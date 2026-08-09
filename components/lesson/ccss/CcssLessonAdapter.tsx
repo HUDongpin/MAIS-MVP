@@ -43,7 +43,11 @@ export function CcssLessonAdapter({ LessonComponent, meta, topicId }: CcssLesson
   }, [recordLearningEvent, topicId]);
 
   return (
-    <div className={`ccss-lesson reading-${readingBand}`} data-ccss-lesson={meta.slug}>
+    <div
+      className={`ccss-lesson reading-${readingBand}`}
+      data-ccss-diagram-state-protocol="finite-visible-button-state-graph-v2"
+      data-ccss-lesson={meta.slug}
+    >
       <LessonComponent />
       <footer className="mt-5 flex flex-wrap items-center gap-2" aria-label="Standards developed in this lesson">
         {meta.standardIds.map((id) => (

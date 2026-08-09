@@ -32,7 +32,7 @@ export default function Lesson() {
 
           {mode === "wu" ? (
             <>
-              <div className="flex flex-col gap-1.5">
+              <div className="mx-auto flex w-max max-w-none self-start flex-col gap-1.5">
                 {Array.from({ length: w }, (_, wi) => (
                   <div key={wi} className="flex overflow-hidden rounded border-2 border-[var(--line)]" style={{ width: BARW, height: 24 }}>
                     {Array.from({ length: b }, (_, i) => <div key={i} className="border-r border-white last:border-r-0" style={{ width: BARW / b, background: (wi * b + i) % 2 === 0 ? A : B, opacity: 0.85 }} />)}
@@ -46,7 +46,7 @@ export default function Lesson() {
             </>
           ) : (
             <>
-              <div className="flex flex-col items-center gap-2">
+              <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-2">
                 <div className="flex overflow-hidden rounded border-2 border-[var(--line)]" style={{ width: BARW, height: 30 }}>
                   {Array.from({ length: b }, (_, i) => (
                     <div key={i} className="flex border-r border-white last:border-r-0" style={{ width: BARW / b }}>

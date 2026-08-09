@@ -24,12 +24,12 @@ export default function Lesson() {
 
       <Figure caption="The same 4, worth ten times more each step left — and a tenth as much each step right.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-end gap-1.5">
+          <div className="flex items-end gap-1 sm:gap-1.5">
             {PLACE.map((_, i) => (
               <div key={i} className="flex items-end">
                 {i === 2 && <span className="pb-6 text-3xl font-black">.</span>}
                 <div className="flex flex-col items-center gap-1">
-                  <button type="button" onClick={() => setSel(i)} className="grid h-14 w-14 place-items-center rounded-xl text-3xl font-black text-white" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
+                  <button type="button" onClick={() => setSel(i)} className="grid h-12 w-12 place-items-center rounded-xl text-3xl font-black text-white sm:h-14 sm:w-14" style={{ background: COLORS[i], outline: i === sel ? "3px solid var(--ink)" : "none", outlineOffset: 3 }}>{digit}</button>
                   <span className="text-[9px] font-semibold uppercase text-[var(--ink-faint)]">{NAMES[i]}</span>
                   <span className="font-mono text-[11px] font-bold" style={{ color: COLORS[i] }}>{valAt(i)}</span>
                 </div>

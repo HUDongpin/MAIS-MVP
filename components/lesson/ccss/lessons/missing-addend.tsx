@@ -26,7 +26,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="The long bar is the whole. One part is known — the missing part completes it.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           {/* whole bar */}
           <div className="flex flex-col items-center gap-2">
             <div className="flex h-12 overflow-hidden rounded-xl border-2 border-[var(--line)]">

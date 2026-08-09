@@ -47,7 +47,7 @@ export default function Lesson() {
             {Array.from({ length: 12 }, (_, i) => {
               const num = i + 1;
               const p = hand(num * 30, R - 16);
-              const mlabel = hand(num * 30, R - 30);
+              const mlabel = hand(num * 30, R - 34);
               return (
                 <g key={num}>
                   <text x={p.x2} y={p.y2 + 5} textAnchor="middle" fontSize="15" fontWeight="700" fill="var(--ink)">{num}</text>

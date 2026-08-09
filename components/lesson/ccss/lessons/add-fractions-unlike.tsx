@@ -52,7 +52,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <div className="flex flex-col items-center gap-2">
+          <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-2">
             <div className="flex items-center gap-3"><Bar num={n1} den={d1} color={A} /><span className="w-12 font-mono font-bold" style={{ color: A }}>{n1}/{d1}</span></div>
             <div className="flex items-center gap-3"><Bar num={n2} den={d2} color={B} /><span className="w-12 font-mono font-bold" style={{ color: B }}>{n2}/{d2}</span></div>
           </div>

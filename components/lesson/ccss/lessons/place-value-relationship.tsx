@@ -21,7 +21,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="The same 3 is worth ten times more each place you move left.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="flex items-end gap-2">
             {PLACE.map((place, i) => (
               <div key={i} className="flex flex-col items-center gap-1">

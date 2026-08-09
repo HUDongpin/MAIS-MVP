@@ -28,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="The right triangle inside the unit circle has legs cos θ and sin θ, hypotenuse 1 — Pythagoras.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label="Pythagorean identity on the unit circle">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={240} viewBox="0 0 240 240" role="img" aria-label="Pythagorean identity on the unit circle">
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
             <line x1={CX - RAD - 15} y1={CY} x2={CX + RAD + 15} y2={CY} stroke="var(--ink-soft)" strokeWidth={1.5} />
             <line x1={CX} y1={CY - RAD - 15} x2={CX} y2={CY + RAD + 15} stroke="var(--ink-soft)" strokeWidth={1.5} />

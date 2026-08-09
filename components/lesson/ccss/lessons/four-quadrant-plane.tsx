@@ -119,7 +119,7 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Mirror across</span>
               {(["y", "x"] as const).map((a) => (
                 <button
@@ -137,7 +137,7 @@ export default function Lesson() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-6">
               <Stepper label="x" value={p.x} onChange={(v) => setP({ ...p, x: clamp(v) })} />
               <Stepper label="y" value={p.y} onChange={(v) => setP({ ...p, y: clamp(v) })} />
             </div>

@@ -51,7 +51,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={s.title}>
+          <svg className="mx-auto max-w-none self-start" width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={s.title}>
             <line x1={PAD} y1={H - PAD} x2={W - PAD} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PAD} y1={PAD} x2={PAD} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
             <polyline points={s.path} fill="none" stroke={LINE} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />

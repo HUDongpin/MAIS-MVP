@@ -205,12 +205,12 @@ export function PracticeMissionTrail({
       {trailAvatar.ready ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-20"
+          className="pointer-events-none absolute left-0 top-0 z-20 w-0"
           initial={false}
           animate={{ x: trailAvatar.x, y: trailAvatar.y }}
           transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 340, damping: 26, mass: 0.7 }}
         >
-          <div className="-translate-x-1/2 -translate-y-full pb-1">
+          <div className="w-max -translate-x-1/2 -translate-y-full pb-1">
             <motion.div
               className="grid place-items-center"
               animate={prefersReducedMotion ? undefined : { y: [0, -3, 0] }}

@@ -27,7 +27,7 @@ export default function Lesson() {
 
       <Figure caption="Two sides and the included angle → the Law of Cosines finds the third side.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="general triangle">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="general triangle">
             <polygon points="40,130 200,130 100,40" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             <text x={64} y={124} fontSize={12} fill="var(--band-middle)">C = {C}°</text>
             <text x={115} y={148} fontSize={11} fill="var(--ink-faint)">a = {a}</text>

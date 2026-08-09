@@ -34,7 +34,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="parallelogram">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={160} viewBox="0 0 240 160" role="img" aria-label="parallelogram">
             <polygon points="40,130 120,30 200,30 120,130" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             {p.show === "diagonals" && (
               <>

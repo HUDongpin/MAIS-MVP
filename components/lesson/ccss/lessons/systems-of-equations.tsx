@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { clipLinearFunctionToSquare } from "@/lib/mathDiagramGeometry";
 
 const N = 10;
 const CELL = 30;
 const PAD = 30;
 const SIZE = N * CELL + 2 * PAD;
+const LINE_CENTER = N / 2;
+// The SVG has a one-cell outer gutter. Keep 0.15 math units of that
+// gutter beyond the 3px stroke so line paint never lands on the viewBox edge.
+const LINE_RANGE = LINE_CENTER + 0.85;
 const L1 = "var(--band-middle)";
 const L2 = "var(--band-upper)";
 
@@ -27,13 +32,11 @@ export default function Lesson() {
   const inRange = !parallel && ix >= 0 && ix <= N && iy >= 0 && iy <= N;
 
   const linePts = (m: number, b: number) => {
-    // draw across the visible box
-    const pts: string[] = [];
-    for (let x = 0; x <= N; x += 0.5) {
-      const y = m * x + b;
-      if (y >= -1 && y <= N + 1) pts.push(`${sx(x)},${sy(y)}`);
-    }
-    return pts.join(" ");
+    const centeredIntercept = b + m * LINE_CENTER - LINE_CENTER;
+    const segment = clipLinearFunctionToSquare(m, centeredIntercept, LINE_RANGE);
+    return segment?.map((point) =>
+      `${r2(sx(point.x + LINE_CENTER))},${r2(sy(point.y + LINE_CENTER))}`
+    ).join(" ") ?? "";
   };
 
   return (

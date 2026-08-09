@@ -22,7 +22,7 @@ export default function Lesson() {
 
       <Figure caption="Lean a stack of coins and its volume doesn't change — same layers, same total. That's Cavalieri.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={200} viewBox="0 0 240 200" role="img" aria-label="sheared stack of layers">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={200} viewBox="0 0 240 200" role="img" aria-label="sheared stack of layers">
             {Array.from({ length: 8 }, (_, i) => {
               const y = 176 - i * 20;
               const x = 60 + (i / 7) * lean;

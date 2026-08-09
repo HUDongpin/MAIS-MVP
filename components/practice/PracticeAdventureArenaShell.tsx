@@ -205,7 +205,7 @@ export function PracticeAdventureArenaShell({
             <h1 id="practice-adventure-title" className="min-w-0 max-w-[9ch] text-4xl font-black leading-[0.98] tracking-normal text-blue-950 sm:max-w-[11ch] sm:text-6xl lg:text-[3.9rem]">
               Practice Arena
             </h1>
-            <div className="grid size-14 shrink-0 rotate-12 place-items-center rounded-3xl border-4 border-white bg-yellow-300 text-amber-500 shadow-xl sm:size-16">
+            <div className="grid size-14 shrink-0 rotate-0 place-items-center rounded-3xl border-4 border-white bg-yellow-300 text-amber-500 shadow-xl sm:size-16 sm:rotate-12">
               <StarIcon className="size-9 sm:size-10" />
             </div>
           </div>

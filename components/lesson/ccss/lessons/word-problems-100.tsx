@@ -42,7 +42,7 @@ export default function Lesson() {
 
           {/* tape diagram */}
           <div className="flex w-full max-w-lg flex-col items-center gap-2">
-            <div className="flex h-8 overflow-hidden rounded-lg">
+            <div className="mx-auto flex h-8 w-max max-w-none self-start overflow-hidden rounded-lg">
               <div className="grid place-items-center text-xs font-bold text-white" style={{ width: a * PXU, background: A }}>{a}</div>
               {!twoStep && <div className="grid place-items-center border-l-2 border-white text-xs font-bold text-white" style={{ width: b * PXU, background: B }}>{b}</div>}
               {twoStep && <div className="grid place-items-center border-l-2 border-white text-xs font-bold text-white" style={{ width: c * PXU, background: CC }}>+{c}</div>}

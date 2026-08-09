@@ -263,6 +263,34 @@ export function sanitizeHandwritingStrokes(value: unknown): HandwritingStroke[] 
     .filter((stroke): stroke is HandwritingStroke => stroke !== null);
 }
 
+export function rescaleHandwritingStrokes(
+  strokes: HandwritingStroke[],
+  from: { width: number; height: number },
+  to: { width: number; height: number }
+): HandwritingStroke[] {
+  if (
+    !Number.isFinite(from.width) || from.width <= 0 ||
+    !Number.isFinite(from.height) || from.height <= 0 ||
+    !Number.isFinite(to.width) || to.width <= 0 ||
+    !Number.isFinite(to.height) || to.height <= 0
+  ) {
+    return strokes;
+  }
+
+  const scaleX = to.width / from.width;
+  const scaleY = to.height / from.height;
+  if (scaleX === 1 && scaleY === 1) return strokes;
+
+  return strokes.map((stroke) => ({
+    ...stroke,
+    points: stroke.points.map((point) => ({
+      ...point,
+      x: roundCoordinate(point.x * scaleX),
+      y: roundCoordinate(point.y * scaleY)
+    }))
+  }));
+}
+
 export function buildMathpixStrokePayload(strokes: HandwritingStroke[]): MathpixStrokePayload {
   const penStrokes = strokes.filter((stroke) => (stroke.tool ?? "pen") === "pen" && stroke.points.length > 1);
   return {

@@ -26,7 +26,7 @@ export default function Lesson() {
 
       <Figure caption="The height onto side a equals b·sin C, so the area is ½·a·(b sin C).">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={170} viewBox="0 0 240 170" role="img" aria-label="triangle with included angle">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={170} viewBox="0 0 240 170" role="img" aria-label="triangle with included angle">
             <polygon points="30,140 210,140 90,50" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             {/* height */}
             <line x1={90} y1={50} x2={90} y2={140} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />

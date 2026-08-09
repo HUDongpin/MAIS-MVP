@@ -24,7 +24,7 @@ export default function Lesson() {
 
       <Figure caption="The long bar is several copies of the short bar — that many times as much.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex flex-col items-start gap-3">
+          <div className="mx-auto flex w-max max-w-none self-start flex-col items-start gap-3">
             <div className="flex items-center gap-3">
               <div className="rounded" style={{ width: base * PXU, height: 26, background: SMALL }} />
               <span className="text-sm font-bold" style={{ color: SMALL }}>{base}</span>

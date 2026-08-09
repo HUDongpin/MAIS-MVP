@@ -42,7 +42,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="Rewrite both with the same denominator, then the bars line up for a fair comparison.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-3">
             <div className="flex items-center gap-3">
               <Bar num={n1} den={d1} color={A} />

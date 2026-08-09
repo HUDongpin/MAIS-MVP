@@ -29,7 +29,7 @@ export default function Lesson() {
           <div className="font-mono text-4xl font-black">
             <span style={{ color: COEF }}>{a}</span><span style={{ color: VARC }}>x</span> + <span style={{ color: CONST }}>{b}</span>
           </div>
-          <div className="flex gap-6 text-xs font-semibold uppercase">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-semibold uppercase">
             <span style={{ color: COEF }}>coefficient</span>
             <span style={{ color: VARC }}>variable</span>
             <span style={{ color: CONST }}>constant</span>

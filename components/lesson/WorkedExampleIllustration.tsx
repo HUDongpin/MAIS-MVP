@@ -1,6 +1,11 @@
 import type { GradeId } from "@/types";
 import type { ReactElement } from "react";
 import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgAngleArcPath
+} from "@/lib/mathDiagramGeometry";
+import {
   buildWorkedExampleIllustrationMetadata,
   type WorkedExampleIllustrationMetadata,
   type WorkedExampleVisualKind
@@ -24,14 +29,66 @@ function svgTitleId(metadata: WorkedExampleIllustrationMetadata) {
   return `${metadata.id}-title`;
 }
 
+const focusBadgeTextWidth = 325;
+
+const geometrySceneAngle = buildMathAngleContract({
+  id: "worked-example-geometry-angle",
+  origin: { x: 620, y: 405 },
+  radius: 75,
+  startRay: { x: 1, y: 0 },
+  endRay: { x: 190, y: -255 },
+  sweepRadians: Math.atan2(255, 190)
+});
+
+const spatialVectorTrigAngle = buildMathAngleContract({
+  id: "worked-example-spatial-vector-angle",
+  origin: { x: 80, y: 320 },
+  radius: 50,
+  startRay: { x: 1, y: 0 },
+  endRay: { x: 680, y: -110 },
+  sweepRadians: Math.atan2(110, 680)
+});
+
+function focusBadgeGlyphWeight(value: string) {
+  return Array.from(value).reduce((weight, character) => {
+    if (/\s/u.test(character)) return weight + 0.35;
+    if (/[\u3000-\u9fff]/u.test(character)) return weight + 1;
+    if (/[ilI1.,:;|]/u.test(character)) return weight + 0.35;
+    if (/[mwMW@#%&]/u.test(character)) return weight + 0.9;
+    return weight + 0.6;
+  }, 0);
+}
+
+export function focusBadgeTextMetrics(value: string) {
+  const glyphWeight = Math.max(1, focusBadgeGlyphWeight(value));
+  const fontSize = Math.max(14, Math.min(28, focusBadgeTextWidth / glyphWeight));
+  const estimatedWidth = fontSize * glyphWeight;
+
+  return {
+    fontSize,
+    textLength: estimatedWidth > focusBadgeTextWidth ? focusBadgeTextWidth : undefined
+  };
+}
+
 function FocusBadge({ focusText }: { focusText: string }) {
+  const textMetrics = focusBadgeTextMetrics(focusText);
+
   return (
     <g>
       <rect x="1025" y="92" width="385" height="92" rx="24" fill="#ffffff" stroke="#bae6fd" strokeWidth="4" />
       <text x="1055" y="129" fill="#0f172a" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="800">
         Worked focus
       </text>
-      <text x="1055" y="162" fill="#0369a1" fontFamily="Arial, sans-serif" fontSize="28" fontWeight="900">
+      <text
+        x="1055"
+        y="162"
+        fill="#0369a1"
+        fontFamily="Arial, sans-serif"
+        fontSize={textMetrics.fontSize}
+        fontWeight="900"
+        lengthAdjust={textMetrics.textLength ? "spacingAndGlyphs" : undefined}
+        textLength={textMetrics.textLength}
+      >
         {focusText}
       </text>
     </g>
@@ -274,7 +331,14 @@ function GeometryScene({ focusText }: { focusText: string }) {
         ))}
         <path d="M620 405 L810 150 L1000 405 Z" fill="#dcfce7" stroke="#15803d" strokeWidth="7" />
         <path d="M810 405 L810 150" stroke="#16a34a" strokeWidth="4" strokeDasharray="10 10" />
-        <path d="M695 405 A115 115 0 0 1 748 306" fill="none" stroke="#f97316" strokeWidth="8" />
+        <path
+          data-diagram-angle-arc
+          data-math-angle-contract={serializeMathAngleContract(geometrySceneAngle)}
+          d={svgAngleArcPath(geometrySceneAngle)}
+          fill="none"
+          stroke="#f97316"
+          strokeWidth="8"
+        />
       </g>
       <StepTiles labels={["draw", "measure", "check"]} />
       <FocusBadge focusText={focusText} />
@@ -460,7 +524,14 @@ function SpatialVectorTrigScene({ focusText }: { focusText: string }) {
         <path d="M80 320 L420 320 L420 110 Z" fill="#ecfeff" stroke="#0891b2" strokeWidth="7" />
         <path d="M420 320 L760 210" stroke="#7c3aed" strokeWidth="9" strokeLinecap="round" markerEnd="url(#arrow)" />
         <path d="M80 320 L760 210" stroke="#f97316" strokeWidth="7" strokeLinecap="round" strokeDasharray="14 12" />
-        <path d="M130 320 A50 50 0 0 1 167 276" fill="none" stroke="#16a34a" strokeWidth="7" />
+        <path
+          data-diagram-angle-arc
+          data-math-angle-contract={serializeMathAngleContract(spatialVectorTrigAngle)}
+          d={svgAngleArcPath(spatialVectorTrigAngle)}
+          fill="none"
+          stroke="#16a34a"
+          strokeWidth="7"
+        />
         <rect x="390" y="290" width="30" height="30" fill="#ffffff" stroke="#0891b2" strokeWidth="4" />
       </g>
       <defs>
@@ -638,7 +709,7 @@ function ExactTokenRow({
 
 function ExactSceneTitle({ title }: { title: string }) {
   return (
-    <g transform="translate(125 120)">
+    <g data-worked-exact-scene-title="true" transform="translate(125 120)">
       <rect width="560" height="76" rx="24" fill="#ecfeff" stroke="#06b6d4" strokeWidth="5" />
       <text x="280" y="49" textAnchor="middle" fill="#0f172a" fontFamily="Arial, sans-serif" fontSize="31" fontWeight="900">
         {title}
@@ -933,12 +1004,16 @@ export function WorkedExampleIllustration({
         <rect width="1600" height="900" rx="0" fill="#f8fafc" />
         <rect x="72" y="66" width="1456" height="768" rx="42" fill="#ffffff" stroke="#cffafe" strokeWidth="8" />
         <path d="M90 648 C250 592 416 672 590 620 C810 554 996 636 1194 590 C1320 560 1436 592 1510 630 L1510 834 L90 834 Z" fill="#ecfeff" />
-        <text x="150" y="130" fill="#0f172a" fontFamily="Arial, sans-serif" fontSize="36" fontWeight="900">
-          Worked example visual
-        </text>
-        <text x="150" y="172" fill="#475569" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="800">
-          {metadata.kind.replace(/-/g, " ")} - {metadata.ageBand.replace(/-/g, " ")}
-        </text>
+        {metadata.sceneId === "generic" ? (
+          <g data-worked-generic-scene-title="true">
+            <text x="150" y="130" fill="#0f172a" fontFamily="Arial, sans-serif" fontSize="36" fontWeight="900">
+              Worked example visual
+            </text>
+            <text x="150" y="172" fill="#475569" fontFamily="Arial, sans-serif" fontSize="24" fontWeight="800">
+              {metadata.kind.replace(/-/g, " ")} - {metadata.ageBand.replace(/-/g, " ")}
+            </text>
+          </g>
+        ) : null}
         <IllustrationScene metadata={metadata} />
       </svg>
       <figcaption className={captionClassName}>

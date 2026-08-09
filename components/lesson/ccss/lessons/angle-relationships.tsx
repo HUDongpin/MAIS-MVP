@@ -38,13 +38,13 @@ export default function Lesson() {
 
       <Figure caption="One angle is known; the relationship gives the other with a quick equation.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
             {(Object.keys(REL) as Rel[]).map((rk) => (
               <button key={rk} type="button" onClick={() => setRel(rk)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rel === rk ? { background: B, color: "white", borderColor: B } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{REL[rk].name}</button>
             ))}
           </div>
 
-          <svg width="260" height="200" viewBox="0 0 260 200" role="img" aria-label={`${REL[rel].name} angles`}>
+          <svg className="mx-auto h-auto max-w-full" width="260" height="200" viewBox="0 0 260 200" role="img" aria-label={`${REL[rel].name} angles`}>
             {rel === "comp" && (
               <g>
                 <line x1={CX} y1={CY} x2={pt(0).x} y2={pt(0).y} stroke="var(--ink)" strokeWidth={2.5} />

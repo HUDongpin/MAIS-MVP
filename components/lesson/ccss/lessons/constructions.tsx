@@ -27,7 +27,7 @@ export default function Lesson() {
 
       <Figure caption="Two equal-radius arcs from the endpoints cross at points equidistant from A and B.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={200} viewBox="0 0 260 200" role="img" aria-label="perpendicular bisector construction">
+          <svg className="mx-auto h-auto max-w-full" width={260} height={200} viewBox="0 0 260 200" role="img" aria-label="perpendicular bisector construction">
             {/* segment AB */}
             <line x1={60} y1={100} x2={200} y2={100} stroke="var(--ink)" strokeWidth={2.5} />
             <circle cx={60} cy={100} r={4} fill="var(--ink)" /><text x={50} y={118} fontSize={12}>A</text>

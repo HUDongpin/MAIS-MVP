@@ -29,7 +29,7 @@ export default function Lesson() {
 
       <Figure caption="The sum of two dice, 2–12. Its distribution peaks at 7, the most likely sum.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-end gap-1.5">
+          <div className="mx-auto flex w-max max-w-none self-start items-end gap-1.5">
             {SUMS.map((s) => (
               <button key={s} type="button" onClick={() => setHighlight(s)} className="flex flex-col items-center gap-1">
                 <span className="text-[10px] font-mono text-[var(--ink-faint)]">{WAYS[s - 2]}/36</span>
