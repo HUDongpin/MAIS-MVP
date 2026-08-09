@@ -7082,6 +7082,7 @@ export function evidenceDataAttributes(snapshot: MathSceneEvidenceSnapshot): Rec
     formulaId: "evidence",
     mobileViewport: snapshot.manimFormulaMobileViewport,
     overflowEdges: "none",
+    placement: "top-left",
     safeAreaStatus: snapshot.manimFormulaSafeAreaStatus as Parameters<typeof formulaOverlayCollisionDataAttributes>[0]["safeAreaStatus"],
     sourceContract: snapshot.manimFormulaCollisionSourceContract,
     summary: snapshot.manimFormulaSafeAreaSummary,

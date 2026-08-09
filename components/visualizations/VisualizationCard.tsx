@@ -151,7 +151,10 @@ export function VisualizationCard({
         {formula ? (
           <div
             data-viz-card-formula
-            className="mt-3 inline-flex max-w-full items-center rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
+            aria-label="Scrollable visualization formula"
+            role="region"
+            tabIndex={0}
+            className="mt-3 inline-flex max-w-full items-center overflow-x-auto overscroll-x-contain rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
           >
             <MathText as="span" text={formula} normalizeMath={false} className="min-w-0 break-words" />
           </div>

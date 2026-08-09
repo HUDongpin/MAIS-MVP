@@ -21,6 +21,7 @@ import {
   summarizeProjectedLabelAnchors,
   type ProjectionViewport
 } from "./mathProjectedLabels";
+import { buildProjectedLabelPlacement } from "./mathProjectedLabelPlacement";
 import { buildTexColorizedFormula, serializeTexColorizedFormula, texColorizedFormulaDataAttributes } from "./mathTexColorizedFormula";
 import type { MathSceneRuntimeState } from "./mathSceneRuntimeState";
 import type { MathSceneSpec } from "./mathSceneTypes";
@@ -109,6 +110,7 @@ export function MathFormulaOverlay({
       data-viz-manim-formula-collision-count={formulaCollisionAttributes["data-viz-manim-formula-collision-count"]}
       data-viz-manim-formula-collision-label-ids={formulaCollisionAttributes["data-viz-manim-formula-collision-label-ids"]}
       data-viz-manim-formula-mobile-viewport={formulaCollisionAttributes["data-viz-manim-formula-mobile-viewport"]}
+      data-viz-manim-formula-placement={formulaCollisionAttributes["data-viz-manim-formula-placement"]}
       data-viz-manim-formula-safe-area-status={formulaCollisionAttributes["data-viz-manim-formula-safe-area-status"]}
       data-viz-manim-formula-safe-area-summary={formulaCollisionAttributes["data-viz-manim-formula-safe-area-summary"]}
       data-viz-manim-projected-label-source-contract={projectedLabelAttributes["data-viz-manim-projected-label-source-contract"]}
@@ -118,6 +120,9 @@ export function MathFormulaOverlay({
         data-viz-three-formula
         data-viz-manim-formula={formula.id}
         data-viz-manim-formula-overlay
+        aria-label="Scrollable MAIS Manim formula"
+        role="region"
+        tabIndex={0}
         data-viz-manim-formula-id={formula.id}
         data-viz-manim-svg-morph-runtime-compatible-frame-count={svgMorphRuntimeAttributes["data-viz-manim-svg-morph-runtime-compatible-frame-count"]}
         data-viz-manim-svg-morph-runtime-formula-id={svgMorphRuntimeAttributes["data-viz-manim-svg-morph-runtime-formula-id"]}
@@ -151,7 +156,13 @@ export function MathFormulaOverlay({
         data-viz-manim-active-token-source-contract={activeTokenAttributes["data-viz-manim-active-token-source-contract"]}
         data-viz-manim-active-token-summary={activeTokenAttributes["data-viz-manim-active-token-summary"]}
         data-viz-manim-token-count={tokenCount}
-        className="absolute left-3 top-3 max-w-[min(78%,34rem)] rounded-2xl border border-white/10 bg-slate-950/76 px-3.5 py-2.5 text-sm font-black leading-tight text-cyan-50 shadow-lg shadow-slate-950/20 [&_.katex]:text-[1.08em]"
+        className="pointer-events-auto absolute max-h-[42%] max-w-[50%] overflow-auto overscroll-contain rounded-2xl border border-white/10 bg-slate-950/76 px-3.5 py-2.5 text-sm font-black leading-tight text-cyan-50 shadow-lg shadow-slate-950/20 sm:max-h-[calc(100%-1.5rem)] sm:max-w-[min(78%,34rem)] [&_.katex]:text-[1.08em]"
+        style={{
+          bottom: formulaCollisionDiagnostics.placement.startsWith("bottom") ? 12 : undefined,
+          left: formulaCollisionDiagnostics.placement.endsWith("left") ? 12 : undefined,
+          right: formulaCollisionDiagnostics.placement.endsWith("right") ? 12 : undefined,
+          top: formulaCollisionDiagnostics.placement.startsWith("top") ? 12 : undefined
+        }}
       >
         <MathText text={colorizedFormula.latex} ariaLabel="MAIS Manim formula" normalizeMath={false} />
         <span aria-hidden="true" data-viz-manim-formula-svg={formula.id} className="sr-only" />
@@ -210,8 +221,10 @@ export function MathFormulaOverlay({
         </span>
       </div>
       <div data-viz-manim-projected-label-layer className="absolute inset-0">
-        {projectedLabels.map((label) => (
-          <span
+        {projectedLabels.map((label) => {
+          const placement = buildProjectedLabelPlacement(label.screen, projectedLabelViewport);
+          return (
+            <span
             key={label.id}
             aria-label={label.ariaLabel}
             data-viz-manim-projected-label={label.id}
@@ -224,15 +237,22 @@ export function MathFormulaOverlay({
             data-viz-manim-projected-screen-x={label.screen[0].toFixed(2)}
             data-viz-manim-projected-screen-y={label.screen[1].toFixed(2)}
             data-viz-manim-projected-visible={String(label.visible)}
-            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-100/25 bg-slate-950/70 px-2 py-1 text-[10px] font-black text-cyan-50 shadow-lg shadow-slate-950/20"
+            data-viz-manim-projected-horizontal-anchor={placement.horizontalAnchor}
+            data-viz-manim-projected-vertical-anchor={placement.verticalAnchor}
+            tabIndex={0}
+            className="pointer-events-auto absolute max-h-20 max-w-[min(12rem,calc(100%-1rem))] overflow-y-auto overscroll-contain break-words rounded-full border border-cyan-100/25 bg-slate-950/70 px-2 py-1 text-center text-[10px] font-black text-cyan-50 shadow-lg shadow-slate-950/20"
             style={{
-              left: `${(label.screen[0] / viewportWidth) * 100}%`,
-              top: `${(label.screen[1] / viewportHeight) * 100}%`
+              left: placement.left,
+              maxHeight: placement.maxHeight,
+              maxWidth: placement.maxWidth,
+              top: placement.top,
+              transform: placement.transform
             }}
           >
             {label.text}
           </span>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
