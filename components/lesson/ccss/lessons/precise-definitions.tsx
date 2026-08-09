@@ -40,7 +40,7 @@ export default function Lesson() {
                 <line x1={40} y1={120} x2={190} y2={120} stroke={ACCENT} strokeWidth={3} />
                 <line x1={40} y1={120} x2={160} y2={40} stroke={ACCENT} strokeWidth={3} />
                 <circle cx={40} cy={120} r={4} fill="var(--ink)" />
-                <path d="M 80 120 A 40 40 0 0 0 66 96" fill="none" stroke="var(--ink-soft)" strokeWidth={2} />
+                <path d="M 80 120 A 40 40 0 0 0 73.282 97.812" fill="none" stroke="var(--ink-soft)" strokeWidth={2} />
                 <text x={44} y={136} fontSize={11} fill="var(--ink-faint)">vertex</text>
               </>
             )}
