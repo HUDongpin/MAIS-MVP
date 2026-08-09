@@ -7,6 +7,7 @@ import type { ChangeEvent, RefObject } from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "@/components/ui/Motion";
 import { MathText, toPlainMathText } from "@/components/math/MathText";
+import { speechTextForMath } from "@/lib/mathSpeech";
 import { NovaCompanion } from "@/components/practice/NovaCompanion";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
@@ -420,7 +421,10 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       toPlainMathText(formatPracticeOptionDisplayText(localizedPracticeText(option)))
     );
     const started = speakPracticeText(
-      buildPracticeReadAloudText({ promptText: promptLabel, optionTexts, language }),
+      // `toPlainMathText` above resolves LaTeX, but leaves a spaced minus and an
+      // underscore blank untouched — and both are silent in the speech engine.
+      // Same defect as the lesson page's read-aloud, same fix.
+      speechTextForMath(buildPracticeReadAloudText({ promptText: promptLabel, optionTexts, language })),
       practiceReadAloudLanguageCode(language),
       { onEnd: () => setIsReadingAloud(false) }
     );
