@@ -23,9 +23,17 @@ Fourteen rounds audited what the page *shows*. This one audited what it *says*.
 
 ## The surface
 
-The California lesson page carries a read-aloud accommodation. When a teacher
-enables it (`setStudentAccommodationsForTeacher`), a **Read aloud** button
-appears on the checkpoint, and `LessonView.tsx` speaks the question:
+The California lesson page speaks its checkpoint questions through **two**
+read-aloud buttons, and neither normalized its text.
+
+1. `LessonView.tsx` — gated on the accommodation a teacher sets with
+   `setStudentAccommodationsForTeacher`.
+2. `PracticeQuestionCard.tsx:359` — gated only on `question.grade` being one of
+   **{K, P1, P2, P3}**, with *no* accommodation check. `LessonView.tsx:915`
+   renders this card for the checkpoint, so on a K–3 California lesson the
+   button is simply there for everyone.
+
+The first path speaks:
 
 ```ts
 const parts = [t(question.prompt), ...(question.options ?? []).map(t)];
@@ -58,11 +66,13 @@ never voiced.**
 | `9 × 80` | `9  80` | differs — voiced |
 | `24 ÷ 6` | `24  6` | differs — voiced |
 | `35° and 40°` | `35 and 40` | differs — voiced |
-| `3/4`, `3⁴`, `<`, `>`, `=` | — | differs — voiced |
+| `3/4`, `3⁴`, `=` | — | differs — voiced |
+| `<`, `>` **alone** | — | differs — voiced *(this reading was an artifact — see "The test that lied")* |
 | `−5 degrees` | `5 degrees` | differs — voiced |
 
-**Only two token classes are silent**, and the inventory would have flagged five
-more that are perfectly fine. It would also have missed that the **ASCII hyphen
+**Only two of the inventoried classes are silent** — and the inventory would have
+flagged five more that are perfectly fine, while missing a third class entirely
+(below). It would also have missed that the **ASCII hyphen
 is equally silent** — so the intuitive fix, swapping one dash character for the
 other, does nothing at all. Only the word works.
 
@@ -72,8 +82,9 @@ have changed output that was already correct.
 
 ## What a student heard
 
-76 questions across 33 pages, overwhelmingly Kindergarten and Grade 1 — which is
-exactly the population a read-aloud accommodation exists for.
+94 questions, 40 of them Grade 1 and 9 Kindergarten. **53 sit at grades K–P3**,
+where the button needs no accommodation at all — so this was not a small opt-in
+population, it was every young California student who pressed it.
 
 | shown | heard |
 |---|---|
