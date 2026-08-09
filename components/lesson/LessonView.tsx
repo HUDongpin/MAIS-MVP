@@ -64,7 +64,7 @@ import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllu
 import { classifyPracticeIslandTopic } from "@/data/practiceIslandRegions";
 import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
-import { speechTextForMathParts } from "@/lib/mathSpeech";
+import { speechTextForMath, speechTextForMathParts } from "@/lib/mathSpeech";
 import {
   awardPracticeIslandStars,
   practiceIslandStarStorageKey,
@@ -1088,15 +1088,23 @@ function canUseLessonSpeechFallback() {
     && typeof SpeechSynthesisUtterance !== "undefined";
 }
 
+// The LaTeX stripping below leaves a spaced minus intact, and a spaced minus is
+// not voiced (see lib/mathSpeech.ts). Four Grade 1 SUBTRACTION worked examples
+// ended their explanation with "Answer: 8 - 3 = 5", which was spoken as
+// "answer eight three equals five" — a subtraction lesson whose spoken answer
+// contained no subtraction. This text feeds both the generated audio and the
+// speech-synthesis fallback.
 function prepareLessonAudioText(value: string) {
-  return value
-    .replace(/\$\$?/g, " ")
-    .replace(/\\\((.*?)\\\)/g, "$1")
-    .replace(/\\\[(.*?)\\\]/g, "$1")
-    .replace(/\\([A-Za-z]+)/g, "$1")
-    .replace(/[{}_[\]^]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return speechTextForMath(
+    value
+      .replace(/\$\$?/g, " ")
+      .replace(/\\\((.*?)\\\)/g, "$1")
+      .replace(/\\\[(.*?)\\\]/g, "$1")
+      .replace(/\\([A-Za-z]+)/g, "$1")
+      .replace(/[{}_[\]^]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 function canUseStreamingLessonAudio() {
