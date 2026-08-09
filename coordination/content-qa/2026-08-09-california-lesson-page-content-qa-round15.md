@@ -151,9 +151,10 @@ CCSS lesson components. That is the one-session-one-worktree rule in `CLAUDE.md`
 being broken, and it has three consequences:
 
 1. **`audit:ccss-lesson-interaction` reports 2 defects** — a plural-agreement bug
-   (`"1 cookies"`) at `add-subtract-stories.tsx:84`, found by *their* new
-   detector, in a file they have open. Real, in scope for this loop, and left to
-   them rather than colliding on it.
+   (`"1 cookies"`) at `add-subtract-stories.tsx:84`. This is **not** a shipped
+   defect: the word "cookies" does not appear anywhere in that file at my HEAD.
+   It exists only inside the other session's uncommitted edit, and their own new
+   detector caught it. Their work in progress, not this loop's finding.
 2. **The browser gates are unverified.** Runs against the shared server timed out
    at 90s (it was recompiling constantly — `/login` took 10.7s there against
    0.07s on an isolated server). A run against an isolated snapshot worktree then
