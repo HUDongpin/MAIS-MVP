@@ -12,7 +12,7 @@
  *
  * Usage: npx tsx scripts/audit-us-ca-checkpoint-grading.mts
  */
-import { answerMatches } from "../lib/server/answerMatching";
+import { answerMatches, questionAnswerMatches } from "../lib/server/answerMatching";
 import { usCaliforniaLessonSeeds } from "../data/usCaliforniaLessons";
 import { generatedCaliforniaQuestions } from "../data/usCaliforniaTopics";
 
@@ -51,6 +51,9 @@ function equivalentForms(answer: string): string[] {
 
 const seeds = usCaliforniaLessonSeeds as any[];
 let checked = 0;
+let mcChecked = 0;
+let mcNoWinner = 0;
+let mcManyWinners = 0;
 let rejectedCorrect = 0;
 let acceptedWrong = 0;
 const failures: string[] = [];
@@ -60,7 +63,28 @@ for (const seed of seeds) {
     const q: any = byId.get(id);
     if (!q) continue;
     const answer = typeof q.answer === "string" ? q.answer : q.answer?.en;
-    if (!answer || q.type === "multiple-choice") continue; // options graded separately
+    if (!answer) continue;
+
+    // Multiple choice goes through questionAnswerMatches, a different path:
+    // the stored answer must resolve to one of the options, and exactly one
+    // option must be selectable by it. An answer that matches no option means
+    // the question cannot be answered correctly at all.
+    if (q.type === "multiple-choice") {
+      const opts: any[] = q.options ?? [];
+      const texts = opts.map((o: any) => (typeof o === "string" ? o : o?.en ?? o?.label ?? "")).filter(Boolean);
+      if (!texts.length) continue;
+      mcChecked += 1;
+      const graded = { answer, accepted_answers: q.acceptedAnswers ?? [], options: opts.map((o: any) => (typeof o === "string" ? { en: o } : o)) } as any;
+      const winners = texts.filter((t) => questionAnswerMatches(graded, t));
+      if (winners.length === 0) {
+        mcNoWinner += 1;
+        if (failures.length < 30) failures.push(`  NO option is graded correct — ${id}\n      stored "${answer}"  options ${JSON.stringify(texts).slice(0, 120)}`);
+      } else if (winners.length > 1) {
+        mcManyWinners += 1;
+        if (failures.length < 30) failures.push(`  ${winners.length} options graded correct — ${id}\n      stored "${answer}"  accepted ${JSON.stringify(winners).slice(0, 120)}`);
+      }
+      continue;
+    }
     checked += 1;
 
     for (const form of equivalentForms(answer)) {
@@ -78,15 +102,15 @@ for (const seed of seeds) {
   }
 }
 
-console.log(`audit-us-ca-checkpoint-grading: ${checked} free-entry checkpoint questions graded against equivalent forms`);
-if (!checked) {
+console.log(`audit-us-ca-checkpoint-grading: ${checked} free-entry + ${mcChecked} multiple-choice checkpoint questions graded`);
+if (!checked && !mcChecked) {
   console.error("✗ nothing was checked — refusing to report a pass.");
   process.exit(2);
 }
-if (!rejectedCorrect && !acceptedWrong) {
-  console.log("✓ every equivalent form of every stored answer is accepted, and wrong answers are still rejected");
+if (!rejectedCorrect && !acceptedWrong && !mcNoWinner && !mcManyWinners) {
+  console.log("✓ every equivalent form is accepted, wrong answers rejected, and every multiple choice has exactly one option that grades correct");
   process.exit(0);
 }
-console.log(`\ncorrect forms rejected: ${rejectedCorrect} | wrong answers accepted: ${acceptedWrong}\n`);
+console.log(`\ncorrect forms rejected: ${rejectedCorrect} | wrong answers accepted: ${acceptedWrong} | multiple choice with no correct option: ${mcNoWinner} | with several: ${mcManyWinners}\n`);
 console.log(failures.join("\n"));
 process.exit(1);
