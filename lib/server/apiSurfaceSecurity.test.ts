@@ -211,3 +211,76 @@ test("AI tutor edge wrapper preserves resolver setup errors", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("AI tutor edge wrapper preserves multipart attachment bytes", async () => {
+  const originalFetch = globalThis.fetch;
+  const boundary = "----mais-nova-byte-preservation";
+  const encoder = new TextEncoder();
+  const prefix = encoder.encode([
+    `--${boundary}`,
+    'Content-Disposition: form-data; name="payload"',
+    "",
+    JSON.stringify({ input: "Describe the attached image." }),
+    `--${boundary}`,
+    'Content-Disposition: form-data; name="attachments"; filename="smoke.png"',
+    "Content-Type: image/png",
+    "",
+    ""
+  ].join("\r\n"));
+  const imageBytes = new Uint8Array([
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+    0xff, 0x00, 0x80, 0xc3, 0x28, 0xfe, 0x7f
+  ]);
+  const suffix = encoder.encode(`\r\n--${boundary}--\r\n`);
+  const multipartBytes = new Uint8Array(prefix.byteLength + imageBytes.byteLength + suffix.byteLength);
+  multipartBytes.set(prefix, 0);
+  multipartBytes.set(imageBytes, prefix.byteLength);
+  multipartBytes.set(suffix, prefix.byteLength + imageBytes.byteLength);
+
+  let forwardedBytes: Uint8Array | undefined;
+  let forwardedContentType: string | null = null;
+  globalThis.fetch = async (_input, init) => {
+    forwardedContentType = new Headers(init?.headers).get("content-type");
+    const body = init?.body;
+    if (typeof body === "string") {
+      forwardedBytes = encoder.encode(body);
+    } else if (body instanceof ArrayBuffer) {
+      forwardedBytes = new Uint8Array(body);
+    } else if (ArrayBuffer.isView(body)) {
+      forwardedBytes = new Uint8Array(body.buffer, body.byteOffset, body.byteLength);
+    }
+    return new Response(JSON.stringify({ reply: "Image bytes received." }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  };
+
+  try {
+    for (const accept of ["application/json", "text/event-stream"]) {
+      forwardedBytes = undefined;
+      forwardedContentType = null;
+      const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+        method: "POST",
+        headers: {
+          Accept: accept,
+          "Content-Type": `multipart/form-data; boundary=${boundary}`
+        },
+        body: multipartBytes
+      }));
+
+      assert.equal(response.status, 200);
+      if (accept === "text/event-stream") {
+        const streamBody = await response.text();
+        assert.match(streamBody, /event: final/);
+        assert.match(streamBody, /Image bytes received\./);
+      } else {
+        const body = await readJson<{ reply?: string }>(response);
+        assert.equal(body.reply, "Image bytes received.");
+      }
+      assert.equal(forwardedContentType, `multipart/form-data; boundary=${boundary}`);
+      assert.deepEqual(forwardedBytes, multipartBytes);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

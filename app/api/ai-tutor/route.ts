@@ -140,11 +140,11 @@ function safeResolverBody(response: Response, body: unknown) {
   };
 }
 
-async function fetchResolver(request: Request, bodyText: string, signal: AbortSignal) {
+async function fetchResolver(request: Request, bodyBytes: ArrayBuffer, signal: AbortSignal) {
   return fetch(resolverUrl(request), {
     method: "POST",
     headers: resolverHeaders(request),
-    body: bodyText,
+    body: bodyBytes,
     cache: "no-store",
     signal
   });
@@ -210,8 +210,8 @@ function streamAITutorPost(request: Request) {
       hardDeadline = setTimeout(sendDeadlineFallback, edgeDeadlineMs);
 
       try {
-        const bodyText = await request.text();
-        const response = await fetchResolver(request, bodyText, abortController.signal);
+        const bodyBytes = await request.arrayBuffer();
+        const response = await fetchResolver(request, bodyBytes, abortController.signal);
         if (closed) return;
 
         const resolved = safeResolverBody(response, await readResolverJson(response));
@@ -287,8 +287,8 @@ export async function POST(request: Request) {
   const hardDeadline = setTimeout(() => abortController.abort(), edgeDeadlineMs);
 
   try {
-    const bodyText = await request.text();
-    const response = await fetchResolver(request, bodyText, abortController.signal);
+    const bodyBytes = await request.arrayBuffer();
+    const response = await fetchResolver(request, bodyBytes, abortController.signal);
     const resolved = safeResolverBody(response, await readResolverJson(response));
     return jsonResponse(resolved.body, {
       headers: resolved.headers,
