@@ -62,6 +62,7 @@ import {
   readAITutorTextProviderConfigs,
   resolveAITutorProviderTimeoutMs,
   resolveLLMMaxCompletionTokens,
+  resolveNovaQwenThinkingMode,
   selectAvailableLLMProviderConfig,
   type LLMProviderConfig,
   type LLMProviderContentPart,
@@ -768,14 +769,14 @@ function buildVisionUnavailableReply(language: string, input: string) {
   if (isChineseTutorLanguage(language, input)) {
     return localizeChineseTutorReply([
       "我看到你上傳了圖片附件，但目前這個 AI Tutor 尚未啟用可讀取圖片的視覺模型。",
-      "你可以先把圖片中的題目、圖形或文字簡單打出來，或請老師/管理員設定 QWEN_API_KEY 和 QWEN_IMAGE_MODEL。",
+      "你可以先把圖片中的題目、圖形或文字簡單打出來，或請老師/管理員設定 QWEN_API_KEY 和 AI_TUTOR_QWEN_IMAGE_MODEL。",
       "只要你描述圖片內容，我仍然可以用提示、追問和逐步檢查的方法幫你解題。"
     ].join("\n\n"), language);
   }
 
   return [
     "I can see that you uploaded an image attachment, but image reading is not enabled for this AI Tutor setup yet.",
-    "Please type the question, diagram details, or visible text from the image, or ask a teacher/admin to configure QWEN_API_KEY and QWEN_IMAGE_MODEL.",
+    "Please type the question, diagram details, or visible text from the image, or ask a teacher/admin to configure QWEN_API_KEY and AI_TUTOR_QWEN_IMAGE_MODEL.",
     "Once you describe what is in the image, I can still help with hints, guiding questions, and step-by-step reasoning."
   ].join("\n\n");
 }
@@ -1538,7 +1539,14 @@ function buildProviderRequestBody({
   provider: ProviderName;
   responseFormat?: "json_object";
 }) {
-  return buildLLMProviderRequestBody({ model, messages, maxTokens, provider, responseFormat });
+  return buildLLMProviderRequestBody({
+    model,
+    messages,
+    maxTokens,
+    provider,
+    responseFormat,
+    qwenThinking: resolveNovaQwenThinkingMode(provider, model)
+  });
 }
 
 function extractProviderReply(value: unknown) {

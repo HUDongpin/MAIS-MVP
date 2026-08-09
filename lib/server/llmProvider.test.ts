@@ -9,11 +9,13 @@ import {
   readAITutorImageProviderConfig,
   readAITutorTextProviderConfigs,
   readLLMProviderConfig,
+  readQwenImageProviderConfig,
   readQwenTextProviderConfig,
   resolveAITutorProviderTimeoutMs,
   resolveLLMProviderName,
   resolveLLMMaxCompletionTokens,
   resolveLLMProviderTimeoutMs,
+  resolveNovaQwenThinkingMode,
   resolveProviderApiPinnedIp,
   selectAvailableLLMProviderConfig
 } from "./llmProvider";
@@ -25,6 +27,7 @@ const messages = [
 
 async function withProviderEnv(env: Record<string, string | undefined>, run: () => void | Promise<void>) {
   const keys = [
+    "AI_TUTOR_QWEN_IMAGE_MODEL",
     "DEEPSEEK_API_KEY",
     "DEEPSEEK_API_URL",
     "DEEPSEEK_MODEL",
@@ -33,7 +36,10 @@ async function withProviderEnv(env: Record<string, string | undefined>, run: () 
     "LLM_MODEL",
     "QWEN_API_KEY",
     "QWEN_API_URL",
+    "QWEN_IMAGE_API_URL",
+    "QWEN_MODEL",
     "QWEN_IMAGE_MODEL",
+    "QWEN_TEXT_API_URL",
     "QWEN_TEXT_MODEL",
     "DEEPINFRA_API_KEY",
     "DEEPINFRA_API_URL",
@@ -82,27 +88,72 @@ test("Qwen text fallback config uses shared DashScope credentials without exposi
   await withProviderEnv({
     QWEN_API_KEY: "qwen-test-key",
     QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-    QWEN_TEXT_MODEL: "qwen3.7-plus"
+    QWEN_TEXT_MODEL: "qwen3.8-max"
   }, () => {
     const config = readQwenTextProviderConfig();
 
     assert.equal(config.apiKey, "qwen-test-key");
     assert.equal(config.apiUrl, "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions");
-    assert.equal(config.model, "qwen3.7-plus");
+    assert.equal(config.model, "qwen3.8-max");
     assert.equal(config.provider, "qwen");
   });
 });
 
-test("Qwen text fallback falls back to Qwen image model when a text model is not set", async () => {
+test("Nova Tutor defaults text and image turns to Qwen3.8 Max", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key"
+  }, () => {
+    const textConfig = readQwenTextProviderConfig();
+    const imageConfig = readAITutorImageProviderConfig();
+
+    assert.equal(textConfig.model, "qwen3.8-max");
+    assert.equal(imageConfig.model, "qwen3.8-max");
+    assert.equal(readQwenImageProviderConfig().model, "qwen3.7-plus");
+    assert.equal(textConfig.provider, "qwen");
+    assert.equal(imageConfig.provider, "qwen");
+  });
+});
+
+test("Qwen-specific config keeps provider identity on official workspace endpoints", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key",
+    QWEN_TEXT_API_URL: "https://workspace-id.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1/chat/completions",
+    QWEN_IMAGE_API_URL: "https://workspace-id.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions"
+  }, () => {
+    assert.equal(readQwenTextProviderConfig().provider, "qwen");
+    assert.equal(readQwenImageProviderConfig().provider, "qwen");
+  });
+});
+
+test("Nova text default is isolated from the shared Qwen image model", async () => {
   await withProviderEnv({
     QWEN_API_KEY: "qwen-test-key",
     QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-    QWEN_IMAGE_MODEL: "qwen3.7-max"
+    QWEN_IMAGE_MODEL: "custom-qwen-image-model"
   }, () => {
     const config = readQwenTextProviderConfig();
 
-    assert.equal(config.model, "qwen3.7-max");
+    assert.equal(config.model, "qwen3.8-max");
     assert.equal(config.provider, "qwen");
+  });
+});
+
+test("Nova image model is isolated from other Qwen vision consumers", async () => {
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key",
+    QWEN_IMAGE_MODEL: "shared-qwen-vision-model"
+  }, () => {
+    assert.equal(readQwenImageProviderConfig().model, "shared-qwen-vision-model");
+    assert.equal(readAITutorImageProviderConfig().model, "qwen3.8-max");
+  });
+
+  await withProviderEnv({
+    QWEN_API_KEY: "qwen-test-key",
+    QWEN_IMAGE_MODEL: "shared-qwen-vision-model",
+    AI_TUTOR_QWEN_IMAGE_MODEL: "nova-qwen-vision-model"
+  }, () => {
+    assert.equal(readQwenImageProviderConfig().model, "shared-qwen-vision-model");
+    assert.equal(readAITutorImageProviderConfig().model, "nova-qwen-vision-model");
   });
 });
 
@@ -117,7 +168,7 @@ test("provider circuit breaker skips an open primary and selects the fallback", 
   const fallback = {
     apiKey: "qwen-test-key",
     apiUrl: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-    model: "qwen3.7-plus",
+    model: "qwen3.8-max",
     provider: "qwen" as const
   };
   const circuitBreaker = createLLMProviderCircuitBreaker({
@@ -192,17 +243,39 @@ test("DeepSeek JSON mode can disable thinking for short structured reranks", () 
 
 test("Qwen request body uses DashScope chat-completion limits", () => {
   const body = buildLLMProviderRequestBody({
-    model: "qwen3.7-max",
+    model: "qwen3.8-max",
     messages,
     maxTokens: 400,
     provider: "qwen"
   }) as Record<string, unknown>;
 
-  assert.equal(body.model, "qwen3.7-max");
+  assert.equal(body.model, "qwen3.8-max");
   assert.equal(body.max_tokens, 400);
   assert.equal(body.stream, false);
   assert.equal("thinking" in body, false);
   assert.equal("max_completion_tokens" in body, false);
+});
+
+test("Qwen request body can disable thinking for latency-bound Nova Tutor calls", () => {
+  const body = buildLLMProviderRequestBody({
+    model: "qwen3.8-max",
+    messages,
+    maxTokens: 400,
+    provider: "qwen",
+    qwenThinking: "disabled"
+  }) as Record<string, unknown>;
+
+  assert.equal(body.enable_thinking, false);
+  assert.equal("thinking" in body, false);
+  assert.equal("reasoning_effort" in body, false);
+});
+
+test("Nova disables Qwen thinking only for the selected hybrid Qwen3.8 Max model", () => {
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3.8-max"), "disabled");
+  assert.equal(resolveNovaQwenThinkingMode("qwen", " QWEN3.8-MAX "), "disabled");
+  assert.equal(resolveNovaQwenThinkingMode("qwen", "qwen3-max-thinking"), undefined);
+  assert.equal(resolveNovaQwenThinkingMode("deepinfra", "qwen3.8-max"), undefined);
+  assert.equal(resolveNovaQwenThinkingMode("openai-compatible", "qwen3.8-max"), undefined);
 });
 
 test("provider timeout keeps AI Tutor below the serverless hard timeout edge", () => {

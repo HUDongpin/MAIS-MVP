@@ -411,6 +411,7 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
         DEEPSEEK_API_URL: "",
         QWEN_API_KEY: "",
         QWEN_API_URL: "",
+        AI_TUTOR_QWEN_IMAGE_MODEL: "",
         QWEN_IMAGE_MODEL: "",
         QWEN_IMAGE_API_URL: "",
         QWEN_REALTIME_MODEL: "",
