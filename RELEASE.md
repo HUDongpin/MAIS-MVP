@@ -70,6 +70,7 @@ unrelated CI fix are two commits / two review units).
 Run the gates relevant to your slice. For a **content / data** slice, the minimum battery is:
 ```bash
 npm run type-check                              # exit 0
+npm run audit:us-ca                             # six California content gates (data-layer, seconds)
 npm run test:mvp                                # MVP readiness contract
 npm run test:question-bank                      # incl. fullQuestionBankSolvability
 npx tsx --test data/usCaliforniaLessons.test.ts lib/californiaGradeAware.test.ts   # if California content
@@ -124,7 +125,8 @@ production promotion.
 | `npm run vercel:stage` | Staging guard + build the pruned staging package (no deploy). |
 | `npm run vercel:preview [-- --dry-run]` | Deploy the pruned slice to a preview URL. |
 | `npm run vercel:production [-- --dry-run]` | Full production path: preflight → build gate → staging → deploy → smokes. |
-| `npm run check` | Full local sweep: type-check, zh-hans strict, analytics, rag, question-bank, mvp, build. |
+| `npm run check` | Full local sweep: type-check, zh-hans strict, us-ca content gates, analytics, rag, question-bank, mvp, build. |
+| `npm run audit:us-ca` | Six fast California content gates: lesson content, grading, read-aloud, printed equations, question alignment, illustrations. Browser gates (`audit:us-ca-lesson-figure-bounds`, `-label-motion`, `-label-claims`) need a dev server and stay pre-release. |
 | `npm run clean:generated` | Dry-run generated-artifact cleanup (never `git clean -fdx`). |
 
 ---
