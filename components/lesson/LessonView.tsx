@@ -2138,6 +2138,15 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     ...blocksByType(lesson, "worked-example")
   ], [lesson]);
   const checklistBlocks = useMemo(() => blocksByType(lesson, "checklist"), [lesson]);
+  // Every curriculum authors `extension` blocks (mistake repair, exit tickets)
+  // and no renderer existed for the type anywhere, so 76 authored California
+  // blocks never reached a student. Rendered read-only for US_CA_MATH by owner
+  // decision (2026-08-11); widening to other curricula is a separate decision,
+  // so their pages are deliberately unchanged.
+  const extensionBlocks = useMemo(
+    () => (lesson?.publisher === "US_CA_MATH" ? blocksByType(lesson, "extension") : []),
+    [lesson]
+  );
   const checklistItems = useMemo(() => lesson
     ? buildLessonCompletionChecklistItems({
       checklistBlocks,
@@ -2145,6 +2154,20 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       publisher: lesson.publisher
     })
     : [], [checklistBlocks, lesson]);
+  // Elementary California completion tracks only the first three authored
+  // items (a deliberate young-learner cap in lessonCompletionChecklist.ts).
+  // The rest of the authored guided practice used to vanish entirely; it now
+  // renders read-only below the tracker, so authored content is never
+  // silently discarded while the completion mechanics stay untouched.
+  const untrackedChecklistItems = useMemo(() => {
+    if (lesson?.publisher !== "US_CA_MATH") return [];
+    const tracked = new Set(checklistItems.map(({ item }) => item));
+    return checklistBlocks.flatMap((block) =>
+      (block.items ?? [])
+        .filter((item) => !tracked.has(item))
+        .map((item, index) => ({ block, item, key: `${block.id}-untracked-${index}` }))
+    );
+  }, [checklistBlocks, checklistItems, lesson]);
   const primaryConceptBlockId = useMemo(
     () => conceptBlocks.find((block) => block.type === "concept")?.id ?? null,
     [conceptBlocks]
@@ -3301,6 +3324,53 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   : t({ en: "Mark lesson complete", zh: "標記課節完成", zhHans: "标记课时完成" })}
             </button>
           </div>
+        </aside>
+      ) : null}
+
+      {untrackedChecklistItems.length || extensionBlocks.length ? (
+        <aside
+          className="mt-8 scroll-mt-28 glass-panel border-amber-300/40 bg-amber-50/70 p-5 dark:bg-amber-950/15 sm:p-6"
+          aria-label={t({ en: "More practice from this lesson", zh: "本課的更多練習", zhHans: "本课的更多练习" })}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-amber-700 dark:text-amber-200">
+            {t({ en: "More practice", zh: "更多練習", zhHans: "更多练习" })}
+          </p>
+          {untrackedChecklistItems.length ? (
+            <div className="mt-3">
+              <h2 className="text-xl font-black text-slate-950 dark:text-white">
+                {t({ en: "Guided practice", zh: "引導練習", zhHans: "引导练习" })}
+              </h2>
+              <ul className="mt-3 grid gap-2">
+                {untrackedChecklistItems.map(({ item, key }) => (
+                  <li
+                    key={key}
+                    className="rounded-2xl border border-amber-200/70 bg-white/85 p-4 text-sm font-semibold leading-6 text-slate-700 shadow-sm dark:border-amber-300/15 dark:bg-white/[0.055] dark:text-slate-200"
+                  >
+                    <MathText as="span" text={formatLessonMathText(text(item))} className="min-w-0" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {extensionBlocks.map((block) => (
+            <div key={block.id} className="mt-5">
+              <MathText
+                as="h2"
+                text={text(block.title)}
+                className="text-xl font-black text-slate-950 dark:text-white"
+              />
+              <ul className="mt-3 grid gap-2">
+                {(block.items ?? []).map((item, index) => (
+                  <li
+                    key={`${block.id}-${index}`}
+                    className="rounded-2xl border border-amber-200/70 bg-white/85 p-4 text-sm font-semibold leading-6 text-slate-700 shadow-sm dark:border-amber-300/15 dark:bg-white/[0.055] dark:text-slate-200"
+                  >
+                    <MathText as="span" text={formatLessonMathText(text(item))} className="min-w-0" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </aside>
       ) : null}
 
