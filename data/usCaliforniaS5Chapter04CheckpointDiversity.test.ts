@@ -76,7 +76,10 @@ test("the three replacement checkpoints are determinate, independently checked, 
     assert.equal(question.options?.filter((option) => option.en === question.answer).length, 1);
     assert.deepEqual(question.acceptedAnswers, [question.answer]);
     assert.equal(question.independentAnswer, question.answer);
-    assert.ok(question.independentSolution.trim().length > 30);
+    // The field is optional at the type level since ccss-textbook-practice-v1
+    // dropped its copied values; these three live in us-ca-g6-g12-v2, where a
+    // genuine independent solution is still required — so assert presence too.
+    assert.ok(question.independentSolution && question.independentSolution.trim().length > 30);
     assert.notEqual(question.independentSolution, question.explanation.en);
     assert.doesNotMatch(question.prompt.en, /sum of squared residuals/i);
     assert.equal(question.reviewNotes, "qa-diversified-2026-08-09-displayed-checkpoint-surface");

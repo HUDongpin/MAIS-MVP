@@ -122,7 +122,10 @@ if (equations === 0) {
   process.exit(2);
 }
 if (equations < 300) {
-  console.error(`✗ only ${equations} equations matched; this corpus yields ~435. The parser has narrowed — treat as broken, not clean.`);
+  // ~435 before 2026-08-11; 331 after ccss-textbook-practice-v1 dropped its
+  // independentSolution fields (they were byte-copies of explanation, so every
+  // equation in them was counted twice for that batch).
+  console.error(`✗ only ${equations} equations matched; this corpus yields ~331. The parser has narrowed — treat as broken, not clean.`);
   process.exit(2);
 }
 // The evaluator must be right...

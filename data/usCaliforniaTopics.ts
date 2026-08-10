@@ -54,8 +54,11 @@ type GeneratedCaliforniaQuestionBase = {
   acceptedAnswers: string[];
   explanation: LocalizedText;
   diagram?: QuestionDiagram;
-  independentAnswer: string;
-  independentSolution: string;
+  // Optional: ccss-textbook-practice-v1 no longer carries these. They were
+  // byte-copies of answer/explanation there, so their "agreement" verified
+  // nothing; absence states honestly that no independent solve exists.
+  independentAnswer?: string;
+  independentSolution?: string;
   evidenceCardIds: string[];
   sourceIds: string[];
   sourceDistanceStatus: GeneratedCaliforniaSourceDistanceStatus;

@@ -30,8 +30,13 @@ export type CaliforniaQuestionGenerationMetadata = {
   sourceDistanceStatus: "passed-auto-source-scan";
   mathQaStatus: "pass";
   manualQaStatus: "approved" | "auto-accepted-clean";
-  independentAnswer: string;
-  independentSolution: string;
+  // Optional because ccss-textbook-practice-v1 no longer carries them: its
+  // "independent" fields were byte-copies of answer/explanation (all 810 at the
+  // time of removal), which made every independent-agreement check on that batch
+  // a tautology. Absent means "no independent solve exists" — which is the
+  // truth — rather than fabricating agreement.
+  independentAnswer?: string;
+  independentSolution?: string;
   reviewNotes?: string;
 };
 
@@ -62,7 +67,9 @@ function sanitizeLocalizedText(text: GeneratedCaliforniaQuestion["prompt"]) {
 function acceptedAnswersFor(question: GeneratedCaliforniaQuestion) {
   return uniqueNonEmpty([
     question.answer,
-    question.independentAnswer,
+    // When present this was always a byte-copy of `answer`, so including it was
+    // a dedup no-op; the ?? "" keeps grading identical for packs without it.
+    question.independentAnswer ?? "",
     ...question.acceptedAnswers,
     ...californiaAnswerUnitAliases(question.id, question.answer)
   ]);
