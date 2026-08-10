@@ -308,6 +308,58 @@ function answerText(question: GeneratedCaliforniaQuestion | null) {
   return question?.answer ?? "see the checkpoint answer";
 }
 
+/**
+ * Authored companion blocks for pages that carry lesson illustrations.
+ *
+ * An illustration renders only inside a `concept` or `worked-example` block
+ * (LessonView's `lessonIllustrationSlotForBlock`), and CCSS-assigned pages
+ * replace both with interactive lessons — which left every California
+ * illustration record unreachable. These blocks restore the two slots on the
+ * pages that have verified art, so the pictures a child counts actually appear.
+ *
+ * The text is written to agree with the SVGs element-for-element. The concept
+ * asset draws 8 blue stickers joined with 3 green (verified by counting its
+ * <use> elements); the worked-example asset draws Lena's 7 stickers, then 4,
+ * then 11. If either asset changes, this text and the alt/desc in
+ * usCaliforniaLessonIllustrations.ts must move together —
+ * audit:us-ca-lesson-illustrations checks the record side.
+ */
+const illustrationCompanionBlocksByTopic: Record<
+  string,
+  { concept: ProductionLessonBlock[]; workedExample: ProductionLessonBlock[] }
+> = {
+  "us-ca-math-p1-1-oa-add-subtract": {
+    concept: [
+      {
+        idSuffix: "concept",
+        type: "concept",
+        title: local("Concept explanation", "概念講解", "概念讲解"),
+        content: local(
+          "Addition starts with things you can count. The picture shows 8 blue stickers in one group and 3 green stickers in another. Count the blue group, count the green group, then join them and count again: 11 in all. The equation 8 + 3 = 11 says exactly what the picture shows — first a group of 8, then 3 more, making 11 together.",
+          "加法從可以數的東西開始。圖中一組有 8 張藍色貼紙，另一組有 3 張綠色貼紙。先數藍色的一組，再數綠色的一組，然後把兩組合起來再數一次：一共 11 張。算式 8 + 3 = 11 說的正是圖裡的事——先有 8 張，再多 3 張，合起來是 11 張。",
+          "加法从可以数的东西开始。图中一组有 8 张蓝色贴纸，另一组有 3 张绿色贴纸。先数蓝色的一组，再数绿色的一组，然后把两组合起来再数一次：一共 11 张。算式 8 + 3 = 11 说的正是图里的事——先有 8 张，再多 3 张，合起来是 11 张。"
+        )
+      }
+    ],
+    workedExample: [
+      {
+        idSuffix: "worked-example",
+        type: "worked-example",
+        title: local("Worked example", "例題精講", "例题精讲"),
+        content: local(
+          "Lena has 7 stickers on her page. She gets 4 more stickers from an envelope. How many stickers does Lena have now?\n\nAnswer: 11.\n\nReasoning: Count the stickers she starts with — 7. Then count on as the new ones join: 8, 9, 10, 11. The picture shows all three steps: 7 stickers, 4 more arriving, and 11 together, written as 7 + 4 = 11.",
+          "Lena 的本子上有 7 張貼紙。她又從信封裡得到 4 張貼紙。Lena 現在有多少張貼紙？\n\n答案：11。\n\n推理：先數她原有的貼紙——7 張。新的貼紙加入時接著數：8、9、10、11。圖中畫出三個步驟：7 張貼紙、再來 4 張、合起來 11 張，寫成 7 + 4 = 11。",
+          "Lena 的本子上有 7 张贴纸。她又从信封里得到 4 张贴纸。Lena 现在有多少张贴纸？\n\n答案：11。\n\n推理：先数她原有的贴纸——7 张。新的贴纸加入时接着数：8、9、10、11。图中画出三个步骤：7 张贴纸、再来 4 张、合起来 11 张，写成 7 + 4 = 11。"
+        )
+      }
+    ]
+  }
+};
+
+function illustrationCompanionBlocks(topicId: string) {
+  return illustrationCompanionBlocksByTopic[topicId] ?? { concept: [], workedExample: [] };
+}
+
 function conceptBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
   const topicTitle = textFrom(topic.title);
   const domain = domainText(unique(topicQuestions.flatMap((question) => question.domainTags)));
@@ -770,7 +822,15 @@ function textbookBlocks(lesson: GeneratedCaliforniaK5TextbookLesson): Production
   );
 
   return withCaliforniaVisualizationBlock(lesson.metadata.topicId, [
+    // The only block types that render a lesson illustration; the CCSS core
+    // had replaced both (see illustrationCompanionBlocksByTopic). NOTE: seed
+    // order here is not render order — LessonView groups interactive-lesson
+    // blocks first, then concept, then worked-example, so students meet the
+    // interactive core, then the picture-anchored recap, then the worked
+    // example.
+    ...illustrationCompanionBlocks(lesson.metadata.topicId).concept,
     ...textbookCoreBlocks(lesson),
+    ...illustrationCompanionBlocks(lesson.metadata.topicId).workedExample,
     // Titles name everything in the list. "Guided practice" opened with three
     // learning goals, and "Mistake repair" opened with two practice tasks and
     // closed with an exit ticket - neither a mistake nor a repair - so the
@@ -900,7 +960,11 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
     estimatedMinutes: Math.max(28, topic.minutes),
     practiceQuestionIds: selectPracticeQuestionIds(topic.id),
     blocks: withCaliforniaVisualizationBlock(topic.id, [
+      // Illustration-slot blocks (LessonView renders them grouped after any
+      // interactive core regardless of seed order).
+      ...illustrationCompanionBlocks(topic.id).concept,
       ...coreBlocks,
+      ...illustrationCompanionBlocks(topic.id).workedExample,
       scaffoldedPracticeBlock(topic),
       remediationBlock(topic, topicQuestions),
       teacherGuide

@@ -234,10 +234,23 @@ test("California K-5 textbook concept explanations are unit-specific student-fac
         );
         assert.equal(block.interactiveLessonConfig?.topicId, lesson.topicId);
       });
-      assert.ok(
-        !lesson.blocks.some((block) => block.type === "concept" || block.type === "worked-example"),
-        `${lesson.topicId} retires generated concept/worked-example blocks`
-      );
+      // "CCSS becomes the core" retired the GENERATED concept/worked-example
+      // copy. Authored illustration-companion blocks (2026-08-11) are the one
+      // exception: they exist so a registered lesson illustration has a slot
+      // that renders, and their copy is hand-written, never the template. The
+      // template's signature phrase is how the two are told apart.
+      lesson.blocks
+        .filter((block) => block.type === "concept" || block.type === "worked-example")
+        .forEach((block) => {
+          assert.ok(
+            getUsCaliforniaLessonIllustration(lesson.topicId, block.type as "concept" | "worked-example"),
+            `${lesson.topicId} carries a ${block.type} block but no registered illustration for that slot`
+          );
+          assert.ok(
+            !(block.content?.en ?? "").includes("is a math story about"),
+            `${lesson.topicId} ${block.type} block must be authored copy, not the retired template`
+          );
+        });
       return;
     }
 
@@ -412,23 +425,39 @@ test("California Grade 1 Add Subtract lesson leads with interactive CCSS lessons
   );
   assert.ok(lesson, "1.OA add/subtract lesson exists");
 
-  // Phase 1 (2026-07-19): this topic's core is the ported CCSS lesson
-  // sequence; the generated Lena sticker worked example retired with its
-  // blocks. The bespoke illustration asset stays registered and on disk so a
-  // later phase can re-attach it to an interactive lesson.
+  // Phase 1 (2026-07-19) retired the generated Lena worked example with its
+  // blocks, keeping the illustration registered "so a later phase can
+  // re-attach it". Phase 2 (2026-08-11, owner decision) is that re-attachment:
+  // authored companion blocks give both illustrations a slot that renders —
+  // concept anchor before the interactive core, worked example after it.
   assert.equal(ccssLessonAssignments["us-ca-math-p1-1-oa-add-subtract"]?.primary, "add-subtract-stories");
-  assert.ok(!lesson.blocks.some((block) => block.type === "worked-example" || block.type === "concept"));
 
-  const illustration = getUsCaliforniaLessonIllustration(
-    "us-ca-math-p1-1-oa-add-subtract",
-    "worked-example"
-  );
-  assert.ok(illustration);
-  assert.equal(illustration.slot, "worked-example");
-  assert.match(illustration.src, /lena-7-plus-4-stickers-worked-example\.svg$/);
-  assert.ok(
-    existsSync(path.join(process.cwd(), "public", illustration.src.slice(1))),
-    "worked-example illustration SVG should exist under public/"
+  // Presence, not seed order: LessonView groups blocks by type at render time
+  // (interactive-lesson, then concept, then worked-example), so asserting seed
+  // positions would assert something students never see.
+  const types = lesson.blocks.map((block) => block.type);
+  assert.ok(types.includes("concept"), "concept block exists so its illustration renders");
+  assert.ok(types.includes("worked-example"), "worked-example block exists so its illustration renders");
+
+  const conceptBlock = lesson.blocks.find((block) => block.type === "concept");
+  const workedBlock = lesson.blocks.find((block) => block.type === "worked-example");
+  // The copy must agree with what the SVGs draw: 8 + 3 = 11 stickers in the
+  // concept asset, Lena's 7 + 4 = 11 in the worked example.
+  assert.match(conceptBlock?.content?.en ?? "", /8 \+ 3 = 11/);
+  assert.match(workedBlock?.content?.en ?? "", /7 \+ 4 = 11/);
+
+  (["concept", "worked-example"] as const).forEach((slot) => {
+    const illustration = getUsCaliforniaLessonIllustration("us-ca-math-p1-1-oa-add-subtract", slot);
+    assert.ok(illustration, `${slot} illustration is registered`);
+    assert.equal(illustration.slot, slot);
+    assert.ok(
+      existsSync(path.join(process.cwd(), "public", illustration.src.slice(1))),
+      `${slot} illustration asset should exist under public/`
+    );
+  });
+  assert.match(
+    getUsCaliforniaLessonIllustration("us-ca-math-p1-1-oa-add-subtract", "worked-example")!.src,
+    /lena-7-plus-4-stickers-worked-example\.svg$/
   );
 });
 
