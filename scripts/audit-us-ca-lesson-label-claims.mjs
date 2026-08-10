@@ -25,6 +25,20 @@
  * nodes, so a number line reading "60 70 65 63" came back as "60706563". Absence
  * is not contradiction.
  *
+ * It also reads the text each figure PRINTS, at every state its controls can
+ * reach, and fails on values that cannot exist: NaN, Infinity, a division shown
+ * over zero, a probability outside 0..1, an unrounded float, a percentage above
+ * 100. Rounds 9 and 10 found this class of failure in the drawn geometry; this
+ * is the same failure surfacing as a number.
+ *
+ * IF YOU TEST THIS GATE BY BREAKING A COMPONENT: confirm the dev server has
+ * actually recompiled before trusting the result. Injecting `/ 0` into
+ * perimeter.tsx and running immediately produced a clean pass — the gate was
+ * reading the OLD bundle. The tell was that `recomputable claims` stayed at 13;
+ * had the label really become "perimeter Infinity", the perimeter pattern would
+ * have stopped matching and that count would have dropped. Read the page and see
+ * the broken value with your own eyes first.
+ *
  * Usage — AUTH_SESSION_SECRET must match the dev server's (.claude/launch.json):
  *   AUTH_SESSION_SECRET=... BASE_URL=http://localhost:3318 npx tsx scripts/audit-us-ca-lesson-label-claims.mjs [slug...]
  */
@@ -110,6 +124,25 @@ const ARTIFACTS = [
   ["float noise (>3 decimals)", /\d\.\d{4,}/],
 ];
 
+/**
+ * Values a figure must never PRINT, at any state its controls can reach.
+ *
+ * Rounds 9 and 10 found bad geometry computed from control state. These are the
+ * same class of failure surfacing as a number: a division that reached zero, a
+ * probability that escaped 0..1, an unformatted float, a value that arrived as
+ * NaN. Each is impossible content rather than a matter of taste.
+ */
+const IMPOSSIBLE = [
+  ["NaN / Infinity / undefined printed", /\b(NaN|Infinity|-Infinity|undefined|null)\b/],
+  ["[object Object] printed", /\[object [A-Za-z]+\]/],
+  ["unreplaced template placeholder", /\$\{|\{\{/],
+  ["division shown over zero", /(?:\/|÷)\s*0(?!\.\d*[1-9])(?![\d])/],
+  ["negative zero", /(?<![\d.])-0(?![.\d])/],
+  ["unrounded float (>4 decimals)", /\d\.\d{5,}/],
+  ["probability outside 0..1", /\bP\([^)]*\)\s*=\s*(?:-\d|[2-9]\d*\.|1\.\d*[1-9])/],
+  ["percentage above 100", /\b(?:1[0-9]{2,}|[2-9]\d{2,})(?:\.\d+)?%/],
+];
+
 const token = await createSessionToken(USER_ID);
 const browser = await chromium.launch();
 const ctx = await browser.newContext({
@@ -144,12 +177,39 @@ function inspect(slug, label) {
   }
 }
 
+const printedSeen = new Set();
+let printedStates = 0;
+
+function inspectPrinted(slug, text) {
+  const key = `${slug}|${text}`;
+  if (printedSeen.has(key)) return;
+  printedSeen.add(key);
+  printedStates += 1;
+  for (const [name, re] of IMPOSSIBLE) {
+    if (re.test(text)) {
+      defects.push(`  ${slug}\n      figure prints an impossible value — ${name}\n      text: ${text.slice(0, 120)}`);
+    }
+  }
+}
+
 const snapshot = async (slug) => {
-  const labels = await page.$$eval(
-    'svg[role="img"][aria-label], svg[role="group"][aria-label]',
-    (nodes) => nodes.map((n) => n.getAttribute("aria-label") ?? "")
+  // Read the accessible name AND the figure's printed text. The text is joined
+  // with a separator: `textContent` concatenates adjacent <text> nodes, so a
+  // number line reading "60 70 65 63" comes back as the single token
+  // "60706563" — which silently corrupts every numeric check downstream.
+  const figures = await page.$$eval('svg[role="img"], svg[role="group"]', (nodes) =>
+    nodes.map((n) => ({
+      label: n.getAttribute("aria-label") ?? "",
+      text: Array.from(n.querySelectorAll("text, tspan"))
+        .map((t) => (t.textContent ?? "").trim())
+        .filter(Boolean)
+        .join(" | "),
+    }))
   );
-  for (const label of labels) inspect(slug, label);
+  for (const figure of figures) {
+    if (figure.label) inspect(slug, figure.label);
+    if (figure.text) inspectPrinted(slug, figure.text);
+  }
 };
 
 for (const slug of list) {
@@ -208,7 +268,7 @@ for (const slug of list) {
 await browser.close();
 
 console.log(
-  `audit-us-ca-lesson-label-claims: ${seen.size} distinct accessible names across ${list.length} pages ` +
+  `audit-us-ca-lesson-label-claims: ${seen.size} accessible names and ${printedStates} printed figure states across ${list.length} pages ` +
     `(${pagesDriven} driven, ${presses} control presses, ${claimsChecked} recomputable claims)`
 );
 
@@ -230,6 +290,37 @@ if (perimeter.verify("rectangle 6 by 3, perimeter 20".match(perimeter.re)).ok) {
 }
 if (!ARTIFACTS[0][1].test("counters showing undefined")) {
   console.error("✗ the artifact check no longer fires on a known-bad name — refusing to report a pass.");
+  process.exit(2);
+}
+// The printed-value rules must each still fire, and must not fire on ordinary
+// figure text. A silently dead rule is indistinguishable from clean content.
+const PROBES = [
+  ["NaN / Infinity / undefined printed", "total: NaN"],
+  ["[object Object] printed", "value [object Object]"],
+  ["unreplaced template placeholder", "count ${n} apples"],
+  ["division shown over zero", "3 ÷ 0"],
+  ["negative zero", "sum -0"],
+  ["unrounded float (>4 decimals)", "area 3.1415926"],
+  ["probability outside 0..1", "P(A) = 1.4"],
+  ["percentage above 100", "score 140%"],
+];
+for (const [name, probe] of PROBES) {
+  const rule = IMPOSSIBLE.find((r) => r[0] === name);
+  if (!rule || !rule[1].test(probe)) {
+    console.error(`✗ the "${name}" rule no longer fires on ${JSON.stringify(probe)} — refusing to report a pass.`);
+    process.exit(2);
+  }
+}
+for (const ordinary of ["8 | + | 3 | = | 11", "60 | 70 | 65 | 63", "P(A) = 0.35", "45%", "0.5 | 1.5 | 2"]) {
+  for (const [name, re] of IMPOSSIBLE) {
+    if (re.test(ordinary)) {
+      console.error(`✗ the "${name}" rule fires on ordinary figure text ${JSON.stringify(ordinary)} — refusing to report a pass.`);
+      process.exit(2);
+    }
+  }
+}
+if (printedStates === 0) {
+  console.error("✗ no figure printed any text — the numeric checks inspected nothing.");
   process.exit(2);
 }
 
