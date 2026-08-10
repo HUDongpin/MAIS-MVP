@@ -1775,12 +1775,44 @@ export type TenFrameQuestionDiagram = {
   frames?: number;
 };
 
+export type DataDisplayCategory = {
+  label: LocalizedText;
+  value: number;
+};
+
+export type CategoricalDataDisplayQuestionDiagram = {
+  kind: "data-display";
+  display: "picture-graph" | "bar-graph";
+  title: LocalizedText;
+  unit: LocalizedText;
+  categories: DataDisplayCategory[];
+  /** One picture symbol or one bar-axis step represents this many units. */
+  scale?: number;
+};
+
+export type LinePlotDataDisplayQuestionDiagram = {
+  kind: "data-display";
+  display: "line-plot";
+  title: LocalizedText;
+  unit: LocalizedText;
+  /** One entry per plotted X. Repeated values form the visible stacks. */
+  values: number[];
+  range: [number, number];
+  tickInterval: number;
+};
+
+/** Deterministic categorical graphs and line plots used as question givens. */
+export type DataDisplayQuestionDiagram =
+  | CategoricalDataDisplayQuestionDiagram
+  | LinePlotDataDisplayQuestionDiagram;
+
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
   | SolidFigureQuestionDiagram
-  | TenFrameQuestionDiagram;
+  | TenFrameQuestionDiagram
+  | DataDisplayQuestionDiagram;
 
 export type QuestionAsset = {
   kind: "image";
@@ -1805,12 +1837,14 @@ export type Question = {
   options?: LocalizedText[];
   answer: string;
   acceptedAnswers?: string[];
+  /** Apply exact-unit compatibility before scalar numeric matching. */
+  strictAnswerUnits?: boolean;
   explanation: LocalizedText;
   diagram?: QuestionDiagram;
   questionAssets?: QuestionAsset[];
 };
 
-export type PublicQuestion = Omit<Question, "answer" | "acceptedAnswers" | "explanation">;
+export type PublicQuestion = Omit<Question, "answer" | "acceptedAnswers" | "strictAnswerUnits" | "explanation">;
 
 export type AttemptFeedback = {
   correct: boolean;

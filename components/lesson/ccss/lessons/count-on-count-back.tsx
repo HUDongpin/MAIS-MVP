@@ -35,7 +35,8 @@ export default function Lesson() {
         You do not have to count everything from 1. To <strong>add</strong>,
         start at a number and <strong>hop forward</strong>. To{" "}
         <strong>subtract</strong>, <strong>hop backward</strong>. Counting and
-        adding are the same idea.
+        addition are related: counting on models addition, and counting back
+        models subtraction.
       </p>
 
       <Figure caption="Each hop is one step. Count the hops to see how far you moved.">
@@ -70,9 +71,9 @@ export default function Lesson() {
             </svg>
           </FigureScroll>
 
-          <div className="font-mono text-3xl font-black">
+          <output className="font-mono text-3xl font-black" aria-label="Number-line equation result" aria-live="polite" aria-atomic="true">
             {start} {op === "add" ? "+" : "−"} {realJump} = <span style={{ color }}>{end}</span>
-          </div>
+          </output>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-2">
@@ -87,7 +88,7 @@ export default function Lesson() {
                   setOp(o);
                   setStart(nextStart);
                   setJump((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - nextStart : nextStart)));
-                }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                }} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                   {o === "add" ? "Count on (+)" : "Count back (−)"}
                 </button>
               ))}
@@ -100,7 +101,7 @@ export default function Lesson() {
 
       <h2>Hopping is counting</h2>
       <p>
-        Adding {realJump} means hopping forward {realJump} times. Subtracting
+        Adding {realJump} means hopping forward {realJump} time{realJump === 1 ? "" : "s"}. Subtracting
         means hopping back. The number you land on is the answer.
       </p>
 

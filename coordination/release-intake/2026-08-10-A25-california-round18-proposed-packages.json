@@ -1,0 +1,1562 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-09T20:36:34Z",
+  "timezone": "Asia/Hong_Kong",
+  "status": "awaiting-owner-approval",
+  "authorization": {
+    "lane": "A25",
+    "coordination": [
+      "A10",
+      "A11",
+      "A18",
+      "A22"
+    ],
+    "scope": "non-destructive release intake only",
+    "prohibitedActionsObserved": [
+      "no staging",
+      "no commit",
+      "no push",
+      "no pull request",
+      "no artifact cleanup",
+      "no deployment",
+      "no branch creation or switching"
+    ]
+  },
+  "sourceSnapshot": {
+    "worktree": "/Volumes/Starship/MAIS-ca-content-qa-wt",
+    "branch": "content/us-ca-math-lesson-qa",
+    "head": "295b8c2929a30aaacb096bec1d7bcf6e44044ff1",
+    "remoteFeatureBranch": "aa889fea75e73969c2787564e10cc6f139b033b9",
+    "originMainVerifiedReadOnly": "bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+    "mergeBase": "1d81110c60df2695917947f3198df06b5bc384ba",
+    "divergenceFromOriginMain": {
+      "originMainOnlyCommits": 38,
+      "sourceBranchOnlyCommits": 90
+    },
+    "sourceAheadOfRemoteFeatureCommits": 10,
+    "stagedPathCount": 0,
+    "trackedModifiedPathCount": 275,
+    "untrackedPathCount": 40,
+    "exactDirtyPathCount": 315,
+    "porcelainV1LfSha256": "38322bbd13b15010919e9a24beee427c35dec57f4562152c08878e90c0408813",
+    "freshDirtyMap": {
+      "path": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+      "generatedAt": "2026-08-09T20:17:49.392Z",
+      "statusSignature": "44ec3a15b8f3a5d5e289e177fa63f74a8b16c46756946bd0f1fabc8347a0c73e",
+      "expandedStatusEntries": 315,
+      "unblockedUnmappedEntries": 15,
+      "ambiguousOwnerEntries": 0
+    },
+    "canonicalDirtyMapCapture": {
+      "generatedAt": "2026-08-09T16:58:58.021Z",
+      "statusSignature": "63623d8bceb1d34fc0ce922473292f222d45bb81037196ed2e45a445c264592c",
+      "capturedDirtyPathCount": 295,
+      "currentForStrictGate": false,
+      "reason": "its two timestamped output files were added after the capture"
+    }
+  },
+  "pathAccounting": {
+    "dirtySnapshotPackageCount": 16,
+    "cleanCandidatePackageCount": 12,
+    "baseFrozenDirtyPathCount": 297,
+    "supplementalDirtyPathCount": 18,
+    "currentFrozenDirtyPathCount": 315,
+    "assignedPathCount": 315,
+    "unassignedPathCount": 0,
+    "duplicatePathCount": 0,
+    "unassignedPaths": [],
+    "duplicatePaths": [],
+    "note": "The eleven base packages account exactly once for the earlier 297-path snapshot. The non-authoritative DIRTY-ADD supplement assigns the 18 later dirty paths exactly once; its identifiers are deliberately namespaced so they cannot be confused with the authoritative CA-R18-01 through CA-R18-12 cumulative packages. Their union covers all 315 current dirty paths."
+  },
+  "currentSnapshotSupplement": {
+    "releaseCandidateAuthority": false,
+    "scope": "current 315-path dirty overlay only; excludes committed cumulative history",
+    "basePackagePathCount": 297,
+    "supplementPathCount": 18,
+    "currentPackagePathCount": 315,
+    "amendments": [
+      {
+        "packageId": "CA-R18-02",
+        "pathCountAdded": 1,
+        "exactPaths": [
+          "components/lesson/ccss/lessons/linear-equations.tsx"
+        ],
+        "statusByPath": {
+          "components/lesson/ccss/lessons/linear-equations.tsx": " M"
+        }
+      }
+    ],
+    "newPackages": [
+      {
+        "packageId": "DIRTY-ADD-01",
+        "title": "Shared numeric-presentation helper and regression",
+        "primaryOwners": [
+          "A05"
+        ],
+        "reviewers": [
+          "A11",
+          "A18"
+        ],
+        "disposition": "reviewed helper/test commit after approval",
+        "pathCount": 2,
+        "exactPaths": [
+          "components/lesson/ccss/numberPresentation.test.ts",
+          "components/lesson/ccss/numberPresentation.ts"
+        ],
+        "statusByPath": {
+          "components/lesson/ccss/numberPresentation.test.ts": "??",
+          "components/lesson/ccss/numberPresentation.ts": "??"
+        }
+      },
+      {
+        "packageId": "DIRTY-ADD-02",
+        "title": "Source-pack parity and independent content gates",
+        "primaryOwners": [
+          "A18",
+          "A11"
+        ],
+        "reviewers": [
+          "A21",
+          "A05",
+          "A04"
+        ],
+        "disposition": "reviewed QA-gate and review-ledger package after approval",
+        "pathCount": 10,
+        "exactPaths": [
+          "scripts/audit-us-ca-ccss-source-pack-parity.mjs",
+          "scripts/audit-us-ca-ccss-textbook-k5-explanations.mjs",
+          "scripts/audit-us-ca-ccss-textbook-k5-explanations.review.json",
+          "scripts/audit-us-ca-ccss-textbook-k5-independent.mjs",
+          "scripts/audit-us-ca-ccss-textbook-k5-independent.review.json",
+          "scripts/audit-us-ca-ccss-textbook-p6-s6-explanations.mjs",
+          "scripts/audit-us-ca-ccss-textbook-p6-s6-independent.mjs",
+          "scripts/audit-us-ca-exercise-inventory.mjs",
+          "scripts/audit-us-ca-k5-visible-explanation-consistency.mjs",
+          "scripts/audit-us-ca-k5-visible-prompt-solvability.mjs"
+        ],
+        "statusByPath": {
+          "scripts/audit-us-ca-ccss-source-pack-parity.mjs": "??",
+          "scripts/audit-us-ca-ccss-textbook-k5-explanations.mjs": "??",
+          "scripts/audit-us-ca-ccss-textbook-k5-explanations.review.json": "??",
+          "scripts/audit-us-ca-ccss-textbook-k5-independent.mjs": "??",
+          "scripts/audit-us-ca-ccss-textbook-k5-independent.review.json": "??",
+          "scripts/audit-us-ca-ccss-textbook-p6-s6-explanations.mjs": "??",
+          "scripts/audit-us-ca-ccss-textbook-p6-s6-independent.mjs": "??",
+          "scripts/audit-us-ca-exercise-inventory.mjs": "??",
+          "scripts/audit-us-ca-k5-visible-explanation-consistency.mjs": "??",
+          "scripts/audit-us-ca-k5-visible-prompt-solvability.mjs": "??"
+        }
+      },
+      {
+        "packageId": "DIRTY-ADD-03",
+        "title": "Terminal bug taxonomy and prevention report",
+        "primaryOwners": [
+          "A18"
+        ],
+        "reviewers": [
+          "A10",
+          "A11",
+          "A22"
+        ],
+        "disposition": "evidence commit or evidence archive after approval",
+        "pathCount": 1,
+        "exactPaths": [
+          "coordination/content-qa/2026-08-10-california-content-bug-taxonomy-and-prevention.md"
+        ],
+        "statusByPath": {
+          "coordination/content-qa/2026-08-10-california-content-bug-taxonomy-and-prevention.md": "??"
+        }
+      },
+      {
+        "packageId": "DIRTY-ADD-04",
+        "title": "Current A25 intake evidence",
+        "primaryOwners": [
+          "A25"
+        ],
+        "reviewers": [
+          "A10",
+          "A11",
+          "A18",
+          "A22"
+        ],
+        "disposition": "evidence archive after approval; never runtime",
+        "pathCount": 3,
+        "exactPaths": [
+          "coordination/release-intake/2026-08-10-A25-california-round18-proposed-packages.json",
+          "coordination/reports/2026-08-10-A25-california-round18-release-intake.md",
+          "coordination/session-logs/2026-08-10-A25-california-round18-release-intake.md"
+        ],
+        "statusByPath": {
+          "coordination/release-intake/2026-08-10-A25-california-round18-proposed-packages.json": "??",
+          "coordination/reports/2026-08-10-A25-california-round18-release-intake.md": "??",
+          "coordination/session-logs/2026-08-10-A25-california-round18-release-intake.md": "??"
+        }
+      },
+      {
+        "packageId": "DIRTY-SPILLOVER-01",
+        "title": "Multi-state US item-quality audit",
+        "primaryOwners": [
+          "A21",
+          "A11"
+        ],
+        "reviewers": [
+          "A18"
+        ],
+        "disposition": "separate review package; exclude from California lesson-page candidate",
+        "pathCount": 1,
+        "exactPaths": [
+          "scripts/audit-us-math-item-quality.mjs"
+        ],
+        "statusByPath": {
+          "scripts/audit-us-math-item-quality.mjs": " M"
+        }
+      }
+    ],
+    "currentPackagePathCounts": {
+      "DIRTY-ADD-01": 2,
+      "CA-R18-01": 90,
+      "CA-R18-02": 135,
+      "CA-R18-03": 15,
+      "CA-R18-04": 3,
+      "CA-R18-05": 16,
+      "CA-R18-06": 7,
+      "CA-R18-07": 6,
+      "CA-R18-08": 7,
+      "CA-R18-09": 16,
+      "CA-R18-10": 1,
+      "CA-R18-11": 2,
+      "DIRTY-ADD-02": 10,
+      "DIRTY-ADD-03": 1,
+      "DIRTY-ADD-04": 3,
+      "DIRTY-SPILLOVER-01": 1
+    }
+  },
+  "cleanCandidateCumulativeSnapshot": {
+    "releaseCandidateAuthority": true,
+    "targetBase": "origin/main@bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+    "sourceMergeBase": "1d81110c60df2695917947f3198df06b5bc384ba",
+    "trackedFinalStatePathCount": 333,
+    "untrackedPathCount": 40,
+    "exactPathCount": 373,
+    "trackedStatusCounts": {
+      "modified": 304,
+      "added": 28,
+      "deleted": 1
+    },
+    "sortedPathListSha256": "aaab977293c034be9bd4ca765ac932341a5e56924d782fad9d32637ecaccefe2",
+    "allocationProof": {
+      "baseManifestPathCount": 297,
+      "additionalCumulativePathCount": 76,
+      "assignedPathCount": 373,
+      "unassignedPathCount": 0,
+      "duplicatePathCount": 0
+    },
+    "packagePathCounts": {
+      "CA-R18-01": 108,
+      "CA-R18-02": 149,
+      "CA-R18-03": 18,
+      "CA-R18-04": 5,
+      "CA-R18-05": 16,
+      "CA-R18-06": 7,
+      "CA-R18-07": 6,
+      "CA-R18-08": 8,
+      "CA-R18-09": 32,
+      "CA-R18-10": 18,
+      "CA-R18-11": 5,
+      "CA-R18-12": 1
+    },
+    "additionalPathsBeyond297Base": {
+      "CA-R18-01": [
+        "components/lesson/ccss/lessons/add-four-numbers.tsx",
+        "components/lesson/ccss/lessons/arrays-repeated-addition.tsx",
+        "components/lesson/ccss/lessons/compare-fractions.tsx",
+        "components/lesson/ccss/lessons/compare-groups.tsx",
+        "components/lesson/ccss/lessons/compare-length.tsx",
+        "components/lesson/ccss/lessons/decimal-place-value.tsx",
+        "components/lesson/ccss/lessons/fractions-10-100.tsx",
+        "components/lesson/ccss/lessons/growing-patterns.tsx",
+        "components/lesson/ccss/lessons/long-division.tsx",
+        "components/lesson/ccss/lessons/make-ten-to-add.tsx",
+        "components/lesson/ccss/lessons/multiplicative-comparison.tsx",
+        "components/lesson/ccss/lessons/multiply-by-tens.tsx",
+        "components/lesson/ccss/lessons/multiply-mixed-numbers.tsx",
+        "components/lesson/ccss/lessons/multiply-whole-numbers.tsx",
+        "components/lesson/ccss/lessons/place-value-blocks.tsx",
+        "components/lesson/ccss/lessons/place-value-relationship.tsx",
+        "components/lesson/ccss/lessons/rows-and-columns.tsx",
+        "components/lesson/ccss/lessons/two-patterns-graph.tsx"
+      ],
+      "CA-R18-02": [
+        "components/lesson/ccss/lessons/absolute-value.tsx",
+        "components/lesson/ccss/lessons/circle-angles.tsx",
+        "components/lesson/ccss/lessons/divide-fractions.tsx",
+        "components/lesson/ccss/lessons/interpret-function-graphs.tsx",
+        "components/lesson/ccss/lessons/inverse-functions.tsx",
+        "components/lesson/ccss/lessons/linear-equations.tsx",
+        "components/lesson/ccss/lessons/partition-segment.tsx",
+        "components/lesson/ccss/lessons/polygons-coordinate.tsx",
+        "components/lesson/ccss/lessons/prove-angle-theorems.tsx",
+        "components/lesson/ccss/lessons/rational-operations.tsx",
+        "components/lesson/ccss/lessons/slope-unit-rate.tsx",
+        "components/lesson/ccss/lessons/surface-area-nets.tsx",
+        "components/lesson/ccss/lessons/triangle-angles.tsx",
+        "components/lesson/ccss/lessons/unit-rate.tsx",
+        "components/lesson/ccss/lessons/volume-arguments.tsx"
+      ],
+      "CA-R18-03": [
+        "components/lesson/ccss/numberPresentation.test.ts",
+        "components/lesson/ccss/numberPresentation.ts",
+        "data/usCaliforniaLessonIllustrations.ts"
+      ],
+      "CA-R18-04": [
+        "lib/mathSpeech.test.ts",
+        "lib/mathSpeech.ts"
+      ],
+      "CA-R18-05": [],
+      "CA-R18-06": [],
+      "CA-R18-07": [],
+      "CA-R18-08": [
+        "data/generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json"
+      ],
+      "CA-R18-09": [
+        "package.json",
+        "scripts/audit-us-ca-ccss-source-pack-parity.mjs",
+        "scripts/audit-us-ca-ccss-textbook-k5-explanations.mjs",
+        "scripts/audit-us-ca-ccss-textbook-k5-explanations.review.json",
+        "scripts/audit-us-ca-ccss-textbook-k5-independent.mjs",
+        "scripts/audit-us-ca-ccss-textbook-k5-independent.review.json",
+        "scripts/audit-us-ca-ccss-textbook-p6-s6-explanations.mjs",
+        "scripts/audit-us-ca-ccss-textbook-p6-s6-independent.mjs",
+        "scripts/audit-us-ca-exercise-inventory.mjs",
+        "scripts/audit-us-ca-k5-visible-explanation-consistency.mjs",
+        "scripts/audit-us-ca-k5-visible-prompt-solvability.mjs",
+        "scripts/audit-us-ca-lesson-content.mts",
+        "scripts/audit-us-ca-lesson-illustrations.mts",
+        "scripts/audit-us-ca-lesson-readability.mts",
+        "scripts/audit-us-math-item-quality.mjs",
+        "scripts/report-us-ca-independent-solve-integrity.mts"
+      ],
+      "CA-R18-10": [
+        "coordination/content-qa/2026-08-10-california-content-bug-taxonomy-and-prevention.md",
+        "coordination/content-qa/2026-08-03-california-lesson-page-content-qa-round2.md",
+        "coordination/content-qa/2026-08-03-california-lesson-page-content-qa-round3.md",
+        "coordination/content-qa/2026-08-03-california-lesson-page-content-qa-round4.md",
+        "coordination/content-qa/2026-08-03-california-lesson-page-content-qa-round6.md",
+        "coordination/content-qa/2026-08-03-california-lesson-page-content-qa.md",
+        "coordination/content-qa/2026-08-04-california-lesson-page-content-qa-round7.md",
+        "coordination/content-qa/2026-08-04-california-lesson-page-content-qa-round8.md",
+        "coordination/content-qa/2026-08-04-california-lesson-page-what-actually-renders.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round9.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round10.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round11.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round12.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round13.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round14.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round15.md",
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round17.md"
+      ],
+      "CA-R18-11": [
+        "coordination/release-intake/2026-08-10-A25-california-round18-proposed-packages.json",
+        "coordination/reports/2026-08-10-A25-california-round18-release-intake.md",
+        "coordination/session-logs/2026-08-10-A25-california-round18-release-intake.md"
+      ],
+      "CA-R18-12": [
+        "public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-source-hd.png"
+      ]
+    },
+    "package12Metadata": {
+      "title": "Superseded unreachable Grade 1 raster disposition",
+      "primaryOwners": [
+        "A05",
+        "A24"
+      ],
+      "reviewers": [
+        "A18",
+        "A21",
+        "A23"
+      ],
+      "status": "deleted in source final state",
+      "disposition": "owner-approved deletion or external evidence archive; never silently restore or ship"
+    },
+    "package09ReviewSubSlices": [
+      "A18 content-authority gates and required review ledgers",
+      "A11 static regression files and count-enforcing runner proposal",
+      "A22 browser audits and owned wrapper proposal",
+      "A10 current-main package.json command synthesis with no lockfile or dependency changes"
+    ],
+    "note": "Each cumulative package is the union of its exact base proposedPackages list and the exact additions above. CA-R18-12 has no base list. This 373-path allocation, not the 315-path dirty-only supplement, governs any clean candidate from origin/main."
+  },
+  "proposedPackages": [
+    {
+      "packageId": "CA-R18-01",
+      "title": "Kindergarten through Grade 5 interactive lesson repairs",
+      "primaryOwners": [
+        "A05"
+      ],
+      "reviewers": [
+        "A18",
+        "A11"
+      ],
+      "disposition": "reviewed commit after approval",
+      "dependencies": [
+        "CA-R18-03",
+        "CA-R18-09"
+      ],
+      "rollbackBoundary": "K-Grade 5 lesson bodies and the subtraction-algorithm model only",
+      "pathCount": 90,
+      "exactPaths": [
+        "components/lesson/ccss/lessons/add-angles.tsx",
+        "components/lesson/ccss/lessons/add-fractions-unlike.tsx",
+        "components/lesson/ccss/lessons/add-subtract-1000.tsx",
+        "components/lesson/ccss/lessons/add-subtract-algorithm-model.test.ts",
+        "components/lesson/ccss/lessons/add-subtract-algorithm-model.ts",
+        "components/lesson/ccss/lessons/add-subtract-algorithm.tsx",
+        "components/lesson/ccss/lessons/add-subtract-bignum.tsx",
+        "components/lesson/ccss/lessons/add-subtract-fractions.tsx",
+        "components/lesson/ccss/lessons/add-subtract-regroup.tsx",
+        "components/lesson/ccss/lessons/add-subtract-stories.tsx",
+        "components/lesson/ccss/lessons/add-within-100.tsx",
+        "components/lesson/ccss/lessons/angles-fraction-circle.tsx",
+        "components/lesson/ccss/lessons/area-count.tsx",
+        "components/lesson/ccss/lessons/area-model.tsx",
+        "components/lesson/ccss/lessons/arithmetic-patterns.tsx",
+        "components/lesson/ccss/lessons/bar-graph.tsx",
+        "components/lesson/ccss/lessons/classify-triangles.tsx",
+        "components/lesson/ccss/lessons/compare-decimals.tsx",
+        "components/lesson/ccss/lessons/compare-fractions-4.tsx",
+        "components/lesson/ccss/lessons/compare-two-digit.tsx",
+        "components/lesson/ccss/lessons/compose-2d.tsx",
+        "components/lesson/ccss/lessons/compose-shapes.tsx",
+        "components/lesson/ccss/lessons/coordinate-plane.tsx",
+        "components/lesson/ccss/lessons/count-on-count-back.tsx",
+        "components/lesson/ccss/lessons/count-to-100.tsx",
+        "components/lesson/ccss/lessons/count-to-120.tsx",
+        "components/lesson/ccss/lessons/counting-ten-frame.tsx",
+        "components/lesson/ccss/lessons/decimal-operations.tsx",
+        "components/lesson/ccss/lessons/decimals-fractions.tsx",
+        "components/lesson/ccss/lessons/divide-two-digit.tsx",
+        "components/lesson/ccss/lessons/divide-unit-fractions.tsx",
+        "components/lesson/ccss/lessons/equal-shares.tsx",
+        "components/lesson/ccss/lessons/equivalent-fractions.tsx",
+        "components/lesson/ccss/lessons/estimate-compare-length.tsx",
+        "components/lesson/ccss/lessons/factors-multiples.tsx",
+        "components/lesson/ccss/lessons/flat-shapes.tsx",
+        "components/lesson/ccss/lessons/fluent-within-20.tsx",
+        "components/lesson/ccss/lessons/fraction-as-division.tsx",
+        "components/lesson/ccss/lessons/fractions-number-line.tsx",
+        "components/lesson/ccss/lessons/length-number-line.tsx",
+        "components/lesson/ccss/lessons/line-plot-fractions.tsx",
+        "components/lesson/ccss/lessons/line-plot-operations.tsx",
+        "components/lesson/ccss/lessons/line-plot.tsx",
+        "components/lesson/ccss/lessons/lines-angles.tsx",
+        "components/lesson/ccss/lessons/measure-line-plot.tsx",
+        "components/lesson/ccss/lessons/measure-with-ruler.tsx",
+        "components/lesson/ccss/lessons/measurement-conversion.tsx",
+        "components/lesson/ccss/lessons/mental-10-100.tsx",
+        "components/lesson/ccss/lessons/metric-conversion.tsx",
+        "components/lesson/ccss/lessons/missing-addend.tsx",
+        "components/lesson/ccss/lessons/money.tsx",
+        "components/lesson/ccss/lessons/multiplication-fluency.tsx",
+        "components/lesson/ccss/lessons/multiplication-properties.tsx",
+        "components/lesson/ccss/lessons/multiply-divide-words.tsx",
+        "components/lesson/ccss/lessons/multiply-fraction-whole.tsx",
+        "components/lesson/ccss/lessons/multiply-fractions.tsx",
+        "components/lesson/ccss/lessons/multistep-problems.tsx",
+        "components/lesson/ccss/lessons/number-bonds.tsx",
+        "components/lesson/ccss/lessons/odd-even.tsx",
+        "components/lesson/ccss/lessons/order-and-measure.tsx",
+        "components/lesson/ccss/lessons/order-of-operations.tsx",
+        "components/lesson/ccss/lessons/partition-shapes.tsx",
+        "components/lesson/ccss/lessons/perimeter.tsx",
+        "components/lesson/ccss/lessons/picture-graph.tsx",
+        "components/lesson/ccss/lessons/position-words.tsx",
+        "components/lesson/ccss/lessons/powers-of-ten.tsx",
+        "components/lesson/ccss/lessons/protractor.tsx",
+        "components/lesson/ccss/lessons/quadrilaterals.tsx",
+        "components/lesson/ccss/lessons/read-compare-decimals-thousandths.tsx",
+        "components/lesson/ccss/lessons/read-compare-multidigit.tsx",
+        "components/lesson/ccss/lessons/round-decimals.tsx",
+        "components/lesson/ccss/lessons/rounding-multidigit.tsx",
+        "components/lesson/ccss/lessons/rounding.tsx",
+        "components/lesson/ccss/lessons/scaled-graphs.tsx",
+        "components/lesson/ccss/lessons/shape-attributes.tsx",
+        "components/lesson/ccss/lessons/shape-hierarchy.tsx",
+        "components/lesson/ccss/lessons/shapes-by-attributes.tsx",
+        "components/lesson/ccss/lessons/skip-counting.tsx",
+        "components/lesson/ccss/lessons/sort-and-count.tsx",
+        "components/lesson/ccss/lessons/symmetry.tsx",
+        "components/lesson/ccss/lessons/teen-numbers.tsx",
+        "components/lesson/ccss/lessons/telling-time.tsx",
+        "components/lesson/ccss/lessons/tens-and-ones.tsx",
+        "components/lesson/ccss/lessons/time-five-minutes.tsx",
+        "components/lesson/ccss/lessons/time-to-minute.tsx",
+        "components/lesson/ccss/lessons/two-step-problems.tsx",
+        "components/lesson/ccss/lessons/volume-mass.tsx",
+        "components/lesson/ccss/lessons/volume-unit-cubes.tsx",
+        "components/lesson/ccss/lessons/word-problems-100.tsx",
+        "components/lesson/ccss/lessons/write-expressions.tsx"
+      ],
+      "statusByPath": {
+        "components/lesson/ccss/lessons/add-angles.tsx": " M",
+        "components/lesson/ccss/lessons/add-fractions-unlike.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-1000.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-algorithm-model.test.ts": "??",
+        "components/lesson/ccss/lessons/add-subtract-algorithm-model.ts": "??",
+        "components/lesson/ccss/lessons/add-subtract-algorithm.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-bignum.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-regroup.tsx": " M",
+        "components/lesson/ccss/lessons/add-subtract-stories.tsx": " M",
+        "components/lesson/ccss/lessons/add-within-100.tsx": " M",
+        "components/lesson/ccss/lessons/angles-fraction-circle.tsx": " M",
+        "components/lesson/ccss/lessons/area-count.tsx": " M",
+        "components/lesson/ccss/lessons/area-model.tsx": " M",
+        "components/lesson/ccss/lessons/arithmetic-patterns.tsx": " M",
+        "components/lesson/ccss/lessons/bar-graph.tsx": " M",
+        "components/lesson/ccss/lessons/classify-triangles.tsx": " M",
+        "components/lesson/ccss/lessons/compare-decimals.tsx": " M",
+        "components/lesson/ccss/lessons/compare-fractions-4.tsx": " M",
+        "components/lesson/ccss/lessons/compare-two-digit.tsx": " M",
+        "components/lesson/ccss/lessons/compose-2d.tsx": " M",
+        "components/lesson/ccss/lessons/compose-shapes.tsx": " M",
+        "components/lesson/ccss/lessons/coordinate-plane.tsx": " M",
+        "components/lesson/ccss/lessons/count-on-count-back.tsx": " M",
+        "components/lesson/ccss/lessons/count-to-100.tsx": " M",
+        "components/lesson/ccss/lessons/count-to-120.tsx": " M",
+        "components/lesson/ccss/lessons/counting-ten-frame.tsx": " M",
+        "components/lesson/ccss/lessons/decimal-operations.tsx": " M",
+        "components/lesson/ccss/lessons/decimals-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/divide-two-digit.tsx": " M",
+        "components/lesson/ccss/lessons/divide-unit-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/equal-shares.tsx": " M",
+        "components/lesson/ccss/lessons/equivalent-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/estimate-compare-length.tsx": " M",
+        "components/lesson/ccss/lessons/factors-multiples.tsx": " M",
+        "components/lesson/ccss/lessons/flat-shapes.tsx": " M",
+        "components/lesson/ccss/lessons/fluent-within-20.tsx": " M",
+        "components/lesson/ccss/lessons/fraction-as-division.tsx": " M",
+        "components/lesson/ccss/lessons/fractions-number-line.tsx": " M",
+        "components/lesson/ccss/lessons/length-number-line.tsx": " M",
+        "components/lesson/ccss/lessons/line-plot-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/line-plot-operations.tsx": " M",
+        "components/lesson/ccss/lessons/line-plot.tsx": " M",
+        "components/lesson/ccss/lessons/lines-angles.tsx": " M",
+        "components/lesson/ccss/lessons/measure-line-plot.tsx": " M",
+        "components/lesson/ccss/lessons/measure-with-ruler.tsx": " M",
+        "components/lesson/ccss/lessons/measurement-conversion.tsx": " M",
+        "components/lesson/ccss/lessons/mental-10-100.tsx": " M",
+        "components/lesson/ccss/lessons/metric-conversion.tsx": " M",
+        "components/lesson/ccss/lessons/missing-addend.tsx": " M",
+        "components/lesson/ccss/lessons/money.tsx": " M",
+        "components/lesson/ccss/lessons/multiplication-fluency.tsx": " M",
+        "components/lesson/ccss/lessons/multiplication-properties.tsx": " M",
+        "components/lesson/ccss/lessons/multiply-divide-words.tsx": " M",
+        "components/lesson/ccss/lessons/multiply-fraction-whole.tsx": " M",
+        "components/lesson/ccss/lessons/multiply-fractions.tsx": " M",
+        "components/lesson/ccss/lessons/multistep-problems.tsx": " M",
+        "components/lesson/ccss/lessons/number-bonds.tsx": " M",
+        "components/lesson/ccss/lessons/odd-even.tsx": " M",
+        "components/lesson/ccss/lessons/order-and-measure.tsx": " M",
+        "components/lesson/ccss/lessons/order-of-operations.tsx": " M",
+        "components/lesson/ccss/lessons/partition-shapes.tsx": " M",
+        "components/lesson/ccss/lessons/perimeter.tsx": " M",
+        "components/lesson/ccss/lessons/picture-graph.tsx": " M",
+        "components/lesson/ccss/lessons/position-words.tsx": " M",
+        "components/lesson/ccss/lessons/powers-of-ten.tsx": " M",
+        "components/lesson/ccss/lessons/protractor.tsx": " M",
+        "components/lesson/ccss/lessons/quadrilaterals.tsx": " M",
+        "components/lesson/ccss/lessons/read-compare-decimals-thousandths.tsx": " M",
+        "components/lesson/ccss/lessons/read-compare-multidigit.tsx": " M",
+        "components/lesson/ccss/lessons/round-decimals.tsx": " M",
+        "components/lesson/ccss/lessons/rounding-multidigit.tsx": " M",
+        "components/lesson/ccss/lessons/rounding.tsx": " M",
+        "components/lesson/ccss/lessons/scaled-graphs.tsx": " M",
+        "components/lesson/ccss/lessons/shape-attributes.tsx": " M",
+        "components/lesson/ccss/lessons/shape-hierarchy.tsx": " M",
+        "components/lesson/ccss/lessons/shapes-by-attributes.tsx": " M",
+        "components/lesson/ccss/lessons/skip-counting.tsx": " M",
+        "components/lesson/ccss/lessons/sort-and-count.tsx": " M",
+        "components/lesson/ccss/lessons/symmetry.tsx": " M",
+        "components/lesson/ccss/lessons/teen-numbers.tsx": " M",
+        "components/lesson/ccss/lessons/telling-time.tsx": " M",
+        "components/lesson/ccss/lessons/tens-and-ones.tsx": " M",
+        "components/lesson/ccss/lessons/time-five-minutes.tsx": " M",
+        "components/lesson/ccss/lessons/time-to-minute.tsx": " M",
+        "components/lesson/ccss/lessons/two-step-problems.tsx": " M",
+        "components/lesson/ccss/lessons/volume-mass.tsx": " M",
+        "components/lesson/ccss/lessons/volume-unit-cubes.tsx": " M",
+        "components/lesson/ccss/lessons/word-problems-100.tsx": " M",
+        "components/lesson/ccss/lessons/write-expressions.tsx": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-02",
+      "title": "Grade 6 through Grade 12 interactive lesson repairs",
+      "primaryOwners": [
+        "A05"
+      ],
+      "reviewers": [
+        "A18",
+        "A11"
+      ],
+      "disposition": "reviewed commit after approval",
+      "dependencies": [
+        "CA-R18-03",
+        "CA-R18-09"
+      ],
+      "rollbackBoundary": "P6-S6 lesson bodies only",
+      "pathCount": 134,
+      "exactPaths": [
+        "components/lesson/ccss/lessons/addition-rule.tsx",
+        "components/lesson/ccss/lessons/angle-relationships.tsx",
+        "components/lesson/ccss/lessons/approximate-irrationals.tsx",
+        "components/lesson/ccss/lessons/arc-length-sector.tsx",
+        "components/lesson/ccss/lessons/area-triangles.tsx",
+        "components/lesson/ccss/lessons/area-volume-surface.tsx",
+        "components/lesson/ccss/lessons/build-functions.tsx",
+        "components/lesson/ccss/lessons/circle-constructions.tsx",
+        "components/lesson/ccss/lessons/compare-distributions.tsx",
+        "components/lesson/ccss/lessons/compare-functions.tsx",
+        "components/lesson/ccss/lessons/compare-populations.tsx",
+        "components/lesson/ccss/lessons/compare-treatments.tsx",
+        "components/lesson/ccss/lessons/complex-conjugates.tsx",
+        "components/lesson/ccss/lessons/complex-numbers.tsx",
+        "components/lesson/ccss/lessons/complex-plane.tsx",
+        "components/lesson/ccss/lessons/complex-solutions.tsx",
+        "components/lesson/ccss/lessons/complex-unit-rates.tsx",
+        "components/lesson/ccss/lessons/conditional-probability.tsx",
+        "components/lesson/ccss/lessons/congruence-criteria.tsx",
+        "components/lesson/ccss/lessons/congruence.tsx",
+        "components/lesson/ccss/lessons/conic-sections.tsx",
+        "components/lesson/ccss/lessons/constraints-formulas.tsx",
+        "components/lesson/ccss/lessons/construct-linear-exponential.tsx",
+        "components/lesson/ccss/lessons/construct-triangles.tsx",
+        "components/lesson/ccss/lessons/constructions.tsx",
+        "components/lesson/ccss/lessons/coordinate-perimeter-area.tsx",
+        "components/lesson/ccss/lessons/coordinate-proofs.tsx",
+        "components/lesson/ccss/lessons/correlation.tsx",
+        "components/lesson/ccss/lessons/create-equations.tsx",
+        "components/lesson/ccss/lessons/cross-sections.tsx",
+        "components/lesson/ccss/lessons/data-displays.tsx",
+        "components/lesson/ccss/lessons/decimal-arithmetic.tsx",
+        "components/lesson/ccss/lessons/decisions-probability.tsx",
+        "components/lesson/ccss/lessons/dependent-independent.tsx",
+        "components/lesson/ccss/lessons/dilations.tsx",
+        "components/lesson/ccss/lessons/distance-formula.tsx",
+        "components/lesson/ccss/lessons/divide-multidigit.tsx",
+        "components/lesson/ccss/lessons/equation-of-circle.tsx",
+        "components/lesson/ccss/lessons/equivalent-expressions.tsx",
+        "components/lesson/ccss/lessons/estimate-population.tsx",
+        "components/lesson/ccss/lessons/evaluate-reports.tsx",
+        "components/lesson/ccss/lessons/expected-value.tsx",
+        "components/lesson/ccss/lessons/exponential-vs-linear.tsx",
+        "components/lesson/ccss/lessons/exponents.tsx",
+        "components/lesson/ccss/lessons/figure-symmetry.tsx",
+        "components/lesson/ccss/lessons/fit-function-residuals.tsx",
+        "components/lesson/ccss/lessons/four-quadrant-plane.tsx",
+        "components/lesson/ccss/lessons/function-notation.tsx",
+        "components/lesson/ccss/lessons/functions-intro.tsx",
+        "components/lesson/ccss/lessons/gcf-lcm.tsx",
+        "components/lesson/ccss/lessons/geometric-modeling.tsx",
+        "components/lesson/ccss/lessons/geometric-series.tsx",
+        "components/lesson/ccss/lessons/graph-inequalities.tsx",
+        "components/lesson/ccss/lessons/graph-stories.tsx",
+        "components/lesson/ccss/lessons/graphs-and-solutions.tsx",
+        "components/lesson/ccss/lessons/independence.tsx",
+        "components/lesson/ccss/lessons/inequalities.tsx",
+        "components/lesson/ccss/lessons/integer-arrows.tsx",
+        "components/lesson/ccss/lessons/integer-exponents.tsx",
+        "components/lesson/ccss/lessons/interpret-expressions.tsx",
+        "components/lesson/ccss/lessons/inverse-trig.tsx",
+        "components/lesson/ccss/lessons/laws-sines-cosines.tsx",
+        "components/lesson/ccss/lessons/line-of-best-fit.tsx",
+        "components/lesson/ccss/lessons/linear-expressions.tsx",
+        "components/lesson/ccss/lessons/linear-quadratic-systems.tsx",
+        "components/lesson/ccss/lessons/logarithms.tsx",
+        "components/lesson/ccss/lessons/matrices.tsx",
+        "components/lesson/ccss/lessons/matrix-equations.tsx",
+        "components/lesson/ccss/lessons/matrix-transformations.tsx",
+        "components/lesson/ccss/lessons/mean-median.tsx",
+        "components/lesson/ccss/lessons/multiplication-rule.tsx",
+        "components/lesson/ccss/lessons/multiply-divide-integers.tsx",
+        "components/lesson/ccss/lessons/multistep-rational.tsx",
+        "components/lesson/ccss/lessons/negative-numbers.tsx",
+        "components/lesson/ccss/lessons/normal-distribution.tsx",
+        "components/lesson/ccss/lessons/percent-problems.tsx",
+        "components/lesson/ccss/lessons/periodic-models.tsx",
+        "components/lesson/ccss/lessons/permutations-combinations.tsx",
+        "components/lesson/ccss/lessons/polynomial-identities.tsx",
+        "components/lesson/ccss/lessons/polynomial-operations.tsx",
+        "components/lesson/ccss/lessons/precise-definitions.tsx",
+        "components/lesson/ccss/lessons/probability-basics.tsx",
+        "components/lesson/ccss/lessons/probability-models.tsx",
+        "components/lesson/ccss/lessons/proportional-relationships.tsx",
+        "components/lesson/ccss/lessons/prove-parallelogram-theorems.tsx",
+        "components/lesson/ccss/lessons/prove-triangle-theorems.tsx",
+        "components/lesson/ccss/lessons/pythagorean-theorem.tsx",
+        "components/lesson/ccss/lessons/quadratic-vertex-form.tsx",
+        "components/lesson/ccss/lessons/random-variables.tsx",
+        "components/lesson/ccss/lessons/ratio-double-number-line.tsx",
+        "components/lesson/ccss/lessons/rational-exponents.tsx",
+        "components/lesson/ccss/lessons/rational-expressions.tsx",
+        "components/lesson/ccss/lessons/rational-irrational.tsx",
+        "components/lesson/ccss/lessons/rational-radical-equations.tsx",
+        "components/lesson/ccss/lessons/real-number-closure.tsx",
+        "components/lesson/ccss/lessons/remainder-theorem.tsx",
+        "components/lesson/ccss/lessons/rewrite-expressions.tsx",
+        "components/lesson/ccss/lessons/roots.tsx",
+        "components/lesson/ccss/lessons/sampling-inference.tsx",
+        "components/lesson/ccss/lessons/sampling.tsx",
+        "components/lesson/ccss/lessons/scatter-plots.tsx",
+        "components/lesson/ccss/lessons/scientific-notation.tsx",
+        "components/lesson/ccss/lessons/set-operations-events.tsx",
+        "components/lesson/ccss/lessons/similarity-proofs.tsx",
+        "components/lesson/ccss/lessons/similarity-transformations.tsx",
+        "components/lesson/ccss/lessons/similarity.tsx",
+        "components/lesson/ccss/lessons/slope-explorer.tsx",
+        "components/lesson/ccss/lessons/solids-cross-sections.tsx",
+        "components/lesson/ccss/lessons/solve-equations-steps.tsx",
+        "components/lesson/ccss/lessons/solve-one-step-equations.tsx",
+        "components/lesson/ccss/lessons/solve-quadratics.tsx",
+        "components/lesson/ccss/lessons/solve-right-triangles.tsx",
+        "components/lesson/ccss/lessons/special-angle-values.tsx",
+        "components/lesson/ccss/lessons/statistical-displays.tsx",
+        "components/lesson/ccss/lessons/statistical-questions.tsx",
+        "components/lesson/ccss/lessons/study-design.tsx",
+        "components/lesson/ccss/lessons/systems-elimination.tsx",
+        "components/lesson/ccss/lessons/systems-of-equations.tsx",
+        "components/lesson/ccss/lessons/transformations-as-functions.tsx",
+        "components/lesson/ccss/lessons/transformations.tsx",
+        "components/lesson/ccss/lessons/triangle-area-sine.tsx",
+        "components/lesson/ccss/lessons/trig-identities.tsx",
+        "components/lesson/ccss/lessons/trig-ratios.tsx",
+        "components/lesson/ccss/lessons/trig-symmetry.tsx",
+        "components/lesson/ccss/lessons/two-way-frequencies.tsx",
+        "components/lesson/ccss/lessons/two-way-probability.tsx",
+        "components/lesson/ccss/lessons/two-way-tables.tsx",
+        "components/lesson/ccss/lessons/unit-circle.tsx",
+        "components/lesson/ccss/lessons/units-quantities.tsx",
+        "components/lesson/ccss/lessons/vector-operations.tsx",
+        "components/lesson/ccss/lessons/vectors.tsx",
+        "components/lesson/ccss/lessons/volume-3d.tsx",
+        "components/lesson/ccss/lessons/volume-formulas.tsx",
+        "components/lesson/ccss/lessons/volume-fractional.tsx"
+      ],
+      "statusByPath": {
+        "components/lesson/ccss/lessons/addition-rule.tsx": " M",
+        "components/lesson/ccss/lessons/angle-relationships.tsx": " M",
+        "components/lesson/ccss/lessons/approximate-irrationals.tsx": " M",
+        "components/lesson/ccss/lessons/arc-length-sector.tsx": " M",
+        "components/lesson/ccss/lessons/area-triangles.tsx": " M",
+        "components/lesson/ccss/lessons/area-volume-surface.tsx": " M",
+        "components/lesson/ccss/lessons/build-functions.tsx": " M",
+        "components/lesson/ccss/lessons/circle-constructions.tsx": " M",
+        "components/lesson/ccss/lessons/compare-distributions.tsx": " M",
+        "components/lesson/ccss/lessons/compare-functions.tsx": " M",
+        "components/lesson/ccss/lessons/compare-populations.tsx": " M",
+        "components/lesson/ccss/lessons/compare-treatments.tsx": " M",
+        "components/lesson/ccss/lessons/complex-conjugates.tsx": " M",
+        "components/lesson/ccss/lessons/complex-numbers.tsx": " M",
+        "components/lesson/ccss/lessons/complex-plane.tsx": " M",
+        "components/lesson/ccss/lessons/complex-solutions.tsx": " M",
+        "components/lesson/ccss/lessons/complex-unit-rates.tsx": " M",
+        "components/lesson/ccss/lessons/conditional-probability.tsx": " M",
+        "components/lesson/ccss/lessons/congruence-criteria.tsx": " M",
+        "components/lesson/ccss/lessons/congruence.tsx": " M",
+        "components/lesson/ccss/lessons/conic-sections.tsx": " M",
+        "components/lesson/ccss/lessons/constraints-formulas.tsx": " M",
+        "components/lesson/ccss/lessons/construct-linear-exponential.tsx": " M",
+        "components/lesson/ccss/lessons/construct-triangles.tsx": " M",
+        "components/lesson/ccss/lessons/constructions.tsx": " M",
+        "components/lesson/ccss/lessons/coordinate-perimeter-area.tsx": " M",
+        "components/lesson/ccss/lessons/coordinate-proofs.tsx": " M",
+        "components/lesson/ccss/lessons/correlation.tsx": " M",
+        "components/lesson/ccss/lessons/create-equations.tsx": " M",
+        "components/lesson/ccss/lessons/cross-sections.tsx": " M",
+        "components/lesson/ccss/lessons/data-displays.tsx": " M",
+        "components/lesson/ccss/lessons/decimal-arithmetic.tsx": " M",
+        "components/lesson/ccss/lessons/decisions-probability.tsx": " M",
+        "components/lesson/ccss/lessons/dependent-independent.tsx": " M",
+        "components/lesson/ccss/lessons/dilations.tsx": " M",
+        "components/lesson/ccss/lessons/distance-formula.tsx": " M",
+        "components/lesson/ccss/lessons/divide-multidigit.tsx": " M",
+        "components/lesson/ccss/lessons/equation-of-circle.tsx": " M",
+        "components/lesson/ccss/lessons/equivalent-expressions.tsx": " M",
+        "components/lesson/ccss/lessons/estimate-population.tsx": " M",
+        "components/lesson/ccss/lessons/evaluate-reports.tsx": " M",
+        "components/lesson/ccss/lessons/expected-value.tsx": " M",
+        "components/lesson/ccss/lessons/exponential-vs-linear.tsx": " M",
+        "components/lesson/ccss/lessons/exponents.tsx": " M",
+        "components/lesson/ccss/lessons/figure-symmetry.tsx": " M",
+        "components/lesson/ccss/lessons/fit-function-residuals.tsx": " M",
+        "components/lesson/ccss/lessons/four-quadrant-plane.tsx": " M",
+        "components/lesson/ccss/lessons/function-notation.tsx": " M",
+        "components/lesson/ccss/lessons/functions-intro.tsx": " M",
+        "components/lesson/ccss/lessons/gcf-lcm.tsx": " M",
+        "components/lesson/ccss/lessons/geometric-modeling.tsx": " M",
+        "components/lesson/ccss/lessons/geometric-series.tsx": " M",
+        "components/lesson/ccss/lessons/graph-inequalities.tsx": " M",
+        "components/lesson/ccss/lessons/graph-stories.tsx": " M",
+        "components/lesson/ccss/lessons/graphs-and-solutions.tsx": " M",
+        "components/lesson/ccss/lessons/independence.tsx": " M",
+        "components/lesson/ccss/lessons/inequalities.tsx": " M",
+        "components/lesson/ccss/lessons/integer-arrows.tsx": " M",
+        "components/lesson/ccss/lessons/integer-exponents.tsx": " M",
+        "components/lesson/ccss/lessons/interpret-expressions.tsx": " M",
+        "components/lesson/ccss/lessons/inverse-trig.tsx": " M",
+        "components/lesson/ccss/lessons/laws-sines-cosines.tsx": " M",
+        "components/lesson/ccss/lessons/line-of-best-fit.tsx": " M",
+        "components/lesson/ccss/lessons/linear-expressions.tsx": " M",
+        "components/lesson/ccss/lessons/linear-quadratic-systems.tsx": " M",
+        "components/lesson/ccss/lessons/logarithms.tsx": " M",
+        "components/lesson/ccss/lessons/matrices.tsx": " M",
+        "components/lesson/ccss/lessons/matrix-equations.tsx": " M",
+        "components/lesson/ccss/lessons/matrix-transformations.tsx": " M",
+        "components/lesson/ccss/lessons/mean-median.tsx": " M",
+        "components/lesson/ccss/lessons/multiplication-rule.tsx": " M",
+        "components/lesson/ccss/lessons/multiply-divide-integers.tsx": " M",
+        "components/lesson/ccss/lessons/multistep-rational.tsx": " M",
+        "components/lesson/ccss/lessons/negative-numbers.tsx": " M",
+        "components/lesson/ccss/lessons/normal-distribution.tsx": " M",
+        "components/lesson/ccss/lessons/percent-problems.tsx": " M",
+        "components/lesson/ccss/lessons/periodic-models.tsx": " M",
+        "components/lesson/ccss/lessons/permutations-combinations.tsx": " M",
+        "components/lesson/ccss/lessons/polynomial-identities.tsx": " M",
+        "components/lesson/ccss/lessons/polynomial-operations.tsx": " M",
+        "components/lesson/ccss/lessons/precise-definitions.tsx": " M",
+        "components/lesson/ccss/lessons/probability-basics.tsx": " M",
+        "components/lesson/ccss/lessons/probability-models.tsx": " M",
+        "components/lesson/ccss/lessons/proportional-relationships.tsx": " M",
+        "components/lesson/ccss/lessons/prove-parallelogram-theorems.tsx": " M",
+        "components/lesson/ccss/lessons/prove-triangle-theorems.tsx": " M",
+        "components/lesson/ccss/lessons/pythagorean-theorem.tsx": " M",
+        "components/lesson/ccss/lessons/quadratic-vertex-form.tsx": " M",
+        "components/lesson/ccss/lessons/random-variables.tsx": " M",
+        "components/lesson/ccss/lessons/ratio-double-number-line.tsx": " M",
+        "components/lesson/ccss/lessons/rational-exponents.tsx": " M",
+        "components/lesson/ccss/lessons/rational-expressions.tsx": " M",
+        "components/lesson/ccss/lessons/rational-irrational.tsx": " M",
+        "components/lesson/ccss/lessons/rational-radical-equations.tsx": " M",
+        "components/lesson/ccss/lessons/real-number-closure.tsx": " M",
+        "components/lesson/ccss/lessons/remainder-theorem.tsx": " M",
+        "components/lesson/ccss/lessons/rewrite-expressions.tsx": " M",
+        "components/lesson/ccss/lessons/roots.tsx": " M",
+        "components/lesson/ccss/lessons/sampling-inference.tsx": " M",
+        "components/lesson/ccss/lessons/sampling.tsx": " M",
+        "components/lesson/ccss/lessons/scatter-plots.tsx": " M",
+        "components/lesson/ccss/lessons/scientific-notation.tsx": " M",
+        "components/lesson/ccss/lessons/set-operations-events.tsx": " M",
+        "components/lesson/ccss/lessons/similarity-proofs.tsx": " M",
+        "components/lesson/ccss/lessons/similarity-transformations.tsx": " M",
+        "components/lesson/ccss/lessons/similarity.tsx": " M",
+        "components/lesson/ccss/lessons/slope-explorer.tsx": " M",
+        "components/lesson/ccss/lessons/solids-cross-sections.tsx": " M",
+        "components/lesson/ccss/lessons/solve-equations-steps.tsx": " M",
+        "components/lesson/ccss/lessons/solve-one-step-equations.tsx": " M",
+        "components/lesson/ccss/lessons/solve-quadratics.tsx": " M",
+        "components/lesson/ccss/lessons/solve-right-triangles.tsx": " M",
+        "components/lesson/ccss/lessons/special-angle-values.tsx": " M",
+        "components/lesson/ccss/lessons/statistical-displays.tsx": " M",
+        "components/lesson/ccss/lessons/statistical-questions.tsx": " M",
+        "components/lesson/ccss/lessons/study-design.tsx": " M",
+        "components/lesson/ccss/lessons/systems-elimination.tsx": " M",
+        "components/lesson/ccss/lessons/systems-of-equations.tsx": " M",
+        "components/lesson/ccss/lessons/transformations-as-functions.tsx": " M",
+        "components/lesson/ccss/lessons/transformations.tsx": " M",
+        "components/lesson/ccss/lessons/triangle-area-sine.tsx": " M",
+        "components/lesson/ccss/lessons/trig-identities.tsx": " M",
+        "components/lesson/ccss/lessons/trig-ratios.tsx": " M",
+        "components/lesson/ccss/lessons/trig-symmetry.tsx": " M",
+        "components/lesson/ccss/lessons/two-way-frequencies.tsx": " M",
+        "components/lesson/ccss/lessons/two-way-probability.tsx": " M",
+        "components/lesson/ccss/lessons/two-way-tables.tsx": " M",
+        "components/lesson/ccss/lessons/unit-circle.tsx": " M",
+        "components/lesson/ccss/lessons/units-quantities.tsx": " M",
+        "components/lesson/ccss/lessons/vector-operations.tsx": " M",
+        "components/lesson/ccss/lessons/vectors.tsx": " M",
+        "components/lesson/ccss/lessons/volume-3d.tsx": " M",
+        "components/lesson/ccss/lessons/volume-formulas.tsx": " M",
+        "components/lesson/ccss/lessons/volume-fractional.tsx": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-03",
+      "title": "Shared lesson shell, registry, narration, seed, and quarantine consumers",
+      "primaryOwners": [
+        "A05"
+      ],
+      "reviewers": [
+        "A18",
+        "A09",
+        "A11"
+      ],
+      "coordinators": [
+        "A04",
+        "A24",
+        "A06"
+      ],
+      "disposition": "reviewed commit after approval",
+      "dependencies": [
+        "CA-R18-04",
+        "CA-R18-05",
+        "CA-R18-07"
+      ],
+      "rollbackBoundary": "shared California lesson surface and seed contract",
+      "pathCount": 15,
+      "exactPaths": [
+        "components/lesson/ccss/FigureScroll.tsx",
+        "components/lesson/ccss/figureScrollAffordance.test.ts",
+        "components/lesson/ccss/MathCheck.tsx",
+        "components/lesson/lessonCompletionChecklist.test.ts",
+        "components/lesson/lessonCompletionChecklist.ts",
+        "components/lesson/LessonGalaxyDirectory.tsx",
+        "components/lesson/lessonGalaxyDirectoryNavigation.test.ts",
+        "components/lesson/LessonView.tsx",
+        "components/lesson/lessonVisualPlacement.test.ts",
+        "data/ccssTextbookNarrations.ts",
+        "data/ccssTextbookRegistry.ts",
+        "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+        "data/usCaliforniaLessons.test.ts",
+        "data/usCaliforniaLessons.ts",
+        "data/usCaliforniaMicroLessons.ts"
+      ],
+      "statusByPath": {
+        "components/lesson/ccss/FigureScroll.tsx": " M",
+        "components/lesson/ccss/figureScrollAffordance.test.ts": " M",
+        "components/lesson/ccss/MathCheck.tsx": " M",
+        "components/lesson/lessonCompletionChecklist.test.ts": " M",
+        "components/lesson/lessonCompletionChecklist.ts": " M",
+        "components/lesson/LessonGalaxyDirectory.tsx": " M",
+        "components/lesson/lessonGalaxyDirectoryNavigation.test.ts": " M",
+        "components/lesson/LessonView.tsx": " M",
+        "components/lesson/lessonVisualPlacement.test.ts": " M",
+        "data/ccssTextbookNarrations.ts": " M",
+        "data/ccssTextbookRegistry.ts": " M",
+        "data/usCaliforniaHighSchoolLessonIllustrations.ts": " M",
+        "data/usCaliforniaLessons.test.ts": " M",
+        "data/usCaliforniaLessons.ts": " M",
+        "data/usCaliforniaMicroLessons.ts": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-04",
+      "title": "Math-text accessibility extraction",
+      "primaryOwners": [
+        "A09"
+      ],
+      "reviewers": [
+        "A05",
+        "A04",
+        "A11"
+      ],
+      "disposition": "reviewed commit after approval",
+      "dependencies": [],
+      "rollbackBoundary": "plain math text helper, renderer integration, and focused test",
+      "pathCount": 3,
+      "exactPaths": [
+        "components/math/MathText.test.ts",
+        "components/math/MathText.tsx",
+        "components/math/plainMathText.ts"
+      ],
+      "statusByPath": {
+        "components/math/MathText.test.ts": "??",
+        "components/math/MathText.tsx": " M",
+        "components/math/plainMathText.ts": "??"
+      }
+    },
+    {
+      "packageId": "CA-R18-05",
+      "title": "Checkpoint selection, diagrams, read-aloud, and shared question types",
+      "primaryOwners": [
+        "A04",
+        "A24",
+        "A08"
+      ],
+      "reviewers": [
+        "A18",
+        "A09",
+        "A11",
+        "A12"
+      ],
+      "disposition": "reviewed commit or small reviewed commit series after approval",
+      "dependencies": [
+        "CA-R18-04",
+        "CA-R18-08"
+      ],
+      "rollbackBoundary": "question rendering, diagram contract, read-aloud behavior, and shared type additions",
+      "pathCount": 16,
+      "exactPaths": [
+        "components/practice/PracticeQuestionCard.tsx",
+        "components/practice/QuestionFigure.tsx",
+        "data/usCaliforniaAnswerUnitAliases.ts",
+        "data/usCaliforniaDisplayedCheckpointDataDisplays.test.ts",
+        "data/usCaliforniaDisplayedCheckpointSemantics.test.ts",
+        "data/usCaliforniaDisplayedLessonContent.test.ts",
+        "data/usCaliforniaGrade1CheckpointConstructs.test.ts",
+        "data/usCaliforniaQuestions.ts",
+        "data/usCaliforniaS5Chapter04CheckpointDiversity.test.ts",
+        "lib/practiceFigureAudit.test.ts",
+        "lib/practiceQuestionDeduping.ts",
+        "lib/practiceReadAloud.test.ts",
+        "lib/practiceReadAloud.ts",
+        "lib/questionFigure.test.ts",
+        "lib/questionFigure.ts",
+        "types/index.ts"
+      ],
+      "statusByPath": {
+        "components/practice/PracticeQuestionCard.tsx": " M",
+        "components/practice/QuestionFigure.tsx": " M",
+        "data/usCaliforniaAnswerUnitAliases.ts": "??",
+        "data/usCaliforniaDisplayedCheckpointDataDisplays.test.ts": "??",
+        "data/usCaliforniaDisplayedCheckpointSemantics.test.ts": "??",
+        "data/usCaliforniaDisplayedLessonContent.test.ts": "??",
+        "data/usCaliforniaGrade1CheckpointConstructs.test.ts": "??",
+        "data/usCaliforniaQuestions.ts": " M",
+        "data/usCaliforniaS5Chapter04CheckpointDiversity.test.ts": "??",
+        "lib/practiceFigureAudit.test.ts": " M",
+        "lib/practiceQuestionDeduping.ts": " M",
+        "lib/practiceReadAloud.test.ts": " M",
+        "lib/practiceReadAloud.ts": " M",
+        "lib/questionFigure.test.ts": " M",
+        "lib/questionFigure.ts": " M",
+        "types/index.ts": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-06",
+      "title": "Backend grading and persistence propagation",
+      "primaryOwners": [
+        "A12"
+      ],
+      "reviewers": [
+        "A04",
+        "A18",
+        "A11"
+      ],
+      "disposition": "reviewed commit after approval",
+      "dependencies": [
+        "CA-R18-05"
+      ],
+      "rollbackBoundary": "strict answer-unit matching and propagation across attempt and teacher grading",
+      "pathCount": 7,
+      "exactPaths": [
+        "lib/server/answerGrading.test.ts",
+        "lib/server/answerGrading.ts",
+        "lib/server/answerMatching.test.ts",
+        "lib/server/answerMatching.ts",
+        "lib/server/practiceAttemptStore.test.ts",
+        "lib/server/practiceAttemptStore.ts",
+        "lib/server/userStore/teacherOpsSubmissionPersistence.ts"
+      ],
+      "statusByPath": {
+        "lib/server/answerGrading.test.ts": "??",
+        "lib/server/answerGrading.ts": " M",
+        "lib/server/answerMatching.test.ts": " M",
+        "lib/server/answerMatching.ts": " M",
+        "lib/server/practiceAttemptStore.test.ts": " M",
+        "lib/server/practiceAttemptStore.ts": " M",
+        "lib/server/userStore/teacherOpsSubmissionPersistence.ts": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-07",
+      "title": "Visualization alignment and student-surface quarantine",
+      "primaryOwners": [
+        "A06"
+      ],
+      "reviewers": [
+        "A18",
+        "A05",
+        "A11"
+      ],
+      "disposition": "independent review; hunk-split minimal quarantine from optional catalog changes if needed",
+      "dependencies": [],
+      "rollbackBoundary": "empty production allowlist plus assignment/catalog integrity",
+      "studentVisiblePassScope": false,
+      "pathCount": 6,
+      "exactPaths": [
+        "components/visualizations/visualizationDiagnostics.test.ts",
+        "data/signatureLabAssignments.test.ts",
+        "data/signatureLabAssignments.ts",
+        "data/usCaliforniaLessonVisualizationAvailability.ts",
+        "data/visualizationLabs.ts",
+        "lib/californiaGradeAware.test.ts"
+      ],
+      "statusByPath": {
+        "components/visualizations/visualizationDiagnostics.test.ts": " M",
+        "data/signatureLabAssignments.test.ts": " M",
+        "data/signatureLabAssignments.ts": " M",
+        "data/usCaliforniaLessonVisualizationAvailability.ts": "??",
+        "data/visualizationLabs.ts": " M",
+        "lib/californiaGradeAware.test.ts": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-08",
+      "title": "Generated and source question packs plus topic metadata",
+      "primaryOwners": [
+        "A21",
+        "A03"
+      ],
+      "reviewers": [
+        "A18",
+        "A04",
+        "A05",
+        "A23"
+      ],
+      "disposition": "candidate package after A18 acceptance and A23 promotion review",
+      "dependencies": [],
+      "rollbackBoundary": "generator/source/generated outputs and topic metadata; subcommit by pipeline if independently reproducible",
+      "pathCount": 7,
+      "exactPaths": [
+        "data/generated-content/ccss-textbook-practice-v1/question-pack.json",
+        "data/generated-content/ccss-textbook-source-v1/source.json",
+        "data/generated-content/topics-metadata/topics-metadata.json",
+        "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json",
+        "data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json",
+        "data/usCaliforniaTopics.ts",
+        "scripts/build-ccss-practice-pack.mjs"
+      ],
+      "statusByPath": {
+        "data/generated-content/ccss-textbook-practice-v1/question-pack.json": " M",
+        "data/generated-content/ccss-textbook-source-v1/source.json": " M",
+        "data/generated-content/topics-metadata/topics-metadata.json": " M",
+        "data/generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json": " M",
+        "data/generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json": " M",
+        "data/usCaliforniaTopics.ts": " M",
+        "scripts/build-ccss-practice-pack.mjs": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-09",
+      "title": "Static, browser, and E2E QA gates",
+      "primaryOwners": [
+        "A11",
+        "A22"
+      ],
+      "reviewers": [
+        "A10",
+        "A18"
+      ],
+      "disposition": "reviewed regression package after approval",
+      "dependencies": [
+        "CA-R18-01",
+        "CA-R18-02",
+        "CA-R18-03",
+        "CA-R18-04",
+        "CA-R18-05",
+        "CA-R18-06",
+        "CA-R18-07",
+        "CA-R18-08"
+      ],
+      "rollbackBoundary": "static source contracts separate from isolated browser harness changes",
+      "pathCount": 16,
+      "exactPaths": [
+        "scripts/audit-ccss-lesson-interaction.mjs",
+        "scripts/audit-ccss-lesson-interaction.test.mjs",
+        "scripts/audit-us-ca-checkpoint-grading.mts",
+        "scripts/audit-us-ca-displayed-checkpoint-data.mts",
+        "scripts/audit-us-ca-lesson-figure-bounds.mjs",
+        "scripts/audit-us-ca-lesson-label-motion.mjs",
+        "scripts/audit-us-ca-lesson-page-runtime.mjs",
+        "scripts/audit-us-ca-lesson-readaloud.mts",
+        "scripts/audit-us-ca-lesson-semantic-states.mjs",
+        "scripts/ccss-k5-component-boundary-regressions.test.ts",
+        "scripts/ccss-k5-content-corrections.test.ts",
+        "scripts/ccss-p6-s6-semantic-corrections.test.mjs",
+        "scripts/ccss-p6-s6-state-defects-a.test.mjs",
+        "scripts/ccss-p6-s6-student-state-corrections.test.mjs",
+        "scripts/us-ca-browser-gate-navigation.test.mjs",
+        "tests/e2e/california-student-assignment-flow.spec.ts"
+      ],
+      "statusByPath": {
+        "scripts/audit-ccss-lesson-interaction.mjs": " M",
+        "scripts/audit-ccss-lesson-interaction.test.mjs": "??",
+        "scripts/audit-us-ca-checkpoint-grading.mts": " M",
+        "scripts/audit-us-ca-displayed-checkpoint-data.mts": "??",
+        "scripts/audit-us-ca-lesson-figure-bounds.mjs": " M",
+        "scripts/audit-us-ca-lesson-label-motion.mjs": " M",
+        "scripts/audit-us-ca-lesson-page-runtime.mjs": " M",
+        "scripts/audit-us-ca-lesson-readaloud.mts": " M",
+        "scripts/audit-us-ca-lesson-semantic-states.mjs": "??",
+        "scripts/ccss-k5-component-boundary-regressions.test.ts": "??",
+        "scripts/ccss-k5-content-corrections.test.ts": "??",
+        "scripts/ccss-p6-s6-semantic-corrections.test.mjs": "??",
+        "scripts/ccss-p6-s6-state-defects-a.test.mjs": "??",
+        "scripts/ccss-p6-s6-student-state-corrections.test.mjs": "??",
+        "scripts/us-ca-browser-gate-navigation.test.mjs": "??",
+        "tests/e2e/california-student-assignment-flow.spec.ts": " M"
+      }
+    },
+    {
+      "packageId": "CA-R18-10",
+      "title": "Round 18 final content-QA decision report",
+      "primaryOwners": [
+        "A18"
+      ],
+      "reviewers": [
+        "A10",
+        "A11",
+        "A22"
+      ],
+      "disposition": "reviewed evidence commit or evidence archive",
+      "dependencies": [
+        "CA-R18-09"
+      ],
+      "rollbackBoundary": "documentation only",
+      "pathCount": 1,
+      "exactPaths": [
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round18.md"
+      ],
+      "statusByPath": {
+        "coordination/content-qa/2026-08-09-california-lesson-page-content-qa-round18.md": "??"
+      }
+    },
+    {
+      "packageId": "CA-R18-11",
+      "title": "A25 intake evidence captured before this proposal",
+      "primaryOwners": [
+        "A25"
+      ],
+      "reviewers": [
+        "A10",
+        "A22"
+      ],
+      "disposition": "evidence archive or owner-approved discard; exclude from runtime candidate",
+      "dependencies": [],
+      "rollbackBoundary": "coordination evidence only",
+      "pathCount": 2,
+      "exactPaths": [
+        "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T165857Z.json",
+        "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T165857Z.md"
+      ],
+      "statusByPath": {
+        "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T165857Z.json": "??",
+        "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T165857Z.md": "??"
+      }
+    }
+  ],
+  "ownerPathspecResolutionsRequiredBeforeStrictGate": [
+    {
+      "paths": [
+        "data/ccssTextbookNarrations.ts",
+        "data/ccssTextbookRegistry.ts"
+      ],
+      "proposedOwners": [
+        "A05"
+      ],
+      "reviewers": [
+        "A18"
+      ]
+    },
+    {
+      "paths": [
+        "data/signatureLabAssignments.ts",
+        "data/signatureLabAssignments.test.ts"
+      ],
+      "proposedOwners": [
+        "A06"
+      ],
+      "reviewers": [
+        "A18",
+        "A11"
+      ]
+    },
+    {
+      "paths": [
+        "lib/practiceFigureAudit.test.ts"
+      ],
+      "proposedOwners": [
+        "A24",
+        "A04"
+      ],
+      "reviewers": [
+        "A11",
+        "A18"
+      ]
+    },
+    {
+      "paths": [
+        "lib/practiceQuestionDeduping.ts"
+      ],
+      "proposedOwners": [
+        "A04"
+      ],
+      "reviewers": [
+        "A11"
+      ]
+    },
+    {
+      "paths": [
+        "lib/practiceReadAloud.ts",
+        "lib/practiceReadAloud.test.ts"
+      ],
+      "proposedOwners": [
+        "A04",
+        "A09"
+      ],
+      "reviewers": [
+        "A11"
+      ]
+    },
+    {
+      "paths": [
+        "data/usCaliforniaAnswerUnitAliases.ts"
+      ],
+      "proposedOwners": [
+        "A04"
+      ],
+      "reviewers": [
+        "A18",
+        "A12"
+      ]
+    },
+    {
+      "paths": [
+        "data/usCaliforniaDisplayedCheckpointDataDisplays.test.ts",
+        "data/usCaliforniaDisplayedCheckpointSemantics.test.ts",
+        "data/usCaliforniaDisplayedLessonContent.test.ts",
+        "data/usCaliforniaGrade1CheckpointConstructs.test.ts",
+        "data/usCaliforniaS5Chapter04CheckpointDiversity.test.ts"
+      ],
+      "proposedOwners": [
+        "A11"
+      ],
+      "reviewers": [
+        "A04",
+        "A05",
+        "A18",
+        "A24"
+      ]
+    },
+    {
+      "paths": [
+        "data/usCaliforniaLessonVisualizationAvailability.ts"
+      ],
+      "proposedOwners": [
+        "A06"
+      ],
+      "reviewers": [
+        "A05",
+        "A18",
+        "A11"
+      ]
+    }
+  ],
+  "mainlineOverlapPathsRequiringHunkLevelThreeWayResolution": [
+    {
+      "path": "components/lesson/LessonView.tsx",
+      "preserveFromOriginMain": "compact section-audio behavior",
+      "integrateFromCaliforniaSnapshot": "math and diagram read-aloud plus California renderer corrections"
+    },
+    {
+      "path": "components/lesson/ccss/lessons/precise-definitions.tsx",
+      "preserveFromOriginMain": "corrected angle-arc geometry",
+      "integrateFromCaliforniaSnapshot": "selected-state accessibility and content corrections"
+    },
+    {
+      "path": "components/lesson/lessonVisualPlacement.test.ts",
+      "preserveFromOriginMain": "compact-audio assertions",
+      "integrateFromCaliforniaSnapshot": "exact SVG and stale-raster prevention assertions"
+    },
+    {
+      "path": "package.json",
+      "preserveFromOriginMain": "Next 15.5.23, PostCSS 8.5.26, current lockfile, test:parent-console, and all current-main scripts",
+      "integrateFromCaliforniaSnapshot": "approved California audit commands and Round 18 wiring only"
+    }
+  ],
+  "spilloverAndExclusions": {
+    "definiteRuntimeExclusion": [
+      {
+        "path": "public/lesson-illustrations/us-ca-k5/grade1-operations-algebraic-thinking/add-subtract-stories-single-panel-source-hd.png",
+        "source": "the one deleted path in the 373-path cumulative final state",
+        "reason": "unreachable and explicitly rejected by current tests as mathematically inconsistent",
+        "proposedFinalState": "CA-R18-12 owner-approved deletion or external evidence archive"
+      }
+    ],
+    "separatelyOptionalRelatedPackage": "CA-R18-07",
+    "evidenceOnlyPackages": [
+      "CA-R18-10",
+      "CA-R18-11"
+    ],
+    "confirmedCrossLaneDependencies": [
+      "types/index.ts",
+      "lib/server/userStore/teacherOpsSubmissionPersistence.ts",
+      "data/generated-content/topics-metadata/topics-metadata.json",
+      "data/usCaliforniaHighSchoolLessonIllustrations.ts",
+      "components/practice/PracticeQuestionCard.tsx",
+      "components/visualizations/visualizationDiagnostics.test.ts"
+    ]
+  },
+  "round18GateWiringProposal": {
+    "proposedAdditionalPathsAfterApproval": [
+      "scripts/run-us-ca-lesson-content-regressions.mjs",
+      "scripts/run-us-ca-lesson-browser-gates.mjs",
+      "package.json"
+    ],
+    "owners": {
+      "commandWiring": "A10",
+      "regressionSemantics": "A11",
+      "contentAcceptance": "A18",
+      "browserReliability": "A22"
+    },
+    "staticManifestExpectedTests": 119,
+    "staticManifestFiles": [
+      "components/lesson/ccss/lessons/add-subtract-algorithm-model.test.ts",
+      "components/lesson/ccss/numberPresentation.test.ts",
+      "components/math/MathText.test.ts",
+      "data/usCaliforniaLessons.test.ts",
+      "data/usCaliforniaDisplayedCheckpointDataDisplays.test.ts",
+      "data/usCaliforniaDisplayedCheckpointSemantics.test.ts",
+      "data/usCaliforniaDisplayedLessonContent.test.ts",
+      "data/usCaliforniaGrade1CheckpointConstructs.test.ts",
+      "data/usCaliforniaS5Chapter04CheckpointDiversity.test.ts",
+      "lib/server/answerGrading.test.ts",
+      "lib/server/answerMatching.test.ts",
+      "scripts/audit-ccss-lesson-interaction.test.mjs",
+      "scripts/ccss-k5-component-boundary-regressions.test.ts",
+      "scripts/ccss-k5-content-corrections.test.ts",
+      "scripts/ccss-p6-s6-semantic-corrections.test.mjs",
+      "scripts/ccss-p6-s6-state-defects-a.test.mjs",
+      "scripts/ccss-p6-s6-student-state-corrections.test.mjs",
+      "scripts/us-ca-browser-gate-navigation.test.mjs"
+    ],
+    "browserAuditFiles": [
+      "scripts/audit-us-ca-displayed-checkpoint-data.mts",
+      "scripts/audit-us-ca-lesson-semantic-states.mjs"
+    ],
+    "proposedScripts": {
+      "test:us-ca-lesson-content": "node scripts/run-us-ca-lesson-content-regressions.mjs",
+      "audit:us-ca-ccss-source-pack-parity": "node scripts/audit-us-ca-ccss-source-pack-parity.mjs",
+      "audit:us-ca-ccss-textbook-k5-explanations": "node scripts/audit-us-ca-ccss-textbook-k5-explanations.mjs",
+      "audit:us-ca-ccss-textbook-p6-s6-explanations": "node scripts/audit-us-ca-ccss-textbook-p6-s6-explanations.mjs",
+      "qa:us-ca-ccss-content-authority": "npm run audit:us-ca-ccss-source-pack-parity && npm run audit:us-ca-ccss-textbook-k5-explanations && npm run audit:us-ca-ccss-textbook-p6-s6-explanations",
+      "audit:us-ca-displayed-checkpoint-data": "tsx --tsconfig tsconfig.json scripts/audit-us-ca-displayed-checkpoint-data.mts",
+      "audit:us-ca-lesson-semantic-states": "tsx --tsconfig tsconfig.json scripts/audit-us-ca-lesson-semantic-states.mjs",
+      "qa:us-ca-lesson-content:static": "npm run qa:us-ca-ccss-content-authority && npm run test:us-ca-lesson-content && npm run test:ccss-textbook && npm run audit:us-ca-lesson-content && npm run audit:ccss-lesson-interaction && npm run audit:us-ca-checkpoint-grading && npm run audit:us-ca-lesson-readaloud && npm run audit:us-ca-lesson-illustrations",
+      "qa:us-ca-lesson-content:browser": "node scripts/run-us-ca-lesson-browser-gates.mjs"
+    },
+    "staticRunnerAcceptance": "exactly 119 tests, 119 pass, and zero fail/cancelled/skipped/todo",
+    "browserRunnerAcceptance": "data-display inventory and exactly 46 semantic-state contracts at both 1280x900 and 390x844 against one owned isolated production server",
+    "postApprovalPathImpact": {
+      "currentCumulativePaths": 373,
+      "newRunnerPaths": 2,
+      "alreadyCountedPackageJsonPath": true,
+      "expectedCumulativePathsAfterImplementation": 375,
+      "requiresFreshA25AllocationBeforeStaging": true
+    },
+    "browserPrerequisites": [
+      "clean candidate worktree",
+      "candidate-local dependencies with tsx, @playwright/test, and Chrome",
+      "isolated server port and NEXT_DIST_DIR",
+      "same ephemeral AUTH_SESSION_SECRET in server and audits without logging it",
+      "BASE_URL aimed at the isolated server",
+      "fail-closed secret assertion and viewport validation in both browser audits"
+    ],
+    "starshipOnlyE2EPolicy": {
+      "ownerMandated": true,
+      "failClosed": true,
+      "requiredPhysicalPrefix": "/Volumes/Starship/",
+      "prohibitedFallbackPrefixes": [
+        "/tmp/",
+        "/private/tmp/",
+        "/Users/"
+      ],
+      "candidateWorktree": "/Volumes/Starship/MAIS-ca-round18-candidate-wt",
+      "mustRemainOnStarshipAfterRealpath": [
+        "candidate worktree",
+        "candidate-local physical node_modules",
+        "NEXT_DIST_DIR and all build caches",
+        "TMPDIR, TMP, and TEMP",
+        "PLAYWRIGHT_BROWSERS_PATH and the browser executable used by the run",
+        "browser user-data and cache directories",
+        "Playwright outputDir, reports, screenshots, traces, and videos",
+        "storage-state and generated authentication files",
+        "server and browser logs, stdout, stderr, port files, and process metadata",
+        "test databases, SQLite handles, fixtures, and all writable E2E artifacts"
+      ],
+      "preflight": [
+        "verify /Volumes/Starship is mounted, writable, and has adequate free space",
+        "use explicit absolute paths for every writable test, build, browser, cache, report, and temporary location",
+        "realpath every existing path and nearest existing parent for paths not yet created",
+        "reject symlinks whose resolved target leaves /Volumes/Starship/",
+        "abort before starting a build, server, or browser if any required path is unresolved or outside /Volumes/Starship/",
+        "record redacted resolved paths and free-space evidence for the A22 report"
+      ],
+      "environmentAndOptions": [
+        "set dedicated Starship paths for TMPDIR, TMP, TEMP, NEXT_DIST_DIR, PLAYWRIGHT_BROWSERS_PATH, Playwright outputDir, and report directories",
+        "set explicit Starship browser user-data/cache paths through supported browser or Playwright options",
+        "do not repurpose HOME",
+        "do not permit automatic fallback to system temporary or user Library/cache locations"
+      ],
+      "cleanupBoundary": "preserve E2E evidence until separately authorized; cleanup authority never permits an internal-disk fallback"
+    },
+    "gateClassification": {
+      "displayedLessonContent": "PASS for the tested dirty working-tree snapshot",
+      "durableRegressionPackaging": "BLOCKED until all 18 untracked artifacts, A11 count-enforcing runner, A22 browser wrapper, and package.json wiring are approved and included",
+      "crossSurfaceCaliforniaTests": "PASS on current direct rerun: 18/18",
+      "originalDepthTargets": "ADVISORY RED at 322/329 real visual, 62/50 paper-only, and 26/28 Grade 8 real visual",
+      "round18DepthNoRegression": "RELEASE-BLOCKING floors of real visual >=322, paper-only <=62, Grade 8 real visual >=26, with no other green assertion turning red",
+      "visualizationQuarantine": "RELEASE-BLOCKING; empty allowlist must remain empty until independent renderer-level approval"
+    }
+  },
+  "cleanCandidateProposal": {
+    "executeOnlyAfterSeparateApproval": true,
+    "base": "freshly reverified origin/main, currently bd0928ef52ff000976d9abab279bc79fc1aef1ae",
+    "proposedPath": "/Volumes/Starship/MAIS-ca-round18-candidate-wt",
+    "proposedBranch": "codex/a22-us-ca-round18-candidate",
+    "packageOrder": [
+      "CA-R18-04",
+      "CA-R18-08",
+      "CA-R18-05",
+      "CA-R18-06",
+      "CA-R18-07",
+      "CA-R18-03",
+      "CA-R18-01",
+      "CA-R18-02",
+      "CA-R18-09",
+      "CA-R18-10"
+    ],
+    "excludedFromRuntimeCandidate": [
+      "CA-R18-10",
+      "CA-R18-11",
+      "CA-R18-12 until explicit deletion-or-archive approval"
+    ],
+    "method": [
+      "reverify remote main; stop and recalculate if its SHA moved",
+      "freeze exact approved package paths and hashes for untracked inputs",
+      "create package worktrees from the verified origin/main SHA only after Git authorization",
+      "derive cumulative California-side final-state patches from the merge base, restricted to each exact package manifest",
+      "add untracked files explicitly and perform no-write applicability checks first",
+      "three-way merge the four overlap files at hunk level",
+      "verify each package diff contains no outside path, run focused checks, stage exact paths only, and commit one rollback boundary",
+      "compose a clean candidate from reviewed package commits in the declared order",
+      "retain origin/main package versions and lockfile; use candidate-local npm ci with the worktree and physical dependency tree under /Volumes/Starship/",
+      "before every E2E run, fail closed unless the candidate, dependencies, build output, temporary directories, Playwright browser and cache, reports, traces, screenshots, videos, logs, storage state, test databases, and all writable runtime artifacts resolve under /Volumes/Starship/",
+      "run the source-authority gates, count-enforced 119-test static gate, current 18/18 cross-surface gate, depth no-regression barrier, type-check, build, isolated desktop/mobile browser gates, and release preflight",
+      "keep Draft PR, preview, merge, cleanup, and deployment as separate owner decisions"
+    ],
+    "currentReleaseBlockers": [
+      "owner approval of package boundaries and final states is absent",
+      "15 paths lack canonical owner-pathspec routing",
+      "California QA scripts need a more-specific A11/A22 routing rule",
+      "the Round 18 gate is not wired into package.json",
+      "strict worktree lifecycle preflight reports 28 open decisions (19 dirty and 9 clean-diverged) and is red",
+      "canonical release-root default still names /Users/dongpinhu/Desktop/MAIS-MVP",
+      "the dirty snapshot uses shared dependency versions that do not prove current origin/main lockfile parity",
+      "the system temporary volume reached ENOSPC; owner now requires all E2E worktrees, dependencies, build and temporary outputs, browsers/caches, reports, evidence, logs, storage state, and writable runtime artifacts to remain physically under /Volumes/Starship/ with no internal-disk fallback"
+    ]
+  },
+  "stopConditions": [
+    "origin/main changes from the frozen SHA without a refreshed overlap audit",
+    "any path is unassigned, duplicated, or outside the approved package",
+    "any deletion lacks explicit owner disposition",
+    "a conflict appears outside the four known overlap paths",
+    "package.json downgrades current-main dependencies, removes test:parent-console, or changes unrelated scripts",
+    "candidate dependencies come from the current shared node_modules symlink instead of candidate-local npm ci",
+    "any E2E-owned path, dependency tree, build output, temporary directory, browser executable/cache, report, trace, screenshot, video, log, storage-state file, test database, or writable runtime artifact resolves outside /Volumes/Starship/",
+    "a required static, cross-surface, depth no-regression, type, build, browser, package, clean-source, or lifecycle gate fails",
+    "QA evidence would be removed before archival",
+    "preview or deployment authorization is absent"
+  ]
+}

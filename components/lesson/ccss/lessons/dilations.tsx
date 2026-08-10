@@ -25,7 +25,7 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        A <strong>dilation</strong>{" "}with center C and scale factor k pushes every
+        A <strong>dilation</strong>{" "}with center C and positive scale factor k pushes every
         point k times as far from C. It <strong>scales lengths by k</strong>{" "}but{" "}
         <strong>keeps angles unchanged</strong>{" "}— and maps every line to a parallel
         line (unless it passes through C).
@@ -66,13 +66,13 @@ export default function Lesson() {
         Each vertex (x, y) becomes (kx, ky), so it sits on the ray from the center
         {" "}k times as far out. With k = {scale}, every side length multiplies by{" "}
         {scale} while every angle stays the same — the image is{" "}
-        <strong>similar</strong>{" "}to the original. When |k| &gt; 1 it enlarges;
-        0 &lt; |k| &lt; 1 shrinks.
+        <strong>similar</strong>{" "}to the original. When k &gt; 1 it enlarges;
+        0 &lt; k &lt; 1 shrinks.
       </p>
 
       <MathCheck>
         <p>
-          A <strong>dilation</strong>{" "}with center C and factor k (G-SRT.1) sends a
+          A <strong>dilation</strong>{" "}with center C and positive factor k (G-SRT.1) sends a
           point P to the point on ray CP with CP&apos; = k·CP. It{" "}
           <strong>multiplies all lengths by k</strong>{" "}and takes a line not through
           the center to a <strong>parallel</strong>{" "}line, while{" "}

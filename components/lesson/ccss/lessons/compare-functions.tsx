@@ -18,14 +18,32 @@ export default function Lesson() {
 
   const fasterRate = mB > 3 ? "B" : mB < 3 ? "A" : "tie";
   const higherStart = bB > 4 ? "B" : bB < 4 ? "A" : "tie";
+  const longRunDescription = mB > 3
+    ? bB < 4
+      ? "B starts behind A but eventually overtakes it as x increases."
+      : bB === 4
+        ? "B starts level with A and then moves ahead as x increases."
+        : "B starts ahead of A and stays ahead as x increases."
+    : mB < 3
+      ? bB > 4
+        ? "A starts behind B but eventually overtakes it as x increases."
+        : bB === 4
+          ? "A starts level with B and then moves ahead as x increases."
+          : "A starts ahead of B and stays ahead as x increases."
+      : bB > 4
+        ? "The equal slopes keep B ahead by the same amount for every x."
+        : bB < 4
+          ? "The equal slopes keep A ahead by the same amount for every x."
+          : "The functions have the same slope and start, so they are identical.";
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Two functions are often described <em>differently</em>{" "}— one as a formula,
-        another as a table or graph. To compare them, pull out the same features:
-        their <strong>rate of change</strong>{" "}and their <strong>starting
-        value</strong>. Then they stack up directly.
+        The two <strong>linear functions</strong>{" "}in this lesson are described
+        differently—one as a formula and one as a table. Compare their matching
+        linear features: <strong>rate of change</strong>{" "}(slope) and
+        <strong> y-intercept</strong>{" "}(starting value). Other function families
+        can require different features, such as maxima, minima, or end behavior.
       </p>
 
       <Figure caption="Function A is a formula; B is a table. Compare their rates and intercepts head to head.">
@@ -61,9 +79,10 @@ export default function Lesson() {
       <h2>Same features, different clothes</h2>
       <p>
         A&apos;s rate is 3 and B&apos;s is {mB}, so {fasterRate === "tie" ? "they change at the same pace" : `${fasterRate} grows faster`}. B&apos;s
-        table shows its start ({bB}) at x = 0, versus A&apos;s 4. Whichever
-        eventually wins depends on the rates — a bigger slope always overtakes,
-        given enough x. Comparison just needs the features in a common language.
+        table shows its start ({bB}) at x = 0, versus A&apos;s 4. {longRunDescription}{" "}
+        A larger slope eventually exceeds a lower-slope line; it only
+        <em> overtakes</em>{" "}when it begins behind. Comparison just needs the
+        features in a common language.
       </p>
 
       <MathCheck>

@@ -4,6 +4,10 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const MAXX = 20;
 const PAD = 24;
@@ -20,10 +24,29 @@ export default function Lesson() {
   const groupB = BASE_B.map((v) => v + shift);
 
   const mean = (arr: number[]) => arr.reduce((s, v) => s + v, 0) / arr.length;
+  const mad = (arr: number[]) => {
+    const center = mean(arr);
+    return arr.reduce((s, v) => s + Math.abs(v - center), 0) / arr.length;
+  };
   const meanA = mean(GROUP_A), meanB = mean(groupB);
   const diff = Math.abs(meanB - meanA);
-  const spread = 2; // approx MAD for these sets
+  // A horizontal shift does not alter variability. Compute the actual MAD from
+  // the dots instead of using 2, almost twice the true 50/49.
+  const spread = (mad(GROUP_A) + mad(groupB)) / 2;
   const separation = diff / spread;
+  const meanADisplay = meanA.toFixed(1);
+  const meanBDisplay = meanB.toFixed(1);
+  const diffDisplay = diff.toFixed(1);
+  const spreadDisplay = spread.toFixed(2);
+  const separationDisplay = separation.toFixed(1);
+  const meanARelation = relationForDisplayedValue(meanA, meanADisplay);
+  const meanBRelation = relationForDisplayedValue(meanB, meanBDisplay);
+  const separationRelation = relationForDisplayedValue(separation, separationDisplay);
+  const meanASpokenRelation = spokenRelationForDisplayedValue(meanA, meanADisplay);
+  const meanBSpokenRelation = spokenRelationForDisplayedValue(meanB, meanBDisplay);
+  const spreadSpokenRelation = spokenRelationForDisplayedValue(spread, spreadDisplay);
+  const separationSpokenRelation = spokenRelationForDisplayedValue(separation, separationDisplay);
+  const separationAdverb = separationRelation === "=" ? "exactly" : "approximately";
 
   const x = (v: number) => PAD + v * STEP;
   const dots = (arr: number[], color: string, baseY: number) => {
@@ -39,14 +62,15 @@ export default function Lesson() {
       <p>
         To compare two groups, look at how much their <strong>distributions
         overlap</strong>. If the <strong>centers</strong>{" "}are far apart compared to
-        the <strong>spread</strong>, the difference is meaningful. If they overlap a
-        lot, it may not be.
+        the <strong>spread</strong>, the displayed samples are more separated. If
+        they overlap a lot, their centers are less distinct relative to their
+        variability.
       </p>
 
       <Figure caption="Two groups on one axis. Slide group B and watch the overlap — and the gap between means.">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
-            <svg width={W} height={150} viewBox={`0 0 ${W} 150`} className="mx-auto" role="img" aria-label={`Two dot plots on a common axis: group A centered at ${meanA.toFixed(1)}, group B centered at ${meanB.toFixed(1)}`}>
+            <svg width={W} height={150} viewBox={`0 0 ${W} 150`} className="mx-auto" role="img" aria-label={`Two dot plots on a common axis: group A mean ${meanASpokenRelation} ${meanADisplay}, group B mean ${meanBSpokenRelation} ${meanBDisplay}`}>
               <line x1={PAD} y1={120} x2={W - PAD} y2={120} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: MAXX + 1 }, (_, i) => (i % 2 === 0 ? <text key={i} x={x(i)} y={138} textAnchor="middle" fontSize={9} fill="var(--ink-faint)" fontFamily="var(--font-mono)">{i}</text> : null))}
               {dots(GROUP_A, A, 112)}
@@ -59,13 +83,13 @@ export default function Lesson() {
           </FigureScroll>
 
           <div className="grid grid-cols-3 gap-3 text-center">
-            <Fact label="Mean A" value={meanA.toFixed(1)} color={A} />
-            <Fact label="Mean B" value={meanB.toFixed(1)} color={B} />
-            <Fact label="Gap ÷ spread" value={`${separation.toFixed(1)}×`} />
+            <Fact label="Mean A" value={`${meanARelation} ${meanADisplay}`} ariaValue={`Mean A ${meanASpokenRelation} ${meanADisplay}`} color={A} />
+            <Fact label="Mean B" value={`${meanBRelation} ${meanBDisplay}`} ariaValue={`Mean B ${meanBSpokenRelation} ${meanBDisplay}`} color={B} />
+            <Fact label="Gap ÷ MAD" value={`${separationRelation} ${separationDisplay}×`} ariaValue={`Gap divided by mean absolute deviation ${separationSpokenRelation} ${separationDisplay}`} />
           </div>
 
           <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            {separation < 1 ? "The groups overlap a lot — the difference in means is small compared to the spread." : separation < 2 ? "Some overlap, but a noticeable difference in center." : "The groups barely overlap — a large, meaningful difference."}
+            {separation < 1 ? "The groups overlap a lot — the difference in means is small compared with the MAD." : separation < 2 ? "Some overlap, with a visible difference in center." : "The displayed samples have little overlap and well-separated centers."}
           </p>
 
           <div className="flex flex-col items-center gap-1">
@@ -77,10 +101,12 @@ export default function Lesson() {
 
       <h2>Difference measured in spreads</h2>
       <p>
-        The means differ by {diff.toFixed(1)}. Compared with the typical spread
-        (about {spread}), that is roughly {separation.toFixed(1)} spreads apart. A
-        gap that is large relative to the spread signals a real difference between
-        the groups.
+        The means differ by {diffDisplay}. Their mean absolute deviation{" "}
+        {spreadSpokenRelation} {spreadDisplay} (nearest hundredth), so the centers are
+        {" "}{separationAdverb} {separationDisplay} MADs apart. This describes separation
+        in the displayed samples; deciding whether
+        a population difference is statistically significant needs an inferential
+        method and information about how the samples were obtained.
       </p>
 
       <MathCheck>
@@ -88,20 +114,20 @@ export default function Lesson() {
           Comparing two populations (7.SP.B.3, B.4) means assessing the{" "}
           <strong>visual overlap</strong>{" "}of their distributions and expressing the
           difference in <strong>centers</strong>{" "}as a multiple of the{" "}
-          <strong>variability</strong>. A difference in means that is several
-          spreads wide is meaningful; heavily overlapping distributions are not
-          clearly different.
+          <strong>variability</strong>, such as the mean absolute deviation. This is
+          an informal comparison of the displayed distributions, not by itself a
+          significance test or a causal conclusion.
         </p>
       </MathCheck>
     </div>
   );
 }
 
-function Fact({ label, value, color }: { label: string; value: string; color?: string }) {
+function Fact({ label, value, ariaValue, color }: { label: string; value: string; ariaValue: string; color?: string }) {
   return (
     <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2">
       <div className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</div>
-      <div className="font-mono text-xl font-black" style={color ? { color } : undefined}>{value}</div>
+      <div className="font-mono text-xl font-black" style={color ? { color } : undefined} aria-label={ariaValue}>{value}</div>
     </div>
   );
 }

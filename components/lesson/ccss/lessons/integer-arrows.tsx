@@ -133,14 +133,16 @@ export default function Lesson() {
 
       <h2>Same direction or opposite?</h2>
       <p>
-        When both steps go the <strong>same way</strong>, the distances add and
-        the answer is bigger. When they go <strong>opposite ways</strong>, they
+        When two nonzero steps go the <strong>same way</strong>, their distances add
+        and the endpoint moves farther from zero in that direction. When they go <strong>opposite ways</strong>, they
         partly cancel — you end up at the difference of their sizes, pointed the
-        way of the longer arrow. Here the two arrows are{" "}
+        way of the longer arrow. Here{" "}
         <strong>
-          {Math.sign(p) === Math.sign(q) || p === 0 || q === 0
-            ? "pointing the same way (or one is zero)"
-            : "pointing opposite ways"}
+          {p === 0 || q === 0
+            ? "one step has length zero, so it leaves the other step unchanged"
+            : Math.sign(p) === Math.sign(q)
+              ? "the arrows point the same way, so their distances add"
+              : "the arrows point opposite ways, so their distances partly cancel"}
         </strong>
         .
       </p>
@@ -148,7 +150,7 @@ export default function Lesson() {
       <MathCheck>
         <p>
           Adding <strong>q</strong>{" "}to a number means translating it{" "}
-          <strong>|q|</strong>{" "}units — right if q &gt; 0, left if q &lt; 0
+          <strong>|q| = {Math.abs(q)}</strong>{" "}{Math.abs(q) === 1 ? "unit" : "units"} — right if q &gt; 0, left if q &lt; 0
           (7.NS.A.1). A number and its opposite are the same distance from 0 in
           opposite directions, so <strong>p + (−p) = 0</strong>: they form a{" "}
           <em>zero pair</em>. That is exactly why opposite-direction arrows

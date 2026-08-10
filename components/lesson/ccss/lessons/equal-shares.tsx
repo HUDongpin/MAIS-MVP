@@ -62,12 +62,12 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <div className="flex items-center gap-2">
               {(["circle", "rect"] as const).map((s) => (
-                <button key={s} type="button" onClick={() => setShape(s)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={shape === s ? { background: FILLS[0], color: "white", borderColor: FILLS[0] } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s === "circle" ? "Circle" : "Rectangle"}</button>
+                <button key={s} type="button" onClick={() => setShape(s)} aria-pressed={shape === s} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={shape === s ? { background: FILLS[0], color: "white", borderColor: FILLS[0] } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s === "circle" ? "Circle" : "Rectangle"}</button>
               ))}
             </div>
             <div className="flex items-center gap-2">
               {[2, 3, 4].map((p) => (
-                <button key={p} type="button" onClick={() => setParts(p)} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={parts === p ? { background: FILLS[1], color: "white", borderColor: FILLS[1] } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{WORD[p]}</button>
+                <button key={p} type="button" onClick={() => setParts(p)} aria-pressed={parts === p} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={parts === p ? { background: FILLS[1], color: "white", borderColor: FILLS[1] } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{WORD[p]}</button>
               ))}
             </div>
             {shape === "rect" && (

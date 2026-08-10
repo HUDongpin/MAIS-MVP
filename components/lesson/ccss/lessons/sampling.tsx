@@ -17,8 +17,15 @@ export default function Lesson() {
     setSample(Array.from({ length: size }, () => Math.random() < TRUE_P));
   };
 
+  const changeSize = (nextSize: number) => {
+    setSize(nextSize);
+    setSample(Array.from({ length: nextSize }, () => Math.random() < TRUE_P));
+  };
+
   const liked = sample.filter(Boolean).length;
-  const est = Math.round((liked / sample.length) * 100);
+  const exactEst = (liked / sample.length) * 100;
+  const est = Math.round(exactEst);
+  const estRelation = Math.abs(exactEst - est) < 1e-9 ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -39,16 +46,18 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: BLUE }}>
-            <div className="font-mono text-2xl font-black" style={{ color: BLUE }}>{liked} of {sample.length} = {est}%</div>
-            <div className="mt-1 text-sm text-[var(--ink-soft)]">estimated to like soccer</div>
+            <div className="font-mono text-2xl font-black" style={{ color: BLUE }}>{liked} of {sample.length} {estRelation} {est}%</div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">
+              sample proportion{estRelation === "≈" ? "; rounded to the nearest whole percent" : ""}
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
             <button type="button" onClick={draw} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ background: BLUE }}>🎲 Take a new sample</button>
-            <Stepper label="Sample size" value={size} min={10} max={50} step={10} onChange={setSize} />
+            <Stepper label="Sample size" value={size} min={10} max={50} step={10} onChange={changeSize} />
           </div>
           <p className="m-0 text-center text-sm text-[var(--ink-faint)]">
-            Resample a few times: small samples jump around; larger samples stay closer to the true 60%.
+            Resample many times: estimates from larger samples tend to vary less around the true 60%.
           </p>
         </div>
       </Figure>
@@ -56,18 +65,20 @@ export default function Lesson() {
       <h2>A sample stands in for the whole</h2>
       <p>
         Each random sample gives a slightly different estimate — that is{" "}
-        <strong>sampling variability</strong>. But a representative sample is a
-        valid way to infer about the population, and <strong>bigger samples</strong>{" "}
-        give more reliable estimates.
+        <strong>sampling variability</strong>. A well-designed random sample can
+        support inference about the population; random selection reduces bias but
+        does not guarantee that any one sample perfectly mirrors the population.
+        Larger random samples tend to produce less-variable estimates.
       </p>
 
       <MathCheck>
         <p>
           Statistics uses a <strong>sample</strong>{" "}to learn about a population
           that is too big to measure fully (7.SP.A.1). A <strong>random</strong>{" "}
-          (representative) sample supports valid <strong>inferences</strong>{" "}
-          (7.SP.A.2): the sample proportion estimates the population proportion,
-          and larger samples reduce the variability of that estimate.
+          sample from an appropriate sampling frame can support valid{" "}
+          <strong>inferences</strong>{" "}(7.SP.A.2): the sample proportion estimates
+          the population proportion, and the sampling distribution becomes less
+          variable as sample size grows.
         </p>
       </MathCheck>
     </div>

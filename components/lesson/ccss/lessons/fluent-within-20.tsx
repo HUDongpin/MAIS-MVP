@@ -37,7 +37,7 @@ export default function Lesson() {
         one. Soon you just <em>know</em>{" "}the answer.
       </p>
 
-      <Figure caption="Pick two numbers. The best mental strategy shows up automatically.">
+      <Figure caption="Pick two numbers. One useful mental strategy appears automatically.">
         <div className="flex flex-col items-center gap-6">
           <div className="font-mono text-3xl font-black">
             <span style={{ color: A }}>{a}</span> + <span style={{ color: B }}>{b}</span> = {sum}
@@ -68,10 +68,10 @@ export default function Lesson() {
 
       <MathCheck>
         <p>
-          Fluently adding and subtracting within 20 with mental strategies —{" "}
+          Fluently adding within 20 with mental strategies —{" "}
           <strong>doubles</strong>, <strong>near-doubles</strong>, and{" "}
           <strong>making a ten</strong>{" "}— and knowing sums of two one-digit
-          numbers from memory is 2.OA.B.2. Every strategy relies on the same idea:
+          numbers from memory is part of 2.OA.B.2. Every strategy relies on the same idea:
           break a number apart and put it back together in an easier way.
         </p>
       </MathCheck>

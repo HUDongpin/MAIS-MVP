@@ -19,20 +19,44 @@ export default function Lesson() {
   const dy = Math.abs(p2.y - p1.y);
   const dist = Math.sqrt(dx * dx + dy * dy);
   const perfect = Number.isInteger(dist);
+  const pointsCoincide = dx === 0 && dy === 0;
+  const axisAligned = !pointsCoincide && (dx === 0 || dy === 0);
+  const sharedAxis = dx === 0 ? "vertical" : "horizontal";
+  const nonzeroGap = dx === 0 ? dy : dx;
 
   const sx = (x: number) => PAD + x * CELL;
   const sy = (y: number) => SIZE - PAD - y * CELL;
 
   return (
     <div className="prose-lesson max-w-none">
-      <p>
-        How far apart are two points? Draw the <strong>horizontal</strong>{" "}and{" "}
-        <strong>vertical</strong>{" "}gaps between them — they are the legs of a right
-        triangle, and the straight-line distance is the <strong>hypotenuse</strong>.
-        It&apos;s the Pythagorean theorem on a grid.
-      </p>
+      {pointsCoincide ? (
+        <p>
+          The selected points coincide. Both coordinate gaps and the straight-line
+          distance are 0, so no triangle or hypotenuse is formed.
+        </p>
+      ) : axisAligned ? (
+        <p>
+          The selected points lie on the same <strong>{sharedAxis}</strong>{" "}line.
+          Their straight-line distance is the one nonzero coordinate gap,{" "}
+          <strong>{nonzeroGap}</strong>. Because the other gap is 0, no right triangle
+          or hypotenuse is formed.
+        </p>
+      ) : (
+        <p>
+          How far apart are two points? Draw the <strong>horizontal</strong>{" "}and{" "}
+          <strong>vertical</strong>{" "}gaps between them — they are the legs of a
+          right triangle, and the straight-line distance is the{" "}
+          <strong>hypotenuse</strong>. It&apos;s the Pythagorean theorem on a grid.
+        </p>
+      )}
 
-      <Figure caption="The dashed legs are the coordinate differences; the solid line is the distance.">
+      <Figure caption={
+        pointsCoincide
+          ? "The two points occupy the same location, so their distance is 0."
+          : axisAligned
+            ? `The points share a ${sharedAxis} line, so the segment length is the one nonzero coordinate gap, ${nonzeroGap}.`
+            : "The dashed legs are the coordinate differences; the solid line is the hypotenuse and distance."
+      }>
         <div className="flex flex-col items-center gap-6">
           <svg
             width={SIZE}
@@ -42,9 +66,11 @@ export default function Lesson() {
             style={{ maxHeight: 340 }}
             role="img"
             aria-label={
-              dx === 0 && dy === 0
-                ? `Both points at (${p1.x}, ${p1.y}), so the distance is 0`
-                : `Points (${p1.x}, ${p1.y}) and (${p2.x}, ${p2.y}) joined by a line of length ${perfect ? dist : `about ${dist.toFixed(2)}`}, with a horizontal leg of ${dx} and a vertical leg of ${dy}`
+              pointsCoincide
+                ? `Both points are at (${p1.x}, ${p1.y}), so the distance is 0; no triangle is formed`
+                : axisAligned
+                  ? `Points (${p1.x}, ${p1.y}) and (${p2.x}, ${p2.y}) lie on the same ${sharedAxis} line; their straight-line distance is ${nonzeroGap}`
+                  : `Points (${p1.x}, ${p1.y}) and (${p2.x}, ${p2.y}) form a right triangle with horizontal leg ${dx}, vertical leg ${dy}, and hypotenuse ${perfect ? dist : `about ${dist.toFixed(2)}`}`
             }
           >
             {Array.from({ length: N + 1 }, (_, i) => (
@@ -87,19 +113,39 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>Pythagoras on a grid</h2>
-      <p>
-        The horizontal gap is {dx} and the vertical gap is {dy}, so the distance is
-        √({dx}² + {dy}²) = √{dx * dx + dy * dy} {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}.
-        It works for any two points — just subtract the coordinates.
-      </p>
+      <h2>{pointsCoincide ? "Coincident points" : axisAligned ? "One coordinate gap" : "Pythagoras on a grid"}</h2>
+      {pointsCoincide ? (
+        <p>
+          Both differences are 0, so d = √(0² + 0²) = 0. This is the distance
+          between one location and itself.
+        </p>
+      ) : axisAligned ? (
+        <p>
+          The {sharedAxis === "vertical" ? "horizontal" : "vertical"} gap is 0, so
+          the formula reduces to the absolute {sharedAxis === "vertical" ? "vertical" : "horizontal"}{" "}
+          difference: √({dx}² + {dy}²) = {nonzeroGap}. No nondegenerate triangle is
+          needed.
+        </p>
+      ) : (
+        <p>
+          The horizontal gap is {dx} and the vertical gap is {dy}, so the distance
+          is √({dx}² + {dy}²) = √{dx * dx + dy * dy}{" "}
+          {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}. It works for any two
+          points — just subtract the coordinates.
+        </p>
+      )}
 
       <MathCheck>
         <p>
-          The distance between two points is found with the{" "}
-          <strong>Pythagorean theorem</strong>{" "}(8.G.B.8): the horizontal and
-          vertical differences (|x₂ − x₁| and |y₂ − y₁|) are the legs, so the
-          distance is <strong>√((x₂ − x₁)² + (y₂ − y₁)²)</strong>{" "}— here √({dx}² + {dy}²) {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}.
+          The distance formula is{" "}
+          <strong>√((x₂ − x₁)² + (y₂ − y₁)²)</strong>{" "}(8.G.B.8).{" "}
+          {pointsCoincide ? (
+            <>Here both differences are 0, so the distance is 0 and no triangle or hypotenuse is formed.</>
+          ) : axisAligned ? (
+            <>Here one difference is 0, so the distance is the other absolute coordinate difference; no right triangle or hypotenuse is formed.</>
+          ) : (
+            <>Here the horizontal and vertical differences are the legs of a right triangle, and the distance is its hypotenuse: √({dx}² + {dy}²) {perfect ? `= ${dist}` : `≈ ${dist.toFixed(2)}`}.</>
+          )}
         </p>
       </MathCheck>
     </div>

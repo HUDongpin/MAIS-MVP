@@ -21,7 +21,8 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        You can&apos;t write √{n} exactly, but you can <strong>pin it down</strong>{" "}
+        The radical √{n} is an exact value, but its decimal cannot be written as
+        a terminating or repeating decimal. You can <strong>pin down its decimal</strong>{" "}
         between two whole numbers, then narrow it. √{n} lies between{" "}
         <strong>{lo}</strong>{" "}and <strong>{hi}</strong>{" "}because {loSq} &lt; {n} &lt; {hiSq}.
       </p>
@@ -44,7 +45,7 @@ export default function Lesson() {
 
           <div className="flex flex-col items-center gap-1 rounded-2xl border-2 border-[var(--line)] px-6 py-3 font-mono text-[15px]">
             <div>{loSq} &lt; {n} &lt; {hiSq}, so {lo} &lt; √{n} &lt; {hi}</div>
-            <div className="text-[var(--ink-soft)]">{lo}.{Math.floor((val - lo) * 10)}² = {(lo + Math.floor((val - lo) * 10) / 10).toFixed(1)}² = {Math.pow(lo + Math.floor((val - lo) * 10) / 10, 2).toFixed(2)} — closing in</div>
+            <div className="text-[var(--ink-soft)]">{(lo + Math.floor((val - lo) * 10) / 10).toFixed(1)}² = {Math.pow(lo + Math.floor((val - lo) * 10) / 10, 2).toFixed(2)} — a nearby tenth gives a tighter bound</div>
             <div className="text-2xl font-black" style={{ color: ACCENT }}>√{n} ≈ {val.toFixed(3)}</div>
           </div>
 
@@ -55,7 +56,7 @@ export default function Lesson() {
       <h2>Squeeze it between squares</h2>
       <p>
         Since {loSq} and {hiSq} are the perfect squares around {n}, √{n} must be
-        between {lo} and {hi}. Testing decimals like {(val).toFixed(1)} narrows it
+        between {lo} and {hi}. Testing nearby tenths and hundredths narrows it
         further — √{n} ≈ {val.toFixed(2)}, close enough to plot on the line.
       </p>
 

@@ -40,23 +40,26 @@ export default function Lesson() {
       <p>
         Compass and straightedge do more than bisect segments. They let you build
         the <strong>incircle</strong>{" "}and <strong>circumcircle</strong>{" "}of a
-        triangle, and a <strong>tangent</strong>{" "}to a circle — each resting on a
-        special point where certain lines concur.
+        triangle by locating special concurrence points. They also let you build
+        a <strong>tangent</strong>{" "}to a circle by using the right angle between
+        a radius and the tangent at their contact point.
       </p>
 
       {/* The SVG draws the triangle, one circle and its centre - and, in
           tangent mode, a tangent with its radius and right angle. No bisector
           of either kind is ever drawn. */}
-      <Figure caption="Pick a construction: each one places its center and circle on the same triangle.">
+      <Figure caption={m.kind === "tangent"
+        ? "The marked external point lies on a tangent that meets the circle once; the radius to the contact point is perpendicular."
+        : "The selected construction places the circle and its center relative to the same triangle."}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {MODES.map((mo, i) => (
-              <button key={mo.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{mo.name}</button>
+              <button key={mo.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{mo.name}</button>
             ))}
           </div>
 
-          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={m.name}>
-            <polygon points="40,160 200,160 120,30" fill={ACCENT} fillOpacity={0.1} stroke={ACCENT} strokeWidth={2} />
+          <svg width={240} height={220} viewBox="0 0 240 220" role="img" aria-label={m.name}>
+            {m.kind !== "tangent" && <polygon points="40,160 200,160 120,30" fill={ACCENT} fillOpacity={0.1} stroke={ACCENT} strokeWidth={2} />}
             <circle cx={m.center[0]} cy={m.center[1]} r={m.r} fill="none" stroke="var(--band-upper)" strokeWidth={2.5} />
             <circle cx={m.center[0]} cy={m.center[1]} r={3} fill="var(--band-upper)" />
             {m.kind === "tangent" && (
@@ -64,6 +67,8 @@ export default function Lesson() {
                 <line x1={m.center[0]} y1={m.center[1] - m.r} x2={230} y2={m.center[1] - m.r} stroke={ACCENT} strokeWidth={2} />
                 <line x1={m.center[0]} y1={m.center[1]} x2={m.center[0]} y2={m.center[1] - m.r} stroke="var(--ink-soft)" strokeWidth={1.5} strokeDasharray="3 2" />
                 <rect x={m.center[0]} y={m.center[1] - m.r} width={10} height={10} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
+                <circle cx={220} cy={m.center[1] - m.r} r={4} fill={ACCENT} />
+                <text x={225} y={m.center[1] - m.r - 8} textAnchor="end" fontSize={11} fontWeight={800} fill={ACCENT}>external point</text>
               </>
             )}
           </svg>

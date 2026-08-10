@@ -1,3 +1,4 @@
+import { getCaliforniaAssignedCoreStandardIds } from "./signatureLabAssignments";
 import type { LocalizedText } from "@/types";
 
 export type CaliforniaHighSchoolWorkedExample = {
@@ -2770,12 +2771,36 @@ const californiaHighSchoolChapterPlacementById: Record<string, CaliforniaHighSch
   }
 };
 
+function highSchoolDomainCode(standardId: string) {
+  if (standardId === "Modeling") return standardId;
+  return standardId.split(".")[0];
+}
+
+function highSchoolConceptualCategory(domainCode: string) {
+  if (domainCode.startsWith("N-")) return "Number and Quantity";
+  if (domainCode.startsWith("A-")) return "Algebra";
+  if (domainCode.startsWith("F-")) return "Functions";
+  if (domainCode.startsWith("G-")) return "Geometry";
+  if (domainCode.startsWith("S-")) return "Statistics and Probability";
+  return "Modeling";
+}
+
 export const californiaHighSchoolTextbookChapters =
   californiaHighSchoolTextbookDraft.chapters.map((chapter) => {
     const placement = californiaHighSchoolChapterPlacementById[chapter.chapterId];
+    const assignedStandardIds = getCaliforniaAssignedCoreStandardIds(chapter.chapterId);
+    const assignedDomainCodes = [...new Set(assignedStandardIds.map(highSchoolDomainCode))];
+    const domainCodes = assignedDomainCodes.length > 0 ? assignedDomainCodes : [placement.domainCode];
+    const conceptualCategories = [...new Set(domainCodes.map(highSchoolConceptualCategory))];
+
     return {
       ...chapter,
       ...placement,
-      standards: [`CA.CCSS.Math.HS.${placement.domainCode}`]
+      // The noindex preview must describe the interactive lesson core that is
+      // actually assigned to this chapter, including intentional cross-domain
+      // cores, rather than the older single-strand placement guess.
+      domainCode: domainCodes.join(" + "),
+      conceptualCategory: conceptualCategories.join(" / "),
+      standards: domainCodes.map((domainCode) => `CA.CCSS.Math.HS.${domainCode}`)
     };
   }) satisfies readonly CaliforniaHighSchoolTextbookChapter[];

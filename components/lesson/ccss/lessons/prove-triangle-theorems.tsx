@@ -22,14 +22,15 @@ export default function Lesson() {
         The classic triangle theorems — the <strong>180° angle sum</strong>, the{" "}
         <strong>isosceles base angles</strong>, the <strong>midsegment</strong>{" "}rule
         — aren&apos;t just true, they&apos;re <em>provable</em>{" "}from parallel-line
-        angles and rigid motions. A picture suggests it; a proof settles it.
+        angles, rigid motions, and dilations or similarity. A picture suggests it;
+        a proof settles it.
       </p>
 
-      <Figure caption="Each theorem follows from parallel-line angle facts or a symmetry of the figure.">
+      <Figure caption="The proofs use parallel-line angle facts, rigid-motion symmetry, or dilation and similarity.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {THEOREMS.map((th, i) => (
-              <button key={th.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{th.name}</button>
+              <button key={th.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{th.name}</button>
             ))}
           </div>
 

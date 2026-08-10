@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-high)";
 const CX = 120, CY = 120, RAD = 90;
@@ -11,12 +15,17 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
 export default function Lesson() {
   const [deg, setDeg] = useState(37);
   const rad = (deg * Math.PI) / 180;
-  const cos = r2(Math.cos(rad));
-  const sin = r2(Math.sin(rad));
+  const rawCos = Math.cos(rad);
+  const rawSin = Math.sin(rad);
+  const cos = r2(rawCos);
+  const sin = r2(rawSin);
   // Square the exact values, not the two-decimal display values: rounding first
   // and squaring after prints 0.99 or 1.01 directly under "= 1 for every angle θ",
   // which is the misconception this lesson exists to prevent.
-  const sumSquares = r2(Math.cos(rad) ** 2 + Math.sin(rad) ** 2);
+  const displayedSumSquares = sin ** 2 + cos ** 2;
+  const roundedSumSquares = r2(displayedSumSquares);
+  const displayedSumRelation = relationForDisplayedValue(displayedSumSquares, roundedSumSquares);
+  const identityRelation = relationForDisplayedValue(displayedSumSquares, 1);
   const px = r2(CX + RAD * Math.cos(rad));
   const py = r2(CY - RAD * Math.sin(rad));
 
@@ -31,7 +40,7 @@ export default function Lesson() {
 
       <Figure caption="The right triangle inside the unit circle has legs cos θ and sin θ, hypotenuse 1 — Pythagoras.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`Unit circle with a right triangle for an angle of ${deg} degrees: horizontal leg cos θ = ${cos}, vertical leg sin θ = ${sin}, hypotenuse 1`}>
+          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`Unit circle with a right triangle for an angle of ${deg} degrees: horizontal leg cos θ ${spokenRelationForDisplayedValue(rawCos, cos)} ${cos}, vertical leg sin θ ${spokenRelationForDisplayedValue(rawSin, sin)} ${sin}, both shown to the nearest hundredth; hypotenuse exactly 1`}>
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
             <line x1={CX - RAD - 15} y1={CY} x2={CX + RAD + 15} y2={CY} stroke="var(--ink-soft)" strokeWidth={1.5} />
             <line x1={CX} y1={CY - RAD - 15} x2={CX} y2={CY + RAD + 15} stroke="var(--ink-soft)" strokeWidth={1.5} />
@@ -45,8 +54,8 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">sin²θ + cos²θ =</div>
-            <div className="text-lg font-black">({sin})² + ({cos})² = <span style={{ color: ACCENT }}>{sumSquares}</span></div>
-            <div className="text-xs text-[var(--ink-faint)]">= 1 for every angle θ</div>
+            <div className="text-lg font-black">({sin})² + ({cos})² {displayedSumRelation} <span style={{ color: ACCENT }}>{roundedSumSquares}</span></div>
+            <div className="text-xs text-[var(--ink-faint)]">rounded coordinates may shift the sum; unrounded sin²θ + cos²θ = 1 exactly</div>
           </div>
 
           <Slider label="angle θ" value={deg} onChange={setDeg} />
@@ -55,7 +64,8 @@ export default function Lesson() {
 
       <h2>One identity leads to many</h2>
       <p>
-        For any θ, {sin}² + {cos}² ≈ 1 (rounding aside). Dividing by cos²θ gives
+        For every real θ, sin²θ + cos²θ = 1. For the selected angle, {sin}² +{" "}
+        {cos}² {identityRelation} 1 (rounding aside). Where cos θ ≠ 0, dividing by cos²θ gives
         1 + tan²θ = sec²θ. And the <strong>addition formulas</strong>{" "}—
         sin(A + B) = sin A cos B + cos A sin B, cos(A + B) = cos A cos B − sin A sin B
         — let you find exact values like sin 75° = sin(45° + 30°). Identities turn

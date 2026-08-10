@@ -14,6 +14,7 @@ export default function Lesson() {
   const [total, setTotal] = useState(26);
 
   const miles = (total - base) / rate; // solve base + rate·m = total
+  const milesExactToHundredth = Math.abs(miles * 100 - Math.round(miles * 100)) < 1e-9;
   const cost = (x: number) => base + rate * x;
 
   const sx = (x: number) => PAD + x * PXX;
@@ -32,7 +33,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-6 py-2 text-center font-mono">
             <div className="text-lg font-black">{base} + {rate}·m = {total}</div>
-            <div className="mt-1 text-sm text-[var(--ink-soft)]">m = ({total} − {base}) / {rate} = <strong style={{ color: ACCENT }}>{Number.isInteger(miles) ? miles : miles.toFixed(2)}</strong>{" "}miles</div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">m = ({total} − {base}) / {rate} {milesExactToHundredth ? "=" : "≈"} <strong style={{ color: ACCENT }}>{Number.isInteger(miles) ? miles : miles.toFixed(2)}</strong>{" "}{miles === 1 ? "mile" : "miles"}{milesExactToHundredth ? "" : " (nearest hundredth)"}</div>
           </div>
 
           <svg
@@ -56,6 +57,16 @@ export default function Lesson() {
             ))}
             <line x1={sx(0)} y1={sy(0)} x2={sx(XMAX)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(0)} x2={sx(0)} y2={sy(YMAX)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <text
+              x={10}
+              y={H / 2}
+              textAnchor="middle"
+              fontSize={9}
+              fill="var(--ink-faint)"
+              transform={`rotate(-90 10 ${H / 2})`}
+            >
+              cost (dollars)
+            </text>
             {/* Clip the segment at the x where it leaves the frame, rather than
                 squashing its y-endpoint onto the ceiling: squashing changed the
                 drawn slope away from the printed rate, leaving the solution dot

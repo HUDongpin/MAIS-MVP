@@ -49,7 +49,7 @@ export default function Lesson() {
         trigonometry.
       </p>
 
-      <Figure caption="The horizontal leg is cos θ; the vertical leg is sin θ. Together they place the point on the circle.">
+      <Figure caption="The signed horizontal projection is cos θ and the signed vertical projection is sin θ. Reference-triangle leg lengths are |cos θ| and |sin θ|.">
         <div className="flex flex-col items-center gap-5">
           <svg width={BOX} height={BOX} viewBox={`0 0 ${BOX} ${BOX}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Unit circle at ${deg} degrees`}>
             {/* axes */}
@@ -57,7 +57,7 @@ export default function Lesson() {
             <line x1={C} y1={C - R - 20} x2={C} y2={C + R + 20} stroke="var(--ink-soft)" strokeWidth={1.5} />
             {/* circle */}
             <circle cx={C} cy={C} r={R} fill="none" stroke="var(--line)" strokeWidth={2} />
-            {/* legs of the reference triangle */}
+            {/* signed coordinate projections; geometric leg lengths are absolute values */}
             <line x1={C} y1={C} x2={px} y2={C} stroke={COS} strokeWidth={3} />
             <line x1={px} y1={C} x2={px} y2={py} stroke={SIN} strokeWidth={3} />
             {/* radius ray */}
@@ -79,6 +79,9 @@ export default function Lesson() {
             <Stat label="cos θ (x)" value={coord(cos)} color={COS} />
             <Stat label="sin θ (y)" value={coord(sin)} color={SIN} />
           </div>
+          <p className="m-0 text-center text-xs text-[var(--ink-faint)]">
+            Sine and cosine coordinates are shown to the nearest thousandth.
+          </p>
 
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
@@ -100,12 +103,13 @@ export default function Lesson() {
 
       <h2>Why the coordinates are cosine and sine</h2>
       <p>
-        Drop a vertical line from the point to the x-axis. You get a right
-        triangle whose hypotenuse is the radius, <strong>1</strong>. By the
-        definition of the trig ratios, the horizontal leg is{" "}
-        <span className="font-mono">cos θ</span> and the vertical leg is{" "}
-        <span className="font-mono">sin θ</span> — so the point itself is at{" "}
-        <span className="font-mono">(cos θ, sin θ)</span>.
+        Drop a vertical line from the point to the x-axis. The signed horizontal
+        projection, or x-coordinate, is <span className="font-mono">cos θ</span>;
+        the signed vertical projection, or y-coordinate, is{" "}
+        <span className="font-mono">sin θ</span>. In a nondegenerate reference
+        triangle, the corresponding leg lengths are <span className="font-mono">|cos θ|</span>{" "}
+        and <span className="font-mono">|sin θ|</span>. Thus the point is at{" "}
+        <span className="font-mono">(cos θ, sin θ)</span> in every quadrant.
       </p>
 
       <MathCheck>
@@ -135,6 +139,10 @@ function Stat({ label, value, color }: { label: string; value: string; color?: s
 /** SVG arc path from angle a0 to a1 (degrees, counterclockwise) at radius r. */
 function describeArc(cx: number, cy: number, r: number, a0: number, a1: number): string {
   const p0 = polar(cx, cy, r, a0);
+  if (Math.abs(a1 - a0) >= 360) {
+    const pm = polar(cx, cy, r, a0 + 180);
+    return `M ${p0.x} ${p0.y} A ${r} ${r} 0 0 0 ${pm.x} ${pm.y} A ${r} ${r} 0 0 0 ${p0.x} ${p0.y}`;
+  }
   const p1 = polar(cx, cy, r, a1);
   const large = a1 - a0 > 180 ? 1 : 0;
   // sweep flag 0 because screen y is inverted (counterclockwise math → clockwise screen)

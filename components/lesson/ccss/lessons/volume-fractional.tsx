@@ -25,6 +25,7 @@ export default function Lesson() {
   const l = lh / 2, w = wh / 2, h = hh / 2;
   const base = l * w;
   const vol = l * w * h;
+  const volumeUnit = vol === 1 ? "cubic unit" : "cubic units";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -47,7 +48,7 @@ export default function Lesson() {
           </svg>
 
           <div className="text-center">
-            <div className="font-mono text-xl font-black">V = {fmtFrac(lh)} × {fmtFrac(wh)} × {fmtFrac(hh)} = <span style={{ color: ACCENT }}>{fmt(vol)}</span> cubic units</div>
+            <div className="font-mono text-xl font-black">V = {fmtFrac(lh)} × {fmtFrac(wh)} × {fmtFrac(hh)} = <span style={{ color: ACCENT }}>{fmt(vol)}</span> {volumeUnit}</div>
             <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">= base area ({fmt(base)}) × height ({fmt(h)}) = B × h</div>
           </div>
 
@@ -63,7 +64,7 @@ export default function Lesson() {
       <p>
         You can pack the box with cubes that are ½ unit on each side (each worth ⅛
         of a unit cube). Counting them gives the same answer as{" "}
-        {fmtFrac(lh)} × {fmtFrac(wh)} × {fmtFrac(hh)} = {fmt(vol)} cubic units.
+        {fmtFrac(lh)} × {fmtFrac(wh)} × {fmtFrac(hh)} = {fmt(vol)} {volumeUnit}.
       </p>
 
       <MathCheck>

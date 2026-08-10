@@ -29,7 +29,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {([["add", "x + p = q"], ["mult", "px = q"]] as const).map(([m, lbl]) => (
-              <button key={m} type="button" onClick={() => setMode(m)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={mode === m ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={mode === m ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 

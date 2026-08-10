@@ -12,7 +12,7 @@ export default function Lesson() {
   const [h, setH] = useState(4);
   const [lshape, setLshape] = useState(false);
 
-  // L-shape removes a (w-2) x (h-2) corner block from the top-right
+  // Remove a bounded corner block so at least one top-row cell and two bottom rows remain.
   const cutW = lshape ? Math.max(1, w - 3) : 0;
   const cutH = lshape ? Math.max(1, h - 2) : 0;
   const filledCell = (r: number, c: number) => !(lshape && r < cutH && c >= w - cutW);
@@ -71,8 +71,9 @@ export default function Lesson() {
         <p>
           Area is an attribute of flat shapes, measured in <strong>unit squares</strong>{" "}
           — a square with side 1 has area &ldquo;one square unit&rdquo; (3.MD.C.5).
-          You find the area of any shape by <strong>counting</strong>{" "}how many
-          unit squares cover it with no gaps or overlaps (3.MD.C.6); here that
+          When a shape is covered exactly by whole unit squares, you can find its
+          area by <strong>counting</strong>{" "}those squares with no gaps or overlaps
+          (3.MD.C.6); here that
           count is {area}.
         </p>
       </MathCheck>

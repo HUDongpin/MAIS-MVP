@@ -77,9 +77,9 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} disabled={value <= -5} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-8 text-center text-2xl font-black tabular-nums" style={{ color: ACCENT }}>{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} disabled={value >= 9} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

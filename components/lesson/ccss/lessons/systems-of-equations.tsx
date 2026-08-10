@@ -26,9 +26,14 @@ export default function Lesson() {
   // rounded ix back through the line gave (0.33, 0.66) for the true (1/3, 2/3),
   // so "plug it into either equation and it checks out" failed for the second.
   const ixExact = parallel ? 0 : (b2 - b1) / (m1 - m2);
+  const iyExact = parallel ? 0 : m1 * ixExact + b1;
   const ix = r2(ixExact);
-  const iy = r2(m1 * ixExact + b1);
-  const inRange = !parallel && ix >= 0 && ix <= N && iy >= 0 && iy <= N;
+  const iy = r2(iyExact);
+  const roundedIntersection = !parallel && (
+    Math.abs(ixExact - ix) > 1e-9 || Math.abs(iyExact - iy) > 1e-9
+  );
+  const intersectionLabel = `${roundedIntersection ? "≈" : ""}(${ix}, ${iy})`;
+  const inRange = !parallel && ixExact >= 0 && ixExact <= N && iyExact >= 0 && iyExact <= N;
 
   const linePts = (m: number, b: number) => {
     // draw across the visible box
@@ -44,18 +49,23 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         A <strong>system</strong>{" "}is two equations at once. Its solution is the{" "}
-        <strong>point where the lines cross</strong>{" "}— the (x, y) that satisfies{" "}
-        <em>both</em>. Parallel lines never cross, so some systems have no solution.
+        <strong>points shared by both graphs</strong>{" "}— the (x, y) values that satisfy{" "}
+        <em>both</em>. Distinct parallel lines share no points, while identical lines
+        share every point on the line.
       </p>
 
-      <Figure caption="Graph both lines. Where they intersect is the one point that solves both equations.">
+      <Figure caption={parallel
+        ? b1 === b2
+          ? "The equations graph as the same line, so every point on that line solves both equations."
+          : "The equations graph as distinct parallel lines, so no point solves both equations."
+        : "The lines have one intersection, and that shared point solves both equations."}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-lg font-black">
             <span style={{ color: L1 }}>y = {m1}x + {b1}</span>
             <span style={{ color: L2 }}>y = {m2}x + {b2}</span>
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={parallel ? (b1 === b2 ? "two identical lines, every point shared" : "two parallel lines, no intersection") : inRange ? `two lines meeting at (${ix}, ${iy})` : "two lines whose intersection falls outside this grid"}>
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 340 }} role="img" aria-label={parallel ? (b1 === b2 ? "two identical lines, every point shared" : "two parallel lines, no intersection") : inRange ? `two lines meeting at ${roundedIntersection ? "approximately " : ""}(${ix}, ${iy})` : "two lines whose intersection falls outside this grid"}>
             {Array.from({ length: N + 1 }, (_, i) => (
               <g key={i} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(i)} y1={sy(0)} x2={sx(i)} y2={sy(N)} />
@@ -68,8 +78,8 @@ export default function Lesson() {
             <polyline points={linePts(m2, b2)} fill="none" stroke={L2} strokeWidth={3} />
             {inRange && (
               <g>
-                <circle cx={sx(ix)} cy={sy(iy)} r={7} fill="var(--ink)" stroke="white" strokeWidth={2.5} />
-                <text x={sx(ix)} y={sy(iy) - 12} textAnchor="middle" fontSize={13} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">({ix}, {iy})</text>
+                <circle cx={sx(ixExact)} cy={sy(iyExact)} r={7} fill="var(--ink)" stroke="white" strokeWidth={2.5} />
+                <text x={sx(ixExact)} y={sy(iyExact) - 12} textAnchor="middle" fontSize={13} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{intersectionLabel}</text>
               </g>
             )}
           </svg>
@@ -77,7 +87,7 @@ export default function Lesson() {
           <div className="rounded-xl px-5 py-2 text-center text-lg font-black" style={{ color: parallel ? "var(--band-early)" : "var(--band-upper)" }}>
             {/* The grid only covers 0..10; outside it the dot is suppressed but
                 the panel still announced a solution with nothing to point at. */}
-            {parallel ? (b1 === b2 ? "Same line — infinitely many solutions" : "Parallel lines — no solution") : `Solution: (${ix}, ${iy})${inRange ? "" : " — off this grid"}`}
+            {parallel ? (b1 === b2 ? "Same line — infinitely many solutions" : "Parallel lines — no solution") : `Solution${roundedIntersection ? " (nearest hundredth)" : ""}: ${intersectionLabel}${inRange ? "" : " — off this grid"}`}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -89,11 +99,13 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>The crossing point solves both</h2>
+      <h2>{parallel ? (b1 === b2 ? "The same line has infinitely many solutions" : "Distinct parallel lines have no solution") : "The crossing point solves both"}</h2>
       <p>
         {parallel
-          ? "Equal slopes make parallel lines — they share no point, so there is no solution (unless they are the very same line)."
-          : `The lines meet at (${ix}, ${iy}). Plug it into either equation and it checks out — that single point satisfies both.`}
+          ? b1 === b2
+            ? "Equal slopes and equal intercepts name the same line, so every point on it satisfies both equations."
+            : "Equal slopes but different intercepts make distinct parallel lines. They share no point, so the system has no solution."
+          : `The lines meet at ${intersectionLabel}${roundedIntersection ? ", shown to the nearest hundredth. The unrounded intersection satisfies both equations exactly." : ". Plugging it into either equation checks exactly because that single point satisfies both."}`}
       </p>
 
       <MathCheck>

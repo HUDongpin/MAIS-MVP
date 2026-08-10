@@ -11,7 +11,7 @@ const PATTERNS: Record<number, string> = {
   5: "Multiples of 5 line up in two straight columns and always end in 0 or 5.",
   // "always add up to 9" is false for 99 (9+9 = 18), which is on the chart.
   // The Math Check was corrected earlier; this table entry was missed.
-  9: "Multiples of 9 fall on a diagonal, and their digits always add up to a multiple of 9 (18 → 1+8 = 9, 99 → 9+9 = 18).",
+  9: "From 9 through 81, the multiples of 9 make a descending diagonal. Then the hundred chart wraps to a new row for 90 and 99. Their digits always add up to a multiple of 9 (18 → 1+8 = 9, 99 → 9+9 = 18).",
   10: "Multiples of 10 fill the last column and always end in 0.",
 };
 
@@ -31,7 +31,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {[2, 5, 9, 10].map((v) => (
-              <button key={v} type="button" onClick={() => setK(v)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={k === v ? { background: HL, color: "white", borderColor: HL } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>×{v}</button>
+              <button key={v} type="button" onClick={() => setK(v)} aria-pressed={k === v} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={k === v ? { background: HL, color: "white", borderColor: HL } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>×{v}</button>
             ))}
           </div>
 

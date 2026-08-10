@@ -25,7 +25,7 @@ export default function Lesson() {
         the origin</strong>, and its equation is <strong>y = kx</strong>.
       </p>
 
-      <Figure caption="Every y ÷ x equals the same k. The graph is a line through (0, 0).">
+      <Figure caption="For every nonzero x, y ÷ x equals the same k. The graph is a line through (0, 0).">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-5 py-2 font-mono text-xl font-black">
             y = <span style={{ color: ACCENT }}>{k}</span>x
@@ -84,14 +84,14 @@ export default function Lesson() {
 
       <h2>Same ratio everywhere</h2>
       <p>
-        In a proportional relationship, y ÷ x never changes — it always equals k = {k}. That constant is the unit rate, the slope of the line, and the number
+        In a proportional relationship, y ÷ x never changes for <strong>x ≠ 0</strong> — it always equals k = {k}. (At the origin, 0 ÷ 0 is undefined.) That constant is the unit rate, the slope of the line, and the number
         that multiplies x in the equation y = {k}x.
       </p>
 
       <MathCheck>
         <p>
           A <strong>proportional relationship</strong>{" "}(7.RP.A.2) has a constant
-          ratio y/x = k, the <strong>constant of proportionality</strong>. It shows
+          ratio y/x = k for x ≠ 0, the <strong>constant of proportionality</strong>. It shows
           up as a straight line through the <strong>origin</strong>{" "}on a graph, a
           constant y ÷ x in a table, and the equation <strong>y = kx</strong>. Here
           k = {k}.

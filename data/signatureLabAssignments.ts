@@ -30,11 +30,92 @@ export type SignatureLabId = (typeof signatureLabIds)[number];
 export type SignatureLabAssignment = {
   /** The bench that renders for this topic. */
   primary: SignatureLabId;
+  /** Assignment-local verified CCSS overlap when the port's older header omits the newer grade-band application. */
+  primaryCoreStandardIds?: readonly string[];
   /** Further benches matching this topic's standards, shown as "related labs". Ported-only. */
   related?: SignatureLabId[];
   /** Why this primary was chosen. Required — the curation audit trail. */
   rationale: string;
 };
+
+/**
+ * Compact client-safe projection of the CCSS lessons actually assigned to each
+ * California topic. `visualizationLabs.ts` is imported by a client surface, so
+ * it must not pull the 270-lesson registry and read-aloud narrations merely to
+ * render standard chips. The contract test compares every entry with
+ * `ccssLessonMetasForTopic`; drift fails CI instead of reaching learners.
+ */
+export const californiaAssignedCoreStandardsByTopic: Readonly<Record<string, readonly string[]>> = {
+  "us-ca-math-k-k-cc-count-sequence": ["K.CC.A.1","K.CC.A.2","K.CC.B.4","K.CC.B.5","K.CC.A.3"],
+  "us-ca-math-k-k-cc-cardinality-compare": ["K.CC.B.4","K.CC.B.5","K.CC.A.3","K.CC.C.6","K.CC.C.7"],
+  "us-ca-math-k-k-oa-compose-decompose": ["K.OA.A.1","K.OA.A.2","K.OA.A.3","K.OA.A.4","K.OA.A.5"],
+  "us-ca-math-k-k-nbt-teen-numbers": ["K.NBT.A.1"],
+  "us-ca-math-k-k-md-attributes-data": ["K.MD.A.1","K.MD.A.2","K.MD.B.3"],
+  "us-ca-math-k-k-g-shapes-position": ["K.G.A.1","K.G.A.2","K.G.A.3","K.G.B.4","K.G.B.5","K.G.B.6"],
+  "us-ca-math-p1-1-oa-add-subtract": ["1.OA.A.1","1.OA.A.2","1.OA.B.4","1.OA.C.5","1.OA.C.6","1.OA.B.3","1.OA.D.7","1.OA.D.8"],
+  "us-ca-math-p1-1-nbt-place-value": ["1.NBT.A.1","1.NBT.B.2","1.NBT.C.5","1.NBT.B.3","1.NBT.C.4","1.NBT.C.6"],
+  "us-ca-math-p1-1-md-measure-data": ["1.MD.A.1","1.MD.A.2","1.MD.B.3","1.MD.C.4"],
+  "us-ca-math-p1-1-g-shape-reasoning": ["1.G.A.1","1.G.A.2","1.G.A.3"],
+  "us-ca-math-p2-2-oa-fluency-arrays": ["2.OA.A.1","2.OA.B.2","2.OA.C.3","2.OA.C.4"],
+  "us-ca-math-p2-2-nbt-three-digit-place-value": ["2.NBT.A.1","2.NBT.A.3","2.NBT.A.2","2.NBT.A.4","2.NBT.B.5","2.NBT.B.6","2.NBT.B.7","2.NBT.B.9","2.NBT.B.8"],
+  "us-ca-math-p2-2-md-measure-data-money-time": ["2.MD.A.1","2.MD.A.2","2.MD.A.3","2.MD.A.4","2.MD.B.5","2.MD.B.6","2.MD.C.7","2.MD.C.8","2.MD.D.9","2.MD.D.10"],
+  "us-ca-math-p2-2-g-partition-shapes": ["2.G.A.1","2.G.A.2","2.G.A.3"],
+  "us-ca-math-p3-3-oa-mult-div": ["3.OA.A.2","3.OA.B.6","3.OA.A.3","3.OA.A.4","3.OA.B.5","3.OA.C.7","3.OA.D.8","3.OA.D.9","3.MD.C.7","3.OA.A.1"],
+  "us-ca-math-p3-3-nbt-arithmetic": ["3.NBT.A.1","3.NBT.A.2","3.NBT.A.3"],
+  "us-ca-math-p3-3-nf-fraction-meaning": ["3.NF.A.1","3.NF.A.2","3.NF.A.3"],
+  "us-ca-math-p3-3-md-time-data-area-perimeter": ["3.MD.A.1","3.MD.A.2","3.MD.B.3","3.MD.B.4","3.MD.C.5","3.MD.C.6","3.MD.C.7","3.OA.A.1","3.MD.D.8"],
+  "us-ca-math-p3-3-g-categories": ["3.G.A.1","3.G.A.2"],
+  "us-ca-math-p4-4-oa-factors-patterns": ["4.OA.A.1","4.OA.A.2","4.OA.A.3","4.OA.B.4","4.OA.C.5"],
+  "us-ca-math-p4-4-nbt-multi-digit": ["4.NBT.A.1","4.NBT.A.2","4.NBT.A.3","4.NBT.B.4","4.NBT.B.5","4.NBT.B.6"],
+  "us-ca-math-p4-4-nf-fraction-decimal": ["4.NF.A.1","4.NF.A.2","4.NF.B.3","4.NF.B.4","4.NF.C.5","4.NF.C.6","4.NF.C.7"],
+  "us-ca-math-p4-4-md-conversion-angles": ["4.MD.A.1","4.MD.A.2","4.MD.A.3","4.MD.B.4","4.MD.C.5","4.MD.C.6","4.MD.C.7"],
+  "us-ca-math-p4-4-g-lines-shapes": ["4.G.A.1","4.G.A.2","4.G.A.3"],
+  "us-ca-math-p5-5-oa-expressions-patterns": ["5.OA.A.1","5.OA.A.2","5.OA.B.3"],
+  "us-ca-math-p5-5-nbt-decimals": ["5.NBT.A.1","5.NBT.A.2","5.NBT.A.3","5.NBT.A.4","5.NBT.B.5","5.NBT.B.6","5.NBT.B.7"],
+  "us-ca-math-p5-5-nf-operations": ["5.NF.A.1","5.NF.A.2","5.NF.B.3","5.NF.B.4","5.NF.B.5","5.NF.B.6","5.NF.B.7"],
+  "us-ca-math-p5-5-md-volume-data": ["5.MD.A.1","5.MD.B.2","5.MD.C.3","5.MD.C.4","5.MD.C.5"],
+  "us-ca-math-p5-5-g-coordinate-shapes": ["5.G.A.1","5.G.A.2","5.G.B.3","5.G.B.4"],
+  "us-ca-math-p6-chapter-01": ["6.RP.A.1","6.RP.A.3","6.RP.A.2"],
+  "us-ca-math-p6-chapter-02": ["6.NS.A.1","6.NS.B.2","6.NS.B.3","6.NS.B.4","6.NS.C.5","6.NS.C.6","6.NS.C.8","6.NS.C.7"],
+  "us-ca-math-p6-chapter-03": ["6.EE.A.1","6.EE.A.2","6.EE.B.6","6.EE.A.3","6.EE.A.4","6.EE.B.5","6.EE.B.7","6.EE.B.8","6.EE.C.9"],
+  "us-ca-math-p6-chapter-04": ["6.G.A.1","6.G.A.2","6.G.A.3","6.G.A.4"],
+  "us-ca-math-p6-chapter-05": ["6.SP.A.1","6.SP.A.2","6.SP.A.3","6.SP.B.5","6.SP.B.4"],
+  "us-ca-math-s1-chapter-01": ["7.RP.A.1","7.RP.A.2","7.RP.A.3"],
+  "us-ca-math-s1-chapter-02": ["7.NS.A.1","7.NS.A.2","7.NS.A.3"],
+  "us-ca-math-s1-chapter-03": ["7.EE.A.1","7.EE.A.2","7.EE.B.3","7.EE.B.4"],
+  "us-ca-math-s1-chapter-04": ["7.G.A.1","7.G.A.2","7.G.A.3","7.G.B.4","7.G.B.5","7.G.B.6"],
+  "us-ca-math-s1-chapter-05": ["7.SP.A.1","7.SP.A.2","7.SP.B.3","7.SP.B.4","7.SP.C.5","7.SP.C.6","7.SP.C.7","7.SP.C.8"],
+  "us-ca-math-s2-chapter-01": ["8.NS.A.1","8.NS.A.2","8.EE.C.7","8.EE.C.8"],
+  "us-ca-math-s2-chapter-02": ["8.EE.B.5","8.EE.B.6","8.F.A.3","8.F.A.1","8.F.A.2","8.F.B.4","8.F.B.5"],
+  "us-ca-math-s2-chapter-03": ["8.G.A.1","8.G.A.3","8.G.A.2","8.G.A.4","8.G.A.5"],
+  "us-ca-math-s2-chapter-04": ["8.EE.A.1","8.EE.A.2","8.EE.A.3","8.EE.A.4","8.G.B.6","8.G.B.7","8.G.B.8","8.G.C.9"],
+  "us-ca-math-s2-chapter-05": ["8.SP.A.1","8.SP.A.2","8.SP.A.3","8.SP.A.4"],
+  "us-ca-math-s3-chapter-01": ["N-RN.1","N-RN.2","N-RN.3","A-CED.1","A-CED.2","A-CED.3","A-CED.4"],
+  "us-ca-math-s3-chapter-02": ["F-IF.1","F-IF.2","F-IF.3","F-IF.4","F-IF.5","F-IF.6","F-IF.7","F-IF.8","F-BF.3","F-IF.9"],
+  "us-ca-math-s3-chapter-03": ["A-REI.1","A-REI.3","A-SSE.1","A-SSE.2","A-SSE.3","A-REI.2","A-REI.4","A-REI.5","A-REI.6","A-REI.7","A-REI.8","A-REI.9","A-REI.10","A-REI.11","A-REI.12"],
+  "us-ca-math-s3-chapter-04": ["G-GPE.1","G-GPE.2","G-GPE.3","G-GPE.4","G-GPE.5","G-GPE.6","G-GPE.7"],
+  "us-ca-math-s3-chapter-05": ["S-ID.1","S-ID.2","S-ID.3","S-ID.4","S-ID.5","S-ID.6","S-ID.7","S-ID.8","S-ID.9"],
+  "us-ca-math-s4-chapter-01": ["G-CO.1","G-CO.2","G-CO.4","G-CO.5","G-CO.3","G-CO.6","G-CO.7","G-CO.8","G-CO.9","G-CO.10","G-CO.11","G-CO.12","G-CO.13"],
+  "us-ca-math-s4-chapter-02": ["G-SRT.1","G-SRT.2","G-SRT.3","G-SRT.4","G-SRT.5","G-SRT.6","G-SRT.7","G-SRT.8","G-SRT.9","G-SRT.10","G-SRT.11"],
+  "us-ca-math-s4-chapter-03": ["G-C.1","G-C.2","G-C.3","G-C.4","G-C.5","G-GMD.1","G-GMD.2","G-GMD.3","G-GMD.4"],
+  "us-ca-math-s4-chapter-04": ["A-SSE.1","A-SSE.2","A-SSE.3","A-SSE.4"],
+  "us-ca-math-s4-chapter-05": ["S-CP.1","S-CP.2","S-CP.5","S-CP.3","S-CP.6","S-CP.4","S-CP.7","S-CP.8","S-CP.9"],
+  "us-ca-math-s5-chapter-01": ["F-IF.7","F-IF.8","F-BF.3","F-BF.1","F-BF.2","F-BF.4","F-BF.5"],
+  "us-ca-math-s5-chapter-02": ["F-LE.1","F-LE.3","F-LE.2","F-LE.5","F-LE.4"],
+  "us-ca-math-s5-chapter-03": ["F-TF.1","F-TF.2","F-TF.3","F-TF.4","F-TF.5","F-TF.6","F-TF.7","F-TF.8","F-TF.9"],
+  "us-ca-math-s5-chapter-04": ["S-ID.1","S-ID.2","S-ID.3","S-ID.4","S-ID.5","S-ID.6","S-ID.7","S-ID.8","S-ID.9"],
+  "us-ca-math-s5-chapter-05": ["S-IC.1","S-IC.2","S-IC.3","S-IC.4","S-IC.5","S-IC.6"],
+  "us-ca-math-s6-chapter-01": ["N-Q.1","N-Q.2","N-Q.3"],
+  "us-ca-math-s6-chapter-02": ["N-CN.1","N-CN.2","N-CN.3","N-CN.4","N-CN.5","N-CN.6","N-CN.7","N-CN.8","N-CN.9","A-APR.1","A-APR.2","A-APR.3","A-APR.4","A-APR.5","A-APR.6","A-APR.7"],
+  "us-ca-math-s6-chapter-03": ["S-MD.1","S-MD.2","S-MD.3","S-MD.4","S-MD.5","S-MD.6","S-MD.7"],
+  "us-ca-math-s6-chapter-04": ["F-IF.1","F-IF.2","F-IF.3","F-IF.4","F-IF.5","F-IF.6","F-IF.7","F-IF.8","F-BF.3","F-IF.9"],
+  "us-ca-math-s6-chapter-05": ["N-VM.1","N-VM.2","N-VM.3","N-VM.4","N-VM.5","N-VM.6","N-VM.7","N-VM.8","N-VM.9","N-VM.10","N-VM.11","N-VM.12","G-MG.1","G-MG.2","G-MG.3"]
+};
+
+export function getCaliforniaAssignedCoreStandardIds(topicId: string | null | undefined): readonly string[] {
+  if (!topicId) return [];
+  return californiaAssignedCoreStandardsByTopic[topicId] ?? [];
+}
 
 export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
   "us-ca-math-k-k-cc-count-sequence": {
@@ -200,10 +281,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4, 5.NF.5, 5.NF.6, 5.NF.7. 7 benches share these standards; FractionAdditionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p5-5-md-volume-data": {
-    primary: "UnitConversionLab",
-    related: ["FractionLinePlotLab", "VolumeLab"],
+    primary: "VolumeLab",
+    related: ["UnitConversionLab", "FractionLinePlotLab"],
     rationale:
-      "CCSS join on 5.MD.1, 5.MD.2, 5.MD.3, 5.MD.4, 5.MD.5. 3 benches share these standards; UnitConversionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The rendered core covers 5.MD.A.1, 5.MD.B.2, and 5.MD.C.3-5. UnitConversionLab was standards-valid but pedagogically miscentered for a page titled Volume and Data; VolumeLab now anchors the core unit-cube and volume work, while unit conversion and line-plot operations remain available as related benches."
   },
   "us-ca-math-p5-5-g-coordinate-shapes": {
     primary: "PointLab",
@@ -344,10 +425,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 7.SP.1, 7.SP.2, 7.SP.3, 7.SP.4, 7.SP.5, 7.SP.6, 7.SP.7, 7.SP.8. 4 benches share these standards; SamplingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s2-chapter-01": {
-    primary: "ExponentRulesLab",
-    related: ["RationalExponentLab", "RootsLab", "ScientificNotationLab", "ProportionalLab", "TwoVariableInequalityLab", "DilationsLab", "EquationLab", "SubstitutionLab", "SystemsOfEquationsLab", "IrrationalLab", "RationalNumbersLab"],
+    primary: "RationalNumbersLab",
+    related: ["IrrationalLab", "EquationLab", "SubstitutionLab", "SystemsOfEquationsLab"],
     rationale:
-      "CCSS join on 8.EE.1-8, plus 8.NS.1-2 added to this chapter on 2026-07-25 (8.NS had no CA chapter, so the irrationals that radicals depend on were unreachable). 12 benches share these standards; ExponentRulesLab anchors the topic (fan-out) and the rest are offered as related labs. IrrationalLab and RationalNumbersLab carry 8.NS."
+      "The rendered lesson core is 8.NS.A.1-2 and 8.EE.C.7-8. RationalNumbersLab directly anchors rational/irrational classification and placement, followed by the equation and system benches that match the remaining rendered standards; the former ExponentRulesLab primary addressed 8.EE.A.1, which is not in this page's assigned core."
   },
   "us-ca-math-s2-chapter-02": {
     primary: "FunctionLab",
@@ -362,10 +443,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 8.G.1, 8.G.2, 8.G.3, 8.G.4, 8.G.5, 8.G.6, 8.G.7, 8.G.8, 8.G.9. 12 benches share these standards; CongruenceLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s2-chapter-04": {
-    primary: "CongruenceLab",
-    related: ["TransformationsLab", "DilationsLab", "TransversalLab", "TriangleLab", "PythagorasLab", "RectangularPrismLab", "DistanceLab", "ConeLab", "CylinderLab", "PyramidLab", "SphereLab"],
+    primary: "PythagorasLab",
+    related: ["ExponentRulesLab", "RootsLab", "ScientificNotationLab", "DistanceLab", "RectangularPrismLab", "ConeLab", "CylinderLab", "PyramidLab", "SphereLab"],
     rationale:
-      "CCSS join on 8.G.1, 8.G.2, 8.G.3, 8.G.4, 8.G.5, 8.G.6, 8.G.7, 8.G.8, 8.G.9. 12 benches share these standards; CongruenceLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The rendered lesson core is 8.EE.A.1-4 and 8.G.B.6-8 plus 8.G.C.9. PythagorasLab anchors the geometry progression, while exponent, root, scientific-notation, distance, and volume benches cover the rest; the former CongruenceLab primary addressed 8.G.A.1-2, which is not in this page's assigned core."
   },
   "us-ca-math-s2-chapter-05": {
     primary: "BestFitLab",
@@ -386,10 +467,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-IF.1-9, plus A-REI.11 added to this chapter on 2026-07-25 — reading the x-values where f(x) = g(x) off the graph is function interpretation, and AbsoluteValueLab (already related here) is the bench that teaches it. 9 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s3-chapter-03": {
-    primary: "ExponentialFunctionLab",
-    related: ["LogarithmLab"],
+    primary: "EquationLab",
+    related: ["ExpressionLab", "FactoringQuadraticsLab", "ExtraneousLab", "QuadraticEquationLab", "EliminationLab", "SystemsOfEquationsLab", "LineParabolaLab", "MatrixLab", "TwoVariableInequalityLab"],
     rationale:
-      "F-LE.1-5 (linear vs exponential models). ExponentialFunctionLab's constant-ratio staircase is the defining contrast to linear growth, so it anchors the chapter; LogarithmLab (the exponential's inverse) rides along as related."
+      "The rendered lesson core is A-REI.1-12 plus A-SSE.1-3. EquationLab anchors equivalence-preserving solution steps, with expression structure, radical/quadratic equations, elimination, systems, matrices, and graphing benches covering the remaining core; the former F-LE exponential primary belonged to a different assigned lesson family."
   },
   "us-ca-math-s3-chapter-04": {
     primary: "CircleLab",
@@ -464,10 +545,11 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on S-IC.1, S-IC.2, S-IC.3, S-IC.4, S-IC.5, S-IC.6. 2 benches share these standards; SamplingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s6-chapter-01": {
-    primary: "VectorLab",
-    related: ["MatrixLab", "BestFitLab", "CompareFunctionsLab", "FormulaLab", "FunctionLab", "GraphStoryLab", "OptimizationLab"],
+    primary: "UnitConversionLab",
+    primaryCoreStandardIds: ["N-Q.1"],
+    related: ["FormulaLab"],
     rationale:
-      "N-Q.1-3 (this chapter is 12-A.1 Quantities, Units, and Precision), plus N-VM.1-3, N-VM.6-12, A-REI.8 and A-REI.9 added on 2026-07-25 — vector and matrix quantities sit in the same CCSS Number & Quantity category and had no chapter at all. Until then the description scrape reduced this chapter to the bare 'Modeling' token and BestFitLab anchored it. VectorLab — a quantity with magnitude and direction, N-VM.1 — now anchors the quantities chapter; MatrixLab carries N-VM.6-12 and the matrix form of a linear system; the modeling benches stay related on the retained 'Modeling' tag."
+      "The rendered lesson core is N-Q.1-3: quantities, units, scale, and appropriate precision. UnitConversionLab is the direct concept match for unit factors and equivalent measures, with FormulaLab as a supporting representation bench; the former VectorLab primary addressed N-VM, which is assigned to the Grade 12 capstone page instead."
   },
   "us-ca-math-s6-chapter-02": {
     primary: "PolynomialArithmeticLab",
@@ -488,10 +570,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-IF.1, F-IF.2, F-IF.3, F-IF.4, F-IF.5, F-IF.6, F-IF.7, F-IF.8, F-IF.9. 9 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s6-chapter-05": {
-    primary: "CompareFunctionsLab",
-    related: ["BestFitLab", "FormulaLab", "FunctionLab", "GraphStoryLab", "OptimizationLab"],
+    primary: "VectorLab",
+    related: ["MatrixLab", "GeometricModelingLab"],
     rationale:
-      "Modeling (CCSS star category). CompareFunctionsLab is model selection — choosing the function family that best fits the situation, the INTERPRET step of the modeling cycle; fit, formula, and optimisation benches are related."
+      "The rendered lesson core is N-VM.1-12 plus G-MG.1-3. VectorLab anchors the vector sequence, followed by matrix operations/transformations and geometric modeling; the former CompareFunctionsLab primary addressed function comparison rather than this page's assigned vector-matrix core."
   },
 };
 

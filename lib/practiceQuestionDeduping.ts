@@ -46,7 +46,7 @@ export function practiceQuestionConceptKey(question: PublicQuestion) {
   return `${question.topicId}:prompt:${prompt}`;
 }
 
-export function dedupePracticeQuestions(questions: PublicQuestion[]) {
+export function dedupePracticeQuestions<TQuestion extends PublicQuestion>(questions: TQuestion[]): TQuestion[] {
   const seenConcepts = new Set<string>();
 
   return questions.filter((question) => {

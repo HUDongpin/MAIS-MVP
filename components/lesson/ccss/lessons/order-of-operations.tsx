@@ -17,6 +17,10 @@ export default function Lesson() {
   const withParen = (a + b) * c - d;
   const noParen = a + b * c - d;
   const result = paren ? withParen : noParen;
+  // Grade 5 evaluates whole-number expressions; negative numbers are not
+  // introduced until Grade 6. The ungrouped form is the smaller of the two,
+  // so keeping d at or below it keeps both displayed results in scope.
+  const maxSubtrahend = Math.min(9, a + b * c);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -57,13 +61,13 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             {/* The letters are state names — the expression on screen shows
                 only their values, so "Decrease c" pointed at nothing. */}
-            <Stepper label="first number" value={a} onChange={setA} />
-            <Stepper label="second number" value={b} onChange={setB} />
+            <Stepper label="first number" value={a} onChange={(v) => { setA(v); setD((p) => Math.min(p, v + b * c)); }} />
+            <Stepper label="second number" value={b} onChange={(v) => { setB(v); setD((p) => Math.min(p, a + v * c)); }} />
             {/* c = 1 makes the two expressions algebraically identical
                 (their difference is a·(c−1)), so the page read "Same digits,
                 different answers" above two identical results. */}
-            <Stepper label="multiplier" value={c} min={2} onChange={setC} />
-            <Stepper label="number subtracted" value={d} onChange={setD} />
+            <Stepper label="multiplier" value={c} min={2} onChange={(v) => { setC(v); setD((p) => Math.min(p, a + b * v)); }} />
+            <Stepper label="number subtracted" value={d} max={maxSubtrahend} onChange={setD} />
           </div>
         </div>
       </Figure>
@@ -88,15 +92,15 @@ export default function Lesson() {
   );
 }
 
-function Stepper({ label, value, min = 1, onChange }: { label: string; value: number; min?: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(min, Math.min(9, v)));
+function Stepper({ label, value, min = 1, max = 9, onChange }: { label: string; value: number; min?: number; max?: number; onChange: (n: number) => void }) {
+  const set = (v: number) => onChange(Math.max(min, Math.min(max, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
         <button type="button" onClick={() => set(value - 1)} disabled={value <= min} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-6 text-center text-xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 9} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= max} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

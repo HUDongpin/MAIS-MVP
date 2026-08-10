@@ -56,7 +56,9 @@ export default function Lesson() {
   const num = Math.abs(rise) / g;
   const den = Math.abs(run) / g;
   const slopeFrac = vertical ? "undefined" : den === 1 ? `${sign}${num}` : `${sign}${num}/${den}`;
-  const slopeDec = vertical ? "—" : (rise / run).toFixed(2);
+  const exactSlope = vertical ? null : rise / run;
+  const slopeDec = exactSlope === null ? "—" : exactSlope.toFixed(2);
+  const slopeRelation = exactSlope !== null && Number(slopeDec) === exactSlope ? "=" : "≈";
 
   // line endpoints across the whole grid (y = m x + b), or vertical
   let lineEnds: [Pt, Pt];
@@ -83,7 +85,7 @@ export default function Lesson() {
         <strong style={{ color: RUN }}>run</strong>{" "}change.
       </p>
 
-      <Figure caption="Slope = rise ÷ run. Try measuring between different points on the same line.">
+      <Figure caption="Slope = rise ÷ run for two distinct points. Drag a point to define a new line, including a vertical line.">
         <div className="flex flex-col items-center gap-5">
           <svg
             ref={svgRef}
@@ -157,7 +159,7 @@ export default function Lesson() {
               <span style={{ color: RISE }}>rise {rise >= 0 ? rise : `(${rise})`}</span> ÷{" "}
               <span style={{ color: RUN }}>run {run >= 0 ? run : `(${run})`}</span> ={" "}
               <span style={{ color: LINE }}>{slopeFrac}</span>
-              {!vertical && <span className="text-[var(--ink-faint)]"> ≈ {slopeDec}</span>}
+              {!vertical && <span className="text-[var(--ink-faint)]"> {slopeRelation} {slopeDec}</span>}
             </div>
             {vertical && (
               <div className="mt-1 text-sm text-[var(--ink-soft)]">
@@ -175,9 +177,10 @@ export default function Lesson() {
 
       <h2>Slope is the same everywhere on a line</h2>
       <p>
-        Pick <em>any</em>{" "}two points on the same straight line and measure rise
-        over run — you always get the same number. That constant rate of change
-        is what makes the graph a straight line in the first place.
+        Pick <em>any</em>{" "}two distinct points on the same nonvertical straight line
+        and measure rise over run — you always get the same number. That constant
+        rate of change is what makes its graph a straight line. On a vertical line,
+        every such measurement has run 0, so the slope is undefined everywhere.
       </p>
 
       <MathCheck>
@@ -217,6 +220,13 @@ function PointControls({
     if (next.x === other.x && next.y === other.y) return;
     set(next);
   };
+  const moveIsBlocked = (axis: keyof Pt, delta: -1 | 1) => {
+    const nextCoordinate = clamp(p[axis] + delta);
+    if (nextCoordinate === p[axis]) return true;
+
+    const otherAxis: keyof Pt = axis === "x" ? "y" : "x";
+    return nextCoordinate === other[axis] && p[otherAxis] === other[otherAxis];
+  };
   return (
     <div className="flex flex-col items-center gap-1.5">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
@@ -227,7 +237,8 @@ function PointControls({
           <div key={axis} className="flex items-center gap-1">
             <button
               type="button"
-              className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-bold"
+              disabled={moveIsBlocked(axis, -1)}
+              className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40"
               onClick={() => tryset({ ...p, [axis]: clamp(p[axis] - 1) })}
               aria-label={`Decrease ${label} ${axis}`}
             >
@@ -236,7 +247,8 @@ function PointControls({
             <span className="w-4 text-center font-mono text-xs font-bold">{axis}</span>
             <button
               type="button"
-              className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-bold"
+              disabled={moveIsBlocked(axis, 1)}
+              className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40"
               onClick={() => tryset({ ...p, [axis]: clamp(p[axis] + 1) })}
               aria-label={`Increase ${label} ${axis}`}
             >

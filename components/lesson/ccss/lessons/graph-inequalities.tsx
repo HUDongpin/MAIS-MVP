@@ -20,19 +20,18 @@ export default function Lesson() {
   const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const yAt = (x: number) => m * x + b;
 
-  // Both the boundary line and the shaded polygon used yAt(±XR) unclamped. At
-  // m = −3, b = −3 that is y = −18 on a ±5 grid — 364px outside a 352px
-  // viewBox. Clamp the boundary into the window and build the region from the
-  // clamped samples, so the shading follows the line where it is visible and
-  // runs along the edge where the line has left the box.
+  // The shaded intersection with the graph window legitimately follows an edge
+  // after the true line leaves the window. The boundary itself must remain the
+  // straight line y = mx + b, though: drawing this clamped path as a stroke
+  // creates false horizontal "boundary" segments along y = ±5.
   const clampY = (y: number) => Math.max(-XR, Math.min(XR, y));
   const STEPS = 40;
-  const boundary = Array.from({ length: STEPS + 1 }, (_, i) => {
+  const shadeBoundary = Array.from({ length: STEPS + 1 }, (_, i) => {
     const x = -XR + (i / STEPS) * 2 * XR;
     return `${sx(x)},${sy(clampY(yAt(x)))}`;
   });
   const topEdge = above ? XR : -XR;
-  const shade = [...boundary, `${sx(XR)},${sy(topEdge)}`, `${sx(-XR)},${sy(topEdge)}`].join(" ");
+  const shade = [...shadeBoundary, `${sx(XR)},${sy(topEdge)}`, `${sx(-XR)},${sy(topEdge)}`].join(" ");
 
   return (
     <div className="prose-lesson max-w-none">
@@ -50,7 +49,12 @@ export default function Lesson() {
             <button type="button" onClick={() => setAbove((v) => !v)} className="rounded-lg border border-[var(--line)] px-3 py-1 text-sm">flip ≥ / ≤</button>
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Half-plane for y ${above ? "≥" : "≤"} ${m}x + ${b}: boundary line drawn with the region ${above ? "above" : "below"} it shaded`}>
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Half-plane for y ${above ? "greater than or equal to" : "less than or equal to"} ${m}x ${b < 0 ? `minus ${Math.abs(b)}` : `plus ${b}`}: boundary line drawn with the region ${above ? "above" : "below"} it shaded`}>
+            <defs>
+              <clipPath id="graph-inequalities-plot-window">
+                <rect x={sx(-XR)} y={sy(XR)} width={2 * XR * PXX} height={2 * XR * PXX} />
+              </clipPath>
+            </defs>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-XR)} x2={sx(v)} y2={sy(XR)} />
@@ -60,11 +64,18 @@ export default function Lesson() {
             <polygon points={shade} fill={ACCENT} fillOpacity={0.25} />
             <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(-XR)} x2={sx(0)} y2={sy(XR)} stroke="var(--ink-soft)" strokeWidth={2} />
-            {/* Draw the boundary from the same unclamped endpoints as the shading
-                polygon; clamping only the line made it miss the edge of its own
-                half-plane by up to 30px, so the boundary did not bound the region.
-                The outer svg clips the overhang, exactly as it does the polygon. */}
-            <polyline points={boundary.join(" ")} fill="none" stroke={ACCENT} strokeWidth={3} />
+            {/* Draw the actual infinite straight boundary and clip it to the plot.
+                The shade polygon has its own window-edge segments; those are not
+                part of the mathematical boundary and must never receive a stroke. */}
+            <line
+              x1={sx(-XR)}
+              y1={sy(yAt(-XR))}
+              x2={sx(XR)}
+              y2={sy(yAt(XR))}
+              clipPath="url(#graph-inequalities-plot-window)"
+              stroke={ACCENT}
+              strokeWidth={3}
+            />
           </svg>
 
           <p className="m-0 max-w-md text-center text-sm text-[var(--ink-soft)]">

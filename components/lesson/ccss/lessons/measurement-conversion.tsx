@@ -35,7 +35,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {CONVS.map((c, i) => (
-              <button key={c.key} type="button" onClick={() => setCi(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={ci === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{c.big} → {c.small}</button>
+              <button key={c.key} type="button" onClick={() => setCi(i)} aria-pressed={ci === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={ci === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{c.big} → {c.small}</button>
             ))}
           </div>
 

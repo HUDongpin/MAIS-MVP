@@ -596,7 +596,7 @@ export const californiaGrade1AdditionSubtractionMicroLessonSpecs: CaliforniaElem
     ],
     independentPractice: [
       "There are 8 buttons. 3 buttons are red and the rest are blue. Find the blue buttons.",
-      "There are 9 cubes. 5 cubes are tall-stack cubes and the rest are flat. Find the flat cubes.",
+      "There are 9 cubes. 5 cubes are in a tall stack, and the rest are in a flat row. Find how many cubes are in the flat row.",
       "Write a break-apart story for 7 - 2."
     ],
     commonPitfalls: [

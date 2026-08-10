@@ -51,7 +51,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {CRITERIA.map((cr, i) => (
-              <button key={cr.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-4 py-1.5 font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{cr.name}</button>
+              <button key={cr.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-4 py-1.5 font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{cr.name}</button>
             ))}
           </div>
 

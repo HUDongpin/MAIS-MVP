@@ -8,6 +8,7 @@ const KNOWN = "var(--band-middle)";
 const MISSING = "var(--band-early)";
 const WHOLE = "var(--band-upper)";
 const UNIT = 30;
+const answerId = "ccss-missing-addend-answer";
 
 export default function Lesson() {
   const [whole, setWhole] = useState(8);
@@ -37,7 +38,7 @@ export default function Lesson() {
             <span className="text-sm font-bold" style={{ color: WHOLE }}>whole = {whole}</span>
           </div>
 
-          <div className="flex items-center gap-8 text-center">
+          <div id={answerId} className="flex items-center gap-8 text-center">
             <div>
               <div className="text-3xl font-black" style={{ color: KNOWN }}>{k}</div>
               <div className="text-xs font-semibold text-[var(--ink-faint)]">known part</div>
@@ -57,7 +58,7 @@ export default function Lesson() {
             {whole} − {k} = <span style={{ color: MISSING }}>{revealed ? missing : "?"}</span>
           </div>
 
-          <button type="button" onClick={() => setRevealed((r) => !r)} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ background: MISSING }}>
+          <button type="button" onClick={() => setRevealed((r) => !r)} aria-expanded={revealed} aria-controls={answerId} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ background: MISSING }}>
             {revealed ? "Hide the answer" : "Show the missing part"}
           </button>
 
@@ -71,16 +72,22 @@ export default function Lesson() {
       <h2>Two questions, one answer</h2>
       <p>
         “{whole} take away {k}” and “what do I add to {k} to get {whole}” have
-        the very same answer: <strong>{missing}</strong>. That is why knowing
-        your addition facts also gives you the subtraction facts.
+        the very same missing answer. {revealed ? <>
+          Here it is <strong>{missing}</strong>, because {k} + {missing} = {whole}.
+        </> : <>
+          Work out what fills the gap, then use <strong>Show the missing part</strong>{" "}
+          to check your reasoning.
+        </>} That is why knowing your addition facts also gives you the subtraction facts.
       </p>
 
       <MathCheck>
         <p>
           Subtraction is an <strong>unknown-addend problem</strong>{" "}(1.OA.B.4):{" "}
-          {whole} − {k} asks for the number that, added to {k}, makes {whole} — so{" "}
-          {k} + {missing} = {whole}. Seeing subtraction this way lets students use
-          addition facts they already know to subtract.
+          {whole} − {k} asks for the number that, added to {k}, makes {whole}.
+          {revealed ? <> In this case, {k} + {missing} = {whole}.</> : <>
+            {" "}The missing number stays hidden until you choose to check it.
+          </>} Seeing subtraction this way lets students use addition facts they
+          already know to subtract.
         </p>
       </MathCheck>
     </div>

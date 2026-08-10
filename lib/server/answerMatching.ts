@@ -1,9 +1,14 @@
 import type { LocalizedText } from "@/types";
 
 type GradingQuestion = {
+  id?: string;
   answer: string;
   accepted_answers?: string[] | null;
   options?: LocalizedText[] | null;
+  strict_answer_units?: boolean;
+  strictAnswerUnits?: boolean;
+  curriculum_track?: string;
+  curriculumTrack?: string;
 };
 
 const numberWordValues: Record<string, number> = {
@@ -209,6 +214,153 @@ function unwrapFinalAnswerNotation(value: string) {
   return unwrapped;
 }
 
+type AnswerUnitKey =
+  | "generic-linear"
+  | "generic-square"
+  | "generic-cubic"
+  | "degree"
+  | "percent"
+  | "usd"
+  | "hkd"
+  | "millimeter"
+  | "centimeter"
+  | "meter"
+  | "kilometer"
+  | "inch"
+  | "foot"
+  | "yard"
+  | "mile"
+  | "square-centimeter"
+  | "square-meter"
+  | "square-kilometer"
+  | "cubic-centimeter"
+  | "cubic-meter"
+  | "milliliter"
+  | "liter"
+  | "second"
+  | "minute"
+  | "hour"
+  | "day"
+  | "meter-per-second"
+  | "kilometer-per-hour"
+  | "mile-per-hour"
+  | "cup"
+  | "cup-per-hour"
+  | "apple"
+  | "balloon"
+  | "block"
+  | "button"
+  | "card"
+  | "cookie"
+  | "counter"
+  | "cube"
+  | "factor"
+  | "fish"
+  | "fruit"
+  | "half"
+  | "interval"
+  | "item"
+  | "object"
+  | "outcome"
+  | "part"
+  | "pet"
+  | "pencil"
+  | "response"
+  | "shell"
+  | "side"
+  | "spot"
+  | "square-count"
+  | "sticker"
+  | "symmetry-line"
+  | "tile"
+  | "vertex"
+  | "vote";
+
+const answerUnitSuffixRules: Array<{ key: AnswerUnitKey; pattern: RegExp }> = [
+  { key: "cup-per-hour", pattern: /(?<![a-z])cups?\s*(?:per|\/)\s*(?:hours?|hrs?|hr|h)$/ },
+  { key: "mile-per-hour", pattern: /(?<![a-z])(?:(?:miles?|mi)\s*(?:per|\/)\s*(?:hours?|hrs?|hr|h)|mph)$/ },
+  { key: "kilometer-per-hour", pattern: /(?<![a-z])(?:(?:kilometers?|kilometres?|km)\s*(?:per|\/)\s*(?:hours?|hrs?|hr|h)|kmh|kph)$/ },
+  { key: "meter-per-second", pattern: /(?<![a-z])(?:(?:meters?|metres?|m)\s*(?:per|\/)\s*(?:seconds?|secs?|sec|s)|mps)$/ },
+  { key: "generic-square", pattern: /(?<![a-z])(?:square\s*units?|sq\.?\s*units?|unit\s*squares?)$/ },
+  { key: "generic-cubic", pattern: /(?<![a-z])(?:cubic\s*units?|unit\s*cubes?)$/ },
+  { key: "square-centimeter", pattern: /(?<![a-z])(?:cm(?:\^?2)|square\s*centimeters?|square\s*centimetres?|centimeters?\s*squared|centimetres?\s*squared)$/ },
+  { key: "square-kilometer", pattern: /(?<![a-z])(?:km(?:\^?2)|square\s*kilometers?|square\s*kilometres?|kilometers?\s*squared|kilometres?\s*squared)$/ },
+  { key: "square-meter", pattern: /(?<![a-z])(?:m(?:\^?2)|square\s*meters?|square\s*metres?|meters?\s*squared|metres?\s*squared)$/ },
+  { key: "cubic-centimeter", pattern: /(?<![a-z])(?:cm(?:\^?3)|cubic\s*centimeters?|cubic\s*centimetres?|centimeters?\s*cubed|centimetres?\s*cubed)$/ },
+  { key: "cubic-meter", pattern: /(?<![a-z])(?:m(?:\^?3)|cubic\s*meters?|cubic\s*metres?|meters?\s*cubed|metres?\s*cubed)$/ },
+  { key: "degree", pattern: /(?<![a-z])(?:degrees?|°)$/ },
+  { key: "percent", pattern: /(?<![a-z])(?:percent|%)$/ },
+  { key: "hkd", pattern: /(?<![a-z])(?:hong\s*kong\s*dollars?|hkd)$/ },
+  { key: "usd", pattern: /(?<![a-z])(?:u\.?s\.?\s*dollars?|dollars?|usd)$/ },
+  { key: "milliliter", pattern: /(?<![a-z])(?:milliliters?|millilitres?|ml)$/ },
+  { key: "liter", pattern: /(?<![a-z])(?:liters?|litres?|l)$/ },
+  { key: "millimeter", pattern: /(?<![a-z])(?:millimeters?|millimetres?|mm)$/ },
+  { key: "centimeter", pattern: /(?<![a-z])(?:centimeters?|centimetres?|cm)$/ },
+  { key: "kilometer", pattern: /(?<![a-z])(?:kilometers?|kilometres?|km)$/ },
+  { key: "meter", pattern: /(?<![a-z])(?:meters?|metres?|m)$/ },
+  { key: "inch", pattern: /(?<![a-z])(?:inches|inch|in)$/ },
+  { key: "foot", pattern: /(?<![a-z])(?:feet|foot|ft)$/ },
+  { key: "yard", pattern: /(?<![a-z])(?:yards?|yd)$/ },
+  { key: "mile", pattern: /(?<![a-z])(?:miles?|mi)$/ },
+  { key: "second", pattern: /(?<![a-z])(?:seconds?|secs?|sec|s)$/ },
+  { key: "minute", pattern: /(?<![a-z])(?:minutes?|mins?|min)$/ },
+  { key: "hour", pattern: /(?<![a-z])(?:hours?|hrs?|hr|h)$/ },
+  { key: "day", pattern: /(?<![a-z])(?:days?|d)$/ },
+  { key: "cup", pattern: /(?<![a-z])cups?$/ },
+  { key: "generic-linear", pattern: /(?<![a-z])units?$/ },
+  { key: "symmetry-line", pattern: /(?<![a-z])(?:lines?\s+of\s+symmetry|symmetry\s+lines?)$/ },
+  { key: "spot", pattern: /(?<![a-z])(?:empty\s+spots?|empty\s+spaces?|spots?|spaces?)$/ },
+  { key: "fruit", pattern: /(?<![a-z])(?:pieces?\s+of\s+fruit|fruit)$/ },
+  { key: "interval", pattern: /(?<![a-z])(?:quarter[-\s]inch\s+intervals?|intervals?)$/ },
+  { key: "vertex", pattern: /(?<![a-z])(?:corners?|vertices|vertex)$/ },
+  { key: "square-count", pattern: /(?<![a-z])squares?$/ },
+  { key: "apple", pattern: /(?<![a-z])apples?$/ },
+  { key: "balloon", pattern: /(?<![a-z])balloons?$/ },
+  { key: "block", pattern: /(?<![a-z])blocks?$/ },
+  { key: "button", pattern: /(?<![a-z])buttons?$/ },
+  { key: "card", pattern: /(?<![a-z])cards?$/ },
+  { key: "cookie", pattern: /(?<![a-z])cookies?$/ },
+  { key: "counter", pattern: /(?<![a-z])counters?$/ },
+  { key: "cube", pattern: /(?<![a-z])cubes?$/ },
+  { key: "factor", pattern: /(?<![a-z])factors?$/ },
+  { key: "fish", pattern: /(?<![a-z])fish$/ },
+  { key: "half", pattern: /(?<![a-z])(?:half|halves)$/ },
+  { key: "item", pattern: /(?<![a-z])items?$/ },
+  { key: "object", pattern: /(?<![a-z])objects?$/ },
+  { key: "outcome", pattern: /(?<![a-z])outcomes?$/ },
+  { key: "part", pattern: /(?<![a-z])parts?$/ },
+  { key: "pet", pattern: /(?<![a-z])pets?$/ },
+  { key: "pencil", pattern: /(?<![a-z])pencils?$/ },
+  { key: "response", pattern: /(?<![a-z])responses?$/ },
+  { key: "shell", pattern: /(?<![a-z])shells?$/ },
+  { key: "side", pattern: /(?<![a-z])sides?$/ },
+  { key: "sticker", pattern: /(?<![a-z])stickers?$/ },
+  { key: "tile", pattern: /(?<![a-z])tiles?$/ },
+  { key: "vote", pattern: /(?<![a-z])votes?$/ }
+];
+
+function splitExplicitAnswerUnit(value: string): { key: AnswerUnitKey; unitless: string } | null {
+  const normalized = unwrapFinalAnswerNotation(normalizeAnswer(value)).replace(/\.$/, "").trim();
+  const currencyPrefix = normalized.match(/^([+-]?)(hk\$|\$)\s*/);
+  if (currencyPrefix) {
+    return {
+      key: currencyPrefix[2] === "hk$" ? "hkd" : "usd",
+      unitless: `${currencyPrefix[1]}${normalized.slice(currencyPrefix[0].length)}`.trim()
+    };
+  }
+
+  for (const rule of answerUnitSuffixRules) {
+    const match = normalized.match(rule.pattern);
+    if (!match || match.index === undefined) continue;
+    return {
+      key: rule.key,
+      unitless: normalized.slice(0, match.index).trim()
+    };
+  }
+
+  return null;
+}
+
 function safeEvaluateArithmeticExpression(expression: string) {
   const input = expression.replace(/\s+/g, "");
   if (!/^[\d+\-*/().]+$/.test(input)) return null;
@@ -371,7 +523,8 @@ function normalizedAnswerVariants(value: string) {
 }
 
 export function parseScalarAnswer(value: string) {
-  const normalizedText = unwrapFinalAnswerNotation(normalizeAnswer(value));
+  const normalizedWithUnit = unwrapFinalAnswerNotation(normalizeAnswer(value));
+  const normalizedText = splitExplicitAnswerUnit(normalizedWithUnit)?.unitless ?? normalizedWithUnit;
   const englishNumber = parseEnglishNumberWords(normalizedText);
   if (englishNumber !== null) return englishNumber;
   const phraseFraction = parsePhraseFraction(normalizedText);
@@ -423,6 +576,23 @@ export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
 
 export function questionAnswerMatches(question: GradingQuestion, selectedAnswer: string) {
   const acceptedAnswers = [question.answer, ...(question.accepted_answers ?? [])];
+  const strictAnswerUnits = question.strict_answer_units === true ||
+    question.strictAnswerUnits === true ||
+    question.curriculum_track === "US_CA_MATH" ||
+    question.curriculumTrack === "US_CA_MATH" ||
+    question.id?.startsWith("us-ca-") === true ||
+    question.id?.startsWith("ccss-textbook-practice-v1-") === true;
+  const selectedUnit = splitExplicitAnswerUnit(selectedAnswer)?.key ?? null;
+
+  if (strictAnswerUnits && selectedUnit) {
+    const acceptedUnits = new Set(
+      acceptedAnswers
+        .map((answer) => splitExplicitAnswerUnit(answer)?.key ?? null)
+        .filter((unit): unit is AnswerUnitKey => unit !== null)
+    );
+    if (!acceptedUnits.has(selectedUnit)) return false;
+  }
+
   if (acceptedAnswers.some((answer) => answerMatches(selectedAnswer, answer))) return true;
 
   return (question.options ?? []).some((option) => {

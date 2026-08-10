@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const COLORS = ["var(--band-middle)", "var(--band-upper)", "var(--band-early)"];
 const NAMES = ["tenths", "hundredths", "thousandths"];
+const placeCount = (count: number, singular: "tenth" | "hundredth" | "thousandth") =>
+  `${count} ${count === 1 ? singular : `${singular}s`}`;
 
 function digs(th: number) {
   return [Math.floor(th / 100) % 10, Math.floor(th / 10) % 10, th % 10];
@@ -24,7 +26,7 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Decimals reach a third place: <strong>thousandths</strong>. Reading{" "}
-        {strA} means {da[0]} tenths, {da[1]} hundredths, and {da[2]} thousandths.
+        {strA} means {placeCount(da[0], "tenth")}, {placeCount(da[1], "hundredth")}, and {placeCount(da[2], "thousandth")}.
         To compare, check place by place from the <strong>tenths</strong>{" "}down.
       </p>
 
@@ -62,8 +64,9 @@ export default function Lesson() {
 
       <h2>Line up the places</h2>
       <p>
-        A tenth beats any number of hundredths or thousandths, so the tenths place
-        decides first. Writing {strA} in expanded form as {da[0]}/10 + {da[1]}/100
+        A tenths digit has greater place value than a digit to its right, so compare
+        the tenths digits first. If they match, compare hundredths and then
+        thousandths. Writing {strA} in expanded form as {da[0]}/10 + {da[1]}/100
         + {da[2]}/1000 shows exactly what each digit is worth.
       </p>
 
@@ -85,11 +88,11 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Decrease ${label} by ten`}>−10</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 10)} disabled={value - 10 < 0} className="h-9 w-14 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Decrease ${label} by ten thousandths`}>−0.010</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= 0} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label} by one thousandth`}>−</button>
         <span className="w-16 text-center font-mono text-lg font-black tabular-nums">{(value / 1000).toFixed(3)}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Increase ${label} by ten`}>+10</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 999} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label} by one thousandth`}>+</button>
+        <button type="button" onClick={() => set(value + 10)} disabled={value + 10 > 999} className="h-9 w-14 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Increase ${label} by ten thousandths`}>+0.010</button>
       </div>
     </div>
   );

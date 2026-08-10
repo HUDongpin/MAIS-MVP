@@ -39,11 +39,13 @@ export default function Lesson() {
             {COLORS.map((c, i) => {
               const g = gcd(counts[i], total);
               const frac = counts[i] === 0 ? "0" : g === total ? "1" : `${counts[i] / g}/${total / g}`;
+              const probability = counts[i] / total;
+              const exactToHundredth = Math.abs(probability * 100 - Math.round(probability * 100)) < 1e-9;
               return (
                 <div key={c.name} className="rounded-xl border-2 px-4 py-2" style={{ borderColor: c.color }}>
                   <div className="text-xs font-bold uppercase" style={{ color: c.color }}>P({c.name})</div>
                   <div className="font-mono text-xl font-black">{frac}</div>
-                  <div className="text-[10px] text-[var(--ink-faint)]">{counts[i]}/{total} = {(counts[i] / total).toFixed(2)}</div>
+                  <div className="text-[10px] text-[var(--ink-faint)]">{counts[i]}/{total} {exactToHundredth ? "=" : "≈"} {probability.toFixed(2)}</div>
                 </div>
               );
             })}

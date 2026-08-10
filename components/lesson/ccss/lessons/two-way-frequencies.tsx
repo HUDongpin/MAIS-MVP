@@ -20,6 +20,9 @@ export default function Lesson() {
     if (view === "joint") return `${Math.round((g[i][j] / total) * 100)}%`;
     return `${Math.round((g[i][j] / rowTot[i]) * 100)}%`;
   };
+  const rowTotalDisplay = (i: number) => view === "count" ? `${rowTot[i]}` : view === "joint" ? `${Math.round((rowTot[i] / total) * 100)}%` : "100%";
+  const colTotalDisplay = (j: number) => view === "count" ? `${colTot[j]}` : view === "joint" ? `${Math.round((colTot[j] / total) * 100)}%` : "—";
+  const grandTotalDisplay = view === "count" ? `${total}` : view === "joint" ? "100%" : "—";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -34,7 +37,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {(["count", "joint", "row"] as const).map((v) => (
-              <button key={v} type="button" onClick={() => setView(v)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={view === v ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{v === "count" ? "counts" : v === "joint" ? "joint %" : "row %"}</button>
+              <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={view === v ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{v === "count" ? "counts" : v === "joint" ? "joint %" : "row %"}</button>
             ))}
           </div>
 
@@ -50,11 +53,11 @@ export default function Lesson() {
                   <th className="p-2 text-right">{i === 0 ? "9th grade" : "10th grade"}</th>
                   <td className="p-2 text-lg font-black" style={{ color: ACCENT }}>{cell(i, 0)}</td>
                   <td className="p-2 text-lg font-black" style={{ color: ACCENT }}>{cell(i, 1)}</td>
-                  <td className="p-2 font-bold text-[var(--ink-soft)]">{view === "row" ? "100%" : rowTot[i]}</td>
+                  <td className="p-2 font-bold text-[var(--ink-soft)]">{rowTotalDisplay(i)}</td>
                 </tr>
               ))}
               <tr className="text-[var(--ink-soft)]">
-                <th className="p-2 text-right">total</th><td className="p-2 font-bold">{colTot[0]}</td><td className="p-2 font-bold">{colTot[1]}</td><td className="p-2 font-bold">{total}</td>
+                <th className="p-2 text-right">total</th><td className="p-2 font-bold">{colTotalDisplay(0)}</td><td className="p-2 font-bold">{colTotalDisplay(1)}</td><td className="p-2 font-bold">{grandTotalDisplay}</td>
               </tr>
             </tbody>
           </table>

@@ -13,15 +13,20 @@ export default function Lesson() {
   const [op, setOp] = useState<"mul" | "div">("mul");
 
   const result = op === "mul" ? a * b : b === 0 ? 0 : a / b;
-  const sameSign = a > 0 === b > 0 || a === 0 || b === 0;
+  const hasZero = a === 0 || b === 0;
+  const sameSign = !hasZero && (a > 0) === (b > 0);
   const resultColor = result > 0 ? POS : result < 0 ? NEG : "var(--ink)";
+  const roundedDivision = op === "div" && !Number.isInteger(result);
+  const displayedResult = roundedDivision ? result.toFixed(2) : `${result}`;
+  const operandColor = (value: number) => value > 0 ? POS : value < 0 ? NEG : "var(--ink)";
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
         Multiplying and dividing signed numbers has one simple rule about the{" "}
-        <strong>sign</strong>: <strong>same signs make a positive</strong>,{" "}
-        <strong>different signs make a negative</strong>. The size is just the
+        <strong>sign</strong>: for nonzero numbers, <strong>same signs make a positive</strong>,{" "}
+        <strong>different signs make a negative</strong>. A product with zero is
+        zero. The size is just the
         usual product or quotient.
       </p>
 
@@ -29,16 +34,16 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["mul", "div"] as const).map((o) => (
-              <button key={o} type="button" onClick={() => { setOp(o); if (o === "div") setB((p) => (p === 0 ? 1 : p)); }} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "mul" ? "×" : "÷"}</button>
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "div") setB((p) => (p === 0 ? 1 : p)); }} aria-label={o === "mul" ? "Multiplication" : "Division"} aria-pressed={op === o} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "mul" ? "×" : "÷"}</button>
             ))}
           </div>
 
           <div className="font-mono text-4xl font-black">
-            <span style={{ color: a >= 0 ? POS : NEG }}>{a}</span> {op === "mul" ? "×" : "÷"} <span style={{ color: b >= 0 ? POS : NEG }}>{b}</span> = <span style={{ color: resultColor }}>{op === "div" && result % 1 !== 0 ? result.toFixed(2) : result}</span>
+            <span style={{ color: operandColor(a) }}>{a}</span> {op === "mul" ? "×" : "÷"} <span style={{ color: operandColor(b) }}>{b}</span> {roundedDivision ? "≈" : "="} <span style={{ color: resultColor }}>{displayedResult}</span>
           </div>
 
-          <div className="rounded-xl px-5 py-2 text-center text-lg font-black" style={{ color: sameSign ? POS : NEG }}>
-            {sameSign ? "Same signs → positive result" : "Different signs → negative result"}
+          <div className="rounded-xl px-5 py-2 text-center text-lg font-black" style={{ color: hasZero ? "var(--ink)" : sameSign ? POS : NEG }}>
+            {hasZero ? (op === "mul" ? "A factor of zero → zero product" : "Zero divided by a nonzero number → zero quotient") : sameSign ? "Same nonzero signs → positive result" : "Different nonzero signs → negative result"}
           </div>
 
           {/* sign rules table */}
@@ -77,8 +82,9 @@ export default function Lesson() {
       <MathCheck>
         <p>
           Multiplying and dividing rational numbers (7.NS.A.2): the{" "}
-          <strong>sign rule</strong>{" "}is that like signs give a positive result and
-          unlike signs give a negative one. So {a} {op === "mul" ? "×" : "÷"} {b} = {op === "div" && result % 1 !== 0 ? result.toFixed(2) : result}. Division by 0 is
+          <strong>sign rule</strong>{" "}is that like nonzero signs give a positive
+          result and unlike nonzero signs give a negative one. A product with
+          zero is zero, and zero divided by a nonzero number is zero. So {a} {op === "mul" ? "×" : "÷"} {b} {roundedDivision ? "≈" : "="} {displayedResult}{roundedDivision ? " (to the nearest hundredth)" : ""}. Division by 0 is
           undefined, but every other quotient of integers is a rational number.
         </p>
       </MathCheck>
@@ -89,19 +95,16 @@ export default function Lesson() {
 function Stepper({ label, value, onChange, allowZero = true }: { label: string; value: number; onChange: (n: number) => void; allowZero?: boolean }) {
   const set = (v: number) => {
     let nv = Math.max(-6, Math.min(6, v));
-    if (!allowZero && nv === 0) nv = value > 0 ? 1 : -1;
+    if (!allowZero && nv === 0) nv = v < value ? -1 : 1;
     onChange(nv);
   };
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        {/* With allowZero false the zero-skip sends 0 back to the value it came
-            from, so at 1 the − button announced "Decrease" and changed nothing.
-            Disable it where the press cannot move. */}
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= -6 || (!allowZero && value === 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= -6} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}${!allowZero && value === 1 ? " from 1 to negative 1, skipping zero" : ""}`}>−</button>
         <span className="w-9 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 6 || (!allowZero && value === -1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 6} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}${!allowZero && value === -1 ? " from negative 1 to 1, skipping zero" : ""}`}>+</button>
       </div>
     </div>
   );

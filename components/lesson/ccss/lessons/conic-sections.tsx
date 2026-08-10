@@ -5,11 +5,44 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
+const PLOT_ORIGIN_X = 120;
+const PLOT_ORIGIN_Y = 95;
+const PARABOLA_VERTEX_X = PLOT_ORIGIN_X;
+const PARABOLA_VERTEX_Y = PLOT_ORIGIN_Y;
+const PARABOLA_P = 12;
+const PARABOLA_HALF_WIDTH = 60;
+const PARABOLA_EDGE_Y = PARABOLA_VERTEX_Y - (PARABOLA_HALF_WIDTH ** 2) / (4 * PARABOLA_P);
+const PARABOLA_CONTROL_Y = 2 * PARABOLA_VERTEX_Y - PARABOLA_EDGE_Y;
+const PARABOLA_FOCUS_Y = PARABOLA_VERTEX_Y - PARABOLA_P;
+const PARABOLA_DIRECTRIX_Y = PARABOLA_VERTEX_Y + PARABOLA_P;
+const PARABOLA_PATH = `M ${PARABOLA_VERTEX_X - PARABOLA_HALF_WIDTH} ${PARABOLA_EDGE_Y} Q ${PARABOLA_VERTEX_X} ${PARABOLA_CONTROL_Y} ${PARABOLA_VERTEX_X + PARABOLA_HALF_WIDTH} ${PARABOLA_EDGE_Y}`;
+const HYPERBOLA_CENTER_X = PLOT_ORIGIN_X;
+const HYPERBOLA_CENTER_Y = PLOT_ORIGIN_Y;
+const HYPERBOLA_A = 40;
+const HYPERBOLA_FOCUS_OFFSET = 65;
+const HYPERBOLA_B = Math.sqrt(HYPERBOLA_FOCUS_OFFSET ** 2 - HYPERBOLA_A ** 2);
+const HYPERBOLA_Y_LIMIT = 70;
+
+function hyperbolaPath(branch: -1 | 1) {
+  return Array.from({ length: 41 }, (_, index) => {
+    const yOffset = -HYPERBOLA_Y_LIMIT + (2 * HYPERBOLA_Y_LIMIT * index) / 40;
+    const xOffset = branch * HYPERBOLA_A
+      * Math.sqrt(1 + (yOffset * yOffset) / (HYPERBOLA_B * HYPERBOLA_B));
+    const command = index === 0 ? "M " : "L ";
+    return command
+      + (HYPERBOLA_CENTER_X + xOffset).toFixed(2)
+      + " "
+      + (HYPERBOLA_CENTER_Y + yOffset).toFixed(2);
+  }).join(" ");
+}
+
+const HYPERBOLA_LEFT_PATH = hyperbolaPath(-1);
+const HYPERBOLA_RIGHT_PATH = hyperbolaPath(1);
 
 const CONICS = [
-  { name: "Parabola", def: "All points equidistant from a focus point and a directrix line.", eq: "y = (1/4p)x²", draw: "parabola" },
+  { name: "Parabola", def: "All points equidistant from a focus point and a directrix line.", eq: "y = x²/(4p)", draw: "parabola" },
   { name: "Ellipse", def: "All points whose distances to two foci add to a constant.", eq: "x²/a² + y²/b² = 1", draw: "ellipse" },
-  { name: "Hyperbola", def: "All points whose distances to two foci differ by a constant.", eq: "x²/a² − y²/b² = 1", draw: "hyperbola" },
+  { name: "Hyperbola", def: "All points for which the absolute difference of the distances to two foci is constant: |d₁ − d₂| is constant.", eq: "x²/a² − y²/b² = 1", draw: "hyperbola" },
 ];
 
 export default function Lesson() {
@@ -29,25 +62,25 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {CONICS.map((co, i) => (
-              <button key={co.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{co.name}</button>
+              <button key={co.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{co.name}</button>
             ))}
           </div>
 
-          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.draw === "parabola" ? "Parabola with its focus marked above the vertex and its directrix drawn the same distance below" : c.draw === "ellipse" ? "Ellipse with its two foci marked on the horizontal axis" : "Hyperbola with two branches and its two foci marked on the horizontal axis"}>
-            <line x1={20} y1={95} x2={220} y2={95} stroke="var(--line)" strokeWidth={1} />
-            <line x1={120} y1={20} x2={120} y2={170} stroke="var(--line)" strokeWidth={1} />
+          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.draw === "parabola" ? "Parabola with its vertex at the axes' origin, its focus above the vertex, and its directrix equally far below" : c.draw === "ellipse" ? "Ellipse with its two foci marked on the horizontal axis" : "Hyperbola with two branches and its two foci marked on the horizontal axis"}>
+            <line x1={20} y1={PLOT_ORIGIN_Y} x2={220} y2={PLOT_ORIGIN_Y} stroke="var(--line)" strokeWidth={1} />
+            <line x1={PLOT_ORIGIN_X} y1={20} x2={PLOT_ORIGIN_X} y2={170} stroke="var(--line)" strokeWidth={1} />
             {c.draw === "parabola" && (
               <>
-                {/* The drawn curve has vertex (120, 115) and 4p = 48, so p = 12:
-                    the focus belongs 12px above the vertex and the directrix 12px
-                    below. They were at 35 above and 15 below, leaving the vertex
-                    visibly not equidistant from the two — which is the definition
-                    this figure exists to show. */}
-                <path d="M 60 40 Q 120 190 180 40" fill="none" stroke={ACCENT} strokeWidth={2.5} />
-                <line x1={40} y1={127} x2={200} y2={127} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />
-                <circle cx={120} cy={103} r={4} fill="var(--band-upper)" />
-                <text x={128} y={101} fontSize={10} fill="var(--band-upper)">focus</text>
-                <text x={150} y={141} fontSize={10} fill="var(--band-upper)">directrix</text>
+                {/* In SVG coordinates y increases downward. This exact quadratic
+                    Bézier represents y = x²/(4p) about the plotted origin: the
+                    vertex is on the axes, the focus is p above it, and the
+                    directrix is p below it. */}
+                <path d={PARABOLA_PATH} fill="none" stroke={ACCENT} strokeWidth={2.5} />
+                <line x1={40} y1={PARABOLA_DIRECTRIX_Y} x2={200} y2={PARABOLA_DIRECTRIX_Y} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />
+                <circle cx={PARABOLA_VERTEX_X} cy={PARABOLA_VERTEX_Y} r={3} fill={ACCENT} />
+                <circle cx={PARABOLA_VERTEX_X} cy={PARABOLA_FOCUS_Y} r={4} fill="var(--band-upper)" />
+                <text x={PARABOLA_VERTEX_X + 8} y={PARABOLA_FOCUS_Y - 2} fontSize={10} fill="var(--band-upper)">focus</text>
+                <text x={PARABOLA_VERTEX_X + 30} y={PARABOLA_DIRECTRIX_Y + 14} fontSize={10} fill="var(--band-upper)">directrix</text>
               </>
             )}
             {c.draw === "ellipse" && (
@@ -64,10 +97,13 @@ export default function Lesson() {
             )}
             {c.draw === "hyperbola" && (
               <>
-                <path d="M 70 25 Q 100 95 70 165" fill="none" stroke={ACCENT} strokeWidth={2.5} />
-                <path d="M 170 25 Q 140 95 170 165" fill="none" stroke={ACCENT} strokeWidth={2.5} />
-                <circle cx={55} cy={95} r={4} fill="var(--band-upper)" />
-                <circle cx={185} cy={95} r={4} fill="var(--band-upper)" />
+                {/* Every sampled point satisfies x²/a² − y²/b² = 1. With
+                    c² = a² + b², the marked foci use the same parameters. */}
+                <path d={HYPERBOLA_LEFT_PATH} fill="none" stroke={ACCENT} strokeWidth={2.5} />
+                <path d={HYPERBOLA_RIGHT_PATH} fill="none" stroke={ACCENT} strokeWidth={2.5} />
+                <circle cx={HYPERBOLA_CENTER_X - HYPERBOLA_FOCUS_OFFSET} cy={HYPERBOLA_CENTER_Y} r={4} fill="var(--band-upper)" />
+                <circle cx={HYPERBOLA_CENTER_X + HYPERBOLA_FOCUS_OFFSET} cy={HYPERBOLA_CENTER_Y} r={4} fill="var(--band-upper)" />
+                <text x={HYPERBOLA_CENTER_X - HYPERBOLA_FOCUS_OFFSET - 14} y={HYPERBOLA_CENTER_Y - 9} fontSize={10} fill="var(--band-upper)">foci</text>
               </>
             )}
           </svg>
@@ -84,7 +120,8 @@ export default function Lesson() {
         For a <strong>parabola</strong>, "distance to focus = distance to directrix"
         becomes, after squaring, y = x²/(4p). For an <strong>ellipse</strong>, the
         constant-sum condition on two foci yields x²/a² + y²/b² = 1; a{" "}
-        <strong>hyperbola</strong>{" "}uses a constant difference. Setting up the
+        <strong>hyperbola</strong>{" "}uses a constant absolute difference, |d₁ − d₂|.
+        Setting up the
         distance equation and simplifying is how each standard form is derived.
       </p>
 
@@ -92,7 +129,7 @@ export default function Lesson() {
         <p>
           A <strong>parabola</strong>{" "}is derived from its focus and directrix
           (G-GPE.2). An <strong>ellipse</strong>{" "}and <strong>hyperbola</strong>{" "}come
-          from the sum or difference of distances to two foci being constant
+          from the sum or absolute difference of distances to two foci being constant
           (G-GPE.3). In every case, translating the distance definition into
           coordinates and simplifying gives the standard equation.
         </p>

@@ -32,7 +32,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {[10, 100].map((b) => (
-              <button key={b} type="button" onClick={() => { setBase(b); setN((v) => Math.min(v, b === 10 ? 100 : 1000)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={base === b ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {b}</button>
+              <button key={b} type="button" onClick={() => { setBase(b); setN((v) => Math.min(v, b === 10 ? 100 : 1000)); }} aria-pressed={base === b} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={base === b ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {b}</button>
             ))}
           </div>
 
@@ -66,9 +66,14 @@ export default function Lesson() {
 
       <h2>Closer wins</h2>
       <p>
-        {n} is between {lower} and {upper}. The halfway point is {mid}, and {n} is{" "}
-        {n - lower >= base / 2 ? "at or past" : "below"} it — so {n} rounds to{" "}
-        <strong>{rounded}</strong>.
+        {n === lower ? <>
+          {n} is already a multiple of {base}, so it stays exactly{" "}
+          <strong>{rounded}</strong> when rounded to the nearest {base}.
+        </> : <>
+          {n} lies between {lower} and {upper}. The halfway point is {mid}, and {n} is{" "}
+          {n - lower >= base / 2 ? "at or past" : "below"} it — so {n} rounds to{" "}
+          <strong>{rounded}</strong>.
+        </>}
       </p>
 
       <MathCheck>
@@ -90,9 +95,9 @@ function Stepper({ label, value, min, max, onChange }: { label: string; value: n
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => onChange(Math.max(min, value - bump))} disabled={value <= min} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(min, value - bump))} disabled={value <= min} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label} by ${bump}`}>−</button>
         <span className="w-14 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(max, value + bump))} disabled={value >= max} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(max, value + bump))} disabled={value >= max} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label} by ${bump}`}>+</button>
       </div>
     </div>
   );

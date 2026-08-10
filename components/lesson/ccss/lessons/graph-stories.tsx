@@ -58,7 +58,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {STORIES.map((st, i) => (
-              <button key={st.title} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: LINE, color: "white", borderColor: LINE } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{st.title}</button>
+              <button key={st.title} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: LINE, color: "white", borderColor: LINE } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{st.title}</button>
             ))}
           </div>
 

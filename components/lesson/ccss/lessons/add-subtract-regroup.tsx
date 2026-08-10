@@ -6,16 +6,35 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-middle)";
 const MARK = "var(--band-early)";
+const placeCount = (count: number, singular: "ten" | "one") =>
+  `${count} ${count === 1 ? singular : `${singular}s`}`;
 
 export default function Lesson() {
   const [a, setA] = useState(47);
   const [b, setB] = useState(38);
   const [op, setOp] = useState<"add" | "sub">("add");
+  const CEILING = 99;
 
-  const hi = Math.max(a, b), lo = Math.min(a, b);
-  const top = op === "add" ? a : hi;
-  const bot = op === "add" ? b : lo;
-  const result = op === "add" ? a + b : hi - lo;
+  const top = a;
+  const bot = b;
+  const result = op === "add" ? a + b : a - b;
+
+  function changeOperation(nextOp: "add" | "sub") {
+    if (nextOp === "add") {
+      const nextA = Math.min(a, CEILING - 10);
+      setA(nextA);
+      setB(Math.min(b, CEILING - nextA));
+    } else if (b > a) {
+      setA(b);
+      setB(a);
+    }
+    setOp(nextOp);
+  }
+
+  function changeFirst(nextA: number) {
+    setA(nextA);
+    if (op === "sub") setB((previous) => Math.min(previous, nextA));
+  }
 
   const tO = top % 10, tT = Math.floor(top / 10);
   const bO = bot % 10, bT = Math.floor(bot / 10);
@@ -37,24 +56,34 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              <button key={o} type="button" onClick={() => changeOperation(o)} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 
-          <div className="font-mono text-3xl leading-tight">
+          <div
+            className="font-mono text-3xl leading-tight"
+            role="img"
+            aria-label={op === "add"
+              ? carry
+                ? `${top} plus ${bot}. ${placeCount(tO + bO, "one")} are regrouped as ${placeCount((tO + bO) % 10, "one")} and 1 carried ten. The sum is ${result}.`
+                : `${top} plus ${bot}. No regrouping is needed. The sum is ${result}.`
+              : borrow
+                ? `${top} minus ${bot}. ${placeCount(tT, "ten")} and ${placeCount(tO, "one")} are regrouped as ${placeCount(tT - 1, "ten")} and ${placeCount(tO + 10, "one")}. The difference is ${result}.`
+                : `${top} minus ${bot}. No regrouping is needed. The difference is ${result}.`}
+          >
             {/* regroup marks */}
-            <div className="grid grid-cols-[1.5rem_2ch_2ch] items-end text-base" style={{ color: MARK }}>
+            <div className="grid grid-cols-[1.5rem_4.5rem_4.5rem] items-end text-center text-sm font-bold" style={{ color: MARK }} aria-hidden="true">
               <span />
-              <span className="text-center">{carry ? "1" : borrow ? "↘" : ""}</span>
-              <span className="text-center">{borrow ? "+10" : ""}</span>
+              <span>{carry ? "+1 ten" : borrow ? `${tT}→${tT - 1}` : ""}</span>
+              <span>{borrow ? `${tO}→${tO + 10}` : ""}</span>
             </div>
-            <div className="grid grid-cols-[1.5rem_2ch_2ch] justify-items-end font-black">
+            <div className="grid grid-cols-[1.5rem_4.5rem_4.5rem] justify-items-end font-black" aria-hidden="true">
               <span /><span>{tT}</span><span>{tO}</span>
             </div>
-            <div className="grid grid-cols-[1.5rem_2ch_2ch] justify-items-end border-b-2 border-[var(--ink)] pb-1 font-black">
+            <div className="grid grid-cols-[1.5rem_4.5rem_4.5rem] justify-items-end border-b-2 border-[var(--ink)] pb-1 font-black" aria-hidden="true">
               <span>{op === "add" ? "+" : "−"}</span><span>{bT}</span><span>{bO}</span>
             </div>
-            <div className="grid grid-cols-[1.5rem_2ch_2ch] justify-items-end pt-1 font-black" style={{ color: ACCENT }}>
+            <div className="grid grid-cols-[1.5rem_4.5rem_4.5rem] justify-items-end pt-1 font-black" style={{ color: ACCENT }} aria-hidden="true">
               <span />
               <span>{Math.floor(result / 10) || ""}</span>
               <span>{result % 10}</span>
@@ -63,15 +92,15 @@ export default function Lesson() {
 
           <p className="m-0 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             {op === "add"
-              ? carry ? `${tO} + ${bO} = ${tO + bO} ones → write ${(tO + bO) % 10}, carry 1 ten.` : `${tO} + ${bO} = ${tO + bO} ones — no carry needed.`
-              : borrow ? `Can't do ${tO} − ${bO}: borrow a ten, making ${tO + 10} − ${bO} = ${tO + 10 - bO}.` : `${tO} − ${bO} = ${tO - bO} ones — no borrow needed.`}
+              ? carry ? `${tO} + ${bO} = ${placeCount(tO + bO, "one")} → write ${(tO + bO) % 10}, carry 1 ten.` : `${tO} + ${bO} = ${placeCount(tO + bO, "one")} — no carry needed.`
+              : borrow ? `Can't do ${tO} − ${bO}: borrow a ten, making ${tO + 10} − ${bO} = ${tO + 10 - bO}.` : `${tO} − ${bO} = ${placeCount(tO - bO, "one")} — no borrow needed.`}
           </p>
 
           <div className="font-mono text-2xl font-black">{top} {op === "add" ? "+" : "−"} {bot} = <span style={{ color: ACCENT }}>{result}</span></div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="First" value={a} onChange={setA} />
-            <Stepper label="Second" value={b} onChange={setB} />
+            <Stepper label="First" value={a} min={10} max={op === "add" ? CEILING - b : CEILING} onChange={changeFirst} />
+            <Stepper label="Second" value={b} min={10} max={op === "add" ? CEILING - a : a} onChange={setB} />
           </div>
         </div>
       </Figure>
@@ -96,15 +125,15 @@ export default function Lesson() {
   );
 }
 
-function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(10, Math.min(99, v)));
+function Stepper({ label, value, min, max, onChange }: { label: string; value: number; min: number; max: number; onChange: (n: number) => void }) {
+  const set = (v: number) => onChange(Math.max(min, Math.min(max, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => set(value - 1)} disabled={value <= 10} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= min} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-9 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} disabled={value >= 99} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= max} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

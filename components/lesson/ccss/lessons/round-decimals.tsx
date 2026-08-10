@@ -4,6 +4,10 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-upper)";
 const PAD = 50;
@@ -24,6 +28,10 @@ export default function Lesson() {
   const mid = lower + place / 2;
   const rounded = v - lower >= place / 2 ? upper : lower;
   const digits = PLACES.find(([p]) => p === place)![2];
+  const exactDisplay = dec(v, 3);
+  const roundedDisplay = dec(rounded, digits);
+  const roundingRelation = relationForDisplayedValue(v / 1000, roundedDisplay);
+  const roundingSpokenRelation = spokenRelationForDisplayedValue(v / 1000, roundedDisplay);
   const px = PAD + ((v - lower) / place) * LWIDTH;
 
   return (
@@ -38,7 +46,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {PLACES.map(([p, name]) => (
-              <button key={p} type="button" onClick={() => setPlace(p)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={place === p ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {name}</button>
+              <button key={p} type="button" onClick={() => setPlace(p)} aria-pressed={place === p} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={place === p ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {name}</button>
             ))}
           </div>
 
@@ -59,7 +67,7 @@ export default function Lesson() {
           </FigureScroll>
 
           <div className="text-center">
-            <div className="font-mono text-2xl font-black">{dec(v, 3)} → <span style={{ color: ACCENT }}>{dec(rounded, digits)}</span></div>
+            <div className="font-mono text-2xl font-black" aria-label={`${exactDisplay} rounds to ${roundedDisplay}`}>{exactDisplay} → <span style={{ color: ACCENT }}>{roundedDisplay}</span></div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">rounded to the nearest {PLACES.find(([p]) => p === place)![1]}</div>
           </div>
 
@@ -69,8 +77,8 @@ export default function Lesson() {
 
       <h2>Look at the next digit</h2>
       <p>
-        To round to a place, check the digit just to its right. Here {dec(v, 3)}{" "}
-        rounds to {dec(rounded, digits)} because it is {v - lower >= place / 2 ? "at or past" : "below"} the
+        To round to a place, check the digit just to its right. Here {exactDisplay}{" "}
+        rounds to {roundedDisplay} because it is {v - lower >= place / 2 ? "at or past" : "below"} the
         halfway point {dec(mid, 3)}.
       </p>
 
@@ -79,7 +87,7 @@ export default function Lesson() {
           Rounding decimals to any place (5.NBT.A.4) uses place-value reasoning:
           find the two multiples of that place the number lies between, compare to
           the halfway point ({dec(mid, 3)}), and take the nearer one — rounding up
-          at the halfway mark. So {dec(v, 3)} ≈ {dec(rounded, digits)}.
+          at the halfway mark. So <span aria-label={`${exactDisplay} ${roundingSpokenRelation} ${roundedDisplay}`}>{exactDisplay} {roundingRelation} {roundedDisplay}</span>.
         </p>
       </MathCheck>
     </div>
@@ -92,11 +100,11 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label={`Decrease ${label} by one tenth`}>−0.1</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 100)} disabled={value - 100 < 0} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold disabled:opacity-40" aria-label={`Decrease ${label} by one tenth`}>−0.1</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= 0} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-16 text-center font-mono text-lg font-black tabular-nums">{(value / 1000).toFixed(3)}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label={`Increase ${label} by one tenth`}>+0.1</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 9999} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 100)} disabled={value + 100 > 9999} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold disabled:opacity-40" aria-label={`Increase ${label} by one tenth`}>+0.1</button>
       </div>
     </div>
   );

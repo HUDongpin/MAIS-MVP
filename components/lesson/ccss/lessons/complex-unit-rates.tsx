@@ -22,6 +22,8 @@ export default function Lesson() {
   const simN = rn / g, simD = rd / g;
   const rateStr = simD === 1 ? `${simN}` : `${simN}/${simD}`;
   const rateDec = rn / rd;
+  const decimalExactToHundredth = Math.abs(rateDec * 100 - Math.round(rateDec * 100)) < 1e-9;
+  const decimalDisplay = rateDec % 1 === 0 ? `${rateDec}` : rateDec.toFixed(2);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -50,7 +52,8 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
-            <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>{rateDec % 1 === 0 ? rateDec : rateDec.toFixed(2)} mile{rateDec === 1 ? "" : "s"} per hour</div>
+            <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>{decimalExactToHundredth ? "=" : "≈"} {decimalDisplay} mile{rateDec === 1 ? "" : "s"} per hour</div>
+            {!decimalExactToHundredth && <div className="text-xs text-[var(--ink-faint)]">decimal rounded to the nearest hundredth; {rateStr} is exact</div>}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-8">

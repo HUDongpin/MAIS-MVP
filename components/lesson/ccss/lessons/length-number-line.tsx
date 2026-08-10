@@ -23,6 +23,15 @@ export default function Lesson() {
   const x = (n: number) => PAD + n * STEP;
   const from = Math.min(start, end), to = Math.max(start, end);
 
+  function changeOperation(nextOp: "add" | "sub") {
+    const nextStart = nextOp === "add"
+      ? Math.min(start, MAXN - 1)
+      : Math.max(start, 1);
+    setStart(nextStart);
+    setAmt((previous) => Math.max(1, Math.min(previous, nextOp === "add" ? MAXN - nextStart : nextStart)));
+    setOp(nextOp);
+  }
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -69,7 +78,7 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-2">
               {(["add", "sub"] as const).map((o) => (
-                <button key={o} type="button" onClick={() => { setOp(o); setAmt((p) => Math.max(1, Math.min(p, o === "add" ? MAXN - start : start))); }}className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Tape on" : "Cut off"}</button>
+                <button key={o} type="button" onClick={() => changeOperation(o)} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: o === "add" ? ADD : SUB, color: "white", borderColor: o === "add" ? ADD : SUB } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Tape on" : "Cut off"}</button>
               ))}
             </div>
             {/* Bound the RIBBON so at least 1 cm of travel always fits. The

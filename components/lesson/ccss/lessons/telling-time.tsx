@@ -33,8 +33,9 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        A clock has two hands. The <strong>short hand</strong>{" "}points to the
-        hour. The <strong>long hand</strong>{" "}points to the minutes. When the long
+        A clock has two hands. The <strong>short hand</strong>{" "}shows the hour; at
+        half past, it sits halfway toward the next hour. The <strong>long
+        hand</strong>{" "}points to the minutes. When the long
         hand is straight up it is <strong>o'clock</strong>; straight down is{" "}
         <strong>half past</strong>.
       </p>

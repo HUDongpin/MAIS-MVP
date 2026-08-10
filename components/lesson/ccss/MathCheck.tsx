@@ -13,14 +13,14 @@ export function MathCheck({
   children: ReactNode;
 }) {
   return (
-    <aside
+    <section
       className="my-6 rounded-2xl border p-5"
       style={{
         borderColor: "color-mix(in oklab, var(--band-upper) 40%, var(--line))",
         background: "color-mix(in oklab, var(--band-upper) 8%, var(--surface))",
       }}
     >
-      <div className="mb-1.5 flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
+      <h3 className="m-0 mb-1.5 flex items-center gap-2 text-sm font-bold text-[var(--ink)]">
         <span
           aria-hidden
           className="grid h-6 w-6 place-items-center rounded-full text-white"
@@ -29,10 +29,10 @@ export function MathCheck({
           ✓
         </span>
         {title}
-      </div>
+      </h3>
       <div className="prose-lesson text-[15px] [&_p:last-child]:mb-0">
         {children}
       </div>
-    </aside>
+    </section>
   );
 }

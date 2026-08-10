@@ -15,6 +15,15 @@ function value(base: number, e: number) {
   return v % 1 === 0 ? `${v}` : `1/${Math.pow(base, -e)}`;
 }
 
+function integerText(value: number) {
+  return `${value}`.replace("-", "−");
+}
+
+function exponentOperand(value: number) {
+  const text = integerText(value);
+  return value < 0 ? `(${text})` : text;
+}
+
 export default function Lesson() {
   const [base] = useState(2);
   const [m, setM] = useState(3);
@@ -22,10 +31,13 @@ export default function Lesson() {
   const [rule, setRule] = useState<Rule>("product");
 
   const resultExp = rule === "product" ? m + n : rule === "quotient" ? m - n : m * n;
+  const productExponentWork = `${integerText(m)} + ${exponentOperand(n)}`;
+  const quotientExponentWork = `${integerText(m)} − ${exponentOperand(n)}`;
+  const powerExponentWork = `${integerText(m)} × ${exponentOperand(n)}`;
   const RULES: Record<Rule, { name: string; formula: React.ReactNode }> = {
-    product: { name: "Product rule", formula: <>{expStr(base, m)} × {expStr(base, n)} = {base}<sup>{m}+{n}</sup> = {expStr(base, m + n)}</> },
-    quotient: { name: "Quotient rule", formula: <>{expStr(base, m)} ÷ {expStr(base, n)} = {base}<sup>{m}−{n}</sup> = {expStr(base, m - n)}</> },
-    power: { name: "Power rule", formula: <>({expStr(base, m)})<sup>{n}</sup> = {base}<sup>{m}×{n}</sup> = {expStr(base, m * n)}</> },
+    product: { name: "Product rule", formula: <>{expStr(base, m)} × {expStr(base, n)} = {base}<sup>{productExponentWork}</sup> = {expStr(base, m + n)}</> },
+    quotient: { name: "Quotient rule", formula: <>{expStr(base, m)} ÷ {expStr(base, n)} = {base}<sup>{quotientExponentWork}</sup> = {expStr(base, m - n)}</> },
+    power: { name: "Power rule", formula: <>({expStr(base, m)})<sup>{n}</sup> = {base}<sup>{powerExponentWork}</sup> = {expStr(base, m * n)}</> },
   };
 
   return (
@@ -41,7 +53,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(Object.keys(RULES) as Rule[]).map((rk) => (
-              <button key={rk} type="button" onClick={() => setRule(rk)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rule === rk ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{RULES[rk].name}</button>
+              <button key={rk} type="button" onClick={() => setRule(rk)} aria-pressed={rule === rk} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rule === rk ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{RULES[rk].name}</button>
             ))}
           </div>
 
@@ -49,8 +61,8 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>= {value(base, resultExp)}</div>
-            {resultExp === 0 && <div className="text-sm text-[var(--ink-soft)]">any base to the 0 power is 1</div>}
-            {resultExp < 0 && <div className="text-sm text-[var(--ink-soft)]">a negative exponent means a reciprocal</div>}
+            {resultExp === 0 && <div className="text-sm text-[var(--ink-soft)]">any nonzero base to the 0 power is 1</div>}
+            {resultExp < 0 && <div className="text-sm text-[var(--ink-soft)]">for a nonzero base, a negative exponent means a reciprocal</div>}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -63,14 +75,15 @@ export default function Lesson() {
       <h2>Why zero and negatives work</h2>
       <p>
         The quotient rule forces it: {base}³ ÷ {base}³ = {base}<sup>0</sup>, but any
-        number over itself is 1 — so {base}<sup>0</sup> = 1. And {base}² ÷ {base}⁵ = {base}<sup>−3</sup> = 1/{base}³. The rules stay consistent.
+        nonzero number over itself is 1 — so {base}<sup>0</sup> = 1. And {base}² ÷ {base}⁵ = {base}<sup>−3</sup> = 1/{base}³. The rules stay consistent.
       </p>
 
       <MathCheck>
         <p>
           The properties of integer exponents (8.EE.A.1): <strong>aᵐ · aⁿ = aᵐ⁺ⁿ</strong>,{" "}
-          <strong>aᵐ ÷ aⁿ = aᵐ⁻ⁿ</strong>, and <strong>(aᵐ)ⁿ = aᵐⁿ</strong>. From
-          these it follows that <strong>a⁰ = 1</strong>{" "}and <strong>a⁻ⁿ = 1/aⁿ</strong>,
+          <strong>aᵐ ÷ aⁿ = aᵐ⁻ⁿ</strong>{" "}for <strong>a ≠ 0</strong>, and{" "}
+          <strong>(aᵐ)ⁿ = aᵐⁿ</strong>. From these it follows that{" "}
+          <strong>a⁰ = 1</strong>{" "}and <strong>a⁻ⁿ = 1/aⁿ</strong>{" "}for a ≠ 0,
           letting you generate equivalent numerical expressions.
         </p>
       </MathCheck>

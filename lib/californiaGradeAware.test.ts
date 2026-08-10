@@ -29,17 +29,24 @@ test("California practice and onboarding surfaces do not render Primary/Secondar
   assert.doesNotMatch(missionSetup, /text\(grade\.name\)/);
   assert.doesNotMatch(radarSelect, /return grade\.id;/);
   assert.match(radarSelect, /formatGradeLabelForCurriculum\(grade\.id,\s*language,\s*curriculumTrack/);
-  assert.match(loginPage, /const defaultUnitedStatesLoginGrade: GradeId = "K"/);
+  assert.match(loginPage, /const defaultLoginGrade: GradeId = "K"/);
   assert.match(registerPage, /useState<GradeId>\("K"\)/);
 });
 
-test("California lesson entry does not expose candidate-only lesson seeds as live lessons", async () => {
+test("California lesson entry exposes the 76 approved seeds and rejects candidate-only seeds", async () => {
+  const readyCaliforniaSeeds = usCaliforniaLessonSeeds.filter((lesson) => lesson.productionReady);
   const nonReadyCaliforniaSeeds = usCaliforniaLessonSeeds.filter((lesson) => !lesson.productionReady);
   const leakedSeeds = nonReadyCaliforniaSeeds
     .filter((lesson) => productionLessonByTopicId.has(lesson.topicId))
     .map((lesson) => lesson.topicId);
+  const missingReadySeeds = readyCaliforniaSeeds
+    .filter((lesson) => !productionLessonByTopicId.has(lesson.topicId))
+    .map((lesson) => lesson.topicId);
 
-  assert.ok(nonReadyCaliforniaSeeds.length > 0, "California should still retain candidate lesson seeds for QA");
+  assert.equal(usCaliforniaLessonSeeds.length, 76);
+  assert.equal(readyCaliforniaSeeds.length, 76);
+  assert.equal(nonReadyCaliforniaSeeds.length, 0);
+  assert.deepEqual(missingReadySeeds, []);
   assert.deepEqual(leakedSeeds, []);
   const p1EntryTarget = publicLessonEntryTargetForGrade("P1", californiaProfile);
   assert.ok(p1EntryTarget, "approved California Grade 1 beta lesson should remain reachable");
@@ -71,37 +78,46 @@ test("California high school preview remains review-only and stores pathway meta
   assert.match(reviewPage, /pathwayLabel/);
   assert.match(reviewPage, /conceptualCategory/);
 
-  const expectedDomains = new Map([
-    ["us-ca-math-s3-chapter-01", "A-CED"],
-    ["us-ca-math-s3-chapter-02", "F-IF"],
-    ["us-ca-math-s3-chapter-03", "F-LE"],
-    ["us-ca-math-s3-chapter-04", "G-GPE"],
-    ["us-ca-math-s3-chapter-05", "S-ID"],
-    ["us-ca-math-s4-chapter-01", "G-CO"],
-    ["us-ca-math-s4-chapter-02", "G-SRT"],
-    ["us-ca-math-s4-chapter-03", "G-C"],
-    ["us-ca-math-s4-chapter-04", "A-SSE"],
-    ["us-ca-math-s4-chapter-05", "S-CP"],
-    ["us-ca-math-s5-chapter-01", "F-BF"],
-    ["us-ca-math-s5-chapter-02", "F-LE"],
-    ["us-ca-math-s5-chapter-03", "F-TF"],
-    ["us-ca-math-s5-chapter-04", "S-ID"],
-    ["us-ca-math-s5-chapter-05", "S-IC"],
-    ["us-ca-math-s6-chapter-01", "N-Q"],
-    ["us-ca-math-s6-chapter-02", "A-APR"],
-    ["us-ca-math-s6-chapter-03", "S-MD"],
-    ["us-ca-math-s6-chapter-04", "F-IF"],
-    ["us-ca-math-s6-chapter-05", "Modeling"]
+  const expectedPlacements = new Map([
+    ["us-ca-math-s3-chapter-01", { domains: ["N-RN", "A-CED"], category: "Number and Quantity / Algebra" }],
+    ["us-ca-math-s3-chapter-02", { domains: ["F-IF", "F-BF"], category: "Functions" }],
+    ["us-ca-math-s3-chapter-03", { domains: ["A-REI", "A-SSE"], category: "Algebra" }],
+    ["us-ca-math-s3-chapter-04", { domains: ["G-GPE"], category: "Geometry" }],
+    ["us-ca-math-s3-chapter-05", { domains: ["S-ID"], category: "Statistics and Probability" }],
+    ["us-ca-math-s4-chapter-01", { domains: ["G-CO"], category: "Geometry" }],
+    ["us-ca-math-s4-chapter-02", { domains: ["G-SRT"], category: "Geometry" }],
+    ["us-ca-math-s4-chapter-03", { domains: ["G-C", "G-GMD"], category: "Geometry" }],
+    ["us-ca-math-s4-chapter-04", { domains: ["A-SSE"], category: "Algebra" }],
+    ["us-ca-math-s4-chapter-05", { domains: ["S-CP"], category: "Statistics and Probability" }],
+    ["us-ca-math-s5-chapter-01", { domains: ["F-IF", "F-BF"], category: "Functions" }],
+    ["us-ca-math-s5-chapter-02", { domains: ["F-LE"], category: "Functions" }],
+    ["us-ca-math-s5-chapter-03", { domains: ["F-TF"], category: "Functions" }],
+    ["us-ca-math-s5-chapter-04", { domains: ["S-ID"], category: "Statistics and Probability" }],
+    ["us-ca-math-s5-chapter-05", { domains: ["S-IC"], category: "Statistics and Probability" }],
+    ["us-ca-math-s6-chapter-01", { domains: ["N-Q"], category: "Number and Quantity" }],
+    ["us-ca-math-s6-chapter-02", { domains: ["N-CN", "A-APR"], category: "Number and Quantity / Algebra" }],
+    ["us-ca-math-s6-chapter-03", { domains: ["S-MD"], category: "Statistics and Probability" }],
+    ["us-ca-math-s6-chapter-04", { domains: ["F-IF", "F-BF"], category: "Functions" }],
+    ["us-ca-math-s6-chapter-05", { domains: ["N-VM", "G-MG"], category: "Number and Quantity / Geometry" }]
   ]);
 
+  const actualChapterIds = californiaHighSchoolTextbookChapters
+    .map((chapter) => chapter.chapterId)
+    .sort();
+  const expectedChapterIds = [...expectedPlacements.keys()].sort();
+  assert.deepEqual(actualChapterIds, expectedChapterIds);
+  assert.equal(new Set(actualChapterIds).size, actualChapterIds.length);
   californiaHighSchoolTextbookChapters.forEach((chapter) => {
-    const expectedDomain = expectedDomains.get(chapter.chapterId);
-    assert.ok(expectedDomain, `${chapter.chapterId} has an expected California high-school domain`);
-    assert.equal((chapter as Record<string, unknown>).domainCode, expectedDomain);
-    assert.equal(typeof (chapter as Record<string, unknown>).conceptualCategory, "string");
+    const expectedPlacement = expectedPlacements.get(chapter.chapterId);
+    assert.ok(expectedPlacement, `${chapter.chapterId} has an expected California high-school placement`);
+    assert.equal((chapter as Record<string, unknown>).domainCode, expectedPlacement.domains.join(" + "));
+    assert.equal((chapter as Record<string, unknown>).conceptualCategory, expectedPlacement.category);
     assert.equal(typeof (chapter as Record<string, unknown>).pathwayLabel, "string");
     assert.equal(Array.isArray((chapter as Record<string, unknown>).prerequisiteDomains), true);
-    assert.deepEqual(chapter.standards, [`CA.CCSS.Math.HS.${expectedDomain}`]);
+    assert.deepEqual(
+      chapter.standards,
+      expectedPlacement.domains.map((domain) => `CA.CCSS.Math.HS.${domain}`)
+    );
   });
 });
 

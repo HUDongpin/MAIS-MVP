@@ -10,6 +10,7 @@ import {
   californiaElementaryMicroLessonTopicIds,
   type CaliforniaElementaryMicroLessonSpec
 } from "./usCaliforniaMicroLessons";
+import { hasProductionCaliforniaLessonVisualization } from "./usCaliforniaLessonVisualizationAvailability";
 import { generatedCaliforniaQuestions, usCaliforniaTopics, type CaliforniaK5GradeId, type GeneratedCaliforniaQuestion } from "./usCaliforniaTopics";
 import { getPrimaryVisualizationLabForTopic } from "./visualizationLabs";
 import type { Difficulty, LocalizedText, Topic } from "@/types";
@@ -342,7 +343,7 @@ function workedExampleBlock(topic: Topic): ProductionLessonBlock {
   };
 }
 
-function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforniaQuestion[]): ProductionLessonBlock {
+function scaffoldedPracticeBlock(topic: Topic): ProductionLessonBlock {
   const practiceQuestionIds = selectPracticeQuestionIds(topic.id);
   // The page renders only the first `lessonPracticeQuestionLimit` (5) of these
   // after deduping — StudentLessonPage.tsx:9 and :33. Saying "8 approved
@@ -352,20 +353,6 @@ function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforn
   const RENDERED_CHECKPOINT_QUESTIONS = 5;
   const questionCount = practiceQuestionIds.length;
   const askedCount = Math.min(questionCount, RENDERED_CHECKPOINT_QUESTIONS);
-
-  // Name the standards the page actually develops. The generated bank's
-  // `standardIds` are rotated against the chapter topics (the same off-by-one
-  // documented in scripts/build-ccss-lesson-assignments.mjs), so the checkpoint
-  // used to cite a different domain from every lesson block above it — 12-D.1
-  // "Function Analysis and Rates" renders four F-IF lessons and its coverage
-  // line quoted S-MD. When the topic has an interactive core, its lessons are
-  // the authority; unassigned topics keep the bank tags.
-  const assignedMetas = ccssLessonMetasForTopic(topic.id);
-  const standards = standardText(
-    assignedMetas.length
-      ? assignedMetas.flatMap((meta) => meta.standardIds)
-      : topicQuestions.flatMap((question) => question.standardIds)
-  );
 
   // Learner-facing copy names the three stages in words. The machine-readable
   // stage ids (`<topicId>:foundation` and friends) stay in the coverage record
@@ -390,15 +377,10 @@ function scaffoldedPracticeBlock(topic: Topic, topicQuestions: GeneratedCaliforn
         "遷移：說明數字、情境或表示方式改變後，為何方法仍然成立。",
         "迁移：说明数字、情境或表示方式改变后，为何方法仍然成立。"
       ),
-      // Two facts, stated separately. `standards` comes from the page's own
-      // interactive lessons (see the note above), NOT from the checkpoint
-      // questions — so "links N questions to <standards>" was false on 39 of
-      // the 64 pages that have both: p2-2-nbt-three-digit-place-value named 9
-      // standards its 8 checkpoint questions carry 4 of.
       local(
-        `Coverage check: this page develops ${standards}. Its checkpoint asks ${askedCount} question${askedCount === 1 ? "" : "s"}, drawn from ${questionCount} approved for this page.`,
-        `覆蓋檢查：本頁涵蓋 ${standards}。檢查點會出 ${askedCount} 道題，取自本頁已批准的 ${questionCount} 道。`,
-        `覆盖检查：本页涵盖 ${standards}。检查点会出 ${askedCount} 道题，取自本页已批准的 ${questionCount} 道。`
+        `Checkpoint: I can answer ${askedCount} question${askedCount === 1 ? "" : "s"}, show my reasoning, and review any question I miss.`,
+        `檢查點：我能完成 ${askedCount} 道題，寫出推理，並重溫答錯的題目。`,
+        `检查点：我能完成 ${askedCount} 道题，写出推理，并重温答错的题目。`
       )
     ]
   };
@@ -523,6 +505,11 @@ function pitfallItemText(pitfall: string, repairMove: string) {
 }
 
 function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | null {
+  // Catalog availability is not publication approval. Keep a model off the
+  // lesson page until renderer-level QA has approved its exact topic fit,
+  // bounds, localization, accessibility, and displayed implementation.
+  if (!hasProductionCaliforniaLessonVisualization(topicId)) return null;
+
   const lab = getPrimaryVisualizationLabForTopic(topicId);
   if (!lab || lab.publisher !== "US_CA_MATH") return null;
 
@@ -533,11 +520,18 @@ function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | 
     zhHans: labTitle.zhHans.replace(/可视化实验$/, "")
   };
   const category = textFrom(lab.category);
-  const domainId = lab.californiaAlignment?.domainId ?? "California Math Practice Beta";
-  const standardIds = lab.californiaAlignment?.standardIds.slice(0, 4).join(", ") ?? "";
+  const assignedLessonMetas = ccssLessonMetasForTopic(topicId);
+  const alignedStandardIds = assignedLessonMetas.length > 0
+    ? sortStandardIds(assignedLessonMetas.flatMap((meta) => meta.standardIds))
+    : (lab.californiaAlignment?.standardIds ?? []);
+  const assignedDomainCodes = unique(alignedStandardIds.map(standardDomain));
+  const domainId = assignedLessonMetas.length > 0
+    ? assignedDomainCodes.map((domainCode) => `CA.CCSS.Math.${domainCode}`).join(" + ")
+    : (lab.californiaAlignment?.domainId ?? "California Math Practice Beta");
+  const standardIds = alignedStandardIds.slice(0, 4).join(", ");
   // "…and more" rather than a bare "..." — a trailing ellipsis inside the
   // parenthesis reads as a truncation bug in learner-facing copy.
-  const hasMoreStandards = (lab.californiaAlignment?.standardIds.length ?? 0) > 4;
+  const hasMoreStandards = alignedStandardIds.length > 4;
   const standardSuffix = standardIds ? ` (${standardIds}${hasMoreStandards ? ", and more" : ""})` : "";
 
   return {
@@ -549,9 +543,9 @@ function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | 
       `Visualization Lab：${compactLabTitle.zhHans}`
     ),
     content: local(
-      `Use the ${category.en.toLowerCase()} lab to manipulate this knowledge point before checkpoint practice. The lab is aligned to ${domainId}${standardSuffix}, carries a Safeguard Review record, and shows its Read me first note before students interact with the model.`,
-      `先用${category.zh}實驗操作這個知識點，再進入檢查練習。此實驗對齊 ${domainId}${standardSuffix}，帶有 Safeguard Review 記錄，並會在學生操作模型前顯示 Read me first 提示。`,
-      `先用${category.zhHans ?? category.zh}实验操作这个知识点，再进入检查练习。此实验对齐 ${domainId}${standardSuffix}，带有 Safeguard Review 记录，并会在学生操作模型前显示 Read me first 提示。`
+      `Use the ${category.en.toLowerCase()} lab to manipulate this knowledge point before checkpoint practice. This lesson core is aligned to ${domainId}${standardSuffix}; the chosen lab supports it, carries a Safeguard Review record, and shows its Read me first note before students interact with the model.`,
+      `先用${category.zh}實驗操作這個知識點，再進入檢查練習。此課節核心對齊 ${domainId}${standardSuffix}；所選實驗支援此核心，帶有 Safeguard Review 記錄，並會在學生操作模型前顯示 Read me first 提示。`,
+      `先用${category.zhHans ?? category.zh}实验操作这个知识点，再进入检查练习。此课节核心对齐 ${domainId}${standardSuffix}；所选实验支持此核心，带有 Safeguard Review 记录，并会在学生操作模型前显示 Read me first 提示。`
     ),
     visualizationConfig: {
       moduleId: lab.moduleId,
@@ -907,7 +901,7 @@ function toLessonSeed(topic: Topic): ProductionLessonSeed {
     practiceQuestionIds: selectPracticeQuestionIds(topic.id),
     blocks: withCaliforniaVisualizationBlock(topic.id, [
       ...coreBlocks,
-      scaffoldedPracticeBlock(topic, topicQuestions),
+      scaffoldedPracticeBlock(topic),
       remediationBlock(topic, topicQuestions),
       teacherGuide
     ])

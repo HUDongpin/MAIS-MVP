@@ -15,16 +15,18 @@ function fmt(n: number) {
   return Number(n.toFixed(4)).toString();
 }
 
+function inputFmt(hundredths: number) {
+  return (hundredths / 100).toFixed(2);
+}
+
 export default function Lesson() {
   const [aInt, setAInt] = useState(125); // hundredths -> 1.25
   const [bInt, setBInt] = useState(40); // hundredths -> 0.40
   const [op, setOp] = useState<Op>("add");
 
-  const a = aInt / 100, b = bInt / 100;
-  const hi = Math.max(aInt, bInt), lo = Math.min(aInt, bInt);
   const result =
     op === "add" ? (aInt + bInt) / 100
-    : op === "sub" ? (hi - lo) / 100
+    : op === "sub" ? (aInt - bInt) / 100
     : op === "mul" ? (aInt * bInt) / 10000
     : aInt / bInt;
   // The quotient rarely lands on four decimals (1.25 / 0.40 = 3.125 does, 1.25 / 0.30
@@ -52,13 +54,21 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {([["add", "+"], ["sub", "−"], ["mul", "×"], ["div", "÷"]] as [Op, string][]).map(([o, sym]) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{sym}</button>
+              <button key={o} type="button" onClick={() => {
+                setOp(o);
+                // Keep subtraction in the Grade 5 nonnegative-decimal domain,
+                // with the controls in the same order as the shown equation.
+                if (o === "sub" && aInt < bInt) {
+                  setAInt(bInt);
+                  setBInt(aInt);
+                }
+              }} aria-label={o === "add" ? "Addition" : o === "sub" ? "Subtraction" : o === "mul" ? "Multiplication" : "Division"} aria-pressed={op === o} className="grid h-10 w-10 place-items-center rounded-lg border text-xl font-black" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{sym}</button>
             ))}
           </div>
 
-          <div className="font-mono text-3xl font-black">
-            {op === "sub" ? fmt(hi / 100) : fmt(a)} {op === "add" ? "+" : op === "sub" ? "−" : op === "mul" ? "×" : "÷"} {op === "sub" ? fmt(lo / 100) : fmt(b)} {eq} <span style={{ color: ACCENT }}>{fmt(result)}</span>
-          </div>
+          <output className="font-mono text-3xl font-black" aria-label="Decimal operation result" aria-live="polite" aria-atomic="true">
+            {inputFmt(aInt)} {op === "add" ? "+" : op === "sub" ? "−" : op === "mul" ? "×" : "÷"} {inputFmt(bInt)} {eq} <span style={{ color: ACCENT }}>{fmt(result)}</span>
+          </output>
 
           <p className="m-0 max-w-md rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             {tip}
@@ -66,8 +76,8 @@ export default function Lesson() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="First" value={aInt} onChange={setAInt} />
-            <Stepper label="Second" value={bInt} onChange={setBInt} />
+            <Stepper label="First" value={aInt} min={op === "sub" ? bInt : 1} onChange={setAInt} />
+            <Stepper label="Second" value={bInt} max={op === "sub" ? aInt : 999} onChange={setBInt} />
           </div>
         </div>
       </Figure>
@@ -77,7 +87,7 @@ export default function Lesson() {
         {op === "mul"
           ? `Multiplying like whole numbers, ${aInt} × ${bInt} = ${aInt * bInt}. Since each factor had 2 decimal places, the answer has 4 — then you drop trailing zeros: ${fmt(result)}.`
           : op === "div"
-            ? `Scaling both numbers by 100 leaves the quotient unchanged, so ${fmt(a)} ÷ ${fmt(b)} is the whole-number division ${aInt} ÷ ${bInt} ${eq} ${fmt(result)}.`
+            ? `Scaling both numbers by 100 leaves the quotient unchanged, so ${inputFmt(aInt)} ÷ ${inputFmt(bInt)} is the whole-number division ${aInt} ÷ ${bInt} ${eq} ${fmt(result)}.`
             : `Once the decimal points are lined up, ${op === "add" ? "adding" : "subtracting"} works exactly like whole numbers, and the point in the answer sits right below the others: ${fmt(result)}.`}
       </p>
 
@@ -96,17 +106,17 @@ export default function Lesson() {
   );
 }
 
-function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(1, Math.min(999, v)));
+function Stepper({ label, value, min = 1, max = 999, onChange }: { label: string; value: number; min?: number; max?: number; onChange: (n: number) => void }) {
+  const set = (v: number) => onChange(Math.max(min, Math.min(max, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 10)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label={`Decrease ${label} by one tenth`}>−0.1</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 10)} disabled={value - 10 < min} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold disabled:opacity-40" aria-label={`Decrease ${label} by one tenth`}>−0.1</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= min} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label} by one hundredth`}>−</button>
         <span className="w-16 text-center font-mono text-lg font-black tabular-nums">{(value / 100).toFixed(2)}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 10)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label={`Increase ${label} by one tenth`}>+0.1</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= max} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label} by one hundredth`}>+</button>
+        <button type="button" onClick={() => set(value + 10)} disabled={value + 10 > max} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold disabled:opacity-40" aria-label={`Increase ${label} by one tenth`}>+0.1</button>
       </div>
     </div>
   );

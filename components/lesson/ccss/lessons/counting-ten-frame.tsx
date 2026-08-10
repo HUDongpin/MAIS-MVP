@@ -128,16 +128,21 @@ export default function Lesson() {
 
       <h2>The last number tells how many</h2>
       <p>
-        Point to each counter and say the numbers in order: one, two, three…
-        The <strong>last</strong>{" "}number you say is how many counters there are
-        in all. That is what a count <em>means</em>.
+        {count === 0 ? (
+          <>There are no counters to point to, so the total is <strong>zero</strong>.</>
+        ) : (
+          <>Point to each counter and say the numbers in order: one, two, three…
+          The <strong>last</strong>{" "}number you say is how many counters there are
+          in all. That is what a count <em>means</em>.</>
+        )}
       </p>
 
       <MathCheck>
         <p>
           Counting works because we match <strong>one number word to one
           object</strong>, in order, with none skipped and none counted twice.
-          The final word in the sequence is the total — this is the idea of{" "}
+          For a nonempty group, the final word in the sequence is the total;
+          an empty group has a total of zero. This is the idea of{" "}
           <strong>cardinality</strong>{" "}(K.CC.B.4). The ten-frame also shows{" "}
           <strong>10 = 5 + 5</strong>{" "}and helps us see a teen number as{" "}
           <em>ten and some more</em>{" "}(for example, 14 is one full ten and 4

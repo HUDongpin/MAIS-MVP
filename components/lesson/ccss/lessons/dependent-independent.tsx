@@ -77,7 +77,8 @@ export default function Lesson() {
         Choosing x = 4 items forces y = {m} × 4 = {m * 4}. The equation states the
         rule, the table lists example pairs, and the graph shows them as points —
         all describing how the dependent variable y responds to the independent
-        variable x.
+        variable x. In algebra, {m} × x is often written {m}x; both notations mean
+        {m} times x.
       </p>
 
       <MathCheck>

@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const TENTH = "var(--band-middle)";
 const HUND = "var(--band-upper)";
+const placeCount = (count: number, singular: "tenth" | "hundredth") =>
+  `${count} ${count === 1 ? singular : `${singular}s`}`;
 
 export default function Lesson() {
   const [v, setV] = useState(37); // hundredths, 0..99
@@ -48,7 +50,7 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 text-center font-mono text-[15px] text-[var(--ink-soft)]">
-            {decimal} = <span style={{ color: TENTH }}>{tenthsDigit} tenths</span> + <span style={{ color: HUND }}>{hundDigit} hundredths</span>
+            {decimal} = <span style={{ color: TENTH }}>{placeCount(tenthsDigit, "tenth")}</span> + <span style={{ color: HUND }}>{placeCount(hundDigit, "hundredth")}</span>
           </p>
 
           <Stepper label="Hundredths" value={v} onChange={setV} />
@@ -57,9 +59,9 @@ export default function Lesson() {
 
       <h2>Reading the places after the dot</h2>
       <p>
-        In {decimal}, the {tenthsDigit} is {tenthsDigit} tenths ({tenthsDigit}/10)
-        and the {hundDigit} is {hundDigit} hundredths ({hundDigit}/100). Together
-        that is {v} hundredths — the same amount shaded in the grid.
+        In {decimal}, the {tenthsDigit} is {placeCount(tenthsDigit, "tenth")} ({tenthsDigit}/10)
+        and the {hundDigit} is {placeCount(hundDigit, "hundredth")} ({hundDigit}/100). Together
+        that is {placeCount(v, "hundredth")} — the same amount shaded in the grid.
       </p>
 
       <MathCheck>
@@ -81,11 +83,11 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Decrease ${label} by 10`}>−10</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 10)} disabled={value - 10 < 0} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Decrease ${label} by ten hundredths`}>−10</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= 0} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label} by one hundredth`}>−</button>
         <span className="w-10 text-center text-2xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 10)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Increase ${label} by 10`}>+10</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 99} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label} by one hundredth`}>+</button>
+        <button type="button" onClick={() => set(value + 10)} disabled={value + 10 > 99} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Increase ${label} by ten hundredths`}>+10</button>
       </div>
     </div>
   );

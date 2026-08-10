@@ -22,6 +22,11 @@ function Bar({ num, den, color }: { num: number; den: number; color: string }) {
   );
 }
 
+function relativeToHalf(num: number, den: number) {
+  const doubled = 2 * num;
+  return doubled > den ? "more than half" : doubled < den ? "less than half" : "exactly equal to half";
+}
+
 export default function Lesson() {
   const [n1, setN1] = useState(2);
   const [d1, setD1] = useState(3);
@@ -79,12 +84,12 @@ export default function Lesson() {
 
       <h2>Make the pieces match</h2>
       <p>
-        You can only compare numerators when the denominators agree. A quick
+        You can only compare numerators when the denominators agree. A quick{" "}
         {/* The two fractions were hard-coded while the clause after them was
             live, so the sentence attributed the displayed numbers to 2/3 and
             3/5 whatever the controls were set to. */}
-        shortcut is the <strong>benchmark 1/2</strong>: {n1}/{d1} is {n1 / d1 > 0.5 ? "more" : n1 / d1 < 0.5 ? "less" : "exactly"} than half and{" "}
-        {n2}/{d2} is {n2 / d2 > 0.5 ? "more" : n2 / d2 < 0.5 ? "less" : "exactly"} than half, so you rewrite to be sure — {na}/{lcm} vs {nc}/{lcm}.
+        shortcut is the <strong>benchmark 1/2</strong>: {n1}/{d1} is {relativeToHalf(n1, d1)} and{" "}
+        {n2}/{d2} is {relativeToHalf(n2, d2)}, so you rewrite to be sure — {na}/{lcm} vs {nc}/{lcm}.
       </p>
 
       <MathCheck>

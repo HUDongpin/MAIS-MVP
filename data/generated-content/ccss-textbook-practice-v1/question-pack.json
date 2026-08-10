@@ -13,7 +13,14 @@
       "P2",
       "P3",
       "P4",
-      "P5"
+      "P5",
+      "P6",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6"
     ],
     "phase": "phase-1-full-port",
     "sourceLessonCount": 270
@@ -360,9 +367,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Counting to 100 by tens — how many numbers do you say?",
-        "zh": "Counting to 100 by tens — how many numbers do you say?",
-        "zhHans": "Counting to 100 by tens — how many numbers do you say?"
+        "en": "Start at 10 and count by tens through 100. How many numbers do you say?",
+        "zh": "Start at 10 and count by tens through 100. How many numbers do you say?",
+        "zhHans": "Start at 10 and count by tens through 100. How many numbers do you say?"
       },
       "options": [
         {
@@ -504,25 +511,25 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Which symbol makes it true?  3 __ 8",
-        "zh": "Which symbol makes it true?  3 __ 8",
-        "zhHans": "Which symbol makes it true?  3 __ 8"
+        "en": "Which sentence correctly compares a group of 3 with a group of 8?",
+        "zh": "Which sentence correctly compares a group of 3 with a group of 8?",
+        "zhHans": "Which sentence correctly compares a group of 3 with a group of 8?"
       },
       "options": [
         {
-          "en": "<",
-          "zh": "<",
-          "zhHans": "<"
+          "en": "3 is less than 8",
+          "zh": "3 is less than 8",
+          "zhHans": "3 is less than 8"
         },
         {
-          "en": ">",
-          "zh": ">",
-          "zhHans": ">"
+          "en": "3 is greater than 8",
+          "zh": "3 is greater than 8",
+          "zhHans": "3 is greater than 8"
         },
         {
-          "en": "=",
-          "zh": "=",
-          "zhHans": "="
+          "en": "3 is equal to 8",
+          "zh": "3 is equal to 8",
+          "zhHans": "3 is equal to 8"
         },
         {
           "en": "+",
@@ -530,17 +537,17 @@
           "zhHans": "+"
         }
       ],
-      "answer": "<",
+      "answer": "3 is less than 8",
       "acceptedAnswers": [
-        "<"
+        "3 is less than 8"
       ],
       "explanation": {
-        "en": "3 is less than 8, so 3 < 8.",
-        "zh": "3 is less than 8, so 3 < 8.",
-        "zhHans": "3 is less than 8, so 3 < 8."
+        "en": "A group of 3 has fewer objects than a group of 8, so 3 is less than 8.",
+        "zh": "A group of 3 has fewer objects than a group of 8, so 3 is less than 8.",
+        "zhHans": "A group of 3 has fewer objects than a group of 8, so 3 is less than 8."
       },
-      "independentAnswer": "<",
-      "independentSolution": "3 is less than 8, so 3 < 8."
+      "independentAnswer": "3 is less than 8",
+      "independentSolution": "A group of 3 has fewer objects than a group of 8, so 3 is less than 8."
     },
     {
       "id": "ccss-textbook-practice-v1-compare-groups-q03",
@@ -1126,9 +1133,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Which of these can you measure?",
-        "zh": "Which of these can you measure?",
-        "zhHans": "Which of these can you measure?"
+        "en": "Name the attribute used to compare how long two objects are.",
+        "zh": "Name the attribute used to compare how long two objects are.",
+        "zhHans": "Name the attribute used to compare how long two objects are."
       },
       "options": [
         {
@@ -1157,12 +1164,12 @@
         "length"
       ],
       "explanation": {
-        "en": "Length is a measurable attribute; color and sound are not lengths.",
-        "zh": "Length is a measurable attribute; color and sound are not lengths.",
-        "zhHans": "Length is a measurable attribute; color and sound are not lengths."
+        "en": "Length is the measurable attribute used to compare how long objects are.",
+        "zh": "Length is the measurable attribute used to compare how long objects are.",
+        "zhHans": "Length is the measurable attribute used to compare how long objects are."
       },
       "independentAnswer": "length",
-      "independentSolution": "Length is a measurable attribute; color and sound are not lengths."
+      "independentSolution": "Length is the measurable attribute used to compare how long objects are."
     },
     {
       "id": "ccss-textbook-practice-v1-sort-and-count-q01",
@@ -1586,9 +1593,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Two triangles can be joined to make a…",
-        "zh": "Two triangles can be joined to make a…",
-        "zhHans": "Two triangles can be joined to make a…"
+        "en": "Two matching right triangles each form one half of a square. If they are joined along their shared slanted side, what shape do they make?",
+        "zh": "Two matching right triangles each form one half of a square. If they are joined along their shared slanted side, what shape do they make?",
+        "zhHans": "Two matching right triangles each form one half of a square. If they are joined along their shared slanted side, what shape do they make?"
       },
       "options": [
         {
@@ -1617,12 +1624,12 @@
         "square"
       ],
       "explanation": {
-        "en": "Two matching triangles fit together into a square.",
-        "zh": "Two matching triangles fit together into a square.",
-        "zhHans": "Two matching triangles fit together into a square."
+        "en": "The two matching halves meet along the shared slanted side and form one square.",
+        "zh": "The two matching halves meet along the shared slanted side and form one square.",
+        "zhHans": "The two matching halves meet along the shared slanted side and form one square."
       },
       "independentAnswer": "square",
-      "independentSolution": "Two matching triangles fit together into a square."
+      "independentSolution": "The two matching halves meet along the shared slanted side and form one square."
     },
     {
       "id": "ccss-textbook-practice-v1-compose-shapes-q02",
@@ -3914,23 +3921,64 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "picture-graph",
+        "title": {
+          "en": "Class pet survey",
+          "zh": "Class pet survey",
+          "zhHans": "Class pet survey"
+        },
+        "unit": {
+          "en": "pets",
+          "zh": "pets",
+          "zhHans": "pets"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Dogs",
+              "zh": "Dogs",
+              "zhHans": "Dogs"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Cats",
+              "zh": "Cats",
+              "zhHans": "Cats"
+            },
+            "value": 4
+          },
+          {
+            "label": {
+              "en": "Fish",
+              "zh": "Fish",
+              "zhHans": "Fish"
+            },
+            "value": 8
+          }
+        ],
+        "scale": 1
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?",
-        "zh": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?",
-        "zhHans": "The graph shows 6 dogs, 4 cats, and 8 fish. How many pets in all?"
+        "en": "Use the picture graph. How many pets are recorded in all?",
+        "zh": "Use the picture graph. How many pets are recorded in all?",
+        "zhHans": "Use the picture graph. How many pets are recorded in all?"
       },
       "answer": "18",
       "acceptedAnswers": [
         "18"
       ],
       "explanation": {
-        "en": "6 + 4 + 8 = 18.",
-        "zh": "6 + 4 + 8 = 18.",
-        "zhHans": "6 + 4 + 8 = 18."
+        "en": "The picture graph shows 6 dogs, 4 cats, and 8 fish, so 6 + 4 + 8 = 18.",
+        "zh": "The picture graph shows 6 dogs, 4 cats, and 8 fish, so 6 + 4 + 8 = 18.",
+        "zhHans": "The picture graph shows 6 dogs, 4 cats, and 8 fish, so 6 + 4 + 8 = 18."
       },
       "independentAnswer": "18",
-      "independentSolution": "6 + 4 + 8 = 18."
+      "independentSolution": "The picture graph shows 6 dogs, 4 cats, and 8 fish, so 6 + 4 + 8 = 18."
     },
     {
       "id": "ccss-textbook-practice-v1-picture-graph-q02",
@@ -3962,11 +4010,52 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "picture-graph",
+        "title": {
+          "en": "Class pet survey",
+          "zh": "Class pet survey",
+          "zhHans": "Class pet survey"
+        },
+        "unit": {
+          "en": "pets",
+          "zh": "pets",
+          "zhHans": "pets"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Dogs",
+              "zh": "Dogs",
+              "zhHans": "Dogs"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Cats",
+              "zh": "Cats",
+              "zhHans": "Cats"
+            },
+            "value": 4
+          },
+          {
+            "label": {
+              "en": "Fish",
+              "zh": "Fish",
+              "zhHans": "Fish"
+            },
+            "value": 8
+          }
+        ],
+        "scale": 1
+      },
       "type": "multiple-choice",
       "prompt": {
-        "en": "There are 6 dogs and 4 cats. How many more dogs than cats?",
-        "zh": "There are 6 dogs and 4 cats. How many more dogs than cats?",
-        "zhHans": "There are 6 dogs and 4 cats. How many more dogs than cats?"
+        "en": "Use the picture graph. How many more dogs than cats are recorded?",
+        "zh": "Use the picture graph. How many more dogs than cats are recorded?",
+        "zhHans": "Use the picture graph. How many more dogs than cats are recorded?"
       },
       "options": [
         {
@@ -3995,12 +4084,12 @@
         "2"
       ],
       "explanation": {
-        "en": "6 − 4 = 2.",
-        "zh": "6 − 4 = 2.",
-        "zhHans": "6 − 4 = 2."
+        "en": "The picture graph shows 6 dogs and 4 cats, so 6 − 4 = 2.",
+        "zh": "The picture graph shows 6 dogs and 4 cats, so 6 − 4 = 2.",
+        "zhHans": "The picture graph shows 6 dogs and 4 cats, so 6 − 4 = 2."
       },
       "independentAnswer": "2",
-      "independentSolution": "6 − 4 = 2."
+      "independentSolution": "The picture graph shows 6 dogs and 4 cats, so 6 − 4 = 2."
     },
     {
       "id": "ccss-textbook-practice-v1-picture-graph-q03",
@@ -4314,25 +4403,25 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A square with a triangle on top makes a…",
-        "zh": "A square with a triangle on top makes a…",
-        "zhHans": "A square with a triangle on top makes a…"
+        "en": "A triangle shares the whole top side of a square and is centered above it. How many sides are on the outside boundary of the combined figure?",
+        "zh": "A triangle shares the whole top side of a square and is centered above it. How many sides are on the outside boundary of the combined figure?",
+        "zhHans": "A triangle shares the whole top side of a square and is centered above it. How many sides are on the outside boundary of the combined figure?"
       },
       "options": [
         {
-          "en": "house shape",
-          "zh": "house shape",
-          "zhHans": "house shape"
+          "en": "5 sides",
+          "zh": "5 sides",
+          "zhHans": "5 sides"
         },
         {
-          "en": "circle",
-          "zh": "circle",
-          "zhHans": "circle"
+          "en": "4 sides",
+          "zh": "4 sides",
+          "zhHans": "4 sides"
         },
         {
-          "en": "straight line",
-          "zh": "straight line",
-          "zhHans": "straight line"
+          "en": "6 sides",
+          "zh": "6 sides",
+          "zhHans": "6 sides"
         },
         {
           "en": "star shape",
@@ -4340,17 +4429,17 @@
           "zhHans": "star shape"
         }
       ],
-      "answer": "house shape",
+      "answer": "5 sides",
       "acceptedAnswers": [
-        "house shape"
+        "5 sides"
       ],
       "explanation": {
-        "en": "Square base + triangle roof = a house shape.",
-        "zh": "Square base + triangle roof = a house shape.",
-        "zhHans": "Square base + triangle roof = a house shape."
+        "en": "The shared side is inside the composite figure, leaving the square's bottom and two side edges plus the triangle's two slanted edges: 5 outside sides.",
+        "zh": "The shared side is inside the composite figure, leaving the square's bottom and two side edges plus the triangle's two slanted edges: 5 outside sides.",
+        "zhHans": "The shared side is inside the composite figure, leaving the square's bottom and two side edges plus the triangle's two slanted edges: 5 outside sides."
       },
-      "independentAnswer": "house shape",
-      "independentSolution": "Square base + triangle roof = a house shape."
+      "independentAnswer": "5 sides",
+      "independentSolution": "The shared side is inside the composite figure, leaving the square's bottom and two side edges plus the triangle's two slanted edges: 5 outside sides."
     },
     {
       "id": "ccss-textbook-practice-v1-compose-2d-q02",
@@ -4384,9 +4473,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Two trapezoids can be joined to make a…",
-        "zh": "Two trapezoids can be joined to make a…",
-        "zhHans": "Two trapezoids can be joined to make a…"
+        "en": "Two matching trapezoids are joined along their long parallel sides. What composite shape can they make?",
+        "zh": "Two matching trapezoids are joined along their long parallel sides. What composite shape can they make?",
+        "zhHans": "Two matching trapezoids are joined along their long parallel sides. What composite shape can they make?"
       },
       "options": [
         {
@@ -4415,12 +4504,12 @@
         "hexagon"
       ],
       "explanation": {
-        "en": "Two trapezoids fit together into a hexagon.",
-        "zh": "Two trapezoids fit together into a hexagon.",
-        "zhHans": "Two trapezoids fit together into a hexagon."
+        "en": "When their long parallel sides coincide, the outside edges of the two matching trapezoids form a hexagon.",
+        "zh": "When their long parallel sides coincide, the outside edges of the two matching trapezoids form a hexagon.",
+        "zhHans": "When their long parallel sides coincide, the outside edges of the two matching trapezoids form a hexagon."
       },
       "independentAnswer": "hexagon",
-      "independentSolution": "Two trapezoids fit together into a hexagon."
+      "independentSolution": "When their long parallel sides coincide, the outside edges of the two matching trapezoids form a hexagon."
     },
     {
       "id": "ccss-textbook-practice-v1-compose-2d-q03",
@@ -4887,12 +4976,12 @@
         "14"
       ],
       "explanation": {
-        "en": "A double you can memorize.",
-        "zh": "A double you can memorize.",
-        "zhHans": "A double you can memorize."
+        "en": "Doubling 7 means adding 7 to itself, so 7 + 7 = 14.",
+        "zh": "Doubling 7 means adding 7 to itself, so 7 + 7 = 14.",
+        "zhHans": "Doubling 7 means adding 7 to itself, so 7 + 7 = 14."
       },
       "independentAnswer": "14",
-      "independentSolution": "A double you can memorize."
+      "independentSolution": "Doubling 7 means adding 7 to itself, so 7 + 7 = 14."
     },
     {
       "id": "ccss-textbook-practice-v1-fluent-within-20-q02",
@@ -5326,45 +5415,23 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
-      "type": "multiple-choice",
+      "type": "fill-in",
       "prompt": {
-        "en": "4 + 4 + 4 is the same as…",
-        "zh": "4 + 4 + 4 is the same as…",
-        "zhHans": "4 + 4 + 4 is the same as…"
+        "en": "An array has 3 rows with 4 objects in each row. Use equal-addend addition to find the total.",
+        "zh": "An array has 3 rows with 4 objects in each row. Use equal-addend addition to find the total.",
+        "zhHans": "An array has 3 rows with 4 objects in each row. Use equal-addend addition to find the total."
       },
-      "options": [
-        {
-          "en": "3 × 4",
-          "zh": "3 × 4",
-          "zhHans": "3 × 4"
-        },
-        {
-          "en": "4 × 4",
-          "zh": "4 × 4",
-          "zhHans": "4 × 4"
-        },
-        {
-          "en": "3 + 4",
-          "zh": "3 + 4",
-          "zhHans": "3 + 4"
-        },
-        {
-          "en": "3 × 3",
-          "zh": "3 × 3",
-          "zhHans": "3 × 3"
-        }
-      ],
-      "answer": "3 × 4",
+      "answer": "12",
       "acceptedAnswers": [
-        "3 × 4"
+        "12"
       ],
       "explanation": {
-        "en": "Three groups of 4 is 3 × 4.",
-        "zh": "Three groups of 4 is 3 × 4.",
-        "zhHans": "Three groups of 4 is 3 × 4."
+        "en": "Add 4 for each of the 3 equal rows: 4 + 4 + 4 = 12.",
+        "zh": "Add 4 for each of the 3 equal rows: 4 + 4 + 4 = 12.",
+        "zhHans": "Add 4 for each of the 3 equal rows: 4 + 4 + 4 = 12."
       },
-      "independentAnswer": "3 × 4",
-      "independentSolution": "Three groups of 4 is 3 × 4."
+      "independentAnswer": "12",
+      "independentSolution": "Add 4 for each of the 3 equal rows: 4 + 4 + 4 = 12."
     },
     {
       "id": "ccss-textbook-practice-v1-place-value-blocks-q01",
@@ -7628,23 +7695,72 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "bar-graph",
+        "title": {
+          "en": "Fruit survey",
+          "zh": "Fruit survey",
+          "zhHans": "Fruit survey"
+        },
+        "unit": {
+          "en": "votes",
+          "zh": "votes",
+          "zhHans": "votes"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Apples",
+              "zh": "Apples",
+              "zhHans": "Apples"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Bananas",
+              "zh": "Bananas",
+              "zhHans": "Bananas"
+            },
+            "value": 9
+          },
+          {
+            "label": {
+              "en": "Oranges",
+              "zh": "Oranges",
+              "zhHans": "Oranges"
+            },
+            "value": 3
+          },
+          {
+            "label": {
+              "en": "Pears",
+              "zh": "Pears",
+              "zhHans": "Pears"
+            },
+            "value": 5
+          }
+        ],
+        "scale": 1
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "Apple got 6 votes, banana got 9. How many more votes for banana?",
-        "zh": "Apple got 6 votes, banana got 9. How many more votes for banana?",
-        "zhHans": "Apple got 6 votes, banana got 9. How many more votes for banana?"
+        "en": "Use the bar graph. How many more votes did bananas receive than apples?",
+        "zh": "Use the bar graph. How many more votes did bananas receive than apples?",
+        "zhHans": "Use the bar graph. How many more votes did bananas receive than apples?"
       },
       "answer": "3",
       "acceptedAnswers": [
         "3"
       ],
       "explanation": {
-        "en": "9 − 6 = 3.",
-        "zh": "9 − 6 = 3.",
-        "zhHans": "9 − 6 = 3."
+        "en": "The bars show 9 votes for bananas and 6 for apples, so 9 − 6 = 3.",
+        "zh": "The bars show 9 votes for bananas and 6 for apples, so 9 − 6 = 3.",
+        "zhHans": "The bars show 9 votes for bananas and 6 for apples, so 9 − 6 = 3."
       },
       "independentAnswer": "3",
-      "independentSolution": "9 − 6 = 3."
+      "independentSolution": "The bars show 9 votes for bananas and 6 for apples, so 9 − 6 = 3."
     },
     {
       "id": "ccss-textbook-practice-v1-bar-graph-q02",
@@ -7676,23 +7792,72 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "bar-graph",
+        "title": {
+          "en": "Fruit survey",
+          "zh": "Fruit survey",
+          "zhHans": "Fruit survey"
+        },
+        "unit": {
+          "en": "votes",
+          "zh": "votes",
+          "zhHans": "votes"
+        },
+        "categories": [
+          {
+            "label": {
+              "en": "Apples",
+              "zh": "Apples",
+              "zhHans": "Apples"
+            },
+            "value": 6
+          },
+          {
+            "label": {
+              "en": "Bananas",
+              "zh": "Bananas",
+              "zhHans": "Bananas"
+            },
+            "value": 9
+          },
+          {
+            "label": {
+              "en": "Oranges",
+              "zh": "Oranges",
+              "zhHans": "Oranges"
+            },
+            "value": 3
+          },
+          {
+            "label": {
+              "en": "Pears",
+              "zh": "Pears",
+              "zhHans": "Pears"
+            },
+            "value": 5
+          }
+        ],
+        "scale": 1
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "Bars show 6, 9, 3, and 5. What is the total?",
-        "zh": "Bars show 6, 9, 3, and 5. What is the total?",
-        "zhHans": "Bars show 6, 9, 3, and 5. What is the total?"
+        "en": "Use the bar graph. How many votes are recorded in all?",
+        "zh": "Use the bar graph. How many votes are recorded in all?",
+        "zhHans": "Use the bar graph. How many votes are recorded in all?"
       },
       "answer": "23",
       "acceptedAnswers": [
         "23"
       ],
       "explanation": {
-        "en": "6 + 9 + 3 + 5 = 23.",
-        "zh": "6 + 9 + 3 + 5 = 23.",
-        "zhHans": "6 + 9 + 3 + 5 = 23."
+        "en": "The four bars show 6, 9, 3, and 5 votes, so 6 + 9 + 3 + 5 = 23.",
+        "zh": "The four bars show 6, 9, 3, and 5 votes, so 6 + 9 + 3 + 5 = 23.",
+        "zhHans": "The four bars show 6, 9, 3, and 5 votes, so 6 + 9 + 3 + 5 = 23."
       },
       "independentAnswer": "23",
-      "independentSolution": "6 + 9 + 3 + 5 = 23."
+      "independentSolution": "The four bars show 6, 9, 3, and 5 votes, so 6 + 9 + 3 + 5 = 23."
     },
     {
       "id": "ccss-textbook-practice-v1-bar-graph-q03",
@@ -7971,12 +8136,12 @@
         "12"
       ],
       "explanation": {
-        "en": "3 × 4 = 12.",
-        "zh": "3 × 4 = 12.",
-        "zhHans": "3 × 4 = 12."
+        "en": "Add the 4 squares in each row: 4 + 4 + 4 = 12.",
+        "zh": "Add the 4 squares in each row: 4 + 4 + 4 = 12.",
+        "zhHans": "Add the 4 squares in each row: 4 + 4 + 4 = 12."
       },
       "independentAnswer": "12",
-      "independentSolution": "3 × 4 = 12."
+      "independentSolution": "Add the 4 squares in each row: 4 + 4 + 4 = 12."
     },
     {
       "id": "ccss-textbook-practice-v1-rows-and-columns-q02",
@@ -8857,12 +9022,12 @@
         "42"
       ],
       "explanation": {
-        "en": "A fact to know from memory.",
-        "zh": "A fact to know from memory.",
-        "zhHans": "A fact to know from memory."
+        "en": "Six groups of 7 make 42, so 6 × 7 = 42.",
+        "zh": "Six groups of 7 make 42, so 6 × 7 = 42.",
+        "zhHans": "Six groups of 7 make 42, so 6 × 7 = 42."
       },
       "independentAnswer": "42",
-      "independentSolution": "A fact to know from memory."
+      "independentSolution": "Six groups of 7 make 42, so 6 × 7 = 42."
     },
     {
       "id": "ccss-textbook-practice-v1-multiplication-fluency-q02",
@@ -9189,12 +9354,12 @@
         "0"
       ],
       "explanation": {
-        "en": "Ten is one full place.",
-        "zh": "Ten is one full place.",
-        "zhHans": "Ten is one full place."
+        "en": "Every whole-number multiple of 10 can be written as 10 × n; multiplying by 10 leaves 0 in the ones digit.",
+        "zh": "Every whole-number multiple of 10 can be written as 10 × n; multiplying by 10 leaves 0 in the ones digit.",
+        "zhHans": "Every whole-number multiple of 10 can be written as 10 × n; multiplying by 10 leaves 0 in the ones digit."
       },
       "independentAnswer": "0",
-      "independentSolution": "Ten is one full place."
+      "independentSolution": "Every whole-number multiple of 10 can be written as 10 × n; multiplying by 10 leaves 0 in the ones digit."
     },
     {
       "id": "ccss-textbook-practice-v1-arithmetic-patterns-q02",
@@ -9870,9 +10035,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Which is greater, 1/2 or 1/4?",
-        "zh": "Which is greater, 1/2 or 1/4?",
-        "zhHans": "Which is greater, 1/2 or 1/4?"
+        "en": "For fractions of the same-sized whole, which is greater, 1/2 or 1/4?",
+        "zh": "For fractions of the same-sized whole, which is greater, 1/2 or 1/4?",
+        "zhHans": "For fractions of the same-sized whole, which is greater, 1/2 or 1/4?"
       },
       "options": [
         {
@@ -9901,12 +10066,12 @@
         "1/2"
       ],
       "explanation": {
-        "en": "Same numerator; fewer parts means bigger pieces.",
-        "zh": "Same numerator; fewer parts means bigger pieces.",
-        "zhHans": "Same numerator; fewer parts means bigger pieces."
+        "en": "For the same-sized whole, the same numerator with fewer equal parts means bigger pieces, so 1/2 > 1/4.",
+        "zh": "For the same-sized whole, the same numerator with fewer equal parts means bigger pieces, so 1/2 > 1/4.",
+        "zhHans": "For the same-sized whole, the same numerator with fewer equal parts means bigger pieces, so 1/2 > 1/4."
       },
       "independentAnswer": "1/2",
-      "independentSolution": "Same numerator; fewer parts means bigger pieces."
+      "independentSolution": "For the same-sized whole, the same numerator with fewer equal parts means bigger pieces, so 1/2 > 1/4."
     },
     {
       "id": "ccss-textbook-practice-v1-compare-fractions-q03",
@@ -10506,11 +10671,38 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Measured lengths",
+          "zh": "Measured lengths",
+          "zhHans": "Measured lengths"
+        },
+        "unit": {
+          "en": "inches",
+          "zh": "inches",
+          "zhHans": "inches"
+        },
+        "values": [
+          1,
+          1.25,
+          1.5,
+          1.5,
+          1.75,
+          2
+        ],
+        "range": [
+          1,
+          2
+        ],
+        "tickInterval": 0.25
+      },
       "type": "multiple-choice",
       "prompt": {
-        "en": "Halfway between 1 inch and 2 inches is…",
-        "zh": "Halfway between 1 inch and 2 inches is…",
-        "zhHans": "Halfway between 1 inch and 2 inches is…"
+        "en": "Use the line plot. Which length has exactly two Xs?",
+        "zh": "Use the line plot. Which length has exactly two Xs?",
+        "zhHans": "Use the line plot. Which length has exactly two Xs?"
       },
       "options": [
         {
@@ -10539,12 +10731,12 @@
         "1½"
       ],
       "explanation": {
-        "en": "The half-inch mark.",
-        "zh": "The half-inch mark.",
-        "zhHans": "The half-inch mark."
+        "en": "The only stack with two Xs is above 1½ inches.",
+        "zh": "The only stack with two Xs is above 1½ inches.",
+        "zhHans": "The only stack with two Xs is above 1½ inches."
       },
       "independentAnswer": "1½",
-      "independentSolution": "The half-inch mark."
+      "independentSolution": "The only stack with two Xs is above 1½ inches."
     },
     {
       "id": "ccss-textbook-practice-v1-measure-line-plot-q02",
@@ -10576,23 +10768,50 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Measured lengths",
+          "zh": "Measured lengths",
+          "zhHans": "Measured lengths"
+        },
+        "unit": {
+          "en": "inches",
+          "zh": "inches",
+          "zhHans": "inches"
+        },
+        "values": [
+          1,
+          1.25,
+          1.5,
+          1.5,
+          1.75,
+          2
+        ],
+        "range": [
+          1,
+          2
+        ],
+        "tickInterval": 0.25
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "How many quarter-inches make one whole inch?",
-        "zh": "How many quarter-inches make one whole inch?",
-        "zhHans": "How many quarter-inches make one whole inch?"
+        "en": "Use the line plot. How many measurements are greater than 1¼ inches?",
+        "zh": "Use the line plot. How many measurements are greater than 1¼ inches?",
+        "zhHans": "Use the line plot. How many measurements are greater than 1¼ inches?"
       },
       "answer": "4",
       "acceptedAnswers": [
         "4"
       ],
       "explanation": {
-        "en": "Four quarters = 1.",
-        "zh": "Four quarters = 1.",
-        "zhHans": "Four quarters = 1."
+        "en": "Two Xs at 1½, one at 1¾, and one at 2 are greater than 1¼, for 4 measurements.",
+        "zh": "Two Xs at 1½, one at 1¾, and one at 2 are greater than 1¼, for 4 measurements.",
+        "zhHans": "Two Xs at 1½, one at 1¾, and one at 2 are greater than 1¼, for 4 measurements."
       },
       "independentAnswer": "4",
-      "independentSolution": "Four quarters = 1."
+      "independentSolution": "Two Xs at 1½, one at 1¾, and one at 2 are greater than 1¼, for 4 measurements."
     },
     {
       "id": "ccss-textbook-practice-v1-measure-line-plot-q03",
@@ -11465,12 +11684,12 @@
         "3 copies of 1/4"
       ],
       "explanation": {
-        "en": "a/b is a copies of the unit fraction 1/b.",
-        "zh": "a/b is a copies of the unit fraction 1/b.",
-        "zhHans": "a/b is a copies of the unit fraction 1/b."
+        "en": "The fraction a/b is made from a copies of the unit fraction 1/b.",
+        "zh": "The fraction a/b is made from a copies of the unit fraction 1/b.",
+        "zhHans": "The fraction a/b is made from a copies of the unit fraction 1/b."
       },
       "independentAnswer": "3 copies of 1/4",
-      "independentSolution": "a/b is a copies of the unit fraction 1/b."
+      "independentSolution": "The fraction a/b is made from a copies of the unit fraction 1/b."
     },
     {
       "id": "ccss-textbook-practice-v1-fractions-number-line-q02",
@@ -16682,9 +16901,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Pattern 1 adds 1, pattern 2 adds 2 (both from 0). Each y is ___ its x.",
-        "zh": "Pattern 1 adds 1, pattern 2 adds 2 (both from 0). Each y is ___ its x.",
-        "zhHans": "Pattern 1 adds 1, pattern 2 adds 2 (both from 0). Each y is ___ its x."
+        "en": "Pattern x starts at 0 and adds 1 each step. Pattern y starts at 0 and adds 2 each corresponding step. How does y compare with x?",
+        "zh": "Pattern x starts at 0 and adds 1 each step. Pattern y starts at 0 and adds 2 each corresponding step. How does y compare with x?",
+        "zhHans": "Pattern x starts at 0 and adds 1 each step. Pattern y starts at 0 and adds 2 each corresponding step. How does y compare with x?"
       },
       "options": [
         {
@@ -16713,12 +16932,12 @@
         "2 times"
       ],
       "explanation": {
-        "en": "y grows twice as fast as x.",
-        "zh": "y grows twice as fast as x.",
-        "zhHans": "y grows twice as fast as x."
+        "en": "At corresponding step n, x = n and y = 2n, so y is 2 times x.",
+        "zh": "At corresponding step n, x = n and y = 2n, so y is 2 times x.",
+        "zhHans": "At corresponding step n, x = n and y = 2n, so y is 2 times x."
       },
       "independentAnswer": "2 times",
-      "independentSolution": "y grows twice as fast as x."
+      "independentSolution": "At corresponding step n, x = n and y = 2n, so y is 2 times x."
     },
     {
       "id": "ccss-textbook-practice-v1-two-patterns-graph-q03",
@@ -17545,12 +17764,12 @@
         "238"
       ],
       "explanation": {
-        "en": "The ones partial product.",
-        "zh": "The ones partial product.",
-        "zhHans": "The ones partial product."
+        "en": "Multiplying 34 by the 7 ones gives the ones partial product: 34 × 7 = 238.",
+        "zh": "Multiplying 34 by the 7 ones gives the ones partial product: 34 × 7 = 238.",
+        "zhHans": "Multiplying 34 by the 7 ones gives the ones partial product: 34 × 7 = 238."
       },
       "independentAnswer": "238",
-      "independentSolution": "The ones partial product."
+      "independentSolution": "Multiplying 34 by the 7 ones gives the ones partial product: 34 × 7 = 238."
     },
     {
       "id": "ccss-textbook-practice-v1-multiply-whole-numbers-q03",
@@ -17593,12 +17812,12 @@
         "680"
       ],
       "explanation": {
-        "en": "The tens partial product.",
-        "zh": "The tens partial product.",
-        "zhHans": "The tens partial product."
+        "en": "Multiplying 34 by 2 tens (20) gives the tens partial product: 34 × 20 = 680.",
+        "zh": "Multiplying 34 by 2 tens (20) gives the tens partial product: 34 × 20 = 680.",
+        "zhHans": "Multiplying 34 by 2 tens (20) gives the tens partial product: 34 × 20 = 680."
       },
       "independentAnswer": "680",
-      "independentSolution": "The tens partial product."
+      "independentSolution": "Multiplying 34 by 2 tens (20) gives the tens partial product: 34 × 20 = 680."
     },
     {
       "id": "ccss-textbook-practice-v1-divide-two-digit-q01",
@@ -17694,7 +17913,7 @@
         "zhHans": "432 ÷ 20 = 21.6, and 21.6 rounds to 22. Check: 20 × 22 = 440, which is closer to 432 than 20 × 21 = 420."
       },
       "independentAnswer": "22",
-      "independentSolution": "432 ÷ 20 = 21.6 → rounds to 22 (432 is 12 above 420 but only 8 below 440)."
+      "independentSolution": "432 ÷ 20 = 21.6, and 21.6 rounds to 22. Check: 20 × 22 = 440, which is closer to 432 than 20 × 21 = 420."
     },
     {
       "id": "ccss-textbook-practice-v1-divide-two-digit-q03",
@@ -17785,12 +18004,12 @@
         "1.65"
       ],
       "explanation": {
-        "en": "Line up the points.",
-        "zh": "Line up the points.",
-        "zhHans": "Line up the points."
+        "en": "Write 0.4 as 0.40 and align the decimal points so ones, tenths, and hundredths stay in the same place-value columns; then add to get 1.65.",
+        "zh": "Write 0.4 as 0.40 and align the decimal points so ones, tenths, and hundredths stay in the same place-value columns; then add to get 1.65.",
+        "zhHans": "Write 0.4 as 0.40 and align the decimal points so ones, tenths, and hundredths stay in the same place-value columns; then add to get 1.65."
       },
       "independentAnswer": "1.65",
-      "independentSolution": "Line up the points."
+      "independentSolution": "Write 0.4 as 0.40 and align the decimal points so ones, tenths, and hundredths stay in the same place-value columns; then add to get 1.65."
     },
     {
       "id": "ccss-textbook-practice-v1-decimal-operations-q02",
@@ -17873,9 +18092,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "0.3 × 0.4 = ?",
-        "zh": "0.3 × 0.4 = ?",
-        "zhHans": "0.3 × 0.4 = ?"
+        "en": "Find the missing value: 0.3 × 0.4 = □, and □ ÷ 0.4 = 0.3.",
+        "zh": "Find the missing value: 0.3 × 0.4 = □, and □ ÷ 0.4 = 0.3.",
+        "zhHans": "Find the missing value: 0.3 × 0.4 = □, and □ ÷ 0.4 = 0.3."
       },
       "answer": "0.12",
       "acceptedAnswers": [
@@ -17883,12 +18102,12 @@
         ".12"
       ],
       "explanation": {
-        "en": "3 × 4 = 12, two decimal places → 0.12.",
-        "zh": "3 × 4 = 12, two decimal places → 0.12.",
-        "zhHans": "3 × 4 = 12, two decimal places → 0.12."
+        "en": "3 × 4 = 12 and the factors have two decimal places in all, so the product is 0.12. The check 0.12 ÷ 0.4 = 0.3 confirms it.",
+        "zh": "3 × 4 = 12 and the factors have two decimal places in all, so the product is 0.12. The check 0.12 ÷ 0.4 = 0.3 confirms it.",
+        "zhHans": "3 × 4 = 12 and the factors have two decimal places in all, so the product is 0.12. The check 0.12 ÷ 0.4 = 0.3 confirms it."
       },
       "independentAnswer": "0.12",
-      "independentSolution": "3 × 4 = 12, two decimal places → 0.12."
+      "independentSolution": "3 × 4 = 12 and the factors have two decimal places in all, so the product is 0.12. The check 0.12 ÷ 0.4 = 0.3 confirms it."
     },
     {
       "id": "ccss-textbook-practice-v1-add-fractions-unlike-q01",
@@ -18759,23 +18978,47 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Beaker amounts",
+          "zh": "Beaker amounts",
+          "zhHans": "Beaker amounts"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "cups",
+          "zhHans": "cups"
+        },
+        "values": [
+          0.25,
+          0.25,
+          0.5
+        ],
+        "range": [
+          0.25,
+          0.5
+        ],
+        "tickInterval": 0.25
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?",
-        "zh": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?",
-        "zhHans": "Beakers hold 1/4, 1/4, and 1/2 cup. What is the total, in cups?"
+        "en": "Use the line plot. What is the total amount, in cups?",
+        "zh": "Use the line plot. What is the total amount, in cups?",
+        "zhHans": "Use the line plot. What is the total amount, in cups?"
       },
       "answer": "1",
       "acceptedAnswers": [
         "1"
       ],
       "explanation": {
-        "en": "1/4 + 1/4 + 2/4 = 4/4 = 1.",
-        "zh": "1/4 + 1/4 + 2/4 = 4/4 = 1.",
-        "zhHans": "1/4 + 1/4 + 2/4 = 4/4 = 1."
+        "en": "The Xs show 1/4, 1/4, and 1/2 cup, so 1/4 + 1/4 + 2/4 = 4/4 = 1 cup.",
+        "zh": "The Xs show 1/4, 1/4, and 1/2 cup, so 1/4 + 1/4 + 2/4 = 4/4 = 1 cup.",
+        "zhHans": "The Xs show 1/4, 1/4, and 1/2 cup, so 1/4 + 1/4 + 2/4 = 4/4 = 1 cup."
       },
       "independentAnswer": "1",
-      "independentSolution": "1/4 + 1/4 + 2/4 = 4/4 = 1."
+      "independentSolution": "The Xs show 1/4, 1/4, and 1/2 cup, so 1/4 + 1/4 + 2/4 = 4/4 = 1 cup."
     },
     {
       "id": "ccss-textbook-practice-v1-line-plot-operations-q02",
@@ -18807,45 +19050,69 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Beaker amounts",
+          "zh": "Beaker amounts",
+          "zhHans": "Beaker amounts"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "cups",
+          "zhHans": "cups"
+        },
+        "values": [
+          0.25,
+          0.25,
+          0.5
+        ],
+        "range": [
+          0.25,
+          0.5
+        ],
+        "tickInterval": 0.25
+      },
       "type": "multiple-choice",
       "prompt": {
-        "en": "To share a total equally among the beakers, you…",
-        "zh": "To share a total equally among the beakers, you…",
-        "zhHans": "To share a total equally among the beakers, you…"
+        "en": "Use the line plot. If the total is shared equally among the beakers represented, how much will each beaker hold?",
+        "zh": "Use the line plot. If the total is shared equally among the beakers represented, how much will each beaker hold?",
+        "zhHans": "Use the line plot. If the total is shared equally among the beakers represented, how much will each beaker hold?"
       },
       "options": [
         {
-          "en": "divide",
-          "zh": "divide",
-          "zhHans": "divide"
+          "en": "1/3 cup",
+          "zh": "1/3 cup",
+          "zhHans": "1/3 cup"
         },
         {
-          "en": "multiply",
-          "zh": "multiply",
-          "zhHans": "multiply"
+          "en": "1/4 cup",
+          "zh": "1/4 cup",
+          "zhHans": "1/4 cup"
         },
         {
-          "en": "add again",
-          "zh": "add again",
-          "zhHans": "add again"
+          "en": "1/2 cup",
+          "zh": "1/2 cup",
+          "zhHans": "1/2 cup"
         },
         {
-          "en": "subtract",
-          "zh": "subtract",
-          "zhHans": "subtract"
+          "en": "1 cup",
+          "zh": "1 cup",
+          "zhHans": "1 cup"
         }
       ],
-      "answer": "divide",
+      "answer": "1/3 cup",
       "acceptedAnswers": [
-        "divide"
+        "1/3 cup"
       ],
       "explanation": {
-        "en": "Divide the total by the number of beakers.",
-        "zh": "Divide the total by the number of beakers.",
-        "zhHans": "Divide the total by the number of beakers."
+        "en": "The plotted amounts total 1 cup across 3 beakers, so 1 ÷ 3 = 1/3 cup each.",
+        "zh": "The plotted amounts total 1 cup across 3 beakers, so 1 ÷ 3 = 1/3 cup each.",
+        "zhHans": "The plotted amounts total 1 cup across 3 beakers, so 1 ÷ 3 = 1/3 cup each."
       },
-      "independentAnswer": "divide",
-      "independentSolution": "Divide the total by the number of beakers."
+      "independentAnswer": "1/3 cup",
+      "independentSolution": "The plotted amounts total 1 cup across 3 beakers, so 1 ÷ 3 = 1/3 cup each."
     },
     {
       "id": "ccss-textbook-practice-v1-line-plot-operations-q03",
@@ -18877,11 +19144,36 @@
       "sourceDistanceStatus": "passed-original-authored",
       "mathQaStatus": "passed-ccss-textbook-hand-check",
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
+      "diagram": {
+        "kind": "data-display",
+        "display": "line-plot",
+        "title": {
+          "en": "Current beaker amounts",
+          "zh": "Current beaker amounts",
+          "zhHans": "Current beaker amounts"
+        },
+        "unit": {
+          "en": "cups",
+          "zh": "cups",
+          "zhHans": "cups"
+        },
+        "values": [
+          1,
+          1.5,
+          1.5,
+          2
+        ],
+        "range": [
+          1,
+          2
+        ],
+        "tickInterval": 0.5
+      },
       "type": "fill-in",
       "prompt": {
-        "en": "6 cups shared equally among 4 beakers = ? cups each",
-        "zh": "6 cups shared equally among 4 beakers = ? cups each",
-        "zhHans": "6 cups shared equally among 4 beakers = ? cups each"
+        "en": "Use the line plot. If the total is redistributed equally among the beakers represented, how many cups will each beaker hold?",
+        "zh": "Use the line plot. If the total is redistributed equally among the beakers represented, how many cups will each beaker hold?",
+        "zhHans": "Use the line plot. If the total is redistributed equally among the beakers represented, how many cups will each beaker hold?"
       },
       "answer": "1.5",
       "acceptedAnswers": [
@@ -18890,12 +19182,12 @@
         "3/2"
       ],
       "explanation": {
-        "en": "6 ÷ 4 = 1.5.",
-        "zh": "6 ÷ 4 = 1.5.",
-        "zhHans": "6 ÷ 4 = 1.5."
+        "en": "The plotted amounts total 6 cups across 4 beakers, so 6 ÷ 4 = 1.5 cups each.",
+        "zh": "The plotted amounts total 6 cups across 4 beakers, so 6 ÷ 4 = 1.5 cups each.",
+        "zhHans": "The plotted amounts total 6 cups across 4 beakers, so 6 ÷ 4 = 1.5 cups each."
       },
       "independentAnswer": "1.5",
-      "independentSolution": "6 ÷ 4 = 1.5."
+      "independentSolution": "The plotted amounts total 6 cups across 4 beakers, so 6 ÷ 4 = 1.5 cups each."
     },
     {
       "id": "ccss-textbook-practice-v1-shape-hierarchy-q01",
@@ -20630,12 +20922,12 @@
         "4.25"
       ],
       "explanation": {
-        "en": "Line up the points.",
-        "zh": "Line up the points.",
-        "zhHans": "Line up the points."
+        "en": "Line up decimal points, then add: 2.50 + 1.75 = 4.25.",
+        "zh": "Line up decimal points, then add: 2.50 + 1.75 = 4.25.",
+        "zhHans": "Line up decimal points, then add: 2.50 + 1.75 = 4.25."
       },
       "independentAnswer": "4.25",
-      "independentSolution": "Line up the points."
+      "independentSolution": "Line up decimal points, then add: 2.50 + 1.75 = 4.25."
     },
     {
       "id": "ccss-textbook-practice-v1-gcf-lcm-q01",
@@ -21936,9 +22228,9 @@
           "zhHans": "1"
         },
         {
-          "en": "6",
-          "zh": "6",
-          "zhHans": "6"
+          "en": "2",
+          "zh": "2",
+          "zhHans": "2"
         }
       ],
       "answer": "5",
@@ -22243,9 +22535,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "The independent variable is the one you…",
-        "zh": "The independent variable is the one you…",
-        "zhHans": "The independent variable is the one you…"
+        "en": "In an input-output model, you choose the input before you calculate the output. What do you do with the independent variable?",
+        "zh": "In an input-output model, you choose the input before you calculate the output. What do you do with the independent variable?",
+        "zhHans": "In an input-output model, you choose the input before you calculate the output. What do you do with the independent variable?"
       },
       "options": [
         {
@@ -22274,12 +22566,12 @@
         "choose (input)"
       ],
       "explanation": {
-        "en": "You pick the input.",
-        "zh": "You pick the input.",
-        "zhHans": "You pick the input."
+        "en": "In this input-output model, the independent variable is the input you choose before calculating the dependent output.",
+        "zh": "In this input-output model, the independent variable is the input you choose before calculating the dependent output.",
+        "zhHans": "In this input-output model, the independent variable is the input you choose before calculating the dependent output."
       },
       "independentAnswer": "choose (input)",
-      "independentSolution": "You pick the input."
+      "independentSolution": "In this input-output model, the independent variable is the input you choose before calculating the dependent output."
     },
     {
       "id": "ccss-textbook-practice-v1-area-triangles-q01",
@@ -22693,21 +22985,21 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "A rectangle has corners (1, 1) and (5, 4). Its width = ?",
-        "zh": "A rectangle has corners (1, 1) and (5, 4). Its width = ?",
-        "zhHans": "A rectangle has corners (1, 1) and (5, 4). Its width = ?"
+        "en": "An axis-aligned rectangle has opposite corners (1, 1) and (5, 4). What is its horizontal width?",
+        "zh": "An axis-aligned rectangle has opposite corners (1, 1) and (5, 4). What is its horizontal width?",
+        "zhHans": "An axis-aligned rectangle has opposite corners (1, 1) and (5, 4). What is its horizontal width?"
       },
       "answer": "4",
       "acceptedAnswers": [
         "4"
       ],
       "explanation": {
-        "en": "|5 − 1| = 4.",
-        "zh": "|5 − 1| = 4.",
-        "zhHans": "|5 − 1| = 4."
+        "en": "For an axis-aligned rectangle, the horizontal width is the absolute difference of the x-coordinates: |5 − 1| = 4.",
+        "zh": "For an axis-aligned rectangle, the horizontal width is the absolute difference of the x-coordinates: |5 − 1| = 4.",
+        "zhHans": "For an axis-aligned rectangle, the horizontal width is the absolute difference of the x-coordinates: |5 − 1| = 4."
       },
       "independentAnswer": "4",
-      "independentSolution": "|5 − 1| = 4."
+      "independentSolution": "For an axis-aligned rectangle, the horizontal width is the absolute difference of the x-coordinates: |5 − 1| = 4."
     },
     {
       "id": "ccss-textbook-practice-v1-polygons-coordinate-q03",
@@ -24298,12 +24590,12 @@
         "30"
       ],
       "explanation": {
-        "en": "40 − 10 = 30.",
-        "zh": "40 − 10 = 30.",
-        "zhHans": "40 − 10 = 30."
+        "en": "25% of $40 is 0.25 × $40 = $10; subtract the discount: $40 − $10 = $30.",
+        "zh": "25% of $40 is 0.25 × $40 = $10; subtract the discount: $40 − $10 = $30.",
+        "zhHans": "25% of $40 is 0.25 × $40 = $10; subtract the discount: $40 − $10 = $30."
       },
       "independentAnswer": "30",
-      "independentSolution": "40 − 10 = 30."
+      "independentSolution": "25% of $40 is 0.25 × $40 = $10; subtract the discount: $40 − $10 = $30."
     },
     {
       "id": "ccss-textbook-practice-v1-percent-problems-q02",
@@ -24346,12 +24638,12 @@
         "46"
       ],
       "explanation": {
-        "en": "40 + 6 = 46.",
-        "zh": "40 + 6 = 46.",
-        "zhHans": "40 + 6 = 46."
+        "en": "15% of $40 is 0.15 × $40 = $6; add the tip: $40 + $6 = $46.",
+        "zh": "15% of $40 is 0.15 × $40 = $6; add the tip: $40 + $6 = $46.",
+        "zhHans": "15% of $40 is 0.15 × $40 = $6; add the tip: $40 + $6 = $46."
       },
       "independentAnswer": "46",
-      "independentSolution": "40 + 6 = 46."
+      "independentSolution": "15% of $40 is 0.15 × $40 = $6; add the tip: $40 + $6 = $46."
     },
     {
       "id": "ccss-textbook-practice-v1-percent-problems-q03",
@@ -24394,12 +24686,12 @@
         "40"
       ],
       "explanation": {
-        "en": "50 − 10 = 40.",
-        "zh": "50 − 10 = 40.",
-        "zhHans": "50 − 10 = 40."
+        "en": "20% of $50 is 0.20 × $50 = $10; subtract the discount: $50 − $10 = $40.",
+        "zh": "20% of $50 is 0.20 × $50 = $10; subtract the discount: $50 − $10 = $40.",
+        "zhHans": "20% of $50 is 0.20 × $50 = $10; subtract the discount: $50 − $10 = $40."
       },
       "independentAnswer": "40",
-      "independentSolution": "50 − 10 = 40."
+      "independentSolution": "20% of $50 is 0.20 × $50 = $10; subtract the discount: $50 − $10 = $40."
     },
     {
       "id": "ccss-textbook-practice-v1-multiply-divide-integers-q01",
@@ -26043,21 +26335,21 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "A triangular prism has base area 6 and length 5. Volume = ?",
-        "zh": "A triangular prism has base area 6 and length 5. Volume = ?",
-        "zhHans": "A triangular prism has base area 6 and length 5. Volume = ?"
+        "en": "A triangular prism has base area 6 square units and perpendicular height 5 units. What is its volume?",
+        "zh": "A triangular prism has base area 6 square units and perpendicular height 5 units. What is its volume?",
+        "zhHans": "A triangular prism has base area 6 square units and perpendicular height 5 units. What is its volume?"
       },
       "answer": "30",
       "acceptedAnswers": [
         "30"
       ],
       "explanation": {
-        "en": "6 × 5 = 30.",
-        "zh": "6 × 5 = 30.",
-        "zhHans": "6 × 5 = 30."
+        "en": "Volume equals base area times perpendicular height: 6 × 5 = 30 cubic units.",
+        "zh": "Volume equals base area times perpendicular height: 6 × 5 = 30 cubic units.",
+        "zhHans": "Volume equals base area times perpendicular height: 6 × 5 = 30 cubic units."
       },
       "independentAnswer": "30",
-      "independentSolution": "6 × 5 = 30."
+      "independentSolution": "Volume equals base area times perpendicular height: 6 × 5 = 30 cubic units."
     },
     {
       "id": "ccss-textbook-practice-v1-area-volume-surface-q02",
@@ -26091,21 +26383,21 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "A prism's base area is 12 and its length is 4. Volume = ?",
-        "zh": "A prism's base area is 12 and its length is 4. Volume = ?",
-        "zhHans": "A prism's base area is 12 and its length is 4. Volume = ?"
+        "en": "A prism's base area is 12 square units, and the perpendicular distance between its parallel bases is 4 units. What is its volume?",
+        "zh": "A prism's base area is 12 square units, and the perpendicular distance between its parallel bases is 4 units. What is its volume?",
+        "zhHans": "A prism's base area is 12 square units, and the perpendicular distance between its parallel bases is 4 units. What is its volume?"
       },
       "answer": "48",
       "acceptedAnswers": [
         "48"
       ],
       "explanation": {
-        "en": "12 × 4 = 48.",
-        "zh": "12 × 4 = 48.",
-        "zhHans": "12 × 4 = 48."
+        "en": "Volume equals base area times the perpendicular distance between the bases: 12 × 4 = 48 cubic units.",
+        "zh": "Volume equals base area times the perpendicular distance between the bases: 12 × 4 = 48 cubic units.",
+        "zhHans": "Volume equals base area times the perpendicular distance between the bases: 12 × 4 = 48 cubic units."
       },
       "independentAnswer": "48",
-      "independentSolution": "12 × 4 = 48."
+      "independentSolution": "Volume equals base area times the perpendicular distance between the bases: 12 × 4 = 48 cubic units."
     },
     {
       "id": "ccss-textbook-practice-v1-area-volume-surface-q03",
@@ -26145,9 +26437,9 @@
       },
       "options": [
         {
-          "en": "base area × length",
-          "zh": "base area × length",
-          "zhHans": "base area × length"
+          "en": "base area × perpendicular height",
+          "zh": "base area × perpendicular height",
+          "zhHans": "base area × perpendicular height"
         },
         {
           "en": "base + length",
@@ -26165,17 +26457,17 @@
           "zhHans": "6 × side²"
         }
       ],
-      "answer": "base area × length",
+      "answer": "base area × perpendicular height",
       "acceptedAnswers": [
-        "base area × length"
+        "base area × perpendicular height"
       ],
       "explanation": {
-        "en": "V = B × ℓ.",
-        "zh": "V = B × ℓ.",
-        "zhHans": "V = B × ℓ."
+        "en": "V = B × h, where h is the perpendicular height between the parallel bases.",
+        "zh": "V = B × h, where h is the perpendicular height between the parallel bases.",
+        "zhHans": "V = B × h, where h is the perpendicular height between the parallel bases."
       },
-      "independentAnswer": "base area × length",
-      "independentSolution": "V = B × ℓ."
+      "independentAnswer": "base area × perpendicular height",
+      "independentSolution": "V = B × h, where h is the perpendicular height between the parallel bases."
     },
     {
       "id": "ccss-textbook-practice-v1-sampling-q01",
@@ -26427,9 +26719,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Two groups whose distributions barely overlap have…",
-        "zh": "Two groups whose distributions barely overlap have…",
-        "zhHans": "Two groups whose distributions barely overlap have…"
+        "en": "Two sample distributions have similar spreads but barely overlap. What does this sample evidence suggest?",
+        "zh": "Two sample distributions have similar spreads but barely overlap. What does this sample evidence suggest?",
+        "zhHans": "Two sample distributions have similar spreads but barely overlap. What does this sample evidence suggest?"
       },
       "options": [
         {
@@ -26458,12 +26750,12 @@
         "a meaningful difference"
       ],
       "explanation": {
-        "en": "Little overlap = real difference.",
-        "zh": "Little overlap = real difference.",
-        "zhHans": "Little overlap = real difference."
+        "en": "Little overlap suggests that the difference between the groups is large relative to their variability, although sample evidence does not prove a population difference.",
+        "zh": "Little overlap suggests that the difference between the groups is large relative to their variability, although sample evidence does not prove a population difference.",
+        "zhHans": "Little overlap suggests that the difference between the groups is large relative to their variability, although sample evidence does not prove a population difference."
       },
       "independentAnswer": "a meaningful difference",
-      "independentSolution": "Little overlap = real difference."
+      "independentSolution": "Little overlap suggests that the difference between the groups is large relative to their variability, although sample evidence does not prove a population difference."
     },
     {
       "id": "ccss-textbook-practice-v1-compare-populations-q02",
@@ -26571,43 +26863,43 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A difference in means that is large relative to the spread is…",
-        "zh": "A difference in means that is large relative to the spread is…",
-        "zhHans": "A difference in means that is large relative to the spread is…"
+        "en": "In two sample distributions with similar shapes, a difference in means that is large relative to the spreads provides…",
+        "zh": "In two sample distributions with similar shapes, a difference in means that is large relative to the spreads provides…",
+        "zhHans": "In two sample distributions with similar shapes, a difference in means that is large relative to the spreads provides…"
       },
       "options": [
         {
-          "en": "meaningful",
-          "zh": "meaningful",
-          "zhHans": "meaningful"
+          "en": "evidence that the populations may differ",
+          "zh": "evidence that the populations may differ",
+          "zhHans": "evidence that the populations may differ"
         },
         {
-          "en": "meaningless",
-          "zh": "meaningless",
-          "zhHans": "meaningless"
+          "en": "proof that the populations differ",
+          "zh": "proof that the populations differ",
+          "zhHans": "proof that the populations differ"
         },
         {
-          "en": "impossible",
-          "zh": "impossible",
-          "zhHans": "impossible"
+          "en": "evidence that there is no difference",
+          "zh": "evidence that there is no difference",
+          "zhHans": "evidence that there is no difference"
         },
         {
-          "en": "an error",
-          "zh": "an error",
-          "zhHans": "an error"
+          "en": "no information about the populations",
+          "zh": "no information about the populations",
+          "zhHans": "no information about the populations"
         }
       ],
-      "answer": "meaningful",
+      "answer": "evidence that the populations may differ",
       "acceptedAnswers": [
-        "meaningful"
+        "evidence that the populations may differ"
       ],
       "explanation": {
-        "en": "It signals a real difference.",
-        "zh": "It signals a real difference.",
-        "zhHans": "It signals a real difference."
+        "en": "The sample difference is evidence, not proof, about the populations; sampling variability still matters.",
+        "zh": "The sample difference is evidence, not proof, about the populations; sampling variability still matters.",
+        "zhHans": "The sample difference is evidence, not proof, about the populations; sampling variability still matters."
       },
-      "independentAnswer": "meaningful",
-      "independentSolution": "It signals a real difference."
+      "independentAnswer": "evidence that the populations may differ",
+      "independentSolution": "The sample difference is evidence, not proof, about the populations; sampling variability still matters."
     },
     {
       "id": "ccss-textbook-practice-v1-probability-basics-q01",
@@ -27259,22 +27551,21 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "fill-in",
       "prompt": {
-        "en": "A circle has radius 5. Using π ≈ 3.14, the circumference 2πr is about…",
-        "zh": "A circle has radius 5. Using π ≈ 3.14, the circumference 2πr is about…",
-        "zhHans": "A circle has radius 5. Using π ≈ 3.14, the circumference 2πr is about…"
+        "en": "A circle has radius 5. Using π = 3.14 for this calculation, what value does 2πr give?",
+        "zh": "A circle has radius 5. Using π = 3.14 for this calculation, what value does 2πr give?",
+        "zhHans": "A circle has radius 5. Using π = 3.14 for this calculation, what value does 2πr give?"
       },
       "answer": "31.4",
       "acceptedAnswers": [
-        "31.4",
-        "31"
+        "31.4"
       ],
       "explanation": {
-        "en": "2 × 3.14 × 5 = 31.4.",
-        "zh": "2 × 3.14 × 5 = 31.4.",
-        "zhHans": "2 × 3.14 × 5 = 31.4."
+        "en": "2 × 3.14 × 5 = 31.4 units.",
+        "zh": "2 × 3.14 × 5 = 31.4 units.",
+        "zhHans": "2 × 3.14 × 5 = 31.4 units."
       },
       "independentAnswer": "31.4",
-      "independentSolution": "2 × 3.14 × 5 = 31.4."
+      "independentSolution": "2 × 3.14 × 5 = 31.4 units."
     },
     {
       "id": "ccss-textbook-practice-v1-circle-pi-q03",
@@ -28457,12 +28748,12 @@
         "4.5 × 10⁴"
       ],
       "explanation": {
-        "en": "Coefficient between 1 and 10.",
-        "zh": "Coefficient between 1 and 10.",
-        "zhHans": "Coefficient between 1 and 10."
+        "en": "Move the decimal four places left: 45,000 = 4.5 × 10⁴.",
+        "zh": "Move the decimal four places left: 45,000 = 4.5 × 10⁴.",
+        "zhHans": "Move the decimal four places left: 45,000 = 4.5 × 10⁴."
       },
       "independentAnswer": "4.5 × 10⁴",
-      "independentSolution": "Coefficient between 1 and 10."
+      "independentSolution": "Move the decimal four places left: 45,000 = 4.5 × 10⁴."
     },
     {
       "id": "ccss-textbook-practice-v1-slope-unit-rate-q01",
@@ -29901,9 +30192,9 @@
           "zhHans": "rigid motions"
         },
         {
-          "en": "a dilation",
-          "zh": "a dilation",
-          "zhHans": "a dilation"
+          "en": "a dilation with scale factor 2",
+          "zh": "a dilation with scale factor 2",
+          "zhHans": "a dilation with scale factor 2"
         },
         {
           "en": "stretching",
@@ -30030,15 +30321,15 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Which does NOT preserve congruence?",
-        "zh": "Which does NOT preserve congruence?",
-        "zhHans": "Which does NOT preserve congruence?"
+        "en": "Which transformation with a scale factor not equal to 1 does NOT preserve congruence?",
+        "zh": "Which transformation with a scale factor not equal to 1 does NOT preserve congruence?",
+        "zhHans": "Which transformation with a scale factor not equal to 1 does NOT preserve congruence?"
       },
       "options": [
         {
-          "en": "dilation (scaling)",
-          "zh": "dilation (scaling)",
-          "zhHans": "dilation (scaling)"
+          "en": "non-unit dilation (scaling)",
+          "zh": "non-unit dilation (scaling)",
+          "zhHans": "non-unit dilation (scaling)"
         },
         {
           "en": "translation",
@@ -30056,17 +30347,17 @@
           "zhHans": "reflection"
         }
       ],
-      "answer": "dilation (scaling)",
+      "answer": "non-unit dilation (scaling)",
       "acceptedAnswers": [
-        "dilation (scaling)"
+        "non-unit dilation (scaling)"
       ],
       "explanation": {
-        "en": "Scaling changes size.",
-        "zh": "Scaling changes size.",
-        "zhHans": "Scaling changes size."
+        "en": "A dilation whose scale factor is not equal to 1 changes size, so it does not preserve congruence.",
+        "zh": "A dilation whose scale factor is not equal to 1 changes size, so it does not preserve congruence.",
+        "zhHans": "A dilation whose scale factor is not equal to 1 changes size, so it does not preserve congruence."
       },
-      "independentAnswer": "dilation (scaling)",
-      "independentSolution": "Scaling changes size."
+      "independentAnswer": "non-unit dilation (scaling)",
+      "independentSolution": "A dilation whose scale factor is not equal to 1 changes size, so it does not preserve congruence."
     },
     {
       "id": "ccss-textbook-practice-v1-similarity-q01",
@@ -30100,9 +30391,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A dilation changes a figure's size but keeps its…",
-        "zh": "A dilation changes a figure's size but keeps its…",
-        "zhHans": "A dilation changes a figure's size but keeps its…"
+        "en": "A non-unit dilation changes a figure's size but keeps its…",
+        "zh": "A non-unit dilation changes a figure's size but keeps its…",
+        "zhHans": "A non-unit dilation changes a figure's size but keeps its…"
       },
       "options": [
         {
@@ -30131,12 +30422,12 @@
         "angles"
       ],
       "explanation": {
-        "en": "Angles are preserved.",
-        "zh": "Angles are preserved.",
-        "zhHans": "Angles are preserved."
+        "en": "A dilation preserves angle measures. When its scale factor is not equal to 1, it changes size.",
+        "zh": "A dilation preserves angle measures. When its scale factor is not equal to 1, it changes size.",
+        "zhHans": "A dilation preserves angle measures. When its scale factor is not equal to 1, it changes size."
       },
       "independentAnswer": "angles",
-      "independentSolution": "Angles are preserved."
+      "independentSolution": "A dilation preserves angle measures. When its scale factor is not equal to 1, it changes size."
     },
     {
       "id": "ccss-textbook-practice-v1-similarity-q02",
@@ -30587,12 +30878,12 @@
         "a² + b² = c²"
       ],
       "explanation": {
-        "en": "For right triangles.",
-        "zh": "For right triangles.",
-        "zhHans": "For right triangles."
+        "en": "For a right triangle with hypotenuse c, a² + b² = c².",
+        "zh": "For a right triangle with hypotenuse c, a² + b² = c².",
+        "zhHans": "For a right triangle with hypotenuse c, a² + b² = c²."
       },
       "independentAnswer": "a² + b² = c²",
-      "independentSolution": "For right triangles."
+      "independentSolution": "For a right triangle with hypotenuse c, a² + b² = c²."
     },
     {
       "id": "ccss-textbook-practice-v1-distance-formula-q01",
@@ -30963,12 +31254,12 @@
         "4/3·πr³"
       ],
       "explanation": {
-        "en": "Depends on r³.",
-        "zh": "Depends on r³.",
-        "zhHans": "Depends on r³."
+        "en": "A sphere with radius r has volume V = 4/3·πr³.",
+        "zh": "A sphere with radius r has volume V = 4/3·πr³.",
+        "zhHans": "A sphere with radius r has volume V = 4/3·πr³."
       },
       "independentAnswer": "4/3·πr³",
-      "independentSolution": "Depends on r³."
+      "independentSolution": "A sphere with radius r has volume V = 4/3·πr³."
     },
     {
       "id": "ccss-textbook-practice-v1-scatter-plots-q01",
@@ -32134,7 +32425,12 @@
       },
       "answer": "15840",
       "acceptedAnswers": [
-        "15840"
+        "15840",
+        "15,840",
+        "15840 feet",
+        "15,840 feet",
+        "15840 ft",
+        "15,840 ft"
       ],
       "explanation": {
         "en": "3 × 5280 = 15840.",
@@ -34463,12 +34759,12 @@
         "80"
       ],
       "explanation": {
-        "en": "First term 2, ratio 3, 4 terms.",
-        "zh": "First term 2, ratio 3, 4 terms.",
-        "zhHans": "First term 2, ratio 3, 4 terms."
+        "en": "Add the four terms: 2 + 6 + 18 + 54 = 80.",
+        "zh": "Add the four terms: 2 + 6 + 18 + 54 = 80.",
+        "zhHans": "Add the four terms: 2 + 6 + 18 + 54 = 80."
       },
       "independentAnswer": "80",
-      "independentSolution": "First term 2, ratio 3, 4 terms."
+      "independentSolution": "Add the four terms: 2 + 6 + 18 + 54 = 80."
     },
     {
       "id": "ccss-textbook-practice-v1-geometric-series-q02",
@@ -34502,9 +34798,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "The finite geometric series formula is…",
-        "zh": "The finite geometric series formula is…",
-        "zhHans": "The finite geometric series formula is…"
+        "en": "For the finite geometric series a + ar + ⋯ + arⁿ⁻¹ with n terms and r ≠ 1, which formula gives the sum?",
+        "zh": "For the finite geometric series a + ar + ⋯ + arⁿ⁻¹ with n terms and r ≠ 1, which formula gives the sum?",
+        "zhHans": "For the finite geometric series a + ar + ⋯ + arⁿ⁻¹ with n terms and r ≠ 1, which formula gives the sum?"
       },
       "options": [
         {
@@ -34533,12 +34829,12 @@
         "a(rⁿ − 1)/(r − 1)"
       ],
       "explanation": {
-        "en": "Derived from S − rS.",
-        "zh": "Derived from S − rS.",
-        "zhHans": "Derived from S − rS."
+        "en": "Subtracting rS from S isolates the n-term sum and gives a(rⁿ − 1)/(r − 1) when r ≠ 1.",
+        "zh": "Subtracting rS from S isolates the n-term sum and gives a(rⁿ − 1)/(r − 1) when r ≠ 1.",
+        "zhHans": "Subtracting rS from S isolates the n-term sum and gives a(rⁿ − 1)/(r − 1) when r ≠ 1."
       },
       "independentAnswer": "a(rⁿ − 1)/(r − 1)",
-      "independentSolution": "Derived from S − rS."
+      "independentSolution": "Subtracting rS from S isolates the n-term sum and gives a(rⁿ − 1)/(r − 1) when r ≠ 1."
     },
     {
       "id": "ccss-textbook-practice-v1-geometric-series-q03",
@@ -34863,12 +35159,12 @@
         "p(a)"
       ],
       "explanation": {
-        "en": "The Remainder Theorem.",
-        "zh": "The Remainder Theorem.",
-        "zhHans": "The Remainder Theorem."
+        "en": "By the Remainder Theorem, dividing p(x) by x − a leaves remainder p(a).",
+        "zh": "By the Remainder Theorem, dividing p(x) by x − a leaves remainder p(a).",
+        "zhHans": "By the Remainder Theorem, dividing p(x) by x − a leaves remainder p(a)."
       },
       "independentAnswer": "p(a)",
-      "independentSolution": "The Remainder Theorem."
+      "independentSolution": "By the Remainder Theorem, dividing p(x) by x − a leaves remainder p(a)."
     },
     {
       "id": "ccss-textbook-practice-v1-remainder-theorem-q02",
@@ -35057,12 +35353,12 @@
         "a² − 2ab + b²"
       ],
       "explanation": {
-        "en": "Middle term is −2ab.",
-        "zh": "Middle term is −2ab.",
-        "zhHans": "Middle term is −2ab."
+        "en": "Expanding both factors gives (a − b)² = a² − 2ab + b².",
+        "zh": "Expanding both factors gives (a − b)² = a² − 2ab + b².",
+        "zhHans": "Expanding both factors gives (a − b)² = a² − 2ab + b²."
       },
       "independentAnswer": "a² − 2ab + b²",
-      "independentSolution": "Middle term is −2ab."
+      "independentSolution": "Expanding both factors gives (a − b)² = a² − 2ab + b²."
     },
     {
       "id": "ccss-textbook-practice-v1-polynomial-identities-q02",
@@ -35129,12 +35425,12 @@
         "1 3 3 1"
       ],
       "explanation": {
-        "en": "The n = 3 row.",
-        "zh": "The n = 3 row.",
-        "zhHans": "The n = 3 row."
+        "en": "For power 3, Pascal's triangle gives the coefficients 1, 3, 3, 1.",
+        "zh": "For power 3, Pascal's triangle gives the coefficients 1, 3, 3, 1.",
+        "zhHans": "For power 3, Pascal's triangle gives the coefficients 1, 3, 3, 1."
       },
       "independentAnswer": "1 3 3 1",
-      "independentSolution": "The n = 3 row."
+      "independentSolution": "For power 3, Pascal's triangle gives the coefficients 1, 3, 3, 1."
     },
     {
       "id": "ccss-textbook-practice-v1-polynomial-identities-q03",
@@ -35630,9 +35926,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Solve A = ½bh for h.",
-        "zh": "Solve A = ½bh for h.",
-        "zhHans": "Solve A = ½bh for h."
+        "en": "Assume b ≠ 0. Solve A = ½bh for h.",
+        "zh": "Assume b ≠ 0. Solve A = ½bh for h.",
+        "zhHans": "Assume b ≠ 0. Solve A = ½bh for h."
       },
       "options": [
         {
@@ -35661,12 +35957,12 @@
         "h = 2A/b"
       ],
       "explanation": {
-        "en": "Multiply by 2, divide by b.",
-        "zh": "Multiply by 2, divide by b.",
-        "zhHans": "Multiply by 2, divide by b."
+        "en": "Multiply by 2, then divide by b; this division is valid because b ≠ 0.",
+        "zh": "Multiply by 2, then divide by b; this division is valid because b ≠ 0.",
+        "zhHans": "Multiply by 2, then divide by b; this division is valid because b ≠ 0."
       },
       "independentAnswer": "h = 2A/b",
-      "independentSolution": "Multiply by 2, divide by b."
+      "independentSolution": "Multiply by 2, then divide by b; this division is valid because b ≠ 0."
     },
     {
       "id": "ccss-textbook-practice-v1-constraints-formulas-q02",
@@ -35702,9 +35998,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Solve d = rt for t.",
-        "zh": "Solve d = rt for t.",
-        "zhHans": "Solve d = rt for t."
+        "en": "Assume r ≠ 0. Solve d = rt for t.",
+        "zh": "Assume r ≠ 0. Solve d = rt for t.",
+        "zhHans": "Assume r ≠ 0. Solve d = rt for t."
       },
       "options": [
         {
@@ -35733,12 +36029,12 @@
         "t = d/r"
       ],
       "explanation": {
-        "en": "Divide both sides by r.",
-        "zh": "Divide both sides by r.",
-        "zhHans": "Divide both sides by r."
+        "en": "Divide both sides by r; this division is valid because r ≠ 0.",
+        "zh": "Divide both sides by r; this division is valid because r ≠ 0.",
+        "zhHans": "Divide both sides by r; this division is valid because r ≠ 0."
       },
       "independentAnswer": "t = d/r",
-      "independentSolution": "Divide both sides by r."
+      "independentSolution": "Divide both sides by r; this division is valid because r ≠ 0."
     },
     {
       "id": "ccss-textbook-practice-v1-constraints-formulas-q03",
@@ -36519,12 +36815,12 @@
         "the same solutions"
       ],
       "explanation": {
-        "en": "That's why elimination is valid.",
-        "zh": "That's why elimination is valid.",
-        "zhHans": "That's why elimination is valid."
+        "en": "Adding a multiple of one equation to another is an equivalent row operation, so it preserves the same solutions.",
+        "zh": "Adding a multiple of one equation to another is an equivalent row operation, so it preserves the same solutions.",
+        "zhHans": "Adding a multiple of one equation to another is an equivalent row operation, so it preserves the same solutions."
       },
       "independentAnswer": "the same solutions",
-      "independentSolution": "That's why elimination is valid."
+      "independentSolution": "Adding a multiple of one equation to another is an equivalent row operation, so it preserves the same solutions."
     },
     {
       "id": "ccss-textbook-practice-v1-systems-elimination-q03",
@@ -37206,9 +37502,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "The solution of a linear inequality is a…",
-        "zh": "The solution of a linear inequality is a…",
-        "zhHans": "The solution of a linear inequality is a…"
+        "en": "For a linear inequality in two variables whose boundary is a line, the solution set is a…",
+        "zh": "For a linear inequality in two variables whose boundary is a line, the solution set is a…",
+        "zhHans": "For a linear inequality in two variables whose boundary is a line, the solution set is a…"
       },
       "options": [
         {
@@ -37503,12 +37799,12 @@
         "exactly one output"
       ],
       "explanation": {
-        "en": "The defining property.",
-        "zh": "The defining property.",
-        "zhHans": "The defining property."
+        "en": "By definition, a function assigns each input exactly one output.",
+        "zh": "By definition, a function assigns each input exactly one output.",
+        "zhHans": "By definition, a function assigns each input exactly one output."
       },
       "independentAnswer": "exactly one output",
-      "independentSolution": "The defining property."
+      "independentSolution": "By definition, a function assigns each input exactly one output."
     },
     {
       "id": "ccss-textbook-practice-v1-function-notation-q03",
@@ -37908,15 +38204,15 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "To compare a formula and a table, look at their…",
-        "zh": "To compare a formula and a table, look at their…",
-        "zhHans": "To compare a formula and a table, look at their…"
+        "en": "For the linear functions in this lesson, compare the formula and table using their…",
+        "zh": "For the linear functions in this lesson, compare the formula and table using their…",
+        "zhHans": "For the linear functions in this lesson, compare the formula and table using their…"
       },
       "options": [
         {
-          "en": "rate of change and intercept",
-          "zh": "rate of change and intercept",
-          "zhHans": "rate of change and intercept"
+          "en": "rate of change and y-intercept (starting value)",
+          "zh": "rate of change and y-intercept (starting value)",
+          "zhHans": "rate of change and y-intercept (starting value)"
         },
         {
           "en": "colors",
@@ -37934,17 +38230,17 @@
           "zhHans": "number of table rows"
         }
       ],
-      "answer": "rate of change and intercept",
+      "answer": "rate of change and y-intercept (starting value)",
       "acceptedAnswers": [
-        "rate of change and intercept"
+        "rate of change and y-intercept (starting value)"
       ],
       "explanation": {
-        "en": "Match the same features.",
-        "zh": "Match the same features.",
-        "zhHans": "Match the same features."
+        "en": "For these linear functions, compare the same features in both representations: rate of change and y-intercept (starting value).",
+        "zh": "For these linear functions, compare the same features in both representations: rate of change and y-intercept (starting value).",
+        "zhHans": "For these linear functions, compare the same features in both representations: rate of change and y-intercept (starting value)."
       },
-      "independentAnswer": "rate of change and intercept",
-      "independentSolution": "Match the same features."
+      "independentAnswer": "rate of change and y-intercept (starting value)",
+      "independentSolution": "For these linear functions, compare the same features in both representations: rate of change and y-intercept (starting value)."
     },
     {
       "id": "ccss-textbook-practice-v1-compare-functions-q03",
@@ -37978,9 +38274,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A function's starting value is its output when…",
-        "zh": "A function's starting value is its output when…",
-        "zhHans": "A function's starting value is its output when…"
+        "en": "When a function's domain includes x = 0 and its starting input is 0, the starting value is its output when…",
+        "zh": "When a function's domain includes x = 0 and its starting input is 0, the starting value is its output when…",
+        "zhHans": "When a function's domain includes x = 0 and its starting input is 0, the starting value is its output when…"
       },
       "options": [
         {
@@ -38009,12 +38305,12 @@
         "x = 0"
       ],
       "explanation": {
-        "en": "The y-intercept.",
-        "zh": "The y-intercept.",
-        "zhHans": "The y-intercept."
+        "en": "For a domain that includes 0, the output at x = 0 is the y-intercept and starting value.",
+        "zh": "For a domain that includes 0, the output at x = 0 is the y-intercept and starting value.",
+        "zhHans": "For a domain that includes 0, the output at x = 0 is the y-intercept and starting value."
       },
       "independentAnswer": "x = 0",
-      "independentSolution": "The y-intercept."
+      "independentSolution": "For a domain that includes 0, the output at x = 0 is the y-intercept and starting value."
     },
     {
       "id": "ccss-textbook-practice-v1-build-functions-q01",
@@ -38050,25 +38346,25 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "The recursive rule for 3, 5, 7, 9 (add 2) is…",
-        "zh": "The recursive rule for 3, 5, 7, 9 (add 2) is…",
-        "zhHans": "The recursive rule for 3, 5, 7, 9 (add 2) is…"
+        "en": "Which complete recursive definition generates 3, 5, 7, 9, …?",
+        "zh": "Which complete recursive definition generates 3, 5, 7, 9, …?",
+        "zhHans": "Which complete recursive definition generates 3, 5, 7, 9, …?"
       },
       "options": [
         {
-          "en": "aₙ = aₙ₋₁ + 2",
-          "zh": "aₙ = aₙ₋₁ + 2",
-          "zhHans": "aₙ = aₙ₋₁ + 2"
+          "en": "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2",
+          "zh": "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2",
+          "zhHans": "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2"
         },
         {
-          "en": "aₙ = 2n",
-          "zh": "aₙ = 2n",
-          "zhHans": "aₙ = 2n"
+          "en": "a₁ = 2; aₙ = aₙ₋₁ + 3 for n ≥ 2",
+          "zh": "a₁ = 2; aₙ = aₙ₋₁ + 3 for n ≥ 2",
+          "zhHans": "a₁ = 2; aₙ = aₙ₋₁ + 3 for n ≥ 2"
         },
         {
-          "en": "aₙ = aₙ₋₁ × 2",
-          "zh": "aₙ = aₙ₋₁ × 2",
-          "zhHans": "aₙ = aₙ₋₁ × 2"
+          "en": "a₁ = 3; aₙ = 2aₙ₋₁ for n ≥ 2",
+          "zh": "a₁ = 3; aₙ = 2aₙ₋₁ for n ≥ 2",
+          "zhHans": "a₁ = 3; aₙ = 2aₙ₋₁ for n ≥ 2"
         },
         {
           "en": "aₙ = n + 2",
@@ -38076,17 +38372,17 @@
           "zhHans": "aₙ = n + 2"
         }
       ],
-      "answer": "aₙ = aₙ₋₁ + 2",
+      "answer": "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2",
       "acceptedAnswers": [
-        "aₙ = aₙ₋₁ + 2"
+        "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2"
       ],
       "explanation": {
-        "en": "Each term is the last plus 2.",
-        "zh": "Each term is the last plus 2.",
-        "zhHans": "Each term is the last plus 2."
+        "en": "The initial value a₁ = 3 and the rule adding 2 for n ≥ 2 uniquely determine every term in the sequence.",
+        "zh": "The initial value a₁ = 3 and the rule adding 2 for n ≥ 2 uniquely determine every term in the sequence.",
+        "zhHans": "The initial value a₁ = 3 and the rule adding 2 for n ≥ 2 uniquely determine every term in the sequence."
       },
-      "independentAnswer": "aₙ = aₙ₋₁ + 2",
-      "independentSolution": "Each term is the last plus 2."
+      "independentAnswer": "a₁ = 3; aₙ = aₙ₋₁ + 2 for n ≥ 2",
+      "independentSolution": "The initial value a₁ = 3 and the rule adding 2 for n ≥ 2 uniquely determine every term in the sequence."
     },
     {
       "id": "ccss-textbook-practice-v1-build-functions-q02",
@@ -38316,9 +38612,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "The graph of f⁻¹ is f reflected across…",
-        "zh": "The graph of f⁻¹ is f reflected across…",
-        "zhHans": "The graph of f⁻¹ is f reflected across…"
+        "en": "The graph of f⁻¹ is the graph of f reflected across…",
+        "zh": "The graph of f⁻¹ is the graph of f reflected across…",
+        "zhHans": "The graph of f⁻¹ is the graph of f reflected across…"
       },
       "options": [
         {
@@ -39244,9 +39540,9 @@
       },
       "options": [
         {
-          "en": "A",
-          "zh": "A",
-          "zhHans": "A"
+          "en": "|A|",
+          "zh": "|A|",
+          "zhHans": "|A|"
         },
         {
           "en": "D",
@@ -39264,17 +39560,17 @@
           "zhHans": "the frequency"
         }
       ],
-      "answer": "A",
+      "answer": "|A|",
       "acceptedAnswers": [
-        "A"
+        "|A|"
       ],
       "explanation": {
-        "en": "Half the peak-to-trough distance.",
-        "zh": "Half the peak-to-trough distance.",
-        "zhHans": "Half the peak-to-trough distance."
+        "en": "Amplitude is the absolute value |A|, which is half the peak-to-trough distance.",
+        "zh": "Amplitude is the absolute value |A|, which is half the peak-to-trough distance.",
+        "zhHans": "Amplitude is the absolute value |A|, which is half the peak-to-trough distance."
       },
-      "independentAnswer": "A",
-      "independentSolution": "Half the peak-to-trough distance."
+      "independentAnswer": "|A|",
+      "independentSolution": "Amplitude is the absolute value |A|, which is half the peak-to-trough distance."
     },
     {
       "id": "ccss-textbook-practice-v1-periodic-models-q02",
@@ -39581,12 +39877,12 @@
         "[−90°, 90°]"
       ],
       "explanation": {
-        "en": "The restricted range of sine.",
-        "zh": "The restricted range of sine.",
-        "zhHans": "The restricted range of sine."
+        "en": "arcsin uses the principal range [−90°, 90°].",
+        "zh": "arcsin uses the principal range [−90°, 90°].",
+        "zhHans": "arcsin uses the principal range [−90°, 90°]."
       },
       "independentAnswer": "[−90°, 90°]",
-      "independentSolution": "The restricted range of sine."
+      "independentSolution": "arcsin uses the principal range [−90°, 90°]."
     },
     {
       "id": "ccss-textbook-practice-v1-trig-identities-q01",
@@ -39653,12 +39949,12 @@
         "1"
       ],
       "explanation": {
-        "en": "The Pythagorean identity.",
-        "zh": "The Pythagorean identity.",
-        "zhHans": "The Pythagorean identity."
+        "en": "The Pythagorean identity is sin²θ + cos²θ = 1.",
+        "zh": "The Pythagorean identity is sin²θ + cos²θ = 1.",
+        "zhHans": "The Pythagorean identity is sin²θ + cos²θ = 1."
       },
       "independentAnswer": "1",
-      "independentSolution": "The Pythagorean identity."
+      "independentSolution": "The Pythagorean identity is sin²θ + cos²θ = 1."
     },
     {
       "id": "ccss-textbook-practice-v1-trig-identities-q02",
@@ -39797,12 +40093,12 @@
         "sin A cos B + cos A sin B"
       ],
       "explanation": {
-        "en": "The sine addition formula.",
-        "zh": "The sine addition formula.",
-        "zhHans": "The sine addition formula."
+        "en": "The sine addition identity is sin(A + B) = sin A cos B + cos A sin B.",
+        "zh": "The sine addition identity is sin(A + B) = sin A cos B + cos A sin B.",
+        "zhHans": "The sine addition identity is sin(A + B) = sin A cos B + cos A sin B."
       },
       "independentAnswer": "sin A cos B + cos A sin B",
-      "independentSolution": "The sine addition formula."
+      "independentSolution": "The sine addition identity is sin(A + B) = sin A cos B + cos A sin B."
     },
     {
       "id": "ccss-textbook-practice-v1-precise-definitions-q01",
@@ -40523,9 +40819,9 @@
           "zhHans": "rigid motions"
         },
         {
-          "en": "a dilation",
-          "zh": "a dilation",
-          "zhHans": "a dilation"
+          "en": "a dilation with scale factor 2",
+          "zh": "a dilation with scale factor 2",
+          "zhHans": "a dilation with scale factor 2"
         },
         {
           "en": "any change",
@@ -42008,9 +42304,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Dropping an altitude in a right triangle creates two triangles that are…",
-        "zh": "Dropping an altitude in a right triangle creates two triangles that are…",
-        "zhHans": "Dropping an altitude in a right triangle creates two triangles that are…"
+        "en": "Drawing the altitude from a right triangle's right-angle vertex to its hypotenuse creates two triangles that are…",
+        "zh": "Drawing the altitude from a right triangle's right-angle vertex to its hypotenuse creates two triangles that are…",
+        "zhHans": "Drawing the altitude from a right triangle's right-angle vertex to its hypotenuse creates two triangles that are…"
       },
       "options": [
         {
@@ -42039,12 +42335,12 @@
         "similar to the original"
       ],
       "explanation": {
-        "en": "This proves the Pythagorean theorem.",
-        "zh": "This proves the Pythagorean theorem.",
-        "zhHans": "This proves the Pythagorean theorem."
+        "en": "The altitude from the right-angle vertex to the hypotenuse creates matching acute angles, so AA shows both smaller triangles are similar to the original right triangle.",
+        "zh": "The altitude from the right-angle vertex to the hypotenuse creates matching acute angles, so AA shows both smaller triangles are similar to the original right triangle.",
+        "zhHans": "The altitude from the right-angle vertex to the hypotenuse creates matching acute angles, so AA shows both smaller triangles are similar to the original right triangle."
       },
       "independentAnswer": "similar to the original",
-      "independentSolution": "This proves the Pythagorean theorem."
+      "independentSolution": "The altitude from the right-angle vertex to the hypotenuse creates matching acute angles, so AA shows both smaller triangles are similar to the original right triangle."
     },
     {
       "id": "ccss-textbook-practice-v1-trig-ratios-q01",
@@ -42703,12 +42999,12 @@
         "c² = a² + b² − 2ab·cos C"
       ],
       "explanation": {
-        "en": "It generalizes Pythagoras.",
-        "zh": "It generalizes Pythagoras.",
-        "zhHans": "It generalizes Pythagoras."
+        "en": "The Law of Cosines is c² = a² + b² − 2ab·cos C; the minus sign is essential.",
+        "zh": "The Law of Cosines is c² = a² + b² − 2ab·cos C; the minus sign is essential.",
+        "zhHans": "The Law of Cosines is c² = a² + b² − 2ab·cos C; the minus sign is essential."
       },
       "independentAnswer": "c² = a² + b² − 2ab·cos C",
-      "independentSolution": "It generalizes Pythagoras."
+      "independentSolution": "The Law of Cosines is c² = a² + b² − 2ab·cos C; the minus sign is essential."
     },
     {
       "id": "ccss-textbook-practice-v1-laws-sines-cosines-q02",
@@ -43655,12 +43951,12 @@
         "completing the square"
       ],
       "explanation": {
-        "en": "Recovers (h, k).",
-        "zh": "Recovers (h, k).",
-        "zhHans": "Recovers (h, k)."
+        "en": "Completing the square rewrites the equation in center-radius form, revealing (h, k).",
+        "zh": "Completing the square rewrites the equation in center-radius form, revealing (h, k).",
+        "zhHans": "Completing the square rewrites the equation in center-radius form, revealing (h, k)."
       },
       "independentAnswer": "completing the square",
-      "independentSolution": "Recovers (h, k)."
+      "independentSolution": "Completing the square rewrites the equation in center-radius form, revealing (h, k)."
     },
     {
       "id": "ccss-textbook-practice-v1-conic-sections-q01",
@@ -43840,15 +44136,15 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A hyperbola uses a constant ___ of distances to two foci.",
-        "zh": "A hyperbola uses a constant ___ of distances to two foci.",
-        "zhHans": "A hyperbola uses a constant ___ of distances to two foci."
+        "en": "A hyperbola uses a constant ___ of the distances to two foci.",
+        "zh": "A hyperbola uses a constant ___ of the distances to two foci.",
+        "zhHans": "A hyperbola uses a constant ___ of the distances to two foci."
       },
       "options": [
         {
-          "en": "difference",
-          "zh": "difference",
-          "zhHans": "difference"
+          "en": "absolute difference",
+          "zh": "absolute difference",
+          "zhHans": "absolute difference"
         },
         {
           "en": "sum",
@@ -43866,17 +44162,17 @@
           "zhHans": "product"
         }
       ],
-      "answer": "difference",
+      "answer": "absolute difference",
       "acceptedAnswers": [
-        "difference"
+        "absolute difference"
       ],
       "explanation": {
-        "en": "Difference is constant.",
-        "zh": "Difference is constant.",
-        "zhHans": "Difference is constant."
+        "en": "The absolute difference of the two focal distances is constant.",
+        "zh": "The absolute difference of the two focal distances is constant.",
+        "zhHans": "The absolute difference of the two focal distances is constant."
       },
-      "independentAnswer": "difference",
-      "independentSolution": "Difference is constant."
+      "independentAnswer": "absolute difference",
+      "independentSolution": "The absolute difference of the two focal distances is constant."
     },
     {
       "id": "ccss-textbook-practice-v1-coordinate-proofs-q01",
@@ -44135,12 +44431,12 @@
         "A + ⅓(B − A)"
       ],
       "explanation": {
-        "en": "Weighted toward A.",
-        "zh": "Weighted toward A.",
-        "zhHans": "Weighted toward A."
+        "en": "Start at A and move one third of the displacement B − A: A + ⅓(B − A).",
+        "zh": "Start at A and move one third of the displacement B − A: A + ⅓(B − A).",
+        "zhHans": "Start at A and move one third of the displacement B − A: A + ⅓(B − A)."
       },
       "independentAnswer": "A + ⅓(B − A)",
-      "independentSolution": "Weighted toward A."
+      "independentSolution": "Start at A and move one third of the displacement B − A: A + ⅓(B − A)."
     },
     {
       "id": "ccss-textbook-practice-v1-partition-segment-q02",
@@ -44371,12 +44667,12 @@
         "area"
       ],
       "explanation": {
-        "en": "From the coordinates.",
-        "zh": "From the coordinates.",
-        "zhHans": "From the coordinates."
+        "en": "The shoelace formula uses vertex coordinates to compute a polygon's area.",
+        "zh": "The shoelace formula uses vertex coordinates to compute a polygon's area.",
+        "zhHans": "The shoelace formula uses vertex coordinates to compute a polygon's area."
       },
       "independentAnswer": "area",
-      "independentSolution": "From the coordinates."
+      "independentSolution": "The shoelace formula uses vertex coordinates to compute a polygon's area."
     },
     {
       "id": "ccss-textbook-practice-v1-coordinate-perimeter-area-q03",
@@ -44797,12 +45093,12 @@
         "4⁄3·πr³"
       ],
       "explanation": {
-        "en": "Depends on r³.",
-        "zh": "Depends on r³.",
-        "zhHans": "Depends on r³."
+        "en": "A sphere with radius r has volume V = 4⁄3·πr³.",
+        "zh": "A sphere with radius r has volume V = 4⁄3·πr³.",
+        "zhHans": "A sphere with radius r has volume V = 4⁄3·πr³."
       },
       "independentAnswer": "4⁄3·πr³",
-      "independentSolution": "Depends on r³."
+      "independentSolution": "A sphere with radius r has volume V = 4⁄3·πr³."
     },
     {
       "id": "ccss-textbook-practice-v1-volume-formulas-q03",
@@ -44937,12 +45233,12 @@
         "circle"
       ],
       "explanation": {
-        "en": "A horizontal cross-section.",
-        "zh": "A horizontal cross-section.",
-        "zhHans": "A horizontal cross-section."
+        "en": "A slice parallel to a cone's circular base is a circle.",
+        "zh": "A slice parallel to a cone's circular base is a circle.",
+        "zhHans": "A slice parallel to a cone's circular base is a circle."
       },
       "independentAnswer": "circle",
-      "independentSolution": "A horizontal cross-section."
+      "independentSolution": "A slice parallel to a cone's circular base is a circle."
     },
     {
       "id": "ccss-textbook-practice-v1-solids-cross-sections-q02",
@@ -45007,12 +45303,12 @@
         "cylinder"
       ],
       "explanation": {
-        "en": "A solid of revolution.",
-        "zh": "A solid of revolution.",
-        "zhHans": "A solid of revolution."
+        "en": "Rotating a rectangle about one edge produces a cylinder.",
+        "zh": "Rotating a rectangle about one edge produces a cylinder.",
+        "zhHans": "Rotating a rectangle about one edge produces a cylinder."
       },
       "independentAnswer": "cylinder",
-      "independentSolution": "A solid of revolution."
+      "independentSolution": "Rotating a rectangle about one edge produces a cylinder."
     },
     {
       "id": "ccss-textbook-practice-v1-solids-cross-sections-q03",
@@ -45077,12 +45373,12 @@
         "sphere"
       ],
       "explanation": {
-        "en": "The revolution of a semicircle.",
-        "zh": "The revolution of a semicircle.",
-        "zhHans": "The revolution of a semicircle."
+        "en": "Rotating a semicircle about its diameter produces a sphere.",
+        "zh": "Rotating a semicircle about its diameter produces a sphere.",
+        "zhHans": "Rotating a semicircle about its diameter produces a sphere."
       },
       "independentAnswer": "sphere",
-      "independentSolution": "The revolution of a semicircle."
+      "independentSolution": "Rotating a semicircle about its diameter produces a sphere."
     },
     {
       "id": "ccss-textbook-practice-v1-geometric-modeling-q01",
@@ -46171,12 +46467,12 @@
         "actual − predicted"
       ],
       "explanation": {
-        "en": "The vertical gap from the line.",
-        "zh": "The vertical gap from the line.",
-        "zhHans": "The vertical gap from the line."
+        "en": "A residual is the signed difference: residual = actual − predicted.",
+        "zh": "A residual is the signed difference: residual = actual − predicted.",
+        "zhHans": "A residual is the signed difference: residual = actual − predicted."
       },
       "independentAnswer": "actual − predicted",
-      "independentSolution": "The vertical gap from the line."
+      "independentSolution": "A residual is the signed difference: residual = actual − predicted."
     },
     {
       "id": "ccss-textbook-practice-v1-fit-function-residuals-q02",
@@ -46643,12 +46939,12 @@
         "−1 to +1"
       ],
       "explanation": {
-        "en": "By definition.",
-        "zh": "By definition.",
-        "zhHans": "By definition."
+        "en": "By definition, correlation ranges from −1 to +1.",
+        "zh": "By definition, correlation ranges from −1 to +1.",
+        "zhHans": "By definition, correlation ranges from −1 to +1."
       },
       "independentAnswer": "−1 to +1",
-      "independentSolution": "By definition."
+      "independentSolution": "By definition, correlation ranges from −1 to +1."
     },
     {
       "id": "ccss-textbook-practice-v1-correlation-q03",
@@ -47180,9 +47476,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "As sample size increases, the margin of error…",
-        "zh": "As sample size increases, the margin of error…",
-        "zhHans": "As sample size increases, the margin of error…"
+        "en": "Holding the confidence level and population variability fixed, as sample size increases, the margin of error…",
+        "zh": "Holding the confidence level and population variability fixed, as sample size increases, the margin of error…",
+        "zhHans": "Holding the confidence level and population variability fixed, as sample size increases, the margin of error…"
       },
       "options": [
         {
@@ -47211,12 +47507,12 @@
         "decreases"
       ],
       "explanation": {
-        "en": "It shrinks like 1/√n.",
-        "zh": "It shrinks like 1/√n.",
-        "zhHans": "It shrinks like 1/√n."
+        "en": "With the same confidence procedure and variability, it shrinks like 1/√n.",
+        "zh": "With the same confidence procedure and variability, it shrinks like 1/√n.",
+        "zhHans": "With the same confidence procedure and variability, it shrinks like 1/√n."
       },
       "independentAnswer": "decreases",
-      "independentSolution": "It shrinks like 1/√n."
+      "independentSolution": "With the same confidence procedure and variability, it shrinks like 1/√n."
     },
     {
       "id": "ccss-textbook-practice-v1-estimate-population-q02",
@@ -47281,12 +47577,12 @@
         "about 95% of such intervals capture the true value"
       ],
       "explanation": {
-        "en": "Over many repeated samples.",
-        "zh": "Over many repeated samples.",
-        "zhHans": "Over many repeated samples."
+        "en": "Over repeated samples, about 95% of intervals from this procedure capture the true population value.",
+        "zh": "Over repeated samples, about 95% of intervals from this procedure capture the true population value.",
+        "zhHans": "Over repeated samples, about 95% of intervals from this procedure capture the true population value."
       },
       "independentAnswer": "about 95% of such intervals capture the true value",
-      "independentSolution": "Over many repeated samples."
+      "independentSolution": "Over repeated samples, about 95% of intervals from this procedure capture the true population value."
     },
     {
       "id": "ccss-textbook-practice-v1-estimate-population-q03",
@@ -47460,15 +47756,15 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "A difference is 'significant' if it's…",
-        "zh": "A difference is 'significant' if it's…",
-        "zhHans": "A difference is 'significant' if it's…"
+        "en": "In a randomized experiment, a treatment difference is statistically significant if it is…",
+        "zh": "In a randomized experiment, a treatment difference is statistically significant if it is…",
+        "zhHans": "In a randomized experiment, a treatment difference is statistically significant if it is…"
       },
       "options": [
         {
-          "en": "larger than chance usually produces",
-          "zh": "larger than chance usually produces",
-          "zhHans": "larger than chance usually produces"
+          "en": "larger than what chance variation would usually produce",
+          "zh": "larger than what chance variation would usually produce",
+          "zhHans": "larger than what chance variation would usually produce"
         },
         {
           "en": "any positive number",
@@ -47486,17 +47782,17 @@
           "zhHans": "found in every sample"
         }
       ],
-      "answer": "larger than chance usually produces",
+      "answer": "larger than what chance variation would usually produce",
       "acceptedAnswers": [
-        "larger than chance usually produces"
+        "larger than what chance variation would usually produce"
       ],
       "explanation": {
-        "en": "Beyond the re-randomization range.",
-        "zh": "Beyond the re-randomization range.",
-        "zhHans": "Beyond the re-randomization range."
+        "en": "The observed difference is unusually large relative to the randomization distribution generated under no treatment effect.",
+        "zh": "The observed difference is unusually large relative to the randomization distribution generated under no treatment effect.",
+        "zhHans": "The observed difference is unusually large relative to the randomization distribution generated under no treatment effect."
       },
-      "independentAnswer": "larger than chance usually produces",
-      "independentSolution": "Beyond the re-randomization range."
+      "independentAnswer": "larger than what chance variation would usually produce",
+      "independentSolution": "The observed difference is unusually large relative to the randomization distribution generated under no treatment effect."
     },
     {
       "id": "ccss-textbook-practice-v1-compare-treatments-q03",
@@ -47561,12 +47857,12 @@
         "provide a baseline comparison"
       ],
       "explanation": {
-        "en": "Compare against no treatment.",
-        "zh": "Compare against no treatment.",
-        "zhHans": "Compare against no treatment."
+        "en": "A control group provides a baseline or comparison condition, which may be a placebo, standard treatment, or no treatment depending on the design.",
+        "zh": "A control group provides a baseline or comparison condition, which may be a placebo, standard treatment, or no treatment depending on the design.",
+        "zhHans": "A control group provides a baseline or comparison condition, which may be a placebo, standard treatment, or no treatment depending on the design."
       },
       "independentAnswer": "provide a baseline comparison",
-      "independentSolution": "Compare against no treatment."
+      "independentSolution": "A control group provides a baseline or comparison condition, which may be a placebo, standard treatment, or no treatment depending on the design."
     },
     {
       "id": "ccss-textbook-practice-v1-evaluate-reports-q01",
@@ -48053,12 +48349,12 @@
         "P(A and B) = P(A)·P(B)"
       ],
       "explanation": {
-        "en": "The independence test.",
-        "zh": "The independence test.",
-        "zhHans": "The independence test."
+        "en": "A and B are independent when P(A and B) = P(A)·P(B).",
+        "zh": "A and B are independent when P(A and B) = P(A)·P(B).",
+        "zhHans": "A and B are independent when P(A and B) = P(A)·P(B)."
       },
       "independentAnswer": "P(A and B) = P(A)·P(B)",
-      "independentSolution": "The independence test."
+      "independentSolution": "A and B are independent when P(A and B) = P(A)·P(B)."
     },
     {
       "id": "ccss-textbook-practice-v1-independence-q02",
@@ -48216,9 +48512,9 @@
       "manualQaStatus": "accepted-ccss-textbook-hand-check",
       "type": "multiple-choice",
       "prompt": {
-        "en": "P(A | B) is computed as…",
-        "zh": "P(A | B) is computed as…",
-        "zhHans": "P(A | B) is computed as…"
+        "en": "When P(B) > 0, P(A | B) is computed as…",
+        "zh": "When P(B) > 0, P(A | B) is computed as…",
+        "zhHans": "When P(B) > 0, P(A | B) is computed as…"
       },
       "options": [
         {
@@ -48247,12 +48543,12 @@
         "P(A and B) / P(B)"
       ],
       "explanation": {
-        "en": "Restrict to B's outcomes.",
-        "zh": "Restrict to B's outcomes.",
-        "zhHans": "Restrict to B's outcomes."
+        "en": "When P(B) > 0, restrict to B's outcomes and divide P(A and B) by P(B).",
+        "zh": "When P(B) > 0, restrict to B's outcomes and divide P(A and B) by P(B).",
+        "zhHans": "When P(B) > 0, restrict to B's outcomes and divide P(A and B) by P(B)."
       },
       "independentAnswer": "P(A and B) / P(B)",
-      "independentSolution": "Restrict to B's outcomes."
+      "independentSolution": "When P(B) > 0, restrict to B's outcomes and divide P(A and B) by P(B)."
     },
     {
       "id": "ccss-textbook-practice-v1-conditional-probability-q02",

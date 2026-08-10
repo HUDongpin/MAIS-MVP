@@ -5,6 +5,7 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-upper)";
+const MAX_CELL_COUNT = 99;
 
 export default function Lesson() {
   // rows: has a pet? (yes/no); cols: likes animals movies? (yes/no)
@@ -14,13 +15,21 @@ export default function Lesson() {
   // Every cell steps down to 0, so a row total of 0 is reachable and 0/0
   // rendered "NaN%" in the table, the verdict panel and the paragraph.
   // A row with nobody in it has no rate to report.
-  const pctPetYes = rowTot[0] > 0 ? Math.round((g[0][0] / rowTot[0]) * 100) : null;
-  const pctPetNo = rowTot[1] > 0 ? Math.round((g[1][0] / rowTot[1]) * 100) : null;
+  const pctPetYes = rowTot[0] > 0 ? (g[0][0] / rowTot[0]) * 100 : null;
+  const pctPetNo = rowTot[1] > 0 ? (g[1][0] / rowTot[1]) * 100 : null;
   const comparable = pctPetYes !== null && pctPetNo !== null;
+  // Apply the illustrative decision rule to the unrounded rates. Comparing the
+  // displayed whole percentages can move a true gap across the 15-point cutoff.
   const association = comparable && Math.abs(pctPetYes - pctPetNo) >= 15;
-  const pct = (v: number | null) => (v === null ? "—" : `${v}%`);
+  const pct = (v: number | null) => {
+    if (v === null) return "—";
+    const rounded = Math.round(v);
+    return `${Math.abs(v - rounded) < 1e-9 ? "" : "≈ "}${rounded}%`;
+  };
 
-  const set = (i: number, j: number, d: number) => setG((prev) => prev.map((r, ri) => r.map((v, ci) => (ri === i && ci === j ? Math.max(0, v + d) : v))));
+  const set = (i: number, j: number, d: number) => setG((prev) => prev.map((r, ri) => r.map((v, ci) => (
+    ri === i && ci === j ? Math.max(0, Math.min(MAX_CELL_COUNT, v + d)) : v
+  ))));
 
   return (
     <div className="prose-lesson max-w-none">
@@ -40,7 +49,7 @@ export default function Lesson() {
                 <th className="p-2" style={{ color: ACCENT }}>likes movies</th>
                 <th className="p-2 text-[var(--ink-soft)]">doesn&apos;t</th>
                 <th className="p-2 text-[var(--ink-faint)]">total</th>
-                <th className="p-2 text-[var(--ink-faint)]">% likes</th>
+                <th className="p-2 text-[var(--ink-faint)]">% likes (nearest whole)</th>
               </tr>
             </thead>
             <tbody>
@@ -52,9 +61,9 @@ export default function Lesson() {
                       <div className="flex items-center justify-center gap-1">
                         {/* Eight buttons shared two names ("decrease"/"increase")
                             with nothing tying one to its cell. */}
-                        <button type="button" onClick={() => set(i, j, -1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label={`Decrease ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>−</button>
+                        <button type="button" onClick={() => set(i, j, -1)} disabled={g[i][j] <= 0} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40" aria-label={`Decrease ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>−</button>
                         <span className="w-6 text-lg font-black tabular-nums">{g[i][j]}</span>
-                        <button type="button" onClick={() => set(i, j, 1)} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold" aria-label={`Increase ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>+</button>
+                        <button type="button" onClick={() => set(i, j, 1)} disabled={g[i][j] >= MAX_CELL_COUNT} className="h-6 w-6 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40" aria-label={`Increase ${i === 0 ? "has a pet" : "no pet"}, ${j === 0 ? "likes animal movies" : "does not"}`}>+</button>
                       </div>
                     </td>
                   ))}
@@ -71,21 +80,33 @@ export default function Lesson() {
               // while the trigger is the absolute gap, so lowering the pet-owner
               // cell announced "Pet owners like animal movies (25%) much more
               // than non-owners (44%)" — the reverse of what the table showed.
-              ? `Association! Pet owners like animal movies (${pct(pctPetYes)}) much ${(pctPetYes ?? 0) > (pctPetNo ?? 0) ? "more" : "less"} than non-owners (${pct(pctPetNo)}).`
+              ? `Notable sample association by this display's 15-point rule, computed from the unrounded rates: pet owners like animal movies (${pct(pctPetYes)}) much ${(pctPetYes ?? 0) > (pctPetNo ?? 0) ? "more" : "less"} than non-owners (${pct(pctPetNo)}).`
               : comparable
-                ? `Little association — the two groups like movies at similar rates (${pct(pctPetYes)} vs ${pct(pctPetNo)}).`
+                ? `By this display's rule, the unrounded gap is below 15 percentage points (${pct(pctPetYes)} vs ${pct(pctPetNo)}).`
                 : "One row has nobody in it, so there is no rate to compare yet — add someone to both rows."}
           </div>
+          <p className="m-0 text-center text-xs text-[var(--ink-faint)]">
+            ≈ marks a rate rounded to the nearest whole percent; the rule uses the unrounded rates.
+          </p>
         </div>
       </Figure>
 
       <h2>Compare the percentages</h2>
-      <p>
-        Raw counts can mislead when group sizes differ, so convert to relative
-        frequencies within each row: {pct(pctPetYes)} of pet owners like animal movies
-        versus {pct(pctPetNo)} of non-owners. A big gap signals the two categories are
-        related.
-      </p>
+      {comparable ? (
+        <p>
+          Raw counts can mislead when group sizes differ, so convert to relative
+          frequencies within each row: {pct(pctPetYes)} of pet owners like animal
+          movies versus {pct(pctPetNo)} of non-owners. A gap describes an
+          association in this sample; it does not by itself establish causation or
+          statistical significance.
+        </p>
+      ) : (
+        <p>
+          One row total is zero, so its conditional percentage is undefined and
+          the two groups cannot yet be compared. Add at least one observation to
+          each row before describing an association.
+        </p>
+      )}
 
       <MathCheck>
         <p>

@@ -29,7 +29,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {([["volume", "Liquid volume"], ["mass", "Mass"]] as const).map(([m, lbl]) => (
-              <button key={m} type="button" onClick={() => setMode(m)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: mode === "volume" ? LIQ : MASS, color: "white", borderColor: mode === "volume" ? LIQ : MASS } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: mode === "volume" ? LIQ : MASS, color: "white", borderColor: mode === "volume" ? LIQ : MASS } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 
@@ -47,7 +47,7 @@ export default function Lesson() {
               </svg>
               <div className="text-center">
                 <div className="text-3xl font-black" style={{ color: LIQ }}>{ml} mL</div>
-                <div className="font-mono text-sm text-[var(--ink-soft)]">= {liters} liters</div>
+                <div className="font-mono text-sm text-[var(--ink-soft)]">= {liters} {liters === 1 ? "liter" : "liters"}</div>
               </div>
               <input type="range" min={0} max={2000} step={50} value={ml} onChange={(e) => setMl(Number(e.target.value))} className="w-56 accent-[var(--band-middle)]" aria-label="milliliters" />
               <p className="m-0 text-sm text-[var(--ink-faint)]">A water bottle holds about 500 mL; a big soda bottle is about 2 L.</p>
@@ -57,7 +57,7 @@ export default function Lesson() {
               <div className="grid h-28 w-40 place-items-center rounded-2xl border-2 border-[var(--line)] bg-[var(--surface)]">
                 <div className="text-4xl font-black" style={{ color: MASS }}>{grams} g</div>
               </div>
-              <div className="text-center font-mono text-sm text-[var(--ink-soft)]">= {kg} kilograms</div>
+              <div className="text-center font-mono text-sm text-[var(--ink-soft)]">= {kg} {kg === 1 ? "kilogram" : "kilograms"}</div>
               <input type="range" min={0} max={3000} step={50} value={grams} onChange={(e) => setGrams(Number(e.target.value))} className="w-56 accent-[var(--band-upper)]" aria-label="grams" />
               <p className="m-0 text-sm text-[var(--ink-faint)]">A paperclip is about 1 g; a math textbook is about 1 kg (1000 g).</p>
             </>
@@ -67,9 +67,9 @@ export default function Lesson() {
 
       <h2>Estimate, then measure</h2>
       <p>
-        Knowing benchmarks — a liter of water, a kilogram textbook — lets you
-        estimate before you measure. Then a beaker or a scale gives the exact
-        amount.
+        Knowing benchmarks — a liter of water, a one-kilogram textbook — lets you
+        estimate before you measure. Then a beaker or a scale gives a measured
+        amount at the tool&rsquo;s marked precision.
       </p>
 
       <MathCheck>

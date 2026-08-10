@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
+const exactToHundredth = (n: number) => Math.abs(n * 100 - Math.round(n * 100)) < 1e-9;
+const relation = (...values: number[]) => values.every(exactToHundredth) ? "=" : "≈";
 
 export default function Lesson() {
   // x² + bx + c = 0
@@ -18,17 +20,19 @@ export default function Lesson() {
   // the stepper reaches negatives, which rendered "+ -4" / "− -3".
   const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const paren = (n: number) => (n < 0 ? `(−${Math.abs(n)})` : `${n}`);
-  const imag = r2(Math.sqrt(Math.abs(disc)) / 2);
+  const rawImag = Math.sqrt(Math.abs(disc)) / 2;
+  const imag = r2(rawImag);
 
   let roots: string;
   if (disc > 0) {
-    const s = r2(Math.sqrt(disc) / 2);
-    roots = `x = ${r2(real - s)}  or  x = ${r2(real + s)}`;
+    const s = Math.sqrt(disc) / 2;
+    const first = real - s, second = real + s;
+    roots = `x ${relation(first)} ${r2(first)}  or  x ${relation(second)} ${r2(second)}`;
   } else if (disc === 0) {
-    roots = `x = ${r2(real)} (double root)`;
+    roots = `x ${relation(real)} ${r2(real)} (double root)`;
   } else {
     const rp = r2(real);
-    roots = `x = ${rp} ± ${imag}i`;
+    roots = `x ${relation(real, rawImag)} ${rp} ± ${imag}i`;
   }
 
   return (
@@ -43,7 +47,7 @@ export default function Lesson() {
       <Figure caption="When the discriminant b² − 4c is negative, the two roots are complex conjugates.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-6 py-2 font-mono text-2xl font-black">
-            x² + {b}x + {c} = 0
+            x² {addend(b)}x {addend(c)} = 0
           </div>
 
           <div className="grid w-full max-w-md grid-cols-1 gap-2 font-mono text-sm">
@@ -78,7 +82,7 @@ export default function Lesson() {
             complex roots unconditionally, so at b = 6, c = 5 it claimed
             "x = −3 ± 2i" directly under a box correctly reading "x = −5 or x = −1". */}
         {disc < 0
-          ? `Here b² − 4c = ${disc}, so x = ${r2(real)} ± ${imag}i.`
+          ? `Here b² − 4c = ${disc}, so ${roots}.`
           : disc === 0
             ? `Here b² − 4c = 0, so the pair collapses to the single real double root x = ${r2(real)}.`
             : `Here b² − 4c = ${disc} is positive, so this one stays on the real axis: ${roots}.`}

@@ -8,6 +8,7 @@ const ACCENT = "var(--band-high)";
 const R = 6, CELL = 22, PAD = 22;
 const SIZE = 2 * R * CELL + 2 * PAD;
 const r2 = (n: number) => Math.round(n * 100) / 100;
+type P = [number, number];
 
 export default function Lesson() {
   const [m, setM] = useState(2); // slope of first line
@@ -24,17 +25,28 @@ export default function Lesson() {
   const xClipPerp = Math.min(R, R / Math.abs(perpSlope));
   const sx = (x: number) => PAD + (x + R) * CELL;
   const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
+  const norm = Math.sqrt(1 + m * m);
+  const markerSize = 0.55;
+  const lineDirection: P = [1 / norm, m / norm];
+  const perpendicularDirection: P = [-m / norm, 1 / norm];
+  const rightAnglePoints: P[] = [
+    [lineDirection[0] * markerSize, lineDirection[1] * markerSize],
+    [(lineDirection[0] + perpendicularDirection[0]) * markerSize, (lineDirection[1] + perpendicularDirection[1]) * markerSize],
+    [perpendicularDirection[0] * markerSize, perpendicularDirection[1] * markerSize],
+  ];
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
         Coordinates turn geometry into algebra. Placing a figure on a grid, you can{" "}
         <strong>prove</strong>{" "}theorems with slope and distance — for example, that
-        two lines are <strong>perpendicular exactly when their slopes multiply to
-        −1</strong>, and parallel when their slopes are equal.
+        two <strong>nonvertical</strong>{" "}lines are perpendicular exactly when
+        their slopes multiply to −1, and nonvertical parallel lines have equal
+        slopes. A vertical line is perpendicular to a horizontal line, even
+        though the vertical slope is undefined.
       </p>
 
-      <Figure caption="Perpendicular lines have slopes that multiply to −1; parallel lines share a slope.">
+      <Figure caption="The two nonvertical lines shown have slopes whose product is −1, so they are perpendicular. In general, nonvertical parallel lines have equal slopes; vertical cases use the vertical/horizontal criteria.">
         <div className="flex flex-col items-center gap-6">
           <svg
             width={SIZE}
@@ -59,7 +71,7 @@ export default function Lesson() {
             <line x1={sx(-xClip)} y1={sy(-m * xClip)} x2={sx(xClip)} y2={sy(m * xClip)} stroke={ACCENT} strokeWidth={2.5} />
             {/* perpendicular slope -1/m */}
             <line x1={sx(-xClipPerp)} y1={sy(-perpSlope * xClipPerp)} x2={sx(xClipPerp)} y2={sy(perpSlope * xClipPerp)} stroke="var(--band-upper)" strokeWidth={2.5} />
-            <rect x={sx(0) - 6} y={sy(0) - 6} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
+            <polyline points={rightAnglePoints.map(([x, y]) => `${sx(x)},${sy(y)}`).join(" ")} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
@@ -84,9 +96,11 @@ export default function Lesson() {
         <p>
           <strong>Coordinate proofs</strong>{" "}(G-GPE.4) establish geometric facts
           algebraically — e.g. showing a figure is a parallelogram or that a point
-          lies on a circle. The <strong>slope criteria</strong>{" "}(G-GPE.5): parallel
-          lines have <strong>equal slopes</strong>; perpendicular lines have slopes
-          whose <strong>product is −1</strong>{" "}(negative reciprocals).
+          lies on a circle. The <strong>slope criteria</strong>{" "}(G-GPE.5):
+          nonvertical parallel lines have <strong>equal slopes</strong>;
+          nonvertical perpendicular lines have slopes whose <strong>product is
+          −1</strong>{" "}(negative reciprocals). Vertical lines are parallel to
+          other vertical lines and perpendicular to horizontal lines.
         </p>
       </MathCheck>
     </div>

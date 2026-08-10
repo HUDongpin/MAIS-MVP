@@ -64,7 +64,7 @@ export default function Lesson() {
             {/* Scores run 0–100, so the controls must not let the model predict
                 an impossible one: m = 9 with b = 60 read "predicts a score of
                 105". At the new bounds the highest prediction at 5 hours is
-                exactly 100. */}
+                99, inside the score scale. */}
             <Stepper label="Slope m" value={m} min={2} max={9} onChange={setM} />
             <Stepper label="Intercept b" value={b} min={40} max={54} step={2} onChange={setB} />
           </div>
@@ -73,9 +73,11 @@ export default function Lesson() {
 
       <h2>Slope and intercept mean something</h2>
       <p>
-        The slope <strong>{m}</strong>{" "}says each extra hour of study is worth about {m} more points. The intercept <strong>{b}</strong>{" "}is the predicted score
-        with no studying. Plugging in an x-value makes a prediction — that is the
-        power of a linear model.
+        The fitted slope <strong>{m}</strong>{" "}associates one additional hour of
+        study with about {m} more predicted points. The intercept <strong>{b}</strong>{" "}is
+        the model&apos;s predicted score with no studying. This observational pattern
+        supports prediction, but by itself it does not show that extra study time
+        causes the score increase.
       </p>
 
       <MathCheck>

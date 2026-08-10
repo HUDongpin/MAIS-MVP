@@ -16,23 +16,21 @@ export default function Lesson() {
   const [b, setB] = useState(2);
   const slope = m / 10;
 
-  // x-range over which the fitted line stays within 0 <= y <= 14.
-  const clampY = (y: number) => Math.max(0, Math.min(14, y));
-  const fitClip: [number, number] = (() => {
-    const xs = [(0 - b) / slope, (14 - b) / slope].sort((p, q) => p - q);
-    return [Math.max(0, xs[0]), Math.min(8, xs[1])];
-  })();
-  const sx = (x: number) => Math.round((PAD + (x / 8) * (W - 2 * PAD)) * 100) / 100;
-  const sy = (y: number) => Math.round((H - PAD - (y / 14) * (H - 2 * PAD)) * 100) / 100;
   const pred = (x: number) => slope * x + b;
+  const yMax = Math.max(
+    14,
+    Math.ceil(Math.max(...DATA.map(([, y]) => y), pred(8)) / 2) * 2,
+  );
+  const sx = (x: number) => Math.round((PAD + (x / 8) * (W - 2 * PAD)) * 100) / 100;
+  const sy = (y: number) => Math.round((H - PAD - (y / yMax) * (H - 2 * PAD)) * 100) / 100;
   const resid = DATA.map(([x, y]) => r2(y - pred(x)));
   const ssr = r2(resid.reduce((s, r) => s + r * r, 0));
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Fitting a line to data means finding the one that comes closest to every
-        point. The <strong>residual</strong>{" "}at each point is how far the data sits
+        Fitting a line to data means choosing one whose vertical gaps from the
+        data are collectively small. The <strong>residual</strong>{" "}at each point is how far the data sits
         above or below the line. A good fit makes residuals <strong>small and
         patternless</strong>.
       </p>
@@ -42,21 +40,17 @@ export default function Lesson() {
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label="scatter plot with fitted line and residuals">
             <line x1={PAD} y1={sy(0)} x2={W - PAD} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={PAD} y1={sy(0)} x2={PAD} y2={PAD} stroke="var(--ink-soft)" strokeWidth={2} />
-            {/* residual segments */}
-            {/* The residual segments use the same unclamped pred(x) as the
-                fitted line did, so they ran off the top whenever the line
-                would have. Clamped to the plotted y-range. */}
-            {DATA.map(([x, y], i) => <line key={i} x1={sx(x)} y1={sy(y)} x2={sx(x)} y2={sy(clampY(pred(x)))} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="3 2" />)}
-            {/* pred(8) reaches 21 at slope 2.0, intercept 5, on a y-axis that
-                stops at 14 — the line ran 37px above the viewBox. Clip it to
-                the x-range where it is inside the plot. */}
-            <line x1={sx(fitClip[0])} y1={sy(pred(fitClip[0]))} x2={sx(fitClip[1])} y2={sy(pred(fitClip[1]))} stroke={ACCENT} strokeWidth={2.5} />
+            {/* The y-domain expands to include every reachable prediction, so
+                each dashed segment is the complete residual used in the SSR. */}
+            {DATA.map(([x, y], i) => <line key={i} x1={sx(x)} y1={sy(y)} x2={sx(x)} y2={sy(pred(x))} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="3 2" />)}
+            <line x1={sx(0)} y1={sy(pred(0))} x2={sx(8)} y2={sy(pred(8))} stroke={ACCENT} strokeWidth={2.5} />
             {DATA.map(([x, y], i) => <circle key={i} cx={sx(x)} cy={sy(y)} r={4} fill={DOT} />)}
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono text-sm" style={{ borderColor: ACCENT }}>
             y = {slope}x + {b} · sum of squared residuals = <strong style={{ color: ACCENT }}>{ssr}</strong>
             <span className="ml-2 text-xs text-[var(--ink-faint)]">(smaller = better fit)</span>
+            <span className="ml-2 text-xs text-[var(--ink-faint)]">(graph y-range: 0–{yMax})</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

@@ -23,7 +23,16 @@ test("a figure that overflows tells the student it can be panned", () => {
 test("a pannable figure is reachable by keyboard and announced, but only while it pans", () => {
   assert.match(scrollSource, /role=\{isOverflowing \? "region" : undefined\}/);
   assert.match(scrollSource, /tabIndex=\{isOverflowing \? 0 : undefined\}/);
-  assert.match(scrollSource, /aria-label=\{isOverflowing \? "Scrollable diagram/);
+  assert.match(
+    scrollSource,
+    /aria-label=\{isOverflowing \? ariaLabel : undefined\}/,
+    "The scroll region should expose its caller-provided accessible name only while it can pan."
+  );
+  assert.match(
+    scrollSource,
+    /ariaLabel = "Scrollable diagram — scroll sideways to see all of it"/,
+    "An unlabeled scroller should retain a meaningful default accessible name."
+  );
 });
 
 test("CCSS lesson figures route their horizontal scrolling through FigureScroll", () => {

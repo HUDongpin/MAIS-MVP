@@ -32,7 +32,7 @@ export default function Lesson() {
 
       <Figure caption="A sector is (angle/360) of the circle — so is its arc length and its area.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`Circle of radius ${radius} with a ${deg} degree sector shaded, arc length ${arcLen}`}>
+          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label={`Circle of radius ${radius} with a ${deg} degree sector shaded, arc length approximately ${arcLen} to the nearest hundredth`}>
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
             <path d={`M ${CX} ${CY} L ${CX + RAD} ${CY} A ${RAD} ${RAD} 0 ${large} 0 ${endX} ${endY} Z`} fill={ACCENT} fillOpacity={0.25} stroke={ACCENT} strokeWidth={2.5} />
             <text x={CX + 10} y={CY - 8} fontSize={12} fontWeight={800} fill={ACCENT}>{deg}°</text>
@@ -57,7 +57,7 @@ export default function Lesson() {
         <strong>sector area = ½r²θ</strong>{" "}— no fractions of 360 needed. Here the{" "}
         {/* frac is rounded, so "0.08 of the circle" for 30/360 = 0.0833… was
             stated as exact at 7 of the 10 slider stops. */}
-        {deg}° slice ({deg}/360{Math.abs(frac - r2(frac)) < 1e-9 ? ` = ${r2(frac)}` : ` ≈ ${r2(frac)}`} of the circle) has arc {arcLen} and area {sectorArea}.
+        {deg}° slice ({deg}/360{Math.abs(frac - r2(frac)) < 1e-9 ? ` = ${r2(frac)}` : ` ≈ ${r2(frac)}`} of the circle) has arc length ≈ {arcLen} and sector area ≈ {sectorArea}, each rounded to the nearest hundredth.
         The proportionality of arc to radius is what <em>defines</em>{" "}radian measure.
       </p>
 

@@ -31,19 +31,23 @@ export default function Lesson() {
   const shift = UNITS[from].exp - UNITS[to].exp;
   const result = value * Math.pow(10, shift);
   const bigger = shift > 0;
+  const updateValue = (raw: string) => {
+    const next = Number(raw);
+    setValue(Number.isFinite(next) ? Math.max(0, Math.min(1_000_000, next)) : 0);
+  };
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        The <strong>metric system</strong>{" "}is built on tens. Each step between
-        units is a <strong>power of 10</strong>, so converting is just multiplying
-        or dividing by 10, 100, or 1000 — moving the decimal point.
+        The <strong>metric system</strong>{" "}is built on powers of ten. Metric
+        prefixes tell how a unit compares with its base unit, so converting uses
+        multiplication or division by 10, 100, 1000, or another power of ten.
       </p>
 
       <Figure caption="Going to a smaller unit multiplies (more of them); going bigger divides.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-3">
-            <input type="number" value={value} min={0} onChange={(e) => setValue(Math.max(0, Number(e.target.value) || 0))} className="w-24 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-center text-xl font-black" aria-label="value to convert" />
+            <input type="number" value={value} min={0} max={1_000_000} step="any" onChange={(e) => updateValue(e.target.value)} className="w-24 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-center text-xl font-black" aria-label="Nonnegative value to convert" />
             <select value={from} onChange={(e) => setFrom(Number(e.target.value))} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 font-bold" aria-label="from unit">
               {UNITS.map((u, i) => <option key={u.key} value={i}>{u.name}</option>)}
             </select>
@@ -71,11 +75,17 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>Every step is a power of ten</h2>
+      <h2>Compare the powers of ten</h2>
       <p>
-        From {UNITS[from].name} to {UNITS[to].name} is {Math.abs(shift)} step
-        {Math.abs(shift) === 1 ? "" : "s"} on the metric staircase, so you{" "}
-        {bigger ? "multiply" : "divide"} by 10{Math.abs(shift) > 1 ? <sup>{Math.abs(shift)}</sup> : ""}. That is why {fmt(value)} {UNITS[from].key} = {fmt(result)} {UNITS[to].key}.
+        {shift === 0 ? (
+          <>The selected units are the same, so the value stays {fmt(value)}{" "}
+          {UNITS[from].key}.</>
+        ) : (
+          <>The powers for {UNITS[from].name} and {UNITS[to].name} differ by{" "}
+          {Math.abs(shift)}, so you {bigger ? "multiply" : "divide"} by 10
+          {Math.abs(shift) > 1 ? <sup>{Math.abs(shift)}</sup> : ""}. That is why{" "}
+          {fmt(value)} {UNITS[from].key} = {fmt(result)} {UNITS[to].key}.</>
+        )}
       </p>
 
       <MathCheck>

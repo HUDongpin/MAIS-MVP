@@ -17,8 +17,8 @@ const ITEMS: Item[] = [
   // with markerEnd — these two were drawn as bare segments in the one lesson
   // that teaches the difference.
   { key: "angle", name: "Angle", desc: "Two rays meeting at a vertex (a corner).", draw: <g><line x1={60} y1={95} x2={180} y2={95} stroke={C} strokeWidth={3} markerEnd="url(#arw)" /><line x1={60} y1={95} x2={150} y2={25} stroke={C} strokeWidth={3} markerEnd="url(#arw)" /><circle cx={60} cy={95} r={4} fill={INK} /></g> },
-  { key: "parallel", name: "Parallel lines", desc: "Always the same distance apart — never meet.", draw: <g><line x1={30} y1={45} x2={190} y2={45} stroke={C} strokeWidth={3} /><line x1={30} y1={80} x2={190} y2={80} stroke={C} strokeWidth={3} /></g> },
-  { key: "perp", name: "Perpendicular lines", desc: "Cross at a right angle (90°).", draw: <g><line x1={30} y1={65} x2={190} y2={65} stroke={C} strokeWidth={3} /><line x1={110} y1={20} x2={110} y2={110} stroke={C} strokeWidth={3} /><rect x={112} y={53} width={11} height={11} fill="none" stroke={INK} strokeWidth={1.5} /></g> },
+  { key: "parallel", name: "Parallel lines", desc: "Always the same distance apart — never meet.", draw: <g><line x1={30} y1={45} x2={190} y2={45} stroke={C} strokeWidth={3} markerStart="url(#arw)" markerEnd="url(#arw)" /><line x1={30} y1={80} x2={190} y2={80} stroke={C} strokeWidth={3} markerStart="url(#arw)" markerEnd="url(#arw)" /></g> },
+  { key: "perp", name: "Perpendicular lines", desc: "Cross at a right angle (90°).", draw: <g><line x1={30} y1={65} x2={190} y2={65} stroke={C} strokeWidth={3} markerStart="url(#arw)" markerEnd="url(#arw)" /><line x1={110} y1={20} x2={110} y2={110} stroke={C} strokeWidth={3} markerStart="url(#arw)" markerEnd="url(#arw)" /><rect x={112} y={53} width={11} height={11} fill="none" stroke={INK} strokeWidth={1.5} /></g> },
 ];
 
 export default function Lesson() {
@@ -39,13 +39,13 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {ITEMS.map((it, i) => (
-              <button key={it.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: C, color: "white", borderColor: C } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{it.name}</button>
+              <button key={it.key} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: C, color: "white", borderColor: C } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{it.name}</button>
             ))}
           </div>
 
           <svg width="220" height="130" viewBox="0 0 220 130" role="img" aria-label={item.name}>
             <defs>
-              <marker id="arw" markerWidth="9" markerHeight="9" refX="5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 Z" fill={C} /></marker>
+              <marker id="arw" markerWidth="9" markerHeight="9" refX="5" refY="4.5" orient="auto-start-reverse"><path d="M0,0 L8,4.5 L0,9 Z" fill={C} /></marker>
             </defs>
             {item.draw}
           </svg>

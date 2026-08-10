@@ -31,7 +31,7 @@ test("lesson illustration images are allowed to enlarge within the lesson panel"
   );
 });
 
-test("text-heavy raster lesson illustrations can bypass lossy image optimization", () => {
+test("lesson illustration rendering retains raster fidelity support and the repaired concept uses exact SVG", () => {
   assert.match(
     lessonViewSource,
     /unoptimized=\{illustration\.preserveRasterFidelity === true\}/,
@@ -39,12 +39,12 @@ test("text-heavy raster lesson illustrations can bypass lossy image optimization
   );
   assert.match(
     usCaliforniaLessonIllustrationsSource,
-    /id: "us-ca-math-p1-1-oa-add-subtract-concept"[\s\S]*preserveRasterFidelity: true/,
-    "The Add & Subtract Stories concept PNG should preserve raster fidelity"
+    /id: "us-ca-math-p1-1-oa-add-subtract-concept"[\s\S]*add-subtract-concrete-to-abstract\.svg/,
+    "The repaired Add & Subtract Stories concept should use the exact SVG model"
   );
-  assert.match(
+  assert.doesNotMatch(
     usCaliforniaLessonIllustrationsSource,
-    /add-subtract-stories-single-panel-source-hd\.png/,
-    "The Add & Subtract Stories concept image should use the remade HD source"
+    /src:\s*"[^"\n]*add-subtract-stories-single-panel-source-hd\.png"/,
+    "The mathematically inconsistent raster asset must not return as a live source"
   );
 });

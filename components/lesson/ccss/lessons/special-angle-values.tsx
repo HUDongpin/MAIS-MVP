@@ -36,7 +36,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {ANGLES.map((an, i) => (
-              <button key={an.deg} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-4 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{an.deg}°</button>
+              <button key={an.deg} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-4 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{an.deg}°</button>
             ))}
           </div>
 

@@ -31,7 +31,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {([["product", "find the total"], ["count", "find each group"], ["group", "find the groups"]] as [Unknown, string][]).map(([u, lbl]) => (
-              <button key={u} type="button" onClick={() => setUnknown(u)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={unknown === u ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              <button key={u} type="button" onClick={() => setUnknown(u)} aria-pressed={unknown === u} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={unknown === u ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 

@@ -33,7 +33,9 @@ export default function Lesson() {
   const prodN = a * c;
   const prodD = b * d;
   const g = gcd(prodN, prodD);
-  const simplified = g > 1 ? `${prodN / g}/${prodD / g}` : null;
+  const reducedN = prodN / g;
+  const reducedD = prodD / g;
+  const simplified = g > 1 ? (reducedD === 1 ? `${reducedN}` : `${reducedN}/${reducedD}`) : null;
 
   return (
     <div className="prose-lesson max-w-none">

@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-high)";
 const R = 6, CELL = 22, PAD = 22;
@@ -18,14 +22,41 @@ export default function Lesson() {
   const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
 
   const dist = (p: P, q: P) => Math.sqrt((p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2);
-  const perim = r2(verts.reduce((s, v, i) => s + dist(v, verts[(i + 1) % verts.length]), 0));
+  const rawPerim = verts.reduce((s, v, i) => s + dist(v, verts[(i + 1) % verts.length]), 0);
+  const perim = r2(rawPerim);
   // shoelace area
-  const area = r2(Math.abs(verts.reduce((s, [x, y], i) => {
+  const rawArea = Math.abs(verts.reduce((s, [x, y], i) => {
     const [x2, y2] = verts[(i + 1) % verts.length];
     return s + (x * y2 - x2 * y);
-  }, 0)) / 2);
+  }, 0)) / 2;
+  const area = r2(rawArea);
+  const perimRelation = relationForDisplayedValue(rawPerim, perim);
+  const areaRelation = relationForDisplayedValue(rawArea, area);
+  const perimSpokenRelation = spokenRelationForDisplayedValue(rawPerim, perim);
+  const areaSpokenRelation = spokenRelationForDisplayedValue(rawArea, area);
 
-  const setV = (i: number, axis: 0 | 1, d: number) => setVerts((vs) => vs.map((v, vi) => (vi === i ? (axis === 0 ? [Math.max(-R, Math.min(R, v[0] + d)), v[1]] : [v[0], Math.max(-R, Math.min(R, v[1] + d))]) : v)));
+  const movedVerts = (vs: P[], i: number, axis: 0 | 1, d: number): P[] =>
+    vs.map((v, vi) => (vi === i
+      ? (axis === 0
+        ? [Math.max(-R, Math.min(R, v[0] + d)), v[1]]
+        : [v[0], Math.max(-R, Math.min(R, v[1] + d))])
+      : v));
+  const isValidTriangle = (vs: P[]) => {
+    const distinct = new Set(vs.map(([x, y]) => `${x},${y}`)).size === 3;
+    const twiceSignedArea = vs.reduce((s, [x, y], i) => {
+      const [x2, y2] = vs[(i + 1) % vs.length];
+      return s + x * y2 - x2 * y;
+    }, 0);
+    return distinct && twiceSignedArea !== 0;
+  };
+  const canMove = (i: number, axis: 0 | 1, d: number) => {
+    const next = movedVerts(verts, i, axis, d);
+    return next[i][axis] !== verts[i][axis] && isValidTriangle(next);
+  };
+  const setV = (i: number, axis: 0 | 1, d: number) => setVerts((vs) => {
+    const next = movedVerts(vs, i, axis, d);
+    return next[i][axis] !== vs[i][axis] && isValidTriangle(next) ? next : vs;
+  });
 
   return (
     <div className="prose-lesson max-w-none">
@@ -38,7 +69,7 @@ export default function Lesson() {
 
       <Figure caption="Perimeter sums the side lengths; the shoelace formula gives the area from the coordinates.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label="polygon on a grid">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={`Polygon with vertices ${verts.map(([x, y], i) => `${String.fromCharCode(65 + i)} at (${x}, ${y})`).join(", ")}; perimeter ${perimSpokenRelation} ${perim}; area ${areaSpokenRelation} ${area} square units`}>
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />
@@ -52,8 +83,8 @@ export default function Lesson() {
           </svg>
 
           <div className="grid grid-cols-2 gap-4 text-center font-mono text-sm">
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">perimeter<br /><strong style={{ color: ACCENT }}>≈ {perim}</strong></div>
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">area (shoelace)<br /><strong style={{ color: ACCENT }}>= {area}</strong></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">perimeter<br /><strong style={{ color: ACCENT }} aria-label={`perimeter ${perimSpokenRelation} ${perim}`}>{perimRelation} {perim}</strong></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">area (shoelace)<br /><strong style={{ color: ACCENT }} aria-label={`area ${areaSpokenRelation} ${area}`}>{areaRelation} {area}</strong></div>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
@@ -63,10 +94,10 @@ export default function Lesson() {
                 <div className="flex gap-1">
                   {/* Twelve buttons announced only an arrow glyph; the vertex
                       they move sat in an unassociated sibling span. */}
-                  <button type="button" onClick={() => setV(i, 0, -1)} aria-label={`Move vertex ${i + 1} left from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">←</button>
-                  <button type="button" onClick={() => setV(i, 0, 1)} aria-label={`Move vertex ${i + 1} right from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">→</button>
-                  <button type="button" onClick={() => setV(i, 1, 1)} aria-label={`Move vertex ${i + 1} up from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↑</button>
-                  <button type="button" onClick={() => setV(i, 1, -1)} aria-label={`Move vertex ${i + 1} down from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold">↓</button>
+                  <button type="button" onClick={() => setV(i, 0, -1)} disabled={!canMove(i, 0, -1)} aria-label={`Move vertex ${i + 1} left from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40">←</button>
+                  <button type="button" onClick={() => setV(i, 0, 1)} disabled={!canMove(i, 0, 1)} aria-label={`Move vertex ${i + 1} right from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40">→</button>
+                  <button type="button" onClick={() => setV(i, 1, 1)} disabled={!canMove(i, 1, 1)} aria-label={`Move vertex ${i + 1} up from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40">↑</button>
+                  <button type="button" onClick={() => setV(i, 1, -1)} disabled={!canMove(i, 1, -1)} aria-label={`Move vertex ${i + 1} down from (${v[0]}, ${v[1]})`} className="h-7 w-7 rounded border border-[var(--line)] text-xs font-bold disabled:opacity-40">↓</button>
                 </div>
               </div>
             ))}
@@ -76,8 +107,8 @@ export default function Lesson() {
 
       <h2>Distance and the shoelace formula</h2>
       <p>
-        Each side length is √((Δx)² + (Δy)²); summing them gives the perimeter ≈{" "}
-        {perim}. The <strong>shoelace formula</strong>{" "}½|Σ(xᵢyᵢ₊₁ − xᵢ₊₁yᵢ)| = {area}
+        Each side length is √((Δx)² + (Δy)²); summing them gives the perimeter{" "}
+        <span aria-label={`perimeter ${perimSpokenRelation} ${perim}`}>{perimRelation} {perim}</span>. The <strong>shoelace formula</strong>{" "}½|Σ(xᵢyᵢ₊₁ − xᵢ₊₁yᵢ)| <span aria-label={`${areaSpokenRelation} ${area}`}>{areaRelation} {area}</span>
         {" "}computes the area from the coordinates alone, cross-multiplying consecutive
         vertices. Both are pure applications of the coordinate plane.
       </p>

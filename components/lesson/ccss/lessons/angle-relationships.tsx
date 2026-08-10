@@ -43,7 +43,7 @@ export default function Lesson() {
               // Clamp the known angle into the new relationship's range. It was
               // not re-clamped, so Supplementary at 160° then Complementary gave
               // "160° + -70° = 90°" in the readout, the prose and the Math Check.
-              <button key={rk} type="button" onClick={() => { setRel(rk); setA((p) => Math.min(p, rk === "supp" ? 160 : 80)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rel === rk ? { background: B, color: "white", borderColor: B } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{REL[rk].name}</button>
+              <button key={rk} type="button" onClick={() => { setRel(rk); setA((p) => Math.min(p, rk === "supp" ? 160 : 80)); }} aria-pressed={rel === rk} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rel === rk ? { background: B, color: "white", borderColor: B } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{REL[rk].name}</button>
             ))}
           </div>
 
@@ -107,8 +107,9 @@ export default function Lesson() {
         <p>
           Angle relationships — <strong>complementary</strong>{" "}(sum 90°),{" "}
           <strong>supplementary</strong>{" "}(sum 180°), <strong>vertical</strong>{" "}
-          (equal), and adjacent — let you write and solve simple equations for
-          unknown angles (7.G.B.5). Here the pair {REL[rel].verb}, giving an unknown
+          (equal) — let you write and solve simple equations for unknown angles
+          (7.G.B.5). Adjacency alone only says that two angles share a vertex and
+          side; it does not determine their measures. Here the pair {REL[rel].verb}, giving an unknown
           of {other}°.
         </p>
       </MathCheck>

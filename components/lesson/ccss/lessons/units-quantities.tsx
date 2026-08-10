@@ -12,7 +12,9 @@ export default function Lesson() {
   const [mph, setMph] = useState(60);
 
   // 60 mi/hr × 5280 ft/mi ÷ 3600 s/hr = ft/s
-  const fps = r2((mph * 5280) / 3600);
+  const exactFps = (mph * 5280) / 3600;
+  const fps = r2(exactFps);
+  const relation = Math.abs(exactFps * 100 - Math.round(exactFps * 100)) < 1e-9 ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -32,7 +34,7 @@ export default function Lesson() {
               <Frac top="5280 ft" bot="1 mi" hi="mi" />
               <span className="text-2xl">×</span>
               <Frac top="1 hr" bot="3600 s" hi="hr" />
-              <span className="text-2xl">=</span>
+              <span className="text-2xl">{relation}</span>
               <span className="rounded-lg px-3 py-2 text-2xl font-black" style={{ background: "var(--surface-2)", color: ACCENT }}>{fps} ft/s</span>
             </div>
           </FigureScroll>
@@ -46,8 +48,8 @@ export default function Lesson() {
           <Slider label="speed (mph)" value={mph} min={10} max={120} step={5} onChange={setMph} />
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
-            {mph} mph ≈ <strong style={{ color: ACCENT }}>{fps} ft/s</strong>
-            <span className="ml-2 text-xs text-[var(--ink-faint)]">(report to the nearest 0.01 — as precise as the inputs)</span>
+            {mph} mph {relation} <strong style={{ color: ACCENT }}>{fps} ft/s</strong>
+            <span className="ml-2 text-xs text-[var(--ink-faint)]">(display rounded to the nearest 0.01 when needed; justified measurement precision depends on the source data)</span>
           </div>
         </div>
       </Figure>

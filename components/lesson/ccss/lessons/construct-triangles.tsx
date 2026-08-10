@@ -41,7 +41,7 @@ export default function Lesson() {
         cannot meet.
       </p>
 
-      <Figure caption="Set three side lengths. If they satisfy the triangle inequality, a unique triangle appears.">
+      <Figure caption="Set three side lengths. If they satisfy the triangle inequality, they determine one triangle up to congruence and reflection.">
         <div className="flex flex-col items-center gap-6">
           {valid ? (
             <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="max-w-full" role="img" aria-label={`Triangle with sides ${a}, ${b} and ${c}`}>
@@ -74,7 +74,7 @@ export default function Lesson() {
       <h2>Two short sides must reach</h2>
       <p>
         {valid
-          ? `The two shorter sides add to more than ${maxSide}, so they can meet above the longest side — and these three lengths make exactly one triangle.`
+          ? `The two shorter sides add to more than ${maxSide}, so they can meet — and these three lengths determine one triangle up to congruence (a reflected drawing is the same shape and size).`
           : `The two shorter sides do not add up to more than ${maxSide}, so they can never close up into a triangle.`}
       </p>
 
@@ -84,7 +84,7 @@ export default function Lesson() {
           three side lengths determine a triangle. By the{" "}
           <strong>triangle inequality</strong>, three lengths form a triangle only
           if the sum of the two shorter sides exceeds the longest. When they do, the
-          triangle is <strong>unique</strong>; otherwise no triangle exists.
+          triangle is <strong>unique up to congruence</strong>; otherwise no triangle exists.
         </p>
       </MathCheck>
     </div>

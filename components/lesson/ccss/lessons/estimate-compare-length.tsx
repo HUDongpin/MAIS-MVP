@@ -8,6 +8,7 @@ const U = 30;
 const A = "var(--band-middle)";
 const B = "var(--band-early)";
 const DIFF = "var(--band-high)";
+const resultId = "ccss-estimate-compare-length-result";
 
 export default function Lesson() {
   const [la, setLa] = useState(7);
@@ -42,7 +43,7 @@ export default function Lesson() {
             <Bar len={lb} color={B} extra={longer === "bottom" ? diff : 0} />
           </div>
 
-          <div className="text-center">
+          <div id={resultId} className="text-center">
             {reveal ? (
               <div className="text-2xl font-black">
                 {/* At equal lengths `longer` arbitrarily picked "top" and the
@@ -56,7 +57,7 @@ export default function Lesson() {
             )}
           </div>
 
-          <button type="button" onClick={() => setReveal((r) => !r)} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ background: reveal ? "var(--ink-soft)" : DIFF }}>
+          <button type="button" onClick={() => setReveal((r) => !r)} aria-expanded={reveal} aria-controls={resultId} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ background: reveal ? "var(--ink-soft)" : DIFF }}>
             {reveal ? "Hide & estimate again" : "Reveal the measurements"}
           </button>
 
@@ -70,8 +71,9 @@ export default function Lesson() {
       <h2>How much longer?</h2>
       <p>
         “How much longer” is a <strong>subtraction</strong>. Line the objects up,
-        find each length, and take the difference:{" "}
-        {Math.max(la, lb)} − {Math.min(la, lb)} = {diff}.
+        measure both in the same unit, and subtract the shorter length from the
+        longer length.
+        {reveal ? <> Here, {Math.max(la, lb)} − {Math.min(la, lb)} = {diff}.</> : null}
       </p>
 
       <MathCheck>
@@ -79,7 +81,8 @@ export default function Lesson() {
           <strong>Estimating</strong>{" "}length builds a feel for units like inches,
           feet, centimeters, and meters (2.MD.A.3). To <strong>compare</strong>{" "}
           two lengths, measure both in the same unit and subtract — the difference
-          tells how much longer one is (2.MD.A.4): {Math.max(la, lb)} − {Math.min(la, lb)} = {diff}.
+          tells how much longer one is (2.MD.A.4).
+          {reveal ? <> For these bars, {Math.max(la, lb)} − {Math.min(la, lb)} = {diff}.</> : null}
         </p>
       </MathCheck>
     </div>

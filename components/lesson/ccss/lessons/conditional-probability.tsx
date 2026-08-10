@@ -16,8 +16,11 @@ export default function Lesson() {
   // P(umbrella | rain): among rain days, fraction with umbrella
   const rainTotal = g[0][1] + g[1][1];
   const umbTotal = g[0][0] + g[0][1];
-  const pUmbGivenRain = r2(g[0][1] / rainTotal);
-  const pRainGivenUmb = r2(g[0][1] / umbTotal);
+  const rawUmbGivenRain = g[0][1] / rainTotal;
+  const rawRainGivenUmb = g[0][1] / umbTotal;
+  const pUmbGivenRain = r2(rawUmbGivenRain);
+  const pRainGivenUmb = r2(rawRainGivenUmb);
+  const relation = (raw: number) => Math.abs(raw * 100 - Math.round(raw * 100)) < 1e-9 ? "=" : "≈";
 
   // The conditioning subset is the rain COLUMN for "given rain" and the umbrella
   // ROW for "given umbrella". The row case used to shade only the no-rain cell
@@ -39,7 +42,7 @@ export default function Lesson() {
         <strong>Conditional probability</strong>{" "}P(A | B) asks: given that B
         happened, how likely is A? You <strong>restrict to the B outcomes</strong>{" "}
         and find A&apos;s fraction among them:{" "}
-        <strong>P(A | B) = P(A and B) / P(B)</strong>.
+        <strong>P(A | B) = P(A and B) / P(B)</strong>, provided P(B) &gt; 0.
       </p>
 
       <Figure caption="Conditioning zooms into one row or column — then A's share of that subset is P(A | B).">
@@ -57,22 +60,22 @@ export default function Lesson() {
           </table>
 
           <div className="flex gap-2">
-            <button type="button" onClick={() => setCondOn("rain")} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={condOn === "rain" ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>given rain</button>
-            <button type="button" onClick={() => setCondOn("umbrella")} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={condOn === "umbrella" ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>given umbrella</button>
+            <button type="button" onClick={() => setCondOn("rain")} aria-pressed={condOn === "rain"} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={condOn === "rain" ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>given rain</button>
+            <button type="button" onClick={() => setCondOn("umbrella")} aria-pressed={condOn === "umbrella"} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={condOn === "umbrella" ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>given umbrella</button>
           </div>
 
           <div className="rounded-2xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
             {condOn === "rain"
-              ? <>P(umbrella | rain) = {g[0][1]}/{rainTotal} = <strong style={{ color: ACCENT }}>{pUmbGivenRain}</strong></>
-              : <>P(rain | umbrella) = {g[0][1]}/{umbTotal} = <strong style={{ color: ACCENT }}>{pRainGivenUmb}</strong></>}
+              ? <>P(umbrella | rain) = {g[0][1]}/{rainTotal} {relation(rawUmbGivenRain)} <strong style={{ color: ACCENT }}>{pUmbGivenRain}</strong></>
+              : <>P(rain | umbrella) = {g[0][1]}/{umbTotal} {relation(rawRainGivenUmb)} <strong style={{ color: ACCENT }}>{pRainGivenUmb}</strong></>}
           </div>
         </div>
       </Figure>
 
       <h2>Order matters</h2>
       <p>
-        P(umbrella | rain) = {pUmbGivenRain} is <em>not</em>{" "}the same as
-        P(rain | umbrella) = {pRainGivenUmb} — conditioning on a different event uses a
+        P(umbrella | rain) {relation(rawUmbGivenRain)} {pUmbGivenRain} is <em>not</em>{" "}the same as
+        P(rain | umbrella) {relation(rawRainGivenUmb)} {pRainGivenUmb} — conditioning on a different event uses a
         different subset as the denominator. As a fraction of outcomes, P(A | B)
         counts the A-and-B cases out of all the B cases. Confusing the two directions
         is a classic mistake.
@@ -80,7 +83,7 @@ export default function Lesson() {
 
       <MathCheck>
         <p>
-          <strong>Conditional probability</strong>{" "}P(A | B) = P(A and B)/P(B)
+          <strong>Conditional probability</strong>{" "}P(A | B) = P(A and B)/P(B), for P(B) &gt; 0,
           (S-CP.3) measures A&apos;s likelihood given B occurred. Computed as a{" "}
           <strong>fraction of B&apos;s outcomes</strong>{" "}that are also A (S-CP.6),
           it&apos;s directional: P(A | B) generally differs from P(B | A).

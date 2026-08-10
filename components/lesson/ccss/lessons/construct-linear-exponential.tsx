@@ -47,7 +47,7 @@ export default function Lesson() {
             </thead>
             <tbody>
               <tr style={{ color: LIN }}><td className="px-3 font-bold">linear</td>{[0, 1, 2, 3, 4, 5].map((t) => <td key={t} className="px-3">{lin(t)}</td>)}</tr>
-              <tr style={{ color: EXP }}><td className="px-3 font-bold">exp.</td>{[0, 1, 2, 3, 4, 5].map((t) => <td key={t} className="px-3">{exp(t)}</td>)}</tr>
+              <tr style={{ color: EXP }}><td className="px-3 font-bold">exp. (nearest $)</td>{[0, 1, 2, 3, 4, 5].map((t) => <td key={t} className="px-3">{exp(t)}</td>)}</tr>
             </tbody>
           </table>
 

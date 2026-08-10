@@ -6,6 +6,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
+const addend = (n: number) => n < 0 ? `− ${Math.abs(n)}` : `+ ${n}`;
 
 export default function Lesson() {
   // x² + bx + c → complete the square: (x + b/2)² + (c − (b/2)²)
@@ -28,19 +29,19 @@ export default function Lesson() {
       <Figure caption="Complete the square: turn x² + bx + c into (x + b/2)² plus a constant. The vertex appears.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-6 py-2 font-mono text-2xl font-black">
-            x² + {b}x + {c}
+            x² {addend(b)}x {addend(c)}
           </div>
 
           <div className="flex flex-col items-center gap-1 font-mono text-lg">
             <span className="text-[var(--ink-faint)] text-sm">add and subtract (b/2)² = {r2(half * half)}</span>
-            <span>x² + {b}x + {r2(half * half)} − {r2(half * half)} + {c}</span>
-            <span className="text-2xl font-black" style={{ color: ACCENT }}>(x + {half})² + {k}</span>
+            <span>x² {addend(b)}x + {r2(half * half)} − {r2(half * half)} {addend(c)}</span>
+            <span className="text-2xl font-black" style={{ color: ACCENT }}>(x {half < 0 ? "−" : "+"} {Math.abs(half)})² {addend(k)}</span>
           </div>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">vertex</div>
             <div className="font-mono text-lg font-black" style={{ color: ACCENT }}>({h}, {k})</div>
-            <div className="text-xs text-[var(--ink-faint)]">{k <= 0 ? "crosses the x-axis (real roots)" : "sits above the x-axis (complex roots)"}</div>
+            <div className="text-xs text-[var(--ink-faint)]">{k < 0 ? "crosses the x-axis twice (two real roots)" : k === 0 ? "touches the x-axis once (a repeated real root)" : "sits above the x-axis (no real roots)"}</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -53,7 +54,7 @@ export default function Lesson() {
       <h2>Completing the square</h2>
       <p>
         Take half of b to get {half}, square it ({r2(half * half)}), and add-then-subtract
-        it. The first three terms fold into (x + {half})², leaving the constant{" "}
+        it. The first three terms fold into (x {half < 0 ? "−" : "+"} {Math.abs(half)})², leaving the constant{" "}
         {k}. Now the vertex ({h}, {k}) is visible — no graphing needed. Factoring,
         by contrast, would expose the roots directly.
       </p>

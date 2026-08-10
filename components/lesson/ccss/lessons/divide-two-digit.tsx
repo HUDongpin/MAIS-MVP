@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { relationForDisplayedValue } from "@/components/lesson/ccss/numberPresentation";
 
 const EST = "var(--band-middle)";
 const ACCENT = "var(--band-upper)";
@@ -14,7 +15,13 @@ export default function Lesson() {
   const q = Math.floor(dividend / divisor);
   const r = dividend % divisor;
   const dRound = Math.round(divisor / 10) * 10 || 10;
-  const est = Math.floor(dividend / dRound);
+  const rawEstimate = dividend / dRound;
+  const est = Math.round(rawEstimate);
+  const displayedEstimateRelation = relationForDisplayedValue(rawEstimate, est);
+  const estimateGap = Math.abs(est - q);
+  const estimateRelation = est === q
+    ? "matches the whole-number quotient"
+    : `${estimateGap} ${estimateGap === 1 ? "unit" : "units"} ${est > q ? "above" : "below"} the whole-number quotient`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -32,7 +39,7 @@ export default function Lesson() {
             <div className="rounded-2xl border-2 px-6 py-4 text-center" style={{ borderColor: EST }}>
               <div className="text-xs font-bold uppercase tracking-wide" style={{ color: EST }}>Estimate</div>
               <div className="font-mono text-sm text-[var(--ink-soft)]">round {divisor} → {dRound}</div>
-              <div className="font-mono text-2xl font-black" style={{ color: EST }}>{dividend} ÷ {dRound} ≈ {est}</div>
+              <div className="font-mono text-2xl font-black" style={{ color: EST }}>{dividend} ÷ {dRound} {displayedEstimateRelation} {est}</div>
             </div>
             <div className="rounded-2xl border-2 px-6 py-4 text-center" style={{ borderColor: ACCENT }}>
               <div className="text-xs font-bold uppercase tracking-wide" style={{ color: ACCENT }}>Exact</div>
@@ -54,11 +61,11 @@ export default function Lesson() {
 
       <h2>Estimate, then adjust</h2>
       <p>
-        Rounding {divisor} to {dRound} gives a quick estimate of about {est}. The
-        exact quotient is {q}, which is close — so you know your answer is
-        {/* The check has to include the remainder, or it does not check
-            anything: 432 ÷ 17 = 25 R 7 was "confirmed" by 17 × 25 = 425. */}
-        reasonable. Multiplying back confirms it: {divisor} × {q}{r > 0 ? ` + ${r}` : ""} = {divisor * q + r}.
+        Rounding {divisor} to {dRound} gives a starting estimate of about {est}.
+        Here that estimate {estimateRelation}. Rounding changed the divisor, so
+        the estimate is a guide to adjust from, not proof that the exact quotient
+        must be close. Exact division gives {q} remainder {r}. Multiplying back
+        confirms it: {divisor} × {q}{r > 0 ? ` + ${r}` : ""} = {divisor * q + r}.
       </p>
 
       <MathCheck>
@@ -66,8 +73,8 @@ export default function Lesson() {
           Finding whole-number quotients with up to four-digit dividends and{" "}
           <strong>two-digit divisors</strong>{" "}(5.NBT.B.6) uses place value,
           estimation, and the relationship between multiplication and division.
-          Rounding the divisor to estimate the quotient keeps the work manageable,
-          and <strong>divisor × quotient + remainder = dividend</strong>{" "}checks it:{" "}
+          Rounding the divisor gives a provisional quotient to refine; the
+          exact check is <strong>divisor × quotient + remainder = dividend</strong>:{" "}
           {divisor} × {q} {r > 0 ? `+ ${r} ` : ""}= {dividend}.
         </p>
       </MathCheck>

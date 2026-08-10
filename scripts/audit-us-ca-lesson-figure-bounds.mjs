@@ -26,8 +26,19 @@ const USER_ID = process.env.QA_USER_ID ?? "student-shirleen-us";
 // Anti-aliasing and stroke width put a pixel or two outside a tight box; a real
 // escape is much larger than that.
 const SLACK = Number(process.env.BOUNDS_SLACK ?? 3);
+// The previous gate pressed at most 12 of at most 10 controls, then called the
+// resulting states "both extremes." Several live steppers span hundreds of
+// unit presses, and a California page can render more than ten controls. Drive
+// until the control itself reports its bound; the cap is only an infinite-loop
+// guard, and reaching it while still enabled is a gate failure.
+const MAX_CONTROL_PRESSES = Number(process.env.MAX_CONTROL_PRESSES ?? 1200);
+const DIRECTION_CONTROLS = {
+  max: /^(Increase|One more|More |Add one)| plus 100$/i,
+  min: /^(Decrease|One fewer|Fewer |Remove one)| minus 100$/i,
+};
 
 const { createSessionToken, SESSION_COOKIE_NAME } = await import(path.join(root, "lib/session.ts"));
+const { ccssLessonSequenceForTopic } = await import(path.join(root, "data/ccssLessonAssignments.ts"));
 
 async function slugs() {
   if (process.argv.length > 2) return process.argv.slice(2);
@@ -89,6 +100,10 @@ const token = await createSessionToken(USER_ID);
 const browser = await chromium.launch();
 const ctx = await browser.newContext({
   viewport: { width: 1280, height: 1100 },
+  // Presentation motion is not the subject of this gate and can keep a valid
+  // endpoint button geometrically unstable while its figure is re-laying out.
+  // Runtime usability is verified separately with motion enabled.
+  reducedMotion: "reduce",
   storageState: { cookies: [{ name: SESSION_COOKIE_NAME, value: token, domain: "localhost", path: "/", httpOnly: true, secure: false, sameSite: "Lax" }], origins: [] },
 });
 const page = await ctx.newPage();
@@ -103,7 +118,10 @@ const page = await ctx.newPage();
  * session that expires mid-run.
  */
 async function assertOnTheLesson(landed, slug, browser) {
-  if (landed.includes(`/student/lessons/${slug}`) && !landed.includes("/login")) return;
+  const expectedPath = `/student/lessons/${slug}`;
+  let landedPath = "";
+  try { landedPath = new URL(landed).pathname; } catch {}
+  if (landedPath === expectedPath) return;
   console.error(`\n✗ ${slug} — landed on ${landed}`);
   console.error("  That is not the lesson. The session cookie was rejected, so this run would");
   console.error("  audit a logged-out page and report it clean.");
@@ -115,15 +133,97 @@ async function assertOnTheLesson(landed, slug, browser) {
 }
 
 const findings = [];
+const traversalFindings = [];
 let inspected = 0;
 let withLessonFigure = 0;
+let directionalButtonsDriven = 0;
+let directionalButtonPresses = 0;
+let rangeBoundsDriven = 0;
+let numberBoundsDriven = 0;
+let expectedLessonRoots = 0;
+let mountedLessonRoots = 0;
 const list = await slugs();
+
+function coarseStepPriority(name) {
+  if (/by 100|plus 100|minus 100/i.test(name)) return 4;
+  if (/by (?:ten|10)|by one tenth|ten hundredths|ten thousandths/i.test(name)) return 3;
+  if (/by (?:five|5)/i.test(name)) return 2;
+  return 1;
+}
+
+async function driveDirectionalButtons(slug, direction) {
+  // Repeat the sweep because one bounded control can change another control's
+  // dynamic bound. A stable extreme is reached only when a full sweep produces
+  // no presses. Coarse-step buttons go first; unit buttons land on the exact
+  // endpoint afterward.
+  for (let sweep = 0; sweep < 3; sweep += 1) {
+    const buttons = await page.getByRole("button", { name: DIRECTION_CONTROLS[direction] }).all();
+    const ranked = [];
+    for (const button of buttons) {
+      const name = (await button.getAttribute("aria-label").catch(() => ""))
+        || (await button.textContent().catch(() => ""))
+        || "(unnamed directional control)";
+      ranked.push({ button, name, priority: coarseStepPriority(name) });
+    }
+    ranked.sort((a, b) => b.priority - a.priority);
+
+    let sweepPresses = 0;
+    for (const { button, name } of ranked) {
+      let presses = 0;
+      let clickBlocked = "";
+      while (presses < MAX_CONTROL_PRESSES && await button.isEnabled().catch(() => false)) {
+        const clicked = await button.click({ timeout: 4000 }).then(() => true).catch((error) => {
+          clickBlocked = error.message.replace(/\s*\n\s*/g, " | ").slice(0, 700);
+          return false;
+        });
+        if (!clicked) break;
+        presses += 1;
+        sweepPresses += 1;
+      }
+      if (presses > 0) directionalButtonsDriven += 1;
+      directionalButtonPresses += presses;
+      if (presses >= MAX_CONTROL_PRESSES && await button.isEnabled().catch(() => false)) {
+        traversalFindings.push({
+          slug,
+          detail: `${direction} control "${name}" remained enabled after ${MAX_CONTROL_PRESSES} presses`,
+        });
+      } else if (clickBlocked && await button.isEnabled().catch(() => false)) {
+        traversalFindings.push({
+          slug,
+          detail: `${direction} control "${name}" remained enabled after a click could not be completed: ${clickBlocked}`,
+        });
+      }
+    }
+    if (sweepPresses === 0) break;
+  }
+}
+
+async function driveInputBounds(direction) {
+  const ranges = page.locator('input[type="range"]');
+  for (let index = 0, count = await ranges.count(); index < count; index += 1) {
+    const input = ranges.nth(index);
+    const bound = await input.getAttribute(direction);
+    if (bound == null) continue;
+    if (await input.fill(bound).then(() => true).catch(() => false)) rangeBoundsDriven += 1;
+  }
+
+  const numbers = page.locator('input[type="number"]');
+  for (let index = 0, count = await numbers.count(); index < count; index += 1) {
+    const input = numbers.nth(index);
+    const bound = await input.getAttribute(direction);
+    if (bound == null) continue;
+    if (await input.fill(bound).then(() => true).catch(() => false)) {
+      await input.blur().catch(() => {});
+      numberBoundsDriven += 1;
+    }
+  }
+}
 
 for (const slug of list) {
   let ok = false;
   for (let attempt = 0; attempt < 2 && !ok; attempt += 1) {
     try {
-      await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "networkidle", timeout: 90000 });
+      await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "domcontentloaded", timeout: 90000 });
       ok = true;
     } catch (error) {
       const message = error.message.split("\n")[0];
@@ -136,8 +236,31 @@ for (const slug of list) {
     }
   }
   await assertOnTheLesson(page.url(), slug, browser);
-  // The lesson figures mount on hydration, after `networkidle`. A fixed 400ms
-  // wait was not reliably long enough — and every page carries ~24 decorative
+  // A first SVG is not a route-complete signal: every California route mounts
+  // several independently loaded CCSS lesson bodies. Require the exact assigned
+  // sequence, in render order, before enumerating any controls.
+  const expected = ccssLessonSequenceForTopic(slug);
+  try {
+    await page.waitForFunction((expected) => {
+      const mounted = Array.from(document.querySelectorAll("[data-ccss-lesson]"))
+        .map((element) => element.getAttribute("data-ccss-lesson"));
+      return mounted.length === expected.length
+        && mounted.every((value, index) => value === expected[index]);
+    }, expected, { timeout: 15000 });
+  } catch {
+    const mounted = await page.locator("[data-ccss-lesson]").evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute("data-ccss-lesson"))
+    );
+    console.error(`\n✗ ${slug} — assigned CCSS lesson sequence did not finish mounting`);
+    console.error(`  expected: ${JSON.stringify(expected)}`);
+    console.error(`  mounted:  ${JSON.stringify(mounted)}`);
+    await browser.close();
+    process.exit(2);
+  }
+  expectedLessonRoots += expected.length;
+  mountedLessonRoots += await page.locator("[data-ccss-lesson]").count();
+  // The lesson figures mount on hydration, after `domcontentloaded`. A fixed
+  // 400ms wait was not reliably long enough — and every page carries ~24 decorative
   // icon <svg viewBox> that ARE present immediately, so the old
   // `svg[viewBox]` count reported "76 with a figure inspected" whether or not a
   // single lesson figure had rendered. Wait for the real figure, and count it
@@ -145,18 +268,18 @@ for (const slug of list) {
   await page
     .waitForSelector('svg[role="img"], svg[role="group"]', { timeout: 8000 })
     .catch(() => {});
+  // Match the proven runtime gate's post-navigation settling interval. Several
+  // lesson sections enter with layout motion after their SVG first mounts; an
+  // immediate endpoint sweep can therefore time out on a mathematically valid
+  // button because Playwright correctly reports that the target is not stable.
+  await page.waitForTimeout(3000);
   if (!(await page.locator("svg[viewBox]").count())) continue;
   inspected += 1;
   if (await page.locator('svg[role="img"], svg[role="group"]').count()) withLessonFigure += 1;
 
-  for (const dir of [/^(Increase|One more|More )/i, /^(Decrease|One fewer|Fewer )/i]) {
-    const buttons = await page.getByRole("button", { name: dir }).all();
-    for (const b of buttons.slice(0, 10)) {
-      for (let n = 0; n < 12; n += 1) {
-        if (!(await b.isEnabled().catch(() => false))) break;
-        await b.click({ timeout: 1200 }).catch(() => {});
-      }
-    }
+  for (const direction of ["max", "min"]) {
+    await driveDirectionalButtons(slug, direction);
+    await driveInputBounds(direction);
     await page.waitForTimeout(300);
     for (const f of await page.evaluate(measure, SLACK)) findings.push({ slug, ...f });
   }
@@ -165,6 +288,8 @@ for (const slug of list) {
 await browser.close();
 
 console.log(`audit-us-ca-lesson-figure-bounds: ${list.length} pages requested, ${inspected} inspected, ${withLessonFigure} of them carrying a real lesson figure (the rest only decorative icons)`);
+console.log(`  assigned lesson roots: ${mountedLessonRoots}/${expectedLessonRoots} mounted in exact render order`);
+console.log(`  bound traversal: ${directionalButtonsDriven} directional controls, ${directionalButtonPresses} presses, ${rangeBoundsDriven} range endpoints, ${numberBoundsDriven} number-input endpoints`);
 if (inspected === 0) {
   console.error("✗ nothing was inspected — refusing to report a pass.");
   process.exit(2);
@@ -173,6 +298,11 @@ if (inspected === 0) {
 // nothing about the figures this gate exists to check.
 if (withLessonFigure === 0) {
   console.error("✗ no lesson figure rendered on any page — only decorative icons were measured, so this is not a pass.");
+  process.exit(2);
+}
+if (traversalFindings.length) {
+  console.error(`\n✗ ${traversalFindings.length} control(s) did not converge to a disabled bound:`);
+  for (const finding of traversalFindings) console.error(`  ${finding.slug} — ${finding.detail}`);
   process.exit(2);
 }
 if (!findings.length) {

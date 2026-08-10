@@ -190,6 +190,10 @@ async function expectCaliforniaLessonPayload(page: Page) {
   ["concept", "worked-example", "checklist", "practice", "extension", "teacher-guide"].forEach((type) => {
     expect(blockTypes.has(type), `Expected California lesson block type ${type}`).toBe(true);
   });
+  expect(
+    blockTypes.has("visualization"),
+    "California lesson APIs must not publish a visualization before renderer-level QA approval"
+  ).toBe(false);
 
   const checklist = blocks.find((block) => block.type === "checklist");
   expect(checklist?.items?.length ?? 0).toBeGreaterThanOrEqual(3);
@@ -250,6 +254,7 @@ test.describe("California student, practice, adaptive, dashboard, and assignment
     await closeLearnerSetupIfVisible(page);
     await expect(page.getByText(new RegExp(escapeRegex(lesson.title?.en ?? "Lesson Module"), "i")).first()).toBeVisible();
     await expect(page.getByRole("button", { name: /Go to next item/i })).toBeVisible();
+    await expect(page.locator("section#visualization")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
     await expect(page.getByText(/Question 1 of/i)).toBeVisible();
     await expect(page.locator('section[aria-label="Teacher guide"]')).toHaveCount(0);

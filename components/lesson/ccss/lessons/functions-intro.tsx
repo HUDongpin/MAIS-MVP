@@ -52,10 +52,16 @@ export default function Lesson() {
               </div>
               <div className="text-center">
                 <div className="text-xs font-bold" style={{ color: OUT }}>Function B (table)</div>
-                <table className="mx-auto font-mono text-xs">
+                <table className="mx-auto font-mono text-xs" aria-label="Function B input-output table">
                   <tbody>
-                    <tr>{tableB.map((r) => <td key={r.x} className="px-1.5">{r.x}</td>)}</tr>
-                    <tr>{tableB.map((r) => <td key={r.x} className="px-1.5 font-bold" style={{ color: OUT }}>{r.y}</td>)}</tr>
+                    <tr>
+                      <th scope="row" className="pr-2 text-right font-semibold">input x</th>
+                      {tableB.map((r) => <td key={r.x} className="px-1.5">{r.x}</td>)}
+                    </tr>
+                    <tr>
+                      <th scope="row" className="pr-2 text-right font-semibold">output y</th>
+                      {tableB.map((r) => <td key={r.x} className="px-1.5 font-bold" style={{ color: OUT }}>{r.y}</td>)}
+                    </tr>
                   </tbody>
                 </table>
                 <div className="text-xs text-[var(--ink-faint)]">rate of change = 3</div>

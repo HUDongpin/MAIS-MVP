@@ -73,7 +73,8 @@ export default function Lesson() {
 
       <h2>Acute, right, obtuse</h2>
       <p>
-        Angles smaller than 90° are <strong>acute</strong>; exactly 90° is a{" "}
+        Angles greater than 0° but smaller than 90° are <strong>acute</strong>;
+        exactly 90° is a{" "}
         <strong>right</strong>{" "}angle; between 90° and 180° is <strong>obtuse</strong>.
         At {deg}°, this is {angleType(deg)}.
       </p>

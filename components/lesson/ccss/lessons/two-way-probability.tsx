@@ -25,6 +25,8 @@ export default function Lesson() {
     { text: "P(rides | owns bike)", val: r2(g[0][0] / bikeTot), work: `${g[0][0]}/${bikeTot}`, exact: exact2(g[0][0], bikeTot) },
     { text: "P(owns bike | rides)", val: r2(g[0][0] / ridesTot), work: `${g[0][0]}/${ridesTot}`, exact: exact2(g[0][0], ridesTot) },
   ];
+  const rawRideGivenBike = g[0][0] / bikeTot;
+  const rawRides = ridesTot / total;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -48,7 +50,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap justify-center gap-2">
             {QUESTIONS.map((qu, i) => (
-              <button key={i} type="button" onClick={() => setQ(i)} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={q === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{qu.text}</button>
+              <button key={i} type="button" onClick={() => setQ(i)} aria-pressed={q === i} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={q === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{qu.text}</button>
             ))}
           </div>
 
@@ -62,8 +64,8 @@ export default function Lesson() {
       <p>
         A <strong>joint</strong>{" "}probability divides by the grand total ({total}); a{" "}
         <strong>conditional</strong>{" "}one divides by a row or column total, restricting
-        the sample space. Compare P(rides | owns bike) = {r2(g[0][0] / bikeTot)} with the
-        overall P(rides) = {r2(ridesTot / total)}: since they differ, owning a bike and
+        the sample space. Compare P(rides | owns bike) {exact2(g[0][0], bikeTot) ? "=" : "≈"} {r2(rawRideGivenBike)} with the
+        overall P(rides) {exact2(ridesTot, total) ? "=" : "≈"} {r2(rawRides)}: since they differ, owning a bike and
         riding are <strong>not independent</strong>.
       </p>
 

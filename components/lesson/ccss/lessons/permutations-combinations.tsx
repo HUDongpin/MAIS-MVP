@@ -29,8 +29,8 @@ export default function Lesson() {
       <Figure caption="Order matters → permutations (nPr). Order doesn't → combinations (nCr).">
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
-            <button type="button" onClick={() => setOrdered(true)} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={ordered ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>Order matters (nPr)</button>
-            <button type="button" onClick={() => setOrdered(false)} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={!ordered ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>Order doesn&apos;t (nCr)</button>
+            <button type="button" onClick={() => setOrdered(true)} aria-pressed={ordered} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={ordered ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>Order matters (nPr)</button>
+            <button type="button" onClick={() => setOrdered(false)} aria-pressed={!ordered} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={!ordered ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>Order doesn&apos;t (nCr)</button>
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-4 text-center font-mono" style={{ borderColor: ACCENT }}>
@@ -53,7 +53,7 @@ export default function Lesson() {
 
       <h2>Order is everything</h2>
       <p>
-        Picking 3 from 5 in order gives {nPr(n, 3) && nPr(5, 3)} → generally nPr = n!/(n−r)!.
+        Picking 3 from 5 in order gives 5P3 = 5·4·3 = 60; generally nPr = n!/(n−r)!.
         Ignoring order divides out the r! rearrangements of each group, giving nCr =
         n!/(r!(n−r)!). To turn counts into probabilities, put the number of favorable
         arrangements over the total — that&apos;s how lotteries and card hands are

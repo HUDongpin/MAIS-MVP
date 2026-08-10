@@ -71,9 +71,9 @@ export default function Lesson() {
               <div key={p.label} className="flex flex-col items-center gap-1">
                 <span className="font-mono text-xs font-bold text-[var(--ink-faint)]">{p.label}″</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || total <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || total <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Remove one ${p.label}-inch ribbon measurement`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{counts[i]}</span>
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(5, v + 1) : v)))} disabled={counts[i] >= 5} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more at ${p.label}`}>+</button>
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(5, v + 1) : v)))} disabled={counts[i] >= 5} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Add one ${p.label}-inch ribbon measurement`}>+</button>
                 </div>
               </div>
             ))}
@@ -93,7 +93,7 @@ export default function Lesson() {
           Making a line plot of measurement data in fractions of a unit (halves,
           quarters, <strong>eighths</strong>) and using it to solve add/subtract
           problems is 4.MD.B.4. Here the longest ribbon minus the shortest is{" "}
-          {frac(maxE)} − {frac(minE)} = {frac(diff)} inch — a fraction subtraction
+          {frac(maxE)} − {frac(minE)} = {frac(diff)} {diff === 8 ? "inch" : "inches"} — a fraction subtraction
           read straight off the plot.
         </p>
       </MathCheck>

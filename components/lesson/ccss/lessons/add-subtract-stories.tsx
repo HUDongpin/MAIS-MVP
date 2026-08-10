@@ -21,6 +21,33 @@ export default function Lesson() {
   const bSafe = mode === "separate" ? Math.min(b, a) : b;
   const answer = mode === "join" ? a + bSafe : mode === "separate" ? a - bSafe : a + bSafe + c;
 
+  function changeMode(nextMode: Mode) {
+    if (nextMode === "join") {
+      setB(Math.min(Math.max(b, 1), 20 - a));
+    } else if (nextMode === "separate") {
+      setB(Math.min(b, a));
+    } else {
+      const nextB = Math.max(1, Math.min(b, 20 - a - 1));
+      const nextC = Math.max(1, Math.min(c, 20 - a - nextB));
+      setB(nextB);
+      setC(nextC);
+    }
+    setMode(nextMode);
+  }
+
+  function changeFirst(nextA: number) {
+    setA(nextA);
+    if (mode === "separate") {
+      setB((previous) => Math.min(previous, nextA));
+    } else if (mode === "join") {
+      setB((previous) => Math.min(previous, 20 - nextA));
+    } else {
+      const nextB = Math.max(1, Math.min(b, 20 - nextA - 1));
+      setB(nextB);
+      setC((previous) => Math.max(1, Math.min(previous, 20 - nextA - nextB)));
+    }
+  }
+
   return (
     <div className="prose-lesson max-w-none">
       <p>
@@ -36,13 +63,8 @@ export default function Lesson() {
               <button
                 key={m}
                 type="button"
-                // b was only re-clamped when First changed while already in
-                // separate mode. Coming from "Put together" with First 1 and
-                // Second 10, the Second control read 10 against a maximum of 1
-                // while the story and the sentence both showed 1, and nine
-                // presses of "−" changed nothing on screen.
-                onClick={() => { setMode(m); setB((p) => (m === "separate" ? Math.min(p, a) : Math.max(p, 1))); }}
-                className="rounded-lg border px-3 py-1.5 text-sm font-bold"
+                onClick={() => changeMode(m)}
+                aria-pressed={mode === m} className="rounded-lg border px-3 py-1.5 text-sm font-bold"
                 style={mode === m ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
               >
                 {m === "join" ? "Put together" : m === "separate" ? "Take away" : "Add three"}
@@ -51,18 +73,47 @@ export default function Lesson() {
           </div>
 
           <p className="m-0 max-w-md text-center text-lg font-semibold">
-            {mode === "join" && <>There are {a} 🐟 in the tank. {b} more 🐟 are added. How many fish now?</>}
-            {mode === "separate" && <>There are {a} 🍪 on the plate. {bSafe} 🍪 are eaten. How many are left?</>}
+            {mode === "join" && <>There {a === 1 ? "is" : "are"} {a} fish in the tank. {b} more {b === 1 ? "fish is" : "fish are"} added. How many fish now?</>}
+            {mode === "separate" && <>There {a === 1 ? "is" : "are"} {a} {a === 1 ? "cookie" : "cookies"} on the plate. {bSafe} {bSafe === 1 ? "cookie is" : "cookies are"} eaten. How many are left?</>}
             {/* All three groups render the same 🎈 glyph, separated only by CSS
                 opacity, so naming three colours described a figure the page
                 cannot draw. The groups are named by position instead. */}
-            {mode === "three" && <>{a} 🎈 in the first bunch, {b} 🎈 in the second, and {c} 🎈 in the third. How many balloons in all?</>}
+            {mode === "three" && <>{a} {a === 1 ? "balloon" : "balloons"} in the first bunch, {b} {b === 1 ? "balloon" : "balloons"} in the second, and {c} {c === 1 ? "balloon" : "balloons"} in the third. How many balloons in all?</>}
           </p>
 
-          <div className="flex max-w-lg flex-wrap justify-center gap-1 text-2xl">
-            {Array.from({ length: a }, (_, i) => <span key={`a${i}`}>{mode === "join" ? "🐟" : mode === "separate" ? "🍪" : "🎈"}</span>)}
-            {mode !== "separate" && Array.from({ length: b }, (_, i) => <span key={`b${i}`} style={{ opacity: 0.55 }}>{mode === "join" ? "🐟" : "🎈"}</span>)}
-            {mode === "three" && Array.from({ length: c }, (_, i) => <span key={`c${i}`} style={{ opacity: 0.3 }}>🎈</span>)}
+          <div
+            className="flex max-w-lg flex-wrap items-end justify-center gap-1 text-2xl"
+            role="img"
+            aria-label={mode === "join"
+              ? `${a} fish in the first group and ${b} fish in the second group`
+              : mode === "separate"
+                ? `${a} ${a === 1 ? "cookie" : "cookies"} at first; ${bSafe} ${bSafe === 1 ? "cookie is" : "cookies are"} crossed out as eaten; ${answer} ${answer === 1 ? "cookie remains" : "cookies remain"}`
+                : `${a} ${a === 1 ? "balloon" : "balloons"}, ${b} ${b === 1 ? "balloon" : "balloons"}, and ${c} ${c === 1 ? "balloon" : "balloons"} in three groups`}
+          >
+            {mode === "separate" ? (
+              <>
+                <span className="flex flex-col items-center gap-1" aria-hidden="true">
+                  <span className="flex flex-wrap justify-center gap-1">
+                    {Array.from({ length: answer }, (_, i) => <span key={`left${i}`}>🍪</span>)}
+                  </span>
+                  <span className="text-xs font-bold text-[var(--ink-soft)]">{answer} left</span>
+                </span>
+                {bSafe > 0 && (
+                  <span className="flex flex-col items-center gap-1" aria-hidden="true">
+                    <span className="flex flex-wrap justify-center gap-1 opacity-35 line-through decoration-2">
+                      {Array.from({ length: bSafe }, (_, i) => <span key={`eaten${i}`}>🍪</span>)}
+                    </span>
+                    <span className="text-xs font-bold text-[var(--ink-soft)]">{bSafe} eaten</span>
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                {Array.from({ length: a }, (_, i) => <span key={`a${i}`} aria-hidden="true">{mode === "join" ? "🐟" : "🎈"}</span>)}
+                {Array.from({ length: b }, (_, i) => <span key={`b${i}`} aria-hidden="true" style={{ opacity: 0.55 }}>{mode === "join" ? "🐟" : "🎈"}</span>)}
+              </>
+            )}
+            {mode === "three" && Array.from({ length: c }, (_, i) => <span key={`c${i}`} aria-hidden="true" style={{ opacity: 0.3 }}>🎈</span>)}
           </div>
 
           <div className="font-mono text-3xl font-black">
@@ -77,9 +128,9 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="First" value={a} min={1} max={12} color={A} onChange={(v) => { setA(v); if (mode === "separate") setB((p) => Math.min(p, v)); }} />
-            <Stepper label="Second" value={b} min={mode === "separate" ? 0 : 1} max={mode === "separate" ? a : 10} color={B} onChange={setB} />
-            {mode === "three" && <Stepper label="Third" value={c} min={1} max={8} color={CC} onChange={setC} />}
+            <Stepper label="First" value={a} min={1} max={mode === "three" ? Math.min(12, 20 - b - c) : 12} color={A} onChange={changeFirst} />
+            <Stepper label="Second" value={b} min={mode === "separate" ? 0 : 1} max={mode === "separate" ? a : mode === "three" ? Math.min(10, 20 - a - c) : Math.min(10, 20 - a)} color={B} onChange={setB} />
+            {mode === "three" && <Stepper label="Third" value={c} min={1} max={Math.min(8, 20 - a - b)} color={CC} onChange={setC} />}
           </div>
         </div>
       </Figure>

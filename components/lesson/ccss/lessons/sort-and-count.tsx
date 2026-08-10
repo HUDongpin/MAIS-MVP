@@ -4,11 +4,11 @@ import { useMemo, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
-type Cat = { name: string; color: string; emoji: string };
+type Cat = { name: string; singular: string; color: string; emoji: string };
 const CATS: Cat[] = [
-  { name: "apples", color: "var(--band-early)", emoji: "🍎" },
-  { name: "bananas", color: "var(--band-upper)", emoji: "🍌" },
-  { name: "grapes", color: "var(--band-high)", emoji: "🍇" },
+  { name: "apples", singular: "apple", color: "var(--band-early)", emoji: "🍎" },
+  { name: "bananas", singular: "banana", color: "var(--band-upper)", emoji: "🍌" },
+  { name: "grapes", singular: "grape", color: "var(--band-high)", emoji: "🍇" },
 ];
 
 // a fixed jumble (seeded) so the "before" view is stable
@@ -42,7 +42,7 @@ export default function Lesson() {
       <p>
         When things are all mixed up, we can <strong>sort</strong>{" "}them into
         groups that belong together. Then we <strong>count</strong>{" "}each group to
-        see how many — and which group has the <strong>most</strong>.
+        see how many — and which group or groups have the <strong>most</strong>.
       </p>
 
       <Figure caption="Tap Sort to gather each kind of fruit into its own basket, then count.">
@@ -61,9 +61,9 @@ export default function Lesson() {
             <div className="flex flex-wrap items-end justify-center gap-6">
               {CATS.map((cat, ci) => (
                 <div key={cat.name} className="flex flex-col items-center gap-2">
-                  <div className="flex flex-col-reverse items-center gap-1 rounded-2xl border-2 p-2" style={{ borderColor: cat.color, minWidth: 64 }}>
+                  <div className="flex flex-col-reverse items-center gap-1 rounded-2xl border-2 p-2" style={{ borderColor: cat.color, minWidth: 64 }} role="img" aria-label={`${counts[ci]} ${counts[ci] === 1 ? cat.singular : cat.name}`}>
                     {Array.from({ length: counts[ci] }, (_, i) => (
-                      <span key={i} className="text-2xl">{cat.emoji}</span>
+                      <span key={i} className="text-2xl" aria-hidden="true">{cat.emoji}</span>
                     ))}
                   </div>
                   <span className="text-2xl font-black" style={{ color: cat.color }}>{counts[ci]}</span>
@@ -112,15 +112,19 @@ export default function Lesson() {
       <h2>Sorting makes counting easy</h2>
       <p>
         Once each kind is in its own basket, counting is simple — and it is easy
-        to see which basket has more and which has fewer.
+        to compare the baskets. {leaders.length === CATS.length
+          ? "Right now all three baskets tie."
+          : leaders.length === 1
+            ? `Right now ${CATS[leaders[0]].name} have the greatest count.`
+            : `Right now ${leaders.map((i) => CATS[i].name).join(" and ")} tie for the greatest count.`}
       </p>
 
       <MathCheck>
         <p>
           <strong>Classifying objects into categories</strong>, counting each
-          category, and then ordering the categories by how many — most to least
-          — is exactly K.MD.B.3. Sorting first turns a messy pile into groups you
-          can count and compare accurately.
+          category, and then ordering the categories by how many — most to least,
+          while allowing ties — is exactly K.MD.B.3. Sorting first turns a messy
+          pile into groups you can count and compare accurately.
         </p>
       </MathCheck>
     </div>

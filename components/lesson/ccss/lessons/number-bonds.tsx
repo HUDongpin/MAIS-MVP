@@ -26,14 +26,16 @@ export default function Lesson() {
   const b = whole - a;
 
   const ways = Array.from({ length: whole + 1 }, (_, i) => [i, whole - i]);
+  const apples = (count: number) => `${count} ${count === 1 ? "apple" : "apples"}`;
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Every number is made of smaller numbers hiding inside it. Break{" "}
-        <strong>{whole}</strong>{" "}into two parts — that is a{" "}
-        <strong>number bond</strong>. Put the parts back together and you get the
-        whole again.
+        A whole number can be written as the sum of two whole-number parts. One
+        part may be <strong>0</strong>, so a part does not always have to be smaller
+        than the whole. Show <strong>{whole}</strong>{" "}as two parts — that is a{" "}
+        <strong>number bond</strong>. Put the parts together and you get the whole
+        again.
       </p>
 
       <Figure caption="The top circle is the whole. The two bottom circles are its parts. They always add back to the whole.">
@@ -72,7 +74,7 @@ export default function Lesson() {
           {/* all ways to make the whole */}
           <div className="w-full">
             <p className="mb-2 text-center text-xs font-bold uppercase tracking-wide text-[var(--ink-faint)]">
-              All the ways to make {whole}
+              All color-coded part pairs for {whole}
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               {ways.map(([x, y]) => (
@@ -80,7 +82,7 @@ export default function Lesson() {
                   key={x}
                   type="button"
                   onClick={() => setPartA(x)}
-                  className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold"
+                  aria-pressed={x === a} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold"
                   style={
                     x === a
                       ? { borderColor: WHOLE, background: "color-mix(in oklab, var(--band-upper) 12%, var(--surface))" }
@@ -97,8 +99,9 @@ export default function Lesson() {
 
       <h2>A story for every bond</h2>
       <p>
-        Number bonds tell little stories: “I have <strong>{a}</strong>{" "}red
-        apples and <strong>{b}</strong>{" "}green apples. How many apples in all?{" "}
+        Number bonds tell little stories: “I have <strong>{apples(a)}</strong>{" "}that
+        are red and <strong>{apples(b)}</strong>{" "}that are green. How many apples
+        are there in all?{" "}
         {a} + {b} = <strong>{whole}</strong>.” Set the whole to{" "}
         <strong>10</strong>{" "}to find the <strong>ten-partners</strong>{" "}— the two
         numbers that make a ten.
@@ -107,7 +110,10 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A number ≤ 10 can be <strong>decomposed into pairs in more than one
-          way</strong>{" "}(K.OA.A.3) — here, {whole} has {ways.length} bonds. The
+          way</strong>{" "}(K.OA.A.3) — here, the buttons show {ways.length}{" "}
+          color-coded arrangements, including ones with a zero part. For example,{" "}
+          {a} + {b} and {b} + {a} use the same two parts in swapped colors and
+          make the same whole. The
           bond is a picture of addition and subtraction with objects (K.OA.A.1)
           and of put-together / take-apart word problems (K.OA.A.2). When the
           whole is 10, one part tells you the number that <strong>makes 10</strong>{" "}

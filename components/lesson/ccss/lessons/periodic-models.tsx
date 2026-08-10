@@ -67,12 +67,13 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>Three dials, any wave</h2>
+      <h2>Three dials shape this sine curve</h2>
       <p>
         The curve rises to D + A = {D + A} and falls to D − A = {D - A}, completing a
         full cycle every {period} units. Change A to stretch it vertically, P to
-        stretch it horizontally, D to raise or lower the whole wave. A phase shift
-        would slide it left or right. Those four numbers describe any sinusoid.
+        stretch it horizontally, and D to raise or lower it. This interactive model
+        fixes the phase shift at zero, so the curve crosses its midline at x = 0.
+        A fourth control for phase shift would be needed to slide it left or right.
       </p>
 
       <MathCheck>

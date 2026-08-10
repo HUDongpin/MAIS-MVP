@@ -22,7 +22,7 @@ export default function Lesson() {
         logarithm of both sides — the log undoes the exponent.
       </p>
 
-      <Figure caption="log_b(value) is the exponent that turns b into value. It solves bˣ = value.">
+      <Figure caption="For b > 0, b ≠ 1, and value > 0, log_b(value) is the exponent that solves bˣ = value.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-2xl border-2 px-8 py-4 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-2xl font-black">{base}<sup>x</sup> = {value}</div>
@@ -44,19 +44,23 @@ export default function Lesson() {
 
       <h2>Logs turn multiplication into addition</h2>
       <p>
-        Because exponents add when powers multiply, logs turn products into sums:
-        log(xy) = log x + log y. That property is exactly what lets you{" "}
-        <strong>solve for an unknown exponent</strong>: from A·bᵗ = C, isolate bᵗ,
-        then take log_b to bring t down. Logarithms are the tool for every
-        exponential model — half-life, pH, decibels, compound interest.
+        For one fixed valid base b, exponents add when positive powers multiply,
+        so logs turn products into sums: <strong>logᵦ(xy) = logᵦx + logᵦy</strong>{" "}
+        for x &gt; 0 and y &gt; 0. That property lets you{" "}
+        <strong>solve for an unknown exponent</strong>: from A·bᵗ = C with A ≠ 0, first isolate
+        bᵗ and verify C/A &gt; 0, then take logᵦ to bring t down. Logarithms solve
+        exponential models such as half-life and compound interest, and they define
+        logarithmic scales such as pH and decibels.
       </p>
 
       <MathCheck>
         <p>
-          A <strong>logarithm</strong>{" "}logᵦ(y) is the exponent x with bˣ = y, so
-          it is the inverse of the exponential. To <strong>solve exponential
-          equations</strong>{" "}like a·bᵗ = c, take a logarithm of both sides to free
-          the exponent (F-LE.4). This is how continuous growth and decay models are
+          For real logarithms, the base must satisfy <strong>b &gt; 0</strong>{" "}and{" "}
+          <strong>b ≠ 1</strong>, and the input must satisfy <strong>y &gt; 0</strong>.
+          Then <strong>logᵦ(y)</strong>{" "}is the exponent x with bˣ = y, so it is
+          the inverse of that exponential. To <strong>solve exponential
+          equations</strong>{" "}like a·bᵗ = c with a ≠ 0 and c/a &gt; 0, take a logarithm
+          after isolating bᵗ to free the exponent (F-LE.4). This is how continuous growth and decay models are
           solved for time.
         </p>
       </MathCheck>

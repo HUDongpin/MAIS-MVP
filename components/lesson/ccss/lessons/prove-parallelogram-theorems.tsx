@@ -26,19 +26,21 @@ export default function Lesson() {
         triangles.
       </p>
 
-      <Figure caption="Draw a diagonal to split the parallelogram into two congruent triangles — the key to every proof.">
+      <Figure caption={p.show === "diagonals"
+        ? "Draw both diagonals and use congruent triangles at their intersection to prove that they bisect each other."
+        : "Draw one diagonal to split the parallelogram into congruent triangles and prove the opposite-side or opposite-angle property."}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {PROPS.map((pr, i) => (
-              <button key={pr.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{pr.name}</button>
+              <button key={pr.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{pr.name}</button>
             ))}
           </div>
 
-          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label={`Parallelogram with ${p.show === "sides" ? "its two opposite sides highlighted" : p.show === "angles" ? "dots marking its two opposite angles" : "both diagonals drawn, meeting at their shared midpoint"}`}>
+          <svg width={240} height={160} viewBox="0 0 240 160" role="img" aria-label={`Parallelogram with ${p.show === "sides" ? "one proof diagonal drawn and two opposite sides highlighted" : p.show === "angles" ? "one proof diagonal drawn and dots marking two opposite angles" : "both diagonals drawn, meeting at their shared midpoint"}`}>
             <polygon points="40,130 120,30 200,30 120,130" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
+            <line x1={40} y1={130} x2={200} y2={30} stroke="var(--band-upper)" strokeWidth={2} />
             {p.show === "diagonals" && (
               <>
-                <line x1={40} y1={130} x2={200} y2={30} stroke="var(--band-upper)" strokeWidth={2} />
                 <line x1={120} y1={30} x2={120} y2={130} stroke="var(--band-upper)" strokeWidth={2} />
                 <circle cx={120} cy={80} r={4} fill="var(--band-upper)" />
                 <text x={126} y={78} fontSize={11} fill="var(--band-upper)">midpoint</text>
@@ -62,13 +64,15 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>One diagonal does the work</h2>
+      <h2>Diagonals create the proof triangles</h2>
       <p>
         Drawing a diagonal creates two triangles. The parallel sides give equal
         alternate angles, and the shared diagonal is a common side — so the triangles
         are congruent by ASA. Then <strong>CPCTC</strong>{" "}delivers equal opposite
-        sides and angles. A second diagonal, by the same argument, shows the
-        diagonals cross at their shared midpoint.
+        sides and angles. To prove bisection, draw both diagonals and call their
+        intersection E. The already-proved opposite-side congruence and the two pairs
+        of alternate interior angles make the opposite intersection triangles
+        congruent by ASA, so AE = CE and BE = DE.
       </p>
 
       <MathCheck>
@@ -76,8 +80,9 @@ export default function Lesson() {
           Theorems about parallelograms (G-CO.11): <strong>opposite sides</strong>{" "}
           and <strong>opposite angles</strong>{" "}are congruent, the{" "}
           <strong>diagonals bisect each other</strong>, and conversely a
-          quadrilateral with these properties is a parallelogram. The proofs split
-          the figure into congruent triangles via a diagonal.
+          quadrilateral with these properties is a parallelogram. One diagonal makes
+          the congruent triangles used for opposite sides and angles; both diagonals
+          and their intersection make the triangles used for the bisection proof.
         </p>
       </MathCheck>
     </div>

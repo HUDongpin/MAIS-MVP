@@ -6,6 +6,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const STEP1 = "var(--band-middle)";
 const STEP2 = "var(--band-upper)";
+const penCount = (count: number) => `${count} pen${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [packs, setPacks] = useState(4);
@@ -14,16 +15,17 @@ export default function Lesson() {
 
   const made = packs * per;
   const left = made - give;
+  const estimatedMade = made < 10 ? made : Math.round(made / 10) * 10;
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        A <strong>two-step problem</strong>{" "}needs two operations, one after the
-        other. The trick is doing them <strong>in the right order</strong>:
-        multiply and divide before you add or subtract.
+        A <strong>two-step problem</strong>{" "}needs two connected operations. Read
+        the situation to decide what must be found first. Here, find how many pens
+        were bought before subtracting the pens given away.
       </p>
 
-      <Figure caption="Do the multiplication first, then the subtraction. Order matters!">
+      <Figure caption="First find how many pens were bought, then subtract the pens given away. The story determines the two steps.">
         <div className="flex flex-col items-center gap-6">
           <p className="m-0 max-w-md text-center text-lg font-semibold">
             You buy <strong>{packs}</strong>{" "}pack{packs === 1 ? "" : "s"} of pens with{" "}
@@ -48,7 +50,7 @@ export default function Lesson() {
             <div className="font-mono text-lg font-black">
               (<span style={{ color: STEP1 }}>{packs} × {per}</span>) − {give} = <span style={{ color: STEP2 }}>{left}</span>
             </div>
-            <div className="mt-1 text-sm text-[var(--ink-soft)]">Multiply first — that is the order of operations.</div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">Multiply first here because that finds all the pens before any are given away.</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -62,28 +64,37 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>Order keeps it correct</h2>
+      <h2>The story sets the order</h2>
       <p>
         {/* At give = 0 the two groupings agree, so the contrast is false. */}
         {give === 0 ? (
           <>With nothing given away the two groupings happen to agree. Raise{" "}
           <em>Give away</em>{" "}above 0 and they part company — that is when the
           order starts to matter.</>
-        ) : (
-          <>If you subtracted first, you would get the wrong answer. Multiplication
-          groups the pens together, so it has to happen before the subtraction.
+        ) : give <= per ? (
+          <>Subtracting {give} from the number in each pack would describe a
+          different story — giving away {penCount(give)} from every pack. This story
+          gives away {penCount(give)} only once, after counting all {penCount(made)}.
           That is why <strong>{packs} × {per} − {give} = {left}</strong>, not{" "}
           {packs} × ({per} − {give}) = {packs * (per - give)}.</>
+        ) : (
+          <>This story gives away {penCount(give)} once, after counting all {penCount(made)}.
+          Putting the subtraction inside the multiplication would mean
+          taking {penCount(give)} from <em>each</em>{" "}pack, but each pack contains only
+          {per}. That is not a valid whole-number version of this story, so keep
+          the correct grouping: <strong>{packs} × {per} − {give} = {left}</strong>.</>
         )}
       </p>
 
       <MathCheck>
         <p>
-          Two-step word problems use two of the four operations (3.OA.D.8). The{" "}
-          <strong>order of operations</strong>{" "}says multiplication and division
-          come before addition and subtraction, so{" "}
-          <strong>{packs} × {per} − {give}</strong>{" "}means &ldquo;multiply {packs}×{per} first
-          ({made}), then subtract {give}&rdquo; = {left}. Estimating first ({packs}×{per} ≈ {Math.round(made / 10) * 10}) helps check that the answer is reasonable.
+          Two-step word problems use two of the four operations (3.OA.D.8). An
+          equation must preserve what each quantity means. In this story,{" "}
+          <strong>{packs} × {per} − {give}</strong>{" "}means &ldquo;find all {penCount(made)},
+          then subtract {give}&rdquo; to get {left}. This also follows the conventional
+          order of operations for the written expression. Estimating {packs} × {per}{" "}
+          as about {estimatedMade} helps check the first step before you subtract
+          the {penCount(give)} given away.
         </p>
       </MathCheck>
     </div>

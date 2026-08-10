@@ -31,7 +31,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {(["arithmetic", "geometric"] as Kind[]).map((k) => (
-              <button key={k} type="button" onClick={() => setKind(k)} className="rounded-lg border px-4 py-1.5 text-sm font-bold capitalize" style={kind === k ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{k}</button>
+              <button key={k} type="button" onClick={() => { setKind(k); if (k === "geometric") setStep((current) => Math.max(2, current)); }} aria-pressed={kind === k} className="rounded-lg border px-4 py-1.5 text-sm font-bold capitalize" style={kind === k ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{k}</button>
             ))}
           </div>
 

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
-const R = 5;
+// Every preset must fit. Scale ×2 sends the apex (1, 3) to (2, 6).
+const R = 6;
 const CELL = 26;
 const PAD = 24;
 const SIZE = 2 * R * CELL + 2 * PAD;
@@ -20,7 +21,7 @@ const PRESETS: { name: string; m: M }[] = [
   { name: "identity", m: [[1, 0], [0, 1]] },
   { name: "scale ×2", m: [[2, 0], [0, 2]] },
   { name: "rotate 90°", m: [[0, -1], [1, 0]] },
-  { name: "reflect x", m: [[1, 0], [0, -1]] },
+  { name: "reflect across x-axis", m: [[1, 0], [0, -1]] },
   { name: "shear", m: [[1, 1], [0, 1]] },
 ];
 
@@ -47,11 +48,11 @@ export default function Lesson() {
         <strong>columns</strong>{" "}tell you where (1,0) and (0,1) land.
       </p>
 
-      <Figure caption="Every point [x, y] becomes M·[x, y]. The determinant is the area scale factor.">
+      <Figure caption="Every point [x, y] becomes M·[x, y]. Unsigned area scales by |det M|; the sign records orientation.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {PRESETS.map((p, i) => (
-              <button key={p.name} type="button" onClick={() => setMi(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mi === i ? { background: IMG, color: "white", borderColor: IMG } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{p.name}</button>
+              <button key={p.name} type="button" onClick={() => setMi(i)} aria-pressed={mi === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mi === i ? { background: IMG, color: "white", borderColor: IMG } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{p.name}</button>
             ))}
           </div>
 
@@ -91,8 +92,10 @@ export default function Lesson() {
       <p>
         The first column of M is the image of (1, 0); the second is the image of
         (0, 1). Because the transformation is linear, that fixes where{" "}
-        <em>every</em>{" "}point goes. The <strong>determinant</strong>{" "}({det})
-        measures how areas scale — and a negative value flips the plane over.
+        <em>every</em>{" "}point goes. The absolute determinant{" "}
+        <strong>|det M| = {Math.abs(det)}</strong>{" "}is the unsigned area scale
+        factor. The sign is separate orientation information: a negative
+        determinant reverses orientation.
       </p>
 
       <MathCheck>
@@ -101,8 +104,9 @@ export default function Lesson() {
           (N-VM.11). A 2×2 matrix therefore encodes a linear{" "}
           <strong>transformation of the plane</strong>{" "}(N-VM.12) — rotations,
           scalings, reflections, shears — with its columns giving the images of
-          the basis vectors and its <strong>determinant</strong>{" "}giving the area
-          scale factor.
+          the basis vectors. Its <strong>absolute determinant |det M|</strong>{" "}is
+          the unsigned area scale factor, while a negative determinant records an
+          orientation reversal.
         </p>
       </MathCheck>
     </div>

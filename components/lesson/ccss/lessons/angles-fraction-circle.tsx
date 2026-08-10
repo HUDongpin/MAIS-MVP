@@ -20,7 +20,8 @@ export default function Lesson() {
   const [deg, setDeg] = useState(90);
 
   const g = gcd(deg, 360);
-  const fracStr = deg === 0 ? "0" : `${deg / g}/${360 / g}`;
+  const reducedDenominator = deg === 0 ? 1 : 360 / g;
+  const fracStr = deg === 0 ? "0" : reducedDenominator === 1 ? `${deg / g}` : `${deg / g}/${reducedDenominator}`;
   const end = pt(deg, R);
   const large = deg > 180 ? 1 : 0;
   // A full turn has identical arc endpoints, and SVG omits such a segment

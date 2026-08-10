@@ -1,0 +1,118 @@
+/**
+ * Explicit answer-unit aliases for California free-response questions whose
+ * source answers are bare numbers. The lesson prompt may establish the unit,
+ * so the bare number remains valid; this alias supplies the grader with the
+ * exact unit key needed to reject a same-number response in a different unit.
+ */
+const answerUnitSuffixByQuestionId: Record<string, string | readonly string[]> = {
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-k-k-cc-count-sequence-q02": ["objects", "cards"],
+  "ccss-textbook-practice-v1-counting-ten-frame-q02": ["empty spots", "empty spaces"],
+  "ccss-textbook-practice-v1-number-bonds-q03": "apples",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-k-k-oa-compose-decompose-q02": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-k-k-oa-compose-decompose-q03": "buttons",
+  "ccss-textbook-practice-v1-sort-and-count-q02": ["pieces of fruit", "fruit"],
+  "ccss-textbook-practice-v1-flat-shapes-q01": ["corners", "vertices"],
+  "ccss-textbook-practice-v1-add-subtract-stories-q01": "fish",
+  "ccss-textbook-practice-v1-add-subtract-stories-q02": "cookies",
+  "ccss-textbook-practice-v1-add-subtract-stories-q03": "balloons",
+  "ccss-textbook-practice-v1-order-and-measure-q01": "units",
+  "ccss-textbook-practice-v1-picture-graph-q01": "pets",
+  "ccss-textbook-practice-v1-bar-graph-q01": "votes",
+  "ccss-textbook-practice-v1-bar-graph-q02": ["votes", "responses"],
+  "ccss-textbook-practice-v1-estimate-compare-length-q01": "units",
+  "ccss-textbook-practice-v1-rows-and-columns-q01": "squares",
+  "ccss-textbook-practice-v1-rows-and-columns-q02": "squares",
+  "ccss-textbook-practice-v1-area-model-q01": "square units",
+  "ccss-textbook-practice-v1-area-model-q03": "square units",
+  "ccss-textbook-practice-v1-area-count-q01": "square units",
+  "ccss-textbook-practice-v1-area-count-q02": ["unit squares", "square units"],
+  "ccss-textbook-practice-v1-fractions-number-line-q03": "parts",
+  "ccss-textbook-practice-v1-measure-line-plot-q02": ["quarter-inch intervals", "intervals"],
+  "ccss-textbook-practice-v1-partition-equal-areas-q03": "parts",
+  "ccss-textbook-practice-v1-factors-multiples-q03": "factors",
+  "ccss-textbook-practice-v1-add-angles-q01": "degrees",
+  "ccss-textbook-practice-v1-add-angles-q02": "degrees",
+  "ccss-textbook-practice-v1-angles-fraction-circle-q01": "degrees",
+  "ccss-textbook-practice-v1-angles-fraction-circle-q02": "degrees",
+  "ccss-textbook-practice-v1-line-plot-operations-q01": "cups",
+  "ccss-textbook-practice-v1-line-plot-operations-q03": "cups",
+  "ccss-textbook-practice-v1-metric-conversion-q01": "meters",
+  "ccss-textbook-practice-v1-metric-conversion-q02": "meters",
+  "ccss-textbook-practice-v1-ratio-double-number-line-q02": "cups",
+  "ccss-textbook-practice-v1-divide-unit-fractions-q01": "halves",
+  "ccss-textbook-practice-v1-area-triangles-q01": "square units",
+  "ccss-textbook-practice-v1-area-triangles-q03": "square units",
+  "ccss-textbook-practice-v1-complex-unit-rates-q01": "miles per hour",
+  "ccss-textbook-practice-v1-complex-unit-rates-q02": "cups per hour",
+  "ccss-textbook-practice-v1-percent-problems-q01": "dollars",
+  "ccss-textbook-practice-v1-percent-problems-q02": "dollars",
+  "ccss-textbook-practice-v1-multistep-rational-q01": "dollars",
+  "ccss-textbook-practice-v1-multistep-rational-q02": "dollars",
+  "ccss-textbook-practice-v1-angle-relationships-q01": "degrees",
+  "ccss-textbook-practice-v1-angle-relationships-q02": "degrees",
+  "ccss-textbook-practice-v1-area-volume-surface-q01": "cubic units",
+  "ccss-textbook-practice-v1-area-volume-surface-q02": "cubic units",
+  "ccss-textbook-practice-v1-construct-linear-function-q02": "cm",
+  "ccss-textbook-practice-v1-create-equations-q01": "dollars",
+  "ccss-textbook-practice-v1-polygons-coordinate-q01": "units",
+  "ccss-textbook-practice-v1-polygons-coordinate-q02": "units",
+  "ccss-textbook-practice-v1-coordinate-perimeter-area-q01": "units",
+  "ccss-textbook-practice-v1-distance-formula-q01": "units",
+  "ccss-textbook-practice-v1-distance-formula-q02": "units",
+  "ccss-textbook-practice-v1-symmetry-q01": ["lines of symmetry", "symmetry lines"],
+  "ccss-textbook-practice-v1-similarity-q02": "units",
+  "ccss-textbook-practice-v1-dilations-q01": "units",
+  "ccss-textbook-practice-v1-circle-angles-q01": "degrees",
+  "ccss-textbook-practice-v1-circle-angles-q02": "degrees",
+  "ccss-textbook-practice-v1-inverse-trig-q02": "degrees",
+  "ccss-textbook-practice-v1-units-quantities-q01": "minutes",
+  "ccss-textbook-practice-v1-units-quantities-q03": "feet",
+  "us-ca-g6-g12-v2-s6-c01-q02": "meters per second",
+  "ccss-textbook-practice-v1-decisions-probability-q02": "dollars",
+  "ccss-textbook-practice-v1-expected-value-q02": "dollars",
+  "ccss-textbook-practice-v1-compound-events-q01": "outcomes",
+  "ccss-textbook-practice-v1-figure-symmetry-q01": ["lines of symmetry", "symmetry lines"],
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h1-picture-join-stories-to-10-q02": "blocks",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h1-picture-join-stories-to-10-q03": "buttons",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h1-picture-join-stories-to-10-q06": "shells",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h3-cube-train-join-models-to-10-q02": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h3-cube-train-join-models-to-10-q06": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h4-join-stories-within-10-q02": "cards",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h4-join-stories-within-10-q03": "shells",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h4-join-stories-within-10-q06": "stickers",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-h5-model-equation-join-stories-to-10-q06": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l1-picture-take-away-stories-to-10-q01": "blocks",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l1-picture-take-away-stories-to-10-q02": "buttons",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l1-picture-take-away-stories-to-10-q03": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l1-picture-take-away-stories-to-10-q05": "shells",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l1-picture-take-away-stories-to-10-q06": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l3-cube-train-take-away-models-to-10-q01": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l3-cube-train-take-away-models-to-10-q02": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l3-cube-train-take-away-models-to-10-q05": "cubes",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l4-take-away-stories-within-10-q01": "cards",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l4-take-away-stories-within-10-q02": "shells",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l4-take-away-stories-within-10-q03": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l4-take-away-stories-within-10-q05": "stickers",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l4-take-away-stories-within-10-q06": "blocks",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10-q02": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10-q05": "blocks",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10-q06": "buttons",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10-q01": "counters",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10-q02": "tiles",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10-q05": "buttons",
+  "us-ca-k5-knowledge-point-practice-v1-us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10-q06": "cubes"
+};
+
+export function californiaAnswerUnitAliases(questionId: string, answer: string) {
+  const configured = answerUnitSuffixByQuestionId[questionId];
+  const suffixes = typeof configured === "string" ? [configured] : configured ?? [];
+  return suffixes.map((suffix) => `${answer} ${suffix}`);
+}
+
+export function californiaAnswerUnitAlias(questionId: string, answer: string) {
+  return californiaAnswerUnitAliases(questionId, answer)[0] ?? null;
+}
+
+export const californiaAnswerUnitAliasQuestionIds = Object.freeze(
+  Object.keys(answerUnitSuffixByQuestionId)
+);

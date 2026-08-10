@@ -25,13 +25,28 @@ export default function Lesson() {
   const [b, setB] = useState(167);
   const [op, setOp] = useState<"add" | "sub">("add");
 
-  const hi = Math.max(a, b), lo = Math.min(a, b);
   // No clamp on the sum: clamping it printed "899 + 899 = 999" beside base-ten
   // blocks depicting 1798. The addends are bounded instead, so the equation is
   // always true and the lesson stays within 1000 (2.NBT.B.7).
-  const result = op === "add" ? a + b : hi - lo;
+  const result = op === "add" ? a + b : a - b;
   const CEILING = 999;
-  const addendMax = (other: number) => (op === "add" ? CEILING - other : 899);
+
+  function changeOperation(nextOp: "add" | "sub") {
+    if (nextOp === "add") {
+      const nextA = Math.min(a, CEILING - 100);
+      setA(nextA);
+      setB(Math.min(b, CEILING - nextA));
+    } else if (b > a) {
+      setA(b);
+      setB(a);
+    }
+    setOp(nextOp);
+  }
+
+  function changeFirst(nextA: number) {
+    setA(nextA);
+    if (op === "sub") setB((previous) => Math.min(previous, nextA));
+  }
 
   const carryOnes = op === "add" && (a % 10) + (b % 10) >= 10;
   const carryTens = op === "add" && (Math.floor(a / 10) % 10) + (Math.floor(b / 10) % 10) + (carryOnes ? 1 : 0) >= 10;
@@ -48,31 +63,29 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
-              // Switching back to Add has to bring the addends under 999 too,
-              // otherwise a pair chosen while subtracting could overflow.
-              <button key={o} type="button" onClick={() => { setOp(o); if (o === "add") setB((prev) => Math.min(prev, CEILING - a)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              <button key={o} type="button" onClick={() => changeOperation(o)} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 
           <div className="flex flex-col items-center gap-2">
-            <Blocks n={op === "add" ? a : hi} />
-            <Blocks n={op === "add" ? b : lo} />
+            <Blocks n={a} />
+            <Blocks n={b} />
           </div>
 
           <div className="font-mono text-3xl font-black">
-            {op === "add" ? a : hi} {op === "add" ? "+" : "−"} {op === "add" ? b : lo} ={" "}
+            {a} {op === "add" ? "+" : "−"} {b} ={" "}
             <span style={{ color: ACCENT }}>{result}</span>
           </div>
 
           <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]">
             {op === "add"
               ? `${carryOnes ? "Ten ones make a new ten. " : ""}${carryTens ? "Ten tens make a new hundred. " : ""}${!carryOnes && !carryTens ? "No regrouping needed here." : ""}`
-              : `To subtract, break a hundred into tens or a ten into ones whenever you need more.${a !== b ? " This model always takes the smaller number from the larger, so the order above may not match the order you set." : ""}`}
+              : "To subtract, break a hundred into tens or a ten into ones whenever you need more."}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-8">
-            <Stepper label="First number" value={a} max={addendMax(b)} onChange={setA} />
-            <Stepper label="Second number" value={b} max={addendMax(a)} onChange={setB} />
+            <Stepper label="First number" value={a} max={op === "add" ? CEILING - b : CEILING} onChange={changeFirst} />
+            <Stepper label="Second number" value={b} max={op === "add" ? CEILING - a : a} onChange={setB} />
           </div>
         </div>
       </Figure>

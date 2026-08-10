@@ -35,7 +35,7 @@ function classify(a: Operand, b: Operand, op: "+" | "×"): { kind: Verdict; why:
       const value = op === "+" ? `2${a.label}` : `${a.label}²`;
       return { kind: "irrational", why: `${a.label} ${op} ${b.label} = ${value}, which is irrational — but that is a fact about these particular numbers, not a closure rule.` };
     }
-    return { kind: "either", why: "No closure rule covers two different irrationals: the sum or product may be rational (√2 · √2 = 2) or irrational (√2 + √2 = 2√2). This particular combination is not settled by the rules in this lesson." };
+    return { kind: "either", why: "Closure rules alone do not classify a sum or product of two irrationals: such results can be rational (√2 · √2 = 2) or irrational (√2 + √2 = 2√2). The badge therefore reports only what the closure rules determine, not an unknown value for this particular expression." };
   }
 
   // exactly one irrational
@@ -52,7 +52,7 @@ export default function Lesson() {
   const a = A[ai], b = A[bi], op = OPS[oi];
   const res = classify(a, b, op);
   const col = (k: Verdict) => (k === "rational" ? RAT : k === "irrational" ? IRR : "var(--ink-soft)");
-  const verdictLabel = res.kind === "either" ? "could be either" : res.kind;
+  const verdictLabel = res.kind === "either" ? "not determined by closure rules" : res.kind;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -62,7 +62,7 @@ export default function Lesson() {
         outcome follows strict rules — rooted in a simple contradiction argument.
       </p>
 
-      <Figure caption="Pick two numbers and an operation. The result's type is forced by the algebra.">
+      <Figure caption="Pick two numbers and an operation. The display reports what the closure rules determine.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-3 font-mono text-2xl font-black">
             <span style={{ color: col(a.kind) }}>{a.label}</span>

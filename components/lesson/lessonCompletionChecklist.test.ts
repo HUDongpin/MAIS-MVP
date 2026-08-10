@@ -37,10 +37,11 @@ const deepReasoningChecklist: LessonBlock[] = [
   }
 ];
 
-test("treats K through P6 as elementary and S grades as middle/high", () => {
+test("treats K through P5 as elementary and Grade 6 through high school as middle/high", () => {
   assert.equal(lessonCompletionTierForGrade("K"), "elementary");
   assert.equal(lessonCompletionTierForGrade("P1"), "elementary");
-  assert.equal(lessonCompletionTierForGrade("P6"), "elementary");
+  assert.equal(lessonCompletionTierForGrade("P5"), "elementary");
+  assert.equal(lessonCompletionTierForGrade("P6"), "middle-high");
   assert.equal(lessonCompletionTierForGrade("S1"), "middle-high");
   assert.equal(lessonCompletionTierForGrade("S6"), "middle-high");
 });
@@ -66,7 +67,7 @@ test("replaces elementary deep reasoning checklist with concrete quick checks", 
   assert.equal(items.some(({ item }) => item.en.includes("representation")), false);
 });
 
-test("keeps quick completion checks visible for California elementary lessons", () => {
+test("keeps the first three topic-specific checks for California elementary lessons", () => {
   const items = buildLessonCompletionChecklistItems({
     grade: "P1",
     checklistBlocks: deepReasoningChecklist,
@@ -74,16 +75,27 @@ test("keeps quick completion checks visible for California elementary lessons", 
   });
 
   assert.equal(items.length, 3);
-  assert.deepEqual(items.map(({ item }) => item.en), [
-    "I can draw it or use objects.",
-    "I can write the number sentence.",
-    "I can check that my answer fits the story."
-  ]);
+  assert.deepEqual(
+    items.map(({ item }) => item.en),
+    deepReasoningChecklist[0]?.items?.slice(0, 3).map((item) => item.en)
+  );
+  assert.equal(items.some(({ item }) => item.en.includes("Expected move")), false);
 });
 
 test("keeps middle and high school checklist depth unchanged", () => {
   const items = buildLessonCompletionChecklistItems({
     grade: "S1",
+    checklistBlocks: deepReasoningChecklist
+  });
+
+  assert.equal(items.length, 4);
+  assert.equal(items[0]?.item.en, deepReasoningChecklist[0]?.items?.[0]?.en);
+  assert.equal(items[3]?.item.en.includes("Expected move"), true);
+});
+
+test("keeps Grade 6 checklist depth unchanged", () => {
+  const items = buildLessonCompletionChecklistItems({
+    grade: "P6",
     checklistBlocks: deepReasoningChecklist
   });
 

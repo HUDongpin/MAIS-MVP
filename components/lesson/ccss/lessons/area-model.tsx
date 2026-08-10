@@ -14,8 +14,8 @@ export default function Lesson() {
   const [rows, setRows] = useState(4); // width
   const [split, setSplit] = useState(2); // columns in the left piece
 
-  const clampSplit = (v: number) => Math.max(0, Math.min(cols, v));
-  const s = Math.min(split, cols);
+  const clampSplit = (v: number) => Math.max(1, Math.min(cols - 1, v));
+  const s = clampSplit(split);
   const total = rows * cols;
   const leftArea = rows * s;
   const rightArea = rows * (cols - s);
@@ -40,7 +40,7 @@ export default function Lesson() {
               viewBox={`0 0 ${W + 2} ${H + 2}`}
               className="mx-auto max-w-full"
               role="img"
-              aria-label={s > 0 && s < cols ? `A ${rows} by ${cols} rectangle of unit squares, split after column ${s} into a ${rows} by ${s} part and a ${rows} by ${cols - s} part` : `A ${rows} by ${cols} rectangle of unit squares, not split`}
+              aria-label={`A ${rows} by ${cols} rectangle of unit squares, split after column ${s} into a ${rows} by ${s} part and a ${rows} by ${cols - s} part`}
             >
               <g transform="translate(1,1)">
                 {Array.from({ length: rows }, (_, r) =>
@@ -58,9 +58,7 @@ export default function Lesson() {
                     />
                   )),
                 )}
-                {s > 0 && s < cols && (
-                  <line x1={s * CELL} y1={0} x2={s * CELL} y2={H} stroke="var(--ink)" strokeWidth={3} />
-                )}
+                <line x1={s * CELL} y1={0} x2={s * CELL} y2={H} stroke="var(--ink)" strokeWidth={3} />
               </g>
             </svg>
           </FigureScroll>
@@ -70,26 +68,24 @@ export default function Lesson() {
               {rows} × {cols} ={" "}
               <span style={{ color: LEFT }}>{total}</span> square units
             </div>
-            {s > 0 && s < cols && (
-              <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">
-                {rows} × {cols} = {rows}×{s} + {rows}×{cols - s} ={" "}
-                <span style={{ color: LEFT }}>{leftArea}</span> +{" "}
-                <span style={{ color: RIGHT }}>{rightArea}</span> = {total}
-              </div>
-            )}
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">
+              {rows} × {cols} = {rows}×{s} + {rows}×{cols - s} ={" "}
+              <span style={{ color: LEFT }}>{leftArea}</span> +{" "}
+              <span style={{ color: RIGHT }}>{rightArea}</span> = {total}
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
             <Stepper label="Rows" value={rows} min={1} max={8} onChange={setRows} />
-            <Stepper label="Columns" value={cols} min={1} max={12} onChange={(v) => { setCols(v); setSplit((p) => Math.min(p, v)); }} />
+            <Stepper label="Columns" value={cols} min={2} max={12} onChange={(v) => { setCols(v); setSplit((p) => Math.max(1, Math.min(p, v - 1))); }} />
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
                 Split at column: <span className="text-[var(--ink)]">{s}</span>
               </span>
               <input
                 type="range"
-                min={0}
-                max={cols}
+                min={1}
+                max={cols - 1}
                 value={s}
                 onChange={(e) => setSplit(clampSplit(Number(e.target.value)))}
                 className="w-40 accent-[var(--band-upper)]"

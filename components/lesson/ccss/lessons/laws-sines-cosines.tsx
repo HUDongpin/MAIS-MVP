@@ -16,7 +16,10 @@ export default function Lesson() {
 
   const rad = (C * Math.PI) / 180;
   const cSq = a * a + b * b - 2 * a * b * Math.cos(rad);
-  const c = r2(Math.sqrt(cSq));
+  const rawC = Math.sqrt(cSq);
+  const cSqDisplay = r2(cSq);
+  const c = r2(rawC);
+  const relation = (raw: number) => Math.abs(raw * 100 - Math.round(raw * 100)) < 1e-9 ? "=" : "≈";
 
   // The triangle used to be a fixed polygon with live numbers stamped on it: its
   // C-vertex measured 56.3° whatever the slider said, and side a stayed the
@@ -54,7 +57,8 @@ export default function Lesson() {
         The Pythagorean theorem is only for right triangles. For <em>any</em>{" "}
         triangle, two laws take over: the <strong>Law of Cosines</strong>{" "}
         (c² = a² + b² − 2ab·cos C) and the <strong>Law of Sines</strong>{" "}
-        (a/sin A = b/sin B = c/sin C). Together they solve every triangle.
+        (a/sin A = b/sin B = c/sin C). With enough valid measurements, they solve
+        oblique triangles; the SSA case can have zero, one, or two solutions.
       </p>
 
       <Figure caption="Two sides and the included angle → the Law of Cosines finds the third side.">
@@ -64,13 +68,13 @@ export default function Lesson() {
             <text x={labAngle.x} y={labAngle.y} textAnchor="middle" fontSize={12} fill="var(--band-middle)">C = {C}°</text>
             <text x={labA.x} y={labA.y} textAnchor="middle" fontSize={11} fill="var(--ink-faint)">a = {a}</text>
             <text x={labB.x} y={labB.y} textAnchor="middle" fontSize={11} fill="var(--ink-faint)">b = {b}</text>
-            <text x={labC.x} y={labC.y} textAnchor="middle" fontSize={12} fontWeight={800} fill={ACCENT}>c = {c}</text>
+            <text x={labC.x} y={labC.y} textAnchor="middle" fontSize={12} fontWeight={800} fill={ACCENT}>c {relation(rawC)} {c}</text>
           </svg>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">c² = a² + b² − 2ab·cos C</div>
-            <div className="mt-1 text-base font-black">= {a}² + {b}² − 2·{a}·{b}·cos {C}° = {r2(cSq)}</div>
-            <div className="mt-1 text-lg font-black" style={{ color: ACCENT }}>c = {c}</div>
+            <div className="mt-1 text-base font-black">= {a}² + {b}² − 2·{a}·{b}·cos {C}° {relation(cSq)} {cSqDisplay}</div>
+            <div className="mt-1 text-lg font-black" style={{ color: ACCENT }}>c {relation(rawC)} {c}{relation(rawC) === "≈" ? " (nearest hundredth)" : ""}</div>
           </div>
 
           <p className="m-0 max-w-md text-center text-sm text-[var(--ink-soft)]">
@@ -90,7 +94,9 @@ export default function Lesson() {
       <p>
         Know two sides and the <strong>included</strong>{" "}angle (or all three sides)?
         Use the <strong>Law of Cosines</strong>. Know a side and its opposite angle
-        plus one more? Use the <strong>Law of Sines</strong>{" "}a/sin A = b/sin B. These
+        plus one more? Use the <strong>Law of Sines</strong>{" "}a/sin A = b/sin B.
+        With two angles and a side the triangle is unique; with two sides and a
+        non-included angle (SSA), check for zero, one, or two possible triangles. These
         handle surveying, navigation, and any oblique triangle Pythagoras can&apos;t.
       </p>
 
@@ -99,8 +105,9 @@ export default function Lesson() {
           The <strong>Law of Sines</strong>{" "}(a/sin A = b/sin B = c/sin C) and{" "}
           <strong>Law of Cosines</strong>{" "}(c² = a² + b² − 2ab·cos C) are proved with
           altitudes and the area formula (G-SRT.10). They{" "}
-          <strong>solve any triangle</strong>{" "}— finding unknown sides and angles in
-          applied and surveying problems (G-SRT.11).
+          solve sufficiently specified triangles — finding unknown sides and
+          angles in applied and surveying problems (G-SRT.11), with the ambiguous
+          SSA case checked explicitly.
         </p>
       </MathCheck>
     </div>

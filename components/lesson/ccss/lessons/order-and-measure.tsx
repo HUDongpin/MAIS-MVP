@@ -6,6 +6,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const UNIT = 26;
 type Bar = { name: string; color: string; len: number };
+const unitCount = (count: number) => `${count} unit${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [bars, setBars] = useState<Bar[]>([
@@ -95,11 +96,17 @@ export default function Lesson() {
         <p>
           A length can be given as a <strong>whole number of same-size units</strong>{" "}
           laid end to end with no gaps or overlaps (1.MD.A.2). To{" "}
-          <strong>order three objects</strong>{" "}by length you compare them — and if
-          the {sorted[2].name} beats the {sorted[1].name}, and the {sorted[1].name}{" "}
-          beats the {sorted[0].name}, then the {sorted[2].name} beats the{" "}
-          {sorted[0].name} too (1.MD.A.1). That last step is comparing lengths{" "}
-          <em>indirectly</em>.
+          <strong>order three objects</strong>{" "}by length, compare them and keep
+          ties in the same position (1.MD.A.1).{" "}
+          {sorted[2].len === sorted[0].len ? (
+            <>All three strips measure {unitCount(sorted[0].len)}, so they tie.</>
+          ) : sorted[2].len === sorted[1].len ? (
+            <>The {sorted[2].name} and {sorted[1].name} strips tie at {unitCount(sorted[2].len)}; both are longer than the {sorted[0].name} strip.</>
+          ) : sorted[1].len === sorted[0].len ? (
+            <>The {sorted[1].name} and {sorted[0].name} strips tie at {unitCount(sorted[0].len)}; both are shorter than the {sorted[2].name} strip.</>
+          ) : (
+            <>Because the {sorted[2].name} strip is longer than the {sorted[1].name} strip, and the {sorted[1].name} strip is longer than the {sorted[0].name} strip, the {sorted[2].name} strip is also longer than the {sorted[0].name} strip. That last conclusion is an <em>indirect comparison</em>.</>
+          )}
         </p>
       </MathCheck>
     </div>

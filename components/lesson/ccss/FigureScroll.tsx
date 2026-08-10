@@ -20,7 +20,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
  * The fade is driven by measurement rather than a breakpoint, because whether a
  * figure overflows depends on its own width, not on the size of the screen.
  */
-export function FigureScroll({ children }: { children: ReactNode }) {
+export function FigureScroll({ children, ariaLabel = "Scrollable diagram — scroll sideways to see all of it" }: { children: ReactNode; ariaLabel?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
@@ -63,7 +63,7 @@ export function FigureScroll({ children }: { children: ReactNode }) {
       // able to reach it; `tabIndex` only applies while there is somewhere to go.
       role={isOverflowing ? "region" : undefined}
       tabIndex={isOverflowing ? 0 : undefined}
-      aria-label={isOverflowing ? "Scrollable diagram — scroll sideways to see all of it" : undefined}
+      aria-label={isOverflowing ? ariaLabel : undefined}
     >
       {children}
     </div>

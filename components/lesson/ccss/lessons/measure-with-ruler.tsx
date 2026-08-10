@@ -7,6 +7,8 @@ import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
 const BIGU = 44; // px per big unit
 const BAR = "var(--band-middle)";
+const unitCount = (count: number, unit: "big unit" | "small unit") =>
+  `${count} ${unit}${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [len, setLen] = useState(4); // length in big units
@@ -14,7 +16,6 @@ export default function Lesson() {
 
   const unitPx = small ? BIGU / 2 : BIGU;
   const count = small ? len * 2 : len;
-  // The stepper minimum is 1, where "1 small units" reads wrong.
   const unitName = small ? "small unit" : "big unit";
   const barPx = len * BIGU;
 
@@ -45,9 +46,9 @@ export default function Lesson() {
           </FigureScroll>
 
           <div className="text-center">
-            <div className="text-3xl font-black" style={{ color: BAR }}>{count} {unitName}{count === 1 ? "" : "s"}</div>
+            <div className="text-3xl font-black" style={{ color: BAR }}>{unitCount(count, unitName)}</div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
-              The bar is the same length either way — {len} big units is the same as {len * 2} small units.
+              The bar is the same length either way — {unitCount(len, "big unit")} is the same as {unitCount(len * 2, "small unit")}.
             </p>
           </div>
 

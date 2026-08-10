@@ -6,7 +6,7 @@ import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textb
 import { californiaKnowledgePointDisplayTitle } from "./usCaliforniaKnowledgePoints";
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import { mapDifficultyToActive } from "@/lib/difficulty";
-import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionType, Topic } from "@/types";
+import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionDiagram, QuestionType, Topic } from "@/types";
 
 export type CaliforniaK5GradeId = Extract<GradeId, "K" | "P1" | "P2" | "P3" | "P4" | "P5">;
 export type CaliforniaG6G12GradeId = Extract<GradeId, "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6">;
@@ -53,6 +53,7 @@ type GeneratedCaliforniaQuestionBase = {
   answer: string;
   acceptedAnswers: string[];
   explanation: LocalizedText;
+  diagram?: QuestionDiagram;
   independentAnswer: string;
   independentSolution: string;
   evidenceCardIds: string[];

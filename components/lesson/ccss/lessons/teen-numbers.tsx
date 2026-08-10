@@ -24,12 +24,12 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        The teen numbers all have a secret: they are just a{" "}
+        The numbers from 11 through 19 all have a secret: they are just a{" "}
         <strong>ten</strong>{" "}and <strong>some more</strong>. Fill one whole
         ten-frame, and the leftover dots are the extra ones.
       </p>
 
-      <Figure caption="A full frame of ten, plus a few extra ones. That is what a teen number is.">
+      <Figure caption="A full frame of ten, plus a few extra ones. That is how every number from 11 through 19 is built.">
         <div className="flex flex-col items-center gap-6">
           <div className="text-6xl font-black">{n}</div>
 
@@ -51,7 +51,7 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-col items-center gap-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Teen number</span>
+            <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Number from 11 to 19</span>
             <div className="flex items-center gap-2">
               <button type="button" onClick={() => setN((v) => Math.max(11, v - 1))} disabled={n <= 11} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Smaller number">−</button>
               <span className="w-10 text-center text-2xl font-black tabular-nums">{n}</span>

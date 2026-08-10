@@ -37,7 +37,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {ASSOCS.map((as, i) => (
-              <button key={as.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: DOT, color: "white", borderColor: DOT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{as.name}</button>
+              <button key={as.key} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: DOT, color: "white", borderColor: DOT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{as.name}</button>
             ))}
           </div>
 

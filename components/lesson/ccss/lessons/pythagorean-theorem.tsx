@@ -29,8 +29,9 @@ export default function Lesson() {
       <p>
         In a right triangle, the square on the <strong>hypotenuse</strong>{" "}equals
         the sum of the squares on the two <strong>legs</strong>:{" "}
-        <strong>a² + b² = c²</strong>. The picture proves it — the two smaller
-        squares exactly fill the big one.
+        <strong>a² + b² = c²</strong>. The picture illustrates the three square
+        areas. A complete area proof also supplies a dissection or rearrangement
+        showing why the two leg-square areas equal the hypotenuse-square area.
       </p>
 
       <Figure caption="The two leg squares (a² and b²) together equal the hypotenuse square (c²).">
@@ -72,7 +73,9 @@ export default function Lesson() {
       <MathCheck>
         <p>
           The <strong>Pythagorean theorem</strong>, a² + b² = c², holds for every
-          right triangle (8.G.B.6) — the area picture is one classic proof. Applied
+          right triangle (8.G.B.6). The displayed square construction illustrates
+          the area relationship; a rearrangement of congruent right triangles and
+          their remaining square areas gives a complete area proof. Applied
           in reverse, it finds an unknown side length (8.G.B.7): the hypotenuse is{" "}
           √(a² + b²), and a leg is √(c² − a²).
         </p>

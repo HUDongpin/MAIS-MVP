@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { relationForDisplayedValue } from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-high)";
 const P_COL = "var(--band-middle)";
@@ -15,11 +16,15 @@ export default function Lesson() {
   const [t, setT] = useState(3);
 
   const r = rate / 100;
-  const growth = r2(Math.pow(1 + r, t));
+  const exactGrowth = Math.pow(1 + r, t);
+  const growthDisplay = exactGrowth.toFixed(4);
+  const growthRelation = relationForDisplayedValue(exactGrowth, growthDisplay);
   // Compute the balance from the exact growth factor, not its rounded display
   // value — chaining off `growth` puts the headline dollar amount up to $25 out,
   // which a student can disprove with a calculator.
-  const value = r2(P * Math.pow(1 + r, t));
+  const exactValue = P * exactGrowth;
+  const valueDisplay = exactValue.toFixed(2);
+  const valueRelation = relationForDisplayedValue(exactValue, valueDisplay);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -34,14 +39,15 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-2xl border-2 px-8 py-4 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-2xl font-black">
-              <span style={{ color: P_COL }}>{P}</span>(1 + <span style={{ color: G_COL }}>{r2(r)}</span>)<sup>{t}</sup> = <span style={{ color: ACCENT }}>${value}</span>
+              <span style={{ color: P_COL }}>{P}</span>(1 + <span style={{ color: G_COL }}>{r2(r)}</span>)<sup>{t}</sup> {valueRelation} <span style={{ color: ACCENT }}>${valueDisplay}</span>
             </div>
+            <div className="mt-1 text-xs text-[var(--ink-faint)]">{valueRelation === "=" ? "balance is exact at the shown cent precision" : "balance rounded to the nearest cent"}</div>
           </div>
 
           <div className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-3">
             <Part color={P_COL} name="principal P" value={`$${P}`} note="what you start with" />
             <Part color={G_COL} name="growth factor (1 + r)" value={`${r2(1 + r)}`} note={`grows ${rate}% each year`} />
-            <Part color={ACCENT} name="factor (1+r)ᵗ" value={`${growth}`} note={`after ${t} years`} />
+            <Part color={ACCENT} name="factor (1+r)ᵗ" value={`${growthRelation} ${growthDisplay}`} note={`after ${t} ${t === 1 ? "year" : "years"}; ${growthRelation === "=" ? "exact at the shown precision" : "nearest ten-thousandth"}`} />
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

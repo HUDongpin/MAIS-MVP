@@ -38,7 +38,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col gap-2">
             {QUESTIONS.map((qq, i) => (
-              <button key={i} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-4 py-2 text-left text-sm font-bold" style={idx === i ? { borderColor: qq.stat ? YES : NO, background: `color-mix(in oklab, ${qq.stat ? YES : NO} 10%, var(--surface))` } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{qq.text}</button>
+              <button key={i} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-4 py-2 text-left text-sm font-bold" style={idx === i ? { borderColor: qq.stat ? YES : NO, background: `color-mix(in oklab, ${qq.stat ? YES : NO} 10%, var(--surface))` } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{qq.text}</button>
             ))}
           </div>
 

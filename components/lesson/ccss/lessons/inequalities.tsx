@@ -34,7 +34,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["<", "≤", "≥", ">"] as Op[]).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="grid h-10 w-10 place-items-center rounded-lg border text-lg font-black" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o}</button>
+              <button key={o} type="button" onClick={() => setOp(o)} aria-pressed={op === o} className="grid h-10 w-10 place-items-center rounded-lg border text-lg font-black" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o}</button>
             ))}
           </div>
 

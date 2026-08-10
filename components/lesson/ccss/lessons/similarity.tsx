@@ -59,7 +59,7 @@ export default function Lesson() {
 
           <div className="flex items-center gap-2">
             {[1, 2, 3].map((kk) => (
-              <button key={kk} type="button" onClick={() => setK(kk)} className="grid h-10 w-10 place-items-center rounded-lg border text-lg font-black" style={k === kk ? { background: IMG, color: "white", borderColor: IMG } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{kk}×</button>
+              <button key={kk} type="button" onClick={() => setK(kk)} aria-pressed={k === kk} className="grid h-10 w-10 place-items-center rounded-lg border text-lg font-black" style={k === kk ? { background: IMG, color: "white", borderColor: IMG } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{kk}×</button>
             ))}
           </div>
         </div>

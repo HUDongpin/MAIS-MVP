@@ -72,7 +72,7 @@ export default function Lesson() {
             {(["add", "sub"] as const).map((o) => (
               // Switching to Subtract also has to bring the second fraction
               // down, or the pair chosen while adding could go negative.
-              <button key={o} type="button" onClick={() => { setOp(o); if (o === "sub") { const m = Math.floor((n1 / d1) * d2); if (m >= 1) setN2((p) => Math.max(1, Math.min(p, m))); else { setN2(1); setN1((p) => Math.max(p, Math.min(d1, Math.ceil(d1 / d2)))); } } }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
+              <button key={o} type="button" onClick={() => { setOp(o); if (o === "sub") { const m = Math.floor((n1 / d1) * d2); if (m >= 1) setN2((p) => Math.max(1, Math.min(p, m))); else { setN2(1); setN1((p) => Math.max(p, Math.min(d1, Math.ceil(d1 / d2)))); } } }} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>
             ))}
           </div>
 

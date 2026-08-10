@@ -6,7 +6,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 
-type Ex = { title: string; expr: string; steps: string[]; result: string };
+type Ex = { title: string; expr: string; steps: string[]; result: string; restriction: string };
 
 const EXAMPLES: Ex[] = [
   {
@@ -14,24 +14,28 @@ const EXAMPLES: Ex[] = [
     expr: "(x² + 5x + 6) ÷ (x + 2)",
     steps: ["x² + 5x + 6 = (x + 2)(x + 3)", "cancel the (x + 2) factor"],
     result: "x + 3",
+    restriction: "x ≠ −2 (the original denominator cannot be zero)",
   },
   {
     title: "Divide with remainder",
     expr: "(x² + 1) ÷ (x + 1)",
     steps: ["x² + 1 = (x + 1)(x − 1) + 2", "quotient x − 1, remainder 2"],
     result: "x − 1 + 2/(x + 1)",
+    restriction: "x ≠ −1",
   },
   {
     title: "Add fractions",
     expr: "1/x + 1/(x + 1)",
     steps: ["common denominator x(x + 1)", "(x + 1) + x over x(x + 1)"],
     result: "(2x + 1) / [x(x + 1)]",
+    restriction: "x ≠ 0 and x ≠ −1",
   },
   {
     title: "Multiply",
     expr: "(x/(x+1)) · ((x+1)/x²)",
     steps: ["multiply across", "cancel (x + 1) and one x"],
     result: "1/x",
+    restriction: "x ≠ 0 and x ≠ −1 (cancellation does not restore excluded inputs)",
   },
 ];
 
@@ -52,7 +56,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {EXAMPLES.map((e, i) => (
-              <button key={e.title} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{e.title}</button>
+              <button key={e.title} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{e.title}</button>
             ))}
           </div>
 
@@ -69,6 +73,9 @@ export default function Lesson() {
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono text-2xl font-black" style={{ borderColor: ACCENT, color: ACCENT }}>
             = {ex.result}
           </div>
+          <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2 text-center font-mono text-sm text-[var(--ink-soft)]">
+            Domain restriction: <strong>{ex.restriction}</strong>
+          </div>
         </div>
       </Figure>
 
@@ -76,8 +83,11 @@ export default function Lesson() {
       <p>
         Polynomial <strong>long division</strong>{" "}rewrites p(x)/d(x) as a
         quotient plus remainder/divisor — exactly like turning 7/2 into 3 + 1/2.
-        For +, −, ×, ÷ you factor first so common factors cancel. The rational
-        expressions are closed under all four operations (with nonzero divisors).
+        For +, −, ×, ÷ you factor first so common factors cancel. Always retain
+        every restriction from the <em>original</em>{" "}denominators: canceling a
+        factor simplifies the formula but does not make a formerly excluded input
+        valid. Rational expressions are closed under all four operations when the
+        relevant divisors are nonzero.
       </p>
 
       <MathCheck>
@@ -86,7 +96,8 @@ export default function Lesson() {
           <strong>quotient + remainder/divisor</strong>{" "}using division or a
           computer algebra system (A-APR.6). Rational expressions form a system
           closed under <strong>+, −, ×, and ÷</strong>{" "}by nonzero expressions
-          (A-APR.7) — analogous to the rational numbers.
+          (A-APR.7) — analogous to the rational numbers. Equivalent simplified
+          forms are equal only on the original expression&apos;s domain.
         </p>
       </MathCheck>
     </div>

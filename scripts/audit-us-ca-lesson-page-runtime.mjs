@@ -28,6 +28,15 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = process.env.BASE_URL ?? "http://localhost:3318";
 const SHOTS = process.env.SHOT_DIR ?? path.join(root, ".tmp/lesson-page-runtime");
 const USER_ID = process.env.QA_USER_ID ?? "student-shirleen-us";
+const VIEWPORT = {
+  width: Number(process.env.VIEWPORT_WIDTH ?? 1280),
+  height: Number(process.env.VIEWPORT_HEIGHT ?? 900),
+};
+const MAX_CONTROL_PRESSES = Number(process.env.MAX_CONTROL_PRESSES ?? 1200);
+const DIRECTION_CONTROLS = {
+  max: /^(Increase|One more|More |Add one)| plus 100$/i,
+  min: /^(Decrease|One fewer|Fewer |Remove one)| minus 100$/i,
+};
 
 const NOUNS = [
   "cubes", "counters", "squares", "units", "sides", "corners", "parts", "pieces",
@@ -65,7 +74,7 @@ mkdirSync(SHOTS, { recursive: true });
 
 const token = await createSessionToken(USER_ID);
 const browser = await chromium.launch({ channel: "chrome" });
-const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+const context = await browser.newContext({ viewport: VIEWPORT });
 await context.addCookies([
   { name: SESSION_COOKIE_NAME, value: token, url: BASE, httpOnly: true, sameSite: "Lax" }
 ]);
@@ -73,6 +82,10 @@ await context.addCookies([
 const findings = [];
 const retried = [];
 const infraNoise = [];
+let directionalButtonRuns = 0;
+let directionalButtonPresses = 0;
+let rangeBoundsDriven = 0;
+let numberBoundsDriven = 0;
 const page = await context.newPage();
 let pageIssues = [];
 page.on("console", (m) => {
@@ -117,8 +130,10 @@ for (const slug of slugs) {
   }
   await page.waitForTimeout(3000);
 
-  if (/\/login/.test(page.url())) {
-    findings.push({ rule: "render", slug, detail: "redirected to /login — session rejected" });
+  const expectedPath = `/student/lessons/${slug}`;
+  const landedPath = new URL(page.url()).pathname;
+  if (landedPath !== expectedPath) {
+    findings.push({ rule: "render", slug, detail: `landed on ${landedPath}, not ${expectedPath} — session or routing rejected the request` });
     continue;
   }
   const heading = (await page.locator("h1").first().textContent().catch(() => ""))?.trim();
@@ -127,20 +142,72 @@ for (const slug of slugs) {
   // Drive the controls to each extreme in turn. A readout can be correct at the
   // seed value and wrong at either end — the minimum is where singular/plural
   // and degenerate values break, the maximum is where formatting and overflow do.
+  const coarseStepPriority = (name) => {
+    if (/by 100|plus 100|minus 100/i.test(name)) return 4;
+    if (/by (?:ten|10)|by one tenth|ten hundredths|ten thousandths/i.test(name)) return 3;
+    if (/by (?:five|5)/i.test(name)) return 2;
+    return 1;
+  };
+
   async function driveControls(direction) {
-    const label = direction === "min" ? "Decrease" : "Increase";
-    const buttons = page.locator(`button[aria-label^="${label}"]`);
-    for (let i = 0, n = await buttons.count(); i < n; i += 1) {
-      const button = buttons.nth(i);
-      for (let click = 0; click < 14; click += 1) {
-        if (await button.isDisabled().catch(() => true)) break;
-        await button.click({ timeout: 4000 }).catch(() => {});
+    // A 14-click sample is not an extreme for live controls spanning 100, 999,
+    // or 9,999. Drive coarse steps first and unit steps second until the button
+    // itself is disabled. Repeat to settle dynamic bounds changed by another
+    // control. If an apparent bound control never disables, fail the gate.
+    for (let sweep = 0; sweep < 3; sweep += 1) {
+      const buttons = await page.getByRole("button", { name: DIRECTION_CONTROLS[direction] }).all();
+      const ranked = [];
+      for (const button of buttons) {
+        const name = (await button.getAttribute("aria-label").catch(() => ""))
+          || (await button.textContent().catch(() => ""))
+          || "(unnamed directional control)";
+        ranked.push({ button, name, priority: coarseStepPriority(name) });
       }
+      ranked.sort((a, b) => b.priority - a.priority);
+
+      let sweepPresses = 0;
+      for (const { button, name } of ranked) {
+        let presses = 0;
+        let clickBlocked = false;
+        while (presses < MAX_CONTROL_PRESSES && await button.isEnabled().catch(() => false)) {
+          const clicked = await button.click({ timeout: 4000 }).then(() => true).catch(() => false);
+          if (!clicked) { clickBlocked = true; break; }
+          presses += 1;
+          sweepPresses += 1;
+        }
+        if (presses > 0) directionalButtonRuns += 1;
+        directionalButtonPresses += presses;
+        if (presses >= MAX_CONTROL_PRESSES && await button.isEnabled().catch(() => false)) {
+          findings.push({
+            rule: "control-traversal",
+            slug,
+            detail: `[toward ${direction}] "${name}" remained enabled after ${MAX_CONTROL_PRESSES} presses`,
+          });
+        } else if (clickBlocked && await button.isEnabled().catch(() => false)) {
+          findings.push({
+            rule: "control-traversal",
+            slug,
+            detail: `[toward ${direction}] "${name}" remained enabled after a click could not be completed`,
+          });
+        }
+      }
+      if (sweepPresses === 0) break;
     }
+
     const ranges = page.locator('input[type="range"]');
     for (let i = 0, n = await ranges.count(); i < n; i += 1) {
-      const bound = (await ranges.nth(i).getAttribute(direction)) ?? (direction === "min" ? "0" : "10");
-      await ranges.nth(i).fill(bound).catch(() => {});
+      const bound = await ranges.nth(i).getAttribute(direction);
+      if (bound == null) continue;
+      if (await ranges.nth(i).fill(bound).then(() => true).catch(() => false)) rangeBoundsDriven += 1;
+    }
+    const numbers = page.locator('input[type="number"]');
+    for (let i = 0, n = await numbers.count(); i < n; i += 1) {
+      const bound = await numbers.nth(i).getAttribute(direction);
+      if (bound == null) continue;
+      if (await numbers.nth(i).fill(bound).then(() => true).catch(() => false)) {
+        await numbers.nth(i).blur().catch(() => {});
+        numberBoundsDriven += 1;
+      }
     }
     await page.waitForTimeout(900);
   }
@@ -163,6 +230,17 @@ for (const slug of slugs) {
     scan(text, ONE_VERB, "subject-verb-agreement", extreme);
     scan(text, ZERO_RATIO, "degenerate-value", extreme);
     scan(text, NOT_A_NUMBER, "non-finite-readout", extreme);
+    const pageWidth = await page.evaluate(() => ({
+      client: document.documentElement.clientWidth,
+      scroll: document.documentElement.scrollWidth,
+    }));
+    if (pageWidth.scroll > pageWidth.client + 2) {
+      findings.push({
+        rule: "horizontal-overflow",
+        slug,
+        detail: `[at ${extreme}] ${pageWidth.scroll}px content in ${pageWidth.client}px viewport`,
+      });
+    }
     if (process.env.SHOTS === "1") {
       await page.screenshot({ path: path.join(SHOTS, `${slug}-${extreme}.png`), fullPage: true });
     }
@@ -175,7 +253,8 @@ for (const slug of slugs) {
 
 await browser.close();
 
-console.log(`audit-us-ca-lesson-page-runtime: ${slugs.length} lesson pages driven to both control extremes`);
+console.log(`audit-us-ca-lesson-page-runtime: ${slugs.length} lesson pages driven to both control extremes at ${VIEWPORT.width}×${VIEWPORT.height}`);
+console.log(`  bound traversal: ${directionalButtonRuns} nonempty directional-control traversals, ${directionalButtonPresses} presses, ${rangeBoundsDriven} range endpoints, ${numberBoundsDriven} number-input endpoints`);
 if (infraNoise.length) {
   console.log(`  resource-load failures ignored as infrastructure noise: ${infraNoise.length}`);
   console.log("  (a dead dev server, not lesson content — re-run against a healthy server to trust this result)");

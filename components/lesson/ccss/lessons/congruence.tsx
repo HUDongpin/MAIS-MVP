@@ -63,7 +63,7 @@ export default function Lesson() {
 
           <div className="flex items-center gap-2">
             {[0, 1, 2].map((s) => (
-              <button key={s} type="button" onClick={() => setStep(s)} className="grid h-9 w-9 place-items-center rounded-lg border text-sm font-black" style={step === s ? { background: MOVE, color: "white", borderColor: MOVE } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
+              <button key={s} type="button" onClick={() => setStep(s)} aria-pressed={step === s} className="grid h-9 w-9 place-items-center rounded-lg border text-sm font-black" style={step === s ? { background: MOVE, color: "white", borderColor: MOVE } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
             ))}
           </div>
 

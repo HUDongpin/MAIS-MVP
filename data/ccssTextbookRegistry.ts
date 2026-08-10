@@ -629,7 +629,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "2",
     title: "Ten More, Hundred More",
     standardIds: ["2.NBT.B.8"],
-    summary: "Add or subtract 10 or 100 in your head — only one digit changes.",
+    summary: "Add or subtract 10 by changing the number of tens, or 100 by changing the number of hundreds. Regroup when a place crosses a boundary.",
     emoji: "🧠"
   }),
   "measure-with-ruler": withNarration({
@@ -764,7 +764,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "3",
     title: "Two-Step Problems",
     standardIds: ["3.OA.D.8"],
-    summary: "Solve problems in two steps, doing multiplication before subtraction — the order of operations.",
+    summary: "Solve two connected steps by following the situation — in this story, find all the pens, then subtract the pens given away.",
     emoji: "🪜"
   }),
   "arithmetic-patterns": withNarration({
@@ -1178,7 +1178,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "5",
     title: "Powers of Ten",
     standardIds: ["5.NBT.A.2"],
-    summary: "Multiply or divide by 10, 100, 1000 and watch the decimal point slide.",
+    summary: "Multiply or divide by a power of 10 and track each digit shifting to a new place value.",
     emoji: "🔟"
   }),
   "read-compare-decimals-thousandths": withNarration({
@@ -1223,7 +1223,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "5",
     title: "Decimal Arithmetic",
     standardIds: ["5.NBT.B.7"],
-    summary: "Add, subtract, and multiply decimals by keeping track of the decimal point.",
+    summary: "Add, subtract, multiply, and divide decimals by using place value and keeping track of the decimal point.",
     emoji: "🧮"
   }),
   "add-fractions-unlike": withNarration({
@@ -1457,7 +1457,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "6",
     title: "Area of Triangles",
     standardIds: ["6.G.A.1"],
-    summary: "Every triangle is half of a rectangle: A = ½ × base × height.",
+    summary: "A triangle has half the area of a parallelogram with the same base and perpendicular height: A = ½ × base × height.",
     emoji: "🔺"
   }),
   "volume-fractional": withNarration({
@@ -1709,7 +1709,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "8",
     title: "Slope: Rise over Run",
     standardIds: ["8.EE.B.6","8.F.A.3"],
-    summary: "Drag two points on a line and watch how slope = rise ÷ run stays constant no matter where you measure.",
+    summary: "For a nonvertical line, slope = rise ÷ run is constant between any two distinct points; a vertical line's slope is undefined.",
     emoji: "📐"
   }),
   "rational-irrational": withNarration({
@@ -1718,7 +1718,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "8",
     title: "Rational vs Irrational",
     standardIds: ["8.NS.A.1"],
-    summary: "Read the decimal: terminating or repeating means rational.",
+    summary: "Read the decimal: terminating or eventually repeating a fixed block means rational.",
     emoji: "🔢"
   }),
   "approximate-irrationals": withNarration({
@@ -1736,7 +1736,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "8",
     title: "Exponent Rules",
     standardIds: ["8.EE.A.1"],
-    summary: "Add exponents to multiply, subtract to divide, multiply to raise a power.",
+    summary: "For the same base, add exponents when multiplying; for the same nonzero base, subtract when dividing; multiply exponents for a power of a power.",
     emoji: "⏫"
   }),
   "roots": withNarration({
@@ -1907,7 +1907,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Rational Exponents Are Roots",
     standardIds: ["N-RN.1","N-RN.2"],
-    summary: "See why b^(1/n) must be the nth root, and rewrite any radical as a fractional exponent.",
+    summary: "For b > 0, see why b^(1/n) is the nth root and rewrite its radicals with rational exponents.",
     emoji: "√"
   }),
   "real-number-closure": withNarration({
@@ -2186,7 +2186,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Comparing Functions",
     standardIds: ["F-IF.9"],
-    summary: "One's a formula, one's a table — compare their rates and starting values head to head.",
+    summary: "Compare two linear functions shown as a formula and a table using rate of change (slope) and y-intercept (starting value).",
     emoji: "⚖️"
   }),
   "build-functions": withNarration({
@@ -2330,7 +2330,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Proving Parallelogram Theorems",
     standardIds: ["G-CO.11"],
-    summary: "One diagonal splits a parallelogram into congruent triangles — the key to all its properties.",
+    summary: "Diagonals create congruent triangles used to prove a parallelogram's opposite-side, opposite-angle, and diagonal-bisection properties.",
     emoji: "▱"
   }),
   "constructions": withNarration({
@@ -2357,7 +2357,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Similarity & the AA Criterion",
     standardIds: ["G-SRT.2","G-SRT.3"],
-    summary: "Similarity is a dilation plus a rigid motion — and two equal angles are enough to prove it.",
+    summary: "Similarity is a dilation plus a rigid motion; two pairs of corresponding congruent angles prove two triangles similar by AA.",
     emoji: "🔼"
   }),
   "similarity-proofs": withNarration({
@@ -2384,7 +2384,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Solving Right Triangles",
     standardIds: ["G-SRT.8"],
-    summary: "Use an angle of elevation and a distance to compute a building's height with tangent.",
+    summary: "Tangent gives the vertical rise from horizontal distance and angle of elevation; for a ground-level observation that rise is the full height, otherwise add the observer's eye or instrument height.",
     emoji: "🏢"
   }),
   "triangle-area-sine": withNarration({
@@ -2456,7 +2456,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Coordinate Proofs & Slopes",
     standardIds: ["G-GPE.4","G-GPE.5"],
-    summary: "Prove geometry with algebra: parallel lines share a slope; perpendicular slopes multiply to −1.",
+    summary: "Prove geometry with algebra: nonvertical parallel lines share a slope and nonvertical perpendicular slopes multiply to −1; vertical lines use vertical/horizontal criteria.",
     emoji: "📊"
   }),
   "partition-segment": withNarration({
@@ -2483,7 +2483,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Where Volume Formulas Come From",
     standardIds: ["G-GMD.1","G-GMD.2"],
-    summary: "Slice and stack: Cavalieri's principle says equal cross-sections mean equal volume.",
+    summary: "Cavalieri's principle: solids of the same height with equal cross-sectional areas at every corresponding height have equal volume.",
     emoji: "🪙"
   }),
   "volume-formulas": withNarration({
@@ -2492,7 +2492,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Volumes of Solids",
     standardIds: ["G-GMD.3"],
-    summary: "Cylinder, cone, sphere, and pyramid — and why the cone is exactly a third of its cylinder.",
+    summary: "Cylinder, cone, sphere, and pyramid — including why a cone is one-third of a cylinder with the same base and perpendicular height.",
     emoji: "🧊"
   }),
   "solids-cross-sections": withNarration({
@@ -2726,7 +2726,7 @@ export const ccssTextbookLessons: Record<CcssTextbookLessonId, CcssTextbookLesso
     ccssGrade: "HS",
     title: "Exponential vs. Linear Growth",
     standardIds: ["F-LE.1","F-LE.3"],
-    summary: "One grows by adding, the other by multiplying. Watch the exponential start behind — then blow past the line for good.",
+    summary: "Compare additive and multiplicative growth: early order depends on the parameters; when a > 0 and b > 1, a·b^x eventually exceeds a linear function.",
     emoji: "🚀"
   }),
   "unit-circle": withNarration({

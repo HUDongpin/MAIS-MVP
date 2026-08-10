@@ -36,7 +36,7 @@ export default function Lesson() {
         within 1, 2, and 3 standard deviations of the mean.
       </p>
 
-      <Figure caption="Shade within ±z standard deviations to read off the percentage of data it contains.">
+      <Figure caption="Choose how many standard deviations on each side of the mean to shade, then read the percentage of data in that interval.">
         <div className="flex flex-col items-center gap-6">
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" role="img" aria-label={`Normal curve with mean ${mean} and standard deviation ${sd}, shaded within ${z} standard deviation${z === 1 ? "" : "s"} of the mean`}>
             <polygon points={shade.join(" ")} fill={ACCENT} fillOpacity={0.3} />
@@ -55,7 +55,7 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <Stepper label="mean" value={mean} min={50} max={150} step={5} onChange={setMean} />
             <Stepper label="std dev" value={sd} min={5} max={25} step={5} onChange={setSd} />
-            <Stepper label="±z SD" value={z} min={1} max={3} step={1} onChange={setZ} />
+            <Stepper label="standard deviations from the mean" value={z} min={1} max={3} step={1} onChange={setZ} />
           </div>
         </div>
       </Figure>

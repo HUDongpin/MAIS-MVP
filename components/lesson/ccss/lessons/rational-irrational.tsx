@@ -24,17 +24,17 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Every number is either <strong>rational</strong>{" "}(a ratio of integers) or{" "}
+        Every real number is either <strong>rational</strong>{" "}(a ratio of integers) or{" "}
         <strong>irrational</strong>. The secret is in the <strong>decimal</strong>:
-        rationals either <em>stop</em>{" "}or <em>repeat</em>; irrationals go on
-        forever with no pattern.
+        rationals either <em>stop</em>{" "}or <em>eventually repeat a block</em>;
+        irrational decimals go on forever without an eventually repeating block.
       </p>
 
-      <Figure caption="Look at the decimal expansion. Terminating or repeating means rational.">
+      <Figure caption="Look at the decimal expansion. Terminating or eventually repeating a fixed block means rational.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {NUMS.map((num, i) => (
-              <button key={num.label} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{num.label}</button>
+              <button key={num.label} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{num.label}</button>
             ))}
           </div>
 
@@ -52,17 +52,17 @@ export default function Lesson() {
       <h2>Two kinds of numbers</h2>
       <p>
         A <strong>rational</strong>{" "}number can be written as a fraction of
-        integers, and its decimal always terminates or repeats. An{" "}
+        integers, and its decimal always terminates or eventually repeats a fixed block. An{" "}
         <strong>irrational</strong>{" "}number — like √2 or π — cannot be written as
-        such a fraction, and its decimal runs forever without repeating.
+        such a fraction, and its decimal runs forever without eventually repeating a fixed block.
       </p>
 
       <MathCheck>
         <p>
           A number is <strong>rational</strong>{" "}if it equals a ratio of two
           integers; its decimal expansion <strong>terminates or eventually
-          repeats</strong>{" "}(8.NS.A.1). A number whose decimal is non-terminating
-          and non-repeating is <strong>irrational</strong>{" "}— √2, π, and most square
+          repeats a fixed block</strong>{" "}(8.NS.A.1). A number whose decimal is non-terminating
+          and never eventually repeats a fixed block is <strong>irrational</strong>{" "}— √2, π, and most square
           roots of non-perfect-squares. Together they form the real numbers.
         </p>
       </MathCheck>

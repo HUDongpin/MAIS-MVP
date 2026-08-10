@@ -4,11 +4,13 @@ import { questions } from "../data/questions";
 import { mainlandPepJuniorDroppedGraphQuestionIds } from "../data/mainlandPepJuniorQuestions";
 import { deriveGraphAnswer, isExpectedAnswerRepresented } from "./questionBankSolvability";
 import {
+  buildDataDisplayLayout,
   buildCoordinateGridLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
   buildTenFrameLayout,
+  linePlotFrequencies,
   normalizeQuestionDiagram,
   numberLinePointValue,
   planeFigureAngleDegrees,
@@ -91,6 +93,30 @@ test("normalizeQuestionDiagram accepts every diagram kind and rebuilds clean obj
     ]
   });
   assert.equal(tenFrame?.kind, "ten-frame");
+
+  const pictureGraph = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "picture-graph",
+    title: { en: "Pet survey", zh: "寵物調查" },
+    unit: { en: "pets", zh: "寵物" },
+    categories: [
+      { label: { en: "Dogs", zh: "狗" }, value: 3 },
+      { label: { en: "Cats", zh: "貓" }, value: 2 }
+    ],
+    scale: 1
+  });
+  assert.equal(pictureGraph?.kind, "data-display");
+
+  const linePlot = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "line-plot",
+    title: { en: "Lengths", zh: "長度" },
+    unit: { en: "inches", zh: "英寸" },
+    values: [1, 1.25, 1.5, 1.5],
+    range: [1, 2],
+    tickInterval: 0.25
+  });
+  assert.equal(linePlot?.kind, "data-display");
 });
 
 test("normalizeQuestionDiagram rejects malformed payloads fail-closed", () => {
@@ -151,6 +177,65 @@ test("normalizeQuestionDiagram rejects malformed payloads fail-closed", () => {
 
   const withTooManyFrames = { kind: "ten-frame", frames: 3, groups: [{ count: 4, tone: "red" }] };
   assert.equal(normalizeQuestionDiagram(withTooManyFrames), undefined);
+
+  const withPartialPictureSymbol = {
+    kind: "data-display",
+    display: "picture-graph",
+    title: { en: "Survey", zh: "調查" },
+    unit: { en: "votes", zh: "票" },
+    categories: [
+      { label: { en: "A", zh: "甲" }, value: 2.5 },
+      { label: { en: "B", zh: "乙" }, value: 3 }
+    ],
+    scale: 1
+  };
+  assert.equal(normalizeQuestionDiagram(withPartialPictureSymbol), undefined);
+
+  const withOffTickLineValue = {
+    kind: "data-display",
+    display: "line-plot",
+    title: { en: "Lengths", zh: "長度" },
+    unit: { en: "inches", zh: "英寸" },
+    values: [1.1],
+    range: [1, 2],
+    tickInterval: 0.25
+  };
+  assert.equal(normalizeQuestionDiagram(withOffTickLineValue), undefined);
+});
+
+test("data-display layouts deterministically encode categories and stacked line-plot Xs", () => {
+  const barGraph = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "bar-graph",
+    title: { en: "Fruit survey", zh: "水果調查" },
+    unit: { en: "votes", zh: "票" },
+    categories: [
+      { label: { en: "Apples", zh: "蘋果" }, value: 6 },
+      { label: { en: "Bananas", zh: "香蕉" }, value: 9 }
+    ],
+    scale: 1
+  });
+  assert.ok(barGraph?.kind === "data-display" && barGraph.display === "bar-graph");
+  const barLayout = buildDataDisplayLayout(barGraph, englishText);
+  assert.equal(barLayout.display, "bar-graph");
+  assert.deepEqual(barLayout.rows.map((row) => row.value), [6, 9]);
+  assert.ok(barLayout.rows[1].barWidth > barLayout.rows[0].barWidth);
+
+  const linePlot = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "line-plot",
+    title: { en: "Measured lengths", zh: "量度長度" },
+    unit: { en: "inches", zh: "英寸" },
+    values: [1, 1.25, 1.5, 1.5, 1.75, 2],
+    range: [1, 2],
+    tickInterval: 0.25
+  });
+  assert.ok(linePlot?.kind === "data-display" && linePlot.display === "line-plot");
+  assert.deepEqual(linePlotFrequencies(linePlot).map((entry) => entry.count), [1, 1, 2, 1, 1]);
+  const lineLayout = buildDataDisplayLayout(linePlot, englishText);
+  assert.equal(lineLayout.display, "line-plot");
+  assert.equal(lineLayout.crosses.length, 6);
+  assert.deepEqual(lineLayout.ticks.map((tick) => tick.label), ["1", "1¼", "1½", "1¾", "2"]);
 });
 
 test("ten-frame layout places every counter in a countable spot", () => {
@@ -433,6 +518,20 @@ test("alt text is derived bilingually from the diagram spec", () => {
   assert.ok(solidAlt.en.startsWith("Cube"));
   assert.ok(solidAlt.en.includes("3 cm"));
   assert.ok((solidAlt.zhHans ?? "").includes("正方体"));
+
+  const dataDisplay = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "line-plot",
+    title: { en: "Beaker amounts", zh: "燒杯容量", zhHans: "烧杯容量" },
+    unit: { en: "cups", zh: "杯", zhHans: "杯" },
+    values: [0.25, 0.25, 0.5],
+    range: [0.25, 0.5],
+    tickInterval: 0.25
+  });
+  assert.ok(dataDisplay?.kind === "data-display");
+  const dataAlt = questionDiagramAltText(dataDisplay);
+  assert.match(dataAlt.en, /Line plot.*Beaker amounts.*¼: 2 Xs.*½: 1 X/);
+  assert.match(dataAlt.zhHans ?? "", /线图.*烧杯容量/);
 });
 
 test("generated banks fail closed: no graph question ships without a valid diagram", () => {

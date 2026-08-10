@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { relationForDisplayedValue } from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
@@ -14,11 +15,13 @@ export default function Lesson() {
   const [r, setR] = useState(3);
   const [h, setH] = useState(5);
 
-  const vol =
-    solid === "cylinder" ? r2(Math.PI * r * r * h) :
-    solid === "cone" ? r2((Math.PI * r * r * h) / 3) :
-    solid === "sphere" ? r2((4 / 3) * Math.PI * r * r * r) :
-    r2((2 * r) * (2 * r) * h / 3); // square pyramid, base side 2r
+  const rawVol =
+    solid === "cylinder" ? Math.PI * r * r * h :
+    solid === "cone" ? (Math.PI * r * r * h) / 3 :
+    solid === "sphere" ? (4 / 3) * Math.PI * r * r * r :
+    (2 * r) * (2 * r) * h / 3; // square pyramid, base side 2r
+  const vol = r2(rawVol);
+  const volRelation = relationForDisplayedValue(rawVol, vol);
 
   // The pyramid's base side is 2r, which nothing on screen used to state — the
   // displayed value was the one solid a student could not reproduce from the
@@ -33,15 +36,20 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Every 3-D volume formula is really "<strong>how much fits inside</strong>."
-        A cone is exactly <strong>one-third</strong>{" "}its enclosing cylinder; a sphere
-        is 4⁄3·πr³. Change the radius and height and watch the volume respond.
+        A cone is exactly <strong>one-third</strong>{" "}the volume of a cylinder with
+        the same base area and perpendicular height; a sphere is 4⁄3·πr³. Use
+        the controls to change {solid === "sphere"
+          ? "the radius"
+          : solid === "pyramid"
+            ? "the half-base and perpendicular height"
+            : "the radius and perpendicular height"}, and watch the volume respond.
       </p>
 
       <Figure caption="Cylinder, cone, sphere, pyramid — each has its own volume formula.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {(["cylinder", "cone", "sphere", "pyramid"] as Solid[]).map((s) => (
-              <button key={s} type="button" onClick={() => setSolid(s)} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={solid === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
+              <button key={s} type="button" onClick={() => setSolid(s)} aria-pressed={solid === s} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={solid === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
             ))}
           </div>
 
@@ -68,7 +76,8 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">{formula}</div>
-            <div className="mt-1 text-2xl font-black" style={{ color: ACCENT }}>≈ {vol}</div>
+            <div className="mt-1 text-2xl font-black" style={{ color: ACCENT }}>{volRelation} {vol}</div>
+            <div className="text-xs text-[var(--ink-faint)]">{volRelation === "=" ? "exact at the shown precision" : "rounded to the nearest hundredth"}</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -81,7 +90,7 @@ export default function Lesson() {
 
       <h2>The one-third and 4⁄3 factors</h2>
       <p>
-        A cone and a cylinder with the same base and height hold liquid in ratio
+        A cone and a cylinder with the same base area and perpendicular height hold liquid in ratio
         1:3 — pour three cones to fill the cylinder. That&apos;s why V_cone = ⅓πr²h.
         Pyramids share the ⅓ factor for the same reason. The sphere&apos;s 4⁄3·πr³
         comes from a Cavalieri comparison with a cylinder minus two cones.

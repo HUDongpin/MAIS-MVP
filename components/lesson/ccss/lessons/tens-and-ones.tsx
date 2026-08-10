@@ -7,6 +7,9 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const TENC = "var(--band-upper)";
 const ONEC = "var(--band-early)";
 
+const placeCount = (count: number, singular: "ten" | "one") =>
+  `${count} ${count === 1 ? singular : `${singular}s`}`;
+
 function TenRod() {
   return (
     <div className="grid overflow-hidden rounded border-2 border-white/60" style={{ gridTemplateRows: "repeat(10, 1fr)", width: 18, height: 180, background: TENC }}>
@@ -22,7 +25,7 @@ export default function Lesson() {
   const tens = Math.floor(n / 10);
   const ones = n % 10;
 
-  const set = (v: number) => setN(Math.max(0, Math.min(99, v)));
+  const set = (v: number) => setN(Math.max(10, Math.min(99, v)));
 
   return (
     <div className="prose-lesson max-w-none">
@@ -54,8 +57,8 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <button type="button" onClick={() => set(n - 10)} disabled={n < 10} className="rounded-lg px-4 py-2 text-sm font-bold text-white disabled:opacity-40" style={{ background: TENC }}>− 10</button>
-            <button type="button" onClick={() => set(n - 1)} disabled={n <= 0} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-bold disabled:opacity-40">− 1</button>
+            <button type="button" onClick={() => set(n - 10)} disabled={n < 20} className="rounded-lg px-4 py-2 text-sm font-bold text-white disabled:opacity-40" style={{ background: TENC }}>− 10</button>
+            <button type="button" onClick={() => set(n - 1)} disabled={n <= 10} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-bold disabled:opacity-40">− 1</button>
             <span className="w-12 text-center text-2xl font-black tabular-nums">{n}</span>
             <button type="button" onClick={() => set(n + 1)} disabled={n >= 99} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-bold disabled:opacity-40">+ 1</button>
             <button type="button" onClick={() => set(n + 10)} disabled={n > 89} className="rounded-lg px-4 py-2 text-sm font-bold text-white disabled:opacity-40" style={{ background: TENC }}>+ 10</button>
@@ -72,17 +75,17 @@ export default function Lesson() {
         Adding ten adds one more rod; the ones do not move. That is why{" "}
         {/* Clamping made both claims false near the ends: at n = 95 it said
             "10 more than 95 is 99". State them only where they hold. */}
-        {n + 10 <= 99 && <><strong>10 more than {n}</strong>{" "}is {n + 10}{n - 10 >= 0 ? " and " : " — quick mental math."}</>}
-        {n - 10 >= 0 && <><strong>10 less</strong>{" "}is {n - 10} — quick mental math.</>}
-        {n + 10 > 99 && n - 10 < 0 && <>Move the number away from the ends of the chart to see 10 more and 10 less.</>}
+        {n + 10 <= 99 && <><strong>10 more than {n}</strong>{" "}is {n + 10}{n - 10 >= 10 ? " and " : " — quick mental math."}</>}
+        {n - 10 >= 10 && <><strong>10 less</strong>{" "}is {n - 10} — quick mental math.</>}
       </p>
 
       <MathCheck>
         <p>
           A two-digit number is <strong>some tens and some ones</strong>{" "}
-          (1.NBT.B.2): {n} is {tens} tens and {ones} ones. Because the ones never
+          (1.NBT.B.2): {n} is {placeCount(tens, "ten")} and {placeCount(ones, "one")}. Because the ones never
           change, you can find <strong>10 more or 10 less</strong>{" "}in your head by
-          just changing the tens digit (1.NBT.C.5).
+          changing the number of tens (1.NBT.C.5). When adding 10 crosses 99,
+          ten tens regroup as one hundred, so the hundreds place changes too.
         </p>
       </MathCheck>
     </div>

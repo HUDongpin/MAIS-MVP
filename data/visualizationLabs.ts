@@ -1,5 +1,5 @@
 import { gradeIds, grades } from "./grades";
-import { hasSignatureLab } from "./signatureLabAssignments";
+import { getCaliforniaAssignedCoreStandardIds, hasSignatureLab } from "./signatureLabAssignments";
 import { topics } from "./topics";
 import {
   familyForVisualizationLab,
@@ -267,7 +267,7 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ar-math-g08-chapter-02-functions-and-rate-of-change": "function-family",
   "us-fl-math-s2-chapter-02-functions-and-rate-of-change": "function-family",
   "us-ar-math-g10-chapter-01-congruence-and-proof": "right-triangle-pythagorean",
-  "us-ca-math-s4-chapter-01": "right-triangle-pythagorean",
+  "us-ca-math-s4-chapter-01": "angle-geometry",
   "us-ca-math-s1-chapter-01": "fraction-bar",
   "functions": "function-graph",
   "advanced-functions": "function-family",
@@ -363,14 +363,47 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ca-math-p4-4-md-conversion-angles": "measurement-scale",
   "us-ca-math-p5-5-oa-expressions-patterns": "equation-balance",
   "us-ca-math-p5-5-md-volume-data": "array-area",
+  "us-ca-math-s2-chapter-01": "number-line",
   "us-ca-math-s4-chapter-02": "right-triangle-pythagorean",
   "us-ca-math-s2-chapter-02": "function-family",
   "us-ca-math-s5-chapter-02": "function-family",
   "us-ca-math-s5-chapter-05": "statistics-distribution",
-  "us-ca-math-s2-chapter-04": "coordinate-transform",
-  "us-ca-math-s6-chapter-01": "statistics-distribution",
+  "us-ca-math-s2-chapter-04": "right-triangle-pythagorean",
+  "us-ca-math-s2-chapter-05": "function-graph",
+  "us-ca-math-s3-chapter-03": "equation-balance",
+  "us-ca-math-s6-chapter-01": "measurement-scale",
+  "us-ca-math-s6-chapter-02": "complex-plane",
   "us-ca-math-s6-chapter-03": "statistics-distribution",
-  "us-ca-math-s6-chapter-05": "statistics-distribution",
+  "us-ca-math-s6-chapter-05": "vector-conic-3d/strategy-map",
+};
+
+/**
+ * A signature lab renders its curated bench instead of the generic template,
+ * but the template category is still learner-visible on the lesson card and
+ * in the Read-me-first note. These overrides name mixed-domain signature labs
+ * more precisely than any single generic renderer family can.
+ */
+const topicCategoryOverrides: Partial<Record<string, LocalizedText>> = {
+  "us-ca-math-p5-5-md-volume-data": {
+    en: "Measurement, data, and volume",
+    zh: "測量、數據與體積",
+    zhHans: "测量、数据与体积"
+  },
+  "us-ca-math-s2-chapter-05": {
+    en: "Bivariate data and models",
+    zh: "雙變量數據與模型",
+    zhHans: "双变量数据与模型"
+  },
+  "us-ca-math-s6-chapter-05": {
+    en: "Vectors, matrices, and modeling",
+    zh: "向量、矩陣與建模",
+    zhHans: "向量、矩阵与建模"
+  },
+  "us-ca-math-s6-chapter-02": {
+    en: "Complex numbers and polynomial algebra",
+    zh: "複數與多項式代數",
+    zhHans: "复数与多项式代数"
+  }
 };
 
 const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
@@ -868,6 +901,16 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
     en: "unit cubes -> volume data",
     zh: "單位正方體 -> 體積數據",
     zhHans: "单位正方体 -> 体积数据"
+  },
+  "us-ca-math-s2-chapter-01": {
+    en: "number classification -> placement -> equation solution",
+    zh: "數的分類 -> 數線定位 -> 方程解",
+    zhHans: "数的分类 -> 数线定位 -> 方程解"
+  },
+  "us-ca-math-s2-chapter-05": {
+    en: "data pair (x, y) -> trend line -> residual",
+    zh: "數據對 (x, y) -> 趨勢線 -> 殘差",
+    zhHans: "数据对 (x, y) -> 趋势线 -> 残差"
   },
   "us-ca-math-s5-chapter-02": {
     en: "exponential <-> logarithmic model",
@@ -1420,9 +1463,14 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
     zhHans: "样本 -> 推断 -> 结论"
   },
   "us-ca-math-s6-chapter-01": {
-    en: "measurement = mean +/- uncertainty",
-    zh: "測量值 = 平均 +/- 不確定度",
-    zhHans: "测量值 = 平均 +/- 不确定度"
+    en: "quantity x unit factors = equivalent measure; precision follows the inputs",
+    zh: "數量 x 單位因子 = 等值量度；精確度依據輸入",
+    zhHans: "数量 x 单位因子 = 等值测量；精确度依据输入"
+  },
+  "us-ca-math-s6-chapter-02": {
+    en: "a + bi -> complex roots; polynomial -> quotient + remainder",
+    zh: "a + bi -> 複數根；多項式 -> 商式 + 餘式",
+    zhHans: "a + bi -> 复数根；多项式 -> 商式 + 余式"
   },
   "us-ca-math-s6-chapter-04": {
     en: "function -> rate of change",
@@ -1440,9 +1488,19 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
     zhHans: "样本证据 -> 统计决策"
   },
   "us-ca-math-s6-chapter-05": {
-    en: "assumption -> model -> check",
-    zh: "假設 -> 模型 -> 檢查",
-    zhHans: "假设 -> 模型 -> 检查"
+    en: "vector -> matrix transformation -> geometric model -> check",
+    zh: "向量 -> 矩陣變換 -> 幾何模型 -> 檢查",
+    zhHans: "向量 -> 矩阵变换 -> 几何模型 -> 检查"
+  },
+  "us-ca-math-s3-chapter-03": {
+    en: "equivalent steps -> solution set; expression structure -> useful form",
+    zh: "等價步驟 -> 解集；代數式結構 -> 有用形式",
+    zhHans: "等价步骤 -> 解集；代数式结构 -> 有用形式"
+  },
+  "us-ca-math-s4-chapter-01": {
+    en: "rigid motion -> congruent image -> proof",
+    zh: "剛性變換 -> 全等像 -> 證明",
+    zhHans: "刚性变换 -> 全等像 -> 证明"
   },
   "us-ca-math-s4-chapter-02": {
     en: "similarity ratio -> right-triangle measure",
@@ -1468,6 +1526,16 @@ const topicTitleOverrides: Partial<Record<string, LocalizedText>> = {
   "us-ca-math-k-k-nbt-teen-numbers": localizedUsTopicTitle("K-D.1 Kindergarten Number and Operations in Base Ten: Teen Numbers"),
   "us-ca-math-k-k-md-attributes-data": localizedUsTopicTitle("K-E.1 Kindergarten Measurement and Data: Attributes and Data"),
   "us-ca-math-k-k-g-shapes-position": localizedUsTopicTitle("K-F.1 Kindergarten Geometry: Shapes and Position"),
+  "us-ca-math-s3-chapter-03": {
+    en: "9-C.1 Equations, Expressions, and Solution Sets",
+    zh: "9-C.1 方程、代數式與解集",
+    zhHans: "9-C.1 方程、代数式与解集"
+  },
+  "us-ca-math-s6-chapter-02": {
+    en: "12-B.1 Complex Numbers and Polynomial Algebra",
+    zh: "12-B.1 複數與多項式代數",
+    zhHans: "12-B.1 复数与多项式代数"
+  },
   "us-ar-math-g4-gm-3": localizedUsTopicTitle("Arkansas Unknown Angle Measures"),
   "us-ar-math-g10-chapter-03-circle-geometry": localizedUsTopicTitle("Arkansas Circle Geometry"),
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": localizedUsTopicTitle("Arkansas Exponential and Logarithmic Models"),
@@ -1510,9 +1578,9 @@ const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": usStandardsFocus("Arkansas AR.Math.HS.F-LE", "Exponential and Logarithmic Models", "函數族", "函数族"),
   "us-ar-math-g12-chapter-03-decision-statistics": usStandardsFocus("Arkansas AR.Math.HS.F-IF", "Decision Statistics", "統計與分佈", "统计与分布"),
   "us-ca-math-s4-chapter-03": {
-    en: "California Math Practice Beta Chapter 3 strand for Circle Geometry, with MAIS-authored standards-aligned practice questions.",
-    zh: "用幾何模型，觀察California Grade 10: 圓的幾何中的關鍵關係。",
-    zhHans: "用几何模型，观察California Grade 10: 圆的几何中的关键关系。"
+    en: "Use the geometry model to connect circle relationships, volume formulas, solid measures, and cross-sections in the assigned lesson core.",
+    zh: "用幾何模型，連結實際課節核心中的圓關係、體積公式、立體量度與截面。",
+    zhHans: "用几何模型，连接实际课节核心中的圆关系、体积公式、立体测量与截面。"
   },
   "us-ca-math-s5-chapter-02": {
     en: "California Math Practice Beta Chapter 2 strand for Exponential and Logarithmic Models, with MAIS-authored standards-aligned practice questions.",
@@ -1912,6 +1980,9 @@ const californiaClusterStandards: Record<string, CaliforniaClusterAlignmentRecor
   "5.G.coordinate-shapes": { domainId: "5.G", standardIds: ["5.G.A.1", "5.G.A.2", "5.G.B.3", "5.G.B.4"] }
 };
 
+// Legacy fallback for California catalog topics that do not yet have compact
+// assigned-core metadata. Every current assigned lesson page returns earlier
+// from `californiaAlignmentForTopic`; this table must not drive its claims.
 const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
   "us-ca-math-p6-chapter-01": "6.RP",
   "us-ca-math-p6-chapter-02": "6.NS",
@@ -1951,8 +2022,9 @@ const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
 };
 
 /**
- * Cross-domain standards a California chapter genuinely carries on top of its
- * primary domain.
+ * Legacy cross-domain fallback for a California chapter without compact
+ * assigned-core metadata. Current assigned lesson pages return before this
+ * table and use the exact interactive-core union instead.
  *
  * The domain fallback in `californiaAlignmentForTopic` gives every chapter its
  * own domain and nothing else, so a standard whose CCSS domain has no chapter of
@@ -2118,6 +2190,34 @@ function californiaFallbackDomainCode(topic: Topic, templateId: VisualizationTem
 function californiaAlignmentForTopic(topic: Topic, templateId: VisualizationTemplateId): VisualizationCaliforniaAlignment | undefined {
   if (!isCaliforniaTopic(topic)) return undefined;
 
+  // The lesson assignment is the content that students actually see. Keep the
+  // lab's learner-facing standards claim on that same source of truth instead
+  // of inferring a strand from a stale chapter description or a broad legacy
+  // topic table. Some rendered lesson cores intentionally cross domains.
+  const assignedStandardIds = getCaliforniaAssignedCoreStandardIds(topic.id);
+  if (assignedStandardIds.length > 0) {
+    const standardIds = [...assignedStandardIds];
+    const domainCodes = [...new Set(standardIds.map(domainCodeFromStandardId))];
+    const domains = domainCodes.map((domainCode) => californiaDomainAlignments[domainCode] ?? californiaDomainAlignments.Modeling);
+
+    return {
+      curriculumTrack: "US_CA_MATH",
+      sourcePolicy: californiaSourcePolicy,
+      standardIds,
+      domainId: domainCodes.map((domainCode) => `CA.CCSS.Math.${domainCode}`).join(" + "),
+      domainTitle: {
+        en: domains.map((domain) => domain.domainTitle.en).join(" + "),
+        zh: domains.map((domain) => domain.domainTitle.zh).join(" + "),
+        zhHans: domains.map((domain) => simplifiedCatalogText(domain.domainTitle)).join(" + ")
+      },
+      capabilitySummary: {
+        en: domains.map((domain) => domain.capabilitySummary.en).join(" "),
+        zh: domains.map((domain) => domain.capabilitySummary.zh).join(" "),
+        zhHans: domains.map((domain) => simplifiedCatalogText(domain.capabilitySummary)).join(" ")
+      }
+    };
+  }
+
   const explicitStandardIds = extractCaliforniaStandardIds(topic);
   const cluster = clusterAlignmentFromTopicId(topic.id);
   const domainCode =
@@ -2270,16 +2370,20 @@ function californiaStudentNoteForTopic(
   templateId: VisualizationTemplateId
 ): VisualizationStudentNote {
   const standards = alignment.standardIds.slice(0, 4).join(", ");
-  const moreStandards = alignment.standardIds.length > 4 ? "..." : "";
-  const modelType = templateMetadata[templateId].category.en.toLowerCase();
+  const moreStandards = alignment.standardIds.length > 4 ? ", and more" : "";
+  const moreStandardsZh = alignment.standardIds.length > 4 ? "、以及其他標準" : "";
+  const moreStandardsZhHans = alignment.standardIds.length > 4 ? "、以及其他标准" : "";
+  const category = categoryForTopic(topic, templateId);
+  const title = displayTitleForTopic(topic);
+  const modelType = category.en.toLowerCase();
 
   return {
     authorId: "S06-visualization-safeguard",
     updatedAt: "2026-06-19T00:00:00.000Z",
     text: {
-      en: `Read me first: This ${modelType} is a deterministic California standards-aligned practice visualization for ${topic.title.en}. It supports ${alignment.domainId} (${standards}${moreStandards}) with MAIS-authored wording. Use the sliders to reason about the relationship; do not treat the picture as a complete California course, official standards text, or proof that approximate visual values are exact.`,
-      zh: `Read me first：這個${templateMetadata[templateId].category.zh}是面向 ${topic.title.zh} 的確定性 California 標準對齊練習視覺化，支援 ${alignment.domainId}（${standards}${moreStandards}），文字由 MAIS 自寫。請用滑桿推理關係；不要把圖像視為完整 California 課程、官方標準原文，或把近似視覺值當成精確值。`,
-      zhHans: `Read me first：这个${simplifiedCatalogText(templateMetadata[templateId].category)}是面向 ${simplifiedCatalogText(topic.title)} 的确定性 California 标准对齐练习可视化，支持 ${alignment.domainId}（${standards}${moreStandards}），文字由 MAIS 自写。请用滑块推理关系；不要把图像视为完整 California 课程、官方标准原文，或把近似视觉值当成精确值。`
+      en: `Read me first: This ${modelType} is a deterministic California standards-aligned practice visualization for ${title.en}. It supports ${alignment.domainId} (${standards}${moreStandards}) with MAIS-authored wording. Use the sliders to reason about the relationship; do not treat the picture as a complete California course, official standards text, or proof that approximate visual values are exact.`,
+      zh: `Read me first：這個${category.zh}是面向 ${title.zh} 的確定性 California 標準對齊練習視覺化，支援 ${alignment.domainId}（${standards}${moreStandardsZh}），文字由 MAIS 自寫。請用滑桿推理關係；不要把圖像視為完整 California 課程、官方標準原文，或把近似視覺值當成精確值。`,
+      zhHans: `Read me first：这个${simplifiedCatalogText(category)}是面向 ${simplifiedCatalogText(title)} 的确定性 California 标准对齐练习可视化，支持 ${alignment.domainId}（${standards}${moreStandardsZhHans}），文字由 MAIS 自写。请用滑块推理关系；不要把图像视为完整 California 课程、官方标准原文，或把近似视觉值当成精确值。`
     }
   };
 }
@@ -2400,6 +2504,10 @@ function displayTitleForTopic(topic: Topic): LocalizedText {
   return topicTitleOverrides[topic.id] ?? topic.title;
 }
 
+function categoryForTopic(topic: Topic, templateId: VisualizationTemplateId): LocalizedText {
+  return topicCategoryOverrides[topic.id] ?? templateMetadata[templateId].category;
+}
+
 function labTitleForTopic(topic: Topic, track: VisualizationCurriculumTrack): LocalizedText {
   const mainland = track !== "HK" && track !== "US" && track !== "CAPSTONE";
   const title = displayTitleForTopic(topic);
@@ -2411,16 +2519,16 @@ function labTitleForTopic(topic: Topic, track: VisualizationCurriculumTrack): Lo
 }
 
 function labDescriptionForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): LocalizedText {
-  const template = templateMetadata[templateId];
+  const category = categoryForTopic(topic, templateId);
   const mainland = track !== "HK" && track !== "US" && track !== "CAPSTONE";
   const title = displayTitleForTopic(topic);
 
   return {
-    en: `Use a focused ${template.category.en.toLowerCase()} model to explore ${title.en.toLowerCase()} with sliders, diagrams, and live feedback.`,
+    en: `Use a focused ${category.en.toLowerCase()} model to explore ${title.en.toLowerCase()} with sliders, diagrams, and live feedback.`,
     zh: mainland
-      ? `通过${simplifiedCatalogText(template.category)}模型，用滑块、图形和即时反馈探索${simplifiedCatalogText(title)}。`
-      : `透過${template.category.zh}模型，用滑桿、圖形和即時回饋探索${title.zh}。`,
-    zhHans: `通过${simplifiedCatalogText(template.category)}模型，用滑块、图形和即时反馈探索${simplifiedCatalogText(title)}。`
+      ? `通过${simplifiedCatalogText(category)}模型，用滑块、图形和即时反馈探索${simplifiedCatalogText(title)}。`
+      : `透過${category.zh}模型，用滑桿、圖形和即時回饋探索${title.zh}。`,
+    zhHans: `通过${simplifiedCatalogText(category)}模型，用滑块、图形和即时反馈探索${simplifiedCatalogText(title)}。`
   };
 }
 
@@ -2434,18 +2542,27 @@ function gradeLabelForTopic(topic: Topic, track: VisualizationCurriculumTrack): 
 }
 
 function labFocusForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): LocalizedText {
-  const template = templateMetadata[templateId];
+  const category = categoryForTopic(topic, templateId);
   const mainland = track === "MAINLAND_PEP_PRIMARY" || track === "MAINLAND_PEP_JUNIOR" || track === "MAINLAND_PEP_HIGH";
   const topicFocusOverride = topicFocusOverrides[topic.id];
   if (topicFocusOverride) return topicFocusOverride;
   const title = displayTitleForTopic(topic);
+  const assignedStandardIds = getCaliforniaAssignedCoreStandardIds(topic.id);
+
+  if (isCaliforniaTopic(topic) && assignedStandardIds.length > 0) {
+    return {
+      en: `Use the ${category.en.toLowerCase()} model to connect the assigned interactive lesson core within ${title.en}.`,
+      zh: `用${category.zh}模型，連結 ${title.zh} 實際課節核心中的概念。`,
+      zhHans: `用${simplifiedCatalogText(category)}模型，连接 ${simplifiedCatalogText(title)} 实际课节核心中的概念。`
+    };
+  }
 
   return {
     en: topic.description.en,
     zh: mainland
-      ? `用${simplifiedCatalogText(template.category)}模型，观察${simplifiedCatalogText(title)}中的关键关系。`
-      : `用${template.category.zh}模型，觀察${title.zh}中的關鍵關係。`,
-    zhHans: `用${simplifiedCatalogText(template.category)}模型，观察${simplifiedCatalogText(title)}中的关键关系。`
+      ? `用${simplifiedCatalogText(category)}模型，观察${simplifiedCatalogText(title)}中的关键关系。`
+      : `用${category.zh}模型，觀察${title.zh}中的關鍵關係。`,
+    zhHans: `用${simplifiedCatalogText(category)}模型，观察${simplifiedCatalogText(title)}中的关键关系。`
   };
 }
 
@@ -2540,7 +2657,7 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
     grade: topic.grade,
     title: labTitleForTopic(topic, curriculumTrack),
     description: labDescriptionForTopic(topic, templateId, curriculumTrack),
-    category: template.category,
+    category: categoryForTopic(topic, templateId),
     gradeLabel: gradeLabelForTopic(topic, curriculumTrack),
     topicId: topic.id,
     curriculumTrack,

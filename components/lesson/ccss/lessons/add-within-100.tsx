@@ -62,7 +62,7 @@ export default function Lesson() {
             {([["ones", "+ ones"], ["tens", "+ tens"], ["subtens", "− tens"]] as [Mode, string][]).map(([m, lbl]) => (
               // Clamp the amount into the new mode's range: a 9 left over from
               // "+ ones" survived into "+ tens" and gave "34 + 90 = 99".
-              <button key={m} type="button" onClick={() => { setMode(m); setAmt((p) => Math.max(1, Math.min(p, m === "ones" ? Math.min(9, 99 - base) : m === "tens" ? Math.floor((99 - base) / 10) : Math.floor(base / 10)))); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: ADDC, color: "white", borderColor: ADDC } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              <button key={m} type="button" onClick={() => { setMode(m); setAmt((p) => Math.max(1, Math.min(p, m === "ones" ? Math.min(9, 99 - base) : m === "tens" ? Math.floor((99 - base) / 10) : Math.floor(base / 10)))); }} aria-pressed={mode === m} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: ADDC, color: "white", borderColor: ADDC } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 
@@ -111,7 +111,10 @@ export default function Lesson() {
           Adding within 100 uses place value: add ones to ones and tens to tens,
           and <strong>compose a new ten</strong>{" "}whenever the ones reach ten
           (1.NBT.C.4). Subtracting a multiple of ten just removes whole ten-rods,
-          leaving the ones unchanged (1.NBT.C.6): {mode === "subtens" ? `${base} − ${amt * 10} = ${result}` : `e.g. ${base} − 10 = ${base - 10}`}.
+          leaving the ones unchanged: {mode === "subtens" ? `${base} − ${amt * 10} = ${result}` : `for example, ${base} − 10 = ${base - 10}`}.
+          Standard 1.NBT.C.6 requires this strategy for subtracting one positive
+          multiple of 10 from another; the same place-value reasoning also works
+          in this model when the starting number has some ones.
         </p>
       </MathCheck>
     </div>

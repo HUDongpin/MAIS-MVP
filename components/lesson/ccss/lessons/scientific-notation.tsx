@@ -13,6 +13,15 @@ function expand(c: number, e: number) {
   return Number(v.toFixed(Math.abs(e))).toString();
 }
 
+function integerText(value: number) {
+  return `${value}`.replace("-", "−");
+}
+
+function exponentOperand(value: number) {
+  const text = integerText(value);
+  return value < 0 ? `(${text})` : text;
+}
+
 export default function Lesson() {
   const [c1, setC1] = useState(3);
   const [e1, setE1] = useState(5);
@@ -23,14 +32,16 @@ export default function Lesson() {
   let pc = c1 * c2;
   let pe = e1 + e2;
   if (pc >= 10) { pc = pc / 10; pe += 1; }
+  const productExponentWork = `${integerText(e1)} + ${exponentOperand(e2)}`;
+  const productExponent = integerText(e1 + e2);
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        <strong>Scientific notation</strong>{" "}writes any number as a coefficient
-        (between 1 and 10) times a <strong>power of 10</strong>. It makes huge and
-        tiny numbers manageable — and multiplying them is easy: multiply the
-        coefficients, add the exponents.
+        <strong>Scientific notation</strong>{" "}writes any <strong>nonzero</strong>{" "}
+        number as ±c × 10ⁿ, where 1 ≤ c &lt; 10. It makes very large and very small
+        magnitudes manageable — and multiplying them is systematic: multiply the
+        signed coefficients, then add the exponents.
       </p>
 
       <Figure caption="A coefficient times a power of ten. Multiply by multiplying coefficients and adding exponents.">
@@ -39,7 +50,11 @@ export default function Lesson() {
             <div className="font-mono text-3xl font-black">
               <span style={{ color: B }}>{c1}</span> × 10<sup>{e1}</sup> = <span style={{ color: ACCENT }}>{expand(c1, e1)}</span>
             </div>
-            <div className="mt-1 text-sm text-[var(--ink-soft)]">{e1 >= 0 ? "move the point right" : "move the point left"} {Math.abs(e1)} places</div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">
+              {e1 === 0
+                ? "leave the decimal point in place"
+                : `move the decimal point ${e1 > 0 ? "right" : "left"} ${Math.abs(e1)} ${Math.abs(e1) === 1 ? "place" : "places"}`}
+            </div>
           </div>
 
           <div className="w-full max-w-md border-t border-[var(--line)] pt-4 text-center">
@@ -48,7 +63,7 @@ export default function Lesson() {
               ({c1}×10<sup>{e1}</sup>)({c2}×10<sup>{e2}</sup>)
             </div>
             <div className="mt-1 font-mono text-[15px] text-[var(--ink-soft)]">
-              = ({c1}×{c2}) × 10<sup>{e1}+{e2}</sup> = {c1 * c2} × 10<sup>{e1 + e2}</sup>
+              = ({c1}×{c2}) × 10<sup>{productExponentWork}</sup> = {c1 * c2} × 10<sup>{productExponent}</sup>
             </div>
             <div className="mt-1 font-mono text-2xl font-black" style={{ color: ACCENT }}>
               = {pc} × 10<sup>{pe}</sup>
@@ -70,14 +85,18 @@ export default function Lesson() {
 
       <h2>Exponents count the zeros</h2>
       <p>
-        {c1} × 10<sup>{e1}</sup> means {c1} followed by {e1 >= 0 ? `${e1} place shift right (${expand(c1, e1)})` : `a shift ${Math.abs(e1)} places left`}. Multiplying powers of ten adds their exponents, which is why the
-        product&apos;s exponent is {e1} + {e2} = {e1 + e2}.
+        {c1} × 10<sup>{e1}</sup> means {e1 === 0
+          ? `leave the decimal point in ${c1} in place (${expand(c1, e1)})`
+          : `shift the decimal point in ${c1} ${Math.abs(e1)} ${Math.abs(e1) === 1 ? "place" : "places"} ${e1 > 0 ? "right" : "left"} (${expand(c1, e1)})`}. Multiplying powers of ten adds their exponents, which is why the
+        product&apos;s exponent is {productExponentWork} = {productExponent}.
       </p>
 
       <MathCheck>
         <p>
-          <strong>Scientific notation</strong>{" "}expresses a number as (1 ≤ c &lt; 10)
-          × 10ⁿ (8.EE.A.3), ideal for very large or very small quantities.{" "}
+          <strong>Scientific notation</strong>{" "}expresses a nonzero number as
+          ±c × 10ⁿ, where 1 ≤ c &lt; 10 (8.EE.A.3), ideal for very large or very
+          small quantities. Zero is written simply as 0; it has no normalized
+          form with 1 ≤ c &lt; 10.{" "}
           <strong>Operations</strong>{" "}(8.EE.A.4) use exponent rules: to multiply,
           multiply the coefficients and <strong>add the exponents</strong>, then
           renormalize the coefficient to between 1 and 10 if needed.

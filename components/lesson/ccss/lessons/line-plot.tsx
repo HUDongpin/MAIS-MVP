@@ -10,7 +10,8 @@ const MARK = "var(--band-middle)";
 export default function Lesson() {
   const [counts, setCounts] = useState([1, 3, 4, 2, 1]);
   const total = counts.reduce((s, n) => s + n, 0);
-  const maxIdx = counts.indexOf(Math.max(...counts));
+  const peak = Math.max(...counts);
+  const modes = total === 0 ? [] : LENGTHS.filter((_, i) => counts[i] === peak);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -42,7 +43,9 @@ export default function Lesson() {
                 length for an empty plot. */}
             {total === 0
               ? <>No pencils measured yet — add some to see the shape of the data.</>
-              : <>{total} pencils measured. Most were <strong>{LENGTHS[maxIdx]} cm</strong>{" "}({counts[maxIdx]} of them).</>}
+              : modes.length === 1
+                ? <>{total} {total === 1 ? "pencil" : "pencils"} measured. The most common length is <strong>{modes[0]} cm</strong>{" "}({peak} of them).</>
+                : <>{total} pencils measured. The most common lengths are <strong>{joinValues(modes)} cm</strong>{" "}({peak} at each length).</>}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -50,9 +53,9 @@ export default function Lesson() {
               <div key={len} className="flex flex-col items-center gap-1">
                 <span className="text-xs font-bold text-[var(--ink-faint)]">{len} cm</span>
                 <div className="flex items-center gap-1.5">
-                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.max(0, c - 1) : c)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${len}`}>−</button>
+                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.max(0, c - 1) : c)))} disabled={counts[i] <= 0} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Remove one pencil measuring ${len} centimeters`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{counts[i]}</span>
-                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.min(6, c + 1) : c)))} disabled={counts[i] >= 6} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more at ${len}`}>+</button>
+                  <button type="button" onClick={() => setCounts((p) => p.map((c, j) => (j === i ? Math.min(6, c + 1) : c)))} disabled={counts[i] >= 6} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Add one pencil measuring ${len} centimeters`}>+</button>
                 </div>
               </div>
             ))}
@@ -63,7 +66,12 @@ export default function Lesson() {
       <h2>Reading the stacks</h2>
       <p>
         Each X is one measurement. Count a stack to see how many things had that
-        length. The tallest stack is the most common length{total === 0 ? " — step a count up to see one." : <>{" "}— here, {LENGTHS[maxIdx]} cm.</>}
+        length. {total === 0 ? (
+          <>There are no stacks yet, so there is no most common length. Add a measurement to begin.</>
+        ) : (
+          <>The tallest {modes.length === 1 ? "stack shows" : "stacks show"}{" "}
+          the most common {modes.length === 1 ? "length" : "lengths"} — here, {joinValues(modes)} cm.</>
+        )}
       </p>
 
       <MathCheck>
@@ -76,4 +84,9 @@ export default function Lesson() {
       </MathCheck>
     </div>
   );
+}
+
+function joinValues(values: number[]) {
+  if (values.length <= 1) return String(values[0] ?? "");
+  return `${values.slice(0, -1).join(", ")} and ${values[values.length - 1]}`;
 }

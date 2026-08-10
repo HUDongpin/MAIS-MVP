@@ -51,7 +51,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {(["add", "sub", "mul"] as Op[]).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+              <button key={o} type="button" onClick={() => setOp(o)} aria-pressed={op === o} className="rounded-lg border px-4 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                 {o === "add" ? "A + B" : o === "sub" ? "A − B" : "A · B"}
               </button>
             ))}

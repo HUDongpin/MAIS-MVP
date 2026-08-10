@@ -20,6 +20,7 @@ export default function Lesson() {
   const [a, setA] = useState(1);
   const [h, setH] = useState(-2);
   const [k, setK] = useState(-3);
+  const isQuadratic = a !== 0;
 
   const sx = (x: number) => ORIGIN + x * CELL;
   const sy = (y: number) => ORIGIN - y * CELL;
@@ -39,13 +40,15 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Every quadratic function can be written in <strong>vertex form</strong>,{" "}
-        <span className="font-mono">y = a(x − h)² + k</span>. The three numbers
+        <span className="font-mono">y = a(x − h)² + k</span>, with{" "}
+        <strong>a ≠ 0</strong>. The three numbers
         each do one job: <strong>a</strong>{" "}stretches and flips the parabola,{" "}
         <strong>h</strong>{" "}slides it left/right, and <strong>k</strong>{" "}slides it
-        up/down. Move the sliders to see each effect on its own.
+        up/down. The a = 0 setting is included as a degenerate comparison: it
+        produces the constant line y = k, not a parabola.
       </p>
 
-      <Figure caption="The vertex sits exactly at (h, k), and the curve is a mirror image across the line x = h.">
+      <Figure caption={isQuadratic ? "For a ≠ 0, the vertex is (h, k) and the parabola is symmetric across x = h." : "At a = 0 the formula is the constant line y = k; h has no effect and there is no unique vertex or symmetry axis."}>
         <div className="flex flex-col items-center gap-5">
           <svg
             width={SIZE}
@@ -56,7 +59,7 @@ export default function Lesson() {
             role="img"
             // Built with the same sign helpers as the visible formula box, which
             // otherwise disagreed with it: "(x − −2)² + −3" versus "(x + 2)² − 3".
-            aria-label={`Parabola y = ${fmt(a)}(x ${sign(h)})² ${k < 0 ? `− ${-k}` : `+ ${k}`}`}
+            aria-label={isQuadratic ? `Parabola y = ${fmt(a)}(x ${sign(h)})² ${k < 0 ? `− ${-k}` : `+ ${k}`}, with vertex (${fmt(h)}, ${fmt(k)})` : `Constant line y = ${fmt(k)}; a is zero and h has no effect`}
           >
             {/* grid */}
             {Array.from({ length: 2 * R + 1 }, (_, i) => {
@@ -69,7 +72,7 @@ export default function Lesson() {
               );
             })}
             {/* axis of symmetry */}
-            <line
+            {isQuadratic && <line
               x1={sx(h)}
               y1={sy(-R)}
               x2={sx(h)}
@@ -78,7 +81,7 @@ export default function Lesson() {
               strokeWidth={1.5}
               strokeDasharray="5 5"
               opacity={0.5}
-            />
+            />}
             {/* axes */}
             <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={1.75} />
             <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={1.75} />
@@ -95,7 +98,7 @@ export default function Lesson() {
               />
             )}
             {/* vertex */}
-            <circle cx={sx(h)} cy={sy(k)} r={6} fill={CURVE} stroke="white" strokeWidth={2.5} />
+            {isQuadratic && <circle cx={sx(h)} cy={sy(k)} r={6} fill={CURVE} stroke="white" strokeWidth={2.5} />}
           </svg>
 
           <div className="rounded-xl bg-[var(--surface-2)] px-6 py-3 text-center">
@@ -103,9 +106,11 @@ export default function Lesson() {
               y = {fmt(a)}(x {sign(h)})² {k < 0 ? `− ${-k}` : `+ ${k}`}
             </div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
-              Vertex at <strong>({fmt(h)}, {fmt(k)})</strong>{" "}· opens{" "}
-              <strong>{a > 0 ? "upward" : a < 0 ? "downward" : "flat (a = 0)"}</strong>
-              {a !== 0 && (
+              {isQuadratic ? <>
+                Vertex at <strong>({fmt(h)}, {fmt(k)})</strong>{" "}· opens{" "}
+                <strong>{a > 0 ? "upward" : "downward"}</strong>
+              </> : <><strong>Constant line y = {fmt(k)}</strong>{" "}· not a quadratic · h has no effect</>}
+              {isQuadratic && (
                 <>
                   {" "}
                   · {Math.abs(a) > 1 ? "narrower" : Math.abs(a) < 1 ? "wider" : "same width"} than y = x²
@@ -126,23 +131,23 @@ export default function Lesson() {
       <p>
         A square is never negative: <span className="font-mono">(x − h)²</span>{" "}
         is 0 when <span className="font-mono">x = h</span> and positive
-        everywhere else. So when <strong>a &gt; 0</strong>, the smallest value of{" "}
-        <span className="font-mono">a(x − h)² + k</span> happens right at{" "}
-        <span className="font-mono">x = h</span>, and that lowest point is{" "}
-        <span className="font-mono">y = k</span>.
+        everywhere else. For <strong>a &gt; 0</strong>, (h, k) is the minimum; for{" "}
+        <strong>a &lt; 0</strong>, it is the maximum. When <strong>a = 0</strong>, every
+        input has value k, so there is no unique turning point or axis of symmetry.
       </p>
 
       <MathCheck>
         <p>
           In <strong>y = a(x − h)² + k</strong>, the term{" "}
           <strong>(x − h)²</strong>{" "}equals 0 only at <strong>x = h</strong>{" "}and
-          is positive otherwise, so the graph turns around at the point{" "}
+          is positive otherwise, so for <strong>a ≠ 0</strong> the graph turns at{" "}
           <strong>(h, k)</strong>{" "}— the vertex (F-IF.8). Replacing x with (x − h)
           shifts the graph right by h; adding k shifts it up by k; multiplying by
           a scales it vertically and, if a &lt; 0, reflects it over its axis
           (F-BF.3). Because (x − h)² gives the same value for inputs the same
           distance on either side of h, the parabola is symmetric about the line{" "}
-          <strong>x = h</strong>.
+          <strong>x = h</strong>. If a = 0, the expression is the constant function
+          y = k and these vertex claims do not apply.
         </p>
       </MathCheck>
     </div>

@@ -5,8 +5,7 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
-const R = 6, CELL = 24, PAD = 22;
-const SIZE = 2 * R * CELL + 2 * PAD;
+const BASE_EXTENT = 6, CELL = 24, PAD = 22;
 
 export default function Lesson() {
   const [h, setH] = useState(1);
@@ -19,8 +18,10 @@ export default function Lesson() {
   const neg = (n: number) => (n < 0 ? `(${n})` : `${n}`);
   const [rad, setRad] = useState(3);
 
-  const sx = (x: number) => PAD + (x + R) * CELL;
-  const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
+  const extent = Math.max(BASE_EXTENT, Math.abs(h) + rad, Math.abs(k) + rad);
+  const size = 2 * extent * CELL + 2 * PAD;
+  const sx = (x: number) => PAD + (x + extent) * CELL;
+  const sy = (y: number) => size - PAD - (y + extent) * CELL;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -37,15 +38,15 @@ export default function Lesson() {
             (x − {neg(h)})² + (y − {neg(k)})² = {rad}²
           </div>
 
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Circle centered at (${h}, ${k}) with radius ${rad} on a coordinate grid`}>
-            {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="max-w-full" style={{ maxHeight: 320 }} role="img" aria-label={`Circle centered at (${h}, ${k}) with radius ${rad} on a coordinate grid from ${-extent} to ${extent}`}>
+            {Array.from({ length: 2 * extent + 1 }, (_, i) => i - extent).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
-                <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />
-                <line x1={sx(-R)} y1={sy(v)} x2={sx(R)} y2={sy(v)} />
+                <line x1={sx(v)} y1={sy(-extent)} x2={sx(v)} y2={sy(extent)} />
+                <line x1={sx(-extent)} y1={sy(v)} x2={sx(extent)} y2={sy(v)} />
               </g>
             ))}
-            <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <line x1={sx(-extent)} y1={sy(0)} x2={sx(extent)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
+            <line x1={sx(0)} y1={sy(-extent)} x2={sx(0)} y2={sy(extent)} stroke="var(--ink-soft)" strokeWidth={2} />
             <circle cx={sx(h)} cy={sy(k)} r={rad * CELL} fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             <circle cx={sx(h)} cy={sy(k)} r={4} fill={ACCENT} />
             <text x={sx(h) + 6} y={sy(k) - 6} fontSize={11} fontWeight={800} fill={ACCENT}>({h}, {k})</text>

@@ -32,20 +32,19 @@ export default function Lesson() {
     const loc = pt.matrixTransform(svg.getScreenCTM()!.inverse());
     const nx = clamp(Math.round((loc.x - ORIGIN) / CELL));
     const ny = clamp(Math.round((ORIGIN - loc.y) / CELL));
-    if (nx === 0 && ny === 0) return;
     setP({ x: nx, y: ny });
   }
 
   const reflected = axis === "x" ? { x: p.x, y: -p.y } : { x: -p.x, y: p.y };
-  const quadrant = quadrantOf(p);
+  const location = pointLocation(p);
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Numbers go both ways from zero, and so do the axes. The plane splits into
-        four <strong>quadrants</strong>. The <strong>signs</strong>{" "}of a point&apos;s
-        coordinates — plus or minus — tell you exactly which quadrant it is in.
-        Click anywhere to move the point.
+        Coordinates can be positive, negative, or zero. For a point away from the
+        axes, the two <strong>nonzero signs</strong>{" "}tell you which of the four
+        {" "}<strong>quadrants</strong>{" "}contains it. A zero coordinate puts the point
+        on an axis, and (0, 0) is the origin. Click anywhere to move the point.
       </p>
 
       <Figure caption="Reflecting a point across an axis flips the sign of one coordinate — like a mirror.">
@@ -59,9 +58,7 @@ export default function Lesson() {
             style={{ maxHeight: 380 }}
             onPointerDown={(e) => place(e.clientX, e.clientY)}
             role="img"
-            // quadrantOf returns "none" on an axis, which read as "in quadrant
-            // none". A screen reader gets the same wording the sighted reader gets.
-            aria-label={quadrant === "none" ? `Point at (${p.x}, ${p.y}), on an axis and in no quadrant` : `Point at (${p.x}, ${p.y}) in quadrant ${quadrant}`}
+            aria-label={`Point (${p.x}, ${p.y}) is ${location}`}
           >
             {/* grid */}
             {Array.from({ length: 2 * R + 1 }, (_, i) => {
@@ -115,7 +112,8 @@ export default function Lesson() {
 
           <div className="text-center text-[15px] text-[var(--ink-soft)]">
             <span className="font-mono font-bold" style={{ color: POINT }}>({p.x}, {p.y})</span>{" "}
-            is in <strong>Quadrant {quadrant}</strong>. Its mirror across the{" "}
+            is <strong>{location}</strong>.{" "}
+            Its mirror across the{" "}
             <strong>{axis}-axis</strong>{" "}is{" "}
             <span className="font-mono font-bold" style={{ color: REFLECT }}>({reflected.x}, {reflected.y})</span>.
           </div>
@@ -128,7 +126,7 @@ export default function Lesson() {
                   key={a}
                   type="button"
                   onClick={() => setAxis(a)}
-                  className="rounded-lg border px-3 py-1.5 text-sm font-bold"
+                  aria-pressed={axis === a} className="rounded-lg border px-3 py-1.5 text-sm font-bold"
                   style={
                     axis === a
                       ? { background: REFLECT, color: "white", borderColor: REFLECT }
@@ -147,19 +145,21 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>Signs make quadrants</h2>
+      <h2>Nonzero signs identify quadrants</h2>
       <p>
         Quadrant <strong>I</strong>{" "}is (+, +); <strong>II</strong>{" "}is (−, +);{" "}
         <strong>III</strong>{" "}is (−, −); and <strong>IV</strong>{" "}is (+, −). Reading
-        the two signs tells you the quadrant before you even plot the point.
+        two nonzero signs tells you the quadrant before you even plot the point.
+        If y = 0, the point is on the x-axis; if x = 0, it is on the y-axis; and
+        (0, 0) is the origin on both axes. Points on either axis are in no quadrant.
       </p>
 
       <MathCheck>
         <p>
-          Every point has a signed pair <strong>(x, y)</strong>: the sign of{" "}
-          <strong>x</strong>{" "}says left (−) or right (+) of the y-axis, and the
-          sign of <strong>y</strong>{" "}says below (−) or above (+) the x-axis
-          (6.NS.C.6). Reflecting a point across an axis changes only the sign of
+          Every point has an ordered pair <strong>(x, y)</strong>: x &lt; 0 is left of
+          the y-axis, x &gt; 0 is right, and x = 0 is on it; y &lt; 0 is below the
+          x-axis, y &gt; 0 is above, and y = 0 is on it (6.NS.C.6). Reflecting a
+          point across an axis changes only the sign of
           the coordinate perpendicular to that axis: across the y-axis{" "}
           <strong>(x, y) → (−x, y)</strong>; across the x-axis{" "}
           <strong>(x, y) → (x, −y)</strong>{" "}(6.NS.C.8).
@@ -169,14 +169,19 @@ export default function Lesson() {
   );
 }
 
-// A point on an axis is in no quadrant; the caller substitutes this string
-// into sentences that already supply their own wording for that case.
 function quadrantOf(p: { x: number; y: number }): string {
   if (p.x === 0 || p.y === 0) return "none";
   if (p.x > 0 && p.y > 0) return "I";
   if (p.x < 0 && p.y > 0) return "II";
   if (p.x < 0 && p.y < 0) return "III";
   return "IV";
+}
+
+function pointLocation(p: { x: number; y: number }): string {
+  if (p.x === 0 && p.y === 0) return "at the origin, on both axes and in no quadrant";
+  if (p.y === 0) return "on the x-axis and in no quadrant";
+  if (p.x === 0) return "on the y-axis and in no quadrant";
+  return `in Quadrant ${quadrantOf(p)}`;
 }
 
 function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {

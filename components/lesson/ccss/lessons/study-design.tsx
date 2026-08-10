@@ -7,9 +7,9 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const ACCENT = "var(--band-high)";
 
 const TYPES = [
-  { name: "Survey", concl: "Estimates a population value.", desc: "Ask a random sample and generalize to the population. Needs random sampling to be unbiased. Cannot show causation.", ex: "Poll 500 voters to estimate approval." },
+  { name: "Survey", concl: "Estimates a population value.", desc: "Use an appropriate probability sample to support generalization and reduce selection bias. Sampling and nonresponse problems can still bias an estimate. A survey alone cannot show causation.", ex: "Poll a probability sample of 500 voters to estimate approval." },
   { name: "Observational study", concl: "Finds associations, not causes.", desc: "Observe groups as they are, measuring variables without intervening. Lurking variables can confound, so it shows correlation, not cause.", ex: "Compare health of coffee drinkers vs not." },
-  { name: "Experiment", concl: "Can establish causation.", desc: "Randomly assign subjects to treatments and compare. Randomization balances lurking variables, so a difference can be attributed to the treatment.", ex: "Randomly give a drug or placebo, compare." },
+  { name: "Experiment", concl: "Can support causal inference.", desc: "Randomly assign subjects to treatments and compare. Randomization makes groups comparable in expectation; with valid implementation and appropriate chance analysis, outcome differences can support a treatment-effect conclusion.", ex: "Randomly give a drug or placebo, compare." },
 ];
 
 export default function Lesson() {
@@ -22,14 +22,15 @@ export default function Lesson() {
         <em>How</em>{" "}data is collected decides what you may conclude. A{" "}
         <strong>survey</strong>{" "}estimates a population value; an{" "}
         <strong>observational study</strong>{" "}finds associations; only a{" "}
-        <strong>randomized experiment</strong>{" "}can establish <strong>cause</strong>.
+        well-designed <strong>randomized experiment</strong>{" "}can support a
+        <strong>causal inference</strong>{" "}under its design assumptions.
       </p>
 
       <Figure caption="Match the study type to the question — only randomized experiments support causal claims.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {TYPES.map((ty, i) => (
-              <button key={ty.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ty.name}</button>
+              <button key={ty.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ty.name}</button>
             ))}
           </div>
 
@@ -45,18 +46,23 @@ export default function Lesson() {
       <p>
         The difference between an observational study and an experiment is{" "}
         <strong>intervention plus random assignment</strong>. Randomly assigning
-        treatments balances out lurking variables, so any difference in outcome can be
-        blamed on the treatment. Without it — as in a survey or observational study —
-        you can only report associations, never causes.
+        treatments makes the groups comparable in expectation. With valid
+        implementation, no important interference or attrition problems, and a
+        difference unlikely under chance assignment, the study can support a
+        treatment-effect conclusion. Without random assignment, a difference may
+        reflect confounding, so association alone is not a causal result.
       </p>
 
       <MathCheck>
         <p>
           <strong>Surveys</strong>{" "}(sample surveys), <strong>observational
           studies</strong>, and <strong>experiments</strong>{" "}serve different purposes
-          (S-IC.3). Random <strong>sampling</strong>{" "}allows generalizing to a
-          population; random <strong>assignment</strong>{" "}in an experiment allows
-          causal conclusions. Confusing the two leads to overclaiming from data.
+          (S-IC.3). Appropriate probability <strong>sampling</strong>{" "}supports
+          generalizing to the sampled population when coverage, response, and
+          implementation are adequate; random <strong>assignment</strong>{" "}in an
+          experiment supports causal conclusions when the experiment is well
+          conducted and the observed evidence is assessed against chance.
+          Confusing the two leads to overclaiming from data.
         </p>
       </MathCheck>
     </div>

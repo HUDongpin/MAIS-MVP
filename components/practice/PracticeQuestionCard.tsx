@@ -17,6 +17,7 @@ import { cleanPracticeQuestionPromptText } from "@/components/practice/practiceP
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { isStudentLessonPath } from "@/lib/lessonLinks";
 import { countingDotCardQuantitiesFor } from "@/lib/countingDotCards";
+import { questionDiagramAltText } from "@/lib/questionFigure";
 import {
   buildPracticeReadAloudText,
   practiceReadAloudLanguageCode,
@@ -338,6 +339,9 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   );
   const promptText = cleanPracticeQuestionPromptText(localizedPracticeText(question.prompt));
   const promptLabel = toPlainMathText(promptText);
+  const diagramReadAloudText = question.diagram
+    ? localizedPracticeText(questionDiagramAltText(question.diagram))
+    : undefined;
   const isLessonPage = isStudentLessonPath(pathname);
   const isPracticePage = pathname.startsWith("/practice") || isImmersiveStudentPracticeGamePath(pathname);
   const shouldUseDayModeDiagram = isLessonPage || isPracticePage;
@@ -424,7 +428,12 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       // `toPlainMathText` above resolves LaTeX, but leaves a spaced minus and an
       // underscore blank untouched — and both are silent in the speech engine.
       // Same defect as the lesson page's read-aloud, same fix.
-      speechTextForMath(buildPracticeReadAloudText({ promptText: promptLabel, optionTexts, language })),
+      speechTextForMath(buildPracticeReadAloudText({
+        promptText: promptLabel,
+        diagramText: diagramReadAloudText,
+        optionTexts,
+        language
+      })),
       practiceReadAloudLanguageCode(language),
       { onEnd: () => setIsReadingAloud(false) }
     );

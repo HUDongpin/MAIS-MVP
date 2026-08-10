@@ -5,6 +5,8 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
+const MIN_PAYOFF = -20;
+const MAX_PAYOFF = 20;
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
 export default function Lesson() {
@@ -13,11 +15,14 @@ export default function Lesson() {
   const probs = [1, 2, 3, 2]; // weights out of 8
   const totalW = probs.reduce((a, b) => a + b, 0);
 
-  // Sum the SAME rounded products the table shows, so the column and the total
-  // agree: the weights are eighths, so products land on values that round.
-  const ev = r2(values.reduce((s, v, i) => s + r2((v * probs[i]) / totalW), 0));
+  const exactProducts = values.map((v, i) => (v * probs[i]) / totalW);
+  const exactEv = exactProducts.reduce((sum, product) => sum + product, 0);
+  const ev = r2(exactEv);
+  const relation = (raw: number) => Math.abs(raw * 100 - Math.round(raw * 100)) < 1e-9 ? "=" : "≈";
 
-  const setVal = (i: number, d: number) => setValues((vs) => vs.map((v, vi) => (vi === i ? v + d : v)));
+  const setVal = (i: number, d: number) => setValues((vs) => vs.map((v, vi) => (
+    vi === i ? Math.max(MIN_PAYOFF, Math.min(MAX_PAYOFF, v + d)) : v
+  )));
 
   return (
     <div className="prose-lesson max-w-none">
@@ -37,12 +42,12 @@ export default function Lesson() {
                 <tr key={i}>
                   <td className="px-3 py-1">
                     {/* Nothing tied a button to the row it edits. */}
-                    <button type="button" onClick={() => setVal(i, -1)} aria-label={`Decrease payoff for outcome ${i + 1}`} className="mr-1 text-xs font-bold text-[var(--ink-faint)]">−</button>
+                    <button type="button" onClick={() => setVal(i, -1)} disabled={v <= MIN_PAYOFF} aria-label={`Decrease payoff for outcome ${i + 1}`} className="mr-1 text-xs font-bold text-[var(--ink-faint)] disabled:cursor-not-allowed disabled:opacity-35">−</button>
                     <span className="font-bold" style={{ color: v < 0 ? "var(--band-upper)" : "var(--ink)" }}>{v}</span>
-                    <button type="button" onClick={() => setVal(i, 1)} aria-label={`Increase payoff for outcome ${i + 1}`} className="ml-1 text-xs font-bold text-[var(--ink-faint)]">+</button>
+                    <button type="button" onClick={() => setVal(i, 1)} disabled={v >= MAX_PAYOFF} aria-label={`Increase payoff for outcome ${i + 1}`} className="ml-1 text-xs font-bold text-[var(--ink-faint)] disabled:cursor-not-allowed disabled:opacity-35">+</button>
                   </td>
                   <td className="px-3 py-1">{probs[i]}/{totalW}</td>
-                  <td className="px-3 py-1" style={{ color: ACCENT }}>{r2(v * probs[i] / totalW)}</td>
+                  <td className="px-3 py-1" style={{ color: ACCENT }}>{relation(exactProducts[i])} {r2(exactProducts[i])}</td>
                 </tr>
               ))}
             </tbody>
@@ -50,15 +55,16 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
             <div className="text-sm text-[var(--ink-soft)]">E(X) = Σ value × probability</div>
-            <div className="mt-1 font-mono text-2xl font-black" style={{ color: ACCENT }}>{ev}</div>
+            <div className="mt-1 font-mono text-2xl font-black" style={{ color: ACCENT }}>{relation(exactEv)} {ev}</div>
           </div>
-          <p className="m-0 text-xs text-[var(--ink-faint)]">Tap −/+ to change a payoff and watch the expected value respond.</p>
+          <p className="m-0 text-xs text-[var(--ink-faint)]">Tap −/+ to change a payoff from −20 through 20 and watch the expected value respond.</p>
         </div>
       </Figure>
 
       <h2>A weighted average</h2>
       <p>
-        Multiply each outcome by its probability and sum: E(X) = {ev}. That&apos;s the
+        Multiply each outcome by its probability and sum the exact products before
+        rounding: E(X) {relation(exactEv)} {ev}. That&apos;s the
         average you&apos;d approach over thousands of plays. A{" "}
         <strong>theoretical</strong>{" "}distribution (like a spinner&apos;s known odds)
         and an <strong>empirical</strong>{" "}one (from observed data) are combined the

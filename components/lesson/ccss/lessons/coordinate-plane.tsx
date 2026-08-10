@@ -108,7 +108,11 @@ export default function Lesson() {
                 are <strong>different points</strong>. Order matters!
               </>
             ) : (
-              <>Here x and y are equal, so the point sits on the diagonal.</>
+              <>
+                Here x and y are equal, so swapping the coordinates does not
+                move the point: <span className="font-mono font-bold">({p.x}, {p.y})</span>{" "}
+                stays the same ordered pair.
+              </>
             )}
           </div>
 
@@ -121,11 +125,18 @@ export default function Lesson() {
 
       <h2>Why order matters</h2>
       <p>
-        The point <span className="font-mono">(4, 7)</span> means{" "}
-        <strong>4 right and 7 up</strong>. Swap the numbers to{" "}
-        <span className="font-mono">(7, 4)</span> and you get{" "}
-        <strong>7 right and 4 up</strong>{" "}— a completely different spot. That is
-        why we call it an <em>ordered</em>{" "}pair.
+        {swapped ? <>
+          The point <span className="font-mono">({p.x}, {p.y})</span> means{" "}
+          <strong>{p.x} right and {p.y} up</strong>. Swap the numbers to{" "}
+          <span className="font-mono">({p.y}, {p.x})</span> and you get{" "}
+          <strong>{p.y} right and {p.x} up</strong>{" "}— a different spot. That is
+          why we call it an <em>ordered</em>{" "}pair.
+        </> : <>
+          In <span className="font-mono">({p.x}, {p.y})</span>, the two coordinates
+          are equal, so swapping them leaves the same point. Order still matters
+          in general: for example, <span className="font-mono">(4, 7)</span> and{" "}
+          <span className="font-mono">(7, 4)</span> are different points.
+        </>}
       </p>
 
       <MathCheck>

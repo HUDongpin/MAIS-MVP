@@ -194,9 +194,12 @@ function dayWindow(now: string) {
 function attemptFeedback(question: Question, selectedAnswer: string): AttemptFeedback {
   const correct = questionAnswerMatches(
     {
+      id: question.id,
       answer: question.answer,
       accepted_answers: question.acceptedAnswers ?? null,
-      options: question.options ?? null
+      options: question.options ?? null,
+      strictAnswerUnits: question.strictAnswerUnits,
+      curriculumTrack: question.curriculumTrack
     },
     selectedAnswer
   );

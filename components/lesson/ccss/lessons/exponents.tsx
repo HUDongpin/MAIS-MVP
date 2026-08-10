@@ -11,15 +11,15 @@ export default function Lesson() {
   const [exp, setExp] = useState(4);
 
   const value = Math.pow(base, exp);
-  const expansion = exp === 0 ? "1 (any base to the 0 power)" : Array.from({ length: exp }, () => base).join(" × ");
+  const expansion = exp === 0 ? "1 (any nonzero base to the 0 power)" : Array.from({ length: exp }, () => base).join(" × ");
   const nameFor = exp === 2 ? "“" + base + " squared”" : exp === 3 ? "“" + base + " cubed”" : null;
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
         An <strong>exponent</strong>{" "}is a shortcut for repeated multiplication.{" "}
-        <strong>{base}<sup>{exp}</sup></strong>{" "}means multiply {base} by itself{" "}
-        {exp} time{exp === 1 ? "" : "s"} — not {base} × {exp}!
+        <strong>{base}<sup>{exp}</sup></strong>{" "}uses {exp} cop{exp === 1 ? "y" : "ies"} of {base}{" "}
+        {exp === 1 ? "as its factor" : "as factors"}{exp === 0 ? ", so the empty product is 1" : ""} — not {base} × {exp}!
       </p>
 
       <Figure caption="The small raised number counts the factors, not what you multiply by.">
@@ -50,7 +50,7 @@ export default function Lesson() {
         The <strong>base</strong>{" "}({base}) is what gets multiplied; the{" "}
         {/* At exp = 1 (and exp = 0 with base 0) the "mistake" and the true value
             coincide, so the contrast asserted a difference that is not there. */}
-        <strong>exponent</strong>{" "}({exp}) is how many times.{" "}
+        <strong>exponent</strong>{" "}({exp}) is the number of copies of the base in the product.{" "}
         {base * exp === value ? (
           <>Here {base} × {exp} happens to equal {base}<sup>{exp}</sup>{" "}= {value.toLocaleString()} — try a
           bigger exponent to see the two come apart.</>
@@ -62,8 +62,8 @@ export default function Lesson() {
 
       <MathCheck>
         <p>
-          A whole-number exponent counts how many times the base is used as a
-          factor (6.EE.A.1): {base}<sup>{exp}</sup> = {exp === 0 ? "1" : expansion} = {value.toLocaleString()}. Exponent 2 is &ldquo;squared&rdquo; (it gives the area of
+          A whole-number exponent counts how many copies of the base appear as
+          factors (6.EE.A.1): {base}<sup>{exp}</sup> = {exp === 0 ? "1" : expansion} = {value.toLocaleString()}. Exponent 2 is &ldquo;squared&rdquo; (it gives the area of
           a square), exponent 3 is &ldquo;cubed&rdquo; (the volume of a cube), and
           any nonzero base to the 0 power is 1.
         </p>

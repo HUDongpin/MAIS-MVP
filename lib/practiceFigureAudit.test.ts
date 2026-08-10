@@ -55,9 +55,10 @@ test("shipped figures reach the questions the Practice Arena actually serves", (
     assert.equal(question.diagram, spec.diagram);
   });
 
-  // The audit's reach is deliberately narrow: only the specs opt in to a figure.
-  const figured = usCaliforniaQuestions.filter((question) => question.diagram);
-  assert.equal(figured.length, usCaliforniaPracticeFigureSpecs.length);
+  // This audit's reach is deliberately narrow: it owns the opt-in ten-frame
+  // specs. Other deterministic diagram kinds have their own validation gates.
+  const tenFrameQuestions = usCaliforniaQuestions.filter((question) => question.diagram?.kind === "ten-frame");
+  assert.equal(tenFrameQuestions.length, usCaliforniaPracticeFigureSpecs.length);
 });
 
 test("a figure drawing one counter too many is rejected", () => {

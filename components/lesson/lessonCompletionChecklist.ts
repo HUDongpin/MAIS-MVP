@@ -51,14 +51,25 @@ function lessonChecklistItemKey(blockId: string, index: number) {
 }
 
 export function lessonCompletionTierForGrade(grade: GradeId): LessonCompletionTier {
-  return grade.startsWith("S") ? "middle-high" : "elementary";
+  return grade === "P6" || grade.startsWith("S") ? "middle-high" : "elementary";
 }
 
 export function buildLessonCompletionChecklistItems({
   checklistBlocks,
-  grade
+  grade,
+  publisher
 }: LessonCompletionChecklistInput): LessonCompletionChecklistItem[] {
   if (lessonCompletionTierForGrade(grade) === "elementary") {
+    if (publisher === "US_CA_MATH") {
+      return checklistBlocks.flatMap((block) =>
+        (block.items ?? []).slice(0, 3).map((item, index) => ({
+          block,
+          item,
+          key: lessonChecklistItemKey(block.id, index)
+        }))
+      ).slice(0, 3);
+    }
+
     const firstBlock = checklistBlocks[0];
     if (!firstBlock) return [];
 

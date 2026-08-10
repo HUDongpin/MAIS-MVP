@@ -10,13 +10,22 @@ export function practiceReadAloudLanguageCode(language: Language) {
 
 export type PracticeReadAloudInput = {
   promptText: string;
+  diagramText?: string;
   optionTexts: string[];
   language: Language;
 };
 
-export function buildPracticeReadAloudText({ promptText, optionTexts, language }: PracticeReadAloudInput) {
-  const separator = language === "en" ? ". " : "。";
+export function buildPracticeReadAloudText({ promptText, diagramText, optionTexts, language }: PracticeReadAloudInput) {
   const parts = [promptText.trim()];
+
+  const trimmedDiagram = diagramText?.trim();
+  if (trimmedDiagram) {
+    parts.push(
+      language === "en"
+        ? `Diagram: ${trimmedDiagram}`
+        : `${language === "zh-Hans" ? "图示" : "圖示"}：${trimmedDiagram}`
+    );
+  }
 
   optionTexts.forEach((optionText, index) => {
     const trimmed = optionText.trim();
@@ -29,7 +38,12 @@ export function buildPracticeReadAloudText({ promptText, optionTexts, language }
     parts.push(`${language === "zh-Hans" ? "选项" : "選項"}${ordinal}：${trimmed}`);
   });
 
-  return parts.filter(Boolean).join(separator);
+  const terminalPattern = language === "en" ? /[.!?]$/ : /[。！？]$/;
+  const terminal = language === "en" ? "." : "。";
+  return parts
+    .filter(Boolean)
+    .map((part) => terminalPattern.test(part) ? part : `${part}${terminal}`)
+    .join(" ");
 }
 
 function pickReadAloudVoice(voices: SpeechSynthesisVoice[], languageCode: string) {

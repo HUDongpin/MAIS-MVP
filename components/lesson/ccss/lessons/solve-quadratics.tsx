@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
+const exactToHundredth = (n: number) => Math.abs(n * 100 - Math.round(n * 100)) < 1e-9;
+const relation = (...values: number[]) => values.every(exactToHundredth) ? "=" : "≈";
 
 export default function Lesson() {
   const [a, setA] = useState(1);
@@ -22,11 +24,14 @@ export default function Lesson() {
   let roots: string;
   if (disc > 0) {
     const s = Math.sqrt(disc);
-    roots = `x = ${r2((-b - s) / (2 * a))}  or  x = ${r2((-b + s) / (2 * a))}`;
+    const first = (-b - s) / (2 * a), second = (-b + s) / (2 * a);
+    roots = `x ${relation(first)} ${r2(first)}  or  x ${relation(second)} ${r2(second)}`;
   } else if (disc === 0) {
-    roots = `x = ${r2(-b / (2 * a))} (double root)`;
+    const root = -b / (2 * a);
+    roots = `x ${relation(root)} ${r2(root)} (double root)`;
   } else {
-    roots = `x = ${r2(-b / (2 * a))} ± ${r2(Math.sqrt(-disc) / (2 * a))}i`;
+    const real = -b / (2 * a), imag = Math.sqrt(-disc) / (2 * a);
+    roots = `x ${relation(real, imag)} ${r2(real)} ± ${r2(imag)}i`;
   }
 
   return (

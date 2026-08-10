@@ -45,13 +45,11 @@ export default function Lesson() {
           </div>
 
           <div className="grid w-full max-w-md grid-cols-1 gap-3">
-            {/* Parenthesise negative operands. d defaults to −4, so on first
-                load these read "(2+-4)i" and "(2−-4)i" — the second being
-                exactly the add-or-subtract ambiguity the detail line exists to
-                remove. */}
-            <Row op="z + w" result={fmt(sumRe, sumIm)} detail={`(${a}+${p(c)}) + (${b}+${p(d)})i`} />
-            <Row op="z − w" result={fmt(a - c, b - d)} detail={`(${a}−${p(c)}) + (${b}−${p(d)})i`} />
-            <Row op="z · w" result={fmt(prodRe, prodIm)} detail={`(${a}·${p(c)} − ${b}·${p(d)}) + (${a}·${p(d)} + ${b}·${p(c)})i`} />
+            {/* Every coefficient can become negative, so format every operand
+                before placing it after +, −, or ·. */}
+            <Row op="z + w" result={fmt(sumRe, sumIm)} detail={`(${p(a)}+${p(c)}) + (${p(b)}+${p(d)})i`} />
+            <Row op="z − w" result={fmt(a - c, b - d)} detail={`(${p(a)}−${p(c)}) + (${p(b)}−${p(d)})i`} />
+            <Row op="z · w" result={fmt(prodRe, prodIm)} detail={`(${p(a)}·${p(c)} − ${p(b)}·${p(d)}) + (${p(a)}·${p(d)} + ${p(b)}·${p(c)})i`} />
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4">
@@ -99,9 +97,9 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} disabled={value <= -9} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} disabled={value >= 9} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

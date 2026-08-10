@@ -14,9 +14,11 @@ export default function Lesson() {
   const ratio = cut / 6;
   const [full, setFull] = useState(9); // full base length
 
-  const topBase = r2(full * ratio); // similar-scaled base at the cut
+  const exactTopBase = full * ratio;
+  const topBase = r2(exactTopBase); // similar-scaled base at the cut
   const leftFull = 6; // side length proxy
   const leftTop = r2(leftFull * ratio);
+  const relation = (raw: number) => Math.abs(raw * 100 - Math.round(raw * 100)) < 1e-9 ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -47,8 +49,8 @@ export default function Lesson() {
           </svg>
 
           <div className="grid grid-cols-2 gap-4 text-center font-mono text-sm">
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">top base = {topBase}<br /><span className="text-xs text-[var(--ink-faint)]">of full base {full}</span></div>
-            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">ratio = {cut}/6 = <strong style={{ color: ACCENT }}>{r2(ratio)}</strong><br /><span className="text-xs text-[var(--ink-faint)]">same on every side</span></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">top base {relation(exactTopBase)} {topBase}<br /><span className="text-xs text-[var(--ink-faint)]">of full base {full}{relation(exactTopBase) === "≈" ? ", nearest hundredth" : ""}</span></div>
+            <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">ratio = {cut}/6 {relation(ratio)} <strong style={{ color: ACCENT }}>{r2(ratio)}</strong><br /><span className="text-xs text-[var(--ink-faint)]">same on every side{relation(ratio) === "≈" ? "; decimal rounded" : ""}</span></div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -62,17 +64,19 @@ export default function Lesson() {
       <p>
         The top triangle shares the apex angle and has equal corresponding angles
         (parallel lines!), so it&apos;s similar to the whole by AA. Similar triangles
-        have proportional sides, so the cut divides each side in the ratio {r2(ratio)}.
-        The <strong>Pythagorean theorem itself</strong>{" "}can be proved this way, by
-        dropping an altitude to make two similar sub-triangles.
+        have proportional sides, so the cut divides each side in the exact ratio {cut}/6 {relation(ratio)} {r2(ratio)}.
+        The <strong>Pythagorean theorem itself</strong>{" "}can be proved this way:
+        draw the altitude from the right-angle vertex perpendicular to the
+        hypotenuse, creating two sub-triangles similar to the original.
       </p>
 
       <MathCheck>
         <p>
           <strong>Similarity proofs</strong>{" "}(G-SRT.4): a line parallel to one side
           of a triangle divides the other two <strong>proportionally</strong>, and
-          the Pythagorean theorem follows from similar right triangles formed by an
-          altitude. These similarity and congruence criteria then{" "}
+          the Pythagorean theorem follows from the similar right triangles formed
+          by the altitude from the right-angle vertex to the hypotenuse. These
+          similarity and congruence criteria then{" "}
           <strong>solve problems</strong>{" "}and prove relationships in figures
           (G-SRT.5).
         </p>

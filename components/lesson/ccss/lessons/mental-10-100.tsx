@@ -13,7 +13,7 @@ const NAMES = ["hundreds", "tens", "ones"];
 export default function Lesson() {
   const [n, setN] = useState(346);
   const [changed, setChanged] = useState<number | null>(null);
-  const [rolled, setRolled] = useState(false);
+  const [regrouping, setRegrouping] = useState<"carry" | "ungroup" | null>(null);
 
   const d = [Math.floor(n / 100), Math.floor((n / 10) % 10), n % 10];
 
@@ -23,19 +23,24 @@ export default function Lesson() {
     // Report what actually changed, not which button was pressed. Adding 10 to
     // 396 rolls the tens over, so the hundreds digit moves too — the caption
     // used to insist "the tens digit changed by 1" while 3 → 4 and 9 → 0.
-    const rolled = Math.floor(next / 100) !== Math.floor(n / 100);
-    setChanged(Math.abs(delta) === 100 || rolled ? 0 : 1);
-    setRolled(rolled && Math.abs(delta) === 10);
+    const crossedHundred = Math.floor(next / 100) !== Math.floor(n / 100);
+    setChanged(Math.abs(delta) === 100 || crossedHundred ? 0 : 1);
+    setRegrouping(
+      crossedHundred && Math.abs(delta) === 10
+        ? delta > 0 ? "carry" : "ungroup"
+        : null
+    );
     setN(next);
   };
 
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        You do not need to write anything to add <strong>10</strong>{" "}or{" "}
-        <strong>100</strong>. Adding 10 changes only the <strong>tens</strong>{" "}
-        digit. Adding 100 changes only the <strong>hundreds</strong>{" "}digit. The
-        rest stays put.
+        You do not need to write anything to add or subtract <strong>10</strong>{" "}
+        or <strong>100</strong>. Changing by 10 changes the number of tens while
+        the ones stay put. If the tens cross a hundred boundary, the hundreds
+        digit changes too. Changing by 100 changes the hundreds digit while the
+        tens and ones stay put.
       </p>
 
       {/* "just one digit" is false on a roll-over (396 + 10 moves both the
@@ -62,9 +67,11 @@ export default function Lesson() {
           </div>
           <p className="m-0 text-sm text-[var(--ink-faint)]">
             {changed === null
-              ? "Usually only one digit moves each time."
-              : rolled
-                ? "The tens rolled over, so the hundreds digit changed too."
+              ? "Watch the tens and hundreds places; regrouping can change both."
+              : regrouping === "carry"
+                ? "Ten tens regrouped as one hundred, so the hundreds digit changed too."
+                : regrouping === "ungroup"
+                  ? "One hundred was ungrouped as ten tens, so the hundreds digit changed too."
                 : changed === 0
                   ? "The hundreds digit changed by 1."
                   : "The tens digit changed by 1."}
@@ -72,19 +79,21 @@ export default function Lesson() {
         </div>
       </Figure>
 
-      <h2>One digit at a time</h2>
+      <h2>Change one place value, then regroup if needed</h2>
       <p>
         Because 10 lives in the tens place and 100 lives in the hundreds place,
-        adding them touches only that one digit (unless it rolls past 9). That is
-        what makes it fast mental math.
+        you can adjust that place directly. When ten tens collect, regroup them
+        as one hundred; when subtracting crosses a hundred, ungroup one hundred
+        as ten tens. The ones digit never changes in either case.
       </p>
 
       <MathCheck>
         <p>
           Mentally adding or subtracting <strong>10 or 100</strong>{" "}to a number
           from 100 to 900 (2.NBT.B.8) works because 10 and 100 each belong to a
-          single place value — so only the tens or the hundreds digit changes,
-          while the other digits stay exactly the same.
+          single place value. A change of 10 keeps the ones digit fixed and may
+          require regrouping across a hundred; a change of 100 keeps both the
+          tens and ones digits fixed.
         </p>
       </MathCheck>
     </div>

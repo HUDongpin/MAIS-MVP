@@ -12,6 +12,7 @@ const COINS: Coin[] = [
   { name: "quarter", value: 25, label: "25¢", color: "#8a9098" },
   { name: "dollar", value: 100, label: "$1", color: "var(--band-upper)" },
 ];
+const centCount = (count: number) => `${count} cent${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [counts, setCounts] = useState([3, 1, 2, 1, 1]);
@@ -27,14 +28,14 @@ export default function Lesson() {
         write the amount with a <strong>$</strong>{" "}and a <strong>¢</strong>.
       </p>
 
-      <Figure caption="Add a few of each coin. Watch the total in dollars and cents.">
+      <Figure caption="Add a few of each denomination. Watch the total in dollars and cents.">
         <div className="flex flex-col items-center gap-6">
-          <div className="rounded-2xl border-2 border-[var(--line)] bg-[var(--surface)] px-6 py-3 text-center">
+          <output className="rounded-2xl border-2 border-[var(--line)] bg-[var(--surface)] px-6 py-3 text-center" aria-label="Money total" aria-live="polite" aria-atomic="true">
             <div className="text-4xl font-black" style={{ color: "var(--band-upper)" }}>
               ${dollars}.{cents.toString().padStart(2, "0")}
             </div>
             <div className="font-mono text-sm text-[var(--ink-faint)]">= {totalCents}¢</div>
-          </div>
+          </output>
 
           <div className="flex flex-wrap items-center justify-center gap-5">
             {COINS.map((coin, i) => (
@@ -56,7 +57,7 @@ export default function Lesson() {
 
       <h2>Dollars and cents</h2>
       <p>
-        {totalCents} cents is the same as <strong>${dollars}.{cents.toString().padStart(2, "0")}</strong>{" "}
+        {centCount(totalCents)} {totalCents === 1 ? "is" : "are"} the same as <strong>${dollars}.{cents.toString().padStart(2, "0")}</strong>{" "}
         because every 100 cents becomes 1 dollar. The <strong>$</strong>{" "}comes
         before dollars; the <strong>¢</strong>{" "}comes after cents.
       </p>

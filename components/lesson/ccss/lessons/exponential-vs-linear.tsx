@@ -4,6 +4,10 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const XMAX = 6;
 const YMAX = 40;
@@ -25,7 +29,6 @@ export default function Lesson() {
 
   const sx = (x: number) => PAD + x * PXX;
   const sy = (y: number) => PAD + (YMAX - y) * PXY;
-  const clampY = (y: number) => Math.min(y, YMAX);
 
   const lin = (x: number) => m * x;
   const exp = (x: number) => Math.pow(b, x);
@@ -60,9 +63,9 @@ export default function Lesson() {
         difference does.
       </p>
 
-      <Figure caption="Linear adds a fixed amount; exponential multiplies. Small at first — then the exponential runs away.">
+      <Figure caption="Linear adds a fixed amount; exponential multiplies. Their early order depends on the parameters, but a factor above 1 eventually outgrows a positive-slope line.">
         <div className="flex flex-col items-center gap-6">
-          <FigureScroll>
+          <FigureScroll ariaLabel="Scrollable graph comparing linear and exponential growth">
             <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="mx-auto max-w-full" role="img" aria-label="Linear versus exponential growth">
               {/* horizontal gridlines every 5 */}
               {Array.from({ length: YMAX / 5 + 1 }, (_, i) => {
@@ -102,7 +105,7 @@ export default function Lesson() {
           </div>
 
           {/* value table */}
-          <FigureScroll>
+          <FigureScroll ariaLabel="Scrollable value table comparing linear and exponential growth">
             <table className="mx-auto text-center font-mono text-sm">
               <thead>
                 <tr className="text-[var(--ink-faint)]">
@@ -117,7 +120,17 @@ export default function Lesson() {
                 </tr>
                 <tr style={{ color: EXP }}>
                   <td className="px-2 py-1 text-left font-bold">{b}^x</td>
-                  {Array.from({ length: XMAX + 1 }, (_, x) => <td key={x} className="px-2.5 py-1">{Number.isInteger(exp(x)) ? exp(x) : exp(x).toFixed(1)}</td>)}
+                  {Array.from({ length: XMAX + 1 }, (_, x) => {
+                    const value = exp(x);
+                    const displayedValue = Number.isInteger(value) ? String(value) : value.toFixed(1);
+                    const relation = relationForDisplayedValue(value, displayedValue);
+                    const spokenRelation = spokenRelationForDisplayedValue(value, displayedValue);
+                    return (
+                      <td key={x} className="px-2.5 py-1" aria-label={`${b} to the power ${x} ${spokenRelation} ${displayedValue}`}>
+                        {relation === "=" ? displayedValue : `${relation} ${displayedValue}`}
+                      </td>
+                    );
+                  })}
                 </tr>
               </tbody>
             </table>
@@ -125,9 +138,9 @@ export default function Lesson() {
 
           <p className="m-0 text-center text-sm text-[var(--ink-soft)]">
             {crossover !== null ? (
-              <>By <strong>x = {crossover}</strong>, the exponential has already passed the line — and it never looks back.</>
+              <>By <strong>x = {crossover}</strong>, the exponential is above the line — and stays ahead from there.</>
             ) : (
-              <>Within this window the line is still ahead — but push x further and the exponential always wins.</>
+              <>At <strong>x = 0</strong>, the exponential starts above the line. At each displayed integer from x = 1 through x = {XMAX}, it does not exceed the line; farther right, exponential growth eventually pulls ahead.</>
             )}
           </p>
 
@@ -152,9 +165,10 @@ export default function Lesson() {
           while an <strong>exponential</strong>{" "}function has a constant{" "}
           <strong>ratio</strong>{" "}(here, ×{b}) — that is exactly what distinguishes
           the two families (F-LE.1). Because each exponential step scales the
-          whole quantity, an increasing exponential function eventually exceeds{" "}
-          <em>any</em>{" "}linear (in fact any polynomial) function (F-LE.3), no
-          matter how large the slope starts out.
+          whole positive quantity, an exponential of the form <strong>a·bˣ</strong>{" "}
+          with <strong>a &gt; 0</strong>{" "}and <strong>b &gt; 1</strong>{" "}eventually
+          exceeds any fixed polynomial as x increases (F-LE.3). The displayed
+          model is the special case a = 1; the domain conditions matter.
         </p>
       </MathCheck>
     </div>

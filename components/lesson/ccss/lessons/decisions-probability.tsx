@@ -26,7 +26,7 @@ export default function Lesson() {
         <strong>fair</strong>{" "}when its expected value is zero.
       </p>
 
-      <Figure caption="A carnival game. If the expected net gain is negative, it favors the house — don't play to win.">
+      <Figure caption="A carnival game. Expected value compares long-run average net payoffs; it does not predict one play or encode a person's risk preferences.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-lg bg-[var(--surface-2)] px-6 py-2 text-center text-sm">
             Pay <strong>${cost}</strong>{" "}to play. Win <strong>${prize}</strong>{" "}with probability <strong>{winPct}%</strong>.
@@ -39,7 +39,7 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-6 py-3 text-center" style={{ borderColor: evPlay >= 0 ? "var(--band-middle)" : "var(--band-upper)" }}>
             <div className="font-bold" style={{ color: evPlay >= 0 ? "var(--band-middle)" : "var(--band-upper)" }}>
-              {evPlay > 0 ? "Favorable to you — play!" : evPlay < 0 ? "Favors the house — expect to lose over time." : "A fair game — breaks even."}
+              {evPlay > 0 ? "Positive expected net for a risk-neutral, repeated-play comparison." : evPlay < 0 ? "Favors the house in the long-run average." : "Zero expected net — fair by expected value."}
             </div>
             <div className="mt-1 text-xs text-[var(--ink-faint)]">A fair price to play would be ${fair}.</div>
           </div>
@@ -57,7 +57,9 @@ export default function Lesson() {
         Here each play has expected net ${evPlay}. If that&apos;s negative, the game
         favors the house — fun, maybe, but a losing bet long-term. The same logic
         picks insurance deductibles, compares warranties, and finds fair prices.
-        Expected value even designs <strong>fair decisions</strong>: assign choices to
+        A single play can differ sharply from the average, and risk, affordability,
+        and personal preferences can change a real decision. Expected value also
+        designs <strong>fair procedures</strong>: assign choices to
         equally likely outcomes so no one is favored.
       </p>
 

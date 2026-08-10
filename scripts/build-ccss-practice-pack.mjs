@@ -5,6 +5,8 @@
  *
  * Conversion contract:
  *  - Upstream answers, prompts, and explanations are NEVER changed.
+ *  - Structured deterministic question diagrams are copied unchanged; the
+ *    runtime normalizes and validates them before QuestionFigure renders them.
  *  - `mc` → "multiple-choice"; the MAIS bank requires exactly 4 options, so
  *    3-option questions get ONE added distractor and 2-option questions get
  *    TWO. Numeric-choice distractors are synthesized deterministically;
@@ -35,6 +37,10 @@ const usGradeLabels = {
   K: "Kindergarten", P1: "Grade 1", P2: "Grade 2", P3: "Grade 3", P4: "Grade 4", P5: "Grade 5",
   P6: "Grade 6", S1: "Grade 7", S2: "Grade 8", S3: "Grade 9", S4: "Grade 10", S5: "Grade 11", S6: "Grade 12"
 };
+const gradeOrder = Object.keys(usGradeLabels);
+const expectedLessonCount = 270;
+const expectedQuestionsPerLesson = 3;
+const expectedQuestionCount = expectedLessonCount * expectedQuestionsPerLesson;
 const lowGrades = new Set(["K", "P1", "P2"]);
 const highGrades = new Set(["S3", "S4", "S5", "S6"]);
 
@@ -127,7 +133,8 @@ const curatedAcceptedAnswers = {
   "decimal-operations#2": ["0.12", ".12"],
   "multiply-mixed-numbers#1": ["4.5", "4 1/2", "9/2"],
   "metric-conversion#1": ["2.5", "2 1/2"],
-  "line-plot-operations#2": ["1.5", "1 1/2", "3/2"]
+  "line-plot-operations#2": ["1.5", "1 1/2", "3/2"],
+  "units-quantities#2": ["15,840", "15840 feet", "15,840 feet", "15840 ft", "15,840 ft"]
 };
 
 function isNumericChoice(choice) {
@@ -175,6 +182,12 @@ const problems = [];
 
 for (const lesson of snapshot.lessons) {
   const upstream = snapshot.practiceBySlug[lesson.slug] ?? [];
+  if (upstream.length !== expectedQuestionsPerLesson) {
+    problems.push(
+      `${lesson.slug}: expected ${expectedQuestionsPerLesson} source questions, found ${upstream.length}`
+    );
+    continue;
+  }
   const topicId = homeBySlug.get(lesson.slug);
   if (!topicId) {
     problems.push(`${lesson.slug}: no home topic in assignments.json`);
@@ -189,6 +202,10 @@ for (const lesson of snapshot.lessons) {
 
   upstream.forEach((question, index) => {
     const key = `${lesson.slug}#${index}`;
+    if (question.kind !== "mc" && question.kind !== "numeric") {
+      problems.push(`${key}: unsupported question kind ${JSON.stringify(question.kind)}`);
+      return;
+    }
     const base = {
       id: `ccss-textbook-practice-v1-${lesson.slug}-q${String(index + 1).padStart(2, "0")}`,
       batch: "ccss-textbook-practice-v1",
@@ -209,7 +226,8 @@ for (const lesson of snapshot.lessons) {
       sourceIds: ["ccss-math-textbook-app"],
       sourceDistanceStatus: "passed-original-authored",
       mathQaStatus: "passed-ccss-textbook-hand-check",
-      manualQaStatus: "accepted-ccss-textbook-hand-check"
+      manualQaStatus: "accepted-ccss-textbook-hand-check",
+      ...(question.diagram ? { diagram: question.diagram } : {})
     };
 
     if (question.kind === "mc") {
@@ -262,6 +280,38 @@ for (const lesson of snapshot.lessons) {
   });
 }
 
+if (snapshot.lessons.length !== expectedLessonCount) {
+  problems.push(
+    `source lesson inventory: expected ${expectedLessonCount}, found ${snapshot.lessons.length}`
+  );
+}
+const sourceLessonSlugs = new Set(snapshot.lessons.map((lesson) => lesson.slug));
+const extraPracticeSlugs = Object.keys(snapshot.practiceBySlug).filter(
+  (slug) => !sourceLessonSlugs.has(slug)
+);
+if (extraPracticeSlugs.length > 0) {
+  problems.push(`practiceBySlug has unknown lesson slugs: ${extraPracticeSlugs.join(", ")}`);
+}
+if (questions.length !== expectedQuestionCount) {
+  problems.push(
+    `generated question inventory: expected ${expectedQuestionCount}, found ${questions.length}`
+  );
+}
+const questionIds = questions.map((question) => question.id);
+if (new Set(questionIds).size !== questionIds.length) {
+  problems.push("generated question IDs are not unique");
+}
+const actualGrades = new Set(questions.map((question) => question.grade));
+const gradeSpan = gradeOrder.filter((grade) => actualGrades.has(grade));
+if (
+  gradeSpan.length !== gradeOrder.length ||
+  gradeSpan.some((grade, index) => grade !== gradeOrder[index])
+) {
+  problems.push(
+    `generated grade span: expected ${gradeOrder.join(", ")}, found ${gradeSpan.join(", ")}`
+  );
+}
+
 if (problems.length) {
   console.error(problems.join("\n"));
   console.error(`\nbuild-ccss-practice-pack: ${problems.length} problem(s).`);
@@ -280,7 +330,7 @@ const pack = {
   state: "CA",
   scope: {
     contentType: "lesson-practice",
-    gradeSpan: ["K", "P1", "P2", "P3", "P4", "P5"],
+    gradeSpan,
     phase: "phase-1-full-port",
     sourceLessonCount: snapshot.lessons.length
   },

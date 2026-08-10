@@ -13,15 +13,18 @@ const CATS: Cat[] = [
 ];
 const MAXV = 10;
 const BARH = 160;
+const voteCount = (count: number) => `${count} vote${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [vals, setVals] = useState([6, 9, 3, 5]);
   const total = vals.reduce((s, n) => s + n, 0);
-  // indexOf returns the leftmost match, so a tie named a single winner:
-  // [6,9,3,9] claimed "Most popular: banana (9)" while orange also had 9.
-  const maxIdx = vals.indexOf(Math.max(...vals));
-  const minIdx = vals.indexOf(Math.min(...vals));
-  const topNames = CATS.filter((_, i) => vals[i] === Math.max(...vals)).map((c) => c.name);
+  const maxValue = Math.max(...vals);
+  const minValue = Math.min(...vals);
+  const maxIdx = vals.indexOf(maxValue);
+  const minIdx = vals.indexOf(minValue);
+  const topNames = CATS.filter((_, i) => vals[i] === maxValue).map((c) => c.name);
+  const bottomNames = CATS.filter((_, i) => vals[i] === minValue).map((c) => c.name);
+  const allEqual = maxValue === minValue;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -63,9 +66,15 @@ export default function Lesson() {
           </div>
 
           <div className="grid grid-cols-1 gap-2 text-center sm:grid-cols-3">
-            <Fact label="Total" value={`${total} votes`} />
-            <Fact label={topNames.length === 1 ? "Most popular" : "Tied for most"} value={`${topNames.join(", ")} (${vals[maxIdx]})`} />
-            <Fact label={`${CATS[maxIdx].name} − ${CATS[minIdx].name}`} value={`${vals[maxIdx] - vals[minIdx]} more`} />
+            <Fact label="Total" value={voteCount(total)} />
+            <Fact
+              label={allEqual ? "Same count" : topNames.length === 1 ? "Most popular" : "Tied for most"}
+              value={allEqual ? `${voteCount(maxValue)} each` : `${joinNames(topNames)} (${maxValue})`}
+            />
+            <Fact
+              label={allEqual ? "Difference" : `${joinNames(topNames)} vs ${joinNames(bottomNames)}`}
+              value={allEqual ? "0 — all equal" : `${maxValue - minValue} more`}
+            />
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -102,6 +111,11 @@ export default function Lesson() {
       </MathCheck>
     </div>
   );
+}
+
+function joinNames(names: string[]) {
+  if (names.length <= 1) return names[0] ?? "";
+  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 }
 
 function Fact({ label, value }: { label: string; value: string }) {

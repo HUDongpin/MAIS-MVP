@@ -7,6 +7,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const A = "var(--band-upper)";
 const B = "var(--band-middle)";
 const BARW = 260;
+const wholeCount = (count: number) => `${count} whole${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [mode, setMode] = useState<"uw" | "wu">("wu");
@@ -26,8 +27,8 @@ export default function Lesson() {
       <Figure caption="Whole ÷ unit fraction counts how many pieces fit. Unit fraction ÷ whole splits one piece further.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={() => setMode("wu")} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === "wu" ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>whole ÷ 1/b</button>
-            <button type="button" onClick={() => setMode("uw")} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === "uw" ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>1/b ÷ whole</button>
+            <button type="button" onClick={() => setMode("wu")} aria-pressed={mode === "wu"} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === "wu" ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>whole ÷ 1/b</button>
+            <button type="button" onClick={() => setMode("uw")} aria-pressed={mode === "uw"} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === "uw" ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>1/b ÷ whole</button>
           </div>
 
           {mode === "wu" ? (
@@ -41,7 +42,7 @@ export default function Lesson() {
               </div>
               <div className="text-center">
                 <div className="font-mono text-2xl font-black">{w} ÷ 1/{b} = <span style={{ color: A }}>{w * b}</span></div>
-                <p className="mt-1 text-[15px] text-[var(--ink-soft)]">There are {b} pieces of size 1/{b} in each whole, and {w} wholes — so {w} × {b} = {w * b} pieces.</p>
+                <p className="mt-1 text-[15px] text-[var(--ink-soft)]">There are {b} pieces of size 1/{b} in each whole, and {wholeCount(w)} — so {w} × {b} = {w * b} pieces.</p>
               </div>
             </>
           ) : (

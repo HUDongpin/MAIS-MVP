@@ -27,7 +27,7 @@ export default function Lesson() {
         <strong>single formula</strong>.
       </p>
 
-      <Figure caption="Add the terms directly, or use S = a(rⁿ − 1)/(r − 1). They always match.">
+      <Figure caption="For r ≠ 1, add directly or use S = a(rⁿ − 1)/(r − 1). For r = 1, S = a·n.">
         <div className="flex flex-col items-center gap-6">
           <FigureScroll>
             <div className="mx-auto flex min-w-max items-center justify-center gap-2 font-mono text-lg">
@@ -68,9 +68,11 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A finite <strong>geometric series</strong>{" "}with first term a, ratio r,
-          and n terms sums to <strong>a(rⁿ − 1)/(r − 1)</strong>{" "}(A-SSE.4),
-          derived by computing S − rS so all interior terms cancel. It powers
-          formulas for loan payments, annuities, and repeated growth.
+          and {n} {n === 1 ? "term" : "terms"} (n = {n}) sums to <strong>a(rⁿ − 1)/(r − 1)</strong>{" "}when r ≠ 1
+          (A-SSE.4). When r = 1, every term equals a and the sum is a·n. For r ≠ 1,
+          the displayed formula is derived by computing rS − S so all interior
+          terms cancel. It powers formulas for loan payments, annuities, and
+          repeated growth.
         </p>
       </MathCheck>
     </div>

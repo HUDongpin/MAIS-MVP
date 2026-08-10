@@ -60,14 +60,14 @@ export default function Lesson() {
         second, so P(both heads) = ½·½ = ¼. But "being a smoker" and "having lung
         disease" are <em>not</em>{" "}independent — knowing one changes the probability
         of the other. Equivalently, A and B are independent iff{" "}
-        <strong>P(A|B) = P(A)</strong>.
+        <strong>P(A|B) = P(A)</strong>{" "}when P(B) &gt; 0.
       </p>
 
       <MathCheck>
         <p>
           Events A and B are <strong>independent</strong>{" "}iff{" "}
           <strong>P(A and B) = P(A)·P(B)</strong>{" "}(S-CP.2), equivalently P(A|B) =
-          P(A). Interpreting independence and conditional probability in everyday
+          P(A) when P(B) &gt; 0. Interpreting independence and conditional probability in everyday
           language (S-CP.5) — e.g. whether a medical test result changes the
           probability of disease — is central to using probability well.
         </p>

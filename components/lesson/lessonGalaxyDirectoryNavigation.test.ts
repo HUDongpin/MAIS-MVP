@@ -4,6 +4,10 @@ import test from "node:test";
 
 const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.tsx", "utf8");
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
+const californiaVisualizationAvailabilitySource = readFileSync(
+  "data/usCaliforniaLessonVisualizationAvailability.ts",
+  "utf8"
+);
 
 test("unit directory navigation preserves the lesson menu", () => {
   assert.equal(
@@ -33,6 +37,24 @@ test("unit directory uses grade-level California course names", () => {
     directorySource.includes("text={cleanLessonDisplayTitle(text(lesson.topic.title))}"),
     false,
     "The directory header must not render the current unit title as the course name."
+  );
+});
+
+test("California unit previews do not advertise quarantined visualization labs", () => {
+  assert.match(
+    directorySource,
+    /hasProductionCaliforniaLessonVisualization\(module\.topicId\)/,
+    "California unit previews must use the shared production visualization allowlist."
+  );
+  assert.match(
+    directorySource,
+    /!isCaliforniaModule \|\| hasProductionCaliforniaLessonVisualization/,
+    "Non-California previews may retain their labs, but California previews require explicit approval."
+  );
+  assert.match(
+    californiaVisualizationAvailabilitySource,
+    /productionCaliforniaLessonVisualizationTopicIds = \[\] as const/,
+    "The production California lesson-surface allowlist should remain empty until a model passes renderer-level QA."
   );
 });
 

@@ -23,6 +23,9 @@ export default function Lesson() {
     : (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2;
   const range = Math.max(...data) - Math.min(...data);
   const mad = data.reduce((s, v) => s + Math.abs(v - mean), 0) / data.length;
+  // With five integer observations, MAD is a multiple of 1/25, so two decimal
+  // places preserve the exact value rather than silently rounding to tenths.
+  const madDisplay = mad.toFixed(2);
 
   const x = (v: number) => PAD + (v - 1) * STEP + STEP / 2;
   // stack dots at each value
@@ -63,7 +66,7 @@ export default function Lesson() {
             <Fact label="Mean" value={mean.toFixed(1)} color={MEAN} />
             <Fact label="Median" value={`${median}`} color={MED} />
             <Fact label="Range" value={`${range}`} />
-            <Fact label="MAD" value={mad.toFixed(1)} />
+            <Fact label="MAD" value={madDisplay} />
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -78,7 +81,7 @@ export default function Lesson() {
       <p>
         The mean {mean.toFixed(1)} balances the data; the median {median} sits in
         the middle. The range {range} and the mean absolute deviation (MAD){" "}
-        {mad.toFixed(1)} measure how spread out the values are — bigger means more
+        {madDisplay} measure how spread out the values are — bigger means more
         variable.
       </p>
 
@@ -88,7 +91,7 @@ export default function Lesson() {
           typical value, while a <strong>measure of variability</strong>{" "}(range,
           IQR, or MAD) describes how spread out the data is (6.SP.A.3). Summarizing
           a data set means reporting both (6.SP.B.5): here mean = {mean.toFixed(1)},
-          median = {median}, range = {range}, MAD = {mad.toFixed(1)}.
+          median = {median}, range = {range}, MAD = {madDisplay}.
         </p>
       </MathCheck>
     </div>

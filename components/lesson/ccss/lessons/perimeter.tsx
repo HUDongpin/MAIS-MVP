@@ -7,6 +7,7 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const CELL = 34;
 const EDGE = "var(--band-upper)";
 const FILL = "color-mix(in oklab, var(--band-upper) 14%, var(--surface))";
+const squareUnitCount = (count: number) => `${count} sq unit${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [w, setW] = useState(6);
@@ -39,7 +40,7 @@ export default function Lesson() {
             <div className="font-mono text-2xl font-black">
               Perimeter = {w} + {h} + {w} + {h} = <span style={{ color: EDGE }}>{perimeter}</span> units
             </div>
-            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">= 2 × ({w} + {h}) = {perimeter} · (area inside = {area} sq units)</div>
+            <div className="mt-1 font-mono text-sm text-[var(--ink-soft)]">= 2 × ({w} + {h}) = {perimeter} · (area inside = {squareUnitCount(area)})</div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

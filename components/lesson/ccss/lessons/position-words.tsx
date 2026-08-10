@@ -9,8 +9,8 @@ type Pos = { key: string; word: string; ball: { x: number; y: number } };
 const POSITIONS: Pos[] = [
   { key: "above", word: "above", ball: { x: 130, y: 30 } },
   { key: "below", word: "below", ball: { x: 130, y: 150 } },
-  { key: "left", word: "beside (left of)", ball: { x: 55, y: 90 } },
-  { key: "right", word: "beside (right of)", ball: { x: 205, y: 90 } },
+  { key: "left", word: "to the left of", ball: { x: 55, y: 90 } },
+  { key: "right", word: "to the right of", ball: { x: 205, y: 90 } },
 ];
 
 const ACCENT = "var(--band-high)";
@@ -49,7 +49,7 @@ export default function Lesson() {
                 key={p.key}
                 type="button"
                 onClick={() => setI(pi)}
-                className="rounded-lg border px-4 py-2 text-sm font-bold"
+                aria-pressed={pi === i} className="rounded-lg border px-4 py-2 text-sm font-bold"
                 style={pi === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
               >
                 {p.word}

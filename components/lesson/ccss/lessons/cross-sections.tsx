@@ -19,16 +19,22 @@ const SLICES: Slice[] = [
     section: <rect x={45} y={30} width={70} height={70} fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
   },
   {
-    key: "diag", name: "Diagonal", shape: "Rectangle", desc: "A slanted cut from one edge to the opposite edge makes a longer rectangle.",
-    cut: "30,40 170,40 150,120 50,120",
+    key: "diag", name: "Diagonal", shape: "Rectangle", desc: "A vertical plane through two opposite vertical edges makes a rectangle with one side longer than a cube edge.",
+    // In cube coordinates this is the plane x = z, extruded from the top to
+    // the bottom. Its four projected vertices lie on the front-left and
+    // back-right vertical edges; the old polygon protruded beyond the cube.
+    cut: "40,50 160,30 160,110 40,130",
     // A slant lengthens one pair of sides and leaves the other pair alone, so
     // the short side must stay 70 like the square face; it was drawn 55.
     // Long side = 70·√2 ≈ 99.
     section: <rect x={30} y={35} width={99} height={70} fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
   },
   {
-    key: "corner", name: "Corner", shape: "Triangle", desc: "Slicing off a corner through three edges makes a triangle.",
-    cut: "40,40 150,60 70,120",
+    key: "corner", name: "Corner", shape: "Triangle", desc: "A plane meeting the three edges at one corner slices off a triangular cross-section.",
+    // Midpoints of the three cube edges meeting at the front-top-left vertex.
+    // All three points lie on visible cube edges, so this is the actual
+    // intersection polygon rather than an oversized drawing of the cut plane.
+    cut: "80,50 40,90 60,40",
     section: <polygon points="80,25 140,105 30,105" fill={CUT} fillOpacity={0.7} stroke="var(--ink)" strokeWidth={2} />,
   },
 ];
@@ -49,7 +55,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {SLICES.map((s, i) => (
-              <button key={s.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: CUT, color: "white", borderColor: CUT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s.name}</button>
+              <button key={s.key} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: CUT, color: "white", borderColor: CUT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s.name}</button>
             ))}
           </div>
 
@@ -81,9 +87,10 @@ export default function Lesson() {
 
       <h2>The shape depends on the cut</h2>
       <p>
-        A horizontal slice matches a face (a square); a slanted slice stretches it
-        into a rectangle; and cutting across a corner exposes a triangle. The angle
-        and position of the plane determine the cross-section.
+        A horizontal slice matches a face (a square); the selected diagonal plane
+        through opposite vertical edges gives a longer rectangle; and a plane
+        meeting the three edges at one corner exposes a triangle. The angle and
+        position of the plane determine the cross-section.
       </p>
 
       <MathCheck>

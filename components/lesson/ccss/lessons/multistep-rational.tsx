@@ -16,6 +16,8 @@ export default function Lesson() {
   const subtotal = price * qty;
   const afterDiscount = subtotal * (1 - discount / 100);
   const perPerson = afterDiscount / people;
+  const exactToCent = Math.abs(perPerson * 100 - Math.round(perPerson * 100)) < 1e-9;
+  const moneyRelation = exactToCent ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -37,11 +39,11 @@ export default function Lesson() {
           <div className="flex w-full max-w-sm flex-col gap-2">
             <StepRow n={1} label={`Subtotal: ${qty} × $${price}`} value={`$${subtotal.toFixed(2)}`} color={STEP} />
             <StepRow n={2} label={`After ${discount}% off: × ${(1 - discount / 100).toFixed(2)}`} value={`$${afterDiscount.toFixed(2)}`} color={STEP} />
-            <StepRow n={3} label={`Split ${people} ways: ÷ ${people}`} value={`$${perPerson.toFixed(2)}`} color={FINAL} />
+            <StepRow n={3} label={`Split ${people} ${people === 1 ? "way" : "ways"}: ÷ ${people}`} value={`${moneyRelation} $${perPerson.toFixed(2)}`} color={FINAL} />
           </div>
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: FINAL }}>
-            <div className="text-xs font-bold uppercase text-[var(--ink-faint)]">each friend pays</div>
+            <div className="text-xs font-bold uppercase text-[var(--ink-faint)]">each friend pays{exactToCent ? "" : " (nearest cent)"}</div>
             <div className="font-mono text-3xl font-black" style={{ color: FINAL }}>${perPerson.toFixed(2)}</div>
           </div>
 
@@ -56,7 +58,7 @@ export default function Lesson() {
 
       <h2>One step at a time</h2>
       <p>
-        Subtotal ${subtotal.toFixed(2)}, minus {discount}% is ${afterDiscount.toFixed(2)}, split {people} ways is ${perPerson.toFixed(2)} each. A quick
+        Subtotal ${subtotal.toFixed(2)}, minus {discount}% is ${afterDiscount.toFixed(2)}, split {people} {people === 1 ? "way" : "ways"} is {moneyRelation} ${perPerson.toFixed(2)} each{exactToCent ? "" : " after rounding to the nearest cent"}. A quick
         estimate (about ${Math.round(subtotal)} → ${Math.round(afterDiscount)} → ${(afterDiscount / people).toFixed(0)}) confirms the answer is reasonable.
       </p>
 
@@ -66,7 +68,7 @@ export default function Lesson() {
           rational numbers in any form (7.EE.B.3) means applying operations in a
           sensible order and using <strong>estimation</strong>{" "}to judge whether
           the answer makes sense. Here the chain is × then × (the discount factor)
-          then ÷, giving ${perPerson.toFixed(2)} per person.
+          then ÷, giving {moneyRelation} ${perPerson.toFixed(2)} per person{exactToCent ? "" : " to the nearest cent"}.
         </p>
       </MathCheck>
     </div>

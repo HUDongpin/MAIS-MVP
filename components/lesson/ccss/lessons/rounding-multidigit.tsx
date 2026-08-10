@@ -32,7 +32,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {PLACES.map(([p, name]) => (
-              <button key={p} type="button" onClick={() => setPlace(p)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={place === p ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {name}</button>
+              <button key={p} type="button" onClick={() => setPlace(p)} aria-pressed={place === p} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={place === p ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {name}</button>
             ))}
           </div>
 
@@ -82,16 +82,16 @@ export default function Lesson() {
 }
 
 function Stepper({ label, value, onChange }: { label: string; value: number; onChange: (n: number) => void }) {
-  const set = (v: number) => onChange(Math.max(0, Math.min(9999, v)));
+  const set = (v: number) => onChange(Math.max(1000, Math.min(9999, v)));
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Decrease ${label} by 100`}>−100</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 100)} disabled={value - 100 < 1000} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Decrease ${label} by 100`}>−100</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= 1000} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label} by 1`}>−</button>
         <span className="w-16 text-center text-xl font-black tabular-nums">{value.toLocaleString()}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`Increase ${label} by 100`}>+100</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 9999} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label} by 1`}>+</button>
+        <button type="button" onClick={() => set(value + 100)} disabled={value + 100 > 9999} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`Increase ${label} by 100`}>+100</button>
       </div>
     </div>
   );

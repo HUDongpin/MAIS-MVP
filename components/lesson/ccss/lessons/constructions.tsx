@@ -49,7 +49,7 @@ export default function Lesson() {
 
           <div className="flex items-center gap-2">
             {STEPS.map((_, s) => (
-              <button key={s} type="button" onClick={() => setStep(s)} className="grid h-9 w-9 place-items-center rounded-lg border text-sm font-black" style={step === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s + 1}</button>
+              <button key={s} type="button" onClick={() => setStep(s)} aria-pressed={step === s} className="grid h-9 w-9 place-items-center rounded-lg border text-sm font-black" style={step === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s + 1}</button>
             ))}
           </div>
         </div>

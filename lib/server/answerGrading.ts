@@ -10,9 +10,12 @@ export function gradeSeedQuestionAttempt(questionId: string, selectedAnswer: str
 
   const correct = questionAnswerMatches(
     {
+      id: question.id,
       answer: question.answer,
       accepted_answers: question.acceptedAnswers ?? null,
-      options: question.options ?? null
+      options: question.options ?? null,
+      strictAnswerUnits: question.strictAnswerUnits,
+      curriculumTrack: question.curriculumTrack
     },
     selectedAnswer
   );

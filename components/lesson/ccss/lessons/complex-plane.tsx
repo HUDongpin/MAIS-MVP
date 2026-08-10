@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const R = 5; // grid radius in units
 const CELL = 26;
@@ -24,9 +28,27 @@ export default function Lesson() {
   const [c, setC] = useState(-2);
   const [d, setD] = useState(3);
 
-  const modZ = r2(Math.sqrt(a * a + b * b));
-  const argZ = r2((Math.atan2(b, a) * 180) / Math.PI);
-  const dist = r2(Math.sqrt((c - a) ** 2 + (d - b) ** 2));
+  const rawModZ = Math.sqrt(a * a + b * b);
+  const modZ = r2(rawModZ);
+  const isZeroZ = a === 0 && b === 0;
+  const rawArgZ = isZeroZ ? null : (Math.atan2(b, a) * 180) / Math.PI;
+  const argZ = rawArgZ === null ? null : r2(rawArgZ);
+  const rawDist = Math.sqrt((c - a) ** 2 + (d - b) ** 2);
+  const dist = r2(rawDist);
+  const modZRelation = relationForDisplayedValue(rawModZ, modZ);
+  const modZSpokenRelation = spokenRelationForDisplayedValue(rawModZ, modZ);
+  const argZRelation = rawArgZ === null || argZ === null ? null : relationForDisplayedValue(rawArgZ, argZ);
+  const argZSpokenRelation = rawArgZ === null || argZ === null ? null : spokenRelationForDisplayedValue(rawArgZ, argZ);
+  const distRelation = relationForDisplayedValue(rawDist, dist);
+  const distSpokenRelation = spokenRelationForDisplayedValue(rawDist, dist);
+  const displayedPolarError = argZ === null
+    ? null
+    : Math.max(
+      Math.abs(a - modZ * Math.cos((argZ * Math.PI) / 180)),
+      Math.abs(b - modZ * Math.sin((argZ * Math.PI) / 180)),
+    );
+  const polarRelation = displayedPolarError === null ? null : relationForDisplayedValue(displayedPolarError, 0);
+  const polarSpokenRelation = displayedPolarError === null ? null : spokenRelationForDisplayedValue(displayedPolarError, 0);
   const midRe = r2((a + c) / 2), midIm = r2((b + d) / 2);
   const sumRe = a + c, sumIm = b + d;
 
@@ -81,11 +103,11 @@ export default function Lesson() {
 
           <div className="grid w-full max-w-lg grid-cols-2 gap-2 font-mono text-sm">
             <Info label="z + w" value={fmt(sumRe, sumIm)} c={SUM} />
-            <Info label="|z| (modulus)" value={`${modZ}`} c={Z} />
-            <Info label="arg z" value={`${argZ}°`} c={Z} />
-            <Info label="|z − w| (distance)" value={`${dist}`} c="var(--ink)" />
+            <Info label="|z| (modulus)" value={`${modZRelation} ${modZ}`} ariaValue={`modulus of z ${modZSpokenRelation} ${modZ}`} c={Z} />
+            <Info label="arg z" value={argZ === null ? "undefined for z = 0" : `${argZRelation} ${argZ}°`} ariaValue={argZ === null ? "argument of z is undefined for z equals zero" : `argument of z ${argZSpokenRelation} ${argZ} degrees`} c={Z} />
+            <Info label="|z − w| (distance)" value={`${distRelation} ${dist}`} ariaValue={`distance between z and w ${distSpokenRelation} ${dist}`} c="var(--ink)" />
             <Info label="midpoint of z, w" value={fmt(midRe, midIm)} c="var(--ink)" />
-            <Info label="polar form of z" value={`${modZ}(cos${argZ}° + i·sin${argZ}°)`} c={Z} />
+            <Info label="polar form of z" value={argZ === null ? "0; angle not unique" : `${polarRelation} ${modZ}(cos${argZ}° + i·sin${argZ}°)`} ariaValue={argZ === null ? "polar form is zero; angle is not unique" : `z in polar form ${polarSpokenRelation} ${modZ} times cosine ${argZ} degrees plus i times sine ${argZ} degrees`} c={Z} />
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-4">
@@ -100,8 +122,9 @@ export default function Lesson() {
       <h2>Rectangular and polar, side by side</h2>
       <p>
         The same point is <strong>a + bi</strong>{" "}(rectangular) or{" "}
-        <strong>r(cos θ + i sin θ)</strong>{" "}(polar), where r = |z| = {modZ} and
-        θ = arg z = {argZ}°. Distance and midpoint between two complex numbers use
+        <strong>r(cos θ + i sin θ)</strong>{" "}(polar). {argZ === null
+          ? "For z = 0, the modulus is 0 and the argument is undefined, so any angle gives the same zero value."
+          : <>Here <span aria-label={`r equals the modulus of z, which ${modZSpokenRelation} ${modZ}`}>r = |z| {modZRelation} {modZ}</span> and <span aria-label={`theta equals the argument of z, which ${argZSpokenRelation} ${argZ} degrees`}>θ = arg z {argZRelation} {argZ}°</span>.</>} Distance and midpoint between two complex numbers use
         the ordinary coordinate formulas, because the plane is the plane.
       </p>
 
@@ -123,11 +146,11 @@ function Arrow({ x1, y1, x2, y2, color }: { x1: number; y1: number; x2: number; 
   return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={color} strokeWidth={3} strokeLinecap="round" />;
 }
 
-function Info({ label, value, c }: { label: string; value: string; c: string }) {
+function Info({ label, value, ariaValue, c }: { label: string; value: string; ariaValue?: string; c: string }) {
   return (
     <div className="flex flex-col rounded-lg bg-[var(--surface-2)] px-3 py-1.5">
       <span className="text-[10px] uppercase text-[var(--ink-faint)]">{label}</span>
-      <span className="font-black" style={{ color: c }}>{value}</span>
+      <span className="font-black" style={{ color: c }} aria-label={ariaValue}>{value}</span>
     </div>
   );
 }
@@ -137,9 +160,9 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} disabled={value <= -5} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(5, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(5, value + 1))} disabled={value >= 5} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

@@ -91,6 +91,80 @@ const packs = [
   }
 ];
 
+const EXPECTED_CA_TEMPLATE_ITEM_COUNT = 1500;
+const EXPECTED_CA_GENERATION_TEMPLATES = Object.freeze([
+  "t_amplitude",
+  "t_arc_length",
+  "t_avg_rate_of_change",
+  "t_break_even",
+  "t_circle_circumference",
+  "t_compare_integers",
+  "t_conditional_probability",
+  "t_consecutive_integers",
+  "t_constant_of_proportionality",
+  "t_correlation_causation",
+  "t_discriminant",
+  "t_distance_points",
+  "t_distribute_equation",
+  "t_doubling_growth",
+  "t_evaluate_cubic",
+  "t_evaluate_linear_expr",
+  "t_evaluate_y_mx_b",
+  "t_expected_value",
+  "t_exterior_angle",
+  "t_fraction_product",
+  "t_fx_evaluate",
+  "t_fx_solve",
+  "t_hypotenuse",
+  "t_integer_chain",
+  "t_inverse_linear",
+  "t_kmh_to_ms",
+  "t_larger_root",
+  "t_linear_model_slope_interpretation",
+  "t_log_value",
+  "t_marble_probability",
+  "t_mean_of_list",
+  "t_median_of_list",
+  "t_midpoint",
+  "t_one_step_equation",
+  "t_opposite_abs",
+  "t_percent_of",
+  "t_period_degrees",
+  "t_perpendicular_slope",
+  "t_predict_from_fit",
+  "t_prism_volume",
+  "t_probability_complement",
+  "t_profit_at_q",
+  "t_quadratic_evaluate",
+  "t_reflect_point",
+  "t_residual_linear",
+  "t_sample_proportion",
+  "t_sampling_mean",
+  "t_scale_area",
+  "t_sector_area",
+  "t_shifted_square",
+  "t_sig_figs",
+  "t_similar_sides",
+  "t_simple_system",
+  "t_slope_two_points",
+  "t_solve_both_sides",
+  "t_solve_proportion",
+  "t_sse_compare",
+  "t_sum_of_roots",
+  "t_third_angle",
+  "t_ticket_count",
+  "t_translate_point",
+  "t_triangle_area",
+  "t_trig_ratio",
+  "t_two_draws",
+  "t_two_step_equation",
+  "t_two_way_table_association",
+  "t_unit_rate",
+  "t_vertex_max_value",
+  "t_vertex_x",
+  "t_z_score"
+]);
+
 const findings = [];
 const seenFindings = new Set();
 function flag(question, pass, severity, issue, detail) {
@@ -220,6 +294,17 @@ const templateSolvers = {
     const m = p.match(rx(F`(\d+) students play a sport, and (\d+) of those also play music`));
     return m ? num(m, 2) / num(m, 1) : null;
   },
+  t_correlation_causation(p) {
+    const m = p.match(
+      rx(F`observational study reports a correlation coefficient of r = (-?\d+(?:\.\d+)?).*Which conclusion is justified`)
+    );
+    if (!m) return null;
+    const correlation = num(m, 1);
+    if (correlation <= 0 || correlation > 1) return null;
+    return {
+      text: "the observed data show a positive linear association, but the study does not by itself establish causation."
+    };
+  },
   t_consecutive_integers(p) {
     const m = p.match(rx(F`sum of three consecutive integers is (-?\d+)\. What is the (middle|largest|smallest)`));
     if (!m) return null;
@@ -281,6 +366,21 @@ const templateSolvers = {
   t_fx_solve(p) {
     const m = p.match(rx(F`f\(x\) = (\d+)x ([+-]) (\d+), solve f\(x\) = (-?\d+)`));
     return m ? (num(m, 4) - signed(m[2], num(m, 3))) / num(m, 1) : null;
+  },
+  t_linear_model_slope_interpretation(p) {
+    const m = p.match(
+      rx(F`fitted line ŷ = (-?\d+(?:\.\d+)?)x ([+-]) (\d+(?:\.\d+)?) predicts a test score y from study time x, measured in hours\. What does the slope (-?\d+(?:\.\d+)?) mean`)
+    );
+    if (!m) return null;
+    const equationSlope = num(m, 1);
+    const namedSlope = num(m, 4);
+    if (!nearlyEqual(equationSlope, namedSlope)) {
+      return { inconsistent: `equation slope ${equationSlope} differs from named slope ${namedSlope}` };
+    }
+    if (equationSlope <= 0) return null;
+    return {
+      text: `for each additional study hour, the predicted test score increases by ${equationSlope} points.`
+    };
   },
   t_hypotenuse(p) {
     const m = p.match(rx(F`legs of (\d+(?:\.\d+)?) cm and (\d+(?:\.\d+)?) cm`));
@@ -358,7 +458,7 @@ const templateSolvers = {
     return null;
   },
   t_percent_of(p) {
-    const m = p.match(rx(F`What is (\d+(?:\.\d+)?)% of (\d+(?:\.\d+)?)`));
+    const m = p.match(rx(F`^What is (\d+(?:\.\d+)?)% of (\d+(?:\.\d+)?)\?$`));
     return m ? (num(m, 1) / 100) * num(m, 2) : null;
   },
   t_period_degrees(p) {
@@ -522,6 +622,38 @@ const templateSolvers = {
     const total = num(m, 1);
     const red = num(m, 2);
     return (red / total) * ((red - 1) / (total - 1));
+  },
+  t_two_way_table_association(p) {
+    const m = p.match(
+      rx(F`(\d+) of (\d+) students in Group A prefer online learning, while (\d+) of (\d+) students in Group B prefer online learning`)
+    );
+    if (!m) return null;
+    const groupAPrefer = num(m, 1);
+    const groupATotal = num(m, 2);
+    const groupBPrefer = num(m, 3);
+    const groupBTotal = num(m, 4);
+    const counts = [groupAPrefer, groupATotal, groupBPrefer, groupBTotal];
+    if (
+      !counts.every(Number.isSafeInteger) ||
+      groupATotal <= 0 ||
+      groupBTotal <= 0 ||
+      groupAPrefer < 0 ||
+      groupAPrefer > groupATotal ||
+      groupBPrefer < 0 ||
+      groupBPrefer > groupBTotal
+    ) {
+      return {
+        inconsistent:
+          "two-way-table preferred counts must be nonnegative integers no greater than their positive group totals"
+      };
+    }
+    const groupARate = groupAPrefer / groupATotal;
+    const groupBRate = groupBPrefer / groupBTotal;
+    return {
+      text: nearlyEqual(groupARate, groupBRate)
+        ? "preference is distributed the same way in both groups."
+        : "preference is associated with group in this sample."
+    };
   },
   t_two_step_equation(p) {
     const m = p.match(rx(F`Solve for x: (\d+)x ([+-]) (\d+) = (-?\d+)`));
@@ -844,17 +976,53 @@ let templateStats = { solved: 0, unparsed: 0, mismatched: 0 };
 const inferStats = {};
 let mathFactStats = { verified: 0, unparsed: 0, mismatched: 0 };
 
+function auditCaliforniaTemplateInventory(rows) {
+  const inventoryQuestion = {
+    id: "<us-ca-math-g6-g12-generated-bank-v2-1500>",
+    batch: "us-ca-g6-g12-v2"
+  };
+  if (rows.length !== EXPECTED_CA_TEMPLATE_ITEM_COUNT) {
+    flag(
+      inventoryQuestion,
+      "B",
+      "P1",
+      "ca-template-count",
+      `found ${rows.length} templated California items; expected ${EXPECTED_CA_TEMPLATE_ITEM_COUNT}`
+    );
+  }
+
+  const expected = new Set(EXPECTED_CA_GENERATION_TEMPLATES);
+  const actual = new Set(rows.map((question) => question.generationTemplate));
+  const missing = [...expected].filter((template) => !actual.has(template));
+  const unexpected = [...actual].filter((template) => !expected.has(template));
+  if (
+    EXPECTED_CA_GENERATION_TEMPLATES.length !== 70 ||
+    expected.size !== 70 ||
+    missing.length > 0 ||
+    unexpected.length > 0
+  ) {
+    flag(
+      inventoryQuestion,
+      "B",
+      "P1",
+      "ca-template-set",
+      `expected 70 templates; configured ${EXPECTED_CA_GENERATION_TEMPLATES.length}/${expected.size} unique; missing [${missing.join(", ") || "none"}]; unexpected [${unexpected.join(", ") || "none"}]`
+    );
+  }
+}
+
 function auditTemplated(question) {
   const solver = templateSolvers[question.generationTemplate];
   if (!solver) {
-    flag(question, "B", "P2", "no-solver", `no solver for template ${question.generationTemplate}`);
+    templateStats.unparsed += 1;
+    flag(question, "B", "P1", "no-solver", `no solver for template ${question.generationTemplate}`);
     return;
   }
   const prompt = normalizePromptText(question.prompt.en);
   const solved = solver(prompt);
   if (solved == null) {
     templateStats.unparsed += 1;
-    flag(question, "B", "P2", "unparsed-prompt", `solver for ${question.generationTemplate} could not parse prompt: "${question.prompt.en}"`);
+    flag(question, "B", "P1", "unparsed-prompt", `solver for ${question.generationTemplate} could not parse prompt: "${question.prompt.en}"`);
     return;
   }
   if (typeof solved === "object" && solved.inconsistent) {
@@ -875,11 +1043,16 @@ function auditTemplated(question) {
   }
   const answerValue = parseNumeric(answer);
   if (answerValue == null) {
-    flag(question, "B", "P2", "unparseable-answer", `cannot parse stored answer "${answer}"`);
+    flag(question, "B", "P1", "unparseable-answer", `cannot parse stored answer "${answer}"`);
     return;
   }
-  const tolerance = question.generationTemplate === "t_arc_length" || question.generationTemplate === "t_sector_area" ? 5e-3 : 1e-6;
-  if (!nearlyEqual(answerValue, solved, tolerance)) {
+  const usesAbsoluteCircleTolerance =
+    question.generationTemplate === "t_arc_length" ||
+    question.generationTemplate === "t_sector_area";
+  const answerMatches = usesAbsoluteCircleTolerance
+    ? Math.abs(answerValue - solved) <= 5e-3
+    : nearlyEqual(answerValue, solved, 1e-6);
+  if (!answerMatches) {
     templateStats.mismatched += 1;
     flag(
       question,
@@ -981,47 +1154,170 @@ function auditMathFact(question) {
   }
 }
 
-for (const { name, mode, pack, questions } of packs) {
-  const rows = questions ?? pack.questions;
-  if (mode === "inferred") inferStats[name] = { covered: 0, uncovered: 0, ambiguous: 0, unjudgeable: 0, mismatched: 0 };
-  for (const question of rows) {
-    auditStructure(question, mode);
-    auditReasoningLeakage(question);
-    // For templated items pass B independently re-solves the whole item, and the
-    // shorthand independentSolution strings ("middle of 25, 26 ... = 29") are not
-    // parseable arithmetic — only check their prose explanations.
-    auditArithmeticClaims(question, { includeIndependentSolution: mode !== "templated" });
-
-    if (mode === "templated") auditTemplated(question);
-    else if (mode === "inferred") auditInferred(question, inferStats[name]);
-    else if (mode === "mathfact") auditMathFact(question);
-  }
+function cloneQuestion(question) {
+  return JSON.parse(JSON.stringify(question));
 }
 
-// ---------- report ----------
+function replaceQuestionAnswer(question, replacement) {
+  const previous = String(question.answer);
+  const next = String(replacement);
+  question.answer = next;
+  question.acceptedAnswers = [next];
+  question.independentAnswer = next;
+  question.options = (question.options ?? []).map((option) => {
+    const visible = String(option?.en ?? option);
+    if (visible !== previous || option === null || typeof option !== "object") return option;
+    return { ...option, en: next, zh: next, zhHans: next };
+  });
+}
 
-const bySeverity = { P0: 0, P1: 0, P2: 0 };
-for (const finding of findings) bySeverity[finding.severity] += 1;
+function resetSelfTestAuditState() {
+  findings.length = 0;
+  seenFindings.clear();
+  templateStats = { solved: 0, unparsed: 0, mismatched: 0 };
+}
 
-const totals = packs.map(({ name, mode, pack, questions }) => `${name} [${mode}]: ${(questions ?? pack.questions).length}`).join("\n  ");
-console.log(`US math item quality audit (CA / AR / FL)`);
-console.log(`  ${totals}`);
-console.log(`CA G6-G12 template pass: ${templateStats.solved} solved+matched, ${templateStats.unparsed} unparsed, ${templateStats.mismatched} mismatched`);
-for (const [name, stats] of Object.entries(inferStats)) {
+function mutationBlockers(question) {
+  resetSelfTestAuditState();
+  auditStructure(question, "templated");
+  auditReasoningLeakage(question);
+  auditArithmeticClaims(question, { includeIndependentSolution: false });
+  auditTemplated(question);
+  return findings.filter((finding) => finding.severity === "P0" || finding.severity === "P1");
+}
+
+function runSelfTests() {
+  const failures = [];
+  const californiaPack = packs.find(
+    ({ name }) => name === "us-ca-math-g6-g12-generated-bank-v2-1500"
+  )?.pack;
+  const californiaQuestions = californiaPack?.questions ?? [];
+  const byId = new Map(californiaQuestions.map((question) => [question.id, question]));
+
+  const expectBlocked = (label, question, expectedIssue) => {
+    const blockers = mutationBlockers(question);
+    if (!blockers.some((finding) => finding.issue === expectedIssue)) {
+      failures.push(
+        `${label}: expected ${expectedIssue}; found ${blockers.map((finding) => finding.issue).join(", ") || "no P0/P1 finding"}`
+      );
+    }
+  };
+
+  const operandMutation = cloneQuestion(byId.get("us-ca-g6-g12-v2-p6-c01-q01"));
+  operandMutation.prompt.en = operandMutation.prompt.en.replace("120?", "121?");
+  expectBlocked("percent operand mutation", operandMutation, "wrong-answer");
+
+  const slopeMutation = cloneQuestion(byId.get("us-ca-g6-g12-v2-s5-c04-q04"));
+  slopeMutation.prompt.en = slopeMutation.prompt.en.replace(
+    "slope 2.5 mean",
+    "slope 3.5 mean"
+  );
+  expectBlocked(
+    "slope self-inconsistency mutation",
+    slopeMutation,
+    "prompt-self-inconsistent"
+  );
+
+  const trailingMathMutation = cloneQuestion(byId.get("us-ca-g6-g12-v2-p6-c01-q01"));
+  trailingMathMutation.prompt.en = "What is 20% of 120 + 10?";
+  expectBlocked("trailing arithmetic mutation", trailingMathMutation, "unparsed-prompt");
+
+  const sectorAnswerMutation = cloneQuestion(byId.get("us-ca-g6-g12-v2-s4-c03-q01"));
+  replaceQuestionAnswer(sectorAnswerMutation, "105");
+  expectBlocked("sector precision mutation", sectorAnswerMutation, "wrong-answer");
+
+  const tableCountMutation = cloneQuestion(byId.get("us-ca-g6-g12-v2-s5-c04-q03"));
+  tableCountMutation.prompt.en = tableCountMutation.prompt.en.replace(
+    "30 of 50 students in Group A",
+    "60 of 50 students in Group A"
+  );
+  expectBlocked(
+    "two-way-table count mutation",
+    tableCountMutation,
+    "prompt-self-inconsistent"
+  );
+
+  if (typeof auditCaliforniaTemplateInventory !== "function") {
+    failures.push("California count/template inventory audit is not implemented");
+  } else {
+    resetSelfTestAuditState();
+    auditCaliforniaTemplateInventory(californiaQuestions.slice(1));
+    if (!findings.some((finding) => finding.issue === "ca-template-count")) {
+      failures.push("California 1,500-item deletion mutation was not blocked");
+    }
+
+    const missingTemplateMutation = californiaQuestions.map(cloneQuestion);
+    for (const question of missingTemplateMutation) {
+      if (question.generationTemplate === "t_correlation_causation") {
+        question.generationTemplate = "t_sample_proportion";
+      }
+    }
+    resetSelfTestAuditState();
+    auditCaliforniaTemplateInventory(missingTemplateMutation);
+    if (!findings.some((finding) => finding.issue === "ca-template-set")) {
+      failures.push("California expected-template deletion mutation was not blocked");
+    }
+  }
+
+  if (failures.length > 0) {
+    console.error(`FAIL: ${failures.length} US math item-quality self-test(s)`);
+    for (const failure of failures) console.error(`  ${failure}`);
+    process.exitCode = 1;
+    return;
+  }
+
   console.log(
-    `${name} inference: ${stats.covered} solver-verified, ${stats.uncovered} uncovered, ${stats.ambiguous} ambiguous, ${stats.unjudgeable} unjudgeable, ${stats.mismatched} mismatched`
+    "PASS: five California item mutations plus count and template-set mutations were blocked."
   );
 }
-console.log(`FL mathFact pass: ${mathFactStats.verified} verified, ${mathFactStats.unparsed} unparsed, ${mathFactStats.mismatched} mismatched`);
-console.log(`Findings: ${findings.length} (P0: ${bySeverity.P0}, P1: ${bySeverity.P1}, P2: ${bySeverity.P2})`);
-for (const finding of findings) {
-  console.log(`  [${finding.severity}][pass ${finding.pass}] ${finding.id}: ${finding.issue} — ${finding.detail}`);
+
+function main() {
+  for (const { name, mode, pack, questions } of packs) {
+    const rows = questions ?? pack.questions;
+    if (mode === "inferred") inferStats[name] = { covered: 0, uncovered: 0, ambiguous: 0, unjudgeable: 0, mismatched: 0 };
+    if (mode === "templated") auditCaliforniaTemplateInventory(rows);
+    for (const question of rows) {
+      auditStructure(question, mode);
+      auditReasoningLeakage(question);
+      // For templated items pass B independently re-solves the whole item, and the
+      // shorthand independentSolution strings ("middle of 25, 26 ... = 29") are not
+      // parseable arithmetic — only check their prose explanations.
+      auditArithmeticClaims(question, { includeIndependentSolution: mode !== "templated" });
+
+      if (mode === "templated") auditTemplated(question);
+      else if (mode === "inferred") auditInferred(question, inferStats[name]);
+      else if (mode === "mathfact") auditMathFact(question);
+    }
+  }
+
+  // ---------- report ----------
+
+  const bySeverity = { P0: 0, P1: 0, P2: 0 };
+  for (const finding of findings) bySeverity[finding.severity] += 1;
+
+  const totals = packs.map(({ name, mode, pack, questions }) => `${name} [${mode}]: ${(questions ?? pack.questions).length}`).join("\n  ");
+  console.log(`US math item quality audit (CA / AR / FL)`);
+  console.log(`  ${totals}`);
+  console.log(`CA G6-G12 template pass: ${templateStats.solved} solved+matched, ${templateStats.unparsed} unparsed, ${templateStats.mismatched} mismatched`);
+  for (const [name, stats] of Object.entries(inferStats)) {
+    console.log(
+      `${name} inference: ${stats.covered} solver-verified, ${stats.uncovered} uncovered, ${stats.ambiguous} ambiguous, ${stats.unjudgeable} unjudgeable, ${stats.mismatched} mismatched`
+    );
+  }
+  console.log(`FL mathFact pass: ${mathFactStats.verified} verified, ${mathFactStats.unparsed} unparsed, ${mathFactStats.mismatched} mismatched`);
+  console.log(`Findings: ${findings.length} (P0: ${bySeverity.P0}, P1: ${bySeverity.P1}, P2: ${bySeverity.P2})`);
+  for (const finding of findings) {
+    console.log(`  [${finding.severity}][pass ${finding.pass}] ${finding.id}: ${finding.issue} — ${finding.detail}`);
+  }
+
+  const jsonIndex = process.argv.indexOf("--json");
+  if (jsonIndex !== -1 && process.argv[jsonIndex + 1]) {
+    writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, inferStats, mathFactStats, findings }, null, 2));
+    console.log(`Wrote ${process.argv[jsonIndex + 1]}`);
+  }
+
+  process.exit(bySeverity.P0 + bySeverity.P1 > 0 ? 1 : 0);
 }
 
-const jsonIndex = process.argv.indexOf("--json");
-if (jsonIndex !== -1 && process.argv[jsonIndex + 1]) {
-  writeFileSync(process.argv[jsonIndex + 1], JSON.stringify({ summary: bySeverity, templateStats, inferStats, mathFactStats, findings }, null, 2));
-  console.log(`Wrote ${process.argv[jsonIndex + 1]}`);
-}
-
-process.exit(bySeverity.P0 + bySeverity.P1 > 0 ? 1 : 0);
+if (process.argv.includes("--self-test")) runSelfTests();
+else main();

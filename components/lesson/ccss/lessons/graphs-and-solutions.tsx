@@ -26,8 +26,15 @@ export default function Lesson() {
   // Round each coordinate from the EXACT intersection. Feeding the rounded
   // xstar back through f made the printed y disagree with both lines.
   const xExact = denom !== 0 ? (5 - b) / denom : NaN;
+  const yExact = denom !== 0 ? f(xExact) : NaN;
   const xstar = denom !== 0 ? r2(xExact) : NaN;
-  const ystar = denom !== 0 ? r2(f(xExact)) : NaN;
+  const ystar = denom !== 0 ? r2(yExact) : NaN;
+  const xRelation = denom !== 0 && Math.abs(xExact * 100 - Math.round(xExact * 100)) < 1e-9 ? "=" : "≈";
+  const roundedIntersection = denom !== 0 && (
+    Math.abs(xExact - xstar) > 1e-9 || Math.abs(yExact - ystar) > 1e-9
+  );
+  const sameLine = denom === 0 && b === 5;
+  const intersectionLabel = `${roundedIntersection ? "≈" : ""}(${xstar}, ${ystar})`;
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
   // A pure affine map. Clamping y inside the mapper bent each line to a wrong
@@ -42,18 +49,26 @@ export default function Lesson() {
       <p>
         A graph is not a picture <em>of</em>{" "}an equation — it <strong>is</strong>{" "}
         the equation&apos;s solution set: every point on the curve makes it true.
-        So where two graphs cross, both equations hold — that&apos;s why{" "}
-        <strong>f(x) = g(x)</strong>{" "}at the intersection.
+        So every point the two graphs share satisfies both equations — that&apos;s
+        why <strong>f(x) = g(x)</strong>{" "}at each shared point.
       </p>
 
-      <Figure caption="Each line is all the (x, y) satisfying it. The crossing point solves f(x) = g(x).">
+      <Figure caption={denom !== 0
+        ? "Each line is all the (x, y) satisfying it. Their crossing point solves f(x) = g(x)."
+        : sameLine
+          ? "The two equations name the same line, so every point on that line solves f(x) = g(x)."
+          : "The two distinct lines are parallel, so they share no point and f(x) = g(x) has no solution."}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-6 font-mono text-lg font-black">
             <span style={{ color: ACCENT }}>f(x) = {m}x {addend(b)}</span>
             <span style={{ color: G }}>g(x) = −x + 5</span>
           </div>
 
-          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={denom !== 0 ? "two functions and their intersection" : "two parallel functions, no intersection"}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="max-w-full" style={{ maxHeight: 300 }} role="img" aria-label={denom !== 0
+            ? `two functions with intersection ${roundedIntersection ? "approximately " : ""}(${xstar}, ${ystar})`
+            : sameLine
+              ? "two coincident functions; every point on the shared line is an intersection"
+              : "two distinct parallel functions with no intersection"}>
             {Array.from({ length: 2 * XR + 1 }, (_, i) => i - XR).map((x) => (
               <line key={x} x1={sx(x)} y1={PAD} x2={sx(x)} y2={H - PAD} stroke="var(--line)" strokeWidth={1} />
             ))}
@@ -71,10 +86,10 @@ export default function Lesson() {
             {/* Bounds-check y as well as x, and clip like the lines: the marker
                 used to be drawn outside the plot rectangle whenever the crossing
                 fell above or below the window. */}
-            {denom !== 0 && xstar >= -XR && xstar <= XR && ystar >= -YR && ystar <= YR && (
+            {denom !== 0 && xExact >= -XR && xExact <= XR && yExact >= -YR && yExact <= YR && (
               <g clipPath="url(#gs-plot)">
-                <circle cx={sx(xstar)} cy={sy(ystar)} r={6} fill="var(--ink)" stroke="white" strokeWidth={2} />
-                <text x={sx(xstar)} y={sy(ystar) - 10} textAnchor="middle" fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">({xstar}, {ystar})</text>
+                <circle cx={sx(xExact)} cy={sy(yExact)} r={6} fill="var(--ink)" stroke="white" strokeWidth={2} />
+                <text x={sx(xExact)} y={sy(yExact) - 10} textAnchor="middle" fontSize={12} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">{intersectionLabel}</text>
               </g>
             )}
           </svg>
@@ -85,8 +100,8 @@ export default function Lesson() {
                 none. Calling that "parallel — no solution" inverted the lesson's
                 own thesis in the one state where the graphs fully agree. */}
             {denom !== 0
-              ? <>solve {m}x {addend(b)} = −x + 5 → x = <strong style={{ color: ACCENT }}>{xstar}</strong></>
-              : b === 5
+              ? <>solve {m}x {addend(b)} = −x + 5 → x {xRelation} <strong style={{ color: ACCENT }}>{xstar}</strong>; intersection <strong style={{ color: ACCENT }}>{intersectionLabel}</strong>{roundedIntersection ? " (coordinates to the nearest hundredth)" : ""}</>
+              : sameLine
                 ? "same line — every x is a solution"
                 : "parallel — no solution"}
           </div>

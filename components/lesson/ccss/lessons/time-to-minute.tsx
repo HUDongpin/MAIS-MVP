@@ -68,10 +68,10 @@ export default function Lesson() {
           <div className="font-mono text-4xl font-black">{fmt(hour, minute)}</div>
 
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <button type="button" onClick={() => step(-5)} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm font-bold">−5</button>
-            <button type="button" onClick={() => step(-1)} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm font-bold">−1</button>
-            <button type="button" onClick={() => step(1)} className="rounded-lg px-3 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }}>+1</button>
-            <button type="button" onClick={() => step(5)} className="rounded-lg px-3 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }}>+5</button>
+            <button type="button" onClick={() => step(-5)} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm font-bold" aria-label="Move the clock back 5 minutes">−5</button>
+            <button type="button" onClick={() => step(-1)} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm font-bold" aria-label="Move the clock back 1 minute">−1</button>
+            <button type="button" onClick={() => step(1)} className="rounded-lg px-3 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }} aria-label="Move the clock forward 1 minute">+1</button>
+            <button type="button" onClick={() => step(5)} className="rounded-lg px-3 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }} aria-label="Move the clock forward 5 minutes">+5</button>
           </div>
 
           <div className="rounded-2xl border-2 border-[var(--line)] px-6 py-3 text-center">

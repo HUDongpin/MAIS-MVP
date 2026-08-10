@@ -21,6 +21,12 @@ export default function Lesson() {
   const [a, setA] = useState(3);
   const [b, setB] = useState(2);
   const id = IDENTITIES[idx];
+  const pascalRowIndex = idx === 3 ? 3 : idx <= 1 ? 2 : null;
+  const pascalNote = idx === 1
+    ? "Row 2 supplies the coefficient magnitudes 1, 2, 1; substituting −b creates the negative middle term."
+    : pascalRowIndex === null
+      ? "The difference-of-squares product is not a single binomial power, so no Pascal row is highlighted."
+      : `Row ${pascalRowIndex} supplies the coefficients for ${id.name}.`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -31,11 +37,11 @@ export default function Lesson() {
         all at once, with coefficients from Pascal&apos;s triangle.
       </p>
 
-      <Figure caption="Pick an identity and plug in numbers — both sides always agree. The coefficients come from Pascal's triangle.">
+      <Figure caption="Pick an identity and plug in numbers — both sides always agree. A matching Pascal row is highlighted when the identity is a binomial power.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {IDENTITIES.map((it, i) => (
-              <button key={it.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{it.name}</button>
+              <button key={it.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{it.name}</button>
             ))}
           </div>
 
@@ -55,10 +61,11 @@ export default function Lesson() {
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-bold uppercase text-[var(--ink-faint)]">Pascal&apos;s triangle → binomial coefficients</span>
             {PASCAL.map((row, i) => (
-              <div key={i} className="flex gap-2 font-mono text-sm" style={{ color: i === 3 ? ACCENT : "var(--ink-soft)" }}>
+              <div key={i} className="flex gap-2 font-mono text-sm" style={{ color: i === pascalRowIndex ? ACCENT : "var(--ink-soft)" }}>
                 {row.map((v, j) => <span key={j} className="w-6 text-center">{v}</span>)}
               </div>
             ))}
+            <span className="mt-1 max-w-md text-center text-xs text-[var(--ink-faint)]">{pascalNote}</span>
           </div>
         </div>
       </Figure>
@@ -89,9 +96,9 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-2">
-        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-5, value - 1))} disabled={value <= -5} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-8 text-center text-2xl font-black tabular-nums" style={{ color: ACCENT }}>{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(9, value + 1))} disabled={value >= 9} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

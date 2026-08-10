@@ -46,13 +46,13 @@ export default function Lesson() {
 
           <div className="grid grid-cols-2 gap-4 text-center font-mono text-sm">
             <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2" style={{ color: ACCENT }}>
-              θ = {deg}°<br />(cos, sin) = ({cos}, {sin})
+              θ = {deg}°<br />(cos, sin) ≈ ({cos}, {sin})
             </div>
             <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2" style={{ color: "var(--band-upper)" }}>
-              180° − θ = {180 - deg}°<br />(cos, sin) = ({r2(-cos)}, {sin})
+              180° − θ = {180 - deg}°<br />(cos, sin) ≈ ({r2(-cos)}, {sin})
             </div>
           </div>
-          <p className="m-0 text-center text-sm text-[var(--ink-soft)]">Same sine ({sin}), opposite cosine — the reflection across the y-axis.</p>
+          <p className="m-0 text-center text-sm text-[var(--ink-soft)]">Same sine and opposite cosine — coordinates shown to the nearest hundredth.</p>
 
           <Slider label="angle θ" value={deg} onChange={setDeg} />
         </div>
@@ -63,8 +63,9 @@ export default function Lesson() {
         Cosine is <strong>even</strong>: cos(−θ) = cos θ (reflection across the
         x-axis). Sine is <strong>odd</strong>: sin(−θ) = −sin θ. And since one full
         turn is 2π, adding 2π to any angle lands on the same point:{" "}
-        sin(θ + 2π) = sin θ. These identities let you evaluate any angle from a
-        first-quadrant reference.
+        sin(θ + 2π) = sin θ. These identities let you evaluate any nonquadrantal
+        angle from its acute first-quadrant reference angle; values on the axes are
+        read directly from the unit circle.
       </p>
 
       <MathCheck>
@@ -72,8 +73,9 @@ export default function Lesson() {
           The unit circle&apos;s <strong>symmetry</strong>{" "}explains sign patterns
           and <strong>periodicity</strong>{" "}(F-TF.4): reflections give even/odd
           identities cos(−θ) = cos θ and sin(−θ) = −sin θ, and full rotations give
-          period 2π. Every angle reduces to a first-quadrant reference angle with the
-          appropriate sign.
+          period 2π. Every nonquadrantal angle has an acute first-quadrant reference
+          angle with the appropriate sign; quadrantal values are read directly from
+          the axes.
         </p>
       </MathCheck>
     </div>

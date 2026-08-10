@@ -45,7 +45,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {([["gcf", "Greatest Common Factor"], ["lcm", "Least Common Multiple"]] as const).map(([m, lbl]) => (
-              <button key={m} type="button" onClick={() => setMode(m)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: BOTH, color: "white", borderColor: BOTH } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
+              <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={mode === m ? { background: BOTH, color: "white", borderColor: BOTH } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{lbl}</button>
             ))}
           </div>
 
@@ -94,7 +94,7 @@ function Row({ label, nums, color, highlight }: { label: string; nums: number[];
       <span className="w-28 shrink-0 text-right text-xs font-bold" style={{ color }}>{label}:</span>
       {nums.map((n) => (
         // The caption points at a highlight that existed only as a colour.
-        <span key={n} aria-label={highlight(n) ? `${n}, a shared multiple` : `${n}`} className="grid h-8 min-w-8 place-items-center rounded px-1.5 font-mono text-sm font-bold" style={{ background: highlight(n) ? "var(--band-high)" : "var(--surface-2)", color: highlight(n) ? "white" : "var(--ink-soft)", outline: highlight(n) ? "2px solid var(--ink)" : "none", outlineOffset: -2 }}>{n}</span>
+        <span key={n} aria-label={highlight(n) ? `${n}, a shared ${label.startsWith("Factors") ? "factor" : "multiple"}` : `${n}`} className="grid h-8 min-w-8 place-items-center rounded px-1.5 font-mono text-sm font-bold" style={{ background: highlight(n) ? "var(--band-high)" : "var(--surface-2)", color: highlight(n) ? "white" : "var(--ink-soft)", outline: highlight(n) ? "2px solid var(--ink)" : "none", outlineOffset: -2 }}>{n}</span>
       ))}
     </div>
   );

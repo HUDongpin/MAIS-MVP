@@ -41,7 +41,7 @@ export default function Lesson() {
 
           <div className="flex flex-wrap justify-center gap-2">
             {pairs.map((pr, i) => (
-              <button key={i} type="button" onClick={() => setPi(i)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={i === Math.min(pi, pairs.length - 1) ? { background: DOT, color: "white", borderColor: DOT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{pr[0]} × {pr[1]}</button>
+              <button key={i} type="button" onClick={() => setPi(i)} aria-pressed={i === Math.min(pi, pairs.length - 1)} className="rounded-lg border px-3 py-1.5 font-mono text-sm font-bold" style={i === Math.min(pi, pairs.length - 1) ? { background: DOT, color: "white", borderColor: DOT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{pr[0]} × {pr[1]}</button>
             ))}
           </div>
 

@@ -1,5 +1,6 @@
 import { textForLanguage } from "@/lib/i18n";
 import {
+  buildDataDisplayLayout,
   buildCoordinateGridLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
@@ -12,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import type {
   CoordinateGridQuestionDiagram,
+  DataDisplayQuestionDiagram,
   Language,
   NumberLineQuestionDiagram,
   PlaneFigureQuestionDiagram,
@@ -339,6 +341,154 @@ function SolidFigureView({
   );
 }
 
+function PictureGraphSymbol({ x, y, fill }: { x: number; y: number; fill: string }) {
+  return (
+    <g transform={`translate(${x} ${y})`} fill={fill}>
+      <ellipse cx={0} cy={2.5} rx={5.8} ry={5.2} />
+      <circle cx={-5.5} cy={-4.5} r={2.2} />
+      <circle cx={0} cy={-6.2} r={2.2} />
+      <circle cx={5.5} cy={-4.5} r={2.2} />
+    </g>
+  );
+}
+
+function DataDisplayView({
+  diagram,
+  theme,
+  textFor
+}: {
+  diagram: DataDisplayQuestionDiagram;
+  theme: FigureTheme;
+  textFor: FigureTextResolver;
+}) {
+  const layout = buildDataDisplayLayout(diagram, textFor);
+  const gridStroke = theme.isDay ? "#cbd5e1" : "#94a3b8";
+  const titleClassName = theme.isDay
+    ? "fill-slate-900 text-[14px] font-black"
+    : "fill-slate-900 text-[14px] font-black dark:fill-white";
+  const categoryClassName = theme.isDay
+    ? "fill-slate-700 text-[11px] font-black"
+    : "fill-slate-700 text-[11px] font-bold dark:fill-slate-200";
+
+  if (layout.display === "line-plot") {
+    return (
+      <svg
+        viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`}
+        className="h-auto w-full"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
+        <text x={layout.viewBox.width / 2} y={25} textAnchor="middle" className={titleClassName}>
+          {layout.title}
+        </text>
+        <line
+          x1={layout.axis.left}
+          x2={layout.axis.right}
+          y1={layout.axis.y}
+          y2={layout.axis.y}
+          stroke={theme.mainStroke}
+          strokeWidth={2.2}
+          strokeLinecap="round"
+        />
+        {layout.ticks.map((tick) => (
+          <g key={tick.key}>
+            <line x1={tick.x} x2={tick.x} y1={layout.axis.y - 7} y2={layout.axis.y + 7} stroke={theme.mainStroke} strokeWidth={1.6} />
+            <text x={tick.x} y={layout.axis.y + 23} textAnchor="middle" className={theme.tickLabelClassName}>
+              {tick.label}
+            </text>
+          </g>
+        ))}
+        {layout.crosses.map((cross) => (
+          <g key={cross.key} stroke={theme.accentStroke} strokeWidth={3} strokeLinecap="round">
+            <line x1={cross.x - 5} x2={cross.x + 5} y1={cross.y - 5} y2={cross.y + 5} />
+            <line x1={cross.x - 5} x2={cross.x + 5} y1={cross.y + 5} y2={cross.y - 5} />
+          </g>
+        ))}
+        <text x={layout.viewBox.width / 2} y={layout.viewBox.height - 9} textAnchor="middle" className={categoryClassName}>
+          {layout.unit}
+        </text>
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`}
+      className="h-auto w-full"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
+      <text x={layout.viewBox.width / 2} y={25} textAnchor="middle" className={titleClassName}>
+        {layout.title}
+      </text>
+      {layout.rows.map((row) => (
+        <g key={row.key}>
+          <text x={96} y={row.y + 4} textAnchor="end" className={categoryClassName}>
+            {row.label}
+          </text>
+          {layout.display === "bar-graph" ? (
+            <>
+              <rect
+                x={layout.plot.left}
+                y={row.y - 11}
+                width={row.barWidth}
+                height={22}
+                rx={5}
+                fill={theme.accentStroke}
+                opacity={theme.isDay ? 0.9 : 0.82}
+              />
+              <text
+                x={Math.min(layout.plot.right - 3, layout.plot.left + row.barWidth + 8)}
+                y={row.y + 4}
+                textAnchor={layout.plot.left + row.barWidth + 8 >= layout.plot.right - 3 ? "end" : "start"}
+                className={categoryClassName}
+              >
+                {row.value}
+              </text>
+            </>
+          ) : (
+            row.symbols.map((symbol) => (
+              <PictureGraphSymbol key={symbol.key} x={symbol.x} y={symbol.y} fill={theme.accentStroke} />
+            ))
+          )}
+        </g>
+      ))}
+      {layout.display === "bar-graph" ? (
+        <>
+          <line x1={layout.plot.left} x2={layout.plot.right} y1={layout.plot.bottom + 2} y2={layout.plot.bottom + 2} stroke={theme.mainStroke} strokeWidth={1.6} />
+          {layout.ticks.map((tick) => (
+            <g key={tick.key}>
+              <line
+                x1={tick.x}
+                x2={tick.x}
+                y1={layout.plot.top - 2}
+                y2={layout.plot.bottom + 6}
+                stroke={gridStroke}
+                strokeWidth={0.8}
+              />
+              <text x={tick.x} y={layout.plot.bottom + 19} textAnchor="middle" className={theme.tickLabelClassName}>
+                {tick.label}
+              </text>
+            </g>
+          ))}
+          <text x={layout.viewBox.width / 2} y={layout.viewBox.height - 8} textAnchor="middle" className={categoryClassName}>
+            {layout.unit}
+          </text>
+        </>
+      ) : (
+        <>
+          <PictureGraphSymbol x={layout.plot.left + 6} y={layout.viewBox.height - 19} fill={theme.accentStroke} />
+          <text x={layout.plot.left + 22} y={layout.viewBox.height - 15} className={categoryClassName}>
+            = {layout.scale} {layout.unit}
+          </text>
+        </>
+      )}
+    </svg>
+  );
+}
+
 /**
  * Counter fills. Kept as literal hex rather than Tailwind classes because the
  * tone a spec names ("red") has to be the colour a learner sees and the colour
@@ -442,12 +592,19 @@ export function QuestionFigure({ diagram, variant = "default", compact = false, 
   const altText = textForLanguage(questionDiagramAltText(diagram), language);
 
   return (
-    <div className={figureShellClassName(variant, compact)} role="img" aria-label={altText}>
+    <div
+      className={figureShellClassName(variant, compact)}
+      role="img"
+      aria-label={altText}
+      data-question-diagram={diagram.kind}
+      data-display={diagram.kind === "data-display" ? diagram.display : undefined}
+    >
       {diagram.kind === "coordinate-grid" ? <CoordinateGridFigure diagram={diagram} theme={theme} /> : null}
       {diagram.kind === "plane-figure" ? <PlaneFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "number-line" ? <NumberLineView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "solid-figure" ? <SolidFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "ten-frame" ? <TenFrameView diagram={diagram} theme={theme} textFor={textFor} /> : null}
+      {diagram.kind === "data-display" ? <DataDisplayView diagram={diagram} theme={theme} textFor={textFor} /> : null}
     </div>
   );
 }

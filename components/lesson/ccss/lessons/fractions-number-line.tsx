@@ -28,8 +28,14 @@ export default function Lesson() {
 
   const x = (k: number) => PAD + (k / b) * lineW;
   const g = gcd(a, b);
-  const simplified = g > 1 ? `${a / g}/${b / g}` : null;
   const whole = a === b;
+  const simplified = a === 0
+    ? "0"
+    : whole
+      ? null
+      : g > 1
+        ? `${a / g}/${b / g}`
+        : null;
 
   return (
     <div className="prose-lesson max-w-none">

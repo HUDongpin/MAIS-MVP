@@ -15,6 +15,15 @@ export default function Lesson() {
 
   const volume = Math.PI * radius * radius * height; // cm³
   const massKg = r2((volume * density) / 1000);
+  // A readable schematic cannot use one physical scale across the full
+  // 10–40 cm radius and 100–500 cm height ranges. Encode each dimension
+  // monotonically and disclose the independent normalization.
+  const drawRadius = 22 + ((radius - 10) / 30) * 28;
+  const drawHeight = 70 + ((height - 100) / 400) * 70;
+  const centerX = 80;
+  const baseY = 170;
+  const topY = baseY - drawHeight;
+  const ellipseYRadius = 10;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -25,13 +34,17 @@ export default function Lesson() {
         estimate its mass without a scale.
       </p>
 
-      <Figure caption="Approximate a real object with a geometric solid, then apply density to estimate mass.">
+      <Figure caption="Approximate a real object with a geometric solid, then apply density to estimate mass. The schematic responds to both dimensions but is not drawn to one common scale.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={140} height={180} viewBox="0 0 140 180" role="img" aria-label={`Cylinder modeling a tree trunk, labeled radius ${radius} cm`}>
-            <ellipse cx={70} cy={30} rx={35} ry={11} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} />
-            <path d="M 35 30 L 35 150 A 35 11 0 0 0 105 150 L 105 30" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2} />
-            <text x={70} y={95} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">r = {radius} cm</text>
+          <svg width={180} height={190} viewBox="0 0 180 190" role="img" aria-label={`Not-to-scale cylinder model of a tree trunk with radius ${radius} centimeters and height ${height} centimeters`}>
+            <ellipse cx={centerX} cy={topY} rx={drawRadius} ry={ellipseYRadius} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} />
+            <path d={`M ${centerX - drawRadius} ${topY} L ${centerX - drawRadius} ${baseY} A ${drawRadius} ${ellipseYRadius} 0 0 0 ${centerX + drawRadius} ${baseY} L ${centerX + drawRadius} ${topY}`} fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2} />
+            <line x1={centerX} y1={topY} x2={centerX + drawRadius} y2={topY} stroke="var(--ink-soft)" strokeWidth={1.5} />
+            <text x={centerX + drawRadius / 2} y={topY - 7} textAnchor="middle" fontSize={10} fill="var(--ink-faint)">r = {radius} cm</text>
+            <line x1={centerX - drawRadius - 9} y1={topY} x2={centerX - drawRadius - 9} y2={baseY} stroke="var(--ink-soft)" strokeWidth={1.5} />
+            <text x={centerX - drawRadius - 14} y={(topY + baseY) / 2} textAnchor="middle" fontSize={10} fill="var(--ink-faint)" transform={`rotate(-90 ${centerX - drawRadius - 14} ${(topY + baseY) / 2})`}>h = {height} cm</text>
           </svg>
+          <p className="m-0 text-xs text-[var(--ink-faint)]">Not to one common scale: radius and height are normalized independently so both changes remain visible.</p>
 
           <div className="grid grid-cols-2 gap-4 text-center font-mono text-sm">
             <div className="rounded-lg bg-[var(--surface-2)] px-4 py-2">volume = πr²h<br /><strong>≈ {r2(volume / 1000)} L</strong></div>

@@ -15,8 +15,31 @@ export default function Lesson() {
   const [b, setB] = useState(18);
   const [c, setC] = useState(12);
 
-  const step1 = a - Math.min(b, a); // birds left after b fly away
+  const step1 = a - b; // birds left after b fly away
   const answer = twoStep ? step1 + c : a + b;
+
+  const oneStepMaxAdded = (start: number) => Math.min(40, 100 - start);
+  const twoStepMaxLanded = (start: number, flewAway: number) =>
+    Math.min(40, 100 - (start - flewAway));
+
+  function changeMode(nextTwoStep: boolean) {
+    const nextB = Math.min(b, nextTwoStep ? a : oneStepMaxAdded(a));
+    setTwoStep(nextTwoStep);
+    setB(nextB);
+    if (nextTwoStep) setC((value) => Math.min(value, twoStepMaxLanded(a, nextB)));
+  }
+
+  function changeStart(nextA: number) {
+    const nextB = Math.min(b, twoStep ? nextA : oneStepMaxAdded(nextA));
+    setA(nextA);
+    setB(nextB);
+    if (twoStep) setC((value) => Math.min(value, twoStepMaxLanded(nextA, nextB)));
+  }
+
+  function changeSecondAmount(nextB: number) {
+    setB(nextB);
+    if (twoStep) setC((value) => Math.min(value, twoStepMaxLanded(a, nextB)));
+  }
 
   return (
     <div className="prose-lesson max-w-none">
@@ -30,14 +53,14 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {[false, true].map((v) => (
-              <button key={String(v)} type="button" onClick={() => setTwoStep(v)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={twoStep === v ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{v ? "Two step" : "One step"}</button>
+              <button key={String(v)} type="button" onClick={() => changeMode(v)} aria-pressed={twoStep === v} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={twoStep === v ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{v ? "Two step" : "One step"}</button>
             ))}
           </div>
 
           <p className="m-0 max-w-md text-center text-lg font-semibold">
             {twoStep
-              ? <>{a} birds sat on a wire. {Math.min(b, a)} flew away. Then {c} more landed. How many birds now?</>
-              : <>The library had {a} books. {b} more were donated. How many books in all?</>}
+              ? <>{a} birds sat on a wire. {b} flew away. Then {c} more landed. How many birds now?</>
+              : <>The library had {a} books. {b === 1 ? <>1 more book was donated.</> : <>{b} more books were donated.</>} How many books in all?</>}
           </p>
 
           {/* tape diagram */}
@@ -53,19 +76,19 @@ export default function Lesson() {
               {twoStep && <div className="grid place-items-center border-l-2 border-white text-xs font-bold text-white" style={{ width: c * PXU, background: CC }}>+{c}</div>}
             </div>
             {twoStep && (
-              <p className="m-0 text-xs text-[var(--ink-faint)]">first {a} − {Math.min(b, a)} = {step1}, then + {c}</p>
+              <p className="m-0 text-xs text-[var(--ink-faint)]">first {a} − {b} = {step1}, then + {c}</p>
             )}
           </div>
 
           <div className="font-mono text-2xl font-black">
-            {twoStep ? <>{a} − {Math.min(b, a)} + {c}</> : <>{a} + {b}</>} ={" "}
+            {twoStep ? <>{a} − {b} + {c}</> : <>{a} + {b}</>} ={" "}
             <span style={{ color: A }}>{answer}</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="Start" value={a} min={10} max={80} color={A} onChange={setA} />
-            <Stepper label={twoStep ? "Flew away" : "Added"} value={b} min={1} max={twoStep ? a : 40} color={B} onChange={setB} />
-            {twoStep && <Stepper label="Landed" value={c} min={1} max={40} color={CC} onChange={setC} />}
+            <Stepper label="Start" value={a} min={10} max={80} color={A} onChange={changeStart} />
+            <Stepper label={twoStep ? "Flew away" : "Added"} value={b} min={1} max={twoStep ? a : oneStepMaxAdded(a)} color={B} onChange={changeSecondAmount} />
+            {twoStep && <Stepper label="Landed" value={c} min={1} max={twoStepMaxLanded(a, b)} color={CC} onChange={setC} />}
           </div>
         </div>
       </Figure>
@@ -82,7 +105,7 @@ export default function Lesson() {
           Using addition and subtraction within 100 to solve one- and two-step
           word problems — putting together, taking apart, and comparing — is
           2.OA.A.1. A <strong>tape diagram</strong>{" "}models the story so you can
-          choose the right operations{twoStep ? `: first ${a} − ${Math.min(b, a)} = ${step1}, then ${step1} + ${c} = ${answer}` : `: ${a} + ${b} = ${answer}`}.
+          choose the right operations{twoStep ? `: first ${a} − ${b} = ${step1}, then ${step1} + ${c} = ${answer}` : `: ${a} + ${b} = ${answer}`}.
         </p>
       </MathCheck>
     </div>

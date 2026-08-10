@@ -37,7 +37,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {[90, 180].map((t) => (
-              <button key={t} type="button" onClick={() => { setTotal(t); setA((p) => Math.min(p, t)); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={total === t ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{t === 90 ? "Right angle (90°)" : "Straight (180°)"}</button>
+              <button key={t} type="button" onClick={() => { setTotal(t); setA((p) => Math.max(5, Math.min(p, t - 5))); }} aria-pressed={total === t} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={total === t ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{t === 90 ? "Right angle (90°)" : "Straight (180°)"}</button>
             ))}
           </div>
 
@@ -61,7 +61,7 @@ export default function Lesson() {
 
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">First angle: {known}°</span>
-            <input type="range" min={0} max={total} step={5} value={known} onChange={(e) => setA(Number(e.target.value))} className="w-56 accent-[var(--band-middle)]" aria-label="first angle" />
+            <input type="range" min={5} max={total - 5} step={5} value={known} onChange={(e) => setA(Number(e.target.value))} className="w-56 accent-[var(--band-middle)]" aria-label="first angle" />
           </div>
         </div>
       </Figure>

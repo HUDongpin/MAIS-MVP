@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { relationForDisplayedValue } from "@/components/lesson/ccss/numberPresentation";
 
 const ONE = "var(--band-upper)";
 const NONE = "var(--band-early)";
@@ -23,6 +24,8 @@ export default function Lesson() {
   else kind = "none";
 
   const color = kind === "one" ? ONE : kind === "none" ? NONE : INF;
+  const solDisplay = Number.isInteger(sol) ? String(sol) : sol.toFixed(2);
+  const solRelation = relationForDisplayedValue(sol, solDisplay);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -40,7 +43,7 @@ export default function Lesson() {
             <div className="text-[15px] text-[var(--ink-soft)]">subtract {c}x and {b}: {coefX}x = {constant}</div>
             {kind === "one" && <div className="text-[15px] text-[var(--ink-soft)]">divide by {coefX}: x = {constant} ÷ {coefX}</div>}
             <div className="text-2xl font-black" style={{ color }}>
-              {kind === "one" ? `x ${sol % 1 === 0 ? "=" : "≈"} ${sol % 1 === 0 ? sol : sol.toFixed(2)}` : kind === "inf" ? "0 = 0 → all x work" : `0 = ${constant} → impossible`}
+              {kind === "one" ? `x ${solRelation} ${solDisplay}` : kind === "inf" ? "0 = 0 → all x work" : `0 = ${constant} → impossible`}
             </div>
           </div>
 
@@ -61,7 +64,7 @@ export default function Lesson() {
       <h2>When the x&apos;s cancel</h2>
       <p>
         {kind === "one"
-          ? `Here the x-terms don't cancel (${a} ≠ ${c}), so there's a single solution: x ${sol % 1 === 0 ? "=" : "≈"} ${sol % 1 === 0 ? sol : sol.toFixed(2)}.`
+          ? `Here the x-terms don't cancel (${a} ≠ ${c}), so there's a single solution: x ${solRelation} ${solDisplay}${solRelation === "≈" ? " (to the nearest hundredth)" : ""}.`
           : kind === "inf"
             ? `Both sides are identical, so every value of x makes it true — infinitely many solutions.`
             : `The x's cancel but the numbers disagree (0 = ${constant}), so no value of x can work.`}

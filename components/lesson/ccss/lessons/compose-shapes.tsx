@@ -34,7 +34,7 @@ export default function Lesson() {
                 key={bb.key}
                 type="button"
                 onClick={() => { setBuild(i); setJoined(false); }}
-                className="rounded-lg border px-3 py-1.5 text-sm font-bold"
+                aria-pressed={i === build} className="rounded-lg border px-3 py-1.5 text-sm font-bold"
                 style={i === build ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
               >
                 {bb.label}
@@ -58,9 +58,9 @@ export default function Lesson() {
               </>
             ) : (
               <>
-                <rect x="42" y="45" width="58" height="58" rx="4" fill={A} stroke="var(--surface)" strokeWidth="2" />
+                <rect x="42" y="45" width="58" height="58" fill={A} stroke="var(--surface)" strokeWidth="2" />
                 <rect
-                  x="100" y="45" width="58" height="58" rx="4"
+                  x="100" y="45" width="58" height="58"
                   fill={B}
                   stroke="var(--surface)"
                   strokeWidth="2"
@@ -96,7 +96,8 @@ export default function Lesson() {
       <MathCheck>
         <p>
           Putting simple shapes together to make a larger shape is{" "}
-          <strong>composing shapes</strong>{" "}(K.G.B.6): here, {b.pieces} form a{" "}
+          <strong>composing shapes</strong>{" "}(K.G.B.6): here, {b.pieces}{" "}
+          {joined ? "form" : "can be joined to form"} a{" "}
           {b.makes}. Building and arranging shapes like this is how young learners{" "}
           <strong>model shapes in the world</strong>{" "}(K.G.B.5) — and it previews
           how area is built from smaller pieces in later grades.

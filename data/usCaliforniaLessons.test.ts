@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { ccssLessonAssignments, ccssLessonSequenceForTopic, hasCcssLessonAssignment } from "./ccssLessonAssignments";
+import {
+  ccssLessonAssignments,
+  ccssLessonMetasForTopic,
+  ccssLessonSequenceForTopic,
+  hasCcssLessonAssignment
+} from "./ccssLessonAssignments";
 import { californiaKnowledgePointForTopic } from "./usCaliforniaKnowledgePoints";
 import { getUsCaliforniaLessonIllustration } from "./usCaliforniaLessonIllustrations";
 import {
@@ -13,6 +18,10 @@ import {
 } from "./usCaliforniaLessons";
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import {
+  hasProductionCaliforniaLessonVisualization,
+  productionCaliforniaLessonVisualizationTopicIds
+} from "./usCaliforniaLessonVisualizationAvailability";
+import {
   californiaCcssTextbookPracticeQuestionCount,
   californiaElementaryMicroLessonTopics,
   usCaliforniaTopics,
@@ -22,6 +31,7 @@ import {
   expectedUnitedStatesCaliforniaK5QuestionCount,
   usCaliforniaQuestions
 } from "./usCaliforniaQuestions";
+import { getPrimaryVisualizationLabForTopic } from "./visualizationLabs";
 
 const blockedWorkedExamplePatterns = [
   /Try this approved California checkpoint/i,
@@ -89,6 +99,26 @@ const ixlSourceTitles = [
   "Model and write subtraction sentences for word problems - up to 10",
   "Subtraction sentences for \"take apart\" word problems - up to 10"
 ];
+
+function ccssDomainCode(standardId: string) {
+  if (standardId === "Modeling") return standardId;
+  const parts = standardId.split(".");
+  return parts[0]?.includes("-") ? parts[0] : parts.slice(0, 2).join(".");
+}
+
+function uniqueInOrder(values: string[]) {
+  return [...new Set(values)];
+}
+
+function sortedCcssIdsInDomainOrder(standardIds: string[]) {
+  const ids = uniqueInOrder(standardIds);
+  const domains = uniqueInOrder(ids.map(ccssDomainCode));
+  return domains.flatMap((domain) =>
+    ids
+      .filter((standardId) => ccssDomainCode(standardId) === domain)
+      .sort((left, right) => left.localeCompare(right, "en", { numeric: true }))
+  );
+}
 
 test("California K-5 textbook lessons and 492-question knowledge-point practice are live", () => {
   assert.equal(californiaK5TextbookLessonSeeds.length, 29);
@@ -470,4 +500,60 @@ test("California Kindergarten cardinality compare lesson teaches cardinality, no
   const narration = interactiveBlock?.content?.en ?? "";
   assert.match(narration, /last number you say/i);
   assert.doesNotMatch(narration, /\b\d+\s*\+\s*\d+\s*=\s*\d+\b/);
+});
+
+test("California lesson pages quarantine visualization embeds until renderer-level QA approves them", () => {
+  assert.equal(usCaliforniaLessonSeeds.length, 76);
+  assert.deepEqual(
+    productionCaliforniaLessonVisualizationTopicIds,
+    [],
+    "No California visualization currently satisfies the production lesson-surface contract"
+  );
+
+  let assignedCoreCount = 0;
+  let explicitFallbackCount = 0;
+
+  usCaliforniaLessonSeeds.forEach((lesson) => {
+    const lab = getPrimaryVisualizationLabForTopic(lesson.topicId);
+    const visualizationBlock = lesson.blocks.find((block) => block.type === "visualization");
+    const assignedMetas = ccssLessonMetasForTopic(lesson.topicId);
+
+    assert.ok(lab, `${lesson.topicId} has a primary Visualization Lab`);
+    assert.equal(lab.publisher, "US_CA_MATH", `${lesson.topicId} keeps the California publisher`);
+    assert.ok(lab.californiaAlignment, `${lesson.topicId} exposes California alignment metadata`);
+    assert.equal(hasProductionCaliforniaLessonVisualization(lesson.topicId), false);
+    assert.equal(visualizationBlock, undefined, `${lesson.topicId} must not display an unapproved visualization`);
+    const displayedLessonText = lesson.blocks
+      .flatMap((block) => [block.title?.en ?? "", block.content?.en ?? "", ...(block.items ?? []).map((item) => item.en)])
+      .join(" ");
+    assert.doesNotMatch(displayedLessonText, /chosen lab supports it|Safeguard Review|Read me first note/i);
+
+    if (assignedMetas.length === 0) {
+      explicitFallbackCount += 1;
+      assert.ok((lab.californiaAlignment?.standardIds.length ?? 0) > 0, `${lesson.topicId} keeps explicit micro-lesson standards`);
+      return;
+    }
+
+    assignedCoreCount += 1;
+    const expectedStandardIds = uniqueInOrder(assignedMetas.flatMap((meta) => meta.standardIds));
+    const expectedDomainCodes = uniqueInOrder(expectedStandardIds.map(ccssDomainCode));
+    const expectedDomainId = expectedDomainCodes.map((domainCode) => `CA.CCSS.Math.${domainCode}`).join(" + ");
+    const visibleStandardIds = sortedCcssIdsInDomainOrder(expectedStandardIds).slice(0, 4);
+
+    assert.deepEqual(
+      lab.californiaAlignment?.standardIds,
+      expectedStandardIds,
+      `${lesson.topicId} lab standards equal the interactive lessons rendered on the page`
+    );
+    assert.equal(
+      lab.californiaAlignment?.domainId,
+      expectedDomainId,
+      `${lesson.topicId} names every and only assigned CCSS domain`
+    );
+    assert.ok(visibleStandardIds.length > 0, `${lesson.topicId} keeps at least one displayed-core standard`);
+    assert.match(lab.studentNote?.text.en ?? "", new RegExp(escapeRegExp(expectedDomainId)));
+  });
+
+  assert.equal(assignedCoreCount, 64);
+  assert.equal(explicitFallbackCount, 12);
 });

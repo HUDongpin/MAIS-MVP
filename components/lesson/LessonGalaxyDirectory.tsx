@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { californiaCourseTitleForGrade, cleanLessonDisplayTitle, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
 import { useSettings } from "@/components/providers/AppProviders";
+import { hasProductionCaliforniaLessonVisualization } from "@/data/usCaliforniaLessonVisualizationAvailability";
 import { formatGradeLabel } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import type { LessonDetail, LessonSummary } from "@/types";
@@ -58,6 +59,11 @@ function modulePreviewItems({
   module: LessonSummary;
   t: ReturnType<typeof useSettings>["t"];
 }): LessonGalaxyItem[] {
+  const isCaliforniaModule =
+    module.publisher === "US_CA_MATH" || module.curriculumProfile?.publisher === "US_CA_MATH";
+  const includeVisualization =
+    !isCaliforniaModule || hasProductionCaliforniaLessonVisualization(module.topicId);
+
   return [
     {
       description,
@@ -75,14 +81,16 @@ function modulePreviewItems({
       targetId: "",
       title: t({ en: "Worked example", zh: "例題", zhHans: "例题" })
     },
-    {
-      description: "",
-      id: `${module.slug}-preview-lab`,
-      kind: "visualization",
-      subtitle: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" }),
-      targetId: "",
-      title: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" })
-    },
+    ...(includeVisualization
+      ? [{
+          description: "",
+          id: `${module.slug}-preview-lab`,
+          kind: "visualization" as const,
+          subtitle: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" }),
+          targetId: "",
+          title: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" })
+        }]
+      : []),
     {
       description: "",
       id: `${module.slug}-preview-practice`,

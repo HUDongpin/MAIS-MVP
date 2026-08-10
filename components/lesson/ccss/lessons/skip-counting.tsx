@@ -22,11 +22,11 @@ export default function Lesson() {
         or <strong>100s</strong>. It builds a pattern you can see and hear.
       </p>
 
-      <Figure caption="Each jump adds the same amount. Watch which digit changes.">
+      <Figure caption="Each jump adds the same amount. Watch the place values change and regroup at a new ten, hundred, or thousand.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {[5, 10, 100].map((s) => (
-              <button key={s} type="button" onClick={() => { setStep(s); setCount(6); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={step === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>by {s}s</button>
+              <button key={s} type="button" onClick={() => { setStep(s); setCount(6); }} aria-pressed={step === s} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={step === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>by {s}s</button>
             ))}
           </div>
 
@@ -48,8 +48,11 @@ export default function Lesson() {
       <h2>Same jump, clear pattern</h2>
       <p>
         Skip-counting by {step} adds {step} every time. Counting by 5s ends in 0
-        or 5; by 10s the tens digit climbs; by 100s the hundreds digit climbs.
-        The pattern makes big numbers easy to reach.
+        or 5. Counting by 10s adds one ten each time; after 90, ten tens regroup
+        as 100, so the hundreds digit changes too. Counting by 100s adds one
+        hundred each time; after 900, ten hundreds regroup as 1000. The pattern
+        makes big numbers easier to reach. At a regrouping boundary, more than
+        one digit may change.
       </p>
 
       <MathCheck>

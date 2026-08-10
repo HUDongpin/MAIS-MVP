@@ -21,6 +21,8 @@ export default function Lesson() {
     const a = (Math.PI / 2) + (Math.PI * i) / n;
     return [r2(CX + RAD * Math.cos(a)), r2(CY - RAD * Math.sin(a)), r2(CX - RAD * Math.cos(a)), r2(CY + RAD * Math.sin(a))];
   });
+  const turnAngle = 360 / n;
+  const turnLabel = Number.isInteger(turnAngle) ? `${turnAngle}°` : `≈ ${turnAngle.toFixed(2)}°`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -43,7 +45,7 @@ export default function Lesson() {
 
           <div className="grid grid-cols-2 gap-4 text-center">
             <Info label="lines of symmetry" value={`${n}`} />
-            <Info label="rotational order" value={`${n} (turn ${r2(360 / n)}°)`} />
+            <Info label="rotational order" value={`${n} (turn ${turnLabel})`} />
           </div>
 
           <Stepper label="sides n" value={n} min={3} max={8} onChange={setN} />
@@ -54,8 +56,9 @@ export default function Lesson() {
       <p>
         For this regular {n}-gon, {n} mirror lines and {n} rotations (including the
         full turn) each carry it exactly onto itself. Non-regular figures have fewer:
-        a rectangle has just 2 lines of symmetry and order-2 rotation. Describing
-        these self-maps is a precise way to capture "how symmetric" a shape is.
+        a non-square rectangle has exactly 2 lines of symmetry and rotational
+        symmetry of order 2. Describing these self-maps is a precise way to capture
+        "how symmetric" a shape is.
       </p>
 
       <MathCheck>

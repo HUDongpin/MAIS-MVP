@@ -44,7 +44,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {CTXS.map((c, i) => (
-              <button key={c.key} type="button" onClick={() => setCi(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={ci === i ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{c.label}</button>
+              <button key={c.key} type="button" onClick={() => setCi(i)} aria-pressed={ci === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={ci === i ? { background: "var(--band-middle)", color: "white", borderColor: "var(--band-middle)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{c.label}</button>
             ))}
           </div>
 
@@ -79,10 +79,12 @@ export default function Lesson() {
 
       <h2>Opposites around zero</h2>
       <p>
-        {v > 0 ? v : Math.abs(v)} and {v > 0 ? -v : v} are <strong>opposites</strong>{" "}—
-        the same distance from 0 but in opposite directions. Their sum is 0. Zero
-        itself is its own opposite and marks the boundary between positive and
-        negative.
+        {v === 0 ? (
+          <>Zero is its own opposite. It has no positive or negative direction, and 0 + 0 = 0.</>
+        ) : (
+          <>{Math.abs(v)} and {-Math.abs(v)} are <strong>opposites</strong>{" "}— the same distance from 0 in opposite directions. Their sum is 0.</>
+        )}{" "}
+        Zero marks the boundary between positive and negative numbers.
       </p>
 
       <MathCheck>
@@ -91,7 +93,8 @@ export default function Lesson() {
           <strong>opposite directions or values</strong>{" "}— temperature above/below
           zero, elevation above/below sea level, credit/debit (6.NS.C.5). Zero is
           the reference point, and every number has an <strong>opposite</strong>{" "}
-          the same distance from 0 on the other side.
+          the same distance from 0 on the other side when it is nonzero; zero is
+          its own opposite.
         </p>
       </MathCheck>
     </div>

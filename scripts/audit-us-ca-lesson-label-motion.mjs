@@ -23,6 +23,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = process.env.BASE_URL ?? "http://localhost:3318";
 const USER_ID = process.env.QA_USER_ID ?? "student-shirleen-us";
+const INCREASE_CONTROLS = /^(Increase|One more|More |Add one)| plus 100$/i;
 
 const { createSessionToken, SESSION_COOKIE_NAME } = await import(path.join(root, "lib/session.ts"));
 
@@ -59,7 +60,7 @@ for (const slug of list) {
   let navigated = false;
   for (let attempt = 0; attempt < 2 && !navigated; attempt += 1) {
     try {
-      await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "networkidle", timeout: 90000 });
+      await page.goto(`${BASE}/student/lessons/${slug}`, { waitUntil: "domcontentloaded", timeout: 90000 });
       navigated = true;
     } catch (error) {
       const message = error.message.split("\n")[0];
@@ -84,7 +85,10 @@ for (const slug of list) {
   // guard stopped it reporting a pass. Assert we are on the lesson, per
   // navigation, so a session that expires mid-run is caught too.
   const landed = page.url();
-  if (!landed.includes(`/student/lessons/${slug}`) || landed.includes("/login")) {
+  const expectedPath = `/student/lessons/${slug}`;
+  let landedPath = "";
+  try { landedPath = new URL(landed).pathname; } catch {}
+  if (landedPath !== expectedPath) {
     console.error(`\n✗ ${slug} — landed on ${landed}`);
     console.error("  That is not the lesson. The session cookie was rejected, so this run would");
     console.error("  audit a logged-out page.");
@@ -95,8 +99,8 @@ for (const slug of list) {
     process.exit(2);
   }
 
-  // `networkidle` is not enough: the interactive lesson figures mount on
-  // hydration, after the last request settles. A fixed 500ms wait found zero
+  // `domcontentloaded` is not enough by itself: the interactive lesson figures
+  // mount on hydration. A fixed 500ms wait found zero
   // figures on all 76 pages while the DOM had them a beat later — and because
   // zero figures is indistinguishable from a clean page, this gate's own
   // zero-coverage guard was the only thing that caught it. Wait for the figure
@@ -118,13 +122,52 @@ for (const slug of list) {
   if (!before.length) { pagesWithNoFigure.push(slug); continue; }
   pagesInspected += 1;
 
-  // press every increase control once, then read again
-  const ups = await page.getByRole("button", { name: /^(Increase|One more|More )/i }).all();
+  // Change every discoverable state family once, then read again. The old
+  // `slice(0, 12)` silently skipped later components on dense lesson pages and
+  // ignored range, number, select, and choice controls entirely.
+  const ups = await page.getByRole("button", { name: INCREASE_CONTROLS }).all();
   let pressed = 0;
-  for (const b of ups.slice(0, 12)) {
+  for (const b of ups) {
     if (await b.isEnabled().catch(() => false)) {
-      await b.click({ timeout: 1500 }).catch(() => {});
-      pressed += 1;
+      if (await b.click({ timeout: 1500 }).then(() => true).catch(() => false)) pressed += 1;
+    }
+  }
+  const ranges = page.locator('input[type="range"]');
+  for (let index = 0, count = await ranges.count(); index < count; index += 1) {
+    const input = ranges.nth(index);
+    const max = await input.getAttribute("max");
+    if (max != null && await input.inputValue().catch(() => "") !== max) {
+      if (await input.fill(max).then(() => true).catch(() => false)) pressed += 1;
+    }
+  }
+  const numbers = page.locator('input[type="number"]');
+  for (let index = 0, count = await numbers.count(); index < count; index += 1) {
+    const input = numbers.nth(index);
+    const max = await input.getAttribute("max");
+    if (max != null && await input.inputValue().catch(() => "") !== max) {
+      if (await input.fill(max).then(() => true).catch(() => false)) {
+        await input.blur().catch(() => {});
+        pressed += 1;
+      }
+    }
+  }
+  const selects = page.locator("select");
+  for (let index = 0, count = await selects.count(); index < count; index += 1) {
+    const select = selects.nth(index);
+    const options = await select.locator("option").all();
+    if (options.length < 2) continue;
+    const lastValue = await options[options.length - 1].getAttribute("value");
+    if (lastValue != null && await select.inputValue().catch(() => "") !== lastValue) {
+      if (await select.selectOption(lastValue).then(() => true).catch(() => false)) pressed += 1;
+    }
+  }
+  // Element handles stay attached to the original options while aria-pressed
+  // changes after each click; nth-of-a-changing-selector locators can skip half
+  // the choices.
+  const choices = await page.$$('button[aria-pressed="false"]');
+  for (const choice of choices) {
+    if (await choice.isEnabled().catch(() => false)) {
+      if (await choice.click().then(() => true).catch(() => false)) pressed += 1;
     }
   }
   if (!pressed) { pagesWithNoControl.push(slug); continue; }
@@ -147,7 +190,7 @@ await browser.close();
 console.log(`audit-us-ca-lesson-label-motion: ${list.length} lesson pages requested`);
 console.log(`  inspected (had at least one figure): ${pagesInspected}`);
 if (pagesWithNoFigure.length) console.log(`  skipped, no role=img/group figure on screen: ${pagesWithNoFigure.length}`);
-if (pagesWithNoControl.length) console.log(`  skipped, no enabled Increase/More control: ${pagesWithNoControl.length}`);
+if (pagesWithNoControl.length) console.log(`  skipped, no enabled state-changing control: ${pagesWithNoControl.length}`);
 if (retried.length) console.log(`  loaded on a retry after a first-visit compile timeout: ${retried.length}`);
 if (pagesInspected === 0) {
   console.error("✗ nothing was inspected — refusing to report a pass.");

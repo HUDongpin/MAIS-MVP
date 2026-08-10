@@ -7,6 +7,9 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const TENC = "var(--band-upper)";
 const ONEC = "var(--band-early)";
 
+const placeCount = (count: number, singular: "ten" | "one") =>
+  `${count} ${count === 1 ? singular : `${singular}s`}`;
+
 function Blocks({ n }: { n: number }) {
   const tens = Math.floor(n / 10);
   const ones = n % 10;
@@ -34,7 +37,7 @@ export default function Lesson() {
   const ta = Math.floor(a / 10), tb = Math.floor(b / 10);
   const reason =
     ta !== tb
-      ? `${a} has ${ta} tens and ${b} has ${tb} tens — more tens wins.`
+      ? `${a} has ${placeCount(ta, "ten")} and ${b} has ${placeCount(tb, "ten")} — more tens wins.`
       : a !== b
         ? `Same number of tens (${ta}), so compare the ones: ${a % 10} vs ${b % 10}.`
         : "Same tens and same ones — the numbers are equal.";
@@ -72,9 +75,11 @@ export default function Lesson() {
 
       <h2>Tens first, then ones</h2>
       <p>
-        {ta !== tb
+        {a === b
+          ? `Both numbers have ${placeCount(ta, "ten")} and ${placeCount(a % 10, "one")}, so they are equal.`
+          : ta !== tb
           ? `${a > b ? a : b} has more tens, so it is greater — no need to count every block.`
-          : `Both have ${ta} tens, so the number with more ones is greater.`}
+          : `Both have ${placeCount(ta, "ten")}, so the number with more ones is greater.`}
       </p>
 
       <MathCheck>

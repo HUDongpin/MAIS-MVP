@@ -22,12 +22,22 @@ function simplify(numer: number, denom: number): string {
   return dd === 1 ? `${nn}` : `${nn}/${dd}`;
 }
 
+export function cupUnit(totalEighths: number) {
+  return totalEighths === 8 ? "cup" : "cups";
+}
+
+export function beakerUnit(count: number) {
+  return count === 1 ? "beaker" : "beakers";
+}
+
 export default function Lesson() {
   const [counts, setCounts] = useState([2, 1, 2, 1]);
   const n = counts.reduce((s, c) => s + c, 0);
   const totalEighths = counts.reduce((s, c, i) => s + c * POINTS[i].e, 0);
   // equal share = totalEighths / (8 * n) of a cup -> in eighths: totalEighths / n
   const shareDecimal = n > 0 ? totalEighths / 8 / n : 0;
+  const roundedShare = +shareDecimal.toFixed(3);
+  const exactToThousandth = Math.abs(shareDecimal - roundedShare) < 1e-9;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -52,13 +62,13 @@ export default function Lesson() {
           </div>
           <div className="-mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">cups of liquid</div>
 
-          <div className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center">
-            <div className="font-mono text-[15px]">Total = <strong style={{ color: MARK }}>{simplify(totalEighths, 8)}</strong>{" "}{totalEighths === 8 ? "cup" : "cups"}, in {n} {n === 1 ? "beaker" : "beakers"}</div>
+          <output className="rounded-xl bg-[var(--surface-2)] px-5 py-3 text-center" aria-label="Line-plot redistribution result" aria-live="polite" aria-atomic="true">
+            <div className="font-mono text-[15px]">Total = <strong style={{ color: MARK }}>{simplify(totalEighths, 8)}</strong>{" "}{cupUnit(totalEighths)}, in {n} {beakerUnit(n)}</div>
             <div className="mt-1 font-mono text-lg font-black">
               {simplify(totalEighths, 8)} ÷ {n} = <span style={{ color: MARK }}>{simplify(totalEighths, 8 * n)}</span> cup each
-              <span className="text-[var(--ink-soft)]"> ({shareDecimal.toFixed(3)})</span>
+              <span className="text-[var(--ink-soft)]"> ({exactToThousandth ? "=" : "≈"} {roundedShare.toFixed(3)})</span>
             </div>
-          </div>
+          </output>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             {POINTS.map((p, i) => (
@@ -67,9 +77,9 @@ export default function Lesson() {
                 <div className="flex items-center gap-1.5">
                   {/* Keep at least one beaker: the all-zero state rendered
                       "0 ÷ 0 = 0 cup each" and "in 0 beakers". */}
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || n <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`fewer at ${p.label}`}>−</button>
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.max(0, v - 1) : v)))} disabled={counts[i] <= 0 || n <= 1} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Remove one beaker containing ${p.label} cup`}>−</button>
                   <span className="w-5 text-center font-black tabular-nums">{counts[i]}</span>
-                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(4, v + 1) : v)))} disabled={counts[i] >= 4} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`more at ${p.label}`}>+</button>
+                  <button type="button" onClick={() => setCounts((c) => c.map((v, j) => (j === i ? Math.min(4, v + 1) : v)))} disabled={counts[i] >= 4} className="h-7 w-7 rounded-md border border-[var(--line)] bg-[var(--surface)] font-bold disabled:opacity-40" aria-label={`Add one beaker containing ${p.label} cup`}>+</button>
                 </div>
               </div>
             ))}
@@ -80,7 +90,7 @@ export default function Lesson() {
       <h2>Add, then share</h2>
       <p>
         Adding fractions of a cup gives a total of {simplify(totalEighths, 8)}{" "}
-        cups. Dividing that equally among the {n} beakers — a fraction ÷ whole
+        {cupUnit(totalEighths)}. Dividing that equally among {n} {beakerUnit(n)} — a fraction ÷ whole
         number — puts {simplify(totalEighths, 8 * n)} cup in each.
       </p>
 
@@ -89,7 +99,7 @@ export default function Lesson() {
           Making a line plot of fractional measurements and using{" "}
           <strong>operations on fractions</strong>{" "}to solve problems is 5.MD.B.2.
           Here you add unlike fractions to a total ({simplify(totalEighths, 8)}{" "}
-          cups) and then divide by a whole number to redistribute equally
+          {cupUnit(totalEighths)}) and then divide by a whole number to redistribute equally
           ({simplify(totalEighths, 8 * n)} cup each) — combining fraction addition
           and division.
         </p>

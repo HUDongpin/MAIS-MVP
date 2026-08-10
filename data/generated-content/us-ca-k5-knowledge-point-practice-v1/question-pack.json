@@ -45739,59 +45739,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.2 Picture Story Addition Equations checkpoint: A tray has 2 red blocks and 5 blue blocks. How many blocks are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 2 個紅色積木和 5 個藍色積木。托盤上一共有多少個積木？",
-        "zhHans": "一年级运算思维练习：托盘上有 2 个红色积木和 5 个蓝色积木。托盘上一共有多少个积木？"
+        "en": "Picture story: 2 red blocks and 5 blue blocks are together on a mat. Which complete equation matches the picture?",
+        "zh": "Picture story: 2 red blocks and 5 blue blocks are together on a mat. Which complete equation matches the picture?",
+        "zhHans": "Picture story: 2 red blocks and 5 blue blocks are together on a mat. Which complete equation matches the picture?"
       },
       "options": [
         {
-          "en": "0",
-          "zh": "0",
-          "zhHans": "0"
+          "en": "2 + 5 = 6",
+          "zh": "2 + 5 = 6",
+          "zhHans": "2 + 5 = 6"
         },
         {
-          "en": "6",
-          "zh": "6",
-          "zhHans": "6"
+          "en": "2 + 5 = 7",
+          "zh": "2 + 5 = 7",
+          "zhHans": "2 + 5 = 7"
         },
         {
-          "en": "7",
-          "zh": "7",
-          "zhHans": "7"
+          "en": "2 + 5 = 8",
+          "zh": "2 + 5 = 8",
+          "zhHans": "2 + 5 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "2 - 5 = 7",
+          "zh": "2 - 5 = 7",
+          "zhHans": "2 - 5 = 7"
         }
       ],
-      "answer": "7",
+      "answer": "2 + 5 = 7",
       "acceptedAnswers": [
-        "7",
-        "7 blocks"
+        "2 + 5 = 7",
+        "2+5=7"
       ],
       "explanation": {
-        "en": "Join the two groups: 2 + 5 = 7.",
-        "zh": "把兩組合起來：2 + 5 = 7。",
-        "zhHans": "把两组合起来：2 + 5 = 7。"
+        "en": "The two pictured parts are 2 and 5, and the whole is 7: 2 + 5 = 7.",
+        "zh": "The two pictured parts are 2 and 5, and the whole is 7: 2 + 5 = 7.",
+        "zhHans": "The two pictured parts are 2 and 5, and the whole is 7: 2 + 5 = 7."
       },
       "answerKey": {
-        "correctAnswer": "7",
+        "correctAnswer": "2 + 5 = 7",
         "acceptedAnswers": [
-          "7",
-          "7 blocks"
+          "2 + 5 = 7",
+          "2+5=7"
         ],
         "solutionSteps": [
-          "2 + 5 = 7."
+          "Join the two pictured parts and record the whole: 2 + 5 = 7."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "7",
-      "independentSolution": "2 + 5 = 7.",
+      "independentAnswer": "2 + 5 = 7",
+      "independentSolution": "Join the two pictured parts and record the whole: 2 + 5 = 7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "7",
+        "computedAnswer": "2 + 5 = 7",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -45872,37 +45872,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.2 Picture Story Addition Equations checkpoint: A tray has 3 red buttons and 1 blue button. How many buttons are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 3 個紅色鈕扣和 1 個藍色鈕扣。托盤上一共有多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：托盘上有 3 个红色纽扣和 1 个蓝色纽扣。托盘上一共有多少个纽扣？"
+        "en": "A picture shows 3 buttons in the first group and 1 in the second group. Write a complete addition equation for the picture.",
+        "zh": "A picture shows 3 buttons in the first group and 1 in the second group. Write a complete addition equation for the picture.",
+        "zhHans": "A picture shows 3 buttons in the first group and 1 in the second group. Write a complete addition equation for the picture."
       },
-      "answer": "4",
+      "answer": "3 + 1 = 4",
       "acceptedAnswers": [
-        "4",
-        "4 buttons"
+        "3 + 1 = 4",
+        "3+1=4"
       ],
       "explanation": {
-        "en": "Join the two groups: 3 + 1 = 4.",
-        "zh": "把兩組合起來：3 + 1 = 4。",
-        "zhHans": "把两组合起来：3 + 1 = 4。"
+        "en": "The two pictured groups join to make 4, so 3 + 1 = 4.",
+        "zh": "The two pictured groups join to make 4, so 3 + 1 = 4.",
+        "zhHans": "The two pictured groups join to make 4, so 3 + 1 = 4."
       },
       "answerKey": {
-        "correctAnswer": "4",
+        "correctAnswer": "3 + 1 = 4",
         "acceptedAnswers": [
-          "4",
-          "4 buttons"
+          "3 + 1 = 4",
+          "3+1=4"
         ],
         "solutionSteps": [
-          "3 + 1 = 4."
+          "Translate the first group, second group, and total into 3 + 1 = 4."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "4",
-      "independentSolution": "3 + 1 = 4.",
+      "independentAnswer": "3 + 1 = 4",
+      "independentSolution": "Translate the first group, second group, and total into 3 + 1 = 4.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "4",
+        "computedAnswer": "3 + 1 = 4",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -45983,37 +45983,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-H.2 Picture Story Addition Equations checkpoint: A tray has 4 red cubes and 5 blue cubes. How many cubes are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 4 個紅色立方塊和 5 個藍色立方塊。托盤上一共有多少個立方塊？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：托盘上有 4 个红色立方块和 5 个蓝色立方块。托盘上一共有多少个立方块？"
+        "en": "A picture shows 4 cubes beside 5 more cubes. A label says the total is 8. Write the complete equation that corrects the label.",
+        "zh": "A picture shows 4 cubes beside 5 more cubes. A label says the total is 8. Write the complete equation that corrects the label.",
+        "zhHans": "A picture shows 4 cubes beside 5 more cubes. A label says the total is 8. Write the complete equation that corrects the label."
       },
-      "answer": "9",
+      "answer": "4 + 5 = 9",
       "acceptedAnswers": [
-        "9",
-        "9 cubes"
+        "4 + 5 = 9",
+        "4+5=9"
       ],
       "explanation": {
-        "en": "Join the two groups: 4 + 5 = 9.",
-        "zh": "把兩組合起來：4 + 5 = 9。",
-        "zhHans": "把两组合起来：4 + 5 = 9。"
+        "en": "4 and 5 make 9, not 8. The corrected equation is 4 + 5 = 9.",
+        "zh": "4 and 5 make 9, not 8. The corrected equation is 4 + 5 = 9.",
+        "zhHans": "4 and 5 make 9, not 8. The corrected equation is 4 + 5 = 9."
       },
       "answerKey": {
-        "correctAnswer": "9",
+        "correctAnswer": "4 + 5 = 9",
         "acceptedAnswers": [
-          "9",
-          "9 cubes"
+          "4 + 5 = 9",
+          "4+5=9"
         ],
         "solutionSteps": [
-          "4 + 5 = 9."
+          "Recount both pictured groups and correct the total: 4 + 5 = 9."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "9",
-      "independentSolution": "4 + 5 = 9.",
+      "independentAnswer": "4 + 5 = 9",
+      "independentSolution": "Recount both pictured groups and correct the total: 4 + 5 = 9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "9",
+        "computedAnswer": "4 + 5 = 9",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -46225,59 +46225,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.2 Picture Story Addition Equations checkpoint: A tray has 6 red shells and 1 blue shell. How many shells are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 6 個紅色貝殼和 1 個藍色貝殼。托盤上一共有多少個貝殼？",
-        "zhHans": "一年级运算思维练习：托盘上有 6 个红色贝壳和 1 个蓝色贝壳。托盘上一共有多少个贝壳？"
+        "en": "Picture story: 6 red shells and 1 blue shell make one collection. Which complete equation starts with the blue group and still matches the picture?",
+        "zh": "Picture story: 6 red shells and 1 blue shell make one collection. Which complete equation starts with the blue group and still matches the picture?",
+        "zhHans": "Picture story: 6 red shells and 1 blue shell make one collection. Which complete equation starts with the blue group and still matches the picture?"
       },
       "options": [
         {
-          "en": "5",
-          "zh": "5",
-          "zhHans": "5"
+          "en": "1 + 6 = 6",
+          "zh": "1 + 6 = 6",
+          "zhHans": "1 + 6 = 6"
         },
         {
-          "en": "6",
-          "zh": "6",
-          "zhHans": "6"
+          "en": "1 + 6 = 7",
+          "zh": "1 + 6 = 7",
+          "zhHans": "1 + 6 = 7"
         },
         {
-          "en": "7",
-          "zh": "7",
-          "zhHans": "7"
+          "en": "1 + 6 = 8",
+          "zh": "1 + 6 = 8",
+          "zhHans": "1 + 6 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "1 - 6 = 7",
+          "zh": "1 - 6 = 7",
+          "zhHans": "1 - 6 = 7"
         }
       ],
-      "answer": "7",
+      "answer": "1 + 6 = 7",
       "acceptedAnswers": [
-        "7",
-        "7 shells"
+        "1 + 6 = 7",
+        "1+6=7"
       ],
       "explanation": {
-        "en": "Join the two groups: 6 + 1 = 7.",
-        "zh": "把兩組合起來：6 + 1 = 7。",
-        "zhHans": "把两组合起来：6 + 1 = 7。"
+        "en": "The addends may be written in either order. Starting with the blue group gives 1 + 6 = 7.",
+        "zh": "The addends may be written in either order. Starting with the blue group gives 1 + 6 = 7.",
+        "zhHans": "The addends may be written in either order. Starting with the blue group gives 1 + 6 = 7."
       },
       "answerKey": {
-        "correctAnswer": "7",
+        "correctAnswer": "1 + 6 = 7",
         "acceptedAnswers": [
-          "7",
-          "7 shells"
+          "1 + 6 = 7",
+          "1+6=7"
         ],
         "solutionSteps": [
-          "6 + 1 = 7."
+          "Reverse the order of the pictured parts without changing the whole: 1 + 6 = 7."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "7",
-      "independentSolution": "6 + 1 = 7.",
+      "independentAnswer": "1 + 6 = 7",
+      "independentSolution": "Reverse the order of the pictured parts without changing the whole: 1 + 6 = 7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "7",
+        "computedAnswer": "1 + 6 = 7",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -46358,37 +46358,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.2 Picture Story Addition Equations checkpoint: A tray has 2 red counters and 3 blue counters. How many counters are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 2 個紅色計數片和 3 個藍色計數片。托盤上一共有多少個計數片？",
-        "zhHans": "一年级运算思维练习：托盘上有 2 个红色计数片和 3 个蓝色计数片。托盘上一共有多少个计数片？"
+        "en": "A picture shows a whole of 5 counters. One part has 2 counters and the other part has 3. Write a complete addition equation that names both parts and the whole.",
+        "zh": "A picture shows a whole of 5 counters. One part has 2 counters and the other part has 3. Write a complete addition equation that names both parts and the whole.",
+        "zhHans": "A picture shows a whole of 5 counters. One part has 2 counters and the other part has 3. Write a complete addition equation that names both parts and the whole."
       },
-      "answer": "5",
+      "answer": "2 + 3 = 5",
       "acceptedAnswers": [
-        "5",
-        "5 counters"
+        "2 + 3 = 5",
+        "2+3=5"
       ],
       "explanation": {
-        "en": "Join the two groups: 2 + 3 = 5.",
-        "zh": "把兩組合起來：2 + 3 = 5。",
-        "zhHans": "把两组合起来：2 + 3 = 5。"
+        "en": "The parts 2 and 3 compose the whole 5: 2 + 3 = 5.",
+        "zh": "The parts 2 and 3 compose the whole 5: 2 + 3 = 5.",
+        "zhHans": "The parts 2 and 3 compose the whole 5: 2 + 3 = 5."
       },
       "answerKey": {
-        "correctAnswer": "5",
+        "correctAnswer": "2 + 3 = 5",
         "acceptedAnswers": [
-          "5",
-          "5 counters"
+          "2 + 3 = 5",
+          "2+3=5"
         ],
         "solutionSteps": [
-          "2 + 3 = 5."
+          "Name both pictured parts and their whole: 2 + 3 = 5."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "5",
-      "independentSolution": "2 + 3 = 5.",
+      "independentAnswer": "2 + 3 = 5",
+      "independentSolution": "Name both pictured parts and their whole: 2 + 3 = 5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "5",
+        "computedAnswer": "2 + 3 = 5",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -47197,16 +47197,11 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.3 Cube-Train Join Models to Ten checkpoint: A tray has 4 red buttons and 5 blue buttons. How many buttons are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 4 個紅色鈕扣和 5 個藍色鈕扣。托盤上一共有多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：托盘上有 4 个红色纽扣和 5 个蓝色纽扣。托盘上一共有多少个纽扣？"
+        "en": "A cube train has 4 red cubes. Snap on a section of 5 blue cubes. How many cubes are in the joined train?",
+        "zh": "A cube train has 4 red cubes. Snap on a section of 5 blue cubes. How many cubes are in the joined train?",
+        "zhHans": "A cube train has 4 red cubes. Snap on a section of 5 blue cubes. How many cubes are in the joined train?"
       },
       "options": [
-        {
-          "en": "0",
-          "zh": "0",
-          "zhHans": "0"
-        },
         {
           "en": "8",
           "zh": "8",
@@ -47221,31 +47216,36 @@
           "en": "10",
           "zh": "10",
           "zhHans": "10"
+        },
+        {
+          "en": "11",
+          "zh": "11",
+          "zhHans": "11"
         }
       ],
       "answer": "9",
       "acceptedAnswers": [
         "9",
-        "9 buttons"
+        "9 cubes"
       ],
       "explanation": {
-        "en": "Join the two groups: 4 + 5 = 9.",
-        "zh": "把兩組合起來：4 + 5 = 9。",
-        "zhHans": "把两组合起来：4 + 5 = 9。"
+        "en": "Snapping the 4-cube and 5-cube sections together makes a 9-cube train.",
+        "zh": "Snapping the 4-cube and 5-cube sections together makes a 9-cube train.",
+        "zhHans": "Snapping the 4-cube and 5-cube sections together makes a 9-cube train."
       },
       "answerKey": {
         "correctAnswer": "9",
         "acceptedAnswers": [
           "9",
-          "9 buttons"
+          "9 cubes"
         ],
         "solutionSteps": [
-          "4 + 5 = 9."
+          "Join the two cube-train sections: 4 + 5 = 9."
         ],
         "validationMethod": "computed-addition"
       },
       "independentAnswer": "9",
-      "independentSolution": "4 + 5 = 9.",
+      "independentSolution": "Join the two cube-train sections: 4 + 5 = 9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
@@ -47330,37 +47330,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.3 Cube-Train Join Models to Ten checkpoint: A tray has 5 red cubes and 3 blue cubes. How many cubes are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 5 個紅色立方塊和 3 個藍色立方塊。托盤上一共有多少個立方塊？",
-        "zhHans": "一年级运算思维练习：托盘上有 5 个红色立方块和 3 个蓝色立方块。托盘上一共有多少个立方块？"
+        "en": "After 3 blue cubes are snapped onto a red cube train, the train has 8 cubes. How many red cubes were in the train before the join?",
+        "zh": "After 3 blue cubes are snapped onto a red cube train, the train has 8 cubes. How many red cubes were in the train before the join?",
+        "zhHans": "After 3 blue cubes are snapped onto a red cube train, the train has 8 cubes. How many red cubes were in the train before the join?"
       },
-      "answer": "8",
+      "answer": "5",
       "acceptedAnswers": [
-        "8",
-        "8 cubes"
+        "5",
+        "5 cubes"
       ],
       "explanation": {
-        "en": "Join the two groups: 5 + 3 = 8.",
-        "zh": "把兩組合起來：5 + 3 = 8。",
-        "zhHans": "把两组合起来：5 + 3 = 8。"
+        "en": "Unsnap the added section: 8 - 3 = 5.",
+        "zh": "Unsnap the added section: 8 - 3 = 5.",
+        "zhHans": "Unsnap the added section: 8 - 3 = 5."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "5",
         "acceptedAnswers": [
-          "8",
-          "8 cubes"
+          "5",
+          "5 cubes"
         ],
         "solutionSteps": [
-          "5 + 3 = 8."
+          "Use the final train and snapped-on section to recover the start: 8 - 3 = 5."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "8",
-      "independentSolution": "5 + 3 = 8.",
+      "independentAnswer": "5",
+      "independentSolution": "Use the final train and snapped-on section to recover the start: 8 - 3 = 5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "8",
+        "computedAnswer": "5",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -47441,37 +47441,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-H.3 Cube-Train Join Models to Ten checkpoint: A tray has 6 red cards and 1 blue card. How many cards are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 6 個紅色卡片和 1 個藍色卡片。托盤上一共有多少個卡片？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：托盘上有 6 个红色卡片和 1 个蓝色卡片。托盘上一共有多少个卡片？"
+        "en": "A cube train shows a section of 6 cubes snapped to a section of 1 cube. Write the complete addition equation represented by the train.",
+        "zh": "A cube train shows a section of 6 cubes snapped to a section of 1 cube. Write the complete addition equation represented by the train.",
+        "zhHans": "A cube train shows a section of 6 cubes snapped to a section of 1 cube. Write the complete addition equation represented by the train."
       },
-      "answer": "7",
+      "answer": "6 + 1 = 7",
       "acceptedAnswers": [
-        "7",
-        "7 cards"
+        "6 + 1 = 7",
+        "6+1=7"
       ],
       "explanation": {
-        "en": "Join the two groups: 6 + 1 = 7.",
-        "zh": "把兩組合起來：6 + 1 = 7。",
-        "zhHans": "把两组合起来：6 + 1 = 7。"
+        "en": "The connected sections have 7 cubes altogether, so 6 + 1 = 7.",
+        "zh": "The connected sections have 7 cubes altogether, so 6 + 1 = 7.",
+        "zhHans": "The connected sections have 7 cubes altogether, so 6 + 1 = 7."
       },
       "answerKey": {
-        "correctAnswer": "7",
+        "correctAnswer": "6 + 1 = 7",
         "acceptedAnswers": [
-          "7",
-          "7 cards"
+          "6 + 1 = 7",
+          "6+1=7"
         ],
         "solutionSteps": [
-          "6 + 1 = 7."
+          "Record the two cube-train sections and joined length: 6 + 1 = 7."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "7",
-      "independentSolution": "6 + 1 = 7.",
+      "independentAnswer": "6 + 1 = 7",
+      "independentSolution": "Record the two cube-train sections and joined length: 6 + 1 = 7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "7",
+        "computedAnswer": "6 + 1 = 7",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -47683,59 +47683,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.3 Cube-Train Join Models to Ten checkpoint: A tray has 3 red counters and 5 blue counters. How many counters are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 3 個紅色計數片和 5 個藍色計數片。托盤上一共有多少個計數片？",
-        "zhHans": "一年级运算思维练习：托盘上有 3 个红色计数片和 5 个蓝色计数片。托盘上一共有多少个计数片？"
+        "en": "A 3-cube train and a 5-cube train are snapped together end to end. Which complete equation represents this action?",
+        "zh": "A 3-cube train and a 5-cube train are snapped together end to end. Which complete equation represents this action?",
+        "zhHans": "A 3-cube train and a 5-cube train are snapped together end to end. Which complete equation represents this action?"
       },
       "options": [
         {
-          "en": "0",
-          "zh": "0",
-          "zhHans": "0"
+          "en": "3 + 5 = 7",
+          "zh": "3 + 5 = 7",
+          "zhHans": "3 + 5 = 7"
         },
         {
-          "en": "7",
-          "zh": "7",
-          "zhHans": "7"
+          "en": "3 + 5 = 8",
+          "zh": "3 + 5 = 8",
+          "zhHans": "3 + 5 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "3 + 5 = 9",
+          "zh": "3 + 5 = 9",
+          "zhHans": "3 + 5 = 9"
         },
         {
-          "en": "9",
-          "zh": "9",
-          "zhHans": "9"
+          "en": "3 - 5 = 8",
+          "zh": "3 - 5 = 8",
+          "zhHans": "3 - 5 = 8"
         }
       ],
-      "answer": "8",
+      "answer": "3 + 5 = 8",
       "acceptedAnswers": [
-        "8",
-        "8 counters"
+        "3 + 5 = 8",
+        "3+5=8"
       ],
       "explanation": {
-        "en": "Join the two groups: 3 + 5 = 8.",
-        "zh": "把兩組合起來：3 + 5 = 8。",
-        "zhHans": "把两组合起来：3 + 5 = 8。"
+        "en": "Snapping the sections together is addition: 3 + 5 = 8.",
+        "zh": "Snapping the sections together is addition: 3 + 5 = 8.",
+        "zhHans": "Snapping the sections together is addition: 3 + 5 = 8."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "3 + 5 = 8",
         "acceptedAnswers": [
-          "8",
-          "8 counters"
+          "3 + 5 = 8",
+          "3+5=8"
         ],
         "solutionSteps": [
-          "3 + 5 = 8."
+          "Model the cube-train join with 3 + 5 = 8."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "8",
-      "independentSolution": "3 + 5 = 8.",
+      "independentAnswer": "3 + 5 = 8",
+      "independentSolution": "Model the cube-train join with 3 + 5 = 8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "8",
+        "computedAnswer": "3 + 5 = 8",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -47816,37 +47816,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.3 Cube-Train Join Models to Ten checkpoint: A tray has 4 red tiles and 5 blue tiles. How many tiles are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 4 個紅色方塊和 5 個藍色方塊。托盤上一共有多少個方塊？",
-        "zhHans": "一年级运算思维练习：托盘上有 4 个红色方块和 5 个蓝色方块。托盘上一共有多少个方块？"
+        "en": "A cube train begins with 4 cubes and ends with 9 cubes after another section is snapped on. How many cubes were in the section that was added?",
+        "zh": "A cube train begins with 4 cubes and ends with 9 cubes after another section is snapped on. How many cubes were in the section that was added?",
+        "zhHans": "A cube train begins with 4 cubes and ends with 9 cubes after another section is snapped on. How many cubes were in the section that was added?"
       },
-      "answer": "9",
+      "answer": "5",
       "acceptedAnswers": [
-        "9",
-        "9 tiles"
+        "5",
+        "5 cubes"
       ],
       "explanation": {
-        "en": "Join the two groups: 4 + 5 = 9.",
-        "zh": "把兩組合起來：4 + 5 = 9。",
-        "zhHans": "把两组合起来：4 + 5 = 9。"
+        "en": "The added section is 9 - 4 = 5 cubes.",
+        "zh": "The added section is 9 - 4 = 5 cubes.",
+        "zhHans": "The added section is 9 - 4 = 5 cubes."
       },
       "answerKey": {
-        "correctAnswer": "9",
+        "correctAnswer": "5",
         "acceptedAnswers": [
-          "9",
-          "9 tiles"
+          "5",
+          "5 cubes"
         ],
         "solutionSteps": [
-          "4 + 5 = 9."
+          "Compare the final and starting train lengths: 9 - 4 = 5."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "9",
-      "independentSolution": "4 + 5 = 9.",
+      "independentAnswer": "5",
+      "independentSolution": "Compare the final and starting train lengths: 9 - 4 = 5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "9",
+        "computedAnswer": "5",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -50077,59 +50077,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.5 Model-and-Equation Join Stories checkpoint: A tray has 3 red cards and 5 blue cards. How many cards are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 3 個紅色卡片和 5 個藍色卡片。托盤上一共有多少個卡片？",
-        "zhHans": "一年级运算思维练习：托盘上有 3 个红色卡片和 5 个蓝色卡片。托盘上一共有多少个卡片？"
+        "en": "Counter model: 3 red counters are joined to 5 blue counters, making 8 counters. Which complete equation matches the model?",
+        "zh": "Counter model: 3 red counters are joined to 5 blue counters, making 8 counters. Which complete equation matches the model?",
+        "zhHans": "Counter model: 3 red counters are joined to 5 blue counters, making 8 counters. Which complete equation matches the model?"
       },
       "options": [
         {
-          "en": "0",
-          "zh": "0",
-          "zhHans": "0"
+          "en": "3 + 5 = 7",
+          "zh": "3 + 5 = 7",
+          "zhHans": "3 + 5 = 7"
         },
         {
-          "en": "7",
-          "zh": "7",
-          "zhHans": "7"
+          "en": "3 + 5 = 8",
+          "zh": "3 + 5 = 8",
+          "zhHans": "3 + 5 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "3 + 5 = 9",
+          "zh": "3 + 5 = 9",
+          "zhHans": "3 + 5 = 9"
         },
         {
-          "en": "9",
-          "zh": "9",
-          "zhHans": "9"
+          "en": "3 - 5 = 8",
+          "zh": "3 - 5 = 8",
+          "zhHans": "3 - 5 = 8"
         }
       ],
-      "answer": "8",
+      "answer": "3 + 5 = 8",
       "acceptedAnswers": [
-        "8",
-        "8 cards"
+        "3 + 5 = 8",
+        "3+5=8"
       ],
       "explanation": {
-        "en": "Join the two groups: 3 + 5 = 8.",
-        "zh": "把兩組合起來：3 + 5 = 8。",
-        "zhHans": "把两组合起来：3 + 5 = 8。"
+        "en": "The model's two parts and whole correspond to 3 + 5 = 8.",
+        "zh": "The model's two parts and whole correspond to 3 + 5 = 8.",
+        "zhHans": "The model's two parts and whole correspond to 3 + 5 = 8."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "3 + 5 = 8",
         "acceptedAnswers": [
-          "8",
-          "8 cards"
+          "3 + 5 = 8",
+          "3+5=8"
         ],
         "solutionSteps": [
-          "3 + 5 = 8."
+          "Match the model's first part, second part, and whole to 3 + 5 = 8."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "8",
-      "independentSolution": "3 + 5 = 8.",
+      "independentAnswer": "3 + 5 = 8",
+      "independentSolution": "Match the model's first part, second part, and whole to 3 + 5 = 8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "8",
+        "computedAnswer": "3 + 5 = 8",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -50210,33 +50210,33 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.5 Model-and-Equation Join Stories checkpoint: A tray has 4 red shells and 5 blue shells. How many shells are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 4 個紅色貝殼和 5 個藍色貝殼。托盤上一共有多少個貝殼？",
-        "zhHans": "一年级运算思维练习：托盘上有 4 个红色贝壳和 5 个蓝色贝壳。托盘上一共有多少个贝壳？"
+        "en": "A counter model has 4 red counters joined to 5 blue counters. Complete the matching equation: 4 + 5 = __.",
+        "zh": "A counter model has 4 red counters joined to 5 blue counters. Complete the matching equation: 4 + 5 = __.",
+        "zhHans": "A counter model has 4 red counters joined to 5 blue counters. Complete the matching equation: 4 + 5 = __."
       },
       "answer": "9",
       "acceptedAnswers": [
         "9",
-        "9 shells"
+        "9 counters"
       ],
       "explanation": {
-        "en": "Join the two groups: 4 + 5 = 9.",
-        "zh": "把兩組合起來：4 + 5 = 9。",
-        "zhHans": "把两组合起来：4 + 5 = 9。"
+        "en": "The model has 9 counters altogether, so the missing total is 9.",
+        "zh": "The model has 9 counters altogether, so the missing total is 9.",
+        "zhHans": "The model has 9 counters altogether, so the missing total is 9."
       },
       "answerKey": {
         "correctAnswer": "9",
         "acceptedAnswers": [
           "9",
-          "9 shells"
+          "9 counters"
         ],
         "solutionSteps": [
-          "4 + 5 = 9."
+          "Count the model's whole and complete 4 + 5 = 9."
         ],
         "validationMethod": "computed-addition"
       },
       "independentAnswer": "9",
-      "independentSolution": "4 + 5 = 9.",
+      "independentSolution": "Count the model's whole and complete 4 + 5 = 9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
@@ -50321,37 +50321,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-H.5 Model-and-Equation Join Stories checkpoint: A tray has 5 red counters and 1 blue counter. How many counters are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 5 個紅色計數片和 1 個藍色計數片。托盤上一共有多少個計數片？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：托盘上有 5 个红色计数片和 1 个蓝色计数片。托盘上一共有多少个计数片？"
+        "en": "A model shows 5 counters joined to 1 more, but its label says 5 + 1 = 5. Write the complete equation that correctly labels the model.",
+        "zh": "A model shows 5 counters joined to 1 more, but its label says 5 + 1 = 5. Write the complete equation that correctly labels the model.",
+        "zhHans": "A model shows 5 counters joined to 1 more, but its label says 5 + 1 = 5. Write the complete equation that correctly labels the model."
       },
-      "answer": "6",
+      "answer": "5 + 1 = 6",
       "acceptedAnswers": [
-        "6",
-        "6 counters"
+        "5 + 1 = 6",
+        "5+1=6"
       ],
       "explanation": {
-        "en": "Join the two groups: 5 + 1 = 6.",
-        "zh": "把兩組合起來：5 + 1 = 6。",
-        "zhHans": "把两组合起来：5 + 1 = 6。"
+        "en": "The model's whole is 6, so its corrected label is 5 + 1 = 6.",
+        "zh": "The model's whole is 6, so its corrected label is 5 + 1 = 6.",
+        "zhHans": "The model's whole is 6, so its corrected label is 5 + 1 = 6."
       },
       "answerKey": {
-        "correctAnswer": "6",
+        "correctAnswer": "5 + 1 = 6",
         "acceptedAnswers": [
-          "6",
-          "6 counters"
+          "5 + 1 = 6",
+          "5+1=6"
         ],
         "solutionSteps": [
-          "5 + 1 = 6."
+          "Check the model against its equation and correct the total: 5 + 1 = 6."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "6",
-      "independentSolution": "5 + 1 = 6.",
+      "independentAnswer": "5 + 1 = 6",
+      "independentSolution": "Check the model against its equation and correct the total: 5 + 1 = 6.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "6",
+        "computedAnswer": "5 + 1 = 6",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -50563,59 +50563,57 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.5 Model-and-Equation Join Stories checkpoint: A tray has 2 red stickers and 1 blue sticker. How many stickers are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 2 個紅色貼紙和 1 個藍色貼紙。托盤上一共有多少個貼紙？",
-        "zhHans": "一年级运算思维练习：托盘上有 2 个红色贴纸和 1 个蓝色贴纸。托盘上一共有多少个贴纸？"
+        "en": "The equation is 2 + 1 = 3. Which counter model description matches every number and the join action?",
+        "zh": "The equation is 2 + 1 = 3. Which counter model description matches every number and the join action?",
+        "zhHans": "The equation is 2 + 1 = 3. Which counter model description matches every number and the join action?"
       },
       "options": [
         {
-          "en": "1",
-          "zh": "1",
-          "zhHans": "1"
+          "en": "2 red counters with 1 taken away leave 3 counters.",
+          "zh": "2 red counters with 1 taken away leave 3 counters.",
+          "zhHans": "2 red counters with 1 taken away leave 3 counters."
         },
         {
-          "en": "2",
-          "zh": "2",
-          "zhHans": "2"
+          "en": "2 red counters joined to 1 blue counter make 3 counters.",
+          "zh": "2 red counters joined to 1 blue counter make 3 counters.",
+          "zhHans": "2 red counters joined to 1 blue counter make 3 counters."
         },
         {
-          "en": "3",
-          "zh": "3",
-          "zhHans": "3"
+          "en": "2 red counters joined to 3 blue counters make 1 counter.",
+          "zh": "2 red counters joined to 3 blue counters make 1 counter.",
+          "zhHans": "2 red counters joined to 3 blue counters make 1 counter."
         },
         {
-          "en": "4",
-          "zh": "4",
-          "zhHans": "4"
+          "en": "1 red counter joined to 3 blue counters makes 2 counters.",
+          "zh": "1 red counter joined to 3 blue counters makes 2 counters.",
+          "zhHans": "1 red counter joined to 3 blue counters makes 2 counters."
         }
       ],
-      "answer": "3",
+      "answer": "2 red counters joined to 1 blue counter make 3 counters.",
       "acceptedAnswers": [
-        "3",
-        "3 stickers"
+        "2 red counters joined to 1 blue counter make 3 counters."
       ],
       "explanation": {
-        "en": "Join the two groups: 2 + 1 = 3.",
-        "zh": "把兩組合起來：2 + 1 = 3。",
-        "zhHans": "把两组合起来：2 + 1 = 3。"
+        "en": "The first addend is the red group, the second is the blue group, and 3 is the joined whole.",
+        "zh": "The first addend is the red group, the second is the blue group, and 3 is the joined whole.",
+        "zhHans": "The first addend is the red group, the second is the blue group, and 3 is the joined whole."
       },
       "answerKey": {
-        "correctAnswer": "3",
+        "correctAnswer": "2 red counters joined to 1 blue counter make 3 counters.",
         "acceptedAnswers": [
-          "3",
-          "3 stickers"
+          "2 red counters joined to 1 blue counter make 3 counters."
         ],
         "solutionSteps": [
-          "2 + 1 = 3."
+          "Map each addend and the total in 2 + 1 = 3 to the corresponding model part."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "3",
-      "independentSolution": "2 + 1 = 3.",
+      "independentAnswer": "2 red counters joined to 1 blue counter make 3 counters.",
+      "independentSolution": "Map each addend and the total in 2 + 1 = 3 to the corresponding model part.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "3",
+        "computedAnswer": "2 red counters joined to 1 blue counter make 3 counters.",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -50696,37 +50694,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.5 Model-and-Equation Join Stories checkpoint: A tray has 3 red blocks and 3 blue blocks. How many blocks are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 3 個紅色積木和 3 個藍色積木。托盤上一共有多少個積木？",
-        "zhHans": "一年级运算思维练习：托盘上有 3 个红色积木和 3 个蓝色积木。托盘上一共有多少个积木？"
+        "en": "The equation 3 + 3 = 6 matches a counter model. The model already shows the first group of 3 counters. How many counters must the joined group contain?",
+        "zh": "The equation 3 + 3 = 6 matches a counter model. The model already shows the first group of 3 counters. How many counters must the joined group contain?",
+        "zhHans": "The equation 3 + 3 = 6 matches a counter model. The model already shows the first group of 3 counters. How many counters must the joined group contain?"
       },
-      "answer": "6",
+      "answer": "3",
       "acceptedAnswers": [
-        "6",
-        "6 blocks"
+        "3",
+        "3 counters"
       ],
       "explanation": {
-        "en": "Join the two groups: 3 + 3 = 6.",
-        "zh": "把兩組合起來：3 + 3 = 6。",
-        "zhHans": "把两组合起来：3 + 3 = 6。"
+        "en": "The second addend is 3, so the joined group contains 3 counters.",
+        "zh": "The second addend is 3, so the joined group contains 3 counters.",
+        "zhHans": "The second addend is 3, so the joined group contains 3 counters."
       },
       "answerKey": {
-        "correctAnswer": "6",
+        "correctAnswer": "3",
         "acceptedAnswers": [
-          "6",
-          "6 blocks"
+          "3",
+          "3 counters"
         ],
         "solutionSteps": [
-          "3 + 3 = 6."
+          "Use the second addend in 3 + 3 = 6 to label the joined model group."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "6",
-      "independentSolution": "3 + 3 = 6.",
+      "independentAnswer": "3",
+      "independentSolution": "Use the second addend in 3 + 3 = 6 to label the joined model group.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "6",
+        "computedAnswer": "3",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -51535,59 +51533,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.6 Equation Match for Join Stories checkpoint: A tray has 5 red shells and 3 blue shells. How many shells are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 5 個紅色貝殼和 3 個藍色貝殼。托盤上一共有多少個貝殼？",
-        "zhHans": "一年级运算思维练习：托盘上有 5 个红色贝壳和 3 个蓝色贝壳。托盘上一共有多少个贝壳？"
+        "en": "A story says 5 shells are on a tray and 3 more shells are added. Which complete equation matches the join story?",
+        "zh": "A story says 5 shells are on a tray and 3 more shells are added. Which complete equation matches the join story?",
+        "zhHans": "A story says 5 shells are on a tray and 3 more shells are added. Which complete equation matches the join story?"
       },
       "options": [
         {
-          "en": "2",
-          "zh": "2",
-          "zhHans": "2"
+          "en": "5 + 3 = 7",
+          "zh": "5 + 3 = 7",
+          "zhHans": "5 + 3 = 7"
         },
         {
-          "en": "7",
-          "zh": "7",
-          "zhHans": "7"
+          "en": "5 + 3 = 8",
+          "zh": "5 + 3 = 8",
+          "zhHans": "5 + 3 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "5 + 3 = 9",
+          "zh": "5 + 3 = 9",
+          "zhHans": "5 + 3 = 9"
         },
         {
-          "en": "9",
-          "zh": "9",
-          "zhHans": "9"
+          "en": "5 - 3 = 8",
+          "zh": "5 - 3 = 8",
+          "zhHans": "5 - 3 = 8"
         }
       ],
-      "answer": "8",
+      "answer": "5 + 3 = 8",
       "acceptedAnswers": [
-        "8",
-        "8 shells"
+        "5 + 3 = 8",
+        "5+3=8"
       ],
       "explanation": {
-        "en": "Join the two groups: 5 + 3 = 8.",
-        "zh": "把兩組合起來：5 + 3 = 8。",
-        "zhHans": "把两组合起来：5 + 3 = 8。"
+        "en": "The story starts with 5, joins 3 more, and ends with 8: 5 + 3 = 8.",
+        "zh": "The story starts with 5, joins 3 more, and ends with 8: 5 + 3 = 8.",
+        "zhHans": "The story starts with 5, joins 3 more, and ends with 8: 5 + 3 = 8."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "5 + 3 = 8",
         "acceptedAnswers": [
-          "8",
-          "8 shells"
+          "5 + 3 = 8",
+          "5+3=8"
         ],
         "solutionSteps": [
-          "5 + 3 = 8."
+          "Match the start, change, and result to 5 + 3 = 8."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "8",
-      "independentSolution": "5 + 3 = 8.",
+      "independentAnswer": "5 + 3 = 8",
+      "independentSolution": "Match the start, change, and result to 5 + 3 = 8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "8",
+        "computedAnswer": "5 + 3 = 8",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -51668,37 +51666,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.6 Equation Match for Join Stories checkpoint: A tray has 6 red counters and 2 blue counters. How many counters are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 6 個紅色計數片和 2 個藍色計數片。托盤上一共有多少個計數片？",
-        "zhHans": "一年级运算思维练习：托盘上有 6 个红色计数片和 2 个蓝色计数片。托盘上一共有多少个计数片？"
+        "en": "A number bond has parts 6 and 2 and whole 8. Write the complete addition equation that matches the number bond.",
+        "zh": "A number bond has parts 6 and 2 and whole 8. Write the complete addition equation that matches the number bond.",
+        "zhHans": "A number bond has parts 6 and 2 and whole 8. Write the complete addition equation that matches the number bond."
       },
-      "answer": "8",
+      "answer": "6 + 2 = 8",
       "acceptedAnswers": [
-        "8",
-        "8 counters"
+        "6 + 2 = 8",
+        "6+2=8"
       ],
       "explanation": {
-        "en": "Join the two groups: 6 + 2 = 8.",
-        "zh": "把兩組合起來：6 + 2 = 8。",
-        "zhHans": "把两组合起来：6 + 2 = 8。"
+        "en": "The two parts combine to make the whole, so 6 + 2 = 8.",
+        "zh": "The two parts combine to make the whole, so 6 + 2 = 8.",
+        "zhHans": "The two parts combine to make the whole, so 6 + 2 = 8."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "6 + 2 = 8",
         "acceptedAnswers": [
-          "8",
-          "8 counters"
+          "6 + 2 = 8",
+          "6+2=8"
         ],
         "solutionSteps": [
-          "6 + 2 = 8."
+          "Write the parts before the equals sign and the whole after it: 6 + 2 = 8."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "8",
-      "independentSolution": "6 + 2 = 8.",
+      "independentAnswer": "6 + 2 = 8",
+      "independentSolution": "Write the parts before the equals sign and the whole after it: 6 + 2 = 8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "8",
+        "computedAnswer": "6 + 2 = 8",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -51779,37 +51777,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-H.6 Equation Match for Join Stories checkpoint: A tray has 2 red tiles and 1 blue tile. How many tiles are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 2 個紅色方塊和 1 個藍色方塊。托盤上一共有多少個方塊？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：托盘上有 2 个红色方块和 1 个蓝色方块。托盘上一共有多少个方块？"
+        "en": "A join story has 2 objects and then 1 more arrives. A student writes 2 - 1 = 3. Write the complete equation that uses the correct operation and result.",
+        "zh": "A join story has 2 objects and then 1 more arrives. A student writes 2 - 1 = 3. Write the complete equation that uses the correct operation and result.",
+        "zhHans": "A join story has 2 objects and then 1 more arrives. A student writes 2 - 1 = 3. Write the complete equation that uses the correct operation and result."
       },
-      "answer": "3",
+      "answer": "2 + 1 = 3",
       "acceptedAnswers": [
-        "3",
-        "3 tiles"
+        "2 + 1 = 3",
+        "2+1=3"
       ],
       "explanation": {
-        "en": "Join the two groups: 2 + 1 = 3.",
-        "zh": "把兩組合起來：2 + 1 = 3。",
-        "zhHans": "把两组合起来：2 + 1 = 3。"
+        "en": "More objects join, so use addition: 2 + 1 = 3.",
+        "zh": "More objects join, so use addition: 2 + 1 = 3.",
+        "zhHans": "More objects join, so use addition: 2 + 1 = 3."
       },
       "answerKey": {
-        "correctAnswer": "3",
+        "correctAnswer": "2 + 1 = 3",
         "acceptedAnswers": [
-          "3",
-          "3 tiles"
+          "2 + 1 = 3",
+          "2+1=3"
         ],
         "solutionSteps": [
-          "2 + 1 = 3."
+          "Replace the operation that removes with the operation that joins: 2 + 1 = 3."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "3",
-      "independentSolution": "2 + 1 = 3.",
+      "independentAnswer": "2 + 1 = 3",
+      "independentSolution": "Replace the operation that removes with the operation that joins: 2 + 1 = 3.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "3",
+        "computedAnswer": "2 + 1 = 3",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -52021,59 +52019,59 @@
       "difficulty": "Low",
       "type": "multiple-choice",
       "prompt": {
-        "en": "1-H.6 Equation Match for Join Stories checkpoint: A tray has 4 red blocks and 5 blue blocks. How many blocks are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 4 個紅色積木和 5 個藍色積木。托盤上一共有多少個積木？",
-        "zhHans": "一年级运算思维练习：托盘上有 4 个红色积木和 5 个蓝色积木。托盘上一共有多少个积木？"
+        "en": "A counter model shows a group of 4 beside a group of 5, with a brace around all 9 counters. Which complete equation matches the model?",
+        "zh": "A counter model shows a group of 4 beside a group of 5, with a brace around all 9 counters. Which complete equation matches the model?",
+        "zhHans": "A counter model shows a group of 4 beside a group of 5, with a brace around all 9 counters. Which complete equation matches the model?"
       },
       "options": [
         {
-          "en": "0",
-          "zh": "0",
-          "zhHans": "0"
+          "en": "4 + 5 = 8",
+          "zh": "4 + 5 = 8",
+          "zhHans": "4 + 5 = 8"
         },
         {
-          "en": "8",
-          "zh": "8",
-          "zhHans": "8"
+          "en": "4 + 5 = 9",
+          "zh": "4 + 5 = 9",
+          "zhHans": "4 + 5 = 9"
         },
         {
-          "en": "9",
-          "zh": "9",
-          "zhHans": "9"
+          "en": "4 + 5 = 10",
+          "zh": "4 + 5 = 10",
+          "zhHans": "4 + 5 = 10"
         },
         {
-          "en": "10",
-          "zh": "10",
-          "zhHans": "10"
+          "en": "4 - 5 = 9",
+          "zh": "4 - 5 = 9",
+          "zhHans": "4 - 5 = 9"
         }
       ],
-      "answer": "9",
+      "answer": "4 + 5 = 9",
       "acceptedAnswers": [
-        "9",
-        "9 blocks"
+        "4 + 5 = 9",
+        "4+5=9"
       ],
       "explanation": {
-        "en": "Join the two groups: 4 + 5 = 9.",
-        "zh": "把兩組合起來：4 + 5 = 9。",
-        "zhHans": "把两组合起来：4 + 5 = 9。"
+        "en": "The brace marks the joined whole, so the matching equation is 4 + 5 = 9.",
+        "zh": "The brace marks the joined whole, so the matching equation is 4 + 5 = 9.",
+        "zhHans": "The brace marks the joined whole, so the matching equation is 4 + 5 = 9."
       },
       "answerKey": {
-        "correctAnswer": "9",
+        "correctAnswer": "4 + 5 = 9",
         "acceptedAnswers": [
-          "9",
-          "9 blocks"
+          "4 + 5 = 9",
+          "4+5=9"
         ],
         "solutionSteps": [
-          "4 + 5 = 9."
+          "Match the two model parts and braced whole to 4 + 5 = 9."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "9",
-      "independentSolution": "4 + 5 = 9.",
+      "independentAnswer": "4 + 5 = 9",
+      "independentSolution": "Match the two model parts and braced whole to 4 + 5 = 9.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "9",
+        "computedAnswer": "4 + 5 = 9",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -52154,37 +52152,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-H.6 Equation Match for Join Stories checkpoint: A tray has 5 red buttons and 1 blue button. How many buttons are on the tray?",
-        "zh": "一年級運算思維練習：托盤上有 5 個紅色鈕扣和 1 個藍色鈕扣。托盤上一共有多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：托盘上有 5 个红色纽扣和 1 个蓝色纽扣。托盘上一共有多少个纽扣？"
+        "en": "On a number path, start at 5 and make 1 forward step to land on 6. Write the complete addition equation that matches the path.",
+        "zh": "On a number path, start at 5 and make 1 forward step to land on 6. Write the complete addition equation that matches the path.",
+        "zhHans": "On a number path, start at 5 and make 1 forward step to land on 6. Write the complete addition equation that matches the path."
       },
-      "answer": "6",
+      "answer": "5 + 1 = 6",
       "acceptedAnswers": [
-        "6",
-        "6 buttons"
+        "5 + 1 = 6",
+        "5+1=6"
       ],
       "explanation": {
-        "en": "Join the two groups: 5 + 1 = 6.",
-        "zh": "把兩組合起來：5 + 1 = 6。",
-        "zhHans": "把两组合起来：5 + 1 = 6。"
+        "en": "Forward steps show addition, so the path represents 5 + 1 = 6.",
+        "zh": "Forward steps show addition, so the path represents 5 + 1 = 6.",
+        "zhHans": "Forward steps show addition, so the path represents 5 + 1 = 6."
       },
       "answerKey": {
-        "correctAnswer": "6",
+        "correctAnswer": "5 + 1 = 6",
         "acceptedAnswers": [
-          "6",
-          "6 buttons"
+          "5 + 1 = 6",
+          "5+1=6"
         ],
         "solutionSteps": [
-          "5 + 1 = 6."
+          "Record the start, forward change, and landing point: 5 + 1 = 6."
         ],
         "validationMethod": "computed-addition"
       },
-      "independentAnswer": "6",
-      "independentSolution": "5 + 1 = 6.",
+      "independentAnswer": "5 + 1 = 6",
+      "independentSolution": "Record the start, forward change, and landing point: 5 + 1 = 6.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-addition",
-        "computedAnswer": "6",
+        "computedAnswer": "5 + 1 = 6",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -54385,37 +54383,37 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 7 buttons. 5 are moved away. How many buttons are left?",
-        "zh": "一年級運算思維練習：有 7 個鈕扣，移走了 5 個。還剩多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：有 7 个纽扣，移走了 5 个。还剩多少个纽扣？"
+        "en": "Picture story: 7 buttons are shown and 5 are crossed out. Write the complete subtraction equation that tells how many remain.",
+        "zh": "Picture story: 7 buttons are shown and 5 are crossed out. Write the complete subtraction equation that tells how many remain.",
+        "zhHans": "Picture story: 7 buttons are shown and 5 are crossed out. Write the complete subtraction equation that tells how many remain."
       },
-      "answer": "2",
+      "answer": "7 - 5 = 2",
       "acceptedAnswers": [
-        "2",
-        "2 buttons"
+        "7 - 5 = 2",
+        "7-5=2"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 5 = 2.",
-        "zh": "減去移走的部分：7 - 5 = 2。",
-        "zhHans": "减去移走的部分：7 - 5 = 2。"
+        "en": "Crossing out 5 from 7 leaves 2: 7 - 5 = 2.",
+        "zh": "Crossing out 5 from 7 leaves 2: 7 - 5 = 2.",
+        "zhHans": "Crossing out 5 from 7 leaves 2: 7 - 5 = 2."
       },
       "answerKey": {
-        "correctAnswer": "2",
+        "correctAnswer": "7 - 5 = 2",
         "acceptedAnswers": [
-          "2",
-          "2 buttons"
+          "7 - 5 = 2",
+          "7-5=2"
         ],
         "solutionSteps": [
-          "7 - 5 = 2."
+          "Translate the pictured start, crossed-out part, and remainder into 7 - 5 = 2."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "2",
-      "independentSolution": "7 - 5 = 2.",
+      "independentAnswer": "7 - 5 = 2",
+      "independentSolution": "Translate the pictured start, crossed-out part, and remainder into 7 - 5 = 2.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "2",
+        "computedAnswer": "7 - 5 = 2",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -54496,37 +54494,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 8 cubes. 2 are moved away. How many cubes are left?",
-        "zh": "一年級運算思維練習：有 8 個立方塊，移走了 2 個。還剩多少個立方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个立方块，移走了 2 个。还剩多少个立方块？"
+        "en": "A before-and-after picture shows 8 cubes before 2 cubes are moved away and 6 cubes afterward. Write the complete equation for the change.",
+        "zh": "A before-and-after picture shows 8 cubes before 2 cubes are moved away and 6 cubes afterward. Write the complete equation for the change.",
+        "zhHans": "A before-and-after picture shows 8 cubes before 2 cubes are moved away and 6 cubes afterward. Write the complete equation for the change."
       },
-      "answer": "6",
+      "answer": "8 - 2 = 6",
       "acceptedAnswers": [
-        "6",
-        "6 cubes"
+        "8 - 2 = 6",
+        "8-2=6"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 2 = 6.",
-        "zh": "減去移走的部分：8 - 2 = 6。",
-        "zhHans": "减去移走的部分：8 - 2 = 6。"
+        "en": "The picture changes from 8 to 6 when 2 are removed: 8 - 2 = 6.",
+        "zh": "The picture changes from 8 to 6 when 2 are removed: 8 - 2 = 6.",
+        "zhHans": "The picture changes from 8 to 6 when 2 are removed: 8 - 2 = 6."
       },
       "answerKey": {
-        "correctAnswer": "6",
+        "correctAnswer": "8 - 2 = 6",
         "acceptedAnswers": [
-          "6",
-          "6 cubes"
+          "8 - 2 = 6",
+          "8-2=6"
         ],
         "solutionSteps": [
-          "8 - 2 = 6."
+          "Record the before amount, removed amount, and after amount: 8 - 2 = 6."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "6",
-      "independentSolution": "8 - 2 = 6.",
+      "independentAnswer": "8 - 2 = 6",
+      "independentSolution": "Record the before amount, removed amount, and after amount: 8 - 2 = 6.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "6",
+        "computedAnswer": "8 - 2 = 6",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -54607,37 +54605,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 9 cards. 4 are moved away. How many cards are left?",
-        "zh": "一年級運算思維練習：有 9 個卡片，移走了 4 個。還剩多少個卡片？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：有 9 个卡片，移走了 4 个。还剩多少个卡片？"
+        "en": "A picture shows 9 cards with 4 crossed out, but a caption says 9 - 4 = 6. Write the complete equation that corrects the caption.",
+        "zh": "A picture shows 9 cards with 4 crossed out, but a caption says 9 - 4 = 6. Write the complete equation that corrects the caption.",
+        "zhHans": "A picture shows 9 cards with 4 crossed out, but a caption says 9 - 4 = 6. Write the complete equation that corrects the caption."
       },
-      "answer": "5",
+      "answer": "9 - 4 = 5",
       "acceptedAnswers": [
-        "5",
-        "5 cards"
+        "9 - 4 = 5",
+        "9-4=5"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 9 - 4 = 5.",
-        "zh": "減去移走的部分：9 - 4 = 5。",
-        "zhHans": "减去移走的部分：9 - 4 = 5。"
+        "en": "Count the uncrossed cards: 5 remain, so 9 - 4 = 5.",
+        "zh": "Count the uncrossed cards: 5 remain, so 9 - 4 = 5.",
+        "zhHans": "Count the uncrossed cards: 5 remain, so 9 - 4 = 5."
       },
       "answerKey": {
-        "correctAnswer": "5",
+        "correctAnswer": "9 - 4 = 5",
         "acceptedAnswers": [
-          "5",
-          "5 cards"
+          "9 - 4 = 5",
+          "9-4=5"
         ],
         "solutionSteps": [
-          "9 - 4 = 5."
+          "Recount the uncrossed part and correct the result: 9 - 4 = 5."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "5",
-      "independentSolution": "9 - 4 = 5.",
+      "independentAnswer": "9 - 4 = 5",
+      "independentSolution": "Recount the uncrossed part and correct the result: 9 - 4 = 5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "5",
+        "computedAnswer": "9 - 4 = 5",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -54849,37 +54847,37 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 7 counters. 3 are moved away. How many counters are left?",
-        "zh": "一年級運算思維練習：有 7 個計數片，移走了 3 個。還剩多少個計數片？",
-        "zhHans": "一年级运算思维练习：有 7 个计数片，移走了 3 个。还剩多少个计数片？"
+        "en": "A picture starts with 7 counters and shows 3 moved away. Of 7 - 3 = 4 and 7 - 4 = 3, write the complete equation that directly answers how many remain.",
+        "zh": "A picture starts with 7 counters and shows 3 moved away. Of 7 - 3 = 4 and 7 - 4 = 3, write the complete equation that directly answers how many remain.",
+        "zhHans": "A picture starts with 7 counters and shows 3 moved away. Of 7 - 3 = 4 and 7 - 4 = 3, write the complete equation that directly answers how many remain."
       },
-      "answer": "4",
+      "answer": "7 - 3 = 4",
       "acceptedAnswers": [
-        "4",
-        "4 counters"
+        "7 - 3 = 4",
+        "7-3=4"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 3 = 4.",
-        "zh": "減去移走的部分：7 - 3 = 4。",
-        "zhHans": "减去移走的部分：7 - 3 = 4。"
+        "en": "Subtract the moved group from the starting group: 7 - 3 = 4.",
+        "zh": "Subtract the moved group from the starting group: 7 - 3 = 4.",
+        "zhHans": "Subtract the moved group from the starting group: 7 - 3 = 4."
       },
       "answerKey": {
-        "correctAnswer": "4",
+        "correctAnswer": "7 - 3 = 4",
         "acceptedAnswers": [
-          "4",
-          "4 counters"
+          "7 - 3 = 4",
+          "7-3=4"
         ],
         "solutionSteps": [
-          "7 - 3 = 4."
+          "Choose the equation whose result is the pictured remainder: 7 - 3 = 4."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "4",
-      "independentSolution": "7 - 3 = 4.",
+      "independentAnswer": "7 - 3 = 4",
+      "independentSolution": "Choose the equation whose result is the pictured remainder: 7 - 3 = 4.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "4",
+        "computedAnswer": "7 - 3 = 4",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -54960,37 +54958,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.2 Picture Story Subtraction Equations checkpoint: There are 8 tiles. 5 are moved away. How many tiles are left?",
-        "zh": "一年級運算思維練習：有 8 個方塊，移走了 5 個。還剩多少個方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个方块，移走了 5 个。还剩多少个方块？"
+        "en": "A picture hides the starting row. It shows 5 tiles crossed out and 3 tiles still visible. Write the complete subtraction equation that reconstructs the original row.",
+        "zh": "A picture hides the starting row. It shows 5 tiles crossed out and 3 tiles still visible. Write the complete subtraction equation that reconstructs the original row.",
+        "zhHans": "A picture hides the starting row. It shows 5 tiles crossed out and 3 tiles still visible. Write the complete subtraction equation that reconstructs the original row."
       },
-      "answer": "3",
+      "answer": "8 - 5 = 3",
       "acceptedAnswers": [
-        "3",
-        "3 tiles"
+        "8 - 5 = 3",
+        "8-5=3"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 5 = 3.",
-        "zh": "減去移走的部分：8 - 5 = 3。",
-        "zhHans": "减去移走的部分：8 - 5 = 3。"
+        "en": "The original row had both parts: 5 + 3 = 8, so 8 - 5 = 3.",
+        "zh": "The original row had both parts: 5 + 3 = 8, so 8 - 5 = 3.",
+        "zhHans": "The original row had both parts: 5 + 3 = 8, so 8 - 5 = 3."
       },
       "answerKey": {
-        "correctAnswer": "3",
+        "correctAnswer": "8 - 5 = 3",
         "acceptedAnswers": [
-          "3",
-          "3 tiles"
+          "8 - 5 = 3",
+          "8-5=3"
         ],
         "solutionSteps": [
-          "8 - 5 = 3."
+          "Combine the removed and remaining parts to recover the start, then write 8 - 5 = 3."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "3",
-      "independentSolution": "8 - 5 = 3.",
+      "independentAnswer": "8 - 5 = 3",
+      "independentSolution": "Combine the removed and remaining parts to recover the start, then write 8 - 5 = 3.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "3",
+        "computedAnswer": "8 - 5 = 3",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -55780,9 +55778,9 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 8 cubes. 4 are moved away. How many cubes are left?",
-        "zh": "一年級運算思維練習：有 8 個立方塊，移走了 4 個。還剩多少個立方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个立方块，移走了 4 个。还剩多少个立方块？"
+        "en": "A cube train has 8 cubes. Unsnap a section of 4 cubes from one end. How many cubes remain connected?",
+        "zh": "A cube train has 8 cubes. Unsnap a section of 4 cubes from one end. How many cubes remain connected?",
+        "zhHans": "A cube train has 8 cubes. Unsnap a section of 4 cubes from one end. How many cubes remain connected?"
       },
       "answer": "4",
       "acceptedAnswers": [
@@ -55790,9 +55788,9 @@
         "4 cubes"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 4 = 4.",
-        "zh": "減去移走的部分：8 - 4 = 4。",
-        "zhHans": "减去移走的部分：8 - 4 = 4。"
+        "en": "Unsnap 4 cubes from the 8-cube train: 8 - 4 = 4.",
+        "zh": "Unsnap 4 cubes from the 8-cube train: 8 - 4 = 4.",
+        "zhHans": "Unsnap 4 cubes from the 8-cube train: 8 - 4 = 4."
       },
       "answerKey": {
         "correctAnswer": "4",
@@ -55801,12 +55799,12 @@
           "4 cubes"
         ],
         "solutionSteps": [
-          "8 - 4 = 4."
+          "Model the take-away action on the cube train with 8 - 4 = 4."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "4",
-      "independentSolution": "8 - 4 = 4.",
+      "independentSolution": "Model the take-away action on the cube train with 8 - 4 = 4.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -55894,37 +55892,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 9 cards. 1 is moved away. How many cards are left?",
-        "zh": "一年級運算思維練習：有 9 個卡片，移走了 1 個。還剩多少個卡片？",
-        "zhHans": "一年级运算思维练习：有 9 个卡片，移走了 1 个。还剩多少个卡片？"
+        "en": "A 9-cube train is split into a connected section of 8 cubes and a section that was unsnapped. How many cubes were in the unsnapped section?",
+        "zh": "A 9-cube train is split into a connected section of 8 cubes and a section that was unsnapped. How many cubes were in the unsnapped section?",
+        "zhHans": "A 9-cube train is split into a connected section of 8 cubes and a section that was unsnapped. How many cubes were in the unsnapped section?"
       },
-      "answer": "8",
+      "answer": "1",
       "acceptedAnswers": [
-        "8",
-        "8 cards"
+        "1",
+        "1 cube"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 9 - 1 = 8.",
-        "zh": "減去移走的部分：9 - 1 = 8。",
-        "zhHans": "减去移走的部分：9 - 1 = 8。"
+        "en": "Compare the original and connected sections: 9 - 8 = 1.",
+        "zh": "Compare the original and connected sections: 9 - 8 = 1.",
+        "zhHans": "Compare the original and connected sections: 9 - 8 = 1."
       },
       "answerKey": {
-        "correctAnswer": "8",
+        "correctAnswer": "1",
         "acceptedAnswers": [
-          "8",
-          "8 cards"
+          "1",
+          "1 cube"
         ],
         "solutionSteps": [
-          "9 - 1 = 8."
+          "Use the original and remaining lengths to find the unsnapped section: 9 - 8 = 1."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "8",
-      "independentSolution": "9 - 1 = 8.",
+      "independentAnswer": "1",
+      "independentSolution": "Use the original and remaining lengths to find the unsnapped section: 9 - 8 = 1.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "8",
+        "computedAnswer": "1",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -56008,37 +56006,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 6 shells. 3 are moved away. How many shells are left?",
-        "zh": "一年級運算思維練習：有 6 個貝殼，移走了 3 個。還剩多少個貝殼？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：有 6 个贝壳，移走了 3 个。还剩多少个贝壳？"
+        "en": "A cube train begins with 6 cubes. A section of 3 cubes is unsnapped, leaving 3 connected. Write the complete subtraction equation represented by the train.",
+        "zh": "A cube train begins with 6 cubes. A section of 3 cubes is unsnapped, leaving 3 connected. Write the complete subtraction equation represented by the train.",
+        "zhHans": "A cube train begins with 6 cubes. A section of 3 cubes is unsnapped, leaving 3 connected. Write the complete subtraction equation represented by the train."
       },
-      "answer": "3",
+      "answer": "6 - 3 = 3",
       "acceptedAnswers": [
-        "3",
-        "3 shells"
+        "6 - 3 = 3",
+        "6-3=3"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 6 - 3 = 3.",
-        "zh": "減去移走的部分：6 - 3 = 3。",
-        "zhHans": "减去移走的部分：6 - 3 = 3。"
+        "en": "The original, unsnapped, and remaining sections correspond to 6 - 3 = 3.",
+        "zh": "The original, unsnapped, and remaining sections correspond to 6 - 3 = 3.",
+        "zhHans": "The original, unsnapped, and remaining sections correspond to 6 - 3 = 3."
       },
       "answerKey": {
-        "correctAnswer": "3",
+        "correctAnswer": "6 - 3 = 3",
         "acceptedAnswers": [
-          "3",
-          "3 shells"
+          "6 - 3 = 3",
+          "6-3=3"
         ],
         "solutionSteps": [
-          "6 - 3 = 3."
+          "Record the cube train before and after the take-away action: 6 - 3 = 3."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "3",
-      "independentSolution": "6 - 3 = 3.",
+      "independentAnswer": "6 - 3 = 3",
+      "independentSolution": "Record the cube train before and after the take-away action: 6 - 3 = 3.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "3",
+        "computedAnswer": "6 - 3 = 3",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -56256,37 +56254,37 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 8 tiles. 2 are moved away. How many tiles are left?",
-        "zh": "一年級運算思維練習：有 8 個方塊，移走了 2 個。還剩多少個方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个方块，移走了 2 个。还剩多少个方块？"
+        "en": "After a section of 2 cubes is unsnapped, a cube train has 6 cubes still connected. How many cubes were in the train before it was split?",
+        "zh": "After a section of 2 cubes is unsnapped, a cube train has 6 cubes still connected. How many cubes were in the train before it was split?",
+        "zhHans": "After a section of 2 cubes is unsnapped, a cube train has 6 cubes still connected. How many cubes were in the train before it was split?"
       },
-      "answer": "6",
+      "answer": "8",
       "acceptedAnswers": [
-        "6",
-        "6 tiles"
+        "8",
+        "8 cubes"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 2 = 6.",
-        "zh": "減去移走的部分：8 - 2 = 6。",
-        "zhHans": "减去移走的部分：8 - 2 = 6。"
+        "en": "Reconnect the sections: 2 + 6 = 8 cubes.",
+        "zh": "Reconnect the sections: 2 + 6 = 8 cubes.",
+        "zhHans": "Reconnect the sections: 2 + 6 = 8 cubes."
       },
       "answerKey": {
-        "correctAnswer": "6",
+        "correctAnswer": "8",
         "acceptedAnswers": [
-          "6",
-          "6 tiles"
+          "8",
+          "8 cubes"
         ],
         "solutionSteps": [
-          "8 - 2 = 6."
+          "Rebuild the original cube train: 2 + 6 = 8."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "6",
-      "independentSolution": "8 - 2 = 6.",
+      "independentAnswer": "8",
+      "independentSolution": "Rebuild the original cube train: 2 + 6 = 8.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "6",
+        "computedAnswer": "8",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -56370,33 +56368,33 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.3 Cube-Train Take-Away Models to Ten checkpoint: There are 9 stickers. 4 are moved away. How many stickers are left?",
-        "zh": "一年級運算思維練習：有 9 個貼紙，移走了 4 個。還剩多少個貼紙？",
-        "zhHans": "一年级运算思维练习：有 9 个贴纸，移走了 4 个。还剩多少个贴纸？"
+        "en": "A student unsnaps 4 cubes from a 9-cube train and says 6 cubes remain. What number should replace 6?",
+        "zh": "A student unsnaps 4 cubes from a 9-cube train and says 6 cubes remain. What number should replace 6?",
+        "zhHans": "A student unsnaps 4 cubes from a 9-cube train and says 6 cubes remain. What number should replace 6?"
       },
       "answer": "5",
       "acceptedAnswers": [
         "5",
-        "5 stickers"
+        "5 cubes"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 9 - 4 = 5.",
-        "zh": "減去移走的部分：9 - 4 = 5。",
-        "zhHans": "减去移走的部分：9 - 4 = 5。"
+        "en": "The correct take-away model is 9 - 4 = 5, so 5 cubes remain.",
+        "zh": "The correct take-away model is 9 - 4 = 5, so 5 cubes remain.",
+        "zhHans": "The correct take-away model is 9 - 4 = 5, so 5 cubes remain."
       },
       "answerKey": {
         "correctAnswer": "5",
         "acceptedAnswers": [
           "5",
-          "5 stickers"
+          "5 cubes"
         ],
         "solutionSteps": [
-          "9 - 4 = 5."
+          "Check the stated remainder against the cube-train action: 9 - 4 = 5."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "5",
-      "independentSolution": "9 - 4 = 5.",
+      "independentSolution": "Check the stated remainder against the cube-train action: 9 - 4 = 5.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -58600,37 +58598,37 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 6 shells. 2 are moved away. How many shells are left?",
-        "zh": "一年級運算思維練習：有 6 個貝殼，移走了 2 個。還剩多少個貝殼？",
-        "zhHans": "一年级运算思维练习：有 6 个贝壳，移走了 2 个。还剩多少个贝壳？"
+        "en": "Counter model: 6 counters are shown, 2 are crossed out, and 4 remain. Write the complete subtraction equation that matches the model.",
+        "zh": "Counter model: 6 counters are shown, 2 are crossed out, and 4 remain. Write the complete subtraction equation that matches the model.",
+        "zhHans": "Counter model: 6 counters are shown, 2 are crossed out, and 4 remain. Write the complete subtraction equation that matches the model."
       },
-      "answer": "4",
+      "answer": "6 - 2 = 4",
       "acceptedAnswers": [
-        "4",
-        "4 shells"
+        "6 - 2 = 4",
+        "6-2=4"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 6 - 2 = 4.",
-        "zh": "減去移走的部分：6 - 2 = 4。",
-        "zhHans": "减去移走的部分：6 - 2 = 4。"
+        "en": "The model's start, crossed-out part, and remainder correspond to 6 - 2 = 4.",
+        "zh": "The model's start, crossed-out part, and remainder correspond to 6 - 2 = 4.",
+        "zhHans": "The model's start, crossed-out part, and remainder correspond to 6 - 2 = 4."
       },
       "answerKey": {
-        "correctAnswer": "4",
+        "correctAnswer": "6 - 2 = 4",
         "acceptedAnswers": [
-          "4",
-          "4 shells"
+          "6 - 2 = 4",
+          "6-2=4"
         ],
         "solutionSteps": [
-          "6 - 2 = 4."
+          "Map the original group, removed part, and remainder to 6 - 2 = 4."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "4",
-      "independentSolution": "6 - 2 = 4.",
+      "independentAnswer": "6 - 2 = 4",
+      "independentSolution": "Map the original group, removed part, and remainder to 6 - 2 = 4.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "4",
+        "computedAnswer": "6 - 2 = 4",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -58714,9 +58712,9 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 7 counters. 4 are moved away. How many counters are left?",
-        "zh": "一年級運算思維練習：有 7 個計數片，移走了 4 個。還剩多少個計數片？",
-        "zhHans": "一年级运算思维练习：有 7 个计数片，移走了 4 个。还剩多少个计数片？"
+        "en": "A model for 7 - 4 = __ starts with 7 counters and crosses out 4. How many counters should the uncrossed part show?",
+        "zh": "A model for 7 - 4 = __ starts with 7 counters and crosses out 4. How many counters should the uncrossed part show?",
+        "zhHans": "A model for 7 - 4 = __ starts with 7 counters and crosses out 4. How many counters should the uncrossed part show?"
       },
       "answer": "3",
       "acceptedAnswers": [
@@ -58724,9 +58722,9 @@
         "3 counters"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 4 = 3.",
-        "zh": "減去移走的部分：7 - 4 = 3。",
-        "zhHans": "减去移走的部分：7 - 4 = 3。"
+        "en": "The remainder in 7 - 4 = 3 is 3, so the model shows 3 uncrossed counters.",
+        "zh": "The remainder in 7 - 4 = 3 is 3, so the model shows 3 uncrossed counters.",
+        "zhHans": "The remainder in 7 - 4 = 3 is 3, so the model shows 3 uncrossed counters."
       },
       "answerKey": {
         "correctAnswer": "3",
@@ -58735,12 +58733,12 @@
           "3 counters"
         ],
         "solutionSteps": [
-          "7 - 4 = 3."
+          "Use the equation's remainder to label the uncrossed model part: 7 - 4 = 3."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "3",
-      "independentSolution": "7 - 4 = 3.",
+      "independentSolution": "Use the equation's remainder to label the uncrossed model part: 7 - 4 = 3.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -58828,37 +58826,37 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 8 tiles. 1 is moved away. How many tiles are left?",
-        "zh": "一年級運算思維練習：有 8 個方塊，移走了 1 個。還剩多少個方塊？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：有 8 个方块，移走了 1 个。还剩多少个方块？"
+        "en": "A counter model shows 8 counters with 1 crossed out, but its label says 8 - 1 = 8. Write the complete equation that correctly labels the model.",
+        "zh": "A counter model shows 8 counters with 1 crossed out, but its label says 8 - 1 = 8. Write the complete equation that correctly labels the model.",
+        "zhHans": "A counter model shows 8 counters with 1 crossed out, but its label says 8 - 1 = 8. Write the complete equation that correctly labels the model."
       },
-      "answer": "7",
+      "answer": "8 - 1 = 7",
       "acceptedAnswers": [
-        "7",
-        "7 tiles"
+        "8 - 1 = 7",
+        "8-1=7"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 1 = 7.",
-        "zh": "減去移走的部分：8 - 1 = 7。",
-        "zhHans": "减去移走的部分：8 - 1 = 7。"
+        "en": "The uncrossed part has 7 counters, so the corrected label is 8 - 1 = 7.",
+        "zh": "The uncrossed part has 7 counters, so the corrected label is 8 - 1 = 7.",
+        "zhHans": "The uncrossed part has 7 counters, so the corrected label is 8 - 1 = 7."
       },
       "answerKey": {
-        "correctAnswer": "7",
+        "correctAnswer": "8 - 1 = 7",
         "acceptedAnswers": [
-          "7",
-          "7 tiles"
+          "8 - 1 = 7",
+          "8-1=7"
         ],
         "solutionSteps": [
-          "8 - 1 = 7."
+          "Compare the model with its label and correct the remainder: 8 - 1 = 7."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "7",
-      "independentSolution": "8 - 1 = 7.",
+      "independentAnswer": "8 - 1 = 7",
+      "independentSolution": "Compare the model with its label and correct the remainder: 8 - 1 = 7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "7",
+        "computedAnswer": "8 - 1 = 7",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -59076,37 +59074,37 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 6 blocks. 5 are moved away. How many blocks are left?",
-        "zh": "一年級運算思維練習：有 6 個積木，移走了 5 個。還剩多少個積木？",
-        "zhHans": "一年级运算思维练习：有 6 个积木，移走了 5 个。还剩多少个积木？"
+        "en": "A take-away model starts with 6 blocks and leaves 1 uncrossed. The matching equation starts with 6 and has a remainder of 1. How many blocks should be crossed out?",
+        "zh": "A take-away model starts with 6 blocks and leaves 1 uncrossed. The matching equation starts with 6 and has a remainder of 1. How many blocks should be crossed out?",
+        "zhHans": "A take-away model starts with 6 blocks and leaves 1 uncrossed. The matching equation starts with 6 and has a remainder of 1. How many blocks should be crossed out?"
       },
-      "answer": "1",
+      "answer": "5",
       "acceptedAnswers": [
-        "1",
-        "1 block"
+        "5",
+        "5 blocks"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 6 - 5 = 1.",
-        "zh": "減去移走的部分：6 - 5 = 1。",
-        "zhHans": "减去移走的部分：6 - 5 = 1。"
+        "en": "The removed part is 5 because 6 - 5 = 1.",
+        "zh": "The removed part is 5 because 6 - 5 = 1.",
+        "zhHans": "The removed part is 5 because 6 - 5 = 1."
       },
       "answerKey": {
-        "correctAnswer": "1",
+        "correctAnswer": "5",
         "acceptedAnswers": [
-          "1",
-          "1 block"
+          "5",
+          "5 blocks"
         ],
         "solutionSteps": [
-          "6 - 5 = 1."
+          "Find the model part that corresponds to the subtrahend in 6 - 5 = 1."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "1",
-      "independentSolution": "6 - 5 = 1.",
+      "independentAnswer": "5",
+      "independentSolution": "Find the model part that corresponds to the subtrahend in 6 - 5 = 1.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "1",
+        "computedAnswer": "5",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -59190,37 +59188,37 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.5 Model-and-Equation Take-Away Stories checkpoint: There are 7 buttons. 2 are moved away. How many buttons are left?",
-        "zh": "一年級運算思維練習：有 7 個鈕扣，移走了 2 個。還剩多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：有 7 个纽扣，移走了 2 个。还剩多少个纽扣？"
+        "en": "A model has 2 buttons crossed out and 5 buttons uncrossed. Its matching equation subtracts 2 and has a remainder of 5. How many buttons must the full starting model contain?",
+        "zh": "A model has 2 buttons crossed out and 5 buttons uncrossed. Its matching equation subtracts 2 and has a remainder of 5. How many buttons must the full starting model contain?",
+        "zhHans": "A model has 2 buttons crossed out and 5 buttons uncrossed. Its matching equation subtracts 2 and has a remainder of 5. How many buttons must the full starting model contain?"
       },
-      "answer": "5",
+      "answer": "7",
       "acceptedAnswers": [
-        "5",
-        "5 buttons"
+        "7",
+        "7 buttons"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 2 = 5.",
-        "zh": "減去移走的部分：7 - 2 = 5。",
-        "zhHans": "减去移走的部分：7 - 2 = 5。"
+        "en": "The starting model combines both parts: 2 + 5 = 7.",
+        "zh": "The starting model combines both parts: 2 + 5 = 7.",
+        "zhHans": "The starting model combines both parts: 2 + 5 = 7."
       },
       "answerKey": {
-        "correctAnswer": "5",
+        "correctAnswer": "7",
         "acceptedAnswers": [
-          "5",
-          "5 buttons"
+          "7",
+          "7 buttons"
         ],
         "solutionSteps": [
-          "7 - 2 = 5."
+          "Reconstruct the minuend by joining the removed and remaining parts: 2 + 5 = 7."
         ],
         "validationMethod": "computed-subtraction"
       },
-      "independentAnswer": "5",
-      "independentSolution": "7 - 2 = 5.",
+      "independentAnswer": "7",
+      "independentSolution": "Reconstruct the minuend by joining the removed and remaining parts: 2 + 5 = 7.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "5",
+        "computedAnswer": "7",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -60028,9 +60026,9 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 7 counters. 1 is moved away. How many counters are left?",
-        "zh": "一年級運算思維練習：有 7 個計數片，移走了 1 個。還剩多少個計數片？",
-        "zhHans": "一年级运算思维练习：有 7 个计数片，移走了 1 个。还剩多少个计数片？"
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 7 counters altogether. One counter is in a cup, and the rest are on a mat. How many counters are on the mat?",
+        "zh": "一年級運算思維練習：共有 7 個計數片，其中 1 個在杯中，其餘在墊上。墊上有多少個計數片？",
+        "zhHans": "一年级运算思维练习：共有 7 个计数片，其中 1 个在杯中，其余在垫上。垫上有多少个计数片？"
       },
       "answer": "6",
       "acceptedAnswers": [
@@ -60038,9 +60036,9 @@
         "6 counters"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 1 = 6.",
-        "zh": "減去移走的部分：7 - 1 = 6。",
-        "zhHans": "减去移走的部分：7 - 1 = 6。"
+        "en": "The whole is 7 and the known part is 1, so the missing part is 7 - 1 = 6. Check: 1 + 6 = 7.",
+        "zh": "整體是 7，已知部分是 1，所以未知部分是 7 - 1 = 6。驗算：1 + 6 = 7。",
+        "zhHans": "整体是 7，已知部分是 1，所以未知部分是 7 - 1 = 6。验算：1 + 6 = 7。"
       },
       "answerKey": {
         "correctAnswer": "6",
@@ -60049,12 +60047,12 @@
           "6 counters"
         ],
         "solutionSteps": [
-          "7 - 1 = 6."
+          "The whole-part equation is 7 - 1 = 6; the related addition check is 1 + 6 = 7."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "6",
-      "independentSolution": "7 - 1 = 6.",
+      "independentSolution": "The whole-part equation is 7 - 1 = 6; 1 + 6 = 7 checks the missing part.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -60142,9 +60140,9 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 8 tiles. 3 are moved away. How many tiles are left?",
-        "zh": "一年級運算思維練習：有 8 個方塊，移走了 3 個。還剩多少個方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个方块，移走了 3 个。还剩多少个方块？"
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: Eight tiles make two parts of a design. One part has 3 tiles. How many tiles are in the other part?",
+        "zh": "一年級運算思維練習：8 塊拼圖磚分成圖案的兩部分，其中一部分有 3 塊。另一部分有多少塊？",
+        "zhHans": "一年级运算思维练习：8 块拼图砖分成图案的两部分，其中一部分有 3 块。另一部分有多少块？"
       },
       "answer": "5",
       "acceptedAnswers": [
@@ -60152,9 +60150,9 @@
         "5 tiles"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 3 = 5.",
-        "zh": "減去移走的部分：8 - 3 = 5。",
-        "zhHans": "减去移走的部分：8 - 3 = 5。"
+        "en": "The whole is 8 and one part is 3, so the other part is 8 - 3 = 5. Check: 3 + 5 = 8.",
+        "zh": "整體是 8，其中一部分是 3，所以另一部分是 8 - 3 = 5。驗算：3 + 5 = 8。",
+        "zhHans": "整体是 8，其中一部分是 3，所以另一部分是 8 - 3 = 5。验算：3 + 5 = 8。"
       },
       "answerKey": {
         "correctAnswer": "5",
@@ -60163,12 +60161,12 @@
           "5 tiles"
         ],
         "solutionSteps": [
-          "8 - 3 = 5."
+          "The whole-part equation is 8 - 3 = 5; the related addition check is 3 + 5 = 8."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "5",
-      "independentSolution": "8 - 3 = 5.",
+      "independentSolution": "The whole-part equation is 8 - 3 = 5; 3 + 5 = 8 checks the missing part.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -60256,37 +60254,41 @@
       "difficulty": "Medium",
       "type": "short-answer",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 9 stickers. 5 are moved away. How many stickers are left?",
-        "zh": "一年級運算思維練習：有 9 個貼紙，移走了 5 個。還剩多少個貼紙？",
-        "zhHans": "一年级运算思维练习：在教室垫上，选出最合适的答案：有 9 个贴纸，移走了 5 个。还剩多少个贴纸？"
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: Nine stickers are split between two pages. Five are on the first page, and the rest are on the second. Write an addition equation that checks the missing part.",
+        "zh": "一年級運算思維練習：9 張貼紙分在兩頁，其中 5 張在第一頁，其餘在第二頁。寫出一條加法算式來驗算未知部分。",
+        "zhHans": "一年级运算思维练习：9 张贴纸分在两页，其中 5 张在第一页，其余在第二页。写出一条加法算式来验算未知部分。"
       },
-      "answer": "4",
+      "answer": "5 + 4 = 9",
       "acceptedAnswers": [
-        "4",
-        "4 stickers"
+        "5 + 4 = 9",
+        "5+4=9",
+        "4 + 5 = 9",
+        "4+5=9"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 9 - 5 = 4.",
-        "zh": "減去移走的部分：9 - 5 = 4。",
-        "zhHans": "减去移走的部分：9 - 5 = 4。"
+        "en": "First find the missing part: 9 - 5 = 4. Then use the two parts to check the whole: 5 + 4 = 9 (or 4 + 5 = 9).",
+        "zh": "先找出未知部分：9 - 5 = 4。再用兩部分驗算整體：5 + 4 = 9（或 4 + 5 = 9）。",
+        "zhHans": "先找出未知部分：9 - 5 = 4。再用两部分验算整体：5 + 4 = 9（或 4 + 5 = 9）。"
       },
       "answerKey": {
-        "correctAnswer": "4",
+        "correctAnswer": "5 + 4 = 9",
         "acceptedAnswers": [
-          "4",
-          "4 stickers"
+          "5 + 4 = 9",
+          "5+4=9",
+          "4 + 5 = 9",
+          "4+5=9"
         ],
         "solutionSteps": [
-          "9 - 5 = 4."
+          "Use 9 - 5 = 4 to find the missing part, then check 5 + 4 = 9."
         ],
-        "validationMethod": "computed-subtraction"
+        "validationMethod": "computed-related-addition-check"
       },
-      "independentAnswer": "4",
-      "independentSolution": "9 - 5 = 4.",
+      "independentAnswer": "5 + 4 = 9",
+      "independentSolution": "9 - 5 = 4 finds the missing part, and 5 + 4 = 9 checks it.",
       "validation": {
         "status": "passed",
-        "deterministicCheck": "computed-subtraction",
-        "computedAnswer": "4",
+        "deterministicCheck": "computed-related-addition-check",
+        "computedAnswer": "5 + 4 = 9",
         "checkedAt": "2026-06-23T00:20:00+08:00",
         "notes": "Generated from deterministic MAIS-authored template using only new knowledge-point metadata and fresh values.",
         "qaRounds": [
@@ -60504,9 +60506,9 @@
       "difficulty": "Low",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 7 buttons. 4 are moved away. How many buttons are left?",
-        "zh": "一年級運算思維練習：有 7 個鈕扣，移走了 4 個。還剩多少個鈕扣？",
-        "zhHans": "一年级运算思维练习：有 7 个纽扣，移走了 4 个。还剩多少个纽扣？"
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: Seven buttons are sorted into two parts. Four are large. How many are small?",
+        "zh": "一年級運算思維練習：7 個鈕扣分成兩部分，其中 4 個是大鈕扣。小鈕扣有多少個？",
+        "zhHans": "一年级运算思维练习：7 个纽扣分成两部分，其中 4 个是大纽扣。小纽扣有多少个？"
       },
       "answer": "3",
       "acceptedAnswers": [
@@ -60514,9 +60516,9 @@
         "3 buttons"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 7 - 4 = 3.",
-        "zh": "減去移走的部分：7 - 4 = 3。",
-        "zhHans": "减去移走的部分：7 - 4 = 3。"
+        "en": "The whole is 7 and the known part is 4, so the missing part is 7 - 4 = 3. Check: 4 + 3 = 7.",
+        "zh": "整體是 7，已知部分是 4，所以未知部分是 7 - 4 = 3。驗算：4 + 3 = 7。",
+        "zhHans": "整体是 7，已知部分是 4，所以未知部分是 7 - 4 = 3。验算：4 + 3 = 7。"
       },
       "answerKey": {
         "correctAnswer": "3",
@@ -60525,12 +60527,12 @@
           "3 buttons"
         ],
         "solutionSteps": [
-          "7 - 4 = 3."
+          "The whole-part equation is 7 - 4 = 3; the related addition check is 4 + 3 = 7."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "3",
-      "independentSolution": "7 - 4 = 3.",
+      "independentSolution": "The whole-part equation is 7 - 4 = 3; 4 + 3 = 7 checks the missing part.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",
@@ -60618,9 +60620,9 @@
       "difficulty": "Medium",
       "type": "fill-in",
       "prompt": {
-        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: There are 8 cubes. 1 is moved away. How many cubes are left?",
-        "zh": "一年級運算思維練習：有 8 個立方塊，移走了 1 個。還剩多少個立方塊？",
-        "zhHans": "一年级运算思维练习：有 8 个立方块，移走了 1 个。还剩多少个立方块？"
+        "en": "1-L.6 Break-Apart Subtraction Equations checkpoint: Eight cubes are used in two towers. One tower has 1 cube. How many cubes are in the other tower?",
+        "zh": "一年級運算思維練習：8 個立方塊用來砌兩座塔，其中一座塔有 1 個。另一座塔有多少個立方塊？",
+        "zhHans": "一年级运算思维练习：8 个立方块用来搭两座塔，其中一座塔有 1 个。另一座塔有多少个立方块？"
       },
       "answer": "7",
       "acceptedAnswers": [
@@ -60628,9 +60630,9 @@
         "7 cubes"
       ],
       "explanation": {
-        "en": "Subtract the part that moved away: 8 - 1 = 7.",
-        "zh": "減去移走的部分：8 - 1 = 7。",
-        "zhHans": "减去移走的部分：8 - 1 = 7。"
+        "en": "The whole is 8 and one part is 1, so the other part is 8 - 1 = 7. Check: 1 + 7 = 8.",
+        "zh": "整體是 8，其中一部分是 1，所以另一部分是 8 - 1 = 7。驗算：1 + 7 = 8。",
+        "zhHans": "整体是 8，其中一部分是 1，所以另一部分是 8 - 1 = 7。验算：1 + 7 = 8。"
       },
       "answerKey": {
         "correctAnswer": "7",
@@ -60639,12 +60641,12 @@
           "7 cubes"
         ],
         "solutionSteps": [
-          "8 - 1 = 7."
+          "The whole-part equation is 8 - 1 = 7; the related addition check is 1 + 7 = 8."
         ],
         "validationMethod": "computed-subtraction"
       },
       "independentAnswer": "7",
-      "independentSolution": "8 - 1 = 7.",
+      "independentSolution": "The whole-part equation is 8 - 1 = 7; 1 + 7 = 8 checks the missing part.",
       "validation": {
         "status": "passed",
         "deterministicCheck": "computed-subtraction",

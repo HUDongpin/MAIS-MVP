@@ -40,7 +40,7 @@ export default function Lesson() {
             </p>
           </div>
 
-          <Stepper label="How many" value={n} min={1} max={20} onChange={setN} />
+          <Stepper label="How many" value={n} min={0} max={20} onChange={setN} />
         </div>
       </Figure>
 

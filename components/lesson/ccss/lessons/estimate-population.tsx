@@ -29,10 +29,11 @@ export default function Lesson() {
       <p>
         A poll finds {phat}% support. But the true value could be a bit higher or
         lower — so we report a <strong>margin of error</strong>{" "}and a{" "}
-        <strong>confidence interval</strong>. Larger samples give tighter estimates.
+        <strong>confidence interval</strong>. This display uses a common
+        large-sample approximation; larger samples give tighter estimates.
       </p>
 
-      <Figure caption="The estimate ± margin of error gives an interval likely to contain the true population value.">
+      <Figure caption="This illustrative 95% procedure is estimate ± margin of error. Under its assumptions, about 95% of intervals from repeated samples capture the true proportion.">
         <div className="flex flex-col items-center gap-6">
           <div className="rounded-2xl border-2 px-8 py-4 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-lg text-[var(--ink-soft)]">sample: {phat}% of n = {n}</div>

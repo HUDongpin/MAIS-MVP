@@ -7,6 +7,15 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
+function integerText(value: number) {
+  return `${value}`.replace("-", "−");
+}
+
+function factorText(value: number) {
+  const text = integerText(value);
+  return value < 0 ? `(${text})` : text;
+}
+
 export default function Lesson() {
   // system: a x + b y = e ; c x + d y = f
   const [a, setA] = useState(2);
@@ -18,8 +27,14 @@ export default function Lesson() {
 
   const addend = (n: number) => `${n < 0 ? "−" : "+"} ${Math.abs(n)}`;
   const det = a * d - b * c;
-  const x = det !== 0 ? r2((e * d - b * f) / det) : NaN;
-  const y = det !== 0 ? r2((a * f - e * c) / det) : NaN;
+  const figureCaption = det !== 0
+    ? "Write the system as A·[x, y] = [e, f], then multiply by A⁻¹ to solve."
+    : "Write the system as A·[x, y] = [e, f]. Here det A = 0, so A⁻¹ does not exist and the system has no unique solution.";
+  const exactX = det !== 0 ? (e * d - b * f) / det : NaN;
+  const exactY = det !== 0 ? (a * f - e * c) / det : NaN;
+  const x = det !== 0 ? r2(exactX) : NaN;
+  const y = det !== 0 ? r2(exactY) : NaN;
+  const rel = (raw: number) => Math.abs(raw * 100 - Math.round(raw * 100)) < 1e-9 ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -30,7 +45,7 @@ export default function Lesson() {
         <strong>x = A⁻¹b</strong>{" "}— the matrix version of dividing.
       </p>
 
-      <Figure caption="Write the system as A·[x, y] = [e, f], then multiply by A⁻¹ to solve.">
+      <Figure caption={figureCaption}>
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-1 font-mono text-lg">
             {/* Coefficients clamp at −9 with no sign formatting, so b = −1
@@ -47,9 +62,9 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-6 py-3 text-center font-mono" style={{ borderColor: ACCENT }}>
-            <div className="text-sm text-[var(--ink-soft)]">det A = {a}·{d} − {b}·{c} = <strong>{det}</strong></div>
+            <div className="text-sm text-[var(--ink-soft)]">det A = {factorText(a)}·{factorText(d)} − {factorText(b)}·{factorText(c)} = <strong>{integerText(det)}</strong></div>
             {det !== 0 ? (
-              <div className="mt-1 text-xl font-black" style={{ color: ACCENT }}>x = {x},  y = {y}</div>
+              <div className="mt-1 text-xl font-black" style={{ color: ACCENT }}>x {rel(exactX)} {x},  y {rel(exactY)} {y}</div>
             ) : (
               <div className="mt-1 font-black" style={{ color: ACCENT }}>det = 0 → no unique solution (A is singular)</div>
             )}
@@ -112,9 +127,9 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} disabled={value <= -9} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums" style={{ color: ACCENT }}>{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(12, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(12, value + 1))} disabled={value >= 12} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );

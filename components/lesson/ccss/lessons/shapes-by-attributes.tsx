@@ -25,7 +25,8 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Shapes are named by their <strong>attributes</strong>{" "}— how many{" "}
-        <strong>sides</strong>{" "}and <strong>corners (angles)</strong>{" "}they have. A
+        <strong>sides</strong>{" "}and <strong>vertices (corners)</strong>{" "}they have,
+        along with the angles formed at those vertices. A
         shape with 3 sides is a triangle; 4 sides, a quadrilateral; 5, a
         pentagon; 6, a hexagon.
       </p>
@@ -36,12 +37,12 @@ export default function Lesson() {
             <polygon points={polygonPoints(sides, 90, 90, 70)} fill={FILL} fillOpacity={0.85} stroke="var(--ink)" strokeWidth={2} />
           </svg>
 
-          <div className="text-center">
+          <output className="text-center" aria-label="Selected polygon attributes" aria-live="polite" aria-atomic="true">
             <div className="text-3xl font-black capitalize" style={{ color: FILL }}>{NAMES[sides]}</div>
             <p className="mt-1 text-[15px] text-[var(--ink-soft)]">
-              {sides} sides · {sides} corners (angles)
+              {sides} sides · {sides} vertices · {sides} angles
             </p>
-          </div>
+          </output>
 
           <div className="flex flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Number of sides: {sides}</span>
@@ -52,9 +53,10 @@ export default function Lesson() {
 
       <h2>Count the sides and corners</h2>
       <p>
-        The number of sides always equals the number of corners. Solid shapes
-        are named by their <strong>faces</strong>{" "}instead — a cube has 6 square
-        faces, 8 corners, and 12 edges.
+        In each simple polygon shown here, every side meets the next side at one
+        corner, so the number of sides equals the number of corners. Solid shapes
+        are described with <strong>faces</strong>, edges, and corners instead — a
+        cube has 6 square faces, 12 edges, and 8 corners.
       </p>
 
       <MathCheck>
@@ -62,8 +64,10 @@ export default function Lesson() {
           Recognizing and drawing shapes by their attributes — a given number of{" "}
           <strong>sides</strong>{" "}and <strong>angles</strong>{" "}for flat shapes, or{" "}
           <strong>faces</strong>{" "}for solid shapes — is 2.G.A.1. A {NAMES[sides]}{" "}
-          has {sides} sides and {sides} angles; that count is what names it,
-          regardless of its size or color.
+          has {sides} sides and {sides} angles; its side count names its broad
+          polygon family, regardless of size or color. Other attributes, such
+          as right angles or equal side lengths, distinguish shapes within that
+          family.
         </p>
       </MathCheck>
     </div>

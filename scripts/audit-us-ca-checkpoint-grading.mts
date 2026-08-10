@@ -12,11 +12,11 @@
  *
  * Usage: npx tsx scripts/audit-us-ca-checkpoint-grading.mts
  */
-import { answerMatches, questionAnswerMatches } from "../lib/server/answerMatching";
+import { questionAnswerMatches } from "../lib/server/answerMatching";
 import { usCaliforniaLessonSeeds } from "../data/usCaliforniaLessons";
-import { generatedCaliforniaQuestions } from "../data/usCaliforniaTopics";
+import { usCaliforniaQuestions } from "../data/usCaliforniaQuestions";
 
-const byId = new Map(generatedCaliforniaQuestions.map((q: any) => [q.id, q]));
+const byId = new Map(usCaliforniaQuestions.map((q: any) => [q.id, q]));
 
 /** Equivalent renderings of the same value that a student may legitimately type. */
 function equivalentForms(answer: string): string[] {
@@ -64,17 +64,24 @@ for (const seed of seeds) {
     if (!q) continue;
     const answer = typeof q.answer === "string" ? q.answer : q.answer?.en;
     if (!answer) continue;
+    const opts: any[] = q.options ?? [];
+    const graded = {
+      id,
+      answer,
+      accepted_answers: q.acceptedAnswers ?? [],
+      curriculumTrack: q.curriculumTrack,
+      options: opts.map((o: any) => (typeof o === "string" ? { en: o } : o)),
+      strictAnswerUnits: q.strictAnswerUnits
+    } as any;
 
     // Multiple choice goes through questionAnswerMatches, a different path:
     // the stored answer must resolve to one of the options, and exactly one
     // option must be selectable by it. An answer that matches no option means
     // the question cannot be answered correctly at all.
     if (q.type === "multiple-choice") {
-      const opts: any[] = q.options ?? [];
       const texts = opts.map((o: any) => (typeof o === "string" ? o : o?.en ?? o?.label ?? "")).filter(Boolean);
       if (!texts.length) continue;
       mcChecked += 1;
-      const graded = { answer, accepted_answers: q.acceptedAnswers ?? [], options: opts.map((o: any) => (typeof o === "string" ? { en: o } : o)) } as any;
       const winners = texts.filter((t) => questionAnswerMatches(graded, t));
       if (winners.length === 0) {
         mcNoWinner += 1;
@@ -88,21 +95,21 @@ for (const seed of seeds) {
     checked += 1;
 
     for (const form of equivalentForms(answer)) {
-      if (!answerMatches(form, answer)) {
+      if (!questionAnswerMatches(graded, form)) {
         rejectedCorrect += 1;
         if (failures.length < 30) failures.push(`  REJECTS a correct form — ${id}\n      stored "${answer}"  student typed "${form}"`);
       }
     }
     // the matcher must still say no to something plainly wrong
     const wrong = Number.isFinite(Number(answer)) ? String(Number(answer) + 7.31) : `${answer}-definitely-not`;
-    if (answerMatches(wrong, answer)) {
+    if (questionAnswerMatches(graded, wrong)) {
       acceptedWrong += 1;
       if (failures.length < 30) failures.push(`  ACCEPTS a wrong answer — ${id}\n      stored "${answer}"  student typed "${wrong}"`);
     }
   }
 }
 
-console.log(`audit-us-ca-checkpoint-grading: ${checked} free-entry + ${mcChecked} multiple-choice checkpoint questions graded`);
+console.log(`audit-us-ca-checkpoint-grading: ${checked} free-entry + ${mcChecked} multiple-choice linked checkpoint questions graded`);
 if (!checked && !mcChecked) {
   console.error("✗ nothing was checked — refusing to report a pass.");
   process.exit(2);

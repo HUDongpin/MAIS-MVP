@@ -10,7 +10,9 @@ import {
   usCaliforniaTopicById
 } from "./usCaliforniaTopics";
 import { mapDifficultyToActive } from "@/lib/difficulty";
+import { normalizeQuestionDiagram, validateQuestionDiagram } from "@/lib/questionFigure";
 import type { CurriculumProfile, Difficulty, Question, QuestionType } from "@/types";
+import { californiaAnswerUnitAliases } from "./usCaliforniaAnswerUnitAliases";
 
 export type CaliforniaQuestionGenerationMetadata = {
   batch: CaliforniaQuestionBatch;
@@ -58,7 +60,12 @@ function sanitizeLocalizedText(text: GeneratedCaliforniaQuestion["prompt"]) {
 }
 
 function acceptedAnswersFor(question: GeneratedCaliforniaQuestion) {
-  return uniqueNonEmpty([question.answer, question.independentAnswer, ...question.acceptedAnswers]);
+  return uniqueNonEmpty([
+    question.answer,
+    question.independentAnswer,
+    ...question.acceptedAnswers,
+    ...californiaAnswerUnitAliases(question.id, question.answer)
+  ]);
 }
 
 function optionsFor(question: GeneratedCaliforniaQuestion) {
@@ -92,7 +99,17 @@ function reviewNotesForQuestion(question: GeneratedCaliforniaQuestion) {
 function toQuestion(question: GeneratedCaliforniaQuestion): Question {
   const topic = usCaliforniaTopicById.get(question.topicId);
   if (!topic) throw new Error(`Missing California topic for ${question.topicId}`);
-  const figure = usCaliforniaPracticeFigureFor(question.id);
+  const embeddedFigure = question.diagram ? normalizeQuestionDiagram(question.diagram) : undefined;
+  if (question.diagram && !embeddedFigure) {
+    throw new Error(`Invalid generated California question diagram for ${question.id}`);
+  }
+  if (embeddedFigure) {
+    const figureIssues = validateQuestionDiagram(embeddedFigure);
+    if (figureIssues.length) {
+      throw new Error(`Generated California question diagram failed QA for ${question.id}: ${figureIssues.join("; ")}`);
+    }
+  }
+  const figure = embeddedFigure ?? usCaliforniaPracticeFigureFor(question.id);
 
   return {
     id: question.id,
@@ -110,6 +127,7 @@ function toQuestion(question: GeneratedCaliforniaQuestion): Question {
     options: optionsFor(question),
     answer: question.answer,
     acceptedAnswers: acceptedAnswersFor(question),
+    strictAnswerUnits: question.type !== "multiple-choice",
     explanation: question.explanation,
     ...(figure ? { diagram: figure } : {})
   };

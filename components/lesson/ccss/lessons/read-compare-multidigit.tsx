@@ -6,9 +6,24 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const COLORS = ["var(--band-upper)", "var(--band-high)", "var(--band-middle)", "var(--band-early)"];
 const PLACE = [1000, 100, 10, 1];
+const SMALL_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+const TENS_WORDS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
 function digs(n: number) {
   return [Math.floor(n / 1000) % 10, Math.floor(n / 100) % 10, Math.floor(n / 10) % 10, n % 10];
+}
+
+function underThousand(n: number): string {
+  if (n < 20) return SMALL_WORDS[n];
+  if (n < 100) return `${TENS_WORDS[Math.floor(n / 10)]}${n % 10 ? `-${SMALL_WORDS[n % 10]}` : ""}`;
+  const rest = n % 100;
+  return `${SMALL_WORDS[Math.floor(n / 100)]} hundred${rest ? ` ${underThousand(rest)}` : ""}`;
+}
+
+function numberWords(n: number): string {
+  const thousands = Math.floor(n / 1000);
+  const rest = n % 1000;
+  return `${underThousand(thousands)} thousand${rest ? ` ${underThousand(rest)}` : ""}`;
 }
 
 export default function Lesson() {
@@ -16,7 +31,9 @@ export default function Lesson() {
   const [b, setB] = useState(4790);
 
   const da = digs(a), db = digs(b);
-  const expanded = da.map((d, i) => d * PLACE[i]).filter((v) => v > 0);
+  const expanded = da
+    .map((d, i) => ({ value: d * PLACE[i], color: COLORS[i] }))
+    .filter((term) => term.value > 0);
   const decideIdx = [0, 1, 2, 3].find((i) => da[i] !== db[i]);
   const symbol = a > b ? ">" : a < b ? "<" : "=";
 
@@ -34,14 +51,14 @@ export default function Lesson() {
           <div className="text-center">
             <div className="font-mono text-4xl font-black">{a.toLocaleString()}</div>
             <div className="mt-2 font-mono text-lg">
-              {da.map((d, i) => (
-                <span key={i}>
-                  <span style={{ color: COLORS[i] }}>{d * PLACE[i]}</span>
-                  {i < 3 && <span className="text-[var(--ink-faint)]"> + </span>}
+              {expanded.map((term, i) => (
+                <span key={term.value}>
+                  <span style={{ color: term.color }}>{term.value}</span>
+                  {i < expanded.length - 1 && <span className="text-[var(--ink-faint)]"> + </span>}
                 </span>
               ))}
             </div>
-            <div className="mt-1 text-xs text-[var(--ink-faint)]">expanded form ({expanded.length} nonzero places)</div>
+            <div className="mt-1 text-xs text-[var(--ink-faint)]">expanded form ({expanded.length} nonzero {expanded.length === 1 ? "place" : "places"})</div>
           </div>
 
           <div className="w-full border-t border-[var(--line)] pt-4">
@@ -65,12 +82,9 @@ export default function Lesson() {
 
       <h2>Biggest place first</h2>
       <p>
-        {/* The last two digits were concatenated as characters, so a 0 in the
-            tens place rendered "05" instead of "five". */}
-        Reading {a.toLocaleString()} as &ldquo;{da[0]} thousand, {da[1]} hundred{" "}
-        {da[2] * 10 + da[3]}&rdquo; and writing it as {da[0] * 1000} + {da[1] * 100} +{" "}
-        {da[2] * 10} + {da[3]} shows exactly what each digit is worth — which is
-        also how you compare two numbers.
+        Reading {a.toLocaleString()} as &ldquo;{numberWords(a)}&rdquo; and writing it
+        as {expanded.map((term) => term.value).join(" + ")} shows exactly what
+        each nonzero digit is worth — which is also how you compare two numbers.
       </p>
 
       <MathCheck>
@@ -92,11 +106,11 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`${label} minus 100`}>−100</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => set(value - 100)} disabled={value - 100 < 1000} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`${label} minus 100`}>−100</button>
+        <button type="button" onClick={() => set(value - 1)} disabled={value <= 1000} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-16 text-center text-xl font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`${label} plus 100`}>+100</button>
+        <button type="button" onClick={() => set(value + 1)} disabled={value >= 9999} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 100)} disabled={value + 100 > 9999} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold disabled:opacity-40" aria-label={`${label} plus 100`}>+100</button>
       </div>
     </div>
   );

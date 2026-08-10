@@ -66,6 +66,7 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
   const variants = targets.map((target) => target.sceneVariant).sort();
 
   assert.deepEqual(variants, [
+    "balance-scale",
     "conic-section-deep",
     "cross-section-slicer",
     "curriculum-crosswalk",
@@ -487,9 +488,17 @@ test("California Visualization Lab catalog keeps priority lab themes grade appro
       ["us-ca-math-p4-4-md-conversion-angles", ["P4", "measurement-scale", /unit|angle|measure/i]],
       ["us-ca-math-p5-5-oa-expressions-patterns", ["P5", "equation-balance", /expression|pattern/i]],
       ["us-ca-math-p5-5-md-volume-data", ["P5", "array-area", /volume|unit cube|data/i]],
+      ["us-ca-math-s2-chapter-01", ["S2", "number-line", /classification|placement|equation solution/i]],
       ["us-ca-math-s2-chapter-02", ["S2", "function-family", /input|output|rate/i]],
+      ["us-ca-math-s2-chapter-04", ["S2", "right-triangle-pythagorean", /distance\^2|x2 - x1/i]],
+      ["us-ca-math-s2-chapter-05", ["S2", "function-graph", /data pair|trend line|residual/i]],
+      ["us-ca-math-s3-chapter-03", ["S3", "equation-balance", /equivalent steps|solution set|expression structure/i]],
+      ["us-ca-math-s4-chapter-01", ["S4", "angle-geometry", /rigid motion|congruent image|proof/i]],
+      ["us-ca-math-s4-chapter-03", ["S4", "angle-geometry", /chord|tangent|arc|circle theorem/i]],
       ["us-ca-math-s5-chapter-05", ["S5", "statistics-distribution", /sample|inference|claim/i]],
-      ["us-ca-math-s6-chapter-01", ["S6", "statistics-distribution", /precision|uncertainty|mean/i]]
+      ["us-ca-math-s6-chapter-01", ["S6", "measurement-scale", /unit factors|equivalent measure|precision/i]],
+      ["us-ca-math-s6-chapter-02", ["S6", "complex-plane", /complex roots|polynomial|quotient|remainder/i]],
+      ["us-ca-math-s6-chapter-05", ["S6", "vector-conic-3d/strategy-map", /vector|matrix transformation|geometric model/i]]
     ] as const
   );
   const forbiddenFormulaPattern = /\bmean \+\/- spread\b|\bdy\/dx\b|\(x, y\) -> \(x', y'\)|\b10 x tens\b/i;
@@ -503,6 +512,31 @@ test("California Visualization Lab catalog keeps priority lab themes grade appro
     assert.match(lab.templateConfig.formula?.en ?? "", formulaPattern, `${labId} should expose a grade-fit lab formula`);
     assert.doesNotMatch(lab.templateConfig.formula?.en ?? "", forbiddenFormulaPattern, `${labId} should not expose advanced or mismatched notation`);
   });
+
+  assert.equal(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-p5-5-md-volume-data")?.category.en,
+    "Measurement, data, and volume"
+  );
+  assert.equal(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-s2-chapter-05")?.category.en,
+    "Bivariate data and models"
+  );
+  assert.equal(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-s6-chapter-05")?.category.en,
+    "Vectors, matrices, and modeling"
+  );
+  assert.equal(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-s6-chapter-02")?.category.en,
+    "Complex numbers and polynomial algebra"
+  );
+  assert.match(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-s3-chapter-03")?.title.en ?? "",
+    /Equations, Expressions, and Solution Sets/
+  );
+  assert.match(
+    visualizationLabCatalog.find((lab) => lab.labId === "us-ca-math-s6-chapter-02")?.title.en ?? "",
+    /Complex Numbers and Polynomial Algebra/
+  );
 });
 
 test("current Visualization Lab catalog has no focus/topic keyword mismatches", () => {

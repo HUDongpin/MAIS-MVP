@@ -20,12 +20,13 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        Every triangle is <strong>exactly half</strong>{" "}of a rectangle with the
-        same base and height. That is why the area of a triangle is{" "}
+        A triangle has <strong>exactly half the area</strong>{" "}of a
+        base-by-height parallelogram (or of a rectangle after rearranging a
+        matching copy). That is why the area of a triangle is{" "}
         <strong>½ × base × height</strong>{" "}— no matter what shape the triangle is.
       </p>
 
-      <Figure caption="The dashed rectangle is base × height. The triangle fills exactly half of it.">
+      <Figure caption="The dashed rectangle is base × height. The triangle has exactly half its area.">
         <div className="flex flex-col items-center gap-6">
           <svg width={W + 40} height={H + 40} viewBox={`0 0 ${W + 40} ${H + 40}`} className="max-w-full" role="img" aria-label={`triangle base ${b} height ${h}`}>
             <g transform="translate(20,20)">
@@ -69,8 +70,8 @@ export default function Lesson() {
 
       <MathCheck>
         <p>
-          The area of a triangle is <strong>½ × base × height</strong>{" "}because a
-          triangle is half of a base-by-height rectangle (6.G.A.1). More complex
+          The area of a triangle is <strong>½ × base × perpendicular height</strong>{" "}because it has half the area of a base-by-height parallelogram
+          (or a rearranged matching rectangle) (6.G.A.1). More complex
           polygons are found by <strong>composing and decomposing</strong>{" "}them
           into triangles and rectangles and adding the areas. Here ½ × {b} × {h} = {area}.
         </p>

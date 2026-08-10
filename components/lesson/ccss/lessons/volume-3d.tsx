@@ -26,16 +26,17 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Round solids have their own volume formulas, all built on π and the radius.
-        A <strong>cone</strong>{" "}is exactly <strong>one-third</strong>{" "}of the
-        cylinder that surrounds it, and a <strong>sphere</strong>{" "}is{" "}
-        <strong>two-thirds</strong>{" "}of it.
+        A <strong>cone</strong>{" "}is exactly <strong>one-third</strong>{" "}of a
+        cylinder with the same base and perpendicular height. A sphere is{" "}
+        <strong>two-thirds</strong>{" "}of its circumscribed cylinder — the cylinder
+        with the same radius and height equal to the sphere&apos;s diameter, 2r.
       </p>
 
       <Figure caption="Pick a solid and its dimensions. Each formula uses π and the radius.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["cylinder", "cone", "sphere"] as Shape[]).map((s) => (
-              <button key={s} type="button" onClick={() => setShape(s)} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={shape === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
+              <button key={s} type="button" onClick={() => setShape(s)} aria-pressed={shape === s} className="rounded-lg border px-3 py-1.5 text-sm font-bold capitalize" style={shape === s ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s}</button>
             ))}
           </div>
 
@@ -87,8 +88,9 @@ export default function Lesson() {
           The volume formulas for round solids (8.G.C.9):{" "}
           <strong>cylinder = πr²h</strong>, <strong>cone = ⅓πr²h</strong>, and{" "}
           <strong>sphere = 4⁄3·πr³</strong>. The cone is one-third of its enclosing
-          cylinder, and the sphere fills two-thirds — relationships you can use to
-          solve real-world volume problems.
+          cylinder with the same base and height. A sphere fills two-thirds of its
+          circumscribed cylinder (radius r and height 2r) — relationships you can
+          use to solve real-world volume problems.
         </p>
       </MathCheck>
     </div>

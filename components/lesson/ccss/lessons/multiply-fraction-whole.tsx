@@ -6,12 +6,22 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const SH = "var(--band-upper)";
 const UNIT = 22;
+const UNIT_NAMES: Record<number, [string, string]> = {
+  2: ["half", "halves"],
+  3: ["third", "thirds"],
+  4: ["fourth", "fourths"],
+  5: ["fifth", "fifths"],
+  6: ["sixth", "sixths"],
+  7: ["seventh", "sevenths"],
+  8: ["eighth", "eighths"],
+};
+const unitName = (count: number, den: number) => UNIT_NAMES[den]?.[count === 1 ? 0 : 1] ?? `${den}ths`;
 
 export default function Lesson() {
   const [n, setN] = useState(3);
   const [a, setA] = useState(2);
   const [b, setB] = useState(5);
-  const num = a; // keep proper
+  const num = a; // keep the fraction at or below one whole
   const total = n * num;
   const whole = Math.floor(total / b);
   const rem = total % b;
@@ -59,7 +69,7 @@ export default function Lesson() {
       <p>
         {/* The pieces are unit fractions of size 1/b, not num/b — the same
             sentence ends "each 1/{b}". */}
-        The pieces are still {b === 2 ? "halves" : b === 3 ? "thirds" : `${b}ths`} — their size never changes. You
+        The pieces are still {unitName(2, b)} — their size never changes. You
         just end up with {n} times as many of them: {n} × {num} = {total} pieces,
         each 1/{b}. That is {total}/{b}.
       </p>
@@ -67,7 +77,7 @@ export default function Lesson() {
       <MathCheck>
         <p>
           Multiplying a fraction by a whole number (4.NF.B.4) uses the idea that{" "}
-          {num}/{b} = {num} × (1/{b}), so {n} × {num}/{b} = (n × {num})/{b} = {total}/{b}. It is repeated addition of the unit fraction 1/{b}, which is why
+          {num}/{b} = {num} × (1/{b}), so {n} × {num}/{b} = ({n} × {num})/{b} = {total}/{b}. It is repeated addition of the unit fraction 1/{b}, which is why
           only the numerator changes.
         </p>
       </MathCheck>

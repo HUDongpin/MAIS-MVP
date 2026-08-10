@@ -20,6 +20,7 @@ const SHAPES: Shape[] = [
 export default function Lesson() {
   const [idx, setIdx] = useState(4);
   const s = SHAPES[idx];
+  const broaderCategories = CATS.filter((c, i) => s.member[i] && c !== s.name);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -29,12 +30,19 @@ export default function Lesson() {
         <strong>all</strong>{" "}that category&apos;s attributes. That is why{" "}
         <em>every square is also a rectangle</em>.
       </p>
+      <p className="rounded-xl bg-[var(--surface-2)] px-4 py-3 text-[15px] text-[var(--ink-soft)]">
+        <strong>Convention for this lesson:</strong> a trapezoid has exactly one
+        pair of parallel sides, so a parallelogram is not called a trapezoid
+        here. Some math resources use an inclusive definition — at least one
+        pair of parallel sides — which also includes parallelograms. Always
+        check which definition a lesson or problem states.
+      </p>
 
       <Figure caption="Pick a shape. The checklist shows every category it belongs to.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {SHAPES.map((sh, i) => (
-              <button key={sh.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: FILL, color: "white", borderColor: FILL } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{sh.name}</button>
+              <button key={sh.key} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: FILL, color: "white", borderColor: FILL } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{sh.name}</button>
             ))}
           </div>
 
@@ -53,8 +61,8 @@ export default function Lesson() {
             </div>
           </div>
 
-          <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]">
-            A {s.name.toLowerCase()} is {CATS.filter((_, i) => s.member[i]).length > 1 ? "also a " + CATS.filter((c, i) => s.member[i] && c !== s.name).map((c) => c.toLowerCase()).join(", ") : "a quadrilateral"}.
+          <p className="m-0 max-w-md text-center text-[15px] font-semibold text-[var(--ink-soft)]" role="status" aria-live="polite" aria-atomic="true">
+            A {s.name.toLowerCase()} is {s.key === "trap" ? "a quadrilateral" : `also ${joinCategories(broaderCategories)}`}.
           </p>
         </div>
       </Figure>
@@ -73,9 +81,18 @@ export default function Lesson() {
           subcategories (5.G.B.3), so figures can be classified in a{" "}
           <strong>hierarchy</strong>{" "}(5.G.B.4). Every square is a rectangle, a
           rhombus, a parallelogram, and a quadrilateral — it inherits the defining
-          properties of each larger category it sits inside.
+          properties of each larger category it sits inside. Under this
+          lesson&apos;s stated exactly-one-pair convention, those parallelograms are
+          not also labelled trapezoids.
         </p>
       </MathCheck>
     </div>
   );
+}
+
+function joinCategories(categories: string[]) {
+  const named = categories.map((category) => `a ${category.toLowerCase()}`);
+  if (named.length <= 1) return named[0] ?? "";
+  if (named.length === 2) return `${named[0]} and ${named[1]}`;
+  return `${named.slice(0, -1).join(", ")}, and ${named[named.length - 1]}`;
 }

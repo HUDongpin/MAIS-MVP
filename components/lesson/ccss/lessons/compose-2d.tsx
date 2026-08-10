@@ -35,7 +35,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {BUILDS.map((bb, i) => (
-              <button key={bb.key} type="button" onClick={() => { setBi(i); setJoined(false); }} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={i === bi ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{bb.label}</button>
+              <button key={bb.key} type="button" onClick={() => { setBi(i); setJoined(false); }} aria-pressed={i === bi} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={i === bi ? { background: A, color: "white", borderColor: A } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{bb.label}</button>
             ))}
           </div>
 
@@ -45,14 +45,14 @@ export default function Lesson() {
                 {/* roof (moves down to sit on the square) */}
                 <polygon points="55,60 145,60 100,20" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${-gap}px)`, transition: "transform 0.5s ease" }} />
                 {/* square base (fixed) */}
-                <rect x="55" y="62" width="90" height="90" fill={A} stroke="var(--surface)" strokeWidth="2" />
+                <rect x="55" y="60" width="90" height="90" fill={A} stroke="var(--surface)" strokeWidth="2" />
               </>
             ) : (
               <>
                 {/* top trapezoid (fixed) */}
-                <polygon points="60,55 140,55 160,92 40,92" fill={A} stroke="var(--surface)" strokeWidth="2" />
+                <polygon points="60,55 140,55 160,93 40,93" fill={A} stroke="var(--surface)" strokeWidth="2" />
                 {/* bottom trapezoid (moves up) */}
-                <polygon points="40,94 160,94 140,131 60,131" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${gap}px)`, transition: "transform 0.5s ease" }} />
+                <polygon points="40,93 160,93 140,131 60,131" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${gap}px)`, transition: "transform 0.5s ease" }} />
               </>
             )}
           </svg>
@@ -77,7 +77,8 @@ export default function Lesson() {
         <p>
           Combining shapes such as squares, triangles, and trapezoids (and 3-D
           shapes like cubes and cylinders) to build a{" "}
-          <strong>composite shape</strong>{" "}is 1.G.A.2 — here, {b.pieces} form a{" "}
+          <strong>composite shape</strong>{" "}is 1.G.A.2 — here, {b.pieces}{" "}
+          {joined ? "form" : "can be joined to form"} a{" "}
           {b.makes}. A composite can then be broken apart again, or used as a new
           piece to build something even larger.
         </p>

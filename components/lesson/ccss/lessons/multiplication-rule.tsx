@@ -57,7 +57,7 @@ export default function Lesson() {
 
       <h2>The second draw depends on the first</h2>
       <p>
-        After removing one ace, only {aces - 1} aces remain among {deck - 1} cards —
+        After removing one ace, only {aces - 1} {aces - 1 === 1 ? "ace" : "aces"} remain among {deck - 1} cards —
         so the second probability ({eq2 === "=" ? "" : "about "}{r2(p2)}) is smaller than the first. Multiplying gives
         P(both) {eqBoth} {both}. This <strong>general multiplication rule</strong>{" "}works for
         any two events; independence is just the special case where the condition

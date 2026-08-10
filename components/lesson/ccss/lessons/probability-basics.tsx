@@ -17,7 +17,8 @@ export default function Lesson() {
     setTotal((prev) => prev + n);
   };
 
-  const exp = total > 0 ? heads / total : 0.5;
+  const exp = total > 0 ? heads / total : null;
+  const decimalExact = exp !== null && Math.abs(exp * 1000 - Math.round(exp * 1000)) < 1e-9;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -33,10 +34,12 @@ export default function Lesson() {
           {/* 0-1 scale */}
           <div className="w-full max-w-md">
             <div className="relative h-3 rounded-full" style={{ background: "linear-gradient(to right, var(--surface-2), var(--band-upper))" }}>
-              <div className="absolute -top-1 h-5 w-1 rounded" style={{ left: `${exp * 100}%`, background: ACCENT }} />
+              {exp !== null && (
+                <div className="absolute -top-1 h-5 w-1 rounded" style={{ left: `${exp * 100}%`, background: ACCENT }} />
+              )}
             </div>
             <div className="mt-1 flex justify-between text-[10px] font-semibold text-[var(--ink-faint)]">
-              <span>0 impossible</span><span>½ even</span><span>1 certain</span>
+              <span>0 impossible</span><span>½ as likely as not</span><span>1 certain</span>
             </div>
           </div>
 
@@ -44,9 +47,11 @@ export default function Lesson() {
 
           <div className="rounded-2xl border-2 px-8 py-3 text-center" style={{ borderColor: ACCENT }}>
             <div className="font-mono text-2xl font-black" style={{ color: ACCENT }}>
-              {total > 0 ? `${heads} / ${total} = ${exp.toFixed(3)}` : "flip to begin"}
+              {exp !== null ? `${heads} / ${total} ${decimalExact ? "=" : "≈"} ${exp.toFixed(3)}` : "flip to begin"}
             </div>
-            <div className="mt-1 text-sm text-[var(--ink-soft)]">experimental P(heads){total > 0 ? ` — theory says 0.5` : ""}</div>
+            <div className="mt-1 text-sm text-[var(--ink-soft)]">
+              experimental P(heads){exp === null ? " is undefined until the first flip" : " — theory says 0.5"}
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -59,9 +64,10 @@ export default function Lesson() {
 
       <h2>Experiment approaches theory</h2>
       <p>
-        A few flips can be lopsided, but keep going and the experimental
-        probability drifts toward the theoretical <strong>½</strong>. This is the{" "}
-        <strong>law of large numbers</strong>: more trials, better estimate.
+        A few flips can be lopsided. Over many independent repetitions, the
+        experimental proportion tends toward the theoretical <strong>½</strong>,
+        although it need not get closer after every additional flip. This is the{" "}
+        <strong>law of large numbers</strong>.
       </p>
 
       <MathCheck>
@@ -69,8 +75,9 @@ export default function Lesson() {
           Probability is a number between <strong>0 and 1</strong>{" "}describing
           likelihood — near 0 is unlikely, near 1 is likely, ½ is as likely as not
           (7.SP.C.5). The <strong>experimental probability</strong>{" "}is the relative
-          frequency (successes ÷ trials), and it approximates the true probability
-          more closely as the number of trials grows (7.SP.C.6).
+          frequency (successes ÷ trials). Across repeated experiments, larger
+          numbers of trials tend to give estimates with less variability around
+          the true probability (7.SP.C.6).
         </p>
       </MathCheck>
     </div>

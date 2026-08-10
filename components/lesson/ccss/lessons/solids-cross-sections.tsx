@@ -8,7 +8,7 @@ const ACCENT = "var(--band-high)";
 
 const CASES = [
   { name: "Cube, flat slice", result: "square", shape: "square" },
-  { name: "Cube, diagonal slice", result: "rectangle / hexagon", shape: "hex" },
+  { name: "Cube, six-face slice", result: "hexagon", shape: "hex" },
   { name: "Cylinder, vertical slice", result: "rectangle", shape: "rect" },
   { name: "Cone, horizontal slice", result: "circle", shape: "circle" },
 ];
@@ -36,7 +36,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {CASES.map((ca, i) => (
-              <button key={ca.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ca.name}</button>
+              <button key={ca.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ca.name}</button>
             ))}
           </div>
 
@@ -52,7 +52,7 @@ export default function Lesson() {
             <div className="mb-2 text-center text-xs font-bold uppercase text-[var(--ink-faint)]">solids of revolution</div>
             <div className="flex flex-wrap justify-center gap-2">
               {ROTATIONS.map((ro, i) => (
-                <button key={ro.name} type="button" onClick={() => setRot(i)} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={rot === i ? { background: "var(--band-upper)", color: "white", borderColor: "var(--band-upper)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ro.name}</button>
+                <button key={ro.name} type="button" onClick={() => setRot(i)} aria-pressed={rot === i} className="rounded-lg border px-3 py-1.5 text-xs font-bold" style={rot === i ? { background: "var(--band-upper)", color: "white", borderColor: "var(--band-upper)" } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{ro.name}</button>
               ))}
             </div>
             <p className="m-0 mt-2 text-center text-sm text-[var(--ink-soft)]">{ROTATIONS[rot].desc}</p>

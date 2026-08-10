@@ -66,3 +66,45 @@ test("practice attempt fast path returns answer feedback when row persistence is
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   assert.match(result.stdout, /"correct":true/);
 });
+
+test("practice attempt fast path enforces California answer-unit semantics before persistence", () => {
+  const script = `
+    import("./lib/server/practiceAttemptStore.ts").then(async ({ submitQuestionAttemptFast }) => {
+      const questionId = "ccss-textbook-practice-v1-area-model-q01";
+      const correctUnit = await submitQuestionAttemptFast({
+        userId: "debug-user",
+        questionId,
+        selectedAnswer: "24 square units",
+        durationSeconds: 1
+      });
+      const wrongUnit = await submitQuestionAttemptFast({
+        userId: "debug-user",
+        questionId,
+        selectedAnswer: "24 cm3",
+        durationSeconds: 1
+      });
+      if (!correctUnit?.correct || wrongUnit?.correct !== false) {
+        throw new Error("Expected exact California units to pass and incompatible units to fail.");
+      }
+      process.stdout.write(JSON.stringify({ correctUnit: correctUnit.correct, wrongUnit: wrongUnit.correct }));
+    }).catch((error) => {
+      console.error(error instanceof Error ? error.message : error);
+      process.exit(1);
+    });
+  `;
+  const result = spawnSync(process.execPath, ["--import", "tsx", "-e", script], {
+    cwd: process.cwd(),
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      HK_MATH_POSTGRES_MAX_CONNECTIONS: "1",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_URL: "postgres://user:pass@127.0.0.1:1/db"
+    },
+    timeout: 10_000
+  });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  assert.match(result.stdout, /"correctUnit":true/);
+  assert.match(result.stdout, /"wrongUnit":false/);
+});

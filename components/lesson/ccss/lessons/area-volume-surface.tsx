@@ -19,14 +19,15 @@ export default function Lesson() {
     <div className="prose-lesson max-w-none">
       <p>
         Volume of any <strong>prism</strong>{" "}follows one rule:{" "}
-        <strong>base area × length</strong>{" "}(V = B·ℓ). A triangular prism is just a
-        triangle&apos;s area, stretched. Find the base area first, then multiply by
-        the length.
+        <strong>base area × perpendicular prism height</strong>{" "}(V = B·H). A
+        right triangular prism is a triangle&apos;s area extended through a
+        perpendicular distance. Find the base area first, then multiply by that
+        distance.
       </p>
 
-      <Figure caption="A triangular prism: the triangle base slides along the length.">
+      <Figure caption="A right triangular prism: the triangle altitude h is perpendicular to base b, and the congruent triangular bases are separated by perpendicular prism height H.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="240" height="160" viewBox="0 0 240 160" role="img" aria-label={`Triangular prism: base ${b}, triangle height ${h}, length ${len} — cross-section area ${baseArea}, volume ${volume}`}>
+          <svg width="240" height="160" viewBox="0 0 240 160" role="img" aria-label={`Triangular prism: the front triangle has base ${b} and a visibly perpendicular altitude ${h}; prism height ${len}; cross-section area ${baseArea}; volume ${volume}`}>
             {/* back triangle */}
             <polygon points="140,30 200,110 80,110" fill={BASE} fillOpacity={0.3} stroke="var(--ink-soft)" strokeWidth={1.5} />
             {/* front triangle */}
@@ -35,9 +36,12 @@ export default function Lesson() {
             <line x1="90" y1="50" x2="140" y2="30" stroke="var(--ink)" strokeWidth={2} />
             <line x1="150" y1="130" x2="200" y2="110" stroke="var(--ink)" strokeWidth={2} />
             <line x1="30" y1="130" x2="80" y2="110" stroke="var(--ink-soft)" strokeWidth={1.5} strokeDasharray="4 3" />
+            {/* altitude of the front triangular base and its right-angle marker */}
+            <line x1="90" y1="50" x2="90" y2="130" stroke={BASE} strokeWidth={2} strokeDasharray="4 3" />
+            <polyline points="90,120 100,120 100,130" fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
             <text x={90} y={148} textAnchor="middle" fontSize={12} fontWeight={800} fill={BASE} fontFamily="var(--font-mono)">b = {b}</text>
-            <text x={22} y={92} fontSize={12} fontWeight={800} fill={BASE} fontFamily="var(--font-mono)">h={h}</text>
-            <text x={175} y={135} fontSize={12} fontWeight={800} fill={ACCENT} fontFamily="var(--font-mono)">ℓ={len}</text>
+            <text x={96} y={88} fontSize={12} fontWeight={800} fill={BASE} fontFamily="var(--font-mono)">h={h}</text>
+            <text x={175} y={135} fontSize={12} fontWeight={800} fill={ACCENT} fontFamily="var(--font-mono)">H={len}</text>
           </svg>
 
           <div className="flex flex-col items-center gap-2 rounded-2xl border-2 border-[var(--line)] px-6 py-4 font-mono">
@@ -49,15 +53,15 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <Stepper label="Base" value={b} min={2} max={8} onChange={setB} />
             <Stepper label="Triangle height" value={h} min={2} max={6} onChange={setH} />
-            <Stepper label="Length" value={len} min={2} max={10} onChange={setLen} />
+            <Stepper label="Prism height" value={len} min={2} max={10} onChange={setLen} />
           </div>
         </div>
       </Figure>
 
-      <h2>Base area, then length</h2>
+      <h2>Base area, then perpendicular height</h2>
       <p>
         The triangular base has area ½ × {b} × {h} = {baseArea}. Sliding it along a
-        length of {len} sweeps out a volume of {baseArea} × {len} = {volume} cubic
+        perpendicular prism height of {len} sweeps out a volume of {baseArea} × {len} = {volume} cubic
         units. Every prism&apos;s volume works this way — even oddly shaped ones.
       </p>
 
@@ -65,7 +69,7 @@ export default function Lesson() {
         <p>
           Solving area, surface-area, and volume problems for two- and
           three-dimensional objects (7.G.B.6) often reduces to a formula plus
-          careful computation. For any prism, <strong>volume = base area × length</strong>: here ½ × {b} × {h} = {baseArea}, times {len}, gives {volume}.
+          careful computation. For a right prism, <strong>volume = base area × perpendicular prism height</strong>: here ½ × {b} × {h} = {baseArea}, times {len}, gives {volume}. The general prism formula is also V = B·H, where H is the perpendicular distance between the bases.
           Composite figures are handled by decomposing into pieces you know.
         </p>
       </MathCheck>

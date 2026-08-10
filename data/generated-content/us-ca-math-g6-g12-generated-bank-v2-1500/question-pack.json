@@ -107868,50 +107868,64 @@
       },
       "topicId": "us-ca-math-s5-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-ID"
+        "CA.CCSS.Math.HS.S-ID.5"
       ],
       "domainTags": [
         "statistics"
       ],
       "conceptIds": [
-        "function-transformations",
-        "exponential-logarithmic-models",
-        "trigonometric-functions",
-        "statistical-inference",
-        "rate-of-change"
+        "statistical-inference"
       ],
       "competencyTags": [
-        "compare models",
-        "reason about periodicity",
-        "interpret residuals",
+        "analyze association",
         "evaluate claims"
       ],
       "difficulty": "Exam",
-      "type": "short-answer",
+      "type": "multiple-choice",
       "prompt": {
-        "en": "Model f has a sum of squared residuals of 9, and model g has 17. Which model fits the data better?",
-        "zh": "模型 f 的殘差平方和為 9，模型 g 的殘差平方和為 17。哪個模型擬合得更好？",
-        "zhHans": "模型 f 的残差平方和为 9，模型 g 的残差平方和为 17。哪个模型拟合得更好？"
+        "en": "A survey records the following results: 30 of 50 students in Group A prefer online learning, while 15 of 50 students in Group B prefer online learning. Which conclusion is supported by this sample?",
+        "zh": "一項調查記錄了以下結果：A 組 50 名學生中有 30 名偏好網上學習，而 B 組 50 名學生中有 15 名偏好網上學習。哪項結論得到這個樣本的支持？",
+        "zhHans": "一项调查记录了以下结果：A 组 50 名学生中有 30 名偏好在线学习，而 B 组 50 名学生中有 15 名偏好在线学习。哪项结论得到这个样本的支持？"
       },
-      "options": [],
-      "answer": "f",
+      "options": [
+        {
+          "en": "Preference is associated with group in this sample.",
+          "zh": "在這個樣本中，學習偏好與組別有關聯。",
+          "zhHans": "在这个样本中，学习偏好与组别有关联。"
+        },
+        {
+          "en": "Preference is distributed the same way in both groups.",
+          "zh": "兩組的學習偏好分布相同。",
+          "zhHans": "两组的学习偏好分布相同。"
+        },
+        {
+          "en": "Being in Group A causes a student to prefer online learning.",
+          "zh": "屬於 A 組會導致學生偏好網上學習。",
+          "zhHans": "属于 A 组会导致学生偏好在线学习。"
+        },
+        {
+          "en": "The survey proves that exactly 60% of all Group A students prefer online learning.",
+          "zh": "調查證明所有 A 組學生中恰有 60% 偏好網上學習。",
+          "zhHans": "调查证明所有 A 组学生中恰有 60% 偏好在线学习。"
+        }
+      ],
+      "answer": "Preference is associated with group in this sample.",
       "acceptedAnswers": [
-        "f",
-        "model f",
-        "f(t)",
-        "f(x)"
+        "Preference is associated with group in this sample."
       ],
       "explanation": {
-        "en": "A smaller sum of squared residuals means a better fit; 9 < 17, so model f fits better.",
-        "zh": "殘差平方和越小擬合越好；9 < 17，所以模型 f 更好。",
-        "zhHans": "残差平方和越小拟合越好；9 < 17，所以模型 f 更好。"
+        "en": "The sample percentages are 30/50 = 60% for Group A and 15/50 = 30% for Group B. Because these conditional percentages differ, the sample supports an association between group and preference. The survey does not by itself establish causation or an exact population percentage.",
+        "zh": "A 組的樣本百分比為 30/50 = 60%，B 組為 15/50 = 30%。由於這兩個條件百分比不同，這個樣本支持組別與偏好有關聯。僅憑這項調查不能確立因果關係，也不能確定母體的精確百分比。",
+        "zhHans": "A 组的样本百分比为 30/50 = 60%，B 组为 15/50 = 30%。由于这两个条件百分比不同，这个样本支持组别与偏好有关联。仅凭这项调查不能确立因果关系，也不能确定总体的精确百分比。"
       },
-      "independentAnswer": "f",
-      "independentSolution": "9 < 17 -> f",
-      "generationTemplate": "t_sse_compare",
+      "independentAnswer": "Preference is associated with group in this sample.",
+      "independentSolution": "Group A: 30/50 = 60%. Group B: 15/50 = 30%. Unequal conditional percentages support an association in the sample, not a causal or exact population claim.",
+      "generationTemplate": "t_two_way_table_association",
       "parameters": {
-        "sse_f": 9,
-        "sse_g": 17
+        "group_a_prefer_online": 30,
+        "group_a_total": 50,
+        "group_b_prefer_online": 15,
+        "group_b_total": 50
       },
       "evidenceCardIds": [
         "us-ca-math-g11-advanced-functions-trigonometry-statistics",
@@ -107934,7 +107948,7 @@
       "mathQaStatus": "pass",
       "deepseekQaStatus": "not-run-not-needed",
       "manualQaStatus": "accepted-auto-sample",
-      "reviewNotes": "regenerated-2026-07-10-topic-grade-alignment"
+      "reviewNotes": "qa-diversified-2026-08-09-displayed-checkpoint-surface"
     },
     {
       "id": "us-ca-g6-g12-v2-s5-c04-q04",
@@ -107952,50 +107966,63 @@
       },
       "topicId": "us-ca-math-s5-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-ID"
+        "CA.CCSS.Math.HS.S-ID.7"
       ],
       "domainTags": [
         "statistics"
       ],
       "conceptIds": [
-        "function-transformations",
-        "exponential-logarithmic-models",
-        "trigonometric-functions",
         "statistical-inference",
         "rate-of-change"
       ],
       "competencyTags": [
-        "compare models",
-        "reason about periodicity",
-        "interpret residuals",
-        "evaluate claims"
+        "interpret parameters",
+        "interpret rate of change"
       ],
       "difficulty": "Foundation",
-      "type": "fill-in",
+      "type": "multiple-choice",
       "prompt": {
-        "en": "Model f has a sum of squared residuals of 26, and model g has 41. Which model fits the data better?",
-        "zh": "模型 f 的殘差平方和為 26，模型 g 的殘差平方和為 41。哪個模型擬合得更好？",
-        "zhHans": "模型 f 的残差平方和为 26，模型 g 的残差平方和为 41。哪个模型拟合得更好？"
+        "en": "The fitted line ŷ = 2.5x + 40 predicts a test score y from study time x, measured in hours. What does the slope 2.5 mean in this context?",
+        "zh": "擬合直線 ŷ = 2.5x + 40 用學習時間 x（以小時計）預測測驗分數 y。斜率 2.5 在這個情境中表示甚麼？",
+        "zhHans": "拟合直线 ŷ = 2.5x + 40 用学习时间 x（以小时计）预测测验分数 y。斜率 2.5 在这个情境中表示什么？"
       },
-      "options": [],
-      "answer": "f",
+      "options": [
+        {
+          "en": "For each additional study hour, the predicted test score increases by 2.5 points.",
+          "zh": "每增加一小時學習時間，預測測驗分數增加 2.5 分。",
+          "zhHans": "每增加一小时学习时间，预测测验分数增加 2.5 分。"
+        },
+        {
+          "en": "The predicted test score is 2.5 points when a student studies 0 hours.",
+          "zh": "學生學習 0 小時時，預測測驗分數是 2.5 分。",
+          "zhHans": "学生学习 0 小时时，预测测验分数是 2.5 分。"
+        },
+        {
+          "en": "For each additional study hour, the predicted test score increases by 40 points.",
+          "zh": "每增加一小時學習時間，預測測驗分數增加 40 分。",
+          "zhHans": "每增加一小时学习时间，预测测验分数增加 40 分。"
+        },
+        {
+          "en": "Every student's actual test score increases by exactly 2.5 points per study hour.",
+          "zh": "每名學生每多學習一小時，實際測驗分數都恰好增加 2.5 分。",
+          "zhHans": "每名学生每多学习一小时，实际测验分数都恰好增加 2.5 分。"
+        }
+      ],
+      "answer": "For each additional study hour, the predicted test score increases by 2.5 points.",
       "acceptedAnswers": [
-        "f",
-        "model f",
-        "f(t)",
-        "f(x)"
+        "For each additional study hour, the predicted test score increases by 2.5 points."
       ],
       "explanation": {
-        "en": "A smaller sum of squared residuals means a better fit; 26 < 41, so model f fits better.",
-        "zh": "殘差平方和越小擬合越好；26 < 41，所以模型 f 更好。",
-        "zhHans": "残差平方和越小拟合越好；26 < 41，所以模型 f 更好。"
+        "en": "In a linear model, the slope is the change in predicted y for a one-unit increase in x. Therefore, 2.5 means 2.5 predicted score points per additional study hour. The intercept 40 is the predicted score at 0 hours; the model does not guarantee any individual student's actual change.",
+        "zh": "在線性模型中，斜率表示 x 每增加一個單位時，預測 y 的變化量。因此，2.5 表示每增加一小時學習時間，預測分數增加 2.5 分。截距 40 是學習 0 小時時的預測分數；模型不保證任何個別學生的實際分數會有同樣變化。",
+        "zhHans": "在线性模型中，斜率表示 x 每增加一个单位时，预测 y 的变化量。因此，2.5 表示每增加一小时学习时间，预测分数增加 2.5 分。截距 40 是学习 0 小时时的预测分数；模型不保证任何个别学生的实际分数会有同样变化。"
       },
-      "independentAnswer": "f",
-      "independentSolution": "26 < 41 -> f",
-      "generationTemplate": "t_sse_compare",
+      "independentAnswer": "For each additional study hour, the predicted test score increases by 2.5 points.",
+      "independentSolution": "In ŷ = mx + b, m is the change in predicted y per one-unit increase in x. Here m = 2.5 score points per study hour; b = 40 is the predicted score at 0 hours.",
+      "generationTemplate": "t_linear_model_slope_interpretation",
       "parameters": {
-        "sse_f": 26,
-        "sse_g": 41
+        "slope": 2.5,
+        "intercept": 40
       },
       "evidenceCardIds": [
         "us-ca-math-g11-advanced-functions-trigonometry-statistics",
@@ -108018,7 +108045,7 @@
       "mathQaStatus": "pass",
       "deepseekQaStatus": "not-run-not-needed",
       "manualQaStatus": "accepted-auto-sample",
-      "reviewNotes": "regenerated-2026-07-10-topic-grade-alignment"
+      "reviewNotes": "qa-diversified-2026-08-09-displayed-checkpoint-surface"
     },
     {
       "id": "us-ca-g6-g12-v2-s5-c04-q05",
@@ -108036,68 +108063,61 @@
       },
       "topicId": "us-ca-math-s5-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-ID"
+        "CA.CCSS.Math.HS.S-ID.9"
       ],
       "domainTags": [
         "statistics"
       ],
       "conceptIds": [
-        "function-transformations",
-        "exponential-logarithmic-models",
-        "trigonometric-functions",
-        "statistical-inference",
-        "rate-of-change"
+        "statistical-inference"
       ],
       "competencyTags": [
-        "compare models",
-        "reason about periodicity",
-        "interpret residuals",
+        "analyze association",
         "evaluate claims"
       ],
       "difficulty": "Core",
       "type": "multiple-choice",
       "prompt": {
-        "en": "Model f has a sum of squared residuals of 28, and model g has 36. Which model fits the data better?",
-        "zh": "模型 f 的殘差平方和為 28，模型 g 的殘差平方和為 36。哪個模型擬合得更好？",
-        "zhHans": "模型 f 的残差平方和为 28，模型 g 的残差平方和为 36。哪个模型拟合得更好？"
+        "en": "An observational study reports a correlation coefficient of r = 0.82 between weekly exercise time and a well-being score. Which conclusion is justified?",
+        "zh": "一項觀察性研究報告每週運動時間與幸福感評分之間的相關係數為 r = 0.82。哪項結論合理？",
+        "zhHans": "一项观察性研究报告每周运动时间与幸福感评分之间的相关系数为 r = 0.82。哪项结论合理？"
       },
       "options": [
         {
-          "en": "both fit equally well",
-          "zh": "both fit equally well",
-          "zhHans": "both fit equally well"
+          "en": "The observed data show a positive linear association, but the study does not by itself establish causation.",
+          "zh": "觀測數據顯示正線性關聯，但這項研究本身不能確立因果關係。",
+          "zhHans": "观测数据显示正线性关联，但这项研究本身不能确立因果关系。"
         },
         {
-          "en": "g",
-          "zh": "g",
-          "zhHans": "g"
+          "en": "More exercise is proven to cause higher well-being scores.",
+          "zh": "增加運動已證明會導致較高的幸福感評分。",
+          "zhHans": "增加运动已证明会导致较高的幸福感评分。"
         },
         {
-          "en": "f",
-          "zh": "f",
-          "zhHans": "f"
+          "en": "Higher well-being scores are proven to cause more exercise.",
+          "zh": "較高的幸福感評分已證明會導致更多運動。",
+          "zhHans": "较高的幸福感评分已证明会导致更多运动。"
         },
         {
-          "en": "cannot be determined",
-          "zh": "cannot be determined",
-          "zhHans": "cannot be determined"
+          "en": "There is no linear association because 0.82 is less than 1.",
+          "zh": "因為 0.82 小於 1，所以沒有線性關聯。",
+          "zhHans": "因为 0.82 小于 1，所以没有线性关联。"
         }
       ],
-      "answer": "f",
+      "answer": "The observed data show a positive linear association, but the study does not by itself establish causation.",
       "acceptedAnswers": [
-        "f"
+        "The observed data show a positive linear association, but the study does not by itself establish causation."
       ],
       "explanation": {
-        "en": "A smaller sum of squared residuals means a better fit; 28 < 36, so model f fits better.",
-        "zh": "殘差平方和越小擬合越好；28 < 36，所以模型 f 更好。",
-        "zhHans": "残差平方和越小拟合越好；28 < 36，所以模型 f 更好。"
+        "en": "Because r = 0.82 is positive and close to 1, the observed data have a positive linear association. Because the study is observational, possible confounding variables and the direction of influence are not controlled, so the association alone does not prove causation.",
+        "zh": "由於 r = 0.82 為正且接近 1，觀測數據呈現正線性關聯。由於這是觀察性研究，可能的混雜變量和影響方向都沒有受到控制，因此僅憑這項關聯不能證明因果關係。",
+        "zhHans": "由于 r = 0.82 为正且接近 1，观测数据呈现正线性关联。由于这是观察性研究，可能的混杂变量和影响方向都没有受到控制，因此仅凭这项关联不能证明因果关系。"
       },
-      "independentAnswer": "f",
-      "independentSolution": "28 < 36 -> f",
-      "generationTemplate": "t_sse_compare",
+      "independentAnswer": "The observed data show a positive linear association, but the study does not by itself establish causation.",
+      "independentSolution": "A positive correlation of 0.82 supports a positive linear association in the observed data. Observational evidence alone cannot rule out confounding or determine causation.",
+      "generationTemplate": "t_correlation_causation",
       "parameters": {
-        "sse_f": 28,
-        "sse_g": 36
+        "correlation": 0.82
       },
       "evidenceCardIds": [
         "us-ca-math-g11-advanced-functions-trigonometry-statistics",
@@ -108120,7 +108140,7 @@
       "mathQaStatus": "pass",
       "deepseekQaStatus": "not-run-not-needed",
       "manualQaStatus": "accepted-auto-sample",
-      "reviewNotes": "regenerated-2026-07-10-topic-grade-alignment"
+      "reviewNotes": "qa-diversified-2026-08-09-displayed-checkpoint-surface"
     },
     {
       "id": "us-ca-g6-g12-v2-s5-c04-q06",
@@ -126354,15 +126374,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126398,7 +126418,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126433,15 +126453,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126498,7 +126518,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126533,15 +126553,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126577,7 +126597,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126612,15 +126632,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126656,7 +126676,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126691,15 +126711,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126756,7 +126776,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126791,15 +126811,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126835,7 +126855,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126870,15 +126890,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -126914,7 +126934,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -126949,15 +126969,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127014,7 +127034,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127049,15 +127069,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127093,7 +127113,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127128,15 +127148,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127172,7 +127192,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127207,15 +127227,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127272,7 +127292,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127307,15 +127327,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127351,7 +127371,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127386,15 +127406,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127430,7 +127450,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127465,15 +127485,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127530,7 +127550,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127565,15 +127585,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127609,7 +127629,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127644,15 +127664,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127688,7 +127708,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127723,15 +127743,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127788,7 +127808,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127823,15 +127843,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127867,7 +127887,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127902,15 +127922,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -127946,7 +127966,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -127981,15 +128001,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128046,7 +128066,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128081,15 +128101,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128125,7 +128145,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128160,15 +128180,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128204,7 +128224,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128239,15 +128259,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128304,7 +128324,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128339,15 +128359,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128383,7 +128403,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128418,15 +128438,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128462,7 +128482,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128497,15 +128517,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128562,7 +128582,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128597,15 +128617,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128641,7 +128661,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128676,15 +128696,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128720,7 +128740,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128755,15 +128775,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128820,7 +128840,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128855,15 +128875,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128899,7 +128919,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -128934,15 +128954,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -128978,7 +128998,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129013,15 +129033,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129078,7 +129098,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129113,15 +129133,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129157,7 +129177,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129192,15 +129212,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129236,7 +129256,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129271,15 +129291,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129336,7 +129356,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129371,15 +129391,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129415,7 +129435,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129450,15 +129470,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129494,7 +129514,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129529,15 +129549,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129594,7 +129614,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129629,15 +129649,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129673,7 +129693,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129708,15 +129728,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129752,7 +129772,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129787,15 +129807,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129852,7 +129872,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [
@@ -129887,15 +129907,15 @@
       },
       "topicId": "us-ca-math-s6-chapter-04",
       "standardIds": [
-        "CA.CCSS.Math.HS.S-MD"
+        "CA.CCSS.Math.HS.F-IF"
       ],
       "domainTags": [
-        "statistics"
+        "functions"
       ],
       "conceptIds": [
         "quantitative-reasoning",
         "polynomial-models",
-        "decision-statistics",
+        "average-rate-of-change",
         "function-analysis",
         "calculus-readiness"
       ],
@@ -129931,7 +129951,7 @@
       },
       "evidenceCardIds": [
         "us-ca-math-g12-modeling-statistics-calculus-readiness",
-        "us-ca-standards-s6-hs-s-md",
+        "us-ca-standards-s6-hs-f-if",
         "us-ca-textbook-compat-s6-g12-modeling-statistics-calculus-readiness"
       ],
       "sourceIds": [

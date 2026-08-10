@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  relationForDisplayedValue,
+  spokenRelationForDisplayedValue,
+} from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
@@ -18,9 +22,14 @@ export default function Lesson() {
   const adjPx = Math.min(MAX_ADJ, MAX_OPP / Math.tan(rad));
   const oppPx = adjPx * Math.tan(rad);
   const bx = RX + adjPx, ty = RY - oppPx;
-  const sin = r2(Math.sin(rad));
-  const cos = r2(Math.cos(rad));
-  const tan = r2(Math.tan(rad));
+  const rawSin = Math.sin(rad);
+  const rawCos = Math.cos(rad);
+  const rawTan = Math.tan(rad);
+  const sin = r2(rawSin);
+  const cos = r2(rawCos);
+  const tan = r2(rawTan);
+  const sinRelation = relationForDisplayedValue(rawSin, sin);
+  const sinSpokenRelation = spokenRelationForDisplayedValue(rawSin, sin);
   const comp = 90 - angle;
 
   return (
@@ -44,13 +53,16 @@ export default function Lesson() {
           </svg>
 
           <div className="grid grid-cols-3 gap-3 text-center font-mono">
-            <Cell label="sin θ" value={`${sin}`} />
-            <Cell label="cos θ" value={`${cos}`} />
-            <Cell label="tan θ" value={`${tan}`} />
+            <Cell label="sin θ" exactValue={rawSin} displayedValue={sin} />
+            <Cell label="cos θ" exactValue={rawCos} displayedValue={cos} />
+            <Cell label="tan θ" exactValue={rawTan} displayedValue={tan} />
           </div>
 
           <div className="rounded-xl bg-[var(--surface-2)] px-6 py-2 text-center text-sm">
-            Complementary angle: sin({angle}°) = cos({comp}°) = <strong style={{ color: ACCENT }}>{sin}</strong>
+            Complementary angle: sin({angle}°) = cos({comp}°){" "}
+            <span aria-label={`their common value ${sinSpokenRelation} ${sin}`}>
+              {sinRelation} <strong style={{ color: ACCENT }}>{sin}</strong>
+            </span>{" "}(nearest hundredth)
           </div>
 
           <Slider label="angle θ" value={angle} onChange={setAngle} />
@@ -60,7 +72,7 @@ export default function Lesson() {
       <h2>Ratios from similarity</h2>
       <p>
         Scale a right triangle up or down and every side scales together, so
-        opp/hyp is unchanged — that&apos;s why sin θ = {sin} is a property of the{" "}
+        opp/hyp is unchanged — that&apos;s why <span aria-label={`sine theta ${sinSpokenRelation} ${sin}`}>sin θ {sinRelation} {sin}</span> (to the nearest hundredth) is a property of the{" "}
         <em>angle</em>. Notice sin θ = cos(90° − θ): the opposite side for θ is the
         adjacent side for its complement. That&apos;s the origin of the name
         "co-sine" (complement&apos;s sine).
@@ -79,11 +91,13 @@ export default function Lesson() {
   );
 }
 
-function Cell({ label, value }: { label: string; value: string }) {
+function Cell({ label, exactValue, displayedValue }: { label: string; exactValue: number; displayedValue: number }) {
+  const relation = relationForDisplayedValue(exactValue, displayedValue);
+  const spokenRelation = spokenRelationForDisplayedValue(exactValue, displayedValue);
   return (
     <div className="rounded-lg bg-[var(--surface-2)] px-3 py-2">
       <div className="text-[10px] uppercase text-[var(--ink-faint)]">{label}</div>
-      <div className="text-xl font-black" style={{ color: ACCENT }}>{value}</div>
+      <div className="text-xl font-black" style={{ color: ACCENT }} aria-label={`${label} ${spokenRelation} ${displayedValue}`}>{relation} {displayedValue}</div>
     </div>
   );
 }

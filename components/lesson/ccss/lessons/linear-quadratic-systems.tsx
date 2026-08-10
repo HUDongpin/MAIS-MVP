@@ -14,6 +14,7 @@ const LINE = "var(--band-upper)";
 const XR = 6, YR = 30, PXX = 40, PXY = 15, PAD = 28;
 const W = 2 * XR * PXX + 2 * PAD, H = YR * PXY + 2 * PAD;
 const r2 = (n: number) => Math.round(n * 100) / 100;
+const rootDisplay = (n: number) => `x ${Math.abs(n * 100 - Math.round(n * 100)) < 1e-9 ? "=" : "≈"} ${r2(n)}`;
 
 export default function Lesson() {
   const [m, setM] = useState(1);
@@ -78,7 +79,7 @@ export default function Lesson() {
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono text-sm" style={{ borderColor: ACCENT }}>
             x² {term(m, "x")} {term(k, "")} = 0 → discriminant {disc} → <strong style={{ color: ACCENT }}>{sols.length} intersection{sols.length === 1 ? "" : "s"}</strong>
-            {sols.length > 0 && <div className="mt-1 text-[var(--ink-soft)]">x = {sols.map((s) => r2(s)).join(", ")}</div>}
+            {sols.length > 0 && <div className="mt-1 text-[var(--ink-soft)]">{sols.map(rootDisplay).join("; ")}</div>}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">

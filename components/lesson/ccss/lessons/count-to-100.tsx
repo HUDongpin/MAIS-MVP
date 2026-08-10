@@ -19,7 +19,7 @@ export default function Lesson() {
         The counting numbers keep going: 1, 2, 3, all the way to{" "}
         <strong>100</strong>. This chart holds all of them. Count by{" "}
         <strong>ones</strong>{" "}across each row, or jump by{" "}
-        <strong>tens</strong>{" "}down the last column.
+        <strong>tens</strong>{" "}down any column.
       </p>
 
       <Figure caption="Orange squares are the tens. Blue squares show counting forward from your number.">
@@ -56,10 +56,11 @@ export default function Lesson() {
             <button
               type="button"
               onClick={() => setShowTens((s) => !s)}
+              aria-pressed={showTens}
               className="rounded-xl px-4 py-2.5 text-sm font-bold text-white"
               style={{ background: showTens ? TENS : "var(--ink-faint)" }}
             >
-              {showTens ? "Hide tens (10, 20, 30…)" : "Show tens (10, 20, 30…)"}
+              Highlight tens (10, 20, 30…)
             </button>
             <div className="flex flex-col items-center gap-1">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
@@ -68,14 +69,18 @@ export default function Lesson() {
               <div className="flex items-center gap-2">
                 <button type="button" onClick={() => setStart((n) => Math.max(1, n - 1))} disabled={start <= 1} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Lower start number">−</button>
                 <span className="w-10 text-center text-xl font-black tabular-nums" style={{ color: FORWARD }}>{start}</span>
-                <button type="button" onClick={() => setStart((n) => Math.min(97, n + 1))} disabled={start >= 97} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Raise start number">+</button>
+                <button type="button" onClick={() => setStart((n) => Math.min(100, n + 1))} disabled={start >= 100} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold disabled:opacity-40" aria-label="Raise start number">+</button>
               </div>
             </div>
           </div>
 
           <p className="m-0 text-center text-lg font-bold">
-            Start at {start}, then keep going:{" "}
-            <span style={{ color: FORWARD }}>{forward.join(", ")}…</span>
+            {start === 100 ? (
+              <>100 is the last number on this chart.</>
+            ) : (
+              <>Start at {start}, then keep going:{" "}
+              <span style={{ color: FORWARD }}>{forward.join(", ")}{forward.at(-1) === 100 ? "." : "…"}</span></>
+            )}
           </p>
         </div>
       </Figure>
@@ -83,8 +88,9 @@ export default function Lesson() {
       <h2>Counting never needs to start over</h2>
       <p>
         You do not have to go back to 1 every time. You can start at any number
-        and <strong>count on</strong>{" "}from there — {start}, {start + 1},{" "}
-        {start + 2}…
+        and <strong>count on</strong>{" "}from there. {start === 100
+          ? "On this chart, 100 is the stopping point."
+          : `From ${start}, the next numbers shown are ${forward.slice(1).join(", ")}${forward.at(-1) === 100 ? "." : "…"}`}
       </p>
 
       <MathCheck>

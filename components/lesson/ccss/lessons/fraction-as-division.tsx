@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const SHARE = "var(--band-upper)";
 const BARW = 220;
+const thingCount = (count: number) => `${count} thing${count === 1 ? "" : "s"}`;
+const wholeCount = (count: number) => `${count} whole${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [a, setA] = useState(3); // things to share
@@ -20,8 +22,8 @@ export default function Lesson() {
   return (
     <div className="prose-lesson max-w-none">
       <p>
-        A fraction <strong>is</strong>{" "}a division. Sharing <strong>{a}</strong>{" "}
-        things equally among <strong>{b}</strong>{" "}people gives each person{" "}
+        A fraction <strong>is</strong>{" "}a division. Sharing <strong>{thingCount(a)}</strong>{" "}
+        equally among <strong>{b}</strong>{" "}people gives each person{" "}
         <strong>{a} ÷ {b} = {a}/{b}</strong>. The numerator is what you share; the
         denominator is how many share it.
       </p>
@@ -66,7 +68,7 @@ export default function Lesson() {
       <MathCheck>
         <p>
           A fraction is the result of dividing the numerator by the denominator:{" "}
-          <strong>a/b = a ÷ b</strong>{" "}(5.NF.B.3). Sharing {a} wholes among {b}{" "}
+          <strong>a/b = a ÷ b</strong>{" "}(5.NF.B.3). Sharing {wholeCount(a)} among {b}{" "}
           people gives each {a}/{b}, because each person takes one of the {b} equal
           parts from every whole. This also explains how to write a fraction as a
           decimal.

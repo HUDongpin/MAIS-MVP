@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
+import { relationForDisplayedValue } from "@/components/lesson/ccss/numberPresentation";
 
 const ACCENT = "var(--band-middle)";
 const W = 600;
@@ -14,13 +15,22 @@ const BOT_Y = 130;
 const STEPS = 6;
 const lineW = W - 2 * PAD;
 
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
 export default function Lesson() {
   const [a, setA] = useState(2); // cups of flour
   const [b, setB] = useState(3); // spoons of sugar
   const [n, setN] = useState(2); // batches highlighted
 
   const rate = b / a;
-  const rateLabel = Number.isInteger(rate) ? String(rate) : rate.toFixed(2);
+  const rateDivisor = gcd(a, b);
+  const rateNumerator = b / rateDivisor;
+  const rateDenominator = a / rateDivisor;
+  const rateLabel = rateDenominator === 1 ? `${rateNumerator}` : `${rateNumerator}/${rateDenominator}`;
+  const roundedRate = rate.toFixed(2);
+  const rateRelation = relationForDisplayedValue(rate, roundedRate);
 
   const x = (i: number) => PAD + (i / STEPS) * lineW;
 
@@ -82,7 +92,7 @@ export default function Lesson() {
               viewBox={`0 0 ${W} ${H}`}
               className="mx-auto max-w-full"
               role="img"
-              aria-label={`Double number line for the ratio ${a} to ${b}`}
+              aria-label={`Double number line for ${n} ${n === 1 ? "batch" : "batches"}: ${a * n} ${a * n === 1 ? "cup" : "cups"} of flour and ${b * n} ${b * n === 1 ? "spoon" : "spoons"} of sugar, based on the ratio ${a} to ${b}`}
             >
               {/* connector between the two highlighted points */}
               <line
@@ -108,7 +118,12 @@ export default function Lesson() {
             </div>
             <div className="mt-1 text-sm text-[var(--ink-soft)]">
               Unit rate: <strong>{rateLabel}</strong>{" "}spoon{rate === 1 ? "" : "s"} of
-              sugar per cup of flour.
+              sugar per cup of flour
+              {rateDenominator === 1
+                ? "."
+                : rateRelation === "="
+                  ? <> (= {roundedRate}, exact decimal).</>
+                  : <> (≈ {roundedRate}, nearest hundredth).</>}
             </div>
           </div>
 
@@ -153,8 +168,13 @@ export default function Lesson() {
             reader met the same operation two ways with nothing linking them. */}
         <strong>(a × n) : (b × n)</strong>{" "}for every batch count{" "}
           <strong>n ≥ 1</strong>{" "}(6.RP.A.3). Every equivalent pair therefore holds
-          the same <strong>rate</strong>: here each cup of flour is paired with{" "}
-          {rateLabel} spoon{rate === 1 ? "" : "s"} of sugar, no matter the batch size. On the
+          the same <strong>rate</strong>: here the exact rate is {rateLabel}{" "}
+          spoon{rate === 1 ? "" : "s"} of sugar per cup of flour
+          {rateDenominator === 1
+            ? ""
+            : rateRelation === "="
+              ? `, equal to the decimal ${roundedRate}`
+              : `, approximately ${roundedRate} to the nearest hundredth`}, no matter the batch size. On the
           double number line the tick marks stay aligned precisely because both
           scales are multiplied by the same amount.
         </p>

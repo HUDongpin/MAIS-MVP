@@ -6,6 +6,8 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const S1 = "var(--band-middle)";
 const S2 = "var(--band-upper)";
+const vanCount = (count: number) => `${count} van${count === 1 ? "" : "s"}`;
+const fullVanCount = (count: number) => `${count} full van${count === 1 ? "" : "s"}`;
 
 export default function Lesson() {
   const [students, setStudents] = useState(53);
@@ -48,8 +50,8 @@ export default function Lesson() {
             <div className="font-mono text-xl font-black">{students} ÷ {perVan} = {vans} R {leftover}</div>
             <p className="mt-1 max-w-md text-[15px] text-[var(--ink-soft)]">
               {leftover > 0
-                ? <>{vans} full vans carry {vans * perVan}, and {leftover} student{leftover === 1 ? "" : "s"} still need a seat — so you need <strong style={{ color: S2 }}>{vansNeeded} vans</strong>{" "}(round up!).</>
-                : <>It comes out even: exactly <strong style={{ color: S2 }}>{vans} vans</strong>.</>}
+                ? <>{fullVanCount(vans)} {vans === 1 ? "carries" : "carry"} {vans * perVan}, and {leftover} student{leftover === 1 ? "" : "s"} still need a seat — so you need <strong style={{ color: S2 }}>{vanCount(vansNeeded)}</strong>{" "}(round up!).</>
+                : <>It comes out even: exactly <strong style={{ color: S2 }}>{vanCount(vans)}</strong>.</>}
             </p>
           </div>
 
@@ -65,7 +67,7 @@ export default function Lesson() {
         {leftover > 0 ? (
           <>Here the leftover means you need one <em>more</em>{" "}van, so you round up.</>
         ) : (
-          <>Here the division comes out even, so there is no leftover to round up — {vans} vans hold everyone exactly.</>
+          <>Here the division comes out even, so there is no leftover to round up — {vanCount(vans)} {vans === 1 ? "holds" : "hold"} everyone exactly.</>
         )}{" "}
         In other problems the remainder might be the answer, or you might drop it.
         Estimating first ({students} ÷ {perVan} is about {Math.round(students / perVan)}) helps you check.
@@ -80,7 +82,7 @@ export default function Lesson() {
           {leftover > 0 ? (
             <> R {leftover}, and since every student needs a seat you round up to {vansNeeded}.</>
           ) : (
-            <> exactly, so no rounding is needed — {vansNeeded} vans seat everyone.</>
+            <> exactly, so no rounding is needed — {vanCount(vansNeeded)} {vansNeeded === 1 ? "seats" : "seat"} everyone.</>
           )}
         </p>
       </MathCheck>

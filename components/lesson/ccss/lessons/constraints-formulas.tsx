@@ -8,9 +8,9 @@ const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
 const FORMULAS = [
-  { name: "Area of triangle", forward: "A = ½bh", solveFor: "h", rearranged: "h = 2A / b", compute: (A: number, b: number) => r2((2 * A) / b) },
-  { name: "Distance", forward: "d = rt", solveFor: "t", rearranged: "t = d / r", compute: (d: number, r: number) => r2(d / r) },
-  { name: "Circle area", forward: "A = πr²", solveFor: "r", rearranged: "r = √(A / π)", compute: (A: number) => r2(Math.sqrt(A / Math.PI)) },
+  { name: "Area of triangle", forward: "A = ½bh", solveFor: "h", rearranged: "h = 2A / b", compute: (A: number, b: number) => (2 * A) / b },
+  { name: "Distance", forward: "d = rt", solveFor: "t", rearranged: "t = d / r", compute: (d: number, r: number) => d / r },
+  { name: "Circle area", forward: "A = πr²", solveFor: "r", rearranged: "r = √(A / π)", compute: (A: number) => Math.sqrt(A / Math.PI) },
 ];
 
 export default function Lesson() {
@@ -18,7 +18,9 @@ export default function Lesson() {
   const [x, setX] = useState(24);
   const [y, setY] = useState(6);
   const f = FORMULAS[idx];
-  const val = idx === 2 ? f.compute(x, 0) : f.compute(x, y);
+  const rawVal = idx === 2 ? f.compute(x, 0) : f.compute(x, y);
+  const val = r2(rawVal);
+  const relation = Math.abs(rawVal - val) < 1e-10 ? "=" : "≈";
 
   return (
     <div className="prose-lesson max-w-none">
@@ -33,7 +35,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {FORMULAS.map((fo, i) => (
-              <button key={fo.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{fo.name}</button>
+              <button key={fo.name} type="button" onClick={() => setIdx(i)} aria-pressed={idx === i} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{fo.name}</button>
             ))}
           </div>
 
@@ -45,9 +47,9 @@ export default function Lesson() {
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
             {idx === 2 ? (
-              <div>with A = {x}: {f.solveFor} = <strong style={{ color: ACCENT }}>{val}</strong></div>
+              <div>with A = {x}: {f.solveFor} {relation} <strong style={{ color: ACCENT }}>{val}</strong>{relation === "≈" ? " (nearest hundredth)" : ""}</div>
             ) : (
-              <div>with {idx === 0 ? "A" : "d"} = {x}, {idx === 0 ? "b" : "r"} = {y}: {f.solveFor} = <strong style={{ color: ACCENT }}>{val}</strong></div>
+              <div>with {idx === 0 ? "A" : "d"} = {x}, {idx === 0 ? "b" : "r"} = {y}: {f.solveFor} {relation} <strong style={{ color: ACCENT }}>{val}</strong>{relation === "≈" ? " (nearest hundredth)" : ""}</div>
             )}
           </div>
 

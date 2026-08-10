@@ -22,7 +22,7 @@ export default function Lesson() {
 
       <Figure caption="Change the color, size, and direction all you like — it is still a triangle.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="180" height="180" viewBox="0 0 180 180" role="img" aria-label={`A triangle, rotated ${rot} degrees and scaled to ${scale}× — still a triangle with 3 straight sides`}>
+          <svg width="180" height="180" viewBox="0 0 180 180" role="img" aria-label={`A triangle, rotated ${rot} ${rot === 1 ? "degree" : "degrees"} and scaled to ${scale}× — still a triangle with 3 straight sides`}>
             {/* One centring mechanism, not two. The SVG transform attribute
                 already rotates about (90,90), and the CSS transform-origin was
                 applied on top of it, so the shape actually rotated about
@@ -65,14 +65,15 @@ export default function Lesson() {
       <h2>What matters and what doesn't</h2>
       <p>
         A big red triangle, a tiny blue one, and one turned upside down are{" "}
-        <em>all</em>{" "}triangles. The only thing that matters is the sides and
-        corners.
+        <em>all</em>{" "}triangles. What matters is having three straight sides,
+        three corners, and a closed shape.
       </p>
 
       <MathCheck>
         <p>
           Shapes have <strong>defining attributes</strong>{" "}(a triangle has three
-          sides; a rectangle has four sides and four square corners) and{" "}
+          sides; a rectangle has four sides and four right angles, often called
+          square corners) and{" "}
           <strong>non-defining attributes</strong>{" "}(color, size, orientation,
           overall shape position). Telling these apart — knowing which features
           actually make the shape what it is — is 1.G.A.1.

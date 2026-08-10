@@ -1,7 +1,10 @@
 import { angleAt, distance, formatNumber } from "./math";
 import type {
+  CategoricalDataDisplayQuestionDiagram,
   CoordinateGridQuestionDiagram,
+  DataDisplayQuestionDiagram,
   LocalizedText,
+  LinePlotDataDisplayQuestionDiagram,
   NumberLineHighlight,
   NumberLinePoint,
   NumberLineQuestionDiagram,
@@ -1447,6 +1450,158 @@ export function buildTenFrameLayout(diagram: TenFrameQuestionDiagram, textFor: F
   return { frames, legend, issues };
 }
 
+// --- Data displays ---------------------------------------------------------
+
+export function formatDataDisplayValue(value: number) {
+  const sign = value < 0 ? "−" : "";
+  const absolute = Math.abs(value);
+  const whole = Math.floor(absolute + 0.0000001);
+  const fraction = absolute - whole;
+  const fractionGlyph = [
+    { value: 0.25, glyph: "¼" },
+    { value: 0.5, glyph: "½" },
+    { value: 0.75, glyph: "¾" }
+  ].find((candidate) => Math.abs(fraction - candidate.value) < 0.000001)?.glyph;
+
+  if (fractionGlyph) return `${sign}${whole ? whole : ""}${fractionGlyph}`;
+  return formatNumber(value, 4);
+}
+
+export function dataDisplayTickValues(range: [number, number], tickInterval: number) {
+  const [min, max] = range;
+  if (!(tickInterval > 0) || max <= min) return [];
+  const count = Math.round((max - min) / tickInterval);
+  if (!Number.isFinite(count) || count < 1 || count > 100) return [];
+  return Array.from({ length: count + 1 }, (_, index) => {
+    const value = min + tickInterval * index;
+    return Math.abs(value) < 0.0000001 ? 0 : Number(value.toFixed(10));
+  });
+}
+
+export function linePlotFrequencies(diagram: LinePlotDataDisplayQuestionDiagram) {
+  return dataDisplayTickValues(diagram.range, diagram.tickInterval).map((value) => ({
+    value,
+    count: diagram.values.filter((candidate) => Math.abs(candidate - value) < 0.000001).length
+  }));
+}
+
+export type CategoricalDataDisplayLayout = {
+  display: CategoricalDataDisplayQuestionDiagram["display"];
+  viewBox: { width: number; height: number };
+  title: string;
+  unit: string;
+  scale: number;
+  plot: { left: number; right: number; top: number; bottom: number };
+  ticks: Array<{ key: string; value: number; x: number; label: string }>;
+  rows: Array<{
+    key: string;
+    label: string;
+    value: number;
+    y: number;
+    barWidth: number;
+    symbols: Array<{ key: string; x: number; y: number }>;
+  }>;
+};
+
+export type LinePlotDataDisplayLayout = {
+  display: "line-plot";
+  viewBox: { width: number; height: number };
+  title: string;
+  unit: string;
+  axis: { left: number; right: number; y: number };
+  ticks: Array<{ key: string; value: number; x: number; label: string; count: number }>;
+  crosses: Array<{ key: string; x: number; y: number }>;
+};
+
+export type DataDisplayLayout = CategoricalDataDisplayLayout | LinePlotDataDisplayLayout;
+
+export function buildDataDisplayLayout(
+  diagram: DataDisplayQuestionDiagram,
+  textFor: FigureTextResolver
+): DataDisplayLayout {
+  const width = 360;
+  const title = textFor(diagram.title);
+  const unit = textFor(diagram.unit);
+
+  if (diagram.display === "line-plot") {
+    const frequencies = linePlotFrequencies(diagram);
+    const maximumStack = Math.max(1, ...frequencies.map((entry) => entry.count));
+    const height = Math.max(190, 94 + maximumStack * 17);
+    const axis = { left: 34, right: 326, y: height - 50 };
+    const [min, max] = diagram.range;
+    const span = max - min || 1;
+    const xFor = (value: number) => axis.left + ((value - min) / span) * (axis.right - axis.left);
+    const ticks = frequencies.map((frequency) => ({
+      key: `tick-${frequency.value}`,
+      value: frequency.value,
+      x: xFor(frequency.value),
+      label: formatDataDisplayValue(frequency.value),
+      count: frequency.count
+    }));
+    const crosses = ticks.flatMap((tick) =>
+      Array.from({ length: tick.count }, (_, index) => ({
+        key: `x-${tick.value}-${index}`,
+        x: tick.x,
+        y: axis.y - 18 - index * 17
+      }))
+    );
+
+    return {
+      display: "line-plot",
+      viewBox: { width, height },
+      title,
+      unit,
+      axis,
+      ticks,
+      crosses
+    };
+  }
+
+  const scale = diagram.scale ?? 1;
+  const rowHeight = 38;
+  const top = 48;
+  const bottomPadding = diagram.display === "picture-graph" ? 42 : 48;
+  const height = top + diagram.categories.length * rowHeight + bottomPadding;
+  const plot = { left: 108, right: 326, top, bottom: top + diagram.categories.length * rowHeight };
+  const maxValue = Math.max(scale, ...diagram.categories.map((category) => category.value));
+  const axisMaximum = Math.max(scale, Math.ceil(maxValue / scale) * scale);
+  const xFor = (value: number) => plot.left + (value / axisMaximum) * (plot.right - plot.left);
+  const tickCount = Math.round(axisMaximum / scale);
+  const ticks = Array.from({ length: tickCount + 1 }, (_, index) => {
+    const value = index * scale;
+    return { key: `tick-${value}`, value, x: xFor(value), label: formatDataDisplayValue(value) };
+  });
+  const maxSymbolCount = Math.max(1, ...diagram.categories.map((category) => Math.round(category.value / scale)));
+  const symbolStep = Math.min(24, (plot.right - plot.left - 8) / Math.max(1, maxSymbolCount - 1));
+  const rows = diagram.categories.map((category, index) => {
+    const y = top + index * rowHeight + rowHeight / 2;
+    const symbolCount = Math.round(category.value / scale);
+    return {
+      key: `category-${index}`,
+      label: textFor(category.label),
+      value: category.value,
+      y,
+      barWidth: xFor(category.value) - plot.left,
+      symbols: Array.from({ length: symbolCount }, (_, symbolIndex) => ({
+        key: `symbol-${index}-${symbolIndex}`,
+        x: plot.left + 6 + symbolIndex * symbolStep,
+        y
+      }))
+    };
+  });
+
+  return {
+    display: diagram.display,
+    viewBox: { width, height },
+    title,
+    unit,
+    scale,
+    plot,
+    ticks,
+    rows
+  };
+}
+
 // --- Alt text ---------------------------------------------------------------
 
 const solidShapeNames: Record<SolidFigureShape, { en: string; zh: string; zhHans: string }> = {
@@ -1506,8 +1661,58 @@ function tenFrameAltText(diagram: TenFrameQuestionDiagram): LocalizedText {
   };
 }
 
+function dataDisplayAltText(diagram: DataDisplayQuestionDiagram): LocalizedText {
+  const localized = (value: LocalizedText, language: "en" | "zh" | "zhHans") => {
+    if (language === "en") return value.en;
+    if (language === "zhHans") return value.zhHans ?? value.zh;
+    return value.zh;
+  };
+  const displayNames = {
+    "picture-graph": { en: "Picture graph", zh: "象形圖", zhHans: "象形图" },
+    "bar-graph": { en: "Bar graph", zh: "條形圖", zhHans: "条形图" },
+    "line-plot": { en: "Line plot", zh: "線圖", zhHans: "线图" }
+  } as const;
+  const name = displayNames[diagram.display];
+
+  if (diagram.display === "line-plot") {
+    const frequencies = linePlotFrequencies(diagram).filter((entry) => entry.count > 0);
+    const entriesEn = frequencies
+      .map((entry) => `${formatDataDisplayValue(entry.value)}: ${entry.count} X${entry.count === 1 ? "" : "s"}`)
+      .join("; ");
+    const entriesZh = frequencies
+      .map((entry) => `${formatDataDisplayValue(entry.value)}：${entry.count} 個 X`)
+      .join("；");
+    return {
+      en: `${name.en} titled “${localized(diagram.title, "en")}”. Unit: ${localized(diagram.unit, "en")}. ${entriesEn}.`,
+      zh: `${name.zh}「${localized(diagram.title, "zh")}」。單位：${localized(diagram.unit, "zh")}。${entriesZh}。`,
+      zhHans: `${name.zhHans}“${localized(diagram.title, "zhHans")}”。单位：${localized(diagram.unit, "zhHans")}。${entriesZh}。`
+    };
+  }
+
+  const categoriesEn = diagram.categories
+    .map((category) => `${localized(category.label, "en")}: ${formatDataDisplayValue(category.value)}`)
+    .join("; ");
+  const categoriesZh = diagram.categories
+    .map((category) => `${localized(category.label, "zh")}：${formatDataDisplayValue(category.value)}`)
+    .join("；");
+  const categoriesZhHans = diagram.categories
+    .map((category) => `${localized(category.label, "zhHans")}：${formatDataDisplayValue(category.value)}`)
+    .join("；");
+  const scale = diagram.scale ?? 1;
+  const keyEn = diagram.display === "picture-graph" ? ` Each symbol represents ${formatDataDisplayValue(scale)}.` : "";
+  const keyZh = diagram.display === "picture-graph" ? ` 每個圖示代表 ${formatDataDisplayValue(scale)}。` : "";
+  const keyZhHans = diagram.display === "picture-graph" ? ` 每个图示代表 ${formatDataDisplayValue(scale)}。` : "";
+
+  return {
+    en: `${name.en} titled “${localized(diagram.title, "en")}”. Unit: ${localized(diagram.unit, "en")}.${keyEn} ${categoriesEn}.`,
+    zh: `${name.zh}「${localized(diagram.title, "zh")}」。單位：${localized(diagram.unit, "zh")}。${keyZh}${categoriesZh}。`,
+    zhHans: `${name.zhHans}“${localized(diagram.title, "zhHans")}”。单位：${localized(diagram.unit, "zhHans")}。${keyZhHans}${categoriesZhHans}。`
+  };
+}
+
 export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText {
   if (diagram.kind === "ten-frame") return tenFrameAltText(diagram);
+  if (diagram.kind === "data-display") return dataDisplayAltText(diagram);
 
   if (diagram.kind === "coordinate-grid") {
     const pointLabels = (diagram.points ?? []).map((point) => point.label).filter(Boolean);
@@ -1587,6 +1792,10 @@ const maxNumberLineTicks = 61;
 const maxGridPoints = 12;
 const maxGridLines = 8;
 const maxGridLinePoints = 32;
+const maxDataDisplayCategories = 8;
+const maxDataDisplayValues = 24;
+const maxDataDisplayTicks = 25;
+const maxPictureGraphSymbolsPerCategory = 24;
 const maxPlainLabelLength = 24;
 const maxLocalizedLabelLength = 60;
 const maxPointIdLength = 16;
@@ -1962,6 +2171,88 @@ function normalizeTenFrame(value: Record<string, unknown>): TenFrameQuestionDiag
   return normalized;
 }
 
+function normalizeDataDisplay(value: Record<string, unknown>): DataDisplayQuestionDiagram | undefined {
+  if (value.display !== "picture-graph" && value.display !== "bar-graph" && value.display !== "line-plot") {
+    return undefined;
+  }
+  const title = readLocalizedLabel(value.title);
+  const unit = readLocalizedLabel(value.unit);
+  if (!title || !unit) return undefined;
+
+  if (value.display === "line-plot") {
+    if (!hasOnlyKeys(value, ["kind", "display", "title", "unit", "values", "range", "tickInterval"])) return undefined;
+    const range = readRange(value.range);
+    const tickInterval = readBoundedNumber(value.tickInterval, 0.000001, maxAbsoluteCoordinate);
+    if (!range || tickInterval === null) return undefined;
+    const rawTickCount = (range[1] - range[0]) / tickInterval;
+    if (
+      !Number.isFinite(rawTickCount) ||
+      Math.abs(rawTickCount - Math.round(rawTickCount)) > 0.000001 ||
+      rawTickCount < 1 ||
+      rawTickCount + 1 > maxDataDisplayTicks
+    ) return undefined;
+    if (!Array.isArray(value.values) || value.values.length < 1 || value.values.length > maxDataDisplayValues) return undefined;
+    const values: number[] = [];
+    for (const entry of value.values) {
+      const parsed = readBoundedNumber(entry, range[0], range[1]);
+      if (parsed === null) return undefined;
+      const tickIndex = (parsed - range[0]) / tickInterval;
+      if (Math.abs(tickIndex - Math.round(tickIndex)) > 0.000001) return undefined;
+      values.push(parsed);
+    }
+    return {
+      kind: "data-display",
+      display: "line-plot",
+      title,
+      unit,
+      values,
+      range,
+      tickInterval
+    };
+  }
+
+  if (!hasOnlyKeys(value, ["kind", "display", "title", "unit", "categories", "scale"])) return undefined;
+  if (!Array.isArray(value.categories) || value.categories.length < 2 || value.categories.length > maxDataDisplayCategories) {
+    return undefined;
+  }
+  const scale = typeof value.scale === "undefined"
+    ? 1
+    : readBoundedNumber(value.scale, 0.000001, maxAbsoluteCoordinate);
+  if (scale === null) return undefined;
+
+  const categories: CategoricalDataDisplayQuestionDiagram["categories"] = [];
+  const seenLabels = new Set<string>();
+  for (const entry of value.categories) {
+    if (!isRecord(entry) || !hasOnlyKeys(entry, ["label", "value"])) return undefined;
+    const label = readLocalizedLabel(entry.label);
+    const categoryValue = readBoundedNumber(entry.value, 0, maxAbsoluteCoordinate);
+    if (!label || categoryValue === null) return undefined;
+    const labelKey = label.en.toLocaleLowerCase();
+    if (seenLabels.has(labelKey)) return undefined;
+    seenLabels.add(labelKey);
+    if (value.display === "picture-graph") {
+      const symbolCount = categoryValue / scale;
+      if (
+        Math.abs(symbolCount - Math.round(symbolCount)) > 0.000001 ||
+        symbolCount > maxPictureGraphSymbolsPerCategory
+      ) return undefined;
+    }
+    categories.push({ label, value: categoryValue });
+  }
+  if (!categories.some((category) => category.value > 0)) return undefined;
+  const maximum = Math.max(...categories.map((category) => category.value));
+  if (Math.ceil(maximum / scale) + 1 > maxDataDisplayTicks) return undefined;
+
+  return {
+    kind: "data-display",
+    display: value.display,
+    title,
+    unit,
+    categories,
+    ...(typeof value.scale === "undefined" ? {} : { scale })
+  };
+}
+
 export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | undefined {
   if (!isRecord(value)) return undefined;
 
@@ -1970,6 +2261,7 @@ export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | unde
   if (value.kind === "number-line") return normalizeNumberLine(value);
   if (value.kind === "solid-figure") return normalizeSolidFigure(value);
   if (value.kind === "ten-frame") return normalizeTenFrame(value);
+  if (value.kind === "data-display") return normalizeDataDisplay(value);
   return undefined;
 }
 
@@ -2050,6 +2342,49 @@ function planeFigureSemanticIssues(diagram: PlaneFigureQuestionDiagram) {
   return issues;
 }
 
+function dataDisplaySemanticIssues(diagram: DataDisplayQuestionDiagram) {
+  const issues: string[] = [];
+  if (!diagram.title.en.trim()) issues.push("data-display: missing title");
+  if (!diagram.unit.en.trim()) issues.push("data-display: missing unit");
+
+  if (diagram.display === "line-plot") {
+    const ticks = dataDisplayTickValues(diagram.range, diagram.tickInterval);
+    if (!ticks.length) issues.push("data-display: invalid line-plot ticks");
+    if (!diagram.values.length) issues.push("data-display: line plot has no values");
+    diagram.values.forEach((value, index) => {
+      if (value < diagram.range[0] || value > diagram.range[1]) {
+        issues.push(`data-display: value-${index} is outside the range`);
+        return;
+      }
+      if (!ticks.some((tick) => Math.abs(tick - value) < 0.000001)) {
+        issues.push(`data-display: value-${index} is not on a tick`);
+      }
+    });
+    return issues;
+  }
+
+  const scale = diagram.scale ?? 1;
+  if (!(scale > 0)) issues.push("data-display: scale must be positive");
+  if (diagram.categories.length < 2) issues.push("data-display: fewer than two categories");
+  const labels = new Set<string>();
+  diagram.categories.forEach((category, index) => {
+    if (!category.label.en.trim()) issues.push(`data-display: category-${index} has no label`);
+    const key = category.label.en.trim().toLocaleLowerCase();
+    if (labels.has(key)) issues.push(`data-display: duplicate category ${category.label.en}`);
+    labels.add(key);
+    if (!Number.isFinite(category.value) || category.value < 0) {
+      issues.push(`data-display: category-${index} has invalid value`);
+    }
+    if (diagram.display === "picture-graph") {
+      const symbols = category.value / scale;
+      if (Math.abs(symbols - Math.round(symbols)) > 0.000001) {
+        issues.push(`data-display: category-${index} does not contain a whole number of symbols`);
+      }
+    }
+  });
+  return issues;
+}
+
 export function validateQuestionDiagram(diagram: QuestionDiagram): string[] {
   const issues: string[] = [];
 
@@ -2059,6 +2394,10 @@ export function validateQuestionDiagram(diagram: QuestionDiagram): string[] {
       if (!point.placement.clean) issues.push(`label-collision: point ${point.label}`);
     });
     return issues;
+  }
+
+  if (diagram.kind === "data-display") {
+    return Array.from(new Set(dataDisplaySemanticIssues(diagram)));
   }
 
   const resolvers: FigureTextResolver[] = [

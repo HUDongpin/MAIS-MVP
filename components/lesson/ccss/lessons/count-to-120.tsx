@@ -17,7 +17,8 @@ export default function Lesson() {
       <p>
         In first grade, the counting goes all the way to <strong>120</strong>.
         Tap any number to see it, then keep counting <strong>forward</strong>{" "}
-        from there. The chart never runs out.
+        while there are numbers ahead. The chart carries the counting pattern
+        all the way to 120.
       </p>
 
       <Figure caption="Tap a number. The blue squares show the next numbers you would say.">
@@ -39,7 +40,7 @@ export default function Lesson() {
                     key={n}
                     type="button"
                     onClick={() => setSel(n)}
-                    className="grid aspect-square place-items-center rounded text-[10px] font-bold tabular-nums sm:text-xs"
+                    aria-pressed={isSel} className="grid aspect-square place-items-center rounded text-[10px] font-bold tabular-nums sm:text-xs"
                     style={{
                       background: isSel ? SEL : isNext ? NEXT : "var(--surface-2)",
                       color: isSel || isNext ? "white" : "var(--ink-soft)",

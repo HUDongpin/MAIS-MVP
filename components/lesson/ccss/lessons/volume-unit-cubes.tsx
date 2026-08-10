@@ -106,8 +106,8 @@ export default function Lesson() {
       <p>
         You could count the cubes one by one, but there is a faster way. The
         bottom layer is a rectangle of <strong>length × width</strong>{" "}cubes.
-        Every layer above it is an exact copy, and there are{" "}
-        <strong>height</strong>{" "}of them. So instead of counting, you multiply.
+        Every layer above it is an exact copy, and the number of layers is the{" "}
+        <strong>height</strong>. So instead of counting, you multiply.
       </p>
 
       <MathCheck>

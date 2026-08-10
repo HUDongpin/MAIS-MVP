@@ -126,7 +126,7 @@ export default function Lesson() {
             <Control
               label="Cut each part into n"
               value={n}
-              min={1}
+              min={2}
               max={4}
               onChange={setN}
             />

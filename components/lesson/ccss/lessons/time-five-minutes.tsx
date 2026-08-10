@@ -21,8 +21,16 @@ export default function Lesson() {
 
   const step = (d: number) => {
     let m = minute + d, h = hour;
-    if (m >= 60) { m = 0; h = h === 12 ? 1 : h + 1; }
-    if (m < 0) { m = 55; h = h === 1 ? 12 : h - 1; }
+    if (m >= 60) {
+      m = 0;
+      if (h === 11) setPm((period) => !period);
+      h = h === 12 ? 1 : h + 1;
+    }
+    if (m < 0) {
+      m = 55;
+      if (h === 12) setPm((period) => !period);
+      h = h === 1 ? 12 : h - 1;
+    }
     setMinute(m); setHour(h);
   };
 
@@ -40,9 +48,9 @@ export default function Lesson() {
         read any time to the nearest five minutes.
       </p>
 
-      <Figure caption="Count by 5s from the 12 to the long hand. Choose a.m. for morning, p.m. for afternoon/night.">
+      <Figure caption="Count by 5s from the 12 to the long hand. a.m. begins at midnight and ends just before noon; p.m. begins at noon and ends just before midnight.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label={`clock showing ${digital}`}>
+          <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label={`clock showing ${digital} ${pm ? "p.m." : "a.m."}`}>
             <circle cx={CX} cy={CY} r={R} fill="var(--surface)" stroke="var(--ink-soft)" strokeWidth="3" />
             {Array.from({ length: 12 }, (_, i) => {
               const num = i + 1;
@@ -67,7 +75,7 @@ export default function Lesson() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button type="button" onClick={() => step(-5)} className="rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-bold">− 5 min</button>
             <button type="button" onClick={() => step(5)} className="rounded-lg px-4 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }}>+ 5 min</button>
-            <button type="button" onClick={() => setPm((p) => !p)} className="rounded-lg border-2 px-4 py-2 text-sm font-bold" style={{ borderColor: HOUR_HAND, color: HOUR_HAND }}>{pm ? "a.m." : "p.m."}?</button>
+            <button type="button" onClick={() => setPm((p) => !p)} className="rounded-lg border-2 px-4 py-2 text-sm font-bold" style={{ borderColor: HOUR_HAND, color: HOUR_HAND }}>{pm ? "Switch to a.m." : "Switch to p.m."}</button>
           </div>
         </div>
       </Figure>
@@ -83,9 +91,12 @@ export default function Lesson() {
         <p>
           Telling and writing time from an analog clock to the nearest{" "}
           <strong>five minutes</strong>{" "}(2.MD.C.7) uses skip-counting by 5:
-          each hour mark is 5 minutes apart, so the long hand's position times 5
-          gives the minutes. <strong>a.m.</strong>{" "}is midnight to noon;{" "}
-          <strong>p.m.</strong>{" "}is noon to midnight.
+          count the five-minute intervals clockwise from 12 to the long hand,
+          then multiply that interval count by 5. The 12 position represents 0 minutes;
+          reaching it again completes 60 minutes and starts the next hour.{" "}
+          <strong>a.m.</strong>{" "}starts at midnight and ends
+          just before noon; <strong>p.m.</strong>{" "}starts at noon and ends just
+          before midnight.
         </p>
       </MathCheck>
     </div>

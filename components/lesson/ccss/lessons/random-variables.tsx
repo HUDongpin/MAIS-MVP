@@ -16,6 +16,7 @@ export default function Lesson() {
   const [highlight, setHighlight] = useState(7);
 
   const prob = (s: number) => WAYS[s - 2] / TOTAL;
+  const relation = (s: number) => Math.abs(prob(s) * 1000 - Math.round(prob(s) * 1000)) < 1e-9 ? "=" : "≈";
   const maxWays = Math.max(...WAYS);
 
   return (
@@ -33,7 +34,7 @@ export default function Lesson() {
             {SUMS.map((s) => (
               // The name was the concatenated children — "3/36 4" — with the
               // trailing number never identified as the dice sum.
-              <button key={s} type="button" onClick={() => setHighlight(s)} aria-label={`Sum ${s}: ${WAYS[s - 2]} of 36 ways`} aria-pressed={s === highlight} className="flex flex-col items-center gap-1">
+              <button key={s} type="button" onClick={() => setHighlight(s)} aria-label={`Sum ${s}: ${WAYS[s - 2]} favorable ${WAYS[s - 2] === 1 ? "way" : "ways"} out of 36 total ways`} aria-pressed={s === highlight} className="flex flex-col items-center gap-1">
                 <span className="text-[10px] font-mono text-[var(--ink-faint)]">{WAYS[s - 2]}/36</span>
                 <div className="w-6 rounded-t" style={{ height: Math.round((WAYS[s - 2] / maxWays) * 110), background: s === highlight ? ACCENT : "color-mix(in srgb, var(--band-high) 40%, transparent)" }} />
                 <span className="text-xs font-bold" style={{ color: s === highlight ? ACCENT : "var(--ink-soft)" }}>{s}</span>
@@ -42,7 +43,7 @@ export default function Lesson() {
           </div>
 
           <div className="rounded-2xl border-2 px-6 py-2 text-center font-mono" style={{ borderColor: ACCENT }}>
-            P(sum = {highlight}) = {WAYS[highlight - 2]}/36 = <strong style={{ color: ACCENT }}>{r2(prob(highlight))}</strong>
+            P(sum = {highlight}) = {WAYS[highlight - 2]}/36 {relation(highlight)} <strong style={{ color: ACCENT }}>{r2(prob(highlight))}</strong>{relation(highlight) === "≈" ? " (nearest thousandth)" : ""}
           </div>
           <p className="m-0 text-xs text-[var(--ink-faint)]">All probabilities sum to 1 (36/36). Tap a bar.</p>
         </div>

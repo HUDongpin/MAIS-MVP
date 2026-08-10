@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { questionAnswerMatches } from "./answerMatching";
+import { parseScalarAnswer, questionAnswerMatches } from "./answerMatching";
 
 const shortAnswerQuestion = (answer: string) => ({
   answer,
@@ -100,4 +100,68 @@ test("multiple-choice grading accepts rendered TeX unit option values", () => {
     }, "\\(20\\,\\text{cm}^{2}\\)"),
     true
   );
+});
+
+test("strict unit grading accepts bare or compatible units and rejects the same number in a different unit", () => {
+  const strictQuestion = (answer: string, acceptedAnswers: string[]) => ({
+    id: "ccss-textbook-practice-v1-unit-contract-test",
+    answer,
+    accepted_answers: acceptedAnswers,
+    options: null,
+    strict_answer_units: true
+  });
+
+  const area = strictQuestion("24", ["24 square units", "24 unit squares"]);
+  assert.equal(questionAnswerMatches(area, "24"), true);
+  assert.equal(questionAnswerMatches(area, "24 square units"), true);
+  assert.equal(questionAnswerMatches(area, "24 unit squares"), true);
+  assert.equal(questionAnswerMatches(area, "24 cm3"), false);
+
+  const volume = strictQuestion("30", ["30 cubic units", "30 unit cubes"]);
+  assert.equal(questionAnswerMatches(volume, "30"), true);
+  assert.equal(questionAnswerMatches(volume, "30 cubic units"), true);
+  assert.equal(questionAnswerMatches(volume, "30 cm2"), false);
+
+  const meters = strictQuestion("3000", ["3,000 meters", "3000 m"]);
+  assert.equal(questionAnswerMatches(meters, "3000"), true);
+  assert.equal(questionAnswerMatches(meters, "3,000 meters"), true);
+  assert.equal(questionAnswerMatches(meters, "3000 km"), false);
+
+  const speed = strictQuestion("2", ["2 mph", "2 miles per hour"]);
+  assert.equal(questionAnswerMatches(speed, "2"), true);
+  assert.equal(questionAnswerMatches(speed, "2 miles per hour"), true);
+  assert.equal(questionAnswerMatches(speed, "2 km/h"), false);
+
+  const minutes = strictQuestion("120", ["120 min", "120 minutes"]);
+  assert.equal(questionAnswerMatches(minutes, "120"), true);
+  assert.equal(questionAnswerMatches(minutes, "120 minutes"), true);
+  assert.equal(questionAnswerMatches(minutes, "120 cm"), false);
+
+  const counters = strictQuestion("5", ["5 counters"]);
+  assert.equal(questionAnswerMatches(counters, "5 counter"), true);
+  assert.equal(questionAnswerMatches(counters, "5 cubes"), false);
+
+  const vertices = strictQuestion("3", ["3 corners", "3 vertices"]);
+  assert.equal(questionAnswerMatches(vertices, "3 vertex"), true);
+  assert.equal(questionAnswerMatches(vertices, "3 sides"), false);
+
+  const quarterInchIntervals = strictQuestion("4", ["4 quarter-inch intervals", "4 intervals"]);
+  assert.equal(questionAnswerMatches(quarterInchIntervals, "4 quarter-inch intervals"), true);
+  assert.equal(questionAnswerMatches(quarterInchIntervals, "4 inches"), false);
+
+  const unitless = strictQuestion("6", []);
+  assert.equal(questionAnswerMatches(unitless, "6"), true);
+  assert.equal(questionAnswerMatches(unitless, "6 degrees"), false);
+  assert.equal(questionAnswerMatches(unitless, "6 dollars"), false);
+});
+
+test("scalar parsing recognizes supported compound units without conflating their keys", () => {
+  assert.equal(parseScalarAnswer("1.5 cups per hour"), 1.5);
+  assert.equal(parseScalarAnswer("30 m/s"), 30);
+  assert.equal(parseScalarAnswer("108 km/h"), 108);
+  assert.equal(parseScalarAnswer("24 square units"), 24);
+  assert.equal(parseScalarAnswer("30 cubic units"), 30);
+  assert.equal(parseScalarAnswer("−$0.50"), -0.5);
+  assert.equal(parseScalarAnswer("3 vertices"), 3);
+  assert.equal(parseScalarAnswer("4 quarter-inch intervals"), 4);
 });

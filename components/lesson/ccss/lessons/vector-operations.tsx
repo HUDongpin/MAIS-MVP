@@ -13,6 +13,15 @@ const RES = "var(--band-middle)";
 
 type Op = "add" | "sub" | "scale";
 
+function integerText(value: number) {
+  return value < 0 ? "−" + Math.abs(value) : String(value);
+}
+
+function signedOperand(value: number) {
+  const text = integerText(value);
+  return value < 0 ? "(" + text + ")" : text;
+}
+
 export default function Lesson() {
   const [u, setU] = useState({ x: 3, y: 1 });
   const [v, setV] = useState({ x: -1, y: 3 });
@@ -23,6 +32,21 @@ export default function Lesson() {
     op === "add" ? { x: u.x + v.x, y: u.y + v.y } :
     op === "sub" ? { x: u.x - v.x, y: u.y - v.y } :
     { x: k * u.x, y: k * u.y };
+  const uIsZero = u.x === 0 && u.y === 0;
+  const resIsZero = res.x === 0 && res.y === 0;
+  const scaleEffect = uIsZero
+    ? "keeps the zero vector at the origin; its length remains 0 and it has no direction"
+    : k > 1
+      ? "produces a longer arrow in the same direction"
+      : k === 1
+        ? "leaves the vector unchanged"
+        : k === 0
+          ? "produces the zero vector with length 0 and no direction"
+          : k > 0
+            ? "produces a shorter arrow in the same direction"
+            : Math.abs(k) === 1
+              ? "produces an equal-length arrow in the opposite direction"
+              : "produces a longer arrow in the opposite direction";
 
   // Grow the grid to whatever the result needs. Components run ±6 and k runs
   // ±3, so `res` reaches ⟨18, 18⟩ — well outside a fixed R = 6 grid — and the
@@ -39,15 +63,16 @@ export default function Lesson() {
       <p>
         Vectors combine <strong>component by component</strong>. To add, line them
         up <strong>tip to tail</strong>{" "}— the sum runs from the first tail to the
-        last tip. Scaling by k stretches the arrow and keeps (or reverses) its
-        direction.
+        last tip. For a nonzero vector, scaling by k multiplies its length by |k|
+        and keeps or reverses its direction according to the sign of k. The zero
+        vector stays at the origin, has length 0, and has no direction.
       </p>
 
       <Figure caption="Add tip-to-tail, subtract by adding the opposite, or scale by a number.">
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-2">
             {(["add", "sub", "scale"] as Op[]).map((o) => (
-              <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: U, color: "white", borderColor: U } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+              <button key={o} type="button" onClick={() => setOp(o)} aria-label={o === "add" ? "Add vectors" : o === "sub" ? "Subtract vectors" : "Scale vector u"} aria-pressed={op === o} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: U, color: "white", borderColor: U } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>
                 {o === "add" ? "u + v" : o === "sub" ? "u − v" : `${k}·u`}
               </button>
             ))}
@@ -70,8 +95,12 @@ export default function Lesson() {
                 <marker key={i} id={`arr${i}`} markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill={c} /></marker>
               ))}
             </defs>
-            {/* u from origin */}
-            <line x1={sx(0)} y1={sy(0)} x2={sx(u.x)} y2={sy(u.y)} stroke={U} strokeWidth={3} markerEnd="url(#arr0)" />
+            {/* A zero vector is a point, not an arrow with an invented direction. */}
+            {uIsZero ? (
+              <circle cx={sx(0)} cy={sy(0)} r={5} fill={U} />
+            ) : (
+              <line x1={sx(0)} y1={sy(0)} x2={sx(u.x)} y2={sy(u.y)} stroke={U} strokeWidth={3} markerEnd="url(#arr0)" />
+            )}
             {/* From u's tip to the result IS the vector being added: +v for add,
                 −v for subtract. Sub mode used to draw +v from the origin at full
                 strength and again faded, so the caption's "adding the opposite"
@@ -83,7 +112,11 @@ export default function Lesson() {
               <line x1={sx(0)} y1={sy(0)} x2={sx(v.x)} y2={sy(v.y)} stroke={V} strokeWidth={2} markerEnd="url(#arr1)" opacity={0.5} />
             )}
             {/* result */}
-            <line x1={sx(0)} y1={sy(0)} x2={sx(res.x)} y2={sy(res.y)} stroke={RES} strokeWidth={3.5} markerEnd="url(#arr2)" />
+            {resIsZero ? (
+              <circle cx={sx(0)} cy={sy(0)} r={7} fill={RES} fillOpacity={0.75} />
+            ) : (
+              <line x1={sx(0)} y1={sy(0)} x2={sx(res.x)} y2={sy(res.y)} stroke={RES} strokeWidth={3.5} markerEnd="url(#arr2)" />
+            )}
           </svg>
 
           <div className="flex flex-wrap justify-center gap-4 font-mono text-lg">
@@ -93,30 +126,45 @@ export default function Lesson() {
             <span className="font-black" style={{ color: RES }}>= ⟨{res.x}, {res.y}⟩</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-5">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
             <Stepper label="u x" value={u.x} onChange={(x) => setU({ ...u, x })} />
             <Stepper label="u y" value={u.y} onChange={(y) => setU({ ...u, y })} />
-            <Stepper label="v x" value={v.x} onChange={(x) => setV({ ...v, x })} />
-            <Stepper label="v y" value={v.y} onChange={(y) => setV({ ...v, y })} />
-            <Stepper label="k" value={k} min={-3} max={3} onChange={setK} />
+            {op !== "scale" && <Stepper label="v x" value={v.x} onChange={(x) => setV({ ...v, x })} />}
+            {op !== "scale" && <Stepper label="v y" value={v.y} onChange={(y) => setV({ ...v, y })} />}
+            {op === "scale" && <Stepper label="k" value={k} min={-3} max={3} onChange={setK} />}
           </div>
         </div>
       </Figure>
 
-      <h2>Add the pieces, scale the whole</h2>
-      <p>
-        u + v = ⟨{u.x}+{v.x}, {u.y}+{v.y}⟩ = ⟨{u.x + v.x}, {u.y + v.y}⟩. Subtracting
-        is adding the opposite. Multiplying by a <strong>scalar</strong>{" "}k
-        multiplies both components — k = {k} makes {k > 1 ? "a longer arrow in the same direction" : k === 1 ? "no change at all" : k === 0 ? "the zero vector, a single point" : k > 0 ? "a shorter arrow in the same direction" : k < 0 ? "a flipped, reversed arrow" : "the zero vector"}.
-      </p>
+      <h2>{op === "add" ? "Add component by component" : op === "sub" ? "Subtract by adding the opposite" : "Scale every component"}</h2>
+      {op === "add" ? (
+        <p>
+          u + v = ⟨{integerText(u.x)} + {signedOperand(v.x)}, {integerText(u.y)} +{" "}
+          {signedOperand(v.y)}⟩ = ⟨{integerText(res.x)}, {integerText(res.y)}⟩.
+          Each result component is the sum of the matching components.
+        </p>
+      ) : op === "sub" ? (
+        <p>
+          u − v = ⟨{integerText(u.x)} − {signedOperand(v.x)}, {integerText(u.y)} −{" "}
+          {signedOperand(v.y)}⟩ = ⟨{integerText(res.x)}, {integerText(res.y)}⟩.
+          Subtracting v is the same as adding its opposite, −v.
+        </p>
+      ) : (
+        <p>
+          {integerText(k)}·u = {integerText(k)}·⟨{integerText(u.x)}, {integerText(u.y)}⟩ ={" "}
+          ⟨{integerText(res.x)}, {integerText(res.y)}⟩. Multiplying by a{" "}
+          <strong>scalar</strong>{" "}k multiplies both components; k = {k} {scaleEffect}.
+        </p>
+      )}
 
       <MathCheck>
         <p>
           Vectors <strong>add and subtract componentwise</strong>, visualized
           tip-to-tail or as a parallelogram (N-VM.4). Multiplying a vector by a{" "}
           <strong>scalar</strong>{" "}k scales each component, changing magnitude by
-          |k| and reversing direction when k &lt; 0 (N-VM.5). These operations
-          make vectors an algebraic system, not just arrows.
+          a factor of |k|; a nonzero vector reverses direction when k &lt; 0
+          (N-VM.5). A zero vector stays zero under every scalar and has no direction.
+          These operations make vectors an algebraic system, not just arrows.
         </p>
       </MathCheck>
     </div>
@@ -128,9 +176,9 @@ function Stepper({ label, value, min = -6, max = 6, onChange }: { label: string;
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
       <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => onChange(Math.max(min, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
+        <button type="button" onClick={() => onChange(Math.max(min, value - 1))} disabled={value <= min} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums">{value}</span>
-        <button type="button" onClick={() => onChange(Math.min(max, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => onChange(Math.min(max, value + 1))} disabled={value >= max} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>
       </div>
     </div>
   );
