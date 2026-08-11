@@ -4,6 +4,7 @@ import { join } from "node:path";
 import test from "node:test";
 
 const userStorePath = join(process.cwd(), "lib/server/userStore.ts");
+const resolverPath = join(process.cwd(), "app/api/ai-tutor/resolve/route.ts");
 
 test("Nova Postgres admission uses a narrow policy read and atomic per-user rate ledger", async () => {
   const source = await readFile(userStorePath, "utf8");
@@ -74,4 +75,45 @@ test("Nova Postgres policy read is authoritative and transaction-bounded", async
   assert.match(functionSource, /AS teacher_class_items\(teacher_class_record\)/);
   assert.match(functionSource, /AS policy_items\(policy_record\)/);
   assert.doesNotMatch(functionSource, /FROM projection_/);
+});
+
+test("Nova Postgres token quota uses a bounded abortable aggregate before snapshot fallback", async () => {
+  const source = await readFile(userStorePath, "utf8");
+  const start = source.indexOf("async function getAITutorTokenUsageSinceFromPostgresHotPath");
+  const end = source.indexOf("\nasync function readAiTutorRateLimitEventsFromPostgresHotPath", start + 1);
+
+  assert.ok(start >= 0, "expected a dedicated Nova Postgres token-usage function");
+  assert.ok(end > start, "expected a bounded dedicated token-usage function body");
+  const functionSource = source.slice(start, end);
+
+  assert.match(source, /aiTutorQuotaLookupTimeoutMs - 250/);
+  assert.match(functionSource, /payload->'ai_tutor_usage'/);
+  assert.match(functionSource, /jsonb_array_elements/);
+  assert.match(functionSource, /usage_record->'total_tokens'/);
+  assert.match(functionSource, /usage_record->'prompt_tokens'/);
+  assert.match(functionSource, /usage_record->'completion_tokens'/);
+  assert.match(functionSource, /set_config\('statement_timeout'/);
+  assert.match(functionSource, /query\.cancel\(\)/);
+  assert.match(functionSource, /signal\?\.addEventListener\("abort"/);
+  assert.match(functionSource, /signal\?\.removeEventListener\("abort"/);
+  assert.doesNotMatch(functionSource, /readDatabase\(/);
+  assert.doesNotMatch(functionSource, /selectPostgresStateRows\(/);
+  assert.doesNotMatch(functionSource, /normalizeDatabase\(/);
+  assert.doesNotMatch(functionSource, /FOR UPDATE/);
+  assert.doesNotMatch(functionSource, /mutateDatabase\(/);
+  assert.match(
+    source,
+    /getAITutorTokenUsageSinceBeforeSnapshot:\s*getAITutorTokenUsageSinceFromPostgresHotPath/
+  );
+});
+
+test("Nova quota soft timeout aborts the pending Postgres lookup", async () => {
+  const source = await readFile(resolverPath, "utf8");
+
+  assert.match(source, /async function withSoftTimeout<T>\([\s\S]*?new AbortController\(\)/);
+  assert.match(source, /timeoutController\.abort\(new DOMException\("Operation timed out\.", "TimeoutError"\)\)/);
+  assert.match(
+    source,
+    /\(signal\) => getAITutorTokenUsageSince\(authenticatedUserId, quotaSince, signal\)/
+  );
 });

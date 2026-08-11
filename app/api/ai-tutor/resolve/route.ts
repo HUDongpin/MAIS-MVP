@@ -445,22 +445,33 @@ function redactedErrorKind(error: unknown) {
   return typeof error;
 }
 
-async function withSoftTimeout<T>(operation: () => Promise<T>, timeoutMs: number) {
+async function withSoftTimeout<T>(
+  operation: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number,
+  parentSignal?: AbortSignal
+) {
   let timeout: ReturnType<typeof setTimeout> | undefined;
+  const timeoutController = new AbortController();
+  const abortFromParent = () => timeoutController.abort(parentSignal?.reason);
+  if (parentSignal?.aborted) abortFromParent();
+  else parentSignal?.addEventListener("abort", abortFromParent, { once: true });
   try {
     return await Promise.race([
-      operation().then(
+      operation(timeoutController.signal).then(
         (value) => ({ ok: true as const, value }),
         (error: unknown) => ({ ok: false as const, error, timedOut: false as const })
       ),
       new Promise<{ ok: false; error: Error; timedOut: true }>((resolve) => {
         timeout = setTimeout(() => {
-          resolve({ ok: false, error: new Error("operation-timeout"), timedOut: true });
+          const error = new DOMException("Operation timed out.", "TimeoutError");
+          resolve({ ok: false, error, timedOut: true });
+          timeoutController.abort(new DOMException("Operation timed out.", "TimeoutError"));
         }, timeoutMs);
       })
     ]);
   } finally {
     if (timeout) clearTimeout(timeout);
+    parentSignal?.removeEventListener("abort", abortFromParent);
   }
 }
 
@@ -2206,8 +2217,9 @@ async function handleAITutorPost(
     3_000
   );
   const quotaLookup = await withSoftTimeout(
-    () => getAITutorTokenUsageSince(authenticatedUserId, quotaSince),
-    quotaLookupTimeoutMs
+    (signal) => getAITutorTokenUsageSince(authenticatedUserId, quotaSince, signal),
+    quotaLookupTimeoutMs,
+    requestSignal
   );
   if (quotaLookup.ok) {
     quotaUsed = quotaLookup.value;
@@ -2445,7 +2457,7 @@ async function handleAITutorPost(
       page,
       dataScopes: resolvedContextHints.dataScopes,
       targetStudentId: resolvedContextHints.targetStudentId
-    }), databaseContextTimeoutMs);
+    }), databaseContextTimeoutMs, requestSignal);
   if (databaseContextLookup.ok) {
     databaseContext = databaseContextLookup.value;
   } else {

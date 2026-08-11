@@ -346,6 +346,16 @@ export type AITutorDatabaseContextOptions = {
   targetStudentId?: string;
 };
 
+export function hasRequestedAITutorDatabaseContext(context?: AITutorDatabaseContextOptions) {
+  return Boolean(
+    context?.dataScopes?.length
+    || context?.topicId?.trim()
+    || context?.questionId?.trim()
+    || context?.lessonSlug?.trim()
+    || context?.targetStudentId?.trim()
+  );
+}
+
 export type AITutorDatabaseContextResult = {
   text: string;
   deterministicSummary: string | null;
@@ -855,6 +865,11 @@ export type AiGovernancePersistenceStoreDependencies = {
     userId: string;
     now: Date;
   }) => AiCapabilityRateLimitDecision | undefined | Promise<AiCapabilityRateLimitDecision | undefined>;
+  getAITutorTokenUsageSinceBeforeSnapshot?: (
+    userId: string,
+    sinceIso: string,
+    signal?: AbortSignal
+  ) => number | undefined | Promise<number | undefined>;
   readAiTutorRateLimitEventsAfterSnapshot?: (input: {
     now: Date;
     windowMs: number;
@@ -1774,6 +1789,7 @@ export function createAiGovernancePersistenceStore({
   },
   resolveStudentAiTutorPolicyBeforeSnapshot,
   consumeAiCapabilityRateLimitBeforeSnapshot,
+  getAITutorTokenUsageSinceBeforeSnapshot,
   readAiTutorRateLimitEventsAfterSnapshot,
   readDatabase
 }: AiGovernancePersistenceStoreDependencies) {
@@ -1787,6 +1803,9 @@ export function createAiGovernancePersistenceStore({
       userId: string,
       context?: AITutorDatabaseContextOptions
     ): Promise<AITutorDatabaseContextResult> {
+      if (!hasRequestedAITutorDatabaseContext(context)) {
+        return aiTutorDatabaseContextResult({ lines: [], subjectUserId: userId });
+      }
       const database = await readDatabase();
       return aiTutorDatabaseContextFromDatabase(database, userId, context);
     },
@@ -1843,7 +1862,10 @@ export function createAiGovernancePersistenceStore({
       });
     },
 
-    async getAITutorTokenUsageSince(userId: string, sinceIso: string) {
+    async getAITutorTokenUsageSince(userId: string, sinceIso: string, signal?: AbortSignal) {
+      const preSnapshotUsage = await getAITutorTokenUsageSinceBeforeSnapshot?.(userId, sinceIso, signal);
+      if (preSnapshotUsage !== undefined) return preSnapshotUsage;
+
       const database = await readDatabase();
       return database.ai_tutor_usage
         .filter((usage) => usage.user_id === userId && usage.created_at >= sinceIso)
