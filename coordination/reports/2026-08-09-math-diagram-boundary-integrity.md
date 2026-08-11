@@ -3,7 +3,8 @@
 - Audit window: 2026-08-09 to 2026-08-11
 - Owner lane: A11 QA, coordinating A04 Practice, A05 Lessons, A06 Visualization Lab, A18 curriculum QA, A22 release engineering, and A25 release intake
 - Initial audit baseline / PR #120 merge: `3f8f12c4d3fd2efe938d1b07cab6289315f108dd`
-- Pre-release integration baseline / merge-base with the last fetched `origin/main`: `c69a949cf22b03372ac475af6b0366604b896638`
+- Final local integration baseline / last fetched `origin/main`: `20c8fb983e7f4f6d39b9bbb09f58c64887f2e72b`
+- Verified code/test commit: `9c2379d902c72ed766c1a86daff9e7830f302dd9` (tree `c43afec4419d1fb70f6682294f90e11f8de350b8`)
 - Working branch: `codex/a11-diagram-boundary-integrity`
 
 This report records local source, build, and rendered-browser evidence. It does not claim GitHub merge, deployment, or live-production verification; those states must be established separately.
@@ -75,7 +76,7 @@ Reported route: `/student/lessons/us-ca-math-s4-chapter-01`, lesson `precise-def
 - Its endpoint radius is `39.99998585` for the declared radius `40`; the ray cross product is approximately `-9.1e-13`.
 - The arc is butt-capped and paints before both defining rays, so its stroke cannot visually protrude past either ray.
 - This slice preserves that repair, makes it a semantic source/browser contract, and audits related endpoint, paint, frame, annotation, responsiveness, and interaction failures rather than treating the screenshot as an isolated pixel fix.
-- The rebuilt route passed at `phone-320` and `desktop-1440` for `precise-definitions`, `constructions`, and every exposed diagram state.
+- The rebuilt route passed at `phone-320` and `desktop-1440` for `precise-definitions`, `constructions`, and every exposed diagram state in final monitored Run 59 (`1/1`, 4.8m).
 
 ## Confirmed repair classes
 
@@ -83,68 +84,66 @@ Reported route: `/student/lessons/us-ca-math-s4-chapter-01`, lesson `precise-def
 | --- | --- | --- | --- |
 | Semantic angle / paint overrun | Precise Definitions, congruence, right-triangle, unit-circle, sector/fraction angles, Worked Examples, Practice figures, configured labs | Exact ray/arc geometry, two-arc full turns, machine-readable contracts, actual path sampling, butt caps, paint-order assertions | 16/16 source contracts; Run 39 4/4; Run 35 original-route pass |
 | Construction-arc clipping | Perpendicular-bisector construction | Exact compass arcs terminate at the in-frame intersections instead of clipped full circles | Source contract and Run 35 |
-| Shared mobile clipping and page min-content | CCSS `Figure`/`FigureScroll`, fixed HTML/SVG lessons, Practice shell, navigation | Removed blanket clipping; bounded reachable scrolling; `min-w-0` and responsive reflow | 393/393 source/component suite; earlier Runs 34, 35, 38 |
+| Shared mobile clipping and page min-content | CCSS `Figure`/`FigureScroll`, fixed HTML/SVG lessons, Practice shell, navigation | Removed blanket clipping; bounded reachable scrolling; `min-w-0` and responsive reflow | 394/394 source/component suite; earlier Runs 34, 35, 38 |
 | SVG/viewBox gutters | Place value, area/perimeter, mass/volume, clocks, circles, triangles, prisms, proof canvases | Expanded/dynamic frames, inset axes/labels, painted-stroke gutters | Enumerated source regressions |
 | Honest plot geometry | Functions, residuals, systems, inequalities, conics, slope explorer | Raw mathematical geometry plus plot-scoped clips or edge indicators; no false plateaus | Source regressions and Run 40 |
-| Static/dynamic annotation layout | Elementary exact scenes, coordinate/probability/statistics/trig labels, proof readouts | Dedicated lanes, footprint-aware anchors, wrapping, de-duplication, coincident-label grouping | 393/393 and targeted rendered evidence |
+| Static/dynamic annotation layout | Elementary exact scenes, coordinate/probability/statistics/trig labels, proof readouts | Dedicated lanes, footprint-aware anchors, wrapping, de-duplication, coincident-label grouping | 394/394 and targeted rendered evidence |
 | Four-quadrant endpoints and self-reflection | Legal coordinates at `±6`, axes, origin, and reflection states | Flip endpoint labels inward; move quadrant labels around text/markers; render a point on the selected axis only once and state that it is unchanged | All 338 point/axis/reflection states, including 26 self-reflections; focused Run 33 and full Run 34 |
 | Euler drag collision | Vertex labels versus O/G/H/N dots and labels | Joint candidate placement around all vertex halos, center dots, and previously placed labels | Exact replays through C=`(480,150)`, `(243.5,328)`, and `(414,310)`, plus more than 2,000 reachable source states; earlier Run 38 |
 | Practice figures and handwriting | Graphs, ten-frames, counting cards, stored mistakes, resized handwriting | Unique plot clips, responsive frames, durable stored-figure context, logical-size stroke rescaling | Focused tests and Run 38 |
-| Canvas requested-paint overflow | Counting, Comparing, Canvas-backed labs | Transform/DPR-aware pre-paint probe, analytic Bézier extrema, compositor classification, explicit blank policy | 393/393 and earlier Run 39 |
+| Canvas requested-paint overflow | Counting, Comparing, Canvas-backed labs | Transform/DPR-aware pre-paint probe, analytic Bézier extrema, compositor classification, explicit blank policy | 394/394 and earlier Run 39 |
 | SVG painted effects | Marker/filter/mask diagrams | Actual local marker and filter bounds; unsupported effects fail closed | Synthetic and rendered gates |
-| WebGL projection and formula/label collision | Effective 3D contract; Advanced Functions at 226×127 and threshold-adjacent widths | Live projection of every supported renderable; final text-footprint bounds; formula panel retries progressively narrower widths and keeps the widest safe scrollable panel on both sides of the 480px threshold | Run 31's captured coordinates reproduce the 113×53.34 collision and resolve to a 90.4×53.34 top-right helper placement; 480/481/500px helpers stay safe. In final6 live Run 32 the label had already reflowed, so the widest safe live panel remained 113×53.328 at top-left; that separate rendered result also passed. |
+| WebGL projection and formula/label collision | Effective 3D contract; Advanced Functions at 226×127 and threshold-adjacent widths | Live projection of every supported renderable; final rendered text-footprint bounds; joint search across formula width, corner, and 12/8/4px edge inset; the DOM consumes the exact diagnostic `x/y/w/h`; the scrollable formula and both required projected labels remain visible | Run 31 preserves the original 113×53.34 primary-label collision; Run 44 preserves the real `family-probe` collision; Run 51 preserves the real 0.30-width residual collision. Current source replays resolve Run 31's three captured states to the widest safe width/inset pairs 113px/8px, 101.7px/4px, and 113px/8px; Run 44 resolves to 67.8px/top-left/12px and Run 51 to 79.1px/bottom-right/4px with explicit minimum gaps. Final monitored Run 52 validates the live DOM rectangles, diagnostics, three protected states, visible `active f(x)` and `(x,f(x))`, and zero overlap. |
 | Degenerate/off-grid geometry | Triangle/Euler and coordinate transformations | Minimum-area/finite-center gates; preserve raw coordinates and disclose continuation | Exhaustive helper regressions |
 
 ## Local source and build gates
 
 | Gate | Result and immutable evidence |
 | --- | --- |
-| Consolidated changed-area suite | PASS, 393/393; `.tmp/a11-preintegration-20260811-r4/unit/changed-area/result.status.log`; 2026-08-11 05:19:30Z–05:19:35Z; recorded source diff `c735266ddc5d23a0b99ec2c27eb0d9a261601f88099a7382f043b6050c50e611` |
-| TypeScript strict check | PASS; `.tmp/a11-preintegration-20260811-r4/unit/typecheck/result.status.log`; 2026-08-11 05:19:27Z–05:19:57Z, exit 0; same recorded source diff |
-| Inventory | PASS, counts above and zero failures; `.tmp/a11-preintegration-20260811-r4/unit/inventory/result.status.log`; 2026-08-11 05:19:20Z–05:19:23Z, exit 0; same recorded source diff |
-| Production build | PASS, Next.js 15.5.20, 236/236 pages; `.tmp/a11-preintegration-20260811-r4/build/result.status.log`; 2026-08-11 05:20:18Z–05:21:31Z, exit 0; same recorded source diff |
-| `git diff --check` | PASS on the pre-integration slice; must be repeated after integration and final evidence edits |
+| Source identity | Clean worktree at code/test commit `9c2379d902c72ed766c1a86daff9e7830f302dd9`, tree `c43afec4419d1fb70f6682294f90e11f8de350b8`, with `origin/main` `20c8fb983e7f4f6d39b9bbb09f58c64887f2e72b` as an ancestor; `.tmp/a11-final9-20260811/source-identity.status.log` |
+| Consolidated changed-area suite | PASS, 394/394; `.tmp/a11-final9-20260811/unit/changed-area/result.status.log`; 2026-08-11 06:27:36Z–06:27:40Z, exit 0; exact HEAD/tree recorded in the log |
+| TypeScript strict check | PASS; `.tmp/a11-final9-20260811/unit/typecheck/result.status.log`; 2026-08-11 06:27:40Z–06:28:07Z, exit 0; same exact HEAD/tree |
+| Inventory | PASS, counts above and zero failures; `.tmp/a11-final9-20260811/unit/inventory/result.status.log`; 2026-08-11 06:28:07Z–06:28:10Z, exit 0; same exact HEAD/tree |
+| Production build | PASS, Next.js 15.5.20, 236/236 pages; `.tmp/a11-final9-20260811/build/result.status.log`; 2026-08-11 06:28:55Z–06:30:02Z, exit 0; same exact HEAD/tree |
+| `git diff --check` | PASS on the code/test slice; repeated after the documentation-only evidence update before commit |
 
 The build-generated `next-env.d.ts`, `tsconfig.json`, and `tsconfig.next.json` drift was restored; none is part of this slice.
 
-These pre-integration checks cover the current implementation, regression, and inventory content. The evidence prose itself was refreshed afterward; a new exact-commit gate remains required after integrating the latest `origin/main`.
+These gates cover the exact implementation, regression, and inventory tree used by the final rendered audit. This report was refreshed afterward as a documentation-only change; it does not alter the verified product or test tree.
 
-## Earlier targeted rendered evidence (not the final integration gate)
+## Final continuously monitored Starship rendered evidence
 
-The earlier targeted E2E used this named root:
+The final E2E root is:
 
-`/Volumes/Starship/MAIS-diagram-boundary-wt/.tmp/final6`
+`/Volumes/Starship/MAIS-diagram-boundary-wt/.tmp/a11-final9-20260811`
 
-Controllable paths were explicitly bound beneath it:
-
-- runtime temp: `.tmp/final6/tmp`
-- Node/npm/XDG caches: `.tmp/final6/cache`
-- Playwright browser cache: `.tmp/final6/ms-playwright`
-- production build: `.tmp/final6/build-next`
-- service log: `.tmp/final6/service/service.status.log`
-- test database: `.tmp/final6/db/hk-math-db.sqlite`
-- output/report/trace/screenshots: `.tmp/final6/playwright/<run-name>`
-
-Run 32 additionally captured the actual target process while it was live. The Playwright API resolved `.tmp/final6/ms-playwright/chromium-1217/.../Google Chrome for Testing`, while the launched process was `.tmp/final6/ms-playwright/chromium_headless_shell-1217/.../chrome-headless-shell` with `--user-data-dir=.tmp/final6/tmp/playwright_chromiumdev_profile-EmtTOP`; both actual paths were beneath Starship. Runs 33–40 bound all controllable paths to `final6` and checked for non-Starship profiles before and after each command, but did not continuously capture the browser process while it was alive. They therefore remain useful product evidence but cannot serve as the final Starship-only release gate. The post-integration wrapper must monitor every run while it executes, record the actual executable and `--user-data-dir`, and fail if any browser profile or controllable artifact leaves its named Starship root. npm/npx defaults, `/var/folders/...` profiles, system-volume caches, or artifacts outside that root cannot count green.
+All final9 evidence stayed on `/Volumes/Starship`. Every accepted E2E target browser/profile and logged E2E temp, cache, browser, build, database, output, report, trace, screenshot, and service-log path was beneath the named final9 root; the source/type/inventory wrappers and build wrapper used the disclosed Starship-resident sibling TMPDIRs `.tmp/f9t` and `.tmp/f9b`. The wrapper continuously sampled live process arguments, required the target browser executable and `--user-data-dir` beneath final9, rejected any `playwright_chromiumdev_profile-*` outside `/Volumes/Starship`, and failed closed on an unobserved or lingering target profile. From Run 54c onward, the Playwright Node 24.14.0 controller itself was also copied beneath final9 and launched with `--no-concurrent-sparkplug` after two preserved Node/V8 shutdown deadlocks; this changes runner scheduling only, not product or browser assertions.
 
 | Run | Result | Scope |
 | --- | --- | --- |
-| `32-webgl-projection-focused-final6` | INTERMEDIATE PASS, 1/1, 3.1m | Focused Advanced Functions WebGL projection and narrow formula/label states; includes live Starship process capture |
-| `33-four-quadrant-endpoints-final6` | INTERMEDIATE PASS, 1/1, 11.1s | Focused endpoint/axis/origin/self-reflection replay |
-| `34-ccss-exceptional-final6` | INTERMEDIATE PASS, 1/1, 46.9s | Random, metric cross-product, context menu, modifier, click grid, drag grid |
-| `35-original-route-final6` | INTERMEDIATE PASS, 1/1, 5.7m | Original S4 route at phone/desktop across exposed states |
-| `37-california-hydration-reproduction-final6` | INTERMEDIATE PASS, 1/1, 7.4s | Exact California standalone route reproduction after Run 36 |
-| `38-standalone-full-reproduction-final6` | INTERMEDIATE PASS, 1/1, 15.3s | Complete four-route standalone matrix |
-| `39-core-angle-and-canvas-final6` | INTERMEDIATE PASS, 4/4, 4.7s | Reported angle, all semantic angles, body clipping, Canvas probe |
-| `40-visualization-fallback-final6` | INTERMEDIATE PASS, 1/1, 59.7s | Functions and original S4 visualization surfaces |
+| `52-advanced-functions-webgl-final9` | PASS, 1/1, 2.4m | Focused Advanced Functions live WebGL projection; Run 31/44/51 formula and both visible projected-label states; exact diagnostic/DOM geometry |
+| `53-core-angle-canvas-final9` | PASS, 4/4, 3.8s | Reported angle, all semantic angle contracts, body clipping, Canvas 2D probe |
+| `54c-ccss-exceptional-final9` | PASS, 1/1, 44.7s | Random, metric cross-product, context menu, modifier, click grid, and drag grid exceptional states |
+| `55-standalone-full-final9` | PASS, 1/1, 14.7s | Complete four-route standalone image/SVG/stored-figure/Euler matrix |
+| `56-practice-smoke-final9` | PASS, 1/1, 12.5s | Practice figures, counting cards, and resized handwriting |
+| `57b-public-assets-final9` | PASS, 1/1, 6.8s | Public SVG and live raster asset containment with the correct `public-asset` surface |
+| `58-visualization-fallback-final9` | PASS, 1/1, 1.0m | Functions and original S4 configured Visualization Lab fallback, control extremes, and modes |
+| `59-original-s4-lesson-final9` | PASS, 1/1, 4.8m | Reported `us-ca-math-s4-chapter-01` lesson route at phone/desktop across every exposed diagram state |
 
-These are targeted rendered gates, not a claim that every Cartesian combination of 490 lessons, 689 labs, five widths, three languages, and two themes was opened in a browser. Exhaustive breadth comes from the source inventory and finite-state regressions; browser depth concentrates on the reported route, confirmed failures, rendering engines, standalone surfaces, exceptional controls, and phone/desktop endpoints.
+The final accepted set comprises eight commands and 11 Playwright tests. Every accepted row recorded `observed_target_browser=1`, `outside_starship_profile=0`, `lingering_target_profile=0`, `process_audit_failed=0`, `playwright_exit_code=0`, and final `exit_code=0`. Concurrent browsers from other tasks appeared during some runs, but their profiles were also beneath `/Volumes/Starship`, were recorded as `target=0`, and were never terminated or counted as this task's target.
+
+These are targeted rendered gates, not a claim that every Cartesian combination of 490 lessons, 689 labs, five widths, three languages, and two themes was opened in a browser. Exhaustive breadth comes from the source inventory and finite-state regressions; browser depth concentrates on the reported route, confirmed failures, rendering engines, standalone surfaces, exceptional controls, and phone/desktop endpoints. Run 52 is deliberately a focused Advanced Functions WebGL gate, not a claim that all 78 effective WebGL labs were browser-opened in that run.
 
 ## Preserved red and excluded evidence
 
 - **Run 31 (final5) — real product failure.** On an Advanced Functions 226×127 canvas, the original 113×53.34 formula panel collided with the visible primary label `active f(x)` in three reachable states. All four normal corners collided. This result remains red and motivated the adaptive-width fix; it was not overwritten.
+- **Run 44 (final7) — real product failure.** The active scene legitimately rendered both `active f(x)` and the moving `family-probe` label `(x,f(x))`; the narrowest then-available 79.1×53.3px panel at the 12px bottom-left placement still overlapped the probe by approximately 6.28×12.56 CSS pixels. This established that projected-label collision must include every active binding, not only the primary label.
+- **Run 51 (final8) — real product failure.** Adding a 67.8×53.3px width alone was insufficient at the former 12px bottom-left placement in another reachable 226×127 state: the formula and moving probe still overlapped by approximately 1.30×10.23 CSS pixels. This motivated the joint width/corner/edge-inset search and exact diagnostic-to-DOM coordinate contract; the red result remains preserved.
 - **Run 36 (`36-standalone-full-final6`) — real runtime finding, not a diagram-boundary failure.** The California middle-school textbook route emitted one React production hydration recovery error #418. The route still returned 200, rendered all 15 lesson/image assertions, and its final diagram audit had `issues=[]`. Trace timing places the error about 9 ms after DOM content loaded and before test style/audit mutations or the app language effect.
 - The same final6 build/browser/canvas probe produced no hydration diagnostic in a three-navigation instrumented probe; exact uninstrumented Run 37 and the complete Run 38 also passed. Because instrumentation changes timing, these results do not erase Run 36. The honest classification is a genuine, timing-sensitive one-off hydration recovery signal with no deterministic owner established; no allowlist, suppression, or speculative product change was added.
+- **Run 50 (final8) — rejected environment evidence.** A concurrent browser created a system-temporary Playwright profile; the fail-closed wrapper returned 78. Its assertions cannot count green even if product checks completed.
+- **Runs 54 and 54b (final9) — runner shutdown failures, not accepted green.** Both printed `1 passed` and closed the target browser, then Node 24.15.0 deadlocked while joining a V8 concurrent-baseline worker during process shutdown. They were precisely terminated with exit 143 and preserved. Run 54c used the Starship-local Node 24.14.0 runner with concurrent Sparkplug disabled and completed the same product scope naturally with exit 0.
+- **Run 57 (final9) — rejected skipped scope.** It requested `lesson,practice,visualization`, so the `public-asset` test skipped and no target browser was observed; the wrapper returned 78. Run 57b used the correct `public-asset` surface and is the accepted 1/1 result.
 - **Pre-integration r2 build attempt — harness/process-isolation failure, not product evidence.** `.tmp/a11-preintegration-20260811-r2/build/result.status.log` exited 1 because this task's existing final6 `next-server` PID 64791 was still active. After that exact owned service was stopped, the same recorded source diff built successfully in the new r3 root. The failed attempt remains preserved and is not rewritten as green.
 - Earlier runs `06`, `07`, `09`, and `10` exposed stale Mistake fixtures, the Euler drag-label collision, and four-quadrant collisions. Their red artifacts remain evidence.
 - Old final3 runs `17`–`23` were functionally green but used a repository-root/default temporary TypeScript path outside their declared named run root. They are excluded from accepted release evidence. Earlier npm/npx/default-temp and non-Starship browser-profile attempts are likewise excluded.
@@ -159,9 +158,9 @@ These are targeted rendered gates, not a claim that every Cartesian combination 
 
 | State | Status at this report snapshot |
 | --- | --- |
-| Local inventory/source/unit/type evidence | Pre-integration green, 393/393 and zero inventory/type failures |
-| Clean custom-dist production build | Green, 236/236 pages |
-| Targeted Starship-only browser evidence | Earlier targeted runs passed and Run 36 remains disclosed; final continuously monitored post-integration gate pending |
+| Local inventory/source/unit/type evidence | Final exact code/test tree green, 394/394 and zero inventory/type failures |
+| Clean custom-dist production build | Final exact code/test tree green, 236/236 pages |
+| Targeted Starship-only browser evidence | Final continuously monitored Runs 52, 53, 54c, 55, 56, 57b, 58, and 59 green; preserved red/invalid runs remain disclosed |
 | Exhaustive every-route browser Cartesian matrix | Not claimed |
 | GitHub branch/PR/CI/main | Pending at this local-evidence snapshot |
 | Vercel deployment | Not requested and not performed |
