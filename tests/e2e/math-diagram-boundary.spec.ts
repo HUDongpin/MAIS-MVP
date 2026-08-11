@@ -253,6 +253,25 @@ function selectedIds<T>(values: T[], idFor: (value: T) => string) {
   return values.filter((value) => requestedIds.has(idFor(value)));
 }
 
+function assertRequestedIdsSelected<T>(
+  values: T[],
+  idFor: (value: T) => string,
+  suiteName: string,
+  eligibleValues: T[]
+) {
+  if (!requestedIds.size) return;
+  const eligible = new Set(eligibleValues.map(idFor));
+  const expectedInSuite = Array.from(requestedIds).filter((id) => eligible.has(id));
+  if (!expectedInSuite.length) return;
+  const selected = new Set(values.map(idFor));
+  const missing = expectedInSuite.filter((id) => !selected.has(id));
+  if (missing.length) {
+    throw new Error(
+      `MATH_DIAGRAM_AUDIT_IDS did not select a candidate in ${suiteName}: ${missing.join(", ")}`
+    );
+  }
+}
+
 function validateRequestedIds(inventory: DiagramInventory) {
   if (requestedIdValidationComplete || (requestedIds.size === 0 && requestedCcssLessonIds.size === 0)) return;
   const knownIds = new Set<string>();
@@ -1051,6 +1070,7 @@ test.describe("mathematical diagram boundary integrity", () => {
     const candidates = selectedIds(fullAudit || requestedIds.size > 0
       ? inventory.lessonRoutes
       : inventory.lessonRoutes.filter((route) => smokeTopicIds.has(route.topicId)), (route) => route.topicId);
+    assertRequestedIdsSelected(candidates, (route) => route.topicId, "lesson route audit", inventory.lessonRoutes);
     const routes = selectedShard(candidates);
     test.skip(routes.length === 0, "lesson audit shard has no selected route");
 
@@ -1398,12 +1418,14 @@ test.describe("mathematical diagram boundary integrity", () => {
       "us-ca-k5-knowledge-point-practice-v1-us-ca-math-k-k-nbt-teen-numbers-q01",
       specialCases[0].id
     ]);
+    const allPracticeCases = [...structuredCases, ...specialCases];
     const candidates = selectedIds(
       fullAudit || requestedIds.size > 0
-        ? [...structuredCases, ...specialCases]
-        : [...structuredCases, ...specialCases].filter((item) => smokeIds.has(item.id)),
+        ? allPracticeCases
+        : allPracticeCases.filter((item) => smokeIds.has(item.id)),
       (item) => item.id
     );
+    assertRequestedIdsSelected(candidates, (item) => item.id, "Practice figure audit", allPracticeCases);
     const practiceCases = selectedShard(candidates);
     test.skip(practiceCases.length === 0, "practice audit shard has no selected case");
 
@@ -1541,10 +1563,15 @@ test.describe("mathematical diagram boundary integrity", () => {
     )).sort();
     const svgCandidates = fullAudit || requestedIds.size > 0 ? inventory.publicSvgAssets : inventory.publicSvgAssets.slice(0, 3);
     const rasterCandidates = fullAudit || requestedIds.size > 0 ? uniqueRasterPaths : uniqueRasterPaths.slice(0, 3);
+    const eligibleAssets = [
+      ...inventory.publicSvgAssets.map((asset) => ({ kind: "svg" as const, path: asset.publicPath })),
+      ...uniqueRasterPaths.map((assetPath) => ({ kind: "raster" as const, path: assetPath }))
+    ];
     const assetCandidates = selectedIds([
       ...svgCandidates.map((asset) => ({ kind: "svg" as const, path: asset.publicPath })),
       ...rasterCandidates.map((assetPath) => ({ kind: "raster" as const, path: assetPath }))
     ], (asset) => asset.path);
+    assertRequestedIdsSelected(assetCandidates, (asset) => asset.path, "public asset audit", eligibleAssets);
     const assets = selectedShard(assetCandidates);
     test.skip(assets.length === 0, "public asset audit shard has no selected asset");
 
@@ -1605,6 +1632,12 @@ test.describe("mathematical diagram boundary integrity", () => {
     const candidates = selectedIds(fullAudit || requestedIds.size > 0
       ? inventory.visualizationLabs
       : inventory.visualizationLabs.filter((lab) => smokeLabIds.has(lab.labId)), (lab) => lab.labId);
+    assertRequestedIdsSelected(
+      candidates,
+      (lab) => lab.labId,
+      "Visualization Lab audit",
+      inventory.visualizationLabs
+    );
     const labs = selectedShard(candidates);
     test.skip(labs.length === 0, "visualization audit shard has no selected lab");
 
@@ -1911,6 +1944,7 @@ test.describe("mathematical diagram boundary integrity", () => {
       ? effectiveThreeD
       : effectiveThreeD.filter((lab) => smokeThreeDIds.has(lab.labId));
     const candidates = selectedIds(candidatePool, (lab) => lab.labId);
+    assertRequestedIdsSelected(candidates, (lab) => lab.labId, "effective WebGL audit", effectiveThreeD);
     const labs = selectedShard(candidates);
     test.skip(labs.length === 0, "actual WebGL audit shard has no selected effective 3D lab");
 
@@ -1975,7 +2009,9 @@ test.describe("mathematical diagram boundary integrity", () => {
           language: matrix.language,
           theme: matrix.theme
         };
+        const auditedWebglStates = new Set<string>();
         const auditWebglState = async (state: string) => {
+          auditedWebglStates.add(state);
           await disableDiagramAuditMotion(page);
           for (const viewport of auditViewports) {
             await page.setViewportSize({ width: viewport.width, height: viewport.height });
@@ -2039,10 +2075,11 @@ test.describe("mathematical diagram boundary integrity", () => {
               if (typeof hook !== "function") throw new Error("WebGL boundary snapshot hook is unavailable");
               return hook();
             });
-            const [formulaSafeAreaStatus, formulaPlacement, formulaSafeAreaSummary] = await Promise.all([
+            const [formulaSafeAreaStatus, formulaPlacement, formulaSafeAreaSummary, formulaViewportSource] = await Promise.all([
               actualSurface.getAttribute("data-viz-manim-formula-safe-area-status"),
               actualSurface.getAttribute("data-viz-manim-formula-placement"),
-              actualSurface.getAttribute("data-viz-manim-formula-safe-area-summary")
+              actualSurface.getAttribute("data-viz-manim-formula-safe-area-summary"),
+              actualSurface.getAttribute("data-viz-manim-formula-viewport-source")
             ]);
             const formulaDomGeometry = await actualSurface.evaluate((surface) => {
               const formula = surface.querySelector<HTMLElement>("[data-viz-manim-formula-overlay]");
@@ -2060,6 +2097,19 @@ test.describe("mathematical diagram boundary integrity", () => {
                 x: box.x,
                 y: box.y
               });
+              const isRendered = (element: HTMLElement, box: DOMRect) => {
+                const style = getComputedStyle(element);
+                const checkVisibility = (element as HTMLElement & {
+                  checkVisibility?: (options?: { checkOpacity?: boolean; checkVisibilityCSS?: boolean }) => boolean;
+                }).checkVisibility;
+                return box.width > 0 && box.height > 0 && element.getClientRects().length > 0 &&
+                  style.display !== "none" && style.visibility !== "hidden" && style.visibility !== "collapse" &&
+                  Number.parseFloat(style.opacity || "1") > 0 &&
+                  (typeof checkVisibility !== "function" || checkVisibility.call(element, {
+                    checkOpacity: true,
+                    checkVisibilityCSS: true
+                  }));
+              };
               const collisions = formulaRect ? labels.flatMap((label) => {
                 const labelRect = label.getBoundingClientRect();
                 const overlapWidth = Math.min(formulaRect.right, labelRect.right) - Math.max(formulaRect.left, labelRect.left);
@@ -2076,6 +2126,21 @@ test.describe("mathematical diagram boundary integrity", () => {
               return {
                 collisions,
                 formulaRect: formulaRect ? rect(formulaRect) : null,
+                formulaId: formula?.getAttribute("data-viz-manim-formula-id") ?? null,
+                formulaRendered: formula && formulaRect ? isRendered(formula, formulaRect) : false,
+                formulaText: formula?.textContent?.trim() ?? "",
+                formulaTokenCount: formula?.getAttribute("data-viz-manim-token-count") ?? null,
+                visibleLabels: labels.map((label) => {
+                  const labelRect = label.getBoundingClientRect();
+                  return {
+                    id: label.getAttribute("data-viz-manim-projected-label") ?? "unknown",
+                    objectId: label.getAttribute("data-viz-manim-projected-object-id") ?? "unknown",
+                    rect: rect(labelRect),
+                    rendered: isRendered(label, labelRect),
+                    text: label.getAttribute("data-viz-manim-projected-label-text") ?? label.textContent?.trim() ?? "",
+                    visible: label.getAttribute("data-viz-manim-projected-visible")
+                  };
+                }),
                 visibleLabelCount: labels.length
               };
             });
@@ -2118,6 +2183,115 @@ test.describe("mathematical diagram boundary integrity", () => {
                 detail: `formula overlay safe-area status is ${formulaSafeAreaStatus ?? "missing"}, expected safe; placement=${formulaPlacement ?? "missing"}; ${formulaSafeAreaSummary ?? "summary missing"}`
               });
             }
+            if (
+              !formulaDomGeometry.formulaRect ||
+              formulaDomGeometry.formulaRect.width <= 0 ||
+              formulaDomGeometry.formulaRect.height <= 0 ||
+              !formulaDomGeometry.formulaRendered
+            ) {
+              projectionIssues.push({
+                kind: "surface-zero-size",
+                surface: `${lab.labId}:formula-layer`,
+                element: "data-viz-manim-formula-overlay",
+                overflowPx: 0,
+                surfaceRect: canvasRect,
+                elementRect: formulaDomGeometry.formulaRect ?? { height: 0, width: 0, x: 0, y: 0 },
+                detail: "formula overlay must remain rendered and non-zero while collision avoidance is active"
+              });
+            }
+            for (const hiddenLabel of formulaDomGeometry.visibleLabels.filter((label) =>
+              !label.rendered || label.rect.width <= 0 || label.rect.height <= 0
+            )) {
+              projectionIssues.push({
+                kind: "surface-zero-size",
+                surface: `${lab.labId}:projected-label-layer`,
+                element: hiddenLabel.id,
+                overflowPx: 0,
+                surfaceRect: canvasRect,
+                elementRect: hiddenLabel.rect,
+                detail: "a projected label marked visible must remain computed-visible with a non-zero rendered rectangle"
+              });
+            }
+            if (formulaViewportSource !== "measured") {
+              projectionIssues.push({
+                kind: "canvas-2d-audit-incomplete",
+                surface: `${lab.labId}:formula-layer`,
+                element: "data-viz-manim-formula-viewport-source",
+                overflowPx: 0,
+                surfaceRect: canvasRect,
+                elementRect: formulaDomGeometry.formulaRect ?? canvasRect,
+                detail: `formula collision layout used ${formulaViewportSource ?? "missing"} viewport dimensions instead of the measured canvas`
+              });
+            }
+            const requiresRun31PrimaryLabel = lab.labId === "advanced-functions"
+              && viewport.name === "phone-320"
+              && [
+                "actual-webgl/all-ranges=min;mode=default",
+                "actual-webgl/all-ranges=default;mode=2",
+                "actual-webgl/all-ranges=default;mode=3"
+              ].includes(state);
+            if (requiresRun31PrimaryLabel) {
+              const primaryLabel = formulaDomGeometry.visibleLabels.find(
+                (label) => label.id === "label:primary-family-curve"
+              );
+              if (
+                formulaDomGeometry.formulaId !== "family-formula" ||
+                !primaryLabel ||
+                primaryLabel.objectId !== "primary-family-curve" ||
+                primaryLabel.text !== "active f(x)" ||
+                primaryLabel.visible !== "true" ||
+                !primaryLabel.rendered ||
+                primaryLabel.rect.width <= 0 ||
+                primaryLabel.rect.height <= 0
+              ) {
+                projectionIssues.push({
+                  kind: "label-mark-collision",
+                  surface: `${lab.labId}:formula-layer`,
+                  element: "label:primary-family-curve",
+                  overflowPx: 0,
+                  surfaceRect: formulaDomGeometry.formulaRect ?? canvasRect,
+                  elementRect: projectedRect,
+                  detail: "Run 31 regression must keep family-formula and its visible active f(x) projected label; hiding either cannot satisfy the boundary gate"
+                });
+              }
+              if (Math.abs(canvasMetrics.cssWidth - 226) > 1 || Math.abs(canvasMetrics.cssHeight - 127.125) > 1) {
+                projectionIssues.push({
+                  kind: "canvas-2d-audit-incomplete",
+                  surface: `${lab.labId}:run-31-viewport`,
+                  element: "canvas",
+                  overflowPx: 0,
+                  surfaceRect: canvasRect,
+                  elementRect: projectedRect,
+                  detail: `Run 31 phone regression expected the captured 226×127.125 CSS-pixel canvas, received ${canvasMetrics.cssWidth.toFixed(3)}×${canvasMetrics.cssHeight.toFixed(3)}`
+                });
+              }
+              const formulaRect = formulaDomGeometry.formulaRect;
+              const allowedWidths = [113, 101.7, 90.4, 79.1];
+              const summaryBox = formulaSafeAreaSummary?.match(
+                /box=x=[^,;]+,y=[^,;]+,w=([0-9.]+),h=([0-9.]+)/u
+              );
+              const summaryWidth = Number(summaryBox?.[1]);
+              const summaryHeight = Number(summaryBox?.[2]);
+              const formulaShapeIsValid = Boolean(formulaRect) &&
+                allowedWidths.some((width) => Math.abs(formulaRect!.width - width) <= 1) &&
+                Math.abs(formulaRect!.height - 53.34) <= 1 &&
+                Number.isFinite(summaryWidth) && Number.isFinite(summaryHeight) &&
+                Math.abs(formulaRect!.width - summaryWidth) <= 1 &&
+                Math.abs(formulaRect!.height - summaryHeight) <= 1 &&
+                formulaDomGeometry.formulaTokenCount === "3" &&
+                formulaDomGeometry.formulaText.length > 0;
+              if (!formulaShapeIsValid) {
+                projectionIssues.push({
+                  kind: "canvas-2d-audit-incomplete",
+                  surface: `${lab.labId}:run-31-formula-shape`,
+                  element: "family-formula",
+                  overflowPx: 0,
+                  surfaceRect: canvasRect,
+                  elementRect: formulaRect ?? projectedRect,
+                  detail: `Run 31 formula must retain 3 rendered tokens and a measured 113/101.7/90.4/79.1×53.34 panel matching diagnostics; rect=${JSON.stringify(formulaRect)}, tokens=${formulaDomGeometry.formulaTokenCount ?? "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
+                });
+              }
+            }
             for (const collision of formulaDomGeometry.collisions) {
               projectionIssues.push({
                 kind: "label-mark-collision",
@@ -2153,6 +2327,7 @@ test.describe("mathematical diagram boundary integrity", () => {
               formulaSafeAreaStatus,
               formulaPlacement,
               formulaSafeAreaSummary,
+              formulaViewportSource,
               formulaDomGeometry,
               domBoundaryCoverage: domBoundary.coverage,
               projection,
@@ -2168,6 +2343,11 @@ test.describe("mathematical diagram boundary integrity", () => {
         const exercisesControlStates = fullAudit || (matrix.language === "en" && matrix.theme === "light");
         if (exercisesControlStates) {
           const defaultRangeValues = await captureRangeInputValues(page, activePanelSelector);
+          const requiresRun31StateRoster = lab.labId === "advanced-functions" &&
+            matrix.language === "en" && matrix.theme === "light";
+          if (requiresRun31StateRoster) {
+            expect(defaultRangeValues.length, "Run 31 regression requires the Advanced Functions range controls").toBeGreaterThan(0);
+          }
           const rangeTargets = ["min", "q1", "mid", "q3", "max"] as const;
           let rangeCount = defaultRangeValues.length;
           for (const target of rangeTargets) {
@@ -2179,11 +2359,26 @@ test.describe("mathematical diagram boundary integrity", () => {
 
           const modeButtons = activePanel.locator("[data-viz-mode-button]");
           const modeCount = await modeButtons.count();
+          if (requiresRun31StateRoster) {
+            expect(modeCount, "Run 31 regression requires default plus modes 1, 2, and 3").toBeGreaterThanOrEqual(4);
+          }
           for (let modeIndex = 1; modeIndex < modeCount; modeIndex += 1) {
             await restoreRangeInputValues(page, defaultRangeValues, activePanelSelector);
             await modeButtons.nth(modeIndex).evaluate((button: HTMLButtonElement) => button.click());
             await expect(modeButtons.nth(modeIndex)).toHaveAttribute("data-viz-mode-active", "true");
             await auditWebglState(`actual-webgl/all-ranges=default;mode=${modeIndex}`);
+          }
+          if (requiresRun31StateRoster) {
+            for (const requiredState of [
+              "actual-webgl/all-ranges=min;mode=default",
+              "actual-webgl/all-ranges=default;mode=2",
+              "actual-webgl/all-ranges=default;mode=3"
+            ]) {
+              expect(
+                auditedWebglStates.has(requiredState),
+                `Run 31 regression state was not audited: ${requiredState}`
+              ).toBe(true);
+            }
           }
         }
 
@@ -2231,10 +2426,13 @@ test.describe("mathematical diagram boundary integrity", () => {
     const { inventory, failures: inventoryFailures } = await buildMathDiagramInventory();
     expect(inventoryFailures).toEqual([]);
     validateRequestedIds(inventory);
+    const eligibleStandaloneRoutes = inventory.standaloneDiagramRoutes
+      .filter((route) => requested(route.surfaceType));
     const candidates = selectedIds(
-      inventory.standaloneDiagramRoutes.filter((route) => requested(route.surfaceType)),
+      eligibleStandaloneRoutes,
       (route) => route.id
     );
+    assertRequestedIdsSelected(candidates, (route) => route.id, "standalone route audit", eligibleStandaloneRoutes);
     const routes = selectedShard(candidates);
     test.skip(routes.length === 0, "standalone diagram audit shard has no selected route");
 
@@ -2282,6 +2480,16 @@ test.describe("mathematical diagram boundary integrity", () => {
             const attemptBody = await attempt.json() as { correct?: boolean; error?: string };
             expect(attempt.status(), JSON.stringify(attemptBody)).toBe(200);
             expect(attemptBody.correct).toBe(false);
+            const mistakes = await page.request.get("/api/mistakes");
+            const mistakesBody = await mistakes.json() as {
+              mistakes?: Array<{ questionId?: string }>;
+              error?: string;
+            };
+            expect(mistakes.status(), JSON.stringify(mistakesBody)).toBe(200);
+            expect(
+              mistakesBody.mistakes?.some((mistake) => mistake.questionId === "graph-p4-angles-straight-line"),
+              "the seeded wrong attempt must be durable before the Mistake Book route is audited"
+            ).toBe(true);
           }
 
           await page.goto(standalone.route, { waitUntil: "domcontentloaded", timeout: 90_000 });
@@ -2339,7 +2547,10 @@ test.describe("mathematical diagram boundary integrity", () => {
             const storedQuestion = page.locator('article[data-question-id="graph-p4-angles-straight-line"]');
             await expect(storedQuestion).toBeVisible({ timeout: 30_000 });
             await expect(storedQuestion.locator('[data-question-figure][data-diagram-kind="plane-figure"]')).toBeVisible();
-            await expect(storedQuestion.locator("[data-diagram-angle-arc]")).toHaveCount(2);
+            // One arc identifies the 130° angle and the adjacent unknown uses
+            // a double-arc convention, so the exact stored figure has three
+            // independently auditable arc paths.
+            await expect(storedQuestion.locator("[data-diagram-angle-arc]")).toHaveCount(3);
           } else {
             await expect(page.locator('[data-stembench-svg-demo="euler-line-nine-point-circle"]')).toBeVisible();
             await expect(page.locator('svg[data-stembench-svg="advanced-geometry-euler-line"]')).toBeVisible();
@@ -2468,9 +2679,28 @@ test.describe("mathematical diagram boundary integrity", () => {
       expect(route, `parent lesson route must exist for exceptional CCSS lesson ${lessonId}`).toBeDefined();
       return { lessonId, sourceRow: sourceRow!, topicId, route: route!.route };
     });
-    const requestedExceptions = requestedIds.size
-      ? allExceptions.filter((entry) => requestedIds.has(entry.topicId))
+    const requestedExceptions = requestedIds.size || requestedCcssLessonIds.size
+      ? allExceptions.filter((entry) =>
+          (requestedIds.size === 0 || requestedIds.has(entry.topicId)) &&
+          (requestedCcssLessonIds.size === 0 || requestedCcssLessonIds.has(entry.lessonId))
+        )
       : allExceptions;
+    assertRequestedIdsSelected(
+      requestedExceptions,
+      (entry) => entry.topicId,
+      "exceptional CCSS audit",
+      allExceptions
+    );
+    if (requestedCcssLessonIds.size) {
+      const selectedLessonIds = new Set<string>(requestedExceptions.map((entry) => entry.lessonId));
+      const missingLessonIds = Array.from(requestedCcssLessonIds)
+        .filter((lessonId) => !selectedLessonIds.has(lessonId));
+      if (missingLessonIds.length) {
+        throw new Error(
+          `MATH_DIAGRAM_AUDIT_CCSS_LESSON_IDS did not select an exceptional CCSS candidate: ${missingLessonIds.join(", ")}`
+        );
+      }
+    }
     const exceptions = selectedShard(requestedExceptions);
     test.skip(exceptions.length === 0, "exceptional CCSS audit shard has no selected lesson");
 
@@ -2601,12 +2831,10 @@ test.describe("mathematical diagram boundary integrity", () => {
                 }
               }
             }
-          } else if (exceptional.lessonId === "coordinate-plane" || exceptional.lessonId === "four-quadrant-plane") {
+          } else if (exceptional.lessonId === "coordinate-plane") {
             await resetCcssLessonState({ page, route: exceptional.route, lessonId: exceptional.lessonId, ...matrix });
             const svg = root.locator("svg[role='img']").first();
-            const points = exceptional.lessonId === "coordinate-plane"
-              ? [{ x: 64, y: 64 }, { x: 304, y: 304 }]
-              : [{ x: 50, y: 50 }, { x: 290, y: 290 }];
+            const points = [{ x: 64, y: 64 }, { x: 304, y: 304 }];
             for (const [pointIndex, point] of points.entries()) {
               await svg.scrollIntoViewIfNeeded();
               const beforeLabel = await svg.getAttribute("aria-label");
@@ -2621,6 +2849,81 @@ test.describe("mathematical diagram boundary integrity", () => {
               await expect.poll(() => svg.getAttribute("aria-label")).not.toBe(beforeLabel);
               await auditState(`exception/click-grid-inset=${pointIndex + 1}`);
             }
+          } else if (exceptional.lessonId === "four-quadrant-plane") {
+            await resetCcssLessonState({ page, route: exceptional.route, lessonId: exceptional.lessonId, ...matrix });
+            const svg = root.locator("svg[role='img']").first();
+            const reflectedPoint = svg.locator("[data-diagram-reflected-point]");
+            const clickSvgPoint = async ({
+              expectedCoordinate,
+              expectedSelfReflection,
+              point,
+              state,
+            }: {
+              expectedCoordinate: { x: number; y: number };
+              expectedSelfReflection: boolean;
+              point: { x: number; y: number };
+              state: string;
+            }) => {
+              await svg.scrollIntoViewIfNeeded();
+              const beforeLabel = await svg.getAttribute("aria-label");
+              const screenPoint = await svg.evaluate((element: SVGSVGElement, target) => {
+                const svgPoint = element.createSVGPoint();
+                svgPoint.x = target.x;
+                svgPoint.y = target.y;
+                const transformed = svgPoint.matrixTransform(element.getScreenCTM()!);
+                return { x: transformed.x, y: transformed.y };
+              }, point);
+              await page.mouse.click(screenPoint.x, screenPoint.y);
+              await expect.poll(() => svg.getAttribute("aria-label")).not.toBe(beforeLabel);
+              const coordinateText = `(${expectedCoordinate.x}, ${expectedCoordinate.y})`;
+              await expect(svg.locator("[data-diagram-main-point-label]")).toHaveText(coordinateText);
+              await expect(svg).toHaveAttribute("aria-label", new RegExp(`^Point at \\(${expectedCoordinate.x}, ${expectedCoordinate.y}\\)`));
+              await expect(svg).toHaveAttribute(
+                "data-diagram-self-reflection",
+                expectedSelfReflection ? "true" : "false",
+              );
+              await expect(reflectedPoint).toHaveCount(expectedSelfReflection ? 0 : 1);
+              await auditState(state);
+            };
+
+            // Exact grid endpoints exercise inward anchors/baselines rather than
+            // only the previously tested one-cell-inset corner states.
+            await clickSvgPoint({
+              expectedCoordinate: { x: -6, y: 6 },
+              expectedSelfReflection: false,
+              point: { x: 26, y: 26 },
+              state: "exception/four-quadrant-endpoint=(-6,6)",
+            });
+            await clickSvgPoint({
+              expectedCoordinate: { x: 6, y: -6 },
+              expectedSelfReflection: false,
+              point: { x: 314, y: 314 },
+              state: "exception/four-quadrant-endpoint=(6,-6)",
+            });
+            await clickSvgPoint({
+              expectedCoordinate: { x: 0, y: 6 },
+              expectedSelfReflection: true,
+              point: { x: 170, y: 26 },
+              state: "exception/four-quadrant-y-axis-self-reflection=(0,6)",
+            });
+
+            await root.getByRole("button", { name: "x-axis", exact: true }).click();
+            await expect(svg).toHaveAttribute("data-diagram-self-reflection", "false");
+            await expect(reflectedPoint).toHaveCount(1);
+            await auditState("exception/four-quadrant-axis-switch=(0,6)-across-x");
+
+            await clickSvgPoint({
+              expectedCoordinate: { x: 6, y: 0 },
+              expectedSelfReflection: true,
+              point: { x: 314, y: 170 },
+              state: "exception/four-quadrant-x-axis-self-reflection=(6,0)",
+            });
+            const decreaseX = root.getByRole("button", { name: "Decrease x", exact: true });
+            for (let step = 0; step < 6; step += 1) await decreaseX.click();
+            await expect(svg).toHaveAttribute("aria-label", /Point at \(0, 0\) at the origin/iu);
+            await expect(svg).toHaveAttribute("data-diagram-self-reflection", "true");
+            await expect(reflectedPoint).toHaveCount(0);
+            await auditState("exception/four-quadrant-origin-self-reflection=(0,0)");
           } else {
             await resetCcssLessonState({ page, route: exceptional.route, lessonId: exceptional.lessonId, ...matrix });
             const svg = root.locator("svg[role='img']").first();

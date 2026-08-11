@@ -1,5 +1,6 @@
 #!/usr/bin/env -S npx tsx
 
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -297,7 +298,9 @@ function standaloneDiagramRoutes() {
       id: "mistake-book-question-figure",
       route: "/mistake-book",
       surfaceType: "practice" as const,
-      publisher: "US_CA_MATH" as TextbookPublisher,
+      // The stored figure used by this audit belongs to the legacy HK question
+      // catalog, so the audit identity must use an HK curriculum profile.
+      publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY" as TextbookPublisher,
       interaction: "stored-question-figure" as const
     },
     {
@@ -406,9 +409,26 @@ export async function buildMathDiagramInventory() {
   const sourceSurfaces = sourceSurfaceInventory();
   const publicSvgs = publicSvgAssets(assetReferences);
   const standaloneRoutes = standaloneDiagramRoutes();
+  const discoveredRowDigestSha256 = createHash("sha256").update(JSON.stringify({
+    assetReferences,
+    ccssRows,
+    labRows,
+    practiceRows,
+    publicSvgs,
+    routeRows,
+    signatureBenchRows,
+    sourceSurfaces,
+    standaloneRoutes
+  })).digest("hex");
 
   const inventory = {
-    schemaVersion: 5,
+    schemaVersion: 6,
+    provenance: {
+      contract: "math-diagram-source-graph-v1",
+      discoveredRowDigestSha256,
+      generator: "scripts/audit-math-diagram-inventory.ts",
+      inputRoots: ["app", "components", "data", "public"]
+    },
     lessonRoutes: routeRows,
     ccssLessons: ccssRows,
     practiceFigures: practiceRows,
@@ -471,6 +491,45 @@ export async function buildMathDiagramInventory() {
   };
 
   const failures: string[] = [];
+  const minimumCoverageBaselines = {
+    lessonRouteCount: 490,
+    ccssLessonCount: 270,
+    ccssLessonsWithInlineSvg: 127,
+    ccssInlineSvgCount: 132,
+    ccssButtonModuleCount: 244,
+    ccssButtonJsxCount: 531,
+    ccssRangeModuleCount: 38,
+    ccssRangeJsxCount: 40,
+    practiceFigureCount: 27,
+    visualizationLabCount: 689,
+    configuredVisualizationLabCount: 613,
+    signatureVisualizationRouteCount: 76,
+    declaredThreeDVisualizationLabCount: 90,
+    effectiveThreeDVisualizationLabCount: 78,
+    declaredThreeDSignatureCanvasCount: 12,
+    signatureBenchCount: 192,
+    reachableSignatureBenchCount: 188,
+    liveAssetReferenceCount: 299,
+    uniqueLiveAssetCount: 239,
+    publicSvgCount: 53,
+    sourceSurfaceFileCount: 523,
+    htmlOnlyFigureSourceFileCount: 143,
+    inlineSvgCount: 302,
+    canvasCount: 208,
+    htmlFigureCount: 270,
+    figureScrollCount: 27,
+    semanticAngleMarkCount: 16,
+    mathAngleContractCount: 16,
+    standaloneDiagramRouteCount: 4
+  } as const;
+  for (const [key, minimum] of Object.entries(minimumCoverageBaselines) as Array<
+    [keyof typeof inventory.summary, number]
+  >) {
+    const actual = inventory.summary[key];
+    if (actual < minimum) {
+      failures.push(`inventory coverage ${key} shrank below reviewed baseline ${minimum}: ${actual}`);
+    }
+  }
   const duplicate = (values: string[]) => values.find((value, index) => values.indexOf(value) !== index);
   const duplicateLesson = duplicate(routeRows.map((row) => row.topicId));
   const duplicateCcss = duplicate(ccssRows.map((row) => row.lessonId));

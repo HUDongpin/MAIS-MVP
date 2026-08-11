@@ -1,5 +1,16 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
+  "provenance": {
+    "contract": "math-diagram-source-graph-v1",
+    "discoveredRowDigestSha256": "6448bc51a7a85fa5000cdfa528a30688767ac6db2fae03faa25b03f05a006cd6",
+    "generator": "scripts/audit-math-diagram-inventory.ts",
+    "inputRoots": [
+      "app",
+      "components",
+      "data",
+      "public"
+    ]
+  },
   "lessonRoutes": [
     {
       "topicId": "advanced-functions",
@@ -28001,7 +28012,7 @@
       "id": "mistake-book-question-figure",
       "route": "/mistake-book",
       "surfaceType": "practice",
-      "publisher": "US_CA_MATH",
+      "publisher": "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
       "interaction": "stored-question-figure"
     },
     {

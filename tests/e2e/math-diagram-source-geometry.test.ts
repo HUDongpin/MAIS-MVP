@@ -302,7 +302,11 @@ test("diagram inventory counts product source surfaces without test or fixture m
 test("diagram inventory classifies every CCSS control and its exceptional state policy", async () => {
   const { inventory, failures } = await buildMathDiagramInventory();
   assert.deepEqual(failures, []);
-  assert.equal(inventory.schemaVersion, 5);
+  assert.equal(inventory.schemaVersion, 6);
+  assert.equal(inventory.provenance.contract, "math-diagram-source-graph-v1");
+  assert.equal(inventory.provenance.generator, "scripts/audit-math-diagram-inventory.ts");
+  assert.deepEqual(inventory.provenance.inputRoots, ["app", "components", "data", "public"]);
+  assert.match(inventory.provenance.discoveredRowDigestSha256, /^[a-f0-9]{64}$/u);
   assert.equal(inventory.summary.ccssButtonModuleCount, 244);
   assert.equal(inventory.summary.ccssButtonJsxCount, 531);
   assert.equal(inventory.summary.ccssRangeModuleCount, 38);
@@ -361,6 +365,26 @@ test("ordinary CCSS buttons use a bounded fail-closed replayable state graph", (
   assert.match(boundarySpec, /seeded-random-extremes[\s\S]*svg-pointer-inset-grid[\s\S]*context-menu-and-shift-click[\s\S]*metric-conversion-finite-number-and-unit-cross-product-v1/u);
   assert.doesNotMatch(boundarySpec, /click=2/u);
   assert.doesNotMatch(boundarySpec, /for \(const control of defaultRoster\)/u);
+});
+
+test("requested diagram IDs fail closed only inside suites whose inventory owns them", () => {
+  const boundarySpec = sourceText("tests/e2e/math-diagram-boundary.spec.ts");
+
+  assert.match(
+    boundarySpec,
+    /function assertRequestedIdsSelected<T>\([\s\S]*?eligibleValues: T\[\][\s\S]*?const expectedInSuite = Array\.from\(requestedIds\)\.filter\(\(id\) => eligible\.has\(id\)\)/u
+  );
+  assert.match(
+    boundarySpec,
+    /"Practice figure audit", allPracticeCases/u,
+    "a valid Practice-only ID must not be required to exist in unrelated lesson, lab, or standalone inventories"
+  );
+  assert.match(boundarySpec, /"effective WebGL audit", effectiveThreeD/u);
+  assert.match(boundarySpec, /"standalone route audit", eligibleStandaloneRoutes/u);
+  assert.doesNotMatch(
+    boundarySpec,
+    /const missing = Array\.from\(requestedIds\)\.filter\(\(id\) => !selected\.has\(id\)\)/u
+  );
 });
 
 test("standalone diagram routes and replacement textbook bitmaps remain in the live audit graph", async () => {
@@ -447,7 +471,7 @@ test("interactive geometry rejects collapsed triangles, duplicate points, and in
   assert.match(eulerGeometry, /isCircleInsideDiagramBounds\(N,\s*circumRadius \/ 2/u);
   assert.match(eulerGeometry, /groupCoincidentDiagramPoints\(marks, 24\)/u);
   assert.match(eulerDemo, /buildEulerFields\(triangle\)/u);
-  assert.match(eulerDemo, /buildEulerCenterLayout\(fields\)/u);
+  assert.match(eulerDemo, /buildEulerCenterLayout\(fields, triangle\)/u);
   assert.match(eulerDemo, /canUseTriangle\(candidate\)/u);
   assert.match(eulerDemo, /data-viz-center-label=\{mark\.label\}/u);
 });
