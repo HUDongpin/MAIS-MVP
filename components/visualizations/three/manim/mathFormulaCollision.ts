@@ -166,8 +166,8 @@ export function buildFormulaOverlayCollisionDiagnostics(
   // every canvas before declaring that no safe placement exists. Candidate
   // order preserves the widest safe panel and the familiar top-left preference.
   const maximumWidthRatios = mobileViewport
-    ? [0.5, 0.45, 0.4, 0.35]
-    : [0.78, 0.65, 0.5, 0.45, 0.4, 0.35];
+    ? [0.5, 0.45, 0.4, 0.35, 0.3]
+    : [0.78, 0.65, 0.5, 0.45, 0.4, 0.35, 0.3];
   const candidates = maximumWidthRatios.flatMap((maximumWidthRatio) =>
     placements.map((placement) => {
       const box = formulaOverlayBox(viewport, input.tokenCount, placement, maximumWidthRatio);

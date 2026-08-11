@@ -2234,6 +2234,9 @@ test.describe("mathematical diagram boundary integrity", () => {
               const primaryLabel = formulaDomGeometry.visibleLabels.find(
                 (label) => label.id === "label:primary-family-curve"
               );
+              const movingProbeLabel = formulaDomGeometry.visibleLabels.find(
+                (label) => label.id === "label:family-probe"
+              );
               if (
                 formulaDomGeometry.formulaId !== "family-formula" ||
                 !primaryLabel ||
@@ -2254,6 +2257,25 @@ test.describe("mathematical diagram boundary integrity", () => {
                   detail: "Run 31 regression must keep family-formula and its visible active f(x) projected label; hiding either cannot satisfy the boundary gate"
                 });
               }
+              if (
+                !movingProbeLabel ||
+                movingProbeLabel.objectId !== "family-probe" ||
+                movingProbeLabel.text !== "(x,f(x))" ||
+                movingProbeLabel.visible !== "true" ||
+                !movingProbeLabel.rendered ||
+                movingProbeLabel.rect.width <= 0 ||
+                movingProbeLabel.rect.height <= 0
+              ) {
+                projectionIssues.push({
+                  kind: "label-mark-collision",
+                  surface: `${lab.labId}:formula-layer`,
+                  element: "label:family-probe",
+                  overflowPx: 0,
+                  surfaceRect: formulaDomGeometry.formulaRect ?? canvasRect,
+                  elementRect: projectedRect,
+                  detail: "Run 44 regression must keep the visible (x,f(x)) moving-point label; hiding it cannot satisfy the formula collision gate"
+                });
+              }
               if (Math.abs(canvasMetrics.cssWidth - 226) > 1 || Math.abs(canvasMetrics.cssHeight - 127.125) > 1) {
                 projectionIssues.push({
                   kind: "canvas-2d-audit-incomplete",
@@ -2266,7 +2288,7 @@ test.describe("mathematical diagram boundary integrity", () => {
                 });
               }
               const formulaRect = formulaDomGeometry.formulaRect;
-              const allowedWidths = [113, 101.7, 90.4, 79.1];
+              const allowedWidths = [113, 101.7, 90.4, 79.1, 67.8];
               const summaryBox = formulaSafeAreaSummary?.match(
                 /box=x=[^,;]+,y=[^,;]+,w=([0-9.]+),h=([0-9.]+)/u
               );
@@ -2288,7 +2310,7 @@ test.describe("mathematical diagram boundary integrity", () => {
                   overflowPx: 0,
                   surfaceRect: canvasRect,
                   elementRect: formulaRect ?? projectedRect,
-                  detail: `Run 31 formula must retain 3 rendered tokens and a measured 113/101.7/90.4/79.1×53.34 panel matching diagnostics; rect=${JSON.stringify(formulaRect)}, tokens=${formulaDomGeometry.formulaTokenCount ?? "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
+                  detail: `Run 31 formula must retain 3 rendered tokens and a measured 113/101.7/90.4/79.1/67.8×53.34 panel matching diagnostics; rect=${JSON.stringify(formulaRect)}, tokens=${formulaDomGeometry.formulaTokenCount ?? "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
                 });
               }
             }

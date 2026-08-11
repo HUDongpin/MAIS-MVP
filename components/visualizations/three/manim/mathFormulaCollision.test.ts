@@ -152,6 +152,52 @@ test("narrows the scrollable formula panel when a central label occupies every r
   }
 });
 
+test("keeps the live moving probe and primary family labels clear of the formula on the Run 44 canvas", () => {
+  const viewport = { height: 127, width: 226 };
+  const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+    formulaId: "family-formula",
+    projectedLabels: [
+      {
+        ...projectedLabel,
+        id: "label:primary-family-curve",
+        screen: [218, 50.87],
+        text: "active f(x)"
+      },
+      {
+        ...projectedLabel,
+        id: "label:family-probe",
+        screen: [113.53, 61.87],
+        text: "(x,f(x))"
+      }
+    ],
+    tokenCount: 3,
+    viewport
+  });
+
+  assert.equal(diagnostics.formulaBox.width, 67.8);
+  assert.equal(diagnostics.collisionCount, 0);
+  assert.equal(diagnostics.collisionLabelIds, "none");
+  assert.equal(diagnostics.safeAreaStatus, "safe");
+  assert.equal(diagnostics.overflowEdges, "none");
+  assert.match(diagnostics.summary, /maxWidthRatio=0\.3/);
+  assert.ok(diagnostics.formulaBox.x >= 12);
+  assert.ok(diagnostics.formulaBox.y >= 12);
+  assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - 12);
+  assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - 12);
+
+  for (const label of [
+    { screen: [218, 50.87] as [number, number], text: "active f(x)" },
+    { screen: [113.53, 61.87] as [number, number], text: "(x,f(x))" }
+  ]) {
+    const bounds = buildProjectedLabelPlacement(label.screen, viewport, { text: label.text }).bounds;
+    const overlapWidth = Math.min(diagnostics.formulaBox.x + diagnostics.formulaBox.width, bounds.right) -
+      Math.max(diagnostics.formulaBox.x, bounds.left);
+    const overlapHeight = Math.min(diagnostics.formulaBox.y + diagnostics.formulaBox.height, bounds.bottom) -
+      Math.max(diagnostics.formulaBox.y, bounds.top);
+    assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `${label.text} must not overlap the formula panel`);
+  }
+});
+
 test("keeps formula collision avoidance continuous immediately above the mobile canvas threshold", () => {
   const run31Viewport = { height: 127, width: 226 };
   const run31Screen: [number, number] = [78.03, 51.64];
