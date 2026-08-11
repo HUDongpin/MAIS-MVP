@@ -8,6 +8,21 @@ export type EulerVertexKey = "A" | "B" | "C";
 export type EulerPoint = { x: number; y: number };
 export type EulerTriangle = Record<EulerVertexKey, EulerPoint>;
 
+type EulerLabelBounds = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+};
+
+export type EulerVertexLabelMark = {
+  key: EulerVertexKey;
+  offsetX: number;
+  offsetY: number;
+  textAnchor: "start";
+  estimatedBounds: EulerLabelBounds;
+};
+
 export type EulerFields = {
   area: number;
   circumRadius: number;
@@ -35,6 +50,15 @@ const plotBounds = {
   bottom: eulerPlot.y + eulerPlot.height
 };
 const plotGeometryInset = 14;
+const vertexLabelWidth = 18;
+const vertexLabelAscent = 20;
+const vertexLabelDescent = 5;
+const centerLabelAvoidanceRadius = 8;
+// The visible interaction halo grows to r=20 for the focused/dragged vertex.
+// Reserve that maximum paint radius for every candidate so focus changes do
+// not create a label collision after the layout has already been selected.
+const vertexMarkerAvoidanceRadius = 20;
+const labelToLabelPadding = 2;
 
 export const initialEulerTriangle: EulerTriangle = {
   A: { x: 320, y: 80 },
@@ -200,44 +224,253 @@ export function canUseTriangle(triangle: EulerTriangle) {
     isCircleInsideDiagramBounds(N, circumRadius / 2, plotBounds, plotGeometryInset);
 }
 
-export function buildEulerCenterLayout(fields: Pick<EulerFields, "O" | "G" | "H" | "N">) {
+function vertexLabelCandidate(
+  key: EulerVertexKey,
+  vertex: EulerPoint,
+  candidate: { dx: number; dy: number }
+): EulerVertexLabelMark {
+  const textX = clamp(
+    vertex.x + candidate.dx,
+    plotBounds.left + 4,
+    plotBounds.right - vertexLabelWidth - 4
+  );
+  const textY = clamp(
+    vertex.y + candidate.dy,
+    plotBounds.top + vertexLabelAscent + 4,
+    plotBounds.bottom - vertexLabelDescent - 4
+  );
+
+  return {
+    key,
+    offsetX: textX - vertex.x,
+    offsetY: textY - vertex.y,
+    textAnchor: "start",
+    estimatedBounds: {
+      left: textX,
+      right: textX + vertexLabelWidth,
+      top: textY - vertexLabelAscent,
+      bottom: textY + vertexLabelDescent
+    }
+  };
+}
+
+function pointAvoidanceBounds(point: EulerPoint, radius: number): EulerLabelBounds {
+  return {
+    left: point.x - radius,
+    right: point.x + radius,
+    top: point.y - radius,
+    bottom: point.y + radius
+  };
+}
+
+function labelBoundsClearance(
+  label: EulerLabelBounds,
+  obstacle: EulerLabelBounds,
+  padding: number
+) {
+  const horizontalGap = Math.max(
+    label.left - (obstacle.right + padding),
+    obstacle.left - padding - label.right
+  );
+  const verticalGap = Math.max(
+    label.top - (obstacle.bottom + padding),
+    obstacle.top - padding - label.bottom
+  );
+  if (horizontalGap < 0 && verticalGap < 0) {
+    return -Math.min(-horizontalGap, -verticalGap);
+  }
+  return Math.hypot(Math.max(horizontalGap, 0), Math.max(verticalGap, 0));
+}
+
+export function buildEulerVertexLabelLayout(
+  triangle: EulerTriangle,
+  fields: Pick<EulerFields, "O" | "G" | "H" | "N">
+): Record<EulerVertexKey, EulerVertexLabelMark> {
+  const centers = [fields.O, fields.G, fields.H, fields.N];
+  const centerLabels = buildEulerCenterLayout(fields, triangle).labels;
+  const selectedVertexLabels: EulerVertexLabelMark[] = [];
+  const layout = {} as Record<EulerVertexKey, EulerVertexLabelMark>;
+
+  for (const key of eulerVertexKeys) {
+    const vertex = triangle[key];
+    const leftOffset = key === "C" ? -18 : -15;
+    const preferredOffsets = [
+      { dx: leftOffset, dy: -16 },
+      { dx: 14, dy: -16 },
+      { dx: leftOffset, dy: 28 },
+      { dx: 14, dy: 28 },
+      { dx: -9, dy: -16 },
+      { dx: -30, dy: -6 },
+      { dx: 12, dy: -6 },
+      { dx: -30, dy: 8 },
+      { dx: 12, dy: 8 },
+      { dx: -30, dy: 21 },
+      { dx: 12, dy: 21 },
+      { dx: -9, dy: 31 },
+      { dx: -42, dy: -16 },
+      { dx: 24, dy: -16 },
+      { dx: -42, dy: 31 },
+      { dx: 24, dy: 31 }
+    ];
+    // If several r=20 focus halos and derived-center labels occupy the near
+    // lanes, search two complete bounded rings around the vertex. The first
+    // sixteen offsets preserve the familiar placement whenever it is clear;
+    // the rings prevent the fallback from knowingly returning an overlap.
+    const ringHorizontalOffsets = [-54, -42, -30, -18, -9, 0, 12, 24, 36, 48];
+    const ringVerticalOffsets = [-40, -28, -16, -6, 8, 21, 31, 44, 56];
+    const expandedOffsets = [
+      ...ringHorizontalOffsets.flatMap((dx) => [
+        { dx, dy: -40 },
+        { dx, dy: -28 },
+        { dx, dy: 44 },
+        { dx, dy: 56 }
+      ]),
+      ...ringVerticalOffsets.flatMap((dy) => [
+        { dx: -54, dy },
+        { dx: -42, dy },
+        { dx: 24, dy },
+        { dx: 36, dy },
+        { dx: 48, dy }
+      ])
+    ];
+    const candidates = [...preferredOffsets, ...expandedOffsets]
+      .map((offset) => vertexLabelCandidate(key, vertex, offset));
+    const scored = candidates.map((label) => ({
+      label,
+      clearance: Math.min(
+        ...centers.map((center) =>
+          labelBoundsClearance(
+            label.estimatedBounds,
+            pointAvoidanceBounds(center, centerLabelAvoidanceRadius),
+            0
+          )
+        ),
+        ...eulerVertexKeys.map((vertexKey) =>
+          labelBoundsClearance(
+            label.estimatedBounds,
+            pointAvoidanceBounds(triangle[vertexKey], vertexMarkerAvoidanceRadius),
+            0
+          )
+        ),
+        ...centerLabels.map((centerLabel) =>
+          labelBoundsClearance(label.estimatedBounds, centerLabel.estimatedBounds, labelToLabelPadding)
+        ),
+        ...selectedVertexLabels.map((vertexLabel) =>
+          labelBoundsClearance(label.estimatedBounds, vertexLabel.estimatedBounds, labelToLabelPadding)
+        )
+      )
+    }));
+    const firstClear = scored.find(({ clearance }) => clearance >= 0);
+    const selected = firstClear ?? scored.reduce((best, current) =>
+      current.clearance > best.clearance ? current : best
+    );
+
+    layout[key] = selected.label;
+    selectedVertexLabels.push(selected.label);
+  }
+
+  return layout;
+}
+
+export function buildEulerCenterLayout(
+  fields: Pick<EulerFields, "O" | "G" | "H" | "N">,
+  triangle?: EulerTriangle
+) {
   const marks = [
     { key: "O" as const, point: fields.O, color: "#f1bd3f", vizName: "Euler center point" as const },
     { key: "G" as const, point: fields.G, color: "#f1bd3f", vizName: "Euler center point" as const },
     { key: "H" as const, point: fields.H, color: "#f1bd3f", vizName: "Euler center point" as const },
     { key: "N" as const, point: fields.N, color: "#56f1b0", vizName: "Euler center point" as const }
   ];
-  const offsets = [
+  const preferredOffsets = [
     { dx: 12, dy: 18, anchor: "start" as const },
     { dx: 12, dy: -10, anchor: "start" as const },
     { dx: -12, dy: -10, anchor: "end" as const },
     { dx: -12, dy: 20, anchor: "end" as const }
   ];
+  const candidateDx = [12, 24, 36, 48, 60];
+  const candidateDy = [-46, -34, -22, -10, 6, 18, 30, 42, 54];
+  const expandedOffsets = candidateDx.flatMap((dx) =>
+    candidateDy.flatMap((dy) => [
+      { dx, dy, anchor: "start" as const },
+      { dx: -dx, dy, anchor: "end" as const }
+    ])
+  ).sort((left, right) =>
+    Math.hypot(left.dx, left.dy) - Math.hypot(right.dx, right.dy)
+  );
+  const centerPointObstacles = marks.map((mark) =>
+    pointAvoidanceBounds(mark.point, centerLabelAvoidanceRadius)
+  );
+  const vertexObstacles = triangle
+    ? eulerVertexKeys.map((key) => pointAvoidanceBounds(triangle[key], vertexMarkerAvoidanceRadius))
+    : [];
+  const labels: Array<{
+    color: string;
+    estimatedBounds: EulerLabelBounds;
+    keys: string;
+    label: string;
+    point: EulerPoint;
+    textAnchor: "end" | "start";
+    textX: number;
+    textY: number;
+    vizName: "Euler center label";
+  }> = [];
 
-  const labels = groupCoincidentDiagramPoints(marks, 24).map((group, index) => {
+  for (const [index, group] of groupCoincidentDiagramPoints(marks, 24).entries()) {
     const point = {
       x: group.reduce((sum, mark) => sum + mark.point.x, 0) / group.length,
       y: group.reduce((sum, mark) => sum + mark.point.y, 0) / group.length
     };
     const maximumSeparation = Math.max(...group.map((mark) => distance(mark.point, point)));
     const label = group.map((mark) => mark.key).join(maximumSeparation <= 0.75 ? "=" : "≈");
-    const offset = offsets[index % offsets.length];
     const estimatedWidth = Math.max(16, label.length * 12);
-    const x = offset.anchor === "start"
-      ? clamp(point.x + offset.dx, plotBounds.left + 6, plotBounds.right - estimatedWidth - 6)
-      : clamp(point.x + offset.dx, plotBounds.left + estimatedWidth + 6, plotBounds.right - 6);
+    const preferred = preferredOffsets[index % preferredOffsets.length];
+    const offsets = [
+      preferred,
+      ...preferredOffsets.filter((offset) => offset !== preferred),
+      ...expandedOffsets
+    ];
+    const candidates = offsets.map((offset) => {
+      const textX = offset.anchor === "start"
+        ? clamp(point.x + offset.dx, plotBounds.left + 6, plotBounds.right - estimatedWidth - 6)
+        : clamp(point.x + offset.dx, plotBounds.left + estimatedWidth + 6, plotBounds.right - 6);
+      const textY = clamp(point.y + offset.dy, plotBounds.top + 20, plotBounds.bottom - 8);
+      const estimatedBounds = {
+        left: offset.anchor === "start" ? textX : textX - estimatedWidth,
+        right: offset.anchor === "start" ? textX + estimatedWidth : textX,
+        top: textY - vertexLabelAscent,
+        bottom: textY + vertexLabelDescent
+      };
+      const clearance = Math.min(
+        ...centerPointObstacles.map((obstacle) =>
+          labelBoundsClearance(estimatedBounds, obstacle, 0)
+        ),
+        ...vertexObstacles.map((obstacle) =>
+          labelBoundsClearance(estimatedBounds, obstacle, 0)
+        ),
+        ...labels.map((selectedLabel) =>
+          labelBoundsClearance(estimatedBounds, selectedLabel.estimatedBounds, labelToLabelPadding)
+        )
+      );
+      return { clearance, estimatedBounds, offset, textX, textY };
+    });
+    const firstClear = candidates.find(({ clearance }) => clearance >= 0);
+    const selected = firstClear ?? candidates.reduce((best, current) =>
+      current.clearance > best.clearance ? current : best
+    );
 
-    return {
+    labels.push({
       color: group.some((mark) => mark.key === "N") && group.length === 1 ? "#56f1b0" : "#f1bd3f",
       keys: group.map((mark) => mark.key).join(","),
       label,
       point,
-      textAnchor: offset.anchor,
-      textX: x,
-      textY: clamp(point.y + offset.dy, plotBounds.top + 20, plotBounds.bottom - 8),
+      textAnchor: selected.offset.anchor,
+      textX: selected.textX,
+      textY: selected.textY,
+      estimatedBounds: selected.estimatedBounds,
       vizName: "Euler center label" as const
-    };
-  });
+    });
+  }
 
   return { points: marks, labels };
 }

@@ -3,7 +3,10 @@ import fs from "node:fs";
 import test from "node:test";
 import {
   buildEulerCenterLayout,
+  buildEulerFields,
+  buildEulerVertexLabelLayout,
   canUseTriangle,
+  eulerPlot,
   initialEulerTriangle
 } from "./eulerLineGeometry";
 import {
@@ -172,6 +175,175 @@ test("Euler vertex C can follow the focused drag path without crossing the circl
   });
 
   assert.equal(steps.every((C) => canUseTriangle({ ...initialEulerTriangle, C })), true);
+});
+
+test("Euler vertex labels move away from derived center dots and labels after the focused C drag", () => {
+  const triangle = {
+    ...initialEulerTriangle,
+    C: { x: 480, y: 150 }
+  };
+  const fields = buildEulerFields(triangle);
+  const layout = buildEulerVertexLabelLayout(triangle, fields);
+  const centerPoints = [fields.O, fields.G, fields.H, fields.N];
+  const centerLabels = buildEulerCenterLayout(fields, triangle).labels;
+  const overlaps = (
+    a: { bottom: number; left: number; right: number; top: number },
+    b: { bottom: number; left: number; right: number; top: number },
+    padding = 0
+  ) => a.left < b.right + padding && a.right > b.left - padding &&
+    a.top < b.bottom + padding && a.bottom > b.top - padding;
+
+  assert.ok(layout.A.offsetX > 0, "A label should move to the right when H approaches from the upper-left");
+  for (const label of Object.values(layout)) {
+    for (const center of centerPoints) {
+      const renderedCenterRadius = 6;
+      const overlaps = label.estimatedBounds.left < center.x + renderedCenterRadius &&
+        label.estimatedBounds.right > center.x - renderedCenterRadius &&
+        label.estimatedBounds.top < center.y + renderedCenterRadius &&
+        label.estimatedBounds.bottom > center.y - renderedCenterRadius;
+      assert.equal(overlaps, false, `${label.key} label must not overlap a rendered Euler center dot`);
+    }
+    for (const centerLabel of centerLabels) {
+      assert.equal(
+        overlaps(label.estimatedBounds, centerLabel.estimatedBounds, 2),
+        false,
+        `${label.key} label must not overlap center label ${centerLabel.label}`
+      );
+    }
+  }
+});
+
+test("Euler vertex labels avoid center text throughout reachable drag states", () => {
+  const vertexKeys = ["A", "B", "C"] as const;
+  const boundsOverlap = (
+    a: { bottom: number; left: number; right: number; top: number },
+    b: { bottom: number; left: number; right: number; top: number },
+    padding = 0
+  ) => a.left < b.right + padding && a.right > b.left - padding &&
+    a.top < b.bottom + padding && a.bottom > b.top - padding;
+  const pointBounds = (point: { x: number; y: number }, radius: number) => ({
+    bottom: point.y + radius,
+    left: point.x - radius,
+    right: point.x + radius,
+    top: point.y - radius
+  });
+  const counterexampleTarget = { x: 446, y: 346 };
+  const counterexamplePath = Array.from({ length: 24 }, (_, index) => {
+    const progress = (index + 1) / 24;
+    return {
+      x: initialEulerTriangle.B.x + (counterexampleTarget.x - initialEulerTriangle.B.x) * progress,
+      y: initialEulerTriangle.B.y + (counterexampleTarget.y - initialEulerTriangle.B.y) * progress
+    };
+  });
+  assert.equal(
+    counterexamplePath.every((B) => canUseTriangle({ ...initialEulerTriangle, B })),
+    true,
+    "the former C/H label collision must remain a continuously reachable drag state"
+  );
+  const haloCounterexample = { x: 243.5, y: 328 };
+  const haloCounterexamplePath = Array.from({ length: 2_000 }, (_, index) => {
+    const progress = (index + 1) / 2_000;
+    return {
+      x: initialEulerTriangle.C.x + (haloCounterexample.x - initialEulerTriangle.C.x) * progress,
+      y: initialEulerTriangle.C.y + (haloCounterexample.y - initialEulerTriangle.C.y) * progress
+    };
+  });
+  assert.equal(
+    haloCounterexamplePath.every((C) => canUseTriangle({ ...initialEulerTriangle, C })),
+    true,
+    "the r=20 B-halo/C-label counterexample must remain continuously reachable"
+  );
+  const centerLabelCounterexample = { x: 414, y: 310 };
+  const centerLabelCounterexamplePath = Array.from({ length: 2_000 }, (_, index) => {
+    const progress = (index + 1) / 2_000;
+    return {
+      x: initialEulerTriangle.C.x + (centerLabelCounterexample.x - initialEulerTriangle.C.x) * progress,
+      y: initialEulerTriangle.C.y + (centerLabelCounterexample.y - initialEulerTriangle.C.y) * progress
+    };
+  });
+  assert.equal(
+    centerLabelCounterexamplePath.every((C) => canUseTriangle({ ...initialEulerTriangle, C })),
+    true,
+    "the overlapping O/G/N and H labels must remain continuously reachable"
+  );
+
+  const triangles = [
+    { ...initialEulerTriangle, B: counterexampleTarget },
+    { ...initialEulerTriangle, C: haloCounterexample },
+    { ...initialEulerTriangle, C: centerLabelCounterexample }
+  ];
+  for (const movedKey of vertexKeys) {
+    for (let x = 62; x <= 598; x += 8) {
+      for (let y = 62; y <= 398; y += 8) {
+        const triangle = { ...initialEulerTriangle, [movedKey]: { x, y } };
+        if (canUseTriangle(triangle)) triangles.push(triangle);
+      }
+    }
+  }
+
+  assert.ok(triangles.length > 2_000, "the drag-state sample must remain broad");
+  for (const triangle of triangles) {
+    const fields = buildEulerFields(triangle);
+    const vertexLabels = buildEulerVertexLabelLayout(triangle, fields);
+    const centerLayout = buildEulerCenterLayout(fields, triangle);
+    const centerDots = centerLayout.points.map(({ point }) => pointBounds(point, 8));
+    const vertexDots = vertexKeys.map((key) => pointBounds(triangle[key], 20));
+
+    for (const vertexLabel of Object.values(vertexLabels)) {
+      for (const obstacle of [...centerDots, ...vertexDots]) {
+        assert.equal(
+          boundsOverlap(vertexLabel.estimatedBounds, obstacle),
+          false,
+          `${vertexLabel.key} label must avoid every rendered point at ${JSON.stringify(triangle)}`
+        );
+      }
+      for (const centerLabel of centerLayout.labels) {
+        assert.equal(
+          boundsOverlap(vertexLabel.estimatedBounds, centerLabel.estimatedBounds, 2),
+          false,
+          `${vertexLabel.key} label must avoid center label ${centerLabel.label} at ${JSON.stringify(triangle)}`
+        );
+      }
+    }
+    const labels = Object.values(vertexLabels);
+    for (let index = 0; index < labels.length; index += 1) {
+      for (const otherLabel of labels.slice(index + 1)) {
+        assert.equal(
+          boundsOverlap(labels[index].estimatedBounds, otherLabel.estimatedBounds, 2),
+          false,
+          `${labels[index].key} and ${otherLabel.key} labels must not overlap at ${JSON.stringify(triangle)}`
+        );
+      }
+    }
+    for (let index = 0; index < centerLayout.labels.length; index += 1) {
+      const centerLabel = centerLayout.labels[index];
+      assert.ok(centerLabel.estimatedBounds.left >= eulerPlot.x);
+      assert.ok(centerLabel.estimatedBounds.right <= eulerPlot.x + eulerPlot.width);
+      assert.ok(centerLabel.estimatedBounds.top >= eulerPlot.y);
+      assert.ok(centerLabel.estimatedBounds.bottom <= eulerPlot.y + eulerPlot.height);
+      for (const centerDot of centerDots) {
+        assert.equal(
+          boundsOverlap(centerLabel.estimatedBounds, centerDot),
+          false,
+          `${centerLabel.label} center label must avoid every center dot at ${JSON.stringify(triangle)}`
+        );
+      }
+      for (const otherLabel of centerLayout.labels.slice(index + 1)) {
+        assert.equal(
+          boundsOverlap(centerLabel.estimatedBounds, otherLabel.estimatedBounds, 2),
+          false,
+          `${centerLabel.label} and ${otherLabel.label} center labels must not overlap at ${JSON.stringify(triangle)}`
+        );
+      }
+      for (const vertexDot of vertexDots) {
+        assert.equal(
+          boundsOverlap(centerLabel.estimatedBounds, vertexDot),
+          false,
+          `${centerLabel.label} center label must avoid every r=20 vertex halo at ${JSON.stringify(triangle)}`
+        );
+      }
+    }
+  }
 });
 
 test("Euler center layout preserves four exact dots while only the text labels merge", () => {

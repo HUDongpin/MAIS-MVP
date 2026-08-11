@@ -159,6 +159,18 @@ test("ThreeDLabCanvas passes MAIS Manim runtime state into the formula overlay f
   assert.match(canvasSource, /projectedLabelViewport=\{manimFormulaOverlayViewport\}/);
   assert.match(canvasSource, /projectedLabelViewportSource=\{manimFormulaOverlayViewportSource\}/);
   assert.doesNotMatch(canvasSource, /projectedLabelViewport=\{\{ width: 800, height: 450 \}\}/);
+  assert.match(
+    overlaySource,
+    /maxWidth: `\$\{formulaCollisionDiagnostics\.formulaBox\.width\.toFixed\(2\)\}px`/
+  );
+  assert.match(
+    overlaySource,
+    /maxHeight: `\$\{formulaCollisionDiagnostics\.formulaBox\.height\.toFixed\(2\)\}px`/
+  );
+  assert.match(
+    overlaySource,
+    /data-viz-manim-formula-overlay[\s\S]*?tabIndex=\{0\}[\s\S]*?className="[^"]*overflow-auto/
+  );
 
   for (const attribute of [
     "data-viz-manim-formula-collision-count",

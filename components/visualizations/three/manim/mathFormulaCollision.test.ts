@@ -7,6 +7,7 @@ import {
   serializeFormulaOverlayCollisionDiagnostics
 } from "./mathFormulaCollision";
 import type { ProjectedLabelAnchor } from "./mathProjectedLabels";
+import { buildProjectedLabelPlacement } from "./mathProjectedLabelPlacement";
 
 const projectedLabel = {
   anchorName: "center",
@@ -83,6 +84,112 @@ test("uses a real text-sized label box to free the lower mobile formula lane", (
   assert.equal(diagnostics.placement, "bottom-left");
   assert.equal(diagnostics.collisionCount, 0);
   assert.equal(diagnostics.safeAreaStatus, "safe");
+});
+
+test("narrows the scrollable formula panel when a central label occupies every regular mobile corner", () => {
+  const viewport = { height: 127, width: 226 };
+  const capturedReachableStates: Array<{ name: string; screen: [number, number] }> = [
+    { name: "all-ranges=min;mode=default", screen: [78.03, 51.64] },
+    { name: "all-ranges=default;mode=2", screen: [79.12, 63.73] },
+    { name: "all-ranges=default;mode=3", screen: [78.09, 52.36] }
+  ];
+  const originalPreferred = buildFormulaOverlayCollisionDiagnostics({
+    formulaId: "family-formula",
+    projectedLabels: [],
+    tokenCount: 3,
+    viewport
+  });
+  assert.equal(originalPreferred.formulaBox.width, 113);
+  assert.ok(Math.abs(originalPreferred.formulaBox.height - 53.34) < 1e-9);
+  assert.equal(originalPreferred.formulaBox.x, 12);
+  assert.equal(originalPreferred.formulaBox.y, 12);
+  assert.equal(originalPreferred.placement, "top-left");
+  assert.equal(originalPreferred.safeAreaStatus, "safe");
+  const originalPreferredBox = originalPreferred.formulaBox;
+
+  for (const { name, screen } of capturedReachableStates) {
+    const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+      formulaId: "family-formula",
+      projectedLabels: [{
+        ...projectedLabel,
+        id: "label:primary-family-curve",
+        screen,
+        text: "active f(x)"
+      }],
+      tokenCount: 3,
+      viewport
+    });
+    const labelBounds = buildProjectedLabelPlacement(screen, viewport, { text: "active f(x)" }).bounds;
+    const overlapWidth = Math.min(
+      diagnostics.formulaBox.x + diagnostics.formulaBox.width,
+      labelBounds.right
+    ) - Math.max(diagnostics.formulaBox.x, labelBounds.left);
+    const overlapHeight = Math.min(
+      diagnostics.formulaBox.y + diagnostics.formulaBox.height,
+      labelBounds.bottom
+    ) - Math.max(diagnostics.formulaBox.y, labelBounds.top);
+    const originalOverlapWidth = Math.min(
+      originalPreferredBox.x + originalPreferredBox.width,
+      labelBounds.right
+    ) - Math.max(originalPreferredBox.x, labelBounds.left);
+    const originalOverlapHeight = Math.min(
+      originalPreferredBox.y + originalPreferredBox.height,
+      labelBounds.bottom
+    ) - Math.max(originalPreferredBox.y, labelBounds.top);
+
+    assert.ok(originalOverlapWidth > 0 && originalOverlapHeight > 0, `${name} must reproduce the Run 31 collision`);
+    assert.equal(diagnostics.placement, "top-right");
+    assert.equal(diagnostics.formulaBox.width, 90.4);
+    assert.equal(diagnostics.collisionCount, 0);
+    assert.equal(diagnostics.collisionLabelIds, "none");
+    assert.equal(diagnostics.safeAreaStatus, "safe");
+    assert.match(diagnostics.summary, /maxWidthRatio=0\.4/);
+    assert.ok(diagnostics.formulaBox.x >= 12);
+    assert.ok(diagnostics.formulaBox.y >= 12);
+    assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - 12);
+    assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - 12);
+    assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `formula must clear active f(x) in ${name}`);
+  }
+});
+
+test("keeps formula collision avoidance continuous immediately above the mobile canvas threshold", () => {
+  const run31Viewport = { height: 127, width: 226 };
+  const run31Screen: [number, number] = [78.03, 51.64];
+
+  for (const width of [480, 481, 500]) {
+    const viewport = { height: run31Viewport.height, width };
+    const screen: [number, number] = [
+      run31Screen[0] * width / run31Viewport.width,
+      run31Screen[1]
+    ];
+    const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+      formulaId: "family-formula",
+      projectedLabels: [{
+        ...projectedLabel,
+        id: "label:primary-family-curve",
+        screen,
+        text: "active f(x)"
+      }],
+      tokenCount: 3,
+      viewport
+    });
+    const labelBounds = buildProjectedLabelPlacement(screen, viewport, { text: "active f(x)" }).bounds;
+    const overlapWidth = Math.min(
+      diagnostics.formulaBox.x + diagnostics.formulaBox.width,
+      labelBounds.right
+    ) - Math.max(diagnostics.formulaBox.x, labelBounds.left);
+    const overlapHeight = Math.min(
+      diagnostics.formulaBox.y + diagnostics.formulaBox.height,
+      labelBounds.bottom
+    ) - Math.max(diagnostics.formulaBox.y, labelBounds.top);
+
+    assert.equal(diagnostics.collisionCount, 0, `${width}px canvas must find a collision-free width`);
+    assert.equal(diagnostics.safeAreaStatus, "safe");
+    assert.equal(diagnostics.overflowEdges, "none");
+    assert.equal(diagnostics.formulaBox.width, width * 0.5);
+    assert.match(diagnostics.summary, /maxWidthRatio=0\.5/);
+    assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `${width}px formula must clear active f(x)`);
+  }
 });
 
 test("reports safe formula placement when projected labels stay outside the panel", () => {

@@ -68,6 +68,10 @@ function formatNumber(value: number) {
   return finite(value, 0).toFixed(1);
 }
 
+function formatRatio(value: number) {
+  return finite(value, 0).toFixed(2).replace(/0+$/u, "").replace(/\.$/u, "");
+}
+
 function formatBox(box: FormulaOverlayBox) {
   return [
     `x=${formatNumber(box.x)}`,
@@ -77,12 +81,20 @@ function formatBox(box: FormulaOverlayBox) {
   ].join(",");
 }
 
-function formulaOverlaySize(viewport: ProjectionViewport, tokenCount: number) {
+function formulaOverlaySize(
+  viewport: ProjectionViewport,
+  tokenCount: number,
+  maximumWidthRatio: number
+) {
   const viewportWidth = Math.max(1, finite(viewport.width, 800));
   const viewportHeight = Math.max(1, finite(viewport.height, 450));
   const margin = 12;
   const mobileViewport = viewportWidth <= 480;
-  const maxCssWidth = Math.min(viewportWidth * (mobileViewport ? 0.5 : 0.78), 544);
+  const maxCssWidth = Math.min(
+    Math.max(1, viewportWidth - margin * 2),
+    Math.max(1, viewportWidth * maximumWidthRatio),
+    544
+  );
   const width = clamp(168 + Math.max(0, tokenCount) * 64, 220, Math.max(1, maxCssWidth));
   const usableTokenWidth = Math.max(1, width - 32);
   const tokensPerRow = Math.max(1, Math.floor(usableTokenWidth / 72));
@@ -98,12 +110,13 @@ function formulaOverlaySize(viewport: ProjectionViewport, tokenCount: number) {
 function formulaOverlayBox(
   viewport: ProjectionViewport,
   tokenCount: number,
-  placement: FormulaOverlayPlacement
+  placement: FormulaOverlayPlacement,
+  maximumWidthRatio: number
 ): FormulaOverlayBox {
   const viewportWidth = Math.max(1, finite(viewport.width, 800));
   const viewportHeight = Math.max(1, finite(viewport.height, 450));
   const margin = 12;
-  const { height, width } = formulaOverlaySize(viewport, tokenCount);
+  const { height, width } = formulaOverlaySize(viewport, tokenCount, maximumWidthRatio);
   const rightAligned = placement.endsWith("right");
   const bottomAligned = placement.startsWith("bottom");
 
@@ -120,6 +133,12 @@ function boxesIntersect(left: FormulaOverlayBox, right: FormulaOverlayBox) {
     && left.x + left.width > right.x
     && left.y < right.y + right.height
     && left.y + left.height > right.y;
+}
+
+function intersectionArea(left: FormulaOverlayBox, right: FormulaOverlayBox) {
+  const width = Math.max(0, Math.min(left.x + left.width, right.x + right.width) - Math.max(left.x, right.x));
+  const height = Math.max(0, Math.min(left.y + left.height, right.y + right.height) - Math.max(left.y, right.y));
+  return width * height;
 }
 
 function overflowEdges(box: FormulaOverlayBox, viewportWidth: number, viewportHeight: number) {
@@ -139,27 +158,43 @@ export function buildFormulaOverlayCollisionDiagnostics(
   const viewportWidth = Math.max(1, finite(input.viewport.width, 800));
   const viewportHeight = Math.max(1, finite(input.viewport.height, 450));
   const viewport = { height: viewportHeight, width: viewportWidth };
+  const mobileViewport = viewportWidth <= 480;
   const placements: FormulaOverlayPlacement[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
-  const candidates = placements.map((placement) => {
-    const box = formulaOverlayBox(viewport, input.tokenCount, placement);
-    const collisionLabels = input.projectedLabels.filter((label) => {
-      if (!label.visible) return false;
-      const placement = buildProjectedLabelPlacement(
-        [finite(label.screen[0], -1), finite(label.screen[1], -1)],
-        viewport,
-        { text: label.text }
-      );
-      const labelBox = {
-        height: placement.bounds.height,
-        width: placement.bounds.width,
-        x: placement.bounds.left,
-        y: placement.bounds.top
-      };
-      return boxesIntersect(labelBox, box);
-    });
-    const overflow = overflowEdges(box, viewportWidth, viewportHeight);
-    return { box, collisionLabels, overflow, placement };
-  });
+  // A narrow canvas can leave one central projected label touching all four
+  // regular wide corners. The formula panel is already independently
+  // scrollable, so retry progressively narrower, still-readable widths on
+  // every canvas before declaring that no safe placement exists. Candidate
+  // order preserves the widest safe panel and the familiar top-left preference.
+  const maximumWidthRatios = mobileViewport
+    ? [0.5, 0.45, 0.4, 0.35]
+    : [0.78, 0.65, 0.5, 0.45, 0.4, 0.35];
+  const candidates = maximumWidthRatios.flatMap((maximumWidthRatio) =>
+    placements.map((placement) => {
+      const box = formulaOverlayBox(viewport, input.tokenCount, placement, maximumWidthRatio);
+      const labelBoxes = input.projectedLabels.flatMap((label) => {
+        if (!label.visible) return [];
+        const labelPlacement = buildProjectedLabelPlacement(
+          [finite(label.screen[0], -1), finite(label.screen[1], -1)],
+          viewport,
+          { text: label.text }
+        );
+        return [{
+          box: {
+            height: labelPlacement.bounds.height,
+            width: labelPlacement.bounds.width,
+            x: labelPlacement.bounds.left,
+            y: labelPlacement.bounds.top
+          },
+          label
+        }];
+      });
+      const collisions = labelBoxes.filter((entry) => boxesIntersect(entry.box, box));
+      const collisionArea = collisions.reduce((area, entry) => area + intersectionArea(entry.box, box), 0);
+      const collisionLabels = collisions.map((entry) => entry.label);
+      const overflow = overflowEdges(box, viewportWidth, viewportHeight);
+      return { box, collisionArea, collisionLabels, maximumWidthRatio, overflow, placement };
+    })
+  );
   // Preserve the familiar top-left placement when it is safe. Otherwise move
   // the fixed-in-frame formula panel to the first corner with the fewest label
   // collisions. Every candidate is deterministic, viewport-bounded, and uses
@@ -170,7 +205,10 @@ export function buildFormulaOverlayCollisionDiagnostics(
     }
     const candidateOverflowCount = candidate.overflow === "none" ? 0 : candidate.overflow.split(",").length;
     const bestOverflowCount = best.overflow === "none" ? 0 : best.overflow.split(",").length;
-    return candidateOverflowCount < bestOverflowCount ? candidate : best;
+    if (candidateOverflowCount !== bestOverflowCount) {
+      return candidateOverflowCount < bestOverflowCount ? candidate : best;
+    }
+    return candidate.collisionArea < best.collisionArea ? candidate : best;
   });
   const formulaBox = selected.box;
   const collisionLabels = selected.collisionLabels;
@@ -179,12 +217,12 @@ export function buildFormulaOverlayCollisionDiagnostics(
   const safeAreaStatus: FormulaOverlaySafeAreaStatus = collisionLabels.length > 0
     ? "collision"
     : overflow !== "none" ? "overflow" : "safe";
-  const mobileViewport = viewportWidth <= 480;
   const summary = [
     `formula=${input.formulaId}`,
     `viewport=${formatNumber(viewportWidth)}x${formatNumber(viewportHeight)}`,
     `mobile=${mobileViewport ? "true" : "false"}`,
     `placement=${selected.placement}`,
+    `maxWidthRatio=${formatRatio(selected.maximumWidthRatio)}`,
     `box=${formatBox(formulaBox)}`,
     `status=${safeAreaStatus}`,
     `collisions=${collisionLabelIds}`,

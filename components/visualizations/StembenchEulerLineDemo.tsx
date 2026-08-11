@@ -5,6 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import {
   buildEulerCenterLayout,
   buildEulerFields,
+  buildEulerVertexLabelLayout,
   canUseTriangle,
   constrainEulerPoint,
   eulerPlot as plot,
@@ -90,7 +91,8 @@ export function StembenchEulerLineDemo() {
   ]);
 
   const fields = useMemo(() => buildEulerFields(triangle), [triangle]);
-  const centerLayout = useMemo(() => buildEulerCenterLayout(fields), [fields]);
+  const centerLayout = useMemo(() => buildEulerCenterLayout(fields, triangle), [fields, triangle]);
+  const vertexLabelLayout = useMemo(() => buildEulerVertexLabelLayout(triangle, fields), [triangle, fields]);
   const minorGridX = useMemo(() => Array.from({ length: 21 }, (_, index) => plot.x + index * 30), []);
   const minorGridY = useMemo(() => Array.from({ length: 15 }, (_, index) => plot.y + index * 30), []);
   const majorGridX = useMemo(() => Array.from({ length: 7 }, (_, index) => plot.x + index * 100), []);
@@ -302,6 +304,7 @@ export function StembenchEulerLineDemo() {
 
               {vertexKeys.map((key) => {
                 const point = triangle[key];
+                const label = vertexLabelLayout[key];
                 const isActive = activeVertex === key || dragging === key;
                 return (
 	                  <g
@@ -327,8 +330,9 @@ export function StembenchEulerLineDemo() {
 	                    <circle r={isActive ? 20 : 17} fill="#61a9f4" fillOpacity="0.48" />
 	                    <circle r="8" fill="#80c7ff" stroke="#082235" strokeWidth="3" />
                     <text
-                      x={key === "C" ? -18 : -15}
-                      y="-16"
+                      x={label.offsetX}
+                      y={label.offsetY}
+                      textAnchor={label.textAnchor}
                       fill="#79bdff"
                       fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
                       fontSize="18"

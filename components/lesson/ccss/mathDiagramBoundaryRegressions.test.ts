@@ -7,6 +7,10 @@ import {
   clipSquareByLinearHalfPlane,
   svgPointOnRay
 } from "../../../lib/mathDiagramGeometry";
+import {
+  coordinateLabelLayout,
+  quadrantLabelPosition
+} from "./lessons/four-quadrant-plane";
 
 const EPSILON = 0.01;
 const lessonDir = path.join(process.cwd(), "components/lesson/ccss/lessons");
@@ -199,6 +203,137 @@ test("slope explorer clips every distinct draggable point pair to the plotting s
   const slopeExplorer = source("slope-explorer");
   assert.match(slopeExplorer, /clipLinearFunctionToSquare\(m, b, R\)/u);
   assert.doesNotMatch(slopeExplorer, /\{ x: -R, y: m \* -R \+ b \}/u);
+});
+
+test("four-quadrant labels avoid every interactive point and reflection state", () => {
+  type Point = { x: number; y: number };
+  type Rect = { bottom: number; left: number; right: number; top: number };
+  type Quadrant = "I" | "II" | "III" | "IV";
+
+  const range = 6;
+  const cell = 24;
+  const padding = 26;
+  const size = 2 * range * cell + 2 * padding;
+  const origin = padding + range * cell;
+  const quadrants = ["I", "II", "III", "IV"] as const;
+  const screenX = (x: number) => origin + x * cell;
+  const screenY = (y: number) => origin - y * cell;
+  const overlaps = (a: Rect, b: Rect) =>
+    Math.min(a.right, b.right) > Math.max(a.left, b.left) &&
+    Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top);
+  const isInside = (bounds: Rect) =>
+    bounds.left >= 0 && bounds.right <= size && bounds.top >= 0 && bounds.bottom <= size;
+  const quadrantTextBox = (point: Point, text: string): Rect => ({
+    bottom: screenY(point.y) + 3,
+    left: screenX(point.x) - text.length * 11 / 2,
+    right: screenX(point.x) + text.length * 11 / 2,
+    top: screenY(point.y) - 18,
+  });
+  const quadrantOf = (point: Point): Quadrant | null => {
+    if (point.x === 0 || point.y === 0) return null;
+    if (point.x > 0) return point.y > 0 ? "I" : "IV";
+    return point.y > 0 ? "II" : "III";
+  };
+
+  let states = 0;
+  let selfReflectionStates = 0;
+  for (const axis of ["x", "y"] as const) {
+    for (let x = -range; x <= range; x += 1) {
+      for (let y = -range; y <= range; y += 1) {
+        states += 1;
+        const point = { x, y };
+        const reflected = axis === "x" ? { x, y: -y } : { x: -x, y };
+        const activePoints = [point, reflected];
+        const isSelfReflection = point.x === reflected.x && point.y === reflected.y;
+        if (isSelfReflection) selfReflectionStates += 1;
+        const renderedPoints = isSelfReflection
+          ? [{ label: coordinateLabelLayout(point, "main"), point, role: "main" as const }]
+          : [
+              { label: coordinateLabelLayout(point, "main"), point, role: "main" as const },
+              { label: coordinateLabelLayout(reflected, "reflected"), point: reflected, role: "reflected" as const },
+            ];
+
+        assert.equal(
+          renderedPoints.length,
+          isSelfReflection ? 1 : 2,
+          `${axis}-axis reflection at (${x}, ${y}) must render each distinct point exactly once`,
+        );
+
+        const markerBoxes = renderedPoints.map(({ label, point: renderedPoint, role }) => {
+          const markerBox: Rect = {
+            bottom: screenY(renderedPoint.y) + label.markerPaintRadius,
+            left: screenX(renderedPoint.x) - label.markerPaintRadius,
+            right: screenX(renderedPoint.x) + label.markerPaintRadius,
+            top: screenY(renderedPoint.y) - label.markerPaintRadius,
+          };
+          assert.equal(isInside(label.bounds), true, `${role} coordinate label must remain inside the SVG`);
+          assert.equal(isInside(markerBox), true, `${role} marker must remain inside the SVG`);
+          return markerBox;
+        });
+
+        if (renderedPoints.length === 2) {
+          assert.equal(
+            overlaps(renderedPoints[0].label.bounds, renderedPoints[1].label.bounds),
+            false,
+            `distinct labels at (${x}, ${y}) must not overlap for ${axis}-axis reflection`,
+          );
+        }
+        renderedPoints.forEach(({ label, role }) => {
+          markerBoxes.forEach((markerBox, markerIndex) => {
+            assert.equal(
+              overlaps(label.bounds, markerBox),
+              false,
+              `${role} coordinate label must avoid marker ${markerIndex + 1}`,
+            );
+          });
+        });
+
+        const quadrantBoxes: Rect[] = [];
+        for (const quadrant of quadrants) {
+          const label = quadrantLabelPosition(quadrant, activePoints);
+          assert.equal(quadrantOf(label), quadrant, `${quadrant} label must stay in its quadrant`);
+          const quadrantBox = quadrantTextBox(label, quadrant);
+          assert.equal(isInside(quadrantBox), true, `${quadrant} label must remain inside the SVG`);
+          quadrantBoxes.push(quadrantBox);
+          renderedPoints.forEach(({ label: coordinateLabel, role }, pointIndex) => {
+            assert.equal(
+              overlaps(quadrantBox, coordinateLabel.bounds),
+              false,
+              `${quadrant} label must avoid the ${role} coordinate label at (${x}, ${y}) for ${axis}-axis reflection`,
+            );
+            assert.equal(
+              overlaps(quadrantBox, markerBoxes[pointIndex]),
+              false,
+              `${quadrant} label must avoid the ${role} marker at (${x}, ${y}) for ${axis}-axis reflection`,
+            );
+          });
+        }
+        quadrantBoxes.forEach((quadrantBox, quadrantIndex) => {
+          quadrantBoxes.slice(quadrantIndex + 1).forEach((otherBox) => {
+            assert.equal(overlaps(quadrantBox, otherBox), false, "quadrant labels must not overlap each other");
+          });
+        });
+      }
+    }
+  }
+
+  assert.equal(states, 338);
+  assert.equal(selfReflectionStates, 26);
+  const lessonSource = source("four-quadrant-plane");
+  assert.match(
+    lessonSource,
+    /quadrantLabelPosition\(q, \[p, reflected\]\)/u,
+    "the live SVG must derive every quadrant label from both active points",
+  );
+  assert.match(lessonSource, /coordinateLabelLayout\(p, "main"\)/u);
+  assert.match(lessonSource, /coordinateLabelLayout\(reflected, "reflected"\)/u);
+  assert.match(
+    lessonSource,
+    /\{!isSelfReflection && \(\s*<g data-diagram-reflected-point>/u,
+    "a point on the selected mirror axis must not render a duplicate reflection",
+  );
+  assert.match(lessonSource, /data-diagram-self-reflection=\{isSelfReflection \? "true" : "false"\}/u);
+  assert.match(lessonSource, /Reflecting it across the \$\{axis\}-axis leaves it unchanged\./u);
 });
 
 test("conic-section mode controls wrap instead of centering unreachable mobile content", () => {

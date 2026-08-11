@@ -160,6 +160,8 @@ export function MathFormulaOverlay({
         style={{
           bottom: formulaCollisionDiagnostics.placement.startsWith("bottom") ? 12 : undefined,
           left: formulaCollisionDiagnostics.placement.endsWith("left") ? 12 : undefined,
+          maxHeight: `${formulaCollisionDiagnostics.formulaBox.height.toFixed(2)}px`,
+          maxWidth: `${formulaCollisionDiagnostics.formulaBox.width.toFixed(2)}px`,
           right: formulaCollisionDiagnostics.placement.endsWith("right") ? 12 : undefined,
           top: formulaCollisionDiagnostics.placement.startsWith("top") ? 12 : undefined
         }}
