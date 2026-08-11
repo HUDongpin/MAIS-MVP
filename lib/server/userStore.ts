@@ -186,6 +186,12 @@ import {
   syncAuthBootstrapAdmin as syncBootstrapAdminFromAuthSessionPersistence
 } from "@/lib/server/userStore/authSessionPersistence";
 import {
+  createAbortableAuthAdmissionSlot,
+  mapAuthAdmissionJoinedRow,
+  runCancellableAuthAdmissionQuery,
+  type AuthAdmissionJoinedRow
+} from "@/lib/server/userStore/authAdmissionPersistence";
+import {
   addAuthSchoolMembershipRecord as addSchoolMembershipFromAuthProvisioning,
   createAuthProvisioningPersistenceStore,
   createAuthTemporaryPassword as createTemporaryPasswordFromAuthProvisioning,
@@ -2827,6 +2833,8 @@ type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
 
 let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
+let aiTutorAuthAdmissionPostgresClient: postgres.Sql | null = null;
+const aiTutorAuthAdmissionSlot = createAbortableAuthAdmissionSlot();
 let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
@@ -4943,6 +4951,10 @@ const aiTutorAdmissionStatementTimeoutMs = boundedLLMNumber(
   250,
   4_000
 );
+const aiTutorAuthAdmissionStatementTimeoutMs = Math.min(
+  aiTutorAdmissionStatementTimeoutMs,
+  2_500
+);
 const aiTutorAdmissionLockTimeoutMs = boundedLLMNumber(
   process.env.AI_TUTOR_ADMISSION_LOCK_TIMEOUT_MS,
   600,
@@ -4960,6 +4972,26 @@ const aiTutorQuotaStatementTimeoutMs = Math.max(100, aiTutorQuotaLookupTimeoutMs
 function throwIfAiTutorAdmissionAborted(signal?: AbortSignal) {
   if (!signal?.aborted) return;
   throw new DOMException("AI Tutor admission was aborted.", "AbortError");
+}
+
+function getAiTutorAuthAdmissionPostgresClient() {
+  if (aiTutorAuthAdmissionPostgresClient) return aiTutorAuthAdmissionPostgresClient;
+  if (!postgresUrl) {
+    throw new Error("POSTGRES_URL is required for AI Tutor authentication admission.");
+  }
+
+  const admissionUrl = new URL(postgresUrl);
+  admissionUrl.searchParams.delete("statement_timeout");
+  aiTutorAuthAdmissionPostgresClient = postgres(admissionUrl.toString(), {
+    max: 1,
+    idle_timeout: 20,
+    connect_timeout: 2,
+    prepare: false,
+    connection: {
+      application_name: "mais-ai-tutor-auth-admission"
+    }
+  });
+  return aiTutorAuthAdmissionPostgresClient;
 }
 
 function defaultStudentAiTutorPolicy(now: string): ClassAiTutorPolicy {
@@ -6229,6 +6261,8 @@ const authUserStore = createAuthUserStore({
   authAdminStoragePersistenceStore,
   authProvisioningPersistenceStore,
   authSessionPersistenceStore,
+  getAuthenticatedUserByIdForAiTutorAdmissionBeforeSnapshot:
+    getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath,
   isGradeAllowedForCurriculumProfile: authGradeAllowedForCurriculumProfile,
   learnerProfilePersistenceStore
 });
@@ -8036,7 +8070,85 @@ async function getAuthenticatedUserByIdFromHotTables(userId: string) {
   }
 }
 
+async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
+  userId: string,
+  signal: AbortSignal
+): Promise<AuthenticatedUser | null | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+  if (!postgresHotAuthTablesEnabled()) {
+    throw new Error("Postgres hot authentication tables are required for AI Tutor admission.");
+  }
+
+  return aiTutorAuthAdmissionSlot.run(signal, () =>
+    getAiTutorAuthAdmissionPostgresClient().begin(async (sql) => {
+      throwIfAiTutorAdmissionAborted(signal);
+      await sql`
+        SELECT set_config(
+          'statement_timeout',
+          ${`${aiTutorAuthAdmissionStatementTimeoutMs}ms`},
+          true
+        )
+      `;
+      throwIfAiTutorAdmissionAborted(signal);
+
+      return runCancellableAuthAdmissionQuery({
+        createQuery: (lookupUserId) => sql<AuthAdmissionJoinedRow[]>`
+        WITH schema_readiness AS (
+          SELECT EXISTS (
+            SELECT 1
+            FROM auth_schema_migrations
+            WHERE version = ${hotAuthSchemaVersion}
+          ) AS schema_ready
+        ), auth_projection AS (
+          SELECT
+            to_jsonb(auth_user) AS user_record,
+            CASE
+              WHEN student_profile.user_id IS NULL THEN NULL
+              ELSE to_jsonb(student_profile)
+            END AS profile_record,
+            CASE
+              WHEN user_settings.user_id IS NULL THEN NULL
+              ELSE to_jsonb(user_settings)
+            END AS settings_record
+          FROM auth_users AS auth_user
+          LEFT JOIN auth_student_profiles AS student_profile
+            ON student_profile.user_id = auth_user.id
+          LEFT JOIN auth_user_settings AS user_settings
+            ON user_settings.user_id = auth_user.id
+          CROSS JOIN schema_readiness
+          WHERE schema_readiness.schema_ready
+            AND auth_user.id = ${lookupUserId}
+          LIMIT 1
+        )
+        SELECT
+          TRUE AS schema_ready,
+          user_record,
+          profile_record,
+          settings_record
+        FROM auth_projection
+        UNION ALL
+        SELECT
+          FALSE AS schema_ready,
+          NULL::jsonb AS user_record,
+          NULL::jsonb AS profile_record,
+          NULL::jsonb AS settings_record
+        FROM schema_readiness
+        WHERE NOT schema_ready
+        `,
+        mapRow: (row) => mapAuthAdmissionJoinedRow(row, {
+          mediaObjectUrlForKey: mediaObjectAccessUrl
+        }),
+        onAuthoritativeMiss: storageFreeExampleAuthenticatedUser,
+        signal,
+        userId
+      });
+    })
+  );
+}
+
 export const getAuthenticatedUserById = authUserStore.getAuthenticatedUserById;
+export const getAuthenticatedUserByIdForAiTutorAdmission =
+  authUserStore.getAuthenticatedUserByIdForAiTutorAdmission;
 
 export const parentCanAccessStudent = parentUserStore.parentCanAccessStudent;
 

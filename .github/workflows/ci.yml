@@ -63,6 +63,17 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run AI Tutor authentication-admission gates
+        run: |
+          npx tsx --tsconfig tsconfig.json --test \
+            lib/server/aiTutorAdmission.test.ts \
+            lib/server/aiTutorResolveAdmissionContract.test.ts \
+            lib/server/userStore/authAdmissionPersistence.test.ts \
+            lib/server/userStore/authStore.test.ts \
+            lib/server/userStoreNovaPostgresAdmission.test.ts \
+            lib/server/userStoreAuthSessionPersistence.test.ts \
+            lib/server/userStoreAuth.test.ts
+
       - name: Run Postgres schema readiness and Singapore region gates
         run: |
           npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts

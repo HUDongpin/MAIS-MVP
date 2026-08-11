@@ -23,7 +23,7 @@ import {
 import { getMainlandPepEvidencePack } from "@/lib/rag/mainlandPep";
 import { buildUnitedStatesMathEvidencePack } from "@/lib/rag/usMath";
 import { resolveUnitedStatesMathTopicStandards } from "@/lib/server/usMathTutorStandards";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { requireAiTutorAuthenticatedUser } from "@/lib/server/auth";
 import { runAiTutorAdmission } from "@/lib/server/aiTutorAdmission";
 import {
   type AITutorDatabaseContextResult,
@@ -2099,7 +2099,7 @@ async function handleAITutorPost(
     },
     dependencies: {
       authenticate: async (_admissionRequest, signal) => {
-        const authenticated = await requireAuthenticatedUser(_admissionRequest);
+        const authenticated = await requireAiTutorAuthenticatedUser(_admissionRequest, signal);
         throwIfRequestAborted(signal);
         return authenticated;
       },

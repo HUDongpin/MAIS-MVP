@@ -34,6 +34,7 @@ export const authUserStoreOperations = [
   "createPasswordResetRequest",
   "resetUserPassword",
   "getAuthenticatedUserById",
+  "getAuthenticatedUserByIdForAiTutorAdmission",
   "buildRedactedAdminStorageSnapshot",
   "exportDatabaseSnapshotForAdmin",
   "backfillPostgresHotAuthTablesForAdmin",

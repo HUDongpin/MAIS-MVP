@@ -5,6 +5,7 @@ import test from "node:test";
 
 const userStorePath = join(process.cwd(), "lib/server/userStore.ts");
 const resolverPath = join(process.cwd(), "app/api/ai-tutor/resolve/route.ts");
+const authPath = join(process.cwd(), "lib/server/auth.ts");
 
 test("Nova Postgres admission uses a narrow policy read and atomic per-user rate ledger", async () => {
   const source = await readFile(userStorePath, "utf8");
@@ -116,4 +117,75 @@ test("Nova quota soft timeout aborts the pending Postgres lookup", async () => {
     source,
     /\(signal\) => getAITutorTokenUsageSince\(authenticatedUserId, quotaSince, signal\)/
   );
+});
+
+test("Nova authentication uses one authoritative cancellable Postgres join without snapshot fallback", async () => {
+  const source = await readFile(userStorePath, "utf8");
+  const clientStart = source.indexOf("function getAiTutorAuthAdmissionPostgresClient");
+  const clientEnd = source.indexOf("\nfunction defaultStudentAiTutorPolicy", clientStart + 1);
+  const start = source.indexOf("async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath");
+  const end = source.indexOf("\nexport const getAuthenticatedUserByIdForAiTutorAdmission", start + 1);
+
+  assert.ok(clientStart >= 0 && clientEnd > clientStart, "expected a bounded dedicated client factory");
+  const clientSource = source.slice(clientStart, clientEnd);
+  assert.ok(start >= 0, "expected a dedicated Nova Postgres authentication function");
+  assert.ok(end > start, "expected a bounded dedicated authentication function body");
+  const functionSource = source.slice(start, end);
+
+  assert.match(clientSource, /max:\s*1/);
+  assert.match(clientSource, /connect_timeout:\s*2/);
+  assert.match(clientSource, /application_name:\s*"mais-ai-tutor-auth-admission"/);
+  assert.doesNotMatch(
+    clientSource,
+    /connection:\s*\{[\s\S]*statement_timeout/,
+    "Neon pooled connections must not receive statement_timeout as a startup parameter"
+  );
+  assert.match(functionSource, /aiTutorAuthAdmissionSlot\.run\(signal/);
+  assert.match(functionSource, /getAiTutorAuthAdmissionPostgresClient\(\)\.begin\(async \(sql\)/);
+  assert.doesNotMatch(
+    functionSource,
+    /\.reserve\(\)/,
+    "postgres.js 3.4.9 reserved clients do not expose begin() at runtime"
+  );
+  assert.ok(
+    functionSource.indexOf("throwIfAiTutorAdmissionAborted(signal)")
+      < functionSource.indexOf("set_config("),
+    "an abort during BEGIN must stop work before the transaction-local timeout statement"
+  );
+  assert.match(functionSource, /set_config\([\s\S]*'statement_timeout'/);
+  assert.match(functionSource, /FROM auth_users AS auth_user/);
+  assert.match(functionSource, /LEFT JOIN auth_student_profiles AS student_profile/);
+  assert.match(functionSource, /LEFT JOIN auth_user_settings AS user_settings/);
+  assert.match(functionSource, /FROM auth_schema_migrations/);
+  assert.match(functionSource, /WHERE version = \$\{hotAuthSchemaVersion\}/);
+  assert.match(functionSource, /FALSE AS schema_ready/);
+  assert.match(functionSource, /runCancellableAuthAdmissionQuery/);
+  assert.match(functionSource, /storageFreeExampleAuthenticatedUser/);
+  assert.match(
+    functionSource,
+    /if \(!postgresHotAuthTablesEnabled\(\)\)\s*\{[\s\S]*throw new Error/,
+    "Postgres configuration drift must fail closed instead of restoring the snapshot path"
+  );
+  assert.doesNotMatch(functionSource, /ensurePostgresStateTable/);
+  assert.doesNotMatch(functionSource, /readDatabase\(/);
+  assert.doesNotMatch(functionSource, /selectPostgresStateRows\(/);
+  assert.doesNotMatch(functionSource, /normalizeDatabase\(/);
+  assert.doesNotMatch(functionSource, /catch\s*\{[\s\S]*return null/);
+});
+
+test("Nova authentication verifies the session before the dedicated admission lookup", async () => {
+  const source = await readFile(authPath, "utf8");
+  const start = source.indexOf("export async function getAiTutorAuthenticatedUserFromToken");
+  const end = source.indexOf("\nexport function canAccessTeacherArea", start + 1);
+
+  assert.ok(start >= 0 && end > start, "expected a bounded Nova token-authentication function");
+  const functionSource = source.slice(start, end);
+
+  assert.ok(
+    functionSource.indexOf("verifySessionToken(token)")
+      < functionSource.indexOf("getAuthenticatedUserByIdForAiTutorAdmission"),
+    "signed session verification must complete before the database lookup"
+  );
+  assert.match(functionSource, /if \(!payload\) return null/);
+  assert.match(functionSource, /getAuthenticatedUserByIdForAiTutorAdmission\(payload\.sub, signal\)/);
 });
