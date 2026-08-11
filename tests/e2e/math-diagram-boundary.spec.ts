@@ -2082,10 +2082,12 @@ test.describe("mathematical diagram boundary integrity", () => {
               actualSurface.getAttribute("data-viz-manim-formula-viewport-source")
             ]);
             const formulaDomGeometry = await actualSurface.evaluate((surface) => {
+              const sceneFrame = surface.querySelector<HTMLElement>("[data-viz-manim-scene-frame]");
               const formula = surface.querySelector<HTMLElement>("[data-viz-manim-formula-overlay]");
               const labels = Array.from(surface.querySelectorAll<HTMLElement>(
                 '[data-viz-manim-projected-label][data-viz-manim-projected-visible="true"]'
               ));
+              const sceneFrameRect = sceneFrame?.getBoundingClientRect() ?? null;
               const formulaRect = formula?.getBoundingClientRect() ?? null;
               const rect = (box: DOMRect) => ({
                 bottom: box.bottom,
@@ -2130,6 +2132,7 @@ test.describe("mathematical diagram boundary integrity", () => {
                 formulaRendered: formula && formulaRect ? isRendered(formula, formulaRect) : false,
                 formulaText: formula?.textContent?.trim() ?? "",
                 formulaTokenCount: formula?.getAttribute("data-viz-manim-token-count") ?? null,
+                sceneFrameRect: sceneFrameRect ? rect(sceneFrameRect) : null,
                 visibleLabels: labels.map((label) => {
                   const labelRect = label.getBoundingClientRect();
                   return {
@@ -2197,6 +2200,41 @@ test.describe("mathematical diagram boundary integrity", () => {
                 surfaceRect: canvasRect,
                 elementRect: formulaDomGeometry.formulaRect ?? { height: 0, width: 0, x: 0, y: 0 },
                 detail: "formula overlay must remain rendered and non-zero while collision avoidance is active"
+              });
+            }
+            const formulaEdgeInsetMatch = formulaSafeAreaSummary?.match(/(?:^|;)edgeInset=(-?[0-9.]+)/u);
+            const formulaEdgeInset = Number(formulaEdgeInsetMatch?.[1]);
+            const formulaRectForInset = formulaDomGeometry.formulaRect;
+            const sceneFrameRectForInset = formulaDomGeometry.sceneFrameRect;
+            const actualHorizontalInset = formulaRectForInset && sceneFrameRectForInset
+              ? formulaPlacement?.endsWith("left")
+                ? formulaRectForInset.left - sceneFrameRectForInset.left
+                : formulaPlacement?.endsWith("right")
+                  ? sceneFrameRectForInset.right - formulaRectForInset.right
+                  : Number.NaN
+              : Number.NaN;
+            const actualVerticalInset = formulaRectForInset && sceneFrameRectForInset
+              ? formulaPlacement?.startsWith("top")
+                ? formulaRectForInset.top - sceneFrameRectForInset.top
+                : formulaPlacement?.startsWith("bottom")
+                  ? sceneFrameRectForInset.bottom - formulaRectForInset.bottom
+                  : Number.NaN
+              : Number.NaN;
+            if (
+              !Number.isFinite(formulaEdgeInset) ||
+              !Number.isFinite(actualHorizontalInset) ||
+              !Number.isFinite(actualVerticalInset) ||
+              Math.abs(actualHorizontalInset - formulaEdgeInset) > 1 ||
+              Math.abs(actualVerticalInset - formulaEdgeInset) > 1
+            ) {
+              projectionIssues.push({
+                kind: "canvas-2d-audit-incomplete",
+                surface: `${lab.labId}:formula-layer-position`,
+                element: "data-viz-manim-formula-safe-area-summary",
+                overflowPx: 0,
+                surfaceRect: sceneFrameRectForInset ?? canvasRect,
+                elementRect: formulaRectForInset ?? projectedRect,
+                detail: `formula DOM edge insets must match diagnostics within 1px; placement=${formulaPlacement ?? "missing"}, expected=${Number.isFinite(formulaEdgeInset) ? formulaEdgeInset.toFixed(2) : "missing"}, actualHorizontal=${Number.isFinite(actualHorizontalInset) ? actualHorizontalInset.toFixed(2) : "missing"}, actualVertical=${Number.isFinite(actualVerticalInset) ? actualVerticalInset.toFixed(2) : "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
               });
             }
             for (const hiddenLabel of formulaDomGeometry.visibleLabels.filter((label) =>
@@ -2288,16 +2326,28 @@ test.describe("mathematical diagram boundary integrity", () => {
                 });
               }
               const formulaRect = formulaDomGeometry.formulaRect;
+              const sceneFrameRect = formulaDomGeometry.sceneFrameRect;
               const allowedWidths = [113, 101.7, 90.4, 79.1, 67.8];
               const summaryBox = formulaSafeAreaSummary?.match(
-                /box=x=[^,;]+,y=[^,;]+,w=([0-9.]+),h=([0-9.]+)/u
+                /box=x=(-?[0-9.]+),y=(-?[0-9.]+),w=([0-9.]+),h=([0-9.]+)/u
               );
-              const summaryWidth = Number(summaryBox?.[1]);
-              const summaryHeight = Number(summaryBox?.[2]);
-              const formulaShapeIsValid = Boolean(formulaRect) &&
+              const summaryX = Number(summaryBox?.[1]);
+              const summaryY = Number(summaryBox?.[2]);
+              const summaryWidth = Number(summaryBox?.[3]);
+              const summaryHeight = Number(summaryBox?.[4]);
+              const relativeFormulaX = formulaRect && sceneFrameRect
+                ? formulaRect.left - sceneFrameRect.left
+                : Number.NaN;
+              const relativeFormulaY = formulaRect && sceneFrameRect
+                ? formulaRect.top - sceneFrameRect.top
+                : Number.NaN;
+              const formulaShapeIsValid = Boolean(formulaRect) && Boolean(sceneFrameRect) &&
                 allowedWidths.some((width) => Math.abs(formulaRect!.width - width) <= 1) &&
                 Math.abs(formulaRect!.height - 53.34) <= 1 &&
+                Number.isFinite(summaryX) && Number.isFinite(summaryY) &&
                 Number.isFinite(summaryWidth) && Number.isFinite(summaryHeight) &&
+                Math.abs(relativeFormulaX - summaryX) <= 1 &&
+                Math.abs(relativeFormulaY - summaryY) <= 1 &&
                 Math.abs(formulaRect!.width - summaryWidth) <= 1 &&
                 Math.abs(formulaRect!.height - summaryHeight) <= 1 &&
                 formulaDomGeometry.formulaTokenCount === "3" &&
@@ -2310,7 +2360,7 @@ test.describe("mathematical diagram boundary integrity", () => {
                   overflowPx: 0,
                   surfaceRect: canvasRect,
                   elementRect: formulaRect ?? projectedRect,
-                  detail: `Run 31 formula must retain 3 rendered tokens and a measured 113/101.7/90.4/79.1/67.8×53.34 panel matching diagnostics; rect=${JSON.stringify(formulaRect)}, tokens=${formulaDomGeometry.formulaTokenCount ?? "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
+                  detail: `Run 31 formula must retain 3 rendered tokens and a measured x/y/113/101.7/90.4/79.1/67.8×53.34 panel matching diagnostics; rect=${JSON.stringify(formulaRect)}, relative=(${Number.isFinite(relativeFormulaX) ? relativeFormulaX.toFixed(2) : "missing"},${Number.isFinite(relativeFormulaY) ? relativeFormulaY.toFixed(2) : "missing"}), tokens=${formulaDomGeometry.formulaTokenCount ?? "missing"}, summary=${formulaSafeAreaSummary ?? "missing"}`
                 });
               }
             }

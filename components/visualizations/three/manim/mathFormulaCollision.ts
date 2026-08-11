@@ -17,6 +17,7 @@ export type FormulaOverlayBox = {
 export type FormulaOverlayCollisionDiagnostics = {
   collisionCount: number;
   collisionLabelIds: string;
+  edgeInsetPx: number;
   formulaBox: FormulaOverlayBox;
   formulaId: string;
   mobileViewport: boolean;
@@ -111,11 +112,11 @@ function formulaOverlayBox(
   viewport: ProjectionViewport,
   tokenCount: number,
   placement: FormulaOverlayPlacement,
-  maximumWidthRatio: number
+  maximumWidthRatio: number,
+  edgeInsetPx = 12
 ): FormulaOverlayBox {
   const viewportWidth = Math.max(1, finite(viewport.width, 800));
   const viewportHeight = Math.max(1, finite(viewport.height, 450));
-  const margin = 12;
   const { height, width } = formulaOverlaySize(viewport, tokenCount, maximumWidthRatio);
   const rightAligned = placement.endsWith("right");
   const bottomAligned = placement.startsWith("bottom");
@@ -123,8 +124,8 @@ function formulaOverlayBox(
   return {
     height,
     width,
-    x: rightAligned ? viewportWidth - margin - width : margin,
-    y: bottomAligned ? viewportHeight - margin - height : margin
+    x: rightAligned ? viewportWidth - edgeInsetPx - width : edgeInsetPx,
+    y: bottomAligned ? viewportHeight - edgeInsetPx - height : edgeInsetPx
   };
 }
 
@@ -160,17 +161,19 @@ export function buildFormulaOverlayCollisionDiagnostics(
   const viewport = { height: viewportHeight, width: viewportWidth };
   const mobileViewport = viewportWidth <= 480;
   const placements: FormulaOverlayPlacement[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
-  // A narrow canvas can leave one central projected label touching all four
-  // regular wide corners. The formula panel is already independently
-  // scrollable, so retry progressively narrower, still-readable widths on
-  // every canvas before declaring that no safe placement exists. Candidate
-  // order preserves the widest safe panel and the familiar top-left preference.
+  // A narrow canvas can leave one or more projected labels touching all four
+  // regular wide corners. The formula panel is independently scrollable, so
+  // retry progressively narrower, still-readable widths and smaller bounded
+  // edge insets before declaring that no safe placement exists. Candidate
+  // order preserves the widest safe panel, then the largest safe inset, and
+  // finally the familiar top-left preference.
   const maximumWidthRatios = mobileViewport
     ? [0.5, 0.45, 0.4, 0.35, 0.3]
     : [0.78, 0.65, 0.5, 0.45, 0.4, 0.35, 0.3];
+  const edgeInsets = [12, 8, 4];
   const candidates = maximumWidthRatios.flatMap((maximumWidthRatio) =>
-    placements.map((placement) => {
-      const box = formulaOverlayBox(viewport, input.tokenCount, placement, maximumWidthRatio);
+    edgeInsets.flatMap((edgeInsetPx) => placements.map((placement) => {
+      const box = formulaOverlayBox(viewport, input.tokenCount, placement, maximumWidthRatio, edgeInsetPx);
       const labelBoxes = input.projectedLabels.flatMap((label) => {
         if (!label.visible) return [];
         const labelPlacement = buildProjectedLabelPlacement(
@@ -192,13 +195,14 @@ export function buildFormulaOverlayCollisionDiagnostics(
       const collisionArea = collisions.reduce((area, entry) => area + intersectionArea(entry.box, box), 0);
       const collisionLabels = collisions.map((entry) => entry.label);
       const overflow = overflowEdges(box, viewportWidth, viewportHeight);
-      return { box, collisionArea, collisionLabels, maximumWidthRatio, overflow, placement };
-    })
+      return { box, collisionArea, collisionLabels, edgeInsetPx, maximumWidthRatio, overflow, placement };
+    }))
   );
-  // Preserve the familiar top-left placement when it is safe. Otherwise move
-  // the fixed-in-frame formula panel to the first corner with the fewest label
-  // collisions. Every candidate is deterministic, viewport-bounded, and uses
-  // the same geometry that MathFormulaOverlay applies in CSS.
+  // Preserve the familiar top-left placement when it is safe at the widest
+  // readable width and largest inset. Otherwise move the fixed-in-frame panel
+  // to the first width/inset/corner candidate with the fewest label collisions.
+  // Every candidate is deterministic, viewport-bounded, and uses the same
+  // geometry that MathFormulaOverlay applies in CSS.
   const selected = candidates.reduce((best, candidate) => {
     if (candidate.collisionLabels.length !== best.collisionLabels.length) {
       return candidate.collisionLabels.length < best.collisionLabels.length ? candidate : best;
@@ -222,6 +226,7 @@ export function buildFormulaOverlayCollisionDiagnostics(
     `viewport=${formatNumber(viewportWidth)}x${formatNumber(viewportHeight)}`,
     `mobile=${mobileViewport ? "true" : "false"}`,
     `placement=${selected.placement}`,
+    `edgeInset=${formatNumber(selected.edgeInsetPx)}`,
     `maxWidthRatio=${formatRatio(selected.maximumWidthRatio)}`,
     `box=${formatBox(formulaBox)}`,
     `status=${safeAreaStatus}`,
@@ -232,6 +237,7 @@ export function buildFormulaOverlayCollisionDiagnostics(
   return {
     collisionCount: collisionLabels.length,
     collisionLabelIds,
+    edgeInsetPx: selected.edgeInsetPx,
     formulaBox,
     formulaId: input.formulaId,
     mobileViewport,

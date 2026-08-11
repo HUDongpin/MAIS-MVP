@@ -158,12 +158,20 @@ export function MathFormulaOverlay({
         data-viz-manim-token-count={tokenCount}
         className="pointer-events-auto absolute max-h-[42%] max-w-[50%] overflow-auto overscroll-contain rounded-2xl border border-white/10 bg-slate-950/76 px-3.5 py-2.5 text-sm font-black leading-tight text-cyan-50 shadow-lg shadow-slate-950/20 sm:max-h-[calc(100%-1.5rem)] sm:max-w-[min(78%,34rem)] [&_.katex]:text-[1.08em]"
         style={{
-          bottom: formulaCollisionDiagnostics.placement.startsWith("bottom") ? 12 : undefined,
-          left: formulaCollisionDiagnostics.placement.endsWith("left") ? 12 : undefined,
+          bottom: formulaCollisionDiagnostics.placement.startsWith("bottom")
+            ? `${(viewportHeight - formulaCollisionDiagnostics.formulaBox.y - formulaCollisionDiagnostics.formulaBox.height).toFixed(2)}px`
+            : undefined,
+          left: formulaCollisionDiagnostics.placement.endsWith("left")
+            ? `${formulaCollisionDiagnostics.formulaBox.x.toFixed(2)}px`
+            : undefined,
           maxHeight: `${formulaCollisionDiagnostics.formulaBox.height.toFixed(2)}px`,
           maxWidth: `${formulaCollisionDiagnostics.formulaBox.width.toFixed(2)}px`,
-          right: formulaCollisionDiagnostics.placement.endsWith("right") ? 12 : undefined,
-          top: formulaCollisionDiagnostics.placement.startsWith("top") ? 12 : undefined
+          right: formulaCollisionDiagnostics.placement.endsWith("right")
+            ? `${(viewportWidth - formulaCollisionDiagnostics.formulaBox.x - formulaCollisionDiagnostics.formulaBox.width).toFixed(2)}px`
+            : undefined,
+          top: formulaCollisionDiagnostics.placement.startsWith("top")
+            ? `${formulaCollisionDiagnostics.formulaBox.y.toFixed(2)}px`
+            : undefined
         }}
       >
         <MathText text={colorizedFormula.latex} ariaLabel="MAIS Manim formula" normalizeMath={false} />

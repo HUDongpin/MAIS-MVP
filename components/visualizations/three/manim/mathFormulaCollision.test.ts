@@ -86,12 +86,40 @@ test("uses a real text-sized label box to free the lower mobile formula lane", (
   assert.equal(diagnostics.safeAreaStatus, "safe");
 });
 
-test("narrows the scrollable formula panel when a central label occupies every regular mobile corner", () => {
+test("shifts or narrows the scrollable formula panel to preserve the widest safe mobile layout", () => {
   const viewport = { height: 127, width: 226 };
-  const capturedReachableStates: Array<{ name: string; screen: [number, number] }> = [
-    { name: "all-ranges=min;mode=default", screen: [78.03, 51.64] },
-    { name: "all-ranges=default;mode=2", screen: [79.12, 63.73] },
-    { name: "all-ranges=default;mode=3", screen: [78.09, 52.36] }
+  const capturedReachableStates: Array<{
+    edgeInsetPx: number;
+    maxWidthRatio: number;
+    name: string;
+    placement: "bottom-left" | "top-right";
+    screen: [number, number];
+    width: number;
+  }> = [
+    {
+      edgeInsetPx: 8,
+      maxWidthRatio: 0.5,
+      name: "all-ranges=min;mode=default",
+      placement: "bottom-left",
+      screen: [78.03, 51.64],
+      width: 113
+    },
+    {
+      edgeInsetPx: 4,
+      maxWidthRatio: 0.45,
+      name: "all-ranges=default;mode=2",
+      placement: "top-right",
+      screen: [79.12, 63.73],
+      width: 101.7
+    },
+    {
+      edgeInsetPx: 8,
+      maxWidthRatio: 0.5,
+      name: "all-ranges=default;mode=3",
+      placement: "bottom-left",
+      screen: [78.09, 52.36],
+      width: 113
+    }
   ];
   const originalPreferred = buildFormulaOverlayCollisionDiagnostics({
     formulaId: "family-formula",
@@ -107,7 +135,7 @@ test("narrows the scrollable formula panel when a central label occupies every r
   assert.equal(originalPreferred.safeAreaStatus, "safe");
   const originalPreferredBox = originalPreferred.formulaBox;
 
-  for (const { name, screen } of capturedReachableStates) {
+  for (const { edgeInsetPx, maxWidthRatio, name, placement, screen, width } of capturedReachableStates) {
     const diagnostics = buildFormulaOverlayCollisionDiagnostics({
       formulaId: "family-formula",
       projectedLabels: [{
@@ -138,63 +166,115 @@ test("narrows the scrollable formula panel when a central label occupies every r
     ) - Math.max(originalPreferredBox.y, labelBounds.top);
 
     assert.ok(originalOverlapWidth > 0 && originalOverlapHeight > 0, `${name} must reproduce the Run 31 collision`);
-    assert.equal(diagnostics.placement, "top-right");
-    assert.equal(diagnostics.formulaBox.width, 90.4);
+    assert.equal(diagnostics.placement, placement);
+    assert.equal(diagnostics.formulaBox.width, width);
+    assert.equal(diagnostics.edgeInsetPx, edgeInsetPx);
     assert.equal(diagnostics.collisionCount, 0);
     assert.equal(diagnostics.collisionLabelIds, "none");
     assert.equal(diagnostics.safeAreaStatus, "safe");
-    assert.match(diagnostics.summary, /maxWidthRatio=0\.4/);
-    assert.ok(diagnostics.formulaBox.x >= 12);
-    assert.ok(diagnostics.formulaBox.y >= 12);
-    assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - 12);
-    assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - 12);
+    assert.match(diagnostics.summary, new RegExp(`edgeInset=${edgeInsetPx}\\.0`));
+    assert.match(diagnostics.summary, new RegExp(`maxWidthRatio=${maxWidthRatio}`));
+    assert.ok(diagnostics.formulaBox.x >= edgeInsetPx);
+    assert.ok(diagnostics.formulaBox.y >= edgeInsetPx);
+    assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - edgeInsetPx);
+    assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - edgeInsetPx);
     assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `formula must clear active f(x) in ${name}`);
   }
 });
 
-test("keeps the live moving probe and primary family labels clear of the formula on the Run 44 canvas", () => {
+test("keeps the live moving probe and primary family labels clear in captured Run 44 and Run 51 states", () => {
   const viewport = { height: 127, width: 226 };
-  const diagnostics = buildFormulaOverlayCollisionDiagnostics({
-    formulaId: "family-formula",
-    projectedLabels: [
-      {
+  const capturedStates: Array<{
+    edgeInsetPx: number;
+    maxWidthRatio: number;
+    minimumProbeGapPx: number;
+    name: string;
+    placement: "bottom-right" | "top-left";
+    probeScreen: [number, number];
+    width: number;
+  }> = [
+    {
+      edgeInsetPx: 12,
+      maxWidthRatio: 0.3,
+      minimumProbeGapPx: 0.5,
+      name: "Run 44",
+      placement: "top-left",
+      probeScreen: [113.53, 61.87],
+      width: 67.8
+    },
+    {
+      edgeInsetPx: 4,
+      maxWidthRatio: 0.35,
+      minimumProbeGapPx: 2,
+      name: "Run 51",
+      placement: "bottom-right",
+      probeScreen: [107.21, 59.54],
+      width: 79.1
+    }
+  ];
+
+  for (const {
+    edgeInsetPx,
+    maxWidthRatio,
+    minimumProbeGapPx,
+    name,
+    placement,
+    probeScreen,
+    width
+  } of capturedStates) {
+    const labels = [
+      { screen: [218, 50.87] as [number, number], text: "active f(x)" },
+      { screen: probeScreen, text: "(x,f(x))" }
+    ];
+    const diagnostics = buildFormulaOverlayCollisionDiagnostics({
+      formulaId: "family-formula",
+      projectedLabels: labels.map((label, index) => ({
         ...projectedLabel,
-        id: "label:primary-family-curve",
-        screen: [218, 50.87],
-        text: "active f(x)"
-      },
-      {
-        ...projectedLabel,
-        id: "label:family-probe",
-        screen: [113.53, 61.87],
-        text: "(x,f(x))"
+        id: index === 0 ? "label:primary-family-curve" : "label:family-probe",
+        screen: label.screen,
+        text: label.text
+      })),
+      tokenCount: 3,
+      viewport
+    });
+
+    assert.equal(diagnostics.formulaBox.width, width, `${name} should keep the widest safe final candidate`);
+    assert.equal(diagnostics.edgeInsetPx, edgeInsetPx);
+    assert.equal(diagnostics.placement, placement);
+    assert.equal(diagnostics.collisionCount, 0);
+    assert.equal(diagnostics.collisionLabelIds, "none");
+    assert.equal(diagnostics.safeAreaStatus, "safe");
+    assert.equal(diagnostics.overflowEdges, "none");
+    assert.match(diagnostics.summary, new RegExp(`edgeInset=${edgeInsetPx}\\.0`));
+    assert.match(diagnostics.summary, new RegExp(`maxWidthRatio=${maxWidthRatio}`));
+    assert.ok(diagnostics.edgeInsetPx >= 4);
+    assert.ok(diagnostics.formulaBox.x >= 4);
+    assert.ok(diagnostics.formulaBox.y >= 4);
+    assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - 4);
+    assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - 4);
+
+    for (const label of labels) {
+      const bounds = buildProjectedLabelPlacement(label.screen, viewport, { text: label.text }).bounds;
+      const overlapWidth = Math.min(diagnostics.formulaBox.x + diagnostics.formulaBox.width, bounds.right) -
+        Math.max(diagnostics.formulaBox.x, bounds.left);
+      const overlapHeight = Math.min(diagnostics.formulaBox.y + diagnostics.formulaBox.height, bounds.bottom) -
+        Math.max(diagnostics.formulaBox.y, bounds.top);
+      assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `${name} ${label.text} must not overlap the formula panel`);
+      if (label.text === "(x,f(x))") {
+        const horizontalGap = Math.max(
+          bounds.left - (diagnostics.formulaBox.x + diagnostics.formulaBox.width),
+          diagnostics.formulaBox.x - bounds.right
+        );
+        const verticalGap = Math.max(
+          bounds.top - (diagnostics.formulaBox.y + diagnostics.formulaBox.height),
+          diagnostics.formulaBox.y - bounds.bottom
+        );
+        assert.ok(
+          Math.max(horizontalGap, verticalGap) >= minimumProbeGapPx,
+          `${name} moving probe must retain at least ${minimumProbeGapPx}px of model clearance`
+        );
       }
-    ],
-    tokenCount: 3,
-    viewport
-  });
-
-  assert.equal(diagnostics.formulaBox.width, 67.8);
-  assert.equal(diagnostics.collisionCount, 0);
-  assert.equal(diagnostics.collisionLabelIds, "none");
-  assert.equal(diagnostics.safeAreaStatus, "safe");
-  assert.equal(diagnostics.overflowEdges, "none");
-  assert.match(diagnostics.summary, /maxWidthRatio=0\.3/);
-  assert.ok(diagnostics.formulaBox.x >= 12);
-  assert.ok(diagnostics.formulaBox.y >= 12);
-  assert.ok(diagnostics.formulaBox.x + diagnostics.formulaBox.width <= viewport.width - 12);
-  assert.ok(diagnostics.formulaBox.y + diagnostics.formulaBox.height <= viewport.height - 12);
-
-  for (const label of [
-    { screen: [218, 50.87] as [number, number], text: "active f(x)" },
-    { screen: [113.53, 61.87] as [number, number], text: "(x,f(x))" }
-  ]) {
-    const bounds = buildProjectedLabelPlacement(label.screen, viewport, { text: label.text }).bounds;
-    const overlapWidth = Math.min(diagnostics.formulaBox.x + diagnostics.formulaBox.width, bounds.right) -
-      Math.max(diagnostics.formulaBox.x, bounds.left);
-    const overlapHeight = Math.min(diagnostics.formulaBox.y + diagnostics.formulaBox.height, bounds.bottom) -
-      Math.max(diagnostics.formulaBox.y, bounds.top);
-    assert.ok(overlapWidth <= 0 || overlapHeight <= 0, `${label.text} must not overlap the formula panel`);
+    }
   }
 });
 
@@ -267,6 +347,7 @@ test("serializes formula collision diagnostics as deterministic script-safe brow
   assert.equal(parsed.formulaId, "formula<script>");
   assert.equal(parsed.collisionCount, 0);
   assert.equal(parsed.collisionLabelIds, "none");
+  assert.equal(parsed.edgeInsetPx, diagnostics.edgeInsetPx);
   assert.equal(parsed.placement, "top-right");
   assert.equal(parsed.safeAreaStatus, "safe");
   assert.deepEqual(parsed.formulaBox, diagnostics.formulaBox);
