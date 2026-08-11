@@ -619,6 +619,11 @@ export function CoordinatePlaneDemo({ topicId = "coordinates" }: { topicId?: str
     zh: "x 請使用 -8 至 8，y 請使用 -6 至 6。",
     zhHans: "x 请使用 -8 至 8，y 请使用 -6 至 6。"
   });
+  const duplicatePointError = t({
+    en: "That point is already plotted. Choose a different coordinate.",
+    zh: "這個點已經標示，請選擇另一組坐標。",
+    zhHans: "这个点已经标出，请选择另一组坐标。"
+  });
 
   if (topicId === "p1-counting-number-bonds") return <PrimaryCountingNumberBondsLab topicId={topicId} />;
   if (topicId === "p1-addition-subtraction") return <PrimaryNumberLineLab topicId={topicId} />;
@@ -633,6 +638,10 @@ export function CoordinatePlaneDemo({ topicId = "coordinates" }: { topicId?: str
     }
 
     const storedPoint = inverseTransformPoint({ x: inputX, y: inputY }, mode);
+    if (points.some((point) => Math.abs(point.x - storedPoint.x) < 0.0001 && Math.abs(point.y - storedPoint.y) < 0.0001)) {
+      setPointInputError(duplicatePointError);
+      return;
+    }
 
     setPoints((current) => [...current, storedPoint].slice(-8));
     setPointInputError("");

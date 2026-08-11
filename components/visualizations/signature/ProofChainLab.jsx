@@ -63,6 +63,38 @@ const GOLD = '#b98718';
 const INK_HEX = '#243342';
 const SLATE = '#5b6b7b';
 const CALIB_STEP = 5;
+
+function wrapMeasuredText(ctx, text, maxWidth) {
+  const lines = [];
+  let line = '';
+  for (const word of text.trim().split(/\s+/)) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (!line || ctx.measureText(candidate).width <= maxWidth) {
+      line = candidate;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawProofBandLabel(ctx, text, width, bandHeight) {
+  const maxWidth = Math.max(1, width - 16);
+  let fontSize = width < 240 ? 11.5 : 14.5;
+  let lines = [];
+  while (true) {
+    ctx.font = `700 ${fontSize}px ui-monospace, monospace`;
+    lines = wrapMeasuredText(ctx, text, maxWidth);
+    if (lines.length <= 2 || fontSize <= 8) break;
+    fontSize = Math.max(8, fontSize - 0.5);
+  }
+  if (lines.length > 2) lines = [lines[0], lines.slice(1).join(' ')];
+  const lineHeight = Math.min(17, fontSize + 3);
+  const firstY = bandHeight / 2 - ((lines.length - 1) * lineHeight) / 2;
+  lines.forEach((line, index) => ctx.fillText(line, width / 2, firstY + index * lineHeight, maxWidth));
+}
 const MINUS = '−'; /* U+2212 */
 
 const fmtDeg = (n) => `${n}°`;
@@ -332,20 +364,21 @@ export default function ProofChainLab() {
     const gs = 26;
     ctx.beginPath();
     for (let gx = gs; gx < W; gx += gs) {
-      ctx.moveTo(Math.round(gx) + 0.5, 0);
-      ctx.lineTo(Math.round(gx) + 0.5, H2);
+      ctx.moveTo(Math.round(gx) + 0.5, 0.5);
+      ctx.lineTo(Math.round(gx) + 0.5, H2 - 0.5);
     }
     for (let gy = gs; gy < H2; gy += gs) {
-      ctx.moveTo(0, Math.round(gy) + 0.5);
-      ctx.lineTo(W, Math.round(gy) + 0.5);
+      ctx.moveTo(0.5, Math.round(gy) + 0.5);
+      ctx.lineTo(W - 0.5, Math.round(gy) + 0.5);
     }
     ctx.stroke();
 
     const bandH = 52;
     /* the crossing (left) — one horizontal line, one at θ (pixels only) */
-    const cx = W * 0.24;
-    const cy = bandH + (H2 - bandH) * 0.5;
-    const L = Math.min(W * 0.2, 130);
+    const compact = W < 360;
+    const cx = compact ? W / 2 : W * 0.24;
+    const cy = compact ? bandH + 64 : bandH + (H2 - bandH) * 0.5;
+    const L = compact ? Math.min((W - 20) / 2, 50) : Math.min(W * 0.2, 130);
     const rad = (S.theta * Math.PI) / 180;
     ctx.strokeStyle = BLUE;
     ctx.lineWidth = 2;
@@ -359,50 +392,60 @@ export default function ProofChainLab() {
     const dirs = [rad / 2, rad + (Math.PI - rad) / 2, Math.PI + rad / 2, Math.PI + rad + (Math.PI - rad) / 2];
     ['∠1', '∠2', '∠3', '∠4'].forEach((lbl, i) => {
       const d = dirs[i];
-      const rr = 44;
+      const rr = compact ? Math.min(34, (W - 48) / 2) : 44;
       const x = cx + rr * Math.cos(d);
       const y = cy - rr * Math.sin(d);
       ctx.fillStyle = i % 2 === 0 ? CARMINE : SLATE;
       ctx.font = '600 11px ui-monospace, monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(`${lbl} ${S.angles[i]}°`, x, y);
+      const label = `${lbl} ${S.angles[i]}°`;
+      const metrics = ctx.measureText(label);
+      const labelWidth = Math.min(metrics.width, Math.max(1, W - 8));
+      const labelHeight = Math.max(11, metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent);
+      const safeX = Math.max(4 + labelWidth / 2, Math.min(W - 4 - labelWidth / 2, x));
+      const safeY = Math.max(4 + labelHeight / 2, Math.min(H2 - 4 - labelHeight / 2, y));
+      ctx.fillText(label, safeX, safeY, Math.max(1, W - 8));
     });
 
     /* the chain (right) */
     if (S.showChain) {
-      const x0 = W * 0.44;
-      let y = bandH + 34;
+      const x0 = compact ? 10 : W * 0.44;
+      let y = compact ? bandH + 125 : bandH + 34;
+      const rowGap = compact ? 40 : 52;
+      const textWidth = Math.max(1, W - x0 - 8);
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
       ctx.fillStyle = SLATE;
       ctx.font = 'italic 600 11.5px system-ui, sans-serif';
-      ctx.fillText('the chain', x0, y - 22);
+      ctx.fillText('the chain', x0, y - 18, textWidth);
       for (let i = 0; i < S.upTo; i++) {
         const last = i === 2;
         ctx.fillStyle = last ? CARMINE : INK_HEX;
         ctx.font = (last ? '700' : '600') + ' 13px ui-monospace, monospace';
-        ctx.fillText(CHAIN[i].claim, x0, y);
+        ctx.fillText(CHAIN[i].claim, x0, y, textWidth);
         ctx.fillStyle = GOLD;
         ctx.font = '600 10.5px ui-monospace, monospace';
         ctx.fillText(
           S.veiled === i ? 'because  ?' : `because  ${LAWS[CHAIN[i].law]}`,
           x0 + 16,
-          y + 20
+          y + (compact ? 16 : 20),
+          Math.max(1, W - (x0 + 16) - 8)
         );
-        y += 52;
+        y += rowGap;
       }
       /* the instance panel */
       if (S.upTo >= 1) {
         ctx.fillStyle = SLATE;
         ctx.font = 'italic 600 11.5px system-ui, sans-serif';
-        ctx.fillText('today’s numbers', x0, y + 6);
+        ctx.fillText('today’s numbers', x0, y + (compact ? 2 : 6), textWidth);
         ctx.font = '600 11px ui-monospace, monospace';
         ctx.fillStyle = BLUE;
         ctx.fillText(
           `${S.angles[0]} + ${S.angles[1]} = 180 · ${S.angles[2]} + ${S.angles[1]} = 180${S.upTo >= 3 ? ` · ${S.angles[0]} = ${S.angles[2]}` : ''}`,
           x0,
-          y + 26
+          y + (compact ? 18 : 26),
+          textWidth
         );
       }
     }
@@ -411,8 +454,7 @@ export default function ProofChainLab() {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = CARMINE;
-    ctx.font = '700 14.5px ui-monospace, monospace';
-    ctx.fillText(S.bandLabel, W / 2, bandH / 2);
+    drawProofBandLabel(ctx, S.bandLabel, W, bandH);
   }, []);
 
   useEffect(() => {

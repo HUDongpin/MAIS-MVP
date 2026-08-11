@@ -1,9 +1,11 @@
 import type { ProjectedLabelAnchor, ProjectionViewport } from "./mathProjectedLabels";
+import { buildProjectedLabelPlacement } from "./mathProjectedLabelPlacement";
 
 export const FORMULA_OVERLAY_COLLISION_SOURCE_CONTRACT =
   "Formula overlay collision: fixed-in-frame formula panel is checked against projected mobject labels for safe browser placement" as const;
 
 export type FormulaOverlaySafeAreaStatus = "collision" | "overflow" | "safe";
+export type FormulaOverlayPlacement = "bottom-left" | "bottom-right" | "top-left" | "top-right";
 
 export type FormulaOverlayBox = {
   height: number;
@@ -15,10 +17,12 @@ export type FormulaOverlayBox = {
 export type FormulaOverlayCollisionDiagnostics = {
   collisionCount: number;
   collisionLabelIds: string;
+  edgeInsetPx: number;
   formulaBox: FormulaOverlayBox;
   formulaId: string;
   mobileViewport: boolean;
   overflowEdges: string;
+  placement: FormulaOverlayPlacement;
   safeAreaStatus: FormulaOverlaySafeAreaStatus;
   sourceContract: typeof FORMULA_OVERLAY_COLLISION_SOURCE_CONTRACT;
   summary: string;
@@ -28,7 +32,7 @@ export type FormulaOverlayCollisionDiagnostics = {
 
 export type FormulaOverlayCollisionInput = {
   formulaId: string;
-  projectedLabels: Pick<ProjectedLabelAnchor, "id" | "screen" | "visible">[];
+  projectedLabels: Pick<ProjectedLabelAnchor, "id" | "screen" | "text" | "visible">[];
   tokenCount: number;
   viewport: ProjectionViewport;
 };
@@ -65,6 +69,10 @@ function formatNumber(value: number) {
   return finite(value, 0).toFixed(1);
 }
 
+function formatRatio(value: number) {
+  return finite(value, 0).toFixed(2).replace(/0+$/u, "").replace(/\.$/u, "");
+}
+
 function formatBox(box: FormulaOverlayBox) {
   return [
     `x=${formatNumber(box.x)}`,
@@ -74,29 +82,64 @@ function formatBox(box: FormulaOverlayBox) {
   ].join(",");
 }
 
-function formulaOverlayBox(viewport: ProjectionViewport, tokenCount: number): FormulaOverlayBox {
+function formulaOverlaySize(
+  viewport: ProjectionViewport,
+  tokenCount: number,
+  maximumWidthRatio: number
+) {
   const viewportWidth = Math.max(1, finite(viewport.width, 800));
+  const viewportHeight = Math.max(1, finite(viewport.height, 450));
   const margin = 12;
-  const maxCssWidth = Math.min(viewportWidth * 0.78, 544);
+  const mobileViewport = viewportWidth <= 480;
+  const maxCssWidth = Math.min(
+    Math.max(1, viewportWidth - margin * 2),
+    Math.max(1, viewportWidth * maximumWidthRatio),
+    544
+  );
   const width = clamp(168 + Math.max(0, tokenCount) * 64, 220, Math.max(1, maxCssWidth));
   const usableTokenWidth = Math.max(1, width - 32);
   const tokensPerRow = Math.max(1, Math.floor(usableTokenWidth / 72));
   const tokenRows = Math.max(1, Math.ceil(Math.max(1, tokenCount) / tokensPerRow));
-  const height = 56 + tokenRows * 28;
+  const maxCssHeight = mobileViewport
+    ? viewportHeight * 0.42
+    : viewportHeight - margin * 2;
+  const height = Math.min(56 + tokenRows * 28, Math.max(1, maxCssHeight));
+
+  return { height, width };
+}
+
+function formulaOverlayBox(
+  viewport: ProjectionViewport,
+  tokenCount: number,
+  placement: FormulaOverlayPlacement,
+  maximumWidthRatio: number,
+  edgeInsetPx = 12
+): FormulaOverlayBox {
+  const viewportWidth = Math.max(1, finite(viewport.width, 800));
+  const viewportHeight = Math.max(1, finite(viewport.height, 450));
+  const { height, width } = formulaOverlaySize(viewport, tokenCount, maximumWidthRatio);
+  const rightAligned = placement.endsWith("right");
+  const bottomAligned = placement.startsWith("bottom");
 
   return {
     height,
     width,
-    x: margin,
-    y: margin
+    x: rightAligned ? viewportWidth - edgeInsetPx - width : edgeInsetPx,
+    y: bottomAligned ? viewportHeight - edgeInsetPx - height : edgeInsetPx
   };
 }
 
-function pointInsideBox(point: [number, number], box: FormulaOverlayBox) {
-  return point[0] >= box.x
-    && point[0] <= box.x + box.width
-    && point[1] >= box.y
-    && point[1] <= box.y + box.height;
+function boxesIntersect(left: FormulaOverlayBox, right: FormulaOverlayBox) {
+  return left.x < right.x + right.width
+    && left.x + left.width > right.x
+    && left.y < right.y + right.height
+    && left.y + left.height > right.y;
+}
+
+function intersectionArea(left: FormulaOverlayBox, right: FormulaOverlayBox) {
+  const width = Math.max(0, Math.min(left.x + left.width, right.x + right.width) - Math.max(left.x, right.x));
+  const height = Math.max(0, Math.min(left.y + left.height, right.y + right.height) - Math.max(left.y, right.y));
+  return width * height;
 }
 
 function overflowEdges(box: FormulaOverlayBox, viewportWidth: number, viewportHeight: number) {
@@ -115,20 +158,76 @@ export function buildFormulaOverlayCollisionDiagnostics(
 ): FormulaOverlayCollisionDiagnostics {
   const viewportWidth = Math.max(1, finite(input.viewport.width, 800));
   const viewportHeight = Math.max(1, finite(input.viewport.height, 450));
-  const formulaBox = formulaOverlayBox({ height: viewportHeight, width: viewportWidth }, input.tokenCount);
-  const collisionLabels = input.projectedLabels.filter((label) =>
-    label.visible && pointInsideBox([finite(label.screen[0], -1), finite(label.screen[1], -1)], formulaBox)
+  const viewport = { height: viewportHeight, width: viewportWidth };
+  const mobileViewport = viewportWidth <= 480;
+  const placements: FormulaOverlayPlacement[] = ["top-left", "top-right", "bottom-left", "bottom-right"];
+  // A narrow canvas can leave one or more projected labels touching all four
+  // regular wide corners. The formula panel is independently scrollable, so
+  // retry progressively narrower, still-readable widths and smaller bounded
+  // edge insets before declaring that no safe placement exists. Candidate
+  // order preserves the widest safe panel, then the largest safe inset, and
+  // finally the familiar top-left preference.
+  const maximumWidthRatios = mobileViewport
+    ? [0.5, 0.45, 0.4, 0.35, 0.3]
+    : [0.78, 0.65, 0.5, 0.45, 0.4, 0.35, 0.3];
+  const edgeInsets = [12, 8, 4];
+  const candidates = maximumWidthRatios.flatMap((maximumWidthRatio) =>
+    edgeInsets.flatMap((edgeInsetPx) => placements.map((placement) => {
+      const box = formulaOverlayBox(viewport, input.tokenCount, placement, maximumWidthRatio, edgeInsetPx);
+      const labelBoxes = input.projectedLabels.flatMap((label) => {
+        if (!label.visible) return [];
+        const labelPlacement = buildProjectedLabelPlacement(
+          [finite(label.screen[0], -1), finite(label.screen[1], -1)],
+          viewport,
+          { text: label.text }
+        );
+        return [{
+          box: {
+            height: labelPlacement.bounds.height,
+            width: labelPlacement.bounds.width,
+            x: labelPlacement.bounds.left,
+            y: labelPlacement.bounds.top
+          },
+          label
+        }];
+      });
+      const collisions = labelBoxes.filter((entry) => boxesIntersect(entry.box, box));
+      const collisionArea = collisions.reduce((area, entry) => area + intersectionArea(entry.box, box), 0);
+      const collisionLabels = collisions.map((entry) => entry.label);
+      const overflow = overflowEdges(box, viewportWidth, viewportHeight);
+      return { box, collisionArea, collisionLabels, edgeInsetPx, maximumWidthRatio, overflow, placement };
+    }))
   );
+  // Preserve the familiar top-left placement when it is safe at the widest
+  // readable width and largest inset. Otherwise move the fixed-in-frame panel
+  // to the first width/inset/corner candidate with the fewest label collisions.
+  // Every candidate is deterministic, viewport-bounded, and uses the same
+  // geometry that MathFormulaOverlay applies in CSS.
+  const selected = candidates.reduce((best, candidate) => {
+    if (candidate.collisionLabels.length !== best.collisionLabels.length) {
+      return candidate.collisionLabels.length < best.collisionLabels.length ? candidate : best;
+    }
+    const candidateOverflowCount = candidate.overflow === "none" ? 0 : candidate.overflow.split(",").length;
+    const bestOverflowCount = best.overflow === "none" ? 0 : best.overflow.split(",").length;
+    if (candidateOverflowCount !== bestOverflowCount) {
+      return candidateOverflowCount < bestOverflowCount ? candidate : best;
+    }
+    return candidate.collisionArea < best.collisionArea ? candidate : best;
+  });
+  const formulaBox = selected.box;
+  const collisionLabels = selected.collisionLabels;
   const collisionLabelIds = collisionLabels.map((label) => label.id).join(",") || "none";
-  const overflow = overflowEdges(formulaBox, viewportWidth, viewportHeight);
+  const overflow = selected.overflow;
   const safeAreaStatus: FormulaOverlaySafeAreaStatus = collisionLabels.length > 0
     ? "collision"
     : overflow !== "none" ? "overflow" : "safe";
-  const mobileViewport = viewportWidth <= 480;
   const summary = [
     `formula=${input.formulaId}`,
     `viewport=${formatNumber(viewportWidth)}x${formatNumber(viewportHeight)}`,
     `mobile=${mobileViewport ? "true" : "false"}`,
+    `placement=${selected.placement}`,
+    `edgeInset=${formatNumber(selected.edgeInsetPx)}`,
+    `maxWidthRatio=${formatRatio(selected.maximumWidthRatio)}`,
     `box=${formatBox(formulaBox)}`,
     `status=${safeAreaStatus}`,
     `collisions=${collisionLabelIds}`,
@@ -138,10 +237,12 @@ export function buildFormulaOverlayCollisionDiagnostics(
   return {
     collisionCount: collisionLabels.length,
     collisionLabelIds,
+    edgeInsetPx: selected.edgeInsetPx,
     formulaBox,
     formulaId: input.formulaId,
     mobileViewport,
     overflowEdges: overflow,
+    placement: selected.placement,
     safeAreaStatus,
     sourceContract: FORMULA_OVERLAY_COLLISION_SOURCE_CONTRACT,
     summary,
@@ -156,6 +257,7 @@ export function formulaOverlayCollisionDataAttributes(diagnostics: FormulaOverla
     "data-viz-manim-formula-collision-label-ids": diagnostics.collisionLabelIds,
     "data-viz-manim-formula-collision-source-contract": diagnostics.sourceContract,
     "data-viz-manim-formula-mobile-viewport": diagnostics.mobileViewport ? "true" : "false",
+    "data-viz-manim-formula-placement": diagnostics.placement,
     "data-viz-manim-formula-safe-area-status": diagnostics.safeAreaStatus,
     "data-viz-manim-formula-safe-area-summary": diagnostics.summary
   } as const;

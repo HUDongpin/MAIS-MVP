@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgPointOnRay
+} from "@/lib/mathDiagramGeometry";
 
 const ACCENT = "var(--band-high)";
 const r2 = (n: number) => Math.round(n * 100) / 100;
@@ -13,6 +18,23 @@ export default function Lesson() {
 
   const height = r2(dist * Math.tan((angle * Math.PI) / 180));
   const lineOfSight = r2(dist / Math.cos((angle * Math.PI) / 180));
+  const rad = (angle * Math.PI) / 180;
+  const observerX = 30, groundY = 150;
+  const runPx = Math.min(180, 110 / Math.tan(rad));
+  const risePx = runPx * Math.tan(rad);
+  const buildingX = observerX + runPx;
+  const topY = groundY - risePx;
+  const arcR = 24;
+  const arcStart = svgPointOnRay({ x: observerX, y: groundY }, arcR, 0);
+  const arcEnd = svgPointOnRay({ x: observerX, y: groundY }, arcR, rad);
+  const angleContract = buildMathAngleContract({
+    id: "angle-of-elevation",
+    origin: { x: observerX, y: groundY },
+    radius: arcR,
+    startRay: { x: 1, y: 0 },
+    endRay: { x: runPx, y: -risePx },
+    sweepRadians: rad
+  });
 
   return (
     <div className="prose-lesson max-w-none">
@@ -25,18 +47,18 @@ export default function Lesson() {
 
       <Figure caption="From a known distance and angle of elevation, tangent gives the height.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={180} viewBox="0 0 260 180" role="img" aria-label="angle of elevation to a building">
+          <svg className="mx-auto h-auto max-w-full" width={260} height={180} viewBox="0 0 260 180" role="img" aria-label={`A ${angle} degree angle of elevation measured ${dist} meters from a building, giving a height of about ${height} meters`}>
             {/* ground */}
             <line x1={20} y1={150} x2={240} y2={150} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* building */}
-            <line x1={210} y1={150} x2={210} y2={60} stroke={ACCENT} strokeWidth={3} />
+            <line x1={buildingX} y1={groundY} x2={buildingX} y2={topY} stroke={ACCENT} strokeWidth={3} />
             {/* line of sight */}
-            <line x1={30} y1={150} x2={210} y2={60} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="5 3" />
-            <rect x={198} y={138} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
-            <path d="M 60 150 A 30 30 0 0 0 55 135" fill="none" stroke="var(--band-middle)" strokeWidth={2} />
-            <text x={64} y={144} fontSize={11} fill="var(--band-middle)">{angle}°</text>
-            <text x={110} y={166} fontSize={11} fill="var(--ink-faint)">{dist} m</text>
-            <text x={216} y={108} fontSize={12} fontWeight={800} fill={ACCENT}>h = {height}</text>
+            <line x1={observerX} y1={groundY} x2={buildingX} y2={topY} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="5 3" />
+            <rect x={buildingX - 12} y={groundY - 12} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
+            <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(angleContract)} d={`M ${arcStart.x} ${arcStart.y} A ${arcR} ${arcR} 0 0 0 ${arcEnd.x} ${arcEnd.y}`} fill="none" stroke="var(--band-middle)" strokeWidth={2} />
+            <text x={observerX + 30} y={groundY - 8} fontSize={11} fill="var(--band-middle)">{angle}°</text>
+            <text x={(observerX + buildingX) / 2} y={166} textAnchor="middle" fontSize={11} fill="var(--ink-faint)">{dist} m</text>
+            <text x={buildingX > 185 ? buildingX - 6 : buildingX + 6} y={(groundY + topY) / 2} textAnchor={buildingX > 185 ? "end" : "start"} fontSize={12} fontWeight={800} fill={ACCENT}>h ≈ {height}</text>
           </svg>
 
           <div className="grid grid-cols-2 gap-4 text-center font-mono text-sm">

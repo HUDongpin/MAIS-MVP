@@ -30,7 +30,7 @@ export default function Lesson() {
             Rule: start at {start}, add {step} each time
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="mx-auto flex w-max max-w-none self-start flex-col gap-1.5">
             {seq.map((v, i) => (
               <div key={i} className="flex items-center gap-2">
                 <span className="w-6 text-right font-mono text-xs text-[var(--ink-faint)]">{i + 1}.</span>

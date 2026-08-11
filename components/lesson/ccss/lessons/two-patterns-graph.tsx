@@ -30,7 +30,7 @@ export default function Lesson() {
 
       <Figure caption="Each point pairs a term from pattern 1 (x) with a term from pattern 2 (y).">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex self-start flex-wrap items-center justify-start gap-6 sm:self-center sm:justify-center">
             <table className="font-mono text-sm">
               <thead>
                 <tr className="text-[var(--ink-faint)]">

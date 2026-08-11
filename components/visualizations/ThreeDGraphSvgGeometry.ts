@@ -91,13 +91,13 @@ export type ThreeDGraphSceneOptions = {
 
 export const defaultThreeDGraphCamera: ThreeDGraphCamera = {
   originX: 320,
-  originY: 286,
+  originY: 208,
   xAxisX: -112,
-  xAxisY: -56,
+  xAxisY: -38,
   yAxisX: 112,
-  yAxisY: -56,
+  yAxisY: -38,
   zAxisX: 0,
-  zAxisY: -134
+  zAxisY: -90
 };
 
 export const defaultThreeDGraphView: ThreeDGraphView = {
@@ -251,6 +251,16 @@ export function projectThreeDGraphPoint(point: ThreeDGraphPoint, camera: ThreeDG
     depth: point.x + point.y + point.z * 0.4,
     x: camera.originX + point.x * camera.xAxisX + point.y * camera.yAxisX + point.z * camera.zAxisX,
     y: camera.originY + point.x * camera.xAxisY + point.y * camera.yAxisY + point.z * camera.zAxisY
+  };
+}
+
+export function projectedThreeDGraphBounds(points: ThreeDGraphPoint[], camera: ThreeDGraphCamera) {
+  const projected = points.map((point) => projectThreeDGraphPoint(point, camera));
+  return {
+    bottom: Math.max(...projected.map((point) => point.y)),
+    left: Math.min(...projected.map((point) => point.x)),
+    right: Math.max(...projected.map((point) => point.x)),
+    top: Math.min(...projected.map((point) => point.y))
   };
 }
 

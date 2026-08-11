@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgAngleArcPath
+} from "@/lib/mathDiagramGeometry";
 
 const CX = 120, CY = 130, R = 100;
 const A = "var(--band-middle)";
@@ -16,7 +21,22 @@ function pt(deg: number, rad: number) {
 function wedge(from: number, to: number, fill: string) {
   const p0 = pt(from, R), p1 = pt(to, R);
   const large = to - from > 180 ? 1 : 0;
-  return <path d={`M ${CX} ${CY} L ${p0.x} ${p0.y} A ${R} ${R} 0 ${large} 0 ${p1.x} ${p1.y} Z`} fill={fill} fillOpacity={0.72} stroke={fill} strokeWidth={2} />;
+  const startRadians = from * Math.PI / 180;
+  const endRadians = to * Math.PI / 180;
+  const contract = buildMathAngleContract({
+    id: `add-angles-${from}-${to}`,
+    origin: { x: CX, y: CY },
+    radius: R,
+    startRay: { x: Math.cos(startRadians), y: -Math.sin(startRadians) },
+    endRay: { x: Math.cos(endRadians), y: -Math.sin(endRadians) },
+    sweepRadians: endRadians - startRadians
+  });
+  return (
+    <>
+      <path d={`M ${CX} ${CY} L ${p0.x} ${p0.y} A ${R} ${R} 0 ${large} 0 ${p1.x} ${p1.y} Z`} fill={fill} fillOpacity={0.72} />
+      <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(contract)} d={svgAngleArcPath(contract)} fill="none" stroke={fill} strokeWidth={2} />
+    </>
+  );
 }
 
 export default function Lesson() {
@@ -41,7 +61,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width="240" height="160" viewBox="0 0 240 160" role="img" aria-label={`${known} plus ${b} equals ${total} degrees`}>
+          <svg className="mx-auto h-auto max-w-full" width="240" height="160" viewBox="0 0 240 160" role="img" aria-label={`${known} plus ${b} equals ${total} degrees`}>
             {wedge(0, known, A)}
             {wedge(known, total, B)}
             <line x1={CX} y1={CY} x2={pt(0, R).x} y2={pt(0, R).y} stroke="var(--ink)" strokeWidth={2.5} />

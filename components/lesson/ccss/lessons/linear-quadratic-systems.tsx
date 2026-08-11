@@ -6,8 +6,10 @@ import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
 const LINE = "var(--band-upper)";
-const XR = 4, YR = 10, PXX = 40, PXY = 15, PAD = 28;
-const W = 2 * XR * PXX + 2 * PAD, H = YR * PXY + 2 * PAD;
+// The one-unit gutters above y=30 and below y=0 keep every reachable
+// intersection marker (including its stroke) inside the semantic plot.
+const XR = 6, Y_MIN = -1, Y_MAX = 31, PXX = 40, PXY = 15, PAD = 28;
+const W = 2 * XR * PXX + 2 * PAD, H = (Y_MAX - Y_MIN) * PXY + 2 * PAD;
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
 export default function Lesson() {
@@ -19,10 +21,10 @@ export default function Lesson() {
   const sols: number[] = disc > 0 ? [(m - Math.sqrt(disc)) / 2, (m + Math.sqrt(disc)) / 2] : disc === 0 ? [m / 2] : [];
 
   const sx = (x: number) => PAD + (x + XR) * PXX;
-  const sy = (y: number) => PAD + (YR - Math.min(y, YR)) * PXY;
+  const sy = (y: number) => PAD + (Y_MAX - y) * PXY;
 
   const para: string[] = [];
-  for (let x = -XR; x <= XR + 0.001; x += 0.1) if (x * x <= YR) para.push(`${sx(x).toFixed(1)},${sy(x * x).toFixed(1)}`);
+  for (let x = -XR; x <= XR + 0.001; x += 0.1) if (x * x <= Y_MAX) para.push(`${sx(x).toFixed(1)},${sy(x * x).toFixed(1)}`);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -45,8 +47,15 @@ export default function Lesson() {
             ))}
             <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={PAD} x2={sx(0)} y2={H - PAD} stroke="var(--ink-soft)" strokeWidth={2} />
-            <polyline points={para.join(" ")} fill="none" stroke={ACCENT} strokeWidth={2.5} />
-            <line x1={sx(-XR)} y1={sy(m * -XR + k)} x2={sx(XR)} y2={sy(m * XR + k)} stroke={LINE} strokeWidth={2.5} />
+            <defs>
+              <clipPath id="linear-quadratic-plot">
+                <rect x={PAD} y={PAD} width={2 * XR * PXX} height={H - 2 * PAD} />
+              </clipPath>
+            </defs>
+            <g clipPath="url(#linear-quadratic-plot)">
+              <polyline points={para.join(" ")} fill="none" stroke={ACCENT} strokeWidth={2.5} />
+              <line x1={sx(-XR)} y1={sy(m * -XR + k)} x2={sx(XR)} y2={sy(m * XR + k)} stroke={LINE} strokeWidth={2.5} />
+            </g>
             {sols.map((xv, i) => (
               <circle key={i} cx={sx(xv)} cy={sy(xv * xv)} r={5} fill="var(--ink)" stroke="white" strokeWidth={2} />
             ))}

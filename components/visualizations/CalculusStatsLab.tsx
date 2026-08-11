@@ -6,6 +6,10 @@ import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
 import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
 import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
+import {
+  buildCalculusTangentCurvePath,
+  evaluateCalculusCubic
+} from "@/components/visualizations/rawCurveGeometry";
 import { isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { clamp, formatNumber } from "@/lib/math";
 
@@ -18,14 +22,6 @@ const moduleId = "calculus-stats-lab";
 
 function mapLinear(value: number, min: number, max: number, screenMin: number, screenMax: number) {
   return screenMin + ((value - min) / (max - min)) * (screenMax - screenMin);
-}
-
-function mapVisibleLinear(value: number, min: number, max: number, screenMin: number, screenMax: number) {
-  return mapLinear(clamp(value, min, max), min, max, screenMin, screenMax);
-}
-
-function curve(x: number) {
-  return 0.12 * x ** 3 - 0.6 * x ** 2 + x + 1;
 }
 
 function derivative(x: number) {
@@ -113,20 +109,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
   const [sd, setSd] = useState(10);
   const [observed, setObserved] = useState(65);
 
-  const tangentPath = useMemo(() => {
-    const xMin = -4;
-    const xMax = 6;
-    const yMin = -9;
-    const yMax = 9;
-    return Array.from({ length: 180 }, (_, index) => xMin + (index / 179) * (xMax - xMin))
-      .map((x, index) => {
-        const y = curve(x);
-        const svgX = mapLinear(x, xMin, xMax, padding, width - padding);
-        const svgY = mapVisibleLinear(y, yMin, yMax, height - padding, padding);
-        return `${index === 0 ? "M" : "L"} ${svgX.toFixed(2)} ${svgY.toFixed(2)}`;
-      })
-      .join(" ");
-  }, []);
+  const tangentPath = useMemo(() => buildCalculusTangentCurvePath(), []);
 
   const normalPath = useMemo(() => {
     const xMin = mean - 4 * sd;
@@ -141,7 +124,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
       .join(" ");
   }, [mean, sd]);
 
-  const tangentY = curve(tangentX);
+  const tangentY = evaluateCalculusCubic(tangentX);
   const slope = derivative(tangentX);
   const xMin = -4;
   const xMax = 6;
@@ -197,6 +180,11 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
           className="h-[360px] w-full sm:h-[420px]"
         >
           <rect x="0" y="0" width={width} height={height} fill={vizTheme.svgBackground} />
+          <defs>
+            <clipPath id="calculusTangentPlotClip">
+              <rect x={padding} y={padding} width={width - padding * 2} height={height - padding * 2} />
+            </clipPath>
+          </defs>
           {mode === "tangent" ? (
             <>
               {[-4, -2, 0, 2, 4, 6].map((tick) => (
@@ -230,6 +218,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
                 stroke="#22d3ee"
                 strokeWidth="4"
                 strokeLinecap="round"
+                clipPath="url(#calculusTangentPlotClip)"
                 initial={false}
                 animate={{ pathLength: 1 }}
               />

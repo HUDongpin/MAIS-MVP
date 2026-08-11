@@ -28,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="When the two sides are equal, the scale is level. If one side is bigger, it tips down.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="320" height="180" viewBox="0 0 320 180" role="img" aria-label={`balance ${left} versus ${effRight}`}>
+          <svg className="mx-auto max-w-none self-start" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label={`balance ${left} versus ${effRight}`}>
             {/* base */}
             <polygon points="160,150 140,175 180,175" fill="var(--ink-soft)" />
             <rect x="156" y="70" width="8" height="82" fill="var(--ink-soft)" />

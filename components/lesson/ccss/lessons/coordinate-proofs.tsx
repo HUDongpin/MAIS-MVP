@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { clipLinearFunctionToSquare } from "@/lib/mathDiagramGeometry";
 
 const ACCENT = "var(--band-high)";
 const R = 6, CELL = 22, PAD = 22;
@@ -15,6 +16,8 @@ export default function Lesson() {
   // perpendicular slope is -1/m; parallel is same m
   const perpSlope = r2(-1 / m);
   const product = r2(m * perpSlope);
+  const primaryLine = clipLinearFunctionToSquare(m, 0, R)!;
+  const perpendicularLine = clipLinearFunctionToSquare(perpSlope, 0, R)!;
 
   const sx = (x: number) => PAD + (x + R) * CELL;
   const sy = (y: number) => SIZE - PAD - (y + R) * CELL;
@@ -30,7 +33,7 @@ export default function Lesson() {
 
       <Figure caption="Perpendicular lines have slopes that multiply to −1; parallel lines share a slope.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="max-w-full" style={{ maxHeight: 310 }} role="img" aria-label="perpendicular slopes">
+          <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="h-auto max-w-full" style={{ maxHeight: 310 }} role="img" aria-label="perpendicular slopes">
             {Array.from({ length: 2 * R + 1 }, (_, i) => i - R).map((v) => (
               <g key={v} stroke="var(--line)" strokeWidth={1}>
                 <line x1={sx(v)} y1={sy(-R)} x2={sx(v)} y2={sy(R)} />
@@ -40,9 +43,9 @@ export default function Lesson() {
             <line x1={sx(-R)} y1={sy(0)} x2={sx(R)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(-R)} x2={sx(0)} y2={sy(R)} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* line 1 slope m through origin */}
-            <line x1={sx(-R)} y1={sy(-m * R)} x2={sx(R)} y2={sy(m * R)} stroke={ACCENT} strokeWidth={2.5} />
+            <line x1={sx(primaryLine[0].x)} y1={sy(primaryLine[0].y)} x2={sx(primaryLine[1].x)} y2={sy(primaryLine[1].y)} stroke={ACCENT} strokeWidth={2.5} />
             {/* perpendicular slope -1/m */}
-            <line x1={sx(-R)} y1={sy(-perpSlope * R)} x2={sx(R)} y2={sy(perpSlope * R)} stroke="var(--band-upper)" strokeWidth={2.5} />
+            <line x1={sx(perpendicularLine[0].x)} y1={sy(perpendicularLine[0].y)} x2={sx(perpendicularLine[1].x)} y2={sy(perpendicularLine[1].y)} stroke="var(--band-upper)" strokeWidth={2.5} />
             <rect x={sx(0) - 6} y={sy(0) - 6} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
           </svg>
 

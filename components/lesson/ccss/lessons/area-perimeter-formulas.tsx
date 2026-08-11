@@ -25,8 +25,8 @@ export default function Lesson() {
 
       <Figure caption="Green fills the area (l × w); blue traces the perimeter (all four sides).">
         <div className="flex flex-col items-center gap-6">
-          <svg width={W + 50} height={H + 50} viewBox={`0 0 ${W + 50} ${H + 50}`} className="max-w-full" role="img" aria-label={`rectangle ${l} by ${w}`}>
-            <g transform="translate(25,25)">
+          <svg width={W + 70} height={H + 50} viewBox={`0 0 ${W + 70} ${H + 50}`} className="max-w-full" role="img" aria-label={`rectangle ${l} by ${w}`}>
+            <g transform="translate(35,25)">
               <rect x={0} y={0} width={W} height={H} fill="color-mix(in oklab, var(--band-upper) 16%, var(--surface))" stroke={PERIC} strokeWidth={4} />
               {Array.from({ length: w }, (_, r) => Array.from({ length: l }, (_, c) => (
                 <rect key={`${r}-${c}`} x={c * CELL} y={r * CELL} width={CELL} height={CELL} fill="none" stroke="var(--line)" strokeWidth={1} />

@@ -26,7 +26,7 @@ export default function Lesson() {
 
       <Figure caption="A triangular prism: the triangle base slides along the length.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="240" height="160" viewBox="0 0 240 160" role="img" aria-label="triangular prism">
+          <svg className="mx-auto h-auto max-w-full" width="240" height="160" viewBox="0 0 240 160" role="img" aria-label="triangular prism">
             {/* back triangle */}
             <polygon points="140,30 200,110 80,110" fill={BASE} fillOpacity={0.3} stroke="var(--ink-soft)" strokeWidth={1.5} />
             {/* front triangle */}

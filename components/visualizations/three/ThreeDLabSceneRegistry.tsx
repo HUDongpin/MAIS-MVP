@@ -5,6 +5,7 @@ import { isMaisManimFamily } from "./manim/mathSceneRegistry";
 import type { MathSceneRuntimeState } from "./manim/mathSceneRuntimeState";
 import type { MathSceneSpec } from "./manim/mathSceneTypes";
 import { TemplatePrimitiveScene } from "./scenes/TemplatePrimitiveScene";
+import { THREE_D_BOUNDARY_CONTENT_ROOT_NAME } from "./ThreeDSceneBoundaryProbe";
 import { threeDFamilyIds, type ThreeDFamilyId, type ThreeDSceneProps } from "./threeDSceneTypes";
 
 const readyFamilies = new Set<ThreeDFamilyId>(threeDFamilyIds);
@@ -20,8 +21,8 @@ export function isThreeDFamilyReady(familyId: ThreeDFamilyId) {
 }
 
 export function ThreeDLabSceneRegistry(props: ThreeDLabSceneRegistryProps) {
-  if (props.runtime === "mais-manim" && isMaisManimFamily(props.state.familyId)) {
-    return (
+  const content = props.runtime === "mais-manim" && isMaisManimFamily(props.state.familyId)
+    ? (
       <MathSceneRuntime
         accent={props.accent}
         elapsedSeconds={props.manimElapsedSeconds}
@@ -30,8 +31,15 @@ export function ThreeDLabSceneRegistry(props: ThreeDLabSceneRegistryProps) {
         scene={props.manimScene}
         state={props.state}
       />
-    );
-  }
+    )
+    : <TemplatePrimitiveScene accent={props.accent} state={props.state} />;
 
-  return <TemplatePrimitiveScene accent={props.accent} state={props.state} />;
+  return (
+    <group
+      name={THREE_D_BOUNDARY_CONTENT_ROOT_NAME}
+      userData={{ mathBoundaryContentRoot: true }}
+    >
+      {content}
+    </group>
+  );
 }

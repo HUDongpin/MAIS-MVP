@@ -123,6 +123,55 @@ const MOVES = {
 };
 const MOVE_KEYS = ['tR', 'tL', 'tU', 'tD', 'fy', 'r90'];
 
+/* The readout band can become only ~150 CSS px wide inside the 320 px host
+   viewport. Draw its prose as measured lines instead of letting a centered
+   fillText call paint equally far beyond both canvas edges. */
+function wrapCanvasText(ctx, text, maxWidth) {
+  const lines = [];
+  let line = '';
+
+  for (const word of text.trim().split(/\s+/)) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (!line || ctx.measureText(candidate).width <= maxWidth) {
+      line = candidate;
+      continue;
+    }
+    lines.push(line);
+    line = word;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawCenteredBandText(ctx, text, {
+  bandHeight,
+  color,
+  fontFamily,
+  fontPrefix,
+  preferredFontSize,
+  width
+}) {
+  const maxWidth = Math.max(1, width - 16);
+  let fontSize = preferredFontSize;
+  let lines = [];
+  while (true) {
+    ctx.font = `${fontPrefix} ${fontSize}px ${fontFamily}`;
+    lines = wrapCanvasText(ctx, text, maxWidth);
+    if (lines.length <= 3 || fontSize <= 8) break;
+    fontSize = Math.max(8, fontSize - 0.5);
+  }
+  if (lines.length > 3) {
+    lines = [lines[0], lines[1], lines.slice(2).join(' ')];
+  }
+
+  const lineHeight = Math.min(17, fontSize + 3);
+  const firstY = bandHeight / 2 - ((lines.length - 1) * lineHeight) / 2;
+  ctx.fillStyle = color;
+  lines.forEach((line, index) => {
+    ctx.fillText(line, width / 2, firstY + index * lineHeight, maxWidth);
+  });
+}
+
 /* ---------------------------------------------------------------------------
    EDIT 2 — Model.  Figures, landing, and the alibi — all derived.
    ------------------------------------------------------------------------- */
@@ -460,17 +509,32 @@ export default function CongruenceLab() {
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     if (S.landed) {
-      ctx.fillStyle = CARMINE;
-      ctx.font = '700 15.5px ui-monospace, monospace';
-      ctx.fillText('landed — the chain is the proof: A ≅ B', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'landed — the chain is the proof: A ≅ B', {
+        bandHeight: bandH,
+        color: CARMINE,
+        fontFamily: 'ui-monospace, monospace',
+        fontPrefix: '700',
+        preferredFontSize: 15.5,
+        width: W,
+      });
     } else if (S.tapped != null && alibiEdge(A_BASE, S.B) === S.tapped) {
-      ctx.fillStyle = GOLD;
-      ctx.font = '700 15.5px ui-monospace, monospace';
-      ctx.fillText('the alibi: a side A can never produce — no chain will land', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'the alibi: a side A can never produce — no chain will land', {
+        bandHeight: bandH,
+        color: GOLD,
+        fontFamily: 'ui-monospace, monospace',
+        fontPrefix: '700',
+        preferredFontSize: 15.5,
+        width: W,
+      });
     } else {
-      ctx.fillStyle = INK_SOFT;
-      ctx.font = 'italic 600 14px system-ui, sans-serif';
-      ctx.fillText('carry the carmine copy — or find the side that closes the case', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'carry the carmine copy — or find the side that closes the case', {
+        bandHeight: bandH,
+        color: INK_SOFT,
+        fontFamily: 'system-ui, sans-serif',
+        fontPrefix: 'italic 600',
+        preferredFontSize: 14,
+        width: W,
+      });
     }
   }, []);
 

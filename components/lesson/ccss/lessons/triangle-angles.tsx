@@ -13,17 +13,25 @@ export default function Lesson() {
   const [bAng, setBAng] = useState(60);
   const cAng = 180 - aAng - bAng;
 
-  const tanA = Math.tan((aAng * Math.PI) / 180);
-  const tanB = Math.tan((bAng * Math.PI) / 180);
-  const apexX = r2((tanB * BASE) / (tanA + tanB));
-  const apexY = r2(tanA * apexX);
+  const rad = (degrees: number) => (degrees * Math.PI) / 180;
+  const legFromA = (BASE * Math.sin(rad(bAng))) / Math.sin(rad(cAng));
+  const apexX = legFromA * Math.cos(rad(aAng));
+  const apexY = legFromA * Math.sin(rad(aAng));
 
-  const ox = 30, oy = 200;
-  const scale = 0.9;
+  const PAD = 30;
+  const FRAME_W = 300;
+  const FRAME_H = 175;
+  const minX = Math.min(0, apexX);
+  const maxX = Math.max(BASE, apexX);
+  const scale = Math.min(FRAME_W / (maxX - minX), FRAME_H / apexY);
+  const ox = r2(PAD - minX * scale);
+  const oy = r2(PAD + apexY * scale);
   const baseW = r2(BASE * scale);
   const apexPx = r2(ox + apexX * scale);
   const apexPy = r2(oy - apexY * scale);
   const apexTextY = r2(apexPy + 22);
+  const svgW = r2((maxX - minX) * scale + 2 * PAD);
+  const svgH = r2(apexY * scale + 2 * PAD);
 
   return (
     <div className="prose-lesson max-w-none">
@@ -35,7 +43,7 @@ export default function Lesson() {
 
       <Figure caption="Adjust two angles; the third is forced. They always total 180°.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={baseW + 60} height={230} viewBox={`0 0 ${baseW + 60} 230`} role="img" aria-label={`triangle with angles ${aAng}, ${bAng}, ${cAng}`}>
+          <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} className="max-w-full" role="img" aria-label={`triangle with angles ${aAng}, ${bAng}, ${cAng}`}>
             <polygon points={`${ox},${oy} ${ox + baseW},${oy} ${apexPx},${apexPy}`} fill={FILL} fillOpacity={0.6} stroke="var(--ink)" strokeWidth={2} />
             <text x={ox + 14} y={oy - 8} fontSize={13} fontWeight={800} fill="var(--band-early)" fontFamily="var(--font-mono)">{aAng}°</text>
             <text x={ox + baseW - 30} y={oy - 8} fontSize={13} fontWeight={800} fill="var(--band-middle)" fontFamily="var(--font-mono)">{bAng}°</text>
@@ -47,8 +55,8 @@ export default function Lesson() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <Stepper label="Angle A" value={aAng} min={20} max={120} onChange={(v) => setAAng(Math.min(v, 160 - bAng))} />
-            <Stepper label="Angle B" value={bAng} min={20} max={120} onChange={(v) => setBAng(Math.min(v, 160 - aAng))} />
+            <Stepper label="Angle A" value={aAng} min={20} max={Math.min(120, 160 - bAng)} onChange={setAAng} />
+            <Stepper label="Angle B" value={bAng} min={20} max={Math.min(120, 160 - aAng)} onChange={setBAng} />
           </div>
         </div>
       </Figure>

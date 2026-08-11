@@ -34,7 +34,7 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="text-4xl font-black">{n}</div>
 
-          <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1.1rem)` }}>
+          <div className="mx-auto grid w-max max-w-none self-start gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1.1rem)` }}>
             {Array.from({ length: rows * cols }, (_, i) => <div key={i} className="h-4 w-4 rounded-sm" style={{ background: DOT }} />)}
           </div>
           <div className="font-mono text-lg font-bold" style={{ color: DOT }}>{rows} × {cols} = {n}</div>

@@ -39,7 +39,7 @@ export default function Lesson() {
 
       <Figure caption="Same base, one operation — the exponents combine by a simple rule.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             {(Object.keys(RULES) as Rule[]).map((rk) => (
               <button key={rk} type="button" onClick={() => setRule(rk)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={rule === rk ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{RULES[rk].name}</button>
             ))}

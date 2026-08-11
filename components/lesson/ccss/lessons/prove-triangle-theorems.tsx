@@ -33,7 +33,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={170} viewBox="0 0 240 170" role="img" aria-label={t.name}>
+          <svg className="mx-auto h-auto max-w-full" width={240} height={170} viewBox="0 0 240 170" role="img" aria-label={t.name}>
             <polygon points="40,140 200,140 90,40" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             {idx === 0 && <line x1={50} y1={40} x2={130} y2={40} stroke="var(--band-upper)" strokeWidth={2} strokeDasharray="4 3" />}
             {idx === 1 && <line x1={90} y1={40} x2={120} y2={140} stroke="var(--band-upper)" strokeWidth={1.5} strokeDasharray="4 3" />}

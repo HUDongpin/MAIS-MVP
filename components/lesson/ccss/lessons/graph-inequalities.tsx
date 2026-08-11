@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { clipLinearFunctionToSquare, clipSquareByLinearHalfPlane } from "@/lib/mathDiagramGeometry";
 
 const ACCENT = "var(--band-high)";
 const XR = 5, PXX = 30, PAD = 26;
@@ -17,11 +18,13 @@ export default function Lesson() {
   const sy = (y: number) => SIZE - PAD - (y + XR) * PXX;
   const yAt = (x: number) => m * x + b;
 
-  // shaded polygon: region above or below the line, within box
-  const yL = Math.max(-XR, Math.min(XR, yAt(-XR)));
-  const yR = Math.max(-XR, Math.min(XR, yAt(XR)));
-  const topEdge = above ? XR : -XR;
-  const shade = `${sx(-XR)},${sy(yAt(-XR))} ${sx(XR)},${sy(yAt(XR))} ${sx(XR)},${sy(topEdge)} ${sx(-XR)},${sy(topEdge)}`;
+  const boundary = clipLinearFunctionToSquare(m, b, XR);
+  const shade = clipSquareByLinearHalfPlane({
+    intercept: b,
+    keepAbove: above,
+    range: XR,
+    slope: m
+  }).map((point) => `${sx(point.x)},${sy(point.y)}`).join(" ");
 
   return (
     <div className="prose-lesson max-w-none">
@@ -49,7 +52,9 @@ export default function Lesson() {
             <polygon points={shade} fill={ACCENT} fillOpacity={0.25} />
             <line x1={sx(-XR)} y1={sy(0)} x2={sx(XR)} y2={sy(0)} stroke="var(--ink-soft)" strokeWidth={2} />
             <line x1={sx(0)} y1={sy(-XR)} x2={sx(0)} y2={sy(XR)} stroke="var(--ink-soft)" strokeWidth={2} />
-            <line x1={sx(-XR)} y1={sy(yL)} x2={sx(XR)} y2={sy(yR)} stroke={ACCENT} strokeWidth={3} />
+            {boundary ? (
+              <line x1={sx(boundary[0].x)} y1={sy(boundary[0].y)} x2={sx(boundary[1].x)} y2={sy(boundary[1].y)} stroke={ACCENT} strokeWidth={3} />
+            ) : null}
           </svg>
 
           <p className="m-0 max-w-md text-center text-sm text-[var(--ink-soft)]">

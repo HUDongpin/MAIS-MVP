@@ -1750,7 +1750,7 @@ function SignatureBenchSwitcher({
   const BenchComponent = SignatureLabRoutes[activeBenchId] ?? SignatureLabRoutes[assignment.primary];
 
   return (
-    <div data-viz-signature-switcher>
+    <div data-viz-signature-switcher data-viz-active-signature-bench-id={activeBenchId}>
       {benchIds.length > 1 ? (
         <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Related labs for this topic">
           {benchIds.map((benchId) => {
@@ -1761,6 +1761,7 @@ function SignatureBenchSwitcher({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
+                data-viz-signature-bench-id={benchId}
                 onClick={() => {
                   if (benchId === activeBenchId) return;
                   onBenchSwitch?.(benchId);

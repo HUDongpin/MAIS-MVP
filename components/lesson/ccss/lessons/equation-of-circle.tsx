@@ -5,7 +5,7 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 
 const ACCENT = "var(--band-high)";
-const R = 6, CELL = 24, PAD = 22;
+const R = 7, CELL = 24, PAD = 22;
 const SIZE = 2 * R * CELL + 2 * PAD;
 
 export default function Lesson() {

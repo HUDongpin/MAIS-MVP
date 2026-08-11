@@ -196,6 +196,15 @@ test("the replay button keeps the tour reachable after first run, from every pag
   ok(navbarSource.includes('data-tour="student-tour-button"'), "the navbar must carry a global replay button");
   ok(navbarSource.includes("requestStudentGuidedTour()"), "the navbar button must reopen the tour");
   ok(navbarSource.includes("isStudent ? ("), "only students see the replay button");
+  ok(
+    (navbarSource.match(/data-tour="student-tour-button"/g) ?? []).length >= 2,
+    "narrow screens must retain a replay button inside the mobile menu"
+  );
+  match(navbarSource, /hidden h-11 w-11[\s\S]*sm:inline-flex/, "the header replay icon must yield space below the small breakpoint");
+  match(navbarSource, /data-tour="student-tour-button"[\s\S]*sm:hidden/, "the mobile menu must expose the replay action hidden from wider headers");
+  match(navbarSource, /hidden shrink-0 items-center gap-0\.5 xl:flex/, "the full navigation must wait for a width that contains every student control");
+  match(navbarSource, /shadow-sm xl:hidden/, "the compact menu trigger must remain available through 1024px layouts");
+  match(navbarSource, /page-container pb-4 xl:hidden/, "the compact navigation panel must use the same breakpoint as the full navigation");
   ok(dashboardSource.includes('data-tour="student-tour-button"'), "the dashboard keeps its own replay button");
   ok(dashboardSource.includes("requestStudentGuidedTour()"), "the dashboard button must reopen the tour");
   ok(

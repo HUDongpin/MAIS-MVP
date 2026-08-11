@@ -13,28 +13,49 @@ test("the precise-definitions angle arc ends on its slanted ray", () => {
   assert.ok(angleStart >= 0 && angleEnd > angleStart, "Angle diagram source should be present");
 
   const angleSource = lessonSource.slice(angleStart, angleEnd);
-  const lines = Array.from(
+  const lineTags = Array.from(
     angleSource.matchAll(
-      /<line x1=\{([\d.]+)\} y1=\{([\d.]+)\} x2=\{([\d.]+)\} y2=\{([\d.]+)\}/g
+      /<line\b(?=[^>]*\bdata-diagram-defining-ray\b)[^>]*>/gu
     ),
-    (match) => match.slice(1).map(Number)
+    (match) => match[0]
   );
+  const numericAttribute = (tag: string, name: string) => {
+    const value = tag.match(new RegExp(`\\b${name}=\\{([\\d.]+)\\}`, "u"))?.[1];
+    assert.ok(value, `${name} must remain a literal numeric ray coordinate`);
+    return Number(value);
+  };
+  const lines = lineTags.map((tag) => ["x1", "y1", "x2", "y2"].map((name) => numericAttribute(tag, name)));
   assert.equal(lines.length, 2, "Angle diagram should have two rays");
 
-  const [, slantedRay] = lines;
-  const arc = angleSource.match(
-    /<path d="M ([\d.]+) ([\d.]+) A ([\d.]+) ([\d.]+) 0 0 0 ([\d.]+) ([\d.]+)"/
+  const arcTag = angleSource.match(/<path\b(?=[^>]*\bdata-diagram-angle-arc\b)[^>]*>/)?.[0];
+  assert.ok(arcTag, "Angle diagram should expose its semantic angle arc");
+  const arc = arcTag.match(
+    /\bd="M ([\d.]+) ([\d.]+) A ([\d.]+) ([\d.]+) 0 0 0 ([\d.]+) ([\d.]+)"/
   );
   assert.ok(arc, "Angle diagram should have a circular arc");
 
+  const arcIndex = angleSource.indexOf(arcTag);
+  const rayTags = Array.from(
+    angleSource.matchAll(/<line\b(?=[^>]*\bdata-diagram-defining-ray\b)[^>]*>/gu),
+    (match) => match[0]
+  );
+  const firstRayIndex = Math.min(...rayTags.map((tag) => angleSource.indexOf(tag)));
+  assert.ok(
+    arcIndex >= 0 && firstRayIndex > arcIndex,
+    "The exact arc must paint before the defining rays so its antialiased endpoint cannot cover their boundary"
+  );
+  assert.match(arcTag, /\bstrokeLinecap="butt"/u, "The arc must not gain an outward-projecting cap");
+
   const [, arcStartXText, arcStartYText, radiusXText, radiusYText, arcEndXText, arcEndYText] = arc;
-  const [vertexX, vertexY, rayEndX, rayEndY] = slantedRay;
   const arcStartX = Number(arcStartXText);
   const arcStartY = Number(arcStartYText);
   const radiusX = Number(radiusXText);
   const radiusY = Number(radiusYText);
   const arcEndX = Number(arcEndXText);
   const arcEndY = Number(arcEndYText);
+  const slantedRay = lines.find(([, startY, , endY]) => Math.abs(endY - startY) > 0.01);
+  assert.ok(slantedRay, "Angle diagram should retain one non-horizontal defining ray");
+  const [vertexX, vertexY, rayEndX, rayEndY] = slantedRay;
   const rayDx = rayEndX - vertexX;
   const rayDy = rayEndY - vertexY;
   const arcDx = arcEndX - vertexX;

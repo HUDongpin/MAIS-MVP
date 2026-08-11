@@ -830,10 +830,16 @@ export default function CountingLab() {
       // n = 0 — nothing to count
       ctx.save();
       ctx.fillStyle = INK_SOFT;
-      ctx.font = '600 15px ui-monospace, "SF Mono", Menlo, monospace';
+      const compactZeroMessage = W < 300;
+      ctx.font = `${compactZeroMessage ? 13 : 15}px ui-monospace, "SF Mono", Menlo, monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('0 — zero. an empty group has none to count.', W / 2, H * 0.45);
+      if (compactZeroMessage) {
+        ctx.fillText('0 — zero', W / 2, H * 0.45 - 9);
+        ctx.fillText('Nothing to count.', W / 2, H * 0.45 + 9);
+      } else {
+        ctx.fillText('0 — zero. an empty group has none to count.', W / 2, H * 0.45);
+      }
       ctx.restore();
     }
 

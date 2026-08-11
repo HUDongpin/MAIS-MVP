@@ -420,9 +420,17 @@ export default function ComparingLab() {
     if (tie) {
       g.fillStyle = INK_SOFT;
       g.font = 'italic 600 11px ui-monospace, Menlo, monospace';
-      g.textAlign = 'left';
-      g.textBaseline = 'top';
-      g.fillText('equal — same length', originX + 2, barsTop + 2 * barH + barGap + 6);
+      if (W < 260) {
+        g.textAlign = 'center';
+        g.textBaseline = 'middle';
+        const equalityY = barsTop + 2 * barH + barGap + 7;
+        g.fillText('same length', W / 2, equalityY - 7);
+        g.fillText(`${A} = ${B}`, W / 2, equalityY + 7);
+      } else {
+        g.textAlign = 'left';
+        g.textBaseline = 'top';
+        g.fillText('equal — same length', originX + 2, barsTop + 2 * barH + barGap + 6);
+      }
     } else if (Math.abs(A - B) <= 3 && S.showGrid) {
       g.fillStyle = INK_SOFT;
       g.font = 'italic 600 11px ui-monospace, Menlo, monospace';

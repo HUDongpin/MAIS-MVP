@@ -36,7 +36,7 @@ export default function Lesson() {
 
       <Figure caption="Compare left to right: hundreds first, then tens, then ones.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-5">
+          <div className="flex w-max max-w-none self-start mx-auto items-center gap-5">
             <NumberCols d={da} decideIdx={decideIdx} />
             <span className="font-mono text-5xl font-black">{symbol}</span>
             <NumberCols d={db} decideIdx={decideIdx} />

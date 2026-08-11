@@ -26,7 +26,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="The whole square is 1. Full columns are tenths (0.1); single squares are hundredths (0.01).">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="grid gap-px rounded border-2 border-[var(--ink-soft)] p-px" style={{ gridTemplateColumns: "repeat(10, 1.35rem)" }}>
             {Array.from({ length: 100 }, (_, i) => (
               <div key={i} style={{ width: "1.35rem", height: "1.35rem", background: color(i) ?? "var(--surface-2)" }} />
