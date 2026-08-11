@@ -273,7 +273,12 @@ async function createDeepSeekMockServer(providerRequests: ProviderRequestRecord[
     if (queued.delayMs) await delay(queued.delayMs);
 
     const body = typeof queued.body === "function" ? queued.body(requestBody) : queued.body;
-    sendJson(response, queued.status ?? 200, body ?? {}, queued.rawBody);
+    const responseBody = isRecord(body)
+      && typeof body.model !== "string"
+      && typeof requestBody.model === "string"
+      ? { ...body, model: requestBody.model }
+      : body;
+    sendJson(response, queued.status ?? 200, responseBody ?? {}, queued.rawBody);
   });
 
   const port = await listen(server);
@@ -354,6 +359,8 @@ async function ensureHarness(profile: HarnessProfile = "default") {
       AI_TUTOR_MAX_REQUESTS_PER_HOUR: "120",
       AI_TUTOR_MAX_COMPLETION_TOKENS: "900",
       AI_TUTOR_TOTAL_DEADLINE_MS: "10000",
+      // The serial SQLite harness rewrites the full fixture state; production Postgres uses a narrow rate-limit table.
+      AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS: "4000",
       AI_TUTOR_PROVIDER_TIMEOUT_MS: "300",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_MINUTE: "30",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_HOUR: "120",

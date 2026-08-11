@@ -4933,6 +4933,10 @@ type PostgresAiTutorGovernanceEventRow = {
   user_id: unknown;
 };
 
+type PostgresAiTutorTokenUsageRow = {
+  total_tokens: unknown;
+};
+
 const aiTutorAdmissionStatementTimeoutMs = boundedLLMNumber(
   process.env.AI_TUTOR_ADMISSION_STATEMENT_TIMEOUT_MS,
   1_500,
@@ -4945,6 +4949,13 @@ const aiTutorAdmissionLockTimeoutMs = boundedLLMNumber(
   100,
   2_000
 );
+const aiTutorQuotaLookupTimeoutMs = boundedLLMNumber(
+  process.env.AI_TUTOR_QUOTA_LOOKUP_TIMEOUT_MS,
+  1_000,
+  100,
+  3_000
+);
+const aiTutorQuotaStatementTimeoutMs = Math.max(100, aiTutorQuotaLookupTimeoutMs - 250);
 
 function throwIfAiTutorAdmissionAborted(signal?: AbortSignal) {
   if (!signal?.aborted) return;
@@ -5198,6 +5209,87 @@ async function consumeAiCapabilityRateLimitFromPostgresHotPath({
   return decision;
 }
 
+async function getAITutorTokenUsageSinceFromPostgresHotPath(
+  userId: string,
+  sinceIso: string,
+  signal?: AbortSignal
+): Promise<number | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+
+  throwIfAiTutorAdmissionAborted(signal);
+  await ensurePostgresStateTable();
+  throwIfAiTutorAdmissionAborted(signal);
+  const rows = await getPostgresClient().begin(async (sql) => {
+    throwIfAiTutorAdmissionAborted(signal);
+    const timeoutQuery = sql`
+      SELECT set_config('statement_timeout', ${`${aiTutorQuotaStatementTimeoutMs}ms`}, true)
+    `;
+    const cancelTimeoutQuery = () => timeoutQuery.cancel();
+    signal?.addEventListener("abort", cancelTimeoutQuery, { once: true });
+    if (signal?.aborted) cancelTimeoutQuery();
+    try {
+      await timeoutQuery;
+    } finally {
+      signal?.removeEventListener("abort", cancelTimeoutQuery);
+    }
+    throwIfAiTutorAdmissionAborted(signal);
+
+    const query = sql<PostgresAiTutorTokenUsageRow[]>`
+      WITH authoritative_state AS (
+        SELECT payload
+        FROM app_state
+        WHERE id = ${stateRecordId}
+        LIMIT 1
+      )
+      SELECT COALESCE(
+        SUM(
+          CASE
+            WHEN jsonb_typeof(usage_record->'total_tokens') = 'number'
+              THEN (usage_record->>'total_tokens')::double precision
+            ELSE
+              CASE
+                WHEN jsonb_typeof(usage_record->'prompt_tokens') = 'number'
+                  THEN (usage_record->>'prompt_tokens')::double precision
+                ELSE 0
+              END
+              + CASE
+                WHEN jsonb_typeof(usage_record->'completion_tokens') = 'number'
+                  THEN (usage_record->>'completion_tokens')::double precision
+                ELSE 0
+              END
+          END
+        ),
+        0
+      )::text AS total_tokens
+      FROM authoritative_state
+      CROSS JOIN LATERAL jsonb_array_elements(
+        CASE
+          WHEN jsonb_typeof(payload->'ai_tutor_usage') = 'array'
+            THEN payload->'ai_tutor_usage'
+          ELSE '[]'::jsonb
+        END
+      ) AS usage_items(usage_record)
+      WHERE usage_record->>'user_id' = ${userId}
+        AND usage_record->>'created_at' >= ${sinceIso}
+    `;
+    const cancelQuery = () => query.cancel();
+    signal?.addEventListener("abort", cancelQuery, { once: true });
+    if (signal?.aborted) cancelQuery();
+    try {
+      return await query;
+    } finally {
+      signal?.removeEventListener("abort", cancelQuery);
+    }
+  });
+  throwIfAiTutorAdmissionAborted(signal);
+
+  const totalTokens = Number(rows[0]?.total_tokens ?? 0);
+  if (!Number.isFinite(totalTokens)) {
+    throw new Error("AI Tutor token usage aggregate is invalid.");
+  }
+  return totalTokens;
+}
+
 async function readAiTutorRateLimitEventsFromPostgresHotPath({
   now,
   windowMs
@@ -5308,6 +5400,7 @@ const aiGovernancePersistenceStore = createAiGovernancePersistenceStore({
     pilotPlatformLoopDataFromDatabase(database as Database, input),
   resolveStudentAiTutorPolicyBeforeSnapshot: resolveStudentAiTutorPolicyFromPostgresHotPath,
   consumeAiCapabilityRateLimitBeforeSnapshot: consumeAiCapabilityRateLimitFromPostgresHotPath,
+  getAITutorTokenUsageSinceBeforeSnapshot: getAITutorTokenUsageSinceFromPostgresHotPath,
   readAiTutorRateLimitEventsAfterSnapshot: readAiTutorRateLimitEventsFromPostgresHotPath,
   readDatabase,
   mutateDatabase: async <T>(mutator: (database: AiGovernancePersistenceDatabase) => T | Promise<T>) => {
