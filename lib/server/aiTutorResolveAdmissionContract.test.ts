@@ -10,8 +10,13 @@ test("Nova resolver runs auth, classroom policy, and rate admission through boun
   const source = await readFile(resolverRoutePath, "utf8");
 
   assert.match(source, /import \{[\s\S]*runAiTutorAdmission[\s\S]*\} from "@\/lib\/server\/aiTutorAdmission";/);
+  assert.match(
+    source,
+    /import \{[\s\S]*requireAiTutorAuthenticatedUser[\s\S]*\} from "@\/lib\/server\/auth";/
+  );
   assert.match(source, /const admission = await runAiTutorAdmission\(/);
   assert.match(source, /signal:\s*requestSignal/);
+  assert.match(source, /authenticate:\s*async\s*\(_admissionRequest,\s*signal\)\s*=>\s*\{[\s\S]*requireAiTutorAuthenticatedUser\(_admissionRequest,\s*signal\)/);
   assert.match(source, /resolveStudentAiTutorPolicy\(authenticated\.user\.id,\s*\{\s*signal/);
   assert.match(source, /consumeAiCapabilityRateLimit\(\{[\s\S]*signal/);
   assert.match(source, /shouldContinueAfterClassroomPolicy:[\s\S]*fallback-only/);
