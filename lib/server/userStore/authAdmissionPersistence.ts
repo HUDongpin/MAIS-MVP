@@ -6,9 +6,7 @@ import {
   type AuthSession
 } from "@/lib/server/userStore/authSessionPersistence";
 
-export type AuthAdmissionCancellableQuery<Row> = PromiseLike<readonly Row[]> & {
-  cancel(): void;
-};
+export type AuthAdmissionQuery<Row> = PromiseLike<readonly Row[]>;
 
 export type AuthAdmissionJoinedRow = {
   profile_record: unknown;
@@ -120,7 +118,7 @@ export async function runCancellableAuthAdmissionQuery<Row, Authenticated>({
   signal,
   userId
 }: {
-  createQuery: (userId: string) => AuthAdmissionCancellableQuery<Row>;
+  createQuery: (userId: string) => AuthAdmissionQuery<Row>;
   mapRow: (row: Row) => Authenticated | null;
   onAuthoritativeMiss?: (userId: string) => Authenticated | null;
   signal: AbortSignal;
@@ -128,7 +126,7 @@ export async function runCancellableAuthAdmissionQuery<Row, Authenticated>({
 }): Promise<Authenticated | null> {
   throwIfAuthAdmissionAborted(signal);
 
-  let query: AuthAdmissionCancellableQuery<Row>;
+  let query: AuthAdmissionQuery<Row>;
   try {
     query = createQuery(userId);
   } catch (error) {
@@ -136,26 +134,24 @@ export async function runCancellableAuthAdmissionQuery<Row, Authenticated>({
     throw error;
   }
 
-  let cancelRequested = false;
+  let abortRequested = false;
   let rejectForAbort!: (error: DOMException) => void;
   const aborted = new Promise<never>((_resolve, reject) => {
     rejectForAbort = reject;
   });
-  const cancelQuery = () => {
-    if (cancelRequested) return;
-    cancelRequested = true;
-    try {
-      query.cancel();
-    } catch {
-      // Cancellation is best-effort. The independent abort promise still
-      // settles the admission wrapper, while the transaction slot stays held
-      // until its local timeout and rollback finish cleaning up the query.
-    }
+  const abortQueryWait = () => {
+    if (abortRequested) return;
+    abortRequested = true;
+    // postgres.js 3.4.x Query.cancel() discards the Promise returned by its
+    // CancelRequest channel, so a socket failure can become an unhandled
+    // rejection. Do not invoke that unsafe API. The independent abort promise
+    // bounds the route while the transaction-local statement timeout and the
+    // outer slot keep ownership until the query settles and rollback finishes.
     rejectForAbort(authAdmissionAbortError());
   };
 
-  signal.addEventListener("abort", cancelQuery, { once: true });
-  if (signal.aborted) cancelQuery();
+  signal.addEventListener("abort", abortQueryWait, { once: true });
+  if (signal.aborted) abortQueryWait();
 
   try {
     const queryResult = Promise.resolve(query);
@@ -178,6 +174,6 @@ export async function runCancellableAuthAdmissionQuery<Row, Authenticated>({
     if (signal.aborted) throw authAdmissionAbortError();
     throw error;
   } finally {
-    signal.removeEventListener("abort", cancelQuery);
+    signal.removeEventListener("abort", abortQueryWait);
   }
 }
