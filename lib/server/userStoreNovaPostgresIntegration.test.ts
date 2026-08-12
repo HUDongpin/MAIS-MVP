@@ -1,13 +1,12 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { fileURLToPath } from "node:url";
 import path from "node:path";
 import test from "node:test";
 
 import postgres from "postgres";
 
 const integrationUrl = process.env.MAIS_POSTGRES_INTEGRATION_URL?.trim();
-const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const repositoryRoot = process.cwd();
 const workerPath = path.join(repositoryRoot, "scripts/nova-postgres-integration-worker.ts");
 const tsxPath = path.join(repositoryRoot, "node_modules/.bin/tsx");
 const resultPrefix = "NOVA_POSTGRES_INTEGRATION_RESULT=";
