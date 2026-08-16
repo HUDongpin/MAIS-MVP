@@ -474,6 +474,59 @@ async function expectLessonTargetVisible(target: Locator) {
   }), { timeout: 10_000 }).toBe(true);
 }
 
+async function wordProblemTapeGeometry(lesson: Locator) {
+  const tape = lesson.locator('[data-word-problem-tape="two-step"]');
+  await expect(tape).toBeVisible();
+  return tape.evaluate((element: HTMLElement) => {
+    const figureStage = element.closest<HTMLElement>("[data-figure-stage]");
+    if (!figureStage) throw new Error("The word-problem tape must remain inside its Figure stage.");
+
+    const rect = (target: Element) => {
+      const bounds = target.getBoundingClientRect();
+      return {
+        bottom: bounds.bottom,
+        height: bounds.height,
+        left: bounds.left,
+        right: bounds.right,
+        top: bounds.top,
+        width: bounds.width
+      };
+    };
+    const tapeRect = rect(element);
+    const figureRect = rect(figureStage);
+    const stages = Array.from(
+      element.querySelectorAll<HTMLElement>("[data-word-problem-tape-stage]")
+    ).map((stage) => {
+      const id = stage.dataset.wordProblemTapeStage;
+      const bar = stage.querySelector<HTMLElement>(`[data-word-problem-tape-bar="${id}"]`);
+      const image = bar?.querySelector<HTMLElement>('[role="img"]');
+      if (!bar || !image) throw new Error(`Tape stage ${id ?? "unknown"} needs one visible bar image.`);
+      return {
+        bar: rect(bar),
+        id,
+        image: rect(image),
+        segments: Array.from(
+          image.querySelectorAll<HTMLElement>("[data-word-problem-tape-segment]")
+        ).map((segment) => ({
+          id: segment.dataset.wordProblemTapeSegment,
+          rect: rect(segment),
+          value: Number(segment.dataset.tapeValue)
+        })),
+        total: Number(image.dataset.tapeTotal)
+      };
+    });
+
+    return {
+      documentHorizontalOverflow:
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      figureHorizontalOverflow: figureStage.scrollWidth > figureStage.clientWidth + 1,
+      figureRect,
+      stages,
+      tapeRect
+    };
+  });
+}
+
 test.describe("Learning Worlds lesson menu", () => {
   test.beforeEach(async ({ page }) => {
     await authenticateAsUserId(page, californiaSuperStudentId);
@@ -966,6 +1019,295 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
     )).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 2 Unit 1 shows all 18 removed birds in its responsive two-step tape", async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeTwoFluencyArraysTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    if (Boolean(testInfo.project.use.isMobile)) {
+      await world.getByRole("button", {
+        name: /open the full map|展開完整地圖|展开完整地图/i
+      }).click();
+    }
+
+    const quickJumpMap = world.locator("ol:visible");
+    const wordProblemJump = quickJumpMap.getByRole("button", {
+      name: "1.1 Word Problems Within 100 📝",
+      exact: true
+    });
+    await expect(wordProblemJump).toBeVisible();
+    await wordProblemJump.click();
+
+    const wordLesson = rightPane.locator('[data-ccss-lesson="word-problems-100"]');
+    await expect(wordLesson).toHaveAttribute("data-ccss-diagram-hydrated", "true", {
+      timeout: 30_000
+    });
+    await expectLessonTargetVisible(wordLesson);
+    await expect(rightPane.getByRole("heading", {
+      level: 2,
+      name: "1.1 Word Problems Within 100",
+      exact: true
+    })).toHaveCount(1);
+
+    const modeGroup = wordLesson.getByRole("group", {
+      name: "Choose a word-problem story",
+      exact: true
+    });
+    const oneStep = modeGroup.getByRole("button", { name: "One step", exact: true });
+    const twoStep = modeGroup.getByRole("button", { name: "Two step", exact: true });
+    const equation = wordLesson.locator("[data-word-problem-equation]");
+    await expect(oneStep).toHaveAttribute("aria-pressed", "true");
+    await expect(twoStep).toHaveAttribute("aria-pressed", "false");
+    const oneStepTape = wordLesson.locator('[data-word-problem-tape="one-step"]');
+    await expect(oneStepTape).toHaveCount(1);
+    await expect(oneStepTape.getByRole("img", {
+      name: "One-step tape diagram: 63 books split into 45 at the start and 18 added.",
+      exact: true
+    })).toBeVisible();
+    await expect(equation).toHaveText("45 + 18 = 63");
+    await expect(equation).toHaveAttribute("aria-live", "polite");
+    await expect(equation).toHaveAttribute("aria-atomic", "true");
+
+    await alignLessonControlInItsScrollRoot(twoStep);
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    const firstDesktopScrollBaseline = isMobile ? null : {
+      leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    await twoStep.click();
+    await expect(twoStep).toHaveAttribute("aria-pressed", "true");
+    await expect(oneStep).toHaveAttribute("aria-pressed", "false");
+    await expect(wordLesson.getByText(
+      "45 birds sat on a wire. 18 flew away. Then 12 more landed. How many birds now?",
+      { exact: true }
+    )).toBeVisible();
+    await expect(equation).toHaveText("45 − 18 + 12 = 39");
+
+    const tape = wordLesson.locator('[data-word-problem-tape="two-step"]');
+    const stepOne = tape.locator('[data-word-problem-tape-stage="step-1"]');
+    const stepTwo = tape.locator('[data-word-problem-tape-stage="step-2"]');
+    await expect(tape.locator("[data-word-problem-tape-stage]")).toHaveCount(2);
+    await expect(stepOne.getByRole("img", {
+      name: "Step 1 tape diagram: 45 birds split into 27 stayed and 18 flew away.",
+      exact: true
+    })).toBeVisible();
+    await expect(stepTwo.getByRole("img", {
+      name: "Step 2 tape diagram: 39 birds split into 27 stayed and 12 landed.",
+      exact: true
+    })).toBeVisible();
+    await expect(stepOne.locator('[data-word-problem-tape-segment="stayed"]')).toHaveAttribute(
+      "data-tape-value",
+      "27"
+    );
+    await expect(stepOne.locator('[data-word-problem-tape-segment="flew-away"]')).toHaveAttribute(
+      "data-tape-value",
+      "18"
+    );
+    await expect(stepTwo.locator('[data-word-problem-tape-segment="stayed"]')).toHaveAttribute(
+      "data-tape-value",
+      "27"
+    );
+    await expect(stepTwo.locator('[data-word-problem-tape-segment="landed"]')).toHaveAttribute(
+      "data-tape-value",
+      "12"
+    );
+
+    const geometry = await wordProblemTapeGeometry(wordLesson);
+    expect(geometry.stages).toHaveLength(2);
+    const [stepOneGeometry, stepTwoGeometry] = geometry.stages;
+    expect(stepOneGeometry?.id).toBe("step-1");
+    expect(stepTwoGeometry?.id).toBe("step-2");
+    expect(stepOneGeometry?.total).toBe(45);
+    expect(stepTwoGeometry?.total).toBe(39);
+    expect(stepOneGeometry!.bar.width).toBeGreaterThan(0);
+    expect(stepTwoGeometry!.bar.width).toBeGreaterThan(0);
+    expect(
+      Math.abs(stepTwoGeometry!.bar.width / stepOneGeometry!.bar.width - 39 / 45)
+    ).toBeLessThanOrEqual(0.03);
+    expect(
+      Math.abs(
+        stepOneGeometry!.segments[0]!.rect.width / stepOneGeometry!.image.width - 27 / 45
+      )
+    ).toBeLessThanOrEqual(0.03);
+    expect(
+      Math.abs(
+        stepOneGeometry!.segments[1]!.rect.width / stepOneGeometry!.image.width - 18 / 45
+      )
+    ).toBeLessThanOrEqual(0.03);
+    expect(
+      Math.abs(
+        stepTwoGeometry!.segments[0]!.rect.width / stepTwoGeometry!.image.width - 27 / 39
+      )
+    ).toBeLessThanOrEqual(0.03);
+    expect(
+      Math.abs(
+        stepTwoGeometry!.segments[1]!.rect.width / stepTwoGeometry!.image.width - 12 / 39
+      )
+    ).toBeLessThanOrEqual(0.03);
+    const stepOneStayed = stepOneGeometry!.segments.find((segment) => segment.id === "stayed");
+    const stepTwoStayed = stepTwoGeometry!.segments.find((segment) => segment.id === "stayed");
+    expect(stepOneStayed).toBeTruthy();
+    expect(stepTwoStayed).toBeTruthy();
+    expect(Math.abs(stepOneStayed!.rect.width - stepTwoStayed!.rect.width)).toBeLessThanOrEqual(1);
+    for (const stage of geometry.stages) {
+      expect(stage.bar.left).toBeGreaterThanOrEqual(geometry.tapeRect.left - 1);
+      expect(stage.bar.right).toBeLessThanOrEqual(geometry.tapeRect.right + 1);
+      expect(stage.bar.left).toBeGreaterThanOrEqual(geometry.figureRect.left - 1);
+      expect(stage.bar.right).toBeLessThanOrEqual(geometry.figureRect.right + 1);
+      expect(stage.segments.reduce((sum, segment) => sum + segment.value, 0)).toBe(stage.total);
+    }
+    expect(geometry.figureHorizontalOverflow).toBe(false);
+    expect(geometry.documentHorizontalOverflow).toBe(false);
+    await expect(wordLesson.locator("[data-figure-stage]")).not.toHaveAttribute(
+      "data-figure-overflowing",
+      "true"
+    );
+
+    const decreaseFlewAway = wordLesson.getByRole("button", {
+      name: "Decrease Flew away",
+      exact: true
+    });
+    const increaseFlewAway = wordLesson.getByRole("button", {
+      name: "Increase Flew away",
+      exact: true
+    });
+    const increaseLanded = wordLesson.getByRole("button", {
+      name: "Increase Landed",
+      exact: true
+    });
+    const decreaseLanded = wordLesson.getByRole("button", {
+      name: "Decrease Landed",
+      exact: true
+    });
+    await decreaseFlewAway.click();
+    await expect(equation).toHaveText("45 − 17 + 12 = 40");
+    await expect(stepOne.getByRole("img", {
+      name: "Step 1 tape diagram: 45 birds split into 28 stayed and 17 flew away.",
+      exact: true
+    })).toBeVisible();
+    await increaseFlewAway.click();
+    await expect(equation).toHaveText("45 − 18 + 12 = 39");
+    await increaseLanded.click();
+    await expect(equation).toHaveText("45 − 18 + 13 = 40");
+    await expect(stepTwo.getByRole("img", {
+      name: "Step 2 tape diagram: 40 birds split into 27 stayed and 13 landed.",
+      exact: true
+    })).toBeVisible();
+    await decreaseLanded.click();
+    await expect(equation).toHaveText("45 − 18 + 12 = 39");
+
+    await oneStep.click();
+    await expect(equation).toHaveText("45 + 18 = 63");
+    const decreaseStart = wordLesson.getByRole("button", {
+      name: "Decrease Start",
+      exact: true
+    });
+    for (let start = 45; start > 17; start -= 1) {
+      await decreaseStart.click();
+    }
+    await expect(equation).toHaveText("17 + 18 = 35");
+
+    await twoStep.click();
+    await expect(equation).toHaveText("17 − 17 + 12 = 12");
+    await expect(wordLesson.getByRole("button", {
+      name: "Increase Flew away",
+      exact: true
+    })).toBeDisabled();
+    await wordLesson.getByRole("button", { name: "Increase Start", exact: true }).click();
+    await expect(equation).toHaveText("18 − 17 + 12 = 13");
+    await oneStep.click();
+    await expect(equation).toHaveText("18 + 17 = 35");
+    await expect(oneStep).toHaveAttribute("aria-pressed", "true");
+
+    if (firstDesktopScrollBaseline) {
+      const firstDesktopScrollAfter = {
+        leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      expect(
+        Math.abs(firstDesktopScrollAfter.leftScrollTop - firstDesktopScrollBaseline.leftScrollTop)
+      ).toBeLessThanOrEqual(1);
+      expect(
+        Math.abs(firstDesktopScrollAfter.windowY - firstDesktopScrollBaseline.windowY)
+      ).toBeLessThanOrEqual(1);
+    }
+
+    await openLessonPage(page, gradeTwoFluencyArraysTopicPath);
+    const boundaryWorld = page.locator('[data-lesson-world="sprout-meadow"]');
+    const boundaryLeftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const boundaryRightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(boundaryWorld).toBeVisible({ timeout: 30_000 });
+    await expect(boundaryRightPane).toBeVisible({ timeout: 30_000 });
+    if (isMobile) {
+      await boundaryWorld.getByRole("button", {
+        name: /open the full map|展開完整地圖|展开完整地图/i
+      }).click();
+    }
+    await boundaryWorld.locator("ol:visible").getByRole("button", {
+      name: "1.1 Word Problems Within 100 📝",
+      exact: true
+    }).click();
+
+    const boundaryLesson = boundaryRightPane.locator('[data-ccss-lesson="word-problems-100"]');
+    await expect(boundaryLesson).toHaveAttribute("data-ccss-diagram-hydrated", "true", {
+      timeout: 30_000
+    });
+    await expectLessonTargetVisible(boundaryLesson);
+    const boundaryEquation = boundaryLesson.locator("[data-word-problem-equation]");
+    const increaseStart = boundaryLesson.getByRole("button", {
+      name: "Increase Start",
+      exact: true
+    });
+    await expect(boundaryEquation).toHaveText("45 + 18 = 63");
+    await alignLessonControlInItsScrollRoot(increaseStart);
+    const boundaryDesktopScrollBaseline = isMobile ? null : {
+      leftScrollTop: await boundaryLeftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    for (let start = 45; start < 80; start += 1) {
+      await increaseStart.click();
+    }
+    await expect(boundaryEquation).toHaveText("80 + 18 = 98");
+    const increaseAdded = boundaryLesson.getByRole("button", {
+      name: "Increase Added",
+      exact: true
+    });
+    await increaseAdded.click();
+    await increaseAdded.click();
+    await expect(boundaryEquation).toHaveText("80 + 20 = 100");
+    await expect(increaseAdded).toBeDisabled();
+    await expect(boundaryLesson.getByRole("img", {
+      name: "One-step tape diagram: 100 books split into 80 at the start and 20 added.",
+      exact: true
+    })).toBeVisible();
+    if (boundaryDesktopScrollBaseline) {
+      const boundaryDesktopScrollAfter = {
+        leftScrollTop: await boundaryLeftPane.evaluate((element: HTMLElement) => element.scrollTop),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      expect(
+        Math.abs(
+          boundaryDesktopScrollAfter.leftScrollTop - boundaryDesktopScrollBaseline.leftScrollTop
+        )
+      ).toBeLessThanOrEqual(1);
+      expect(
+        Math.abs(boundaryDesktopScrollAfter.windowY - boundaryDesktopScrollBaseline.windowY)
+      ).toBeLessThanOrEqual(1);
+    }
+
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
+    expect(new URL(page.url()).pathname).toBe(gradeTwoFluencyArraysTopicPath);
     expectNoPageErrors(errors);
   });
 

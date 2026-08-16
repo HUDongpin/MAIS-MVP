@@ -685,7 +685,6 @@ test("wide HTML-only lesson figures keep their left edge reachable", () => {
 test("every fixed-width HTML mathematical object uses a reachable max-content anchor", () => {
   const expectedAnchorCounts: Record<string, number> = {
     "line-plot": 1,
-    "word-problems-100": 1,
     "measure-line-plot": 1,
     "compare-fractions": 1,
     "line-plot-fractions": 1,
@@ -722,6 +721,28 @@ test("every fixed-width HTML mathematical object uses a reachable max-content an
     source("graph-stories"),
     /<svg className="mx-auto max-w-none self-start" width=\{W\} height=\{H\}/u
   );
+});
+
+test("word-problems-100 uses one responsive two-stage tape instead of a fixed pixel bar", () => {
+  const wordProblems = source("word-problems-100");
+
+  assert.match(wordProblems, /buildWordProblemTapeDiagram/u);
+  assert.match(wordProblems, /data-word-problem-tape=/u);
+  assert.match(wordProblems, /data-word-problem-tape-stage=/u);
+  assert.match(wordProblems, /data-word-problem-tape-segment=/u);
+  assert.doesNotMatch(wordProblems, /\bPXU\b/u);
+  assert.doesNotMatch(wordProblems, /\bw-max\b|self-start/u);
+  assert.doesNotMatch(wordProblems, /w-max max-w-none self-start/u);
+  assert.match(wordProblems, /useState<WordProblemStoryState>/u);
+  assert.match(wordProblems, /updateWordProblemStoryState/u);
+  assert.doesNotMatch(wordProblems, /\bsetA\b|\bsetB\b|\bsetC\b/u);
+  assert.match(wordProblems, /role="group" aria-label="Choose a word-problem story"/u);
+  assert.match(wordProblems, /aria-pressed=\{story\.twoStep === v\}/u);
+  assert.equal(wordProblems.match(/aria-live=/gu)?.length, 1);
+  assert.match(wordProblems, /data-word-problem-equation aria-live="polite" aria-atomic="true"/u);
+  assert.match(wordProblems, /rounded-md bg-black\/60[^"]*text-white/u);
+  assert.match(wordProblems, /className="h-11 w-11[^"]*" aria-label=\{`Decrease/u);
+  assert.match(wordProblems, /className="h-11 w-11[^"]*" aria-label=\{`Increase/u);
 });
 
 test("HTML mathematical controls reflow instead of expanding the Figure stage", () => {
