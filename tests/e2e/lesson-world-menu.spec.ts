@@ -1,6 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldThemes";
-import { questions } from "../../data/questions";
+import { usCaliforniaQuestions } from "../../data/usCaliforniaQuestions";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 /**
@@ -26,7 +26,7 @@ const gradeOneWorldTheme = lessonWorldThemeForGrade("P1");
 if (!gradeOneWorldTheme) throw new Error("Grade 1 must keep its configured lesson world.");
 const gradeOneWorldStopEmojiPalette = gradeOneWorldTheme.stopEmojiPalette;
 const nextLessonItemCtaName = /Go to next item|前往下一項|前往下一项/i;
-const sourceQuestionById = new Map(questions.map((question) => [question.id, question]));
+const sourceQuestionById = new Map(usCaliforniaQuestions.map((question) => [question.id, question]));
 
 function sourceQuestionForRenderedId(questionId: string | null) {
   if (!questionId) throw new Error("The visible lesson-practice card must expose its question id.");
