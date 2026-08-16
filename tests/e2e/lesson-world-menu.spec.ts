@@ -1712,6 +1712,414 @@ test.describe("Learning Worlds lesson menu", () => {
     expectNoPageErrors(errors);
   });
 
+  test("Grade 2 Unit 1 lesson practice keeps the full math keyboard compact and touch-safe", async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
+    const errors = collectPageErrors(page);
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    await keepLessonWorldMenuOpen(page);
+    await registerCaliforniaStudent(page, testInfo, "en", "P2");
+    await openLessonPage(page, gradeTwoFluencyArraysTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    if (isMobile) {
+      await world.getByRole("button", {
+        name: /open the full map|展開完整地圖|展开完整地图/i
+      }).click();
+    }
+
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    const practiceJump = quickJumpMap.getByRole("button", {
+      name: "1.6 Practice check",
+      exact: true
+    });
+    await expect(currentUnit).toHaveCount(1);
+    await expect(currentUnit).toHaveAttribute("href", gradeTwoFluencyArraysTopicPath);
+    const currentLabel = await currentUnit.getAttribute("aria-label");
+    expect(currentLabel).toBeTruthy();
+    await expect(practiceJump).toBeVisible();
+    await practiceJump.click();
+
+    const practice = rightPane.locator("#lesson-practice");
+    await expectLessonTargetVisible(practice);
+    await expect(rightPane.getByRole("heading", {
+      level: 2,
+      name: "1.6 Practice check",
+      exact: true
+    })).toHaveCount(1);
+
+    const practiceCards = practice.locator('[data-ai-selectable="practice-question"]');
+    const missionTrail = practice.locator('[data-testid="lesson-mission-trail"]');
+    await expect(practiceCards).toHaveCount(5);
+    await expect(missionTrail.getByRole("button")).toHaveCount(5);
+    const renderedQuestionIds = await practiceCards.evaluateAll((cards) =>
+      cards.map((card) => card.getAttribute("data-ai-question-id"))
+    );
+    expect(renderedQuestionIds.every(Boolean)).toBe(true);
+    const keyboardQuestionIndex = renderedQuestionIds.findIndex((questionId) => {
+      const question = sourceQuestionForRenderedId(questionId);
+      return question.type === "fill-in" || question.type === "short-answer";
+    });
+    expect(keyboardQuestionIndex).toBeGreaterThanOrEqual(0);
+    const keyboardQuestionId = renderedQuestionIds[keyboardQuestionIndex]!;
+    const keyboardQuestion = sourceQuestionForRenderedId(keyboardQuestionId);
+    expect(["fill-in", "short-answer"]).toContain(keyboardQuestion.type);
+    const keyboardMissionStone = missionTrail.getByRole("button").nth(keyboardQuestionIndex);
+    await keyboardMissionStone.click();
+    await expect(keyboardMissionStone).toBeFocused();
+    await expect(keyboardMissionStone).toHaveAttribute("aria-current", "step");
+
+    const card = practice.locator(
+      `[data-ai-selectable="practice-question"][data-ai-question-id="${keyboardQuestionId}"]:visible`
+    );
+    await expect(card).toHaveCount(1);
+    await expect(card).toHaveAttribute("data-ai-question-id", keyboardQuestionId);
+    const keyboardToggle = card.getByRole("button", {
+      name: /Show math keyboard|顯示數學鍵盤|显示数学键盘/i
+    });
+    await alignLessonControlInItsScrollRoot(keyboardToggle);
+    const keyboardToggleBounds = await keyboardToggle.boundingBox();
+    expect(keyboardToggleBounds).not.toBeNull();
+    expect(keyboardToggleBounds!.height).toBeGreaterThanOrEqual(44);
+    const desktopScrollBaseline = isMobile ? null : {
+      leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    await keyboardToggle.click();
+
+    const keyboard = card.getByRole("group", {
+      name: /Math soft keyboard|數學軟鍵盤|数学软键盘/i
+    });
+    const answer = card.getByRole("textbox").first();
+    await expect(keyboard).toBeVisible();
+    await expect(keyboard).toHaveAttribute("data-math-keyboard-layout", "compact");
+    await expect(keyboardToggle).toHaveAttribute("aria-expanded", "true");
+    await expect(answer).toBeVisible();
+    const scrollHint = keyboard.getByText(
+      /Swipe or scroll each row for more keys|滑動或捲動每一列以查看更多按鍵|滑动或滚动每一行以查看更多按键/
+    );
+    await expect(scrollHint).toBeVisible();
+
+    const expectedTabKeyCounts = new Map([
+      ["123", 47],
+      ["∞≠∈", 46],
+      ["abc", 47],
+      ["αβγ", 36]
+    ]);
+    const tablist = keyboard.getByRole("tablist", {
+      name: /Math keyboard categories|數學鍵盤分類|数学键盘分类/i
+    });
+    const editingControls = keyboard.getByRole("group", {
+      name: /Soft keyboard editing controls|軟鍵盤編輯控制|软键盘编辑控制/i
+    });
+    await expect(tablist.getByRole("tab")).toHaveCount(4);
+    await expect(editingControls.getByRole("button")).toHaveCount(6);
+
+    const interactiveTargetGeometry = await keyboard.locator("button:visible").evaluateAll((buttons) =>
+      buttons.map((button) => {
+        const rect = button.getBoundingClientRect();
+        return {
+          height: rect.height,
+          label: button.getAttribute("aria-label") ?? "",
+          size: button.getAttribute("data-math-key-size"),
+          width: rect.width
+        };
+      })
+    );
+    for (const target of interactiveTargetGeometry) {
+      expect(target.width, `${target.label} must remain at least 44px wide`).toBeGreaterThanOrEqual(44);
+      expect(target.height, `${target.label} must remain at least 44px tall`).toBeGreaterThanOrEqual(44);
+      expect(target.height, `${target.label} must stay compact`).toBeLessThanOrEqual(48);
+      if (target.size === "editing") {
+        expect(target.width, `${target.label} must stay within the compact control width`).toBeLessThanOrEqual(48);
+      }
+    }
+
+    for (const [tabName, expectedCount] of expectedTabKeyCounts) {
+      const tab = tablist.getByRole("tab", { name: tabName, exact: true });
+      await tab.click();
+      await expect(tab).toHaveAttribute("aria-selected", "true");
+
+      const panel = keyboard.getByRole("tabpanel");
+      const rows = panel.locator("[data-math-keyboard-row]");
+      const keys = panel.locator('button[data-math-key="true"]');
+      await expect(keys).toHaveCount(expectedCount);
+      await expect(rows).toHaveCount(tabName === "αβγ" ? 4 : 5);
+
+      const tabGeometry = await panel.evaluate((element) => {
+        const rows = Array.from(element.querySelectorAll<HTMLElement>("[data-math-keyboard-row]"));
+        const keys = Array.from(element.querySelectorAll<HTMLElement>('button[data-math-key="true"]'));
+        return {
+          keys: keys.map((key) => {
+            const rect = key.getBoundingClientRect();
+            const paintedContent = key.querySelector<HTMLElement>(":scope > span");
+            const paintedRect = paintedContent?.getBoundingClientRect();
+            const mainLabel = paintedContent?.firstElementChild as HTMLElement | null;
+            const subLabel = paintedContent?.children[1] as HTMLElement | undefined;
+            return {
+              clientHeight: key.clientHeight,
+              clientWidth: key.clientWidth,
+              contentBottom: paintedRect?.bottom ?? Number.NaN,
+              contentLeft: paintedRect?.left ?? Number.NaN,
+              contentRight: paintedRect?.right ?? Number.NaN,
+              contentTop: paintedRect?.top ?? Number.NaN,
+              height: rect.height,
+              label: key.getAttribute("aria-label") ?? "",
+              left: rect.left,
+              mainLabelFontSize: mainLabel ? Number.parseFloat(getComputedStyle(mainLabel).fontSize) : Number.NaN,
+              right: rect.right,
+              scrollHeight: key.scrollHeight,
+              scrollWidth: key.scrollWidth,
+              size: key.getAttribute("data-math-key-size"),
+              subLabelFontSize: subLabel ? Number.parseFloat(getComputedStyle(subLabel).fontSize) : null,
+              top: rect.top,
+              bottom: rect.bottom,
+              width: rect.width
+            };
+          }),
+          rows: rows.map((row) => {
+            const keyTops = Array.from(row.querySelectorAll<HTMLElement>('button[data-math-key="true"]'))
+              .map((key) => key.getBoundingClientRect().top);
+            return {
+              clientWidth: row.clientWidth,
+              keyTopDelta: keyTops.length
+                ? Math.max(...keyTops) - Math.min(...keyTops)
+                : Number.POSITIVE_INFINITY,
+              overscrollBehaviorX: getComputedStyle(row).overscrollBehaviorX,
+              overflowX: getComputedStyle(row).overflowX,
+              scrollbarWidth: getComputedStyle(row).scrollbarWidth,
+              scrollWidth: row.scrollWidth
+            };
+          })
+        };
+      });
+      for (const key of tabGeometry.keys) {
+        expect(key.width, `${key.label} must keep a 44px touch width`).toBeGreaterThanOrEqual(44);
+        expect(key.height, `${key.label} must keep a 44px touch height`).toBeGreaterThanOrEqual(44);
+        expect(key.height, `${key.label} must not regain the old 64px height`).toBeLessThanOrEqual(48);
+        expect(key.scrollWidth, `${key.label} must not clip its formula horizontally`).toBeLessThanOrEqual(key.clientWidth + 1);
+        expect(key.scrollHeight, `${key.label} must not clip its formula vertically`).toBeLessThanOrEqual(key.clientHeight + 1);
+        expect(key.contentLeft, `${key.label} painted content must remain inside the button`).toBeGreaterThanOrEqual(key.left - 1);
+        expect(key.contentRight, `${key.label} painted content must remain inside the button`).toBeLessThanOrEqual(key.right + 1);
+        expect(key.contentTop, `${key.label} painted content must remain inside the button`).toBeGreaterThanOrEqual(key.top - 1);
+        expect(key.contentBottom, `${key.label} painted content must remain inside the button`).toBeLessThanOrEqual(key.bottom + 1);
+        expect(key.mainLabelFontSize, `${key.label} main label must remain readable`).toBeGreaterThanOrEqual(14);
+        if (key.subLabelFontSize !== null) {
+          expect(key.subLabelFontSize, `${key.label} sub-label must remain readable`).toBeGreaterThanOrEqual(10);
+        }
+        const widthLimit = key.size === "extra-wide" ? 192 : key.size === "wide" ? 128 : 96;
+        expect(key.width, `${key.label} must respect its ${key.size ?? "regular"} width budget`).toBeLessThanOrEqual(widthLimit);
+      }
+      for (const row of tabGeometry.rows) {
+        expect(row.keyTopDelta, "A logical keyboard row must not wrap into extra vertical rows").toBeLessThanOrEqual(1);
+        expect(["auto", "scroll"]).toContain(row.overflowX);
+        expect(row.overscrollBehaviorX).toBe("contain");
+        expect(row.scrollbarWidth).toBe("thin");
+        expect(row.scrollWidth).toBeGreaterThanOrEqual(row.clientWidth);
+      }
+    }
+
+    const numbersTab = tablist.getByRole("tab", { name: "123", exact: true });
+    await numbersTab.click();
+    const numberPanel = keyboard.getByRole("tabpanel");
+    const numberRows = numberPanel.locator("[data-math-keyboard-row]");
+    const overflowingRowIndex = await numberRows.evaluateAll((rows) =>
+      rows.findIndex((row) => row.scrollWidth > row.clientWidth + 1)
+    );
+    expect(overflowingRowIndex, "At least one real number row must overflow inside the compact panel").toBeGreaterThanOrEqual(0);
+    const overflowingRow = numberRows.nth(overflowingRowIndex);
+    await alignLessonControlInItsScrollRoot(overflowingRow);
+    await expect(overflowingRow).toBeVisible();
+
+    const rowScrollBeforeWheel = await numberRows.evaluateAll((rows) =>
+      rows.map((row) => row.scrollLeft)
+    );
+    const wheelIsolationBefore = {
+      documentX: await page.evaluate(() => window.scrollX),
+      leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    const overflowingRowBox = await overflowingRow.boundingBox();
+    expect(overflowingRowBox).not.toBeNull();
+    await page.mouse.move(
+      overflowingRowBox!.x + overflowingRowBox!.width / 2,
+      overflowingRowBox!.y + overflowingRowBox!.height / 2
+    );
+    await page.mouse.wheel(240, 0);
+    await expect.poll(() => overflowingRow.evaluate((row) => row.scrollLeft)).toBeGreaterThan(
+      rowScrollBeforeWheel[overflowingRowIndex]! + 1
+    );
+    const rowScrollAfterWheel = await numberRows.evaluateAll((rows) =>
+      rows.map((row) => row.scrollLeft)
+    );
+    for (let rowIndex = 0; rowIndex < rowScrollBeforeWheel.length; rowIndex += 1) {
+      if (rowIndex === overflowingRowIndex) continue;
+      expect(Math.abs(rowScrollAfterWheel[rowIndex]! - rowScrollBeforeWheel[rowIndex]!)).toBeLessThanOrEqual(1);
+    }
+    expect(await page.evaluate(() => window.scrollX)).toBe(wheelIsolationBefore.documentX);
+    expect(Math.abs(
+      await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
+        - wheelIsolationBefore.leftScrollTop
+    )).toBeLessThanOrEqual(1);
+    if (!isMobile) {
+      expect(Math.abs(
+        await page.evaluate(() => window.scrollY) - wheelIsolationBefore.windowY
+      )).toBeLessThanOrEqual(1);
+    }
+
+    const numberKeys = numberPanel.locator('button[data-math-key="true"]');
+    const overflowingRowKeys = overflowingRow.locator('button[data-math-key="true"]');
+    const overflowingRowKeyCount = await overflowingRowKeys.count();
+    const enabledKeysBeforeOverflowingRow = await overflowingRow.evaluate((row) => {
+      const panel = row.closest<HTMLElement>('[role="tabpanel"]');
+      const firstRowKey = row.querySelector('button[data-math-key="true"]');
+      if (!panel || !firstRowKey) return -1;
+      const keys = Array.from(panel.querySelectorAll<HTMLButtonElement>('button[data-math-key="true"]'));
+      const firstRowKeyIndex = keys.indexOf(firstRowKey as HTMLButtonElement);
+      if (firstRowKeyIndex < 0) return -1;
+      return keys.slice(0, firstRowKeyIndex).filter((key) => !key.disabled).length;
+    });
+    expect(enabledKeysBeforeOverflowingRow).toBeGreaterThanOrEqual(0);
+    expect(overflowingRowKeyCount).toBeGreaterThan(1);
+    await numbersTab.click();
+    await numbersTab.focus();
+    await expect(numbersTab).toBeFocused();
+    const tabsAfterNumbers = 3;
+    const enabledEditingControlCount = await editingControls.getByRole("button").evaluateAll((buttons) =>
+      buttons.filter((button) => !(button as HTMLButtonElement).disabled).length
+    );
+    for (let step = 0; step < tabsAfterNumbers + enabledEditingControlCount + 1 + enabledKeysBeforeOverflowingRow; step += 1) {
+      await page.keyboard.press("Tab");
+    }
+    const firstOverflowingKey = overflowingRowKeys.first();
+    const lastOverflowingKey = overflowingRowKeys.last();
+    await expect(firstOverflowingKey).toBeFocused();
+    for (let step = 1; step < overflowingRowKeyCount; step += 1) {
+      await page.keyboard.press("Tab");
+    }
+    await expect(lastOverflowingKey).toBeFocused();
+    const focusedLastGeometry = await lastOverflowingKey.evaluate((key) => {
+      const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
+      if (!row) throw new Error("The focused key must stay inside its logical row.");
+      const keyRect = key.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      return {
+        boxShadow: getComputedStyle(key).boxShadow,
+        keyLeft: keyRect.left,
+        keyRight: keyRect.right,
+        rowLeft: rowRect.left,
+        rowRight: rowRect.right
+      };
+    });
+    expect(focusedLastGeometry.keyLeft).toBeGreaterThanOrEqual(focusedLastGeometry.rowLeft + 1);
+    expect(focusedLastGeometry.keyRight).toBeLessThanOrEqual(focusedLastGeometry.rowRight - 1);
+    expect(focusedLastGeometry.boxShadow).toContain("inset");
+    for (let step = 1; step < overflowingRowKeyCount; step += 1) {
+      await page.keyboard.press("Shift+Tab");
+    }
+    await expect(firstOverflowingKey).toBeFocused();
+    const focusedFirstGeometry = await firstOverflowingKey.evaluate((key) => {
+      const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
+      if (!row) throw new Error("The focused key must stay inside its logical row.");
+      const keyRect = key.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      return {
+        boxShadow: getComputedStyle(key).boxShadow,
+        keyLeft: keyRect.left,
+        keyRight: keyRect.right,
+        rowLeft: rowRect.left,
+        rowRight: rowRect.right
+      };
+    });
+    expect(focusedFirstGeometry.keyLeft).toBeGreaterThanOrEqual(focusedFirstGeometry.rowLeft + 1);
+    expect(focusedFirstGeometry.keyRight).toBeLessThanOrEqual(focusedFirstGeometry.rowRight - 1);
+    expect(focusedFirstGeometry.boxShadow).toContain("inset");
+    await expect(numberKeys).toHaveCount(47);
+
+    const symbolsTab = tablist.getByRole("tab", { name: "∞≠∈", exact: true });
+    await symbolsTab.click();
+    const limitKey = keyboard.getByRole("tabpanel").getByRole("button", {
+      name: "Insert limit to infinity",
+      exact: true
+    });
+    await limitKey.scrollIntoViewIfNeeded();
+    await expect(limitKey).toBeVisible();
+    await limitKey.click();
+    await expect(answer).toHaveValue("lim(x->infinity)");
+    await expect(answer).toBeFocused();
+
+    await answer.fill("");
+    await numbersTab.click();
+    const pressNumberKey = async (name: string) => {
+      const key = keyboard.getByRole("tabpanel").getByRole("button", { name, exact: true });
+      await key.scrollIntoViewIfNeeded();
+      await key.click();
+    };
+    for (const keyName of [
+      "Insert 3",
+      "Insert plus sign",
+      "Insert 2",
+      "Insert plus sign",
+      "Insert 4",
+      "Calculate or insert equals sign"
+    ]) {
+      await pressNumberKey(keyName);
+    }
+    await expect(answer).toHaveValue("3+2+4=9");
+    await editingControls.getByRole("button", { name: /Undo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await editingControls.getByRole("button", { name: /Redo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+    await expect(answer).toBeFocused();
+    await expect.poll(() => answer.evaluate((input: HTMLInputElement | HTMLTextAreaElement) => ({
+      end: input.selectionEnd,
+      length: input.value.length,
+      start: input.selectionStart
+    }))).toEqual({ end: 7, length: 7, start: 7 });
+
+    const keyboardBounds = await keyboard.evaluate((element) => {
+      const keyboardRect = element.getBoundingClientRect();
+      const card = element.closest<HTMLElement>('[data-ai-selectable="practice-question"]');
+      const cardRect = card?.getBoundingClientRect();
+      return {
+        cardLeft: cardRect?.left ?? Number.NaN,
+        cardRight: cardRect?.right ?? Number.NaN,
+        clientWidth: element.clientWidth,
+        height: keyboardRect.height,
+        left: keyboardRect.left,
+        right: keyboardRect.right,
+        scrollWidth: element.scrollWidth,
+        width: keyboardRect.width
+      };
+    });
+    expect(keyboardBounds.width).toBeLessThanOrEqual(609);
+    expect(keyboardBounds.height).toBeLessThanOrEqual(isMobile ? 410 : 390);
+    expect(keyboardBounds.scrollWidth).toBeLessThanOrEqual(keyboardBounds.clientWidth + 1);
+    expect(keyboardBounds.left).toBeGreaterThanOrEqual(keyboardBounds.cardLeft - 1);
+    expect(keyboardBounds.right).toBeLessThanOrEqual(keyboardBounds.cardRight + 1);
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
+
+    if (desktopScrollBaseline) {
+      expect(Math.abs(
+        await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - desktopScrollBaseline.leftScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await page.evaluate(() => window.scrollY) - desktopScrollBaseline.windowY
+      )).toBeLessThanOrEqual(1);
+    }
+    await expect(currentUnit).toHaveAttribute("href", gradeTwoFluencyArraysTopicPath);
+    await expect(currentUnit).toHaveAttribute("aria-label", currentLabel!);
+    expect(new URL(page.url()).pathname).toBe(gradeTwoFluencyArraysTopicPath);
+    expectNoPageErrors(errors);
+  });
+
   test("Grade 1 Unit 2 omits next-item CTAs while every lesson target remains usable", async ({ page }, testInfo) => {
     const errors = collectPageErrors(page);
     await keepLessonWorldMenuOpen(page);

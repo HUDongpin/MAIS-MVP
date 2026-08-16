@@ -809,10 +809,11 @@ export function MathSoftKeyboard({
       id={id}
       role="group"
       aria-label={localize(ariaLabel, language)}
-      className="mt-3 scroll-mt-28 overflow-hidden rounded-[1.6rem] border border-[#aeb8c5] bg-[#c4ccd7] p-3 shadow-inner shadow-slate-500/20"
+      data-math-keyboard-layout="compact"
+      className="mx-auto mt-3 w-full max-w-[38rem] scroll-mt-28 overflow-hidden rounded-2xl border border-[#aeb8c5] bg-[#c4ccd7] p-2 shadow-inner shadow-slate-500/20"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div role="tablist" aria-label={localize({ en: "Math keyboard categories", zh: "數學鍵盤分類" }, language)} className="flex flex-wrap gap-5 px-1">
+      <div className="flex flex-wrap items-start justify-between gap-1">
+        <div role="tablist" aria-label={localize({ en: "Math keyboard categories", zh: "數學鍵盤分類" }, language)} className="flex flex-wrap gap-1">
           {tabLabels.map((tab) => {
             const active = activeTab === tab.id;
             return (
@@ -825,7 +826,7 @@ export function MathSoftKeyboard({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "focus-ring min-h-8 border-b-2 px-1 text-sm font-black italic tracking-normal transition",
+                  "focus-ring min-h-11 min-w-11 border-b-2 px-2 text-sm font-black italic tracking-normal transition",
                   active
                     ? "border-[#1574d7] text-[#1574d7]"
                     : "border-transparent text-slate-700 hover:border-[#1574d7]/50 hover:text-[#1574d7]"
@@ -840,7 +841,7 @@ export function MathSoftKeyboard({
         <div
           role="group"
           aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制", zhHans: "软键盘编辑控制" }, language)}
-          className="flex flex-wrap gap-2"
+          className="flex flex-wrap gap-0.5"
         >
           {editingControls.map((control) => (
             <KeyButton
@@ -855,9 +856,22 @@ export function MathSoftKeyboard({
         </div>
       </div>
 
-      <div role="tabpanel" className="mt-3 space-y-2">
+      <p id={`${id}-scroll-hint`} className="mt-1 text-xs font-bold leading-tight text-slate-700">
+        <span aria-hidden="true">↔ </span>
+        {localize({
+          en: "Swipe or scroll each row for more keys.",
+          zh: "滑動或捲動每一列以查看更多按鍵。",
+          zhHans: "滑动或滚动每一行以查看更多按键。"
+        }, language)}
+      </p>
+
+      <div role="tabpanel" aria-describedby={`${id}-scroll-hint`} className="mt-1 space-y-1">
         {activeRows.map((row, rowIndex) => (
-          <div key={`${activeTab}-${rowIndex}`} className="flex flex-wrap justify-center gap-2">
+          <div
+            key={`${activeTab}-${rowIndex}`}
+            data-math-keyboard-row={`${activeTab}-${rowIndex}`}
+            className="flex flex-nowrap items-center justify-start gap-1.5 overflow-x-auto overscroll-x-contain px-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-500/70 [&::-webkit-scrollbar-track]:bg-transparent"
+          >
             {row.map((mathKey, index) => {
               const hydratedKey = keyForShiftState(mathKey, shiftActive);
               return (
@@ -906,15 +920,16 @@ function KeyButton({
       data-math-key-insert={mathKey.insert}
       data-math-key-wrap-before={mathKey.wrap?.[0]}
       data-math-key-wrap-after={mathKey.wrap?.[1]}
+      data-math-key-size={compact ? "editing" : mathKey.extraWide ? "extra-wide" : mathKey.wide ? "wide" : "regular"}
       onMouseDown={(event) => event.preventDefault()}
       onClick={onClick}
       className={cn(
-        "focus-ring grid min-w-0 place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
+        "focus-ring grid flex-none place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition focus-visible:ring-inset focus-visible:ring-offset-0 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
         compact
-          ? "h-9 min-w-9 flex-[0_0_2.35rem] text-sm"
-          : "h-10 min-w-[2.75rem] flex-[0_1_2.75rem] max-w-[4.2rem] text-sm sm:h-16 sm:min-w-[5.7rem] sm:flex-[1_1_5.7rem] sm:max-w-[7.2rem] sm:text-xl",
-        mathKey.wide && "min-w-[5.8rem] flex-[0_1_5.8rem] max-w-[9rem] sm:min-w-[8.8rem] sm:flex-[2_1_8.8rem] sm:max-w-[14rem]",
-        mathKey.extraWide && "min-w-[7rem] flex-[0_1_7rem] max-w-[11rem] sm:min-w-[11rem] sm:flex-[3_1_11rem] sm:max-w-[17rem]",
+          ? "h-11 min-w-11 text-sm"
+          : "h-11 min-w-11 text-sm sm:text-base",
+        mathKey.wide && "min-w-[5.8rem]",
+        mathKey.extraWide && "min-w-[7rem]",
         tone === "command"
           ? "border-[#94a0af] bg-[#98a3b3] text-slate-950 shadow-slate-600/15 enabled:hover:bg-[#a7b1c0]"
           : tone === "danger"
@@ -927,7 +942,7 @@ function KeyButton({
         <span className="leading-none">
           {mathKey.renderLabelAsMath ? <MathText text={mathKey.label} renderBareMath /> : mathKey.label}
         </span>
-        {mathKey.subLabel ? <span className="text-[0.6rem] font-bold leading-none text-slate-700">{mathKey.subLabel}</span> : null}
+        {mathKey.subLabel ? <span className="text-[0.625rem] font-bold leading-none text-slate-700">{mathKey.subLabel}</span> : null}
       </span>
     </button>
   );

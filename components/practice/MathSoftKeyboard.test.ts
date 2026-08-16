@@ -57,6 +57,43 @@ test("undo and redo keep localized accessible names after equals becomes an acti
   }
 });
 
+test("the shared keyboard advertises a compact touch-safe layout without oversized breakpoint keys", () => {
+  const markup = renderedKeyboard("en");
+  const regularKey = buttonOpeningTag(markup, "Insert 7");
+  const editingKey = buttonOpeningTag(markup, "Move cursor left");
+  const categoryTab = buttonOpeningTag(markup, "123");
+
+  assert.match(markup, /data-math-keyboard-layout="compact"/);
+  assert.match(markup, /max-w-\[38rem\]/);
+  assert.match(markup, /data-math-keyboard-row=/);
+  assert.match(markup, /flex-nowrap/);
+  assert.match(markup, /overflow-x-auto/);
+  assert.match(markup, /\[scrollbar-width:thin\]/);
+  assert.match(markup, /Swipe or scroll each row for more keys\./);
+  assert.match(regularKey, /data-math-key-size="regular"/);
+  assert.match(regularKey, /h-11/);
+  assert.match(regularKey, /min-w-11/);
+  assert.match(regularKey, /focus-visible:ring-inset/);
+  assert.match(editingKey, /data-math-key-size="editing"/);
+  assert.match(editingKey, /h-11/);
+  assert.match(editingKey, /min-w-11/);
+  assert.match(categoryTab, /min-h-11/);
+  assert.match(categoryTab, /min-w-11/);
+  assert.match(buttonOpeningTag(markup, "Toggle shift"), /data-math-key-size="extra-wide"/);
+  assert.ok(
+    [...markup.matchAll(/<button[^>]*aria-label="Clear answer"[^>]*>/g)]
+      .some(([tag]) => /data-math-key-size="wide"/.test(tag)),
+    "the keypad clear action must retain the distinct wide-key geometry hook"
+  );
+  assert.doesNotMatch(markup, /sm:h-16/);
+  assert.doesNotMatch(markup, /sm:min-w-\[5\.7rem\]/);
+  assert.doesNotMatch(markup, /sm:flex-\[1_1_5\.7rem\]/);
+  assert.doesNotMatch(markup, /scrollbar-width:none|scrollbar\]:hidden|touch-pan-x/);
+
+  assert.match(renderedKeyboard("zh"), /滑動或捲動每一列以查看更多按鍵。/);
+  assert.match(renderedKeyboard("zh-Hans"), /滑动或滚动每一行以查看更多按键。/);
+});
+
 test("equals action preserves completed or literal equations without blocking mid-answer insertion", () => {
   const atEnd = (value: string) => resolveMathKeyboardEqualsAction(value, value.length, value.length);
 
