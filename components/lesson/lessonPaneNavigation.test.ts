@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createLessonContentPaneScrollRequest } from "@/components/lesson/lessonPaneNavigation";
+import {
+  createLessonContentPaneScrollRequest,
+  createLessonTargetViewportRealignment
+} from "@/components/lesson/lessonPaneNavigation";
 
 test("desktop lesson jumps calculate a right-content-pane-local scroll request", () => {
   assert.deepEqual(
@@ -51,5 +54,37 @@ test("lesson pane jumps are a no-op when the requested target is missing", () =>
       topPadding: 20
     }),
     null
+  );
+});
+
+test("mobile lesson jumps realign after content above the target grows", () => {
+  assert.equal(
+    createLessonTargetViewportRealignment({
+      safeTop: 96,
+      targetTop: 112,
+      viewportHeight: 844
+    }),
+    null,
+    "The initial jump must not keep scrolling while the target heading is safely visible."
+  );
+
+  assert.deepEqual(
+    createLessonTargetViewportRealignment({
+      safeTop: 96,
+      targetTop: 920,
+      viewportHeight: 844
+    }),
+    { behavior: "auto", block: "start" },
+    "A ResizeObserver pass must restore the target after an earlier panel expands and pushes it below the viewport."
+  );
+
+  assert.equal(
+    createLessonTargetViewportRealignment({
+      safeTop: 96,
+      targetTop: 95.5,
+      viewportHeight: 844
+    }),
+    null,
+    "Sub-pixel layout rounding near the safe edge must not create repeated corrections."
   );
 });

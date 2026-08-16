@@ -16,7 +16,10 @@ import {
   lessonCompletionTitleForGrade
 } from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
-import { createLessonContentPaneScrollRequest } from "@/components/lesson/lessonPaneNavigation";
+import {
+  createLessonContentPaneScrollRequest,
+  createLessonTargetViewportRealignment
+} from "@/components/lesson/lessonPaneNavigation";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
 import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
 import {
@@ -178,6 +181,8 @@ const lessonDesktopMinWidthQuery = "(min-width: 1024px)";
 const lessonDesktopPaneLayoutClassName = "lg:h-[calc(100dvh-8rem)] lg:min-h-0 lg:overflow-hidden";
 const lessonDesktopScrollablePaneClassName = "lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain";
 const lessonContentPaneTopPaddingPx = 24;
+const mobileLessonTargetSafeTopPx = 96;
+const mobileLessonTargetStabilizationMaxMs = 8000;
 const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
 const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
 const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
@@ -2059,6 +2064,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const lessonSelectionRootRef = useRef<HTMLDivElement | null>(null);
   const lessonDirectoryPaneRef = useRef<HTMLDivElement | null>(null);
   const lessonContentPaneRef = useRef<HTMLDivElement | null>(null);
+  const mobileLessonTargetStabilizationCleanupRef = useRef<(() => void) | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const lessonPracticeSectionRef = useRef<HTMLElement | null>(null);
   const summaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -2299,6 +2305,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
   useLayoutEffect(() => {
     const currentLessonHref = lessonHrefForSlug(slug);
+    cancelMobileLessonTargetStabilization();
     lessonContentPaneRef.current?.scrollTo({
       behavior: "auto",
       top: 0
@@ -2335,6 +2342,8 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       }
     }, 1200);
   }, [slug]);
+
+  useEffect(() => () => cancelMobileLessonTargetStabilization(), []);
 
   useEffect(() => {
     setLesson(normalizedInitialLesson);
@@ -2712,7 +2721,13 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     });
   }
 
+  function cancelMobileLessonTargetStabilization() {
+    mobileLessonTargetStabilizationCleanupRef.current?.();
+    mobileLessonTargetStabilizationCleanupRef.current = null;
+  }
+
   function handleLessonItemSelect(targetId: string) {
+    cancelMobileLessonTargetStabilization();
     const contentPane = lessonContentPaneRef.current;
     if (!contentPane) return;
 
@@ -2721,10 +2736,77 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     if (!target) return;
 
     const behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth";
-    const isDesktop = typeof window.matchMedia === "function" &&
-      window.matchMedia(lessonDesktopMinWidthQuery).matches;
+    const desktopMediaQuery = typeof window.matchMedia === "function"
+      ? window.matchMedia(lessonDesktopMinWidthQuery)
+      : null;
+    const isDesktop = desktopMediaQuery?.matches ?? false;
     if (!isDesktop) {
       target.scrollIntoView({ behavior, block: "start" });
+      if (typeof ResizeObserver === "undefined") return;
+
+      let animationFrameId: number | null = null;
+      let hardLimitTimerId: number | null = null;
+      let isCleanedUp = false;
+      let observedHeight = contentPane.getBoundingClientRect().height;
+      let observer: ResizeObserver | null = null;
+
+      function cancelOnUserInput() {
+        cleanup();
+      }
+
+      function cancelOnDesktopBreakpoint(event: MediaQueryListEvent) {
+        if (event.matches) cleanup();
+      }
+
+      function cleanup() {
+        if (isCleanedUp) return;
+        isCleanedUp = true;
+        observer?.disconnect();
+        if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId);
+        if (hardLimitTimerId !== null) window.clearTimeout(hardLimitTimerId);
+        desktopMediaQuery?.removeEventListener("change", cancelOnDesktopBreakpoint);
+        window.removeEventListener("pointerdown", cancelOnUserInput);
+        window.removeEventListener("touchstart", cancelOnUserInput);
+        window.removeEventListener("wheel", cancelOnUserInput);
+        window.removeEventListener("keydown", cancelOnUserInput);
+        if (mobileLessonTargetStabilizationCleanupRef.current === cleanup) {
+          mobileLessonTargetStabilizationCleanupRef.current = null;
+        }
+      }
+
+      observer = new ResizeObserver(() => {
+        if (isCleanedUp) return;
+        const nextHeight = contentPane.getBoundingClientRect().height;
+        if (nextHeight === observedHeight) return;
+        observedHeight = nextHeight;
+
+        if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId);
+        animationFrameId = window.requestAnimationFrame(() => {
+          animationFrameId = null;
+          if (isCleanedUp) return;
+          if (!target.isConnected || !contentPane.contains(target)) {
+            cleanup();
+            return;
+          }
+
+          const request = createLessonTargetViewportRealignment({
+            safeTop: mobileLessonTargetSafeTopPx,
+            targetTop: target.getBoundingClientRect().top,
+            viewportHeight: window.innerHeight
+          });
+          if (request) target.scrollIntoView(request);
+        });
+      });
+      observer.observe(contentPane);
+      if (desktopMediaQuery) {
+        desktopMediaQuery.addEventListener("change", cancelOnDesktopBreakpoint);
+      }
+      window.addEventListener("pointerdown", cancelOnUserInput, { passive: true });
+      window.addEventListener("touchstart", cancelOnUserInput, { passive: true });
+      window.addEventListener("wheel", cancelOnUserInput, { passive: true });
+      window.addEventListener("keydown", cancelOnUserInput);
+      hardLimitTimerId = window.setTimeout(cleanup, mobileLessonTargetStabilizationMaxMs);
+      mobileLessonTargetStabilizationCleanupRef.current = cleanup;
       return;
     }
 

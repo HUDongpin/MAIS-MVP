@@ -126,6 +126,92 @@ test("a new lesson slug resets only the right content pane to its beginning", ()
   );
 });
 
+test("mobile quick jumps stabilize against deferred content growth and clean up every pending observer", () => {
+  assert.match(
+    lessonViewSource,
+    /const mobileLessonTargetStabilizationCleanupRef = useRef<\(\(\) => void\) \| null>\(null\);/,
+    "LessonView must own exactly one cleanup handle for the active mobile quick jump."
+  );
+  assert.match(
+    lessonViewSource,
+    /function cancelMobileLessonTargetStabilization\(\)/,
+    "LessonView must expose one idempotent cleanup path for observers, animation frames, and the hard limit."
+  );
+
+  const itemSelectStart = lessonViewSource.indexOf("function handleLessonItemSelect(targetId: string)");
+  const nextLessonHelperStart = lessonViewSource.indexOf("function revealLastNextLessonItemButton", itemSelectStart);
+  assert.notEqual(itemSelectStart, -1, "LessonView must keep the shared item-selection callback.");
+  assert.notEqual(nextLessonHelperStart, -1, "The source contract must isolate the shared callback body.");
+  const itemSelectSource = lessonViewSource.slice(itemSelectStart, nextLessonHelperStart);
+
+  assert.match(
+    itemSelectSource,
+    /cancelMobileLessonTargetStabilization\(\);/,
+    "A new selection must stop any observer that belongs to the previous target."
+  );
+  assert.match(
+    itemSelectSource,
+    /new ResizeObserver/,
+    "Mobile document-flow jumps must react when deferred panels change the content-pane height."
+  );
+  assert.match(
+    itemSelectSource,
+    /requestAnimationFrame/,
+    "Resize notifications must wait for the resulting layout before measuring the target again."
+  );
+  assert.match(
+    itemSelectSource,
+    /createLessonTargetViewportRealignment/,
+    "Observer passes must realign only when the target has left the safe viewport region."
+  );
+  assert.match(
+    itemSelectSource,
+    /window\.setTimeout\([^,]+, mobileLessonTargetStabilizationMaxMs\)/,
+    "An active observer must have a hard lifetime limit instead of watching the lesson indefinitely."
+  );
+  assert.match(
+    itemSelectSource,
+    /desktopMediaQuery\.addEventListener\("change", cancelOnDesktopBreakpoint\)/,
+    "A mobile observer must stop if the responsive layout changes to desktop."
+  );
+  for (const eventName of ["pointerdown", "touchstart", "wheel", "keydown"] as const) {
+    assert.match(
+      itemSelectSource,
+      new RegExp(`window\\.addEventListener\\("${eventName}", cancelOnUserInput`),
+      `A ${eventName} gesture must hand scroll ownership back to the learner.`
+    );
+    assert.match(
+      itemSelectSource,
+      new RegExp(`window\\.removeEventListener\\("${eventName}", cancelOnUserInput`),
+      `Cleanup must remove the temporary ${eventName} listener.`
+    );
+  }
+  assert.equal(
+    itemSelectSource.includes("preventDefault"),
+    false,
+    "Stabilization may observe user input for cleanup but must not intercept wheel or touch behavior."
+  );
+  assert.equal(
+    [...itemSelectSource.matchAll(/if \(isCleanedUp\) return;/g)].length,
+    3,
+    "Cleanup, queued ResizeObserver delivery, and queued animation-frame work must all be idempotent no-ops."
+  );
+
+  const slugEffectStart = lessonViewSource.indexOf("useLayoutEffect(() => {\n    const currentLessonHref");
+  const slugEffectEnd = lessonViewSource.indexOf("\n  }, [slug]);", slugEffectStart);
+  const slugEffectSource = lessonViewSource.slice(slugEffectStart, slugEffectEnd);
+  assert.match(
+    slugEffectSource,
+    /cancelMobileLessonTargetStabilization\(\);/,
+    "Changing lesson slugs must stop stabilization for the old target."
+  );
+  assert.match(
+    lessonViewSource,
+    /useEffect\(\(\) => \(\) => cancelMobileLessonTargetStabilization\(\), \[\]\);/,
+    "Unmounting LessonView must disconnect the observer and cancel pending work."
+  );
+});
+
 test("unit directory navigation preserves the lesson menu", () => {
   assert.equal(
     directorySource.includes("fromGalaxy=planet"),
