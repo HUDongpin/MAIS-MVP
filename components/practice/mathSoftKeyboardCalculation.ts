@@ -1,5 +1,18 @@
 import { evaluateExpression } from "@/lib/expressionCalculator";
 
+const maxSafeIntegerLiteral = BigInt(Number.MAX_SAFE_INTEGER);
+
+function containsUnsafeIntegerLiteral(value: string) {
+  const numericLiterals = value.match(/(?:\d+(?:\.\d*)?|\.\d+)/g) ?? [];
+
+  return numericLiterals.some((literal) => {
+    if (literal.includes(".")) return false;
+
+    const exactValue = BigInt(literal);
+    return exactValue > maxSafeIntegerLiteral || !Number.isSafeInteger(Number(literal));
+  });
+}
+
 function isGraderCompatibleArithmetic(value: string) {
   // answerMatching validates this same ordinary-arithmetic family before it
   // extracts an equation's RHS. Keep auto-completion inside that contract;
@@ -39,7 +52,12 @@ function formatAnswerResult(value: number): string | null {
 export function calculateMathKeyboardAnswer(value: string): string | null {
   const trimmed = value.trim();
   const expression = trimmed.endsWith("=") ? trimmed.slice(0, -1).trimEnd() : trimmed;
-  if (!expression || expression.includes("=") || !isGraderCompatibleArithmetic(expression)) return null;
+  if (
+    !expression ||
+    expression.includes("=") ||
+    !isGraderCompatibleArithmetic(expression) ||
+    containsUnsafeIntegerLiteral(expression)
+  ) return null;
 
   // The parser requires an angle mode, but the restricted grammar above has no
   // angle-sensitive tokens, so the mode cannot affect an accepted expression.

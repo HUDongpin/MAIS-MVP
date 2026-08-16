@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import React, { createElement, createRef } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { MathSoftKeyboard, resolveMathKeyboardEqualsAction } from "@/components/practice/MathSoftKeyboard";
+import {
+  MathSoftKeyboard,
+  reconcileMathKeyboardControlledValue,
+  resolveMathKeyboardEqualsAction
+} from "@/components/practice/MathSoftKeyboard";
 import type { Language } from "@/types";
 
 // Next applies the automatic JSX transform during app builds. The focused
@@ -63,4 +67,21 @@ test("equals action preserves completed or literal equations without blocking mi
   assert.deepEqual(atEnd("f(x)"), { kind: "insert" });
   assert.deepEqual(resolveMathKeyboardEqualsAction("123", 1, 1), { kind: "insert" });
   assert.deepEqual(resolveMathKeyboardEqualsAction("123", 0, 3), { kind: "insert" });
+});
+
+test("controlled value sync preserves internal undo and redo but invalidates redo after an external edit", () => {
+  let lastReceivedValue = "3+2+4";
+
+  for (const nextInternalValue of ["3+2+4=9", "3+2+4", "3+2+4=9", "3+2+4"]) {
+    const sync = reconcileMathKeyboardControlledValue(lastReceivedValue, nextInternalValue, nextInternalValue);
+    assert.equal(sync.shouldClearRedo, false, `internal value ${nextInternalValue} must preserve redo history`);
+    assert.equal(sync.pendingOwnValue, null);
+    lastReceivedValue = sync.lastReceivedValue;
+  }
+
+  assert.deepEqual(reconcileMathKeyboardControlledValue(lastReceivedValue, null, "7+1"), {
+    lastReceivedValue: "7+1",
+    pendingOwnValue: null,
+    shouldClearRedo: true
+  });
 });

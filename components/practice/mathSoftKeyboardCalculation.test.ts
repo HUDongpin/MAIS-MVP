@@ -30,6 +30,15 @@ test("unsafe integer results fail closed instead of emitting a misleading equati
   assert.equal(calculateMathKeyboardAnswer("9007199254740992"), null);
 });
 
+for (const expression of [
+  "9007199254740993-9007199254740992",
+  "9999999999999999-9999999999999998"
+]) {
+  test(`unsafe integer literal expression ${expression} fails closed before Number evaluation`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
 test("every auto-completed equation is accepted by the existing short-answer grader", () => {
   for (const [input, expectedAnswer] of [
     ["3+2+4", "9"],

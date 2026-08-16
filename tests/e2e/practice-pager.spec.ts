@@ -505,6 +505,15 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await expect(answer).toHaveValue("3+2+4=9");
 
+    const undoButton = keyboard.getByRole("button", { name: /Undo soft keyboard input/i });
+    const redoButton = keyboard.getByRole("button", { name: /Redo soft keyboard input/i });
+    await undoButton.click();
+    await expect(answer).toHaveValue("3+2+4");
+    await answer.fill("7+1");
+    await expect(redoButton).toBeDisabled();
+    await redoButton.evaluate((button: HTMLButtonElement) => button.click());
+    await expect(answer).toHaveValue("7+1");
+
     await setAnswerValue(answer, "3+2+4=");
     await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await expect(answer).toHaveValue("3+2+4=9");

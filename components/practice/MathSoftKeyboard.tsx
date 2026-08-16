@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { MathText } from "@/components/math/MathText";
 import { calculateMathKeyboardAnswer } from "@/components/practice/mathSoftKeyboardCalculation";
 import { cn, localize } from "@/lib/utils";
@@ -543,6 +543,22 @@ export function resolveMathKeyboardEqualsAction(value: string, start: number, en
   return value.includes("=") ? { kind: "noop" } as const : { kind: "insert" } as const;
 }
 
+export function reconcileMathKeyboardControlledValue(
+  lastReceivedValue: string,
+  pendingOwnValue: string | null,
+  nextValue: string
+) {
+  if (lastReceivedValue === nextValue) {
+    return { lastReceivedValue, pendingOwnValue, shouldClearRedo: false };
+  }
+
+  return {
+    lastReceivedValue: nextValue,
+    pendingOwnValue: null,
+    shouldClearRedo: pendingOwnValue !== nextValue
+  };
+}
+
 export function MathSoftKeyboard({
   id,
   value,
@@ -556,7 +572,20 @@ export function MathSoftKeyboard({
   const [shiftActive, setShiftActive] = useState(false);
   const [undoStack, setUndoStack] = useState<Snapshot[]>([]);
   const [redoStack, setRedoStack] = useState<Snapshot[]>([]);
+  const lastReceivedValueRef = useRef(value);
+  const pendingOwnValueRef = useRef<string | null>(null);
   const activeRows = keyboardRows[activeTab];
+
+  useEffect(() => {
+    const sync = reconcileMathKeyboardControlledValue(
+      lastReceivedValueRef.current,
+      pendingOwnValueRef.current,
+      value
+    );
+    lastReceivedValueRef.current = sync.lastReceivedValue;
+    pendingOwnValueRef.current = sync.pendingOwnValue;
+    if (sync.shouldClearRedo) setRedoStack([]);
+  }, [value]);
 
   function getSnapshot(): Snapshot {
     const target = targetRef.current;
@@ -581,11 +610,16 @@ export function MathSoftKeyboard({
     });
   }
 
+  function emitOwnChange(nextValue: string) {
+    pendingOwnValueRef.current = nextValue;
+    onChange(nextValue);
+  }
+
   function commit(nextValue: string, nextStart: number, nextEnd = nextStart) {
     const previous = getSnapshot();
     setUndoStack((current) => historyWith(previous, current));
     setRedoStack([]);
-    onChange(nextValue);
+    emitOwnChange(nextValue);
     focusAnswer(nextStart, nextEnd, nextValue);
   }
 
@@ -744,7 +778,7 @@ export function MathSoftKeyboard({
     const current = getSnapshot();
     setUndoStack((stack) => stack.slice(0, -1));
     setRedoStack((stack) => historyWith(current, stack));
-    onChange(previous.value);
+    emitOwnChange(previous.value);
     focusAnswer(previous.start, previous.end, previous.value);
   }
 
@@ -755,7 +789,7 @@ export function MathSoftKeyboard({
     const current = getSnapshot();
     setRedoStack((stack) => stack.slice(0, -1));
     setUndoStack((stack) => historyWith(current, stack));
-    onChange(next.value);
+    emitOwnChange(next.value);
     focusAnswer(next.start, next.end, next.value);
   }
 
