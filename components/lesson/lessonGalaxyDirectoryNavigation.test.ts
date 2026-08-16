@@ -4,10 +4,12 @@ import test from "node:test";
 
 const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.tsx", "utf8");
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
+const lessonModuleProgressSource = readFileSync("components/lesson/lessonModuleProgress.ts", "utf8");
 const lessonPracticeAutoAdvanceSource = readFileSync("components/lesson/lessonPracticeAutoAdvance.ts", "utf8");
 const practiceArenaSource = readFileSync("app/practice/page.tsx", "utf8");
 const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
+const worldStopStateSource = readFileSync("components/lesson/worlds/worldStopState.ts", "utf8");
 const worldThemeSource = readFileSync("components/lesson/worlds/worldThemes.ts", "utf8");
 const configuredVisualizationLabSource = readFileSync("components/visualizations/ConfiguredVisualizationLab.tsx", "utf8");
 
@@ -417,6 +419,111 @@ test("world unit stops replace numeric lesson emoji through deterministic theme 
     assert.match(themeSource, new RegExp(`id: "${themeId}"`), `${themeName} must retain its world id.`);
     assert.match(themeSource, /stopEmojiPalette: \[[^\]]+\]/, `${themeId} must provide a non-empty curated palette.`);
   }
+});
+
+test("world unit stops layer current, completed, and not-learned indicators without hard-locking navigation", () => {
+  assert.match(
+    worldMenuSource,
+    /import \{[\s\S]{0,140}lessonWorldStopStatusDescription,[\s\S]{0,80}resolveLessonWorldStopVisualState[\s\S]{0,80}\} from "@\/components\/lesson\/worlds\/worldStopState";/,
+    "WorldMenu must derive every stop's visual and accessible state from one shared model."
+  );
+  assert.match(worldStopStateSource, /if \(isCurrent\) return "current";/);
+  assert.match(worldStopStateSource, /if \(isCompleted\) return "completed";/);
+  assert.match(worldStopStateSource, /return "locked";/);
+  assert.match(
+    worldMenuSource,
+    /data-lesson-unit-stop-state=\{visualState\}/,
+    "Every stop must expose its resolved current, completed, or locked display state."
+  );
+  assert.match(
+    worldMenuSource,
+    /data-lesson-unit-stop-adornment=\{visualState\}/,
+    "The decorative star or lock must expose a stable geometry hook."
+  );
+  assert.match(
+    worldMenuSource,
+    /data-lesson-unit-stop-marker="true"/,
+    "Bug 6's deterministic themed marker must remain present for every stop."
+  );
+  assert.match(
+    worldMenuSource,
+    /aria-hidden="true"[\s\S]{0,180}data-lesson-unit-stop-adornment=\{visualState\}/,
+    "Status artwork must remain decorative instead of changing the link name."
+  );
+  assert.match(worldMenuSource, /pointer-events-none/);
+  assert.equal(worldMenuSource.includes("aria-disabled"), false, "A not-learned lock must never disable its lesson link.");
+  assert.match(worldMenuSource, /href=\{lessonHrefForSlug\(module\.slug\)\}/);
+  assert.match(worldStopStateSource, /next stop, not learned yet/);
+  assert.match(worldStopStateSource, /下一站，尚未學習/);
+  assert.match(worldStopStateSource, /下一站，尚未学习/);
+});
+
+test("lesson modules progressively overlay authenticated roadmap status without replacing the SSR baseline", () => {
+  assert.match(
+    lessonViewSource,
+    /const \[lessonModules, setLessonModules\] = useState<LessonSummary\[\]>\(gradeLessons\);/,
+    "LessonView must hydrate from its fast public gradeLessons prop."
+  );
+  assert.match(
+    lessonViewSource,
+    /currentUser\?\.role !== "student"[\s\S]{0,180}setLessonModules\(gradeLessons\)/,
+    "Only authenticated students may replace the public lesson-module baseline."
+  );
+  assert.match(
+    lessonViewSource,
+    /fetch\(`\/api\/roadmap\?grade=\$\{encodeURIComponent\(lessonGrade\)\}`,[\s\S]{0,160}cache: "no-store"[\s\S]{0,160}signal: controller\.signal/,
+    "The personalized overlay must use the existing authenticated roadmap endpoint without cache reuse."
+  );
+  assert.match(lessonViewSource, /const controller = new AbortController\(\);/);
+  assert.match(lessonViewSource, /lessonModuleProgressRequestScopeKey\(\{/);
+  assert.match(lessonViewSource, /lessonModulesRequestGenerationRef\.current/);
+  assert.match(
+    lessonViewSource,
+    /request\.generation !== generation \|\|[\s\S]{0,160}request\.scopeKey !== requestScopeKey/,
+    "A response from an older generation or user/grade/slug scope must be ignored."
+  );
+  assert.match(
+    lessonViewSource,
+    /readLessonModulesFromRoadmapResponse\(body, \{\s*curriculumProfile,\s*curriculumTrack,\s*grade: lessonGrade,\s*slug\s*\}\)/
+  );
+  for (const committedScopeDependency of [
+    "currentUser?.curriculumTrack",
+    "currentUser?.curriculumProfile.region",
+    "currentUser?.curriculumProfile.publisher"
+  ]) {
+    assert.equal(
+      lessonViewSource.includes(committedScopeDependency),
+      true,
+      `The overlay effect must depend on ${committedScopeDependency}.`
+    );
+  }
+  assert.match(lessonViewSource, /controller\.abort\(\);/);
+  assert.match(
+    lessonModuleProgressSource,
+    /return null;/,
+    "Malformed roadmap data must fail closed instead of erasing the SSR baseline."
+  );
+  assert.match(
+    lessonViewSource,
+    /<WorldMenu[\s\S]*?modules=\{lessonModules\}/,
+    "Both desktop and mobile maps must consume the same personalized module overlay."
+  );
+});
+
+test("lesson completion immediately overlays the current module and invalidates any older roadmap request", () => {
+  const completionStart = lessonViewSource.indexOf("async function completeLesson()");
+  const completionEnd = lessonViewSource.indexOf("\n\n  function clearGalaxyDirectoryCloseTimer", completionStart);
+  assert.notEqual(completionStart, -1);
+  assert.notEqual(completionEnd, -1);
+  const completionSource = lessonViewSource.slice(completionStart, completionEnd);
+
+  assert.match(completionSource, /upsertCompletedLessonModuleOverride\(/);
+  assert.match(completionSource, /lessonModuleProgressOwnerScopeKey\(\{/);
+  assert.match(completionSource, /lessonModulesRequestGenerationRef\.current \+= 1;/);
+  assert.match(completionSource, /lessonModulesRoadmapAbortRef\.current\?\.abort\(\);/);
+  assert.match(completionSource, /setLessonModules\(\(currentModules\) =>/);
+  assert.match(completionSource, /mergeCompletedLessonModuleOverrides\(/);
+  assert.equal(completionSource.includes("moduleIndex"), false, "Completion must merge by slug, never by array position.");
 });
 
 test("unit directory uses grade-level California course names", () => {

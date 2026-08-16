@@ -18,6 +18,14 @@ import {
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { formatLessonPartDisplay, type LessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import {
+  lessonModuleProgressOwnerScopeKey,
+  lessonModuleProgressRequestScopeKey,
+  mergeCompletedLessonModuleOverrides,
+  readLessonModulesFromRoadmapResponse,
+  upsertCompletedLessonModuleOverride,
+  type CompletedLessonModuleOverride
+} from "@/components/lesson/lessonModuleProgress";
+import {
   createLessonContentPaneScrollRequest,
   createLessonTargetViewportRealignment
 } from "@/components/lesson/lessonPaneNavigation";
@@ -2111,6 +2119,15 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const galaxyDirectoryCloseTimerRef = useRef<number | null>(null);
   const normalizedInitialLesson = useMemo(() => limitLessonPracticeQuestions(initialLesson), [initialLesson]);
   const [lesson, setLesson] = useState<LessonDetail | null>(normalizedInitialLesson);
+  const [lessonModules, setLessonModules] = useState<LessonSummary[]>(gradeLessons);
+  const lessonModulesRequestGenerationRef = useRef(0);
+  const lessonModulesRequestRef = useRef<{ generation: number; scopeKey: string } | null>(null);
+  const lessonModulesRoadmapAbortRef = useRef<AbortController | null>(null);
+  const lessonModulesActiveOwnerScopeKeyRef = useRef("");
+  const completedLessonModuleOverridesRef = useRef<{
+    ownerScopeKey: string;
+    overrides: CompletedLessonModuleOverride[];
+  }>({ ownerScopeKey: "", overrides: [] });
   const [lessonLoadState, setLessonLoadState] = useState<LessonLoadState>(normalizedInitialLesson ? "ready" : "idle");
   const [questionResults, setQuestionResults] = useState<Record<string, LessonQuestionResult>>({});
   const [checklistState, setChecklistState] = useState<Record<string, boolean>>(normalizedInitialLesson?.checklistState ?? {});
@@ -2399,6 +2416,109 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     setChecklistState(normalizedInitialLesson?.checklistState ?? {});
     setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
   }, [normalizedInitialLesson]);
+
+  useEffect(() => {
+    lessonModulesRoadmapAbortRef.current?.abort();
+    lessonModulesRoadmapAbortRef.current = null;
+    lessonModulesRequestRef.current = null;
+    const generation = lessonModulesRequestGenerationRef.current + 1;
+    lessonModulesRequestGenerationRef.current = generation;
+
+    if (!settingsReady || currentUser?.role !== "student" || !lesson) {
+      lessonModulesActiveOwnerScopeKeyRef.current = "";
+      completedLessonModuleOverridesRef.current = { ownerScopeKey: "", overrides: [] };
+      setLessonModules(gradeLessons);
+      return;
+    }
+
+    const curriculumProfile = currentUser.curriculumProfile;
+    const curriculumTrack = currentUser.curriculumTrack;
+    const lessonGrade = lesson.grade;
+    const ownerScopeKey = lessonModuleProgressOwnerScopeKey({
+      curriculumProfile,
+      curriculumTrack,
+      grade: lessonGrade,
+      userId: currentUser.id
+    });
+    lessonModulesActiveOwnerScopeKeyRef.current = ownerScopeKey;
+    if (completedLessonModuleOverridesRef.current.ownerScopeKey !== ownerScopeKey) {
+      completedLessonModuleOverridesRef.current = { ownerScopeKey, overrides: [] };
+    }
+    setLessonModules(mergeCompletedLessonModuleOverrides(
+      gradeLessons,
+      completedLessonModuleOverridesRef.current.overrides
+    ));
+
+    const controller = new AbortController();
+    const requestScopeKey = lessonModuleProgressRequestScopeKey({
+      curriculumProfile,
+      curriculumTrack,
+      grade: lessonGrade,
+      slug,
+      userId: currentUser.id
+    });
+    lessonModulesRoadmapAbortRef.current = controller;
+    lessonModulesRequestRef.current = { generation, scopeKey: requestScopeKey };
+
+    async function loadPersonalizedLessonModules() {
+      try {
+        const response = await fetch(`/api/roadmap?grade=${encodeURIComponent(lessonGrade)}`, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+        if (!response.ok) return;
+        const body: unknown = await response.json();
+        const personalizedModules = readLessonModulesFromRoadmapResponse(body, {
+          curriculumProfile,
+          curriculumTrack,
+          grade: lessonGrade,
+          slug
+        });
+        if (!personalizedModules) return;
+
+        const request = lessonModulesRequestRef.current;
+        if (
+          !request ||
+          request.generation !== generation ||
+          request.scopeKey !== requestScopeKey ||
+          controller.signal.aborted
+        ) return;
+        const completedOverrides = completedLessonModuleOverridesRef.current.ownerScopeKey === ownerScopeKey
+          ? completedLessonModuleOverridesRef.current.overrides
+          : [];
+        setLessonModules(mergeCompletedLessonModuleOverrides(personalizedModules, completedOverrides));
+      } catch {
+        // The public SSR modules remain usable when personalized progress is unavailable.
+      } finally {
+        if (lessonModulesRoadmapAbortRef.current === controller) {
+          lessonModulesRoadmapAbortRef.current = null;
+        }
+      }
+    }
+
+    void loadPersonalizedLessonModules();
+
+    return () => {
+      controller.abort();
+      if (lessonModulesRoadmapAbortRef.current === controller) {
+        lessonModulesRoadmapAbortRef.current = null;
+      }
+      const request = lessonModulesRequestRef.current;
+      if (request?.generation === generation && request.scopeKey === requestScopeKey) {
+        lessonModulesRequestRef.current = null;
+      }
+    };
+  }, [
+    currentUser?.curriculumProfile.publisher,
+    currentUser?.curriculumProfile.region,
+    currentUser?.curriculumTrack,
+    currentUser?.id,
+    currentUser?.role,
+    gradeLessons,
+    lesson?.grade,
+    settingsReady,
+    slug
+  ]);
 
   // Keyed on the slug, NOT on initialLesson identity: a server re-render
   // (router.refresh, dev RSC refresh) delivers a fresh initialLesson object for
@@ -2736,16 +2856,44 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         throw new Error("Could not mark this lesson complete yet.");
       }
 
+      const completedLesson = body.lesson;
+
       setLesson((currentLesson) =>
         currentLesson
           ? {
             ...currentLesson,
             checklistState,
-            mastery: body.lesson?.mastery ?? currentLesson.mastery,
-            status: body.lesson?.status ?? currentLesson.status
+            mastery: completedLesson.mastery,
+            status: completedLesson.status
           }
           : currentLesson
       );
+      if (
+        currentUser?.role === "student" &&
+        lesson &&
+        completedLesson.slug === slug &&
+        completedLesson.grade === lesson.grade
+      ) {
+        const ownerScopeKey = lessonModuleProgressOwnerScopeKey({
+          curriculumProfile: currentUser.curriculumProfile,
+          curriculumTrack: currentUser.curriculumTrack,
+          grade: lesson.grade,
+          userId: currentUser.id
+        });
+        if (lessonModulesActiveOwnerScopeKeyRef.current !== ownerScopeKey) return;
+        const existingOverrides = completedLessonModuleOverridesRef.current.ownerScopeKey === ownerScopeKey
+          ? completedLessonModuleOverridesRef.current.overrides
+          : [];
+        const completedOverrides = upsertCompletedLessonModuleOverride(existingOverrides, completedLesson);
+        completedLessonModuleOverridesRef.current = { ownerScopeKey, overrides: completedOverrides };
+        lessonModulesRequestGenerationRef.current += 1;
+        lessonModulesRoadmapAbortRef.current?.abort();
+        lessonModulesRoadmapAbortRef.current = null;
+        lessonModulesRequestRef.current = null;
+        setLessonModules((currentModules) =>
+          mergeCompletedLessonModuleOverrides(currentModules, completedOverrides)
+        );
+      }
     } catch {
       setLessonProgressError(t({
         en: "Could not mark this lesson complete yet.",
@@ -3552,7 +3700,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                     currentSlug={slug}
                     items={lessonGalaxyItems}
                     lesson={lesson}
-                    modules={gradeLessons}
+                    modules={lessonModules}
                     onHide={lessonMenu.hideMenu}
                     onSelectLessonItem={handleLessonItemSelect}
                   />

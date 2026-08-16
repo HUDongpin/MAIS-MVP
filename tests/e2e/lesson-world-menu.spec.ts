@@ -1,8 +1,8 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
 import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldThemes";
 import { formatPracticeOptionDisplayText } from "../../components/practice/practiceOptionDisplayText";
 import { usCaliforniaQuestions } from "../../data/usCaliforniaQuestions";
-import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
+import { authenticateAsUserId, collectPageErrors, expectNoPageErrors, uniqueSuffix } from "./helpers";
 
 /**
  * MAIS Learning Worlds menu (porting plan §3, Phase 3).
@@ -124,6 +124,94 @@ async function visibleUnitStopMarker(stop: Locator) {
   expect(geometry!.marker.top).toBeGreaterThanOrEqual(geometry!.circle.top - 1);
   expect(geometry!.marker.bottom).toBeLessThanOrEqual(geometry!.circle.bottom + 1);
   return (await marker.textContent())?.trim() ?? "";
+}
+
+type LessonUnitStopVisualState = "completed" | "current" | "locked";
+
+async function expectUnitStopVisualState(stop: Locator, expectedState: LessonUnitStopVisualState) {
+  await expect(stop).toHaveAttribute("data-lesson-unit-stop-state", expectedState);
+  await expect(stop).not.toHaveAttribute("aria-disabled", /.+/);
+  const markerText = await visibleUnitStopMarker(stop);
+  const adornment = stop.locator(`[data-lesson-unit-stop-adornment="${expectedState}"]`);
+  await expect(adornment).toHaveCount(1);
+  await expect(adornment).toHaveAttribute("aria-hidden", "true");
+  await expect(adornment).toBeVisible();
+
+  const geometry = await adornment.evaluate((element) => {
+    const circle = element.closest("a");
+    const marker = circle?.querySelector<HTMLElement>('[data-lesson-unit-stop-marker="true"]');
+    if (!circle || !marker) return null;
+    const circleRect = circle.getBoundingClientRect();
+    const markerRect = marker.getBoundingClientRect();
+    const adornmentRect = element.getBoundingClientRect();
+    const center = {
+      x: circleRect.left + circleRect.width / 2,
+      y: circleRect.top + circleRect.height / 2
+    };
+    const radius = Math.min(circleRect.width, circleRect.height) / 2;
+    const corners = [
+      [adornmentRect.left, adornmentRect.top],
+      [adornmentRect.right, adornmentRect.top],
+      [adornmentRect.right, adornmentRect.bottom],
+      [adornmentRect.left, adornmentRect.bottom]
+    ].map(([x, y]) => Math.hypot(x - center.x, y - center.y));
+    const overlapWidth = Math.max(
+      0,
+      Math.min(adornmentRect.right, markerRect.right) - Math.max(adornmentRect.left, markerRect.left)
+    );
+    const overlapHeight = Math.max(
+      0,
+      Math.min(adornmentRect.bottom, markerRect.bottom) - Math.max(adornmentRect.top, markerRect.top)
+    );
+
+    return {
+      adornmentHeight: adornmentRect.height,
+      adornmentWidth: adornmentRect.width,
+      corners,
+      overlapArea: overlapWidth * overlapHeight,
+      pointerEvents: getComputedStyle(element).pointerEvents,
+      radius
+    };
+  });
+
+  expect(geometry).not.toBeNull();
+  expect(geometry!.adornmentWidth).toBeGreaterThan(0);
+  expect(geometry!.adornmentHeight).toBeGreaterThan(0);
+  expect(geometry!.pointerEvents).toBe("none");
+  if (expectedState === "current") {
+    expect(geometry!.overlapArea).toBeGreaterThan(0);
+  } else {
+    for (const cornerDistance of geometry!.corners) {
+      expect(cornerDistance).toBeLessThanOrEqual(geometry!.radius + 1);
+    }
+  }
+
+  return markerText;
+}
+
+async function registerCaliforniaGradeOneStudent(page: Page, testInfo: TestInfo) {
+  const suffix = uniqueSuffix(testInfo);
+  const username = `world-stop-${suffix}@example.test`;
+  const response = await page.request.post("/api/auth/register", {
+    data: {
+      role: "student",
+      name: `World Stop ${suffix}`,
+      username,
+      email: username,
+      password: "world-stop-12345",
+      grade: "P1",
+      curriculumTrack: "US_CA_MATH",
+      curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
+      language: "en",
+      theme: "light"
+    }
+  });
+  const responseText = await response.text();
+  expect(response.status(), responseText).toBe(200);
+  const body = JSON.parse(responseText) as { user?: { id?: string; role?: string } };
+  expect(body.user?.id).toBeTruthy();
+  expect(body.user?.role).toBe("student");
+  return body.user!.id!;
 }
 
 async function expectLessonTargetVisible(target: Locator) {
@@ -383,6 +471,166 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(nextHref).toBeTruthy();
     await nextUnit.click();
     await expect.poll(() => new URL(page.url()).pathname, { timeout: 30_000 }).toBe(nextHref!);
+    expectNoPageErrors(errors);
+  });
+
+  test("personalized unit stops show current stars, completed stars, and navigable not-learned locks", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await registerCaliforniaGradeOneStudent(page, testInfo);
+
+    const firstCompletion = await page.request.post("/api/lesson-progress", {
+      data: { slug: gradeOneAddSubtractTopicPath.split("/").at(-1), action: "complete", checklistState: {} }
+    });
+    const firstCompletionText = await firstCompletion.text();
+    expect(firstCompletion.status(), firstCompletionText).toBe(200);
+    const firstCompletionBody = JSON.parse(firstCompletionText) as { lesson?: { slug?: string; status?: string } };
+    expect(firstCompletionBody.lesson).toMatchObject({
+      slug: gradeOneAddSubtractTopicPath.split("/").at(-1),
+      status: "completed"
+    });
+
+    const firstRoadmapResponse = page.waitForResponse((response) => {
+      const url = new URL(response.url());
+      return response.request().method() === "GET" && url.pathname === "/api/roadmap" && url.searchParams.get("grade") === "P1";
+    });
+    await openLessonPage(page, gradeOnePlaceValueTopicPath);
+    expect((await firstRoadmapResponse).status()).toBe(200);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    await expect(world.locator("[data-world-progress]")).toContainText(/1 of 16 clearings/i, { timeout: 10_000 });
+
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    const stateSnapshot = async (surface: Locator) => {
+      const unitOne = surface.getByRole("link", { name: /^Unit 1 clearing: .+ \(completed\)$/ });
+      const unitTwo = surface.getByRole("link", { name: /^Unit 2 clearing: .+ \(you are here\)$/ });
+      const unitThree = surface.getByRole("link", { name: /^Unit 3 clearing: .+ \(next stop, not learned yet\)$/ });
+      const unitFour = surface.getByRole("link", { name: /^Unit 4 clearing: .+ \(not learned yet\)$/ });
+      await expect(surface.locator('a[aria-current="page"]')).toHaveCount(1);
+      await expect(unitTwo).toHaveAttribute("aria-current", "page");
+      await expect(unitThree).toHaveAttribute("href", /\/student\/lessons\//);
+      await expect(unitFour).toHaveAttribute("href", /\/student\/lessons\//);
+      return {
+        one: await expectUnitStopVisualState(unitOne, "completed"),
+        two: await expectUnitStopVisualState(unitTwo, "current"),
+        three: await expectUnitStopVisualState(unitThree, "locked"),
+        four: await expectUnitStopVisualState(unitFour, "locked")
+      };
+    };
+
+    const firstSurface = isMobile ? world.locator("[data-world-ribbon]") : world.locator("ol:visible");
+    const firstState = await stateSnapshot(firstSurface);
+    expect(firstState.one).toBe("📖");
+    for (const marker of Object.values(firstState)) {
+      expect(marker).not.toBe("");
+      expect(/[0-9\u20E3]/u.test(marker)).toBe(false);
+      expect(["🔟", "🔢", "💯"].includes(marker)).toBe(false);
+    }
+
+    if (isMobile) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+      const mapState = await stateSnapshot(world.locator("ol:visible"));
+      expect(mapState).toEqual(firstState);
+    }
+    const mapSurface = world.locator("ol:visible");
+
+    const checklist = rightPane.locator('[data-tour="student-lesson-checklist"]');
+    if (isMobile) {
+      await checklist.scrollIntoViewIfNeeded();
+    } else {
+      await rightPane.evaluate((pane) => {
+        const target = pane.querySelector<HTMLElement>('[data-tour="student-lesson-checklist"]');
+        if (!target) throw new Error("The lesson checklist must render inside the right lesson pane.");
+        const paneRect = pane.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        pane.scrollTo({
+          behavior: "auto",
+          top: Math.max(0, pane.scrollTop + targetRect.top - paneRect.top - 16)
+        });
+      });
+      await waitForAnimationFrames(page);
+    }
+    await expectLessonTargetVisible(checklist);
+    const markComplete = checklist.getByRole("button", { name: /^(Mark lesson complete|標記課節完成|标记课时完成)$/i });
+    await expect(markComplete).toBeVisible();
+    const completionResponsePromise = page.waitForResponse((response) =>
+      response.request().method() === "POST" &&
+      new URL(response.url()).pathname === "/api/lesson-progress" &&
+      (response.request().postData() ?? "").includes('"action":"complete"')
+    );
+    await markComplete.click();
+    const completionResponse = await completionResponsePromise;
+    expect(completionResponse.status()).toBe(200);
+    const completionBody = await completionResponse.json() as { lesson?: { slug?: string; status?: string } };
+    expect(completionBody.lesson).toMatchObject({
+      slug: gradeOnePlaceValueTopicPath.split("/").at(-1),
+      status: "completed"
+    });
+    await expect(checklist.getByRole("button", { name: /^(Lesson complete|課節已完成|课时已完成)$/i })).toBeVisible();
+    await expect(world.locator("[data-world-progress]")).toContainText(/2 of 16 clearings/i);
+
+    const currentAfterCompletion = mapSurface.locator('a[aria-current="page"]');
+    await expect(currentAfterCompletion).toHaveAccessibleName(/^Unit 2 clearing: .+ \(completed, you are here\)$/);
+    await expectUnitStopVisualState(currentAfterCompletion, "current");
+    if (isMobile) {
+      const ribbonCurrent = world.locator('[data-world-ribbon] a[aria-current="page"]');
+      await expect(ribbonCurrent).toHaveAccessibleName(/^Unit 2 clearing: .+ \(completed, you are here\)$/);
+      expect(await expectUnitStopVisualState(ribbonCurrent, "current")).toBe(
+        await visibleUnitStopMarker(currentAfterCompletion)
+      );
+    }
+
+    const lockedNextUnit = mapSurface.getByRole("link", {
+      name: /^Unit 3 clearing: .+ \(next stop, not learned yet\)$/
+    });
+    const nextHref = await lockedNextUnit.getAttribute("href");
+    expect(nextHref).toBeTruthy();
+    const nextRoadmapResponse = page.waitForResponse((response) => {
+      const url = new URL(response.url());
+      return response.request().method() === "GET" && url.pathname === "/api/roadmap" && url.searchParams.get("grade") === "P1";
+    });
+    await lockedNextUnit.click();
+    await expect.poll(() => new URL(page.url()).pathname, { timeout: 30_000 }).toBe(nextHref!);
+    expect((await nextRoadmapResponse).status()).toBe(200);
+
+    const movedWorld = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(movedWorld.locator("[data-world-progress]")).toContainText(/2 of 16 clearings/i, { timeout: 10_000 });
+    if (isMobile && await movedWorld.locator("ol:visible").count() === 0) {
+      await movedWorld.getByRole("button", { name: /open the full map/i }).click();
+    }
+    const movedMap = movedWorld.locator("ol:visible");
+    const completedUnitTwo = movedMap.getByRole("link", { name: /^Unit 2 clearing: .+ \(completed\)$/ });
+    const currentUnitThree = movedMap.getByRole("link", { name: /^Unit 3 clearing: .+ \(you are here\)$/ });
+    const lockedUnitFour = movedMap.getByRole("link", {
+      name: /^Unit 4 clearing: .+ \(next stop, not learned yet\)$/
+    });
+    await expect(movedMap.locator('a[aria-current="page"]')).toHaveCount(1);
+    await expectUnitStopVisualState(completedUnitTwo, "completed");
+    await expectUnitStopVisualState(currentUnitThree, "current");
+    await expectUnitStopVisualState(lockedUnitFour, "locked");
+
+    if (isMobile) {
+      const movedRibbon = movedWorld.locator("[data-world-ribbon]");
+      expect(await expectUnitStopVisualState(
+        movedRibbon.getByRole("link", { name: /^Unit 2 clearing: .+ \(completed\)$/ }),
+        "completed"
+      )).toBe(await visibleUnitStopMarker(completedUnitTwo));
+      expect(await expectUnitStopVisualState(
+        movedRibbon.getByRole("link", { name: /^Unit 3 clearing: .+ \(you are here\)$/ }),
+        "current"
+      )).toBe(await visibleUnitStopMarker(currentUnitThree));
+      expect(await expectUnitStopVisualState(
+        movedRibbon.getByRole("link", { name: /^Unit 4 clearing: .+ \(next stop, not learned yet\)$/ }),
+        "locked"
+      )).toBe(await visibleUnitStopMarker(lockedUnitFour));
+    }
+
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
     expectNoPageErrors(errors);
   });
 

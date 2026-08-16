@@ -7,8 +7,13 @@ import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/component
 import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
 import { selectLessonWorldStopMarker } from "@/components/lesson/worlds/worldStopMarker";
+import {
+  lessonWorldStopStatusDescription,
+  resolveLessonWorldStopVisualState
+} from "@/components/lesson/worlds/worldStopState";
 import { lessonWorldThemeForCourse, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
 import { MathText } from "@/components/math/MathText";
+import { PagerStarIcon } from "@/components/practice/PracticeQuestPager";
 import { useSettings } from "@/components/providers/AppProviders";
 import { ccssLessonMetasForTopic } from "@/data/ccssLessonAssignments";
 import { formatGradeLabel } from "@/lib/i18n";
@@ -146,8 +151,8 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
       });
 
   function stopStateClassName(index: number, module: LessonSummary) {
-    if (module.status === "completed") return theme!.stopCompletedClassName;
     if (index === activeIndex) return theme!.stopCurrentClassName;
+    if (module.status === "completed") return theme!.stopCompletedClassName;
     if (index === nextIndex) return theme!.stopNextClassName;
     return theme!.stopFutureClassName;
   }
@@ -155,30 +160,44 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
   const renderStopCircle = (module: LessonSummary, index: number, size: "ribbon" | "map") => {
     const isCurrent = index === activeIndex;
     const isCompleted = module.status === "completed";
+    const isNext = index === nextIndex;
+    const visualState = resolveLessonWorldStopVisualState({ isCompleted, isCurrent });
+    const statusDescription = lessonWorldStopStatusDescription({ isCompleted, isCurrent, isNext });
     const moduleTitle = cleanLessonUnitTitle(text(module.title));
     const sizeClassName = size === "ribbon" ? "h-12 w-12 border-[3px] text-2xl" : "h-16 w-16 border-4 text-3xl";
+    const adornmentClassName = visualState === "current"
+      ? "left-1/2 top-1 h-4 w-4 -translate-x-1/2 text-amber-400 drop-shadow-[0_1px_1px_rgba(120,53,15,0.65)]"
+      : visualState === "completed"
+        ? "left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 text-amber-400 drop-shadow-[0_2px_2px_rgba(120,53,15,0.55)]"
+        : "left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 text-base drop-shadow-[0_2px_2px_rgba(15,23,42,0.45)]";
     return (
       <Link
         href={lessonHrefForSlug(module.slug)}
         aria-current={isCurrent ? "page" : undefined}
         aria-label={t({
-          en: `Unit ${index + 1} ${stopNoun}: ${moduleTitle}${isCompleted ? " (completed)" : isCurrent ? " (you are here)" : index === nextIndex ? " (next stop)" : ""}`,
-          zh: `第 ${index + 1} 單元${stopNoun}：${moduleTitle}`,
-          zhHans: `第 ${index + 1} 单元${stopNoun}：${moduleTitle}`
+          en: `Unit ${index + 1} ${stopNoun}: ${moduleTitle} (${statusDescription.en})`,
+          zh: `第 ${index + 1} 單元${stopNoun}：${moduleTitle}（${statusDescription.zh}）`,
+          zhHans: `第 ${index + 1} 单元${stopNoun}：${moduleTitle}（${statusDescription.zhHans}）`
         })}
+        data-lesson-unit-stop-state={visualState}
         className={`focus-ring relative grid shrink-0 place-items-center rounded-full shadow-lg transition hover:-translate-y-1 ${sizeClassName} ${stopStateClassName(index, module)}`}
       >
-        <span aria-hidden="true" data-lesson-unit-stop-marker="true">
+        <span
+          aria-hidden="true"
+          data-lesson-unit-stop-marker="true"
+          className={visualState === "current" ? "relative" : "relative opacity-25"}
+        >
           {stopEmojiForTopic(module.topicId, theme!)}
         </span>
-        {isCompleted ? (
-          <span
-            aria-hidden="true"
-            className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-amber-300 text-sm shadow"
-          >
-            ⭐
-          </span>
-        ) : null}
+        <span
+          aria-hidden="true"
+          data-lesson-unit-stop-adornment={visualState}
+          className={`pointer-events-none absolute z-10 grid place-items-center ${adornmentClassName}`}
+        >
+          {visualState === "locked"
+            ? <span className="leading-none">🔒</span>
+            : <PagerStarIcon className="h-full w-full" />}
+        </span>
       </Link>
     );
   };
