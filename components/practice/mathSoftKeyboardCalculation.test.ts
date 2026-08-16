@@ -39,6 +39,20 @@ for (const expression of [
   });
 }
 
+for (const expression of [
+  "9007199254740993.0-9007199254740992.0",
+  "9999999999999999.0-9999999999999998.0",
+  "9007199254740993.-9007199254740992."
+]) {
+  test(`unsafe decimal integer literal expression ${expression} fails closed before Number evaluation`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
+test("a non-zero fractional literal rounded by Number into an integer fails closed", () => {
+  assert.equal(calculateMathKeyboardAnswer("1.0000000000000001-1"), null);
+});
+
 test("every auto-completed equation is accepted by the existing short-answer grader", () => {
   for (const [input, expectedAnswer] of [
     ["3+2+4", "9"],

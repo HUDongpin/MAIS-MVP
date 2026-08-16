@@ -2,14 +2,25 @@ import { evaluateExpression } from "@/lib/expressionCalculator";
 
 const maxSafeIntegerLiteral = BigInt(Number.MAX_SAFE_INTEGER);
 
-function containsUnsafeIntegerLiteral(value: string) {
+function containsUnsafeNumericLiteral(value: string) {
   const numericLiterals = value.match(/(?:\d+(?:\.\d*)?|\.\d+)/g) ?? [];
 
   return numericLiterals.some((literal) => {
-    if (literal.includes(".")) return false;
+    const [wholePart = "", fractionPart] = literal.split(".");
+    const wholeValue = BigInt(wholePart || "0");
+    const hasNonZeroFraction = /[1-9]/.test(fractionPart ?? "");
 
-    const exactValue = BigInt(literal);
-    return exactValue > maxSafeIntegerLiteral || !Number.isSafeInteger(Number(literal));
+    // Signs are separate grammar tokens, so this unsigned whole part is the
+    // literal's absolute magnitude. A fraction above MAX_SAFE is unsafe too.
+    if (
+      wholeValue > maxSafeIntegerLiteral ||
+      (wholeValue === maxSafeIntegerLiteral && hasNonZeroFraction)
+    ) return true;
+
+    const numberValue = Number(literal);
+    if (hasNonZeroFraction && Number.isInteger(numberValue)) return true;
+
+    return fractionPart === undefined && !Number.isSafeInteger(numberValue);
   });
 }
 
@@ -56,7 +67,7 @@ export function calculateMathKeyboardAnswer(value: string): string | null {
     !expression ||
     expression.includes("=") ||
     !isGraderCompatibleArithmetic(expression) ||
-    containsUnsafeIntegerLiteral(expression)
+    containsUnsafeNumericLiteral(expression)
   ) return null;
 
   // The parser requires an angle mode, but the restricted grammar above has no
