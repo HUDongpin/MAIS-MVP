@@ -4,6 +4,7 @@ import { formatPracticeOptionDisplayText } from "../../components/practice/pract
 import { usCaliforniaQuestions } from "../../data/usCaliforniaQuestions";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors, uniqueSuffix } from "./helpers";
 import { auditMathDiagramPage, waitForDiagramLayoutStable } from "./mathDiagramBoundaryAudit";
+import { strokedPolygonPaintBounds } from "./svgPolygonPaintGeometry";
 
 /**
  * MAIS Learning Worlds menu (porting plan §3, Phase 3).
@@ -93,7 +94,7 @@ async function waitForAnimationFrames(page: Page, frameCount = 4) {
 async function composeRoofPaintSnapshot(composeLesson: Locator) {
   const roof = composeLesson.getByRole("img").locator("polygon").first();
   await expect(roof).toBeVisible();
-  return roof.evaluate((element: SVGPolygonElement) => {
+  const geometry = await roof.evaluate((element: SVGPolygonElement) => {
     const svg = element.ownerSVGElement;
     const square = svg?.querySelector<SVGRectElement>("rect");
     if (!svg || !square) throw new Error("Compose Shapes must render one roof above its square base.");
@@ -102,20 +103,72 @@ async function composeRoofPaintSnapshot(composeLesson: Locator) {
     const squareRect = square.getBoundingClientRect();
     const svgRect = svg.getBoundingClientRect();
     const matrix = element.getScreenCTM();
-    const strokeWidth = Number.parseFloat(getComputedStyle(element).strokeWidth);
-    if (!matrix || !Number.isFinite(strokeWidth)) throw new Error("The roof needs measurable painted geometry.");
-    const strokeX = Math.hypot(matrix.a, matrix.b) * strokeWidth / 2;
-    const strokeY = Math.hypot(matrix.c, matrix.d) * strokeWidth / 2;
+    const svgMatrix = svg.getScreenCTM();
+    const style = getComputedStyle(element);
+    const strokeWidth = Number.parseFloat(style.strokeWidth);
+    const strokeMiterLimit = Number.parseFloat(style.getPropertyValue("stroke-miterlimit"));
+    if (
+      !matrix ||
+      !svgMatrix ||
+      !Number.isFinite(strokeWidth) ||
+      !Number.isFinite(strokeMiterLimit)
+    ) {
+      throw new Error("The roof needs measurable painted geometry.");
+    }
+    const axisTolerance = 1e-6;
+    if (
+      Math.abs(matrix.b) > axisTolerance ||
+      Math.abs(matrix.c) > axisTolerance ||
+      Math.abs(svgMatrix.b) > axisTolerance ||
+      Math.abs(svgMatrix.c) > axisTolerance
+    ) {
+      throw new Error("Compose Shapes paint bounds require an axis-aligned SVG viewport.");
+    }
 
     return {
-      bottomClearance: svgRect.bottom - (roofRect.bottom + strokeY),
-      leftClearance: roofRect.left - strokeX - svgRect.left,
-      rightClearance: svgRect.right - (roofRect.right + strokeX),
+      matrix: {
+        a: matrix.a,
+        b: matrix.b,
+        c: matrix.c,
+        d: matrix.d,
+        e: matrix.e,
+        f: matrix.f
+      },
+      points: Array.from({ length: element.points.numberOfItems }, (_, index) => {
+        const point = element.points.getItem(index);
+        return { x: point.x, y: point.y };
+      }),
       roofToSquareGap: squareRect.top - roofRect.bottom,
-      topClearance: roofRect.top - strokeY - svgRect.top,
-      vertexCount: element.points.numberOfItems
+      strokeLinejoin: style.getPropertyValue("stroke-linejoin"),
+      strokeMiterLimit,
+      strokeWidth,
+      svgRect: {
+        bottom: svgRect.bottom,
+        left: svgRect.left,
+        right: svgRect.right,
+        top: svgRect.top
+      }
     };
   });
+  if (geometry.strokeLinejoin !== "miter") {
+    throw new Error(`Compose Shapes roof must retain its expected miter join, got ${geometry.strokeLinejoin}.`);
+  }
+  const paintBounds = strokedPolygonPaintBounds({
+    matrix: geometry.matrix,
+    points: geometry.points,
+    strokeLinejoin: geometry.strokeLinejoin,
+    strokeMiterLimit: geometry.strokeMiterLimit,
+    strokeWidth: geometry.strokeWidth
+  });
+
+  return {
+    bottomClearance: geometry.svgRect.bottom - paintBounds.bottom,
+    leftClearance: paintBounds.left - geometry.svgRect.left,
+    rightClearance: geometry.svgRect.right - paintBounds.right,
+    roofToSquareGap: geometry.roofToSquareGap,
+    topClearance: paintBounds.top - geometry.svgRect.top,
+    vertexCount: geometry.points.length
+  };
 }
 
 async function visibleUnitStopMarker(stop: Locator) {
@@ -915,13 +968,15 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(join).toBeVisible();
     await join.click();
     await expect(composeLesson.getByRole("img", { name: "a house", exact: true })).toBeVisible();
-    await expect(composeLesson.getByRole("button", { name: "← Take apart", exact: true })).toBeVisible();
-    await waitForDiagramLayoutStable(page, {
-      minimumCandidateSurfaceCount: 2,
-      rootSelector,
-      stableSampleCount: 3,
-      timeoutMs: 10_000
-    });
+    const takeApart = composeLesson.getByRole("button", { name: "← Take apart", exact: true });
+    await expect(takeApart).toBeVisible();
+    await expect.poll(async () => {
+      const roof = await composeRoofPaintSnapshot(composeLesson);
+      return {
+        joinedAtSquare: Math.abs(roof.roofToSquareGap) <= 1,
+        reachedJoinedTop: roof.topClearance > separatedRoof.topClearance + 16
+      };
+    }, { timeout: 5_000 }).toEqual({ joinedAtSquare: true, reachedJoinedTop: true });
 
     const joinedRoof = await composeRoofPaintSnapshot(composeLesson);
     expect(joinedRoof.vertexCount).toBe(3);
@@ -935,6 +990,30 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(joinedAudit.coverage.diagramSvgCount).toBe(1);
     expect(joinedAudit.coverage.checkedGraphicElementCount).toBe(2);
     expect(joinedAudit.issues).toEqual([]);
+
+    await takeApart.click();
+    await expect(composeLesson.getByRole("img", { name: "a square and a triangle", exact: true })).toBeVisible();
+    await expect(join).toBeVisible();
+    await expect.poll(async () => {
+      const roof = await composeRoofPaintSnapshot(composeLesson);
+      return {
+        returnedToSeparatedGap: roof.roofToSquareGap > 16,
+        returnedToSeparatedTop: Math.abs(roof.topClearance - separatedRoof.topClearance) <= 0.25
+      };
+    }, { timeout: 5_000 }).toEqual({ returnedToSeparatedGap: true, returnedToSeparatedTop: true });
+
+    const separatedAgainRoof = await composeRoofPaintSnapshot(composeLesson);
+    expect(separatedAgainRoof.vertexCount).toBe(3);
+    expect(Math.abs(separatedAgainRoof.topClearance - separatedRoof.topClearance)).toBeLessThanOrEqual(0.25);
+    expect(Math.abs(separatedAgainRoof.roofToSquareGap - separatedRoof.roofToSquareGap)).toBeLessThanOrEqual(0.25);
+    expect(separatedAgainRoof.leftClearance).toBeGreaterThan(0);
+    expect(separatedAgainRoof.rightClearance).toBeGreaterThan(0);
+    expect(separatedAgainRoof.bottomClearance).toBeGreaterThan(0);
+    await expect(figureStage).not.toHaveAttribute("data-figure-overflowing", "true");
+    const separatedAgainAudit = await auditMathDiagramPage(page, { rootSelector });
+    expect(separatedAgainAudit.coverage.diagramSvgCount).toBe(1);
+    expect(separatedAgainAudit.coverage.checkedGraphicElementCount).toBe(2);
+    expect(separatedAgainAudit.issues).toEqual([]);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1

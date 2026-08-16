@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import {
+  strokedPolygonPaintBounds,
+  type SvgPaintBounds,
+  type SvgPoint
+} from "../../../../tests/e2e/svgPolygonPaintGeometry";
 
 const source = readFileSync("components/lesson/ccss/lessons/compose-2d.tsx", "utf8");
-
-type Point = { x: number; y: number };
-type Bounds = { bottom: number; left: number; right: number; top: number };
 
 function sourceNumber(pattern: RegExp, label: string) {
   const value = source.match(pattern)?.[1];
@@ -13,7 +15,7 @@ function sourceNumber(pattern: RegExp, label: string) {
   return Number(value);
 }
 
-function sourcePoints(pattern: RegExp, label: string): Point[] {
+function sourcePoints(pattern: RegExp, label: string): SvgPoint[] {
   const value = source.match(pattern)?.[1];
   assert.ok(value, `${label} points must remain explicit in compose-2d.tsx.`);
   return value.trim().split(/\s+/u).map((pair) => {
@@ -23,17 +25,17 @@ function sourcePoints(pattern: RegExp, label: string): Point[] {
   });
 }
 
-function paintedBounds(points: Point[], translateY: number, strokeWidth: number): Bounds {
-  const strokeRadius = strokeWidth / 2;
-  return {
-    bottom: Math.max(...points.map((point) => point.y + translateY)) + strokeRadius,
-    left: Math.min(...points.map((point) => point.x)) - strokeRadius,
-    right: Math.max(...points.map((point) => point.x)) + strokeRadius,
-    top: Math.min(...points.map((point) => point.y + translateY)) - strokeRadius
-  };
+function paintedBounds(points: SvgPoint[], translateY: number, strokeWidth: number) {
+  return strokedPolygonPaintBounds({
+    matrix: { a: 1, b: 0, c: 0, d: 1, e: 0, f: translateY },
+    points,
+    strokeLinejoin: "miter",
+    strokeMiterLimit: 4,
+    strokeWidth
+  });
 }
 
-function expectInsideViewBox(bounds: Bounds, width: number, height: number) {
+function expectInsideViewBox(bounds: SvgPaintBounds, width: number, height: number) {
   assert.ok(bounds.left >= 0, `paint extends ${-bounds.left}px past the left edge`);
   assert.ok(bounds.top >= 0, `paint extends ${-bounds.top}px past the top edge`);
   assert.ok(bounds.right <= width, `paint extends ${bounds.right - width}px past the right edge`);
@@ -59,8 +61,14 @@ test("Compose Shapes keeps every separated and joined painted polygon inside its
   expectInsideViewBox(paintedBounds(bottomTrapezoid, gap, strokeWidth), viewBoxWidth, viewBoxHeight);
   expectInsideViewBox(paintedBounds(bottomTrapezoid, 0, strokeWidth), viewBoxWidth, viewBoxHeight);
 
-  assert.equal(separatedRoof.top, 1, "The unjoined roof needs a positive painted clearance above its apex.");
-  assert.equal(joinedRoof.top, 19, "Joining must move the complete roof down without clipping it.");
+  assert.ok(
+    separatedRoof.top > 0.65 && separatedRoof.top < 0.67,
+    "The unjoined roof needs a positive, miter-aware painted clearance above its apex."
+  );
+  assert.ok(
+    Math.abs(joinedRoof.top - separatedRoof.top - gap) < 1e-9,
+    "Joining must move the complete painted roof down by the full separation gap."
+  );
   const squareTop = sourceNumber(/<rect x="55" y="(\d+)" width="90"/u, "square top");
   assert.equal(Math.max(...roof.map((point) => point.y)), squareTop, "The joined roof must meet the square exactly.");
 });
