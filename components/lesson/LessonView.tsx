@@ -123,7 +123,6 @@ type LessonPracticeCardProps = {
 };
 
 type LessonVisualizationProps = {
-  controlFooterAction?: ReactNode;
   topicId: string;
   showAxisLabels?: boolean;
   // Server-resolved lab definition. When provided, ConfiguredVisualizationLab uses it
@@ -184,11 +183,6 @@ const lessonDesktopScrollablePaneClassName = "lg:h-full lg:min-h-0 lg:overflow-y
 const lessonContentPaneTopPaddingPx = 24;
 const mobileLessonTargetSafeTopPx = 96;
 const mobileLessonTargetStabilizationMaxMs = 8000;
-const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
-const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
-const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
-const nextLessonItemClickSafeAreaPx = 96;
-const nextLessonItemScrollRevealDelayMs = 420;
 const lessonSelectionMaxLength = 500;
 const lessonSelectionSurroundingMaxLength = 900;
 const lessonSelectionPopoverWidth = 320;
@@ -2117,10 +2111,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     () => conceptBlocks.find((block) => block.type === "concept")?.id ?? null,
     [conceptBlocks]
   );
-  const firstWorkedExampleBlockId = useMemo(
-    () => conceptBlocks.find((block) => block.type === "worked-example")?.id ?? null,
-    [conceptBlocks]
-  );
   const lessonPracticeQuestions = useMemo(
     () => dedupePracticeQuestions(lesson?.practiceQuestions ?? []).map(formatLessonPracticeQuestionMathText),
     [lesson]
@@ -2839,64 +2829,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     if (request) contentPane.scrollTo(request);
   }
 
-  function revealLastNextLessonItemButton(target: HTMLElement, behavior: ScrollBehavior) {
-    const revealButton = () => {
-      const nextItemButtons = target.querySelectorAll<HTMLButtonElement>("[data-lesson-next-item-button='true']");
-      const lastNextItemButton = nextItemButtons[nextItemButtons.length - 1];
-      if (!lastNextItemButton) return;
-
-      const buttonRect = lastNextItemButton.getBoundingClientRect();
-      const bottomOverflow = buttonRect.bottom + nextLessonItemClickSafeAreaPx - window.innerHeight;
-      if (bottomOverflow <= 0) return;
-
-      window.scrollBy({
-        top: bottomOverflow,
-        behavior
-      });
-    };
-
-    if (behavior === "smooth") {
-      window.setTimeout(revealButton, nextLessonItemScrollRevealDelayMs);
-      return;
-    }
-
-    window.requestAnimationFrame(revealButton);
-  }
-
-  function scrollToLessonSection(targetId: string, options: { revealLastNextItemButton?: boolean } = {}) {
-    const target = document.getElementById(targetId);
-    if (!target) return;
-
-    const behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth";
-    target.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start"
-    });
-
-    if (options.revealLastNextItemButton) {
-      revealLastNextLessonItemButton(target, behavior);
-    }
-  }
-
-  function scrollToNextLessonItem() {
-    const targetId =
-      firstWorkedExampleBlockId
-        ? lessonBlockSectionId(firstWorkedExampleBlockId)
-        : visualizationBlock
-          ? "visualization"
-          : lessonPracticeSectionId;
-
-    scrollToLessonSection(targetId, { revealLastNextItemButton: true });
-  }
-
-  function scrollToLessonItemAfterWorkedExample() {
-    scrollToLessonSection(visualizationBlock ? "visualization" : lessonPracticeSectionId, { revealLastNextItemButton: true });
-  }
-
-  function scrollToLessonPracticeItem() {
-    scrollToLessonSection(lessonPracticeSectionId);
-  }
-
   function scheduleLessonOverviewScroll(behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth") {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => scrollToLessonOverview(behavior));
@@ -3111,14 +3043,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     mastery: lesson.mastery,
     status: lesson.status
   });
-  const renderNextLessonItemButton = (onClick: () => void, className: string) => (
-    <button type="button" onClick={onClick} data-lesson-next-item-button="true" className={className}>
-      <span>{t({ en: "Go to next item", zh: "前往下一項", zhHans: "前往下一项" })}</span>
-      <span aria-hidden="true" className="text-3xl leading-none">→</span>
-    </button>
-  );
-  const visualizationNextItemAction = renderNextLessonItemButton(scrollToLessonPracticeItem, nextLessonItemPanelButtonClassName);
-  const usesConfiguredVisualizationFooterAction = visualizationBlock?.visualizationConfig?.moduleId === "configured-visualization-lab";
   const lessonContentSections = (
     <>
       <section id={lessonOverviewSectionId} data-tour="student-lesson-body" className="mt-8 scroll-mt-28 min-w-0">
@@ -3182,11 +3106,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                 data-ai-title={blockTitle}
                 className={`${index === 0 ? "" : "mt-6 "}scroll-mt-28`}
               >
-                {block.id === firstWorkedExampleBlockId ? (
-                  <div className="mb-6 flex flex-col gap-4 border-t border-slate-200/90 pt-6 dark:border-white/10 sm:flex-row sm:items-center sm:justify-end">
-                    {renderNextLessonItemButton(scrollToNextLessonItem, nextLessonItemInlineButtonClassName)}
-                  </div>
-                ) : block.type === "worked-example" ? (
+                {block.type === "worked-example" ? (
                   <div aria-hidden="true" className="mb-6 h-px w-full bg-slate-200/90 dark:bg-white/10" />
                 ) : null}
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -3239,19 +3159,9 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                     topicId={lesson.topicId}
                   />
                 ) : null}
-                {block.id === firstWorkedExampleBlockId ? (
-                  <div className="mt-7 flex justify-end">
-                    {renderNextLessonItemButton(scrollToLessonItemAfterWorkedExample, nextLessonItemInlineButtonClassName)}
-                  </div>
-                ) : null}
               </div>
             );
           })}
-          {firstWorkedExampleBlockId ? null : (
-            <div className="mt-7 flex justify-end">
-              {renderNextLessonItemButton(scrollToNextLessonItem, nextLessonItemInlineButtonClassName)}
-            </div>
-          )}
         </article>
       </section>
 
@@ -3280,19 +3190,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           </div>
           {VisualizationModule ? (
             shouldMountVisualization ? (
-              <>
-                <VisualizationModule
-                  controlFooterAction={usesConfiguredVisualizationFooterAction ? visualizationNextItemAction : undefined}
-                  topicId={visualizationTopicId}
-                  showAxisLabels={showVisualizationAxisLabels}
-                  lab={visualizationLab}
-                />
-                {usesConfiguredVisualizationFooterAction ? null : (
-                  <div className="mt-5 flex justify-end">
-                    {visualizationNextItemAction}
-                  </div>
-                )}
-              </>
+              <VisualizationModule
+                topicId={visualizationTopicId}
+                showAxisLabels={showVisualizationAxisLabels}
+                lab={visualizationLab}
+              />
             ) : (
               <DeferredLessonPanel />
             )

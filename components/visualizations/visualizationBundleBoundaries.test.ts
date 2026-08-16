@@ -36,7 +36,8 @@ test("ConfiguredVisualizationLab keeps the Three.js canvas in a lazy runtime chu
   assert.match(source, /import type \{ FeaturedLabDefinition, VisualizationTemplateId \} from "@\/data\/visualizationLabs"/);
   assert.match(source, /import\("@\/data\/visualizationLabs"\)/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
-  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.doesNotMatch(source, /ReactNode|controlFooterAction|data-viz-lesson-action-slot/);
   assert.doesNotMatch(source, /import \{ ThreeDLabCanvas \} from "@\/components\/visualizations\/three\/ThreeDLabCanvas"/);
   assert.match(source, /import\("@\/components\/visualizations\/three\/ThreeDLabCanvas"\)/);
   assert.match(source, /dynamic<ThreeDLabCanvasProps>\(/);
@@ -58,6 +59,7 @@ test("premium 3D direct topic route stays off the full catalog path", () => {
   assert.doesNotMatch(routeSource, /@\/data\/visualizationLabs/);
   const directShellSource = fs.readFileSync("components/visualizations/PremiumThreeDDirectRouteShell.tsx", "utf8");
   assert.match(directShellSource, /ConfiguredVisualizationLabDirect/);
+  assert.doesNotMatch(directShellSource, /ReactNode|controlFooterAction/);
   assert.match(directShellSource, /useEffect/);
   assert.match(directShellSource, /useState/);
   assert.match(directShellSource, /useRef/);

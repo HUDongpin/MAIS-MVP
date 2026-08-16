@@ -127,7 +127,7 @@ test("3D labs show the 2D configured surface while the heavy runtime loads", () 
 test("fraction bar shaded overlays are clipped to rounded bar outlines", () => {
   const branch = templateBranch("fraction-bar");
 
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
+  assert.match(source, /import type \{ ComponentType \} from "react";/);
   assert.match(source, /useId/);
   assert.match(branch, /const fractionBarClipId =/);
   assert.match(branch, /const equivalentFractionBarClipId =/);
@@ -261,14 +261,14 @@ test("configured visualization renderer omits introductory metadata panels from 
   assert.doesNotMatch(source, /Read me first/);
 });
 
-test("configured visualization lab exposes a footer action slot for lesson embeds", () => {
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
-  assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*controlFooterAction\?: ReactNode;[\s\S]*lab\?: FeaturedLabDefinition \| null;/);
-  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+test("configured visualization lab removes the lesson-only footer action while preserving its runtime API", () => {
+  assert.match(source, /import type \{ ComponentType \} from "react";/);
+  assert.doesNotMatch(source, /ReactNode|controlFooterAction|data-viz-lesson-action-slot/);
+  assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*lab\?: FeaturedLabDefinition \| null;[\s\S]*labId\?: string;[\s\S]*topicId\?: string;/);
+  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
-  assert.match(source, /export function ConfiguredVisualizationLab\(\{ controlFooterAction, lab: providedLab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
-  assert.match(source, /<div className="flex min-w-0 flex-col gap-4">[\s\S]*data-viz-reset-model[\s\S]*data-viz-lesson-action-slot/);
-  assert.match(source, /data-viz-lesson-action-slot className="mt-auto pt-4"/);
+  assert.match(source, /export function ConfiguredVisualizationLab\(\{ lab: providedLab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /<div className="flex min-w-0 flex-col gap-4">[\s\S]*data-viz-reset-model/);
 });
 
 test("configured visualization range sliders respond to input and change events", () => {

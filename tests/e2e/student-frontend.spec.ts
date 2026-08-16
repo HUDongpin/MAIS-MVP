@@ -149,9 +149,8 @@ test.describe("student frontend workflows", () => {
 
     await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
-    // Lessons deliberately render one "Go to next item" CTA per section
-    // (LessonView targets the last one for scrolling), so assert the first.
-    await expect(page.getByRole("button", { name: /Go to next item/i }).first()).toBeVisible();
+    await expect(page.getByRole("button", { name: /Go to next item|前往下一項|前往下一项/i })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
     await expect(page.getByText(/Question 1 of/i)).toBeVisible();
 

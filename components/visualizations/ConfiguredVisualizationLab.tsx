@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType } from "react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { sliderBoundsForThreeDTemplate } from "@/components/visualizations/three/configuredThreeDControls";
@@ -37,7 +37,6 @@ const ThreeDLabCanvas = dynamic<ThreeDLabCanvasProps>(
 );
 
 type ConfiguredVisualizationLabProps = {
-  controlFooterAction?: ReactNode;
   lab?: FeaturedLabDefinition | null;
   labId?: string;
   topicId?: string;
@@ -2885,7 +2884,7 @@ function Slider({
   );
 }
 
-function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
+function ConfiguredVisualizationLabSurface({ lab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();
   const vizTheme = useVisualizationTheme();
   const [value, setValue] = useState(5);
@@ -3759,11 +3758,6 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
         >
           {t({ en: "Reset model", zh: "重設模型" })}
         </button>
-        {controlFooterAction ? (
-          <div data-viz-lesson-action-slot className="mt-auto pt-4">
-            {controlFooterAction}
-          </div>
-        ) : null}
       </div>
     </div>
   );
@@ -3773,12 +3767,11 @@ export function ConfiguredVisualizationLabDirect(props: ConfiguredVisualizationL
   return <ConfiguredVisualizationLabSurface {...props} />;
 }
 
-export function ConfiguredVisualizationLab({ controlFooterAction, lab: providedLab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
+export function ConfiguredVisualizationLab({ lab: providedLab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
   const lab = useLabFromProps({ lab: providedLab, labId, topicId });
 
   return (
     <ConfiguredVisualizationLabSurface
-      controlFooterAction={controlFooterAction}
       lab={lab}
       labId={labId}
       topicId={topicId}

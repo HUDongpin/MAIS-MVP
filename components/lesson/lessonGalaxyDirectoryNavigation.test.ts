@@ -7,6 +7,7 @@ const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8"
 const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
 const worldThemeSource = readFileSync("components/lesson/worlds/worldThemes.ts", "utf8");
+const configuredVisualizationLabSource = readFileSync("components/visualizations/ConfiguredVisualizationLab.tsx", "utf8");
 
 test("map and list lesson quick jumps delegate one LessonView-owned callback", () => {
   for (const [name, source] of [
@@ -221,10 +222,10 @@ test("mobile quick jumps stabilize against deferred content growth and clean up 
   );
 
   const itemSelectStart = lessonViewSource.indexOf("function handleLessonItemSelect(targetId: string)");
-  const nextLessonHelperStart = lessonViewSource.indexOf("function revealLastNextLessonItemButton", itemSelectStart);
+  const scheduleOverviewStart = lessonViewSource.indexOf("function scheduleLessonOverviewScroll", itemSelectStart);
   assert.notEqual(itemSelectStart, -1, "LessonView must keep the shared item-selection callback.");
-  assert.notEqual(nextLessonHelperStart, -1, "The source contract must isolate the shared callback body.");
-  const itemSelectSource = lessonViewSource.slice(itemSelectStart, nextLessonHelperStart);
+  assert.notEqual(scheduleOverviewStart, -1, "The source contract must end at the next stable lesson-navigation function.");
+  const itemSelectSource = lessonViewSource.slice(itemSelectStart, scheduleOverviewStart);
 
   assert.match(
     itemSelectSource,
@@ -384,55 +385,44 @@ test("lesson directory layout lets content fill the remaining page width", () =>
   );
 });
 
-test("lesson visualization areas always expose the next item action", () => {
-  assert.match(
-    lessonViewSource,
-    /const visualizationNextItemAction = renderNextLessonItemButton\(scrollToLessonPracticeItem, nextLessonItemPanelButtonClassName\);/,
-    "LessonView should create one shared visualization next-item action."
-  );
-  assert.match(
-    lessonViewSource,
-    /const usesConfiguredVisualizationFooterAction = visualizationBlock\?\.visualizationConfig\?\.moduleId === "configured-visualization-lab";/,
-    "Configured labs should place the action inside the lab control footer."
-  );
-  assert.match(
-    lessonViewSource,
-    /controlFooterAction=\{usesConfiguredVisualizationFooterAction \? visualizationNextItemAction : undefined\}/,
-    "ConfiguredVisualizationLab should receive the footer action only when it can render the in-panel slot."
-  );
-  assert.match(
-    lessonViewSource,
-    /\{usesConfiguredVisualizationFooterAction \? null : \([\s\S]*\{visualizationNextItemAction\}/,
-    "Non-configured visualization modules should still render the next-item action in the lesson visualization area."
-  );
+test("lesson content omits the oversized next-item action and its CTA-only visualization API", () => {
+  for (const removedConsumerToken of [
+    "renderNextLessonItemButton",
+    "visualizationNextItemAction",
+    "usesConfiguredVisualizationFooterAction",
+    "controlFooterAction"
+  ]) {
+    assert.equal(
+      lessonViewSource.includes(removedConsumerToken),
+      false,
+      `LessonView must not retain CTA-only consumer token ${removedConsumerToken}.`
+    );
+  }
+  assert.equal(configuredVisualizationLabSource.includes("controlFooterAction"), false);
+  assert.equal(configuredVisualizationLabSource.includes("data-viz-lesson-action-slot"), false);
+  assert.match(lessonViewSource, /<section id="visualization"/, "Removing the CTA must not remove the visualization section.");
+  assert.match(lessonViewSource, /id=\{lessonPracticeSectionId\}/, "Removing the CTA must not remove lesson practice.");
 });
 
-test("lesson next item scroll reveals the destination follow-up button safely", () => {
-  assert.match(
-    lessonViewSource,
-    /const nextLessonItemClickSafeAreaPx = \d+;/,
-    "LessonView should reserve bottom viewport padding for partially visible next-item buttons."
-  );
-  assert.match(
-    lessonViewSource,
-    /data-lesson-next-item-button="true"/,
-    "Next-item buttons should expose a stable selector for scroll safety checks."
-  );
-  assert.match(
-    lessonViewSource,
-    /function revealLastNextLessonItemButton/,
-    "LessonView should include a helper that reveals the last next-item button inside the scrolled section."
-  );
-  assert.match(
-    lessonViewSource,
-    /scrollBy\(\{\s*top: bottomOverflow/,
-    "The helper should scroll by the measured bottom overflow instead of using a fixed jump."
-  );
-  assert.match(
-    lessonViewSource,
-    /scrollToLessonSection\([^)]*\{\s*revealLastNextItemButton: true\s*\}/,
-    "Next-item section jumps should opt into the safe reveal pass."
-  );
+test("lesson content removes CTA-only copy, hooks, constants, and scroll helpers", () => {
+  for (const removedToken of [
+    "nextLessonItemButtonBaseClassName",
+    "nextLessonItemInlineButtonClassName",
+    "nextLessonItemPanelButtonClassName",
+    "nextLessonItemClickSafeAreaPx",
+    "nextLessonItemScrollRevealDelayMs",
+    "data-lesson-next-item-button",
+    "revealLastNextLessonItemButton",
+    "scrollToNextLessonItem",
+    "scrollToLessonItemAfterWorkedExample",
+    "scrollToLessonPracticeItem",
+    "scrollToLessonSection",
+    "Go to next item",
+    "前往下一項",
+    "前往下一项"
+  ]) {
+    assert.equal(lessonViewSource.includes(removedToken), false, `LessonView must remove dead CTA token ${removedToken}.`);
+  }
 });
 
 test("lesson menu item cards omit section labels and generated metadata titles", () => {

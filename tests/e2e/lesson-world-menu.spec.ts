@@ -17,12 +17,14 @@ const kindergartenTopicPath = "/student/lessons/us-ca-math-k-k-cc-count-sequence
 const kindergartenOtherTopicPath = "/student/lessons/us-ca-math-k-k-oa-compose-decompose";
 const gradeOneAddSubtractTopicPath = "/student/lessons/us-ca-math-p1-1-oa-add-subtract";
 const gradeOnePlaceValueTopicPath = "/student/lessons/us-ca-math-p1-1-nbt-place-value";
+const gradeOneShapeReasoningTopicPath = "/student/lessons/us-ca-math-p1-1-g-shape-reasoning";
 const gradeThreeTopicPath = "/student/lessons/us-ca-math-p3-3-nf-fraction-meaning";
 const gradeSixTopicPath = "/student/lessons/us-ca-math-p6-chapter-01";
 const highSchoolTopicPath = "/student/lessons/us-ca-math-s3-chapter-03";
 const gradeOneWorldTheme = lessonWorldThemeForGrade("P1");
 if (!gradeOneWorldTheme) throw new Error("Grade 1 must keep its configured lesson world.");
 const gradeOneWorldStopEmojiPalette = gradeOneWorldTheme.stopEmojiPalette;
+const nextLessonItemCtaName = /Go to next item|前往下一項|前往下一项/i;
 
 async function openLessonPage(page: Page, path: string) {
   await page.goto(path);
@@ -112,6 +114,20 @@ async function visibleUnitStopMarker(stop: Locator) {
   expect(geometry!.marker.top).toBeGreaterThanOrEqual(geometry!.circle.top - 1);
   expect(geometry!.marker.bottom).toBeLessThanOrEqual(geometry!.circle.bottom + 1);
   return (await marker.textContent())?.trim() ?? "";
+}
+
+async function expectLessonTargetVisible(target: Locator) {
+  await expect(target).toBeAttached();
+  await expect.poll(() => target.evaluate((element) => {
+    const targetRect = element.getBoundingClientRect();
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      const pane = element.closest<HTMLElement>("[data-lesson-content-pane]");
+      if (!pane) return false;
+      const paneRect = pane.getBoundingClientRect();
+      return targetRect.bottom > paneRect.top + 1 && targetRect.top < paneRect.bottom - 1;
+    }
+    return targetRect.bottom > 1 && targetRect.top < window.innerHeight - 1;
+  }), { timeout: 10_000 }).toBe(true);
 }
 
 test.describe("Learning Worlds lesson menu", () => {
@@ -357,6 +373,183 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(nextHref).toBeTruthy();
     await nextUnit.click();
     await expect.poll(() => new URL(page.url()).pathname, { timeout: 30_000 }).toBe(nextHref!);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 1 Unit 2 omits next-item CTAs while every lesson target remains usable", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOnePlaceValueTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+
+    if (Boolean(testInfo.project.use.isMobile)) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+    }
+
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    await expect(currentUnit).toHaveCount(1);
+    const currentHref = await currentUnit.getAttribute("href");
+    const currentAccessibleName = await currentUnit.getAttribute("aria-label");
+    expect(currentHref).toBe(gradeOnePlaceValueTopicPath);
+    expect(currentAccessibleName).toBeTruthy();
+
+    await expect(page.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(rightPane.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+    await expect(rightPane.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+
+    for (let part = 1; part <= 6; part += 1) {
+      const ordinal = new RegExp(`^2\\.${part}\\s`);
+      await expect(quickJumpMap.getByRole("button", { name: ordinal })).toHaveCount(1);
+      await expect(rightPane.getByRole("heading", { level: 2, name: ordinal })).toHaveCount(1);
+    }
+
+    const lessonUrl = page.url();
+    for (const { ordinal, targetId } of [
+      { ordinal: "2.2", targetId: null },
+      { ordinal: "2.5", targetId: "visualization" },
+      { ordinal: "2.6", targetId: "lesson-practice" }
+    ]) {
+      const jump = quickJumpMap.getByRole("button", { name: new RegExp(`^${ordinal.replace(".", "\\.")}\\s`) });
+      await jump.scrollIntoViewIfNeeded();
+      await expect(jump).toBeVisible();
+      await jump.click();
+      const contentTarget = targetId
+        ? rightPane.locator(`#${targetId}`)
+        : rightPane.getByRole("heading", { level: 2, name: /^2\.2\s/ });
+      await expectLessonTargetVisible(contentTarget);
+      await expect.poll(() => new URL(page.url()).pathname).toBe(gradeOnePlaceValueTopicPath);
+      await expect(currentUnit).toHaveAttribute("href", currentHref!);
+      await expect(currentUnit).toHaveAttribute("aria-label", currentAccessibleName!);
+    }
+
+    expect(page.url()).toBe(lessonUrl);
+    await expect(page.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+    await expect(page.locator("[data-viz-lesson-action-slot]")).toHaveCount(0);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 1 Shape Reasoning removes the reported visualization CTA without removing lesson content", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneShapeReasoningTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const visualization = rightPane.locator("#visualization");
+    const checklist = rightPane.locator('[data-tour="student-lesson-checklist"]');
+    const practice = rightPane.locator("#lesson-practice");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+
+    if (Boolean(testInfo.project.use.isMobile)) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+    }
+
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    const visualizationJump = quickJumpMap.getByRole("button", { name: "4.4 Interactive lab", exact: true });
+    const practiceJump = quickJumpMap.getByRole("button", { name: "4.5 Practice check", exact: true });
+    await expect(currentUnit).toHaveCount(1);
+    await expect(currentUnit).toHaveAttribute("href", gradeOneShapeReasoningTopicPath);
+    await expect(visualizationJump).toHaveCount(1);
+    await expect(practiceJump).toHaveCount(1);
+
+    for (const { contentTitle, menuTitle } of [
+      { menuTitle: "4.1 What Makes a Shape 🔺", contentTitle: "4.1 What Makes a Shape" },
+      { menuTitle: "4.2 Composing New Shapes 🏠", contentTitle: "4.2 Composing New Shapes" },
+      { menuTitle: "4.3 Halves and Fourths 🍕", contentTitle: "4.3 Halves and Fourths" },
+      { menuTitle: "4.4 Interactive lab", contentTitle: "4.4 Interactive lab" },
+      { menuTitle: "4.5 Practice check", contentTitle: "4.5 Practice check" }
+    ]) {
+      await expect(quickJumpMap.getByRole("button", { name: menuTitle, exact: true })).toHaveCount(1);
+      await expect(rightPane.getByRole("heading", { level: 2, name: contentTitle, exact: true })).toHaveCount(1);
+    }
+
+    await practiceJump.scrollIntoViewIfNeeded();
+    await visualizationJump.scrollIntoViewIfNeeded();
+    await expect(visualizationJump).toBeVisible();
+    await expect(practiceJump).toBeVisible();
+    const currentHref = await currentUnit.getAttribute("href");
+    const currentAccessibleName = await currentUnit.getAttribute("aria-label");
+    const lessonUrl = page.url();
+    const desktopDirectoryBaseline = Boolean(testInfo.project.use.isMobile)
+      ? null
+      : {
+          leftScrollTop: await page.locator("[data-lesson-directory-pane]:visible").evaluate((pane) => pane.scrollTop),
+          windowY: await page.evaluate(() => window.scrollY)
+        };
+
+    await visualizationJump.click();
+    await expectLessonTargetVisible(visualization);
+    const valueControl = visualization.locator('input[type="range"]').first();
+    const resetModel = visualization.locator("[data-viz-reset-model]");
+    await expect(valueControl).toBeVisible({ timeout: 30_000 });
+    await expect(resetModel).toBeVisible({ timeout: 30_000 });
+    const initialValue = Number(await valueControl.inputValue());
+    const minimumValue = Number(await valueControl.getAttribute("min"));
+    const maximumValue = Number(await valueControl.getAttribute("max"));
+    const changedValue = initialValue === maximumValue ? minimumValue : maximumValue;
+    expect(initialValue).toBe(5);
+    expect(changedValue).not.toBe(initialValue);
+    await valueControl.fill(String(changedValue));
+    await expect(valueControl).toHaveValue(String(changedValue));
+    await expect(resetModel).toHaveAttribute("data-viz-reset-value", String(changedValue));
+    await resetModel.click();
+    await expect(resetModel).toHaveAttribute("data-viz-reset-value", "5");
+    await expect(valueControl).toHaveValue(String(initialValue));
+    await expect(visualization.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(visualization.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+
+    await checklist.scrollIntoViewIfNeeded();
+    await expect(checklist).toBeVisible();
+    await expect(checklist.getByRole("checkbox").first()).toBeVisible();
+    await expect(
+      checklist.getByRole("button", { name: /Mark lesson complete|標記課節完成|标记课时完成|Lesson complete|課節已完成|课时已完成/i })
+    ).toBeVisible();
+    await expect(practice).toHaveCount(1);
+    await expect(practice.getByRole("heading", { level: 2, name: "4.5 Practice check", exact: true })).toHaveCount(1);
+
+    await practiceJump.click();
+    await expectLessonTargetVisible(practice);
+    await expect(practice.getByText(/Question 1 of/i)).toBeVisible();
+    const nextQuestion = practice.getByRole("button", { name: /Next question/i });
+    await expect(nextQuestion).toBeVisible();
+    await expect(nextQuestion).toBeEnabled();
+    await nextQuestion.click();
+    await expect(practice.getByText(/Question 2 of/i)).toBeVisible();
+
+    await expect(page.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(rightPane.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
+    await expect(page.locator("[data-viz-lesson-action-slot]")).toHaveCount(0);
+    expect(page.url()).toBe(lessonUrl);
+    await expect(currentUnit).toHaveAttribute("href", currentHref!);
+    await expect(currentUnit).toHaveAttribute("aria-label", currentAccessibleName!);
+    if (desktopDirectoryBaseline) {
+      const desktopDirectoryAfter = {
+        leftScrollTop: await page.locator("[data-lesson-directory-pane]:visible").evaluate((pane) => pane.scrollTop),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      expect(Math.abs(desktopDirectoryAfter.leftScrollTop - desktopDirectoryBaseline.leftScrollTop)).toBeLessThanOrEqual(1);
+      expect(Math.abs(desktopDirectoryAfter.windowY - desktopDirectoryBaseline.windowY)).toBeLessThanOrEqual(1);
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
     expectNoPageErrors(errors);
   });
 
