@@ -491,6 +491,38 @@ test.describe("Practice Arena question pager", () => {
     }
 
     await setAnswerValue(answer, "");
+    await pressSoftKey(keyboard, "123", "Insert 3");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 2");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 4");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+    await keyboard.getByRole("button", { name: /Undo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await keyboard.getByRole("button", { name: /Redo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "3+2+4=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "f(x)=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("f(x)=");
+
+    await setAnswerValue(answer, "123", 1);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("1=23");
+
+    await setAnswerValue(answer, "123");
+    await selectAnswerText(answer);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("=");
+
+    await setAnswerValue(answer, "");
     await pressSoftKey(keyboard, "∞≠∈", "Insert Euler's number");
     await pressSoftKey(keyboard, "123", "Insert exponent marker");
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
@@ -500,7 +532,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
     await pressSoftKey(keyboard, "123", "Insert plus sign");
     await pressSoftKey(keyboard, "123", "Insert 1");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 0");
     await expect(answer).toHaveValue("e^(i*pi)+1=0");
 
@@ -509,7 +541,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "123", "Insert exponent 2");
@@ -526,7 +558,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 2");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
