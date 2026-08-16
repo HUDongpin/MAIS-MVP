@@ -91,6 +91,40 @@ test("completed overrides merge by slug and cannot be rolled back by an older ro
   );
 });
 
+test("a deferred same-scope roadmap keeps earlier completions after the current lesson completes first", () => {
+  const publicBaseline = [
+    lessonSummary("unit-1", "P1"),
+    lessonSummary("unit-2", "P1"),
+    lessonSummary("unit-3", "P1")
+  ];
+  const completedOverrides = upsertCompletedLessonModuleOverride(
+    [],
+    lessonSummary("unit-2", "P1", "completed")
+  );
+
+  const completionFirst = mergeCompletedLessonModuleOverrides(publicBaseline, completedOverrides);
+  assert.deepEqual(completionFirst.map((lesson) => lesson.status), [
+    "not-started",
+    "completed",
+    "not-started"
+  ]);
+
+  const deferredPersonalizedRoadmap = [
+    lessonSummary("unit-1", "P1", "completed"),
+    lessonSummary("unit-2", "P1"),
+    lessonSummary("unit-3", "P1")
+  ];
+  const finalModules = mergeCompletedLessonModuleOverrides(
+    deferredPersonalizedRoadmap,
+    completedOverrides
+  );
+  assert.deepEqual(finalModules.map(({ slug, status }) => ({ slug, status })), [
+    { slug: "unit-1", status: "completed" },
+    { slug: "unit-2", status: "completed" },
+    { slug: "unit-3", status: "not-started" }
+  ]);
+});
+
 test("completed overrides replace the same slug without using array indexes", () => {
   const first = lessonSummary("unit-1", "P1", "completed");
   const refreshed = { ...first, mastery: 100, title: { en: "refreshed", zh: "refreshed" } };

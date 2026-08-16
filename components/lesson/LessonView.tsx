@@ -2886,10 +2886,8 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           : [];
         const completedOverrides = upsertCompletedLessonModuleOverride(existingOverrides, completedLesson);
         completedLessonModuleOverridesRef.current = { ownerScopeKey, overrides: completedOverrides };
-        lessonModulesRequestGenerationRef.current += 1;
-        lessonModulesRoadmapAbortRef.current?.abort();
-        lessonModulesRoadmapAbortRef.current = null;
-        lessonModulesRequestRef.current = null;
+        // Keep a same-scope roadmap GET alive: it may carry earlier completions
+        // missing from the public baseline, and its response re-merges this override.
         setLessonModules((currentModules) =>
           mergeCompletedLessonModuleOverrides(currentModules, completedOverrides)
         );

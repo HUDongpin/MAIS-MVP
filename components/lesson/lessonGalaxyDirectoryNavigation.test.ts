@@ -510,7 +510,7 @@ test("lesson modules progressively overlay authenticated roadmap status without 
   );
 });
 
-test("lesson completion immediately overlays the current module and invalidates any older roadmap request", () => {
+test("lesson completion immediately overlays the current module while preserving same-scope roadmap history", () => {
   const completionStart = lessonViewSource.indexOf("async function completeLesson()");
   const completionEnd = lessonViewSource.indexOf("\n\n  function clearGalaxyDirectoryCloseTimer", completionStart);
   assert.notEqual(completionStart, -1);
@@ -519,8 +519,21 @@ test("lesson completion immediately overlays the current module and invalidates 
 
   assert.match(completionSource, /upsertCompletedLessonModuleOverride\(/);
   assert.match(completionSource, /lessonModuleProgressOwnerScopeKey\(\{/);
-  assert.match(completionSource, /lessonModulesRequestGenerationRef\.current \+= 1;/);
-  assert.match(completionSource, /lessonModulesRoadmapAbortRef\.current\?\.abort\(\);/);
+  assert.equal(
+    completionSource.includes("lessonModulesRequestGenerationRef.current += 1"),
+    false,
+    "A same-scope GET must still return earlier completed units after the current completion is overlaid."
+  );
+  assert.equal(
+    completionSource.includes("lessonModulesRoadmapAbortRef.current?.abort()"),
+    false,
+    "Completion must not abort the same-scope personalized roadmap request."
+  );
+  assert.equal(
+    completionSource.includes("lessonModulesRequestRef.current = null"),
+    false,
+    "Completion must leave the same-scope response guard intact until the request settles."
+  );
   assert.match(completionSource, /setLessonModules\(\(currentModules\) =>/);
   assert.match(completionSource, /mergeCompletedLessonModuleOverrides\(/);
   assert.equal(completionSource.includes("moduleIndex"), false, "Completion must merge by slug, never by array position.");
