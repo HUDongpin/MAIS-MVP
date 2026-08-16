@@ -16,6 +16,7 @@ import {
   lessonCompletionTitleForGrade
 } from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
+import { formatLessonPartDisplay, type LessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import {
   createLessonContentPaneScrollRequest,
   createLessonTargetViewportRealignment
@@ -619,6 +620,7 @@ function clampLessonQuestionIndex(index: number, questionCount: number) {
 type LessonQuestionPagerProps = {
   allAnswersChecked: boolean;
   answerResults: Record<string, boolean>;
+  displayTitle?: string;
   lesson: LessonDetail;
   onAnswered: (question: PublicQuestion, feedback: AttemptFeedback) => void;
   onCheckAllAnswers: () => void;
@@ -629,6 +631,7 @@ type LessonQuestionPagerProps = {
 function LessonQuestionPager({
   allAnswersChecked,
   answerResults,
+  displayTitle,
   lesson,
   onAnswered,
   onCheckAllAnswers,
@@ -765,7 +768,7 @@ function LessonQuestionPager({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-950 dark:text-white">
-              {t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
+              {displayTitle ?? t({ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" })}
             </h2>
             <p aria-live="polite" className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-blue-600 dark:text-cyan-200">
               {t({
@@ -2302,6 +2305,22 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     visualizationBlock,
     visualizationContent
   ]);
+  const activeLessonUnitIndex = Math.max(
+    0,
+    gradeLessons.findIndex((module) => module.slug === slug || module.slug === lesson?.slug)
+  );
+  const lessonPartDisplayByTargetId = useMemo(() => new Map<string, LessonPartDisplay>(
+    lessonGalaxyItems.map((item, itemIndex) => [
+      item.targetId,
+      formatLessonPartDisplay({
+        itemIndex,
+        title: item.title,
+        unitIndex: activeLessonUnitIndex
+      })
+    ])
+  ), [activeLessonUnitIndex, lessonGalaxyItems]);
+  const visualizationDisplayTitle = lessonPartDisplayByTargetId.get("visualization")?.contentTitle;
+  const practiceDisplayTitle = lessonPartDisplayByTargetId.get(lessonPracticeSectionId)?.contentTitle;
 
   useLayoutEffect(() => {
     const currentLessonHref = lessonHrefForSlug(slug);
@@ -3109,6 +3128,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
             const blockTitle = shouldUseSingularWorkedExampleTitle(block)
               ? t(singularWorkedExampleTitle)
               : text(block.title);
+            const blockDisplayTitle = lessonPartDisplayByTargetId.get(lessonBlockSectionId(block.id))?.contentTitle ?? blockTitle;
             const blockContent = block.content ? text(block.content) : "";
             const displayContent =
               block.type === "concept"
@@ -3170,7 +3190,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   <div aria-hidden="true" className="mb-6 h-px w-full bg-slate-200/90 dark:bg-white/10" />
                 ) : null}
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <MathText as="h2" text={blockTitle} className="min-w-0 flex-1 text-2xl font-black text-slate-950 dark:text-white" />
+                  <MathText as="h2" text={blockDisplayTitle} className="min-w-0 flex-1 text-2xl font-black text-slate-950 dark:text-white" />
                   {displayContent && (block.type === "concept" || block.type === "interactive-lesson") ? (
                     <ConceptAudioPlayer
                       content={displayContent}
@@ -3239,16 +3259,21 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         <section id="visualization" ref={visualizationMountRef} className="mt-8 scroll-mt-28 glass-panel p-5 sm:p-6">
           <div className="mb-5">
             <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.lesson.visualizationPanel)}</p>
-            <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white">
-              {visualizationTitleLines.map((line, index) => (
-                <MathText
-                  key={`${index}-${line}`}
-                  as="span"
-                  text={line}
-                  className={index === 0 ? "block" : "mt-1 block"}
-                />
-              ))}
-            </h2>
+            {visualizationDisplayTitle ? (
+              <MathText as="h2" text={visualizationDisplayTitle} className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white" />
+            ) : null}
+            {visualizationTitleLines.length ? (
+              <p className="mt-2 text-base font-bold leading-6 text-slate-600 dark:text-slate-300">
+                {visualizationTitleLines.map((line, index) => (
+                  <MathText
+                    key={`${index}-${line}`}
+                    as="span"
+                    text={line}
+                    className={index === 0 ? "block" : "mt-1 block"}
+                  />
+                ))}
+              </p>
+            ) : null}
             {visualizationContent ? (
               <MathText as="p" text={visualizationContent} className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300" />
             ) : null}
@@ -3383,6 +3408,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
             <LessonQuestionPager
               allAnswersChecked={allLessonPracticeAnswersChecked}
               answerResults={lessonAnswerResults}
+              displayTitle={practiceDisplayTitle}
               lesson={lesson}
               onAnswered={handleLessonQuestionAnswered}
               onCheckAllAnswers={checkAllLessonAnswers}
@@ -3436,27 +3462,31 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       className="mt-8 grid gap-4"
       aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
     >
-      {teacherGuideBlocks.map((block) => (
-        <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
-            {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
-          </p>
-          <MathText as="h2" text={text(block.title)} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
-          {block.content ? (
-            <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
-          ) : null}
-          {block.items?.length ? (
-            <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-              {block.items.map((item, index) => (
-                <li key={`${block.id}-${index}`} className="flex gap-3">
-                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                  <MathText as="span" text={formatLessonMathText(text(item))} />
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </article>
-      ))}
+      {teacherGuideBlocks.map((block) => {
+        const teacherGuideDisplayTitle = lessonPartDisplayByTargetId.get(lessonBlockSectionId(block.id))?.contentTitle ?? text(block.title);
+
+        return (
+          <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
+              {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
+            </p>
+            <MathText as="h2" text={teacherGuideDisplayTitle} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
+            {block.content ? (
+              <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
+            ) : null}
+            {block.items?.length ? (
+              <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                {block.items.map((item, index) => (
+                  <li key={`${block.id}-${index}`} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
+                    <MathText as="span" text={formatLessonMathText(text(item))} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </article>
+        );
+      })}
     </section>
   ) : null;
   const lessonContentPanel = (

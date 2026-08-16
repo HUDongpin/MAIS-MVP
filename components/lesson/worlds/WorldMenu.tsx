@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
+import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
 import { lessonWorldThemeForCourse, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
 import { MathText } from "@/components/math/MathText";
@@ -220,7 +221,11 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
                       onClick={() => onSelectLessonItem(item.targetId)}
                       className={`focus-ring rounded-full border px-3 py-1.5 text-left text-xs font-black transition hover:-translate-y-0.5 ${theme.quickJumpClassName}`}
                     >
-                      {`${index + 1}.${itemIndex + 1} ${item.title}`}
+                      {formatLessonPartDisplay({
+                        itemIndex,
+                        title: item.title,
+                        unitIndex: index
+                      }).menuTitle}
                     </button>
                   ) : null
                 )}

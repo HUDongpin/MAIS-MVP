@@ -15,6 +15,7 @@ const californiaSuperStudentId = "student-jon-us-ca-super";
 const kindergartenTopicPath = "/student/lessons/us-ca-math-k-k-cc-count-sequence";
 const kindergartenOtherTopicPath = "/student/lessons/us-ca-math-k-k-oa-compose-decompose";
 const gradeOneAddSubtractTopicPath = "/student/lessons/us-ca-math-p1-1-oa-add-subtract";
+const gradeOnePlaceValueTopicPath = "/student/lessons/us-ca-math-p1-1-nbt-place-value";
 const gradeThreeTopicPath = "/student/lessons/us-ca-math-p3-3-nf-fraction-meaning";
 const gradeSixTopicPath = "/student/lessons/us-ca-math-p6-chapter-01";
 const highSchoolTopicPath = "/student/lessons/us-ca-math-s3-chapter-03";
@@ -200,6 +201,61 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(after.currentHref).toBe(before.currentHref);
     expect(after.currentLabel).toBe(before.currentLabel);
     expect(currentIsStillVisible).toBeTruthy();
+    expectNoPageErrors(errors);
+  });
+
+  test("desktop Unit 2 moves lesson markers behind menu titles and numbers matching content headings", async ({ page }, testInfo) => {
+    test.skip(Boolean(testInfo.project.use.isMobile), "Desktop title and pane geometry are covered in the desktop project.");
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOnePlaceValueTopicPath);
+
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const world = leftPane.locator('[data-lesson-world="sprout-meadow"]');
+    const quickJumpMap = world.locator("ol:visible");
+    const countingJump = quickJumpMap.getByRole("button", { name: "2.1 Counting to 120 1️⃣", exact: true });
+    const tensOnesJump = quickJumpMap.getByRole("button", { name: "2.2 Tens and Ones 🏗️", exact: true });
+    const labJump = quickJumpMap.getByRole("button", { name: "2.5 Interactive lab", exact: true });
+    const practiceJump = quickJumpMap.getByRole("button", { name: "2.6 Practice check", exact: true });
+    const countingHeading = rightPane.getByRole("heading", { level: 2, name: "2.1 Counting to 120", exact: true });
+    const tensOnesHeading = rightPane.getByRole("heading", { level: 2, name: "2.2 Tens and Ones", exact: true });
+    const labHeading = rightPane.getByRole("heading", { level: 2, name: "2.5 Interactive lab", exact: true });
+    const practiceHeading = rightPane.getByRole("heading", { level: 2, name: "2.6 Practice check", exact: true });
+
+    await expect(leftPane).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    await expect(quickJumpMap.locator('a[aria-current="page"]')).toHaveAttribute("href", gradeOnePlaceValueTopicPath);
+    await expect(countingJump).toHaveCount(1);
+    await expect(tensOnesJump).toHaveCount(1);
+    await expect(labJump).toHaveCount(1);
+    await expect(practiceJump).toHaveCount(1);
+    await expect(countingHeading).toHaveCount(1);
+    await expect(tensOnesHeading).toHaveCount(1);
+    await expect(labHeading).toHaveCount(1);
+    await expect(practiceHeading).toHaveCount(1);
+    await expect(rightPane.getByRole("heading", { level: 2, name: /^1️⃣/ })).toHaveCount(0);
+    await expect(rightPane.getByRole("heading", { level: 2, name: /^🏗️/ })).toHaveCount(0);
+
+    await tensOnesJump.scrollIntoViewIfNeeded();
+    await expect(tensOnesJump).toBeVisible();
+    const before = {
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+
+    await tensOnesJump.click();
+    await expect.poll(() => tensOnesHeading.evaluate((heading) => {
+      const pane = heading.closest<HTMLElement>("[data-lesson-content-pane]");
+      if (!pane) return false;
+      const paneRect = pane.getBoundingClientRect();
+      const headingRect = heading.getBoundingClientRect();
+      return headingRect.bottom > paneRect.top + 1 && headingRect.top < paneRect.bottom - 1;
+    }), { timeout: 5_000 }).toBe(true);
+
+    expect(Math.abs(await leftPane.evaluate((pane) => pane.scrollTop) - before.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(await page.evaluate(() => window.scrollY) - before.windowY)).toBeLessThanOrEqual(1);
+    await expect(page).toHaveURL(new RegExp(`${gradeOnePlaceValueTopicPath.replace(/[/.]/g, "\\$&")}$`));
     expectNoPageErrors(errors);
   });
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { californiaCourseTitleForGrade, cleanLessonDisplayTitle, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
+import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
@@ -36,18 +37,6 @@ type LessonGalaxyDirectoryProps = {
 
 function compactModuleTitle(title: string) {
   return cleanLessonUnitTitle(title);
-}
-
-function formatLessonPartTitle({
-  itemIndex,
-  title,
-  unitIndex
-}: {
-  itemIndex: number;
-  title: string;
-  unitIndex: number;
-}) {
-  return `${unitIndex + 1}.${itemIndex + 1} ${title}`;
 }
 
 function modulePreviewItems({
@@ -207,11 +196,11 @@ export function LessonGalaxyDirectory({
                 <div className="px-4 pb-5 sm:px-5">
                   <div className="grid gap-2">
                     {moduleItems.map((item, itemIndex) => {
-                      const numberedItemTitle = formatLessonPartTitle({
+                      const numberedItemTitle = formatLessonPartDisplay({
                         itemIndex,
                         title: item.title,
                         unitIndex: index
-                      });
+                      }).menuTitle;
 
                       return isCurrent && item.targetId ? (
                         <button

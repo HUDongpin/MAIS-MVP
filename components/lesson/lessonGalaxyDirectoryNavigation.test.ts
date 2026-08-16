@@ -406,32 +406,105 @@ test("lesson menu unit cards omit grade and status metadata", () => {
 test("lesson menu item cards prefix every part with unit and part numbers", () => {
   assert.match(
     directorySource,
-    /function formatLessonPartTitle/,
-    "Lesson directory should use one formatter for Unit.Part menu labels."
+    /import \{ formatLessonPartDisplay \} from "@\/components\/lesson\/lessonPartDisplay";/,
+    "The list fallback must use the shared lesson-part display formatter."
   );
   assert.match(
-    directorySource,
-    /\$\{unitIndex \+ 1\}\.\$\{itemIndex \+ 1\} \$\{title\}/,
-    "Lesson part labels should render as 1.1 Concept explanation, 1.2 Worked example, and so on."
+    worldMenuSource,
+    /import \{ formatLessonPartDisplay \} from "@\/components\/lesson\/lessonPartDisplay";/,
+    "The world map must use the same lesson-part display formatter as list view."
+  );
+  for (const [name, source] of [
+    ["WorldMenu", worldMenuSource],
+    ["LessonGalaxyDirectory", directorySource]
+  ] as const) {
+    assert.match(
+      source,
+      /formatLessonPartDisplay\(\{\s*itemIndex,\s*title: item\.title,\s*unitIndex: index\s*\}\)\.menuTitle/,
+      `${name} must derive its visible Unit.Part title and trailing marker from the shared model.`
+    );
+  }
+  assert.equal(
+    directorySource.includes("function formatLessonPartTitle"),
+    false,
+    "List view must not retain a formatter that can drift from world-map labels."
+  );
+});
+
+test("right-side target headings share the menu display model without changing raw lesson metadata", () => {
+  assert.match(
+    lessonViewSource,
+    /import \{ formatLessonPartDisplay, type LessonPartDisplay \} from "@\/components\/lesson\/lessonPartDisplay";/,
+    "LessonView must consume the same display model as both left-directory views."
   );
   assert.match(
-    directorySource,
-    /moduleItems\.map\(\(item, itemIndex\) =>/,
-    "Lesson menu cards should derive the part number from each item position inside the unit."
+    lessonViewSource,
+    /const lessonPartDisplayByTargetId = useMemo\(\(\) => new Map<string, LessonPartDisplay>\(/,
+    "LessonView must index one shared display model by the target ids used by quick jumps."
   );
   assert.match(
-    directorySource,
-    /const numberedItemTitle = formatLessonPartTitle\(\{\s*itemIndex,\s*title: item\.title,\s*unitIndex: index\s*\}\);/,
-    "Lesson menu cards should combine module index and item index before rendering."
+    lessonViewSource,
+    /lessonGalaxyItems\.map\(\(item, itemIndex\) => \[\s*item\.targetId,\s*formatLessonPartDisplay\(\{\s*itemIndex,\s*title: item\.title,\s*unitIndex: activeLessonUnitIndex\s*\}\)\s*\]\)/,
+    "Right headings must derive their ordinals and base titles from the same ordered menu items."
   );
   assert.match(
-    directorySource,
-    /text=\{numberedItemTitle\}/,
-    "The visible menu card title should include the Unit.Part prefix."
+    lessonViewSource,
+    /const blockDisplayTitle = lessonPartDisplayByTargetId\.get\(lessonBlockSectionId\(block\.id\)\)\?\.contentTitle \?\? blockTitle;/,
+    "Every interactive/concept/example target heading must use its menu-aligned content title."
   );
   assert.match(
-    directorySource,
-    /Open \$\{moduleTitle\}: \$\{numberedItemTitle\}/,
-    "Cross-unit menu links should expose the same numbered label to assistive technology."
+    lessonViewSource,
+    /<MathText as="h2" text=\{blockDisplayTitle\}/,
+    "Visible course-content headings must render the display-only title."
+  );
+  assert.match(
+    lessonViewSource,
+    /data-ai-title=\{blockTitle\}/,
+    "AI selection metadata must keep the original source title."
+  );
+  assert.match(
+    lessonViewSource,
+    /title=\{blockTitle\}/,
+    "Audio and internal lesson behavior must keep the original source title."
+  );
+  assert.match(
+    lessonViewSource,
+    /const visualizationDisplayTitle = lessonPartDisplayByTargetId\.get\("visualization"\)\?\.contentTitle;/,
+    "The visualization target must use its actual menu position, not a hard-coded ordinal."
+  );
+  assert.match(
+    lessonViewSource,
+    /<MathText as="h2" text=\{visualizationDisplayTitle\}/,
+    "The visualization heading must match the left menu's base title and ordinal."
+  );
+  assert.match(
+    lessonViewSource,
+    /const practiceDisplayTitle = lessonPartDisplayByTargetId\.get\(lessonPracticeSectionId\)\?\.contentTitle;/,
+    "The practice target must use its actual menu position, not a hard-coded ordinal."
+  );
+  assert.match(
+    lessonViewSource,
+    /displayTitle\?: string;/,
+    "LessonQuestionPager must accept a display-only menu-aligned heading."
+  );
+  assert.match(
+    lessonViewSource,
+    /<LessonQuestionPager[\s\S]*?displayTitle=\{practiceDisplayTitle\}/,
+    "The practice target must pass its 2.6-style display title into the existing pager header."
+  );
+  assert.match(
+    lessonViewSource,
+    /\{displayTitle \?\? t\(\{ en: "Lesson practice", zh: "課節練習", zhHans: "课时练习" \}\)\}/,
+    "The existing pager h2 must show the numbered display title while preserving a localized fallback."
+  );
+  assert.equal(
+    lessonViewSource.includes('<MathText as="h2" text={practiceDisplayTitle}'),
+    false,
+    "The practice section must not add a second heading outside the pager."
+  );
+  assert.match(
+    lessonViewSource,
+    /const teacherGuideDisplayTitle = lessonPartDisplayByTargetId\.get\(lessonBlockSectionId\(block\.id\)\)\?\.contentTitle \?\? text\(block\.title\);/,
+    "Teacher/admin-only targets must also use their actual menu position when present."
   );
 });
