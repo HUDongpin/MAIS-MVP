@@ -1797,7 +1797,10 @@ test.describe("Learning Worlds lesson menu", () => {
     const answer = card.getByRole("textbox").first();
     await expect(keyboard).toBeVisible();
     await expect(keyboard).toHaveAttribute("data-math-keyboard-layout", "compact");
-    await expect(keyboardToggle).toHaveAttribute("aria-expanded", "true");
+    const keyboardCloseToggle = card.getByRole("button", {
+      name: /Hide math keyboard|收起數學鍵盤|收起数学键盘/i
+    });
+    await expect(keyboardCloseToggle).toHaveAttribute("aria-expanded", "true");
     await expect(answer).toBeVisible();
     const scrollHint = keyboard.getByText(
       /Swipe or scroll each row for more keys|滑動或捲動每一列以查看更多按鍵|滑动或滚动每一行以查看更多按键/
