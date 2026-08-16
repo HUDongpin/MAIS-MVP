@@ -450,10 +450,11 @@ test.describe("Learning Worlds lesson menu", () => {
     const visualization = rightPane.locator("#visualization");
     const checklist = rightPane.locator('[data-tour="student-lesson-checklist"]');
     const practice = rightPane.locator("#lesson-practice");
+    const isMobile = Boolean(testInfo.project.use.isMobile);
     await expect(world).toBeVisible({ timeout: 30_000 });
     await expect(rightPane).toBeVisible({ timeout: 30_000 });
 
-    if (Boolean(testInfo.project.use.isMobile)) {
+    if (isMobile) {
       await world.getByRole("button", { name: /open the full map/i }).click();
     }
 
@@ -484,7 +485,7 @@ test.describe("Learning Worlds lesson menu", () => {
     const currentHref = await currentUnit.getAttribute("href");
     const currentAccessibleName = await currentUnit.getAttribute("aria-label");
     const lessonUrl = page.url();
-    const desktopDirectoryBaseline = Boolean(testInfo.project.use.isMobile)
+    const desktopDirectoryBaseline = isMobile
       ? null
       : {
           leftScrollTop: await page.locator("[data-lesson-directory-pane]:visible").evaluate((pane) => pane.scrollTop),
@@ -512,8 +513,30 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(visualization.getByRole("button", { name: nextLessonItemCtaName })).toHaveCount(0);
     await expect(visualization.locator("[data-lesson-next-item-button]")).toHaveCount(0);
 
-    await checklist.scrollIntoViewIfNeeded();
-    await expect(checklist).toBeVisible();
+    if (isMobile) {
+      await checklist.scrollIntoViewIfNeeded();
+    } else {
+      await rightPane.evaluate((pane) => {
+        const target = pane.querySelector<HTMLElement>('[data-tour="student-lesson-checklist"]');
+        if (!target) throw new Error("The lesson checklist must render inside the right lesson pane.");
+        const paneRect = pane.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        pane.scrollTo({
+          behavior: "auto",
+          top: Math.max(0, pane.scrollTop + targetRect.top - paneRect.top - 16)
+        });
+      });
+      await waitForAnimationFrames(page);
+    }
+    await expectLessonTargetVisible(checklist);
+    if (desktopDirectoryBaseline) {
+      const checklistScrollState = {
+        leftScrollTop: await page.locator("[data-lesson-directory-pane]:visible").evaluate((pane) => pane.scrollTop),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      expect(Math.abs(checklistScrollState.leftScrollTop - desktopDirectoryBaseline.leftScrollTop)).toBeLessThanOrEqual(1);
+      expect(Math.abs(checklistScrollState.windowY - desktopDirectoryBaseline.windowY)).toBeLessThanOrEqual(1);
+    }
     await expect(checklist.getByRole("checkbox").first()).toBeVisible();
     await expect(
       checklist.getByRole("button", { name: /Mark lesson complete|標記課節完成|标记课时完成|Lesson complete|課節已完成|课时已完成/i })
