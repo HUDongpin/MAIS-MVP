@@ -3,6 +3,7 @@ import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldTh
 import { formatPracticeOptionDisplayText } from "../../components/practice/practiceOptionDisplayText";
 import { usCaliforniaQuestions } from "../../data/usCaliforniaQuestions";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors, uniqueSuffix } from "./helpers";
+import { auditMathDiagramPage, waitForDiagramLayoutStable } from "./mathDiagramBoundaryAudit";
 
 /**
  * MAIS Learning Worlds menu (porting plan §3, Phase 3).
@@ -87,6 +88,34 @@ async function waitForAnimationFrames(page: Page, frameCount = 4) {
     };
     window.requestAnimationFrame(nextFrame);
   }), frameCount);
+}
+
+async function composeRoofPaintSnapshot(composeLesson: Locator) {
+  const roof = composeLesson.getByRole("img").locator("polygon").first();
+  await expect(roof).toBeVisible();
+  return roof.evaluate((element: SVGPolygonElement) => {
+    const svg = element.ownerSVGElement;
+    const square = svg?.querySelector<SVGRectElement>("rect");
+    if (!svg || !square) throw new Error("Compose Shapes must render one roof above its square base.");
+
+    const roofRect = element.getBoundingClientRect();
+    const squareRect = square.getBoundingClientRect();
+    const svgRect = svg.getBoundingClientRect();
+    const matrix = element.getScreenCTM();
+    const strokeWidth = Number.parseFloat(getComputedStyle(element).strokeWidth);
+    if (!matrix || !Number.isFinite(strokeWidth)) throw new Error("The roof needs measurable painted geometry.");
+    const strokeX = Math.hypot(matrix.a, matrix.b) * strokeWidth / 2;
+    const strokeY = Math.hypot(matrix.c, matrix.d) * strokeWidth / 2;
+
+    return {
+      bottomClearance: svgRect.bottom - (roofRect.bottom + strokeY),
+      leftClearance: roofRect.left - strokeX - svgRect.left,
+      rightClearance: svgRect.right - (roofRect.right + strokeX),
+      roofToSquareGap: squareRect.top - roofRect.bottom,
+      topClearance: roofRect.top - strokeY - svgRect.top,
+      vertexCount: element.points.numberOfItems
+    };
+  });
 }
 
 async function visibleUnitStopMarker(stop: Locator) {
@@ -826,6 +855,86 @@ test.describe("Learning Worlds lesson menu", () => {
       expect(Math.abs(desktopDirectoryAfter.leftScrollTop - desktopDirectoryBaseline.leftScrollTop)).toBeLessThanOrEqual(1);
       expect(Math.abs(desktopDirectoryAfter.windowY - desktopDirectoryBaseline.windowY)).toBeLessThanOrEqual(1);
     }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 1 Compose Shapes keeps the complete triangle painted inside its SVG before and after Join", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneShapeReasoningTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    if (testInfo.project.use.isMobile) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+    }
+
+    const composeJump = world.locator("ol:visible").getByRole("button", {
+      name: "4.2 Composing New Shapes 🏠",
+      exact: true
+    });
+    await expect(composeJump).toBeVisible();
+    await composeJump.click();
+
+    const composeLesson = rightPane.locator('[data-ccss-lesson="compose-2d"]');
+    await expect(composeLesson).toHaveAttribute("data-ccss-diagram-hydrated", "true", { timeout: 30_000 });
+    await expectLessonTargetVisible(composeLesson);
+    const rootSelector = '[data-ccss-lesson="compose-2d"]';
+    await waitForDiagramLayoutStable(page, {
+      minimumCandidateSurfaceCount: 2,
+      rootSelector,
+      stableSampleCount: 3,
+      timeoutMs: 10_000
+    });
+
+    const figureStage = composeLesson.locator("[data-figure-stage]");
+    const separatedSvg = composeLesson.getByRole("img", { name: "a square and a triangle", exact: true });
+    await expect(figureStage).not.toHaveAttribute("data-figure-overflowing", "true");
+    await expect(separatedSvg).toBeVisible();
+    const separatedRoof = await composeRoofPaintSnapshot(composeLesson);
+    expect(separatedRoof.vertexCount).toBe(3);
+    expect(separatedRoof.topClearance).toBeGreaterThanOrEqual(0.5);
+    expect(separatedRoof.leftClearance).toBeGreaterThan(0);
+    expect(separatedRoof.rightClearance).toBeGreaterThan(0);
+    expect(separatedRoof.bottomClearance).toBeGreaterThan(0);
+    expect(separatedRoof.roofToSquareGap).toBeGreaterThan(16);
+
+    const separatedAudit = await auditMathDiagramPage(page, { rootSelector });
+    expect(separatedAudit.coverage.diagramSvgCount).toBe(1);
+    expect(separatedAudit.coverage.checkedGraphicElementCount).toBe(2);
+    expect(separatedAudit.issues).toEqual([]);
+
+    const join = composeLesson.getByRole("button", { name: "Join them →", exact: true });
+    await expect(join).toBeVisible();
+    await join.click();
+    await expect(composeLesson.getByRole("img", { name: "a house", exact: true })).toBeVisible();
+    await expect(composeLesson.getByRole("button", { name: "← Take apart", exact: true })).toBeVisible();
+    await waitForDiagramLayoutStable(page, {
+      minimumCandidateSurfaceCount: 2,
+      rootSelector,
+      stableSampleCount: 3,
+      timeoutMs: 10_000
+    });
+
+    const joinedRoof = await composeRoofPaintSnapshot(composeLesson);
+    expect(joinedRoof.vertexCount).toBe(3);
+    expect(joinedRoof.topClearance).toBeGreaterThan(separatedRoof.topClearance + 16);
+    expect(joinedRoof.leftClearance).toBeGreaterThan(0);
+    expect(joinedRoof.rightClearance).toBeGreaterThan(0);
+    expect(joinedRoof.bottomClearance).toBeGreaterThan(0);
+    expect(Math.abs(joinedRoof.roofToSquareGap)).toBeLessThanOrEqual(1);
+
+    const joinedAudit = await auditMathDiagramPage(page, { rootSelector });
+    expect(joinedAudit.coverage.diagramSvgCount).toBe(1);
+    expect(joinedAudit.coverage.checkedGraphicElementCount).toBe(2);
+    expect(joinedAudit.issues).toEqual([]);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
