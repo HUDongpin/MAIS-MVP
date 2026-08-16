@@ -81,6 +81,47 @@ test("desktop lesson directory and content are bounded independent scroll panes"
   );
 });
 
+test("desktop wheel routing stays native to each contained lesson pane", () => {
+  assert.match(
+    lessonViewSource,
+    /const lessonDesktopScrollablePaneClassName =\s*"lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain";/,
+    "Each desktop pane must use native vertical overflow and contain scroll chaining at its own boundary."
+  );
+
+  const paneLayoutStart = lessonViewSource.indexOf('data-lesson-pane-layout="true"');
+  const paneLayoutEnd = lessonViewSource.indexOf(
+    "{shouldRenderGalaxyDirectory && lessonMenu.isHidden ?",
+    paneLayoutStart
+  );
+  assert.notEqual(paneLayoutStart, -1, "LessonView must render the bounded two-pane layout.");
+  assert.notEqual(paneLayoutEnd, -1, "The source contract must isolate the lesson pane markup.");
+  const paneLayoutSource = lessonViewSource.slice(paneLayoutStart, paneLayoutEnd);
+  assert.equal(
+    paneLayoutSource.includes("onWheel"),
+    false,
+    "The pane under the pointer must receive native wheel input without a React wheel router."
+  );
+  assert.equal(
+    paneLayoutSource.includes("preventDefault"),
+    false,
+    "Pane markup must not intercept native wheel behavior."
+  );
+  assert.equal(
+    lessonViewSource.includes("deltaY"),
+    false,
+    "LessonView must not manually copy wheel deltas between panes."
+  );
+
+  const passiveCleanupListeners = [
+    ...lessonViewSource.matchAll(/window\.addEventListener\("wheel", cancelOnUserInput, \{ passive: true \}\)/g)
+  ];
+  assert.equal(
+    passiveCleanupListeners.length,
+    1,
+    "The only LessonView wheel listener may be Bug 2's passive mobile-stabilization cleanup listener."
+  );
+});
+
 test("teacher-guide menu targets remain inside the right lesson content pane", () => {
   const panelStart = lessonViewSource.indexOf("const lessonContentPanel = (");
   const componentReturn = lessonViewSource.indexOf("\n\n  return (", panelStart);

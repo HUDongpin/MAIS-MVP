@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 /**
@@ -36,6 +36,40 @@ async function keepLessonWorldMenuOpen(page: Page) {
       // Storage may be unavailable; the menu defaults to the world view and open state.
     }
   });
+}
+
+async function moveMouseToVisibleCenter(page: Page, locator: Locator) {
+  const box = await locator.boundingBox();
+  const viewport = page.viewportSize();
+  if (!box || !viewport) throw new Error("The lesson pane must have visible pointer geometry.");
+
+  const visibleLeft = Math.max(0, box.x);
+  const visibleRight = Math.min(viewport.width, box.x + box.width);
+  const visibleTop = Math.max(0, box.y);
+  const visibleBottom = Math.min(viewport.height, box.y + box.height);
+  if (visibleRight <= visibleLeft || visibleBottom <= visibleTop) {
+    throw new Error("The lesson pane must intersect the desktop viewport.");
+  }
+
+  await page.mouse.move(
+    visibleLeft + (visibleRight - visibleLeft) / 2,
+    visibleTop + (visibleBottom - visibleTop) / 2
+  );
+}
+
+async function waitForAnimationFrames(page: Page, frameCount = 4) {
+  await page.evaluate((requestedFrames) => new Promise<void>((resolve) => {
+    let remainingFrames = requestedFrames;
+    const nextFrame = () => {
+      remainingFrames -= 1;
+      if (remainingFrames <= 0) {
+        resolve();
+        return;
+      }
+      window.requestAnimationFrame(nextFrame);
+    };
+    window.requestAnimationFrame(nextFrame);
+  }), frameCount);
 }
 
 test.describe("Learning Worlds lesson menu", () => {
@@ -166,6 +200,115 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(after.currentHref).toBe(before.currentHref);
     expect(after.currentLabel).toBe(before.currentLabel);
     expect(currentIsStillVisible).toBeTruthy();
+    expectNoPageErrors(errors);
+  });
+
+  test("desktop wheel input stays with the lesson pane under the pointer", async ({ page }, testInfo) => {
+    test.skip(Boolean(testInfo.project.use.isMobile), "Desktop native wheel containment is covered in the desktop project.");
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneAddSubtractTopicPath);
+
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const world = leftPane.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(leftPane).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    await expect(world.locator("ol:visible").getByRole("link")).toHaveCount(16);
+
+    // Let the deferred visualization finish replacing its short placeholder so
+    // the right-pane bottom remains a real boundary throughout this test.
+    const visualization = rightPane.locator("#visualization");
+    await expect(visualization).toBeAttached();
+    await rightPane.evaluate((pane) => {
+      pane.scrollTop = pane.scrollHeight;
+    });
+    await expect(
+      visualization.locator(":scope > [aria-hidden='true'].animate-pulse")
+    ).toHaveCount(0, { timeout: 30_000 });
+    await waitForAnimationFrames(page);
+
+    await Promise.all([
+      leftPane.evaluate((pane) => { pane.scrollTop = 0; }),
+      rightPane.evaluate((pane) => { pane.scrollTop = 0; })
+    ]);
+    await waitForAnimationFrames(page);
+
+    const readScrollState = async () => {
+      const [leftScrollTop, rightScrollTop, windowY] = await Promise.all([
+        leftPane.evaluate((pane) => pane.scrollTop),
+        rightPane.evaluate((pane) => pane.scrollTop),
+        page.evaluate(() => window.scrollY)
+      ]);
+      return { leftScrollTop, rightScrollTop, windowY };
+    };
+    const readPaneBounds = async () => {
+      const [left, right] = await Promise.all([
+        leftPane.evaluate((pane) => ({ clientHeight: pane.clientHeight, scrollHeight: pane.scrollHeight })),
+        rightPane.evaluate((pane) => ({ clientHeight: pane.clientHeight, scrollHeight: pane.scrollHeight }))
+      ]);
+      return {
+        leftMax: left.scrollHeight - left.clientHeight,
+        rightMax: right.scrollHeight - right.clientHeight
+      };
+    };
+
+    const bounds = await readPaneBounds();
+    expect(bounds.leftMax).toBeGreaterThan(1);
+    expect(bounds.rightMax).toBeGreaterThan(1);
+
+    const beforeLeftWheel = await readScrollState();
+    await moveMouseToVisibleCenter(page, leftPane);
+    await page.mouse.wheel(0, 700);
+    await expect.poll(() => leftPane.evaluate((pane) => pane.scrollTop)).toBeGreaterThan(
+      beforeLeftWheel.leftScrollTop + 1
+    );
+    await waitForAnimationFrames(page);
+    const afterLeftWheel = await readScrollState();
+    expect(Math.abs(afterLeftWheel.rightScrollTop - beforeLeftWheel.rightScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterLeftWheel.windowY - beforeLeftWheel.windowY)).toBeLessThanOrEqual(1);
+
+    const beforeRightWheel = await readScrollState();
+    await moveMouseToVisibleCenter(page, rightPane);
+    await page.mouse.wheel(0, 700);
+    await expect.poll(() => rightPane.evaluate((pane) => pane.scrollTop)).toBeGreaterThan(
+      beforeRightWheel.rightScrollTop + 1
+    );
+    await waitForAnimationFrames(page);
+    const afterRightWheel = await readScrollState();
+    expect(Math.abs(afterRightWheel.leftScrollTop - beforeRightWheel.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterRightWheel.windowY - beforeRightWheel.windowY)).toBeLessThanOrEqual(1);
+
+    await leftPane.evaluate((pane) => { pane.scrollTop = pane.scrollHeight; });
+    await waitForAnimationFrames(page);
+    const leftBottomBounds = await readPaneBounds();
+    const beforeLeftBoundaryWheel = await readScrollState();
+    expect(Math.abs(beforeLeftBoundaryWheel.leftScrollTop - leftBottomBounds.leftMax)).toBeLessThanOrEqual(1);
+    await moveMouseToVisibleCenter(page, leftPane);
+    await page.mouse.wheel(0, 900);
+    await waitForAnimationFrames(page);
+    const afterLeftBoundaryWheel = await readScrollState();
+    expect(Math.abs(afterLeftBoundaryWheel.leftScrollTop - beforeLeftBoundaryWheel.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterLeftBoundaryWheel.rightScrollTop - beforeLeftBoundaryWheel.rightScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterLeftBoundaryWheel.windowY - beforeLeftBoundaryWheel.windowY)).toBeLessThanOrEqual(1);
+
+    await rightPane.evaluate((pane) => { pane.scrollTop = pane.scrollHeight; });
+    await waitForAnimationFrames(page);
+    const rightBottomBounds = await readPaneBounds();
+    const beforeRightBoundaryWheel = await readScrollState();
+    expect(Math.abs(beforeRightBoundaryWheel.rightScrollTop - rightBottomBounds.rightMax)).toBeLessThanOrEqual(1);
+    await moveMouseToVisibleCenter(page, rightPane);
+    await page.mouse.wheel(0, 900);
+    await waitForAnimationFrames(page);
+    const afterRightBoundaryWheel = await readScrollState();
+    expect(Math.abs(afterRightBoundaryWheel.rightScrollTop - beforeRightBoundaryWheel.rightScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterRightBoundaryWheel.leftScrollTop - beforeRightBoundaryWheel.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterRightBoundaryWheel.windowY - beforeRightBoundaryWheel.windowY)).toBeLessThanOrEqual(1);
+
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    );
+    expect(hasHorizontalOverflow).toBe(false);
     expectNoPageErrors(errors);
   });
 
