@@ -745,6 +745,34 @@ test("word-problems-100 uses one responsive two-stage tape instead of a fixed pi
   assert.match(wordProblems, /className="h-11 w-11[^"]*" aria-label=\{`Increase/u);
 });
 
+test("fluent-within-20 keeps the operand frames and adds a deterministic making-a-ten layer", () => {
+  const fluentWithinTwenty = source("fluent-within-20");
+
+  assert.match(fluentWithinTwenty, /buildFluentWithin20MakingTen/u);
+  assert.match(fluentWithinTwenty, /buildFluentWithin20Strategy/u);
+  assert.match(fluentWithinTwenty, /data-operand-ten-frames/u);
+  assert.match(fluentWithinTwenty, /Frame cells=\{makingTen\.originalFirstFrame\} frame="first" kind="operand"/u);
+  assert.match(fluentWithinTwenty, /Frame cells=\{makingTen\.originalSecondFrame\} frame="second" kind="operand"/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-diagram=/u);
+  assert.match(fluentWithinTwenty, /role="img"/u);
+  assert.match(fluentWithinTwenty, /aria-label=\{makingTen\.ariaLabel\}/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-title/u);
+  assert.match(fluentWithinTwenty, /Another way: Make a ten/u);
+  assert.match(fluentWithinTwenty, /Frame cells=\{makingTen\.madeTenFrame\} frame="ten" kind="making-ten"/u);
+  assert.match(fluentWithinTwenty, /Frame cells=\{makingTen\.remainderFrame\} frame="remainder" kind="making-ten"/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-counter-source=/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-counter-role=/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-transfer/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-fill-equation/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-split/u);
+  assert.match(fluentWithinTwenty, /data-making-ten-equation/u);
+  assert.match(fluentWithinTwenty, /data-fluent-within-20-live/u);
+  assert.match(fluentWithinTwenty, /aria-live="polite"/u);
+  assert.match(fluentWithinTwenty, /aria-atomic="true"/u);
+  assert.match(fluentWithinTwenty, /className="h-11 w-11[^"]*" aria-label=\{`Decrease/u);
+  assert.match(fluentWithinTwenty, /className="h-11 w-11[^"]*" aria-label=\{`Increase/u);
+});
+
 test("HTML mathematical controls reflow instead of expanding the Figure stage", () => {
   const metricConversion = source("metric-conversion");
   assert.match(metricConversion, /grid-cols-\[minmax\(0,1fr\)_auto_minmax\(0,1fr\)\]/u);

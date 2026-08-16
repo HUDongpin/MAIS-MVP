@@ -527,6 +527,106 @@ async function wordProblemTapeGeometry(lesson: Locator) {
   });
 }
 
+async function fluentWithin20FrameGeometry(lesson: Locator) {
+  const operandFrames = lesson.locator("[data-operand-ten-frames]");
+  await expect(operandFrames).toBeVisible();
+  return operandFrames.evaluate((element: HTMLElement) => {
+    const lessonElement = element.closest<HTMLElement>('[data-ccss-lesson="fluent-within-20"]');
+    const figureStage = element.closest<HTMLElement>("[data-figure-stage]");
+    if (!lessonElement) throw new Error("The ten-frames must remain inside Mental Math Within 20.");
+    if (!figureStage) throw new Error("Mental Math Within 20 must remain inside its Figure stage.");
+
+    const rect = (target: Element) => {
+      const bounds = target.getBoundingClientRect();
+      return {
+        bottom: bounds.bottom,
+        height: bounds.height,
+        left: bounds.left,
+        right: bounds.right,
+        top: bounds.top,
+        width: bounds.width
+      };
+    };
+    const readFrame = (target: HTMLElement) => {
+      const frameRect = rect(target);
+      const cells = Array.from(
+        target.querySelectorAll<HTMLElement>("[data-ten-frame-cell]")
+      ).map((cell) => {
+        const style = getComputedStyle(cell);
+        return {
+          backgroundColor: style.backgroundColor,
+          boxShadow: style.boxShadow,
+          rect: rect(cell),
+          role: cell.dataset.makingTenCounterRole ?? "original",
+          source:
+            cell.dataset.makingTenCounterSource
+            ?? cell.dataset.operandCounterSource
+            ?? "empty"
+        };
+      });
+      return {
+        allCellsInside:
+          cells.every((cell) =>
+            cell.rect.left >= frameRect.left - 1
+            && cell.rect.right <= frameRect.right + 1
+            && cell.rect.top >= frameRect.top - 1
+            && cell.rect.bottom <= frameRect.bottom + 1
+          ),
+        cells,
+        filledPaintDiffersFromEmpty: (() => {
+          const filled = cells.filter((cell) => cell.source !== "empty");
+          const empty = cells.filter((cell) => cell.source === "empty");
+          return filled.length === 0 || empty.length === 0 || filled.every((filledCell) =>
+            empty.every((emptyCell) => filledCell.backgroundColor !== emptyCell.backgroundColor)
+          );
+        })(),
+        rect: frameRect
+      };
+    };
+    const frameEntries = [
+      ...Array.from(lessonElement.querySelectorAll<HTMLElement>("[data-operand-frame]"))
+        .map((frame) => [frame.dataset.operandFrame!, readFrame(frame)] as const),
+      ...Array.from(lessonElement.querySelectorAll<HTMLElement>("[data-making-ten-frame]"))
+        .map((frame) => [frame.dataset.makingTenFrame!, readFrame(frame)] as const)
+    ];
+    const frames = Object.fromEntries(frameEntries);
+    const makingTenDiagram = lessonElement.querySelector<HTMLElement>("[data-making-ten-diagram]");
+    const diagramRect = makingTenDiagram ? rect(makingTenDiagram) : null;
+    const figureRect = rect(figureStage);
+    const supplementalFrames = [frames.ten, frames.remainder].filter(Boolean);
+    const supplementalFramesDoNotOverlap = supplementalFrames.length < 2 || !(
+      supplementalFrames[0]!.rect.left < supplementalFrames[1]!.rect.right
+      && supplementalFrames[0]!.rect.right > supplementalFrames[1]!.rect.left
+      && supplementalFrames[0]!.rect.top < supplementalFrames[1]!.rect.bottom
+      && supplementalFrames[0]!.rect.bottom > supplementalFrames[1]!.rect.top
+    );
+    const sourceColor = (source: string) => {
+      const cell = [frames.first, frames.second]
+        .flatMap((frame) => frame?.cells ?? [])
+        .find((candidate) => candidate.source === source);
+      return cell?.backgroundColor ?? null;
+    };
+    const supplementalColorsMatchOperands = supplementalFrames.every((frame) =>
+      frame!.cells.every((cell) =>
+        cell.source === "empty" || cell.backgroundColor === sourceColor(cell.source)
+      )
+    );
+
+    return {
+      diagramInsideFigure: diagramRect === null || (
+        diagramRect.left >= figureRect.left - 1
+        && diagramRect.right <= figureRect.right + 1
+      ),
+      documentHorizontalOverflow:
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      figureHorizontalOverflow: figureStage.scrollWidth > figureStage.clientWidth + 1,
+      frames,
+      supplementalColorsMatchOperands,
+      supplementalFramesDoNotOverlap
+    };
+  });
+}
+
 test.describe("Learning Worlds lesson menu", () => {
   test.beforeEach(async ({ page }) => {
     await authenticateAsUserId(page, californiaSuperStudentId);
@@ -1308,6 +1408,307 @@ test.describe("Learning Worlds lesson menu", () => {
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
     )).toBe(false);
     expect(new URL(page.url()).pathname).toBe(gradeTwoFluencyArraysTopicPath);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 2 Unit 1 shows a complete making-a-ten model beside every crossing-ten fact", async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeTwoFluencyArraysTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    if (isMobile) {
+      await world.getByRole("button", {
+        name: /open the full map|展開完整地圖|展开完整地图/i
+      }).click();
+    }
+
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    const mentalMathJump = quickJumpMap.getByRole("button", {
+      name: "1.2 Mental Math Within 20 ⚡",
+      exact: true
+    });
+    await expect(currentUnit).toHaveCount(1);
+    const currentHref = await currentUnit.getAttribute("href");
+    const currentLabel = await currentUnit.getAttribute("aria-label");
+    expect(currentHref).toBeTruthy();
+    expect(currentLabel).toBeTruthy();
+    await expect(mentalMathJump).toBeVisible();
+    await mentalMathJump.click();
+
+    const lesson = rightPane.locator('[data-ccss-lesson="fluent-within-20"]');
+    await expect(lesson).toHaveAttribute("data-ccss-diagram-hydrated", "true", {
+      timeout: 30_000
+    });
+    await expectLessonTargetVisible(lesson);
+    await expect(rightPane.getByRole("heading", {
+      level: 2,
+      name: "1.2 Mental Math Within 20",
+      exact: true
+    })).toHaveCount(1);
+
+    const originalDiagram = lesson.locator('[data-operand-ten-frames]');
+    const makingTenDiagram = lesson.locator('[data-making-ten-diagram="active"]');
+    const makingTenTitle = lesson.locator("[data-making-ten-title]");
+    const transfer = lesson.locator("[data-making-ten-transfer]");
+    const splitEquation = lesson.locator("[data-making-ten-split]");
+    const fillEquation = lesson.locator("[data-making-ten-fill-equation]");
+    const totalEquation = lesson.locator("[data-making-ten-equation]");
+    const liveModel = lesson.locator("[data-fluent-within-20-live]");
+    const decreaseFirst = lesson.getByRole("button", { name: "Decrease First", exact: true });
+    const increaseFirst = lesson.getByRole("button", { name: "Increase First", exact: true });
+    const increaseSecond = lesson.getByRole("button", { name: "Increase Second", exact: true });
+    const decreaseSecond = lesson.getByRole("button", { name: "Decrease Second", exact: true });
+
+    const expectFrameState = async (
+      expected: {
+        first: number;
+        second: number;
+        ten?: { first: number; second: number };
+        remainder?: { first: number; second: number };
+      }
+    ) => {
+      const geometry = await fluentWithin20FrameGeometry(lesson);
+      const frame = (id: string) => {
+        const value = geometry.frames[id];
+        expect(value, `ten-frame ${id} must exist`).toBeTruthy();
+        return value!;
+      };
+      const count = (id: string, source: string, role?: string) =>
+        frame(id).cells.filter((cell) =>
+          cell.source === source && (role === undefined || cell.role === role)
+        ).length;
+      for (const id of Object.keys(geometry.frames)) {
+        expect(frame(id).cells).toHaveLength(10);
+        expect(frame(id).allCellsInside).toBe(true);
+        expect(frame(id).filledPaintDiffersFromEmpty).toBe(true);
+        for (const cell of frame(id).cells.filter((candidate) => candidate.source !== "empty")) {
+          expect(cell.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
+        }
+      }
+      expect(count("first", "first", "original")).toBe(expected.first);
+      expect(count("second", "second", "original")).toBe(expected.second);
+      if (expected.ten && expected.remainder) {
+        expect(Object.keys(geometry.frames).sort()).toEqual(["first", "remainder", "second", "ten"]);
+        expect(frame("ten").cells.length + frame("remainder").cells.length).toBe(20);
+        expect(count("ten", "first")).toBe(expected.ten.first);
+        expect(count("ten", "second")).toBe(expected.ten.second);
+        expect(count("remainder", "first")).toBe(expected.remainder.first);
+        expect(count("remainder", "second")).toBe(expected.remainder.second);
+        for (const source of ["first", "second"] as const) {
+          if (expected.remainder[source] > 0) {
+            expect(count("ten", source, "moved")).toBe(expected.ten[source]);
+            expect(count("remainder", source, "remaining")).toBe(expected.remainder[source]);
+          } else if (expected.ten[source] > 0) {
+            expect(count("ten", source, "anchor")).toBe(expected.ten[source]);
+          }
+        }
+        expect(geometry.supplementalColorsMatchOperands).toBe(true);
+        expect(geometry.supplementalFramesDoNotOverlap).toBe(true);
+        const movedCells = frame("ten").cells.filter((cell) => cell.role === "moved");
+        const anchorCells = frame("ten").cells.filter((cell) => cell.role === "anchor");
+        const remainingCells = frame("remainder").cells.filter((cell) => cell.role === "remaining");
+        expect(movedCells.length).toBeGreaterThan(0);
+        expect(anchorCells.length).toBeGreaterThan(0);
+        expect(remainingCells.length).toBeGreaterThan(0);
+        for (const moved of movedCells) {
+          expect(moved.boxShadow).not.toBe("none");
+          expect(moved.boxShadow).not.toBe(anchorCells[0]!.boxShadow);
+          expect(moved.boxShadow).not.toBe(remainingCells[0]!.boxShadow);
+        }
+      } else {
+        expect(Object.keys(geometry.frames).sort()).toEqual(["first", "second"]);
+      }
+      expect(geometry.diagramInsideFigure).toBe(true);
+      expect(geometry.figureHorizontalOverflow).toBe(false);
+      expect(geometry.documentHorizontalOverflow).toBe(false);
+      await expect(lesson.locator("[data-figure-stage]")).not.toHaveAttribute(
+        "data-figure-overflowing",
+        "true"
+      );
+    };
+
+    await expect(originalDiagram).toHaveAttribute(
+      "aria-label",
+      "Original addends: the first ten-frame shows 8 orange counters and the second ten-frame shows 7 blue counters. 8 plus 7 equals 15."
+    );
+    await expect(makingTenDiagram).toHaveAttribute(
+      "aria-label",
+      "Making a ten diagram for 8 plus 7: keep 8 orange counters together, split 7 blue counters into 2 and 5, move 2 blue counters to make 10, then add the remaining 5 to make 15."
+    );
+    await expect(originalDiagram).toBeVisible();
+    await expect(makingTenDiagram).toBeVisible();
+    await expect(lesson.getByRole("img", {
+      name: "Original addends: the first ten-frame shows 8 orange counters and the second ten-frame shows 7 blue counters. 8 plus 7 equals 15.",
+      exact: true
+    })).toBeVisible();
+    await expect(makingTenTitle).toHaveText("Another way: Make a ten");
+    await expect(makingTenTitle).toBeVisible();
+    await expect(transfer).toHaveText(/Move 2$/u);
+    await expect(transfer).toBeVisible();
+    await expect(splitEquation).toHaveText("7 = 2 + 5");
+    await expect(fillEquation).toHaveText("8 + 2 = 10");
+    await expect(totalEquation).toHaveText("8 + 7 = 10 + 5 = 15");
+    await expect(splitEquation).toBeVisible();
+    await expect(fillEquation).toBeVisible();
+    await expect(totalEquation).toBeVisible();
+    await expect(lesson.getByRole("img", {
+      name: "Making a ten diagram for 8 plus 7: keep 8 orange counters together, split 7 blue counters into 2 and 5, move 2 blue counters to make 10, then add the remaining 5 to make 15.",
+      exact: true
+    })).toBeVisible();
+    await expect(lesson.getByText("Near double", { exact: true })).toBeVisible();
+    await expect(lesson.getByText(
+      "8 + 7 = 7 + 7 + 1 = 14 + 1 = 15.",
+      { exact: true }
+    )).toBeVisible();
+    await expect(liveModel).toHaveCount(1);
+    await expect(liveModel).toHaveAttribute("aria-live", "polite");
+    await expect(liveModel).toHaveAttribute("aria-atomic", "true");
+    await expect(liveModel).toHaveText(
+      "Making a ten diagram for 8 plus 7: keep 8 orange counters together, split 7 blue counters into 2 and 5, move 2 blue counters to make 10, then add the remaining 5 to make 15. Automatic strategy: Near double. 8 + 7 = 7 + 7 + 1 = 14 + 1 = 15."
+    );
+    await expectFrameState({
+      first: 8,
+      remainder: { first: 0, second: 5 },
+      second: 7,
+      ten: { first: 8, second: 2 }
+    });
+
+    await alignLessonControlInItsScrollRoot(decreaseFirst);
+    for (const control of [decreaseFirst, increaseFirst, increaseSecond, decreaseSecond]) {
+      const box = await control.boundingBox();
+      expect(box).toBeTruthy();
+      expect(box!.width).toBeGreaterThanOrEqual(44);
+      expect(box!.height).toBeGreaterThanOrEqual(44);
+    }
+    const desktopScrollBaseline = isMobile ? null : {
+      leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+
+    await decreaseFirst.click();
+    await decreaseFirst.click();
+    await decreaseSecond.click();
+    await expect(originalDiagram).toHaveAttribute(
+      "aria-label",
+      "Original addends: the first ten-frame shows 6 orange counters and the second ten-frame shows 6 blue counters. 6 plus 6 equals 12."
+    );
+    await expect(lesson.getByText("Doubles", { exact: true })).toBeVisible();
+    await expect(lesson.getByText(
+      "6 + 6 is a double you can memorize = 12.",
+      { exact: true }
+    )).toBeVisible();
+    await expect(splitEquation).toHaveText("6 = 4 + 2");
+    await expect(fillEquation).toHaveText("6 + 4 = 10");
+    await expect(totalEquation).toHaveText("6 + 6 = 10 + 2 = 12");
+    await expect(liveModel).toHaveText(
+      "Making a ten diagram for 6 plus 6: keep 6 orange counters together, split 6 blue counters into 4 and 2, move 4 blue counters to make 10, then add the remaining 2 to make 12. Automatic strategy: Doubles. 6 + 6 is a double you can memorize = 12."
+    );
+    await expectFrameState({
+      first: 6,
+      remainder: { first: 0, second: 2 },
+      second: 6,
+      ten: { first: 6, second: 4 }
+    });
+
+    await decreaseFirst.click();
+    await decreaseFirst.click();
+    await increaseSecond.click();
+    await increaseSecond.click();
+    await expect(originalDiagram).toHaveAttribute(
+      "aria-label",
+      "Original addends: the first ten-frame shows 4 orange counters and the second ten-frame shows 8 blue counters. 4 plus 8 equals 12."
+    );
+    await expect(makingTenDiagram).toHaveAttribute(
+      "aria-label",
+      "Making a ten diagram for 4 plus 8: keep 8 blue counters together, split 4 orange counters into 2 and 2, move 2 orange counters to make 10, then add the remaining 2 to make 12."
+    );
+    await expect(makingTenDiagram).toBeVisible();
+    await expect(lesson.getByText("Make a ten", { exact: true })).toBeVisible();
+    await expect(lesson.getByText(
+      "Fill a ten: 8 + 2 = 10. Split 4 into 2 + 2, then 10 + 2 = 12.",
+      { exact: true }
+    )).toBeVisible();
+    await expect(transfer).toHaveText(/Move 2$/u);
+    await expect(splitEquation).toHaveText("4 = 2 + 2");
+    await expect(fillEquation).toHaveText("8 + 2 = 10");
+    await expect(totalEquation).toHaveText("4 + 8 = 10 + 2 = 12");
+    await expect(liveModel).toHaveText(
+      "Making a ten diagram for 4 plus 8: keep 8 blue counters together, split 4 orange counters into 2 and 2, move 2 orange counters to make 10, then add the remaining 2 to make 12. Automatic strategy: Make a ten. Fill a ten: 8 + 2 = 10. Split 4 into 2 + 2, then 10 + 2 = 12."
+    );
+    await expectFrameState({
+      first: 4,
+      remainder: { first: 2, second: 0 },
+      second: 8,
+      ten: { first: 2, second: 8 }
+    });
+
+    await decreaseSecond.click();
+    await decreaseSecond.click();
+    await expect(originalDiagram).toHaveAttribute(
+      "aria-label",
+      "Original addends: the first ten-frame shows 4 orange counters and the second ten-frame shows 6 blue counters. 4 plus 6 equals 10."
+    );
+    await expect(lesson.getByText("Count on", { exact: true })).toBeVisible();
+    await expect(lesson.getByText(
+      "Start at 6 and count on 4 = 10.",
+      { exact: true }
+    )).toBeVisible();
+    await expect(makingTenDiagram).toHaveCount(0);
+    await expect(makingTenTitle).toHaveCount(0);
+    await expect(transfer).toHaveCount(0);
+    await expect(splitEquation).toHaveCount(0);
+    await expect(fillEquation).toHaveCount(0);
+    await expect(totalEquation).toHaveCount(0);
+    await expect(liveModel).toHaveText(
+      "Original ten-frame diagram: the first frame shows 4 orange counters and the second frame shows 6 blue counters. 4 plus 6 equals 10. Automatic strategy: Count on. Start at 6 and count on 4 = 10."
+    );
+    await expectFrameState({ first: 4, second: 6 });
+
+    await decreaseSecond.click();
+    await expect(originalDiagram).toHaveAttribute(
+      "aria-label",
+      "Original addends: the first ten-frame shows 4 orange counters and the second ten-frame shows 5 blue counters. 4 plus 5 equals 9."
+    );
+    await expect(lesson.getByText("Near double", { exact: true })).toBeVisible();
+    await expect(lesson.getByText(
+      "4 + 5 = 4 + 4 + 1 = 8 + 1 = 9.",
+      { exact: true }
+    )).toBeVisible();
+    await expect(makingTenDiagram).toHaveCount(0);
+    await expect(makingTenTitle).toHaveCount(0);
+    await expect(transfer).toHaveCount(0);
+    await expect(splitEquation).toHaveCount(0);
+    await expect(fillEquation).toHaveCount(0);
+    await expect(totalEquation).toHaveCount(0);
+    await expect(liveModel).toHaveText(
+      "Original ten-frame diagram: the first frame shows 4 orange counters and the second frame shows 5 blue counters. 4 plus 5 equals 9. Automatic strategy: Near double. 4 + 5 = 4 + 4 + 1 = 8 + 1 = 9."
+    );
+    await expectFrameState({ first: 4, second: 5 });
+
+    if (desktopScrollBaseline) {
+      expect(Math.abs(
+        await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - desktopScrollBaseline.leftScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await page.evaluate(() => window.scrollY) - desktopScrollBaseline.windowY
+      )).toBeLessThanOrEqual(1);
+    }
+    await expect(currentUnit).toHaveAttribute("href", currentHref!);
+    await expect(currentUnit).toHaveAttribute("aria-label", currentLabel!);
+
+    expect(new URL(page.url()).pathname).toBe(gradeTwoFluencyArraysTopicPath);
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
     expectNoPageErrors(errors);
   });
 
