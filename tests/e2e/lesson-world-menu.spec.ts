@@ -38,6 +38,20 @@ function sourceQuestionForRenderedId(questionId: string | null) {
   return question;
 }
 
+function simplifiedChineseCorrectOptionDisplayText(
+  question: ReturnType<typeof sourceQuestionForRenderedId>
+) {
+  const option = question.options?.find((candidate) =>
+    candidate.en === question.answer
+    || candidate.zh === question.answer
+    || candidate.zhHans === question.answer
+  );
+  if (!option) {
+    throw new Error(`Question ${question.id} must expose its authoritative answer through a localized option.`);
+  }
+  return formatPracticeOptionDisplayText(option.zhHans ?? option.zh ?? option.en);
+}
+
 async function openLessonPage(page: Page, path: string) {
   await page.goto(path);
   // The world menu hydrates with the lesson shell; the aside is server-rendered
@@ -271,7 +285,11 @@ async function expectUnitStopVisualState(stop: Locator, expectedState: LessonUni
   return markerText;
 }
 
-async function registerCaliforniaGradeOneStudent(page: Page, testInfo: TestInfo) {
+async function registerCaliforniaGradeOneStudent(
+  page: Page,
+  testInfo: TestInfo,
+  language: "en" | "zh-Hans" = "en"
+) {
   const suffix = uniqueSuffix(testInfo);
   const username = `world-stop-${suffix}@example.test`;
   const response = await page.request.post("/api/auth/register", {
@@ -284,7 +302,7 @@ async function registerCaliforniaGradeOneStudent(page: Page, testInfo: TestInfo)
       grade: "P1",
       curriculumTrack: "US_CA_MATH",
       curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
-      language: "en",
+      language,
       theme: "light"
     }
   });
@@ -294,6 +312,83 @@ async function registerCaliforniaGradeOneStudent(page: Page, testInfo: TestInfo)
   expect(body.user?.id).toBeTruthy();
   expect(body.user?.role).toBe("student");
   return body.user!.id!;
+}
+
+async function lessonSummaryHitTestSnapshot(closeButton: Locator) {
+  return closeButton.evaluate((button: HTMLButtonElement) => {
+    const dialog = button.closest<HTMLElement>('[role="dialog"]');
+    const overlay = button.closest<HTMLElement>('[data-lesson-summary-overlay="true"]');
+    const navbar = document.querySelector<HTMLElement>("body header");
+    if (!dialog || !overlay || !navbar) {
+      throw new Error("The lesson summary must render above the app navbar in its dedicated overlay.");
+    }
+
+    const buttonRect = button.getBoundingClientRect();
+    const dialogRect = dialog.getBoundingClientRect();
+    const navbarRect = navbar.getBoundingClientRect();
+    const visualViewport = window.visualViewport;
+    const viewport = {
+      bottom: (visualViewport?.offsetTop ?? 0) + (visualViewport?.height ?? window.innerHeight),
+      left: visualViewport?.offsetLeft ?? 0,
+      right: (visualViewport?.offsetLeft ?? 0) + (visualViewport?.width ?? window.innerWidth),
+      top: visualViewport?.offsetTop ?? 0
+    };
+    const elementBelongsTo = (owner: Element, candidate: Element | null) =>
+      candidate !== null && (candidate === owner || owner.contains(candidate));
+    const buttonCenterHit = document.elementFromPoint(
+      buttonRect.left + buttonRect.width / 2,
+      buttonRect.top + buttonRect.height / 2
+    );
+    const buttonTopCenterHit = document.elementFromPoint(
+      buttonRect.left + buttonRect.width / 2,
+      buttonRect.top + 2
+    );
+    const navbarCenterHit = document.elementFromPoint(
+      navbarRect.left + navbarRect.width / 2,
+      navbarRect.top + navbarRect.height / 2
+    );
+
+    return {
+      button: {
+        bottom: buttonRect.bottom,
+        height: buttonRect.height,
+        left: buttonRect.left,
+        right: buttonRect.right,
+        top: buttonRect.top,
+        width: buttonRect.width
+      },
+      buttonCenterHit: elementBelongsTo(button, buttonCenterHit),
+      buttonTopCenterHit: elementBelongsTo(button, buttonTopCenterHit),
+      dialog: {
+        bottom: dialogRect.bottom,
+        left: dialogRect.left,
+        right: dialogRect.right,
+        top: dialogRect.top
+      },
+      navbarBottom: navbarRect.bottom,
+      navbarCenterOwnedByOverlay: elementBelongsTo(overlay, navbarCenterHit),
+      portalParentIsBody: overlay.parentElement === document.body,
+      viewport
+    };
+  });
+}
+
+async function alignLessonControlInItsScrollRoot(control: Locator) {
+  await control.evaluate((element: HTMLElement) => {
+    const pane = element.closest<HTMLElement>(
+      "[data-lesson-content-pane], [data-lesson-directory-pane]"
+    );
+    if (pane && window.matchMedia("(min-width: 1024px)").matches) {
+      const paneRect = pane.getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      pane.scrollTo({
+        behavior: "auto",
+        top: Math.max(0, pane.scrollTop + elementRect.top - paneRect.top - 24)
+      });
+      return;
+    }
+    element.scrollIntoView({ behavior: "auto", block: "center" });
+  });
 }
 
 async function expectLessonTargetVisible(target: Locator) {
@@ -1143,6 +1238,166 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(fourthStone).toHaveAttribute("aria-current", "step");
     await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[3]!);
 
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
+  test("Shape Reasoning score summary keeps its close control below the navbar and normally clickable", async ({ page }, testInfo) => {
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    if (!isMobile) {
+      await page.setViewportSize({ width: 1280, height: 720 });
+    }
+
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await registerCaliforniaGradeOneStudent(page, testInfo, "zh-Hans");
+    await openLessonPage(page, gradeOneShapeReasoningTopicPath);
+
+    const lessonUrl = page.url();
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const practice = rightPane.locator("#lesson-practice");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    if (isMobile) {
+      await world.getByRole("button", { name: /open the full map|展開完整地圖|展开完整地图/i }).click();
+    }
+
+    const practiceJump = world.locator("ol:visible").getByRole("button", {
+      name: /^4\.5 (Practice check|練習檢查|练习检查)$/,
+      exact: true
+    });
+    await alignLessonControlInItsScrollRoot(practiceJump);
+    await expect(practiceJump).toBeVisible();
+    await practiceJump.click();
+    await expectLessonTargetVisible(practice);
+
+    const bodyOverflowBeforeSummary = await page.evaluate(() => document.body.style.overflow);
+    const questionCards = practice.locator('[data-ai-selectable="practice-question"]');
+    const visibleQuestionCard = () => practice.locator('[data-ai-selectable="practice-question"]:not([hidden])');
+    const questionIds = await questionCards.evaluateAll((cards) => cards.map(
+      (card) => card.getAttribute("data-ai-question-id")
+    ));
+    expect(questionIds).toHaveLength(5);
+    expect(questionIds.every(Boolean)).toBe(true);
+
+    const missionTrail = practice.locator('[data-testid="lesson-mission-trail"]');
+    for (let questionIndex = 0; questionIndex < questionIds.length; questionIndex += 1) {
+      const question = sourceQuestionForRenderedId(questionIds[questionIndex]);
+      expect(question.topicId).toBe("us-ca-math-p1-1-g-shape-reasoning");
+      expect(question.type).toBe("multiple-choice");
+      const card = visibleQuestionCard();
+      await expect(card).toHaveCount(1);
+      await expect(card).toHaveAttribute("data-ai-question-id", question.id);
+
+      const correctOption = card.getByRole("button", {
+        name: simplifiedChineseCorrectOptionDisplayText(question),
+        exact: true
+      });
+      await expect(correctOption).toBeVisible();
+      await expect(correctOption).toBeEnabled();
+      await correctOption.click();
+
+      const checkAnswer = card.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i });
+      await expect(checkAnswer).toBeVisible();
+      await expect(checkAnswer).toBeEnabled();
+      const attemptResponsePromise = page.waitForResponse((response) => {
+        const postData = response.request().postData() ?? "";
+        return response.request().method() === "POST"
+          && new URL(response.url()).pathname === "/api/attempts"
+          && postData.includes(`"questionId":"${question.id}"`);
+      });
+      await checkAnswer.click();
+      const attemptResponse = await attemptResponsePromise;
+      expect(attemptResponse.ok()).toBe(true);
+      expect((await attemptResponse.json() as { correct?: boolean }).correct).toBe(true);
+      await expect(card.getByText(/^(Correct\b|正確|正确)/i).first()).toBeVisible();
+
+      if (questionIndex < questionIds.length - 1) {
+        const nextQuestionNumber = questionIndex + 2;
+        const nextStone = missionTrail.getByRole("button", {
+          name: new RegExp(`^(Go to question ${nextQuestionNumber}|跳到第 ${nextQuestionNumber} 題|跳到第 ${nextQuestionNumber} 题)$`)
+        });
+        await expect(nextStone).toBeVisible();
+        await expect(nextStone).toBeEnabled();
+        await nextStone.click();
+        await expect(visibleQuestionCard()).toHaveAttribute(
+          "data-ai-question-id",
+          questionIds[questionIndex + 1]!
+        );
+      }
+    }
+
+    const summaryTitle = "5/5 全部正确，前往练习场继续";
+    const summaryDialog = page.getByRole("dialog", { name: summaryTitle, exact: true });
+    const closeSummary = summaryDialog.getByRole("button", {
+      name: /^(Close lesson summary|關閉課節摘要|关闭课时摘要)$/
+    });
+    await expect(summaryDialog).toBeVisible({ timeout: 15_000 });
+    await expect(closeSummary).toBeVisible();
+    await expect(closeSummary).toBeFocused();
+    expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
+
+    await expect.poll(async () => {
+      const snapshot = await lessonSummaryHitTestSnapshot(closeSummary);
+      return snapshot.buttonCenterHit
+        && snapshot.buttonTopCenterHit
+        && snapshot.navbarCenterOwnedByOverlay
+        && snapshot.portalParentIsBody;
+    }).toBe(true);
+    const initialGeometry = await lessonSummaryHitTestSnapshot(closeSummary);
+    expect(initialGeometry.button.width).toBeGreaterThanOrEqual(44);
+    expect(initialGeometry.button.height).toBeGreaterThanOrEqual(44);
+    expect(initialGeometry.button.top).toBeGreaterThanOrEqual(initialGeometry.navbarBottom + 8);
+    expect(initialGeometry.button.left).toBeGreaterThanOrEqual(initialGeometry.viewport.left - 1);
+    expect(initialGeometry.button.right).toBeLessThanOrEqual(initialGeometry.viewport.right + 1);
+    expect(initialGeometry.button.top).toBeGreaterThanOrEqual(initialGeometry.viewport.top - 1);
+    expect(initialGeometry.button.bottom).toBeLessThanOrEqual(initialGeometry.viewport.bottom + 1);
+    expect(initialGeometry.dialog.left).toBeGreaterThanOrEqual(initialGeometry.viewport.left - 1);
+    expect(initialGeometry.dialog.right).toBeLessThanOrEqual(initialGeometry.viewport.right + 1);
+    expect(initialGeometry.dialog.top).toBeGreaterThanOrEqual(initialGeometry.viewport.top - 1);
+    expect(initialGeometry.dialog.bottom).toBeLessThanOrEqual(initialGeometry.viewport.bottom + 1);
+
+    await page.keyboard.press("Escape");
+    await expect(summaryDialog).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflowBeforeSummary);
+
+    const reopenSummary = page.getByRole("button", { name: /^(View next step|查看下一步)$/ });
+    await alignLessonControlInItsScrollRoot(reopenSummary);
+    await expect(reopenSummary).toBeVisible();
+    await reopenSummary.focus();
+    await expect(reopenSummary).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(summaryDialog).toBeVisible();
+    await expect(closeSummary).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(summaryDialog).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflowBeforeSummary);
+
+    await alignLessonControlInItsScrollRoot(reopenSummary);
+    await expect(reopenSummary).toBeVisible();
+    await reopenSummary.click();
+    await expect(summaryDialog).toBeVisible();
+    await expect(closeSummary).toBeFocused();
+    const clickGeometry = await lessonSummaryHitTestSnapshot(closeSummary);
+    expect(clickGeometry.buttonCenterHit).toBe(true);
+    expect(clickGeometry.buttonTopCenterHit).toBe(true);
+    await closeSummary.click();
+    await expect(summaryDialog).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe(bodyOverflowBeforeSummary);
+
+    expect(await page.evaluate(() => {
+      const navbar = document.querySelector<HTMLElement>("body header");
+      if (!navbar) return false;
+      const rect = navbar.getBoundingClientRect();
+      const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      return hit !== null && (hit === navbar || navbar.contains(hit));
+    })).toBe(true);
+    expect(page.url()).toBe(lessonUrl);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
@@ -183,6 +184,15 @@ type LessonIllustration = {
   caption: LocalizedText;
   ragCardIds: string[];
 };
+
+function LessonSummaryPortal({ children }: { children: ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+  return createPortal(children, document.body);
+}
 
 const celebrationColors = ["#06b6d4", "#8b5cf6", "#22c55e", "#f59e0b", "#ec4899", "#38bdf8"];
 const lessonGalaxyCollapseDurationMs = 520;
@@ -3727,28 +3737,30 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         </>
       ) : null}
 
-      <AnimatePresence>
-        {isSummaryOpen && lessonPracticeSummary ? (
-          <motion.div
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setIsSummaryOpen(false);
-            }}
-          >
-            <motion.section
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="lesson-summary-title"
-              aria-describedby="lesson-summary-description"
-              className="max-h-[calc(100dvh-2rem)] w-full max-w-4xl overflow-y-auto rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-2xl shadow-slate-950/25 dark:border-white/10 dark:bg-slate-950 sm:p-6"
-              initial={{ opacity: 0, y: 20, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.98 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
+      <LessonSummaryPortal>
+        <AnimatePresence>
+          {isSummaryOpen && lessonPracticeSummary ? (
+            <motion.div
+              data-lesson-summary-overlay="true"
+              className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/65 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) setIsSummaryOpen(false);
+              }}
             >
+              <motion.section
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="lesson-summary-title"
+                aria-describedby="lesson-summary-description"
+                className="max-h-[calc(100dvh-6rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))] w-full max-w-4xl overflow-y-auto rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-2xl shadow-slate-950/25 dark:border-white/10 dark:bg-slate-950 sm:p-6"
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 12, scale: 0.98 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+              >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
@@ -3771,15 +3783,15 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                       : t(lessonSummaryEncouragement(lessonPracticeSummary.accuracyPercent))}
                   </p>
                 </div>
-                <button
-                  ref={summaryCloseButtonRef}
-                  type="button"
-                  onClick={() => setIsSummaryOpen(false)}
-                  aria-label={t({ en: "Close lesson summary", zh: "關閉課節摘要" })}
-                  className="focus-ring self-start rounded-full border border-slate-200/80 bg-white px-4 py-2 text-lg font-black text-slate-600 transition hover:-translate-y-0.5 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200 dark:hover:text-white"
-                >
-                  ×
-                </button>
+                  <button
+                    ref={summaryCloseButtonRef}
+                    type="button"
+                    onClick={() => setIsSummaryOpen(false)}
+                    aria-label={t({ en: "Close lesson summary", zh: "關閉課節摘要", zhHans: "关闭课时摘要" })}
+                    className="focus-ring min-h-11 min-w-11 self-start rounded-full border border-slate-200/80 bg-white px-4 py-2 text-lg font-black text-slate-600 transition hover:-translate-y-0.5 hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200 dark:hover:text-white"
+                  >
+                    ×
+                  </button>
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
@@ -3919,10 +3931,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   </div>
                 </section>
               </div>
-            </motion.section>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+              </motion.section>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </LessonSummaryPortal>
       <LessonBackToTopButton />
     </div>
   );
