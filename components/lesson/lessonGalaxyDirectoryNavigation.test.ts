@@ -4,6 +4,7 @@ import test from "node:test";
 
 const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.tsx", "utf8");
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
+const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
 
 test("map and list lesson quick jumps delegate one LessonView-owned callback", () => {
@@ -120,6 +121,45 @@ test("desktop wheel routing stays native to each contained lesson pane", () => {
     1,
     "The only LessonView wheel listener may be Bug 2's passive mobile-stabilization cleanup listener."
   );
+});
+
+test("lesson mission-trail selection changes only the right pager's local question state", () => {
+  assert.match(
+    practiceQuestPagerSource,
+    /data-testid=\{testId\}[\s\S]*?onClick=\{\(\) => onSelect\(index\)\}/,
+    "Mission stones must delegate their zero-based question index through the trail's onSelect callback."
+  );
+  assert.match(
+    lessonViewSource,
+    /<PracticeMissionTrail[\s\S]*?currentIndex=\{currentIndex\}[\s\S]*?onSelect=\{goToIndex\}/,
+    "Lesson practice must wire mission stones to the pager-local question selector."
+  );
+
+  const goToIndexStart = lessonViewSource.indexOf("const goToIndex = useCallback((index: number) => {");
+  const goToIndexEnd = lessonViewSource.indexOf("\n  const goToPrevious", goToIndexStart);
+  assert.notEqual(goToIndexStart, -1, "LessonQuestionPager must keep one local indexed-selection callback.");
+  assert.notEqual(goToIndexEnd, -1, "The source contract must isolate the indexed-selection callback.");
+  const goToIndexSource = lessonViewSource.slice(goToIndexStart, goToIndexEnd);
+
+  assert.match(
+    goToIndexSource,
+    /setCurrentIndex\(clampLessonQuestionIndex\(index, questionCount\)\);/,
+    "Selecting a mission stone must update only the pager's current question index."
+  );
+  for (const forbiddenSideEffect of [
+    "lessonDirectoryPaneRef",
+    "document.",
+    "window.scroll",
+    "scrollIntoView",
+    "scrollTo(",
+    "scrollBy("
+  ]) {
+    assert.equal(
+      goToIndexSource.includes(forbiddenSideEffect),
+      false,
+      `Mission selection must not contain the side effect ${forbiddenSideEffect}.`
+    );
+  }
 });
 
 test("teacher-guide menu targets remain inside the right lesson content pane", () => {

@@ -259,6 +259,178 @@ test.describe("Learning Worlds lesson menu", () => {
     expectNoPageErrors(errors);
   });
 
+  test("desktop lesson mission stones change questions without moving the left directory", async ({ page }, testInfo) => {
+    test.skip(Boolean(testInfo.project.use.isMobile), "Desktop independent-pane geometry is covered in the desktop project.");
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneAddSubtractTopicPath);
+
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const world = leftPane.locator('[data-lesson-world="sprout-meadow"]');
+    const unitLinks = world.locator("ol:visible").getByRole("link");
+    const currentUnit = world.locator('ol:visible a[aria-current="page"]');
+    const practice = rightPane.locator("#lesson-practice");
+    const missionTrail = practice.locator('[data-testid="lesson-mission-trail"]');
+
+    await expect(leftPane).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    await expect(unitLinks).toHaveCount(16);
+    await expect(currentUnit).toHaveCount(1);
+    await expect(practice).toBeAttached();
+
+    const leftBounds = await leftPane.evaluate((pane) => {
+      const maxScrollTop = pane.scrollHeight - pane.clientHeight;
+      pane.scrollTop = Math.round(maxScrollTop * 0.62);
+      return { maxScrollTop };
+    });
+    await waitForAnimationFrames(page);
+    const leftScrollTop = await leftPane.evaluate((pane) => pane.scrollTop);
+    expect(leftBounds.maxScrollTop).toBeGreaterThan(1);
+    expect(leftScrollTop).toBeGreaterThan(leftBounds.maxScrollTop * 0.35);
+
+    const anchorIndex = await unitLinks.evaluateAll((links) => {
+      const pane = links[0]?.closest<HTMLElement>("[data-lesson-directory-pane]");
+      if (!pane) return -1;
+      const paneRect = pane.getBoundingClientRect();
+      return links.findIndex((link) => {
+        const rect = link.getBoundingClientRect();
+        return rect.top >= paneRect.top + 4 && rect.bottom <= paneRect.bottom - 4;
+      });
+    });
+    expect(anchorIndex).toBeGreaterThanOrEqual(0);
+    const leftAnchor = unitLinks.nth(anchorIndex);
+    await expect(leftAnchor).toBeVisible();
+    const leftAnchorHandle = await leftAnchor.elementHandle();
+    const currentUnitHandle = await currentUnit.elementHandle();
+    if (!leftAnchorHandle || !currentUnitHandle) {
+      throw new Error("Stable left-directory anchors must remain attached during the mission-trail test.");
+    }
+
+    await rightPane.evaluate((pane) => {
+      const target = pane.querySelector<HTMLElement>("#lesson-practice");
+      if (!target) throw new Error("Lesson practice must render inside the right pane.");
+      const paneRect = pane.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      pane.scrollTo({
+        behavior: "auto",
+        top: Math.max(0, pane.scrollTop + targetRect.top - paneRect.top - 16)
+      });
+    });
+    await expect(missionTrail).toBeVisible({ timeout: 30_000 });
+    await expect(missionTrail.getByRole("button")).toHaveCount(5);
+
+    const questionCards = practice.locator('[data-ai-selectable="practice-question"]');
+    await expect(questionCards).toHaveCount(5);
+    const questionIds = await questionCards.evaluateAll((cards) => cards.map((card) => card.getAttribute("data-ai-question-id")));
+    expect(questionIds.every(Boolean)).toBe(true);
+    expect(new Set(questionIds).size).toBe(5);
+
+    const readPaneRelativeAnchor = (anchor: Locator) => anchor.evaluate((element) => {
+      const pane = element.closest<HTMLElement>("[data-lesson-directory-pane]");
+      if (!pane) throw new Error("The stable anchor must remain inside the left lesson pane.");
+      const paneRect = pane.getBoundingClientRect();
+      const anchorRect = element.getBoundingClientRect();
+      return {
+        bottom: anchorRect.bottom - paneRect.top,
+        href: element.getAttribute("href"),
+        label: element.getAttribute("aria-label"),
+        top: anchorRect.top - paneRect.top
+      };
+    });
+
+    const baseline = {
+      currentUnit: await readPaneRelativeAnchor(currentUnit),
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      stableAnchor: await readPaneRelativeAnchor(leftAnchor),
+      url: page.url(),
+      windowHash: await page.evaluate(() => window.location.hash),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    expect(baseline.leftScrollTop).toBeGreaterThan(0);
+    await leftPane.evaluate((pane) => {
+      const evidence = {
+        leftScrollTops: [pane.scrollTop],
+        windowYs: [window.scrollY]
+      };
+      const recordLeftScroll = () => evidence.leftScrollTops.push(pane.scrollTop);
+      const recordWindowScroll = () => evidence.windowYs.push(window.scrollY);
+      pane.addEventListener("scroll", recordLeftScroll, { passive: true });
+      window.addEventListener("scroll", recordWindowScroll, { passive: true });
+      const evidenceOwner = window as typeof window & {
+        __lessonMissionScrollEvidence?: typeof evidence & { cleanup: () => void };
+      };
+      evidenceOwner.__lessonMissionScrollEvidence = {
+        ...evidence,
+        cleanup: () => {
+          pane.removeEventListener("scroll", recordLeftScroll);
+          window.removeEventListener("scroll", recordWindowScroll);
+        }
+      };
+    });
+
+    for (const questionNumber of [2, 3, 4, 1]) {
+      const missionStone = missionTrail.getByRole("button", { name: `Go to question ${questionNumber}`, exact: true });
+      await expect(missionStone).toHaveCount(1);
+      await missionStone.click();
+
+      await expect(missionStone).toBeFocused();
+      await expect(missionStone).toHaveAttribute("aria-current", "step");
+      await expect(practice.getByText(`Question ${questionNumber} of 5`, { exact: true })).toBeVisible();
+      const visibleQuestion = practice.locator('[data-ai-selectable="practice-question"]:not([hidden])');
+      await expect(visibleQuestion).toHaveCount(1);
+      await expect(visibleQuestion).toHaveAttribute(
+        "data-ai-question-id",
+        questionIds[questionNumber - 1]!
+      );
+
+      const after = {
+        currentUnit: await readPaneRelativeAnchor(currentUnit),
+        leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+        stableAnchor: await readPaneRelativeAnchor(leftAnchor),
+        url: page.url(),
+        windowHash: await page.evaluate(() => window.location.hash),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      expect(await leftAnchor.evaluate((candidate, original) => candidate.isSameNode(original), leftAnchorHandle)).toBe(true);
+      expect(await currentUnit.evaluate((candidate, original) => candidate.isSameNode(original), currentUnitHandle)).toBe(true);
+      expect(after.stableAnchor.href).toBe(baseline.stableAnchor.href);
+      expect(after.stableAnchor.label).toBe(baseline.stableAnchor.label);
+      expect(Math.abs(after.stableAnchor.top - baseline.stableAnchor.top)).toBeLessThanOrEqual(1);
+      expect(Math.abs(after.stableAnchor.bottom - baseline.stableAnchor.bottom)).toBeLessThanOrEqual(1);
+      expect(after.currentUnit.href).toBe(baseline.currentUnit.href);
+      expect(after.currentUnit.label).toBe(baseline.currentUnit.label);
+      expect(Math.abs(after.currentUnit.top - baseline.currentUnit.top)).toBeLessThanOrEqual(1);
+      expect(Math.abs(after.currentUnit.bottom - baseline.currentUnit.bottom)).toBeLessThanOrEqual(1);
+      expect(Math.abs(after.leftScrollTop - baseline.leftScrollTop)).toBeLessThanOrEqual(1);
+      expect(Math.abs(after.windowY - baseline.windowY)).toBeLessThanOrEqual(1);
+      expect(after.url).toBe(baseline.url);
+      expect(after.windowHash).toBe(baseline.windowHash);
+    }
+
+    const scrollEvidence = await page.evaluate(() => {
+      const evidenceOwner = window as typeof window & {
+        __lessonMissionScrollEvidence?: {
+          cleanup: () => void;
+          leftScrollTops: number[];
+          windowYs: number[];
+        };
+      };
+      const evidence = evidenceOwner.__lessonMissionScrollEvidence;
+      if (!evidence) throw new Error("Mission-trail scroll evidence recorder was not installed.");
+      evidence.cleanup();
+      return { leftScrollTops: evidence.leftScrollTops, windowYs: evidence.windowYs };
+    });
+    expect(scrollEvidence.leftScrollTops.every((value) => Math.abs(value - baseline.leftScrollTop) <= 1)).toBe(true);
+    expect(scrollEvidence.windowYs.every((value) => Math.abs(value - baseline.windowY) <= 1)).toBe(true);
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    );
+    expect(hasHorizontalOverflow).toBe(false);
+
+    expectNoPageErrors(errors);
+  });
+
   test("desktop wheel input stays with the lesson pane under the pointer", async ({ page }, testInfo) => {
     test.skip(Boolean(testInfo.project.use.isMobile), "Desktop native wheel containment is covered in the desktop project.");
     const errors = collectPageErrors(page);
