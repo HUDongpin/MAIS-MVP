@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import {
   MathSoftKeyboard,
   reconcileMathKeyboardControlledValue,
+  resolveMathKeyboardFocusScrollLeft,
   resolveMathKeyboardEqualsAction
 } from "@/components/practice/MathSoftKeyboard";
 import type { Language } from "@/types";
@@ -57,11 +58,73 @@ test("undo and redo keep localized accessible names after equals becomes an acti
   }
 });
 
+test("focused keys align completely inside only their bounded horizontal row", () => {
+  const common = {
+    rowClientWidth: 200,
+    rowLeft: 100,
+    rowRight: 300,
+    rowScrollWidth: 500
+  };
+
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 120,
+    keyLeft: 150,
+    keyRight: 194
+  }), null);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 120,
+    keyLeft: 100.75,
+    keyRight: 144.75
+  }), 119.75);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 200,
+    keyLeft: 75,
+    keyRight: 119
+  }), 174);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 0,
+    keyLeft: 280,
+    keyRight: 330
+  }), 31);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 10,
+    keyLeft: 0,
+    keyRight: 44
+  }), 0);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 280,
+    keyLeft: 306,
+    keyRight: 350
+  }), 300);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 0,
+    keyLeft: Number.NaN,
+    keyRight: 144
+  }), null);
+  assert.equal(resolveMathKeyboardFocusScrollLeft({
+    ...common,
+    currentScrollLeft: 0,
+    keyLeft: 120,
+    keyRight: 164,
+    rowClientWidth: 500
+  }), null);
+});
+
 test("the shared keyboard advertises a compact touch-safe layout without oversized breakpoint keys", () => {
   const markup = renderedKeyboard("en");
   const regularKey = buttonOpeningTag(markup, "Insert 7");
   const editingKey = buttonOpeningTag(markup, "Move cursor left");
   const categoryTab = buttonOpeningTag(markup, "123");
+  const editingRow = markup.match(
+    /<div role="group" aria-label="Soft keyboard editing controls"[^>]*>/
+  )?.[0];
 
   assert.match(markup, /data-math-keyboard-layout="compact"/);
   assert.match(markup, /max-w-\[38rem\]/);
@@ -79,6 +142,15 @@ test("the shared keyboard advertises a compact touch-safe layout without oversiz
   assert.match(editingKey, /min-w-11/);
   assert.match(categoryTab, /min-h-11/);
   assert.match(categoryTab, /min-w-11/);
+  assert.ok(editingRow, "expected the editing controls group");
+  assert.match(editingRow, /data-math-keyboard-row="editing-controls"/);
+  assert.match(editingRow, /aria-describedby="math-keyboard-en-scroll-hint"/);
+  assert.match(editingRow, /tabindex="-1"/);
+  assert.match(editingRow, /flex-nowrap/);
+  assert.match(editingRow, /overflow-x-auto/);
+  assert.match(editingRow, /overscroll-x-contain/);
+  assert.match(editingRow, /\[scrollbar-width:thin\]/);
+  assert.doesNotMatch(editingRow, /flex-wrap/);
   assert.match(buttonOpeningTag(markup, "Toggle shift"), /data-math-key-size="extra-wide"/);
   assert.ok(
     [...markup.matchAll(/<button[^>]*aria-label="Clear answer"[^>]*>/g)]

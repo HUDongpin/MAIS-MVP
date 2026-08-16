@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type FocusEvent, type RefObject } from "react";
 import { MathText } from "@/components/math/MathText";
 import { calculateMathKeyboardAnswer } from "@/components/practice/mathSoftKeyboardCalculation";
 import { cn, localize } from "@/lib/utils";
@@ -46,6 +46,94 @@ type MathSoftKeyboardProps = {
 
 const maxHistoryLength = 24;
 const activePlaceholderLatex = String.raw`\textcolor{#1574d7}{\blacksquare}`;
+const horizontalKeyboardRowClassName = "flex flex-nowrap items-center justify-start overflow-x-auto overscroll-x-contain px-1 scroll-px-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-500/70 [&::-webkit-scrollbar-track]:bg-transparent";
+
+type MathKeyboardFocusScrollGeometry = {
+  currentScrollLeft: number;
+  keyLeft: number;
+  keyRight: number;
+  rowClientWidth: number;
+  rowLeft: number;
+  rowRight: number;
+  rowScrollWidth: number;
+};
+
+export function resolveMathKeyboardFocusScrollLeft({
+  currentScrollLeft,
+  keyLeft,
+  keyRight,
+  rowClientWidth,
+  rowLeft,
+  rowRight,
+  rowScrollWidth
+}: MathKeyboardFocusScrollGeometry) {
+  const measurements = [
+    currentScrollLeft,
+    keyLeft,
+    keyRight,
+    rowClientWidth,
+    rowLeft,
+    rowRight,
+    rowScrollWidth
+  ];
+  if (
+    measurements.some((measurement) => !Number.isFinite(measurement))
+    || rowClientWidth <= 0
+    || rowScrollWidth < rowClientWidth
+    || rowRight <= rowLeft
+    || keyRight < keyLeft
+  ) {
+    return null;
+  }
+
+  const maxScrollLeft = Math.max(0, rowScrollWidth - rowClientWidth);
+  const boundedCurrentScrollLeft = Math.min(maxScrollLeft, Math.max(0, currentScrollLeft));
+  if (maxScrollLeft === 0) return null;
+
+  const focusInset = 1;
+  let nextScrollLeft = boundedCurrentScrollLeft;
+  if (keyLeft < rowLeft + focusInset) {
+    nextScrollLeft += keyLeft - (rowLeft + focusInset);
+  } else if (keyRight > rowRight - focusInset) {
+    nextScrollLeft += keyRight - (rowRight - focusInset);
+  }
+
+  nextScrollLeft = Math.min(maxScrollLeft, Math.max(0, nextScrollLeft));
+  return nextScrollLeft === boundedCurrentScrollLeft ? null : nextScrollLeft;
+}
+
+function alignMathKeyboardRowToFocusedKey(row: HTMLElement, key: HTMLButtonElement) {
+  if (
+    !row.isConnected
+    || !key.isConnected
+    || document.activeElement !== key
+    || key.closest<HTMLElement>("[data-math-keyboard-row]") !== row
+  ) {
+    return;
+  }
+
+  const rowRect = row.getBoundingClientRect();
+  const keyRect = key.getBoundingClientRect();
+  const nextScrollLeft = resolveMathKeyboardFocusScrollLeft({
+    currentScrollLeft: row.scrollLeft,
+    keyLeft: keyRect.left,
+    keyRight: keyRect.right,
+    rowClientWidth: row.clientWidth,
+    rowLeft: rowRect.left,
+    rowRight: rowRect.right,
+    rowScrollWidth: row.scrollWidth
+  });
+  if (nextScrollLeft !== null) row.scrollLeft = nextScrollLeft;
+}
+
+function handleMathKeyboardRowFocus(event: FocusEvent<HTMLDivElement>) {
+  const row = event.currentTarget;
+  const key = event.target;
+  if (!(key instanceof HTMLButtonElement)) return;
+
+  alignMathKeyboardRowToFocusedKey(row, key);
+  window.requestAnimationFrame(() => alignMathKeyboardRowToFocusedKey(row, key));
+}
 
 const tabLabels: Array<{ id: KeyboardTabId; label: LocalizedText }> = [
   { id: "numbers", label: { en: "123", zh: "123" } },
@@ -841,7 +929,11 @@ export function MathSoftKeyboard({
         <div
           role="group"
           aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制", zhHans: "软键盘编辑控制" }, language)}
-          className="flex flex-wrap gap-0.5"
+          aria-describedby={`${id}-scroll-hint`}
+          data-math-keyboard-row="editing-controls"
+          tabIndex={-1}
+          onFocusCapture={handleMathKeyboardRowFocus}
+          className={cn(horizontalKeyboardRowClassName, "min-w-0 max-w-full gap-0.5")}
         >
           {editingControls.map((control) => (
             <KeyButton
@@ -870,7 +962,9 @@ export function MathSoftKeyboard({
           <div
             key={`${activeTab}-${rowIndex}`}
             data-math-keyboard-row={`${activeTab}-${rowIndex}`}
-            className="flex flex-nowrap items-center justify-start gap-1.5 overflow-x-auto overscroll-x-contain px-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-500/70 [&::-webkit-scrollbar-track]:bg-transparent"
+            tabIndex={-1}
+            onFocusCapture={handleMathKeyboardRowFocus}
+            className={cn(horizontalKeyboardRowClassName, "gap-1.5")}
           >
             {row.map((mathKey, index) => {
               const hydratedKey = keyForShiftState(mathKey, shiftActive);
@@ -924,7 +1018,7 @@ function KeyButton({
       onMouseDown={(event) => event.preventDefault()}
       onClick={onClick}
       className={cn(
-        "focus-ring grid flex-none place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition focus-visible:ring-inset focus-visible:ring-offset-0 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
+        "focus-ring grid flex-none scroll-mx-1 place-items-center rounded-md border px-2 text-center font-black leading-none shadow-sm transition focus-visible:ring-inset focus-visible:ring-offset-0 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-35",
         compact
           ? "h-11 min-w-11 text-sm"
           : "h-11 min-w-11 text-sm sm:text-base",

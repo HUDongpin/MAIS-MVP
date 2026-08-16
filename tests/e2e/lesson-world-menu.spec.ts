@@ -1822,6 +1822,81 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(tablist.getByRole("tab")).toHaveCount(4);
     await expect(editingControls.getByRole("button")).toHaveCount(6);
 
+    const editingGeometry = await editingControls.evaluate((row) => {
+      const keys = Array.from(row.querySelectorAll<HTMLElement>('button[data-math-key="true"]'));
+      const keyRects = keys.map((key) => key.getBoundingClientRect());
+      return {
+        clientWidth: row.clientWidth,
+        keyTopDelta: keyRects.length
+          ? Math.max(...keyRects.map((rect) => rect.top)) - Math.min(...keyRects.map((rect) => rect.top))
+          : Number.POSITIVE_INFINITY,
+        overscrollBehaviorX: getComputedStyle(row).overscrollBehaviorX,
+        overflowX: getComputedStyle(row).overflowX,
+        scrollbarWidth: getComputedStyle(row).scrollbarWidth,
+        scrollLeft: row.scrollLeft,
+        scrollWidth: row.scrollWidth,
+        tabIndex: row.tabIndex
+      };
+    });
+    expect(editingGeometry.keyTopDelta, "Editing controls must stay on one logical row").toBeLessThanOrEqual(1);
+    expect(["auto", "scroll"]).toContain(editingGeometry.overflowX);
+    expect(editingGeometry.overscrollBehaviorX).toBe("contain");
+    expect(editingGeometry.scrollbarWidth).toBe("thin");
+    expect(editingGeometry.tabIndex, "The scroll root must not add a keyboard tab stop").toBe(-1);
+    expect(editingGeometry.scrollLeft).toBeLessThanOrEqual(1);
+    if (isMobile) {
+      expect(
+        editingGeometry.scrollWidth,
+        "The six 44px editing controls must use real horizontal overflow in the narrow lesson card"
+      ).toBeGreaterThan(editingGeometry.clientWidth + 1);
+
+      const activeRows = keyboard.getByRole("tabpanel").locator("[data-math-keyboard-row]");
+      const activeRowScrollBefore = await activeRows.evaluateAll((rows) => rows.map((row) => row.scrollLeft));
+      const editingWheelBaseline = {
+        documentX: await page.evaluate(() => window.scrollX),
+        leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+        rightScrollTop: await rightPane.evaluate((element: HTMLElement) => element.scrollTop),
+        windowY: await page.evaluate(() => window.scrollY)
+      };
+      const editingBox = await editingControls.boundingBox();
+      expect(editingBox).not.toBeNull();
+      await page.mouse.move(
+        editingBox!.x + editingBox!.width / 2,
+        editingBox!.y + editingBox!.height / 2
+      );
+      await page.mouse.wheel(240, 0);
+      await expect.poll(() => editingControls.evaluate((row) => row.scrollLeft)).toBeGreaterThan(1);
+
+      const clearAnswer = editingControls.getByRole("button", { name: /Clear answer/i });
+      const clearAnswerGeometry = await clearAnswer.evaluate((key) => {
+        const row = key.closest<HTMLElement>('[data-math-keyboard-row="editing-controls"]');
+        if (!row) throw new Error("Clear answer must remain inside the editing-controls row.");
+        const keyRect = key.getBoundingClientRect();
+        const rowRect = row.getBoundingClientRect();
+        return {
+          keyLeft: keyRect.left,
+          keyRight: keyRect.right,
+          rowLeft: rowRect.left,
+          rowRight: rowRect.right
+        };
+      });
+      expect(clearAnswerGeometry.keyLeft).toBeGreaterThanOrEqual(clearAnswerGeometry.rowLeft - 1);
+      expect(clearAnswerGeometry.keyRight).toBeLessThanOrEqual(clearAnswerGeometry.rowRight + 1);
+      expect(await activeRows.evaluateAll((rows) => rows.map((row) => row.scrollLeft))).toEqual(activeRowScrollBefore);
+      expect(await page.evaluate(() => window.scrollX)).toBe(editingWheelBaseline.documentX);
+      expect(Math.abs(
+        await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - editingWheelBaseline.leftScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await rightPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - editingWheelBaseline.rightScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await page.evaluate(() => window.scrollY) - editingWheelBaseline.windowY
+      )).toBeLessThanOrEqual(1);
+    }
+
     const interactiveTargetGeometry = await keyboard.locator("button:visible").evaluateAll((buttons) =>
       buttons.map((button) => {
         const rect = button.getBoundingClientRect();
@@ -1991,20 +2066,67 @@ test.describe("Learning Worlds lesson menu", () => {
     await numbersTab.click();
     await numbersTab.focus();
     await expect(numbersTab).toBeFocused();
-    const tabsAfterNumbers = 3;
-    const enabledEditingControlCount = await editingControls.getByRole("button").evaluateAll((buttons) =>
-      buttons.filter((button) => !(button as HTMLButtonElement).disabled).length
-    );
-    for (let step = 0; step < tabsAfterNumbers + enabledEditingControlCount + 1 + enabledKeysBeforeOverflowingRow; step += 1) {
-      await page.keyboard.press("Tab");
-    }
+    const remainingTabs = tablist.getByRole("tab");
+    const enabledEditingControls = editingControls.locator("button:not([disabled])");
+    const enabledKeysInPanel = numberPanel.locator('button[data-math-key="true"]:not([disabled])');
     const firstOverflowingKey = overflowingRowKeys.first();
     const lastOverflowingKey = overflowingRowKeys.last();
+    const focusRowScrollBaseline = await numberRows.evaluateAll((rows) => rows.map((row) => row.scrollLeft));
+    const focusIsolationBaseline = {
+      documentX: await page.evaluate(() => window.scrollX),
+      leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      rightScrollTop: await rightPane.evaluate((element: HTMLElement) => element.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    const expectFocusStayedInsideTargetRow = async () => {
+      const currentRowScroll = await numberRows.evaluateAll((rows) => rows.map((row) => row.scrollLeft));
+      for (let rowIndex = 0; rowIndex < focusRowScrollBaseline.length; rowIndex += 1) {
+        if (rowIndex === overflowingRowIndex) continue;
+        expect(
+          Math.abs(currentRowScroll[rowIndex]! - focusRowScrollBaseline[rowIndex]!),
+          `Focusing an overflow key must not scroll logical row ${rowIndex + 1}`
+        ).toBeLessThanOrEqual(1);
+      }
+      expect(await page.evaluate(() => window.scrollX)).toBe(focusIsolationBaseline.documentX);
+      expect(Math.abs(
+        await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - focusIsolationBaseline.leftScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await rightPane.evaluate((element: HTMLElement) => element.scrollTop)
+          - focusIsolationBaseline.rightScrollTop
+      )).toBeLessThanOrEqual(1);
+      expect(Math.abs(
+        await page.evaluate(() => window.scrollY) - focusIsolationBaseline.windowY
+      )).toBeLessThanOrEqual(1);
+    };
+
+    for (let tabIndex = 1; tabIndex < 4; tabIndex += 1) {
+      await page.keyboard.press("Tab");
+      await expect(remainingTabs.nth(tabIndex)).toBeFocused();
+    }
+    const enabledEditingControlCount = await enabledEditingControls.count();
+    for (let controlIndex = 0; controlIndex < enabledEditingControlCount; controlIndex += 1) {
+      await page.keyboard.press("Tab");
+      await expect(enabledEditingControls.nth(controlIndex)).toBeFocused();
+    }
+    for (let keyIndex = 0; keyIndex < enabledKeysBeforeOverflowingRow; keyIndex += 1) {
+      await page.keyboard.press("Tab");
+      await expect(enabledKeysInPanel.nth(keyIndex)).toBeFocused();
+    }
+    await page.keyboard.press("Tab");
     await expect(firstOverflowingKey).toBeFocused();
     for (let step = 1; step < overflowingRowKeyCount; step += 1) {
       await page.keyboard.press("Tab");
     }
     await expect(lastOverflowingKey).toBeFocused();
+    await expect.poll(() => lastOverflowingKey.evaluate((key) => {
+      const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
+      if (!row) return false;
+      const keyRect = key.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      return keyRect.left >= rowRect.left + 1 && keyRect.right <= rowRect.right - 1;
+    })).toBe(true);
     const focusedLastGeometry = await lastOverflowingKey.evaluate((key) => {
       const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
       if (!row) throw new Error("The focused key must stay inside its logical row.");
@@ -2021,10 +2143,18 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(focusedLastGeometry.keyLeft).toBeGreaterThanOrEqual(focusedLastGeometry.rowLeft + 1);
     expect(focusedLastGeometry.keyRight).toBeLessThanOrEqual(focusedLastGeometry.rowRight - 1);
     expect(focusedLastGeometry.boxShadow).toContain("inset");
+    await expectFocusStayedInsideTargetRow();
     for (let step = 1; step < overflowingRowKeyCount; step += 1) {
       await page.keyboard.press("Shift+Tab");
     }
     await expect(firstOverflowingKey).toBeFocused();
+    await expect.poll(() => firstOverflowingKey.evaluate((key) => {
+      const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
+      if (!row) return false;
+      const keyRect = key.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      return keyRect.left >= rowRect.left + 1 && keyRect.right <= rowRect.right - 1;
+    })).toBe(true);
     const focusedFirstGeometry = await firstOverflowingKey.evaluate((key) => {
       const row = key.closest<HTMLElement>("[data-math-keyboard-row]");
       if (!row) throw new Error("The focused key must stay inside its logical row.");
@@ -2041,6 +2171,7 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(focusedFirstGeometry.keyLeft).toBeGreaterThanOrEqual(focusedFirstGeometry.rowLeft + 1);
     expect(focusedFirstGeometry.keyRight).toBeLessThanOrEqual(focusedFirstGeometry.rowRight - 1);
     expect(focusedFirstGeometry.boxShadow).toContain("inset");
+    await expectFocusStayedInsideTargetRow();
     await expect(numberKeys).toHaveCount(47);
 
     const symbolsTab = tablist.getByRole("tab", { name: "∞≠∈", exact: true });
