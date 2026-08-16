@@ -1503,6 +1503,7 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(currentHref).toBeTruthy();
     expect(currentLabel).toBeTruthy();
     await expect(mentalMathJump).toBeVisible();
+    await alignLessonControlInItsScrollRoot(mentalMathJump);
     await mentalMathJump.click();
 
     const lesson = rightPane.locator('[data-ccss-lesson="fluent-within-20"]');
