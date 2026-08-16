@@ -450,14 +450,69 @@ async function alignLessonControlInItsScrollRoot(control: Locator) {
     if (pane && window.matchMedia("(min-width: 1024px)").matches) {
       const paneRect = pane.getBoundingClientRect();
       const elementRect = element.getBoundingClientRect();
+      const previousScrollBehavior = pane.style.scrollBehavior;
+      pane.style.scrollBehavior = "auto";
       pane.scrollTo({
         behavior: "auto",
         top: Math.max(0, pane.scrollTop + elementRect.top - paneRect.top - 24)
       });
+      pane.style.scrollBehavior = previousScrollBehavior;
       return;
     }
+    const root = document.documentElement;
+    const body = document.body;
+    const previousRootScrollBehavior = root.style.scrollBehavior;
+    const previousBodyScrollBehavior = body.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    body.style.scrollBehavior = "auto";
     element.scrollIntoView({ behavior: "auto", block: "center" });
+    root.style.scrollBehavior = previousRootScrollBehavior;
+    body.style.scrollBehavior = previousBodyScrollBehavior;
   });
+  await control.evaluate(async (element: HTMLElement) => {
+    const pane = element.closest<HTMLElement>(
+      "[data-lesson-content-pane], [data-lesson-directory-pane]"
+    );
+    const desktop = window.matchMedia("(min-width: 1024px)").matches;
+    const sample = () => {
+      const rect = element.getBoundingClientRect();
+      return {
+        left: rect.left,
+        scrollPosition: desktop && pane ? pane.scrollTop : window.scrollY,
+        top: rect.top
+      };
+    };
+    let previous = sample();
+    let stableSamples = 0;
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
+      const current = sample();
+      const delta = Math.max(
+        Math.abs(current.left - previous.left),
+        Math.abs(current.top - previous.top),
+        Math.abs(current.scrollPosition - previous.scrollPosition)
+      );
+      stableSamples = delta <= 0.25 ? stableSamples + 1 : 0;
+      if (stableSamples >= 2) return;
+      previous = current;
+    }
+    throw new Error("The lesson control did not settle before pointer input.");
+  });
+}
+
+async function wheelHorizontalScrollRoot(page: Page, scrollRoot: Locator) {
+  const box = await scrollRoot.boundingBox();
+  expect(box).not.toBeNull();
+  const point = {
+    x: box!.x + box!.width / 2,
+    y: box!.y + box!.height / 2
+  };
+  await page.mouse.move(point.x, point.y);
+  expect(await scrollRoot.evaluate((row, candidate) => {
+    const hit = document.elementFromPoint(candidate.x, candidate.y);
+    return Boolean(hit && (hit === row || row.contains(hit)));
+  }, point), "The wheel gesture must hit the intended keyboard row").toBe(true);
+  await page.mouse.wheel(240, 0);
 }
 
 async function expectLessonTargetVisible(target: Locator) {
@@ -1850,6 +1905,8 @@ test.describe("Learning Worlds lesson menu", () => {
         "The six 44px editing controls must use real horizontal overflow in the narrow lesson card"
       ).toBeGreaterThan(editingGeometry.clientWidth + 1);
 
+      await alignLessonControlInItsScrollRoot(editingControls);
+      await expect(editingControls).toBeVisible();
       const activeRows = keyboard.getByRole("tabpanel").locator("[data-math-keyboard-row]");
       const activeRowScrollBefore = await activeRows.evaluateAll((rows) => rows.map((row) => row.scrollLeft));
       const editingWheelBaseline = {
@@ -1858,13 +1915,7 @@ test.describe("Learning Worlds lesson menu", () => {
         rightScrollTop: await rightPane.evaluate((element: HTMLElement) => element.scrollTop),
         windowY: await page.evaluate(() => window.scrollY)
       };
-      const editingBox = await editingControls.boundingBox();
-      expect(editingBox).not.toBeNull();
-      await page.mouse.move(
-        editingBox!.x + editingBox!.width / 2,
-        editingBox!.y + editingBox!.height / 2
-      );
-      await page.mouse.wheel(240, 0);
+      await wheelHorizontalScrollRoot(page, editingControls);
       await expect.poll(() => editingControls.evaluate((row) => row.scrollLeft)).toBeGreaterThan(1);
 
       const clearAnswer = editingControls.getByRole("button", { name: /Clear answer/i });
@@ -2019,15 +2070,10 @@ test.describe("Learning Worlds lesson menu", () => {
     const wheelIsolationBefore = {
       documentX: await page.evaluate(() => window.scrollX),
       leftScrollTop: await leftPane.evaluate((element: HTMLElement) => element.scrollTop),
+      rightScrollTop: await rightPane.evaluate((element: HTMLElement) => element.scrollTop),
       windowY: await page.evaluate(() => window.scrollY)
     };
-    const overflowingRowBox = await overflowingRow.boundingBox();
-    expect(overflowingRowBox).not.toBeNull();
-    await page.mouse.move(
-      overflowingRowBox!.x + overflowingRowBox!.width / 2,
-      overflowingRowBox!.y + overflowingRowBox!.height / 2
-    );
-    await page.mouse.wheel(240, 0);
+    await wheelHorizontalScrollRoot(page, overflowingRow);
     await expect.poll(() => overflowingRow.evaluate((row) => row.scrollLeft)).toBeGreaterThan(
       rowScrollBeforeWheel[overflowingRowIndex]! + 1
     );
@@ -2043,11 +2089,13 @@ test.describe("Learning Worlds lesson menu", () => {
       await leftPane.evaluate((element: HTMLElement) => element.scrollTop)
         - wheelIsolationBefore.leftScrollTop
     )).toBeLessThanOrEqual(1);
-    if (!isMobile) {
-      expect(Math.abs(
-        await page.evaluate(() => window.scrollY) - wheelIsolationBefore.windowY
-      )).toBeLessThanOrEqual(1);
-    }
+    expect(Math.abs(
+      await rightPane.evaluate((element: HTMLElement) => element.scrollTop)
+        - wheelIsolationBefore.rightScrollTop
+    )).toBeLessThanOrEqual(1);
+    expect(Math.abs(
+      await page.evaluate(() => window.scrollY) - wheelIsolationBefore.windowY
+    )).toBeLessThanOrEqual(1);
 
     const numberKeys = numberPanel.locator('button[data-math-key="true"]');
     const overflowingRowKeys = overflowingRow.locator('button[data-math-key="true"]');
