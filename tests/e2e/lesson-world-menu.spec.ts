@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldThemes";
+import { questions } from "../../data/questions";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 /**
@@ -25,6 +26,14 @@ const gradeOneWorldTheme = lessonWorldThemeForGrade("P1");
 if (!gradeOneWorldTheme) throw new Error("Grade 1 must keep its configured lesson world.");
 const gradeOneWorldStopEmojiPalette = gradeOneWorldTheme.stopEmojiPalette;
 const nextLessonItemCtaName = /Go to next item|前往下一項|前往下一项/i;
+const sourceQuestionById = new Map(questions.map((question) => [question.id, question]));
+
+function sourceQuestionForRenderedId(questionId: string | null) {
+  if (!questionId) throw new Error("The visible lesson-practice card must expose its question id.");
+  const question = sourceQuestionById.get(questionId);
+  if (!question) throw new Error(`No authoritative question record exists for ${questionId}.`);
+  return question;
+}
 
 async function openLessonPage(page: Page, path: string) {
   await page.goto(path);
@@ -604,10 +613,14 @@ test.describe("Learning Worlds lesson menu", () => {
       (card) => card.getAttribute("data-ai-question-id")
     ));
     expect(questionIds).toHaveLength(5);
-    expect(questionIds[0]).toBe("ccss-textbook-practice-v1-shape-attributes-q01");
-    expect(questionIds[1]).toBe("ccss-textbook-practice-v1-shape-attributes-q02");
+    const firstQuestion = sourceQuestionForRenderedId(questionIds[0] ?? null);
+    const secondQuestion = sourceQuestionForRenderedId(questionIds[1] ?? null);
+    expect(firstQuestion.topicId).toBe("us-ca-math-p1-1-g-shape-reasoning");
+    expect(secondQuestion.topicId).toBe("us-ca-math-p1-1-g-shape-reasoning");
+    expect(firstQuestion.type).toBe("multiple-choice");
+    expect(secondQuestion.type).toBe("multiple-choice");
     await expect(visibleQuestionCard()).toHaveCount(1);
-    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[0]!);
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", firstQuestion.id);
     await expect(practice.getByText(/Question 1 of 5/i)).toBeVisible();
     const missionTrail = practice.locator('[data-testid="lesson-mission-trail"]');
     const firstStone = missionTrail.getByRole("button", { name: /Question 1/i });
@@ -616,12 +629,12 @@ test.describe("Learning Worlds lesson menu", () => {
 
     await page.clock.pauseAt(await page.evaluate(() => Date.now()));
     const firstCard = visibleQuestionCard();
-    await firstCard.getByRole("button", { name: "having 3 sides", exact: true }).click();
+    await firstCard.getByRole("button", { name: firstQuestion.answer, exact: true }).click();
     const firstAttempt = page.waitForResponse((response) => {
       const postData = response.request().postData() ?? "";
       return response.url().includes("/api/attempts")
         && response.request().method() === "POST"
-        && postData.includes(`"questionId":"${questionIds[0]}"`);
+        && postData.includes(`"questionId":"${firstQuestion.id}"`);
     });
     await firstCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
     const firstResponse = await firstAttempt;
@@ -631,20 +644,20 @@ test.describe("Learning Worlds lesson menu", () => {
 
     await page.clock.fastForward(2_999);
     await expect(practice.getByText(/Question 1 of 5/i)).toBeVisible();
-    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[0]!);
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", firstQuestion.id);
     await expect(firstStone).toHaveAttribute("aria-current", "step");
     await page.clock.fastForward(1);
     await expect(practice.getByText(/Question 2 of 5/i)).toBeVisible();
-    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[1]!);
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", secondQuestion.id);
     await expect(secondStone).toHaveAttribute("aria-current", "step");
 
     const secondCard = visibleQuestionCard();
-    await secondCard.getByRole("button", { name: "both triangles", exact: true }).click();
+    await secondCard.getByRole("button", { name: secondQuestion.answer, exact: true }).click();
     const secondAttempt = page.waitForResponse((response) => {
       const postData = response.request().postData() ?? "";
       return response.url().includes("/api/attempts")
         && response.request().method() === "POST"
-        && postData.includes(`"questionId":"${questionIds[1]}"`);
+        && postData.includes(`"questionId":"${secondQuestion.id}"`);
     });
     await secondCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
     const secondResponse = await secondAttempt;
