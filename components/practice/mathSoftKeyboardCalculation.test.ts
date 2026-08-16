@@ -53,6 +53,31 @@ test("a non-zero fractional literal rounded by Number into an integer fails clos
   assert.equal(calculateMathKeyboardAnswer("1.0000000000000001-1"), null);
 });
 
+for (const expression of [
+  "0.10000000000000001-0.1",
+  "1.23456789012345678-1.23456789012345677"
+]) {
+  test(`exact decimal cancellation ${expression} never publishes a binary-float zero`, () => {
+    assert.equal(calculateMathKeyboardAnswer(expression), null);
+  });
+}
+
+test("an exact decimal result fails closed when the existing Number grader rejects its equation", () => {
+  const expression = "123456789012345.67-123456789012345.66";
+  assert.equal(
+    questionAnswerMatches({ answer: "0.01", accepted_answers: null, options: null }, `${expression}=0.01`),
+    false,
+    "the current Number-based grader evaluates the equation left side as 0.015625"
+  );
+  assert.equal(calculateMathKeyboardAnswer(expression), null);
+});
+
+test("calculator-style equals rejects expressions beyond its local resource budget", () => {
+  const oversizedExpression = Array.from({ length: 300 }, () => "1").join("+");
+  assert.equal(calculateMathKeyboardAnswer(oversizedExpression), null);
+  assert.equal(calculateMathKeyboardAnswer(`${" ".repeat(600)}1+1`), null);
+});
+
 test("every auto-completed equation is accepted by the existing short-answer grader", () => {
   for (const [input, expectedAnswer] of [
     ["3+2+4", "9"],
