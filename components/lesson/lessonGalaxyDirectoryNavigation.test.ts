@@ -4,6 +4,127 @@ import test from "node:test";
 
 const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.tsx", "utf8");
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
+const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
+
+test("map and list lesson quick jumps delegate one LessonView-owned callback", () => {
+  for (const [name, source] of [
+    ["WorldMenu", worldMenuSource],
+    ["LessonGalaxyDirectory", directorySource]
+  ] as const) {
+    assert.match(
+      source,
+      /onSelectLessonItem: \(targetId: string\) => void;/,
+      `${name} must require the shared LessonView quick-jump callback.`
+    );
+    assert.match(
+      source,
+      /onClick=\{\(\) => onSelectLessonItem\(item\.targetId\)\}/,
+      `${name} must pass the selected target id to the shared callback.`
+    );
+    assert.equal(
+      source.includes("document.getElementById"),
+      false,
+      `${name} must not choose a document-level scroll target.`
+    );
+    assert.equal(
+      source.includes("scrollIntoView"),
+      false,
+      `${name} must not scroll the document directly.`
+    );
+  }
+
+  assert.match(
+    worldMenuSource,
+    /<LessonGalaxyDirectory[\s\S]*?onSelectLessonItem=\{onSelectLessonItem\}/,
+    "List view must receive the same callback as the world-map quick jumps."
+  );
+  assert.match(
+    lessonViewSource,
+    /function handleLessonItemSelect\(targetId: string\)/,
+    "LessonView must own the pane-aware quick-jump behavior."
+  );
+  assert.match(
+    lessonViewSource,
+    /<WorldMenu[\s\S]*?onSelectLessonItem=\{handleLessonItemSelect\}/,
+    "LessonView must pass its one pane-aware callback into WorldMenu."
+  );
+});
+
+test("desktop lesson directory and content are bounded independent scroll panes", () => {
+  assert.match(lessonViewSource, /data-lesson-pane-layout="true"/);
+  assert.match(lessonViewSource, /data-lesson-directory-pane="true"/);
+  assert.match(lessonViewSource, /data-lesson-content-pane="true"/);
+  assert.match(
+    lessonViewSource,
+    /const lessonDesktopPaneLayoutClassName =\s*"lg:h-\[calc\(100dvh-8rem\)\] lg:min-h-0 lg:overflow-hidden";/,
+    "Only desktop should bound the two-column lesson layout to the available viewport."
+  );
+  assert.match(
+    lessonViewSource,
+    /const lessonDesktopScrollablePaneClassName =\s*"lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain";/,
+    "Only desktop should give each pane its own vertical scroll root."
+  );
+  assert.match(
+    lessonViewSource,
+    /data-lesson-directory-pane="true"[\s\S]*?lessonDesktopScrollablePaneClassName/,
+    "The directory wrapper must own the desktop left-pane scrolling."
+  );
+  assert.match(
+    lessonViewSource,
+    /data-lesson-content-pane="true"[\s\S]*?lessonDesktopScrollablePaneClassName/,
+    "The content wrapper must own the desktop right-pane scrolling."
+  );
+  assert.equal(
+    lessonViewSource.includes("lg:sticky"),
+    false,
+    "The left directory must no longer stay attached to the shared window scroll."
+  );
+});
+
+test("teacher-guide menu targets remain inside the right lesson content pane", () => {
+  const panelStart = lessonViewSource.indexOf("const lessonContentPanel = (");
+  const componentReturn = lessonViewSource.indexOf("\n\n  return (", panelStart);
+  assert.notEqual(panelStart, -1, "LessonView must declare its right content panel.");
+  assert.notEqual(componentReturn, -1, "LessonView must render after declaring its right content panel.");
+
+  const contentPanelSource = lessonViewSource.slice(panelStart, componentReturn);
+  assert.match(
+    contentPanelSource,
+    /\{lessonTeacherGuideSections\}/,
+    "Teacher-guide articles referenced by menu target ids must render inside the scrollable right pane."
+  );
+  const teacherGuideSectionsStart = lessonViewSource.indexOf("const lessonTeacherGuideSections =");
+  assert.notEqual(teacherGuideSectionsStart, -1, "LessonView must keep one reusable teacher-guide section tree.");
+  assert.match(
+    lessonViewSource.slice(teacherGuideSectionsStart, panelStart),
+    /teacherGuideBlocks\.map\(\(block\) =>/,
+    "The shared teacher-guide tree must own the menu-targeted articles."
+  );
+  assert.equal(
+    lessonViewSource.slice(componentReturn).includes("teacherGuideBlocks.map((block) =>"),
+    false,
+    "Teacher-guide targets must not remain in a document-flow section outside the right pane."
+  );
+});
+
+test("a new lesson slug resets only the right content pane to its beginning", () => {
+  const slugEffectStart = lessonViewSource.indexOf("useLayoutEffect(() => {\n    const currentLessonHref");
+  const slugEffectEnd = lessonViewSource.indexOf("\n  }, [slug]);", slugEffectStart);
+  assert.notEqual(slugEffectStart, -1, "LessonView must keep its slug transition layout effect.");
+  assert.notEqual(slugEffectEnd, -1, "The slug transition effect must stay keyed to slug.");
+
+  const slugEffectSource = lessonViewSource.slice(slugEffectStart, slugEffectEnd);
+  assert.match(
+    slugEffectSource,
+    /lessonContentPaneRef\.current\?\.scrollTo\(\{\s*behavior: "auto",\s*top: 0\s*\}\);/,
+    "Changing units must not inherit the previous unit's right-pane scrollTop."
+  );
+  assert.equal(
+    slugEffectSource.includes("lessonDirectoryPaneRef.current"),
+    false,
+    "Changing units must not unexpectedly reposition the learner's grade directory."
+  );
+});
 
 test("unit directory navigation preserves the lesson menu", () => {
   assert.equal(

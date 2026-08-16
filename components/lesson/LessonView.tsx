@@ -16,6 +16,7 @@ import {
   lessonCompletionTitleForGrade
 } from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
+import { createLessonContentPaneScrollRequest } from "@/components/lesson/lessonPaneNavigation";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
 import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
 import {
@@ -173,6 +174,10 @@ const handwritingCapableQuestionTypes = new Set<PublicQuestion["type"]>(["fill-i
 const lessonGalaxySectionId = "lesson-galaxy-directory";
 const lessonOverviewSectionId = "lesson-overview";
 const lessonPracticeSectionId = "lesson-practice";
+const lessonDesktopMinWidthQuery = "(min-width: 1024px)";
+const lessonDesktopPaneLayoutClassName = "lg:h-[calc(100dvh-8rem)] lg:min-h-0 lg:overflow-hidden";
+const lessonDesktopScrollablePaneClassName = "lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain";
+const lessonContentPaneTopPaddingPx = 24;
 const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
 const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
 const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
@@ -2052,6 +2057,8 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const { openTutor } = useAITutor();
   const prefersReducedMotion = useReducedMotion();
   const lessonSelectionRootRef = useRef<HTMLDivElement | null>(null);
+  const lessonDirectoryPaneRef = useRef<HTMLDivElement | null>(null);
+  const lessonContentPaneRef = useRef<HTMLDivElement | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const lessonPracticeSectionRef = useRef<HTMLElement | null>(null);
   const summaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -2292,6 +2299,10 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
   useLayoutEffect(() => {
     const currentLessonHref = lessonHrefForSlug(slug);
+    lessonContentPaneRef.current?.scrollTo({
+      behavior: "auto",
+      top: 0
+    });
     const entryDecision = lessonGalaxyPlanetEntryDecision(
       currentLessonHref,
       lessonGalaxyPlanetEntryDecisionRef.current
@@ -2699,6 +2710,32 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       behavior,
       block: "start"
     });
+  }
+
+  function handleLessonItemSelect(targetId: string) {
+    const contentPane = lessonContentPaneRef.current;
+    if (!contentPane) return;
+
+    const target = Array.from(contentPane.querySelectorAll<HTMLElement>("[id]"))
+      .find((candidate) => candidate.id === targetId);
+    if (!target) return;
+
+    const behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+    const isDesktop = typeof window.matchMedia === "function" &&
+      window.matchMedia(lessonDesktopMinWidthQuery).matches;
+    if (!isDesktop) {
+      target.scrollIntoView({ behavior, block: "start" });
+      return;
+    }
+
+    const request = createLessonContentPaneScrollRequest({
+      currentScrollTop: contentPane.scrollTop,
+      paneTop: contentPane.getBoundingClientRect().top,
+      prefersReducedMotion: Boolean(prefersReducedMotion),
+      targetTop: target.getBoundingClientRect().top,
+      topPadding: lessonContentPaneTopPaddingPx
+    });
+    if (request) contentPane.scrollTo(request);
   }
 
   function revealLastNextLessonItemButton(target: HTMLElement, behavior: ScrollBehavior) {
@@ -3312,10 +3349,39 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       </section>
     </>
   );
+  const lessonTeacherGuideSections = canViewTeacherGuide && teacherGuideBlocks.length ? (
+    <section
+      className="mt-8 grid gap-4"
+      aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
+    >
+      {teacherGuideBlocks.map((block) => (
+        <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
+            {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
+          </p>
+          <MathText as="h2" text={text(block.title)} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
+          {block.content ? (
+            <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
+          ) : null}
+          {block.items?.length ? (
+            <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+              {block.items.map((item, index) => (
+                <li key={`${block.id}-${index}`} className="flex gap-3">
+                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
+                  <MathText as="span" text={formatLessonMathText(text(item))} />
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </article>
+      ))}
+    </section>
+  ) : null;
   const lessonContentPanel = (
     <div className="min-w-0">
       <div className="min-w-0">
         <div className="min-w-0 [&>section:first-child]:mt-0">{lessonContentSections}</div>
+        {lessonTeacherGuideSections}
       </div>
     </div>
   );
@@ -3379,60 +3445,72 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       {shouldRenderGalaxyDirectory ? (
         <div
           id={lessonGalaxySectionId}
+          data-lesson-pane-layout="true"
           // The single-column track below `lg` is declared, not implicit. An
           // implicit `auto` track is sized by its content and refuses to shrink
           // below it, so on a phone this grid laid out ~562px wide inside a
           // 393px screen and dragged the whole page into horizontal overflow.
           // `minmax(0,1fr)` lets the column shrink to the viewport instead.
-          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-start lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${
+          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-stretch lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${lessonDesktopPaneLayoutClassName} ${
             lessonMenu.isHidden
               ? "lg:grid-cols-[3.5rem_minmax(0,1fr)]"
               : "lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)]"
           } ${prefersReducedMotion ? "" : "lg:transition-[grid-template-columns] lg:ease-out"}`}
           style={prefersReducedMotion ? undefined : { transitionDuration: `${lessonMenuColumnDurationMs}ms` }}
         >
-          {lessonMenu.isHidden ? (
-            <LessonMenuRail
-              onDismissCoachMark={lessonMenu.dismissCoachMark}
-              onShow={lessonMenu.showMenu}
-              showCoachMark={lessonMenu.showCoachMark}
-              theme={lessonWorldTheme}
-            />
-          ) : (
-            <AnimatePresence initial={false}>
-              <motion.div
-                ref={lessonMenu.menuPanelRef}
-                id={lessonMenuPanelId}
-                data-tour="student-lesson-map"
-                className="origin-top-right lg:sticky lg:top-24 lg:self-start"
-                initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
-                animate={isGalaxyDirectoryClosing
-                  ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
-                  : lessonMenu.isCollapsing
-                    ? { filter: "blur(2px)", opacity: 0, x: -28 }
-                    : { filter: "blur(0px)", opacity: 1, x: 0, y: 0 }}
-                transition={{
-                  duration: isGalaxyDirectoryClosing
-                    ? lessonGalaxyCollapseDurationMs / 1000
+          <div
+            ref={lessonDirectoryPaneRef}
+            data-lesson-directory-pane="true"
+            className={`min-w-0 ${lessonDesktopScrollablePaneClassName}`}
+          >
+            {lessonMenu.isHidden ? (
+              <LessonMenuRail
+                onDismissCoachMark={lessonMenu.dismissCoachMark}
+                onShow={lessonMenu.showMenu}
+                showCoachMark={lessonMenu.showCoachMark}
+                theme={lessonWorldTheme}
+              />
+            ) : (
+              <AnimatePresence initial={false}>
+                <motion.div
+                  ref={lessonMenu.menuPanelRef}
+                  id={lessonMenuPanelId}
+                  data-tour="student-lesson-map"
+                  className="origin-top-right"
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
+                  animate={isGalaxyDirectoryClosing
+                    ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
                     : lessonMenu.isCollapsing
-                      ? lessonMenu.collapseDurationMs / 1000
-                      : 0.24,
-                  ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
-                }}
-                style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
-                {...lessonMenu.menuHoldHandlers}
-              >
-                <WorldMenu
-                  currentSlug={slug}
-                  items={lessonGalaxyItems}
-                  lesson={lesson}
-                  modules={gradeLessons}
-                  onHide={lessonMenu.hideMenu}
-                />
-              </motion.div>
-            </AnimatePresence>
-          )}
-          <div className="min-w-0 lg:w-full">
+                      ? { filter: "blur(2px)", opacity: 0, x: -28 }
+                      : { filter: "blur(0px)", opacity: 1, x: 0, y: 0 }}
+                  transition={{
+                    duration: isGalaxyDirectoryClosing
+                      ? lessonGalaxyCollapseDurationMs / 1000
+                      : lessonMenu.isCollapsing
+                        ? lessonMenu.collapseDurationMs / 1000
+                        : 0.24,
+                    ease: isGalaxyDirectoryClosing ? [0.22, 1, 0.36, 1] : "easeOut"
+                  }}
+                  style={{ transformOrigin: "calc(100% - 8rem) -4.25rem" }}
+                  {...lessonMenu.menuHoldHandlers}
+                >
+                  <WorldMenu
+                    currentSlug={slug}
+                    items={lessonGalaxyItems}
+                    lesson={lesson}
+                    modules={gradeLessons}
+                    onHide={lessonMenu.hideMenu}
+                    onSelectLessonItem={handleLessonItemSelect}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
+          <div
+            ref={lessonContentPaneRef}
+            data-lesson-content-pane="true"
+            className={`min-w-0 lg:w-full ${lessonDesktopScrollablePaneClassName}`}
+          >
             {lessonContentPanel}
           </div>
         </div>
@@ -3442,37 +3520,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         <LessonMenuRevealPill onShow={lessonMenu.showMenu} theme={lessonWorldTheme} />
       ) : null}
 
-      {!shouldRenderGalaxyDirectory ? lessonContentSections : null}
-
-      {canViewTeacherGuide && teacherGuideBlocks.length ? (
-        // Same declared single-column track as the directory grid above, and for
-        // the same reason: an implicit `auto` column would be content-sized.
-        <div className={shouldRenderGalaxyDirectory ? "mt-8 grid grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)] lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12" : ""}>
-          {shouldRenderGalaxyDirectory ? <div aria-hidden="true" className="hidden lg:block" /> : null}
-          <section className={`${shouldRenderGalaxyDirectory ? "min-w-0" : "mt-8"} grid gap-4`} aria-label={t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}>
-            {teacherGuideBlocks.map((block) => (
-              <article key={block.id} id={lessonBlockSectionId(block.id)} className="scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/70 p-6 dark:bg-emerald-950/20 sm:p-8">
-                <p className="text-sm font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-200">
-                  {t({ en: "Teacher guide", zh: "教師使用建議", zhHans: "教师使用建议" })}
-                </p>
-                <MathText as="h2" text={text(block.title)} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
-                {block.content ? (
-                  <MathText as="p" text={formatLessonMathText(text(block.content))} className="mt-3 text-sm font-semibold leading-7 text-slate-600 dark:text-slate-300" />
-                ) : null}
-                {block.items?.length ? (
-                  <ul className="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                    {block.items.map((item, index) => (
-                      <li key={`${block.id}-${index}`} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                        <MathText as="span" text={formatLessonMathText(text(item))} />
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            ))}
-          </section>
-        </div>
+      {!shouldRenderGalaxyDirectory ? (
+        <>
+          {lessonContentSections}
+          {lessonTeacherGuideSections}
+        </>
       ) : null}
 
       <AnimatePresence>

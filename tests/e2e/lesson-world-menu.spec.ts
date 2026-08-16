@@ -14,6 +14,7 @@ import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./h
 const californiaSuperStudentId = "student-jon-us-ca-super";
 const kindergartenTopicPath = "/student/lessons/us-ca-math-k-k-cc-count-sequence";
 const kindergartenOtherTopicPath = "/student/lessons/us-ca-math-k-k-oa-compose-decompose";
+const gradeOneAddSubtractTopicPath = "/student/lessons/us-ca-math-p1-1-oa-add-subtract";
 const gradeThreeTopicPath = "/student/lessons/us-ca-math-p3-3-nf-fraction-meaning";
 const gradeSixTopicPath = "/student/lessons/us-ca-math-p6-chapter-01";
 const highSchoolTopicPath = "/student/lessons/us-ca-math-s3-chapter-03";
@@ -23,6 +24,18 @@ async function openLessonPage(page: Page, path: string) {
   // The world menu hydrates with the lesson shell; the aside is server-rendered
   // but the entry animation can delay stable geometry.
   await expect(page.locator("main")).toBeVisible({ timeout: 30_000 });
+}
+
+async function keepLessonWorldMenuOpen(page: Page) {
+  await page.addInitScript(() => {
+    try {
+      window.localStorage.setItem("mais.lesson-world-view", "world");
+      window.sessionStorage.removeItem("mais.lesson-menu-hidden");
+      window.sessionStorage.setItem("mais.lesson-menu-auto-peek-off", "1");
+    } catch {
+      // Storage may be unavailable; the menu defaults to the world view and open state.
+    }
+  });
 }
 
 test.describe("Learning Worlds lesson menu", () => {
@@ -70,6 +83,143 @@ test.describe("Learning Worlds lesson menu", () => {
     const movedWorld = page.locator('[data-lesson-world="sprout-meadow"]');
     await expect(movedWorld).toBeVisible({ timeout: 30_000 });
     await expect(movedWorld.getByRole("link", { name: /Unit 3 clearing.*you are here/i })).toBeVisible();
+  });
+
+  test("desktop 1.7 quick jump scrolls only the right lesson pane", async ({ page }, testInfo) => {
+    test.skip(Boolean(testInfo.project.use.isMobile), "Desktop independent-pane geometry is covered in the desktop project.");
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneAddSubtractTopicPath);
+
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const world = leftPane.locator('[data-lesson-world="sprout-meadow"]');
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    const practice = rightPane.locator("#lesson-practice");
+    const practiceJump = quickJumpMap.getByRole("button", { name: /^1\.7(?:\s|$)/ });
+
+    await expect(leftPane).toBeVisible({ timeout: 30_000 });
+    await expect(rightPane).toBeVisible({ timeout: 30_000 });
+    await expect(quickJumpMap.getByRole("link")).toHaveCount(16);
+    await expect(currentUnit).toHaveCount(1);
+    await expect(practice).toBeAttached();
+    await practiceJump.scrollIntoViewIfNeeded();
+    await expect(practiceJump).toBeVisible();
+
+    const before = {
+      currentHref: await currentUnit.getAttribute("href"),
+      currentLabel: await currentUnit.getAttribute("aria-label"),
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      rightScrollTop: await rightPane.evaluate((pane) => pane.scrollTop),
+      url: page.url(),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    expect(before.currentHref).toBe(gradeOneAddSubtractTopicPath);
+    const currentWasVisible = await currentUnit.evaluate((current) => {
+      const pane = current.closest<HTMLElement>("[data-lesson-directory-pane]");
+      if (!pane) return false;
+      const paneRect = pane.getBoundingClientRect();
+      const currentRect = current.getBoundingClientRect();
+      return currentRect.top >= paneRect.top - 1 && currentRect.bottom <= paneRect.bottom + 1;
+    });
+    expect(currentWasVisible).toBeTruthy();
+
+    await practiceJump.click();
+    await expect.poll(
+      () => rightPane.evaluate((pane) => pane.scrollTop),
+      { timeout: 5_000 }
+    ).toBeGreaterThan(before.rightScrollTop + 1);
+    await expect.poll(
+      () => rightPane.evaluate((pane) => {
+        const target = pane.querySelector<HTMLElement>("#lesson-practice");
+        if (!target) return false;
+        const paneRect = pane.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        return targetRect.bottom > paneRect.top + 1 &&
+          targetRect.top >= paneRect.top - 1 &&
+          targetRect.top < paneRect.bottom - 1;
+      }),
+      { timeout: 5_000 }
+    ).toBe(true);
+
+    const after = {
+      currentHref: await currentUnit.getAttribute("href"),
+      currentLabel: await currentUnit.getAttribute("aria-label"),
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      rightScrollTop: await rightPane.evaluate((pane) => pane.scrollTop),
+      url: page.url(),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    const currentIsStillVisible = await currentUnit.evaluate((current) => {
+      const pane = current.closest<HTMLElement>("[data-lesson-directory-pane]");
+      if (!pane) return false;
+      const paneRect = pane.getBoundingClientRect();
+      const currentRect = current.getBoundingClientRect();
+      return currentRect.top >= paneRect.top - 1 && currentRect.bottom <= paneRect.bottom + 1;
+    });
+
+    expect(Math.abs(after.windowY - before.windowY)).toBeLessThanOrEqual(1);
+    expect(Math.abs(after.leftScrollTop - before.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(after.rightScrollTop).toBeGreaterThan(before.rightScrollTop + 1);
+    expect(after.url).toBe(before.url);
+    expect(after.currentHref).toBe(before.currentHref);
+    expect(after.currentLabel).toBe(before.currentLabel);
+    expect(currentIsStillVisible).toBeTruthy();
+    expectNoPageErrors(errors);
+  });
+
+  test("mobile 1.7 quick jump keeps a single document scroll flow", async ({ page }, testInfo) => {
+    test.skip(!Boolean(testInfo.project.use.isMobile), "Mobile document-flow behavior is covered in the mobile project.");
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneAddSubtractTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const leftPane = page.locator("[data-lesson-directory-pane]:visible");
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    await world.getByRole("button", { name: /open the full map/i }).click();
+
+    const quickJumpMap = world.locator("ol:visible");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    const practiceJump = quickJumpMap.getByRole("button", { name: /^1\.7(?:\s|$)/ });
+    const practice = rightPane.locator("#lesson-practice");
+    await expect(quickJumpMap.getByRole("link")).toHaveCount(16);
+    await expect(currentUnit).toHaveCount(1);
+    await practiceJump.scrollIntoViewIfNeeded();
+    await expect(practiceJump).toBeVisible();
+
+    const before = {
+      currentHref: await currentUnit.getAttribute("href"),
+      currentLabel: await currentUnit.getAttribute("aria-label"),
+      url: page.url(),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    expect(before.currentHref).toBe(gradeOneAddSubtractTopicPath);
+    const mobileInnerScrollRootCount = () => page
+      .locator("[data-lesson-directory-pane]:visible, [data-lesson-content-pane]:visible")
+      .evaluateAll((panes) => panes.filter((pane) => {
+        const overflowY = window.getComputedStyle(pane).overflowY;
+        return (overflowY === "auto" || overflowY === "scroll") && pane.scrollHeight > pane.clientHeight + 1;
+      }).length);
+    expect(await mobileInnerScrollRootCount()).toBe(0);
+
+    await practiceJump.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 5_000 })
+      .toBeGreaterThan(before.windowY + 1);
+    await expect(practice).toBeInViewport({ ratio: 0.01 });
+    expect(await mobileInnerScrollRootCount()).toBe(0);
+
+    expect(page.url()).toBe(before.url);
+    await expect(quickJumpMap.locator('a[aria-current="page"]')).toHaveCount(1);
+    expect(await quickJumpMap.locator('a[aria-current="page"]').getAttribute("href")).toBe(before.currentHref);
+    expect(await quickJumpMap.locator('a[aria-current="page"]').getAttribute("aria-label")).toBe(before.currentLabel);
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    );
+    expect(hasHorizontalOverflow).toBe(false);
+    expectNoPageErrors(errors);
   });
 
   test("List view swaps to the accordion directory and the preference survives reload", async ({ page }) => {

@@ -34,6 +34,7 @@ type WorldMenuProps = {
   modules: LessonSummary[];
   /** Collapses the menu to its rail. Lives in the header, so both views get it. */
   onHide?: () => void;
+  onSelectLessonItem: (targetId: string) => void;
 };
 
 const worldViewStorageKey = "mais.lesson-world-view";
@@ -57,7 +58,7 @@ function StopConnector({ done, flip, theme }: { done: boolean; flip: boolean; th
   );
 }
 
-export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: WorldMenuProps) {
+export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelectLessonItem }: WorldMenuProps) {
   const { currentUser, language, t, text } = useSettings();
   const [viewMode, setViewMode] = useState<"world" | "list">("world");
   const [isMobileMapOpen, setIsMobileMapOpen] = useState(false);
@@ -99,7 +100,13 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
             {hideButton}
           </div>
         ) : null}
-        <LessonGalaxyDirectory currentSlug={currentSlug} items={items} lesson={lesson} modules={modules} />
+        <LessonGalaxyDirectory
+          currentSlug={currentSlug}
+          items={items}
+          lesson={lesson}
+          modules={modules}
+          onSelectLessonItem={onSelectLessonItem}
+        />
       </div>
     );
   }
@@ -130,10 +137,6 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
         zh: `${firstName ? `${firstName}，` : ""}你已走遍整個${t(theme.name)}！🎉`,
         zhHans: `${firstName ? `${firstName}，` : ""}你已走遍整个${t(theme.name)}！🎉`
       });
-
-  function scrollToLessonItem(targetId: string) {
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   function stopStateClassName(index: number, module: LessonSummary) {
     if (module.status === "completed") return theme!.stopCompletedClassName;
@@ -214,7 +217,7 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
                     <button
                       key={item.id}
                       type="button"
-                      onClick={() => scrollToLessonItem(item.targetId)}
+                      onClick={() => onSelectLessonItem(item.targetId)}
                       className={`focus-ring rounded-full border px-3 py-1.5 text-left text-xs font-black transition hover:-translate-y-0.5 ${theme.quickJumpClassName}`}
                     >
                       {`${index + 1}.${itemIndex + 1} ${item.title}`}
