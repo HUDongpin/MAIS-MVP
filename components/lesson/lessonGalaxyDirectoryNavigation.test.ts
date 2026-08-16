@@ -6,6 +6,7 @@ const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.ts
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
 const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
+const worldThemeSource = readFileSync("components/lesson/worlds/worldThemes.ts", "utf8");
 
 test("map and list lesson quick jumps delegate one LessonView-owned callback", () => {
   for (const [name, source] of [
@@ -309,6 +310,52 @@ test("unit directory navigation preserves the lesson menu", () => {
     /const shouldRenderGalaxyDirectory = true;/,
     "LessonView must keep the unit directory layout mounted for every lesson route."
   );
+});
+
+test("world unit stops replace numeric lesson emoji through deterministic theme palettes", () => {
+  assert.match(
+    worldMenuSource,
+    /import \{ selectLessonWorldStopMarker \} from "@\/components\/lesson\/worlds\/worldStopMarker";/,
+    "WorldMenu must sanitize raw lesson emoji through the shared stop-marker selector."
+  );
+  assert.match(
+    worldMenuSource,
+    /return selectLessonWorldStopMarker\(\{\s*candidate: ccssLessonMetasForTopic\(topicId\)\[0\]\?\.emoji,\s*fallback: theme\.fallbackStopEmoji,\s*palette: theme\.stopEmojiPalette,\s*stableKey: topicId\s*\}\);/,
+    "The selector must use the raw marker only as an input and choose fallback cartoons deterministically by topic."
+  );
+  assert.equal(
+    worldMenuSource.includes("Math.random"),
+    false,
+    "Unit stop markers must never change randomly between renders."
+  );
+  assert.match(
+    worldMenuSource,
+    /data-lesson-unit-stop-marker="true"/,
+    "The decorative marker must expose a stable acceptance-test hook without entering the link's accessible name."
+  );
+  assert.match(
+    worldMenuSource,
+    /en: `Unit \$\{index \+ 1\} \$\{stopNoun\}:/,
+    "The accessible unit label must retain its explicit Unit N wayfinding text."
+  );
+  assert.match(
+    worldThemeSource,
+    /stopEmojiPalette: readonly string\[\];/,
+    "Every world theme must own its curated stop-marker palette."
+  );
+  for (const [themeName, themeId] of [
+    ["sproutMeadow", "sprout-meadow"],
+    ["voyagerSeas", "voyager-seas"],
+    ["skylineHeights", "skyline-heights"],
+    ["deepSpace", "deep-space"]
+  ] as const) {
+    const themeStart = worldThemeSource.indexOf(`const ${themeName}: LessonWorldTheme = {`);
+    const nextThemeStart = worldThemeSource.indexOf("\nconst ", themeStart);
+    const themeSource = worldThemeSource.slice(themeStart, nextThemeStart < 0 ? undefined : nextThemeStart);
+    assert.notEqual(themeStart, -1, `${themeId} must remain configured.`);
+    assert.match(themeSource, new RegExp(`id: "${themeId}"`), `${themeName} must retain its world id.`);
+    assert.match(themeSource, /stopEmojiPalette: \[[^\]]+\]/, `${themeId} must provide a non-empty curated palette.`);
+  }
 });
 
 test("unit directory uses grade-level California course names", () => {

@@ -6,6 +6,7 @@ import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesso
 import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
 import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
+import { selectLessonWorldStopMarker } from "@/components/lesson/worlds/worldStopMarker";
 import { lessonWorldThemeForCourse, type LessonWorldTheme } from "@/components/lesson/worlds/worldThemes";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
@@ -41,7 +42,12 @@ type WorldMenuProps = {
 const worldViewStorageKey = "mais.lesson-world-view";
 
 function stopEmojiForTopic(topicId: string, theme: LessonWorldTheme) {
-  return ccssLessonMetasForTopic(topicId)[0]?.emoji ?? theme.fallbackStopEmoji;
+  return selectLessonWorldStopMarker({
+    candidate: ccssLessonMetasForTopic(topicId)[0]?.emoji,
+    fallback: theme.fallbackStopEmoji,
+    palette: theme.stopEmojiPalette,
+    stableKey: topicId
+  });
 }
 
 /** A gently winding connector between two stops; solid when already travelled. */
@@ -162,7 +168,9 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
         })}
         className={`focus-ring relative grid shrink-0 place-items-center rounded-full shadow-lg transition hover:-translate-y-1 ${sizeClassName} ${stopStateClassName(index, module)}`}
       >
-        <span aria-hidden="true">{stopEmojiForTopic(module.topicId, theme!)}</span>
+        <span aria-hidden="true" data-lesson-unit-stop-marker="true">
+          {stopEmojiForTopic(module.topicId, theme!)}
+        </span>
         {isCompleted ? (
           <span
             aria-hidden="true"

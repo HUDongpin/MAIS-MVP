@@ -1,4 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldThemes";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
 
 /**
@@ -19,6 +20,9 @@ const gradeOnePlaceValueTopicPath = "/student/lessons/us-ca-math-p1-1-nbt-place-
 const gradeThreeTopicPath = "/student/lessons/us-ca-math-p3-3-nf-fraction-meaning";
 const gradeSixTopicPath = "/student/lessons/us-ca-math-p6-chapter-01";
 const highSchoolTopicPath = "/student/lessons/us-ca-math-s3-chapter-03";
+const gradeOneWorldTheme = lessonWorldThemeForGrade("P1");
+if (!gradeOneWorldTheme) throw new Error("Grade 1 must keep its configured lesson world.");
+const gradeOneWorldStopEmojiPalette = gradeOneWorldTheme.stopEmojiPalette;
 
 async function openLessonPage(page: Page, path: string) {
   await page.goto(path);
@@ -71,6 +75,43 @@ async function waitForAnimationFrames(page: Page, frameCount = 4) {
     };
     window.requestAnimationFrame(nextFrame);
   }), frameCount);
+}
+
+async function visibleUnitStopMarker(stop: Locator) {
+  const marker = stop.locator('[data-lesson-unit-stop-marker="true"]');
+  await expect(marker).toHaveCount(1);
+  await expect(marker).toHaveAttribute("aria-hidden", "true");
+  await expect(marker).toBeVisible();
+  const geometry = await marker.evaluate((element) => {
+    const circle = element.closest("a");
+    if (!circle) return null;
+    const markerRect = element.getBoundingClientRect();
+    const circleRect = circle.getBoundingClientRect();
+    return {
+      circle: {
+        bottom: circleRect.bottom,
+        left: circleRect.left,
+        right: circleRect.right,
+        top: circleRect.top
+      },
+      marker: {
+        bottom: markerRect.bottom,
+        height: markerRect.height,
+        left: markerRect.left,
+        right: markerRect.right,
+        top: markerRect.top,
+        width: markerRect.width
+      }
+    };
+  });
+  expect(geometry).not.toBeNull();
+  expect(geometry!.marker.width).toBeGreaterThan(0);
+  expect(geometry!.marker.height).toBeGreaterThan(0);
+  expect(geometry!.marker.left).toBeGreaterThanOrEqual(geometry!.circle.left - 1);
+  expect(geometry!.marker.right).toBeLessThanOrEqual(geometry!.circle.right + 1);
+  expect(geometry!.marker.top).toBeGreaterThanOrEqual(geometry!.circle.top - 1);
+  expect(geometry!.marker.bottom).toBeLessThanOrEqual(geometry!.circle.bottom + 1);
+  return (await marker.textContent())?.trim() ?? "";
 }
 
 test.describe("Learning Worlds lesson menu", () => {
@@ -256,6 +297,66 @@ test.describe("Learning Worlds lesson menu", () => {
     expect(Math.abs(await leftPane.evaluate((pane) => pane.scrollTop) - before.leftScrollTop)).toBeLessThanOrEqual(1);
     expect(Math.abs(await page.evaluate(() => window.scrollY) - before.windowY)).toBeLessThanOrEqual(1);
     await expect(page).toHaveURL(new RegExp(`${gradeOnePlaceValueTopicPath.replace(/[/.]/g, "\\$&")}$`));
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 1 Unit 2 uses a cartoon unit stop while preserving numbering, quick jumps, and navigation", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOnePlaceValueTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(world).toBeVisible({ timeout: 30_000 });
+
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+    const firstVisibleCurrentStop = isMobile
+      ? world.locator('[data-world-ribbon] a[aria-current="page"]')
+      : world.locator('ol:visible a[aria-current="page"]');
+    await expect(firstVisibleCurrentStop).toHaveCount(1);
+    await expect(firstVisibleCurrentStop).toHaveAccessibleName(/^Unit 2 clearing: .+ \(you are here\)$/);
+    const firstMarkerText = await visibleUnitStopMarker(firstVisibleCurrentStop);
+    expect(firstMarkerText).not.toBe("");
+    expect(gradeOneWorldStopEmojiPalette).toContain(firstMarkerText);
+    await expect(firstVisibleCurrentStop).not.toHaveAccessibleName(new RegExp(firstMarkerText, "u"));
+    expect(/[0-9\u20E3]/u.test(firstMarkerText)).toBe(false);
+    expect(["🔟", "🔢", "💯"].includes(firstMarkerText)).toBe(false);
+    const countingHeading = page.getByRole("heading", { level: 2, name: "2.1 Counting to 120", exact: true });
+    await expect(countingHeading).toHaveCount(1);
+    expect((await countingHeading.textContent())?.trim()).toBe("2.1 Counting to 120");
+
+    if (isMobile) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+    }
+    const quickJumpMap = world.locator("ol:visible");
+    const unitLinks = quickJumpMap.getByRole("link");
+    const currentUnit = quickJumpMap.locator('a[aria-current="page"]');
+    await expect(unitLinks).toHaveCount(16);
+    await expect(currentUnit).toHaveCount(1);
+    await expect(currentUnit).toHaveAttribute("href", gradeOnePlaceValueTopicPath);
+    await expect(currentUnit).toHaveAccessibleName(/^Unit 2 clearing: .+ \(you are here\)$/);
+    const mapMarkerText = await visibleUnitStopMarker(currentUnit);
+    expect(mapMarkerText).toBe(firstMarkerText);
+    expect(gradeOneWorldStopEmojiPalette).toContain(mapMarkerText);
+    await expect(currentUnit).not.toHaveAccessibleName(new RegExp(mapMarkerText, "u"));
+    expect(/[0-9\u20E3]/u.test(mapMarkerText)).toBe(false);
+    const unitOne = quickJumpMap.getByRole("link", { name: /^Unit 1 clearing:/ });
+    await expect(unitOne).toHaveCount(1);
+    expect(await visibleUnitStopMarker(unitOne)).toBe("📖");
+    await expect(
+      quickJumpMap.getByRole("button", { name: "2.1 Counting to 120 1️⃣", exact: true })
+    ).toHaveCount(1);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
+
+    const nextUnit = quickJumpMap.getByRole("link", { name: /Unit 3 clearing/i });
+    await expect(nextUnit).toHaveCount(1);
+    const nextHref = await nextUnit.getAttribute("href");
+    expect(nextHref).toBeTruthy();
+    await nextUnit.click();
+    await expect.poll(() => new URL(page.url()).pathname, { timeout: 30_000 }).toBe(nextHref!);
     expectNoPageErrors(errors);
   });
 
