@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { lessonWorldThemeForGrade } from "../../components/lesson/worlds/worldThemes";
+import { formatPracticeOptionDisplayText } from "../../components/practice/practiceOptionDisplayText";
 import { usCaliforniaQuestions } from "../../data/usCaliforniaQuestions";
 import { authenticateAsUserId, collectPageErrors, expectNoPageErrors } from "./helpers";
 
@@ -627,7 +628,10 @@ test.describe("Learning Worlds lesson menu", () => {
     const secondStone = missionTrail.getByRole("button", { name: /Go to question 2/i });
     await expect(firstStone).toHaveAttribute("aria-current", "step");
     const firstCard = visibleQuestionCard();
-    const firstAnswer = firstCard.getByRole("button", { name: firstQuestion.answer, exact: true });
+    const firstAnswer = firstCard.getByRole("button", {
+      name: formatPracticeOptionDisplayText(firstQuestion.answer),
+      exact: true
+    });
     const firstCheckAnswer = firstCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i });
     await expect(firstAnswer).toBeVisible();
     await expect(firstAnswer).toBeEnabled();
@@ -669,7 +673,10 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(secondStone).toHaveAttribute("aria-current", "step");
 
     const secondCard = visibleQuestionCard();
-    const secondAnswer = secondCard.getByRole("button", { name: secondQuestion.answer, exact: true });
+    const secondAnswer = secondCard.getByRole("button", {
+      name: formatPracticeOptionDisplayText(secondQuestion.answer),
+      exact: true
+    });
     const secondCheckAnswer = secondCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i });
     await expect(secondAnswer).toBeVisible();
     await expect(secondAnswer).toBeEnabled();
