@@ -220,13 +220,38 @@ test.describe("Learning Worlds lesson menu", () => {
     // the right-pane bottom remains a real boundary throughout this test.
     const visualization = rightPane.locator("#visualization");
     await expect(visualization).toBeAttached();
+    const beforeVisualizationSetup = {
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
     await rightPane.evaluate((pane) => {
-      pane.scrollTop = pane.scrollHeight;
+      const target = pane.querySelector<HTMLElement>("#visualization");
+      if (!target) throw new Error("The lesson visualization must render inside the right pane.");
+      const paneRect = pane.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const targetCenterWithinPane = pane.scrollTop + targetRect.top - paneRect.top + targetRect.height / 2;
+      pane.scrollTo({
+        behavior: "auto",
+        top: Math.max(0, targetCenterWithinPane - pane.clientHeight / 2)
+      });
     });
+    await expect.poll(() => visualization.evaluate((target) => {
+      const pane = target.closest<HTMLElement>("[data-lesson-content-pane]");
+      if (!pane) return false;
+      const paneRect = pane.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      return targetRect.bottom > paneRect.top + 1 && targetRect.top < paneRect.bottom - 1;
+    })).toBe(true);
     await expect(
       visualization.locator(":scope > [aria-hidden='true'].animate-pulse")
     ).toHaveCount(0, { timeout: 30_000 });
     await waitForAnimationFrames(page);
+    const afterVisualizationSetup = {
+      leftScrollTop: await leftPane.evaluate((pane) => pane.scrollTop),
+      windowY: await page.evaluate(() => window.scrollY)
+    };
+    expect(Math.abs(afterVisualizationSetup.leftScrollTop - beforeVisualizationSetup.leftScrollTop)).toBeLessThanOrEqual(1);
+    expect(Math.abs(afterVisualizationSetup.windowY - beforeVisualizationSetup.windowY)).toBeLessThanOrEqual(1);
 
     await Promise.all([
       leftPane.evaluate((pane) => { pane.scrollTop = 0; }),
