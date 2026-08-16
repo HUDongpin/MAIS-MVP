@@ -22,6 +22,7 @@ const kindergartenOtherTopicPath = "/student/lessons/us-ca-math-k-k-oa-compose-d
 const gradeOneAddSubtractTopicPath = "/student/lessons/us-ca-math-p1-1-oa-add-subtract";
 const gradeOnePlaceValueTopicPath = "/student/lessons/us-ca-math-p1-1-nbt-place-value";
 const gradeOneShapeReasoningTopicPath = "/student/lessons/us-ca-math-p1-1-g-shape-reasoning";
+const gradeTwoFluencyArraysTopicPath = "/student/lessons/us-ca-math-p2-2-oa-fluency-arrays";
 const gradeThreeTopicPath = "/student/lessons/us-ca-math-p3-3-nf-fraction-meaning";
 const gradeSixTopicPath = "/student/lessons/us-ca-math-p6-chapter-01";
 const highSchoolTopicPath = "/student/lessons/us-ca-math-s3-chapter-03";
@@ -285,10 +286,78 @@ async function expectUnitStopVisualState(stop: Locator, expectedState: LessonUni
   return markerText;
 }
 
-async function registerCaliforniaGradeOneStudent(
+async function expectLessonWorldCurrentAvatarCursor(
+  map: Locator,
+  currentStop: Locator,
+  expectedGlyph: string
+) {
+  const currentItem = currentStop.locator("xpath=ancestor::li[1]");
+  await expect(currentItem).toHaveCount(1);
+  const cursor = currentItem.locator('[data-lesson-current-avatar-cursor="true"]');
+  await expect(map.locator('[data-lesson-current-avatar-cursor="true"]')).toHaveCount(1);
+  await expect(cursor).toHaveCount(1);
+  await expect(cursor).toHaveAttribute("aria-hidden", "true");
+  await expect(cursor).toBeVisible();
+  await expect(cursor.locator('[data-lesson-current-avatar-fallback="true"]')).toHaveText(expectedGlyph);
+  await expect(cursor.locator('[data-lesson-current-avatar-image="true"]')).toHaveCount(0);
+  await expect(cursor.locator('[data-lesson-current-avatar-presence="true"]')).toBeVisible();
+
+  const geometry = await cursor.evaluate((element) => {
+    const item = element.closest("li");
+    const stop = item?.querySelector<HTMLElement>('a[aria-current="page"]');
+    const presence = element.querySelector<HTMLElement>('[data-lesson-current-avatar-presence="true"]');
+    if (!stop || !presence) return null;
+    const cursorRect = element.getBoundingClientRect();
+    const stopRect = stop.getBoundingClientRect();
+    const presenceRect = presence.getBoundingClientRect();
+    const overlapWidth = Math.max(
+      0,
+      Math.min(cursorRect.right, stopRect.right) - Math.max(cursorRect.left, stopRect.left)
+    );
+    const overlapHeight = Math.max(
+      0,
+      Math.min(cursorRect.bottom, stopRect.bottom) - Math.max(cursorRect.top, stopRect.top)
+    );
+    return {
+      borderRadius: Number.parseFloat(getComputedStyle(element).borderRadius),
+      height: cursorRect.height,
+      overlapArea: overlapWidth * overlapHeight,
+      pointerEvents: getComputedStyle(element).pointerEvents,
+      presence: {
+        bottom: presenceRect.bottom,
+        left: presenceRect.left,
+        right: presenceRect.right,
+        top: presenceRect.top
+      },
+      cursor: {
+        bottom: cursorRect.bottom,
+        left: cursorRect.left,
+        right: cursorRect.right,
+        top: cursorRect.top
+      },
+      width: cursorRect.width
+    };
+  });
+
+  expect(geometry).not.toBeNull();
+  expect(geometry!.width).toBeGreaterThanOrEqual(31);
+  expect(geometry!.width).toBeLessThanOrEqual(33);
+  expect(geometry!.height).toBeGreaterThanOrEqual(31);
+  expect(geometry!.height).toBeLessThanOrEqual(33);
+  expect(geometry!.borderRadius).toBeGreaterThanOrEqual(15);
+  expect(geometry!.pointerEvents).toBe("none");
+  expect(geometry!.overlapArea).toBeLessThanOrEqual(1);
+  expect(geometry!.presence.left).toBeGreaterThanOrEqual(geometry!.cursor.right - 12);
+  expect(geometry!.presence.top).toBeGreaterThanOrEqual(geometry!.cursor.bottom - 12);
+  expect(geometry!.presence.right).toBeLessThanOrEqual(geometry!.cursor.right + 3);
+  expect(geometry!.presence.bottom).toBeLessThanOrEqual(geometry!.cursor.bottom + 3);
+}
+
+async function registerCaliforniaStudent(
   page: Page,
   testInfo: TestInfo,
-  language: "en" | "zh-Hans" = "en"
+  language: "en" | "zh-Hans" = "en",
+  grade: "P1" | "P2" = "P1"
 ) {
   const suffix = uniqueSuffix(testInfo);
   const username = `world-stop-${suffix}@example.test`;
@@ -299,7 +368,7 @@ async function registerCaliforniaGradeOneStudent(
       username,
       email: username,
       password: "world-stop-12345",
-      grade: "P1",
+      grade,
       curriculumTrack: "US_CA_MATH",
       curriculumProfile: { region: "US", publisher: "US_CA_MATH" },
       language,
@@ -654,7 +723,7 @@ test.describe("Learning Worlds lesson menu", () => {
   test("personalized unit stops show current stars, completed stars, and navigable not-learned locks", async ({ page }, testInfo) => {
     const errors = collectPageErrors(page);
     await keepLessonWorldMenuOpen(page);
-    await registerCaliforniaGradeOneStudent(page, testInfo);
+    await registerCaliforniaStudent(page, testInfo);
 
     const firstCompletion = await page.request.post("/api/lesson-progress", {
       data: { slug: gradeOneAddSubtractTopicPath.split("/").at(-1), action: "complete", checklistState: {} }
@@ -803,6 +872,95 @@ test.describe("Learning Worlds lesson menu", () => {
         movedRibbon.getByRole("link", { name: /^Unit 4 clearing: .+ \(next stop, not learned yet\)$/ }),
         "locked"
       )).toBe(await visibleUnitStopMarker(lockedUnitFour));
+    }
+
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
+  test("Grade 2 Unit 1 replaces the here chip with the learner avatar cursor", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await keepLessonWorldMenuOpen(page);
+    await registerCaliforniaStudent(page, testInfo, "zh-Hans", "P2");
+
+    const profileResponse = await page.request.patch("/api/me/profile", {
+      data: { avatarId: "sigma" }
+    });
+    const profileResponseText = await profileResponse.text();
+    expect(profileResponse.status(), profileResponseText).toBe(200);
+    const profileBody = JSON.parse(profileResponseText) as { user?: { avatarId?: string } };
+    expect(profileBody.user?.avatarId).toBe("sigma");
+
+    await openLessonPage(page, gradeTwoFluencyArraysTopicPath);
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    const isMobile = Boolean(testInfo.project.use.isMobile);
+
+    if (isMobile) {
+      const ribbon = world.locator("[data-world-ribbon]");
+      const ribbonCurrent = ribbon.locator('a[aria-current="page"]');
+      await expect(ribbonCurrent).toHaveCount(1);
+      await expect(ribbonCurrent).toHaveAccessibleName(/^第 1 单元空地：.+（你在这里）$/);
+      expect(await expectUnitStopVisualState(ribbonCurrent, "current")).toBe("📝");
+      await expect(ribbon.locator('[data-lesson-current-avatar-cursor="true"]')).toHaveCount(0);
+      await expect(ribbon.getByText(/^(?:You are here|你在這裡|你在这里)$/)).toHaveCount(0);
+      await world.getByRole("button", { name: /open the full map|展開完整地圖|展开完整地图/i }).click();
+    }
+
+    const map = world.locator("ol:visible");
+    const currentUnit = map.locator('a[aria-current="page"]');
+    await expect(map).toBeVisible();
+    await expect(currentUnit).toHaveCount(1);
+    await expect(currentUnit).toHaveAttribute("href", gradeTwoFluencyArraysTopicPath);
+    await expect(currentUnit).toHaveAccessibleName(/^第 1 单元空地：.+（你在这里）$/);
+    expect(await expectUnitStopVisualState(currentUnit, "current")).toBe("📝");
+    await expectLessonWorldCurrentAvatarCursor(map, currentUnit, "🐶");
+    await expect(map.getByText(/^(?:You are here|你在這裡|你在这里)$/)).toHaveCount(0);
+    await expect(
+      map.getByRole("button", { name: "1.1 Word Problems Within 100 📝", exact: true })
+    ).toHaveCount(1);
+    await expect(
+      page.locator("[data-lesson-content-pane]:visible").getByRole("heading", {
+        level: 2,
+        name: "1.1 Word Problems Within 100",
+        exact: true
+      })
+    ).toHaveCount(1);
+
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    )).toBe(false);
+
+    const nextUnit = map.getByRole("link", {
+      name: /^第 2 单元空地：.+（下一站，尚未学习）$/
+    });
+    await expect(nextUnit).toHaveCount(1);
+    const nextHref = await nextUnit.getAttribute("href");
+    expect(nextHref).toBeTruthy();
+    await nextUnit.click();
+    await expect.poll(() => new URL(page.url()).pathname, { timeout: 30_000 }).toBe(nextHref!);
+
+    const movedWorld = page.locator('[data-lesson-world="sprout-meadow"]');
+    await expect(movedWorld).toBeVisible({ timeout: 30_000 });
+    if (isMobile && await movedWorld.locator("ol:visible").count() === 0) {
+      await movedWorld.getByRole("button", { name: /open the full map|展開完整地圖|展开完整地图/i }).click();
+    }
+    const movedMap = movedWorld.locator("ol:visible");
+    const movedCurrent = movedMap.locator('a[aria-current="page"]');
+    await expect(movedCurrent).toHaveAccessibleName(/^第 2 单元空地：.+（你在这里）$/);
+    await expectUnitStopVisualState(movedCurrent, "current");
+    await expectLessonWorldCurrentAvatarCursor(movedMap, movedCurrent, "🐶");
+    await expect(movedMap.getByText(/^(?:You are here|你在這裡|你在这里)$/)).toHaveCount(0);
+
+    if (isMobile) {
+      const movedRibbon = movedWorld.locator("[data-world-ribbon]");
+      const movedRibbonCurrent = movedRibbon.locator('a[aria-current="page"]');
+      await expect(movedRibbonCurrent).toHaveAccessibleName(/^第 2 单元空地：.+（你在这里）$/);
+      await expectUnitStopVisualState(movedRibbonCurrent, "current");
+      await expect(movedRibbon.locator('[data-lesson-current-avatar-cursor="true"]')).toHaveCount(0);
+      await expect(movedRibbon.getByText(/^(?:You are here|你在這裡|你在这里)$/)).toHaveCount(0);
     }
 
     expect(await page.evaluate(
@@ -1254,7 +1412,7 @@ test.describe("Learning Worlds lesson menu", () => {
 
     const errors = collectPageErrors(page);
     await keepLessonWorldMenuOpen(page);
-    await registerCaliforniaGradeOneStudent(page, testInfo, "zh-Hans");
+    await registerCaliforniaStudent(page, testInfo, "zh-Hans");
     await openLessonPage(page, gradeOneShapeReasoningTopicPath);
 
     const lessonUrl = page.url();
@@ -1830,5 +1988,19 @@ test.describe("Learning Worlds lesson menu", () => {
     });
     const disabled = animation.name === "none" || parseFloat(animation.duration) <= 0.01;
     expect(disabled, `expected no pulse under reduced motion, got ${JSON.stringify(animation)}`).toBeTruthy();
+
+    const avatarCursor = world.locator('ol:visible [data-lesson-current-avatar-cursor="true"]');
+    await expect(avatarCursor).toHaveCount(1);
+    await expect(avatarCursor).toBeVisible();
+    const avatarAnimation = await avatarCursor.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return { name: style.animationName, duration: style.animationDuration };
+    });
+    const avatarAnimationDisabled =
+      avatarAnimation.name === "none" || parseFloat(avatarAnimation.duration) <= 0.01;
+    expect(
+      avatarAnimationDisabled,
+      `expected no avatar cursor animation under reduced motion, got ${JSON.stringify(avatarAnimation)}`
+    ).toBeTruthy();
   });
 });

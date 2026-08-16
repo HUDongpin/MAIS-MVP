@@ -53,8 +53,8 @@ export type LessonWorldTheme = {
   stopFutureClassName: string;
   /** Quick-jump stones for the current unit's lesson parts. */
   quickJumpClassName: string;
-  /** "You are here" chip. */
-  hereChipClassName: string;
+  /** Current-position avatar cursor surface. */
+  currentAvatarClassName: string;
 };
 
 export function lessonWorldBandForGrade(grade: GradeId): LessonWorldBand {
@@ -110,7 +110,7 @@ const sproutMeadow: LessonWorldTheme = {
     "border-emerald-200 bg-white/90 shadow-emerald-900/10 dark:border-emerald-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-emerald-200/90 bg-white/85 text-emerald-900 hover:border-amber-300 hover:bg-amber-50 dark:border-emerald-300/20 dark:bg-white/[0.06] dark:text-emerald-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 const voyagerSeas: LessonWorldTheme = {
@@ -147,7 +147,7 @@ const voyagerSeas: LessonWorldTheme = {
     "border-cyan-200 bg-white/90 shadow-cyan-900/10 dark:border-cyan-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-cyan-200/90 bg-white/85 text-sky-900 hover:border-orange-300 hover:bg-orange-50 dark:border-cyan-300/20 dark:bg-white/[0.06] dark:text-sky-50 dark:hover:bg-orange-300/10",
-  hereChipClassName: "bg-orange-300/90 text-orange-950"
+  currentAvatarClassName: "bg-orange-300/90 text-orange-950"
 };
 
 const skylineHeights: LessonWorldTheme = {
@@ -184,7 +184,7 @@ const skylineHeights: LessonWorldTheme = {
     "border-indigo-200 bg-white/90 shadow-indigo-900/10 dark:border-indigo-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-indigo-200/90 bg-white/85 text-indigo-900 hover:border-amber-300 hover:bg-amber-50 dark:border-indigo-300/20 dark:bg-white/[0.06] dark:text-indigo-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 const deepSpace: LessonWorldTheme = {
@@ -221,7 +221,7 @@ const deepSpace: LessonWorldTheme = {
     "border-slate-300 bg-white/90 shadow-slate-900/10 dark:border-indigo-300/20 dark:bg-white/[0.07]",
   quickJumpClassName:
     "border-slate-300/90 bg-white/85 text-slate-900 hover:border-amber-300 hover:bg-amber-50 dark:border-indigo-300/20 dark:bg-white/[0.06] dark:text-indigo-50 dark:hover:bg-amber-300/10",
-  hereChipClassName: "bg-amber-300/90 text-amber-950"
+  currentAvatarClassName: "bg-amber-300/90 text-amber-950"
 };
 
 /** All four worlds shipped (Phase 5). Bands without a theme fall back to the list. */

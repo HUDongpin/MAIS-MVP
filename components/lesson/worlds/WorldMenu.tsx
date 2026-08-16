@@ -6,6 +6,7 @@ import { LessonGalaxyDirectory, type LessonGalaxyItem } from "@/components/lesso
 import { californiaCourseTitleForGrade, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
 import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { lessonMenuHideButtonId, lessonMenuPanelId } from "@/components/lesson/worlds/lessonMenuVisibility";
+import { lessonWorldCurrentAvatarDisplay } from "@/components/lesson/worlds/worldCurrentAvatar";
 import { selectLessonWorldStopMarker } from "@/components/lesson/worlds/worldStopMarker";
 import {
   lessonWorldStopStatusDescription,
@@ -138,6 +139,10 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
   const courseTitle = californiaCourseTitleForGrade(lesson.grade);
   const stopNoun = t(theme.stopNoun);
   const firstName = currentUser?.username?.split(" ").pop() ?? "";
+  const currentAvatar = lessonWorldCurrentAvatarDisplay({
+    avatarId: currentUser?.avatarId,
+    avatarImageDataUrl: currentUser?.avatarImageDataUrl
+  });
   const greeting = nextModule
     ? t({
         en: `${firstName ? `${firstName}, the` : "The"} ${cleanLessonUnitTitle(text(nextModule.title))} ${stopNoun} is just ahead →`,
@@ -218,11 +223,34 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
             <div className={`flex min-w-0 items-center gap-4 ${flip ? "flex-row-reverse text-right" : ""}`}>
               {renderStopCircle(module, index, "map")}
               <div className="min-w-0 flex-1">
-                <span className={`block text-xs font-black uppercase tracking-[0.14em] ${theme.accentTextClassName}`}>
+                <span className={`flex items-center text-xs font-black uppercase tracking-[0.14em] ${flip ? "justify-end" : ""} ${theme.accentTextClassName}`}>
                   {t({ en: `Unit ${index + 1}`, zh: `Unit ${index + 1}`, zhHans: `Unit ${index + 1}` })}
                   {isCurrent ? (
-                    <span className={`ml-2 rounded-full px-2 py-0.5 text-[10px] font-black ${theme.hereChipClassName}`}>
-                      {t({ en: "You are here", zh: "你在這裡", zhHans: "你在这里" })}
+                    <span
+                      aria-hidden="true"
+                      data-lesson-current-avatar-cursor="true"
+                      className="pointer-events-none relative ml-2 inline-grid h-8 w-8 shrink-0 place-items-center rounded-full"
+                    >
+                      <span className={`grid h-full w-full place-items-center overflow-hidden rounded-full border-2 border-white text-sm font-black normal-case shadow-md ring-2 ring-amber-400 ${theme.currentAvatarClassName}`}>
+                        <span data-lesson-current-avatar-fallback="true">{currentAvatar.fallbackGlyph}</span>
+                        {currentAvatar.imageSrc ? (
+                          <img
+                            key={currentAvatar.imageSrc}
+                            src={currentAvatar.imageSrc}
+                            alt=""
+                            draggable={false}
+                            onError={(event) => {
+                              event.currentTarget.hidden = true;
+                            }}
+                            data-lesson-current-avatar-image="true"
+                            className="absolute inset-0 h-full w-full rounded-full object-cover"
+                          />
+                        ) : null}
+                      </span>
+                      <span
+                        data-lesson-current-avatar-presence="true"
+                        className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500 shadow-sm dark:border-slate-950"
+                      />
                     </span>
                   ) : index === nextIndex ? (
                     <span className={`ml-2 rounded-full border px-2 py-0.5 text-[10px] font-black ${theme.chipClassName}`}>

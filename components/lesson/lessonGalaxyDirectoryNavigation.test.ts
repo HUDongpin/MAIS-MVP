@@ -9,6 +9,7 @@ const lessonPracticeAutoAdvanceSource = readFileSync("components/lesson/lessonPr
 const practiceArenaSource = readFileSync("app/practice/page.tsx", "utf8");
 const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
+const worldCurrentAvatarSource = readFileSync("components/lesson/worlds/worldCurrentAvatar.ts", "utf8");
 const worldStopStateSource = readFileSync("components/lesson/worlds/worldStopState.ts", "utf8");
 const worldThemeSource = readFileSync("components/lesson/worlds/worldThemes.ts", "utf8");
 const configuredVisualizationLabSource = readFileSync("components/visualizations/ConfiguredVisualizationLab.tsx", "utf8");
@@ -456,6 +457,65 @@ test("world unit stops layer current, completed, and not-learned indicators with
   assert.match(worldStopStateSource, /next stop, not learned yet/);
   assert.match(worldStopStateSource, /下一站，尚未學習/);
   assert.match(worldStopStateSource, /下一站，尚未学习/);
+});
+
+test("the current unit replaces its visible here chip with one decorative circular learner cursor", () => {
+  assert.match(
+    worldMenuSource,
+    /import \{ lessonWorldCurrentAvatarDisplay \} from "@\/components\/lesson\/worlds\/worldCurrentAvatar";/,
+    "WorldMenu must derive uploaded-image and fallback avatar display from one bounded model."
+  );
+  assert.match(worldMenuSource, /data-lesson-current-avatar-cursor="true"/);
+  assert.match(
+    worldMenuSource,
+    /aria-hidden="true"[\s\S]{0,120}data-lesson-current-avatar-cursor="true"/,
+    "The visual cursor must not duplicate the unit link's existing current-state accessible name."
+  );
+  assert.match(worldMenuSource, /h-8 w-8[\s\S]{0,80}rounded-full/);
+  assert.match(worldMenuSource, /pointer-events-none/);
+  assert.match(worldMenuSource, /data-lesson-current-avatar-presence="true"/);
+  assert.match(worldMenuSource, /data-lesson-current-avatar-image="true"/);
+  assert.match(worldMenuSource, /data-lesson-current-avatar-fallback="true"/);
+  assert.match(
+    worldMenuSource,
+    /alt=""[\s\S]{0,400}data-lesson-current-avatar-image="true"/,
+    "The decorative uploaded avatar must not add a second accessible name."
+  );
+  assert.match(worldMenuSource, /avatarId: currentUser\?\.avatarId/);
+  assert.match(worldMenuSource, /key=\{currentAvatar\.imageSrc\}/);
+  assert.match(
+    worldMenuSource,
+    /onError=\{\(event\) => \{[\s\S]{0,100}event\.currentTarget\.hidden = true;/,
+    "A failed profile image must reveal the preset glyph, and a keyed new src must get a fresh image node."
+  );
+  assert.doesNotMatch(worldCurrentAvatarSource, /\b(?:name|username)\b/);
+  assert.match(worldThemeSource, /currentAvatarClassName: string;/);
+  assert.doesNotMatch(worldThemeSource, /hereChipClassName/);
+  assert.doesNotMatch(
+    worldMenuSource,
+    /en: "You are here", zh: "你在這裡", zhHans: "你在这里"/,
+    "The reported text pill must no longer be visible beside Unit N."
+  );
+
+  const stopCircleStart = worldMenuSource.indexOf("const renderStopCircle");
+  const stopCircleEnd = worldMenuSource.indexOf("const fullMap", stopCircleStart);
+  assert.notEqual(stopCircleStart, -1);
+  assert.notEqual(stopCircleEnd, -1);
+  assert.doesNotMatch(
+    worldMenuSource.slice(stopCircleStart, stopCircleEnd),
+    /data-lesson-current-avatar-cursor/,
+    "Ribbon and map stop circles must retain Bug 9's current star instead of gaining a duplicate cursor."
+  );
+  assert.equal(
+    worldMenuSource.match(/data-lesson-current-avatar-cursor/g)?.length,
+    1,
+    "Only the full map location that previously showed the here chip may render an avatar cursor."
+  );
+  assert.match(
+    worldMenuSource,
+    /lessonWorldStopStatusDescription\(\{ isCompleted, isCurrent, isNext \}\)/,
+    "The unit link must keep its current-state announcement after the visible chip is removed."
+  );
 });
 
 test("lesson modules progressively overlay authenticated roadmap status without replacing the SSR baseline", () => {
