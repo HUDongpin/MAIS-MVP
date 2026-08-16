@@ -627,7 +627,11 @@ test.describe("Learning Worlds lesson menu", () => {
     const secondStone = missionTrail.getByRole("button", { name: /Go to question 2/i });
     await expect(firstStone).toHaveAttribute("aria-current", "step");
 
-    await page.clock.pauseAt(await page.evaluate(() => Date.now()));
+    // pauseAt rejects a target that becomes past during the RPC. At this point
+    // no answer has scheduled the 3000ms timer, so this headroom cannot consume
+    // any part of the auto-advance boundary asserted below.
+    const pauseTarget = await page.evaluate(() => Date.now() + 1_000);
+    await page.clock.pauseAt(pauseTarget);
     const firstCard = visibleQuestionCard();
     await firstCard.getByRole("button", { name: firstQuestion.answer, exact: true }).click();
     const firstAttempt = page.waitForResponse((response) => {
