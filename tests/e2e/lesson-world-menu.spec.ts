@@ -626,21 +626,34 @@ test.describe("Learning Worlds lesson menu", () => {
     const firstStone = missionTrail.getByRole("button", { name: /Question 1/i });
     const secondStone = missionTrail.getByRole("button", { name: /Go to question 2/i });
     await expect(firstStone).toHaveAttribute("aria-current", "step");
+    const firstCard = visibleQuestionCard();
+    const firstAnswer = firstCard.getByRole("button", { name: firstQuestion.answer, exact: true });
+    const firstCheckAnswer = firstCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i });
+    await expect(firstAnswer).toBeVisible();
+    await expect(firstAnswer).toBeEnabled();
+    await firstAnswer.click();
+    await expect(firstCheckAnswer).toBeVisible();
+    await expect(firstCheckAnswer).toBeEnabled();
 
     // pauseAt rejects a target that becomes past during the RPC. At this point
     // no answer has scheduled the 3000ms timer, so this headroom cannot consume
     // any part of the auto-advance boundary asserted below.
     const pauseTarget = await page.evaluate(() => Date.now() + 1_000);
     await page.clock.pauseAt(pauseTarget);
-    const firstCard = visibleQuestionCard();
-    await firstCard.getByRole("button", { name: firstQuestion.answer, exact: true }).click();
+    expect(await page.evaluate(() => Date.now())).toBe(pauseTarget);
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", firstQuestion.id);
+    await expect(firstStone).toHaveAttribute("aria-current", "step");
+    await expect(firstCheckAnswer).toBeVisible();
+    await expect(firstCheckAnswer).toBeEnabled();
     const firstAttempt = page.waitForResponse((response) => {
       const postData = response.request().postData() ?? "";
       return response.url().includes("/api/attempts")
         && response.request().method() === "POST"
         && postData.includes(`"questionId":"${firstQuestion.id}"`);
     });
-    await firstCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
+    // The intentionally paused clock also freezes actionability's rAF stability
+    // probes. Force is limited to controls already proven visible and enabled.
+    await firstCheckAnswer.click({ force: true });
     const firstResponse = await firstAttempt;
     expect(firstResponse.ok()).toBe(true);
     expect((await firstResponse.json() as { correct?: boolean }).correct).toBe(true);
@@ -656,21 +669,29 @@ test.describe("Learning Worlds lesson menu", () => {
     await expect(secondStone).toHaveAttribute("aria-current", "step");
 
     const secondCard = visibleQuestionCard();
-    await secondCard.getByRole("button", { name: secondQuestion.answer, exact: true }).click();
+    const secondAnswer = secondCard.getByRole("button", { name: secondQuestion.answer, exact: true });
+    const secondCheckAnswer = secondCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i });
+    await expect(secondAnswer).toBeVisible();
+    await expect(secondAnswer).toBeEnabled();
+    await secondAnswer.click({ force: true });
+    await expect(secondCheckAnswer).toBeVisible();
+    await expect(secondCheckAnswer).toBeEnabled();
     const secondAttempt = page.waitForResponse((response) => {
       const postData = response.request().postData() ?? "";
       return response.url().includes("/api/attempts")
         && response.request().method() === "POST"
         && postData.includes(`"questionId":"${secondQuestion.id}"`);
     });
-    await secondCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
+    await secondCheckAnswer.click({ force: true });
     const secondResponse = await secondAttempt;
     expect(secondResponse.ok()).toBe(true);
     expect((await secondResponse.json() as { correct?: boolean }).correct).toBe(true);
     await expect(secondCard.getByText(/^(Correct\b|正確|正确)/i).first()).toBeVisible();
 
     const fourthStone = missionTrail.getByRole("button", { name: /Go to question 4/i });
-    await fourthStone.click();
+    await expect(fourthStone).toBeVisible();
+    await expect(fourthStone).toBeEnabled();
+    await fourthStone.click({ force: true });
     await expect(fourthStone).toBeFocused();
     await expect(fourthStone).toHaveAttribute("aria-current", "step");
     await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[3]!);
