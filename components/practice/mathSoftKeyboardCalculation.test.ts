@@ -30,6 +30,12 @@ test("unsafe integer results fail closed instead of emitting a misleading equati
   assert.equal(calculateMathKeyboardAnswer("9007199254740992"), null);
 });
 
+test("a large non-terminating rational cannot collapse to a nearby Number integer", () => {
+  // The exact result is 9007199254740990 + 2/3, while Number rounds it to
+  // 9007199254740991. Grader compatibility alone must not publish that value.
+  assert.equal(calculateMathKeyboardAnswer("(9007199254740991*3-1)/3"), null);
+});
+
 for (const expression of [
   "9007199254740993-9007199254740992",
   "9999999999999999-9999999999999998"
@@ -74,8 +80,14 @@ test("an exact decimal result fails closed when the existing Number grader rejec
 
 test("calculator-style equals rejects expressions beyond its local resource budget", () => {
   const oversizedExpression = Array.from({ length: 300 }, () => "1").join("+");
+  const tooManyParserSteps = Array.from({ length: 129 }, () => "1").join("+");
+  const tooDeep = `${"(".repeat(33)}1${")".repeat(33)}`;
+  const oversizedLiteral = `0.${"1".repeat(129)}`;
   assert.equal(calculateMathKeyboardAnswer(oversizedExpression), null);
   assert.equal(calculateMathKeyboardAnswer(`${" ".repeat(600)}1+1`), null);
+  assert.equal(calculateMathKeyboardAnswer(tooManyParserSteps), null);
+  assert.equal(calculateMathKeyboardAnswer(tooDeep), null);
+  assert.equal(calculateMathKeyboardAnswer(oversizedLiteral), null);
 });
 
 test("every auto-completed equation is accepted by the existing short-answer grader", () => {

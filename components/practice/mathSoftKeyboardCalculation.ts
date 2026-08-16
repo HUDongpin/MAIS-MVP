@@ -9,6 +9,7 @@ type EvaluatedArithmetic = {
 };
 
 const graderEquationTolerance = 0.000001;
+const exactResultToleranceScale = BigInt(1_000_000);
 const maxExpressionLength = 512;
 const maxFormattedAnswerLength = 160;
 const maxFormattedDecimalPlaces = 128;
@@ -327,6 +328,29 @@ function graderAcceptsEquation(graderValue: number, formattedResult: string) {
     Math.abs(graderValue - rightValue) < graderEquationTolerance;
 }
 
+function formattedResultIsExactEnough(exact: Rational, formattedResult: string) {
+  const isNegative = formattedResult.startsWith("-");
+  const unsignedResult = isNegative ? formattedResult.slice(1) : formattedResult;
+  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(unsignedResult)) return false;
+
+  try {
+    const unsigned = decimalLiteralToRational(unsignedResult);
+    const formatted = isNegative
+      ? { denominator: unsigned.denominator, numerator: -unsigned.numerator }
+      : unsigned;
+    const errorNumerator = absoluteBigInt(
+      formatted.numerator * exact.denominator - exact.numerator * formatted.denominator
+    );
+    const sharedDenominator = formatted.denominator * exact.denominator;
+
+    // Mirror the grader's strict tolerance with integer cross-products so a
+    // large exact fraction cannot first collapse to a nearby Number integer.
+    return errorNumerator * exactResultToleranceScale < sharedDenominator;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Resolve an answer-entry expression with exact bounded rational arithmetic.
  * A Number companion mirrors the current grader only as a compatibility gate;
@@ -343,7 +367,9 @@ export function calculateMathKeyboardAnswer(value: string): string | null {
   if (evaluated === null) return null;
 
   const formatted = formatExactResult(evaluated.exact);
-  return formatted !== null && graderAcceptsEquation(evaluated.graderValue, formatted)
+  return formatted !== null &&
+    formattedResultIsExactEnough(evaluated.exact, formatted) &&
+    graderAcceptsEquation(evaluated.graderValue, formatted)
     ? `${expression}=${formatted}`
     : null;
 }
