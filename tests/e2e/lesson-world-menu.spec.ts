@@ -478,19 +478,23 @@ async function alignLessonControlInItsScrollRoot(control: Locator) {
       const rect = element.getBoundingClientRect();
       return {
         left: rect.left,
-        scrollPosition: desktop && pane ? pane.scrollTop : window.scrollY,
+        paneScrollTop: desktop && pane ? pane.scrollTop : null,
+        windowY: window.scrollY,
         top: rect.top
       };
     };
     let previous = sample();
     let stableSamples = 0;
-    for (let attempt = 0; attempt < 12; attempt += 1) {
+    for (let attempt = 0; attempt < 90; attempt += 1) {
       await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
       const current = sample();
       const delta = Math.max(
         Math.abs(current.left - previous.left),
         Math.abs(current.top - previous.top),
-        Math.abs(current.scrollPosition - previous.scrollPosition)
+        Math.abs(current.windowY - previous.windowY),
+        current.paneScrollTop === null || previous.paneScrollTop === null
+          ? 0
+          : Math.abs(current.paneScrollTop - previous.paneScrollTop)
       );
       stableSamples = delta <= 0.25 ? stableSamples + 1 : 0;
       if (stableSamples >= 2) return;
@@ -1200,6 +1204,7 @@ test.describe("Learning Worlds lesson menu", () => {
       exact: true
     });
     await expect(wordProblemJump).toBeVisible();
+    await alignLessonControlInItsScrollRoot(wordProblemJump);
     await wordProblemJump.click();
 
     const wordLesson = rightPane.locator('[data-ccss-lesson="word-problems-100"]');
@@ -1407,10 +1412,12 @@ test.describe("Learning Worlds lesson menu", () => {
         name: /open the full map|展開完整地圖|展开完整地图/i
       }).click();
     }
-    await boundaryWorld.locator("ol:visible").getByRole("button", {
+    const boundaryWordProblemJump = boundaryWorld.locator("ol:visible").getByRole("button", {
       name: "1.1 Word Problems Within 100 📝",
       exact: true
-    }).click();
+    });
+    await alignLessonControlInItsScrollRoot(boundaryWordProblemJump);
+    await boundaryWordProblemJump.click();
 
     const boundaryLesson = boundaryRightPane.locator('[data-ccss-lesson="word-problems-100"]');
     await expect(boundaryLesson).toHaveAttribute("data-ccss-diagram-hydrated", "true", {
