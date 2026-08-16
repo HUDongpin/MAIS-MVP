@@ -576,6 +576,100 @@ test.describe("Learning Worlds lesson menu", () => {
     expectNoPageErrors(errors);
   });
 
+  test("Shape Reasoning lesson practice waits three seconds and manual navigation cancels a pending move", async ({ page }, testInfo) => {
+    const errors = collectPageErrors(page);
+    await page.clock.install();
+    await keepLessonWorldMenuOpen(page);
+    await openLessonPage(page, gradeOneShapeReasoningTopicPath);
+
+    const world = page.locator('[data-lesson-world="sprout-meadow"]');
+    const rightPane = page.locator("[data-lesson-content-pane]:visible");
+    const practice = rightPane.locator("#lesson-practice");
+    await expect(world).toBeVisible({ timeout: 30_000 });
+    if (Boolean(testInfo.project.use.isMobile)) {
+      await world.getByRole("button", { name: /open the full map/i }).click();
+    }
+
+    const practiceJump = world.locator("ol:visible").getByRole("button", {
+      name: "4.5 Practice check",
+      exact: true
+    });
+    await practiceJump.scrollIntoViewIfNeeded();
+    await practiceJump.click();
+    await expectLessonTargetVisible(practice);
+
+    const questionCards = practice.locator('[data-ai-selectable="practice-question"]');
+    const visibleQuestionCard = () => practice.locator('[data-ai-selectable="practice-question"]:not([hidden])');
+    const questionIds = await questionCards.evaluateAll((cards) => cards.map(
+      (card) => card.getAttribute("data-ai-question-id")
+    ));
+    expect(questionIds).toHaveLength(5);
+    expect(questionIds[0]).toBe("ccss-textbook-practice-v1-shape-attributes-q01");
+    expect(questionIds[1]).toBe("ccss-textbook-practice-v1-shape-attributes-q02");
+    await expect(visibleQuestionCard()).toHaveCount(1);
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[0]!);
+    await expect(practice.getByText(/Question 1 of 5/i)).toBeVisible();
+    const missionTrail = practice.locator('[data-testid="lesson-mission-trail"]');
+    const firstStone = missionTrail.getByRole("button", { name: /Question 1/i });
+    const secondStone = missionTrail.getByRole("button", { name: /Go to question 2/i });
+    await expect(firstStone).toHaveAttribute("aria-current", "step");
+
+    await page.clock.pauseAt(await page.evaluate(() => Date.now()));
+    const firstCard = visibleQuestionCard();
+    await firstCard.getByRole("button", { name: "having 3 sides", exact: true }).click();
+    const firstAttempt = page.waitForResponse((response) => {
+      const postData = response.request().postData() ?? "";
+      return response.url().includes("/api/attempts")
+        && response.request().method() === "POST"
+        && postData.includes(`"questionId":"${questionIds[0]}"`);
+    });
+    await firstCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
+    const firstResponse = await firstAttempt;
+    expect(firstResponse.ok()).toBe(true);
+    expect((await firstResponse.json() as { correct?: boolean }).correct).toBe(true);
+    await expect(firstCard.getByText(/^(Correct\b|正確|正确)/i).first()).toBeVisible();
+
+    await page.clock.fastForward(2_999);
+    await expect(practice.getByText(/Question 1 of 5/i)).toBeVisible();
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[0]!);
+    await expect(firstStone).toHaveAttribute("aria-current", "step");
+    await page.clock.fastForward(1);
+    await expect(practice.getByText(/Question 2 of 5/i)).toBeVisible();
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[1]!);
+    await expect(secondStone).toHaveAttribute("aria-current", "step");
+
+    const secondCard = visibleQuestionCard();
+    await secondCard.getByRole("button", { name: "both triangles", exact: true }).click();
+    const secondAttempt = page.waitForResponse((response) => {
+      const postData = response.request().postData() ?? "";
+      return response.url().includes("/api/attempts")
+        && response.request().method() === "POST"
+        && postData.includes(`"questionId":"${questionIds[1]}"`);
+    });
+    await secondCard.getByRole("button", { name: /^(Check Answer|檢查答案|检查答案)$/i }).click();
+    const secondResponse = await secondAttempt;
+    expect(secondResponse.ok()).toBe(true);
+    expect((await secondResponse.json() as { correct?: boolean }).correct).toBe(true);
+    await expect(secondCard.getByText(/^(Correct\b|正確|正确)/i).first()).toBeVisible();
+
+    const fourthStone = missionTrail.getByRole("button", { name: /Go to question 4/i });
+    await fourthStone.click();
+    await expect(fourthStone).toBeFocused();
+    await expect(fourthStone).toHaveAttribute("aria-current", "step");
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[3]!);
+    await page.clock.fastForward(3_001);
+    await expect(practice.getByText(/Question 4 of 5/i)).toBeVisible();
+    await expect(fourthStone).toHaveAttribute("aria-current", "step");
+    await expect(visibleQuestionCard()).toHaveAttribute("data-ai-question-id", questionIds[3]!);
+
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+      )
+    ).toBe(false);
+    expectNoPageErrors(errors);
+  });
+
   test("desktop lesson mission stones change questions without moving the left directory", async ({ page }, testInfo) => {
     test.skip(Boolean(testInfo.project.use.isMobile), "Desktop independent-pane geometry is covered in the desktop project.");
     const errors = collectPageErrors(page);

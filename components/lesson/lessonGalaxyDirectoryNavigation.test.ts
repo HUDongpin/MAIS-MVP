@@ -4,6 +4,8 @@ import test from "node:test";
 
 const directorySource = readFileSync("components/lesson/LessonGalaxyDirectory.tsx", "utf8");
 const lessonViewSource = readFileSync("components/lesson/LessonView.tsx", "utf8");
+const lessonPracticeAutoAdvanceSource = readFileSync("components/lesson/lessonPracticeAutoAdvance.ts", "utf8");
+const practiceArenaSource = readFileSync("app/practice/page.tsx", "utf8");
 const practiceQuestPagerSource = readFileSync("components/practice/PracticeQuestPager.tsx", "utf8");
 const worldMenuSource = readFileSync("components/lesson/worlds/WorldMenu.tsx", "utf8");
 const worldThemeSource = readFileSync("components/lesson/worlds/worldThemes.ts", "utf8");
@@ -162,6 +164,64 @@ test("lesson mission-trail selection changes only the right pager's local questi
       `Mission selection must not contain the side effect ${forbiddenSideEffect}.`
     );
   }
+});
+
+test("lesson practice alone waits three seconds and invalidates stale automatic navigation", () => {
+  assert.match(
+    lessonPracticeAutoAdvanceSource,
+    /lessonPracticeAutoAdvanceDelayMs = 3_000;/,
+    "Lesson practice must keep one explicit 3000ms auto-advance contract."
+  );
+  assert.match(
+    practiceArenaSource,
+    /const autoAdvanceDelayMs = 1200;/,
+    "Bug 8 must not change Practice Arena's independent auto-advance timing."
+  );
+
+  const answeredStart = lessonViewSource.indexOf("const handleAnswered = useCallback(");
+  const answeredEnd = lessonViewSource.indexOf("\n\n  const isYoungLearnerRound", answeredStart);
+  assert.notEqual(answeredStart, -1, "LessonQuestionPager must keep one answer callback.");
+  assert.notEqual(answeredEnd, -1, "The timing contract must isolate the lesson answer callback.");
+  const answeredSource = lessonViewSource.slice(answeredStart, answeredEnd);
+  assert.match(
+    answeredSource,
+    /createLessonPracticeAutoAdvanceRequest\(\{[\s\S]*?answeredQuestionId: question\.id,[\s\S]*?lessonSlug: lesson\.slug,[\s\S]*?questionSignature/,
+    "Every pending move must be bound to the answered question and current lesson scope."
+  );
+  assert.equal(
+    [...answeredSource.matchAll(/lessonPracticeAutoAdvanceRequestIsActive\(/g)].length,
+    2,
+    "The lesson scope must be checked both before scheduling and when the timer fires."
+  );
+  assert.match(
+    answeredSource,
+    /clearAutoAdvance\(\);\s*autoAdvanceTimerRef\.current = scheduleLessonPracticeAutoAdvance/,
+    "A repeated successful answer callback must replace, rather than stack with, its prior timer."
+  );
+  assert.match(
+    answeredSource,
+    /resolveLessonPracticeAutoAdvanceIndex\(autoAdvanceRequest/,
+    "The timer must resolve against the latest pager state instead of a captured question index."
+  );
+
+  assert.equal(
+    lessonViewSource.includes("autoAdvanceStateRef.current = {\n    currentIndex"),
+    false,
+    "An uncommitted concurrent render must not publish a new auto-advance scope."
+  );
+  const cleanupStart = lessonViewSource.indexOf("useLayoutEffect(() => {\n    const committedAutoAdvanceState");
+  const cleanupEnd = lessonViewSource.indexOf("\n\n  useEffect(() => {", cleanupStart + 1);
+  assert.notEqual(cleanupStart, -1, "LessonQuestionPager must publish its active scope only after commit.");
+  assert.notEqual(cleanupEnd, -1, "The committed-scope guard must end before the keyboard-navigation effect.");
+  const cleanupSource = lessonViewSource.slice(cleanupStart, cleanupEnd);
+  assert.match(cleanupSource, /autoAdvanceStateRef\.current = committedAutoAdvanceState;/);
+  assert.match(
+    cleanupSource,
+    /if \(autoAdvanceStateRef\.current !== committedAutoAdvanceState\) return;/,
+    "Cleanup from an older commit must not invalidate a newer committed scope."
+  );
+  assert.match(cleanupSource, /isActive: false/);
+  assert.match(cleanupSource, /clearAutoAdvance\(\);/);
 });
 
 test("teacher-guide menu targets remain inside the right lesson content pane", () => {

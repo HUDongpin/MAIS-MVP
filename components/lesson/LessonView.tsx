@@ -21,6 +21,13 @@ import {
   createLessonContentPaneScrollRequest,
   createLessonTargetViewportRealignment
 } from "@/components/lesson/lessonPaneNavigation";
+import {
+  createLessonPracticeAutoAdvanceRequest,
+  lessonPracticeAutoAdvanceRequestIsActive,
+  resolveLessonPracticeAutoAdvanceIndex,
+  scheduleLessonPracticeAutoAdvance,
+  type LessonPracticeAutoAdvanceState
+} from "@/components/lesson/lessonPracticeAutoAdvance";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
 import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
 import {
@@ -172,7 +179,6 @@ type LessonIllustration = {
 const celebrationColors = ["#06b6d4", "#8b5cf6", "#22c55e", "#f59e0b", "#ec4899", "#38bdf8"];
 const lessonGalaxyCollapseDurationMs = 520;
 const lessonPracticeQuestionLimit = 5;
-const autoAdvanceDelayMs = 1200;
 const handwritingCapableQuestionTypes = new Set<PublicQuestion["type"]>(["fill-in", "short-answer", "graph"]);
 const lessonGalaxySectionId = "lesson-galaxy-directory";
 const lessonOverviewSectionId = "lesson-overview";
@@ -639,16 +645,35 @@ function LessonQuestionPager({
   const [soundEnabled, setSoundEnabled] = useState(false);
   const { accommodations } = useStudentAccommodations();
   const readAloud = useReadAloud(language);
-  const autoAdvanceTimerRef = useRef<number | null>(null);
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
   const questionCount = questions.length;
+  const currentQuestionId = questions[currentIndex]?.id ?? null;
+  const autoAdvanceTimerRef = useRef<ReturnType<typeof scheduleLessonPracticeAutoAdvance> | null>(null);
+  const autoAdvanceStateRef = useRef<LessonPracticeAutoAdvanceState | null>(null);
   const currentQuestionNumber = questionCount ? currentIndex + 1 : 0;
 
   const clearAutoAdvance = useCallback(() => {
     if (autoAdvanceTimerRef.current === null) return;
-    window.clearTimeout(autoAdvanceTimerRef.current);
+    globalThis.clearTimeout(autoAdvanceTimerRef.current);
     autoAdvanceTimerRef.current = null;
   }, []);
+
+  useLayoutEffect(() => {
+    const committedAutoAdvanceState: LessonPracticeAutoAdvanceState = {
+      currentIndex,
+      currentQuestionId,
+      isActive: true,
+      lessonSlug: lesson.slug,
+      questionCount,
+      questionSignature
+    };
+    autoAdvanceStateRef.current = committedAutoAdvanceState;
+    return () => {
+      if (autoAdvanceStateRef.current !== committedAutoAdvanceState) return;
+      autoAdvanceStateRef.current = { ...committedAutoAdvanceState, isActive: false };
+      clearAutoAdvance();
+    };
+  }, [clearAutoAdvance, currentIndex, currentQuestionId, lesson.slug, questionCount, questionSignature]);
 
   const goToIndex = useCallback((index: number) => {
     if (!questionCount) return;
@@ -696,8 +721,6 @@ function LessonQuestionPager({
     stopReadAloud();
   }, [currentIndex, questionSignature, stopReadAloud]);
 
-  useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
-
   useEffect(() => {
     if (questionCount < 2) return;
 
@@ -738,16 +761,33 @@ function LessonQuestionPager({
     if (soundEnabled) {
       playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
     }
-    if (answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
+    const autoAdvanceRequest = createLessonPracticeAutoAdvanceRequest({
+      answeredIndex,
+      answeredQuestionId: question.id,
+      currentIndex,
+      lessonSlug: lesson.slug,
+      questionCount,
+      questionSignature
+    });
+    const committedAutoAdvanceState = autoAdvanceStateRef.current;
+    if (!autoAdvanceRequest || !committedAutoAdvanceState
+      || !lessonPracticeAutoAdvanceRequestIsActive(autoAdvanceRequest, committedAutoAdvanceState)) {
+      return;
+    }
 
     clearAutoAdvance();
-    autoAdvanceTimerRef.current = window.setTimeout(() => {
+    autoAdvanceTimerRef.current = scheduleLessonPracticeAutoAdvance(() => {
       autoAdvanceTimerRef.current = null;
-      setCurrentIndex((latestIndex) => (
-        latestIndex === answeredIndex ? clampLessonQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
-      ));
-    }, autoAdvanceDelayMs);
-  }, [answerResults, clearAutoAdvance, currentIndex, onAnswered, questionCount, questions, soundEnabled]);
+      const latestAutoAdvanceState = autoAdvanceStateRef.current;
+      if (!latestAutoAdvanceState
+        || !lessonPracticeAutoAdvanceRequestIsActive(autoAdvanceRequest, latestAutoAdvanceState)) return;
+      setCurrentIndex((latestIndex) => resolveLessonPracticeAutoAdvanceIndex(autoAdvanceRequest, {
+        ...latestAutoAdvanceState,
+        currentIndex: latestIndex,
+        currentQuestionId: questions[latestIndex]?.id ?? null
+      }));
+    });
+  }, [answerResults, clearAutoAdvance, currentIndex, lesson.slug, onAnswered, questionCount, questionSignature, questions, soundEnabled]);
 
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
   // Pager header shows the round's live star haul on the right of the heading.
