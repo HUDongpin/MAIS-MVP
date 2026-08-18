@@ -165,12 +165,20 @@ async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_P
   }
 }
 
+// A real form login: POST, redirect, then the landing page has to render. On a
+// loaded CI runner that can exceed a 15s budget, which surfaced as a login that
+// "failed" while sitting on /login — parent-console's role-boundary test failed
+// twice that way and then passed unchanged on re-run. The budget is the flake,
+// not the login, so give CI room; the assertion still requires landing on the
+// expected path.
+const LOGIN_NAVIGATION_TIMEOUT_MS = process.env.CI ? 60_000 : 30_000;
+
 export async function loginAs(page: Page, username: string, password: string, expectedPath: RegExp | string) {
   await page.goto("/login");
   await page.getByLabel(/email or username|email or user name|user name/i).fill(username);
   await page.getByLabel(/^password$/i).fill(password);
   await clickLoginSubmit(page);
-  await expect(page).toHaveURL(expectedPath, { timeout: 15000 });
+  await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
 }
 
 export async function loginAsDemoStudent(page: Page) {
