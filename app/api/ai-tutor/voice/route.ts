@@ -3,8 +3,14 @@ import WebSocket from "ws";
 import type { RawData } from "ws";
 import { readQwenRealtimeProviderConfig } from "@/lib/server/llmProvider";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
-import { consumeAiCapabilityRateLimit, resolveStudentAiTutorPolicy } from "@/lib/server/userStore";
+import {
+  consumeAiCapabilityRateLimit,
+  recordAiGovernanceEvent,
+  recordContentSafetyFlag,
+  resolveStudentAiTutorPolicy
+} from "@/lib/server/userStore";
 import { aiCapabilityRateLimitRulesFromEnv } from "@/lib/server/aiGovernance";
+import { resolveTutorVoiceModeration } from "@/lib/server/tutorVoiceModeration";
 
 export const runtime = "nodejs";
 
@@ -299,6 +305,59 @@ export async function POST(request: Request) {
     );
   }
 
+  // The text in this body claims to be a tutor reply that already cleared the
+  // /resolve gates, but it is client-supplied and nothing proves that. Hold it to
+  // the bar /resolve holds real tutor output to before Professor Nova's voice
+  // reads it aloud; see lib/server/tutorVoiceModeration.ts for why this refuses
+  // rather than substituting a redirect. On the legitimate path — the client
+  // replaying a reply it just received — nothing is flagged, no audit row is
+  // written, and the only added cost is the synchronous lexical scan.
+  const language = cleanLanguage(body.language);
+  const voiceModeration = await resolveTutorVoiceModeration({
+    text,
+    role: authenticated.user.role,
+    language
+  });
+
+  for (const event of voiceModeration.governanceEvents) {
+    try {
+      await recordAiGovernanceEvent({
+        userId: authenticated.user.id,
+        capability: "ai-tutor-voice",
+        action: event.action,
+        reason: event.reason,
+        metadata: event.metadata
+      });
+    } catch (error) {
+      console.error(
+        "AI Tutor voice governance event recording failed",
+        error instanceof Error ? error.name : typeof error
+      );
+    }
+  }
+
+  // A crisis flag here is a duty-of-care signal, not just a refusal: it reaches
+  // the teacher safety surface exactly as it would from the chat route.
+  if (voiceModeration.safetyFlag) {
+    try {
+      await recordContentSafetyFlag({
+        studentId: authenticated.user.id,
+        studentName: authenticated.user.name,
+        ...voiceModeration.safetyFlag
+      });
+    } catch (error) {
+      console.error(
+        "AI Tutor voice content-safety flag recording failed",
+        error instanceof Error ? error.name : typeof error
+      );
+    }
+  }
+
+  // Refuse without echoing the offending text back to the caller.
+  if (!voiceModeration.allowed) {
+    return NextResponse.json({ error: "This text cannot be read aloud." }, { status: 422 });
+  }
+
   const providerConfig = readQwenRealtimeProviderConfig();
   if (!providerConfig.apiKey) {
     return NextResponse.json({ error: "Qwen realtime voice is not configured." }, { status: 503 });
@@ -308,7 +367,7 @@ export async function POST(request: Request) {
     const wav = await synthesizeQwenRealtimeVoice({
       apiKey: providerConfig.apiKey,
       apiUrl: providerConfig.apiUrl,
-      language: cleanLanguage(body.language),
+      language,
       model: providerConfig.model,
       text,
       timeoutMs: boundedNumber(

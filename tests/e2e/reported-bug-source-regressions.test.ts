@@ -260,3 +260,23 @@ test("AI Tutor voice uses the Node WebSocket client with explicit provider heade
   assert.match(voiceRoute, /resolveStudentAiTutorPolicy/);
   assert.match(voiceRoute, /consumeAiCapabilityRateLimit/);
 });
+
+test("AI Tutor voice gates client-supplied text before speaking it", async () => {
+  const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
+
+  // The body text only claims to be a tutor reply that cleared /resolve. Without
+  // this gate an authenticated student can have arbitrary text read aloud in
+  // Professor Nova's voice, bypassing content-safety and tutor moderation.
+  assert.match(voiceRoute, /import \{ resolveTutorVoiceModeration \} from "@\/lib\/server\/tutorVoiceModeration"/);
+  assert.match(voiceRoute, /await resolveTutorVoiceModeration\(\{/);
+  assert.match(voiceRoute, /role: authenticated\.user\.role/);
+  assert.match(voiceRoute, /if \(!voiceModeration\.allowed\)/);
+  assert.match(voiceRoute, /recordContentSafetyFlag/);
+  assert.match(voiceRoute, /capability: "ai-tutor-voice"[\s\S]*?action: event\.action/);
+
+  // The refusal must come before the model is ever asked to speak.
+  const gateIndex = voiceRoute.indexOf("if (!voiceModeration.allowed)");
+  const synthesizeIndex = voiceRoute.indexOf("await synthesizeQwenRealtimeVoice(");
+  assert.ok(gateIndex > 0, "voice moderation gate is missing");
+  assert.ok(synthesizeIndex > gateIndex, "the gate must refuse before synthesis");
+});
