@@ -1571,6 +1571,27 @@ export type StudentSession = {
   role: "student" | "teacher" | "parent" | "admin";
 };
 
+/** Who gave permission for a child to use the platform, and under which policy. */
+export type ParentalConsentRelationship = "parent" | "legal-guardian" | "school";
+
+export type ParentalConsentMethod = "registration-form" | "school-authorized";
+
+export type ParentalConsentRecord = {
+  grantedAt: string;
+  guardianName: string;
+  guardianEmail?: string;
+  relationship: ParentalConsentRelationship;
+  /** Value of currentConsentPolicyVersion when consent was captured. */
+  policyVersion: string;
+  method: ParentalConsentMethod;
+};
+
+export const parentalConsentRelationships: readonly ParentalConsentRelationship[] = [
+  "parent",
+  "legal-guardian",
+  "school"
+];
+
 export type LearnerProfileOnboardingVersion = "learner-start-v1";
 export type LearnerProfileOnboardingStatus = "not-started" | "completed" | "skipped";
 export type LearnerProfileGoal = "repair" | "homework" | "preview" | "exam";

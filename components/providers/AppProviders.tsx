@@ -30,6 +30,7 @@ import type {
   LocalizedText,
   MistakeBookItem,
   MistakeRecord,
+  ParentalConsentRelationship,
   StudentAvatarId,
   StudentSession,
   ThemeMode
@@ -124,6 +125,13 @@ type AuthSessionResponse = {
   settingsPersisted?: boolean;
 };
 
+type RegisterParentalConsentInput = {
+  acknowledged: boolean;
+  guardianName: string;
+  guardianEmail?: string;
+  relationship: ParentalConsentRelationship;
+};
+
 type RegisterInput = {
   role?: "student" | "teacher" | "parent";
   name: string;
@@ -132,6 +140,8 @@ type RegisterInput = {
   password: string;
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
+  /** Required by the API for student accounts. */
+  parentalConsent?: RegisterParentalConsentInput;
 };
 
 type ProfileUpdateInput = {
@@ -925,7 +935,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
   }, [applyAuthSession, language, theme]);
 
-  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile }: RegisterInput): Promise<AuthActionResult> => {
+  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, parentalConsent }: RegisterInput): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
@@ -940,6 +950,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         grade,
         curriculumProfile,
         curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
+        parentalConsent,
         language,
         theme
       })

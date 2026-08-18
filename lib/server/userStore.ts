@@ -59,6 +59,14 @@ import {
   isValidQuestionFilter as isValidQuestionFilterFromQuestionFilter
 } from "@/lib/server/userStore/questionFilter";
 import {
+  assessAccountDeletion,
+  buildAccountDataExport,
+  deleteUserFromDatabase,
+  type AccountDataExport,
+  type AccountDeletionBlocker,
+  type AccountDeletionSummary
+} from "@/lib/server/userStore/accountDeletionPersistence";
+import {
   buildKnowledgeComponents,
   classifyAdaptiveLLMError,
   composeAdaptiveDecisionFromCandidate,
@@ -799,6 +807,7 @@ import type {
   TeacherReviewLessonPracticeQuestion,
   TeacherReviewLessonSlide,
   TeacherReviewLessonSource,
+  ParentalConsentRecord,
   TeacherReviewLessonStatus,
   TeacherStudentProfileData,
   TeacherStudentRiskTag,
@@ -834,6 +843,8 @@ export type UserRecord = {
   password_must_change?: boolean;
   role: UserRole;
   created_at: string;
+  /** Guardian permission captured at student registration. Absent for adults. */
+  parental_consent?: ParentalConsentRecord;
 };
 
 export type AuthIdentityRecord = {
@@ -7189,6 +7200,7 @@ export async function authenticateGoogleIdentityForLogin({
   grade,
   curriculumProfile,
   language,
+  parentalConsent,
   theme
 }: {
   providerSubject: string;
@@ -7199,6 +7211,14 @@ export async function authenticateGoogleIdentityForLogin({
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
   language?: Language;
+  /**
+   * Guardian consent for a *new* student account. The OAuth redirect cannot
+   * carry it today (it would put a guardian's name and email in a URL), so this
+   * is currently only supplied by non-redirect callers; without it, new student
+   * provisioning is refused rather than silently creating an unconsented child
+   * account. Existing accounts logging in or linking are unaffected.
+   */
+  parentalConsent?: ParentalConsentRecord;
   theme?: ThemeMode;
 }) {
   const subject = providerSubject.trim();
@@ -7242,6 +7262,10 @@ export async function authenticateGoogleIdentityForLogin({
       return { status: "teacher-invite-required" as const };
     }
 
+    if (role === "student" && !parentalConsent) {
+      return { status: "parental-consent-required" as const };
+    }
+
     const effectiveCurriculumProfile = role === "student" && curriculumProfile
       ? normalizeStoredCurriculumProfile({ region: curriculumProfile.region, publisher: curriculumProfile.publisher })
       : curriculumProfileForTrack(defaultCurriculumTrack);
@@ -7263,7 +7287,8 @@ export async function authenticateGoogleIdentityForLogin({
       password_salt: hashedPassword.salt,
       password_must_change: false,
       role,
-      created_at: now
+      created_at: now,
+      ...(role === "student" && parentalConsent ? { parental_consent: parentalConsent } : {})
     };
 
     database.users.push(user);
@@ -9012,6 +9037,40 @@ export const backfillPostgresHotAuthTablesForAdmin = authUserStore.backfillPostg
 export const cleanupTemporaryBootstrapAdminsForAdmin = authUserStore.cleanupTemporaryBootstrapAdminsForAdmin;
 
 export const getStorageReadinessSnapshot = authUserStore.getStorageReadinessSnapshot;
+
+export type DeleteUserAccountResult =
+  | { status: "deleted"; summary: AccountDeletionSummary }
+  | { status: "not-found" }
+  | { status: "blocked"; blockers: AccountDeletionBlocker[] };
+
+/**
+ * Erases a user and every record they are the subject of.
+ *
+ * Runs through `mutateDatabase`, which writes a full state snapshot — that is
+ * deliberate: the snapshot write is what re-syncs the Postgres hot-auth and
+ * projection tables with delete-not-in semantics, so the account also
+ * disappears from the read fast paths. A hot-row fast path write would leave
+ * the deleted rows live in those tables.
+ */
+export async function deleteUserAccount(userId: string): Promise<DeleteUserAccountResult> {
+  return mutateDatabase((database) => {
+    const user = database.users.find((candidate) => candidate.id === userId);
+    if (!user) return { status: "not-found" as const };
+
+    const blockers = assessAccountDeletion(database as unknown as Record<string, unknown>, userId, user.role);
+    if (blockers.length) return { status: "blocked" as const, blockers };
+
+    const summary = deleteUserFromDatabase(database as unknown as Record<string, unknown>, userId);
+    return { status: "deleted" as const, summary };
+  });
+}
+
+/** Subject-access export of everything the platform holds about one account. */
+export async function exportUserAccountData(userId: string): Promise<AccountDataExport | null> {
+  const database = await readDatabase();
+  if (!database.users.some((candidate) => candidate.id === userId)) return null;
+  return buildAccountDataExport(database as unknown as Record<string, unknown>, userId, new Date().toISOString());
+}
 
 async function updateUserSettingsInPostgresHotTables(
   userId: string,

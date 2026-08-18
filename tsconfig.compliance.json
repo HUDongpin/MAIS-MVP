@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".tmp/compliance-tests",
+    "rootDir": "."
+  },
+  "files": [
+    "lib/server/userStoreAccountDeletion.test.ts",
+    "lib/legal/parentalConsent.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}

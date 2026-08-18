@@ -14,6 +14,7 @@ import {
 } from "@/lib/server/userStore/auth";
 import { getLessonEntryTarget } from "@/lib/server/userStore/studentActivity";
 import { isValidLanguage } from "@/lib/i18n";
+import { parentalConsentErrorMessages, parseParentalConsent } from "@/lib/legal/parentalConsent";
 import { curriculumProfileForTrack, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import type { CurriculumTrack, ThemeMode } from "@/types";
 
@@ -129,6 +130,20 @@ async function handleRegister(request: Request) {
     return NextResponse.json({ error: "Name, user name, grade, curriculum track, and a password of at least 5 characters are required." }, { status: 400 });
   }
 
+  // A student account is an account for a child: no consent, no account.
+  // Teacher accounts take the same branch below but are adults, so they are exempt.
+  let parentalConsent;
+  if (requestedRole === "student") {
+    const consent = parseParentalConsent(body.parentalConsent, new Date().toISOString());
+    if (consent.status !== "ok") {
+      return NextResponse.json(
+        { code: "parental-consent-required", reason: consent.reason, error: parentalConsentErrorMessages[consent.reason] },
+        { status: 400 }
+      );
+    }
+    parentalConsent = consent.consent;
+  }
+
   const storageBlock = await durableStorageRegistrationBlockResponse();
   if (storageBlock) return storageBlock;
 
@@ -141,6 +156,7 @@ async function handleRegister(request: Request) {
     grade,
     curriculumProfile,
     curriculumTrack,
+    parentalConsent,
     language: isValidLanguage(body.language) ? body.language : undefined,
     theme: validThemes.has(body.theme as ThemeMode) ? (body.theme as ThemeMode) : undefined
   });

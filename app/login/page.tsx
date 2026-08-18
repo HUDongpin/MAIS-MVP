@@ -78,6 +78,9 @@ const authLinkCopy = {
   googleRoleSummary: { en: "Signing in as", zh: "登入身份：", zhHans: "登录身份：" },
   googleRoleChange: { en: "Change", zh: "更改", zhHans: "更改" },
   googleRoleChangeAria: { en: "Change Google account type", zh: "更改 Google 帳戶類型", zhHans: "更改 Google 账号类型" },
+  legalPrompt: { en: "By using MAIS you agree to our", zh: "使用 MAIS 即表示您同意我們的", zhHans: "使用 MAIS 即表示您同意我们的" },
+  privacyLink: { en: "Privacy Policy", zh: "私隱政策", zhHans: "隐私政策" },
+  termsLink: { en: "Terms of Service", zh: "服務條款", zhHans: "服务条款" },
   googleErrors: {
     setup: {
       en: "Google sign-in is not configured for this environment yet.",
@@ -88,6 +91,11 @@ const authLinkCopy = {
       en: "Teacher Google sign-in requires a school invitation or an existing MAIS teacher account.",
       zh: "教師 Google 登入需要學校邀請或現有 MAIS 教師帳戶。",
       zhHans: "教师 Google 登录需要学校邀请或现有 MAIS 教师账号。"
+    },
+    parentalConsentRequired: {
+      en: "A new student account needs a parent or guardian's consent. Please create the account on the registration page first.",
+      zh: "建立新的學生帳戶需要家長或監護人同意，請先在註冊頁面建立帳戶。",
+      zhHans: "创建新的学生账号需要家长或监护人同意，请先在注册页面创建账号。"
     },
     generic: {
       en: "Google sign-in could not be verified. Try again.",
@@ -349,9 +357,11 @@ export default function LoginPage() {
       ? t(authLinkCopy.googleErrors.setup)
       : googleError === "teacher_invite_required"
         ? t(authLinkCopy.googleErrors.teacherInviteRequired)
-        : googleError
-          ? t(authLinkCopy.googleErrors.generic)
-          : "";
+        : googleError === "parental_consent_required"
+          ? t(authLinkCopy.googleErrors.parentalConsentRequired)
+          : googleError
+            ? t(authLinkCopy.googleErrors.generic)
+            : "";
 
   const formatLoginGradeOption = (grade: Grade) => {
     if (displayedCurriculumProfile.region === "US") return formatGradeLabelForCurriculum(grade.id, language, displayedCurriculumTrack);
@@ -775,6 +785,16 @@ export default function LoginPage() {
               <span>{t(authLinkCopy.registerPrompt)}</span>
               <Link href="/register" className="focus-ring inline-flex min-h-11 items-center rounded-full px-2 py-2 font-bold text-cyan-700 underline-offset-4 transition hover:bg-cyan-400/10 hover:underline dark:text-cyan-200">
                 {t(authLinkCopy.registerAction)}
+              </Link>
+            </p>
+
+            <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 text-center text-xs font-medium text-slate-500 dark:text-slate-400">
+              <span>{t(authLinkCopy.legalPrompt)}</span>
+              <Link href="/privacy" className="focus-ring rounded-full px-1 font-bold text-cyan-700 underline-offset-4 transition hover:underline dark:text-cyan-200">
+                {t(authLinkCopy.privacyLink)}
+              </Link>
+              <Link href="/terms" className="focus-ring rounded-full px-1 font-bold text-cyan-700 underline-offset-4 transition hover:underline dark:text-cyan-200">
+                {t(authLinkCopy.termsLink)}
               </Link>
             </p>
           </form>

@@ -5,6 +5,20 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { after, test } from "node:test";
 import { curriculumProfileForTrack } from "@/lib/curriculumProfile";
+import { currentConsentPolicyVersion } from "@/lib/legal/policyVersion";
+import type { ParentalConsentRecord } from "@/types";
+
+// A new child account requires guardian consent (see accountDeletionPersistence
+// siblings and app/api/auth/register/route.ts). Google sign-in cannot collect it
+// during the redirect, so these tests pass it explicitly where an account is
+// expected to be created.
+const testParentalConsent: ParentalConsentRecord = {
+  grantedAt: "2026-08-18T00:00:00.000Z",
+  guardianName: "Test Guardian",
+  relationship: "parent",
+  policyVersion: currentConsentPolicyVersion,
+  method: "registration-form"
+};
 
 const dbDir = mkdtempSync(path.join(tmpdir(), "mais-google-auth-"));
 
@@ -29,6 +43,7 @@ test("authenticateGoogleIdentityForLogin creates and reuses a verified student G
     grade: "S4",
     curriculumProfile,
     language: "en",
+    parentalConsent: testParentalConsent,
     theme: "dark"
   });
 
@@ -55,6 +70,54 @@ test("authenticateGoogleIdentityForLogin creates and reuses a verified student G
   assert.equal(second.session.user.grade, "S4");
 });
 
+test("authenticateGoogleIdentityForLogin refuses to create a child account without guardian consent", async () => {
+  const store = await import("./userStore");
+  const curriculumProfile = curriculumProfileForTrack("HK");
+
+  const blocked = await store.authenticateGoogleIdentityForLogin({
+    providerSubject: "google-unconsented-subject",
+    email: "unconsented.student@example.test",
+    emailVerified: true,
+    displayName: "Unconsented Student",
+    requestedRole: "student",
+    grade: "S4",
+    curriculumProfile,
+    language: "en",
+    theme: "dark"
+  });
+
+  assert.equal(blocked.status, "parental-consent-required");
+
+  // The refusal must not leave a half-created account behind.
+  const snapshot = await store.exportUserAccountData("student-unconsented");
+  assert.equal(snapshot, null);
+});
+
+test("a consented Google student account stores the consent record", async () => {
+  const store = await import("./userStore");
+  const curriculumProfile = curriculumProfileForTrack("HK");
+
+  const created = await store.authenticateGoogleIdentityForLogin({
+    providerSubject: "google-consented-subject",
+    email: "consented.student@example.test",
+    emailVerified: true,
+    displayName: "Consented Student",
+    requestedRole: "student",
+    grade: "S4",
+    curriculumProfile,
+    language: "en",
+    parentalConsent: testParentalConsent,
+    theme: "dark"
+  });
+
+  assert.equal(created.status, "created");
+
+  const exported = await store.exportUserAccountData(created.session.user.id);
+  assert.ok(exported);
+  const users = exported.tables.users as Record<string, unknown>[];
+  assert.deepEqual(users[0].parental_consent, testParentalConsent);
+});
+
 test("authenticateGoogleIdentityForLogin links a verified Google identity to an existing MAIS email account", async () => {
   const store = await import("./userStore");
   const curriculumProfile = curriculumProfileForTrack("HK");
@@ -66,6 +129,7 @@ test("authenticateGoogleIdentityForLogin links a verified Google identity to an 
     grade: "S5",
     curriculumProfile,
     language: "en",
+    parentalConsent: testParentalConsent,
     theme: "dark"
   });
   assert.equal(created.status, "created");

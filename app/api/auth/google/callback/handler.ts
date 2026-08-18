@@ -66,6 +66,7 @@ export type GoogleCallbackDependencies = {
     theme?: ThemeMode;
   }) => Promise<
     | { status: "teacher-invite-required" }
+    | { status: "parental-consent-required" }
     | { status: "invalid" }
     | { status: "created" | "linked" | "authenticated"; session: GoogleCallbackAuthenticatedSession }
   >;
@@ -173,6 +174,11 @@ export async function handleGoogleOAuthCallback(
 
   if (authenticated.status === "teacher-invite-required") {
     return redirectToLogin(request, "teacher_invite_required");
+  }
+  // A new child account cannot be created from a bare Google sign-in: guardian
+  // consent is captured on the registration form, so send them there.
+  if (authenticated.status === "parental-consent-required") {
+    return redirectToLogin(request, "parental_consent_required");
   }
   if (authenticated.status === "invalid") return redirectToLogin(request, "account_invalid");
 

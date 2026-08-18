@@ -13,6 +13,7 @@ import type {
   CurriculumTrack,
   GradeId,
   Language,
+  ParentalConsentRecord,
   StudentAvatarId,
   StudentSession,
   TextbookPublisher,
@@ -34,6 +35,7 @@ type AuthSessionUserRecord = {
   password_hash?: string;
   password_salt?: string;
   password_must_change?: boolean;
+  parental_consent?: ParentalConsentRecord;
 };
 
 type AuthSessionStudentProfileRecord = {
@@ -262,6 +264,8 @@ export type AuthCurriculumAccountCreationInput = {
   curriculumProfile?: CurriculumProfile;
   language?: Language;
   theme?: ThemeMode;
+  /** Required for student accounts; see app/api/auth/register/route.ts. */
+  parentalConsent?: ParentalConsentRecord;
 };
 
 export type AuthCurriculumAccountCreationResult =
@@ -1676,6 +1680,7 @@ export function createAuthSessionPersistenceStore({
     curriculumTrack,
     curriculumProfile,
     language,
+    parentalConsent,
     theme
   }: AuthCurriculumAccountCreationInput & { role: "student" | "teacher" }): Promise<AuthCurriculumAccountCreationResult> => {
     const trimmedName = name.trim();
@@ -1725,7 +1730,8 @@ export function createAuthSessionPersistenceStore({
         password_hash: hashedPassword.hash,
         password_salt: hashedPassword.salt,
         role,
-        created_at: nowIso
+        created_at: nowIso,
+        ...(role === "student" && parentalConsent ? { parental_consent: parentalConsent } : {})
       };
 
       database.users.push(user);
