@@ -4156,7 +4156,14 @@ function removeSeedRecords<T>(records: T[], seedRecords: T[], keyFor: (record: T
   return records.filter((record) => !seedKeys.has(keyFor(record)));
 }
 
-function compactDatabaseForPostgres(database: Database): Database {
+// Static curriculum (questions, topics, lessons, lesson blocks) ships in the code
+// bundle under data/ and is re-merged by normalizeDatabase on every load, so
+// persisting it is pure overhead: on the seeded database it is 28.1MB of a
+// 31.4MB payload, re-serialised on every single mutation. Strip it before
+// writing and let the read path rehydrate it. Records whose key is absent from
+// the seed banks (teacher-authored questions, superseded generated packs) are
+// kept — they have no other home.
+function compactDatabaseForStorage(database: Database): Database {
   return {
     ...database,
     topics: removeSeedRecords(database.topics, seedTopicRecords(), (topic) => topic.id),
@@ -4166,8 +4173,30 @@ function compactDatabaseForPostgres(database: Database): Database {
   };
 }
 
-function stringifyPostgresDatabase(database: Database) {
-  return JSON.stringify(compactDatabaseForPostgres(database));
+function stringifyStoredDatabase(database: Database) {
+  return JSON.stringify(compactDatabaseForStorage(database));
+}
+
+// A snapshot written before storage compaction still carries the seed banks.
+// databaseNeedsPersistenceSync only inspects record shape, so it cannot see the
+// difference; this does, and it short-circuits on the first seed record found.
+function storedDatabaseNeedsCompaction(parsed: Partial<Database>) {
+  const containsSeedRecord = <T>(
+    records: T[] | undefined,
+    seedRecords: () => T[],
+    keyFor: (record: T) => string
+  ) => {
+    if (!Array.isArray(records) || records.length === 0) return false;
+    const seedKeys = new Set(seedRecords().map(keyFor));
+    return records.some((record) => seedKeys.has(keyFor(record)));
+  };
+
+  return (
+    containsSeedRecord(parsed.questions, seedQuestionRecords, (question) => question.id) ||
+    containsSeedRecord(parsed.topics, seedTopicRecords, (topic) => topic.id) ||
+    containsSeedRecord(parsed.lessons, seedLessonRecords, (lesson) => lesson.slug) ||
+    containsSeedRecord(parsed.lesson_blocks, seedLessonBlockRecords, (block) => block.id)
+  );
 }
 
 function localizedFromUnknown(value: unknown, fallback: LocalizedText): LocalizedText {
@@ -4638,7 +4667,7 @@ async function loadSqliteDatabase() {
     const parsed = row ? parseStoredStatePayload(row.payload) : null;
     if (hasCoreTables(parsed)) {
       const database = normalizeDatabase(parsed);
-      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
+      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database) || storedDatabaseNeedsCompaction(parsed)
         ? await writeSqliteDatabase(database, { invalidateReadCache: false })
         : typeof row?.updated_at === "string"
           ? row.updated_at
@@ -4676,7 +4705,7 @@ async function ensureInitialPostgresState(sql: PostgresExecutor) {
   const database = createInitialDatabase();
   await sql`
     INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
+    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyStoredDatabase(database)}::jsonb, ${new Date().toISOString()})
     ON CONFLICT (id) DO NOTHING
   `;
 }
@@ -4750,7 +4779,7 @@ async function writePostgresDatabaseWith(sql: PostgresExecutor, database: Databa
   databaseIndexCache.delete(database);
   await sql`
     INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
+    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyStoredDatabase(database)}::jsonb, ${new Date().toISOString()})
     ON CONFLICT (id) DO UPDATE SET
       tenant_id = excluded.tenant_id,
       state_kind = excluded.state_kind,
@@ -4787,7 +4816,7 @@ async function writeSqliteDatabase(database: Database, options: { invalidateRead
         payload = excluded.payload,
         updated_at = excluded.updated_at
     `)
-    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, JSON.stringify(database), now);
+    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, stringifyStoredDatabase(database), now);
   if (options.invalidateReadCache ?? true) {
     clearSqliteReadCache();
   }

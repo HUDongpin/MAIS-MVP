@@ -91,6 +91,7 @@
     "test:tutor-transcript": "node scripts/run-tutor-transcript-tests.mjs",
     "test:accommodations": "node scripts/run-accommodations-tests.mjs",
     "test:parent-console": "node scripts/run-parent-console-tests.mjs",
+    "test:persistence": "node scripts/run-persistence-tests.mjs",
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
     "test:tutor-moderation": "node scripts/run-tutor-moderation-tests.mjs",
     "test:components": "node scripts/run-component-tests.mjs",
