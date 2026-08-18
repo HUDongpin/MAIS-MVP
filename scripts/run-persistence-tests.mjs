@@ -52,7 +52,8 @@ try {
   const passed = run("node", [
     "--test",
     join(outputDir, "lib/server/userStoreSnapshotCompaction.test.js"),
-    join(outputDir, "lib/server/userStoreSnapshotConcurrency.test.js")
+    join(outputDir, "lib/server/userStoreSnapshotConcurrency.test.js"),
+    join(outputDir, "lib/server/userStoreSnapshotReadCost.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {

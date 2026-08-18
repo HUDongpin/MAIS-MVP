@@ -2169,7 +2169,7 @@ const emptyLessonProgressRecords = (userId: string, now: string): LessonProgress
     seedTopics
   });
 
-function seedQuestionRecords(): QuestionRecord[] {
+function buildQuestionRecords(): QuestionRecord[] {
   return seedQuestions.map((question) => {
     const profile = normalizeStoredCurriculumProfile({
       curriculumTrack: question.curriculumTrack ?? defaultCurriculumTrack,
@@ -2230,7 +2230,7 @@ function publisherForSeedTopic(topic: Topic): TextbookPublisher | undefined {
     ?? (topic.curriculumTrack === "MAINLAND_PEP_HIGH" ? curriculumProfileForSeedTopic(topic).publisher : undefined);
 }
 
-function seedTopicRecords(): TopicRecord[] {
+function buildTopicRecords(): TopicRecord[] {
   return seedTopics.map((topic, index) => {
     const profile = curriculumProfileForSeedTopic(topic);
     return {
@@ -2256,7 +2256,7 @@ function shouldSeedLessonForTopic(topic: Topic) {
   return true;
 }
 
-function seedLessonRecords(): LessonRecord[] {
+function buildLessonRecords(): LessonRecord[] {
   return seedTopics.flatMap((topic) => {
     if (!shouldSeedLessonForTopic(topic)) return [];
 
@@ -2335,15 +2335,32 @@ function seedProductionLessonBlockRecords(
   }));
 }
 
-function seedLessonBlockRecords(): LessonBlockRecord[] {
+// Grouping the static bank once turns the per-topic scans below from
+// 792 topics x 24,566 questions into a map lookup. seedLessonBlockRecords runs
+// inside normalizeDatabase, i.e. on every snapshot read.
+type SeedQuestion = (typeof seedQuestions)[number];
+let seedQuestionsByTopicId: Map<string, SeedQuestion[]> | null = null;
+
+function seedQuestionsForTopicId(topicId: string): SeedQuestion[] {
+  if (!seedQuestionsByTopicId) {
+    seedQuestionsByTopicId = new Map();
+    for (const question of seedQuestions) {
+      const bucket = seedQuestionsByTopicId.get(question.topicId);
+      if (bucket) bucket.push(question);
+      else seedQuestionsByTopicId.set(question.topicId, [question]);
+    }
+  }
+  return seedQuestionsByTopicId.get(topicId) ?? [];
+}
+
+function buildLessonBlockRecords(): LessonBlockRecord[] {
   return seedTopics.flatMap((topic, topicIndex) => {
     if (!shouldSeedLessonForTopic(topic)) return [];
 
     const slug = lessonSlugForTopic(topic.id);
-	    const topicQuestions = seedQuestions
-	      .filter((question) => question.topicId === topic.id)
-	      .map((question) => question.id);
-	    const anchorQuestion = seedQuestions.find((question) => question.topicId === topic.id);
+	    const topicQuestionRecords = seedQuestionsForTopicId(topic.id);
+	    const topicQuestions = topicQuestionRecords.map((question) => question.id);
+	    const anchorQuestion = topicQuestionRecords[0];
 	    const workedExampleAnswer = anchorQuestion ? formatWorkedExampleAnswer(anchorQuestion.answer) : "";
 	    const workedExampleEn = anchorQuestion
 	      ? `${anchorQuestion.prompt.en} Answer: ${workedExampleAnswer}. ${anchorQuestion.explanation.en}`
@@ -4180,13 +4197,77 @@ function removeSeedRecords<T>(records: T[], seedRecords: T[], keyFor: (record: T
 // writing and let the read path rehydrate it. Records whose key is absent from
 // the seed banks (teacher-authored questions, superseded generated packs) are
 // kept — they have no other home.
+// Compaction and the migration check only ever need the seed KEYS, and they run
+// on every write. Rebuilding the four seed record arrays to derive them cost
+// more than the serialisation it saves, so cache the key sets instead — they are
+// pure functions of the static data/ modules and hold no record objects.
+type SeedKeySets = {
+  questionIds: Set<string>;
+  topicIds: Set<string>;
+  lessonSlugs: Set<string>;
+  lessonBlockIds: Set<string>;
+};
+
+let seedKeySetsCache: SeedKeySets | null = null;
+
+function seedKeySets(): SeedKeySets {
+  if (!seedKeySetsCache) {
+    seedKeySetsCache = {
+      questionIds: new Set(seedQuestionRecords().map((question) => question.id)),
+      topicIds: new Set(seedTopicRecords().map((topic) => topic.id)),
+      lessonSlugs: new Set(seedLessonRecords().map((lesson) => lesson.slug)),
+      lessonBlockIds: new Set(seedLessonBlockRecords().map((block) => block.id))
+    };
+  }
+  return seedKeySetsCache;
+}
+
+function removeRecordsWithSeedKey<T>(records: T[], seedKeys: Set<string>, keyFor: (record: T) => string) {
+  return records.filter((record) => !seedKeys.has(keyFor(record)));
+}
+
+// normalizeDatabase rebuilds all four seed banks on every snapshot read, which
+// dominated read cost (~435ms on the seeded database). They are pure functions of
+// the static data/ modules, so build them once per process.
+//
+// questions and lessons are re-mapped into fresh objects by normalizeDatabase
+// before they reach a Database, so the cached arrays can be handed out directly.
+// topics and lesson_blocks are merged in as-is, so those are copied per call to
+// keep each Database's records its own — the same isolation callers had when
+// every read rebuilt them.
+let seedQuestionRecordsCache: QuestionRecord[] | null = null;
+let seedTopicRecordsCache: TopicRecord[] | null = null;
+let seedLessonRecordsCache: LessonRecord[] | null = null;
+let seedLessonBlockRecordsCache: LessonBlockRecord[] | null = null;
+
+function seedQuestionRecords(): QuestionRecord[] {
+  seedQuestionRecordsCache ??= buildQuestionRecords();
+  return seedQuestionRecordsCache;
+}
+
+function seedLessonRecords(): LessonRecord[] {
+  seedLessonRecordsCache ??= buildLessonRecords();
+  return seedLessonRecordsCache;
+}
+
+function seedTopicRecords(): TopicRecord[] {
+  seedTopicRecordsCache ??= buildTopicRecords();
+  return seedTopicRecordsCache.map((topic) => ({ ...topic }));
+}
+
+function seedLessonBlockRecords(): LessonBlockRecord[] {
+  seedLessonBlockRecordsCache ??= buildLessonBlockRecords();
+  return seedLessonBlockRecordsCache.map((block) => ({ ...block }));
+}
+
 function compactDatabaseForStorage(database: Database): Database {
+  const seedKeys = seedKeySets();
   return {
     ...database,
-    topics: removeSeedRecords(database.topics, seedTopicRecords(), (topic) => topic.id),
-    lessons: removeSeedRecords(database.lessons, seedLessonRecords(), (lesson) => lesson.slug),
-    lesson_blocks: removeSeedRecords(database.lesson_blocks, seedLessonBlockRecords(), (block) => block.id),
-    questions: removeSeedRecords(database.questions, seedQuestionRecords(), (question) => question.id)
+    topics: removeRecordsWithSeedKey(database.topics, seedKeys.topicIds, (topic) => topic.id),
+    lessons: removeRecordsWithSeedKey(database.lessons, seedKeys.lessonSlugs, (lesson) => lesson.slug),
+    lesson_blocks: removeRecordsWithSeedKey(database.lesson_blocks, seedKeys.lessonBlockIds, (block) => block.id),
+    questions: removeRecordsWithSeedKey(database.questions, seedKeys.questionIds, (question) => question.id)
   };
 }
 
@@ -4200,19 +4281,16 @@ function stringifyStoredDatabase(database: Database) {
 function storedDatabaseNeedsCompaction(parsed: Partial<Database>) {
   const containsSeedRecord = <T>(
     records: T[] | undefined,
-    seedRecords: () => T[],
+    seedKeys: Set<string>,
     keyFor: (record: T) => string
-  ) => {
-    if (!Array.isArray(records) || records.length === 0) return false;
-    const seedKeys = new Set(seedRecords().map(keyFor));
-    return records.some((record) => seedKeys.has(keyFor(record)));
-  };
+  ) => Array.isArray(records) && records.some((record) => seedKeys.has(keyFor(record)));
 
+  const seedKeys = seedKeySets();
   return (
-    containsSeedRecord(parsed.questions, seedQuestionRecords, (question) => question.id) ||
-    containsSeedRecord(parsed.topics, seedTopicRecords, (topic) => topic.id) ||
-    containsSeedRecord(parsed.lessons, seedLessonRecords, (lesson) => lesson.slug) ||
-    containsSeedRecord(parsed.lesson_blocks, seedLessonBlockRecords, (block) => block.id)
+    containsSeedRecord(parsed.questions, seedKeys.questionIds, (question) => question.id) ||
+    containsSeedRecord(parsed.topics, seedKeys.topicIds, (topic) => topic.id) ||
+    containsSeedRecord(parsed.lessons, seedKeys.lessonSlugs, (lesson) => lesson.slug) ||
+    containsSeedRecord(parsed.lesson_blocks, seedKeys.lessonBlockIds, (block) => block.id)
   );
 }
 
@@ -4222,6 +4300,32 @@ function localizedFromUnknown(value: unknown, fallback: LocalizedText): Localize
   const en = typeof candidate.en === "string" && candidate.en.trim() ? candidate.en.trim() : fallback.en;
   const zh = typeof candidate.zh === "string" && candidate.zh.trim() ? candidate.zh.trim() : en;
   return { en, zh };
+}
+
+// databaseNeedsPersistenceSync runs on every snapshot read, and its demo-account
+// check verifies each seeded account's password with pbkdf2 — deliberately slow,
+// and it dominated the write path: 8.1s of a 12.6s CPU profile of 20 lesson-progress
+// writes. Nothing about the answer can change unless the stored credential or the
+// demo password changes, both of which are part of the cache key.
+const demoPasswordVerdictCache = new Map<string, boolean>();
+const maxDemoPasswordVerdicts = 64;
+
+function demoPasswordMatches(
+  password: string,
+  user: Parameters<typeof passwordMatchesFromAuthSessionPersistence>[1]
+) {
+  const key = createHash("sha256")
+    .update(`${user.password_salt}\u0000${user.password_hash}\u0000${password}`)
+    .digest("hex");
+  const cached = demoPasswordVerdictCache.get(key);
+  if (cached !== undefined) return cached;
+
+  const matches = passwordMatchesFromAuthSessionPersistence(password, user);
+  if (demoPasswordVerdictCache.size >= maxDemoPasswordVerdicts) {
+    demoPasswordVerdictCache.clear();
+  }
+  demoPasswordVerdictCache.set(key, matches);
+  return matches;
 }
 
 function normalizeDatabase(database: Partial<Database>) {
@@ -4360,7 +4464,7 @@ function normalizeDatabase(database: Partial<Database>) {
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
     hashPassword: hashPasswordFromAuthSessionPersistence,
     internalExampleAccountSeedForUserId,
-    passwordMatches: (password, user) => passwordMatchesFromAuthSessionPersistence(password, user)
+    passwordMatches: (password, user) => demoPasswordMatches(password, user)
   });
   syncBootstrapAdminFromAuthSessionPersistence(
     users,
@@ -4663,7 +4767,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
       demoPassword: getDemoPassword(),
       fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
       internalExampleAccountSeedForUserId,
-      passwordMatches: (password, user) => passwordMatchesFromAuthSessionPersistence(password, user)
+      passwordMatches: (password, user) => demoPasswordMatches(password, user)
     }) ||
     bootstrapAdminNeedsSyncFromAuthSessionPersistence(
       parsed,
