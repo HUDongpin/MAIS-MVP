@@ -57,7 +57,10 @@ export function TeacherGamificationPanel() {
     event.preventDefault();
     if (!selectedClassId) return;
 
-    const form = new FormData(event.currentTarget);
+    // React clears event.currentTarget once the synchronous phase of the
+    // handler returns, so keep the element to reset it after the await.
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     setIsBusy(true);
     setMessage("");
     const response = await fetch("/api/teacher/gamification/campaigns", {
@@ -80,7 +83,7 @@ export function TeacherGamificationPanel() {
       return;
     }
     setData(nextData);
-    event.currentTarget.reset();
+    formElement.reset();
     setMessage(t({ en: "Campaign created.", zh: "已建立活動。" }));
   };
 
