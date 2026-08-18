@@ -1,6 +1,5 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type APIResponse, type Page, type TestInfo } from "@playwright/test";
 import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { mkdirSync, rmSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
@@ -75,6 +74,10 @@ type ParentMessageThread = {
 };
 
 type AppStatePayload = {
+  student_profiles?: Array<{
+    user_id: string;
+    parent_invite_code?: string;
+  }>;
   guardian_links?: Array<{
     id: string;
     parent_id: string;
@@ -146,9 +149,22 @@ function uniqueSlug(testInfo: TestInfo, label: string) {
     .slice(0, 90);
 }
 
-function parentInviteCodeForStudent(studentId: string) {
-  const digest = createHash("sha1").update(`parent-link:${studentId}`).digest("hex").slice(0, 6).toUpperCase();
-  return `MAIS-${digest}`;
+// Invite codes are random (`MAIS-` + 10 chars from a UUID, see
+// lib/server/userStore/parentAccessPersistence.ts `createParentInviteCode`), so they
+// cannot be derived from the student id — they have to be read back from the app's own
+// store, the same way tests/e2e/parent-console.spec.ts does it.
+function parentInviteCodeForStudent(dbPath: string, studentId: string) {
+  const sqlite = new DatabaseSync(dbPath);
+  try {
+    const row = sqlite.prepare("SELECT payload FROM app_state WHERE id = ?").get("primary") as AppStateRow | undefined;
+    expect(row, `Missing app_state row in ${dbPath}`).toBeTruthy();
+    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
+    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
+    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
+    return inviteCode!;
+  } finally {
+    sqlite.close();
+  }
 }
 
 async function newApiContext(app: IsolatedApp, contexts: APIRequestContext[]) {
@@ -259,9 +275,15 @@ function monitorPage(page: Page) {
     pageErrors,
     consoleErrors,
     serverErrors,
-    expectClean() {
+    // `allowConsoleErrors` is for console output the test itself provokes on purpose
+    // (a deliberate 4xx probe): Chrome logs every failed fetch as a console error, so
+    // without an allowlist an intentional negative case reads as a product defect.
+    expectClean({ allowConsoleErrors = [] }: { allowConsoleErrors?: RegExp[] } = {}) {
       expect(pageErrors, "Unexpected browser pageerror events").toEqual([]);
-      expect(consoleErrors, "Unexpected browser console.error events").toEqual([]);
+      expect(
+        consoleErrors.filter((message) => !allowConsoleErrors.some((pattern) => pattern.test(message))),
+        "Unexpected browser console.error events"
+      ).toEqual([]);
       expect(serverErrors, "Unexpected 5xx network responses").toEqual([]);
     }
   };
@@ -361,7 +383,11 @@ test.describe("parent console robustness stress suite", () => {
       await page.getByRole("button", { name: /^Connect$/i }).click();
       await expect(page.getByText(/Invite code could not be linked/i)).toBeVisible();
 
-      monitor.expectClean();
+      // The MAIS-NOPE probe above is meant to fail, and the browser reports that 404
+      // fetch as a console error. Allow exactly that one; everything else stays strict.
+      monitor.expectClean({
+        allowConsoleErrors: [/Failed to load resource: the server responded with a status of 404 \(Not Found\)/]
+      });
     } finally {
       await disposeAll(contexts);
       await app.attachLogs(testInfo);
@@ -417,7 +443,7 @@ test.describe("parent console robustness stress suite", () => {
       const { context: otherParentContext } = await loginApi(app, contexts, otherParent.username, otherParent.password);
       expect((await otherParentContext.post("/api/parent/children/link", {
         data: {
-          inviteCode: parentInviteCodeForStudent(otherStudent.userId),
+          inviteCode: parentInviteCodeForStudent(app.dbPath, otherStudent.userId),
           relationship: "guardian"
         }
       })).status()).toBe(200);
@@ -491,7 +517,7 @@ test.describe("parent console robustness stress suite", () => {
       expect((await parentContext.post("/api/parent/children/link", { data: { inviteCode: "MAIS-NOPE", relationship: "guardian" } })).status()).toBe(404);
 
       const linkTarget = await registerStudentViaApi(app, contexts, testInfo, "link-target");
-      const linkTargetCode = parentInviteCodeForStudent(linkTarget.userId);
+      const linkTargetCode = parentInviteCodeForStudent(app.dbPath, linkTarget.userId);
       expect((await parentContext.get(`/api/parent/children/${encodeURIComponent(linkTarget.userId)}/summary`)).status()).toBe(404);
       expect((await parentContext.post("/api/parent/children/link", {
         data: {
@@ -541,7 +567,7 @@ test.describe("parent console robustness stress suite", () => {
       const { context: parentContext } = await loginApi(app, contexts, parent.username, parent.password);
       expect((await parentContext.post("/api/parent/children/link", {
         data: {
-          inviteCode: parentInviteCodeForStudent(student.userId),
+          inviteCode: parentInviteCodeForStudent(dbPath, student.userId),
           relationship: "guardian"
         }
       })).status()).toBe(200);
