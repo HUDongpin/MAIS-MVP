@@ -2844,7 +2844,29 @@ const databaseIndexCache = new WeakMap<Database, DatabaseIndexes>();
 // cannot silently clobber that write. Postgres does not need it: its mutate path
 // holds SELECT ... FOR UPDATE on the row for the whole transaction.
 const sqliteRevisionByDatabase = new WeakMap<Database, number>();
-const maxSqliteMutationAttempts = 8;
+const maxSqliteMutationAttempts = 12;
+
+class SqliteRevisionConflictError extends Error {
+  constructor() {
+    super("app_state advanced between the snapshot read and its write.");
+    this.name = "SqliteRevisionConflictError";
+  }
+}
+
+function isSqliteContentionError(error: unknown) {
+  if (error instanceof SqliteRevisionConflictError) return true;
+  const message = error instanceof Error ? error.message : String(error);
+  return /SQLITE_BUSY|SQLITE_LOCKED|database is locked|database table is locked|cannot start a transaction within a transaction/i.test(
+    message
+  );
+}
+
+// Full jitter: contending writers that all woke on the same released lock must not
+// retry in lockstep, which is what turns contention into a retry storm.
+function delayForSqliteRetry(attempt: number) {
+  const ceiling = Math.min(250, 5 * 2 ** Math.min(attempt, 6));
+  return new Promise((resolve) => setTimeout(resolve, Math.random() * ceiling));
+}
 
 function lessonPerfDebugEnabled() {
   const configured = process.env.LESSON_PERF_DEBUG?.trim().toLowerCase();
@@ -5009,30 +5031,52 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   }
 
   const run = mutationQueue.then(async () => {
-    // The queue only serialises mutations inside THIS process. Dev servers, test
-    // runners and parallel agent sessions all open the same file, so the write is
-    // additionally guarded on the revision the snapshot was read at and the mutator
-    // is replayed against fresh state when another connection got there first.
+    // mutationQueue only serialises mutations inside THIS process. Dev servers,
+    // test runners and parallel agent sessions all open the same file, and one
+    // classroom of students is the same shape of contention on one server.
+    // BEGIN IMMEDIATE takes the write lock before the read, so the whole
+    // read-modify-write is atomic across connections — the guarantee the Postgres
+    // path already gets from SELECT ... FOR UPDATE. busy_timeout (5s, set in
+    // getSqliteDatabase) makes a contending connection wait rather than fail; the
+    // retry loop below covers the case where it waits too long.
     for (let attempt = 1; ; attempt += 1) {
-      clearSqliteReadCache();
-      const database = await readDatabase();
-      const expectedRevision = sqliteRevisionByDatabase.get(database);
-      const result = await mutator(database);
-      databaseIndexCache.delete(database);
-      const cacheUpdatedAt = await writeSqliteDatabase(database, {
-        invalidateReadCache: false,
-        expectedRevision
-      });
-
-      if (cacheUpdatedAt !== null) {
-        cacheSqliteDatabase(database, cacheUpdatedAt);
-        return result;
+      const storage = getSqliteDatabase();
+      try {
+        storage.exec("BEGIN IMMEDIATE");
+      } catch (error) {
+        if (!isSqliteContentionError(error) || attempt >= maxSqliteMutationAttempts) throw error;
+        await delayForSqliteRetry(attempt);
+        continue;
       }
 
-      if (attempt >= maxSqliteMutationAttempts) {
-        throw new Error(
-          `Could not persist a SQLite mutation after ${maxSqliteMutationAttempts} attempts: another connection kept advancing app_state.`
-        );
+      try {
+        clearSqliteReadCache();
+        const database = await readDatabase();
+        const expectedRevision = sqliteRevisionByDatabase.get(database);
+        const result = await mutator(database);
+        databaseIndexCache.delete(database);
+        // Redundant inside the lock, but it costs nothing and it is what catches a
+        // write that somehow escaped the transaction.
+        const cacheUpdatedAt = await writeSqliteDatabase(database, {
+          invalidateReadCache: false,
+          expectedRevision
+        });
+        if (cacheUpdatedAt === null) throw new SqliteRevisionConflictError();
+
+        storage.exec("COMMIT");
+        cacheSqliteDatabase(database, cacheUpdatedAt);
+        return result;
+      } catch (error) {
+        try {
+          storage.exec("ROLLBACK");
+        } catch {
+          // The transaction was already rolled back by SQLite.
+        }
+        clearSqliteReadCache();
+        // Only contention is safe to replay. A mutator that threw for its own
+        // reasons must surface that error, not run again.
+        if (!isSqliteContentionError(error) || attempt >= maxSqliteMutationAttempts) throw error;
+        await delayForSqliteRetry(attempt);
       }
     }
   });

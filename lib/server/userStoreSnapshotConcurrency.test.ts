@@ -84,23 +84,23 @@ test("concurrent mutations from separate connections all persist", async () => {
   const contested = slugs.filter((slug) => !alreadyCompleted.has(slug));
   assert.ok(contested.length >= 8, "need uncompleted lessons to contend over");
 
-  const first = contested.filter((_, index) => index % 2 === 0);
-  const second = contested.filter((_, index) => index % 2 === 1);
+  const writerCount = 4;
+  const batches = Array.from({ length: writerCount }, (_, writer) =>
+    contested.filter((_, index) => index % writerCount === writer)
+  );
   const revisionBefore = storedProgressFor(userId).revision;
 
-  const [a, b] = await Promise.all([
-    completeLessonsInChildProcess(first, userId),
-    completeLessonsInChildProcess(second, userId)
-  ]);
+  const results = await Promise.all(batches.map((batch) => completeLessonsInChildProcess(batch, userId)));
+  results.forEach((result, writer) => {
+    assert.equal(result.code, 0, `writer ${writer} failed: ${result.stderr}`);
+  });
 
-  assert.equal(a.code, 0, `first writer failed: ${a.stderr}`);
-  assert.equal(b.code, 0, `second writer failed: ${b.stderr}`);
-
+  const attempted = batches.flat();
   const final = storedProgressFor(userId);
-  const missing = [...first, ...second].filter((slug) => !final.completed.has(slug));
+  const missing = attempted.filter((slug) => !final.completed.has(slug));
   assert.deepEqual(missing, [], "every concurrent completion must survive — a missing slug is a lost update");
   assert.ok(
-    final.revision >= revisionBefore + first.length + second.length,
-    `expected at least ${first.length + second.length} committed revisions, saw ${final.revision - revisionBefore}`
+    final.revision >= revisionBefore + attempted.length,
+    `expected at least ${attempted.length} committed revisions, saw ${final.revision - revisionBefore}`
   );
 });
