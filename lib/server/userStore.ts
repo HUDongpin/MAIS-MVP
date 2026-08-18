@@ -2822,6 +2822,12 @@ let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
 const databaseIndexCache = new WeakMap<Database, DatabaseIndexes>();
+// The app_state revision each in-memory Database was read at. writeSqliteDatabase
+// guards its UPDATE on this value so a snapshot read before another process wrote
+// cannot silently clobber that write. Postgres does not need it: its mutate path
+// holds SELECT ... FOR UPDATE on the row for the whole transaction.
+const sqliteRevisionByDatabase = new WeakMap<Database, number>();
+const maxSqliteMutationAttempts = 8;
 
 function lessonPerfDebugEnabled() {
   const configured = process.env.LESSON_PERF_DEBUG?.trim().toLowerCase();
@@ -2876,6 +2882,17 @@ function clearSqliteReadCache() {
   sqliteReadCache = null;
   sqliteReadCacheUpdatedAt = null;
   sqliteReadPromise = null;
+}
+
+function currentSqliteStateRevision() {
+  try {
+    const row = getSqliteDatabase()
+      .prepare("SELECT revision FROM app_state WHERE id = ?")
+      .get(stateRecordId) as { revision?: unknown } | undefined;
+    return typeof row?.revision === "number" ? row.revision : null;
+  } catch {
+    return null;
+  }
 }
 
 function currentSqliteStateUpdatedAt() {
@@ -4662,11 +4679,12 @@ async function loadSqliteDatabase() {
 
   try {
     const row = storage
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
+      .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
       .get(stateRecordId) as StateRow | undefined;
     const parsed = row ? parseStoredStatePayload(row.payload) : null;
     if (hasCoreTables(parsed)) {
       const database = normalizeDatabase(parsed);
+      sqliteRevisionByDatabase.set(database, typeof row?.revision === "number" ? row.revision : 0);
       const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database) || storedDatabaseNeedsCompaction(parsed)
         ? await writeSqliteDatabase(database, { invalidateReadCache: false })
         : typeof row?.updated_at === "string"
@@ -4800,23 +4818,63 @@ async function readDatabase() {
   return storageProvider === "postgres" ? readPostgresDatabase() : readSqliteDatabase();
 }
 
-async function writeSqliteDatabase(database: Database, options: { invalidateReadCache?: boolean } = {}) {
+async function writeSqliteDatabase(
+  database: Database,
+  options: { invalidateReadCache?: boolean; expectedRevision?: number } = {}
+) {
   await mkdir(dbDirectory, { recursive: true });
   const now = new Date().toISOString();
   databaseIndexCache.delete(database);
-  getSqliteDatabase()
-    .prepare(`
-      INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-      VALUES (?, ?, ?, ?, 1, ?, ?)
-      ON CONFLICT(id) DO UPDATE SET
-        tenant_id = excluded.tenant_id,
-        state_kind = excluded.state_kind,
-        schema_version = excluded.schema_version,
-        revision = app_state.revision + 1,
-        payload = excluded.payload,
-        updated_at = excluded.updated_at
-    `)
-    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, stringifyStoredDatabase(database), now);
+  // expectedRevision guards against a lost update: the DO UPDATE only fires when
+  // the row still holds the revision this database was read at. A caller that
+  // passes nothing (bootstrap, normalization write-back) overwrites unconditionally,
+  // which is the pre-existing behaviour.
+  const expectedRevision = options.expectedRevision;
+  const storage = getSqliteDatabase();
+  const result = expectedRevision === undefined
+    ? storage
+        .prepare(`
+          INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
+          VALUES (?, ?, ?, ?, 1, ?, ?)
+          ON CONFLICT(id) DO UPDATE SET
+            tenant_id = excluded.tenant_id,
+            state_kind = excluded.state_kind,
+            schema_version = excluded.schema_version,
+            revision = app_state.revision + 1,
+            payload = excluded.payload,
+            updated_at = excluded.updated_at
+        `)
+        .run(stateRecordId, stateTenantId, stateKind, schemaVersion, stringifyStoredDatabase(database), now)
+    : storage
+        .prepare(`
+          INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
+          VALUES (?, ?, ?, ?, 1, ?, ?)
+          ON CONFLICT(id) DO UPDATE SET
+            tenant_id = excluded.tenant_id,
+            state_kind = excluded.state_kind,
+            schema_version = excluded.schema_version,
+            revision = app_state.revision + 1,
+            payload = excluded.payload,
+            updated_at = excluded.updated_at
+          WHERE app_state.revision = ?
+        `)
+        .run(
+          stateRecordId,
+          stateTenantId,
+          stateKind,
+          schemaVersion,
+          stringifyStoredDatabase(database),
+          now,
+          expectedRevision
+        );
+
+  if (Number(result.changes) === 0) {
+    // Another connection advanced the row between our read and this write.
+    clearSqliteReadCache();
+    return null;
+  }
+
+  sqliteRevisionByDatabase.set(database, currentSqliteStateRevision() ?? 0);
   if (options.invalidateReadCache ?? true) {
     clearSqliteReadCache();
   }
@@ -4847,13 +4905,32 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   }
 
   const run = mutationQueue.then(async () => {
-    clearSqliteReadCache();
-    const database = await readDatabase();
-    const result = await mutator(database);
-    databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
-    return result;
+    // The queue only serialises mutations inside THIS process. Dev servers, test
+    // runners and parallel agent sessions all open the same file, so the write is
+    // additionally guarded on the revision the snapshot was read at and the mutator
+    // is replayed against fresh state when another connection got there first.
+    for (let attempt = 1; ; attempt += 1) {
+      clearSqliteReadCache();
+      const database = await readDatabase();
+      const expectedRevision = sqliteRevisionByDatabase.get(database);
+      const result = await mutator(database);
+      databaseIndexCache.delete(database);
+      const cacheUpdatedAt = await writeSqliteDatabase(database, {
+        invalidateReadCache: false,
+        expectedRevision
+      });
+
+      if (cacheUpdatedAt !== null) {
+        cacheSqliteDatabase(database, cacheUpdatedAt);
+        return result;
+      }
+
+      if (attempt >= maxSqliteMutationAttempts) {
+        throw new Error(
+          `Could not persist a SQLite mutation after ${maxSqliteMutationAttempts} attempts: another connection kept advancing app_state.`
+        );
+      }
+    }
   });
 
   mutationQueue = run.then(
