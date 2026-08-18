@@ -51,7 +51,13 @@ try {
 
   const passed = run("node", [
     "--test",
+    join(outputDir, "app/api/auth/register/routeTeacherInviteGate.test.js"),
     join(outputDir, "lib/server/authRouteGuards.test.js"),
+    join(outputDir, "lib/server/demoAccountAccess.test.js"),
+    join(outputDir, "lib/server/internalCaliforniaFastLogin.test.js"),
+    join(outputDir, "lib/server/sessionRevocation.test.js"),
+    join(outputDir, "lib/server/userStoreDemoLoginGate.test.js"),
+    join(outputDir, "lib/server/userStoreRetiredExampleLock.test.js"),
     join(outputDir, "lib/server/contentSafetySeed.test.js"),
     join(outputDir, "lib/server/userStoreParentNoticePersistence.test.js"),
     join(outputDir, "lib/server/questionStore.test.js"),

@@ -114,6 +114,32 @@ production promotion.
 
 ---
 
+## Auth-facing environment (Phase 0 hardening)
+
+These four control who can authenticate. All are opt-in; leaving them unset is the safe posture.
+
+| Variable | Effect when unset | Set it when |
+|---|---|---|
+| `TEACHER_INVITE_CODES` | **Teacher self-registration is refused outright** (403). Student and parent signup are unaffected. | A school should be able to self-serve teacher accounts. Comma- or newline-separated; rotate by editing the list — no deploy-time state to migrate. |
+| `HK_MATH_ENABLE_DEMO_USER` | Seeded example accounts are provisioned in local development and **not** in a production build (`NODE_ENV=production` or `VERCEL_ENV=production`). | The deployment is an explicit demo. `"false"` disables them everywhere. |
+| `HK_MATH_DEMO_PASSWORD` | Seeded accounts use the published `12345` when demo access is on, and an unguessable deployment-stable value when it is off. | You want demo accounts reachable but not with the published password. Authoritative when set. |
+| `HK_MATH_ENABLE_INTERNAL_FAST_LOGIN` | The internal California fast-login path is inert — it neither authenticates its seed list nor grants the teacher console from a session subject. | You are reproducing something that needs those specific seeds. Off by default even locally. |
+
+Two consequences worth planning for:
+
+- **The deploy that ships session revocation signs everyone out once.** Session tokens are now
+  bound to the account's password material, and tokens minted before that have nothing to bind to,
+  so they are refused rather than grandfathered in. Every active session ends at cutover and users
+  log in again. This is the point of the change: those are exactly the tokens a password reset
+  could not previously revoke.
+- **Seed rows an earlier demo-enabled deploy wrote keep their accounts but lose their password.**
+  Switching `HK_MATH_ENABLE_DEMO_USER` off no longer just stops seeding; it rewrites the credential
+  on any surviving seed row to the locked value, so flipping the flag actually closes the door
+  instead of only appearing to. The rows stay so classes and submissions that reference them
+  remain intact.
+
+---
+
 ## Command reference
 
 | Command | What it does |

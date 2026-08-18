@@ -13,6 +13,7 @@ import {
   getStorageReadinessSnapshot
 } from "@/lib/server/userStore/auth";
 import { getLessonEntryTarget } from "@/lib/server/userStore/studentActivity";
+import { verifyTeacherInviteCode } from "@/lib/server/teacherInviteCode";
 import { isValidLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
 import type { CurriculumTrack, ThemeMode } from "@/types";
@@ -45,6 +46,19 @@ async function durableStorageRegistrationBlockResponse() {
       usingTmpFallback: storage.usingTmpFallback
     }
   }, { status: 503 });
+}
+
+const teacherInviteRejectionCopy = {
+  "registration-closed": "Teacher accounts are not self-served on this deployment. Ask your school administrator to create one.",
+  "code-required": "A school invite code is required to create a teacher account.",
+  "code-invalid": "That school invite code is not valid. Check it with your school administrator."
+} as const;
+
+function teacherInviteRejectionResponse(reason: keyof typeof teacherInviteRejectionCopy) {
+  return NextResponse.json({
+    code: `teacher-invite-${reason}`,
+    error: teacherInviteRejectionCopy[reason]
+  }, { status: 403 });
 }
 
 export async function POST(request: Request) {
@@ -81,6 +95,14 @@ async function handleRegister(request: Request) {
     rule: authRateLimitRules.registerIp
   });
   if (ipRateLimit) return ipRateLimit;
+
+  // A teacher account carries the whole teaching console, so it is the one role that
+  // cannot be self-served. Checked after the IP limiter so guessing at codes is
+  // throttled, and before any storage work so a rejected signup writes nothing.
+  if (requestedRole === "teacher") {
+    const invite = verifyTeacherInviteCode(body.teacherInviteCode);
+    if (invite.status === "rejected") return teacherInviteRejectionResponse(invite.reason);
+  }
 
   if (requestedRole === "parent") {
     if (!name || !(username || email) || password.length < 5) {

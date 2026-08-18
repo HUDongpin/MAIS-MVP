@@ -132,6 +132,7 @@ type RegisterInput = {
   password: string;
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
+  teacherInviteCode?: string;
 };
 
 type ProfileUpdateInput = {
@@ -160,7 +161,7 @@ type AuthActionResult = {
     username: string;
     grade: GradeId;
   };
-  reason?: "duplicate" | "invalid" | "setup" | "error" | "requires-curriculum-track";
+  reason?: "duplicate" | "invalid" | "setup" | "error" | "requires-curriculum-track" | "teacher-invite";
 };
 
 async function readAuthErrorCode(response: Response) {
@@ -174,6 +175,10 @@ async function readAuthErrorCode(response: Response) {
 
 async function unavailableAuthReason(response: Response): Promise<AuthActionResult["reason"]> {
   return (await readAuthErrorCode(response)) === "session-secret-missing" ? "setup" : "error";
+}
+
+async function forbiddenAuthReason(response: Response): Promise<AuthActionResult["reason"]> {
+  return (await readAuthErrorCode(response)).startsWith("teacher-invite-") ? "teacher-invite" : "error";
 }
 
 const isGrade = isValidGradeId;
@@ -925,7 +930,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
   }, [applyAuthSession, language, theme]);
 
-  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile }: RegisterInput): Promise<AuthActionResult> => {
+  const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile, teacherInviteCode }: RegisterInput): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
@@ -940,6 +945,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         grade,
         curriculumProfile,
         curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
+        teacherInviteCode,
         language,
         theme
       })
@@ -948,6 +954,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (!response.ok) {
       if (response.status === 409) return { ok: false, reason: "duplicate" };
       if (response.status === 400) return { ok: false, reason: "invalid" };
+      if (response.status === 403) return { ok: false, reason: await forbiddenAuthReason(response) };
       if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
       return { ok: false, reason: "error" };
     }

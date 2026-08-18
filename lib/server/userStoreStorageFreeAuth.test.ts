@@ -9,7 +9,7 @@ function restoreEnv(key: string, value: string | undefined) {
   else process.env[key] = value;
 }
 
-test("storage-free example login sessions hydrate when demo storage seeding is disabled", async () => {
+test("storage-free example login sessions hydrate without a seeded database row", async () => {
   const previousNodeEnv = process.env.NODE_ENV;
   const previousDemoFlag = process.env.HK_MATH_ENABLE_DEMO_USER;
   const previousDbDir = process.env.HK_MATH_DB_DIR;
@@ -18,8 +18,11 @@ test("storage-free example login sessions hydrate when demo storage seeding is d
   const dbDir = await mkdtemp(path.join(tmpdir(), "mais-storage-free-auth-"));
 
   try {
+    // The subject here is storage-free hydration, not the demo gate, so opt in: with
+    // demo accounts switched off these seeds no longer resolve at all, which is the
+    // behaviour userStoreDemoLoginGate.test.ts asserts.
     Object.assign(process.env, { NODE_ENV: "production" });
-    process.env.HK_MATH_ENABLE_DEMO_USER = "false";
+    process.env.HK_MATH_ENABLE_DEMO_USER = "true";
     process.env.HK_MATH_DB_DIR = dbDir;
     delete process.env.HK_MATH_DB_PATH;
     delete process.env.HK_MATH_STORAGE_PROVIDER;

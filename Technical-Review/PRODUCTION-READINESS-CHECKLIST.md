@@ -5,7 +5,7 @@ Bar to clear **before inviting real students/teachers** (beyond demo accounts). 
 Status legend: ☐ open · ☑ done · n/a with reason.
 
 ## 1. Security
-- [ ] Teacher registration requires invite code or admin approval (BK-05)
+- [x] Teacher registration requires invite code or admin approval (BK-05) — `TEACHER_INVITE_CODES`, enforced in `app/api/auth/register/route.ts`; fails closed when unconfigured. The admin-generated-code half of BK-05 is still open: it needs a durable code store, which BK-07 (app_state freeze) and BK-08 (migrations) gate.
 - [ ] Parent-child linking flow audited: a parent can only see linked children, links require verification (BK-05)
 - [ ] Durable rate limiting on login, register, password-reset, and all AI routes — per-IP and per-user (BK-06)
 - [ ] Server-side session records: revocation on password change/reset, "log out all devices" (BK-14)

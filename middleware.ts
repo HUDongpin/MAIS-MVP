@@ -25,6 +25,11 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
+  // Signature and expiry only. The middleware runs on the edge with no database
+  // access, and all it decides is whether to bounce an anonymous visitor to the
+  // login screen. Session revocation (see verifyRevocableSessionToken in
+  // lib/server/auth.ts) is enforced where a request resolves an actual user, so a
+  // revoked cookie gets a page shell here and no data anywhere behind it.
   const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
   const session = token ? await verifySessionToken(token) : null;
   if (session) return NextResponse.next();

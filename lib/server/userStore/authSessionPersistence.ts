@@ -886,6 +886,68 @@ export type AuthDemoAccountSyncOptions = {
   passwordMatches?: (password: string, user: AuthSessionUserRecord) => boolean;
 };
 
+export type AuthRetiredExampleAccountLockOptions = {
+  retiredAccountIds: readonly string[];
+  /**
+   * The exact hash/salt pair a locked row carries. Deterministic per deployment (see
+   * lockedExampleAccountSalt), which is what lets both helpers compare strings
+   * instead of running a PBKDF2 verify per account on the read path.
+   */
+  lockedCredential: { hash: string; salt: string };
+};
+
+/**
+ * Seed accounts stop being synced the moment demo access is switched off, which on
+ * its own leaves every row an earlier demo-enabled deploy already wrote sitting in
+ * the database with the published demo password. Flipping the flag would look like
+ * a fix and change nothing.
+ *
+ * These two helpers close that gap by rewriting the credential — and only the
+ * credential — of seed rows that are no longer provisioned. Rows are never created
+ * here: a deployment that never had demo accounts must not acquire them, and one
+ * that did keeps the rows (so classes, submissions, and ledgers that reference them
+ * stay intact) with a password nobody holds.
+ */
+function authRetiredExampleAccountIsLocked(
+  user: { password_hash?: string; password_salt?: string },
+  lockedCredential: { hash: string; salt: string }
+) {
+  return user.password_hash === lockedCredential.hash && user.password_salt === lockedCredential.salt;
+}
+
+export function authRetiredExampleAccountsNeedLock(
+  database: Partial<AuthSessionPersistenceDatabase>,
+  { retiredAccountIds, lockedCredential }: AuthRetiredExampleAccountLockOptions
+) {
+  if (retiredAccountIds.length === 0) return false;
+
+  const retired = new Set(retiredAccountIds);
+  return Boolean(
+    database.users?.some((user) => retired.has(user.id) && !authRetiredExampleAccountIsLocked(user, lockedCredential))
+  );
+}
+
+export function lockAuthRetiredExampleAccounts(
+  users: AuthSessionPersistenceDatabase["users"],
+  { retiredAccountIds, lockedCredential }: AuthRetiredExampleAccountLockOptions
+) {
+  if (retiredAccountIds.length === 0) return false;
+
+  const retired = new Set(retiredAccountIds);
+  let locked = false;
+
+  users.forEach((user) => {
+    if (!retired.has(user.id) || authRetiredExampleAccountIsLocked(user, lockedCredential)) return;
+
+    user.password_hash = lockedCredential.hash;
+    user.password_salt = lockedCredential.salt;
+    user.password_must_change = false;
+    locked = true;
+  });
+
+  return locked;
+}
+
 export function authDemoRecordsNeedSync(
   database: Partial<AuthSessionPersistenceDatabase>,
   {

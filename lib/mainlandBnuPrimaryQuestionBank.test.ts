@@ -13,7 +13,8 @@ import { questions } from "../data/questions";
 import { mainlandBnuPrimaryRagCards } from "../data/rag/mainlandBnuPrimary";
 import { mainlandBnuPrimaryAssessmentPatternCards } from "../data/rag/mainlandBnuPrimaryAssessmentPatterns";
 import { GET as getQuestionsRoute } from "../app/api/questions/route";
-import { createSessionToken, SESSION_COOKIE_NAME } from "./session";
+import { SESSION_COOKIE_NAME } from "./session";
+import { createSessionTokenForUserId } from "./server/sessionCookie";
 import {
   createStudentUser,
   getLessonBySlug,
@@ -303,7 +304,7 @@ test("question API returns BNUP primary questions only for a BNUP primary authen
   assert.equal(result.status, "created");
   if (result.status !== "created") return;
 
-  const token = await createSessionToken(result.session.user.id);
+  const token = await createSessionTokenForUserId(result.session.user.id);
   const response = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=P1&publisher=MAINLAND_BNU", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}` }
   }));

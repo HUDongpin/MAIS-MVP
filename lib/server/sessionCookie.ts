@@ -26,8 +26,19 @@ export function sessionCookieOptions(request: Request, maxAge: number) {
   };
 }
 
+/**
+ * Mints a session token bound to the subject's current password material, so the
+ * token stops verifying the moment that password changes. Imported lazily because
+ * this module is also pulled in by routes that only want `sessionCookieOptions`
+ * (logout, for one) and have no business loading the user store.
+ */
+export async function createSessionTokenForUserId(userId: string) {
+  const { getSessionCredentialTagById } = await import("@/lib/server/userStore/auth");
+  return createSessionToken(userId, await getSessionCredentialTagById(userId));
+}
+
 export async function setSessionCookie(response: NextResponse, userId: string, request: Request) {
-  response.cookies.set(SESSION_COOKIE_NAME, await createSessionToken(userId), {
+  response.cookies.set(SESSION_COOKIE_NAME, await createSessionTokenForUserId(userId), {
     ...sessionCookieOptions(request, SESSION_MAX_AGE_SECONDS)
   });
 }

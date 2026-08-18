@@ -10,6 +10,7 @@ import type {
   ThemeMode
 } from "@/types";
 import { publicLessonEntryTargetForGrade } from "@/components/lesson/lessonEntryTarget";
+import { internalFastLoginEnabled, resolveDemoPassword } from "@/lib/server/demoAccountAccess";
 
 type InternalCaliforniaFastLoginInput = {
   username: string;
@@ -53,7 +54,6 @@ type InternalCaliforniaSeed = {
   allowRequestedGrade?: boolean;
 };
 
-const displayedDemoPassword = "12345";
 const californiaProfile: CurriculumProfile = { region: "US", publisher: "US_CA_MATH" };
 const californiaTrack: CurriculumTrack = "US_CA_MATH";
 const validGrades = new Set<GradeId>(["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]);
@@ -257,6 +257,10 @@ function seedByUserId(userId: string) {
 }
 
 export function getInternalFastNoClassTeacherSessionByUserId(userId: string): InternalCaliforniaFastLoginSession | null {
+  // Reached from the teacher console's page guard on the session subject alone, with
+  // no user-store lookup behind it: while this path was ungated, any validly signed
+  // cookie naming a seed id opened the full teacher workspace.
+  if (!internalFastLoginEnabled()) return null;
   if (!internalFastNoClassTeacherIds.has(userId)) return null;
 
   const seed = seedByUserId(userId);
@@ -283,9 +287,14 @@ export async function authenticateInternalCaliforniaFastLogin({
   language,
   theme
 }: InternalCaliforniaFastLoginInput): Promise<InternalCaliforniaFastLoginResult | null> {
+  // Returning null (rather than "invalid") hands the request back to the regular
+  // store-backed login, so disabling the fast path removes a credential without
+  // removing an account.
+  if (!internalFastLoginEnabled()) return null;
+
   const seed = matchingInternalCaliforniaSeed({ username, grade, curriculumTrack, curriculumProfile });
   if (!seed) return null;
-  if (password !== displayedDemoPassword) return { status: "invalid" };
+  if (password !== resolveDemoPassword()) return { status: "invalid" };
   const fallbackSettings = {
     language: requestedLanguage(language, seed.language),
     theme: requestedTheme(theme, "dark"),

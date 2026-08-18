@@ -6,6 +6,7 @@ import {
   withAuthRouteJsonBoundary
 } from "@/lib/server/authRouteGuards";
 import { changeAuthenticatedUserPassword } from "@/lib/server/userStore/auth";
+import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
 
 export const runtime = "nodejs";
 
@@ -53,5 +54,15 @@ async function handlePasswordChange(request: Request) {
     return NextResponse.json({ error: "Current password is invalid or the new password is too short." }, { status: 400 });
   }
 
-  return NextResponse.json(result.session);
+  // The change just revoked every token bound to the old password — including the
+  // one this request arrived with. Hand the caller a fresh cookie so the account
+  // owner stays signed in while everyone else holding a copy is signed out.
+  const response = NextResponse.json(result.session);
+  try {
+    await setSessionCookie(response, authenticated.user.id, request);
+  } catch {
+    return sessionSecretMissingResponse();
+  }
+
+  return response;
 }

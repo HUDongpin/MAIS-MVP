@@ -4,7 +4,8 @@ import { POST as postAITutorRoute } from "../../app/api/ai-tutor/route";
 import { GET as getAITutorStatusRoute } from "../../app/api/ai-tutor/status/route";
 import { GET as getLessonRoute } from "../../app/api/lessons/[slug]/route";
 import { GET as getQuestionsRoute } from "../../app/api/questions/route";
-import { createSessionToken, SESSION_COOKIE_NAME } from "../session";
+import { SESSION_COOKIE_NAME } from "../session";
+import { createSessionTokenForUserId } from "./sessionCookie";
 
 const anonymousQuestionLimit = 20;
 
@@ -31,7 +32,7 @@ async function withEnv(env: Record<string, string | undefined>, run: () => Promi
 }
 
 async function authenticatedRequest(url: string, userId = "student-peter") {
-  const token = await createSessionToken(userId);
+  const token = await createSessionTokenForUserId(userId);
   return new Request(url, {
     headers: {
       cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`

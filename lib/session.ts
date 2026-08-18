@@ -4,6 +4,15 @@ export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 export type SessionPayload = {
   sub: string;
   exp: number;
+  /**
+   * Credential tag: a digest of the subject's stored password material at the moment
+   * the token was minted. Changing a password changes the tag, so every token issued
+   * before the change stops verifying — the mechanism that makes these otherwise
+   * stateless 7-day tokens revocable. Optional in the type because tokens minted
+   * before this shipped do not carry one; `verifyRevocableSessionToken` in
+   * lib/server/auth.ts rejects those, since a token with no tag cannot be revoked.
+   */
+  cv?: string;
 };
 
 const fallbackSecret = "hk-math-lab-local-development-secret";
@@ -57,10 +66,17 @@ function constantTimeEqual(left: string, right: string) {
   return result === 0;
 }
 
-export async function createSessionToken(userId: string, now = Date.now()) {
+/**
+ * `credentialTag` is required rather than optional so that every mint site has to
+ * resolve one; a token minted without it authenticates nothing. Server callers
+ * should go through `createSessionTokenForUserId` in lib/server/sessionCookie.ts,
+ * which looks the tag up for them.
+ */
+export async function createSessionToken(userId: string, credentialTag: string | null, now = Date.now()) {
   const payload: SessionPayload = {
     sub: userId,
-    exp: now + SESSION_MAX_AGE_SECONDS * 1000
+    exp: now + SESSION_MAX_AGE_SECONDS * 1000,
+    ...(credentialTag ? { cv: credentialTag } : {})
   };
   const encodedPayload = base64UrlEncode(new TextEncoder().encode(JSON.stringify(payload)));
   const signature = base64UrlEncode(await hmacSha256(encodedPayload));
@@ -84,7 +100,11 @@ export async function verifySessionToken(token: string, now = Date.now()): Promi
     const payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(encodedPayload))) as Partial<SessionPayload>;
     if (typeof payload.sub !== "string" || typeof payload.exp !== "number") return null;
     if (payload.exp <= now) return null;
-    return { sub: payload.sub, exp: payload.exp };
+    return {
+      sub: payload.sub,
+      exp: payload.exp,
+      ...(typeof payload.cv === "string" ? { cv: payload.cv } : {})
+    };
   } catch {
     return null;
   }

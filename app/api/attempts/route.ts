@@ -6,7 +6,7 @@ import {
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
 import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
-import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
+import { SESSION_COOKIE_NAME } from "@/lib/session";
 
 export const runtime = "nodejs";
 
@@ -78,10 +78,12 @@ async function readAnswerWorkPhotos(
 }
 
 async function verifiedSessionPayload(request: Request) {
-  const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE_NAME);
-  if (!token) return null;
-
-  return verifySessionToken(token);
+  // Goes through the revocable verifier rather than a bare signature check: this
+  // route writes attempts on the strength of `payload.sub` alone, so a signature-only
+  // check would keep honouring a session the account owner had already revoked by
+  // changing their password.
+  const { verifyRevocableSessionToken } = await import("@/lib/server/auth");
+  return verifyRevocableSessionToken(readCookie(request.headers.get("cookie"), SESSION_COOKIE_NAME));
 }
 
 async function persistLocalAttempt({

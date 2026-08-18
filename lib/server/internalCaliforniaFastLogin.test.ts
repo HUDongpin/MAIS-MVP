@@ -7,6 +7,10 @@ import {
   getInternalFastNoClassTeacherShellByUserId
 } from "./internalCaliforniaFastLogin";
 
+// The fast path is off unless a deployment opts in, so the suite that exercises it
+// has to opt in too. The default-off behaviour gets its own test at the bottom.
+process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN = "true";
+
 const californiaProfile = { region: "US", publisher: "US_CA_MATH" } as const;
 
 function restoreEnv(key: string, value: string | undefined) {
@@ -185,4 +189,57 @@ test("internal California demo accounts still reject incorrect passwords before 
   });
 
   assert.equal(result?.status, "invalid");
+});
+
+test("the fast path is inert unless the deployment opts in", async () => {
+  const previousFlag = process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN;
+
+  try {
+    delete process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN;
+
+    // null, not "invalid": the request falls through to the store-backed login rather
+    // than being reported as a failed credential for an account that still exists.
+    assert.equal(
+      await authenticateInternalCaliforniaFastLogin({
+        username: "Teacher Scott",
+        password: "12345",
+        grade: "P1",
+        curriculumProfile: californiaProfile
+      }),
+      null
+    );
+    assert.equal(getInternalFastNoClassTeacherSessionByUserId("teacher-scott-us"), null);
+    assert.equal(getInternalFastNoClassTeacherShellByUserId("teacher-scott-us"), null);
+
+    process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN = "false";
+    assert.equal(getInternalFastNoClassTeacherSessionByUserId("teacher-scott-us"), null);
+  } finally {
+    restoreEnv("HK_MATH_ENABLE_INTERNAL_FAST_LOGIN", previousFlag);
+  }
+});
+
+test("an opted-in deployment can move the demo password off the published one", async () => {
+  const previousPassword = process.env.HK_MATH_DEMO_PASSWORD;
+
+  try {
+    process.env.HK_MATH_DEMO_PASSWORD = "not-the-published-one";
+
+    const published = await authenticateInternalCaliforniaFastLogin({
+      username: "Teacher Scott",
+      password: "12345",
+      grade: "P1",
+      curriculumProfile: californiaProfile
+    });
+    assert.equal(published?.status, "invalid");
+
+    const configured = await authenticateInternalCaliforniaFastLogin({
+      username: "Teacher Scott",
+      password: "not-the-published-one",
+      grade: "P1",
+      curriculumProfile: californiaProfile
+    });
+    assert.equal(configured?.status, "authenticated");
+  } finally {
+    restoreEnv("HK_MATH_DEMO_PASSWORD", previousPassword);
+  }
 });

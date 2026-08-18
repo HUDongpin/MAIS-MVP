@@ -463,8 +463,9 @@ async function prepareCompiledRouteContext() {
   await ensureSymlink(path.join("..", "..", "types"), path.join(aliasRoot, "types"));
 
   const sessionModule = await import(pathToFileURL(path.join(outDir, "lib", "session.js")).href);
+  const sessionCookieModule = await import(pathToFileURL(path.join(outDir, "lib", "server", "sessionCookie.js")).href);
   const routeModule = await import(pathToFileURL(path.join(outDir, "app", "api", "handwriting-recognition", "route.js")).href);
-  const token = await sessionModule.createSessionToken("student-peter");
+  const token = await sessionCookieModule.createSessionTokenForUserId("student-peter");
   return {
     POST: routeModule.POST,
     cookieHeader: `${sessionModule.SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`,

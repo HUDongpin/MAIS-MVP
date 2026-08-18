@@ -48,6 +48,17 @@ const registerCopy = {
   parentName: { en: "Parent name", zh: "家長姓名", zhHans: "家长姓名" },
   username: { en: "Username or student ID", zh: "用戶名稱或學生編號", zhHans: "用户名或学生编号" },
   teacherUsername: { en: "Teacher username or work email", zh: "教師用戶名稱或工作電郵", zhHans: "教师用户名或工作邮箱" },
+  teacherInviteCode: { en: "School invite code", zh: "學校邀請碼", zhHans: "学校邀请码" },
+  teacherInviteCodeHelp: {
+    en: "Teacher accounts are issued by your school. Ask your school administrator for the code.",
+    zh: "教師帳戶由學校發出，請向學校管理員索取邀請碼。",
+    zhHans: "教师账户由学校发放，请向学校管理员索取邀请码。"
+  },
+  teacherInviteCodeRejected: {
+    en: "That school invite code is not valid. Check it with your school administrator.",
+    zh: "學校邀請碼無效，請向學校管理員確認。",
+    zhHans: "学校邀请码无效，请向学校管理员确认。"
+  },
   email: { en: "Email", zh: "電郵", zhHans: "邮箱" },
   password: { en: "Password", zh: "密碼" },
   confirmPassword: { en: "Confirm password", zh: "確認密碼" },
@@ -510,6 +521,7 @@ export default function RegisterPage() {
   const [accountType, setAccountType] = useState<RegistrationRole>("student");
   const [studentName, setStudentName] = useState("");
   const [username, setUsername] = useState("");
+  const [teacherInviteCode, setTeacherInviteCode] = useState("");
   const [email, setEmail] = useState("");
   const [curriculumProfile, setCurriculumProfile] = useState<CurriculumProfile>(() => curriculumProfileForPublisher("US_CA_MATH"));
   const [registrationGrade, setRegistrationGrade] = useState<GradeId>("K");
@@ -703,7 +715,8 @@ export default function RegisterPage() {
         email,
         password,
         grade: isParentRegistration ? undefined : registrationGrade,
-        curriculumProfile: isParentRegistration ? undefined : curriculumProfile
+        curriculumProfile: isParentRegistration ? undefined : curriculumProfile,
+        teacherInviteCode: isTeacherRegistration ? teacherInviteCode : undefined
       });
 
       recordAuthFunnelEvent(
@@ -722,9 +735,11 @@ export default function RegisterPage() {
           ? t(registerCopy.duplicate)
           : result.reason === "invalid"
             ? t(registerCopy.invalid)
-            : result.reason === "setup"
-              ? t(registerCopy.sessionSetup)
-              : t(registerCopy.error)
+            : result.reason === "teacher-invite"
+              ? t(registerCopy.teacherInviteCodeRejected)
+              : result.reason === "setup"
+                ? t(registerCopy.sessionSetup)
+                : t(registerCopy.error)
       );
     } finally {
       setIsSubmitting(false);
@@ -1017,6 +1032,25 @@ export default function RegisterPage() {
                           />
                         </label>
                       </div>
+
+                      {isTeacherRegistration ? (
+                        <label htmlFor="register-teacher-invite-code" className="grid gap-2">
+                          <span className="text-sm font-bold text-[#33426a]">{t(registerCopy.teacherInviteCode)}</span>
+                          <input
+                            id="register-teacher-invite-code"
+                            name="teacherInviteCode"
+                            value={teacherInviteCode}
+                            onChange={(event) => setTeacherInviteCode(event.target.value)}
+                            autoComplete="off"
+                            required
+                            aria-describedby="register-teacher-invite-code-help"
+                            className="focus-ring h-[3.25rem] rounded-2xl border border-[#d9e5f2] bg-white px-4 py-3 font-semibold text-[#07112f] shadow-sm outline-none transition placeholder:text-slate-400"
+                          />
+                          <span id="register-teacher-invite-code-help" className="text-sm font-semibold leading-6 text-[#5b6a89]">
+                            {t(registerCopy.teacherInviteCodeHelp)}
+                          </span>
+                        </label>
+                      ) : null}
 
                       <div className="grid gap-5 sm:grid-cols-2">
                         <div className="grid gap-2">

@@ -5,6 +5,10 @@ import { createSessionToken, SESSION_COOKIE_NAME, SESSION_MAX_AGE_SECONDS } from
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 
+// Mirrors TEACHER_INVITE_CODES on the e2e web server (see playwright.config.ts).
+// Teacher signup is refused without it, which is the behaviour under test.
+export const teacherInviteCode = process.env.HK_MATH_E2E_TEACHER_INVITE_CODE?.trim() || "e2e-teacher-invite";
+
 export const demoStudent = {
   username: "HK Student Peter",
   password: "12345"
@@ -181,15 +185,29 @@ function ensureDefaultE2eSessionSecret() {
   process.env.AUTH_SESSION_SECRET ||= "e2e-session-secret";
 }
 
-export async function sessionCookieHeaderForUserId(userId: string) {
+/**
+ * Session tokens carry a credential tag that the server re-checks on every request,
+ * so a token minted out of band has to look it up too.
+ *
+ * The store is pulled in with a lazy `require` rather than `createSessionTokenForUserId`
+ * from lib/server/sessionCookie: that helper reaches the store through a dynamic
+ * `@/...` import, which only the Next build rewrites — Playwright runs these
+ * TypeScript sources in-process and cannot resolve it. Lazy so that specs importing
+ * this module for its constants alone never open the database.
+ */
+async function e2eSessionTokenForUserId(userId: string) {
   ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const { getSessionCredentialTagById } = require("../../lib/server/userStore") as typeof import("../../lib/server/userStore");
+  return createSessionToken(userId, await getSessionCredentialTagById(userId));
+}
+
+export async function sessionCookieHeaderForUserId(userId: string) {
+  const token = await e2eSessionTokenForUserId(userId);
   return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`;
 }
 
 export async function authenticateAsUserId(page: Page, userId: string) {
-  ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const token = await e2eSessionTokenForUserId(userId);
   await page.context().addCookies([
     {
       name: SESSION_COOKIE_NAME,

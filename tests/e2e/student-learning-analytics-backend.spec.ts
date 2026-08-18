@@ -1,4 +1,5 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type TestInfo } from "@playwright/test";
+import { teacherInviteCode } from "./helpers";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -50,6 +51,7 @@ test.describe("student learning analytics backend", () => {
         await anonymous.post("/api/auth/register", {
           data: {
             role: "teacher",
+            teacherInviteCode,
             name: `Analytics Teacher ${teacherSuffix}`,
             username: `${teacherSuffix}@example.test`,
             email: `${teacherSuffix}@example.test`,

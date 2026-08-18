@@ -8,7 +8,13 @@
     "outDir": ".tmp/parent-console-tests"
   },
   "files": [
+    "app/api/auth/register/routeTeacherInviteGate.test.ts",
     "lib/server/authRouteGuards.test.ts",
+    "lib/server/demoAccountAccess.test.ts",
+    "lib/server/internalCaliforniaFastLogin.test.ts",
+    "lib/server/sessionRevocation.test.ts",
+    "lib/server/userStoreDemoLoginGate.test.ts",
+    "lib/server/userStoreRetiredExampleLock.test.ts",
     "lib/server/contentSafetySeed.test.ts",
     "lib/server/userStoreParentNoticePersistence.test.ts",
     "lib/server/questionStore.test.ts",

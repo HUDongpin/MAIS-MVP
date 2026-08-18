@@ -2,6 +2,7 @@ import { expect, request as apiRequest, test, type APIRequestContext, type APIRe
 import { pbkdf2Sync } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import { teacherInviteCode } from "./helpers";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -518,11 +519,32 @@ test.describe("backend API integration", () => {
           }
         })).status()
       ).toBe(409);
+      // BK-05: a teacher account is the one role that cannot be self-served, so the
+      // same payload must be refused without a code and refused again with a wrong one.
+      const ungatedTeacherSuffix = uniqueSlug(testInfo, "ungated-teacher");
+      for (const attemptedCode of [undefined, "not-the-invite-code"]) {
+        const blocked = await anonymous.post("/api/auth/register", {
+          data: {
+            role: "teacher",
+            teacherInviteCode: attemptedCode,
+            name: "Ungated Teacher",
+            username: `teacher-${ungatedTeacherSuffix}-${attemptedCode ?? "missing"}@example.test`,
+            email: `teacher-${ungatedTeacherSuffix}-${attemptedCode ?? "missing"}@example.test`,
+            password: "start12345",
+            grade: "S3",
+            curriculumTrack: "HK"
+          }
+        });
+        expect(blocked.status()).toBe(403);
+        expect((await blocked.json() as { code?: string }).code).toMatch(/^teacher-invite-/);
+      }
+
       const publicTeacherSuffix = uniqueSlug(testInfo, "public-teacher");
       const publicTeacherSession = await readJson<AuthSession>(
         await anonymous.post("/api/auth/register", {
           data: {
             role: "teacher",
+            teacherInviteCode,
             name: "Public Teacher",
             username: `teacher-${publicTeacherSuffix}@example.test`,
             email: `teacher-${publicTeacherSuffix}@example.test`,

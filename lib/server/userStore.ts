@@ -174,9 +174,18 @@ import {
   type AuthHotRows,
   type AuthSessionPersistenceDatabase,
   authDemoRecordsNeedSync as demoRecordsNeedSyncFromAuthSessionPersistence,
+  authRetiredExampleAccountsNeedLock as retiredExampleAccountsNeedLockFromAuthSessionPersistence,
+  lockAuthRetiredExampleAccounts as lockRetiredExampleAccountsFromAuthSessionPersistence,
   syncAuthDemoAccounts as syncDemoAccountsFromAuthSessionPersistence,
   syncAuthBootstrapAdmin as syncBootstrapAdminFromAuthSessionPersistence
 } from "@/lib/server/userStore/authSessionPersistence";
+import {
+  demoAccountsEnabled,
+  internalFastLoginEnabled,
+  lockedExampleAccountPassword,
+  lockedExampleAccountSalt,
+  resolveDemoPassword
+} from "@/lib/server/demoAccountAccess";
 import {
   addAuthSchoolMembershipRecord as addSchoolMembershipFromAuthProvisioning,
   createAuthProvisioningPersistenceStore,
@@ -1942,7 +1951,6 @@ const unitedStatesDemoTeacherId = "teacher-scott-us";
 const internalCaliforniaSuperStudentId = "student-jon-us-ca-super";
 const internalCaliforniaSuperTeacherId = "teacher-rhi-us-ca-super";
 const demoParentId = "parent-peter-family";
-const displayedDemoPassword = "12345";
 
 const canPersistStudentSelectedGrade: AuthStudentSelectedGradePolicy = ({
   curriculumProfile,
@@ -2048,9 +2056,35 @@ const seededExampleAccountSeeds = [...demoAccountSeeds, ...internalExampleAccoun
 const storageSeedExampleAccountSeeds = () =>
   storageSeedExampleAccountSeedsFromAuthSessionPersistence({
     demoAccountSeeds,
-    internalExampleAccountSeeds,
+    // The internal California accounts exist to serve the fast-login path, so they
+    // follow its switch rather than seeding unconditionally the way they used to.
+    internalExampleAccountSeeds: internalFastLoginEnabled() ? internalExampleAccountSeeds : [],
     shouldSeedDemoUser: shouldSeedDemoUser()
   });
+
+// Seed ids this deployment no longer provisions. Any row an earlier deploy left
+// behind under one of these ids keeps the published demo password until it is
+// locked, so both the normalization check and the normalization pass consult it.
+const retiredExampleAccountIds = () => {
+  const seeded = new Set(storageSeedExampleAccountSeeds().map((seed) => seed.id));
+  return seededExampleAccountSeeds.filter((seed) => !seeded.has(seed.id)).map((seed) => seed.id);
+};
+
+// Hashed once per process and only when a retired account actually exists, because
+// hashing is 120k PBKDF2 iterations and both callers sit on the read path.
+let cachedLockedExampleAccountCredential: { password: string; hash: string; salt: string } | null = null;
+
+const lockedExampleAccountCredential = () => {
+  const password = lockedExampleAccountPassword();
+  if (cachedLockedExampleAccountCredential?.password !== password) {
+    cachedLockedExampleAccountCredential = {
+      password,
+      ...hashPasswordFromAuthSessionPersistence(password, lockedExampleAccountSalt())
+    };
+  }
+
+  return cachedLockedExampleAccountCredential;
+};
 
 const internalExampleAccountSeedForUserId = (userId: string) =>
   internalExampleAccountSeedForUserIdFromAuthSessionPersistence(internalExampleAccountSeeds, userId);
@@ -2154,11 +2188,11 @@ function formatWorkedExampleAnswer(answer: string) {
 }
 
 function shouldSeedDemoUser() {
-  return process.env.HK_MATH_ENABLE_DEMO_USER !== "false";
+  return demoAccountsEnabled();
 }
 
 function getDemoPassword() {
-  return displayedDemoPassword;
+  return resolveDemoPassword();
 }
 
 const emptyLessonProgressRecords = (userId: string, now: string): LessonProgressRecord[] =>
@@ -4308,6 +4342,13 @@ function normalizeDatabase(database: Partial<Database>) {
     shouldSeedDemoUser
   });
 
+  const retiredAccountIds = retiredExampleAccountIds();
+  if (retiredAccountIds.length > 0) {
+    lockRetiredExampleAccountsFromAuthSessionPersistence(users, {
+      retiredAccountIds,
+      lockedCredential: lockedExampleAccountCredential()
+    });
+  }
   syncDemoAccountsFromAuthSessionPersistence(users, studentProfiles, userSettings, now, {
     demoAccountSeeds: storageSeedExampleAccountSeeds(),
     demoPassword: getDemoPassword(),
@@ -4517,6 +4558,16 @@ async function readLegacyDatabase() {
   }
 }
 
+function retiredExampleAccountsNeedLock(parsed: Partial<Database>) {
+  const retiredAccountIds = retiredExampleAccountIds();
+  if (retiredAccountIds.length === 0) return false;
+
+  return retiredExampleAccountsNeedLockFromAuthSessionPersistence(parsed, {
+    retiredAccountIds,
+    lockedCredential: lockedExampleAccountCredential()
+  });
+}
+
 function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
   return (
     !Array.isArray(parsed.questions) ||
@@ -4619,6 +4670,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
       internalExampleAccountSeedForUserId,
       passwordMatches: (password, user) => passwordMatchesFromAuthSessionPersistence(password, user)
     }) ||
+    retiredExampleAccountsNeedLock(parsed) ||
     bootstrapAdminNeedsSyncFromAuthSessionPersistence(
       parsed,
       bootstrapAdminInputFromAuthSessionPersistence()
@@ -4844,7 +4896,7 @@ const toAuthenticatedUser = (database: Database, user: UserRecord): Authenticate
 
 const storageFreeExampleAuthenticatedUser = (userId: string): AuthenticatedUser | null =>
   storageFreeExampleAuthenticatedUserFromAuthSessionPersistence(userId, {
-    exampleAccountSeeds: seededExampleAccountSeeds,
+    exampleAccountSeeds: storageSeedExampleAccountSeeds(),
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
     mediaObjectUrlForKey: mediaObjectAccessUrl
   });
@@ -7302,13 +7354,13 @@ export async function authenticateGoogleIdentityForLogin({
 
 const databaseWithStorageFreeExampleAccount = (database: Database, userId: string): Database | null =>
   storageFreeExampleDatabaseFromAuthSessionPersistence(database, userId, {
-    exampleAccountSeeds: seededExampleAccountSeeds,
+    exampleAccountSeeds: storageSeedExampleAccountSeeds(),
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId
   }) as Database | null;
 
 function isStorageFreeExampleTeacher(userId: string) {
   const records = storageFreeExampleAccountRecordsFromAuthSessionPersistence(userId, {
-    exampleAccountSeeds: seededExampleAccountSeeds,
+    exampleAccountSeeds: storageSeedExampleAccountSeeds(),
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId
   });
   return Boolean(records && canUseTeacherArea(records.user as UserRecord));
@@ -7322,7 +7374,7 @@ export async function ensureExampleTeacherProvisioned(userId: string) {
   if (!isStorageFreeExampleTeacher(userId)) return false;
 
   const records = storageFreeExampleAccountRecordsFromAuthSessionPersistence(userId, {
-    exampleAccountSeeds: seededExampleAccountSeeds,
+    exampleAccountSeeds: storageSeedExampleAccountSeeds(),
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId
   });
   if (!records) return false;
@@ -7496,6 +7548,65 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
 }
 
 export const resetUserPassword = authUserStore.resetUserPassword;
+
+/**
+ * Digest of a user's stored password material, embedded in their session token as
+ * `cv` and re-checked on every authenticated request.
+ *
+ * Sessions used to be pure stateless HMAC tokens with a 7-day life, so nothing —
+ * not logout, not a password change, not a password reset — could take one back.
+ * A leaked cookie stayed valid for a week and the reset flow could not lock an
+ * attacker out. Binding the token to the credential fixes that at the point where
+ * it matters: rotate the password, and every token minted against the old one
+ * stops verifying.
+ *
+ * The digest covers the salt as well as the hash, so re-setting the *same* password
+ * still rotates the tag (each hash draws a fresh salt). Publishing it in the cookie
+ * is safe: it is a SHA-256 over a 120k-iteration PBKDF2 hash and its random salt.
+ */
+function sessionCredentialTagForUserRecord(user: { id: string; password_hash?: string; password_salt?: string }) {
+  return createHash("sha256")
+    .update(`mais-session-credential:${user.id}:${user.password_salt ?? ""}:${user.password_hash ?? ""}`)
+    .digest("base64url")
+    .slice(0, 22);
+}
+
+async function sessionCredentialTagFromHotTables(userId: string) {
+  if (!postgresHotAuthTablesEnabled()) return null;
+
+  try {
+    await ensurePostgresStateTable();
+    const hotRows = await readPostgresHotAuthRowsForUserIds(getPostgresClient(), [userId]);
+    const user = hotRows.users.find((candidate) => candidate.id === userId);
+    return user ? sessionCredentialTagForUserRecord(user) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Returns null when no account backs the id, which callers must treat as "reject
+ * this session" — the same answer they would reach a moment later when the user
+ * lookup itself came back empty.
+ */
+export async function getSessionCredentialTagById(userId: string): Promise<string | null> {
+  const hotTag = await sessionCredentialTagFromHotTables(userId);
+  if (hotTag) return hotTag;
+
+  const database = await readDatabase();
+  const user = database.users.find((candidate) => candidate.id === userId);
+  if (user) return sessionCredentialTagForUserRecord(user);
+
+  // Seeded example accounts authenticate through the storage-free fallback even with
+  // no row in the database, so they need a tag too. Their record carries empty
+  // password material, which makes the tag constant — correct, because there is no
+  // credential on them to rotate.
+  const records = storageFreeExampleAccountRecordsFromAuthSessionPersistence(userId, {
+    exampleAccountSeeds: storageSeedExampleAccountSeeds(),
+    fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId
+  });
+  return records ? sessionCredentialTagForUserRecord(records.user as UserRecord) : null;
+}
 
 async function getAuthenticatedUserByIdFromHotTables(userId: string) {
   if (!postgresHotAuthTablesEnabled()) return null;

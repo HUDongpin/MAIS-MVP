@@ -682,8 +682,19 @@ async function createRouteHarness(testInfo: TestInfo): Promise<RouteHarness> {
   expect(result.status).toBe("created");
   if (result.status !== "created") throw new Error(`Could not create solvability user: ${result.status}`);
 
-  const token = await sessionModule.createSessionToken(result.session.user.id);
-  const orphanToken = await sessionModule.createSessionToken(`missing-${slug}`);
+  // Built from lib/session + the store's tag lookup rather than through
+  // createSessionTokenForUserId: this harness `require`s the TypeScript sources
+  // in-process, and that helper resolves the store through a dynamic `@/...` import
+  // that only the Next build knows how to rewrite.
+  const token = await sessionModule.createSessionToken(
+    result.session.user.id,
+    await userStoreModule.getSessionCredentialTagById(result.session.user.id)
+  );
+  // Minted through lib/session directly with a credential tag standing in for one the
+  // account had before its row went missing: createSessionTokenForUserId cannot supply
+  // a tag for an id the store does not know, and the behaviour under test is a real
+  // student whose row is absent from durable storage, not a session that never existed.
+  const orphanToken = await sessionModule.createSessionToken(`missing-${slug}`, "orphaned-session");
 
   return {
     attemptsPost: attemptsRoute.POST,

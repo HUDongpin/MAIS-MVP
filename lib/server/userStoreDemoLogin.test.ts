@@ -9,16 +9,23 @@ function restoreEnv(key: string, value: string | undefined) {
   else process.env[key] = value;
 }
 
-test("public examples and internal California accounts seed without the demo seed env flag", async () => {
+// This used to assert that the example and internal California accounts seeded — and
+// authenticated with "12345" — even in a production build with HK_MATH_ENABLE_DEMO_USER
+// set to "false". That was the gap: a deployment that had switched demo accounts off
+// still had them. The journeys below are worth keeping, so the test now opts in to
+// both switches explicitly; userStoreDemoLoginGate.test.ts covers the opted-out case.
+test("public examples and internal California accounts seed for an opted-in deployment", async () => {
   const previousNodeEnv = process.env.NODE_ENV;
   const previousDemoFlag = process.env.HK_MATH_ENABLE_DEMO_USER;
+  const previousFastLoginFlag = process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN;
   const previousDbDir = process.env.HK_MATH_DB_DIR;
   const previousStorageProvider = process.env.HK_MATH_STORAGE_PROVIDER;
   const dbDir = await mkdtemp(path.join(tmpdir(), "mais-demo-login-"));
 
   try {
     Object.assign(process.env, { NODE_ENV: "production" });
-    process.env.HK_MATH_ENABLE_DEMO_USER = "false";
+    process.env.HK_MATH_ENABLE_DEMO_USER = "true";
+    process.env.HK_MATH_ENABLE_INTERNAL_FAST_LOGIN = "true";
     delete process.env.HK_MATH_STORAGE_PROVIDER;
     process.env.HK_MATH_DB_DIR = dbDir;
 
@@ -106,6 +113,7 @@ test("public examples and internal California accounts seed without the demo see
   } finally {
     restoreEnv("NODE_ENV", previousNodeEnv);
     restoreEnv("HK_MATH_ENABLE_DEMO_USER", previousDemoFlag);
+    restoreEnv("HK_MATH_ENABLE_INTERNAL_FAST_LOGIN", previousFastLoginFlag);
     restoreEnv("HK_MATH_DB_DIR", previousDbDir);
     restoreEnv("HK_MATH_STORAGE_PROVIDER", previousStorageProvider);
     await rm(dbDir, { recursive: true, force: true });

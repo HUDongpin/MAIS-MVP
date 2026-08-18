@@ -14,7 +14,8 @@ import { mainlandBnuJuniorRagCards } from "../data/rag/mainlandBnuJunior";
 import { mainlandBnuJuniorAssessmentPatternCards } from "../data/rag/mainlandBnuJuniorAssessmentPatterns";
 import { mainlandJuniorZhongkaoExamPatternCards } from "../data/rag/mainlandJuniorZhongkaoExamPatterns";
 import { GET as getQuestionsRoute } from "../app/api/questions/route";
-import { createSessionToken, SESSION_COOKIE_NAME } from "./session";
+import { SESSION_COOKIE_NAME } from "./session";
+import { createSessionTokenForUserId } from "./server/sessionCookie";
 import {
   createStudentUser,
   getLessonBySlug,
@@ -252,7 +253,7 @@ test("Mainland BNU S1-S3 Lesson, Roadmap, Practice, and question API expose appr
   assert.equal(result.status, "created");
   if (result.status !== "created") return;
 
-  const token = await createSessionToken(result.session.user.id);
+  const token = await createSessionTokenForUserId(result.session.user.id);
   const response = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S1&publisher=MAINLAND_BNU", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}` }
   }));
