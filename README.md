@@ -94,10 +94,11 @@ its environment variables are absent, so local development and CI behave exactly
   `curl -H "Authorization: Bearer $CRON_SECRET" https://<url>/api/observability/test-error`,
   which throws a deliberate error and reports whether the monitor accepted it.
 
-Run the monitoring tests (also part of `npm run check`):
+Run the monitoring tests (CI runs the same command as its own gate; it is not an npm alias
+because `package.json`'s script table is pinned by the release-governance baseline):
 
 ```bash
-npm run test:observability
+node scripts/run-observability-tests.mjs
 ```
 
 ## AI Tutor LLM API

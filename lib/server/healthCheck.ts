@@ -342,6 +342,7 @@ export async function dispatchHealthAlertIfDue({
   fetchImpl?: HealthCheckFetch;
   now?: number;
 }): Promise<HealthAlertResult> {
+  const previousState = alertState;
   const decision = evaluateHealthAlert(alertState, {
     status: snapshot.status,
     now,
@@ -352,5 +353,13 @@ export async function dispatchHealthAlertIfDue({
     return { status: "skipped", channel: readHealthAlertConfig(env).channel };
   }
 
-  return sendHealthAlert({ kind: decision.kind, snapshot, env, fetchImpl });
+  const result = await sendHealthAlert({ kind: decision.kind, snapshot, env, fetchImpl });
+  if (result.status === "failed") {
+    // The dedupe window may only start once an alert has actually been delivered. Committing
+    // it on a failed send would buy HEALTH_ALERT_REPEAT_MS of silence for an outage nobody was
+    // told about — the exact failure this endpoint exists to prevent. Rolling the whole state
+    // back also preserves a failed "recovered" notice, which is retried on the next probe.
+    alertState = previousState;
+  }
+  return result;
 }

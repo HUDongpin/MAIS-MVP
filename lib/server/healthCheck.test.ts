@@ -201,6 +201,52 @@ test("a failing alert transport is reported, never thrown", async () => {
   assert.deepEqual(result, { status: "failed", channel: "webhook" });
 });
 
+test("a failed alert send does not start the dedupe window", async () => {
+  resetHealthAlertState();
+  const attempts: string[] = [];
+  const env = { HEALTH_ALERT_WEBHOOK_URL: "https://hooks.example.test/health", HEALTH_ALERT_REPEAT_MS: "1800000" };
+  const failing = async () => {
+    attempts.push("down");
+    throw new Error("alert transport down");
+  };
+
+  const first = await dispatchHealthAlertIfDue({ snapshot: degradedSnapshot, env, fetchImpl: failing, now: 1000 });
+  assert.equal(first.status, "failed");
+  assert.deepEqual(readHealthAlertState(), initialHealthAlertState, "failed delivery must not be recorded as sent");
+
+  // One minute later — far inside the 30-minute repeat window — the outage must be retried,
+  // because nobody has actually been told about it yet.
+  const second = await dispatchHealthAlertIfDue({ snapshot: degradedSnapshot, env, fetchImpl: failing, now: 61_000 });
+  assert.equal(second.status, "failed");
+  assert.deepEqual(attempts, ["down", "down"]);
+  resetHealthAlertState();
+});
+
+test("a failed recovery notice is retried rather than lost", async () => {
+  resetHealthAlertState();
+  const healthy = { ...degradedSnapshot, status: "ok" as const, storageReady: true, failureKind: "" };
+  const env = { HEALTH_ALERT_WEBHOOK_URL: "https://hooks.example.test/health" };
+  const events: string[] = [];
+  const ok = async (_url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+    events.push(String((JSON.parse(String(init?.body ?? "{}")) as { event?: string }).event));
+    return new Response("{}", { status: 200 });
+  };
+
+  await dispatchHealthAlertIfDue({ snapshot: degradedSnapshot, env, fetchImpl: ok, now: 1000 });
+  const lostRecovery = await dispatchHealthAlertIfDue({
+    snapshot: healthy,
+    env,
+    fetchImpl: async () => new Response("nope", { status: 500 }),
+    now: 2000
+  });
+  assert.equal(lostRecovery.status, "failed");
+
+  const retried = await dispatchHealthAlertIfDue({ snapshot: healthy, env, fetchImpl: ok, now: 3000 });
+  assert.equal(retried.status, "sent");
+  assert.deepEqual(events, ["health.down", "health.recovered"]);
+  resetHealthAlertState();
+});
+
 test("the instance-level dispatcher applies dedupe across successive probes", async () => {
   resetHealthAlertState();
   const sent: string[] = [];

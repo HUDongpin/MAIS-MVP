@@ -54,10 +54,15 @@ This is the part to read before adding a capture.
 above, including asserting on the exact bytes handed to `fetch`. Run them with:
 
 ```bash
-npm run test:observability
+node scripts/run-observability-tests.mjs
 ```
 
-They are part of `npm run check`.
+CI runs that same command as its own step ("Run observability gate"). It is deliberately NOT
+an `npm run test:observability` alias: the release-governance gate pins `package.json`'s script
+table to a frozen baseline commit and asserts a hash of every reviewed command body, so adding
+an entry — or appending the suite to `check` — fails `npm run test:release-governance` and the
+CI job that runs it. If this suite should join `npm run check`, that is an owner-reviewed
+baseline change, not a drive-by edit.
 
 ## What is instrumented
 
@@ -148,7 +153,9 @@ on any provider.
 
 `evaluateHealthAlert` deduplicates: one alert when the check starts failing, silence while it
 keeps failing, a repeat every `HEALTH_ALERT_REPEAT_MS` (default 30 minutes) if it is still
-down, and exactly one "recovered" notice when it comes back.
+down, and exactly one "recovered" notice when it comes back. The dedupe window only starts once
+an alert is actually delivered — a failed send is rolled back and retried on the next probe,
+rather than buying 30 minutes of silence for an outage nobody was told about.
 
 The dedupe state lives in lambda memory. Vercel may run each cron invocation on a fresh
 instance, in which case every failing run alerts. That is the intended failure mode for an

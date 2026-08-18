@@ -92,6 +92,12 @@ jobs:
       - name: Run AI Tutor content-safety gate (crisis classifier + teacher escalation)
         run: npm run test:content-safety
 
+      # Invoked as the script directly, not through an npm run alias: package.json's script
+      # table is pinned by the frozen release-governance baseline above, and adding an entry
+      # there fails that gate. See docs/observability.md.
+      - name: Run observability gate (error-monitor PII scrub + health alert dedupe)
+        run: node scripts/run-observability-tests.mjs
+
       - name: Run lesson menu focus gate (keyboard focus survives the SSR duplicate)
         run: npm run test:lesson-menu
 
