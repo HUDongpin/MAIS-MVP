@@ -58,8 +58,13 @@ test.describe.serial("gamification rewards workflows", () => {
       await page.getByRole("combobox", { name: /^Reason$/i }).selectOption("completed-challenge");
       await page.getByRole("spinbutton", { name: /^Points$/i }).fill("33");
       await page.getByRole("textbox", { name: /^Note$/i }).fill("Solved the extension with clear working.");
+      // The rewards view posts to reward-awards, which re-exports POST from
+      // rewards/award. Matching only the canonical path never fires, so this
+      // waited out the timeout instead of asserting the award. Accept either.
       const awardResponse = page.waitForResponse((response) =>
-        response.url().endsWith("/api/teacher/rewards/award") && response.request().method() === "POST"
+        (response.url().endsWith("/api/teacher/reward-awards") ||
+          response.url().endsWith("/api/teacher/rewards/award")) &&
+        response.request().method() === "POST"
       );
       await page.getByRole("button", { name: /^Award points$/i }).click();
       expect((await awardResponse).ok()).toBeTruthy();

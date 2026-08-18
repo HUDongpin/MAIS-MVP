@@ -124,6 +124,16 @@ function e2eTempTsconfigExcludeGlobs() {
   return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
 }
 
+// The e2e build always runs with a custom NEXT_DIST_DIR, so Next writes its
+// generated route types under `${nextDistDir}/types` — never `.next/types`.
+// Including the shared `.next/types` here dragged a foreign, often half-stale
+// artifact into the type-check: the primary root's copy can hold a `validator.ts`
+// that checks routes its own older `routes.d.ts` never learned, which fails the
+// build with `Type '"/teacher/gradebook"' does not satisfy the constraint
+// 'AppRoutes'` before a single test runs. `next.config.ts`'s
+// `disposableTsconfigForDist` already omits it for exactly this reason; this
+// mirrors that rule so a stale root `.next` from another session cannot break a
+// release run.
 function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
   const content = JSON.stringify({
     extends: "./tsconfig.json",
@@ -131,7 +141,6 @@ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx",
-      ".next/types/**/*.ts",
       `${nextDistDir}/types/**/*.ts`
     ],
     exclude: e2eTempTsconfigExcludeGlobs()
@@ -157,6 +166,14 @@ export default defineConfig({
   use: {
     baseURL,
     channel: browserChannel || undefined,
+    // Playwright's actionTimeout defaults to 0 (no timeout), and page.waitForResponse
+    // inherits it. A matcher that can never fire therefore waits out the whole test
+    // timeout instead of failing: a stale teacher-console-stress matcher (it awaited
+    // POST /api/teacher/reports/save while the view posts the saved-reports alias)
+    // burned 12 minutes per run and hid every later step in the spec. A bounded
+    // action timeout turns that into a fast, legible failure. Generous on purpose so
+    // slow-but-real work (uploads, PDF export) still passes; CI runners get more.
+    actionTimeout: process.env.CI ? 90_000 : 45_000,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
