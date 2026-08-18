@@ -4207,18 +4207,6 @@ function mergeSeedRecordsPreservingExisting<T>(
   return [...seedOrExistingRecords, ...extraRecords];
 }
 
-function removeSeedRecords<T>(records: T[], seedRecords: T[], keyFor: (record: T) => string) {
-  const seedKeys = new Set(seedRecords.map(keyFor));
-  return records.filter((record) => !seedKeys.has(keyFor(record)));
-}
-
-// Static curriculum (questions, topics, lessons, lesson blocks) ships in the code
-// bundle under data/ and is re-merged by normalizeDatabase on every load, so
-// persisting it is pure overhead: on the seeded database it is 28.1MB of a
-// 31.4MB payload, re-serialised on every single mutation. Strip it before
-// writing and let the read path rehydrate it. Records whose key is absent from
-// the seed banks (teacher-authored questions, superseded generated packs) are
-// kept — they have no other home.
 // Compaction and the migration check only ever need the seed KEYS, and they run
 // on every write. Rebuilding the four seed record arrays to derive them cost
 // more than the serialisation it saves, so cache the key sets instead — they are
@@ -4282,6 +4270,15 @@ function seedLessonBlockRecords(): LessonBlockRecord[] {
   return seedLessonBlockRecordsCache.map((block) => ({ ...block }));
 }
 
+// Static curriculum (questions, topics, lessons, lesson blocks) ships in the code
+// bundle under data/ and is re-merged by normalizeDatabase on every load, so
+// persisting it is pure overhead: on the seeded database it is 33.1MB of a
+// 36.8MB payload (UTF-8; the bank is largely CJK, so character counts understate
+// it by ~17%), re-serialised on every single mutation. Strip it before writing
+// and let the read path rehydrate it. Records whose key is absent from the seed
+// banks — teacher-authored questions, and the 1,596 questions plus 108 topics in
+// the live database from generated packs data/ no longer exports — are kept,
+// because the snapshot is their only home.
 function compactDatabaseForStorage(database: Database): Database {
   const seedKeys = seedKeySets();
   return {
