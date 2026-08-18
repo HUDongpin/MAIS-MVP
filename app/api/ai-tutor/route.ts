@@ -1,3 +1,5 @@
+import { captureServerError } from "@/lib/server/errorMonitor";
+
 export const runtime = "edge";
 
 const defaultTotalDeadlineMs = 8_000;
@@ -294,7 +296,18 @@ export async function POST(request: Request) {
       headers: resolved.headers,
       status: resolved.status
     });
-  } catch {
+  } catch (error) {
+    // A deadline abort is an expected, already-instrumented outcome (the resolver reports
+    // its own timings); only a genuine transport failure of this edge hop is news.
+    if (!abortController.signal.aborted) {
+      captureServerError(error, {
+        scope: "ai-tutor",
+        route: "/api/ai-tutor",
+        kind: "edge-resolver-unreachable",
+        status: 200,
+        tags: { runtime: "edge" }
+      });
+    }
     return jsonResponse(
       abortController.signal.aborted
         ? buildDeadlineTutorFallbackBody()

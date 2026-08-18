@@ -75,6 +75,31 @@ Set `AUTH_SESSION_SECRET` in the Vercel project environment variables before usi
 
 When no `HK_MATH_DB_PATH` is configured on Vercel, the app stores its SQLite file under Vercel's writable `/tmp` directory. That is enough for demo login and smoke testing, but it is ephemeral and should not be used as the long-term student record store for a real class.
 
+## Observability
+
+Production error monitoring, uptime alerting and their privacy contract are documented in
+[docs/observability.md](docs/observability.md). Everything is off by default and no-ops when
+its environment variables are absent, so local development and CI behave exactly as before.
+
+- **Errors** — set `SENTRY_DSN` (Sentry's envelope protocol, no SDK dependency) or
+  `ERROR_MONITOR_WEBHOOK_URL`. Captures are wired into the auth/JSON route boundary, the AI
+  tutor routes, the Postgres write path and a browser error boundary. Event payloads are
+  default-deny: only allowlisted tags/extras are transmitted, and free text is redacted
+  before it leaves the process (no names, e-mails, message bodies or tokens).
+- **Uptime** — `/api/health` verifies durable storage is readable, answers 503 when it is
+  not, and alerts by e-mail (`HEALTH_ALERT_EMAIL_TO` via Resend) or webhook
+  (`HEALTH_ALERT_WEBHOOK_URL`). It runs on the same `*/5` Vercel cron as `/api/warm`; point
+  an external uptime monitor at it too.
+- **Verify a deployment** with
+  `curl -H "Authorization: Bearer $CRON_SECRET" https://<url>/api/observability/test-error`,
+  which throws a deliberate error and reports whether the monitor accepted it.
+
+Run the monitoring tests (also part of `npm run check`):
+
+```bash
+npm run test:observability
+```
+
 ## AI Tutor LLM API
 
 The AI Tutor UI is wired to `app/api/ai-tutor/route.ts`, which calls an OpenAI-compatible Chat Completions endpoint from the server. API keys stay in `.env.local` and are never sent to the browser. The default live example targets DeepSeek V4 Pro.

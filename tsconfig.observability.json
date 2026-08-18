@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "rootDir": ".",
+    "outDir": ".tmp/observability-tests"
+  },
+  "files": [
+    "lib/server/errorMonitor.test.ts",
+    "lib/server/healthCheck.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}

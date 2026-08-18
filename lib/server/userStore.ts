@@ -16,6 +16,7 @@ import {
   mapDifficultyToActive
 } from "@/lib/difficulty";
 import { formatGradeLabel } from "@/lib/i18n";
+import { captureServerError } from "@/lib/server/errorMonitor";
 import { buildTeacherGradebook, gradebookToCsv } from "@/lib/teacherGradebook";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { buildHongKongMathEvidencePack } from "@/lib/rag/hongKongMath";
@@ -4745,22 +4746,50 @@ async function readPostgresDatabase() {
   return readPostgresDatabaseFrom(getPostgresClient());
 }
 
+function postgresWriteFailureKind(error: unknown) {
+  const message = error instanceof Error ? error.message : "";
+  const code = typeof (error as { code?: unknown } | null)?.code === "string" ? (error as { code: string }).code : "";
+  if (message.includes("data transfer quota")) return "postgres-quota";
+  if (code === "CONNECT_TIMEOUT" || message.includes("CONNECT_TIMEOUT")) return "postgres-connect-timeout";
+  if (code === "57014" || message.includes("statement timeout")) return "postgres-statement-timeout";
+  if (code.startsWith("ECONN") || message.includes("ECONN")) return "postgres-connection";
+  if (code) return `postgres-${code}`;
+  return "unclassified";
+}
+
 async function writePostgresDatabaseWith(sql: PostgresExecutor, database: Database, tableReady = false) {
-  if (!tableReady) await ensurePostgresStateTable();
   databaseIndexCache.delete(database);
-  await sql`
-    INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
-    ON CONFLICT (id) DO UPDATE SET
-      tenant_id = excluded.tenant_id,
-      state_kind = excluded.state_kind,
-      schema_version = excluded.schema_version,
-      revision = app_state.revision + 1,
-      payload = excluded.payload,
-      updated_at = excluded.updated_at
-  `;
-  await syncPostgresHotAuthTablesWith(sql, database);
-  await syncPostgresProjectionTablesWith(sql, database);
+  // Every mutation in the product funnels through this upsert, so a silent failure here is
+  // the highest-consequence server error we have: report it before rethrowing. The capture
+  // is fire-and-forget and carries no payload — only the failure classification and timing.
+  // Table provisioning is inside the boundary too: "Postgres is unreachable" surfaces there
+  // first on a cold instance.
+  const startedAt = Date.now();
+  try {
+    if (!tableReady) await ensurePostgresStateTable();
+    await sql`
+      INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
+      VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${stringifyPostgresDatabase(database)}::jsonb, ${new Date().toISOString()})
+      ON CONFLICT (id) DO UPDATE SET
+        tenant_id = excluded.tenant_id,
+        state_kind = excluded.state_kind,
+        schema_version = excluded.schema_version,
+        revision = app_state.revision + 1,
+        payload = excluded.payload,
+        updated_at = excluded.updated_at
+    `;
+    await syncPostgresHotAuthTablesWith(sql, database);
+    await syncPostgresProjectionTablesWith(sql, database);
+  } catch (error) {
+    captureServerError(error, {
+      scope: "datastore",
+      route: "userStore.writePostgresDatabase",
+      kind: postgresWriteFailureKind(error),
+      tags: { storage: "postgres" },
+      extra: { operation: "app_state-upsert", durationMs: Date.now() - startedAt }
+    });
+    throw error;
+  }
 }
 
 async function writePostgresDatabase(database: Database) {

@@ -12,6 +12,7 @@ import { LearnerStartSetupGate } from "@/components/layout/LearnerStartSetupGate
 import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { StudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
+import { ClientErrorReporter } from "@/components/observability/ClientErrorReporter";
 import { AppProviders } from "@/components/providers/AppProviders";
 
 export const metadata: Metadata = {
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
 };
 
 const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
+// Browser crash reporting is deployment-only: locally there is nothing to report to,
+// and an extra listener would only add noise to `next dev` overlays.
+const shouldReportClientErrors = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -40,6 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             <StudentGuidedTour />
           </AITutorProvider>
         </AppProviders>
+        {shouldReportClientErrors ? <ClientErrorReporter /> : null}
         {shouldRenderVercelAnalytics ? <Analytics /> : null}
       </body>
     </html>

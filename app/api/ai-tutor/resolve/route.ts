@@ -4,6 +4,7 @@ import {
   normalizeAITutorVisualization,
   type AITutorVisualization
 } from "@/lib/aiTutorVisualization";
+import { captureServerError } from "@/lib/server/errorMonitor";
 import { buildHongKongMathEvidencePack } from "@/lib/rag/hongKongMath";
 import { simplifyChineseText, traditionalToSimplifiedMap } from "@/lib/i18n";
 import {
@@ -3187,6 +3188,14 @@ function streamAITutorPost(request: Request) {
       } catch (error) {
         if (closed) return;
         console.error("AI Tutor unexpected streamed route error", redactedErrorKind(error));
+        captureServerError(error, {
+          scope: "ai-tutor",
+          route: "/api/ai-tutor/resolve",
+          kind: "stream-unhandled",
+          status: 500,
+          tags: { phase: "stream" },
+          extra: { durationMs: Date.now() - startedAt }
+        });
         send("final", {
           status: 500,
           ok: false,
@@ -3230,6 +3239,14 @@ export async function POST(request: Request) {
     ]);
   } catch (error) {
     console.error("AI Tutor unexpected route error", redactedErrorKind(error));
+    captureServerError(error, {
+      scope: "ai-tutor",
+      route: "/api/ai-tutor/resolve",
+      kind: "unhandled",
+      status: 500,
+      tags: { phase: "buffered" },
+      extra: { durationMs: Date.now() - startedAt }
+    });
     return NextResponse.json(buildUnexpectedTutorFallbackBody());
   } finally {
     if (hardDeadline) clearTimeout(hardDeadline);

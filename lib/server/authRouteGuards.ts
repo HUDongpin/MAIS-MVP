@@ -1,5 +1,6 @@
 import { createHash } from "crypto";
 import { NextResponse } from "next/server";
+import { captureServerError } from "@/lib/server/errorMonitor";
 import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 
 type RateLimitRule = {
@@ -136,11 +137,14 @@ export async function withAuthRouteJsonBoundary(routeName: string, action: () =>
     response.headers.set("Cache-Control", "no-store");
     return response;
   } catch (error) {
+    const kind = authFailureKind(error);
     console.error("Auth route failed", {
       route: routeName,
       error: error instanceof Error ? error.name : "UnknownError",
-      kind: authFailureKind(error)
+      kind
     });
+    // Production error monitoring. Fire-and-forget and PII-scrubbed: see lib/server/errorMonitor.ts.
+    captureServerError(error, { scope: "auth-route", route: routeName, kind, status: 503 });
     const response = NextResponse.json(
       {
         code: "auth-service-unavailable",
