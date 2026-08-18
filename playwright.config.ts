@@ -149,6 +149,24 @@ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
   return `node -e ${shellQuote(script)}`;
 }
 
+// Only honour the override when it parses to a positive finite number. An empty
+// or malformed value must fall back to the default rather than reaching Playwright
+// as 0 or NaN: 0 means "no timeout", which would silently restore the unbounded
+// waits this setting exists to prevent.
+function resolveActionTimeoutMs() {
+  const fallback = process.env.CI ? 90_000 : 45_000;
+  const raw = process.env.PLAYWRIGHT_ACTION_TIMEOUT_MS?.trim();
+  if (!raw) return fallback;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    console.warn(
+      `playwright.config: ignoring PLAYWRIGHT_ACTION_TIMEOUT_MS="${raw}" (want a positive number of ms); using ${fallback}.`
+    );
+    return fallback;
+  }
+  return parsed;
+}
+
 export default defineConfig({
   testDir: "./tests/e2e",
   outputDir: e2eOutputDir,
@@ -170,10 +188,20 @@ export default defineConfig({
     // inherits it. A matcher that can never fire therefore waits out the whole test
     // timeout instead of failing: a stale teacher-console-stress matcher (it awaited
     // POST /api/teacher/reports/save while the view posts the saved-reports alias)
-    // burned 12 minutes per run and hid every later step in the spec. A bounded
-    // action timeout turns that into a fast, legible failure. Generous on purpose so
-    // slow-but-real work (uploads, PDF export) still passes; CI runners get more.
-    actionTimeout: process.env.CI ? 90_000 : 45_000,
+    // burned 12 minutes per run and hid every later step in the spec.
+    //
+    // Sized from measurement, not guesswork. Re-running the suites with an 8s bound:
+    // no *action* failed anywhere (actions settle on DOM interaction, so they never
+    // wait on a slow backend) — only waitForResponse calls did, in the heaviest case
+    // profile-avatar-upload's governed media-storage round trip. That spec passes at
+    // the value below, so the slowest legitimate wait is between 8s and 45s. Verified
+    // separately that this does bound waitForResponse: an unmatchable matcher fails
+    // in 45.0s rather than running to the test timeout.
+    //
+    // Override when a suite has a justified slower wait, so the bound can never
+    // become a trap for specs CI does not run:
+    //   PLAYWRIGHT_ACTION_TIMEOUT_MS=120000 npx playwright test ...
+    actionTimeout: resolveActionTimeoutMs(),
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
