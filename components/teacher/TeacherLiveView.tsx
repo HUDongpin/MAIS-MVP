@@ -1039,7 +1039,11 @@ function LiveRosterGrid({
           </span>
         ) : classes.length ? (
           <label className="grid gap-1">
-            <span className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
+            {/* "Monitor class" rather than "Class": the start-a-session form
+                below also labels its class picker, and two controls sharing one
+                accessible name leaves screen-reader users unable to tell the
+                live-monitor filter from the session's class. */}
+            <span className="text-[0.7rem] font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Monitor class", zh: "監看班級" })}</span>
             <select
               value={classId}
               onChange={(event) => onSelectClass(event.target.value)}

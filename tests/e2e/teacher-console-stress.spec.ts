@@ -61,7 +61,14 @@ function collectRuntimeIssues(page: Page, app: IsolatedApp): RuntimeIssues {
   page.on("console", (message) => {
     if (message.type() === "error") {
       const text = message.text();
-      issues.consoleErrors.push(text);
+      // This spec submits deliberately hostile payloads and accepts a 4xx for
+      // them (see expectApiOkOrClientError). The browser logs every rejected
+      // fetch as a console error, so counting those would fail the run for the
+      // API behaving correctly. 5xx is still caught by the serverResponses
+      // assertion, and genuine client-side errors are still collected here.
+      if (!/Failed to load resource: the server responded with a status of 4\d\d/.test(text)) {
+        issues.consoleErrors.push(text);
+      }
       if (hasSecretLeak(text)) issues.secretLeaks.push(`console: ${text}`);
     }
   });
@@ -159,7 +166,10 @@ test.describe("teacher console browser stress", () => {
       const globalSearch = page.getByPlaceholder(/Search students, assignments, resources/i);
       await globalSearch.fill(hostileText);
       await globalSearch.press("Enter");
-      await expect(page).toHaveURL(/\/teacher\?q=/);
+      // /teacher redirects to /teacher/dashboard, so the shell publishes ?q= on
+      // the dashboard path — /teacher?q= is unreachable. The q round-trip below
+      // is what actually proves search carries the hostile query intact.
+      await expect(page).toHaveURL(/\/teacher\/dashboard\?q=/);
       expect(new URL(page.url()).searchParams.get("q")).toBe(hostileText);
 
       await page.goto(app.url("/teacher/classes"));
@@ -179,7 +189,9 @@ test.describe("teacher console browser stress", () => {
       await uploadSection.getByLabel(/Title/i).fill(`Stress Upload ${hostileText.slice(0, 120)}`);
       await uploadSection.getByLabel(/Grade/i).selectOption("S3");
       await uploadSection.getByLabel(/Type/i).selectOption("document");
-      await uploadSection.getByLabel(/Difficulty/i).selectOption("Core");
+      // "Core" is a historical difficulty record; the picker offers only the
+      // active set (Low/Medium/High). lib/difficulty.ts maps Core -> Medium.
+      await uploadSection.getByLabel(/Difficulty/i).selectOption("Medium");
       await uploadSection.locator('input[name="file"]').setInputFiles({
         name: `stress-${suffix}-中英-emoji-🚀.html`,
         mimeType: "text/html",
@@ -201,8 +213,14 @@ test.describe("teacher console browser stress", () => {
       await page.getByRole("textbox", { name: /Teacher remarks/i }).fill(hostileText);
       await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export CSV/i }).click({ force: true }), /student-report-.*\.csv/);
       await expectDownloadFrom(page, () => page.getByRole("link", { name: /Export PDF/i }).click({ force: true }), /student-report-.*\.pdf/);
+      // The reports view saves through /api/teacher/saved-reports, which
+      // re-exports POST from reports/save — matching only the reports/save path
+      // never fires, so this waited out the whole test timeout. Accept either
+      // alias in case the view switches back to the canonical path.
       const saveReportResponse = page.waitForResponse((response) =>
-        response.url().startsWith(app.url("/api/teacher/reports/save")) && response.request().method() === "POST"
+        (response.url().startsWith(app.url("/api/teacher/saved-reports")) ||
+          response.url().startsWith(app.url("/api/teacher/reports/save"))) &&
+        response.request().method() === "POST"
       );
       await page.getByRole("button", { name: /Save report/i }).click({ force: true });
       await expectApiOkOrClientError(saveReportResponse, "long report save");
@@ -210,8 +228,12 @@ test.describe("teacher console browser stress", () => {
       await page.goto(app.url("/teacher/inbox?thread=message-thread-quadratic-help"));
       const replyBox = page.getByPlaceholder(/Reply to the student/i);
       await replyBox.fill(hostileText);
+      // The inbox sends through .../replies, which re-exports POST from
+      // .../reply. "/replies" does not start with "/reply", so matching only
+      // the singular path waited out the whole test timeout.
       const replyResponse = page.waitForResponse((response) =>
-        response.url().startsWith(app.url("/api/teacher/inbox/message-thread-quadratic-help/reply")) &&
+        (response.url().startsWith(app.url("/api/teacher/inbox/message-thread-quadratic-help/replies")) ||
+          response.url().startsWith(app.url("/api/teacher/inbox/message-thread-quadratic-help/reply"))) &&
         response.request().method() === "POST"
       );
       await page.getByRole("button", { name: /Send reply/i }).click();
