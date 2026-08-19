@@ -405,7 +405,7 @@ export function StudentProfilePanel() {
             disabled={!canSave}
             className="focus-ring flex min-h-12 items-center justify-center rounded-2xl bg-slate-950 px-3 text-center text-sm font-black text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-slate-950"
           >
-            {isSaving ? t({ en: "Saving...", zh: "正在儲存...", zhHans: "正在储存..." }) : t({ en: "Save profile", zh: "儲存檔案", zhHans: "储存档案" })}
+            {isSaving ? t({ en: "Saving...", zh: "正在儲存...", zhHans: "正在保存..." }) : t({ en: "Save profile", zh: "儲存檔案", zhHans: "保存档案" })}
           </button>
           <input
             ref={fileInputRef}
@@ -418,8 +418,8 @@ export function StudentProfilePanel() {
           />
         </div>
         {uploadError ? <p className="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{uploadError}</p> : null}
-        {status === "saved" ? <p className="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存", zhHans: "已储存" })}</p> : null}
-        {status === "error" ? <p className="mt-2 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存", zhHans: "无法储存" })}</p> : null}
+        {status === "saved" ? <p className="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存", zhHans: "已保存" })}</p> : null}
+        {status === "error" ? <p className="mt-2 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存", zhHans: "无法保存" })}</p> : null}
       </fieldset>
     </section>
   );

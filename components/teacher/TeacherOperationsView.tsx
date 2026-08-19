@@ -435,7 +435,7 @@ function RosterRow({ row }: { row: ClassRosterProfile }) {
           <input name="seatColumn" type="number" min="1" defaultValue={row.seatColumn ?? ""} aria-label={t({ en: "Seat column", zh: "座位列", zhHans: "座位列" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           <input name="displayOrder" type="number" min="1" defaultValue={row.displayOrder} aria-label={t({ en: "Display order", zh: "排序", zhHans: "排序" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           <button disabled={saving} className="focus-ring min-w-0 rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950" type="submit">
-            {saving ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save", zh: "儲存", zhHans: "储存" })}
+            {saving ? t({ en: "Saving", zh: "儲存中", zhHans: "保存中" }) : t({ en: "Save", zh: "儲存", zhHans: "保存" })}
           </button>
         </form>
       </td>
@@ -613,8 +613,8 @@ function NovaLensGovernancePanel() {
       });
       const savePayload = await response.json().catch(() => null) as NovaLensPolicySaveResult | null;
       const nextMessage = response.ok
-        ? t({ en: "AI Tutor policy saved. Current settings reloaded.", zh: "AI Tutor 策略已儲存，現行設定已重新載入。", zhHans: "AI Tutor 策略已储存，现行设定已重新载入。" })
-        : t({ en: "Could not save AI Tutor policy. Current settings reloaded.", zh: "暫時未能儲存 AI Tutor 策略，現行設定已重新載入。", zhHans: "暂时未能储存 AI Tutor 策略，现行设定已重新载入。" });
+        ? t({ en: "AI Tutor policy saved. Current settings reloaded.", zh: "AI Tutor 策略已儲存，現行設定已重新載入。", zhHans: "AI Tutor 策略已保存，现行设定已重新载入。" })
+        : t({ en: "Could not save AI Tutor policy. Current settings reloaded.", zh: "暫時未能儲存 AI Tutor 策略，現行設定已重新載入。", zhHans: "暂时未能保存 AI Tutor 策略，现行设定已重新载入。" });
       const loadedGovernance = await loadGovernance(nextMessage);
       if (response.ok) {
         setLastAppliedPolicy(loadedGovernance?.policy ?? savePayload?.policy ?? null);
@@ -623,7 +623,7 @@ function NovaLensGovernancePanel() {
       router.refresh();
     } catch {
       setStatus("error");
-      setMessage(t({ en: "Could not save AI Tutor policy.", zh: "暫時未能儲存 AI Tutor 策略。", zhHans: "暂时未能储存 AI Tutor 策略。" }));
+      setMessage(t({ en: "Could not save AI Tutor policy.", zh: "暫時未能儲存 AI Tutor 策略。", zhHans: "暂时未能保存 AI Tutor 策略。" }));
     }
   }
 
@@ -704,7 +704,7 @@ function NovaLensGovernancePanel() {
               <textarea name="blockedPatterns" rows={5} defaultValue={state.policy.blockedPatterns.join("\n")} autoComplete="off" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
             </label>
             <button type="submit" disabled={status === "saving"} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">
-              {status === "saving" ? t({ en: "Saving…", zh: "儲存中…", zhHans: "储存中…" }) : t({ en: "Save policy", zh: "儲存策略", zhHans: "储存策略" })}
+              {status === "saving" ? t({ en: "Saving…", zh: "儲存中…", zhHans: "保存中…" }) : t({ en: "Save policy", zh: "儲存策略", zhHans: "保存策略" })}
             </button>
           </form>
         ) : null}
@@ -1048,7 +1048,7 @@ export function TeacherOperationsView({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teacherUsername: form.get("teacherUsername"), role: form.get("role") })
     });
-    setMessage(response.ok ? t({ en: "Collaborator saved.", zh: "協作教師已儲存。", zhHans: "协作教师已储存。" }) : t({ en: "Could not save collaborator.", zh: "暫時未能儲存協作教師。", zhHans: "暂时未能储存协作教师。" }));
+    setMessage(response.ok ? t({ en: "Collaborator saved.", zh: "協作教師已儲存。", zhHans: "协作教师已保存。" }) : t({ en: "Could not save collaborator.", zh: "暫時未能儲存協作教師。", zhHans: "暂时未能保存协作教师。" }));
     if (response.ok) formElement.reset();
     router.refresh();
   }
@@ -1264,7 +1264,7 @@ export function TeacherOperationsView({
               <option value="co-teacher">{t({ en: "Co-teacher", zh: "協作教師", zhHans: "协作教师" })}</option>
               <option value="viewer">{t({ en: "Viewer", zh: "只讀", zhHans: "只读" })}</option>
             </select>
-            <button className="focus-ring min-w-0 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Save collaborator", zh: "儲存協作者", zhHans: "储存协作者" })}</button>
+            <button className="focus-ring min-w-0 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Save collaborator", zh: "儲存協作者", zhHans: "保存协作者" })}</button>
             <div className="grid min-w-0 gap-2">
               {data.collaborators.map((collaborator) => (
                 <div key={collaborator.id} className="soft-panel flex min-w-0 flex-wrap items-center justify-between gap-3 p-3">

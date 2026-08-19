@@ -580,7 +580,7 @@ export function AdaptiveLearningContent() {
             <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
               {t({
                 en: "MAIS builds your next lesson, review queue, and mastery map from saved attempts and lesson progress.",
-                zh: "MAIS 會根據已儲存的作答與課節進度，建立下一課、複習清單和掌握度地圖。", zhHans: "MAIS 会根据已储存的作答与课时进度，建立下一课、复习清单和掌握度地图。"
+                zh: "MAIS 會根據已儲存的作答與課節進度，建立下一課、複習清單和掌握度地圖。", zhHans: "MAIS 会根据已保存的作答与课时进度，建立下一课、复习清单和掌握度地图。"
               })}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -783,7 +783,7 @@ export function AdaptiveLearningContent() {
               ))}
               {recent.length === 0 ? (
                 <p className="rounded-2xl border border-slate-200/70 bg-white/60 p-4 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/[0.055] dark:text-slate-400">
-                  {t({ en: "Recent topics will appear after saved attempts.", zh: "儲存作答後會顯示最近瀏覽課題。", zhHans: "储存作答后会显示最近浏览课题。" })}
+                  {t({ en: "Recent topics will appear after saved attempts.", zh: "儲存作答後會顯示最近瀏覽課題。", zhHans: "保存作答后会显示最近浏览课题。" })}
                 </p>
               ) : null}
             </div>

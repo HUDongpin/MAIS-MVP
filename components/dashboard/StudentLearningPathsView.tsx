@@ -87,7 +87,7 @@ function StudentLearningPathCard({
                   <Link href={step.href} className="focus-ring rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Open", zh: "開始", zhHans: "开始" })}</Link>
                 ) : null}
                 {step.status === "available" ? (
-                  <button type="button" onClick={() => markComplete(step.id)} disabled={busyStepId === step.id} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busyStepId === step.id ? t({ en: "Saving...", zh: "儲存中...", zhHans: "储存中..." }) : t({ en: "Mark done", zh: "標記完成", zhHans: "标记完成" })}</button>
+                  <button type="button" onClick={() => markComplete(step.id)} disabled={busyStepId === step.id} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busyStepId === step.id ? t({ en: "Saving...", zh: "儲存中...", zhHans: "保存中..." }) : t({ en: "Mark done", zh: "標記完成", zhHans: "标记完成" })}</button>
                 ) : null}
               </div>
             ) : null}

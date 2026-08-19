@@ -611,6 +611,8 @@ export const prcSimplifiedPhraseRules: readonly PrcSimplifiedPhraseRule[] = [
   { source: "登入", replacement: "登录", reason: "Mainland account wording" },
   { source: "甚么", replacement: "什么", reason: "Mainland wording" },
   { source: "搜寻", replacement: "搜索", reason: "Mainland UI wording" },
+  { source: "汇出", replacement: "导出", reason: "Mainland UI wording (汇出 reads as remitting funds in the Mainland)" },
+  { source: "储存", replacement: "保存", reason: "Mainland UI wording for the save action" },
   { source: "待复", replacement: "待回复", reason: "Mainland teacher inbox wording" },
   { source: "回馈", replacement: "反馈", reason: "Mainland UI wording" },
   { source: "伫列", replacement: "队列", reason: "Mainland UI queue wording" },

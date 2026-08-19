@@ -187,10 +187,10 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     if (response.ok && payload?.report) {
       setReportHistory((current) => [payload.report!, ...current.filter((report) => report.id !== payload.report!.id)].slice(0, 12));
       setLatestSavedReportId(payload.report.id);
-      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。", zhHans: "报告已储存并加入纪录。" }));
+      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。", zhHans: "报告已保存并加入纪录。" }));
       return;
     }
-    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。", zhHans: "暂时未能储存此报告。" }));
+    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。", zhHans: "暂时未能保存此报告。" }));
   }
 
   useEffect(() => {
@@ -309,24 +309,24 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
           {hasExportTarget ? (
             <>
               <a href={pdfUrl} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "汇出 PDF" })}
+                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "导出 PDF" })}
               </a>
               <a href={csvUrl} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
-                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
+                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
               </a>
             </>
           ) : (
             <>
               <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white opacity-50 dark:bg-white dark:text-slate-950">
-                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "汇出 PDF" })}
+                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "导出 PDF" })}
               </button>
               <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
+                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
               </button>
             </>
           )}
           <button type="button" onClick={saveReport} disabled={isSaving || isLoading || !hasExportTarget} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-            {isSaving ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save report", zh: "儲存報告", zhHans: "储存报告" })}
+            {isSaving ? t({ en: "Saving", zh: "儲存中", zhHans: "保存中" }) : t({ en: "Save report", zh: "儲存報告", zhHans: "保存报告" })}
           </button>
           {isLoading ? <span className="self-center text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Updating", zh: "更新中", zhHans: "更新中" })}</span> : null}
         </div>
@@ -349,7 +349,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       )}
 
       <section className="glass-panel p-5 sm:p-6 print:hidden">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Saved reports", zh: "已儲存報告", zhHans: "已储存报告" })}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Saved reports", zh: "已儲存報告", zhHans: "已保存报告" })}</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {reportHistory.slice(0, 6).map((report) => (
             <article key={report.id} className="soft-panel p-4">
@@ -357,7 +357,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
                 <p className="min-w-0 break-words text-sm font-black text-slate-950 dark:text-white">{text(report.title)}</p>
                 {report.id === latestSavedReportId ? (
                   <span className="shrink-0 rounded-full border border-emerald-300/60 bg-emerald-300/12 px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-100">
-                    {t({ en: "Saved", zh: "已儲存", zhHans: "已储存" })}
+                    {t({ en: "Saved", zh: "已儲存", zhHans: "已保存" })}
                   </span>
                 ) : null}
               </div>
@@ -366,7 +366,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
               <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{formatDateInHongKong(report.generatedAt, language, { dateStyle: "medium", timeStyle: "short" })}</p>
             </article>
           ))}
-          {!reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。", zhHans: "已储存报告会显示在这里。" })}</p> : null}
+          {!reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。", zhHans: "已保存报告会显示在这里。" })}</p> : null}
         </div>
       </section>
       <TeacherReportsBackToTopButton />

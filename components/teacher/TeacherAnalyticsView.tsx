@@ -248,7 +248,7 @@ export function TeacherAnalyticsView({ analytics }: { analytics: TeacherAnalytic
   const summaryCards = [
     { label: t({ en: "Average mastery", zh: "平均掌握度", zhHans: "平均掌握度" }), value: percent(analytics.summary.averageMastery), detail: t({ en: "Across selected class topics", zh: "所選班級課題平均", zhHans: "所选班级课题平均" }) },
     { label: t({ en: "At-risk students", zh: "風險學生", zhHans: "风险学生" }), value: analytics.summary.atRiskStudents, detail: t({ en: "Needs support or extension", zh: "需要支援或挑戰", zhHans: "需要支援或挑战" }) },
-    { label: t({ en: "Average answer time", zh: "平均答題時間", zhHans: "平均答题时间" }), value: seconds(analytics.summary.averageAnswerSeconds), detail: t({ en: "Saved practice attempts", zh: "已儲存練習作答", zhHans: "已储存练习作答" }) },
+    { label: t({ en: "Average answer time", zh: "平均答題時間", zhHans: "平均答题时间" }), value: seconds(analytics.summary.averageAnswerSeconds), detail: t({ en: "Saved practice attempts", zh: "已儲存練習作答", zhHans: "已保存练习作答" }) },
     { label: t({ en: "Hint / AI use", zh: "提示 / AI 使用", zhHans: "提示 / AI 使用" }), value: `${analytics.summary.hintRequests7d}/${analytics.summary.aiTutorMessages7d}`, detail: t({ en: "Last 7 days", zh: "最近 7 天", zhHans: "最近 7 天" }) }
   ];
 

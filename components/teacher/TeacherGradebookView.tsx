@@ -113,7 +113,7 @@ export function TeacherGradebookView({
               )}
               aria-disabled={!hasGrid}
             >
-              {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
+              {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
             </a>
           </div>
         </div>

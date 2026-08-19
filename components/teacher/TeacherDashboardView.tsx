@@ -337,7 +337,7 @@ export function TeacherDashboardView({ dashboard }: { dashboard: TeacherDashboar
     {
       eyebrow: t({ en: "Wrap up", zh: "結算", zhHans: "结算" }),
       title: t({ en: "Save reports and archive", zh: "保存報告與歸檔", zhHans: "保存报告与归档" }),
-      detail: t({ en: "Export bilingual reports, save term snapshots, and keep organized class records.", zh: "匯出雙語報告，保存學期快照，維持整齊的班級記錄。", zhHans: "汇出双语报告，保存学期快照，维持整齐的班级记录。" }),
+      detail: t({ en: "Export bilingual reports, save term snapshots, and keep organized class records.", zh: "匯出雙語報告，保存學期快照，維持整齊的班級記錄。", zhHans: "导出双语报告，保存学期快照，维持整齐的班级记录。" }),
       signal: t({ en: "Records ready", zh: "記錄齊備", zhHans: "记录齐备" }),
       href: "/teacher/operations/term-archives",
       cta: t({ en: "Archive term", zh: "學期歸檔", zhHans: "学期归档" }),

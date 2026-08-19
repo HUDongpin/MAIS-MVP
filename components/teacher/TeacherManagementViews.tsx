@@ -1043,7 +1043,7 @@ function TeacherClassGroupCard({
     setBusy(false);
     const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
     if (!response.ok || !payload?.group) {
-      setError(t({ en: "Could not save the goal.", zh: "未能儲存目標。", zhHans: "未能储存目标。" }));
+      setError(t({ en: "Could not save the goal.", zh: "未能儲存目標。", zhHans: "未能保存目标。" }));
       return;
     }
     onChange(payload.group);
@@ -1138,7 +1138,7 @@ function TeacherClassGroupCard({
             ))}
           </div>
           <div className="flex gap-2">
-            <button type="button" onClick={saveMembers} disabled={busy} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save members", zh: "儲存成員", zhHans: "储存成员" })}</button>
+            <button type="button" onClick={saveMembers} disabled={busy} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save members", zh: "儲存成員", zhHans: "保存成员" })}</button>
             <button type="button" onClick={() => setEditingMembers(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消", zhHans: "取消" })}</button>
           </div>
         </div>
@@ -1163,7 +1163,7 @@ function TeacherClassGroupCard({
             <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "No class topics available for a goal yet.", zh: "此班級暫無可設定目標的課題。", zhHans: "此班级暂无可设定目标的课题。" })}</p>
           )}
           <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={saveGoal} disabled={busy || !topicOptions.length} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save goal", zh: "儲存目標", zhHans: "储存目标" })}</button>
+            <button type="button" onClick={saveGoal} disabled={busy || !topicOptions.length} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save goal", zh: "儲存目標", zhHans: "保存目标" })}</button>
             {group.masteryTarget ? (
               <button type="button" onClick={clearGoal} disabled={busy} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Clear goal", zh: "清除目標", zhHans: "清除目标" })}</button>
             ) : null}
@@ -1552,7 +1552,7 @@ export function TeacherStudentProfileView({
     setIsSavingTarget(false);
 
     if (!response.ok) {
-      setTargetMessage(t({ en: "Could not save this mastery target yet.", zh: "暫時未能儲存此掌握目標。", zhHans: "暂时未能储存此掌握目标。" }));
+      setTargetMessage(t({ en: "Could not save this mastery target yet.", zh: "暫時未能儲存此掌握目標。", zhHans: "暂时未能保存此掌握目标。" }));
       return;
     }
 
@@ -1568,7 +1568,7 @@ export function TeacherStudentProfileView({
       priority: masteryTargetPriorityFor(nextGap),
       note: payload?.target?.note ?? targetNote
     });
-    setTargetMessage(mastery === null ? t({ en: "Mastery target signal cleared.", zh: "已清除此掌握目標信號。", zhHans: "已清除此掌握目标信号。" }) : t({ en: "Mastery target saved as an adaptive signal.", zh: "掌握目標已作為自適應信號儲存。", zhHans: "掌握目标已作为自适应信号储存。" }));
+    setTargetMessage(mastery === null ? t({ en: "Mastery target signal cleared.", zh: "已清除此掌握目標信號。", zhHans: "已清除此掌握目标信号。" }) : t({ en: "Mastery target saved as an adaptive signal.", zh: "掌握目標已作為自適應信號儲存。", zhHans: "掌握目标已作为自适应信号保存。" }));
     router.refresh();
   };
 
@@ -1673,7 +1673,7 @@ export function TeacherStudentProfileView({
                       <p className="mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">
                         {selectedTargetSaved
                           ? t({ en: "Ready for recommendation", zh: "可供推薦使用", zhHans: "可供推荐使用" })
-                          : t({ en: "Save to activate", zh: "儲存後啟用", zhHans: "储存后启用" })}
+                          : t({ en: "Save to activate", zh: "儲存後啟用", zhHans: "保存后启用" })}
                       </p>
                     </div>
                     <span className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.12em] ${masteryTargetPriorityTone(selectedTargetPriority)}`}>
@@ -1718,7 +1718,7 @@ export function TeacherStudentProfileView({
                       disabled={isSavingTarget}
                       className="focus-ring rounded-full bg-slate-950 px-5 py-2.5 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
                     >
-                      {isSavingTarget ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save target", zh: "儲存目標", zhHans: "储存目标" })}
+                      {isSavingTarget ? t({ en: "Saving", zh: "儲存中", zhHans: "保存中" }) : t({ en: "Save target", zh: "儲存目標", zhHans: "保存目标" })}
                     </button>
                   </div>
                 </div>
@@ -2387,7 +2387,7 @@ export function TeacherAssignmentDetailView({
 
               <div className="mt-4 flex flex-wrap gap-3">
                 <button disabled={isBusy} onClick={() => reviewSubmission(submission, "score-only")} type="button" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-                  {t({ en: "Save score", zh: "儲存分數", zhHans: "储存分数" })}
+                  {t({ en: "Save score", zh: "儲存分數", zhHans: "保存分数" })}
                 </button>
                 <button disabled={isBusy} onClick={() => reviewSubmission(submission, "request-correction")} type="button" className="focus-ring rounded-full border border-amber-300/70 bg-amber-50 px-4 py-2 text-xs font-black text-amber-800 disabled:opacity-50 dark:border-amber-200/30 dark:bg-amber-300/[0.12] dark:text-amber-100">
                   {t({ en: "Return for correction", zh: "退回訂正", zhHans: "退回订正" })}

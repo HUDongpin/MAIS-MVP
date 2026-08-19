@@ -902,7 +902,7 @@ export function TeacherAssessmentNewView({ data, initialAssessment }: { data: Te
 	          </div> : null}
 	          {error ? <p role="alert" className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
 	          <div className="flex flex-wrap gap-3">
-	            <button value="draft" className="focus-ring rounded-full border border-slate-200/80 px-6 py-3 text-sm font-black dark:border-white/10" type="submit">{t({ en: "Save draft", zh: "儲存草稿", zhHans: "储存草稿" })}</button>
+	            <button value="draft" className="focus-ring rounded-full border border-slate-200/80 px-6 py-3 text-sm font-black dark:border-white/10" type="submit">{t({ en: "Save draft", zh: "儲存草稿", zhHans: "保存草稿" })}</button>
 	            <button value="publish" className="focus-ring rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Publish assessment", zh: "發布測驗", zhHans: "发布测验" })}</button>
 	          </div>
 	          </div>
@@ -1000,7 +1000,7 @@ function AssessmentSettingsReadyPanel({ assessment }: { assessment: Assessment }
             {t({ en: "Assign", zh: "分派", zhHans: "分派" })}
           </Link>
           <a href={`/api/teacher/assessments/${encodeURIComponent(assessment.id)}/exports`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-            {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
+            {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
           </a>
         </div>
       </div>
@@ -1058,7 +1058,7 @@ function AssessmentSettingsPanel({ detail }: { detail: TeacherAssessmentDetailDa
           <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{text(detail.assessment.examGroupName)}</p>
         </div>
         <button type="submit" disabled={status === "saving"} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">
-          {status === "saving" ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save settings", zh: "儲存口徑", zhHans: "储存口径" })}
+          {status === "saving" ? t({ en: "Saving", zh: "儲存中", zhHans: "保存中" }) : t({ en: "Save settings", zh: "儲存口徑", zhHans: "保存口径" })}
         </button>
       </div>
       <div className="grid gap-4 lg:grid-cols-6">
@@ -1091,8 +1091,8 @@ function AssessmentSettingsPanel({ detail }: { detail: TeacherAssessmentDetailDa
           <textarea value={scoreBands} onChange={(event) => setScoreBands(event.target.value)} rows={5} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
       </div>
-      {status === "saved" ? <p className="text-sm font-bold text-emerald-700 dark:text-emerald-200">{t({ en: "Settings saved.", zh: "口徑已儲存。", zhHans: "口径已储存。" })}</p> : null}
-      {status === "error" ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not save settings.", zh: "未能儲存口徑。", zhHans: "未能储存口径。" })}</p> : null}
+      {status === "saved" ? <p className="text-sm font-bold text-emerald-700 dark:text-emerald-200">{t({ en: "Settings saved.", zh: "口徑已儲存。", zhHans: "口径已保存。" })}</p> : null}
+      {status === "error" ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not save settings.", zh: "未能儲存口徑。", zhHans: "未能保存口径。" })}</p> : null}
       {savedAssessment ? <AssessmentSettingsReadyPanel assessment={savedAssessment} /> : null}
     </form>
   );
@@ -1197,7 +1197,7 @@ function MarkingPanel({ detail, submission, onClose }: { detail: TeacherAssessme
         <div className="flex flex-wrap gap-2">
           <button type="button" onClick={onClose} className="focus-ring rounded-full border border-slate-200/80 px-4 py-2 text-sm font-black dark:border-white/10">{t({ en: "Close", zh: "關閉", zhHans: "关闭" })}</button>
           <button type="button" disabled={status === "saving"} onClick={saveMarking} className="focus-ring rounded-full bg-slate-950 px-5 py-2 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">
-            {status === "saving" ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save marks", zh: "儲存分數", zhHans: "储存分数" })}
+            {status === "saving" ? t({ en: "Saving", zh: "儲存中", zhHans: "保存中" }) : t({ en: "Save marks", zh: "儲存分數", zhHans: "保存分数" })}
           </button>
         </div>
       </div>
@@ -1235,8 +1235,8 @@ function MarkingPanel({ detail, submission, onClose }: { detail: TeacherAssessme
           );
         })}
       </div>
-      {status === "saved" ? <p className="text-sm font-bold text-emerald-700 dark:text-emerald-200">{t({ en: "Marks saved.", zh: "分數已儲存。", zhHans: "分数已储存。" })}</p> : null}
-      {status === "error" ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not save marks.", zh: "未能儲存分數。", zhHans: "未能储存分数。" })}</p> : null}
+      {status === "saved" ? <p className="text-sm font-bold text-emerald-700 dark:text-emerald-200">{t({ en: "Marks saved.", zh: "分數已儲存。", zhHans: "分数已保存。" })}</p> : null}
+      {status === "error" ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{t({ en: "Could not save marks.", zh: "未能儲存分數。", zhHans: "未能保存分数。" })}</p> : null}
       {savedSubmission ? <AssessmentMarkingReadyPanel detail={detail} submission={savedSubmission} /> : null}
     </aside>
   );
@@ -1333,7 +1333,7 @@ export function TeacherAssessmentDetailView({ detail }: { detail: TeacherAssessm
             </button>
             <button type="button" onClick={() => window.print()} className="focus-ring rounded-full border border-slate-200/80 px-5 py-3 text-sm font-black dark:border-white/10">{t({ en: "Print", zh: "列印", zhHans: "列印" })}</button>
             <a href={`/api/teacher/assessments/${detail.assessment.id}/exports`} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-              {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
+              {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "导出 CSV" })}
             </a>
           </div>
         </div>
