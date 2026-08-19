@@ -125,11 +125,11 @@ function smokeConfig(args) {
   return {
     artifactDir: process.env.DASHBOARD_SMOKE_ARTIFACT_DIR || DEFAULT_ARTIFACT_DIR,
     baseUrl: normalizeBaseUrl(args.baseUrl),
-    dashboardThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS, 6_000, 500, 60_000),
+    dashboardThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS, 2_500, 500, 60_000),
     grade: args.grade,
     samples: args.samples,
-    secondaryThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_SECONDARY_P95_MS, 12_000, 500, 60_000),
-    sessionThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_SESSION_P95_MS, 5_000, 500, 60_000),
+    secondaryThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_SECONDARY_P95_MS, 5_000, 500, 60_000),
+    sessionThresholdMs: boundedInteger(process.env.DASHBOARD_SMOKE_SESSION_P95_MS, 2_000, 500, 60_000),
     timeoutMs: boundedInteger(process.env.DASHBOARD_SMOKE_TIMEOUT_MS, 20_000, 1_000, 120_000)
   };
 }
@@ -310,7 +310,30 @@ function runSelfTest() {
     get: (name) => name.toLowerCase() === "set-cookie" ? "a=1; Path=/, b=2; Path=/" : null
   };
   assert.equal(cookieHeaderFromSetCookie(headers), "a=1; b=2");
-  assert.equal(dashboardEndpoints(smokeConfig({ baseUrl: DEFAULT_BASE_URL, grade: "P1", samples: 1 })).some((endpoint) => endpoint.name === "dashboard"), true);
+  const defaultConfig = smokeConfig({ baseUrl: DEFAULT_BASE_URL, grade: "P1", samples: 1 });
+  const defaultEndpoints = dashboardEndpoints(defaultConfig);
+  assert.equal(defaultEndpoints.some((endpoint) => endpoint.name === "dashboard"), true);
+  assert.equal(defaultConfig.dashboardThresholdMs, 2_500, "single-user dashboard p95 budget");
+  assert.equal(defaultConfig.sessionThresholdMs, 2_000, "single-user session p95 budget");
+  assert.equal(defaultConfig.secondaryThresholdMs, 5_000, "single-user secondary p95 budget");
+  assert.equal(defaultEndpoints.find((endpoint) => endpoint.name === "dashboard").thresholdMs, 2_500);
+  assert.equal(defaultEndpoints.find((endpoint) => endpoint.name === "session").thresholdMs, 2_000);
+  assert.equal(defaultEndpoints.find((endpoint) => endpoint.name === "rewards").thresholdMs, 5_000);
+
+  // The env overrides are the documented escape hatch for a knowingly-slow
+  // period; a lowered default must never take that away.
+  const originalDashboardBudget = process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS;
+  process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS = "9000";
+  assert.equal(
+    smokeConfig({ baseUrl: DEFAULT_BASE_URL, grade: "P1", samples: 1 }).dashboardThresholdMs,
+    9_000,
+    "DASHBOARD_SMOKE_DASHBOARD_P95_MS still overrides the default"
+  );
+  if (originalDashboardBudget === undefined) {
+    delete process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS;
+  } else {
+    process.env.DASHBOARD_SMOKE_DASHBOARD_P95_MS = originalDashboardBudget;
+  }
   assert.equal(dashboardSmokeCredentials({ username: "", password: "" }), null);
   assert.equal(dashboardSmokeCredentials({ username: "student", password: "secret" }).authMode, "username-password");
   const originalDemoFlag = process.env.DASHBOARD_SMOKE_USE_DEMO_LOGIN;

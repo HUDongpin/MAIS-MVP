@@ -104,6 +104,76 @@ release branch and re-run the dry run. Keep the pre-deploy staging manifest so r
 
 ---
 
+## Classroom-concurrency load smoke (staging gate)
+
+The latency smokes above measure **one** student on an idle site. `smoke:classroom-load`
+measures the case that actually breaks a school day: a whole class submitting at once.
+It logs N students in concurrently, then for M rounds has every student POST a practice
+attempt, POST lesson progress, and GET the dashboard **simultaneously**, reporting
+per-endpoint p50/p95/max and error rate.
+
+### When it runs
+
+**On staging, before any production promotion that touches the student write path** —
+`/api/attempts`, `/api/lesson-progress`, `/api/dashboard`, the user store, session/auth,
+or the storage provider. It is **not** part of `vercel:production` and **not** part of
+`certify:production`: it writes real attempts and lesson progress, so it must never be
+aimed at a production domain. Run it against the preview/staging deployment from step 4,
+before the step 5 promotion.
+
+```bash
+# Against the staging/preview deployment (never a production domain):
+DASHBOARD_SMOKE_USE_DEMO_LOGIN=1 \
+  npm run smoke:classroom-load -- \
+  --base-url "https://<preview-deployment>.vercel.app" \
+  --students 15 --rounds 3 --json
+```
+
+There is **no default `--base-url`** and production hosts are refused outright — this smoke
+writes, so it must be aimed on purpose. `CLASSROOM_LOAD_ALLOW_PRODUCTION=1` overrides the
+refusal and needs the same owner approval as any other gate override.
+
+For a protected preview, export `VERCEL_AUTOMATION_BYPASS_SECRET` (or
+`CLASSROOM_LOAD_VERCEL_PROTECTION_BYPASS_SECRET`) so the smoke can reach the deployment.
+Local verification against `npm run dev:isolated` uses the same command with
+`--base-url http://127.0.0.1:<port>`.
+
+**Login rate limit.** `/api/auth/login` allows 12 logins **per username per 15 minutes**
+(`authRateLimitRules.loginIdentifier`). The smoke logs in once per *distinct identity* and
+shares that session across the seats assigned to it, so a 15-seat run costs 2 logins rather
+than 15 — but back-to-back reruns still accumulate. If a run aborts with the rate-limit
+error, either wait out the window or set `HK_MATH_E2E_LOGIN_IDENTIFIER_MAX` on the target
+deployment (it can only raise the limit, never lower it).
+
+### What a failure blocks
+
+A non-zero exit **blocks the production promotion** (step 5). The smoke fails when either:
+
+- **any request errors** — a fast 500 or a 401 is a failure regardless of latency; or
+- **write p95 exceeds the budget** — default **2,000 ms** for `/api/attempts` and
+  `/api/lesson-progress` (`CLASSROOM_LOAD_WRITE_P95_MS`). The dashboard read carries a
+  separate 3,000 ms budget (`CLASSROOM_LOAD_READ_P95_MS`).
+
+Treat a write-p95 breach as a **capacity regression, not a flaky smoke**: it means the
+class-sized write path is queueing, which on production shows up as students losing
+answers at the start of a period. Re-running until it passes is not a remediation. Raising
+`CLASSROOM_LOAD_WRITE_P95_MS` to get a green run requires the same owner sign-off as any
+other gate override, recorded in the release report.
+
+### Reading the report
+
+`distinctIdentities` and `login.count` in the JSON report are deliberate and worth reading.
+The internal fast-login roster (`lib/server/internalCaliforniaFastLogin.ts`) ships a fixed
+set of demo students — two for `US_CA_MATH` — so a 15-seat run drives 15 **concurrent
+request streams** across those two identities (2 logins, 2 user rows). That loads request
+concurrency and same-row write contention; it does **not** fan out across 15 distinct user
+rows, so it will not surface a per-row or per-account scaling problem. Pass
+`--username`/`--password` to point the whole class at one specific account, or read
+`distinctIdentities` to know which shape you measured. Full results land in
+`.tmp/classroom-load-smoke/last-run.json`.
+
+---
+
 ## Preview deploys (no production domains)
 
 ```bash
@@ -124,6 +194,7 @@ production promotion.
 | `npm run vercel:stage` | Staging guard + build the pruned staging package (no deploy). |
 | `npm run vercel:preview [-- --dry-run]` | Deploy the pruned slice to a preview URL. |
 | `npm run vercel:production [-- --dry-run]` | Full production path: preflight → build gate → staging → deploy → smokes. |
+| `npm run smoke:classroom-load -- --base-url <staging>` | Classroom-concurrency load smoke; **gate** — run on staging before promoting a student-write-path change. Never aim at production. |
 | `npm run check` | Full local sweep: type-check, zh-hans strict, analytics, rag, question-bank, mvp, build. |
 | `npm run clean:generated` | Dry-run generated-artifact cleanup (never `git clean -fdx`). |
 

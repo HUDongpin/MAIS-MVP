@@ -71,7 +71,7 @@ test("aggregateVerdict: a skipped P0 check cannot certify cleanly", () => {
 test("classifySmokeFailure separates network-layer failures from real ones", () => {
   assert.equal(classifySmokeFailure("Error: request-timeout after 30000ms"), "environmental");
   assert.equal(classifySmokeFailure("TypeError: fetch failed\n  cause: ECONNRESET"), "environmental");
-  assert.equal(classifySmokeFailure("FAIL dashboard: p95=9000ms threshold=6000ms status=200"), "real");
+  assert.equal(classifySmokeFailure("FAIL dashboard: p95=4200ms threshold=2500ms status=200"), "real");
 });
 
 test("daysUntil is positive for future dates and negative for past ones", () => {
