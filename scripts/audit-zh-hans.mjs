@@ -26,7 +26,8 @@
  *   5022  2026-08-19  audit fix only: an explicit zhHans sibling hidden behind a template
  *                     literal's own `}` was being reported as missing (127 false positives)
  *   3498  2026-08-19  explicit zhHans added for app/api, app/classroom, components/dashboard
- *                     and components/teacher (1,524 strings); converter coverage completed
+ *                     and components/teacher (1,524 strings); converter extended to cover every
+ *                     Traditional character this repository's own copy uses
  *
  * NOTE: `audit:zh-hans:strict` in package.json is frozen by the A10/A22 release-governance
  * gate (scripts/release-governance.test.mjs pins both the allowed script names and a sha256
@@ -137,15 +138,21 @@ const traditionalCharacters = Array.from(traditionalMap.keys()).sort((a, b) => a
  * mapping fails the gate. Extend this list whenever new Traditional copy appears.
  */
 const traditionalRepertoire = Array.from(
-  "亂併們傑傭傷傾僅僑儘兇冪剛剝劍勝勞卻厭厲叢嗎嚇園執堅塵墮壇壺夠奪妝婦媽孫寢寧寶屆" +
-  "屍岡島崗嵐嶼帶幟廟廢張彌彎徹憂憐憑憶懲懷戀捨掙揀撲擁擋擔擷擺擾攏敗斃曉曬桿樓樸樹" +
-  "橋橢檻欄歲歷殲殺毀氈淺滬潔澤濁濟瀉瀏灑災煙爐牆獄獻瑪瓊畝畢疇癢皺盃盞眾磚礦禍種窮" +
-  "竊競筍籃籌籬糧約紅納紛細紹終絡給絲綜綠綱緒緣編縣縱繞繩繪繽纖罷羨義翹聞聳職聾脅脈" +
-  "脹腫膠臟臺艙艱葉蓋蓮蔔薑藍藥蘇蘋蘭虛蝦蝸螢蟬蟲蟻蠟蠻衛襯觀討訴診詩詮誕誠誰謠謹譜" +
-  "譽讚豐貓貝貧貨貴買貼賀賓賢賣賬購贈贊趕趙車軌軒軛軟軸輛輩輪輯輾轎辯農遊遞遷遺遼邏" +
-  "鄉鄭鄰醜醬釀釘鈍鈔銜銳銷鋪鋼錐錘錶鍋鎮鏡鐵鑄鑑鑰鑼鑽閃閉閒閘閣闆闊闖陣陰陸陽際隸" +
-  "隻雜雞雲霧靈靜韌韓響頑頒頗顆顏願顧顫飄飢飲飾餅養餓館馬駐駕駛騎騙騷驅驕骯髒髮鬍鬥" +
-  "鬧鬱魚魯鮮鯊鳥鳳鴨鴻鵝鷹鹽麗麥麵黃黴齒龍龜"
+  "亂亙亞併侶俠倆們偵傑傭傷傾僅僑儘償儼兇冪剛剝劉劍勝勞匱卻厭厲叢吳呂唄啞喪嗆嗎嘔噸" +
+  "嚇嚨囑園執堅堿塵塹墊墮壇壩壺夠奐奪妝娛婦媽嫻孫寢寧寶尷屆屍屜岡島崗嵐嶼嶽巒帶幟廈" +
+  "廚廟廢廬張彆彌彎徠徹悵慚憂憊憐憑憲憶懇懲懷懼戀捨捲掄掙揀揚摑撓撲擁擄擋擔擠擷擺擾" +
+  "攏攔攪敗敘斃斕曉曖曬桿樑樓樸樹橋橢檯檻櫃欄歎歐歲歷殮殲殺毀毆氈氫洶淺湧滬滯漲潑潔" +
+  "澀澤濁濕濟瀉瀋瀏灑灣災烏煙燦燴爐爺牆犧狹獄獅獵獻瑪瓊畝畢疇瘋癡癢皺盃盜盞眾矚硯碩" +
+  "磚磯礦禍禦稈種窮竈竊競筍篤簾籃籌籟籬糧糰約紅納紐紛細紹終絡給絨絲綜綠綱綻緒緣編縣" +
+  "縫縱繞繡繩繪繽纏纖罌罷羨義翹聞聳聶職聾脅脈脣脹腫腸膚膠臘臟臺艙艦艱芻荊莖萊葉蒼蓋" +
+  "蓮蔔蔣蕩蕭薈薑薩藍藥藹蘇蘊蘋蘭虛虜虧蛺蛻蝕蝦蝸螞螢蟄蟬蟲蟻蠟蠶蠻衊衛袞裊褲襖襤襯" +
+  "覈覓觀觴訃討訥訴診詐詔詠詩詮誇誕誘誠誡誣誰諒諜諾謎謙謠謹譁譏譜譽讒讚豈豎豐豬貓貝" +
+  "貧貨貳貴買貼賀賅賓賢賣賦賬賭賴購贈贊贍贓贖趕趙蹣蹺躋躥軀車軋軌軒軛軟軸輛輟輩輪輯" +
+  "輻輾轄轍轎轟辯農遊遜遞遷遺遼邁邇邏鄉鄒鄭鄰鄴酈醜醞醬釀釗釘鈍鈔鈴鈺鉤銘銜銬銳銷鋅" +
+  "鋪鋸鋼錐錘錦錳錶鍋鍛鎊鎢鎮鏟鏡鐮鐳鐵鑄鑑鑰鑲鑼鑽閃閉閏閒閘閡閣閩闆闊闌闕闖闢陝陣" +
+  "陰陸陽隕際隴隸隻雛雜雞雲霧霽靄靈靚靜韁韃韌韓響頌頑頒頗頹顆顎顏願顧顫顱颳颼飄飆飢" +
+  "飲飾餅養餓館餵饅馬馭馳駁駐駕駛駱騎騙騰騷騾驅驕驢骯髒髖髮鬍鬢鬥鬧鬱魚魯鮑鮭鮮鯉鯊" +
+  "鯨鰭鱉鱷鳥鳳鴉鴕鴨鴻鵝鵬鵲鶴鷥鷹鷺鹹鹼鹽麗麥麵黃黴齋齒齬龍龜"
 );
 
 const bannedTerms = [
