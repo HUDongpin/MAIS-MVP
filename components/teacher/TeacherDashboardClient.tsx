@@ -46,7 +46,7 @@ export function TeacherDashboardClient({ initialDashboard = null }: { initialDas
   const [isLoading, setIsLoading] = useState(!initialDashboard);
   const [loadError, setLoadError] = useState("");
   const [reloadKey, setReloadKey] = useState(0);
-  const errorCopy = t({ en: "Could not load teacher dashboard data.", zh: "暫時無法載入教師儀表板資料。" });
+  const errorCopy = t({ en: "Could not load teacher dashboard data.", zh: "暫時無法載入教師儀表板資料。", zhHans: "暂时无法载入教师仪表板资料。" });
   const sessionChangedCopy = t({
     en: "Your sign-in changed in another tab. Checking the current session...",
     zh: "你的登入狀態已在其他分頁變更，正在重新確認目前工作階段...",
@@ -112,7 +112,7 @@ export function TeacherDashboardClient({ initialDashboard = null }: { initialDas
         }}
         className="focus-ring mt-5 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
       >
-        {t({ en: "Retry", zh: "重試" })}
+        {t({ en: "Retry", zh: "重試", zhHans: "重试" })}
       </button>
     </section>
   );

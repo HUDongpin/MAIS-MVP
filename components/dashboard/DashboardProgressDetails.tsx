@@ -38,22 +38,22 @@ export function DashboardProgressDetails() {
   const maxMinutes = Math.max(...weeklyActivity.map((day) => day.minutes), 1);
   const totalMinutes = progress?.totalMinutes ?? 0;
   const copy = {
-    weeklyTitle: { en: "Weekly learning activity", zh: "每週學習活動" },
-    minutesStudied: { en: "Minutes studied", zh: "學習分鐘" },
-    masteryMap: { en: "Mastery map", zh: "掌握度地圖" },
-    skillAreas: { en: "Skill areas", zh: "技能範圍" },
-    weakTitle: { en: "Weak topics", zh: "薄弱主題" },
-    weakDesc: { en: "Topics with low mastery or active mistakes.", zh: "掌握度較低或仍有錯題的主題。" },
-    recentTitle: { en: "Recent activity", zh: "最近活動" },
-    recentDesc: { en: "Attempts, lesson progress, and learning events for this grade.", zh: "此年級的作答、課節進度和學習事件。" },
-    noWeak: { en: "No weak topics flagged for this grade yet.", zh: "此年級暫未標記薄弱主題。" },
-    noRecent: { en: "Recent activity will appear after lessons, practice, or visualizations.", zh: "完成課節、練習或視覺化後會顯示最近活動。" },
+    weeklyTitle: { en: "Weekly learning activity", zh: "每週學習活動", zhHans: "每周学习活动" },
+    minutesStudied: { en: "Minutes studied", zh: "學習分鐘", zhHans: "学习分钟" },
+    masteryMap: { en: "Mastery map", zh: "掌握度地圖", zhHans: "掌握度地图" },
+    skillAreas: { en: "Skill areas", zh: "技能範圍", zhHans: "技能范围" },
+    weakTitle: { en: "Weak topics", zh: "薄弱主題", zhHans: "薄弱主题" },
+    weakDesc: { en: "Topics with low mastery or active mistakes.", zh: "掌握度較低或仍有錯題的主題。", zhHans: "掌握度较低或仍有错题的主题。" },
+    recentTitle: { en: "Recent activity", zh: "最近活動", zhHans: "最近活动" },
+    recentDesc: { en: "Attempts, lesson progress, and learning events for this grade.", zh: "此年級的作答、課節進度和學習事件。", zhHans: "此年级的作答、课时进度和学习事件。" },
+    noWeak: { en: "No weak topics flagged for this grade yet.", zh: "此年級暫未標記薄弱主題。", zhHans: "此年级暂未标记薄弱主题。" },
+    noRecent: { en: "Recent activity will appear after lessons, practice, or visualizations.", zh: "完成課節、練習或視覺化後會顯示最近活動。", zhHans: "完成课时、练习或可视化后会显示最近活动。" },
     dataSource: {
       en: "Aggregated from attempts, lesson progress, visualization sessions, and learning events.",
-      zh: "由作答紀錄、課節進度、視覺化使用和學習事件聚合而成。"
+      zh: "由作答紀錄、課節進度、視覺化使用和學習事件聚合而成。", zhHans: "由作答纪录、课时进度、可视化使用和学习事件聚合而成。"
     },
-    loading: { en: "Loading progress data...", zh: "正在載入學習進度..." },
-    unavailable: { en: "Progress data is unavailable right now.", zh: "暫時無法載入學習進度。" }
+    loading: { en: "Loading progress data...", zh: "正在載入學習進度...", zhHans: "正在载入学习进度..." },
+    unavailable: { en: "Progress data is unavailable right now.", zh: "暫時無法載入學習進度。", zhHans: "暂时无法载入学习进度。" }
   };
 
   useEffect(() => {

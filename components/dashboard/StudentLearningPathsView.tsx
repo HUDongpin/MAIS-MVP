@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import type { LearningPathStepKind, StudentLearningPath } from "@/types";
 
-const stepKindLabels: Record<LearningPathStepKind, { en: string; zh: string }> = {
-  lesson: { en: "Lesson", zh: "課堂" },
-  practice: { en: "Practice", zh: "練習" },
-  assessment: { en: "Assessment", zh: "測驗" },
-  visualization: { en: "Visualization", zh: "視覺化" },
-  resource: { en: "Resource", zh: "資源" }
+const stepKindLabels: Record<LearningPathStepKind, { en: string; zh: string; zhHans?: string }> = {
+  lesson: { en: "Lesson", zh: "課堂", zhHans: "课堂" },
+  practice: { en: "Practice", zh: "練習", zhHans: "练习" },
+  assessment: { en: "Assessment", zh: "測驗", zhHans: "测验" },
+  visualization: { en: "Visualization", zh: "視覺化", zhHans: "可视化" },
+  resource: { en: "Resource", zh: "資源", zhHans: "资源" }
 };
 
 function StepMarker({ status }: { status: StudentLearningPath["steps"][number]["status"] }) {
@@ -43,7 +43,7 @@ function StudentLearningPathCard({
     setBusyStepId(null);
     const payload = await response.json().catch(() => null) as { path?: StudentLearningPath } | null;
     if (!response.ok || !payload?.path) {
-      setError(t({ en: "Could not update this step.", zh: "未能更新此步驟。" }));
+      setError(t({ en: "Could not update this step.", zh: "未能更新此步驟。", zhHans: "未能更新此步骤。" }));
       return;
     }
     onUpdate(payload.path);
@@ -59,9 +59,9 @@ function StudentLearningPathCard({
           {path.description ? <p className="mt-1 break-words text-sm font-semibold text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">{path.description}</p> : null}
         </div>
         {path.completed ? (
-          <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-700 dark:text-emerald-200">{t({ en: "Completed", zh: "已完成" })}</span>
+          <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-700 dark:text-emerald-200">{t({ en: "Completed", zh: "已完成", zhHans: "已完成" })}</span>
         ) : (
-          <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{path.completedStepCount}/{path.totalStepCount} {t({ en: "steps", zh: "步驟" })}</span>
+          <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{path.completedStepCount}/{path.totalStepCount} {t({ en: "steps", zh: "步驟", zhHans: "步骤" })}</span>
         )}
       </div>
 
@@ -84,10 +84,10 @@ function StudentLearningPathCard({
             {step.status !== "locked" ? (
               <div className="flex flex-wrap gap-2">
                 {step.href ? (
-                  <Link href={step.href} className="focus-ring rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Open", zh: "開始" })}</Link>
+                  <Link href={step.href} className="focus-ring rounded-full border border-slate-200/80 bg-white/80 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Open", zh: "開始", zhHans: "开始" })}</Link>
                 ) : null}
                 {step.status === "available" ? (
-                  <button type="button" onClick={() => markComplete(step.id)} disabled={busyStepId === step.id} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busyStepId === step.id ? t({ en: "Saving...", zh: "儲存中..." }) : t({ en: "Mark done", zh: "標記完成" })}</button>
+                  <button type="button" onClick={() => markComplete(step.id)} disabled={busyStepId === step.id} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busyStepId === step.id ? t({ en: "Saving...", zh: "儲存中...", zhHans: "储存中..." }) : t({ en: "Mark done", zh: "標記完成", zhHans: "标记完成" })}</button>
                 ) : null}
               </div>
             ) : null}
@@ -127,8 +127,8 @@ export function StudentLearningPathsView() {
   return (
     <section data-tour="student-learning-paths" className="mx-auto grid w-full max-w-5xl gap-4 px-4 pt-8 sm:px-6">
       <div>
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Your learning paths", zh: "你的學習路徑" })}</h2>
-        <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Follow each step in order — finish one to unlock the next.", zh: "按順序完成每個步驟，完成一步即可解鎖下一步。" })}</p>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Your learning paths", zh: "你的學習路徑", zhHans: "你的学习路径" })}</h2>
+        <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Follow each step in order — finish one to unlock the next.", zh: "按順序完成每個步驟，完成一步即可解鎖下一步。", zhHans: "按顺序完成每个步骤，完成一步即可解锁下一步。" })}</p>
       </div>
       {paths.map((path) => <StudentLearningPathCard key={path.id} path={path} onUpdate={updatePath} />)}
     </section>

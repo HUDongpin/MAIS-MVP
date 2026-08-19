@@ -12,12 +12,12 @@ import type { LocalizedText, TeacherReport, TeacherReportLanguage, TeacherReport
 const reportTypes: TeacherReportType[] = ["student", "class", "assignment", "assessment", "parent-summary"];
 
 function reportTypeLabel(type: TeacherReportType) {
-  const labels: Record<TeacherReportType, { en: string; zh: string }> = {
-    student: { en: "Student report", zh: "學生學習報告" },
-    class: { en: "Class weekly", zh: "班級周報" },
-    assignment: { en: "Assignment", zh: "作業報告" },
-    assessment: { en: "Quiz", zh: "測驗報告" },
-    "parent-summary": { en: "Parent summary", zh: "家長摘要" }
+  const labels: Record<TeacherReportType, { en: string; zh: string; zhHans?: string }> = {
+    student: { en: "Student report", zh: "學生學習報告", zhHans: "学生学习报告" },
+    class: { en: "Class weekly", zh: "班級周報", zhHans: "班级周报" },
+    assignment: { en: "Assignment", zh: "作業報告", zhHans: "作业报告" },
+    assessment: { en: "Quiz", zh: "測驗報告", zhHans: "测验报告" },
+    "parent-summary": { en: "Parent summary", zh: "家長摘要", zhHans: "家长摘要" }
   };
   return labels[type];
 }
@@ -59,11 +59,11 @@ function reportCopy(value: LocalizedText, language: TeacherReportLanguage) {
 
 function ReportPreview({ preview }: { preview: TeacherReportPreview }) {
   const metricCards = [
-    { label: reportCopy({ en: "Learning time", zh: "學習時長" }, preview.language), value: metric(preview.metrics.learningMinutes, "m") },
-    { label: reportCopy({ en: "Mastery change", zh: "掌握度變化" }, preview.language), value: `${preview.metrics.masteryChange > 0 ? "+" : ""}${preview.metrics.masteryChange}` },
-    { label: reportCopy({ en: "Average mastery", zh: "平均掌握" }, preview.language), value: metric(preview.metrics.averageMastery, "%") },
-    { label: reportCopy({ en: "Accuracy", zh: "準確率" }, preview.language), value: metric(preview.metrics.accuracy, "%") },
-    { label: reportCopy({ en: "Completion", zh: "完成率" }, preview.language), value: metric(preview.metrics.completionRate, "%") }
+    { label: reportCopy({ en: "Learning time", zh: "學習時長", zhHans: "学习时长" }, preview.language), value: metric(preview.metrics.learningMinutes, "m") },
+    { label: reportCopy({ en: "Mastery change", zh: "掌握度變化", zhHans: "掌握度变化" }, preview.language), value: `${preview.metrics.masteryChange > 0 ? "+" : ""}${preview.metrics.masteryChange}` },
+    { label: reportCopy({ en: "Average mastery", zh: "平均掌握", zhHans: "平均掌握" }, preview.language), value: metric(preview.metrics.averageMastery, "%") },
+    { label: reportCopy({ en: "Accuracy", zh: "準確率", zhHans: "准确率" }, preview.language), value: metric(preview.metrics.accuracy, "%") },
+    { label: reportCopy({ en: "Completion", zh: "完成率", zhHans: "完成率" }, preview.language), value: metric(preview.metrics.completionRate, "%") }
   ];
 
   return (
@@ -89,14 +89,14 @@ function ReportPreview({ preview }: { preview: TeacherReportPreview }) {
       </div>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
-        <ReportList title={reportCopy({ en: "Strengths", zh: "強項" }, preview.language)} items={preview.strengths} />
-        <ReportList title={reportCopy({ en: "Weaknesses", zh: "弱項" }, preview.language)} items={preview.weaknesses} />
-        <ReportList title={reportCopy({ en: "Mistake types", zh: "錯題類型" }, preview.language)} items={preview.mistakeTypes.length ? preview.mistakeTypes : [reportCopy({ en: "No repeated mistake type yet", zh: "暫未有重複錯題類型" }, preview.language)]} />
-        <ReportList title={reportCopy({ en: "Suggested practice", zh: "建議練習" }, preview.language)} items={preview.suggestedPractice} />
+        <ReportList title={reportCopy({ en: "Strengths", zh: "強項", zhHans: "强项" }, preview.language)} items={preview.strengths} />
+        <ReportList title={reportCopy({ en: "Weaknesses", zh: "弱項", zhHans: "弱项" }, preview.language)} items={preview.weaknesses} />
+        <ReportList title={reportCopy({ en: "Mistake types", zh: "錯題類型", zhHans: "错题类型" }, preview.language)} items={preview.mistakeTypes.length ? preview.mistakeTypes : [reportCopy({ en: "No repeated mistake type yet", zh: "暫未有重複錯題類型", zhHans: "暂未有重复错题类型" }, preview.language)]} />
+        <ReportList title={reportCopy({ en: "Suggested practice", zh: "建議練習", zhHans: "建议练习" }, preview.language)} items={preview.suggestedPractice} />
       </div>
 
       <div className="mt-6 rounded-2xl border border-slate-200/80 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.06] print:border-slate-200">
-        <p className="text-sm font-black text-slate-950 dark:text-white print:text-slate-950">{reportCopy({ en: "Teacher remarks", zh: "教師備註" }, preview.language)}</p>
+        <p className="text-sm font-black text-slate-950 dark:text-white print:text-slate-950">{reportCopy({ en: "Teacher remarks", zh: "教師備註", zhHans: "教师备注" }, preview.language)}</p>
         <p className="mt-2 min-h-12 text-sm leading-6 text-slate-600 dark:text-slate-300 print:text-slate-700">{preview.teacherRemarks || "-"}</p>
       </div>
     </article>
@@ -118,8 +118,8 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const { currentUser, language: appLanguage, t, text } = useSettings();
   const appReportLanguage = reportLanguageForApp(appLanguage);
   const reportsHeading = currentUser?.curriculumProfile?.region === "US"
-    ? { en: "Learning reports", zh: "學習報告" }
-    : { en: "Bilingual learning reports", zh: "學習報告" };
+    ? { en: "Learning reports", zh: "學習報告", zhHans: "学习报告" }
+    : { en: "Bilingual learning reports", zh: "學習報告", zhHans: "学习报告" };
   const [type, setType] = useState<TeacherReportType>(reports.defaultPreview?.type ?? "class");
   const [language, setLanguage] = useState<TeacherReportLanguage>(appReportLanguage);
   const requestedClassId = useSearchParams().get("classId");
@@ -187,10 +187,10 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     if (response.ok && payload?.report) {
       setReportHistory((current) => [payload.report!, ...current.filter((report) => report.id !== payload.report!.id)].slice(0, 12));
       setLatestSavedReportId(payload.report.id);
-      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。" }));
+      setSaveMessage(t({ en: "Report saved and added to history.", zh: "報告已儲存並加入紀錄。", zhHans: "报告已储存并加入纪录。" }));
       return;
     }
-    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。" }));
+    setSaveMessage(t({ en: "Could not save this report yet.", zh: "暫時未能儲存此報告。", zhHans: "暂时未能储存此报告。" }));
   }
 
   useEffect(() => {
@@ -250,7 +250,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   return (
     <div className="grid gap-7">
       <section className="glass-panel p-6 sm:p-8 print:hidden">
-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Reports", zh: "報告與溝通" })}</p>
+        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Reports", zh: "報告與溝通", zhHans: "报告与沟通" })}</p>
         <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 dark:text-white sm:text-5xl">
           {t(reportsHeading)}
         </h1>
@@ -259,13 +259,13 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       <section className="glass-panel p-5 sm:p-6 print:hidden">
         <div className="grid gap-4 xl:grid-cols-[190px_160px_1fr_1fr]">
           <label className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Type", zh: "類型" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Type", zh: "類型", zhHans: "类型" })}</span>
             <select value={type} onChange={(event) => setType(event.target.value as TeacherReportType)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reportTypes.map((item) => <option key={item} value={item}>{text(reportTypeLabel(item))}</option>)}
             </select>
           </label>
           <label className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Language", zh: "語言" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Language", zh: "語言", zhHans: "语言" })}</span>
             <select value={language} onChange={(event) => setLanguage(event.target.value as TeacherReportLanguage)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reportLanguageOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -273,28 +273,28 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
             </select>
           </label>
           <label className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級", zhHans: "班级" })}</span>
             <select value={classId} onChange={(event) => setClassId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reports.classes.map((teacherClass) => <option key={teacherClass.id} value={teacherClass.id}>{teacherClass.name}</option>)}
             </select>
           </label>
           {type === "student" || type === "parent-summary" ? (
             <label className="grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Student", zh: "學生" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Student", zh: "學生", zhHans: "学生" })}</span>
               <select value={studentId} onChange={(event) => setStudentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {reports.students.map((student) => <option key={student.id} value={student.studentId}>{text(student.label)}</option>)}
               </select>
             </label>
           ) : type === "assignment" ? (
             <label className="grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Assignment", zh: "作業" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Assignment", zh: "作業", zhHans: "作业" })}</span>
               <select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {reports.assignments.map((assignment) => <option key={assignment.id} value={assignment.assignmentId}>{text(assignment.label)}</option>)}
               </select>
             </label>
           ) : type === "assessment" ? (
             <label className="grid gap-2">
-              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Quiz", zh: "測驗" })}</span>
+              <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Quiz", zh: "測驗", zhHans: "测验" })}</span>
               <select value={assessmentId} onChange={(event) => setAssessmentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {reports.assessments.map((assessment) => <option key={assessment.id} value={assessment.assessmentId}>{text(assessment.label)}</option>)}
               </select>
@@ -302,33 +302,33 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
           ) : null}
         </div>
         <label className="mt-4 grid gap-2">
-          <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher remarks", zh: "教師備註" })}</span>
+          <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher remarks", zh: "教師備註", zhHans: "教师备注" })}</span>
           <textarea value={remarks} onChange={(event) => setRemarks(event.target.value)} rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
         <div className="mt-4 flex flex-wrap gap-3">
           {hasExportTarget ? (
             <>
               <a href={pdfUrl} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
-                {t({ en: "Export PDF", zh: "匯出 PDF" })}
+                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "汇出 PDF" })}
               </a>
               <a href={csvUrl} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">
-                {t({ en: "Export CSV", zh: "匯出 CSV" })}
+                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
               </a>
             </>
           ) : (
             <>
               <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white opacity-50 dark:bg-white dark:text-slate-950">
-                {t({ en: "Export PDF", zh: "匯出 PDF" })}
+                {t({ en: "Export PDF", zh: "匯出 PDF", zhHans: "汇出 PDF" })}
               </button>
               <button type="button" disabled className="focus-ring cursor-not-allowed rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-                {t({ en: "Export CSV", zh: "匯出 CSV" })}
+                {t({ en: "Export CSV", zh: "匯出 CSV", zhHans: "汇出 CSV" })}
               </button>
             </>
           )}
           <button type="button" onClick={saveReport} disabled={isSaving || isLoading || !hasExportTarget} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-            {isSaving ? t({ en: "Saving", zh: "儲存中" }) : t({ en: "Save report", zh: "儲存報告" })}
+            {isSaving ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save report", zh: "儲存報告", zhHans: "储存报告" })}
           </button>
-          {isLoading ? <span className="self-center text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Updating", zh: "更新中" })}</span> : null}
+          {isLoading ? <span className="self-center text-sm font-bold text-cyan-700 dark:text-cyan-200">{t({ en: "Updating", zh: "更新中", zhHans: "更新中" })}</span> : null}
         </div>
         {!hasExportTarget ? (
           <p className="mt-3 text-sm font-bold text-amber-700 dark:text-amber-200">
@@ -344,12 +344,12 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
 
       {visiblePreview ? <ReportPreview preview={visiblePreview} /> : (
         <section className="glass-panel p-6 text-sm font-bold text-slate-500 dark:text-slate-400">
-          {isLoading ? t({ en: "Updating report preview.", zh: "正在更新報告預覽。" }) : t({ en: "No report preview available.", zh: "暫未有報告預覽。" })}
+          {isLoading ? t({ en: "Updating report preview.", zh: "正在更新報告預覽。", zhHans: "正在更新报告预览。" }) : t({ en: "No report preview available.", zh: "暫未有報告預覽。", zhHans: "暂未有报告预览。" })}
         </section>
       )}
 
       <section className="glass-panel p-5 sm:p-6 print:hidden">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Saved reports", zh: "已儲存報告" })}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Saved reports", zh: "已儲存報告", zhHans: "已储存报告" })}</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {reportHistory.slice(0, 6).map((report) => (
             <article key={report.id} className="soft-panel p-4">
@@ -357,7 +357,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
                 <p className="min-w-0 break-words text-sm font-black text-slate-950 dark:text-white">{text(report.title)}</p>
                 {report.id === latestSavedReportId ? (
                   <span className="shrink-0 rounded-full border border-emerald-300/60 bg-emerald-300/12 px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-100">
-                    {t({ en: "Saved", zh: "已儲存" })}
+                    {t({ en: "Saved", zh: "已儲存", zhHans: "已储存" })}
                   </span>
                 ) : null}
               </div>
@@ -366,7 +366,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
               <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{formatDateInHongKong(report.generatedAt, language, { dateStyle: "medium", timeStyle: "short" })}</p>
             </article>
           ))}
-          {!reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。" })}</p> : null}
+          {!reportHistory.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Saved reports will appear here.", zh: "已儲存報告會顯示在這裡。", zhHans: "已储存报告会显示在这里。" })}</p> : null}
         </div>
       </section>
       <TeacherReportsBackToTopButton />

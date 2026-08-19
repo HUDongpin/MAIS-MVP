@@ -64,7 +64,7 @@ type AssignmentReviewOperation =
     };
 
 function formatDate(value: string | null | undefined, language: Language) {
-  if (!value) return textForLanguage({ en: "No record", zh: "未有紀錄" }, language);
+  if (!value) return textForLanguage({ en: "No record", zh: "未有紀錄", zhHans: "未有纪录" }, language);
   return formatDateInHongKong(value, language, {
     month: "short",
     day: "numeric",
@@ -106,11 +106,11 @@ function masteryTargetPriorityFor(gap: number): MasteryTargetPriority {
 }
 
 function masteryTargetPriorityLabel(priority: MasteryTargetPriority) {
-  const labels: Record<MasteryTargetPriority, { en: string; zh: string }> = {
-    met: { en: "Target met", zh: "已達目標" },
-    watch: { en: "Monitor", zh: "觀察" },
-    priority: { en: "Priority", zh: "優先" },
-    urgent: { en: "Urgent", zh: "緊急" }
+  const labels: Record<MasteryTargetPriority, { en: string; zh: string; zhHans?: string }> = {
+    met: { en: "Target met", zh: "已達目標", zhHans: "已达目标" },
+    watch: { en: "Monitor", zh: "觀察", zhHans: "观察" },
+    priority: { en: "Priority", zh: "優先", zhHans: "优先" },
+    urgent: { en: "Urgent", zh: "緊急", zhHans: "紧急" }
   };
   return labels[priority];
 }
@@ -139,7 +139,7 @@ function MasteryTargetReadyPanel({
     classId,
     contentType: "practice",
     targetId: operation.topicId,
-    title: t({ en: `Practice: ${operation.topicTitle}`, zh: `${operation.topicTitle} 練習` })
+    title: t({ en: `Practice: ${operation.topicTitle}`, zh: `${operation.topicTitle} 練習`, zhHans: `${operation.topicTitle} 练习` })
   });
 
   return (
@@ -147,13 +147,13 @@ function MasteryTargetReadyPanel({
       <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
-            {isSaved ? t({ en: "Mastery target ready", zh: "掌握目標已就緒" }) : t({ en: "Mastery target cleared", zh: "掌握目標已清除" })}
+            {isSaved ? t({ en: "Mastery target ready", zh: "掌握目標已就緒", zhHans: "掌握目标已就绪" }) : t({ en: "Mastery target cleared", zh: "掌握目標已清除", zhHans: "掌握目标已清除" })}
           </p>
           <p className="mt-1 break-words font-black text-slate-950 dark:text-white">{studentName} · {operation.topicTitle}</p>
           <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
             {isSaved && operation.targetMastery !== null
-              ? `${t({ en: "Actual", zh: "實際" })} ${percent(operation.actualMastery)} · ${t({ en: "Target", zh: "目標" })} ${percent(operation.targetMastery)} · ${t({ en: "Gap", zh: "差距" })} +${operation.gap}`
-              : t({ en: "Adaptive signal removed from this topic.", zh: "此課題的自適應信號已移除。" })}
+              ? `${t({ en: "Actual", zh: "實際", zhHans: "实际" })} ${percent(operation.actualMastery)} · ${t({ en: "Target", zh: "目標", zhHans: "目标" })} ${percent(operation.targetMastery)} · ${t({ en: "Gap", zh: "差距", zhHans: "差距" })} +${operation.gap}`
+              : t({ en: "Adaptive signal removed from this topic.", zh: "此課題的自適應信號已移除。", zhHans: "此课题的自适应信号已移除。" })}
           </p>
           {operation.note ? <p className="mt-2 break-words text-xs font-semibold text-emerald-900 dark:text-emerald-100">{operation.note}</p> : null}
         </div>
@@ -164,17 +164,17 @@ function MasteryTargetReadyPanel({
       <div className="mt-4 flex min-w-0 flex-wrap gap-2">
         {isSaved ? (
           <Link href={`/teacher/assignments/new?${assignmentParams.toString()}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-            {t({ en: "Create practice", zh: "建立練習" })}
+            {t({ en: "Create practice", zh: "建立練習", zhHans: "建立练习" })}
           </Link>
         ) : null}
         <a href="#mastery-target" className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
-          {t({ en: "Open target", zh: "查看目標" })}
+          {t({ en: "Open target", zh: "查看目標", zhHans: "查看目标" })}
         </a>
         <Link href={`/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(studentId)}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-          {t({ en: "Student profile", zh: "學生檔案" })}
+          {t({ en: "Student profile", zh: "學生檔案", zhHans: "学生档案" })}
         </Link>
         <Link href={`/teacher/assignments?classId=${encodeURIComponent(classId)}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-          {t({ en: "Assignment queue", zh: "作業隊列" })}
+          {t({ en: "Assignment queue", zh: "作業隊列", zhHans: "作业队列" })}
         </Link>
       </div>
     </section>
@@ -194,12 +194,12 @@ function readFileAsDataUrl(file: File) {
 }
 
 function riskLabel(tag: TeacherStudentRiskTag) {
-  const labels: Record<TeacherStudentRiskTag, { en: string; zh: string }> = {
-    "low-mastery": { en: "Low mastery", zh: "低掌握" },
-    "repeated-mistakes": { en: "Repeated errors", zh: "連續錯題" },
-    inactive: { en: "Inactive", zh: "低活躍" },
-    "high-ai-tutor": { en: "AI help spike", zh: "AI 求助偏高" },
-    "late-work": { en: "Late work", zh: "遲交" }
+  const labels: Record<TeacherStudentRiskTag, { en: string; zh: string; zhHans?: string }> = {
+    "low-mastery": { en: "Low mastery", zh: "低掌握", zhHans: "低掌握" },
+    "repeated-mistakes": { en: "Repeated errors", zh: "連續錯題", zhHans: "连续错题" },
+    inactive: { en: "Inactive", zh: "低活躍", zhHans: "低活跃" },
+    "high-ai-tutor": { en: "AI help spike", zh: "AI 求助偏高", zhHans: "AI 求助偏高" },
+    "late-work": { en: "Late work", zh: "遲交", zhHans: "迟交" }
   };
   return labels[tag];
 }
@@ -249,7 +249,7 @@ function AssignmentDeleteButton({
     setIsDeleting(false);
 
     if (!response.ok) {
-      setError(t({ en: "Could not delete this assignment.", zh: "暫時未能刪除此作業。" }));
+      setError(t({ en: "Could not delete this assignment.", zh: "暫時未能刪除此作業。", zhHans: "暂时未能删除此作业。" }));
       setIsConfirming(false);
       return;
     }
@@ -269,14 +269,14 @@ function AssignmentDeleteButton({
           type="button"
           disabled={isDeleting}
           onClick={deleteAssignment}
-          aria-label={t({ en: `Delete ${assignmentTitle}`, zh: `刪除 ${assignmentTitle}` })}
+          aria-label={t({ en: `Delete ${assignmentTitle}`, zh: `刪除 ${assignmentTitle}`, zhHans: `删除 ${assignmentTitle}` })}
           className={`focus-ring rounded-full border px-4 py-2 text-xs font-black disabled:opacity-50 ${
             isConfirming
               ? "border-rose-300/70 bg-rose-50 text-rose-800 dark:border-rose-300/40 dark:bg-rose-300/[0.12] dark:text-rose-100"
               : "border-slate-200/80 bg-white/75 text-slate-600 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200"
           }`}
         >
-          {isDeleting ? t({ en: "Deleting...", zh: "刪除中..." }) : isConfirming ? t({ en: "Confirm delete", zh: "確認刪除" }) : t({ en: "Delete", zh: "刪除" })}
+          {isDeleting ? t({ en: "Deleting...", zh: "刪除中...", zhHans: "删除中..." }) : isConfirming ? t({ en: "Confirm delete", zh: "確認刪除", zhHans: "确认删除" }) : t({ en: "Delete", zh: "刪除", zhHans: "删除" })}
         </button>
         {isConfirming ? (
           <button
@@ -288,7 +288,7 @@ function AssignmentDeleteButton({
             }}
             className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-600 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200"
           >
-            {t({ en: "Cancel", zh: "取消" })}
+            {t({ en: "Cancel", zh: "取消", zhHans: "取消" })}
           </button>
         ) : null}
       </div>
@@ -312,12 +312,12 @@ function matchesInboxQueue(thread: TeacherInboxThread, filter: TeacherInboxQueue
 }
 
 function parentCategoryLabel(category: NonNullable<TeacherInboxThread["parentCategory"]>) {
-  const labels: Record<NonNullable<TeacherInboxThread["parentCategory"]>, { en: string; zh: string }> = {
-    "learning-support": { en: "Learning support", zh: "學習支援" },
-    homework: { en: "Homework", zh: "家課 / 作業" },
-    wellbeing: { en: "Wellbeing", zh: "身心狀態" },
-    "report-question": { en: "Report question", zh: "報告查詢" },
-    logistics: { en: "Logistics", zh: "行政安排" }
+  const labels: Record<NonNullable<TeacherInboxThread["parentCategory"]>, { en: string; zh: string; zhHans?: string }> = {
+    "learning-support": { en: "Learning support", zh: "學習支援", zhHans: "学习支援" },
+    homework: { en: "Homework", zh: "家課 / 作業", zhHans: "家课 / 作业" },
+    wellbeing: { en: "Wellbeing", zh: "身心狀態", zhHans: "身心状态" },
+    "report-question": { en: "Report question", zh: "報告查詢", zhHans: "报告查询" },
+    logistics: { en: "Logistics", zh: "行政安排", zhHans: "行政安排" }
   };
   return labels[category];
 }
@@ -383,26 +383,26 @@ function InboxOperationPanel({ operation }: { operation: InboxOperation }) {
   const isDraft = operation.type === "draft-ready";
   const statusValue = isReply ? "reply-sent" : isDraft ? "draft-ready" : operation.nextStatus === "resolved" ? "resolved" : "thread-reopened";
   const statusLabel = isReply
-    ? t({ en: "Reply sent", zh: "回覆已發送" })
+    ? t({ en: "Reply sent", zh: "回覆已發送", zhHans: "回复已发送" })
     : isDraft
-      ? t({ en: "Draft ready", zh: "草稿已就緒" })
+      ? t({ en: "Draft ready", zh: "草稿已就緒", zhHans: "草稿已就绪" })
       : operation.nextStatus === "resolved"
-        ? t({ en: "Thread resolved", zh: "對話已解決" })
-        : t({ en: "Thread reopened", zh: "對話已重開" });
+        ? t({ en: "Thread resolved", zh: "對話已解決", zhHans: "对话已解决" })
+        : t({ en: "Thread reopened", zh: "對話已重開", zhHans: "对话已重开" });
   const detail = isReply
-    ? t({ en: "Reply was recorded and the inbox refresh is queued.", zh: "回覆已記錄，收件匣正在刷新。" })
+    ? t({ en: "Reply was recorded and the inbox refresh is queued.", zh: "回覆已記錄，收件匣正在刷新。", zhHans: "回复已记录，收件匣正在刷新。" })
     : isDraft
-      ? t({ en: "Draft text is loaded into the composer for teacher review.", zh: "草稿已載入回覆框，待教師審閱。" })
+      ? t({ en: "Draft text is loaded into the composer for teacher review.", zh: "草稿已載入回覆框，待教師審閱。", zhHans: "草稿已载入回复框，待教师审阅。" })
       : operation.nextStatus === "resolved"
-        ? t({ en: "Follow-up is closed. Keep the thread available for audit.", zh: "跟進已閉環，對話仍可供審計。" })
-        : t({ en: "Thread is back in the open queue for follow-up.", zh: "對話已回到待跟進隊列。" });
+        ? t({ en: "Follow-up is closed. Keep the thread available for audit.", zh: "跟進已閉環，對話仍可供審計。", zhHans: "跟进已闭环，对话仍可供审计。" })
+        : t({ en: "Thread is back in the open queue for follow-up.", zh: "對話已回到待跟進隊列。", zhHans: "对话已回到待跟进队列。" });
 
   return (
     <section className="mt-5 rounded-3xl border border-emerald-300/50 bg-emerald-400/10 p-4">
       <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
-            {t({ en: "Inbox handoff ready", zh: "收件匣交接已就緒" })}
+            {t({ en: "Inbox handoff ready", zh: "收件匣交接已就緒", zhHans: "收件匣交接已就绪" })}
           </p>
           <p className="mt-1 break-words text-base font-black text-slate-950 dark:text-white">{operation.subject}</p>
           <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
@@ -415,24 +415,24 @@ function InboxOperationPanel({ operation }: { operation: InboxOperation }) {
       {operation.type !== "status-updated" ? (
         <div className="mt-3 grid min-w-0 gap-2 sm:grid-cols-2">
           <div className="soft-panel min-w-0 p-3">
-            <p className="break-words text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Reply length", zh: "回覆長度" })}</p>
+            <p className="break-words text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Reply length", zh: "回覆長度", zhHans: "回复长度" })}</p>
             <p className="mt-2 text-xl font-black text-slate-950 dark:text-white">{operation.bodyLength}</p>
           </div>
           <div className="soft-panel min-w-0 p-3">
-            <p className="break-words text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Audit path", zh: "審計路徑" })}</p>
+            <p className="break-words text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Audit path", zh: "審計路徑", zhHans: "审计路径" })}</p>
             <p className="mt-2 break-words text-sm font-black text-slate-950 dark:text-white">{operation.threadId}</p>
           </div>
         </div>
       ) : null}
       <div className="mt-4 flex min-w-0 flex-wrap gap-2">
         <a href={`#${inboxThreadAnchorId(operation.threadId)}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-          {t({ en: "Open thread", zh: "打開對話" })}
+          {t({ en: "Open thread", zh: "打開對話", zhHans: "打开对话" })}
         </a>
         <a href="#inbox-composer" className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
-          {t({ en: "Composer", zh: "回覆框" })}
+          {t({ en: "Composer", zh: "回覆框", zhHans: "回复框" })}
         </a>
         <Link href={`/teacher/students/${encodeURIComponent(operation.studentId)}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-          {t({ en: "Student profile", zh: "學生檔案" })}
+          {t({ en: "Student profile", zh: "學生檔案", zhHans: "学生档案" })}
         </Link>
       </div>
     </section>
@@ -442,7 +442,7 @@ function InboxOperationPanel({ operation }: { operation: InboxOperation }) {
 function StudentRiskTags({ student }: { student: TeacherClassStudentSummary }) {
   const { text, t } = useSettings();
   if (!student.riskTags.length) {
-    return <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-700 dark:text-emerald-100">{t({ en: "On track", zh: "穩定" })}</span>;
+    return <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-xs font-black text-emerald-700 dark:text-emerald-100">{t({ en: "On track", zh: "穩定", zhHans: "稳定" })}</span>;
   }
 
   return (
@@ -459,9 +459,9 @@ function StudentRiskTags({ student }: { student: TeacherClassStudentSummary }) {
 const classAiTutorModes: ClassAiTutorMode[] = ["open", "limited", "fallback-only"];
 
 function aiTutorPolicyModeLabel(mode: ClassAiTutorMode) {
-  if (mode === "open") return { en: "Open", zh: "開放" };
-  if (mode === "limited") return { en: "Limited", zh: "限流" };
-  return { en: "Fallback", zh: "本機提示" };
+  if (mode === "open") return { en: "Open", zh: "開放", zhHans: "开放" };
+  if (mode === "limited") return { en: "Limited", zh: "限流", zhHans: "限流" };
+  return { en: "Fallback", zh: "本機提示", zhHans: "本机提示" };
 }
 
 function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
@@ -484,7 +484,7 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
       } | null;
       if (cancelled) return;
       if (!response.ok || !payload?.policy) {
-        setMessage(t({ en: "AI Tutor policy unavailable.", zh: "暫時未能讀取 AI Tutor 設定。" }));
+        setMessage(t({ en: "AI Tutor policy unavailable.", zh: "暫時未能讀取 AI Tutor 設定。", zhHans: "暂时未能读取 AI Tutor 设定。" }));
         return;
       }
       setPolicy(payload.policy);
@@ -515,11 +515,11 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
     const payload = await response.json().catch(() => null) as { policy?: ClassAiTutorPolicy } | null;
     setIsSaving(false);
     if (!response.ok || !payload?.policy) {
-      setMessage(t({ en: "Could not update class AI.", zh: "未能更新班級 AI 設定。" }));
+      setMessage(t({ en: "Could not update class AI.", zh: "未能更新班級 AI 設定。", zhHans: "未能更新班级 AI 设定。" }));
       return;
     }
     setPolicy(payload.policy);
-    setMessage(t({ en: "Class AI updated.", zh: "班級 AI 設定已更新。" }));
+    setMessage(t({ en: "Class AI updated.", zh: "班級 AI 設定已更新。", zhHans: "班级 AI 设定已更新。" }));
   }
 
   const liveMode = policy?.mode !== "fallback-only";
@@ -530,11 +530,11 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-700 dark:text-cyan-200">AI Tutor</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Class AI", zh: "班級 AI" })}</h2>
+          <h2 className="mt-2 text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Class AI", zh: "班級 AI", zhHans: "班级 AI" })}</h2>
           <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
             {policy
               ? `${t(aiTutorPolicyModeLabel(policy.mode))} · ${policy.perStudentMinuteLimit}/min · ${policy.perStudentHourLimit}/hour`
-              : t({ en: "Loading", zh: "載入中" })}
+              : t({ en: "Loading", zh: "載入中", zhHans: "载入中" })}
           </p>
         </div>
         <button
@@ -548,7 +548,7 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
               : "bg-emerald-600 text-white shadow-sm hover:bg-emerald-700"
           )}
         >
-          {liveMode ? t({ en: "Pause", zh: "暫停" }) : t({ en: "Live", zh: "啟用" })}
+          {liveMode ? t({ en: "Pause", zh: "暫停", zhHans: "暂停" }) : t({ en: "Live", zh: "啟用", zhHans: "启用" })}
         </button>
       </div>
 
@@ -572,7 +572,7 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
           ))}
         </div>
         <label className="grid gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-          {t({ en: "Per minute", zh: "每分鐘" })}
+          {t({ en: "Per minute", zh: "每分鐘", zhHans: "每分钟" })}
           <input
             type="number"
             min={1}
@@ -589,7 +589,7 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
           />
         </label>
         <label className="grid gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-          {t({ en: "Per hour", zh: "每小時" })}
+          {t({ en: "Per hour", zh: "每小時", zhHans: "每小时" })}
           <input
             type="number"
             min={5}
@@ -607,7 +607,7 @@ function TeacherClassAiTutorPolicyPanel({ classId }: { classId: string }) {
         </label>
       </div>
       {message ? <p className="mt-3 text-sm font-bold text-slate-600 dark:text-slate-300" role="status">{message}</p> : null}
-      {!canEdit && policy ? <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Read only", zh: "只讀" })}</p> : null}
+      {!canEdit && policy ? <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Read only", zh: "只讀", zhHans: "只读" })}</p> : null}
     </section>
   );
 }
@@ -650,7 +650,7 @@ export function TeacherClassesManager({ classes }: { classes: TeacherClass[] }) 
         return;
       }
       if (!response.ok || !payload?.class) {
-        setError(t({ en: "Could not create the class yet.", zh: "暫時未能建立班級。" }));
+        setError(t({ en: "Could not create the class yet.", zh: "暫時未能建立班級。", zhHans: "暂时未能建立班级。" }));
         return;
       }
       setCreatedClass(payload.class);
@@ -670,29 +670,29 @@ export function TeacherClassesManager({ classes }: { classes: TeacherClass[] }) 
   return (
     <div className="grid gap-6">
       <section className="glass-panel p-5 sm:p-6">
-        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classes", zh: "班級" })}</p>
-        <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Class and student management", zh: "班級與學生管理" })}</h1>
+        <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Classes", zh: "班級", zhHans: "班级" })}</p>
+        <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Class and student management", zh: "班級與學生管理", zhHans: "班级与学生管理" })}</h1>
         <form onSubmit={handleCreate} className="mt-6 grid gap-4 lg:grid-cols-[minmax(180px,1.2fr)_120px_180px_minmax(220px,1fr)_auto] lg:items-end">
           <label className="grid gap-2">
-            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Class name", zh: "班級名稱" })}</span>
+            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Class name", zh: "班級名稱", zhHans: "班级名称" })}</span>
             <input name="name" required className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <label className="grid gap-2">
-            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Grade", zh: "年級" })}</span>
+            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Grade", zh: "年級", zhHans: "年级" })}</span>
             <select name="grade" defaultValue="S3" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]">
               {grades.map((grade) => <option key={grade} value={grade}>{formatGradeLabel(grade, language, true)}</option>)}
             </select>
           </label>
           <label className="grid gap-2">
-            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Academic year", zh: "學年" })}</span>
+            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Academic year", zh: "學年", zhHans: "学年" })}</span>
             <input name="academicYear" required defaultValue="2025-2026" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <label className="grid gap-2">
-            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Notes", zh: "備註" })}</span>
+            <span className="whitespace-nowrap text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Notes", zh: "備註", zhHans: "备注" })}</span>
             <input name="description" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <button disabled={isSaving} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950" type="submit">
-            {isSaving ? t({ en: "Creating", zh: "建立中" }) : t({ en: "Create", zh: "建立" })}
+            {isSaving ? t({ en: "Creating", zh: "建立中", zhHans: "建立中" }) : t({ en: "Create", zh: "建立", zhHans: "建立" })}
           </button>
         </form>
         {error ? <p className="mt-3 text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
@@ -700,24 +700,24 @@ export function TeacherClassesManager({ classes }: { classes: TeacherClass[] }) 
           <div className="mt-5 rounded-3xl border border-cyan-300/45 bg-cyan-400/10 p-4">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Class ready", zh: "班級已建立" })}</p>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Class ready", zh: "班級已建立", zhHans: "班级已建立" })}</p>
                 <h2 className="mt-2 break-words text-xl font-black text-slate-950 dark:text-white">{createdClass.name}</h2>
                 <p className="mt-1 break-words text-sm font-bold text-slate-600 dark:text-slate-300">
-                  {formatGradeLabel(createdClass.grade, language, true)} · {createdClass.academicYear} · {t({ en: "Invite code", zh: "邀請碼" })} {createdClass.inviteCode}
+                  {formatGradeLabel(createdClass.grade, language, true)} · {createdClass.academicYear} · {t({ en: "Invite code", zh: "邀請碼", zhHans: "邀请码" })} {createdClass.inviteCode}
                 </p>
               </div>
               <div className="grid w-full min-w-0 gap-2 sm:w-auto sm:grid-cols-2 xl:grid-cols-4">
                 <Link href={`/teacher/classes/${encodeURIComponent(createdClass.id)}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-center text-sm font-black text-white dark:bg-white dark:text-slate-950">
-                  {t({ en: "Open class", zh: "打開班級" })}
+                  {t({ en: "Open class", zh: "打開班級", zhHans: "打开班级" })}
                 </Link>
                 <Link href={`/teacher/operations/roster?classId=${encodeURIComponent(createdClass.id)}`} className="focus-ring rounded-full border border-cyan-300/60 bg-white/75 px-4 py-2 text-center text-sm font-black text-cyan-800 dark:border-cyan-200/30 dark:bg-white/[0.07] dark:text-cyan-100">
-                  {t({ en: "Import roster", zh: "導入花名冊" })}
+                  {t({ en: "Import roster", zh: "導入花名冊", zhHans: "导入花名册" })}
                 </Link>
                 <Link href={`/teacher/assignments?classId=${encodeURIComponent(createdClass.id)}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-                  {t({ en: "Assignment queue", zh: "作業隊列" })}
+                  {t({ en: "Assignment queue", zh: "作業隊列", zhHans: "作业队列" })}
                 </Link>
                 <Link href={`/teacher/classroom-sessions?classId=${encodeURIComponent(createdClass.id)}`} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-center text-sm font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-                  {t({ en: "Start class", zh: "開始課堂" })}
+                  {t({ en: "Start class", zh: "開始課堂", zhHans: "开始课堂" })}
                 </Link>
               </div>
             </div>
@@ -734,11 +734,11 @@ export function TeacherClassesManager({ classes }: { classes: TeacherClass[] }) 
                 <p className="mt-1 text-sm font-bold text-cyan-700 dark:text-cyan-200">{formatGradeLabel(teacherClass.grade, language, true)} · {teacherClass.academicYear}</p>
               </div>
               <span className="rounded-full border border-slate-200/80 bg-white/75 px-3 py-1 text-xs font-black dark:border-white/10 dark:bg-white/[0.07]">
-                {teacherClass.studentCount} {t({ en: "students", zh: "學生" })}
+                {teacherClass.studentCount} {t({ en: "students", zh: "學生", zhHans: "学生" })}
               </span>
             </div>
             <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{text(teacherClass.description)}</p>
-            <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Invite", zh: "邀請碼" })}: {teacherClass.inviteCode}</p>
+            <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Invite", zh: "邀請碼", zhHans: "邀请码" })}: {teacherClass.inviteCode}</p>
           </Link>
         ))}
       </section>
@@ -768,7 +768,7 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
     });
     const payload = await response.json().catch(() => null) as { detail?: TeacherClassDetailData | null } | null;
     if (!response.ok) {
-      setMessage(t({ en: "Could not add that student. Check the username and class membership.", zh: "未能加入該學生，請檢查用戶名稱或是否已在班內。" }));
+      setMessage(t({ en: "Could not add that student. Check the username and class membership.", zh: "未能加入該學生，請檢查用戶名稱或是否已在班內。", zhHans: "未能加入该学生，请检查用户名或是否已在班内。" }));
       return;
     }
     if (payload?.detail) setCurrentDetail(payload.detail);
@@ -779,21 +779,21 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
   return (
     <div className="grid gap-6">
       <section className="glass-panel p-5 sm:p-6">
-        <Link href="/teacher/classes" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to classes", zh: "返回班級" })}</Link>
+        <Link href="/teacher/classes" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to classes", zh: "返回班級", zhHans: "返回班级" })}</Link>
         <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{formatGradeLabel(currentDetail.class.grade, language, true)}</p>
             <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{currentDetail.class.name}</h1>
-            <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{currentDetail.class.academicYear} · {currentDetail.class.studentCount} {t({ en: "students", zh: "學生" })}</p>
+            <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{currentDetail.class.academicYear} · {currentDetail.class.studentCount} {t({ en: "students", zh: "學生", zhHans: "学生" })}</p>
           </div>
           <div className="rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Invite code", zh: "邀請碼" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Invite code", zh: "邀請碼", zhHans: "邀请码" })}</p>
             <p className="mt-1 text-2xl font-black text-slate-950 dark:text-white">{currentDetail.class.inviteCode}</p>
           </div>
         </div>
         <form onSubmit={handleAdd} className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <input name="username" required placeholder={t({ en: "Student username, e.g. HK Student Peter", zh: "學生用戶名稱，例如 HK Student Peter" })} className="focus-ring min-h-11 flex-1 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
-          <button className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Add student", zh: "加入學生" })}</button>
+          <input name="username" required placeholder={t({ en: "Student username, e.g. HK Student Peter", zh: "學生用戶名稱，例如 HK Student Peter", zhHans: "学生用户名，例如 HK Student Peter" })} className="focus-ring min-h-11 flex-1 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+          <button className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Add student", zh: "加入學生", zhHans: "加入学生" })}</button>
         </form>
         {message ? <p className="mt-3 text-sm font-bold text-amber-700 dark:text-amber-100">{message}</p> : null}
       </section>
@@ -805,16 +805,16 @@ export function TeacherClassDetailView({ detail }: { detail: TeacherClassDetailD
       <TeacherClassLearningPathsPanel detail={currentDetail} />
 
       <section className="glass-panel overflow-hidden p-5 sm:p-6">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student roster", zh: "學生名單" })}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Student roster", zh: "學生名單", zhHans: "学生名单" })}</h2>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead className="text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="py-3 pr-4">{t({ en: "Student", zh: "學生" })}</th>
-                <th className="py-3 pr-4">{t({ en: "Recent activity", zh: "最近活躍" })}</th>
-                <th className="py-3 pr-4">{t({ en: "Avg mastery", zh: "平均掌握" })}</th>
-                <th className="py-3 pr-4">{t({ en: "Assignment completion", zh: "作業完成" })}</th>
-                <th className="py-3">{t({ en: "Risk tags", zh: "風險標籤" })}</th>
+                <th className="py-3 pr-4">{t({ en: "Student", zh: "學生", zhHans: "学生" })}</th>
+                <th className="py-3 pr-4">{t({ en: "Recent activity", zh: "最近活躍", zhHans: "最近活跃" })}</th>
+                <th className="py-3 pr-4">{t({ en: "Avg mastery", zh: "平均掌握", zhHans: "平均掌握" })}</th>
+                <th className="py-3 pr-4">{t({ en: "Assignment completion", zh: "作業完成", zhHans: "作业完成" })}</th>
+                <th className="py-3">{t({ en: "Risk tags", zh: "風險標籤", zhHans: "风险标签" })}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200/80 dark:divide-white/10">
@@ -883,9 +883,9 @@ function StudentAiTutorTranscriptPanel({
   return (
     <div className="glass-panel p-5">
       <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Messages and AI Tutor", zh: "私信與 AI Tutor", zhHans: "私信与 AI Tutor" })}</h2>
-      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{messageThreadCount} {t({ en: "teacher message threads", zh: "個教師私信串" })}</p>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t({ en: "Last AI message", zh: "最近 AI 訊息" })}: {formatDate(lastMessageAt, language)}</p>
-      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{messageCount7d} {t({ en: "AI Tutor messages in the last 7 days", zh: "過去 7 日 AI Tutor 訊息" })}</p>
+      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{messageThreadCount} {t({ en: "teacher message threads", zh: "個教師私信串", zhHans: "个教师私信串" })}</p>
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{t({ en: "Last AI message", zh: "最近 AI 訊息", zhHans: "最近 AI 讯息" })}: {formatDate(lastMessageAt, language)}</p>
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{messageCount7d} {t({ en: "AI Tutor messages in the last 7 days", zh: "過去 7 日 AI Tutor 訊息", zhHans: "过去 7 日 AI Tutor 讯息" })}</p>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {showRevealButton ? (
@@ -895,8 +895,8 @@ function StudentAiTutorTranscriptPanel({
             className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950"
           >
             {status === "error"
-              ? t({ en: "Try again", zh: "重試" })
-              : t({ en: "View AI Tutor conversation", zh: "查看 AI Tutor 對話" })}
+              ? t({ en: "Try again", zh: "重試", zhHans: "重试" })
+              : t({ en: "View AI Tutor conversation", zh: "查看 AI Tutor 對話", zhHans: "查看 AI Tutor 对话" })}
           </button>
         ) : null}
         {status === "loaded" && !collapsed ? (
@@ -905,20 +905,20 @@ function StudentAiTutorTranscriptPanel({
             onClick={() => setCollapsed(true)}
             className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
           >
-            {t({ en: "Hide conversation", zh: "隱藏對話" })}
+            {t({ en: "Hide conversation", zh: "隱藏對話", zhHans: "隐藏对话" })}
           </button>
         ) : null}
       </div>
 
       <p className="mt-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        {t({ en: "Opening a student's AI Tutor conversation is recorded in the AI governance log.", zh: "開啟學生的 AI Tutor 對話會記錄在 AI 治理紀錄中。" })}
+        {t({ en: "Opening a student's AI Tutor conversation is recorded in the AI governance log.", zh: "開啟學生的 AI Tutor 對話會記錄在 AI 治理紀錄中。", zhHans: "开启学生的 AI Tutor 对话会记录在 AI 治理纪录中。" })}
       </p>
 
       {status === "loading" ? (
-        <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading conversation…", zh: "正在載入對話…" })}</p>
+        <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Loading conversation…", zh: "正在載入對話…", zhHans: "正在载入对话…" })}</p>
       ) : null}
       {status === "error" ? (
-        <p className="mt-4 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not load this conversation yet.", zh: "暫時未能載入此對話。" })}</p>
+        <p className="mt-4 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not load this conversation yet.", zh: "暫時未能載入此對話。", zhHans: "暂时未能载入此对话。" })}</p>
       ) : null}
       {status === "loaded" && !collapsed ? (
         messages.length ? (
@@ -937,7 +937,7 @@ function StudentAiTutorTranscriptPanel({
                   >
                     <div className="flex items-center justify-between gap-3">
                       <span className={cn("text-[11px] font-black uppercase tracking-[0.12em]", isTutor ? "text-cyan-700 dark:text-cyan-200" : "text-slate-500 dark:text-slate-400")}>
-                        {isTutor ? t({ en: "AI Tutor", zh: "AI Tutor" }) : t({ en: "Student", zh: "學生" })}
+                        {isTutor ? t({ en: "AI Tutor", zh: "AI Tutor", zhHans: "AI Tutor" }) : t({ en: "Student", zh: "學生", zhHans: "学生" })}
                       </span>
                       <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{formatDate(message.createdAt, language)}</span>
                     </div>
@@ -948,7 +948,7 @@ function StudentAiTutorTranscriptPanel({
             })}
           </div>
         ) : (
-          <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No AI Tutor messages yet.", zh: "尚未有 AI Tutor 訊息。" })}</p>
+          <p className="mt-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No AI Tutor messages yet.", zh: "尚未有 AI Tutor 訊息。", zhHans: "尚未有 AI Tutor 讯息。" })}</p>
         )
       ) : null}
     </div>
@@ -957,11 +957,11 @@ function StudentAiTutorTranscriptPanel({
 
 const groupTierOrder: TeacherStudentGroupTier[] = ["support", "core", "stretch", "custom"];
 
-const groupTierLabels: Record<TeacherStudentGroupTier, { en: string; zh: string }> = {
-  support: { en: "Support", zh: "補底" },
-  core: { en: "Core", zh: "核心" },
-  stretch: { en: "Stretch", zh: "拔尖" },
-  custom: { en: "Custom", zh: "自訂" }
+const groupTierLabels: Record<TeacherStudentGroupTier, { en: string; zh: string; zhHans?: string }> = {
+  support: { en: "Support", zh: "補底", zhHans: "补底" },
+  core: { en: "Core", zh: "核心", zhHans: "核心" },
+  stretch: { en: "Stretch", zh: "拔尖", zhHans: "拔尖" },
+  custom: { en: "Custom", zh: "自訂", zhHans: "自订" }
 };
 
 const groupColorBadgeClasses: Record<string, string> = {
@@ -1018,7 +1018,7 @@ function TeacherClassGroupCard({
     setBusy(false);
     const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
     if (!response.ok || !payload?.group) {
-      setError(t({ en: "Could not update members.", zh: "未能更新成員。" }));
+      setError(t({ en: "Could not update members.", zh: "未能更新成員。", zhHans: "未能更新成员。" }));
       return;
     }
     onChange(payload.group);
@@ -1027,7 +1027,7 @@ function TeacherClassGroupCard({
 
   const saveGoal = async () => {
     if (!goalTopicId) {
-      setError(t({ en: "Pick a topic for the goal.", zh: "請選擇目標課題。" }));
+      setError(t({ en: "Pick a topic for the goal.", zh: "請選擇目標課題。", zhHans: "请选择目标课题。" }));
       return;
     }
     setBusy(true);
@@ -1043,7 +1043,7 @@ function TeacherClassGroupCard({
     setBusy(false);
     const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
     if (!response.ok || !payload?.group) {
-      setError(t({ en: "Could not save the goal.", zh: "未能儲存目標。" }));
+      setError(t({ en: "Could not save the goal.", zh: "未能儲存目標。", zhHans: "未能储存目标。" }));
       return;
     }
     onChange(payload.group);
@@ -1060,7 +1060,7 @@ function TeacherClassGroupCard({
     setBusy(false);
     const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
     if (!response.ok || !payload?.group) {
-      setError(t({ en: "Could not clear the goal.", zh: "未能清除目標。" }));
+      setError(t({ en: "Could not clear the goal.", zh: "未能清除目標。", zhHans: "未能清除目标。" }));
       return;
     }
     onChange(payload.group);
@@ -1075,7 +1075,7 @@ function TeacherClassGroupCard({
     });
     setBusy(false);
     if (!response.ok) {
-      setError(t({ en: "Could not delete this group.", zh: "未能刪除此小組。" }));
+      setError(t({ en: "Could not delete this group.", zh: "未能刪除此小組。", zhHans: "未能删除此小组。" }));
       return;
     }
     onRemove(group.id);
@@ -1095,35 +1095,35 @@ function TeacherClassGroupCard({
               {t(groupTierLabels[group.tier])}
             </span>
             <p className="break-words text-base font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{group.name}</p>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{group.studentCount} {t({ en: "students", zh: "學生" })}</span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{group.studentCount} {t({ en: "students", zh: "學生", zhHans: "学生" })}</span>
           </div>
           {group.memberNames.length ? (
             <p className="mt-2 break-words text-sm font-semibold text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">
               {group.memberNames.slice(0, 8).join(", ")}{group.memberNames.length > 8 ? ` +${group.memberNames.length - 8}` : ""}
             </p>
           ) : (
-            <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "No students yet — add members.", zh: "尚未有學生，請加入成員。" })}</p>
+            <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "No students yet — add members.", zh: "尚未有學生，請加入成員。", zhHans: "尚未有学生，请加入成员。" })}</p>
           )}
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href={assignHref} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-            {t({ en: "Assign work", zh: "指派作業" })}
+            {t({ en: "Assign work", zh: "指派作業", zhHans: "指派作业" })}
           </Link>
           <button type="button" onClick={() => { setEditingMembers((value) => !value); setEditingGoal(false); setSelectedMemberIds(group.memberStudentIds); }} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-            {t({ en: "Members", zh: "成員" })}
+            {t({ en: "Members", zh: "成員", zhHans: "成员" })}
           </button>
           <button type="button" onClick={() => { setEditingGoal((value) => !value); setEditingMembers(false); }} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-            {t({ en: "Goal", zh: "目標" })}
+            {t({ en: "Goal", zh: "目標", zhHans: "目标" })}
           </button>
           <button type="button" onClick={removeGroup} disabled={busy} className="focus-ring rounded-full border border-rose-300/60 bg-rose-400/10 px-4 py-2 text-xs font-black text-rose-700 disabled:opacity-50 dark:text-rose-200">
-            {t({ en: "Delete", zh: "刪除" })}
+            {t({ en: "Delete", zh: "刪除", zhHans: "删除" })}
           </button>
         </div>
       </div>
 
       {group.masteryTarget && goalTopicTitle ? (
         <p className="mt-3 rounded-xl border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 text-xs font-black text-cyan-800 dark:text-cyan-200">
-          {t({ en: "Goal", zh: "目標" })}: {text(goalTopicTitle)} → {group.masteryTarget.mastery}%
+          {t({ en: "Goal", zh: "目標", zhHans: "目标" })}: {text(goalTopicTitle)} → {group.masteryTarget.mastery}%
         </p>
       ) : null}
 
@@ -1138,8 +1138,8 @@ function TeacherClassGroupCard({
             ))}
           </div>
           <div className="flex gap-2">
-            <button type="button" onClick={saveMembers} disabled={busy} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save members", zh: "儲存成員" })}</button>
-            <button type="button" onClick={() => setEditingMembers(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消" })}</button>
+            <button type="button" onClick={saveMembers} disabled={busy} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save members", zh: "儲存成員", zhHans: "储存成员" })}</button>
+            <button type="button" onClick={() => setEditingMembers(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消", zhHans: "取消" })}</button>
           </div>
         </div>
       ) : null}
@@ -1149,27 +1149,27 @@ function TeacherClassGroupCard({
           {topicOptions.length ? (
             <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_120px]">
               <label className="grid gap-1 text-xs font-black">
-                <span>{t({ en: "Topic", zh: "課題" })}</span>
+                <span>{t({ en: "Topic", zh: "課題", zhHans: "课题" })}</span>
                 <select value={goalTopicId} onChange={(event) => setGoalTopicId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                   {topicOptions.map((option) => <option key={option.id} value={option.id}>{text(option.title)}</option>)}
                 </select>
               </label>
               <label className="grid gap-1 text-xs font-black">
-                <span>{t({ en: "Target %", zh: "目標 %" })}</span>
+                <span>{t({ en: "Target %", zh: "目標 %", zhHans: "目标 %" })}</span>
                 <input type="number" min={0} max={100} value={goalMastery} onChange={(event) => setGoalMastery(Number(event.target.value))} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]" />
               </label>
             </div>
           ) : (
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "No class topics available for a goal yet.", zh: "此班級暫無可設定目標的課題。" })}</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "No class topics available for a goal yet.", zh: "此班級暫無可設定目標的課題。", zhHans: "此班级暂无可设定目标的课题。" })}</p>
           )}
           <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={saveGoal} disabled={busy || !topicOptions.length} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save goal", zh: "儲存目標" })}</button>
+            <button type="button" onClick={saveGoal} disabled={busy || !topicOptions.length} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{t({ en: "Save goal", zh: "儲存目標", zhHans: "储存目标" })}</button>
             {group.masteryTarget ? (
-              <button type="button" onClick={clearGoal} disabled={busy} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Clear goal", zh: "清除目標" })}</button>
+              <button type="button" onClick={clearGoal} disabled={busy} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Clear goal", zh: "清除目標", zhHans: "清除目标" })}</button>
             ) : null}
-            <button type="button" onClick={() => setEditingGoal(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消" })}</button>
+            <button type="button" onClick={() => setEditingGoal(false)} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "Cancel", zh: "取消", zhHans: "取消" })}</button>
           </div>
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Setting a goal applies this mastery target to every group member.", zh: "設定目標會為每位組員套用此掌握目標。" })}</p>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Setting a goal applies this mastery target to every group member.", zh: "設定目標會為每位組員套用此掌握目標。", zhHans: "设定目标会为每位组员套用此掌握目标。" })}</p>
         </div>
       ) : null}
 
@@ -1209,7 +1209,7 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
   const createGroup = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!name.trim()) {
-      setError(t({ en: "Name your group.", zh: "請為小組命名。" }));
+      setError(t({ en: "Name your group.", zh: "請為小組命名。", zhHans: "请为小组命名。" }));
       return;
     }
     setBusy(true);
@@ -1222,7 +1222,7 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
     setBusy(false);
     const payload = await response.json().catch(() => null) as { group?: TeacherStudentGroup } | null;
     if (!response.ok || !payload?.group) {
-      setError(t({ en: "Could not create this group.", zh: "未能建立此小組。" }));
+      setError(t({ en: "Could not create this group.", zh: "未能建立此小組。", zhHans: "未能建立此小组。" }));
       return;
     }
     setGroups((current) => [...current, payload.group as TeacherStudentGroup]);
@@ -1243,20 +1243,20 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
     <section className="glass-panel p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Small groups", zh: "分層小組" })}</h2>
-          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Group students by readiness, then assign differentiated work or a shared goal.", zh: "按程度分組，再指派差異化作業或共同目標。" })}</p>
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Small groups", zh: "分層小組", zhHans: "分层小组" })}</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Group students by readiness, then assign differentiated work or a shared goal.", zh: "按程度分組，再指派差異化作業或共同目標。", zhHans: "按程度分组，再指派差异化作业或共同目标。" })}</p>
         </div>
-        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{groups.length} {t({ en: "groups", zh: "小組" })}</span>
+        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{groups.length} {t({ en: "groups", zh: "小組", zhHans: "小组" })}</span>
       </div>
 
       <form onSubmit={createGroup} className="mt-5 grid gap-3 rounded-2xl border border-slate-200/70 bg-white/50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
         <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_160px]">
           <label className="grid gap-1 text-sm font-black">
-            <span>{t({ en: "Group name", zh: "小組名稱" })}</span>
-            <input value={name} onChange={(event) => setName(event.target.value)} placeholder={t({ en: "e.g. Fractions support", zh: "例如：分數補底組" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+            <span>{t({ en: "Group name", zh: "小組名稱", zhHans: "小组名称" })}</span>
+            <input value={name} onChange={(event) => setName(event.target.value)} placeholder={t({ en: "e.g. Fractions support", zh: "例如：分數補底組", zhHans: "例如：分数补底组" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <label className="grid gap-1 text-sm font-black">
-            <span>{t({ en: "Tier", zh: "層級" })}</span>
+            <span>{t({ en: "Tier", zh: "層級", zhHans: "层级" })}</span>
             <select value={tier} onChange={(event) => setTier(event.target.value as TeacherStudentGroupTier)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {groupTierOrder.map((tierOption) => <option key={tierOption} value={tierOption}>{t(groupTierLabels[tierOption])}</option>)}
             </select>
@@ -1264,7 +1264,7 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
         </div>
         {detail.students.length ? (
           <div className="grid gap-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Members", zh: "成員" })} ({memberIds.length})</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Members", zh: "成員", zhHans: "成员" })} ({memberIds.length})</span>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {detail.students.map((student) => (
                 <label key={student.studentId} className="soft-panel flex items-center gap-2 p-2 text-xs font-bold">
@@ -1275,10 +1275,10 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
             </div>
           </div>
         ) : (
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Add students to the class first.", zh: "請先為班級加入學生。" })}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "Add students to the class first.", zh: "請先為班級加入學生。", zhHans: "请先为班级加入学生。" })}</p>
         )}
         <div className="flex flex-wrap items-center gap-3">
-          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中..." }) : t({ en: "Create group", zh: "建立小組" })}</button>
+          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中...", zhHans: "建立中..." }) : t({ en: "Create group", zh: "建立小組", zhHans: "建立小组" })}</button>
           {error ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
         </div>
       </form>
@@ -1297,7 +1297,7 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
             />
           ))
         ) : (
-          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No groups yet. Create a small group to differentiate work.", zh: "尚未有小組。建立分層小組以差異化教學。" })}</p>
+          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No groups yet. Create a small group to differentiate work.", zh: "尚未有小組。建立分層小組以差異化教學。", zhHans: "尚未有小组。建立分层小组以差异化教学。" })}</p>
         )}
       </div>
     </section>
@@ -1306,12 +1306,12 @@ function TeacherClassGroupsPanel({ detail }: { detail: TeacherClassDetailData })
 
 const learningPathStepKindOrder: LearningPathStepKind[] = ["lesson", "practice", "assessment", "visualization", "resource"];
 
-const learningPathStepKindLabels: Record<LearningPathStepKind, { en: string; zh: string }> = {
-  lesson: { en: "Lesson", zh: "課堂" },
-  practice: { en: "Practice", zh: "練習" },
-  assessment: { en: "Assessment", zh: "測驗" },
-  visualization: { en: "Visualization", zh: "視覺化" },
-  resource: { en: "Resource", zh: "資源" }
+const learningPathStepKindLabels: Record<LearningPathStepKind, { en: string; zh: string; zhHans?: string }> = {
+  lesson: { en: "Lesson", zh: "課堂", zhHans: "课堂" },
+  practice: { en: "Practice", zh: "練習", zhHans: "练习" },
+  assessment: { en: "Assessment", zh: "測驗", zhHans: "测验" },
+  visualization: { en: "Visualization", zh: "視覺化", zhHans: "可视化" },
+  resource: { en: "Resource", zh: "資源", zhHans: "资源" }
 };
 
 type LearningPathStepDraft = { kind: LearningPathStepKind; targetId: string; title: string };
@@ -1339,7 +1339,7 @@ function TeacherLearningPathCard({
     });
     setBusy(false);
     if (!response.ok) {
-      setError(t({ en: "Could not delete this path.", zh: "未能刪除此路徑。" }));
+      setError(t({ en: "Could not delete this path.", zh: "未能刪除此路徑。", zhHans: "未能删除此路径。" }));
       return;
     }
     onRemove(path.id);
@@ -1351,11 +1351,11 @@ function TeacherLearningPathCard({
         <div className="min-w-0">
           <p className="break-words text-base font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{path.title}</p>
           <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">
-            {path.steps.length} {t({ en: "steps", zh: "步驟" })} · {path.groupName ? `${t({ en: "Group", zh: "小組" })}: ${path.groupName}` : t({ en: "Whole class", zh: "全班" })} · {path.assignedCount} {t({ en: "students", zh: "學生" })}
+            {path.steps.length} {t({ en: "steps", zh: "步驟", zhHans: "步骤" })} · {path.groupName ? `${t({ en: "Group", zh: "小組", zhHans: "小组" })}: ${path.groupName}` : t({ en: "Whole class", zh: "全班", zhHans: "全班" })} · {path.assignedCount} {t({ en: "students", zh: "學生", zhHans: "学生" })}
           </p>
         </div>
         <button type="button" onClick={removePath} disabled={busy} className="focus-ring rounded-full border border-rose-300/60 bg-rose-400/10 px-4 py-2 text-xs font-black text-rose-700 disabled:opacity-50 dark:text-rose-200">
-          {t({ en: "Delete", zh: "刪除" })}
+          {t({ en: "Delete", zh: "刪除", zhHans: "删除" })}
         </button>
       </div>
       {path.description ? <p className="mt-2 break-words text-sm font-semibold text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">{path.description}</p> : null}
@@ -1369,8 +1369,8 @@ function TeacherLearningPathCard({
         ))}
       </ol>
       <div className="mt-3 flex flex-wrap gap-3 text-xs font-black">
-        <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-emerald-700 dark:text-emerald-200">{path.completedCount}/{path.assignedCount} {t({ en: "finished", zh: "已完成" })}</span>
-        <span className="rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Avg steps done", zh: "平均完成步驟" })}: {path.averageStepsCompleted}/{path.steps.length}</span>
+        <span className="rounded-full border border-emerald-300/50 bg-emerald-400/10 px-3 py-1 text-emerald-700 dark:text-emerald-200">{path.completedCount}/{path.assignedCount} {t({ en: "finished", zh: "已完成", zhHans: "已完成" })}</span>
+        <span className="rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Avg steps done", zh: "平均完成步驟", zhHans: "平均完成步骤" })}: {path.averageStepsCompleted}/{path.steps.length}</span>
       </div>
       {error ? <p className="mt-2 text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
     </article>
@@ -1403,11 +1403,11 @@ function TeacherClassLearningPathsPanel({ detail }: { detail: TeacherClassDetail
       .map((step) => ({ ...step, title: step.title.trim(), targetId: step.targetId.trim() }))
       .filter((step) => step.title || step.targetId);
     if (!title.trim()) {
-      setError(t({ en: "Name your path.", zh: "請為路徑命名。" }));
+      setError(t({ en: "Name your path.", zh: "請為路徑命名。", zhHans: "请为路径命名。" }));
       return;
     }
     if (!cleanSteps.length) {
-      setError(t({ en: "Add at least one step.", zh: "請至少加入一個步驟。" }));
+      setError(t({ en: "Add at least one step.", zh: "請至少加入一個步驟。", zhHans: "请至少加入一个步骤。" }));
       return;
     }
     setBusy(true);
@@ -1425,7 +1425,7 @@ function TeacherClassLearningPathsPanel({ detail }: { detail: TeacherClassDetail
     setBusy(false);
     const payload = await response.json().catch(() => null) as { path?: TeacherLearningPath } | null;
     if (!response.ok || !payload?.path) {
-      setError(t({ en: "Could not create this path.", zh: "未能建立此路徑。" }));
+      setError(t({ en: "Could not create this path.", zh: "未能建立此路徑。", zhHans: "未能建立此路径。" }));
       return;
     }
     setPaths((current) => [payload.path as TeacherLearningPath, ...current]);
@@ -1441,46 +1441,46 @@ function TeacherClassLearningPathsPanel({ detail }: { detail: TeacherClassDetail
     <section className="glass-panel p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Learning paths", zh: "學習路徑" })}</h2>
-          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Build an ordered sequence of steps; students unlock them one at a time.", zh: "建立有序的步驟序列，學生逐步解鎖。" })}</p>
+          <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Learning paths", zh: "學習路徑", zhHans: "学习路径" })}</h2>
+          <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{t({ en: "Build an ordered sequence of steps; students unlock them one at a time.", zh: "建立有序的步驟序列，學生逐步解鎖。", zhHans: "建立有序的步骤序列，学生逐步解锁。" })}</p>
         </div>
-        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{paths.length} {t({ en: "paths", zh: "路徑" })}</span>
+        <span className="rounded-full border border-slate-200/80 bg-white/70 px-3 py-1 text-xs font-black text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{paths.length} {t({ en: "paths", zh: "路徑", zhHans: "路径" })}</span>
       </div>
 
       <form onSubmit={createPath} className="mt-5 grid gap-3 rounded-2xl border border-slate-200/70 bg-white/50 p-4 dark:border-white/10 dark:bg-white/[0.04]">
         <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_200px]">
           <label className="grid gap-1 text-sm font-black">
-            <span>{t({ en: "Path name", zh: "路徑名稱" })}</span>
-            <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={t({ en: "e.g. Fractions mastery track", zh: "例如：分數精熟路徑" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+            <span>{t({ en: "Path name", zh: "路徑名稱", zhHans: "路径名称" })}</span>
+            <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={t({ en: "e.g. Fractions mastery track", zh: "例如：分數精熟路徑", zhHans: "例如：分数精熟路径" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <label className="grid gap-1 text-sm font-black">
-            <span>{t({ en: "Assign to", zh: "指派給" })}</span>
+            <span>{t({ en: "Assign to", zh: "指派給", zhHans: "指派给" })}</span>
             <select value={groupId} onChange={(event) => setGroupId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-              <option value="">{t({ en: "Whole class", zh: "全班" })}</option>
+              <option value="">{t({ en: "Whole class", zh: "全班", zhHans: "全班" })}</option>
               {detail.groups.map((group) => <option key={group.id} value={group.id}>{group.name} ({group.studentCount})</option>)}
             </select>
           </label>
         </div>
         <label className="grid gap-1 text-sm font-black">
-          <span>{t({ en: "Description", zh: "描述" })}</span>
+          <span>{t({ en: "Description", zh: "描述", zhHans: "描述" })}</span>
           <input value={description} onChange={(event) => setDescription(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
         <div className="grid gap-2">
-          <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Steps (in order)", zh: "步驟（按順序）" })}</span>
+          <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Steps (in order)", zh: "步驟（按順序）", zhHans: "步骤（按顺序）" })}</span>
           {steps.map((step, index) => (
             <div key={index} className="grid gap-2 rounded-2xl border border-slate-200/60 bg-white/60 p-3 dark:border-white/10 dark:bg-white/[0.05] sm:grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)_auto]">
               <select value={step.kind} onChange={(event) => updateStep(index, { kind: event.target.value as LearningPathStepKind })} className="focus-ring rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {learningPathStepKindOrder.map((kind) => <option key={kind} value={kind}>{t(learningPathStepKindLabels[kind])}</option>)}
               </select>
-              <input value={step.title} onChange={(event) => updateStep(index, { title: event.target.value })} placeholder={t({ en: "Step title", zh: "步驟標題" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
-              <input value={step.targetId} onChange={(event) => updateStep(index, { targetId: event.target.value })} placeholder={t({ en: "lesson slug / topic / assessment id", zh: "課堂 slug／課題／測驗 ID" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
-              <button type="button" onClick={() => removeStep(index)} disabled={steps.length <= 1} className="focus-ring rounded-xl border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black text-slate-600 disabled:opacity-40 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Remove", zh: "移除" })}</button>
+              <input value={step.title} onChange={(event) => updateStep(index, { title: event.target.value })} placeholder={t({ en: "Step title", zh: "步驟標題", zhHans: "步骤标题" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+              <input value={step.targetId} onChange={(event) => updateStep(index, { targetId: event.target.value })} placeholder={t({ en: "lesson slug / topic / assessment id", zh: "課堂 slug／課題／測驗 ID", zhHans: "课堂 slug／课题／测验 ID" })} className="focus-ring min-w-0 rounded-xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+              <button type="button" onClick={() => removeStep(index)} disabled={steps.length <= 1} className="focus-ring rounded-xl border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black text-slate-600 disabled:opacity-40 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">{t({ en: "Remove", zh: "移除", zhHans: "移除" })}</button>
             </div>
           ))}
-          <button type="button" onClick={addStep} className="focus-ring w-fit rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "+ Add step", zh: "＋ 新增步驟" })}</button>
+          <button type="button" onClick={addStep} className="focus-ring w-fit rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">{t({ en: "+ Add step", zh: "＋ 新增步驟", zhHans: "＋ 新增步骤" })}</button>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中..." }) : t({ en: "Create path", zh: "建立路徑" })}</button>
+          <button type="submit" disabled={busy} className="focus-ring w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">{busy ? t({ en: "Creating...", zh: "建立中...", zhHans: "建立中..." }) : t({ en: "Create path", zh: "建立路徑", zhHans: "建立路径" })}</button>
           {error ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
         </div>
       </form>
@@ -1489,7 +1489,7 @@ function TeacherClassLearningPathsPanel({ detail }: { detail: TeacherClassDetail
         {paths.length ? (
           paths.map((path) => <TeacherLearningPathCard key={path.id} path={path} onRemove={removePathFromList} />)
         ) : (
-          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No learning paths yet. Build a step-by-step path to guide students.", zh: "尚未有學習路徑。建立逐步路徑引導學生。" })}</p>
+          <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No learning paths yet. Build a step-by-step path to guide students.", zh: "尚未有學習路徑。建立逐步路徑引導學生。", zhHans: "尚未有学习路径。建立逐步路径引导学生。" })}</p>
         )}
       </div>
     </section>
@@ -1552,7 +1552,7 @@ export function TeacherStudentProfileView({
     setIsSavingTarget(false);
 
     if (!response.ok) {
-      setTargetMessage(t({ en: "Could not save this mastery target yet.", zh: "暫時未能儲存此掌握目標。" }));
+      setTargetMessage(t({ en: "Could not save this mastery target yet.", zh: "暫時未能儲存此掌握目標。", zhHans: "暂时未能储存此掌握目标。" }));
       return;
     }
 
@@ -1568,7 +1568,7 @@ export function TeacherStudentProfileView({
       priority: masteryTargetPriorityFor(nextGap),
       note: payload?.target?.note ?? targetNote
     });
-    setTargetMessage(mastery === null ? t({ en: "Mastery target signal cleared.", zh: "已清除此掌握目標信號。" }) : t({ en: "Mastery target saved as an adaptive signal.", zh: "掌握目標已作為自適應信號儲存。" }));
+    setTargetMessage(mastery === null ? t({ en: "Mastery target signal cleared.", zh: "已清除此掌握目標信號。", zhHans: "已清除此掌握目标信号。" }) : t({ en: "Mastery target saved as an adaptive signal.", zh: "掌握目標已作為自適應信號儲存。", zhHans: "掌握目标已作为自适应信号储存。" }));
     router.refresh();
   };
 
@@ -1576,7 +1576,7 @@ export function TeacherStudentProfileView({
     event.preventDefault();
     const numericMastery = Number(targetMastery);
     if (!Number.isFinite(numericMastery)) {
-      setTargetMessage(t({ en: "Enter a mastery target from 0 to 100.", zh: "請輸入 0 至 100 的掌握目標。" }));
+      setTargetMessage(t({ en: "Enter a mastery target from 0 to 100.", zh: "請輸入 0 至 100 的掌握目標。", zhHans: "请输入 0 至 100 的掌握目标。" }));
       return;
     }
     await patchMasteryTarget(boundedPercentValue(numericMastery));
@@ -1585,7 +1585,7 @@ export function TeacherStudentProfileView({
   return (
     <div className="grid gap-6">
       <section className="glass-panel p-5 sm:p-6">
-        <Link href={backHref} className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to classes", zh: "返回班級" })}</Link>
+        <Link href={backHref} className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to classes", zh: "返回班級", zhHans: "返回班级" })}</Link>
         <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{formatGradeLabel(profile.student.grade, language, true)}</p>
@@ -1593,9 +1593,9 @@ export function TeacherStudentProfileView({
             <p className="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400">{profile.classes.map((item) => item.name).join(", ")}</p>
           </div>
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{percent(profile.averageMastery)}</p><p className="text-xs font-bold">{t({ en: "Mastery", zh: "掌握" })}</p></div>
-            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{profile.mistakes.filter((item) => !item.mastered).length}</p><p className="text-xs font-bold">{t({ en: "Active mistakes", zh: "錯題" })}</p></div>
-            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{profile.aiTutor.messageCount7d}</p><p className="text-xs font-bold">{t({ en: "AI 7d", zh: "AI 7日" })}</p></div>
+            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{percent(profile.averageMastery)}</p><p className="text-xs font-bold">{t({ en: "Mastery", zh: "掌握", zhHans: "掌握" })}</p></div>
+            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{profile.mistakes.filter((item) => !item.mastered).length}</p><p className="text-xs font-bold">{t({ en: "Active mistakes", zh: "錯題", zhHans: "错题" })}</p></div>
+            <div className="soft-panel px-4 py-3"><p className="text-2xl font-black gradient-text">{profile.aiTutor.messageCount7d}</p><p className="text-xs font-bold">{t({ en: "AI 7d", zh: "AI 7日", zhHans: "AI 7日" })}</p></div>
           </div>
         </div>
       </section>
@@ -1607,12 +1607,12 @@ export function TeacherStudentProfileView({
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         <div className="grid gap-6">
           <div className="glass-panel p-5">
-            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Progress", zh: "進度" })}</h2>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Progress", zh: "進度", zhHans: "进度" })}</h2>
             {selectedTargetTopic ? (
               <form id="mastery-target" onSubmit={saveMasteryTarget} className="soft-panel mt-4 grid gap-4 p-4">
                 <div className="grid gap-4 2xl:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)]">
                   <label className="grid min-w-0 gap-2">
-                    <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Topic", zh: "課題" })}</span>
+                    <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Topic", zh: "課題", zhHans: "课题" })}</span>
                     <select
                       value={targetTopicId}
                       onChange={(event) => selectTargetTopic(event.target.value)}
@@ -1624,7 +1624,7 @@ export function TeacherStudentProfileView({
                     </select>
                   </label>
                   <label className="grid min-w-0 gap-2">
-                    <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Mastery target", zh: "掌握目標" })}</span>
+                    <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Mastery target", zh: "掌握目標", zhHans: "掌握目标" })}</span>
                     <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_76px] gap-3">
                       <input
                         type="range"
@@ -1647,12 +1647,12 @@ export function TeacherStudentProfileView({
                   </label>
                 </div>
                 <label className="grid gap-2">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher note", zh: "教師備註" })}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher note", zh: "教師備註", zhHans: "教师备注" })}</span>
                   <input
                     value={targetNote}
                     onChange={(event) => setTargetNote(event.target.value)}
                     maxLength={280}
-                    placeholder={t({ en: "e.g. Stretch to 90% before algebra quiz", zh: "例如：代數小測前提升至 90%" })}
+                    placeholder={t({ en: "e.g. Stretch to 90% before algebra quiz", zh: "例如：代數小測前提升至 90%", zhHans: "例如：代数小测前提升至 90%" })}
                     className="focus-ring min-h-11 rounded-2xl border border-slate-200/80 bg-white/80 px-4 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]"
                   />
                 </label>
@@ -1669,11 +1669,11 @@ export function TeacherStudentProfileView({
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Adaptive signal", zh: "自適應信號" })}</p>
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">{t({ en: "Adaptive signal", zh: "自適應信號", zhHans: "自适应信号" })}</p>
                       <p className="mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">
                         {selectedTargetSaved
-                          ? t({ en: "Ready for recommendation", zh: "可供推薦使用" })
-                          : t({ en: "Save to activate", zh: "儲存後啟用" })}
+                          ? t({ en: "Ready for recommendation", zh: "可供推薦使用", zhHans: "可供推荐使用" })
+                          : t({ en: "Save to activate", zh: "儲存後啟用", zhHans: "储存后启用" })}
                       </p>
                     </div>
                     <span className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.12em] ${masteryTargetPriorityTone(selectedTargetPriority)}`}>
@@ -1682,27 +1682,27 @@ export function TeacherStudentProfileView({
                   </div>
                   <div className="mt-4 grid gap-3 sm:grid-cols-3">
                     <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Actual", zh: "實際" })}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Actual", zh: "實際", zhHans: "实际" })}</p>
                       <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">{percent(selectedTargetTopic.mastery)}</p>
                     </div>
                     <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Target", zh: "目標" })}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Target", zh: "目標", zhHans: "目标" })}</p>
                       <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">{percent(targetMasteryValue)}</p>
                     </div>
                     <div className="rounded-2xl bg-white/75 p-3 dark:bg-white/[0.06]">
-                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Gap", zh: "差距" })}</p>
-                      <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">+{selectedTargetGap} {t({ en: "pts", zh: "點" })}</p>
+                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Gap", zh: "差距", zhHans: "差距" })}</p>
+                      <p className="mt-1 text-lg font-black text-slate-950 dark:text-white">+{selectedTargetGap} {t({ en: "pts", zh: "點", zhHans: "点" })}</p>
                     </div>
                   </div>
                   <p className="mt-3 text-xs font-bold text-cyan-800 dark:text-cyan-100">
-                    {t({ en: "Teacher-priority source: manual mastery target", zh: "教師優先來源：手動掌握目標" })}
+                    {t({ en: "Teacher-priority source: manual mastery target", zh: "教師優先來源：手動掌握目標", zhHans: "教师优先来源：手动掌握目标" })}
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="text-sm font-bold text-slate-600 dark:text-slate-300">
-                    <span>{t({ en: "Actual", zh: "實際" })}: {percent(selectedTargetTopic.mastery)}</span>
+                    <span>{t({ en: "Actual", zh: "實際", zhHans: "实际" })}: {percent(selectedTargetTopic.mastery)}</span>
                     <span className="mx-2 text-slate-300 dark:text-slate-600">/</span>
-                    <span>{t({ en: "Target", zh: "目標" })}: {percent(targetMasteryValue)}</span>
+                    <span>{t({ en: "Target", zh: "目標", zhHans: "目标" })}: {percent(targetMasteryValue)}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
@@ -1711,14 +1711,14 @@ export function TeacherStudentProfileView({
                       onClick={() => patchMasteryTarget(null)}
                       className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]"
                     >
-                      {t({ en: "Clear target", zh: "清除目標" })}
+                      {t({ en: "Clear target", zh: "清除目標", zhHans: "清除目标" })}
                     </button>
                     <button
                       type="submit"
                       disabled={isSavingTarget}
                       className="focus-ring rounded-full bg-slate-950 px-5 py-2.5 text-xs font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950"
                     >
-                      {isSavingTarget ? t({ en: "Saving", zh: "儲存中" }) : t({ en: "Save target", zh: "儲存目標" })}
+                      {isSavingTarget ? t({ en: "Saving", zh: "儲存中", zhHans: "储存中" }) : t({ en: "Save target", zh: "儲存目標", zhHans: "储存目标" })}
                     </button>
                   </div>
                 </div>
@@ -1748,10 +1748,10 @@ export function TeacherStudentProfileView({
                         {savedTarget ? (
                           <>
                             <span className="rounded-full border border-amber-300/55 bg-amber-400/12 px-2.5 py-0.5 text-[11px] font-black text-amber-800 dark:text-amber-100">
-                              {t({ en: "Target", zh: "目標" })} {percent(savedTarget.mastery)}
+                              {t({ en: "Target", zh: "目標", zhHans: "目标" })} {percent(savedTarget.mastery)}
                             </span>
                             <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-black ${masteryTargetPriorityTone(savedTargetPriority)}`}>
-                              +{savedTargetGap} {t({ en: "pts", zh: "點" })}
+                              +{savedTargetGap} {t({ en: "pts", zh: "點", zhHans: "点" })}
                             </span>
                           </>
                         ) : null}
@@ -1763,7 +1763,7 @@ export function TeacherStudentProfileView({
                         <span
                           className="absolute top-1/2 h-4 w-0.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500 shadow-sm dark:bg-amber-200"
                           style={{ left: percent(savedTarget.mastery) }}
-                          aria-label={t({ en: `Target ${percent(savedTarget.mastery)}`, zh: `目標 ${percent(savedTarget.mastery)}` })}
+                          aria-label={t({ en: `Target ${percent(savedTarget.mastery)}`, zh: `目標 ${percent(savedTarget.mastery)}`, zhHans: `目标 ${percent(savedTarget.mastery)}` })}
                         />
                       ) : null}
                     </div>
@@ -1777,7 +1777,7 @@ export function TeacherStudentProfileView({
           </div>
 
           <div className="glass-panel p-5">
-            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Assignments", zh: "作業紀錄" })}</h2>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Assignments", zh: "作業紀錄", zhHans: "作业纪录" })}</h2>
             <div className="mt-4 grid gap-3">
               {profile.assignments.map(({ assignment, submission }) => {
                 const submissionStatus = submission?.status ?? "not-started";
@@ -1787,7 +1787,7 @@ export function TeacherStudentProfileView({
                       <p className="font-black text-slate-950 dark:text-white">{text(assignment.title)}</p>
                       <StatusPill value={submissionStatus} label={text(submissionStatusLabels[submissionStatus])} />
                     </div>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{submission?.score === null || submission?.score === undefined ? t({ en: "No score yet", zh: "暫無分數" }) : `${submission.score}%`}</p>
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{submission?.score === null || submission?.score === undefined ? t({ en: "No score yet", zh: "暫無分數", zhHans: "暂无分数" }) : `${submission.score}%`}</p>
                   </Link>
                 );
               })}
@@ -1797,23 +1797,23 @@ export function TeacherStudentProfileView({
 
         <aside className="grid gap-6">
           <div className="glass-panel p-5">
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Mistakes", zh: "錯題" })}</h2>
+            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Mistakes", zh: "錯題", zhHans: "错题" })}</h2>
             <div className="mt-4 grid gap-3">
               {profile.mistakes.slice(0, 4).map((mistake) => (
                 <div key={mistake.questionId} className="soft-panel p-3">
                   <p className="text-sm font-black text-slate-950 dark:text-white">{text(mistake.question.topic)}</p>
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{mistake.wrongAttempts} {t({ en: "wrong attempts", zh: "次錯誤" })}</p>
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{mistake.wrongAttempts} {t({ en: "wrong attempts", zh: "次錯誤", zhHans: "次错误" })}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="glass-panel p-5">
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Recent attempts", zh: "最近練習" })}</h2>
+            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Recent attempts", zh: "最近練習", zhHans: "最近练习" })}</h2>
             <div className="mt-4 grid gap-3">
               {profile.recentAttempts.map((attempt) => (
                 <div key={attempt.id} className="soft-panel p-3">
                   <p className="text-sm font-black">{text(attempt.topic)}</p>
-                  <p className={attempt.isCorrect ? "text-xs font-bold text-emerald-600 dark:text-emerald-200" : "text-xs font-bold text-rose-600 dark:text-rose-200"}>{attempt.isCorrect ? t({ en: "Correct", zh: "正確" }) : t({ en: "Wrong", zh: "錯誤" })}</p>
+                  <p className={attempt.isCorrect ? "text-xs font-bold text-emerald-600 dark:text-emerald-200" : "text-xs font-bold text-rose-600 dark:text-rose-200"}>{attempt.isCorrect ? t({ en: "Correct", zh: "正確", zhHans: "正确" }) : t({ en: "Wrong", zh: "錯誤", zhHans: "错误" })}</p>
                 </div>
               ))}
             </div>
@@ -1825,8 +1825,8 @@ export function TeacherStudentProfileView({
             lastMessageAt={profile.aiTutor.lastMessageAt}
           />
           <div className="glass-panel p-5">
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Parent access", zh: "家長端存取" })}</h2>
-            <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Invite code", zh: "邀請碼" })}</p>
+            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Parent access", zh: "家長端存取", zhHans: "家长端存取" })}</h2>
+            <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "Invite code", zh: "邀請碼", zhHans: "邀请码" })}</p>
             <p className="mt-2 rounded-2xl border border-cyan-300/45 bg-cyan-400/10 px-4 py-3 text-lg font-black tracking-[0.12em] text-cyan-800 dark:text-cyan-100">{profile.parentInviteCode}</p>
             <div className="mt-4 grid gap-2">
               {profile.guardianLinks.map((link) => (
@@ -1834,7 +1834,7 @@ export function TeacherStudentProfileView({
                   {link.parentName} · {link.relationship}
                 </div>
               ))}
-              {!profile.guardianLinks.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No parent accounts linked yet.", zh: "尚未綁定家長帳戶。" })}</p> : null}
+              {!profile.guardianLinks.length ? <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No parent accounts linked yet.", zh: "尚未綁定家長帳戶。", zhHans: "尚未绑定家长账号。" })}</p> : null}
             </div>
           </div>
         </aside>
@@ -1860,7 +1860,7 @@ function AssignmentRows({ assignments }: { assignments: Assignment[] }) {
           </div>
         </article>
       ))}
-      {!assignments.length ? <p className="soft-panel p-5 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No assignments yet.", zh: "尚未有作業。" })}</p> : null}
+      {!assignments.length ? <p className="soft-panel p-5 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No assignments yet.", zh: "尚未有作業。", zhHans: "尚未有作业。" })}</p> : null}
     </div>
   );
 }
@@ -1893,23 +1893,23 @@ export function TeacherAssignmentsManager({
   const queueOptions: Array<{ id: TeacherAssignmentQueueFilter; label: string; detail: string }> = [
     {
       id: "all",
-      label: t({ en: "All assignments", zh: "全部作業" }),
-      detail: t({ en: "Full queue", zh: "全部隊列" })
+      label: t({ en: "All assignments", zh: "全部作業", zhHans: "全部作业" }),
+      detail: t({ en: "Full queue", zh: "全部隊列", zhHans: "全部队列" })
     },
     {
       id: "grading",
-      label: t({ en: "Needs grading", zh: "待批改" }),
-      detail: t({ en: "Submitted work", zh: "已提交" })
+      label: t({ en: "Needs grading", zh: "待批改", zhHans: "待批改" }),
+      detail: t({ en: "Submitted work", zh: "已提交", zhHans: "已提交" })
     },
     {
       id: "correction-required",
-      label: t({ en: "Returned", zh: "已退回訂正" }),
-      detail: t({ en: "Student action", zh: "待學生" })
+      label: t({ en: "Returned", zh: "已退回訂正", zhHans: "已退回订正" }),
+      detail: t({ en: "Student action", zh: "待學生", zhHans: "待学生" })
     },
     {
       id: "correction-review",
-      label: t({ en: "Correction review", zh: "訂正覆核" }),
-      detail: t({ en: "Teacher action", zh: "待教師" })
+      label: t({ en: "Correction review", zh: "訂正覆核", zhHans: "订正复核" }),
+      detail: t({ en: "Teacher action", zh: "待教師", zhHans: "待教师" })
     }
   ];
   const activeFilterLabel = queueOptions.find((option) => option.id === activeFilter)?.label ?? queueOptions[0].label;
@@ -1925,10 +1925,10 @@ export function TeacherAssignmentsManager({
     <section className="glass-panel p-5 sm:p-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Assignments", zh: "作業" })}</p>
-          <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Assignment distribution", zh: "作業分派" })}</h1>
+          <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{t({ en: "Assignments", zh: "作業", zhHans: "作业" })}</p>
+          <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Assignment distribution", zh: "作業分派", zhHans: "作业分派" })}</h1>
         </div>
-        <Link href="/teacher/assignments/new" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "New assignment", zh: "新增作業" })}</Link>
+        <Link href="/teacher/assignments/new" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "New assignment", zh: "新增作業", zhHans: "新增作业" })}</Link>
       </div>
       <div className="mt-5 grid min-w-0 gap-3 lg:grid-cols-4">
         {queueOptions.map((option) => {
@@ -1955,13 +1955,13 @@ export function TeacherAssignmentsManager({
       </div>
       <div className="mt-4 flex min-w-0 flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/70 px-4 py-3 text-sm font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
         <p className="min-w-0 break-words">
-          {t({ en: "Showing", zh: "顯示" })} <span className="font-black text-slate-950 dark:text-white">{assignments.length}</span> / {activeFilter === "all" ? totalCount : counts.all} · {activeFilterLabel}
+          {t({ en: "Showing", zh: "顯示", zhHans: "显示" })} <span className="font-black text-slate-950 dark:text-white">{assignments.length}</span> / {activeFilter === "all" ? totalCount : counts.all} · {activeFilterLabel}
           {activeClass ? ` · ${activeClass.name}` : ""}
           {query ? ` · ${query}` : ""}
         </p>
         {(activeFilter !== "all" || activeClassId || query) ? (
           <Link href="/teacher/assignments" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-            {t({ en: "Clear queue", zh: "清除篩選" })}
+            {t({ en: "Clear queue", zh: "清除篩選", zhHans: "清除筛选" })}
           </Link>
         ) : null}
       </div>
@@ -2027,7 +2027,7 @@ export function TeacherAssignmentNewView({
     const studentIds = scope === "selected" ? form.getAll("studentIds").map(String) : undefined;
     const selectedGroupId = scope === "group" && groupId ? groupId : undefined;
     if (scope === "group" && !selectedGroupId) {
-      setError(t({ en: "Pick a group to assign to.", zh: "請選擇要指派的小組。" }));
+      setError(t({ en: "Pick a group to assign to.", zh: "請選擇要指派的小組。", zhHans: "请选择要指派的小组。" }));
       return;
     }
     const shouldGenerate = contentType === "practice" && useAIGeneration;
@@ -2037,13 +2037,13 @@ export function TeacherAssignmentNewView({
 
     if (shouldGenerate && imageFile instanceof File && imageFile.size > 0) {
       if (imageFile.size > 1_500_000) {
-        setError(t({ en: "Image is too large. Use an image under 1.5 MB.", zh: "圖片過大，請使用 1.5 MB 以下的圖片。" }));
+        setError(t({ en: "Image is too large. Use an image under 1.5 MB.", zh: "圖片過大，請使用 1.5 MB 以下的圖片。", zhHans: "图片过大，请使用 1.5 MB 以下的图片。" }));
         return;
       }
       try {
         imageDataUrl = await readFileAsDataUrl(imageFile);
       } catch {
-        setError(t({ en: "Could not read this image.", zh: "未能讀取此圖片。" }));
+        setError(t({ en: "Could not read this image.", zh: "未能讀取此圖片。", zhHans: "未能读取此图片。" }));
         return;
       }
       imageFileName = imageFile.name;
@@ -2077,8 +2077,8 @@ export function TeacherAssignmentNewView({
     if (!response.ok || !payload?.assignment) {
       const generationError = payload?.error?.startsWith("assignment-generation-");
       setError(generationError
-        ? t({ en: "AI assignment generation is unavailable. Check the provider configuration or try without AI generation.", zh: "AI 作業生成暫時不可用，請檢查供應商配置或取消 AI 生成後再試。" })
-        : t({ en: "Could not create this assignment yet.", zh: "暫時未能建立此作業。" }));
+        ? t({ en: "AI assignment generation is unavailable. Check the provider configuration or try without AI generation.", zh: "AI 作業生成暫時不可用，請檢查供應商配置或取消 AI 生成後再試。", zhHans: "AI 作业生成暂时不可用，请检查供应商配置或取消 AI 生成后再试。" })
+        : t({ en: "Could not create this assignment yet.", zh: "暫時未能建立此作業。", zhHans: "暂时未能建立此作业。" }));
       return;
     }
     router.push(`/teacher/assignments/${payload.assignment.id}`);
@@ -2086,48 +2086,48 @@ export function TeacherAssignmentNewView({
 
   return (
     <section className="glass-panel p-5 sm:p-6">
-      <Link href="/teacher/assignments" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to assignments", zh: "返回作業" })}</Link>
-      <h1 className="mt-4 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Create assignment", zh: "建立作業" })}</h1>
+      <Link href="/teacher/assignments" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to assignments", zh: "返回作業", zhHans: "返回作业" })}</Link>
+      <h1 className="mt-4 text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Create assignment", zh: "建立作業", zhHans: "建立作业" })}</h1>
       <form onSubmit={handleSubmit} className="mt-6 grid gap-5">
         <div className="grid gap-4 lg:grid-cols-2">
-          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Class", zh: "班級" })}</span><select value={selectedClassId} onChange={(event) => setSelectedClassId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{classDetails.map((detail) => <option key={detail.class.id} value={detail.class.id}>{detail.class.name} · {formatGradeLabel(detail.class.grade, language, true)}</option>)}</select></label>
-          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Content type", zh: "內容類型" })}</span><select value={contentType} onChange={(event) => {
+          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Class", zh: "班級", zhHans: "班级" })}</span><select value={selectedClassId} onChange={(event) => setSelectedClassId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{classDetails.map((detail) => <option key={detail.class.id} value={detail.class.id}>{detail.class.name} · {formatGradeLabel(detail.class.grade, language, true)}</option>)}</select></label>
+          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Content type", zh: "內容類型", zhHans: "内容类型" })}</span><select value={contentType} onChange={(event) => {
             const nextContentType = event.target.value as AssignmentContentType;
             setContentType(nextContentType);
             setUseAIGeneration(nextContentType === "practice");
           }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{contentTypes.map((type) => <option key={type} value={type}>{text(assignmentContentTypeLabels[type])}</option>)}</select></label>
-          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Title", zh: "標題" })}</span><input name="title" required defaultValue={initialTitle} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
+          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Title", zh: "標題", zhHans: "标题" })}</span><input name="title" required defaultValue={initialTitle} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
           {contentType === "resource" ? (
-            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Resource", zh: "資源" })}</span><select name="targetId" defaultValue={initialResourceId} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{resources.map((resource) => <option key={resource.id} value={resource.id}>{text(resource.title)} · {resource.fileType}</option>)}</select></label>
+            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Resource", zh: "資源", zhHans: "资源" })}</span><select name="targetId" defaultValue={initialResourceId} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{resources.map((resource) => <option key={resource.id} value={resource.id}>{text(resource.title)} · {resource.fileType}</option>)}</select></label>
           ) : contentType === "assessment" ? (
-            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Assessment", zh: "測驗" })}</span><select name="targetId" defaultValue={initialAssessmentId} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{assessments.map((assessment) => <option key={assessment.id} value={assessment.id}>{text(assessment.title)} · {text(assessmentTypeLabels[assessment.type])}</option>)}</select></label>
+            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Assessment", zh: "測驗", zhHans: "测验" })}</span><select name="targetId" defaultValue={initialAssessmentId} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]">{assessments.map((assessment) => <option key={assessment.id} value={assessment.id}>{text(assessment.title)} · {text(assessmentTypeLabels[assessment.type])}</option>)}</select></label>
           ) : (
-            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Target ID", zh: "目標 ID" })}</span><input name="targetId" defaultValue={initialTargetId} placeholder={t({ en: "lesson slug, question id, topic id", zh: "課堂 slug、題目 ID、課題 ID" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
+            <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Target ID", zh: "目標 ID", zhHans: "目标 ID" })}</span><input name="targetId" defaultValue={initialTargetId} placeholder={t({ en: "lesson slug, question id, topic id", zh: "課堂 slug、題目 ID、課題 ID", zhHans: "课堂 slug、题目 ID、课题 ID" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
           )}
-          <label className="grid gap-2 lg:col-span-2"><span className="text-sm font-black">{t({ en: "Description", zh: "描述" })}</span><textarea name="description" rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
+          <label className="grid gap-2 lg:col-span-2"><span className="text-sm font-black">{t({ en: "Description", zh: "描述", zhHans: "描述" })}</span><textarea name="description" rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
           {contentType === "practice" ? (
             <div className="soft-panel grid gap-3 p-4 lg:col-span-2 lg:grid-cols-[minmax(0,1fr)_120px_minmax(0,1fr)]">
               <label className="flex min-w-0 items-center gap-3 text-sm font-black">
                 <input type="checkbox" checked={useAIGeneration} onChange={(event) => setUseAIGeneration(event.target.checked)} />
-                <span className="min-w-0 break-words">{t({ en: "AI generate practice", zh: "AI 生成練習" })}</span>
+                <span className="min-w-0 break-words">{t({ en: "AI generate practice", zh: "AI 生成練習", zhHans: "AI 生成练习" })}</span>
               </label>
               <label className="grid min-w-0 gap-2">
-                <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Questions", zh: "題數" })}</span>
+                <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Questions", zh: "題數", zhHans: "题数" })}</span>
                 <input name="questionCount" type="number" min="1" max="10" defaultValue={5} disabled={!useAIGeneration} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06]" />
               </label>
               <label className="grid min-w-0 gap-2">
-                <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Image", zh: "圖片" })}</span>
+                <span className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">{t({ en: "Image", zh: "圖片", zhHans: "图片" })}</span>
                 <input name="questionImage" type="file" accept="image/png,image/jpeg,image/webp" disabled={!useAIGeneration} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06]" />
               </label>
             </div>
           ) : null}
-          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Due date", zh: "截止日期" })}</span><input name="dueAt" type="datetime-local" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
-          <div className="grid gap-2"><span className="text-sm font-black">{t({ en: "Recipients", zh: "對象" })}</span><div className="flex flex-wrap gap-2"><button type="button" onClick={() => setScope("all")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "all" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Whole class", zh: "全班" })}</button><button type="button" onClick={() => setScope("group")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "group" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Group", zh: "小組" })}</button><button type="button" onClick={() => setScope("selected")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "selected" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Selected students", zh: "指定學生" })}</button></div></div>
+          <label className="grid gap-2"><span className="text-sm font-black">{t({ en: "Due date", zh: "截止日期", zhHans: "截止日期" })}</span><input name="dueAt" type="datetime-local" className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-white/[0.06]" /></label>
+          <div className="grid gap-2"><span className="text-sm font-black">{t({ en: "Recipients", zh: "對象", zhHans: "对象" })}</span><div className="flex flex-wrap gap-2"><button type="button" onClick={() => setScope("all")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "all" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Whole class", zh: "全班", zhHans: "全班" })}</button><button type="button" onClick={() => setScope("group")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "group" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Group", zh: "小組", zhHans: "小组" })}</button><button type="button" onClick={() => setScope("selected")} className={`focus-ring rounded-full px-4 py-2 text-sm font-black ${scope === "selected" ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "soft-panel"}`}>{t({ en: "Selected students", zh: "指定學生", zhHans: "指定学生" })}</button></div></div>
         </div>
         {scope === "group" ? (
           selectedClass?.groups.length ? (
             <label className="grid gap-2">
-              <span className="text-sm font-black">{t({ en: "Small group", zh: "分層小組" })}</span>
+              <span className="text-sm font-black">{t({ en: "Small group", zh: "分層小組", zhHans: "分层小组" })}</span>
               <select value={groupId} onChange={(event) => setGroupId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
                 {selectedClass.groups.map((group) => (
                   <option key={group.id} value={group.id}>{t(groupTierLabels[group.tier])} · {group.name} ({group.studentCount})</option>
@@ -2135,7 +2135,7 @@ export function TeacherAssignmentNewView({
               </select>
             </label>
           ) : (
-            <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "This class has no groups yet. Create one from the class page.", zh: "此班級尚未有小組，請於班級頁面建立。" })}</p>
+            <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "This class has no groups yet. Create one from the class page.", zh: "此班級尚未有小組，請於班級頁面建立。", zhHans: "此班级尚未有小组，请于班级页面建立。" })}</p>
           )
         ) : null}
         {scope === "selected" && selectedClass ? (
@@ -2146,12 +2146,12 @@ export function TeacherAssignmentNewView({
           </div>
         ) : null}
         <div className="flex flex-wrap gap-3">
-          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="allowRetake" type="checkbox" defaultChecked />{t({ en: "Allow retake", zh: "允許重做" })}</label>
-          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="showAnswers" type="checkbox" />{t({ en: "Show answers", zh: "顯示答案" })}</label>
-          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="countTowardsGrade" type="checkbox" defaultChecked />{t({ en: "Count toward grade", zh: "計入成績" })}</label>
+          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="allowRetake" type="checkbox" defaultChecked />{t({ en: "Allow retake", zh: "允許重做", zhHans: "允许重做" })}</label>
+          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="showAnswers" type="checkbox" />{t({ en: "Show answers", zh: "顯示答案", zhHans: "显示答案" })}</label>
+          <label className="soft-panel flex items-center gap-2 px-4 py-3 text-sm font-bold"><input name="countTowardsGrade" type="checkbox" defaultChecked />{t({ en: "Count toward grade", zh: "計入成績", zhHans: "计入成绩" })}</label>
         </div>
         {error ? <p className="text-sm font-bold text-rose-700 dark:text-rose-200">{error}</p> : null}
-        <button disabled={isSaving} className="focus-ring w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950" type="submit">{isSaving ? t({ en: "Creating...", zh: "建立中..." }) : t({ en: "Create assignment", zh: "建立作業" })}</button>
+        <button disabled={isSaving} className="focus-ring w-fit rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950" type="submit">{isSaving ? t({ en: "Creating...", zh: "建立中...", zhHans: "建立中..." }) : t({ en: "Create assignment", zh: "建立作業", zhHans: "建立作业" })}</button>
       </form>
     </section>
   );
@@ -2180,24 +2180,24 @@ function AssignmentReviewOperationPanel({
       <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
-            {isGradingRun ? t({ en: "AI suggestion ready", zh: "AI 建議已就緒" }) : t({ en: "Review recorded", zh: "批改已記錄" })}
+            {isGradingRun ? t({ en: "AI suggestion ready", zh: "AI 建議已就緒", zhHans: "AI 建议已就绪" }) : t({ en: "Review recorded", zh: "批改已記錄", zhHans: "批改已记录" })}
           </p>
           <p className="mt-1 break-words font-black text-slate-950 dark:text-white">{submission.studentName}</p>
           <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
             {isGradingRun
-              ? `${t({ en: "Suggested score", zh: "建議分數" })}: ${operation.gradingRun.suggestedScore ?? "-"}`
-              : `${text(submissionStatusLabels[submission.status])} · ${t({ en: "Score", zh: "分數" })} ${submission.score ?? "-"}`}
+              ? `${t({ en: "Suggested score", zh: "建議分數", zhHans: "建议分数" })}: ${operation.gradingRun.suggestedScore ?? "-"}`
+              : `${text(submissionStatusLabels[submission.status])} · ${t({ en: "Score", zh: "分數", zhHans: "分数" })} ${submission.score ?? "-"}`}
           </p>
         </div>
         <div className="flex min-w-0 flex-wrap gap-2">
           <a href={`#submission-${submission.id}`} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-            {t({ en: "Open submission", zh: "查看提交" })}
+            {t({ en: "Open submission", zh: "查看提交", zhHans: "查看提交" })}
           </a>
           <Link href={`/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(submission.studentId)}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
-            {t({ en: "Student profile", zh: "學生檔案" })}
+            {t({ en: "Student profile", zh: "學生檔案", zhHans: "学生档案" })}
           </Link>
           <Link href={queueHref} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-            {t({ en: "Queue", zh: "隊列" })}
+            {t({ en: "Queue", zh: "隊列", zhHans: "队列" })}
           </Link>
         </div>
       </div>
@@ -2221,8 +2221,8 @@ export function TeacherAssignmentDetailView({
   const [lastOperation, setLastOperation] = useState<AssignmentReviewOperation | null>(null);
 
   const scoreFor = (submission: Submission) => Number(scoreBySubmission[submission.id] ?? submission.latestGradingRun?.suggestedScore ?? submission.score ?? 0);
-  const feedbackFor = (submission: Submission) => feedbackBySubmission[submission.id] ?? text(submission.latestGradingRun?.feedback ?? submission.feedback ?? { en: "", zh: "" });
-  const correctionFor = (submission: Submission) => correctionBySubmission[submission.id] ?? text(submission.latestGradingRun?.correctionRequest ?? submission.correctionRequest ?? { en: "", zh: "" });
+  const feedbackFor = (submission: Submission) => feedbackBySubmission[submission.id] ?? text(submission.latestGradingRun?.feedback ?? submission.feedback ?? { en: "", zh: "", zhHans: "" });
+  const correctionFor = (submission: Submission) => correctionBySubmission[submission.id] ?? text(submission.latestGradingRun?.correctionRequest ?? submission.correctionRequest ?? { en: "", zh: "", zhHans: "" });
   const assignmentTitle = text(detail.assignment.title);
 
   const runGrading = async (submission: Submission) => {
@@ -2263,7 +2263,7 @@ export function TeacherAssignmentDetailView({
   return (
     <div className="grid gap-6">
       <section className="glass-panel p-5 sm:p-6">
-        <Link href="/teacher/assignments" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to assignments", zh: "返回作業" })}</Link>
+        <Link href="/teacher/assignments" className="text-sm font-black text-cyan-700 dark:text-cyan-200">{t({ en: "Back to assignments", zh: "返回作業", zhHans: "返回作业" })}</Link>
         <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.24em] text-cyan-600 dark:text-cyan-300">{detail.class.name}</p>
@@ -2272,7 +2272,7 @@ export function TeacherAssignmentDetailView({
           </div>
           <div className="grid gap-3 text-right sm:justify-items-end">
             <p className="text-4xl font-black gradient-text">{percent(detail.completionRate)}</p>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "completion", zh: "完成率" })}</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "completion", zh: "完成率", zhHans: "完成率" })}</p>
             <AssignmentDeleteButton
               assignmentId={detail.assignment.id}
               assignmentTitle={assignmentTitle}
@@ -2286,19 +2286,19 @@ export function TeacherAssignmentDetailView({
         </div>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="soft-panel p-4">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Pending grading", zh: "待批改" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Pending grading", zh: "待批改", zhHans: "待批改" })}</p>
             <p className="mt-2 text-2xl font-black gradient-text">{detail.gradingSummary.pendingGrading}</p>
           </div>
           <div className="soft-panel p-4">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Needs correction", zh: "需訂正" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Needs correction", zh: "需訂正", zhHans: "需订正" })}</p>
             <p className="mt-2 text-2xl font-black gradient-text">{detail.gradingSummary.correctionRequired}</p>
           </div>
           <div className="soft-panel p-4">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correction review", zh: "訂正覆核" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correction review", zh: "訂正覆核", zhHans: "订正复核" })}</p>
             <p className="mt-2 text-2xl font-black gradient-text">{detail.gradingSummary.correctionSubmitted}</p>
           </div>
           <div className="soft-panel p-4">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Resolved", zh: "已閉環" })}</p>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Resolved", zh: "已閉環", zhHans: "已闭环" })}</p>
             <p className="mt-2 text-2xl font-black gradient-text">{detail.gradingSummary.resolved}</p>
           </div>
         </div>
@@ -2322,75 +2322,75 @@ export function TeacherAssignmentDetailView({
                     <StatusPill value={submission.status} label={text(submissionStatusLabels[submission.status])} />
                   </div>
                   <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
-                    {t({ en: "Submitted", zh: "提交" })}: {formatDate(submission.submittedAt, language)} · {t({ en: "Score", zh: "分數" })}: {submission.score ?? "-"}
+                    {t({ en: "Submitted", zh: "提交", zhHans: "提交" })}: {formatDate(submission.submittedAt, language)} · {t({ en: "Score", zh: "分數", zhHans: "分数" })}: {submission.score ?? "-"}
                   </p>
                   {submission.correctionDueAt ? (
-                    <p className="mt-2 text-sm font-bold text-amber-700 dark:text-amber-200">{t({ en: "Correction due", zh: "訂正截止" })}: {formatDate(submission.correctionDueAt, language)}</p>
+                    <p className="mt-2 text-sm font-bold text-amber-700 dark:text-amber-200">{t({ en: "Correction due", zh: "訂正截止", zhHans: "订正截止" })}: {formatDate(submission.correctionDueAt, language)}</p>
                   ) : null}
                 </div>
                 <div className="grid gap-2">
                   <button disabled={isBusy} onClick={() => runGrading(submission)} type="button" className="focus-ring rounded-full border border-cyan-200/80 bg-cyan-50 px-4 py-3 text-sm font-black text-cyan-800 disabled:opacity-50 dark:border-cyan-200/25 dark:bg-cyan-300/[0.12] dark:text-cyan-100">
-                    {isBusy ? t({ en: "Working", zh: "處理中" }) : t({ en: "Run OCR/AI suggestion", zh: "生成 OCR/AI 建議" })}
+                    {isBusy ? t({ en: "Working", zh: "處理中", zhHans: "处理中" }) : t({ en: "Run OCR/AI suggestion", zh: "生成 OCR/AI 建議", zhHans: "生成 OCR/AI 建议" })}
                   </button>
                   <button disabled={isBusy} onClick={() => reviewSubmission(submission, submission.status === "correction-submitted" ? "resolve" : "accept")} type="button" className="focus-ring rounded-full bg-slate-950 px-4 py-3 text-sm font-black text-white disabled:opacity-50 dark:bg-white dark:text-slate-950">
-                    {t({ en: "Confirm and close loop", zh: "確認並閉環" })}
+                    {t({ en: "Confirm and close loop", zh: "確認並閉環", zhHans: "确认并闭环" })}
                   </button>
                 </div>
               </div>
 
               <div className="mt-5 grid gap-4 xl:grid-cols-3">
                 <div className="soft-panel p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Latest evidence", zh: "最新提交" })}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Latest evidence", zh: "最新提交", zhHans: "最新提交" })}</p>
                   <p className="mt-3 max-h-36 overflow-auto whitespace-pre-wrap break-words text-sm leading-6 text-slate-700 dark:text-slate-200">
-                    {latestAnswer || t({ en: "No answer text captured yet.", zh: "暫未擷取答案文字。" })}
+                    {latestAnswer || t({ en: "No answer text captured yet.", zh: "暫未擷取答案文字。", zhHans: "暂未撷取答案文字。" })}
                   </p>
                 </div>
                 <div className="soft-panel p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "OCR/AI suggestion", zh: "OCR/AI 建議" })}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "OCR/AI suggestion", zh: "OCR/AI 建議", zhHans: "OCR/AI 建议" })}</p>
                   {gradingRun ? (
                     <div className="mt-3 grid gap-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
-                      <p className="font-black">{t({ en: "Suggested score", zh: "建議分數" })}: {gradingRun.suggestedScore ?? "-"}</p>
-                      <p>{t({ en: "Confidence", zh: "信心" })}: {gradingRun.confidence === null ? "-" : `${Math.round(gradingRun.confidence * 100)}%`}</p>
-                      <p className="whitespace-pre-wrap break-words">{text(gradingRun.feedback ?? { en: "Teacher review required.", zh: "需教師審核。" })}</p>
+                      <p className="font-black">{t({ en: "Suggested score", zh: "建議分數", zhHans: "建议分数" })}: {gradingRun.suggestedScore ?? "-"}</p>
+                      <p>{t({ en: "Confidence", zh: "信心", zhHans: "信心" })}: {gradingRun.confidence === null ? "-" : `${Math.round(gradingRun.confidence * 100)}%`}</p>
+                      <p className="whitespace-pre-wrap break-words">{text(gradingRun.feedback ?? { en: "Teacher review required.", zh: "需教師審核。", zhHans: "需教师审核。" })}</p>
                     </div>
                   ) : (
-                    <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No suggestion generated yet.", zh: "尚未生成建議。" })}</p>
+                    <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No suggestion generated yet.", zh: "尚未生成建議。", zhHans: "尚未生成建议。" })}</p>
                   )}
                 </div>
                 <div className="soft-panel p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Last teacher review", zh: "最近教師審核" })}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Last teacher review", zh: "最近教師審核", zhHans: "最近教师审核" })}</p>
                   {submission.latestTeacherReview ? (
                     <div className="mt-3 grid gap-2 text-sm leading-6 text-slate-700 dark:text-slate-200">
                       <p className="font-black">{submission.latestTeacherReview.reviewerName} · {formatDate(submission.latestTeacherReview.createdAt, language)}</p>
-                      <p className="whitespace-pre-wrap break-words">{text(submission.latestTeacherReview.feedback ?? { en: "No feedback.", zh: "未有回饋。" })}</p>
+                      <p className="whitespace-pre-wrap break-words">{text(submission.latestTeacherReview.feedback ?? { en: "No feedback.", zh: "未有回饋。", zhHans: "未有反馈。" })}</p>
                     </div>
                   ) : (
-                    <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No teacher review yet.", zh: "尚未審核。" })}</p>
+                    <p className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No teacher review yet.", zh: "尚未審核。", zhHans: "尚未审核。" })}</p>
                   )}
                 </div>
               </div>
 
               <div className="mt-5 grid gap-4 lg:grid-cols-[120px_minmax(0,1fr)_minmax(0,1fr)]">
                 <label className="grid gap-2">
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Score", zh: "分數" })}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Score", zh: "分數", zhHans: "分数" })}</span>
                   <input type="number" min={0} max={100} value={scoreBySubmission[submission.id] ?? submission.latestGradingRun?.suggestedScore ?? submission.score ?? ""} onChange={(event) => setScoreBySubmission((current) => ({ ...current, [submission.id]: event.target.value }))} className="focus-ring rounded-xl border border-slate-200/80 bg-white/80 px-3 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]" />
                 </label>
                 <label className="grid gap-2">
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher feedback", zh: "教師回饋" })}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher feedback", zh: "教師回饋", zhHans: "教师反馈" })}</span>
                   <textarea rows={3} value={feedbackFor(submission)} onChange={(event) => setFeedbackBySubmission((current) => ({ ...current, [submission.id]: event.target.value }))} className="focus-ring rounded-xl border border-slate-200/80 bg-white/80 px-3 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
                 </label>
                 <label className="grid gap-2">
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correction request", zh: "訂正要求" })}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Correction request", zh: "訂正要求", zhHans: "订正要求" })}</span>
                   <textarea rows={3} value={correctionFor(submission)} onChange={(event) => setCorrectionBySubmission((current) => ({ ...current, [submission.id]: event.target.value }))} className="focus-ring rounded-xl border border-slate-200/80 bg-white/80 px-3 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
                 </label>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
                 <button disabled={isBusy} onClick={() => reviewSubmission(submission, "score-only")} type="button" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-xs font-black disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.07]">
-                  {t({ en: "Save score", zh: "儲存分數" })}
+                  {t({ en: "Save score", zh: "儲存分數", zhHans: "储存分数" })}
                 </button>
                 <button disabled={isBusy} onClick={() => reviewSubmission(submission, "request-correction")} type="button" className="focus-ring rounded-full border border-amber-300/70 bg-amber-50 px-4 py-2 text-xs font-black text-amber-800 disabled:opacity-50 dark:border-amber-200/30 dark:bg-amber-300/[0.12] dark:text-amber-100">
-                  {t({ en: "Return for correction", zh: "退回訂正" })}
+                  {t({ en: "Return for correction", zh: "退回訂正", zhHans: "退回订正" })}
                 </button>
               </div>
 
@@ -2426,13 +2426,13 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
   const activeFilter = requestedFilter && teacherInboxQueueFilters.has(requestedFilter) ? requestedFilter : "all";
   const selectedThreadId = searchParams.get("thread");
   const queueOptions: Array<{ id: TeacherInboxQueueFilter; label: string; detail: string }> = [
-    { id: "all", label: t({ en: "All threads", zh: "全部對話" }), detail: t({ en: "Every message", zh: "所有訊息" }) },
-    { id: "open", label: t({ en: "Needs reply", zh: "待跟進" }), detail: t({ en: "Unread or open", zh: "未讀或開啟" }) },
-    { id: "unread", label: t({ en: "Unread", zh: "未讀" }), detail: t({ en: "New messages", zh: "新訊息" }) },
-    { id: "urgent", label: t({ en: "Urgent", zh: "緊急" }), detail: t({ en: "High priority", zh: "高優先" }) },
-    { id: "parent", label: t({ en: "Parent", zh: "家長" }), detail: t({ en: "Guardian threads", zh: "監護人對話" }) },
-    { id: "privacy", label: t({ en: "Data requests", zh: "數據申請" }), detail: t({ en: "Privacy workflow", zh: "私隱流程" }) },
-    { id: "resolved", label: t({ en: "Resolved", zh: "已解決" }), detail: t({ en: "Closed loop", zh: "已閉環" }) }
+    { id: "all", label: t({ en: "All threads", zh: "全部對話", zhHans: "全部对话" }), detail: t({ en: "Every message", zh: "所有訊息", zhHans: "所有讯息" }) },
+    { id: "open", label: t({ en: "Needs reply", zh: "待跟進", zhHans: "待跟进" }), detail: t({ en: "Unread or open", zh: "未讀或開啟", zhHans: "未读或开启" }) },
+    { id: "unread", label: t({ en: "Unread", zh: "未讀", zhHans: "未读" }), detail: t({ en: "New messages", zh: "新訊息", zhHans: "新讯息" }) },
+    { id: "urgent", label: t({ en: "Urgent", zh: "緊急", zhHans: "紧急" }), detail: t({ en: "High priority", zh: "高優先", zhHans: "高优先" }) },
+    { id: "parent", label: t({ en: "Parent", zh: "家長", zhHans: "家长" }), detail: t({ en: "Guardian threads", zh: "監護人對話", zhHans: "监护人对话" }) },
+    { id: "privacy", label: t({ en: "Data requests", zh: "數據申請", zhHans: "数据申请" }), detail: t({ en: "Privacy workflow", zh: "私隱流程", zhHans: "隐私流程" }) },
+    { id: "resolved", label: t({ en: "Resolved", zh: "已解決", zhHans: "已解决" }), detail: t({ en: "Closed loop", zh: "已閉環", zhHans: "已闭环" }) }
   ];
   const queueCounts = useMemo(() => queueOptions.reduce<Record<TeacherInboxQueueFilter, number>>((memo, option) => {
     memo[option.id] = inbox.threads.filter((thread) => matchesInboxQueue(thread, option.id)).length;
@@ -2472,7 +2472,7 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
       router.refresh();
       return;
     }
-    setInboxActionMessage(t({ en: "Could not update this thread yet.", zh: "暫時未能更新此對話。" }));
+    setInboxActionMessage(t({ en: "Could not update this thread yet.", zh: "暫時未能更新此對話。", zhHans: "暂时未能更新此对话。" }));
   };
 
   const sendReply = async () => {
@@ -2494,7 +2494,7 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
       router.refresh();
       return;
     }
-    setInboxActionMessage(t({ en: "Could not send this reply yet.", zh: "暫時未能發送此回覆。" }));
+    setInboxActionMessage(t({ en: "Could not send this reply yet.", zh: "暫時未能發送此回覆。", zhHans: "暂时未能发送此回复。" }));
   };
 
   const draftReply = async () => {
@@ -2513,13 +2513,13 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
       });
       return;
     }
-    setInboxActionMessage(t({ en: "Could not draft a reply yet.", zh: "暫時未能草擬回覆。" }));
+    setInboxActionMessage(t({ en: "Could not draft a reply yet.", zh: "暫時未能草擬回覆。", zhHans: "暂时未能草拟回复。" }));
   };
 
   return (
     <div className="grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)_320px]">
       <aside className="glass-panel p-4">
-        <h1 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Inbox", zh: "收件匣" })}</h1>
+        <h1 className="text-2xl font-black text-slate-950 dark:text-white">{t({ en: "Inbox", zh: "收件匣", zhHans: "收件匣" })}</h1>
         <div className="mt-4 grid gap-2">
           {queueOptions.map((option) => {
             const isActive = activeFilter === option.id;
@@ -2545,11 +2545,11 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
         </div>
         <div className="mt-4 flex min-w-0 flex-wrap items-center justify-between gap-2 rounded-2xl border border-slate-200/80 bg-white/70 px-3 py-2 text-xs font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
           <span className="min-w-0 break-words">
-            {t({ en: "Showing", zh: "顯示" })} <span className="font-black text-slate-950 dark:text-white">{filteredThreads.length}</span> / {inbox.threads.length} · {activeFilterLabel}
+            {t({ en: "Showing", zh: "顯示", zhHans: "显示" })} <span className="font-black text-slate-950 dark:text-white">{filteredThreads.length}</span> / {inbox.threads.length} · {activeFilterLabel}
           </span>
           {activeFilter !== "all" ? (
             <Link href="/teacher/communications/inbox" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-1.5 font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.07] dark:text-slate-200">
-              {t({ en: "Clear", zh: "清除" })}
+              {t({ en: "Clear", zh: "清除", zhHans: "清除" })}
             </Link>
           ) : null}
         </div>
@@ -2561,18 +2561,18 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {isDataDeletionRequestThread(thread) ? (
                   <span className="rounded-full border border-rose-300/60 bg-rose-400/12 px-2.5 py-1 text-[11px] font-black text-rose-800 dark:text-rose-100">
-                    {t({ en: "Data deletion request", zh: "數據刪除申請" })}
+                    {t({ en: "Data deletion request", zh: "數據刪除申請", zhHans: "数据删除申请" })}
                   </span>
                 ) : null}
                 <span className={`rounded-full border px-2.5 py-1 text-[11px] font-black ${statusTone(thread.status)}`}>{text(teacherMessageStatusLabels[thread.status])}</span>
                 {thread.priority === "urgent" ? (
                   <span className="rounded-full border border-amber-300/60 bg-amber-400/12 px-2.5 py-1 text-[11px] font-black text-amber-800 dark:text-amber-100">
-                    {t({ en: "Urgent", zh: "緊急" })}
+                    {t({ en: "Urgent", zh: "緊急", zhHans: "紧急" })}
                   </span>
                 ) : null}
                 {thread.parentContext ? (
                   <span className="rounded-full border border-violet-300/60 bg-violet-400/12 px-2.5 py-1 text-[11px] font-black text-violet-800 dark:text-violet-100">
-                    {t({ en: "Parent", zh: "家長" })}
+                    {t({ en: "Parent", zh: "家長", zhHans: "家长" })}
                   </span>
                 ) : null}
               </div>
@@ -2581,7 +2581,7 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
           ))}
           {!filteredThreads.length ? (
             <p className="soft-panel p-4 text-sm font-bold text-slate-500 dark:text-slate-400">
-              {t({ en: "No threads in this queue.", zh: "此隊列暫無對話。" })}
+              {t({ en: "No threads in this queue.", zh: "此隊列暫無對話。", zhHans: "此队列暂无对话。" })}
             </p>
           ) : null}
         </div>
@@ -2602,20 +2602,20 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
                 ) : null}
                 {selectedIsDataDeletionRequest ? (
                   <span className="mt-3 inline-flex rounded-full border border-rose-300/60 bg-rose-400/12 px-3 py-1 text-xs font-black text-rose-800 dark:text-rose-100">
-                    {t({ en: "Data deletion request", zh: "數據刪除申請" })}
+                    {t({ en: "Data deletion request", zh: "數據刪除申請", zhHans: "数据删除申请" })}
                   </span>
                 ) : null}
               </div>
               <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={() => patchThread(selected, { starred: !selected.starred })} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{selected.starred ? t({ en: "Unstar", zh: "取消星標" }) : t({ en: "Star", zh: "加星" })}</button>
-                <button type="button" onClick={() => patchThread(selected, { status: selected.status === "resolved" ? "open" : "resolved" })} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white dark:bg-white dark:text-slate-950">{selected.status === "resolved" ? t({ en: "Reopen", zh: "重開" }) : t({ en: "Resolve", zh: "標記解決" })}</button>
+                <button type="button" onClick={() => patchThread(selected, { starred: !selected.starred })} className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-4 py-2 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{selected.starred ? t({ en: "Unstar", zh: "取消星標", zhHans: "取消星标" }) : t({ en: "Star", zh: "加星", zhHans: "加星" })}</button>
+                <button type="button" onClick={() => patchThread(selected, { status: selected.status === "resolved" ? "open" : "resolved" })} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white dark:bg-white dark:text-slate-950">{selected.status === "resolved" ? t({ en: "Reopen", zh: "重開", zhHans: "重开" }) : t({ en: "Resolve", zh: "標記解決", zhHans: "标记解决" })}</button>
               </div>
             </div>
             {selectedIsDataDeletionRequest ? (
               <div className="mt-5 rounded-2xl border border-rose-300/50 bg-rose-400/10 p-4 text-sm font-semibold leading-6 text-rose-800 dark:text-rose-100">
                 {t({
                   en: "Privacy workflow: confirm the student's identity and school retention policy before deleting analytics records. Mark this thread resolved only after the data deletion request is handled.",
-                  zh: "私隱流程：刪除學習分析紀錄前，請先確認學生身份及學校資料保留政策。完成數據刪除申請後才將此對話標記為已解決。"
+                  zh: "私隱流程：刪除學習分析紀錄前，請先確認學生身份及學校資料保留政策。完成數據刪除申請後才將此對話標記為已解決。", zhHans: "隐私流程：删除学习分析纪录前，请先确认学生身份及学校资料保留政策。完成数据删除申请后才将此对话标记为已解决。"
                 })}
               </div>
             ) : null}
@@ -2628,38 +2628,38 @@ export function TeacherInboxManager({ inbox }: { inbox: TeacherInboxData }) {
                 <div key={message.id} className={`max-w-[86%] rounded-2xl border p-4 ${message.senderRole === "teacher" ? "ml-auto border-cyan-300/45 bg-cyan-400/10" : "border-slate-200/80 bg-white/75 dark:border-white/10 dark:bg-white/[0.06]"}`}>
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{message.senderName} · {formatDate(message.createdAt, language)}</p>
                   <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">{message.body}</p>
-                  {message.attachments.length ? <p className="mt-2 text-xs font-bold text-cyan-700 dark:text-cyan-200">{message.attachments.length} {t({ en: "attachments", zh: "附件" })}</p> : null}
+                  {message.attachments.length ? <p className="mt-2 text-xs font-bold text-cyan-700 dark:text-cyan-200">{message.attachments.length} {t({ en: "attachments", zh: "附件", zhHans: "附件" })}</p> : null}
                 </div>
               ))}
             </div>
             <div id="inbox-composer" className="mt-5 grid scroll-mt-24 gap-3">
-              <textarea value={reply} onChange={(event) => setReply(event.target.value)} rows={4} placeholder={selected.parentContext ? t({ en: "Reply to the parent", zh: "回覆家長" }) : t({ en: "Reply to the student", zh: "回覆學生" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
+              <textarea value={reply} onChange={(event) => setReply(event.target.value)} rows={4} placeholder={selected.parentContext ? t({ en: "Reply to the parent", zh: "回覆家長", zhHans: "回复家长" }) : t({ en: "Reply to the student", zh: "回覆學生", zhHans: "回复学生" })} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/[0.06]" />
               <div className="flex flex-wrap gap-2">
-                <button onClick={draftReply} type="button" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{t({ en: "Draft reply", zh: "草擬回覆" })}</button>
-                <button onClick={sendReply} type="button" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "Send reply", zh: "發送回覆" })}</button>
+                <button onClick={draftReply} type="button" className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-5 py-3 text-sm font-black dark:border-white/10 dark:bg-white/[0.07]">{t({ en: "Draft reply", zh: "草擬回覆", zhHans: "草拟回复" })}</button>
+                <button onClick={sendReply} type="button" className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">{t({ en: "Send reply", zh: "發送回覆", zhHans: "发送回复" })}</button>
               </div>
             </div>
           </>
-        ) : <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No messages yet.", zh: "尚未有私信。" })}</p>}
+        ) : <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No messages yet.", zh: "尚未有私信。", zhHans: "尚未有私信。" })}</p>}
       </section>
       <aside className="glass-panel p-4">
         {selected ? (
           <>
-            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Student context", zh: "學生上下文" })}</h2>
+            <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Student context", zh: "學生上下文", zhHans: "学生上下文" })}</h2>
             <p className="mt-3 text-sm font-bold text-cyan-700 dark:text-cyan-200">{formatGradeLabel(selected.studentGrade, language, true)} · {selected.className ?? ""}</p>
             <p className="mt-3 text-3xl font-black gradient-text">{percent(selected.studentContext.averageMastery)}</p>
-            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "average mastery", zh: "平均掌握" })}</p>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{t({ en: "average mastery", zh: "平均掌握", zhHans: "平均掌握" })}</p>
             {selected.parentContext ? (
               <div className="mt-5 rounded-2xl border border-violet-300/45 bg-violet-400/10 p-3 text-sm font-bold text-violet-800 dark:text-violet-100">
-                <p>{t({ en: "Parent", zh: "家長" })}: {selected.parentContext.guardianName}</p>
-                <p className="mt-1">{t({ en: "Category", zh: "類型" })}: {text(parentCategoryLabel(selected.parentContext.category))}</p>
+                <p>{t({ en: "Parent", zh: "家長", zhHans: "家长" })}: {selected.parentContext.guardianName}</p>
+                <p className="mt-1">{t({ en: "Category", zh: "類型", zhHans: "类型" })}: {text(parentCategoryLabel(selected.parentContext.category))}</p>
               </div>
             ) : null}
-            <h3 className="mt-6 text-sm font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Active mistakes", zh: "目前錯題" })}</h3>
+            <h3 className="mt-6 text-sm font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Active mistakes", zh: "目前錯題", zhHans: "目前错题" })}</h3>
             <div className="mt-3 grid gap-2">
               {selected.studentContext.activeMistakes.map((mistake) => <div key={mistake.questionId} className="soft-panel p-3 text-xs font-bold">{text(mistake.question.topic)} · {mistake.wrongAttempts}</div>)}
             </div>
-            <h3 className="mt-6 text-sm font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Current assignments", zh: "目前作業" })}</h3>
+            <h3 className="mt-6 text-sm font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{t({ en: "Current assignments", zh: "目前作業", zhHans: "目前作业" })}</h3>
             <div className="mt-3 grid gap-2">
               {selected.studentContext.currentAssignments.map((item: StudentAssignmentItem) => <Link key={item.assignment.id} href={`/teacher/assignments/${item.assignment.id}`} className="soft-panel block p-3 text-xs font-bold">{text(item.assignment.title)} · {text(submissionStatusLabels[item.submission.status])}</Link>)}
             </div>

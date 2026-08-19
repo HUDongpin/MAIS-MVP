@@ -12,10 +12,10 @@ import type { LocalizedText } from "@/types";
 export type TeacherZone = "today" | "plan" | "students" | "records";
 
 export const teacherZoneLabels: Record<TeacherZone, LocalizedText> = {
-  today: { en: "Today", zh: "今日" },
-  plan: { en: "Plan & teach", zh: "備課與教學" },
-  students: { en: "Students & data", zh: "學生與數據" },
-  records: { en: "School & records", zh: "校務與記錄" }
+  today: { en: "Today", zh: "今日", zhHans: "今日" },
+  plan: { en: "Plan & teach", zh: "備課與教學", zhHans: "备课与教学" },
+  students: { en: "Students & data", zh: "學生與數據", zhHans: "学生与数据" },
+  records: { en: "School & records", zh: "校務與記錄", zhHans: "校务与记录" }
 };
 
 export const zoneEyebrowClass: Record<TeacherZone, string> = {

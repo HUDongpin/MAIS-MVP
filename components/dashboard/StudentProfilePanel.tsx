@@ -19,37 +19,37 @@ type AvatarMascot = "cosmicCat" | "orbitAlien" | "solarPup" | "mintAlien" | "sky
 const avatarPresets: AvatarPreset[] = [
   {
     id: "delta",
-    label: { en: "Cosmic cat", zh: "星空貓" },
+    label: { en: "Cosmic cat", zh: "星空貓", zhHans: "星空猫" },
     className: "from-cyan-300 via-violet-400 to-fuchsia-400",
     mascot: "cosmicCat"
   },
   {
     id: "pi",
-    label: { en: "Orbit alien", zh: "軌道外星人" },
+    label: { en: "Orbit alien", zh: "軌道外星人", zhHans: "轨道外星人" },
     className: "from-emerald-300 via-cyan-400 to-sky-500",
     mascot: "orbitAlien"
   },
   {
     id: "sigma",
-    label: { en: "Solar pup", zh: "陽光小狗" },
+    label: { en: "Solar pup", zh: "陽光小狗", zhHans: "阳光小狗" },
     className: "from-amber-200 via-orange-400 to-rose-400",
     mascot: "solarPup"
   },
   {
     id: "theta",
-    label: { en: "Mint alien", zh: "薄荷外星人" },
+    label: { en: "Mint alien", zh: "薄荷外星人", zhHans: "薄荷外星人" },
     className: "from-lime-200 via-emerald-400 to-teal-500",
     mascot: "mintAlien"
   },
   {
     id: "function",
-    label: { en: "Sky bunny", zh: "天空兔" },
+    label: { en: "Sky bunny", zh: "天空兔", zhHans: "天空兔" },
     className: "from-blue-300 via-indigo-400 to-violet-500",
     mascot: "skyBunny"
   },
   {
     id: "radical",
-    label: { en: "Nova blob", zh: "新星外星人" },
+    label: { en: "Nova blob", zh: "新星外星人", zhHans: "新星外星人" },
     className: "from-rose-200 via-pink-400 to-purple-500",
     mascot: "novaBlob"
   }
@@ -255,7 +255,7 @@ export function StudentProfilePanel() {
   const cleanDraftName = draftName.trim().replace(/\s+/g, " ");
   const currentAvatarImageDataUrl = currentUser?.avatarImageDataUrl ?? "";
   const draftAvatarImageValue = draftAvatarImagePreviewUrl ?? "";
-  const uploadErrorCopy = t({ en: "Choose a JPG, PNG, or WebP image under 5 MB.", zh: "請選擇 5 MB 以下的 JPG、PNG 或 WebP 圖像。" });
+  const uploadErrorCopy = t({ en: "Choose a JPG, PNG, or WebP image under 5 MB.", zh: "請選擇 5 MB 以下的 JPG、PNG 或 WebP 圖像。", zhHans: "请选择 5 MB 以下的 JPG、PNG 或 WebP 图像。" });
   const isDirty = Boolean(
     currentUser &&
       (cleanDraftName !== currentUser.name ||
@@ -332,14 +332,14 @@ export function StudentProfilePanel() {
         </div>
         <div className="min-w-0">
           <p id="student-profile-title" className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">
-            {t({ en: "Student profile", zh: "學生檔案" })}
+            {t({ en: "Student profile", zh: "學生檔案", zhHans: "学生档案" })}
           </p>
           <h2 className="mt-1 truncate text-2xl font-black text-slate-950 dark:text-white">{localizedName}</h2>
         </div>
       </div>
 
       <label className="mt-5 block text-sm font-bold text-slate-600 dark:text-slate-300">
-        {t({ en: "Display name", zh: "顯示名稱" })}
+        {t({ en: "Display name", zh: "顯示名稱", zhHans: "显示名称" })}
         <input
           value={draftName}
           onChange={(event) => {
@@ -352,7 +352,7 @@ export function StudentProfilePanel() {
       </label>
 
       <fieldset className="mt-5">
-        <legend className="text-sm font-bold text-slate-600 dark:text-slate-300">{t({ en: "Avatar", zh: "頭像" })}</legend>
+        <legend className="text-sm font-bold text-slate-600 dark:text-slate-300">{t({ en: "Avatar", zh: "頭像", zhHans: "头像" })}</legend>
         <div className="mt-3 grid grid-cols-3 gap-2">
           {avatarPresets.map((avatar) => {
             const selected = !draftAvatarImagePreviewUrl && avatar.id === draftAvatarId;
@@ -394,10 +394,10 @@ export function StudentProfilePanel() {
             )}
           >
             {isPreparingImage
-              ? t({ en: "Preparing photo...", zh: "正在準備相片..." })
+              ? t({ en: "Preparing photo...", zh: "正在準備相片...", zhHans: "正在准备相片..." })
               : draftAvatarImagePreviewUrl
-                ? t({ en: "Photo selected", zh: "已選相片" })
-                : t({ en: "Upload photo", zh: "上載相片" })}
+                ? t({ en: "Photo selected", zh: "已選相片", zhHans: "已选相片" })
+                : t({ en: "Upload photo", zh: "上載相片", zhHans: "上载相片" })}
           </button>
           <button
             type="button"
@@ -405,7 +405,7 @@ export function StudentProfilePanel() {
             disabled={!canSave}
             className="focus-ring flex min-h-12 items-center justify-center rounded-2xl bg-slate-950 px-3 text-center text-sm font-black text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-slate-950"
           >
-            {isSaving ? t({ en: "Saving...", zh: "正在儲存..." }) : t({ en: "Save profile", zh: "儲存檔案" })}
+            {isSaving ? t({ en: "Saving...", zh: "正在儲存...", zhHans: "正在储存..." }) : t({ en: "Save profile", zh: "儲存檔案", zhHans: "储存档案" })}
           </button>
           <input
             ref={fileInputRef}
@@ -418,8 +418,8 @@ export function StudentProfilePanel() {
           />
         </div>
         {uploadError ? <p className="mt-2 text-xs font-bold text-rose-600 dark:text-rose-300">{uploadError}</p> : null}
-        {status === "saved" ? <p className="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存" })}</p> : null}
-        {status === "error" ? <p className="mt-2 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存" })}</p> : null}
+        {status === "saved" ? <p className="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-300">{t({ en: "Saved", zh: "已儲存", zhHans: "已储存" })}</p> : null}
+        {status === "error" ? <p className="mt-2 text-sm font-bold text-rose-600 dark:text-rose-300">{t({ en: "Could not save", zh: "無法儲存", zhHans: "无法储存" })}</p> : null}
       </fieldset>
     </section>
   );
