@@ -280,3 +280,23 @@ test("AI Tutor voice gates client-supplied text before speaking it", async () =>
   assert.ok(gateIndex > 0, "voice moderation gate is missing");
   assert.ok(synthesizeIndex > gateIndex, "the gate must refuse before synthesis");
 });
+
+test("AI Tutor voice keeps unconfigured-provider text local while preserving duty of care", async () => {
+  const voiceRoute = await source("app/api/ai-tutor/voice/route.ts");
+
+  assert.match(voiceRoute, /voiceProviderConfigured: Boolean\(providerConfig\.apiKey\)/);
+  assert.match(
+    voiceRoute,
+    /code: "AI_TUTOR_VOICE_NOT_CONFIGURED"[\s\S]*?status: 503/
+  );
+
+  const moderationIndex = voiceRoute.indexOf("await resolveTutorVoiceModeration({");
+  const safetyFlagIndex = voiceRoute.indexOf("if (voiceModeration.safetyFlag)");
+  const unavailableIndex = voiceRoute.indexOf("if (!providerConfig.apiKey)");
+  const refusalIndex = voiceRoute.indexOf("if (!voiceModeration.allowed)");
+
+  assert.ok(moderationIndex > 0, "voice duty-of-care preflight is missing");
+  assert.ok(safetyFlagIndex > moderationIndex, "safety alerts must follow the local preflight");
+  assert.ok(unavailableIndex > safetyFlagIndex, "voice 503 must follow safety alert recording");
+  assert.ok(refusalIndex > unavailableIndex, "voice 503 must win after duty of care is preserved");
+});
