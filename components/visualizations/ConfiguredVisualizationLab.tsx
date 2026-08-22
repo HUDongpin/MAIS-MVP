@@ -6,7 +6,10 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { sliderBoundsForThreeDTemplate } from "@/components/visualizations/three/configuredThreeDControls";
 import { resolveConfiguredThreeDRenderPlan } from "@/components/visualizations/three/configuredThreeDRenderPlan";
-import type { ThreeDLabCanvasProps } from "@/components/visualizations/three/threeDSceneTypes";
+import type {
+  ThreeDLabCanvasProps,
+  ThreeDPresentation
+} from "@/components/visualizations/three/threeDSceneTypes";
 import { ThreeDGraphSvg } from "@/components/visualizations/ThreeDGraphSvg";
 import { formatThreeDGraphSummary, threeDGraphScalesFromControls } from "@/components/visualizations/ThreeDGraphSvgGeometry";
 import { useVisualizationTheme, type VisualizationTheme } from "@/components/visualizations/visualizationTheme";
@@ -40,6 +43,7 @@ type ConfiguredVisualizationLabProps = {
   controlFooterAction?: ReactNode;
   lab?: FeaturedLabDefinition | null;
   labId?: string;
+  threeDPresentation?: ThreeDPresentation;
   topicId?: string;
 };
 
@@ -2885,7 +2889,13 @@ function Slider({
   );
 }
 
-function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
+function ConfiguredVisualizationLabSurface({
+  controlFooterAction,
+  lab = null,
+  labId,
+  threeDPresentation = "authoring",
+  topicId
+}: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();
   const vizTheme = useVisualizationTheme();
   const [value, setValue] = useState(5);
@@ -3620,6 +3630,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                 fallback={svgSurface}
                 label={surfaceLabel}
                 onCanvasReady={() => setThreeDCanvasReady(true)}
+                presentation={threeDPresentation}
                 premiumLaunch={threeDRenderPlan.premiumLaunch}
                 regionalPriority={threeDRenderPlan.regionalPriority}
                 runtime={threeDRenderPlan.runtime}
@@ -3770,7 +3781,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
 }
 
 export function ConfiguredVisualizationLabDirect(props: ConfiguredVisualizationLabProps) {
-  return <ConfiguredVisualizationLabSurface {...props} />;
+  return <ConfiguredVisualizationLabSurface {...props} threeDPresentation="learner" />;
 }
 
 export function ConfiguredVisualizationLab({ controlFooterAction, lab: providedLab = null, labId, topicId }: ConfiguredVisualizationLabProps) {

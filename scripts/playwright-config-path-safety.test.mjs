@@ -37,6 +37,8 @@ console.log(JSON.stringify({
   e2eRoot: process.env.PLAYWRIGHT_E2E_ROOT,
   nextDist: process.env.PLAYWRIGHT_NEXT_DIST_DIR,
   tempTsconfig: process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH,
+  crashpadDir: process.env.PLAYWRIGHT_CRASHPAD_DIR ?? null,
+  launchArgs: config.use?.launchOptions?.args ?? null,
   webServerCommand: config.webServer?.command ?? null
 }));
 `;
@@ -120,7 +122,10 @@ test("Playwright rejects raw parent traversal after an escaping symlink in the E
 });
 
 test("Playwright rejects the shared E2E runtime root as a recursive cleanup target", () => {
-  const result = loadPlaywrightConfig({ PLAYWRIGHT_E2E_ROOT: e2eRuntimeRoot });
+  const result = loadPlaywrightConfig(
+    { PLAYWRIGHT_E2E_ROOT: e2eRuntimeRoot },
+    ["PLAYWRIGHT_SKIP_WEBSERVER"]
+  );
 
   assert.notEqual(result.status, 0, `${result.stdout}\n${result.stderr}`);
   assert.match(`${result.stdout}\n${result.stderr}`, /PLAYWRIGHT_E2E_ROOT must stay within its run-owned cleanup root/u);
@@ -138,7 +143,7 @@ test("the external-artifact override cannot authorize cleanup outside the dedica
       MAIS_ALLOW_EXTERNAL_ARTIFACTS: "1",
       PLAYWRIGHT_E2E_ROOT: preservedExternalRoot,
       PLAYWRIGHT_NEXT_DIST_DIR: path.join(preservedExternalRoot, "next-dist")
-    });
+    }, ["PLAYWRIGHT_SKIP_WEBSERVER"]);
 
     assert.notEqual(result.status, 0, `${result.stdout}\n${result.stderr}`);
     assert.match(`${result.stdout}\n${result.stderr}`, /PLAYWRIGHT_E2E_ROOT must stay within its run-owned cleanup root/u);
@@ -146,6 +151,33 @@ test("the external-artifact override cannot authorize cleanup outside the dedica
   } finally {
     rmSync(path.dirname(preservedExternalRoot), { recursive: true, force: true });
   }
+});
+
+test("a cleanup-free California run may use canonical external artifacts without weakening cleanup guards", () => {
+  const externalRunRoot = path.join(
+    path.parse(repoRoot).root,
+    "private",
+    "tmp",
+    "mais-playwright-california-config-contract",
+    "run"
+  );
+  const crashpadDir = path.join(externalRunRoot, "chrome-crashpad");
+  const result = loadPlaywrightConfig({
+    MAIS_ALLOW_EXTERNAL_ARTIFACTS: "1",
+    PLAYWRIGHT_CRASHPAD_DIR: crashpadDir,
+    PLAYWRIGHT_E2E_ROOT: externalRunRoot,
+    PLAYWRIGHT_NEXT_DIST_DIR: path.join(externalRunRoot, "next-dist"),
+    PLAYWRIGHT_SKIP_WEBSERVER: "1"
+  });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  assert.equal(loaded.webServerCommand, null);
+  assert.equal(loaded.crashpadDir, path.resolve(crashpadDir));
+  assert.deepEqual(loaded.launchArgs, [
+    "--disable-crashpad-for-testing",
+    `--breakpad-dump-location=${path.resolve(crashpadDir)}`
+  ]);
 });
 
 test("Playwright rejects a Next dist directory outside the worktree .tmp root", () => {

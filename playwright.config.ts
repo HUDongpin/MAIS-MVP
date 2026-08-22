@@ -47,6 +47,15 @@ const e2eReportInput = resolveConfiguredGeneratedPath(
   path.join(e2eRunRoot, "playwright-report")
 );
 const e2eReportDir = e2eReportInput.absolute;
+const e2eCrashpadInput = process.env.PLAYWRIGHT_CRASHPAD_DIR?.trim()
+  ? resolveConfiguredGeneratedPath(
+      "PLAYWRIGHT_CRASHPAD_DIR",
+      process.env.PLAYWRIGHT_CRASHPAD_DIR,
+      path.join(e2eRunRoot, "crashpad")
+    )
+  : undefined;
+const e2eCrashpadDir = e2eCrashpadInput?.absolute;
+const disableCrashpadForTestingArgument = "--disable-crashpad-for-testing";
 process.env.PLAYWRIGHT_RUN_ID = runId;
 process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
 process.env.PLAYWRIGHT_NEXT_DIST_DIR = e2eNextDistDir;
@@ -54,6 +63,7 @@ process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH = e2eNextTsconfigPath;
 process.env.HK_MATH_DB_PATH = e2eDbPath;
 process.env.PLAYWRIGHT_OUTPUT_DIR = e2eOutputDir;
 process.env.PLAYWRIGHT_REPORT_DIR = e2eReportDir;
+if (e2eCrashpadDir) process.env.PLAYWRIGHT_CRASHPAD_DIR = e2eCrashpadDir;
 const disabledProviderEnv = [
   "LLM_API_KEY=",
   "OPENAI_API_KEY=",
@@ -96,7 +106,10 @@ assertSafeE2eGeneratedPath("PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_REPORT_DIR", e2eReportDir);
 assertSafeE2eGeneratedPath("HK_MATH_DB_PATH", e2eDbPath);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath);
-const e2eNextDistCleanupRoot = assertRunOwnedCleanupPaths();
+if (e2eCrashpadDir) assertSafeE2eGeneratedPath("PLAYWRIGHT_CRASHPAD_DIR", e2eCrashpadDir);
+const e2eNextDistCleanupRoot = useGlobalWebServer
+  ? assertRunOwnedCleanupPaths()
+  : e2eRunRoot;
 assertRequiredE2eRuntimePaths();
 
 function sanitizePathSegment(value: string) {
@@ -242,7 +255,10 @@ function assertRequiredE2eRuntimePaths() {
     ["PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir],
     ["PLAYWRIGHT_REPORT_DIR", e2eReportDir],
     ["HK_MATH_DB_PATH", e2eDbPath],
-    ["PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath]
+    ["PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath],
+    ...(e2eCrashpadDir
+      ? [["PLAYWRIGHT_CRASHPAD_DIR", e2eCrashpadDir] as const]
+      : [])
   ] as const;
   for (const [label, value] of generatedPaths) {
     const absolutePath = path.resolve(value);
@@ -637,6 +653,14 @@ export default defineConfig({
   use: {
     baseURL,
     channel: browserChannel || undefined,
+    launchOptions: e2eCrashpadDir
+      ? {
+          args: [
+            disableCrashpadForTestingArgument,
+            `--breakpad-dump-location=${path.resolve(e2eCrashpadDir)}`
+          ]
+        }
+      : undefined,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
@@ -666,11 +690,23 @@ export default defineConfig({
   projects: [
     {
       name: "desktop-chrome",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 1100 } }
+      use: {
+        ...devices["Desktop Chrome"],
+        // Playwright Test 1.57 does not forward the top-level `screen` device
+        // option through its fixture pipeline. Keep the reviewed screen in
+        // contextOptions as well so window.screen remains independently
+        // frozen instead of collapsing to the viewport dimensions.
+        contextOptions: { screen: { width: 1920, height: 1080 } },
+        viewport: { width: 1440, height: 1100 }
+      }
     },
     {
       name: "mobile-chrome",
-      use: { ...devices["Pixel 5"], isMobile: true }
+      use: {
+        ...devices["Pixel 5"],
+        contextOptions: { screen: { width: 393, height: 851 } },
+        isMobile: true
+      }
     }
   ]
 });

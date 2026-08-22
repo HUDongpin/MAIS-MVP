@@ -122,6 +122,12 @@ function estimateOf(n, m) {
   return roundTen(T) - roundTen(m);
 }
 const BAND = 10; // 5 from rounding T + 5 from rounding m — see the header's proof
+/* Every generated story, halfway value, exact answer, and estimate band lives
+   on the learner-visible 0...60 bottle scale below. Keep the calibration input
+   on that same whole-number domain so its finite endpoints are both meaningful
+   to a child and mechanically testable. */
+const GUESS_MIN = 0;
+const GUESS_MAX = 60;
 const bandOf = (n, m) => {
   const e = estimateOf(n, m);
   return { lo: e - BAND, hi: e + BAND, est: e };
@@ -353,7 +359,7 @@ export default function TwoStepLab() {
     if (Q.focus === 'check' || Q.focus === 'calib') {
       const bd = bandOf(Ln, Lm);
       const by = H - 42;
-      const lo = 0, hi = 60;
+      const lo = GUESS_MIN, hi = GUESS_MAX;
       const bx = (v) => 40 + ((v - lo) / (hi - lo)) * (W - 80);
       ctx.save();
       ctx.strokeStyle = 'rgba(28,43,58,0.3)';
@@ -497,7 +503,8 @@ export default function TwoStepLab() {
             <div className="calib">
               <label className="ask">
                 How many bottles are left?
-                <input type="number" inputMode="numeric" value={guess} placeholder="?"
+                <input type="number" inputMode="numeric" min={GUESS_MIN} max={GUESS_MAX} step="1"
+                  value={guess} placeholder="?"
                   aria-label="Your answer: how many bottles are left"
                   onChange={(e) => setGuess(e.target.value)} />
               </label>
