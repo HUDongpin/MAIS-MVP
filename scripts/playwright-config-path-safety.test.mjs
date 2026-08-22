@@ -275,6 +275,25 @@ test("the webServer passes a repository-relative Next dist path to the clean-bui
   assert.equal(cleanBuildConfig.nextBuildDir, path.join(runRoot, "next-dist"));
 });
 
+test("the webServer passes a repository-relative tsconfig path to the Next loader", () => {
+  const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  const buildCommand = loaded.webServerCommand
+    .split(" && ")
+    .find((command) => command.includes("npm run build"));
+  assert.equal(typeof buildCommand, "string", "webServer should contain the Next build command");
+
+  const tsconfigMatch = buildCommand.match(/(?:^|\s)NEXT_TSCONFIG_PATH='([^']+)'/u);
+  assert.ok(tsconfigMatch, "Next build command should declare NEXT_TSCONFIG_PATH");
+  assert.equal(path.isAbsolute(tsconfigMatch[1]), false);
+  assert.equal(
+    path.resolve(repoRoot, tsconfigMatch[1]),
+    path.join(runRoot, "tsconfig.playwright.tmp.json")
+  );
+});
+
 test("the .tmp-local temporary tsconfig still resolves repository sources and dist types", () => {
   const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
 
