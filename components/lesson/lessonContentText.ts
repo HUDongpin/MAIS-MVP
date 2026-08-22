@@ -2,9 +2,6 @@ const californiaGradePrefixPattern = /^\s*California\s+(?:(?:Grade\s+(?:K|[0-9]{
 const californiaKnowledgePointCodePrefixPattern = /^\s*(?:(?:K|\d{1,2})-)?[A-Z]\.\d+\s*/i;
 const californiaDisplayGradePrefixPattern = /^\s*(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\s*/i;
 const lessonModuleSuffixPattern = /\s*(?:Lesson\s+Module|課節模組|课节模块)\s*$/i;
-const generatedCaliforniaVisualizationPrefacePattern = /Safeguard Review[\s\S]*Read me first/i;
-const californiaVisualizationTitleBreakPattern = /^(.+?\b(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\b)\s+(.+)$/i;
-const californiaVisualizationMenuTitlePattern = /^(.+?\b(?:(?:K|\d{1,2})-[A-Z]\.\d+|[A-Z]\.\d+))\s+(?:Grade\s+(?:K|[0-9]{1,2})|Kindergarten)\b\s+.+$/i;
 const revealableAnswerPattern = /(答案\s*[:：]\s*|Answer\s*:\s*)/;
 const standaloneReasoningLinePattern = /^(?:Reasoning\s*:|推理\s*[:：])/i;
 
@@ -197,22 +194,3 @@ export function splitLessonContentForAnswerReveal(
   return segments;
 }
 
-export function cleanLessonVisualizationContent(content: string) {
-  if (generatedCaliforniaVisualizationPrefacePattern.test(content)) return "";
-
-  return content;
-}
-
-export function splitLessonVisualizationTitle(title: string) {
-  const match = title.trim().match(californiaVisualizationTitleBreakPattern);
-  if (!match) return [title];
-
-  return [match[1], match[2]];
-}
-
-export function compactLessonVisualizationMenuTitle(title: string) {
-  const match = title.trim().match(californiaVisualizationMenuTitlePattern);
-  if (!match) return title;
-
-  return match[1];
-}

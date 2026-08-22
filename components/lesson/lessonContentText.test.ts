@@ -5,10 +5,7 @@ import {
   cleanLessonConceptContent,
   cleanLessonDisplayTitle,
   cleanLessonUnitTitle,
-  cleanLessonVisualizationContent,
-  compactLessonVisualizationMenuTitle,
-  splitLessonContentForAnswerReveal,
-  splitLessonVisualizationTitle
+  splitLessonContentForAnswerReveal
 } from "./lessonContentText";
 
 test("removes leading California grade label without deleting the concept sentence", () => {
@@ -89,70 +86,6 @@ test("provides student-friendly California course names for every grade", () => 
   assert.equal(californiaCourseTitleForGrade("K")?.en, "Kindergarten Math Explorers");
   assert.equal(californiaCourseTitleForGrade("P1")?.en, "First Grade Math Adventures");
   assert.equal(californiaCourseTitleForGrade("S6")?.en, "Precalculus and Statistics Pathways");
-});
-
-test("removes generated California visualization safeguard prefaces from lesson panels", () => {
-  assert.equal(
-    cleanLessonVisualizationContent(
-      "Use the number line lab to manipulate this knowledge point before checkpoint practice. The lab is aligned to CA.CCSS.Math.1.OA (1.OA.1, 1.OA.2, 1.OA.3, 1.OA.4...), carries a Safeguard Review record, and shows its Read me first note before students interact with the model."
-    ),
-    ""
-  );
-});
-
-test("keeps regular lesson visualization descriptions", () => {
-  assert.equal(
-    cleanLessonVisualizationContent("Move the sliders to compare the graph, table, and story."),
-    "Move the sliders to compare the graph, table, and story."
-  );
-});
-
-test("splits California visualization titles after the grade segment", () => {
-  assert.deepEqual(
-    splitLessonVisualizationTitle("Visualization Lab: 1-A.1 Grade 1 Operations and Algebraic Thinking: Add Subtract"),
-    [
-      "Visualization Lab: 1-A.1 Grade 1",
-      "Operations and Algebraic Thinking: Add Subtract"
-    ]
-  );
-});
-
-test("splits Kindergarten visualization titles before the domain title", () => {
-  assert.deepEqual(
-    splitLessonVisualizationTitle("Visualization Lab: K-A.1 Kindergarten Counting and Cardinality: Count Sequence"),
-    [
-      "Visualization Lab: K-A.1 Kindergarten",
-      "Counting and Cardinality: Count Sequence"
-    ]
-  );
-});
-
-test("keeps non-California visualization titles on one line", () => {
-  assert.deepEqual(
-    splitLessonVisualizationTitle("Visualization Lab: Coordinate Plane Explorer"),
-    ["Visualization Lab: Coordinate Plane Explorer"]
-  );
-});
-
-test("compacts California visualization menu titles to the lab code", () => {
-  assert.equal(
-    compactLessonVisualizationMenuTitle("Visualization Lab: 1-A.1 Grade 1 Operations and Algebraic Thinking: Add Subtract"),
-    "Visualization Lab: 1-A.1"
-  );
-});
-
-test("compacts Kindergarten visualization menu titles to the lab code", () => {
-  assert.equal(
-    compactLessonVisualizationMenuTitle("Visualization Lab: K-A.1 Kindergarten Counting and Cardinality: Count Sequence"),
-    "Visualization Lab: K-A.1"
-  );
-});
-
-test("keeps non-California visualization menu titles unchanged", () => {
-  assert.equal(
-    compactLessonVisualizationMenuTitle("Visualization Lab: Coordinate Plane Explorer"),
-    "Visualization Lab: Coordinate Plane Explorer"
-  );
 });
 
 test("splits inline answer markers into answer reveal segments", () => {

@@ -118,16 +118,6 @@ const lessonSteps: GuidedTourStep[] = [
     }
   },
   {
-    id: "lesson-checklist",
-    anchor: "student-lesson-checklist",
-    title: { en: "Your checklist", zh: "你的清單", zhHans: "你的清单" },
-    body: {
-      en: "This ticks off as you go, so you always know what is left in this lesson.",
-      zh: "你完成一項就會打勾，隨時知道這一課還剩甚麼。",
-      zhHans: "你完成一项就会打勾，随时知道这一课还剩什么。"
-    }
-  },
-  {
     id: "lesson-practice",
     anchor: "student-lesson-practice",
     title: { en: "Try it yourself", zh: "自己試一試", zhHans: "自己试一试" },

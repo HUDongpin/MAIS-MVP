@@ -49,26 +49,29 @@ test("lesson directory layout lets content fill the remaining page width", () =>
   );
 });
 
-test("lesson visualization areas always expose the next item action", () => {
-  assert.match(
-    lessonViewSource,
-    /const visualizationNextItemAction = renderNextLessonItemButton\(scrollToLessonPracticeItem, nextLessonItemPanelButtonClassName\);/,
-    "LessonView should create one shared visualization next-item action."
+test("lesson pages no longer render the interactive visualization panel", () => {
+  assert.equal(
+    lessonViewSource.includes("visualizationPanel"),
+    false,
+    "LessonView must not render the removed interactive visualization panel."
   );
-  assert.match(
-    lessonViewSource,
-    /const usesConfiguredVisualizationFooterAction = visualizationBlock\?\.visualizationConfig\?\.moduleId === "configured-visualization-lab";/,
-    "Configured labs should place the action inside the lab control footer."
+  assert.equal(
+    lessonViewSource.includes('id="visualization"'),
+    false,
+    "LessonView must not keep the removed visualization section anchor."
   );
-  assert.match(
-    lessonViewSource,
-    /controlFooterAction=\{usesConfiguredVisualizationFooterAction \? visualizationNextItemAction : undefined\}/,
-    "ConfiguredVisualizationLab should receive the footer action only when it can render the in-panel slot."
+});
+
+test("lesson pages no longer render the lesson completion checklist", () => {
+  assert.equal(
+    lessonViewSource.includes("lessonCompletionChecklist"),
+    false,
+    "LessonView must not import the removed lesson completion checklist helpers."
   );
-  assert.match(
-    lessonViewSource,
-    /\{usesConfiguredVisualizationFooterAction \? null : \([\s\S]*\{visualizationNextItemAction\}/,
-    "Non-configured visualization modules should still render the next-item action in the lesson visualization area."
+  assert.equal(
+    lessonViewSource.includes("student-lesson-checklist"),
+    false,
+    "LessonView must not keep the removed lesson completion checklist section."
   );
 });
 
@@ -124,11 +127,6 @@ test("lesson menu item cards omit section labels and generated metadata titles",
     lessonViewSource,
     /block\.type === "worked-example"[\s\S]*?\? t\(singularWorkedExampleTitle\)[\s\S]*?: t\(\{ en: "Concept explanation", zh: "概念說明", zhHans: "概念说明" \}\)/,
     "Current lesson concept menu items should use the generic concept title."
-  );
-  assert.match(
-    lessonViewSource,
-    /title: t\(\{ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" \}\)/,
-    "Current lesson visualization menu items should use the generic interactive lab title."
   );
   assert.equal(
     lessonViewSource.includes("compactLessonVisualizationMenuTitle"),

@@ -3,18 +3,12 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import type { ComponentType, FormEvent, ReactNode } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { useAITutor, type TutorContext, type TutorSelectionHelpType } from "@/components/ai/AITutorProvider";
 import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motion";
 import { LessonBackToTopButton } from "@/components/lesson/LessonBackToTopButton";
-import {
-  buildLessonCompletionChecklistItems,
-  lessonCompletionMasteryCardText,
-  lessonCompletionProgressText,
-  lessonCompletionTitleForGrade
-} from "@/components/lesson/lessonCompletionChecklist";
 import { type LessonGalaxyItem } from "@/components/lesson/LessonGalaxyDirectory";
 import { getCcssLessonComponent } from "@/components/lesson/ccss/registry";
 import { LessonMenuRail, LessonMenuRevealPill } from "@/components/lesson/worlds/LessonMenuRail";
@@ -36,9 +30,7 @@ import {
 import {
   cleanLessonConceptContent,
   cleanLessonDisplayTitle,
-  cleanLessonVisualizationContent,
-  splitLessonContentForAnswerReveal,
-  splitLessonVisualizationTitle
+  splitLessonContentForAnswerReveal
 } from "@/components/lesson/lessonContentText";
 import { MathText } from "@/components/math/MathText";
 import { normalizeMathTextForDisplay } from "@/components/math/mathTextFormatting";
@@ -62,7 +54,6 @@ import { getUsArkansasMiddleSchoolLessonIllustration } from "@/data/usArkansasMi
 import { getCcssTextbookLesson } from "@/data/ccssTextbookRegistry";
 import { getUsCaliforniaLessonIllustration } from "@/data/usCaliforniaLessonIllustrations";
 import { classifyPracticeIslandTopic } from "@/data/practiceIslandRegions";
-import type { FeaturedLabDefinition, VisualizationModuleId } from "@/data/visualizationLabs";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import {
   awardPracticeIslandStars,
@@ -85,17 +76,10 @@ type LessonResponse = {
   lesson?: LessonDetail;
 };
 
-type LessonProgressResponse = {
-  lesson?: LessonSummary;
-};
-
 type LessonViewProps = {
   gradeLessons?: LessonSummary[];
   slug: string;
   initialLesson: LessonDetail | null;
-  // Resolved on the server for the lesson's visualization block so the client never
-  // has to import the visualization-labs/topics/question-bank graph.
-  visualizationLab?: FeaturedLabDefinition | null;
 };
 
 type LessonQuestionResult = {
@@ -115,17 +99,6 @@ type LessonQuestionSummaryItem = LessonQuestionResult & {
 type LessonPracticeCardProps = {
   question: PublicQuestion;
   onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
-};
-
-type LessonVisualizationProps = {
-  controlFooterAction?: ReactNode;
-  topicId: string;
-  showAxisLabels?: boolean;
-  // Server-resolved lab definition. When provided, ConfiguredVisualizationLab uses it
-  // directly instead of dynamically importing @/data/visualizationLabs on the client —
-  // which would drag the whole topics + multi-region question-bank graph (tens of MB)
-  // into the lesson bundle. Other lesson visualizations ignore this prop.
-  lab?: FeaturedLabDefinition | null;
 };
 
 type LessonSelectionContext = {
@@ -175,7 +148,6 @@ const lessonOverviewSectionId = "lesson-overview";
 const lessonPracticeSectionId = "lesson-practice";
 const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
 const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
-const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
 const nextLessonItemClickSafeAreaPx = 96;
 const nextLessonItemScrollRevealDelayMs = 420;
 const lessonSelectionMaxLength = 500;
@@ -398,42 +370,6 @@ function DeferredLessonPanel() {
   );
 }
 
-// Defers mounting an expensive, below-the-fold panel (e.g. the interactive
-// visualization, whose chunk carries the 3D/manim runtime) until the student
-// scrolls it near the viewport. Keeping it off the initial render path stops
-// the heavy chunk from downloading/parsing on every lesson load — the lesson
-// content becomes interactive immediately and the panel loads just before the
-// student reaches it. `rootMargin` gives a head-start so the panel is usually
-// ready by the time it is scrolled into view.
-function useMountWhenNear(rootMargin = "600px") {
-  const ref = useRef<HTMLElement | null>(null);
-  const [shouldMount, setShouldMount] = useState(false);
-
-  useEffect(() => {
-    if (shouldMount) return;
-    const node = ref.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setShouldMount(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setShouldMount(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [shouldMount, rootMargin]);
-
-  return { ref, shouldMount };
-}
-
 function NovaLensButtonIcon({ compact = false }: { compact?: boolean }) {
   return (
     <span
@@ -452,46 +388,6 @@ function NovaLensButtonIcon({ compact = false }: { compact?: boolean }) {
 
 const PracticeQuestionCard = dynamic<LessonPracticeCardProps>(
   () => import("@/components/practice/PracticeQuestionCard").then((module) => module.PracticeQuestionCard),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const CalculusStatsLab = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/CalculusStatsLab").then((module) => module.CalculusStatsLab as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const ConfiguredVisualizationLab = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => module.ConfiguredVisualizationLab as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const CoordinatePlaneDemo = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/CoordinatePlaneDemo").then((module) => module.CoordinatePlaneDemo as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const FunctionModelComparer = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/FunctionModelComparer").then((module) => module.FunctionModelComparer as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const FunctionGraphExplorer = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/FunctionGraphExplorer").then((module) => module.FunctionGraphExplorer as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const GeometryExplorer = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/GeometryExplorer").then((module) => module.GeometryExplorer as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const ProbabilitySimulator = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/ProbabilitySimulator").then((module) => module.ProbabilitySimulator as ComponentType<LessonVisualizationProps>),
-  { loading: () => <DeferredLessonPanel />, ssr: false }
-);
-
-const TrigWaveExplorer = dynamic<LessonVisualizationProps>(
-  () => import("@/components/visualizations/TrigWaveExplorer").then((module) => module.TrigWaveExplorer as ComponentType<LessonVisualizationProps>),
   { loading: () => <DeferredLessonPanel />, ssr: false }
 );
 
@@ -571,29 +467,6 @@ function limitLessonPracticeQuestions(lesson: LessonDetail | null) {
       };
     })
   };
-}
-
-const lessonVisualizationRegistry: Record<VisualizationModuleId, ComponentType<LessonVisualizationProps>> = {
-  "function-graph-explorer": FunctionGraphExplorer,
-  "coordinate-plane-demo": CoordinatePlaneDemo,
-  "geometry-explorer": GeometryExplorer,
-  "probability-simulator": ProbabilitySimulator,
-  "function-model-comparer": FunctionModelComparer,
-  "trig-wave-explorer": TrigWaveExplorer,
-  "calculus-stats-lab": CalculusStatsLab,
-  "configured-visualization-lab": ConfiguredVisualizationLab,
-  // Scope boundary (Phase 0): signature benches render on the Visualization Lab
-  // page only. In-lesson embeds keep the template renderer, so a signature topic
-  // shows its bench in the lab and the template inside the lesson. Deliberate —
-  // wiring the lesson embed is Phase 1 and needs its own regression evidence.
-  "signature-lab": ConfiguredVisualizationLab
-};
-
-function getLessonVisualization(moduleId: string | undefined) {
-  if (!moduleId) return null;
-  return moduleId in lessonVisualizationRegistry
-    ? lessonVisualizationRegistry[moduleId as VisualizationModuleId]
-    : null;
 }
 
 function lessonQuestionPagerTargetIsEditable(target: EventTarget | null) {
@@ -2073,7 +1946,7 @@ function LessonHeroHeader({ title, action }: { title?: string; action?: ReactNod
   );
 }
 
-export function LessonView({ gradeLessons = [], slug, initialLesson, visualizationLab = null }: LessonViewProps) {
+export function LessonView({ gradeLessons = [], slug, initialLesson }: LessonViewProps) {
   const { currentUser, language, settingsReady, t, text } = useSettings();
   const { openTutor } = useAITutor();
   const prefersReducedMotion = useReducedMotion();
@@ -2089,9 +1962,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const [lesson, setLesson] = useState<LessonDetail | null>(normalizedInitialLesson);
   const [lessonLoadState, setLessonLoadState] = useState<LessonLoadState>(normalizedInitialLesson ? "ready" : "idle");
   const [questionResults, setQuestionResults] = useState<Record<string, LessonQuestionResult>>({});
-  const [checklistState, setChecklistState] = useState<Record<string, boolean>>(normalizedInitialLesson?.checklistState ?? {});
-  const [isSavingLessonProgress, setIsSavingLessonProgress] = useState(false);
-  const [lessonProgressError, setLessonProgressError] = useState("");
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
   const [isGalaxyDirectoryOpen, setIsGalaxyDirectoryOpen] = useState(true);
   const [isGalaxyDirectoryClosing, setIsGalaxyDirectoryClosing] = useState(false);
@@ -2115,14 +1985,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     ...blocksByType(lesson, "concept"),
     ...blocksByType(lesson, "worked-example")
   ], [lesson]);
-  const checklistBlocks = useMemo(() => blocksByType(lesson, "checklist"), [lesson]);
-  const checklistItems = useMemo(() => lesson
-    ? buildLessonCompletionChecklistItems({
-      checklistBlocks,
-      grade: lesson.grade,
-      publisher: lesson.publisher
-    })
-    : [], [checklistBlocks, lesson]);
   const primaryConceptBlockId = useMemo(
     () => conceptBlocks.find((block) => block.type === "concept")?.id ?? null,
     [conceptBlocks]
@@ -2136,20 +1998,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     [lesson]
   );
   const teacherGuideBlocks = useMemo(() => blocksByType(lesson, "teacher-guide"), [lesson]);
-  const visualizationBlock = useMemo(() => blocksByType(lesson, "visualization")[0], [lesson]);
-  const visualizationContent = useMemo(() => {
-    if (!visualizationBlock?.content) return "";
-
-    return cleanLessonVisualizationContent(text(visualizationBlock.content));
-  }, [text, visualizationBlock]);
-  const visualizationTitleLines = useMemo(() => {
-    if (!visualizationBlock?.title) return [];
-
-    return splitLessonVisualizationTitle(text(visualizationBlock.title));
-  }, [text, visualizationBlock]);
-  const VisualizationModule = getLessonVisualization(visualizationBlock?.visualizationConfig?.moduleId);
-  const showVisualizationAxisLabels = visualizationBlock?.visualizationConfig?.moduleId === "function-graph-explorer";
-  const { ref: visualizationMountRef, shouldMount: shouldMountVisualization } = useMountWhenNear();
   const lessonPracticeSummary = useMemo(() => {
     if (!lessonPracticeQuestions.length) return null;
 
@@ -2260,17 +2108,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       }))
     ];
 
-    if (visualizationBlock) {
-      items.push({
-        description: visualizationContent ? compactLessonGalaxyDescription(visualizationContent, itemFallback) : itemFallback,
-        id: `block-${visualizationBlock.id}`,
-        kind: "visualization",
-        subtitle: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" }),
-        targetId: "visualization",
-        title: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" })
-      });
-    }
-
     if (lessonPracticeQuestions.length) {
       items.push({
         description: t({
@@ -2311,9 +2148,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     lessonPracticeQuestions.length,
     t,
     teacherGuideBlocks,
-    text,
-    visualizationBlock,
-    visualizationContent
+    text
   ]);
 
   useLayoutEffect(() => {
@@ -2353,7 +2188,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
   useEffect(() => {
     setLesson(normalizedInitialLesson);
-    setChecklistState(normalizedInitialLesson?.checklistState ?? {});
     setLessonLoadState(normalizedInitialLesson ? "ready" : "idle");
   }, [normalizedInitialLesson]);
 
@@ -2368,8 +2202,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     }
     questionStartedAtRef.current = {};
     setQuestionResults({});
-    setIsSavingLessonProgress(false);
-    setLessonProgressError("");
     setIsSummaryOpen(false);
     setIsGalaxyDirectoryOpen(lessonIntroTargetRef.current === "galaxy");
     setIsGalaxyDirectoryClosing(false);
@@ -2420,7 +2252,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
 
         if (!cancelled) {
           setLesson(nextLesson);
-          setChecklistState(nextLesson.checklistState ?? {});
           setLessonLoadState("ready");
         }
       } catch {
@@ -2651,69 +2482,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     }));
   }
 
-  function handleChecklistChange(key: string, checked: boolean) {
-    const nextChecklistState = {
-      ...checklistState,
-      [key]: checked
-    };
-
-    setChecklistState(nextChecklistState);
-    setLesson((currentLesson) =>
-      currentLesson ? { ...currentLesson, checklistState: nextChecklistState } : currentLesson
-    );
-    setLessonProgressError("");
-  }
-
-  async function completeLesson() {
-    if (!canSaveProgress) {
-      setLessonProgressError(t({
-        en: "Log in as a student to save lesson progress.",
-        zh: "請以學生身份登入以儲存課節進度。",
-        zhHans: "请以学生身份登录以保存课时进度。"
-      }));
-      return;
-    }
-
-    setIsSavingLessonProgress(true);
-    setLessonProgressError("");
-
-    try {
-      const response = await fetch("/api/lesson-progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          slug,
-          action: "complete",
-          checklistState
-        })
-      });
-      const body = (await response.json().catch(() => null)) as LessonProgressResponse | null;
-
-      if (!response.ok || !body?.lesson) {
-        throw new Error("Could not mark this lesson complete yet.");
-      }
-
-      setLesson((currentLesson) =>
-        currentLesson
-          ? {
-            ...currentLesson,
-            checklistState,
-            mastery: body.lesson?.mastery ?? currentLesson.mastery,
-            status: body.lesson?.status ?? currentLesson.status
-          }
-          : currentLesson
-      );
-    } catch {
-      setLessonProgressError(t({
-        en: "Could not mark this lesson complete yet.",
-        zh: "暫時未能標記課節完成。",
-        zhHans: "暂时未能标记课时完成。"
-      }));
-    } finally {
-      setIsSavingLessonProgress(false);
-    }
-  }
-
   function clearGalaxyDirectoryCloseTimer() {
     if (galaxyDirectoryCloseTimerRef.current === null) return;
     window.clearTimeout(galaxyDirectoryCloseTimerRef.current);
@@ -2770,19 +2538,13 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     const targetId =
       firstWorkedExampleBlockId
         ? lessonBlockSectionId(firstWorkedExampleBlockId)
-        : visualizationBlock
-          ? "visualization"
-          : lessonPracticeSectionId;
+        : lessonPracticeSectionId;
 
     scrollToLessonSection(targetId, { revealLastNextItemButton: true });
   }
 
   function scrollToLessonItemAfterWorkedExample() {
-    scrollToLessonSection(visualizationBlock ? "visualization" : lessonPracticeSectionId, { revealLastNextItemButton: true });
-  }
-
-  function scrollToLessonPracticeItem() {
-    scrollToLessonSection(lessonPracticeSectionId);
+    scrollToLessonSection(lessonPracticeSectionId, { revealLastNextItemButton: true });
   }
 
   function scheduleLessonOverviewScroll(behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth") {
@@ -2971,7 +2733,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     );
   }
 
-  const visualizationTopicId = visualizationBlock?.visualizationConfig?.topicId ?? lesson.topicId;
   const practiceArenaHref = `/practice?lesson=${encodeURIComponent(slug)}&topicId=${encodeURIComponent(lesson.topicId)}`;
   const summaryToneClassName = lessonPracticeSummary && lessonPracticeSummary.accuracyPercent >= 80
     ? "text-emerald-600 dark:text-emerald-200"
@@ -2980,33 +2741,12 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       : "text-amber-600 dark:text-amber-200";
   const checkedLessonPracticeCount = lessonPracticeSummary?.answeredCount ?? 0;
   const allLessonPracticeAnswersChecked = lessonPracticeQuestions.length > 0 && checkedLessonPracticeCount >= lessonPracticeQuestions.length;
-  const checkedLessonChecklistCount = checklistItems.filter(({ key }) => checklistState[key]).length;
-  const lessonChecklistPercent = checklistItems.length
-    ? Math.round((checkedLessonChecklistCount / checklistItems.length) * 100)
-    : lesson.status === "completed"
-      ? 100
-      : 0;
-  const lessonCompletionTitle = lessonCompletionTitleForGrade(lesson.grade);
-  const lessonCompletionProgressCopy = lessonCompletionProgressText({
-    checkedCount: checkedLessonChecklistCount,
-    grade: lesson.grade,
-    itemCount: checklistItems.length
-  });
-  const lessonCompletionMasteryCard = lessonCompletionMasteryCardText({
-    checkedCount: checkedLessonChecklistCount,
-    grade: lesson.grade,
-    itemCount: checklistItems.length,
-    mastery: lesson.mastery,
-    status: lesson.status
-  });
   const renderNextLessonItemButton = (onClick: () => void, className: string) => (
     <button type="button" onClick={onClick} data-lesson-next-item-button="true" className={className}>
       <span>{t({ en: "Go to next item", zh: "前往下一項", zhHans: "前往下一项" })}</span>
       <span aria-hidden="true" className="text-3xl leading-none">→</span>
     </button>
   );
-  const visualizationNextItemAction = renderNextLessonItemButton(scrollToLessonPracticeItem, nextLessonItemPanelButtonClassName);
-  const usesConfiguredVisualizationFooterAction = visualizationBlock?.visualizationConfig?.moduleId === "configured-visualization-lab";
   const lessonContentSections = (
     <>
       <section id={lessonOverviewSectionId} data-tour="student-lesson-body" className="mt-8 scroll-mt-28 min-w-0">
@@ -3139,148 +2879,6 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           )}
         </article>
       </section>
-
-      {visualizationBlock ? (
-        <section id="visualization" ref={visualizationMountRef} className="mt-8 scroll-mt-28 glass-panel p-5 sm:p-6">
-          <div className="mb-5">
-            <p className="text-sm font-bold uppercase tracking-[0.22em] text-cyan-500 dark:text-cyan-300">{t(dictionary.lesson.visualizationPanel)}</p>
-            <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950 dark:text-white">
-              {visualizationTitleLines.map((line, index) => (
-                <MathText
-                  key={`${index}-${line}`}
-                  as="span"
-                  text={line}
-                  className={index === 0 ? "block" : "mt-1 block"}
-                />
-              ))}
-            </h2>
-            {visualizationContent ? (
-              <MathText as="p" text={visualizationContent} className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300" />
-            ) : null}
-          </div>
-          {VisualizationModule ? (
-            shouldMountVisualization ? (
-              <>
-                <VisualizationModule
-                  controlFooterAction={usesConfiguredVisualizationFooterAction ? visualizationNextItemAction : undefined}
-                  topicId={visualizationTopicId}
-                  showAxisLabels={showVisualizationAxisLabels}
-                  lab={visualizationLab}
-                />
-                {usesConfiguredVisualizationFooterAction ? null : (
-                  <div className="mt-5 flex justify-end">
-                    {visualizationNextItemAction}
-                  </div>
-                )}
-              </>
-            ) : (
-              <DeferredLessonPanel />
-            )
-          ) : (
-            <div className="rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">
-              {t({
-                en: `No interactive module is registered for ${visualizationBlock.visualizationConfig?.moduleId ?? "this lesson"}.`,
-                zh: "此課節暫未登記互動模組。"
-              })}
-            </div>
-          )}
-        </section>
-      ) : null}
-
-      {checklistItems.length ? (
-        <aside
-          data-tour="student-lesson-checklist"
-          className="mt-8 scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/80 p-5 dark:bg-emerald-950/20 sm:p-6"
-          aria-label={t({ en: "Lesson completion checklist", zh: "課節完成清單", zhHans: "课时完成清单" })}
-        >
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-            <div className="min-w-0">
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-200">
-                {t({ en: "Lesson completion", zh: "課節完成", zhHans: "课时完成" })}
-              </p>
-              <MathText
-                as="h2"
-                text={t(lessonCompletionTitle)}
-                className="mt-2 text-2xl font-black text-slate-950 dark:text-white"
-              />
-              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                {t(lessonCompletionProgressCopy)}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-emerald-200/80 bg-white/80 px-4 py-3 text-left shadow-sm dark:border-emerald-300/20 dark:bg-white/[0.07] lg:min-w-44">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-200">
-                {t(lessonCompletionMasteryCard.eyebrow)}
-              </p>
-              <p className="mt-1 text-3xl font-black text-slate-950 dark:text-white">
-                {t(lessonCompletionMasteryCard.headline)}
-              </p>
-              <p className="mt-1 text-xs font-bold text-slate-500 dark:text-slate-400">
-                {t(lessonCompletionMasteryCard.status)}
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="mt-5 h-3 overflow-hidden rounded-full bg-white shadow-inner dark:bg-white/10"
-            role="progressbar"
-            aria-label={t({ en: "Checklist progress", zh: "清單進度", zhHans: "清单进度" })}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={lessonChecklistPercent}
-          >
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500"
-              style={{ width: `${Math.max(6, lessonChecklistPercent)}%` }}
-            />
-          </div>
-
-          <div className="mt-5 grid gap-3">
-            {checklistItems.map(({ block, item, key }) => (
-              <label
-                key={key}
-                className="flex cursor-pointer items-start gap-3 rounded-2xl border border-emerald-200/70 bg-white/85 p-4 text-sm font-semibold leading-6 text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 dark:border-emerald-300/15 dark:bg-white/[0.055] dark:text-slate-200"
-              >
-                <input
-                  type="checkbox"
-                  checked={Boolean(checklistState[key])}
-                  onChange={(event) => handleChecklistChange(key, event.currentTarget.checked)}
-                  className="mt-1 h-5 w-5 shrink-0 rounded border-emerald-300 text-emerald-600 focus:ring-emerald-400"
-                  aria-label={text(item)}
-                />
-                <MathText as="span" text={formatLessonMathText(text(item))} className="min-w-0" />
-              </label>
-            ))}
-          </div>
-
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            {lessonProgressError ? (
-              <p role="alert" className="text-sm font-bold text-rose-600 dark:text-rose-200">
-                {lessonProgressError}
-              </p>
-            ) : (
-              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
-                {t({
-                  en: "Mark completion when you are ready to move this lesson into your progress record.",
-                  zh: "準備好後標記完成，將此課節加入你的學習進度。",
-                  zhHans: "准备好后标记完成，将此课时加入你的学习进度。"
-                })}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={() => void completeLesson()}
-              disabled={!canSaveProgress || isSavingLessonProgress}
-              className="focus-ring inline-flex min-h-12 justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white shadow-lg shadow-emerald-600/20 transition enabled:hover:-translate-y-0.5 enabled:hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-55 dark:bg-emerald-300 dark:text-slate-950 dark:shadow-emerald-950/25"
-            >
-              {lesson.status === "completed"
-                ? t({ en: "Lesson complete", zh: "課節已完成", zhHans: "课时已完成" })
-                : isSavingLessonProgress
-                  ? t({ en: "Saving", zh: "正在儲存", zhHans: "正在保存" })
-                  : t({ en: "Mark lesson complete", zh: "標記課節完成", zhHans: "标记课时完成" })}
-            </button>
-          </div>
-        </aside>
-      ) : null}
 
       <section ref={lessonPracticeSectionRef} id={lessonPracticeSectionId} data-tour="student-lesson-practice" className="mt-8 scroll-mt-28">
         {lessonPracticeQuestions.length ? (

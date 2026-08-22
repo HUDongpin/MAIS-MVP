@@ -6,7 +6,6 @@ import { FormEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel } from "@/lib/i18n";
-import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { formatDateInHongKong } from "@/lib/utils";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { AttendanceStatus, ClassroomLiveAttentionReason, ClassroomLiveRoster, ClassroomLiveRosterEntry, ClassroomLiveSession, ClassroomLiveStudentState, LearningAnalyticsEventSource, Language, LocalizedText, TeacherClass, TeacherLiveData, TeacherLivePromptType, TeacherLiveSession, TeacherLiveToolType, WhiteboardStroke } from "@/types";
@@ -671,7 +670,7 @@ function TeacherToolPanel({ session, onToolAction, pendingAction }: { session: T
             {actionButton(t({ en: "Show names", zh: "顯示姓名" }), "projector-set", { mode: "answers", showNames: true })}
             {session.workSamples.length ? actionButton(t({ en: "Work samples", zh: "作答樣本" }), "projector-set", { mode: "work-samples", showNames: false, selectedWorkSampleId: session.workSamples[0]?.id }) : null}
             {actionButton(t({ en: "Sync prompt", zh: "同步題目" }), "screen-sync", { target: "prompt", title: text(session.currentPrompt.question), href: `/classroom?code=${encodeURIComponent(session.joinCode)}`, locked: true })}
-            {actionButton(t({ en: "Sync visual", zh: "同步圖像" }), "screen-sync", { target: "visualization", title: text(session.visualizationTitle), href: session.lessonSlug ? `${lessonHrefForSlug(session.lessonSlug)}#visualization` : studentVisualizationToolsPath, locked: true })}
+            {actionButton(t({ en: "Sync visual", zh: "同步圖像" }), "screen-sync", { target: "visualization", title: text(session.visualizationTitle), href: studentVisualizationToolsPath, locked: true })}
           </div>
         </section>
 
@@ -1179,7 +1178,7 @@ export function TeacherLiveView({ live, initialClassId = "" }: { live: TeacherLi
     }
   };
 
-  const visualizationHref = session?.lessonSlug ? `${lessonHrefForSlug(session.lessonSlug)}#visualization` : studentVisualizationToolsPath;
+  const visualizationHref = studentVisualizationToolsPath;
 
   return (
     <div className="grid gap-5">

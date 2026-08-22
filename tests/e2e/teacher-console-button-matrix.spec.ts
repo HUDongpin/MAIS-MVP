@@ -443,9 +443,9 @@ test.describe("teacher console page workflows", () => {
     expect((await startResponse).ok()).toBeTruthy();
     await expect(page.getByText(/Join code/i).first()).toBeVisible();
     const visualizationLink = page.locator("section").filter({ hasText: /Student-facing prompt/i }).first().getByRole("link").first();
-    await expect(visualizationLink).toHaveAttribute("href", /\/student\/lessons\/|\/student\/tools\/visualizations/);
+    await expect(visualizationLink).toHaveAttribute("href", /\/student\/tools\/visualizations/);
     await visualizationLink.click();
-    await expect(page).toHaveURL(/\/student\/lessons\/|\/student\/tools\/visualizations/);
+    await expect(page).toHaveURL(/\/student\/tools\/visualizations/);
     await page.goto("/teacher/classroom-sessions");
     await expect(page.getByRole("button", { name: /End session/i })).toBeVisible();
     const currentJoinCode = (await page.locator("text=/^[A-Z0-9]{5,8}$/").first().innerText()).trim();

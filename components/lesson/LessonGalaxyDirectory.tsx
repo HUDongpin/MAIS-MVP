@@ -12,7 +12,6 @@ import type { LessonDetail, LessonSummary } from "@/types";
 export type LessonGalaxyItemKind =
   | "concept"
   | "worked-example"
-  | "visualization"
   | "practice"
   | "extension"
   | "teacher-guide";
@@ -74,14 +73,6 @@ function modulePreviewItems({
       subtitle: t({ en: "Guided example", zh: "引導例題", zhHans: "引导例题" }),
       targetId: "",
       title: t({ en: "Worked example", zh: "例題", zhHans: "例题" })
-    },
-    {
-      description: "",
-      id: `${module.slug}-preview-lab`,
-      kind: "visualization",
-      subtitle: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" }),
-      targetId: "",
-      title: t({ en: "Interactive lab", zh: "互動實驗室", zhHans: "互动实验室" })
     },
     {
       description: "",

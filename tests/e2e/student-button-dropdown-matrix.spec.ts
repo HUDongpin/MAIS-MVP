@@ -700,10 +700,6 @@ test.describe.serial("student button and dropdown matrix", () => {
     await page.goto("/student/lessons/quadratic-functions");
     await page.getByRole("main").getByRole("link", { name: /Learning Path/i }).click();
     await expect(page).toHaveURL(/\/student\/roadmap$/);
-    await page.goto("/student/lessons/quadratic-functions");
-    await page.locator('input[type="checkbox"]').first().check();
-    await page.getByRole("button", { name: /Mark lesson complete/i }).click();
-    await expect(page.getByText(/Mastery: 85%|Mastery: 100%/i)).toBeVisible();
 
     await page.goto("/resource/resource-s3-quadratics-slides");
     await expect(page.getByRole("heading", { name: /S3 Quadratics lesson slides/i })).toBeVisible();

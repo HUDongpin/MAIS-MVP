@@ -3,12 +3,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { questions } from "../../data/questions";
 import { topics } from "../../data/topics";
-import type { VisualizationModuleId } from "../../data/visualizationLabs";
 import { lessonSlugForTopicId, studentLessonsPath } from "../../lib/lessonLinks";
 import type { CurriculumTrack, Difficulty, GradeId, LessonBlock, LessonDetail } from "../../types";
 
 type Severity = "P0" | "P1" | "P2" | "P3";
-type Owner = "S04 practice" | "S05 lesson" | "S06 visualization" | "S10 api/tooling";
+type Owner = "S04 practice" | "S05 lesson" | "S10 api/tooling";
 
 type Finding = {
   route: string;
@@ -59,16 +58,6 @@ type AttemptResponseBody = {
 
 const validGrades = new Set<GradeId>(["P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]);
 const validDifficulties = new Set<Difficulty>(["Low", "Medium", "High"]);
-const validVisualizationModules = new Set<VisualizationModuleId>([
-  "coordinate-plane-demo",
-  "function-graph-explorer",
-  "geometry-explorer",
-  "probability-simulator",
-  "function-model-comparer",
-  "trig-wave-explorer",
-  "calculus-stats-lab",
-  "configured-visualization-lab"
-]);
 
 const placeholderPatterns = [
   { label: "generic lesson title", pattern: /Concept, Model, and Practice/i },
@@ -323,25 +312,6 @@ function validateLessonPayload({
     });
   }
 
-  lesson.blocks
-    .filter((block) => block.type === "visualization")
-    .forEach((block) => {
-      const moduleId = block.visualizationConfig?.moduleId;
-      if (!moduleId || !validVisualizationModules.has(moduleId as VisualizationModuleId)) {
-        addFinding(findings, {
-          route,
-          slug,
-          severity: "P1",
-          owner: "S06 visualization",
-          check: "visualization module registration",
-          expected: "Visualization blocks use a registered moduleId.",
-          actual: String(moduleId ?? "missing moduleId"),
-          repro: `GET /api/lessons/${slug}`,
-          evidence: [shortEvidence(block.visualizationConfig)]
-        });
-      }
-    });
-
   const textValues = textValuesFromLesson(lesson);
   const invalidTextHits = textValues
     .filter(({ value }) => invalidTextPattern.test(value))
@@ -558,34 +528,6 @@ async function checkLayoutHeuristics(page: Page) {
 
     return { overflow, clippedControls };
   });
-}
-
-async function exerciseVisualizationOnce(page: Page, moduleId: string, exercisedModules: Set<string>) {
-  if (exercisedModules.has(moduleId)) return "already-exercised";
-  const panel = page.locator("section").filter({ hasText: /Interactive visualization panel/i }).last();
-  if (await panel.count() === 0) return "missing-panel";
-
-  const range = panel.locator('input[type="range"]').first();
-  if (await range.count()) {
-    await range.focus();
-    await range.press("ArrowRight");
-    exercisedModules.add(moduleId);
-    return "range-keyboard";
-  }
-
-  const button = panel.getByRole("button").first();
-  if (await button.count()) {
-    await button.click();
-    exercisedModules.add(moduleId);
-    return "button-click";
-  }
-
-  if (await panel.getByRole("img").count()) {
-    exercisedModules.add(moduleId);
-    return "visual-only";
-  }
-
-  return "no-interactive-control";
 }
 
 function createQuestionSolvabilityStats(totalQuestionsExpected = 0): LessonQuestionSolvabilityStats {
@@ -817,27 +759,7 @@ async function waitForPracticeQuestionChange(visiblePracticeCard: () => Locator,
     .catch(() => false);
 }
 
-async function completeLessonProbe(page: Page) {
-  const checkbox = page.locator('aside input[type="checkbox"]').first();
-  if (await checkbox.count() === 0) return "missing-checklist-checkbox";
-  await checkbox.check();
-
-  const completeResponse = page.waitForResponse((response) => {
-    return response.url().includes("/api/lesson-progress") &&
-      response.request().method() === "POST" &&
-      (response.request().postData() ?? "").includes('"complete"');
-  }, { timeout: 10_000 }).catch(() => null);
-  await page.getByRole("button", { name: /Mark lesson complete|標記課節完成|标记课时完成/i }).click();
-  const response = await completeResponse;
-  if (!response) return "missing-complete-response";
-  if (!response.ok()) return `complete-response-${response.status()}`;
-
-  await expect(page.getByText(/(?:Mastery:\s*|掌握度[：:]\s*)(85|8[6-9]|9\d|100)%/i).first()).toBeVisible({ timeout: 5_000 });
-  return "completed";
-}
-
 async function validateLessonPage({
-  exercisedModules,
   findings,
   lesson,
   page,
@@ -845,7 +767,6 @@ async function validateLessonPage({
   screenshotBudget,
   testInfo
 }: {
-  exercisedModules: Set<string>;
   findings: Finding[];
   lesson: LessonDetail;
   page: Page;
@@ -976,21 +897,6 @@ async function validateLessonPage({
     await maybeAttachScreenshot(testInfo, page, `${row.slug}-layout.png`, screenshotBudget);
   }
 
-  const completion = await completeLessonProbe(page).catch((error) => `error-${String(error)}`);
-  row.checks.push(`complete:${completion}`);
-  if (completion !== "completed") {
-    addFinding(findings, {
-      route: row.route,
-      slug: row.slug,
-      severity: "P1",
-      owner: "S05 lesson",
-      check: "lesson completion interaction",
-      expected: "Checklist can be toggled and Mark lesson complete updates mastery to at least 85%.",
-      actual: completion,
-      repro: `Open ${row.route}, tick the first checklist item, click Mark lesson complete.`
-    });
-  }
-
   row.questionSolvability = await submitAllPracticeQuestions(page, lesson);
   row.checks.push(`practice:correct-${row.questionSolvability.correct}/${row.questionSolvability.totalQuestionsExpected}`);
   if (
@@ -1011,26 +917,6 @@ async function validateLessonPage({
     });
   }
 
-  const visualizationBlock = lesson.blocks.find((block) => block.type === "visualization");
-  if (visualizationBlock?.visualizationConfig?.moduleId) {
-    const moduleId = visualizationBlock.visualizationConfig.moduleId;
-    const exercise = await exerciseVisualizationOnce(page, moduleId, exercisedModules).catch((error) => `error-${String(error)}`);
-    row.checks.push(`visualization:${moduleId}:${exercise}`);
-    if (exercise === "missing-panel" || exercise === "no-interactive-control" || exercise.startsWith("error-")) {
-      addFinding(findings, {
-        route: row.route,
-        slug: row.slug,
-        severity: "P2",
-        owner: "S06 visualization",
-        check: "visualization interaction",
-        expected: `The ${moduleId} visualization renders and can be exercised at least once.`,
-        actual: exercise,
-        repro: `Open ${row.route}, inspect the Interactive visualization panel, interact with its first range or button.`
-      });
-      await maybeAttachScreenshot(testInfo, page, `${row.slug}-visualization.png`, screenshotBudget);
-    }
-  }
-
   row.status = findings.length === routeFindingsBefore ? "pass" : "fail";
   row.findings = findings.length - routeFindingsBefore;
 }
@@ -1047,7 +933,7 @@ function formatFinding(finding: Finding, index: number) {
 }
 
 test.describe("lesson page all-slug bug detection", () => {
-  test("detects root, API, rendering, interaction, and visualization bugs for every lesson", async ({ page }, testInfo) => {
+  test("detects root, API, rendering, and interaction bugs for every lesson", async ({ page }, testInfo) => {
     test.slow();
     test.setTimeout(900_000);
 
@@ -1107,7 +993,6 @@ test.describe("lesson page all-slug bug detection", () => {
     const lessons = new Map<string, LessonDetail>();
     const pageErrors: string[] = [];
     page.on("pageerror", (error) => pageErrors.push(error.message));
-    const exercisedModules = new Set<string>();
     const reportDir = path.join(process.cwd(), "output", "playwright", "lesson-qa");
     const reportPath = path.join(reportDir, `lesson-qa-results-${testInfo.project.name}.json`);
     const writeReport = async () => {
@@ -1188,7 +1073,6 @@ test.describe("lesson page all-slug bug detection", () => {
         }
 
         await validateLessonPage({
-          exercisedModules,
           findings,
           lesson,
           page,
@@ -1210,28 +1094,6 @@ test.describe("lesson page all-slug bug detection", () => {
         actual: pageErrors.slice(0, 8).join("; "),
         repro: "Run the all-lessons browser sweep and inspect pageerror events.",
         evidence: pageErrors.slice(0, 20)
-      });
-    }
-
-    const allReferencedModules = Array.from(new Set(
-      Array.from(lessons.values()).flatMap((lesson) =>
-        lesson.blocks
-          .filter((block) => block.type === "visualization")
-          .map((block) => block.visualizationConfig?.moduleId)
-          .filter((moduleId): moduleId is string => Boolean(moduleId))
-      )
-    ));
-    const unexercisedModules = allReferencedModules.filter((moduleId) => !exercisedModules.has(moduleId));
-    const anyRegisteredGroup = rows.some((row) => !row.checks.includes("browser:skipped-registration-failed"));
-    if (anyRegisteredGroup && unexercisedModules.length) {
-      addFinding(findings, {
-        route: "/student/lessons/[lessonSlug]",
-        severity: "P2",
-        owner: "S06 visualization",
-        check: "distinct visualization module coverage",
-        expected: "Each distinct lesson visualization module is exercised at least once.",
-        actual: `Unexercised: ${unexercisedModules.join(", ")}`,
-        repro: "Run the all-lessons browser sweep and inspect visualization interaction rows."
       });
     }
 
