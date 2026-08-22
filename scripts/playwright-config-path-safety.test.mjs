@@ -4,6 +4,8 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 
+import { buildCleanBuildConfig } from "./next-clean-build.mjs";
+
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
 const requiredWriteRoot = path.dirname(repoRoot);
 const e2eRuntimeRoot = path.join(repoRoot, ".tmp", "china-lesson-e2e-runtime");
@@ -251,6 +253,26 @@ test("Playwright defaults every generated path to its isolated worktree runtime 
     false,
     "webServer cleanup must not own HOME/cache paths"
   );
+});
+
+test("the webServer passes a repository-relative Next dist path to the clean-build wrapper", () => {
+  const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  const buildCommand = loaded.webServerCommand
+    .split(" && ")
+    .find((command) => command.includes("npm run build"));
+  assert.equal(typeof buildCommand, "string", "webServer should contain the Next build command");
+
+  const nextDistMatch = buildCommand.match(/(?:^|\s)NEXT_DIST_DIR='([^']+)'/u);
+  assert.ok(nextDistMatch, "Next build command should declare NEXT_DIST_DIR");
+  const cleanBuildConfig = buildCleanBuildConfig(
+    { NEXT_DIST_DIR: nextDistMatch[1] },
+    { repoRoot }
+  );
+
+  assert.equal(cleanBuildConfig.nextBuildDir, path.join(runRoot, "next-dist"));
 });
 
 test("the .tmp-local temporary tsconfig still resolves repository sources and dist types", () => {
