@@ -25,6 +25,21 @@ function practiceRegion(page: Page) {
   return page.getByRole("region", { name: /Practice questions/i });
 }
 
+async function chooseGuidedUnitExercise(page: Page) {
+  const guidedButton = page.getByRole("button", { name: /Choose Unit Exercise/i });
+  await expect(guidedButton).toBeVisible();
+  await expect(guidedButton).toBeEnabled();
+  await guidedButton.click();
+  await expect(page.locator('[data-practice-mode="unit"]')).toHaveCount(1);
+}
+
+async function chooseFreeExploration(page: Page) {
+  const exploreButton = page.getByRole("button", { name: /Choose Free Exploration/i });
+  await expect(exploreButton).toBeVisible();
+  await exploreButton.click();
+  await expect(page.locator('[data-practice-mode="explore"]')).toHaveCount(1);
+}
+
 async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: string, grade = "S3") {
   const suffix = uniqueSuffix(testInfo);
   let lastError: unknown;
@@ -65,6 +80,7 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await chooseFreeExploration(page);
   await openPracticeFiltersPanel(page);
 
   // Students practise at their own grade: Practice Arena locks the grade to the
@@ -292,6 +308,7 @@ test.describe("Practice Arena question pager", () => {
     await page.goto("/practice");
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
     await page.waitForLoadState("networkidle");
+    await chooseGuidedUnitExercise(page);
     await expect(page.getByRole("combobox", { name: /difficulty/i })).toHaveCount(0);
     await expectQuestion(page, 1);
 
@@ -804,6 +821,21 @@ test.describe("Practice Arena question pager", () => {
 
   test("short-answer handwriting board coexists with photo upload controls", async ({ page }, testInfo) => {
     test.slow();
+
+    // The isolated E2E server intentionally has no media encryption key. This
+    // scenario verifies the two controls' layout, so make only the capability
+    // probe deterministic without exercising or weakening the upload route.
+    await page.route("**/api/media-objects", async (route) => {
+      if (route.request().method() !== "GET") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ uploadsAvailable: true })
+      });
+    });
 
     const session = await registerStudentThroughApi(page, testInfo, "handwriting-short", "S1");
     await page.goto("/practice");
