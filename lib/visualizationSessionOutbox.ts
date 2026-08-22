@@ -190,11 +190,15 @@ export function visualizationSessionOutboxQuarantineStorageKey(
   userId: string,
   originalStorageKey: string
 ) {
-  assertNonEmptyId(userId, "userId");
   if (typeof originalStorageKey !== "string" || originalStorageKey.length === 0) {
     throw new TypeError("originalStorageKey must be a non-empty string.");
   }
-  return `${visualizationSessionOutboxQuarantineStoragePrefix}${encodeURIComponent(userId)}:${encodeURIComponent(originalStorageKey)}`;
+  return `${visualizationSessionOutboxQuarantineUserStoragePrefix(userId)}${encodeURIComponent(originalStorageKey)}`;
+}
+
+function visualizationSessionOutboxQuarantineUserStoragePrefix(userId: string) {
+  assertNonEmptyId(userId, "userId");
+  return `${visualizationSessionOutboxQuarantineStoragePrefix}${encodeURIComponent(userId)}:`;
 }
 
 function visualizationSessionOutboxLegacyTerminalUserStoragePrefix(
@@ -413,12 +417,9 @@ export function queueVisualizationSessionOutbox(
     source: record.source,
     queuedAt: record.queuedAt
   };
-  const currentRecord = readVisualizationSessionOutbox(
+  const currentRecord = reconcileVisualizationSessionOutboxScope(
     storage,
-    durableRecord.userId
-  ).find((candidate) =>
-    candidate.moduleId === durableRecord.moduleId &&
-    candidate.topicId === durableRecord.topicId
+    visualizationSessionOutboxScope(durableRecord)
   );
   if (currentRecord) return currentRecord;
 
@@ -431,13 +432,84 @@ export function queueVisualizationSessionOutbox(
   }
   storage.setItem(storageKey, JSON.stringify(durableRecord));
   visualizationSessionPhysicalStorageKeys.set(durableRecord, storageKey);
-  return durableRecord;
+  return reconcileVisualizationSessionOutboxScope(
+    storage,
+    visualizationSessionOutboxScope(durableRecord)
+  ) ?? durableRecord;
 }
 
 function compareExactStrings(left: string, right: string) {
   if (left < right) return -1;
   if (left > right) return 1;
   return 0;
+}
+
+function compareVisualizationSessionOutboxRecords(
+  left: VisualizationSessionOutboxRecord,
+  right: VisualizationSessionOutboxRecord
+) {
+  const queuedAtDelta = left.queuedAt - right.queuedAt;
+  if (queuedAtDelta !== 0) return queuedAtDelta;
+  const moduleDelta = compareExactStrings(left.moduleId, right.moduleId);
+  if (moduleDelta !== 0) return moduleDelta;
+  const topicDelta = compareExactStrings(left.topicId, right.topicId);
+  return topicDelta || compareExactStrings(left.source, right.source);
+}
+
+function isSameVisualizationSessionOutboxScope(
+  record: VisualizationSessionOutboxRecord,
+  scope: VisualizationSessionOutboxScope
+) {
+  return record.userId === scope.userId &&
+    record.moduleId === scope.moduleId &&
+    record.topicId === scope.topicId;
+}
+
+function removeMatchingVisualizationSessionOutboxRevision(
+  storage: VisualizationSessionOutboxStorage,
+  record: VisualizationSessionOutboxRecord
+) {
+  const storageKey = visualizationSessionPhysicalStorageKeys.get(record) ??
+    visualizationSessionOutboxRecordStorageKey(record);
+  try {
+    const raw = storage.getItem(storageKey);
+    if (raw === null) return true;
+    const current = parseStoredRecord(raw, storageKey, false);
+    if (!current || !isExactVisualizationSessionOutboxRecord(current, record)) {
+      return false;
+    }
+    if (!terminalizeMatchingLegacyVisualizationSessionRevision(
+      storage,
+      record,
+      "acknowledged"
+    )) return false;
+    // Re-read the exact serialized value immediately before removal. A stale
+    // collision snapshot must not authorize deletion after another producer
+    // has replaced that physical slot while legacy state was reconciled.
+    if (storage.getItem(storageKey) !== raw) return false;
+    storage.removeItem(storageKey);
+    return storage.getItem(storageKey) === null;
+  } catch {
+    return false;
+  }
+}
+
+function reconcileVisualizationSessionOutboxScope(
+  storage: VisualizationSessionOutboxStorage,
+  scope: VisualizationSessionOutboxScope
+) {
+  const candidates = readVisualizationSessionOutbox(storage, scope.userId)
+    .filter((candidate) => isSameVisualizationSessionOutboxScope(candidate, scope));
+  const winner = candidates[0];
+  if (!winner) return null;
+
+  for (const duplicate of candidates.slice(1)) {
+    removeMatchingVisualizationSessionOutboxRevision(storage, duplicate);
+  }
+
+  return readVisualizationSessionOutbox(storage, scope.userId)
+    .find((candidate) => isSameVisualizationSessionOutboxScope(candidate, scope)) ??
+    winner;
 }
 
 export function readVisualizationSessionOutbox(
@@ -532,12 +604,9 @@ export function readVisualizationSessionOutbox(
     }
   }
 
-  return [...recordsByPhysicalKey.values()].sort((left, right) => {
-    const queuedAtDelta = left.queuedAt - right.queuedAt;
-    if (queuedAtDelta !== 0) return queuedAtDelta;
-    const moduleDelta = compareExactStrings(left.moduleId, right.moduleId);
-    return moduleDelta || compareExactStrings(left.topicId, right.topicId);
-  });
+  return [...recordsByPhysicalKey.values()].sort(
+    compareVisualizationSessionOutboxRecords
+  );
 }
 
 export function acknowledgeVisualizationSessionOutbox(
@@ -602,6 +671,8 @@ export function clearVisualizationSessionOutboxForUser(
   userId: string
 ) {
   const userPrefix = visualizationSessionOutboxUserStoragePrefix(userId);
+  const quarantinePrefix =
+    visualizationSessionOutboxQuarantineUserStoragePrefix(userId);
   const legacyTerminalPrefix =
     visualizationSessionOutboxLegacyTerminalUserStoragePrefix(userId);
   const keysToRemove: string[] = [];
@@ -613,6 +684,7 @@ export function clearVisualizationSessionOutboxForUser(
     const storageKey = storage.key(index);
     if (
       storageKey?.startsWith(userPrefix) ||
+      storageKey?.startsWith(quarantinePrefix) ||
       storageKey?.startsWith(legacyTerminalPrefix)
     ) keysToRemove.push(storageKey);
   }

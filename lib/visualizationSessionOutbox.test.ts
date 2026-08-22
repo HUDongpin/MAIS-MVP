@@ -95,6 +95,9 @@ test("record validation accepts only the exact durable schema", () => {
   assert.equal(isVisualizationSessionOutboxRecord({ ...valid, moduleId: "module " }), false);
   assert.equal(isVisualizationSessionOutboxRecord({ ...valid, topicId: " topic" }), false);
   assert.equal(isVisualizationSessionOutboxRecord({ ...valid, topicId: "x".repeat(257) }), false);
+  assert.equal(isVisualizationSessionOutboxRecord({ ...valid, userId: "\uD800" }), false);
+  assert.equal(isVisualizationSessionOutboxRecord({ ...valid, moduleId: "\uDC00" }), false);
+  assert.equal(isVisualizationSessionOutboxRecord({ ...valid, topicId: "geometry-\u{1F9ED}" }), true);
 });
 
 test("queue rejects invalid input before touching storage", () => {
@@ -103,6 +106,27 @@ test("queue rejects invalid input before touching storage", () => {
   assert.throws(
     () => queueVisualizationSessionOutbox(storage, { ...record(), source: "invalid" } as never),
     /Invalid visualization session outbox record/
+  );
+  assert.equal(storage.length, 0);
+});
+
+test("queue rejects an unpaired UTF-16 surrogate with its documented TypeError", () => {
+  const storage = memoryStorage();
+
+  assert.throws(
+    () => queueVisualizationSessionOutbox(
+      storage,
+      record({ userId: "student-\uD800" })
+    ),
+    (error: unknown) => {
+      assert.equal(error instanceof TypeError, true);
+      assert.equal((error as Error).name, "TypeError");
+      assert.match(
+        (error as Error).message,
+        /Invalid visualization session outbox record/
+      );
+      return true;
+    }
   );
   assert.equal(storage.length, 0);
 });
@@ -141,6 +165,26 @@ test("read isolates users and sorts by queuedAt then moduleId then topicId", () 
   );
 });
 
+test("read uses source as a stable final tie-break for otherwise equal records", () => {
+  const storage = memoryStorage();
+  const geometry = record({ source: "geometry", queuedAt: 20 });
+  const visualizationLab = record({ source: "visualization-lab", queuedAt: 20 });
+
+  storage.setItem(
+    visualizationSessionOutboxRecordStorageKey(geometry),
+    JSON.stringify(geometry)
+  );
+  storage.setItem(
+    visualizationSessionOutboxRecordStorageKey(visualizationLab),
+    JSON.stringify(visualizationLab)
+  );
+
+  assert.deepEqual(
+    readVisualizationSessionOutbox(storage, geometry.userId).map(({ source }) => source),
+    ["geometry", "visualization-lab"]
+  );
+});
+
 test("queue is idempotent and preserves the first valid record for one scope", () => {
   const storage = memoryStorage();
   const first = record({ source: "geometry", queuedAt: 100 });
@@ -153,6 +197,93 @@ test("queue is idempotent and preserves the first valid record for one scope", (
   assert.deepEqual(retryResult, first);
   assert.deepEqual(readVisualizationSessionOutbox(storage, first.userId), [first]);
   assert.equal(storage.length, 1);
+});
+
+test("re-entrant same-scope queues deterministically converge to one physical revision", () => {
+  const backing = memoryStorage();
+  const outer = record({ source: "visualization-lab", queuedAt: 100 });
+  const interleaved = record({ source: "geometry", queuedAt: 100 });
+  const outerKey = visualizationSessionOutboxRecordStorageKey(outer);
+  let injected = false;
+  let interleavedResult: VisualizationSessionOutboxRecord | undefined;
+  const storage = {
+    get length() {
+      return backing.length;
+    },
+    getItem(key: string) {
+      return backing.getItem(key);
+    },
+    key(index: number) {
+      return backing.key(index);
+    },
+    removeItem(key: string) {
+      backing.removeItem(key);
+    },
+    setItem(key: string, value: string) {
+      if (key === outerKey && !injected) {
+        injected = true;
+        interleavedResult = queueVisualizationSessionOutbox(storage, interleaved);
+      }
+      backing.setItem(key, value);
+    }
+  };
+
+  const outerResult = queueVisualizationSessionOutbox(storage, outer);
+  const pending = readVisualizationSessionOutbox(backing, outer.userId);
+
+  assert.equal(injected, true);
+  assert.deepEqual(interleavedResult, interleaved);
+  assert.deepEqual(outerResult, interleaved);
+  assert.deepEqual(pending, [interleaved]);
+  assert.equal(backing.length, 1);
+  assert.equal(
+    backing.getItem(visualizationSessionOutboxRecordStorageKey(interleaved)),
+    JSON.stringify(interleaved)
+  );
+});
+
+test("same-scope reconciliation compares the losing slot after interleaved legacy work", () => {
+  const backing = memoryStorage();
+  const winner = record({ source: "geometry", queuedAt: 100 });
+  const loser = record({ source: "visualization-lab", queuedAt: 100 });
+  const winnerKey = visualizationSessionOutboxRecordStorageKey(winner);
+  const loserKey = visualizationSessionOutboxRecordStorageKey(loser);
+  const legacyKey = visualizationSessionOutboxStorageKey(
+    visualizationSessionOutboxScope(loser)
+  );
+  const replacementRaw = JSON.stringify({ ...loser, source: "probability" });
+  backing.setItem(winnerKey, JSON.stringify(winner));
+  backing.setItem(loserKey, JSON.stringify(loser));
+  let interleaved = false;
+  let staleRemovalAttempts = 0;
+  const storage = {
+    get length() {
+      return backing.length;
+    },
+    getItem(key: string) {
+      if (key === legacyKey && !interleaved) {
+        interleaved = true;
+        backing.setItem(loserKey, replacementRaw);
+      }
+      return backing.getItem(key);
+    },
+    key(index: number) {
+      return backing.key(index);
+    },
+    removeItem(key: string) {
+      if (key === loserKey) staleRemovalAttempts += 1;
+      backing.removeItem(key);
+    },
+    setItem(key: string, value: string) {
+      backing.setItem(key, value);
+    }
+  };
+
+  assert.deepEqual(queueVisualizationSessionOutbox(storage, loser), winner);
+  assert.equal(interleaved, true);
+  assert.equal(staleRemovalAttempts, 0);
+  assert.equal(backing.getItem(loserKey), replacementRaw);
+  assert.deepEqual(readVisualizationSessionOutbox(backing, winner.userId), [winner]);
 });
 
 test("queue repairs a malformed value only at its own exact scope", () => {
@@ -480,20 +611,73 @@ test("400 quarantine preserves a corrected immutable revision queued during old-
   );
 });
 
-test("clear enumerates every current-user key including malformed entries without touching peers", () => {
+test("clear removes active, legacy-terminal, and raw quarantine keys only for its user", () => {
   const storage = memoryStorage();
-  const first = record({ moduleId: "first", topicId: "one" });
-  const second = record({ moduleId: "second", topicId: "two" });
-  const otherUser = record({ userId: "student-b", moduleId: "other", topicId: "peer" });
-  queueVisualizationSessionOutbox(storage, first);
-  queueVisualizationSessionOutbox(storage, second);
-  queueVisualizationSessionOutbox(storage, otherUser);
-  storage.setItem(`${visualizationSessionOutboxUserStoragePrefix(first.userId)}malformed/value`, "broken");
+  const active = record({ moduleId: "active", topicId: "one" });
+  const legacy = record({ moduleId: "legacy", topicId: "two", queuedAt: 2 });
+  const quarantined = record({ moduleId: "quarantined", topicId: "three", queuedAt: 3 });
+  const otherActive = record({ userId: "student-b", moduleId: "active", topicId: "peer" });
+  const otherQuarantined = record({
+    userId: "student-b",
+    moduleId: "quarantined",
+    topicId: "peer",
+    queuedAt: 4
+  });
+
+  queueVisualizationSessionOutbox(storage, active);
+  const legacyKey = visualizationSessionOutboxStorageKey(
+    visualizationSessionOutboxScope(legacy)
+  );
+  storage.setItem(legacyKey, JSON.stringify(legacy));
+  const legacySnapshot = readVisualizationSessionOutbox(storage, legacy.userId).find(
+    ({ moduleId }) => moduleId === legacy.moduleId
+  );
+  assert.equal(
+    acknowledgeVisualizationSessionOutbox(storage, legacySnapshot!),
+    true
+  );
+  queueVisualizationSessionOutbox(storage, quarantined);
+  assert.equal(
+    quarantineVisualizationSessionOutboxRecord(
+      storage,
+      quarantined,
+      "raw-current-user-payload"
+    ),
+    true
+  );
+
+  queueVisualizationSessionOutbox(storage, otherActive);
+  queueVisualizationSessionOutbox(storage, otherQuarantined);
+  assert.equal(
+    quarantineVisualizationSessionOutboxRecord(
+      storage,
+      otherQuarantined,
+      "raw-other-user-payload"
+    ),
+    true
+  );
+
+  const malformedKey = `${visualizationSessionOutboxUserStoragePrefix(active.userId)}malformed/value`;
+  const quarantineKey = visualizationSessionOutboxQuarantineStorageKey(
+    quarantined.userId,
+    visualizationSessionOutboxRecordStorageKey(quarantined)
+  );
+  const otherQuarantineKey = visualizationSessionOutboxQuarantineStorageKey(
+    otherQuarantined.userId,
+    visualizationSessionOutboxRecordStorageKey(otherQuarantined)
+  );
+  storage.setItem(malformedKey, "broken");
   storage.setItem("unrelated-key", "keep");
 
-  assert.equal(clearVisualizationSessionOutboxForUser(storage, first.userId), 3);
-  assert.deepEqual(readVisualizationSessionOutbox(storage, first.userId), []);
-  assert.deepEqual(readVisualizationSessionOutbox(storage, otherUser.userId), [otherUser]);
+  assert.match(storage.getItem(quarantineKey)!, /raw-current-user-payload/);
+  assert.match(storage.getItem(otherQuarantineKey)!, /raw-other-user-payload/);
+  assert.equal(clearVisualizationSessionOutboxForUser(storage, active.userId), 5);
+  assert.deepEqual(readVisualizationSessionOutbox(storage, active.userId), []);
+  assert.equal(storage.getItem(legacyKey), null);
+  assert.equal(storage.getItem(malformedKey), null);
+  assert.equal(storage.getItem(quarantineKey), null);
+  assert.deepEqual(readVisualizationSessionOutbox(storage, otherActive.userId), [otherActive]);
+  assert.match(storage.getItem(otherQuarantineKey)!, /raw-other-user-payload/);
   assert.equal(storage.getItem("unrelated-key"), "keep");
 });
 
