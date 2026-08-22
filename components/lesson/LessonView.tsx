@@ -750,8 +750,8 @@ function LessonQuestionPager({
   if (!questionCount) return null;
 
   return (
-    <div className="grid gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-950/75 sm:p-5">
-      <div className="flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm dark:border-cyan-300/15 dark:from-cyan-950/35 dark:via-slate-950/55 dark:to-slate-950/40 sm:p-5">
+    <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_22px_46px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-950/75 sm:p-5">
+      <div className="min-w-0 flex flex-col gap-4 rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-cyan-50/70 p-4 shadow-sm dark:border-cyan-300/15 dark:from-cyan-950/35 dark:via-slate-950/55 dark:to-slate-950/40 sm:p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-black text-slate-950 dark:text-white">
@@ -888,7 +888,7 @@ function LessonQuestionPager({
         </div>
       </div>
 
-      <div className="grid gap-5">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5">
         {questions.map((question, index) => (
           <div
             key={question.id}
@@ -903,7 +903,7 @@ function LessonQuestionPager({
             data-ai-block-id={lessonPracticeSectionId}
             data-ai-block-type="practice-question"
             data-ai-title={text(question.topic)}
-            className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.055] sm:p-5 [&_svg[role=img]]:mx-auto [&_svg[role=img]]:max-w-md"
+            className="min-w-0 rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.055] sm:p-5 [&_svg[role=img]]:mx-auto [&_svg[role=img]]:max-w-md"
           >
             <PracticeQuestionCard question={question} onAnswered={handleAnswered} />
           </div>
@@ -3323,6 +3323,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   return (
     <div
       ref={lessonSelectionRootRef}
+      data-lesson-ready="true"
       className={shouldRenderGalaxyDirectory ? "relative isolate w-full py-10 sm:py-12" : "page-container relative isolate py-10 sm:py-12"}
     >
       <AnimatePresence>

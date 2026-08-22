@@ -10,7 +10,7 @@ const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
 const VERCEL_STAGING_ROOT = path.join(TMP_ROOT, "vercel-staging");
 const DEFAULT_MIN_FREE_GB = 20;
 const DEFAULT_DIRTY_TREE_MAP_MAX_AGE_MINUTES = 60;
-const DEFAULT_CANONICAL_ROOT = "/Users/dongpinhu/Desktop/MAIS-MVP";
+const DEFAULT_CANONICAL_ROOT = "/Volumes/Starship/MAIS-MVP";
 const DEFAULT_VERCEL_SCOPE = "peter-dongpin-hu-s-projects";
 const DIRTY_ROOT_DEPLOY_OVERRIDE = "MAIS_ALLOW_DIRTY_ROOT_DEPLOY";
 const RELEASE_SOURCE_CLEAN_GATE = "coordination/release-intake/assert-release-source-clean.mjs";
@@ -363,7 +363,7 @@ function normalizeSourceKind(value) {
 
 function formatRootFreezeBlock({ sourceRoot, canonicalRoot, kind, status }) {
   return [
-    "Root release is frozen: A22 must not publish from /Users/dongpinhu/Desktop/MAIS-MVP root.",
+    `Root release is frozen: A22 must not publish from the ${canonicalRoot} root.`,
     `Source root: ${sourceRoot}`,
     `Canonical root: ${canonicalRoot}`,
     `Requested source kind: ${kind}`,

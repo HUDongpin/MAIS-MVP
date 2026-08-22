@@ -36,7 +36,7 @@ export default function Lesson() {
 
       <Figure caption="Choose a place. The decimal snaps to whichever neighbor is nearer.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
             {PLACES.map(([p, name]) => (
               <button key={p} type="button" onClick={() => setPlace(p)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={place === p ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>nearest {name}</button>
             ))}
@@ -91,12 +91,12 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
-      <div className="flex items-center gap-1.5">
-        <button type="button" onClick={() => set(value - 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label="minus tenth">−0.1</button>
-        <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
-        <span className="w-16 text-center font-mono text-lg font-black tabular-nums">{(value / 1000).toFixed(3)}</span>
-        <button type="button" onClick={() => set(value + 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Increase ${label}`}>+</button>
-        <button type="button" onClick={() => set(value + 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold" aria-label="plus tenth">+0.1</button>
+      <div className="flex max-w-full items-center gap-1 sm:gap-1.5">
+        <button type="button" onClick={() => set(value - 100)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold sm:w-11" aria-label="minus tenth">−0.1</button>
+        <button type="button" onClick={() => set(value - 1)} className="h-9 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold sm:w-9" aria-label={`Decrease ${label}`}>−</button>
+        <span className="w-14 text-center font-mono text-lg font-black tabular-nums sm:w-16">{(value / 1000).toFixed(3)}</span>
+        <button type="button" onClick={() => set(value + 1)} className="h-9 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold sm:w-9" aria-label={`Increase ${label}`}>+</button>
+        <button type="button" onClick={() => set(value + 100)} className="h-9 w-10 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-xs font-bold sm:w-11" aria-label="plus tenth">+0.1</button>
       </div>
     </div>
   );

@@ -289,9 +289,9 @@ export default function SubtractionLab() {
     ctx.stroke();
 
     /* ---- benchmark guide lines at 5, 10, 15 (numbers kids anchor to) ---- */
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(28,43,58,0.10)';
-    ctx.setLineDash([3, 5]);
+    ctx.lineWidth = 3.2;
+    ctx.strokeStyle = '#4b5b6a';
+    ctx.setLineDash([5, 4]);
     ctx.beginPath();
     for (const g of [5, 10, 15]) {
       const X = Math.round(x(g)) + 0.5;
@@ -320,9 +320,9 @@ export default function SubtractionLab() {
       } else {
         ctx.fillStyle = 'rgba(91,107,123,0.08)';
         ctx.fill();
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([2, 2]);
-        ctx.strokeStyle = 'rgba(91,107,123,0.75)';
+        ctx.lineWidth = 4.2;
+        ctx.setLineDash([6, 3]);
+        ctx.strokeStyle = '#344454';
         ctx.stroke();
         ctx.setLineDash([]);
         // the take-away slash
@@ -330,8 +330,8 @@ export default function SubtractionLab() {
         ctx.beginPath();
         ctx.moveTo(cx - s, counterY + s);
         ctx.lineTo(cx + s, counterY - s);
-        ctx.strokeStyle = 'rgba(91,107,123,0.85)';
-        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = '#445565';
+        ctx.lineWidth = 5.2;
         ctx.stroke();
       }
     }
@@ -346,54 +346,41 @@ export default function SubtractionLab() {
     // right arrowhead (the line continues)
     ctx.beginPath();
     ctx.moveTo(x(N) + 6, lineY);
-    ctx.lineTo(x(N) - 1, lineY - 4);
-    ctx.lineTo(x(N) - 1, lineY + 4);
+    ctx.lineTo(x(N) - 4, lineY - 6);
+    ctx.lineTo(x(N) - 4, lineY + 6);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(28,43,58,0.75)';
+    ctx.fillStyle = INK;
     ctx.fill();
 
     /* ticks + labels 0 … N (benchmarks bolder). Labels thin out on narrow
        screens so digits never collide: every unit when there is room, else
        every 2, else just the 5-benchmarks — but ticks stay every 1. */
     const labelStride = u >= 22 ? 1 : u >= 14 ? 2 : 5;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
+    const numberLineLabels = [];
     for (let n = 0; n <= N; n++) {
       const X = x(n);
       const major = n % 5 === 0;
-      ctx.strokeStyle = 'rgba(28,43,58,0.55)';
-      ctx.lineWidth = major ? 1.8 : 1;
+      ctx.strokeStyle = '#4b5b6a';
+      ctx.lineWidth = major ? 4 : 3.5;
       ctx.beginPath();
       ctx.moveTo(X, lineY);
       ctx.lineTo(X, lineY + (major ? 9 : 5));
       ctx.stroke();
       if (major || n % labelStride === 0) {
-        ctx.fillStyle = major ? INK : INK_SOFT;
-        ctx.font = major
-          ? '600 12px ui-monospace, "SF Mono", Menlo, monospace'
-          : '10.5px ui-monospace, "SF Mono", Menlo, monospace';
-        ctx.fillText(String(n), X, lineY + 11);
+        numberLineLabels.push({ major, text: String(n), X });
       }
     }
 
-    /* helper: a rounded value label on a paper chip */
+    /* Queue chip labels so every opaque backing is painted before every glyph.
+       This prevents a later number-line label backing from crossing an earlier
+       count-back or add-back label while preserving the same visual layout. */
+    const pendingChips = [];
     const chip = (text, cx, cy, color, align) => {
-      ctx.font = '600 12.5px ui-monospace, "SF Mono", Menlo, monospace';
-      const tw = ctx.measureText(text).width;
-      let bx = cx - tw / 2;
-      if (align === 'left') bx = cx;
-      else if (align === 'right') bx = cx - tw;
-      ctx.fillStyle = 'rgba(251,251,248,0.92)';
-      ctx.fillRect(bx - 4, cy - 1, tw + 8, 17);
-      ctx.fillStyle = color;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      ctx.fillText(text, bx, cy);
-      ctx.textAlign = 'center';
+      pendingChips.push({ align, color, cx, cy, text });
     };
 
     /* helper: arrowhead at (hx,hy) pointing in direction (dx,dy) */
-    const arrowHead = (hx, hy, dx, dy, color, size = 7) => {
+    const arrowHead = (hx, hy, dx, dy, color, size = 9) => {
       const len = Math.hypot(dx, dy) || 1;
       const ux = dx / len;
       const uy = dy / len;
@@ -401,11 +388,25 @@ export default function SubtractionLab() {
       const py = ux;
       ctx.beginPath();
       ctx.moveTo(hx, hy);
-      ctx.lineTo(hx - ux * size + px * size * 0.6, hy - uy * size + py * size * 0.6);
-      ctx.lineTo(hx - ux * size - px * size * 0.6, hy - uy * size - py * size * 0.6);
+      ctx.lineTo(hx - ux * size + px * size * 0.68, hy - uy * size + py * size * 0.68);
+      ctx.lineTo(hx - ux * size - px * size * 0.68, hy - uy * size - py * size * 0.68);
       ctx.closePath();
       ctx.fillStyle = color;
       ctx.fill();
+    };
+
+    // Endpoint markers are drawn after the arcs. Keep each arrowhead just
+    // outside its marker instead of letting the marker erase the direction cue.
+    const arrowHeadBeforeMarker = (hx, hy, dx, dy, color, size, clearance) => {
+      const len = Math.hypot(dx, dy) || 1;
+      arrowHead(
+        hx - (dx / len) * clearance,
+        hy - (dy / len) * clearance,
+        dx,
+        dy,
+        color,
+        size
+      );
     };
 
     /* ---- the ghost target (calibration only): start ring at A, flag at C.
@@ -458,7 +459,7 @@ export default function SubtractionLab() {
       ctx.stroke();
       ctx.setLineDash([]);
       // arrowhead at the landing end, tangent ≈ pointing toward x1 along the line
-      arrowHead(x1, lineY, x1 - midX, -depth * 0.55, color, 7.5);
+      arrowHeadBeforeMarker(x1, lineY, x1 - midX, -depth * 0.55, color, 11, 8);
       if (label) {
         chip(label, midX, lineY + depth + 2, color, 'center');
       }
@@ -491,14 +492,22 @@ export default function SubtractionLab() {
       const depth = Math.min(Math.max(Math.abs(x1 - x0) * 0.4, 18), counterY - 10);
       ctx.save();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(28,43,58,0.6)';
+      ctx.strokeStyle = '#5b6b7b';
       ctx.setLineDash([6, 4]);
       ctx.beginPath();
       ctx.moveTo(x0, lineY - counterR - 4);
       ctx.quadraticCurveTo(midX, lineY - counterR - 4 - depth, x1, lineY - counterR - 4);
       ctx.stroke();
       ctx.setLineDash([]);
-      arrowHead(x1, lineY - counterR - 4, x1 - midX, depth * 0.55, 'rgba(28,43,58,0.6)', 7);
+      arrowHeadBeforeMarker(
+        x1,
+        lineY - counterR - 4,
+        x1 - midX,
+        depth * 0.55,
+        '#4b5b6a',
+        9,
+        7
+      );
       chip(`+ ${B}`, midX, lineY - counterR - 6 - depth, INK, 'center');
       ctx.restore();
     }
@@ -515,7 +524,7 @@ export default function SubtractionLab() {
     // landing marker at c (carmine filled) — the difference
     ctx.fillStyle = CURVE;
     ctx.beginPath();
-    ctx.arc(x(C), lineY, 6, 0, Math.PI * 2);
+    ctx.arc(x(C), lineY, 7, 0, Math.PI * 2);
     ctx.fill();
     ctx.lineWidth = 1.5;
     ctx.strokeStyle = PAPER;
@@ -541,7 +550,7 @@ export default function SubtractionLab() {
     if (hv != null && hv >= 0 && hv <= N) {
       const X = x(hv);
       ctx.save();
-      ctx.strokeStyle = 'rgba(28,43,58,0.3)';
+      ctx.strokeStyle = 'rgba(28,43,58,0.62)';
       ctx.setLineDash([3, 4]);
       ctx.beginPath();
       ctx.moveTo(X, counterY - counterR - 6);
@@ -551,6 +560,46 @@ export default function SubtractionLab() {
       chip(String(hv), X, lineY - 22, INK, 'center');
       ctx.restore();
     }
+
+    /* ---- terminal labels -------------------------------------------------
+       Paint every opaque backing after all geometry, then paint every glyph.
+       Tick numerals and queued chips therefore share one terminal text phase:
+       no later fill or path can cross either family of labels. */
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (const label of numberLineLabels) {
+      ctx.font = label.major
+        ? '600 12px ui-monospace, "SF Mono", Menlo, monospace'
+        : '10.5px ui-monospace, "SF Mono", Menlo, monospace';
+      const tw = ctx.measureText(label.text).width;
+      ctx.fillStyle = PAPER;
+      ctx.fillRect(label.X - tw / 2 - 2, lineY + 9, tw + 4, label.major ? 17 : 15.5);
+    }
+    const measuredChips = pendingChips.map((label) => {
+      ctx.font = '600 12.5px ui-monospace, "SF Mono", Menlo, monospace';
+      const width = ctx.measureText(label.text).width;
+      let x = label.cx - width / 2;
+      if (label.align === 'left') x = label.cx;
+      else if (label.align === 'right') x = label.cx - width;
+      ctx.fillStyle = 'rgba(251,251,248,0.92)';
+      ctx.fillRect(x - 4, label.cy - 1, width + 8, 17);
+      return { ...label, x };
+    });
+    for (const label of numberLineLabels) {
+      ctx.font = label.major
+        ? '600 12px ui-monospace, "SF Mono", Menlo, monospace'
+        : '10.5px ui-monospace, "SF Mono", Menlo, monospace';
+      ctx.fillStyle = label.major ? INK : '#445565';
+      ctx.fillText(label.text, label.X, lineY + 11);
+    }
+    ctx.textAlign = 'left';
+    for (const label of measuredChips) {
+      ctx.font = '600 12.5px ui-monospace, "SF Mono", Menlo, monospace';
+      ctx.fillStyle = label.color;
+      ctx.fillText(label.text, label.x, label.cy);
+    }
+    ctx.textAlign = 'center';
+    ctx.beginPath();
   }, []);
 
   /* redraw whenever the state that affects the picture changes */
@@ -1032,7 +1081,8 @@ export default function SubtractionLab() {
           bottom: 9px;
           font-size: 11px;
           color: var(--ink-soft);
-          background: rgba(251, 251, 248, 0.78);
+          background: #fbfbf8;
+          border: 1px solid rgba(28, 43, 58, 0.16);
           padding: 3px 7px;
           border-radius: 5px;
           pointer-events: none;
@@ -1095,8 +1145,15 @@ export default function SubtractionLab() {
           color: #fff;
         }
         .btn:disabled {
-          opacity: 0.4;
+          background: #596979;
+          border-color: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          background: #f0f2f3;
+          border-color: #83909d;
+          color: #596979;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1146,7 +1203,12 @@ export default function SubtractionLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          color: #596979;
+        }
+        .dial.locked .dk,
+        .dial.locked .drole,
+        .dial.locked .dv {
+          color: #596979;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1224,7 +1286,9 @@ export default function SubtractionLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;

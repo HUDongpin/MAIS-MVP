@@ -38,7 +38,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <table className="border-collapse text-center font-mono text-sm">
+          <table className="mx-auto w-max max-w-none self-start border-collapse text-center font-mono text-sm">
             <thead>
               <tr className="text-[var(--ink-faint)]">
                 <th className="p-2" /><th className="p-2">online</th><th className="p-2">in-person</th><th className="p-2">total</th>

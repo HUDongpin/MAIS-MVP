@@ -6,6 +6,7 @@ import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
 import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
 import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
+import { buildQuadraticCurvePath } from "@/components/visualizations/rawCurveGeometry";
 import { clamp, formatNumber, quadraticRoots } from "@/lib/math";
 
 const width = 640;
@@ -116,16 +117,6 @@ function getSvgPoint(svg: SVGSVGElement | null, event: PointerEvent<SVGSVGElemen
   return { x: svgPoint.x, y: svgPoint.y };
 }
 
-function buildPath(a: number, b: number, c: number) {
-  const samples = Array.from({ length: 180 }, (_, index) => xMin + (index / 179) * (xMax - xMin));
-  return samples
-    .map((x, index) => {
-      const y = a * x * x + b * x + c;
-      return `${index === 0 ? "M" : "L"} ${mapX(x).toFixed(2)} ${mapVisibleY(y).toFixed(2)}`;
-    })
-    .join(" ");
-}
-
 function formatCoefficient(value: number) {
   if (!Number.isFinite(value)) return "—";
   return value.toFixed(1);
@@ -199,7 +190,7 @@ export function FunctionGraphExplorer({
   const [c, setC] = useState(initialC);
   const [cursorPoint, setCursorPoint] = useState<{ x: number; y: number } | null>(null);
 
-  const path = useMemo(() => buildPath(a, b, c), [a, b, c]);
+  const path = useMemo(() => buildQuadraticCurvePath(a, b, c), [a, b, c]);
   const roots = useMemo(() => quadraticRoots(a, b, c), [a, b, c]);
   const rootKind = Math.abs(a) < coefficientEpsilon && Math.abs(b) < coefficientEpsilon && Math.abs(c) < coefficientEpsilon
     ? "all-real"
@@ -274,6 +265,9 @@ export function FunctionGraphExplorer({
           onPointerLeave={() => setCursorPoint(null)}
         >
           <defs>
+            <clipPath id="quadraticPlotClip">
+              <rect x={padding} y={padding} width={width - padding * 2} height={height - padding * 2} />
+            </clipPath>
             <linearGradient id="quadraticStroke" x1="0" x2="1" y1="0" y2="0">
               <stop offset="0%" stopColor="#22d3ee" />
               <stop offset="55%" stopColor="#8b5cf6" />
@@ -335,6 +329,7 @@ export function FunctionGraphExplorer({
             stroke={graphTheme.curve}
             strokeWidth="4"
             strokeLinecap="round"
+            clipPath="url(#quadraticPlotClip)"
             filter={graphTheme.curveFilter}
             initial={false}
             animate={{ pathLength: 1 }}

@@ -32,7 +32,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="The shaded bar is the first fraction. Count how many of the second fraction fit inside it.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           {/* dividend bar with divisor tick marks */}
           <div className="relative rounded-lg border-2 border-[var(--line)] overflow-hidden" style={{ width: BARW, height: 40 }}>
             <div className="h-full" style={{ width: (n1 / d1) * BARW, background: A, opacity: 0.85 }} />

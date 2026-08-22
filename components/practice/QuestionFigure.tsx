@@ -1,4 +1,8 @@
+"use client";
+
+import { useId } from "react";
 import { textForLanguage } from "@/lib/i18n";
+import { serializeMathAngleContract } from "@/lib/mathDiagramGeometry";
 import {
   buildCoordinateGridLayout,
   buildNumberLineLayout,
@@ -89,10 +93,12 @@ function FigureLabels({ labels, theme }: { labels: FigureLabel[]; theme: FigureT
 
 function CoordinateGridFigure({
   diagram,
-  theme
+  theme,
+  plotClipId
 }: {
   diagram: CoordinateGridQuestionDiagram;
   theme: FigureTheme;
+  plotClipId: string;
 }) {
   const layout = buildCoordinateGridLayout(diagram);
   const { plot, xTicks, yTicks, xFor, yFor } = layout;
@@ -105,7 +111,12 @@ function CoordinateGridFigure({
 
   return (
     <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
-      <rect x={plot.left} y={plot.top} width={plot.width} height={plot.height} rx={isDay ? 0 : 8} className={theme.plotFillClassName} />
+      <defs>
+        <clipPath id={plotClipId} clipPathUnits="userSpaceOnUse">
+          <rect x={plot.left} y={plot.top} width={plot.width} height={plot.height} />
+        </clipPath>
+      </defs>
+      <rect data-diagram-plot x={plot.left} y={plot.top} width={plot.width} height={plot.height} rx={isDay ? 0 : 8} className={theme.plotFillClassName} />
       {xTicks.map((tick) => (
         <line key={`x-${tick}`} x1={xFor(tick)} x2={xFor(tick)} y1={plot.top} y2={plot.top + plot.height} stroke={gridColor} strokeWidth={gridStrokeWidth} opacity={gridOpacity} />
       ))}
@@ -118,35 +129,40 @@ function CoordinateGridFigure({
       {layout.showXAxis ? (
         <line x1={plot.left} x2={plot.left + plot.width} y1={yFor(0)} y2={yFor(0)} stroke={theme.mainStroke} strokeWidth={axisStrokeWidth} />
       ) : null}
-      {layout.renderedLines.map(({ line, lineKey, quadraticPath, pointsAttr, showValueMarkers }) => {
-        const lineStyle = {
-          fill: "none",
-          stroke: theme.accentStroke,
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          strokeWidth: graphStrokeWidth
-        } as const;
+      <g data-diagram-plot-series clipPath={`url(#${plotClipId})`}>
+        {layout.renderedLines.map(({ line, lineKey, quadraticPath, pointsAttr, showValueMarkers }) => {
+          const lineStyle = {
+            fill: "none",
+            stroke: theme.accentStroke,
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: graphStrokeWidth
+          } as const;
 
-        return quadraticPath ? (
-          <path key={lineKey} d={quadraticPath} {...lineStyle} />
-        ) : (
-          <g key={lineKey}>
-            <polyline points={pointsAttr} {...lineStyle} />
-            {showValueMarkers ? line.points.map((point, pointIndex) => (
-              <circle
-                key={`${lineKey}-value-${pointIndex}`}
-                cx={xFor(point.x)}
-                cy={yFor(point.y)}
-                r="3.6"
-                className={isDay ? "fill-pink-500 stroke-white stroke-[1.5]" : "fill-cyan-600 stroke-white stroke-[1.5] dark:fill-cyan-400 dark:stroke-slate-950"}
-              />
-            )) : null}
-          </g>
-        );
-      })}
+          return quadraticPath ? (
+            <path data-diagram-plot-mark key={lineKey} d={quadraticPath} {...lineStyle} />
+          ) : (
+            <g key={lineKey}>
+              <polyline data-diagram-plot-mark points={pointsAttr} {...lineStyle} />
+              {showValueMarkers ? line.points.map((point, pointIndex) => (
+                <circle
+                  data-diagram-plot-mark
+                  key={`${lineKey}-value-${pointIndex}`}
+                  cx={xFor(point.x)}
+                  cy={yFor(point.y)}
+                  r="3.6"
+                  className={isDay ? "fill-pink-500 stroke-white stroke-[1.5]" : "fill-cyan-600 stroke-white stroke-[1.5] dark:fill-cyan-400 dark:stroke-slate-950"}
+                />
+              )) : null}
+            </g>
+          );
+        })}
+      </g>
       {layout.labeledPoints.map((point) => (
         <g key={point.label}>
           <circle
+            data-diagram-plot-mark
+            clipPath={`url(#${plotClipId})`}
             cx={point.anchor.x}
             cy={point.anchor.y}
             r="5"
@@ -227,7 +243,17 @@ function PlaneFigureView({
         <line key={stroke.key} x1={stroke.x1} y1={stroke.y1} x2={stroke.x2} y2={stroke.y2} stroke={theme.accentStroke} strokeWidth={1.6} strokeLinecap="round" />
       ))}
       {layout.anglePaths.map((arc) => (
-        <path key={arc.key} d={arc.d} fill="none" stroke={theme.accentStroke} strokeWidth={1.8} strokeLinecap="round" />
+        <path
+          key={arc.key}
+          data-diagram-angle-arc={arc.kind === "arc" ? "true" : undefined}
+          data-diagram-right-angle={arc.kind === "right-angle" ? "true" : undefined}
+          data-math-angle-contract={serializeMathAngleContract(arc.contract)}
+          d={arc.d}
+          fill="none"
+          stroke={theme.accentStroke}
+          strokeWidth={1.8}
+          strokeLinecap="butt"
+        />
       ))}
       {layout.centerDots.map((dot) => (
         <circle key={dot.key} cx={dot.x} cy={dot.y} r={2.2} className={theme.centerDotClassName} />
@@ -373,9 +399,9 @@ function TenFrameView({
     <div className="grid gap-3">
       {/*
         Frames wrap rather than sharing one viewBox. Side by side when there is
-        room; stacked on a phone, where squeezing two frames into one row left
-        counters too small for a five-year-old to pick out. `min-w-[13rem]`
-        is what forces the wrap instead of the shrink.
+        room; stacked when their 13rem flex basis no longer fits. `min-w-0`
+        still lets one frame shrink inside an exceptionally narrow phone shell
+        instead of being clipped by it.
       */}
       <div className="flex flex-wrap items-start justify-center gap-3 sm:gap-4">
         {layout.frames.map((frame) => (
@@ -385,7 +411,7 @@ function TenFrameView({
             // Counters stay finger-sized instead of ballooning to fill the
             // figure shell the way a coordinate grid wants to.
             style={{ maxWidth: `${frame.viewBox.width * 1.8}px` }}
-            className="h-auto w-full min-w-[13rem] flex-1"
+            className="h-auto min-w-0 w-full basis-[13rem] flex-1"
           >
             <rect
               x={frame.frame.x}
@@ -437,13 +463,20 @@ type QuestionFigureProps = {
 };
 
 export function QuestionFigure({ diagram, variant = "default", compact = false, language = "en" }: QuestionFigureProps) {
+  const plotClipId = `question-plot-${useId().replace(/:/gu, "")}`;
   const theme = figureTheme(variant);
   const textFor: FigureTextResolver = (value) => (typeof value === "string" ? value : textForLanguage(value, language));
   const altText = textForLanguage(questionDiagramAltText(diagram), language);
 
   return (
-    <div className={figureShellClassName(variant, compact)} role="img" aria-label={altText}>
-      {diagram.kind === "coordinate-grid" ? <CoordinateGridFigure diagram={diagram} theme={theme} /> : null}
+    <div
+      className={figureShellClassName(variant, compact)}
+      role="img"
+      aria-label={altText}
+      data-question-figure
+      data-diagram-kind={diagram.kind}
+    >
+      {diagram.kind === "coordinate-grid" ? <CoordinateGridFigure diagram={diagram} theme={theme} plotClipId={plotClipId} /> : null}
       {diagram.kind === "plane-figure" ? <PlaneFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "number-line" ? <NumberLineView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "solid-figure" ? <SolidFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}

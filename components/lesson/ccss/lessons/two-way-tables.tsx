@@ -28,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="Do pet owners like animal movies more? Compare the row percentages.">
         <div className="flex flex-col items-center gap-6">
-          <table className="border-collapse text-center font-mono text-sm">
+          <table className="mx-auto w-max max-w-none self-start border-collapse text-center font-mono text-sm">
             <thead>
               <tr>
                 <th className="p-2" />

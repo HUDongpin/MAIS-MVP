@@ -25,7 +25,7 @@ export default function Lesson() {
 
       <Figure caption="Add the two events, then subtract the double-counted intersection.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={150} viewBox="0 0 240 150" role="img" aria-label="union of two events">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={150} viewBox="0 0 240 150" role="img" aria-label="union of two events">
             <circle cx={95} cy={75} r={55} fill={ACCENT} fillOpacity={0.3} stroke={ACCENT} strokeWidth={2} />
             <circle cx={150} cy={75} r={45} fill="var(--band-upper)" fillOpacity={0.3} stroke="var(--band-upper)" strokeWidth={2} />
             <text x={70} y={80} fontSize={13} fontWeight={800} fill={ACCENT}>A</text>

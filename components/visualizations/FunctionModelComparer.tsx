@@ -5,11 +5,16 @@ import { motion } from "@/components/ui/Motion";
 import { useSettings } from "@/components/providers/AppProviders";
 import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
 import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
+import {
+  buildFunctionModelPath,
+  evaluateFunctionModel
+} from "@/components/visualizations/rawCurveGeometry";
+import type { FunctionModelKey } from "@/components/visualizations/rawCurveGeometry";
 import { textForLanguage } from "@/lib/i18n";
 import { clamp, formatNumber } from "@/lib/math";
 import type { LocalizedText } from "@/types";
 
-type ModelKey = "polynomial" | "exponential" | "logarithmic";
+type ModelKey = FunctionModelKey;
 
 const width = 640;
 const height = 420;
@@ -48,21 +53,6 @@ function mapVisibleY(y: number) {
   return mapY(clamp(y, yMin, yMax));
 }
 
-function evaluateModel(model: ModelKey, x: number, strength: number, shift: number) {
-  if (model === "polynomial") return 0.14 * strength * (x - 4) ** 2 + shift;
-  if (model === "exponential") return Math.exp(0.22 * strength * x) - 1 + shift;
-  return 3.2 * Math.log(strength * x + 1) + shift;
-}
-
-function buildPath(model: ModelKey, strength: number, shift: number) {
-  return Array.from({ length: 180 }, (_, index) => xMin + (index / 179) * (xMax - xMin))
-    .map((x, index) => {
-      const y = evaluateModel(model, x, strength, shift);
-      return `${index === 0 ? "M" : "L"} ${mapX(x).toFixed(2)} ${mapVisibleY(y).toFixed(2)}`;
-    })
-    .join(" ");
-}
-
 function curveTouchesLabel(rect: { x: number; y: number; width: number; height: number }, strength: number, shift: number) {
   const buffer = 7;
   const left = rect.x - buffer;
@@ -72,7 +62,7 @@ function curveTouchesLabel(rect: { x: number; y: number; width: number; height: 
 
   return modelKeys.some((model) =>
     Array.from({ length: 120 }, (_, index) => xMin + (index / 119) * (xMax - xMin)).some((x) => {
-      const y = clamp(evaluateModel(model, x, strength, shift), yMin - 8, yMax + 8);
+      const y = clamp(evaluateFunctionModel(model, x, strength, shift), yMin - 8, yMax + 8);
       const screenX = mapX(x);
       const screenY = mapVisibleY(y);
       return screenX >= left && screenX <= right && screenY >= top && screenY <= bottom;
@@ -218,12 +208,12 @@ export function FunctionModelComparer({ topicId = "functions" }: { topicId?: str
   const [hoveredPointModel, setHoveredPointModel] = useState<ModelKey | null>(null);
 
   const paths = useMemo(() => ({
-    polynomial: buildPath("polynomial", strength, shift),
-    exponential: buildPath("exponential", strength, shift),
-    logarithmic: buildPath("logarithmic", strength, shift)
+    polynomial: buildFunctionModelPath("polynomial", strength, shift),
+    exponential: buildFunctionModelPath("exponential", strength, shift),
+    logarithmic: buildFunctionModelPath("logarithmic", strength, shift)
   }), [strength, shift]);
   const sampleX = 6;
-  const selectedValue = evaluateModel(selectedModel, sampleX, strength, shift);
+  const selectedValue = evaluateFunctionModel(selectedModel, sampleX, strength, shift);
   const selectedVisibleValue = clamp(selectedValue, yMin, yMax);
   const selectedPointClipped = selectedVisibleValue !== selectedValue;
   const selectedPointX = mapX(sampleX);

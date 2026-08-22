@@ -1750,7 +1750,7 @@ function SignatureBenchSwitcher({
   const BenchComponent = SignatureLabRoutes[activeBenchId] ?? SignatureLabRoutes[assignment.primary];
 
   return (
-    <div data-viz-signature-switcher>
+    <div data-viz-signature-switcher data-viz-active-signature-bench-id={activeBenchId}>
       {benchIds.length > 1 ? (
         <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Related labs for this topic">
           {benchIds.map((benchId) => {
@@ -1761,19 +1761,22 @@ function SignatureBenchSwitcher({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
+                data-viz-signature-bench-id={benchId}
                 onClick={() => {
                   if (benchId === activeBenchId) return;
                   onBenchSwitch?.(benchId);
                   setActiveBenchId(benchId);
                 }}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
+                className={`min-h-11 rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
-                    ? "border-cyan-500 bg-cyan-500 text-white shadow"
-                    : "border-slate-300 bg-white text-slate-600 hover:border-cyan-300 hover:text-slate-900 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
+                    ? "border-cyan-700 bg-cyan-700 text-white shadow dark:border-cyan-600 dark:bg-cyan-600"
+                    : "border-slate-300 bg-white text-slate-700 hover:border-cyan-500 hover:text-slate-950 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
                 }`}
               >
                 {signatureBenchLabel(benchId)}
-                {benchId === assignment.primary ? <span className="ml-1.5 opacity-70">· primary</span> : null}
+                {benchId === assignment.primary
+                  ? <span className="pointer-events-none ml-1.5">· primary</span>
+                  : null}
               </button>
             );
           })}
@@ -2411,7 +2414,7 @@ function VisualizationLabPageContent({
   initialGrade = null,
   initialLabId = null
 }: VisualizationLabPageProps & { catalog: VisualizationCatalogState }) {
-  const { currentUser, language, recordLearningEvent, selectedGrade, t, text } = useSettings();
+  const { currentUser, language, recordLearningEvent, selectedGrade, settingsReady, t, text } = useSettings();
   const panelRef = useRef<HTMLDivElement>(null);
   const labGridRef = useRef<HTMLDivElement>(null);
   const { getVisualizationLabByLabId, gradeLabGroups, visualizationTrackLabels } = catalog;
@@ -2488,14 +2491,13 @@ function VisualizationLabPageContent({
   const browsingOtherGrade = Boolean(ownGrade && (activeDirectoryGroup?.grade ?? activeGroup.grade) !== ownGrade);
   const youngLearnerMode = Boolean(ownGrade && youngLearnerGrades.has(ownGrade));
   const ActiveDirectoryLabComponent = componentForDirectoryLab(activeDirectoryLab);
-  // When the active lab is a signature bench whose topic fans out to related
-  // benches, render the switcher so every related bench is reachable, not just
-  // the primary. Falls back to the plain component otherwise.
+  // Every signature bench uses the same identity/runtime wrapper. Topics that
+  // fan out also receive related-bench chips; a sole bench keeps the wrapper
+  // without rendering an empty tab list.
   const activeSignatureAssignment =
     activeDirectoryLab?.moduleId === "signature-lab"
       ? getSignatureLabAssignment(activeDirectoryLab.topicId)
       : null;
-  const activeHasRelatedBenches = (activeSignatureAssignment?.related?.length ?? 0) > 0;
   const activeDirectorySessionModuleId = activeDirectoryLab ? buildVisualizationSessionModuleId(activeDirectoryLab) : null;
   const activeDirectoryLabHref = activeDirectoryLab ? buildVisualizationLabHref(activeDirectoryLab, effectiveTrackFilter) : null;
   const activeLabCanDistribute = labAllowsExternalDistribution(activeDirectoryLab);
@@ -2529,6 +2531,8 @@ function VisualizationLabPageContent({
   }, []);
 
   useEffect(() => {
+    if (!settingsReady) return;
+
     function openLabFromLocation() {
       const params = new URLSearchParams(window.location.search);
       const queryLabId = params.get("lab") ?? initialLabId;
@@ -2581,7 +2585,7 @@ function VisualizationLabPageContent({
     return () => {
       window.removeEventListener("popstate", openLabFromLocation);
     };
-  }, [activeGroup.grade, currentUser, curriculumScopedGroups, initialGrade, initialLabId]);
+  }, [activeGroup.grade, currentUser, curriculumScopedGroups, initialGrade, initialLabId, settingsReady]);
 
   useEffect(() => {
     if (!activeDirectoryGroup) return;
@@ -3481,7 +3485,7 @@ function VisualizationLabPageContent({
                     data-viz-back-to-control-panel-link
                     data-viz-back-to-control-panel-grade={activeDirectoryLab.grade}
                     data-viz-back-to-control-panel-track={effectiveTrackFilter}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
                   >
                     ← {backToLabsLabel}
                   </a>
@@ -3496,7 +3500,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-link
                     data-viz-copy-lab-link-state={shareState}
                     data-viz-copy-lab-link-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700"
                   >
                     {!activeLabCanDistribute || shareState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3512,7 +3516,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-snapshot
                     data-viz-snapshot-state={snapshotState}
                     data-viz-snapshot-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700"
                   >
                     {!activeLabCanDistribute || snapshotState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3554,6 +3558,7 @@ function VisualizationLabPageContent({
                   }
                   initialExplored={exploredSessionIds.has(activeDirectorySessionModuleId)}
                   moduleId={activeDirectorySessionModuleId}
+                  opaqueSurface={activeDirectoryLab.moduleId === "signature-lab"}
                   onExplored={(exploredModuleId) => {
                     setExploredSessionIds((current) => {
                       if (current.has(exploredModuleId)) return current;
@@ -3564,7 +3569,7 @@ function VisualizationLabPageContent({
                   }}
                   topicId={activeDirectoryLab.topicId}
                 >
-                  {activeSignatureAssignment && activeHasRelatedBenches ? (
+                  {activeSignatureAssignment ? (
                     <SignatureBenchSwitcher
                       assignment={activeSignatureAssignment}
                       lab={activeDirectoryLab}

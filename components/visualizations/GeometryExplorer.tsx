@@ -7,6 +7,11 @@ import { useSettings } from "@/components/providers/AppProviders";
 import { VisualizationResetButton } from "@/components/visualizations/VisualizationResetButton";
 import { useVisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import { angleAt, clamp, distance, formatNumber } from "@/lib/math";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  trianglePixelArea
+} from "@/lib/mathDiagramGeometry";
 
 type PointKey = "A" | "B" | "C";
 type Point = { x: number; y: number };
@@ -37,6 +42,7 @@ const moduleId = "geometry-explorer";
 const vertexKeys: PointKey[] = ["A", "B", "C"];
 const vertexNudgeStep = 18;
 const vertexMinimumSeparation = vertexNudgeStep * 2;
+const triangleMinimumPixelArea = 900;
 const triangleUnitScale = 28;
 const vertexNudgeControls = [
   { id: "up", dx: 0, dy: -vertexNudgeStep, label: { en: "Up", zh: "上移", zhHans: "上移" }, symbol: "↑" },
@@ -67,8 +73,10 @@ function constrainTrianglePoint(current: Points, key: PointKey, nextPoint: Point
   const wouldCollapseTriangle = vertexKeys
     .filter((otherKey) => otherKey !== key)
     .some((otherKey) => distance(bounded, current[otherKey]) < vertexMinimumSeparation);
+  const candidate = { ...current, [key]: bounded };
+  const wouldFlattenTriangle = trianglePixelArea(candidate.A, candidate.B, candidate.C) < triangleMinimumPixelArea;
 
-  return wouldCollapseTriangle ? current[key] : bounded;
+  return wouldCollapseTriangle || wouldFlattenTriangle ? current[key] : bounded;
 }
 
 function getSvgPoint(svg: SVGSVGElement | null, event: { clientX: number; clientY: number }) {
@@ -640,6 +648,14 @@ function PrimaryGeometryLab({ topicId }: { topicId: string }) {
     const endY = originY - Math.sin(radians) * rotatingRadius;
     const arcEndX = originX + Math.cos(radians) * arcRadius;
     const arcEndY = originY - Math.sin(radians) * arcRadius;
+    const angleContract = buildMathAngleContract({
+      id: "geometry-explorer-p4-angle",
+      origin: { x: originX, y: originY },
+      radius: arcRadius,
+      startRay: { x: 1, y: 0 },
+      endRay: { x: Math.cos(radians), y: -Math.sin(radians) },
+      sweepRadians: radians
+    });
     const angleTypeKey = angle < 90 ? "acute" : angle === 90 ? "right" : "obtuse";
     const angleType = angleTypeKey === "acute" ? t({ en: "acute", zh: "銳角" }) : angleTypeKey === "right" ? t({ en: "right", zh: "直角" }) : t({ en: "obtuse", zh: "鈍角" });
     return (
@@ -647,7 +663,7 @@ function PrimaryGeometryLab({ topicId }: { topicId: string }) {
         <Shell ariaLabel={t({ en: "Primary 4 angle comparison", zh: "小四角度比較" })}>
           <line data-viz-mark data-viz-name="angle base ray" data-viz-angle-degrees={angle} data-viz-origin-x={originX} data-viz-origin-y={originY} data-viz-radius={baseRadius} x1={originX} x2={originX + baseRadius} y1={originY} y2={originY} stroke={vizTheme.axisStrong} strokeWidth="8" strokeLinecap="round" />
           <line data-viz-mark data-viz-name="angle rotating ray" data-viz-angle-degrees={angle} data-viz-origin-x={originX} data-viz-origin-y={originY} data-viz-radius={rotatingRadius} data-viz-end-x={formatNumber(endX, 2)} data-viz-end-y={formatNumber(endY, 2)} x1={originX} x2={endX} y1={originY} y2={endY} stroke={vizTheme.axisStrong} strokeWidth="8" strokeLinecap="round" />
-          <path data-viz-mark data-viz-name="angle arc" data-viz-angle-degrees={angle} data-viz-angle-type={angleTypeKey} data-viz-origin-x={originX} data-viz-origin-y={originY} data-viz-radius={arcRadius} data-viz-end-x={formatNumber(arcEndX, 2)} data-viz-end-y={formatNumber(arcEndY, 2)} d={`M ${originX + arcRadius} ${originY} A ${arcRadius} ${arcRadius} 0 0 0 ${arcEndX} ${arcEndY}`} fill="none" stroke="#f472b6" strokeWidth="8" />
+          <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(angleContract)} data-viz-mark data-viz-name="angle arc" data-viz-angle-degrees={angle} data-viz-angle-type={angleTypeKey} data-viz-origin-x={originX} data-viz-origin-y={originY} data-viz-radius={arcRadius} data-viz-end-x={formatNumber(arcEndX, 2)} data-viz-end-y={formatNumber(arcEndY, 2)} d={`M ${originX + arcRadius} ${originY} A ${arcRadius} ${arcRadius} 0 0 0 ${arcEndX} ${arcEndY}`} fill="none" stroke="#f472b6" strokeWidth="8" />
           <text x="82" y="56" fill={vizTheme.labelText} className="text-sm font-black uppercase tracking-[0.18em]">{t({ en: "Estimate and classify", zh: "估計和分類" })}</text>
           <text x="362" y="126" fill={vizTheme.text} className="text-4xl font-black">{angle} {degreeUnit}</text>
           <text x="370" y="170" className="fill-amber-200 text-2xl font-black">{angleType}</text>
@@ -742,11 +758,7 @@ function SecondaryGeometryExplorer({ topicId }: { topicId: string }) {
     const unitAB = toUnitLength(AB);
     const unitBC = toUnitLength(BC);
     const unitCA = toUnitLength(CA);
-    const pixelArea = Math.abs(
-      points.A.x * (points.B.y - points.C.y) +
-      points.B.x * (points.C.y - points.A.y) +
-      points.C.x * (points.A.y - points.B.y)
-    ) / 2;
+    const pixelArea = trianglePixelArea(points.A, points.B, points.C);
     return {
       AB: unitAB,
       BC: unitBC,
@@ -754,7 +766,7 @@ function SecondaryGeometryExplorer({ topicId }: { topicId: string }) {
       area: pixelArea / (28 * 28),
       perimeter: unitAB + unitBC + unitCA,
       minimumPixelSide,
-      isDegenerate: minimumPixelSide < vertexMinimumSeparation,
+      isDegenerate: minimumPixelSide < vertexMinimumSeparation || pixelArea < triangleMinimumPixelArea,
       angleA: angleAt(points.A, points.B, points.C),
       angleB: angleAt(points.B, points.A, points.C),
       angleC: angleAt(points.C, points.A, points.B)
@@ -863,6 +875,7 @@ function SecondaryGeometryExplorer({ topicId }: { topicId: string }) {
 	            data-viz-side-ca={formatNumber(measures.CA, 4)}
 	            data-viz-perimeter={formatNumber(measures.perimeter, 4)}
 	            data-viz-area={formatNumber(measures.area, 4)}
+	            data-viz-minimum-area-px={triangleMinimumPixelArea}
 	            data-viz-min-side-px={formatNumber(measures.minimumPixelSide, 2)}
 	            data-viz-minimum-separation-px={vertexMinimumSeparation}
 	            data-viz-unit-scale={triangleUnitScale}

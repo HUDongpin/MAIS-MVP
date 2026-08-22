@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AITutorButton } from "@/components/ai/AITutorButton";
 import { MathText, toPlainMathText } from "@/components/math/MathText";
+import { QuestionFigure } from "@/components/practice/QuestionFigure";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { formatDifficultyLabel, formatGradeLabel, localeForLanguage } from "@/lib/i18n";
@@ -387,7 +388,7 @@ export default function MistakeBookPage() {
             </form>
           </div>
 
-          <article className="glass-panel p-5 sm:p-6">
+          <article data-question-id={currentRecord.question.id} className="glass-panel p-5 sm:p-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-bold text-cyan-600 dark:text-cyan-300">{formatGradeLabel(currentRecord.question.grade, language, true)}</span>
               <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs font-bold text-violet-600 dark:text-violet-300">{formatDifficultyLabel(currentRecord.question.difficulty, language)}</span>
@@ -407,6 +408,11 @@ export default function MistakeBookPage() {
               text={text(currentRecord.question.prompt)}
               className="mt-5 text-2xl font-black leading-snug text-slate-950 dark:text-white"
             />
+            {currentRecord.question.diagram ? (
+              <div className="mt-5 min-w-0">
+                <QuestionFigure diagram={currentRecord.question.diagram} compact language={language} />
+              </div>
+            ) : null}
             <MathText
               as="p"
               text={text(currentRecord.explanation)}

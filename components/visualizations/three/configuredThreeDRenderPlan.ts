@@ -38,6 +38,23 @@ export type ConfiguredThreeDRenderPlan = {
   state: ThreeDStateSummary;
 };
 
+type AuditedTwoDimensionalValueRendererInput = Pick<
+  ConfiguredThreeDRenderPlanInput,
+  "labId" | "templateId"
+> & {
+  familyId: ThreeDFamilyId;
+};
+
+export function usesAuditedTwoDimensionalValueRenderer({
+  familyId,
+  labId,
+  templateId
+}: AuditedTwoDimensionalValueRendererInput) {
+  return labId === "us-ca-math-s6-chapter-04" &&
+    templateId === "function-family" &&
+    familyId === "three-function-family";
+}
+
 export function resolveConfiguredThreeDRenderPlan({
   comparison,
   coverageTier,
@@ -54,7 +71,11 @@ export function resolveConfiguredThreeDRenderPlan({
   const inferredPremiumLaunch = labId ? isPremiumThreeDLaunchLab(labId) : false;
   const resolvedPremiumLaunch = premiumLaunch ?? inferredPremiumLaunch;
   const resolvedRegionalPriority = regionalPriority ?? (labId ? regionalPriorityForThreeDLaunchLab(labId) : undefined);
-  const requiresAudited2DFallback = labId === "us-ca-math-s6-chapter-04" && templateId === "function-family" && familyId === "three-function-family";
+  const requiresAudited2DFallback = usesAuditedTwoDimensionalValueRenderer({
+    familyId,
+    labId,
+    templateId
+  });
   const state = buildThreeDStateSummary({
     comparison,
     familyId,

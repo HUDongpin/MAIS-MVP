@@ -36,7 +36,7 @@ export default function Lesson() {
             <span>{c}x + {d}y = {f}</span>
           </div>
 
-          <div className="flex items-center gap-3 font-mono">
+          <div className="mx-auto flex w-max max-w-none self-start items-center gap-3 font-mono">
             <Mat rows={[[a, b], [c, d]]} label="A" />
             <Mat rows={[["x"], ["y"]]} label="x" />
             <span className="text-2xl font-black">=</span>
@@ -52,7 +52,7 @@ export default function Lesson() {
             )}
           </div>
 
-          <div className="grid grid-cols-3 gap-x-6 gap-y-2 sm:grid-cols-6">
+          <div className="mx-auto grid w-max max-w-none self-start grid-cols-2 gap-x-1 gap-y-2 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-6">
             <Stepper label="a" value={a} onChange={setA} />
             <Stepper label="b" value={b} onChange={setB} />
             <Stepper label="c" value={c} onChange={setC} />
@@ -106,7 +106,7 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1">
         <button type="button" onClick={() => onChange(Math.max(-9, value - 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-7 text-center text-lg font-black tabular-nums" style={{ color: ACCENT }}>{value}</span>
         <button type="button" onClick={() => onChange(Math.min(12, value + 1))} className="h-8 w-8 rounded-lg border border-[var(--line)] bg-[var(--surface)] font-bold" aria-label={`Increase ${label}`}>+</button>

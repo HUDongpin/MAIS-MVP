@@ -45,7 +45,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={m.name}>
+          <svg className="mx-auto h-auto max-w-full" width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={m.name}>
             <polygon points="40,160 200,160 120,30" fill={ACCENT} fillOpacity={0.1} stroke={ACCENT} strokeWidth={2} />
             <circle cx={m.center[0]} cy={m.center[1]} r={m.r} fill="none" stroke="var(--band-upper)" strokeWidth={2.5} />
             <circle cx={m.center[0]} cy={m.center[1]} r={3} fill="var(--band-upper)" />

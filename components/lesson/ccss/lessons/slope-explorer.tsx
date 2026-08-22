@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { clipLinearFunctionToSquare } from "@/lib/mathDiagramGeometry";
 
 const R = 6; // grid range: -R..R
 const CELL = 26;
@@ -68,10 +69,10 @@ export default function Lesson() {
   } else {
     const m = rise / run;
     const b = p1.y - m * p1.x;
-    lineEnds = [
-      { x: -R, y: m * -R + b },
-      { x: R, y: m * R + b },
-    ];
+    // The infinite line can meet the top or bottom edge before it reaches
+    // x=±R. Clip it to the plotting square so steep draggable states retain
+    // the complete visible segment without painting beyond the SVG viewport.
+    lineEnds = clipLinearFunctionToSquare(m, b, R)!;
   }
 
   return (

@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgAngleArcPath
+} from "@/lib/mathDiagramGeometry";
 
 const CX = 110, CY = 110, R = 90;
 const WEDGE = "var(--band-upper)";
@@ -22,8 +27,19 @@ export default function Lesson() {
   const g = gcd(deg, 360);
   const fracStr = deg === 0 ? "0" : `${deg / g}/${360 / g}`;
   const end = pt(deg, R);
-  const large = deg > 180 ? 1 : 0;
-  const arcPath = `M ${CX} ${CY} L ${CX} ${CY - R} A ${R} ${R} 0 ${large} 1 ${end.x} ${end.y} Z`;
+  const rad = deg * Math.PI / 180;
+  const angleContract = buildMathAngleContract({
+    id: "angle-as-fraction-of-circle",
+    origin: { x: CX, y: CY },
+    radius: R,
+    startRay: { x: 0, y: -1 },
+    endRay: { x: Math.sin(rad), y: -Math.cos(rad) },
+    sweepRadians: -rad
+  });
+  const angleArcPath = svgAngleArcPath(angleContract);
+  const wedgePath = deg >= 360
+    ? angleArcPath
+    : `M ${CX} ${CY} L ${angleContract.start.x} ${angleContract.start.y} ${angleArcPath.slice(angleArcPath.indexOf(" A "))} Z`;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -37,7 +53,19 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <svg width="220" height="220" viewBox="0 0 220 220" role="img" aria-label={`angle of ${deg} degrees`}>
             <circle cx={CX} cy={CY} r={R} fill="none" stroke="var(--line)" strokeWidth={2} />
-            {deg > 0 && <path d={arcPath} fill={WEDGE} fillOpacity={0.75} stroke={WEDGE} strokeWidth={2} />}
+            {deg > 0 && (
+              <>
+                <path d={wedgePath} fill={WEDGE} fillOpacity={0.75} />
+                <path
+                  data-diagram-angle-arc
+                  data-math-angle-contract={serializeMathAngleContract(angleContract)}
+                  d={angleArcPath}
+                  fill="none"
+                  stroke={WEDGE}
+                  strokeWidth={2}
+                />
+              </>
+            )}
             <line x1={CX} y1={CY} x2={CX} y2={CY - R} stroke="var(--ink)" strokeWidth={2.5} />
             <line x1={CX} y1={CY} x2={end.x} y2={end.y} stroke="var(--ink)" strokeWidth={2.5} />
             <circle cx={CX} cy={CY} r={3.5} fill="var(--ink)" />

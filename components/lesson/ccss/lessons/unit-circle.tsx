@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgAngleArcPath
+} from "@/lib/mathDiagramGeometry";
 
 const R = 120;
 const C = 160;
@@ -34,6 +39,14 @@ export default function Lesson() {
   const sin = Math.sin(rad);
   const px = r3(C + R * cos);
   const py = r3(C - R * sin);
+  const angleContract = buildMathAngleContract({
+    id: "unit-circle-central-angle",
+    origin: { x: C, y: C },
+    radius: 26,
+    startRay: { x: 1, y: 0 },
+    endRay: { x: cos, y: -sin },
+    sweepRadians: rad
+  });
 
   return (
     <div className="prose-lesson max-w-none">
@@ -60,7 +73,9 @@ export default function Lesson() {
             <line x1={C} y1={C} x2={px} y2={py} stroke={RAY} strokeWidth={2.5} />
             {/* angle arc */}
             <path
-              d={describeArc(C, C, 26, 0, deg)}
+              data-diagram-angle-arc
+              data-math-angle-contract={serializeMathAngleContract(angleContract)}
+              d={svgAngleArcPath(angleContract)}
               fill="none"
               stroke={RAY}
               strokeWidth={2}
@@ -126,18 +141,4 @@ function Stat({ label, value, color }: { label: string; value: string; color?: s
       <div className="font-mono text-base font-bold" style={color ? { color } : undefined}>{value}</div>
     </div>
   );
-}
-
-/** SVG arc path from angle a0 to a1 (degrees, counterclockwise) at radius r. */
-function describeArc(cx: number, cy: number, r: number, a0: number, a1: number): string {
-  const p0 = polar(cx, cy, r, a0);
-  const p1 = polar(cx, cy, r, a1);
-  const large = a1 - a0 > 180 ? 1 : 0;
-  // sweep flag 0 because screen y is inverted (counterclockwise math → clockwise screen)
-  return `M ${p0.x} ${p0.y} A ${r} ${r} 0 ${large} 0 ${p1.x} ${p1.y}`;
-}
-function polar(cx: number, cy: number, r: number, deg: number) {
-  const a = (deg * Math.PI) / 180;
-  const round = (n: number) => Math.round(n * 1000) / 1000;
-  return { x: round(cx + r * Math.cos(a)), y: round(cy - r * Math.sin(a)) };
 }

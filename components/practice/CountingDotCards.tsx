@@ -17,7 +17,7 @@ function TenFrame({ quantity, colorClassName }: { quantity: number; colorClassNa
   const frameCount = Math.max(1, Math.ceil(quantity / 10));
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
       {Array.from({ length: frameCount }, (_, frameIndex) => {
         const filledInFrame = Math.min(10, Math.max(0, quantity - frameIndex * 10));
         return (
@@ -60,7 +60,8 @@ export function CountingDotCards({ quantities, t }: CountingDotCardsProps) {
       {quantities.map((quantity, cardIndex) => (
         <div
           key={`${cardIndex}-${quantity}`}
-          className="rounded-2xl border border-sky-200/80 bg-white p-3 shadow-sm dark:border-sky-300/25 dark:bg-slate-950/40"
+          data-counting-dot-card
+          className="min-w-0 max-w-full rounded-2xl border border-sky-200/80 bg-white p-3 shadow-sm dark:border-sky-300/25 dark:bg-slate-950/40"
         >
           <TenFrame quantity={quantity} colorClassName={tenFrameCounterClasses[cardIndex % tenFrameCounterClasses.length]} />
         </div>

@@ -5,8 +5,13 @@ import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
 import { FigureScroll } from "@/components/lesson/ccss/FigureScroll";
 
-const MIN = -10;
-const MAX = 10;
+const INPUT_MIN = -8;
+const INPUT_MAX = 8;
+// Both inputs can point in the same direction, so the result can reach ±16.
+// Keep that full domain in the plot instead of projecting the endpoint beyond
+// a narrower ±10 viewBox.
+const MIN = INPUT_MIN * 2;
+const MAX = INPUT_MAX * 2;
 const W = 620;
 const H = 170;
 const PAD = 30;
@@ -87,16 +92,18 @@ export default function Lesson() {
                       stroke="var(--ink-soft)"
                       strokeWidth={v === 0 ? 2 : 1}
                     />
-                    <text
-                      x={x(v)}
-                      y={AXIS_Y + 26}
-                      textAnchor="middle"
-                      fontSize={11}
-                      fill="var(--ink-faint)"
-                      fontFamily="var(--font-mono)"
-                    >
-                      {v}
-                    </text>
+                    {v % 2 === 0 ? (
+                      <text
+                        x={x(v)}
+                        y={AXIS_Y + 26}
+                        textAnchor="middle"
+                        fontSize={11}
+                        fill="var(--ink-faint)"
+                        fontFamily="var(--font-mono)"
+                      >
+                        {v}
+                      </text>
+                    ) : null}
                   </g>
                 );
               })}
@@ -173,8 +180,8 @@ function Slider({
       </span>
       <input
         type="range"
-        min={-8}
-        max={8}
+        min={INPUT_MIN}
+        max={INPUT_MAX}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-40"

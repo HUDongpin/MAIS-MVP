@@ -211,3 +211,233 @@ test("AI tutor edge wrapper preserves resolver setup errors", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("AI tutor edge wrapper preserves multipart attachment bytes", async () => {
+  const originalFetch = globalThis.fetch;
+  const boundary = "----mais-nova-byte-preservation";
+  const encoder = new TextEncoder();
+  const prefix = encoder.encode([
+    `--${boundary}`,
+    'Content-Disposition: form-data; name="payload"',
+    "",
+    JSON.stringify({ input: "Describe the attached image." }),
+    `--${boundary}`,
+    'Content-Disposition: form-data; name="attachments"; filename="smoke.png"',
+    "Content-Type: image/png",
+    "",
+    ""
+  ].join("\r\n"));
+  const imageBytes = new Uint8Array([
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+    0xff, 0x00, 0x80, 0xc3, 0x28, 0xfe, 0x7f
+  ]);
+  const suffix = encoder.encode(`\r\n--${boundary}--\r\n`);
+  const multipartBytes = new Uint8Array(prefix.byteLength + imageBytes.byteLength + suffix.byteLength);
+  multipartBytes.set(prefix, 0);
+  multipartBytes.set(imageBytes, prefix.byteLength);
+  multipartBytes.set(suffix, prefix.byteLength + imageBytes.byteLength);
+
+  let forwardedBytes: Uint8Array | undefined;
+  let forwardedContentType: string | null = null;
+  globalThis.fetch = async (_input, init) => {
+    forwardedContentType = new Headers(init?.headers).get("content-type");
+    const body = init?.body;
+    if (typeof body === "string") {
+      forwardedBytes = encoder.encode(body);
+    } else if (body instanceof ArrayBuffer) {
+      forwardedBytes = new Uint8Array(body);
+    } else if (ArrayBuffer.isView(body)) {
+      forwardedBytes = new Uint8Array(body.buffer, body.byteOffset, body.byteLength);
+    }
+    return new Response(JSON.stringify({ reply: "Image bytes received." }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  };
+
+  try {
+    for (const accept of ["application/json", "text/event-stream"]) {
+      forwardedBytes = undefined;
+      forwardedContentType = null;
+      const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+        method: "POST",
+        headers: {
+          Accept: accept,
+          "Content-Type": `multipart/form-data; boundary=${boundary}`
+        },
+        body: multipartBytes
+      }));
+
+      assert.equal(response.status, 200);
+      if (accept === "text/event-stream") {
+        const streamBody = await response.text();
+        assert.match(streamBody, /event: final/);
+        assert.match(streamBody, /Image bytes received\./);
+      } else {
+        const body = await readJson<{ reply?: string }>(response);
+        assert.equal(body.reply, "Image bytes received.");
+      }
+      assert.equal(forwardedContentType, `multipart/form-data; boundary=${boundary}`);
+      assert.deepEqual(forwardedBytes, multipartBytes);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge stream forwards provider evidence only when the resolver attests it", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response(
+    JSON.stringify({ reply: "Use the difference-of-squares pattern." }),
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "X-MAIS-AI-Provider": "qwen",
+        "X-MAIS-AI-Model": "qwen3.8-max"
+      }
+    }
+  );
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const streamBody = await response.text();
+
+    assert.match(streamBody, /"phase":"provider-start"/);
+    assert.match(streamBody, /"provider":"qwen"/);
+    assert.match(streamBody, /"model":"qwen3\.8-max"/);
+    assert.match(streamBody, /"status":200,"ok":true/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge stream never fabricates provider evidence when resolver attestation is absent", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response(
+    JSON.stringify({ reply: "A local response without provider attestation." }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    }
+  );
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const streamBody = await response.text();
+
+    assert.doesNotMatch(streamBody, /"phase":"provider-start"/);
+    assert.match(streamBody, /event: final/);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge deadline is an explicit failing final envelope", { timeout: 5_000 }, async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    const signal = init?.signal;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (signal?.aborted) abort();
+    else signal?.addEventListener("abort", abort, { once: true });
+  });
+
+  try {
+    await withEnv({
+      AI_TUTOR_TOTAL_DEADLINE_MS: "2000",
+      AI_TUTOR_EDGE_RESPONSE_RESERVE_MS: "5000"
+    }, async () => {
+      const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+        method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ input: "Give one hint." })
+      }));
+      const streamBody = await response.text();
+
+      assert.match(streamBody, /"phase":"deadline-fallback"/);
+      assert.match(streamBody, /"status":503,"ok":false/);
+      assert.match(streamBody, /"mode":"deadline-fallback"/);
+      assert.doesNotMatch(streamBody, /"phase":"provider-start"/);
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge JSON wrapper propagates an incoming client abort to the resolver", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwardedSignal: AbortSignal | undefined;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    forwardedSignal = init?.signal ?? undefined;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (forwardedSignal?.aborted) abort();
+    else forwardedSignal?.addEventListener("abort", abort, { once: true });
+  });
+  const incomingController = new AbortController();
+
+  try {
+    const responsePromise = postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: "Give one hint." }),
+      signal: incomingController.signal
+    }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    incomingController.abort(new Error("client-disconnected"));
+    const response = await responsePromise;
+
+    assert.equal(response.status, 503);
+    assert.equal(forwardedSignal?.aborted, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("AI tutor edge stream cancellation aborts resolver work and clears later writes", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwardedSignal: AbortSignal | undefined;
+  globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+    forwardedSignal = init?.signal ?? undefined;
+    const abort = () => reject(new DOMException("aborted", "AbortError"));
+    if (forwardedSignal?.aborted) abort();
+    else forwardedSignal?.addEventListener("abort", abort, { once: true });
+  });
+
+  try {
+    const response = await postAITutorRoute(new Request("http://localhost/api/ai-tutor", {
+      method: "POST",
+      headers: {
+        Accept: "text/event-stream",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ input: "Give one hint." })
+    }));
+    const reader = response.body?.getReader();
+    assert.ok(reader);
+    const first = await reader.read();
+    assert.equal(first.done, false);
+    await reader.cancel("consumer-cancelled");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    assert.equal(forwardedSignal?.aborted, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

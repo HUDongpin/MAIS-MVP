@@ -3,6 +3,11 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import {
+  buildMathAngleContract,
+  serializeMathAngleContract,
+  svgAngleArcPath
+} from "@/lib/mathDiagramGeometry";
 
 const ACCENT = "var(--band-high)";
 const CX = 120, CY = 120, RAD = 95;
@@ -20,6 +25,15 @@ export default function Lesson() {
   const endX = r2(CX + RAD * Math.cos((-deg * Math.PI) / 180));
   const endY = r2(CY + RAD * Math.sin((-deg * Math.PI) / 180));
   const large = deg > 180 ? 1 : 0;
+  const angleRadians = deg * Math.PI / 180;
+  const angleContract = buildMathAngleContract({
+    id: "arc-length-sector-central-angle",
+    origin: { x: CX, y: CY },
+    radius: RAD,
+    startRay: { x: 1, y: 0 },
+    endRay: { x: Math.cos(angleRadians), y: -Math.sin(angleRadians) },
+    sweepRadians: angleRadians
+  });
 
   return (
     <div className="prose-lesson max-w-none">
@@ -32,9 +46,10 @@ export default function Lesson() {
 
       <Figure caption="A sector is (angle/360) of the circle — so is its arc length and its area.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={240} viewBox="0 0 240 240" role="img" aria-label="circle sector">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={240} viewBox="0 0 240 240" role="img" aria-label="circle sector">
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
-            <path d={`M ${CX} ${CY} L ${CX + RAD} ${CY} A ${RAD} ${RAD} 0 ${large} 0 ${endX} ${endY} Z`} fill={ACCENT} fillOpacity={0.25} stroke={ACCENT} strokeWidth={2.5} />
+            <path d={`M ${CX} ${CY} L ${CX + RAD} ${CY} A ${RAD} ${RAD} 0 ${large} 0 ${endX} ${endY} Z`} fill={ACCENT} fillOpacity={0.25} />
+            <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(angleContract)} d={svgAngleArcPath(angleContract)} fill="none" stroke={ACCENT} strokeWidth={2.5} />
             <text x={CX + 10} y={CY - 8} fontSize={12} fontWeight={800} fill={ACCENT}>{deg}°</text>
           </svg>
 

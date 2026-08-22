@@ -175,7 +175,7 @@ test.describe("Ali Qwen Nova Tutor live text QA", () => {
     expect(status).toMatchObject({
       configured: true,
       mode: "live",
-      model: "qwen3.7-plus",
+      model: "qwen3.8-max",
       provider: "qwen"
     });
   });
@@ -444,7 +444,8 @@ async function startLiveHarness() {
       HK_MATH_EXPOSE_LOCAL_RESET_LINKS: "true",
       AI_TUTOR_PROVIDER_PROFILE: "live-smoke",
       QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-      QWEN_TEXT_MODEL: "qwen3.7-plus",
+      QWEN_TEXT_MODEL: "qwen3.8-max",
+      AI_TUTOR_QWEN_IMAGE_MODEL: "qwen3.8-max",
       AI_TUTOR_MAX_REQUESTS_PER_MINUTE: "240",
       AI_TUTOR_MAX_REQUESTS_PER_HOUR: "500",
       AI_TUTOR_MAX_COMPLETION_TOKENS: "450",
@@ -494,6 +495,7 @@ async function runHarnessCommand(command: string, args: string[], envOverrides: 
       QWEN_API_URL: "",
       QWEN_TEXT_API_URL: "",
       QWEN_TEXT_MODEL: "",
+      AI_TUTOR_QWEN_IMAGE_MODEL: "",
       QWEN_IMAGE_MODEL: "",
       QWEN_IMAGE_API_URL: "",
       QWEN_REALTIME_MODEL: "",

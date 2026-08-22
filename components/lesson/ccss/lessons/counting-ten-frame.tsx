@@ -23,7 +23,7 @@ function TenFrame({
 }) {
   return (
     <div
-      className="grid gap-1.5 rounded-2xl border-2 border-[var(--line)] bg-[var(--surface)] p-2"
+      className="grid gap-1 rounded-2xl border-2 border-[var(--line)] bg-[var(--surface)] p-1"
       style={{ gridTemplateColumns: "repeat(5, 2.5rem)", gridAutoRows: "2.5rem" }}
     >
       {Array.from({ length: 10 }, (_, i) => {
@@ -92,7 +92,7 @@ export default function Lesson() {
             <TenFrame offset={10} count={count} onSet={set} />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               onClick={() => set(count - 1)}

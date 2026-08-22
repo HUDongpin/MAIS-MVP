@@ -28,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="Each X is one crayon. The scale is marked in quarter-inches.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-end justify-center gap-8" style={{ minHeight: 130 }}>
+          <div className="mx-auto flex w-max max-w-none self-start items-end justify-center gap-8" style={{ minHeight: 130 }}>
             {POINTS.map((p, i) => (
               <div key={p.label} className="flex flex-col items-center gap-1">
                 <div className="flex flex-col-reverse gap-0.5" style={{ minHeight: 100 }}>

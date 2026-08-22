@@ -22,7 +22,7 @@ export default function Lesson() {
 
       <Figure caption="Each X is one pencil. The stacks show how many pencils were each length.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-end justify-center gap-6" style={{ minHeight: 150 }}>
+          <div className="mx-auto flex w-max max-w-none self-start items-end justify-center gap-6" style={{ minHeight: 150 }}>
             {LENGTHS.map((len, i) => (
               <div key={len} className="flex flex-col items-center gap-1">
                 <div className="flex flex-col-reverse gap-0.5" style={{ minHeight: 120, justifyContent: "flex-start" }}>

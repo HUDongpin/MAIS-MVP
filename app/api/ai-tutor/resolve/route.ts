@@ -23,7 +23,8 @@ import {
 import { getMainlandPepEvidencePack } from "@/lib/rag/mainlandPep";
 import { buildUnitedStatesMathEvidencePack } from "@/lib/rag/usMath";
 import { resolveUnitedStatesMathTopicStandards } from "@/lib/server/usMathTutorStandards";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import { requireAiTutorAuthenticatedUser } from "@/lib/server/auth";
+import { runAiTutorAdmission } from "@/lib/server/aiTutorAdmission";
 import {
   type AITutorDatabaseContextResult,
   type AITutorDataScope,
@@ -62,6 +63,7 @@ import {
   readAITutorTextProviderConfigs,
   resolveAITutorProviderTimeoutMs,
   resolveLLMMaxCompletionTokens,
+  resolveNovaQwenThinkingMode,
   selectAvailableLLMProviderConfig,
   type LLMProviderConfig,
   type LLMProviderContentPart,
@@ -165,7 +167,9 @@ type TutorFallbackDiagnostic =
   | "provider-http-error"
   | "provider-retry-http-error"
   | "provider-request-timeout"
+  | "provider-request-cancelled"
   | "provider-request-failed"
+  | "provider-model-mismatch"
   | "empty-final-content"
   | "invalid-json-shape"
   | "retry-invalid-json"
@@ -196,6 +200,9 @@ const defaultMaxCompletionTokens = 450;
 const maxCompletionTokens = 600;
 const defaultDatabaseContextTimeoutMs = 1_500;
 const defaultQuotaLookupTimeoutMs = 1_000;
+const defaultAuthAdmissionDeadlineMs = 1_800;
+const defaultClassroomPolicyAdmissionDeadlineMs = 1_500;
+const defaultRateLimitAdmissionDeadlineMs = 2_000;
 const defaultTotalDeadlineMs = 10_000;
 const maxTotalDeadlineMs = 12_000;
 const providerAttemptReserveMs = 350;
@@ -438,22 +445,33 @@ function redactedErrorKind(error: unknown) {
   return typeof error;
 }
 
-async function withSoftTimeout<T>(operation: () => Promise<T>, timeoutMs: number) {
+async function withSoftTimeout<T>(
+  operation: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number,
+  parentSignal?: AbortSignal
+) {
   let timeout: ReturnType<typeof setTimeout> | undefined;
+  const timeoutController = new AbortController();
+  const abortFromParent = () => timeoutController.abort(parentSignal?.reason);
+  if (parentSignal?.aborted) abortFromParent();
+  else parentSignal?.addEventListener("abort", abortFromParent, { once: true });
   try {
     return await Promise.race([
-      operation().then(
+      operation(timeoutController.signal).then(
         (value) => ({ ok: true as const, value }),
         (error: unknown) => ({ ok: false as const, error, timedOut: false as const })
       ),
       new Promise<{ ok: false; error: Error; timedOut: true }>((resolve) => {
         timeout = setTimeout(() => {
-          resolve({ ok: false, error: new Error("operation-timeout"), timedOut: true });
+          const error = new DOMException("Operation timed out.", "TimeoutError");
+          resolve({ ok: false, error, timedOut: true });
+          timeoutController.abort(new DOMException("Operation timed out.", "TimeoutError"));
         }, timeoutMs);
       })
     ]);
   } finally {
     if (timeout) clearTimeout(timeout);
+    parentSignal?.removeEventListener("abort", abortFromParent);
   }
 }
 
@@ -768,14 +786,14 @@ function buildVisionUnavailableReply(language: string, input: string) {
   if (isChineseTutorLanguage(language, input)) {
     return localizeChineseTutorReply([
       "我看到你上傳了圖片附件，但目前這個 AI Tutor 尚未啟用可讀取圖片的視覺模型。",
-      "你可以先把圖片中的題目、圖形或文字簡單打出來，或請老師/管理員設定 QWEN_API_KEY 和 QWEN_IMAGE_MODEL。",
+      "你可以先把圖片中的題目、圖形或文字簡單打出來，或請老師/管理員設定 QWEN_API_KEY 和 AI_TUTOR_QWEN_IMAGE_MODEL。",
       "只要你描述圖片內容，我仍然可以用提示、追問和逐步檢查的方法幫你解題。"
     ].join("\n\n"), language);
   }
 
   return [
     "I can see that you uploaded an image attachment, but image reading is not enabled for this AI Tutor setup yet.",
-    "Please type the question, diagram details, or visible text from the image, or ask a teacher/admin to configure QWEN_API_KEY and QWEN_IMAGE_MODEL.",
+    "Please type the question, diagram details, or visible text from the image, or ask a teacher/admin to configure QWEN_API_KEY and AI_TUTOR_QWEN_IMAGE_MODEL.",
     "Once you describe what is in the image, I can still help with hints, guiding questions, and step-by-step reasoning."
   ].join("\n\n");
 }
@@ -1538,7 +1556,14 @@ function buildProviderRequestBody({
   provider: ProviderName;
   responseFormat?: "json_object";
 }) {
-  return buildLLMProviderRequestBody({ model, messages, maxTokens, provider, responseFormat });
+  return buildLLMProviderRequestBody({
+    model,
+    messages,
+    maxTokens,
+    provider,
+    responseFormat,
+    qwenThinking: resolveNovaQwenThinkingMode(provider, model)
+  });
 }
 
 function extractProviderReply(value: unknown) {
@@ -1883,10 +1908,12 @@ async function handleAITutorPost(
   request: Request,
   options: {
     emit?: AITutorStreamEventSink;
+    signal?: AbortSignal;
     startedAt?: number;
   } = {}
 ) {
   const requestStartedAt = options.startedAt ?? Date.now();
+  const requestSignal = options.signal ?? request.signal;
   const primaryProviderConfig = readProviderConfig();
   const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
   const stageTimings: AITutorStageTimings = {};
@@ -1900,6 +1927,11 @@ async function handleAITutorPost(
 
   function markStage(stage: string) {
     stageTimings[stage] = elapsedMs();
+  }
+
+  function throwIfRequestAborted(signal: AbortSignal = requestSignal) {
+    if (!signal.aborted) return;
+    throw new DOMException("AI Tutor request was aborted.", "AbortError");
   }
 
   function emitStatus(phase: string, data: Record<string, unknown> = {}) {
@@ -1976,6 +2008,14 @@ async function handleAITutorPost(
     return NextResponse.json(body, init);
   }
 
+  function cancelledTutorResponse() {
+    console.info("AI Tutor request cancelled", { elapsedMs: elapsedMs() });
+    return NextResponse.json(
+      { error: "AI Tutor request was cancelled." },
+      { status: 499 }
+    );
+  }
+
   function recordTutorMessageAfterResponse(args: Parameters<typeof recordAITutorMessage>[0]) {
     deferTutorSideEffect(() => safeRecordTutorMessage(args));
   }
@@ -2034,40 +2074,92 @@ async function handleAITutorPost(
   const interfaceLanguage = cleanText(body.language, 24);
   const language = resolveTutorReplyLanguage(interfaceLanguage, input, history);
   const page = cleanText(body.page, 160);
-  let authenticated: Awaited<ReturnType<typeof requireAuthenticatedUser>>;
-  try {
-    authenticated = await requireAuthenticatedUser(request);
-  } catch (error) {
-    console.error("AI Tutor authentication lookup failed", redactedErrorKind(error));
-    authenticated = null;
-  }
-  markStage("auth");
+  const admission = await runAiTutorAdmission({
+    request,
+    signal: requestSignal,
+    deadlines: {
+      authMs: boundedNumber(
+        process.env.AI_TUTOR_AUTH_ADMISSION_DEADLINE_MS,
+        defaultAuthAdmissionDeadlineMs,
+        250,
+        4_000
+      ),
+      classroomPolicyMs: boundedNumber(
+        process.env.AI_TUTOR_CLASSROOM_POLICY_ADMISSION_DEADLINE_MS,
+        defaultClassroomPolicyAdmissionDeadlineMs,
+        250,
+        4_000
+      ),
+      rateLimitMs: boundedNumber(
+        process.env.AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS,
+        defaultRateLimitAdmissionDeadlineMs,
+        250,
+        4_000
+      )
+    },
+    dependencies: {
+      authenticate: async (_admissionRequest, signal) => {
+        const authenticated = await requireAiTutorAuthenticatedUser(_admissionRequest, signal);
+        throwIfRequestAborted(signal);
+        return authenticated;
+      },
+      resolveClassroomPolicy: async (authenticated, signal) => {
+        const policy = await resolveStudentAiTutorPolicy(authenticated.user.id, { signal });
+        throwIfRequestAborted(signal);
+        return policy;
+      },
+      shouldContinueAfterClassroomPolicy: (policy) => policy.mode !== "fallback-only",
+      consumeRateLimit: async (authenticated, policy, signal) => {
+        const decision = await consumeAiCapabilityRateLimit({
+          userId: authenticated.user.id,
+          capability: "ai-tutor-chat",
+          rules: classAiTutorRateLimitRulesFromPolicy(policy),
+          signal
+        });
+        throwIfRequestAborted(signal);
+        return decision;
+      }
+    },
+    observe: (observation) => {
+      if (observation.phase === "start") return;
+      stageTimings[`admission-${observation.stage}`] = observation.durationMs;
+      console.info("AI Tutor redacted admission timing", {
+        deadlineMs: observation.deadlineMs,
+        durationMs: observation.durationMs,
+        outcome: observation.phase,
+        stage: observation.stage
+      });
+    }
+  });
+  markStage("admission");
 
-  if (!authenticated) {
+  if (admission.status === "unavailable") {
+    console.error("AI Tutor admission unavailable", {
+      outcome: admission.reason,
+      stage: admission.stage
+    });
+    const reply = admission.stage === "classroom-policy"
+      ? buildClassroomFallbackOnlyReply({ input, context, language })
+      : undefined;
+    return jsonWithDeferredTutorSideEffects(
+      {
+        ...(reply ? { reply, mode: "classroom-policy-unavailable" } : {}),
+        error: "AI Tutor admission is temporarily unavailable. Please try again."
+      },
+      { status: 503 }
+    );
+  }
+
+  if (admission.status === "unauthenticated") {
     return jsonWithDeferredTutorSideEffects({
       reply: buildGuestSignupReply(language, input),
       mode: "registration-required"
     });
   }
-  const authenticatedUserId = authenticated.user.id;
 
-  let classroomPolicy: Awaited<ReturnType<typeof resolveStudentAiTutorPolicy>>;
-  try {
-    classroomPolicy = await resolveStudentAiTutorPolicy(authenticatedUserId);
-  } catch (error) {
-    console.error("AI Tutor classroom policy lookup failed", redactedErrorKind(error));
-    recordTutorUsageAfterResponse({
-      userId: authenticatedUserId,
-      model: primaryProviderConfig.model,
-      error: "AI Tutor classroom policy unavailable"
-    });
-    return jsonWithDeferredTutorSideEffects({
-      reply: buildClassroomFallbackOnlyReply({ input, context, language }),
-      mode: "classroom-policy-fallback"
-    });
-  }
-
-  if (classroomPolicy.mode === "fallback-only") {
+  if (admission.status === "classroom-policy-blocked") {
+    const authenticatedUserId = admission.authenticated.user.id;
+    const classroomPolicy = admission.classroomPolicy;
     recordAiGovernanceEventAfterResponse({
       userId: authenticatedUserId,
       capability: "ai-tutor-chat",
@@ -2084,26 +2176,10 @@ async function handleAITutorPost(
     });
   }
 
-  let rateLimit: Awaited<ReturnType<typeof consumeAiCapabilityRateLimit>>;
-  try {
-    rateLimit = await consumeAiCapabilityRateLimit({
-      userId: authenticatedUserId,
-      capability: "ai-tutor-chat",
-      rules: classAiTutorRateLimitRulesFromPolicy(classroomPolicy)
-    });
-  } catch (error) {
-    console.error("AI Tutor governance rate-limit lookup failed", redactedErrorKind(error));
-    recordTutorUsageAfterResponse({
-      userId: authenticatedUserId,
-      model: primaryProviderConfig.model,
-      error: "AI Tutor governance unavailable"
-    });
-    return jsonWithDeferredTutorSideEffects(
-      { error: "AI Tutor governance is temporarily unavailable. Please try again." },
-      { status: 503 }
-    );
-  }
-  markStage("governance");
+  const authenticated = admission.authenticated;
+  const authenticatedUserId = authenticated.user.id;
+  const classroomPolicy = admission.classroomPolicy;
+  const rateLimit = admission.rateLimit;
   emitStatus("context-start");
   if (!rateLimit.allowed) {
     recordTutorUsageAfterResponse({
@@ -2141,8 +2217,9 @@ async function handleAITutorPost(
     3_000
   );
   const quotaLookup = await withSoftTimeout(
-    () => getAITutorTokenUsageSince(authenticatedUserId, quotaSince),
-    quotaLookupTimeoutMs
+    (signal) => getAITutorTokenUsageSince(authenticatedUserId, quotaSince, signal),
+    quotaLookupTimeoutMs,
+    requestSignal
   );
   if (quotaLookup.ok) {
     quotaUsed = quotaLookup.value;
@@ -2380,7 +2457,7 @@ async function handleAITutorPost(
       page,
       dataScopes: resolvedContextHints.dataScopes,
       targetStudentId: resolvedContextHints.targetStudentId
-    }), databaseContextTimeoutMs);
+    }), databaseContextTimeoutMs, requestSignal);
   if (databaseContextLookup.ok) {
     databaseContext = databaseContextLookup.value;
   } else {
@@ -2648,8 +2725,6 @@ async function handleAITutorPost(
       };
     }
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
     const apiKey = providerConfig.apiKey;
 
     if (!apiKey) {
@@ -2661,6 +2736,21 @@ async function handleAITutorPost(
         errorKind: "MissingApiKey"
       };
     }
+
+    if (requestSignal.aborted) {
+      return {
+        ok: false as const,
+        status: 0,
+        text: "",
+        diagnostic: "provider-request-cancelled" as const,
+        errorKind: "RequestAborted"
+      };
+    }
+    const controller = new AbortController();
+    const abortForRequest = () => controller.abort(requestSignal.reason);
+    requestSignal.addEventListener("abort", abortForRequest, { once: true });
+    if (requestSignal.aborted) abortForRequest();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
     try {
       const providerResponse = await fetchLLMProviderResponse(providerConfig, {
@@ -2691,10 +2781,14 @@ async function handleAITutorPost(
       const rawReply = extractProviderReply(data);
       const usage = normalizeProviderUsage(extractProviderUsage(data), attemptMessages, rawReply);
       const structuredReply = rawReply ? readStructuredTutorReply(rawReply) : null;
+      const responseModel = isRecord(data) && typeof data.model === "string"
+        ? data.model.trim()
+        : "";
 
       return {
         ok: true as const,
         rawReply,
+        responseModel,
         structuredReply,
         usage,
         reasoningContent: extractProviderReasoningContent(data),
@@ -2705,13 +2799,16 @@ async function handleAITutorPost(
         ok: false as const,
         status: 0,
         text: "",
-        diagnostic: error instanceof Error && error.name === "AbortError"
-          ? "provider-request-timeout" as const
-          : "provider-request-failed" as const,
+        diagnostic: requestSignal.aborted
+          ? "provider-request-cancelled" as const
+          : error instanceof Error && error.name === "AbortError"
+            ? "provider-request-timeout" as const
+            : "provider-request-failed" as const,
         errorKind: redactedErrorKind(error)
       };
     } finally {
       clearTimeout(timeout);
+      requestSignal.removeEventListener("abort", abortForRequest);
     }
   }
 
@@ -2803,6 +2900,10 @@ async function handleAITutorPost(
         return { providerConfig, completion };
       }
 
+      if (completion.diagnostic === "provider-request-cancelled") {
+        break;
+      }
+
       markProviderFailure(providerConfig);
 
       const hasMoreAvailableProvider = providerCandidates.some((candidate) =>
@@ -2837,8 +2938,12 @@ async function handleAITutorPost(
     let providerResult = await fetchBestAvailableProviderCompletion(messages, "json_object");
     let completion = providerResult.completion;
     let completionProviderConfig = providerResult.providerConfig;
+    throwIfRequestAborted();
 
     if (!completion.ok) {
+      if (completion.diagnostic === "provider-request-cancelled") {
+        return cancelledTutorResponse();
+      }
       console.error("AI Tutor provider error", {
         provider: completionProviderConfig.provider,
         model: completionProviderConfig.model,
@@ -2901,9 +3006,13 @@ async function handleAITutorPost(
         "json_object",
         remainingAttemptTimeoutMs(providerTimeoutMs)
       );
+      throwIfRequestAborted();
       markStage("retry");
 
       if (!completion.ok) {
+        if (completion.diagnostic === "provider-request-cancelled") {
+          return cancelledTutorResponse();
+        }
         markProviderFailure(completionProviderConfig);
         console.error("AI Tutor provider retry error", {
           provider: completionProviderConfig.provider,
@@ -2968,9 +3077,13 @@ async function handleAITutorPost(
         undefined,
         remainingAttemptTimeoutMs(providerTimeoutMs)
       );
+      throwIfRequestAborted();
       markStage("rescue");
 
       if (!completion.ok) {
+        if (completion.diagnostic === "provider-request-cancelled") {
+          return cancelledTutorResponse();
+        }
         markProviderFailure(completionProviderConfig);
         console.error("AI Tutor plain-text rescue provider error", {
           provider: completionProviderConfig.provider,
@@ -2998,6 +3111,21 @@ async function handleAITutorPost(
         hasReasoningContent: Boolean(completion.reasoningContent)
       });
       return providerFailureFallbackResponse(rescueFailure.reason, "plain-text-rescue-failed", completion.usage, completionProviderConfig);
+    }
+
+    if (completion.responseModel !== completionProviderConfig.model) {
+      markProviderFailure(completionProviderConfig);
+      console.error("AI Tutor provider response model mismatch", {
+        configuredModel: completionProviderConfig.model,
+        responseModelPresent: Boolean(completion.responseModel),
+        provider: completionProviderConfig.provider
+      });
+      return providerFailureFallbackResponse(
+        "AI Tutor provider returned an unexpected model.",
+        "provider-model-mismatch",
+        completion.usage,
+        completionProviderConfig
+      );
     }
 
     const modelReply = sanitizeTutorReplyForSensitiveEcho(
@@ -3094,6 +3222,7 @@ async function handleAITutorPost(
     // A withheld reply must not carry the model's visualization payload.
     const replyVisualization = replyRedirected ? undefined : completion.structuredReply.visualization;
 
+    throwIfRequestAborted();
     recordTutorMessageAfterResponse({
       userId: authenticatedUserId,
       role: "tutor",
@@ -3108,12 +3237,22 @@ async function handleAITutorPost(
       ...completion.usage
     });
 
-    return jsonWithDeferredTutorSideEffects({
-      reply,
-      ...(replyMode ? { mode: replyMode } : {}),
-      ...(replyVisualization ? { visualization: replyVisualization } : {})
-    });
+    return jsonWithDeferredTutorSideEffects(
+      {
+        reply,
+        ...(replyMode ? { mode: replyMode } : {}),
+        ...(replyVisualization ? { visualization: replyVisualization } : {})
+      },
+      {
+        headers: {
+          "X-MAIS-AI-Provider": completionProviderConfig.provider,
+          "X-MAIS-AI-Model": completion.responseModel
+        }
+      }
+    );
   } catch (error) {
+    const requestCancelled = requestSignal.aborted;
+    if (requestCancelled) return cancelledTutorResponse();
     const message = error instanceof Error && error.name === "AbortError"
       ? "LLM provider request timed out."
       : "LLM provider request failed.";
@@ -3133,24 +3272,63 @@ function streamAITutorPost(request: Request) {
   const encoder = new TextEncoder();
   const startedAt = Date.now();
   const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
+  const workController = new AbortController();
+  let closed = false;
+  let hardDeadline: ReturnType<typeof setTimeout> | undefined;
+  let streamController: ReadableStreamDefaultController<Uint8Array> | undefined;
+  const cleanup = () => {
+    if (hardDeadline) clearTimeout(hardDeadline);
+    request.signal.removeEventListener("abort", abortForIncomingRequest);
+  };
+  const stopWithoutWriting = (reason?: unknown) => {
+    if (closed) return;
+    closed = true;
+    cleanup();
+    if (!workController.signal.aborted) workController.abort(reason);
+    try {
+      streamController?.close();
+    } catch {
+      // The consumer already cancelled the stream.
+    }
+  };
+  const abortForIncomingRequest = () => stopWithoutWriting(request.signal.reason);
+  request.signal.addEventListener("abort", abortForIncomingRequest, { once: true });
+  if (request.signal.aborted) abortForIncomingRequest();
+
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
-      let closed = false;
-      let hardDeadline: ReturnType<typeof setTimeout> | undefined;
+      streamController = controller;
+      if (closed) {
+        try {
+          controller.close();
+        } catch {
+          // The consumer already cancelled the stream.
+        }
+        return;
+      }
       const send = (event: string, data: unknown) => {
         if (closed) return;
-        controller.enqueue(encoder.encode(encodeAITutorSSE(event, data)));
+        try {
+          controller.enqueue(encoder.encode(encodeAITutorSSE(event, data)));
+        } catch (error) {
+          stopWithoutWriting(error);
+        }
       };
       const close = () => {
         if (closed) return;
         closed = true;
-        if (hardDeadline) clearTimeout(hardDeadline);
-        controller.close();
+        cleanup();
+        try {
+          controller.close();
+        } catch {
+          // The consumer already cancelled the stream.
+        }
       };
 
       send("status", { phase: "accepted", elapsedMs: 0 });
       hardDeadline = setTimeout(() => {
         const body = buildDeadlineTutorFallbackBody();
+        workController.abort(new Error("AI Tutor total deadline exceeded."));
         recordAITutorHardDeadlineTimeout({ startedAt, totalDeadlineMs });
         send("status", {
           phase: "deadline-fallback",
@@ -3163,8 +3341,8 @@ function streamAITutorPost(request: Request) {
           text: body.reply
         });
         send("final", {
-          status: 200,
-          ok: true,
+          status: 503,
+          ok: false,
           body,
           elapsedMs: Date.now() - startedAt
         });
@@ -3174,6 +3352,7 @@ function streamAITutorPost(request: Request) {
       try {
         const response = await handleAITutorPost(request, {
           emit: send,
+          signal: workController.signal,
           startedAt
         });
         if (closed) return;
@@ -3196,6 +3375,9 @@ function streamAITutorPost(request: Request) {
       } finally {
         close();
       }
+    },
+    cancel(reason) {
+      stopWithoutWriting(reason);
     }
   });
 
@@ -3217,21 +3399,27 @@ export async function POST(request: Request) {
 
   const startedAt = Date.now();
   const totalDeadlineMs = resolveAITutorTotalDeadlineMs(process.env.AI_TUTOR_TOTAL_DEADLINE_MS);
+  const workController = new AbortController();
+  const abortForIncomingRequest = () => workController.abort(request.signal.reason);
+  request.signal.addEventListener("abort", abortForIncomingRequest, { once: true });
+  if (request.signal.aborted) abortForIncomingRequest();
   let hardDeadline: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
-      handleAITutorPost(request, { startedAt }),
+      handleAITutorPost(request, { signal: workController.signal, startedAt }),
       new Promise<NextResponse>((resolve) => {
         hardDeadline = setTimeout(() => {
+          workController.abort(new Error("AI Tutor total deadline exceeded."));
           recordAITutorHardDeadlineTimeout({ startedAt, totalDeadlineMs });
-          resolve(NextResponse.json(buildDeadlineTutorFallbackBody()));
+          resolve(NextResponse.json(buildDeadlineTutorFallbackBody(), { status: 503 }));
         }, totalDeadlineMs);
       })
     ]);
   } catch (error) {
     console.error("AI Tutor unexpected route error", redactedErrorKind(error));
-    return NextResponse.json(buildUnexpectedTutorFallbackBody());
+    return NextResponse.json(buildUnexpectedTutorFallbackBody(), { status: 503 });
   } finally {
     if (hardDeadline) clearTimeout(hardDeadline);
+    request.signal.removeEventListener("abort", abortForIncomingRequest);
   }
 }

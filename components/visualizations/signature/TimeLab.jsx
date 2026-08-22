@@ -1122,7 +1122,9 @@ export default function TimeLab() {
         .seg-btn {
           font: 600 11px/1 var(--mono);
           letter-spacing: 0.05em;
-          padding: 5px 9px;
+          min-width: 44px;
+          min-height: 44px;
+          padding: 8px 10px;
           border: none;
           background: transparent;
           color: var(--ink-soft);

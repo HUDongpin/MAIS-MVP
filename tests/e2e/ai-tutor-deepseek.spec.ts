@@ -203,7 +203,7 @@ function tutorSseChunkedResponse(chunks: string[], body: unknown, status = 200) 
     "data: {\"phase\":\"accepted\",\"elapsedMs\":0}",
     "",
     "event: status",
-    "data: {\"phase\":\"provider-start\",\"provider\":\"qwen\",\"model\":\"qwen3.7-plus\",\"elapsedMs\":24}",
+    "data: {\"phase\":\"provider-start\",\"provider\":\"qwen\",\"model\":\"qwen3.8-max\",\"elapsedMs\":24}",
     "",
     ...chunks.flatMap((chunk, index) => [
       "event: chunk",
@@ -273,7 +273,12 @@ async function createDeepSeekMockServer(providerRequests: ProviderRequestRecord[
     if (queued.delayMs) await delay(queued.delayMs);
 
     const body = typeof queued.body === "function" ? queued.body(requestBody) : queued.body;
-    sendJson(response, queued.status ?? 200, body ?? {}, queued.rawBody);
+    const responseBody = isRecord(body)
+      && typeof body.model !== "string"
+      && typeof requestBody.model === "string"
+      ? { ...body, model: requestBody.model }
+      : body;
+    sendJson(response, queued.status ?? 200, responseBody ?? {}, queued.rawBody);
   });
 
   const port = await listen(server);
@@ -321,14 +326,16 @@ async function ensureHarness(profile: HarnessProfile = "default") {
         QWEN_API_KEY: "",
         QWEN_API_URL: "",
         QWEN_TEXT_MODEL: "",
+        AI_TUTOR_QWEN_IMAGE_MODEL: "",
         QWEN_IMAGE_MODEL: "",
         QWEN_IMAGE_API_URL: ""
       }
     : {
         QWEN_API_KEY: "e2e-qwen-key",
         QWEN_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-        QWEN_TEXT_MODEL: "qwen3.7-plus",
-        QWEN_IMAGE_MODEL: profile === "vision" ? "qwen3.7-max" : "qwen3.7-plus",
+        QWEN_TEXT_MODEL: "qwen3.8-max",
+        AI_TUTOR_QWEN_IMAGE_MODEL: "qwen3.8-max",
+        QWEN_IMAGE_MODEL: "qwen3.7-plus",
         QWEN_IMAGE_API_URL: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
       };
 
@@ -352,6 +359,8 @@ async function ensureHarness(profile: HarnessProfile = "default") {
       AI_TUTOR_MAX_REQUESTS_PER_HOUR: "120",
       AI_TUTOR_MAX_COMPLETION_TOKENS: "900",
       AI_TUTOR_TOTAL_DEADLINE_MS: "10000",
+      // The serial SQLite harness rewrites the full fixture state; production Postgres uses a narrow rate-limit table.
+      AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS: "4000",
       AI_TUTOR_PROVIDER_TIMEOUT_MS: "300",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_MINUTE: "30",
       ADAPTIVE_LLM_MAX_REQUESTS_PER_HOUR: "120",
@@ -719,7 +728,7 @@ test("status and an authenticated tutor call use the Ali Qwen text request contr
       configured: true,
       health: { checked: false, state: "not-checked" },
       mode: "live",
-      model: "qwen3.7-plus",
+      model: "qwen3.8-max",
       provider: "qwen",
       readiness: "configured",
       text: {
@@ -746,9 +755,10 @@ test("status and an authenticated tutor call use the Ali Qwen text request contr
     expect(activeHarness.providerRequests).toHaveLength(1);
     const requestBody = activeHarness.providerRequests[0].body;
     expect(activeHarness.providerRequests[0].authorization).toBe("present");
-    expect(requestBody.model).toBe("qwen3.7-plus");
+    expect(requestBody.model).toBe("qwen3.8-max");
     expect(requestBody.response_format).toEqual({ type: "json_object" });
     expect(requestBody.stream).toBe(false);
+    expect(requestBody.enable_thinking).toBe(false);
     expect(requestBody).not.toHaveProperty("thinking");
     expect(requestBody).not.toHaveProperty("reasoning_effort");
     expect(requestBody.max_tokens).toBe(600);
@@ -763,7 +773,7 @@ test("status and an authenticated tutor call use the Ali Qwen text request contr
     expect(messages[1]?.content).toContain("Topic or task: Qwen contract test");
 
     await expectTutorUsageEventually(student.userId, (entry) =>
-      entry.model === "qwen3.7-plus" &&
+      entry.model === "qwen3.8-max" &&
       entry.error === null &&
       entry.total_tokens === 30
     );
@@ -1558,9 +1568,11 @@ test("reasoning-only provider output retries once without DeepSeek thinking fiel
 
     expect(reply.reply).toBe("Retry returned final text.");
     expect(activeHarness.providerRequests).toHaveLength(2);
+    expect(activeHarness.providerRequests[0].body.enable_thinking).toBe(false);
     expect(activeHarness.providerRequests[0].body).not.toHaveProperty("thinking");
     expect(activeHarness.providerRequests[0].body).not.toHaveProperty("reasoning_effort");
     expect(activeHarness.providerRequests[1].body).not.toHaveProperty("thinking");
+    expect(activeHarness.providerRequests[1].body.enable_thinking).toBe(false);
     expect(activeHarness.providerRequests[1].body).not.toHaveProperty("reasoning_effort");
 
     await expectTutorUsageEventually(student.userId, (entry) =>
@@ -1570,7 +1582,7 @@ test("reasoning-only provider output retries once without DeepSeek thinking fiel
       entry.error.includes("Retrying with strict JSON-only prompt")
     );
     await expectTutorUsageEventually(student.userId, (entry) =>
-      entry.model === "qwen3.7-plus" &&
+      entry.model === "qwen3.8-max" &&
       entry.error === null &&
       entry.total_tokens === 25
     );
@@ -1609,7 +1621,7 @@ test("AI Tutor text chat ignores DeepSeek credentials and remains Qwen-only", as
     expect(reply.mode).toBeUndefined();
     expect(durationMs).toBeLessThan(2500);
     expect(activeHarness.providerRequests).toHaveLength(1);
-    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.7-plus");
+    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.8-max");
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
@@ -1778,8 +1790,9 @@ test("Nova Tutor sends text replies directly to Qwen without trying DeepSeek fir
     expect(reply.reply).toBe("Qwen direct tutor reply.");
     expect(reply.mode).toBeUndefined();
     expect(activeHarness.providerRequests).toHaveLength(1);
-    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.7-plus");
+    expect(activeHarness.providerRequests[0].body.model).toBe("qwen3.8-max");
     expect(activeHarness.providerRequests[0].body.response_format).toEqual({ type: "json_object" });
+    expect(activeHarness.providerRequests[0].body.enable_thinking).toBe(false);
     expect(activeHarness.providerRequests[0].body).not.toHaveProperty("thinking");
 
     activeHarness.queuedResponses.push(
@@ -1801,7 +1814,8 @@ test("Nova Tutor sends text replies directly to Qwen without trying DeepSeek fir
     expect(secondReply.reply).toBe("Qwen second direct tutor reply.");
     expect(secondReply.mode).toBeUndefined();
     expect(activeHarness.providerRequests).toHaveLength(2);
-    expect(activeHarness.providerRequests[1].body.model).toBe("qwen3.7-plus");
+    expect(activeHarness.providerRequests[1].body.model).toBe("qwen3.8-max");
+    expect(activeHarness.providerRequests[1].body.enable_thinking).toBe(false);
   } finally {
     await Promise.all(contexts.map((context) => context.dispose()));
   }
@@ -1874,7 +1888,8 @@ test("image attachments use the configured Qwen vision provider with image_url c
     expect(reply.reply).toBe("The attached image is a tiny uploaded PNG.");
     expect(activeHarness.providerRequests).toHaveLength(1);
     const requestBody = activeHarness.providerRequests[0].body;
-    expect(requestBody.model).toBe("qwen3.7-max");
+    expect(requestBody.model).toBe("qwen3.8-max");
+    expect(requestBody.enable_thinking).toBe(false);
     expect(requestBody.max_tokens).toBe(600);
     expect(requestBody).not.toHaveProperty("max_completion_tokens");
     const messages = requestBody.messages as Array<{ content?: unknown }>;
@@ -2118,7 +2133,7 @@ test("frontend hides technical API errors and uses Chinese fallback for Chinese 
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "qwen3.7-plus",
+        model: "qwen3.8-max",
         provider: "qwen"
       })
     });
@@ -2167,7 +2182,7 @@ test("frontend does not show fallback copy when the configured tutor API returns
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "qwen3.7-plus",
+        model: "qwen3.8-max",
         provider: "qwen"
       })
     });
@@ -2214,7 +2229,7 @@ test("frontend consumes streaming tutor final events without fallback copy", asy
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "qwen3.7-plus",
+        model: "qwen3.8-max",
         provider: "qwen"
       })
     });
@@ -2262,7 +2277,7 @@ test("frontend image attachment requests show API replies without live fallback 
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "qwen3.7-plus",
+        model: "qwen3.8-max",
         provider: "qwen"
       })
     });
@@ -2312,7 +2327,7 @@ test("frontend renders an inline quadratic visualization returned by the tutor A
       body: JSON.stringify({
         configured: true,
         mode: "live",
-        model: "qwen3.7-plus",
+        model: "qwen3.8-max",
         provider: "qwen"
       })
     });
