@@ -21,6 +21,7 @@ test("a figure that overflows tells the student it can be panned", () => {
 });
 
 test("a pannable figure is reachable by keyboard and announced, but only while it pans", () => {
+  assert.match(scrollSource, /data-figure-scroll-region/u);
   assert.match(scrollSource, /role=\{isOverflowing \? "region" : undefined\}/);
   assert.match(scrollSource, /tabIndex=\{isOverflowing \? 0 : undefined\}/);
   assert.match(scrollSource, /aria-label=\{isOverflowing \? "Scrollable diagram/);

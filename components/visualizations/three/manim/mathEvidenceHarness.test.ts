@@ -2906,22 +2906,31 @@ test("accepts measured FormulaLayer viewport for projected label and collision e
   assert.ok(functionGraphSpec);
   const runtimeState = buildMathSceneRuntimeState(functionGraphSpec, 0);
   const measuredViewport = { height: 320, width: 360 };
+  const snapshot = buildMathSceneEvidenceSnapshot({
+    formulaLayerViewport: measuredViewport,
+    reducedMotion: false,
+    runtimeState,
+    scene: functionGraphSpec
+  });
+  const formulaLayer = buildFormulaLayerState(functionGraphSpec, {
+    activeConceptId: snapshot.activeConceptId,
+    activeConceptIds: [...new Set([
+      snapshot.activeConceptId,
+      runtimeState.timeline.activeConceptId,
+      ...timelineFocusTargetIds(runtimeState.timeline.activeStep)
+    ])]
+  });
+  const projectedLabelTextByObjectId = buildActiveProjectedLabelTextByObjectId(formulaLayer);
   const projectedAnchors = buildProjectedLabelAnchorsFromRuntimeState(runtimeState, measuredViewport, {
-    anchorForObject: (node) => functionGraphSpec.bindings.find((binding) => binding.objectId === node.id)?.anchorName ?? "center",
-    objectIds: functionGraphSpec.bindings.map((binding) => binding.objectId),
-    textForObject: (node) => functionGraphSpec.bindings.find((binding) => binding.objectId === node.id)?.tokenId ?? node.id
+    anchorForObject: (node) => formulaLayer.activeObjectAnchorNames[node.id] ?? "center",
+    objectIds: formulaLayer.activeObjectIds,
+    textForObject: (node) => projectedLabelTextByObjectId[node.id] ?? node.id
   });
   const expectedFormulaCollision = buildFormulaOverlayCollisionDiagnostics({
     formulaId: functionGraphSpec.formulas[0].id,
     projectedLabels: projectedAnchors,
     tokenCount: functionGraphSpec.formulas.reduce((sum, formula) => sum + formula.tokens.length, 0),
     viewport: measuredViewport
-  });
-  const snapshot = buildMathSceneEvidenceSnapshot({
-    formulaLayerViewport: measuredViewport,
-    reducedMotion: false,
-    runtimeState,
-    scene: functionGraphSpec
   });
   const attributes = evidenceDataAttributes(snapshot);
 

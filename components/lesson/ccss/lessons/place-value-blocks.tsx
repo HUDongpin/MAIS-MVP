@@ -9,51 +9,57 @@ const FILL = "var(--band-early)";
 const EDGE = "color-mix(in oklab, var(--band-early) 55%, #000)";
 
 function HundredFlat() {
+  const size = 10 * U;
   return (
-    <svg width={10 * U} height={10 * U} role="img" aria-label="one hundred">
-      <rect width={10 * U} height={10 * U} fill={FILL} />
-      {Array.from({ length: 11 }, (_, i) => (
-        <line
-          key={`v${i}`}
-          x1={i * U}
-          y1={0}
-          x2={i * U}
-          y2={10 * U}
-          stroke={EDGE}
-          strokeWidth={i % 10 === 0 ? 1.5 : 0.75}
-        />
-      ))}
-      {Array.from({ length: 11 }, (_, i) => (
-        <line
-          key={`h${i}`}
-          x1={0}
-          y1={i * U}
-          x2={10 * U}
-          y2={i * U}
-          stroke={EDGE}
-          strokeWidth={i % 10 === 0 ? 1.5 : 0.75}
-        />
-      ))}
+    <svg width={size + 2} height={size + 2} viewBox={`0 0 ${size + 2} ${size + 2}`} role="img" aria-label="one hundred">
+      <g transform="translate(1 1)">
+        <rect width={size} height={size} fill={FILL} />
+        {Array.from({ length: 11 }, (_, i) => (
+          <line
+            key={`v${i}`}
+            x1={i * U}
+            y1={0}
+            x2={i * U}
+            y2={size}
+            stroke={EDGE}
+            strokeWidth={i % 10 === 0 ? 1.5 : 0.75}
+          />
+        ))}
+        {Array.from({ length: 11 }, (_, i) => (
+          <line
+            key={`h${i}`}
+            x1={0}
+            y1={i * U}
+            x2={size}
+            y2={i * U}
+            stroke={EDGE}
+            strokeWidth={i % 10 === 0 ? 1.5 : 0.75}
+          />
+        ))}
+      </g>
     </svg>
   );
 }
 
 function TenRod() {
+  const height = 10 * U;
   return (
-    <svg width={U} height={10 * U} role="img" aria-label="one ten">
-      <rect width={U} height={10 * U} fill={FILL} />
-      {Array.from({ length: 11 }, (_, i) => (
-        <line key={i} x1={0} y1={i * U} x2={U} y2={i * U} stroke={EDGE} strokeWidth={0.75} />
-      ))}
-      <rect width={U} height={10 * U} fill="none" stroke={EDGE} strokeWidth={1.5} />
+    <svg width={U + 2} height={height + 2} viewBox={`0 0 ${U + 2} ${height + 2}`} role="img" aria-label="one ten">
+      <g transform="translate(1 1)">
+        <rect width={U} height={height} fill={FILL} />
+        {Array.from({ length: 11 }, (_, i) => (
+          <line key={i} x1={0} y1={i * U} x2={U} y2={i * U} stroke={EDGE} strokeWidth={0.75} />
+        ))}
+        <rect width={U} height={height} fill="none" stroke={EDGE} strokeWidth={1.5} />
+      </g>
     </svg>
   );
 }
 
 function OneUnit() {
   return (
-    <svg width={U} height={U} role="img" aria-label="one">
-      <rect width={U} height={U} fill={FILL} stroke={EDGE} strokeWidth={1} />
+    <svg width={U + 2} height={U + 2} viewBox={`0 0 ${U + 2} ${U + 2}`} role="img" aria-label="one">
+      <rect x={1} y={1} width={U} height={U} fill={FILL} stroke={EDGE} strokeWidth={1} />
     </svg>
   );
 }

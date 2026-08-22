@@ -399,3 +399,77 @@ test("legacy userStore delegates parent notice operations through parent domain 
   assert.doesNotMatch(source, /export async function getParentNoticeData/);
   assert.doesNotMatch(source, /export async function acknowledgeParentNotice/);
 });
+
+/**
+ * `acknowledged_at` is the receipt of record — the evidence of WHEN a guardian confirmed a
+ * school notice. Re-acknowledging used to re-stamp it, so a double click, a retry, a refresh
+ * or a back-button re-submit silently moved the recorded confirmation time and the original
+ * was unrecoverable. Observed live: 10:15:09.443Z -> 10:28:13.439Z on a second POST.
+ *
+ * These drive a clock that ADVANCES between the two calls, so a re-stamp cannot hide behind a
+ * frozen `now()`. Asserting only that the second call returns "acknowledged" is exactly the
+ * appearance-level check that let this through — the timestamp is the assertion that matters.
+ */
+function createClockedStore(database: ParentNoticePersistenceDatabase, clock: { value: string }) {
+  return createParentNoticePersistenceStore({
+    now: () => new Date(clock.value),
+    getParentChildSummaries: (_database, user) => {
+      if (user.role === "admin") return [childSummary("student-1", "Ada Student"), childSummary("student-2", "Ben Student")];
+      return database.guardian_links
+        .filter((link) => link.parent_id === user.id && link.status === "active")
+        .map((link) => childSummary(link.student_id, link.student_id === "student-1" ? "Ada Student" : "Ben Student"));
+    },
+    readDatabase: async () => database,
+    mutateDatabase: async (mutator) => mutator(database)
+  });
+}
+
+test("parent notice acknowledgement is idempotent and never re-stamps the receipt", async () => {
+  const database = createDatabase();
+  const clock = { value: "2026-06-20T11:00:00.000Z" };
+  const store = createClockedStore(database, clock);
+
+  const first = await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "recipient-1" });
+  assert.equal(first.status, "acknowledged");
+  assert.equal(database.teacher_notice_recipients[0].acknowledged_at, "2026-06-20T11:00:00.000Z");
+  assert.equal(database.teacher_notices[0].updated_at, "2026-06-20T11:00:00.000Z");
+
+  clock.value = "2026-06-20T23:59:59.000Z";
+  const second = await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "recipient-1" });
+
+  // Still succeeds, so callers and the UI are unaffected...
+  assert.equal(second.status, "acknowledged");
+  assert.equal(second.notice?.acknowledgement.acknowledged, 1);
+  // ...but the receipt of record is untouched.
+  assert.equal(
+    database.teacher_notice_recipients[0].acknowledged_at,
+    "2026-06-20T11:00:00.000Z",
+    "a repeat acknowledgement must not move acknowledged_at"
+  );
+  assert.equal(
+    database.teacher_notice_recipients[0].acknowledged_by,
+    "parent-1",
+    "a repeat acknowledgement must not rewrite who acknowledged"
+  );
+  assert.equal(
+    database.teacher_notices[0].updated_at,
+    "2026-06-20T11:00:00.000Z",
+    "nothing changed, so the notice must not report a new updated_at"
+  );
+});
+
+test("the idempotent acknowledgement path still enforces authorization", async () => {
+  // Guards the ordering of the fix: the early return must sit AFTER the ownership checks, so a
+  // guardian who does not own an already-acknowledged recipient is still refused rather than
+  // waved through by the short-circuit.
+  const database = createDatabase();
+  const clock = { value: "2026-06-20T11:00:00.000Z" };
+  const store = createClockedStore(database, clock);
+
+  await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "recipient-1" });
+  assert.equal(database.teacher_notice_recipients[0].acknowledged_at, "2026-06-20T11:00:00.000Z");
+
+  const stranger = await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" });
+  assert.equal(stranger.status, "forbidden", "an unrelated guardian must not reach the idempotent path");
+  assert.equal(database.teacher_notice_recipients[0].acknowledged_by, "parent-1");
+});

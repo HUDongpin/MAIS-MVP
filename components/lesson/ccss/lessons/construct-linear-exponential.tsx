@@ -38,7 +38,7 @@ export default function Lesson() {
             </div>
           </div>
 
-          <table className="font-mono text-sm">
+          <table className="mx-auto w-max max-w-none self-start font-mono text-sm">
             <thead>
               <tr className="text-[var(--ink-faint)]">
                 <th className="px-3 py-1">year t</th>

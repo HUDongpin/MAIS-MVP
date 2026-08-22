@@ -32,7 +32,7 @@ export default function Lesson() {
             <span style={{ color: DEP }}>y</span> = {m} × <span style={{ color: INDEP }}>x</span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex self-start flex-wrap items-center justify-start gap-6 sm:self-center sm:justify-center">
             <table className="font-mono text-sm">
               <thead>
                 <tr>

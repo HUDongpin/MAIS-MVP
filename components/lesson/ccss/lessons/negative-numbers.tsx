@@ -40,7 +40,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-8">
             <svg width="120" height={H} viewBox={`0 0 120 ${H}`} role="img" aria-label={`number line at ${v}`}>
               <line x1={60} y1={20} x2={60} y2={H - 20} stroke="var(--ink-soft)" strokeWidth={2} />
               {Array.from({ length: 2 * R + 1 }, (_, i) => {

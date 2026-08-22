@@ -9,6 +9,7 @@ import {
   defaultThreeDGraphCamera,
   formatThreeDGraphSummary,
   projectThreeDGraphPoint,
+  projectedThreeDGraphBounds,
   rotateThreeDGraphView
 } from "./ThreeDGraphSvgGeometry";
 
@@ -95,4 +96,22 @@ test("changes elevation gently from vertical drag and clamps the accessible view
   assert.ok(lowered.elevationScale < defaultThreeDGraphView.elevationScale);
   assert.ok(raised.elevationScale > defaultThreeDGraphView.elevationScale);
   assert.equal(clamped.elevationScale, 0.55);
+});
+
+test("keeps the complete SVG fallback construction inside its 640 by 360 drawing frame at every camera extreme", () => {
+  const baseCorners = [-1, 1].flatMap((x) => [-1, 1].map((y) => ({ x, y, z: 0 })));
+  const surfaceSamples = buildThreeDGraphSurfaceSamples({ meshResolution: 25, surfaceScale: 1.6 });
+  const panelCorners = buildThreeDGraphPanelSamples({ panelScale: 1.6 }).flatMap((panel) => panel.corners);
+  const points = [...baseCorners, ...surfaceSamples, ...panelCorners];
+
+  for (const elevationScale of [0.55, 1, 1.25]) {
+    for (let azimuthDegrees = -180; azimuthDegrees <= 180; azimuthDegrees += 15) {
+      const camera = buildThreeDGraphCameraFromView({ azimuthDegrees, elevationScale });
+      const bounds = projectedThreeDGraphBounds(points, camera);
+      assert.ok(bounds.left >= 3, `left paint margin failed at ${azimuthDegrees}/${elevationScale}: ${bounds.left}`);
+      assert.ok(bounds.right <= 637, `right paint margin failed at ${azimuthDegrees}/${elevationScale}: ${bounds.right}`);
+      assert.ok(bounds.top >= 3, `top paint margin failed at ${azimuthDegrees}/${elevationScale}: ${bounds.top}`);
+      assert.ok(bounds.bottom <= 357, `bottom paint margin failed at ${azimuthDegrees}/${elevationScale}: ${bounds.bottom}`);
+    }
+  }
 });

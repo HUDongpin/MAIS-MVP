@@ -2257,6 +2257,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:imports",
     "test:lesson-menu",
     "test:mvp",
+    "test:parent-console",
     "test:prod-certification",
     "test:question-bank",
     "test:question-figure",
@@ -2291,7 +2292,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "ca0774f11bc02f78a66de66a936cc69a5ec064e2d14e66a1c0d91be098ebfbea",
+    "84168d8dae63b251410fdd0aa8e9403ce08632d0c463836a2ccadabb0266a6dd",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -2312,7 +2313,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     ...baseline.dependencies,
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
-    next: "15.5.20",
+    next: "15.5.23",
     pptxgenjs: "^4.0.1",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
@@ -2321,18 +2322,18 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
     "@types/ws": "^8.18.1",
-    postcss: "8.5.16",
+    postcss: "8.5.26",
     tsx: "^4.22.4",
     yaml: "2.9.0"
   });
   assert.deepEqual(current.overrides, {
     ...(baseline.overrides ?? {}),
-    postcss: "8.5.16"
+    postcss: "8.5.26"
   });
   assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
-  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
   assert.equal(packageLock.packages["node_modules/three-stdlib"].version, "2.36.1");
   assert.equal(packageLock.packages["node_modules/ws"].version, "8.21.1");
@@ -2518,12 +2519,12 @@ test("package and coordination contracts preserve security versions and closure 
   const gitignore = await readFile(path.join(repoRoot, ".gitignore"), "utf8");
   const agents = await readFile(path.join(repoRoot, "AGENTS.md"), "utf8");
 
-  assert.equal(packageJson.dependencies.next, "15.5.20");
-  assert.equal(packageJson.devDependencies.postcss, "8.5.16");
+  assert.equal(packageJson.dependencies.next, "15.5.23");
+  assert.equal(packageJson.devDependencies.postcss, "8.5.26");
   assert.equal(packageJson.devDependencies.yaml, "2.9.0");
-  assert.equal(packageJson.overrides.postcss, "8.5.16");
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.20");
-  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.16");
+  assert.equal(packageJson.overrides.postcss, "8.5.26");
+  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages[""].devDependencies.yaml, "2.9.0");
   assert.equal(packageLock.packages["node_modules/yaml"].version, "2.9.0");
   assert.equal(packageLock.packages["node_modules/yaml"].dev, true);

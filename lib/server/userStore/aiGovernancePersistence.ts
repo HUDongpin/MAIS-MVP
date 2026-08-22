@@ -45,7 +45,7 @@ import type {
 
 type UserRole = "student" | "teacher" | "parent" | "admin";
 
-type AITutorMessageRecord = {
+export type AITutorMessageRecord = {
   id: string;
   user_id: string;
   role: "student" | "tutor";
@@ -54,7 +54,7 @@ type AITutorMessageRecord = {
   created_at: string;
 };
 
-type AITutorUsageRecord = {
+export type AITutorUsageRecord = {
   id: string;
   user_id: string;
   model: string;
@@ -345,6 +345,16 @@ export type AITutorDatabaseContextOptions = {
   dataScopes?: AITutorDataScope[];
   targetStudentId?: string;
 };
+
+export function hasRequestedAITutorDatabaseContext(context?: AITutorDatabaseContextOptions) {
+  return Boolean(
+    context?.dataScopes?.length
+    || context?.topicId?.trim()
+    || context?.questionId?.trim()
+    || context?.lessonSlug?.trim()
+    || context?.targetStudentId?.trim()
+  );
+}
 
 export type AITutorDatabaseContextResult = {
   text: string;
@@ -844,6 +854,32 @@ export type AiGovernancePersistenceStoreDependencies = {
     database: AiGovernancePersistenceDatabase,
     input: { userId: string; grade?: GradeId }
   ) => PilotPlatformLoopData | null | Promise<PilotPlatformLoopData | null>;
+  resolveStudentAiTutorPolicyBeforeSnapshot?: (
+    userId: string,
+    signal?: AbortSignal
+  ) => ClassAiTutorPolicy | undefined | Promise<ClassAiTutorPolicy | undefined>;
+  consumeAiCapabilityRateLimitBeforeSnapshot?: (input: {
+    capability: AiCapability;
+    rules: AiCapabilityRateLimitRule[];
+    signal?: AbortSignal;
+    userId: string;
+    now: Date;
+  }) => AiCapabilityRateLimitDecision | undefined | Promise<AiCapabilityRateLimitDecision | undefined>;
+  getAITutorTokenUsageSinceBeforeSnapshot?: (
+    userId: string,
+    sinceIso: string,
+    signal?: AbortSignal
+  ) => number | undefined | Promise<number | undefined>;
+  recordAITutorMessageBeforeSnapshot?: (
+    record: AITutorMessageRecord
+  ) => true | undefined | Promise<true | undefined>;
+  recordAITutorUsageBeforeSnapshot?: (
+    record: AITutorUsageRecord
+  ) => true | undefined | Promise<true | undefined>;
+  readAiTutorRateLimitEventsAfterSnapshot?: (input: {
+    now: Date;
+    windowMs: number;
+  }) => AIGovernanceEventRecord[] | undefined | Promise<AIGovernanceEventRecord[] | undefined>;
   readDatabase: () => Promise<AiGovernancePersistenceDatabase>;
   mutateDatabase: <T>(mutator: (database: AiGovernancePersistenceDatabase) => T | Promise<T>) => Promise<T>;
 };
@@ -1757,6 +1793,12 @@ export function createAiGovernancePersistenceStore({
   pilotPlatformLoopDataFromDatabase = () => {
     throw new Error("AI governance pilot platform loop dependency is not configured.");
   },
+  resolveStudentAiTutorPolicyBeforeSnapshot,
+  consumeAiCapabilityRateLimitBeforeSnapshot,
+  getAITutorTokenUsageSinceBeforeSnapshot,
+  recordAITutorMessageBeforeSnapshot,
+  recordAITutorUsageBeforeSnapshot,
+  readAiTutorRateLimitEventsAfterSnapshot,
   readDatabase
 }: AiGovernancePersistenceStoreDependencies) {
   return {
@@ -1769,6 +1811,9 @@ export function createAiGovernancePersistenceStore({
       userId: string,
       context?: AITutorDatabaseContextOptions
     ): Promise<AITutorDatabaseContextResult> {
+      if (!hasRequestedAITutorDatabaseContext(context)) {
+        return aiTutorDatabaseContextResult({ lines: [], subjectUserId: userId });
+      }
       const database = await readDatabase();
       return aiTutorDatabaseContextFromDatabase(database, userId, context);
     },
@@ -1784,15 +1829,18 @@ export function createAiGovernancePersistenceStore({
       content: string;
       context?: Record<string, unknown> | null;
     }) {
+      const record: AITutorMessageRecord = {
+        id: createId(),
+        user_id: userId,
+        role,
+        content,
+        context_json: cleanTutorContextValue(context),
+        created_at: currentTime().toISOString()
+      };
+      const journaled = await recordAITutorMessageBeforeSnapshot?.(record);
+      if (journaled === true) return;
       await mutateDatabase((database) => {
-        database.ai_tutor_messages.push({
-          id: createId(),
-          user_id: userId,
-          role,
-          content,
-          context_json: cleanTutorContextValue(context),
-          created_at: currentTime().toISOString()
-        });
+        database.ai_tutor_messages.push(record);
       });
     },
 
@@ -1811,21 +1859,27 @@ export function createAiGovernancePersistenceStore({
       totalTokens?: number | null;
       error?: string | null;
     }) {
+      const record: AITutorUsageRecord = {
+        id: createId(),
+        user_id: userId,
+        model,
+        prompt_tokens: promptTokens ?? null,
+        completion_tokens: completionTokens ?? null,
+        total_tokens: totalTokens ?? null,
+        error: error ?? null,
+        created_at: currentTime().toISOString()
+      };
+      const journaled = await recordAITutorUsageBeforeSnapshot?.(record);
+      if (journaled === true) return;
       await mutateDatabase((database) => {
-        database.ai_tutor_usage.push({
-          id: createId(),
-          user_id: userId,
-          model,
-          prompt_tokens: promptTokens ?? null,
-          completion_tokens: completionTokens ?? null,
-          total_tokens: totalTokens ?? null,
-          error: error ?? null,
-          created_at: currentTime().toISOString()
-        });
+        database.ai_tutor_usage.push(record);
       });
     },
 
-    async getAITutorTokenUsageSince(userId: string, sinceIso: string) {
+    async getAITutorTokenUsageSince(userId: string, sinceIso: string, signal?: AbortSignal) {
+      const preSnapshotUsage = await getAITutorTokenUsageSinceBeforeSnapshot?.(userId, sinceIso, signal);
+      if (preSnapshotUsage !== undefined) return preSnapshotUsage;
+
       const database = await readDatabase();
       return database.ai_tutor_usage
         .filter((usage) => usage.user_id === userId && usage.created_at >= sinceIso)
@@ -1909,7 +1963,10 @@ export function createAiGovernancePersistenceStore({
       });
     },
 
-    async resolveStudentAiTutorPolicy(userId: string) {
+    async resolveStudentAiTutorPolicy(userId: string, options: { signal?: AbortSignal } = {}) {
+      const preSnapshotPolicy = await resolveStudentAiTutorPolicyBeforeSnapshot?.(userId, options.signal);
+      if (preSnapshotPolicy !== undefined) return preSnapshotPolicy;
+
       const database = await readDatabase();
       const user = database.users.find((candidate) => candidate.id === userId);
       const now = currentTime().toISOString();
@@ -1934,14 +1991,25 @@ export function createAiGovernancePersistenceStore({
     async consumeAiCapabilityRateLimit({
       capability,
       rules,
+      signal,
       userId,
       now = currentTime()
     }: {
       capability: AiCapability;
       rules: AiCapabilityRateLimitRule[];
+      signal?: AbortSignal;
       userId: string;
       now?: Date;
     }): Promise<AiCapabilityRateLimitDecision> {
+      const preSnapshotDecision = await consumeAiCapabilityRateLimitBeforeSnapshot?.({
+        capability,
+        rules,
+        signal,
+        userId,
+        now
+      });
+      if (preSnapshotDecision !== undefined) return preSnapshotDecision;
+
       return mutateDatabase((database) => {
         const nowMs = now.getTime();
         const maxWindowMs = Math.max(...rules.map((rule) => rule.windowMs), 60 * 1000);
@@ -2026,12 +2094,21 @@ export function createAiGovernancePersistenceStore({
       const admin = database.users.find((candidate) => candidate.id === adminId);
       if (admin?.role !== "admin") return null;
 
+      const hotRateLimitEvents = await readAiTutorRateLimitEventsAfterSnapshot?.({ now, windowMs });
+      const hotRateLimitEventIds = new Set((hotRateLimitEvents ?? []).map((event) => event.id));
+      const governanceEvents = hotRateLimitEvents === undefined
+        ? database.ai_governance_events
+        : [
+            ...database.ai_governance_events.filter((event) => !hotRateLimitEventIds.has(event.id)),
+            ...hotRateLimitEvents
+          ];
+
       const cutoffMs = now.getTime() - windowMs;
       const usageRows = database.ai_tutor_usage.filter((usage) => {
         const createdAt = Date.parse(usage.created_at);
         return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime();
       });
-      const blockedEvents = database.ai_governance_events.filter((event) => {
+      const blockedEvents = governanceEvents.filter((event) => {
         const createdAt = Date.parse(event.created_at);
         return Number.isFinite(createdAt) && createdAt > cutoffMs && createdAt <= now.getTime() && event.action !== "request-admitted";
       });
@@ -2040,7 +2117,7 @@ export function createAiGovernancePersistenceStore({
         generatedAt: now.toISOString(),
         windowMs,
         governance: summarizeAiGovernanceEvents({
-          events: database.ai_governance_events.map((event) => ({
+          events: governanceEvents.map((event) => ({
             action: event.action,
             capability: event.capability,
             createdAt: event.created_at,

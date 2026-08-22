@@ -30,7 +30,7 @@ export default function Lesson() {
 
       <Figure caption="The box stays put. Watch where the ball goes and name its position.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="260" height="180" viewBox="0 0 260 180" role="img" aria-label={`ball ${pos.word} the box`}>
+          <svg className="mx-auto h-auto max-w-full" width="260" height="180" viewBox="0 0 260 180" role="img" aria-label={`ball ${pos.word} the box`}>
             {/* box */}
             <rect x="100" y="65" width="60" height="50" rx="6" fill="var(--band-early)" />
             <text x="130" y="95" textAnchor="middle" fontSize="12" fontWeight="700" fill="white">box</text>

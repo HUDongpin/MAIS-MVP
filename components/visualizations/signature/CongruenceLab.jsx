@@ -123,6 +123,55 @@ const MOVES = {
 };
 const MOVE_KEYS = ['tR', 'tL', 'tU', 'tD', 'fy', 'r90'];
 
+/* The readout band can become only ~150 CSS px wide inside the 320 px host
+   viewport. Draw its prose as measured lines instead of letting a centered
+   fillText call paint equally far beyond both canvas edges. */
+function wrapCanvasText(ctx, text, maxWidth) {
+  const lines = [];
+  let line = '';
+
+  for (const word of text.trim().split(/\s+/)) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (!line || ctx.measureText(candidate).width <= maxWidth) {
+      line = candidate;
+      continue;
+    }
+    lines.push(line);
+    line = word;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawCenteredBandText(ctx, text, {
+  bandHeight,
+  color,
+  fontFamily,
+  fontPrefix,
+  preferredFontSize,
+  width
+}) {
+  const maxWidth = Math.max(1, width - 16);
+  let fontSize = preferredFontSize;
+  let lines = [];
+  while (true) {
+    ctx.font = `${fontPrefix} ${fontSize}px ${fontFamily}`;
+    lines = wrapCanvasText(ctx, text, maxWidth);
+    if (lines.length <= 3 || fontSize <= 8) break;
+    fontSize = Math.max(8, fontSize - 0.5);
+  }
+  if (lines.length > 3) {
+    lines = [lines[0], lines[1], lines.slice(2).join(' ')];
+  }
+
+  const lineHeight = Math.min(17, fontSize + 3);
+  const firstY = bandHeight / 2 - ((lines.length - 1) * lineHeight) / 2;
+  ctx.fillStyle = color;
+  lines.forEach((line, index) => {
+    ctx.fillText(line, width / 2, firstY + index * lineHeight, maxWidth);
+  });
+}
+
 /* ---------------------------------------------------------------------------
    EDIT 2 — Model.  Figures, landing, and the alibi — all derived.
    ------------------------------------------------------------------------- */
@@ -331,6 +380,8 @@ export default function CongruenceLab() {
   const current = STEPS[step];
   const calib = !!current.calib;
   const B = CASES[caseId].B;
+  const aSideSquares = edgesSq(A_BASE);
+  const bSideSquares = edgesSq(B);
   const img = applyChain(A_BASE, chain);
   const landed = sameSet(img, B);
 
@@ -453,6 +504,19 @@ export default function CongruenceLab() {
           ctx.lineTo(x2, y2);
           ctx.stroke();
         }
+        const edgeLength = Math.hypot(x2 - x1, y2 - y1) || 1;
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+        const normalX = -(y2 - y1) / edgeLength;
+        const normalY = (x2 - x1) / edgeLength;
+        const outwardSign = (normalX * (midX - bx) + normalY * (midY - by)) >= 0 ? 1 : -1;
+        const labelX = Math.max(12, Math.min(W - 12, midX + normalX * outwardSign * 14));
+        const labelY = Math.max(bandH + 12, Math.min(H - 12, midY + normalY * outwardSign * 14));
+        ctx.fillStyle = S.tapped === i ? GOLD : GREEN;
+        ctx.font = '700 12px ui-monospace, monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(i + 1), labelX, labelY);
       });
     }
 
@@ -460,17 +524,32 @@ export default function CongruenceLab() {
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     if (S.landed) {
-      ctx.fillStyle = CARMINE;
-      ctx.font = '700 15.5px ui-monospace, monospace';
-      ctx.fillText('landed — the chain is the proof: A ≅ B', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'landed — the chain is the proof: A ≅ B', {
+        bandHeight: bandH,
+        color: CARMINE,
+        fontFamily: 'ui-monospace, monospace',
+        fontPrefix: '700',
+        preferredFontSize: 15.5,
+        width: W,
+      });
     } else if (S.tapped != null && alibiEdge(A_BASE, S.B) === S.tapped) {
-      ctx.fillStyle = GOLD;
-      ctx.font = '700 15.5px ui-monospace, monospace';
-      ctx.fillText('the alibi: a side A can never produce — no chain will land', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'the alibi: a side A can never produce — no chain will land', {
+        bandHeight: bandH,
+        color: GOLD,
+        fontFamily: 'ui-monospace, monospace',
+        fontPrefix: '700',
+        preferredFontSize: 15.5,
+        width: W,
+      });
     } else {
-      ctx.fillStyle = INK_SOFT;
-      ctx.font = 'italic 600 14px system-ui, sans-serif';
-      ctx.fillText('carry the carmine copy — or find the side that closes the case', W / 2, bandH / 2);
+      drawCenteredBandText(ctx, 'carry the carmine copy — or find the side that closes the case', {
+        bandHeight: bandH,
+        color: INK_SOFT,
+        fontFamily: 'system-ui, sans-serif',
+        fontPrefix: 'italic 600',
+        preferredFontSize: 14,
+        width: W,
+      });
     }
   }, []);
 
@@ -582,7 +661,31 @@ export default function CongruenceLab() {
               Reset
             </button>
           </div>
-          {current.tapAlibi && <p className="hint">suspicious? tap a side of B to name the alibi</p>}
+          {current.tapAlibi && (
+            <div
+              className="side-picker"
+              role="group"
+              aria-label={`Figure A has squared side lengths ${aSideSquares.join(', ')}. Choose the alibi side of figure B.`}
+              data-viz-keyboard-equivalent="congruence-alibi-sides"
+            >
+              <span className="picker-label">Choose a side of B:</span>
+              {B.map((_, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className={'side-btn' + (tapped === i ? ' active' : '')}
+                  aria-pressed={tapped === i}
+                  aria-label={`Select side ${i + 1} of figure B, from (${B[i][0]}, ${B[i][1]}) to (${B[(i + 1) % B.length][0]}, ${B[(i + 1) % B.length][1]}), squared length ${bSideSquares[i]}, as the alibi`}
+                  onClick={() => setTapped(i)}
+                >
+                  Side {i + 1} · d²={bSideSquares[i]}
+                </button>
+              ))}
+            </div>
+          )}
+          {current.tapAlibi && (
+            <p className="hint">suspicious? select a side of B on the diagram or with the side buttons</p>
+          )}
         </section>
 
         {/* ---------- TUTOR ---------- */}
@@ -847,7 +950,37 @@ export default function CongruenceLab() {
           font-style: italic;
           color: var(--ink-soft);
         }
+        .side-picker {
+          margin: 10px 4px 0;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          flex-wrap: wrap;
+        }
+        .picker-label {
+          color: var(--ink-soft);
+          font-size: 12px;
+          font-weight: 650;
+        }
+        .side-btn {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 7px 11px;
+          border: 1.5px solid rgba(185, 135, 24, 0.55);
+          border-radius: 8px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 650 12px/1 system-ui, sans-serif;
+        }
+        .side-btn.active {
+          border-color: var(--gold);
+          background: rgba(185, 135, 24, 0.14);
+          color: #765400;
+        }
         .chipbtn {
+          min-width: 44px;
+          min-height: 44px;
           font: 600 12px/1.2 system-ui, sans-serif;
           padding: 8px 11px;
           border-radius: 8px;

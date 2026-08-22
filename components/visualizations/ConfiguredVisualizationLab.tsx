@@ -6,12 +6,23 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { sliderBoundsForThreeDTemplate } from "@/components/visualizations/three/configuredThreeDControls";
 import { resolveConfiguredThreeDRenderPlan } from "@/components/visualizations/three/configuredThreeDRenderPlan";
-import type { ThreeDLabCanvasProps } from "@/components/visualizations/three/threeDSceneTypes";
+import type {
+  ThreeDLabCanvasProps,
+  ThreeDPresentation
+} from "@/components/visualizations/three/threeDSceneTypes";
 import { ThreeDGraphSvg } from "@/components/visualizations/ThreeDGraphSvg";
 import { formatThreeDGraphSummary, threeDGraphScalesFromControls } from "@/components/visualizations/ThreeDGraphSvgGeometry";
 import { useVisualizationTheme, type VisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import type { FeaturedLabDefinition, VisualizationTemplateId } from "@/data/visualizationLabs";
 import { clamp, formatNumber } from "@/lib/math";
+import {
+  buildMathAngleContract,
+  clampPointToDiagramBounds,
+  diagramOverflowIndicator,
+  serializeMathAngleContract,
+  svgAngleArcPath,
+  type DiagramOverflowDirection
+} from "@/lib/mathDiagramGeometry";
 
 const ThreeDLabCanvas = dynamic<ThreeDLabCanvasProps>(
   () => import("@/components/visualizations/three/ThreeDLabCanvas").then((module) => module.ThreeDLabCanvas as ComponentType<ThreeDLabCanvasProps>),
@@ -32,6 +43,7 @@ type ConfiguredVisualizationLabProps = {
   controlFooterAction?: ReactNode;
   lab?: FeaturedLabDefinition | null;
   labId?: string;
+  threeDPresentation?: ThreeDPresentation;
   topicId?: string;
 };
 
@@ -51,8 +63,10 @@ const arrayAreaLayout = {
   titleClearanceY: 96
 };
 const rightTriangleLayout = {
-  origin: { x: 174, y: 218 },
-  scale: 10,
+  // At the maximum 9-by-9 state, the three construction squares stay below
+  // the title/legend band while remaining large enough for their area labels.
+  origin: { x: 174, y: 242 },
+  scale: 8,
   summaryY: panel.y + panel.height + 18
 };
 const angleGeometryLayout = {
@@ -71,11 +85,50 @@ const configuredFunctionFrame = {
 };
 const coordinateTransformFrame = {
   bottom: 292,
+  left: 78,
   origin: { x: 320, y: 200 },
+  right: 562,
+  summaryY: panel.y + panel.height + 18,
   top: 68,
   xScale: 32,
   yScale: 21
 };
+
+const clockMoneyDataLayout = {
+  coinRadius: 10,
+  coinRowGap: 26,
+  coinStartY: 98,
+  dataBaselineY: 260,
+  dataMaxHeight: 76,
+  moneyLabelY: 154,
+  moneyTray: { x: 286, y: 76, width: 248, height: 90 }
+};
+
+function coordinatePointIndicatorPosition(
+  point: { x: number; y: number },
+  direction: DiagramOverflowDirection,
+  lane: "source" | "transformed"
+) {
+  const laneOffset = lane === "source" ? -9 : 9;
+
+  if (direction === "up" || direction === "down") {
+    return {
+      textAnchor: "middle" as const,
+      x: clamp(point.x + laneOffset, coordinateTransformFrame.left + 18, coordinateTransformFrame.right - 18),
+      y: direction === "up" ? point.y + 18 : point.y - 10
+    };
+  }
+
+  return {
+    textAnchor: direction === "left" ? "start" as const : "end" as const,
+    x: direction === "left" ? point.x + 12 : point.x - 12,
+    y: clamp(
+      point.y + 4 + laneOffset,
+      coordinateTransformFrame.top + 14,
+      coordinateTransformFrame.bottom - 6
+    )
+  };
+}
 const complexPlaneOrigin = { x: 320, y: 190 };
 const complexPlaneScale = 8;
 const statisticsFrame = {
@@ -213,17 +266,13 @@ function configuredFunctionValue(value: number, comparison: number, mode: number
 function configuredFunctionPoint(value: number, comparison: number, mode: number, t: number) {
   const xValue = configuredFunctionFrame.xMin + t * (configuredFunctionFrame.xMax - configuredFunctionFrame.xMin);
   const yValue = configuredFunctionValue(value, comparison, mode, t);
-  const visibleY = clamp(
-    configuredFunctionFrame.origin.y - yValue * configuredFunctionFrame.yScale,
-    configuredFunctionFrame.top,
-    configuredFunctionFrame.bottom
-  );
+  const rawY = configuredFunctionFrame.origin.y - yValue * configuredFunctionFrame.yScale;
 
   return {
-    clipped: visibleY !== configuredFunctionFrame.origin.y - yValue * configuredFunctionFrame.yScale,
+    clipped: rawY < configuredFunctionFrame.top || rawY > configuredFunctionFrame.bottom,
     x: configuredFunctionFrame.origin.x + xValue * configuredFunctionFrame.xScale,
     xValue,
-    y: visibleY,
+    y: rawY,
     yValue
   };
 }
@@ -430,15 +479,24 @@ function measurementState(value: number, comparison: number) {
   };
 }
 
-function angleArcPath(origin: { x: number; y: number }, angleDegrees: number, radius: number) {
+function angleArcPath(origin: { x: number; y: number }, angleDegrees: number, radius: number, id: string) {
   const angleRadians = angleDegrees * (Math.PI / 180);
   const end = {
     x: origin.x + Math.cos(angleRadians) * radius,
     y: origin.y - Math.sin(angleRadians) * radius
   };
   const largeArcFlag = angleDegrees > 180 ? 1 : 0;
+  const contract = buildMathAngleContract({
+    id,
+    origin,
+    radius,
+    startRay: { x: 1, y: 0 },
+    endRay: { x: Math.cos(angleRadians), y: -Math.sin(angleRadians) },
+    sweepRadians: angleRadians
+  });
 
   return {
+    contract,
     d: `M ${origin.x + radius} ${origin.y} A ${radius} ${radius} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`,
     end,
     largeArcFlag
@@ -583,33 +641,102 @@ function coordinateTransformState(value: number, comparison: number, mode: numbe
   };
 }
 
-function coordinateTransformLabelPositions(points: Array<{ x: number; y: number }>) {
-  const offsets = [
-    { x: 12, y: -12 },
-    { x: -30, y: -14 },
-    { x: 14, y: 28 }
+function distanceToSegment(
+  point: { x: number; y: number },
+  start: { x: number; y: number },
+  end: { x: number; y: number }
+) {
+  const segmentX = end.x - start.x;
+  const segmentY = end.y - start.y;
+  const segmentLengthSquared = segmentX * segmentX + segmentY * segmentY;
+  if (segmentLengthSquared === 0) return Math.hypot(point.x - start.x, point.y - start.y);
+
+  const projection = clamp(
+    ((point.x - start.x) * segmentX + (point.y - start.y) * segmentY) / segmentLengthSquared,
+    0,
+    1
+  );
+  return Math.hypot(
+    point.x - (start.x + projection * segmentX),
+    point.y - (start.y + projection * segmentY)
+  );
+}
+
+function triangleSegments(points: Array<{ x: number; y: number }>) {
+  return points.map((point, index) => [point, points[(index + 1) % points.length]] as const);
+}
+
+function pointInsideTriangle(
+  point: { x: number; y: number },
+  triangle: Array<{ x: number; y: number }>
+) {
+  if (triangle.length !== 3) return false;
+  const [a, b, c] = triangle;
+  const sign = (first: { x: number; y: number }, second: { x: number; y: number }, third: { x: number; y: number }) =>
+    (first.x - third.x) * (second.y - third.y) - (second.x - third.x) * (first.y - third.y);
+  const d1 = sign(point, a, b);
+  const d2 = sign(point, b, c);
+  const d3 = sign(point, c, a);
+  const hasNegative = d1 < 0 || d2 < 0 || d3 < 0;
+  const hasPositive = d1 > 0 || d2 > 0 || d3 > 0;
+  return !(hasNegative && hasPositive);
+}
+
+function coordinateTransformLabelPositions(
+  points: Array<{ x: number; y: number }>,
+  sourcePoints: Array<{ x: number; y: number }>,
+  reflectionLineX: number | null
+) {
+  const centroid = points.reduce(
+    (total, point) => ({ x: total.x + point.x / points.length, y: total.y + point.y / points.length }),
+    { x: 0, y: 0 }
+  );
+  const geometrySegments = [...triangleSegments(sourcePoints), ...triangleSegments(points)];
+  const guideSegments = [
+    [{ x: coordinateTransformFrame.left, y: coordinateTransformFrame.origin.y }, { x: coordinateTransformFrame.right, y: coordinateTransformFrame.origin.y }],
+    [{ x: coordinateTransformFrame.origin.x, y: coordinateTransformFrame.top }, { x: coordinateTransformFrame.origin.x, y: coordinateTransformFrame.bottom }],
+    ...(reflectionLineX === null
+      ? []
+      : [[{ x: reflectionLineX, y: coordinateTransformFrame.top }, { x: reflectionLineX, y: coordinateTransformFrame.bottom }]] as const)
   ];
-  const minDistance = 34;
   const placed: Array<{ x: number; y: number }> = [];
 
   return points.map((point, index) => {
-    const offset = offsets[index % offsets.length];
-    let candidate = {
-      x: clamp(point.x + offset.x, 92, 548),
-      y: clamp(point.y + offset.y, 84, 280)
+    const rawOutward = { x: point.x - centroid.x, y: point.y - centroid.y };
+    const magnitude = Math.max(1, Math.hypot(rawOutward.x, rawOutward.y));
+    const outward = { x: rawOutward.x / magnitude, y: rawOutward.y / magnitude };
+    const tangent = { x: -outward.y, y: outward.x };
+    const offsets = [
+      { x: outward.x * 28, y: outward.y * 28 },
+      { x: outward.x * 40, y: outward.y * 40 },
+      { x: outward.x * 30 + tangent.x * 18, y: outward.y * 30 + tangent.y * 18 },
+      { x: outward.x * 30 - tangent.x * 18, y: outward.y * 30 - tangent.y * 18 },
+      { x: outward.x * 50, y: outward.y * 50 }
+    ];
+    const candidates = offsets.map((offset) => ({
+      // Keep the text itself inside the coordinate frame while allowing the
+      // left/right vertices to use the narrow exterior label lanes.  The old
+      // 112..544 clamp pushed A' back into a translated triangle at the
+      // minimum-slider state even though there was clear space beside it.
+      x: clamp(
+        point.x + offset.x,
+        coordinateTransformFrame.left + 8,
+        coordinateTransformFrame.right - 8
+      ),
+      y: clamp(point.y + offset.y, 112, 268)
+    }));
+    const score = (candidate: { x: number; y: number }) => {
+      const geometryClearance = Math.min(...geometrySegments.map(([start, end]) => distanceToSegment(candidate, start, end)));
+      const guideClearance = Math.min(...guideSegments.map(([start, end]) => distanceToSegment(candidate, start, end)));
+      const pointClearance = Math.min(...[...sourcePoints, ...points].map((other) => Math.hypot(candidate.x - other.x, candidate.y - other.y)));
+      const labelClearance = placed.length > 0
+        ? Math.min(...placed.map((other) => Math.hypot(candidate.x - other.x, candidate.y - other.y)))
+        : Number.POSITIVE_INFINITY;
+      const insidePenalty = pointInsideTriangle(candidate, sourcePoints) || pointInsideTriangle(candidate, points) ? 1_000 : 0;
+      return Math.min(geometryClearance, guideClearance, pointClearance, labelClearance) - insidePenalty;
     };
-
-    placed.forEach((existing) => {
-      const distance = Math.hypot(candidate.x - existing.x, candidate.y - existing.y);
-      if (distance < minDistance) {
-        candidate = {
-          x: clamp(candidate.x + (index % 2 === 0 ? minDistance : -minDistance), 92, 548),
-          y: clamp(candidate.y + minDistance, 84, 280)
-        };
-      }
-    });
+    const candidate = candidates.reduce((best, next) => score(next) > score(best) ? next : best, candidates[index % candidates.length]);
     placed.push(candidate);
-
     return candidate;
   });
 }
@@ -634,7 +761,7 @@ function equationBalanceState(value: number, comparison: number) {
 function bars(value: number, comparison: number) {
   return Array.from({ length: 6 }, (_, index) => {
     const base = index % 2 === 0 ? value : comparison;
-    return clamp(24 + base * 14 + index * 4, 28, 150);
+    return clamp(18 + base * 4 + index * 2, 22, clockMoneyDataLayout.dataMaxHeight);
   });
 }
 
@@ -741,35 +868,43 @@ function ConfiguredSvgSurface({
   vizTheme: VisualizationTheme;
 }) {
   return (
-    <svg
-      data-viz-surface
-      data-viz-active-mode={mode}
-      role="img"
-      aria-label={label}
-      viewBox={`0 0 ${width} ${height}`}
-      className="aspect-[16/9] h-auto w-full"
+    <div
+      aria-label={`${label} — scroll horizontally to inspect the complete diagram`}
+      className="max-w-full overflow-x-auto overscroll-x-contain rounded-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/35"
+      data-viz-responsive-diagram-container
+      role="region"
+      tabIndex={0}
     >
-      <rect width={width} height={height} fill={vizTheme.svgBackground} />
-      {Array.from({ length: 8 }, (_, index) => (
-        <line key={`v-${index}`} x1={70 + index * 70} x2={70 + index * 70} y1="54" y2="306" stroke={vizTheme.grid} />
-      ))}
-      {Array.from({ length: 5 }, (_, index) => (
-        <line key={`h-${index}`} x1="54" x2="586" y1={76 + index * 50} y2={76 + index * 50} stroke={vizTheme.grid} />
-      ))}
-      <rect x={panel.x} y={panel.y} width={panel.width} height={panel.height} rx="28" fill={vizTheme.panelFill} stroke={vizTheme.panelStroke} />
-      <CoordinateGridFrame gradeBand={gradeBand} templateId={templateId} vizTheme={vizTheme} />
-      <TemplateMarks accent={accent} comparison={comparison} gradeBand={gradeBand} mode={mode} templateId={templateId} userPoints={userPoints} vizTheme={vizTheme} value={value} />
-      {showStandardGraphOverlay ? (
-        <g data-viz-overlap-ok>
-          <rect x="64" y="52" width={titleBadgeWidth} height="40" rx="14" fill={vizTheme.badgeFill} stroke={vizTheme.labelStroke} />
-          <text x="84" y="78" fill={vizTheme.badgeText} className="text-sm font-black">
-            {titleBadgeLabel}
-          </text>
-          <circle cx="558" cy="70" r="18" fill={accent} opacity="0.25" />
-          <circle cx="558" cy="70" r="8" fill={accent} />
-        </g>
-      ) : null}
-    </svg>
+      <svg
+        data-viz-surface
+        data-viz-active-mode={mode}
+        role="img"
+        aria-label={label}
+        viewBox={`0 0 ${width} ${height}`}
+        className="aspect-[16/9] h-auto w-full min-w-[640px] lg:min-w-0"
+      >
+        <rect width={width} height={height} fill={vizTheme.svgBackground} />
+        {Array.from({ length: 8 }, (_, index) => (
+          <line key={`v-${index}`} x1={70 + index * 70} x2={70 + index * 70} y1="54" y2="306" stroke={vizTheme.grid} />
+        ))}
+        {Array.from({ length: 5 }, (_, index) => (
+          <line key={`h-${index}`} x1="54" x2="586" y1={76 + index * 50} y2={76 + index * 50} stroke={vizTheme.grid} />
+        ))}
+        <rect x={panel.x} y={panel.y} width={panel.width} height={panel.height} rx="28" fill={vizTheme.panelFill} stroke={vizTheme.panelStroke} />
+        <CoordinateGridFrame gradeBand={gradeBand} templateId={templateId} vizTheme={vizTheme} />
+        <TemplateMarks accent={accent} comparison={comparison} gradeBand={gradeBand} mode={mode} templateId={templateId} userPoints={userPoints} vizTheme={vizTheme} value={value} />
+        {showStandardGraphOverlay ? (
+          <g data-viz-overlap-ok>
+            <rect x="64" y="52" width={titleBadgeWidth} height="40" rx="14" fill={vizTheme.badgeFill} stroke={vizTheme.labelStroke} />
+            <text x="84" y="78" fill={vizTheme.badgeText} className="text-sm font-black">
+              {titleBadgeLabel}
+            </text>
+            <circle cx="558" cy="70" r="18" fill={accent} opacity="0.25" />
+            <circle cx="558" cy="70" r="8" fill={accent} />
+          </g>
+        ) : null}
+      </svg>
+    </div>
   );
 }
 
@@ -804,7 +939,7 @@ function CoordinateGridFrame({
           return (
             <g key={`transform-x-${tick}`}>
               <line x1={x} x2={x} y1="68" y2="292" stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.4 : 1} opacity={tick === 0 ? 0.78 : 0.82} />
-              <text x={x} y="286" textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+              <text x={x} y={coordinateTransformFrame.bottom + 18} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
             </g>
           );
         })}
@@ -813,7 +948,7 @@ function CoordinateGridFrame({
           return (
             <g key={`transform-y-${tick}`}>
               <line x1="78" x2="562" y1={y} y2={y} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.4 : 1} opacity={tick === 0 ? 0.78 : 0.82} />
-              <text x="94" y={y - 4} fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+              <text x={coordinateTransformFrame.left - 10} y={y + 4} textAnchor="end" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
             </g>
           );
         })}
@@ -846,12 +981,12 @@ function CoordinateGridFrame({
           return (
             <g key={`function-y-${tick}`}>
               <line x1="70" x2="570" y1={y} y2={y} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.4 : 1} opacity={tick === 0 ? 0.8 : 0.78} />
-              <text x="86" y={y - 4} fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+              <text x="64" y={y - 4} textAnchor="end" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
             </g>
           );
         })}
         <text x="578" y={origin.y + 18} fill={vizTheme.labelText} className="text-sm font-black">x</text>
-        <text x={origin.x + 14} y="84" fill={vizTheme.labelText} className="text-sm font-black">y</text>
+        <text x={origin.x + 14} y="52" fill={vizTheme.labelText} className="text-sm font-black">y</text>
       </g>
     );
   }
@@ -907,7 +1042,7 @@ function CoordinateGridFrame({
           return (
           <g key={`trig-x-${tick.label}`}>
             <line x1={x} x2={x} y1={frame.top} y2={frame.bottom} stroke={gridStroke} />
-            <text x={x} y={frame.bottom - 8} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick.label}</text>
+            <text x={x} y={frame.bottom + 16} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick.label}</text>
           </g>
           );
         })}
@@ -916,13 +1051,13 @@ function CoordinateGridFrame({
           return (
             <g key={`trig-y-${tick}`}>
               <line x1={frame.gridLeft} x2={frame.gridRight} y1={y} y2={y} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2 : 1} />
-              <text x={frame.gridLeft + 10} y={y - 5} fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+              <text x={frame.gridRight + 10} y={y + 4} textAnchor="start" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
             </g>
           );
         })}
         <line x1={frame.gridLeft} x2={frame.gridLeft} y1={frame.top} y2={frame.bottom} stroke={axisStroke} strokeWidth="2" />
-        <text x={frame.gridRight + 6} y={frame.centerY + 16} fill={vizTheme.labelText} className="text-sm font-black">x</text>
-        <text x={frame.gridLeft + 12} y={frame.top + 16} fill={vizTheme.labelText} className="text-sm font-black">y</text>
+        <text x={frame.gridRight + 10} y={frame.bottom + 16} fill={vizTheme.labelText} className="text-sm font-black">x</text>
+        <text x={frame.gridRight + 10} y={frame.top - 10} fill={vizTheme.labelText} className="text-sm font-black">y</text>
       </g>
     );
   }
@@ -939,17 +1074,17 @@ function CoordinateGridFrame({
         {xTicks.map((tick) => (
           <g key={`stats-x-${tick}`}>
             <line x1={mapFrameX(tick)} x2={mapFrameX(tick)} y1={frame.top} y2={frame.bottom} stroke={gridStroke} />
-            <text x={mapFrameX(tick)} y={frame.bottom - 8} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+            <text x={mapFrameX(tick)} y={frame.bottom + 16} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
           </g>
         ))}
         {yTicks.map((tick) => (
           <g key={`stats-y-${tick}`}>
             <line x1={frame.left} x2={frame.right} y1={mapFrameY(tick)} y2={mapFrameY(tick)} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.2 : 1} />
-            <text x={frame.left + 10} y={mapFrameY(tick) - 4} fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+            <text x={frame.left - 10} y={mapFrameY(tick) + 4} textAnchor="end" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
           </g>
         ))}
         <line x1={frame.left} x2={frame.left} y1={frame.top} y2={frame.bottom} stroke={axisStroke} strokeWidth="2.2" />
-        <text x={frame.right + 8} y={frame.bottom - 10} fill={vizTheme.labelText} className="text-sm font-black">x</text>
+        <text x={frame.right + 8} y={frame.bottom + 16} fill={vizTheme.labelText} className="text-sm font-black">x</text>
         <text x={frame.left + 14} y={frame.top + 14} fill={vizTheme.labelText} className="text-sm font-black">y</text>
       </g>
     );
@@ -967,18 +1102,18 @@ function CoordinateGridFrame({
         {xTicks.map((tick) => (
           <g key={`calculus-x-${tick}`}>
             <line x1={mapFrameX(tick)} x2={mapFrameX(tick)} y1={frame.top} y2={frame.bottom} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.2 : 1} />
-            <text x={mapFrameX(tick)} y={frame.bottom - 8} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+            <text x={mapFrameX(tick)} y={frame.bottom + 18} textAnchor="middle" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
           </g>
         ))}
         {yTicks.map((tick) => (
           <g key={`calculus-y-${tick}`}>
             <line x1={frame.left} x2={frame.right} y1={mapFrameY(tick)} y2={mapFrameY(tick)} stroke={tick === 0 ? axisStroke : gridStroke} strokeWidth={tick === 0 ? 2.2 : 1} />
-            <text x={frame.left + 10} y={mapFrameY(tick) - 4} fill={tickFill} className="text-[10px] font-bold">{tick}</text>
+            <text x={frame.left - 10} y={mapFrameY(tick) + 4} textAnchor="end" fill={tickFill} className="text-[10px] font-bold">{tick}</text>
           </g>
         ))}
         <line x1={frame.left} x2={frame.left} y1={frame.top} y2={frame.bottom} stroke={axisStroke} strokeWidth="2.2" />
-        <text x={frame.right + 8} y={frame.bottom - 10} fill={vizTheme.labelText} className="text-sm font-black">x</text>
-        <text x={frame.left + 14} y={frame.top + 14} fill={vizTheme.labelText} className="text-sm font-black">y</text>
+        <text x={frame.right + 18} y={frame.bottom + 18} fill={vizTheme.labelText} className="text-sm font-black">x</text>
+        <text x={frame.left - 30} y={frame.top + 8} textAnchor="end" fill={vizTheme.labelText} className="text-sm font-black">y</text>
       </g>
     );
   }
@@ -1336,7 +1471,19 @@ function TemplateMarks({
           <circle data-viz-mark data-viz-name="clock center" cx="154" cy="142" r="7" fill={vizTheme.pointStroke} />
         </g>
         <g data-viz-model="money" opacity={moneyOpacity}>
-          <rect data-viz-mark data-viz-name="money tray" data-viz-active-mode={mode} x="286" y="76" width="248" height="72" rx="18" fill={soft} stroke={mode === 1 ? gold : vizTheme.neutralStroke} strokeWidth={mode === 1 ? 5 : 3} />
+          <rect
+            data-viz-mark
+            data-viz-name="money tray"
+            data-viz-active-mode={mode}
+            x={clockMoneyDataLayout.moneyTray.x}
+            y={clockMoneyDataLayout.moneyTray.y}
+            width={clockMoneyDataLayout.moneyTray.width}
+            height={clockMoneyDataLayout.moneyTray.height}
+            rx="18"
+            fill={soft}
+            stroke={mode === 1 ? gold : vizTheme.neutralStroke}
+            strokeWidth={mode === 1 ? 5 : 3}
+          />
           {Array.from({ length: coinCount }, (_, index) => (
             <circle
               key={`coin-${index}`}
@@ -1346,14 +1493,24 @@ function TemplateMarks({
               data-viz-coin-index={index + 1}
               data-viz-money-total={state.moneyTotal}
               cx={310 + (index % 6) * 36}
-              cy={98 + Math.floor(index / 6) * 30}
-              r="12"
+              cy={clockMoneyDataLayout.coinStartY + Math.floor(index / 6) * clockMoneyDataLayout.coinRowGap}
+              r={clockMoneyDataLayout.coinRadius}
               fill={gold}
               stroke={vizTheme.pointStroke}
               strokeWidth="3"
             />
           ))}
-          <text x="302" y="138" fill={vizTheme.labelText} className="text-xs font-black">value = {state.moneyTotal}</text>
+          <text
+            data-viz-mark
+            data-viz-name="money value label"
+            data-viz-money-total={state.moneyTotal}
+            x="302"
+            y={clockMoneyDataLayout.moneyLabelY}
+            fill={vizTheme.labelText}
+            className="text-xs font-black"
+          >
+            value = {state.moneyTotal}
+          </text>
         </g>
         <g data-viz-model="data" opacity={dataOpacity}>
           {bars(value, comparison).map((bar, index) => (
@@ -1366,7 +1523,7 @@ function TemplateMarks({
               data-viz-value={index % 2 === 0 ? value : comparison}
               data-viz-height={bar}
               x={302 + index * 42}
-              y={260 - bar}
+              y={clockMoneyDataLayout.dataBaselineY - bar}
               width="28"
               height={bar}
               rx="9"
@@ -1462,6 +1619,14 @@ function TemplateMarks({
       return { x: center.x + Math.cos(angle) * size, y: center.y + Math.sin(angle) * size };
     });
     const polygonPoints = vertices.map((point) => `${formatNumber(point.x, 1)},${formatNumber(point.y, 1)}`).join(" ");
+    // Keep the name in its own lane below the polygon. At the smallest
+    // triangle state, the word "triangle" is wider than the shape's interior
+    // and placing it at the centre makes the label cross both sloping sides.
+    // Leave room for the painted corner radius as well as the polygon itself.
+    // Mode 2 enlarges corners from r=7 to r=11, so its label lane moves down
+    // by the same four units. At the largest radius the label still ends at
+    // the panel bottom (326) and remains separated from the summary at y=344.
+    const shapeNameY = center.y + size + 24 + (mode === 2 ? 4 : 0);
     const shapeNames: Record<number, string> = {
       3: "triangle",
       4: "quadrilateral",
@@ -1520,7 +1685,7 @@ function TemplateMarks({
             opacity={mode === 1 ? 0.45 : 1}
           />
         ))}
-        <text data-viz-mark data-viz-name="shape name label" data-viz-sides={sides} x={center.x} y={center.y + 6} textAnchor="middle" fill={vizTheme.labelText} className="text-sm font-black">
+        <text data-viz-mark data-viz-name="shape name label" data-viz-sides={sides} data-viz-size={size} x={center.x} y={shapeNameY} textAnchor="middle" fill={vizTheme.labelText} className="text-sm font-black">
           {shapeNames[sides]}
         </text>
         <text x="82" y={angleGeometryLayout.summaryY} fill={vizTheme.labelText} className="text-xs font-black">
@@ -1541,8 +1706,8 @@ function TemplateMarks({
     });
     const rayA = pointOnRay(angleA, angleGeometryLayout.rayRadius);
     const rayB = pointOnRay(angleB, angleGeometryLayout.rayRadius);
-    const arcA = angleArcPath(origin, state.angleA, 62);
-    const arcB = angleArcPath(origin, state.angleB, 82);
+    const arcA = angleArcPath(origin, state.angleA, 62, "configured-angle-a");
+    const arcB = angleArcPath(origin, state.angleB, 82, "configured-angle-b");
     const modelAOpacity = mode === 1 ? 0.32 : 1;
     const modelBOpacity = mode === 0 ? 0.32 : 1;
     const equalAngleComparison = state.difference === 0 && mode === 2;
@@ -1555,9 +1720,9 @@ function TemplateMarks({
     return (
       <>
         <line data-viz-mark data-viz-name="base ray" x1={origin.x} x2="486" y1={origin.y} y2={origin.y} stroke={vizTheme.axisStrong} strokeWidth="8" strokeLinecap="round" />
-        <path data-viz-mark data-viz-name="angle b arc" data-viz-angle-degrees={formatNumber(state.angleB, 0)} data-viz-large-arc={arcB.largeArcFlag} data-viz-difference-degrees={formatNumber(state.difference, 0)} d={arcB.d} fill="none" stroke={secondary} strokeWidth="6" strokeLinecap="round" opacity={modelBOpacity} />
+        <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(arcB.contract)} data-viz-mark data-viz-name="angle b arc" data-viz-angle-degrees={formatNumber(state.angleB, 0)} data-viz-large-arc={arcB.largeArcFlag} data-viz-difference-degrees={formatNumber(state.difference, 0)} d={arcB.d} fill="none" stroke={secondary} strokeWidth="6" strokeLinecap="butt" opacity={modelBOpacity} />
         <line data-viz-mark data-viz-name="angle b ray" data-viz-angle-degrees={formatNumber(state.angleB, 0)} data-viz-origin-x={origin.x} data-viz-origin-y={origin.y} data-viz-radius={angleGeometryLayout.rayRadius} x1={origin.x} x2={rayB.x} y1={origin.y} y2={rayB.y} stroke={secondary} strokeWidth={mode === 1 ? 9 : 6} strokeLinecap="round" opacity={modelBOpacity} strokeDasharray={mode === 0 ? "10 9" : undefined} />
-        <path data-viz-mark data-viz-name="angle a arc" data-viz-angle-degrees={formatNumber(state.angleA, 0)} data-viz-large-arc={arcA.largeArcFlag} data-viz-difference-degrees={formatNumber(state.difference, 0)} d={arcA.d} fill="none" stroke={accent} strokeWidth="7" strokeLinecap="round" opacity={modelAOpacity} />
+        <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(arcA.contract)} data-viz-mark data-viz-name="angle a arc" data-viz-angle-degrees={formatNumber(state.angleA, 0)} data-viz-large-arc={arcA.largeArcFlag} data-viz-difference-degrees={formatNumber(state.difference, 0)} d={arcA.d} fill="none" stroke={accent} strokeWidth="7" strokeLinecap="butt" opacity={modelAOpacity} />
         <line data-viz-mark data-viz-name="angle a ray" data-viz-angle-degrees={formatNumber(state.angleA, 0)} data-viz-origin-x={origin.x} data-viz-origin-y={origin.y} data-viz-radius={angleGeometryLayout.rayRadius} x1={origin.x} x2={rayA.x} y1={origin.y} y2={rayA.y} stroke={accent} strokeWidth={mode === 0 ? 9 : 7} strokeLinecap="round" opacity={modelAOpacity} strokeDasharray={mode === 1 ? "10 9" : undefined} />
         {equalAngleComparison ? (
           <text
@@ -1630,11 +1795,6 @@ function TemplateMarks({
     ]);
     const hypotenuseSquarePoints = state.points([state.pointB, state.pointD, state.pointE, state.pointC]);
     const similarTrianglePoints = state.points([state.similarOrigin, state.similarPointB, state.similarPointC]);
-    const hypotenuseSquareLabel = {
-      x: (state.pointB.x + state.pointC.x + state.pointD.x + state.pointE.x) / 4,
-      y: (state.pointB.y + state.pointC.y + state.pointD.y + state.pointE.y) / 4
-    };
-
     return (
       <>
         <polygon data-viz-mark data-viz-name="leg a square" data-viz-leg-a={state.legA} data-viz-leg-a-squared={state.legASquared} data-viz-scale={state.scale} points={legASquarePoints} fill={accent} opacity={mode === 0 ? "0.38" : "0.14"} stroke={accent} strokeWidth="4" />
@@ -1648,12 +1808,9 @@ function TemplateMarks({
         {mode === 2 ? (
           <polygon data-viz-mark data-viz-name="similar right triangle" data-viz-scale-factor={formatNumber(state.similarScale, 2)} data-viz-leg-a={state.legA} data-viz-leg-b={state.legB} points={similarTrianglePoints} fill="none" stroke={accent} strokeWidth="5" strokeDasharray="10 8" />
         ) : null}
-        <text x={state.pointA.x + state.legA * state.scale / 2} y={state.pointA.y + 24} textAnchor="middle" fill={vizTheme.labelText} className="text-xs font-black">a = {state.legA}</text>
-        <text x={state.pointA.x - 30} y={state.pointA.y - state.legB * state.scale / 2} textAnchor="middle" fill={vizTheme.labelText} className="text-xs font-black">b = {state.legB}</text>
-        <text x={(state.pointB.x + state.pointC.x) / 2 + 14} y={(state.pointB.y + state.pointC.y) / 2 - 8} fill={vizTheme.labelText} className="text-xs font-black">c = {formatNumber(state.hypotenuse, 2)}</text>
-        <text data-viz-mark data-viz-name="leg a square area label" x={state.pointA.x + state.legA * state.scale / 2} y={state.pointA.y + state.legA * state.scale / 2 + 4} textAnchor="middle" fill={vizTheme.labelText} className="text-xs font-black" opacity={mode === 0 ? 1 : 0.68}>a^2 = {state.legASquared}</text>
-        <text data-viz-mark data-viz-name="leg b square area label" x={state.pointA.x - state.legB * state.scale / 2} y={state.pointA.y - state.legB * state.scale / 2 + 4} textAnchor="middle" fill={vizTheme.labelText} className="text-xs font-black" opacity={mode === 0 ? 1 : 0.68}>b^2 = {state.legBSquared}</text>
-        <text data-viz-mark data-viz-name="hypotenuse square area label" x={hypotenuseSquareLabel.x} y={hypotenuseSquareLabel.y + 4} textAnchor="middle" fill={vizTheme.labelText} className="text-xs font-black" opacity={mode === 0 ? 1 : 0.68}>c^2 = {state.hypotenuseSquared}</text>
+        <text data-viz-mark data-viz-name="leg a square area label" x="326" y="132" fill={vizTheme.labelText} className="text-[10px] font-black" opacity={mode === 0 ? 1 : 0.78}>a={state.legA}; a²={state.legASquared}</text>
+        <text data-viz-mark data-viz-name="leg b square area label" x="326" y="164" fill={vizTheme.labelText} className="text-[10px] font-black" opacity={mode === 0 ? 1 : 0.78}>b={state.legB}; b²={state.legBSquared}</text>
+        <text data-viz-mark data-viz-name="hypotenuse square area label" x="326" y="196" fill={vizTheme.labelText} className="text-[10px] font-black" opacity={mode === 0 ? 1 : 0.78}>c={formatNumber(state.hypotenuse, 2)}; c²={state.hypotenuseSquared}</text>
         <text x="82" y={rightTriangleLayout.summaryY} fill={vizTheme.labelText} className="text-xs font-black">
           {state.legASquared} + {state.legBSquared} = {state.hypotenuseSquared}; c = {formatNumber(state.hypotenuse, 2)}
         </text>
@@ -1665,7 +1822,11 @@ function TemplateMarks({
     const state = coordinateTransformState(value, comparison, mode);
     const sourcePoints = state.sourceSvg.map((point) => `${point.x},${point.y}`).join(" ");
     const transformedPoints = state.transformedSvg.map((point) => `${point.x},${point.y}`).join(" ");
-    const transformedLabelPositions = coordinateTransformLabelPositions(state.transformedSvg);
+    const transformedLabelPositions = coordinateTransformLabelPositions(
+      state.transformedSvg,
+      state.sourceSvg,
+      mode === 1 ? state.origin.x + state.reflectionLineX * state.scale.x : null
+    );
     const sourceLogicalPoints = state.source.map((point) => `${point.label}:${formatNumber(point.x, 3)},${formatNumber(point.y, 3)}`).join(";");
     const transformedLogicalPoints = state.transformed.map((point, index) => `${state.source[index].label}:${formatNumber(point.x, 3)},${formatNumber(point.y, 3)}`).join(";");
     return (
@@ -1710,6 +1871,7 @@ function TemplateMarks({
               data-viz-point-y={formatNumber(point.y, 2)}
               x={labelPosition.x}
               y={labelPosition.y}
+              textAnchor="middle"
               fill={vizTheme.labelText}
               className="text-xs font-black"
             >
@@ -1728,6 +1890,16 @@ function TemplateMarks({
             x: state.origin.x + transformedPoint.x * state.scale.x,
             y: state.origin.y - transformedPoint.y * state.scale.y
           };
+          const sourceVisible = clampPointToDiagramBounds(sourceSvg, coordinateTransformFrame, 9);
+          const targetVisible = clampPointToDiagramBounds(targetSvg, coordinateTransformFrame, 9);
+          const sourceIndicator = diagramOverflowIndicator(sourceSvg, sourceVisible.point);
+          const targetIndicator = diagramOverflowIndicator(targetSvg, targetVisible.point);
+          const sourceIndicatorPosition = sourceIndicator
+            ? coordinatePointIndicatorPosition(sourceVisible.point, sourceIndicator.direction, "source")
+            : null;
+          const targetIndicatorPosition = targetIndicator
+            ? coordinatePointIndicatorPosition(targetVisible.point, targetIndicator.direction, "transformed")
+            : null;
 
           return (
             <g key={`user-point-${index}`}>
@@ -1737,30 +1909,75 @@ function TemplateMarks({
                 data-viz-point-index={index + 1}
                 data-viz-x={formatNumber(point.x, 2)}
                 data-viz-y={formatNumber(point.y, 2)}
-                cx={sourceSvg.x}
-                cy={sourceSvg.y}
+                data-viz-clipped={String(sourceVisible.clipped)}
+                cx={sourceVisible.point.x}
+                cy={sourceVisible.point.y}
                 r="7"
                 fill={accent}
                 stroke={vizTheme.pointStroke}
                 strokeWidth="3"
-              />
+              >
+                {sourceIndicator ? (
+                  <title>{`Source point (${formatNumber(point.x, 2)}, ${formatNumber(point.y, 2)}) continues beyond the visible grid (${sourceIndicator.direction}).`}</title>
+                ) : null}
+              </circle>
+              {sourceIndicator && sourceIndicatorPosition ? (
+                <text
+                  data-viz-overlap-ok
+                  data-viz-name="off-grid source point indicator"
+                  data-viz-overflow-direction={sourceIndicator.direction}
+                  x={sourceIndicatorPosition.x}
+                  y={sourceIndicatorPosition.y}
+                  textAnchor={sourceIndicatorPosition.textAnchor}
+                  fill={accent}
+                  className="text-xs font-black"
+                >
+                  {`S${sourceIndicator.symbol}`}
+                </text>
+              ) : null}
               <circle
                 data-viz-mark
                 data-viz-name="transformed point"
                 data-viz-point-index={index + 1}
                 data-viz-x={formatNumber(transformedPoint.x, 2)}
                 data-viz-y={formatNumber(transformedPoint.y, 2)}
-                cx={targetSvg.x}
-                cy={targetSvg.y}
+                data-viz-clipped={String(targetVisible.clipped)}
+                cx={targetVisible.point.x}
+                cy={targetVisible.point.y}
                 r="7"
                 fill={gold}
                 stroke={vizTheme.pointStroke}
                 strokeWidth="3"
-              />
+              >
+                {targetIndicator ? (
+                  <title>{`Transformed point (${formatNumber(transformedPoint.x, 2)}, ${formatNumber(transformedPoint.y, 2)}) continues beyond the visible grid (${targetIndicator.direction}).`}</title>
+                ) : null}
+              </circle>
+              {targetIndicator && targetIndicatorPosition ? (
+                <text
+                  data-viz-overlap-ok
+                  data-viz-name="off-grid transformed point indicator"
+                  data-viz-overflow-direction={targetIndicator.direction}
+                  x={targetIndicatorPosition.x}
+                  y={targetIndicatorPosition.y}
+                  textAnchor={targetIndicatorPosition.textAnchor}
+                  fill={gold}
+                  className="text-xs font-black"
+                >
+                  {`T${targetIndicator.symbol}`}
+                </text>
+              ) : null}
             </g>
           );
         })}
-        <text x="82" y="292" fill={vizTheme.labelText} className="text-xs font-black">
+        <text
+          data-viz-mark
+          data-viz-name="coordinate transform summary"
+          x="82"
+          y={coordinateTransformFrame.summaryY}
+          fill={vizTheme.labelText}
+          className="text-xs font-black"
+        >
           {mode === 0
             ? `T(${state.dx}, ${state.dy})`
             : mode === 1
@@ -1825,9 +2042,20 @@ function TemplateMarks({
             y: configuredFunctionFrame.origin.y
           }));
     const graphFocus = templateId === "function-graph" ? (mode === 1 ? "vertex" : mode === 2 ? "roots" : "curve") : undefined;
+    const functionPlotClipId = `${surfaceId}-configured-function-plot-clip`;
 
     return (
       <>
+        <defs>
+          <clipPath id={functionPlotClipId}>
+            <rect
+              x={configuredFunctionFrame.origin.x + configuredFunctionFrame.xMin * configuredFunctionFrame.xScale}
+              y={configuredFunctionFrame.top}
+              width={(configuredFunctionFrame.xMax - configuredFunctionFrame.xMin) * configuredFunctionFrame.xScale}
+              height={configuredFunctionFrame.bottom - configuredFunctionFrame.top}
+            />
+          </clipPath>
+        </defs>
         <line data-viz-mark data-viz-name="x axis" x1="70" x2="570" y1="216" y2="216" stroke={vizTheme.axis} strokeWidth="4" />
         <line data-viz-mark data-viz-name="y axis" x1="320" x2="320" y1="70" y2="292" stroke={vizTheme.axis} strokeWidth="4" />
         <path
@@ -1843,6 +2071,7 @@ function TemplateMarks({
           data-viz-scale-parameter={formatNumber(parameters.scaleParameter, 6)}
           data-viz-vertical-shift={formatNumber(parameters.verticalShift, 6)}
           data-viz-formula={parameters.formula}
+          clipPath={`url(#${functionPlotClipId})`}
           d={graphPath(value, comparison, graphMode)}
           fill="none"
           stroke={accent}
@@ -1856,6 +2085,7 @@ function TemplateMarks({
           data-viz-scale-parameter={formatNumber(comparisonParameters.scaleParameter, 6)}
           data-viz-vertical-shift={formatNumber(comparisonParameters.verticalShift, 6)}
           data-viz-formula={comparisonParameters.formula}
+          clipPath={`url(#${functionPlotClipId})`}
           d={graphPath(comparison, value, comparisonMode)}
           fill="none"
           stroke={secondary}
@@ -1872,6 +2102,7 @@ function TemplateMarks({
           data-viz-function-mode={parameters.modeKey}
           data-viz-scale-parameter={formatNumber(parameters.scaleParameter, 6)}
           data-viz-vertical-shift={formatNumber(parameters.verticalShift, 6)}
+          clipPath={`url(#${functionPlotClipId})`}
           cx={samplePoint.x}
           cy={samplePoint.y}
           r="13"
@@ -2005,6 +2236,16 @@ function TemplateMarks({
     const rotatedLabel = formatComplexLabel(-imaginary, real);
     const activeLabel = mode === 1 ? conjugateLabel : mode === 2 ? rotatedLabel : complexLabel;
     const modulus = Math.hypot(real, imaginary) * scale;
+    const rotationAngleContract = modulus > 1e-9
+      ? buildMathAngleContract({
+          id: "configured-complex-plane-quarter-turn",
+          origin,
+          radius: 52,
+          startRay: { x: real, y: -imaginary },
+          endRay: { x: -imaginary, y: -real },
+          sweepRadians: Math.PI / 2
+        })
+      : null;
 
     return (
       <>
@@ -2043,7 +2284,9 @@ function TemplateMarks({
         ) : null}
         {mode === 2 ? (
           <>
-            <path data-viz-mark data-viz-name="rotation arc" data-viz-rotation-degrees="90" data-viz-source-real={formatNumber(real, 0)} data-viz-source-imaginary={formatNumber(imaginary, 0)} data-viz-target-real={formatNumber(-imaginary, 0)} data-viz-target-imaginary={formatNumber(real, 0)} d={`M ${origin.x + 52} ${origin.y} A 52 52 0 0 0 ${origin.x} ${origin.y - 52}`} fill="none" stroke={gold} strokeWidth="5" strokeLinecap="round" />
+            {rotationAngleContract ? (
+              <path data-diagram-angle-arc data-math-angle-contract={serializeMathAngleContract(rotationAngleContract)} data-viz-mark data-viz-name="rotation arc" data-viz-rotation-degrees="90" data-viz-source-real={formatNumber(real, 0)} data-viz-source-imaginary={formatNumber(imaginary, 0)} data-viz-target-real={formatNumber(-imaginary, 0)} data-viz-target-imaginary={formatNumber(real, 0)} d={svgAngleArcPath(rotationAngleContract)} fill="none" stroke={gold} strokeWidth="5" strokeLinecap="butt" />
+            ) : null}
             <line data-viz-mark data-viz-name="i times vector" data-viz-source-real={formatNumber(real, 0)} data-viz-source-imaginary={formatNumber(imaginary, 0)} data-viz-real={formatNumber(-imaginary, 0)} data-viz-imaginary={formatNumber(real, 0)} data-viz-target-real={formatNumber(-imaginary, 0)} data-viz-target-imaginary={formatNumber(real, 0)} data-viz-label={rotatedLabel} data-viz-scale={formatNumber(scale, 6)} x1={origin.x} y1={origin.y} x2={rotated.x} y2={rotated.y} stroke={gold} strokeWidth="7" strokeLinecap="round" />
             <circle data-viz-mark data-viz-name="i times point" data-viz-source-real={formatNumber(real, 0)} data-viz-source-imaginary={formatNumber(imaginary, 0)} data-viz-real={formatNumber(-imaginary, 0)} data-viz-imaginary={formatNumber(real, 0)} data-viz-target-real={formatNumber(-imaginary, 0)} data-viz-target-imaginary={formatNumber(real, 0)} data-viz-label={rotatedLabel} data-viz-scale={formatNumber(scale, 6)} cx={rotated.x} cy={rotated.y} r="12" fill={gold} stroke={vizTheme.pointStroke} strokeWidth="4" />
           </>
@@ -2646,7 +2889,13 @@ function Slider({
   );
 }
 
-function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
+function ConfiguredVisualizationLabSurface({
+  controlFooterAction,
+  lab = null,
+  labId,
+  threeDPresentation = "authoring",
+  topicId
+}: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();
   const vizTheme = useVisualizationTheme();
   const [value, setValue] = useState(5);
@@ -3381,6 +3630,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                 fallback={svgSurface}
                 label={surfaceLabel}
                 onCanvasReady={() => setThreeDCanvasReady(true)}
+                presentation={threeDPresentation}
                 premiumLaunch={threeDRenderPlan.premiumLaunch}
                 regionalPriority={threeDRenderPlan.regionalPriority}
                 runtime={threeDRenderPlan.runtime}
@@ -3531,7 +3781,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
 }
 
 export function ConfiguredVisualizationLabDirect(props: ConfiguredVisualizationLabProps) {
-  return <ConfiguredVisualizationLabSurface {...props} />;
+  return <ConfiguredVisualizationLabSurface {...props} threeDPresentation="learner" />;
 }
 
 export function ConfiguredVisualizationLab({ controlFooterAction, lab: providedLab = null, labId, topicId }: ConfiguredVisualizationLabProps) {

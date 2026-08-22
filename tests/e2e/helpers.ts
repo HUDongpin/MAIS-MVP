@@ -141,6 +141,15 @@ export async function openPracticeFiltersPanel(page: Page) {
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
 }
 
+export async function choosePracticeModeIfVisible(page: Page, mode: "guided" | "explore") {
+  const chooser = page.getByRole("group", { name: /Choose a practice mode/i });
+  if (!(await chooser.isVisible().catch(() => false))) return false;
+
+  const buttonName = mode === "guided" ? /Choose Unit Exercise/i : /Choose Free Exploration/i;
+  await chooser.getByRole("button", { name: buttonName }).click();
+  return true;
+}
+
 export function registrationRoleRadio(page: Page, role: "parent" | "student" | "teacher") {
   return page.getByRole("radio", { name: new RegExp(`^\\s*(?:✓\\s*)?${role}`, "i") }).first();
 }
@@ -152,8 +161,22 @@ export function loginSubmitButton(page: Page) {
 export async function clickLoginSubmit(page: Page) {
   const submit = loginSubmitButton(page);
   await expect(submit).toBeEnabled({ timeout: 15_000 });
+  // The login form deliberately ignores submits until client hydration finishes.
+  // On slower CI runners the button can become actionable at the browser layer
+  // before the React submit handler is ready, leaving the page silently on /login.
+  await expect(submit).not.toHaveText(
+    /Preparing secure login|準備安全登入|准备安全登录/i,
+    { timeout: 15_000 }
+  );
   await submit.click();
 }
+
+// A real form login includes the credential POST, client session application,
+// router replacement, and the destination render. On the two-core CI runner
+// that sequence has crossed the default 15s expect budget while still
+// completing successfully; keep the destination assertion strict but give the
+// full sequence enough room. Local runs retain a smaller feedback budget.
+const LOGIN_NAVIGATION_TIMEOUT_MS = process.env.CI ? 60_000 : 30_000;
 
 async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_PRIME_MIA") {
   const curriculumStep = page.getByRole("button", { name: /Curriculum/i }).first();
@@ -170,7 +193,7 @@ export async function loginAs(page: Page, username: string, password: string, ex
   await page.getByLabel(/email or username|email or user name|user name/i).fill(username);
   await page.getByLabel(/^password$/i).fill(password);
   await clickLoginSubmit(page);
-  await expect(page).toHaveURL(expectedPath, { timeout: 15000 });
+  await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
 }
 
 export async function loginAsDemoStudent(page: Page) {

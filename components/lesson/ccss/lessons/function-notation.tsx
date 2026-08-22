@@ -23,7 +23,7 @@ export default function Lesson() {
 
       <Figure caption="Feed x into the machine; out comes f(x) = 2x + 1. Each input has one output.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="mx-auto flex w-max max-w-none self-start items-center gap-4">
             <div className="flex flex-col items-center">
               <span className="text-xs uppercase text-[var(--ink-faint)]">input</span>
               <div className="grid h-14 w-14 place-items-center rounded-xl border-2 border-[var(--ink-soft)] text-2xl font-black">{x}</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useReducer, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState, type Dispatch, type KeyboardEvent } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import {
@@ -12,7 +12,7 @@ import {
   type CalculatorAngleMode,
   type CalculatorMode
 } from "@/lib/calculatorEngine";
-import { decimalToFraction, evaluateExpression, type Fraction } from "@/lib/expressionCalculator";
+import { decimalToFraction, evaluateExpressionTokens, type Fraction } from "@/lib/expressionCalculator";
 import { computeRegression, computeStatistics, type DataPoint } from "@/lib/statistics";
 import { cn } from "@/lib/utils";
 
@@ -79,7 +79,9 @@ function BasicCalculatorBody() {
   return (
     <>
       <div
+        data-testid="calculator-display"
         aria-live="polite"
+        aria-atomic="true"
         className="mb-3 overflow-x-auto rounded-2xl bg-slate-950 px-4 py-3 text-right text-3xl font-black tabular-nums text-white"
       >
         {state.display}
@@ -180,6 +182,9 @@ const expressionKeypadKeys: ExpressionKey[] = [
 
 type ExpressionCalculatorState = {
   tokens: string[];
+  // Calculation tokens retain the full numeric result while display tokens are
+  // rounded for the screen. This preserves calculator guard digits in chains.
+  evaluationTokens: string[];
   justEvaluated: boolean;
   errored: boolean;
   memory: number;
@@ -201,6 +206,7 @@ type ExpressionCalculatorAction =
 
 const initialExpressionState: ExpressionCalculatorState = {
   tokens: [],
+  evaluationTokens: [],
   justEvaluated: false,
   errored: false,
   memory: 0,
@@ -211,10 +217,50 @@ const initialExpressionState: ExpressionCalculatorState = {
 // Append a value/operator token with the "after =" rules (a value starts fresh,
 // an operator continues from the result — Casio-style "Ans"). Editing clears any
 // shown fraction form.
-function pushToken(state: ExpressionCalculatorState, token: string, isValue: boolean): ExpressionCalculatorState {
-  const base = state.errored ? [] : state.tokens;
-  const next = state.justEvaluated && isValue ? [token] : [...base, token];
-  return { ...state, tokens: next, justEvaluated: false, errored: false, fraction: null, displayForm: "decimal" };
+function pushToken(
+  state: ExpressionCalculatorState,
+  token: string,
+  isValue: boolean,
+  evaluationToken = token
+): ExpressionCalculatorState {
+  const displayBase = state.errored ? [] : state.tokens;
+  const evaluationBase = state.errored ? [] : state.evaluationTokens;
+  const startsFresh = state.justEvaluated && isValue;
+  return {
+    ...state,
+    tokens: startsFresh ? [token] : [...displayBase, token],
+    evaluationTokens: startsFresh ? [evaluationToken] : [...evaluationBase, evaluationToken],
+    justEvaluated: false,
+    errored: false,
+    fraction: null,
+    displayForm: "decimal"
+  };
+}
+
+const expressionEntryBoundaries = new Set(["+", "−", "×", "÷", "^", "nCr", "nPr", "⁄", "⁀"]);
+
+// Locate the start of the current operand without splitting a balanced group.
+// For `2+(3)` or `2+sin(30)`, MR replaces the whole final operand and leaves
+// `2+` intact. For an unfinished `2+sin(3`, it replaces only the active numeric
+// entry and keeps the open function so the learner can continue editing it.
+function currentExpressionEntryStart(tokens: string[]): number {
+  let parenthesisDepth = 0;
+  for (let index = tokens.length - 1; index >= 0; index -= 1) {
+    const token = tokens[index];
+    if (token === ")") {
+      parenthesisDepth += 1;
+      continue;
+    }
+    if (token === "(" || token.endsWith("(")) {
+      if (parenthesisDepth > 0) {
+        parenthesisDepth -= 1;
+        continue;
+      }
+      return index + 1;
+    }
+    if (parenthesisDepth === 0 && expressionEntryBoundaries.has(token)) return index + 1;
+  }
+  return 0;
 }
 
 // Shared shape for a shown result (from "=" or M+/M−): the decimal string plus its
@@ -228,6 +274,7 @@ function resolvedState(
   return {
     ...state,
     tokens: [formatCalculatorNumber(value)],
+    evaluationTokens: [String(value)],
     justEvaluated: true,
     errored: false,
     fraction,
@@ -247,22 +294,53 @@ function expressionReducer(
     case "clear":
       return { ...initialExpressionState, memory: state.memory };
     case "backspace":
-      return { ...state, tokens: state.tokens.slice(0, -1), justEvaluated: false, errored: false, fraction: null, displayForm: "decimal" };
+      return {
+        ...state,
+        tokens: state.tokens.slice(0, -1),
+        evaluationTokens: state.evaluationTokens.slice(0, -1),
+        justEvaluated: false,
+        errored: false,
+        fraction: null,
+        displayForm: "decimal"
+      };
     case "push":
       return pushToken(state, action.token, action.isValue);
     case "evaluate": {
-      const value = evaluateExpression(state.tokens.join(""), action.angleMode);
+      const value = state.evaluationTokens.length === 0
+        ? 0
+        : evaluateExpressionTokens(state.evaluationTokens, action.angleMode);
       if (value === null) return { ...state, errored: true };
       return resolvedState(state, value);
     }
     case "memoryClear":
       return { ...state, memory: 0 };
     case "memoryRecall":
-      return pushToken(state, formatCalculatorNumber(state.memory), true);
+      {
+        const displayValue = formatCalculatorNumber(state.memory);
+        const evaluationValue = String(state.memory);
+        if (state.errored || state.justEvaluated || state.tokens.length === 0) {
+          return pushToken(state, displayValue, true, evaluationValue);
+        }
+
+        // MR replaces one complete current operand. The balanced-group-aware
+        // boundary prevents a closed parenthesis/function from becoming `(...5`.
+        const entryStart = currentExpressionEntryStart(state.tokens);
+        return {
+          ...state,
+          tokens: [...state.tokens.slice(0, entryStart), displayValue],
+          evaluationTokens: [...state.evaluationTokens.slice(0, entryStart), evaluationValue],
+          justEvaluated: false,
+          errored: false,
+          fraction: null,
+          displayForm: "decimal"
+        };
+      }
     case "memoryStore": {
       // M+ / M− evaluate the current expression, show the result, and add/subtract
       // it from memory.
-      const value = evaluateExpression(state.tokens.join(""), action.angleMode);
+      const value = state.evaluationTokens.length === 0
+        ? 0
+        : evaluateExpressionTokens(state.evaluationTokens, action.angleMode);
       if (value === null) return { ...state, errored: true };
       return resolvedState(state, value, { memory: state.memory + action.sign * value });
     }
@@ -282,16 +360,28 @@ function expressionReducer(
 // Renders a rational result as a stacked fraction — improper (7/3) or, when
 // `mixed`, as a whole number beside a proper stacked fraction (2 1/3).
 function FractionResult({ fraction, mixed }: { fraction: Fraction; mixed: boolean }) {
+  const { t } = useSettings();
   const negative = fraction.numerator < 0;
   const absNumerator = Math.abs(fraction.numerator);
   const denominator = fraction.denominator;
   const whole = mixed ? Math.floor(absNumerator / denominator) : 0;
   const partNumerator = mixed ? absNumerator % denominator : absNumerator;
+  const ariaLabel = mixed
+    ? t({
+        en: `${negative ? "negative " : ""}${whole} and ${partNumerator} over ${denominator}`,
+        zh: `${negative ? "負" : ""}${whole} 又 ${denominator} 分之 ${partNumerator}`,
+        zhHans: `${negative ? "负" : ""}${whole} 又 ${denominator} 分之 ${partNumerator}`
+      })
+    : t({
+        en: `${negative ? "negative " : ""}${absNumerator} over ${denominator}`,
+        zh: `${negative ? "負" : ""}${denominator} 分之 ${absNumerator}`,
+        zhHans: `${negative ? "负" : ""}${denominator} 分之 ${absNumerator}`
+      });
   return (
-    <span className="inline-flex items-center gap-1 align-middle">
-      {negative ? <span>−</span> : null}
-      {mixed && whole !== 0 ? <span className="mr-1">{whole}</span> : null}
-      <span className="inline-flex flex-col items-center text-xl leading-none">
+    <span role="math" aria-label={ariaLabel} className="inline-flex items-center gap-1 align-middle">
+      {negative ? <span aria-hidden="true">−</span> : null}
+      {mixed && whole !== 0 ? <span aria-hidden="true" className="mr-1">{whole}</span> : null}
+      <span aria-hidden="true" className="inline-flex flex-col items-center text-xl leading-none">
         <span className="px-1">{partNumerator}</span>
         <span className="my-1 h-px w-full bg-white" />
         <span className="px-1">{denominator}</span>
@@ -300,9 +390,16 @@ function FractionResult({ fraction, mixed }: { fraction: Fraction; mixed: boolea
   );
 }
 
-function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMode }) {
+function ScientificCalculatorBody({
+  angleMode,
+  state,
+  dispatch
+}: {
+  angleMode: CalculatorAngleMode;
+  state: ExpressionCalculatorState;
+  dispatch: Dispatch<ExpressionCalculatorAction>;
+}) {
   const { t } = useSettings();
-  const [state, dispatch] = useReducer(expressionReducer, initialExpressionState);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Focus the panel when it opens so the physical keyboard drives it right away.
@@ -315,6 +412,7 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
   const handleKeyboard = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     const key = event.key;
+    if ((key === "Enter" || key === " ") && (event.target as Element).closest("button")) return;
     if (/^[0-9]$/.test(key)) dispatch({ type: "push", token: key, isValue: true });
     else if (key === ".") dispatch({ type: "push", token: ".", isValue: true });
     else if (key === "+") dispatch({ type: "push", token: "+", isValue: false });
@@ -392,7 +490,9 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
           <span className="absolute left-3 top-2 text-[10px] font-black uppercase tracking-wide text-violet-300">M</span>
         ) : null}
         <div
+          data-testid="calculator-display"
           aria-live="polite"
+          aria-atomic="true"
           className="flex min-h-14 items-center justify-end overflow-x-auto whitespace-nowrap rounded-2xl bg-slate-950 px-4 py-3 text-right text-2xl font-black tabular-nums text-white"
         >
           {state.errored
@@ -405,7 +505,7 @@ function ScientificCalculatorBody({ angleMode }: { angleMode: CalculatorAngleMod
         </div>
       </div>
       <div className="mb-2 grid grid-cols-5 gap-1.5">
-        {expressionFunctionKeys.map((key) => renderKey(key, "h-9", "text-xs"))}
+        {expressionFunctionKeys.map((key) => renderKey(key, "h-11", "text-xs"))}
       </div>
       <div className="grid grid-cols-4 gap-2">
         {expressionKeypadKeys.map((key) => renderKey(key, "h-11", "text-lg"))}
@@ -480,10 +580,14 @@ function statisticsReducer(state: StatisticsState, action: StatisticsAction): St
     }
     case "deleteLast":
       if (state.variant === "single") return { ...state, values: state.values.slice(0, -1) };
+      if (state.current !== "" || state.pendingX !== null) {
+        return { ...state, entering: "x", pendingX: null, current: "" };
+      }
       return { ...state, pairs: state.pairs.slice(0, -1), entering: "x", pendingX: null, current: "" };
     case "clear":
       return { ...initialStatisticsState, variant: state.variant };
     case "setVariant":
+      if (action.variant === state.variant) return state;
       return { ...initialStatisticsState, variant: action.variant };
   }
 }
@@ -554,7 +658,7 @@ function StatisticsCalculatorBody() {
               onClick={() => dispatch({ type: "setVariant", variant: value })}
               aria-pressed={state.variant === value}
               className={cn(
-                "focus-ring rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-wide",
+                "focus-ring flex min-h-11 min-w-11 items-center justify-center rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-wide",
                 state.variant === value ? "bg-violet-600 text-white" : "text-slate-600 dark:text-slate-300"
               )}
             >
@@ -564,7 +668,14 @@ function StatisticsCalculatorBody() {
         </div>
       </div>
       <div className="mb-2 rounded-2xl bg-slate-950 px-4 py-3 text-white">
-        <div className="overflow-x-auto whitespace-nowrap text-right text-2xl font-black tabular-nums">{primaryDisplay}</div>
+        <div
+          data-testid="calculator-display"
+          aria-live="polite"
+          aria-atomic="true"
+          className="overflow-x-auto whitespace-nowrap text-right text-2xl font-black tabular-nums"
+        >
+          {primaryDisplay}
+        </div>
         <div className="mt-1 truncate text-right text-[11px] font-bold text-slate-400">{dataListText}</div>
       </div>
       <div className="mb-2 grid grid-cols-2 gap-1.5 text-xs font-bold">
@@ -623,23 +734,30 @@ export function CalculatorLauncher() {
     defaultCalculatorMode(currentUser?.role === "student" ? currentUser.grade : undefined)
   );
   const [angleMode, setAngleMode] = useState<CalculatorAngleMode>("deg");
+  // Keep scientific memory/state at launcher lifetime so mode switches and the
+  // dialog's close/reopen cycle do not silently erase memory.
+  const [expressionState, expressionDispatch] = useReducer(expressionReducer, initialExpressionState);
 
   if (!loaded || accommodations.calculatorPolicy !== "allowed") return null;
 
   const scientific = mode === "scientific";
 
   return (
-    <div className="fixed bottom-4 left-4 z-40 print:hidden">
+    <div className="fixed bottom-4 left-4 z-[60] print:hidden">
       {open ? (
         <div
           role="dialog"
           aria-label={t({ en: "Calculator", zh: "計算機", zhHans: "计算器" })}
           className={cn(
             "mb-3 max-h-[80vh] overflow-y-auto rounded-3xl border border-slate-200/80 bg-white/95 p-3 shadow-[0_22px_46px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-slate-900/95",
-            mode === "stats" ? "w-72" : scientific ? "w-80" : "w-64"
+            mode === "stats"
+              ? "w-[calc(100vw-2rem)] max-w-72"
+              : scientific
+                ? "w-[calc(100vw-2rem)] max-w-80"
+                : "w-[calc(100vw-2rem)] max-w-72 sm:max-w-64"
           )}
         >
-          <div className="flex items-center justify-between gap-2 px-1 pb-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-2">
             <span className="text-xs font-black uppercase tracking-[0.18em] text-violet-600 dark:text-violet-300">
               {t({ en: "Calculator", zh: "計算機", zhHans: "计算器" })}
             </span>
@@ -648,8 +766,19 @@ export function CalculatorLauncher() {
                 <button
                   type="button"
                   onClick={() => setAngleMode((current) => (current === "deg" ? "rad" : "deg"))}
-                  aria-label={t({ en: "Toggle degrees or radians", zh: "切換角度或弧度", zhHans: "切换角度或弧度" })}
-                  className="focus-ring rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-black uppercase text-slate-700 dark:bg-white/10 dark:text-slate-100"
+                  aria-label={t(angleMode === "deg"
+                    ? {
+                        en: "Angle mode degrees; switch to radians",
+                        zh: "目前為角度模式；切換至弧度",
+                        zhHans: "当前为角度模式；切换至弧度"
+                      }
+                    : {
+                        en: "Angle mode radians; switch to degrees",
+                        zh: "目前為弧度模式；切換至角度",
+                        zhHans: "当前为弧度模式；切换至角度"
+                      })}
+                  aria-pressed={angleMode === "rad"}
+                  className="focus-ring flex min-h-11 min-w-11 items-center justify-center rounded-full bg-slate-200 px-2 py-1 text-[10px] font-black uppercase text-slate-700 dark:bg-white/10 dark:text-slate-100"
                 >
                   {angleMode === "deg" ? "DEG" : "RAD"}
                 </button>
@@ -666,7 +795,7 @@ export function CalculatorLauncher() {
                     onClick={() => setMode(value)}
                     aria-pressed={mode === value}
                     className={cn(
-                      "focus-ring rounded-full px-2 py-0.5 text-[10px] font-black uppercase tracking-wide",
+                      "focus-ring flex min-h-11 min-w-11 items-center justify-center rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-wide",
                       mode === value ? "bg-violet-600 text-white" : "text-slate-600 dark:text-slate-300"
                     )}
                   >
@@ -679,7 +808,11 @@ export function CalculatorLauncher() {
           {mode === "stats" ? (
             <StatisticsCalculatorBody />
           ) : scientific ? (
-            <ScientificCalculatorBody angleMode={angleMode} />
+            <ScientificCalculatorBody
+              angleMode={angleMode}
+              state={expressionState}
+              dispatch={expressionDispatch}
+            />
           ) : (
             <BasicCalculatorBody />
           )}

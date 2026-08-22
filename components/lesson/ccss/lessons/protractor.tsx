@@ -34,7 +34,7 @@ export default function Lesson() {
 
       <Figure caption="Read the scale where the orange ray crosses it. Slide to change the angle.">
         <div className="flex flex-col items-center gap-6">
-          <svg width="320" height="180" viewBox="0 0 320 180" role="img" aria-label={`angle of ${deg} degrees`}>
+          <svg className="mx-auto max-w-none self-start" width="320" height="180" viewBox="0 0 320 180" role="img" aria-label={`angle of ${deg} degrees`}>
             {/* protractor body */}
             <path d={`M ${CX - R} ${CY} A ${R} ${R} 0 0 1 ${CX + R} ${CY} Z`} fill="color-mix(in oklab, var(--band-upper) 8%, var(--surface))" stroke="var(--line)" strokeWidth={1.5} />
             {/* ticks */}
@@ -61,9 +61,9 @@ export default function Lesson() {
             <div className="mt-1 text-[15px] font-semibold text-[var(--ink-soft)]">That is {angleType(deg)}.</div>
           </div>
 
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex w-64 max-w-full flex-col items-center gap-1">
             <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">Angle: {deg}°</span>
-            <input type="range" min={0} max={180} step={5} value={deg} onChange={(e) => setDeg(Number(e.target.value))} className="w-64 accent-[var(--band-upper)]" aria-label="angle degrees" />
+            <input type="range" min={0} max={180} step={5} value={deg} onChange={(e) => setDeg(Number(e.target.value))} className="w-full accent-[var(--band-upper)]" aria-label="angle degrees" />
           </div>
         </div>
       </Figure>

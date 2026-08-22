@@ -90,6 +90,7 @@
     "test:analytics": "node scripts/run-analytics-tests.mjs",
     "test:tutor-transcript": "node scripts/run-tutor-transcript-tests.mjs",
     "test:accommodations": "node scripts/run-accommodations-tests.mjs",
+    "test:parent-console": "node scripts/run-parent-console-tests.mjs",
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
     "test:tutor-moderation": "node scripts/run-tutor-moderation-tests.mjs",
     "test:components": "node scripts/run-component-tests.mjs",
@@ -116,7 +117,7 @@
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "12.23.12",
     "katex": "^0.16.45",
-    "next": "15.5.20",
+    "next": "15.5.23",
     "phaser": "4.1.0",
     "postgres": "^3.4.9",
     "pptxgenjs": "^4.0.1",
@@ -129,7 +130,7 @@
   "overrides": {
     "motion-dom": "12.23.12",
     "motion-utils": "12.23.6",
-    "postcss": "8.5.16"
+    "postcss": "8.5.26"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
@@ -138,7 +139,7 @@
     "@types/react-dom": "^19.0.4",
     "@types/ws": "^8.18.1",
     "autoprefixer": "^10.4.21",
-    "postcss": "8.5.16",
+    "postcss": "8.5.26",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.22.4",
     "typescript": "5.8.3",

@@ -940,7 +940,10 @@ export function TeacherOperationsView({
   async function createNotice(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
-    const form = new FormData(event.currentTarget);
+    // React clears event.currentTarget once the synchronous phase of the
+    // handler returns, so keep the element to reset it after the await.
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const response = await fetch("/api/teacher/notices", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -957,7 +960,7 @@ export function TeacherOperationsView({
     setMessage(response.ok ? t({ en: "Notice draft created.", zh: "通知草稿已建立。" }) : t({ en: "Could not create notice.", zh: "暫時未能建立通知。" }));
     if (response.ok && payload?.notice) {
       setCreatedNotice(payload.notice);
-      event.currentTarget.reset();
+      formElement.reset();
     }
     router.refresh();
   }
@@ -1038,21 +1041,23 @@ export function TeacherOperationsView({
   async function addCollaborator(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!selectedClass) return;
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const response = await fetch(`/api/teacher/classes/${encodeURIComponent(selectedClass.id)}/collaborators`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teacherUsername: form.get("teacherUsername"), role: form.get("role") })
     });
     setMessage(response.ok ? t({ en: "Collaborator saved.", zh: "協作教師已儲存。" }) : t({ en: "Could not save collaborator.", zh: "暫時未能儲存協作教師。" }));
-    if (response.ok) event.currentTarget.reset();
+    if (response.ok) formElement.reset();
     router.refresh();
   }
 
   async function createPrepTeam(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMessage("");
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const response = await fetch("/api/teacher/prep-teams", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1065,7 +1070,7 @@ export function TeacherOperationsView({
       setSelectedPrepTeamId(payload.team.id);
       setCreatedPrepTeamId(payload.team.id);
       setCreatedPrepShareId("");
-      event.currentTarget.reset();
+      formElement.reset();
     }
     router.refresh();
   }
@@ -1074,7 +1079,8 @@ export function TeacherOperationsView({
     event.preventDefault();
     if (!selectedPrepTeam) return;
     setMessage("");
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const response = await fetch(`/api/teacher/prep-teams/${encodeURIComponent(selectedPrepTeam.id)}/shares`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1091,7 +1097,7 @@ export function TeacherOperationsView({
       setSelectedPrepTeamId(payload.team.id);
       setCreatedPrepTeamId(payload.team.id);
       setCreatedPrepShareId(payload.share?.id ?? "");
-      event.currentTarget.reset();
+      formElement.reset();
     }
     router.refresh();
   }
@@ -1099,7 +1105,8 @@ export function TeacherOperationsView({
   async function createArchive(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!selectedClass) return;
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const response = await fetch(`/api/teacher/classes/${encodeURIComponent(selectedClass.id)}/term-archives`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1109,7 +1116,7 @@ export function TeacherOperationsView({
     setMessage(response.ok ? t({ en: "Archive snapshot created.", zh: "學期快照已建立。" }) : t({ en: "Could not create archive.", zh: "暫時未能建立歸檔。" }));
     if (response.ok && payload?.archive) {
       setCreatedArchive(payload.archive);
-      event.currentTarget.reset();
+      formElement.reset();
     }
     router.refresh();
   }

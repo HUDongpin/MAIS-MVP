@@ -63,6 +63,29 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run AI Tutor authentication-admission gates
+        run: |
+          npx tsx --tsconfig tsconfig.json --test \
+            lib/server/aiTutorAdmission.test.ts \
+            lib/server/aiTutorResolveAdmissionContract.test.ts \
+            lib/server/userStore/authAdmissionPersistence.test.ts \
+            lib/server/userStore/authStore.test.ts \
+            lib/server/userStore/aiTutorAdmissionConnectionPrimer.test.ts \
+            lib/server/userStore/aiTutorJournalPersistence.test.ts \
+            lib/server/userStore/aiTutorPolicyAdmissionPersistence.test.ts \
+            lib/server/userStoreNovaPostgresAdmission.test.ts \
+            lib/server/userStoreAiGovernancePersistence.test.ts \
+            lib/server/userStoreAuthSessionPersistence.test.ts \
+            lib/server/userStoreAuth.test.ts
+
+      - name: Run Postgres schema readiness and Singapore region gates
+        run: |
+          npx tsx --tsconfig tsconfig.json --test lib/server/userStore/postgresSchemaReadiness.test.ts
+          node --test scripts/postgres-schema-fast-path.test.mjs scripts/vercel-region-config.test.mjs scripts/verify-vercel-postgres-region.test.mjs
+
+      - name: Test AI Tutor Vercel bypass-cookie smoke harness
+        run: node --test scripts/ai-tutor-live-latency-smoke.test.mjs
+
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
 
@@ -98,6 +121,9 @@ jobs:
       - name: Run accommodations gate (IEP/504 resolver + student-experience wiring)
         run: npm run test:accommodations
 
+      - name: Run parent console persistence gate (notice acknowledgement receipts)
+        run: npm run test:parent-console
+
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 
@@ -132,6 +158,44 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  postgres-integration:
+    # Runs the actual migration and compatibility SQL against PostgreSQL 16.
+    # Source-regex tests remain useful, but cannot prove transaction, trigger,
+    # rollback, or concurrent-bootstrap behavior.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: mais_nova_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mais_nova_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run real PostgreSQL 16 Nova migration and rollback gates
+        env:
+          MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
+        run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
 
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).

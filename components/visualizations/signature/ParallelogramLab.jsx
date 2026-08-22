@@ -94,6 +94,18 @@ const GRID = 0.5;
 const BOUND = 9.5; // free corners A, B, C stay within ±BOUND
 const DBOUND = 9.5; // the forced corner D must also stay within ±DBOUND
 
+function plotFrame(width, height) {
+  const inset = Math.min(12, width / 4, height / 4);
+  return {
+    bottom: height - inset,
+    height: Math.max(1, height - inset * 2),
+    left: inset,
+    right: width - inset,
+    top: inset,
+    width: Math.max(1, width - inset * 2),
+  };
+}
+
 /* The forced fourth corner. In a parallelogram ABCD the diagonals share a
    midpoint, so A + C = B + D, giving D = A + C − B. This keeps AB ∥ DC and
    AD ∥ BC with AB = DC and AD = BC — a perfect parallelogram, always. */
@@ -494,8 +506,18 @@ export default function ParallelogramLab() {
     const ctx = canvas.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const sx = (x) => ((x - WORLD.xmin) / (WORLD.xmax - WORLD.xmin)) * W;
-    const sy = (y) => ((WORLD.ymax - y) / (WORLD.ymax - WORLD.ymin)) * H;
+    // Reserve a physical paint gutter around the mathematical window. At the
+    // 320 px host viewport the Canvas is only ~166 px wide, so vertex halos,
+    // angle strokes, and labels need real pixels beyond the world boundary.
+    const frame = plotFrame(W, H);
+    const plotLeft = frame.left;
+    const plotTop = frame.top;
+    const plotRight = frame.right;
+    const plotBottom = frame.bottom;
+    const plotWidth = frame.width;
+    const plotHeight = frame.height;
+    const sx = (x) => plotLeft + ((x - WORLD.xmin) / (WORLD.xmax - WORLD.xmin)) * plotWidth;
+    const sy = (y) => plotTop + ((WORLD.ymax - y) / (WORLD.ymax - WORLD.ymin)) * plotHeight;
 
     const S = sceneRef.current;
     const g = S.geo;
@@ -511,13 +533,13 @@ export default function ParallelogramLab() {
     ctx.beginPath();
     for (let gx = Math.ceil(WORLD.xmin); gx <= WORLD.xmax; gx++) {
       const X = Math.round(sx(gx)) + 0.5;
-      ctx.moveTo(X, 0);
-      ctx.lineTo(X, H);
+      ctx.moveTo(X, plotTop);
+      ctx.lineTo(X, plotBottom);
     }
     for (let gy = Math.ceil(WORLD.ymin); gy <= WORLD.ymax; gy++) {
       const Y = Math.round(sy(gy)) + 0.5;
-      ctx.moveTo(0, Y);
-      ctx.lineTo(W, Y);
+      ctx.moveTo(plotLeft, Y);
+      ctx.lineTo(plotRight, Y);
     }
     ctx.stroke();
 
@@ -525,10 +547,11 @@ export default function ParallelogramLab() {
     ctx.lineWidth = 1.6;
     ctx.strokeStyle = 'rgba(28,43,58,0.55)';
     ctx.beginPath();
-    ctx.moveTo(0, Math.round(sy(0)) + 0.5);
-    ctx.lineTo(W, Math.round(sy(0)) + 0.5);
-    ctx.moveTo(Math.round(sx(0)) + 0.5, 0);
-    ctx.lineTo(Math.round(sx(0)) + 0.5, H);
+    const axisInset = ctx.lineWidth / 2;
+    ctx.moveTo(plotLeft + axisInset, Math.round(sy(0)) + 0.5);
+    ctx.lineTo(plotRight - axisInset, Math.round(sy(0)) + 0.5);
+    ctx.moveTo(Math.round(sx(0)) + 0.5, plotTop + axisInset);
+    ctx.lineTo(Math.round(sx(0)) + 0.5, plotBottom - axisInset);
     ctx.stroke();
 
     /* tick labels (every 2 units) */
@@ -554,11 +577,15 @@ export default function ParallelogramLab() {
       ctx.textAlign = align;
       ctx.textBaseline = 'middle';
       const tw = ctx.measureText(text).width;
-      const bx = align === 'center' ? X - tw / 2 - 3 : align === 'left' ? X - 3 : X - tw - 3;
+      const desiredBoxX = align === 'center' ? X - tw / 2 - 3 : align === 'left' ? X - 3 : X - tw - 3;
+      const boxWidth = Math.min(Math.max(1, W - 2), tw + 6);
+      const bx = Math.max(1, Math.min(W - boxWidth - 1, desiredBoxX));
+      const safeY = Math.max(9, Math.min(H - 9, Y));
       ctx.fillStyle = 'rgba(251,251,248,0.9)';
-      ctx.fillRect(bx, Y - 8, tw + 6, 16);
+      ctx.fillRect(bx, safeY - 8, boxWidth, 16);
       ctx.fillStyle = color;
-      ctx.fillText(text, X, Y);
+      ctx.textAlign = 'left';
+      ctx.fillText(text, bx + 3, safeY, Math.max(1, W - bx - 4));
       ctx.restore();
     };
 
@@ -598,6 +625,9 @@ export default function ParallelogramLab() {
       ctx.lineWidth = 1;
       ctx.setLineDash([3, 4]);
       const ext = 1.6;
+      ctx.beginPath();
+      ctx.rect(plotLeft, plotTop, plotWidth, plotHeight);
+      ctx.clip();
       ctx.beginPath();
       ctx.moveTo(sx(V.A.x - ux * ext), sy(V.A.y - uy * ext));
       ctx.lineTo(sx(V.B.x + ux * ext), sy(V.B.y + uy * ext));
@@ -862,7 +892,12 @@ export default function ParallelogramLab() {
       ctx.fillStyle = '#1C2B3A';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(letter, X + ox * 20, Y - oy * 20);
+      const desiredX = X + ox * 20;
+      const desiredY = Y - oy * 20;
+      const labelWidth = ctx.measureText(letter).width;
+      const safeX = Math.max(4 + labelWidth / 2, Math.min(W - 4 - labelWidth / 2, desiredX));
+      const safeY = Math.max(12, Math.min(H - 12, desiredY));
+      ctx.fillText(letter, safeX, safeY);
       ctx.restore();
     };
     drawFree(V.A, 'A', 'A');
@@ -1025,9 +1060,10 @@ export default function ParallelogramLab() {
     const rect = stageRef.current.getBoundingClientRect();
     const cssX = e.clientX - rect.left;
     const cssY = e.clientY - rect.top;
+    const frame = plotFrame(rect.width, rect.height);
     return {
-      x: WORLD.xmin + (cssX / rect.width) * (WORLD.xmax - WORLD.xmin),
-      y: WORLD.ymax - (cssY / rect.height) * (WORLD.ymax - WORLD.ymin),
+      x: WORLD.xmin + ((cssX - frame.left) / frame.width) * (WORLD.xmax - WORLD.xmin),
+      y: WORLD.ymax - ((cssY - frame.top) / frame.height) * (WORLD.ymax - WORLD.ymin),
     };
   };
   const snap = (p) => ({

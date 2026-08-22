@@ -32,7 +32,7 @@ export default function Lesson() {
 
       <Figure caption="θ and its reflection π − θ share the same sine but opposite cosine. Symmetry gives the signs.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={260} height={260} viewBox="0 0 260 260" role="img" aria-label="unit circle symmetry">
+          <svg className="mx-auto h-auto max-w-full" width={260} height={260} viewBox="0 0 260 260" role="img" aria-label="unit circle symmetry">
             <circle cx={CX} cy={CY} r={RAD} fill="none" stroke="var(--line)" strokeWidth={2} />
             <line x1={CX - RAD - 15} y1={CY} x2={CX + RAD + 15} y2={CY} stroke="var(--ink-soft)" strokeWidth={1.5} />
             <line x1={CX} y1={CY - RAD - 15} x2={CX} y2={CY + RAD + 15} stroke="var(--ink-soft)" strokeWidth={1.5} />

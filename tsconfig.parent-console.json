@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": ".tmp/parent-console-tests"
+  },
+  "files": [
+    "lib/server/authRouteGuards.test.ts",
+    "lib/server/contentSafetySeed.test.ts",
+    "lib/server/userStoreParentNoticePersistence.test.ts",
+    "lib/server/questionStore.test.ts",
+    "app/api/questions/routeQuestionStore.test.ts"
+  ],
+  "include": [],
+  "exclude": [
+    ".next",
+    "node_modules"
+  ]
+}

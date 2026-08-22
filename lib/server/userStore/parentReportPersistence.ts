@@ -122,9 +122,15 @@ export function createParentReportPersistenceStore({
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
       const children = getParentChildSummaries(database, user);
+      // No `studentId` means "All children", which the view already renders as an unscoped
+      // list ("All linked children are shown", and the All-children pill marked active when
+      // `selectedChild` is null). Defaulting to `children[0]` here silently answered that
+      // request with only the first child's reports, so a parent with two or more children saw
+      // a subset while the UI told them they were seeing everything.
+      // `parentNoticePersistence` resolves the same choice this way.
       const selectedChild = selectedStudentId
         ? children.find((child) => child.student.id === selectedStudentId) ?? null
-        : children[0] ?? null;
+        : null;
       const allowedStudentIds = new Set(children.map((child) => child.student.id));
       const selectedStudentIds = selectedChild ? new Set([selectedChild.student.id]) : allowedStudentIds;
 

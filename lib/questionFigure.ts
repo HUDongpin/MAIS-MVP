@@ -1,4 +1,5 @@
 import { angleAt, distance, formatNumber } from "./math";
+import { buildMathAngleContract, type MathAngleContract } from "./mathDiagramGeometry";
 import type {
   CoordinateGridQuestionDiagram,
   LocalizedText,
@@ -495,7 +496,7 @@ export type PlaneFigureLayout = {
   decorationStrokes: { key: string; x1: number; y1: number; x2: number; y2: number }[];
   circles: { key: string; cx: number; cy: number; r: number }[];
   centerDots: { key: string; x: number; y: number }[];
-  anglePaths: { key: string; d: string }[];
+  anglePaths: { key: string; d: string; contract: MathAngleContract; kind: "arc" | "right-angle" }[];
   markers: { key: string; x: number; y: number }[];
   labels: FigureLabel[];
   issues: string[];
@@ -737,6 +738,12 @@ export function buildPlaneFigureLayout(diagram: PlaneFigureQuestionDiagram, text
       return;
     }
 
+    const startAngle = Math.atan2(rayFrom.y, rayFrom.x);
+    const endAngle = Math.atan2(rayTo.y, rayTo.x);
+    let delta = endAngle - startAngle;
+    while (delta <= -Math.PI) delta += 2 * Math.PI;
+    while (delta > Math.PI) delta -= 2 * Math.PI;
+
     if (mark.rightAngle) {
       const size = 10;
       const cornerA = { x: vertex.svg.x + size * rayFrom.x, y: vertex.svg.y + size * rayFrom.y };
@@ -747,15 +754,19 @@ export function buildPlaneFigureLayout(diagram: PlaneFigureQuestionDiagram, text
       const cornerC = { x: vertex.svg.x + size * rayTo.x, y: vertex.svg.y + size * rayTo.y };
       anglePaths.push({
         key: `angle-${index}`,
-        d: `M ${cornerA.x} ${cornerA.y} L ${cornerB.x} ${cornerB.y} L ${cornerC.x} ${cornerC.y}`
+        d: `M ${cornerA.x} ${cornerA.y} L ${cornerB.x} ${cornerB.y} L ${cornerC.x} ${cornerC.y}`,
+        contract: buildMathAngleContract({
+          id: `question-angle-${index}`,
+          origin: vertex.svg,
+          radius: size,
+          startRay: rayFrom,
+          endRay: rayTo,
+          sweepRadians: -delta
+        }),
+        kind: "right-angle"
       });
       plottedSamples.push(cornerA, cornerB, cornerC);
     } else {
-      const startAngle = Math.atan2(rayFrom.y, rayFrom.x);
-      const endAngle = Math.atan2(rayTo.y, rayTo.x);
-      let delta = endAngle - startAngle;
-      while (delta <= -Math.PI) delta += 2 * Math.PI;
-      while (delta > Math.PI) delta -= 2 * Math.PI;
       const sweepFlag = delta > 0 ? 1 : 0;
       const arcCount = clampNumber(Math.round(mark.arcs ?? 1), 1, 3);
 
@@ -771,7 +782,16 @@ export function buildPlaneFigureLayout(diagram: PlaneFigureQuestionDiagram, text
         };
         anglePaths.push({
           key: `angle-${index}-arc-${arc}`,
-          d: `M ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y}`
+          d: `M ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y}`,
+          contract: buildMathAngleContract({
+            id: `question-angle-${index}-arc-${arc}`,
+            origin: vertex.svg,
+            radius,
+            startRay: rayFrom,
+            endRay: rayTo,
+            sweepRadians: -delta
+          }),
+          kind: "arc"
         });
 
         const sampleCount = 12;

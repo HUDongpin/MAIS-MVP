@@ -15,7 +15,11 @@ export default function Lesson() {
   const [D, setD] = useState(1); // midline
 
   const plotW = W - 2 * PAD;
-  const yScale = 30; // px per unit
+  const verticalExtent = Math.max(Math.abs(D + A), Math.abs(D - A));
+  // Preserve every original amplitude/midline combination and scale only the
+  // states that would otherwise paint past the SVG edge. The 3-unit gutter is
+  // wider than half the curve stroke, so the complete paint stays visible.
+  const yScale = Math.min(30, (MIDY - 3) / verticalExtent);
   const xUnits = 8; // show 0..8
   const xScale = plotW / xUnits;
 

@@ -23,6 +23,7 @@ export function VisualizationCard({
   initialExplored = false,
   moduleId: explicitModuleId,
   onExplored,
+  opaqueSurface = false,
   topicId
 }: {
   title: string;
@@ -37,6 +38,12 @@ export function VisualizationCard({
   initialExplored?: boolean;
   moduleId?: string;
   onExplored?: (moduleId: string) => void;
+  /**
+   * Signature Canvas benches paint their own opaque paper. Keeping the host
+   * card opaque too prevents backdrop-filter from changing contrast anywhere
+   * in that deterministic paper stack.
+   */
+  opaqueSurface?: boolean;
   topicId: string;
 }) {
   const { currentUser, recordLearningEvent } = useSettings();
@@ -144,14 +151,21 @@ export function VisualizationCard({
       data-viz-topic-id={topicId}
       data-viz-save-state={saveState}
       data-viz-explore-gate={autoExplore ? (interacted ? (dwellSatisfied ? "engaged" : "dwell") : "awaiting-interaction") : "inactive"}
-      className="glass-panel overflow-hidden p-4 sm:p-6"
+      className={
+        opaqueSurface
+          ? "overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-xl shadow-slate-900/5 sm:p-6 dark:border-slate-100/15 dark:bg-slate-950"
+          : "glass-panel overflow-hidden p-4 sm:p-6"
+      }
     >
       <div className="mb-5 min-w-0">
         <h2 className="text-2xl font-black text-slate-950 dark:text-white">{title}</h2>
         {formula ? (
           <div
             data-viz-card-formula
-            className="mt-3 inline-flex max-w-full items-center rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
+            aria-label="Scrollable visualization formula"
+            role="region"
+            tabIndex={0}
+            className="mt-3 inline-flex max-w-full items-center overflow-x-auto overscroll-x-contain rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
           >
             <MathText as="span" text={formula} normalizeMath={false} className="min-w-0 break-words" />
           </div>

@@ -6,6 +6,7 @@ import test from "node:test";
 import {
   type AITutorDataScope,
   createAiGovernancePersistenceStore,
+  hasRequestedAITutorDatabaseContext,
   type AiGovernancePersistenceDatabase
 } from "@/lib/server/userStore/aiGovernancePersistence";
 import type {
@@ -596,6 +597,346 @@ test("AI governance persistence store records tutor messages and token usage wit
   assert.equal(await store.getAITutorTokenUsageSince("student-1", "2026-06-20T09:00:00.000Z"), 118);
 });
 
+test("AI governance persistence lets a narrow message journal bypass the snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const captured: unknown[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      throw new Error("snapshot touched");
+    },
+    recordAITutorMessageBeforeSnapshot: async (record) => {
+      captured.push(record);
+      return true as const;
+    }
+  });
+
+  await store.recordAITutorMessage({
+    userId: "student-1",
+    role: "student",
+    content: "Explain the diagram.",
+    context: { imageCount: 1 }
+  });
+
+  assert.deepEqual(captured, [{
+    id: "message-1",
+    user_id: "student-1",
+    role: "student",
+    content: "Explain the diagram.",
+    context_json: { imageCount: 1 },
+    created_at: "2026-06-20T10:00:00.000Z"
+  }]);
+  assert.deepEqual(database.ai_tutor_messages, []);
+});
+
+test("AI governance persistence lets a narrow usage journal bypass the snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const captured: unknown[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      throw new Error("snapshot touched");
+    },
+    recordAITutorUsageBeforeSnapshot: async (record) => {
+      captured.push(record);
+      return true as const;
+    }
+  });
+
+  await store.recordAITutorUsage({
+    userId: "student-1",
+    model: "qwen3.8-max",
+    promptTokens: 7,
+    completionTokens: 11
+  });
+
+  assert.deepEqual(captured, [{
+    id: "message-1",
+    user_id: "student-1",
+    model: "qwen3.8-max",
+    prompt_tokens: 7,
+    completion_tokens: 11,
+    total_tokens: null,
+    error: null,
+    created_at: "2026-06-20T10:00:00.000Z"
+  }]);
+  assert.deepEqual(database.ai_tutor_usage, []);
+});
+
+test("AI governance journal failures never fall back to a snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const failure = new Error("journal unavailable");
+  let snapshotMutations = 0;
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      snapshotMutations += 1;
+      throw new Error("snapshot touched");
+    },
+    recordAITutorMessageBeforeSnapshot: async () => {
+      throw failure;
+    },
+    recordAITutorUsageBeforeSnapshot: async () => {
+      throw failure;
+    }
+  });
+
+  await assert.rejects(
+    store.recordAITutorMessage({ userId: "student-1", role: "student", content: "hello" }),
+    (error) => error === failure
+  );
+  await assert.rejects(
+    store.recordAITutorUsage({ userId: "student-1", model: "qwen3.8-max" }),
+    (error) => error === failure
+  );
+  assert.equal(snapshotMutations, 0);
+});
+
+test("an inapplicable journal hook preserves the legacy snapshot writer", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const store = createTestStore(database, {
+    recordAITutorMessageBeforeSnapshot: async () => undefined,
+    recordAITutorUsageBeforeSnapshot: async () => undefined
+  });
+
+  await store.recordAITutorMessage({ userId: "student-1", role: "student", content: "hello" });
+  await store.recordAITutorUsage({ userId: "student-1", model: "qwen3.8-max" });
+  assert.equal(database.ai_tutor_messages.length, 1);
+  assert.equal(database.ai_tutor_usage.length, 1);
+});
+
+test("AI Tutor database context only runs for an explicit database-backed anchor or scope", () => {
+  assert.equal(hasRequestedAITutorDatabaseContext(), false);
+  assert.equal(hasRequestedAITutorDatabaseContext({
+    grade: "S3",
+    language: "en",
+    page: "/practice",
+    dataScopes: []
+  }), false);
+
+  assert.equal(hasRequestedAITutorDatabaseContext({ topicId: "algebra" }), true);
+  assert.equal(hasRequestedAITutorDatabaseContext({ questionId: "question-1" }), true);
+  assert.equal(hasRequestedAITutorDatabaseContext({ lessonSlug: "linear-equations" }), true);
+  assert.equal(hasRequestedAITutorDatabaseContext({ dataScopes: ["student-dashboard"] }), true);
+  assert.equal(hasRequestedAITutorDatabaseContext({ targetStudentId: "student-2" }), true);
+});
+
+test("AI governance persistence skips snapshots when no AI Tutor database evidence is requested", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  let snapshotReads = 0;
+  let contextBuilds = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    aiTutorDatabaseContextFromDatabase: () => {
+      contextBuilds += 1;
+      return aiTutorContextFixture("student-1");
+    }
+  });
+
+  const result = await store.buildAITutorDatabaseContext("student-1", {
+    grade: "S3",
+    language: "en",
+    page: "/practice",
+    dataScopes: []
+  });
+
+  assert.deepEqual(result, {
+    text: "",
+    deterministicSummary: null,
+    includedScopes: [],
+    deniedScopes: [],
+    subjectUserId: "student-1"
+  });
+  assert.equal(snapshotReads, 0);
+  assert.equal(contextBuilds, 0);
+});
+
+test("AI governance persistence treats blank database evidence selectors as unrequested", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  let snapshotReads = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    }
+  });
+
+  for (const context of [
+    undefined,
+    { dataScopes: [] as AITutorDataScope[] },
+    { topicId: "  ", questionId: "\n", lessonSlug: "\t", targetStudentId: " " }
+  ]) {
+    assert.equal((await store.buildAITutorDatabaseContext("student-1", context)).text, "");
+  }
+  assert.equal(snapshotReads, 0);
+});
+
+test("AI governance persistence preserves snapshots for every explicit AI Tutor evidence selector", async () => {
+  const cases = [
+    { dataScopes: ["student-dashboard"] as AITutorDataScope[] },
+    { topicId: "quadratic-patterns" },
+    { questionId: "known-question-id" },
+    { lessonSlug: "known-lesson-slug" },
+    { targetStudentId: "student-peter" }
+  ];
+
+  for (const context of cases) {
+    const database: AiGovernancePersistenceDatabase = {
+      ai_governance_events: [],
+      ai_tutor_messages: [],
+      ai_tutor_usage: [],
+      users: []
+    };
+    let snapshotReads = 0;
+    let contextBuilds = 0;
+    const store = createTestStore(database, {
+      readDatabase: async () => {
+        snapshotReads += 1;
+        return database;
+      },
+      aiTutorDatabaseContextFromDatabase: () => {
+        contextBuilds += 1;
+        return aiTutorContextFixture("student-1");
+      }
+    });
+
+    assert.equal((await store.buildAITutorDatabaseContext("student-1", context)).text, "context:student-1");
+    assert.equal(snapshotReads, 1);
+    assert.equal(contextBuilds, 1);
+  }
+});
+
+test("AI governance persistence uses the narrow pre-snapshot hook for Nova token quota", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  let snapshotReads = 0;
+  const controller = new AbortController();
+  const calls: Array<{ userId: string; sinceIso: string; signal?: AbortSignal }> = [];
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    getAITutorTokenUsageSinceBeforeSnapshot: async (userId, sinceIso, signal) => {
+      calls.push({ userId, sinceIso, signal });
+      return 321;
+    }
+  });
+
+  assert.equal(
+    await store.getAITutorTokenUsageSince(
+      "student-1",
+      "2026-06-20T09:00:00.000Z",
+      controller.signal
+    ),
+    321
+  );
+  assert.deepEqual(calls, [{
+    userId: "student-1",
+    sinceIso: "2026-06-20T09:00:00.000Z",
+    signal: controller.signal
+  }]);
+  assert.equal(snapshotReads, 0);
+});
+
+test("AI governance persistence falls back to one snapshot when Nova token quota hook is unavailable", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [
+      {
+        id: "usage-total",
+        user_id: "student-1",
+        model: "unit-model",
+        prompt_tokens: 1,
+        completion_tokens: 2,
+        total_tokens: 100,
+        error: null,
+        created_at: "2026-06-20T09:30:00.000Z"
+      },
+      {
+        id: "usage-parts",
+        user_id: "student-1",
+        model: "unit-model",
+        prompt_tokens: 7,
+        completion_tokens: 11,
+        total_tokens: null,
+        error: null,
+        created_at: "2026-06-20T09:45:00.000Z"
+      },
+      {
+        id: "usage-other-user",
+        user_id: "student-2",
+        model: "unit-model",
+        prompt_tokens: 500,
+        completion_tokens: 500,
+        total_tokens: null,
+        error: null,
+        created_at: "2026-06-20T09:45:00.000Z"
+      },
+      {
+        id: "usage-old",
+        user_id: "student-1",
+        model: "unit-model",
+        prompt_tokens: 500,
+        completion_tokens: 500,
+        total_tokens: null,
+        error: null,
+        created_at: "2026-06-20T08:59:59.999Z"
+      }
+    ],
+    users: []
+  };
+  let snapshotReads = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    getAITutorTokenUsageSinceBeforeSnapshot: async () => undefined
+  });
+
+  assert.equal(
+    await store.getAITutorTokenUsageSince("student-1", "2026-06-20T09:00:00.000Z"),
+    118
+  );
+  assert.equal(snapshotReads, 1);
+});
+
 test("AI governance persistence owns durable event normalization for legacy database load", async () => {
   const persistenceSource = await readFile(path.join(process.cwd(), "lib/server/userStore/aiGovernancePersistence.ts"), "utf8");
   const compatibilitySource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
@@ -949,6 +1290,177 @@ test("AI governance persistence store evaluates durable rate limits and admin su
   assert.equal(summary?.aiTutorUsage.totalTokens, 7);
   assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.blocked, 1);
   assert.equal(summary?.recentBlockedEvents.some((event) => event.action === "rate-limit-blocked"), true);
+});
+
+test("AI governance admin summary replaces legacy Nova rate events with the dedicated Postgres ledger", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [
+      {
+        id: "legacy-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:00.000Z"
+      },
+      {
+        id: "other-capability-event",
+        user_id: "student-1",
+        capability: "lesson-audio",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:10.000Z"
+      },
+      {
+        id: "snapshot-cost-cap-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "rate-limit-blocked",
+        reason: "cost-cap-exceeded",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:20.000Z"
+      }
+    ],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: [{ id: "admin-1", role: "admin" }]
+  };
+  const store = createTestStore(database, {
+    readAiTutorRateLimitEventsAfterSnapshot: async () => [
+      {
+        id: "legacy-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "request-admitted",
+        reason: "ok",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:00.000Z"
+      },
+      {
+        id: "hot-chat-event",
+        user_id: "student-1",
+        capability: "ai-tutor-chat",
+        action: "rate-limit-blocked",
+        reason: "rate-limit",
+        metadata_json: null,
+        created_at: "2026-06-20T09:59:30.000Z"
+      }
+    ]
+  });
+
+  const summary = await store.getAiGovernanceSummaryForAdmin({
+    adminId: "admin-1",
+    now: new Date("2026-06-20T10:00:00.000Z"),
+    windowMs: 5 * 60_000
+  });
+
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.total, 3);
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.admitted, 1);
+  assert.equal(summary?.governance.byCapability["ai-tutor-chat"]?.blocked, 2);
+  assert.equal(summary?.governance.byCapability["lesson-audio"]?.admitted, 1);
+  assert.equal(summary?.recentBlockedEvents.some((event) => event.reason === "cost-cap-exceeded"), true);
+});
+
+test("AI governance persistence uses narrow pre-snapshot hooks for Nova policy and rate admission", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  let snapshotReads = 0;
+  let snapshotMutations = 0;
+  const hookCalls: string[] = [];
+  const store = createAiGovernancePersistenceStore({
+    createId: () => "hot-event",
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    mutateDatabase: async (mutator) => {
+      snapshotMutations += 1;
+      return mutator(database);
+    },
+    resolveStudentAiTutorPolicyBeforeSnapshot: async (userId) => {
+      hookCalls.push(`policy:${userId}`);
+      return {
+        classId: "class-hot",
+        mode: "limited",
+        previousLiveMode: "limited",
+        perStudentMinuteLimit: 2,
+        perStudentHourLimit: 20,
+        fallbackOnFailure: true,
+        updatedBy: "teacher-hot",
+        updatedAt: "2026-06-20T10:00:00.000Z"
+      };
+    },
+    consumeAiCapabilityRateLimitBeforeSnapshot: async ({ capability, userId }) => {
+      hookCalls.push(`rate:${userId}:${capability}`);
+      return {
+        allowed: true,
+        reason: "ok",
+        retryAfterSeconds: 0,
+        remaining: 1,
+        resetAt: new Date("2026-06-20T10:01:00.000Z")
+      };
+    }
+  });
+
+  const policy = await store.resolveStudentAiTutorPolicy("student-hot");
+  const decision = await store.consumeAiCapabilityRateLimit({
+    capability: "ai-tutor-chat",
+    rules: [{ name: "minute", max: 2, windowMs: 60_000 }],
+    userId: "student-hot",
+    now: new Date("2026-06-20T10:00:00.000Z")
+  });
+
+  assert.equal(policy.classId, "class-hot");
+  assert.equal(decision.allowed, true);
+  assert.deepEqual(hookCalls, [
+    "policy:student-hot",
+    "rate:student-hot:ai-tutor-chat"
+  ]);
+  assert.equal(snapshotReads, 0);
+  assert.equal(snapshotMutations, 0);
+});
+
+test("AI governance persistence keeps snapshot fallback when narrow hooks are not applicable", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: [{ id: "student-snapshot", role: "student" }]
+  };
+  let snapshotReads = 0;
+  let snapshotMutations = 0;
+  const store = createAiGovernancePersistenceStore({
+    createId: () => "snapshot-event",
+    readDatabase: async () => {
+      snapshotReads += 1;
+      return database;
+    },
+    mutateDatabase: async (mutator) => {
+      snapshotMutations += 1;
+      return mutator(database);
+    },
+    resolveStudentAiTutorPolicyBeforeSnapshot: async () => undefined,
+    consumeAiCapabilityRateLimitBeforeSnapshot: async () => undefined
+  });
+
+  const policy = await store.resolveStudentAiTutorPolicy("student-snapshot");
+  const decision = await store.consumeAiCapabilityRateLimit({
+    capability: "ai-tutor-chat",
+    rules: [{ name: "minute", max: 2, windowMs: 60_000 }],
+    userId: "student-snapshot",
+    now: new Date("2026-06-20T10:00:00.000Z")
+  });
+
+  assert.equal(policy.classId, "default");
+  assert.equal(decision.allowed, true);
+  assert.equal(snapshotReads, 1);
+  assert.equal(snapshotMutations, 1);
 });
 
 test("AI governance persistence resolves pilot platform loop data through extracted boundary", async () => {

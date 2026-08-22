@@ -164,7 +164,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <div className="hidden shrink-0 items-center gap-0.5 lg:flex xl:gap-1">
+        <div className="hidden shrink-0 items-center gap-0.5 xl:flex xl:gap-1">
           {primaryNavItems.map((item) => {
             const active = isActive(item);
             const className = cn(
@@ -228,7 +228,7 @@ export function Navbar() {
               aria-label={t(showMeAroundLabel)}
               title={t(showMeAroundLabel)}
               onClick={() => requestStudentGuidedTour()}
-              className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-cyan-300/45 bg-white text-lg font-black text-cyan-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-cyan-100"
+              className="focus-ring hidden h-11 w-11 items-center justify-center rounded-full border border-cyan-300/45 bg-white text-lg font-black text-cyan-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 sm:inline-flex dark:border-cyan-300/25 dark:bg-white/[0.08] dark:text-cyan-100"
             >
               <span aria-hidden="true">🧭</span>
             </button>
@@ -254,7 +254,7 @@ export function Navbar() {
             aria-label={t({ en: "Open mobile menu", zh: "開啟手機選單" })}
             aria-expanded={open}
             onClick={() => setOpen((current) => !current)}
-            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm lg:hidden dark:border-white/10 dark:bg-white/[0.07]"
+            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200/70 bg-white/75 shadow-sm xl:hidden dark:border-white/10 dark:bg-white/[0.07]"
           >
             <span aria-hidden="true" className="text-xl">{open ? "×" : "≡"}</span>
           </button>
@@ -262,7 +262,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="page-container pb-4 lg:hidden">
+        <div className="page-container pb-4 xl:hidden">
           <div className="glass-panel grid gap-1 p-2">
             {primaryNavItems.map((item) => {
               const active = isActive(item);
@@ -286,6 +286,20 @@ export function Navbar() {
                 </Link>
               );
             })}
+            {isStudent ? (
+              <button
+                type="button"
+                data-tour="student-tour-button"
+                onClick={() => {
+                  setOpen(false);
+                  requestStudentGuidedTour();
+                }}
+                className="focus-ring inline-flex items-center gap-3 rounded-2xl border border-cyan-300/35 bg-cyan-400/10 px-4 py-3 text-left text-sm font-black text-cyan-700 transition hover:bg-cyan-400/15 sm:hidden dark:text-cyan-100 dark:hover:bg-white/[0.12]"
+              >
+                <span aria-hidden="true" className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-lg shadow-sm dark:bg-white/[0.08]">🧭</span>
+                <span>{t(showMeAroundLabel)}</span>
+              </button>
+            ) : null}
             {currentUser ? (
               <Link
                 href={accountHref}

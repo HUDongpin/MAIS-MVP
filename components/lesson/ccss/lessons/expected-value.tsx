@@ -28,7 +28,7 @@ export default function Lesson() {
 
       <Figure caption="Multiply each payoff by its probability and add. That weighted sum is the expected value.">
         <div className="flex flex-col items-center gap-6">
-          <table className="text-center font-mono text-sm">
+          <table className="mx-auto w-max max-w-none self-start text-center font-mono text-sm">
             <thead><tr className="text-[var(--ink-faint)]"><th className="px-3 py-1">payoff</th><th className="px-3 py-1">probability</th><th className="px-3 py-1">product</th></tr></thead>
             <tbody>
               {values.map((v, i) => (

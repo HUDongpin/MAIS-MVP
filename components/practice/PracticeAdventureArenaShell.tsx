@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { NovaCompanion } from "@/components/practice/NovaCompanion";
+import { PracticeStarReward } from "@/components/practice/PracticeQuestPager";
 import type { LocalizedText } from "@/types";
 import {
   practiceIslandMaxStarsPerRegion,
@@ -20,8 +24,14 @@ export type PracticeIslandGamesStatus = {
   fishingMasterUnlocked: boolean;
 };
 
+export type PracticeAdventureArenaMode = "chooser" | "unit" | "explore";
+export type PracticeUnitMissionStatus = "loading" | "ready" | "unavailable";
+
 type PracticeAdventureArenaShellProps = {
   t: (localized: LocalizedText) => string;
+  mode: PracticeAdventureArenaMode;
+  unitStatus: PracticeUnitMissionStatus;
+  onModeChange: (mode: PracticeAdventureArenaMode) => void;
   progressValue: number;
   progressTotal: number;
   regions: PracticeIslandRegionStatus[];
@@ -69,10 +79,54 @@ const islandGameLockedHint: LocalizedText = {
   zhHans: "在单一课题任务答对 4/5 即可解锁"
 };
 
-function PracticeIcon({ className = "size-5" }: { className?: string }) {
+function UnitExerciseIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      data-practice-cta-icon="unit-exercise"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+    >
+      <path
+        d="M7 3.5h7.2L18 7.3v11.2a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path d="M14 3.8v3.7h3.7" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+      <path d="m8 10.6 1.1 1.1 2-2.2M12.8 10.5H15M8 15.4l1.1 1.1 2-2.2M12.8 15.3H15" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function FreeExplorationIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      data-practice-cta-icon="free-exploration"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+    >
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="m15.8 8.2-2.1 5.5-5.5 2.1 2.1-5.5 5.5-2.1Z"
+        fill="currentColor"
+        fillOpacity="0.18"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <circle cx="12" cy="12" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+
+function ArrowRightIcon({ className = "size-5" }: { className?: string }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M5 19 19 5M7 5l12 12M4 20l4-1-3-3-1 4ZM17 3l4 4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+      <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" />
     </svg>
   );
 }
@@ -183,8 +237,63 @@ function islandGameMarkerLabel(
   return `${t(marker.label)} · ${t(unlocked ? islandGameUnlockedText : islandGameLockedHint)}`;
 }
 
+const unitExercisePreviewSteps = [1, 2, 3, 4, 5] as const;
+
+function UnitExerciseTrailPreview({ t }: { t: PracticeAdventureArenaShellProps["t"] }) {
+  return (
+    <div
+      data-practice-reward-preview
+      className="relative h-48 w-full overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-cyan-50 via-sky-50 to-emerald-50 sm:h-52 lg:h-56"
+    >
+      <div className="absolute right-3 top-3 z-10 sm:right-4 sm:top-4">
+        <PracticeStarReward
+          correctCount={0}
+          answeredCount={0}
+          total={5}
+          t={t}
+          prefersReducedMotion
+        />
+      </div>
+
+      <div aria-hidden="true" className="absolute inset-x-4 bottom-8 flex items-center sm:inset-x-6 sm:bottom-9">
+        {unitExercisePreviewSteps.map((step, index) => (
+          <div
+            key={step}
+            className={cn("flex items-center", index < unitExercisePreviewSteps.length - 1 ? "flex-1" : null)}
+          >
+            <span className="relative grid shrink-0 place-items-center">
+              {index === 0 ? (
+                <span className="absolute bottom-full left-1/2 grid -translate-x-1/2 place-items-center pb-1.5">
+                  <NovaCompanion mood="cheer" className="h-9 w-9 drop-shadow-[0_4px_5px_rgba(2,132,199,0.28)] sm:h-10 sm:w-10" />
+                  <span className="h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-amber-400" />
+                </span>
+              ) : null}
+              <span
+                className={cn(
+                  "grid size-9 place-items-center rounded-full border-2 bg-white text-xs font-black shadow-sm sm:size-10 sm:text-sm",
+                  index === 0
+                    ? "border-blue-500 text-blue-700 ring-4 ring-blue-100"
+                    : "border-sky-100 text-slate-500"
+                )}
+              >
+                {step}
+              </span>
+            </span>
+            {index < unitExercisePreviewSteps.length - 1 ? (
+              <span className="mx-1 h-1.5 flex-1 rounded-full bg-sky-100 sm:mx-1.5" />
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function PracticeAdventureArenaShell({
   t,
+  mode,
+  unitStatus,
+  onModeChange,
   progressValue,
   progressTotal,
   regions,
@@ -194,18 +303,241 @@ export function PracticeAdventureArenaShell({
   onStartMission,
   onRegionSelect
 }: PracticeAdventureArenaShellProps) {
+  const handleStartMission = () => {
+    if (unitStatus === "unavailable") return;
+    onModeChange("unit");
+    window.setTimeout(() => {
+      onStartMission();
+    }, 0);
+  };
+
+  const handleOpenExplore = () => {
+    onModeChange("explore");
+  };
+
+  const handleAdjustPractice = () => {
+    onModeChange("chooser");
+  };
+
+  const unitStatusText = unitStatus === "ready"
+    ? t({ en: "Available", zh: "可以開始", zhHans: "可以开始" })
+    : unitStatus === "loading"
+      ? t({ en: "Preparing questions", zh: "正在準備題目", zhHans: "正在准备题目" })
+      : t({ en: "Temporarily unavailable", zh: "暫時未能使用", zhHans: "暂时无法使用" });
+
+  if (mode === "chooser") {
+    return (
+      <section
+        className="relative pb-4 text-slate-900 [&~*]:hidden"
+        aria-labelledby="practice-adventure-title"
+        data-practice-mode="chooser"
+      >
+        <header
+          data-practice-chooser-heading
+          className="mx-auto mb-4 max-w-3xl rounded-[1.5rem] border border-white/90 bg-white/95 px-5 py-3 text-center shadow-[0_14px_32px_rgba(15,23,42,0.14)] backdrop-blur sm:mb-5 sm:px-7 sm:py-4"
+        >
+          <h1
+            id="practice-adventure-title"
+            tabIndex={-1}
+            className="text-3xl font-black leading-none tracking-[-0.04em] text-blue-950 focus:outline-none sm:text-4xl lg:text-5xl"
+          >
+            <span className="sr-only">
+              {t({ en: "Practice Arena. ", zh: "練習競技場。", zhHans: "练习竞技场。" })}
+            </span>
+            {t({ en: "Where do you want to go?", zh: "想去哪裡開始？", zhHans: "想从哪里开始？" })}
+          </h1>
+          <p className="mx-auto mt-2 max-w-2xl text-sm font-bold leading-5 text-slate-700 sm:text-base">
+            {t({
+              en: "Pick one path. You can change it anytime.",
+              zh: "選一條路線，之後可隨時切換。",
+              zhHans: "选择一条路线，之后可随时切换。"
+            })}
+          </p>
+        </header>
+
+        <div
+          role="group"
+          aria-label={t({ en: "Choose a practice mode", zh: "選擇練習模式", zhHans: "选择练习模式" })}
+          data-practice-chooser-grid
+          className="relative mx-auto grid max-w-[1180px] gap-4 lg:grid-cols-2 lg:gap-6"
+        >
+          <article
+            data-practice-mode-choice="guided"
+            className="flex min-h-full flex-col overflow-hidden rounded-[1.65rem] border border-sky-200 bg-gradient-to-br from-sky-50 via-white to-emerald-50 p-4 shadow-[0_18px_42px_rgba(15,23,42,0.14)] sm:p-5"
+          >
+            <UnitExerciseTrailPreview t={t} />
+            <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">
+                {t({ en: "Guided", zh: "引導練習", zhHans: "引导练习" })}
+              </p>
+              <h2 className="mt-1.5 text-3xl font-black leading-none tracking-[-0.04em] text-blue-950 sm:text-4xl">
+                {t({ en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习" })}
+              </h2>
+              <p className="mt-2.5 text-sm font-semibold leading-5 text-slate-600 sm:text-[15px]">
+                {t({
+                  en: "Five questions from the unit you are learning now, with one star available for each correct answer.",
+                  zh: "完成正在學習單元的五道題目，每答對一題可獲一顆星。",
+                  zhHans: "完成正在学习单元的五道题目，每答对一题可获一颗星。"
+                })}
+              </p>
+              <p
+                data-unit-exercise-door-status={unitStatus}
+                aria-live="polite"
+                className={cn(
+                  "mt-3 text-xs font-black",
+                  unitStatus === "ready"
+                    ? "text-emerald-700"
+                    : unitStatus === "loading"
+                      ? "text-blue-700"
+                      : "text-rose-700"
+                )}
+              >
+                {unitStatusText}
+              </p>
+              <ul className="mt-3 grid grid-cols-3 gap-2 text-xs font-extrabold leading-4 text-slate-700">
+                {[
+                  { en: "5-question goal", zh: "五題目標", zhHans: "五题目标" },
+                  { en: "Instant feedback", zh: "即時回饋", zhHans: "即时反馈" },
+                  { en: "Earn 5 stars", zh: "贏取五顆星", zhHans: "赢取五颗星" }
+                ].map((benefit) => (
+                  <li key={benefit.en} className="flex min-h-10 items-start gap-1.5 rounded-xl bg-white/75 px-2 py-2 shadow-sm">
+                    <span aria-hidden="true" className="text-sm leading-none text-emerald-500">✓</span>
+                    <span>{t(benefit)}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                onClick={handleStartMission}
+                disabled={unitStatus === "unavailable"}
+                data-tour="student-practice-start"
+                aria-label={t({
+                  en: "Choose Unit Exercise — Start Mission",
+                  zh: "選擇單元練習－開始任務",
+                  zhHans: "选择单元练习－开始任务"
+                })}
+                className="focus-ring mt-4 inline-flex min-h-12 w-full items-center justify-between rounded-xl bg-[#c9433b] px-4 py-2.5 text-sm font-black text-white shadow-[0_6px_0_#a9322c,0_12px_22px_rgba(169,50,44,0.22)] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#a9322c] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <UnitExerciseIcon className="size-5 shrink-0" />
+                  {t({ en: "Choose Unit Exercise", zh: "選擇單元練習", zhHans: "选择单元练习" })}
+                </span>
+                <ArrowRightIcon />
+              </button>
+            </div>
+          </article>
+
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-slate-200 bg-white text-[10px] font-black uppercase text-slate-500 shadow-lg lg:grid"
+          >
+            {t({ en: "or", zh: "或", zhHans: "或" })}
+          </span>
+
+          <div className="flex items-center justify-center gap-3 lg:hidden" aria-hidden="true">
+            <span className="h-px w-16 bg-slate-300" />
+            <span className="grid size-11 place-items-center rounded-full border border-slate-200 bg-white text-xs font-black uppercase text-slate-500 shadow-sm">
+              {t({ en: "or", zh: "或", zhHans: "或" })}
+            </span>
+            <span className="h-px w-16 bg-slate-300" />
+          </div>
+
+          <article
+            data-practice-mode-choice="explore"
+            className="flex min-h-full flex-col overflow-hidden rounded-[1.65rem] border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-emerald-50 p-4 shadow-[0_18px_42px_rgba(15,23,42,0.14)] sm:p-5"
+          >
+            <div
+              data-tour="student-practice-map"
+              data-practice-map-preview
+              className="relative h-48 w-full overflow-hidden rounded-[1.35rem] bg-cyan-100 sm:h-52 lg:h-56"
+            >
+              <Image
+                src={islandMap}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">
+                {t({ en: "Open choice", zh: "自由選擇", zhHans: "自由选择" })}
+              </p>
+              <h2 className="mt-1.5 text-3xl font-black leading-none tracking-[-0.04em] text-blue-950 sm:text-4xl">
+                {t({ en: "Free Exploration", zh: "自由探索", zhHans: "自由探索" })}
+              </h2>
+              <p className="mt-2.5 text-sm font-semibold leading-5 text-slate-600 sm:text-[15px]">
+                {t({
+                  en: "Choose an island region and practice in any order.",
+                  zh: "選擇島嶼區域，按自己的順序練習。",
+                  zhHans: "选择岛屿区域，按自己的顺序练习。"
+                })}
+              </p>
+              <ul className="mt-3 grid grid-cols-3 gap-2 text-xs font-extrabold leading-4 text-slate-700">
+                {[
+                  { en: "Six math regions", zh: "六個數學區域", zhHans: "六个数学区域" },
+                  { en: "No set order", zh: "沒有固定順序", zhHans: "没有固定顺序" },
+                  { en: "Earn island stars", zh: "贏取島嶼星星", zhHans: "赢取岛屿星星" }
+                ].map((benefit) => (
+                  <li key={benefit.en} className="flex min-h-10 items-start gap-1.5 rounded-xl bg-white/75 px-2 py-2 shadow-sm">
+                    <span aria-hidden="true" className="text-sm leading-none text-emerald-500">✓</span>
+                    <span>{t(benefit)}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                onClick={handleOpenExplore}
+                className="focus-ring mt-4 inline-flex min-h-12 w-full items-center justify-between rounded-xl bg-cyan-700 px-4 py-2.5 text-sm font-black text-white shadow-[0_6px_0_#075f82,0_12px_22px_rgba(8,124,167,0.2)] transition hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#075f82]"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <FreeExplorationIcon className="size-5 shrink-0" />
+                  {t({ en: "Choose Free Exploration", zh: "選擇自由探索", zhHans: "选择自由探索" })}
+                </span>
+                <ArrowRightIcon />
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    );
+  }
+
+  if (mode === "unit") {
+    return (
+      <section className="sr-only" aria-labelledby="practice-adventure-title" data-practice-mode="unit">
+        <h1 id="practice-adventure-title" className="sr-only">
+          {t({
+            en: "Practice Arena. Unit Exercise",
+            zh: "練習競技場。單元練習",
+            zhHans: "练习竞技场。单元练习"
+          })}
+        </h1>
+      </section>
+    );
+  }
+
   const safeProgressTotal = Math.max(1, progressTotal);
   const progressPercent = Math.min(100, Math.max(8, (progressValue / safeProgressTotal) * 100));
 
   return (
-    <section className="relative text-slate-900" aria-labelledby="practice-adventure-title">
+    <section
+      className="relative text-slate-900"
+      aria-labelledby="practice-adventure-title"
+      data-practice-mode="explore"
+    >
       <div id="practice-adventure-hero" className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
         <div className="relative min-h-[390px] rounded-[16px] border border-white/70 bg-white p-6 shadow-[0_22px_46px_rgba(15,23,42,0.14)] sm:p-9">
           <div className="flex items-start justify-between gap-4 sm:gap-5">
-            <h1 id="practice-adventure-title" className="min-w-0 max-w-[9ch] text-4xl font-black leading-[0.98] tracking-normal text-blue-950 sm:max-w-[11ch] sm:text-6xl lg:text-[3.9rem]">
-              Practice Arena
+            <h1 id="practice-adventure-title" tabIndex={-1} className="min-w-0 max-w-[12ch] text-4xl font-black leading-[0.98] tracking-normal text-blue-950 focus:outline-none sm:max-w-[14ch] sm:text-6xl lg:text-[3.9rem]">
+              {t({
+                en: "Practice Arena — Free Exploration",
+                zh: "練習競技場－自由探索",
+                zhHans: "练习竞技场－自由探索"
+              })}
             </h1>
-            <div className="grid size-14 shrink-0 rotate-12 place-items-center rounded-3xl border-4 border-white bg-yellow-300 text-amber-500 shadow-xl sm:size-16">
+            <div className="grid size-14 shrink-0 rotate-0 place-items-center rounded-3xl border-4 border-white bg-yellow-300 text-amber-500 shadow-xl sm:size-16 sm:rotate-12">
               <StarIcon className="size-9 sm:size-10" />
             </div>
           </div>
@@ -226,7 +558,15 @@ export function PracticeAdventureArenaShell({
               data-tour="student-practice-start"
               className="focus-ring inline-flex min-h-16 items-center justify-center gap-3 rounded-2xl bg-[#ff5a4f] px-8 text-xl font-black text-white shadow-[0_10px_0_#dc3f37,0_18px_32px_rgba(220,63,55,0.25)] transition hover:-translate-y-0.5 active:translate-y-0"
             >
-              <PracticeIcon />{t({ en: "Start Mission", zh: "開始任務", zhHans: "开始任务" })}
+              <UnitExerciseIcon />{t({ en: "Start Mission", zh: "開始任務", zhHans: "开始任务" })}
+            </button>
+            <button
+              type="button"
+              data-adjust-practice
+              onClick={handleAdjustPractice}
+              className="focus-ring min-h-11 rounded-full border border-blue-200 bg-white px-5 py-2 text-sm font-black text-blue-700 shadow-sm transition hover:-translate-y-0.5"
+            >
+              {t({ en: "Choose mode", zh: "選擇模式", zhHans: "选择模式" })}
             </button>
           </div>
         </div>

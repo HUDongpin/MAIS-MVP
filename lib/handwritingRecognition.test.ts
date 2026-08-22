@@ -6,6 +6,7 @@ import {
   isEmptyHandwritingRecognitionText,
   normalizeHandwritingText,
   recognizeLocalNumericDraft,
+  rescaleHandwritingStrokes,
   sanitizeHandwritingStrokes,
   type HandwritingStroke
 } from "./handwritingRecognition";
@@ -263,6 +264,71 @@ test("handwriting stroke sanitizer strips invalid points and builds Mathpix payl
       }
     }
   });
+});
+
+test("handwriting stroke rescaling changes only coordinates and does not mutate its input", () => {
+  type StyledStroke = HandwritingStroke & {
+    width: number;
+    color: string;
+    points: Array<HandwritingStroke["points"][number] & { pressure: number }>;
+  };
+  const strokes: StyledStroke[] = [
+    {
+      tool: "eraser",
+      width: 24,
+      color: "#ffffff",
+      points: [
+        { x: 200, y: 80, pressure: 0.4 },
+        { x: 600, y: 320, pressure: 0.8 }
+      ]
+    }
+  ];
+  const original = structuredClone(strokes);
+
+  const scaled = rescaleHandwritingStrokes(
+    strokes,
+    { width: 800, height: 400 },
+    { width: 400, height: 600 }
+  ) as StyledStroke[];
+
+  assert.deepEqual(scaled, [
+    {
+      tool: "eraser",
+      width: 24,
+      color: "#ffffff",
+      points: [
+        { x: 100, y: 120, pressure: 0.4 },
+        { x: 300, y: 480, pressure: 0.8 }
+      ]
+    }
+  ]);
+  assert.deepEqual(strokes, original);
+  assert.notEqual(scaled, strokes);
+  assert.notEqual(scaled[0], strokes[0]);
+  assert.notEqual(scaled[0].points, strokes[0].points);
+});
+
+test("handwriting stroke rescaling fails closed for invalid logical canvas sizes", () => {
+  const strokes: HandwritingStroke[] = [
+    {
+      tool: "pen",
+      points: [
+        { x: 12.5, y: 24.75 },
+        { x: 48.25, y: 96.5 }
+      ]
+    }
+  ];
+  const original = structuredClone(strokes);
+
+  assert.deepEqual(
+    rescaleHandwritingStrokes(strokes, { width: 0, height: 256 }, { width: 320, height: 256 }),
+    original
+  );
+  assert.deepEqual(
+    rescaleHandwritingStrokes(strokes, { width: 640, height: 256 }, { width: Number.NaN, height: 256 }),
+    original
+  );
+  assert.deepEqual(strokes, original);
 });
 
 test("handwriting text normalization makes provider output checker-friendly", () => {

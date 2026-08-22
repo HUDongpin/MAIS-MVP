@@ -437,6 +437,7 @@ export default function ScatterPlotLab() {
   const [kase, setKase] = useState(null);
   const [assoc, setAssoc] = useState(null);
   const [evidence, setEvidence] = useState(null);
+  const [pointPick, setPointPick] = useState(0);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -650,6 +651,7 @@ export default function ScatterPlotLab() {
   useEffect(() => {
     setDataKey(STEPS[step].data);
     setPicked(null);
+    setPointPick(0);
     if (STEPS[step].calib) {
       setKase(makeCase(null));
       setAssoc(null);
@@ -734,6 +736,7 @@ export default function ScatterPlotLab() {
                   onClick={() => {
                     setDataKey(dk);
                     setPicked(null);
+                    setPointPick(0);
                   }}
                 >
                   {DATA[dk].label}
@@ -742,7 +745,30 @@ export default function ScatterPlotLab() {
             <button type="button" className="btn ghost" onClick={reset}>
               Reset
             </button>
-            <span className="hint">tap a dot — it is somebody</span>
+            <div className="point-picker" role="group" aria-label="Choose an individual without a pointer" data-viz-keyboard-equivalent="individual-picker">
+              <label>
+                {calib ? 'Outlier evidence' : 'Inspect individual'}
+                <select value={pointPick} onChange={(e) => setPointPick(Number(e.target.value))}>
+                  {dataset.pts.map(([x, y], i) => (
+                    <option key={i} value={i}>
+                      {i + 1}: {dataset.x} {x}, {dataset.y} {y}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                className="btn ghost"
+                aria-pressed={calib ? evidence === pointPick : picked === pointPick}
+                onClick={() => {
+                  if (calib) setEvidence(pointPick);
+                  else setPicked((prev) => (prev === pointPick ? null : pointPick));
+                }}
+              >
+                {calib ? 'Use as evidence' : picked === pointPick ? 'Clear selection' : 'Show person'}
+              </button>
+            </div>
+            <span className="hint">tap a dot or use the individual picker</span>
           </div>
         </section>
 
@@ -849,6 +875,7 @@ export default function ScatterPlotLab() {
                   setKase(makeCase(kase.id));
                   setAssoc(null);
                   setEvidence(null);
+                  setPointPick(0);
                 }}
               >
                 Next page
@@ -1007,6 +1034,44 @@ export default function ScatterPlotLab() {
           font-size: 12px;
           font-style: italic;
           color: var(--ink-soft);
+        }
+        .point-picker {
+          display: flex;
+          flex: 1 1 330px;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: end;
+          padding: 7px;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .point-picker label {
+          display: inline-flex;
+          flex: 1 1 190px;
+          min-width: 0;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          text-transform: uppercase;
+        }
+        .point-picker select {
+          width: 100%;
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 12px/1.2 system-ui, sans-serif;
+          text-transform: none;
+        }
+        .point-picker .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .chipbtn {
           font: 600 12px/1.2 system-ui, sans-serif;

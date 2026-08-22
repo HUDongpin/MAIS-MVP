@@ -132,6 +132,9 @@ test.describe("app shell, preferences, and auth", () => {
     await expect(page.getByTestId(`dashboard-grade-${fixedGrade}`)).toBeDisabled();
     await expect(page.getByTestId("dashboard-grade-S1")).toBeDisabled();
     await expect(page.getByTestId("dashboard-grade-S4")).toBeDisabled();
+    // The group must not offer an affordance it does not have: every tile above is
+    // disabled, so assistive tech has to hear "Fixed grade", not "Select grade".
+    await expect(page.getByRole("radiogroup", { name: "Fixed grade" })).toBeVisible();
 
     expectNoPageErrors(pageErrors);
   });
@@ -159,6 +162,9 @@ test.describe("app shell, preferences, and auth", () => {
     for (const grade of ["K", "P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "S3", "S4", "S5", "S6"]) {
       await expect(page.getByTestId(`dashboard-grade-${grade}`)).toBeEnabled();
     }
+    // Converse of the fixed-grade case: these tiles really are selectable, so the
+    // group keeps the selectable copy.
+    await expect(page.getByRole("radiogroup", { name: "Select grade" })).toBeVisible();
 
     await page.reload();
     await expect(page.getByTestId("dashboard-grade-K")).toHaveAttribute("aria-checked", "true");

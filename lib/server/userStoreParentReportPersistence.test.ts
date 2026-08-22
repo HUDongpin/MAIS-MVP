@@ -159,7 +159,7 @@ function createTestStore(database = createDatabase()) {
   });
 }
 
-test("parent report persistence returns the default child's reports without legacy userStore imports", async () => {
+test("parent report persistence returns every linked child's reports without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentReportPersistence.ts"), "utf8");
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
   assert.doesNotMatch(source, /from ["']@\/lib\/server\/userStore["']/);
@@ -167,11 +167,16 @@ test("parent report persistence returns the default child's reports without lega
   const data = await createTestStore().getParentReportData("parent-1");
 
   assert.equal(data?.generatedAt, generatedAt);
-  assert.equal(data?.selectedChild?.student.id, "student-1");
+  // No selection means "All children": the view renders an unscoped list and marks its
+  // All-children pill active off `selectedChild === null`. This previously asserted
+  // `"student-1"`, which encoded the defect — an unscoped request answered with only the
+  // first child's reports while the UI claimed all children were shown.
+  assert.equal(data?.selectedChild, null);
   assert.deepEqual(data?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.deepEqual(data?.reports.map((report) => report.id), [
     "report-newer",
-    "report-older"
+    "report-older",
+    "report-second-child"
   ]);
   assert.equal(data?.reports[0].title.en, "Newer report");
   assert.equal(data?.reports[0].summary.zh, "較新摘要");
@@ -218,4 +223,42 @@ test("legacy userStore delegates parent reports through parent domain store", as
 
   assert.match(source, /export const getParentReportData = parentUserStore\.getParentReportData/);
   assert.doesNotMatch(source, /export async function getParentReportData/);
+});
+
+/**
+ * D-08: the "All children" pill links to /parent/reports with no `studentId`, and the view
+ * renders that as an unscoped list ("All linked children are shown", pill marked active off
+ * `selectedChild === null`). The store answered it with `children[0]`, so a parent with two or
+ * more children saw only the first child's reports while being told they saw everything.
+ *
+ * These assert the SPAN of the returned reports, not just the selection: asserting
+ * `selectedChild === null` alone would still pass if the report list stayed narrowed.
+ */
+test("an unscoped parent report request spans every linked child", async () => {
+  const data = await createTestStore().getParentReportData("parent-1");
+
+  assert.equal(data?.selectedChild, null, "no studentId means All children, not child #1");
+
+  const studentIds = new Set(data?.reports.map((report) => report.studentId));
+  assert.ok(
+    studentIds.has("student-1") && studentIds.has("student-2"),
+    `unscoped reports must cover every linked child, saw ${[...studentIds].join(", ")}`
+  );
+});
+
+test("an explicit studentId still narrows to that child alone", async () => {
+  // Guards the other direction: the fix must not turn the child filters into no-ops.
+  const data = await createTestStore().getParentReportData("parent-1", "student-2");
+
+  assert.equal(data?.selectedChild?.student.id, "student-2");
+  assert.deepEqual([...new Set(data?.reports.map((report) => report.studentId))], ["student-2"]);
+});
+
+test("an unknown studentId falls back to the all-children view, not to child #1", async () => {
+  // A stale or hand-edited URL must not silently scope the parent to one child.
+  const data = await createTestStore().getParentReportData("parent-1", "student-does-not-exist");
+
+  assert.equal(data?.selectedChild, null);
+  const studentIds = new Set(data?.reports.map((report) => report.studentId));
+  assert.ok(studentIds.has("student-1") && studentIds.has("student-2"));
 });

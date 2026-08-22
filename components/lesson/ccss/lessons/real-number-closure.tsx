@@ -47,7 +47,7 @@ export default function Lesson() {
 
       <Figure caption="Pick two numbers and an operation. The result's type is forced by the algebra.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center justify-center gap-3 font-mono text-2xl font-black">
+          <div className="mx-auto flex w-max max-w-none self-start items-center justify-center gap-3 font-mono text-2xl font-black">
             <span style={{ color: col(a.kind) }}>{a.label}</span>
             <span>{op}</span>
             <span style={{ color: col(b.kind) }}>{b.label}</span>

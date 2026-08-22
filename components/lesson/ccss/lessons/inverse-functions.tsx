@@ -18,6 +18,14 @@ export default function Lesson() {
   const f = (t: number) => m * t + b;
   const fInv = (t: number) => (t - b) / m; // solve y = m x + b for x
 
+  // Draw only the visible segment of each infinite line. Letting the raw
+  // endpoints use x = +/-XR sends y outside the SVG whenever the slope or
+  // intercept is large, which makes the line disappear at a clipped edge.
+  const fMinX = Math.max(-XR, (-XR - b) / m);
+  const fMaxX = Math.min(XR, (XR - b) / m);
+  const fInvMinX = Math.max(-XR, b - m * XR);
+  const fInvMaxX = Math.min(XR, b + m * XR);
+
   const sx = (v: number) => PAD + (v + XR) * PXX;
   const sy = (v: number) => SIZE - PAD - (v + XR) * PXX;
 
@@ -47,8 +55,8 @@ export default function Lesson() {
             <line x1={sx(0)} y1={sy(-XR)} x2={sx(0)} y2={sy(XR)} stroke="var(--ink-soft)" strokeWidth={2} />
             {/* y = x mirror */}
             <line x1={sx(-XR)} y1={sy(-XR)} x2={sx(XR)} y2={sy(XR)} stroke="var(--ink-faint)" strokeWidth={1.5} strokeDasharray="5 4" />
-            <line x1={sx(-XR)} y1={sy(f(-XR))} x2={sx(XR)} y2={sy(f(XR))} stroke={ACCENT} strokeWidth={2.5} />
-            <line x1={sx(-XR)} y1={sy(fInv(-XR))} x2={sx(XR)} y2={sy(fInv(XR))} stroke={INV} strokeWidth={2.5} />
+            <line x1={sx(fMinX)} y1={sy(f(fMinX))} x2={sx(fMaxX)} y2={sy(f(fMaxX))} stroke={ACCENT} strokeWidth={2.5} />
+            <line x1={sx(fInvMinX)} y1={sy(fInv(fInvMinX))} x2={sx(fInvMaxX)} y2={sy(fInv(fInvMaxX))} stroke={INV} strokeWidth={2.5} />
           </svg>
 
           <div className="rounded-xl border-2 px-6 py-2 text-center font-mono text-sm" style={{ borderColor: ACCENT }}>

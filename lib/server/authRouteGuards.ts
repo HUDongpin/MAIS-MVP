@@ -19,9 +19,39 @@ type RateLimitScope =
   | "password-change-user"
   | "funnel-ip";
 
+/**
+ * Production ceiling for per-identifier login attempts. This is the brute-force control: 12
+ * attempts per identifier per 15 minutes. Do not change it to accommodate a test suite.
+ */
+export const defaultLoginIdentifierMax = 12;
+
+/**
+ * The e2e suite drives ~20 logins across four shared demo identifiers in one run, and Playwright
+ * retries multiply that, so it trips this limit and every later login 429s — which surfaces as
+ * "auth routing is broken" rather than as rate limiting (see D-11 in coordination/ff-ledger.md).
+ *
+ * `HK_MATH_E2E_LOGIN_IDENTIFIER_MAX` raises the ceiling for that run only. It is set in
+ * `playwright.config.ts`'s webServer env alongside the existing `AI_TUTOR_MAX_REQUESTS_PER_MINUTE`
+ * test knob, and nowhere else.
+ *
+ * Safety properties, all covered by authRouteGuards.test.ts:
+ *   - absent, empty, non-numeric, zero or negative -> the production default, unchanged
+ *   - it can only ever RAISE the ceiling, never lower it below the production default
+ * The e2e webServer cannot reach a real datastore, so a raised ceiling there protects nothing
+ * real; a deployment that never sets the variable is bit-for-bit unaffected.
+ */
+export function loginIdentifierMaxFromEnv(
+  env: Record<string, string | undefined> = process.env,
+  fallback: number = defaultLoginIdentifierMax
+) {
+  const parsed = Number.parseInt(env.HK_MATH_E2E_LOGIN_IDENTIFIER_MAX ?? "", 10);
+  if (!Number.isInteger(parsed) || parsed <= 0) return fallback;
+  return Math.max(parsed, fallback);
+}
+
 export const authRateLimitRules = {
   loginIp: { max: 300, windowMs: 15 * 60 * 1000 },
-  loginIdentifier: { max: 12, windowMs: 15 * 60 * 1000 },
+  loginIdentifier: { max: loginIdentifierMaxFromEnv(), windowMs: 15 * 60 * 1000 },
   registerIp: { max: 240, windowMs: 15 * 60 * 1000 },
   passwordResetIp: { max: 60, windowMs: 15 * 60 * 1000 },
   passwordResetIdentifier: { max: 5, windowMs: 15 * 60 * 1000 },

@@ -401,6 +401,19 @@ export function createParentNoticePersistenceStore({
           return { status: "forbidden" as const };
         }
 
+        // Acknowledgement is a receipt of record: `acknowledged_at` is the evidence of WHEN a
+        // guardian confirmed a notice. A repeat POST — double click, retry, refresh, back
+        // button — must not overwrite that with a later time. Deliberately placed after the
+        // authorization checks above so a re-acknowledgement is still authorized, not waved
+        // through by the early return.
+        if (recipient.status === "acknowledged" && recipient.acknowledged_at) {
+          const acknowledgedNotice = database.teacher_notices.find((candidate) => candidate.id === recipient.notice_id);
+          return {
+            status: "acknowledged" as const,
+            notice: acknowledgedNotice ? toTeacherNotice(database, acknowledgedNotice) : null
+          };
+        }
+
         const updatedAt = now().toISOString();
         recipient.status = "acknowledged";
         recipient.acknowledged_by = parentId;

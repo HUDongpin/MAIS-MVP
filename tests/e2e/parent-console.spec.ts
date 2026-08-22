@@ -497,7 +497,15 @@ test.describe.serial("parent console end-to-end verification", () => {
 
       await page.getByLabel(/Invite code/i).fill("MAIS-NOPE");
       await page.getByRole("button", { name: /^Connect$/i }).click();
-      await expect(page.getByText(/Invite code could not be linked/i)).toBeVisible();
+      // getByText alone passes whether or not the failure is announced. A parent who
+      // cannot see the red text gets no signal that the link failed, so assert the
+      // alert role — the login form's convention for exactly this.
+      // Filtered by text because Next.js always renders its own empty route announcer
+      // (<div role="alert" id="__next-route-announcer__">), so a bare getByRole("alert")
+      // is a strict-mode violation rather than an assertion about this message.
+      await expect(
+        page.getByRole("alert").filter({ hasText: /Invite code could not be linked/i })
+      ).toBeVisible();
 
       await page.getByLabel(/Invite code/i).fill(inviteCode);
       await page.getByLabel(/Relationship/i).selectOption("guardian");

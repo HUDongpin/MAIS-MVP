@@ -141,17 +141,57 @@ test("right-triangle lab fits max geometry, emphasizes squares, and labels squar
   const branch = templateBranch("right-triangle-pythagorean");
 
   assert.match(source, /const rightTriangleLayout\s*=/);
-  assert.match(source, /scale:\s*10/);
+  assert.match(source, /origin:\s*\{ x: 174, y: 242 \}/);
+  assert.match(source, /scale:\s*8/);
   assert.match(source, /summaryY:\s*panel\.y \+ panel\.height \+ 18/);
   assert.doesNotMatch(branch, /opacity="0\.16"/);
   assert.match(branch, /opacity=\{mode === 0 \? "0\.38" : "0\.14"\}/);
   assert.match(branch, /data-viz-name="leg a square area label"/);
   assert.match(branch, /data-viz-name="leg b square area label"/);
   assert.match(branch, /data-viz-name="hypotenuse square area label"/);
-  assert.match(branch, /a\^2 = \{state\.legASquared\}/);
-  assert.match(branch, /b\^2 = \{state\.legBSquared\}/);
-  assert.match(branch, /c\^2 = \{state\.hypotenuseSquared\}/);
+  assert.match(branch, /x="326" y="132"[\s\S]*?a=\{state\.legA\}; a²=\{state\.legASquared\}/);
+  assert.match(branch, /x="326" y="164"[\s\S]*?b=\{state\.legB\}; b²=\{state\.legBSquared\}/);
+  assert.match(branch, /x="326" y="196"[\s\S]*?c=\{formatNumber\(state\.hypotenuse, 2\)\}; c²=\{state\.hypotenuseSquared\}/);
   assert.doesNotMatch(branch, /<text x="82" y="292"[\s\S]*state\.legASquared/);
+
+  const maxLeg = 9;
+  const scale = 8;
+  const originY = 242;
+  const topOfHypotenuseSquare = originY - maxLeg * scale * 2;
+  const bottomOfLegSquare = originY + maxLeg * scale;
+  assert.ok(topOfHypotenuseSquare > 92, "maximum hypotenuse square must clear the title and legend band");
+  assert.ok(bottomOfLegSquare < 326, "maximum leg square must stay inside the configured panel");
+});
+
+test("configured functions use raw mathematical coordinates and an SVG plot clip instead of false boundary plateaus", () => {
+  assert.match(source, /const rawY = configuredFunctionFrame\.origin\.y - yValue \* configuredFunctionFrame\.yScale/);
+  assert.match(source, /y:\s*rawY/);
+  assert.doesNotMatch(source, /const visibleY = clamp\(/);
+  assert.match(source, /configured-function-plot-clip/);
+  assert.match(source, /clipPath=\{`url\(#\$\{functionPlotClipId\}\)`\}/);
+  assert.match(source, /<text x="64" y=\{y - 4\} textAnchor="end"/);
+  assert.match(source, /<text x=\{origin\.x \+ 14\} y="52"/);
+});
+
+test("configured coordinate transformations project off-grid points to an explicit bounded edge indicator", () => {
+  const branch = templateBranchAroundMarker("coordinate-transform", 'data-viz-name="user point"');
+
+  assert.match(source, /clampPointToDiagramBounds\(sourceSvg, coordinateTransformFrame, 9\)/);
+  assert.match(source, /clampPointToDiagramBounds\(targetSvg, coordinateTransformFrame, 9\)/);
+  assert.match(source, /diagramOverflowIndicator\(sourceSvg, sourceVisible\.point\)/);
+  assert.match(source, /diagramOverflowIndicator\(targetSvg, targetVisible\.point\)/);
+  assert.match(branch, /data-viz-name="off-grid source point indicator"/);
+  assert.match(branch, /data-viz-overflow-direction=\{sourceIndicator\.direction\}/);
+  assert.match(branch, /\{`S\$\{sourceIndicator\.symbol\}`\}/);
+  assert.match(branch, /Source point[\s\S]*continues beyond the visible grid/);
+  assert.match(branch, /data-viz-clipped=\{String\(targetVisible\.clipped\)\}/);
+  assert.match(branch, /data-viz-name="off-grid transformed point indicator"/);
+  assert.match(branch, /data-viz-overflow-direction=\{targetIndicator\.direction\}/);
+  assert.match(branch, /\{`T\$\{targetIndicator\.symbol\}`\}/);
+  assert.match(branch, /Transformed point[\s\S]*continues beyond the visible grid/);
+  assert.doesNotMatch(branch, /cx=\{targetSvg\.x\}/);
+  assert.doesNotMatch(branch, /cy=\{targetSvg\.y\}/);
+  assert.doesNotMatch(branch, /targetVisible\.point\.x > state\.origin\.x \? "→" : "←"/);
 });
 
 test("angle geometry keeps extreme rays inside the panel and combines equal-angle labels", () => {
@@ -182,6 +222,27 @@ test("array and statistics summaries avoid graph collisions at reported slider e
   assert.doesNotMatch(statisticsDistribution, /<text x="82" y="292"[\s\S]*state\.mean/);
 });
 
+test("calculus tick and axis labels occupy gutters outside the plotted marks", () => {
+  const frameBranch = templateBranchAroundMarker("calculus-rate-area", "const xTicks = [-4, -2, 0, 2, 4]");
+
+  assert.match(frameBranch, /y=\{frame\.bottom \+ 18\} textAnchor="middle"/);
+  assert.match(frameBranch, /x=\{frame\.left - 10\} y=\{mapFrameY\(tick\) \+ 4\} textAnchor="end"/);
+  assert.match(frameBranch, /x=\{frame\.right \+ 18\} y=\{frame\.bottom \+ 18\}/);
+  assert.match(frameBranch, /x=\{frame\.left - 30\} y=\{frame\.top \+ 8\} textAnchor="end"/);
+  assert.doesNotMatch(frameBranch, /y=\{frame\.bottom - 8\}/);
+  assert.doesNotMatch(frameBranch, /x=\{frame\.left \+ 10\} y=\{mapFrameY\(tick\) - 4\}/);
+
+  const frame = { bottom: 286, left: 88, right: 552, top: 74 };
+  const xTickLabelTop = frame.bottom + 18 - 12;
+  const xAxisLabelRight = frame.right + 18 + 10;
+  const yTickLabelRight = frame.left - 10;
+  const yAxisLabelLeft = frame.left - 30 - 10;
+  assert.ok(xTickLabelTop > frame.bottom, "x tick labels must clear curve and area-strip paint");
+  assert.ok(xAxisLabelRight < 606, "x axis label must remain inside the panel");
+  assert.ok(yTickLabelRight < frame.left, "y tick labels must clear curve and tangent paint");
+  assert.ok(yAxisLabelLeft > 34, "y axis label must remain inside the panel");
+});
+
 test("mode buttons use distinct active colors for visual emphasis", () => {
   assert.match(source, /const modeButtonActiveClassNames\s*=/);
   assert.match(source, /bg-cyan-400 text-slate-950/);
@@ -203,8 +264,14 @@ test("configured visualization renderer omits introductory metadata panels from 
 test("configured visualization lab exposes a footer action slot for lesson embeds", () => {
   assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
   assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*controlFooterAction\?: ReactNode;[\s\S]*lab\?: FeaturedLabDefinition \| null;/);
-  assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /threeDPresentation\?: ThreeDPresentation;/);
+  assert.match(
+    source,
+    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "authoring",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
+  );
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
+  assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);
+  assert.match(source, /<ThreeDLabCanvas[\s\S]*presentation=\{threeDPresentation\}/);
   assert.match(source, /export function ConfiguredVisualizationLab\(\{ controlFooterAction, lab: providedLab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /<div className="flex min-w-0 flex-col gap-4">[\s\S]*data-viz-reset-model[\s\S]*data-viz-lesson-action-slot/);
   assert.match(source, /data-viz-lesson-action-slot className="mt-auto pt-4"/);
@@ -229,9 +296,10 @@ test("coordinate-transform vertex labels use collision-aware positions", () => {
   const branch = templateBranchAroundMarker("coordinate-transform", 'data-viz-name="transformed triangle"');
 
   assert.match(source, /function coordinateTransformLabelPositions/);
-  assert.match(branch, /const transformedLabelPositions = coordinateTransformLabelPositions\(state\.transformedSvg\)/);
+  assert.match(branch, /const transformedLabelPositions = coordinateTransformLabelPositions\([\s\S]*?state\.transformedSvg,[\s\S]*?state\.sourceSvg,[\s\S]*?mode === 1 \? state\.origin\.x \+ state\.reflectionLineX \* state\.scale\.x : null/);
   assert.match(branch, /data-viz-name="transformed vertex label"/);
   assert.match(branch, /data-viz-label-x=\{formatNumber\(labelPosition\.x, 2\)\}/);
+  assert.match(branch, /textAnchor="middle"/);
   assert.doesNotMatch(branch, /x=\{point\.x \+ 8\} y=\{point\.y - 8\}/);
 });
 
@@ -246,4 +314,44 @@ test("angle-geometry labels use collision-aware positions at equal high values",
   assert.match(branch, /data-viz-label-x=\{formatNumber\(angleLabels\.labelA\.x, 2\)\}/);
   assert.doesNotMatch(branch, /x=\{rayA\.x \+ 8\} y=\{rayA\.y - 8\}/);
   assert.doesNotMatch(branch, /x=\{rayB\.x \+ 8\} y=\{rayB\.y - 8\}/);
+});
+
+test("early-primary shape names use a collision-free lane below every reachable polygon", () => {
+  const branchStart = source.indexOf('if (templateId === "angle-geometry" && gradeBand === "early-primary")');
+  assert.notEqual(branchStart, -1, "Missing early-primary angle-geometry branch");
+  const branchEnd = source.indexOf('if (templateId === "angle-geometry")', branchStart + 1);
+  assert.notEqual(branchEnd, -1, "Missing general angle-geometry branch after early-primary branch");
+  const branch = source.slice(branchStart, branchEnd);
+
+  assert.match(branch, /const shapeNameY = center\.y \+ size \+ 24 \+ \(mode === 2 \? 4 : 0\);/);
+  assert.match(
+    branch,
+    /data-viz-name="shape name label"[\s\S]*?data-viz-size=\{size\}[\s\S]*?y=\{shapeNameY\}/
+  );
+
+  const centerY = 196;
+  const panelBottom = 326;
+  const summaryY = 344;
+  for (let comparison = 0; comparison <= 10; comparison += 1) {
+    const size = 48 + comparison * 5;
+    for (let mode = 0; mode <= 2; mode += 1) {
+      const cornerPaintRadius = (mode === 2 ? 11 : 7) + 1.5;
+      const labelBaselineY = centerY + size + 24 + (mode === 2 ? 4 : 0);
+      const conservativeLabelTop = labelBaselineY - 14;
+      const conservativeLabelBottom = labelBaselineY + 4;
+
+      assert.ok(
+        conservativeLabelTop > centerY + size + cornerPaintRadius,
+        `size ${size}, mode ${mode}: label must clear corner paint`
+      );
+      assert.ok(
+        conservativeLabelBottom <= panelBottom,
+        `size ${size}, mode ${mode}: label must remain inside the panel`
+      );
+      assert.ok(
+        conservativeLabelBottom < summaryY,
+        `size ${size}, mode ${mode}: label must remain above the summary`
+      );
+    }
+  }
 });

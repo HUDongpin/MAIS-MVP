@@ -1607,10 +1607,11 @@ export default function SequencesLab() {
         }
         @media (max-width: 920px) {
           .bench {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
           }
         }
         .panel {
+          min-width: 0;
           background: #fff;
           border: 1px solid rgba(28, 43, 58, 0.15);
           border-radius: 12px;
@@ -1787,6 +1788,20 @@ export default function SequencesLab() {
         .segb:disabled {
           opacity: 0.4;
           cursor: not-allowed;
+        }
+        @media (max-width: 560px) {
+          .toolbar .seg {
+            display: grid;
+            grid-template-columns: minmax(44px, 1fr);
+            width: 100%;
+          }
+          .segb {
+            white-space: normal;
+          }
+          .segb + .segb {
+            border-left: 0;
+            border-top: 1px solid rgba(28, 43, 58, 0.18);
+          }
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;
