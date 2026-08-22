@@ -51,6 +51,149 @@ type GeneratedLessonPack = {
 
 const lessonPack = lessonPackJson as GeneratedLessonPack;
 
+const practiceQuestionIdsByTopicId: Record<string, string[]> = {
+  "pep-high-s4-complex-numbers": [
+    "pep-high-s4-mc-007",
+    "pep-high-s4-fi-017",
+    "pep-high-s4-sa-007",
+    "pep-high-s4-mc-027",
+    "pep-high-s4-fi-027"
+  ],
+  "pep-high-s4-exp-log": [
+    "pep-high-s4-mc-044",
+    "pep-high-s4-mc-004",
+    "pep-high-s4-fi-014",
+    "pep-high-s4-sa-014",
+    "pep-high-s4-mc-024"
+  ],
+  "pep-high-s4-function-properties": [
+    "pep-high-s4-mc-043",
+    "pep-high-s4-mc-003",
+    "pep-high-s4-mc-013",
+    "pep-high-s4-sa-003",
+    "pep-high-s4-sa-013"
+  ],
+  "pep-high-s4-plane-vectors": [
+    "pep-high-s4-mc-046",
+    "pep-high-s4-mc-006",
+    "pep-high-s4-fi-016",
+    "pep-high-s4-sa-006",
+    "pep-high-s4-sa-016"
+  ],
+  "pep-high-s4-probability": [
+    "pep-high-s4-mc-050",
+    "pep-high-s4-mc-010",
+    "pep-high-s4-fi-020",
+    "pep-high-s4-sa-010",
+    "pep-high-s4-mc-030"
+  ],
+  "pep-high-s4-quadratic-inequalities": [
+    "pep-high-s4-mc-042",
+    "pep-high-s4-fi-042",
+    "pep-high-s4-mc-002",
+    "pep-high-s4-fi-002",
+    "pep-high-s4-sa-002"
+  ],
+  "pep-high-s4-sets-logic": [
+    "pep-high-s4-mc-041",
+    "pep-high-s4-mc-001",
+    "pep-high-s4-fi-001",
+    "pep-high-s4-sa-001",
+    "pep-high-s4-mc-011"
+  ],
+  "pep-high-s4-solid-geometry-intro": [
+    "pep-high-s4-mc-048",
+    "pep-high-s4-mc-008",
+    "pep-high-s4-fi-008",
+    "pep-high-s4-sa-008",
+    "pep-high-s4-mc-018"
+  ],
+  "pep-high-s4-trigonometry": [
+    "pep-high-s4-mc-005",
+    "pep-high-s4-fi-005",
+    "pep-high-s4-sa-025",
+    "pep-high-s4-sa-035",
+    "pep-high-s4-sa-045"
+  ],
+  "pep-high-s5-conics": [
+    "pep-high-s5-mc-003",
+    "pep-high-s5-fi-003",
+    "pep-high-s5-sa-003",
+    "pep-high-s5-mc-008",
+    "pep-high-s5-fi-008"
+  ],
+  "pep-high-s5-space-vectors": [
+    "pep-high-s5-mc-041",
+    "pep-high-s5-mc-001",
+    "pep-high-s5-fi-006",
+    "pep-high-s5-sa-001",
+    "pep-high-s5-sa-006"
+  ],
+  "pep-high-s5-lines-circles": [
+    "pep-high-s5-mc-042",
+    "pep-high-s5-mc-002",
+    "pep-high-s5-mc-007",
+    "pep-high-s5-fi-002",
+    "pep-high-s5-sa-002"
+  ],
+  "pep-high-s5-sequences": [
+    "pep-high-s5-mc-044",
+    "pep-high-s5-mc-004",
+    "pep-high-s5-fi-009",
+    "pep-high-s5-sa-004",
+    "pep-high-s5-sa-009"
+  ],
+  "pep-high-s5-derivatives": [
+    "pep-high-s5-mc-045",
+    "pep-high-s5-mc-005",
+    "pep-high-s5-fi-010",
+    "pep-high-s5-sa-005",
+    "pep-high-s5-sa-010"
+  ],
+  "pep-high-s6-random-variables": [
+    "pep-high-s6-mc-037",
+    "pep-high-s6-mc-002",
+    "pep-high-s6-fi-009",
+    "pep-high-s6-sa-002",
+    "pep-high-s6-sa-009"
+  ],
+  "pep-high-s6-bivariate-data": [
+    "pep-high-s6-mc-038",
+    "pep-high-s6-mc-003",
+    "pep-high-s6-fi-010",
+    "pep-high-s6-fi-017",
+    "pep-high-s6-sa-003"
+  ],
+  "pep-high-s6-derivative-synthesis": [
+    "pep-high-s6-mc-039",
+    "pep-high-s6-mc-004",
+    "pep-high-s6-fi-011",
+    "pep-high-s6-sa-004",
+    "pep-high-s6-sa-011"
+  ],
+  "pep-high-s6-analytic-geometry-synthesis": [
+    "pep-high-s6-mc-040",
+    "pep-high-s6-mc-005",
+    "pep-high-s6-fi-012",
+    "pep-high-s6-fi-019",
+    "pep-high-s6-sa-005"
+  ],
+  "pep-high-s6-probability-statistics-synthesis": [
+    "pep-high-s6-mc-041",
+    "pep-high-s6-mc-006",
+    "pep-high-s6-mc-013",
+    "pep-high-s6-sa-006",
+    "pep-high-s6-sa-013"
+  ],
+  "pep-high-s6-exam-practice": [
+    "pep-high-s6-mc-042",
+    "pep-high-s6-mc-007",
+    "pep-high-s6-fi-014",
+    "pep-high-s6-sa-007",
+    "pep-high-s6-sa-014"
+  ]
+};
+
 function approvedForProduction(lesson: GeneratedLesson) {
   return (
     lesson.reviewStatus === "approved" &&
@@ -125,12 +268,14 @@ function productionBlocks(lesson: GeneratedLesson): ProductionLessonBlock[] {
 function toProductionLessonSeed(lesson: GeneratedLesson): ProductionLessonSeed {
   const zh = lesson.studentLesson.zhHans;
   const en = lesson.studentLesson.en;
+  const practiceQuestionIds = practiceQuestionIdsByTopicId[lesson.metadata.topicId];
   return {
     topicId: lesson.metadata.topicId,
     productionReady: true,
     title: { en: en.title, zh: zh.title },
     description: { en: en.hook, zh: zh.hook },
     estimatedMinutes: lesson.metadata.estimatedMinutes,
+    ...(practiceQuestionIds ? { practiceQuestionIds } : {}),
     blocks: productionBlocks(lesson)
   };
 }

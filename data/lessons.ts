@@ -1,5 +1,7 @@
 import type { LearningAnalyticsEventSource, LessonBlockType, LocalizedText } from "@/types";
 import type { VisualizationModuleId } from "@/data/visualizationLabs";
+import { withChinaLessonSeedEnglishTranslations } from "./chinaLessonEnglishTranslations";
+import { withChinaLessonSeedTraditionalTranslations } from "./chinaLessonTraditionalTranslations";
 import { mainlandBnuHighLessonSeeds } from "./mainlandBnuHighLessons";
 import { mainlandBnuJuniorLessonSeeds } from "./mainlandBnuJuniorLessons";
 import { mainlandBnuPrimaryLessonSeeds } from "./mainlandBnuPrimaryLessons";
@@ -168,7 +170,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the counter grid to split a whole into two visible parts, then read the number sentence that changes with the model.",
         zh: "使用粒子格把整體分成兩個可見部分，然後讀出隨模型改變的算式。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "coordinate-plane-demo",
       source: "coordinate-plane",
       topicId: "p1-counting-number-bonds"
     },
@@ -196,8 +198,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `To find ${math("6 + 8")}, make ten first: ${math("6 + 4 = 10")}. There are ${math("4")} left from the ${math("8")}, so ${math("10 + 4 = 14")}.`,
-        zh: `計算 ${math("6 + 8")} 時先湊十：${math("6 + 4 = 10")}。${math("8")} 還剩 ${math("4")}，所以 ${math("10 + 4 = 14")}。`
+        en: `To find ${math("6 + 8")}, split ${math("8")} into ${math("4")} and ${math("4")}. Use one ${math("4")} with ${math("6")} to make ${math("10")}: ${math("6 + 4 = 10")}. Then add the remaining ${math("4")}: ${math("10 + 4 = 14")}.`,
+        zh: `計算 ${math("6 + 8")} 時，把 ${math("8")} 分成 ${math("4")} 和 ${math("4")}。先用一個 ${math("4")} 與 ${math("6")} 湊成 ${math("10")}：${math("6 + 4 = 10")}。再加剩下的 ${math("4")}：${math("10 + 4 = 14")}。`
       }
     },
     checklist: {
@@ -286,8 +288,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `A classroom door is longer than a pencil, so it is the better choice for a long object. If the hour hand points to ${math("3")} and the minute hand points to ${math("12")}, the time is 3 o'clock.`,
-        zh: `課室門比鉛筆長，所以較適合作為長物件的例子。若時針指向 ${math("3")}、分針指向 ${math("12")}，時間是 3 時。`
+        en: `A classroom door is longer than a pencil. When comparing their lengths, we say the door is longer and the pencil is shorter. If the hour hand points to ${math("3")} and the minute hand points to ${math("12")}, the time is 3 o'clock.`,
+        zh: `課室門比鉛筆長。比較兩者的長度時，我們說課室門較長、鉛筆較短。若時針指向 ${math("3")}、分針指向 ${math("12")}，時間是 3 時。`
       }
     },
     checklist: {
@@ -391,43 +393,43 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     extension: {
       items: [
         { en: "Find two different arrays that both show 12 objects.", zh: "找出兩個不同陣列，同樣表示 12 件物件。" },
-        { en: "Explain why 3 x 4 and 4 x 3 have the same total.", zh: "解釋為何 3 x 4 和 4 x 3 的總數相同。" }
+        { en: "Explain why 3 × 4 and 4 × 3 have the same total.", zh: "解釋為何 3 × 4 和 4 × 3 的總數相同。" }
       ]
     }
   }),
   lesson({
     topicId: "p2-money-time",
-    title: { en: "Money and Time: Pay, Change, Half Hours", zh: "金錢與時間：付款、找續、半小時" },
+    title: { en: "Money and Time: Pay, Change, Half-Past Times", zh: "金錢與時間：付款、找續、半點時刻" },
     description: {
-      en: "Solve simple Hong Kong money questions and read o'clock or half-hour times.",
-      zh: "解決簡單香港貨幣題，並讀出整點或半小時時間。"
+      en: "Solve simple Hong Kong money questions and read o'clock or half-past times.",
+      zh: "解決簡單香港貨幣題，並讀出整點或半點時刻。"
     },
     estimatedMinutes: 24,
     concept: {
       title: { en: "Money and time are labelled numbers", zh: "金錢與時間都是帶標籤的數" },
       content: {
-        en: "Money answers need dollars or cents. Half past means the minute hand points to 6, which is 30 minutes after the hour.",
-        zh: "金錢答案要寫元或角。半小時表示分針指向 6，即整點後 30 分鐘。"
+        en: "Money answers need a currency unit. Half past means the minute hand points to 6, which is 30 minutes after the hour.",
+        zh: "金錢答案要寫上貨幣單位。半點表示分針指向 6，即整點後 30 分鐘。"
       }
     },
     workedExample: {
       content: {
         en: `If a snack costs HK$${math("8")} and you pay HK$${math("10")}, the change is HK$${math("2")}. Half an hour after ${math("4:00")} is ${math("4:30")}.`,
-        zh: `若小食售港幣 ${math("$8")}，付港幣 ${math("$10")}，找續是港幣 ${math("$2")}。${math("4:00")} 後半小時是 ${math("4:30")}。`
+        zh: `若小食售港幣 ${math("8")} 元，付港幣 ${math("10")} 元，找續是港幣 ${math("2")} 元。${math("4:00")} 後半小時是 ${math("4:30")}。`
       }
     },
     checklist: {
       title: { en: "Money and time checklist", zh: "金錢與時間清單" },
       items: [
-        { en: "Write HK$ or cents with money answers.", zh: "金錢答案要寫港幣或角。" },
-        { en: "Use subtraction for change.", zh: "找續使用減法。" },
-        { en: "For half past, look for the minute hand at 6.", zh: "讀半小時時，留意分針是否指向 6。" }
+        { en: "Write HK$ or the correct currency unit with money answers.", zh: "金錢答案要寫港幣符號或合適的貨幣單位。" },
+        { en: "Use subtraction to calculate the change to give back.", zh: "用減法計算應找回的款項，即找續。" },
+        { en: "For half past, look for the minute hand at 6.", zh: "讀半點時，留意分針是否指向 6。" }
       ]
     },
     extension: {
       items: [
         { en: "Plan two ways to pay exactly HK$15 using coins or notes.", zh: "設計兩種剛好支付港幣 15 元的方法。" },
-        { en: "Make a mini timetable using o'clock and half-hour times.", zh: "用整點和半小時時間製作小時間表。" }
+        { en: "Make a mini timetable using o'clock and half-past times.", zh: "用整點和半點時刻製作小時間表。" }
       ]
     }
   }),
@@ -448,8 +450,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `A ribbon is ${math("18")} cm long and ${math("5")} cm is cut off. The remaining length is ${math("18 - 5 = 13")} cm. If a chart has ${math("6")} apples and ${math("4")} bananas, the total is ${math("10")} fruits.`,
-        zh: `絲帶長 ${math("18")} 厘米，剪去 ${math("5")} 厘米，剩下 ${math("18 - 5 = 13")} 厘米。若圖表有 ${math("6")} 個蘋果和 ${math("4")} 隻香蕉，總數是 ${math("10")} 個水果。`
+        en: `A ribbon is ${math("17")} cm long and ${math("6")} cm is cut off. The remaining length is ${math("17 - 6 = 11")} cm. If a chart has ${math("7")} apples and ${math("5")} bananas, the total is ${math("12")} fruits.`,
+        zh: `絲帶長 ${math("17")} 厘米，剪去 ${math("6")} 厘米，剩下 ${math("17 - 6 = 11")} 厘米。若圖表有 ${math("7")} 個蘋果和 ${math("5")} 隻香蕉，總數是 ${math("12")} 個水果。`
       }
     },
     checklist: {
@@ -493,8 +495,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `${math("7 \\times 6 = 42")}, so ${math("42 \\div 6 = 7")} and ${math("42 \\div 7 = 6")}. The three facts describe the same equal-group relationship.`,
-        zh: `${math("7 \\times 6 = 42")}，所以 ${math("42 \\div 6 = 7")} 和 ${math("42 \\div 7 = 6")}。三個算式描述同一個等量組關係。`
+        en: `${math("6 \\times 8 = 48")}, so ${math("48 \\div 8 = 6")} and ${math("48 \\div 6 = 8")}. The three facts describe the same equal-group relationship.`,
+        zh: `${math("6 \\times 8 = 48")}，所以 ${math("48 \\div 8 = 6")} 和 ${math("48 \\div 6 = 8")}。三個算式描述同一個等量組關係。`
       }
     },
     checklist: {
@@ -595,29 +597,29 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "p3-geometry-patterns",
-    title: { en: "Geometry and Patterns: Right Angles and Rules", zh: "幾何與規律：直角與規則" },
+    title: { en: "Geometry and Patterns: Compare Corners and Rules", zh: "幾何與規律：比較角與規則" },
     description: {
-      en: "Use right angles, symmetry, and number patterns to explain what stays the same and what changes.",
-      zh: "運用直角、對稱和數字規律，解釋甚麼保持不變、甚麼正在改變。"
+      en: "Compare angles with a square corner, then use symmetry and number patterns to explain what stays the same and what changes.",
+      zh: "把角與正方形角比較，再運用對稱和數字規律，解釋甚麼保持不變、甚麼正在改變。"
     },
     estimatedMinutes: 28,
     concept: {
       title: { en: "Right angles and growing patterns", zh: "直角與增長規律" },
       content: {
-        en: `A right angle is ${math("90^\\circ")}. A growing pattern uses the same change each step, such as adding ${math("3")} each time.`,
-        zh: `直角是 ${math("90^\\circ")}。增長規律每一步有相同變化，例如每次加 ${math("3")}。`
+        en: `A right angle has the same opening as a corner of a square. An acute angle is smaller than that corner, and an obtuse angle is larger. A growing pattern uses the same change each step, such as adding ${math("3")} each time.`,
+        zh: `直角的開口與正方形角相同。銳角的開口比正方形角小，鈍角的開口比正方形角大。增長規律每一步有相同變化，例如每次加 ${math("3")}。`
       }
     },
     workedExample: {
       content: {
-        en: `In ${math("3, 6, 9, 12")}, the change is ${math("+3")}, so the next number is ${math("15")}. For angles, compare with ${math("90^\\circ")} to decide whether an angle is right, acute, or obtuse.`,
-        zh: `在 ${math("3, 6, 9, 12")} 中，變化是 ${math("+3")}，所以下一個數是 ${math("15")}。判斷角時，可與 ${math("90^\\circ")} 比較，分辨直角、銳角或鈍角。`
+        en: `In ${math("3, 6, 9, 12")}, the change is ${math("+3")}, so the next number is ${math("15")}. For angles, compare the opening with a square corner to decide whether an angle is right, acute, or obtuse.`,
+        zh: `在 ${math("3, 6, 9, 12")} 中，變化是 ${math("+3")}，所以下一個數是 ${math("15")}。判斷角時，可把開口與正方形角比較，分辨直角、銳角或鈍角。`
       }
     },
     checklist: {
       title: { en: "Geometry pattern checklist", zh: "幾何規律清單" },
       items: [
-        { en: `Compare angles with ${math("90^\\circ")}.`, zh: `把角與 ${math("90^\\circ")} 比較。` },
+        { en: "Compare each angle with a square corner.", zh: "把每個角與正方形角比較。" },
         { en: "Find the change from one step to the next.", zh: "找出每一步到下一步的變化。" },
         { en: "Use the same rule for the next term.", zh: "用相同規則求下一項。" }
       ]
@@ -655,8 +657,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `To round ${math("3,684")} to the nearest hundred, check the tens digit ${math("8")}. Since ${math("8 \\ge 5")}, round up to ${math("3,700")}.`,
-        zh: `把 ${math("3,684")} 取近似至百位時，檢查十位數字 ${math("8")}。因為 ${math("8 \\ge 5")}，所以進上為 ${math("3,700")}。`
+        en: `To round ${math("4,572")} to the nearest hundred, check the tens digit ${math("7")}. Since ${math("7 \\ge 5")}, round up to ${math("4,600")}.`,
+        zh: `把 ${math("4,572")} 取近似至百位時，檢查十位數字 ${math("7")}。因為 ${math("7 \\ge 5")}，所以進上為 ${math("4,600")}。`
       }
     },
     checklist: {
@@ -721,31 +723,31 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "p4-angles",
-    title: { en: "Angles: Classify and Calculate", zh: "角：分類與計算" },
+    title: { en: "Angle Sense: Compare, Classify, Explain", zh: "角的大小感：比較、分類、解釋" },
     description: {
-      en: "Classify acute, right, obtuse, and straight angles, then use straight-line angle sums.",
-      zh: "分類銳角、直角、鈍角和平角，並使用一直線角和。"
+      en: "Compare angle openings with a square corner, then classify and explain acute, right, and obtuse angles.",
+      zh: "把角的開口與正方形角比較，再分類和解釋銳角、直角和鈍角。"
     },
     estimatedMinutes: 28,
     concept: {
       title: { en: "Angle types", zh: "角的種類" },
       content: {
-        en: `An acute angle is less than ${math("90^\\circ")}, a right angle is ${math("90^\\circ")}, an obtuse angle is between ${math("90^\\circ")} and ${math("180^\\circ")}, and a straight angle is ${math("180^\\circ")}.`,
-        zh: `銳角小於 ${math("90^\\circ")}，直角是 ${math("90^\\circ")}，鈍角介乎 ${math("90^\\circ")} 和 ${math("180^\\circ")} 之間，平角是 ${math("180^\\circ")}。`
+        en: "A right angle has the same opening as a corner of a square. An acute angle has a smaller opening, while an obtuse angle is larger than a right angle but smaller than half a turn.",
+        zh: "直角的開口與正方形角相同。銳角的開口較小；鈍角比直角大，但比半圈小。"
       }
     },
     workedExample: {
       content: {
-        en: `If one angle on a straight line is ${math("75^\\circ")}, the other angle is ${math("180 - 75 = 105^\\circ")}. Since ${math("105^\\circ")} is greater than ${math("90^\\circ")}, it is obtuse.`,
-        zh: `若一直線上一個角是 ${math("75^\\circ")}，另一個角是 ${math("180 - 75 = 105^\\circ")}。因為 ${math("105^\\circ")} 大於 ${math("90^\\circ")}，所以是鈍角。`
+        en: "The corner of a book is a useful right-angle model. An opening narrower than that corner is acute; an opening wider than that corner, but not as wide as half a turn, is obtuse.",
+        zh: "書本的角可作直角模型。開口比書角窄的是銳角；開口比書角闊但未到半圈的是鈍角。"
       }
     },
     checklist: {
       title: { en: "Angle checklist", zh: "角度清單" },
       items: [
-        { en: "Estimate the type before calculating.", zh: "計算前先估計角的種類。" },
-        { en: `Use ${math("180^\\circ")} for angles on a straight line.`, zh: `一直線上的角使用 ${math("180^\\circ")}。` },
-        { en: "Check whether the final angle type matches its size.", zh: "檢查最終角的種類是否符合大小。" }
+        { en: "Use a square corner as the comparison model.", zh: "用正方形角作比較模型。" },
+        { en: "Look at the opening, not the lengths of the two arms.", zh: "比較角的開口，不要受兩條臂的長度影響。" },
+        { en: "Explain whether the opening is smaller than, equal to, or larger than a right angle.", zh: "解釋開口比直角小、與直角相同，還是比直角大。" }
       ]
     },
     visualization: {
@@ -759,8 +761,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     extension: {
       items: [
-        { en: "Draw one acute, one right, one obtuse, and one straight angle.", zh: "畫出一個銳角、一個直角、一個鈍角和一個平角。" },
-        { en: "Create a straight-line angle question with a missing value.", zh: "創作一道一直線上有未知角的題目。" }
+        { en: "Draw one acute, one right, and one obtuse angle, then label each type.", zh: "畫出一個銳角、一個直角和一個鈍角，並標示種類。" },
+        { en: "Find three corners around you and order their openings from smallest to largest.", zh: "在身邊找出三個角，並把開口由小至大排列。" }
       ]
     }
   }),
@@ -871,8 +873,9 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `A cuboid ${math("4")} cm long, ${math("3")} cm wide, and ${math("2")} cm high has volume ${math("4 \\times 3 \\times 2 = 24")} cm${math("^3")}.`,
-        zh: `一個長 ${math("4")} 厘米、闊 ${math("3")} 厘米、高 ${math("2")} 厘米的長方體，體積是 ${math("4 \\times 3 \\times 2 = 24")} 立方厘米。`
+        en: `A cuboid ${math("5")} cm long, ${math("4")} cm wide, and ${math("2")} cm high has volume ${math("5 \\times 4 \\times 2 = 40")} cm${math("^3")}.`,
+        zh: `一個長 ${math("5")} 厘米、闊 ${math("4")} 厘米、高 ${math("2")} 厘米的長方體，體積是 ${math("5 \\times 4 \\times 2 = 40")} 立方厘米。`,
+        zhHans: `一个长 ${math("5")} 厘米、宽 ${math("4")} 厘米、高 ${math("2")} 厘米的长方体，体积是 ${math("5 \\times 4 \\times 2 = 40")} 立方厘米。`
       }
     },
     checklist: {
@@ -880,7 +883,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       items: [
         { en: "Identify length, width, and height.", zh: "辨認長、闊和高。" },
         { en: "Use cubic units for volume.", zh: "體積使用立方單位。" },
-        { en: "Check whether the answer counts cubes or surface squares.", zh: "檢查答案是數立方體還是表面方格。" }
+        { en: "Check that volume is written in cubic units, not square units.", zh: "檢查體積答案使用立方單位，而不是平方單位。" }
       ]
     },
     visualization: {
@@ -889,7 +892,7 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the geometry canvas to discuss unit cubes, layers, cuboids, and cubic units.",
         zh: "用幾何畫布討論小立方體、分層、長方體和立方單位。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "geometry-explorer",
       source: "geometry"
     },
     extension: {
@@ -901,37 +904,37 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "p5-rates",
-    title: { en: "Rates: Compare Per One Unit", zh: "率：按每一單位比較" },
+    title: { en: "Unitary Method: Find One Unit First", zh: "歸一法：先求一個單位" },
     description: {
-      en: "Compare unit prices, speeds, and other rate situations.",
-      zh: "比較單價、速度和其他率的情境。"
+      en: "Find the value of one item first, then scale to the number of equal items required.",
+      zh: "先求一件物品的數值，再按所需的相同物品數量縮放。"
     },
     estimatedMinutes: 32,
     concept: {
-      title: { en: "A rate links two units", zh: "率連繫兩種單位" },
+      title: { en: "Find one before finding many", zh: "先求一，再求多" },
       content: {
-        en: "A rate compares one quantity with another, such as dollars per pen or kilometres per hour. Unit rates make comparisons fair.",
-        zh: "率比較兩個量，例如每支筆多少元或每小時多少公里。單位率令比較更公平。"
+        en: "When equal items have the same value, divide the known total to find one item. Then multiply that one-item value by the number of items required.",
+        zh: "相同物品的數值相等時，先把已知總數相除，求出一件物品的數值，再乘所需物品數量。"
       }
     },
     workedExample: {
       content: {
-        en: "If 4 pens cost HK$ 20, the unit price is HK$ 20÷4=5 per pen. If a bike travels 60 km in 2 hours, its speed is 30 km/h.",
-        zh: `若 ${math("4")} 支筆售港幣 ${math("20")} 元，單價是每支港幣 ${math("20 \\div 4 = 5")} 元。若單車 ${math("2")} 小時行 ${math("60")} 公里，速率是每小時 ${math("30")} 公里。`
+        en: `If ${math("4")} pens cost HK$${math("20")}, one pen costs HK$${math("20 \\div 4 = 5")}. Therefore ${math("7")} pens cost HK$${math("5 \\times 7 = 35")}.`,
+        zh: `若 ${math("4")} 支筆售港幣 ${math("20")} 元，一支筆售港幣 ${math("20 \\div 4 = 5")} 元。因此 ${math("7")} 支筆售港幣 ${math("5 \\times 7 = 35")} 元。`
       }
     },
     checklist: {
-      title: { en: "Rate checklist", zh: "率清單" },
+      title: { en: "Unitary-method checklist", zh: "歸一法清單" },
       items: [
-        { en: "Name both units being compared.", zh: "說出正在比較的兩種單位。" },
-        { en: "Divide to find the amount per one unit.", zh: "用除法求每一單位的數量。" },
-        { en: "Choose the smaller unit rate for better price and larger speed for faster travel.", zh: "價格比較時單價較低較划算，速率比較時數值較大較快。" }
+        { en: "Identify the known total and the number of equal items.", zh: "辨認已知總數和相同物品的數量。" },
+        { en: "Divide to find the value of one item.", zh: "用除法求一件物品的數值。" },
+        { en: "Multiply the one-item value by the required number of items.", zh: "把一件物品的數值乘所需物品數量。" }
       ]
     },
     extension: {
       items: [
         { en: "Compare two supermarket offers by unit price.", zh: "用單價比較兩個超市優惠。" },
-        { en: "Create a rate question where the units must be converted first.", zh: "創作一道需要先換算單位的率題目。" }
+        { en: "Create a shopping question that requires finding one item before finding many.", zh: "創作一道先求一件物品價錢、再求多件物品價錢的購物題。" }
       ]
     }
   }),
@@ -952,8 +955,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `For ${math("6, 8, 10")}, the mean is ${math("(6 + 8 + 10) \\div 3 = 8")}. If a chart has ${math("12")} sunny days and ${math("8")} rainy days, it shows ${math("20")} days in total.`,
-        zh: `對 ${math("6, 8, 10")} 而言，平均數是 ${math("(6 + 8 + 10) \\div 3 = 8")}。若圖表有 ${math("12")} 天晴天和 ${math("8")} 天雨天，共顯示 ${math("20")} 天。`
+        en: `For ${math("4, 7, 10")}, the mean is ${math("(4 + 7 + 10) \\div 3 = 7")}. If a chart has ${math("11")} sunny days and ${math("8")} rainy days, it shows ${math("19")} days in total.`,
+        zh: `對 ${math("4, 7, 10")} 而言，平均數是 ${math("(4 + 7 + 10) \\div 3 = 7")}。若圖表有 ${math("11")} 天晴天和 ${math("8")} 天雨天，共顯示 ${math("19")} 天。`
       }
     },
     checklist: {
@@ -965,12 +968,12 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
       ]
     },
     visualization: {
-      title: { en: "Simulate data and compare frequencies", zh: "模擬數據並比較頻率" },
+      title: { en: "Adjust data and rebalance the mean", zh: "調整數據並重新平衡平均數" },
       content: {
-        en: "Use repeated trials to see how counts change and why averages need enough data.",
-        zh: "透過重複試驗觀察數量如何變化，理解平均數需要足夠數據。"
+        en: "Move the five data bars and watch the mean line shift. Compare which changes raise or lower the mean.",
+        zh: "移動五個數據棒形，觀察平均線如何移動，並比較哪些改變會令平均數上升或下降。"
       },
-      moduleId: "configured-visualization-lab",
+      moduleId: "probability-simulator",
       source: "probability"
     },
     extension: {
@@ -1027,37 +1030,38 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
   }),
   lesson({
     topicId: "p6-ratio-proportion",
-    title: { en: "Ratio and Proportion: Scale and Share", zh: "比例與正反比：縮放與分配" },
+    title: { en: "Unitary Method: Find One, Then Scale", zh: "歸一法：先求一，再縮放" },
     description: {
-      en: "Scale quantities, share in a ratio, and reason proportionally.",
-      zh: "按比例縮放、按比分配，並作比例推理。"
+      en: "Use one-unit values to scale costs, recipes, and equal groups in familiar situations.",
+      zh: "利用一個單位的數值，在熟悉情境中縮放費用、食譜份量和等量組。"
     },
     estimatedMinutes: 36,
     concept: {
-      title: { en: "Ratio keeps relationships", zh: "比例保留關係" },
+      title: { en: "One-unit values make scaling clear", zh: "一個單位的數值令縮放更清楚" },
       content: {
-        en: "A ratio compares parts. Equivalent ratios use the same multiplier, so the relationship stays the same even when the quantities grow or shrink.",
-        zh: "比用來比較各部分。等值比使用相同倍數，即使數量增加或減少，關係仍保持不變。"
+        en: "For equal items or equal servings, divide the known total to find the value of one unit. Multiply that value by the new number of units. This unitary method keeps every scaling step connected to the situation.",
+        zh: "處理相同物品或相同份量時，先把已知總數相除，求一個單位的數值，再乘新的單位數。歸一法令每一步縮放都與情境保持連繫。"
       }
     },
     workedExample: {
       content: {
-        en: `Share ${math("30")} in the ratio ${math("2:3")}. There are ${math("5")} parts, so one part is ${math("30 \\div 5 = 6")}. The shares are ${math("12")} and ${math("18")}.`,
-        zh: `把 ${math("30")} 按 ${math("2:3")} 分配。共有 ${math("5")} 份，每份是 ${math("30 \\div 5 = 6")}。兩份分別是 ${math("12")} 和 ${math("18")}。`
+        en: `If ${math("4")} notebooks cost HK$${math("12")}, one notebook costs HK$${math("12 \\div 4 = 3")}. Therefore ${math("7")} notebooks cost HK$${math("3 \\times 7 = 21")}. If ${math("3")} people need ${math("6")} cups of rice, one person needs ${math("2")} cups, so ${math("5")} people need ${math("10")} cups.`,
+        zh: `若 ${math("4")} 本筆記簿售港幣 ${math("12")} 元，一本售港幣 ${math("12 \\div 4 = 3")} 元。因此 ${math("7")} 本售港幣 ${math("3 \\times 7 = 21")} 元。若 ${math("3")} 人需要 ${math("6")} 杯米，一人需要 ${math("2")} 杯，所以 ${math("5")} 人需要 ${math("10")} 杯。`
       }
     },
     checklist: {
-      title: { en: "Ratio and proportion checklist", zh: "比例清單" },
+      title: { en: "Scaling checklist", zh: "縮放清單" },
       items: [
-        { en: "Add ratio parts before sharing a total.", zh: "分配總量前先加總比的份數。" },
-        { en: "Use the same multiplier for equivalent ratios.", zh: "等值比每項使用相同倍數。" },
-        { en: "Keep units when the ratio comes from context.", zh: "情境題中的比要保留單位。" }
+        { en: "Identify the known total and number of equal units.", zh: "辨認已知總數和相同單位數。" },
+        { en: "Divide to find one unit.", zh: "用除法求一個單位。" },
+        { en: "Multiply by the new number of units.", zh: "乘新的單位數。" },
+        { en: "Keep the unit and check that the scaled answer is sensible.", zh: "保留單位，並檢查縮放後的答案是否合理。" }
       ]
     },
     extension: {
       items: [
-        { en: "Scale a recipe for twice as many people and explain the multiplier.", zh: "把食譜按兩倍人數縮放，並解釋倍數。" },
-        { en: "Create one direct proportion and one inverse proportion situation.", zh: "創作一個正比和一個反比情境。" }
+        { en: "Scale a recipe for twice as many people and explain each unitary-method step.", zh: "把食譜縮放至兩倍人數，並解釋每個歸一法步驟。" },
+        { en: "Compare two equal-item offers by finding the cost of one item in each offer.", zh: "分別求出一件物品的價錢，再比較兩個等量優惠。" }
       ]
     }
   }),
@@ -1096,8 +1100,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the coordinate plane to prepare for reading distance-time graphs and movement patterns.",
         zh: "使用坐標平面，準備閱讀距離時間圖和移動規律。"
       },
-      moduleId: "configured-visualization-lab",
-      source: "geometry"
+      moduleId: "coordinate-plane-demo",
+      source: "coordinate-plane"
     },
     extension: {
       items: [
@@ -1153,8 +1157,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     concept: {
       title: { en: "Signs show direction from zero", zh: "正負號表示相對於零的方向" },
       content: {
-        en: "Positive numbers are to the right of zero and negative numbers are to the left. Adding moves right; subtracting can be seen as moving left.",
-        zh: "正數在零的右方，負數在零的左方。加法可視為向右移，減法可視為向左移。"
+        en: "Positive numbers are to the right of zero and negative numbers are to the left. Adding a positive number moves right, while adding a negative number moves left. Subtracting a positive number moves left, while subtracting a negative number moves right.",
+        zh: "正數在零的右方，負數在零的左方。加正數時向右移，加負數時向左移；減正數時向左移，減負數時向右移。"
       }
     },
     workedExample: {
@@ -1888,8 +1892,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `For an acute angle, ${math(String.raw`\sin 30^\circ = \frac{1}{2}`)}, so if ${math(String.raw`\sin\theta = \frac{1}{2}`)} and ${math(String.raw`\theta`)} is acute, then ${math(String.raw`\theta = 30^\circ`)}.`,
-        zh: `對銳角而言，${math(String.raw`\sin 30^\circ = \frac{1}{2}`)}，所以若 ${math(String.raw`\sin\theta = \frac{1}{2}`)} 且 ${math(String.raw`\theta`)} 是銳角，則 ${math(String.raw`\theta = 30^\circ`)}。`
+        en: `For ${math(String.raw`y=3\sin\left(2\left(x-\frac{\pi}{4}\right)\right)+1`)}, the amplitude is ${math("3")}, the period is ${math(String.raw`\frac{2\pi}{2}=\pi`)}, the phase shift is ${math(String.raw`\frac{\pi}{4}`)} to the right, and the midline is ${math("y=1")}. Therefore the maximum is ${math("1+3=4")} and the minimum is ${math("1-3=-2")}.`,
+        zh: `對於 ${math(String.raw`y=3\sin\left(2\left(x-\frac{\pi}{4}\right)\right)+1`)}，振幅是 ${math("3")}，周期是 ${math(String.raw`\frac{2\pi}{2}=\pi`)}，相位向右移 ${math(String.raw`\frac{\pi}{4}`)}，中線是 ${math("y=1")}。因此最大值是 ${math("1+3=4")}，最小值是 ${math("1-3=-2")}。`
       }
     },
     checklist: {
@@ -1933,8 +1937,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `A fair die has even outcomes ${math("2, 4, 6")}, so ${math(String.raw`P(\text{even})=\frac{3}{6}=\frac{1}{2}`)}. If we already know the result is greater than ${math("3")}, the sample space becomes ${math("4,5,6")}.`,
-        zh: `公平骰子的偶數結果為 ${math("2, 4, 6")}，所以 ${math(String.raw`P(\text{偶數})=\frac{3}{6}=\frac{1}{2}`)}。若已知結果大於 ${math("3")}，樣本空間便變成 ${math("4,5,6")}。`
+        en: `A fair die has even outcomes ${math("2, 4, 6")}, so ${math(String.raw`P(\text{even})=\frac{3}{6}=\frac{1}{2}`)}. If we already know the result ${math("X")} is greater than ${math("3")}, the sample space becomes ${math(String.raw`\{4,5,6\}`)}. Of these three outcomes, ${math("4")} and ${math("6")} are even, so ${math(String.raw`P(\text{even}\mid X>3)=\frac{2}{3}`)}.`,
+        zh: `公平骰子的偶數結果為 ${math("2, 4, 6")}，所以 ${math(String.raw`P(\text{偶數})=\frac{3}{6}=\frac{1}{2}`)}。若已知結果 ${math("X")} 大於 ${math("3")}，樣本空間便變成 ${math(String.raw`\{4,5,6\}`)}。這三個結果中，${math("4")} 和 ${math("6")} 是偶數，所以 ${math(String.raw`P(\text{偶數}\mid X>3)=\frac{2}{3}`)}。`
       }
     },
     checklist: {
@@ -2014,8 +2018,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, the graph rises before ${math("x = 2")} and falls after ${math("x = 2")}, so ${math("x = 2")} may be a local maximum.`,
-        zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，圖像在 ${math("x = 2")} 前上升、之後下降，所以 ${math("x = 2")} 可能是局部最大值。`
+        en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, the graph rises before ${math("x = 2")} and falls after ${math("x = 2")}, so ${math("x = 2")} is a local maximum.`,
+        zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，圖像在 ${math("x = 2")} 前上升、之後下降，所以 ${math("x = 2")} 是局部最大值。`
       }
     },
     checklist: {
@@ -2059,8 +2063,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `If the mean is ${math("50")}, the standard deviation is ${math("10")}, and ${math("x = 70")}, then ${math(String.raw`z = \frac{70 - 50}{10} = 2`)}.`,
-        zh: `若平均數為 ${math("50")}，標準差為 ${math("10")}，且 ${math("x = 70")}，則 ${math(String.raw`z = \frac{70 - 50}{10} = 2`)}。`
+        en: `If the mean is ${math("50")}, the standard deviation is ${math("10")}, and ${math("x = 70")}, then ${math(String.raw`z = \frac{70 - 50}{10} = 2`)}. Thus ${math("70")} is two standard deviations above the mean, so it is relatively high compared with values near the mean.`,
+        zh: `若平均數為 ${math("50")}，標準差為 ${math("10")}，且 ${math("x = 70")}，則 ${math(String.raw`z = \frac{70 - 50}{10} = 2`)}。因此 ${math("70")} 比平均數高兩個標準差；相對於平均數附近的數值，${math("70")} 是一個較高的觀察值。`
       }
     },
     checklist: {
@@ -2077,8 +2081,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
         en: "Use the statistics mode in the senior lab to move the observed value and watch the z-score update.",
         zh: "使用高中實驗室的統計模式移動觀察值，並觀察 z 分數更新。"
       },
-      moduleId: "configured-visualization-lab",
-      source: "probability"
+      moduleId: "calculus-stats-lab",
+      source: "calculus-stats"
     },
     extension: {
       items: [
@@ -2104,8 +2108,9 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: `If a section has ${math("10")} marks and should take ${math("15")} minutes, the pace is ${math("15 \\div 10 = 1.5")} minutes per mark. A ${math("4")}-mark question should take about ${math("6")} minutes.`,
-        zh: `若一部分佔 ${math("10")} 分，應用 ${math("15")} 分鐘完成，速度是每分 ${math("15 \\div 10 = 1.5")} 分鐘。${math("4")} 分題約需 ${math("6")} 分鐘。`
+        en: `If a section has ${math("10")} marks and is allocated ${math("15")} minutes, the time per mark is ${math("15 \\div 10 = 1.5")} minutes. A ${math("4")}-mark question is therefore allocated about ${math("4 \\times 1.5 = 6")} minutes.`,
+        zh: `若一部分佔 ${math("10")} 分，建議分配 ${math("15")} 分鐘，則每分需時 ${math("15 \\div 10 = 1.5")} 分鐘。因此一道 ${math("4")} 分題約分配 ${math("4 \\times 1.5 = 6")} 分鐘。`,
+        zhHans: `若一部分占 ${math("10")} 分，建议分配 ${math("15")} 分钟，则每分用时 ${math("15 \\div 10 = 1.5")} 分钟。因此一道 ${math("4")} 分题约分配 ${math("4 \\times 1.5 = 6")} 分钟。`
       }
     },
     checklist: {
@@ -2140,8 +2145,8 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
     },
     workedExample: {
       content: {
-        en: "For a mixed problem, first list the given facts and the target. Then choose whether a diagram, algebraic equation, table, or graph connects them most directly.",
-        zh: "處理綜合題時，先列出已知資料和目標，再選擇用圖、代數方程、表格或圖像最直接連繫它們。"
+        en: `A rectangular garden is ${math("4")} m longer than it is wide and has area ${math("96")} m${math("^2")}. Fencing costs HK$${math("35")} per metre. Let the width be ${math("x")} m, so the length is ${math("x+4")} m. Then ${math("x(x+4)=96")}, so ${math("x^2+4x-96=(x-8)(x+12)=0")}. Reject ${math("x=-12")} because a length cannot be negative; the width is ${math("8")} m and the length is ${math("12")} m. The perimeter is ${math("2(8+12)=40")} m, so the fencing costs HK$${math("40\\times35=1400")}. Check: ${math("8\\times12=96")}.`,
+        zh: `一個長方形花園的長比闊多 ${math("4")} 米，面積為 ${math("96")} 平方米，圍欄每米港幣 ${math("35")} 元。設闊為 ${math("x")} 米，則長為 ${math("x+4")} 米。由 ${math("x(x+4)=96")}，得 ${math("x^2+4x-96=(x-8)(x+12)=0")}。長度不可為負，所以捨去 ${math("x=-12")}；闊為 ${math("8")} 米，長為 ${math("12")} 米。周界是 ${math("2(8+12)=40")} 米，因此圍欄費用是港幣 ${math("40\\times35=1400")} 元。檢查：${math("8\\times12=96")}。`
       }
     },
     checklist: {
@@ -2163,15 +2168,19 @@ const hongKongProductionLessonSeeds: ProductionLessonSeed[] = [
 
 export const productionLessonSeeds: ProductionLessonSeed[] = [
   ...hongKongProductionLessonSeeds,
-  ...mainlandPepPrimaryLessonSeeds,
-  ...mainlandPepJuniorLessonSeeds,
-  ...mainlandPepHighLessonSeeds,
-  ...mainlandBnuHighLessonSeeds,
-  ...mainlandBnuJuniorLessonSeeds,
-  ...mainlandBnuPrimaryLessonSeeds,
-  ...mainlandHjbPrimaryLessonSeeds,
-  ...mainlandHjbJuniorLessonSeeds,
-  ...mainlandHjbHighLessonSeeds,
+  ...[
+    ...mainlandPepPrimaryLessonSeeds,
+    ...mainlandPepJuniorLessonSeeds,
+    ...mainlandPepHighLessonSeeds,
+    ...mainlandBnuHighLessonSeeds,
+    ...mainlandBnuJuniorLessonSeeds,
+    ...mainlandBnuPrimaryLessonSeeds,
+    ...mainlandHjbPrimaryLessonSeeds,
+    ...mainlandHjbJuniorLessonSeeds,
+    ...mainlandHjbHighLessonSeeds
+  ]
+    .map(withChinaLessonSeedEnglishTranslations)
+    .map(withChinaLessonSeedTraditionalTranslations),
   ...usArkansasMiddleSchoolLessonSeeds,
   ...usCaliforniaLessonSeeds,
   ...usFloridaMiddleSchoolLessonSeeds

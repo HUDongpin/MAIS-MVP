@@ -1446,7 +1446,7 @@ export const mainlandHjbPrimaryRagCards: MainlandHjbPrimaryRagCard[] = [
     competencyTags: ["数感", "符号意识", "推理意识", "运算能力"],
     skillTags: ["正负数意义", "数轴表示", "相反数", "绝对值", "有理数比较", "有理数运算"],
     difficultyBand: "core",
-    safeSummary: "This P6 lower compatibility strand treats rational numbers as signed quantities that can be represented, compared, and operated on through number-line and absolute-value reasoning.",
+    safeSummary: "Represent, compare, and calculate with rational numbers as signed quantities using number lines and absolute-value reasoning.",
     generationGuidance: [
       "Create original signed-number contexts where the meaning of positive and negative values is explicit.",
       "Use fresh values and number-line descriptions that ask learners to separate position, opposite number, and absolute value.",
@@ -1468,7 +1468,7 @@ export const mainlandHjbPrimaryRagCards: MainlandHjbPrimaryRagCard[] = [
     competencyTags: ["符号意识", "模型意识", "运算能力", "数学表达"],
     skillTags: ["用字母表示数", "列代数式", "代入求值", "同类项认识", "数量关系表达"],
     difficultyBand: "core",
-    safeSummary: "This P6 lower compatibility strand introduces letters as quantity carriers, linking verbal relationships, simple algebraic expressions, substitution, and early like-term reasoning.",
+    safeSummary: "Use letters to represent quantities, translate verbal relationships into simple algebraic expressions, substitute values, and begin reasoning about like terms.",
     generationGuidance: [
       "Create newly authored relationship statements with clearly defined letters and units.",
       "Ask learners to interpret what each term represents before substituting values.",
@@ -1490,7 +1490,7 @@ export const mainlandHjbPrimaryRagCards: MainlandHjbPrimaryRagCard[] = [
     competencyTags: ["模型意识", "符号意识", "运算能力", "应用意识"],
     skillTags: ["等式性质", "解一元一次方程", "列方程解决问题", "解的检验", "简单不等关系"],
     difficultyBand: "core",
-    safeSummary: "This P6 lower compatibility strand builds one-variable equation reasoning from equality relationships, equivalent transformations, context modeling, and solution checking.",
+    safeSummary: "Build one-variable equation reasoning through equality relationships, equivalent transformations, contextual modeling, and solution checking.",
     generationGuidance: [
       "Use fresh contexts where learners define the unknown and write the relationship before solving.",
       "Ask for at least one equivalence or substitution check so procedure stays tied to meaning.",
@@ -1512,7 +1512,7 @@ export const mainlandHjbPrimaryRagCards: MainlandHjbPrimaryRagCard[] = [
     competencyTags: ["空间观念", "几何直观", "推理意识", "数学表达"],
     skillTags: ["直线射线线段辨析", "线段和差", "角的表示", "角的度量", "角关系推理"],
     difficultyBand: "core",
-    safeSummary: "This P6 lower compatibility geometry strand emphasizes precise naming of lines, rays, segments, and angles, then uses measurement and relation reasoning in simple configurations.",
+    safeSummary: "Name lines, rays, segments, and angles precisely, then use measurement and geometric relationships to reason about simple configurations.",
     generationGuidance: [
       "Draw or describe newly authored configurations with clear labels and no source-like layout.",
       "Ask learners to identify the object or relation before calculating a length or angle.",
@@ -1534,7 +1534,7 @@ export const mainlandHjbPrimaryRagCards: MainlandHjbPrimaryRagCard[] = [
     competencyTags: ["空间观念", "几何直观", "量感", "应用意识"],
     skillTags: ["长方体特征", "展开图理解", "表面积", "体积", "单位换算"],
     difficultyBand: "core",
-    safeSummary: "This P6 lower compatibility strand keeps cuboid structure, nets, surface area, volume, and unit-aware interpretation available for MAIS transition review.",
+    safeSummary: "Connect cuboid structure and nets with surface area, volume, and careful interpretation of measurement units.",
     generationGuidance: [
       "Create original box, container, or model contexts with explicit dimensions and units.",
       "Ask students to decide whether a task concerns an edge, face area, total surface area, or volume.",

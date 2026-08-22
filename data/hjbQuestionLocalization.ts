@@ -9,11 +9,20 @@ type HjbGeneratedAnswerSource = {
 };
 
 const generatorPromptPrefixPattern =
-  /^\s*(?:(?:V\d+\s*)?(?:修复|安全)?变式|二轮变式)\d{1,4}\s*[:：]\s*(?:(?:解答|填空|选择)\s*[:：]\s*)?/u;
+  /^\s*(?:(?:(?:V\d+\s*)?(?:修复|安全)?变式|二轮变式)\d{1,4}|题组s[1-6]-\d{1,4})\s*[:：]\s*(?:(?:解答|填空|选择)\s*[:：]\s*)?/iu;
 
 const simplifiedToTraditionalCharMap: Record<string, string> = Object.fromEntries(
   Object.entries(traditionalToSimplifiedMap).map(([traditional, simplified]) => [simplified, traditional])
 );
+const simplifiedCharactersWithTraditionalMappings = new Set(["覆"]);
+
+export function toSafeMainlandSimplifiedText(value: string) {
+  return Array.from(value)
+    .map((character) => simplifiedCharactersWithTraditionalMappings.has(character)
+      ? character
+      : traditionalToSimplifiedMap[character] ?? character)
+    .join("");
+}
 
 const forcedTraditionalPhraseRules: ReadonlyArray<[string, string]> = [
   ["沪教版", "滬教版"],
@@ -583,22 +592,36 @@ function applyEnglishPhraseRules(value: string) {
     }, value);
 }
 
+const superscriptCharacterValues: Readonly<Record<string, string>> = {
+  "⁰": "0",
+  "¹": "1",
+  "²": "2",
+  "³": "3",
+  "⁴": "4",
+  "⁵": "5",
+  "⁶": "6",
+  "⁷": "7",
+  "⁸": "8",
+  "⁹": "9",
+  "ᵐ": "m",
+  "ⁿ": "n",
+  "⁺": "+",
+  "⁻": "-",
+  "⁼": "="
+};
+
+function normalizeSuperscriptRun(run: string) {
+  const exponent = Array.from(run)
+    .map((character) => superscriptCharacterValues[character] ?? character)
+    .join("");
+  return /^[0-9]+$/u.test(exponent) || /^[mn]$/u.test(exponent)
+    ? `^${exponent}`
+    : `^(${exponent})`;
+}
+
 function normalizeMathGlyphs(value: string) {
   return value
-    .replace(/²/g, "^2")
-    .replace(/³/g, "^3")
-    .replace(/⁴/g, "^4")
-    .replace(/⁵/g, "^5")
-    .replace(/⁶/g, "^6")
-    .replace(/⁷/g, "^7")
-    .replace(/⁸/g, "^8")
-    .replace(/⁹/g, "^9")
-    .replace(/⁰/g, "^0")
-    .replace(/ᵐ/g, "^m")
-    .replace(/ⁿ/g, "^n")
-    .replace(/⁺/g, "+")
-    .replace(/⁻/g, "-")
-    .replace(/⁼/g, "=")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹ᵐⁿ⁺⁻⁼]+/gu, normalizeSuperscriptRun)
     .replace(/（\s*）/g, "( )")
     .replace(/（\s*　\s*）/g, "( )")
     .replace(/（/g, "(")
@@ -701,6 +724,16 @@ export function toTraditionalHjbText(value: string) {
   return applyPhraseRules(converted, forcedTraditionalPhraseRules);
 }
 
+export function joinWorkedExampleAnswerAndExplanation(
+  answer: string,
+  explanation: string,
+  language: "en" | "zh" | "zhHans"
+) {
+  const trimmedAnswer = answer.trim();
+  const separator = /[.!?。！？]$/u.test(trimmedAnswer) ? " " : language === "en" ? ". " : "。";
+  return `${trimmedAnswer}${separator}${explanation.trim()}`;
+}
+
 export function translateHjbTextToEnglish(value: string) {
   const cleaned = stripHjbGeneratorPromptPrefix(value);
   const templateTranslation = translateHjbTemplate(cleaned);
@@ -716,7 +749,7 @@ export function translateHjbTextToEnglish(value: string) {
 }
 
 export function localizeHjbGeneratedText(value: string): LocalizedText {
-  const zhHans = stripHjbGeneratorPromptPrefix(value);
+  const zhHans = toSafeMainlandSimplifiedText(stripHjbGeneratorPromptPrefix(value));
   return {
     en: translateHjbTextToEnglish(zhHans),
     zh: toTraditionalHjbText(zhHans),
@@ -751,11 +784,30 @@ function uniqueNonEmpty(values: string[]) {
   return result;
 }
 
+function stripEmbeddedOptionLabel(value: string) {
+  return value.replace(/^\s*[A-FＡ-Ｆ]\s*[.．、:：)]\s*/iu, "").trim();
+}
+
+function sourceAliasMatchesOption(sourceAlias: string, option: string, optionIndex: number) {
+  const normalizedSourceAlias = normalizeAlias(sourceAlias);
+  if (
+    normalizedSourceAlias === normalizeAlias(option)
+    || normalizedSourceAlias === normalizeAlias(stripEmbeddedOptionLabel(option))
+  ) {
+    return true;
+  }
+
+  const bareLetter = sourceAlias.trim().normalize("NFKC").match(/^([A-F])$/iu)?.[1]?.toUpperCase();
+  return bareLetter !== undefined && bareLetter.charCodeAt(0) - "A".charCodeAt(0) === optionIndex;
+}
+
 export function localizedHjbGeneratedAcceptedAnswers(question: HjbGeneratedAnswerSource) {
   const sourceAliases = uniqueNonEmpty([question.answer, ...(question.acceptedAnswers ?? [])]);
   const localizedAnswer = localizeHjbGeneratedText(question.answer);
   const localizedOptionAliases = (question.optionsZhHans ?? [])
-    .filter((option) => sourceAliases.some((answer) => normalizeAlias(answer) === normalizeAlias(option)))
+    .filter((option, optionIndex) =>
+      sourceAliases.some((answer) => sourceAliasMatchesOption(answer, option, optionIndex))
+    )
     .flatMap((option) => {
       const localized = localizeHjbGeneratedText(option);
       return [localized.en, localized.zh, localized.zhHans ?? ""];

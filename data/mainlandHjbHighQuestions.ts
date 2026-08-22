@@ -2,6 +2,7 @@ import v1QuestionPackJson from "./generated-content/mainland-hjb-high-generated-
 import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v2/question-pack.json";
 import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
 import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
+import { mainlandHjbHighPracticeRemediations } from "./mainlandHjbHighPracticeRemediations";
 import { localizedHjbGeneratedAcceptedAnswers, localizeHjbGeneratedText } from "./hjbQuestionLocalization";
 import { mainlandHjbHighTopics } from "./mainlandHjbHighTopics";
 import { mapDifficultyToActive } from "@/lib/difficulty";
@@ -68,6 +69,10 @@ function toQuestion(question: GeneratedHjbQuestion): Question {
   const topicId = question.topicId;
   const topic = topicById.get(topicId);
   if (!topic) throw new Error(`Missing Mainland HJB high topic for ${topicId}`);
+  const remediation = mainlandHjbHighPracticeRemediations[question.id];
+  if (remediation && (remediation.topicId !== question.topicId || remediation.type !== question.type)) {
+    throw new Error(`HJB high practice remediation metadata mismatch for ${question.id}`);
+  }
 
   return {
     id: question.id,
@@ -81,11 +86,13 @@ function toQuestion(question: GeneratedHjbQuestion): Question {
     topic: topic.title,
     difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
-    prompt: localizeHjbGeneratedText(question.promptZhHans),
-    options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeHjbGeneratedText) : undefined,
-    answer: question.answer,
-    acceptedAnswers: localizedHjbGeneratedAcceptedAnswers(question),
-    explanation: localizeHjbGeneratedText(question.explanationZhHans)
+    prompt: remediation?.prompt ?? localizeHjbGeneratedText(question.promptZhHans),
+    options: question.type === "multiple-choice"
+      ? remediation?.options ?? question.optionsZhHans.map(localizeHjbGeneratedText)
+      : undefined,
+    answer: remediation?.answer ?? question.answer,
+    acceptedAnswers: remediation?.acceptedAnswers ?? localizedHjbGeneratedAcceptedAnswers(question),
+    explanation: remediation?.explanation ?? localizeHjbGeneratedText(question.explanationZhHans)
   };
 }
 
@@ -107,7 +114,7 @@ export const mainlandHjbHighQuestionGenerationMetadata: Record<string, MainlandH
         mathQaStatus: "pass",
         terminologyQaStatus: "pass",
         manualQaStatus: "approved",
-        independentAnswer: question.answer
+        independentAnswer: mainlandHjbHighPracticeRemediations[question.id]?.answer ?? question.answer
       }
     ])
   );

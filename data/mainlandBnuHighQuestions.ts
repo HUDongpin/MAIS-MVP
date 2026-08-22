@@ -2,6 +2,7 @@ import approvedQuestionPackJson from "./generated-content/mainland-bnu-high-gene
 import {
   localizedHjbGeneratedAcceptedAnswers,
   stripHjbGeneratorPromptPrefix,
+  toSafeMainlandSimplifiedText,
   toTraditionalHjbText
 } from "./hjbQuestionLocalization";
 import { mainlandBnuHighTopics } from "./mainlandBnuHighTopics";
@@ -64,9 +65,41 @@ export type MainlandBnuHighQuestionGenerationMetadata = {
 const approvedQuestionPack = approvedQuestionPackJson as GeneratedBnuHighQuestionPack;
 const mainlandBnuHighProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" } satisfies CurriculumProfile;
 const topicById = new Map(mainlandBnuHighTopics.map((topic) => [topic.id, topic]));
+const unsafeGeneratedAliasPattern = /term-[0-9a-f]+/iu;
+const reviewedBnuHighAcceptedAnswers: Record<string, string[]> = {
+  "bnu-high-ds-v1-s4-074": ["x=4"],
+  "bnu-high-ds-v1-s4-361": ["5千米", "5 km", "5 kilometers"],
+  "bnu-high-ds-v1-s5-077": ["2 intersection points; Δ=16"],
+  "bnu-high-ds-v1-s5-431": [
+    "Independent; P(A∩B)=40/200=0.2=P(A)P(B)=(80/200)(100/200)"
+  ],
+  "bnu-high-ds-v1-s4-254": [
+    "V=120-6t；10小时后剩余60立方米",
+    "V(t)=120-6t；排水10小时后剩余60立方米",
+    "V=120-6t；10小時後剩餘60立方米",
+    "V=120-6t; after 10 hours, 60 m³ remains",
+    "V(t)=120-6t; after 10 hours, V(10)=60 m³"
+  ],
+  "bnu-high-ds-v1-s5-434": ["25个百分点", "25個百分點", "25 percentage points"],
+  "bnu-high-ds-v1-s6-227": [
+    "(-∞,-1)和(1,+∞)；(-1,1)",
+    "(-∞,-1) and (1,+∞); (-1,1)"
+  ]
+};
+const reviewedBnuHighRejectedAcceptedAnswers: Record<string, ReadonlySet<string>> = {
+  "bnu-high-ds-v1-s5-005": new Set([
+    "same distance"
+  ]),
+  "bnu-high-ds-v1-s4-077": new Set([
+    "N(t) = 80×2^(t/3); N(9) = 640items"
+  ]),
+  "bnu-high-ds-v1-s5-077": new Set([
+    "2items; Δ = 16"
+  ])
+};
 
 function localizeBnuHighGeneratedText(value: string) {
-  const zhHans = stripHjbGeneratorPromptPrefix(value);
+  const zhHans = toSafeMainlandSimplifiedText(stripHjbGeneratorPromptPrefix(value));
   return {
     en: zhHans,
     zh: toTraditionalHjbText(zhHans),
@@ -77,6 +110,14 @@ function localizeBnuHighGeneratedText(value: string) {
 function toQuestion(question: GeneratedBnuHighQuestion): Question {
   const topic = topicById.get(question.topicId);
   if (!topic) throw new Error(`Missing Mainland BNU high topic for ${question.topicId}`);
+  const reviewedRejectedAliases = reviewedBnuHighRejectedAcceptedAnswers[question.id];
+  const acceptedAnswers = Array.from(new Set([
+    ...localizedHjbGeneratedAcceptedAnswers(question),
+    ...(reviewedBnuHighAcceptedAnswers[question.id] ?? [])
+  ])).filter((alias) =>
+    !unsafeGeneratedAliasPattern.test(alias)
+    && !reviewedRejectedAliases?.has(alias)
+  );
 
   return {
     id: question.id,
@@ -93,7 +134,7 @@ function toQuestion(question: GeneratedBnuHighQuestion): Question {
     prompt: localizeBnuHighGeneratedText(question.promptZhHans),
     options: question.type === "multiple-choice" ? question.optionsZhHans.map(localizeBnuHighGeneratedText) : undefined,
     answer: question.answer,
-    acceptedAnswers: localizedHjbGeneratedAcceptedAnswers(question),
+    acceptedAnswers,
     explanation: localizeBnuHighGeneratedText(question.explanationZhHans)
   };
 }

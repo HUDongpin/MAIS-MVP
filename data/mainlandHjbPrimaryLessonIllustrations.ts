@@ -2964,9 +2964,40 @@ const mainlandHjbPrimaryLessonIllustrationByTopicAndSlot = new Map(
   ])
 );
 
+// A18 whole-page visual review found that these broad template families teach
+// a different domain, or introduce representations above the page's grade.
+// Keep both slots off learner pages until topic-specific replacements pass
+// visual and curriculum QA; the source inventory remains available for repair.
+const suppressedMainlandHjbPrimaryLessonIllustrationTopicIds = new Set([
+  "hjb-primary-p1-upper-solids-introduction",
+  "hjb-primary-p1-upper-review",
+  "hjb-primary-p1-lower-length-measurement",
+  "hjb-primary-p1-lower-body-rulers-math-square",
+  "hjb-primary-p1-lower-review",
+  "hjb-primary-p2-upper-school-position-direction",
+  "hjb-primary-p2-upper-within-100-add-sub",
+  "hjb-primary-p2-upper-classification",
+  "hjb-primary-p2-upper-math-square-review",
+  "hjb-primary-p2-lower-math-square-review",
+  "hjb-primary-p3-upper-review-place-value-operations",
+  "hjb-primary-p3-upper-time-measurement",
+  "hjb-primary-p3-upper-math-square-review",
+  "hjb-primary-p3-lower-math-square-review",
+  "hjb-primary-p4-upper-review-operations-fractions",
+  "hjb-primary-p4-upper-fraction-extension",
+  "hjb-primary-p4-upper-four-operations-problem-solving",
+  "hjb-primary-p4-upper-review-integration",
+  "hjb-primary-p4-lower-review-operation-properties",
+  "hjb-primary-p4-lower-review-integration",
+  "hjb-primary-p6-upper-divisibility",
+  "hjb-primary-p6-upper-fractions",
+  "hjb-primary-p6-lower-rational-numbers"
+]);
+
 export function getMainlandHjbPrimaryLessonIllustration(
   topicId: string,
   slot: MainlandHjbPrimaryLessonIllustrationSlot
 ) {
+  if (suppressedMainlandHjbPrimaryLessonIllustrationTopicIds.has(topicId)) return null;
   return mainlandHjbPrimaryLessonIllustrationByTopicAndSlot.get(`${topicId}:${slot}`) ?? null;
 }

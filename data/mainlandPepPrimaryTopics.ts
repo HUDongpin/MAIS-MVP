@@ -163,8 +163,11 @@ export const mainlandPepPrimaryTopicSeeds: MainlandPepPrimaryTopicSeed[] = [
     grade: "P4",
     semester: "upper",
     family: "large-numbers-multiplication",
-    title: { en: "Large Numbers and Multiplication", zh: "大数认识与三位数乘法" },
-    description: { en: "Read, compare, round, estimate, and multiply larger whole numbers.", zh: "读写、比较、改写、取近似数，并计算较大整数乘法。" },
+    title: { en: "Large Numbers and Three-Digit by Two-Digit Multiplication", zh: "大数认识与三位数乘两位数" },
+    description: {
+      en: "Read, compare, and round large whole numbers, then multiply three-digit numbers by two-digit numbers.",
+      zh: "读写、比较并求大数的近似数，再计算三位数乘两位数。"
+    },
     difficulty: "Medium",
     minutes: 32
   },

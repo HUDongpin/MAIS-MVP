@@ -113,7 +113,7 @@ const visibleEnglishReplacements: Array<[string, string]> = [
   ["能向各个方向滚动", "it can roll in every direction"],
   ["有两个圆形的面", "it has two circular faces"],
   ["每个面都是正方形", "all faces are squares"],
-  ["相对的面是长方形", "opposite faces are rectangles"],
+  ["有六个面，而且不是每个面都是正方形", "it has six faces, and not every face is a square"],
   ["长方体", "cuboid"],
   ["正方体", "cube"],
   ["圆柱", "cylinder"],
@@ -125,7 +125,12 @@ const visibleChineseReplacements: Array<[RegExp, string]> = [
   [/\bcuboid\b/g, "长方体"],
   [/\bcube\b/g, "正方体"],
   [/\bcylinder\b/g, "圆柱"],
-  [/\bsphere\b/g, "球"]
+  [/\bsphere\b/g, "球"],
+  [/\bacute angle\b/gi, "锐角"],
+  [/\bright angle\b/gi, "直角"],
+  [/\bobtuse angle\b/gi, "钝角"],
+  [/\bstraight angle\b/gi, "平角"],
+  [/\bfull angle\b/gi, "周角"]
 ];
 
 function applyLiteralReplacements(value: string, replacements: Array<[string, string]>) {
@@ -164,8 +169,8 @@ function localized(value: string): LocalizedText {
   return { en, zh, zhHans: zh };
 }
 
-function text(en: string, zh: string): LocalizedText {
-  return { en: englishVisible(en), zh, zhHans: zh };
+function text(en: string, zhHans: string, zhTraditional = zhHans): LocalizedText {
+  return { en: englishVisible(en), zh: zhTraditional, zhHans };
 }
 
 function formatNumber(value: number) {
@@ -240,17 +245,21 @@ function coordinateDistractors(x: number, y: number) {
 function scalarDraft({
   enPrompt,
   zhPrompt,
+  zhTraditionalPrompt,
   answer,
   enExplanation,
   zhExplanation,
+  zhTraditionalExplanation,
   distractors = [],
   acceptedAnswers = []
 }: {
   enPrompt: string;
   zhPrompt: string;
+  zhTraditionalPrompt?: string;
   answer: string | number;
   enExplanation: string;
   zhExplanation: string;
+  zhTraditionalExplanation?: string;
   distractors?: Array<string | number>;
   acceptedAnswers?: string[];
 }): Draft {
@@ -262,11 +271,869 @@ function scalarDraft({
   ]).filter((candidate) => candidate !== canonicalAnswer);
 
   return {
-    prompt: text(enPrompt, zhPrompt),
+    prompt: text(enPrompt, zhPrompt, zhTraditionalPrompt),
     answer: canonicalAnswer,
-    explanation: text(enExplanation, zhExplanation),
+    explanation: text(enExplanation, zhExplanation, zhTraditionalExplanation),
     distractors: distractors.map((distractor) => englishVisible(String(distractor))),
     ...(acceptedAnswerAliases.length ? { acceptedAnswers: acceptedAnswerAliases } : {})
+  };
+}
+
+type PrimaryManualContentQaOverride = Partial<Draft>;
+
+const mainlandPepPrimaryManualContentQaOverrides: Record<string, PrimaryManualContentQaOverride> = {
+  "pep-primary-p2-l-fi-112": {
+    acceptedAnswers: [
+      "商3余1",
+      "商是3，余数是1",
+      "quotient 3, remainder 1",
+      "3余1",
+      "3 remainder 1",
+      "3组，剩1个",
+      "3组，还剩1个",
+      "3組，剩1個",
+      "3組，還剩1個",
+      "3 groups, 1 left"
+    ]
+  },
+  "pep-primary-p2-l-fi-115": {
+    acceptedAnswers: [
+      "商5余3",
+      "商是5，余数是3",
+      "quotient 5, remainder 3",
+      "5袋，余3个",
+      "5袋，还剩3个",
+      "5袋剩3个",
+      "5袋，餘3個",
+      "5袋，還剩3個",
+      "5袋剩3個",
+      "5余3",
+      "5 remainder 3",
+      "5 bags, 3 left"
+    ]
+  },
+  "pep-primary-p2-l-fi-124": {
+    acceptedAnswers: [
+      "商8余1",
+      "商是8，余数是1",
+      "quotient 8, remainder 1",
+      "8袋，余1个",
+      "8袋，还剩1个",
+      "8袋剩1个",
+      "8袋，餘1個",
+      "8袋，還剩1個",
+      "8袋剩1個",
+      "8余1",
+      "8 remainder 1",
+      "8 bags, 1 left"
+    ]
+  },
+  "pep-primary-p2-l-fi-128": {
+    acceptedAnswers: [
+      "商6余0",
+      "商是6，余数是0",
+      "quotient 6, remainder 0",
+      "6袋，余0个",
+      "6袋，还剩0个",
+      "6袋剩0个",
+      "可以装6袋，还剩0个",
+      "6袋，餘0個",
+      "6袋，還剩0個",
+      "6袋剩0個",
+      "可以裝6袋，還剩0個",
+      "6余0",
+      "6 remainder 0",
+      "6 bags, 0 left"
+    ]
+  },
+  "pep-primary-p3-u-mc-072": {
+    distractors: ["14 min", "20 min", "10 min"]
+  },
+  "pep-primary-p4-u-mc-060": {
+    distractors: ["94°", "85°", "105°"]
+  },
+  "pep-primary-p4-u-mc-061": {
+    distractors: ["100°", "80°", "70°"]
+  },
+  "pep-primary-p4-u-mc-062": {
+    distractors: ["95°", "75°", "105°"]
+  },
+  "pep-primary-p1-l-sa-200": {
+    acceptedAnswers: ["6人", "6名", "6 students"],
+    explanation: text(
+      "Compare 4, 6, and 5. The largest group has 6 students.",
+      "比较4人、6人和5人，最大的是6人，所以人数最多的一组有6人。",
+      "比較4人、6人和5人，最大的是6人，所以人數最多的一組有6人。"
+    )
+  },
+  "pep-primary-p4-l-fi-117": {
+    acceptedAnswers: ["3.2升", "3.2 L", "3.2 litres", "3.2 liters"],
+    explanation: text(
+      "Line up the decimal points: 1.1+2.1=3.2, so the total is 3.2 L.",
+      "小数点对齐计算：1.1+2.1=3.2，所以合计3.2升。",
+      "小數點對齊計算：1.1+2.1=3.2，所以合計3.2升。"
+    )
+  },
+  "pep-primary-p5-l-sa-131": {
+    acceptedAnswers: ["5/8页", "5/8 page", "5/8 of a page"],
+    explanation: text(
+      "The denominators are the same, so add the numerators: 3/8+2/8=5/8. Lele completed 5/8 of a page in total.",
+      "分母相同，分子相加：3/8+2/8=5/8，所以一共完成了5/8页。",
+      "分母相同，分子相加：3/8+2/8=5/8，所以一共完成了5/8頁。"
+    )
+  },
+  "pep-primary-p1-u-mc-052": scalarDraft({
+    enPrompt:
+      "Which solid has six flat faces that are rectangles or squares, with opposite faces the same shape and size, and at least one face that is not a square?",
+    zhPrompt: "哪种立体图形有六个平平的面，每个面都是长方形或正方形，相对的面形状和大小相同，并且至少有一个面不是正方形？",
+    answer: "长方体",
+    enExplanation:
+      "These are the lesson's defining features of a cuboid, and the non-square face rules out a cube, whose faces are all squares.",
+    zhExplanation: "这些特征符合本课中长方体的定义；至少有一个面不是正方形，也排除了六个面全是正方形的正方体。",
+    distractors: ["正方体", "圆柱", "球"]
+  }),
+  "pep-primary-p1-u-fi-091": scalarDraft({
+    enPrompt:
+      "A block has six flat faces that are rectangles or squares. Opposite faces have the same shape and size, and at least one face is not a square. Which solid is the block?",
+    zhPrompt: "一个积木有六个平平的面，每个面都是长方形或正方形，相对的面形状和大小相同，并且至少有一个面不是正方形。这个积木是哪种立体图形？",
+    answer: "长方体",
+    enExplanation:
+      "These are the lesson's defining features of a cuboid, and the non-square face rules out a cube, whose faces are all squares.",
+    zhExplanation: "这些特征符合本课中长方体的定义；至少有一个面不是正方形，也排除了六个面全是正方形的正方体。"
+  }),
+  "pep-primary-p1-l-fi-152": scalarDraft({
+    enPrompt: "Ya has one 5-yuan note and three 1-yuan coins. How many yuan does she have altogether?",
+    zhPrompt: "小雅有一张5元纸币和三枚1元硬币，一共有多少元？",
+    answer: 8,
+    acceptedAnswers: ["8元", "8 yuan"],
+    enExplanation: "Add the value of the note and the three coins: 5+1+1+1=8, so Ya has 8 yuan.",
+    zhExplanation: "把纸币和三枚硬币的钱数相加：5+1+1+1=8，所以一共有8元。"
+  }),
+  "pep-primary-p1-l-fi-153": scalarDraft({
+    enPrompt: "A cartoon starts at 9:00 and ends at 9:30. How many minutes does it last?",
+    zhPrompt: "动画片9:00开始，9:30结束，播放了多少分钟？",
+    answer: answerWithUnit(30, "分钟"),
+    enExplanation: "From 9:00 to 9:30, 30 minutes pass, so the cartoon lasts 30 minutes.",
+    zhExplanation: "从9:00到9:30经过30分钟，所以动画片播放了30分钟。"
+  }),
+  "pep-primary-p1-u-mc-002": scalarDraft({
+    enPrompt: "Which number is greater, 12 or 17?",
+    zhPrompt: "在12和17中，哪个数大？",
+    answer: 17,
+    enExplanation: "17 has 1 ten and 7 ones, while 12 has 1 ten and 2 ones. Since 7 ones is more than 2 ones, 17 is greater.",
+    zhExplanation: "17有1个十和7个一，12有1个十和2个一；7个一比2个一多，所以17大。",
+    distractors: [12, 15, 19]
+  }),
+  "pep-primary-p1-u-mc-003": scalarDraft({
+    enPrompt: "Count in order: 8, 9, ____, 11. Which number belongs in the blank?",
+    zhPrompt: "按顺序数数：8，9，____，11。空格里应填几？",
+    answer: 10,
+    enExplanation: "The numbers increase by 1 each time: 8, 9, 10, 11. The missing number is 10.",
+    zhExplanation: "这些数每次增加1：8，9，10，11，所以空格里应填10。",
+    distractors: [8, 9, 12]
+  }),
+  "pep-primary-p2-l-fi-152": scalarDraft({
+    enPrompt: "2 kilograms equals how many grams?",
+    zhPrompt: "2千克等于多少克？",
+    answer: 2000,
+    acceptedAnswers: ["2000克", "2000 g", "2,000"],
+    enExplanation: "1 kilogram equals 1000 grams, so 2 kilograms equals 2×1000=2000 grams.",
+    zhExplanation: "1千克=1000克，所以2千克=2×1000=2000克。",
+    zhTraditionalExplanation: "1千克=1000克，所以2千克=2×1000=2000克。"
+  }),
+  "pep-primary-p2-l-fi-153": scalarDraft({
+    enPrompt: "A table records 26 bottles collected on Monday and 34 on Tuesday. How many more bottles were collected on Tuesday?",
+    zhPrompt: "统计表记录周一收集了26个瓶子，周二收集了34个。周二比周一多收集多少个？",
+    answer: 8,
+    acceptedAnswers: ["8个", "8个瓶子", "8 bottles"],
+    enExplanation: "Subtract Monday's count from Tuesday's count: 34-26=8, so Tuesday has 8 more bottles.",
+    zhExplanation: "用周二的数量减去周一的数量：34-26=8，所以周二多收集8个。"
+  }),
+  "pep-primary-p2-u-mc-052": scalarDraft({
+    enPrompt: "How many right angles does a rectangle have?",
+    zhPrompt: "一个长方形有几个直角？",
+    answer: 4,
+    enExplanation: "Each of the four corners of a rectangle is a right angle, so a rectangle has 4 right angles.",
+    zhExplanation: "长方形的四个角都是直角，所以一个长方形有4个直角。",
+    distractors: [2, 3, 5]
+  }),
+  "pep-primary-p2-u-mc-053": scalarDraft({
+    enPrompt: "Three identical cubes are placed side by side in one horizontal row. How many squares are visible from the front?",
+    zhPrompt: "用3个相同的小正方体横着摆成一排。从正面看，能看到几个正方形？",
+    answer: 3,
+    enExplanation: "From the front, each cube shows one square face. 3 cubes in a row show 3 squares.",
+    zhExplanation: "从正面看，每个小正方体露出一个正方形面，3个小正方体一共能看到3个正方形。",
+    distractors: [1, 2, 4]
+  }),
+  "pep-primary-p3-u-mc-002": scalarDraft({
+    enPrompt: "Calculate 376+248.",
+    zhPrompt: "计算376+248。",
+    answer: 624,
+    enExplanation: "Add by place value: 6+8=14, write 4 and carry 1; 7+4+1=12, write 2 and carry 1; 3+2+1=6. Therefore, 376+248=624.",
+    zhExplanation: "按数位相加：6+8=14，写4进1；7+4+1=12，写2进1；3+2+1=6，所以376+248=624。",
+    distractors: [514, 614, 634]
+  }),
+  "pep-primary-p3-u-mc-003": scalarDraft({
+    enPrompt: "There are 7 boxes with 8 pencils in each box. How many pencils are there altogether?",
+    zhPrompt: "有7盒铅笔，每盒8支。一共有多少支铅笔？",
+    answer: 56,
+    enExplanation: "7 equal groups of 8 give 7×8=56, so there are 56 pencils altogether.",
+    zhExplanation: "7盒，每盒8支，列式7×8=56，所以一共有56支铅笔。",
+    zhTraditionalExplanation: "7盒，每盒8支，列式7×8=56，所以一共有56支鉛筆。",
+    distractors: [15, 48, 64]
+  }),
+  "pep-primary-p5-l-sa-152": scalarDraft({
+    enPrompt: "A cube has side length 5 cm. What is its volume?",
+    zhPrompt: "一个正方体的棱长是5厘米，它的体积是多少？",
+    answer: answerWithUnit(125, "立方厘米"),
+    enExplanation: "Cube volume = side × side × side, so 5×5×5=125 cubic centimeters.",
+    zhExplanation: "正方体体积=棱长×棱长×棱长，5×5×5=125立方厘米。",
+    distractors: [
+      answerWithUnit(25, "立方厘米"),
+      answerWithUnit(75, "立方厘米"),
+      answerWithUnit(150, "立方厘米")
+    ]
+  }),
+  "pep-primary-p5-l-sa-153": scalarDraft({
+    enPrompt: "A record shows 12 mL collected on Monday and 18 mL on Tuesday. How many more milliliters were collected on Tuesday?",
+    zhPrompt: "记录表显示周一收集了12毫升，周二收集了18毫升。周二比周一多收集多少毫升？",
+    answer: 6,
+    acceptedAnswers: ["6毫升", "6 mL"],
+    enExplanation: "Compare the two data values: 18-12=6, so Tuesday's amount is 6 mL greater.",
+    zhExplanation: "比较两个数据：18-12=6，所以周二比周一多收集6毫升。"
+  }),
+  "pep-primary-p5-u-mc-051": {
+    explanation: text(
+      "Triangle area = base × height / 2 = 7×10÷2=35 square centimeters.",
+      "三角形面积=底×高÷2，7×10÷2=35平方厘米。",
+      "三角形面積=底×高÷2，7×10÷2=35平方厘米。"
+    )
+  },
+  "pep-primary-p5-u-mc-052": scalarDraft({
+    enPrompt: "A parallelogram has base 9 cm and height 6 cm. What is its area?",
+    zhPrompt: "一个平行四边形的底是9厘米，高是6厘米。它的面积是多少？",
+    answer: answerWithUnit(54, "平方厘米"),
+    enExplanation: "Parallelogram area = base × height, so 9×6=54 square centimeters.",
+    zhExplanation: "平行四边形面积=底×高，9×6=54平方厘米。",
+    zhTraditionalExplanation: "平行四邊形面積=底×高，9×6=54平方厘米。",
+    distractors: [
+      answerWithUnit(27, "平方厘米"),
+      answerWithUnit(30, "平方厘米"),
+      answerWithUnit(108, "平方厘米")
+    ]
+  }),
+  "pep-primary-p5-u-mc-053": scalarDraft({
+    enPrompt: "A trapezoid has parallel sides 8 cm and 12 cm and height 5 cm. What is its area?",
+    zhPrompt: "一个梯形的上底是8厘米，下底是12厘米，高是5厘米。它的面积是多少？",
+    answer: answerWithUnit(50, "平方厘米"),
+    enExplanation: "Trapezoid area = (sum of parallel sides) × height / 2, so (8+12)×5÷2=50 square centimeters.",
+    zhExplanation: "梯形面积=（上底+下底）×高÷2，所以（8+12）×5÷2=50平方厘米。",
+    zhTraditionalExplanation: "梯形面積=（上底+下底）×高÷2，所以（8+12）×5÷2=50平方厘米。",
+    distractors: [
+      answerWithUnit(40, "平方厘米"),
+      answerWithUnit(60, "平方厘米"),
+      answerWithUnit(100, "平方厘米")
+    ]
+  }),
+  "pep-primary-p5-u-mc-054": {
+    explanation: text(
+      "Triangle area = base × height / 2 = 10×8÷2=40 square centimeters.",
+      "三角形面积=底×高÷2，10×8÷2=40平方厘米。",
+      "三角形面積=底×高÷2，10×8÷2=40平方厘米。"
+    )
+  },
+  "pep-primary-p5-u-fi-061": {
+    explanation: text(
+      "Triangle area = base × height / 2 = 6×9÷2=27 square centimeters.",
+      "三角形面积=底×高÷2，6×9÷2=27平方厘米。",
+      "三角形面積=底×高÷2，6×9÷2=27平方厘米。"
+    )
+  },
+  "pep-primary-p4-u-mc-051": scalarDraft({
+    enPrompt: "A straight angle is split into two angles. One angle is 138°. What is the other angle?",
+    zhPrompt: "一个平角被分成两个角，其中一个角是138°，另一个角是多少度？",
+    zhTraditionalPrompt: "一個平角被分成兩個角，其中一個角是138°，另一個角是多少度？",
+    answer: "42°",
+    acceptedAnswers: ["42", "42 degrees", "42度"],
+    enExplanation: "A straight angle is 180°, so the other angle is 180°-138°=42°.",
+    zhExplanation: "平角是180°，所以另一个角是180°-138°=42°。",
+    zhTraditionalExplanation: "平角是180°，所以另一個角是180°-138°=42°。",
+    distractors: ["52°", "32°", "138°"]
+  }),
+  "pep-primary-p6-l-sa-152": scalarDraft({
+    enPrompt: "Which temperature is lower, -3°C or -7°C?",
+    zhPrompt: "-3°C和-7°C相比，哪个温度更低？",
+    answer: "-7°C",
+    acceptedAnswers: ["-7", "-7 °C", "零下7摄氏度", "-7 degrees Celsius"],
+    enExplanation: "On a number line, -7 lies to the left of -3, so -7°C is the lower temperature.",
+    zhExplanation: "在数轴上，-7在-3的左边，所以-7°C表示的温度更低。",
+    distractors: ["-3°C", "3°C", "7°C"]
+  }),
+  "pep-primary-p6-l-sa-153": scalarDraft({
+    enPrompt: "A review set has 80 questions, and 25% are geometry questions. How many geometry questions are there?",
+    zhPrompt: "一套复习题有80道，其中25%是几何题。几何题有多少道？",
+    answer: 20,
+    acceptedAnswers: ["20道", "20道题", "20道几何题", "20 questions"],
+    enExplanation: "25%=25/100=1/4, and 80÷4=20, so there are 20 geometry questions.",
+    zhExplanation: "25%=25/100=1/4，80÷4=20，所以有20道几何题。"
+  }),
+  "pep-primary-p6-u-mc-055": scalarDraft({
+    enPrompt: "On a seating grid, point P is at column 2, row 1. It moves 3 columns right and 4 rows back. What is its new ordered pair?",
+    zhPrompt: "在座位方格图中，点P位于第2列第1行。它向右移动3列，再向后移动4行。新位置的数对是多少？",
+    zhTraditionalPrompt: "在座位方格圖中，點P位於第2列第1行。它向右移動3列，再向後移動4行。新位置的數對是多少？",
+    answer: "(5, 5)",
+    enExplanation: "Add 3 to the column and 4 to the row: (2+3,1+4)=(5,5).",
+    zhExplanation: "列数加3，行数加4：（2+3，1+4）=（5，5）。",
+    distractors: ["(5, 4)", "(4, 5)", "(3, 5)"]
+  }),
+  "pep-primary-p6-u-mc-053": scalarDraft({
+    enPrompt: "A pie chart shows that 25% of 120 students walk to school. How many students walk to school?",
+    zhPrompt: "扇形统计图显示，120名学生中有25%步行上学。步行上学的有多少人？",
+    answer: 30,
+    enExplanation: "25%=1/4, and 120÷4=30, so 30 students walk to school.",
+    zhExplanation: "25%=1/4，120÷4=30，所以有30人步行上学。",
+    distractors: [25, 40, 90]
+  }),
+  "pep-primary-p1-u-mc-001": scalarDraft({
+    enPrompt: "Lin has 14 colored pencils and gives away 11. How many colored pencils remain?",
+    zhPrompt: "小林有14支彩笔，送给同学11支，还剩多少支？",
+    answer: 3,
+    enExplanation: "Subtract the number given away: 14-11=3.",
+    zhExplanation: "用原有数量减去送出的数量：14-11=3，所以还剩3支。",
+    distractors: [2, 4, 11]
+  }),
+  "pep-primary-p1-l-fi-101": scalarDraft({
+    enPrompt: "There are 36 storybooks on one shelf and 24 on another. How many storybooks are there altogether?",
+    zhPrompt: "一个书架上有36本故事书，另一个书架上有24本。一共有多少本故事书？",
+    answer: 60,
+    acceptedAnswers: ["60本", "60本书", "60 books"],
+    enExplanation: "Add the two groups: 36+24=60.",
+    zhExplanation: "把两部分相加：36+24=60，所以一共有60本。"
+  }),
+  "pep-primary-p1-l-fi-102": scalarDraft({
+    enPrompt: "A box has 72 counters. After 15 are removed, how many remain?",
+    zhPrompt: "盒子里有72个小圆片，取出15个后，还剩多少个？",
+    answer: 57,
+    acceptedAnswers: ["57个", "57个小圆片", "57 counters"],
+    enExplanation: "Subtract the removed counters: 72-15=57.",
+    zhExplanation: "用原有数量减去取出的数量：72-15=57。"
+  }),
+  "pep-primary-p1-l-fi-103": scalarDraft({
+    enPrompt: "The class collects 48 cards in the morning and 27 in the afternoon. How many cards are collected altogether?",
+    zhPrompt: "班级上午收集了48张卡片，下午收集了27张。一共收集了多少张？",
+    answer: 75,
+    acceptedAnswers: ["75张", "75张卡片", "75 cards"],
+    enExplanation: "Add the morning and afternoon counts: 48+27=75.",
+    zhExplanation: "把上午和下午的数量相加：48+27=75。"
+  }),
+  "pep-primary-p1-l-fi-104": scalarDraft({
+    enPrompt: "There are 58 balloons. Seven burst. How many balloons remain?",
+    zhPrompt: "原来有58个气球，破了7个，还剩多少个？",
+    answer: 51,
+    acceptedAnswers: ["51个", "51个气球", "51 balloons"],
+    enExplanation: "Subtract the seven balloons: 58-7=51.",
+    zhExplanation: "用58减去7：58-7=51。"
+  }),
+  "pep-primary-p1-l-fi-105": scalarDraft({
+    enPrompt: "A reading corner has 64 books and receives 12 more. How many books does it have now?",
+    zhPrompt: "阅读角原来有64本书，又增加12本。现在有多少本书？",
+    answer: 76,
+    acceptedAnswers: ["76本", "76本书", "76 books"],
+    enExplanation: "Add the new books: 64+12=76.",
+    zhExplanation: "用原有数量加上新增加的数量：64+12=76。"
+  }),
+  "pep-primary-p1-l-fi-151": {
+    acceptedAnswers: ["7张", "7 cards"]
+  },
+  "pep-primary-p1-l-fi-155": {
+    acceptedAnswers: ["9张", "9 cards"]
+  },
+  "pep-primary-p1-l-sa-191": scalarDraft({
+    enPrompt: "An records three groups of blocks: Group A has 4, Group B has 11, and Group C has 7. How many blocks are in the largest group?",
+    zhPrompt: "安安记录了三类积木：甲类4个、乙类11个、丙类7个。数量最多的一类有多少个？",
+    answer: 11,
+    acceptedAnswers: ["11个", "11 blocks"],
+    enExplanation: "Compare 4, 11, and 7. The largest count is 11, so the largest group has 11 blocks.",
+    zhExplanation: "比较4、11和7，最大的数量是11，所以数量最多的一类有11个积木。"
+  }),
+  "pep-primary-p2-l-fi-101": scalarDraft({
+    enPrompt: "Make groups of 6 from 24 counters. How many groups can be made?",
+    zhPrompt: "把24个小圆片每6个分成一组，可以分成几组？",
+    answer: 4,
+    acceptedAnswers: ["4组", "4 groups"],
+    enExplanation: "24÷6=4, so there are 4 groups.",
+    zhExplanation: "24÷6=4，所以可以分成4组。"
+  }),
+  "pep-primary-p2-l-fi-102": scalarDraft({
+    enPrompt: "Put 36 colored pencils into boxes with 4 pencils in each box. How many boxes are needed?",
+    zhPrompt: "把36支彩笔装盒，每盒4支，需要几个盒子？",
+    answer: 9,
+    acceptedAnswers: ["9个", "9个盒子", "9 boxes"],
+    enExplanation: "36÷4=9, so 9 boxes are needed.",
+    zhExplanation: "36÷4=9，所以需要9个盒子。"
+  }),
+  "pep-primary-p2-l-fi-103": scalarDraft({
+    enPrompt: "Put 47 cards into groups of 7. What are the quotient and remainder?",
+    zhPrompt: "把47张卡片按每组7张分组，商和余数是多少？",
+    answer: "6余5",
+    acceptedAnswers: [
+      "6余5",
+      "商6余5",
+      "商是6，余数是5",
+      "6 remainder 5",
+      "quotient 6 remainder 5",
+      "quotient 6, remainder 5"
+    ],
+    enExplanation: "47=7×6+5, so the quotient is 6 and the remainder is 5.",
+    zhExplanation: "47=7×6+5，所以商是6，余数是5。",
+    zhTraditionalExplanation: "47=7×6+5，所以商是6，余數是5。"
+  }),
+  "pep-primary-p2-l-fi-104": scalarDraft({
+    enPrompt: "Share 56 stickers equally among 7 students. How many stickers does each student get?",
+    zhPrompt: "把56张贴纸平均分给7名同学，每名同学分到多少张？",
+    answer: 8,
+    acceptedAnswers: ["8张", "8张贴纸", "8 stickers"],
+    enExplanation: "56÷7=8, so each student gets 8 stickers.",
+    zhExplanation: "56÷7=8，所以每名同学分到8张。"
+  }),
+  "pep-primary-p2-l-fi-105": scalarDraft({
+    enPrompt: "Put 7 balls into pairs. How many pairs can be made, and how many balls remain?",
+    zhPrompt: "把7个球每2个分成一组，可以分成几组，还剩几个？",
+    answer: "3余1",
+    acceptedAnswers: [
+      "3组，剩1个",
+      "3组，还剩1个",
+      "3組，剩1個",
+      "3組，還剩1個",
+      "3 groups, 1 left",
+      "3 pairs, 1 ball remaining"
+    ],
+    enExplanation: "7=2×3+1, so there are 3 groups with 1 ball remaining.",
+    zhExplanation: "7=2×3+1，所以可以分成3组，还剩1个。",
+    zhTraditionalExplanation: "7=2×3+1，所以可以分成3組，還剩1個。"
+  }),
+  "pep-primary-p3-u-mc-051": scalarDraft({
+    enPrompt: "3 meters equals how many centimeters?",
+    zhPrompt: "3米等于多少厘米？",
+    answer: answerWithUnit(300, "厘米"),
+    enExplanation: "1 meter equals 100 centimeters, so 3 meters equals 3×100=300 centimeters.",
+    zhExplanation: "1米=100厘米，所以3米=3×100=300厘米。",
+    zhTraditionalExplanation: "1米=100厘米，所以3米=3×100=300厘米。",
+    distractors: [answerWithUnit(30, "厘米"), answerWithUnit(103, "厘米"), answerWithUnit(3000, "厘米")]
+  }),
+  "pep-primary-p3-u-mc-052": scalarDraft({
+    enPrompt: "What type of angle is each corner of a square sheet of paper?",
+    zhPrompt: "一张正方形纸的每个角都是什么角？",
+    answer: "right angle",
+    enExplanation: "Each corner of a square is a right angle.",
+    zhExplanation: "正方形的四个角都是直角。",
+    distractors: ["acute angle", "obtuse angle", "straight angle"]
+  }),
+  "pep-primary-p3-u-mc-053": scalarDraft({
+    enPrompt: "How many days are in a leap year?",
+    zhPrompt: "闰年全年有多少天？",
+    answer: 366,
+    enExplanation: "A leap year has 29 days in February, so it has 366 days in all.",
+    zhExplanation: "闰年的2月有29天，全年一共有366天。",
+    distractors: [365, 364, 360]
+  }),
+  "pep-primary-p3-u-mc-054": scalarDraft({
+    enPrompt: "A lesson starts at 10:35 and ends at 11:20. How many minutes does it last?",
+    zhPrompt: "一节课10:35开始，11:20结束，持续了多少分钟？",
+    answer: answerWithUnit(45, "分钟"),
+    enExplanation: "Twenty-five minutes elapse from 10:35 to 11:00, and another 20 minutes elapse from 11:00 to 11:20. Altogether, 25 + 20 = 45 minutes.",
+    zhExplanation: "10:35到11:00经过25分钟，11:00到11:20经过20分钟，一共25+20=45分钟。",
+    distractors: [answerWithUnit(35, "分钟"), answerWithUnit(55, "分钟"), answerWithUnit(85, "分钟")]
+  }),
+  "pep-primary-p3-u-fi-076": scalarDraft({
+    enPrompt: "A ribbon is 2 m 35 cm long. How many centimeters long is it?",
+    zhPrompt: "一条彩带长2米35厘米，合多少厘米？",
+    answer: answerWithUnit(235, "厘米"),
+    enExplanation: "2 meters equals 200 centimeters, and 200+35=235 centimeters.",
+    zhExplanation: "2米=200厘米，200+35=235厘米。"
+  }),
+  "pep-primary-p3-l-fi-101": scalarDraft({
+    enPrompt: "A rectangle is 8 cm long and 6 cm wide. What is its area?",
+    zhPrompt: "一个长方形长8厘米、宽6厘米，面积是多少？",
+    answer: answerWithUnit(48, "平方厘米"),
+    enExplanation: "Rectangle area = length × width, so 8×6=48 square centimeters.",
+    zhExplanation: "长方形面积=长×宽，8×6=48平方厘米。",
+    zhTraditionalExplanation: "長方形面積=長×寬，8×6=48平方厘米。"
+  }),
+  "pep-primary-p3-l-fi-102": scalarDraft({
+    enPrompt: "Calculate 2.6+1.7.",
+    zhPrompt: "计算：2.6+1.7=？",
+    answer: "4.3",
+    enExplanation: "Line up the decimal points: 2.6+1.7=4.3.",
+    zhExplanation: "把小数点对齐计算：2.6+1.7=4.3。"
+  }),
+  "pep-primary-p3-l-fi-103": scalarDraft({
+    enPrompt: "Which number is greater, 3.08 or 3.8?",
+    zhPrompt: "3.08和3.8相比，哪个数大？",
+    answer: "3.8",
+    acceptedAnswers: ["3.8大", "3.8較大", "3.8较大", "3.8 is greater"],
+    enExplanation: "Write 3.8 as 3.80. Since 3.80>3.08, 3.8 is greater.",
+    zhExplanation: "把3.8写成3.80，3.80>3.08，所以3.8大。"
+  }),
+  "pep-primary-p3-l-fi-104": scalarDraft({
+    enPrompt: "Calculate 7.5-2.8.",
+    zhPrompt: "计算：7.5-2.8=？",
+    answer: "4.7",
+    enExplanation: "Line up the decimal points: 7.5-2.8=4.7.",
+    zhExplanation: "把小数点对齐计算：7.5-2.8=4.7。"
+  }),
+  "pep-primary-p3-l-fi-105": scalarDraft({
+    enPrompt: "A square has side length 9 cm. What is its area?",
+    zhPrompt: "一个正方形的边长是9厘米，面积是多少？",
+    answer: answerWithUnit(81, "平方厘米"),
+    enExplanation: "Square area = side × side, so 9×9=81 square centimeters.",
+    zhExplanation: "正方形面积=边长×边长，9×9=81平方厘米。",
+    zhTraditionalExplanation: "正方形面積=邊長×邊長，9×9=81平方厘米。"
+  }),
+  "pep-primary-p3-l-sa-151": scalarDraft({
+    enPrompt: "A table shows 12 students chose basketball and 8 chose football. How many more chose basketball?",
+    zhPrompt: "统计表显示12名同学选择篮球，8名同学选择足球。选择篮球的比选择足球的多多少人？",
+    answer: 4,
+    acceptedAnswers: ["4人", "4名", "4 students"],
+    enExplanation: "Compare the two categories: 12-8=4.",
+    zhExplanation: "比较两个项目：12-8=4，所以多4人。"
+  }),
+  "pep-primary-p3-l-sa-152": scalarDraft({
+    enPrompt: "A table shows 7 red books, 9 blue books, and 6 green books. How many books are recorded altogether?",
+    zhPrompt: "统计表记录红色书7本、蓝色书9本、绿色书6本。一共记录了多少本？",
+    answer: 22,
+    acceptedAnswers: ["22本", "22本书", "22 books"],
+    enExplanation: "Add all three categories: 7+9+6=22.",
+    zhExplanation: "把三个项目相加：7+9+6=22。"
+  }),
+  "pep-primary-p3-l-sa-153": scalarDraft({
+    enPrompt: "A survey records 15 votes for apples, 11 for pears, and 9 for oranges. What is the smallest count?",
+    zhPrompt: "调查记录苹果15票、梨11票、橙子9票。最少的票数是多少？",
+    answer: 9,
+    acceptedAnswers: ["9票", "9 votes"],
+    enExplanation: "Compare 15, 11, and 9. The smallest count is 9.",
+    zhExplanation: "比较15、11和9，最小的票数是9。"
+  }),
+  "pep-primary-p3-l-sa-154": scalarDraft({
+    enPrompt: "A chart shows 15 sunny days and 11 cloudy days. How many more sunny days were recorded?",
+    zhPrompt: "统计图记录15个晴天和11个阴天。晴天比阴天多多少天？",
+    answer: 4,
+    acceptedAnswers: ["4天", "4 days"],
+    enExplanation: "15-11=4, so there were 4 more sunny days.",
+    zhExplanation: "15-11=4，所以晴天比阴天多4天。"
+  }),
+  "pep-primary-p3-l-sa-155": scalarDraft({
+    enPrompt: "A class table records 14 students in Group 1, 13 in Group 2, and 12 in Group 3. How many students are recorded?",
+    zhPrompt: "班级统计表记录第一组14人、第二组13人、第三组12人。一共记录了多少人？",
+    answer: 39,
+    acceptedAnswers: ["39人", "39名", "39 students"],
+    enExplanation: "Add the group counts: 14+13+12=39.",
+    zhExplanation: "把各组人数相加：14+13+12=39。"
+  }),
+  "pep-primary-p4-u-mc-001": scalarDraft({
+    enPrompt: "A school orders 24 boxes of exercise books, with 128 books in each box. How many exercise books are ordered altogether?",
+    zhPrompt: "学校订购了24箱练习本，每箱128本。一共订购了多少本练习本？",
+    answer: 3072,
+    enExplanation: "Use partial products: 128×24=128×20+128×4=2560+512=3072.",
+    zhExplanation: "把24分成20和4：128×24=128×20+128×4=2560+512=3072。",
+    distractors: [2560, 512, 3052]
+  }),
+  "pep-primary-p4-u-mc-002": scalarDraft({
+    enPrompt: "An auditorium has 15 rows with 236 seats in each row. How many seats are there altogether?",
+    zhPrompt: "礼堂有15排座位，每排236个。一共有多少个座位？",
+    answer: 3540,
+    enExplanation: "Use the distributive property: 236×15=236×10+236×5=2360+1180=3540.",
+    zhExplanation: "把15分成10和5：236×15=236×10+236×5=2360+1180=3540。",
+    distractors: [1180, 2360, 3500]
+  }),
+  "pep-primary-p4-u-mc-003": scalarDraft({
+    enPrompt: "A factory packs 405 pencils in each carton. How many pencils are in 32 cartons?",
+    zhPrompt: "工厂每箱装405支铅笔，32箱一共有多少支铅笔？",
+    answer: 12960,
+    enExplanation: "The zero in 405 keeps its place value: 405×32=405×30+405×2=12150+810=12960.",
+    zhExplanation: "注意405中0的占位作用：405×32=405×30+405×2=12150+810=12960。",
+    distractors: [1296, 12150, 13365]
+  }),
+  "pep-primary-p4-u-mc-004": scalarDraft({
+    enPrompt: "Which numeral represents four million five thousand six?",
+    zhPrompt: "四百万五千零六写作哪个数？",
+    answer: "4,005,006",
+    enExplanation: "Four million is 4,000,000, five thousand is 5,000, and six is 6; together they form 4,005,006.",
+    zhExplanation: "四百万是4,000,000，五千是5,000，再加6，写作4,005,006。",
+    distractors: ["4,050,006", "4,005,060", "4,500,006"]
+  }),
+  "pep-primary-p4-u-mc-005": scalarDraft({
+    enPrompt: "Round 7,856,432 to the nearest ten thousand.",
+    zhPrompt: "把7,856,432四舍五入到万位，近似数是多少？",
+    answer: "7,860,000",
+    enExplanation: "The thousands digit is 6, so round the ten-thousands digit up from 5 to 6: 7,856,432≈7,860,000.",
+    zhExplanation: "千位上的数字是6，应向万位进1，所以7,856,432≈7,860,000。",
+    distractors: ["7,850,000", "7,856,000", "7,900,000"]
+  }),
+  "pep-primary-p4-u-mc-052": scalarDraft({
+    enPrompt: "How many degrees are in a full turn?",
+    zhPrompt: "一周角是多少度？",
+    answer: "360°",
+    enExplanation: "One full turn is a full angle of 360 degrees.",
+    zhExplanation: "转一整周形成周角，周角是360°。",
+    distractors: ["90°", "180°", "270°"]
+  }),
+  "pep-primary-p4-u-mc-053": scalarDraft({
+    enPrompt: "Which type of angle measures 135°?",
+    zhPrompt: "135°的角是什么角？",
+    answer: "obtuse angle",
+    enExplanation: "135° is greater than 90° and less than 180°, so it is an obtuse angle.",
+    zhExplanation: "135°大于90°且小于180°，所以是钝角。",
+    distractors: ["acute angle", "right angle", "straight angle"]
+  }),
+  "pep-primary-p4-u-mc-054": scalarDraft({
+    enPrompt: "Perpendicular lines meet to form what angle measure?",
+    zhPrompt: "两条直线互相垂直时，相交形成的角是多少度？",
+    answer: "90°",
+    enExplanation: "Perpendicular lines meet at right angles, and a right angle measures 90 degrees.",
+    zhExplanation: "互相垂直的两条直线相交成直角，直角是90°。",
+    distractors: ["45°", "120°", "180°"]
+  }),
+  "pep-primary-p4-u-fi-076": scalarDraft({
+    enPrompt: "Three right angles together measure how many degrees?",
+    zhPrompt: "3个直角合起来是多少度？",
+    answer: "270°",
+    acceptedAnswers: ["270度"],
+    enExplanation: "Each right angle is 90°, so 3×90°=270°.",
+    zhExplanation: "每个直角是90°，3×90°=270°。",
+    zhTraditionalExplanation: "每個直角是90°，3×90°=270°。"
+  }),
+  "pep-primary-p4-l-fi-101": {
+    acceptedAnswers: ["4.2米", "4.2 m"]
+  },
+  "pep-primary-p4-l-fi-102": scalarDraft({
+    enPrompt: "Calculate 5.8-2.6.",
+    zhPrompt: "计算：5.8-2.6=？",
+    answer: "3.2",
+    enExplanation: "Line up the decimal points: 5.8-2.6=3.2.",
+    zhExplanation: "把小数点对齐计算：5.8-2.6=3.2。"
+  }),
+  "pep-primary-p4-l-fi-103": scalarDraft({
+    enPrompt: "Find the average of 6, 8, and 10.",
+    zhPrompt: "求6、8、10这三个数的平均数。",
+    answer: 8,
+    enExplanation: "(6+8+10)÷3=24÷3=8.",
+    zhExplanation: "(6+8+10)÷3=24÷3=8。"
+  }),
+  "pep-primary-p4-l-fi-104": scalarDraft({
+    enPrompt: "Calculate the difference 2.50-2.5.",
+    zhPrompt: "计算2.50-2.5的差。",
+    answer: 0,
+    enExplanation: "A zero at the end of a decimal does not change its value, so 2.50=2.5 and the difference is 0.",
+    zhExplanation: "小数末尾添0不改变大小，2.50=2.5，所以差是0。"
+  }),
+  "pep-primary-p4-l-fi-105": scalarDraft({
+    enPrompt: "Calculate 10-3.75.",
+    zhPrompt: "计算：10-3.75=？",
+    answer: "6.25",
+    enExplanation: "Write 10 as 10.00 and subtract: 10.00-3.75=6.25.",
+    zhExplanation: "把10写成10.00，再计算：10.00-3.75=6.25。"
+  }),
+  "pep-primary-p4-l-sa-151": scalarDraft({
+    enPrompt: "Lele puts a border around a rectangle 9 cm long and 7 cm wide. How long is the border?",
+    zhPrompt: "乐乐给长9厘米、宽7厘米的长方形卡片贴边框，边框长多少厘米？",
+    answer: answerWithUnit(32, "厘米"),
+    enExplanation: "Rectangle perimeter = (length + width) × 2, so (9+7)×2=32 cm.",
+    zhExplanation: "长方形周长=（长+宽）×2，（9+7）×2=32厘米。"
+  }),
+  "pep-primary-p4-l-sa-152": scalarDraft({
+    enPrompt: "A rectangle is 11 cm long and 3 cm wide. What is its area?",
+    zhPrompt: "一个长方形长11厘米、宽3厘米，面积是多少？",
+    answer: answerWithUnit(33, "平方厘米"),
+    enExplanation: "Rectangle area = length × width, so 11×3=33 square centimeters.",
+    zhExplanation: "长方形面积=长×宽，11×3=33平方厘米。"
+  }),
+  "pep-primary-p4-l-sa-153": scalarDraft({
+    enPrompt: "A square has side length 6 cm. What is its area?",
+    zhPrompt: "一个正方形的边长是6厘米，面积是多少？",
+    answer: answerWithUnit(36, "平方厘米"),
+    enExplanation: "Square area = side × side, so 6×6=36 square centimeters.",
+    zhExplanation: "正方形面积=边长×边长，6×6=36平方厘米。"
+  }),
+  "pep-primary-p4-l-sa-154": scalarDraft({
+    enPrompt: "Two lines are perpendicular. What is the measure of each angle where they meet?",
+    zhPrompt: "两条直线互相垂直，它们相交形成的每个角是多少度？",
+    answer: "90°",
+    acceptedAnswers: ["90度"],
+    enExplanation: "Perpendicular lines form four right angles, each measuring 90 degrees.",
+    zhExplanation: "两条互相垂直的直线相交形成4个直角，每个都是90°。"
+  }),
+  "pep-primary-p4-l-sa-155": scalarDraft({
+    enPrompt: "The vertices of rectangle ABCD are named consecutively around the rectangle. Which side is parallel to AB?",
+    zhPrompt: "长方形ABCD的四个顶点按顺序命名，哪条边与AB平行？",
+    answer: "CD",
+    acceptedAnswers: ["DC"],
+    enExplanation: "Opposite sides of a rectangle are parallel, so AB is parallel to CD.",
+    zhExplanation: "长方形的对边互相平行，所以AB与CD平行。"
+  }),
+  "pep-primary-p5-u-mc-002": scalarDraft({
+    enPrompt: "Calculate 2.4 × 3.",
+    zhPrompt: "计算：2.4×3=？",
+    zhTraditionalPrompt: "計算：2.4×3=？",
+    answer: "7.2",
+    enExplanation: "24×3=72, and 2.4 has one decimal place, so 2.4×3=7.2.",
+    zhExplanation: "先算24×3=72，再点一位小数，所以2.4×3=7.2。",
+    zhTraditionalExplanation: "先算24×3=72，再點一位小數，所以2.4×3=7.2。",
+    distractors: ["0.72", "5.4", "72"]
+  }),
+  "pep-primary-p5-u-mc-003": scalarDraft({
+    enPrompt: "Calculate 8.4÷4.",
+    zhPrompt: "计算：8.4÷4=？",
+    answer: "2.1",
+    enExplanation: "84 tenths divided by 4 is 21 tenths, so 8.4÷4=2.1.",
+    zhExplanation: "84个十分之一除以4等于21个十分之一，所以8.4÷4=2.1。",
+    distractors: ["0.21", "2", "21"]
+  }),
+  "pep-primary-p5-l-fi-101": scalarDraft({
+    enPrompt: "List all positive factors of 18 from least to greatest.",
+    zhPrompt: "按从小到大的顺序写出18的所有正因数。",
+    answer: "1, 2, 3, 6, 9, 18",
+    acceptedAnswers: ["1、2、3、6、9、18", "1 2 3 6 9 18"],
+    enExplanation: "The factor pairs are 1×18, 2×9, and 3×6, so the positive factors are 1, 2, 3, 6, 9, and 18.",
+    zhExplanation: "因数可以成对找：1×18、2×9、3×6，所以正因数是1、2、3、6、9、18。",
+    zhTraditionalExplanation: "因數可以成對找：1×18、2×9、3×6，所以正因數是1、2、3、6、9、18。"
+  }),
+  "pep-primary-p5-l-fi-102": scalarDraft({
+    enPrompt: "What is the greatest common factor of 18 and 24?",
+    zhPrompt: "18和24的最大公因数是多少？",
+    answer: 6,
+    enExplanation: "The common factors are 1, 2, 3, and 6; the greatest is 6.",
+    zhExplanation: "18和24的公因数有1、2、3、6，其中最大的是6。"
+  }),
+  "pep-primary-p5-l-fi-103": scalarDraft({
+    enPrompt: "What is the least common multiple of 6 and 8?",
+    zhPrompt: "6和8的最小公倍数是多少？",
+    answer: 24,
+    enExplanation: "24 is the first positive number that is a multiple of both 6 and 8.",
+    zhExplanation: "24是6和8的公倍数中最小的正数，所以最小公倍数是24。"
+  }),
+  "pep-primary-p5-l-fi-104": scalarDraft({
+    enPrompt: "Calculate 5/6-1/4.",
+    zhPrompt: "计算：5/6-1/4=？",
+    answer: "7/12",
+    enExplanation: "Use denominator 12: 5/6=10/12 and 1/4=3/12, so 10/12-3/12=7/12.",
+    zhExplanation: "通分得5/6=10/12，1/4=3/12，所以10/12-3/12=7/12。"
+  }),
+  "pep-primary-p5-l-fi-105": scalarDraft({
+    enPrompt: "Calculate 1/9+1/9.",
+    zhPrompt: "计算：1/9+1/9=？",
+    answer: "2/9",
+    enExplanation: "The denominators are the same, so add the numerators: 1/9+1/9=2/9.",
+    zhExplanation: "分母相同，分母不变、分子相加：1/9+1/9=2/9。"
+  }),
+  "pep-primary-p6-u-mc-001": scalarDraft({
+    enPrompt: "Write 3/5 as a percentage.",
+    zhPrompt: "把3/5化成百分数。",
+    answer: "60%",
+    enExplanation: "3÷5=0.6, and 0.6=60%.",
+    zhExplanation: "3÷5=0.6，0.6=60%。",
+    distractors: ["3%", "30%", "80%"]
+  }),
+  "pep-primary-p6-u-mc-002": scalarDraft({
+    enPrompt: "Write 0.35 as a percentage.",
+    zhPrompt: "把0.35化成百分数。",
+    answer: "35%",
+    enExplanation: "Multiply the decimal by 100%, so 0.35=35%.",
+    zhExplanation: "把小数乘100%，0.35=35%。",
+    distractors: ["0.35%", "3.5%", "350%"]
+  }),
+  "pep-primary-p6-u-mc-003": scalarDraft({
+    enPrompt: "What is 25% of 80?",
+    zhPrompt: "80的25%是多少？",
+    answer: 20,
+    enExplanation: "25%=1/4, and 80÷4=20.",
+    zhExplanation: "25%=1/4，80÷4=20。",
+    distractors: [4, 25, 60]
+  }),
+  "pep-primary-p6-u-mc-004": scalarDraft({
+    enPrompt: "A 120-yuan book is sold at a 20% discount. How many yuan does the customer pay?",
+    zhPrompt: "一本书原价120元，按八折出售。顾客应付多少元？",
+    answer: 96,
+    acceptedAnswers: ["96元", "96 yuan"],
+    enExplanation: "A 20% discount means paying 80% of the price: 120×80%=96.",
+    zhExplanation: "八折表示按原价的80%付款，120×80%=96，所以应付96元。",
+    zhTraditionalExplanation: "八折表示按原價的80%付款，120×80%=96，所以應付96元。",
+    distractors: [24, 100, 108]
+  }),
+  "pep-primary-p6-u-mc-005": scalarDraft({
+    enPrompt: "A survey has 200 responses, and 45% choose option A. How many responses choose option A?",
+    zhPrompt: "一项调查有200份答卷，其中45%选择A项。选择A项的有多少份？",
+    answer: 90,
+    enExplanation: "200×45%=90.",
+    zhExplanation: "200×45%=90，所以有90份。",
+    zhTraditionalExplanation: "200×45%=90，所以有90份。",
+    distractors: [45, 80, 110]
+  }),
+  "pep-primary-p6-u-mc-051": scalarDraft({
+    enPrompt: "A seat is in column 2, row 3. What ordered pair represents the seat?",
+    zhPrompt: "一个座位在第2列第3行，用数对怎样表示？",
+    answer: "(2, 3)",
+    enExplanation: "Write the column first and the row second, so the ordered pair is (2,3).",
+    zhExplanation: "数对先写列、再写行，所以是（2，3）。",
+    distractors: ["(3, 2)", "(2, 2)", "(3, 3)"]
+  }),
+  "pep-primary-p6-u-mc-054": scalarDraft({
+    enPrompt: "A marker is in column 4, row 2. What ordered pair represents its position?",
+    zhPrompt: "一个标记在第4列第2行，用数对怎样表示？",
+    answer: "(4, 2)",
+    enExplanation: "Write the column first and the row second, so the ordered pair is (4,2).",
+    zhExplanation: "数对先写列、再写行，所以是（4，2）。",
+    distractors: ["(2, 4)", "(4, 1)", "(3, 2)"]
+  }),
+  "pep-primary-p6-u-fi-061": scalarDraft({
+    enPrompt: "A point is in column 2, row 5. Write its ordered pair.",
+    zhPrompt: "一个点在第2列第5行，写出它的数对。",
+    answer: "(2, 5)",
+    acceptedAnswers: ["(2,5)", "(2，5)", "（2，5）"],
+    enExplanation: "Write the column first and the row second: (2,5).",
+    zhExplanation: "数对先写列、再写行，所以是（2，5）。"
+  }),
+  "pep-primary-p6-l-fi-102": scalarDraft({
+    enPrompt: "A map uses a scale of 1:1000. A road measures 3 cm on the map. What is its actual length in meters?",
+    zhPrompt: "一幅地图的比例尺是1:1000，一条道路在图上长3厘米。实际长多少米？",
+    answer: answerWithUnit(30, "米"),
+    enExplanation: "3×1000=3000 cm, and 3000 cm=30 m.",
+    zhExplanation: "3×1000=3000厘米，3000厘米=30米。"
+  }),
+  "pep-primary-p6-l-fi-103": scalarDraft({
+    enPrompt: "Five notebooks cost 20 yuan at the same unit price. How many yuan do eight notebooks cost?",
+    zhPrompt: "5本同样的练习本共20元。按同样的单价，8本需要多少元？",
+    answer: 32,
+    acceptedAnswers: ["32元", "32 yuan"],
+    enExplanation: "One notebook costs 20÷5=4 yuan, so eight cost 8×4=32 yuan.",
+    zhExplanation: "每本20÷5=4元，8本需要8×4=32元。"
+  }),
+  "pep-primary-p6-l-fi-104": scalarDraft({
+    enPrompt: "Food is enough for 6 people for 8 days. At the same daily amount per person, how many days will it last for 12 people?",
+    zhPrompt: "一批食物够6人吃8天。每人每天的用量相同，如果有12人，可以吃多少天？",
+    answer: 4,
+    acceptedAnswers: ["4天", "4 days"],
+    enExplanation: "The total is 6×8=48 person-days. For 12 people, 48÷12=4 days.",
+    zhExplanation: "总量是6×8=48人天，12人可以吃48÷12=4天。"
+  }),
+  "pep-primary-p6-l-fi-105": scalarDraft({
+    enPrompt: "The ratio 2:3 is equivalent to 8:____. What number belongs in the blank?",
+    zhPrompt: "比2:3与8:____相等，空格里应填多少？",
+    answer: 12,
+    enExplanation: "The first term is multiplied by 4, so multiply the second term by 4: 3×4=12.",
+    zhExplanation: "前项乘4，后项也要乘4：3×4=12。"
+  })
+};
+
+function applyPrimaryManualContentQaOverride(id: string, draft: Draft): Draft {
+  const override = mainlandPepPrimaryManualContentQaOverrides[id];
+  if (!override) return draft;
+
+  const answerChanged = override.answer !== undefined && override.answer !== draft.answer;
+  return {
+    ...draft,
+    ...override,
+    ...(answerChanged && override.acceptedAnswers === undefined ? { acceptedAnswers: undefined } : {})
   };
 }
 
@@ -303,8 +1170,8 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
       const shapes = ["长方体", "正方体", "圆柱", "球"];
       const answer = shapes[n % shapes.length];
       return scalarDraft({
-        enPrompt: `Which solid has the described feature: ${answer === "球" ? "it can roll in every direction" : answer === "圆柱" ? "it has two circular faces" : answer === "正方体" ? "all faces are squares" : "opposite faces are rectangles"}?`,
-        zhPrompt: `下面描述的是哪种立体图形：${answer === "球" ? "能向各个方向滚动" : answer === "圆柱" ? "有两个圆形的面" : answer === "正方体" ? "每个面都是正方形" : "相对的面是长方形"}？`,
+        enPrompt: `Which solid has the described feature: ${answer === "球" ? "it can roll in every direction" : answer === "圆柱" ? "it has two circular faces" : answer === "正方体" ? "all faces are squares" : "it has six faces, and not every face is a square"}?`,
+        zhPrompt: `下面描述的是哪种立体图形：${answer === "球" ? "能向各个方向滚动" : answer === "圆柱" ? "有两个圆形的面" : answer === "正方体" ? "每个面都是正方形" : "有六个面，而且不是每个面都是正方形"}？`,
         answer,
         enExplanation: `The described feature matches ${answer}.`,
         zhExplanation: `这个特征对应${answer}。`,
@@ -328,13 +1195,19 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
     case "time-data": {
       const counts = [3 + (n % 5), 5 + ((n * 2) % 6), 4 + ((n * 3) % 5)];
       const answer = Math.max(...counts);
+      const maximumCategoryCount = counts.filter((count) => count === answer).length;
       return scalarDraft({
-        enPrompt: `A class counted ${counts[0]} red cards, ${counts[1]} blue cards, and ${counts[2]} green cards. What is the largest count?`,
-        zhPrompt: `班级统计红卡${counts[0]}张、蓝卡${counts[1]}张、绿卡${counts[2]}张，数量最多的是几张？`,
+        enPrompt: `A class counted ${counts[0]} red cards, ${counts[1]} blue cards, and ${counts[2]} green cards. What is the largest of these three counts?`,
+        zhPrompt: `班级统计红卡${counts[0]}张、蓝卡${counts[1]}张、绿卡${counts[2]}张。三个数量中，最大的数量是多少张？`,
         answer,
-        enExplanation: `Compare the three counts. The largest is ${answer}.`,
-        zhExplanation: `比较三个数量，最大的是${answer}张。`,
-        distractors: counts.filter((count) => count !== answer)
+        enExplanation: maximumCategoryCount > 1
+          ? `Compare the three counts. ${maximumCategoryCount} categories tie for the greatest count, and that count is ${answer}.`
+          : `Compare the three counts. The greatest count is ${answer}.`,
+        zhExplanation: maximumCategoryCount > 1
+          ? `比较三个数量，有${maximumCategoryCount}个类别并列最多，最大的数量是${answer}张。`
+          : `比较三个数量，最大的数量是${answer}张。`,
+        distractors: counts.filter((count) => count !== answer),
+        acceptedAnswers: [`${answer}张`, `${answer} cards`]
       });
     }
     case "multiplication": {
@@ -345,8 +1218,8 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
         enPrompt: `There are ${a} equal groups with ${b} items in each group. How many items are there?`,
         zhPrompt: `有${a}组，每组${b}个，一共有多少个？`,
         answer,
-        enExplanation: `${a} groups of ${b} means ${a}x${b}=${answer}.`,
-        zhExplanation: `${a}个${b}相加，可以写成${a}x${b}=${answer}。`,
+        enExplanation: `${a} groups of ${b} means ${a}×${b}=${answer}.`,
+        zhExplanation: `${a}个${b}相加，可以写成${a}×${b}=${answer}。`,
         distractors: [a + b, answer + a, answer - b]
       });
     }
@@ -368,13 +1241,19 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
       const quotient = 3 + ((n * 2) % 7);
       const remainder = n % divisor;
       const total = divisor * quotient + remainder;
-      const answer = remainder === 0 ? String(quotient) : `${quotient}余${remainder}`;
+      const answer = `${quotient}余${remainder}`;
       return scalarDraft({
         enPrompt: `${total} objects are grouped with ${divisor} in each group. What is the quotient and remainder?`,
         zhPrompt: `把${total}个物品按每组${divisor}个分组，商和余数是多少？`,
         answer,
         enExplanation: `${divisor}x${quotient}+${remainder}=${total}, so the result is ${answer}.`,
-        zhExplanation: `${divisor}x${quotient}+${remainder}=${total}，所以结果是${answer}。`,
+        zhExplanation: `${divisor}x${quotient}+${remainder}=${total}，所以商是${quotient}，余数是${remainder}。`,
+        acceptedAnswers: [
+          `${quotient} R ${remainder}`,
+          `商${quotient}余${remainder}`,
+          `商是${quotient}，余数是${remainder}`,
+          `quotient ${quotient}, remainder ${remainder}`
+        ],
         distractors: [`${quotient + 1}余${remainder}`, `${quotient}余${(remainder + 1) % divisor}`, String(quotient)]
       });
     }
@@ -548,8 +1427,8 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
         enPrompt: `A cuboid is ${length} cm long, ${width} cm wide, and ${height} cm high. What is its volume?`,
         zhPrompt: `一个长方体长${length}厘米、宽${width}厘米、高${height}厘米，体积是多少？`,
         answer: answerWithUnit(answer, "立方厘米"),
-        enExplanation: `Volume = ${length}x${width}x${height}=${answer} cubic centimeters.`,
-        zhExplanation: `长方体体积=长x宽x高，${length}x${width}x${height}=${answer}立方厘米。`,
+        enExplanation: `Volume = ${length}×${width}×${height}=${answer} cubic centimeters.`,
+        zhExplanation: `长方体体积=长×宽×高，${length}×${width}×${height}=${answer}立方厘米。`,
         distractors: [answerWithUnit(length * width, "立方厘米"), answerWithUnit(answer + height, "立方厘米"), answerWithUnit(2 * (length + width + height), "立方厘米")]
       });
     }
@@ -567,8 +1446,8 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
       });
     }
     case "coordinate-data": {
-      const x = -3 + (n % 7);
-      const y = -2 + ((n * 2) % 6);
+      const x = 1 + (n % 8);
+      const y = 1 + ((n * 2) % 6);
       const answer = `(${x}, ${y})`;
       return scalarDraft({
         enPrompt: `Point A moves to x=${x} and y=${y}. Write its ordered pair.`,
@@ -586,11 +1465,11 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
       const total = (left + right) * unit;
       const answer = right * unit;
       return scalarDraft({
-        enPrompt: `${total} L of juice is mixed in the ratio ${left}:${right}. How many liters are in the larger part?`,
+        enPrompt: `${total} L of juice is divided in the ratio ${left}:${right}. How many liters are in the larger part?`,
         zhPrompt: `把${total}升饮料按${left}:${right}分成两部分，较大的部分是多少升？`,
         answer: answerWithUnit(answer, "升"),
-        enExplanation: `There are ${left + right} ratio units. Each unit is ${total}÷${left + right}=${unit} L, so the larger part is ${right}x${unit}=${answer} L.`,
-        zhExplanation: `一共有${left + right}份，每份${total}÷${left + right}=${unit}升，较大部分是${right}x${unit}=${answer}升。`,
+        enExplanation: `There are ${left + right} ratio units. Each unit is ${total}÷${left + right}=${unit} L, so the larger part is ${right}×${unit}=${answer} L.`,
+        zhExplanation: `一共有${left + right}份，每份${total}÷${left + right}=${unit}升，较大部分是${right}×${unit}=${answer}升。`,
         distractors: [answerWithUnit(left * unit, "升"), answerWithUnit(total, "升"), answerWithUnit(answer + unit, "升")]
       });
     }
@@ -599,7 +1478,7 @@ function draftForFamily(family: MainlandPepPrimaryQuestionFamily, type: PrimaryQ
       const change = 3 + ((n * 2) % 8);
       const answer = start + change;
       return scalarDraft({
-        enPrompt: `The temperature is ${start} degrees and rises by ${change} degrees. What is the new temperature?`,
+        enPrompt: `The temperature is ${start}°C and rises by ${change}°C. What is the new temperature?`,
         zhPrompt: `气温是${start}°C，升高${change}°C后是多少摄氏度？`,
         answer: `${answer}°C`,
         enExplanation: `${start}+${change}=${answer}, so the new temperature is ${answer} degrees Celsius.`,
@@ -704,7 +1583,10 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer,
         enExplanation: `Compute ${start}${subtract ? "-" : "+"}${change}=${answer}.`,
-        zhExplanation: `按题意计算：${start}${subtract ? "-" : "+"}${change}=${answer}。`,
+        zhExplanation: `按题意计算：${start}${subtract ? "-" : "+"}${change}=${answer}${variant === 0 ? "张" : "个"}。`,
+        acceptedAnswers: variant === 0
+          ? [`${answer}张`, `${answer} items`]
+          : [`${answer}个`, `${answer} items`],
         distractors: [answer + 10, answer - 10, start]
       });
     }
@@ -726,7 +1608,10 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer,
         enExplanation: `Compare ${counts.join(", ")}. The largest count is ${answer}.`,
-        zhExplanation: `比较${counts.join("、")}，最大数量是${answer}。`,
+        zhExplanation: `比较${counts.join("、")}，最大数量是${answer}${variant === 2 ? "人" : "个"}。`,
+        acceptedAnswers: variant === 2
+          ? [`${answer}人`, `${answer} students`]
+          : [`${answer}个`, `${answer} items`],
         distractors: counts.filter((count) => count !== answer)
       });
     }
@@ -748,8 +1633,8 @@ function replacementDraftForFamily(
         enPrompt: enPrompts[variant],
         zhPrompt: zhPrompts[variant],
         answer,
-        enExplanation: `${a} groups of ${b} gives ${a}x${b}=${answer}.`,
-        zhExplanation: `${a}个${b}相加，可以写成${a}x${b}=${answer}。`,
+        enExplanation: `${a} groups of ${b} gives ${a}×${b}=${answer}.`,
+        zhExplanation: `${a}个${b}相加，可以写成${a}×${b}=${answer}。`,
         distractors: [a + b, answer + a, Math.max(0, answer - b)]
       });
     }
@@ -781,7 +1666,7 @@ function replacementDraftForFamily(
       const quotient = 3 + ((n * 2 + replacementOrdinal) % 7);
       const remainder = (n + replacementOrdinal) % divisor;
       const total = divisor * quotient + remainder;
-      const answer = remainder === 0 ? String(quotient) : `${quotient}余${remainder}`;
+      const answer = `${quotient}余${remainder}`;
       const zhPrompts = [
         `${context.name}把${total}张${context.object}按每${divisor}张一份整理，商和余数是多少？`,
         `${context.place}有${total}个材料，每${divisor}个装一袋，可以装几袋，还剩几个？`,
@@ -797,7 +1682,14 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer,
         enExplanation: `${divisor}x${quotient}+${remainder}=${total}, so the result is ${answer}.`,
-        zhExplanation: `${divisor}x${quotient}+${remainder}=${total}，所以结果是${answer}。`,
+        zhExplanation: `${divisor}x${quotient}+${remainder}=${total}，所以商是${quotient}，余数是${remainder}。`,
+        acceptedAnswers: [
+          `${quotient} R ${remainder}`,
+          `商${quotient}余${remainder}`,
+          `商是${quotient}，余数是${remainder}`,
+          `quotient ${quotient}, remainder ${remainder}`,
+          ...(variant === 1 ? [`${quotient}袋，余${remainder}个`, `${quotient}袋，还剩${remainder}个`] : [])
+        ],
         distractors: [`${quotient + 1}余${remainder}`, `${quotient}余${(remainder + 1) % divisor}`, String(quotient)]
       });
     }
@@ -916,7 +1808,12 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer,
         enExplanation: `(${a}+${b}+${c})/3=${answer}.`,
-        zhExplanation: `平均数=(${a}+${b}+${c})÷3=${answer}。`,
+        zhExplanation: `平均数=(${a}+${b}+${c})÷3=${answer}${variant === 0 ? "下" : variant === 1 ? "支" : ""}。`,
+        acceptedAnswers: variant === 0
+          ? [`${answer}下`, `${answer} times`]
+          : variant === 1
+            ? [`${answer}支`, `${answer} pens`]
+            : [],
         distractors: [a, c, answer + 1]
       });
     }
@@ -984,7 +1881,12 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer: formatNumber(answer),
         enExplanation: `Line up decimal places: ${a}+${b}=${formatNumber(answer)}.`,
-        zhExplanation: `小数点对齐计算：${a}+${b}=${formatNumber(answer)}。`,
+        zhExplanation: `小数点对齐计算：${a}+${b}=${formatNumber(answer)}${variant === 0 ? "米" : variant === 1 ? "升" : "千克"}。`,
+        acceptedAnswers: variant === 0
+          ? [`${formatNumber(answer)}米`, `${formatNumber(answer)} m`]
+          : variant === 1
+            ? [`${formatNumber(answer)}升`, `${formatNumber(answer)} L`]
+            : [`${formatNumber(answer)}千克`, `${formatNumber(answer)} kg`],
         distractors: [formatNumber(oneDecimal(answer + 0.1)), formatNumber(oneDecimal(answer - 0.1)), formatNumber(oneDecimal(answer + 1))]
       });
     }
@@ -1078,7 +1980,12 @@ function replacementDraftForFamily(
         zhPrompt: zhPrompts[variant],
         answer,
         enExplanation: `The denominators are the same, so add numerators: ${left + right}/${denominator}=${answer}.`,
-        zhExplanation: `分母相同，分子相加：${left + right}/${denominator}=${answer}。`,
+        zhExplanation: `分母相同，分子相加：${left + right}/${denominator}=${answer}${variant === 0 ? "页" : variant === 2 ? "包" : ""}。`,
+        acceptedAnswers: variant === 0
+          ? [`${answer}页`, `${answer} page`, `${answer} of a page`]
+          : variant === 2
+            ? [`${answer}包`, `${answer} pack`]
+            : [],
         distractors: [`${left + right}/${denominator * 2}`, `${left}/${denominator}`, `${right}/${denominator}`]
       });
     }
@@ -1101,8 +2008,8 @@ function replacementDraftForFamily(
         enPrompt: enPrompts[variant],
         zhPrompt: zhPrompts[variant],
         answer: answerWithUnit(answer, "立方厘米"),
-        enExplanation: `Volume = ${length}x${width}x${height}=${answer} cubic centimeters.`,
-        zhExplanation: `长方体体积=长x宽x高，${length}x${width}x${height}=${answer}立方厘米。`,
+        enExplanation: `Volume = ${length}×${width}×${height}=${answer} cubic centimeters.`,
+        zhExplanation: `长方体体积=长×宽×高，${length}×${width}×${height}=${answer}立方厘米。`,
         distractors: [answerWithUnit(length * width, "立方厘米"), answerWithUnit(answer + height, "立方厘米"), answerWithUnit(2 * (length + width + height), "立方厘米")]
       });
     }
@@ -1130,8 +2037,8 @@ function replacementDraftForFamily(
       });
     }
     case "coordinate-data": {
-      const x = -3 + ((n + replacementOrdinal) % 7);
-      const y = -2 + ((n * 2 + replacementOrdinal) % 6);
+      const x = 1 + ((n + replacementOrdinal) % 8);
+      const y = 1 + ((n * 2 + replacementOrdinal) % 6);
       const answer = `(${x}, ${y})`;
       const zhPrompts = [
         `${context.name}在方格图上标出点A，横坐标是${x}，纵坐标是${y}。点A的数对是多少？`,
@@ -1158,6 +2065,8 @@ function replacementDraftForFamily(
       const right = 3;
       const total = (left + right) * unit;
       const answer = right * unit;
+      const answerUnit = variant === 1 ? "米" : variant === 2 ? "个" : "升";
+      const englishUnit = variant === 1 ? "m" : variant === 2 ? "items" : "L";
       const zhPrompts = [
         `${context.name}把${total}升饮料按${left}:${right}分成两份，较大的那份是多少升？`,
         `${context.place}有${total}米彩带，按${left}:${right}剪成两段，较长的一段是多少米？`,
@@ -1171,13 +2080,13 @@ function replacementDraftForFamily(
       return scalarDraft({
         enPrompt: enPrompts[variant],
         zhPrompt: zhPrompts[variant],
-        answer: answerWithUnit(answer, variant === 1 ? "米" : variant === 2 ? "个" : "升"),
-        enExplanation: `There are ${left + right} ratio units. Each unit is ${total}÷${left + right}=${unit}, and the larger part is ${right}x${unit}=${answer}.`,
-        zhExplanation: `一共有${left + right}份，每份${total}÷${left + right}=${unit}，较大部分是${right}x${unit}=${answer}。`,
+        answer: answerWithUnit(answer, answerUnit),
+        enExplanation: `There are ${left + right} ratio units. Each unit is ${total}÷${left + right}=${unit} ${englishUnit}, and the larger part is ${right}×${unit}=${answer} ${englishUnit}.`,
+        zhExplanation: `一共有${left + right}份，每份${total}÷${left + right}=${unit}${answerUnit}，较大部分是${right}×${unit}=${answer}${answerUnit}。`,
         distractors: [
-          answerWithUnit(left * unit, variant === 1 ? "米" : variant === 2 ? "个" : "升"),
-          answerWithUnit(total, variant === 1 ? "米" : variant === 2 ? "个" : "升"),
-          answerWithUnit(answer + unit, variant === 1 ? "米" : variant === 2 ? "个" : "升")
+          answerWithUnit(left * unit, answerUnit),
+          answerWithUnit(total, answerUnit),
+          answerWithUnit(answer + unit, answerUnit)
         ]
       });
     }
@@ -1296,7 +2205,10 @@ function questionFor({
   const id = `pep-primary-${topic.grade.toLowerCase()}-${semesterPrefix}-${typePrefixes[type]}-${String(gradeIndex + 1).padStart(3, "0")}`;
   const replacementOrdinal = mainlandPepPrimaryManualReviewReplacementQuestionOrdinalById.get(id);
   const isReplacement = replacementOrdinal !== undefined;
-  const draft = isReplacement ? replacementDraftForFamily(topic.family, type, gradeIndex, replacementOrdinal) : draftForFamily(topic.family, type, gradeIndex);
+  const generatedDraft = isReplacement
+    ? replacementDraftForFamily(topic.family, type, gradeIndex, replacementOrdinal)
+    : draftForFamily(topic.family, type, gradeIndex);
+  const draft = applyPrimaryManualContentQaOverride(id, generatedDraft);
   const prompt = draft.prompt;
   const evidenceCardIds = evidenceCardIdsFor(topic.grade, topic.semester);
   const examPatternCardIds = examPatternCardIdsFor(topic.grade, topic.semester, gradeIndex);
@@ -1541,7 +2453,8 @@ export function independentMainlandPepPrimaryAnswer(question: Pick<Question, "id
   const metadata = mainlandPepPrimaryQuestionGenerationMetadata[question.id];
   if (!metadata) return null;
   const replacementOrdinal = mainlandPepPrimaryManualReviewReplacementQuestionOrdinalById.get(question.id);
-  return replacementOrdinal !== undefined
+  const generatedDraft = replacementOrdinal !== undefined
     ? replacementDraftForFamily(metadata.family, metadata.type, metadata.itemIndex, replacementOrdinal).answer
     : draftForFamily(metadata.family, metadata.type, metadata.itemIndex).answer;
+  return mainlandPepPrimaryManualContentQaOverrides[question.id]?.answer ?? generatedDraft;
 }

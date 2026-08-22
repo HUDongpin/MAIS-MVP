@@ -1,0 +1,1301 @@
+{
+  "schemaVersion": 1,
+  "reviewScope": {
+    "contracts": 141,
+    "sourceScannerTruePositives": 139,
+    "separatelyAdjudicatedContracts": 2,
+    "renewedAfterCanonicalCorrection": 4,
+    "historicalSourceReportSha256": "246d1abe77c3e113a75593f252edb6354fbe6213a7bdf319dc00004d8e67c3c8",
+    "historicalSourceClassificationSha256": "c2c5417a53afcd474a584c9a9330949bf2362ce5203635a78da2d5b547cc24ee",
+    "packCounts": {
+      "pepPrimary": 56,
+      "bnuPrimary": 53,
+      "bnuJunior": 12,
+      "bnuHigh": 1,
+      "hjbPrimary": 17,
+      "hjbJunior": 2
+    },
+    "dimensionCounts": {
+      "area": 20,
+      "count": 97,
+      "currency": 5,
+      "length": 7,
+      "mass": 6,
+      "time": 1,
+      "volume": 3,
+      "percentage-points": 1,
+      "speed": 1
+    }
+  },
+  "contracts": [
+    {
+      "id": "bnu-high-ds-v1-s5-434",
+      "pack": "bnuHigh",
+      "answer": "25",
+      "dimension": "percentage-points",
+      "unit": "个百分点",
+      "correctUnitAnswer": "25个百分点",
+      "wrongUnitAnswer": "25%"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-003",
+      "pack": "bnuJunior",
+      "answer": "6",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "6个",
+      "wrongUnitAnswer": "6 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-005",
+      "pack": "bnuJunior",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "5个",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-009",
+      "pack": "bnuJunior",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "5个",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-015",
+      "pack": "bnuJunior",
+      "answer": "6",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "6个",
+      "wrongUnitAnswer": "6 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-024",
+      "pack": "bnuJunior",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "5个",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s1-480",
+      "pack": "bnuJunior",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "8个",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s2-258",
+      "pack": "bnuJunior",
+      "answer": "3",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "3个",
+      "wrongUnitAnswer": "3 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-234",
+      "pack": "bnuJunior",
+      "answer": "6",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "6个",
+      "wrongUnitAnswer": "6 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-249",
+      "pack": "bnuJunior",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-270",
+      "pack": "bnuJunior",
+      "answer": "90",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "90个",
+      "wrongUnitAnswer": "90 cm"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-275",
+      "pack": "bnuJunior",
+      "answer": "48",
+      "dimension": "speed",
+      "unit": "千米/时",
+      "correctUnitAnswer": "48千米/时",
+      "wrongUnitAnswer": "48千米"
+    },
+    {
+      "id": "bnu-junior-ds-v1-s3-291",
+      "pack": "bnuJunior",
+      "answer": "48",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "48个",
+      "wrongUnitAnswer": "48 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-002",
+      "pack": "bnuPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "只",
+      "correctUnitAnswer": "5只",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-005",
+      "pack": "bnuPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "颗",
+      "correctUnitAnswer": "7颗",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-008",
+      "pack": "bnuPrimary",
+      "answer": "10",
+      "dimension": "count",
+      "unit": "支",
+      "correctUnitAnswer": "10支",
+      "wrongUnitAnswer": "10 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-011",
+      "pack": "bnuPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "7个",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-102",
+      "pack": "bnuPrimary",
+      "answer": "10",
+      "dimension": "count",
+      "unit": "只",
+      "correctUnitAnswer": "10只",
+      "wrongUnitAnswer": "10 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-105",
+      "pack": "bnuPrimary",
+      "answer": "10",
+      "dimension": "count",
+      "unit": "块",
+      "correctUnitAnswer": "10块",
+      "wrongUnitAnswer": "10 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-108",
+      "pack": "bnuPrimary",
+      "answer": "10",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "10个",
+      "wrongUnitAnswer": "10 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p1-202",
+      "pack": "bnuPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-003",
+      "pack": "bnuPrimary",
+      "answer": "48",
+      "dimension": "count",
+      "unit": "页",
+      "correctUnitAnswer": "48页",
+      "wrongUnitAnswer": "48 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-009",
+      "pack": "bnuPrimary",
+      "answer": "17",
+      "dimension": "currency",
+      "unit": "元",
+      "correctUnitAnswer": "17元",
+      "wrongUnitAnswer": "17 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-057",
+      "pack": "bnuPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-101",
+      "pack": "bnuPrimary",
+      "answer": "6",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "6个",
+      "wrongUnitAnswer": "6 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p2-208",
+      "pack": "bnuPrimary",
+      "answer": "756",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "756本",
+      "wrongUnitAnswer": "756 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-171",
+      "pack": "bnuPrimary",
+      "answer": "432",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "432本",
+      "wrongUnitAnswer": "432 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-174",
+      "pack": "bnuPrimary",
+      "answer": "384",
+      "dimension": "count",
+      "unit": "棵",
+      "correctUnitAnswer": "384棵",
+      "wrongUnitAnswer": "384 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-177",
+      "pack": "bnuPrimary",
+      "answer": "1008",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "1008个",
+      "wrongUnitAnswer": "1008 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p3-180",
+      "pack": "bnuPrimary",
+      "answer": "720",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "720个",
+      "wrongUnitAnswer": "720 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-186",
+      "pack": "bnuPrimary",
+      "answer": "5.7",
+      "dimension": "currency",
+      "unit": "元",
+      "correctUnitAnswer": "5.7元",
+      "wrongUnitAnswer": "5.7 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-190",
+      "pack": "bnuPrimary",
+      "answer": "91.2",
+      "dimension": "currency",
+      "unit": "元",
+      "correctUnitAnswer": "91.2元",
+      "wrongUnitAnswer": "91.2 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-198",
+      "pack": "bnuPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p4-200",
+      "pack": "bnuPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-048",
+      "pack": "bnuPrimary",
+      "answer": "84",
+      "dimension": "area",
+      "unit": "平方分米",
+      "correctUnitAnswer": "84平方分米",
+      "wrongUnitAnswer": "84 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-134",
+      "pack": "bnuPrimary",
+      "answer": "5",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "5千克",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-140",
+      "pack": "bnuPrimary",
+      "answer": "96",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "96平方厘米",
+      "wrongUnitAnswer": "96 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-152",
+      "pack": "bnuPrimary",
+      "answer": "12/25",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "12/25平方米",
+      "wrongUnitAnswer": "12/25 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-234",
+      "pack": "bnuPrimary",
+      "answer": "40",
+      "dimension": "count",
+      "unit": "人",
+      "correctUnitAnswer": "40人",
+      "wrongUnitAnswer": "40 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-236",
+      "pack": "bnuPrimary",
+      "answer": "50",
+      "dimension": "count",
+      "unit": "棵",
+      "correctUnitAnswer": "50棵",
+      "wrongUnitAnswer": "50 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p5-240",
+      "pack": "bnuPrimary",
+      "answer": "3/5",
+      "dimension": "length",
+      "unit": "米",
+      "correctUnitAnswer": "3/5米",
+      "wrongUnitAnswer": "3/5 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-003",
+      "pack": "bnuPrimary",
+      "answer": "50.24",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "50.24平方厘米",
+      "wrongUnitAnswer": "50.24 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-006",
+      "pack": "bnuPrimary",
+      "answer": "2",
+      "dimension": "length",
+      "unit": "米",
+      "correctUnitAnswer": "2米",
+      "wrongUnitAnswer": "2 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-009",
+      "pack": "bnuPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "28.26平方米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-177",
+      "pack": "bnuPrimary",
+      "answer": "1800",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "1800千克",
+      "wrongUnitAnswer": "1800 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v1-p6-236",
+      "pack": "bnuPrimary",
+      "answer": "62.8",
+      "dimension": "volume",
+      "unit": "升",
+      "correctUnitAnswer": "62.8升",
+      "wrongUnitAnswer": "62.8 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-005",
+      "pack": "bnuPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "条",
+      "correctUnitAnswer": "4条",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-035",
+      "pack": "bnuPrimary",
+      "answer": "3",
+      "dimension": "count",
+      "unit": "块",
+      "correctUnitAnswer": "3块",
+      "wrongUnitAnswer": "3 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p1-038",
+      "pack": "bnuPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "7个",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-032",
+      "pack": "bnuPrimary",
+      "answer": "69",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "69本",
+      "wrongUnitAnswer": "69 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-038",
+      "pack": "bnuPrimary",
+      "answer": "737",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "737本",
+      "wrongUnitAnswer": "737 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-102",
+      "pack": "bnuPrimary",
+      "answer": "22",
+      "dimension": "time",
+      "unit": "天",
+      "correctUnitAnswer": "22天",
+      "wrongUnitAnswer": "22 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p3-105",
+      "pack": "bnuPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "次",
+      "correctUnitAnswer": "8次",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-083",
+      "pack": "bnuPrimary",
+      "answer": "28",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "28本",
+      "wrongUnitAnswer": "28 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p4-156",
+      "pack": "bnuPrimary",
+      "answer": "70.95",
+      "dimension": "currency",
+      "unit": "元",
+      "correctUnitAnswer": "70.95元",
+      "wrongUnitAnswer": "70.95 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-012",
+      "pack": "bnuPrimary",
+      "answer": "2.8",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "2.8千克",
+      "wrongUnitAnswer": "2.8 cm"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-047",
+      "pack": "bnuPrimary",
+      "answer": "8",
+      "dimension": "length",
+      "unit": "厘米",
+      "correctUnitAnswer": "8厘米",
+      "wrongUnitAnswer": "8 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-050",
+      "pack": "bnuPrimary",
+      "answer": "6",
+      "dimension": "length",
+      "unit": "厘米",
+      "correctUnitAnswer": "6厘米",
+      "wrongUnitAnswer": "6 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p5-147",
+      "pack": "bnuPrimary",
+      "answer": "5",
+      "dimension": "length",
+      "unit": "厘米",
+      "correctUnitAnswer": "5厘米",
+      "wrongUnitAnswer": "5 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-003",
+      "pack": "bnuPrimary",
+      "answer": "50",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "50平方厘米",
+      "wrongUnitAnswer": "50 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-006",
+      "pack": "bnuPrimary",
+      "answer": "62.8",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "62.8平方米",
+      "wrongUnitAnswer": "62.8 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-009",
+      "pack": "bnuPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "28.26平方厘米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-012",
+      "pack": "bnuPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "28.26平方米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-015",
+      "pack": "bnuPrimary",
+      "answer": "21.5",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "21.5平方厘米",
+      "wrongUnitAnswer": "21.5 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-128",
+      "pack": "bnuPrimary",
+      "answer": "20.096",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "20.096平方米",
+      "wrongUnitAnswer": "20.096 L"
+    },
+    {
+      "id": "bnu-primary-ds-v2-p6-137",
+      "pack": "bnuPrimary",
+      "answer": "65.94",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "65.94平方米",
+      "wrongUnitAnswer": "65.94 L"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-258",
+      "pack": "hjbJunior",
+      "answer": "80",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "80本",
+      "wrongUnitAnswer": "80 cm"
+    },
+    {
+      "id": "hjb-junior-ds-v2-s1-300",
+      "pack": "hjbJunior",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "支",
+      "correctUnitAnswer": "4支",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-056",
+      "pack": "hjbPrimary",
+      "answer": "3",
+      "dimension": "count",
+      "unit": "只",
+      "correctUnitAnswer": "3只",
+      "wrongUnitAnswer": "3 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-057",
+      "pack": "hjbPrimary",
+      "answer": "4",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "4个",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-062",
+      "pack": "hjbPrimary",
+      "answer": "3",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "3个",
+      "wrongUnitAnswer": "3 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p1-065",
+      "pack": "hjbPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "7个",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-090",
+      "pack": "hjbPrimary",
+      "answer": "680",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "680个",
+      "wrongUnitAnswer": "680 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-093",
+      "pack": "hjbPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "28.26平方米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p4-240",
+      "pack": "hjbPrimary",
+      "answer": "232",
+      "dimension": "count",
+      "unit": "本",
+      "correctUnitAnswer": "232本",
+      "wrongUnitAnswer": "232 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-030",
+      "pack": "hjbPrimary",
+      "answer": "20.6",
+      "dimension": "currency",
+      "unit": "元",
+      "correctUnitAnswer": "20.6元",
+      "wrongUnitAnswer": "20.6 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-135",
+      "pack": "hjbPrimary",
+      "answer": "40",
+      "dimension": "count",
+      "unit": "人",
+      "correctUnitAnswer": "40人",
+      "wrongUnitAnswer": "40 cm"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p5-161",
+      "pack": "hjbPrimary",
+      "answer": "3/5",
+      "dimension": "length",
+      "unit": "米",
+      "correctUnitAnswer": "3/5米",
+      "wrongUnitAnswer": "3/5 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-063",
+      "pack": "hjbPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "28.26平方厘米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-093",
+      "pack": "hjbPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "28.26平方厘米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-096",
+      "pack": "hjbPrimary",
+      "answer": "19.625",
+      "dimension": "area",
+      "unit": "平方厘米",
+      "correctUnitAnswer": "19.625平方厘米",
+      "wrongUnitAnswer": "19.625 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-099",
+      "pack": "hjbPrimary",
+      "answer": "65.94",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "65.94平方米",
+      "wrongUnitAnswer": "65.94 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-108",
+      "pack": "hjbPrimary",
+      "answer": "28.26",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "28.26平方米",
+      "wrongUnitAnswer": "28.26 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-131",
+      "pack": "hjbPrimary",
+      "answer": "88",
+      "dimension": "area",
+      "unit": "平方分米",
+      "correctUnitAnswer": "88平方分米",
+      "wrongUnitAnswer": "88 L"
+    },
+    {
+      "id": "hjb-primary-ds-v1-p6-135",
+      "pack": "hjbPrimary",
+      "answer": "100.48",
+      "dimension": "area",
+      "unit": "平方米",
+      "correctUnitAnswer": "100.48平方米",
+      "wrongUnitAnswer": "100.48 L"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-106",
+      "pack": "pepPrimary",
+      "answer": "53",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "53张",
+      "wrongUnitAnswer": "53 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-107",
+      "pack": "pepPrimary",
+      "answer": "71",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "71个",
+      "wrongUnitAnswer": "71 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-108",
+      "pack": "pepPrimary",
+      "answer": "24",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "24个",
+      "wrongUnitAnswer": "24 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-109",
+      "pack": "pepPrimary",
+      "answer": "25",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "25张",
+      "wrongUnitAnswer": "25 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-124",
+      "pack": "pepPrimary",
+      "answer": "20",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "20张",
+      "wrongUnitAnswer": "20 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-147",
+      "pack": "pepPrimary",
+      "answer": "49",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "49个",
+      "wrongUnitAnswer": "49 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-154",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-156",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-157",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-158",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-159",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-160",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-161",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-162",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-163",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-164",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-165",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-166",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-167",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-168",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-fi-169",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-171",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "9个",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-174",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-175",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-176",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-177",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-178",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-179",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-180",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-181",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "个",
+      "correctUnitAnswer": "8个",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-182",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-183",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-184",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-185",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-186",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-187",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-188",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-189",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-190",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-192",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-193",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-194",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-195",
+      "pack": "pepPrimary",
+      "answer": "5",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "5张",
+      "wrongUnitAnswer": "5 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-196",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-197",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "9张",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-198",
+      "pack": "pepPrimary",
+      "answer": "8",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "8张",
+      "wrongUnitAnswer": "8 cm"
+    },
+    {
+      "id": "pep-primary-p1-l-sa-199",
+      "pack": "pepPrimary",
+      "answer": "7",
+      "dimension": "count",
+      "unit": "张",
+      "correctUnitAnswer": "7张",
+      "wrongUnitAnswer": "7 cm"
+    },
+    {
+      "id": "pep-primary-p3-l-sa-162",
+      "pack": "pepPrimary",
+      "answer": "10",
+      "dimension": "count",
+      "unit": "支",
+      "correctUnitAnswer": "10支",
+      "wrongUnitAnswer": "10 cm"
+    },
+    {
+      "id": "pep-primary-p3-l-sa-167",
+      "pack": "pepPrimary",
+      "answer": "9",
+      "dimension": "count",
+      "unit": "支",
+      "correctUnitAnswer": "9支",
+      "wrongUnitAnswer": "9 cm"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-108",
+      "pack": "pepPrimary",
+      "answer": "3",
+      "dimension": "length",
+      "unit": "米",
+      "correctUnitAnswer": "3米",
+      "wrongUnitAnswer": "3 L"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-126",
+      "pack": "pepPrimary",
+      "answer": "3.4",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "3.4千克",
+      "wrongUnitAnswer": "3.4 cm"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-134",
+      "pack": "pepPrimary",
+      "answer": "3.5",
+      "dimension": "volume",
+      "unit": "升",
+      "correctUnitAnswer": "3.5升",
+      "wrongUnitAnswer": "3.5 cm"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-135",
+      "pack": "pepPrimary",
+      "answer": "3.8",
+      "dimension": "volume",
+      "unit": "升",
+      "correctUnitAnswer": "3.8升",
+      "wrongUnitAnswer": "3.8 cm"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-144",
+      "pack": "pepPrimary",
+      "answer": "4",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "4千克",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "pep-primary-p4-l-fi-150",
+      "pack": "pepPrimary",
+      "answer": "4",
+      "dimension": "mass",
+      "unit": "千克",
+      "correctUnitAnswer": "4千克",
+      "wrongUnitAnswer": "4 cm"
+    },
+    {
+      "id": "pep-primary-p5-l-fi-111",
+      "pack": "pepPrimary",
+      "answer": "2/9",
+      "dimension": "count",
+      "unit": "页",
+      "correctUnitAnswer": "2/9页",
+      "wrongUnitAnswer": "2/9 cm"
+    }
+  ]
+}

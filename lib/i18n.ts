@@ -426,7 +426,66 @@ export const traditionalToSimplifiedMap: Record<string, string> = {
   長: "长",
   紀: "纪",
   溝: "沟",
-  師: "师"
+  師: "师",
+  亂: "乱",
+  併: "并",
+  們: "们",
+  傾: "倾",
+  冪: "幂",
+  剛: "刚",
+  園: "园",
+  壺: "壶",
+  帶: "带",
+  張: "张",
+  彎: "弯",
+  憑: "凭",
+  捨: "舍",
+  樹: "树",
+  欄: "栏",
+  眾: "众",
+  磚: "砖",
+  種: "种",
+  約: "约",
+  紅: "红",
+  細: "细",
+  終: "终",
+  給: "给",
+  絲: "丝",
+  綜: "综",
+  繞: "绕",
+  繩: "绳",
+  繪: "绘",
+  義: "义",
+  膠: "胶",
+  蓋: "盖",
+  藍: "蓝",
+  蘋: "苹",
+  觀: "观",
+  討: "讨",
+  詮: "诠",
+  譜: "谱",
+  貓: "猫",
+  貨: "货",
+  買: "买",
+  貼: "贴",
+  購: "购",
+  車: "车",
+  軸: "轴",
+  鄰: "邻",
+  鈍: "钝",
+  銳: "锐",
+  鏡: "镜",
+  闊: "阔",
+  陣: "阵",
+  際: "际",
+  隻: "只",
+  響: "响",
+  飲: "饮",
+  駐: "驻",
+  噸: "吨",
+  稜: "棱",
+  顆: "颗",
+  畢: "毕"
 };
 
 type PrcSimplifiedPhraseRule = {
@@ -439,18 +498,6 @@ export const prcSimplifiedPhraseRules: readonly PrcSimplifiedPhraseRule[] = [
   { source: "小一至小六", replacement: "小学一年级至六年级", reason: "Mainland grade-band label" },
   { source: "小一至中六", replacement: "小学一年级至高中三年级", reason: "Mainland grade-band label" },
   { source: "中一至中六", replacement: "初一至高三", reason: "Mainland grade-band label" },
-  { source: "小一", replacement: "小学一年级", reason: "Mainland grade label" },
-  { source: "小二", replacement: "小学二年级", reason: "Mainland grade label" },
-  { source: "小三", replacement: "小学三年级", reason: "Mainland grade label" },
-  { source: "小四", replacement: "小学四年级", reason: "Mainland grade label" },
-  { source: "小五", replacement: "小学五年级", reason: "Mainland grade label" },
-  { source: "小六", replacement: "小学六年级", reason: "Mainland grade label" },
-  { source: "中一", replacement: "初一", reason: "Mainland grade label" },
-  { source: "中二", replacement: "初二", reason: "Mainland grade label" },
-  { source: "中三", replacement: "初三", reason: "Mainland grade label" },
-  { source: "中四", replacement: "高一", reason: "Mainland grade label" },
-  { source: "中五", replacement: "高二", reason: "Mainland grade label" },
-  { source: "中六", replacement: "高三", reason: "Mainland grade label" },
   { source: "升中", replacement: "小升初", reason: "Mainland transition wording" },
   { source: "视觉化", replacement: "可视化", reason: "Mainland product/education wording" },
   { source: "课节", replacement: "课时", reason: "Mainland classroom wording" },
@@ -477,18 +524,66 @@ export const prcSimplifiedPhraseRules: readonly PrcSimplifiedPhraseRule[] = [
   { source: "二次函数即时图像", replacement: "二次函数动态图象", reason: "Mainland math graph terminology" },
   { source: "常态分布", replacement: "正态分布", reason: "Mainland statistics terminology" },
   { source: "函数图像", replacement: "函数图象", reason: "Mainland math graph terminology" },
-  { source: "图像探索器", replacement: "图象探索器", reason: "Mainland math graph terminology" }
+  { source: "图像探索器", replacement: "图象探索器", reason: "Mainland math graph terminology" },
+  { source: "课室", replacement: "教室", reason: "Mainland classroom wording" },
+  { source: "物件", replacement: "物品", reason: "Mainland object wording" },
+  { source: "胶擦", replacement: "橡皮", reason: "Mainland school-supply wording" },
+  { source: "小食", replacement: "零食", reason: "Mainland everyday wording" },
+  { source: "找续", replacement: "找零", reason: "Mainland money wording" },
+  { source: "公升", replacement: "升", reason: "Mainland capacity unit terminology" },
+  { source: "水樽", replacement: "水瓶", reason: "Mainland everyday wording" },
+  { source: "全距", replacement: "极差", reason: "Mainland statistics terminology" },
+  { source: "毕氏定理", replacement: "勾股定理", reason: "Mainland geometry terminology" },
+  { source: "笔记簿", replacement: "笔记本", reason: "Mainland school-supply wording" },
+  { source: "巴士", replacement: "公交车", reason: "Mainland transport wording" },
+  { source: "开口比书角阔", replacement: "开口比书角大", reason: "Mainland angle-comparison wording" },
+  { source: "、阔", replacement: "、宽", reason: "Mainland rectangle and cuboid terminology" },
+  { source: "乘阔", replacement: "乘宽", reason: "Mainland rectangle and cuboid terminology" },
+  { source: "比阔", replacement: "比宽", reason: "Mainland rectangle terminology" },
+  { source: "设阔", replacement: "设宽", reason: "Mainland rectangle terminology" },
+  { source: "阔为", replacement: "宽为", reason: "Mainland rectangle terminology" },
+  { source: "阔度", replacement: "宽度", reason: "Mainland measurement terminology" }
 ] as const;
+
+const contextualHongKongGradeLabels: Record<"小" | "中", Record<string, string>> = {
+  小: {
+    一: "小学一年级",
+    二: "小学二年级",
+    三: "小学三年级",
+    四: "小学四年级",
+    五: "小学五年级",
+    六: "小学六年级"
+  },
+  中: {
+    一: "初一",
+    二: "初二",
+    三: "初三",
+    四: "高一",
+    五: "高二",
+    六: "高三"
+  }
+};
+
+function applyContextualHongKongGradeLabels(text: string) {
+  // A bare global replacement corrupts ordinary phrases such as 其中一个,
+  // 其中一条, and 最小一个. Convert only when the following context actually
+  // identifies a school grade; longer grade-band labels are handled above.
+  return text.replace(
+    /([小中])([一二三四五六])(?=$|[\s·,，、:：;；()（）/]|至|升|年[级級]|[学學]生|[数數]学|[课課]程|程度|上[学學]期|下[学學]期)/gu,
+    (_, stage: "小" | "中", numeral: string) => contextualHongKongGradeLabels[stage][numeral]
+  );
+}
 
 export function traditionalToSimplified(text: string) {
   return Array.from(text).map((char) => traditionalToSimplifiedMap[char] ?? char).join("");
 }
 
 export function applyPrcSimplifiedGlossary(text: string) {
-  return prcSimplifiedPhraseRules.reduce(
+  const phraseNormalized = prcSimplifiedPhraseRules.reduce(
     (current, rule) => current.split(rule.source).join(rule.replacement),
     text
   );
+  return applyContextualHongKongGradeLabels(phraseNormalized);
 }
 
 export function toPrcSimplifiedText(text: string) {
@@ -515,7 +610,7 @@ export function localeForLanguage(language: Language) {
 
 export function textForLanguage(value: LocalizedText, language: Language) {
   if (language === "en") return value.en;
-  if (language === "zh-Hans" && value.zhHans) return value.zhHans;
+  if (language === "zh-Hans" && value.zhHans) return toPrcSimplifiedText(value.zhHans);
   return simplifyChineseText(value.zh, language);
 }
 

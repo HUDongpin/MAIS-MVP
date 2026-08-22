@@ -3,6 +3,7 @@ import v2QuestionPackJson from "./generated-content/mainland-hjb-high-generated-
 import v3RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v3-remediated/question-pack.json";
 import v4RemediatedQuestionPackJson from "./generated-content/mainland-hjb-high-generated-bank-v4-remediated/question-pack.json";
 import { mainlandHjbHighRagCards } from "./rag/mainlandHjbHigh";
+import { toTraditionalHjbText } from "./hjbQuestionLocalization";
 import { mapDifficultyToActive } from "@/lib/difficulty";
 import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, Topic } from "@/types";
 
@@ -146,8 +147,8 @@ export const mainlandHjbHighTopics: Topic[] = Array.from(questionsByTopicId.entr
     const evidenceCardId = topEvidenceCardId(topicQuestions);
     const ragCard = evidenceCardId ? ragCardById.get(evidenceCardId) : undefined;
     const difficulty = dominantDifficulty(topicQuestions);
-    const conceptList = metadata.conceptIds.slice(0, 4).join("、");
     const titleEn = formatHjbHighChapterTitleEn(ragCard?.chapter ?? metadata.titleZhHans);
+    const descriptionZhHans = `本单元围绕《${metadata.chapter}》梳理核心概念、表示方法和推理步骤，并通过例题与练习检验理解。`;
 
     return {
       id: topicId,
@@ -157,11 +158,11 @@ export const mainlandHjbHighTopics: Topic[] = Array.from(questionsByTopicId.entr
       publisher: "MAINLAND_HJB",
       canonicalTopicId: topicId,
       grade: metadata.grade,
-      title: { en: titleEn, zh: metadata.titleZhHans, zhHans: metadata.titleZhHans },
+      title: { en: titleEn, zh: toTraditionalHjbText(metadata.titleZhHans), zhHans: metadata.titleZhHans },
       description: {
-        en: ragCard?.safeSummary ?? `Shanghai Education Press approved unit for ${titleEn}.`,
-        zh: `沪教版${metadata.volume}《${metadata.chapter}》已批准题库单元，围绕${conceptList}建立概念、例题与课堂检查。`,
-        zhHans: `沪教版${metadata.volume}《${metadata.chapter}》已批准题库单元，围绕${conceptList}建立概念、例题与课堂检查。`
+        en: ragCard?.safeSummary ?? `Shanghai Education Press senior-secondary unit for ${titleEn}.`,
+        zh: toTraditionalHjbText(descriptionZhHans),
+        zhHans: descriptionZhHans
       },
       status: "not-started",
       difficulty,

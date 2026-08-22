@@ -1,4 +1,5 @@
 import type { Topic } from "@/types";
+import { withChinaTopicTraditionalTranslations } from "./chinaLessonTraditionalTranslations";
 import { mainlandBnuHighTopics } from "./mainlandBnuHighTopics";
 import { mainlandBnuJuniorTopics } from "./mainlandBnuJuniorTopics";
 import { mainlandBnuPrimaryTopics } from "./mainlandBnuPrimaryTopics";
@@ -78,7 +79,7 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
     id: "p2-money-time",
     grade: "P2",
     title: { en: "Money and Time", zh: "金錢與時間" },
-    description: { en: "Solve simple Hong Kong money questions and read half-hour times.", zh: "解決簡單香港貨幣題，並讀出半小時時間。" },
+    description: { en: "Solve simple Hong Kong money questions and read o'clock and half-past times.", zh: "解決簡單香港貨幣題，並讀出整點和半點時刻。" },
     status: "not-started",
     difficulty: "Medium",
     minutes: 24,
@@ -128,7 +129,10 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
     id: "p3-geometry-patterns",
     grade: "P3",
     title: { en: "Geometry and Patterns", zh: "幾何與規律" },
-    description: { en: "Explore symmetry, right angles, grids, and growing patterns.", zh: "探索對稱、直角、方格和增長規律。" },
+    description: {
+      en: "Compare right, acute, and obtuse angles with a square corner, then explore symmetry, grids, and growing patterns.",
+      zh: "把直角、銳角和鈍角與正方形角比較，再探索對稱、方格和增長規律。"
+    },
     status: "not-started",
     difficulty: "Medium",
     minutes: 28,
@@ -157,8 +161,11 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
   {
     id: "p4-angles",
     grade: "P4",
-    title: { en: "Angles", zh: "角" },
-    description: { en: "Classify angles, estimate sizes, and use simple angle facts.", zh: "分類角、估計角度大小，並使用簡單角度性質。" },
+    title: { en: "Angle Sense", zh: "角的大小感" },
+    description: {
+      en: "Compare and classify angles by relating each opening to a square corner.",
+      zh: "把角的開口與正方形角比較，從而比較和分類角。"
+    },
     status: "not-started",
     difficulty: "Medium",
     minutes: 28,
@@ -197,8 +204,11 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
   {
     id: "p5-rates",
     grade: "P5",
-    title: { en: "Rates", zh: "率" },
-    description: { en: "Compare unit prices, speeds, and other rate situations.", zh: "比較單價、速度和其他率的情境。" },
+    title: { en: "Unitary Method", zh: "歸一法" },
+    description: {
+      en: "Find the value of one unit first, then scale to the number of units required.",
+      zh: "先用歸一法求一個單位的數值，再按所需單位數縮放。"
+    },
     status: "not-started",
     difficulty: "Medium",
     minutes: 32,
@@ -227,8 +237,11 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
   {
     id: "p6-ratio-proportion",
     grade: "P6",
-    title: { en: "Ratio and Proportion", zh: "比例與正反比" },
-    description: { en: "Scale quantities, share in a ratio, and reason proportionally.", zh: "按比例縮放、按比分配，並作比例推理。" },
+    title: { en: "Scaling with the Unitary Method", zh: "用歸一法縮放數量" },
+    description: {
+      en: "Find a one-unit value and use it to scale costs, recipes, and equal groups.",
+      zh: "先求一個單位的數值，再縮放費用、食譜份量和等量組。"
+    },
     status: "in-progress",
     difficulty: "Medium",
     minutes: 36,
@@ -468,7 +481,11 @@ const hongKongTopics: Omit<Topic, "curriculumTrack">[] = [
     id: "calculus",
     grade: "S6",
     title: { en: "Calculus", zh: "微積分" },
-    description: { en: "Use derivatives and integrals to solve exam-style problems.", zh: "運用導數與積分解決考試題型。" },
+    description: {
+      en: "Use derivative signs to classify turning points and reason about local graph behaviour.",
+      zh: "運用導數符號分類轉折點，並推理圖像的局部變化。",
+      zhHans: "用导数符号分类转折点，并推理图象的局部变化。"
+    },
     status: "in-progress",
     difficulty: "High",
     minutes: 65,
@@ -521,4 +538,4 @@ export const topics: Topic[] = [
   ...usFloridaMiddleSchoolTopics,
   ...usMathLiveTopics.filter((topic) => topic.curriculumTrack !== "US_CA_MATH"),
   ...usCaliforniaTopics
-];
+].map(withChinaTopicTraditionalTranslations);

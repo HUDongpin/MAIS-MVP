@@ -1,5 +1,6 @@
 import approvedQuestionPackJson from "./generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json";
 import { mainlandBnuHighRagCards } from "./rag/mainlandBnuHigh";
+import { toTraditionalHjbText } from "./hjbQuestionLocalization";
 import { mapDifficultyToActive } from "@/lib/difficulty";
 import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, MainlandPepSemester, Topic } from "@/types";
 
@@ -118,8 +119,8 @@ export const mainlandBnuHighTopics: Topic[] = Array.from(questionsByTopicId.entr
     const evidenceCardId = topEvidenceCardId(topicQuestions);
     const ragCard = evidenceCardId ? ragCardById.get(evidenceCardId) : undefined;
     const difficulty = dominantDifficulty(topicQuestions);
-    const conceptList = metadata.conceptIds.slice(0, 4).join("、");
     const titleEn = chapterTitleEnByZhHans[metadata.titleZhHans] ?? "BNUP Senior Mathematics Unit";
+    const descriptionZhHans = `本单元围绕《${metadata.chapter}》梳理核心概念、表示方法和推理步骤，并通过例题与练习检验理解。`;
 
     return {
       id: topicId,
@@ -129,11 +130,11 @@ export const mainlandBnuHighTopics: Topic[] = Array.from(questionsByTopicId.entr
       publisher: "MAINLAND_BNU",
       canonicalTopicId: topicId,
       grade: metadata.grade,
-      title: { en: titleEn, zh: metadata.titleZhHans, zhHans: metadata.titleZhHans },
+      title: { en: titleEn, zh: toTraditionalHjbText(metadata.titleZhHans), zhHans: metadata.titleZhHans },
       description: {
         en: ragCard?.safeSummary ?? `Beijing Normal University Press senior-secondary unit for ${titleEn}.`,
-        zh: `北師大版${metadata.volume}《${metadata.chapter}》高中單元，圍繞${conceptList}開展概念、例題與練習。`,
-        zhHans: `北师大版${metadata.volume}《${metadata.chapter}》高中单元，围绕${conceptList}开展概念、例题与练习。`
+        zh: toTraditionalHjbText(descriptionZhHans),
+        zhHans: descriptionZhHans
       },
       status: "not-started",
       difficulty,

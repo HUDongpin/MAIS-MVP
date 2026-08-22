@@ -1,5 +1,7 @@
 import type { Question } from "@/types";
 import { withResolvedMainlandPepQuestionAssets } from "@/lib/mainlandPepQuestionAssets";
+import { withChinaQuestionEnglishTranslations } from "./chinaLessonEnglishTranslations";
+import { withChinaQuestionTraditionalTranslations } from "./chinaLessonTraditionalTranslations";
 import { hongKongEasePracticeQuestions } from "./hongKongEasePracticeQuestions";
 import { mainlandBnuHighQuestions } from "./mainlandBnuHighQuestions";
 import { mainlandBnuJuniorQuestions } from "./mainlandBnuJuniorQuestions";
@@ -143,15 +145,23 @@ const coreQuestions: HongKongQuestionSeed[] = [
     topic: { en: "Probability", zh: "概率" },
     difficulty: "High",
     type: "multiple-choice",
-    prompt: { en: `A fair die is rolled once. What is ${math(String.raw`P(\text{rolling an even number})`)}?`, zh: `擲一次公平骰子，${math(String.raw`P(\text{擲出偶數})`)} 是多少？` },
+    prompt: {
+      en: `A fair die result ${math("X")} is known to satisfy ${math("X>1")}. What is ${math(String.raw`P(\text{even}\mid X>1)`)}?`,
+      zh: `已知公平骰子的結果 ${math("X")} 滿足 ${math("X>1")}，${math(String.raw`P(\text{偶數}\mid X>1)`)} 是多少？`,
+      zhHans: `已知公平骰子的结果 ${math("X")} 满足 ${math("X>1")}，${math(String.raw`P(\text{偶数}\mid X>1)`)} 是多少？`
+    },
     options: [
-      { en: "1/6", zh: "1/6" },
-      { en: "1/3", zh: "1/3" },
-      { en: "1/2", zh: "1/2" },
-      { en: "2/3", zh: "2/3" }
+      { en: "1/5", zh: "1/5" },
+      { en: "2/5", zh: "2/5" },
+      { en: "3/5", zh: "3/5" },
+      { en: "4/5", zh: "4/5" }
     ],
-    answer: "1/2",
-    explanation: { en: `Even outcomes are ${math("2, 4, 6")}, so ${math(String.raw`\frac{3}{6} = \frac{1}{2}`)}.`, zh: `偶數結果為 ${math("2, 4, 6")}，所以 ${math(String.raw`\frac{3}{6} = \frac{1}{2}`)}。` }
+    answer: "3/5",
+    explanation: {
+      en: `After applying ${math("X>1")}, the sample space is ${math(String.raw`\{2,3,4,5,6\}`)}. Three of the five outcomes are even, so the probability is ${math(String.raw`\frac{3}{5}`)}.`,
+      zh: `套用 ${math("X>1")} 後，樣本空間是 ${math(String.raw`\{2,3,4,5,6\}`)}。五個結果中有三個偶數，所以概率是 ${math(String.raw`\frac{3}{5}`)}。`,
+      zhHans: `应用 ${math("X>1")} 后，样本空间是 ${math(String.raw`\{2,3,4,5,6\}`)}。五个结果中有三个偶数，所以概率是 ${math(String.raw`\frac{3}{5}`)}。`
+    }
   },
   {
     id: "q10",
@@ -171,7 +181,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     topic: { en: "Calculus", zh: "微積分" },
     difficulty: "High",
     type: "multiple-choice",
-    prompt: { en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, what may occur at ${math("x = 2")}?`, zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，${math("x = 2")} 可能出現甚麼？` },
+    prompt: { en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, what occurs at ${math("x = 2")}?`, zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，${math("x = 2")} 出現甚麼？` },
     options: [
       { en: "Local maximum", zh: "局部最大值" },
       { en: "Local minimum", zh: "局部最小值" },
@@ -300,9 +310,9 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    topic: { en: "More Algebra", zh: "進階代數" },
 	    difficulty: "High",
 	    type: "short-answer",
-	    prompt: { en: `Simplify: ${math(String.raw`x^3 / x`)}.`, zh: `化簡：${math(String.raw`x^3 / x`)}。` },
+	    prompt: { en: `For ${math("x \\ne 0")}, simplify ${math(String.raw`x^3 / x`)}.`, zh: `當 ${math("x \\ne 0")} 時，化簡 ${math(String.raw`x^3 / x`)}。` },
 	    answer: "x^2",
-	    explanation: { en: `Subtract indices when dividing powers with the same base: ${math("x^3 / x = x^2")}.`, zh: `同底冪相除時指數相減：${math("x^3 / x = x^2")}。` }
+	    explanation: { en: `Because ${math("x \\ne 0")}, subtract indices when dividing powers with the same base: ${math("x^3 / x = x^2")}.`, zh: `因為 ${math("x \\ne 0")}，同底冪相除時指數相減：${math("x^3 / x = x^2")}。` }
 	  },
 	  {
 	    id: "q21",
@@ -322,15 +332,23 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    topic: { en: "Advanced Functions", zh: "進階函數" },
 	    difficulty: "High",
 	    type: "multiple-choice",
-	    prompt: { en: `For ${math("f(x) = x^2 + 1")}, what is ${math("f(-2)")}?`, zh: `若 ${math("f(x) = x^2 + 1")}，${math("f(-2)")} 是多少？` },
+	    prompt: {
+	      en: `The table gives ${math("x=0,1,2,3")} and outputs ${math("3,6,12,24")}. Which model family matches the constant output ratio?`,
+	      zh: `數表的 ${math("x=0,1,2,3")}，對應輸出為 ${math("3,6,12,24")}。哪一類模型符合固定的輸出比？`,
+	      zhHans: `数表的 ${math("x=0,1,2,3")}，对应输出为 ${math("3,6,12,24")}。哪一类模型符合固定的输出比？`
+	    },
 	    options: [
-	      { en: "-3", zh: "-3" },
-	      { en: "3", zh: "3" },
-	      { en: "5", zh: "5" },
-	      { en: "9", zh: "9" }
+	      { en: "Linear", zh: "線性", zhHans: "线性" },
+	      { en: "Quadratic", zh: "二次", zhHans: "二次" },
+	      { en: "Exponential", zh: "指數", zhHans: "指数" },
+	      { en: "Logarithmic", zh: "對數", zhHans: "对数" }
 	    ],
-	    answer: "5",
-	    explanation: { en: `Substitute ${math("x = -2")}: ${math("(-2)^2 + 1 = 4 + 1 = 5")}.`, zh: `代入 ${math("x = -2")}：${math("(-2)^2 + 1 = 4 + 1 = 5")}。` }
+	    answer: "Exponential",
+	    explanation: {
+	      en: `Each output is ${math("2")} times the preceding output, so an exponential model fits the constant ratio.`,
+	      zh: `每個輸出都是前一個輸出的 ${math("2")} 倍，因此固定比符合指數模型。`,
+	      zhHans: `每个输出都是前一个输出的 ${math("2")} 倍，因此固定比符合指数模型。`
+	    }
 	  },
 	  {
 	    id: "q23",
@@ -399,10 +417,11 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    answer: "x coordinate changes sign",
 	    acceptedAnswers: [
 	      "x coordinate changes sign",
-	      "x changes sign",
-	      "the x-coordinate changes sign",
-	      "x changes sign and y stays the same",
-	      "x-coordinate changes sign and y-coordinate stays the same",
+      "x changes sign",
+      "the x-coordinate changes sign",
+      "x changes sign and y stays the same",
+      "The x-coordinate changes sign (y stays the same)",
+      "x-coordinate changes sign and y-coordinate stays the same",
 	      "x 坐標變號",
 	      "x坐標變號",
 	      "x 坐標改變符號",
@@ -464,7 +483,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p1-counting-number-bonds-2",
       difficulty: "Low",
       type: "short-answer",
-      prompt: { en: `Write the number after ${math("18")}.`, zh: `寫出 ${math("18")} 之後的數。` },
+      prompt: { en: `Write the number immediately after ${math("18")}.`, zh: `寫出緊接在 ${math("18")} 後面的數。` },
       answer: "19",
       explanation: { en: `Counting on one from ${math("18")} gives ${math("19")}.`, zh: `由 ${math("18")} 數多一個是 ${math("19")}。` }
     }
@@ -506,7 +525,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         { en: "rectangle", zh: "長方形" }
       ],
       answer: "triangle",
-      explanation: { en: "A triangle has exactly 3 sides.", zh: "三角形正正有 3 條邊。" }
+      explanation: { en: "A triangle has exactly 3 sides.", zh: "三角形恰好有 3 條邊。" }
     },
     {
       id: "pq-p1-shapes-patterns-2",
@@ -578,12 +597,13 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "multiple-choice",
       prompt: { en: `Which expression matches ${math("4 + 4 + 4")}?`, zh: `哪個算式表示 ${math("4 + 4 + 4")}？` },
       options: [
-        { en: "3 x 4", zh: "3 x 4" },
-        { en: "4 x 4", zh: "4 x 4" },
+        { en: "3 × 4", zh: "3 × 4" },
+        { en: "4 × 4", zh: "4 × 4" },
         { en: "3 + 4", zh: "3 + 4" },
         { en: "4 - 3", zh: "4 - 3" }
       ],
-      answer: "3 x 4",
+      answer: "3 × 4",
+      acceptedAnswers: ["3 x 4", "3*4", "3乘4"],
       explanation: { en: `${math("4")} is added ${math("3")} times, so it is ${math("3 \\times 4")}.`, zh: `${math("4")} 加了 ${math("3")} 次，所以是 ${math("3 \\times 4")}。` }
     },
     {
@@ -592,7 +612,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "short-answer",
       prompt: { en: `Find ${math("5 \\times 2")}.`, zh: `計算 ${math("5 \\times 2")}。` },
       answer: "10",
-      explanation: { en: `${math("5 \\times 2")} means two groups of five, which is ${math("10")}.`, zh: `${math("5 \\times 2")} 表示兩組五，共 ${math("10")}。` }
+      explanation: { en: `${math("5 \\times 2")} means five groups of two, which is ${math("10")}.`, zh: `${math("5 \\times 2")} 表示五組，每組兩個，共 ${math("10")}。` }
     }
   ],
   "p2-money-time": [
@@ -720,15 +740,15 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p3-geometry-patterns-1",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: "Which angle is a right angle?", zh: "哪一個角是直角？" },
+      prompt: { en: "Which description matches a right angle?", zh: "哪項描述符合直角？" },
       options: [
-        { en: "30°", zh: "30°" },
-        { en: "60°", zh: "60°" },
-        { en: "90°", zh: "90°" },
-        { en: "120°", zh: "120°" }
+        { en: "Its opening is smaller than a square corner", zh: "開口比正方形角小" },
+        { en: "Its opening is the same as a square corner", zh: "開口與正方形角相同" },
+        { en: "Its opening is larger than a square corner", zh: "開口比正方形角大" },
+        { en: "It has a curved arm", zh: "它有一條曲線臂" }
       ],
-      answer: "90°",
-      explanation: { en: `A right angle is ${math("90^\\circ")}.`, zh: `直角是 ${math("90^\\circ")}。` }
+      answer: "Its opening is the same as a square corner",
+      explanation: { en: "A right angle has the same opening as a corner of a square.", zh: "直角的開口與正方形角相同。" }
     },
     {
       id: "pq-p3-geometry-patterns-2",
@@ -792,23 +812,23 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p4-angles-1",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `An angle of ${math("120^\\circ")} is what type?`, zh: `${math("120^\\circ")} 是哪一類角？` },
+      prompt: { en: "An angle is larger than a square corner but smaller than half a turn. What type is it?", zh: "一個角比正方形角大，但比半圈小。它是哪一類角？" },
       options: [
         { en: "acute", zh: "銳角" },
         { en: "right", zh: "直角" },
         { en: "obtuse", zh: "鈍角" },
-        { en: "straight", zh: "平角" }
+        { en: "not an angle", zh: "不是角" }
       ],
       answer: "obtuse",
-      explanation: { en: `An obtuse angle is greater than ${math("90^\\circ")} and less than ${math("180^\\circ")}.`, zh: `鈍角大於 ${math("90^\\circ")} 而小於 ${math("180^\\circ")}。` }
+      explanation: { en: "An obtuse angle is larger than a right angle but smaller than half a turn.", zh: "鈍角比直角大，但比半圈小。" }
     },
     {
       id: "pq-p4-angles-2",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Two angles on a straight line include ${math("75^\\circ")}. Find the other angle.`, zh: `一直線上的兩個角，其中一個是 ${math("75^\\circ")}。求另一個角。` },
-      answer: "105°",
-      explanation: { en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("180 - 75 = 105")}.`, zh: `一直線上的角和為 ${math("180^\\circ")}，所以 ${math("180 - 75 = 105")}。` }
+      prompt: { en: "An angle has the same opening as a corner of a square. Name its type.", zh: "一個角的開口與正方形角相同。寫出它的種類。" },
+      answer: "right angle",
+      explanation: { en: "A square corner is a right-angle model, so the angle is a right angle.", zh: "正方形角是直角模型，所以這個角是直角。" }
     }
   ],
   "p4-perimeter-area": [
@@ -896,15 +916,18 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p5-rates-2",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `A car travels ${math("60")} km in ${math("2")} hours. What is its speed?`, zh: `汽車 ${math("2")} 小時行 ${math("60")} 公里，速率是多少？` },
+      prompt: { en: `${math("3")} notebooks cost HK$${math("18")}. At the same price per notebook, how much do ${math("5")} notebooks cost?`, zh: `${math("3")} 本筆記簿售港幣 ${math("18")} 元。每本價錢相同，${math("5")} 本售多少元？` },
       options: [
-        { en: "20 km/h", zh: "每小時 20 公里" },
-        { en: "30 km/h", zh: "每小時 30 公里" },
-        { en: "58 km/h", zh: "每小時 58 公里" },
-        { en: "120 km/h", zh: "每小時 120 公里" }
+        { en: "HK$20", zh: "港幣 20 元" },
+        { en: "HK$24", zh: "港幣 24 元" },
+        { en: "HK$30", zh: "港幣 30 元" },
+        { en: "HK$36", zh: "港幣 36 元" }
       ],
-      answer: "30 km/h",
-      explanation: { en: `Speed ${math("= 60 \\div 2 = 30")} km/h.`, zh: `速率 ${math("= 60 \\div 2 = 30")} 公里每小時。` }
+      answer: "HK$30",
+      explanation: {
+        en: `One notebook costs HK$${math("18 \\div 3 = 6")}, so ${math("5")} notebooks cost HK$${math("6 \\times 5 = 30")}.`,
+        zh: `一本售港幣 ${math("18 \\div 3 = 6")} 元，所以 ${math("5")} 本售港幣 ${math("6 \\times 5 = 30")} 元。`
+      }
     }
   ],
   "p5-charts-averages": [
@@ -960,23 +983,29 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p6-ratio-proportion-1",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Share ${math("30")} in the ratio ${math("2:3")}. What is the larger share?`, zh: `把 ${math("30")} 按 ${math("2:3")} 分配。較大的一份是多少？` },
-      answer: "18",
-      explanation: { en: `There are ${math("5")} parts; one part is ${math("30 \\div 5 = 6")}; larger share ${math("3 \\times 6 = 18")}.`, zh: `共有 ${math("5")} 份；每份 ${math("30 \\div 5 = 6")}；較大份是 ${math("3 \\times 6 = 18")}。` }
+      prompt: { en: `${math("4")} notebooks cost HK$${math("12")}. At the same price per notebook, how much do ${math("7")} notebooks cost?`, zh: `${math("4")} 本筆記簿售港幣 ${math("12")} 元。每本價錢相同，${math("7")} 本售多少元？` },
+      answer: "HK$21",
+      explanation: {
+        en: `One notebook costs HK$${math("12 \\div 4 = 3")}, so ${math("7")} cost HK$${math("3 \\times 7 = 21")}.`,
+        zh: `一本售港幣 ${math("12 \\div 4 = 3")} 元，所以 ${math("7")} 本售港幣 ${math("3 \\times 7 = 21")} 元。`
+      }
     },
     {
       id: "pq-p6-ratio-proportion-2",
       difficulty: "Low",
       type: "multiple-choice",
-      prompt: { en: `Which ratio is equivalent to ${math("3:4")}?`, zh: `哪個比與 ${math("3:4")} 等值？` },
+      prompt: { en: `${math("3")} people need ${math("6")} cups of rice. At the same amount per person, how many cups do ${math("5")} people need?`, zh: `${math("3")} 人需要 ${math("6")} 杯米。每人份量相同，${math("5")} 人需要多少杯？` },
       options: [
-        { en: "6:8", zh: "6:8" },
-        { en: "4:3", zh: "4:3" },
-        { en: "9:8", zh: "9:8" },
-        { en: "3:8", zh: "3:8" }
+        { en: "8 cups", zh: "8 杯" },
+        { en: "9 cups", zh: "9 杯" },
+        { en: "10 cups", zh: "10 杯" },
+        { en: "12 cups", zh: "12 杯" }
       ],
-      answer: "6:8",
-      explanation: { en: `Multiply both parts of ${math("3:4")} by ${math("2")} to get ${math("6:8")}.`, zh: `${math("3:4")} 兩項同乘 ${math("2")} 得 ${math("6:8")}。` }
+      answer: "10 cups",
+      explanation: {
+        en: `One person needs ${math("6 \\div 3 = 2")} cups, so ${math("5")} people need ${math("2 \\times 5 = 10")} cups.`,
+        zh: `一人需要 ${math("6 \\div 3 = 2")} 杯，所以 ${math("5")} 人需要 ${math("2 \\times 5 = 10")} 杯。`
+      }
     }
   ],
   "p6-speed": [
@@ -1042,11 +1071,15 @@ const primaryQuestions: HongKongQuestionSeed[] = topics.filter((topic) => topic.
 
 type TopicDrill = {
   firstStep: Question["prompt"];
+  firstStepPrompt?: Question["prompt"];
+  firstStepDistractors?: NonNullable<Question["options"]>;
+  firstStepExplanation?: Question["explanation"];
   keyFactPrompt: Question["prompt"];
   keyFactAnswer: string;
   keyFactExplanation: Question["explanation"];
   examplePrompt: Question["prompt"];
   exampleAnswer: string;
+  exampleAcceptedAnswers?: NonNullable<Question["acceptedAnswers"]>;
   exampleExplanation: Question["explanation"];
   commonCheck: Question["prompt"];
 };
@@ -1148,7 +1181,16 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "graph",
       prompt: { en: "Read the graph. What are the two x-intercepts?", zh: "閱讀圖像。兩個 x 截距是甚麼？" },
       answer: "x = 1 and x = 3",
-      acceptedAnswers: ["x=1 and x=3", "1 and 3", "1, 3", "1,3", "x = 1, x = 3", "x=1,x=3"],
+      acceptedAnswers: [
+        "x=1 and x=3",
+        "1 and 3",
+        "1, 3",
+        "1,3",
+        "x = 1, x = 3",
+        "x=1,x=3",
+        "x = 1 和 x = 3",
+        "x=1和x=3"
+      ],
       explanation: { en: `The parabola crosses the ${math("x")}-axis at ${math("x = 1")} and ${math("x = 3")}.`, zh: `拋物線在 ${math("x = 1")} 和 ${math("x = 3")} 與 ${math("x")} 軸相交。` },
       diagram: {
         kind: "coordinate-grid",
@@ -1387,7 +1429,10 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "graph-p6-speed-distance",
       difficulty: "Medium",
       type: "graph",
-      prompt: { en: "The distance-time graph shows a journey. How far had the student travelled after 2 hours?", zh: "距離-時間圖顯示一段旅程。2 小時後學生走了多遠？" },
+      prompt: {
+        en: "The distance-time graph shows a journey, and point D marks the student's position after 2 hours. How far had the student travelled?",
+        zh: "距離-時間圖顯示一段旅程，點 D 表示學生在 2 小時後的位置。學生走了多遠？"
+      },
       answer: "6 km",
       acceptedAnswers: ["6", "6km", "6 km"],
       explanation: { en: `At ${math("2")} hours, the graph shows ${math("6")} km.`, zh: `在 ${math("2")} 小時時，圖像顯示 ${math("6")} 公里。` },
@@ -1417,30 +1462,28 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       difficulty: "Medium",
       type: "graph",
       prompt: {
-        en: `In the figure, AOB is a straight line and ${math("\\angle AOC = 130^\\circ")}. Find the angle ${math("x")}.`,
-        zh: `圖中 AOB 是直線，${math("\\angle AOC = 130^\\circ")}。求角 ${math("x")}。`
+        en: "In the figure, OA is horizontal and OB is vertical. What type of angle is the marked angle x?",
+        zh: "圖中 OA 是水平線，OB 是垂直線。標示的角 x 是哪一類角？"
       },
-      answer: "50°",
-      acceptedAnswers: ["50", "50 degrees", "50度"],
+      answer: "right angle",
+      acceptedAnswers: ["right", "直角"],
       explanation: {
-        en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("x = 180 - 130 = 50^\\circ")}.`,
-        zh: `直線上的鄰角和為 ${math("180^\\circ")}，所以 ${math("x = 180 - 130 = 50^\\circ")}。`
+        en: "A horizontal arm and a vertical arm form a square corner, so x is a right angle.",
+        zh: "水平臂和垂直臂組成正方形角，所以 x 是直角。"
       },
       diagram: {
         kind: "plane-figure",
         points: [
-          { id: "A", x: -4, y: 0, label: "A" },
+          { id: "A", x: -3, y: 0, label: "A" },
           { id: "O", x: 0, y: 0, label: "O" },
-          { id: "B", x: 4, y: 0, label: "B" },
-          { id: "C", x: 2.25, y: 2.681, label: "C" }
+          { id: "B", x: 0, y: 3, label: "B" }
         ],
         segments: [
-          { from: "A", to: "B" },
-          { from: "O", to: "C" }
+          { from: "A", to: "O" },
+          { from: "O", to: "B" }
         ],
         angleMarks: [
-          { vertexId: "O", fromId: "A", toId: "C", label: { en: "130°", zh: "130°" } },
-          { vertexId: "O", fromId: "C", toId: "B", arcs: 2, label: { en: "x", zh: "x" } }
+          { vertexId: "O", fromId: "A", toId: "B", label: { en: "x", zh: "x" } }
         ]
       }
     }
@@ -1475,13 +1518,14 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       difficulty: "Medium",
       type: "graph",
       prompt: {
-        en: "The figure shows a cube. Every edge has the length marked in the figure. Find its volume.",
-        zh: "圖中顯示一個正方體，每條棱長如圖所示。求它的體積。"
+        en: "The figure shows a cube with one edge length marked. Find its volume.",
+        zh: "圖中顯示一個正方體，一條稜長如圖所示。求它的體積。",
+        zhHans: "图中显示一个正方体，一条棱长如图所示。求它的体积。"
       },
       answer: "27 cm^3",
       explanation: {
         en: `Every edge of the cube is ${math("3")} cm, so the volume ${math("= 3 \\times 3 \\times 3 = 27")} cubic centimetres.`,
-        zh: `正方體每條棱長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
+        zh: `正方體每條稜長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
       },
       diagram: {
         kind: "solid-figure",
@@ -1507,7 +1551,23 @@ const graphQuestions: HongKongQuestionSeed[] = topics.filter((topic) => topic.cu
 
 const topicDrills: Record<string, TopicDrill> = {
   "p1-counting-number-bonds": {
-    firstStep: { en: "Count on or count back from the known number", zh: "由已知數開始順數或倒數" },
+    firstStepPrompt: {
+      en: "When a counting or number-bond question has a missing number, what should you do first?",
+      zh: "數數或數的組合題有缺少的數時，應先做甚麼？"
+    },
+    firstStep: {
+      en: "Work out what the blank represents, then use forward counting, backward counting, or a number bond",
+      zh: "先判斷空格表示甚麼，再用順數、倒數或數的組合找答案"
+    },
+    firstStepDistractors: [
+      { en: "Always start counting from 1, even when a number is given", zh: "即使題目已有數字，也總是由 1 開始數" },
+      { en: "Choose the larger number without counting", zh: "不用數，只選較大的數" },
+      { en: "Ignore whether the missing number comes before or after", zh: "不理會缺少的數在已知數之前還是之後" }
+    ],
+    firstStepExplanation: {
+      en: "In a counting sequence, count forward for a later number and backward for an earlier one. In a number bond, identify the whole and known part, then count on or subtract.",
+      zh: "在數數序列中，求後面的數便順數，求前面的數便倒數；在數的組合題中，先分清整體和已知部分，再順數或用減法求答案。"
+    },
     keyFactPrompt: { en: `What number makes ${math("4 + \\square = 9")}?`, zh: `${math("4 + \\square = 9")} 中，方格應填甚麼數？` },
     keyFactAnswer: "5",
     keyFactExplanation: { en: `${math("4")} needs ${math("5")} more to make ${math("9")}.`, zh: `${math("4")} 再加 ${math("5")} 就是 ${math("9")}。` },
@@ -1537,10 +1597,13 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check one full repeat before choosing the next shape", zh: "先找出一組完整重複，再選下一個圖形" }
   },
   "p1-measurement-time": {
-    firstStep: { en: "Choose the attribute first: length, time, or order", zh: "先判斷量度的是長度、時間還是次序" },
-    keyFactPrompt: { en: `How many minutes are in ${math("1")} hour?`, zh: `${math("1")} 小時有多少分鐘？` },
-    keyFactAnswer: "60",
-    keyFactExplanation: { en: `${math("1")} hour is ${math("60")} minutes.`, zh: `${math("1")} 小時等於 ${math("60")} 分鐘。` },
+    firstStep: {
+      en: "Identify whether the question is about length, mass, capacity, or time",
+      zh: "先判斷題目問長度、重量、容量還是時間"
+    },
+    keyFactPrompt: { en: "At an o'clock time, which number does the minute hand point to?", zh: "在整點時，分針指向哪個數字？" },
+    keyFactAnswer: "12",
+    keyFactExplanation: { en: `At an o'clock time, the minute hand points to ${math("12")}.`, zh: `在整點時，分針指向 ${math("12")}。` },
     examplePrompt: { en: `What time is shown by a clock with the hour hand at ${math("5")} and the minute hand at ${math("12")}?`, zh: `時針指向 ${math("5")}、分針指向 ${math("12")} 是甚麼時間？` },
     exampleAnswer: "5 o'clock",
     exampleExplanation: { en: `The minute hand at ${math("12")} shows an o'clock time, so it is 5 o'clock.`, zh: `分針指向 ${math("12")} 表示整點，所以是 5 時。` },
@@ -1559,7 +1622,7 @@ const topicDrills: Record<string, TopicDrill> = {
   "p2-multiplication-foundations": {
     firstStep: { en: "Count equal groups before writing multiplication", zh: "先數相等組數，再寫乘式" },
     keyFactPrompt: { en: `Which multiplication expression matches ${math("6 + 6 + 6 + 6")}?`, zh: `哪個乘式表示 ${math("6 + 6 + 6 + 6")}？` },
-    keyFactAnswer: "4 x 6",
+    keyFactAnswer: "4 × 6",
     keyFactExplanation: { en: `${math("6")} is added ${math("4")} times, so it is ${math("4 \\times 6")}.`, zh: `${math("6")} 加了 ${math("4")} 次，所以是 ${math("4 \\times 6")}。` },
     examplePrompt: { en: `Find ${math("3 \\times 4")}.`, zh: `計算 ${math("3 \\times 4")}。` },
     exampleAnswer: "12",
@@ -1571,23 +1634,29 @@ const topicDrills: Record<string, TopicDrill> = {
     keyFactPrompt: { en: `A drink costs HK$${math("6")}. You pay HK$${math("10")}. How much change do you get?`, zh: `飲品售港幣 ${math("6")} 元，你付港幣 ${math("10")} 元，應找回多少？` },
     keyFactAnswer: "HK$4",
     keyFactExplanation: { en: `${math("10 - 6 = 4")}.`, zh: `${math("10 - 6 = 4")}。` },
-    examplePrompt: { en: `Fifteen minutes after ${math("2:30")} is what time?`, zh: `${math("2:30")} 之後十五分鐘是甚麼時間？` },
-    exampleAnswer: "2:45",
-    exampleExplanation: { en: `Adding ${math("15")} minutes to ${math("2:30")} gives ${math("2:45")}.`, zh: `${math("2:30")} 加 ${math("15")} 分鐘是 ${math("2:45")}。` },
+    examplePrompt: {
+      en: `The minute hand points to ${math("6")}, and the hour hand is halfway between ${math("2")} and ${math("3")}. What time is it?`,
+      zh: `分針指向 ${math("6")}，時針在 ${math("2")} 和 ${math("3")} 的中間。現在是甚麼時間？`
+    },
+    exampleAnswer: "2:30",
+    exampleExplanation: { en: `The minute hand at ${math("6")} shows half past, so the time is ${math("2:30")}.`, zh: `分針指向 ${math("6")} 表示半點，所以時間是 ${math("2:30")}。` },
     commonCheck: { en: "Check whether the answer should be money or time", zh: "檢查答案應是金錢還是時間" }
   },
   "p2-length-data": {
     firstStep: { en: "Read the unit or chart label before calculating", zh: "計算前先讀清楚單位或圖表標籤" },
-    keyFactPrompt: { en: `A string is ${math("20")} cm long. You use ${math("7")} cm. How many cm remain?`, zh: `一條繩長 ${math("20")} 厘米，用去 ${math("7")} 厘米，還剩多少厘米？` },
-    keyFactAnswer: "13 cm",
-    keyFactExplanation: { en: `${math("20 - 7 = 13")} cm.`, zh: `${math("20 - 7 = 13")} 厘米。` },
-    examplePrompt: { en: `A bar chart shows ${math("8")} oranges and ${math("5")} pears. How many fruits are shown?`, zh: `棒形圖顯示 ${math("8")} 個橙和 ${math("5")} 個梨，共有多少水果？` },
-    exampleAnswer: "13",
-    exampleExplanation: { en: `${math("8 + 5 = 13")}.`, zh: `${math("8 + 5 = 13")}。` },
+    keyFactPrompt: { en: `A string is ${math("20")} cm long. You use ${math("6")} cm. How many cm remain?`, zh: `一條繩長 ${math("20")} 厘米，用去 ${math("6")} 厘米，還剩多少厘米？` },
+    keyFactAnswer: "14 cm",
+    keyFactExplanation: { en: `${math("20 - 6 = 14")} cm.`, zh: `${math("20 - 6 = 14")} 厘米。` },
+    examplePrompt: { en: `A bar chart shows ${math("8")} oranges and ${math("7")} pears. How many fruits are shown?`, zh: `棒形圖顯示 ${math("8")} 個橙和 ${math("7")} 個梨，共有多少水果？` },
+    exampleAnswer: "15",
+    exampleExplanation: { en: `${math("8 + 7 = 15")}.`, zh: `${math("8 + 7 = 15")}。` },
     commonCheck: { en: "Keep the length unit when the question asks for length", zh: "題目問長度時，答案要保留長度單位" }
   },
   "p3-multiplication-division": {
-    firstStep: { en: "Decide whether the situation has equal groups or sharing", zh: "先判斷情境是相等組數還是平均分" },
+    firstStep: {
+      en: "Identify whether the unknown is the total, the number of groups, or the amount in each group",
+      zh: "先辨認未知量是總數、組數，還是每組數量"
+    },
     keyFactPrompt: { en: `Find ${math("8 \\times 4")}.`, zh: `計算 ${math("8 \\times 4")}。` },
     keyFactAnswer: "32",
     keyFactExplanation: { en: `${math("8 \\times 4 = 32")}.`, zh: `${math("8 \\times 4 = 32")}。` },
@@ -1607,7 +1676,21 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check that the denominator names the equal parts", zh: "檢查分母是否表示等份總數" }
   },
   "p3-measurement": {
-    firstStep: { en: "Choose the correct measuring unit before calculating", zh: "計算前先選擇正確量度單位" },
+    firstStepPrompt: {
+      en: "When starting a measurement question, which step is most useful?",
+      zh: "開始處理量度題目時，哪一步最有用？",
+      zhHans: "开始处理测量题目时，哪一步最有用？"
+    },
+    firstStep: {
+      en: "Choose the correct measuring unit before calculating",
+      zh: "計算前先選擇正確量度單位",
+      zhHans: "计算前先选择正确测量单位"
+    },
+    firstStepExplanation: {
+      en: "Choose the correct measuring unit before calculating.",
+      zh: "計算前先選擇正確量度單位。",
+      zhHans: "计算前先选择正确测量单位。"
+    },
     keyFactPrompt: { en: `A jug has ${math("2")} L of water. That is how many mL?`, zh: `一個水壺有 ${math("2")} 公升水，即是多少毫升？` },
     keyFactAnswer: "2000 mL",
     keyFactExplanation: { en: `${math("1")} L ${math("= 1000")} mL, so ${math("2")} L ${math("= 2000")} mL.`, zh: `${math("1")} 公升 ${math("= 1000")} 毫升，所以 ${math("2")} 公升 ${math("= 2000")} 毫升。` },
@@ -1617,17 +1700,17 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check whether units need converting before calculating", zh: "計算前檢查是否需要換算單位" }
   },
   "p3-geometry-patterns": {
-    firstStep: { en: "Identify the angle fact or the pattern rule", zh: "先辨認角度性質或規律規則" },
-    keyFactPrompt: { en: `How many degrees are in a straight angle?`, zh: `平角是多少度？` },
-    keyFactAnswer: "180°",
-    keyFactExplanation: { en: `A straight angle is ${math("180^\\circ")}.`, zh: `平角是 ${math("180^\\circ")}。` },
+    firstStep: { en: "Compare an angle with a square corner, or identify the pattern rule", zh: "把角與正方形角比較，或辨認規律規則" },
+    keyFactPrompt: { en: "An angle is smaller than a right angle. What type is it?", zh: "一個角比直角小。它是哪一類角？" },
+    keyFactAnswer: "acute angle",
+    keyFactExplanation: { en: "An angle smaller than a right angle is acute.", zh: "比直角小的角是銳角。" },
     examplePrompt: { en: `Continue the pattern: ${math("4, 8, 12, 16, \\square")}.`, zh: `延續規律：${math("4, 8, 12, 16, \\square")}。` },
     exampleAnswer: "20",
     exampleExplanation: { en: `The pattern adds ${math("4")} each time, so the next number is ${math("20")}.`, zh: `規律是每次加 ${math("4")}，所以下一個數是 ${math("20")}。` },
     commonCheck: { en: "Check whether the task is about shape, angle, or number pattern", zh: "檢查題目問圖形、角度還是數列規律" }
   },
   "p4-large-numbers": {
-    firstStep: { en: "Compare digits from the largest place value", zh: "由最大位值開始比較數字" },
+    firstStep: { en: "Compare digits from the largest place value", zh: "由最大位值開始比較數字", zhHans: "由最大数位开始比较数字" },
     keyFactPrompt: { en: `Which number is greater: ${math("23,780")} or ${math("23,708")}?`, zh: `${math("23,780")} 和 ${math("23,708")}，哪個數較大？` },
     keyFactAnswer: "23,780",
     keyFactExplanation: { en: `The hundreds and tens comparison shows ${math("23,780 > 23,708")}.`, zh: `比較百位和十位可見 ${math("23,780 > 23,708")}。` },
@@ -1647,17 +1730,17 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Keep the decimal point aligned in every step", zh: "每一步都要對齊小數點" }
   },
   "p4-angles": {
-    firstStep: { en: "Name the angle relationship before subtracting", zh: "相減前先說明角度關係" },
-    keyFactPrompt: { en: `Two angles on a straight line include ${math("110^\\circ")}. Find the other angle.`, zh: `一直線上的兩個角，其中一個是 ${math("110^\\circ")}。求另一個角。` },
-    keyFactAnswer: "70°",
-    keyFactExplanation: { en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("180 - 110 = 70")}.`, zh: `一直線上的角和為 ${math("180^\\circ")}，所以 ${math("180 - 110 = 70")}。` },
-    examplePrompt: { en: `Angles around a point include ${math("90^\\circ")}, ${math("120^\\circ")}, and ${math("80^\\circ")}. Find the remaining angle.`, zh: `一點周圍的角包括 ${math("90^\\circ")}、${math("120^\\circ")} 和 ${math("80^\\circ")}。求餘下的角。` },
-    exampleAnswer: "70°",
-    exampleExplanation: { en: `Angles around a point add to ${math("360^\\circ")}; ${math("360 - 90 - 120 - 80 = 70")}.`, zh: `一點周圍的角和為 ${math("360^\\circ")}；${math("360 - 90 - 120 - 80 = 70")}。` },
-    commonCheck: { en: "Check whether the total should be 180 degrees or 360 degrees", zh: "檢查總和應為 180 度還是 360 度" }
+    firstStep: { en: "Compare the angle opening with a square corner", zh: "把角的開口與正方形角比較" },
+    keyFactPrompt: { en: "Which is smaller: an acute angle or an obtuse angle?", zh: "銳角和鈍角之中，哪一類角較小？" },
+    keyFactAnswer: "acute angle",
+    keyFactExplanation: { en: "An acute angle is smaller than a right angle, while an obtuse angle is larger.", zh: "銳角比直角小，鈍角則比直角大。" },
+    examplePrompt: { en: "An angle has an opening larger than a square corner but smaller than half a turn. Name its type.", zh: "一個角的開口比正方形角大，但比半圈小。寫出它的種類。" },
+    exampleAnswer: "obtuse angle",
+    exampleExplanation: { en: "An angle in that size range is obtuse.", zh: "開口在這個範圍內的是鈍角。" },
+    commonCheck: { en: "Compare openings rather than the lengths of the angle arms", zh: "比較開口，不要比較角的兩條臂長" }
   },
   "p4-perimeter-area": {
-    firstStep: { en: "Decide whether the question asks for boundary or surface", zh: "先判斷題目問周界還是面積" },
+    firstStep: { en: "Decide whether the question asks for boundary or surface", zh: "先判斷題目問周界還是面積", zhHans: "先判断题目问周长还是面积" },
     keyFactPrompt: { en: `A square has side length ${math("6")} cm. Find its perimeter.`, zh: `正方形邊長 ${math("6")} 厘米。求周界。` },
     keyFactAnswer: "24 cm",
     keyFactExplanation: { en: `Perimeter ${math("= 4 \\times 6 = 24")} cm.`, zh: `周界 ${math("= 4 \\times 6 = 24")} 厘米。` },
@@ -1677,14 +1760,14 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check whether the question asks for a percent, decimal, or amount", zh: "檢查題目問百分數、小數還是數量" }
   },
   "p6-ratio-proportion": {
-    firstStep: { en: "Find the total number of ratio parts before sharing", zh: "分配前先求比的總份數" },
-    keyFactPrompt: { en: `Share ${math("48")} in the ratio ${math("1:5")}. What is the larger share?`, zh: `把 ${math("48")} 按 ${math("1:5")} 分配。較大的一份是多少？` },
-    keyFactAnswer: "40",
-    keyFactExplanation: { en: `There are ${math("6")} parts; one part is ${math("48 \\div 6 = 8")}; larger share ${math("5 \\times 8 = 40")}.`, zh: `共有 ${math("6")} 份；每份 ${math("48 \\div 6 = 8")}；較大份是 ${math("5 \\times 8 = 40")}。` },
-    examplePrompt: { en: `Multiply both parts of ${math("5:7")} by ${math("2")}. What equivalent ratio do you get?`, zh: `把 ${math("5:7")} 兩項同乘 ${math("2")}。得到哪個等值比？` },
-    exampleAnswer: "10:14",
-    exampleExplanation: { en: `${math("5:7")} becomes ${math("10:14")}.`, zh: `${math("5:7")} 變成 ${math("10:14")}。` },
-    commonCheck: { en: "Apply the same multiplier or divisor to both ratio parts", zh: "比的兩項要同乘或同除同一個數" }
+    firstStep: { en: "Divide to find one unit before scaling to the required number", zh: "先用除法求一個單位，再縮放至所需數量" },
+    keyFactPrompt: { en: `${math("6")} tickets cost HK$${math("48")}. At the same price per ticket, how much do ${math("10")} tickets cost?`, zh: `${math("6")} 張票售港幣 ${math("48")} 元。每張票價相同，${math("10")} 張售多少元？` },
+    keyFactAnswer: "HK$80",
+    keyFactExplanation: { en: `One ticket costs HK$${math("48 \\div 6 = 8")}, so ${math("10")} tickets cost HK$${math("8 \\times 10 = 80")}.`, zh: `一張票售港幣 ${math("48 \\div 6 = 8")} 元，所以 ${math("10")} 張售港幣 ${math("8 \\times 10 = 80")} 元。` },
+    examplePrompt: { en: `${math("5")} equal boxes hold ${math("30")} markers. How many markers do ${math("8")} equal boxes hold?`, zh: `${math("5")} 個相同盒子共有 ${math("30")} 支筆。${math("8")} 個相同盒子共有多少支筆？` },
+    exampleAnswer: "48",
+    exampleExplanation: { en: `One box holds ${math("30 \\div 5 = 6")} markers, so ${math("8")} boxes hold ${math("6 \\times 8 = 48")}.`, zh: `一個盒子有 ${math("30 \\div 5 = 6")} 支筆，所以 ${math("8")} 個盒子有 ${math("6 \\times 8 = 48")} 支。` },
+    commonCheck: { en: "Divide to one unit before multiplying by the required number", zh: "先除至一個單位，再乘所需數量" }
   },
   "p6-speed": {
     firstStep: { en: "Identify distance, time, and speed before choosing the formula", zh: "先辨認路程、時間和速率，再選公式" },
@@ -1828,9 +1911,9 @@ const topicDrills: Record<string, TopicDrill> = {
   },
   "p5-volume": {
     firstStep: { en: "Identify length, width, and height before multiplying", zh: "先辨認長、闊和高，再相乘" },
-    keyFactPrompt: { en: `A tank has volume ${math("48")} cm^3, length ${math("4")} cm, and width ${math("3")} cm. What is its height?`, zh: `一個水箱體積是 ${math("48")} 立方厘米，長 ${math("4")} 厘米、闊 ${math("3")} 厘米。高是多少？` },
-    keyFactAnswer: "4 cm",
-    keyFactExplanation: { en: `Height ${math("= 48 \\div (4 \\times 3) = 4")} cm.`, zh: `高 ${math("= 48 \\div (4 \\times 3) = 4")} 厘米。` },
+    keyFactPrompt: { en: `A cuboid is ${math("6")} cm long, ${math("2")} cm wide, and ${math("5")} cm high. Find its volume.`, zh: `長方體長 ${math("6")} 厘米、闊 ${math("2")} 厘米、高 ${math("5")} 厘米。求體積。` },
+    keyFactAnswer: "60 cm^3",
+    keyFactExplanation: { en: `Volume ${math("= 6 \\times 2 \\times 5 = 60")} cubic centimetres.`, zh: `體積 ${math("= 6 \\times 2 \\times 5 = 60")} 立方厘米。` },
     examplePrompt: { en: `A box has base area ${math("10")} cm^2 and height ${math("3")} cm. Find its volume.`, zh: `一個盒子的底面積是 ${math("10")} 平方厘米，高 ${math("3")} 厘米。求體積。` },
     exampleAnswer: "30 cm^3",
     exampleExplanation: { en: `Volume ${math("= 10 \\times 3 = 30")} cubic centimetres.`, zh: `體積 ${math("= 10 \\times 3 = 30")} 立方厘米。` },
@@ -1841,10 +1924,10 @@ const topicDrills: Record<string, TopicDrill> = {
     keyFactPrompt: { en: `A pack of ${math("3")} notebooks costs HK$${math("18")}. What is the cost per notebook?`, zh: `${math("3")} 本筆記簿售港幣 ${math("18")} 元，每本多少元？` },
     keyFactAnswer: "HK$6",
     keyFactExplanation: { en: `${math("18 \\div 3 = 6")}, so each notebook costs HK$6.`, zh: `${math("18 \\div 3 = 6")}，所以每本港幣 6 元。` },
-    examplePrompt: { en: `A cyclist travels ${math("45")} km in ${math("3")} hours. What is the speed?`, zh: `單車手 ${math("3")} 小時行 ${math("45")} 公里，速率是多少？` },
-    exampleAnswer: "15 km/h",
-    exampleExplanation: { en: `Speed ${math("= 45 \\div 3 = 15")} km/h.`, zh: `速率 ${math("= 45 \\div 3 = 15")} 公里每小時。` },
-    commonCheck: { en: "Keep the rate unit attached to the answer", zh: "答案要保留率的單位" }
+    examplePrompt: { en: `${math("6")} juice boxes cost HK$${math("24")}. At the same price per box, how much do ${math("9")} boxes cost?`, zh: `${math("6")} 盒果汁售港幣 ${math("24")} 元。每盒價錢相同，${math("9")} 盒售多少元？` },
+    exampleAnswer: "HK$36",
+    exampleExplanation: { en: `One box costs HK$${math("24 \\div 6 = 4")}, so ${math("9")} boxes cost HK$${math("4 \\times 9 = 36")}.`, zh: `一盒售港幣 ${math("24 \\div 6 = 4")} 元，所以 ${math("9")} 盒售港幣 ${math("4 \\times 9 = 36")} 元。` },
+    commonCheck: { en: "Find one unit before multiplying, and keep the correct unit", zh: "先求一個單位再相乘，並保留正確單位" }
   },
   "p5-charts-averages": {
     firstStep: { en: "Read the data values carefully before adding", zh: "相加前先仔細讀取數據" },
@@ -1901,9 +1984,9 @@ const topicDrills: Record<string, TopicDrill> = {
     keyFactPrompt: { en: `Simplify ${math("a^2 \\times a^5")}.`, zh: `化簡 ${math("a^2 \\times a^5")}。` },
     keyFactAnswer: "a^7",
     keyFactExplanation: { en: `Add indices when multiplying same bases.`, zh: `同底相乘時指數相加。` },
-    examplePrompt: { en: `Simplify ${math("b^6 / b^2")}.`, zh: `化簡 ${math("b^6 / b^2")}。` },
+    examplePrompt: { en: `For ${math("b \\ne 0")}, simplify ${math("b^6 / b^2")}.`, zh: `當 ${math("b \\ne 0")} 時，化簡 ${math("b^6 / b^2")}。` },
     exampleAnswer: "b^4",
-    exampleExplanation: { en: `Subtract indices when dividing same bases.`, zh: `同底相除時指數相減。` },
+    exampleExplanation: { en: `Because ${math("b \\ne 0")}, subtract indices when dividing the same base: ${math("b^{6-2}=b^4")}.`, zh: `因為 ${math("b \\ne 0")}，同底相除時指數相減：${math("b^{6-2}=b^4")}。` },
     commonCheck: { en: "Check denominators are not zero", zh: "檢查分母不可為零" }
   },
   "data-handling": {
@@ -1918,12 +2001,35 @@ const topicDrills: Record<string, TopicDrill> = {
   },
   "advanced-functions": {
     firstStep: { en: "Compare model type: polynomial, exponential, or logarithmic", zh: "先比較模型類型：多項式、指數或對數" },
-    keyFactPrompt: { en: `If ${math("f(x)=2^x")}, find ${math("f(3)")}.`, zh: `若 ${math("f(x)=2^x")}，求 ${math("f(3)")}。` },
-    keyFactAnswer: "8",
-    keyFactExplanation: { en: `${math("2^3=8")}.`, zh: `${math("2^3=8")}。` },
-    examplePrompt: { en: `For ${math("f(x)=x^3")}, what is ${math("f(-2)")}?`, zh: `對 ${math("f(x)=x^3")}，${math("f(-2)")} 是多少？` },
-    exampleAnswer: "-8",
-    exampleExplanation: { en: `${math("(-2)^3=-8")}.`, zh: `${math("(-2)^3=-8")}。` },
+    keyFactPrompt: {
+      en: `At ${math("x=5")}, let ${math("f(x)=2^x")} and ${math("g(x)=x^2")}. Find ${math("f(5)-g(5)")}.`,
+      zh: `在 ${math("x=5")} 時，設 ${math("f(x)=2^x")} 和 ${math("g(x)=x^2")}。求 ${math("f(5)-g(5)")}。`
+    },
+    keyFactAnswer: "7",
+    keyFactExplanation: {
+      en: `${math("f(5)=32")} and ${math("g(5)=25")}, so ${math("32-25=7")}.`,
+      zh: `${math("f(5)=32")}，${math("g(5)=25")}，所以 ${math("32-25=7")}。`
+    },
+    examplePrompt: {
+      en: `For large positive ${math("x")}, which eventually grows faster: ${math("2^x")} or ${math("x^3")}?`,
+      zh: `當正數 ${math("x")} 很大時，${math("2^x")} 和 ${math("x^3")} 哪一個最終增長得較快？`
+    },
+    exampleAnswer: "2^x",
+    exampleAcceptedAnswers: [
+      "2 ^ x",
+      "2**x",
+      "f(x)=2^x",
+      "the exponential function",
+      "exponential",
+      "2 的 x 次方",
+      "2的x次方",
+      "指數函數",
+      "指数函数"
+    ],
+    exampleExplanation: {
+      en: `The exponential function ${math("2^x")} eventually outgrows the polynomial ${math("x^3")}.`,
+      zh: `指數函數 ${math("2^x")} 最終會比多項式 ${math("x^3")} 增長得快。`
+    },
     commonCheck: { en: "Check whether growth is additive or multiplicative", zh: "檢查增長是加法式還是乘法式" }
   },
   "trigonometry-s5": {
@@ -1957,14 +2063,14 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Reduce the power by one after multiplying by the old power", zh: "乘以前方舊指數後，指數要減一" }
   },
   calculus: {
-    firstStep: { en: "Choose derivative, integral, optimization, or area based on the task", zh: "按題目要求選擇導數、積分、優化或面積" },
-    keyFactPrompt: { en: `Integrate ${math("2x")} with respect to ${math("x")}.`, zh: `對 ${math("2x")} 關於 ${math("x")} 積分。` },
-    keyFactAnswer: "x^2 + C",
-    keyFactExplanation: { en: `An antiderivative of ${math("2x")} is ${math("x^2")}; add ${math("C")}.`, zh: `${math("2x")} 的一個反導數是 ${math("x^2")}；要加 ${math("C")}。` },
-    examplePrompt: { en: `Differentiate ${math("4x^2")}.`, zh: `求 ${math("4x^2")} 的導數。` },
-    exampleAnswer: "8x",
-    exampleExplanation: { en: `Use the power rule: ${math("4 \\times 2x = 8x")}.`, zh: `用冪法則：${math("4 \\times 2x = 8x")}。` },
-    commonCheck: { en: "Include the constant of integration for indefinite integrals", zh: "不定積分要寫積分常數" }
+    firstStep: { en: "Find the stationary point and check the derivative sign on both sides", zh: "先找出駐點，再檢查兩側的導數符號" },
+    keyFactPrompt: { en: `If ${math("f'(x)")} changes from negative to positive at ${math("x=1")}, what type of turning point is at ${math("x=1")}?`, zh: `若 ${math("f'(x)")} 在 ${math("x=1")} 由負變正，${math("x=1")} 是哪一類轉折點？` },
+    keyFactAnswer: "local minimum",
+    keyFactExplanation: { en: "The graph falls before the point and rises after it, so the point is a local minimum.", zh: "圖像在該點前下降、之後上升，所以該點是局部最小值。" },
+    examplePrompt: { en: `For ${math("f'(x)=2x-4")}, find the stationary ${math("x")}-value.`, zh: `若 ${math("f'(x)=2x-4")}，求駐點的 ${math("x")} 值。` },
+    exampleAnswer: "2",
+    exampleExplanation: { en: `At a stationary point, ${math("f'(x)=0")}; solve ${math("2x-4=0")} to get ${math("x=2")}.`, zh: `在駐點，${math("f'(x)=0")}；解 ${math("2x-4=0")} 得 ${math("x=2")}。` },
+    commonCheck: { en: "Check derivative signs immediately before and after the stationary point", zh: "檢查駐點前後緊鄰區間的導數符號" }
   },
   "statistics-s6": {
     firstStep: { en: "Standardize with a z-score before using the normal curve", zh: "使用常態曲線前先轉換成 z 分數" },
@@ -1978,9 +2084,17 @@ const topicDrills: Record<string, TopicDrill> = {
   },
   "exam-revision": {
     firstStep: { en: "Sort questions by marks, confidence, and time available", zh: "先按分數、信心和可用時間排序題目" },
-    keyFactPrompt: { en: `A paper has ${math("90")} marks in ${math("120")} minutes. Approximate minutes per mark?`, zh: `一份試卷 ${math("90")} 分，限時 ${math("120")} 分鐘。每分約多少分鐘？` },
+    keyFactPrompt: {
+      en: `A paper has ${math("90")} marks in ${math("120")} minutes. Approximately how many minutes are available per mark? Give the answer correct to two decimal places.`,
+      zh: `一份試卷 ${math("90")} 分，限時 ${math("120")} 分鐘。每分約有多少分鐘？答案取至小數點後兩位。`,
+      zhHans: `一份试卷 ${math("90")} 分，限时 ${math("120")} 分钟。每分约有多少分钟？答案取至小数点后两位。`
+    },
     keyFactAnswer: "1.33",
-    keyFactExplanation: { en: `${math("120/90 \\approx 1.33")} minutes per mark.`, zh: `${math("120/90 \\approx 1.33")} 分鐘每分。` },
+    keyFactExplanation: {
+      en: `${math("120/90 = 1.333\\ldots")} minutes per mark, which is ${math("1.33")} correct to two decimal places.`,
+      zh: `每分需時 ${math("120/90 = 1.333\\ldots")} 分鐘，取至小數點後兩位是 ${math("1.33")} 分鐘。`,
+      zhHans: `每分用时 ${math("120/90 = 1.333\\ldots")} 分钟，取至小数点后两位是 ${math("1.33")} 分钟。`
+    },
     examplePrompt: { en: `A ${math("6")}-mark part uses ${math("9")} minutes. How many minutes per mark?`, zh: `${math("6")} 分分題用了 ${math("9")} 分鐘。每分多少分鐘？` },
     exampleAnswer: "1.5",
     exampleExplanation: { en: `${math("9/6=1.5")}.`, zh: `${math("9/6=1.5")}。` },
@@ -2034,6 +2148,7 @@ function defaultDrillForTopic(topic: (typeof topics)[number]): TopicDrill {
 function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKongQuestionSeed[] {
   const drill = topicDrills[topic.id] ?? defaultDrillForTopic(topic);
   const topicLabel = topic.title;
+  const indefiniteArticle = /^[aeiou]/iu.test(topicLabel.en.trim()) ? "an" : "a";
 
   return [
     {
@@ -2043,13 +2158,13 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       topic: topicLabel,
       difficulty: topic.difficulty,
       type: "multiple-choice",
-      prompt: {
-        en: `When starting a ${topicLabel.en} question, which step is most useful?`,
+      prompt: drill.firstStepPrompt ?? {
+        en: `When starting ${indefiniteArticle} ${topicLabel.en} question, which step is most useful?`,
         zh: `開始處理「${topicLabel.zh}」題目時，哪一步最有用？`
       },
-      options: [drill.firstStep, ...firstStepDistractors],
+      options: [drill.firstStep, ...(drill.firstStepDistractors ?? firstStepDistractors)],
       answer: drill.firstStep.en,
-      explanation: {
+      explanation: drill.firstStepExplanation ?? {
         en: `A strong first step for this topic is: ${drill.firstStep.en}.`,
         zh: `這個課題較好的第一步是：${drill.firstStep.zh}。`
       }
@@ -2074,6 +2189,7 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       type: "short-answer",
       prompt: drill.examplePrompt,
       answer: drill.exampleAnswer,
+      acceptedAnswers: drill.exampleAcceptedAnswers,
       explanation: drill.exampleExplanation
     },
     {
@@ -2098,16 +2214,22 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
 }
 
 const cjkAnswerAliases: Record<string, string[]> = {
-  "3 x 4": ["3*4", "3乘4"],
+  "3 × 4": ["3 x 4", "3*4", "3乘4"],
+  "4 × 6": ["4 x 6", "4*6", "4乘6"],
   "a classroom door": ["一扇課室門", "課室門"],
+  "acute angle": ["銳角", "锐角"],
   "at the mean": ["平均數", "在平均數", "等於平均數"],
   centimetres: ["厘米"],
   circle: ["圓形"],
   downward: ["向下", "開口向下"],
   ii: ["第二象限"],
+  "local maximum": ["局部最大值", "極大值", "极大值"],
+  "local minimum": ["局部最小值", "極小值", "极小值"],
   mean: ["平均數"],
   "known facts and target": ["已知資料和目標", "已知和目標"],
   obtuse: ["鈍角"],
+  "obtuse angle": ["鈍角", "钝角"],
+  "right angle": ["直角"],
   "shared quantities": ["共同量", "共同數量", "共同的量"],
   triangle: ["三角形"],
   "underline known facts and the question": ["畫出已知資料和問題", "畫出已知資料和題目所問"]
@@ -2120,10 +2242,37 @@ function addAlias(aliases: Set<string>, answer: string, alias: string) {
 }
 
 function terminatingDecimalAlias(numerator: number, denominator: number) {
-  if (denominator === 0) return null;
-  const value = numerator / denominator;
-  const rounded = Number(value.toFixed(4));
-  return Number.isFinite(rounded) ? String(rounded) : null;
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator === 0) return null;
+
+  function greatestCommonDivisor(left: number, right: number) {
+    let a = Math.abs(left);
+    let b = Math.abs(right);
+    while (b) {
+      const remainder = a % b;
+      a = b;
+      b = remainder;
+    }
+    return a || 1;
+  }
+
+  const divisor = greatestCommonDivisor(numerator, denominator);
+  let reducedDenominator = Math.abs(denominator / divisor);
+  let powersOfTwo = 0;
+  let powersOfFive = 0;
+  while (reducedDenominator % 2 === 0) {
+    reducedDenominator /= 2;
+    powersOfTwo += 1;
+  }
+  while (reducedDenominator % 5 === 0) {
+    reducedDenominator /= 5;
+    powersOfFive += 1;
+  }
+  if (reducedDenominator !== 1) return null;
+
+  const decimalPlaces = Math.max(powersOfTwo, powersOfFive);
+  if (decimalPlaces > 12) return null;
+  const fixed = (numerator / denominator).toFixed(decimalPlaces);
+  return fixed.replace(/(?:\.0+|(\.\d*?[1-9])0+)$/u, "$1");
 }
 
 function generatedAnswerAliases(answer: string) {
@@ -2187,7 +2336,6 @@ function generatedAnswerAliases(answer: string) {
     addAlias(aliases, trimmed, percent[1]);
     addAlias(aliases, trimmed, `${percent[1]} %`);
     addAlias(aliases, trimmed, `${percent[1]} percent`);
-    addAlias(aliases, trimmed, `${percent[1]}百分比`);
   }
 
   const currency = trimmed.match(/^HK\$\s*(-?\d+(?:\.\d+)?)$/i);
@@ -2235,8 +2383,23 @@ function generatedAnswerAliases(answer: string) {
   const exponent = trimmed.match(/^(-?\d*)?([a-z])\^(\d+)$/i);
   if (exponent) {
     const coefficient = exponent[1] ?? "";
-    addAlias(aliases, trimmed, `${coefficient}${exponent[2]}${exponent[3]}`);
-    if (coefficient) addAlias(aliases, trimmed, `${coefficient}*${exponent[2]}^${exponent[3]}`);
+    const superscriptDigits: Record<string, string> = {
+      "0": "⁰",
+      "1": "¹",
+      "2": "²",
+      "3": "³",
+      "4": "⁴",
+      "5": "⁵",
+      "6": "⁶",
+      "7": "⁷",
+      "8": "⁸",
+      "9": "⁹"
+    };
+    const superscriptExponent = Array.from(exponent[3], (digit) => superscriptDigits[digit] ?? digit).join("");
+    addAlias(aliases, trimmed, `${coefficient}${exponent[2]}${superscriptExponent}`);
+    if (coefficient && coefficient !== "-") {
+      addAlias(aliases, trimmed, `${coefficient}*${exponent[2]}^${exponent[3]}`);
+    }
   }
 
   if (/^cm\^2$/i.test(trimmed)) {
@@ -2274,7 +2437,14 @@ function answerAliasesFor(answer: string, acceptedAnswers: string[] = []) {
 
 function withGeneratedAnswerAliases(question: Question): Question {
   if (question.type === "multiple-choice") return question;
-  const acceptedAnswers = answerAliasesFor(question.answer, question.acceptedAnswers);
+  const promptText = [question.prompt.en, question.prompt.zh, question.prompt.zhHans ?? ""].join(" ");
+  const answerRequiresFractionForm = /^[-+]?(?:\d+\s*(?:又|\s)\s*)?\d+\s*\/\s*\d+$/u.test(
+    question.answer.trim()
+  );
+  const denominatorConstrained = answerRequiresFractionForm && /\bdenominator\b|分母/iu.test(promptText);
+  const acceptedAnswers = answerAliasesFor(question.answer, question.acceptedAnswers).filter((alias) =>
+    !denominatorConstrained || alias.includes("/")
+  );
   return acceptedAnswers.length ? { ...question, acceptedAnswers } : question;
 }
 
@@ -2307,5 +2477,7 @@ const curatedQuestions: Question[] = [
 ];
 
 export const questions: Question[] = curatedQuestions
+  .map(withChinaQuestionEnglishTranslations)
+  .map(withChinaQuestionTraditionalTranslations)
   .map(withResolvedMainlandPepQuestionAssets)
   .map(withGeneratedAnswerAliases);

@@ -859,7 +859,7 @@ function decimalsAverageBlueprint() {
     clinicZh: ["小数末尾添 0 大小不变。", "平均数表示把总量平均分后的每份数。"],
     clinicEn: ["Adding zeros at the end of a decimal does not change its value.", "Average is the equal share of a total."],
     examples: [
-      { titleZh: "例 1：小数加法", titleEn: "Example 1: Decimal addition", promptZh: "3.6 + 2.75 = ?", promptEn: "3.6 + 2.75 = ?", solutionZh: "把 3.6 写成 3.60，小数点对齐：3.60 + 2.75 = 6.35。", solutionEn: "Write 3.6 as 3.60 and align decimals: 3.60 + 2.75 = 6.35.", checkZh: "3.6 + 2.7 大约是 6.3，6.35 合理。", checkEn: "3.6 + 2.7 is about 6.3, so 6.35 is reasonable." },
+      { titleZh: "例 1：小数加法", titleEn: "Example 1: Decimal addition", promptZh: "3.6 + 2.75 = ?", promptEn: "3.6 + 2.75 = ?", solutionZh: "把 3.6 写成 3.60，小数点对齐：3.60 + 2.75 = 6.35。", solutionEn: "Write 3.6 as 3.60 and align decimals: 3.60 + 2.75 = 6.35.", checkZh: "2.75在2.7和2.8之间，所以和应在6.3和6.4之间；6.35符合这个范围，结果合理。", checkEn: "Because 2.75 lies between 2.7 and 2.8, the sum lies between 6.3 and 6.4. Since 6.35 is in that range, the result is reasonable." },
       { titleZh: "例 2：平均数", titleEn: "Example 2: Average", promptZh: "三次跳绳成绩是 86、90、88 下，平均每次多少下？", promptEn: "Three rope-skipping scores are 86, 90, and 88. What is the average?", solutionZh: "总数 86 + 90 + 88 = 264，264 ÷ 3 = 88，所以平均是 88 下。", solutionEn: "The total is 86 + 90 + 88 = 264. 264 / 3 = 88, so the average is 88.", checkZh: "88 在 86 和 90 之间，合理。", checkEn: "88 lies between 86 and 90, so it is reasonable." }
     ],
     checkpoints: [
@@ -1138,7 +1138,7 @@ function negativeReviewBlueprint() {
     clinicZh: ["数轴上越往右数越大。", "总复习题可以先标记：数、形、量、统计或关系。"],
     clinicEn: ["On a number line, numbers increase to the right.", "For review, first mark the problem as number, shape, measure, data, or relationship."],
     examples: [
-      { titleZh: "例 1：比较负数", titleEn: "Example 1: Compare negative numbers", promptZh: "气温 -3℃ 和 2℃，哪个温度高？高多少摄氏度？", promptEn: "Temperatures are -3 degrees Celsius and 2 degrees Celsius. Which is higher, and by how much?", solutionZh: "2℃ 在数轴上比 -3℃ 靠右，所以 2℃ 高。2 - (-3) = 5，高 5℃。", solutionEn: "2 degrees is to the right of -3 degrees on the number line, so it is higher. 2 - (-3) = 5, so it is higher by 5 degrees.", checkZh: "从 -3 到 0 是 3℃，从 0 到 2 是 2℃，共 5℃。", checkEn: "From -3 to 0 is 3 degrees, and from 0 to 2 is 2 degrees, for a total of 5 degrees." },
+      { titleZh: "例 1：比较负数", titleEn: "Example 1: Compare negative numbers", promptZh: "气温 -3℃ 和 2℃，哪个温度高？高多少摄氏度？", promptEn: "Temperatures are -3 degrees Celsius and 2 degrees Celsius. Which is higher, and by how much?", solutionZh: "2℃ 在数轴上比 -3℃ 靠右，所以 2℃ 高。2 - (-3) = 5，高 5℃。", solutionEn: "2 degrees is to the right of -3 degrees on the number line, so it is higher. 2 - (-3) = 5, so it is higher by 5 degrees.", checkZh: "从 -3 到 0 是 3℃，从 0 到 2 是 2℃，共 5℃。", checkEn: "The interval from -3 to 0 spans 3 degrees, and the interval from 0 to 2 spans 2 degrees, totaling 5 degrees." },
       { titleZh: "例 2：综合折扣", titleEn: "Example 2: Review with discount", promptZh: "原价 150 元的书包打八折，现价是多少元？", promptEn: "A schoolbag originally costs 150 yuan and is sold at 80% of the original price. What is the sale price?", solutionZh: "八折表示现价是原价的 80%，150 × 0.8 = 120，所以现价是 120 元。", solutionEn: "80% of the original price means 150 x 0.8 = 120, so the sale price is 120 yuan.", checkZh: "现价比原价少，且少 30 元，合理。", checkEn: "The sale price is lower than the original by 30 yuan, which is reasonable." }
     ],
     checkpoints: [

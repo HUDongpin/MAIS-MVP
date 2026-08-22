@@ -1,6 +1,6 @@
 import questionPackJson from "./generated-content/mainland-hjb-primary-generated-bank-v1-1500/question-pack.json";
 import { mainlandHjbPrimaryRagCards } from "./rag/mainlandHjbPrimary";
-import { translateHjbTextToEnglish } from "./hjbQuestionLocalization";
+import { toTraditionalHjbText, translateHjbTextToEnglish } from "./hjbQuestionLocalization";
 import { mapDifficultyToActive } from "@/lib/difficulty";
 import type { CurriculumProfile, Difficulty, DifficultyRecord, MainlandHjbPrimaryGradeId, MainlandPepSemester, Topic } from "@/types";
 
@@ -178,8 +178,8 @@ export const mainlandHjbPrimaryTopics: Topic[] = Array.from(questionsByTopicId.e
   const evidenceCardId = topEvidenceCardId(topicQuestions);
   const ragCard = evidenceCardId ? ragCardById.get(evidenceCardId) : undefined;
   const difficulty = dominantDifficulty(topicQuestions);
-  const conceptList = metadata.conceptIds.slice(0, 4).join("、");
   const titleEn = formatHjbPrimaryUnitTitleEn(metadata.titleZhHans);
+  const descriptionZhHans = `本单元围绕《${metadata.titleZhHans}》学习核心概念和方法，并通过表示、例题、推理和练习巩固理解。`;
 
   return {
     id: topicId,
@@ -189,11 +189,11 @@ export const mainlandHjbPrimaryTopics: Topic[] = Array.from(questionsByTopicId.e
     publisher: "MAINLAND_HJB",
     canonicalTopicId: topicId,
     grade: metadata.grade,
-    title: { en: `HJB Primary: ${titleEn}`, zh: metadata.titleZhHans, zhHans: metadata.titleZhHans },
+    title: { en: `HJB Primary: ${titleEn}`, zh: toTraditionalHjbText(metadata.titleZhHans), zhHans: metadata.titleZhHans },
     description: {
       en: ragCard?.safeSummary ?? `Shanghai Education Press primary unit for ${titleEn}.`,
-      zh: `沪教版${metadata.volume}《${metadata.titleZhHans}》小学单元，围绕${conceptList}开展概念、例题与练习。`,
-      zhHans: `沪教版${metadata.volume}《${metadata.titleZhHans}》小学单元，围绕${conceptList}开展概念、例题与练习。`
+      zh: toTraditionalHjbText(descriptionZhHans),
+      zhHans: descriptionZhHans
     },
     status: "not-started",
     difficulty,

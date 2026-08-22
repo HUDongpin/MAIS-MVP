@@ -10,6 +10,7 @@ import { MathText, toPlainMathText } from "@/components/math/MathText";
 import { NovaCompanion } from "@/components/practice/NovaCompanion";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
+import { readAttemptFeedback } from "@/components/practice/readAttemptFeedback";
 import { shouldHideMainlandPepPrimaryPracticeIllustration } from "@/components/practice/mainlandPepPrimaryIllustrationGate";
 import { formatPracticeOptionDisplayText } from "@/components/practice/practiceOptionDisplayText";
 import { cleanPracticeQuestionPromptText } from "@/components/practice/practicePromptText";
@@ -207,29 +208,6 @@ async function uploadAnswerWorkPhoto(dataUrl: string) {
 
 function revokePhotoAttachments(attachments: PhotoAttachment[]) {
   attachments.forEach((attachment) => URL.revokeObjectURL(attachment.url));
-}
-
-function readAttemptFeedback(value: unknown): AttemptFeedback | null {
-  const feedback = value as Partial<AttemptFeedback> | null;
-  const explanation = feedback?.explanation as Partial<AttemptFeedback["explanation"]> | undefined;
-
-  if (
-    typeof feedback?.correct !== "boolean" ||
-    typeof explanation?.en !== "string" ||
-    typeof explanation?.zh !== "string" ||
-    (typeof feedback.correctAnswer !== "undefined" && typeof feedback.correctAnswer !== "string")
-  ) {
-    return null;
-  }
-
-  return {
-    correct: feedback.correct,
-    explanation: {
-      en: explanation.en,
-      zh: explanation.zh
-    },
-    correctAnswer: feedback.correctAnswer
-  };
 }
 
 const answerLabels: Record<Exclude<QuestionType, "multiple-choice">, { en: string; zh: string }> = {
@@ -579,6 +557,13 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     });
   }
 
+  const correctAnswerText = feedback?.correctAnswer
+    ? normalizePracticeQuestionCardSimplifiedText(
+        practiceTextForLanguage(feedback.correctAnswer, language, question.publisher),
+        language
+      )
+    : null;
+
   return (
     <article className="glass-panel p-5" data-question-id={question.id}>
       <div className={cn(shouldShowReadAloud && "flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between")}>
@@ -921,10 +906,10 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
 	              {feedback.correct ? t(dictionary.practice.correct) : (
 	                <>
 	                  {t(dictionary.practice.notYet)}{" "}
-                  {feedback.correctAnswer ? (
+                  {correctAnswerText ? (
                     <MathText
-                      text={formatUnitExponentsForMathText(feedback.correctAnswer)}
-                      renderBareMath={shouldRenderOptionAsBareMath(feedback.correctAnswer)}
+                      text={formatUnitExponentsForMathText(correctAnswerText)}
+                      renderBareMath={shouldRenderOptionAsBareMath(correctAnswerText)}
                     />
                   ) : null}
 	                </>

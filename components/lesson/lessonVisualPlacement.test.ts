@@ -76,3 +76,72 @@ test("text-heavy raster lesson illustrations can bypass lossy image optimization
     "The Add & Subtract Stories concept image should use the remade HD source"
   );
 });
+
+test("China lesson pages never render an inferred generic worked-example diagram", () => {
+  assert.match(
+    lessonViewSource,
+    /function shouldRenderGeneratedWorkedExampleIllustration\(lesson: LessonDetail\)/,
+    "LessonView should make the generated worked-example fallback policy explicit"
+  );
+  for (const publisher of ["MAINLAND_PEP", "MAINLAND_BNU", "MAINLAND_HJB"]) {
+    assert.match(
+      lessonViewSource,
+      new RegExp(`lesson\\.publisher === "${publisher}"`),
+      `${publisher} lessons should be excluded from inferred diagrams`
+    );
+  }
+  for (const publisher of [
+    "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+    "HK_UNITED_PRIME_MIA",
+    "HK_EPH_MIF"
+  ]) {
+    assert.match(
+      lessonViewSource,
+      new RegExp(`lesson\\.publisher === "${publisher}"`),
+      `${publisher} lessons should require reviewed illustration assets`
+    );
+  }
+  assert.match(
+    lessonViewSource,
+    /illustrations\.length === 0 && shouldRenderGeneratedWorkedExampleIllustration\(lesson\)/,
+    "The fallback component should only mount after the China-specific safety gate"
+  );
+});
+
+test("authored extension blocks are included in navigation and rendered after practice", () => {
+  const extensionSelectionIndex = lessonViewSource.indexOf(
+    'const extensionBlocks = useMemo(() => blocksByType(lesson, "extension"), [lesson]);'
+  );
+  const practiceSectionIndex = lessonViewSource.indexOf('<section ref={lessonPracticeSectionRef} id={lessonPracticeSectionId}');
+  const extensionRenderIndex = lessonViewSource.indexOf('{extensionBlocks.length ? (');
+
+  assert.notEqual(extensionSelectionIndex, -1, "LessonView should select authored extension blocks");
+  assert.match(
+    lessonViewSource,
+    /extensionBlocks\.forEach\(\(block\) => \{[\s\S]*kind: "extension"/,
+    "Extension blocks should be reachable from the lesson directory"
+  );
+  assert.notEqual(practiceSectionIndex, -1, "Lesson practice should remain rendered");
+  assert.notEqual(extensionRenderIndex, -1, "Extension blocks should render on the lesson page");
+  assert.ok(practiceSectionIndex < extensionRenderIndex, "Extension and reflection should follow the lesson practice section");
+});
+
+test("mathematically invalid PEP junior diagrams stay hidden pending reviewed replacements", () => {
+  for (const illustrationId of [
+    "pep-junior-s1-upper-expressions-linear-equations-worked-example",
+    "pep-junior-s3-upper-quadratics-circle-probability-worked-example",
+    "pep-junior-s3-lower-inverse-similarity-trigonometry-concept",
+    "pep-junior-s3-lower-inverse-similarity-trigonometry-worked-example"
+  ]) {
+    assert.match(
+      lessonViewSource,
+      new RegExp(`"${illustrationId}"`),
+      `${illustrationId} should remain in the reviewed illustration quarantine`
+    );
+  }
+  assert.match(
+    lessonViewSource,
+    /!hiddenLessonIllustrationIds\.has\(illustration\.id\)/,
+    "The lesson illustration selector should enforce the quarantine"
+  );
+});

@@ -13,7 +13,7 @@ import { uniqueSuffix } from "./helpers";
 
 type AttemptFeedback = {
   correct: boolean;
-  correctAnswer?: string;
+  correctAnswer?: LocalizedText;
   explanation?: unknown;
 };
 
@@ -637,7 +637,7 @@ test.describe("Production question-bank solvability audit", () => {
           if (!productionAttempt.ok || !productionAttempt.correct) {
             setRowStatus(row, "grader-gap");
             const correctAnswer = (productionAttempt.body as AttemptFeedback).correctAnswer;
-            row.notes.push(`Production grader rejected the independent answer${correctAnswer ? `; returned correct answer "${correctAnswer}"` : ""}.`);
+            row.notes.push(`Production grader rejected the independent answer${correctAnswer ? `; returned correct answer "${correctAnswer.en}"` : ""}.`);
           }
         }
 

@@ -8,11 +8,11 @@ import {
   solidFigureCuboidVolume,
   solidFigureUnitText
 } from "../../lib/questionFigure";
-import type { Question } from "../../types";
+import type { LocalizedText, Question } from "../../types";
 
 type AttemptFeedback = {
   correct: boolean;
-  correctAnswer?: string;
+  correctAnswer?: LocalizedText;
   explanation?: unknown;
 };
 
@@ -81,7 +81,7 @@ q5	x = 2
 q6	3/5
 q7	7
 q8	3
-q9	1/2
+q9	3/5
 q10	2x
 q11	Local maximum
 q12	2
@@ -94,7 +94,7 @@ q18	x^2 + 5x + 6
 q19	50°
 q20	x^2
 q21	6
-q22	5
+q22	Exponential
 q23	30°
 q24	1.5
 q25	List given facts and the target
@@ -330,8 +330,8 @@ supp-data-handling-key-fact	mean
 supp-data-handling-guided-example	15
 supp-data-handling-common-check	Check whether the graph scale is misleading
 supp-advanced-functions-first-step	Compare model type: polynomial, exponential, or logarithmic
-supp-advanced-functions-key-fact	8
-supp-advanced-functions-guided-example	-8
+supp-advanced-functions-key-fact	7
+supp-advanced-functions-guided-example	2^x
 supp-advanced-functions-common-check	Check whether growth is additive or multiplicative
 supp-trigonometry-s5-first-step	Identify amplitude, period, phase, or identity before solving
 supp-trigonometry-s5-key-fact	360°
@@ -761,7 +761,8 @@ test.describe("Practice Arena item-bank solvability", () => {
 
     expect(wrongResponse.status).toBe(200);
     expect(wrongBody.correct).toBe(false);
-    expect(wrongBody.correctAnswer).toBe("24 cm^3");
+    expect(wrongBody.correctAnswer).toEqual({ en: "24 cm^3", zh: "24 cm^3" });
+    expect(wrongBody.correctAnswer?.en).not.toMatch(/[\u3400-\u9fff]/u);
   });
 
   test("every current Practice Arena question has an accepted defensible answer", async ({}, testInfo) => {

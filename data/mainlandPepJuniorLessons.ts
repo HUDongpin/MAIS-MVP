@@ -60,6 +60,86 @@ type GeneratedLessonPack = {
 
 const lessonPack = lessonPackJson as GeneratedLessonPack;
 
+const practiceQuestionIdsByTopicId: Record<string, string[]> = {
+  "pep-junior-s1-lower-lines-coordinates": [
+    "pep-junior-v2-s1-k04-mc-001",
+    "pep-junior-v2-s1-k04-mc-002",
+    "pep-junior-v2-s1-k04-mc-003",
+    "pep-junior-v2-s1-k04-mc-004",
+    "pep-junior-v2-s1-k04-fi-001"
+  ],
+  "pep-junior-s1-lower-equations-inequalities-data": [
+    "pep-junior-v2-s1-k05-mc-001",
+    "pep-junior-v2-s1-k05-fi-001",
+    "pep-junior-v2-s1-k05-sa-001",
+    "pep-junior-v2-s1-k05-mc-002",
+    "pep-junior-v2-s1-k05-fi-002"
+  ],
+  "pep-junior-s1-upper-expressions-linear-equations": [
+    "pep-junior-v2-s1-k02-mc-001",
+    "pep-junior-v2-s1-k02-fi-001",
+    "pep-junior-v2-s1-k02-sa-001",
+    "pep-junior-v2-s1-k02-mc-002",
+    "pep-junior-v2-s1-k02-fi-002"
+  ],
+  "pep-junior-s1-upper-geometric-figures": [
+    "pep-junior-v2-s1-k03-mc-001",
+    "pep-junior-v2-s1-k03-fi-001",
+    "pep-junior-v2-s1-k03-sa-001",
+    "pep-junior-v2-s1-k03-mc-002",
+    "pep-junior-v2-s1-k03-fi-002"
+  ],
+  "pep-junior-s1-upper-rational-numbers": [
+    "pep-junior-v2-s1-k01-mc-001",
+    "pep-junior-v2-s1-k01-fi-001",
+    "pep-junior-v2-s1-k01-sa-001",
+    "pep-junior-v2-s1-k01-mc-006",
+    "pep-junior-v2-s1-k01-fi-002"
+  ],
+  "pep-junior-s2-lower-linear-functions-data": [
+    "pep-junior-v2-s2-k09-mc-001",
+    "pep-junior-v2-s2-k09-fi-001",
+    "pep-junior-v2-s2-k09-sa-001",
+    "pep-junior-v2-s2-k09-mc-002",
+    "pep-junior-v2-s2-k09-fi-002"
+  ],
+  "pep-junior-s2-lower-roots-pythagorean-quadrilaterals": [
+    "pep-junior-v2-s2-k08-mc-001",
+    "pep-junior-v2-s2-k08-fi-001",
+    "pep-junior-v2-s2-k08-sa-001",
+    "pep-junior-v2-s2-k08-mc-002",
+    "pep-junior-v2-s2-k08-fi-002"
+  ],
+  "pep-junior-s2-upper-polynomials-fractions": [
+    "pep-junior-v2-s2-k07-mc-001",
+    "pep-junior-v2-s2-k07-fi-001",
+    "pep-junior-v2-s2-k07-sa-001",
+    "pep-junior-v2-s2-k07-fi-002",
+    "pep-junior-v2-s2-k07-fi-003"
+  ],
+  "pep-junior-s2-upper-triangles-congruence": [
+    "pep-junior-v2-s2-k06-mc-001",
+    "pep-junior-v2-s2-k06-fi-001",
+    "pep-junior-v2-s2-k06-sa-001",
+    "pep-junior-v2-s2-k06-mc-002",
+    "pep-junior-v2-s2-k06-fi-002"
+  ],
+  "pep-junior-s3-lower-inverse-similarity-trigonometry": [
+    "pep-junior-v2-s3-k11-mc-001",
+    "pep-junior-v2-s3-k11-fi-001",
+    "pep-junior-v2-s3-k11-sa-001",
+    "pep-junior-v2-s3-k11-mc-002",
+    "pep-junior-v2-s3-k11-fi-002"
+  ],
+  "pep-junior-s3-upper-quadratics-circle-probability": [
+    "pep-junior-v2-s3-k10-mc-001",
+    "pep-junior-v2-s3-k10-fi-001",
+    "pep-junior-v2-s3-k10-sa-002",
+    "pep-junior-v2-s3-k10-mc-002",
+    "pep-junior-v2-s3-k10-fi-002"
+  ]
+};
+
 function approvedForProduction(lesson: GeneratedLesson) {
   return (
     lesson.reviewStatus === "approved" &&
@@ -95,8 +175,13 @@ function workedExampleContent(lesson: GeneratedLesson) {
   };
 }
 
-function glossaryText(entries: GeneratedGlossaryEntry[]) {
-  return entries.map((entry) => `${entry.term}: ${entry.definition}`).join("；");
+function glossaryText(entries: GeneratedGlossaryEntry[], language: "en" | "zhHans") {
+  const colon = language === "en" ? ": " : "：";
+  const separator = language === "en" ? "; " : "；";
+  const terminal = language === "en" ? "." : "。";
+  return `${entries
+    .map((entry) => `${entry.term.trim()}${colon}${entry.definition.trim().replace(/[。.!;；]+$/u, "")}`)
+    .join(separator)}${terminal}`;
 }
 
 function checklistItems(lesson: GeneratedLesson): LocalizedText[] {
@@ -115,7 +200,7 @@ function extensionItems(lesson: GeneratedLesson): LocalizedText[] {
   const zh = lesson.studentLesson.zhHans;
   const en = lesson.studentLesson.en;
   return [
-    localized(`Misconception clinic: ${en.misconceptionClinic[0]}`, `诊断：${zh.misconceptionClinic[0]}`),
+    localized(`Problem-solving strategy: ${en.examStyleStrategy}`, `解题策略：${zh.examStyleStrategy}`),
     localized(en.extension, zh.extension),
     localized(en.exitTicket, zh.exitTicket)
   ];
@@ -131,8 +216,8 @@ function productionBlocks(lesson: GeneratedLesson): ProductionLessonBlock[] {
       type: "concept",
       title: localized("Core concept", "核心概念"),
       content: localized(
-        `${en.hook} ${en.prerequisiteWarmUp} ${en.conceptExplanation} Glossary: ${glossaryText(en.glossary)}`,
-        `${zh.hook} ${zh.prerequisiteWarmUp} ${zh.conceptExplanation} 关键词：${glossaryText(zh.glossary)}`
+        `${en.hook} ${en.prerequisiteWarmUp} ${en.conceptExplanation} Glossary: ${glossaryText(en.glossary, "en")}`,
+        `${zh.hook} ${zh.prerequisiteWarmUp} ${zh.conceptExplanation} 关键词：${glossaryText(zh.glossary, "zhHans")}`
       )
     },
     {
@@ -159,6 +244,7 @@ function productionBlocks(lesson: GeneratedLesson): ProductionLessonBlock[] {
 function toProductionLessonSeed(lesson: GeneratedLesson): ProductionLessonSeed {
   const zh = lesson.studentLesson.zhHans;
   const en = lesson.studentLesson.en;
+  const practiceQuestionIds = practiceQuestionIdsByTopicId[lesson.metadata.topicId];
 
   return {
     topicId: lesson.metadata.topicId,
@@ -166,6 +252,7 @@ function toProductionLessonSeed(lesson: GeneratedLesson): ProductionLessonSeed {
     title: localized(en.title, zh.title),
     description: localized(en.hook, zh.hook),
     estimatedMinutes: lesson.metadata.estimatedMinutes,
+    ...(practiceQuestionIds ? { practiceQuestionIds } : {}),
     blocks: productionBlocks(lesson)
   };
 }

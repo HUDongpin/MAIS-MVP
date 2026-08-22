@@ -16,6 +16,8 @@ import {
   mainlandBnuHighQuestions
 } from "../data/mainlandBnuHighQuestions";
 import { mainlandBnuHighLessonSeeds } from "../data/mainlandBnuHighLessons";
+import { mainlandPepHighLessonSeeds } from "../data/mainlandPepHighLessons";
+import mainlandPepHighLessonPack from "../data/generated-content/mainland-pep-high-lessons-v1/lessons.json";
 import {
   mainlandHjbHighQuestionGenerationMetadata,
   mainlandHjbHighQuestions,
@@ -43,6 +45,7 @@ import { mainlandPepHighRagCards } from "../data/rag/mainlandPepHigh";
 import { mainlandPepHighExamPatternCards } from "../data/rag/mainlandPepHighExamPatterns";
 import { GET as getAdaptiveNextRoute } from "../app/api/adaptive-learning/next/route";
 import { GET as getQuestionsRoute } from "../app/api/questions/route";
+import { dedupePracticeQuestions } from "./practiceQuestionDeduping";
 import { questionAnswerMatches } from "./server/answerGrading";
 import {
   buildMainlandHighQuestionQualityComparison,
@@ -80,6 +83,209 @@ const mainlandPepProfile: CurriculumProfile = { region: "MAINLAND", publisher: "
 const mainlandBnuProfile: CurriculumProfile = { region: "MAINLAND", publisher: "MAINLAND_BNU" };
 const mainlandHjbProfile: CurriculumProfile = { region: "MAINLAND", publisher: "MAINLAND_HJB" };
 const cjkPattern = /[\u3400-\u9fff]/;
+
+const reviewedPepHighPracticeSelections = {
+  "pep-high-s4-sets-logic": {
+    families: ["sufficient-condition", "set-intersection", "set-union", "set-complement", "set-intersection"],
+    rows: [
+      ["pep-high-s4-mc-041", "p is sufficient but not necessary for q."],
+      ["pep-high-s4-mc-001", "1"],
+      ["pep-high-s4-fi-001", "9"],
+      ["pep-high-s4-sa-001", "10"],
+      ["pep-high-s4-mc-011", "7"]
+    ]
+  },
+  "pep-high-s4-quadratic-inequalities": {
+    families: ["solve-quadratic-inequality", "discriminant-parameter", "axis-of-symmetry", "function-value", "minimum-value"],
+    rows: [
+      ["pep-high-s4-mc-042", "2<x<3"],
+      ["pep-high-s4-fi-042", "4"],
+      ["pep-high-s4-mc-002", "-2"],
+      ["pep-high-s4-fi-002", "24"],
+      ["pep-high-s4-sa-002", "-1"]
+    ]
+  },
+  "pep-high-s4-function-properties": {
+    families: ["domain-restriction", "function-value", "function-value", "inverse-evaluation", "inverse-evaluation"],
+    rows: [
+      ["pep-high-s4-mc-043", "x≠3"],
+      ["pep-high-s4-mc-003", "4"],
+      ["pep-high-s4-mc-013", "-5"],
+      ["pep-high-s4-sa-003", "3"],
+      ["pep-high-s4-sa-013", "2"]
+    ]
+  },
+  "pep-high-s4-exp-log": {
+    families: ["log-domain", "log-value", "log-value", "scaled-log-value", "log-value"],
+    rows: [
+      ["pep-high-s4-mc-044", "x>1"],
+      ["pep-high-s4-mc-004", "6"],
+      ["pep-high-s4-fi-014", "3"],
+      ["pep-high-s4-sa-014", "12"],
+      ["pep-high-s4-mc-024", "5"]
+    ]
+  },
+  "pep-high-s4-trigonometry": {
+    families: ["special-angle", "sine-frequency", "amplitude", "amplitude", "amplitude"],
+    rows: [
+      ["pep-high-s4-mc-005", "1"],
+      ["pep-high-s4-fi-005", "3"],
+      ["pep-high-s4-sa-025", "5"],
+      ["pep-high-s4-sa-035", "2"],
+      ["pep-high-s4-sa-045", "4"]
+    ]
+  },
+  "pep-high-s4-plane-vectors": {
+    families: ["perpendicular-parameter", "dot-product", "dot-product", "length-squared", "length-squared"],
+    rows: [
+      ["pep-high-s4-mc-046", "2"],
+      ["pep-high-s4-mc-006", "12"],
+      ["pep-high-s4-fi-016", "36"],
+      ["pep-high-s4-sa-006", "20"],
+      ["pep-high-s4-sa-016", "25"]
+    ]
+  },
+  "pep-high-s4-complex-numbers": {
+    families: ["real-part", "imaginary-coefficient", "modulus-squared", "real-part", "imaginary-coefficient"],
+    rows: [
+      ["pep-high-s4-mc-007", "2"],
+      ["pep-high-s4-fi-017", "7"],
+      ["pep-high-s4-sa-007", "8"],
+      ["pep-high-s4-mc-027", "5"],
+      ["pep-high-s4-fi-027", "1"]
+    ]
+  },
+  "pep-high-s4-solid-geometry-intro": {
+    families: ["line-plane-perpendicularity", "surface-area", "volume", "space-diagonal-squared", "surface-area"],
+    rows: [
+      ["pep-high-s4-mc-048", "l is perpendicular to m."],
+      ["pep-high-s4-mc-008", "126"],
+      ["pep-high-s4-fi-008", "90"],
+      ["pep-high-s4-sa-008", "70"],
+      ["pep-high-s4-mc-018", "120"]
+    ]
+  },
+  "pep-high-s4-probability": {
+    families: ["complement-rule", "single-draw", "single-draw", "ordered-without-replacement", "single-draw"],
+    rows: [
+      ["pep-high-s4-mc-050", "5/8"],
+      ["pep-high-s4-mc-010", "4/7"],
+      ["pep-high-s4-fi-020", "3/8"],
+      ["pep-high-s4-sa-010", "42"],
+      ["pep-high-s4-mc-030", "2/9"]
+    ]
+  },
+  "pep-high-s5-conics": {
+    families: ["ellipse-major-axis", "ellipse-focus-parameter", "parabola-parameter", "ellipse-major-axis", "ellipse-focus-parameter"],
+    rows: [
+      ["pep-high-s5-mc-003", "14"],
+      ["pep-high-s5-fi-003", "45"],
+      ["pep-high-s5-sa-003", "5"],
+      ["pep-high-s5-mc-008", "8"],
+      ["pep-high-s5-fi-008", "7"]
+    ]
+  },
+  "pep-high-s5-space-vectors": {
+    families: ["perpendicular-parameter", "dot-product", "dot-product", "length-squared", "length-squared"],
+    rows: [
+      ["pep-high-s5-mc-041", "1"],
+      ["pep-high-s5-mc-001", "20"],
+      ["pep-high-s5-fi-006", "69"],
+      ["pep-high-s5-sa-001", "17"],
+      ["pep-high-s5-sa-006", "50"]
+    ]
+  },
+  "pep-high-s5-lines-circles": {
+    families: ["line-circle-position", "line-slope", "line-slope", "circle-radius", "circle-radius-squared"],
+    rows: [
+      ["pep-high-s5-mc-042", "The line is tangent to the circle."],
+      ["pep-high-s5-mc-002", "3"],
+      ["pep-high-s5-mc-007", "5"],
+      ["pep-high-s5-fi-002", "4"],
+      ["pep-high-s5-sa-002", "16"]
+    ]
+  },
+  "pep-high-s5-sequences": {
+    families: ["geometric-nth-term", "arithmetic-nth-term", "arithmetic-nth-term", "arithmetic-sum", "arithmetic-sum"],
+    rows: [
+      ["pep-high-s5-mc-044", "48"],
+      ["pep-high-s5-mc-004", "46"],
+      ["pep-high-s5-fi-009", "21"],
+      ["pep-high-s5-sa-004", "234"],
+      ["pep-high-s5-sa-009", "84"]
+    ]
+  },
+  "pep-high-s5-derivatives": {
+    families: ["closed-interval-minimum", "derivative-evaluation", "derivative-evaluation", "stationary-point", "stationary-point"],
+    rows: [
+      ["pep-high-s5-mc-045", "1"],
+      ["pep-high-s5-mc-005", "6"],
+      ["pep-high-s5-fi-010", "27"],
+      ["pep-high-s5-sa-005", "-1"],
+      ["pep-high-s5-sa-010", "-0.5"]
+    ]
+  },
+  "pep-high-s6-random-variables": {
+    families: ["binomial-point-probability", "binomial-expectation", "binomial-expectation", "binomial-variance", "binomial-variance"],
+    rows: [
+      ["pep-high-s6-mc-037", "3/8"],
+      ["pep-high-s6-mc-002", "4"],
+      ["pep-high-s6-fi-009", "3"],
+      ["pep-high-s6-sa-002", "2"],
+      ["pep-high-s6-sa-009", "1.5"]
+    ]
+  },
+  "pep-high-s6-bivariate-data": {
+    families: ["correlation-interpretation", "regression-prediction", "regression-prediction", "regression-prediction", "residual"],
+    rows: [
+      ["pep-high-s6-mc-038", "There is a strong negative linear association."],
+      ["pep-high-s6-mc-003", "20"],
+      ["pep-high-s6-fi-010", "18"],
+      ["pep-high-s6-fi-017", "9"],
+      ["pep-high-s6-sa-003", "5"]
+    ]
+  },
+  "pep-high-s6-derivative-synthesis": {
+    families: ["monotonic-intervals", "derivative-evaluation", "derivative-evaluation", "stationary-point", "stationary-point"],
+    rows: [
+      ["pep-high-s6-mc-039", "(-∞,-1)∪(1,∞)"],
+      ["pep-high-s6-mc-004", "11"],
+      ["pep-high-s6-fi-011", "5"],
+      ["pep-high-s6-sa-004", "-0.1"],
+      ["pep-high-s6-sa-011", "0.375"]
+    ]
+  },
+  "pep-high-s6-analytic-geometry-synthesis": {
+    families: ["line-parabola-intersections", "ellipse-major-axis", "ellipse-focus-parameter", "ellipse-focus-parameter", "parabola-parameter"],
+    rows: [
+      ["pep-high-s6-mc-040", "2"],
+      ["pep-high-s6-mc-005", "8"],
+      ["pep-high-s6-fi-012", "48"],
+      ["pep-high-s6-fi-019", "33"],
+      ["pep-high-s6-sa-005", "7"]
+    ]
+  },
+  "pep-high-s6-probability-statistics-synthesis": {
+    families: ["complement-rule", "single-draw", "single-draw", "ordered-without-replacement", "ordered-without-replacement"],
+    rows: [
+      ["pep-high-s6-mc-041", "13/20"],
+      ["pep-high-s6-mc-006", "1/2"],
+      ["pep-high-s6-mc-013", "4/7"],
+      ["pep-high-s6-sa-006", "56"],
+      ["pep-high-s6-sa-013", "42"]
+    ]
+  },
+  "pep-high-s6-exam-practice": {
+    families: ["arithmetic-sum", "cubic-derivative", "cubic-derivative", "elementary-probability", "elementary-probability"],
+    rows: [
+      ["pep-high-s6-mc-042", "155"],
+      ["pep-high-s6-mc-007", "192"],
+      ["pep-high-s6-fi-014", "108"],
+      ["pep-high-s6-sa-007", "1/3"],
+      ["pep-high-s6-sa-014", "3/8"]
+    ]
+  }
+} as const;
 const hjbGeneratorPrefixPattern = /^(?:(?:V\d+\s*)?(?:修复|安全)?变式|二轮变式)\d{1,4}[：:]\s*(?:解答|填空|选择)?[：:]?/;
 const simplifiedTraditionalPairs: Array<[string, string]> = [
   ["题", "題"],
@@ -97,6 +303,15 @@ const simplifiedTraditionalPairs: Array<[string, string]> = [
 
 const mainlandPepHighAllGeneratedQuestions = mainlandPepHighQuestions;
 const mainlandPepHighAllGenerationMetadata = mainlandPepHighQuestionGenerationMetadata;
+
+function practiceTemplateFingerprint(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/\\[()[\]]/g, "")
+    .replace(/[\s，。,.!?！？：:；;、'"“”‘’()（）\[\]{}]/g, "")
+    .replace(/[-+]?\d+(?:\.\d+)?(?:\/\d+(?:\.\d+)?)?/g, "#")
+    .replace(/[a-z](?=[=<>+\-*/^]|$)/g, "v");
+}
 
 function publicAssetPath(src: string) {
   return path.join(process.cwd(), "public", src.replace(/^\//, ""));
@@ -201,6 +416,193 @@ test("Mainland PEP high question bank has the requested grade and type coverage"
       assert.equal(ragV4GradeQuestions.filter((question) => question.type === type).length, expectedRagV3TypeTotal);
     });
   });
+});
+
+test("Mainland PEP high stationary-point answers keep exact recurring rational values", () => {
+  const exactStationaryAnswers = new Map([
+    ["pep-high-s5-sa-035", "-1/6"],
+    ["pep-high-s6-sa-053", "-1/6"],
+    ["pep-high-s6-rag2-sa-051", "-1/6"],
+    ["pep-high-s5-rag3-sa-146", "-1/6"],
+    ["pep-high-s6-rag3-sa-089", "-1/6"],
+    ["pep-high-s5-rag4-sa-147", "-1/6"],
+    ["pep-high-s6-rag4-sa-086", "-1/6"],
+    ["pep-high-s5-sa-060", "1/6"],
+    ["pep-high-s5-rag2-sa-085", "1/6"],
+    ["pep-high-s5-rag3-sa-156", "1/6"],
+    ["pep-high-s5-rag4-sa-162", "1/6"],
+    ["pep-high-s6-sa-088", "-1/3"],
+    ["pep-high-s5-rag3-sa-141", "-1/3"],
+    ["pep-high-s6-rag3-sa-084", "-1/3"],
+    ["pep-high-s5-rag4-sa-157", "-1/3"],
+    ["pep-high-s6-rag2-sa-056", "1/3"],
+    ["pep-high-s5-rag3-sa-161", "1/3"],
+    ["pep-high-s5-rag4-sa-152", "1/3"],
+    ["pep-high-s6-rag4-sa-091", "1/3"]
+  ] as const);
+  const questionById = new Map(mainlandPepHighQuestions.map((question) => [question.id, question]));
+
+  assert.equal(exactStationaryAnswers.size, 19);
+  exactStationaryAnswers.forEach((expectedAnswer, questionId) => {
+    const question = questionById.get(questionId);
+    assert.ok(question, `${questionId} should exist`);
+    assert.equal(question.answer, expectedAnswer, `${questionId} should store the exact stationary point`);
+    assert.match(question.explanation.en, new RegExp(`x=${expectedAnswer.replace("/", "\\/")}`));
+    assert.match(question.explanation.zhHans ?? question.explanation.zh, new RegExp(`x=${expectedAnswer.replace("/", "\\/")}`));
+
+    const gradingQuestion = {
+      answer: question.answer,
+      accepted_answers: question.acceptedAnswers ?? null,
+      options: question.options ?? null
+    };
+    const truncatedDecimal = expectedAnswer.endsWith("/6")
+      ? expectedAnswer.startsWith("-") ? "-0.167" : "0.167"
+      : expectedAnswer.startsWith("-") ? "-0.333" : "0.333";
+    assert.equal(questionAnswerMatches(gradingQuestion, expectedAnswer), true);
+    assert.equal(questionAnswerMatches(gradingQuestion, `x=${expectedAnswer}`), true);
+    assert.equal(questionAnswerMatches(gradingQuestion, truncatedDecimal), false, `${questionId} must reject the old rounded key`);
+  });
+});
+
+test("Mainland PEP high quadratic short answers accept natural minimum-value statements in all four batches", () => {
+  const questions = mainlandPepHighQuestions.filter(
+    (question) => question.type === "short-answer" && question.topicId === "pep-high-s4-quadratic-inequalities"
+  );
+  const batchFor = (questionId: string) =>
+    questionId.includes("-rag2-") ? "rag-v2"
+      : questionId.includes("-rag3-") ? "rag-v3"
+        : questionId.includes("-rag4-") ? "rag-v4"
+          : "seed-v1";
+
+  assert.equal(questions.length, 52);
+  assert.deepEqual(
+    Object.fromEntries(
+      ["seed-v1", "rag-v2", "rag-v3", "rag-v4"].map((batch) => [
+        batch,
+        questions.filter((question) => batchFor(question.id) === batch).length
+      ])
+    ),
+    { "seed-v1": 10, "rag-v2": 10, "rag-v3": 16, "rag-v4": 16 }
+  );
+
+  questions.forEach((question) => {
+    const gradingQuestion = {
+      answer: question.answer,
+      accepted_answers: question.acceptedAnswers ?? null,
+      options: question.options ?? null
+    };
+    const naturalAliases = [
+      `minimum value is ${question.answer}`,
+      `the minimum value is ${question.answer}`,
+      `最小值为${question.answer}`,
+      `最小值是${question.answer}`
+    ];
+    naturalAliases.forEach((alias) => {
+      assert.ok(question.acceptedAnswers?.includes(alias), `${question.id} should store ${alias}`);
+      assert.equal(questionAnswerMatches(gradingQuestion, alias), true, `${question.id} should grade ${alias}`);
+    });
+    const wrongValue = String(Number(question.answer) + 1);
+    assert.equal(questionAnswerMatches(gradingQuestion, `最小值为${wrongValue}`), false);
+  });
+});
+
+test("Mainland PEP high probability short answers accept labeled reduction chains and reject inconsistent chains", () => {
+  const questions = mainlandPepHighQuestions.filter(
+    (question) => question.type === "short-answer" && question.topicId === "pep-high-s6-exam-practice"
+  );
+  const batchFor = (questionId: string) =>
+    questionId.includes("-rag2-") ? "rag-v2"
+      : questionId.includes("-rag3-") ? "rag-v3"
+        : questionId.includes("-rag4-") ? "rag-v4"
+          : "seed-v1";
+
+  assert.equal(questions.length, 76);
+  assert.deepEqual(
+    Object.fromEntries(
+      ["seed-v1", "rag-v2", "rag-v3", "rag-v4"].map((batch) => [
+        batch,
+        questions.filter((question) => batchFor(question.id) === batch).length
+      ])
+    ),
+    { "seed-v1": 14, "rag-v2": 14, "rag-v3": 24, "rag-v4": 24 }
+  );
+
+  questions.forEach((question) => {
+    const outcomeMatch = question.prompt.en.match(
+      /has\s+(\d+)\s+(?:favorable\s+)?outcomes\s+(?:among|from)\s+(\d+)\s+equally likely outcomes/i
+    );
+    assert.ok(outcomeMatch, `${question.id} should state favorable and total outcome counts`);
+    const favorableOutcomes = Number(outcomeMatch[1]);
+    const totalOutcomes = Number(outcomeMatch[2]);
+    const rawProbability = `${favorableOutcomes}/${totalOutcomes}`;
+    const gradingQuestion = {
+      answer: question.answer,
+      accepted_answers: question.acceptedAnswers ?? null,
+      options: question.options ?? null
+    };
+    const requiredAliases = [
+      `P=${question.answer}`,
+      `probability is ${question.answer}`,
+      `概率为${question.answer}`,
+      `P=${rawProbability}`,
+      `概率为${rawProbability}`
+    ];
+    if (rawProbability !== question.answer) {
+      requiredAliases.push(
+        `${rawProbability}=${question.answer}`,
+        `P=${rawProbability}=${question.answer}`,
+        `probability is ${rawProbability}=${question.answer}`,
+        `概率为${rawProbability}=${question.answer}`
+      );
+    }
+
+    requiredAliases.forEach((alias) => {
+      assert.ok(question.acceptedAnswers?.includes(alias), `${question.id} should store ${alias}`);
+      assert.equal(questionAnswerMatches(gradingQuestion, alias), true, `${question.id} should grade ${alias}`);
+    });
+    assert.equal(
+      questionAnswerMatches(gradingQuestion, `P=${favorableOutcomes + 1}/${totalOutcomes}=${question.answer}`),
+      false,
+      `${question.id} should reject a chain whose raw probability is wrong`
+    );
+    assert.equal(
+      questionAnswerMatches(gradingQuestion, `P=${rawProbability}=1/997`),
+      false,
+      `${question.id} should reject a chain whose reduced result is wrong`
+    );
+  });
+});
+
+test("Mainland PEP rag-v4 short answers request only the deterministically graded final result", () => {
+  const questions = mainlandPepHighRagV4Questions.filter((question) => question.type === "short-answer");
+  const outputDemandReasoningEn = /brief justification|one clear line of reasoning|a short calculation is enough|explain which part|state the requested quantity|use the standard formula only|keep equivalent forms|check the answer against|choose the simpler route/i;
+  const outputDemandReasoningZh = /简要理由|一条清晰思路|简短计算|说明式子中|回答所求量|确认条件匹配后再使用|等价形式与题目要求|代回原符号|选择更简洁/u;
+
+  assert.equal(questions.length, 495);
+  questions.forEach((question) => {
+    assert.match(question.prompt.en, /Write only the requested final result\./);
+    assert.match(question.prompt.zhHans ?? question.prompt.zh, /只写题目要求的最终结果。/);
+    assert.doesNotMatch(question.prompt.en, outputDemandReasoningEn, `${question.id} must not demand ungraded reasoning`);
+    assert.doesNotMatch(
+      question.prompt.zhHans ?? question.prompt.zh,
+      outputDemandReasoningZh,
+      `${question.id} must not demand ungraded reasoning`
+    );
+    assert.ok(question.explanation.en.trim(), `${question.id} should keep its educational English explanation`);
+    assert.ok((question.explanation.zhHans ?? question.explanation.zh).trim(), `${question.id} should keep its educational Chinese explanation`);
+  });
+});
+
+test("Mainland PEP rag-v4 MC and fill-in prompts do not require an ungraded explanation component", () => {
+  const unsupported = mainlandPepHighRagV4Questions.filter((question) =>
+    question.type !== "short-answer"
+    && (
+      /Explain which part of the expression determines the answer\./iu.test(question.prompt.en)
+      || /说明式子中哪一部分决定答案。/u.test(question.prompt.zhHans ?? question.prompt.zh)
+    )
+  );
+
+  assert.deepEqual(unsupported.map((question) => question.id), []);
 });
 
 test("Mainland HJB high V2 bank is integrated as the 1500-question publisher-scoped default", () => {
@@ -352,7 +754,31 @@ test("Mainland HJB primary V1 bank is integrated as a 1500-question publisher-sc
   );
   assert.deepEqual(
     Object.fromEntries(generatedTypes.map((type) => [type, mainlandHjbPrimaryQuestions.filter((question) => question.type === type).length])),
-    { "multiple-choice": 600, "fill-in": 540, "short-answer": 360 }
+    { "multiple-choice": 600, "fill-in": 533, "short-answer": 367 }
+  );
+  assert.deepEqual(
+    mainlandHjbPrimaryQuestions
+      .filter((question) => question.type === "short-answer" && [
+        "hjb-primary-ds-v1-p1-161",
+        "hjb-primary-ds-v1-p1-196",
+        "hjb-primary-ds-v1-p1-216",
+        "hjb-primary-ds-v1-p2-116",
+        "hjb-primary-ds-v1-p2-119",
+        "hjb-primary-ds-v1-p3-234",
+        "hjb-primary-ds-v1-p3-236"
+      ].includes(question.id))
+      .map((question) => question.id)
+      .sort(),
+    [
+      "hjb-primary-ds-v1-p1-161",
+      "hjb-primary-ds-v1-p1-196",
+      "hjb-primary-ds-v1-p1-216",
+      "hjb-primary-ds-v1-p2-116",
+      "hjb-primary-ds-v1-p2-119",
+      "hjb-primary-ds-v1-p3-234",
+      "hjb-primary-ds-v1-p3-236"
+    ],
+    "the seven explanation/process prompts must remain textarea-compatible short answers"
   );
 
   const topicIds = new Set(mainlandHjbPrimaryTopics.map((topic) => topic.id));
@@ -374,7 +800,10 @@ test("Mainland HJB primary V1 bank is integrated as a 1500-question publisher-sc
 
   const exportedHjbPrimaryQuestions = questions.filter((question) => question.publisher === "MAINLAND_HJB" && /^hjb-primary-ds-v1-/.test(question.id));
   assert.equal(exportedHjbPrimaryQuestions.length, 1500);
-  assert.equal(new Set(exportedHjbPrimaryQuestions.map((question) => question.prompt.zhHans ?? question.prompt.zh)).size, 1500);
+  assert.equal(new Set(exportedHjbPrimaryQuestions.map((question) => JSON.stringify({
+    prompt: question.prompt.zhHans ?? question.prompt.zh,
+    options: (question.options ?? []).map((option) => option.zhHans ?? option.zh)
+  }))).size, 1500, "learner-facing prompt-plus-option payloads must remain unique");
 });
 
 test("Mainland HJB junior V2 bank is integrated as a 1500-question publisher-scoped pool", () => {
@@ -604,6 +1033,183 @@ test("Mainland PEP high English-visible question text does not leak Chinese char
     englishVisibleTextFields(question).forEach(([field, value]) => {
       assert.doesNotMatch(value, cjkPattern, `${question.id} ${field} should be English-mode safe`);
     });
+  });
+});
+
+test("Mainland PEP high probability synthesis displays the full binomial probability term", () => {
+  const lesson = mainlandPepHighLessonSeeds.find(
+    (candidate) => candidate.topicId === "pep-high-s6-probability-statistics-synthesis"
+  );
+  const workedExample = lesson?.blocks.find((block) => block.type === "worked-example")?.content;
+  const lessonSource = mainlandPepHighLessonPack.lessons.find(
+    (candidate) => candidate.metadata.topicId === "pep-high-s6-probability-statistics-synthesis"
+  );
+  const alignedWorkedExample = lessonSource?.studentLesson.bilingualAlignment.find(
+    (alignment) => alignment.section === "worked-example-1"
+  );
+
+  assert.ok(workedExample, "probability synthesis should expose its worked example");
+  assert.match(workedExample.en, /C_3\^2\(0\.6\)\^2\(0\.4\)\^1=0\.432/u);
+  assert.match(workedExample.zh, /C_3\^2\(0\.6\)\^2\(0\.4\)\^1=0\.432/u);
+  assert.ok(alignedWorkedExample, "probability synthesis should retain its bilingual worked-example alignment");
+  assert.match(alignedWorkedExample.en, /C_3\^2\(0\.6\)\^2\(0\.4\)\^1=0\.432/u);
+  assert.match(alignedWorkedExample.zhHans, /C_3\^2\(0\.6\)\^2\(0\.4\)\^1=0\.432/u);
+});
+
+test("Mainland PEP high reviewed variety slices pin five independently checked answers across three task families", () => {
+  const questionById = new Map(mainlandPepHighQuestions.map((question) => [question.id, question]));
+
+  Object.entries(reviewedPepHighPracticeSelections).forEach(([topicId, selection]) => {
+    const lessonSeed = mainlandPepHighLessonSeeds.find((seed) => seed.topicId === topicId);
+    const expectedIds = selection.rows.map(([questionId]) => questionId);
+
+    assert.ok(lessonSeed, `${topicId} should have a production lesson seed`);
+    assert.deepEqual(lessonSeed.practiceQuestionIds, expectedIds, `${topicId} should preserve the reviewed runtime selection`);
+    assert.equal(expectedIds.length, 5, `${topicId} should select exactly five practice questions`);
+    assert.equal(new Set(expectedIds).size, 5, `${topicId} should select five unique IDs`);
+    assert.equal(selection.families.length, 5, `${topicId} should have one reviewed family fingerprint per selected item`);
+    assert.ok(new Set(selection.families).size >= 3, `${topicId} should cover at least three manually reviewed mathematical families`);
+
+    const selectedQuestions = selection.rows.map(([questionId, expectedAnswer]) => {
+      const question = questionById.get(questionId);
+      const expectedGrade = topicId.match(/-s([456])-/)?.[1];
+      assert.ok(question, `${questionId} should exist in the public PEP high bank`);
+      assert.equal(question.topicId, topicId, `${questionId} should remain in its reviewed topic`);
+      assert.equal(question.grade, `S${expectedGrade}`, `${questionId} should remain in the lesson grade`);
+      assert.equal(question.curriculumTrack, "MAINLAND_PEP_HIGH", `${questionId} should remain in the PEP high track`);
+      assert.equal(question.answer, expectedAnswer, `${questionId} should retain its independently checked answer`);
+      assert.ok(question.prompt.en.trim() && question.prompt.zh.trim(), `${questionId} should have bilingual prompt text`);
+      assert.ok(question.explanation.en.trim() && question.explanation.zh.trim(), `${questionId} should have bilingual explanation text`);
+      assert.doesNotMatch(question.prompt.en, cjkPattern, `${questionId} should have an English-visible prompt`);
+      assert.doesNotMatch(question.explanation.en, cjkPattern, `${questionId} should have an English-visible explanation`);
+      assert.doesNotMatch(question.prompt.en, /\b(?:original|RAG-v\d|MAIS)\b/iu, `${questionId} prompt should not expose a generation label`);
+      assert.doesNotMatch(question.explanation.en, /\b(?:original|RAG-v\d|MAIS)\b/iu, `${questionId} explanation should not expose a generation label`);
+
+      const gradingQuestion = {
+        answer: question.answer,
+        accepted_answers: question.acceptedAnswers ?? null,
+        options: question.options ?? null
+      };
+      assert.equal(questionAnswerMatches(gradingQuestion, expectedAnswer), true, `${questionId} should grade its independently checked answer`);
+      question.acceptedAnswers?.forEach((alias) => {
+        assert.equal(questionAnswerMatches(gradingQuestion, alias), true, `${questionId} should grade accepted bilingual alias ${alias}`);
+      });
+
+      if (question.type === "multiple-choice") {
+        const options = question.options ?? [];
+        const englishOptions = options.map((option) => option.en);
+        const correctOption = options.find((option) => option.en === question.answer);
+        assert.equal(options.length, 4, `${questionId} should have four options`);
+        assert.equal(new Set(englishOptions).size, 4, `${questionId} should have four unique English options`);
+        assert.equal(englishOptions.filter((option) => option === question.answer).length, 1, `${questionId} should have one answer key`);
+        assert.ok(correctOption, `${questionId} should expose the keyed option`);
+        if (correctOption) {
+          assert.equal(questionAnswerMatches(gradingQuestion, correctOption.en), true, `${questionId} should grade the English key`);
+          assert.equal(questionAnswerMatches(gradingQuestion, correctOption.zh), true, `${questionId} should grade the Chinese key`);
+        }
+      }
+
+      return question;
+    });
+
+    assert.equal(new Set(selectedQuestions.map((question) => question.answer)).size, 5, `${topicId} should display five distinct answers`);
+    assert.deepEqual(
+      dedupePracticeQuestions(selectedQuestions).map((question) => question.id),
+      expectedIds,
+      `${topicId} should keep all five reviewed items, in order, after the LessonView runtime dedupe`
+    );
+    assert.ok(
+      new Set(selectedQuestions.map((question) => practiceTemplateFingerprint(question.prompt.zhHans ?? question.prompt.zh))).size >= 3,
+      `${topicId} should survive the runtime template-variety gate`
+    );
+  });
+});
+
+test("Mainland PEP high displayed feedback uses item-specific mathematics instead of cross-task boilerplate", () => {
+  const questionById = new Map(mainlandPepHighQuestions.map((question) => [question.id, question]));
+  const handwritingTypes = new Set<QuestionType>(["fill-in", "short-answer", "graph"]);
+  const displayedQuestions = mainlandPepHighLessonSeeds.flatMap((seed) => {
+    const candidates = seed.practiceQuestionIds === undefined
+      ? mainlandPepHighQuestions.filter((question) => question.topicId === seed.topicId)
+      : seed.practiceQuestionIds.map((questionId) => {
+      const question = questionById.get(questionId);
+      assert.ok(question, `${questionId} should exist in the public PEP high bank`);
+      return question;
+        });
+    const deduped = dedupePracticeQuestions(candidates) as Question[];
+    const selected = deduped.slice(0, 5);
+    if (selected.some((question) => handwritingTypes.has(question.type))) return selected;
+    const handwritingQuestion = deduped.find((question) => handwritingTypes.has(question.type));
+    return handwritingQuestion ? [...selected.slice(0, 4), handwritingQuestion] : selected;
+  });
+  const legacyCrossTaskFeedback = [
+    "Use standard-angle values or read the graph parameter",
+    "使用特殊角取值，或从",
+    "Multiply corresponding coordinates and add. For length squared",
+    "数量积是对应坐标乘积之和；模长平方",
+    "Use the cuboid formulas for surface area, volume, or",
+    "根据题意使用长方体表面积、体积公式，或",
+    "Summarize the three data values by the requested statistic",
+    "按题目指定的统计量处理三个数据",
+    "arithmetic-sum formula when needed",
+    "需要求和时再用等差数列求和公式",
+    "Then substitute or solve the linear equation",
+    "再代入或解一元一次方程",
+    "Substitute into the regression equation. Residual equals",
+    "代入回归方程求预测值；残差等于",
+    "Build the sample space first. Probability is favorable outcomes",
+    "先建立样本空间，概率等于有利结果数"
+  ];
+
+  assert.equal(displayedQuestions.length, 110, "22 PEP high pages should each display exactly five practice questions");
+  displayedQuestions.forEach((question) => {
+    const explanationText = `${question.explanation.en}\n${question.explanation.zhHans ?? question.explanation.zh}`;
+    legacyCrossTaskFeedback.forEach((snippet) => {
+      assert.ok(!explanationText.includes(snippet), `${question.id} should not reuse cross-task feedback: ${snippet}`);
+    });
+    assert.doesNotMatch(
+      explanationText,
+      /(?:^|[^\d])(\d+\/\d+)=\1(?:[^\d]|$)/u,
+      `${question.id} should not repeat a reduced fraction as a reflexive equality`
+    );
+  });
+
+  const trigFrequency = questionById.get("pep-high-s4-fi-005");
+  assert.ok(trigFrequency);
+  assert.match(trigFrequency.prompt.en, /\\sin\(3x\)/, "the sine argument should use unambiguous parenthesized notation");
+  assert.doesNotMatch(trigFrequency.prompt.en, /y=1\\sin/, "a redundant leading coefficient should not obscure the sine argument");
+
+  const selfIntersection = questionById.get("pep-high-s4-mc-011");
+  assert.ok(selfIntersection);
+  assert.match(selfIntersection.prompt.en, /B=A/);
+  assert.match(selfIntersection.prompt.zhHans ?? selfIntersection.prompt.zh, /A\\cap A=A/);
+  assert.match(selfIntersection.explanation.en, /A\\cap A=A/);
+
+  ["pep-high-s4-fi-017", "pep-high-s4-fi-027"].forEach((questionId) => {
+    const question = questionById.get(questionId);
+    assert.ok(question);
+    assert.match(question.prompt.en, /imaginary part/);
+    assert.match(question.prompt.zhHans ?? question.prompt.zh, /虚部/);
+    assert.doesNotMatch(question.prompt.zhHans ?? question.prompt.zh, /虚部系数/);
+  });
+
+  const zeroInterceptPrediction = questionById.get("pep-high-s6-mc-003");
+  assert.ok(zeroInterceptPrediction);
+  assert.match(zeroInterceptPrediction.prompt.en, /\\hat y=4x/, "zero-intercept regression should keep the standard compact form");
+  assert.doesNotMatch(zeroInterceptPrediction.prompt.en, /4x\+0/, "zero-intercept regression should not expose a trailing +0");
+
+  ["pep-high-s6-mc-006", "pep-high-s6-mc-013"].forEach((questionId) => {
+    const question = questionById.get(questionId);
+    assert.ok(question);
+    assert.match(question.prompt.en, /One ball is drawn uniformly at random/);
+    assert.match(question.prompt.zhHans ?? question.prompt.zh, /随机摸出一个球/);
+  });
+
+  ["pep-high-s6-sa-006", "pep-high-s6-sa-013"].forEach((questionId) => {
+    const question = questionById.get(questionId);
+    assert.ok(question);
+    assert.match(question.prompt.en, /(?:every ball is individually distinguishable|all \d+ balls as distinct)/i);
+    assert.match(question.prompt.zhHans ?? question.prompt.zh, /(?:每个球都可区分|把\d+个球都视为不同)/);
   });
 });
 
@@ -1471,7 +2077,11 @@ test("Mainland PEP generated questions do not contain source-copying artifacts",
     joined("教", "材", "原", "文"),
     /第[0-9０-９]+页/,
     /page [0-9]+/i,
-    /p\.[0-9]+/i
+    /p\.[0-9]+/i,
+    /\bMAIS\b/u,
+    /\bRAG-v\d\b/iu,
+    /safe evidence cards?/iu,
+    /原创(?:诊断|计算|建模|推理|复习|综合)?练习/u
   ];
   const serialized = JSON.stringify(mainlandPepHighAllGeneratedQuestions);
 
@@ -1503,7 +2113,7 @@ test("Mainland PEP rag-v3 generated questions avoid exact prompt duplication and
     seenPrompts.add(normalized);
 
     const canonical = question.prompt.zh
-      .replace(/RAG-v3\s+(概念辨析|参数讨论|反例判断|图像信息|建模情境|误区诊断|综合拆步)\s+[0-9]+（[^）]+）：/g, "")
+      .replace(/^(概念辨析|参数讨论|条件核对|表示关联|建模情境|误区诊断|综合拆步)(?:选择题|填空题|解答题)练习\s+[0-9]+：/g, "")
       .replace(/\\\([^)]*\\\)/g, "\\(math\\)")
       .replace(/[0-9]+(?:\.[0-9]+)?/g, "#")
       .replace(/\s+/g, "");

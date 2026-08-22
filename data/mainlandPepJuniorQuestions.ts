@@ -59,7 +59,6 @@ type TranslationRule = {
 function visibleMath(value: string) {
   return value
     .replace(/℃/g, "°C")
-    .replace(/（少一步）/g, " (one step short)")
     .replace(/厘米/g, " cm")
     .replace(/米/g, " m")
     .replace(/元/g, " yuan")
@@ -84,6 +83,84 @@ function translatedText(en: string, zhHans: string): LocalizedText {
   return { en, zh: zhHans, zhHans };
 }
 
+type MainlandPepJuniorManualContentQaOverride = Partial<
+  Pick<Question, "prompt" | "options" | "answer" | "acceptedAnswers" | "explanation">
+>;
+
+const mainlandPepJuniorManualContentQaOverrides: Record<string, MainlandPepJuniorManualContentQaOverride> = {
+  "pep-junior-v2-s1-k03-mc-002": {
+    prompt: translatedText(
+      "Given distinct points A and B, which statement about lines, rays, and segments is correct?",
+      "已知点A、B不重合，关于直线、射线和线段，下列说法正确的是？"
+    ),
+    options: [
+      translatedText(
+        "Segment AB and segment BA represent the same segment.",
+        "线段AB与线段BA表示同一条线段。"
+      ),
+      translatedText(
+        "Ray AB and ray BA represent the same ray.",
+        "射线AB与射线BA表示同一条射线。"
+      ),
+      translatedText(
+        "Line AB has two endpoints.",
+        "直线AB有两个端点。"
+      ),
+      translatedText(
+        "Ray AB extends infinitely in both directions.",
+        "射线AB向两个方向无限延伸。"
+      )
+    ],
+    answer: "Segment AB and segment BA represent the same segment.",
+    acceptedAnswers: [],
+    explanation: translatedText(
+      "A segment is determined by its two endpoints and has no direction, so AB and BA name the same segment. Rays AB and BA have different endpoints and directions; a line has no endpoints; and a ray extends infinitely in only one direction.",
+      "线段由两个端点确定，没有方向，所以线段AB与线段BA表示同一条线段。射线AB与射线BA的端点和方向不同；直线没有端点；射线只向一个方向无限延伸。"
+    )
+  },
+  "pep-junior-v2-s2-k07-mc-001": {
+    explanation: translatedText(
+      "Since 2+7=9 and 2×7=14, the factorization is (x+2)(x+7).",
+      "2+7=9，2×7=14，所以分解为(x+2)(x+7)。"
+    )
+  },
+  "pep-junior-v2-s2-k07-fi-002": {
+    prompt: translatedText(
+      "Calculate 4x·3x = ____.",
+      "计算：4x·3x=____。"
+    ),
+    explanation: translatedText(
+      "Multiply the coefficients and add the exponents of x: 4x·3x=12x^2.",
+      "系数相乘，同底数幂的指数相加：4x·3x=12x^2。"
+    )
+  },
+  "pep-junior-v2-s3-k10-mc-002": {
+    prompt: translatedText(
+      "In one circle, O is the center and A, B, and C lie on the circle. Central angle AOB and inscribed angle ACB subtend the same arc AB. If angle AOB is 80°, what is angle ACB?",
+      "在同一个圆中，O是圆心，A、B、C在圆上。圆心角∠AOB与圆周角∠ACB所对的都是弧AB。若∠AOB=80°，则∠ACB是多少度？"
+    ),
+    options: ["20°", "40°", "80°", "160°"].map(localized),
+    answer: "40°",
+    acceptedAnswers: ["40", "40度"],
+    explanation: translatedText(
+      "An inscribed angle equals half the central angle subtending the same arc, so angle ACB=80°÷2=40°.",
+      "同弧所对的圆周角等于圆心角的一半，所以∠ACB=80°÷2=40°。"
+    )
+  },
+  "pep-junior-v2-s3-k11-fi-002": {
+    prompt: translatedText(
+      "For two similar triangles, the larger-to-smaller corresponding-side ratio is 4:1. A side in the smaller triangle is 19 cm. What is the corresponding side in the larger triangle?",
+      "两个相似三角形中，大三角形与小三角形对应边的比是4:1。小三角形的一条边长19厘米，大三角形的对应边长多少厘米？"
+    )
+  },
+  "pep-junior-v2-s3-k11-sa-001": {
+    prompt: translatedText(
+      "The angle of elevation from an observer's eye to the top of a flagpole is 45°, and the horizontal distance to the flagpole is 93 m. Ignoring the observer's eye height above the ground, about how tall is the flagpole?",
+      "测量者眼睛看向旗杆顶端的仰角为45°，测量点到旗杆底部的水平距离为93米。忽略测量者眼睛离地的高度，旗杆高约多少米？"
+    )
+  }
+};
+
 function translateWithRules(value: string, rules: TranslationRule[], fallback: string) {
   for (const rule of rules) {
     const match = value.match(rule.pattern);
@@ -102,7 +179,6 @@ const promptRules: TranslationRule[] = [
     pattern: /^数轴上点A表示(-?\d+)，点B表示(-?\d+)。A、B两点之间的距离是____。$/,
     translate: ([, left, right]) => `Point A is at ${left} and point B is at ${right} on a number line. The distance AB is ____.`
   },
-  { pattern: /^计算并说明符号：(.+)。$/, translate: ([, expression]) => `Calculate ${visibleMath(expression)} and state the sign.` },
   { pattern: /^化简：(.+)。$/, translate: ([, expression]) => `Simplify ${visibleMath(expression)}.` },
   { pattern: /^解方程：(.+)。x=____。$/, translate: ([, equation]) => `Solve ${visibleMath(equation)}. x = ____.` },
   {
@@ -119,13 +195,13 @@ const promptRules: TranslationRule[] = [
     translate: ([, length]) => `Segment AB is ${length} cm long, and C is the midpoint of AB. AC = ____.`
   },
   {
-    pattern: /^两个角互余，其中一个角是(\d+)°。求另一个角的度数，并写出理由。$/,
-    translate: ([, angle]) => `Two angles are complementary. One angle is ${angle}°. Find the other angle and give a reason.`
+    pattern: /^两个角互余，其中一个角是(\d+)°。求另一个角的度数。$/,
+    translate: ([, angle]) => `Two angles are complementary. One angle is ${angle}°. Find the other angle.`
   },
   {
     pattern: /^点P\((-?\d+),(-?\d+)\)先向右平移(\d+)个单位，再向下平移(\d+)个单位，所得点的坐标是？$/,
     translate: ([, x, y, right, down]) =>
-      `Point P(${x},${y}) is translated ${right} units right and ${down} units down. What are the new coordinates?`
+      `Point P(${x},${y}) is translated ${right} ${right === "1" ? "unit" : "units"} right and ${down} ${down === "1" ? "unit" : "units"} down. What are the new coordinates?`
   },
   {
     pattern: /^两条平行直线被一条截线所截，一组同位角中一个角为(\d+)°，另一个同位角为____。$/,
@@ -133,8 +209,8 @@ const promptRules: TranslationRule[] = [
       `Two parallel lines are cut by a transversal. One corresponding angle is ${angle}°. The other corresponding angle is ____.`
   },
   {
-    pattern: /^点Q\((-?\d+),(-?\d+)\)位于哪个象限？说明判断依据。$/,
-    translate: ([, x, y]) => `Point Q(${x},${y}) lies in which quadrant? Explain the sign check.`
+    pattern: /^点Q\((-?\d+),(-?\d+)\)位于哪个象限？$/,
+    translate: ([, x, y]) => `Which quadrant contains point Q(${x},${y})?`
   },
   { pattern: /^解不等式：(.+)。$/, translate: ([, inequality]) => `Solve the inequality ${visibleMath(inequality)}.` },
   {
@@ -160,6 +236,7 @@ const promptRules: TranslationRule[] = [
   },
   { pattern: /^因式分解：(.+)。$/, translate: ([, expression]) => `Factor ${visibleMath(expression)}.` },
   { pattern: /^计算：(.+)=____。$/, translate: ([, expression]) => `Calculate ${visibleMath(expression)} = ____.` },
+  { pattern: /^计算：(.+)。$/, translate: ([, expression]) => `Calculate ${visibleMath(expression)}.` },
   {
     pattern: /^化简分式(.+)，并注明x不能等于什么。$/,
     translate: ([, expression]) => `Simplify the algebraic fraction ${visibleMath(expression)}, and state the value that x cannot equal.`
@@ -196,6 +273,11 @@ const promptRules: TranslationRule[] = [
   {
     pattern: /^反比例函数y=k\/x经过点\((-?\d+),(-?\d+)\)，k的值是多少？$/,
     translate: ([, x, y]) => `The inverse proportional function y=k/x passes through (${x},${y}). What is k?`
+  },
+  {
+    pattern: /^两个相似三角形中，大三角形与小三角形对应边的比为(\d+):(\d+)。小三角形一条边长(\d+)厘米，大三角形的对应边长____。$/,
+    translate: ([, larger, smaller, side]) =>
+      `For two similar triangles, the ratio of a side in the larger triangle to its corresponding side in the smaller triangle is ${larger}:${smaller}. A side in the smaller triangle is ${side} cm. The corresponding side in the larger triangle is ____.`
   },
   {
     pattern: /^两个相似三角形的相似比为(\d+):(\d+)，小三角形一条对应边长(\d+)厘米，大三角形对应边长____。$/,
@@ -336,6 +418,7 @@ function toQuestion(question: GeneratedQuestion): Question {
   if (!topic) throw new Error(`Missing Mainland PEP junior topic for ${question.knowledgePointId}`);
   const answer = translateVisibleAnswer(question.answer);
   const diagram = resolveGeneratedQuestionDiagram(question);
+  const manualContentQaOverride = mainlandPepJuniorManualContentQaOverrides[question.id];
 
   return {
     id: question.id,
@@ -354,7 +437,8 @@ function toQuestion(question: GeneratedQuestion): Question {
     answer,
     acceptedAnswers: acceptedAnswersFor(question, answer),
     explanation: translatedText(translateExplanation(question), question.explanationZhHans),
-    ...(diagram ? { diagram } : {})
+    ...(diagram ? { diagram } : {}),
+    ...manualContentQaOverride
   };
 }
 
@@ -373,7 +457,8 @@ export const mainlandPepJuniorQuestionGenerationMetadata: Record<string, Mainlan
         examPatternCardIds: question.examPatternCardIds,
         sourceDistanceStatus: question.sourceDistanceStatus,
         mathQaStatus: question.mathQaStatus,
-        independentAnswer: translateVisibleAnswer(question.answer)
+        independentAnswer:
+          mainlandPepJuniorManualContentQaOverrides[question.id]?.answer ?? translateVisibleAnswer(question.answer)
       }
     ])
   );

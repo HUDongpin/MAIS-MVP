@@ -49,6 +49,7 @@ import {
   SoundOffIcon,
   SoundOnIcon
 } from "@/components/practice/PracticeQuestPager";
+import { practiceTextForLanguage } from "@/components/practice/hjbPracticeEnglish";
 import { useReadAloud } from "@/components/practice/useReadAloud";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -100,7 +101,7 @@ type LessonViewProps = {
 
 type LessonQuestionResult = {
   correct: boolean;
-  correctAnswer?: string;
+  correctAnswer?: LocalizedText;
   durationSeconds: number;
   answeredAt: number;
 };
@@ -194,7 +195,13 @@ const thinkAndCheckAnswerLabel: LocalizedText = {
 };
 const hiddenLessonIllustrationIds = new Set([
   "pep-high-s4-function-properties-worked-example",
-  "pep-high-s4-sets-logic-worked-example"
+  "pep-high-s4-sets-logic-worked-example",
+  // A18 visual QA found that these diagrams contradict their own mathematical
+  // models. Keep them off learner pages until corrected assets are reviewed.
+  "pep-junior-s1-upper-expressions-linear-equations-worked-example",
+  "pep-junior-s3-upper-quadratics-circle-probability-worked-example",
+  "pep-junior-s3-lower-inverse-similarity-trigonometry-concept",
+  "pep-junior-s3-lower-inverse-similarity-trigonometry-worked-example"
 ]);
 const lessonAudioRates = [0.85, 1, 1.25] as const;
 const defaultLessonAudioRate: (typeof lessonAudioRates)[number] = 0.85;
@@ -1797,6 +1804,20 @@ function getLessonIllustrationsForBlock(
   return compactLessonIllustrations([getLessonIllustrationBySlot(lesson, slot)]);
 }
 
+function shouldRenderGeneratedWorkedExampleIllustration(lesson: LessonDetail) {
+  // China lesson pages may only show curriculum-reviewed illustration assets.
+  // The generic SVG infers a short expression from prose and can turn a valid
+  // worked solution into a false or truncated learner-facing equation.
+  return !(
+    lesson.publisher === "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY" ||
+    lesson.publisher === "HK_UNITED_PRIME_MIA" ||
+    lesson.publisher === "HK_EPH_MIF" ||
+    lesson.publisher === "MAINLAND_PEP" ||
+    lesson.publisher === "MAINLAND_BNU" ||
+    lesson.publisher === "MAINLAND_HJB"
+  );
+}
+
 function normalizeLessonSummaryAnswer(value: string) {
   return value
     .trim()
@@ -2109,6 +2130,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     () => dedupePracticeQuestions(lesson?.practiceQuestions ?? []).map(formatLessonPracticeQuestionMathText),
     [lesson]
   );
+  const extensionBlocks = useMemo(() => blocksByType(lesson, "extension"), [lesson]);
   const teacherGuideBlocks = useMemo(() => blocksByType(lesson, "teacher-guide"), [lesson]);
   const visualizationBlock = useMemo(() => blocksByType(lesson, "visualization")[0], [lesson]);
   const visualizationContent = useMemo(() => {
@@ -2264,6 +2286,17 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       });
     }
 
+    extensionBlocks.forEach((block) => {
+      items.push({
+        description: blockDescription(block),
+        id: `block-${block.id}`,
+        kind: "extension",
+        subtitle: t({ en: "Extension and reflection", zh: "延伸與反思", zhHans: "拓展与反思" }),
+        targetId: lessonBlockSectionId(block.id),
+        title: text(block.title)
+      });
+    });
+
     if (canViewTeacherGuide) {
       teacherGuideBlocks.forEach((block) => {
         items.push({
@@ -2281,6 +2314,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [
     canViewTeacherGuide,
     conceptBlocks,
+    extensionBlocks,
     lesson,
     lessonPracticeQuestions.length,
     t,
@@ -3091,7 +3125,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   />
                 ) : null}
                 {block.type === "concept" ? null : illustrationFigures}
-                {block.type === "worked-example" && illustrations.length === 0 ? (
+                {block.type === "worked-example" && illustrations.length === 0 && shouldRenderGeneratedWorkedExampleIllustration(lesson) ? (
                   <WorkedExampleIllustration
                     content={displayContent || blockTitle}
                     grade={lesson.grade}
@@ -3310,6 +3344,45 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           </div>
         )}
       </section>
+
+      {extensionBlocks.length ? (
+        <section
+          className="mt-8 grid gap-4"
+          aria-label={t({ en: "Lesson extension and reflection", zh: "課節延伸與反思", zhHans: "课时拓展与反思" })}
+        >
+          {extensionBlocks.map((block) => (
+            <article
+              key={block.id}
+              id={lessonBlockSectionId(block.id)}
+              data-ai-selectable="lesson-block"
+              data-ai-lesson-slug={lesson.slug}
+              data-ai-topic-id={lesson.topicId}
+              data-ai-block-id={block.id}
+              data-ai-block-type={block.type}
+              data-ai-title={text(block.title)}
+              className="scroll-mt-28 glass-panel border-violet-300/40 bg-violet-50/75 p-6 dark:bg-violet-950/20 sm:p-8"
+            >
+              <p className="text-sm font-black uppercase tracking-[0.2em] text-violet-700 dark:text-violet-200">
+                {t({ en: "Extend and reflect", zh: "延伸與反思", zhHans: "拓展与反思" })}
+              </p>
+              <MathText as="h2" text={text(block.title)} className="mt-2 text-2xl font-black text-slate-950 dark:text-white" />
+              {block.content ? (
+                <LessonContentWithAnswerReveal blockId={block.id} content={text(block.content)} />
+              ) : null}
+              {block.items?.length ? (
+                <ul className="mt-5 grid gap-3 text-sm font-semibold leading-7 text-slate-700 dark:text-slate-200 sm:text-base">
+                  {block.items.map((item, index) => (
+                    <li key={`${block.id}-${index}`} className="flex gap-3 rounded-2xl border border-violet-200/70 bg-white/80 p-4 dark:border-violet-300/15 dark:bg-white/[0.055]">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-violet-500" aria-hidden="true" />
+                      <MathText as="span" text={formatLessonMathText(text(item))} />
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          ))}
+        </section>
+      ) : null}
     </>
   );
   const lessonContentPanel = (
@@ -3580,8 +3653,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   {lessonPracticeSummary.wrongResults.length ? (
                     <div className="mt-3 space-y-3">
                       {lessonPracticeSummary.wrongResults.map((result) => {
-                        const normalizedAnswer = result.correctAnswer ? normalizeLessonSummaryAnswer(result.correctAnswer) : "";
-                        const answerDisplayText = result.correctAnswer ? formatLessonSummaryAnswerForMathText(result.correctAnswer) : "";
+                        const localizedAnswer = result.correctAnswer
+                          ? practiceTextForLanguage(result.correctAnswer, language, result.question.publisher)
+                          : "";
+                        const normalizedAnswer = localizedAnswer ? normalizeLessonSummaryAnswer(localizedAnswer) : "";
+                        const answerDisplayText = localizedAnswer ? formatLessonSummaryAnswerForMathText(localizedAnswer) : "";
 
                         return (
                           <div key={result.question.id} className="rounded-2xl bg-white/70 p-3 text-sm font-semibold leading-6 text-slate-700 dark:bg-white/[0.06] dark:text-slate-200">

@@ -290,7 +290,7 @@ q5	x = 2
 q6	3/5
 q7	7
 q8	3
-q9	1/2
+q9	3/5
 q10	2x
 q11	Local maximum
 q12	2
@@ -303,7 +303,7 @@ q18	x^2 + 5x + 6
 q19	50°
 q20	x^2
 q21	6
-q22	5
+q22	Exponential
 q23	30°
 q24	1.5
 q25	List given facts and the target
@@ -332,14 +332,14 @@ pq-p3-fractions-intro-1	1/4
 pq-p3-fractions-intro-2	2/4
 pq-p3-measurement-1	centimetres
 pq-p3-measurement-2	1000 mL
-pq-p3-geometry-patterns-1	90°
+pq-p3-geometry-patterns-1	Its opening is the same as a square corner
 pq-p3-geometry-patterns-2	15
 pq-p4-large-numbers-1	12,500
 pq-p4-large-numbers-2	3,700
 pq-p4-decimals-1	0.6
 pq-p4-decimals-2	3.7
 pq-p4-angles-1	obtuse
-pq-p4-angles-2	105°
+pq-p4-angles-2	right angle
 pq-p4-perimeter-area-1	22 cm
 pq-p4-perimeter-area-2	20 cm^2
 pq-p5-fractions-operations-1	3/4
@@ -347,13 +347,13 @@ pq-p5-fractions-operations-2	3/4
 pq-p5-volume-1	24 cm^3
 pq-p5-volume-2	cm^3
 pq-p5-rates-1	HK$5
-pq-p5-rates-2	30 km/h
+pq-p5-rates-2	HK$30
 pq-p5-charts-averages-1	8
 pq-p5-charts-averages-2	20
 pq-p6-percentages-1	40
 pq-p6-percentages-2	25%
-pq-p6-ratio-proportion-1	18
-pq-p6-ratio-proportion-2	6:8
+pq-p6-ratio-proportion-1	HK$21
+pq-p6-ratio-proportion-2	10 cups
 pq-p6-speed-1	30 km/h
 pq-p6-speed-2	10 km
 pq-p6-pre-secondary-problem-solving-1	Underline known facts and the question
@@ -371,10 +371,10 @@ graph-functions-zero	2
 graph-coordinate-geometry-gradient	1/2
 graph-coordinate-geometry-midpoint	(1, 1)
 graph-data-handling-highest-value	8
-graph-p4-angles-straight-line	50°
+graph-p4-angles-straight-line	right angle
 graph-p4-decimals-number-line	3.7
 graph-p5-volume-cube	27 cm^3
-supp-p1-counting-number-bonds-first-step	Count on or count back from the known number
+supp-p1-counting-number-bonds-first-step	Work out what the blank represents, then use forward counting, backward counting, or a number bond
 supp-p1-counting-number-bonds-key-fact	5
 supp-p1-counting-number-bonds-guided-example	15
 supp-p1-counting-number-bonds-common-check	Check whether the missing number is before or after the given number
@@ -386,8 +386,8 @@ supp-p1-shapes-patterns-first-step	Name the repeating unit or count the sides
 supp-p1-shapes-patterns-key-fact	4
 supp-p1-shapes-patterns-guided-example	triangle
 supp-p1-shapes-patterns-common-check	Check one full repeat before choosing the next shape
-supp-p1-measurement-time-first-step	Choose the attribute first: length, time, or order
-supp-p1-measurement-time-key-fact	60
+supp-p1-measurement-time-first-step	Identify whether the question is about length, mass, capacity, or time
+supp-p1-measurement-time-key-fact	12
 supp-p1-measurement-time-guided-example	5 o'clock
 supp-p1-measurement-time-common-check	Check the unit or clock hand before answering
 supp-p2-place-value-first-step	Read hundreds, tens, and ones in order
@@ -395,18 +395,18 @@ supp-p2-place-value-key-fact	7
 supp-p2-place-value-guided-example	529
 supp-p2-place-value-common-check	Check that each digit is placed in the correct place value
 supp-p2-multiplication-foundations-first-step	Count equal groups before writing multiplication
-supp-p2-multiplication-foundations-key-fact	4 x 6
+supp-p2-multiplication-foundations-key-fact	4 × 6
 supp-p2-multiplication-foundations-guided-example	12
 supp-p2-multiplication-foundations-common-check	Check the size of each group and the number of groups
 supp-p2-money-time-first-step	Identify the price, amount paid, or time interval
 supp-p2-money-time-key-fact	HK$4
-supp-p2-money-time-guided-example	2:45
+supp-p2-money-time-guided-example	2:30
 supp-p2-money-time-common-check	Check whether the answer should be money or time
 supp-p2-length-data-first-step	Read the unit or chart label before calculating
-supp-p2-length-data-key-fact	13 cm
-supp-p2-length-data-guided-example	13
+supp-p2-length-data-key-fact	14 cm
+supp-p2-length-data-guided-example	15
 supp-p2-length-data-common-check	Keep the length unit when the question asks for length
-supp-p3-multiplication-division-first-step	Decide whether the situation has equal groups or sharing
+supp-p3-multiplication-division-first-step	Identify whether the unknown is the total, the number of groups, or the amount in each group
 supp-p3-multiplication-division-key-fact	32
 supp-p3-multiplication-division-guided-example	6
 supp-p3-multiplication-division-common-check	Check whether the question asks for total or each share
@@ -418,8 +418,8 @@ supp-p3-measurement-first-step	Choose the correct measuring unit before calculat
 supp-p3-measurement-key-fact	2000 mL
 supp-p3-measurement-guided-example	55 cm
 supp-p3-measurement-common-check	Check whether units need converting before calculating
-supp-p3-geometry-patterns-first-step	Identify the angle fact or the pattern rule
-supp-p3-geometry-patterns-key-fact	180°
+supp-p3-geometry-patterns-first-step	Compare an angle with a square corner, or identify the pattern rule
+supp-p3-geometry-patterns-key-fact	acute angle
 supp-p3-geometry-patterns-guided-example	20
 supp-p3-geometry-patterns-common-check	Check whether the task is about shape, angle, or number pattern
 supp-p4-large-numbers-first-step	Compare digits from the largest place value
@@ -430,10 +430,10 @@ supp-p4-decimals-first-step	Line up decimal places before comparing or calculati
 supp-p4-decimals-key-fact	0.5
 supp-p4-decimals-guided-example	3.4
 supp-p4-decimals-common-check	Keep the decimal point aligned in every step
-supp-p4-angles-first-step	Name the angle relationship before subtracting
-supp-p4-angles-key-fact	70°
-supp-p4-angles-guided-example	70°
-supp-p4-angles-common-check	Check whether the total should be 180 degrees or 360 degrees
+supp-p4-angles-first-step	Compare the angle opening with a square corner
+supp-p4-angles-key-fact	acute angle
+supp-p4-angles-guided-example	obtuse angle
+supp-p4-angles-common-check	Compare openings rather than the lengths of the angle arms
 supp-p4-perimeter-area-first-step	Decide whether the question asks for boundary or surface
 supp-p4-perimeter-area-key-fact	24 cm
 supp-p4-perimeter-area-guided-example	21 cm^2
@@ -443,13 +443,13 @@ supp-p5-fractions-operations-key-fact	3/5
 supp-p5-fractions-operations-guided-example	3/4
 supp-p5-fractions-operations-common-check	Simplify the final fraction when possible
 supp-p5-volume-first-step	Identify length, width, and height before multiplying
-supp-p5-volume-key-fact	4 cm
+supp-p5-volume-key-fact	60 cm^3
 supp-p5-volume-guided-example	30 cm^3
 supp-p5-volume-common-check	Multiply length, width, and height instead of adding the edge lengths
 supp-p5-rates-first-step	Divide the total amount by the number of equal units
 supp-p5-rates-key-fact	HK$6
-supp-p5-rates-guided-example	15 km/h
-supp-p5-rates-common-check	Keep the rate unit attached to the answer
+supp-p5-rates-guided-example	HK$36
+supp-p5-rates-common-check	Find one unit before multiplying, and keep the correct unit
 supp-p5-charts-averages-first-step	Read the data values carefully before adding
 supp-p5-charts-averages-key-fact	8
 supp-p5-charts-averages-guided-example	24
@@ -458,10 +458,10 @@ supp-p6-percentages-first-step	Convert the percentage to a fraction or decimal f
 supp-p6-percentages-key-fact	30
 supp-p6-percentages-guided-example	60%
 supp-p6-percentages-common-check	Check whether the question asks for a percent, decimal, or amount
-supp-p6-ratio-proportion-first-step	Find the total number of ratio parts before sharing
-supp-p6-ratio-proportion-key-fact	40
-supp-p6-ratio-proportion-guided-example	10:14
-supp-p6-ratio-proportion-common-check	Apply the same multiplier or divisor to both ratio parts
+supp-p6-ratio-proportion-first-step	Divide to find one unit before scaling to the required number
+supp-p6-ratio-proportion-key-fact	HK$80
+supp-p6-ratio-proportion-guided-example	48
+supp-p6-ratio-proportion-common-check	Divide to one unit before multiplying by the required number
 supp-p6-speed-first-step	Identify distance, time, and speed before choosing the formula
 supp-p6-speed-key-fact	60 km/h
 supp-p6-speed-guided-example	18 km
@@ -539,8 +539,8 @@ supp-data-handling-key-fact	mean
 supp-data-handling-guided-example	15
 supp-data-handling-common-check	Check whether the graph scale is misleading
 supp-advanced-functions-first-step	Compare model type: polynomial, exponential, or logarithmic
-supp-advanced-functions-key-fact	8
-supp-advanced-functions-guided-example	-8
+supp-advanced-functions-key-fact	7
+supp-advanced-functions-guided-example	2^x
 supp-advanced-functions-common-check	Check whether growth is additive or multiplicative
 supp-trigonometry-s5-first-step	Identify amplitude, period, phase, or identity before solving
 supp-trigonometry-s5-key-fact	360°
@@ -554,10 +554,10 @@ supp-differentiation-intro-first-step	Interpret derivative as gradient or rate o
 supp-differentiation-intro-key-fact	3x^2
 supp-differentiation-intro-guided-example	5
 supp-differentiation-intro-common-check	Reduce the power by one after multiplying by the old power
-supp-calculus-first-step	Choose derivative, integral, optimization, or area based on the task
-supp-calculus-key-fact	x^2 + C
-supp-calculus-guided-example	8x
-supp-calculus-common-check	Include the constant of integration for indefinite integrals
+supp-calculus-first-step	Find the stationary point and check the derivative sign on both sides
+supp-calculus-key-fact	local minimum
+supp-calculus-guided-example	2
+supp-calculus-common-check	Check derivative signs immediately before and after the stationary point
 supp-statistics-s6-first-step	Standardize with a z-score before using the normal curve
 supp-statistics-s6-key-fact	3
 supp-statistics-s6-guided-example	at the mean
@@ -603,9 +603,11 @@ export function acceptedAnswersFor(question: Question) {
 }
 
 export function optionMatchesAcceptedAnswer(question: Question, option: NonNullable<Question["options"]>[number]) {
-  return acceptedAnswersFor(question).some((acceptedAnswer) =>
-    answerMatches(acceptedAnswer, option.en) || answerMatches(acceptedAnswer, option.zh)
-  );
+  // Mirror the value submitted by the English PracticeQuestionCard. This is
+  // intentionally routed through the production grader rather than compared
+  // directly with the stored key: some reviewed banks use canonical A-F keys
+  // while the learner submits the localized option text.
+  return questionAnswerMatches(gradingPayload(question), option.en);
 }
 
 export function isExpectedAnswerRepresented(question: Question, independentAnswer: string) {
@@ -757,8 +759,12 @@ export function deriveGraphAnswer(question: Question) {
   }
 
   if (question.id === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
-    const angle = planeFigureAngleDegrees(question.diagram, "O", "C", "B");
-    return angle === null ? null : `${Math.round(angle)}°`;
+    const angle = planeFigureAngleDegrees(question.diagram, "O", "A", "B");
+    if (angle === null) return null;
+    if (Math.abs(angle - 90) < 0.5) return "right angle";
+    if (angle < 90) return "acute angle";
+    if (angle < 180) return "obtuse angle";
+    return null;
   }
 
   if (question.id === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
@@ -884,8 +890,23 @@ function arithmeticSet(limit: number, divisor: number) {
 }
 
 function solveSets(question: Question, text: string): SolverResult {
+  const implication = /let p be "x=(-?[0-9]+(?:\.[0-9]+)?)" and q be "x\^2=([0-9]+(?:\.[0-9]+)?)"/i.exec(text);
+  if (implication) {
+    const pValue = Number(implication[1]);
+    const qValue = Number(implication[2]);
+    const pImpliesQ = pValue ** 2 === qValue;
+    const qImpliesP = qValue === 0 && pValue === 0;
+    if (pImpliesQ && qImpliesP) return { answer: "p is necessary and sufficient for q." };
+    if (pImpliesQ) return { answer: "p is sufficient but not necessary for q." };
+    if (qImpliesP) return { answer: "p is necessary but not sufficient for q." };
+    return { answer: "p is neither sufficient nor necessary for q." };
+  }
+
   const limit = numberFrom(/U=\\\{1,2,\\ldots,([0-9]+)\\\}/.exec(text)?.[1]);
-  const multiples = [...text.matchAll(/multiples of ([0-9]+)/g)].map((match) => Number(match[1]));
+  const parsedMultiples = [...text.matchAll(/multiples of ([0-9]+)/g)].map((match) => Number(match[1]));
+  const multiples = parsedMultiples.length === 1 && /B=A/.test(text)
+    ? [parsedMultiples[0], parsedMultiples[0]]
+    : parsedMultiples;
   if (!limit || multiples.length < 2) return { answer: null, notes: ["Could not parse finite universe or set divisors."] };
 
   const setA = arithmeticSet(limit, multiples[0]);
@@ -900,6 +921,27 @@ function solveSets(question: Question, text: string): SolverResult {
 }
 
 function solveQuadratic(question: Question, text: string): SolverResult {
+  const monicInequality = /Solve x\^2([+-][0-9]+(?:\.[0-9]+)?)x([+-][0-9]+(?:\.[0-9]+)?)([<>])0\.?/i.exec(text);
+  if (monicInequality) {
+    const b = Number(monicInequality[1]);
+    const c = Number(monicInequality[2]);
+    const discriminant = b ** 2 - 4 * c;
+    if (discriminant < 0) return { answer: monicInequality[3] === ">" ? "all real numbers" : "no solution" };
+    const left = (-b - Math.sqrt(discriminant)) / 2;
+    const right = (-b + Math.sqrt(discriminant)) / 2;
+    return {
+      answer: monicInequality[3] === "<"
+        ? `${formatNumber(left)}<x<${formatNumber(right)}`
+        : `x<${formatNumber(left)} or x>${formatNumber(right)}`
+    };
+  }
+
+  const repeatedRootParameter = /x\^2([+-][0-9]+(?:\.[0-9]+)?)x\+m=0 has exactly one real root\. Find m/i.exec(text);
+  if (repeatedRootParameter) {
+    const b = Number(repeatedRootParameter[1]);
+    return { answer: formatNumber((b ** 2) / 4) };
+  }
+
   const match = /(?:f\(x\)|y)=\(x([+-][0-9]+(?:\.[0-9]+)?)\)\^2([+-][0-9]+(?:\.[0-9]+)?)/.exec(text);
   if (!match) return { answer: null, notes: ["Could not parse vertex-form quadratic."] };
   const h = -parseSignedNumber(match[1]);
@@ -916,6 +958,9 @@ function solveQuadratic(question: Question, text: string): SolverResult {
 }
 
 function solveFunctions(question: Question, text: string): SolverResult {
+  const rationalDomain = /domain of f\(x\)=1\/\(x([+-][0-9]+(?:\.[0-9]+)?)\)/i.exec(text);
+  if (rationalDomain) return { answer: `x≠${formatNumber(-Number(rationalDomain[1]))}` };
+
   const rule = /f\(x\)=(-?[0-9]+(?:\.[0-9]+)?)x([+-][0-9]+(?:\.[0-9]+)?)/.exec(text);
   if (!rule) return { answer: null, notes: ["Could not parse linear function rule."] };
   const a = Number(rule[1]);
@@ -931,6 +976,12 @@ function solveFunctions(question: Question, text: string): SolverResult {
 }
 
 function solveExpLog(question: Question, text: string): SolverResult {
+  const logarithmDomain = /domain of f\(x\)=log_([0-9]+(?:\.[0-9]+)?)\(x([+-][0-9]+(?:\.[0-9]+)?)\)/i.exec(text);
+  if (logarithmDomain) {
+    const base = Number(logarithmDomain[1]);
+    if (base > 0 && base !== 1) return { answer: `x>${formatNumber(-Number(logarithmDomain[2]))}` };
+  }
+
   const match = /(?:(\d+)\\log_|\\log_)([0-9])([0-9]+)/.exec(text);
   if (!match) return { answer: null, notes: ["Could not parse logarithm expression."] };
   const coefficient = match[1] ? Number(match[1]) : 1;
@@ -942,10 +993,12 @@ function solveExpLog(question: Question, text: string): SolverResult {
 }
 
 function solveTrigonometry(question: Question, text: string): SolverResult {
-  const sinusoid = /y=([0-9]+(?:\.[0-9]+)?)\\sin\s*([0-9]+(?:\.[0-9]+)?)x/.exec(text);
+  const sinusoid = /y=(?:([0-9]+(?:\.[0-9]+)?)\s*)?\\sin\s*\(?([0-9]+(?:\.[0-9]+)?)?x\)?/.exec(text);
   if (sinusoid) {
-    if (/amplitude/.test(text)) return { answer: formatNumber(Number(sinusoid[1])) };
-    if (/coefficient of x/.test(text)) return { answer: formatNumber(Number(sinusoid[2])) };
+    const amplitude = Number(sinusoid[1] ?? 1);
+    const frequency = Number(sinusoid[2] ?? 1);
+    if (/amplitude/.test(text)) return { answer: formatNumber(amplitude) };
+    if (/coefficient of x/.test(text)) return { answer: formatNumber(frequency) };
   }
 
   const angle = /\\(sin|cos|tan)(30|45|60)\^\\circ/.exec(text);
@@ -966,6 +1019,24 @@ function parseVector(text: string, label: "a" | "b") {
 }
 
 function solveVectors(question: Question, text: string): SolverResult {
+  const plainVectors = /a=\(([^)]+)\) and b=\(([^)]+)\).*perpendicular/i.exec(text);
+  if (plainVectors) {
+    const a = plainVectors[1].split(",").map((value) => value.trim());
+    const b = plainVectors[2].split(",").map((value) => value.trim());
+    if (a.length === b.length && [...a, ...b].filter((value) => value === "t").length === 1) {
+      let coefficient = 0;
+      let constant = 0;
+      for (let index = 0; index < a.length; index += 1) {
+        if (a[index] === "t") coefficient += Number(b[index]);
+        else if (b[index] === "t") coefficient += Number(a[index]);
+        else constant += Number(a[index]) * Number(b[index]);
+      }
+      if (Number.isFinite(coefficient) && coefficient !== 0 && Number.isFinite(constant)) {
+        return { answer: formatNumber(-constant / coefficient) };
+      }
+    }
+  }
+
   const vectorA = parseVector(text, "a");
   if (!vectorA) return { answer: null, notes: ["Could not parse vector a."] };
   if (/\|\\vec a\|\^2/.test(text)) {
@@ -984,12 +1055,16 @@ function solveComplex(question: Question, text: string): SolverResult {
   const imaginary = parseSignedNumber(match[2]) + parseSignedNumber(match[4]);
 
   if (/\|z\|\^2/.test(text)) return { answer: formatNumber(real ** 2 + imaginary ** 2) };
-  if (/imaginary coefficient/.test(text)) return { answer: formatNumber(imaginary) };
+  if (/imaginary (?:part|coefficient)/.test(text)) return { answer: formatNumber(imaginary) };
   if (/real part/.test(text)) return { answer: formatNumber(real) };
   return { answer: null, notes: ["Could not identify complex-number target."] };
 }
 
 function solveSolidGeometry(question: Question, text: string): SolverResult {
+  if (/Line l is perpendicular to plane .* at P.*Line m lies in plane .* passes through P/i.test(text)) {
+    return { answer: "l is perpendicular to m." };
+  }
+
   const match = /side lengths ([0-9]+), ([0-9]+), ([0-9]+)/.exec(text);
   if (!match) return { answer: null, notes: ["Could not parse cuboid side lengths."] };
   const [a, b, c] = match.slice(1).map(Number);
@@ -1004,22 +1079,39 @@ function solveStatistics(question: Question, text: string): SolverResult {
   if (!match) return { answer: null, notes: ["Could not parse data values."] };
   const values = match.slice(1).map(Number);
   const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
-  if (/mean/.test(text)) return { answer: formatNumber(mean) };
-  if (/range/.test(text)) return { answer: formatNumber(Math.max(...values) - Math.min(...values)) };
   if (/three times the variance/.test(text)) {
     return { answer: formatNumber(values.reduce((sum, value) => sum + (value - mean) ** 2, 0)) };
   }
+  if (/range/.test(text)) return { answer: formatNumber(Math.max(...values) - Math.min(...values)) };
+  if (/find the mean/.test(text)) return { answer: formatNumber(mean) };
   return { answer: null, notes: ["Could not identify statistics target."] };
 }
 
 function solveProbability(question: Question, text: string): SolverResult {
-  const bag = /bag has ([0-9]+) red balls and ([0-9]+) blue balls/.exec(text);
-  if (!bag) return { answer: null, notes: ["Could not parse probability setup."] };
-  const red = Number(bag[1]);
-  const blue = Number(bag[2]);
-  const total = red + blue;
-  if (/Two balls are drawn/.test(text)) return { answer: String(total * (total - 1)) };
-  return { answer: formatFraction(red, total) };
+  const complement = /P\(A\)=([0-9]+)\/([0-9]+).*probability of the complement of A/i.exec(text);
+  if (complement) {
+    const numerator = Number(complement[1]);
+    const denominator = Number(complement[2]);
+    return { answer: formatFraction(denominator - numerator, denominator) };
+  }
+
+  const equallyLikely = /(?:event has|favorable event has) ([0-9]+) favorable outcomes (?:among|from) ([0-9]+) equally likely outcomes/i.exec(text);
+  if (equallyLikely) return { answer: formatFraction(Number(equallyLikely[1]), Number(equallyLikely[2])) };
+  const legacyEquallyLikely = /favorable event has ([0-9]+) outcomes from ([0-9]+) equally likely outcomes/i.exec(text);
+  if (legacyEquallyLikely) return { answer: formatFraction(Number(legacyEquallyLikely[1]), Number(legacyEquallyLikely[2])) };
+
+  const bag = /bag (?:has|contains) ([0-9]+) red balls and ([0-9]+) blue balls/i.exec(text);
+  if (bag) {
+    const red = Number(bag[1]);
+    const blue = Number(bag[2]);
+    const total = red + blue;
+    if (/ordered pairs|ordered (?:ways|selections)|drawn (?:in order )?without replacement/i.test(text)) {
+      return { answer: String(total * (total - 1)) };
+    }
+    return { answer: formatFraction(red, total) };
+  }
+
+  return { answer: null, notes: ["Could not parse probability setup."] };
 }
 
 function solveLinesCircles(question: Question, text: string): SolverResult {
@@ -1027,6 +1119,18 @@ function solveLinesCircles(question: Question, text: string): SolverResult {
   if (slope) {
     const [, x1, y1, x2, y2] = slope.map(Number);
     return { answer: formatNumber((y2 - y1) / (x2 - x1)) };
+  }
+
+  const originCircleAndLine = /circle x\^2\+y\^2=([0-9]+(?:\.[0-9]+)?) and the line (-?[0-9]+(?:\.[0-9]+)?)x([+-][0-9]+(?:\.[0-9]+)?)y=([0-9]+(?:\.[0-9]+)?)/i.exec(text);
+  if (originCircleAndLine) {
+    const radius = Math.sqrt(Number(originCircleAndLine[1]));
+    const a = Number(originCircleAndLine[2]);
+    const b = Number(originCircleAndLine[3]);
+    const c = Number(originCircleAndLine[4]);
+    const distance = Math.abs(c) / Math.sqrt(a ** 2 + b ** 2);
+    if (Math.abs(distance - radius) < 1e-9) return { answer: "The line is tangent to the circle." };
+    if (distance < radius) return { answer: "The line intersects the circle at two points." };
+    return { answer: "The line and circle have no common point." };
   }
 
   const circle = /\(x-(-?[0-9]+)\)\^2\+\(y-(-?[0-9]+)\)\^2=([0-9]+)/.exec(text);
@@ -1038,6 +1142,14 @@ function solveLinesCircles(question: Question, text: string): SolverResult {
 }
 
 function solveConics(question: Question, text: string): SolverResult {
+  const lineParabola = /line y=(-?[0-9]+(?:\.[0-9]+)?)?x and the parabola y=(-?[0-9]+(?:\.[0-9]+)?)?x\^2/i.exec(text);
+  if (lineParabola) {
+    const lineCoefficient = lineParabola[1] ? Number(lineParabola[1]) : 1;
+    const quadraticCoefficient = lineParabola[2] ? Number(lineParabola[2]) : 1;
+    if (lineCoefficient === 0 || quadraticCoefficient === 0) return { answer: "1" };
+    return { answer: "2" };
+  }
+
   const parabola = /y\^2=([0-9]+(?:\.[0-9]+)?)x/.exec(text);
   if (parabola && /y\^2=2px/.test(text)) return { answer: formatNumber(Number(parabola[1]) / 2) };
 
@@ -1052,34 +1164,73 @@ function solveConics(question: Question, text: string): SolverResult {
 
 function solveSequences(question: Question, text: string): SolverResult {
   const first = numberFrom(/a_1=([0-9]+(?:\.[0-9]+)?)/.exec(text)?.[1]);
+  const ratio = numberFrom(/q=([0-9]+(?:\.[0-9]+)?)/.exec(text)?.[1]);
   const diff = numberFrom(/d=([0-9]+(?:\.[0-9]+)?)/.exec(text)?.[1]);
-  if (first === null || diff === null) return { answer: null, notes: ["Could not parse sequence parameters."] };
+  if (first === null || (diff === null && ratio === null)) return { answer: null, notes: ["Could not parse sequence parameters."] };
 
-  const sumMatch = /Find S_([0-9]+)/.exec(text);
-  if (sumMatch) {
-    const term = Number(sumMatch[1]);
+  const sumMatch = /Find S_(?:\{([0-9]+)\}|([0-9]+))/.exec(text);
+  if (sumMatch && diff !== null) {
+    const term = Number(sumMatch[1] ?? sumMatch[2]);
     const nth = first + (term - 1) * diff;
     return { answer: formatNumber((term * (first + nth)) / 2) };
   }
 
-  const termMatch = /Find a_([0-9]+)/.exec(text);
-  if (termMatch) {
-    const term = Number(termMatch[1]);
+  const termMatch = /Find a_(?:\{([0-9]+)\}|([0-9]+))/.exec(text);
+  if (termMatch && diff !== null) {
+    const term = Number(termMatch[1] ?? termMatch[2]);
     return { answer: formatNumber(first + (term - 1) * diff) };
+  }
+  if (termMatch && ratio !== null) {
+    const term = Number(termMatch[1] ?? termMatch[2]);
+    return { answer: formatNumber(first * ratio ** (term - 1)) };
   }
 
   return { answer: null, notes: ["Could not identify sequence target."] };
 }
 
 function solveDerivatives(question: Question, text: string): SolverResult {
-  const quadratic = /f\(x\)=(-?[0-9]+(?:\.[0-9]+)?)x\^2([+-][0-9]+(?:\.[0-9]+)?)x[+-][0-9]+/.exec(text);
+  const quadratic = /f\(x\)=(-?[0-9]+(?:\.[0-9]+)?)?x\^2([+-](?:[0-9]+(?:\.[0-9]+)?)?)x([+-][0-9]+(?:\.[0-9]+)?)/.exec(text);
   if (quadratic) {
-    const a = Number(quadratic[1]);
-    const b = parseSignedNumber(quadratic[2]);
+    const a = quadratic[1] === undefined || quadratic[1] === "" ? 1 : Number(quadratic[1]);
+    const b = quadratic[2] === "+" ? 1 : quadratic[2] === "-" ? -1 : parseSignedNumber(quadratic[2]);
+    const c = parseSignedNumber(quadratic[3]);
     const stationary = /f'\(x\)=0/.test(text);
-    if (stationary) return { answer: formatNumber(-b / (2 * a)) };
+    if (stationary) {
+      const denominator = 2 * a;
+      const divisor = gcd(Math.abs(b), Math.abs(denominator));
+      const denominatorSign = denominator < 0 ? -1 : 1;
+      const numerator = (-b * denominatorSign) / divisor;
+      const reducedDenominator = Math.abs(denominator) / divisor;
+      let terminatingDenominator = reducedDenominator;
+      while (terminatingDenominator % 2 === 0) terminatingDenominator /= 2;
+      while (terminatingDenominator % 5 === 0) terminatingDenominator /= 5;
+      return {
+        answer: terminatingDenominator === 1
+          ? formatNumber(numerator / reducedDenominator)
+          : `${numerator}/${reducedDenominator}`
+      };
+    }
     const valueMatch = /f'\((-?[0-9]+(?:\.[0-9]+)?)\)/.exec(text);
     if (valueMatch) return { answer: formatNumber(2 * a * Number(valueMatch[1]) + b) };
+    const intervalMinimum = /minimum value .* on the interval \[(-?[0-9]+(?:\.[0-9]+)?),(-?[0-9]+(?:\.[0-9]+)?)\]/i.exec(text);
+    if (intervalMinimum) {
+      const left = Number(intervalMinimum[1]);
+      const right = Number(intervalMinimum[2]);
+      const vertex = Math.min(right, Math.max(left, -b / (2 * a)));
+      const values = [left, right, vertex].map((x) => a * x ** 2 + b * x + c);
+      return { answer: formatNumber(Math.min(...values)) };
+    }
+  }
+
+  const increasingCubic = /f\(x\)=(-?[0-9]+(?:\.[0-9]+)?)?x\^3([+-][0-9]+(?:\.[0-9]+)?)x.* increasing/i.exec(text);
+  if (increasingCubic) {
+    const a = increasingCubic[1] === undefined || increasingCubic[1] === "" ? 1 : Number(increasingCubic[1]);
+    const b = Number(increasingCubic[2]);
+    const rootSquared = -b / (3 * a);
+    if (a > 0 && rootSquared > 0) {
+      const root = Math.sqrt(rootSquared);
+      return { answer: `(-∞,-${formatNumber(root)})∪(${formatNumber(root)},∞)` };
+    }
   }
 
   const cubic = /f\(x\)=([0-9]+(?:\.[0-9]+)?)x\^3/.exec(text);
@@ -1099,20 +1250,44 @@ function solveCounting(question: Question, text: string): SolverResult {
 }
 
 function solveRandomVariables(question: Question, text: string): SolverResult {
-  const match = /B\(([0-9]+), ([0-9]+)\/([0-9]+)\)/.exec(text);
+  const match = /B\(([0-9]+),\s*([0-9]+)\/([0-9]+)\)/.exec(text);
   if (!match) return { answer: null, notes: ["Could not parse binomial distribution."] };
   const trials = Number(match[1]);
-  const p = Number(match[2]) / Number(match[3]);
+  const probabilityNumerator = Number(match[2]);
+  const probabilityDenominator = Number(match[3]);
+  const p = probabilityNumerator / probabilityDenominator;
+  const probabilityMatch = /P\(X=([0-9]+)\)/.exec(text);
+  if (probabilityMatch) {
+    const successes = Number(probabilityMatch[1]);
+    const selected = Math.min(successes, trials - successes);
+    let combination = 1;
+    for (let index = 1; index <= selected; index += 1) {
+      combination = (combination * (trials - selected + index)) / index;
+    }
+    const numerator = combination
+      * probabilityNumerator ** successes
+      * (probabilityDenominator - probabilityNumerator) ** (trials - successes);
+    const denominator = probabilityDenominator ** trials;
+    return { answer: formatFraction(numerator, denominator) };
+  }
   if (/variance/.test(text)) return { answer: formatNumber(trials * p * (1 - p)) };
   if (/expectation/.test(text)) return { answer: formatNumber(trials * p) };
   return { answer: null, notes: ["Could not identify random-variable target."] };
 }
 
 function solveBivariateData(question: Question, text: string): SolverResult {
-  const regression = /\\hat y=([0-9]+(?:\.[0-9]+)?)x([+-][0-9]+(?:\.[0-9]+)?)/.exec(text);
+  const correlation = /correlation coefficient r=(-?[0-9]+(?:\.[0-9]+)?)/i.exec(text);
+  if (correlation) {
+    const value = Number(correlation[1]);
+    if (value <= -0.7) return { answer: "There is a strong negative linear association." };
+    if (value >= 0.7) return { answer: "There is a strong positive linear association." };
+    return { answer: "There is little linear association." };
+  }
+
+  const regression = /\\hat y=([0-9]+(?:\.[0-9]+)?)x(?:([+-][0-9]+(?:\.[0-9]+)?))?/.exec(text);
   const xMatch = /x=([0-9]+(?:\.[0-9]+)?)/.exec(text);
   if (!regression || !xMatch) return { answer: null, notes: ["Could not parse regression model."] };
-  const predicted = Number(regression[1]) * Number(xMatch[1]) + parseSignedNumber(regression[2]);
+  const predicted = Number(regression[1]) * Number(xMatch[1]) + parseSignedNumber(regression[2] ?? "+0");
   const observedMatch = /observed value is (-?[0-9]+(?:\.[0-9]+)?)/.exec(text);
   if (/residual/.test(text) && observedMatch) return { answer: formatNumber(Number(observedMatch[1]) - predicted) };
   return { answer: formatNumber(predicted) };
@@ -1121,8 +1296,10 @@ function solveBivariateData(question: Question, text: string): SolverResult {
 function solveExamSynthesis(question: Question, text: string): SolverResult {
   const derivative = solveDerivatives(question, text);
   if (derivative.answer !== null) return derivative;
-  const probability = /favorable event has ([0-9]+) outcomes from ([0-9]+) equally likely outcomes/.exec(text);
-  if (probability) return { answer: formatFraction(Number(probability[1]), Number(probability[2])) };
+  const sequence = solveSequences(question, text);
+  if (sequence.answer !== null) return sequence;
+  const probability = solveProbability(question, text);
+  if (probability.answer !== null) return probability;
   return { answer: null, notes: ["Could not parse exam-synthesis prompt."] };
 }
 
@@ -1301,9 +1478,11 @@ function higherPriorityStatus(current: QuestionAuditStatus, next: QuestionAuditS
 
 function gradingPayload(question: Question) {
   return {
+    id: question.id,
     answer: question.answer,
     accepted_answers: question.acceptedAnswers ?? null,
-    options: question.options ?? null
+    options: question.options ?? null,
+    prompt: question.prompt
   };
 }
 
@@ -1397,10 +1576,7 @@ function auditQuestion(
     if (uniqueOptions.size !== options.length) mark("ambiguous-mc", "Multiple-choice options are not unique.");
 
     if (solver.answer) {
-      const solverAnswer = solver.answer;
-      const acceptedOptionCount = options.filter((option) =>
-        [option.en, option.zh, option.zhHans ?? ""].some((optionText) => answerMatches(solverAnswer, optionText))
-      ).length;
+      const acceptedOptionCount = options.filter((option) => optionMatchesAcceptedAnswer(question, option)).length;
       if (acceptedOptionCount !== 1) {
         mark("ambiguous-mc", `Expected exactly one option matching independent answer; found ${acceptedOptionCount}.`);
       }

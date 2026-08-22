@@ -364,15 +364,13 @@ test("derived facts recompute the showcase answers from checked-in diagram data"
   const angleQuestion = questionById("graph-p4-angles-straight-line");
   assert.equal(angleQuestion.diagram?.kind, "plane-figure");
   if (angleQuestion.diagram?.kind === "plane-figure") {
-    const marked = planeFigureAngleDegrees(angleQuestion.diagram, "O", "A", "C");
-    assert.ok(marked !== null && Math.abs(marked - 130) < 0.5, `marked angle drifted: ${marked}`);
-    const derived = planeFigureAngleDegrees(angleQuestion.diagram, "O", "C", "B");
-    assert.ok(derived !== null && Math.round(derived) === 50);
-    const span = planeFigureSegmentLength(angleQuestion.diagram, "A", "B");
-    assert.equal(span, 8);
+    const marked = planeFigureAngleDegrees(angleQuestion.diagram, "O", "A", "B");
+    assert.ok(marked !== null && Math.abs(marked - 90) < 0.5, `right angle drifted: ${marked}`);
+    assert.equal(planeFigureSegmentLength(angleQuestion.diagram, "A", "O"), 3);
+    assert.equal(planeFigureSegmentLength(angleQuestion.diagram, "O", "B"), 3);
   }
-  assert.equal(deriveGraphAnswer(angleQuestion), "50°");
-  assert.ok(isExpectedAnswerRepresented(angleQuestion, "50°"));
+  assert.equal(deriveGraphAnswer(angleQuestion), "right angle");
+  assert.ok(isExpectedAnswerRepresented(angleQuestion, "right angle"));
 
   const numberLineQuestion = questionById("graph-p4-decimals-number-line");
   assert.equal(numberLineQuestion.diagram?.kind, "number-line");

@@ -49,6 +49,7 @@ import {
   visualizationTemplateIds
 } from "../data/visualizationLabs";
 import { lessonSlugForTopicId } from "./lessonLinks";
+import { toPrcSimplifiedText } from "./i18n";
 import { createSessionToken, verifySessionToken } from "./session";
 import type { GradeId, Question } from "../types";
 
@@ -145,34 +146,8 @@ function isCoreBilingualAnswerQuestion(question: Question) {
   return question.region !== "US" && question.publisher !== "MAINLAND_BNU" && question.publisher !== "MAINLAND_HJB";
 }
 
-function parseTraditionalMap(source: string) {
-  const start = source.indexOf("export const traditionalToSimplifiedMap");
-  assert.notEqual(start, -1);
-  const bodyStart = source.indexOf("{", start);
-  const bodyEnd = source.indexOf("\n};", bodyStart);
-  assert.notEqual(bodyStart, -1);
-  assert.notEqual(bodyEnd, -1);
-
-  const entries = new Map<string, string>();
-  for (const match of source.slice(bodyStart + 1, bodyEnd).matchAll(/^\s*([^:\s]+):\s*"([^"]*)"/gm)) {
-    entries.set(match[1], match[2]);
-  }
-  return entries;
-}
-
-function parsePrcPhraseRules(source: string) {
-  return Array.from(source.matchAll(/source:\s*"([^"]+)",\s*replacement:\s*"([^"]+)"/g)).map((match) => ({
-    source: match[1],
-    replacement: match[2]
-  }));
-}
-
 function applyTestPrcSimplified(text: string) {
-  const source = readFileSync(path.join(process.cwd(), "lib/i18n.ts"), "utf8");
-  const characterMap = parseTraditionalMap(source);
-  const phraseRules = parsePrcPhraseRules(source);
-  const converted = Array.from(text).map((char) => characterMap.get(char) ?? char).join("");
-  return phraseRules.reduce((current, rule) => current.split(rule.source).join(rule.replacement), converted);
+  return toPrcSimplifiedText(text);
 }
 
 test("seed content has at least one practice question for every practice-backed roadmap topic", () => {
@@ -285,12 +260,28 @@ test("Simplified Chinese fallback follows PRC character and terminology rules", 
   assert.equal(applyTestPrcSimplified("先追蹤學習進度，再開啟視覺化課節。"), "先追踪学习进度，再开启可视化课时。");
   assert.equal(applyTestPrcSimplified("函數圖像與常態分佈"), "函数图象与正态分布");
   assert.equal(applyTestPrcSimplified("學生帳戶電郵"), "学生账号邮箱");
+  assert.equal(applyTestPrcSimplified("香港中一學生"), "香港初一学生");
+  assert.equal(applyTestPrcSimplified("其中一個是 65°，其中一條臂是曲線。"), "其中一个是 65°，其中一条臂是曲线。");
+  assert.equal(applyTestPrcSimplified("找出最小一個數。"), "找出最小一个数。");
+  assert.equal(
+    applyTestPrcSimplified("課室物件包括膠擦、筆記簿和水樽；小食售價用找續。"),
+    "教室物品包括橡皮、笔记本和水瓶；零食售价用找零。"
+  );
+  assert.equal(
+    applyTestPrcSimplified("用公升表示容量，用全距描述數據，並應用畢氏定理。"),
+    "用升表示容量，用极差描述数据，并应用勾股定理。"
+  );
+  assert.equal(applyTestPrcSimplified("乘巴士上學。"), "乘公交车上学。");
+  assert.equal(
+    applyTestPrcSimplified("開口比書角闊的是鈍角；長乘闊是一層，設闊為 x。"),
+    "开口比书角大的是钝角；长乘宽是一层，设宽为 x。"
+  );
 });
 
-test("Simplified Chinese uses explicit zhHans copy before fallback conversion", () => {
+test("Simplified Chinese normalizes explicit zhHans copy as well as fallback copy", () => {
   const i18nSource = readFileSync(path.join(process.cwd(), "lib/i18n.ts"), "utf8");
 
-  assert.match(i18nSource, /if \(language === "zh-Hans" && value\.zhHans\) return value\.zhHans;/);
+  assert.match(i18nSource, /if \(language === "zh-Hans" && value\.zhHans\) return toPrcSimplifiedText\(value\.zhHans\);/);
   assert.equal(applyTestPrcSimplified("追蹤"), "追踪");
 });
 
@@ -546,23 +537,60 @@ test("Mainland PEP primary lesson illustrations stay withdrawn pending approved 
   assert.deepEqual(issues, []);
 });
 
-test("Mainland HJB primary lesson illustrations cover approved concept and worked-example assets", () => {
+test("Mainland HJB primary lesson illustrations retain only the 94 assets approved by whole-page visual QA", () => {
   const slots = ["concept", "worked-example"] as const;
   const topicIds = mainlandHjbPrimaryTopics.map((topic) => topic.id);
   const topicIdSet = new Set(topicIds);
+  const suppressedTopicIds = new Set([
+    "hjb-primary-p1-upper-solids-introduction",
+    "hjb-primary-p1-upper-review",
+    "hjb-primary-p1-lower-length-measurement",
+    "hjb-primary-p1-lower-body-rulers-math-square",
+    "hjb-primary-p1-lower-review",
+    "hjb-primary-p2-upper-school-position-direction",
+    "hjb-primary-p2-upper-within-100-add-sub",
+    "hjb-primary-p2-upper-classification",
+    "hjb-primary-p2-upper-math-square-review",
+    "hjb-primary-p2-lower-math-square-review",
+    "hjb-primary-p3-upper-review-place-value-operations",
+    "hjb-primary-p3-upper-time-measurement",
+    "hjb-primary-p3-upper-math-square-review",
+    "hjb-primary-p3-lower-math-square-review",
+    "hjb-primary-p4-upper-review-operations-fractions",
+    "hjb-primary-p4-upper-fraction-extension",
+    "hjb-primary-p4-upper-four-operations-problem-solving",
+    "hjb-primary-p4-upper-review-integration",
+    "hjb-primary-p4-lower-review-operation-properties",
+    "hjb-primary-p4-lower-review-integration",
+    "hjb-primary-p6-upper-divisibility",
+    "hjb-primary-p6-upper-fractions",
+    "hjb-primary-p6-lower-rational-numbers"
+  ]);
   const seenKeys = new Set<string>();
   const issues: string[] = [];
+  let retainedRuntimeIllustrationCount = 0;
+  let suppressedRuntimeIllustrationCount = 0;
 
   assert.equal(topicIds.length, 70);
   assert.equal(mainlandHjbPrimaryLessonIllustrations.length, topicIds.length * slots.length);
+  assert.equal(suppressedTopicIds.size, 23);
 
   topicIds.forEach((topicId) => {
     slots.forEach((slot) => {
-      if (!getMainlandHjbPrimaryLessonIllustration(topicId, slot)) {
+      const illustration = getMainlandHjbPrimaryLessonIllustration(topicId, slot);
+      if (suppressedTopicIds.has(topicId)) {
+        suppressedRuntimeIllustrationCount += 1;
+        if (illustration) issues.push(`${topicId}: ${slot} illustration should be suppressed after visual QA`);
+      } else if (!illustration) {
         issues.push(`${topicId}: missing ${slot} illustration`);
+      } else {
+        retainedRuntimeIllustrationCount += 1;
       }
     });
   });
+
+  assert.equal(suppressedRuntimeIllustrationCount, 46);
+  assert.equal(retainedRuntimeIllustrationCount, 94);
 
   mainlandHjbPrimaryLessonIllustrations.forEach((illustration) => {
     const key = `${illustration.topicId}:${illustration.slot}`;
@@ -744,12 +772,19 @@ test("California textbook worked examples have visual QA coverage", () => {
   assert.deepEqual(issues, []);
 });
 
-test("production lessons with visualization blocks reuse primary lab mappings", () => {
+test("production lessons use primary lab mappings or an explicitly reviewed specialized runtime", () => {
   const productionReadyLessonByTopicId = new Map(
     productionLessonSeeds
       .filter((lesson) => lesson.productionReady)
       .map((lesson) => [lesson.topicId, lesson])
   );
+  const reviewedSpecializedVisualizations: Record<string, { moduleId: string; source: string }> = {
+    "p1-counting-number-bonds": { moduleId: "coordinate-plane-demo", source: "coordinate-plane" },
+    "p5-volume": { moduleId: "geometry-explorer", source: "geometry" },
+    "p5-charts-averages": { moduleId: "probability-simulator", source: "probability" },
+    "p6-speed": { moduleId: "coordinate-plane-demo", source: "coordinate-plane" },
+    "statistics-s6": { moduleId: "calculus-stats-lab", source: "calculus-stats" }
+  };
 
   const visualizationMappingIssues = primaryVisualizationLabs.flatMap((lab) => {
       const lesson = productionReadyLessonByTopicId.get(lab.topicId);
@@ -758,9 +793,12 @@ test("production lessons with visualization blocks reuse primary lab mappings", 
       if (!lesson || !visualizationBlock?.visualizationConfig) return [];
 
       const actual = visualizationBlock.visualizationConfig;
+      const reviewedOverride = reviewedSpecializedVisualizations[lab.topicId];
+      const expectedModuleId = reviewedOverride?.moduleId ?? lab.moduleId;
+      const expectedSource = reviewedOverride?.source ?? lab.analyticsSource;
       const issues: string[] = [];
-      if (actual.moduleId !== lab.moduleId) issues.push(`${lab.topicId}: module ${actual.moduleId} !== ${lab.moduleId}`);
-      if (actual.source !== lab.analyticsSource) issues.push(`${lab.topicId}: source ${actual.source} !== ${lab.analyticsSource}`);
+      if (actual.moduleId !== expectedModuleId) issues.push(`${lab.topicId}: module ${actual.moduleId} !== ${expectedModuleId}`);
+      if (actual.source !== expectedSource) issues.push(`${lab.topicId}: source ${actual.source} !== ${expectedSource}`);
       if (actual.topicId !== lab.topicId) issues.push(`${lab.topicId}: topic ${actual.topicId} !== ${lab.topicId}`);
       return issues;
   });

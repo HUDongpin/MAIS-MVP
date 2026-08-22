@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { describe, it } from "node:test";
 
+import { mainlandHjbPrimaryLessonSeeds } from "./mainlandHjbPrimaryLessons";
+import { mainlandHjbPrimaryQuestions } from "./mainlandHjbPrimaryQuestions";
 import { productionLessonSeeds } from "./lessons";
 import type { LocalizedText } from "@/types";
+
+function sha256(value: unknown) {
+  return createHash("sha256").update(JSON.stringify(value)).digest("hex");
+}
 
 function localizedText(value?: LocalizedText | string) {
   if (!value) return "";
@@ -103,5 +110,66 @@ describe("production lesson near-transfer examples", () => {
     }
 
     assert.deepEqual(findings, []);
+  });
+
+  it("uses one disjoint non-checkpoint HJB primary method without changing reviewed checkpoints", () => {
+    const checkpointMatrix = mainlandHjbPrimaryLessonSeeds.map((lesson) => [
+      lesson.topicId,
+      lesson.practiceQuestionIds ?? []
+    ] as const);
+    const workedExampleSurface = mainlandHjbPrimaryLessonSeeds.map((lesson) => [
+      lesson.topicId,
+      lesson.blocks.find((block) => block.type === "worked-example")?.content
+    ]);
+    const conceptMethodSurface = mainlandHjbPrimaryLessonSeeds.map((lesson) => [
+      lesson.topicId,
+      lesson.blocks.find((block) => block.type === "concept")?.content
+    ]);
+    const conceptMethodSources: Array<[string, string[]]> = [];
+
+    for (const lesson of mainlandHjbPrimaryLessonSeeds) {
+      const concept = lesson.blocks.find((block) => block.type === "concept");
+      const workedExample = lesson.blocks.find((block) => block.type === "worked-example");
+      assert.ok(concept?.content, `${lesson.topicId} must expose a concept method`);
+      assert.ok(workedExample?.content, `${lesson.topicId} must expose a worked example`);
+
+      const conceptZhHans = typeof concept.content === "string"
+        ? concept.content
+        : concept.content.zhHans ?? concept.content.zh;
+      const topicQuestions = mainlandHjbPrimaryQuestions.filter((question) => question.topicId === lesson.topicId);
+      const workedExampleQuestion = topicQuestions[0];
+      assert.ok(workedExampleQuestion, `${lesson.topicId} must retain its reviewed worked-example question`);
+      const disallowedIds = new Set([workedExampleQuestion.id, ...(lesson.practiceQuestionIds ?? [])]);
+      const methodSources = topicQuestions.filter((question) => {
+        if (disallowedIds.has(question.id)) return false;
+        const explanationZhHans = question.explanation.zhHans ?? question.explanation.zh;
+        return conceptZhHans.includes(explanationZhHans);
+      });
+
+      assert.equal(methodSources.length, 1, `${lesson.topicId} must use exactly one distinct non-checkpoint method`);
+      assert.deepEqual(
+        [...exampleSignatures(localizedText(concept.content))]
+          .filter((signature) => exampleSignatures(localizedText(workedExample.content)).has(signature)),
+        [],
+        `${lesson.topicId} concept method must remain a near-transfer example`
+      );
+      conceptMethodSources.push([lesson.topicId, methodSources.map((question) => question.id)]);
+    }
+
+    assert.deepEqual({
+      lessonCount: mainlandHjbPrimaryLessonSeeds.length,
+      checkpointCount: checkpointMatrix.reduce((count, [, ids]) => count + ids.length, 0),
+      checkpointIdsSha256: sha256(checkpointMatrix),
+      workedExampleSurfaceSha256: sha256(workedExampleSurface),
+      conceptMethodSurfaceSha256: sha256(conceptMethodSurface),
+      conceptMethodSourcesSha256: sha256(conceptMethodSources)
+    }, {
+      lessonCount: 70,
+      checkpointCount: 560,
+      checkpointIdsSha256: "54819b52a50e38cd2f84a1234d5981289ff723d07096f069b83308abfa8cd046",
+      workedExampleSurfaceSha256: "a67149bcb923a0f8ceae4374717a8eefcde35f6bfbc843fb3e80293eeee1288d",
+      conceptMethodSurfaceSha256: "55410a7943ad5bb35e18661aa10f42b7d99569e0730072e5091de2d0446080d8",
+      conceptMethodSourcesSha256: "d200f9207e5ba1360d411cf03148d1ba1df667b560714bb6464c6b8be414653c"
+    });
   });
 });
