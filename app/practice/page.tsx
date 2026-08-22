@@ -896,10 +896,9 @@ function QuestionPager({
     previousQuestionSignatureRef.current = questionSignature;
     clearAutoAdvance();
     questionStartedAtRef.current = {};
-    const nextIndex = resumeQuestionIndex(questions, answerResults);
-    setCurrentIndex(nextIndex);
-    setJumpValue(questionCount ? String(nextIndex + 1) : "");
-  }, [answerResults, clearAutoAdvance, questionCount, questionSignature, questions]);
+    setCurrentIndex(0);
+    setJumpValue(questionCount ? "1" : "");
+  }, [clearAutoAdvance, questionCount, questionSignature]);
 
   useEffect(() => {
     setSoundEnabled(readPracticeSoundEnabled(window.localStorage.getItem(practiceSoundStorageKey(currentUser?.id))));
