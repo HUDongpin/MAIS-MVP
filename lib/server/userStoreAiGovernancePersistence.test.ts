@@ -597,6 +597,131 @@ test("AI governance persistence store records tutor messages and token usage wit
   assert.equal(await store.getAITutorTokenUsageSince("student-1", "2026-06-20T09:00:00.000Z"), 118);
 });
 
+test("AI governance persistence lets a narrow message journal bypass the snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const captured: unknown[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      throw new Error("snapshot touched");
+    },
+    recordAITutorMessageBeforeSnapshot: async (record) => {
+      captured.push(record);
+      return true as const;
+    }
+  });
+
+  await store.recordAITutorMessage({
+    userId: "student-1",
+    role: "student",
+    content: "Explain the diagram.",
+    context: { imageCount: 1 }
+  });
+
+  assert.deepEqual(captured, [{
+    id: "message-1",
+    user_id: "student-1",
+    role: "student",
+    content: "Explain the diagram.",
+    context_json: { imageCount: 1 },
+    created_at: "2026-06-20T10:00:00.000Z"
+  }]);
+  assert.deepEqual(database.ai_tutor_messages, []);
+});
+
+test("AI governance persistence lets a narrow usage journal bypass the snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const captured: unknown[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      throw new Error("snapshot touched");
+    },
+    recordAITutorUsageBeforeSnapshot: async (record) => {
+      captured.push(record);
+      return true as const;
+    }
+  });
+
+  await store.recordAITutorUsage({
+    userId: "student-1",
+    model: "qwen3.8-max",
+    promptTokens: 7,
+    completionTokens: 11
+  });
+
+  assert.deepEqual(captured, [{
+    id: "message-1",
+    user_id: "student-1",
+    model: "qwen3.8-max",
+    prompt_tokens: 7,
+    completion_tokens: 11,
+    total_tokens: null,
+    error: null,
+    created_at: "2026-06-20T10:00:00.000Z"
+  }]);
+  assert.deepEqual(database.ai_tutor_usage, []);
+});
+
+test("AI governance journal failures never fall back to a snapshot mutation", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const failure = new Error("journal unavailable");
+  let snapshotMutations = 0;
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      snapshotMutations += 1;
+      throw new Error("snapshot touched");
+    },
+    recordAITutorMessageBeforeSnapshot: async () => {
+      throw failure;
+    },
+    recordAITutorUsageBeforeSnapshot: async () => {
+      throw failure;
+    }
+  });
+
+  await assert.rejects(
+    store.recordAITutorMessage({ userId: "student-1", role: "student", content: "hello" }),
+    (error) => error === failure
+  );
+  await assert.rejects(
+    store.recordAITutorUsage({ userId: "student-1", model: "qwen3.8-max" }),
+    (error) => error === failure
+  );
+  assert.equal(snapshotMutations, 0);
+});
+
+test("an inapplicable journal hook preserves the legacy snapshot writer", async () => {
+  const database: AiGovernancePersistenceDatabase = {
+    ai_governance_events: [],
+    ai_tutor_messages: [],
+    ai_tutor_usage: [],
+    users: []
+  };
+  const store = createTestStore(database, {
+    recordAITutorMessageBeforeSnapshot: async () => undefined,
+    recordAITutorUsageBeforeSnapshot: async () => undefined
+  });
+
+  await store.recordAITutorMessage({ userId: "student-1", role: "student", content: "hello" });
+  await store.recordAITutorUsage({ userId: "student-1", model: "qwen3.8-max" });
+  assert.equal(database.ai_tutor_messages.length, 1);
+  assert.equal(database.ai_tutor_usage.length, 1);
+});
+
 test("AI Tutor database context only runs for an explicit database-backed anchor or scope", () => {
   assert.equal(hasRequestedAITutorDatabaseContext(), false);
   assert.equal(hasRequestedAITutorDatabaseContext({

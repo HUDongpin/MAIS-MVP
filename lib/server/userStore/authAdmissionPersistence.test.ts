@@ -170,7 +170,7 @@ test("a pre-aborted auth admission never creates a database query", async () => 
   assert.equal(createCalls, 0);
 });
 
-test("aborting a pending auth admission cancels its query exactly once", async () => {
+test("aborting a pending auth admission rejects without invoking unsafe postgres.js cancellation", async () => {
   const deferred = cancellableDeferredQuery<TestRow>();
   const controller = new AbortController();
   const resultPromise = runCancellableAuthAdmissionQuery({
@@ -186,7 +186,7 @@ test("aborting a pending auth admission cancels its query exactly once", async (
     resultPromise,
     (error) => error instanceof DOMException && error.name === "AbortError"
   );
-  assert.equal(deferred.cancelCalls(), 1);
+  assert.equal(deferred.cancelCalls(), 0);
 });
 
 test("auth admission removes abort listeners after success and failure", async () => {
@@ -218,7 +218,7 @@ test("auth admission removes abort listeners after success and failure", async (
   assert.equal(failure.cancelCalls(), 0);
 });
 
-test("cancel listeners stay isolated across independently scheduled auth lookups", async () => {
+test("abort listeners stay isolated across independently scheduled auth lookups", async () => {
   const first = cancellableDeferredQuery<TestRow>();
   const second = cancellableDeferredQuery<TestRow>();
   const third = cancellableDeferredQuery<TestRow>();
@@ -243,12 +243,12 @@ test("cancel listeners stay isolated across independently scheduled auth lookups
   await assert.rejects(firstPromise, (error) => error instanceof DOMException && error.name === "AbortError");
   await assert.rejects(secondPromise, (error) => error instanceof DOMException && error.name === "AbortError");
   assert.deepEqual(await thirdPromise, { userId: "student-3" });
-  assert.equal(first.cancelCalls(), 1);
-  assert.equal(second.cancelCalls(), 1);
+  assert.equal(first.cancelCalls(), 0);
+  assert.equal(second.cancelCalls(), 0);
   assert.equal(third.cancelCalls(), 0);
 });
 
-test("auth admission rejects promptly even when best-effort cancellation does not settle the query", async () => {
+test("auth admission rejects promptly while the underlying query settles under server timeout", async () => {
   const deferred = cancellableDeferredQuery<TestRow>();
   let cancelCalls = 0;
   let mapCalls = 0;
@@ -287,7 +287,7 @@ test("auth admission rejects promptly even when best-effort cancellation does no
   if (outcome.kind === "rejected") {
     assert.equal(outcome.error instanceof DOMException && outcome.error.name === "AbortError", true);
   }
-  assert.equal(cancelCalls, 1);
+  assert.equal(cancelCalls, 0);
 
   deferred.resolve([{ id: "student-1" }]);
   await new Promise<void>((resolve) => setImmediate(resolve));
@@ -339,6 +339,49 @@ test("the auth admission slot drops an aborted waiter before the next transactio
   assert.equal(secondOperationCalls, 0);
   assert.equal(thirdOperationCalls, 1);
   assert.equal(maxActive, 1);
+  assert.equal(active, 0);
+});
+
+test("an isolated slow rate lane cannot head-of-line block a policy lane", async () => {
+  const policySlot = createAbortableAuthAdmissionSlot();
+  const rateSlot = createAbortableAuthAdmissionSlot();
+  const signal = new AbortController().signal;
+  let releaseRate!: () => void;
+  const rateGate = new Promise<void>((resolve) => {
+    releaseRate = resolve;
+  });
+  const rate = rateSlot.run(signal, async () => {
+    await rateGate;
+    return "rate";
+  });
+
+  const policy = policySlot.run(signal, async () => "policy");
+  assert.equal(await policy, "policy");
+  releaseRate();
+  assert.equal(await rate, "rate");
+});
+
+test("three independent admission lanes can be active without cross-domain serialization", async () => {
+  const slots = [
+    createAbortableAuthAdmissionSlot(),
+    createAbortableAuthAdmissionSlot(),
+    createAbortableAuthAdmissionSlot()
+  ];
+  const signal = new AbortController().signal;
+  let active = 0;
+  let maxActive = 0;
+  const releases: Array<() => void> = [];
+  const operations = slots.map((slot) => slot.run(signal, async () => {
+    active += 1;
+    maxActive = Math.max(maxActive, active);
+    await new Promise<void>((resolve) => releases.push(resolve));
+    active -= 1;
+  }));
+
+  await new Promise<void>((resolve) => setImmediate(resolve));
+  assert.equal(maxActive, 3);
+  releases.forEach((release) => release());
+  await Promise.all(operations);
   assert.equal(active, 0);
 });
 

@@ -437,8 +437,8 @@ export default function CountingLab() {
     const CARM_SOFT = 'rgba(200,30,79,0.14)';
     const BLUE = '#3F74A6'; // Group B — the neutral set we compare against
     const BLUE_SOFT = 'rgba(63,116,166,0.16)';
-    const GOLD = '#D9982B'; // the counting "finger" + leftover-has-no-partner ring
-    const CELL = 'rgba(28,43,58,0.16)'; // ten-frame outlines
+    const GOLD = '#9A6F12'; // the counting "finger" + leftover-has-no-partner ring
+    const CELL = '#5b6b7b'; // ten-frame outlines carry the five-and-ten structure
     const LEAF = '#7F9A3D'; // apple leaf — muted olive, NOT the correctness green
     const STEM = '#7A5230'; // apple stem
     const BERRY_DARK = '#2C5578'; // berry calyx
@@ -603,7 +603,7 @@ export default function CountingLab() {
       // one-to-one matching lines between paired counters
       const pairs = Math.min(S.n, S.m);
       ctx.save();
-      ctx.strokeStyle = 'rgba(28,43,58,0.32)';
+      ctx.strokeStyle = 'rgba(28,43,58,0.68)';
       ctx.lineWidth = 1.6;
       for (let i = 0; i < pairs; i++) {
         ctx.beginPath();
@@ -706,7 +706,7 @@ export default function CountingLab() {
     // guide ring for the circle arrangement
     if (S.arrangement === 'circle' && L.ring) {
       ctx.save();
-      ctx.strokeStyle = 'rgba(28,43,58,0.14)';
+      ctx.strokeStyle = 'rgba(28,43,58,0.62)';
       ctx.lineWidth = 1.4;
       ctx.setLineDash([5, 5]);
       ctx.beginPath();
@@ -721,7 +721,7 @@ export default function CountingLab() {
       for (const c of L.outlines) {
         const s = c.s * 0.9;
         ctx.strokeStyle = CELL;
-        ctx.lineWidth = 1.4;
+        ctx.lineWidth = 2;
         roundRect(ctx, c.x - s / 2, c.y - s / 2, s, s, 6);
         ctx.stroke();
       }
@@ -1167,6 +1167,7 @@ export default function CountingLab() {
           <div className="toolbar">
             <button
               type="button"
+              aria-label={counting ? 'Stop counting animation' : 'Play counting animation'}
               className={
                 'btn ghost' +
                 (counting ? ' on' : '') +
@@ -1514,7 +1515,8 @@ export default function CountingLab() {
           bottom: 9px;
           font-size: 11px;
           color: var(--ink-soft);
-          background: rgba(251, 251, 248, 0.78);
+          background: #fbfbf8;
+          border: 1px solid rgba(28, 43, 58, 0.12);
           padding: 3px 7px;
           border-radius: 5px;
           pointer-events: none;
@@ -1568,7 +1570,7 @@ export default function CountingLab() {
           border: 1px solid var(--ink);
           background: var(--ink);
           color: #fff;
-          transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+          transition: background 0.15s, color 0.15s, border-color 0.15s;
         }
         .btn.ghost {
           background: transparent;
@@ -1580,8 +1582,15 @@ export default function CountingLab() {
           color: #fff;
         }
         .btn:disabled {
-          opacity: 0.4;
+          border-color: #596979;
+          background: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1631,7 +1640,12 @@ export default function CountingLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          color: #596979;
+        }
+        .dial.locked .dk,
+        .dial.locked .drole,
+        .dial.locked .dv {
+          color: #596979;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1716,7 +1730,9 @@ export default function CountingLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;

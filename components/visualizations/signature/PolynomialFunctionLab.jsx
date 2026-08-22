@@ -1373,6 +1373,26 @@ export default function PolynomialFunctionLab() {
         .seg-btn:disabled {
           cursor: not-allowed;
         }
+        @media (max-width: 560px) {
+          .dial.degree {
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: auto;
+          }
+          .dial.degree .dk,
+          .dial.degree .drole,
+          .dial.degree .seg,
+          .dial.degree .dv {
+            grid-column: 1;
+            grid-row: auto;
+          }
+          .dial.degree .seg {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(44px, 1fr));
+          }
+          .dial.degree .dv {
+            text-align: left;
+          }
+        }
         .quiz {
           margin-top: 16px;
           padding-top: 14px;

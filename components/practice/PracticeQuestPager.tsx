@@ -63,13 +63,22 @@ type PracticeStarRewardProps = {
   t: (localized: LocalizedText) => string;
   prefersReducedMotion: boolean | null;
   themed?: boolean;
+  roomyOnLargeScreens?: boolean;
 };
 
 /**
  * The round's live star haul: Nova reacts as stars land and pips fill per
  * answer, turning the pager header's spare corner into the reward loop.
  */
-export function PracticeStarReward({ correctCount, answeredCount, total, t, prefersReducedMotion, themed = false }: PracticeStarRewardProps) {
+export function PracticeStarReward({
+  correctCount,
+  answeredCount,
+  total,
+  t,
+  prefersReducedMotion,
+  themed = false,
+  roomyOnLargeScreens = false
+}: PracticeStarRewardProps) {
   const roundComplete = answeredCount >= total && total > 0;
   const mood = correctCount > 0 ? "cheer" : "happy";
   const pips = Array.from({ length: total }, (_, index) => {
@@ -88,6 +97,7 @@ export function PracticeStarReward({ correctCount, answeredCount, total, t, pref
       })}
       className={cn(
         "flex items-center gap-3 self-start rounded-[1.5rem] border border-amber-200/90 bg-gradient-to-br from-amber-50 to-yellow-50 px-4 py-2.5 shadow-sm sm:self-auto",
+        roomyOnLargeScreens && "2xl:min-w-[210px] 2xl:gap-4 2xl:px-5 2xl:py-4",
         themed && "dark:border-amber-300/25 dark:from-amber-950/35 dark:to-yellow-950/25"
       )}
     >
@@ -98,16 +108,23 @@ export function PracticeStarReward({ correctCount, answeredCount, total, t, pref
         animate={prefersReducedMotion ? undefined : { scale: [0.8, 1.12, 1], rotate: [-8, 6, 0] }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <NovaCompanion mood={mood} className="h-11 w-11" />
+        <NovaCompanion
+          mood={mood}
+          className={cn("h-11 w-11", roomyOnLargeScreens && "2xl:h-12 2xl:w-12")}
+        />
       </motion.span>
       <div aria-hidden="true" className="min-w-0">
-        <p className={cn("text-[11px] font-black uppercase tracking-[0.14em] text-amber-600", themed && "dark:text-amber-300")}>
+        <p className={cn(
+          "text-[11px] font-black uppercase tracking-[0.14em] text-amber-600",
+          roomyOnLargeScreens && "2xl:text-xs",
+          themed && "dark:text-amber-300"
+        )}>
           {roundComplete
             ? t({ en: "Stars earned", zh: "贏得星星", zhHans: "赢得星星" })
             : t({ en: "Stars so far", zh: "目前星星", zhHans: "目前星星" })}
         </p>
         <p className={cn("flex items-baseline gap-1 font-black leading-none text-amber-700", themed && "dark:text-amber-200")}>
-          <span className="text-2xl">{correctCount}</span>
+          <span className={cn("text-2xl", roomyOnLargeScreens && "2xl:text-3xl")}>{correctCount}</span>
           <span className={cn("text-sm text-amber-500/90", themed && "dark:text-amber-300/80")}>/ {total}</span>
         </p>
         <div aria-hidden="true" className="mt-1.5 flex flex-wrap gap-1">
@@ -116,6 +133,7 @@ export function PracticeStarReward({ correctCount, answeredCount, total, t, pref
               key={index}
               className={cn(
                 "size-3.5 transition",
+                roomyOnLargeScreens && "2xl:size-4",
                 state === "earned"
                   ? "text-amber-400"
                   : state === "missed"
@@ -139,6 +157,7 @@ type PracticeMissionTrailProps = {
   t: (localized: LocalizedText) => string;
   testId: string;
   themed?: boolean;
+  roomyOnLargeScreens?: boolean;
 };
 
 /**
@@ -155,7 +174,8 @@ export function PracticeMissionTrail({
   questionIds,
   t,
   testId,
-  themed = false
+  themed = false,
+  roomyOnLargeScreens = false
 }: PracticeMissionTrailProps) {
   const trailRef = useRef<HTMLDivElement | null>(null);
   const stoneRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -200,7 +220,10 @@ export function PracticeMissionTrail({
     <div
       ref={trailRef}
       data-testid={testId}
-      className="relative flex flex-nowrap items-center gap-1 overflow-visible pt-12 sm:gap-1.5"
+      className={cn(
+        "relative flex flex-nowrap items-center gap-1 overflow-visible pt-12 sm:gap-1.5",
+        roomyOnLargeScreens && "2xl:pt-14"
+      )}
     >
       {trailAvatar.ready ? (
         <motion.div
@@ -216,7 +239,13 @@ export function PracticeMissionTrail({
               animate={prefersReducedMotion ? undefined : { y: [0, -3, 0] }}
               transition={prefersReducedMotion ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             >
-              <NovaCompanion mood="cheer" className="h-9 w-9 drop-shadow-[0_3px_4px_rgba(2,132,199,0.35)]" />
+              <NovaCompanion
+                mood="cheer"
+                className={cn(
+                  "h-9 w-9 drop-shadow-[0_3px_4px_rgba(2,132,199,0.35)]",
+                  roomyOnLargeScreens && "2xl:h-10 2xl:w-10"
+                )}
+              />
               <span aria-hidden="true" className="mt-px h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-amber-400" />
             </motion.div>
           </div>
@@ -237,7 +266,10 @@ export function PracticeMissionTrail({
         return (
           <Fragment key={questionId}>
             {index > 0 ? (
-              <div className="relative h-1.5 flex-1 sm:h-2" aria-hidden="true">
+              <div
+                className={cn("relative h-1.5 flex-1 sm:h-2", roomyOnLargeScreens && "2xl:h-2.5")}
+                aria-hidden="true"
+              >
                 <span className={cn("absolute inset-0 rounded-full bg-sky-100", themed && "dark:bg-white/10")} />
                 <motion.span
                   className="absolute inset-0 origin-left rounded-full bg-gradient-to-r from-emerald-300 via-sky-300 to-sky-400"
@@ -257,6 +289,7 @@ export function PracticeMissionTrail({
               aria-current={isCurrentStone ? "step" : undefined}
               className={cn(
                 "focus-ring relative grid size-11 shrink-0 place-items-center rounded-full border-2 text-base font-black shadow-sm transition hover:-translate-y-0.5 sm:size-12",
+                roomyOnLargeScreens && "2xl:size-14 2xl:text-lg",
                 result === true
                   ? cn("border-emerald-400 bg-emerald-50 text-emerald-700", themed && "dark:border-emerald-300/60 dark:bg-emerald-950/40 dark:text-emerald-200")
                   : result === false

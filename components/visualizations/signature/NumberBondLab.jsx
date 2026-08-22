@@ -360,13 +360,17 @@ export default function NumberBondLab() {
 
     /* palette (kept in one place so the drawing matches the CSS tokens) */
     const INK = '#1C2B3A';
-    const INK_SOFT = '#5B6B7B';
+    const INK_SOFT = '#445565';
     const PAPER = '#FBFBF8';
     const CARMINE = '#C81E4F';
     const BLUE = '#3F74A6';
-    const GOLD = '#D9982B';
+    const GOLD = '#74520B';
     const CARM_SOFT = 'rgba(200,30,79,0.13)';
     const BLUE_SOFT = 'rgba(63,116,166,0.14)';
+    // Keep the family bars light enough that their dark outlines and the live
+    // carmine cut retain non-text contrast against every segment background.
+    const CARM_FAN = '#F6CBD7';
+    const BLUE_FAN = '#C6DDF1';
     const QUAD = 'rgba(199,216,228,0.55)';
 
     const S = sceneRef.current;
@@ -430,6 +434,11 @@ export default function NumberBondLab() {
     const trayW = NN * unit;
     const trayX0 = Math.round((W - trayW) / 2);
     const cutX = (v) => trayX0 + v * unit;
+    // Labels around the split fan are queued and rendered after every bar,
+    // cut, outline, and highlight. This makes text terminal by construction:
+    // no later geometry can paint through a glyph, even when N changes the
+    // number of rows or the responsive layout tightens on a phone.
+    const pendingFanLabels = [];
 
     /* ===== BAND 1 — the bond diagram (the canonical picture) ================
        The whole on top in neutral ink; two parts hanging below in carmine and
@@ -445,8 +454,8 @@ export default function NumberBondLab() {
 
       // branches (drawn first, so the circles sit on top of them)
       ctx.save();
-      ctx.strokeStyle = 'rgba(28,43,58,0.45)';
-      ctx.lineWidth = 1.8;
+      ctx.strokeStyle = 'rgba(28,43,58,0.72)';
+      ctx.lineWidth = 2.2;
       ctx.beginPath();
       ctx.moveTo(cx - rW * 0.5, yW + rW * 0.78);
       ctx.lineTo(cx - dx + rP * 0.42, yP - rP * 0.82);
@@ -484,7 +493,7 @@ export default function NumberBondLab() {
       // left one read "art"), and the tutor names the parts anyway.
       ctx.save();
       ctx.font = '10px ui-monospace, "SF Mono", Menlo, monospace';
-      ctx.fillStyle = INK_SOFT;
+      ctx.fillStyle = '#445565';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
       ctx.fillText('the whole', cx, yW - rW - 5);
@@ -501,11 +510,11 @@ export default function NumberBondLab() {
       ctx.fillStyle = 'rgba(251,251,248,0.92)';
       ctx.fillRect(trayX0, rowTop, trayW, rowH);
       ctx.strokeStyle = S.tenStep ? GOLD : 'rgba(28,43,58,0.75)';
-      ctx.lineWidth = S.tenStep ? 2.6 : 2;
+      ctx.lineWidth = S.tenStep ? 3.2 : 3;
       ctx.strokeRect(trayX0 + 0.5, rowTop + 0.5, trayW - 1, rowH - 1);
       // faint cell divisions, so the counters read as countable units
-      ctx.strokeStyle = 'rgba(28,43,58,0.10)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#5b6b7b';
+      ctx.lineWidth = 3;
       for (let i = 1; i < NN; i++) {
         const X = Math.round(cutX(i)) + 0.5;
         ctx.beginPath();
@@ -527,7 +536,7 @@ export default function NumberBondLab() {
         ctx.fillStyle = left ? CARM_SOFT : BLUE_SOFT;
         ctx.fill();
         ctx.strokeStyle = left ? CARMINE : BLUE;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 2.4;
         ctx.stroke();
         ctx.restore();
       }
@@ -559,7 +568,7 @@ export default function NumberBondLab() {
         ctx.fillStyle = PAPER;
         ctx.fillRect(X - 2.5, rowTop + 1, 5, rowH - 2);
         ctx.strokeStyle = CARMINE;
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 2;
         ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(X, rowTop - 7);
@@ -568,8 +577,8 @@ export default function NumberBondLab() {
         // grip caps
         ctx.fillStyle = CARMINE;
         ctx.beginPath();
-        ctx.arc(X, rowTop - 7, 3.4, 0, Math.PI * 2);
-        ctx.arc(X, rowTop + rowH + 7, 3.4, 0, Math.PI * 2);
+        ctx.arc(X, rowTop - 7, 5.5, 0, Math.PI * 2);
+        ctx.arc(X, rowTop + rowH + 7, 5.5, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
@@ -578,20 +587,24 @@ export default function NumberBondLab() {
       {
         const by = rowTop + rowH + 13;
         ctx.save();
-        ctx.strokeStyle = 'rgba(28,43,58,0.5)';
-        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = 'rgba(28,43,58,0.72)';
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
         ctx.moveTo(trayX0, by);
         ctx.lineTo(trayX0, by + 5);
         ctx.lineTo(trayX0 + trayW, by + 5);
         ctx.lineTo(trayX0 + trayW, by);
         ctx.stroke();
-        ctx.fillStyle = INK_SOFT;
-        ctx.font = '11px ui-monospace, "SF Mono", Menlo, monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.fillText(`the whole = ${NN}`, trayX0 + trayW / 2, by + 7);
         ctx.restore();
+        pendingFanLabels.push({
+          fillStyle: INK_SOFT,
+          font: '11px ui-monospace, "SF Mono", Menlo, monospace',
+          text: `the whole = ${NN}`,
+          textAlign: 'center',
+          textBaseline: 'top',
+          x: trayX0 + trayW / 2,
+          y: by + 7,
+        });
       }
     }
 
@@ -613,17 +626,18 @@ export default function NumberBondLab() {
       const fanX0 = Math.round((W - fanW - labelW) / 2);
       const top = fanTop + Math.max(0, Math.round((fanH - rows * rowStep) / 2));
 
-      // caption
-      ctx.save();
-      ctx.font = '10px ui-monospace, "SF Mono", Menlo, monospace';
-      ctx.fillStyle = INK_SOFT;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'bottom';
       const cap = S.calib
         ? `record sheet — ${S.recorded.length} of ${rows} found`
         : `all ${rows} ways to make ${NN}`;
-      ctx.fillText(cap, fanX0, fanTop - 6);
-      ctx.restore();
+      pendingFanLabels.push({
+        fillStyle: INK_SOFT,
+        font: '10px ui-monospace, "SF Mono", Menlo, monospace',
+        text: cap,
+        textAlign: 'left',
+        textBaseline: 'bottom',
+        x: fanX0,
+        y: fanTop - 6,
+      });
 
       for (let j = 0; j < rows; j++) {
         const y = top + j * rowStep;
@@ -647,50 +661,74 @@ export default function NumberBondLab() {
           ctx.setLineDash([3, 3]);
           ctx.strokeRect(fanX0 + 0.5, y + 0.5, fanW - 1, barH - 1);
           ctx.restore();
-          ctx.save();
-          ctx.font = `${rowFont}px ui-monospace, "SF Mono", Menlo, monospace`;
-          ctx.fillStyle = 'rgba(91,107,123,0.75)';
-          ctx.textAlign = 'left';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(`${NN} = ? + ?`, fanX0 + fanW + 10, y + barH / 2);
-          ctx.restore();
+          pendingFanLabels.push({
+            fillStyle: INK_SOFT,
+            font: `${rowFont}px ui-monospace, "SF Mono", Menlo, monospace`,
+            text: `${NN} = ? + ?`,
+            textAlign: 'left',
+            textBaseline: 'middle',
+            x: fanX0 + fanW + 10,
+            y: y + barH / 2,
+          });
           continue;
         }
 
         // the bar: carmine [0, j] then blue [j, N] — the same colours as the tray
         ctx.save();
         if (j > 0) {
-          ctx.fillStyle = CARM_SOFT;
+          ctx.fillStyle = CARM_FAN;
           ctx.fillRect(fanX0, y, j * fanUnit, barH);
-          ctx.strokeStyle = CARMINE;
-          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = '#7F0F32';
+          ctx.lineWidth = 3;
           ctx.strokeRect(fanX0 + 0.5, y + 0.5, j * fanUnit - 1, barH - 1);
         }
         if (j < NN) {
-          ctx.fillStyle = BLUE_SOFT;
+          ctx.fillStyle = BLUE_FAN;
           ctx.fillRect(xc, y, (NN - j) * fanUnit, barH);
-          ctx.strokeStyle = BLUE;
-          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = '#173F68';
+          ctx.lineWidth = 3;
           ctx.strokeRect(xc + 0.5, y + 0.5, (NN - j) * fanUnit - 1, barH - 1);
         }
         // the cut mark — these are what form the diagonal down the page
-        ctx.strokeStyle = S.tenStep ? GOLD : CARMINE;
-        ctx.lineWidth = 2;
+        // First open a paper-coloured separation through both adjacent 3px bar
+        // outlines, mirroring the main tray's gap. The narrower semantic line
+        // then owns a stable high-contrast core against paper rather than
+        // competing with either dark outline.
+        ctx.strokeStyle = PAPER;
+        ctx.lineWidth = 9;
+        ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(xc, y - 2);
         ctx.lineTo(xc, y + barH + 2);
         ctx.stroke();
+        ctx.strokeStyle = S.tenStep ? GOLD : CARMINE;
+        ctx.lineWidth = 3;
+        ctx.stroke();
         ctx.restore();
 
-        // the recorded equation — whole first, always
-        ctx.save();
-        ctx.font = `${isCur ? '700 ' : ''}${rowFont}px ui-monospace, "SF Mono", Menlo, monospace`;
-        ctx.fillStyle = S.tenStep ? GOLD : isCur ? INK : INK_SOFT;
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(`${NN} = ${j} + ${NN - j}`, fanX0 + fanW + 10, y + barH / 2);
-        ctx.restore();
+        // the recorded equation — whole first, always. Queued so every fan
+        // equation is painted only after the final cut has been drawn.
+        pendingFanLabels.push({
+          fillStyle: S.tenStep ? GOLD : isCur ? INK : INK_SOFT,
+          font: `${isCur ? '700 ' : ''}${rowFont}px ui-monospace, "SF Mono", Menlo, monospace`,
+          text: `${NN} = ${j} + ${NN - j}`,
+          textAlign: 'left',
+          textBaseline: 'middle',
+          x: fanX0 + fanW + 10,
+          y: y + barH / 2,
+        });
       }
+    }
+
+    // Terminal label pass: no non-text Canvas paint may follow these glyphs.
+    for (const label of pendingFanLabels) {
+      ctx.save();
+      ctx.fillStyle = label.fillStyle;
+      ctx.font = label.font;
+      ctx.textAlign = label.textAlign;
+      ctx.textBaseline = label.textBaseline;
+      ctx.fillText(label.text, label.x, label.y);
+      ctx.restore();
     }
 
     // publish the tray geometry so the pointer handlers can hit-test it
@@ -1220,7 +1258,8 @@ export default function NumberBondLab() {
           bottom: 9px;
           font-size: 11px;
           color: var(--ink-soft);
-          background: rgba(251, 251, 248, 0.78);
+          background: #fbfbf8;
+          border: 1px solid rgba(28, 43, 58, 0.16);
           padding: 3px 7px;
           border-radius: 5px;
           pointer-events: none;
@@ -1251,14 +1290,23 @@ export default function NumberBondLab() {
           color: #fff;
         }
         .btn:disabled {
-          opacity: 0.4;
+          background: #596979;
+          border-color: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          background: #f0f2f3;
+          border-color: #83909d;
+          color: #596979;
         }
         /* A toggle that is disabled BECAUSE it is permanently on (the fan, from
            the fan step onward) must read as "locked on", not as broken — 40%
            carmine just looks like a rendering fault. */
         .btn.ghost.on:disabled {
-          opacity: 0.8;
+          background: #a91543;
+          border-color: #a91543;
+          color: #fff;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1308,7 +1356,12 @@ export default function NumberBondLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          color: #596979;
+        }
+        .dial.locked .dk,
+        .dial.locked .drole,
+        .dial.locked .dv {
+          color: #596979;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1393,7 +1446,9 @@ export default function NumberBondLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;
