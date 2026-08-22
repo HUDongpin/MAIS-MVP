@@ -2866,6 +2866,11 @@ type StateRow = {
 
 type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
 
+type SqliteStateMetadata = {
+  revision: number;
+  updatedAt: string;
+};
+
 let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
 let aiTutorAuthAdmissionPostgresClient: postgres.Sql | null = null;
@@ -2877,8 +2882,10 @@ const aiTutorRateAdmissionSlot = createAbortableAuthAdmissionSlot();
 const aiTutorPersistenceLane = createAiTutorPersistenceLane();
 let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
+let sqliteReadCacheRevision: number | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
 const databaseIndexCache = new WeakMap<Database, DatabaseIndexes>();
+const sqliteBusyTimeoutMs = 5_000;
 
 function lessonPerfDebugEnabled() {
   const configured = process.env.LESSON_PERF_DEBUG?.trim().toLowerCase();
@@ -2912,35 +2919,60 @@ function logLessonPerf(label: string, startedAt: number) {
 function readCachedSqliteDatabase() {
   if (sqliteReadCacheDisabled()) return null;
   if (!sqliteReadCache) return null;
-  const currentUpdatedAt = currentSqliteStateUpdatedAt();
-  if (!currentUpdatedAt || currentUpdatedAt !== sqliteReadCacheUpdatedAt) {
+  const currentMetadata = currentSqliteStateMetadata();
+  if (
+    !currentMetadata ||
+    currentMetadata.updatedAt !== sqliteReadCacheUpdatedAt ||
+    currentMetadata.revision !== sqliteReadCacheRevision
+  ) {
     clearSqliteReadCache();
     return null;
   }
   return sqliteReadCache;
 }
 
-function cacheSqliteDatabase(database: Database, updatedAt?: string | null) {
+function cacheSqliteDatabase(database: Database, metadata?: SqliteStateMetadata | null) {
   if (sqliteReadCacheDisabled()) {
     clearSqliteReadCache();
     return;
   }
+  const currentMetadata = metadata ?? currentSqliteStateMetadata();
+  if (!currentMetadata) {
+    clearSqliteReadCache();
+    return;
+  }
   sqliteReadCache = database;
-  sqliteReadCacheUpdatedAt = updatedAt ?? currentSqliteStateUpdatedAt();
+  sqliteReadCacheUpdatedAt = currentMetadata.updatedAt;
+  sqliteReadCacheRevision = currentMetadata.revision;
 }
 
 function clearSqliteReadCache() {
   sqliteReadCache = null;
   sqliteReadCacheUpdatedAt = null;
+  sqliteReadCacheRevision = null;
   sqliteReadPromise = null;
 }
 
-function currentSqliteStateUpdatedAt() {
+function sqliteStateMetadataFromRow(row?: StateRow): SqliteStateMetadata | null {
+  if (
+    typeof row?.updated_at !== "string" ||
+    !Number.isSafeInteger(row.revision) ||
+    (row.revision as number) < 1
+  ) {
+    return null;
+  }
+  return {
+    revision: row.revision as number,
+    updatedAt: row.updated_at
+  };
+}
+
+function currentSqliteStateMetadata() {
   try {
     const row = getSqliteDatabase()
-      .prepare("SELECT updated_at FROM app_state WHERE id = ?")
-      .get(stateRecordId) as { updated_at?: unknown } | undefined;
-    return typeof row?.updated_at === "string" ? row.updated_at : null;
+      .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+      .get(stateRecordId) as StateRow | undefined;
+    return sqliteStateMetadataFromRow(row);
   } catch {
     return null;
   }
@@ -3027,9 +3059,9 @@ function getSqliteDatabase() {
 
   sqlite = new DatabaseSync(dbPath);
   sqlite.exec(`
+    PRAGMA busy_timeout = ${sqliteBusyTimeoutMs};
     PRAGMA journal_mode = WAL;
     PRAGMA foreign_keys = ON;
-    PRAGMA busy_timeout = 5000;
 
     CREATE TABLE IF NOT EXISTS schema_migrations (
       version INTEGER PRIMARY KEY,
@@ -3063,6 +3095,53 @@ function getSqliteDatabase() {
   }
 
   return sqlite;
+}
+
+function openDedicatedSqliteTransactionConnection() {
+  const storage = new DatabaseSync(dbPath);
+  storage.exec(`
+    PRAGMA busy_timeout = ${sqliteBusyTimeoutMs};
+    PRAGMA foreign_keys = ON;
+  `);
+  return storage;
+}
+
+async function withSqliteImmediateTransaction<T>(
+  operation: (storage: DatabaseSync) => T | Promise<T>
+) {
+  await mkdir(dbDirectory, { recursive: true });
+  // Schema setup happens before the dedicated transaction is opened. Every
+  // read-modify-write below then uses one connection from BEGIN through COMMIT.
+  getSqliteDatabase();
+  const storage = openDedicatedSqliteTransactionConnection();
+  let transactionOpen = false;
+  let operationFailed = false;
+  try {
+    storage.exec("BEGIN IMMEDIATE");
+    transactionOpen = true;
+    const result = await operation(storage);
+    storage.exec("COMMIT");
+    transactionOpen = false;
+    return result;
+  } catch (error) {
+    operationFailed = true;
+    if (transactionOpen) {
+      try {
+        storage.exec("ROLLBACK");
+      } catch {
+        // SQLite may already have rolled the transaction back after an error.
+      }
+    }
+    throw error;
+  } finally {
+    try {
+      storage.close();
+    } catch (closeError) {
+      // Preserve the original mutation/rollback error. On a successful
+      // transaction, failure to close the dedicated handle must still surface.
+      if (!operationFailed) throw closeError;
+    }
+  }
 }
 
 function getPostgresClient() {
@@ -5201,8 +5280,7 @@ function normalizeDatabase(database: Partial<Database>) {
     demoPassword: getDemoPassword(),
     fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
     hashPassword: hashPasswordFromAuthSessionPersistence,
-    internalExampleAccountSeedForUserId,
-    passwordMatches: (password, user) => passwordMatchesFromAuthSessionPersistence(password, user)
+    internalExampleAccountSeedForUserId
   });
   syncBootstrapAdminFromAuthSessionPersistence(
     users,
@@ -5508,8 +5586,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
       demoAccountSeeds: storageSeedExampleAccountSeeds(),
       demoPassword: getDemoPassword(),
       fixedExampleScopeForUserId: fixedExampleAccountScopeForUserId,
-      internalExampleAccountSeedForUserId,
-      passwordMatches: (password, user) => passwordMatchesFromAuthSessionPersistence(password, user)
+      internalExampleAccountSeedForUserId
     }) ||
     bootstrapAdminNeedsSyncFromAuthSessionPersistence(
       parsed,
@@ -5518,36 +5595,66 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
   );
 }
 
+type NormalizedSqliteState = {
+  database: Database;
+  metadata: SqliteStateMetadata | null;
+  parsed: Partial<Database>;
+};
+
+function readNormalizedSqliteState(storage: DatabaseSync): NormalizedSqliteState | null {
+  const row = storage
+    .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
+  const parsed = row ? parseStoredStatePayload(row.payload) : null;
+  if (!hasCoreTables(parsed)) return null;
+  return {
+    database: normalizeDatabase(parsed),
+    metadata: sqliteStateMetadataFromRow(row),
+    parsed
+  };
+}
+
+async function readAndNormalizeSqliteStateUnderLock(storage: DatabaseSync) {
+  const latest = readNormalizedSqliteState(storage);
+  if (latest) {
+    const metadata = databaseNeedsPersistenceSync(latest.parsed, latest.database) || !latest.metadata
+      ? writeSqliteDatabaseWithConnection(storage, latest.database)
+      : latest.metadata;
+    return { database: latest.database, metadata };
+  }
+
+  const database = await readLegacyDatabase() ?? createInitialDatabase();
+  return {
+    database,
+    metadata: writeSqliteDatabaseWithConnection(storage, database)
+  };
+}
+
 async function loadSqliteDatabase() {
   const startedAt = Date.now();
   await mkdir(dbDirectory, { recursive: true });
   const storage = getSqliteDatabase();
 
   try {
-    const row = storage
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
-      .get(stateRecordId) as StateRow | undefined;
-    const parsed = row ? parseStoredStatePayload(row.payload) : null;
-    if (hasCoreTables(parsed)) {
-      const database = normalizeDatabase(parsed);
-      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
-        ? await writeSqliteDatabase(database, { invalidateReadCache: false })
-        : typeof row?.updated_at === "string"
-          ? row.updated_at
-          : null;
-      cacheSqliteDatabase(database, cacheUpdatedAt);
+    const current = readNormalizedSqliteState(storage);
+    if (current && current.metadata && !databaseNeedsPersistenceSync(current.parsed, current.database)) {
+      cacheSqliteDatabase(current.database, current.metadata);
       logLessonPerf("readDatabase(sqlite)", startedAt);
-      return database;
+      return current.database;
     }
   } catch (error) {
-    console.warn("Could not read SQLite application state. Recreating it.", error);
+    console.warn("Could not read SQLite application state without normalization. Retrying under a write lock.", error);
   }
 
-  const database = await readLegacyDatabase() ?? createInitialDatabase();
-  const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-  cacheSqliteDatabase(database, cacheUpdatedAt);
-  logLessonPerf("readDatabase(sqlite:init)", startedAt);
-  return database;
+  // The optimistic read above may be stale by the time normalization writes.
+  // Re-read after BEGIN IMMEDIATE so read-triggered migrations never overwrite a
+  // password change, revocation, or any other newer snapshot from another process.
+  const locked = await withSqliteImmediateTransaction((lockedStorage) =>
+    readAndNormalizeSqliteStateUnderLock(lockedStorage)
+  );
+  cacheSqliteDatabase(locked.database, locked.metadata);
+  logLessonPerf("readDatabase(sqlite:locked)", startedAt);
+  return locked.database;
 }
 
 async function readSqliteDatabase() {
@@ -5681,19 +5788,14 @@ async function writePostgresDatabaseWith(sql: PostgresExecutor, database: Databa
   await syncPostgresProjectionTablesWith(sql, database);
 }
 
-async function writePostgresDatabase(database: Database) {
-  await writePostgresDatabaseWith(getPostgresClient(), database);
-}
-
 async function readDatabase() {
   return storageProvider === "postgres" ? readPostgresDatabase() : readSqliteDatabase();
 }
 
-async function writeSqliteDatabase(database: Database, options: { invalidateReadCache?: boolean } = {}) {
-  await mkdir(dbDirectory, { recursive: true });
+function writeSqliteDatabaseWithConnection(storage: DatabaseSync, database: Database) {
   const now = new Date().toISOString();
   databaseIndexCache.delete(database);
-  getSqliteDatabase()
+  storage
     .prepare(`
       INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
       VALUES (?, ?, ?, ?, 1, ?, ?)
@@ -5706,19 +5808,15 @@ async function writeSqliteDatabase(database: Database, options: { invalidateRead
         updated_at = excluded.updated_at
     `)
     .run(stateRecordId, stateTenantId, stateKind, schemaVersion, JSON.stringify(database), now);
-  if (options.invalidateReadCache ?? true) {
-    clearSqliteReadCache();
+  const metadata = sqliteStateMetadataFromRow(
+    storage
+      .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+      .get(stateRecordId) as StateRow | undefined
+  );
+  if (!metadata) {
+    throw new Error("SQLite application state write did not produce valid revision metadata.");
   }
-  return now;
-}
-
-async function writeDatabase(database: Database) {
-  if (storageProvider === "postgres") {
-    await writePostgresDatabase(database);
-    return;
-  }
-
-  await writeSqliteDatabase(database);
+  return metadata;
 }
 
 let mutationQueue: Promise<void> = Promise.resolve();
@@ -5737,12 +5835,25 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
 
   const run = mutationQueue.then(async () => {
     clearSqliteReadCache();
-    const database = await readDatabase();
-    const result = await mutator(database);
-    databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
-    return result;
+    try {
+      const committed = await withSqliteImmediateTransaction(async (storage) => {
+        // BEGIN IMMEDIATE is acquired before this read. A second process cannot
+        // observe the old snapshot and later overwrite this mutation. The
+        // mutator is deliberately never replayed: several callers perform
+        // non-idempotent provider or file-system work while it runs.
+        const latest = readNormalizedSqliteState(storage);
+        const database = latest?.database ?? await readLegacyDatabase() ?? createInitialDatabase();
+        const result = await mutator(database);
+        databaseIndexCache.delete(database);
+        const metadata = writeSqliteDatabaseWithConnection(storage, database);
+        return { database, metadata, result };
+      });
+      cacheSqliteDatabase(committed.database, committed.metadata);
+      return committed.result;
+    } catch (error) {
+      clearSqliteReadCache();
+      throw error;
+    }
   });
 
   mutationQueue = run.then(

@@ -1827,8 +1827,7 @@ test("auth session persistence owns demo account sync helpers for legacy userSto
     demoPassword: "demo-pass",
     fixedExampleScopeForUserId,
     internalExampleAccountSeedForUserId,
-    hashPassword: (password: string) => ({ hash: `hash:${password}`, salt: "sync-salt" }),
-    passwordMatches: (password: string, user: { password_hash?: string }) => user.password_hash === `hash:${password}`
+    hashPassword: (password: string) => ({ hash: `hash:${password}`, salt: "sync-salt" })
   };
 
   assert.equal(typeof module.authDemoRecordsNeedSync, "function");
@@ -1929,9 +1928,19 @@ test("auth session persistence owns demo account sync helpers for legacy userSto
     }
   ]);
 
-  users[0].password_hash = "stale";
-  assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), true);
+  users[0].password_hash = "hash:changed-pass";
+  users[0].password_salt = "changed-salt";
+  assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), false);
   module.syncAuthDemoAccounts?.(users, studentProfiles, userSettings, "2026-06-20T11:00:00.000Z", syncOptions);
+  assert.equal(users[0].password_hash, "hash:changed-pass");
+  assert.equal(users[0].password_salt, "changed-salt");
+  assert.equal(users[0].session_revision, 1);
+
+  users[0].password_hash = "";
+  assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), true);
+  module.syncAuthDemoAccounts?.(users, studentProfiles, userSettings, "2026-06-20T12:00:00.000Z", syncOptions);
+  assert.equal(users[0].password_hash, "hash:demo-pass");
+  assert.equal(users[0].password_salt, "sync-salt");
   assert.equal(users[0].session_revision, 2);
 });
 
@@ -2515,6 +2524,96 @@ test("auth session persistence authenticates flexible fixed example accounts", a
   assert.deepEqual(await store.authenticateFlexibleExampleAccountForLogin({
     username: "demo.parent@example.test",
     password: "demo-pass"
+  }), { status: "invalid" });
+});
+
+test("flexible fixed example login authenticates the persisted active user and never fabricates revision or password state", async () => {
+  const fixedSeed: AuthDemoAccountSeed = {
+    id: "fixed-demo-student",
+    username: "Demo Student",
+    email: "demo.student@example.test",
+    role: "student",
+    grade: "S3",
+    curriculumTrack: "HK",
+    avatarId: "delta"
+  };
+  const persistedDatabase = createDatabase();
+  persistedDatabase.users.push({
+    id: fixedSeed.id,
+    username: fixedSeed.username,
+    normalized_username: "demo student",
+    email: fixedSeed.email,
+    normalized_email: fixedSeed.email,
+    password_hash: "hash:demo-pass",
+    password_salt: "persisted-salt",
+    password_must_change: false,
+    session_revision: 7,
+    disabled_at: null,
+    role: "student",
+    created_at: generatedAt.toISOString()
+  });
+  persistedDatabase.student_profiles.push({
+    user_id: fixedSeed.id,
+    name: fixedSeed.username,
+    grade: "S3",
+    curriculum_track: "HK",
+    curriculum_region: "HK",
+    textbook_publisher: "HK_UNITED_PRIME_MIA",
+    avatar_id: "delta"
+  });
+  persistedDatabase.user_settings.push({
+    user_id: fixedSeed.id,
+    language: "en",
+    theme: "dark",
+    selected_grade: "S3",
+    updated_at: generatedAt.toISOString()
+  });
+  const publicDatabase = createDatabase();
+  const store = createTestStore(persistedDatabase, {
+    demoAccountSeeds: [fixedSeed],
+    demoPassword: "demo-pass",
+    fixedExampleScopeForUserId: (userId) => userId === fixedSeed.id
+      ? {
+        grade: "S4",
+        curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+        language: "en"
+      }
+      : null,
+    passwordMatches: (password, user) => user.password_hash === `hash:${password}`,
+    publicContentDatabaseForExampleLogin: () => publicDatabase
+  });
+
+  const current = await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  });
+  assert.equal(current.status, "authenticated");
+  assert.equal(current.status === "authenticated" ? current.sessionRevision : null, 7);
+  assert.equal(current.status === "authenticated" ? current.database : null, publicDatabase);
+
+  const persistedUser = persistedDatabase.users.find((user) => user.id === fixedSeed.id);
+  assert.ok(persistedUser);
+  persistedUser.disabled_at = "2026-06-20T10:30:00.000Z";
+  assert.deepEqual(await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  }), { status: "invalid" });
+
+  persistedUser.disabled_at = null;
+  persistedUser.password_hash = "hash:changed-pass";
+  const changed = await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "changed-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
+  });
+  assert.equal(changed.status, "authenticated");
+  assert.equal(changed.status === "authenticated" ? changed.sessionRevision : null, 7);
+  assert.deepEqual(await store.authenticateFlexibleExampleAccountForLogin({
+    username: fixedSeed.email,
+    password: "demo-pass",
+    curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }
   }), { status: "invalid" });
 });
 

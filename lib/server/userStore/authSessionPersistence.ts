@@ -944,17 +944,23 @@ export type AuthDemoAccountSyncOptions = {
   fixedExampleScopeForUserId?: AuthFixedExampleScopeResolver;
   internalExampleAccountSeedForUserId?: AuthInternalExampleSeedResolver;
   hashPassword?: (password: string) => { hash: string; salt: string };
-  passwordMatches?: (password: string, user: AuthSessionUserRecord) => boolean;
 };
+
+function authUserHasStoredPassword(user: AuthSessionUserRecord) {
+  return (
+    typeof user.password_hash === "string" &&
+    user.password_hash.length > 0 &&
+    typeof user.password_salt === "string" &&
+    user.password_salt.length > 0
+  );
+}
 
 export function authDemoRecordsNeedSync(
   database: Partial<AuthSessionPersistenceDatabase>,
   {
     demoAccountSeeds,
-    demoPassword,
     fixedExampleScopeForUserId = () => null,
-    internalExampleAccountSeedForUserId = () => null,
-    passwordMatches = authPasswordMatches
+    internalExampleAccountSeedForUserId = () => null
   }: AuthDemoAccountSyncOptions
 ) {
   return demoAccountSeeds.some((seed) => {
@@ -977,7 +983,7 @@ export function authDemoRecordsNeedSync(
       user.email !== seed.email ||
       user.normalized_email !== normalizeAuthEmail(seed.email) ||
       user.role !== seed.role ||
-      !passwordMatches(demoPassword, user) ||
+      !authUserHasStoredPassword(user) ||
       !profile ||
       profile.name !== seed.username ||
       profile.grade !== seed.grade ||
@@ -1003,13 +1009,12 @@ export function syncAuthDemoAccounts(
     demoPassword,
     fixedExampleScopeForUserId = () => null,
     internalExampleAccountSeedForUserId = () => null,
-    hashPassword = hashAuthPassword,
-    passwordMatches = authPasswordMatches
+    hashPassword = hashAuthPassword
   }: AuthDemoAccountSyncOptions
 ) {
   let replacementPassword: ReturnType<typeof hashAuthPassword> | null = null;
-  const passwordFor = (existingUser: AuthSessionUserRecord | undefined, passwordIsCurrent: boolean) => {
-    if (existingUser && passwordIsCurrent) {
+  const passwordFor = (existingUser: AuthSessionUserRecord | undefined, storedPasswordIsUsable: boolean) => {
+    if (existingUser && storedPasswordIsUsable) {
       return {
         hash: existingUser.password_hash ?? "",
         salt: existingUser.password_salt ?? ""
@@ -1022,11 +1027,11 @@ export function syncAuthDemoAccounts(
 
   demoAccountSeeds.forEach((seed) => {
     const existingUser = users.find((candidate) => candidate.id === seed.id);
-    const passwordIsCurrent = existingUser ? passwordMatches(demoPassword, existingUser) : false;
-    const password = passwordFor(existingUser, passwordIsCurrent);
+    const storedPasswordIsUsable = existingUser ? authUserHasStoredPassword(existingUser) : false;
+    const password = passwordFor(existingUser, storedPasswordIsUsable);
 
     if (existingUser) {
-      if (!passwordIsCurrent) incrementAuthSessionRevision(existingUser);
+      if (!storedPasswordIsUsable) incrementAuthSessionRevision(existingUser);
       Object.assign(existingUser, {
         username: seed.username,
         normalized_username: normalizeAuthUsername(seed.username),
@@ -1689,6 +1694,7 @@ export function createAuthSessionPersistenceStore({
   const loginResultForFixedExampleSeed = <TDatabase extends AuthSessionPersistenceDatabase>(
     seed: AuthDemoAccountSeed,
     database: TDatabase,
+    persistedUser: AuthSessionUserRecord,
     {
       language,
       theme
@@ -1703,20 +1709,6 @@ export function createAuthSessionPersistenceStore({
     const nowDate = now();
     const nowIso = nowDate.toISOString();
     const profile = fixedExampleProfileForSeed(seed);
-    const user: AuthSessionUserRecord = {
-      id: seed.id,
-      username: seed.username,
-      normalized_username: normalizeAuthIdentifier(seed.username),
-      email: seed.email,
-      normalized_email: normalizeAuthIdentifier(seed.email),
-      password_hash: "",
-      password_salt: "",
-      password_must_change: false,
-      session_revision: 1,
-      disabled_at: null,
-      role: seed.role,
-      created_at: nowIso
-    };
     const profileRecord: AuthSessionStudentProfileRecord = {
       user_id: seed.id,
       name: seed.username,
@@ -1738,11 +1730,11 @@ export function createAuthSessionPersistenceStore({
       now: nowDate,
       profile: profileRecord,
       settingsRecord,
-      user
+      user: persistedUser
     });
 
     return session
-      ? { status: "authenticated", session, sessionRevision: authSessionRevision(user), database }
+      ? { status: "authenticated", session, sessionRevision: authSessionRevision(persistedUser), database }
       : { status: "invalid" };
   };
 
@@ -1899,7 +1891,6 @@ export function createAuthSessionPersistenceStore({
       void selectedGrade;
       const identifierMatchesDemo = demoAccountSeeds.some((seed) => authDemoSeedMatchesIdentifier(seed, username));
       if (!identifierMatchesDemo) return { status: "not-example-account" };
-      if (password !== demoPassword) return { status: "invalid" };
 
       const requestedProfile = curriculumProfile
         ? normalizeStoredCurriculumProfile({
@@ -1913,8 +1904,35 @@ export function createAuthSessionPersistenceStore({
       const selectedSeed = chooseFixedExampleSeed(candidateSeeds, requestedProfile);
       if (!selectedSeed) return { status: "invalid" };
 
-      const database = publicContentDatabaseForExampleLogin?.() ?? await readDatabase();
-      return loginResultForFixedExampleSeed(selectedSeed, database, { language, theme });
+      // Fixed-example presentation may use the public curriculum snapshot, but
+      // once an account is persisted its authentication authority must come from
+      // that row. This preserves revision/disable state and lets a changed password
+      // replace the original demo password instead of allowing the seed credential
+      // back in.
+      const persistedDatabase = await readDatabase();
+      const selectedPersistedUser = persistedDatabase.users.find((user) => user.id === selectedSeed.id);
+      const persistedUser = selectedPersistedUser
+        ? authenticatedUserForCredentials(persistedDatabase, username, password)
+        : null;
+      if (selectedPersistedUser && persistedUser?.id !== selectedSeed.id) return { status: "invalid" };
+
+      // Some explicitly storage-free example modes do not seed public demo rows.
+      // Preserve that existing preview-only behavior only when no authoritative
+      // account exists; once a row exists, it can never be bypassed by the seed
+      // credential above.
+      const authorityUser = persistedUser ?? (
+        !selectedPersistedUser && password === demoPassword
+          ? authStorageFreeExampleAccountRecords(selectedSeed.id, {
+            exampleAccountSeeds: demoAccountSeeds,
+            fixedExampleScopeForUserId,
+            now: now().toISOString()
+          })?.user ?? null
+          : null
+      );
+      if (!authorityUser) return { status: "invalid" };
+
+      const database = publicContentDatabaseForExampleLogin?.() ?? persistedDatabase;
+      return loginResultForFixedExampleSeed(selectedSeed, database, authorityUser, { language, theme });
     },
     async completeStudentCurriculumTrackSelection({
       username,
