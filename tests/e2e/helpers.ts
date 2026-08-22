@@ -162,6 +162,13 @@ export async function clickLoginSubmit(page: Page) {
   await submit.click();
 }
 
+// A real form login includes the credential POST, client session application,
+// router replacement, and the destination render. On the two-core CI runner
+// that sequence has crossed the default 15s expect budget while still
+// completing successfully; keep the destination assertion strict but give the
+// full sequence enough room. Local runs retain a smaller feedback budget.
+const LOGIN_NAVIGATION_TIMEOUT_MS = process.env.CI ? 60_000 : 30_000;
+
 async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_PRIME_MIA") {
   const curriculumStep = page.getByRole("button", { name: /Curriculum/i }).first();
   if (await curriculumStep.isVisible().catch(() => false)) await curriculumStep.click();
@@ -177,7 +184,7 @@ export async function loginAs(page: Page, username: string, password: string, ex
   await page.getByLabel(/email or username|email or user name|user name/i).fill(username);
   await page.getByLabel(/^password$/i).fill(password);
   await clickLoginSubmit(page);
-  await expect(page).toHaveURL(expectedPath, { timeout: 15000 });
+  await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
 }
 
 export async function loginAsDemoStudent(page: Page) {
