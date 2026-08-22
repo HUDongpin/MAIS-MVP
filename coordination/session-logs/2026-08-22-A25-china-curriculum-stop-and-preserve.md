@@ -38,3 +38,8 @@ Purpose: stop the open-ended China mathematics curriculum QA sessions and preser
 
 The branch is committed locally but is not pushed in this handoff. The evidence/generated-pack commit contains a large volume of generated questions, historical QA snapshots, and potentially source-derived materials. External publication to the GitHub repository requires the owner's explicit informed authorization for that payload or a later sanitized extraction that excludes it.
 
+## Fresh finite validation after checkpointing
+
+- `npm run type-check`: PASS, exit 0.
+- `./node_modules/.bin/tsx --test lib/mainlandBnuJuniorQuestionBank.test.ts`: PASS, 52/52, including the 17,700-row Mainland runtime exposure check and the final parallel-line English proof contract.
+- No open-ended provider, 384-page discovery, 1,152-page provider, or 2,304-state browser campaign was restarted.
