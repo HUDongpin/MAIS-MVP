@@ -27,8 +27,12 @@ test.describe.serial("gamification rewards workflows", () => {
 
       await loginThroughApi(app, page, demoStudent.username, demoStudent.password);
       await page.goto(app.url("/dashboard"));
-      await expect(page.getByRole("heading", { name: /Points balance/i })).toBeVisible();
-      await expect(page.getByText(/Reward shop/i)).toBeVisible();
+      // A fresh isolated dev server compiles the dashboard and its API routes on
+      // first use. Keep this cold-start budget explicit; later assertions retain
+      // the normal expect timeout.
+      await expect(page.getByRole("heading", { name: /Points balance/i })).toBeVisible({ timeout: 30_000 });
+      await page.getByText(/^Open reward shop$/i).click();
+      await expect(page.getByRole("heading", { name: /^Reward shop$/i })).toBeVisible({ timeout: 30_000 });
       await expect(page.getByText(/Learning stationery kit/i)).toBeVisible();
       await expect(page.getByText(/Explore a visualization/i)).toBeVisible();
       await expect(page.getByText(/Review mistakes/i)).toBeVisible();
@@ -72,15 +76,26 @@ test.describe.serial("gamification rewards workflows", () => {
 
       const redemptionCard = page.locator("article").filter({ hasText: /Pencil set/i }).first();
       await expect(redemptionCard.getByText(/Pending approval/i)).toBeVisible();
+      const approveResponse = page.waitForResponse((response) =>
+        response.url().includes("/api/teacher/rewards/redemptions/") &&
+        response.request().method() === "PATCH"
+      );
       await redemptionCard.getByRole("button", { name: /Approve request/i }).click();
+      expect((await approveResponse).ok()).toBeTruthy();
       await expect(redemptionCard.getByText(/^Approved$/i).first()).toBeVisible();
+      const fulfillResponse = page.waitForResponse((response) =>
+        response.url().includes("/api/teacher/rewards/redemptions/") &&
+        response.request().method() === "PATCH"
+      );
       await redemptionCard.getByRole("button", { name: /Mark fulfilled/i }).click();
+      expect((await fulfillResponse).ok()).toBeTruthy();
       await expect(redemptionCard.getByText(/^Fulfilled$/i).first()).toBeVisible();
 
       await page.request.post(app.url("/api/auth/logout"));
       await loginThroughApi(app, page, demoStudent.username, demoStudent.password);
       await page.goto(app.url("/dashboard"));
       await expect(page.getByRole("heading", { name: /Points balance/i })).toBeVisible();
+      await page.getByText(/^Open reward shop$/i).click();
       await expect(page.getByText(/Teacher bonus: Completed challenge/i)).toBeVisible();
       await expect(page.getByText(/Pencil set/i).first()).toBeVisible();
     } finally {
