@@ -1375,6 +1375,8 @@ export type TeacherMessageRecord = {
   starred: boolean;
   last_message_at: string;
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 export type TeacherMessageEntryRecord = {
@@ -1386,6 +1388,8 @@ export type TeacherMessageEntryRecord = {
   body: string;
   attachments: TeacherMessageAttachment[];
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 export type TeacherNoticeRecord = {
@@ -10635,7 +10639,9 @@ export const getParentChildSummary = parentUserStore.getParentChildSummary;
 export const getParentReportData = parentUserStore.getParentReportData;
 
 export const getParentMessagesData = parentUserStore.getParentMessagesData;
+export const findParentMessageCreateReplay = parentUserStore.findParentMessageCreateReplay;
 export const createParentMessageThread = parentUserStore.createParentMessageThread;
+export const findParentMessageReplyReplay = parentUserStore.findParentMessageReplyReplay;
 export const replyToParentMessageThread = parentUserStore.replyToParentMessageThread;
 
 export const linkParentToStudentByInviteCode = parentUserStore.linkParentToStudentByInviteCode;

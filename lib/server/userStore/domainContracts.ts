@@ -196,7 +196,9 @@ export const parentUserStoreOperations = [
   "getParentChildSummary",
   "getParentReportData",
   "getParentMessagesData",
+  "findParentMessageCreateReplay",
   "createParentMessageThread",
+  "findParentMessageReplyReplay",
   "replyToParentMessageThread",
   "linkParentToStudentByInviteCode"
 ] as const satisfies readonly UserStoreFunctionName[];

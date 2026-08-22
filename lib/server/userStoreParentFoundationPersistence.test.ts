@@ -13,6 +13,7 @@ import type {
   ParentChildSummary,
   StudentAssignmentItem,
   Submission,
+  SubmissionStatus,
   StudentSession
 } from "@/types";
 
@@ -210,6 +211,24 @@ test("parent foundation persistence builds foundation data without legacy userSt
     openMessages: 1,
     pendingAssignments: 2
   });
+});
+
+test("parent pending assignment semantics use the exact attention allowlist", async () => {
+  const { parentSubmissionNeedsAttention } = await import("@/lib/server/userStore/parentFoundationPersistence");
+  const expectations: Record<SubmissionStatus, boolean> = {
+    "not-started": true,
+    "in-progress": true,
+    late: true,
+    "correction-required": true,
+    submitted: false,
+    graded: false,
+    "correction-submitted": false,
+    resolved: false
+  };
+
+  for (const [status, expected] of Object.entries(expectations) as Array<[SubmissionStatus, boolean]>) {
+    assert.equal(parentSubmissionNeedsAttention(status), expected, status);
+  }
 });
 
 test("parent foundation persistence rejects admin reads", async () => {

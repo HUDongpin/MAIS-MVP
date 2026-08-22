@@ -31,7 +31,7 @@ test("parent server pages project raw persistence models before crossing into cl
   assert.match(noticesPage, /<ParentNoticesView data=\{safeData\}/);
 });
 
-test("non-message parent client props accept only parent-safe DTO types", async () => {
+test("all parent client props accept only parent-safe DTO types", async () => {
   const [shell, views, notices, motivation] = await Promise.all([
     source("components/parent/ParentShell.tsx"),
     source("components/parent/ParentViews.tsx"),
@@ -46,7 +46,8 @@ test("non-message parent client props accept only parent-safe DTO types", async 
   for (const safeType of ["ParentChildSummarySafe", "ParentFoundationSafeData", "ParentReportSafeData", "ParentReportSafe"]) {
     assert.match(views, new RegExp(`\\b${safeType}\\b`));
   }
-  assert.match(views, /\bParentMessagesData\b/, "Messages keeps its existing A08-owned model for now");
+  assert.match(views, /\bParentMessagesSafeData\b/);
+  assert.doesNotMatch(views, /\bParentMessagesData\b/);
   assert.doesNotMatch(views, /\b(?:ParentChildSummary|ParentFoundationData|ParentReportData|TeacherReport)\b/);
 
   assert.match(notices, /ParentNoticeSafeData/);

@@ -14,7 +14,7 @@ import type {
   ParentChildSummarySafe,
   ParentFoundationSafeData,
   ParentMessageCategory,
-  ParentMessagesData,
+  ParentMessagesSafeData,
   ParentReportSafe,
   ParentReportSafeData
 } from "@/types";
@@ -630,7 +630,7 @@ export function ParentReportsView({ data }: { data: ParentReportSafeData }) {
   );
 }
 
-export function ParentMessagesView({ initialData }: { initialData: ParentMessagesData }) {
+export function ParentMessagesView({ initialData }: { initialData: ParentMessagesSafeData }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, t, text } = useSettings();
@@ -713,7 +713,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     if (studentId) params.set("studentId", studentId);
     if (threadId) params.set("thread", threadId);
     const response = await fetch(`/api/parent/messages?${params.toString()}`, { cache: "no-store" });
-    const payload = await response.json().catch(() => null) as { data?: ParentMessagesData } | null;
+    const payload = await response.json().catch(() => null) as { data?: ParentMessagesSafeData } | null;
     if (response.ok && payload?.data) {
       setData(payload.data);
       if (updateUrl) router.push(messageHref(studentId, threadId), { scroll: false });

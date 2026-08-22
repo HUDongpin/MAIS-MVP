@@ -150,7 +150,7 @@ function toParentReportPreviewSafe(value: TeacherReportPreview): ParentReportPre
   };
 }
 
-function toParentReportSafe(value: TeacherReport): ParentReportSafe {
+export function toParentReportSafe(value: TeacherReport): ParentReportSafe {
   return {
     id: value.id,
     type: value.type,

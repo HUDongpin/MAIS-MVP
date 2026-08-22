@@ -267,8 +267,15 @@ export function selectedParentChild(children: ParentChildSummary[], selectedStud
   return children.find((child) => child.student.id === selectedStudentId) ?? null;
 }
 
-function isPendingAssignmentStatus(status: SubmissionStatus) {
-  return status !== "submitted" && status !== "graded";
+const parentPendingSubmissionStatuses = new Set<SubmissionStatus>([
+  "not-started",
+  "in-progress",
+  "late",
+  "correction-required"
+]);
+
+export function parentSubmissionNeedsAttention(status: SubmissionStatus) {
+  return parentPendingSubmissionStatuses.has(status);
 }
 
 export function buildParentWeeklyActivity(
@@ -395,7 +402,7 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     dependencies.toAssignment,
     dependencies.toSubmission
   ).slice(0, 6);
-  const pendingAssignments = assignments.filter((item) => item.submission.status !== "submitted" && item.submission.status !== "graded").length;
+  const pendingAssignments = assignments.filter((item) => parentSubmissionNeedsAttention(item.submission.status)).length;
   const rewardSummary = dependencies.rewardSummaryForStudent(database, studentId);
   const motivationSummary = dependencies.motivationSummaryForStudent(database, studentId, now);
   const latestParentReport = dependencies.parentReportsForStudent(database, studentId)[0] ?? null;
@@ -491,7 +498,7 @@ export function createParentFoundationPersistenceStore({
             message.status !== "resolved"
           ).length,
           pendingAssignments: children.reduce((sum, child) => {
-            return sum + child.assignments.filter((item) => isPendingAssignmentStatus(item.submission.status)).length;
+            return sum + child.assignments.filter((item) => parentSubmissionNeedsAttention(item.submission.status)).length;
           }, 0)
         }
       };

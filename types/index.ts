@@ -4097,18 +4097,55 @@ export type ParentMessageThread = TeacherMessage & {
   messages: TeacherMessageEntry[];
 };
 
-export type ParentMessagesData = {
+export type ParentMessageEntrySafe = {
+  id: string;
+  senderRole: TeacherMessageSenderRole;
+  senderName: string;
+  body: string;
+  createdAt: string;
+};
+
+export type ParentMessageThreadSafe = {
+  id: string;
+  classId: string;
+  className: string;
+  studentId: string;
+  studentName: string;
+  teacherName: string;
+  reportId?: string;
+  parentCategory?: ParentMessageCategory;
+  subject: LocalizedText;
+  latestMessage: string;
+  status: TeacherMessageStatus;
+  priority: TeacherMessagePriority;
+  lastMessageAt: string;
+  createdAt: string;
+  messages: ParentMessageEntrySafe[];
+};
+
+export type ParentMessageComposeTargetSafe = {
+  studentId: string;
+  classId: string;
+  className: string;
+  teacherName: string;
+};
+
+export type ParentMessagesSafeData = {
   generatedAt: string;
-  children: ParentChildSummary[];
-  selectedChild: ParentChildSummary | null;
-  threads: ParentMessageThread[];
-  selectedThread: ParentMessageThread | null;
+  children: ParentChildSummarySafe[];
+  selectedChild: ParentChildSummarySafe | null;
+  threads: ParentMessageThreadSafe[];
+  selectedThread: ParentMessageThreadSafe | null;
   categories: Array<{
     id: ParentMessageCategory;
     label: LocalizedText;
   }>;
-  reports: TeacherReport[];
+  reports: ParentReportSafe[];
+  composeTargets: ParentMessageComposeTargetSafe[];
 };
+
+/** @deprecated Use the explicitly parent-safe response type. */
+export type ParentMessagesData = ParentMessagesSafeData;
 
 export type ParentNoticeData = {
   generatedAt: string;
