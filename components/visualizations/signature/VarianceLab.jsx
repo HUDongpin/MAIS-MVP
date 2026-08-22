@@ -117,6 +117,10 @@ const MIN_POINTS = 2; // need at least two values to have any spread
 const MAX_POINTS = 7; // keeps the squares strip readable
 const MAX_STACK = 6; // how many dots may pile on one value before we stop stacking
 
+function countAtValue(values, value, skipIndex = -1) {
+  return values.reduce((count, current, index) => count + (index !== skipIndex && current === value ? 1 : 0), 0);
+}
+
 // A friendly starting set: mean exactly 5, variance exactly 2, MAD exactly 1 —
 // so the very first thing a student sees is clean, and the variance (2) and the
 // MAD (1) already differ, previewing the duel.  3,5,5,7.
@@ -485,6 +489,8 @@ export default function VarianceLab() {
   const [answers, setAnswers] = useState({});
   const [calibInfo, setCalibInfo] = useState(null); // { T, solution, data } during calibration
   const [lensOn, setLensOn] = useState({ dev: false, mad: false, squares: false, variance: false });
+  const [keyboardPoint, setKeyboardPoint] = useState(0);
+  const [keyboardAddValue, setKeyboardAddValue] = useState(5);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -934,6 +940,7 @@ export default function VarianceLab() {
   const setValue = (i, v) => {
     setData((arr) => {
       if (arr[i] === v) return arr;
+      if (countAtValue(arr, v, i) >= MAX_STACK) return arr;
       const next = arr.slice();
       next[i] = v;
       return next;
@@ -960,10 +967,16 @@ export default function VarianceLab() {
     }
     // empty space: add a dot here (region 1 only) if we have room
     const inRegion1 = g.r2Top == null || cssY < g.r2Top;
-    if (inRegion1 && dataRef.current.length < MAX_POINTS) {
+    if (
+      inRegion1 &&
+      dataRef.current.length < MAX_POINTS &&
+      countAtValue(dataRef.current, valueAt(cssX)) < MAX_STACK
+    ) {
       const v = valueAt(cssX);
       const newIndex = dataRef.current.length;
-      setData((arr) => [...arr, v]);
+      setData((arr) =>
+        arr.length < MAX_POINTS && countAtValue(arr, v) < MAX_STACK ? [...arr, v] : arr,
+      );
       grabRef.current = { i: newIndex, wasExisting: false, moved: true, downX: cssX };
       if (e.currentTarget.setPointerCapture) {
         try {
@@ -990,6 +1003,33 @@ export default function VarianceLab() {
     if (grab.wasExisting && !grab.moved) {
       setData((arr) => (arr.length > MIN_POINTS ? arr.filter((_, k) => k !== grab.i) : arr));
     }
+  };
+
+  const selectedPoint = Math.min(keyboardPoint, data.length - 1);
+  const selectedValue = data[selectedPoint] ?? VMIN;
+  const setSelectedValue = (rawValue) => {
+    const value = Math.max(VMIN, Math.min(VMAX, Math.round(rawValue)));
+    setData((arr) => {
+      const i = Math.min(selectedPoint, arr.length - 1);
+      if (i < 0 || arr[i] === value) return arr;
+      if (countAtValue(arr, value, i) >= MAX_STACK) return arr;
+      const next = arr.slice();
+      next[i] = value;
+      return next;
+    });
+  };
+  const addPointWithKeyboard = () => {
+    const value = Math.max(VMIN, Math.min(VMAX, Math.round(keyboardAddValue)));
+    if (data.length >= MAX_POINTS || countAtValue(data, value) >= MAX_STACK) return;
+    setData((arr) =>
+      arr.length < MAX_POINTS && countAtValue(arr, value) < MAX_STACK ? [...arr, value] : arr,
+    );
+    setKeyboardPoint(data.length);
+  };
+  const removeSelectedPoint = () => {
+    setData((arr) =>
+      arr.length > MIN_POINTS ? arr.filter((_, i) => i !== Math.min(selectedPoint, arr.length - 1)) : arr,
+    );
   };
 
   /* ---- toolbar / presets ------------------------------------------------- */
@@ -1130,6 +1170,98 @@ export default function VarianceLab() {
               <span className="fact-k">Variance = avg square</span>
               <span className="fact-v mono carm big">{(S.variance.approx ? '≈ ' : '') + S.variance.text}</span>
             </div>
+          </div>
+
+          <div
+            className="keyboard-editor"
+            role="group"
+            aria-label="Keyboard data-point editor"
+            data-viz-keyboard-equivalent="variance-data-points"
+          >
+            <span className="editor-title">Edit data without dragging</span>
+            <label className="editor-field">
+              <span>Point</span>
+              <select
+                value={selectedPoint}
+                onChange={(e) => setKeyboardPoint(Number(e.target.value))}
+                aria-label="Data point to edit"
+              >
+                {data.map((value, i) => (
+                  <option key={i} value={i}>
+                    {i + 1}: {value}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="editor-range">
+              <button
+                type="button"
+                className="editor-step"
+                onClick={() => setSelectedValue(selectedValue - 1)}
+                disabled={
+                  selectedValue <= VMIN ||
+                  countAtValue(data, selectedValue - 1, selectedPoint) >= MAX_STACK
+                }
+                aria-label="Move selected point one value left"
+              >
+                −1
+              </button>
+              <label>
+                <span className="sr-only">Selected point value</span>
+                <input
+                  type="range"
+                  min={VMIN}
+                  max={VMAX}
+                  step="1"
+                  value={selectedValue}
+                  onChange={(e) => setSelectedValue(Number(e.target.value))}
+                />
+              </label>
+              <output className="editor-value" aria-live="polite">{selectedValue}</output>
+              <button
+                type="button"
+                className="editor-step"
+                onClick={() => setSelectedValue(selectedValue + 1)}
+                disabled={
+                  selectedValue >= VMAX ||
+                  countAtValue(data, selectedValue + 1, selectedPoint) >= MAX_STACK
+                }
+                aria-label="Move selected point one value right"
+              >
+                +1
+              </button>
+            </div>
+            <button
+              type="button"
+              className="editor-action"
+              onClick={removeSelectedPoint}
+              disabled={n <= MIN_POINTS}
+            >
+              Remove point
+            </button>
+            <label className="editor-field editor-add">
+              <span>New value</span>
+              <input
+                type="number"
+                min={VMIN}
+                max={VMAX}
+                step="1"
+                value={keyboardAddValue}
+                onChange={(e) =>
+                  setKeyboardAddValue(Math.max(VMIN, Math.min(VMAX, Math.round(Number(e.target.value)))))
+                }
+                aria-label="Value for new data point"
+              />
+            </label>
+            <button
+              type="button"
+              className="editor-action"
+              onClick={addPointWithKeyboard}
+              disabled={n >= MAX_POINTS || countAtValue(data, keyboardAddValue) >= MAX_STACK}
+            >
+              Add point
+            </button>
+            <span className="editor-help">The slider accepts Arrow, Page Up/Down, Home, and End keys.</span>
           </div>
 
           <div className="toolbar">
@@ -1465,6 +1597,110 @@ export default function VarianceLab() {
         .fact-v.blue {
           color: var(--blue);
           font-weight: 700;
+        }
+        .keyboard-editor {
+          margin: 12px 4px 2px;
+          padding: 10px;
+          display: grid;
+          grid-template-columns: minmax(118px, 0.75fr) minmax(210px, 1.5fr) auto;
+          gap: 8px 10px;
+          align-items: center;
+          border: 1px solid rgba(28, 43, 58, 0.14);
+          border-radius: 9px;
+          background: rgba(63, 116, 166, 0.045);
+        }
+        .editor-title {
+          grid-column: 1 / -1;
+          color: var(--ink);
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .editor-field {
+          min-width: 0;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          color: var(--ink-soft);
+          font-size: 12px;
+        }
+        .editor-field select,
+        .editor-field input[type='number'] {
+          min-width: 0;
+          min-height: 44px;
+          width: 100%;
+          padding: 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 13px/1.2 var(--mono);
+        }
+        .editor-range {
+          min-width: 0;
+          display: grid;
+          grid-template-columns: auto minmax(84px, 1fr) 2ch auto;
+          gap: 7px;
+          align-items: center;
+        }
+        .editor-range label,
+        .editor-range input {
+          min-width: 0;
+          width: 100%;
+        }
+        .editor-range label {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
+        .editor-step,
+        .editor-action {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 7px 10px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 650 12px/1 system-ui, sans-serif;
+          white-space: nowrap;
+        }
+        .editor-step {
+          font-family: var(--mono);
+          font-weight: 700;
+        }
+        .editor-step:disabled,
+        .editor-action:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+        .editor-value {
+          color: var(--curve);
+          font: 700 14px/1 var(--mono);
+          text-align: center;
+        }
+        .editor-add {
+          grid-column: 1 / 2;
+        }
+        .editor-help {
+          grid-column: 1 / -1;
+          color: var(--ink-soft);
+          font-size: 11.5px;
+          line-height: 1.35;
+        }
+        @media (max-width: 720px) {
+          .keyboard-editor {
+            grid-template-columns: 1fr;
+          }
+          .editor-range {
+            grid-template-columns: 44px minmax(0, 1fr) 2ch 44px;
+            gap: 4px;
+          }
+          .editor-add,
+          .editor-title,
+          .editor-help {
+            grid-column: 1;
+          }
         }
         .toolbar {
           margin: 12px 4px 2px;

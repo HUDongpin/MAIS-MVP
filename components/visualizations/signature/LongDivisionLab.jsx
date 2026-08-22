@@ -1291,7 +1291,7 @@ export default function LongDivisionLab() {
         .digit input[type='range'] {
           writing-mode: vertical-lr;
           direction: rtl;
-          width: 22px;
+          width: 44px;
           height: 84px;
           accent-color: var(--ink);
           cursor: pointer;
@@ -1303,6 +1303,11 @@ export default function LongDivisionLab() {
           font-size: 15px;
           font-weight: 600;
           font-variant-numeric: tabular-nums;
+        }
+        @media (max-width: 560px) {
+          .digits {
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+          }
         }
         .divisor {
           grid-template-columns: 22px 1fr 28px;

@@ -517,9 +517,10 @@ export default function StoryProblemLab() {
         .stage canvas{display:block;width:100%;height:100%;}
         .toolbar{margin:12px 4px 2px;display:flex;gap:9px;flex-wrap:wrap;}
         .btn{font:600 14px/1 system-ui,sans-serif;padding:10px 16px;border-radius:8px;cursor:pointer;
-          border:1px solid var(--ink);background:var(--ink);color:#fff;transition:filter .15s,opacity .15s;}
+          border:1px solid var(--ink);background:var(--ink);color:#fff;transition:filter .15s;}
         .btn.ghost{background:transparent;color:var(--ink);}
-        .btn:disabled{opacity:.4;cursor:not-allowed;}
+        .btn:disabled{border-color:#596979;background:#596979;color:#fff;cursor:not-allowed;}
+        .btn.ghost:disabled{border-color:#83909d;background:#f0f2f3;color:#596979;}
         .btn:not(:disabled):hover{filter:brightness(1.08);}
         .tutor{padding:18px 20px 20px;}
         .progress{display:flex;gap:6px;margin-bottom:14px;}
@@ -540,7 +541,7 @@ export default function StoryProblemLab() {
         .choice.correct .mark{color:var(--ok);}
         .choice.wrong{border-color:var(--ink-soft);background:rgba(91,107,123,.08);}
         .choice.wrong .mark{color:var(--ink-soft);}
-        .choice.dim{opacity:.55;}
+        .choice.dim{border-color:#b7c0c8;background:#f0f2f3;color:#596979;}
         .choice:disabled{cursor:default;}
         .feedback{margin:12px 0 0;font-size:13.5px;line-height:1.55;background:rgba(200,30,79,.05);
           border-left:3px solid var(--curve);padding:11px 13px;border-radius:0 6px 6px 0;}

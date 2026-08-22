@@ -755,7 +755,6 @@ export default function ShapesLab() {
   const draw = useCallback(() => {
     const cv = canvasRef.current;
     if (!cv) return;
-    const ctx = cv.getContext('2d');
     const rect = cv.getBoundingClientRect();
     const W = rect.width;
     const H = rect.height;
@@ -765,6 +764,7 @@ export default function ShapesLab() {
       cv.width = Math.round(W * dpr);
       cv.height = Math.round(H * dpr);
     }
+    const ctx = cv.getContext('2d');
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
@@ -781,10 +781,13 @@ export default function ShapesLab() {
        world left bare margins on a wide stage that read as an unfinished
        drawing rather than as a sheet of squared paper. */
     ctx.lineWidth = 1;
-    const iMinX = Math.floor(-cx / scale);
-    const iMaxX = Math.ceil((W - cx) / scale);
-    const iMinY = Math.floor((cy - H) / scale);
-    const iMaxY = Math.ceil(cy / scale);
+    // Only submit grid lines that intersect the visible backing store.  The
+    // former floor/ceil expansion deliberately queued one fully off-canvas
+    // line at each edge; it changed no pixels and made the paint receipt lie.
+    const iMinX = Math.ceil(-cx / scale);
+    const iMaxX = Math.floor((W - cx) / scale);
+    const iMinY = Math.ceil((cy - H) / scale);
+    const iMaxY = Math.floor(cy / scale);
     for (let i = iMinX; i <= iMaxX; i++) {
       ctx.strokeStyle = i % 5 === 0 ? 'rgba(199,216,228,0.85)' : 'rgba(199,216,228,0.45)';
       ctx.beginPath();
@@ -813,8 +816,8 @@ export default function ShapesLab() {
       const g = outlineOf({ ...st, turn: 0, size: START.size });
       ctx.save();
       ctx.setLineDash([5, 4]);
-      ctx.strokeStyle = 'rgba(154,168,180,0.9)';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = INK_SOFT;
+      ctx.lineWidth = 2.2;
       tracePath(ctx, g, X, Y, st.sides, st.closed);
       ctx.stroke();
       ctx.restore();
@@ -874,8 +877,8 @@ export default function ShapesLab() {
       const tp = outlineOf({ sides: target.sides, equal: target.equal, size: 2, turn: 30 });
       const s2 = 26 / (radiusFor(2) * Math.SQRT2);
       ctx.setLineDash([4, 3]);
-      ctx.strokeStyle = solved ? 'rgba(31,138,91,0.9)' : 'rgba(154,168,180,0.95)';
-      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = solved ? OK : INK_SOFT;
+      ctx.lineWidth = 2.4;
       tracePath(ctx, tp, (x) => x * s2, (y) => -y * s2, target.sides, true);
       ctx.stroke();
       ctx.setLineDash([]);
@@ -1582,8 +1585,8 @@ export default function ShapesLab() {
           font-size: 13px;
           padding: 3px 5px;
           border-radius: 5px;
-          opacity: 0.38;
-          transition: opacity 0.2s, background 0.3s;
+          opacity: 1;
+          transition: color 0.2s, background 0.3s;
         }
         .krow.on {
           opacity: 1;
@@ -1603,7 +1606,7 @@ export default function ShapesLab() {
         }
         .krow:not(.on) .klab {
           font-style: italic;
-          color: var(--ink-soft);
+          color: #445565;
         }
 
         /* ---- dials ---- */
@@ -1642,7 +1645,7 @@ export default function ShapesLab() {
         }
         .dial.locked,
         .seg-row.locked {
-          opacity: 0.4;
+          opacity: 1;
         }
         .dial.locked input,
         .seg-row.locked button {
@@ -1716,8 +1719,11 @@ export default function ShapesLab() {
           color: var(--ink);
         }
         .btn:disabled {
-          opacity: 0.4;
+          opacity: 1;
           cursor: not-allowed;
+          border-color: #a8b3bd;
+          background: #e4e8eb;
+          color: #334250;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1805,7 +1811,10 @@ export default function ShapesLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          opacity: 1;
+          border-color: #a8b3bd;
+          background: #f1f3f4;
+          color: #445565;
         }
         .choice:disabled {
           cursor: default;

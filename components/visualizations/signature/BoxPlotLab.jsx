@@ -329,8 +329,8 @@ const STEPS = [
     title: 'Meet the data — build a dot plot',
     body:
       'A data set has a center AND a spread. The median gives the center; to describe the SPREAD we ' +
-      'will cut the data into four parts using QUARTILES, then draw a box plot. Click the number line ' +
-      'to drop a dot for each value; click a dot to remove it, or drag it to a new value.',
+      'will cut the data into four parts using QUARTILES, then draw a box plot. Add, remove, or move ' +
+      'dots with the point editor; the number line also supports clicking and dragging.',
     q: 'The median tells you the center of the data. What do we still need to describe?',
     choices: [
       'How SPREAD OUT the data is — where the middle group sits and how wide it is',
@@ -458,6 +458,7 @@ export default function BoxPlotLab() {
   const [peel, setPeel] = useState(0); // outer pincer → median
   const [peelQ, setPeelQ] = useState(0); // half pincers → Q1, Q3
   const [lensOn, setLensOn] = useState({ order: false, quart: false, box: false, iqr: false });
+  const [editValue, setEditValue] = useState(5);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -668,7 +669,7 @@ export default function BoxPlotLab() {
       ctx.font = '600 13px system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Click the number line to add data points', (padL + Wd - padR) / 2, (plotTop + baseY) / 2);
+      ctx.fillText('Add data with the controls below', (padL + Wd - padR) / 2, (plotTop + baseY) / 2);
     }
 
     /* =================== BOX PLOT (below the axis) ======================== */
@@ -1110,6 +1111,32 @@ export default function BoxPlotLab() {
   };
   const clearData = () => applyPreset([]);
 
+  /* The canvas remains a fast direct-manipulation surface, while this compact
+     editor gives keyboard users the same add / remove / move vocabulary. */
+  const addEditedPoint = () => {
+    setData((arr) =>
+      arr.length < MAX_POINTS && countOf(arr, editValue) < MAX_STACK ? [...arr, editValue] : arr
+    );
+  };
+  const removeEditedPoint = () => {
+    setData((arr) => {
+      const i = arr.indexOf(editValue);
+      return i < 0 ? arr : arr.filter((_, k) => k !== i);
+    });
+  };
+  const moveEditedPoint = (delta) => {
+    const nextValue = clampVal(editValue + delta);
+    if (nextValue === editValue) return;
+    setData((arr) => {
+      const i = arr.indexOf(editValue);
+      if (i < 0 || countOf(arr, nextValue) >= MAX_STACK) return arr;
+      const next = arr.slice();
+      next[i] = nextValue;
+      return next;
+    });
+    setEditValue(nextValue);
+  };
+
   /* recursive-pincer controls: outer → median, then both halves → Q1/Q3 */
   const stepIn = () => {
     if (!outerDone) setPeel((p) => Math.min(maxPeel, p + 1));
@@ -1149,7 +1176,7 @@ export default function BoxPlotLab() {
 
   const spoken =
     n === 0
-      ? 'The data set is empty. Click the number line to add points.'
+      ? 'The data set is empty. Use the point editor below to add points.'
       : `A data set of ${n} value${n === 1 ? '' : 's'}. ` +
         `Five-number summary: minimum ${minV}, Q1 ${q1Str}, median ${medStr}, Q3 ${q3Str}, maximum ${maxV}. ` +
         (eff.iqr ? `The interquartile range is ${iqrStr}${bx.outliers.length ? `, with ${bx.outliers.length} outlier${bx.outliers.length === 1 ? '' : 's'}.` : '.'}` : '');
@@ -1215,7 +1242,7 @@ export default function BoxPlotLab() {
             aria-label={spoken}
           >
             <canvas ref={canvasRef} />
-            {!showStrip && <span className="hint mono">click to add · click a dot to remove · drag to move</span>}
+            {!showStrip && <span className="hint mono">click or drag dots · keyboard controls below</span>}
           </div>
           <p className="sr-only" aria-live="polite">
             {spoken}
@@ -1239,6 +1266,51 @@ export default function BoxPlotLab() {
               <span className="fact-k">IQR</span>
               <span className="fact-v mono blue">{exists ? iqrStr : '—'}</span>
             </div>
+          </div>
+
+          <div className="point-editor" role="group" aria-label="Keyboard point editor" data-viz-keyboard-equivalent="point-editor">
+            <label>
+              Point value
+              <select value={editValue} onChange={(e) => setEditValue(Number(e.target.value))}>
+                {Array.from({ length: VMAX - VMIN + 1 }, (_, i) => VMIN + i).map((v) => (
+                  <option key={v} value={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={addEditedPoint}
+              disabled={n >= MAX_POINTS || countOf(data, editValue) >= MAX_STACK}
+            >
+              Add point
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={removeEditedPoint}
+              disabled={!data.includes(editValue)}
+            >
+              Remove one
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => moveEditedPoint(-1)}
+              disabled={editValue <= VMIN || !data.includes(editValue) || countOf(data, editValue - 1) >= MAX_STACK}
+              aria-label={`Move one point at ${editValue} one step left`}
+            >
+              Move −
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => moveEditedPoint(1)}
+              disabled={editValue >= VMAX || !data.includes(editValue) || countOf(data, editValue + 1) >= MAX_STACK}
+              aria-label={`Move one point at ${editValue} one step right`}
+            >
+              Move +
+            </button>
           </div>
 
           <div className="toolbar">
@@ -1607,6 +1679,41 @@ export default function BoxPlotLab() {
           gap: 8px;
           flex-wrap: wrap;
           align-items: center;
+        }
+        .point-editor {
+          margin: 12px 4px 2px;
+          padding: 8px;
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: end;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .point-editor label {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+        .point-editor select {
+          min-width: 76px;
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 700 13px/1 var(--mono);
+        }
+        .point-editor .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .pincer-group {
           display: flex;
