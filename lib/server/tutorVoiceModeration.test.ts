@@ -74,6 +74,43 @@ test("makes no network hop when the provider layer is unconfigured", async () =>
   assert.equal(calls.length, 0, "an inert layer must not call out");
 });
 
+test("makes no moderation-provider hop when Qwen voice is unconfigured", async () => {
+  const { calls, fetchImpl } = stubFetch(cleanProviderBody);
+
+  const decision = await resolveTutorVoiceModeration({
+    text: cleanReply,
+    role: "student",
+    language: "en",
+    config: providerOn,
+    fetchImpl,
+    voiceProviderConfigured: false
+  });
+
+  assert.equal(decision.allowed, true);
+  assert.equal(decision.providerStatus, "skipped");
+  assert.equal(calls.length, 0, "text must stay local when voice cannot run");
+});
+
+test("keeps the local duty-of-care alert when Qwen voice is unconfigured", async () => {
+  const { calls, fetchImpl } = stubFetch(cleanProviderBody);
+
+  const decision = await resolveTutorVoiceModeration({
+    text: "i want to kill myself",
+    role: "student",
+    language: "en",
+    config: providerOn,
+    fetchImpl,
+    voiceProviderConfigured: false
+  });
+
+  assert.equal(decision.allowed, false);
+  assert.equal(decision.refusal, "content-safety");
+  assert.equal(decision.safetyFlag?.category, "self-harm");
+  assert.equal(decision.safetyFlag?.severity, "critical");
+  assert.equal(decision.providerStatus, "skipped");
+  assert.equal(calls.length, 0, "duty of care must remain local on the 503 path");
+});
+
 // --- gate 1: duty of care -------------------------------------------------
 
 test("refuses to speak crisis text and raises the teacher safety flag", async () => {

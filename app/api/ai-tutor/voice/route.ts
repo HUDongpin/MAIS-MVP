@@ -306,17 +306,17 @@ export async function POST(request: Request) {
   }
 
   // The text in this body claims to be a tutor reply that already cleared the
-  // /resolve gates, but it is client-supplied and nothing proves that. Hold it to
-  // the bar /resolve holds real tutor output to before Professor Nova's voice
-  // reads it aloud; see lib/server/tutorVoiceModeration.ts for why this refuses
-  // rather than substituting a redirect. On the legitimate path — the client
-  // replaying a reply it just received — nothing is flagged, no audit row is
-  // written, and the only added cost is the synchronous lexical scan.
+  // /resolve gates, but it is client-supplied and nothing proves that. Always run
+  // the local duty-of-care gate. When Qwen voice is configured, continue through
+  // the full output-moderation gate before synthesis. When it is not configured,
+  // keep the text local, preserve any safety alert, then return the voice 503.
   const language = cleanLanguage(body.language);
+  const providerConfig = readQwenRealtimeProviderConfig();
   const voiceModeration = await resolveTutorVoiceModeration({
     text,
     role: authenticated.user.role,
-    language
+    language,
+    voiceProviderConfigured: Boolean(providerConfig.apiKey)
   });
 
   for (const event of voiceModeration.governanceEvents) {
@@ -353,14 +353,21 @@ export async function POST(request: Request) {
     }
   }
 
+  // Duty-of-care has now run and any local safety alert has been persisted. Do
+  // not let a moderation response mask the actual unavailable voice capability.
+  if (!providerConfig.apiKey) {
+    return NextResponse.json(
+      {
+        error: "Qwen realtime voice is not configured.",
+        code: "AI_TUTOR_VOICE_NOT_CONFIGURED"
+      },
+      { status: 503 }
+    );
+  }
+
   // Refuse without echoing the offending text back to the caller.
   if (!voiceModeration.allowed) {
     return NextResponse.json({ error: "This text cannot be read aloud." }, { status: 422 });
-  }
-
-  const providerConfig = readQwenRealtimeProviderConfig();
-  if (!providerConfig.apiKey) {
-    return NextResponse.json({ error: "Qwen realtime voice is not configured." }, { status: 503 });
   }
 
   try {

@@ -31,6 +31,8 @@
 // Scoped to students, mirroring both gates in /resolve. The decision is returned
 // as data (governance events included) rather than written here, so the route
 // owns its own audit writes and this module stays testable without a store.
+// When the voice provider itself is unconfigured, only the local duty-of-care
+// gate runs: there is no audio outcome to moderate, so caller text stays local.
 
 import { classifyContentSafety } from "@/lib/server/contentSafety";
 import type { AiGovernanceAuditAction } from "@/lib/server/aiGovernance";
@@ -111,11 +113,13 @@ export async function resolveTutorVoiceModeration({
   language,
   config,
   timeoutMs,
-  fetchImpl
+  fetchImpl,
+  voiceProviderConfigured = true
 }: {
   text: string;
   role: TutorRole;
   language: string;
+  voiceProviderConfigured?: boolean;
 } & TutorModerationProviderOptions): Promise<TutorVoiceModerationDecision> {
   const allowed: TutorVoiceModerationDecision = {
     allowed: true,
@@ -162,6 +166,16 @@ export async function resolveTutorVoiceModeration({
         blockedReply: true
       },
       providerStatus: "skipped"
+    };
+  }
+
+  // A missing voice provider makes synthesis impossible. Preserve the local
+  // duty-of-care pass above, but do not disclose text to an external moderation
+  // provider for a request that will end in a voice-unavailable response.
+  if (!voiceProviderConfigured) {
+    return {
+      ...allowed,
+      safety
     };
   }
 
