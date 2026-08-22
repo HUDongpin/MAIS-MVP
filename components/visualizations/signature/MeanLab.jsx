@@ -381,6 +381,7 @@ export default function MeanLab() {
   const [calibInfo, setCalibInfo] = useState(null); // { T, fixed, needed, unknownIndex } during calibration
   const [levelOn, setLevelOn] = useState(false); // fair-share leveling animation
   const [lensOn, setLensOn] = useState({ total: false, mean: false, rect: false, give: false });
+  const [keyboardTower, setKeyboardTower] = useState(0);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -889,13 +890,18 @@ export default function MeanLab() {
   const answered = answers[step] != null;
   const hasQuestion = !!current.q;
   const canNext = step < STEPS.length - 1 && (!hasQuestion || answered);
+  const editorTower = calib && unknownIndex >= 0 ? unknownIndex : Math.min(keyboardTower, Math.max(0, n - 1));
+  const editorHeight = data[editorTower] ?? HMIN;
+  const canEditTower = editorTower >= 0 && (!calib || editorTower === unknownIndex);
 
   /* spoken description (accessibility) */
   const spoken = calib
-    ? `Challenge: three towers are locked at ${calibInfo ? calibInfo.fixed.join(', ') : ''}, ` +
-      `and the unknown tower is ${data[unknownIndex]}. The current average is ${meanFmt.approx ? 'about ' : ''}${meanFmt.text}, ` +
-      `and the target average is ${target}.` +
-      (calibrated ? ' Calibrated — the average is exactly on the target.' : '')
+    ? calibInfo && unknownIndex >= 0 && target != null
+      ? `Challenge: three towers are locked at ${calibInfo.fixed.join(', ')}, ` +
+        `and the unknown tower is ${data[unknownIndex]}. The current average is ${meanFmt.approx ? 'about ' : ''}${meanFmt.text}, ` +
+        `and the target average is ${target}.` +
+        (calibrated ? ' Calibrated — the average is exactly on the target.' : '')
+      : 'Challenge: preparing a new target average.'
     : `${n} towers with heights ${data.join(', ')}. Their total is ${sum} cubes, ` +
       `so the mean — the fair share — is ${meanFmt.approx ? 'about ' : ''}${meanFmt.text}. ` +
       (levelsEven ? 'It divides evenly.' : 'It does not divide evenly, so the mean is not a whole number.');
@@ -976,6 +982,68 @@ export default function MeanLab() {
               <span className="fact-k">Mean = Σ ÷ n</span>
               <span className="fact-v mono carm big">{meanText}</span>
             </div>
+          </div>
+
+          <div
+            className="keyboard-editor"
+            role="group"
+            aria-label="Keyboard tower controls"
+            data-viz-keyboard-equivalent="mean-towers"
+          >
+            <span className="editor-title">Tower height</span>
+            <label className="editor-field">
+              <span>Tower</span>
+              <select
+                value={editorTower}
+                onChange={(e) => setKeyboardTower(Number(e.target.value))}
+                disabled={calib}
+                aria-label="Tower to edit"
+              >
+                {data.map((height, i) => (
+                  <option key={i} value={i}>
+                    {i + 1}: {height}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="editor-range">
+              <button
+                type="button"
+                className="editor-step"
+                onClick={() => setTowerHeight(editorTower, editorHeight - 1)}
+                disabled={!canEditTower || editorHeight <= HMIN}
+                aria-label={`Decrease tower ${editorTower + 1} height`}
+              >
+                −1
+              </button>
+              <label>
+                <span className="sr-only">Tower {editorTower + 1} height</span>
+                <input
+                  type="range"
+                  min={HMIN}
+                  max={HMAX}
+                  step="1"
+                  value={editorHeight}
+                  onChange={(e) => setTowerHeight(editorTower, Number(e.target.value))}
+                  disabled={!canEditTower}
+                />
+              </label>
+              <output className="editor-value" aria-live="polite">
+                {editorHeight}
+              </output>
+              <button
+                type="button"
+                className="editor-step"
+                onClick={() => setTowerHeight(editorTower, editorHeight + 1)}
+                disabled={!canEditTower || editorHeight >= HMAX}
+                aria-label={`Increase tower ${editorTower + 1} height`}
+              >
+                +1
+              </button>
+            </div>
+            <span className="editor-help">
+              {calib ? 'Only the “?” tower moves.' : 'Choose a tower; use arrow keys or the −1/+1 buttons.'}
+            </span>
           </div>
 
           <div className="toolbar">
@@ -1301,6 +1369,90 @@ export default function MeanLab() {
         .fact-v.carm {
           color: var(--curve);
           font-weight: 700;
+        }
+        .keyboard-editor {
+          margin: 12px 4px 2px;
+          padding: 10px;
+          display: grid;
+          grid-template-columns: auto minmax(112px, 0.7fr) minmax(210px, 1.6fr);
+          gap: 8px 12px;
+          align-items: center;
+          border: 1px solid rgba(28, 43, 58, 0.14);
+          border-radius: 9px;
+          background: rgba(63, 116, 166, 0.045);
+        }
+        .editor-title {
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+        .editor-field {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          color: var(--ink-soft);
+          font-size: 12px;
+        }
+        .editor-field select {
+          min-height: 44px;
+          max-width: 100%;
+          padding: 5px 24px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 13px/1.2 var(--mono);
+        }
+        .editor-range {
+          min-width: 0;
+          display: grid;
+          grid-template-columns: auto minmax(90px, 1fr) 2ch auto;
+          gap: 7px;
+          align-items: center;
+        }
+        .editor-range label,
+        .editor-range input {
+          width: 100%;
+          min-width: 0;
+        }
+        .editor-range label {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
+        .editor-step {
+          min-width: 44px;
+          min-height: 44px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 700 12px/1 var(--mono);
+        }
+        .editor-step:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+        .editor-value {
+          color: var(--curve);
+          font: 700 14px/1 var(--mono);
+          text-align: center;
+        }
+        .editor-help {
+          grid-column: 1 / -1;
+          color: var(--ink-soft);
+          font-size: 11.5px;
+          line-height: 1.35;
+        }
+        @media (max-width: 620px) {
+          .keyboard-editor {
+            grid-template-columns: 1fr;
+          }
+          .editor-range {
+            grid-template-columns: 44px minmax(0, 1fr) 2ch 44px;
+            gap: 4px;
+          }
         }
         .toolbar {
           margin: 12px 4px 2px;

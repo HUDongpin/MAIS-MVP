@@ -110,8 +110,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const RED = '#c81e4f'; // carmine — strip A, the object under study
 const BLUE = '#3f74a6'; // strip B
 const SLATE = '#5b6b7b'; // strip C (joins at step 5)
-const GOLD = '#b98718'; // the START LINE — the tool of fairness
-const OK = '#1f8a5b'; // the verdict / CALIBRATED
+const GOLD = '#74520b'; // the START LINE — the tool of fairness
+const OK = '#176248'; // the verdict / CALIBRATED — readable on the paper surface
 
 const LEN_A = 7; // the red strip never changes: the fixed reference
 const LEN_C = 9; // the slate strip is longer than red BY CONSTRUCTION (9 > 7),
@@ -368,7 +368,7 @@ export default function LengthComparisonLab() {
 
     /* the gold start line — the tool of the whole lab */
     ctx.strokeStyle = GOLD;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(x0, bandH - 6);
     ctx.lineTo(x0, H - 12);
@@ -425,8 +425,8 @@ export default function LengthComparisonLab() {
 
       // keyboard focus ring
       if (S.canDrag && S.sel === i) {
-        ctx.strokeStyle = 'rgba(28,43,58,0.55)';
-        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = INK_SOFT;
+        ctx.lineWidth = 2;
         ctx.setLineDash([5, 4]);
         rr(x - 4, y - 4, w + 8, rodH + 8, rodH / 2);
         ctx.stroke();
@@ -453,8 +453,8 @@ export default function LengthComparisonLab() {
 
       // a small gap flag when a strip is off the line
       if (S.offs[i] > 0) {
-        ctx.strokeStyle = 'rgba(185,135,24,0.75)';
-        ctx.lineWidth = 1.3;
+        ctx.strokeStyle = GOLD;
+        ctx.lineWidth = 2;
         ctx.setLineDash([3, 3]);
         ctx.beginPath();
         ctx.moveTo(x0, cy);
@@ -868,7 +868,7 @@ export default function LengthComparisonLab() {
           --blue: #3f74a6;
           --gold: #b98718;
           --quad: #c7d8e4;
-          --ok: #1f8a5b;
+          --ok: #176248;
           --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
           --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
           background: var(--page);
@@ -987,8 +987,11 @@ export default function LengthComparisonLab() {
           color: var(--ink);
         }
         .btn:disabled {
-          opacity: 0.4;
+          opacity: 1;
           cursor: not-allowed;
+          border-color: #a8b3bd;
+          background: #e4e8eb;
+          color: #334250;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1038,7 +1041,7 @@ export default function LengthComparisonLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          opacity: 1;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1115,7 +1118,10 @@ export default function LengthComparisonLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          opacity: 1;
+          border-color: #a8b3bd;
+          background: #f1f3f4;
+          color: #445565;
         }
         .choice:disabled {
           cursor: default;

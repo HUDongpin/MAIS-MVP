@@ -4208,6 +4208,82 @@ test("ThreeDLabCanvas docks MAIS Manim authoring controls outside the mobile sce
   );
 });
 
+test("ThreeDLabCanvas keeps authoring tools out of the direct learner presentation", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const typeSource = fs.readFileSync("components/visualizations/three/threeDSceneTypes.ts", "utf8");
+
+  assert.match(typeSource, /export type ThreeDPresentation = "authoring" \| "learner";/);
+  assert.match(typeSource, /presentation\?: ThreeDPresentation;/);
+  assert.match(canvasSource, /presentation = "authoring"/);
+  assert.match(canvasSource, /const showAuthoringControls = presentation === "authoring";/);
+  assert.match(
+    canvasSource,
+    /const presentationResetPlaybackState: ManimPlaybackState = presentation === "learner" \? "paused" : "playing";/
+  );
+  assert.equal(
+    canvasSource.match(/setManimPlaybackState\(presentationResetPlaybackState\)/g)?.length,
+    2,
+    "both learner reset and scene-identity reset must remain paused while authoring retains autoplay"
+  );
+  const resetStart = canvasSource.indexOf("const resetCameraAndTimeline = useCallback");
+  const resetEnd = canvasSource.indexOf("const switchManimCameraMode = useCallback", resetStart);
+  const sceneIdentityResetStart = canvasSource.indexOf(
+    'setManimHistoryStore(createSceneHistoryStore(initialManimCheckpointState(manimHistorySceneId), { label: "initial" }))'
+  );
+  const sceneIdentityResetEnd = canvasSource.indexOf("useEffect(() => {", sceneIdentityResetStart + 1);
+  const runFromBeatStart = canvasSource.indexOf("const runManimFromBeat = useCallback");
+  const runFromBeatEnd = canvasSource.indexOf("const showManimFinalFrame = useCallback", runFromBeatStart);
+  assert.ok(resetStart >= 0 && resetEnd > resetStart, "learner reset callback must remain inspectable");
+  assert.ok(
+    sceneIdentityResetStart >= 0 && sceneIdentityResetEnd > sceneIdentityResetStart,
+    "scene-identity reset effect must remain inspectable"
+  );
+  assert.ok(runFromBeatStart >= 0 && runFromBeatEnd > runFromBeatStart, "run-from-beat callback must remain inspectable");
+  assert.match(
+    canvasSource.slice(resetStart, resetEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(
+    canvasSource.slice(sceneIdentityResetStart, sceneIdentityResetEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(canvasSource.slice(runFromBeatStart, runFromBeatEnd), /setManimPlaybackState\("playing"\)/);
+  assert.doesNotMatch(
+    canvasSource.slice(runFromBeatStart, runFromBeatEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(
+    canvasSource,
+    /\}, \[manimHistorySceneId, presentationResetPlaybackState, state\.familyId\]\);/
+  );
+  assert.match(
+    canvasSource,
+    /\}, \[manimHistorySceneId, presentationResetPlaybackState, runtime, state\.familyId\]\);/
+  );
+  assert.match(canvasSource, /data-viz-manim-presentation=\{presentation\}/);
+  assert.match(canvasSource, /data-viz-manim-authoring-controls-visible=\{String\(showAuthoringControls\)\}/);
+
+  for (const selector of [
+    "data-viz-manim-camera-mode-control",
+    "data-viz-manim-control-row=\"capture\"",
+    "data-viz-manim-parameter-panel-control",
+    "data-viz-manim-checkpoint-control",
+    "data-viz-manim-history-control",
+    "data-viz-manim-authoring-control"
+  ]) {
+    assert.match(
+      canvasSource,
+      new RegExp(`showAuthoringControls \\? \\(\\s*[\\s\\S]{0,160}<[^>]+${selector}`),
+      `${selector} must be rendered only for the authoring presentation`
+    );
+  }
+
+  assert.match(
+    canvasSource,
+    /data-viz-manim-control-row="playback"[\s\S]*data-viz-manim-playback-toggle[\s\S]*data-viz-manim-timeline-scrubber/
+  );
+});
+
 test("ThreeDLabCanvas exposes safe checkpoint-paste authoring evidence for MAIS Manim scenes", () => {
   const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
   const pastePlanSource = fs.readFileSync("components/visualizations/three/manim/mathCheckpointPastePlan.ts", "utf8");

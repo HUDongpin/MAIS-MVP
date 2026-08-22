@@ -64,6 +64,7 @@ export type ThreeDVisualizationMetadata = {
 };
 
 export type ThreeDCanvasRuntime = "primitive" | "mais-manim";
+export type ThreeDPresentation = "authoring" | "learner";
 
 export type ThreeDControlState = {
   comparison: number;
@@ -98,6 +99,7 @@ export type ThreeDLabCanvasProps = {
   fallback: ReactNode;
   label: string;
   onCanvasReady?: () => void;
+  presentation?: ThreeDPresentation;
   premiumLaunch?: boolean;
   regionalPriority?: ThreeDRegionalPriority;
   runtime?: ThreeDCanvasRuntime;

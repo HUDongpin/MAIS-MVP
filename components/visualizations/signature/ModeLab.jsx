@@ -448,6 +448,7 @@ export default function ModeLab() {
   const [answers, setAnswers] = useState({}); // { [stepIndex]: chosenIndex }
   const [target, setTarget] = useState(null); // calibration goal
   const [lensOn, setLensOn] = useState({ counts: false, mode: false, compare: false });
+  const [keyboardColumn, setKeyboardColumn] = useState(0);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -875,6 +876,21 @@ export default function ModeLab() {
     }
   };
 
+  const selectedColumn = Math.min(keyboardColumn, counts.length - 1);
+  const totalCount = counts.reduce((a, b) => a + b, 0);
+  const changeSelectedColumn = (delta) => {
+    setCounts((arr) => {
+      const k = Math.min(selectedColumn, arr.length - 1);
+      if (k < 0) return arr;
+      const nextValue = arr[k] + delta;
+      const total = arr.reduce((a, b) => a + b, 0);
+      if (nextValue < 0 || nextValue > MAX_STACK || (delta > 0 && total >= MAX_TOTAL)) return arr;
+      const next = arr.slice();
+      next[k] = nextValue;
+      return next;
+    });
+  };
+
   /* ---- presets & toolbar ------------------------------------------------- */
   function emptyNum() {
     return new Array(NUM_K).fill(0);
@@ -1023,6 +1039,53 @@ export default function ModeLab() {
               <span className="fact-k">Data points</span>
               <span className="fact-v mono">{m.n}</span>
             </div>
+          </div>
+
+          <div
+            className="keyboard-editor"
+            role="group"
+            aria-label="Keyboard frequency editor"
+            data-viz-keyboard-equivalent="mode-frequency-columns"
+          >
+            <span className="editor-title">Frequency controls</span>
+            <label className="editor-field">
+              <span>{catMode ? 'Fruit' : 'Value'}</span>
+              <select
+                value={selectedColumn}
+                onChange={(e) => setKeyboardColumn(Number(e.target.value))}
+                aria-label={catMode ? 'Fruit column to edit' : 'Number column to edit'}
+              >
+                {counts.map((count, i) => (
+                  <option key={i} value={i}>
+                    {valLabel(i, catMode)}: {count}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="editor-actions">
+              <button
+                type="button"
+                className="editor-action"
+                onClick={() => changeSelectedColumn(-1)}
+                disabled={counts[selectedColumn] <= 0}
+                aria-label={`Remove one ${catMode ? 'vote' : 'data point'} from ${valLabel(selectedColumn, catMode)}`}
+              >
+                − 1 chip
+              </button>
+              <output className="editor-value" aria-live="polite">
+                {counts[selectedColumn]}
+              </output>
+              <button
+                type="button"
+                className="editor-action"
+                onClick={() => changeSelectedColumn(1)}
+                disabled={counts[selectedColumn] >= MAX_STACK || totalCount >= MAX_TOTAL}
+                aria-label={`Add one ${catMode ? 'vote' : 'data point'} to ${valLabel(selectedColumn, catMode)}`}
+              >
+                + 1 chip
+              </button>
+            </div>
+            <span className="editor-help">Choose a column with the keyboard, then add or remove one chip.</span>
           </div>
 
           <div className="toolbar">
@@ -1356,6 +1419,86 @@ export default function ModeLab() {
         .fact-v.gold {
           color: #b07a17;
           font-weight: 600;
+        }
+        .keyboard-editor {
+          margin: 12px 4px 2px;
+          padding: 10px;
+          display: grid;
+          grid-template-columns: auto minmax(130px, 0.8fr) minmax(220px, 1.4fr);
+          gap: 8px 12px;
+          align-items: center;
+          border: 1px solid rgba(28, 43, 58, 0.14);
+          border-radius: 9px;
+          background: rgba(63, 116, 166, 0.045);
+        }
+        .editor-title {
+          color: var(--ink);
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .editor-field {
+          min-width: 0;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          color: var(--ink-soft);
+          font-size: 12px;
+        }
+        .editor-field select {
+          min-width: 0;
+          min-height: 44px;
+          width: 100%;
+          padding: 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 13px/1.2 var(--mono);
+        }
+        .editor-actions {
+          display: grid;
+          grid-template-columns: minmax(88px, 1fr) 2.5ch minmax(88px, 1fr);
+          gap: 8px;
+          align-items: center;
+        }
+        .editor-action {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 7px 10px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 7px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 650 12px/1 system-ui, sans-serif;
+          white-space: nowrap;
+        }
+        .editor-action:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+        .editor-value {
+          color: var(--curve);
+          font: 700 14px/1 var(--mono);
+          text-align: center;
+        }
+        .editor-help {
+          grid-column: 1 / -1;
+          color: var(--ink-soft);
+          font-size: 11.5px;
+          line-height: 1.35;
+        }
+        @media (max-width: 620px) {
+          .keyboard-editor {
+            grid-template-columns: 1fr;
+          }
+          .editor-actions {
+            grid-template-columns: minmax(44px, 1fr) 2.5ch minmax(44px, 1fr);
+            gap: 4px;
+          }
+          .editor-help {
+            grid-column: 1;
+          }
         }
         .toolbar {
           margin: 12px 4px 2px;

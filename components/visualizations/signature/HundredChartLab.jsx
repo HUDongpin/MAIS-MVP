@@ -115,7 +115,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
    buttons (+1 and +10 — the two speeds), and nothing else to operate.
    ------------------------------------------------------------------------- */
 const CARMINE = '#c81e4f'; // the count: current cell, lit path, word, leap
-const GOLD = '#b98718'; // the goal & structure: target cell, fast lane, row lines
+const GOLD = '#9a6f12'; // the goal & structure: target cell, fast lane, row lines
 const INK_HEX = '#1c2b3a';
 
 const DIALS = [
@@ -388,7 +388,7 @@ export default function HundredChartLab() {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     if (S.n === 0) {
-      ctx.fillStyle = INK_SOFT;
+      ctx.fillStyle = '#445565';
       ctx.font = 'italic 600 15px system-ui, sans-serif';
       ctx.fillText(S.calib ? 'count your way to the gold cell' : 'ready to count — the chart is listening', W / 2, bandH / 2);
     } else {
@@ -420,6 +420,10 @@ export default function HundredChartLab() {
         ctx.fillStyle = 'rgba(200,30,79,0.10)';
         rr(cx + 1.5, cy + 1.5, cell - 3, cell - 3, 5);
         ctx.fill();
+        // The wash is decorative; this inset edge is the state indicator.
+        ctx.strokeStyle = CARMINE;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
       }
 
       // gold target ring (capstone)
@@ -432,26 +436,27 @@ export default function HundredChartLab() {
 
       // fast-lane rings (the lens): the decade cells
       if (S.edge && v % 10 === 0) {
-        ctx.strokeStyle = 'rgba(185,135,24,0.85)';
+        ctx.strokeStyle = GOLD;
         ctx.lineWidth = 1.6;
         rr(cx + 2.5, cy + 2.5, cell - 5, cell - 5, 6);
         ctx.stroke();
       }
 
       // grid line of the chart
-      ctx.strokeStyle = 'rgba(28,43,58,0.14)';
-      ctx.lineWidth = 1;
+      // Cell boundaries are mathematical structure, not paper decoration.
+      ctx.strokeStyle = '#5b6b7b';
+      ctx.lineWidth = 3;
       ctx.strokeRect(cx + 0.5, cy + 0.5, cell, cell);
 
       // numeral
-      ctx.fillStyle = here ? '#fff' : said ? INK : 'rgba(28,43,58,0.42)';
+      ctx.fillStyle = here ? '#fff' : said ? INK : '#445565';
       ctx.font = `${here ? 700 : 600} ${fs}px ui-monospace, Menlo, monospace`;
       ctx.fillText(String(v), cx + cell / 2, cy + cell / 2 + 0.5);
     }
 
     /* a gold underline beneath every row the count has FULLY SAID (a leap
        earns no underline — a leap says one number, not ten) */
-    ctx.strokeStyle = 'rgba(185,135,24,0.55)';
+    ctx.strokeStyle = GOLD;
     ctx.lineWidth = 2;
     for (let r = 1; r <= S.rows; r++) {
       let full = true;
@@ -906,8 +911,15 @@ export default function HundredChartLab() {
           color: var(--ink);
         }
         .btn:disabled {
-          opacity: 0.4;
+          background: #596979;
+          border-color: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          background: #f0f2f3;
+          border-color: #83909d;
+          color: #596979;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -957,7 +969,12 @@ export default function HundredChartLab() {
           gap: 2px 10px;
         }
         .dial.locked {
-          opacity: 0.5;
+          color: #596979;
+        }
+        .dial.locked .dk,
+        .dial.locked .drole,
+        .dial.locked .dv {
+          color: #596979;
         }
         .dk {
           grid-row: 1 / 3;
@@ -1035,7 +1052,9 @@ export default function HundredChartLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;
