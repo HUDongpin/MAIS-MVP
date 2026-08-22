@@ -4463,7 +4463,6 @@ export type TeacherStudentMasteryTarget = {
 export type TeacherStudentProfileData = {
   student: StudentSession;
   classes: TeacherClass[];
-  parentInviteCode: string;
   guardianLinks: GuardianLink[];
   averageMastery: number;
   recentActivityAt: string | null;

@@ -289,7 +289,6 @@ export type AuthSessionPersistenceStoreDependencies = {
   fixedExampleScopeForUserId?: (userId: string) => AuthFixedExampleScope | null | undefined;
   applyFixedExampleAccountScope?: (database: AuthSessionPersistenceDatabase, userId: string) => void | null | undefined;
   createId?: () => string;
-  createParentInviteCode?: (database: AuthSessionPersistenceDatabase) => string;
   createPasswordResetRequestBeforeSnapshot?: (
     identifier: string
   ) => Promise<AuthPasswordResetRequestResult | null | undefined> | AuthPasswordResetRequestResult | null | undefined;
@@ -455,7 +454,7 @@ export function projectedStudentProfileRecord(value: unknown): AuthSessionProjec
     curriculum_track: normalizeAuthCurriculumTrack(value.curriculum_track),
     curriculum_region: value.curriculum_region as CurriculumRegion | undefined,
     textbook_publisher: value.textbook_publisher as TextbookPublisher | undefined,
-    parent_invite_code: optionalStringRecordField(value, "parent_invite_code"),
+    parent_invite_code: "",
     avatar_id: isValidAuthStudentAvatarId(value.avatar_id) ? value.avatar_id : undefined,
     avatar_image_data_url: optionalStringRecordField(value, "avatar_image_data_url"),
     avatar_media_object_key: optionalStringRecordField(value, "avatar_media_object_key")
@@ -528,10 +527,7 @@ function normalizeStoredMediaObjectKey(value: unknown) {
 export function normalizeAuthStudentProfileRecord<
   Record extends AuthSessionStudentProfileRecord
 >(
-  profile: Record,
-  dependencies: {
-    normalizeParentInviteCode: (value: string) => string;
-  }
+  profile: Record
 ): Record & {
   avatar_id: StudentAvatarId;
   curriculum_track: CurriculumTrack;
@@ -541,7 +537,6 @@ export function normalizeAuthStudentProfileRecord<
 } {
   const avatarImageDataUrl = normalizeAuthStudentAvatarImageDataUrl(profile.avatar_image_data_url);
   const avatarMediaObjectKey = normalizeStoredMediaObjectKey(profile.avatar_media_object_key);
-  const parentInviteCode = dependencies.normalizeParentInviteCode(profile.parent_invite_code ?? "");
   const curriculumProfile = normalizeStoredCurriculumProfile({
     curriculumTrack: normalizeAuthCurriculumTrack(profile.curriculum_track),
     region: profile.curriculum_region,
@@ -554,8 +549,8 @@ export function normalizeAuthStudentProfileRecord<
     curriculum_track: curriculumTrackForProfile(curriculumProfile),
     curriculum_region: curriculumProfile.region,
     textbook_publisher: curriculumProfile.publisher,
+    parent_invite_code: "",
     avatar_media_object_key: avatarMediaObjectKey,
-    ...(parentInviteCode ? { parent_invite_code: parentInviteCode } : {}),
     ...(avatarImageDataUrl ? { avatar_image_data_url: avatarImageDataUrl } : {})
   };
 }
@@ -1597,7 +1592,6 @@ export function createAuthSessionPersistenceStore({
   applyFixedExampleAccountScope,
   authenticateUserForLoginBeforeSnapshot,
   createId = randomUUID,
-  createParentInviteCode,
   createPasswordResetRequestBeforeSnapshot,
   createResetToken = () => randomBytes(32).toString("base64url"),
   demoAccountSeeds = [],
@@ -1810,9 +1804,6 @@ export function createAuthSessionPersistenceStore({
         curriculum_track: effectiveCurriculumTrack,
         curriculum_region: effectiveCurriculumProfile.region,
         textbook_publisher: effectiveCurriculumProfile.publisher,
-        ...(role === "student" && createParentInviteCode
-          ? { parent_invite_code: createParentInviteCode(database) }
-          : {}),
         avatar_id: role === "teacher" ? "sigma" : defaultAuthStudentAvatarId
       });
       database.user_settings.push({

@@ -139,6 +139,8 @@ export const teacherOpsUserStoreOperations = [
   "joinClassByInviteCode",
   "getTeacherClassDetailData",
   "getTeacherStudentProfileData",
+  "issueGuardianInvitationForTeacher",
+  "revokeGuardianLinkForTeacher",
   "getTeacherAssignments",
   "getTeacherResourceLibraryData",
   "createTeacherResource",

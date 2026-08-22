@@ -314,7 +314,7 @@ export function authAdminStorageHotAuthStudentProfileRows(profiles: AuthAdminSto
     curriculum_track: profile.curriculum_track ?? null,
     curriculum_region: profile.curriculum_region ?? null,
     textbook_publisher: profile.textbook_publisher ?? null,
-    parent_invite_code: profile.parent_invite_code ?? null,
+    parent_invite_code: "",
     avatar_id: profile.avatar_id ?? null,
     avatar_image_data_url: profile.avatar_image_data_url ?? null,
     avatar_media_object_key: profile.avatar_media_object_key ?? null

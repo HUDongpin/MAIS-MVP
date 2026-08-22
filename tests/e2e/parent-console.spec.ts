@@ -53,7 +53,6 @@ type AppStatePayload = {
     user_id: string;
     name: string;
     grade: string;
-    parent_invite_code?: string;
     avatar_id?: string;
   }>;
   guardian_links?: Array<{
@@ -142,22 +141,6 @@ function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function parentInviteCodeForStudent(studentId: string) {
-  const sqlite = new DatabaseSync(e2eDbPath);
-  try {
-    const row = sqlite
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
-      .get("primary") as AppStateRow | undefined;
-    expect(row).toBeTruthy();
-    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
-    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
-    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
-    return inviteCode!;
-  } finally {
-    sqlite.close();
-  }
-}
-
 async function newApiContext(contexts: APIRequestContext[]) {
   const context = await apiRequest.newContext({ baseURL });
   contexts.push(context);
@@ -230,7 +213,24 @@ async function createTeacherClassForStudent(contexts: APIRequestContext[], testI
     data: { username: student.username }
   });
   expect(addResponse.ok()).toBeTruthy();
-  return classPayload.class.id;
+  return { classId: classPayload.class.id, teacherContext: context };
+}
+
+async function issueGuardianInvitationForStudent(
+  contexts: APIRequestContext[],
+  testInfo: TestInfo,
+  student: TestStudent
+) {
+  const { classId, teacherContext } = await createTeacherClassForStudent(contexts, testInfo, student);
+  const response = await teacherContext.post(
+    `/api/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+  );
+  expect(response.status()).toBe(201);
+  const payload = await response.json() as {
+    invitation: { token: string; version: number; expiresAt: string };
+  };
+  expect(payload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
+  return { classId, inviteCode: payload.invitation.token };
 }
 
 function mutateAppState(mutator: (payload: AppStatePayload) => void) {
@@ -400,6 +400,7 @@ test.describe.serial("parent console end-to-end verification", () => {
 
     try {
       const unlinkedStudent = await registerStudentViaApi(contexts, testInfo, "unlinked");
+      const { inviteCode: unlinkedInviteCode } = await issueGuardianInvitationForStudent(contexts, testInfo, unlinkedStudent);
 
       await loginAsDemoParent(page);
       const foundation = await parentFoundation(page);
@@ -438,7 +439,7 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`)).status()).toBe(404);
       const linkResponse = await page.request.post("/api/parent/children/link", {
         data: {
-          inviteCode: parentInviteCodeForStudent(unlinkedStudent.userId),
+          inviteCode: unlinkedInviteCode,
           relationship: "guardian"
         }
       });
@@ -480,14 +481,17 @@ test.describe.serial("parent console end-to-end verification", () => {
       const noChildParentName = `No Child Parent ${uniqueSuffix(testInfo).slice(0, 24)}`;
       promoteUserToParent(noChildParentStudent.userId, noChildParentName);
       const studentToLink = await registerStudentViaApi(contexts, testInfo, "link-child");
-      await createTeacherClassForStudent(contexts, testInfo, studentToLink);
-      const inviteCode = parentInviteCodeForStudent(studentToLink.userId);
+      const { classId, inviteCode: firstInviteCode } = await issueGuardianInvitationForStudent(contexts, testInfo, studentToLink);
 
       await loginAsTeacher(page);
-      await page.goto(`/teacher/students/${encodeURIComponent(studentToLink.userId)}`);
+      await page.goto(`/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(studentToLink.userId)}`);
       await expect(page.getByRole("heading", { name: /Parent access/i })).toBeVisible();
-      await expect(page.getByText(inviteCode)).toBeVisible();
+      await expect(page.getByText(firstInviteCode, { exact: true })).toHaveCount(0);
       await expect(page.getByText(/No parent accounts linked yet/i)).toBeVisible();
+      await page.getByRole("button", { name: /Issue \/ rotate code/i }).click();
+      const inviteCode = (await page.locator("code").filter({ hasText: /^MAIS-[A-F0-9]{24}$/ }).textContent())?.trim() ?? "";
+      expect(inviteCode).toMatch(/^MAIS-[A-F0-9]{24}$/);
+      expect(inviteCode).not.toBe(firstInviteCode);
       await logoutIfVisible(page);
 
       await loginAs(page, noChildParentStudent.username, noChildParentStudent.password, /\/parent/);
@@ -516,9 +520,13 @@ test.describe.serial("parent console end-to-end verification", () => {
       const parentSessionResponse = await page.request.get("/api/me");
       const parentSession = await parentSessionResponse.json() as AuthSession;
       const repeatLinkResponse = await page.request.post("/api/parent/children/link", {
-        data: { inviteCode, relationship: "mother" }
+        data: { inviteCode, relationship: "guardian" }
       });
       expect(repeatLinkResponse.status()).toBe(200);
+      const changedRelationshipReplay = await page.request.post("/api/parent/children/link", {
+        data: { inviteCode, relationship: "mother" }
+      });
+      expect(changedRelationshipReplay.status()).toBe(409);
       expect(guardianLinksFor(parentSession.user.id, studentToLink.userId)).toHaveLength(1);
 
       const foundation = await parentFoundation(page);

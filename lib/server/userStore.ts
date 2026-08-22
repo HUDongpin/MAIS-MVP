@@ -266,18 +266,17 @@ import {
 } from "@/lib/server/userStore/contentSafetyPersistence";
 import {
   canUseParentArea as canUseParentAreaFromParentAccess,
-  createParentInviteCode as createParentInviteCodeFromParentAccess,
   createParentAccessPersistenceStore,
-  ensureParentInviteCodeInDatabase as ensureParentInviteCodeInDatabaseFromParentAccess,
+  guardianInvitationRecordsNeedPersistenceSync as guardianInvitationRecordsNeedPersistenceSyncFromParentAccess,
   isValidGuardianLinkStatus as isValidGuardianLinkStatusFromParentAccess,
+  normalizeGuardianInvitationRecords as normalizeGuardianInvitationRecordsFromParentAccess,
   normalizeGuardianLinkStatus as normalizeGuardianLinkStatusFromParentAccess,
   normalizeGuardianRelationship as normalizeGuardianRelationshipFromParentAccess,
   normalizeParentAccessGuardianLinkRecord as normalizeGuardianLinkRecordFromParentAccess,
   normalizeParentAccessGuardianLinkRecords as normalizeGuardianLinkRecordsFromParentAccess,
-  normalizeParentInviteCode as normalizeParentInviteCodeFromParentAccess,
   parentAccessSeedGuardianLinks as seedGuardianLinksFromParentAccess,
   toGuardianLink as toGuardianLinkFromParentAccess,
-  uniqueParentInviteCode as uniqueParentInviteCodeFromParentAccess,
+  type GuardianInvitationRecord,
   type ParentAccessPersistenceDatabase
 } from "@/lib/server/userStore/parentAccessPersistence";
 import {
@@ -1792,6 +1791,7 @@ type Database = {
   school_memberships: SchoolMembershipRecord[];
   provisioning_batches: ProvisioningBatchRecord[];
   provisioning_row_results: ProvisioningRowResultRecord[];
+  guardian_invitations: GuardianInvitationRecord[];
   guardian_links: GuardianLinkRecord[];
   password_reset_tokens: PasswordResetTokenRecord[];
   topics: TopicRecord[];
@@ -2683,8 +2683,7 @@ const seedGuardianLinks = (now: string): GuardianLinkRecord[] =>
     shouldSeedDemoUser,
     demoParentId,
     demoUserId,
-    demoTeacherId,
-    createParentInviteCode: createParentInviteCodeFromParentAccess
+    demoTeacherId
   });
 
 const seedTeacherLiveSessions = (now: string): TeacherLiveSessionRecord[] =>
@@ -2732,7 +2731,6 @@ function createInitialDatabase(): Database {
       curriculum_track: curriculumTrackForProfile(profile),
       curriculum_region: profile.region,
       textbook_publisher: profile.publisher,
-      ...(seed.role === "student" ? { parent_invite_code: createParentInviteCodeFromParentAccess() } : {}),
       avatar_id: seed.avatarId
     };
   });
@@ -2765,6 +2763,7 @@ function createInitialDatabase(): Database {
     school_memberships: [],
     provisioning_batches: [],
     provisioning_row_results: [],
+    guardian_invitations: [],
     guardian_links: seedGuardianLinks(now),
     password_reset_tokens: [],
     topics: seedTopicRecords(),
@@ -5188,9 +5187,7 @@ function normalizeDatabase(database: Partial<Database>) {
       last_login_at: identity.last_login_at ?? identity.created_at ?? now
     }));
   const studentProfiles = (database.student_profiles ?? []).map((profile): StudentProfileRecord =>
-    normalizeStudentProfileRecordFromAuthSessionPersistence(profile, {
-      normalizeParentInviteCode: normalizeParentInviteCodeFromParentAccess
-    })
+    normalizeStudentProfileRecordFromAuthSessionPersistence(profile)
   );
   const userSettings = normalizeUserSettingsRecordsFromAuthSessionPersistence(database.user_settings);
   const learnerProfiles = (database.learner_profiles ?? [])
@@ -5322,12 +5319,12 @@ function normalizeDatabase(database: Partial<Database>) {
     provisioning_row_results: (database.provisioning_row_results ?? []).map((row): ProvisioningRowResultRecord =>
       normalizeProvisioningRowResultRecordFromAuthProvisioning(row)
     ),
+    guardian_invitations: normalizeGuardianInvitationRecordsFromParentAccess(database.guardian_invitations, now),
     guardian_links: normalizeGuardianLinkRecordsFromParentAccess(database.guardian_links, now, {
       shouldSeedDemoUser,
       demoParentId,
       demoUserId,
-      demoTeacherId,
-      createParentInviteCode: createParentInviteCodeFromParentAccess
+      demoTeacherId
     }),
     password_reset_tokens: normalizePasswordResetTokenRecordsFromAuthSessionPersistence(database.password_reset_tokens),
     topics,
@@ -5492,6 +5489,10 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.school_memberships) ||
     !Array.isArray(parsed.provisioning_batches) ||
     !Array.isArray(parsed.provisioning_row_results) ||
+    guardianInvitationRecordsNeedPersistenceSyncFromParentAccess(
+      parsed.guardian_invitations,
+      database.guardian_invitations
+    ) ||
     !Array.isArray(parsed.guardian_links) ||
     !Array.isArray(parsed.password_reset_tokens) ||
     !Array.isArray(parsed.topics) ||
@@ -5570,7 +5571,9 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     database.assignments.some((assignment) => typeof assignment.count_towards_grade !== "boolean") ||
     database.teacher_messages.some((message) => typeof message.starred !== "boolean") ||
     (Array.isArray(parsed.teacher_notices) && parsed.teacher_notices.some((notice) => notice.source_kind && !isValidTeacherNoticeSourceKindFromTeacherOpsNotice(notice.source_kind))) ||
-    database.guardian_links.some((link) => !isValidGuardianLinkStatusFromParentAccess(link.status) || !link.invite_code) ||
+    database.guardian_links.some((link) => !isValidGuardianLinkStatusFromParentAccess(link.status)) ||
+    (parsed.student_profiles ?? []).some((profile) => Boolean(profile.parent_invite_code)) ||
+    (parsed.guardian_links ?? []).some((link) => Boolean(link.invite_code)) ||
 	    database.teaching_resources.some((resource) => typeof resource.file_size_bytes !== "number") ||
 	    database.teacher_lesson_kits.some((kit) => !isValidTeacherLessonKitStatusFromTeacherOpsLessonKit(kit.status) || !Array.isArray(kit.sections)) ||
 	    database.teacher_review_lessons.some((reviewLesson) => !isValidTeacherReviewLessonStatusFromTeacherOpsAssessment(reviewLesson.status) || !Array.isArray(reviewLesson.items)) ||
@@ -7453,7 +7456,6 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
     : getAuthenticatedUserForSessionFromPostgresHotTables(userId, sessionRevision),
   lookupSessionRevisionBeforeRead: getActiveUserSessionRevisionFromPostgresHotTables,
   createId: () => randomUUID(),
-  createParentInviteCode: (database) => uniqueParentInviteCodeFromParentAccess(database as Database),
   createResetToken: () => randomBytes(32).toString("base64url"),
   demoAccountSeeds: seededExampleAccountSeeds,
   demoPassword: getDemoPassword(),
@@ -7484,7 +7486,6 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
 
 const authProvisioningPersistenceStore = createAuthProvisioningPersistenceStore({
   createId: (prefix) => `${prefix}-${randomUUID()}`,
-  createParentInviteCode: (database) => uniqueParentInviteCodeFromParentAccess(database as Database),
   createTemporaryPassword: createTemporaryPasswordFromAuthProvisioning,
   ensureClassStudentWorkRecords: (database, classId, studentId, now) =>
     ensureClassStudentWorkRecordsFromTeacherOpsClass({
@@ -7699,8 +7700,6 @@ const teacherOpsStudentProfilePersistenceStore = createTeacherOpsStudentProfileP
     const database = await readDatabase();
     return database as TeacherOpsStudentProfilePersistenceDatabase;
   },
-  ensureParentInviteCodeForStudent: (studentId) =>
-    mutateDatabase((database) => ensureParentInviteCodeInDatabaseFromParentAccess(database, studentId)),
   studentSessionProjection: (database, user) => toAuthenticatedUser(database as Database, user as UserRecord)?.user ?? null,
   classProjection: (database, teacherClass) => toTeacherClassFromTeacherOpsClass(database as Database, teacherClass as TeacherClassRecord),
   guardianLinkProjection: (database, link) => toGuardianLinkFromParentAccess(database as ParentAccessPersistenceDatabase, link),
@@ -7804,7 +7803,6 @@ const teacherOpsRosterImportPersistenceStore = createTeacherOpsRosterImportPersi
     curriculumTrackForProfile(curriculumProfileForClass(database as Database, teacherClass as TeacherClassRecord)) ?? undefined
   ),
   createId: (prefix) => `${prefix}-${randomUUID()}`,
-  createParentInviteCode: (database) => uniqueParentInviteCodeFromParentAccess(database as Database),
   createTemporaryPassword: createTemporaryPasswordFromAuthProvisioning,
   defaultSettings: defaultSettingsFromAuthSessionPersistence,
   ensureClassStudentWorkRecords: (database, classId, studentId, now) => ensureClassStudentWorkRecordsFromTeacherOpsClass({
@@ -8170,6 +8168,7 @@ const teacherOpsAssessmentPersistenceStore = createTeacherOpsAssessmentPersisten
 });
 
 const teacherOpsUserStore = createTeacherOpsUserStore({
+  parentAccessPersistenceStore,
   teacherOpsAssessmentPersistenceStore,
   teacherOpsAssignmentPersistenceStore,
   teacherOpsClassCollaboratorPersistenceStore,
@@ -9804,6 +9803,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     school_memberships: [],
     provisioning_batches: [],
     provisioning_row_results: [],
+    guardian_invitations: [],
     guardian_links: [],
     password_reset_tokens: [],
     topics: [],
@@ -10621,6 +10621,8 @@ export const joinClassByInviteCode = teacherOpsUserStore.joinClassByInviteCode;
 export const getTeacherClassDetailData = teacherOpsUserStore.getTeacherClassDetailData;
 
 export const getTeacherStudentProfileData = teacherOpsUserStore.getTeacherStudentProfileData;
+export const issueGuardianInvitationForTeacher = teacherOpsUserStore.issueGuardianInvitationForTeacher;
+export const revokeGuardianLinkForTeacher = teacherOpsUserStore.revokeGuardianLinkForTeacher;
 export const getStudentAiTutorTranscriptForTeacher = teacherOpsStudentProfilePersistenceStore.getStudentAiTutorTranscriptForTeacher;
 
 export const getStudentRewardsData = gamificationUserStore.getStudentRewardsData;

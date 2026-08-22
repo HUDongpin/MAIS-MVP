@@ -74,10 +74,6 @@ type ParentMessageThread = {
 };
 
 type AppStatePayload = {
-  student_profiles?: Array<{
-    user_id: string;
-    parent_invite_code?: string;
-  }>;
   guardian_links?: Array<{
     id: string;
     parent_id: string;
@@ -147,24 +143,6 @@ function uniqueSlug(testInfo: TestInfo, label: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 90);
-}
-
-// Invite codes are random (`MAIS-` + 10 chars from a UUID, see
-// lib/server/userStore/parentAccessPersistence.ts `createParentInviteCode`), so they
-// cannot be derived from the student id — they have to be read back from the app's own
-// store, the same way tests/e2e/parent-console.spec.ts does it.
-function parentInviteCodeForStudent(dbPath: string, studentId: string) {
-  const sqlite = new DatabaseSync(dbPath);
-  try {
-    const row = sqlite.prepare("SELECT payload FROM app_state WHERE id = ?").get("primary") as AppStateRow | undefined;
-    expect(row, `Missing app_state row in ${dbPath}`).toBeTruthy();
-    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
-    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
-    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
-    return inviteCode!;
-  } finally {
-    sqlite.close();
-  }
 }
 
 async function newApiContext(app: IsolatedApp, contexts: APIRequestContext[]) {
@@ -244,6 +222,37 @@ async function registerStudentViaApi(app: IsolatedApp, contexts: APIRequestConte
   );
   expect(session.user.role).toBe("student");
   return { ...student, userId: session.user.id } satisfies TestUser;
+}
+
+async function issueGuardianInvitationForStudent(
+  app: IsolatedApp,
+  contexts: APIRequestContext[],
+  testInfo: TestInfo,
+  student: TestUser,
+  label: string
+) {
+  const { context } = await loginApi(app, contexts, demoTeacher.username, demoTeacher.password);
+  const classResponse = await context.post("/api/teacher/classes", {
+    data: {
+      name: `Guardian stress ${uniqueSlug(testInfo, label)}`,
+      grade: "S3",
+      academicYear: "2026-2027",
+      description: "Created for explicit guardian invitation setup."
+    }
+  });
+  expect(classResponse.ok(), `Class create failed: ${classResponse.status()}`).toBeTruthy();
+  const teacherClass = await classResponse.json() as { class: { id: string } };
+  const addResponse = await context.post(`/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students`, {
+    data: { username: student.username }
+  });
+  expect(addResponse.ok(), `Add student failed: ${addResponse.status()}`).toBeTruthy();
+  const issueResponse = await context.post(
+    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+  );
+  expect(issueResponse.status()).toBe(201);
+  const payload = await issueResponse.json() as { invitation: { token: string } };
+  expect(payload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
+  return payload.invitation.token;
 }
 
 async function disposeAll(contexts: APIRequestContext[]) {
@@ -386,7 +395,7 @@ test.describe("parent console robustness stress suite", () => {
       // The MAIS-NOPE probe above is meant to fail, and the browser reports that 404
       // fetch as a console error. Allow exactly that one; everything else stays strict.
       monitor.expectClean({
-        allowConsoleErrors: [/Failed to load resource: the server responded with a status of 404 \(Not Found\)/]
+        allowConsoleErrors: [/Failed to load resource: the server responded with a status of 400 \(Bad Request\)/]
       });
     } finally {
       await disposeAll(contexts);
@@ -440,10 +449,11 @@ test.describe("parent console robustness stress suite", () => {
 
       const otherParent = await registerParentViaApi(app, contexts, testInfo, "other-parent");
       const otherStudent = await registerStudentViaApi(app, contexts, testInfo, "other-child");
+      const otherStudentInviteCode = await issueGuardianInvitationForStudent(app, contexts, testInfo, otherStudent, "other-child");
       const { context: otherParentContext } = await loginApi(app, contexts, otherParent.username, otherParent.password);
       expect((await otherParentContext.post("/api/parent/children/link", {
         data: {
-          inviteCode: parentInviteCodeForStudent(app.dbPath, otherStudent.userId),
+          inviteCode: otherStudentInviteCode,
           relationship: "guardian"
         }
       })).status()).toBe(200);
@@ -514,10 +524,10 @@ test.describe("parent console robustness stress suite", () => {
       })).status()).toBe(400);
       expect((await parentContext.post("/api/parent/children/link", { data: [] })).status()).toBe(400);
       expect((await parentContext.post("/api/parent/children/link", { data: { inviteCode: "", relationship: "guardian" } })).status()).toBe(400);
-      expect((await parentContext.post("/api/parent/children/link", { data: { inviteCode: "MAIS-NOPE", relationship: "guardian" } })).status()).toBe(404);
+      expect((await parentContext.post("/api/parent/children/link", { data: { inviteCode: "MAIS-NOPE", relationship: "guardian" } })).status()).toBe(400);
 
       const linkTarget = await registerStudentViaApi(app, contexts, testInfo, "link-target");
-      const linkTargetCode = parentInviteCodeForStudent(app.dbPath, linkTarget.userId);
+      const linkTargetCode = await issueGuardianInvitationForStudent(app, contexts, testInfo, linkTarget, "link-target");
       expect((await parentContext.get(`/api/parent/children/${encodeURIComponent(linkTarget.userId)}/summary`)).status()).toBe(404);
       expect((await parentContext.post("/api/parent/children/link", {
         data: {
@@ -530,7 +540,7 @@ test.describe("parent console robustness stress suite", () => {
           inviteCode: linkTargetCode,
           relationship: "father"
         }
-      })).status()).toBe(200);
+      })).status()).toBe(409);
       const foundationAfterRepeatedLink = await parentFoundation(parentContext);
       expect(foundationAfterRepeatedLink.data.children.filter((summary) => summary.student.id === linkTarget.userId)).toHaveLength(1);
 
@@ -564,10 +574,11 @@ test.describe("parent console robustness stress suite", () => {
     try {
       parent = await registerParentViaApi(app, contexts, testInfo, "status-parent");
       student = await registerStudentViaApi(app, contexts, testInfo, "status-child");
+      const inviteCode = await issueGuardianInvitationForStudent(app, contexts, testInfo, student, "status-child");
       const { context: parentContext } = await loginApi(app, contexts, parent.username, parent.password);
       expect((await parentContext.post("/api/parent/children/link", {
         data: {
-          inviteCode: parentInviteCodeForStudent(dbPath, student.userId),
+          inviteCode,
           relationship: "guardian"
         }
       })).status()).toBe(200);

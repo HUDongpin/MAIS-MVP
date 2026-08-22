@@ -390,7 +390,6 @@ function createTestStore(
     mutateDatabase: async (mutator) => mutator(database),
     mediaObjectUrlForKey: (objectKey) => `/media/${objectKey}`,
     createId: () => "generated-id",
-    createParentInviteCode: () => "MAIS-INVITE-CODE",
     createResetToken: () => "plain-reset-token",
     hashPasswordResetToken: (token) => `hashed:${token}`,
     hashPassword: (password) => ({ hash: `hash:${password}`, salt: `salt:${password}` }),
@@ -848,9 +847,6 @@ test("auth session persistence owns student profile record normalization for leg
       avatar_id?: unknown;
       avatar_image_data_url?: unknown;
       avatar_media_object_key?: unknown;
-    },
-    dependencies: {
-      normalizeParentInviteCode: (value: string) => string;
     }
   ) => Record<string, unknown>) | undefined;
 
@@ -860,10 +856,6 @@ test("auth session persistence owns student profile record normalization for leg
   assert.doesNotMatch(rootSource, /const studentProfiles = \(database\.student_profiles \?\? \[\]\)\.map\(\(profile\): StudentProfileRecord => \{/);
   assert.doesNotMatch(rootSource, /avatarMediaObjectKey = normalizeStoredMediaObjectKey\(profile\.avatar_media_object_key\)/);
   assert.doesNotMatch(rootSource, /parentInviteCode = normalizeParentInviteCodeFromParentAccess/);
-
-  const dependencies = {
-    normalizeParentInviteCode: (value: string) => value.trim().toUpperCase().replace(/[^A-Z0-9-]+/g, "")
-  };
 
   const normalizedInvalid = normalizeProfile?.({
     user_id: "student-1",
@@ -876,13 +868,13 @@ test("auth session persistence owns student profile record normalization for leg
     avatar_id: "bad-avatar",
     avatar_image_data_url: "https://example.test/avatar.png",
     avatar_media_object_key: " ../unsafe.png "
-  }, dependencies);
+  });
 
   assert.equal(normalizedInvalid?.avatar_id, "delta");
   assert.equal(normalizedInvalid?.curriculum_track, "MAINLAND_PEP_HIGH");
   assert.equal(normalizedInvalid?.curriculum_region, "MAINLAND");
   assert.equal(normalizedInvalid?.textbook_publisher, "MAINLAND_PEP");
-  assert.equal(normalizedInvalid?.parent_invite_code, "MAIS-123");
+  assert.equal(normalizedInvalid?.parent_invite_code, "");
   assert.equal(normalizedInvalid?.avatar_media_object_key, undefined);
   assert.equal(normalizedInvalid?.avatar_image_data_url, "https://example.test/avatar.png");
 
@@ -897,13 +889,13 @@ test("auth session persistence owns student profile record normalization for leg
     avatar_id: "theta",
     avatar_image_data_url: "data:image/png;base64,QUJD",
     avatar_media_object_key: "avatars/student-2.webp"
-  }, dependencies);
+  });
 
   assert.equal(normalizedValid?.avatar_id, "theta");
   assert.equal(normalizedValid?.curriculum_track, "HK");
   assert.equal(normalizedValid?.curriculum_region, "HK");
   assert.equal(normalizedValid?.textbook_publisher, "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY");
-  assert.equal(normalizedValid?.parent_invite_code, "   ");
+  assert.equal(normalizedValid?.parent_invite_code, "");
   assert.equal(normalizedValid?.avatar_media_object_key, "avatars/student-2.webp");
   assert.equal(normalizedValid?.avatar_image_data_url, "data:image/png;base64,QUJD");
 });
@@ -1157,7 +1149,7 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     curriculum_track: "US_CA_MATH",
     curriculum_region: "US",
     textbook_publisher: "US_CA_MATH",
-    parent_invite_code: "INVITE",
+    parent_invite_code: `MAIS-${"A".repeat(24)}`,
     avatar_id: "delta",
     avatar_image_data_url: "data:image/png;base64,AAAA",
     avatar_media_object_key: "avatars/student-1.webp"
@@ -1168,7 +1160,7 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     curriculum_track: "US_CA_MATH",
     curriculum_region: "US",
     textbook_publisher: "US_CA_MATH",
-    parent_invite_code: "INVITE",
+    parent_invite_code: "",
     avatar_id: "delta",
     avatar_image_data_url: "data:image/png;base64,AAAA",
     avatar_media_object_key: "avatars/student-1.webp"
@@ -2830,9 +2822,9 @@ test("auth session persistence creates student users and seeds lesson progress",
     curriculum_track: "HK",
     curriculum_region: "HK",
     textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
-    parent_invite_code: "MAIS-INVITE-CODE",
     avatar_id: "delta"
   });
+  assert.doesNotMatch(JSON.stringify(database), /MAIS-[A-F0-9]{24}/i);
   assert.deepEqual(database.lesson_progress, [
     {
       user_id: "student-generated-id",

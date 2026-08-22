@@ -548,7 +548,8 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       grade: "S3",
       curriculum_track: "HK",
       curriculum_region: "HK",
-      textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY"
+      textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
+      parent_invite_code: `MAIS-${"A".repeat(24)}`
     }
   ]), [
     {
@@ -558,7 +559,7 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       curriculum_track: "HK",
       curriculum_region: "HK",
       textbook_publisher: "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY",
-      parent_invite_code: null,
+      parent_invite_code: "",
       avatar_id: null,
       avatar_image_data_url: null,
       avatar_media_object_key: null

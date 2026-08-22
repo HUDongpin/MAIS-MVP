@@ -89,7 +89,6 @@ function createTestStore(database: AuthProvisioningPersistenceDatabase) {
 
   const store = createAuthProvisioningPersistenceStore({
     createId: (prefix) => `${prefix}-${++idCounter}`,
-    createParentInviteCode: () => `MAIS-INVITE-${++idCounter}`,
     createTemporaryPassword: () => `Temp-${++passwordCounter}`,
     ensureClassStudentWorkRecords: (_database, classId, studentId, now) => {
       seededWork.push({ classId, studentId, now });
@@ -167,7 +166,8 @@ test("auth provisioning persistence creates batches, reads admin batches, and ex
   assert.equal(database.users.filter((user) => user.role === "teacher").length, 2);
   assert.equal(database.users.filter((user) => user.role === "student").length, 2);
   assert.equal(database.users.find((user) => user.username === "lead@example.test")?.password_hash, "hash:Temp-1");
-  assert.equal(database.student_profiles.find((profile) => profile.name === "Ada Wong")?.parent_invite_code?.startsWith("MAIS-INVITE-"), true);
+  assert.equal(database.student_profiles.find((profile) => profile.name === "Ada Wong")?.parent_invite_code ?? "", "");
+  assert.doesNotMatch(JSON.stringify(database), /MAIS-[A-F0-9]{24}/i);
   assert.equal(database.lesson_progress.length, 2);
   assert.equal(seededWork.length, 2);
 

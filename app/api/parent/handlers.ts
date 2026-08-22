@@ -4,17 +4,84 @@ import {
   getParentChildSummary,
   getParentFoundationData,
   getParentNoticeData,
-  getParentReportData
+  getParentReportData,
+  linkParentToStudentByInviteCode
 } from "@/lib/server/userStore";
 import {
   toParentChildSummarySafe,
   toParentFoundationSafeData,
+  toParentGuardianLinkSafe,
   toParentNoticeDataSafe,
   toParentReportDataSafe
 } from "@/lib/server/userStore/parentSafeDto";
+import { consumeInMemoryRateLimit } from "@/lib/server/rateLimit";
 import { parentPersistenceUnavailable, parentPrivateJson } from "@/app/api/parent/response";
+import type { GuardianRelationship } from "@/types";
 
 type ParentAuthentication = (request: Request) => Promise<{ user: { id: string } } | null>;
+const parentLinkRateLimit = { max: 10, windowMs: 60_000 };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+export function createParentGuardianLinkHandler({
+  authenticateParent = requireParentUser,
+  consumeRateLimit = consumeInMemoryRateLimit,
+  linkParent = linkParentToStudentByInviteCode,
+  projectLink = toParentGuardianLinkSafe
+}: {
+  authenticateParent?: ParentAuthentication;
+  consumeRateLimit?: typeof consumeInMemoryRateLimit;
+  linkParent?: typeof linkParentToStudentByInviteCode;
+  projectLink?: typeof toParentGuardianLinkSafe;
+} = {}) {
+  return async function parentGuardianLinkPost(request: Request) {
+    try {
+      const authenticated = await authenticateParent(request);
+      if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
+
+      const rateLimit = consumeRateLimit(`parent-link:${authenticated.user.id}`, parentLinkRateLimit);
+      if (!rateLimit.allowed) {
+        return parentPrivateJson(
+          { error: "rate-limited" },
+          { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } }
+        );
+      }
+
+      let body: unknown;
+      try {
+        body = await request.json();
+      } catch {
+        return parentPrivateJson({ error: "invalid" }, { status: 400 });
+      }
+      if (!isRecord(body)) return parentPrivateJson({ error: "invalid" }, { status: 400 });
+
+      const result = await linkParent({
+        parentId: authenticated.user.id,
+        inviteCode: typeof body.inviteCode === "string" ? body.inviteCode : "",
+        relationship: body.relationship as GuardianRelationship
+      });
+      if (result.status === "linked") return parentPrivateJson({ link: projectLink(result.link) });
+
+      const status = result.status === "forbidden"
+        ? 403
+        : result.status === "not-found"
+          ? 404
+          : result.status === "consumed" || result.status === "conflict"
+            ? 409
+            : result.status === "expired" || result.status === "revoked"
+              ? 410
+              : 400;
+      return parentPrivateJson({ error: result.status }, { status });
+    } catch {
+      return parentPrivateJson(
+        { error: "Guardian access temporarily unavailable." },
+        { status: 503 }
+      );
+    }
+  };
+}
 
 export function createParentFoundationGetHandler({
   authenticateParent = requireParentUser,

@@ -198,7 +198,6 @@ type ProvisioningPlan = {
 
 export type AuthProvisioningPersistenceStoreDependencies = {
   createId?: (prefix: string) => string;
-  createParentInviteCode: (database: AuthProvisioningPersistenceDatabase) => string;
   createTemporaryPassword?: () => string;
   ensureClassStudentWorkRecords: (
     database: AuthProvisioningPersistenceDatabase,
@@ -987,7 +986,6 @@ function csvEscape(value: unknown) {
 
 export function createAuthProvisioningPersistenceStore({
   createId = defaultCreateId,
-  createParentInviteCode,
   createTemporaryPassword = createAuthTemporaryPassword,
   ensureClassStudentWorkRecords,
   hashPassword,
@@ -1202,7 +1200,6 @@ export function createAuthProvisioningPersistenceStore({
             name: student.name,
             grade: student.grade,
             curriculum_track: defaultCurriculumTrack,
-            parent_invite_code: createParentInviteCode(database),
             avatar_id: defaultStudentAvatarId
           });
           database.user_settings.push({

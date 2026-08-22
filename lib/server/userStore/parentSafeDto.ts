@@ -6,6 +6,7 @@ import type {
   ParentChildSummarySafe,
   ParentFoundationData,
   ParentFoundationSafeData,
+  ParentGuardianLinkSafe,
   ParentMotivationSummarySafe,
   ParentNoticeData,
   ParentNoticeSafe,
@@ -17,6 +18,7 @@ import type {
   ParentSafeTeacherDraft,
   ParentSafeTeacherDraftDto,
   RewardPointSummary,
+  GuardianLink,
   StudentBadge,
   StudentQuestProgress,
   TeacherNotice,
@@ -225,6 +227,19 @@ export function toParentChildSummarySafe(value: ParentChildSummary): ParentChild
   };
 }
 
+export function toParentGuardianLinkSafe(value: GuardianLink): ParentGuardianLinkSafe {
+  return {
+    id: value.id,
+    studentId: value.studentId,
+    studentName: value.studentName,
+    studentGrade: value.studentGrade,
+    relationship: value.relationship,
+    status: value.status,
+    createdAt: value.createdAt,
+    updatedAt: value.updatedAt
+  };
+}
+
 export function toParentFoundationSafeData(value: ParentFoundationData): ParentFoundationSafeData {
   return {
     parent: {
@@ -233,16 +248,7 @@ export function toParentFoundationSafeData(value: ParentFoundationData): ParentF
     },
     children: value.children.map(toParentChildSummarySafe),
     selectedChild: value.selectedChild ? toParentChildSummarySafe(value.selectedChild) : null,
-    links: value.links.map((link) => ({
-      id: link.id,
-      studentId: link.studentId,
-      studentName: link.studentName,
-      studentGrade: link.studentGrade,
-      relationship: link.relationship,
-      status: link.status,
-      createdAt: link.createdAt,
-      updatedAt: link.updatedAt
-    })),
+    links: value.links.map(toParentGuardianLinkSafe),
     totals: {
       children: value.totals.children,
       activeReports: value.totals.activeReports,

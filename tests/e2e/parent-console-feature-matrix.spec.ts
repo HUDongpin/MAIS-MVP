@@ -1,6 +1,4 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
-import { DatabaseSync } from "node:sqlite";
-import path from "node:path";
 import {
   collectPageErrors,
   demoTeacher,
@@ -22,9 +20,6 @@ import {
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
-const e2eDbPath = process.env.HK_MATH_DB_PATH
-  ? path.resolve(process.env.HK_MATH_DB_PATH)
-  : path.join(process.cwd(), ".tmp/e2e/hk-math-db.sqlite");
 
 type AuthSession = { user: { id: string; name: string; username: string; role: string; grade: string } };
 
@@ -84,22 +79,6 @@ async function disposeAll(contexts: APIRequestContext[]) {
   await Promise.all(contexts.splice(0).map((context) => context.dispose()));
 }
 
-function parentInviteCodeForStudent(studentId: string) {
-  const sqlite = new DatabaseSync(e2eDbPath);
-  try {
-    const row = sqlite.prepare("SELECT payload FROM app_state WHERE id = ?").get("primary") as { payload: string } | undefined;
-    expect(row).toBeTruthy();
-    const payload = JSON.parse(row?.payload ?? "{}") as {
-      student_profiles?: Array<{ user_id: string; parent_invite_code?: string }>;
-    };
-    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
-    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
-    return inviteCode!;
-  } finally {
-    sqlite.close();
-  }
-}
-
 async function registerStudentViaApi(contexts: APIRequestContext[], testInfo: TestInfo, label: string) {
   const context = await newApiContext(contexts);
   const suffix = uniqueSuffix(testInfo).slice(0, 40);
@@ -124,6 +103,37 @@ async function registerStudentViaApi(contexts: APIRequestContext[], testInfo: Te
   expect(response.ok(), `Register failed: ${response.status()}`).toBeTruthy();
   const session = await response.json() as AuthSession;
   return { ...student, userId: session.user.id };
+}
+
+async function issueGuardianInvitationForStudent(
+  contexts: APIRequestContext[],
+  testInfo: TestInfo,
+  student: { username: string; userId: string },
+  label: string
+) {
+  const { context } = await loginApi(contexts, demoTeacher.username, demoTeacher.password);
+  const suffix = uniqueSuffix(testInfo).slice(0, 28);
+  const classResponse = await context.post("/api/teacher/classes", {
+    data: {
+      name: `Parent Matrix Guardian ${label} ${suffix}`,
+      grade: "S3",
+      academicYear: "2026-2027",
+      description: "Created for explicit guardian invitation setup."
+    }
+  });
+  expect(classResponse.ok(), `Class create failed: ${classResponse.status()}`).toBeTruthy();
+  const teacherClass = await classResponse.json() as { class: { id: string } };
+  const addResponse = await context.post(`/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students`, {
+    data: { username: student.username }
+  });
+  expect(addResponse.ok(), `Add student failed: ${addResponse.status()}`).toBeTruthy();
+  const issueResponse = await context.post(
+    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+  );
+  expect(issueResponse.status()).toBe(201);
+  const payload = await issueResponse.json() as { invitation: { token: string } };
+  expect(payload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
+  return payload.invitation.token;
 }
 
 /**
@@ -290,10 +300,11 @@ test.describe.serial("parent console feature matrix", () => {
   test("the Child focus selector re-scopes list routes and swaps the child detail route", async ({ page }, testInfo) => {
     const pageErrors = collectPageErrors(page);
     const extraChild = await registerStudentViaApi(contexts, testInfo, "focus");
+    const inviteCode = await issueGuardianInvitationForStudent(contexts, testInfo, extraChild, "focus");
 
     await loginAsDemoParent(page);
     const linkResponse = await page.request.post("/api/parent/children/link", {
-      data: { inviteCode: parentInviteCodeForStudent(extraChild.userId), relationship: "guardian" }
+      data: { inviteCode, relationship: "guardian" }
     });
     expect(linkResponse.status()).toBe(200);
 

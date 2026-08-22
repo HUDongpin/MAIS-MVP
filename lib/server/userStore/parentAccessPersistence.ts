@@ -1,5 +1,12 @@
-import { randomUUID } from "crypto";
-import { parentInviteCodeMaxLength } from "@/lib/parentConstraints";
+import { createHash, randomBytes, randomUUID, timingSafeEqual } from "crypto";
+import {
+  guardianInviteTokenHexLength,
+  guardianInviteTokenPrefix,
+  guardianInviteTtlMs,
+  isValidGuardianInviteToken,
+  normalizeGuardianInviteToken,
+  parentInviteCodeMaxLength
+} from "@/lib/parentConstraints";
 import type {
   GradeId,
   GuardianLink,
@@ -26,6 +33,23 @@ type ParentAccessGuardianLinkRecord = {
   created_by?: string;
   created_at?: string;
   updated_at?: string;
+  revoked_at?: string | null;
+  revoked_by?: string | null;
+};
+
+export type GuardianInvitationRecord = {
+  id: string;
+  student_id: string;
+  version: number;
+  token_digest: string;
+  expires_at: string;
+  consumed_at: string | null;
+  consumed_by_parent_id: string | null;
+  consumed_relationship?: GuardianRelationship | null;
+  consumed_link_id?: string | null;
+  revoked_at: string | null;
+  created_by: string;
+  created_at: string;
 };
 
 export type ParentAccessSeedGuardianLinkRecord = {
@@ -38,6 +62,8 @@ export type ParentAccessSeedGuardianLinkRecord = {
   created_by: string;
   created_at: string;
   updated_at: string;
+  revoked_at?: string | null;
+  revoked_by?: string | null;
 };
 
 export type ParentAccessNormalizedGuardianLinkRecord = ParentAccessGuardianLinkRecord & {
@@ -58,13 +84,18 @@ type ParentAccessStudentProfileRecord = {
 };
 
 export type ParentAccessPersistenceDatabase = {
+  guardian_invitations?: GuardianInvitationRecord[];
   guardian_links: ParentAccessGuardianLinkRecord[];
+  teacher_classes?: Array<{ id: string; teacher_id: string }>;
+  class_enrollments?: Array<{ class_id: string; student_id: string }>;
+  school_memberships?: Array<{ user_id: string; role: string; class_id?: string }>;
   student_profiles?: ParentAccessStudentProfileRecord[];
   users: ParentAccessUserRecord[];
 };
 
 export type ParentAccessPersistenceStoreDependencies = {
   createId?: () => string;
+  createInviteToken?: () => string;
   now?: () => Date;
   readDatabase: () => Promise<ParentAccessPersistenceDatabase>;
   mutateDatabase?: <T>(
@@ -94,17 +125,108 @@ export function normalizeGuardianLinkStatus(value: unknown): GuardianLinkStatus 
 }
 
 export function normalizeParentInviteCode(value: string) {
-  return value.trim().toUpperCase().replace(/\s+/g, "-");
+  return normalizeGuardianInviteToken(value);
 }
 
-export function createParentInviteCode(createId: () => string = randomUUID) {
-  return `MAIS-${createId().replace(/-/g, "").slice(0, 10).toUpperCase()}`;
+export function createGuardianInviteToken() {
+  return `${guardianInviteTokenPrefix}${randomBytes(guardianInviteTokenHexLength / 2).toString("hex").toUpperCase()}`;
+}
+
+export function guardianInviteTokenDigest(token: string) {
+  return createHash("sha256").update(normalizeGuardianInviteToken(token)).digest("hex");
+}
+
+function isIsoTimestamp(value: unknown): value is string {
+  return typeof value === "string" && Number.isFinite(Date.parse(value));
+}
+
+export function normalizeGuardianInvitationRecords(
+  records: unknown,
+  _now: string
+): GuardianInvitationRecord[] {
+  if (!Array.isArray(records)) return [];
+  const normalized = records.flatMap((value): GuardianInvitationRecord[] => {
+    if (!value || typeof value !== "object") return [];
+    const record = value as Partial<GuardianInvitationRecord>;
+    if (
+      typeof record.id !== "string" || !record.id ||
+      typeof record.student_id !== "string" || !record.student_id ||
+      !Number.isSafeInteger(record.version) || (record.version ?? 0) < 1 ||
+      typeof record.token_digest !== "string" || !/^[a-f0-9]{64}$/i.test(record.token_digest) ||
+      !isIsoTimestamp(record.expires_at) ||
+      typeof record.created_by !== "string" || !record.created_by ||
+      !isIsoTimestamp(record.created_at) ||
+      (record.revoked_at !== undefined && record.revoked_at !== null && !isIsoTimestamp(record.revoked_at))
+    ) return [];
+
+    const hasConsumedAt = record.consumed_at !== undefined && record.consumed_at !== null;
+    const consumedAt = isIsoTimestamp(record.consumed_at) ? record.consumed_at : null;
+    const consumedByParentId = typeof record.consumed_by_parent_id === "string" && record.consumed_by_parent_id
+      ? record.consumed_by_parent_id
+      : null;
+    const consumedRelationship = isValidGuardianRelationship(record.consumed_relationship)
+      ? record.consumed_relationship
+      : null;
+    const consumedLinkId = typeof record.consumed_link_id === "string" && record.consumed_link_id
+      ? record.consumed_link_id
+      : null;
+    const hasAnyConsumedMetadata = Boolean(
+      record.consumed_by_parent_id || record.consumed_relationship || record.consumed_link_id
+    );
+    if (
+      (hasConsumedAt && (!consumedAt || !consumedByParentId || !consumedRelationship || !consumedLinkId)) ||
+      (!hasConsumedAt && hasAnyConsumedMetadata)
+    ) return [];
+
+    return [{
+      id: record.id,
+      student_id: record.student_id,
+      version: record.version as number,
+      token_digest: record.token_digest.toLowerCase(),
+      expires_at: record.expires_at,
+      consumed_at: consumedAt,
+      consumed_by_parent_id: consumedByParentId,
+      consumed_relationship: consumedRelationship,
+      consumed_link_id: consumedLinkId,
+      revoked_at: isIsoTimestamp(record.revoked_at) ? record.revoked_at : null,
+      created_by: record.created_by,
+      created_at: record.created_at
+    }];
+  });
+
+  const idCounts = new Map<string, number>();
+  const digestCounts = new Map<string, number>();
+  const studentVersionCounts = new Map<string, number>();
+  for (const record of normalized) {
+    idCounts.set(record.id, (idCounts.get(record.id) ?? 0) + 1);
+    digestCounts.set(record.token_digest, (digestCounts.get(record.token_digest) ?? 0) + 1);
+    const studentVersionKey = JSON.stringify([record.student_id, record.version]);
+    studentVersionCounts.set(studentVersionKey, (studentVersionCounts.get(studentVersionKey) ?? 0) + 1);
+  }
+
+  return normalized.filter((record) => (
+    idCounts.get(record.id) === 1 &&
+    digestCounts.get(record.token_digest) === 1 &&
+    studentVersionCounts.get(JSON.stringify([record.student_id, record.version])) === 1
+  ));
+}
+
+export function guardianInvitationRecordsNeedPersistenceSync(
+  records: unknown,
+  normalizedRecords: GuardianInvitationRecord[]
+) {
+  if (!Array.isArray(records)) return true;
+  return JSON.stringify(records) !== JSON.stringify(normalizedRecords);
+}
+
+function guardianInviteDigestMatches(storedDigest: string, candidateDigest: string) {
+  if (!/^[a-f0-9]{64}$/i.test(storedDigest) || !/^[a-f0-9]{64}$/i.test(candidateDigest)) return false;
+  return timingSafeEqual(Buffer.from(storedDigest, "hex"), Buffer.from(candidateDigest, "hex"));
 }
 
 export function normalizeParentAccessGuardianLinkRecord<Record extends ParentAccessGuardianLinkRecord>(
   link: Record,
-  now: string,
-  createInviteCode: () => string = createParentInviteCode
+  now: string
 ): Record & {
   relationship: GuardianRelationship;
   status: GuardianLinkStatus;
@@ -112,14 +234,15 @@ export function normalizeParentAccessGuardianLinkRecord<Record extends ParentAcc
   created_at: string;
   updated_at: string;
 } {
-  const inviteCode = normalizeParentInviteCode(link.invite_code || createInviteCode());
   return {
     ...link,
     relationship: normalizeGuardianRelationship(link.relationship),
     status: normalizeGuardianLinkStatus(link.status),
-    invite_code: inviteCode || createInviteCode(),
+    invite_code: "",
     updated_at: link.updated_at ?? link.created_at ?? now,
-    created_at: link.created_at ?? now
+    created_at: link.created_at ?? now,
+    revoked_at: link.status === "revoked" ? link.revoked_at ?? link.updated_at ?? link.created_at ?? now : null,
+    revoked_by: link.status === "revoked" ? link.revoked_by ?? null : null
   };
 }
 
@@ -141,14 +264,12 @@ export function parentAccessSeedGuardianLinks(
     shouldSeedDemoUser,
     demoParentId,
     demoUserId,
-    demoTeacherId,
-    createParentInviteCode: createInviteCode = createParentInviteCode
+    demoTeacherId
   }: {
     shouldSeedDemoUser: () => boolean;
     demoParentId: string;
     demoUserId: string;
     demoTeacherId: string;
-    createParentInviteCode?: () => string;
   }
 ): ParentAccessSeedGuardianLinkRecord[] {
   return shouldSeedDemoUser()
@@ -159,7 +280,7 @@ export function parentAccessSeedGuardianLinks(
           student_id: demoUserId,
           relationship: "guardian",
           status: "active",
-          invite_code: createInviteCode(),
+          invite_code: "",
           created_by: demoTeacherId,
           created_at: now,
           updated_at: now
@@ -176,7 +297,6 @@ export function normalizeParentAccessGuardianLinkRecords(
     demoParentId: string;
     demoUserId: string;
     demoTeacherId: string;
-    createParentInviteCode?: () => string;
   }
 ): ParentAccessNormalizedGuardianLinkRecord[] {
   return mergeParentAccessSeedRecordsPreservingExisting(
@@ -184,7 +304,7 @@ export function normalizeParentAccessGuardianLinkRecords(
     parentAccessSeedGuardianLinks(now, options),
     (link) => link.id ?? ""
   ).map((link) => {
-    const normalized = normalizeParentAccessGuardianLinkRecord(link, now, options.createParentInviteCode);
+    const normalized = normalizeParentAccessGuardianLinkRecord(link, now);
     return {
       ...normalized,
       id: normalized.id ?? "",
@@ -193,43 +313,39 @@ export function normalizeParentAccessGuardianLinkRecords(
   });
 }
 
-export function uniqueParentInviteCode(
-  database: Pick<ParentAccessPersistenceDatabase, "student_profiles" | "guardian_links">,
-  createId: () => string = randomUUID
-) {
-  const existingCodes = new Set([
-    ...(database.student_profiles ?? [])
-      .map((profile) => normalizeParentInviteCode(profile.parent_invite_code ?? ""))
-      .filter(Boolean),
-    ...database.guardian_links
-      .map((link) => normalizeParentInviteCode(link.invite_code ?? ""))
-      .filter(Boolean)
-  ]);
-  let code = createParentInviteCode(createId);
-  while (existingCodes.has(code)) code = createParentInviteCode(createId);
-  return code;
-}
-
-export function ensureParentInviteCodeInDatabase(
-  database: Pick<ParentAccessPersistenceDatabase, "student_profiles" | "guardian_links">,
-  studentId: string,
-  createId: () => string = randomUUID
-) {
-  const profile = database.student_profiles?.find((candidate) => candidate.user_id === studentId);
-  if (!profile) return null;
-  const existingCode = normalizeParentInviteCode(profile.parent_invite_code ?? "");
-  if (existingCode) {
-    profile.parent_invite_code = existingCode;
-    return existingCode;
-  }
-
-  const inviteCode = uniqueParentInviteCode(database, createId);
-  profile.parent_invite_code = inviteCode;
-  return inviteCode;
-}
-
 export function canUseParentArea(user?: ParentAccessUserRecord | null): user is ParentAccessUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
+}
+
+export function normalizeParentAccessLegacyInviteFields(database: ParentAccessPersistenceDatabase) {
+  for (const profile of database.student_profiles ?? []) profile.parent_invite_code = "";
+  for (const link of database.guardian_links) link.invite_code = "";
+}
+
+function teacherCanManageStudent(
+  database: ParentAccessPersistenceDatabase,
+  teacherId: string,
+  classId: string,
+  studentId: string
+) {
+  const teacher = database.users.find((candidate) => candidate.id === teacherId);
+  if (teacher?.role !== "teacher") return { status: "forbidden" as const };
+
+  const teacherClass = (database.teacher_classes ?? []).find((candidate) => candidate.id === classId);
+  if (!teacherClass) return { status: "class-not-found" as const };
+  const memberCanAccess = (database.school_memberships ?? []).some((membership) => (
+    membership.user_id === teacherId &&
+    membership.role === "teacher" &&
+    membership.class_id === classId
+  ));
+  if (teacherClass.teacher_id !== teacherId && !memberCanAccess) return { status: "forbidden" as const };
+
+  const enrolled = (database.class_enrollments ?? []).some((enrollment) => (
+    enrollment.class_id === classId && enrollment.student_id === studentId
+  ));
+  const student = database.users.find((candidate) => candidate.id === studentId && candidate.role === "student");
+  if (!enrolled || !student) return { status: "student-not-found" as const };
+  return { status: "allowed" as const };
 }
 
 function studentProfileFor(database: ParentAccessPersistenceDatabase, userId: string) {
@@ -251,7 +367,7 @@ export function toGuardianLink(database: ParentAccessPersistenceDatabase, record
     studentGrade: studentProfile?.grade ?? "S3",
     relationship: normalizeGuardianRelationship(record.relationship),
     status: normalizeGuardianLinkStatus(record.status),
-    inviteCode: record.invite_code ?? "",
+    inviteCode: "",
     createdBy: record.created_by ?? record.parent_id,
     createdAt: record.created_at ?? "",
     updatedAt: record.updated_at ?? record.created_at ?? ""
@@ -276,6 +392,7 @@ export function parentCanAccessStudentInDatabase(
 
 export function createParentAccessPersistenceStore({
   createId = () => `guardian-link-${randomUUID()}`,
+  createInviteToken = createGuardianInviteToken,
   now = () => new Date(),
   mutateDatabase,
   readDatabase
@@ -302,44 +419,204 @@ export function createParentAccessPersistenceStore({
       relationship?: GuardianRelationship;
     }) {
       const normalizedCode = normalizeParentInviteCode(inviteCode);
-      if (!normalizedCode || normalizedCode.length > parentInviteCodeMaxLength) return { status: "invalid" as const };
+      if (
+        !normalizedCode ||
+        normalizedCode.length > parentInviteCodeMaxLength ||
+        !isValidGuardianInviteToken(normalizedCode)
+      ) return { status: "invalid" as const };
       if (relationship !== undefined && !isValidGuardianRelationship(relationship)) return { status: "invalid" as const };
 
       return runMutation((database) => {
+        normalizeParentAccessLegacyInviteFields(database);
         const parent = database.users.find((candidate) => candidate.id === parentId);
         if (!canUseParentArea(parent)) return { status: "forbidden" as const };
 
-        const studentId = database.student_profiles?.find((profile) =>
-          normalizeParentInviteCode(profile.parent_invite_code ?? "") === normalizedCode
-        )?.user_id;
-        if (!studentId) return { status: "not-found" as const };
-
-        const existingParentLink = database.guardian_links.find((link) =>
-          link.parent_id === parent.id && link.student_id === studentId
-        );
         const updatedAt = now().toISOString();
+        const invitations = database.guardian_invitations = normalizeGuardianInvitationRecords(
+          database.guardian_invitations,
+          updatedAt
+        );
+        const candidateDigest = guardianInviteTokenDigest(normalizedCode);
+        let invitation: GuardianInvitationRecord | undefined;
+        for (const candidate of invitations) {
+          if (guardianInviteDigestMatches(candidate.token_digest, candidateDigest)) invitation = candidate;
+        }
+        if (!invitation) return { status: "not-found" as const };
 
-        if (existingParentLink) {
-          existingParentLink.status = "active";
-          existingParentLink.relationship = relationship;
-          existingParentLink.invite_code = normalizedCode;
-          existingParentLink.updated_at = updatedAt;
-          return { status: "linked" as const, link: toGuardianLink(database, existingParentLink) };
+        const invitedStudent = database.users.find((candidate) => (
+          candidate.id === invitation?.student_id && candidate.role === "student"
+        ));
+        if (!invitedStudent) {
+          for (const candidate of invitations) {
+            if (candidate.student_id === invitation.student_id && !candidate.revoked_at) {
+              candidate.revoked_at = updatedAt;
+            }
+          }
+          return { status: "not-found" as const };
         }
 
+        const latestVersion = invitations
+          .filter((candidate) => candidate.student_id === invitation.student_id)
+          .reduce((highest, candidate) => Math.max(highest, candidate.version), 0);
+        if (invitation.revoked_at || invitation.version !== latestVersion) return { status: "revoked" as const };
+
+        if (!Number.isFinite(Date.parse(invitation.expires_at)) || Date.parse(invitation.expires_at) <= Date.parse(updatedAt)) {
+          return { status: "expired" as const };
+        }
+
+        if (invitation.consumed_at) {
+          const consumedLink = database.guardian_links.find((link) => (
+            link.id === invitation.consumed_link_id &&
+            link.parent_id === parent.id &&
+            link.student_id === invitation.student_id &&
+            link.status === "active"
+          ));
+          if (
+            invitation.consumed_by_parent_id === parent.id &&
+            invitation.consumed_relationship === relationship &&
+            consumedLink
+          ) {
+            return { status: "linked" as const, link: toGuardianLink(database, consumedLink) };
+          }
+          return { status: "consumed" as const };
+        }
+
+        const existingActiveLink = database.guardian_links.find((link) => (
+          link.parent_id === parent.id &&
+          link.student_id === invitation.student_id &&
+          link.status === "active"
+        ));
+        if (existingActiveLink && normalizeGuardianRelationship(existingActiveLink.relationship) !== relationship) {
+          return { status: "conflict" as const };
+        }
         const link: ParentAccessGuardianLinkRecord = {
-          id: createId(),
-          parent_id: parent.id,
-          student_id: studentId,
-          relationship,
-          status: "active",
-          invite_code: normalizedCode,
-          created_by: parent.id,
-          created_at: updatedAt,
-          updated_at: updatedAt
+          ...(existingActiveLink ?? {
+            id: createId(),
+            parent_id: parent.id,
+            student_id: invitation.student_id,
+            relationship,
+            status: "active",
+            invite_code: "",
+            created_by: parent.id,
+            created_at: updatedAt,
+            updated_at: updatedAt,
+            revoked_at: null,
+            revoked_by: null
+          })
         };
-        database.guardian_links.push(link);
+        if (!existingActiveLink) database.guardian_links.push(link);
+        invitation.consumed_at = updatedAt;
+        invitation.consumed_by_parent_id = parent.id;
+        invitation.consumed_relationship = relationship;
+        invitation.consumed_link_id = link.id ?? null;
         return { status: "linked" as const, link: toGuardianLink(database, link) };
+      });
+    },
+    async issueGuardianInvitationForTeacher({
+      teacherId,
+      classId,
+      studentId
+    }: {
+      teacherId: string;
+      classId: string;
+      studentId: string;
+    }) {
+      return runMutation((database) => {
+        const access = teacherCanManageStudent(database, teacherId, classId, studentId);
+        if (access.status !== "allowed") return access;
+
+        const createdAt = now().toISOString();
+        const invitations = database.guardian_invitations = normalizeGuardianInvitationRecords(
+          database.guardian_invitations,
+          createdAt
+        );
+        const existingDigests = new Set(invitations.map((candidate) => candidate.token_digest));
+        let token = "";
+        let tokenDigest = "";
+        for (let attempt = 0; attempt < 8; attempt += 1) {
+          const candidate = normalizeGuardianInviteToken(createInviteToken());
+          if (!isValidGuardianInviteToken(candidate)) {
+            throw new Error("Guardian invitation token generator returned an invalid token.");
+          }
+          const candidateDigest = guardianInviteTokenDigest(candidate);
+          if (existingDigests.has(candidateDigest)) continue;
+          token = candidate;
+          tokenDigest = candidateDigest;
+          break;
+        }
+        if (!token || !tokenDigest) {
+          throw new Error("Guardian invitation token generator could not produce a unique token.");
+        }
+        const previousVersion = invitations
+          .filter((candidate) => candidate.student_id === studentId)
+          .reduce((highest, candidate) => Math.max(highest, candidate.version), 0);
+
+        normalizeParentAccessLegacyInviteFields(database);
+        for (const invitation of invitations) {
+          if (invitation.student_id === studentId && !invitation.consumed_at && !invitation.revoked_at) {
+            invitation.revoked_at = createdAt;
+          }
+        }
+
+        const version = previousVersion + 1;
+        const expiresAt = new Date(Date.parse(createdAt) + guardianInviteTtlMs).toISOString();
+        invitations.push({
+          id: createId(),
+          student_id: studentId,
+          version,
+          token_digest: tokenDigest,
+          expires_at: expiresAt,
+          consumed_at: null,
+          consumed_by_parent_id: null,
+          consumed_relationship: null,
+          consumed_link_id: null,
+          revoked_at: null,
+          created_by: teacherId,
+          created_at: createdAt
+        });
+
+        return {
+          status: "issued" as const,
+          invitation: { version, token, expiresAt }
+        };
+      });
+    },
+    async revokeGuardianLinkForTeacher({
+      teacherId,
+      classId,
+      studentId,
+      linkId
+    }: {
+      teacherId: string;
+      classId: string;
+      studentId: string;
+      linkId: string;
+    }) {
+      return runMutation((database) => {
+        const access = teacherCanManageStudent(database, teacherId, classId, studentId);
+        if (access.status !== "allowed") return access;
+
+        const link = database.guardian_links.find((candidate) => (
+          candidate.id === linkId && candidate.student_id === studentId
+        ));
+        if (!link) return { status: "link-not-found" as const };
+        if (link.status !== "active") return { status: "conflict" as const };
+
+        const revokedAt = now().toISOString();
+        database.guardian_invitations = normalizeGuardianInvitationRecords(
+          database.guardian_invitations,
+          revokedAt
+        );
+        link.status = "revoked";
+        link.invite_code = "";
+        link.revoked_at = revokedAt;
+        link.revoked_by = teacherId;
+        link.updated_at = revokedAt;
+        normalizeParentAccessLegacyInviteFields(database);
+        for (const invitation of database.guardian_invitations) {
+          if (invitation.student_id === studentId && !invitation.revoked_at) invitation.revoked_at = revokedAt;
+        }
+        return { status: "revoked" as const, revokedAt };
       });
     }
   };

@@ -29,7 +29,19 @@ function createDatabase(): TeacherOpsRosterImportPersistenceDatabase {
       }
     ],
     class_roster_profiles: [],
-    guardian_links: [],
+    guardian_links: [
+      {
+        id: "guardian-link-revoked-history",
+        parent_id: "parent-existing",
+        student_id: "student-existing",
+        relationship: "guardian",
+        status: "revoked",
+        invite_code: "LEGACY-ROSTER-PLAINTEXT",
+        created_by: "teacher-1",
+        created_at: "2026-06-19T00:00:00.000Z",
+        updated_at: "2026-06-20T00:00:00.000Z"
+      }
+    ],
     school_memberships: [],
     schools: [
       { id: "school-1", code: "SCH1" }
@@ -194,7 +206,6 @@ function createTestStore(database: TeacherOpsRosterImportPersistenceDatabase) {
     },
     classCurriculumTrack: () => "HK",
     createId: (prefix) => `${prefix}-${++idCounter}`,
-    createParentInviteCode: () => `MAIS-INVITE-${++idCounter}`,
     createTemporaryPassword: () => `Temp-${++passwordCounter}`,
     defaultSettings: (userId, grade) => ({
       user_id: userId,
@@ -341,13 +352,22 @@ test("teacher ops roster import persistence commits students parents memberships
   assert.equal(newStudent?.password_must_change, true);
   assert.equal(newStudent?.session_revision, 1);
   assert.equal(newStudent?.disabled_at, null);
-  assert.equal(database.student_profiles.find((profile) => profile.user_id === newStudent?.id)?.parent_invite_code?.startsWith("MAIS-INVITE-"), true);
+  assert.equal(database.student_profiles.find((profile) => profile.user_id === newStudent?.id)?.parent_invite_code ?? "", "");
 
   const newParent = database.users.find((user) => user.normalized_email === "ben-parent@example.com");
   assert.equal(newParent?.role, "parent");
   assert.equal(newParent?.session_revision, 1);
   assert.equal(newParent?.disabled_at, null);
   assert.equal(database.guardian_links.some((link) => link.parent_id === newParent?.id && link.student_id === newStudent?.id && link.status === "active"), true);
+  assert.equal(database.guardian_links.find((link) => link.id === "guardian-link-revoked-history")?.status, "revoked");
+  assert.equal(database.guardian_links.some((link) => (
+    link.id !== "guardian-link-revoked-history" &&
+    link.parent_id === "parent-existing" &&
+    link.student_id === "student-existing" &&
+    link.status === "active"
+  )), true);
+  assert.doesNotMatch(JSON.stringify(database), /LEGACY-ROSTER-PLAINTEXT|MAIS-EXISTING/);
+  assert.doesNotMatch(JSON.stringify(database), /MAIS-[A-F0-9]{24}/i);
 
   assert.deepEqual(database.class_roster_profiles.map((profile) => ({
     studentNo: profile.student_no,
