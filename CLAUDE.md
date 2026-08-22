@@ -8,7 +8,7 @@ others' in-progress work.
 ## Working-tree discipline
 
 - One session = one worktree = one branch.
-- The primary root (`/Users/dongpinhu/Desktop/MAIS-MVP`) is INTEGRATION-ONLY:
+- The primary root (`/Volumes/Starship/MAIS-MVP`) is INTEGRATION-ONLY:
   review, merge, run gates, answer questions. Before editing any file for
   feature work here, create/enter a git worktree and do the work there.
   Convention: sibling dirs `../MAIS-<scope>-wt` with `node_modules` symlinked
