@@ -1815,7 +1815,8 @@ export type PublicQuestion = Omit<Question, "answer" | "acceptedAnswers" | "expl
 export type AttemptFeedback = {
   correct: boolean;
   explanation: LocalizedText;
-  correctAnswer?: string;
+  /** Display-only localized answer returned after submission; never the canonical grading key. */
+  correctAnswer?: LocalizedText;
 };
 
 export type ProgressMetric = {

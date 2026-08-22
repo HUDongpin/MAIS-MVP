@@ -1,4 +1,5 @@
 import { questions as seedQuestions } from "@/data/questions";
+import { localizedCorrectAnswerForFeedback } from "@/lib/server/answerFeedback";
 import { answerMatches, normalizeAnswer, parseScalarAnswer, questionAnswerMatches } from "@/lib/server/answerMatching";
 import type { AttemptFeedback } from "@/types";
 
@@ -10,9 +11,11 @@ export function gradeSeedQuestionAttempt(questionId: string, selectedAnswer: str
 
   const correct = questionAnswerMatches(
     {
+      id: question.id,
       answer: question.answer,
       accepted_answers: question.acceptedAnswers ?? null,
-      options: question.options ?? null
+      options: question.options ?? null,
+      prompt: question.prompt
     },
     selectedAnswer
   );
@@ -20,6 +23,11 @@ export function gradeSeedQuestionAttempt(questionId: string, selectedAnswer: str
   return {
     correct,
     explanation: question.explanation,
-    correctAnswer: correct ? undefined : question.answer
+    correctAnswer: correct ? undefined : localizedCorrectAnswerForFeedback({
+      type: question.type,
+      answer: question.answer,
+      acceptedAnswers: question.acceptedAnswers,
+      options: question.options
+    })
   };
 }

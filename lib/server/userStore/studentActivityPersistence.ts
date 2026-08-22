@@ -10,6 +10,7 @@ import {
 import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/difficulty";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { analyticsWindowDays, exportLearningAnalyticsSummary, summarizeLearningAnalytics } from "@/lib/learningAnalytics";
+import { localizedCorrectAnswerForFeedback } from "@/lib/server/answerFeedback";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
 import { normalizeAssessmentAnalysisSettings } from "@/lib/teacherAssessmentAnalysis";
 import type {
@@ -180,15 +181,18 @@ type QuestionRecord = {
   topic_id: string;
   topic_title_en?: string;
   topic_title_zh?: string;
+  topic_title_zh_hans?: string;
   difficulty: Difficulty;
   type: QuestionType;
   prompt_en: string;
   prompt_zh: string;
+  prompt_zh_hans?: string;
   options: LocalizedText[] | null;
   answer: string;
   accepted_answers?: string[] | null;
   explanation_en: string;
   explanation_zh: string;
+  explanation_zh_hans?: string;
   diagram?: QuestionDiagram | null;
   question_assets?: QuestionAsset[] | null;
 };
@@ -202,8 +206,10 @@ type TopicRecord = {
   grade: GradeId;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   description_en: string;
   description_zh: string;
+  description_zh_hans?: string;
   difficulty: Difficulty;
   minutes: number;
   sort_order: number;
@@ -218,8 +224,10 @@ export type StudentActivityLessonRecord = {
   grade: GradeId;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   description_en: string;
   description_zh: string;
+  description_zh_hans?: string;
   difficulty: Difficulty;
   estimated_minutes: number;
 };
@@ -230,8 +238,10 @@ type StudentActivityLessonBlockRecord = {
   type: LessonBlockType;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   content_en?: string;
   content_zh?: string;
+  content_zh_hans?: string;
   items?: LocalizedText[];
   visualization_config?: LessonBlock["visualizationConfig"];
   interactive_lesson_config?: LessonBlock["interactiveLessonConfig"];
@@ -1507,11 +1517,31 @@ function topicLabelFor(database: StudentActivityPersistenceDatabase, question: Q
     ? localizedTopicTitleForRecord(topic)
     : seedTopic?.title ?? {
       en: question.topic_title_en ?? question.topic_id,
-      zh: question.topic_title_zh ?? question.topic_title_en ?? question.topic_id
+      zh: question.topic_title_zh ?? question.topic_title_en ?? question.topic_id,
+      ...(question.topic_title_zh_hans ? { zhHans: question.topic_title_zh_hans } : {})
     };
 }
 
 export const studentActivityTopicLabelForQuestion = topicLabelFor;
+
+function localizedQuestionPrompt(question: QuestionRecord): LocalizedText {
+  return {
+    en: question.prompt_en,
+    zh: question.prompt_zh,
+    ...(question.prompt_zh_hans ? { zhHans: question.prompt_zh_hans } : {})
+  };
+}
+
+function localizedQuestionExplanation(question: QuestionRecord): LocalizedText {
+  return {
+    en: question.explanation_en,
+    zh: question.explanation_zh,
+    ...(question.explanation_zh_hans ? { zhHans: question.explanation_zh_hans } : {})
+  };
+}
+
+export const studentActivityLocalizedQuestionPrompt = localizedQuestionPrompt;
+export const studentActivityLocalizedQuestionExplanation = localizedQuestionExplanation;
 
 function profileForRecord(record: {
   curriculum_track?: CurriculumTrack | null;
@@ -1539,10 +1569,7 @@ function toPublicQuestion(database: StudentActivityPersistenceDatabase, question
     topic: topicLabelFor(database, question),
     difficulty: mapDifficultyToActive(question.difficulty),
     type: question.type,
-    prompt: {
-      en: question.prompt_en,
-      zh: question.prompt_zh
-    },
+    prompt: localizedQuestionPrompt(question),
     options: question.options ?? undefined,
     diagram: question.diagram ?? undefined,
     questionAssets: question.question_assets ?? undefined
@@ -1820,8 +1847,10 @@ function assessmentPaperItemPrompt(
 ): LocalizedText {
   if (item.embeddedQuestion) return item.embeddedQuestion.prompt;
   const question = assessmentPaperItemQuestion(database, item);
-  return question ? { en: question.prompt_en, zh: question.prompt_zh } : { en: item.id, zh: item.id };
+  return question ? localizedQuestionPrompt(question) : { en: item.id, zh: item.id };
 }
+
+export const studentActivityAssessmentPaperItemPrompt = assessmentPaperItemPrompt;
 
 function assessmentPaperItemCorrectAnswer(
   database: StudentActivityPersistenceDatabase,
@@ -1837,8 +1866,10 @@ function assessmentPaperItemExplanation(
 ): LocalizedText | undefined {
   if (item.embeddedQuestion?.explanation) return item.embeddedQuestion.explanation;
   const question = assessmentPaperItemQuestion(database, item);
-  return question ? { en: question.explanation_en, zh: question.explanation_zh } : undefined;
+  return question ? localizedQuestionExplanation(question) : undefined;
 }
+
+export const studentActivityAssessmentPaperItemExplanation = assessmentPaperItemExplanation;
 
 function assessmentPaperItemForStudent(
   database: StudentActivityPersistenceDatabase,
@@ -1978,8 +2009,16 @@ function lessonSummaryForDatabase(
     region: lesson.curriculum_region ?? lessonTopic?.curriculum_region ?? curriculumProfile.region,
     publisher: lesson.textbook_publisher ?? lessonTopic?.textbook_publisher,
     grade: lesson.grade,
-    title: { en: translateLessonTextEn(lesson.title_en), zh: lesson.title_zh },
-    description: { en: translateLessonTextEn(lesson.description_en), zh: lesson.description_zh },
+    title: {
+      en: translateLessonTextEn(lesson.title_en),
+      zh: lesson.title_zh,
+      ...(lesson.title_zh_hans ? { zhHans: lesson.title_zh_hans } : {})
+    },
+    description: {
+      en: translateLessonTextEn(lesson.description_en),
+      zh: lesson.description_zh,
+      ...(lesson.description_zh_hans ? { zhHans: lesson.description_zh_hans } : {})
+    },
     difficulty: lesson.difficulty,
     estimatedMinutes: lesson.estimated_minutes,
     status: progress?.status ?? (!userId ? seedTopic?.status ?? "not-started" : "not-started"),
@@ -2015,8 +2054,16 @@ function topicWithProgressForDatabase(
     publisher: topic.textbook_publisher,
     canonicalTopicId: topic.canonical_topic_id ?? topic.id,
     grade: topic.grade,
-    title: { en: topic.title_en, zh: topic.title_zh },
-    description: { en: topic.description_en, zh: topic.description_zh },
+    title: {
+      en: topic.title_en,
+      zh: topic.title_zh,
+      ...(topic.title_zh_hans ? { zhHans: topic.title_zh_hans } : {})
+    },
+    description: {
+      en: topic.description_en,
+      zh: topic.description_zh,
+      ...(topic.description_zh_hans ? { zhHans: topic.description_zh_hans } : {})
+    },
     status: progress?.status ?? "not-started",
     difficulty: topic.difficulty,
     minutes: topic.minutes,
@@ -2031,9 +2078,17 @@ function lessonBlockForRecord(
   return {
     id: block.id,
     type: block.type,
-    title: { en: translateLessonTextEn(block.title_en), zh: block.title_zh },
+    title: {
+      en: translateLessonTextEn(block.title_en),
+      zh: block.title_zh,
+      ...(block.title_zh_hans ? { zhHans: block.title_zh_hans } : {})
+    },
     content: block.content_en || block.content_zh
-      ? { en: translateLessonTextEn(block.content_en ?? ""), zh: block.content_zh ?? block.content_en ?? "" }
+      ? {
+          en: translateLessonTextEn(block.content_en ?? ""),
+          zh: block.content_zh ?? block.content_en ?? "",
+          ...(block.content_zh_hans ? { zhHans: block.content_zh_hans } : {})
+        }
       : undefined,
     items: block.items?.map((item) => ({ ...item, en: translateLessonTextEn(item.en) })),
     visualizationConfig: block.visualization_config,
@@ -2595,7 +2650,8 @@ function localizedTopicTitleForRecord(topic: TopicRecord): LocalizedText {
 
   return {
     en: shouldUseSeedEnglish ? seedTopic.title.en : topic.title_en,
-    zh: topic.title_zh
+    zh: topic.title_zh,
+    ...(topic.title_zh_hans ? { zhHans: topic.title_zh_hans } : {})
   };
 }
 
@@ -3003,10 +3059,7 @@ function toMistakeBookItem(
     lastAttemptAt: mistake.last_attempt_at,
     mastered: mistake.mastered,
     question: toPublicQuestion(database, question),
-    explanation: {
-      en: question.explanation_en,
-      zh: question.explanation_zh
-    }
+    explanation: localizedQuestionExplanation(question)
   };
 }
 
@@ -3526,11 +3579,13 @@ export function createStudentActivityPersistenceStore({
 
         return {
           correct,
-          explanation: {
-            en: question.explanation_en,
-            zh: question.explanation_zh
-          },
-          correctAnswer: correct ? undefined : question.answer
+          explanation: localizedQuestionExplanation(question),
+          correctAnswer: correct ? undefined : localizedCorrectAnswerForFeedback({
+            type: question.type,
+            answer: question.answer,
+            acceptedAnswers: question.accepted_answers,
+            options: question.options
+          })
         };
       });
     },

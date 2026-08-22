@@ -2,6 +2,7 @@ import { expect, request as apiRequest, test, type APIRequestContext, type APIRe
 import { pbkdf2Sync } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
+import type { LocalizedText } from "../../types";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
@@ -685,7 +686,7 @@ test.describe("backend API integration", () => {
       );
       expect(visualizationSessions.sessions.filter((session) => session.moduleId === "coordinate-plane-demo")).toHaveLength(1);
 
-      const attempt = await readJson<{ correct: boolean; correctAnswer?: string }>(
+      const attempt = await readJson<{ correct: boolean; correctAnswer?: LocalizedText }>(
         await student.context.post("/api/attempts", {
           data: {
             questionId,
@@ -696,6 +697,7 @@ test.describe("backend API integration", () => {
       );
       expect(attempt.correct).toBe(false);
       expect(attempt.correctAnswer).toBeTruthy();
+      expect(attempt.correctAnswer?.en).not.toMatch(/[\u3400-\u9fff]/u);
 
       const activeMistakes = await readJson<{ mistakes: Array<{ question: { id: string }; mastered: boolean }> }>(
         await student.context.get("/api/mistakes?status=active")

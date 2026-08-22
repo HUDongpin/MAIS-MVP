@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import postgres from "postgres";
+import { localizedCorrectAnswerForFeedback } from "@/lib/server/answerFeedback";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
@@ -194,9 +195,11 @@ function dayWindow(now: string) {
 function attemptFeedback(question: Question, selectedAnswer: string): AttemptFeedback {
   const correct = questionAnswerMatches(
     {
+      id: question.id,
       answer: question.answer,
       accepted_answers: question.acceptedAnswers ?? null,
-      options: question.options ?? null
+      options: question.options ?? null,
+      prompt: question.prompt
     },
     selectedAnswer
   );
@@ -204,7 +207,12 @@ function attemptFeedback(question: Question, selectedAnswer: string): AttemptFee
   return {
     correct,
     explanation: question.explanation,
-    correctAnswer: correct ? undefined : question.answer
+    correctAnswer: correct ? undefined : localizedCorrectAnswerForFeedback({
+      type: question.type,
+      answer: question.answer,
+      acceptedAnswers: question.acceptedAnswers,
+      options: question.options
+    })
   };
 }
 

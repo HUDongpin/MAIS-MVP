@@ -15,7 +15,7 @@ import {
   isActiveDifficulty,
   mapDifficultyToActive
 } from "@/lib/difficulty";
-import { formatGradeLabel } from "@/lib/i18n";
+import { formatGradeLabel, toPrcSimplifiedText } from "@/lib/i18n";
 import { buildTeacherGradebook, gradebookToCsv } from "@/lib/teacherGradebook";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { buildHongKongMathEvidencePack } from "@/lib/rag/hongKongMath";
@@ -908,15 +908,18 @@ export type QuestionRecord = {
   topic_id: string;
   topic_title_en?: string;
   topic_title_zh?: string;
+  topic_title_zh_hans?: string;
   difficulty: Difficulty;
   type: QuestionType;
   prompt_en: string;
   prompt_zh: string;
+  prompt_zh_hans?: string;
   options: LocalizedText[] | null;
   answer: string;
   accepted_answers?: string[] | null;
   explanation_en: string;
   explanation_zh: string;
+  explanation_zh_hans?: string;
   diagram?: QuestionDiagram | null;
   question_assets?: QuestionAsset[] | null;
 };
@@ -930,8 +933,10 @@ export type TopicRecord = {
   grade: GradeId;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   description_en: string;
   description_zh: string;
+  description_zh_hans?: string;
   difficulty: Difficulty;
   minutes: number;
   sort_order: number;
@@ -946,8 +951,10 @@ export type LessonRecord = {
   grade: GradeId;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   description_en: string;
   description_zh: string;
+  description_zh_hans?: string;
   difficulty: Difficulty;
   estimated_minutes: number;
 };
@@ -958,8 +965,10 @@ export type LessonBlockRecord = {
   type: LessonBlockType;
   title_en: string;
   title_zh: string;
+  title_zh_hans?: string;
   content_en?: string;
   content_zh?: string;
+  content_zh_hans?: string;
   items?: LocalizedText[];
   visualization_config?: LessonBlock["visualizationConfig"];
   interactive_lesson_config?: LessonBlock["interactiveLessonConfig"];
@@ -2189,15 +2198,18 @@ function seedQuestionRecords(): QuestionRecord[] {
       topic_id: question.topicId,
       topic_title_en: question.topic.en,
       topic_title_zh: question.topic.zh,
+      topic_title_zh_hans: question.topic.zhHans ?? toPrcSimplifiedText(question.topic.zh),
       difficulty: question.difficulty,
       type: question.type,
       prompt_en: question.prompt.en,
       prompt_zh: question.prompt.zh,
+      prompt_zh_hans: question.prompt.zhHans ?? toPrcSimplifiedText(question.prompt.zh),
       options: question.options ?? null,
       answer: question.answer,
       accepted_answers: question.acceptedAnswers ?? null,
       explanation_en: question.explanation.en,
       explanation_zh: question.explanation.zh,
+      explanation_zh_hans: question.explanation.zhHans ?? toPrcSimplifiedText(question.explanation.zh),
       diagram: question.diagram ?? null,
       question_assets: question.questionAssets ?? null
     };
@@ -2242,8 +2254,10 @@ function seedTopicRecords(): TopicRecord[] {
       grade: topic.grade,
       title_en: topic.title.en,
       title_zh: topic.title.zh,
+      title_zh_hans: topic.title.zhHans ?? toPrcSimplifiedText(topic.title.zh),
       description_en: topic.description.en,
       description_zh: topic.description.zh,
+      description_zh_hans: topic.description.zhHans ?? toPrcSimplifiedText(topic.description.zh),
       difficulty: topic.difficulty,
       minutes: topic.minutes,
       sort_order: index
@@ -2276,12 +2290,20 @@ function seedLessonRecords(): LessonRecord[] {
       title_zh: productionLesson?.title.zh ?? (isQuadratic
         ? "二次函數：形狀、頂點與截距"
         : `${topic.title.zh}：概念、模型與練習`),
+      title_zh_hans: productionLesson?.title.zhHans
+        ?? toPrcSimplifiedText(productionLesson?.title.zh ?? (isQuadratic
+          ? "二次函數：形狀、頂點與截距"
+          : `${topic.title.zh}：概念、模型與練習`)),
       description_en: productionLesson?.description.en ?? (isQuadratic
         ? "Connect tables, graphs, vertex form, symmetry, and intercepts using a live function explorer."
         : `Build ${topic.title.en.toLowerCase()} through concept explanation, a visual model, worked examples, and practice feedback.`),
       description_zh: productionLesson?.description.zh ?? (isQuadratic
         ? "透過即時函數圖像工具，連繫數表、圖像、頂點式、對稱和截距。"
         : `透過概念講解、視覺模型、例題和練習回饋建立${topic.title.zh}能力。`),
+      description_zh_hans: productionLesson?.description.zhHans
+        ?? toPrcSimplifiedText(productionLesson?.description.zh ?? (isQuadratic
+          ? "透過即時函數圖像工具，連繫數表、圖像、頂點式、對稱和截距。"
+          : `透過概念講解、視覺模型、例題和練習回饋建立${topic.title.zh}能力。`)),
       difficulty: topic.difficulty,
       estimated_minutes: productionLesson?.estimatedMinutes ?? topic.minutes
     }];
@@ -2306,6 +2328,7 @@ function seedProductionLessonBlockRecords(
       type: "practice",
       title_en: "Practice checkpoint",
       title_zh: "練習檢查點",
+      title_zh_hans: "练习检查点",
       practice_question_ids: practiceQuestionIds
     });
     practiceAdded = true;
@@ -2319,8 +2342,12 @@ function seedProductionLessonBlockRecords(
       type: block.type,
       title_en: block.title.en,
       title_zh: block.title.zh,
+      title_zh_hans: block.title.zhHans ?? toPrcSimplifiedText(block.title.zh),
       content_en: block.content?.en,
       content_zh: block.content?.zh,
+      content_zh_hans: block.content
+        ? block.content.zhHans ?? toPrcSimplifiedText(block.content.zh)
+        : undefined,
       items: block.items,
       visualization_config: block.visualizationConfig,
       interactive_lesson_config: block.interactiveLessonConfig

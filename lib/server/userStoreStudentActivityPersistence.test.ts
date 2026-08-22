@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 
 import * as studentActivityPersistence from "@/lib/server/userStore/studentActivityPersistence";
+import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import {
   createStudentActivityPersistenceStore,
   type StudentActivityLessonRecord,
@@ -1248,6 +1249,7 @@ function createMistakeDatabase(): StudentActivityPersistenceDatabase {
         type: "multiple-choice",
         prompt_en: "Solve x + 1 = 3.",
         prompt_zh: "解 x + 1 = 3。",
+        prompt_zh_hans: "解 x + 1 = 3。",
         options: [
           { en: "1", zh: "1" },
           { en: "2", zh: "2" },
@@ -1255,7 +1257,8 @@ function createMistakeDatabase(): StudentActivityPersistenceDatabase {
         ],
         answer: "B",
         explanation_en: "Subtract 1 from both sides.",
-        explanation_zh: "兩邊同減 1。"
+        explanation_zh: "兩邊同減 1。",
+        explanation_zh_hans: "两边同减 1。"
       },
       {
         id: "question-2",
@@ -1313,6 +1316,7 @@ test("student activity persistence reads mistake book items without legacy userS
   assert.equal(active[0].question.topic.en, "Linear equations");
   assert.equal(active[0].question.prompt.en, "Solve x + 1 = 3.");
   assert.equal(active[0].explanation.zh, "兩邊同減 1。");
+  assert.equal(active[0].explanation.zhHans, "两边同减 1。");
 
   const mastered = await store.getMistakes("student-1", "mastered");
   assert.deepEqual(mastered.map((mistake) => mistake.questionId), ["question-2"]);
@@ -1352,7 +1356,8 @@ test("student activity persistence owns mistake book item projection for legacy 
   assert.equal(item?.question.curriculumProfile?.publisher, "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY");
   assert.deepEqual(item?.explanation, {
     en: "Subtract 1 from both sides.",
-    zh: "兩邊同減 1。"
+    zh: "兩邊同減 1。",
+    zhHans: "两边同减 1。"
   });
 });
 
@@ -1418,9 +1423,13 @@ test("student activity persistence records question attempts and updates mistake
     correct: false,
     explanation: {
       en: "Subtract 1 from both sides.",
-      zh: "兩邊同減 1。"
+      zh: "兩邊同減 1。",
+      zhHans: "两边同减 1。"
     },
-    correctAnswer: "B"
+    correctAnswer: {
+      en: "2",
+      zh: "2"
+    }
   });
   assert.deepEqual(database.attempts?.[0], {
     id: "attempt-1",
@@ -1429,7 +1438,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
@@ -1460,6 +1470,204 @@ test("student activity persistence records question attempts and updates mistake
     "student-1:question-1:false:A:2026-06-20T10:00:00.000Z",
     "student-1:question-1:true:B:2026-06-20T10:00:00.000Z"
   ]);
+});
+
+test("student activity persistence uses real quantity-aware grading for attempts and mistakes", async () => {
+  const database = createMistakeDatabase();
+  database.attempts = [];
+  database.mistakes = [];
+  database.questions?.push({
+    id: "quantity-contract-question",
+    curriculum_track: "MAINLAND_PEP_HIGH",
+    curriculum_region: "MAINLAND",
+    textbook_publisher: "MAINLAND_PEP",
+    grade: "P2",
+    topic_id: "quantity-contract-topic",
+    difficulty: "Low",
+    type: "fill-in",
+    prompt_en: "A strip is 39 centimetres long. How long is it?",
+    prompt_zh: "紙帶長39厘米，求它的長度。",
+    options: null,
+    answer: "39 cm",
+    accepted_answers: ["39厘米", "39"],
+    explanation_en: "The length is 39 cm.",
+    explanation_zh: "長度是39厘米。"
+  });
+
+  let id = 0;
+  const store = createTestStore(database, {
+    createId: () => `quantity-attempt-${++id}`,
+    questionAnswerMatches
+  });
+
+  const wrong = await store.submitQuestionAttempt({
+    userId: "student-quantity",
+    questionId: "quantity-contract-question",
+    selectedAnswer: "39 km",
+    curriculumTrack: { region: "MAINLAND", publisher: "MAINLAND_PEP" }
+  });
+  assert.equal(wrong?.correct, false);
+  assert.equal(database.attempts?.[0]?.is_correct, false);
+  assert.equal(database.mistakes?.[0]?.question_id, "quantity-contract-question");
+  assert.equal(database.mistakes?.[0]?.last_selected_answer, "39 km");
+  assert.equal(database.mistakes?.[0]?.mastered, false);
+
+  const converted = await store.submitQuestionAttempt({
+    userId: "student-quantity",
+    questionId: "quantity-contract-question",
+    selectedAnswer: "0.39 m",
+    curriculumTrack: { region: "MAINLAND", publisher: "MAINLAND_PEP" }
+  });
+  assert.equal(converted?.correct, true);
+  assert.equal(database.attempts?.[1]?.is_correct, true);
+  assert.equal(database.mistakes?.[0]?.mastered, true);
+
+  const bare = await store.submitQuestionAttempt({
+    userId: "student-bare-quantity",
+    questionId: "quantity-contract-question",
+    selectedAnswer: "39",
+    curriculumTrack: { region: "MAINLAND", publisher: "MAINLAND_PEP" }
+  });
+  assert.equal(bare?.correct, true);
+  assert.equal(database.attempts?.[2]?.is_correct, true);
+});
+
+test("student activity persistence rejects arbitrary bindings on bare numeric answers but accepts requested variables", async () => {
+  const database = createMistakeDatabase();
+  database.attempts = [];
+  database.mistakes = [];
+  database.questions?.push(
+    {
+      id: "place-value-binding-contract-question",
+      curriculum_track: "MAINLAND_PEP_HIGH",
+      curriculum_region: "MAINLAND",
+      textbook_publisher: "MAINLAND_PEP",
+      grade: "P2",
+      topic_id: "binding-contract-topic",
+      difficulty: "Low",
+      type: "fill-in",
+      prompt_en: "In 7406, what digit is in the hundreds place?",
+      prompt_zh: "在7406中，百位上的数字是几？",
+      options: null,
+      answer: "4",
+      accepted_answers: null,
+      explanation_en: "The hundreds digit is 4.",
+      explanation_zh: "百位数字是4。"
+    },
+    {
+      id: "hjb-junior-ds-v2-s2-086",
+      curriculum_track: "MAINLAND_PEP_HIGH",
+      curriculum_region: "MAINLAND",
+      textbook_publisher: "MAINLAND_PEP",
+      grade: "S1",
+      topic_id: "binding-contract-topic",
+      difficulty: "Low",
+      type: "fill-in",
+      prompt_en: "Solve 3x+8=20. Find x.",
+      prompt_zh: "解方程3x+8=20，求x的值。",
+      options: null,
+      answer: "4",
+      accepted_answers: null,
+      explanation_en: "x=4.",
+      explanation_zh: "x=4。"
+    }
+  );
+
+  let id = 0;
+  const store = createTestStore(database, {
+    createId: () => `binding-attempt-${++id}`,
+    questionAnswerMatches
+  });
+  const scope = { region: "MAINLAND", publisher: "MAINLAND_PEP" } as const;
+
+  const bare = await store.submitQuestionAttempt({
+    userId: "student-binding",
+    questionId: "place-value-binding-contract-question",
+    selectedAnswer: "4",
+    curriculumTrack: scope
+  });
+  const arbitrary = await store.submitQuestionAttempt({
+    userId: "student-binding",
+    questionId: "place-value-binding-contract-question",
+    selectedAnswer: "wrong=4",
+    curriculumTrack: scope
+  });
+  const unrelatedVariable = await store.submitQuestionAttempt({
+    userId: "student-binding",
+    questionId: "place-value-binding-contract-question",
+    selectedAnswer: "y=4",
+    curriculumTrack: scope
+  });
+  const requestedVariable = await store.submitQuestionAttempt({
+    userId: "student-binding",
+    questionId: "hjb-junior-ds-v2-s2-086",
+    selectedAnswer: "x=4",
+    curriculumTrack: scope
+  });
+  const wrongVariable = await store.submitQuestionAttempt({
+    userId: "student-binding",
+    questionId: "hjb-junior-ds-v2-s2-086",
+    selectedAnswer: "y=4",
+    curriculumTrack: scope
+  });
+
+  assert.equal(bare?.correct, true);
+  assert.equal(arbitrary?.correct, false);
+  assert.equal(unrelatedVariable?.correct, false);
+  assert.equal(requestedVariable?.correct, true);
+  assert.equal(wrongVariable?.correct, false);
+  assert.deepEqual(database.attempts?.map((attempt) => attempt.is_correct), [true, false, false, true, false]);
+  assert.equal(
+    database.attempts?.some((attempt) => attempt.selected_answer === "wrong=4" && attempt.is_correct === false),
+    true
+  );
+  assert.equal(database.mistakes?.every((mistake) => mistake.last_selected_answer === "y=4"), true);
+});
+
+test("persisted attempt feedback localizes CJK answers while the mistake row keeps the canonical key", async () => {
+  const database = createMistakeDatabase();
+  database.attempts = [];
+  database.mistakes = [];
+  database.questions?.push({
+    id: "localized-answer-question",
+    curriculum_track: "MAINLAND_PEP_HIGH",
+    curriculum_region: "MAINLAND",
+    textbook_publisher: "MAINLAND_BNU",
+    grade: "P1",
+    topic_id: "localized-answer-topic",
+    difficulty: "Low",
+    type: "fill-in",
+    prompt_en: "Which side?",
+    prompt_zh: "哪一邊？",
+    prompt_zh_hans: "哪一边？",
+    options: null,
+    answer: "右边",
+    accepted_answers: ["right", "右邊", "右边"],
+    explanation_en: "The object is on the right.",
+    explanation_zh: "物件在右邊。",
+    explanation_zh_hans: "物件在右边。"
+  });
+
+  const store = createTestStore(database, { createId: () => "localized-attempt" });
+  const feedback = await store.submitQuestionAttempt({
+    userId: "student-1",
+    questionId: "localized-answer-question",
+    selectedAnswer: "left",
+    curriculumTrack: { region: "MAINLAND", publisher: "MAINLAND_BNU" }
+  });
+
+  assert.deepEqual(feedback?.correctAnswer, {
+    en: "right",
+    zh: "右邊",
+    zhHans: "右边"
+  });
+  assert.deepEqual(feedback?.explanation, {
+    en: "The object is on the right.",
+    zh: "物件在右邊。",
+    zhHans: "物件在右边。"
+  });
+  assert.doesNotMatch(feedback?.correctAnswer?.en ?? "", /[\u3400-\u9fff]/u);
+  assert.equal(database.mistakes?.[0]?.correct_answer, "右边");
 });
 
 test("student activity persistence rejects unavailable question attempts before mutation hooks", async () => {
@@ -3650,8 +3858,10 @@ test("student activity persistence owns public question projection with seed top
         grade: "S4",
         title_en: "集合与常用逻辑用语",
         title_zh: "集合与常用逻辑用语",
+        title_zh_hans: "集合与常用逻辑用语",
         description_en: "Sets",
         description_zh: "集合",
+        description_zh_hans: "集合",
         difficulty: "Low",
         minutes: 42,
         sort_order: 1
@@ -3667,15 +3877,17 @@ test("student activity persistence owns public question projection with seed top
         topic_id: "pep-high-s4-sets-logic",
         difficulty: "Low",
         type: "multiple-choice",
-        prompt_en: "Which symbol means element of?",
-        prompt_zh: "哪个符号表示属于？",
+        prompt_en: "A flagpole is observed from 20 m away.",
+        prompt_zh: "測量者站在距旗桿底部20米處。",
+        prompt_zh_hans: "测量者站在距旗杆底部20米处。",
         options: [
           { en: "∈", zh: "∈" },
           { en: "⊂", zh: "⊂" }
         ],
         answer: "∈",
         explanation_en: "The symbol ∈ means element of.",
-        explanation_zh: "符号 ∈ 表示属于。"
+        explanation_zh: "符號 ∈ 表示屬於。",
+        explanation_zh_hans: "符号 ∈ 表示属于。"
       }
     ]
   };
@@ -3688,11 +3900,43 @@ test("student activity persistence owns public question projection with seed top
   const toPublicQuestion = helpers.studentActivityToPublicQuestion as (
     database: StudentActivityPersistenceDatabase,
     question: NonNullable<StudentActivityPersistenceDatabase["questions"]>[number]
-  ) => { topic: { en: string; zh: string } };
+  ) => {
+    topic: { en: string; zh: string; zhHans?: string };
+    prompt: { en: string; zh: string; zhHans?: string };
+  };
 
-  assert.deepEqual(toPublicQuestion(database, database.questions![0]).topic, {
+  const publicQuestion = toPublicQuestion(database, database.questions![0]);
+  assert.deepEqual(publicQuestion.topic, {
     en: "Sets and Logic",
-    zh: "集合与常用逻辑用语"
+    zh: "集合与常用逻辑用语",
+    zhHans: "集合与常用逻辑用语"
+  });
+  assert.deepEqual(publicQuestion.prompt, {
+    en: "A flagpole is observed from 20 m away.",
+    zh: "測量者站在距旗桿底部20米處。",
+    zhHans: "测量者站在距旗杆底部20米处。"
+  });
+
+  const assessmentItem = {
+    id: "assessment-item-mainland",
+    source: "question-bank",
+    questionId: "q-mainland",
+    points: 1,
+    order: 0
+  } as const;
+  const assessmentPrompt = helpers.studentActivityAssessmentPaperItemPrompt as (
+    database: StudentActivityPersistenceDatabase,
+    item: typeof assessmentItem
+  ) => { en: string; zh: string; zhHans?: string };
+  const assessmentExplanation = helpers.studentActivityAssessmentPaperItemExplanation as (
+    database: StudentActivityPersistenceDatabase,
+    item: typeof assessmentItem
+  ) => { en: string; zh: string; zhHans?: string } | undefined;
+  assert.deepEqual(assessmentPrompt(database, assessmentItem), publicQuestion.prompt);
+  assert.deepEqual(assessmentExplanation(database, assessmentItem), {
+    en: "The symbol ∈ means element of.",
+    zh: "符號 ∈ 表示屬於。",
+    zhHans: "符号 ∈ 表示属于。"
   });
 });
 
@@ -3743,7 +3987,7 @@ test("student activity persistence owns topic label projection for legacy userSt
   const topicLabelForQuestion = helpers.studentActivityTopicLabelForQuestion as (
     database: StudentActivityPersistenceDatabase,
     question: { topic_id: string; topic_title_en?: string | null; topic_title_zh?: string | null }
-  ) => { en: string; zh: string };
+  ) => { en: string; zh: string; zhHans?: string };
 
   assert.deepEqual(topicLabelForQuestion(database, questionForTopic), {
     en: "Linear equations",
@@ -3751,7 +3995,8 @@ test("student activity persistence owns topic label projection for legacy userSt
   });
   assert.deepEqual(topicLabelForQuestion(database, questionForSeedTopic), {
     en: "Sets and Logic",
-    zh: "集合与常用逻辑用语"
+    zh: "集合與常用邏輯用語",
+    zhHans: "集合与常用逻辑用语"
   });
   assert.deepEqual(topicLabelForQuestion(database, questionForFallback), {
     en: "Question topic English",
