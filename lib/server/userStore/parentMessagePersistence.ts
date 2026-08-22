@@ -21,6 +21,7 @@ type UserRole = StudentSession["role"];
 type ParentMessageUserRecord = {
   id: string;
   username?: string;
+  disabled_at?: string | null;
   role: UserRole;
 };
 
@@ -261,7 +262,9 @@ function teacherHasCurrentClassMessageAccess(
   classId: string
 ) {
   const teacher = database.users.find((candidate) => (
-    candidate.id === teacherId && candidate.role === "teacher"
+    candidate.id === teacherId &&
+    candidate.role === "teacher" &&
+    (candidate.disabled_at ?? null) === null
   ));
   if (!teacher) return false;
   const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;

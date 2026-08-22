@@ -460,6 +460,68 @@ test("parent report messages reject admin authors instead of falling back to the
   assert.equal(database.teacher_messages.length, originalThreadCount);
 });
 
+test("disabled report authors cannot receive a new parent thread", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  const reportAuthor = database.users.find((candidate) => candidate.id === "teacher-2");
+  assert.ok(reportAuthor);
+  Object.assign(reportAuthor, { disabled_at: "2026-06-20T11:00:00.000Z" });
+  database.teacher_reports?.push({
+    id: "report-student-1-disabled-author",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+  const originalThreadCount = database.teacher_messages.length;
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "disabled-report-create-0001",
+    category: "report-question",
+    subject: "Disabled author must not receive this",
+    body: "This request must fail closed.",
+    reportId: "report-student-1-disabled-author"
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_messages.length, originalThreadCount);
+});
+
+test("parent replies fail closed when the thread teacher becomes disabled", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const created = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "disable-after-create-0001",
+    subject: "Question before teacher deactivation",
+    body: "This thread is created while the teacher is active."
+  });
+  assert.equal(created.status, "created");
+
+  const threadTeacher = database.users.find((candidate) => candidate.id === "teacher-1");
+  assert.ok(threadTeacher);
+  Object.assign(threadTeacher, { disabled_at: "2026-06-20T11:30:00.000Z" });
+  const entryCountBeforeReply = database.teacher_message_entries.length;
+
+  const result = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: created.thread.id,
+    idempotencyKey: "disabled-teacher-reply-0001",
+    body: "This reply must not be written."
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_message_entries.length, entryCountBeforeReply);
+});
+
 test("parent message creation is idempotent and rejects key reuse with a different request", async () => {
   const database = createDatabase();
   let nextThread = 0;
