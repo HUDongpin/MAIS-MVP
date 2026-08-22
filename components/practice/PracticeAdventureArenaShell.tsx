@@ -25,10 +25,12 @@ export type PracticeIslandGamesStatus = {
 };
 
 export type PracticeAdventureArenaMode = "chooser" | "unit" | "explore";
+export type PracticeUnitMissionStatus = "loading" | "ready" | "unavailable";
 
 type PracticeAdventureArenaShellProps = {
   t: (localized: LocalizedText) => string;
   mode: PracticeAdventureArenaMode;
+  unitStatus: PracticeUnitMissionStatus;
   onModeChange: (mode: PracticeAdventureArenaMode) => void;
   progressValue: number;
   progressTotal: number;
@@ -290,6 +292,7 @@ function UnitExerciseTrailPreview({ t }: { t: PracticeAdventureArenaShellProps["
 export function PracticeAdventureArenaShell({
   t,
   mode,
+  unitStatus,
   onModeChange,
   progressValue,
   progressTotal,
@@ -301,6 +304,7 @@ export function PracticeAdventureArenaShell({
   onRegionSelect
 }: PracticeAdventureArenaShellProps) {
   const handleStartMission = () => {
+    if (unitStatus === "unavailable") return;
     onModeChange("unit");
     window.setTimeout(() => {
       onStartMission();
@@ -314,6 +318,12 @@ export function PracticeAdventureArenaShell({
   const handleAdjustPractice = () => {
     onModeChange("chooser");
   };
+
+  const unitStatusText = unitStatus === "ready"
+    ? t({ en: "Available", zh: "可以開始", zhHans: "可以开始" })
+    : unitStatus === "loading"
+      ? t({ en: "Preparing questions", zh: "正在準備題目", zhHans: "正在准备题目" })
+      : t({ en: "Temporarily unavailable", zh: "暫時未能使用", zhHans: "暂时无法使用" });
 
   if (mode === "chooser") {
     return (
@@ -370,6 +380,20 @@ export function PracticeAdventureArenaShell({
                   zhHans: "完成正在学习单元的五道题目，每答对一题可获一颗星。"
                 })}
               </p>
+              <p
+                data-unit-exercise-door-status={unitStatus}
+                aria-live="polite"
+                className={cn(
+                  "mt-3 text-xs font-black",
+                  unitStatus === "ready"
+                    ? "text-emerald-700"
+                    : unitStatus === "loading"
+                      ? "text-blue-700"
+                      : "text-rose-700"
+                )}
+              >
+                {unitStatusText}
+              </p>
               <ul className="mt-3 grid grid-cols-3 gap-2 text-xs font-extrabold leading-4 text-slate-700">
                 {[
                   { en: "5-question goal", zh: "五題目標", zhHans: "五题目标" },
@@ -385,13 +409,14 @@ export function PracticeAdventureArenaShell({
               <button
                 type="button"
                 onClick={handleStartMission}
+                disabled={unitStatus === "unavailable"}
                 data-tour="student-practice-start"
                 aria-label={t({
                   en: "Choose Unit Exercise — Start Mission",
                   zh: "選擇單元練習－開始任務",
                   zhHans: "选择单元练习－开始任务"
                 })}
-                className="focus-ring mt-4 inline-flex min-h-12 w-full items-center justify-between rounded-xl bg-[#c9433b] px-4 py-2.5 text-sm font-black text-white shadow-[0_6px_0_#a9322c,0_12px_22px_rgba(169,50,44,0.22)] transition hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#a9322c]"
+                className="focus-ring mt-4 inline-flex min-h-12 w-full items-center justify-between rounded-xl bg-[#c9433b] px-4 py-2.5 text-sm font-black text-white shadow-[0_6px_0_#a9322c,0_12px_22px_rgba(169,50,44,0.22)] transition enabled:hover:-translate-y-0.5 enabled:active:translate-y-0.5 enabled:active:shadow-[0_2px_0_#a9322c] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:shadow-none"
               >
                 <span className="inline-flex items-center gap-2">
                   <UnitExerciseIcon className="size-5 shrink-0" />
@@ -505,8 +530,12 @@ export function PracticeAdventureArenaShell({
       <div id="practice-adventure-hero" className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
         <div className="relative min-h-[390px] rounded-[16px] border border-white/70 bg-white p-6 shadow-[0_22px_46px_rgba(15,23,42,0.14)] sm:p-9">
           <div className="flex items-start justify-between gap-4 sm:gap-5">
-            <h1 id="practice-adventure-title" tabIndex={-1} className="min-w-0 max-w-[9ch] text-4xl font-black leading-[0.98] tracking-normal text-blue-950 focus:outline-none sm:max-w-[11ch] sm:text-6xl lg:text-[3.9rem]">
-              Practice Arena
+            <h1 id="practice-adventure-title" tabIndex={-1} className="min-w-0 max-w-[12ch] text-4xl font-black leading-[0.98] tracking-normal text-blue-950 focus:outline-none sm:max-w-[14ch] sm:text-6xl lg:text-[3.9rem]">
+              {t({
+                en: "Practice Arena — Free Exploration",
+                zh: "練習競技場－自由探索",
+                zhHans: "练习竞技场－自由探索"
+              })}
             </h1>
             <div className="grid size-14 shrink-0 rotate-0 place-items-center rounded-3xl border-4 border-white bg-yellow-300 text-amber-500 shadow-xl sm:size-16 sm:rotate-12">
               <StarIcon className="size-9 sm:size-10" />

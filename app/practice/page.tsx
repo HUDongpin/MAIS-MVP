@@ -7,7 +7,8 @@ import { AnimatePresence, motion, useReducedMotion } from "@/components/ui/Motio
 import { PracticeArenaBackToTopButton } from "@/app/practice/PracticeArenaBackToTopButton";
 import {
   PracticeAdventureArenaShell,
-  type PracticeAdventureArenaMode
+  type PracticeAdventureArenaMode,
+  type PracticeUnitMissionStatus
 } from "@/components/practice/PracticeAdventureArenaShell";
 import { StudentAccommodationsBanner } from "@/components/practice/StudentAccommodationsBanner";
 import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
@@ -662,6 +663,7 @@ function ChooseModeArrowIcon({ className = "size-4" }: { className?: string }) {
 type PracticeMissionSummaryProps = {
   t: (localized: LocalizedText) => string;
   questionCount: number;
+  status: PracticeUnitMissionStatus;
   showUnitModeContext?: boolean;
   onChooseMode?: () => void;
   className?: string;
@@ -670,29 +672,51 @@ type PracticeMissionSummaryProps = {
 function PracticeMissionSummary({
   t,
   questionCount,
+  status,
   showUnitModeContext = false,
   onChooseMode,
   className
 }: PracticeMissionSummaryProps) {
-  const displayedQuestionCount = Math.max(1, questionCount || freeSelectionRoundQuestionCount);
-  const hasFullRound = displayedQuestionCount >= freeSelectionRoundQuestionCount;
-  const title = hasFullRound
+  const displayedQuestionCount = status === "ready" ? questionCount : 0;
+  const hasFullRound = status === "ready" && displayedQuestionCount >= freeSelectionRoundQuestionCount;
+  const title = status === "loading"
     ? t({
-        en: "Mission round: 5 system-assigned questions",
-        zh: "任務回合：系統分配 5 題",
-        zhHans: "任务回合：系统分配 5 题"
+        en: "Preparing your Unit Exercise",
+        zh: "正在準備單元練習",
+        zhHans: "正在准备单元练习"
       })
-    : t({
-        en: "Mission practice: available matching questions",
-        zh: "任務練習：可用符合題目",
-        zhHans: "任务练习：可用符合题目"
-      });
-  const readyBadge = (
+    : status === "unavailable"
+      ? t({
+          en: "Unit Exercise is temporarily unavailable",
+          zh: "單元練習暫時未能使用",
+          zhHans: "单元练习暂时无法使用"
+        })
+      : hasFullRound
+        ? t({
+            en: "Mission round: 5 system-assigned questions",
+            zh: "任務回合：系統分配 5 題",
+            zhHans: "任务回合：系统分配 5 题"
+          })
+        : t({
+            en: "Mission practice: available matching questions",
+            zh: "任務練習：可用符合題目",
+            zhHans: "任务练习：可用符合题目"
+          });
+  const statusBadge = (
     <span className={cn(
-      "shrink-0 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-black text-emerald-700",
+      "shrink-0 rounded-full border bg-white px-4 py-2 text-sm font-black",
+      status === "ready"
+        ? "border-emerald-200 text-emerald-700"
+        : status === "loading"
+          ? "border-blue-200 text-blue-700"
+          : "border-rose-200 text-rose-700",
       showUnitModeContext && "2xl:px-5 2xl:py-3 2xl:text-base"
-    )}>
-      {t({ en: "Ready", zh: "已就緒", zhHans: "已就绪" })}
+    )} data-unit-exercise-status={status} aria-live="polite">
+      {status === "ready"
+        ? t({ en: "Ready", zh: "已就緒", zhHans: "已就绪" })
+        : status === "loading"
+          ? t({ en: "Preparing", zh: "準備中", zhHans: "准备中" })
+          : t({ en: "Unavailable", zh: "暫不可用", zhHans: "暂不可用" })}
     </span>
   );
 
@@ -731,7 +755,7 @@ function PracticeMissionSummary({
               {t({ en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习" })}
             </span>
           </div>
-          {readyBadge}
+          {statusBadge}
         </div>
       ) : null}
 
@@ -750,7 +774,7 @@ function PracticeMissionSummary({
             showUnitModeContext && "2xl:size-[72px] 2xl:rounded-[18px] 2xl:text-2xl 2xl:shadow-[0_10px_0_#1d4ed8]"
           )}
         >
-          {displayedQuestionCount}
+          {status === "ready" ? displayedQuestionCount : "—"}
         </span>
         <div>
           {showUnitModeContext ? (
@@ -768,14 +792,26 @@ function PracticeMissionSummary({
             "mt-2 text-base font-semibold leading-7 text-slate-600 sm:text-lg sm:leading-8",
             showUnitModeContext && "2xl:text-xl 2xl:leading-8"
           )}>
-            {t({
-              en: "Complete all 5 questions from one topic to open the summary. The next game step depends on Adventure Island status.",
-              zh: "完成同一課題全部 5 題後會顯示摘要；下一個遊戲步驟取決於探險島通關狀態。",
-              zhHans: "完成同一课题全部 5 题后会显示摘要；下一个游戏步骤取决于探险岛通关状态。"
-            })}
+            {status === "loading"
+              ? t({
+                  en: "We are matching five questions to your current unit. This screen will update automatically.",
+                  zh: "正在按目前單元配對五道題目；完成後本頁會自動更新。",
+                  zhHans: "正在按当前单元匹配五道题目；完成后本页会自动更新。"
+                })
+              : status === "unavailable"
+                ? t({
+                    en: "No complete five-question unit round is available right now. Choose another mode or try again later.",
+                    zh: "目前沒有完整的五題單元回合。請選擇其他模式或稍後再試。",
+                    zhHans: "目前没有完整的五题单元回合。请选择其他模式或稍后再试。"
+                  })
+                : t({
+                    en: "Complete all 5 questions from one topic to open the summary. The next game step depends on Adventure Island status.",
+                    zh: "完成同一課題全部 5 題後會顯示摘要；下一個遊戲步驟取決於探險島通關狀態。",
+                    zhHans: "完成同一课题全部 5 题后会显示摘要；下一个游戏步骤取决于探险岛通关状态。"
+                  })}
           </p>
         </div>
-        {showUnitModeContext ? null : readyBadge}
+        {showUnitModeContext ? null : statusBadge}
       </div>
     </section>
   );
@@ -807,6 +843,7 @@ function QuestionPager({
   const { accommodations } = useStudentAccommodations();
   const readAloud = useReadAloud(language);
   const autoAdvanceTimerRef = useRef<number | null>(null);
+  const pagerActivityRef = useRef(interactionEnabled);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
   const questionCount = questions.length;
@@ -819,7 +856,7 @@ function QuestionPager({
   }, []);
 
   const goToIndex = useCallback((index: number) => {
-    if (!interactionEnabled || !questionCount) return;
+    if (!pagerActivityRef.current || !questionCount) return;
     clearAutoAdvance();
     setCurrentIndex(clampQuestionIndex(index, questionCount));
   }, [clearAutoAdvance, interactionEnabled, questionCount]);
@@ -867,10 +904,19 @@ function QuestionPager({
   }, [currentIndex, questionSignature, stopReadAloud]);
 
   useEffect(() => {
-    if (interactionEnabled) return;
-    clearAutoAdvance();
-    stopReadAloud();
-    questionStartedAtRef.current = {};
+    pagerActivityRef.current = interactionEnabled;
+    if (!interactionEnabled) {
+      clearAutoAdvance();
+      stopReadAloud();
+      questionStartedAtRef.current = {};
+    }
+
+    return () => {
+      pagerActivityRef.current = false;
+      clearAutoAdvance();
+      stopReadAloud();
+      questionStartedAtRef.current = {};
+    };
   }, [clearAutoAdvance, interactionEnabled, stopReadAloud]);
 
   useEffect(() => () => clearAutoAdvance(), [clearAutoAdvance]);
@@ -899,7 +945,7 @@ function QuestionPager({
 
   const handleJump = useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!interactionEnabled) return;
+    if (!pagerActivityRef.current) return;
     const nextQuestionNumber = Number.parseInt(jumpValue, 10);
     if (Number.isNaN(nextQuestionNumber)) {
       setJumpValue(questionCount ? String(currentIndex + 1) : "");
@@ -909,13 +955,13 @@ function QuestionPager({
   }, [currentIndex, goToIndex, interactionEnabled, jumpValue, questionCount]);
 
   const startQuestionTimer = useCallback((question: PublicQuestion) => {
-    if (!interactionEnabled) return;
+    if (!pagerActivityRef.current) return;
     questionStartedAtRef.current[question.id] = questionStartedAtRef.current[question.id] ?? Date.now();
     onQuestionStarted?.(question);
   }, [interactionEnabled, onQuestionStarted]);
 
   const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback) => {
-    if (!interactionEnabled) return;
+    if (!pagerActivityRef.current) return;
     const startedAt = questionStartedAtRef.current[question.id] ?? Date.now();
     const durationSeconds = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
     const answeredIndex = questions.findIndex((item) => item.id === question.id);
@@ -923,7 +969,7 @@ function QuestionPager({
     delete questionStartedAtRef.current[question.id];
     const isRoundNowComplete = questions.every((item) => item.id === question.id || answerResults[item.id] !== undefined);
     setAnswerResults((current) => ({ ...current, [question.id]: feedback.correct }));
-    if (interactionEnabled && soundEnabled) {
+    if (pagerActivityRef.current && soundEnabled) {
       playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
     }
     onAnswered?.({
@@ -932,11 +978,12 @@ function QuestionPager({
       durationSeconds,
       questionNumber: answeredIndex + 1
     });
-    if (!interactionEnabled || answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
+    if (!pagerActivityRef.current || answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
 
     clearAutoAdvance();
     autoAdvanceTimerRef.current = window.setTimeout(() => {
       autoAdvanceTimerRef.current = null;
+      if (!pagerActivityRef.current) return;
       setCurrentIndex((latestIndex) => (
         latestIndex === answeredIndex ? clampQuestionIndex(answeredIndex + 1, questionCount) : latestIndex
       ));
@@ -1108,6 +1155,11 @@ export default function PracticePage() {
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>("all");
   const [questionTypeFilter, setQuestionTypeFilter] = useState<QuestionTypeFilter>("all");
   const [topicFilter, setTopicFilter] = useState("all");
+  const exploreFiltersRef = useRef<{
+    difficulty: DifficultyFilter;
+    questionType: QuestionTypeFilter;
+    topic: string;
+  }>({ difficulty: "all", questionType: "all", topic: "all" });
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [questionCatalogTopics, setQuestionCatalogTopics] = useState<QuestionCatalogTopic[]>([]);
   const [questionCatalogCount, setQuestionCatalogCount] = useState(0);
@@ -1182,6 +1234,15 @@ export default function PracticePage() {
   useEffect(() => {
     setGradeFilter(studentFixedGrade ?? selectedGrade);
   }, [currentUser?.id, selectedGrade, studentFixedGrade, textbookPublisher]);
+
+  useEffect(() => {
+    if (practiceArenaMode !== "explore") return;
+    exploreFiltersRef.current = {
+      difficulty: difficultyFilter,
+      questionType: questionTypeFilter,
+      topic: topicFilter
+    };
+  }, [difficultyFilter, practiceArenaMode, questionTypeFilter, topicFilter]);
 
   useEffect(() => {
     if (!currentUser) {
@@ -1355,7 +1416,29 @@ export default function PracticePage() {
       { grade: topic.grade, topic: topic.topic }
     ]);
   }, [questionCatalogTopics]);
-  const firstQuestionCatalogTopicId = questionCatalogTopics[0]?.topicId ?? null;
+  const firstQuestionCatalogTopicId = questionCatalogTopics.find(
+    (question) => question.questionCount >= freeSelectionRoundQuestionCount
+  )?.topicId ?? null;
+
+  useEffect(() => {
+    if (practiceArenaMode !== "unit") return;
+
+    if (adaptivePlan) {
+      if (topicFilter !== "all") setTopicFilter("all");
+      return;
+    }
+
+    if (!adaptivePlanSettled || !questionCatalogLoaded || questionCatalogError || !firstQuestionCatalogTopicId) return;
+    if (topicFilter !== firstQuestionCatalogTopicId) setTopicFilter(firstQuestionCatalogTopicId);
+  }, [
+    adaptivePlan,
+    adaptivePlanSettled,
+    firstQuestionCatalogTopicId,
+    practiceArenaMode,
+    questionCatalogError,
+    questionCatalogLoaded,
+    topicFilter
+  ]);
 
   const adaptiveRoundQuestions = useMemo(
     () => dedupePracticeQuestions(adaptivePlan?.questions ?? []),
@@ -2138,13 +2221,32 @@ export default function PracticePage() {
       for (const targetId of targetIds) {
         const element = document.getElementById(targetId);
         if (!element) continue;
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        element.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
         return;
       }
     });
-  }, []);
+  }, [prefersReducedMotion]);
 
   const handlePracticeArenaModeChange = useCallback((nextMode: PracticeAdventureArenaMode) => {
+    if (nextMode === "unit") {
+      setFiltersOpen(false);
+      setDifficultyFilter("all");
+      setQuestionTypeFilter("all");
+      setTopicFilter(adaptivePlan ? "all" : firstQuestionCatalogTopicId ?? "all");
+    }
+
+    if (nextMode === "explore") {
+      const savedExploreFilters = exploreFiltersRef.current;
+      setDifficultyFilter(savedExploreFilters.difficulty);
+      setQuestionTypeFilter(savedExploreFilters.questionType);
+      setTopicFilter(savedExploreFilters.topic);
+    }
+
+    if (nextMode === "chooser") {
+      setPracticeSummaryOpen(false);
+      setShowPracticeCelebration(false);
+    }
+
     setPracticeArenaMode(nextMode);
 
     window.setTimeout(() => {
@@ -2157,10 +2259,15 @@ export default function PracticePage() {
         : "practice-adventure-title";
       document.getElementById(destinationHeadingId)?.focus({ preventScroll: true });
     }, 0);
-  }, [prefersReducedMotion]);
+  }, [adaptivePlan, firstQuestionCatalogTopicId, prefersReducedMotion]);
 
   const handleAdventureStartMission = useCallback(() => {
-    if (shouldShowFreeSelection && topicFilter === "all" && firstQuestionCatalogTopicId) {
+    if (
+      practiceArenaMode === "explore" &&
+      shouldShowFreeSelection &&
+      topicFilter === "all" &&
+      firstQuestionCatalogTopicId
+    ) {
       setTopicFilter(firstQuestionCatalogTopicId);
     }
 
@@ -2174,7 +2281,14 @@ export default function PracticePage() {
       "adaptive-practice-round",
       "mission-setup-filters"
     );
-  }, [adaptivePlan, firstQuestionCatalogTopicId, scrollToPracticeSection, shouldShowFreeSelection, topicFilter]);
+  }, [
+    adaptivePlan,
+    firstQuestionCatalogTopicId,
+    practiceArenaMode,
+    scrollToPracticeSection,
+    shouldShowFreeSelection,
+    topicFilter
+  ]);
 
   const islandStarTotal = practiceIslandStarTotal(islandStars);
   const mastersKeepLocked = islandStarTotal < mastersKeepUnlockStarTotal;
@@ -2259,10 +2373,50 @@ export default function PracticePage() {
   const adventureProgressTotal = practiceIslandStarTotalMax;
   const adventureProgressValue = Math.min(adventureProgressTotal, islandStarTotal);
   const shouldRenderFreeSelectionRound = shouldShowFreeSelection && hasSelectedPracticeFilter && displayedQuestions.length > 0;
-  const usesAdaptiveUnitRound = Boolean(adaptivePlan && !isFreeSelectionUnlocked && !hasManualTopicSelection);
-  const unitMissionQuestionCount = usesAdaptiveUnitRound
-    ? adaptiveRoundQuestions.length || requiredAdaptiveQuestionCount
-    : freeSelectionRoundQuestions.length || freeSelectionRoundQuestionCount;
+  const adaptiveUnitRoundTopic = resolveSingleRoundTopic(adaptiveRoundQuestions);
+  const adaptiveUnitRoundReady = Boolean(
+    adaptivePlan &&
+    adaptiveRoundQuestions.length >= requiredAdaptiveQuestionCount &&
+    adaptiveUnitRoundTopic?.topicId === adaptivePlan.topic.id
+  );
+  const fallbackUnitRoundReady = Boolean(
+    !adaptivePlan &&
+    firstQuestionCatalogTopicId &&
+    topicFilter === firstQuestionCatalogTopicId &&
+    !isLoading &&
+    !loadError &&
+    freeSelectionRoundQuestions.length >= freeSelectionRoundQuestionCount &&
+    freeSelectionSingleRoundTopic?.topicId === firstQuestionCatalogTopicId
+  );
+  const unitDoorStatus: PracticeUnitMissionStatus = adaptivePlan
+    ? adaptiveUnitRoundReady
+      ? "ready"
+      : adaptivePlanSettled
+        ? "unavailable"
+        : "loading"
+    : !adaptivePlanSettled || !questionCatalogLoaded
+      ? "loading"
+      : questionCatalogError || !firstQuestionCatalogTopicId
+        ? "unavailable"
+        : "ready";
+  const unitMissionStatus: PracticeUnitMissionStatus = adaptivePlan
+    ? adaptiveUnitRoundReady
+      ? "ready"
+      : adaptivePlanSettled
+        ? "unavailable"
+        : "loading"
+    : !adaptivePlanSettled || !questionCatalogLoaded
+      ? "loading"
+      : questionCatalogError || !firstQuestionCatalogTopicId
+        ? "unavailable"
+        : practiceArenaMode !== "unit" || topicFilter !== firstQuestionCatalogTopicId || isLoading
+          ? "loading"
+          : fallbackUnitRoundReady
+            ? "ready"
+            : "unavailable";
+  const unitMissionQuestionCount = adaptivePlan
+    ? adaptiveRoundQuestions.length
+    : freeSelectionRoundQuestions.length;
 
   return (
     <div data-practice-adventure-arena className="relative isolate min-h-screen overflow-hidden bg-[#55cfff] px-3 py-2 text-slate-900 sm:px-5 lg:px-8 2xl:py-8">
@@ -2270,7 +2424,7 @@ export default function PracticePage() {
         body:has([data-practice-adventure-arena]) footer,
         body:has([data-practice-adventure-arena]) nextjs-portal,
         body:has([data-practice-adventure-arena]) .bg-radial-glow,
-        body:has([data-practice-adventure-arena]) button[aria-label*="AI Tutor"] {
+        body:has([data-practice-adventure-arena]) button[data-tour="student-tutor"] {
           display: none !important;
         }
 
@@ -2364,6 +2518,7 @@ export default function PracticePage() {
       <PracticeAdventureArenaShell
         t={t}
         mode={practiceArenaMode}
+        unitStatus={unitDoorStatus}
         onModeChange={handlePracticeArenaModeChange}
         progressValue={adventureProgressValue}
         progressTotal={adventureProgressTotal}
@@ -2379,6 +2534,7 @@ export default function PracticePage() {
         <PracticeMissionSummary
           t={t}
           questionCount={unitMissionQuestionCount}
+          status={unitMissionStatus}
           showUnitModeContext
           onChooseMode={() => handlePracticeArenaModeChange("chooser")}
           className="mt-2 scroll-mt-24 sm:scroll-mt-28"
@@ -2391,13 +2547,13 @@ export default function PracticePage() {
         </div>
       ) : null}
 
-      {adaptivePlan && !isFreeSelectionUnlocked && !hasManualTopicSelection ? (
+      {practiceArenaMode === "unit" && adaptivePlan && unitMissionStatus === "ready" ? (
         <div id="adaptive-practice-round" className="scroll-mt-28">
           <QuestionPager
             questions={adaptiveRoundQuestions}
             onAnswered={handleAdaptiveAnswered}
             onQuestionStarted={handleAdaptiveQuestionStarted}
-            interactionEnabled={practiceArenaMode !== "chooser"}
+            interactionEnabled={practiceArenaMode === "unit"}
           />
         </div>
       ) : null}
@@ -2477,7 +2633,7 @@ export default function PracticePage() {
 	        </div>
 	      ) : null}
 
-      {showMissionSetupSkeleton ? (
+      {practiceArenaMode === "explore" && showMissionSetupSkeleton ? (
         <div
           id="mission-setup-loading"
           data-testid="mission-setup-skeleton"
@@ -2496,7 +2652,7 @@ export default function PracticePage() {
         </div>
       ) : null}
 
-      {shouldShowFreeSelection ? (
+      {practiceArenaMode === "explore" && shouldShowFreeSelection ? (
         <section
           id="mission-setup-filters"
           aria-label={t({ en: "Mission setup filters", zh: "任務設定篩選", zhHans: "任务设置筛选" })}
@@ -2602,10 +2758,19 @@ export default function PracticePage() {
         </section>
       ) : null}
 
-      {shouldRenderFreeSelectionRound ? (
+      {practiceArenaMode === "unit" && !adaptivePlan && unitMissionStatus === "ready" ? (
         <div id="free-selection" className="scroll-mt-28">
-          {practiceArenaMode === "unit" ? null : (
-            <div className="mt-8 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]">
+          <QuestionPager
+            questions={freeSelectionRoundQuestions}
+            onAnswered={handleFreeSelectionAnswered}
+            interactionEnabled={practiceArenaMode === "unit"}
+          />
+        </div>
+      ) : null}
+
+      {practiceArenaMode === "explore" && shouldRenderFreeSelectionRound ? (
+        <div id="free-selection" className="scroll-mt-28">
+          <div className="mt-8 rounded-[28px] border border-cyan-100 bg-cyan-50/90 p-5 shadow-[0_18px_38px_rgba(8,145,178,0.14)]">
             <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
               <span className="grid size-14 place-items-center rounded-2xl bg-blue-600 text-xl font-black text-white shadow-[0_8px_0_#1d4ed8]">
                 {freeSelectionRoundQuestions.length}
@@ -2628,12 +2793,11 @@ export default function PracticePage() {
                 {t({ en: "Ready", zh: "已就緒", zhHans: "已就绪" })}
               </span>
             </div>
-            </div>
-          )}
+          </div>
           <QuestionPager
             questions={freeSelectionRoundQuestions}
             onAnswered={handleFreeSelectionAnswered}
-            interactionEnabled={practiceArenaMode !== "chooser"}
+            interactionEnabled={practiceArenaMode === "explore"}
           />
         </div>
       ) : null}

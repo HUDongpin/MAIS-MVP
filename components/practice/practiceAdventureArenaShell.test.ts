@@ -127,6 +127,22 @@ test("keeps the Explore destination heading programmatically focusable", () => {
   );
 });
 
+test("localizes the focused Explore destination heading", () => {
+  const exploreBranchStart = shellSource.indexOf('data-practice-mode="explore"');
+  const exploreBranch = shellSource.slice(exploreBranchStart);
+
+  ok(exploreBranch.includes('en: "Practice Arena — Free Exploration"'));
+  ok(exploreBranch.includes('zh: "練習競技場－自由探索"'));
+  ok(exploreBranch.includes('zhHans: "练习竞技场－自由探索"'));
+});
+
+test("does not offer a confirmed-unavailable Guided destination as an active action", () => {
+  ok(shellSource.includes("unitStatus: PracticeUnitMissionStatus"));
+  ok(shellSource.includes('disabled={unitStatus === "unavailable"}'));
+  ok(shellSource.includes("data-unit-exercise-door-status"));
+  ok(shellSource.includes('en: "Available"'));
+});
+
 test("omits the Practice Arena grade selector panel", () => {
   for (const gradeSelectorText of ["Select Grade", "Primary", "Secondary", "role=\"radiogroup\""]) {
     ok(!shellSource.includes(gradeSelectorText), `Expected PracticeAdventureArenaShell to omit ${gradeSelectorText}`);
