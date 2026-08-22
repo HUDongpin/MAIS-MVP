@@ -10,9 +10,14 @@
   "files": [
     "lib/server/authRouteGuards.test.ts",
     "lib/server/contentSafetySeed.test.ts",
-    "lib/server/userStoreParentNoticePersistence.test.ts",
     "lib/server/questionStore.test.ts",
-    "app/api/questions/routeQuestionStore.test.ts"
+    "app/api/questions/routeQuestionStore.test.ts",
+    "components/parent/parentErrorAnnouncements.test.ts",
+    "lib/server/userStoreParentAccessPersistence.test.ts",
+    "lib/server/userStoreParentFoundationPersistence.test.ts",
+    "lib/server/userStoreParentMessagePersistence.test.ts",
+    "lib/server/userStoreParentNoticePersistence.test.ts",
+    "lib/server/userStoreParentReportPersistence.test.ts"
   ],
   "include": [],
   "exclude": [

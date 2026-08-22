@@ -81,11 +81,13 @@ const isolatedStatefulSpecs = [
   "tests/e2e/gamification.spec.ts",
   "tests/e2e/fishing-game.spec.ts",
   "tests/e2e/adventure-island.spec.ts",
-  "tests/e2e/parent-console-stress.spec.ts"
+  "tests/e2e/parent-console-stress.spec.ts",
+  "tests/e2e/teacher-parent-p1-regressions.spec.ts"
 ];
 const selectedSpecArgs = process.argv
   .slice(2)
   .map((arg) => arg.replace(/\\/g, "/"))
+  .map((arg) => arg.replace(/:\d+(?::\d+)?$/u, ""))
   .filter((arg) => arg.endsWith(".spec.ts") || arg.includes("tests/e2e/"));
 const runsOnlyIsolatedStatefulSpecs =
   selectedSpecArgs.length > 0 &&
@@ -694,11 +696,12 @@ export default defineConfig({
           `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
           `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
           writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigEnvPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
+          `node scripts/with-next-env-restore.mjs -- env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigEnvPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
           `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
           `env NEXT_DIST_DIR=${shellQuote(e2eNextDistEnvPath)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
         ].join(" && "),
         url: baseURL,
+        gracefulShutdown: { signal: "SIGTERM", timeout: 20_000 },
         reuseExistingServer: false,
         timeout: 600_000
       },
