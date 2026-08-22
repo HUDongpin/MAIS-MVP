@@ -15,7 +15,7 @@ test("Practice Arena omits the California beta status summary panel", () => {
   assert.doesNotMatch(practicePageSource, /Diagnostic flow/);
 });
 
-test("Practice Arena keeps free-selection controls reachable after an empty catalog load", () => {
+test("Practice Arena keeps island-driven free selection reachable after an empty catalog load", () => {
   assert.match(
     practicePageSource,
     /const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;/,
@@ -24,11 +24,11 @@ test("Practice Arena keeps free-selection controls reachable after an empty cata
   assert.doesNotMatch(
     practicePageSource,
     /const canFallbackToFreeSelection = questionCatalogCount > 0 && !adaptivePlan;/,
-    "A zero-count catalog must not hide the only controls that let guests broaden Practice Arena filters."
+    "A zero-count catalog must not prevent learners from reaching the island-driven free-selection flow."
   );
 });
 
-test("Practice Arena never flashes the mission-setup filters while the adaptive decision is in flight", () => {
+test("Practice Arena does not unlock free selection while the adaptive decision is in flight", () => {
   // A dedicated settled flag distinguishes "adaptive plan still loading" (adaptivePlan === null
   // because the fetch is in flight) from "no adaptive plan applies" (loaded, none matches).
   assert.match(
@@ -37,15 +37,15 @@ test("Practice Arena never flashes the mission-setup filters while the adaptive 
     "Expected a settled flag so an in-flight adaptive fetch is not mistaken for 'no plan applies'."
   );
 
-  // Free-selection filters may only unlock once the adaptive decision has settled.
+  // Free selection may only unlock once the adaptive decision has settled.
   assert.match(
     practicePageSource,
     /const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;/,
-    "Free-selection filters must stay gated behind adaptivePlanSettled so they never mount before the adaptive round arrives."
+    "Free selection must stay gated behind adaptivePlanSettled so it does not replace an adaptive round still in flight."
   );
 
   // Clearing the plan for a fresh load must clear the settled flag in the same batch,
-  // otherwise the filters mount for one render before the flag catches up.
+  // otherwise free selection unlocks for one render before the flag catches up.
   assert.match(
     practicePageSource,
     /setAdaptivePlan\(null\);\s*\n\s*setAdaptiveLoadError\(""\);\s*\n\s*setAdaptivePlanSettled\(false\);\s*\n\s*setLessonContextReady\(false\);/,
@@ -59,19 +59,6 @@ test("Practice Arena never flashes the mission-setup filters while the adaptive 
     settledTrueCount >= 4,
     `Expected every terminal adaptive-load path to mark the decision settled, saw ${settledTrueCount}.`
   );
-
-  // A stable skeleton fills the mission-setup area while the decision is unsettled, instead of
-  // toggling between an empty area, the filters, and the adaptive round.
-  assert.match(
-    practicePageSource,
-    /const showMissionSetupSkeleton =\s*\n\s*!adaptivePlan && !shouldShowFreeSelection && !questionCatalogError && !missionSetupDecisionSettled;/,
-    "A skeleton must cover the in-flight window so the setup area resolves to exactly one mode."
-  );
-  assert.match(
-    practicePageSource,
-    /data-testid="mission-setup-skeleton"/,
-    "The mission-setup skeleton must be present for the in-flight decision state."
-  );
 });
 
 test("Practice Arena omits the Mission Setup controls block", () => {
@@ -81,6 +68,109 @@ test("Practice Arena omits the Mission Setup controls block", () => {
   assert.doesNotMatch(practicePageSource, /afterHeader\?: ReactNode;/);
   assert.doesNotMatch(practicePageSource, /afterHeader \? <div className="grid gap-5">\{afterHeader\}<\/div> : null/);
   assert.doesNotMatch(practicePageSource, /Mission Setup/);
+});
+
+test("Practice Arena omits the legacy Filters panel and its loading placeholder", () => {
+  assert.doesNotMatch(practicePageSource, /id="mission-setup-filters"/);
+  assert.doesNotMatch(practicePageSource, /id="mission-setup-filter-fields"/);
+  assert.doesNotMatch(practicePageSource, /aria-controls="mission-setup-filter-fields"/);
+  assert.doesNotMatch(practicePageSource, /en: "Filters"/);
+  assert.doesNotMatch(practicePageSource, /filtersOpen/);
+  assert.doesNotMatch(practicePageSource, /mission-setup-skeleton/);
+  assert.doesNotMatch(practicePageSource, /match these filters/i);
+  assert.doesNotMatch(practicePageSource, /broaden the filters/i);
+  assert.doesNotMatch(practicePageSource, /broaden the grade, topic, difficulty, or question type/i);
+  assert.match(
+    practicePageSource,
+    /id="practice-mission-content" aria-hidden="true" className="scroll-mt-28"/,
+    "Removing the visible Filters panel must retain a zero-visual fallback anchor for async mission content."
+  );
+});
+
+test("Unit Exercise integrates mode navigation into the mission summary card", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.ok(summaryStart >= 0, "The shared mission summary component must be present.");
+  assert.match(practicePageSource, /useState<PracticeAdventureArenaMode>\("chooser"\)/);
+  assert.match(practicePageSource, /mode=\{practiceArenaMode\}/);
+  assert.match(practicePageSource, /onModeChange=\{handlePracticeArenaModeChange\}/);
+  assert.match(summarySource, /data-unit-exercise-mission-summary/);
+  assert.match(summarySource, /data-unit-exercise-mode-context/);
+  assert.match(summarySource, /data-choose-practice-mode/);
+  assert.match(summarySource, /data-unit-exercise-mode-label/);
+  assert.match(summarySource, /en: "Choose mode", zh: "選擇模式", zhHans: "选择模式"/);
+  assert.match(summarySource, /en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习"/);
+  assert.match(summarySource, /min-h-11/, "Choose mode must retain a 44px touch target.");
+  assert.match(summarySource, /border-b border-cyan-200\/70/, "The mode context must be separated within the same card.");
+  assert.match(
+    practicePageSource,
+    /className="mt-2 scroll-mt-24 sm:scroll-mt-28"/,
+    "The integrated card must clear the fixed navigation when Start Mission scrolls to it."
+  );
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "unit" \? \(\s*<PracticeMissionSummary[\s\S]*?showUnitModeContext[\s\S]*?onChooseMode=\{\(\) => handlePracticeArenaModeChange\("chooser"\)\}/,
+    "Unit mode must render the integrated card and return to the chooser through real state."
+  );
+  assert.doesNotMatch(practicePageSource, /en: "Change mode"/);
+});
+
+test("accepted Unit Exercise design keeps its roomy large-desktop composition", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.match(
+    practicePageSource,
+    /max-w-\[1650px\]/,
+    "The accepted 1739px design needs an approximately 1650px content frame instead of the former 1500px cap."
+  );
+  assert.match(practicePageSource, /2xl:py-8/, "Large desktops must keep the accepted top breathing room.");
+  assert.match(summarySource, /2xl:p-7/);
+  assert.match(summarySource, /2xl:min-h-\[52px\]/);
+  assert.match(summarySource, /2xl:min-w-\[198px\]/);
+  assert.match(summarySource, /2xl:size-\[72px\]/);
+  assert.match(summarySource, /2xl:text-2xl/);
+  assert.match(practicePageSource, /2xl:min-h-\[393px\]/);
+  assert.match(practicePageSource, /roomyOnLargeScreens/);
+  assert.match(practiceQuestPagerSource, /2xl:min-w-\[210px\]/);
+  assert.match(practiceQuestPagerSource, /2xl:size-14/);
+});
+
+test("hidden practice rounds stop reacting while the learner chooses a mode", () => {
+  const pagerStart = practicePageSource.indexOf("function QuestionPager");
+  const pagerEnd = practicePageSource.indexOf("export default function PracticePage", pagerStart);
+  const pagerSource = practicePageSource.slice(pagerStart, pagerEnd);
+  const interactionWiringCount = (
+    practicePageSource.match(/interactionEnabled=\{practiceArenaMode !== "chooser"\}/g) ?? []
+  ).length;
+
+  assert.match(pagerSource, /interactionEnabled = true/);
+  assert.match(pagerSource, /if \(!interactionEnabled \|\| !questionCount\) return;/);
+  assert.match(pagerSource, /if \(interactionEnabled\) return;\s*clearAutoAdvance\(\);\s*stopReadAloud\(\);/);
+  assert.match(pagerSource, /questionStartedAtRef\.current = \{\};/);
+  assert.match(pagerSource, /if \(!interactionEnabled \|\| questionCount < 2\) return;/);
+  assert.match(pagerSource, /if \(!interactionEnabled\) return;\s*questionStartedAtRef/);
+  assert.equal(
+    interactionWiringCount,
+    2,
+    "Both adaptive and free-selection pagers must be inert while the chooser hides them."
+  );
+});
+
+test("Practice Arena mode changes preserve focus and intentional scroll behavior", () => {
+  const handlerStart = practicePageSource.indexOf("const handlePracticeArenaModeChange");
+  const handlerEnd = practicePageSource.indexOf("const handleAdventureStartMission", handlerStart);
+  const handler = practicePageSource.slice(handlerStart, handlerEnd);
+
+  assert.match(handler, /setPracticeArenaMode\(nextMode\)/);
+  assert.match(handler, /nextMode !== "unit"/);
+  assert.match(handler, /prefersReducedMotion \? "auto" : "smooth"/);
+  assert.match(handler, /"unit-exercise-mission-title"/);
+  assert.match(handler, /"practice-adventure-title"/);
+  assert.match(handler, /focus\(\{ preventScroll: true \}\)/);
 });
 
 test("Practice Arena does not load student adaptive practice for teacher accounts", () => {
@@ -142,7 +232,11 @@ test("Practice Arena awards region stars once per completed round", () => {
 test("Practice Arena wires island region selection into the mission flow", () => {
   assert.match(practicePageSource, /onRegionSelect=\{handleIslandRegionSelect\}/);
   assert.match(practicePageSource, /regions=\{islandRegionStatuses\}/);
-  assert.match(practicePageSource, /id="mission-setup-filters"/);
+  assert.equal(
+    (practicePageSource.match(/"practice-mission-content"/g) ?? []).length,
+    5,
+    "The rendered anchor plus Start Mission and all three island-selection branches must retain the mission-content target."
+  );
 });
 
 test("Practice Arena renders the mission trail with tappable stepping stones", () => {
@@ -178,8 +272,13 @@ test("Practice Arena locks the grade to a signed-in student's own profile grade"
   );
   assert.match(
     practicePageSource,
-    /\{!studentFixedGrade \? \(/,
-    "The Grade select must stay behind the student grade lock: students practise at their own grade."
+    /const activeGradeFilter: GradeFilter = adventureGradeLock\.activeGradeFilter;/,
+    "Question loading must continue to use the grade resolved by the student-profile lock."
+  );
+  assert.match(
+    practicePageSource,
+    /setGradeFilter\(studentFixedGrade \?\? selectedGrade\);/,
+    "The internal grade state must still reset to a signed-in student's fixed profile grade."
   );
 });
 
@@ -218,8 +317,27 @@ test("Practice Arena syncs island stars with the gamification server for student
   assert.match(practicePageSource, /method: "POST",\s*\n\s*headers: \{ "Content-Type": "application\/json" \},\s*\n\s*body: JSON\.stringify\(\{ regionId, stars/);
   assert.match(
     practicePageSource,
-    /games=\{\{ adventureIslandUnlocked: hasAdventureIslandUnlock, fishingMasterUnlocked: hasFishingGameUnlock \}\}/,
-    "The map must receive live game unlock state."
+    /progressValue=\{adventureProgressValue\}\s*\n\s*progressTotal=\{adventureProgressTotal\}/,
+    "The Explore shell must receive the live persisted island-star total."
+  );
+});
+
+test("Practice Arena applies the Variant A light backdrop only in Explore mode", () => {
+  assert.match(practicePageSource, /data-practice-adventure-background/);
+  assert.match(
+    practicePageSource,
+    /\[data-practice-adventure-arena\]:has\(\[data-practice-mode="explore"\]\) > \[data-practice-adventure-background\]/,
+    "The target light gradient must be scoped to the Explore surface."
+  );
+  assert.match(
+    practicePageSource,
+    /linear-gradient\(180deg, #f7fcff 0%, #eef8fc 58%, #f9fbfd 100%\)/,
+    "Explore mode must use the relaxing Variant A light palette."
+  );
+  assert.match(
+    practicePageSource,
+    /linear-gradient\(180deg,#44c5f2_0%,#58d0f7_52%,#74ddfb_100%\)/,
+    "Chooser and Unit Exercise must retain their existing cyan adventure backdrop."
   );
 });
 
@@ -282,7 +400,7 @@ test("Practice Arena stores completed round questions with the Adventure Island 
 /**
  * D-12: "Start Mission" ran its handler and scrolled nowhere. It passed only "free-selection" to
  * scrollToPracticeSection, which resolves ids with getElementById and silently skips misses —
- * and "free-selection" is a PracticeSummaryMode, never a rendered element id.
+ * and the asynchronous "free-selection" round may not be rendered yet.
  *
  * Asserts the SCROLL TARGETS, not that the button exists. The button always existed and always
  * took the click; that is exactly why the defect survived four drives.
@@ -299,18 +417,29 @@ test("Start Mission scrolls to a section that is actually rendered", () => {
   );
   assert.match(
     handler,
+    /"unit-exercise-mission-summary"/,
+    "Unit Exercise must scroll to its integrated mission card before the question round"
+  );
+  assert.match(
+    handler,
     /"adaptive-practice-round"/,
     "must fall back to a section that renders"
   );
   assert.match(
     handler,
-    /"mission-setup-filters"/,
+    /"practice-mission-content"/,
     "must use the same final fallback as every sibling scrollToPracticeSection call"
   );
+  assert.doesNotMatch(handler, /"mission-setup-filters"/, "the removed Filters panel cannot remain a scroll target");
 });
 
 test("the fallback ids used by Start Mission are rendered on the page", () => {
-  for (const id of ["adaptive-practice-round", "mission-setup-filters"]) {
+  assert.match(
+    practicePageSource,
+    /id=\{showUnitModeContext \? "unit-exercise-mission-summary" : undefined\}/,
+    "The integrated Unit mission summary must render the primary Start Mission target"
+  );
+  for (const id of ["adaptive-practice-round", "practice-mission-content"]) {
     assert.match(
       practicePageSource,
       new RegExp(`id="${id}"`),
