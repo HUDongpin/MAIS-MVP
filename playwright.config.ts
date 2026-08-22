@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
 
@@ -6,15 +7,23 @@ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
 const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
-const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
-const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
-const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
-const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
+const e2eRuntimeRoot = path.join(".tmp", "china-lesson-e2e-runtime");
+const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(e2eRuntimeRoot, "runs", runId);
+const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim() || path.join(e2eRunRoot, "next-dist");
+const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH?.trim()
+  || path.join(e2eRunRoot, "tsconfig.playwright.tmp.json");
+const e2eDbPath = path.resolve(
+  process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "db", "hk-math.sqlite")
+);
 const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
 const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
 process.env.PLAYWRIGHT_RUN_ID = runId;
 process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
+process.env.PLAYWRIGHT_NEXT_DIST_DIR = e2eNextDistDir;
+process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH = e2eNextTsconfigPath;
 process.env.HK_MATH_DB_PATH = e2eDbPath;
+process.env.PLAYWRIGHT_OUTPUT_DIR = e2eOutputDir;
+process.env.PLAYWRIGHT_REPORT_DIR = e2eReportDir;
 const disabledProviderEnv = [
   "LLM_API_KEY=",
   "OPENAI_API_KEY=",
@@ -53,6 +62,11 @@ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIs
 
 assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_REPORT_DIR", e2eReportDir);
+assertSafeE2eGeneratedPath("HK_MATH_DB_PATH", e2eDbPath);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath);
+assertRequiredE2eRuntimePaths();
 
 function sanitizePathSegment(value: string) {
   return value
@@ -66,17 +80,132 @@ function isPathInside(absolutePath: string, root: string) {
   return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
 }
 
+function resolvePhysicalPath(value: string) {
+  const absolutePath = path.resolve(value);
+  const missingSegments: string[] = [];
+  let existingAncestor = absolutePath;
+
+  while (true) {
+    try {
+      fs.lstatSync(existingAncestor);
+      break;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      const parent = path.dirname(existingAncestor);
+      if (parent === existingAncestor) {
+        throw new Error(`Could not resolve an existing ancestor for Playwright path: ${absolutePath}`);
+      }
+      missingSegments.unshift(path.basename(existingAncestor));
+      existingAncestor = parent;
+    }
+  }
+
+  let physicalAncestor: string;
+  try {
+    physicalAncestor = fs.realpathSync(existingAncestor);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Could not resolve Playwright path ${absolutePath}: ${reason}`);
+  }
+  return path.resolve(physicalAncestor, ...missingSegments);
+}
+
 function assertSafeE2eGeneratedPath(label: string, value: string) {
   const absolutePath = path.resolve(value);
   const defaultNextDir = path.resolve(".next");
   const tmpDir = path.resolve(".tmp");
+  const physicalPath = resolvePhysicalPath(absolutePath);
+  const physicalDefaultNextDir = resolvePhysicalPath(defaultNextDir);
+  const physicalTmpDir = resolvePhysicalPath(tmpDir);
 
-  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
+  if (
+    absolutePath === defaultNextDir
+    || isPathInside(absolutePath, defaultNextDir)
+    || physicalPath === physicalDefaultNextDir
+    || isPathInside(physicalPath, physicalDefaultNextDir)
+  ) {
     throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
   }
 
-  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
-    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
+  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1") {
+    if (!isPathInside(absolutePath, tmpDir)) {
+      throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
+    }
+    if (!isPathInside(physicalPath, physicalTmpDir)) {
+      throw new Error(`${label} must resolve under the worktree .tmp directory: ${physicalPath}`);
+    }
+  }
+}
+
+function assertRequiredE2eRuntimePaths() {
+  const configuredRoot = process.env.MAIS_E2E_REQUIRED_WRITE_ROOT?.trim();
+  if (!configuredRoot) return;
+
+  if (Object.prototype.hasOwnProperty.call(process.env, "MAIS_ALLOW_EXTERNAL_ARTIFACTS")) {
+    throw new Error(
+      "MAIS_ALLOW_EXTERNAL_ARTIFACTS must be unset when MAIS_E2E_REQUIRED_WRITE_ROOT is enabled."
+    );
+  }
+
+  const requiredRoot = resolvePhysicalPath(configuredRoot);
+  const repoRoot = resolvePhysicalPath(".");
+  if (!isPathInside(repoRoot, requiredRoot)) {
+    throw new Error(`Playwright worktree must stay under MAIS_E2E_REQUIRED_WRITE_ROOT: ${requiredRoot}`);
+  }
+
+  const generatedPaths = [
+    ["PLAYWRIGHT_E2E_ROOT", e2eRunRoot],
+    ["PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir],
+    ["PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir],
+    ["PLAYWRIGHT_REPORT_DIR", e2eReportDir],
+    ["HK_MATH_DB_PATH", e2eDbPath],
+    ["PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath]
+  ] as const;
+  for (const [label, value] of generatedPaths) {
+    const absolutePath = path.resolve(value);
+    if (!isPathInside(absolutePath, requiredRoot)) {
+      throw new Error(`${label} must stay under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${absolutePath}`);
+    }
+    const physicalPath = resolvePhysicalPath(absolutePath);
+    if (!isPathInside(physicalPath, requiredRoot)) {
+      throw new Error(`${label} must resolve under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${physicalPath}`);
+    }
+  }
+
+  const runRoot = path.resolve(e2eRunRoot);
+  const physicalRunRoot = resolvePhysicalPath(runRoot);
+  const runtimePathVariables = [
+    "HOME",
+    "TMPDIR",
+    "TMP",
+    "TEMP",
+    "XDG_CACHE_HOME",
+    "NODE_COMPILE_CACHE",
+    "PLAYWRIGHT_BROWSERS_PATH",
+    "npm_config_cache",
+    "npm_config_logs_dir"
+  ] as const;
+  for (const label of runtimePathVariables) {
+    const value = process.env[label]?.trim();
+    if (!value) {
+      throw new Error(`${label} is required when MAIS_E2E_REQUIRED_WRITE_ROOT is enabled.`);
+    }
+    const absolutePath = path.resolve(value);
+    if (!isPathInside(absolutePath, requiredRoot)) {
+      throw new Error(`${label} must stay under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${absolutePath}`);
+    }
+    const physicalPath = resolvePhysicalPath(absolutePath);
+    if (!isPathInside(physicalPath, requiredRoot)) {
+      throw new Error(`${label} must resolve under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${physicalPath}`);
+    }
+    if (
+      isPathInside(absolutePath, runRoot)
+      || isPathInside(runRoot, absolutePath)
+      || isPathInside(physicalPath, physicalRunRoot)
+      || isPathInside(physicalRunRoot, physicalPath)
+    ) {
+      throw new Error(`${label} must stay outside PLAYWRIGHT_E2E_ROOT so webServer cleanup cannot remove it.`);
+    }
   }
 }
 
@@ -125,16 +254,30 @@ function e2eTempTsconfigExcludeGlobs() {
 }
 
 function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
+  const tsconfigDir = path.dirname(path.resolve(tsconfigPath));
+  const pathFromTsconfigDir = (target: string) => {
+    const relative = path.relative(tsconfigDir, path.resolve(target)).replace(/\\/g, "/");
+    return relative || ".";
+  };
+  const repoGlobFromTsconfigDir = (glob: string) => {
+    const repoPrefix = pathFromTsconfigDir(".");
+    return repoPrefix === "." ? glob : `${repoPrefix}/${glob}`;
+  };
   const content = JSON.stringify({
-    extends: "./tsconfig.json",
+    extends: repoGlobFromTsconfigDir("tsconfig.json"),
+    compilerOptions: {
+      baseUrl: pathFromTsconfigDir("."),
+      paths: { "@/*": ["*"] },
+      plugins: [{ name: "next" }]
+    },
     include: [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx",
-      ".next/types/**/*.ts",
-      `${nextDistDir}/types/**/*.ts`
+      repoGlobFromTsconfigDir("next-env.d.ts"),
+      repoGlobFromTsconfigDir("**/*.ts"),
+      repoGlobFromTsconfigDir("**/*.tsx"),
+      repoGlobFromTsconfigDir(".next/types/**/*.ts"),
+      `${pathFromTsconfigDir(nextDistDir)}/types/**/*.ts`
     ],
-    exclude: e2eTempTsconfigExcludeGlobs()
+    exclude: e2eTempTsconfigExcludeGlobs().map(repoGlobFromTsconfigDir)
   }, null, 2);
   const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
   return `node -e ${shellQuote(script)}`;
