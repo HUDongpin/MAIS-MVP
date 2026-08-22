@@ -1645,18 +1645,47 @@ export type CoordinateGridQuestionDiagram = {
   kind: "coordinate-grid";
   xRange: [number, number];
   yRange: [number, number];
+  xAxisLabel: LocalizedText;
+  yAxisLabel: LocalizedText;
+  xTickInterval?: number;
+  yTickInterval?: number;
   points?: {
+    id: string;
     label: string;
     x: number;
     y: number;
   }[];
   lines?: {
-    label?: string;
+    id: string;
+    label: LocalizedText;
     points: {
       x: number;
       y: number;
     }[];
   }[];
+};
+
+export type BarChartSeries = {
+  id: string;
+  label: LocalizedText;
+};
+
+export type BarChartCategory = {
+  id: string;
+  label: LocalizedText;
+  values: Record<string, number>;
+};
+
+export type BarChartQuestionDiagram = {
+  kind: "bar-chart";
+  mode: "single" | "grouped";
+  title: LocalizedText;
+  xAxisLabel: LocalizedText;
+  yAxisLabel: LocalizedText;
+  yRange: [0, number];
+  tickInterval: number;
+  series: BarChartSeries[];
+  categories: BarChartCategory[];
 };
 
 export type PlaneFigurePoint = {
@@ -1718,12 +1747,30 @@ export type NumberLineHighlight = {
   label?: LocalizedText;
 };
 
+/**
+ * An explicit, answer-free description policy for a labelled number-line
+ * point. The policy records source geometry (an ordinal tick position), not a
+ * computed coordinate, so a nonvisual learner receives the same givens as a
+ * learner reading the diagram without being shown the answer.
+ */
+export type NumberLineSemanticDisclosurePolicy = {
+  kind: "ordinal-tick-position";
+  pointLabel: string;
+  ordinalTickFromMinimum: number;
+  caption: {
+    en: string;
+    zh: string;
+    zhHans: string;
+  };
+};
+
 export type NumberLineQuestionDiagram = {
   kind: "number-line";
   range: [number, number];
   tickInterval?: number;
   points?: NumberLinePoint[];
   highlights?: NumberLineHighlight[];
+  semanticDisclosurePolicy?: NumberLineSemanticDisclosurePolicy;
 };
 
 export type SolidFigureShape = "cuboid" | "cube" | "cylinder" | "cone" | "sphere";
@@ -1777,6 +1824,7 @@ export type TenFrameQuestionDiagram = {
 
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
+  | BarChartQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
   | SolidFigureQuestionDiagram

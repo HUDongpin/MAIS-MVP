@@ -16,9 +16,18 @@ import {
   mapDifficultyToActive
 } from "@/lib/difficulty";
 import { formatGradeLabel } from "@/lib/i18n";
+import {
+  isRetiredHongKongQuestionId,
+  retiredHongKongQuestionIds
+} from "@/lib/hongKongQuestionRetirement";
+import {
+  materializeReferencedRetiredHongKongQuestions,
+  retiredHongKongQuestionRecordsNeedPersistenceSync
+} from "@/lib/server/hongKongHistoricalQuestionProjection";
 import { buildTeacherGradebook, gradebookToCsv } from "@/lib/teacherGradebook";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { buildHongKongMathEvidencePack } from "@/lib/rag/hongKongMath";
+import { isHongKongTopicEligibleForStage } from "@/lib/rag/hongKongMathTopicRouting";
 import { buildMainlandHjbHighEvidencePack } from "@/lib/rag/mainlandHjbHigh";
 import {
   buildMainlandHjbJuniorEvidencePack,
@@ -289,6 +298,7 @@ import {
   normalizeAdaptiveSkillStateRecords as normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence,
   normalizeStudentActivityAttemptRecords as normalizeAttemptRecordsFromStudentActivityPersistence,
   normalizeStudentActivityLessonProgressRecords as normalizeLessonProgressRecordsFromStudentActivityPersistence,
+  mergeStudentActivityCanonicalTopicRecords,
   normalizeStudentActivityMistakeRecords as normalizeMistakeRecordsFromStudentActivityPersistence,
   studentActivityAdaptiveSkillStateFromRecord as adaptiveSkillStateFromRecordFromStudentActivityPersistence,
   studentActivityAdaptiveSkillStateToRecord as adaptiveSkillStateToRecordFromStudentActivityPersistence,
@@ -670,6 +680,7 @@ import type {
   GamificationEventStatus,
   GamificationSummary,
   GradeId,
+  HongKongMathEdBStage,
   Language,
   LearnerProfile,
   LearnerProfileOnboardingStatus,
@@ -2161,12 +2172,18 @@ function getDemoPassword() {
   return displayedDemoPassword;
 }
 
+const topicIdsRequiringExplicitLessonProgressInteraction = new Set([
+  "identities-square-patterns",
+  "arc-length-sector-area"
+]);
+
 const emptyLessonProgressRecords = (userId: string, now: string): LessonProgressRecord[] =>
   emptyLessonProgressRecordsFromStudentActivityPersistence({
     userId,
     now,
     lessonSlugForTopic,
-    seedTopics
+    seedTopics,
+    topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
   });
 
 function seedQuestionRecords(): QuestionRecord[] {
@@ -2312,7 +2329,7 @@ function seedProductionLessonBlockRecords(
   }
 
   lessonSeed.blocks.forEach((block) => {
-    if (block.type === "extension") addPracticeBlock();
+    if (topic.curriculumTrack !== "HK" && block.type === "extension") addPracticeBlock();
     records.push({
       id: `${slug}-${block.idSuffix}`,
       lesson_slug: slug,
@@ -2334,6 +2351,10 @@ function seedProductionLessonBlockRecords(
     sort_order: sortOrder
   }));
 }
+
+export const __userStoreLessonBlockOrderTestHooks = {
+  seedProductionLessonBlockRecords
+};
 
 function seedLessonBlockRecords(): LessonBlockRecord[] {
   return seedTopics.flatMap((topic, topicIndex) => {
@@ -2492,7 +2513,8 @@ const seedLessonProgressRecords = (userId: string, now: string): LessonProgressR
     userId,
     now,
     lessonSlugForTopic,
-    seedTopics
+    seedTopics,
+    topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
   });
 
 function isLocalizedRecord(value: unknown): value is LocalizedText {
@@ -3388,11 +3410,7 @@ async function ensurePostgresStateTable() {
 
 function parseStoredStatePayload(value: unknown) {
   if (typeof value === "string") {
-    try {
-      return JSON.parse(value) as unknown;
-    } catch {
-      return null;
-    }
+    return JSON.parse(value) as unknown;
   }
 
   return value;
@@ -4156,6 +4174,53 @@ function removeSeedRecords<T>(records: T[], seedRecords: T[], keyFor: (record: T
   return records.filter((record) => !seedKeys.has(keyFor(record)));
 }
 
+function arrayFromStoredDatabase<T>(value: T[] | undefined): T[] {
+  return Array.isArray(value) ? value : [];
+}
+
+function historicalQuestionReferenceSource(database: Partial<Database>) {
+  return {
+    attempts: arrayFromStoredDatabase(database.attempts),
+    mistakes: arrayFromStoredDatabase(database.mistakes),
+    learning_events: arrayFromStoredDatabase(database.learning_events),
+    assessments: arrayFromStoredDatabase(database.assessments),
+    assessment_submissions: arrayFromStoredDatabase(database.assessment_submissions),
+    adaptive_recommendation_cache: arrayFromStoredDatabase(database.adaptive_recommendation_cache),
+    assignments: arrayFromStoredDatabase(database.assignments)
+  };
+}
+
+/**
+ * Historical HK questions are not active seed content. They are materialized
+ * only when append-only learner or teacher state still references their exact
+ * retired ID. This keeps history resolvable without returning retired records
+ * to the active catalog.
+ */
+async function databaseWithReferencedHistoricalHongKongQuestions<T extends Partial<Database>>(
+  database: T,
+  additionalQuestionIds: Iterable<string> = []
+): Promise<T & { questions: QuestionRecord[] }> {
+  const questions = await materializeReferencedRetiredHongKongQuestions(
+    arrayFromStoredDatabase(database.questions),
+    historicalQuestionReferenceSource(database),
+    additionalQuestionIds
+  );
+
+  return {
+    ...database,
+    questions
+  };
+}
+
+async function normalizeDatabaseWithReferencedHistoricalHongKongQuestions(
+  database: Partial<Database>,
+  additionalQuestionIds: Iterable<string> = []
+) {
+  return normalizeDatabase(
+    await databaseWithReferencedHistoricalHongKongQuestions(database, additionalQuestionIds)
+  );
+}
+
 function compactDatabaseForPostgres(database: Database): Database {
   return {
     ...database,
@@ -4328,7 +4393,7 @@ function normalizeDatabase(database: Partial<Database>) {
     }
   );
 
-  const topics = mergeSeedRecordsPreservingExisting(database.topics, canonicalTopics, (topic) => topic.id)
+  const topics = mergeStudentActivityCanonicalTopicRecords(database.topics, canonicalTopics)
     .map((topic, index) => ({
       ...topic,
       curriculum_track: validCurriculumTracks.has(topic.curriculum_track) ? topic.curriculum_track : defaultCurriculumTrack,
@@ -4401,7 +4466,8 @@ function normalizeDatabase(database: Partial<Database>) {
       {
         demoUserId,
         lessonSlugForTopic,
-        seedTopics
+        seedTopics,
+        topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
       }
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
@@ -4505,20 +4571,25 @@ function normalizeDatabase(database: Partial<Database>) {
 }
 
 async function readLegacyDatabase() {
+  let parsed: unknown;
   try {
     const raw = await readFile(legacyJsonDbPath, "utf8");
-    const parsed = JSON.parse(raw) as unknown;
-    return hasCoreTables(parsed) ? normalizeDatabase(parsed) : null;
+    parsed = JSON.parse(raw) as unknown;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
       console.warn("Could not read legacy JSON database.", error);
     }
     return null;
   }
+
+  return hasCoreTables(parsed)
+    ? normalizeDatabaseWithReferencedHistoricalHongKongQuestions(parsed)
+    : null;
 }
 
 function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
   return (
+    retiredHongKongQuestionRecordsNeedPersistenceSync(parsed.questions, database.questions) ||
     !Array.isArray(parsed.questions) ||
     !Array.isArray(parsed.auth_identities) ||
     !Array.isArray(parsed.learner_profiles) ||
@@ -4630,25 +4701,27 @@ async function loadSqliteDatabase() {
   const startedAt = Date.now();
   await mkdir(dbDirectory, { recursive: true });
   const storage = getSqliteDatabase();
+  const row = storage
+    .prepare("SELECT payload FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
 
-  try {
-    const row = storage
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
-      .get(stateRecordId) as StateRow | undefined;
-    const parsed = row ? parseStoredStatePayload(row.payload) : null;
-    if (hasCoreTables(parsed)) {
-      const database = normalizeDatabase(parsed);
-      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
-        ? await writeSqliteDatabase(database, { invalidateReadCache: false })
-        : typeof row?.updated_at === "string"
-          ? row.updated_at
-          : null;
-      cacheSqliteDatabase(database, cacheUpdatedAt);
-      logLessonPerf("readDatabase(sqlite)", startedAt);
-      return database;
+  if (row) {
+    const parsed = parseStoredStatePayload(row.payload);
+    if (!hasCoreTables(parsed)) {
+      throw new Error(
+        `SQLite app_state row "${stateRecordId}" has an invalid application-state payload; refusing to overwrite it.`
+      );
     }
-  } catch (error) {
-    console.warn("Could not read SQLite application state. Recreating it.", error);
+
+    const database = await normalizeDatabaseWithReferencedHistoricalHongKongQuestions(parsed);
+    const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
+      ? await writeSqliteDatabase(database, { invalidateReadCache: false })
+      : typeof row?.updated_at === "string"
+        ? row.updated_at
+        : null;
+    cacheSqliteDatabase(database, cacheUpdatedAt);
+    logLessonPerf("readDatabase(sqlite)", startedAt);
+    return database;
   }
 
   const database = await readLegacyDatabase() ?? createInitialDatabase();
@@ -4698,12 +4771,62 @@ async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = fa
   `;
 }
 
+async function referencedHistoricalQuestionIdsFromPostgres(sql: PostgresExecutor) {
+  const questionIds = new Set<string>();
+  const retiredQuestionIds = [...retiredHongKongQuestionIds];
+  const rememberQuestionIds = (rows: { question_id: string | null }[]) => {
+    for (const row of rows) {
+      if (typeof row.question_id === "string" && row.question_id) {
+        questionIds.add(row.question_id);
+      }
+    }
+  };
+
+  // Fast practice writes can exist before the serialized snapshot catches up.
+  // Probe table availability first so a fresh Postgres installation does not
+  // fail merely because the optional hot activity schema has not been created.
+  const availableTableRows = await sql<{ table_name: string }[]>`
+    SELECT table_name
+    FROM information_schema.tables
+    WHERE table_schema = current_schema()
+      AND table_name IN ('practice_attempts', 'mistake_book_items', 'learning_events')
+  `;
+  const availableTables = new Set(availableTableRows.map((row) => row.table_name));
+
+  if (availableTables.has("practice_attempts")) {
+    rememberQuestionIds(await sql<{ question_id: string | null }[]>`
+      SELECT DISTINCT question_id
+      FROM practice_attempts
+      WHERE question_id = ANY(${retiredQuestionIds})
+    `);
+  }
+  if (availableTables.has("mistake_book_items")) {
+    rememberQuestionIds(await sql<{ question_id: string | null }[]>`
+      SELECT DISTINCT question_id
+      FROM mistake_book_items
+      WHERE question_id = ANY(${retiredQuestionIds})
+    `);
+  }
+  if (availableTables.has("learning_events")) {
+    rememberQuestionIds(await sql<{ question_id: string | null }[]>`
+      SELECT DISTINCT question_id
+      FROM learning_events
+      WHERE question_id = ANY(${retiredQuestionIds})
+    `);
+  }
+
+  return [...questionIds];
+}
+
 async function normalizeLockedPostgresState(sql: PostgresExecutor) {
   await ensureInitialPostgresState(sql);
   const rows = await selectPostgresStateRows(sql, true);
   const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
   if (hasCoreTables(parsed)) {
-    const database = normalizeDatabase(parsed);
+    const database = await normalizeDatabaseWithReferencedHistoricalHongKongQuestions(
+      parsed,
+      await referencedHistoricalQuestionIdsFromPostgres(sql)
+    );
     if (databaseNeedsPersistenceSync(parsed, database)) {
       await writePostgresDatabaseWith(sql, database, true);
     }
@@ -4731,7 +4854,10 @@ async function readPostgresDatabaseFrom(sql: PostgresExecutor, lockForUpdate = f
   const rows = await selectPostgresStateRows(sql);
   const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
   if (hasCoreTables(parsed)) {
-    const database = normalizeDatabase(parsed);
+    const database = await normalizeDatabaseWithReferencedHistoricalHongKongQuestions(
+      parsed,
+      await referencedHistoricalQuestionIdsFromPostgres(sql)
+    );
     if (databaseNeedsPersistenceSync(parsed, database)) {
       return synchronizePostgresStateForRead();
     }
@@ -4812,7 +4938,11 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
       const database = await readPostgresDatabaseFrom(sql, true, true);
       const result = await mutator(database);
       databaseIndexCache.delete(database);
-      await writePostgresDatabaseWith(sql, database, true);
+      const databaseToPersist = await databaseWithReferencedHistoricalHongKongQuestions(
+        database,
+        await referencedHistoricalQuestionIdsFromPostgres(sql)
+      );
+      await writePostgresDatabaseWith(sql, databaseToPersist, true);
       return result;
     });
   }
@@ -4822,8 +4952,9 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
     const database = await readDatabase();
     const result = await mutator(database);
     databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
+    const databaseToPersist = await databaseWithReferencedHistoricalHongKongQuestions(database);
+    const cacheUpdatedAt = await writeSqliteDatabase(databaseToPersist, { invalidateReadCache: false });
+    cacheSqliteDatabase(databaseToPersist, cacheUpdatedAt);
     return result;
   });
 
@@ -6600,7 +6731,11 @@ function knowledgeComponentTopics(database: Database, grade?: GradeId, curriculu
 
 function knowledgeComponentQuestions(database: Database, grade?: GradeId, curriculumTrack: CurriculumScope = defaultCurriculumProfile): PublicQuestion[] {
   return database.questions
-    .filter((question) => isCurriculumQuestion(question, curriculumTrack) && (!grade || question.grade === grade))
+    .filter((question) =>
+      !isRetiredHongKongQuestionId(question.id) &&
+      isCurriculumQuestion(question, curriculumTrack) &&
+      (!grade || question.grade === grade)
+    )
     .map((question) => toPublicQuestion(database, question));
 }
 
@@ -8973,7 +9108,12 @@ async function runPostgresHotAuthBackfillForAdmin(userId: string) {
       await ensureInitialPostgresState(sql);
       const rows = await selectPostgresStateRows(sql, true);
       const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
-      const database = hasCoreTables(parsed) ? normalizeDatabase(parsed) : createInitialDatabase();
+      const database = hasCoreTables(parsed)
+        ? await normalizeDatabaseWithReferencedHistoricalHongKongQuestions(
+            parsed,
+            await referencedHistoricalQuestionIdsFromPostgres(sql)
+          )
+        : createInitialDatabase();
       const actor = database.users.find((candidate) => candidate.id === userId);
       if (actor?.role !== "admin") {
         return {
@@ -9138,7 +9278,11 @@ function buildAdaptiveGenerationContext(
     : primaryTopicRecords;
   const topics = topicRecords.map((topic) => toTopicWithProgress(database, userId, topic));
   const questions = database.questions
-    .filter((question) => isCurriculumQuestion(question, curriculumTrack) && gradeSet.has(question.grade))
+    .filter((question) =>
+      !isRetiredHongKongQuestionId(question.id) &&
+      isCurriculumQuestion(question, curriculumTrack) &&
+      gradeSet.has(question.grade)
+    )
     .map((question) => toPublicQuestion(database, question));
   const lessons = topicRecords
     .map((topic) => lessonForTopicFromStudentActivity(database, topic.id))
@@ -9483,11 +9627,13 @@ function buildAdaptiveRagTopicEvidence({
   candidates,
   curriculumTrack,
   curriculumProfile,
+  hongKongStage,
   remainingEvidenceBudget
 }: {
   candidates: AdaptiveLearningCandidate[];
   curriculumTrack: CurriculumTrack;
   curriculumProfile: CurriculumProfile;
+  hongKongStage?: HongKongMathEdBStage;
   remainingEvidenceBudget: number;
 }): AdaptiveRagTopicEvidence | null {
   const candidate = candidates[0];
@@ -9551,9 +9697,23 @@ function buildAdaptiveRagTopicEvidence({
       evidenceText = pack.evidenceText;
     }
   } else if (curriculumTrack === "HK") {
+    const topicId = candidate.topic.canonicalTopicId ?? candidate.topic.id;
+    if (!isHongKongTopicEligibleForStage(topicId, hongKongStage)) {
+      const requiredExtendedPartModule = topicId === "statistics-s6" ? "M1" : "M1 or M2";
+      return {
+        topicId: candidate.topic.id,
+        topicTitle,
+        candidateIds,
+        status: "unavailable",
+        layers: [],
+        safeUse: ["safe-card-only", "original-MAIS-output-only", "no-source-reconstruction", "guarded-rerank-only"],
+        evidenceText: `No adaptive RAG evidence selected because this optional HKDSE Extended Part topic has no explicit stored ${requiredExtendedPartModule} stage selection.`
+      };
+    }
     const pack = buildHongKongMathEvidencePack({
       grade: candidate.topic.grade,
-      topicId: candidate.topic.canonicalTopicId ?? candidate.topic.id,
+      topicId,
+      stage: hongKongStage,
       conceptIds,
       intent: adaptiveRagIntent(candidate),
       difficultyBand,
@@ -9597,11 +9757,13 @@ function buildAdaptiveRagTopicEvidence({
 function buildAdaptiveRagEvidence({
   generated,
   grade,
-  curriculumTrack
+  curriculumTrack,
+  hongKongStage
 }: {
   generated: ReturnType<typeof generateAdaptiveCandidates>;
   grade: GradeId;
   curriculumTrack: CurriculumScope;
+  hongKongStage?: HongKongMathEdBStage;
 }): AdaptiveRagEvidence {
   const resolvedTrack = curriculumTrackForScope(curriculumTrack);
   const curriculumProfile = curriculumProfileForScope(curriculumTrack);
@@ -9638,6 +9800,7 @@ function buildAdaptiveRagEvidence({
       candidates,
       curriculumTrack: resolvedTrack,
       curriculumProfile,
+      hongKongStage,
       remainingEvidenceBudget
     });
     if (!topicEvidence) continue;
@@ -9841,19 +10004,21 @@ async function getAdaptiveLearningDecisionFromCompatibility({
   userId,
   grade,
   topicId,
-	  curriculumTrack = defaultCurriculumTrack
+	  curriculumTrack = defaultCurriculumTrack,
+  hongKongStage
 	}: {
 	  userId: string;
 	  grade: GradeId;
 	  topicId?: string | null;
 	  curriculumTrack?: CurriculumScope;
+  hongKongStage?: HongKongMathEdBStage;
 }): Promise<AdaptiveLearningDecision | null> {
   if (adaptiveContentUnavailableFor(curriculumTrack, grade)) return null;
 
   const database = await readDatabase();
   const { generated } = buildAdaptiveGenerationContext(database, userId, grade, topicId, curriculumTrack);
   const providerConfig = readLLMProviderConfig();
-  const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack });
+  const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack, hongKongStage });
   const cacheSignature = adaptiveLLMCacheSignature(generated.candidateSignature, ragEvidence);
   const cacheRecord = findAdaptiveCacheRecord(database, {
     userId,
@@ -9932,12 +10097,14 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   userId,
   grade,
   topicId,
-	  curriculumTrack = defaultCurriculumTrack
+	  curriculumTrack = defaultCurriculumTrack,
+  hongKongStage
 	}: {
 	  userId: string;
 	  grade: GradeId;
 	  topicId?: string | null;
 	  curriculumTrack?: CurriculumScope;
+  hongKongStage?: HongKongMathEdBStage;
 }): Promise<{ status: AdaptiveLLMStatus; decision: AdaptiveLearningDecision | null; error?: string; reason?: "content-unavailable"; contentUnavailable?: LocalizedText }> {
   const adaptiveContentUnavailable = adaptiveContentUnavailableFor(curriculumTrack, grade);
   if (adaptiveContentUnavailable) {
@@ -9953,7 +10120,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   const providerConfig = readLLMProviderConfig();
   const database = await readDatabase();
   const { generated } = buildAdaptiveGenerationContext(database, userId, grade, topicId, curriculumTrack);
-  const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack });
+  const ragEvidence = buildAdaptiveRagEvidence({ generated, grade, curriculumTrack, hongKongStage });
   const cacheSignature = adaptiveLLMCacheSignature(generated.candidateSignature, ragEvidence);
   const deterministicDecision = composeDecisionWithCache({
     generated,
@@ -9988,7 +10155,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
   if (existing?.status === "ready") {
     return {
       status: "ready",
-      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack })
+      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage })
     };
   }
 
@@ -10008,7 +10175,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
     });
     return {
       status: "disabled",
-      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
+      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage }),
       error: "Missing DEEPSEEK_API_KEY."
     };
   }
@@ -10029,7 +10196,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
     });
     return {
       status: "failed",
-      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
+      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage }),
       error: "Adaptive LLM refresh rate limit exceeded."
     };
   }
@@ -10082,7 +10249,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
       });
       return {
         status: "failed",
-        decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
+        decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage }),
         error
       };
     }
@@ -10118,7 +10285,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
       });
       return {
         status: "rejected",
-        decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
+        decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage }),
         error
       };
     }
@@ -10145,7 +10312,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
 
     return {
       status: "ready",
-      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack })
+      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage })
     };
   } catch (error) {
     const message = error instanceof Error && error.name === "AbortError"
@@ -10166,7 +10333,7 @@ async function refreshAdaptiveLearningRecommendationFromCompatibility({
     });
     return {
       status: "failed",
-      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack }),
+      decision: await getAdaptiveLearningDecisionFromCompatibility({ userId, grade, topicId, curriculumTrack, hongKongStage }),
       error: message
     };
   } finally {

@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import postgres from "postgres";
-import { questionAnswerMatches } from "@/lib/server/answerMatching";
+import { gradeQuestionAttempt } from "@/lib/server/answerGrading";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
 import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
@@ -103,6 +103,9 @@ const postgresStudentActivitySchemaStatements = [
     ON learning_events(user_id, topic_id, created_at DESC)`,
   `CREATE INDEX IF NOT EXISTS learning_events_topic_created_at_idx
     ON learning_events(topic_id, created_at DESC)`,
+  `CREATE INDEX IF NOT EXISTS learning_events_question_created_at_idx
+    ON learning_events(question_id, created_at DESC)
+    WHERE question_id IS NOT NULL`,
   `CREATE TABLE IF NOT EXISTS learning_event_clears (
     user_id TEXT PRIMARY KEY,
     cleared_at TIMESTAMPTZ NOT NULL
@@ -188,23 +191,6 @@ function dayWindow(now: string) {
     dayKey: start.toISOString().slice(0, 10),
     start: start.toISOString(),
     end: end.toISOString()
-  };
-}
-
-function attemptFeedback(question: Question, selectedAnswer: string): AttemptFeedback {
-  const correct = questionAnswerMatches(
-    {
-      answer: question.answer,
-      accepted_answers: question.acceptedAnswers ?? null,
-      options: question.options ?? null
-    },
-    selectedAnswer
-  );
-
-  return {
-    correct,
-    explanation: question.explanation,
-    correctAnswer: correct ? undefined : question.answer
   };
 }
 
@@ -581,7 +567,7 @@ export async function submitQuestionAttemptFast({
   );
   if (!question) return null;
 
-  const feedback = attemptFeedback(question, selectedAnswer);
+  const feedback = gradeQuestionAttempt(question, selectedAnswer);
 
   if (postgresRowsEnabled()) {
     try {

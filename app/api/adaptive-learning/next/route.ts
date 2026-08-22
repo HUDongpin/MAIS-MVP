@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { getAdaptiveContentUnavailableForCurriculum, getAdaptiveLearningDecision } from "@/lib/server/userStore";
+import { isHongKongMathEdBStage } from "@/lib/rag/hongKongMathTopicRouting";
 import type { GradeId } from "@/types";
 
 export const runtime = "nodejs";
@@ -28,11 +29,16 @@ export async function GET(request: Request) {
     ? (gradeParam as GradeId)
     : authenticated.settings.selectedGrade;
   const topicId = url.searchParams.get("topicId");
+  const stageParam = url.searchParams.get("hongKongStage");
+  if (stageParam !== null && !isHongKongMathEdBStage(stageParam)) {
+    return NextResponse.json({ error: "Invalid Hong Kong curriculum stage." }, { status: 400 });
+  }
   const decision = await getAdaptiveLearningDecision({
     userId: authenticated.user.id,
     grade,
     topicId,
-    curriculumTrack: authenticated.user.curriculumProfile
+    curriculumTrack: authenticated.user.curriculumProfile,
+    ...(stageParam ? { hongKongStage: stageParam } : {})
   });
 
   if (!decision) {

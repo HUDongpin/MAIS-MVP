@@ -18,6 +18,17 @@ import {
   throttledLearningAnalyticsFlushMs
 } from "@/lib/learningAnalytics";
 import { isVisualizationLabPath } from "@/lib/visualizationRoutes";
+import {
+  acknowledgeVisualizationSessionOutbox,
+  isVisualizationSessionOutboxAcknowledgement,
+  quarantineVisualizationSessionOutboxRecord,
+  readVisualizationSessionOutbox,
+  visualizationSessionOutboxAcknowledgedEventName,
+  visualizationSessionOutboxDeliveryDisposition,
+  visualizationSessionOutboxFailedEventName,
+  visualizationSessionOutboxUpdatedEventName,
+  type VisualizationSessionOutboxRecord
+} from "@/lib/visualizationSessionOutbox";
 import type {
   CurriculumTrack,
   CurriculumProfile,
@@ -1094,6 +1105,184 @@ export function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
     currentUserRef.current = currentUser;
   }, [currentUser]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+
+    const flushUserId = currentUser.id;
+    let cancelled = false;
+    let inFlight = false;
+    let retryAttempt = 0;
+    let retryHandle: number | null = null;
+
+    const clearRetryHandle = () => {
+      if (retryHandle === null) return;
+      window.clearTimeout(retryHandle);
+      retryHandle = null;
+    };
+    const dispatchSessionResult = (
+      name: string,
+      record: VisualizationSessionOutboxRecord
+    ) => {
+      window.dispatchEvent(new CustomEvent(name, { detail: record }));
+    };
+    const sessionDeliveryIsCurrent = () =>
+      !cancelled &&
+      currentUserRef.current?.role === "student" &&
+      currentUserRef.current.id === flushUserId;
+    const scheduleFlush = (delayMs: number) => {
+      if (cancelled || retryHandle !== null) return;
+      retryHandle = window.setTimeout(() => {
+        retryHandle = null;
+        void flushOutbox();
+      }, delayMs);
+    };
+    const flushOutbox = async () => {
+      if (
+        cancelled ||
+        inFlight ||
+        document.visibilityState === "hidden" ||
+        navigator.onLine === false
+      ) return;
+
+      const records = readVisualizationSessionOutbox(
+        window.localStorage,
+        flushUserId
+      );
+      if (records.length === 0) return;
+      inFlight = true;
+      let failed = false;
+
+      for (const record of records) {
+        if (cancelled) break;
+        try {
+          const response = await fetch("/api/visualization-sessions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-MAIS-Visualization-User-Id": encodeURIComponent(record.userId)
+            },
+            keepalive: true,
+            body: JSON.stringify({
+              moduleId: record.moduleId,
+              topicId: record.topicId,
+              source: record.source
+            })
+          });
+          const payload: unknown = await response.json().catch(() => null);
+          if (!sessionDeliveryIsCurrent()) break;
+          const disposition = visualizationSessionOutboxDeliveryDisposition(
+            response.status,
+            payload
+          );
+          if (disposition === "quarantine-and-continue") {
+            if (!quarantineVisualizationSessionOutboxRecord(
+              window.localStorage,
+              record,
+              response.status === 403
+                ? "curriculum-scope-mismatch"
+                : "server-rejected-400"
+            )) {
+              throw new Error(
+                "Could not durably quarantine a rejected visualization session."
+              );
+            }
+            dispatchSessionResult(
+              visualizationSessionOutboxFailedEventName,
+              record
+            );
+            continue;
+          }
+          if (!isVisualizationSessionOutboxAcknowledgement(
+            response.status,
+            payload,
+            record
+          )) {
+            throw new Error(
+              "Could not confirm durable visualization-session delivery."
+            );
+          }
+          if (!sessionDeliveryIsCurrent()) break;
+          if (!acknowledgeVisualizationSessionOutbox(
+            window.localStorage,
+            record
+          )) {
+            throw new Error(
+              "The visualization-session outbox record changed before acknowledgement."
+            );
+          }
+          dispatchSessionResult(
+            visualizationSessionOutboxAcknowledgedEventName,
+            record
+          );
+        } catch {
+          if (cancelled) break;
+          failed = true;
+          dispatchSessionResult(
+            visualizationSessionOutboxFailedEventName,
+            record
+          );
+          break;
+        }
+      }
+
+      inFlight = false;
+      if (cancelled) return;
+      if (failed) {
+        retryAttempt += 1;
+        const retryDelayMs = retryAttempt <= 5
+          ? Math.min(8_000, 1_000 * (2 ** (retryAttempt - 1)))
+          : 30_000;
+        scheduleFlush(retryDelayMs);
+        return;
+      }
+
+      retryAttempt = 0;
+      if (
+        readVisualizationSessionOutbox(window.localStorage, flushUserId)
+          .length > 0
+      ) {
+        scheduleFlush(0);
+      }
+    };
+    const handleOutboxUpdate = () => {
+      if (currentUserRef.current?.id !== flushUserId) return;
+      retryAttempt = 0;
+      clearRetryHandle();
+      scheduleFlush(0);
+    };
+    const handleOnlineOrVisible = () => {
+      if (currentUserRef.current?.id !== flushUserId) return;
+      if (
+        document.visibilityState === "hidden" ||
+        navigator.onLine === false
+      ) return;
+      retryAttempt = 0;
+      clearRetryHandle();
+      scheduleFlush(0);
+    };
+
+    window.addEventListener(
+      visualizationSessionOutboxUpdatedEventName,
+      handleOutboxUpdate
+    );
+    window.addEventListener("online", handleOnlineOrVisible);
+    window.addEventListener("pageshow", handleOnlineOrVisible);
+    document.addEventListener("visibilitychange", handleOnlineOrVisible);
+    scheduleFlush(1_000);
+
+    return () => {
+      cancelled = true;
+      clearRetryHandle();
+      window.removeEventListener(
+        visualizationSessionOutboxUpdatedEventName,
+        handleOutboxUpdate
+      );
+      window.removeEventListener("online", handleOnlineOrVisible);
+      window.removeEventListener("pageshow", handleOnlineOrVisible);
+      document.removeEventListener("visibilitychange", handleOnlineOrVisible);
+    };
+  }, [currentUser?.id, currentUser?.role, settingsReady]);
 
   const sessionRevalidationInFlightRef = useRef(false);
 

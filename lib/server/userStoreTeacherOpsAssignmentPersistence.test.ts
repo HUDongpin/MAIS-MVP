@@ -308,6 +308,43 @@ test("teacher ops assignment persistence creates assignments and seeded submissi
   );
 });
 
+test("teacher ops assignment persistence rejects retired question IDs only for new practice targets", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+  const originalAssignmentCount = database.assignments.length;
+  const originalSubmissionCount = database.submissions.length;
+
+  assert.deepEqual(await store.createTeacherAssignment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    studentIds: ["student-1"],
+    title: "Retired practice target",
+    description: "Must not reactivate retired content.",
+    contentType: "practice",
+    targetId: "  q28  ",
+    allowRetake: true,
+    showAnswers: true,
+    countTowardsGrade: false
+  }), { status: "invalid" });
+  assert.equal(database.assignments.length, originalAssignmentCount);
+  assert.equal(database.submissions.length, originalSubmissionCount);
+
+  const lessonResult = await store.createTeacherAssignment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    studentIds: ["student-1"],
+    title: "Legacy-looking lesson slug",
+    description: "The retired-ID guard is scoped to practice targets.",
+    contentType: "lesson",
+    targetId: "q28",
+    allowRetake: true,
+    showAnswers: true,
+    countTowardsGrade: false
+  });
+  assert.equal(lessonResult.status, "created");
+  assert.equal(database.assignments[0]?.target_id, "q28");
+});
+
 test("teacher ops assignment persistence creates analytics follow-up practice assignments", async () => {
   const database = createDatabase();
   const store = createTestStore(database, {
