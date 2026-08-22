@@ -83,6 +83,80 @@ test("Practice Arena omits the Mission Setup controls block", () => {
   assert.doesNotMatch(practicePageSource, /Mission Setup/);
 });
 
+test("Practice Arena owns the chooser mode and returns from Unit Exercise through its mission summary", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.ok(summaryStart >= 0, "The shared mission summary component must be present.");
+  assert.match(practicePageSource, /useState<PracticeAdventureArenaMode>\("chooser"\)/);
+  assert.match(practicePageSource, /mode=\{practiceArenaMode\}/);
+  assert.match(practicePageSource, /onModeChange=\{handlePracticeArenaModeChange\}/);
+  assert.match(summarySource, /data-unit-exercise-mission-summary/);
+  assert.match(summarySource, /data-choose-practice-mode/);
+  assert.match(summarySource, /data-unit-exercise-mode-label/);
+  assert.match(summarySource, /en: "Choose mode", zh: "選擇模式", zhHans: "选择模式"/);
+  assert.match(summarySource, /en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习"/);
+  assert.match(summarySource, /min-h-11/, "Choose mode must retain a 44px touch target.");
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "unit" \? \(\s*<PracticeMissionSummary[\s\S]*?showUnitModeContext[\s\S]*?onChooseMode=\{\(\) => handlePracticeArenaModeChange\("chooser"\)\}/,
+    "Unit mode must render the integrated card and return to the chooser through real state."
+  );
+});
+
+test("Unit Exercise keeps the candidate's roomy large-desktop mission composition", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.match(practicePageSource, /max-w-\[1650px\]/);
+  assert.match(practicePageSource, /2xl:py-8/);
+  assert.match(summarySource, /2xl:p-7/);
+  assert.match(summarySource, /2xl:min-h-\[52px\]/);
+  assert.match(summarySource, /2xl:min-w-\[198px\]/);
+  assert.match(summarySource, /2xl:size-\[72px\]/);
+  assert.match(summarySource, /2xl:text-2xl/);
+  assert.match(practicePageSource, /2xl:min-h-\[393px\]/);
+  assert.match(practicePageSource, /roomyOnLargeScreens/);
+  assert.match(practiceQuestPagerSource, /2xl:min-w-\[210px\]/);
+  assert.match(practiceQuestPagerSource, /2xl:size-14/);
+});
+
+test("hidden practice rounds stop reacting while the learner chooses a mode", () => {
+  const pagerStart = practicePageSource.indexOf("function QuestionPager");
+  const pagerEnd = practicePageSource.indexOf("export default function PracticePage", pagerStart);
+  const pagerSource = practicePageSource.slice(pagerStart, pagerEnd);
+  const interactionWiringCount = (
+    practicePageSource.match(/interactionEnabled=\{practiceArenaMode !== "chooser"\}/g) ?? []
+  ).length;
+
+  assert.match(pagerSource, /interactionEnabled = true/);
+  assert.match(pagerSource, /if \(!interactionEnabled \|\| !questionCount\) return;/);
+  assert.match(pagerSource, /if \(interactionEnabled\) return;\s*clearAutoAdvance\(\);\s*stopReadAloud\(\);/);
+  assert.match(pagerSource, /questionStartedAtRef\.current = \{\};/);
+  assert.match(pagerSource, /if \(!interactionEnabled \|\| questionCount < 2\) return;/);
+  assert.match(pagerSource, /if \(!interactionEnabled\) return;\s*questionStartedAtRef/);
+  assert.equal(
+    interactionWiringCount,
+    2,
+    "Both adaptive and free-selection pagers must be inert while the chooser hides them."
+  );
+});
+
+test("Practice Arena mode changes preserve focus and intentional scroll behavior", () => {
+  const handlerStart = practicePageSource.indexOf("const handlePracticeArenaModeChange");
+  const handlerEnd = practicePageSource.indexOf("const handleAdventureStartMission", handlerStart);
+  const handler = practicePageSource.slice(handlerStart, handlerEnd);
+
+  assert.match(handler, /setPracticeArenaMode\(nextMode\)/);
+  assert.match(handler, /nextMode !== "unit"/);
+  assert.match(handler, /prefersReducedMotion \? "auto" : "smooth"/);
+  assert.match(handler, /"unit-exercise-mission-title"/);
+  assert.match(handler, /"practice-adventure-title"/);
+  assert.match(handler, /focus\(\{ preventScroll: true \}\)/);
+});
+
 test("Practice Arena does not load student adaptive practice for teacher accounts", () => {
   const studentRoleFlagIndex = practicePageSource.indexOf('const isStudentAccount = currentUser?.role === "student";');
   const adaptiveRoleGuardIndex = practicePageSource.indexOf("if (!isStudentAccount) {");

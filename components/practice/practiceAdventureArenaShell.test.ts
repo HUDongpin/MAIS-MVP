@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { ok } from "node:assert/strict";
+import { equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 
 const shellSource = readFileSync(
@@ -18,10 +18,112 @@ test("omits the hero Choose Topic button label", () => {
   ok(!shellSource.includes("Choose Topic"), "Expected PracticeAdventureArenaShell to omit the hero Choose Topic button");
 });
 
-test("centers the remaining hero Start Mission button", () => {
+test("offers exactly two clear mode choices wired to the existing practice flows", () => {
+  equal(
+    shellSource.match(/data-practice-mode-choice=/g)?.length ?? 0,
+    2,
+    "The landing chooser must expose exactly two mode choices"
+  );
   ok(
-    shellSource.includes('className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"'),
-    "Expected the hero CTA row to center the remaining Start Mission button"
+    shellSource.includes('data-practice-mode-choice="guided"'),
+    "The guided Unit Exercise door needs a stable mode marker"
+  );
+  ok(
+    shellSource.includes('data-practice-mode-choice="explore"'),
+    "The Free Exploration door needs a stable mode marker"
+  );
+  ok(shellSource.includes("onClick={handleStartMission}"), "The guided door must use the real mission-start handler");
+  ok(shellSource.includes('onModeChange("unit")'), "The mission-start handler must enter Unit Exercise mode");
+  ok(shellSource.includes("onStartMission();"), "The mission-start handler must preserve the existing Practice Arena callback");
+  ok(
+    shellSource.includes("onClick={handleOpenExplore}"),
+    "The exploration door must reveal the existing island flow"
+  );
+  ok(shellSource.includes('onModeChange("explore")'), "The exploration door must enter the controlled Explore mode");
+  ok(shellSource.includes("mode: PracticeAdventureArenaMode"), "The shell must receive its selected mode from the page");
+  ok(
+    shellSource.includes("onModeChange: (mode: PracticeAdventureArenaMode) => void"),
+    "Mode changes need an explicit page-owned callback"
+  );
+});
+
+test("keeps prototype labels out of the two-door chooser", () => {
+  ok(shellSource.includes("Where do you want to go?"), "The chooser needs the approved two-door heading");
+  ok(!shellSource.includes('en: "Practice Arena"'), "The chooser must omit the Practice Arena eyebrow above its heading");
+  ok(!shellSource.includes("Concept C"), "The internal Concept C label must not be visible");
+  ok(!shellSource.includes("Two clear doors"), "The internal two-clear-doors label must not be visible");
+});
+
+test("uses Nova as the landing progress star without a question-count eyebrow", () => {
+  ok(
+    shellSource.includes('import { NovaCompanion } from "@/components/practice/NovaCompanion";'),
+    "The landing trail must reuse the product's Nova star companion"
+  );
+  ok(shellSource.includes("<NovaCompanion"), "The landing trail must render Nova above its active step");
+  ok(!shellSource.includes("Question 1 of 5"), "The landing preview must not show a Question 1 of 5 label");
+});
+
+test("shows the real five-star reward loop on the guided choice", () => {
+  ok(
+    shellSource.includes('import { PracticeStarReward } from "@/components/practice/PracticeQuestPager";'),
+    "The guided choice should reuse the real Practice Arena reward component"
+  );
+  ok(shellSource.includes("data-practice-reward-preview"), "The reward preview needs a stable browser marker");
+  ok(shellSource.includes("<PracticeStarReward"), "The guided choice must render the star reward at first glance");
+  ok(shellSource.includes("correctCount={0}"), "The chooser reward should begin at zero earned stars");
+  ok(shellSource.includes("total={5}"), "The chooser reward should advertise all five available stars");
+});
+
+test("uses a high-contrast chooser with distinct semantic action icons", () => {
+  ok(shellSource.includes("data-practice-chooser-heading"), "The chooser heading needs a stable contrast marker");
+  ok(shellSource.includes("bg-white/95"), "The chooser heading must sit on a high-contrast light surface");
+  ok(shellSource.includes("data-practice-chooser-grid"), "The chooser grid needs a stable browser marker");
+  equal(
+    shellSource.match(/data-practice-cta-icon=/g)?.length ?? 0,
+    2,
+    "Each chooser action should have exactly one leading icon"
+  );
+  ok(shellSource.includes('data-practice-cta-icon="unit-exercise"'));
+  ok(shellSource.includes('data-practice-cta-icon="free-exploration"'));
+  ok(shellSource.includes("<UnitExerciseIcon"), "Unit Exercise must render its semantic exercise icon");
+  ok(shellSource.includes("<FreeExplorationIcon"), "Free Exploration must render its semantic compass icon");
+  ok(!shellSource.includes("function PracticeIcon"), "The ambiguous crossed-tools icon should remain removed");
+});
+
+test("prioritizes the above-the-fold chooser map preview", () => {
+  const previewStart = shellSource.indexOf("data-practice-map-preview");
+  const previewSource = shellSource.slice(previewStart, previewStart + 900);
+
+  ok(previewStart >= 0, "The chooser map preview must remain available");
+  ok(
+    previewSource.includes("priority"),
+    "The above-the-fold chooser map must be prioritized so Next does not emit an LCP warning"
+  );
+});
+
+test("lets learners return to the chooser from Explore while Unit keeps an accessible mode marker", () => {
+  ok(shellSource.includes("data-adjust-practice"), "Explore needs a stable chooser-return control");
+  ok(shellSource.includes("onClick={handleAdjustPractice}"), "Explore must use the real chooser-return handler");
+  ok(shellSource.includes('onModeChange("chooser")'), "Explore must return through the controlled mode callback");
+
+  const unitBranchStart = shellSource.indexOf('if (mode === "unit")');
+  const unitBranchEnd = shellSource.indexOf("\n  return (", unitBranchStart + 1);
+  const unitBranch = shellSource.slice(unitBranchStart, unitBranchEnd);
+  ok(unitBranchStart >= 0, "The controlled Unit branch must remain available");
+  ok(unitBranch.includes('data-practice-mode="unit"'), "Unit mode needs a stable semantic marker");
+  ok(unitBranch.includes('className="sr-only"'), "The shell must preserve zero-visual Unit semantics");
+});
+
+test("keeps the Explore destination heading programmatically focusable", () => {
+  const exploreBranchStart = shellSource.indexOf('data-practice-mode="explore"');
+  const exploreBranch = shellSource.slice(exploreBranchStart);
+  const exploreHeading = exploreBranch.match(/<h1 id="practice-adventure-title"[^>]*>/)?.[0] ?? "";
+
+  ok(exploreBranchStart >= 0, "The controlled Explore branch must remain available");
+  ok(exploreHeading, "Explore must render the destination heading used by the mode-change focus handler");
+  ok(
+    exploreHeading.includes("tabIndex={-1}"),
+    "Explore's destination heading must accept programmatic focus after the learner changes mode"
   );
 });
 
