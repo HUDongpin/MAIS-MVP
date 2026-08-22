@@ -4,7 +4,21 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { TeacherReportsBackToTopButton } from "@/components/teacher/TeacherReportsBackToTopButton";
-import { initialReportClassId } from "@/components/teacher/teacherReportsClassFocus";
+import {
+  buildTeacherReportRequest,
+  hasTeacherReportTarget,
+  initialTeacherReportTarget,
+  loadTeacherReportPreview,
+  reduceTeacherReportFormState,
+  teacherReportAssessmentsForClass,
+  teacherReportAssignmentsForClass,
+  teacherReportRequestKey,
+  teacherReportRequestSearchParams,
+  teacherReportPreviewMatchesRequest,
+  teacherReportStudentsForClass,
+  visibleTeacherReportPreview,
+  type TeacherReportFormState
+} from "@/components/teacher/teacherReportFormState";
 import { textForLanguage } from "@/lib/i18n";
 import { formatDateInHongKong } from "@/lib/utils";
 import type { LocalizedText, TeacherReport, TeacherReportLanguage, TeacherReportPreview, TeacherReportType, TeacherReportsData } from "@/types";
@@ -123,56 +137,109 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
   const [type, setType] = useState<TeacherReportType>(reports.defaultPreview?.type ?? "class");
   const [language, setLanguage] = useState<TeacherReportLanguage>(appReportLanguage);
   const requestedClassId = useSearchParams().get("classId");
-  const [classId, setClassId] = useState(() => initialReportClassId(reports.classes, requestedClassId));
-  const [studentId, setStudentId] = useState(reports.students[0]?.studentId ?? "");
-  const [assignmentId, setAssignmentId] = useState(reports.assignments[0]?.assignmentId ?? "");
-  const [assessmentId, setAssessmentId] = useState(reports.assessments[0]?.assessmentId ?? "");
   const [remarks, setRemarks] = useState("");
-  const [preview, setPreview] = useState<TeacherReportPreview | null>(reports.defaultPreview?.language === appReportLanguage ? reports.defaultPreview : null);
+  const reportCatalog = useMemo(() => ({
+    classes: reports.classes,
+    students: reports.students,
+    assignments: reports.assignments,
+    assessments: reports.assessments
+  }), [reports.assessments, reports.assignments, reports.classes, reports.students]);
+  const [formState, setFormState] = useState<TeacherReportFormState>(() => {
+    const target = initialTeacherReportTarget(reportCatalog, requestedClassId);
+    const initialRequest = buildTeacherReportRequest({
+      type,
+      language: appReportLanguage,
+      remarks: "",
+      target
+    });
+    const initialPreview = teacherReportPreviewMatchesRequest(reports.defaultPreview, initialRequest)
+      ? reports.defaultPreview
+      : null;
+    return {
+      target,
+      previewState: {
+        preview: initialPreview,
+        error: null
+      },
+      activePreviewRequestKey: initialPreview
+        ? teacherReportRequestKey(initialRequest)
+        : null,
+      activePreviewGeneration: initialPreview ? 0 : null
+    };
+  });
+  const { target, previewState } = formState;
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [reportHistory, setReportHistory] = useState(reports.reportHistory);
   const [latestSavedReportId, setLatestSavedReportId] = useState<string | null>(null);
   const previousAppReportLanguageRef = useRef(appReportLanguage);
+  const previousRequestedClassIdRef = useRef(requestedClassId);
+  const latestReportTypeRef = useRef(type);
+  const previewGenerationRef = useRef(0);
+  latestReportTypeRef.current = type;
   // The shell's "Class focus" navigates client-side without remounting this view,
-  // so the initial state above is not enough — follow later changes to the param.
+  // so follow actual param changes. Catalog refreshes preserve a still-owned
+  // manual class selection and report-type changes do not run this effect.
   useEffect(() => {
-    const nextClassId = initialReportClassId(reports.classes, requestedClassId);
-    setClassId((currentClassId) => (nextClassId && nextClassId !== currentClassId ? nextClassId : currentClassId));
-  }, [reports.classes, requestedClassId]);
+    const requestedClassChanged = previousRequestedClassIdRef.current !== requestedClassId;
+    previousRequestedClassIdRef.current = requestedClassId;
+    setFormState((current) => reduceTeacherReportFormState(current, {
+      type: "catalog-synchronized",
+      requestedClassId,
+      requestedClassChanged,
+      reportType: latestReportTypeRef.current,
+      catalog: reportCatalog
+    }));
+  }, [reportCatalog, requestedClassId]);
   const reportLanguageOptions = useMemo(() => reportLanguageOptionsForApp(appReportLanguage), [appReportLanguage]);
-  const visiblePreview = preview?.language === language ? preview : null;
-
-  const selectedClassHasStudents = classId
-    ? (reports.classes.find((teacherClass) => teacherClass.id === classId)?.studentCount ?? 0) > 0
-    : false;
+  const visibleStudents = useMemo(
+    () => teacherReportStudentsForClass(reports.students, target.classId),
+    [reports.students, target.classId]
+  );
+  const visibleAssignments = useMemo(
+    () => teacherReportAssignmentsForClass(reports.assignments, target.classId),
+    [reports.assignments, target.classId]
+  );
+  const visibleAssessments = useMemo(
+    () => teacherReportAssessmentsForClass(reports.assessments, target.classId),
+    [reports.assessments, target.classId]
+  );
   // Exports need the same target selection as previews; without one, the export
   // links must be disabled with an explanation instead of silently doing nothing.
-  const hasExportTarget =
-    (type === "class" && Boolean(classId) && selectedClassHasStudents) ||
-    ((type === "student" || type === "parent-summary") && Boolean(studentId)) ||
-    (type === "assignment" && Boolean(assignmentId)) ||
-    (type === "assessment" && Boolean(assessmentId));
+  const hasExportTarget = hasTeacherReportTarget(type, target, reportCatalog);
+  const reportRequest = useMemo(
+    () => buildTeacherReportRequest({ type, language, remarks, target }),
+    [language, remarks, target, type]
+  );
+  const visiblePreview = hasExportTarget
+    ? visibleTeacherReportPreview(formState, reportRequest)
+    : null;
+  const csvUrl = useMemo(
+    () => `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "csv").toString()}`,
+    [reportRequest]
+  );
+  const pdfUrl = useMemo(
+    () => `/api/teacher/report-exports?${teacherReportRequestSearchParams(reportRequest, "pdf").toString()}`,
+    [reportRequest]
+  );
 
-  const csvUrl = useMemo(() => {
-    const params = new URLSearchParams({ type, language, remarks });
-    if (classId) params.set("classId", classId);
-    if (studentId) params.set("studentId", studentId);
-    if (assignmentId) params.set("assignmentId", assignmentId);
-    if (assessmentId) params.set("assessmentId", assessmentId);
-    params.set("format", "csv");
-    return `/api/teacher/report-exports?${params.toString()}`;
-  }, [assessmentId, assignmentId, classId, language, remarks, studentId, type]);
-  const pdfUrl = useMemo(() => {
-    const params = new URLSearchParams({ type, language, remarks });
-    if (classId) params.set("classId", classId);
-    if (studentId) params.set("studentId", studentId);
-    if (assignmentId) params.set("assignmentId", assignmentId);
-    if (assessmentId) params.set("assessmentId", assessmentId);
-    params.set("format", "pdf");
-    return `/api/teacher/report-exports?${params.toString()}`;
-  }, [assessmentId, assignmentId, classId, language, remarks, studentId, type]);
+  function clearPreviewFor(nextType: TeacherReportType) {
+    setFormState((current) => reduceTeacherReportFormState(current, {
+      type: "preview-invalidated",
+      reportType: nextType,
+      catalog: reportCatalog
+    }));
+  }
+
+  function updateTarget(resolveTarget: (current: typeof target) => typeof target) {
+    setFormState((current) => reduceTeacherReportFormState(current, {
+      type: "target-selected",
+      target: resolveTarget(current.target),
+      reportType: type,
+      catalog: reportCatalog
+    }));
+  }
 
   async function saveReport() {
     setIsSaving(true);
@@ -180,7 +247,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     const response = await fetch("/api/teacher/saved-reports", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type, language, classId, studentId, assignmentId, assessmentId, remarks })
+      body: JSON.stringify(reportRequest)
     });
     const payload = await response.json().catch(() => null) as { report?: TeacherReport } | null;
     setIsSaving(false);
@@ -197,44 +264,62 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
     if (previousAppReportLanguageRef.current === appReportLanguage) return;
     previousAppReportLanguageRef.current = appReportLanguage;
     setLanguage(appReportLanguage);
-    setPreview((current) => current?.language === appReportLanguage ? current : null);
-  }, [appReportLanguage]);
+    setFormState((current) => (
+      current.previewState.preview?.language === appReportLanguage
+        ? current
+        : reduceTeacherReportFormState(current, {
+          type: "preview-invalidated",
+          reportType: type,
+          catalog: reportCatalog
+        })
+    ));
+  }, [appReportLanguage, reportCatalog, type]);
 
   useEffect(() => {
     const controller = new AbortController();
-    const selectedClassHasStudents = classId
-      ? (reports.classes.find((teacherClass) => teacherClass.id === classId)?.studentCount ?? 0) > 0
-      : false;
-    const hasPreviewTarget =
-      (type === "class" && Boolean(classId) && selectedClassHasStudents) ||
-      ((type === "student" || type === "parent-summary") && Boolean(studentId)) ||
-      (type === "assignment" && Boolean(assignmentId)) ||
-      (type === "assessment" && Boolean(assessmentId));
 
-    if (!hasPreviewTarget) {
-      setPreview(null);
+    if (!hasExportTarget) {
+      setFormState((current) => reduceTeacherReportFormState(current, {
+        type: "preview-invalidated",
+        reportType: type,
+        catalog: reportCatalog
+      }));
       setIsLoading(false);
       return () => controller.abort();
     }
 
+    const requestKey = teacherReportRequestKey(reportRequest);
+    const generation = ++previewGenerationRef.current;
+    setFormState((current) => reduceTeacherReportFormState(current, {
+      type: "preview-load-start",
+      requestKey,
+      generation
+    }));
+    setIsLoading(true);
     async function loadPreview() {
-      setIsLoading(true);
-      const params = new URLSearchParams({ type, language, remarks });
-      if (classId) params.set("classId", classId);
-      if (studentId) params.set("studentId", studentId);
-      if (assignmentId) params.set("assignmentId", assignmentId);
-      if (assessmentId) params.set("assessmentId", assessmentId);
       try {
-        const response = await fetch(`/api/teacher/report-previews?${params.toString()}`, {
-          cache: "no-store",
+        const result = await loadTeacherReportPreview({
+          fetcher: fetch,
+          url: `/api/teacher/report-previews?${teacherReportRequestSearchParams(reportRequest).toString()}`,
+          request: reportRequest,
           signal: controller.signal
         });
-        const payload = await response.json().catch(() => null) as { preview?: TeacherReportPreview } | null;
-        if (response.ok && payload?.preview) setPreview(payload.preview);
-      } catch (error) {
-        if (!controller.signal.aborted) {
-          console.warn("Could not refresh teacher report preview.", error);
+        if (result.status === "aborted") return;
+        if (result.status === "loaded") {
+          setFormState((current) => reduceTeacherReportFormState(current, {
+            type: "preview-load-succeeded",
+            requestKey: result.requestKey,
+            generation,
+            preview: result.preview
+          }));
+          return;
         }
+        setFormState((current) => reduceTeacherReportFormState(current, {
+          type: "preview-load-failed",
+          requestKey: result.requestKey,
+          generation,
+          reason: result.reason
+        }));
       } finally {
         if (!controller.signal.aborted) setIsLoading(false);
       }
@@ -245,7 +330,7 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
       window.clearTimeout(previewTimer);
       controller.abort();
     };
-  }, [assessmentId, assignmentId, classId, language, remarks, reports.classes, reports.defaultPreview, studentId, type]);
+  }, [hasExportTarget, reportCatalog, reportRequest, reports.defaultPreview, type]);
 
   return (
     <div className="grid gap-7">
@@ -260,13 +345,20 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
         <div className="grid gap-4 xl:grid-cols-[190px_160px_1fr_1fr]">
           <label className="grid gap-2">
             <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Type", zh: "類型" })}</span>
-            <select value={type} onChange={(event) => setType(event.target.value as TeacherReportType)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+            <select value={type} onChange={(event) => {
+              const nextType = event.target.value as TeacherReportType;
+              setType(nextType);
+              clearPreviewFor(nextType);
+            }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reportTypes.map((item) => <option key={item} value={item}>{text(reportTypeLabel(item))}</option>)}
             </select>
           </label>
           <label className="grid gap-2">
             <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Language", zh: "語言" })}</span>
-            <select value={language} onChange={(event) => setLanguage(event.target.value as TeacherReportLanguage)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+            <select value={language} onChange={(event) => {
+              setLanguage(event.target.value as TeacherReportLanguage);
+              clearPreviewFor(type);
+            }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reportLanguageOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
@@ -274,36 +366,55 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
           </label>
           <label className="grid gap-2">
             <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Class", zh: "班級" })}</span>
-            <select value={classId} onChange={(event) => setClassId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+            <select value={target.classId} onChange={(event) => {
+              setFormState((current) => reduceTeacherReportFormState(current, {
+                type: "class-requested",
+                classId: event.target.value,
+                reportType: type,
+                catalog: reportCatalog
+              }));
+            }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {reports.classes.map((teacherClass) => <option key={teacherClass.id} value={teacherClass.id}>{teacherClass.name}</option>)}
             </select>
           </label>
           {type === "student" || type === "parent-summary" ? (
             <label className="grid gap-2">
               <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Student", zh: "學生" })}</span>
-              <select value={studentId} onChange={(event) => setStudentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-                {reports.students.map((student) => <option key={student.id} value={student.studentId}>{text(student.label)}</option>)}
+              <select value={target.studentId} onChange={(event) => {
+                const studentId = event.target.value;
+                updateTarget((current) => ({ ...current, studentId }));
+              }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                {visibleStudents.map((student) => <option key={student.id} value={student.studentId}>{text(student.label)}</option>)}
               </select>
             </label>
           ) : type === "assignment" ? (
             <label className="grid gap-2">
               <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Assignment", zh: "作業" })}</span>
-              <select value={assignmentId} onChange={(event) => setAssignmentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-                {reports.assignments.map((assignment) => <option key={assignment.id} value={assignment.assignmentId}>{text(assignment.label)}</option>)}
+              <select value={target.assignmentId} onChange={(event) => {
+                const assignmentId = event.target.value;
+                updateTarget((current) => ({ ...current, assignmentId }));
+              }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                {visibleAssignments.map((assignment) => <option key={assignment.id} value={assignment.assignmentId}>{text(assignment.label)}</option>)}
               </select>
             </label>
           ) : type === "assessment" ? (
             <label className="grid gap-2">
               <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Quiz", zh: "測驗" })}</span>
-              <select value={assessmentId} onChange={(event) => setAssessmentId(event.target.value)} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
-                {reports.assessments.map((assessment) => <option key={assessment.id} value={assessment.assessmentId}>{text(assessment.label)}</option>)}
+              <select value={target.assessmentId} onChange={(event) => {
+                const assessmentId = event.target.value;
+                updateTarget((current) => ({ ...current, assessmentId }));
+              }} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+                {visibleAssessments.map((assessment) => <option key={assessment.id} value={assessment.assessmentId}>{text(assessment.label)}</option>)}
               </select>
             </label>
           ) : null}
         </div>
         <label className="mt-4 grid gap-2">
           <span className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">{t({ en: "Teacher remarks", zh: "教師備註" })}</span>
-          <textarea value={remarks} onChange={(event) => setRemarks(event.target.value)} rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
+          <textarea value={remarks} onChange={(event) => {
+            setRemarks(event.target.value);
+            clearPreviewFor(type);
+          }} rows={3} className="focus-ring rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold dark:border-white/10 dark:bg-white/[0.06]" />
         </label>
         <div className="mt-4 flex flex-wrap gap-3">
           {hasExportTarget ? (
@@ -342,7 +453,27 @@ export function TeacherReportsView({ reports }: { reports: TeacherReportsData })
         {saveMessage ? <p role="status" className="mt-3 text-sm font-bold text-cyan-700 dark:text-cyan-200">{saveMessage}</p> : null}
       </section>
 
-      {visiblePreview ? <ReportPreview preview={visiblePreview} /> : (
+      {previewState.error ? (
+        <section role="alert" aria-live="assertive" className="glass-panel border border-rose-300/70 p-6 text-sm font-bold text-rose-700 dark:border-rose-300/30 dark:text-rose-200">
+          {previewState.error === "invalid-target"
+            ? (type === "student" || type === "parent-summary"
+              ? t({
+                en: "Select a valid class and student pair to preview this report.",
+                zh: "請選擇有效的班級與學生配對，以預覽此報告。",
+                zhHans: "请选择有效的班级与学生配对，以预览此报告。"
+              })
+              : t({
+                en: "Select a valid report target to load this preview.",
+                zh: "請選擇有效的報告對象，以載入預覽。",
+                zhHans: "请选择有效的报告对象，以加载预览。"
+              }))
+            : t({
+              en: "Could not load this report preview. Check the target and try again.",
+              zh: "暫時未能載入此報告預覽，請檢查對象後再試。",
+              zhHans: "暂时无法加载此报告预览，请检查对象后重试。"
+            })}
+        </section>
+      ) : visiblePreview ? <ReportPreview preview={visiblePreview} /> : (
         <section className="glass-panel p-6 text-sm font-bold text-slate-500 dark:text-slate-400">
           {isLoading ? t({ en: "Updating report preview.", zh: "正在更新報告預覽。" }) : t({ en: "No report preview available.", zh: "暫未有報告預覽。" })}
         </section>
