@@ -177,7 +177,10 @@ const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem]
 const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
 const nextLessonItemPanelButtonClassName = `${nextLessonItemButtonBaseClassName} sm:text-2xl`;
 const nextLessonItemClickSafeAreaPx = 96;
-const nextLessonItemScrollRevealDelayMs = 420;
+const nextLessonItemRevealDeadlineMs = 8_000;
+const nextLessonItemRevealRecheckDelayMs = 48;
+const nextLessonItemRevealAutoSettleMs = 480;
+const nextLessonItemRevealSmoothSettleMs = 480;
 const lessonSelectionMaxLength = 500;
 const lessonSelectionSurroundingMaxLength = 900;
 const lessonSelectionPopoverWidth = 320;
@@ -404,12 +407,20 @@ function DeferredLessonPanel() {
 // content becomes interactive immediately and the panel loads just before the
 // student reaches it. `rootMargin` gives a head-start so the panel is usually
 // ready by the time it is scrolled into view.
-function useMountWhenNear(rootMargin = "600px") {
+function useMountWhenNear({
+  disabled = false,
+  root = null,
+  rootMargin = "600px"
+}: {
+  disabled?: boolean;
+  root?: Element | null;
+  rootMargin?: string;
+} = {}) {
   const ref = useRef<HTMLElement | null>(null);
   const [shouldMount, setShouldMount] = useState(false);
 
   useEffect(() => {
-    if (shouldMount) return;
+    if (disabled || shouldMount) return;
     const node = ref.current;
     if (!node) return;
     if (typeof IntersectionObserver === "undefined") {
@@ -424,11 +435,11 @@ function useMountWhenNear(rootMargin = "600px") {
           observer.disconnect();
         }
       },
-      { rootMargin }
+      { root, rootMargin }
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, [shouldMount, rootMargin]);
+  }, [disabled, root, shouldMount, rootMargin]);
 
   return { ref, shouldMount };
 }
@@ -2052,6 +2063,8 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const { openTutor } = useAITutor();
   const prefersReducedMotion = useReducedMotion();
   const lessonSelectionRootRef = useRef<HTMLDivElement | null>(null);
+  const lessonContentScrollRootRef = useRef<HTMLDivElement | null>(null);
+  const pendingNextLessonItemRevealCancelRef = useRef<(() => void) | null>(null);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const lessonPracticeSectionRef = useRef<HTMLElement | null>(null);
   const summaryCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -2074,6 +2087,12 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   const [showCelebration, setShowCelebration] = useState(false);
   const [hasEnteredGalaxyPlanet, setHasEnteredGalaxyPlanet] = useState(true);
   const [lessonSelection, setLessonSelection] = useState<LessonSelectionPopoverState | null>(null);
+  const [hasDesktopLessonPaneScrollers, setHasDesktopLessonPaneScrollers] = useState<boolean | null>(null);
+  const cancelPendingNextLessonItemReveal = useCallback(() => {
+    const cancel = pendingNextLessonItemRevealCancelRef.current;
+    pendingNextLessonItemRevealCancelRef.current = null;
+    cancel?.();
+  }, []);
   // The unit directory is a persistent lesson navigator, even for old links with planet-entry state.
   const shouldRenderGalaxyDirectory = true;
   const lessonMenu = useLessonMenuVisibility({
@@ -2081,6 +2100,18 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     grade: lesson?.grade ?? null,
     prefersReducedMotion: Boolean(prefersReducedMotion)
   });
+  useEffect(() => {
+    const desktopLessonPanes = window.matchMedia("(min-width: 1024px)");
+    const syncDesktopLessonPanes = () => setHasDesktopLessonPaneScrollers(desktopLessonPanes.matches);
+
+    syncDesktopLessonPanes();
+    desktopLessonPanes.addEventListener("change", syncDesktopLessonPanes);
+    return () => desktopLessonPanes.removeEventListener("change", syncDesktopLessonPanes);
+  }, []);
+  useEffect(() => {
+    cancelPendingNextLessonItemReveal();
+    return cancelPendingNextLessonItemReveal;
+  }, [cancelPendingNextLessonItemReveal, hasDesktopLessonPaneScrollers, slug]);
   const lessonWorldTheme = lessonWorldThemeForCourse(lesson);
   const canSaveProgress = settingsReady && currentUser?.role === "student";
   const canViewTeacherGuide = currentUser?.role === "teacher" || currentUser?.role === "admin";
@@ -2123,7 +2154,10 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [text, visualizationBlock]);
   const VisualizationModule = getLessonVisualization(visualizationBlock?.visualizationConfig?.moduleId);
   const showVisualizationAxisLabels = visualizationBlock?.visualizationConfig?.moduleId === "function-graph-explorer";
-  const { ref: visualizationMountRef, shouldMount: shouldMountVisualization } = useMountWhenNear();
+  const { ref: visualizationMountRef, shouldMount: shouldMountVisualization } = useMountWhenNear({
+    disabled: hasDesktopLessonPaneScrollers === null,
+    root: hasDesktopLessonPaneScrollers ? lessonContentScrollRootRef.current : null
+  });
   const lessonPracticeSummary = useMemo(() => {
     if (!lessonPracticeQuestions.length) return null;
 
@@ -2701,39 +2735,124 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
     });
   }
 
+  function desktopLessonContentScrollRoot() {
+    return window.matchMedia("(min-width: 1024px)").matches
+      ? lessonContentScrollRootRef.current
+      : null;
+  }
+
   function revealLastNextLessonItemButton(target: HTMLElement, behavior: ScrollBehavior) {
-    const revealButton = () => {
+    cancelPendingNextLessonItemReveal();
+    const initialLessonContentScrollRoot = desktopLessonContentScrollRoot();
+    const settleDelay = behavior === "smooth"
+      ? nextLessonItemRevealSmoothSettleMs
+      : nextLessonItemRevealAutoSettleMs;
+    let animationFrame: number | null = null;
+    let deadlineTimer: number | null = null;
+    let recheckTimer: number | null = null;
+    let mutationObserver: MutationObserver | null = null;
+    let resizeObserver: ResizeObserver | null = null;
+    let observedButton: HTMLButtonElement | null = null;
+    let cancelled = false;
+
+    function cleanup() {
+      if (cancelled) return;
+      cancelled = true;
+      if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
+      if (deadlineTimer !== null) window.clearTimeout(deadlineTimer);
+      if (recheckTimer !== null) window.clearTimeout(recheckTimer);
+      mutationObserver?.disconnect();
+      resizeObserver?.disconnect();
+      if (pendingNextLessonItemRevealCancelRef.current === cleanup) {
+        pendingNextLessonItemRevealCancelRef.current = null;
+      }
+    }
+
+    function scheduleRecheck(delay = nextLessonItemRevealRecheckDelayMs) {
+      if (cancelled) return;
+      // Keep the first bounded check in an observer burst. Replacing the timer
+      // on every resize can starve the reveal while a dynamic visualization
+      // is continuously settling its responsive layout.
+      if (recheckTimer !== null || animationFrame !== null) return;
+      recheckTimer = window.setTimeout(() => {
+        recheckTimer = null;
+        animationFrame = window.requestAnimationFrame(() => {
+          animationFrame = null;
+          recheck();
+        });
+      }, delay);
+    }
+
+    function recheck() {
+      if (cancelled) return;
+      if (
+        !target.isConnected ||
+        desktopLessonContentScrollRoot() !== initialLessonContentScrollRoot
+      ) {
+        cleanup();
+        return;
+      }
+
       const nextItemButtons = target.querySelectorAll<HTMLButtonElement>("[data-lesson-next-item-button='true']");
       const lastNextItemButton = nextItemButtons[nextItemButtons.length - 1];
       if (!lastNextItemButton) return;
+      if (resizeObserver && observedButton !== lastNextItemButton) {
+        if (observedButton) resizeObserver.unobserve(observedButton);
+        observedButton = lastNextItemButton;
+        resizeObserver.observe(lastNextItemButton);
+      }
 
       const buttonRect = lastNextItemButton.getBoundingClientRect();
-      const bottomOverflow = buttonRect.bottom + nextLessonItemClickSafeAreaPx - window.innerHeight;
+      const visibleBottom = initialLessonContentScrollRoot
+        ? initialLessonContentScrollRoot.getBoundingClientRect().bottom
+        : window.innerHeight;
+      const bottomOverflow = buttonRect.bottom + nextLessonItemClickSafeAreaPx - visibleBottom;
+      // A cold child chunk can expand the visualization long after the CTA is
+      // briefly safe. Keep this event-driven watch alive until its hard cap or
+      // explicit cancellation so a later mutation/resize can reveal it again.
       if (bottomOverflow <= 0) return;
 
-      window.scrollBy({
-        top: bottomOverflow,
+      (initialLessonContentScrollRoot ?? window).scrollBy({
+        top: Math.ceil(bottomOverflow),
         behavior
       });
-    };
-
-    if (behavior === "smooth") {
-      window.setTimeout(revealButton, nextLessonItemScrollRevealDelayMs);
-      return;
+      scheduleRecheck(settleDelay);
     }
 
-    window.requestAnimationFrame(revealButton);
+    if (typeof MutationObserver !== "undefined") {
+      mutationObserver = new MutationObserver(() => scheduleRecheck());
+      mutationObserver.observe(target, { childList: true, subtree: true });
+    }
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => scheduleRecheck());
+      resizeObserver.observe(target);
+      if (initialLessonContentScrollRoot) resizeObserver.observe(initialLessonContentScrollRoot);
+    }
+    deadlineTimer = window.setTimeout(cleanup, nextLessonItemRevealDeadlineMs);
+    pendingNextLessonItemRevealCancelRef.current = cleanup;
+    scheduleRecheck(0);
   }
 
   function scrollToLessonSection(targetId: string, options: { revealLastNextItemButton?: boolean } = {}) {
+    cancelPendingNextLessonItemReveal();
     const target = document.getElementById(targetId);
     if (!target) return;
 
     const behavior: ScrollBehavior = prefersReducedMotion ? "auto" : "smooth";
-    target.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start"
-    });
+    const lessonContentScrollRoot = desktopLessonContentScrollRoot();
+    if (lessonContentScrollRoot) {
+      const scrollRootRect = lessonContentScrollRoot.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      lessonContentScrollRoot.scrollTo({
+        top: lessonContentScrollRoot.scrollTop + targetRect.top - scrollRootRect.top,
+        behavior
+      });
+    } else {
+      target.scrollIntoView({
+        behavior,
+        block: "start"
+      });
+    }
 
     if (options.revealLastNextItemButton) {
       revealLastNextLessonItemButton(target, behavior);
@@ -3383,7 +3502,14 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
           // below it, so on a phone this grid laid out ~562px wide inside a
           // 393px screen and dragged the whole page into horizontal overflow.
           // `minmax(0,1fr)` lets the column shrink to the viewport instead.
-          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:items-start lg:gap-8 lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${
+          // Desktop is a true two-pane workspace: the shared viewport height
+          // gives each column its own scroll range, while clipping the grid
+          // keeps a wheel gesture from falling through to the document. Mobile
+          // deliberately keeps the existing single-page flow. The 7rem reserve
+          // matches the sections' `scroll-mt-28`: a 4rem sticky navigation plus
+          // 3rem of reachable breathing room. Browser tests measure the live
+          // navigation rectangle instead of duplicating either value.
+          className={`mt-8 grid scroll-mt-28 grid-cols-[minmax(0,1fr)] gap-6 px-4 sm:px-6 lg:h-[calc(100dvh-7rem)] lg:min-h-0 lg:items-stretch lg:gap-8 lg:overflow-hidden lg:pl-0 lg:pr-8 xl:pr-10 2xl:pr-12 ${
             lessonMenu.isHidden
               ? "lg:grid-cols-[3.5rem_minmax(0,1fr)]"
               : "lg:grid-cols-[minmax(20rem,27rem)_minmax(0,1fr)]"
@@ -3403,7 +3529,14 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                 ref={lessonMenu.menuPanelRef}
                 id={lessonMenuPanelId}
                 data-tour="student-lesson-map"
-                className="origin-top-right lg:sticky lg:top-24 lg:self-start"
+                role={hasDesktopLessonPaneScrollers ? "region" : undefined}
+                aria-label={hasDesktopLessonPaneScrollers ? t({
+                  en: "Lesson directory",
+                  zh: "課節目錄",
+                  zhHans: "课时目录"
+                }) : undefined}
+                tabIndex={hasDesktopLessonPaneScrollers ? 0 : undefined}
+                className="origin-top-right focus:outline-none lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:focus-visible:ring-2 lg:focus-visible:ring-inset lg:focus-visible:ring-cyan-400"
                 initial={prefersReducedMotion ? false : { opacity: 0, y: -12 }}
                 animate={isGalaxyDirectoryClosing
                   ? { filter: "blur(8px)", opacity: 0, scale: 0.08, y: -42 }
@@ -3431,7 +3564,17 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
               </motion.div>
             </AnimatePresence>
           )}
-          <div className="min-w-0 lg:w-full">
+          <div
+            ref={lessonContentScrollRootRef}
+            role={hasDesktopLessonPaneScrollers ? "region" : undefined}
+            aria-label={hasDesktopLessonPaneScrollers ? t({
+              en: "Lesson content",
+              zh: "課節內容",
+              zhHans: "课时内容"
+            }) : undefined}
+            tabIndex={hasDesktopLessonPaneScrollers ? 0 : undefined}
+            className="min-w-0 focus:outline-none lg:h-full lg:min-h-0 lg:w-full lg:overflow-y-auto lg:overscroll-contain lg:focus-visible:ring-2 lg:focus-visible:ring-inset lg:focus-visible:ring-cyan-400"
+          >
             {lessonContentPanel}
           </div>
         </div>

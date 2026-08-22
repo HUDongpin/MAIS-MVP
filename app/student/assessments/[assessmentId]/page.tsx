@@ -9,6 +9,7 @@ import { AssessmentCountdownTimer } from "@/components/assessment/AssessmentCoun
 import { CalculatorLauncher } from "@/components/accommodations/CalculatorLauncher";
 import { useStudentAccommodations } from "@/components/accommodations/useStudentAccommodations";
 import { accommodationExtendedTimeLabels, assessmentTimerSeconds, extendedTimeMultiplier } from "@/lib/accommodations";
+import { MAX_ANSWER_LENGTH } from "@/lib/answerLimits";
 import type { StudentAssessmentDetailData } from "@/types";
 
 type AssessmentResponse = {
@@ -65,6 +66,15 @@ export default function StudentAssessmentPage() {
     setIsSubmitting(false);
     submittingRef.current = false;
     if (!response.ok) {
+      const payload = await response.json().catch(() => null) as { code?: unknown } | null;
+      if (payload?.code === "answer-too-long") {
+        setMessage(t({
+          en: `Answers must be ${MAX_ANSWER_LENGTH} characters or fewer.`,
+          zh: `答案不可超過 ${MAX_ANSWER_LENGTH} 個字元。`,
+          zhHans: `答案不可超过 ${MAX_ANSWER_LENGTH} 个字符。`
+        }));
+        return;
+      }
       setMessage(t({ en: "Could not submit this assessment yet.", zh: "暫時未能提交此測驗。" }));
       return;
     }
@@ -194,6 +204,7 @@ export default function StudentAssessmentPage() {
                   ) : (
                     <input
                       value={currentAnswer}
+                      maxLength={MAX_ANSWER_LENGTH}
                       disabled={!data.canSubmit}
                       onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))}
                       className="focus-ring mt-5 w-full rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 font-semibold dark:border-white/10 dark:bg-white/[0.06]"

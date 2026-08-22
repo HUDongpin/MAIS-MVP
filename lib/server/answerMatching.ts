@@ -1,4 +1,17 @@
 import type { LocalizedText } from "@/types";
+import {
+  isAnswerWithinLengthLimit,
+  isCuratedAnswerWithinLengthLimit
+} from "@/lib/answerLimits";
+import {
+  isKnownAttachedAnswerUnit,
+  stripAnswerUnitSuffixPreservingWhitespace
+} from "@/lib/answerUnits";
+import {
+  evaluateExactScalarArithmetic,
+  exactScalarArithmeticExpressionsEqual,
+  type ExactScalar
+} from "@/lib/exactScalarArithmetic";
 
 type GradingQuestion = {
   answer: string;
@@ -37,26 +50,8 @@ const numberWordValues: Record<string, number> = {
   ninety: 90
 };
 
-const knownAnswerUnitWords = new Set([
-  "blocks",
-  "buttons",
-  "cards",
-  "cm",
-  "counters",
-  "cubes",
-  "degrees",
-  "degree",
-  "dollars",
-  "items",
-  "minutes",
-  "pencils",
-  "shells",
-  "side",
-  "sides",
-  "stickers",
-  "tiles",
-  "units"
-]);
+const maxSafeInteger = BigInt(Number.MAX_SAFE_INTEGER);
+const roundedFractionToleranceScale = BigInt(1_000_000);
 
 export function normalizeAnswer(value: string) {
   return value
@@ -80,101 +75,258 @@ export function normalizeAnswer(value: string) {
     .trim();
 }
 
-function stripKnownUnitSuffix(value: string) {
-  const spaced = value.replace(/[-_]/g, " ").replace(/\s+/g, " ").trim();
-  const tokens = spaced.split(" ").filter(Boolean);
-  while (tokens.length > 1 && knownAnswerUnitWords.has(tokens[tokens.length - 1])) {
-    tokens.pop();
+function preparePhraseTokenText(value: string) {
+  return value
+    .replace(/_/g, " ")
+    .replace(/([a-z])-(?=[a-z0-9])/gi, "$1 ")
+    .replace(/(\d)-(?=[a-z])/gi, "$1 ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function prepareEnglishNumberTokenText(value: string) {
+  return stripAnswerUnitSuffixPreservingWhitespace(preparePhraseTokenText(value));
+}
+
+function parseUnderHundredWords(tokens: string[], allowZero = true) {
+  if (tokens.length === 1) {
+    const value = numberWordValues[tokens[0]];
+    return typeof value === "number" && (allowZero || value !== 0) ? value : null;
   }
-  return tokens.join(" ");
+
+  if (tokens.length === 2) {
+    const tens = numberWordValues[tokens[0]];
+    const units = numberWordValues[tokens[1]];
+    if (
+      typeof tens === "number"
+      && tens >= 20
+      && tens % 10 === 0
+      && typeof units === "number"
+      && units >= 1
+      && units <= 9
+    ) {
+      return tens + units;
+    }
+  }
+
+  return null;
 }
 
 function parseEnglishNumberWords(value: string) {
-  const compact = stripKnownUnitSuffix(value)
-    .replace(/-/g, " ")
-    .replace(/\band\b/g, " ")
+  const compact = prepareEnglishNumberTokenText(value)
     .replace(/\s+/g, " ")
     .trim();
   if (!compact) return null;
 
   const tokens = compact.split(" ");
-  let total = 0;
-  let current = 0;
-  let consumed = false;
-
-  for (const token of tokens) {
-    if (token === "hundred") {
-      current = Math.max(1, current) * 100;
-      consumed = true;
-      continue;
-    }
-
-    const valueForToken = numberWordValues[token];
-    if (typeof valueForToken !== "number") return null;
-    current += valueForToken;
-    consumed = true;
+  const hundredIndex = tokens.indexOf("hundred");
+  if (hundredIndex === -1) {
+    return tokens.includes("and") ? null : parseUnderHundredWords(tokens);
   }
 
-  return consumed ? total + current : null;
+  const hundreds = numberWordValues[tokens[0]];
+  if (
+    hundredIndex !== 1
+    || typeof hundreds !== "number"
+    || hundreds < 1
+    || hundreds > 9
+    || tokens.lastIndexOf("hundred") !== hundredIndex
+  ) {
+    return null;
+  }
+
+  let remainderTokens = tokens.slice(2);
+  if (remainderTokens.length === 0) return hundreds * 100;
+  if (remainderTokens[0] === "and") remainderTokens = remainderTokens.slice(1);
+  if (remainderTokens.length === 0 || remainderTokens.includes("and") || remainderTokens.includes("hundred")) {
+    return null;
+  }
+
+  const remainder = parseUnderHundredWords(remainderTokens, false);
+  return remainder === null ? null : hundreds * 100 + remainder;
 }
 
-function parseNumberToken(value: string) {
-  const compact = stripKnownUnitSuffix(value).replace(/\s+/g, "").trim();
-  if (/^-?\d+(?:\.\d+)?$/.test(compact)) return Number(compact);
-  return parseEnglishNumberWords(value);
-}
-
-function parsePhraseFraction(value: string) {
-  const compact = stripKnownUnitSuffix(value)
-    .replace(/-/g, " ")
-    .replace(/\band\b/g, " ")
+function phraseFractionParts(value: string) {
+  const compact = stripAnswerUnitSuffixPreservingWhitespace(preparePhraseTokenText(value))
     .replace(/\s+/g, " ")
     .trim();
   const phrase = compact.match(/^(.+?)\s+out\s+of\s+(.+)$/);
   if (!phrase) return null;
+  return { numeratorText: phrase[1], denominatorText: phrase[2] };
+}
 
-  const numerator = parseNumberToken(phrase[1]);
-  const denominator = parseNumberToken(phrase[2]);
-  if (numerator === null || denominator === null || denominator === 0) return null;
-
+function mixedNumberShape(value: string) {
+  // "7 1/2" means 7 + 1/2. Whitespace-collapsing turns it into 71/2, a
+  // different number, so mixed numbers must be handled before any collapse.
+  const withoutUnits = stripAnswerUnitSuffixPreservingWhitespace(value);
+  const mixed = withoutUnits.match(/^(-?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+  if (!mixed) return null;
   return {
-    denominator,
-    numerator,
-    scalar: numerator / denominator
+    denominatorText: mixed[3],
+    negative: mixed[1].startsWith("-"),
+    numeratorText: mixed[2],
+    wholeText: mixed[1]
   };
 }
 
-function parseMixedNumber(value: string) {
-  // "7 1/2" means 7 + 1/2. Whitespace-collapsing turns it into 71/2, a
-  // different number, so mixed numbers must be handled before any collapse.
-  // NOTE: not stripKnownUnitSuffix — it rewrites "-" to a space, which would
-  // destroy the sign of "-7 1/2".
-  const tokens = value
-    .replace(/(?:cm\^2|cm2|cm\^3|cm3|cm|ml|l|km\/h|kmh|km|°|%)$/i, "")
-    .trim()
-    .split(/\s+/);
-  while (tokens.length > 1 && knownAnswerUnitWords.has(tokens[tokens.length - 1])) {
-    tokens.pop();
-  }
-  const withoutUnits = tokens.join(" ");
-  const mixed = withoutUnits.match(/^(-?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+function mixedNumberParts(value: string) {
+  const mixed = mixedNumberShape(value);
   if (!mixed) return null;
-  const whole = Number(mixed[1]);
-  const numerator = Number(mixed[2]);
-  const denominator = Number(mixed[3]);
-  if (denominator === 0 || numerator >= denominator) return null;
-  const sign = mixed[1].trim().startsWith("-") ? -1 : 1;
-  return whole + sign * (numerator / denominator);
+  const whole = BigInt(mixed.wholeText);
+  const numerator = BigInt(mixed.numeratorText);
+  const denominator = BigInt(mixed.denominatorText);
+  if (denominator === BigInt(0) || numerator >= denominator) return null;
+  return {
+    denominator,
+    negative: mixed.negative,
+    numerator,
+    whole,
+    wholeText: mixed.wholeText
+  };
 }
 
 function improperFractionForMixed(value: string) {
-  const mixed = value.match(/^(-?\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+  const mixed = mixedNumberParts(value);
   if (!mixed) return null;
-  const numerator = Number(mixed[2]);
-  const denominator = Number(mixed[3]);
-  if (denominator === 0 || numerator >= denominator) return null;
-  const improperNumerator = Math.abs(Number(mixed[1])) * denominator + numerator;
-  return `${mixed[1].trim().startsWith("-") ? "-" : ""}${improperNumerator}/${denominator}`;
+  const wholeMagnitude = mixed.whole < 0 ? -mixed.whole : mixed.whole;
+  const improperNumerator = wholeMagnitude * mixed.denominator + mixed.numerator;
+  if (improperNumerator > maxSafeInteger * mixed.denominator) return null;
+  return `${mixed.negative ? "-" : ""}${improperNumerator}/${mixed.denominator}`;
+}
+
+function exactNumberToken(value: string) {
+  if (!isAnswerWithinLengthLimit(value)) return null;
+  const compact = prepareEnglishNumberTokenText(value).trim();
+  if (/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(compact)) return compact;
+
+  const words = parseEnglishNumberWords(compact);
+  return words !== null && Number.isSafeInteger(words) ? String(words) : null;
+}
+
+/**
+ * Converts the answer forms already supported by parseScalarAnswer into the
+ * strict arithmetic grammar. Equation validation can then stay exact even
+ * when the displayed result carries a known unit or uses number words.
+ */
+function exactScalarExpressionForAnswer(value: string) {
+  if (!isAnswerWithinLengthLimit(value)) return null;
+  const withoutUnitSuffix = stripAnswerUnitSuffixPreservingWhitespace(value);
+  const phrase = phraseFractionParts(withoutUnitSuffix);
+  if (phrase) {
+    const numerator = exactNumberToken(phrase.numeratorText);
+    const denominator = exactNumberToken(phrase.denominatorText);
+    return numerator !== null && denominator !== null ? `(${numerator})/(${denominator})` : null;
+  }
+
+  const mixedShape = mixedNumberShape(withoutUnitSuffix);
+  if (mixedShape) {
+    const mixed = mixedNumberParts(withoutUnitSuffix);
+    if (!mixed) return null;
+    const direction = mixed.negative ? "-" : "+";
+    return `${mixed.wholeText}${direction}${mixed.numerator}/${mixed.denominator}`;
+  }
+
+  let compact = withoutUnitSuffix.replace(/\s+/g, "");
+  compact = compact
+    .replace(/^hk\$/, "")
+    .replace(/^\$/, "");
+
+  const attachedUnit = compact.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))([a-z]+)$/);
+  if (attachedUnit && isKnownAttachedAnswerUnit(attachedUnit[2])) return attachedUnit[1];
+  if (/^[\d\s.+\-*/×÷()−]+$/.test(compact)) return compact;
+
+  return exactNumberToken(withoutUnitSuffix);
+}
+
+type ExactAnswerScalar = {
+  kind: "decimal" | "fraction" | "integer";
+  value: ExactScalar;
+};
+
+function strictExactScalarForAnswer(value: string): ExactAnswerScalar | null {
+  if (!isAnswerWithinLengthLimit(value)) return null;
+  const normalizedText = unwrapFinalAnswerNotation(normalizeAnswer(value));
+  const withoutUnitSuffix = stripAnswerUnitSuffixPreservingWhitespace(normalizedText);
+  const phrase = phraseFractionParts(withoutUnitSuffix);
+  if (phrase) {
+    const numerator = exactNumberToken(phrase.numeratorText);
+    const denominator = exactNumberToken(phrase.denominatorText);
+    if (numerator === null || denominator === null) return null;
+    const exact = evaluateExactScalarArithmetic(`(${numerator})/(${denominator})`);
+    return exact === null ? null : { kind: "fraction", value: exact };
+  }
+
+  const mixedShape = mixedNumberShape(withoutUnitSuffix);
+  if (mixedShape) {
+    const mixed = mixedNumberParts(withoutUnitSuffix);
+    if (!mixed) return null;
+    const direction = mixed.negative ? "-" : "+";
+    const exact = evaluateExactScalarArithmetic(
+      `${mixed.wholeText}${direction}${mixed.numerator}/${mixed.denominator}`
+    );
+    return exact === null ? null : { kind: "fraction", value: exact };
+  }
+
+  let compact = withoutUnitSuffix.replace(/\s+/g, "");
+  compact = compact
+    .replace(/^hk\$/, "")
+    .replace(/^\$/, "");
+
+  const attachedUnit = compact.match(/^([+-]?(?:\d+(?:\.\d*)?|\.\d+))([a-z]+)$/);
+  if (attachedUnit && isKnownAttachedAnswerUnit(attachedUnit[2])) compact = attachedUnit[1];
+
+  const fraction = compact.match(
+    /^([+-]?(?:\d+(?:\.\d*)?|\.\d+))\/([+-]?(?:\d+(?:\.\d*)?|\.\d+))$/
+  );
+  if (fraction) {
+    const exact = evaluateExactScalarArithmetic(`${fraction[1]}/${fraction[2]}`);
+    return exact === null ? null : { kind: "fraction", value: exact };
+  }
+
+  if (/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(compact)) {
+    const exact = evaluateExactScalarArithmetic(compact);
+    if (exact === null) return null;
+    return { kind: compact.includes(".") ? "decimal" : "integer", value: exact };
+  }
+
+  const words = parseEnglishNumberWords(withoutUnitSuffix);
+  if (words === null || !Number.isSafeInteger(words)) return null;
+  const exact = evaluateExactScalarArithmetic(String(words));
+  return exact === null ? null : { kind: "integer", value: exact };
+}
+
+function absoluteBigInt(value: bigint) {
+  return value < BigInt(0) ? -value : value;
+}
+
+function exactScalarsEqual(left: ExactScalar, right: ExactScalar) {
+  return left.numerator * right.denominator === right.numerator * left.denominator;
+}
+
+function exactScalarComponentsAreSafe(value: ExactScalar) {
+  return absoluteBigInt(value.numerator) <= maxSafeInteger && value.denominator <= maxSafeInteger;
+}
+
+/**
+ * Preserve the legacy rounded fraction/decimal compatibility without IEEE-754.
+ * Approximation is allowed only between an explicit decimal and a fraction-like
+ * form, only for non-zero rationals whose reduced components fit the JS safe
+ * integer range, and only when the exact cross-multiplied error is below 1e-6.
+ */
+function exactScalarsWithinRoundedFractionTolerance(left: ExactAnswerScalar, right: ExactAnswerScalar) {
+  const compatibleKinds =
+    (left.kind === "fraction" && right.kind === "decimal")
+    || (left.kind === "decimal" && right.kind === "fraction");
+  if (!compatibleKinds) return false;
+  if (!exactScalarComponentsAreSafe(left.value) || !exactScalarComponentsAreSafe(right.value)) return false;
+  if (left.value.numerator === BigInt(0) || right.value.numerator === BigInt(0)) return false;
+
+  const differenceNumerator = absoluteBigInt(
+    left.value.numerator * right.value.denominator
+      - right.value.numerator * left.value.denominator
+  );
+  const differenceDenominator = left.value.denominator * right.value.denominator;
+  return differenceNumerator * roundedFractionToleranceScale < differenceDenominator;
 }
 
 function bracketsWrapEntireValue(value: string) {
@@ -209,75 +361,7 @@ function unwrapFinalAnswerNotation(value: string) {
   return unwrapped;
 }
 
-function safeEvaluateArithmeticExpression(expression: string) {
-  const input = expression.replace(/\s+/g, "");
-  if (!/^[\d+\-*/().]+$/.test(input)) return null;
-
-  let index = 0;
-  const peek = () => input[index] ?? "";
-  const consume = () => input[index++] ?? "";
-
-  function parseNumber() {
-    const start = index;
-    while (/\d|\./.test(peek())) consume();
-    if (start === index) return null;
-    const value = Number(input.slice(start, index));
-    return Number.isFinite(value) ? value : null;
-  }
-
-  function parseFactor(): number | null {
-    if (peek() === "+") {
-      consume();
-      return parseFactor();
-    }
-    if (peek() === "-") {
-      consume();
-      const value = parseFactor();
-      return value === null ? null : -value;
-    }
-    if (peek() === "(") {
-      consume();
-      const value = parseExpression();
-      if (peek() !== ")") return null;
-      consume();
-      return value;
-    }
-    return parseNumber();
-  }
-
-  function parseTerm() {
-    let value = parseFactor();
-    if (value === null) return null;
-
-    while (peek() === "*" || peek() === "/") {
-      const operator = consume();
-      const next = parseFactor();
-      if (next === null || (operator === "/" && next === 0)) return null;
-      value = operator === "*" ? value * next : value / next;
-    }
-
-    return value;
-  }
-
-  function parseExpression() {
-    let value = parseTerm();
-    if (value === null) return null;
-
-    while (peek() === "+" || peek() === "-") {
-      const operator = consume();
-      const next = parseTerm();
-      if (next === null) return null;
-      value = operator === "+" ? value + next : value - next;
-    }
-
-    return value;
-  }
-
-  const value = parseExpression();
-  return value !== null && index === input.length ? value : null;
-}
-
-function answerCandidateStrings(value: string) {
+function answerCandidateStrings(value: string, allowScalarParsing = true) {
   const normalized = normalizeAnswer(value);
   const candidates = new Set([normalized]);
 
@@ -285,12 +369,11 @@ function answerCandidateStrings(value: string) {
   if (wrapped && wrapped !== normalized) candidates.add(wrapped);
 
   const equationIndex = normalized.lastIndexOf("=");
-  if (equationIndex !== -1) {
+  if (allowScalarParsing && equationIndex !== -1) {
     const left = unwrapFinalAnswerNotation(normalized.slice(0, equationIndex));
     const right = unwrapFinalAnswerNotation(normalized.slice(equationIndex + 1));
-    const leftValue = safeEvaluateArithmeticExpression(left);
-    const rightValue = parseScalarAnswer(right);
-    if (leftValue !== null && rightValue !== null && Math.abs(leftValue - rightValue) < 0.000001) {
+    const exactRight = exactScalarExpressionForAnswer(right);
+    if (exactRight !== null && exactScalarArithmeticExpressionsEqual(left, exactRight) === true) {
       candidates.add(right);
     }
   }
@@ -298,17 +381,27 @@ function answerCandidateStrings(value: string) {
   return candidates;
 }
 
-function normalizedAnswerVariants(value: string) {
+function normalizedAnswerVariants(value: string, allowScalarParsing = true) {
   const variants = new Set<string>();
 
-  for (const normalized of answerCandidateStrings(value)) {
+  for (const normalized of answerCandidateStrings(value, allowScalarParsing)) {
     variants.add(normalized);
 
     // For mixed numbers the collapsed string ("13/7" from "1 3/7") is a
     // different value — offer the true improper fraction instead.
-    const improper = improperFractionForMixed(normalized);
-    if (improper) variants.add(improper);
-    else variants.add(normalized.replace(/\s+/g, ""));
+    const equationIndex = normalized.lastIndexOf("=");
+    const finalAnswer = equationIndex === -1
+      ? normalized
+      : unwrapFinalAnswerNotation(normalized.slice(equationIndex + 1));
+    const finalAnswerHasMixedShape = mixedNumberShape(finalAnswer) !== null;
+    if (finalAnswerHasMixedShape) {
+      if (allowScalarParsing && equationIndex === -1) {
+        const improper = improperFractionForMixed(normalized);
+        if (improper) variants.add(improper);
+      }
+    } else {
+      variants.add(normalized.replace(/\s+/g, ""));
+    }
 
     if (normalized.startsWith("hk$")) variants.add(normalized.replace(/^hk\$/, "$"));
     if (normalized.startsWith("$")) variants.add(normalized.replace(/^\$/, "hk$"));
@@ -326,63 +419,41 @@ function normalizedAnswerVariants(value: string) {
       variants.add(`${degree[1]}degrees`);
     }
 
-    const phraseFraction = parsePhraseFraction(normalized);
-    if (phraseFraction) {
-      variants.add(String(phraseFraction.scalar));
-      if (Number.isInteger(phraseFraction.numerator) && Number.isInteger(phraseFraction.denominator)) {
-        variants.add(`${phraseFraction.numerator}/${phraseFraction.denominator}`);
-      }
-    }
   }
 
   return variants;
 }
 
 export function parseScalarAnswer(value: string) {
-  const normalizedText = unwrapFinalAnswerNotation(normalizeAnswer(value));
-  const englishNumber = parseEnglishNumberWords(normalizedText);
-  if (englishNumber !== null) return englishNumber;
-  const phraseFraction = parsePhraseFraction(normalizedText);
-  if (phraseFraction) return phraseFraction.scalar;
-  const mixedNumber = parseMixedNumber(normalizedText);
-  if (mixedNumber !== null) return mixedNumber;
-
-  let normalized = normalizedText.replace(/\s+/g, "");
-  normalized = normalized
-    .replace(/^hk\$/, "")
-    .replace(/^\$/, "")
-    .replace(/(?:cm\^2|cm2|cm\^3|cm3|cm|ml|l|km\/h|kmh|km|°|%)$/i, "");
-
-  const fraction = normalized.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
-  if (fraction) {
-    const denominator = Number(fraction[2]);
-    if (denominator === 0) return null;
-    return Number(fraction[1]) / denominator;
-  }
-
-  if (/^-?\d+(?:\.\d+)?$/.test(normalized)) return Number(normalized);
-
-  const unitMatch = normalized.match(/^(-?\d+(?:\.\d+)?)([a-z]+)$/);
-  if (unitMatch && knownAnswerUnitWords.has(unitMatch[2])) return Number(unitMatch[1]);
-
-  return null;
+  const parsed = strictExactScalarForAnswer(value);
+  if (parsed === null || !exactScalarComponentsAreSafe(parsed.value)) return null;
+  return Number(parsed.value.numerator) / Number(parsed.value.denominator);
 }
 
 export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
+  if (!isAnswerWithinLengthLimit(selectedAnswer) || !isCuratedAnswerWithinLengthLimit(acceptedAnswer)) return false;
+  const curatedAnswerAllowsScalarParsing = isAnswerWithinLengthLimit(acceptedAnswer);
   const selectedVariants = normalizedAnswerVariants(selectedAnswer);
-  const acceptedVariants = normalizedAnswerVariants(acceptedAnswer);
+  const acceptedVariants = normalizedAnswerVariants(acceptedAnswer, curatedAnswerAllowsScalarParsing);
 
   for (const variant of selectedVariants) {
     if (acceptedVariants.has(variant)) return true;
   }
 
-  for (const selectedCandidate of answerCandidateStrings(selectedAnswer)) {
-    const selectedNumber = parseScalarAnswer(selectedCandidate);
-    if (selectedNumber === null) continue;
+  // A 501–1024-character curated alias can take part in bounded string
+  // normalization above, but never reaches scalar, exact-arithmetic, or BigInt
+  // parsing. Those paths retain the learner/candidate limit of 500.
+  if (!curatedAnswerAllowsScalarParsing) return false;
 
-    for (const acceptedCandidate of answerCandidateStrings(acceptedAnswer)) {
-      const acceptedNumber = parseScalarAnswer(acceptedCandidate);
-      if (acceptedNumber !== null && Math.abs(selectedNumber - acceptedNumber) < 0.000001) return true;
+  for (const acceptedCandidate of answerCandidateStrings(acceptedAnswer)) {
+    const acceptedScalar = strictExactScalarForAnswer(acceptedCandidate);
+    if (acceptedScalar === null) continue;
+
+    for (const selectedCandidate of answerCandidateStrings(selectedAnswer)) {
+      const selectedScalar = strictExactScalarForAnswer(selectedCandidate);
+      if (selectedScalar === null) continue;
+      if (exactScalarsEqual(selectedScalar.value, acceptedScalar.value)) return true;
+      if (exactScalarsWithinRoundedFractionTolerance(selectedScalar, acceptedScalar)) return true;
     }
   }
 
@@ -390,14 +461,18 @@ export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
 }
 
 export function questionAnswerMatches(question: GradingQuestion, selectedAnswer: string) {
-  const acceptedAnswers = [question.answer, ...(question.accepted_answers ?? [])];
+  if (!isAnswerWithinLengthLimit(selectedAnswer)) return false;
+  // Validate trusted metadata before any normalization. One invalid alias is
+  // ignored rather than poisoning otherwise valid answer metadata.
+  const acceptedAnswers = [question.answer, ...(question.accepted_answers ?? [])]
+    .filter(isCuratedAnswerWithinLengthLimit);
   if (acceptedAnswers.some((answer) => answerMatches(selectedAnswer, answer))) return true;
 
   return (question.options ?? []).some((option) => {
     const localizedOptions = [option.en, option.zh, option.zhHans ?? ""].filter(Boolean);
     const selectedOption = localizedOptions.some((optionText) => answerMatches(selectedAnswer, optionText));
     const acceptedOption = acceptedAnswers.some((answer) =>
-      localizedOptions.some((optionText) => answerMatches(answer, optionText))
+      localizedOptions.some((optionText) => answerMatches(optionText, answer))
     );
     return selectedOption && acceptedOption;
   });

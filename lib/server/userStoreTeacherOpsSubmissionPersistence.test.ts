@@ -3,8 +3,10 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
+import { MAX_ANSWER_LENGTH } from "@/lib/answerLimits";
 import {
   createTeacherOpsSubmissionPersistenceStore,
+  teacherOpsDeterministicAssignmentGradingRun,
   type TeacherOpsSubmissionPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsSubmissionPersistence";
 import type { AssignmentGradingRun, LocalizedText, Submission } from "@/types";
@@ -454,6 +456,134 @@ test("teacher ops submission persistence owns deterministic assignment grading f
   assert.equal(needsReview.feedback_en, "No readable answer text was captured. Teacher review is required.");
 });
 
+test("teacher deterministic grading keeps an exactly 500-character typed answer on the matcher path", () => {
+  const database = {
+    ...createDatabase(),
+    questions: [{ id: "question-linked", answer: "accepted", accepted_answers: null, options: null }]
+  };
+  const submission = database.submissions[0];
+  const assignment = { ...database.assignments[0], target_id: "question-linked" };
+  const selectedAnswers: string[] = [];
+  const answerText = "x".repeat(MAX_ANSWER_LENGTH);
+
+  const run = teacherOpsDeterministicAssignmentGradingRun({
+    database,
+    submission,
+    assignment,
+    attempt: {
+      ...database.assignment_submission_attempts[1],
+      answer_text: answerText,
+      ocr_result: null
+    },
+    now: fixedNow,
+    createId: () => "typed-500",
+    questionAnswerMatches: (_question, selectedAnswer) => {
+      selectedAnswers.push(selectedAnswer);
+      return true;
+    }
+  });
+
+  assert.deepEqual(selectedAnswers, [answerText]);
+  assert.equal(run.status, "suggested");
+  assert.equal(run.model, "deterministic-answer-key");
+  assert.equal(run.suggested_score, 100);
+});
+
+test("teacher deterministic grading routes a 501-character typed answer to review without calling the matcher", () => {
+  const database = {
+    ...createDatabase(),
+    questions: [{ id: "question-linked", answer: "accepted", accepted_answers: null, options: null }]
+  };
+  const submission = database.submissions[0];
+  const assignment = { ...database.assignments[0], target_id: "question-linked" };
+  let matcherCalls = 0;
+
+  const run = teacherOpsDeterministicAssignmentGradingRun({
+    database,
+    submission,
+    assignment,
+    attempt: {
+      ...database.assignment_submission_attempts[1],
+      answer_text: "x".repeat(MAX_ANSWER_LENGTH + 1),
+      ocr_result: null
+    },
+    now: fixedNow,
+    createId: () => "typed-501",
+    questionAnswerMatches: () => {
+      matcherCalls += 1;
+      return false;
+    }
+  });
+
+  assert.deepEqual(
+    { matcherCalls, status: run.status, suggestedScore: run.suggested_score },
+    { matcherCalls: 0, status: "needs-review", suggestedScore: null }
+  );
+  assert.equal(run.model, "teacher-review-required");
+  assert.equal(run.confidence, null);
+  assert.equal(
+    run.feedback_en,
+    "Long-form submission captured. Deterministic short-answer grading was skipped; teacher review is required."
+  );
+  assert.equal(run.feedback_zh, "已記錄長篇作答。已略過確定性短答案評分，需教師人工審核。");
+  assert.notEqual(run.feedback_en, "No readable answer text was captured. Teacher review is required.");
+});
+
+test("teacher deterministic grading keeps 12k OCR working review-only and acceptance cannot inherit zero", async () => {
+  const database = {
+    ...createDatabase(),
+    questions: [{ id: "question-linked", answer: "accepted", accepted_answers: null, options: null }]
+  };
+  const submission = database.submissions[0];
+  submission.score = 0;
+  const assignment = { ...database.assignments[0], target_id: "question-linked" };
+  const ocrText = "ocr-working ".repeat(1000);
+  let matcherCalls = 0;
+  assert.equal(ocrText.length, 12000);
+
+  const run = teacherOpsDeterministicAssignmentGradingRun({
+    database,
+    submission,
+    assignment,
+    attempt: {
+      ...database.assignment_submission_attempts[1],
+      input_type: "image",
+      answer_text: "typed fallback",
+      ocr_result: {
+        text: ocrText,
+        confidence: 0.9,
+        provider: "mathpix",
+        accepted: true,
+        alternatives: []
+      }
+    },
+    now: fixedNow,
+    createId: () => "ocr-12k",
+    questionAnswerMatches: () => {
+      matcherCalls += 1;
+      return false;
+    }
+  });
+
+  assert.deepEqual(
+    { matcherCalls, status: run.status, suggestedScore: run.suggested_score },
+    { matcherCalls: 0, status: "needs-review", suggestedScore: null }
+  );
+  assert.match(run.feedback_en ?? "", /Long-form submission captured/);
+  assert.notEqual(run.feedback_en, "No readable answer text was captured. Teacher review is required.");
+
+  database.assignment_grading_runs.push(run);
+  const accepted = await createTestStore(database).reviewTeacherSubmission({
+    teacherId: "teacher-1",
+    submissionId: submission.id,
+    action: "accept"
+  });
+
+  assert.equal(accepted.status, "reviewed");
+  assert.equal(database.submissions[0].score, null);
+  assert.equal(database.assignment_teacher_reviews.at(-1)?.final_score, null);
+});
+
 test("teacher ops submission persistence records teacher reviews and score-only grade updates", async () => {
   const acceptedDatabase = createDatabase();
   const accepted = await createTestStore(acceptedDatabase).reviewTeacherSubmission({
@@ -469,6 +599,29 @@ test("teacher ops submission persistence records teacher reviews and score-only 
   assert.equal(acceptedSubmission?.feedback_en, "Review seed feedback.");
   assert.equal(acceptedSubmission?.graded_at, fixedNow);
   assert.equal(acceptedDatabase.assignment_teacher_reviews.at(-1)?.id, "teacher-review-generated-1");
+
+  const explicitScoreDatabase = createDatabase();
+  const explicitScoreReview = await createTestStore(explicitScoreDatabase).reviewTeacherSubmission({
+    teacherId: "teacher-1",
+    submissionId: "submission-owned-1",
+    action: "accept",
+    score: 84.4
+  });
+  assert.equal(explicitScoreReview.status, "reviewed");
+  assert.equal(explicitScoreDatabase.submissions[0].score, 84);
+  assert.equal(explicitScoreDatabase.assignment_teacher_reviews.at(-1)?.final_score, 84);
+
+  const noRunDatabase = createDatabase();
+  noRunDatabase.assignment_grading_runs = [];
+  noRunDatabase.submissions[0].score = 63;
+  const noRunReview = await createTestStore(noRunDatabase).reviewTeacherSubmission({
+    teacherId: "teacher-1",
+    submissionId: "submission-owned-1",
+    action: "accept"
+  });
+  assert.equal(noRunReview.status, "reviewed");
+  assert.equal(noRunDatabase.submissions[0].score, 63);
+  assert.equal(noRunDatabase.assignment_teacher_reviews.at(-1)?.final_score, 63);
 
   const correctionDatabase = createDatabase();
   const store = createTestStore(correctionDatabase);

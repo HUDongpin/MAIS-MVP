@@ -2,6 +2,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { rejectDirectBrowserEntry } from "../../../scripts/reject-direct-browser-entry.mjs";
 import {
   fsBasePath,
   fsQuestionPath,
@@ -13,6 +15,7 @@ import {
   writeManifest
 } from "./pipeline-lib.mjs";
 
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const args = parseArgs();
 const dryRun = Boolean(args["dry-run"]);
 const allowPlaceholderBase = Boolean(args["allow-placeholder-base"]);
@@ -63,8 +66,7 @@ async function run() {
 
   let browser = null;
   if (renderable.length > 0) {
-    const { chromium } = await import("playwright");
-    browser = await chromium.launch({ headless: true });
+    rejectDirectBrowserEntry("render-question-overlays browser rasterization");
   }
 
   let rendered = 0;

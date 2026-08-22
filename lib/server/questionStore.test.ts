@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 import { defaultCurriculumProfile } from "@/lib/curriculumProfile";
+import { MAX_ANSWER_LENGTH } from "@/lib/answerLimits";
+import { answerMatches } from "@/lib/server/answerMatching";
 
 test("questionStore serves grade-filtered public questions from a cached lightweight catalog", async () => {
   const store = await import("./questionStore");
@@ -59,4 +61,14 @@ test("questionStore stays decoupled from authenticated app_state storage", async
     /^\s*import\s[^\n]*@\/data\/questions/m,
     "the curated question aggregate must stay lazily loaded"
   );
+});
+
+test("reduced-choice option detection preserves selected-versus-curated matcher order", async () => {
+  const source = await readFile(join(process.cwd(), "lib/server/questionStore.ts"), "utf8");
+  const reviewOnlyAnswer = `42${" ".repeat(MAX_ANSWER_LENGTH - 1)}`;
+
+  assert.equal(answerMatches("42", reviewOnlyAnswer), true);
+  assert.equal(answerMatches(reviewOnlyAnswer, "42"), false);
+  assert.match(source, /answerMatches\(optionText, answer\)/);
+  assert.doesNotMatch(source, /answerMatches\(answer, optionText\)/);
 });

@@ -4,6 +4,7 @@ import { join } from "node:path";
 
 const outputDir = join(".tmp", `accommodations-tests-${process.pid}-${Date.now()}`);
 const tscBin = process.platform === "win32" ? "node_modules/.bin/tsc.cmd" : "node_modules/.bin/tsc";
+const tsxBin = process.platform === "win32" ? "node_modules/.bin/tsx.cmd" : "node_modules/.bin/tsx";
 
 function run(command, args) {
   const result = spawnSync(command, args, { stdio: "inherit", env: process.env });
@@ -40,24 +41,40 @@ function linkPathAlias() {
   }
 }
 
-mkdirSync(".tmp", { recursive: true });
-cleanup();
-
-try {
-  const compiled = run(tscBin, ["-p", "tsconfig.accommodations.json", "--outDir", outputDir]);
-  if (!compiled) process.exit(process.exitCode);
-
-  linkPathAlias();
-
-  const passed = run("node", [
-    "--test",
-    join(outputDir, "lib/accommodations.test.js"),
-    join(outputDir, "lib/calculatorEngine.test.js"),
-    join(outputDir, "lib/expressionCalculator.test.js"),
-    join(outputDir, "lib/statistics.test.js"),
-    join(outputDir, "lib/server/userStore/accommodationsPersistence.test.js")
-  ]);
-  if (!passed) process.exit(process.exitCode);
-} finally {
+function main() {
+  mkdirSync(".tmp", { recursive: true });
   cleanup();
+
+  try {
+    const compiled = run(tscBin, ["-p", "tsconfig.accommodations.json", "--outDir", outputDir]);
+    if (!compiled) return;
+
+    linkPathAlias();
+
+    const passed = run("node", [
+      "--test",
+      join(outputDir, "lib/accommodations.test.js"),
+      join(outputDir, "lib/answerUnits.test.js"),
+      join(outputDir, "lib/calculatorEngine.test.js"),
+      join(outputDir, "lib/expressionCalculator.test.js"),
+      join(outputDir, "lib/mathSoftKeyboardCalculation.test.js"),
+      join(outputDir, "lib/statistics.test.js"),
+      join(outputDir, "lib/server/answerMatching.test.js"),
+      join(outputDir, "lib/server/userStoreTeacherOpsSubmissionPersistence.test.js"),
+      join(outputDir, "lib/server/userStore/accommodationsPersistence.test.js")
+    ]);
+    if (!passed) return;
+
+    const routeTestsPassed = run(tsxBin, [
+      "--tsconfig",
+      "tsconfig.json",
+      "--test",
+      "app/api/answerLengthRoutes.test.ts"
+    ]);
+    if (!routeTestsPassed) return;
+  } finally {
+    cleanup();
+  }
 }
+
+main();

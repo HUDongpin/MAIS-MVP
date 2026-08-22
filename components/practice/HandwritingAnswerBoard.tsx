@@ -9,6 +9,7 @@ import {
   type HandwritingStroke,
   type HandwritingTool
 } from "@/lib/handwritingRecognition";
+import { MAX_ANSWER_LENGTH } from "@/lib/answerLimits";
 import { cn, localize } from "@/lib/utils";
 import type { Language, LocalizedText } from "@/types";
 
@@ -505,6 +506,7 @@ export function HandwritingAnswerBoard({
             <textarea
               id={answerInputId}
               value={value}
+              maxLength={MAX_ANSWER_LENGTH}
               rows={2}
               onChange={(event) => onAnswerChange(event.target.value)}
               onFocus={onBeginAttempt}
@@ -515,6 +517,7 @@ export function HandwritingAnswerBoard({
             <input
               id={answerInputId}
               value={value}
+              maxLength={MAX_ANSWER_LENGTH}
               onChange={(event) => onAnswerChange(event.target.value)}
               onFocus={onBeginAttempt}
               placeholder={placeholder}

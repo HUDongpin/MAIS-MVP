@@ -615,7 +615,7 @@ test.describe("Production question-bank solvability audit", () => {
 
         if (liveQuestion.type === "multiple-choice") {
           const matchingLiveOptions = (liveQuestion.options ?? []).filter((option) =>
-            answerMatches(independentAnswer, option.en) || answerMatches(independentAnswer, option.zh)
+            answerMatches(option.en, independentAnswer) || answerMatches(option.zh, independentAnswer)
           );
 
           if (!liveQuestion.options?.length) {

@@ -14,6 +14,7 @@ import { shouldHideMainlandPepPrimaryPracticeIllustration } from "@/components/p
 import { formatPracticeOptionDisplayText } from "@/components/practice/practiceOptionDisplayText";
 import { cleanPracticeQuestionPromptText } from "@/components/practice/practicePromptText";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
+import { MAX_ANSWER_LENGTH, isAnswerWithinLengthLimit } from "@/lib/answerLimits";
 import { isStudentLessonPath } from "@/lib/lessonLinks";
 import { countingDotCardQuantitiesFor } from "@/lib/countingDotCards";
 import {
@@ -248,6 +249,12 @@ const photoAttachmentCopy = {
   addPhotos: { en: "Add photos", zh: "加入相片", zhHans: "添加照片" }
 } satisfies { addPhotos: LocalizedText };
 
+const answerTooLongCopy = {
+  en: `Answers must be ${MAX_ANSWER_LENGTH} characters or fewer.`,
+  zh: `答案不可超過 ${MAX_ANSWER_LENGTH} 個字元。`,
+  zhHans: `答案不可超过 ${MAX_ANSWER_LENGTH} 个字符。`
+} satisfies LocalizedText;
+
 const practiceQuestionCardSimplifiedTextReplacements = [
   ["憑", "凭"],
   ["細", "细"],
@@ -433,6 +440,10 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
 
   async function handleSubmit() {
     if (!selected.trim() || feedback || isChecking) return;
+    if (!isAnswerWithinLengthLimit(selected)) {
+      setError(t(answerTooLongCopy));
+      return;
+    }
     if (!currentUser) {
       setNeedsLogin(true);
       setError(t(dictionary.practice.loginRequired));
@@ -470,6 +481,14 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
       }
 
       if (!response.ok || !result) {
+        if (
+          responseBody &&
+          typeof responseBody === "object" &&
+          "code" in responseBody &&
+          responseBody.code === "answer-too-long"
+        ) {
+          throw new Error(t(answerTooLongCopy));
+        }
         throw new Error("Could not check this answer yet.");
       }
 
@@ -507,6 +526,12 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   }
 
   function handleTypedAnswer(value: string) {
+    if (!isAnswerWithinLengthLimit(value)) {
+      setFeedback(null);
+      setError(t(answerTooLongCopy));
+      setNeedsLogin(false);
+      return;
+    }
     beginAttempt();
     recordLearningEvent({
       type: "keyboard",
@@ -726,6 +751,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
                   answerControlRef.current = element;
                 }}
                 value={selected}
+                maxLength={MAX_ANSWER_LENGTH}
                 rows={3}
                 onChange={(event) => handleTypedAnswer(event.target.value)}
                 onFocus={beginAttempt}
@@ -739,6 +765,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
                   answerControlRef.current = element;
                 }}
                 value={selected}
+                maxLength={MAX_ANSWER_LENGTH}
                 onChange={(event) => handleTypedAnswer(event.target.value)}
                 onFocus={beginAttempt}
                 placeholder={t(answerPlaceholders[question.type])}

@@ -42,6 +42,8 @@ const summary = {
   mainlandHjbHighQuestions: report.summary.mainlandHjbHighQuestions,
   passRows: report.summary.passRows,
   failingRows: report.summary.failingRows,
+  reviewOnlyCuratedAnswers: report.summary.reviewOnlyCuratedAnswers,
+  invalidCuratedAnswers: report.summary.invalidCuratedAnswers,
   statusCounts: report.summary.statusCounts,
   mainlandPepQa: {
     totalQuestions: mainlandPepReport.summary.totalQuestions,

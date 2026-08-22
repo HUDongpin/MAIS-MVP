@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { MAX_ANSWER_LENGTH, MAX_CURATED_ANSWER_LENGTH } from "./answerLimits";
 import {
   hongKongEasePracticeQuestionGenerationMetadata,
   hongKongEasePracticeQuestions
@@ -29,8 +30,33 @@ import {
   expectedUnitedStatesArkansasG6G12QuestionCount,
   expectedUnitedStatesArkansasK5QuestionCount,
   expectedUnitedStatesArkansasQuestionCount,
-  expectedUnitedStatesFloridaMiddleSchoolQuestionCount
+  expectedUnitedStatesFloridaMiddleSchoolQuestionCount,
+  optionMatchesAcceptedAnswer
 } from "./questionBankSolvability";
+
+test("option matching keeps a future 501-character curated correct alias selectable", () => {
+  const reviewOnlyAnswer = `42${" ".repeat(MAX_ANSWER_LENGTH - 1)}`;
+  assert.equal(reviewOnlyAnswer.length, MAX_ANSWER_LENGTH + 1);
+
+  assert.equal(optionMatchesAcceptedAnswer({
+    id: "future-review-only-option",
+    curriculumTrack: "HK",
+    grade: "P1",
+    topicId: "numbers-p1",
+    topic: { en: "Numbers", zh: "數字" },
+    difficulty: "Low",
+    type: "multiple-choice",
+    prompt: { en: "Choose 42", zh: "選擇 42" },
+    answer: reviewOnlyAnswer,
+    acceptedAnswers: [],
+    options: [
+      { en: "41", zh: "41" },
+      { en: "42", zh: "42" },
+      { en: "43", zh: "43" }
+    ],
+    explanation: { en: "42", zh: "42" }
+  }, { en: "42", zh: "42" }), true);
+});
 
 test("full question bank is independently solvable and answer-key matched", () => {
   const report = buildFullQuestionBankSolvabilityAudit("2026-05-22");
@@ -79,7 +105,15 @@ test("full question bank is independently solvable and answer-key matched", () =
   assert.equal(report.rows.length, expectedFullQuestionBankCount);
   assert.equal(report.summary.passRows, expectedFullQuestionBankCount);
   assert.equal(report.summary.failingRows, 0);
+  assert.equal(report.summary.reviewOnlyCuratedAnswers, 26);
+  assert.equal(report.summary.invalidCuratedAnswers, 0);
   assert.deepEqual(report.failingRows, []);
+
+  const curatedAnswerReviews = report.rows.flatMap((row) => row.curatedAnswerReviews);
+  assert.equal(curatedAnswerReviews.length, 26);
+  assert.ok(curatedAnswerReviews.every((review) => review.status === "review-only"));
+  assert.ok(curatedAnswerReviews.every((review) => review.length > MAX_ANSWER_LENGTH));
+  assert.ok(curatedAnswerReviews.every((review) => review.length <= MAX_CURATED_ANSWER_LENGTH));
 });
 
 test("Hong Kong EASE Practice V1 exposes only S18 green text-only questions across HK publishers", () => {

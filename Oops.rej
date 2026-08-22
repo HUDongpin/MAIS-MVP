@@ -1,0 +1,56 @@
+@@ -365,13 +376,32 @@
+ function exactOwnedChildEnvironment(plan, liveHomeProof, environment, descriptor) {
+   assertRunnerLiveHome(plan, liveHomeProof);
+   if (descriptor.environmentInventorySha256 !== plan.environmentBinding.inventorySha256) {
+     throw new Error("Owned child descriptor environment binding differs from its plan.");
+   }
++  if (!environment || typeof environment !== "object" || Array.isArray(environment)) {
++    throw new Error("Owned child environment must be an exact object.");
++  }
++  const observedKeys = Object.keys(environment);
++  if (!sameJson(observedKeys, plan.environmentBinding.inventoryKeys)) {
++    throw new Error("Owned child environment keys/order differ from the plan inventory.");
++  }
++  for (const key of observedKeys) {
++    const property = Object.getOwnPropertyDescriptor(environment, key);
++    if (!property || !("value" in property) || typeof property.value !== "string") {
++      throw new Error("Owned child environment contains a non-exact value.");
++    }
++  }
+   validatePlanOwnedEnvironmentInventory(plan, environment, liveHomeProof);
+   assertLiveHomeEnvironmentValue(liveHomeProof, environment.HOME);
+-  const childEnvironment = copyLiveHomeToChildEnvironment(liveHomeProof, environment);
++  const withLiveHome = copyLiveHomeToChildEnvironment(liveHomeProof, environment);
++  const childEnvironment = Object.fromEntries(
++    plan.environmentBinding.inventoryKeys.map((key) => [key, withLiveHome[key]])
++  );
++  if (!sameJson(Object.keys(childEnvironment), plan.environmentBinding.inventoryKeys)) {
++    throw new Error("Owned child environment changed while binding live HOME.");
++  }
+   validatePlanOwnedEnvironmentInventory(plan, childEnvironment, liveHomeProof);
+   assertRunnerLiveHome(plan, liveHomeProof);
+   return childEnvironment;
+ }
+ 
+@@ -884,8 +914,18 @@
+ export function assertNoCallerOwnedWritableOverrides(environment) {
+-  for (const key of callerOwnedWritableKeys) {
+-    if (typeof environment[key] === "string" && environment[key].trim() !== "") {
+-      throw new Error(`${key} is runner-owned and must not be supplied by the caller.`);
++  if (!environment || typeof environment !== "object" || Array.isArray(environment)) {
++    throw new Error("Caller environment must be an exact object.");
++  }
++  for (const key of Object.keys(environment).sort()) {
++    const property = Object.getOwnPropertyDescriptor(environment, key);
++    if (!property || !("value" in property) || typeof property.value !== "string") {
++      throw new Error("Caller environment contains a non-exact value.");
++    }
++    if (
++      callerOwnedWritableKeys.includes(key)
++      || callerWritableOrBehaviorOverridePattern.test(key)
++    ) {
++      throw new Error(`${key} is runner-owned or behavior-affecting and must be absent.`);
+     }
+   }
+ }
+ 

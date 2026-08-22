@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-import { spawn, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { existsSync, rmSync, mkdirSync, symlinkSync } from "node:fs";
-import net from "node:net";
 import path from "node:path";
+import { rejectDirectBrowserEntry } from "./reject-direct-browser-entry.mjs";
 
 const cwd = process.cwd();
 const args = parseArgs(process.argv.slice(2));
 const runBrowser = Boolean(args.browser);
+if (runBrowser) rejectDirectBrowserEntry("verify-google-oauth-slice --browser");
 const port = Number(args.port ?? 3057);
 const baseUrl = `http://127.0.0.1:${port}`;
 const authSessionSecretFixture = crypto.randomUUID().replaceAll("-", "");
@@ -20,10 +21,7 @@ const redactedEnv = {
   GOOGLE_OAUTH_REDIRECT_URI: `${baseUrl}/api/auth/google/callback`
 };
 
-let devServer = null;
-
-try {
-  runStep("A19 readiness self-test", [process.execPath, ["scripts/check-google-oauth-readiness.mjs", "--self-test"]]);
+runStep("A19 readiness self-test", [process.execPath, ["scripts/check-google-oauth-readiness.mjs", "--self-test"]]);
 
   runExpectedFailure(
     "A19 example env stays fail-closed",
@@ -56,16 +54,9 @@ try {
 
   runStep("A22 diff check", ["git", ["diff", "--check"]]);
 
-  if (runBrowser) {
-    await runBrowserSmoke();
-  } else {
-    console.log("A11 browser smoke skipped; pass --browser to run Playwright desktop/mobile coverage.");
-  }
+  console.log("A11 browser smoke is owner-runner only; the direct --browser entry is disabled.");
 
   console.log("Google OAuth slice verification: pass");
-} finally {
-  await stopDevServer();
-}
 
 function parseArgs(values) {
   const parsed = {};
@@ -123,88 +114,4 @@ function createCompiledTestLinks() {
     const target = path.join(aliasDir, name);
     if (!existsSync(target)) symlinkSync(`../../${name}`, target);
   }
-}
-
-async function runBrowserSmoke() {
-  console.log("\n== A11 browser smoke ==");
-  await assertPortAvailable(port);
-
-  devServer = spawn("npm", ["run", "dev", "--", "--port", String(port)], {
-    cwd,
-    env: {
-      ...process.env,
-      ...redactedEnv
-    },
-    stdio: ["ignore", "pipe", "pipe"],
-    detached: process.platform !== "win32"
-  });
-  devServer.stdout.on("data", (chunk) => process.stdout.write(chunk));
-  devServer.stderr.on("data", (chunk) => process.stderr.write(chunk));
-
-  await waitForReady(`${baseUrl}/login?next=%2Fdashboard`, 120_000);
-  runStep("A11 Playwright Google OAuth login entry", [
-    "npx",
-    ["playwright", "test", "tests/e2e/google-oauth-login.spec.ts"],
-    {
-      env: {
-        ...process.env,
-        PLAYWRIGHT_SKIP_WEBSERVER: "1",
-        PLAYWRIGHT_BASE_URL: baseUrl
-      }
-    }
-  ]);
-}
-
-async function assertPortAvailable(portNumber) {
-  await new Promise((resolve, reject) => {
-    const server = net.createServer();
-    server.once("error", () => reject(new Error(`Port ${portNumber} is already in use.`)));
-    server.once("listening", () => {
-      server.close(resolve);
-    });
-    server.listen(portNumber, "127.0.0.1");
-  });
-}
-
-async function waitForReady(url, timeoutMs) {
-  const startedAt = Date.now();
-  while (Date.now() - startedAt < timeoutMs) {
-    try {
-      const response = await fetch(url, { redirect: "manual" });
-      if (response.status < 500) return;
-    } catch {
-      // Dev server not ready yet.
-    }
-    await sleep(1000);
-  }
-  throw new Error(`Timed out waiting for ${url}.`);
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function stopDevServer() {
-  if (!devServer) return;
-  const processToStop = devServer;
-  devServer = null;
-
-  if (processToStop.killed) return;
-  if (process.platform === "win32") {
-    processToStop.kill();
-  } else {
-    try {
-      process.kill(-processToStop.pid, "SIGINT");
-    } catch {
-      processToStop.kill("SIGINT");
-    }
-  }
-
-  await new Promise((resolve) => {
-    const timeout = setTimeout(resolve, 5000);
-    processToStop.once("exit", () => {
-      clearTimeout(timeout);
-      resolve();
-    });
-  });
 }

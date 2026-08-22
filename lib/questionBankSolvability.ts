@@ -67,6 +67,10 @@ import {
   questionAnswerMatches
 } from "./server/answerGrading";
 import {
+  isAnswerWithinLengthLimit,
+  isCuratedAnswerWithinLengthLimit
+} from "./answerLimits";
+import {
   normalizeQuestionDiagram,
   numberLinePointValue,
   planeFigureAngleDegrees,
@@ -110,6 +114,14 @@ export type FullQuestionBankAuditRow = {
   status: QuestionAuditStatus;
   severity: QuestionAuditSeverity;
   notes: string[];
+  curatedAnswerReviews: CuratedAnswerReview[];
+};
+
+export type CuratedAnswerReview = {
+  answerIndex: number;
+  answerRole: "primary" | "accepted";
+  length: number;
+  status: "review-only" | "invalid";
 };
 
 export type FullQuestionBankAuditReport = {
@@ -133,6 +145,8 @@ export type FullQuestionBankAuditReport = {
     unitedStatesFloridaMiddleSchoolQuestions: number;
     passRows: number;
     failingRows: number;
+    reviewOnlyCuratedAnswers: number;
+    invalidCuratedAnswers: number;
     statusCounts: Record<QuestionAuditStatus, number>;
     trackCounts: Record<string, number>;
     batchCounts: Record<string, number>;
@@ -604,7 +618,7 @@ export function acceptedAnswersFor(question: Question) {
 
 export function optionMatchesAcceptedAnswer(question: Question, option: NonNullable<Question["options"]>[number]) {
   return acceptedAnswersFor(question).some((acceptedAnswer) =>
-    answerMatches(acceptedAnswer, option.en) || answerMatches(acceptedAnswer, option.zh)
+    answerMatches(option.en, acceptedAnswer) || answerMatches(option.zh, acceptedAnswer)
   );
 }
 
@@ -1349,6 +1363,7 @@ function auditQuestion(
   options: { batchOverride?: string; requireExplanationAnswerReach?: boolean } = {}
 ): FullQuestionBankAuditRow {
   const notes: string[] = [];
+  const curatedAnswerReviews: CuratedAnswerReview[] = [];
   let status: QuestionAuditStatus = "pass";
   const mark = (nextStatus: QuestionAuditStatus, note: string) => {
     status = higherPriorityStatus(status, nextStatus);
@@ -1369,18 +1384,46 @@ function auditQuestion(
     }
   }
 
+  for (const [answerIndex, acceptedAnswer] of acceptedAnswersFor(question).entries()) {
+    const answerRole = answerIndex === 0 ? "primary" : "accepted";
+    if (!isCuratedAnswerWithinLengthLimit(acceptedAnswer)) {
+      curatedAnswerReviews.push({
+        answerIndex,
+        answerRole,
+        length: acceptedAnswer.length,
+        status: "invalid"
+      });
+      mark(
+        "content-error",
+        `Curated ${answerRole} answer #${answerIndex} is ${acceptedAnswer.length} characters and exceeds the curated metadata limit.`
+      );
+      continue;
+    }
+
+    if (!isAnswerWithinLengthLimit(acceptedAnswer)) {
+      curatedAnswerReviews.push({
+        answerIndex,
+        answerRole,
+        length: acceptedAnswer.length,
+        status: "review-only"
+      });
+      notes.push(
+        `Curated ${answerRole} answer #${answerIndex} is ${acceptedAnswer.length} characters; recorded for human review and not treated as a learner-submittable deterministic answer.`
+      );
+      continue;
+    }
+
+    if (!questionAnswerMatches(gradingPayload(question), acceptedAnswer)) {
+      mark("grader-gap", `Learner-submittable ${answerRole} answer #${answerIndex} was rejected by MAIS answer grading.`);
+    }
+  }
+
   const solver = independentAnswerFor(question, hkAnswers);
   const independentAnswer = solver.answer ?? "";
   if (!solver.answer) mark("solver-gap", [...(solver.notes ?? ["Could not compute an independent answer."])].join(" "));
 
   if (solver.answer && !isExpectedAnswerRepresented(question, solver.answer)) {
     mark("answer-mismatch", `Independent answer "${solver.answer}" does not match stored answer or accepted aliases.`);
-  }
-
-  for (const acceptedAnswer of acceptedAnswersFor(question)) {
-    if (!questionAnswerMatches(gradingPayload(question), acceptedAnswer)) {
-      mark("grader-gap", `Accepted answer "${acceptedAnswer}" was rejected by MAIS answer grading.`);
-    }
   }
 
   if (solver.answer) {
@@ -1399,7 +1442,7 @@ function auditQuestion(
     if (solver.answer) {
       const solverAnswer = solver.answer;
       const acceptedOptionCount = options.filter((option) =>
-        [option.en, option.zh, option.zhHans ?? ""].some((optionText) => answerMatches(solverAnswer, optionText))
+        [option.en, option.zh, option.zhHans ?? ""].some((optionText) => answerMatches(optionText, solverAnswer))
       ).length;
       if (acceptedOptionCount !== 1) {
         mark("ambiguous-mc", `Expected exactly one option matching independent answer; found ${acceptedOptionCount}.`);
@@ -1420,7 +1463,8 @@ function auditQuestion(
     independentAnswer,
     status,
     severity: severityFor(status),
-    notes: notes.length ? notes : ["OK"]
+    notes: notes.length ? notes : ["OK"],
+    curatedAnswerReviews
   };
 }
 
@@ -1441,6 +1485,7 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
   const hkAnswers = hkIndependentAnswersById();
   const rows = questions.map((question) => auditQuestion(question, hkAnswers));
   const failingRows = rows.filter((row) => row.status !== "pass");
+  const curatedAnswerReviews = rows.flatMap((row) => row.curatedAnswerReviews);
   const statusCounts = blankStatusCounts();
   rows.forEach((row) => {
     statusCounts[row.status] += 1;
@@ -1482,6 +1527,8 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
       unitedStatesFloridaMiddleSchoolQuestions,
       passRows: rows.length - failingRows.length,
       failingRows: failingRows.length,
+      reviewOnlyCuratedAnswers: curatedAnswerReviews.filter((review) => review.status === "review-only").length,
+      invalidCuratedAnswers: curatedAnswerReviews.filter((review) => review.status === "invalid").length,
       statusCounts,
       trackCounts: countBy(questions.map((question) => question.curriculumTrack)),
       batchCounts: countBy(rows.map((row) => row.batch)),
@@ -1494,6 +1541,7 @@ export function buildFullQuestionBankSolvabilityAudit(reportDate = new Date().to
     assumptions: [
       "Solvable means the answer is derivable from checked-in prompt, options, and diagram data without external sources.",
       "Answer-key match means the independent answer matches answer or acceptedAnswers under MAIS answer normalization.",
+      "Learner-submittable answers are at most 500 characters. Curated aliases from 501 through 1024 characters are recorded for human review and excluded from deterministic self-match checks; metadata above 1024 characters is invalid and blocks release.",
       "Mainland PEP primary questions are checked by deterministic family audit rules derived from question metadata, not by reading stored answers.",
       "Mainland PEP junior questions are checked against the S18-reviewed deterministic v2 1200-question generation metadata.",
       "Mainland PEP high-school questions are checked by prompt-derived solver rules, not by reusing the original generator draft values.",
@@ -1820,10 +1868,21 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     ["US Florida G6-G8 live questions", report.summary.unitedStatesFloridaMiddleSchoolQuestions],
     ["Passing rows", report.summary.passRows],
     ["Failing rows", report.summary.failingRows],
+    ["Review-only curated answers", report.summary.reviewOnlyCuratedAnswers],
+    ["Invalid curated answers", report.summary.invalidCuratedAnswers],
     ["Release recommendation", report.summary.releaseRecommendation]
   ];
   const statusRows = Object.entries(report.summary.statusCounts);
   const batchRows = Object.entries(report.summary.batchCounts);
+  const curatedAnswerReviewRows = report.rows.flatMap((row) =>
+    row.curatedAnswerReviews.map((review) => [
+      row.questionId,
+      review.answerRole,
+      review.answerIndex,
+      review.length,
+      review.status
+    ])
+  );
   const rowsForTable = report.failingRows.length ? report.failingRows : report.rows.slice(0, 20);
 
   const table = (headers: string[], rows: Array<Array<string | number>>) => [
@@ -1851,6 +1910,13 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     "## Batch Counts",
     "",
     table(["Batch", "Count"], batchRows),
+    "",
+    "## Curated Answer Metadata Review",
+    "",
+    table(
+      ["questionId", "answerRole", "answerIndex", "length", "status"],
+      curatedAnswerReviewRows.length ? curatedAnswerReviewRows : [["None", "-", "-", "-", "-"]]
+    ),
     "",
     report.failingRows.length ? "## Failing Rows" : "## Sample Passing Rows",
     "",
@@ -1895,6 +1961,7 @@ export function fullQuestionBankAuditCsv(report: FullQuestionBankAuditReport) {
     "independentAnswer",
     "status",
     "severity",
+    "curatedAnswerReviews",
     "notes"
   ];
   const rows = report.rows.map((row) => [
@@ -1908,6 +1975,9 @@ export function fullQuestionBankAuditCsv(report: FullQuestionBankAuditReport) {
     row.independentAnswer,
     row.status,
     row.severity,
+    row.curatedAnswerReviews
+      .map((review) => `${review.answerRole}#${review.answerIndex}:${review.length}:${review.status}`)
+      .join("; "),
     row.notes.join("; ")
   ]);
   return [headers, ...rows].map((row) => row.map(escapeCsvCell).join(",")).join("\n");

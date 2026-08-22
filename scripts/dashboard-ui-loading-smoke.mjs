@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { rejectDirectBrowserEntry } from "./reject-direct-browser-entry.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -177,84 +177,9 @@ async function loginBrowserSession(context, args, config) {
 }
 
 async function runUiSmoke(args) {
-  const { chromium } = await import("playwright");
-  const config = smokeConfig(args);
-  const browser = await chromium.launch({ headless: true });
-  let report;
-
-  try {
-    const context = await browser.newContext({
-      extraHTTPHeaders: bypassHeaders()
-    });
-    const session = await loginBrowserSession(context, args, config);
-    const page = await context.newPage();
-    const startedAt = Date.now();
-
-    await page.goto(`${session.baseUrl}/dashboard`, {
-      timeout: config.timeoutMs,
-      waitUntil: "domcontentloaded"
-    });
-
-    const loadingLocator = page.getByText(loadingTextPattern()).first();
-    let loadingFirstSeenMs = null;
-    try {
-      await loadingLocator.waitFor({ state: "visible", timeout: 750 });
-      loadingFirstSeenMs = Date.now() - startedAt;
-    } catch {
-      loadingFirstSeenMs = null;
-    }
-
-    await loadingLocator.waitFor({
-      state: "hidden",
-      timeout: config.loadingHiddenThresholdMs
-    });
-    const loadingHiddenMs = Date.now() - startedAt;
-
-    const errorVisible = await page.getByText(loadErrorPattern()).first().isVisible().catch(() => false);
-    if (errorVisible) {
-      throw new Error("Dashboard UI smoke found the dashboard load error message.");
-    }
-
-    await page.getByText(readyTextPattern()).first().waitFor({
-      state: "visible",
-      timeout: config.readyThresholdMs
-    });
-    const readyMs = Date.now() - startedAt;
-    const currentUrl = page.url();
-
-    report = {
-      authMode: session.authMode,
-      baseUrl: session.baseUrl,
-      finalUrl: currentUrl,
-      generatedAt: new Date().toISOString(),
-      grade: config.grade,
-      loadingFirstSeenMs,
-      loadingHiddenMs,
-      loadingHiddenThresholdMs: config.loadingHiddenThresholdMs,
-      ok: loadingHiddenMs <= config.loadingHiddenThresholdMs && readyMs <= config.readyThresholdMs,
-      readyMs,
-      readyThresholdMs: config.readyThresholdMs,
-      requestedBaseUrl: config.baseUrl
-    };
-
-    await context.close();
-  } finally {
-    await browser.close();
-  }
-
-  await fs.mkdir(config.artifactDir, { recursive: true });
-  await fs.writeFile(path.join(config.artifactDir, "last-run.json"), `${JSON.stringify(report, null, 2)}\n`);
-
-  if (args.json) {
-    console.log(JSON.stringify(report, null, 2));
-  } else {
-    console.log(`Dashboard UI loading smoke: ${report.ok ? "PASS" : "FAIL"} ${report.baseUrl} grade=${report.grade}`);
-    console.log(`Loading hidden: ${report.loadingHiddenMs}ms threshold=${report.loadingHiddenThresholdMs}ms`);
-    console.log(`Dashboard ready: ${report.readyMs}ms threshold=${report.readyThresholdMs}ms`);
-    console.log(`Artifact: ${path.join(config.artifactDir, "last-run.json")}`);
-  }
-
-  if (!report.ok) process.exitCode = 1;
+  rejectDirectBrowserEntry(
+    `dashboard-ui-loading-smoke${args.json ? " --json" : ""}`
+  );
 }
 
 function runSelfTest() {

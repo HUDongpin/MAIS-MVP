@@ -12,6 +12,7 @@ import type {
   Submission,
   SubmissionStatus
 } from "@/types";
+import { isAnswerWithinLengthLimit } from "@/lib/answerLimits";
 
 type TeacherOpsSubmissionUserRole = "student" | "teacher" | "parent" | "admin";
 
@@ -233,7 +234,8 @@ export function teacherOpsDeterministicAssignmentGradingRun({
 }) {
   const answerText = teacherOpsVisibleAttemptText(attempt);
   const question = assignment.target_id ? database.questions?.find((candidate) => candidate.id === assignment.target_id) : null;
-  if (question && answerText) {
+  const answerFitsDeterministicMatcher = isAnswerWithinLengthLimit(answerText);
+  if (question && answerText && answerFitsDeterministicMatcher) {
     const correct = questionAnswerMatches(
       {
         answer: question.answer,
@@ -268,8 +270,16 @@ export function teacherOpsDeterministicAssignmentGradingRun({
     model: "teacher-review-required",
     suggested_score: null,
     confidence: null,
-    feedback_en: answerText ? "Submission captured. Teacher confirmation is required." : "No readable answer text was captured. Teacher review is required.",
-    feedback_zh: answerText ? "已記錄提交，需教師確認。" : "未能讀取清晰答案文字，需教師人工審核。",
+    feedback_en: answerText && !answerFitsDeterministicMatcher
+      ? "Long-form submission captured. Deterministic short-answer grading was skipped; teacher review is required."
+      : answerText
+        ? "Submission captured. Teacher confirmation is required."
+        : "No readable answer text was captured. Teacher review is required.",
+    feedback_zh: answerText && !answerFitsDeterministicMatcher
+      ? "已記錄長篇作答。已略過確定性短答案評分，需教師人工審核。"
+      : answerText
+        ? "已記錄提交，需教師確認。"
+        : "未能讀取清晰答案文字，需教師人工審核。",
     correction_request_en: "",
     correction_request_zh: "",
     created_at: now
@@ -380,7 +390,9 @@ export function createTeacherOpsSubmissionPersistenceStore({
       const cleanCorrectionRequest = cleanAssignmentText(correctionRequest, 4000);
       const finalScore = typeof score === "number" && Number.isFinite(score)
         ? Math.max(0, Math.min(100, Math.round(score)))
-        : latestRun?.suggested_score ?? submission.score;
+        : latestRun
+          ? latestRun.suggested_score
+          : submission.score;
       const dueAt = action === "request-correction"
         ? correctionDueDateFrom(correctionDueAt, nowDate.getTime())
         : null;

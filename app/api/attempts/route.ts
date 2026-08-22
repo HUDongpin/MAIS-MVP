@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import {
+  answerTooLongErrorBody,
+  isAnswerWithinLengthLimit
+} from "@/lib/answerLimits";
 import { evaluateMediaStoragePolicy, mediaStoragePolicyFromEnv } from "@/lib/server/aiGovernance";
 import {
   mediaObjectReferenceFromUnknown,
@@ -10,7 +14,6 @@ import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
 
 export const runtime = "nodejs";
 
-const maxAnswerLength = 500;
 const maxAnswerWorkPhotoCount = 6;
 
 /**
@@ -126,7 +129,11 @@ export async function POST(request: Request) {
   }
 
   const questionId = typeof body.questionId === "string" ? body.questionId.trim() : "";
-  const selectedAnswer = typeof body.selectedAnswer === "string" ? body.selectedAnswer.trim().slice(0, maxAnswerLength) : "";
+  const rawSelectedAnswer = typeof body.selectedAnswer === "string" ? body.selectedAnswer : "";
+  if (!isAnswerWithinLengthLimit(rawSelectedAnswer)) {
+    return NextResponse.json(answerTooLongErrorBody(), { status: 400 });
+  }
+  const selectedAnswer = rawSelectedAnswer.trim();
   const durationSeconds =
     typeof body.durationSeconds === "number" && Number.isFinite(body.durationSeconds) && body.durationSeconds > 0
       ? Math.round(body.durationSeconds)

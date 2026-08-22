@@ -112,7 +112,7 @@ export type MathSceneV2OwnerGateRerunCommandPacket = {
 const requiredOwnerAgentIds = ["A11", "A18", "A22"] as const;
 const defaultReleaseRunId = "manim-v2-a22-owner-gate-rerun";
 const visualizationValueCommand =
-  "npx playwright test tests/e2e/visualization-values.spec.ts --project=desktop-chrome --grep \"opens selected catalog labs\" --reporter=line --timeout=180000";
+  "node scripts/reject-direct-browser-entry.mjs visualization-values.spec.ts";
 
 function ownerGateSteps(rerunPlan: MathSceneV2OwnerGateRerunCommandRerunPlan) {
   return rerunPlan.steps.filter((step) => step.kind === "owner-gate-rerun");
@@ -157,7 +157,7 @@ function a11Rows(
     ...packageRows,
     {
       command:
-        "npx playwright test tests/e2e/visualization-overlap.spec.ts --project=desktop-chrome --reporter=line --timeout=180000",
+        "node scripts/reject-direct-browser-entry.mjs visualization-overlap.spec.ts",
       evidenceId: "a11-visualization-overlap-rerun",
       instruction: "A11 reruns the Visualization Lab overlap/mobile interaction gate and records run evidence.",
       kind: "browser-regression-command",

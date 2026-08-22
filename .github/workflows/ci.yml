@@ -118,6 +118,9 @@ jobs:
       - name: Run reported-bug source-regression gate (fix anchors + segment loading.tsx ban)
         run: npm run test:source-regressions
 
+      - name: Run portable required-browser source confinement gate
+        run: npm run test:required-browser-source-canary
+
       - name: Run CCSS depth-coverage gate (a student can reach a visual per standard)
         run: npm run test:ccss-depth
 
@@ -145,14 +148,11 @@ jobs:
         run: npm run build
 
   visualization-browser:
-    # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
-    # Runs on every PR (first green run 2026-07-21) plus manual full_validation.
+    # Browser execution is physically restricted to owner-manifest runs on
+    # /Volumes/Starship. Keep this established job id as a CI-local, no-browser
+    # confinement/source canary so branch-protection check names do not change.
     if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
-    # Playwright's webServer builds the app; that Next build OOMs Node's default
-    # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
-    env:
-      NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -165,21 +165,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Prove required-browser source confinement without a browser
+        run: npm run test:required-browser-source-canary
 
-      - name: Run visualization DOM-contract spec
-        run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
+      - name: Prove repository browser launch confinement without a browser
+        run: npm run test:source-regressions
 
   teacher-parent-e2e:
-    # Teacher + parent journey E2E in CI (plan P2-3). Runs on every PR (first
-    # green run 2026-07-21) plus manual full_validation dispatch.
+    # Browser execution is Starship-local only. Keep the historical job id as
+    # a no-browser canary; the actual journeys use the owner-manifest runner.
     if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
-    # Playwright's webServer builds the app; that Next build OOMs Node's default
-    # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
-    env:
-      NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -192,26 +188,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Prove required-browser source confinement without a browser
+        run: npm run test:required-browser-source-canary
 
-      - name: Run teacher + parent journeys
-        run: npx playwright test tests/e2e/teacher-operations.spec.ts tests/e2e/teacher-workspace.spec.ts tests/e2e/parent-console.spec.ts --project=desktop-chrome
-
-      # Playwright retains a trace, screenshot, and video for each failed test
-      # under the per-run root `.tmp/e2e-run-<id>/` (see playwright.config.ts:
-      # `outputDir`/`trace: retain-on-failure`). Those only ever existed on the
-      # runner, so a red e2e job could not be diagnosed after the fact — the
-      # log names a trace.zip path that is already gone. Upload them instead.
-      # Deliberately narrow: the same run root also holds `next-dist`, a full
-      # multi-hundred-MB Next build that must not be uploaded.
-      - name: Upload Playwright failure artifacts
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: teacher-parent-e2e-failure-artifacts
-          path: |
-            .tmp/e2e-run-*/test-results
-            .tmp/e2e-run-*/playwright-report
-          retention-days: 7
-          if-no-files-found: warn
+      - name: Prove repository browser launch confinement without a browser
+        run: npm run test:source-regressions

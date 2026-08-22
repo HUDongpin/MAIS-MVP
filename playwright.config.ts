@@ -1,86 +1,200 @@
-import { defineConfig, devices } from "@playwright/test";
+import { createRequire } from "node:module";
 import path from "node:path";
-import ts from "typescript";
+import type { PlaywrightTestConfig } from "@playwright/test";
+import {
+  assertCanonicalStarshipBrowserHost,
+  classifyPlaywrightCliInvocation,
+  validatePlaywrightOwnerEnvironment
+} from "./scripts/playwright-owner-paths.mjs";
+import {
+  assertRequiredBrowserPortableListInvocationUnchanged,
+  captureRequiredBrowserPortableListInvocation,
+  validateRequiredBrowserPlaywrightInvocation
+} from "./scripts/required-browser-execution-scope.mjs";
+import {
+  assertLiveHomeProof,
+  createLiveHomeProof
+} from "./scripts/live-home-protection.mjs";
 
-const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
-const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
-const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
-const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
-const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
-const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
-const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
-const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
-const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
-const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
-process.env.PLAYWRIGHT_RUN_ID = runId;
-process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
-process.env.HK_MATH_DB_PATH = e2eDbPath;
-const disabledProviderEnv = [
-  "LLM_API_KEY=",
-  "OPENAI_API_KEY=",
-  "LLM_MODEL=",
-  "OPENAI_MODEL=",
-  "LLM_API_URL=",
-  "DEEPSEEK_API_KEY=",
-  "DEEPSEEK_MODEL=",
-  "DEEPSEEK_API_URL=",
-  "QWEN_API_KEY=",
-  "QWEN_API_URL=",
-  "QWEN_MODEL=",
-  "QWEN_TEXT_MODEL=qwen3.7-plus",
-  "QWEN_IMAGE_MODEL=",
-  "QWEN_IMAGE_API_URL=",
-  "QWEN_REALTIME_MODEL=",
-  "QWEN_REALTIME_API_URL=",
-  "AI_TUTOR_PROVIDER_PROFILE=offline-fixture"
-].join(" ");
-const isolatedStatefulSpecs = [
-  "tests/e2e/rewards.spec.ts",
-  "tests/e2e/gamification.spec.ts",
-  "tests/e2e/fishing-game.spec.ts",
-  "tests/e2e/adventure-island.spec.ts",
-  "tests/e2e/parent-console-stress.spec.ts"
-];
-const selectedSpecArgs = process.argv
-  .slice(2)
-  .map((arg) => arg.replace(/\\/g, "/"))
-  .filter((arg) => arg.endsWith(".spec.ts") || arg.includes("tests/e2e/"));
-const runsOnlyIsolatedStatefulSpecs =
-  selectedSpecArgs.length > 0 &&
-  selectedSpecArgs.every((arg) => isolatedStatefulSpecs.some((spec) => arg === spec || arg.endsWith(`/${spec}`)));
-const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIsolatedStatefulSpecs;
+const configLiveHomeProof = createLiveHomeProof();
+const requireFromConfig = createRequire(import.meta.url);
 
-assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
-assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
+type DetachedPlaywrightConfigContext = Readonly<{
+  argv: readonly string[];
+  cwd: string;
+  environment: Record<string, string | undefined>;
+}>;
 
-function sanitizePathSegment(value: string) {
-  return value
-    .trim()
-    .replace(/[^a-zA-Z0-9._-]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "default";
-}
-
-function isPathInside(absolutePath: string, root: string) {
-  const relative = path.relative(root, absolutePath);
-  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
-}
-
-function assertSafeE2eGeneratedPath(label: string, value: string) {
-  const absolutePath = path.resolve(value);
-  const defaultNextDir = path.resolve(".next");
-  const tmpDir = path.resolve(".tmp");
-
-  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
-    throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
+function detachedProcessEnvironment(): Record<string, string | undefined> {
+  const environment: Record<string, string | undefined> = {};
+  for (const key of Object.keys(process.env).sort()) {
+    const descriptor = Object.getOwnPropertyDescriptor(process.env, key);
+    if (!descriptor || !("value" in descriptor) || typeof descriptor.value !== "string") {
+      throw new Error("Playwright config environment snapshot is invalid.");
+    }
+    Object.defineProperty(environment, key, {
+      configurable: false,
+      enumerable: true,
+      value: descriptor.value,
+      writable: false
+    });
   }
-
-  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
-    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
-  }
+  return Object.freeze(environment) as Record<string, string | undefined>;
 }
 
-function shellQuote(value: string) {
-  return `'${value.replace(/'/g, "'\\''")}'`;
+function captureDetachedPlaywrightConfigContext(): DetachedPlaywrightConfigContext {
+  assertLiveHomeProof(configLiveHomeProof);
+  const context = Object.freeze({
+    argv: Object.freeze([...process.argv]),
+    cwd: path.resolve(process.cwd()),
+    environment: detachedProcessEnvironment()
+  });
+  assertLiveHomeProof(configLiveHomeProof);
+  return context;
+}
+
+function sameHashOnlyAuthority(left: unknown, right: unknown) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+const initialContext = captureDetachedPlaywrightConfigContext();
+const initialInvocation = classifyPlaywrightCliInvocation(initialContext.argv);
+const initialManifestPath = initialContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST?.trim() || null;
+const initialPortableFlag = initialContext.environment.PLAYWRIGHT_PORTABLE_LIST_ONLY;
+let ownerPathValidation: ReturnType<typeof validatePlaywrightOwnerEnvironment> = null;
+let ownerInvocationReceipt: ReturnType<typeof validateRequiredBrowserPlaywrightInvocation> | null = null;
+let portableListCapture: ReturnType<typeof captureRequiredBrowserPortableListInvocation> | null = null;
+
+if (initialManifestPath) {
+  if (!initialInvocation.isCli || initialInvocation.portableListCandidate || initialPortableFlag !== undefined) {
+    throw new Error("Owner Playwright config requires one exact manifest-bound actual invocation.");
+  }
+  assertCanonicalStarshipBrowserHost({ repoRoot: initialContext.cwd });
+  ownerPathValidation = validatePlaywrightOwnerEnvironment(
+    initialContext.environment,
+    configLiveHomeProof,
+    { cwd: initialContext.cwd }
+  );
+  if (!ownerPathValidation) {
+    throw new Error("Owner Playwright config failed to load its exact manifest-bound plan.");
+  }
+  ownerInvocationReceipt = validateRequiredBrowserPlaywrightInvocation({
+    argv: initialContext.argv,
+    cwd: initialContext.cwd,
+    dependencyAttestation: ownerPathValidation.plan.dependencyAttestation,
+    executionScope: ownerPathValidation.plan.executionScope,
+    plan: ownerPathValidation.plan,
+    repoRoot: ownerPathValidation.plan.repoRoot
+  });
+} else if (initialInvocation.isCli) {
+  if (!initialInvocation.portableListCandidate) {
+    throw new Error(
+      "Actual Playwright execution requires an independently validated canonical Starship owner manifest."
+    );
+  }
+  portableListCapture = captureRequiredBrowserPortableListInvocation({
+    argv: initialContext.argv,
+    cwd: initialContext.cwd,
+    environment: initialContext.environment,
+    liveHomeProof: configLiveHomeProof
+  });
+} else if (initialPortableFlag !== undefined) {
+  throw new Error("Portable Playwright list authority is invalid outside its exact CLI invocation.");
+}
+
+const ownerAuthority = ownerPathValidation && ownerInvocationReceipt
+  ? Object.freeze({
+      command: ownerInvocationReceipt,
+      manifestPath: initialManifestPath,
+      planFingerprint: ownerPathValidation.plan.planFingerprint
+    })
+  : null;
+
+function revalidateOwnerConfigAuthority() {
+  if (!ownerPathValidation || !ownerAuthority) {
+    throw new Error("Owner Playwright config authority is unavailable.");
+  }
+  assertLiveHomeProof(configLiveHomeProof, {
+    expectedHomeValueSha256: ownerPathValidation.plan.homeValueSha256
+  });
+  const currentContext = captureDetachedPlaywrightConfigContext();
+  const currentInvocation = classifyPlaywrightCliInvocation(currentContext.argv);
+  if (
+    !currentInvocation.isCli
+    || currentInvocation.portableListCandidate
+    || currentContext.environment.PLAYWRIGHT_PORTABLE_LIST_ONLY !== undefined
+    || (currentContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST?.trim() || null)
+      !== ownerAuthority.manifestPath
+  ) {
+    throw new Error("Owner Playwright config context changed after preflight.");
+  }
+  const currentValidation = validatePlaywrightOwnerEnvironment(
+    currentContext.environment,
+    configLiveHomeProof,
+    { cwd: currentContext.cwd }
+  );
+  if (!currentValidation) {
+    throw new Error("Owner Playwright config lost its manifest-bound plan.");
+  }
+  const currentReceipt = validateRequiredBrowserPlaywrightInvocation({
+    argv: currentContext.argv,
+    cwd: currentContext.cwd,
+    dependencyAttestation: currentValidation.plan.dependencyAttestation,
+    executionScope: currentValidation.plan.executionScope,
+    plan: currentValidation.plan,
+    repoRoot: currentValidation.plan.repoRoot
+  });
+  if (
+    currentValidation.plan.planFingerprint !== ownerAuthority.planFingerprint
+    || !sameHashOnlyAuthority(currentReceipt, ownerAuthority.command)
+  ) {
+    throw new Error("Owner Playwright config authority changed after preflight.");
+  }
+  assertLiveHomeProof(configLiveHomeProof, {
+    expectedHomeValueSha256: currentValidation.plan.homeValueSha256
+  });
+  return currentValidation;
+}
+
+function revalidatePortableListAuthority() {
+  if (!portableListCapture) {
+    throw new Error("Portable Playwright list authority is unavailable.");
+  }
+  const currentContext = captureDetachedPlaywrightConfigContext();
+  const currentInvocation = classifyPlaywrightCliInvocation(currentContext.argv);
+  if (
+    !currentInvocation.portableListCandidate
+    || currentContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST?.trim()
+    || currentContext.environment.PLAYWRIGHT_PORTABLE_LIST_ONLY !== "1"
+  ) {
+    throw new Error("Portable Playwright list context changed after preflight.");
+  }
+  const currentCapture = assertRequiredBrowserPortableListInvocationUnchanged(
+    portableListCapture,
+    {
+      argv: currentContext.argv,
+      cwd: currentContext.cwd,
+      environment: currentContext.environment,
+      liveHomeProof: configLiveHomeProof
+    }
+  );
+  assertLiveHomeProof(configLiveHomeProof);
+  return currentCapture;
+}
+
+function assertDirectImportRemainsInert() {
+  const currentContext = captureDetachedPlaywrightConfigContext();
+  const currentInvocation = classifyPlaywrightCliInvocation(currentContext.argv);
+  if (
+    currentInvocation.isCli
+    || currentContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST?.trim()
+    || currentContext.environment.PLAYWRIGHT_PORTABLE_LIST_ONLY !== undefined
+    || currentContext.cwd !== initialContext.cwd
+    || !sameHashOnlyAuthority(currentContext.argv, initialContext.argv)
+  ) {
+    throw new Error("Read-only Playwright config import context changed before export.");
+  }
+  assertLiveHomeProof(configLiveHomeProof);
 }
 
 // Extra build-output globs the e2e temp tsconfig excludes on top of the
@@ -111,6 +225,7 @@ const e2eTempTsconfigHardeningExcludes = [
 // actually uses, and unlike tsconfig.next.json it does not exclude `.tmp`,
 // where the temp config's dist-types include lives.
 function e2eTempTsconfigExcludeGlobs() {
+  const ts = requireFromConfig("typescript") as typeof import("typescript");
   const baseTsconfigPath = path.resolve("tsconfig.json");
   const { config, error } = ts.readConfigFile(baseTsconfigPath, (file) => ts.sys.readFile(file));
   const canonical = Array.isArray(config?.exclude) ? (config.exclude as string[]) : null;
@@ -123,67 +238,108 @@ function e2eTempTsconfigExcludeGlobs() {
   return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
 }
 
-function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
-  const content = JSON.stringify({
-    extends: "./tsconfig.json",
+export function e2eTempTsconfigContent(
+  tsconfigPath: string,
+  nextDistDir: string,
+  repoRoot = process.cwd()
+) {
+  const configDir = path.dirname(path.resolve(tsconfigPath));
+  const fromConfig = (target: string) => {
+    const value = path.relative(configDir, path.resolve(repoRoot, target)).replaceAll("\\", "/");
+    return value.startsWith(".") ? value : `./${value}`;
+  };
+
+  return {
+    extends: fromConfig("tsconfig.json"),
+    compilerOptions: {
+      baseUrl: path.resolve(repoRoot),
+      paths: { "@/*": ["./*"] },
+      plugins: [{ name: "next" }]
+    },
     include: [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx",
-      ".next/types/**/*.ts",
-      `${nextDistDir}/types/**/*.ts`
+      fromConfig("next-env.d.ts"),
+      fromConfig("**/*.ts"),
+      fromConfig("**/*.tsx"),
+      fromConfig(".next/types/**/*.ts"),
+      fromConfig(`${nextDistDir}/types/**/*.ts`)
     ],
-    exclude: e2eTempTsconfigExcludeGlobs()
-  }, null, 2);
-  const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
-  return `node -e ${shellQuote(script)}`;
+    exclude: e2eTempTsconfigExcludeGlobs().map(fromConfig)
+  };
 }
 
-export default defineConfig({
-  testDir: "./tests/e2e",
-  outputDir: e2eOutputDir,
-  fullyParallel: false,
-  workers: 1,
-  retries: process.env.CI ? 1 : 0,
-  // These are long, sequential teacher/parent journeys (navigate → create →
-  // upload → publish → export in a single test). The default 30s per-test /
-  // 5s expect timeouts are fine locally but too tight on the 2-core CI runner,
-  // where a publish→POST→router.push round-trip alone can exceed 5s. Give CI
-  // headroom; the flows themselves are verified working (POST 201 + navigation).
-  timeout: process.env.CI ? 120_000 : 60_000,
-  expect: { timeout: process.env.CI ? 15_000 : 8_000 },
-  reporter: [["list"], ["html", { open: "never", outputFolder: e2eReportDir }]],
-  use: {
-    baseURL,
-    channel: browserChannel || undefined,
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
-    video: "retain-on-failure"
-  },
-  webServer: !useGlobalWebServer
-    ? undefined
-    : {
-        command: [
-          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
-          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
-          writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
-          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
-        ].join(" && "),
-        url: baseURL,
-        reuseExistingServer: false,
-        timeout: 600_000
-      },
-  projects: [
-    {
-      name: "desktop-chrome",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 1100 } }
+const inertNoSpecConfig: PlaywrightTestConfig = {
+  // An explicit empty projects array is truthy in Playwright's config loader,
+  // so it suppresses the implicit default project. The impossible matcher is
+  // a second mechanical barrier: no repository spec can be collected/imported.
+  projects: [],
+  testDir: initialContext.cwd,
+  testMatch: /$a/,
+  webServer: undefined
+};
+
+let exportedConfig: PlaywrightTestConfig;
+if (ownerPathValidation && ownerAuthority) {
+  const playwrightRuntime = requireFromConfig("@playwright/test") as typeof import("@playwright/test");
+  if (
+    typeof playwrightRuntime.defineConfig !== "function"
+    || !playwrightRuntime.devices?.["Desktop Chrome"]
+    || !playwrightRuntime.devices?.["Pixel 5"]
+  ) {
+    throw new Error("Validated Playwright runtime exports are unavailable.");
+  }
+  const plan = ownerPathValidation.plan;
+  const ownerConfig: PlaywrightTestConfig = {
+    testDir: path.join(plan.repoRoot, "tests", "e2e"),
+    outputDir: plan.paths.outputDir,
+    fullyParallel: false,
+    workers: 1,
+    retries: 0,
+    timeout: 120_000,
+    expect: { timeout: 15_000 },
+    reporter: [
+      ["list"],
+      ["html", { open: "never", outputFolder: plan.paths.reportDir }]
+    ],
+    use: {
+      baseURL: plan.serviceBaseUrl,
+      channel: ownerPathValidation.environment.PLAYWRIGHT_BROWSER_CHANNEL,
+      trace: "retain-on-failure",
+      screenshot: "only-on-failure",
+      video: "retain-on-failure"
     },
-    {
-      name: "mobile-chrome",
-      use: { ...devices["Pixel 5"], isMobile: true }
-    }
-  ]
-});
+    webServer: undefined,
+    projects: [
+      {
+        name: "desktop-chrome",
+        use: {
+          ...playwrightRuntime.devices["Desktop Chrome"],
+          viewport: { width: 1440, height: 1100 }
+        }
+      },
+      {
+        name: "mobile-chrome",
+        use: { ...playwrightRuntime.devices["Pixel 5"], isMobile: true }
+      }
+    ]
+  };
+  const finalValidation = revalidateOwnerConfigAuthority();
+  if (finalValidation.plan.planFingerprint !== plan.planFingerprint) {
+    throw new Error("Owner Playwright plan changed immediately before config definition.");
+  }
+  exportedConfig = playwrightRuntime.defineConfig(ownerConfig);
+} else if (portableListCapture) {
+  const portableBeforeConfig = revalidatePortableListAuthority();
+  const portableConfig = inertNoSpecConfig;
+  const portableBeforeExport = revalidatePortableListAuthority();
+  if (!sameHashOnlyAuthority(portableBeforeConfig, portableBeforeExport)) {
+    throw new Error(
+      "Portable Playwright list authority changed while constructing its inert config."
+    );
+  }
+  exportedConfig = portableConfig;
+} else {
+  assertDirectImportRemainsInert();
+  exportedConfig = inertNoSpecConfig;
+}
+
+export default exportedConfig;

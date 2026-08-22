@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import {
+  answerTooLongErrorBody,
+  isAnswerWithinLengthLimit
+} from "@/lib/answerLimits";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { submitStudentAssessment } from "@/lib/server/userStore";
 
@@ -15,6 +19,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ ass
   const body = await request.json().catch(() => null) as unknown;
   if (!isRecord(body) || !Array.isArray(body.answers)) {
     return NextResponse.json({ error: "Assessment answers are required." }, { status: 400 });
+  }
+
+  const hasOverlongAnswer = body.answers.some(
+    (answer) => isRecord(answer) && typeof answer.answer === "string" && !isAnswerWithinLengthLimit(answer.answer)
+  );
+  if (hasOverlongAnswer) {
+    return NextResponse.json(answerTooLongErrorBody(), { status: 400 });
   }
 
   const answers = body.answers
@@ -39,4 +50,3 @@ export async function POST(request: Request, { params }: { params: Promise<{ ass
 
   return NextResponse.json({ submission: result.submission, assessment: result.assessment });
 }
-

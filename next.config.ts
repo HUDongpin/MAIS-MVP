@@ -1,88 +1,157 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { NextConfig } from "next";
+import {
+  validatePlaywrightOwnerEnvironment
+} from "./scripts/playwright-owner-paths.mjs";
+import {
+  validateRequiredBrowserNextInvocation
+} from "./scripts/required-browser-execution-scope.mjs";
+import {
+  createLiveHomeProof
+} from "./scripts/live-home-protection.mjs";
+import {
+  assertNextConfigReadOnlyAuthorityUnchanged,
+  assertOwnerNextConfigAuthorityUnchanged,
+  captureNextConfigReadOnlyAuthority,
+  captureOwnerNextConfigAuthority,
+  classifyNextConfigInvocationContext,
+  NEXT_CONFIG_READ_ONLY_IMPORT_PHASE
+} from "./scripts/next-config-read-only-authority.mjs";
 
-const distDir = process.env.NEXT_DIST_DIR?.trim();
-const explicitTsconfigPath = process.env.NEXT_TSCONFIG_PATH?.trim();
+type DetachedNextConfigContext = Readonly<{
+  argv: readonly string[];
+  cwd: string;
+  environment: Record<string, string | undefined>;
+}>;
 
-const DISPOSABLE_TSCONFIG_PATTERN = /^tsconfig\.dist-.+\.tmp\.json$/;
-
-// Delete disposable tsconfigs left behind by dead sessions so they don't pile up
-// at the repo root (they can't live under .tmp/ — tsc resolves `include` globs
-// relative to the tsconfig's own dir, so `**/*.ts` has to stay repo-rooted).
-// A file is stale only when its backing distDir is gone AND it wasn't just
-// written, which keeps a running server's config (whose distDir exists) and a
-// concurrently-starting one (whose distDir isn't created yet) safe.
-function sweepOrphanedDisposableTsconfigs(currentFileName: string) {
-  try {
-    const staleAfterMs = 5 * 60 * 1000;
-    for (const name of fs.readdirSync(process.cwd())) {
-      if (name === currentFileName || !DISPOSABLE_TSCONFIG_PATTERN.test(name)) continue;
-      const filePath = path.resolve(name);
-      try {
-        const recentlyWritten = Date.now() - fs.statSync(filePath).mtimeMs < staleAfterMs;
-        if (recentlyWritten) continue;
-        const parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as { include?: string[] };
-        const backingDist = parsed.include
-          ?.find((glob) => glob !== ".next/types/**/*.ts" && glob.endsWith("/types/**/*.ts"))
-          ?.replace(/\/types\/\*\*\/\*\.ts$/, "");
-        if (backingDist && !fs.existsSync(path.resolve(backingDist))) fs.unlinkSync(filePath);
-      } catch {
-        // Skip anything we can't stat/parse/remove; best-effort GC only.
-      }
+function detachedProcessEnvironment(): Record<string, string | undefined> {
+  const environment: Record<string, string | undefined> = {};
+  for (const key of Object.keys(process.env)) {
+    const descriptor = Object.getOwnPropertyDescriptor(process.env, key);
+    if (!descriptor || !("value" in descriptor) || typeof descriptor.value !== "string") {
+      throw new Error("NEXT_CONFIG_ENVIRONMENT_SNAPSHOT_INVALID");
     }
-  } catch {
-    // Never let housekeeping break config resolution.
+    Object.defineProperty(environment, key, {
+      configurable: false,
+      enumerable: true,
+      value: descriptor.value,
+      writable: false
+    });
   }
+  return Object.freeze(environment) as Record<string, string | undefined>;
 }
 
-// Next.js auto-injects `${distDir}/types/**/*.ts` into whatever tsconfig it is
-// handed. For a custom distDir with no explicit tsconfig that used to be the
-// shared tsconfig.json, so every dev server / ad-hoc build silently rewrote it
-// with a per-dist include line. Point Next at a disposable, gitignored tsconfig
-// instead so that write lands on a throwaway file and tsconfig.json stays
-// pristine. Playwright and other harnesses that pass NEXT_TSCONFIG_PATH keep
-// their explicit config; default builds (no custom distDir) keep tsconfig.next.json.
-function disposableTsconfigForDist(dist: string) {
-  try {
-    const label = dist.replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "dist";
-    const fileName = `tsconfig.dist-${label}.tmp.json`;
-    const content = `${JSON.stringify(
-      {
-        extends: "./tsconfig.json",
-        // Inherited from tsconfig.json via `extends`, but Next only inspects the
-        // top-level file and warns it can't auto-add its plugin otherwise, so
-        // restate it to keep dev startup quiet.
-        compilerOptions: { plugins: [{ name: "next" }] },
-        // A custom distDir writes its route types under `${dist}/types`, not
-        // `.next/types`, so only that dir is added here.
-        include: [
-          "**/*.ts",
-          "**/*.tsx",
-          "components/visualizations/signature/**/*.jsx",
-          "next-env.d.ts",
-          `${dist}/types/**/*.ts`
-        ],
-        // Mirror tsconfig.json's exclude so `**/*.ts` never sweeps stray build
-        // dirs (e.g. private/tmp/*-next) into this dev/build type-check.
-        exclude: ["node_modules", "private", "private/**/*", "Users", "Users/**/*"]
-      },
-      null,
-      2
-    )}\n`;
-    fs.writeFileSync(path.resolve(fileName), content);
-    sweepOrphanedDisposableTsconfigs(fileName);
-    return fileName;
-  } catch {
-    // If we can't write the throwaway config, fall back to the prior behavior
-    // rather than breaking the build.
-    return "tsconfig.json";
-  }
+function captureDetachedNextConfigContext(): DetachedNextConfigContext {
+  return Object.freeze({
+    argv: Object.freeze([...process.argv]),
+    cwd: process.cwd(),
+    environment: detachedProcessEnvironment()
+  });
 }
 
-const tsconfigPath =
-  explicitTsconfigPath ||
-  (distDir ? disposableTsconfigForDist(distDir) : "tsconfig.next.json");
+// This pure classifier runs before HOME lstat/realpath or any manifest/config path read.
+// Every ambiguous, wrapped, dev/export, loader-injected, or direct import context fails here.
+const initialClassification = classifyNextConfigInvocationContext({
+  argv: process.argv,
+  cwd: process.cwd(),
+  environment: process.env
+});
+const nextConfigLiveHomeProof = createLiveHomeProof();
+const initialContext = captureDetachedNextConfigContext();
+
+let initialOwnerValidation: ReturnType<typeof validatePlaywrightOwnerEnvironment> = null;
+let initialOwnerReceipt: ReturnType<typeof validateRequiredBrowserNextInvocation> | null = null;
+let initialOwnerAuthority: ReturnType<typeof captureOwnerNextConfigAuthority> | null = null;
+let initialReadOnlyAuthority: ReturnType<typeof captureNextConfigReadOnlyAuthority> | null = null;
+
+if (initialClassification.mode === "read-only-import") {
+  if (initialContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST !== undefined) {
+    throw new Error("NEXT_CONFIG_READ_ONLY_MANIFEST_FORBIDDEN");
+  }
+  initialReadOnlyAuthority = captureNextConfigReadOnlyAuthority({
+    argv: initialContext.argv,
+    cwd: initialContext.cwd,
+    environment: initialContext.environment,
+    liveHomeProof: nextConfigLiveHomeProof
+  });
+} else {
+  if (!initialContext.environment.PLAYWRIGHT_RUN_PLAN_MANIFEST) {
+    throw new Error("NEXT_CONFIG_OWNER_MANIFEST_REQUIRED");
+  }
+  initialOwnerValidation = validatePlaywrightOwnerEnvironment(
+    initialContext.environment,
+    nextConfigLiveHomeProof,
+    { cwd: initialContext.cwd }
+  );
+  if (!initialOwnerValidation) throw new Error("NEXT_CONFIG_OWNER_PLAN_REQUIRED");
+  initialOwnerReceipt = validateRequiredBrowserNextInvocation({
+    argv: initialContext.argv,
+    cwd: initialContext.cwd,
+    dependencyAttestation: initialOwnerValidation.plan.dependencyAttestation,
+    executionScope: initialOwnerValidation.plan.executionScope,
+    plan: initialOwnerValidation.plan,
+    repoRoot: initialOwnerValidation.plan.repoRoot
+  });
+  initialOwnerAuthority = captureOwnerNextConfigAuthority({
+    argv: initialContext.argv,
+    cwd: initialContext.cwd,
+    environment: initialContext.environment,
+    invocationReceipt: initialOwnerReceipt,
+    liveHomeProof: nextConfigLiveHomeProof,
+    ownerValidation: initialOwnerValidation
+  });
+}
+
+function revalidateOwnerAuthority() {
+  if (!initialOwnerValidation || !initialOwnerReceipt || !initialOwnerAuthority) {
+    throw new Error("NEXT_CONFIG_OWNER_AUTHORITY_UNAVAILABLE");
+  }
+  const context = captureDetachedNextConfigContext();
+  const classification = classifyNextConfigInvocationContext(context);
+  if (classification.mode !== initialOwnerAuthority.mode) {
+    throw new Error("NEXT_CONFIG_OWNER_MODE_DRIFT");
+  }
+  const validation = validatePlaywrightOwnerEnvironment(
+    context.environment,
+    nextConfigLiveHomeProof,
+    { cwd: context.cwd }
+  );
+  if (!validation) throw new Error("NEXT_CONFIG_OWNER_PLAN_DRIFT");
+  const receipt = validateRequiredBrowserNextInvocation({
+    argv: context.argv,
+    cwd: context.cwd,
+    dependencyAttestation: validation.plan.dependencyAttestation,
+    executionScope: validation.plan.executionScope,
+    plan: validation.plan,
+    repoRoot: validation.plan.repoRoot
+  });
+  const authority = assertOwnerNextConfigAuthorityUnchanged(initialOwnerAuthority, {
+    argv: context.argv,
+    cwd: context.cwd,
+    environment: context.environment,
+    invocationReceipt: receipt,
+    liveHomeProof: nextConfigLiveHomeProof,
+    ownerValidation: validation
+  });
+  return { authority, validation };
+}
+
+function revalidateReadOnlyAuthority() {
+  if (!initialReadOnlyAuthority) {
+    throw new Error("NEXT_CONFIG_READ_ONLY_AUTHORITY_UNAVAILABLE");
+  }
+  const context = captureDetachedNextConfigContext();
+  const classification = classifyNextConfigInvocationContext(context);
+  if (classification.mode !== "read-only-import") {
+    throw new Error("NEXT_CONFIG_READ_ONLY_MODE_DRIFT");
+  }
+  return assertNextConfigReadOnlyAuthorityUnchanged(initialReadOnlyAuthority, {
+    argv: context.argv,
+    cwd: context.cwd,
+    environment: context.environment,
+    liveHomeProof: nextConfigLiveHomeProof
+  });
+}
+
 const studentLessonsPath = "/student/lessons";
 const studentRoadmapPath = "/student/roadmap";
 const studentPrimaryRoadmapPath = "/student/roadmap/primary";
@@ -91,66 +160,84 @@ const studentVisualizationToolsPath = "/student/tools/visualizations";
 const studentAdventureIslandPath = "/student/practice/games/adventure-island";
 const studentFishingMasterPath = "/student/practice/games/fishing-master";
 
-const nextConfig: NextConfig = {
-  devIndicators: false,
-  outputFileTracingRoot: process.cwd(),
-  reactStrictMode: true,
-  skipMiddlewareUrlNormalize: true,
-  transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
-  async redirects() {
-    return [
-      {
-        source: "/visualization-lab",
-        destination: studentVisualizationToolsPath,
-        permanent: true
-      },
-      {
-        source: "/learning-path",
-        destination: studentRoadmapPath,
-        permanent: true
-      },
-      {
-        source: "/primary-roadmap",
-        destination: studentPrimaryRoadmapPath,
-        permanent: true
-      },
-      {
-        source: "/secondary-roadmap",
-        destination: studentSecondaryRoadmapPath,
-        permanent: true
-      },
-      {
-        source: "/lesson",
-        destination: studentLessonsPath,
-        permanent: true
-      },
-      {
-        source: "/lesson/:lessonSlug",
-        destination: `${studentLessonsPath}/:lessonSlug`,
-        permanent: true
-      },
-      // Config-level redirects so legacy game paths answer with a real
-      // 307/308: app/practice has a loading boundary, so a page-level
-      // redirect() would stream inside a 200 response instead.
-      {
-        source: "/practice/adventure-island",
-        destination: studentAdventureIslandPath,
-        permanent: true
-      },
-      {
-        source: "/practice/super-platformer-like",
-        destination: studentAdventureIslandPath,
-        permanent: true
-      },
-      {
-        source: "/practice/fishing-game",
-        destination: studentFishingMasterPath,
-        permanent: true
-      }
-    ];
-  },
-  ...(distDir ? { distDir } : {}),
-  ...(tsconfigPath ? { typescript: { tsconfigPath } } : {})
-};
+function deterministicNextConfig({
+  distDir,
+  repoRoot,
+  tsconfigPath
+}: {
+  distDir?: string;
+  repoRoot: string;
+  tsconfigPath: string;
+}): NextConfig {
+  return {
+    devIndicators: false,
+    outputFileTracingRoot: repoRoot,
+    reactStrictMode: true,
+    skipMiddlewareUrlNormalize: true,
+    transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
+    async redirects() {
+      return [
+        { source: "/visualization-lab", destination: studentVisualizationToolsPath, permanent: true },
+        { source: "/learning-path", destination: studentRoadmapPath, permanent: true },
+        { source: "/primary-roadmap", destination: studentPrimaryRoadmapPath, permanent: true },
+        { source: "/secondary-roadmap", destination: studentSecondaryRoadmapPath, permanent: true },
+        { source: "/lesson", destination: studentLessonsPath, permanent: true },
+        {
+          source: "/lesson/:lessonSlug",
+          destination: `${studentLessonsPath}/:lessonSlug`,
+          permanent: true
+        },
+        {
+          source: "/practice/adventure-island",
+          destination: studentAdventureIslandPath,
+          permanent: true
+        },
+        {
+          source: "/practice/super-platformer-like",
+          destination: studentAdventureIslandPath,
+          permanent: true
+        },
+        {
+          source: "/practice/fishing-game",
+          destination: studentFishingMasterPath,
+          permanent: true
+        }
+      ];
+    },
+    ...(distDir ? { distDir } : {}),
+    typescript: { tsconfigPath }
+  };
+}
 
-export default nextConfig;
+export const readOnlyConfigMode = initialClassification.mode === "read-only-import";
+
+// A first complete recapture occurs before the export becomes available.
+if (readOnlyConfigMode) revalidateReadOnlyAuthority();
+else revalidateOwnerAuthority();
+
+export default function validatedNextConfig(phase: string): NextConfig {
+  if (readOnlyConfigMode) {
+    if (phase !== NEXT_CONFIG_READ_ONLY_IMPORT_PHASE) {
+      throw new Error("NEXT_CONFIG_READ_ONLY_PHASE_INVALID");
+    }
+    const before = revalidateReadOnlyAuthority();
+    const config = deterministicNextConfig({
+      repoRoot: before.repo.canonicalPath,
+      tsconfigPath: "tsconfig.next.json"
+    });
+    revalidateReadOnlyAuthority();
+    return config;
+  }
+
+  const before = revalidateOwnerAuthority();
+  if (phase !== before.authority.expectedPhase) {
+    throw new Error("NEXT_CONFIG_OWNER_PHASE_INVALID");
+  }
+  const config = deterministicNextConfig({
+    distDir: before.authority.interfaces.nextDist,
+    repoRoot: before.authority.repoRoot,
+    tsconfigPath: before.authority.interfaces.nextTsconfig
+  });
+  revalidateOwnerAuthority();
+  return config;
+}

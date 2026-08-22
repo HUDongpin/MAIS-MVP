@@ -369,7 +369,7 @@ test("MAIS Manim v2 owner gate rerun command packet serializes stable handoff at
   );
   assert.match(
     attributes["data-viz-manim-v2-owner-gate-rerun-command-command-manifest"],
-    /a11-visualization-overlap-rerun=npx playwright test tests\/e2e\/visualization-overlap\.spec\.ts/
+    /a11-visualization-overlap-rerun=node scripts\/reject-direct-browser-entry\.mjs visualization-overlap\.spec\.ts/
   );
   assert.match(
     attributes["data-viz-manim-v2-owner-gate-rerun-command-command-manifest"],

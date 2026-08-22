@@ -297,7 +297,7 @@ export async function getPublicQuestionsFromStore(filters: PublicQuestionFilters
 function isCorrectOption(question: Question, option: LocalizedText) {
   const acceptedAnswers = [question.answer, ...(question.acceptedAnswers ?? [])];
   const optionTexts = [option.en, option.zh, option.zhHans ?? ""].filter(Boolean);
-  return acceptedAnswers.some((answer) => optionTexts.some((optionText) => answerMatches(answer, optionText)));
+  return acceptedAnswers.some((answer) => optionTexts.some((optionText) => answerMatches(optionText, answer)));
 }
 
 // Reduce a multiple-choice question to at most `maxChoices` options for the

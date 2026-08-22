@@ -452,7 +452,7 @@ function acceptedAnswersFor(question: Question) {
 
 function optionMatchesAcceptedAnswer(question: Question, option: NonNullable<Question["options"]>[number]) {
   return acceptedAnswersFor(question).some((acceptedAnswer) =>
-    answerMatches(acceptedAnswer, option.en) || answerMatches(acceptedAnswer, option.zh)
+    answerMatches(option.en, acceptedAnswer) || answerMatches(option.zh, acceptedAnswer)
   );
 }
 

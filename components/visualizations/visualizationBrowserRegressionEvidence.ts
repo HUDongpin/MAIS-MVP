@@ -73,7 +73,7 @@ function selectedCatalogCommand(
     `VISUALIZATION_SWEEP_LABS=${regressionPackage.commandEnv.VISUALIZATION_SWEEP_LABS ?? regressionPackage.labIds.join(",")}`,
     `PLAYWRIGHT_RUN_ID=${runId}`,
     `PLAYWRIGHT_PORT=${port}`,
-    "npx playwright test tests/e2e/visualization-values.spec.ts --project=desktop-chrome --grep \"opens selected catalog labs\" --reporter=line --timeout=180000"
+    "node scripts/reject-direct-browser-entry.mjs visualization-values.spec.ts"
   ].join(" ");
 }
 

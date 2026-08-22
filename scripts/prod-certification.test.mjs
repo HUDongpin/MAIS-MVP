@@ -8,7 +8,7 @@ import {
   extractNextAssets,
   formatReportMarkdown,
   parseArgs
-} from "./prod-certification.mjs";
+} from "./prod-certification-core.mjs";
 
 test("extractNextAssets pulls src and href, dedupes, strips queries, sorts", () => {
   const html = [

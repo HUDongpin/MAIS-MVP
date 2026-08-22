@@ -9,9 +9,13 @@
   },
   "files": [
     "lib/accommodations.test.ts",
+    "lib/answerUnits.test.ts",
     "lib/calculatorEngine.test.ts",
     "lib/expressionCalculator.test.ts",
+    "lib/mathSoftKeyboardCalculation.test.ts",
     "lib/statistics.test.ts",
+    "lib/server/answerMatching.test.ts",
+    "lib/server/userStoreTeacherOpsSubmissionPersistence.test.ts",
     "lib/server/userStore/accommodationsPersistence.test.ts"
   ],
   "include": [],
