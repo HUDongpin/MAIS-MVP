@@ -152,6 +152,13 @@ export function loginSubmitButton(page: Page) {
 export async function clickLoginSubmit(page: Page) {
   const submit = loginSubmitButton(page);
   await expect(submit).toBeEnabled({ timeout: 15_000 });
+  // The login form deliberately ignores submits until client hydration finishes.
+  // On slower CI runners the button can become actionable at the browser layer
+  // before the React submit handler is ready, leaving the page silently on /login.
+  await expect(submit).not.toHaveText(
+    /Preparing secure login|準備安全登入|准备安全登录/i,
+    { timeout: 15_000 }
+  );
   await submit.click();
 }
 
