@@ -592,6 +592,8 @@ function e2eTempTsconfigExcludeGlobs() {
   return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
 }
 
+// E2E builds use a custom NEXT_DIST_DIR. Including the shared `.next/types`
+// can mix stale route artifacts from another worktree into this run.
 function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
   const tsconfigDir = path.dirname(path.resolve(tsconfigPath));
   const pathFromTsconfigDir = (target: string) => {
@@ -613,7 +615,6 @@ function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
       repoGlobFromTsconfigDir("next-env.d.ts"),
       repoGlobFromTsconfigDir("**/*.ts"),
       repoGlobFromTsconfigDir("**/*.tsx"),
-      repoGlobFromTsconfigDir(".next/types/**/*.ts"),
       `${pathFromTsconfigDir(nextDistDir)}/types/**/*.ts`
     ],
     exclude: e2eTempTsconfigExcludeGlobs().map(repoGlobFromTsconfigDir)
