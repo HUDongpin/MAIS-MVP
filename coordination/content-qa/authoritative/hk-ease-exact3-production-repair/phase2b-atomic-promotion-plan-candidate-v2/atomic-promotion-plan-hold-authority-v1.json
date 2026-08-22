@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-atomic-promotion-plan-hold-authority-v1",
+  "status": "candidate-hold-not-live-promotion",
+  "planBinding": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-atomic-promotion-plan-candidate-v2/atomic-promotion-plan-v1.json",
+    "sha256": "ba6078d29401b5bcdf3750144e782f0d2d4abb29964315afeec10c53f2ab85c1",
+    "byteLength": 64671,
+    "planPayloadSha256": "5cdc69fcb66d31bd80ef18f9bfb75d6a2b14da363931a8bfab90235713a8506c"
+  },
+  "sourceAuthorityBindings": [
+    {
+      "id": "phase2b-data-plane",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+      "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+      "schemaVersion": "hk-ease-exact3-phase2b-data-plane-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-promotable-until-phase3",
+      "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+    },
+    {
+      "id": "phase2b-runtime",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+      "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+      "schemaVersion": "hk-ease-exact3-phase2b-serving-runtime-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+    },
+    {
+      "id": "phase2b-historical-regression",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+      "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+      "schemaVersion": "hk-ease-exact3-phase2b-historical-regression-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+    },
+    {
+      "id": "phase2b-v4-lineage",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+      "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+      "schemaVersion": "hk-ease-exact3-v4-lineage-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+    },
+    {
+      "id": "phase2b-fullbank",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+      "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+      "schemaVersion": "hk-ease-exact3-phase2b-fullbank-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+    },
+    {
+      "id": "phase2b-canonical241",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate-v4/canonical241-hold-authority-v1.json",
+      "sha256": "6c7bb255da043e19d7c71c75184bfa7ea34e7929ebc18ed1c1249a77c563436c",
+      "schemaVersion": "hk-ease-exact3-phase2b-canonical241-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "0a4865e0f3816b45f3c3817d7261f10cd7ec99b70a363f8c60540454ea71306f"
+    }
+  ],
+  "independentReviewReceiptBinding": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-independent-oracle-overlay-review-v2.json",
+    "sha256": "0aacfce318a7839f44beba7d3d5f6722e11a129b4ee6f8a3ac770b712382cd2e",
+    "detachedPayloadSha256": "c0387a5f0ea824510ab24d84f8e062a289354e8731caa3acde9320f30ecd825b",
+    "status": "independent-review-approved-for-candidate-overlay-not-live-promotion"
+  },
+  "implementationBindings": {
+    "builder": {
+      "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-atomic-promotion-plan.ts",
+      "sha256": "ece31088af942004ea2f64629b3a4550b911c6fe098c9cb0737600510fa9eb75",
+      "byteLength": 47552,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    "focusedTest": {
+      "path": "coordination/content-qa/hk-ease-exact3-phase2b-atomic-promotion-plan-candidate.test.ts",
+      "sha256": "92df4d5e97a30057f94b8f33a605d673e24f8b824a31bf21898d13ba9ce301c8",
+      "byteLength": 20496,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    }
+  },
+  "topology": {
+    "exactOperationCount": 32,
+    "replaceExistingCount": 30,
+    "createNewCount": 2,
+    "authorityOperationCounts": {
+      "phase2b-data-plane": 7,
+      "phase2b-runtime": 4,
+      "phase2b-historical-regression": 8,
+      "phase2b-v4-lineage": 7,
+      "phase2b-fullbank": 3,
+      "phase2b-canonical241": 3
+    },
+    "preimageEvidenceCounts": {
+      "source-authority-output-binding": 18,
+      "source-authority-transformation": 4,
+      "phase2b-data-plane-forbidden-live-inventory": 6,
+      "atomic-plan-current-byte-pin": 2
+    },
+    "replacementTargets": [
+      "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "data/historical/hongKongQuestionVersionManifest.json",
+      "data/hongKongEasePracticeQuestions.ts",
+      "lib/hongKongQuestionVersioningContract.ts",
+      "lib/hongKongQuestionVersioning.ts",
+      "lib/server/hongKongEaseResponseContracts.ts",
+      "lib/hongKongQuestionVersioning.test.ts",
+      "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "lib/hongKongResidual47RepairContract.test.ts",
+      "lib/server/hongKongEaseResponseContracts.test.ts",
+      "lib/hongKongResidual47FocusedTestLedger.ts",
+      "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+      "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+      "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+      "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "lib/questionBankSolvability.ts",
+      "lib/hongKongEaseIndependentOracle.ts",
+      "lib/fullQuestionBankSolvability.test.ts",
+      "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "lib/hongKongLessonQualityContract.test.ts"
+    ],
+    "creationTargets": [
+      "data/generated-content/hk-ease-practice-bank-v2/exact3-independent-oracle-supplement.json",
+      "data/historical/hongKongQuestions-hk-ease-exact3-v3.json"
+    ],
+    "orderedTargetPathSha256": "a18b2d53a0025b0b73313d550ca0fd3bc6a6b15192cb356e4442dc2fc43bccf9",
+    "preimageTupleSha256": "01c59eaaa0998c6878776e1c4fa56676e322e1837683229e670b924dcf45045a",
+    "postimageTupleSha256": "f2c4cf2790d4906fd2e52b77d23d41224a4232e4a4efc44b3db4fa8f042499c1"
+  },
+  "mutationCoverageRequired": {
+    "authorityByteDriftCount": 6,
+    "independentReceiptByteDriftCount": 1,
+    "candidateByteDriftCount": 32,
+    "replacementPreimageByteDriftCount": 30,
+    "creationCollisionCount": 2,
+    "unchangedInvariantByteDriftCount": 7,
+    "topologyDriftClasses": [
+      "missing-operation",
+      "duplicate-target",
+      "diagnostic-bridge-reclassification"
+    ],
+    "pathEscapeClasses": [
+      "lexical-dot-segment",
+      "final-symlink",
+      "intermediate-directory-symlink"
+    ]
+  },
+  "outputPolicy": {
+    "exactArtifactCount": 2,
+    "directory": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-atomic-promotion-plan-candidate-v2",
+    "fileMode": "0444",
+    "artifacts": [
+      "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-atomic-promotion-plan-candidate-v2/atomic-promotion-plan-v1.json",
+      "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-atomic-promotion-plan-candidate-v2/atomic-promotion-plan-hold-authority-v1.json"
+    ]
+  },
+  "promotion": {
+    "livePromotionAuthorized": false,
+    "canonicalAuthorized": false,
+    "browserAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "independent A18/A11 review of all exact Phase2B candidate bytes and this dry-run plan",
+      "explicit owner authorization for the exact atomic write set",
+      "post-promotion source-bound canonical241 compile and test evidence",
+      "Starship-only browser and release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "f13ee6a35b937126cea0bd5eccd81420ea825832ba4006d472d946ea6afa2bf3"
+}

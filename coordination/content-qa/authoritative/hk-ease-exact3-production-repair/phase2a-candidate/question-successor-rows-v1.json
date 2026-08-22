@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2a-question-successor-rows-v1",
+  "status": "phase2a-candidate-only-promotion-not-authorized",
+  "sourceBindings": {
+    "phase1PreimageAuthority": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+      "sha256": "8c087e024d184f92e1a6a51798cdb5f9ae3ddcff7dbc15e7ec65bb0fe1c2b608"
+    },
+    "expandedStep0Receipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+      "sha256": "9d661d739710a72c9a4744e224f221ffe808632dacb12b63d49c39fe4886262e"
+    },
+    "v2History": {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1"
+    }
+  },
+  "rowCount": 3,
+  "orderedRowIds": [
+    "hk-ease-10481-v3",
+    "hk-ease-10496-v3",
+    "hk-ease-1041-v3"
+  ],
+  "orderedRowIdSha256": "f080f64c2ac8b199571165cdc21eb386379feb5976bc48e5ab8ca7aa3894c380",
+  "rowsPayloadSha256": "436d0e106e2f85d03732e4290bccd48fb36a5d57639ff0c67a4ac240cd19859f",
+  "rowSha256": [
+    "837f4bfcf4a98e2fef363876141a8f22252ae7ac5a112b6de4c37965c0d23488",
+    "68e6bbad014521010e6436ccde5d7810c148836ddab6094e3e3021572270e897",
+    "d1b48561c7dd91fed34d396134ce505343a92b3fb3cad0ff405bdae66990ab38"
+  ],
+  "questions": [
+    {
+      "id": "hk-ease-10481-v3",
+      "batch": "hk-ease-practice-v2",
+      "sourceId": "10481",
+      "sourceGrade": 4,
+      "grade": "P4",
+      "topicId": "hk-ease-4n6",
+      "topicTitleZh": "分數 (二)",
+      "topicTitleEn": "Fractions (II)",
+      "mtrId": "4N6",
+      "knowledgePointIds": [
+        "4N6-1"
+      ],
+      "difficulty": "Foundation",
+      "difficultyLevel": 1,
+      "type": "short-answer",
+      "promptZh": "把下列各數分類：\\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+      "promptEn": "Classify the following numbers: \\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+      "optionsZh": [],
+      "optionsEn": [],
+      "answer": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+      "acceptedAnswers": [
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)"
+      ],
+      "explanationZh": "真分數的分子小於分母，所以是 \\(\\frac{3}{5}\\) 和 \\(\\frac{11}{12}\\)；假分數的分子大於或等於分母，所以是 \\(\\frac{7}{4}\\) 和 \\(\\frac{9}{9}\\)；其餘 \\(2\\frac{1}{3}\\) 和 \\(5\\frac{2}{7}\\) 是帶分數。",
+      "explanationEn": "A proper fraction has numerator less than denominator, so the proper fractions are \\(\\frac{3}{5}\\) and \\(\\frac{11}{12}\\). An improper fraction has numerator greater than or equal to denominator, so the improper fractions are \\(\\frac{7}{4}\\) and \\(\\frac{9}{9}\\). The remaining numbers, \\(2\\frac{1}{3}\\) and \\(5\\frac{2}{7}\\), are mixed numbers.",
+      "sourceDistanceStatus": "repaired-from-ease-source-v2-pending-final-source-distance-review",
+      "mathQaStatus": "pending-cross-review",
+      "answerQaStatus": "pending-production-grader-validation",
+      "assetQaStatus": "text-only",
+      "manualQaStatus": "candidate-a18-independent-semantic-review-v2",
+      "qa": {
+        "questionId": "10481",
+        "sourceQuestionType": "FRQ",
+        "originName": "Gemini",
+        "locale": "b",
+        "standardAnswer": "(a) \\(\\frac{3}{5}, \\frac{11}{12}\\) ; (b) \\(\\frac{7}{4}, \\frac{9}{9}\\) ; (c) \\(2\\frac{1}{3}, 5\\frac{2}{7}\\)",
+        "solvabilityStatus": "pending-cross-review",
+        "answerMatchStatus": "pending-production-grader-validation",
+        "severity": "pending",
+        "reason": "Repaired candidate; legacy cached QA verdict replaced pending independent cross-review.",
+        "recommendedAction": "Run fail-closed semantic, source-distance, grading, and rendering gates."
+      }
+    },
+    {
+      "id": "hk-ease-10496-v3",
+      "batch": "hk-ease-practice-v2",
+      "sourceId": "10496",
+      "sourceGrade": 4,
+      "grade": "P4",
+      "topicId": "hk-ease-4n6",
+      "topicTitleZh": "分數 (二)",
+      "topicTitleEn": "Fractions (II)",
+      "mtrId": "4N6",
+      "knowledgePointIds": [
+        "4N6-1"
+      ],
+      "difficulty": "Foundation",
+      "difficultyLevel": 1,
+      "type": "short-answer",
+      "promptZh": "把下列各數分類：\\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+      "promptEn": "Classify the following numbers: \\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+      "optionsZh": [],
+      "optionsEn": [],
+      "answer": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+      "acceptedAnswers": [
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)"
+      ],
+      "explanationZh": "真分數的分子小於分母，所以是 \\(\\frac{4}{7}\\) 和 \\(\\frac{13}{15}\\)；假分數的分子大於或等於分母，所以是 \\(\\frac{11}{5}\\) 和 \\(\\frac{8}{8}\\)；其餘 \\(3\\frac{1}{2}\\) 和 \\(6\\frac{4}{9}\\) 是帶分數。",
+      "explanationEn": "A proper fraction has numerator less than denominator, so the proper fractions are \\(\\frac{4}{7}\\) and \\(\\frac{13}{15}\\). An improper fraction has numerator greater than or equal to denominator, so the improper fractions are \\(\\frac{11}{5}\\) and \\(\\frac{8}{8}\\). The remaining numbers, \\(3\\frac{1}{2}\\) and \\(6\\frac{4}{9}\\), are mixed numbers.",
+      "sourceDistanceStatus": "repaired-from-ease-source-v2-pending-final-source-distance-review",
+      "mathQaStatus": "pending-cross-review",
+      "answerQaStatus": "pending-production-grader-validation",
+      "assetQaStatus": "text-only",
+      "manualQaStatus": "candidate-a18-independent-semantic-review-v2",
+      "qa": {
+        "questionId": "10496",
+        "sourceQuestionType": "FRQ",
+        "originName": "Gemini",
+        "locale": "b",
+        "standardAnswer": "(a) \\(\\frac{4}{7}, \\frac{13}{15}\\) ; (b) \\(\\frac{11}{5}, \\frac{8}{8}\\) ; (c) \\(3\\frac{1}{2}, 6\\frac{4}{9}\\)",
+        "solvabilityStatus": "pending-cross-review",
+        "answerMatchStatus": "pending-production-grader-validation",
+        "severity": "pending",
+        "reason": "Repaired candidate; legacy cached QA verdict replaced pending independent cross-review.",
+        "recommendedAction": "Run fail-closed semantic, source-distance, grading, and rendering gates."
+      }
+    },
+    {
+      "id": "hk-ease-1041-v3",
+      "batch": "hk-ease-practice-v2",
+      "sourceId": "1041",
+      "sourceGrade": 7,
+      "grade": "S1",
+      "topicId": "hk-ease-n1",
+      "topicTitleZh": "基礎計算",
+      "topicTitleEn": "Basic computation",
+      "mtrId": "N1",
+      "knowledgePointIds": [
+        "N1-1"
+      ],
+      "difficulty": "Foundation",
+      "difficultyLevel": 1,
+      "type": "short-answer",
+      "promptZh": "對每個數判斷它能否依次被 2、5、10 整除：(a) 75；(b) 130；(c) 502；(d) 1200；(e) 1005；(f) 4020。請在同一答案中按「(a) 否、是、否；…；(f) …」格式作答；可用 ✓ 表示「是」、✗ 表示「否」。每組順序均為 2、5、10。",
+      "promptEn": "For each number, state in order whether it is divisible by 2, 5, and 10: (a) 75; (b) 130; (c) 502; (d) 1200; (e) 1005; (f) 4020. Give all six parts in one response in the format “(a) No, Yes, No; …; (f) …”. You may use ✓ for Yes and ✗ for No. Each three-entry group must follow the order 2, 5, 10.",
+      "optionsZh": [],
+      "optionsEn": [],
+      "answer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+      "acceptedAnswers": [
+        "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+        "(a) 否, 是, 否; (b) 是, 是, 是; (c) 是, 否, 否; (d) 是, 是, 是; (e) 否, 是, 否; (f) 是, 是, 是"
+      ],
+      "explanationZh": "能被 2 整除要看末位是否為偶數；能被 5 整除要看末位是否為 0 或 5；能被 10 整除要看末位是否為 0。依此可得：(a) ✗, ✓, ✗；(b) ✓, ✓, ✓；(c) ✓, ✗, ✗；(d) ✓, ✓, ✓；(e) ✗, ✓, ✗；(f) ✓, ✓, ✓。",
+      "explanationEn": "A number is divisible by 2 if its last digit is even, by 5 if its last digit is 0 or 5, and by 10 if its last digit is 0. Applying these rules gives (a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; and (f) Yes, Yes, Yes.",
+      "sourceDistanceStatus": "repaired-from-ease-source-v2-pending-final-source-distance-review",
+      "mathQaStatus": "pending-cross-review",
+      "answerQaStatus": "pending-production-grader-validation",
+      "assetQaStatus": "text-only",
+      "manualQaStatus": "candidate-a18-independent-semantic-review-v2",
+      "qa": {
+        "questionId": "1041",
+        "sourceQuestionType": "FRQ",
+        "originName": "SPHRC Kung Yik She Secondary School",
+        "locale": "b",
+        "standardAnswer": "(a)\t✗, ✓, ✗ \t(b)\t✓, ✓, ✓ \t(c)\t✓, ✗, ✗ \t(d)\t✓, ✓, ✓ \t(e)\t✗, ✓, ✗ \t(f)\t✓, ✓, ✓",
+        "solvabilityStatus": "pending-cross-review",
+        "answerMatchStatus": "pending-production-grader-validation",
+        "severity": "pending",
+        "reason": "Repaired candidate; legacy cached QA verdict replaced pending independent cross-review.",
+        "recommendedAction": "Run fail-closed semantic, source-distance, grading, and rendering gates."
+      }
+    }
+  ]
+}

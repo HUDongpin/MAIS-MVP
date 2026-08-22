@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-historical-regression-candidate-hold-authority-v1",
+  "status": "candidate-hold-not-live-promotion",
+  "builderBinding": {
+    "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-historical-regression-candidate.ts",
+    "sha256": "f8c94436bab3910e03561c34783565134b1b91fc1be54f3ec83e76b6608806f8"
+  },
+  "focusedTestBinding": {
+    "path": "coordination/content-qa/hk-ease-exact3-phase2b-historical-regression-candidate.test.ts",
+    "sha256": "7960f8519aad1da82c6775a8267fae4edc561a1b9fe097d305170fb295f7374e"
+  },
+  "priorAuthorityBindings": [
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+      "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+      "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+      "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+      "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+    }
+  ],
+  "residual28VersionManifestPreimageBinding": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92.json",
+    "sha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+    "role": "immutable-historical-reconstruction-input-not-current-live-manifest"
+  },
+  "sourcePreimageBindings": [
+    {
+      "path": "lib/hongKongQuestionVersioning.test.ts",
+      "sha256": "751b0381cc68b17487cc2dbcadad50b9f919e2590278ac0c3ef4769853b83402"
+    },
+    {
+      "path": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "sha256": "197df7e56e964210341cdeb50b4ae8fc14c985d74eed5b991f85e768f093b22e"
+    },
+    {
+      "path": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "sha256": "0c6b677d07f473bbe81692cecdca1fbda1f6240cd19a0583a17b48046848d506"
+    },
+    {
+      "path": "lib/hongKongResidual47RepairContract.test.ts",
+      "sha256": "143db278d2a924b992d26e3be00918dcb7b41ceb40da8f54a521d95bf4da3fbb"
+    },
+    {
+      "path": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "sha256": "01156ab629d631a7ba4e53f789877d90f7ef66be69728d29a4cf715d6fd7dbc5"
+    },
+    {
+      "path": "lib/hongKongResidual47FocusedTestLedger.ts",
+      "sha256": "6b79ac5f0df83bb8d416abecb23f53706542b5e34c6b8cf1fcbbb263a3586a96"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "sha256": "3db51ff0c238675293ae7d3a7ee214f7f6511c3552d904ea5a005fa791bef94b"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "sha256": "aa9ef44b07f6c452090f312c77a43b7384bbaae5684e1c6137c46b1542e00bfe"
+    }
+  ],
+  "outputPolicy": {
+    "exactPostimageCount": 8,
+    "exactControlArtifactCount": 1,
+    "fullPostimagesOnly": true,
+    "fileMode": "0444"
+  },
+  "outputBindings": [
+    {
+      "logicalTargetPath": "lib/hongKongQuestionVersioning.test.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongQuestionVersioning.test.ts.snapshot",
+      "preimageSha256": "751b0381cc68b17487cc2dbcadad50b9f919e2590278ac0c3ef4769853b83402",
+      "sha256": "4e2640bf0d4fd0b28fb3186e73625022b0d00989e0380ed1a5304e38b64b6128",
+      "byteLength": 11553,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongHistoricalQuestionProjection.test.ts.snapshot",
+      "preimageSha256": "197df7e56e964210341cdeb50b4ae8fc14c985d74eed5b991f85e768f093b22e",
+      "sha256": "abeb79cb4c2b437bb687ac09b63fd948959ddd30428d0734ce91aabc35c4b963",
+      "byteLength": 15819,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongDisplayed74FigureHistoryContract.test.ts.snapshot",
+      "preimageSha256": "0c6b677d07f473bbe81692cecdca1fbda1f6240cd19a0583a17b48046848d506",
+      "sha256": "bb77a21004cdfd9eb8eb2d07b37fb134e0c82d19f45e5a0afc605e454cffa869",
+      "byteLength": 41477,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "lib/hongKongResidual47RepairContract.test.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47RepairContract.test.ts.snapshot",
+      "preimageSha256": "143db278d2a924b992d26e3be00918dcb7b41ceb40da8f54a521d95bf4da3fbb",
+      "sha256": "1600b6131f448720223b7ad41592c4912e52f8a08406ce57f590c19fefcde800",
+      "byteLength": 50343,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongEaseResponseContracts.test.ts.snapshot",
+      "preimageSha256": "01156ab629d631a7ba4e53f789877d90f7ef66be69728d29a4cf715d6fd7dbc5",
+      "sha256": "b71f2b6780895cb303033fbe1879a05515fc174102350d8081c0412c1ac31026",
+      "byteLength": 22626,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "lib/hongKongResidual47FocusedTestLedger.ts",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47FocusedTestLedger.ts.snapshot",
+      "preimageSha256": "6b79ac5f0df83bb8d416abecb23f53706542b5e34c6b8cf1fcbbb263a3586a96",
+      "sha256": "2c20817b6c96b42ed5a89972c7ea4d084205538a2d35f5278f2dddd3a38b3c63",
+      "byteLength": 8088,
+      "classification": "isolated-full-typescript-test-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-residual47-focused-test-ledger.json.snapshot",
+      "preimageSha256": "3db51ff0c238675293ae7d3a7ee214f7f6511c3552d904ea5a005fa791bef94b",
+      "sha256": "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0",
+      "byteLength": 1632,
+      "classification": "isolated-full-json-postimage-candidate"
+    },
+    {
+      "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-ease-response-focused-test-ledger.json.snapshot",
+      "preimageSha256": "aa9ef44b07f6c452090f312c77a43b7384bbaae5684e1c6137c46b1542e00bfe",
+      "sha256": "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91",
+      "byteLength": 1307,
+      "classification": "isolated-full-json-postimage-candidate"
+    }
+  ],
+  "promotion": {
+    "liveTestMutationAuthorized": false,
+    "liveLedgerMutationAuthorized": false,
+    "canonicalRunnerIntegrationAuthorized": false,
+    "fullBankIntegrationAuthorized": false,
+    "v4RegenerationAuthorized": false,
+    "browserAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "shadow execution of all candidate historical and response tests",
+      "focused-ledger and canonical-runner source-binding update",
+      "V4 exact3 regeneration and independent re-review",
+      "full-bank, browser, and release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+}

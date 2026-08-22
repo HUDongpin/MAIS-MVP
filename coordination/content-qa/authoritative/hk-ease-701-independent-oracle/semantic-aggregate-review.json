@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "hk-ease-semantic-aggregate-review-v1",
+  "reportKind": "A18-independent-read-only-semantic-aggregate",
+  "generatedAtUtc": "2026-08-11T03:08:27.355Z",
+  "generatedAtHkt": "2026-08-11T11:08:27+08:00",
+  "verdict": "approved-for-integration-review-semantic-content-boundary",
+  "executionBoundary": {
+    "worktree": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+    "branch": "codex/a18-hk-ease-v2-qa",
+    "head": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+    "sourceMode": "read-only",
+    "onlyWrittenArtifact": "/Volumes/Starship/MAIS-hk-content-qa-scratch/working/hk-ease-semantic-aggregate-review.json",
+    "e2eRun": false,
+    "commitPushMergeDeploy": false,
+    "productionApproval": false
+  },
+  "sourceBindings": {
+    "questionPack": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2"
+    },
+    "semanticShardA": {
+      "path": "/Volumes/Starship/MAIS-hk-content-qa-scratch/working/hk-ease-semantic-shard-a.json",
+      "sha256": "fa53a9255c60e71111c8b8837c33cf9cc14b539964884566fd28c2269ee24b1d"
+    },
+    "semanticShardB": {
+      "path": "/Volumes/Starship/MAIS-hk-content-qa-scratch/working/hk-ease-semantic-shard-b.json",
+      "sha256": "d291f64b2676b719053c1042183de8155e3b07acace27e7cd6ccb1eda7da1c0f"
+    },
+    "semanticShardC": {
+      "path": "/Volumes/Starship/MAIS-hk-content-qa-scratch/working/hk-ease-semantic-shard-c.json",
+      "sha256": "5fe839673194828096a1e8ed0ce36bd683f5a9347c816be4b8ddc38ef37e8261"
+    },
+    "finalRemediationReview": {
+      "path": "/Volumes/Starship/MAIS-hk-content-qa-scratch/working/hk-ease-final31-independent-review.json",
+      "sha256": "a06d055085f86e9661d719b8e63aed80e0e0d292e2d0e33928c4bfbb4911893f"
+    },
+    "independentAnswerOracle": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "sha256": "da330d0b3c9fe804153ff910a42c7f7c3da9c8e19b4fe4d2d9301232dfb4ccb7"
+    },
+    "responseContractAudit": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28"
+    },
+    "runtimeResponseContracts": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4"
+    },
+    "sourceDecisions": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/generated-content/hk-ease-practice-bank-v2/source-decisions.json",
+      "sha256": "9055c9b702ecc04888fe1e6531951ab90109cb571851b3408ab3297341da8e4e"
+    },
+    "versionManifest": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/historical/hongKongQuestionVersionManifest.json",
+      "sha256": "4d930e8cb468b171d97ea5020a6938231dc1fa1b478dcdb2ce12830ab1a78b9c"
+    },
+    "immutableFrozenEaseHistory": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1"
+    }
+  },
+  "reconstructedPreCandidate": {
+    "sha256": "f032dbb4b3aa58a070ae1a47e4d2ee6ddb2802e9655edc83ceba3e2e6ca77b8e",
+    "reconstructionMethod": "Reverse only final31 exactContentChanges to expectedPreEditContent, reset metadata.remediation.contentChangedQuestionCount from 138 to 102, and serialize with two-space JSON plus a final newline.",
+    "exactByteReconstructionPass": true
+  },
+  "coverage": {
+    "candidateQuestions": 701,
+    "exactOnceIndices": {
+      "first": 0,
+      "last": 700,
+      "uniqueCount": 701,
+      "pass": true
+    },
+    "exactOnceIds": {
+      "uniqueCount": 701,
+      "candidateOrderMatch": true,
+      "pass": true
+    },
+    "shardRows": {
+      "A": 234,
+      "B": 234,
+      "C": 233,
+      "total": 701
+    },
+    "independentMathCanonicalAcceptedExplanationRows": 701,
+    "acceptedAnswerForms": {
+      "byShard": {
+        "A": 750,
+        "B": 617,
+        "C": 529
+      },
+      "total": 1896,
+      "allReviewed": true
+    },
+    "multipleChoice": {
+      "byShard": {
+        "A": 4,
+        "B": 24,
+        "C": 62
+      },
+      "total": 90,
+      "allUniqueCorrectEnglishAndChinese": true
+    },
+    "learnerInternalQaOrS18LeakRows": [],
+    "learnerTabOrCarriageReturnRows": 0
+  },
+  "exactDelta": {
+    "preSha256": "f032dbb4b3aa58a070ae1a47e4d2ee6ddb2802e9655edc83ceba3e2e6ca77b8e",
+    "postSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+    "changedQuestionIds": [
+      "hk-ease-10469",
+      "hk-ease-10470",
+      "hk-ease-10472",
+      "hk-ease-10473",
+      "hk-ease-10474",
+      "hk-ease-10475",
+      "hk-ease-10476",
+      "hk-ease-10477",
+      "hk-ease-10478",
+      "hk-ease-10479",
+      "hk-ease-10480",
+      "hk-ease-10551",
+      "hk-ease-10561",
+      "hk-ease-10602",
+      "hk-ease-10603",
+      "hk-ease-10604",
+      "hk-ease-10605",
+      "hk-ease-10606",
+      "hk-ease-10607",
+      "hk-ease-10608",
+      "hk-ease-10629",
+      "hk-ease-10630",
+      "hk-ease-10631",
+      "hk-ease-10632",
+      "hk-ease-10633",
+      "hk-ease-10634",
+      "hk-ease-10635",
+      "hk-ease-10636",
+      "hk-ease-10637",
+      "hk-ease-10638",
+      "hk-ease-10639",
+      "hk-ease-10640",
+      "hk-ease-567",
+      "hk-ease-568",
+      "hk-ease-663",
+      "hk-ease-664",
+      "hk-ease-782",
+      "hk-ease-815"
+    ],
+    "changedQuestionIdCount": 38,
+    "changedQuestionFieldCount": 39,
+    "changedQuestionFieldKeys": [
+      "hk-ease-10469.topicTitleZh",
+      "hk-ease-10470.topicTitleZh",
+      "hk-ease-10472.topicTitleZh",
+      "hk-ease-10473.topicTitleZh",
+      "hk-ease-10474.topicTitleZh",
+      "hk-ease-10475.topicTitleZh",
+      "hk-ease-10476.topicTitleZh",
+      "hk-ease-10477.promptEn",
+      "hk-ease-10477.topicTitleZh",
+      "hk-ease-10478.topicTitleZh",
+      "hk-ease-10479.topicTitleZh",
+      "hk-ease-10480.topicTitleZh",
+      "hk-ease-10551.promptEn",
+      "hk-ease-10561.promptEn",
+      "hk-ease-10602.topicTitleZh",
+      "hk-ease-10603.topicTitleZh",
+      "hk-ease-10604.topicTitleZh",
+      "hk-ease-10605.topicTitleZh",
+      "hk-ease-10606.topicTitleZh",
+      "hk-ease-10607.topicTitleZh",
+      "hk-ease-10608.topicTitleZh",
+      "hk-ease-10629.topicTitleZh",
+      "hk-ease-10630.topicTitleZh",
+      "hk-ease-10631.topicTitleZh",
+      "hk-ease-10632.topicTitleZh",
+      "hk-ease-10633.topicTitleZh",
+      "hk-ease-10634.topicTitleZh",
+      "hk-ease-10635.topicTitleZh",
+      "hk-ease-10636.topicTitleZh",
+      "hk-ease-10637.topicTitleZh",
+      "hk-ease-10638.topicTitleZh",
+      "hk-ease-10639.topicTitleZh",
+      "hk-ease-10640.topicTitleZh",
+      "hk-ease-567.promptZh",
+      "hk-ease-568.promptZh",
+      "hk-ease-663.promptZh",
+      "hk-ease-664.promptZh",
+      "hk-ease-782.promptZh",
+      "hk-ease-815.promptZh"
+    ],
+    "unchangedQuestionObjectCount": 663,
+    "metadataOnlyDelta": {
+      "path": "metadata.remediation.contentChangedQuestionCount",
+      "from": 102,
+      "to": 138
+    },
+    "otherQuestionAndMetadataLeavesUnchanged": true,
+    "answersAcceptedAnswersOptionsExplanationsUnchangedForAll701": true
+  },
+  "issueClosure": {
+    "shardIssueFields": {
+      "A": 24,
+      "B": 7,
+      "C": 6,
+      "total": 37
+    },
+    "finalSupplementalIssueFields": [
+      "hk-ease-10477.promptEn",
+      "hk-ease-10561.promptEn"
+    ],
+    "exactRequiredRepairIds": 38,
+    "exactRequiredRepairFields": 39,
+    "malformedTopicTitleRowsPost": 0,
+    "unresolvedIds": [],
+    "pass": true
+  },
+  "regeneratedArtifacts": {
+    "independentAnswerOracle": {
+      "sha256": "da330d0b3c9fe804153ff910a42c7f7c3da9c8e19b4fe4d2d9301232dfb4ccb7",
+      "candidateSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "reviewed": 701,
+      "mathPass": 701
+    },
+    "sourceDecisions": {
+      "sha256": "9055c9b702ecc04888fe1e6531951ab90109cb571851b3408ab3297341da8e4e",
+      "remediatedCandidateSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "decisionCount": 12
+    },
+    "responseContractAudit": {
+      "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "candidateSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "strictEntries": 344,
+      "positiveProbes": 552,
+      "negativeProbes": 554
+    },
+    "runtimeResponseContracts": {
+      "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+      "candidateSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "auditSha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "strictEntries": 344
+    },
+    "versionManifest": {
+      "sha256": "4d930e8cb468b171d97ea5020a6938231dc1fa1b478dcdb2ce12830ab1a78b9c",
+      "historySourceCommit": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+      "activeEaseV2": 617,
+      "activeEaseV3": 84,
+      "newlyPromotedRelativeToFrozen39847": 82,
+      "promotedBaseIdSha256": "24796d8f24fcf013ab9ff3b41bbb7d5cbf506a14084db44ecd8c0108d45bde35",
+      "retiredHistoricalIdCount": 1007
+    },
+    "immutableFrozenEaseHistory": {
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1",
+      "questionCount": 701
+    }
+  },
+  "displayedLessonSurface": {
+    "independentReadOnlyRecomputation": true,
+    "lessonCount": 51,
+    "displayedCount": 255,
+    "uniqueDisplayedCount": 255,
+    "easeDisplayedCount": 0,
+    "diagramCount": 24,
+    "sortedIdSha256": "ee69432e51fd2983b9a24bc562731e5f15459b1f7cf11e717217cb5e4184d398",
+    "sortedQuestionObjectSha256": "b55d7733645d19ff8411c0b2620fd9c6225ff83c03440e034b5860702c3add5e",
+    "lessonOrderIdSha256": "e147477c9d75d8d5996863eee476d5ceef79e48a0c46a8dc441ca223257a6cc5",
+    "noDrift": true
+  },
+  "independentChecks": {
+    "aggregationAssertions": "pass",
+    "displayedLessonQualityContract": {
+      "command": "./node_modules/.bin/tsx --test lib/hongKongLessonQualityContract.test.ts",
+      "tests": 25,
+      "pass": 25,
+      "fail": 0,
+      "exitCode": 0
+    },
+    "liveAuxiliaryHashes": {
+      "data/lessons.ts": "3f650ac862f5f6f230e660e616e1ef8597bda50763fb9a1ee041671113e7b679",
+      "data/questions.ts": "900ab6f081ee5e6e021fa50ec06155bfd13356cddf1d188e8d960b44937d5ef4",
+      "data/topics.ts": "7c415c8a8e22ee6d793a3a7a8fd2c12e79d858adc880236516ad5113e490d054",
+      "lib/hongKongLessonQualityContract.test.ts": "15a54de50c52ac839b01f9560b8ddc475abdcde4163beb6abc9204f68ffdf557",
+      "lib/practiceQuestionDeduping.ts": "d7666aac9d37b0e08729253422bc9ffd15475c19c9d6b87a9d3d0f81d0ffa381"
+    }
+  },
+  "unresolvedIds": [],
+  "remainingNonSemanticGates": [
+    "Full modified test closure and full-bank production grading must remain green on final bytes.",
+    "Type-check and production build must remain green on final bytes.",
+    "Starship-only E2E must pass under the owner path hard gate.",
+    "This semantic aggregate does not authorize commit, push, merge, deploy, or a broad all-1003 production claim by itself."
+  ],
+  "releaseRecommendation": "The 701-row EASE package is semantically approved for integration review on the exact fa5b bytes, with zero unresolved semantic IDs. Hold final production/all-1003 claims until the listed non-semantic gates and separate 302 non-EASE evidence are bound in the owner handoff."
+}

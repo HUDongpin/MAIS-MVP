@@ -1,0 +1,573 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-independent-oracle-overlay-review-v2",
+  "status": "independent-review-approved-for-candidate-overlay-not-live-promotion",
+  "detachedPayloadBinding": {
+    "algorithm": "sha256",
+    "canonicalization": "SHA256 of UTF-8 JSON.stringify({schemaVersion,status,reviewPayload}) after parsing this JSON; detachedPayloadBinding is excluded to avoid a self-cycle",
+    "sha256": "c0387a5f0ea824510ab24d84f8e062a289354e8731caa3acde9320f30ecd825b"
+  },
+  "reviewPayload": {
+    "reviewer": {
+      "lane": "A18",
+      "role": "independent-non-author-content-and-oracle-reviewer",
+      "reviewerIsCandidateBuilder": false,
+      "reviewerIsFuturePromotionBuilder": false
+    },
+    "task": "Phase2B independent exact3 production-oracle overlay review",
+    "reviewDate": "2026-08-19",
+    "boundary": "Read-only independent approval of an isolated three-row candidate oracle overlay. This receipt does not authorize live-source mutation, runtime dispatch, history promotion, release, deploy, or a full V3/V4 oracle-envelope claim.",
+    "methodology": [
+      "Verified the exact four source SHA-256 bindings and resolved the two mutable logical preimages only through their STEP0 content-addressed immutable snapshots.",
+      "Joined the three rows by exact source index and unversioned baseId, then independently recomputed old, raw-v3, and production-normalized question and oracle-row hashes.",
+      "Compared every old and successor question recursively and allowed only the row-specific delta paths declared below.",
+      "Reviewed all 32 named fraction surfaces independently for membership, language-family consistency, within-category permutation coverage, exact representations, and category labels.",
+      "Reviewed the hk-ease-1041 six-by-three divisibility truth table independently and checked all three authorized alias families.",
+      "Adjudicated the two unlabeled fraction calculations as mathematically correct but strict negatives under the named-category contract without rewriting the independent calculations.",
+      "Recomputed the three-row and 701-row aggregate expectations independently rather than accepting candidate-builder aggregate claims as review authority."
+    ],
+    "independencePolicy": {
+      "artifactMayBeWrittenByFuturePromotionBuilder": false,
+      "futurePromotionBuilderMayOnlyReadAndVerifyArtifact": true,
+      "builderGeneratedSuccessorRowsAreByteInputsNotIndependentReviewers": true,
+      "selfGeneratedReviewEvidenceForbidden": true,
+      "reviewArtifactMustRemainImmutableAfterBinding": true
+    },
+    "sourceBindings": {
+      "oldV3Oracle": {
+        "classification": "hk-ease-v3-independent-oracle-preimage",
+        "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+        "logicalCoordinate": {
+          "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+          "expectedPreimageSha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+          "classification": "hk-ease-v3-independent-oracle-preimage",
+          "coordinateRole": "mutable-logical-coordinate"
+        },
+        "immutableSnapshot": {
+          "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62.json",
+          "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+          "classification": "hk-ease-v3-independent-oracle-preimage",
+          "coordinateRole": "step0-immutable-content-addressed-snapshot"
+        },
+        "dualKeyResolutionPolicy": {
+          "mode": "dual-key-fail-closed",
+          "preimageAuthority": "immutableSnapshot",
+          "requireSameSha256": true,
+          "requireSameClassification": true,
+          "logicalCoordinatePurpose": "stable-logical-identity-not-post-promotion-byte-authority",
+          "prePromotionLogicalParityPolicy": "if current logical bytes are claimed as the preimage, require their SHA-256 and bytes to match the immutable snapshot",
+          "postPromotionLogicalDriftPolicy": "current logical bytes may advance after promotion but must never replace or reinterpret the immutable preimage snapshot",
+          "missingSnapshotFallbackAllowed": false,
+          "livePathFallbackAllowed": false,
+          "failClosedOn": [
+            "missing-logical-coordinate",
+            "missing-immutable-snapshot",
+            "logical-snapshot-sha-mismatch",
+            "classification-mismatch",
+            "snapshot-file-missing",
+            "snapshot-byte-hash-mismatch",
+            "current-live-byte-fallback-or-preimage-reinterpretation-after-drift"
+          ]
+        }
+      },
+      "oldQuestionPack": {
+        "classification": "hk-ease-v2-question-pack-preimage",
+        "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+        "logicalCoordinate": {
+          "path": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+          "expectedPreimageSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+          "classification": "hk-ease-v2-question-pack-preimage",
+          "coordinateRole": "mutable-logical-coordinate"
+        },
+        "immutableSnapshot": {
+          "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2.json",
+          "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+          "classification": "hk-ease-v2-question-pack-preimage",
+          "coordinateRole": "step0-immutable-content-addressed-snapshot"
+        },
+        "dualKeyResolutionPolicy": {
+          "mode": "dual-key-fail-closed",
+          "preimageAuthority": "immutableSnapshot",
+          "requireSameSha256": true,
+          "requireSameClassification": true,
+          "logicalCoordinatePurpose": "stable-logical-identity-not-post-promotion-byte-authority",
+          "prePromotionLogicalParityPolicy": "if current logical bytes are claimed as the preimage, require their SHA-256 and bytes to match the immutable snapshot",
+          "postPromotionLogicalDriftPolicy": "current logical bytes may advance after promotion but must never replace or reinterpret the immutable preimage snapshot",
+          "missingSnapshotFallbackAllowed": false,
+          "livePathFallbackAllowed": false,
+          "failClosedOn": [
+            "missing-logical-coordinate",
+            "missing-immutable-snapshot",
+            "logical-snapshot-sha-mismatch",
+            "classification-mismatch",
+            "snapshot-file-missing",
+            "snapshot-byte-hash-mismatch",
+            "current-live-byte-fallback-or-preimage-reinterpretation-after-drift"
+          ]
+        }
+      },
+      "phase2aAuthority": {
+        "classification": "hk-ease-exact3-phase2a-candidate-authority",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/candidate-authority-v1.json",
+        "sha256": "a116dd12e3221cc623d7698f67f5b998087c6f8086b64f655e5fb40e41dd60f8"
+      },
+      "phase2aQuestionSuccessorRows": {
+        "classification": "hk-ease-exact3-phase2a-raw-v3-question-successor-rows",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/question-successor-rows-v1.json",
+        "sha256": "0048c168167af24bc0f48ed7d6562d6dd6d503ef21f4dec627ff48b10f203615"
+      }
+    },
+    "targetCoordinateBinding": {
+      "orderedBaseIds": [
+        "hk-ease-10481",
+        "hk-ease-10496",
+        "hk-ease-1041"
+      ],
+      "orderedBaseIdSha256": "ad0a746c13b9d5461a61dd9221e1cc57ee4d5c20fa4cacc3ca7562ae775b76d8",
+      "sourceIndicesZeroBased": [
+        187,
+        188,
+        693
+      ],
+      "targetRowCount": 3,
+      "acceptedSurfaceCount": 35,
+      "negativeProbeCount": 30
+    },
+    "oracleFieldPolicy": {
+      "preserveExactly": [
+        "index",
+        "baseId",
+        "independentCalculationAnswer",
+        "independentCalculationPurpose",
+        "rowSpecificDerivation",
+        "independentDerivation",
+        "reviewMethodClassification",
+        "mathStatus",
+        "reviewer",
+        "reviewArtifact"
+      ],
+      "recomputeFromIndependentReviewAndBoundSuccessor": [
+        "independentlyReviewedAnswer",
+        "differsFromReviewedAnswer",
+        "calculationIsStrictNegative",
+        "acceptedAnswerFormCount",
+        "acceptedAnswersSha256",
+        "questionObjectSha256"
+      ],
+      "independentCalculationRewriteForbidden": true,
+      "oracleBaseIdRemainsUnversioned": true
+    },
+    "normalizationPolicy": {
+      "productionQuestionIdPolicy": "preserve-unversioned-base-id",
+      "phase2aRawV3Role": "provenance-only-byte-bound-input",
+      "finalOverlayQuestionObjectHashField": "productionNormalizedBaseQuestionObjectSha256",
+      "finalOverlayOracleRowHashField": "productionNormalizedBaseOverlayOracleRowSha256",
+      "rawV3HashUseInFinalOverlayForbidden": true,
+      "normalizedBaseRowHashesRequireIndependentRecomputation": true
+    },
+    "rowReviews": [
+      {
+        "baseId": "hk-ease-10481",
+        "sourceIndexZeroBased": 187,
+        "oldPackQuestionId": "hk-ease-10481",
+        "phase2aRawV3QuestionId": "hk-ease-10481-v3",
+        "productionNormalizedBaseQuestionId": "hk-ease-10481",
+        "oldOracleRowSha256": "5ebb37ffda334e2ccb408ba8ee67469cb907e98f7df8404bd0c8b6dd08235a7f",
+        "oldQuestionObjectSha256": "2c534cd8a697ad4c92f07b9bb91f06dd202a6987e9d1eb96084ac735bc46eefc",
+        "phase2aRawV3QuestionObjectSha256": "837f4bfcf4a98e2fef363876141a8f22252ae7ac5a112b6de4c37965c0d23488",
+        "productionNormalizedBaseQuestionObjectSha256": "c5f21c907bf74408e75a0ca2237d72d4c859f3cec43b1d4c1b143322b5d1e4f7",
+        "phase2aRawV3QuestionAllowedDeltaPaths": [
+          "id",
+          "answer",
+          "acceptedAnswers"
+        ],
+        "productionNormalizedBaseQuestionAllowedDeltaPaths": [
+          "answer",
+          "acceptedAnswers"
+        ],
+        "canonicalAnswer": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "canonicalAnswerRawUtf8Sha256": "a57d9328cb517ebaec11a08ca2df7e1aaeb84cf02dc205ca6927c156dd30bcd1",
+        "acceptedAnswerFormCount": 16,
+        "acceptedAnswersSha256": "ee40735aa81fc6ffa6f0bd4e71d9da27921cc29e49df55f9a205cf0e955ca398",
+        "acceptedAnswers": [
+          "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+          "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)"
+        ],
+        "acceptedSurfaceProof": {
+          "categoryMembership": {
+            "properFractions": [
+              "3/5",
+              "11/12"
+            ],
+            "improperFractions": [
+              "7/4",
+              "9/9"
+            ],
+            "mixedNumbers": [
+              "2 1/3",
+              "5 2/7"
+            ]
+          },
+          "categoryReason": "3<5 and 11<12 are proper; 7>4 and 9=9 are improper; the remaining two original representations are mixed numbers.",
+          "languageFamiliesInOrder": [
+            "English named categories",
+            "Chinese named categories"
+          ],
+          "permutationCodeMeaning": "bits indicate reversal of the proper, improper, and mixed-number pair respectively",
+          "permutationCodesPerLanguageInArrayOrder": [
+            "000",
+            "100",
+            "010",
+            "110",
+            "001",
+            "101",
+            "011",
+            "111"
+          ],
+          "proof": "All 2^3 within-category permutations occur once in each of two consistent named-language families; no value changes category or representation.",
+          "allSurfacesAdjudicated": "pass"
+        },
+        "negativeProbeReview": {
+          "probeCount": 11,
+          "phase2aProbePayloadSha256": "eff68921c0b67473e5d56c76040410222a81f3bfdebd42ae51026a600d2a9446",
+          "allObservedDecisions": "reject",
+          "probes": [
+            {"input":"(a) 3/5, 11/12; (b) 7/4, 9/9; (c) 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 999, 888; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 999, 888","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 7/4, 9/9; (b) improper fractions: 3/5, 11/12; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 3/5; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7, 1/2","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 1; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 7/3, 37/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) 真分數: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed fractions: 2 1/3, 5 2/7","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"}
+          ]
+        },
+        "calculationDisposition": {
+          "independentCalculationAnswer": "(a) \\(\\frac{3}{5},\\frac{11}{12}\\); (b) \\(\\frac{7}{4},\\frac{9}{9}\\); (c) \\(2\\frac{1}{3},5\\frac{2}{7}\\)",
+          "differsFromReviewedAnswer": true,
+          "calculationIsStrictNegative": true,
+          "mathematicalContentStatus": "correct-cross-check",
+          "contractStatus": "rejected-by-named-category-contract",
+          "rationale": "The independent calculation has the correct three mathematical groups but omits the prompt-required proper, improper, and mixed-number category names, so it remains a cross-check and is not an authorized grading surface."
+        },
+        "phase2aRawV3OverlayOracleRowSha256": "8f2ab61d75843a8157f241c4fb08cddfd04dfd7b435b29d9641328ca66ba7505",
+        "productionNormalizedBaseOverlayOracleRowSha256": "637b6c3629473d12be95ec3906d9b2e0a2cb19859a5320f6eb4408ad9ad54188",
+        "reviewDecision": "approved-for-candidate-oracle-overlay"
+      },
+      {
+        "baseId": "hk-ease-10496",
+        "sourceIndexZeroBased": 188,
+        "oldPackQuestionId": "hk-ease-10496",
+        "phase2aRawV3QuestionId": "hk-ease-10496-v3",
+        "productionNormalizedBaseQuestionId": "hk-ease-10496",
+        "oldOracleRowSha256": "773935cc3d6e117f0c643ab545a9dbfaa8869f7641da3b7f4945c24ca8ff8b02",
+        "oldQuestionObjectSha256": "8a1b69587e94b9f35373c7a17a6b51d553634e37c5beb54e4ce1034285a76087",
+        "phase2aRawV3QuestionObjectSha256": "68e6bbad014521010e6436ccde5d7810c148836ddab6094e3e3021572270e897",
+        "productionNormalizedBaseQuestionObjectSha256": "04dee736b973cd14cf93a23840b8f4c7301a9db0ec2a0517d1b2382657981bf8",
+        "phase2aRawV3QuestionAllowedDeltaPaths": [
+          "id",
+          "answer",
+          "acceptedAnswers"
+        ],
+        "productionNormalizedBaseQuestionAllowedDeltaPaths": [
+          "answer",
+          "acceptedAnswers"
+        ],
+        "canonicalAnswer": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "canonicalAnswerRawUtf8Sha256": "71302d181df9389f6fb564c198534941eb85046828ef113352e9bd0823083dd5",
+        "acceptedAnswerFormCount": 16,
+        "acceptedAnswersSha256": "288cd547d53abdc352154c2980c6228204260b866ad5766b0d024834ec96cc69",
+        "acceptedAnswers": [
+          "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+          "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)"
+        ],
+        "acceptedSurfaceProof": {
+          "categoryMembership": {
+            "properFractions": [
+              "4/7",
+              "13/15"
+            ],
+            "improperFractions": [
+              "11/5",
+              "8/8"
+            ],
+            "mixedNumbers": [
+              "3 1/2",
+              "6 4/9"
+            ]
+          },
+          "categoryReason": "4<7 and 13<15 are proper; 11>5 and 8=8 are improper; the remaining two original representations are mixed numbers.",
+          "languageFamiliesInOrder": [
+            "English named categories",
+            "Chinese named categories"
+          ],
+          "permutationCodeMeaning": "bits indicate reversal of the proper, improper, and mixed-number pair respectively",
+          "permutationCodesPerLanguageInArrayOrder": [
+            "000",
+            "100",
+            "010",
+            "110",
+            "001",
+            "101",
+            "011",
+            "111"
+          ],
+          "proof": "All 2^3 within-category permutations occur once in each of two consistent named-language families; no value changes category or representation.",
+          "allSurfacesAdjudicated": "pass"
+        },
+        "negativeProbeReview": {
+          "probeCount": 11,
+          "phase2aProbePayloadSha256": "b2ddeb662e09a286eca65bb6e1e5922ce486f444cd212bf8819ee2413d263763",
+          "allObservedDecisions": "reject",
+          "probes": [
+            {"input":"(a) 4/7, 13/15; (b) 11/5, 8/8; (c) 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 999, 888; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 999, 888","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 11/5, 8/8; (b) improper fractions: 4/7, 13/15; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 4/7; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9, 1/2","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 1; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 7/2, 58/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) 真分數: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed fractions: 3 1/2, 6 4/9","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"}
+          ]
+        },
+        "calculationDisposition": {
+          "independentCalculationAnswer": "(a) \\(\\frac{4}{7},\\frac{13}{15}\\); (b) \\(\\frac{11}{5},\\frac{8}{8}\\); (c) \\(3\\frac{1}{2},6\\frac{4}{9}\\)",
+          "differsFromReviewedAnswer": true,
+          "calculationIsStrictNegative": true,
+          "mathematicalContentStatus": "correct-cross-check",
+          "contractStatus": "rejected-by-named-category-contract",
+          "rationale": "The independent calculation has the correct three mathematical groups but omits the prompt-required proper, improper, and mixed-number category names, so it remains a cross-check and is not an authorized grading surface."
+        },
+        "phase2aRawV3OverlayOracleRowSha256": "6fa1226418ab8b8378195709b2d972e04ef0a9d682ea0dcd9f0473ddd64a3ea6",
+        "productionNormalizedBaseOverlayOracleRowSha256": "2ccc94969dc4b2afd03a32a6963f2cbbef8adf339380b688d6644a8f8890a040",
+        "reviewDecision": "approved-for-candidate-oracle-overlay"
+      },
+      {
+        "baseId": "hk-ease-1041",
+        "sourceIndexZeroBased": 693,
+        "oldPackQuestionId": "hk-ease-1041",
+        "phase2aRawV3QuestionId": "hk-ease-1041-v3",
+        "productionNormalizedBaseQuestionId": "hk-ease-1041",
+        "oldOracleRowSha256": "0cb097091784b98493d23632a03faf9208ff6389fb67b98c8382329ace52d95f",
+        "oldQuestionObjectSha256": "e4ef30a8bcd50f95910e6762d3c31c3bc45e9fa9aa8469351a0011c7d79c2f7d",
+        "phase2aRawV3QuestionObjectSha256": "d1b48561c7dd91fed34d396134ce505343a92b3fb3cad0ff405bdae66990ab38",
+        "productionNormalizedBaseQuestionObjectSha256": "8f7255c66067c2c1b777a4733cea48ad8f5267ebebbc15d51b2b8e62965d2f6e",
+        "phase2aRawV3QuestionAllowedDeltaPaths": [
+          "id",
+          "promptEn",
+          "promptZh"
+        ],
+        "productionNormalizedBaseQuestionAllowedDeltaPaths": [
+          "promptEn",
+          "promptZh"
+        ],
+        "canonicalAnswer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "canonicalAnswerRawUtf8Sha256": "f6e03f1ad2039b99ea06983ac01a214cbe869f3f956c10f4cf30997e15e3a623",
+        "acceptedAnswerFormCount": 3,
+        "acceptedAnswersSha256": "44b4b472092326c4d1e560d4eb902ca5a73f7b2ba79677e2a64d62e6da61fb94",
+        "acceptedAnswers": [
+          "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+          "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+          "(a) 否, 是, 否; (b) 是, 是, 是; (c) 是, 否, 否; (d) 是, 是, 是; (e) 否, 是, 否; (f) 是, 是, 是"
+        ],
+        "acceptedSurfaceProof": {
+          "divisorOrder": [
+            2,
+            5,
+            10
+          ],
+          "truthTable": [
+            {"part":"a","number":75,"values":[false,true,false]},
+            {"part":"b","number":130,"values":[true,true,true]},
+            {"part":"c","number":502,"values":[true,false,false]},
+            {"part":"d","number":1200,"values":[true,true,true]},
+            {"part":"e","number":1005,"values":[false,true,false]},
+            {"part":"f","number":4020,"values":[true,true,true]}
+          ],
+          "authorizedAliasFamiliesInArrayOrder": [
+            "checkmark-cross symbols",
+            "English Yes-No",
+            "Chinese 是-否"
+          ],
+          "proof": "Each of the six numbers was independently tested for divisibility by 2, 5, and 10 in that exact order; all three authorized surfaces encode the same 18 decisions.",
+          "allSurfacesAdjudicated": "pass"
+        },
+        "negativeProbeReview": {
+          "probeCount": 8,
+          "phase2aProbePayloadSha256": "93c099eb77b088854701eac25b1b97ad4050fa60098847772fa65318eab3bc75",
+          "allObservedDecisions": "reject",
+          "probes": [
+            {"input":"(a) arbitrary; (b) arbitrary; (c) arbitrary; (d) arbitrary; (e) arbitrary; (f) arbitrary","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) ✓, ✗, ✗; (b) ✓, ✓, ✓; (c) ✗, ✗, ✓; (d) ✓, ✓, ✓; (e) ✓, ✗, ✗; (f) ✓, ✓, ✓","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (e) ✓, ✓, ✓","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) ✗, ✓, maybe; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"✗, ✓, ✗; ✓, ✓, ✓; ✓, ✗, ✗; ✓, ✓, ✓; ✗, ✓, ✗; ✓, ✓, ✓","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) ✓, ✓, ✗; (b) ✓, ✓, ✓; (c) ✗, ✓, ✗; (d) ✓, ✓, ✓; (e) ✓, ✓, ✗; (f) ✓, ✓, ✓","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"},
+            {"input":"(a) No, Yes, No; (b) Yes, Yes, Yes; (c) No, No, Yes; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes","expected":"reject","rationale":"Known false-green is rejected by the dedicated exact3 full parser.","origin":"deterministic-exact3-phase2a-full-parser-probe"}
+          ]
+        },
+        "calculationDisposition": {
+          "independentCalculationAnswer": "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+          "differsFromReviewedAnswer": true,
+          "calculationIsStrictNegative": false,
+          "mathematicalContentStatus": "correct-cross-check",
+          "contractStatus": "authorized-english-alias",
+          "rationale": "The preserved independent calculation is byte-equal to acceptedAnswers[1], contains all six labels in order, and gives all 18 decisions in the required 2, 5, 10 column order."
+        },
+        "phase2aRawV3OverlayOracleRowSha256": "0ab37d4db9dab624721aa03bf1c13b7065cde5f427ae448850b8977d6d0bef03",
+        "productionNormalizedBaseOverlayOracleRowSha256": "7d7f854d016de95ac4d1ad8fad5ddea42b677bc97d40198ee2382a71db6dcf8f",
+        "reviewDecision": "approved-for-candidate-oracle-overlay"
+      }
+    ],
+    "aggregateExpectations": {
+      "semanticInvariantAcrossIdNormalization": {
+        "reviewedQuestionCount": 701,
+        "mathPassCount": 701,
+        "canonicalAnswerReviewCount": 701,
+        "acceptedAnswerFormsReviewed": 1912,
+        "acceptedAnswerFormCount": 1912,
+        "acceptedAnswerFormCountDelta": 16,
+        "calculationDifferenceCount": 167,
+        "calculationDifferenceCountDelta": 2,
+        "strictNegativeCalculationCount": 64,
+        "strictNegativeCalculationCountDelta": 2,
+        "rowSpecificDerivationCount": 234,
+        "reviewMethodClassificationCount": 467,
+        "multipleChoiceReviewCount": 90,
+        "declaredSimpleQuestionCount": 357,
+        "orderedBaseIdSha256": "825c6dcfab4ce233c46844e5935f2055488ce738930d1728d28370e291067ca0",
+        "independentCalculationPayloadSha256": "27b6e9151b8a5240733f563e93b501738e5a4ac3f920e68c0a2eaf457d43df0f",
+        "independentlyReviewedAnswerPayloadSha256": "da2ab7ee11bcd30b2c590bb8507d80d63b71d1b7801d7e5febf4cc945d2e24b4",
+        "acceptedSurfaceCount": 35,
+        "negativeProbeCount": 30,
+        "negativeProbeRowsPayloadSha256": "2a02c571a526488cae137e7ddb6cab1fffa38c73085daa656a1581b8e84202e2"
+      },
+      "rawV3ProvenanceOnly": {
+        "disposition": "provenance-only-not-production",
+        "targetQuestionObjectSha256ByBaseId": {
+          "hk-ease-10481": "837f4bfcf4a98e2fef363876141a8f22252ae7ac5a112b6de4c37965c0d23488",
+          "hk-ease-10496": "68e6bbad014521010e6436ccde5d7810c148836ddab6094e3e3021572270e897",
+          "hk-ease-1041": "d1b48561c7dd91fed34d396134ce505343a92b3fb3cad0ff405bdae66990ab38"
+        },
+        "phase2aRawV3OverlayOracleRowSha256ByBaseId": {
+          "hk-ease-10481": "8f2ab61d75843a8157f241c4fb08cddfd04dfd7b435b29d9641328ca66ba7505",
+          "hk-ease-10496": "6fa1226418ab8b8378195709b2d972e04ef0a9d682ea0dcd9f0473ddd64a3ea6",
+          "hk-ease-1041": "0ab37d4db9dab624721aa03bf1c13b7065cde5f427ae448850b8977d6d0bef03"
+        },
+        "questionPayloadSha256": "1af9bbdd052f03700479fa4bf861d9a4dde95237817d2f5ca811a65e382d66bd",
+        "conditionalFullPackSha256": "eb3dd8ec1441a4b6b509f3379112d07ff3421c6c8535fe8179d3f85c3ef01ced",
+        "conditionalFullPackByteLength": 1435407,
+        "mayPopulateFinalOverlay": false
+      },
+      "normalizedBaseProduction": {
+        "disposition": "required-final-production-coordinate",
+        "targetQuestionObjectSha256ByBaseId": {
+          "hk-ease-10481": "c5f21c907bf74408e75a0ca2237d72d4c859f3cec43b1d4c1b143322b5d1e4f7",
+          "hk-ease-10496": "04dee736b973cd14cf93a23840b8f4c7301a9db0ec2a0517d1b2382657981bf8",
+          "hk-ease-1041": "8f7255c66067c2c1b777a4733cea48ad8f5267ebebbc15d51b2b8e62965d2f6e"
+        },
+        "productionNormalizedBaseOverlayOracleRowSha256ByBaseId": {
+          "hk-ease-10481": "637b6c3629473d12be95ec3906d9b2e0a2cb19859a5320f6eb4408ad9ad54188",
+          "hk-ease-10496": "2ccc94969dc4b2afd03a32a6963f2cbbef8adf339380b688d6644a8f8890a040",
+          "hk-ease-1041": "7d7f854d016de95ac4d1ad8fad5ddea42b677bc97d40198ee2382a71db6dcf8f"
+        },
+        "orderedQuestionIdSha256": "fe20c8ff458b6d67b911c20ee02675202b188c44b4cc933066a2f64bd965b66a",
+        "oldQuestionPayloadSha256": "509498d2d6d5f4f64b3650e9004e2b4742bb05a3239d8fc6c000ce5a07566bd0",
+        "questionPackPayloads": {
+          "rowsPayloadHashConvention": "SHA256(JSON.stringify(questionPack.questions))",
+          "rowsPayloadSha256": "bc57bebd917273b506f8a778a388995896f7f5e3c063e598e1542a9767837397",
+          "normalizedTarget3Rows": {
+            "orderedBaseIds": [
+              "hk-ease-10481",
+              "hk-ease-10496",
+              "hk-ease-1041"
+            ],
+            "payloadHashConvention": "SHA256(JSON.stringify(rows))",
+            "payloadSha256": "5031f46d87dbb627ca8e190fea3e642a25babf65d53495766e2847be884fc232"
+          },
+          "unchanged698Rows": {
+            "selection": "all questionPack.questions rows whose zero-based index is not 187, 188, or 693, preserving original order",
+            "rowCount": 698,
+            "payloadHashConvention": "SHA256(JSON.stringify(rows))",
+            "payloadSha256": "8161f6ebb57b4211d58ddc77a67c485b440e27c122a6e26f57e5a1b9bb81491c"
+          },
+          "fullPackSha256": "afed98f9aca07951dffbc6ac8ce93bb6074629298c80ac848842bd7792fd7bdf",
+          "fullPackByteLength": 1435398
+        },
+        "oracleOverlayPayloads": {
+          "overlayRowCount": 3,
+          "orderedOverlayRowSha256": [
+            "637b6c3629473d12be95ec3906d9b2e0a2cb19859a5320f6eb4408ad9ad54188",
+            "2ccc94969dc4b2afd03a32a6963f2cbbef8adf339380b688d6644a8f8890a040",
+            "7d7f854d016de95ac4d1ad8fad5ddea42b677bc97d40198ee2382a71db6dcf8f"
+          ],
+          "overlayRowsPayloadSha256": "53029136ba4f0b57a590bd6c1c54df3eff4aef3483cc6e15c68067a6098b79d3",
+          "appliedQuestionsPayloadSha256": "82717bfa8594a9656c360b9a2131aa5cf7884719ac09fff0d10003bb2936ee2c",
+          "unchanged698OracleRowsPayloadSha256": "ece239d954002246ab497dd9579d9ea70bc03675dcf022edc7a8947f75eb02ed",
+          "fullOracleEnvelopeSha256Claimed": false,
+          "fullOracleEnvelopeSha256": null
+        },
+        "mayPopulateFinalOverlay": true
+      }
+    },
+    "promotionBoundary": {
+      "candidateOverlayApproved": true,
+      "livePromotionAuthorized": false,
+      "runtimeDispatchAuthorized": false,
+      "historyPromotionAuthorized": false,
+      "releaseAuthorized": false,
+      "v4RegenerationRequired": true,
+      "v4Disposition": "hold-until-1041-prompt-derived-sanitized-input-supplement-and-full701-oracle-are-regenerated-and-re-reviewed",
+      "requiredFutureAction": "A future promotion implementation may only read and verify this immutable receipt; it may not generate, rewrite, or reinterpret it."
+    },
+    "requiredMutationNegatives": [
+      "reject hk-ease-10481 if 9/9 is moved to the proper-fraction category even when builder hashes are recomputed",
+      "reject hk-ease-10496 if 8/8 is moved to the proper-fraction category even when builder hashes are recomputed",
+      "reject hk-ease-1041 if the 130-divided-by-10 decision changes from Yes to No",
+      "reject hk-ease-1041 if the divisor order is not exactly 2,5,10",
+      "reject any fraction response whose category label is paired with the wrong numeric group",
+      "reject any missing duplicated extra or semantically altered accepted surface",
+      "reject either fraction row if differsFromReviewedAnswer is stale false",
+      "reject either fraction row if calculationIsStrictNegative is false",
+      "reject hk-ease-1041 if its authorized English alias is marked calculationIsStrictNegative true",
+      "reject source index baseId order raw-v3 id or any row-hash drift",
+      "reject a normalized question object change outside its exact allowed delta paths",
+      "reject any drift in a preserveExactly oracle field",
+      "reject any independent receipt generated or rewritten by the candidate or future promotion builder"
+    ]
+  }
+}

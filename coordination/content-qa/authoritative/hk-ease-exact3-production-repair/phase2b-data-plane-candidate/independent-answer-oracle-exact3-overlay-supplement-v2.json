@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-independent-answer-oracle-overlay-supplement-v2",
+  "status": "candidate-overlay-approved-not-live-promotion",
+  "sourceBindings": {
+    "independentReviewReceipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-independent-oracle-overlay-review-v2.json",
+      "sha256": "0aacfce318a7839f44beba7d3d5f6722e11a129b4ee6f8a3ac770b712382cd2e"
+    },
+    "oldV3OracleImmutablePreimage": {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62.json",
+      "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+      "livePathFallbackAllowed": false
+    },
+    "normalizedBaseQuestionPackCandidate": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-question-pack-base-id-v1.json",
+      "sha256": "afed98f9aca07951dffbc6ac8ce93bb6074629298c80ac848842bd7792fd7bdf"
+    },
+    "phase2aAuthority": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/candidate-authority-v1.json",
+      "sha256": "a116dd12e3221cc623d7698f67f5b998087c6f8086b64f655e5fb40e41dd60f8"
+    },
+    "phase2aRawV3QuestionSuccessorRows": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/question-successor-rows-v1.json",
+      "sha256": "0048c168167af24bc0f48ed7d6562d6dd6d503ef21f4dec627ff48b10f203615",
+      "role": "provenance-only-not-final-question-coordinate"
+    }
+  },
+  "normalizationPolicy": {
+    "productionQuestionIdPolicy": "preserve-unversioned-base-id",
+    "phase2aRawV3Role": "provenance-only-byte-bound-input",
+    "finalOverlayQuestionObjectHashField": "productionNormalizedBaseQuestionObjectSha256",
+    "finalOverlayOracleRowHashField": "productionNormalizedBaseOverlayOracleRowSha256",
+    "rawV3HashUseInFinalOverlayForbidden": true,
+    "normalizedBaseRowHashesRequireIndependentRecomputation": true
+  },
+  "orderedBaseIds": [
+    "hk-ease-10481",
+    "hk-ease-10496",
+    "hk-ease-1041"
+  ],
+  "sourceIndicesZeroBased": [
+    187,
+    188,
+    693
+  ],
+  "rowCount": 3,
+  "rowSha256": [
+    "637b6c3629473d12be95ec3906d9b2e0a2cb19859a5320f6eb4408ad9ad54188",
+    "2ccc94969dc4b2afd03a32a6963f2cbbef8adf339380b688d6644a8f8890a040",
+    "7d7f854d016de95ac4d1ad8fad5ddea42b677bc97d40198ee2382a71db6dcf8f"
+  ],
+  "rowsPayloadSha256": "53029136ba4f0b57a590bd6c1c54df3eff4aef3483cc6e15c68067a6098b79d3",
+  "appliedOracleQuestionsPayloadSha256": "82717bfa8594a9656c360b9a2131aa5cf7884719ac09fff0d10003bb2936ee2c",
+  "unchanged698OracleRowsPayloadSha256": "ece239d954002246ab497dd9579d9ea70bc03675dcf022edc7a8947f75eb02ed",
+  "aggregateExpectations": {
+    "reviewedQuestionCount": 701,
+    "mathPassCount": 701,
+    "canonicalAnswerReviewCount": 701,
+    "acceptedAnswerFormsReviewed": 1912,
+    "acceptedAnswerFormCount": 1912,
+    "acceptedAnswerFormCountDelta": 16,
+    "calculationDifferenceCount": 167,
+    "calculationDifferenceCountDelta": 2,
+    "strictNegativeCalculationCount": 64,
+    "strictNegativeCalculationCountDelta": 2,
+    "rowSpecificDerivationCount": 234,
+    "reviewMethodClassificationCount": 467,
+    "multipleChoiceReviewCount": 90,
+    "declaredSimpleQuestionCount": 357,
+    "orderedBaseIdSha256": "825c6dcfab4ce233c46844e5935f2055488ce738930d1728d28370e291067ca0",
+    "independentCalculationPayloadSha256": "27b6e9151b8a5240733f563e93b501738e5a4ac3f920e68c0a2eaf457d43df0f",
+    "independentlyReviewedAnswerPayloadSha256": "da2ab7ee11bcd30b2c590bb8507d80d63b71d1b7801d7e5febf4cc945d2e24b4",
+    "acceptedSurfaceCount": 35,
+    "negativeProbeCount": 30,
+    "negativeProbeRowsPayloadSha256": "2a02c571a526488cae137e7ddb6cab1fffa38c73085daa656a1581b8e84202e2"
+  },
+  "preservedFieldPolicy": {
+    "preserveExactly": [
+      "index",
+      "baseId",
+      "independentCalculationAnswer",
+      "independentCalculationPurpose",
+      "rowSpecificDerivation",
+      "independentDerivation",
+      "reviewMethodClassification",
+      "mathStatus",
+      "reviewer",
+      "reviewArtifact"
+    ],
+    "independentCalculationRewriteForbidden": true,
+    "rawV3QuestionHashesMayPopulateFinalOverlay": false,
+    "productionNormalizedBaseQuestionHashesRequired": true
+  },
+  "fullOracleEnvelopeSha256Claimed": false,
+  "fullOracleEnvelopeSha256": null,
+  "questions": [
+    {
+      "index": 187,
+      "baseId": "hk-ease-10481",
+      "independentCalculationAnswer": "(a) \\(\\frac{3}{5},\\frac{11}{12}\\); (b) \\(\\frac{7}{4},\\frac{9}{9}\\); (c) \\(2\\frac{1}{3},5\\frac{2}{7}\\)",
+      "independentlyReviewedAnswer": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+      "independentCalculationPurpose": "mathematical-cross-check-not-grading-submission",
+      "differsFromReviewedAnswer": true,
+      "calculationIsStrictNegative": true,
+      "rowSpecificDerivation": true,
+      "independentDerivation": "Proper: 3/5,11/12; improper: 7/4,9/9; mixed: 2 1/3,5 2/7.",
+      "reviewMethodClassification": "row-specific-independent-derivation",
+      "acceptedAnswerFormCount": 16,
+      "acceptedAnswersSha256": "ee40735aa81fc6ffa6f0bd4e71d9da27921cc29e49df55f9a205cf0e955ca398",
+      "questionObjectSha256": "c5f21c907bf74408e75a0ca2237d72d4c859f3cec43b1d4c1b143322b5d1e4f7",
+      "mathStatus": "pass",
+      "reviewer": "A18 independent non-author cross-review",
+      "reviewArtifact": "semantic-shard-a"
+    },
+    {
+      "index": 188,
+      "baseId": "hk-ease-10496",
+      "independentCalculationAnswer": "(a) \\(\\frac{4}{7},\\frac{13}{15}\\); (b) \\(\\frac{11}{5},\\frac{8}{8}\\); (c) \\(3\\frac{1}{2},6\\frac{4}{9}\\)",
+      "independentlyReviewedAnswer": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+      "independentCalculationPurpose": "mathematical-cross-check-not-grading-submission",
+      "differsFromReviewedAnswer": true,
+      "calculationIsStrictNegative": true,
+      "rowSpecificDerivation": true,
+      "independentDerivation": "Proper: 4/7,13/15; improper: 11/5,8/8; mixed: 3 1/2,6 4/9.",
+      "reviewMethodClassification": "row-specific-independent-derivation",
+      "acceptedAnswerFormCount": 16,
+      "acceptedAnswersSha256": "288cd547d53abdc352154c2980c6228204260b866ad5766b0d024834ec96cc69",
+      "questionObjectSha256": "04dee736b973cd14cf93a23840b8f4c7301a9db0ec2a0517d1b2382657981bf8",
+      "mathStatus": "pass",
+      "reviewer": "A18 independent non-author cross-review",
+      "reviewArtifact": "semantic-shard-a"
+    },
+    {
+      "index": 693,
+      "baseId": "hk-ease-1041",
+      "independentCalculationAnswer": "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+      "independentlyReviewedAnswer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+      "independentCalculationPurpose": "mathematical-cross-check-not-grading-submission",
+      "differsFromReviewedAnswer": true,
+      "calculationIsStrictNegative": false,
+      "rowSpecificDerivation": false,
+      "independentDerivation": null,
+      "reviewMethodClassification": "manual bilingual reading plus independent integer factorisation, divisibility, HCF/LCM, enumeration, and required-method verification",
+      "acceptedAnswerFormCount": 3,
+      "acceptedAnswersSha256": "44b4b472092326c4d1e560d4eb902ca5a73f7b2ba79677e2a64d62e6da61fb94",
+      "questionObjectSha256": "8f7255c66067c2c1b777a4733cea48ad8f5267ebebbc15d51b2b8e62965d2f6e",
+      "mathStatus": "pass",
+      "reviewer": "A18-hk_worktree_forensics-independent-cross-review",
+      "reviewArtifact": "semantic-shard-c"
+    }
+  ],
+  "promotionBoundary": {
+    "candidateOverlayApproved": true,
+    "livePromotionAuthorized": false,
+    "runtimeDispatchAuthorized": false,
+    "historyPromotionAuthorized": false,
+    "releaseAuthorized": false,
+    "v4RegenerationRequired": true,
+    "v4Disposition": "hold-until-1041-prompt-derived-sanitized-input-supplement-and-full701-oracle-are-regenerated-and-re-reviewed",
+    "requiredFutureAction": "A future promotion implementation may only read and verify this immutable receipt; it may not generate, rewrite, or reinterpret it."
+  }
+}

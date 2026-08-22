@@ -1,0 +1,628 @@
+{
+  "schemaVersion": 1,
+  "authority": {
+    "adjudicationLedgerPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-adjudication-ledger-v2.json",
+    "adjudicationLedgerSha256": "0879eb17b5c65ac76a38f311972f279e1c47d6c3b2c8dec22aabea6af830716c",
+    "residualPartitionPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-partition.json",
+    "residualPartitionSha256": "d1f7c2eaeea5deaa41fafcf75be28498e0919ce3eff9eeace55cf7c55baeeb37",
+    "semanticReauditPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual28-semantic-reaudit-v3.json",
+    "semanticReauditSha256": "e8bbb5926275c612e025c75da1ebb7c63aa35c2f3b753a908948d7a90ad47dc3",
+    "repairContractPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual28-repair-contract.json",
+    "repairContractSha256": "89891eb15b8823f29c7ca5c22a1a7f59ad4501d5c7600fea7a2ef82dce72f0b4",
+    "preimageSnapshotPath": "data/historical/hongKongQuestions-residual28-preimage-20260813.json",
+    "preimageSnapshotSha256": "8f9cc79f256fec67f1818942c4aaab3d00fbdbb87c465869f4ed4e4675494059",
+    "preimageSourceQuestionsPath": "coordination/content-qa/authoritative/2026-08-13-data-questions-residual28-preimage.txt",
+    "preimageSourceQuestionsSha256": "24ec6fb77921f0d22a8281179ac3a07f55817351ad31894a94cf72cfa5cc8f7a"
+  },
+  "preimageVersionManifestReconstruction": {
+    "classification": "explicitly-reconstructible",
+    "sourcePostimagePath": "data/historical/hongKongQuestionVersionManifest.json",
+    "sourcePostimageSha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+    "serialization": "UTF-8 JSON.stringify({ schemaVersion, historySourceCommit, activeIdByHistoricalId, retiredHistoricalIds }, null, 2) + U+000A after exact28 postimage reversal",
+    "byteLength": 80523,
+    "sha256": "9f3c9173152b6cf8bd816df1422de4c18858f1c4c9bd0fbff8a95e49e0123ff1"
+  },
+  "preimageActiveMappingCount": 1080,
+  "preimageRetiredIdCount": 1081,
+  "preimageHistoricalUniqueCount": 1761,
+  "preExistingHistoricalOverlapIds": [
+    "supp-p4-decimals-guided-example"
+  ],
+  "historyUniqueAdditionCount": 27,
+  "expectedPostActiveMappingCount": 1108,
+  "expectedPostRetiredIdCount": 1109,
+  "expectedPostHistoricalUniqueCount": 1788,
+  "generationDistribution": {
+    "v2ToV3": 27,
+    "baseToV2": 1,
+    "affectedDirectMappingKeys": 55
+  },
+  "promotions": [
+    {
+      "fromId": "supp-p1-counting-number-bonds-common-check-v2",
+      "baseId": "supp-p1-counting-number-bonds-common-check",
+      "toId": "supp-p1-counting-number-bonds-common-check-v3",
+      "preimageQuestionPayloadSha256": "44fcc143b4328da2ced4fa2f4ad042ecf711f29647b51afa14b4fe68cca103c1",
+      "successorQuestionPayloadSha256": "f83cc226c1f3de744d1d097f16161dcc2ccf4f9caa27d930e3c5cacee917559b",
+      "preimageMaterialSha256": "dd83a0bee7d3b484b3665784303d073ea94211f26ea6a851d1999e86eba530b5",
+      "successorMaterialSha256": "122dbdc9933a06beb84c79df66fd76e4def390a49626990d49e023583d5a91ae",
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en"
+      ],
+      "replacements": {
+        "explanation.en": "Check whether the question asks for the number before, the number after, or a missing part. In \\(4+\\square=9\\), the missing part is 5 because \\(4+5=9\\); the number before 16 is 15, while the number after 16 is 17.",
+        "explanation.zh": "先分辨題目問的是前一個數、後一個數，還是缺少的數。在 \\(4+\\square=9\\) 中，因為 \\(4+5=9\\)，所以缺少的數是 5；16 的前一個數是 15，後一個數則是 17。",
+        "options[0].en": "Check whether the question asks for the number before, the number after, or a missing part",
+        "answer": "Check whether the question asks for the number before, the number after, or a missing part"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p1-addition-subtraction-common-check-v2",
+      "baseId": "supp-p1-addition-subtraction-common-check",
+      "toId": "supp-p1-addition-subtraction-common-check-v3",
+      "preimageQuestionPayloadSha256": "ed439266fe51bd719a412a863147c6658f563e3761d223ebd005c9aaea18357d",
+      "successorQuestionPayloadSha256": "bea0b7f8fdfcdd73ae6e129cc0211c436e0508602632befa524229b3362eb136",
+      "preimageMaterialSha256": "4e0ff57677d5417d0ed8b4fce64151b637c5f9b8dbe54630a6488746e5c6da04",
+      "successorMaterialSha256": "d7fab3c92c877403b6e6903286eeb4e810d93a6da65157e5287ca2d53713cd9a",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check the story action and identify the unknown before choosing addition or subtraction. If 5 items increase by a known 2 and the final amount is unknown, use \\(5+2=7\\). If the final amount is 7 and the increase is unknown, use \\(7-5=2\\).",
+        "explanation.zh": "先檢查故事中的數量變化，並找出未知量，再決定用加法還是減法。若原有 5 件，已知增加 2 件並要求最後數量，就用 \\(5+2=7\\)；若最後有 7 件、原有 5 件並要求增加了多少，就用 \\(7-5=2\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p1-measurement-time-common-check-v2",
+      "baseId": "supp-p1-measurement-time-common-check",
+      "toId": "supp-p1-measurement-time-common-check-v3",
+      "preimageQuestionPayloadSha256": "ca4525e9050fe46e20857fc0a741b3fd8afedcd266d9c315aa5e637a06c8d827",
+      "successorQuestionPayloadSha256": "ce84281b2f99899f8ac51612fcefb47b77154658d0b8ee4e3b49bf8f086e4b2c",
+      "preimageMaterialSha256": "7bf7b2a45739536409cb7d0a3821f5f273813e3dc31d0bad5b341a479b52273a",
+      "successorMaterialSha256": "2c5ec4e3cce639a6052c93f978a35cbcb52684d34eda82896a941d9493f3b4ab",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check the unit or clock hand before answering. At half past the hour, the minute hand points to 6 and the hour hand lies halfway between the current and next hour numerals; at 3:30, it is halfway between 3 and 4.",
+        "explanation.zh": "作答前先檢查單位或鐘面指針。半點時，分針指向 6，時針位於目前與下一個小時數字的正中間；在 3:30，時針位於 3 和 4 的正中間。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p2-place-value-common-check-v2",
+      "baseId": "supp-p2-place-value-common-check",
+      "toId": "supp-p2-place-value-common-check-v3",
+      "preimageQuestionPayloadSha256": "2ed526e58df84582bb042a6b70537a7eae491bafdf2d389f0599cfc2e150c8e3",
+      "successorQuestionPayloadSha256": "2cfe379b0630884a006afca3024b62d5ca8ba8cf36242c21b2148e31175fc6a1",
+      "preimageMaterialSha256": "dd7c26e021c9018c38a58112fb1a227659a39a510763a1dcfc66a0a9551cdb58",
+      "successorMaterialSha256": "2de82565e1ac23ba6ce54e961ffbc775a92aaedeb2036a65f64c22f8e4490658",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check that each digit is placed in the correct place value. In 735, the 7 means 7 hundreds; in 507, the zero keeps the tens place, so it must not be read as 57.",
+        "explanation.zh": "檢查每個數字是否放在正確位值。在 735 中，7 表示 7 個百；在 507 中，0 保留十位，所以不能把 507 讀成 57。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p2-multiplication-foundations-common-check-v2",
+      "baseId": "supp-p2-multiplication-foundations-common-check",
+      "toId": "supp-p2-multiplication-foundations-common-check-v3",
+      "preimageQuestionPayloadSha256": "177a270a2b5e9199189dbb16c0fc201e4adaf29a147ee2c2dc44d2b22978d776",
+      "successorQuestionPayloadSha256": "3e98392680285d93a8c07ef6594fffc3da4987f8d246d9e4f7431788f0e55484",
+      "preimageMaterialSha256": "3a18db291c6472bb62b2f59f5d38896128cb9397729a087e42ab4f011568a32a",
+      "successorMaterialSha256": "109bb6ddac373da7d348d823c4b34e3fe4336b5a4c2de03cbe095c298dc53c8a",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check the size of each group and the number of groups. Five groups with 2 objects in each group mean \\(5\\times2=10\\); every group must stay the same size.",
+        "explanation.zh": "檢查每組數量和組數。5 組、每組 2 件物件表示 \\(5\\times2=10\\)；點算時每組大小必須保持相同。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p2-money-time-common-check-v2",
+      "baseId": "supp-p2-money-time-common-check",
+      "toId": "supp-p2-money-time-common-check-v3",
+      "preimageQuestionPayloadSha256": "d96c30f6ae36241bd7d0c4aff29612ee2d07c2203b7041889357b7b42b32fdeb",
+      "successorQuestionPayloadSha256": "c1c3f448cf1d2d0bfb164daddb222107358446468e083eb008a2f09c444cca65",
+      "preimageMaterialSha256": "de75e1b087ba81af6e71282c95e4bb465399be0ceb590baafe6303a0e5d74037",
+      "successorMaterialSha256": "0ac3b2d6cd68174e43c7aa58fa3c15c6fc656cc958815badbed8e0e113e674d0",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check whether the answer should be money or time. Change from HK$10 after paying HK$6 is \\(10-6=4\\), so the answer is HK$4; adding 30 minutes to 2:30 gives the time 3:00.",
+        "explanation.zh": "檢查答案應是金錢還是時間。用港幣 10 元支付港幣 6 元，找續是 \\(10-6=4\\)，所以答案是港幣 4 元；2:30 加 30 分鐘則得到時間 3:00。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-multiplication-division-common-check-v2",
+      "baseId": "supp-p3-multiplication-division-common-check",
+      "toId": "supp-p3-multiplication-division-common-check-v3",
+      "preimageQuestionPayloadSha256": "f6d9dd73d61bdea45b36f507b79f40266648b0081c43a209878f640c718550c8",
+      "successorQuestionPayloadSha256": "80378bcbb86053669da114d0aecaed63b4fa81ef871bc8dc08e6ef74db27dea4",
+      "preimageMaterialSha256": "90cbba14feeb99327121a219649b9ec64adf874acce71f9b309148513c8bf35d",
+      "successorMaterialSha256": "0b04a47362048ed86da6acebd9962b55832cefdd93ac2228303e310abe8aa741",
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that the remainder is at least 0 and smaller than the divisor",
+        "options[0].zh": "檢查餘數是否不少於 0 且小於除數",
+        "answer": "Check that the remainder is at least 0 and smaller than the divisor",
+        "explanation.en": "In whole-number division with a positive divisor, check that the remainder is at least 0 and smaller than the divisor. Since \\(47=4\\times11+3\\) and \\(0\\le3<4\\), quotient 11 remainder 3 is valid. If the remainder were 4 or more, another group of 4 could be made.",
+        "explanation.zh": "整數除法中，若除數是正數，餘數必須不少於 0 且小於除數。因為 \\(47=4\\times11+3\\) 而且 \\(0\\le3<4\\)，所以商 11 餘 3 是合理的。若餘數是 4 或以上，便仍可再分成一組 4。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-fractions-intro-common-check-v2",
+      "baseId": "supp-p3-fractions-intro-common-check",
+      "toId": "supp-p3-fractions-intro-common-check-v3",
+      "preimageQuestionPayloadSha256": "b0f0003c2613f195cd280e2611912fe7e9f6fc7d57e60e35158cab960f77b2ab",
+      "successorQuestionPayloadSha256": "3eba0018dcba35eaf4ea3b3f1dd1e0116ba85e2f9d4ee8fab953d8a1c67227e9",
+      "preimageMaterialSha256": "1eeef1d54cffe114f8bd1ffd90c26f7a192da5fc7c0cc177a1e56aefd127e2b6",
+      "successorMaterialSha256": "09972797b2bcaf996b5ebadb7a66311fab49fcce5f74ff67a69cfebe77e03d52",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check that the denominator names the equal parts. The denominator 3 in \\(1/3\\) means the whole is divided into three equal parts. For example, multiplying the numerator and denominator of \\(2/3\\) by 2 gives \\(4/6\\), so \\(2/3=4/6\\).",
+        "explanation.zh": "檢查分母是否表示等份總數。\\(1/3\\) 的分母 3 表示整體分成三等份。例如，把 \\(2/3\\) 的分子和分母同乘 2，得到 \\(4/6\\)，所以 \\(2/3=4/6\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-measurement-common-check-v2",
+      "baseId": "supp-p3-measurement-common-check",
+      "toId": "supp-p3-measurement-common-check-v3",
+      "preimageQuestionPayloadSha256": "187c0baea753ef7f140721c84237426a0ceb347d6a35a05f12d19c4b53bb00b2",
+      "successorQuestionPayloadSha256": "17b041d4ee9569bd6f195660675bb2063e7b3aca46751bf1700ff26ef50fbe54",
+      "preimageMaterialSha256": "5f8636058781a0ca18d9f8ca6d4d1368b98646f2ff9cbe246c12d799ba89ce51",
+      "successorMaterialSha256": "6cd1283c6ac445c790c41f5577bf9a9e413138ed18096d019ae2b4dbfa40da0d",
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that the quantities are of the same kind and convert units when needed before calculating",
+        "options[0].zh": "計算前檢查各數量是否屬於同一種類，並按需要換算單位",
+        "answer": "Check that the quantities are of the same kind and convert units when needed before calculating",
+        "explanation.en": "Check that the quantities are of the same kind and convert units when needed before calculating. For quantities of the same kind, convert to a common unit before using the operation required by the question: \\(2\\text{ L}=2000\\text{ mL}\\). If the question asks for the total of lengths already measured in centimetres, \\(35+20=55\\text{ cm}\\).",
+        "explanation.zh": "計算前檢查各數量是否屬於同一種類，並按需要換算單位。同屬一種類的數量，先換成相同單位，再按題意選擇運算：\\(2\\text{ 升}=2000\\text{ 毫升}\\)。若題目要求把兩段已用厘米量度的長度相加，則 \\(35+20=55\\text{ 厘米}\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-geometry-patterns-common-check-v2",
+      "baseId": "supp-p3-geometry-patterns-common-check",
+      "toId": "supp-p3-geometry-patterns-common-check-v3",
+      "preimageQuestionPayloadSha256": "2d01502bbb2726fbb6f328d0c9b014087fbdddd8af1cda95933816e4d2858265",
+      "successorQuestionPayloadSha256": "4e64e2a25a14a39f4669479f2a30d4e747f2d7aa2831b38b934d892fd1a059f8",
+      "preimageMaterialSha256": "6df1edce4810cb0d190410dcbdf45ce378782383fcabceb1d7775d13822f32fa",
+      "successorMaterialSha256": "8fb2a2ef636de8813f6255385ebb4b373e62986c5e4db2992ed961385f26789d",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check that the figure is closed and count its straight sides before naming it. A closed plane figure with four straight sides is a quadrilateral; a triangle with all three sides equal is an equilateral triangle.",
+        "explanation.zh": "為圖形命名前，先檢查它是否封閉，並數清楚直邊數目。有四條直邊的封閉平面圖形是四邊形；三條邊全部相等的三角形是等邊三角形。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-large-numbers-common-check-v2",
+      "baseId": "supp-p4-large-numbers-common-check",
+      "toId": "supp-p4-large-numbers-common-check-v3",
+      "preimageQuestionPayloadSha256": "91c90e8a8886fd5164d98191c2505763fce4775dc7c057007443759f41e2ab6f",
+      "successorQuestionPayloadSha256": "ef353ae786ab3415c9c9de3a400d0850ef96c2a9a872620b7722a3ae23c92e14",
+      "preimageMaterialSha256": "6ca0bd0f76337dd2a8013c45386d08f090327cb2a5c01dff0c50fc144b8db77a",
+      "successorMaterialSha256": "e7f363b9de8837071459958587b6c07e2ec3cc57e18440e3431cf5b74d17f740",
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers",
+        "options[0].zh": "檢查每個因數都能整除，並核對每個聲稱的公因數或公倍數是否同時適用於兩個數",
+        "answer": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers",
+        "explanation.en": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers. A common factor must divide both numbers exactly; the H.C.F. is their greatest positive common factor. A common multiple must be divisible by both numbers; the L.C.M. is their least positive common multiple. For 12 and 18, the H.C.F. is 6 and the L.C.M. is 36.",
+        "explanation.zh": "檢查每個因數都能整除，並核對每個聲稱的公因數或公倍數是否同時適用於兩個數。公因數必須能整除兩數；最大公因數是兩數最大的正公因數。公倍數必須同時是兩數的倍數；最小公倍數是兩數最小的正公倍數。12 和 18 的最大公因數是 6，最小公倍數是 36。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-decimals-guided-example",
+      "baseId": "supp-p4-decimals-guided-example",
+      "toId": "supp-p4-decimals-guided-example-v2",
+      "preimageQuestionPayloadSha256": "f629a459a88c365db9bce6ca5b8f9694ce68bf79ebd5d49086d60a7360a2bc37",
+      "successorQuestionPayloadSha256": "2fb5216a528b7a4b37b799e04a784a929928b12e3cce283cdfbafc7bcdc49c6a",
+      "preimageMaterialSha256": "fac880060547f37c28dae6063fed8ae1e6e8623d117fe69631677f67c617cee1",
+      "successorMaterialSha256": "6ad5e5d4ab1e0e69bf535ebacdbea6c6e68b0de4a85820ba788d6dde9714e043",
+      "allowedPaths": [
+        "prompt.en",
+        "prompt.zh"
+      ],
+      "replacements": {
+        "prompt.en": "Find 4.6−1.2. Give your answer as a decimal.",
+        "prompt.zh": "計算 4.6−1.2，並以小數作答。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-decimals-common-check-v2",
+      "baseId": "supp-p4-decimals-common-check",
+      "toId": "supp-p4-decimals-common-check-v3",
+      "preimageQuestionPayloadSha256": "692f4ff630941fa659fd374e844903f6eede7bb85121d2ac5b7ca2ca88958800",
+      "successorQuestionPayloadSha256": "7f6f06312704b8be6d7ec8319193b7525e2ca5a3de2869a94690c289dfa26c5a",
+      "preimageMaterialSha256": "bb4a5499c5fb228b2a3afafd5a91d994352d286859cb5ef63cf75318ace1fa22",
+      "successorMaterialSha256": "db36c06b70272c5b5c5f9992f82a6ce00a00ec2b68d102c9367a733df45a445d",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Keep the decimal point aligned in every step so digits with the same place value are compared or calculated together. For example, \\(4.60-1.20=3.40\\), and \\(0.5=0.50>0.47\\).",
+        "explanation.zh": "每一步都要對齊小數點，使相同位值的數字互相比較或運算。例如，\\(4.60-1.20=3.40\\)，而 \\(0.5=0.50>0.47\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-angles-first-step-v2",
+      "baseId": "supp-p4-angles-first-step",
+      "toId": "supp-p4-angles-first-step-v3",
+      "preimageQuestionPayloadSha256": "19cb96bd2996ad328dd736b1719d67ca600e030f72c5cd82d8bea63f710c6d91",
+      "successorQuestionPayloadSha256": "c73bad6fee55f28a428ee3739bc6e56c32698c263badda23d14242cb6f4234f5",
+      "preimageMaterialSha256": "9300a15d13b0296c61911ecdfb3c7cd10d9fc572f8cf42717e7fc76ff2ae3899",
+      "successorMaterialSha256": "d8176d7bff96a6570dd83d53684f8cabbeaf51d1c3a1159dad2a50a19da20265",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Identify the quadrilateral's side relationships first, then check any required angle relationships before choosing a family name. A square satisfies the definitions of both a rectangle and a rhombus, but a rectangle or rhombus is not necessarily a square.",
+        "explanation.zh": "選擇四邊形類別前，先辨認各邊的關係，再檢查題目所需的角關係。正方形同時符合長方形和菱形的定義，但長方形或菱形不一定是正方形。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-angles-common-check-v2",
+      "baseId": "supp-p4-angles-common-check",
+      "toId": "supp-p4-angles-common-check-v3",
+      "preimageQuestionPayloadSha256": "4f0faf1ce3a4fcefcd2307dbab4d96adf9f016cffb5a6415d8447d4d13150eab",
+      "successorQuestionPayloadSha256": "2ec5fd228385a98d7f11ce1fa0e6e8ba40da186ae2babd442fd00340e3b5294c",
+      "preimageMaterialSha256": "05022d74146c5c234e7c81687de73fd1b85dceafcd4237603fea30238c3ca34e",
+      "successorMaterialSha256": "8d3b5bb44431d7f1ed229b97cf9517cf73143407cda97db53c1ed1dba99085ac",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check the direction of each family inclusion and do not assume its converse. Every square is a rectangle and a rhombus, but a parallelogram with four equal sides is only guaranteed to be a rhombus, not a square.",
+        "explanation.zh": "檢查各類別包含關係的方向，不要擅自把關係逆轉。每個正方形都是長方形和菱形，但四條邊相等的平行四邊形只能確定是菱形，不一定是正方形。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-perimeter-area-common-check-v2",
+      "baseId": "supp-p4-perimeter-area-common-check",
+      "toId": "supp-p4-perimeter-area-common-check-v3",
+      "preimageQuestionPayloadSha256": "efa25eea77aca128d9b0ce950e676a2b45e28c302062858deee2578b0271056a",
+      "successorQuestionPayloadSha256": "7c45e1de7b3daf7fdaca3dc655babab1a07c75187cd2b7cc190bff0e296d8c21",
+      "preimageMaterialSha256": "e3a5bed5aef0d263d2c9b389725cb21e1994fb85291cc8554847db4e8ad9e014",
+      "successorMaterialSha256": "3edd2b61b569b254e17ef30890a574a1ba8a31ffaecee32f4f776c3dc1cffb76",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Use linear units for perimeter and square units for area. Perimeter measures the outside boundary; when the lengths are in centimetres, report it in centimetres. Area measures a surface, so when the lengths are in centimetres, \\(6\\times4-3\\times2=18\\) is reported in square centimetres.",
+        "explanation.zh": "周界用長度單位，面積用平方單位。周界量度外圍；當邊長以厘米表示時，周界以厘米作答。面積量度表面，所以當邊長以厘米表示時，\\(6\\times4-3\\times2=18\\) 要以平方厘米作答。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-fractions-operations-common-check-v2",
+      "baseId": "supp-p5-fractions-operations-common-check",
+      "toId": "supp-p5-fractions-operations-common-check-v3",
+      "preimageQuestionPayloadSha256": "19952bae85e86f777bbb7936f2270b86982cb30a5c126da8bc186e3070b3e335",
+      "successorQuestionPayloadSha256": "f6e2e03efbc67abf12e8f4cba55e0130775e4efde6fa7ae761b479f9ee251dba",
+      "preimageMaterialSha256": "6004d4b3afa379575c18e3c0dd4e878d25a4c89cb3d8b35c1e3a41282eee47f6",
+      "successorMaterialSha256": "5725e6eed735cdc15ae450dadcfa5862de594c62a0c688bd6d0cded37961e2e0",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Simplify the final fraction when possible. After using a common denominator and completing the operation, divide the numerator and denominator by their greatest common factor, or keep dividing by common factors until none greater than 1 remains. Since 7 and 12 have no common factor greater than 1, \\(7/12\\) is already in simplest form.",
+        "explanation.zh": "答案如可約簡，要化成最簡分數。通分並完成運算後，把分子和分母同除以它們的最大公因數，或持續以公因數約分，直至沒有大於 1 的公因數。7 和 12 沒有大於 1 的公因數，所以 \\(7/12\\) 已是最簡分數。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-volume-common-check-v2",
+      "baseId": "supp-p5-volume-common-check",
+      "toId": "supp-p5-volume-common-check-v3",
+      "preimageQuestionPayloadSha256": "96d4394b05c651ebad68407dd02d9681113a971113bcce7dc25361ce9c9b14ab",
+      "successorQuestionPayloadSha256": "0cf3c39e1449c641728e14d84f4e4944efe88ed375d7bebd0acbc714ffa51087",
+      "preimageMaterialSha256": "3c8632aae6f29b1cef2749565b07f6c604b3649531a4a07353dfd3a0740d0745",
+      "successorMaterialSha256": "5eeba4039a5d32749a83d5c581e359aa64a2c6d5e97b472b87283197a59c0223",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Multiply length, width, and height instead of adding the edge lengths. For a cuboid, \\(V=lwh\\); if \\(V=48\\text{ cm}^3\\), \\(l=4\\text{ cm}\\), and \\(w=3\\text{ cm}\\), then \\(h=48\\div(4\\times3)=4\\text{ cm}\\).",
+        "explanation.zh": "要把長、闊和高相乘，不是把邊長相加。長方體的 \\(V=lwh\\)；若 \\(V=48\\text{ 立方厘米}\\)、\\(l=4\\text{ 厘米}\\)、\\(w=3\\text{ 厘米}\\)，則 \\(h=48\\div(4\\times3)=4\\text{ 厘米}\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-rates-common-check-v2",
+      "baseId": "supp-p5-rates-common-check",
+      "toId": "supp-p5-rates-common-check-v3",
+      "preimageQuestionPayloadSha256": "40245b2ff6ba6bad6e2e92d7c744aeabf3bbb30fda4dfd095bc7dd8f7bc54922",
+      "successorQuestionPayloadSha256": "d97b8bfcf813c8a61c7eed7344a710ab3bc7ffedee761695c97ed9d2db379e38",
+      "preimageMaterialSha256": "57b07d76dc22e08d85e5e00c56dd794f551f684a7cbfa75164d2ef43616a1730",
+      "successorMaterialSha256": "5857cf85af5785d8cce8ec7343cd9213976749e1b5dd28f456259741145ea2c0",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "State the price for one item, not the total pack price. Divide the pack price by the number of items: \\(18\\div3=6\\) and \\(48\\div8=6\\), so the unit price is HK$6 per item.",
+        "explanation.zh": "答案要寫一件的單價，不是整包總價。用整包總價除以物件數量：\\(18\\div3=6\\)，而 \\(48\\div8=6\\)，所以每件的單價是港幣 6 元。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-percentages-common-check-v2",
+      "baseId": "supp-p6-percentages-common-check",
+      "toId": "supp-p6-percentages-common-check-v3",
+      "preimageQuestionPayloadSha256": "0a454852e4e6b341db61f063ef375e2a461b92fad18e05b193a09ef4abeed520",
+      "successorQuestionPayloadSha256": "1b48ba1ecf406860fb88bf8c48013d6d1907f083cdb19284036fb4c5ff47489c",
+      "preimageMaterialSha256": "54f4a8f10f1f5bd124fc177d69520864501eafcf765739b9a867f1dceadbdf6a",
+      "successorMaterialSha256": "cf0606aa1548a65734d5ea0d119aa895a8c8ab7c09be9244591a3d0a2d9eab40",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Add the percentage amount to the original amount for an increase and subtract it from the original amount for a decrease. Since 25% of the original 60 is 15, a 25% increase gives \\(60+15=75\\); a 25% decrease gives \\(60-15=45\\).",
+        "explanation.zh": "增加時，把百分數所代表的數量加到原數量；減少時，則從原數量減去該數量。原數量 60 的 \\(25\\%\\) 是 15，所以增加 \\(25\\%\\) 後是 \\(60+15=75\\)；減少 \\(25\\%\\) 後是 \\(60-15=45\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-speed-common-check-v2",
+      "baseId": "supp-p6-speed-common-check",
+      "toId": "supp-p6-speed-common-check-v3",
+      "preimageQuestionPayloadSha256": "ead8c507ae1e122c3fd67b2c70dd1048e7b12767ccd41035679a5c6c50b45602",
+      "successorQuestionPayloadSha256": "1b0773a4c8c00139533c5c5b3576ca5a53f45e0acee1091f61cbdc6389f04f33",
+      "preimageMaterialSha256": "9bfe830c61f1d27bd658e18676129f05835fc16bd9874ab4dba2111342ee3113",
+      "successorMaterialSha256": "54ccbce533e673f5cee63a5c404bd4d2f956514d3f18524f56e0bd2a7c3e6cb3",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check whether to divide or multiply using the units. Total distance divided by total elapsed time gives average speed, so \\(120\\text{ km}\\div2\\text{ h}=60\\text{ km/h}\\). If a speed of \\(6\\text{ km/h}\\) is maintained for \\(3\\text{ h}\\), then the distance is \\(6\\text{ km/h}\\times3\\text{ h}=18\\text{ km}\\).",
+        "explanation.zh": "按單位檢查應除還是乘。總路程除以總時間得平均速率，所以 \\(120\\text{ 公里}\\div2\\text{ 小時}=60\\text{ 公里每小時}\\)。若以 \\(6\\text{ 公里每小時}\\) 的速率持續 \\(3\\text{ 小時}\\)，路程就是 \\(6\\text{ 公里每小時}\\times3\\text{ 小時}=18\\text{ 公里}\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-pre-secondary-problem-solving-common-check-v2",
+      "baseId": "supp-p6-pre-secondary-problem-solving-common-check",
+      "toId": "supp-p6-pre-secondary-problem-solving-common-check-v3",
+      "preimageQuestionPayloadSha256": "fa8e4f1b79f28111732a270768ae99b36849f1fab2178a13dc4ce8b38638f8d3",
+      "successorQuestionPayloadSha256": "e5ddd00c15db1f6708f448bf2e01dfc4a1cddd1ad31412a244ccc4d760385296",
+      "preimageMaterialSha256": "936302e066db1c80da3c8e087b8de5de62ba65b7e16c5ed1b753d88e2c660a64",
+      "successorMaterialSha256": "6f2df99ef5d6e04a6b8f82a9e9f47b5a3a35c00bfb627449612a4c1b3e81d1e8",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check that every step answers the final question, not just an intermediate value. Compute the intermediate amount and then apply the remaining change: \\(4\\times6-9=15\\), and \\(5\\times7+8-6=37\\).",
+        "explanation.zh": "檢查每一步是否通向最終問題，而不只是中途數值。先求中途數量，再處理餘下的改變：\\(4\\times6-9=15\\)，而 \\(5\\times7+8-6=37\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-angles-common-check-v2",
+      "baseId": "supp-angles-common-check",
+      "toId": "supp-angles-common-check-v3",
+      "preimageQuestionPayloadSha256": "4014b846c240a6c4cbc5dbcd48af24cdc4e6e9d8825714f37b9abceee2fc6cee",
+      "successorQuestionPayloadSha256": "ee58d7ac8a129d898b251da298ab824e0d606a1fe651f5dfcbf975a752c86825",
+      "preimageMaterialSha256": "9ce3f06fc80f45f167e5537cb85ef46be7ec965bc6d0c97e80f346459109c0f5",
+      "successorMaterialSha256": "bc5ff00e807cb94838b808242616fdac8027eceb220024c93726a9b39a188455",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Write the relevant angle-sum reason before the arithmetic. A triangle’s interior angles total \\(180^\\circ\\), so the missing angle in a triangle with angles \\(50^\\circ\\) and \\(70^\\circ\\) is \\(180^\\circ-50^\\circ-70^\\circ=60^\\circ\\).",
+        "explanation.zh": "計算前先寫出相關的角和理由。三角形內角和是 \\(180^\\circ\\)，所以另兩角為 \\(50^\\circ\\) 和 \\(70^\\circ\\) 時，餘下角是 \\(180^\\circ-50^\\circ-70^\\circ=60^\\circ\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-coordinates-common-check-v2",
+      "baseId": "supp-coordinates-common-check",
+      "toId": "supp-coordinates-common-check-v3",
+      "preimageQuestionPayloadSha256": "86027893af2b61a1d70c4d6fb439fb387f5395182e7da3fd6109c9066759d077",
+      "successorQuestionPayloadSha256": "f3cd4b5a2522214cd94b86a490d4a91acbb361c969cbe1d6da39616a487f3c68",
+      "preimageMaterialSha256": "68de9ced0c6712a0ba186593af2e22c598bba92c09fd7aef297a3d5c965e460e",
+      "successorMaterialSha256": "8cd4cf64140f7ab1e285c0331e5e14c504bd3aebc92c7e0f17ed8296d14f4ece",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Do not swap the x- and y-coordinates: an ordered pair is written \\((x,y)\\). Thus the x-coordinate of \\((-4,6)\\) is \\(-4\\), and the signs \\((-,+)\\) place a point in Quadrant II.",
+        "explanation.zh": "不要把 x 和 y 坐標倒轉：有序數對按 \\((x,y)\\) 書寫。因此 \\((-4,6)\\) 的 x 坐標是 \\(-4\\)，而符號 \\((-,+)\\) 表示點位於第二象限。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-transformations-common-check-v2",
+      "baseId": "supp-transformations-common-check",
+      "toId": "supp-transformations-common-check-v3",
+      "preimageQuestionPayloadSha256": "d79f43a33be2ab94336667da5787c2b1a37708653e9745ce4d557160c3a200ea",
+      "successorQuestionPayloadSha256": "769ba58aa6536a56d7a147cad586ce85aa3e7c0f4e5556b4d520958789a3c2af",
+      "preimageMaterialSha256": "b05692366cb438c5bff376f435e068574cf10c79a0aeaa110ebca4c30b359c35",
+      "successorMaterialSha256": "90a740bc5ed07f589cd532f0dc724b77e31c42151a3c1c360d749e0fbd964548",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh",
+        "options[3].en",
+        "options[3].zh"
+      ],
+      "replacements": {
+        "options[3].en": "Apply a second transformation to the image even when the question specifies only one transformation",
+        "options[3].zh": "即使題目只指定一次變換，仍對影像再作第二次變換",
+        "explanation.en": "Label original and image points clearly. For one stated transformation, apply it once to each original point: translating \\((1,2)\\) by \\((3,-1)\\) gives \\((4,1)\\), and reflecting in the \\(x\\)-axis changes only the sign of \\(y\\). If the question states a sequence of transformations, use the image from one stated step as the input to the next.",
+        "explanation.zh": "清楚標示原像點和影像點。若題目只指定一次變換，就把該變換對每個原像點套用一次：把 \\((1,2)\\) 按 \\((3,-1)\\) 平移得到 \\((4,1)\\)；關於 \\(x\\) 軸反射只會改變 \\(y\\) 坐標的符號。若題目指定一連串變換，則把上一步的影像作為下一步的輸入。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-functions-common-check-v2",
+      "baseId": "supp-functions-common-check",
+      "toId": "supp-functions-common-check-v3",
+      "preimageQuestionPayloadSha256": "b14a67ef9f2c44056f2749bf5e52de855be4d3f6136fdd666bf5fc1c7afb57d2",
+      "successorQuestionPayloadSha256": "dc26c7d2908f2a72bd1f1e5cf8952ff3c4d4d9dc6b175aff2bca3824a1d5cc81",
+      "preimageMaterialSha256": "ef72306ae1c85725a45604f20f4d8f6754890070c6284a5415c9a0433fc0722d",
+      "successorMaterialSha256": "8252f07d551b58eca457663725da91b0998c1780b31c74a89b37a5b05f3f2d63",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Substitute the whole input before simplifying, using brackets for a negative input. If \\(g(x)=x^2\\), then \\(g(-3)=(-3)^2=9\\); if \\(f(x)=3x+2\\), then \\(f(2)=3(2)+2=8\\).",
+        "explanation.zh": "先完整代入輸入值，再化簡；代入負數時要加括號。若 \\(g(x)=x^2\\)，則 \\(g(-3)=(-3)^2=9\\)；若 \\(f(x)=3x+2\\)，則 \\(f(2)=3(2)+2=8\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-quadratic-patterns-first-step-v2",
+      "baseId": "supp-quadratic-patterns-first-step",
+      "toId": "supp-quadratic-patterns-first-step-v3",
+      "preimageQuestionPayloadSha256": "034a15eba4b09da9c08bdcac2d34dbc3cb0741b44fc7c4f8b5c82db423eff780",
+      "successorQuestionPayloadSha256": "22df09f7f4af8398fe510447b730e716f8c2a77d0471107c1f0f31a4f69933ba",
+      "preimageMaterialSha256": "f0995014e7c4e8ac1cd3c6c758c6e3cb024c1e83e76a40800cb4a2a3172f2727",
+      "successorMaterialSha256": "f61ded26893d9efb4f23a5ae0d2054d173d3fdcb9ff8a362e9f77017a8e4bece",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Look for second differences, the vertex, or the axis of symmetry. For equally spaced input values, constant non-zero second differences indicate a quadratic pattern. A parabola has no centre of symmetry; its vertex lies on its axis of symmetry and helps locate the graph. For \\(y=x^2+2x+1\\), the axis of symmetry is \\(x=-b/(2a)=-1\\), and the vertex is \\((-1,0)\\).",
+        "explanation.zh": "先找二階差、頂點或對稱軸。當輸入值等距時，固定且非零的二階差表示二次規律。拋物線沒有對稱中心；它的頂點位於對稱軸上，可用來確定圖像的位置。對 \\(y=x^2+2x+1\\)，對稱軸是 \\(x=-b/(2a)=-1\\)，頂點是 \\((-1,0)\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-quadratic-patterns-common-check-v2",
+      "baseId": "supp-quadratic-patterns-common-check",
+      "toId": "supp-quadratic-patterns-common-check-v3",
+      "preimageQuestionPayloadSha256": "6d0b440d2e1c1c7bf762b6c4adfb22de3b6d7c3bec3083865d44961a0b56a315",
+      "successorQuestionPayloadSha256": "3f5522b80f4c6d71ca5045b7b7e79fdfbddc90a9da5e7b7a26de40ee2318e426",
+      "preimageMaterialSha256": "53ab17d8487b382185ce96dd349d9c651f53c0673847004c8ffc8ac576b49643",
+      "successorMaterialSha256": "2ed08f7138fa797d891358b7ffd125049eb3f4a4734308143df68dbb199e6613",
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Use the sign carefully in vertex form. In \\(y=(x-h)^2+k\\), the vertex is \\((h,k)\\), so \\(y=(x-3)^2+2\\) has vertex \\((3,2)\\), not \\((-3,2)\\).",
+        "explanation.zh": "使用頂點式時要小心括號內的符號。在 \\(y=(x-h)^2+k\\) 中，頂點是 \\((h,k)\\)，所以 \\(y=(x-3)^2+2\\) 的頂點是 \\((3,2)\\)，不是 \\((-3,2)\\)。"
+      },
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    }
+  ]
+}

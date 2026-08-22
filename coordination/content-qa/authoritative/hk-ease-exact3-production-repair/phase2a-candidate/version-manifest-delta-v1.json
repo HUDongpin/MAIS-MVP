@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2a-version-manifest-delta-v1",
+  "status": "phase2a-candidate-only-promotion-not-authorized",
+  "sourceBindings": {
+    "phase1PreimageAuthority": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+      "sha256": "8c087e024d184f92e1a6a51798cdb5f9ae3ddcff7dbc15e7ec65bb0fe1c2b608"
+    },
+    "expandedStep0Receipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+      "sha256": "9d661d739710a72c9a4744e224f221ffe808632dacb12b63d49c39fe4886262e"
+    },
+    "v2History": {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1"
+    }
+  },
+  "rowCount": 3,
+  "orderedRowIds": [
+    "hk-ease-10481",
+    "hk-ease-10496",
+    "hk-ease-1041"
+  ],
+  "orderedRowIdSha256": "ad0a746c13b9d5461a61dd9221e1cc57ee4d5c20fa4cacc3ca7562ae775b76d8",
+  "rowsPayloadSha256": "7ee47e7cb3fc90f27a39d3652bf39acd5defcdfd9ead270201c32043d6a09a9c",
+  "rowSha256": [
+    "8da88d5489458fce0893557fadca2cb37aad74e77d8645ab306b95fe13935a86",
+    "081eea2b6557a119c4d5afc54b0d24cc8ef145dbb02591b1ce381733a54ed871",
+    "8b00e436d9152659be7335332121e338b69f0e9a478f368bb641c94a2b1ee6ca"
+  ],
+  "entries": [
+    {
+      "baseId": "hk-ease-10481",
+      "activePreimageId": "hk-ease-10481-v2",
+      "successorId": "hk-ease-10481-v3",
+      "activeMappingPostimage": {
+        "hk-ease-10481": "hk-ease-10481-v3",
+        "hk-ease-10481-v2": "hk-ease-10481-v3"
+      },
+      "retiredIdsAdded": [
+        "hk-ease-10481",
+        "hk-ease-10481-v2"
+      ],
+      "noChainInvariant": "hk-ease-10481-v3-is-not-a-mapping-key"
+    },
+    {
+      "baseId": "hk-ease-10496",
+      "activePreimageId": "hk-ease-10496-v2",
+      "successorId": "hk-ease-10496-v3",
+      "activeMappingPostimage": {
+        "hk-ease-10496": "hk-ease-10496-v3",
+        "hk-ease-10496-v2": "hk-ease-10496-v3"
+      },
+      "retiredIdsAdded": [
+        "hk-ease-10496",
+        "hk-ease-10496-v2"
+      ],
+      "noChainInvariant": "hk-ease-10496-v3-is-not-a-mapping-key"
+    },
+    {
+      "baseId": "hk-ease-1041",
+      "activePreimageId": "hk-ease-1041-v2",
+      "successorId": "hk-ease-1041-v3",
+      "activeMappingPostimage": {
+        "hk-ease-1041": "hk-ease-1041-v3",
+        "hk-ease-1041-v2": "hk-ease-1041-v3"
+      },
+      "retiredIdsAdded": [
+        "hk-ease-1041",
+        "hk-ease-1041-v2"
+      ],
+      "noChainInvariant": "hk-ease-1041-v3-is-not-a-mapping-key"
+    }
+  ],
+  "activeIdByHistoricalIdPostimage": {
+    "hk-ease-10481": "hk-ease-10481-v3",
+    "hk-ease-10481-v2": "hk-ease-10481-v3",
+    "hk-ease-10496": "hk-ease-10496-v3",
+    "hk-ease-10496-v2": "hk-ease-10496-v3",
+    "hk-ease-1041": "hk-ease-1041-v3",
+    "hk-ease-1041-v2": "hk-ease-1041-v3"
+  },
+  "retiredHistoricalIdsAdded": [
+    "hk-ease-10481",
+    "hk-ease-10481-v2",
+    "hk-ease-10496",
+    "hk-ease-10496-v2",
+    "hk-ease-1041",
+    "hk-ease-1041-v2"
+  ],
+  "noChainPolicy": "base-and-v2-map-directly-to-v3-v3-is-never-a-map-key"
+}

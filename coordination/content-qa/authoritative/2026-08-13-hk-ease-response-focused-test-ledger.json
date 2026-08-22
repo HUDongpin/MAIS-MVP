@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "hk-ease-response-focused-test-ledger-v1",
+  "canonicalSerialization": "SHA-256 of UTF-8 JSON.stringify(lexicographically sorted suiteId + U+0000 + testName strings)",
+  "expectedSuiteCount": 1,
+  "expectedFocusedTestCount": 7,
+  "testNameSha256": "38d338428107012f5813a051e84afec2c04e8b0a048e54186b419a7475db8b1a",
+  "suites": [
+    {
+      "sourcePath": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "suiteId": "hong-kong-ease-response-contracts-exact7-v1",
+      "testNames": [
+        "the compact EASE response manifest is complete, unique, and fail-closed",
+        "all 776 raw and 744 normalized-unique aliases plus 15 fraction-policy positives pass through production grading",
+        "all 3236 normalized-unique per-kind independently wrong simple EASE adversarial probes fail closed through production grading",
+        "all 584 positive EASE contract probes and all 1912 stored accepted forms pass through production grading",
+        "all 581 negative EASE contract probes fail closed through production grading",
+        "worked method contracts accept complete audited reasoning and reject corrupt or contradictory work",
+        "only the exact active EASE generation inherits its contract and every other known generation fails closed"
+      ]
+    }
+  ]
+}

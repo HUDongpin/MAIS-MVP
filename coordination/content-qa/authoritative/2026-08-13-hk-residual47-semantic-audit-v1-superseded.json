@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "scope": {
+    "hkActive": 1003,
+    "displayed": 255,
+    "ease": 701,
+    "residual": 47,
+    "orderedIdSha256": "c33a5f05db153f39b7b7328177f7c3f894f711e12d642b182e77504051bc00b6",
+    "payloadSha256": "fb2d405426994d4fd2ede55ee706fc3ede7582ebaac2380a1f64fc3ece65f88c"
+  },
+  "issues": [
+    {
+      "id": "supp-p1-counting-number-bonds-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p1-addition-subtraction-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p1-measurement-time-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p2-place-value-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p2-multiplication-foundations-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p2-money-time-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p3-multiplication-division-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p3-fractions-intro-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p3-measurement-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p3-geometry-patterns-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p4-large-numbers-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p4-decimals-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p4-angles-first-step-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "The topic’s key fact shows why this structure matters",
+          "The alternatives instead encode these specific misconceptions"
+        ],
+        "zh": [
+          "本課題的關鍵知識說明這個結構為何重要",
+          "其餘選項分別包含以下具體誤解"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with the correct first action followed by direct mathematical justification; do not narrate the item template, alternatives, or misconception encoding."
+    },
+    {
+      "id": "supp-p4-angles-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p4-perimeter-area-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p5-fractions-operations-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p5-volume-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p5-rates-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p6-percentages-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p6-speed-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-p6-pre-secondary-problem-solving-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-angles-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-coordinates-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-transformations-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-functions-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    },
+    {
+      "id": "supp-quadratic-patterns-first-step-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "The topic’s key fact shows why this structure matters",
+          "The alternatives instead encode these specific misconceptions"
+        ],
+        "zh": [
+          "本課題的關鍵知識說明這個結構為何重要",
+          "其餘選項分別包含以下具體誤解"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with the correct first action followed by direct mathematical justification; do not narrate the item template, alternatives, or misconception encoding."
+    },
+    {
+      "id": "supp-quadratic-patterns-common-check-v2",
+      "severity": "P1",
+      "kind": "learner-facing-authoring-template-voice",
+      "fields": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "exactLeakage": {
+        "en": [
+          "This check is consistent with both the key fact",
+          "the other checks would preserve a topic-specific error rather than expose it"
+        ],
+        "zh": [
+          "這項檢查同時符合關鍵知識",
+          "其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤"
+        ]
+      },
+      "recommendation": "Replace only the bilingual explanation with direct learner-facing mathematical reasoning that explains why the selected check works; do not mention key-fact/guided-example roles, other-check authoring logic, or topic-specific-error metadata."
+    }
+  ],
+  "cleanIds": [
+    "pq-p4-angles-square-corner-5",
+    "graph-quadratic-patterns-opening-v2",
+    "supp-p1-shapes-patterns-common-check-v2",
+    "supp-p2-length-data-common-check-v2",
+    "supp-p4-decimals-guided-example",
+    "supp-p4-angles-guided-example-v2",
+    "supp-p5-volume-guided-example-v2",
+    "supp-p5-charts-averages-key-fact-v2",
+    "supp-p5-charts-averages-guided-example-v2",
+    "supp-p5-charts-averages-common-check-v2",
+    "supp-p6-ratio-proportion-common-check-v2",
+    "supp-p6-speed-guided-example-v2",
+    "supp-coordinates-key-fact",
+    "supp-coordinates-guided-example",
+    "supp-functions-guided-example",
+    "supp-quadratic-patterns-key-fact-v2",
+    "supp-quadratic-patterns-guided-example-v2",
+    "supp-coordinate-geometry-guided-example",
+    "supp-coordinate-geometry-common-check-v2",
+    "supp-data-handling-common-check-v2"
+  ],
+  "counts": {
+    "reviewed": 47,
+    "issues": 27,
+    "clean": 20,
+    "unresolved": 0
+  }
+}

@@ -1,0 +1,2167 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, readdirSync, symlinkSync, unlinkSync } from "node:fs";
+import { join } from "node:path";
+import test from "node:test";
+import { pathToFileURL } from "node:url";
+
+import designJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-derivation-design-contract.json";
+import shardAJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-a.json";
+import shardBJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-b.json";
+import shardCJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-c.json";
+import v3OracleJson from "../data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json";
+import v4OracleJson from "../data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json";
+import questionPackJson from "../data/generated-content/hk-ease-practice-bank-v2/question-pack.json";
+import exact26ReceiptJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-exact26-review-receipt.json";
+import sanitizedInputJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json";
+import derivationSupplementJson from "../coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json";
+import {
+  assertHongKongEaseV4LiveSourceBytes,
+  buildHongKongEaseIndependentOracleV4,
+  HK_EASE_V4_ORACLE_PATH,
+  renderHongKongEaseIndependentOracleV4
+} from "../coordination/content-qa/build-hk-ease-independent-oracle-v4";
+import {
+  buildHongKongEaseV4DerivationSupplement,
+  renderHongKongEaseV4DerivationSupplement
+} from "../coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement";
+import type {
+  HongKongEaseV4DerivationRow,
+  HongKongEaseV4DerivationSupplement
+} from "../coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement";
+import {
+  buildHongKongEaseV4Exact26CanonicalOutcome,
+  buildHongKongEaseV4Exact26ReviewReceipt,
+  HK_EASE_V4_EXACT26_LEDGER,
+  HK_EASE_V4_EXACT26_ORDERED_BASE_ID_SHA256,
+  HK_EASE_V4_EXACT26_OUTCOME_BYTE_LENGTH,
+  HK_EASE_V4_EXACT26_OUTCOME_SHA256,
+  HK_EASE_V4_EXACT26_SANITIZED_PATH,
+  HK_EASE_V4_EXACT26_SANITIZED_SHA256,
+  HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_PATH,
+  HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_SHA256,
+  type HongKongEaseV4Exact26ReviewReceipt
+} from "../coordination/content-qa/build-hk-ease-independent-oracle-v4-exact26-receipt";
+import {
+  buildHongKongEaseV4SanitizedInput,
+  HK_EASE_V4_QUESTION_PACK_SHA256,
+  type HongKongEaseV4SanitizedInput
+} from "../coordination/content-qa/build-hk-ease-derivation-input-v4";
+import { evaluateExactExpression } from "../coordination/content-qa/hk-ease-v4-derivation-dsl";
+import {
+  compareHongKongEaseV4DerivedRowToProduction,
+  HongKongEaseV4ValidationError,
+  validateHongKongEaseV4DerivationRow,
+  type V4ProductionQuestion,
+  validateHongKongEaseV4DerivationSupplement
+} from "./hongKongEaseIndependentOracleV4";
+import { questionAnswerMatches } from "./server/answerMatching";
+
+const sha256 = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
+
+const HK_EASE_V4_EXACT26_RECEIPT_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-exact26-review-receipt.json"
+);
+const HK_EASE_V4_EXACT26_RECOVERY_BUILDER_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/recover-hk-ease-independent-oracle-v4-exact26-preimage.ts"
+);
+const HK_EASE_V4_EXACT26_DURABLE_CONTAINER_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-supplement-builder-tsx-container-33c75059.json"
+);
+const HK_EASE_V4_EXACT26_DURABLE_DSL_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-derivation-dsl-62522f86.ts"
+);
+const HK_EASE_V4_EXACT26_DURABLE_INPUT_BUILDER_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-derivation-input-builder-67b22653.ts"
+);
+const HK_EASE_V4_EXACT26_DURABLE_SANITIZED_INPUT_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-sanitized-derivation-input-1b36361d.json"
+);
+const HK_EASE_V4_EXACT26_IMMUTABLE_PREIMAGE_PATH = join(
+  process.cwd(),
+  "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-row-specific-derivation-supplement-a855b861.json"
+);
+
+type V3Row = {
+  baseId: string;
+  rowSpecificDerivation: boolean;
+  reviewMethodClassification: string;
+};
+
+test("v4 exact26 independent review receipt is materialized before semantic repair", () => {
+  assert.equal(
+    existsSync(HK_EASE_V4_EXACT26_RECEIPT_PATH),
+    true,
+    `missing frozen exact26 authority receipt: ${HK_EASE_V4_EXACT26_RECEIPT_PATH}`
+  );
+
+  const sanitizedBytes = readFileSync(join(process.cwd(), HK_EASE_V4_EXACT26_SANITIZED_PATH));
+  const canonical = buildHongKongEaseV4Exact26CanonicalOutcome(sanitizedBytes);
+  const receipt = exact26ReceiptJson as HongKongEaseV4Exact26ReviewReceipt;
+
+  assert.equal(sha256(sanitizedBytes), HK_EASE_V4_EXACT26_SANITIZED_SHA256);
+  assert.equal(receipt.schemaVersion, "hk-ease-v4-independent-exact26-review-receipt-v1");
+  assert.equal(receipt.status, "frozen-independent-review-authority-needs-semantic-repair");
+  assert.deepEqual(receipt.sanitizedInput, {
+    path: HK_EASE_V4_EXACT26_SANITIZED_PATH,
+    sha256: HK_EASE_V4_EXACT26_SANITIZED_SHA256
+  });
+  assert.deepEqual(receipt.supplementPreimage, {
+    path: HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_PATH,
+    sha256: HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_SHA256
+  });
+  assert.equal(
+    receipt.supplementPreimage.path,
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-row-specific-derivation-supplement-a855b861.json",
+    "the frozen review receipt must resolve an immutable historical preimage, not the mutable current supplement"
+  );
+  const immutablePreimageBytes = readFileSync(join(process.cwd(), receipt.supplementPreimage.path));
+  assert.equal(sha256(immutablePreimageBytes), HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_SHA256);
+  assert.deepEqual(
+    buildHongKongEaseV4Exact26ReviewReceipt(sanitizedBytes, immutablePreimageBytes),
+    receipt,
+    "the receipt must replay from the exact bytes at its recorded immutable preimage path"
+  );
+  assert.equal(receipt.orderedBaseIdSha256, HK_EASE_V4_EXACT26_ORDERED_BASE_ID_SHA256);
+  assert.equal(canonical.orderedBaseIdSha256, HK_EASE_V4_EXACT26_ORDERED_BASE_ID_SHA256);
+  assert.equal(canonical.outcomeByteLength, HK_EASE_V4_EXACT26_OUTCOME_BYTE_LENGTH);
+  assert.equal(Buffer.byteLength(canonical.outcomePayload, "utf8"), 56_916);
+  assert.equal(canonical.outcomeSha256, HK_EASE_V4_EXACT26_OUTCOME_SHA256);
+  assert.equal(sha256(canonical.outcomePayload), HK_EASE_V4_EXACT26_OUTCOME_SHA256);
+  assert.deepEqual(receipt.summary, { total: 701, pass: 675, fail: 26 });
+  assert.deepEqual(receipt.exact26Ledger, HK_EASE_V4_EXACT26_LEDGER);
+  assert.equal(receipt.exact26Ledger.length, 26);
+  assert.equal(receipt.exact26LedgerSha256, sha256(JSON.stringify(HK_EASE_V4_EXACT26_LEDGER)));
+  assert.deepEqual(receipt.outcomes, canonical.outcomes);
+  assert.equal(receipt.outcomeByteLength, canonical.outcomeByteLength);
+  assert.equal(receipt.outcomeSha256, canonical.outcomeSha256);
+  assert.equal(receipt.outcomes.filter(({ status }) => status === "pass").length, 675);
+  assert.equal(receipt.outcomes.filter(({ status }) => status === "fail").length, 26);
+
+  const mutatedSanitized = Buffer.concat([sanitizedBytes, Buffer.from(" ", "utf8")]);
+  assert.throws(
+    () => buildHongKongEaseV4Exact26CanonicalOutcome(mutatedSanitized),
+    /V4_EXACT26_SANITIZED_PREIMAGE_DRIFT/
+  );
+});
+
+test("v4 exact26 historical supplement preimage is durably and authentically recoverable", async () => {
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_RECOVERY_BUILDER_PATH), true, "missing exact26 preimage recovery builder");
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_DURABLE_CONTAINER_PATH), true, "missing durable verified tsx source container");
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_DURABLE_DSL_PATH), true, "missing durable exact DSL dependency");
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_DURABLE_INPUT_BUILDER_PATH), true, "missing durable exact input-builder dependency");
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_DURABLE_SANITIZED_INPUT_PATH), true, "missing durable exact sanitized input dependency");
+  assert.equal(existsSync(HK_EASE_V4_EXACT26_IMMUTABLE_PREIMAGE_PATH), true, "missing immutable a855 supplement preimage");
+  assert.equal(sha256(readFileSync(HK_EASE_V4_EXACT26_DURABLE_DSL_PATH)), "62522f86bdd86b3bb1636675ed33881acf744c0034c9a6beef36c6650c33882f");
+  assert.equal(sha256(readFileSync(HK_EASE_V4_EXACT26_DURABLE_INPUT_BUILDER_PATH)), "67b2265380d8f8dad92eec621d7a838853ebc46c47ae583da82ebcb5a7a054ab");
+  assert.equal(sha256(readFileSync(HK_EASE_V4_EXACT26_DURABLE_SANITIZED_INPUT_PATH)), HK_EASE_V4_EXACT26_SANITIZED_SHA256);
+  const contentQaRoot = join(process.cwd(), "coordination/content-qa");
+  const sourceTreeRecoveryTempsBefore = readdirSync(contentQaRoot)
+    .filter((name) => name.startsWith(".recover-v4-exact26-"));
+
+  const recoveryModule = await import(
+    `${pathToFileURL(HK_EASE_V4_EXACT26_RECOVERY_BUILDER_PATH).href}?test=${Date.now()}`
+  ) as {
+    recoverHongKongEaseV4Exact26SupplementPreimage: () => Promise<{
+      containerSha256: string;
+      recoveredBuilderSourceSha256: string;
+      supplementBytes: Buffer;
+      supplementSha256: string;
+      supplementByteLength: number;
+      rowCount: number;
+      rowsPayloadSha256: string;
+    }>;
+  };
+  const recovered = await recoveryModule.recoverHongKongEaseV4Exact26SupplementPreimage();
+  const immutableBytes = readFileSync(HK_EASE_V4_EXACT26_IMMUTABLE_PREIMAGE_PATH);
+  const sourceTreeRecoveryTempsAfter = readdirSync(contentQaRoot)
+    .filter((name) => name.startsWith(".recover-v4-exact26-"));
+
+  assert.equal(recovered.containerSha256, "79ea30eec567b7ae2383921d27c8a065e337bebf53249eafaa5a4ce02ea32cb0");
+  assert.equal(recovered.recoveredBuilderSourceSha256, "33c75059dc657b5d252bb3f734763669d9491f47a4e1207ec86bae56f45f4b3d");
+  assert.equal(recovered.supplementSha256, HK_EASE_V4_EXACT26_SUPPLEMENT_PREIMAGE_SHA256);
+  assert.equal(recovered.supplementByteLength, 4_319_562);
+  assert.equal(recovered.rowCount, 701);
+  assert.equal(recovered.rowsPayloadSha256, "70a5ab7f3ee807d34c0647f311aa8ae0c9577220f009c6aac4b3b1c6ede35de5");
+  assert.equal(sha256(immutableBytes), recovered.supplementSha256);
+  assert.deepEqual(immutableBytes, recovered.supplementBytes);
+  assert.deepEqual(sourceTreeRecoveryTempsAfter, sourceTreeRecoveryTempsBefore, "recovery must not write transient source files into coordination/content-qa");
+
+  const originalTmpDir = process.env.TMPDIR;
+  assert.ok(originalTmpDir);
+  const tmpDirEscapeLink = join(originalTmpDir, `v4-exact26-tmpdir-escape-${process.pid}`);
+  symlinkSync("/private/tmp", tmpDirEscapeLink);
+  try {
+    process.env.TMPDIR = tmpDirEscapeLink;
+    await assert.rejects(
+      () => recoveryModule.recoverHongKongEaseV4Exact26SupplementPreimage(),
+      /V4_EXACT26_RECOVERY_TMPDIR_OUTSIDE_STARSHIP/,
+      "a Starship-looking TMPDIR symlink must not escape to an external physical path"
+    );
+  } finally {
+    process.env.TMPDIR = originalTmpDir;
+    unlinkSync(tmpDirEscapeLink);
+  }
+});
+
+type SemanticRow = {
+  id: string;
+  reviewBasis?: string;
+};
+
+type ClassificationTuple = {
+  id: string;
+  oldClassification: string;
+  oldSolutionBasisSha256: string;
+};
+
+type Pass1SemanticCategory =
+  | "FORMAT_REQUIREMENT_METADATA_MISSING"
+  | "FORMAT_RESPONSE_MISMATCH"
+  | "UNIT_REQUIREMENT_METADATA_MISSING"
+  | "UNIT_REQUIREMENT_FALSE_POSITIVE"
+  | "METHOD_OUTPUT_INCOMPLETE"
+  | "METHOD_PRESENTATION_MISMATCH"
+  | "SYMBOLIC_SERIALIZATION_AMBIGUOUS";
+
+type Pass1SemanticDefect = {
+  index: number;
+  baseId: string;
+  categories: Pass1SemanticCategory[];
+};
+
+// Independent pass-1 review ledger.  This binds only row identity and defect
+// classification; every expected response condition below is re-derived from
+// the sanitized prompt rather than copied from a production answer source.
+const HK_EASE_V4_PASS1_EXACT41: Pass1SemanticDefect[] = [
+  { index: 30, baseId: "hk-ease-10651", categories: ["FORMAT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 31, baseId: "hk-ease-10662", categories: ["FORMAT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 187, baseId: "hk-ease-10481", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 188, baseId: "hk-ease-10496", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 200, baseId: "hk-ease-10523", categories: ["UNIT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 215, baseId: "hk-ease-10538", categories: ["UNIT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 216, baseId: "hk-ease-10539", categories: ["UNIT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 267, baseId: "hk-ease-54", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 268, baseId: "hk-ease-114", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 269, baseId: "hk-ease-115", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 275, baseId: "hk-ease-185", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 276, baseId: "hk-ease-186", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 282, baseId: "hk-ease-364", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 283, baseId: "hk-ease-410", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 285, baseId: "hk-ease-428", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 286, baseId: "hk-ease-429", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 307, baseId: "hk-ease-736", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 322, baseId: "hk-ease-901", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 323, baseId: "hk-ease-902", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 389, baseId: "hk-ease-1102", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 393, baseId: "hk-ease-1106", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 394, baseId: "hk-ease-1107", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 395, baseId: "hk-ease-1108", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 399, baseId: "hk-ease-1112", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 406, baseId: "hk-ease-1119", categories: ["METHOD_PRESENTATION_MISMATCH"] },
+  { index: 407, baseId: "hk-ease-1120", categories: ["METHOD_PRESENTATION_MISMATCH"] },
+  { index: 408, baseId: "hk-ease-1121", categories: ["METHOD_PRESENTATION_MISMATCH"] },
+  { index: 414, baseId: "hk-ease-1127", categories: ["METHOD_PRESENTATION_MISMATCH"] },
+  { index: 540, baseId: "hk-ease-1273", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 541, baseId: "hk-ease-1274", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 543, baseId: "hk-ease-1276", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 544, baseId: "hk-ease-1277", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 569, baseId: "hk-ease-1782", categories: ["SYMBOLIC_SERIALIZATION_AMBIGUOUS", "UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 591, baseId: "hk-ease-2035", categories: ["FORMAT_REQUIREMENT_METADATA_MISSING", "FORMAT_RESPONSE_MISMATCH"] },
+  { index: 666, baseId: "hk-ease-1785", categories: ["UNIT_REQUIREMENT_FALSE_POSITIVE"] },
+  { index: 683, baseId: "hk-ease-425", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 684, baseId: "hk-ease-426", categories: ["FORMAT_RESPONSE_MISMATCH"] },
+  { index: 688, baseId: "hk-ease-864", categories: ["FORMAT_REQUIREMENT_METADATA_MISSING"] },
+  { index: 695, baseId: "hk-ease-2037", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 697, baseId: "hk-ease-2039", categories: ["METHOD_OUTPUT_INCOMPLETE"] },
+  { index: 699, baseId: "hk-ease-2041", categories: ["METHOD_OUTPUT_INCOMPLETE"] }
+];
+
+const quotedFormatFromPrompt = (prompt: string): string | null =>
+  prompt.match(/(?:use|using|answer in|in) the format\s+[“"'](.+?)[”"']/i)?.[1] ?? null;
+
+const responseContainsFormatSkeleton = (response: string, format: string): boolean => {
+  const literalSegments = format
+    .split(/(?:…|\.{3}|factorization|value)/gi)
+    .filter((segment) => segment.length > 0);
+  let cursor = 0;
+  for (const segment of literalSegments) {
+    const located = response.indexOf(segment, cursor);
+    if (located < 0) return false;
+    cursor = located + segment.length;
+  }
+  return true;
+};
+
+const independentRequiredUnitsFromPrompt = (rawPrompt: string): string[] => {
+  const prompt = rawPrompt.replace(/L\.?C\.?M\.?/gi, "LCM");
+  const units = new Set<string>();
+  for (const match of prompt.matchAll(/_{2,}\s*(cm|mm|km|mL|kg|g|m|L)(?=\s|[.,;)]|$)/g)) {
+    units.add(match[1]);
+  }
+  for (const match of prompt.matchAll(/(?:in|answer in|nearest)\s+(centimetres?|metres?|kilometres?|millimetres?|litres?|millilitres?|kilograms?|grams?|seconds?|minutes?|hours?)/gi)) {
+    units.add(match[1].toLowerCase());
+  }
+  for (const match of prompt.matchAll(/(?:\d|\)|²|³)\s*(cm|mm|km|mL|kg|g|m|L)(?=\s|[,;)]|$)/g)) {
+    const prefix = prompt.slice(Math.max(0, match.index! - 24), match.index! + 1);
+    if (match[1] === "m" && /power of\s*$/i.test(prefix)) continue;
+    units.add(match[1]);
+  }
+  if (/HK\$/.test(prompt)) units.add("HK$");
+  if (/\bdegrees?\b|°/.test(prompt)) units.add("degrees");
+  return [...units].sort();
+};
+
+const pass1SemanticIssuesFor = (
+  categories: Pass1SemanticCategory[],
+  prompt: string,
+  row: HongKongEaseV4DerivationRow
+): Pass1SemanticCategory[] => {
+  const issues: Pass1SemanticCategory[] = [];
+  const quotedFormat = quotedFormatFromPrompt(prompt);
+  if (
+    categories.includes("FORMAT_REQUIREMENT_METADATA_MISSING") &&
+    row.promptRequirements.explicitFormat !== quotedFormat
+  ) {
+    issues.push("FORMAT_REQUIREMENT_METADATA_MISSING");
+  }
+  if (
+    categories.includes("FORMAT_RESPONSE_MISMATCH") &&
+    (!quotedFormat || !responseContainsFormatSkeleton(row.computedResult.responseText, quotedFormat))
+  ) {
+    issues.push("FORMAT_RESPONSE_MISMATCH");
+  }
+  const requiredUnits = independentRequiredUnitsFromPrompt(prompt);
+  if (
+    categories.includes("UNIT_REQUIREMENT_METADATA_MISSING") &&
+    !requiredUnits.every((unit) => row.promptRequirements.units.includes(unit))
+  ) {
+    issues.push("UNIT_REQUIREMENT_METADATA_MISSING");
+  }
+  if (
+    categories.includes("UNIT_REQUIREMENT_FALSE_POSITIVE") &&
+    !row.promptRequirements.units.every((unit) => requiredUnits.includes(unit))
+  ) {
+    issues.push("UNIT_REQUIREMENT_FALSE_POSITIVE");
+  }
+  if (categories.includes("METHOD_OUTPUT_INCOMPLETE")) {
+    const needsBothProducts = /product and value for both results/i.test(prompt);
+    const needsHcfProduct = needsBothProducts || /H\.?C\.?F\.? (?:prime-factor )?product/i.test(prompt);
+    const needsLcmProduct = needsBothProducts || /L\.?C\.?M\.? (?:prime-factor )?product/i.test(prompt);
+    const response = row.computedResult.responseText;
+    if (
+      (needsHcfProduct && !/H\.C\.F\. product:\s*[^;]+\s=\s*\d+/i.test(response)) ||
+      (needsLcmProduct && !/L\.C\.M\. product:\s*[^;]+\s=\s*\d+/i.test(response))
+    ) {
+      issues.push("METHOD_OUTPUT_INCOMPLETE");
+    }
+  }
+  if (
+    categories.includes("METHOD_PRESENTATION_MISMATCH") &&
+    /short division/i.test(prompt) &&
+    !/÷\d+→/.test(row.computedResult.responseText)
+  ) {
+    issues.push("METHOD_PRESENTATION_MISMATCH");
+  }
+  if (
+    categories.includes("SYMBOLIC_SERIALIZATION_AMBIGUOUS") &&
+    /power of\s+\d+[a-z]/i.test(prompt) &&
+    !/\^\([^)]*\)|\^\{[^}]*\}/.test(row.computedResult.responseText)
+  ) {
+    issues.push("SYMBOLIC_SERIALIZATION_AMBIGUOUS");
+  }
+  return issues;
+};
+
+const v3 = v3OracleJson as {
+  schemaVersion: string;
+  questions: V3Row[];
+};
+const semanticRows = [
+  ...(shardAJson as { rows: SemanticRow[] }).rows,
+  ...(shardBJson as { rows: SemanticRow[] }).rows,
+  ...(shardCJson as { rows: SemanticRow[] }).rows
+];
+const semanticRowById = new Map(semanticRows.map((row) => [row.id, row]));
+
+const rehashV4Row = (row: HongKongEaseV4DerivationRow): void => {
+  const { derivationPayloadSha256: _oldHash, ...payload } = row;
+  row.derivationPayloadSha256 = sha256(JSON.stringify(payload));
+};
+
+const rehashV4Supplement = (supplement: HongKongEaseV4DerivationSupplement): void => {
+  supplement.rowsPayloadSha256 = sha256(JSON.stringify(supplement.rows));
+};
+
+type V4ShortDivisionProductEvidence = {
+  commonDivisors: string[];
+  hcfProduct: { expression: string; value: string };
+  allDivisors?: string[];
+  lcmProduct?: { expression: string; value: string };
+};
+
+type V4ShortDivisionTraceEntry = {
+  divisor: string;
+  before: string[];
+  after: string[];
+  dividesEveryCurrentValue: boolean;
+};
+
+const shortDivisionProductEvidenceForTest = (row: HongKongEaseV4DerivationRow): {
+  step: HongKongEaseV4DerivationRow["steps"][number];
+  trace: V4ShortDivisionTraceEntry[];
+  products: V4ShortDivisionProductEvidence;
+} | null => {
+  const step = row.steps.find((candidate) =>
+    (candidate.parameters as Record<string, unknown>).divisionProducts !== undefined
+  );
+  if (!step) return null;
+  const parameters = step.parameters as Record<string, unknown>;
+  return {
+    step,
+    trace: parameters.shortDivisionTrace as V4ShortDivisionTraceEntry[],
+    products: parameters.divisionProducts as V4ShortDivisionProductEvidence
+  };
+};
+
+const exactTestGcd = (...values: bigint[]): bigint => values.reduce((left, right) => {
+  let a = left < BigInt("0") ? -left : left;
+  let b = right < BigInt("0") ? -right : right;
+  while (b !== BigInt("0")) [a, b] = [b, a % b];
+  return a;
+});
+
+const exactTestLcm = (...values: bigint[]): bigint => values.reduce(
+  (left, right) => left / exactTestGcd(left, right) * right,
+  BigInt("1")
+);
+
+const exactTestProduct = (values: string[]): bigint => values.reduce(
+  (value, factor) => value * BigInt(factor),
+  BigInt("1")
+);
+
+type V4TestPrimeFactor = { prime: string; exponent: number };
+
+const exactTestPrimeFactorization = (value: bigint): V4TestPrimeFactor[] => {
+  assert.ok(value > BigInt("0"));
+  let remainder = value;
+  const factors: V4TestPrimeFactor[] = [];
+  for (let candidate = BigInt("2"); candidate * candidate <= remainder; candidate += BigInt("1")) {
+    let exponent = 0;
+    while (remainder % candidate === BigInt("0")) {
+      remainder /= candidate;
+      exponent += 1;
+    }
+    if (exponent > 0) factors.push({ prime: candidate.toString(), exponent });
+  }
+  if (remainder > BigInt("1")) factors.push({ prime: remainder.toString(), exponent: 1 });
+  return factors;
+};
+
+const exactTestRenderPrimeFactorization = (factors: V4TestPrimeFactor[]): string => factors
+  .map(({ prime, exponent }) => exponent === 1 ? prime : `${prime}^${exponent}`)
+  .join(" × ");
+
+const exactTestFactorizationRecords = (values: string[]) => values.map((value) => {
+  const factors = exactTestPrimeFactorization(BigInt(value));
+  return { value, factors, rendered: exactTestRenderPrimeFactorization(factors) };
+});
+
+const exactTestSmallestPrimeFactor = (value: bigint): bigint => {
+  assert.ok(value > BigInt("1"));
+  for (let candidate = BigInt("2"); candidate * candidate <= value; candidate += BigInt("1")) {
+    if (value % candidate === BigInt("0")) return candidate;
+  }
+  return value;
+};
+
+const exactTestCompleteShortDivisionTrace = (values: string[]): V4ShortDivisionTraceEntry[] => {
+  let current = values.map(BigInt);
+  const trace: V4ShortDivisionTraceEntry[] = [];
+  const divideBy = (divisor: bigint): void => {
+    const before = current.map(String);
+    const divisibility = current.map((value) => value % divisor === BigInt("0"));
+    current = current.map((value, index) => divisibility[index] ? value / divisor : value);
+    trace.push({
+      divisor: divisor.toString(),
+      before,
+      after: current.map(String),
+      dividesEveryCurrentValue: divisibility.every(Boolean)
+    });
+  };
+  while (exactTestGcd(...current) > BigInt("1")) {
+    divideBy(exactTestSmallestPrimeFactor(exactTestGcd(...current)));
+  }
+  while (current.some((value) => value > BigInt("1"))) {
+    divideBy(exactTestSmallestPrimeFactor(current.find((value) => value > BigInt("1"))!));
+  }
+  return trace;
+};
+
+const exactTestDivisionProducts = (trace: V4ShortDivisionTraceEntry[]): V4ShortDivisionProductEvidence => {
+  const commonDivisors = trace
+    .filter(({ dividesEveryCurrentValue }) => dividesEveryCurrentValue)
+    .map(({ divisor }) => divisor);
+  const allDivisors = trace.map(({ divisor }) => divisor);
+  return {
+    commonDivisors,
+    allDivisors,
+    hcfProduct: {
+      expression: commonDivisors.length > 0 ? commonDivisors.join(" × ") : "1",
+      value: exactTestProduct(commonDivisors).toString()
+    },
+    lcmProduct: {
+      expression: allDivisors.length > 0 ? allDivisors.join(" × ") : "1",
+      value: exactTestProduct(allDivisors).toString()
+    }
+  };
+};
+
+const exactTestOperandsBoundToDivisionStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: HongKongEaseV4DerivationRow["steps"][number]
+): string[] => {
+  const parameters = step.parameters as Record<string, unknown>;
+  if (step.operation === "compose-structured-response") {
+    const inputs = step.inputStepIds.map((stepId) => row.steps.find((candidate) => candidate.stepId === stepId));
+    assert.equal(inputs.every(Boolean), true, `${row.baseId}: missing composed number-theory input`);
+    const valueArrays = inputs.map((input) => (input!.parameters as { values?: unknown }).values);
+    assert.equal(
+      valueArrays.every((values) => Array.isArray(values) && values.every((value) => typeof value === "string")),
+      true,
+      `${row.baseId}: composed number-theory input has no exact values`
+    );
+    for (const values of valueArrays.slice(1)) assert.deepEqual(values, valueArrays[0]);
+    return valueArrays[0] as string[];
+  }
+  if (Array.isArray(parameters.values) && parameters.values.every((value) => typeof value === "string")) {
+    return parameters.values as string[];
+  }
+  assert.ok(Array.isArray(parameters.operands), `${row.baseId}: division step has no source operands`);
+  return parameters.operands.map((operand) => {
+    const value = (operand as { value?: { numerator?: unknown; denominator?: unknown } }).value;
+    assert.ok(value, `${row.baseId}: division operand has no exact value`);
+    assert.equal(value?.denominator, "1", `${row.baseId}: division operand is not an integer`);
+    assert.equal(typeof value.numerator, "string", `${row.baseId}: division operand has no numerator`);
+    return value.numerator as string;
+  });
+};
+
+const exactTestRenderShortDivisionTrace = (trace: V4ShortDivisionTraceEntry[]): string => trace
+  .map((entry) => `${entry.before.join(",")} ÷${entry.divisor}→${entry.after.join(",")}`)
+  .join(" ");
+
+test("v4 design freezes the exact immutable v3 467/234 predecessor partition and old evidence tuples", () => {
+  const design = designJson as typeof designJson;
+  const weakRows = v3.questions.filter((row) => !row.rowSpecificDerivation);
+  const strongRows = v3.questions.filter((row) => row.rowSpecificDerivation);
+  const weakIds = weakRows.map((row) => row.baseId);
+  const strongIds = strongRows.map((row) => row.baseId);
+  const weakIdSet = new Set(weakIds);
+  const tuples: ClassificationTuple[] = weakRows.map((row) => {
+    const oldBasis = semanticRowById.get(row.baseId)?.reviewBasis;
+    assert.equal(typeof oldBasis, "string", `${row.baseId}: old review basis must resolve from immutable shards`);
+    assert.equal(
+      row.reviewMethodClassification,
+      oldBasis,
+      `${row.baseId}: v3 classification must be the exact old shard review basis`
+    );
+    return {
+      id: row.baseId,
+      oldClassification: row.reviewMethodClassification,
+      oldSolutionBasisSha256: sha256(JSON.stringify(oldBasis))
+    };
+  });
+  const expectedDistribution = Object.fromEntries(
+    [...new Set(tuples.map((tuple) => tuple.oldClassification))]
+      .sort()
+      .map((classification) => [
+        classification,
+        tuples.filter((tuple) => tuple.oldClassification === classification).length
+      ])
+  );
+
+  assert.equal(design.schemaVersion, "hk-ease-independent-oracle-v4-derivation-design-v2");
+  assert.equal(v3.schemaVersion, "hk-ease-independent-answer-oracle-v3");
+  assert.equal(
+    design.immutablePredecessor.sha256,
+    sha256(readFileSync(design.immutablePredecessor.path)),
+    "the immutable v3 bytes must remain exactly bound"
+  );
+  assert.equal(weakRows.length, 467);
+  assert.equal(strongRows.length, 234);
+  assert.equal(design.predecessorPartition.classificationOnlySet.count, 467);
+  assert.equal(design.predecessorPartition.rowSpecificSet.count, 234);
+  assert.equal(design.predecessorPartition.unionCount, new Set([...weakIds, ...strongIds]).size);
+  assert.equal(design.predecessorPartition.unionCount, 701);
+  assert.equal(design.predecessorPartition.intersectionCount, strongIds.filter((id) => weakIdSet.has(id)).length);
+  assert.equal(design.predecessorPartition.intersectionCount, 0);
+  assert.equal(design.predecessorPartition.classificationOnlySet.firstId, weakIds[0]);
+  assert.equal(design.predecessorPartition.classificationOnlySet.lastId, weakIds.at(-1));
+  assert.equal(
+    design.predecessorPartition.classificationOnlySet.orderedIdListSha256,
+    sha256(`${weakIds.join("\n")}\n`)
+  );
+  assert.equal(
+    design.predecessorPartition.classificationOnlySet.sortedIdListSha256,
+    sha256(`${[...weakIds].sort().join("\n")}\n`)
+  );
+  assert.equal(
+    design.predecessorPartition.classificationOnlySet.orderedTupleSha256,
+    sha256(JSON.stringify(tuples))
+  );
+  assert.equal(
+    design.predecessorPartition.classificationOnlySet.sortedTupleSha256,
+    sha256(JSON.stringify([...tuples].sort((left, right) => left.id.localeCompare(right.id))))
+  );
+  assert.deepEqual(
+    design.predecessorPartition.classificationOnlySet.oldClassificationDistribution,
+    expectedDistribution
+  );
+  assert.equal(
+    design.predecessorPartition.rowSpecificSet.orderedIdListSha256,
+    sha256(`${strongIds.join("\n")}\n`)
+  );
+  assert.equal(
+    design.predecessorPartition.rowSpecificSet.sortedIdListSha256,
+    sha256(`${[...strongIds].sort().join("\n")}\n`)
+  );
+});
+
+test("v4 design enforces a sanitized input, answer-blind executable derivation, then comparison-only join", () => {
+  const design = designJson as typeof designJson;
+  const layer1 = design.layer1SanitizedProblemInput;
+  const layer2 = design.layer2AnswerBlindDerivation;
+  const layer3 = design.layer3PostDerivationComparison;
+  const inputSerialization = layer1.problemPayloadCanonicalSerialization;
+  const forbiddenTokens = [
+    "question.answer",
+    "question.acceptedAnswers",
+    "question.explanationEn",
+    "question.explanationZh",
+    "responseContract",
+    "responsePolicy"
+  ];
+
+  assert.equal(layer1.requiredQuestionCount, 701);
+  assert.deepEqual(layer1.requiredPerRowFields, [
+    "index",
+    "baseId",
+    "type",
+    "prompt",
+    "options",
+    "diagram",
+    "problemPayloadSha256"
+  ]);
+  for (const token of forbiddenTokens) {
+    assert.equal(inputSerialization.includes(token), false, `sanitized serialization must exclude ${token}`);
+  }
+  assert.deepEqual(layer1.forbiddenKeysAtAnyDepth, [
+    "answer",
+    "acceptedAnswers",
+    "explanation",
+    "explanationEn",
+    "explanationZh",
+    "responseContract",
+    "responsePolicy",
+    "productionResponse"
+  ]);
+  assert.deepEqual(layer2.allowedDataInputPaths, [layer1.artifactPath]);
+  assert.equal(layer2.forbiddenDataInputPaths.includes(layer1.sourcePath), true);
+  assert.equal(layer2.generationProhibition.includes("must not import, read, receive, or derive"), true);
+  assert.equal(layer2.answerIndependenceInvariant.includes("byte-identical supplement output"), true);
+  assert.equal(layer2.factContract.includes("row-local locator"), true);
+  assert.equal(layer2.stepContract.includes("executable typed operation"), true);
+  assert.equal(layer2.multipleChoiceContract.includes("every option index exactly once"), true);
+  assert.equal(layer2.multipleChoiceContract.includes("exactly one option is true"), true);
+  assert.equal(layer3.comparisonBoundary.includes("Only this layer"), true);
+  assert.equal(layer3.comparisonBoundary.includes("cannot rewrite or regenerate"), true);
+  assert.equal(layer3.joinInputs.includes(layer1.artifactPath), true);
+  assert.equal(layer3.joinInputs.includes(layer2.supplementPath), true);
+  assert.equal(layer3.comparisonOnlyPerRowFields.includes("answerPayloadSha256"), true);
+  assert.equal(layer3.comparisonOnlyPerRowFields.includes("responsePolicyPayloadSha256"), true);
+  assert.equal(layer2.requiredPerRowFields.includes("answerPayloadSha256"), false);
+  assert.equal(layer2.requiredPerRowFields.includes("responsePolicyPayloadSha256"), false);
+  assert.equal(design.requiredMutationMatrix.productionAnswerWrongComparisonOnly, 701);
+  assert.equal(design.requiredMutationMatrix.productionAnswerBlankDerivationByteIdentity, 701);
+  assert.equal(design.requiredMutationMatrix.promptMutation, 701);
+  assert.equal(design.requiredMutationMatrix.multipleChoiceOptionPayloadAndOrderMutation, 90);
+  assert.equal(design.requiredMutationMatrix.answerOnlyReplay, 701);
+  assert.equal(design.requiredMutationMatrix.genericCategoryProse, 701);
+});
+
+test("v4 Layer 2 derives every one of the 701 sanitized rows without answer-bearing input", () => {
+  const supplement = buildHongKongEaseV4DerivationSupplement(
+    sanitizedInputJson as HongKongEaseV4SanitizedInput
+  );
+
+  assert.equal(supplement.questionCount, 701);
+  assert.equal(supplement.rows.length, 701);
+  assert.equal(supplement.rowSpecificDerivationCount, 701);
+  assert.equal(supplement.multipleChoiceCount, 90);
+  assert.equal(
+    supplement.rows.filter((row) => row.optionAdjudications.length > 0).length,
+    90
+  );
+});
+
+test("v4 row389 HCF-only evidence stops at gcd one and omits unrelated LCM fields", () => {
+  const generated = buildHongKongEaseV4DerivationSupplement(
+    sanitizedInputJson as HongKongEaseV4SanitizedInput
+  );
+  const row = generated.rows[389];
+  const evidence = shortDivisionProductEvidenceForTest(row);
+
+  assert.equal(row.baseId, "hk-ease-1102");
+  assert.ok(evidence);
+  assert.equal(evidence.trace.every((entry) => entry.dividesEveryCurrentValue), true);
+  assert.deepEqual(evidence.products.commonDivisors, ["2", "2", "7"]);
+  assert.equal(evidence.products.hcfProduct.expression, "2 × 2 × 7");
+  assert.equal(evidence.products.hcfProduct.value, "28");
+  assert.deepEqual(Object.keys(evidence.products).sort(), ["commonDivisors", "hcfProduct"]);
+  assert.equal(evidence.products.allDivisors, undefined);
+  assert.equal(evidence.products.lcmProduct, undefined);
+});
+
+test("v4 exact 14 short-division product rows have correct HCF and only the 10 LCM-request rows carry correct LCM", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  let productRowCount = 0;
+  let hcfOnlyRowCount = 0;
+  let lcmRequestRowCount = 0;
+
+  for (const row of generated.rows) {
+    const evidence = shortDivisionProductEvidenceForTest(row);
+    if (!evidence) continue;
+    productRowCount += 1;
+    assert.ok(evidence.trace.length > 0, `${row.baseId}: missing short-division trace`);
+    const initialValues = evidence.trace[0].before.map(BigInt);
+    const expectedGcd = exactTestGcd(...initialValues).toString();
+    const { products } = evidence;
+
+    assert.equal(products.hcfProduct.expression, products.commonDivisors.join(" × "), `${row.baseId}: HCF expression/factors drift`);
+    assert.equal(exactTestProduct(products.commonDivisors).toString(), products.hcfProduct.value, `${row.baseId}: HCF expression product drift`);
+    assert.equal(products.hcfProduct.value, expectedGcd, `${row.baseId}: HCF product is not gcd(values)`);
+    const lcmRequested = /L\.?C\.?M\.?/i.test(sanitized.rows[row.index].prompt.en);
+    if (lcmRequested) {
+      lcmRequestRowCount += 1;
+      assert.deepEqual(Object.keys(products).sort(), ["allDivisors", "commonDivisors", "hcfProduct", "lcmProduct"]);
+      assert.ok(products.allDivisors);
+      assert.ok(products.lcmProduct);
+      assert.equal(products.lcmProduct.expression, products.allDivisors.join(" × "), `${row.baseId}: LCM expression/factors drift`);
+      assert.equal(exactTestProduct(products.allDivisors).toString(), products.lcmProduct.value, `${row.baseId}: LCM expression product drift`);
+      assert.equal(products.lcmProduct.value, exactTestLcm(...initialValues).toString(), `${row.baseId}: LCM product is not lcm(values)`);
+    } else {
+      hcfOnlyRowCount += 1;
+      assert.deepEqual(Object.keys(products).sort(), ["commonDivisors", "hcfProduct"], `${row.baseId}: HCF-only schema carries unrelated fields`);
+      assert.equal(products.allDivisors, undefined);
+      assert.equal(products.lcmProduct, undefined);
+    }
+    const stepSemantic = (evidence.step.output as { semanticValue?: { divisionProducts?: unknown } }).semanticValue;
+    if (stepSemantic !== undefined) {
+      assert.deepEqual(
+        stepSemantic.divisionProducts,
+        products,
+        `${row.baseId}: step output does not bind the product evidence`
+      );
+    }
+    assert.deepEqual(
+      (row.computedResult.semanticValue as { divisionProducts?: unknown }).divisionProducts,
+      products,
+      `${row.baseId}: computed result does not bind the product evidence`
+    );
+  }
+
+  assert.equal(productRowCount, 14);
+  assert.equal(hcfOnlyRowCount, 4);
+  assert.equal(lcmRequestRowCount, 10);
+});
+
+test("v4 exact 14 short-division traces and all semantic replicas bind their original typed operands", () => {
+  const generated = buildHongKongEaseV4DerivationSupplement(
+    sanitizedInputJson as HongKongEaseV4SanitizedInput
+  );
+  let productRowCount = 0;
+  let composedRowCount = 0;
+  let domainRowCount = 0;
+
+  for (const row of generated.rows) {
+    const evidence = shortDivisionProductEvidenceForTest(row);
+    if (!evidence) continue;
+    productRowCount += 1;
+    if (evidence.step.operation === "compose-structured-response") composedRowCount += 1;
+    if (evidence.step.operation === "apply-domain-rule") domainRowCount += 1;
+    const expectedOperands = exactTestOperandsBoundToDivisionStep(row, evidence.step);
+    assert.deepEqual(evidence.trace[0].before, expectedOperands, `${row.baseId}: trace initial operands drifted`);
+
+    const semanticReplicas = [
+      (evidence.step.output as { semanticValue?: Record<string, unknown> }).semanticValue,
+      row.computedResult.semanticValue as Record<string, unknown>
+    ].filter((semantic): semantic is Record<string, unknown> => semantic !== undefined);
+    for (const semantic of semanticReplicas) {
+      assert.deepEqual(semantic.shortDivisionTrace, evidence.trace, `${row.baseId}: semantic trace replica drifted`);
+      assert.deepEqual(semantic.divisionProducts, evidence.products, `${row.baseId}: semantic products replica drifted`);
+      const semanticOperands = semantic.operands ?? semantic.values;
+      if (semanticOperands !== undefined) {
+        assert.deepEqual(semanticOperands, expectedOperands, `${row.baseId}: semantic operand replica drifted`);
+      }
+    }
+  }
+
+  assert.equal(productRowCount, 14);
+  assert.equal(composedRowCount, 6);
+  assert.equal(domainRowCount, 8);
+});
+
+test("v4 validator rejects exact6 fully rehashed short-division operand transplants with unchanged HCF and LCM", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  const combinedRows = generated.rows.filter((row) =>
+    shortDivisionProductEvidenceForTest(row)?.step.operation === "compose-structured-response"
+  );
+  let rejectedMutationCount = 0;
+
+  assert.equal(combinedRows.length, 6);
+  for (const baseline of combinedRows) {
+    const supplement = structuredClone(generated);
+    const row = supplement.rows[baseline.index];
+    const evidence = shortDivisionProductEvidenceForTest(row);
+    assert.ok(evidence);
+    const originalOperands = evidence.trace[0].before;
+    const gcd = exactTestGcd(...originalOperands.map(BigInt)).toString();
+    const lcm = exactTestLcm(...originalOperands.map(BigInt)).toString();
+    const transplantedOperands = [gcd, lcm, lcm];
+    assert.notDeepEqual(transplantedOperands, originalOperands);
+    assert.equal(exactTestGcd(...transplantedOperands.map(BigInt)).toString(), gcd);
+    assert.equal(exactTestLcm(...transplantedOperands.map(BigInt)).toString(), lcm);
+
+    const transplantedTrace = exactTestCompleteShortDivisionTrace(transplantedOperands);
+    const transplantedProducts = exactTestDivisionProducts(transplantedTrace);
+    const parameters = evidence.step.parameters as Record<string, unknown>;
+    parameters.shortDivisionTrace = transplantedTrace;
+    parameters.divisionProducts = transplantedProducts;
+    const requirements = parameters.promptRequirements as { components: string[] };
+    let responseText = `${exactTestRenderShortDivisionTrace(transplantedTrace)}; H.C.F. = ${gcd}; L.C.M. = ${lcm}`;
+    if (requirements.components.includes("common-divisor-product")) {
+      responseText += `; H.C.F. product: ${transplantedProducts.hcfProduct.expression} = ${transplantedProducts.hcfProduct.value}`;
+    }
+    if (requirements.components.includes("all-divisor-product")) {
+      responseText += `; L.C.M. product: ${transplantedProducts.lcmProduct!.expression} = ${transplantedProducts.lcmProduct!.value}`;
+    }
+    (evidence.step.output as { responseText: string }).responseText = responseText;
+    row.computedResult.responseText = responseText;
+    const semantic = row.computedResult.semanticValue as Record<string, unknown>;
+    semantic.operands = transplantedOperands;
+    semantic.gcd = gcd;
+    semantic.lcm = lcm;
+    semantic.factorizations = exactTestFactorizationRecords(transplantedOperands);
+    semantic.shortDivisionTrace = transplantedTrace;
+    semantic.divisionProducts = transplantedProducts;
+    rehashV4Row(row);
+    rehashV4Supplement(supplement);
+
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, supplement),
+      /V4_(?:STEP_INPUT_BINDING_INVALID|STEP_EXECUTION_INVALID|STEP_OUTPUT_INVALID)/,
+      `${row.baseId}: a self-consistent trace over unrelated operands must fail closed`
+    );
+    rejectedMutationCount += 1;
+  }
+
+  assert.equal(rejectedMutationCount, 6);
+});
+
+test("v4 validator rejects exact6 fully rehashed opaque factorization drift", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  const combinedRows = generated.rows.filter((row) =>
+    shortDivisionProductEvidenceForTest(row)?.step.operation === "compose-structured-response"
+  );
+  let rejectedMutationCount = 0;
+
+  assert.equal(combinedRows.length, 6);
+  for (const baseline of combinedRows) {
+    const supplement = structuredClone(generated);
+    const row = supplement.rows[baseline.index];
+    const semantic = row.computedResult.semanticValue as {
+      factorizations?: Array<{ value: string; factors: V4TestPrimeFactor[]; rendered: string }>;
+    };
+    assert.ok(semantic.factorizations?.length);
+    semantic.factorizations[0] = exactTestFactorizationRecords(["999"])[0];
+    rehashV4Row(row);
+    rehashV4Supplement(supplement);
+
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, supplement),
+      /V4_(?:STEP_INPUT_BINDING_INVALID|STEP_EXECUTION_INVALID|STEP_OUTPUT_INVALID)/,
+      `${row.baseId}: an opaque self-consistent factorization of another operand must fail closed`
+    );
+    rejectedMutationCount += 1;
+  }
+
+  assert.equal(rejectedMutationCount, 6);
+});
+
+test("v4 validator rejects the four historical common-only products masquerading as LCM evidence", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  const affectedBaseIds = ["hk-ease-1099", "hk-ease-1100", "hk-ease-1101", "hk-ease-1102"];
+  let rejectedMutationCount = 0;
+
+  for (const baseId of affectedBaseIds) {
+    const baseline = generated.rows.find((row) => row.baseId === baseId);
+    assert.ok(baseline);
+    const row = structuredClone(baseline);
+    const evidence = shortDivisionProductEvidenceForTest(row);
+    assert.ok(evidence);
+    const commonOnly = [...evidence.products.commonDivisors];
+    const wrongLcmValue = exactTestProduct(commonOnly).toString();
+    const wrongProducts: V4ShortDivisionProductEvidence = {
+      ...structuredClone(evidence.products),
+      allDivisors: commonOnly,
+      lcmProduct: {
+        expression: commonOnly.join(" × "),
+        value: wrongLcmValue
+      }
+    };
+    (evidence.step.parameters as Record<string, unknown>).divisionProducts = structuredClone(wrongProducts);
+    (evidence.step.output as { semanticValue: Record<string, unknown> }).semanticValue.divisionProducts = structuredClone(wrongProducts);
+    (row.computedResult.semanticValue as Record<string, unknown>).divisionProducts = structuredClone(wrongProducts);
+    rehashV4Row(row);
+
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[row.index], row),
+      /V4_(?:STEP_INPUT_BINDING_INVALID|STEP_EXECUTION_INVALID|DOMAIN_RULE_OUTPUT_INVALID)/,
+      `${baseId}: common-only factors must not be accepted as an LCM product`
+    );
+    rejectedMutationCount += 1;
+  }
+
+  assert.equal(rejectedMutationCount, 4);
+});
+
+test("v4 checked-in Layer 2 supplement is byte-identical to two deterministic current-source builds", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const first = renderHongKongEaseV4DerivationSupplement(
+    buildHongKongEaseV4DerivationSupplement(sanitized)
+  );
+  const second = renderHongKongEaseV4DerivationSupplement(
+    buildHongKongEaseV4DerivationSupplement(sanitized)
+  );
+  assert.equal(first, second);
+  assert.equal(
+    first,
+    readFileSync(
+      join(
+        process.cwd(),
+        "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json"
+      ),
+      "utf8"
+    )
+  );
+});
+
+test("v4 Layer 2 source contains no answer-index shortcuts or bare numeric result replay", () => {
+  const builderSource = readFileSync(
+    join(process.cwd(), "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts"),
+    "utf8"
+  );
+  for (const forbiddenIdentifier of [
+    "MC_STATEMENT_TRUTHS",
+    "MC_SYMBOLIC_EXPECTED",
+    "specialExpectedIndex",
+    "row-specific-mc-rule"
+  ]) {
+    assert.equal(
+      builderSource.includes(forbiddenIdentifier),
+      false,
+      `Layer 2 must not contain ${forbiddenIdentifier}`
+    );
+  }
+  assert.equal(
+    /expression:\s*"\d+"/.test(builderSource),
+    false,
+    "a bare numeric result is not an executable derivation expression"
+  );
+});
+
+test("v4 Layer 2 rejects any drift in the exact frozen sanitized payload before deriving", () => {
+  const original = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const promptMutated = structuredClone(original);
+  promptMutated.rows[0].prompt.en = `${promptMutated.rows[0].prompt.en} `;
+  assert.throws(
+    () => buildHongKongEaseV4DerivationSupplement(promptMutated),
+    /V4_PROMPT_BINDING_DRIFT/
+  );
+
+  const rowHashMutated = structuredClone(original);
+  rowHashMutated.rows[0].problemPayloadSha256 = "0".repeat(64);
+  assert.throws(
+    () => buildHongKongEaseV4DerivationSupplement(rowHashMutated),
+    /V4_PROMPT_BINDING_DRIFT/
+  );
+
+  const orderMutated = structuredClone(original);
+  [orderMutated.rows[0], orderMutated.rows[1]] = [orderMutated.rows[1], orderMutated.rows[0]];
+  assert.throws(
+    () => buildHongKongEaseV4DerivationSupplement(orderMutated),
+    /V4_QUESTION_ORDER_DRIFT/
+  );
+});
+
+test("v4 independent executor rejects computed-result replay on each of the exact 701 rows", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  validateHongKongEaseV4DerivationSupplement(sanitized, baseline);
+
+  let executedMutations = 0;
+  for (let rowIndex = 0; rowIndex < baseline.rows.length; rowIndex += 1) {
+    const mutated = structuredClone(baseline);
+    const row = mutated.rows[rowIndex];
+    row.computedResult.responseText = `${row.computedResult.responseText} [answer-only-replay]`;
+    rehashV4Row(row);
+    rehashV4Supplement(mutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, mutated),
+      /(?:V4_STEP_(?:EXECUTION|OUTPUT)_INVALID|V4_OPTION_ADJUDICATION_INVALID)/,
+      `${row.baseId}: recomputed row hash must not hide a replayed result`
+    );
+    executedMutations += 1;
+  }
+  assert.equal(executedMutations, 701);
+});
+
+test("v4 independent MC evaluator rejects a self-consistent truth/index replay for all exact 90 MC rows", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  let executedMutations = 0;
+  for (const baselineRow of baseline.rows.filter((row) => row.optionAdjudications.length > 0)) {
+    const mutated = structuredClone(baseline);
+    const row = mutated.rows[baselineRow.index];
+    const formerlyTrue = row.optionAdjudications.find((entry) => entry.truth)!;
+    const replayed = row.optionAdjudications.find((entry) => !entry.truth)!;
+    formerlyTrue.truth = false;
+    replayed.truth = true;
+    const selectStep = row.steps.find((step) => step.operation === "select-unique-option")!;
+    selectStep.parameters.optionAdjudications = row.optionAdjudications;
+    selectStep.output = {
+      correctIndex: replayed.index,
+      responseText: replayed.localizedOption.en
+    };
+    row.computedResult = {
+      kind: "response-text",
+      responseText: replayed.localizedOption.en,
+      semanticValue: {
+        correctIndex: replayed.index,
+        localizedOption: replayed.localizedOption
+      }
+    };
+    rehashV4Row(row);
+    rehashV4Supplement(mutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, mutated),
+      /V4_OPTION_ADJUDICATION_INVALID/,
+      `${row.baseId}: MC truth must be recomputed from the option claim, not replayed fields`
+    );
+    executedMutations += 1;
+  }
+  assert.equal(executedMutations, 90);
+});
+
+test("v4 executor binds every expression step to its located fact instead of accepting an unrelated replay", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const mutated = structuredClone(
+    derivationSupplementJson as HongKongEaseV4DerivationSupplement
+  );
+  const row = mutated.rows.find((candidate) => candidate.baseId === "hk-ease-10629")!;
+  const expressionStep = row.steps.find(
+    (step) => step.operation === "evaluate-rational-expression"
+  )!;
+  const replay = evaluateExactExpression("1+1");
+
+  expressionStep.parameters = {
+    expression: "1+1",
+    ast: replay.ast
+  };
+  expressionStep.output = {
+    value: replay.value.toJson(),
+    operationTrace: replay.trace
+  };
+  const finalStep = row.steps.at(-1)!;
+  finalStep.output = { responseText: "2" };
+  row.computedResult = {
+    kind: "response-text",
+    responseText: "2",
+    semanticValue: replay.value.toJson()
+  };
+  rehashV4Row(row);
+  rehashV4Supplement(mutated);
+
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, mutated),
+    /V4_STEP_INPUT_BINDING_INVALID:hk-ease-10629:s1/,
+    "a self-consistent 1+1 replay must not replace the located 450-(120+85) fact"
+  );
+});
+
+test("v4 executor rejects an unsupported domain rule output even when output and computed result agree", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const mutated = structuredClone(
+    derivationSupplementJson as HongKongEaseV4DerivationSupplement
+  );
+  const row = mutated.rows.find((candidate) => candidate.baseId === "hk-ease-10582")!;
+  const domainStep = row.steps.find((step) => step.operation === "apply-domain-rule")!;
+
+  domainStep.output = {
+    responseText: "definitely-wrong-unit",
+    semanticValue: { unit: "definitely-wrong-unit" }
+  };
+  row.computedResult = {
+    kind: "response-text",
+    responseText: "definitely-wrong-unit",
+    semanticValue: { unit: "definitely-wrong-unit" }
+  };
+  rehashV4Row(row);
+  rehashV4Supplement(mutated);
+
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, mutated),
+    /V4_DOMAIN_RULE_(?:UNSUPPORTED|OUTPUT_INVALID):hk-ease-10582:s1/,
+    "select-area-unit-v1 must be executed from its located object and magnitude facts"
+  );
+});
+
+test("v4 executor rejects coherent final-output replay across every non-MC final operation family", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  const expectedResponseTextFinalCounts = {
+    "apply-area-formula": 2,
+    "apply-domain-rule": 203,
+    "apply-multiplication-property": 1,
+    "compare-rationals": 16,
+    "compose-estimate-and-exact": 1,
+    "compose-structured-response": 47,
+    "evaluate-rational-expression": 4,
+    "render-rational": 320,
+    "sort-rationals": 4,
+    "test-divisibility": 1
+  } as const;
+  const observedResponseTextFinalCounts = new Map<string, number>();
+  const acceptedMutations: string[] = [];
+  let responseTextMutations = 0;
+  let expressionOnlyMutations = 0;
+
+  for (const baselineRow of baseline.rows.filter((row) => row.optionAdjudications.length === 0)) {
+    const mutated = structuredClone(baseline);
+    const row = mutated.rows[baselineRow.index];
+    const finalStep = row.steps.at(-1)!;
+    const output = finalStep.output as Record<string, unknown>;
+    if (typeof output.responseText === "string") {
+      const mutatedResponseText = `${output.responseText} [coherent-wrong-output]`;
+      output.responseText = mutatedResponseText;
+      row.computedResult.responseText = mutatedResponseText;
+      responseTextMutations += 1;
+      observedResponseTextFinalCounts.set(
+        finalStep.operation,
+        (observedResponseTextFinalCounts.get(finalStep.operation) ?? 0) + 1
+      );
+    } else if (
+      row.derivationKind === "natural-language-expression-only" &&
+      typeof output.displayExpression === "string"
+    ) {
+      const mutatedDisplayExpression = `${output.displayExpression} + 0`;
+      output.displayExpression = mutatedDisplayExpression;
+      row.computedResult.responseText = mutatedDisplayExpression;
+      expressionOnlyMutations += 1;
+    } else {
+      continue;
+    }
+    rehashV4Row(row);
+    rehashV4Supplement(mutated);
+    try {
+      validateHongKongEaseV4DerivationSupplement(sanitized, mutated);
+      acceptedMutations.push(`${row.baseId}:${finalStep.operation}`);
+    } catch (error) {
+      assert.equal(error instanceof HongKongEaseV4ValidationError, true);
+      assert.equal(
+        (error as HongKongEaseV4ValidationError).baseId,
+        row.baseId,
+        `${row.baseId}: mutation must fail on the mutated row, not an unrelated baseline row`
+      );
+      assert.match(
+        String(error),
+        /V4_(?:STEP_INPUT_BINDING|STEP_OUTPUT|DOMAIN_RULE_(?:UNSUPPORTED|OUTPUT)|STEP_EXECUTION)_INVALID/,
+        `${row.baseId}: tamper must fail with a stable executor code`
+      );
+    }
+  }
+
+  assert.equal(responseTextMutations, 599);
+  assert.equal(expressionOnlyMutations, 4);
+  assert.deepEqual(
+    Object.fromEntries([...observedResponseTextFinalCounts].sort()),
+    expectedResponseTextFinalCounts
+  );
+  assert.deepEqual(
+    acceptedMutations,
+    [],
+    `executor accepted coherent wrong outputs: ${acceptedMutations.join(", ")}`
+  );
+});
+
+test("v4 domain executor closes the exact 222-step 92-rule registry and rejects parameter/output shape drift", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  validateHongKongEaseV4DerivationSupplement(sanitized, baseline);
+
+  const domainCoordinates = baseline.rows.flatMap((row) =>
+    row.steps.flatMap((step, stepIndex) =>
+      step.operation === "apply-domain-rule"
+        ? [{ rowIndex: row.index, stepIndex, ruleId: String(step.parameters.ruleId) }]
+        : []
+    )
+  );
+  assert.equal(domainCoordinates.length, 222);
+  assert.equal(new Set(domainCoordinates.map((entry) => entry.ruleId)).size, 92);
+
+  for (const coordinate of domainCoordinates) {
+    const outputMutated = structuredClone(baseline);
+    const outputRow = outputMutated.rows[coordinate.rowIndex];
+    const outputStep = outputRow.steps[coordinate.stepIndex];
+    outputStep.output = {
+      ...(outputStep.output as Record<string, unknown>),
+      coherentWrongOutputShape: true
+    };
+    rehashV4Row(outputRow);
+    rehashV4Supplement(outputMutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, outputMutated),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.baseId === outputRow.baseId &&
+        error.code === "V4_DOMAIN_RULE_OUTPUT_INVALID",
+      `${outputRow.baseId}:${coordinate.ruleId}: an independently unexecuted output field must fail closed`
+    );
+
+    const parameterMutated = structuredClone(baseline);
+    const parameterRow = parameterMutated.rows[coordinate.rowIndex];
+    const parameterStep = parameterRow.steps[coordinate.stepIndex];
+    parameterStep.parameters = {
+      ...parameterStep.parameters,
+      coherentWrongParameterShape: true
+    };
+    rehashV4Row(parameterRow);
+    rehashV4Supplement(parameterMutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, parameterMutated),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.baseId === parameterRow.baseId &&
+        error.code === "V4_STEP_INPUT_BINDING_INVALID",
+      `${parameterRow.baseId}:${coordinate.ruleId}: an unbound rule parameter must fail closed`
+    );
+  }
+
+  const unknownRule = structuredClone(baseline);
+  const unknownRow = unknownRule.rows.find((row) => row.baseId === "hk-ease-10582")!;
+  const unknownStep = unknownRow.steps.find((step) => step.operation === "apply-domain-rule")!;
+  unknownStep.parameters.ruleId = "unregistered-self-consistent-domain-rule-v1";
+  rehashV4Row(unknownRow);
+  rehashV4Supplement(unknownRule);
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, unknownRule),
+    /V4_DOMAIN_RULE_UNSUPPORTED:hk-ease-10582:s1/
+  );
+
+  const missingFact = structuredClone(baseline);
+  const missingFactRow = missingFact.rows.find((row) => row.baseId === "hk-ease-10410")!;
+  const missingFactStep = missingFactRow.steps.find((step) => step.operation === "apply-domain-rule")!;
+  missingFactStep.inputFactIds = missingFactStep.inputFactIds.slice(1);
+  rehashV4Row(missingFactRow);
+  rehashV4Supplement(missingFact);
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, missingFact),
+    /V4_STEP_INPUT_BINDING_INVALID:hk-ease-10410:s1/
+  );
+});
+
+test("v4 executor binds every numeric final operand to located facts and prior evaluated values", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  const expectedFinalCounts = {
+    "compute-gcd": 5,
+    "compute-lcm": 3
+  } as const;
+  const observedFinalCounts = new Map<string, number>();
+  const acceptedMutations: string[] = [];
+
+  for (const baselineRow of baseline.rows) {
+    const baselineFinalStep = baselineRow.steps.at(-1)!;
+    if (baselineFinalStep.operation !== "compute-gcd" && baselineFinalStep.operation !== "compute-lcm") {
+      continue;
+    }
+    const mutated = structuredClone(baseline);
+    const row = mutated.rows[baselineRow.index];
+    const finalStep = row.steps.at(-1)!;
+    const originalValues = finalStep.parameters.values as unknown[];
+    const coherentWrongValues = originalValues.map(() => "1");
+    finalStep.parameters = {
+      ...finalStep.parameters,
+      values: coherentWrongValues
+    };
+    finalStep.output = { value: "1" };
+    row.computedResult = {
+      kind: "response-text",
+      responseText: "1",
+      semanticValue: {
+        operation: finalStep.operation === "compute-gcd" ? "gcd" : "lcm",
+        operands: coherentWrongValues,
+        result: "1"
+      }
+    };
+    rehashV4Row(row);
+    rehashV4Supplement(mutated);
+    observedFinalCounts.set(
+      finalStep.operation,
+      (observedFinalCounts.get(finalStep.operation) ?? 0) + 1
+    );
+    try {
+      validateHongKongEaseV4DerivationSupplement(sanitized, mutated);
+      acceptedMutations.push(`${row.baseId}:${finalStep.operation}`);
+    } catch (error) {
+      assert.equal(error instanceof HongKongEaseV4ValidationError, true);
+      assert.equal((error as HongKongEaseV4ValidationError).baseId, row.baseId);
+      assert.equal(
+        (error as HongKongEaseV4ValidationError).code,
+        "V4_STEP_INPUT_BINDING_INVALID"
+      );
+    }
+  }
+
+  assert.deepEqual(
+    Object.fromEntries([...observedFinalCounts].sort()),
+    expectedFinalCounts
+  );
+  assert.deepEqual(
+    acceptedMutations,
+    [],
+    `executor accepted fact-disconnected numeric finals: ${acceptedMutations.join(", ")}`
+  );
+});
+
+test("v4 executor closes every number-theory step parameter and output shape", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  const expectedOperationCounts = {
+    "compute-gcd": 37,
+    "compute-integer-square-root": 3,
+    "compute-lcm": 34,
+    "prime-factorize": 32
+  } as const;
+  const coordinates = baseline.rows.flatMap((row) =>
+    row.steps.flatMap((step, stepIndex) =>
+      Object.hasOwn(expectedOperationCounts, step.operation)
+        ? [{ rowIndex: row.index, stepIndex, operation: step.operation }]
+        : []
+    )
+  );
+  const observedOperationCounts = Object.fromEntries(
+    Object.keys(expectedOperationCounts).map((operation) => [
+      operation,
+      coordinates.filter((entry) => entry.operation === operation).length
+    ])
+  );
+  assert.deepEqual(observedOperationCounts, expectedOperationCounts);
+
+  for (const coordinate of coordinates) {
+    const parameterMutated = structuredClone(baseline);
+    const parameterRow = parameterMutated.rows[coordinate.rowIndex];
+    const parameterStep = parameterRow.steps[coordinate.stepIndex];
+    parameterStep.parameters = {
+      ...parameterStep.parameters,
+      coherentWrongParameterShape: true
+    };
+    rehashV4Row(parameterRow);
+    rehashV4Supplement(parameterMutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, parameterMutated),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.baseId === parameterRow.baseId &&
+        error.code === "V4_STEP_INPUT_BINDING_INVALID",
+      `${parameterRow.baseId}:${parameterStep.stepId}: unbound number-theory parameters must fail closed`
+    );
+
+    const outputMutated = structuredClone(baseline);
+    const outputRow = outputMutated.rows[coordinate.rowIndex];
+    const outputStep = outputRow.steps[coordinate.stepIndex];
+    outputStep.output = {
+      ...(outputStep.output as Record<string, unknown>),
+      coherentWrongOutputShape: true
+    };
+    rehashV4Row(outputRow);
+    rehashV4Supplement(outputMutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(sanitized, outputMutated),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.baseId === outputRow.baseId &&
+        error.code === "V4_STEP_OUTPUT_INVALID",
+      `${outputRow.baseId}:${outputStep.stepId}: unexecuted number-theory output fields must fail closed`
+    );
+  }
+});
+
+test("v4 three-layer artifact paths are all present", () => {
+  const design = designJson as typeof designJson;
+  for (const requiredPath of [
+    design.layer1SanitizedProblemInput.builderPath,
+    design.layer1SanitizedProblemInput.artifactPath,
+    design.layer2AnswerBlindDerivation.builderPath,
+    design.layer2AnswerBlindDerivation.supplementPath,
+    design.layer3PostDerivationComparison.builderPath,
+    design.layer3PostDerivationComparison.validatorPath,
+    design.layer3PostDerivationComparison.oraclePath
+  ]) {
+    assert.equal(
+      existsSync(join(process.cwd(), requiredPath)),
+      true,
+      `${requiredPath}: v4 package artifact must exist`
+    );
+  }
+});
+
+test("v4 checked-in Layer 3 oracle is byte-identical to the current source-bound builder output", () => {
+  assertHongKongEaseV4LiveSourceBytes();
+  const rebuilt = buildHongKongEaseIndependentOracleV4();
+  const rebuiltAgain = buildHongKongEaseIndependentOracleV4();
+  assert.equal(
+    renderHongKongEaseIndependentOracleV4(rebuiltAgain),
+    renderHongKongEaseIndependentOracleV4(rebuilt),
+    "two current-source generations must be byte-identical"
+  );
+  assert.deepEqual(rebuilt, v4OracleJson);
+  assert.equal(
+    renderHongKongEaseIndependentOracleV4(rebuilt),
+    readFileSync(join(process.cwd(), HK_EASE_V4_ORACLE_PATH), "utf8")
+  );
+});
+
+test("v4 Layer 3 rejects a corrupted production answer corpus for each of the exact 701 rows", () => {
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  const oracle = v4OracleJson as { rows: Array<{ activeId: string }> };
+  const questions = (questionPackJson as { questions: V4ProductionQuestion[] }).questions;
+  assert.equal(questions.length, 701);
+  assert.equal(oracle.rows.length, 701);
+
+  for (let index = 0; index < 701; index += 1) {
+    const question = questions[index];
+    const row = baseline.rows[index];
+    assert.equal(question.id, row.baseId);
+    assert.throws(
+      () => compareHongKongEaseV4DerivedRowToProduction(
+        {
+          ...question,
+          answer: "__corrupted_production_answer__",
+          acceptedAnswers: ["__corrupted_production_answer__"]
+        },
+        row,
+        { kind: "strict", contract: {} },
+        oracle.rows[index].activeId,
+        () => false
+      ),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.baseId === row.baseId &&
+        error.code === "V4_DERIVED_ANSWER_MISMATCH",
+      `${row.baseId}: a corrupted production answer corpus must fail comparison-only join`
+    );
+  }
+});
+
+test("v4 row validator rejects every one-position cross-row derivation transplant", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  for (let index = 0; index < 701; index += 1) {
+    const transplanted = baseline.rows[(index + 1) % 701];
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[index], transplanted),
+      (error: unknown) =>
+        error instanceof HongKongEaseV4ValidationError &&
+        error.code === "V4_QUESTION_ORDER_DRIFT",
+      `${sanitized.rows[index].baseId}: adjacent derivation transplant must fail closed`
+    );
+  }
+});
+
+test("v4 pass-2 validator fails closed on sanitized answer leakage and supplement envelope drift", () => {
+  const baselineSanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baselineSupplement = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  validateHongKongEaseV4DerivationSupplement(baselineSanitized, baselineSupplement);
+
+  const leakedSanitized = structuredClone(baselineSanitized) as HongKongEaseV4SanitizedInput & {
+    answer: string;
+  };
+  leakedSanitized.answer = "forbidden-production-answer";
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(leakedSanitized, baselineSupplement),
+    /V4_SANITIZED_INPUT_FORBIDDEN_KEY/
+  );
+
+  const envelopeMutations: Array<{
+    label: string;
+    mutate: (supplement: HongKongEaseV4DerivationSupplement) => void;
+  }> = [
+    {
+      label: "schemaVersion",
+      mutate: (supplement) => {
+        supplement.schemaVersion = "wrong-schema" as never;
+      }
+    },
+    {
+      label: "status",
+      mutate: (supplement) => {
+        supplement.status = "unreviewed-drift" as never;
+      }
+    },
+    {
+      label: "sourceSha256",
+      mutate: (supplement) => {
+        supplement.sourceSha256 = "0".repeat(64) as never;
+      }
+    },
+    {
+      label: "orderedBaseIdSha256",
+      mutate: (supplement) => {
+        supplement.orderedBaseIdSha256 = "0".repeat(64);
+      }
+    },
+    {
+      label: "multipleChoiceCount",
+      mutate: (supplement) => {
+        supplement.multipleChoiceCount = 89 as never;
+      }
+    },
+    {
+      label: "diagramCount",
+      mutate: (supplement) => {
+        supplement.diagramCount = 1 as never;
+      }
+    },
+    {
+      label: "rowSpecificDerivationCount",
+      mutate: (supplement) => {
+        supplement.rowSpecificDerivationCount = 700 as never;
+      }
+    }
+  ];
+  for (const mutation of envelopeMutations) {
+    const mutated = structuredClone(baselineSupplement);
+    mutation.mutate(mutated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationSupplement(baselineSanitized, mutated),
+      /V4_(?:SOURCE_LINEAGE_DRIFT|QUESTION_ORDER_DRIFT|OPTION_ADJUDICATION_INVALID|NON_ROW_SPECIFIC_DERIVATION)/,
+      `${mutation.label}: supplement envelope drift must fail closed`
+    );
+  }
+});
+
+test("v4 pass-2 validator rejects unexecuted fields on every exact fact and step", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  let factMutations = 0;
+  let stepMutations = 0;
+
+  for (const baselineRow of baseline.rows) {
+    for (let factIndex = 0; factIndex < baselineRow.facts.length; factIndex += 1) {
+      const row = structuredClone(baselineRow);
+      (row.facts[factIndex] as unknown as Record<string, unknown>).unexecutedReplay = true;
+      rehashV4Row(row);
+      assert.throws(
+        () => validateHongKongEaseV4DerivationRow(sanitized.rows[row.index], row),
+        /V4_FACT_LOCATOR_INVALID/,
+        `${row.baseId}:${row.facts[factIndex].factId}: an unexecuted fact field must fail closed`
+      );
+      factMutations += 1;
+    }
+    for (let stepIndex = 0; stepIndex < baselineRow.steps.length; stepIndex += 1) {
+      const row = structuredClone(baselineRow);
+      (row.steps[stepIndex] as unknown as Record<string, unknown>).unexecutedReplay = true;
+      rehashV4Row(row);
+      assert.throws(
+        () => validateHongKongEaseV4DerivationRow(sanitized.rows[row.index], row),
+        /V4_(?:STEP_INPUT_BINDING|STEP_EXECUTION|STEP_OUTPUT|DOMAIN_RULE_OUTPUT|OPTION_ADJUDICATION)_INVALID/,
+        `${row.baseId}:${row.steps[stepIndex].stepId}: an unexecuted step field must fail closed`
+      );
+      stepMutations += 1;
+    }
+  }
+
+  assert.equal(factMutations, 1366);
+  assert.equal(stepMutations, 1264);
+});
+
+test("v4 Layer 1 keeps every answer-only mutation outside the exact 701 sanitized problems", () => {
+  const baselinePack = questionPackJson as {
+    questions: Array<Record<string, unknown> & { answer: string; acceptedAnswers: string[] }>;
+  };
+  const baselineSanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  let answerBlankMutations = 0;
+  let acceptedAliasMutations = 0;
+
+  for (let index = 0; index < baselinePack.questions.length; index += 1) {
+    const answerBlankQuestions = [...baselinePack.questions];
+    answerBlankQuestions[index] = {
+      ...answerBlankQuestions[index],
+      answer: "",
+      acceptedAnswers: []
+    };
+    const answerBlankSanitized = buildHongKongEaseV4SanitizedInput(
+      { ...baselinePack, questions: answerBlankQuestions },
+      HK_EASE_V4_QUESTION_PACK_SHA256
+    );
+    assert.equal(answerBlankSanitized.rowsPayloadSha256, baselineSanitized.rowsPayloadSha256);
+    answerBlankMutations += 1;
+
+    const aliasQuestions = [...baselinePack.questions];
+    aliasQuestions[index] = {
+      ...aliasQuestions[index],
+      acceptedAnswers: [...aliasQuestions[index].acceptedAnswers, "__mutated_alias__"]
+    };
+    const aliasSanitized = buildHongKongEaseV4SanitizedInput(
+      { ...baselinePack, questions: aliasQuestions },
+      HK_EASE_V4_QUESTION_PACK_SHA256
+    );
+    assert.equal(aliasSanitized.rowsPayloadSha256, baselineSanitized.rowsPayloadSha256);
+    acceptedAliasMutations += 1;
+  }
+
+  assert.equal(answerBlankMutations, 701);
+  assert.equal(acceptedAliasMutations, 701);
+});
+
+test("v4 pass-2 validator rejects every prompt, MC option payload/order, and absent-diagram mutation", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const supplement = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  let promptMutations = 0;
+  let optionPayloadMutations = 0;
+  let optionOrderMutations = 0;
+  let absentDiagramMutations = 0;
+
+  for (const row of supplement.rows) {
+    const promptMutated = structuredClone(sanitized.rows[row.index]);
+    promptMutated.prompt.en = `${promptMutated.prompt.en} `;
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(promptMutated, row),
+      /V4_PROMPT_BINDING_DRIFT/,
+      `${row.baseId}: prompt mutation must fail closed`
+    );
+    promptMutations += 1;
+
+    const diagramMutated = structuredClone(sanitized.rows[row.index]);
+    diagramMutated.diagram = {
+      present: true,
+      value: { unboundDiagramReplay: true }
+    };
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(diagramMutated, row),
+      /V4_PROMPT_BINDING_DRIFT/,
+      `${row.baseId}: absent-to-present diagram mutation must fail closed`
+    );
+    absentDiagramMutations += 1;
+
+    if (row.optionAdjudications.length === 0) continue;
+    const optionPayloadMutated = structuredClone(sanitized.rows[row.index]);
+    optionPayloadMutated.options.en![0] = `${optionPayloadMutated.options.en![0]} [mutated]`;
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(optionPayloadMutated, row),
+      /V4_PROMPT_BINDING_DRIFT/,
+      `${row.baseId}: option payload mutation must fail closed`
+    );
+    optionPayloadMutations += 1;
+
+    const optionOrderMutated = structuredClone(sanitized.rows[row.index]);
+    [optionOrderMutated.options.en![0], optionOrderMutated.options.en![1]] =
+      [optionOrderMutated.options.en![1], optionOrderMutated.options.en![0]];
+    [optionOrderMutated.options.zh![0], optionOrderMutated.options.zh![1]] =
+      [optionOrderMutated.options.zh![1], optionOrderMutated.options.zh![0]];
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(optionOrderMutated, row),
+      /V4_PROMPT_BINDING_DRIFT/,
+      `${row.baseId}: option order mutation must fail closed`
+    );
+    optionOrderMutations += 1;
+  }
+
+  assert.equal(promptMutations, 701);
+  assert.equal(optionPayloadMutations, 90);
+  assert.equal(optionOrderMutations, 90);
+  assert.equal(absentDiagramMutations, 701);
+});
+
+test("v4 pass-2 validator rejects delete, duplicate, swap, and generic-prose derivation mutations", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+
+  const deleted = structuredClone(baseline);
+  deleted.rows.pop();
+  rehashV4Supplement(deleted);
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, deleted),
+    /V4_QUESTION_ORDER_DRIFT/
+  );
+
+  const duplicated = structuredClone(baseline);
+  duplicated.rows[1] = structuredClone(duplicated.rows[0]);
+  rehashV4Supplement(duplicated);
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, duplicated),
+    /V4_(?:QUESTION_ORDER_DRIFT|OPTION_ADJUDICATION_INVALID)/
+  );
+
+  const swapped = structuredClone(baseline);
+  [swapped.rows[0], swapped.rows[1]] = [swapped.rows[1], swapped.rows[0]];
+  rehashV4Supplement(swapped);
+  assert.throws(
+    () => validateHongKongEaseV4DerivationSupplement(sanitized, swapped),
+    /V4_QUESTION_ORDER_DRIFT/
+  );
+
+  let genericProseMutations = 0;
+  for (const baselineRow of baseline.rows) {
+    const row = structuredClone(baselineRow);
+    row.derivationKind = "generic-category-prose-only";
+    row.facts = [];
+    row.steps = [];
+    row.computedResult = {
+      kind: "response-text",
+      responseText: "Use the topic rule.",
+      semanticValue: null
+    };
+    row.optionAdjudications = [];
+    rehashV4Row(row);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[row.index], row),
+      /V4_NON_ROW_SPECIFIC_DERIVATION/,
+      `${row.baseId}: generic category prose must not replace an executable derivation`
+    );
+    genericProseMutations += 1;
+  }
+  assert.equal(genericProseMutations, 701);
+});
+
+test("v4 pass-2 validator rejects every required unit/method/format mutation and every MC topology mutation", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const baseline = derivationSupplementJson as HongKongEaseV4DerivationSupplement;
+  let promptRequirementMutations = 0;
+  let missingOptionMutations = 0;
+  let duplicateOptionMutations = 0;
+  let multipleTrueMutations = 0;
+
+  for (const baselineRow of baseline.rows) {
+    const requirements = baselineRow.promptRequirements;
+    const hasRequiredPromptContract =
+      requirements.method !== null ||
+      requirements.representations.length > 0 ||
+      requirements.components.length > 0 ||
+      requirements.units.length > 0 ||
+      requirements.explicitFormat !== null;
+    if (hasRequiredPromptContract) {
+      const row = structuredClone(baselineRow);
+      if (row.promptRequirements.method !== null) row.promptRequirements.method = null;
+      else if (row.promptRequirements.representations.length > 0) row.promptRequirements.representations = [];
+      else if (row.promptRequirements.components.length > 0) row.promptRequirements.components = [];
+      else if (row.promptRequirements.units.length > 0) row.promptRequirements.units = [];
+      else row.promptRequirements.explicitFormat = null;
+      rehashV4Row(row);
+      assert.throws(
+        () => validateHongKongEaseV4DerivationRow(sanitized.rows[row.index], row),
+        /V4_PROMPT_BINDING_DRIFT/,
+        `${row.baseId}: unit/method/format requirement mutation must fail closed`
+      );
+      promptRequirementMutations += 1;
+    }
+
+    if (baselineRow.optionAdjudications.length === 0) continue;
+    const missing = structuredClone(baselineRow);
+    missing.optionAdjudications.pop();
+    rehashV4Row(missing);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[missing.index], missing),
+      /V4_OPTION_ADJUDICATION_INVALID/
+    );
+    missingOptionMutations += 1;
+
+    const duplicated = structuredClone(baselineRow);
+    duplicated.optionAdjudications.push(structuredClone(duplicated.optionAdjudications[0]));
+    rehashV4Row(duplicated);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[duplicated.index], duplicated),
+      /V4_OPTION_ADJUDICATION_INVALID/
+    );
+    duplicateOptionMutations += 1;
+
+    const multipleTrue = structuredClone(baselineRow);
+    const falseOption = multipleTrue.optionAdjudications.find((entry) => !entry.truth)!;
+    falseOption.truth = true;
+    rehashV4Row(multipleTrue);
+    assert.throws(
+      () => validateHongKongEaseV4DerivationRow(sanitized.rows[multipleTrue.index], multipleTrue),
+      /V4_OPTION_ADJUDICATION_INVALID/
+    );
+    multipleTrueMutations += 1;
+  }
+
+  assert.equal(promptRequirementMutations, 362);
+  assert.equal(missingOptionMutations, 90);
+  assert.equal(duplicateOptionMutations, 90);
+  assert.equal(multipleTrueMutations, 90);
+});
+
+test("v4 exact41 independent pass-1 semantic defects are closed from sanitized prompts", async (t) => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  const categoryCounts = Object.fromEntries(
+    ([
+      "FORMAT_REQUIREMENT_METADATA_MISSING",
+      "FORMAT_RESPONSE_MISMATCH",
+      "UNIT_REQUIREMENT_METADATA_MISSING",
+      "UNIT_REQUIREMENT_FALSE_POSITIVE",
+      "METHOD_OUTPUT_INCOMPLETE",
+      "METHOD_PRESENTATION_MISMATCH",
+      "SYMBOLIC_SERIALIZATION_AMBIGUOUS"
+    ] satisfies Pass1SemanticCategory[]).map((category) => [
+      category,
+      HK_EASE_V4_PASS1_EXACT41.filter((entry) => entry.categories.includes(category)).length
+    ])
+  );
+
+  assert.equal(HK_EASE_V4_PASS1_EXACT41.length, 41);
+  assert.equal(new Set(HK_EASE_V4_PASS1_EXACT41.map((entry) => entry.index)).size, 41);
+  assert.deepEqual(categoryCounts, {
+    FORMAT_REQUIREMENT_METADATA_MISSING: 4,
+    FORMAT_RESPONSE_MISMATCH: 13,
+    UNIT_REQUIREMENT_METADATA_MISSING: 3,
+    UNIT_REQUIREMENT_FALSE_POSITIVE: 13,
+    METHOD_OUTPUT_INCOMPLETE: 10,
+    METHOD_PRESENTATION_MISMATCH: 4,
+    SYMBOLIC_SERIALIZATION_AMBIGUOUS: 1
+  });
+
+  for (const entry of HK_EASE_V4_PASS1_EXACT41) {
+    await t.test(`${entry.index} ${entry.baseId}`, () => {
+      const source = sanitized.rows[entry.index];
+      const row = generated.rows[entry.index];
+      assert.equal(source.baseId, entry.baseId);
+      assert.equal(row.baseId, entry.baseId);
+      assert.deepEqual(
+        pass1SemanticIssuesFor(entry.categories, source.prompt.en, row),
+        [],
+        `${entry.baseId}: independent pass-1 semantic defect remains`
+      );
+    });
+  }
+});
+
+const exact26ExplicitFormatFromPrompt = (source: HongKongEaseV4SanitizedInput["rows"][number]): string | null => {
+  const en = source.prompt.en.replace(/\s+/g, " ").trim();
+  const zh = source.prompt.zh.replace(/\s+/g, " ").trim();
+  return en.match(/(?:format|form)\s+[“"'](.+?)[”"']/i)?.[1]
+    ?? en.match(/\b(?:enter|give) (?:your )?answer as\s+(.+?)(?:\.|$)/i)?.[1]
+    ?? en.match(/\busing\s+[“"'](.+?)[”"']/i)?.[1]
+    ?? zh.match(/按[「“"'](.+?)[」”"'](?:的)?格式/)?.[1]
+    ?? null;
+};
+
+const exact26PromptSemanticIssues = (
+  source: HongKongEaseV4SanitizedInput["rows"][number],
+  row: HongKongEaseV4DerivationRow
+): string[] => {
+  const issues: string[] = [];
+  const prompt = source.prompt.en.replace(/\s+/g, " ").trim();
+  const operations = row.steps.map((step) => String(step.operation));
+  const requirements = row.promptRequirements;
+  const requiredFormat = exact26ExplicitFormatFromPrompt(source);
+  const require = (condition: boolean, issue: string): void => {
+    if (!condition) issues.push(issue);
+  };
+
+  if (/using\s+>\s+between/i.test(prompt)) {
+    require(requirements.representations.includes("inequality-greater-than"), "greater-than-representation");
+  }
+  if (/using\s+<\s+between/i.test(prompt)) {
+    require(requirements.representations.includes("inequality-less-than"), "less-than-representation");
+  }
+
+  if (/rectangle-area formula/i.test(prompt)) {
+    require(requirements.method === "area-formula", "rectangle-area-method");
+    require(requiredFormat !== null && requirements.explicitFormat === requiredFormat, "rectangle-area-format");
+    require(requirements.units.includes("cm²"), "rectangle-area-square-centimetres");
+    require(operations.includes("apply-area-formula"), "rectangle-area-typed-step");
+    const areaStep = row.steps.find((step) => String(step.operation) === "apply-area-formula");
+    const areaOutput = areaStep?.output as { formula?: unknown; area?: unknown; unit?: unknown; responseText?: unknown } | undefined;
+    require(areaOutput?.formula === "length × width = area" && areaOutput.unit === "cm²" && areaOutput.responseText === row.computedResult.responseText, "rectangle-area-typed-output");
+    require(/^\d+ × \d+ = \d+ cm²$/.test(row.computedResult.responseText), "rectangle-area-response");
+  }
+  if (/square-area formula/i.test(prompt)) {
+    require(requirements.method === "area-formula", "square-area-method");
+    require(requiredFormat !== null && requirements.explicitFormat === requiredFormat, "square-area-format");
+    require(requirements.units.includes("cm²"), "square-area-square-centimetres");
+    require(operations.includes("apply-area-formula"), "square-area-typed-step");
+    const areaStep = row.steps.find((step) => String(step.operation) === "apply-area-formula");
+    const areaOutput = areaStep?.output as { formula?: unknown; area?: unknown; unit?: unknown; responseText?: unknown } | undefined;
+    require(areaOutput?.formula === "side × side = area" && areaOutput.unit === "cm²" && areaOutput.responseText === row.computedResult.responseText, "square-area-typed-output");
+    require(/^\d+ × \d+ = \d+ cm²$/.test(row.computedResult.responseText), "square-area-response");
+  }
+
+  if (/commutative or associative property of multiplication/i.test(prompt)) {
+    require(requirements.method === "commutative-or-associative-property", "multiplication-property-method");
+    require(operations.includes("apply-multiplication-property"), "multiplication-property-typed-step");
+    const propertyStep = row.steps.find((step) => String(step.operation) === "apply-multiplication-property");
+    const output = propertyStep?.output as { sourceExpression?: unknown; transformedExpression?: unknown; value?: unknown } | undefined;
+    require(output?.sourceExpression === "25 × 17 × 4", "multiplication-property-source");
+    require(output?.transformedExpression === "(25 × 4) × 17", "multiplication-property-transform");
+    require(output?.value === "1700", "multiplication-property-value");
+  }
+
+  if (/round both numbers to the nearest ten and estimate/i.test(prompt)) {
+    require(requirements.method === "nearest-ten-estimation", "nearest-ten-method");
+    const roundingSteps = row.steps.filter((step) => String(step.operation) === "round-to-nearest-place");
+    require(roundingSteps.length === 2, "nearest-ten-two-rounding-steps");
+    require(operations.includes("multiply-rounded-values"), "nearest-ten-estimate-step");
+    const rounded = roundingSteps.map((step) => (step.output as { rounded?: unknown }).rounded);
+    require(JSON.stringify(rounded) === JSON.stringify(["200", "30"]), "nearest-ten-rounded-values");
+    const estimateStep = row.steps.find((step) => String(step.operation) === "multiply-rounded-values");
+    require(
+      JSON.stringify(estimateStep?.inputStepIds) === JSON.stringify(roundingSteps.map((step) => step.stepId)),
+      "nearest-ten-dependency-chain"
+    );
+    require((estimateStep?.output as { product?: unknown } | undefined)?.product === "6000", "nearest-ten-estimate-output");
+  }
+
+  if (/\b(?:list|write|find)\b.*\ball (?:the )?(?:positive )?factors\b/i.test(prompt)) {
+    require(requirements.components.includes("complete-factor-list"), "complete-factor-list-component");
+  }
+  if (/prime, composite, or neither|prime (?:number )?or (?:a )?composite/i.test(prompt)) {
+    require(requirements.components.includes("prime-composite-classification"), "prime-composite-component");
+  }
+  if (/Give your decision|Is this statement correct|determine whether|state .*whether|whether each number/i.test(prompt)) {
+    require(requirements.components.includes("decision"), "decision-component");
+  }
+  if (/Using enumeration/i.test(prompt)) {
+    require(requirements.method === "enumeration", "enumeration-method");
+  }
+  if (/short division/i.test(prompt)) {
+    require(requirements.method === "short-division", "short-division-method");
+  }
+  if (/Is this statement correct/i.test(prompt)) {
+    require(!requirements.components.includes("common-factor-list"), "common-factor-list-false-positive");
+  }
+
+  for (const part of [...prompt.matchAll(/\(([a-f])\)/gi)].map((match) => `part-${match[1].toLowerCase()}`)) {
+    require(requirements.components.includes(part), `${part}-component`);
+  }
+  if (requiredFormat !== null) {
+    require(requirements.explicitFormat === requiredFormat, "explicit-format");
+  }
+
+  if (/^Find \(a\).*?and \(c\)/i.test(prompt) && requiredFormat !== null) {
+    require(row.facts.some((fact) => fact.locator.exact.includes("(c)")), "part-c-fact");
+    require(row.facts.some((fact) => fact.locator.exact.includes(requiredFormat)), "explicit-format-fact");
+  }
+
+  if (/Use short division to find the H\.C\.F\./i.test(prompt)) {
+    const semantic = row.computedResult.semanticValue as {
+      shortDivisionTrace?: Array<{ before: string[]; after: string[]; dividesEveryCurrentValue: boolean }>;
+    };
+    const trace = semantic.shortDivisionTrace ?? [];
+    require(trace.length > 0, "hcf-short-division-trace");
+    require(trace.every((step) => step.dividesEveryCurrentValue), "hcf-false-common-step");
+    const terminal = trace.at(-1)?.after.map(BigInt) ?? [];
+    const gcd = (left: bigint, right: bigint): bigint => {
+      let a = left < BigInt("0") ? -left : left;
+      let b = right < BigInt("0") ? -right : right;
+      while (b !== BigInt("0")) [a, b] = [b, a % b];
+      return a;
+    };
+    require(terminal.length === 2 && gcd(terminal[0], terminal[1]) === BigInt("1"), "hcf-terminal-gcd-one");
+    require(!row.computedResult.responseText.includes("2,3 ÷2"), "hcf-response-false-common-step");
+  }
+
+  if (/each three-entry group must follow the order 2, 5, 10/i.test(prompt)) {
+    require(requirements.components.includes("decision"), "divisibility-matrix-decision");
+    require(["part-d", "part-e", "part-f"].every((part) => requirements.components.includes(part)), "divisibility-matrix-parts-d-e-f");
+    require(requiredFormat !== null && requirements.explicitFormat === requiredFormat, "divisibility-matrix-bilingual-format");
+    const semantic = row.computedResult.semanticValue as {
+      divisors?: string[];
+      groups?: Array<{ label: string; decisions: Array<{ divisor: string; remainder: string; truth?: unknown; answer?: unknown }> }>;
+      booleanMatrix?: boolean[][];
+    };
+    const groups = semantic.groups ?? [];
+    require(JSON.stringify(semantic.divisors) === JSON.stringify(["2", "5", "10"]), "divisibility-matrix-divisors");
+    require(groups.length === 6, "divisibility-matrix-six-groups");
+    require(
+      groups.every((group) => group.decisions.length === 3 && group.decisions.every((decision) => typeof decision.truth === "boolean" && decision.answer === undefined)),
+      "divisibility-matrix-boolean-decisions"
+    );
+    const matrix = groups.map((group) => group.decisions.map((decision) => decision.truth as boolean));
+    require(JSON.stringify(semantic.booleanMatrix) === JSON.stringify(matrix), "divisibility-matrix-typed-matrix");
+    const expectedResponse = groups
+      .map((group) => `(${group.label}) ${group.decisions.map((decision) => decision.truth ? "✓" : "✗").join(", ")}`)
+      .join("; ");
+    require(row.computedResult.responseText === expectedResponse, "divisibility-matrix-checkmark-response");
+    require(row.facts.some((fact) => fact.locator.source === "prompt.zh" && fact.locator.exact.includes("✓/✗")), "divisibility-matrix-zh-format-fact");
+  }
+
+  return [...new Set(issues)];
+};
+
+test("v4 exact26 independent prompt-only semantic defects are closed", async (t) => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+
+  assert.equal(HK_EASE_V4_EXACT26_LEDGER.length, 26);
+  for (const entry of HK_EASE_V4_EXACT26_LEDGER) {
+    await t.test(`${entry.index} ${entry.baseId}`, () => {
+      const source = sanitized.rows[entry.index];
+      const row = generated.rows[entry.index];
+      assert.equal(source.baseId, entry.baseId);
+      assert.equal(row.baseId, entry.baseId);
+      assert.deepEqual(
+        exact26PromptSemanticIssues(source, row),
+        [],
+        `${entry.baseId}: frozen prompt-only exact26 defect remains`
+      );
+    });
+  }
+});
+
+test("v4 exact26 metadata, fact, method, and typed-trace mutations fail closed", () => {
+  const sanitized = sanitizedInputJson as HongKongEaseV4SanitizedInput;
+  const generated = buildHongKongEaseV4DerivationSupplement(sanitized);
+  let mutationCount = 0;
+
+  for (const entry of HK_EASE_V4_EXACT26_LEDGER) {
+    const source = sanitized.rows[entry.index];
+    const baseline = generated.rows[entry.index];
+    assert.deepEqual(exact26PromptSemanticIssues(source, baseline), []);
+
+    const mutateAndReject = (mutate: (row: HongKongEaseV4DerivationRow) => void): void => {
+      const row = structuredClone(baseline);
+      mutate(row);
+      rehashV4Row(row);
+      assert.notDeepEqual(exact26PromptSemanticIssues(source, row), []);
+      assert.throws(
+        () => validateHongKongEaseV4DerivationRow(source, row),
+        /V4_(?:PROMPT_BINDING_DRIFT|FACT_LOCATOR_INVALID|STEP_INPUT_BINDING_INVALID|STEP_EXECUTION_INVALID|STEP_OUTPUT_INVALID|DOMAIN_RULE_OUTPUT_INVALID)/
+      );
+      mutationCount += 1;
+    };
+
+    if (baseline.promptRequirements.representations.some((value) => value.startsWith("inequality-"))) {
+      mutateAndReject((row) => { row.promptRequirements.representations = []; });
+    }
+    if (baseline.promptRequirements.method !== null) {
+      mutateAndReject((row) => { row.promptRequirements.method = null; });
+    }
+    const mutationComponents = baseline.promptRequirements.components.filter((value) =>
+      ["complete-factor-list", "prime-composite-classification", "decision", "part-d", "part-e", "part-f"].includes(value)
+    );
+    for (const component of mutationComponents) {
+      mutateAndReject((row) => {
+        row.promptRequirements.components = row.promptRequirements.components.filter((value) => value !== component);
+      });
+    }
+    if (baseline.promptRequirements.explicitFormat !== null) {
+      mutateAndReject((row) => { row.promptRequirements.explicitFormat = null; });
+    }
+    if (/^Find \(a\).*?and \(c\)/i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const fact = row.facts.find((candidate) => candidate.locator.exact.includes("(c)"));
+        assert.ok(fact);
+        fact.locator.exact = fact.locator.exact.replace("(c)", "(x)");
+      });
+    }
+    if (/commutative or associative property/i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const step = row.steps.find((candidate) => String(candidate.operation) === "apply-multiplication-property");
+        assert.ok(step);
+        (step.output as { transformedExpression: string }).transformedExpression = "(25 × 17) × 4";
+      });
+    }
+    if (/(?:rectangle|square)-area formula/i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const step = row.steps.find((candidate) => String(candidate.operation) === "apply-area-formula");
+        assert.ok(step);
+        (step.output as { unit: string }).unit = "cm";
+      });
+    }
+    if (/nearest ten and estimate/i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const step = row.steps.find((candidate) => String(candidate.operation) === "round-to-nearest-place");
+        assert.ok(step);
+        (step.output as { rounded: string }).rounded = "190";
+      });
+    }
+    if (/Use short division to find the H\.C\.F\./i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const semantic = row.computedResult.semanticValue as { shortDivisionTrace: unknown[] };
+        semantic.shortDivisionTrace.push({ divisor: "2", before: ["2", "3"], after: ["1", "3"], dividesEveryCurrentValue: false });
+      });
+    }
+    if (/each three-entry group must follow the order 2, 5, 10/i.test(source.prompt.en)) {
+      mutateAndReject((row) => {
+        const semantic = row.computedResult.semanticValue as { groups: Array<{ decisions: Array<{ truth: boolean }> }> };
+        semantic.groups[0].decisions[0].truth = !semantic.groups[0].decisions[0].truth;
+      });
+    }
+  }
+
+  assert.equal(mutationCount, 54, `expected exact prompt-derived mutation coverage, got ${mutationCount}`);
+});
+
+test("v4 Layer 3 records every accepted-alias mutation without changing the exact derivation", () => {
+  const baselineRows = (derivationSupplementJson as HongKongEaseV4DerivationSupplement).rows;
+  const oracleRows = (v4OracleJson as { rows: Array<{ activeId: string }> }).rows;
+  const questions = (questionPackJson as {
+    questions: V4ProductionQuestion[];
+  }).questions;
+  let executedMutations = 0;
+
+  for (let index = 0; index < questions.length; index += 1) {
+    const question = questions[index];
+    const row = baselineRows[index];
+    const mutatedQuestion = {
+      ...question,
+      acceptedAnswers: [...question.acceptedAnswers, `__mutated_alias_${index}__`]
+    };
+    const baselineAnswerHash = sha256(JSON.stringify({
+      canonical: question.answer,
+      acceptedAnswers: question.acceptedAnswers
+    }));
+    const mutatedAnswerHash = sha256(JSON.stringify({
+      canonical: mutatedQuestion.answer,
+      acceptedAnswers: mutatedQuestion.acceptedAnswers
+    }));
+    assert.notEqual(mutatedAnswerHash, baselineAnswerHash);
+    const comparison = compareHongKongEaseV4DerivedRowToProduction(
+      mutatedQuestion,
+      row,
+      { kind: "strict", contract: {} },
+      oracleRows[index].activeId,
+      questionAnswerMatches
+    );
+    assert.equal(comparison.matched, true);
+    assert.equal(row.derivationPayloadSha256, baselineRows[index].derivationPayloadSha256);
+    executedMutations += 1;
+  }
+
+  assert.equal(executedMutations, 701);
+});

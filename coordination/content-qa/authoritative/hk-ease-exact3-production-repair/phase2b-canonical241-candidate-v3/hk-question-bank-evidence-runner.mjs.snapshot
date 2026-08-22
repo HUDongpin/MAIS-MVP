@@ -1,0 +1,3121 @@
+#!/usr/bin/env node
+
+import { createHash, randomBytes } from "node:crypto";
+import { spawn, execFile as execFileCallback } from "node:child_process";
+import {
+  createWriteStream,
+  existsSync
+} from "node:fs";
+import {
+  lstat,
+  mkdir,
+  open,
+  readFile,
+  readlink,
+  realpath,
+  readdir,
+  rename,
+  rm,
+  rmdir,
+  symlink,
+  unlink,
+  writeFile
+} from "node:fs/promises";
+import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { promisify } from "node:util";
+import ts from "typescript";
+
+const execFile = promisify(execFileCallback);
+const EXECUTING_RUNNER_LOADED_PATH = fileURLToPath(import.meta.url);
+const EXECUTING_RUNNER_LOADED_BYTES = await readFile(EXECUTING_RUNNER_LOADED_PATH);
+const EXECUTING_TYPESCRIPT_MODULE_PATH = fileURLToPath(import.meta.resolve("typescript"));
+const EXECUTING_TSX_MODULE_PATH = fileURLToPath(import.meta.resolve("tsx"));
+const EXECUTING_ESBUILD_MODULE_PATH = fileURLToPath(import.meta.resolve("esbuild"));
+
+export const EXPECTED_FOCUSED_LEDGER_FILE_SHA256 =
+  "c676acf3931e4a59761cfc4f7249ebd7546fa144854c8ae89fdb59c4562e12fc";
+export const EXPECTED_FOCUSED_TEST_NAME_SHA256 =
+  "3f0ec176d5c3ecdd216a1eaeb9d7fd3bda9a716796b9f28bf6b8f99529a386fd";
+export const EXPECTED_FOCUSED_TEST_COUNT = 57;
+export const EXPECTED_RESIDUAL47_LEDGER_FILE_SHA256 =
+  "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0";
+export const EXPECTED_RESIDUAL47_TEST_NAME_SHA256 =
+  "d89c4aee3a620ecf6c5ff150b4b29def12b5f53107b41a1478c2cfa2a6437bfd";
+export const EXPECTED_EASE_RESPONSE_LEDGER_FILE_SHA256 =
+  "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91";
+export const EXPECTED_EASE_RESPONSE_TEST_NAME_SHA256 =
+  "38d338428107012f5813a051e84afec2c04e8b0a048e54186b419a7475db8b1a";
+export const EXPECTED_DIRECT_TEST_COUNT = 167;
+export const EXPECTED_DIRECT_TEST_NAME_SHA256 =
+  "660a3780b9dcb8daf5b39ac1d3fb3ada5869a89bfa4b14e932577ffe59c7ff37";
+
+const FOCUSED_LEDGER_RELATIVE_PATH =
+  "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json";
+const CANONICAL_FOCUSED_LEDGER_SPECS = [
+  {
+    ledgerId: "displayed74-exact57",
+    relativePath: FOCUSED_LEDGER_RELATIVE_PATH,
+    schemaVersion: "hk-displayed74-focused-test-ledger-v1",
+    expectedSuiteCount: 6,
+    expectedFocusedTestCount: EXPECTED_FOCUSED_TEST_COUNT,
+    fileSha256: EXPECTED_FOCUSED_LEDGER_FILE_SHA256,
+    testNameSha256: EXPECTED_FOCUSED_TEST_NAME_SHA256
+  },
+  {
+    ledgerId: "residual47-exact10",
+    relativePath:
+      "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+    schemaVersion: "hk-residual47-focused-test-ledger-v1",
+    expectedSuiteCount: 1,
+    expectedFocusedTestCount: 10,
+    fileSha256: EXPECTED_RESIDUAL47_LEDGER_FILE_SHA256,
+    testNameSha256: EXPECTED_RESIDUAL47_TEST_NAME_SHA256
+  },
+  {
+    ledgerId: "ease-response-exact7",
+    relativePath:
+      "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+    schemaVersion: "hk-ease-response-focused-test-ledger-v1",
+    expectedSuiteCount: 1,
+    expectedFocusedTestCount: 7,
+    fileSha256: EXPECTED_EASE_RESPONSE_LEDGER_FILE_SHA256,
+    testNameSha256: EXPECTED_EASE_RESPONSE_TEST_NAME_SHA256
+  }
+];
+const RUNNER_RELATIVE_PATH =
+  "coordination/content-qa/hk-question-bank-evidence-runner.mjs";
+export const EXECUTING_RUNNER_BINDING = Object.freeze({
+  schemaVersion: "hk-question-bank-executing-runner-binding-v1",
+  relativePath: RUNNER_RELATIVE_PATH,
+  absolutePath: EXECUTING_RUNNER_LOADED_PATH,
+  bytes: EXECUTING_RUNNER_LOADED_BYTES.length,
+  sha256: sha256(EXECUTING_RUNNER_LOADED_BYTES)
+});
+const EXPECTED_PACKAGE_SCRIPT = `node ${RUNNER_RELATIVE_PATH}`;
+const FORBIDDEN_STALE_ARTIFACT_BASENAME = "test-question-bank.log";
+const EXPECTED_LOG_ARTIFACT_BASENAMES = ["compile.log", "test-question-bank.tap"];
+const EXPECTED_DIRECT_TEST_ENTRIES = [
+  "lib/mainlandPepHighQuestionBank.test.js",
+  "lib/mainlandPepPrimaryQuestionBank.test.js",
+  "lib/mainlandPepJuniorQuestionBank.test.js",
+  "lib/mainlandBnuPrimaryQuestionBank.test.js",
+  "lib/mainlandBnuJuniorQuestionBank.test.js",
+  "lib/fullQuestionBankSolvability.test.js",
+  "lib/hongKongEaseIndependentOracleV4.test.js",
+  "lib/hongKongLessonQualityContract.test.js",
+  "lib/questionFigure.test.js",
+  "lib/practiceFigureAudit.test.js"
+];
+export const REVIEWED_TOPOLOGY_SOURCE_PATHS = [
+  RUNNER_RELATIVE_PATH,
+  "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+  "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+  "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+  "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+  "lib/mainlandPepHighQuestionBank.test.ts",
+  "lib/mainlandPepPrimaryQuestionBank.test.ts",
+  "lib/mainlandPepJuniorQuestionBank.test.ts",
+  "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+  "lib/mainlandBnuJuniorQuestionBank.test.ts",
+  "lib/fullQuestionBankSolvability.test.ts",
+  "lib/hongKongEaseIndependentOracleV4.test.ts",
+  "lib/hongKongLessonQualityContract.test.ts",
+  "lib/questionFigure.test.ts",
+  "lib/practiceFigureAudit.test.ts",
+  "lib/hongKongDisplayed74ContentContract.test.ts",
+  "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+  "lib/hongKongDisplayed74FocusedTestLedger.ts",
+  "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+  "lib/hongKongQuestionVersioning.test.ts",
+  "lib/hongKongResidual47FocusedTestLedger.ts",
+  "lib/hongKongResidual47RepairContract.test.ts",
+  "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+  "lib/server/hongKongEaseResponseContracts.test.ts",
+  "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+  "lib/questionBankSolvability.ts",
+  "lib/hongKongEaseIndependentOracle.ts",
+  "package.json",
+  "tsconfig.json"
+];
+
+/* HK_REVIEWED_SOURCE_AUTHORITY_BEGIN */
+export const INDEPENDENT_REVIEWED_SOURCE_AUTHORITY = Object.freeze([
+  {
+    "path": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+    "hashMode": "authority-block-normalized",
+    "bytes": 109398,
+    "sha256": "eac0b0153137655c55914c63a68f563002bbd42d5648983694510aef02611e6b"
+  },
+  {
+    "path": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+    "hashMode": "raw",
+    "bytes": 59084,
+    "sha256": "58552a4d05ff30ed96832e14c6b5e1b154b94304a996ad3070b35cc4b199ac45"
+  },
+  {
+    "path": "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+    "hashMode": "raw",
+    "bytes": 7170,
+    "sha256": "c676acf3931e4a59761cfc4f7249ebd7546fa144854c8ae89fdb59c4562e12fc"
+  },
+  {
+    "path": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+    "hashMode": "raw",
+    "bytes": 1632,
+    "sha256": "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0"
+  },
+  {
+    "path": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+    "hashMode": "raw",
+    "bytes": 1307,
+    "sha256": "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91"
+  },
+  {
+    "path": "lib/mainlandPepHighQuestionBank.test.ts",
+    "hashMode": "raw",
+    "bytes": 80182,
+    "sha256": "99b80bd34047c0640a49a56f662a7d578d04a9fb8e156eb64d7608e269f3a312"
+  },
+  {
+    "path": "lib/mainlandPepPrimaryQuestionBank.test.ts",
+    "hashMode": "raw",
+    "bytes": 11835,
+    "sha256": "498f80b94e702008cd465aa016409c802cce5ed5f8a3891145755f4dddf9fd18"
+  },
+  {
+    "path": "lib/mainlandPepJuniorQuestionBank.test.ts",
+    "hashMode": "raw",
+    "bytes": 12770,
+    "sha256": "ca107d64204403652b72bb2bfc53e2d16b83ed00379b161aa13a352d2856dc92"
+  },
+  {
+    "path": "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+    "hashMode": "raw",
+    "bytes": 18710,
+    "sha256": "7f28efb0b790f6d048a2d216721c6459f1bae3014642ab3cfe0ee942b1366417"
+  },
+  {
+    "path": "lib/mainlandBnuJuniorQuestionBank.test.ts",
+    "hashMode": "raw",
+    "bytes": 15197,
+    "sha256": "7c284f0b221a3f1af09d7f1ffa59b55d6fcdd79cbd2ee98909856bcff2606019"
+  },
+  {
+    "path": "lib/fullQuestionBankSolvability.test.ts",
+    "hashMode": "raw",
+    "bytes": 32604,
+    "sha256": "1d1ed1c4fcaaae556b6ddde0dcdc4bed74f93add4ee2f0d445083672ba72c7f0"
+  },
+  {
+    "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+    "hashMode": "raw",
+    "bytes": 97936,
+    "sha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a"
+  },
+  {
+    "path": "lib/hongKongLessonQualityContract.test.ts",
+    "hashMode": "raw",
+    "bytes": 45108,
+    "sha256": "14ed04358cff26d50a60d69437c5d43ca14aba6a744de70645fa7c95fc9eee11"
+  },
+  {
+    "path": "lib/questionFigure.test.ts",
+    "hashMode": "raw",
+    "bytes": 35373,
+    "sha256": "9590f3afb22dbe9fb0ed77100fa7f47ac79db4b511aafb0ffd8eefaea8b575c7"
+  },
+  {
+    "path": "lib/practiceFigureAudit.test.ts",
+    "hashMode": "raw",
+    "bytes": 6474,
+    "sha256": "27b62748f87b3c0fb5a84a7c1c1bf6efb3f0148fd25508f11343b1aac4cb8b26"
+  },
+  {
+    "path": "lib/hongKongDisplayed74ContentContract.test.ts",
+    "hashMode": "raw",
+    "bytes": 25927,
+    "sha256": "2a2925b3b72481010a788f8f5da07b72cf139b4ed7c2c6869ebfbc757e2988c4"
+  },
+  {
+    "path": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+    "hashMode": "raw",
+    "bytes": 41477,
+    "sha256": "bb77a21004cdfd9eb8eb2d07b37fb134e0c82d19f45e5a0afc605e454cffa869"
+  },
+  {
+    "path": "lib/hongKongDisplayed74FocusedTestLedger.ts",
+    "hashMode": "raw",
+    "bytes": 8696,
+    "sha256": "7575a452f27f312c026590f6a209e0c03366719810a8e4a5c6a77d6617e8d175"
+  },
+  {
+    "path": "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+    "hashMode": "raw",
+    "bytes": 8962,
+    "sha256": "0073b2953308203e6953f6674f08241a126ca6e25098d6c31cc2dfe46ce686b9"
+  },
+  {
+    "path": "lib/hongKongQuestionVersioning.test.ts",
+    "hashMode": "raw",
+    "bytes": 11553,
+    "sha256": "4e2640bf0d4fd0b28fb3186e73625022b0d00989e0380ed1a5304e38b64b6128"
+  },
+  {
+    "path": "lib/hongKongResidual47FocusedTestLedger.ts",
+    "hashMode": "raw",
+    "bytes": 8088,
+    "sha256": "2c20817b6c96b42ed5a89972c7ea4d084205538a2d35f5278f2dddd3a38b3c63"
+  },
+  {
+    "path": "lib/hongKongResidual47RepairContract.test.ts",
+    "hashMode": "raw",
+    "bytes": 50343,
+    "sha256": "1600b6131f448720223b7ad41592c4912e52f8a08406ce57f590c19fefcde800"
+  },
+  {
+    "path": "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+    "hashMode": "raw",
+    "bytes": 13958,
+    "sha256": "f27ba969b99091e7bd8a66e7fb6e4aa279909ce5bb3fb21dc6a020153afad27f"
+  },
+  {
+    "path": "lib/server/hongKongEaseResponseContracts.test.ts",
+    "hashMode": "raw",
+    "bytes": 22626,
+    "sha256": "b71f2b6780895cb303033fbe1879a05515fc174102350d8081c0412c1ac31026"
+  },
+  {
+    "path": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+    "hashMode": "raw",
+    "bytes": 15819,
+    "sha256": "abeb79cb4c2b437bb687ac09b63fd948959ddd30428d0734ce91aabc35c4b963"
+  },
+  {
+    "path": "lib/questionBankSolvability.ts",
+    "hashMode": "raw",
+    "bytes": 107715,
+    "sha256": "2b400503b0cb9fb90e4627fd7e285e58c830b78ac2d22839b0fa5a16c0b69e7f"
+  },
+  {
+    "path": "lib/hongKongEaseIndependentOracle.ts",
+    "hashMode": "raw",
+    "bytes": 31714,
+    "sha256": "08c315e86ec0c0a917c4f7b9f85f6844b25e427807a44bc03ed6d2088a480b6c"
+  },
+  {
+    "path": "package.json",
+    "hashMode": "raw",
+    "bytes": 17120,
+    "sha256": "60fc5dd020cc95fbead086f335d1f34287cc89517d44a0cb4a0acab9b939cfa1"
+  },
+  {
+    "path": "tsconfig.json",
+    "hashMode": "raw",
+    "bytes": 1109,
+    "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+  }
+].map((binding) => Object.freeze(binding)));
+/* HK_REVIEWED_SOURCE_AUTHORITY_END */
+const CANONICAL_SERIALIZATION =
+  "SHA-256 of UTF-8 JSON.stringify(lexicographically sorted suiteId + U+0000 + testName strings)";
+const MUTABLE_ENVIRONMENT_KEYS = [
+  "TMPDIR",
+  "TMP",
+  "TEMP",
+  "NODE_COMPILE_CACHE",
+  "XDG_CACHE_HOME",
+  "npm_config_cache",
+  "HK_MATH_DB_DIR"
+];
+export const CANONICAL_CHILD_ENVIRONMENT_KEYS = ["PATH", ...MUTABLE_ENVIRONMENT_KEYS];
+
+function sha256(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function independentlyReviewedBytes(path, bytes) {
+  const sourceBytes = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
+  if (path !== RUNNER_RELATIVE_PATH) return sourceBytes;
+  const beginMarker = Buffer.from(
+    `\n/* HK_REVIEWED_SOURCE_${"AUTHORITY_BEGIN"} */\n`,
+    "utf8"
+  );
+  const endMarker = Buffer.from(
+    `\n/* HK_REVIEWED_SOURCE_${"AUTHORITY_END"} */\n`,
+    "utf8"
+  );
+  const beginIndex = sourceBytes.indexOf(beginMarker);
+  const endIndex = sourceBytes.indexOf(endMarker, beginIndex + beginMarker.length);
+  if (beginIndex < 0 || endIndex < 0) {
+    throw new Error("runner lacks the canonical independent authority block markers");
+  }
+  const canonicalBlock = Buffer.from(
+    "\n/* HK_REVIEWED_SOURCE_AUTHORITY_CANONICAL_BLOCK */\n",
+    "utf8"
+  );
+  return Buffer.concat([
+    sourceBytes.subarray(0, beginIndex),
+    canonicalBlock,
+    sourceBytes.subarray(endIndex + endMarker.length)
+  ]);
+}
+
+function expectedIndependentReviewedBinding(path) {
+  return INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.find((binding) => binding.path === path);
+}
+
+export function assertIndependentReviewedSourceBytes(path, bytes) {
+  const expected = expectedIndependentReviewedBinding(path);
+  if (!expected) {
+    throw new Error(`independent reviewed source authority has no pin for ${path}`);
+  }
+  const authoritativeBytes = independentlyReviewedBytes(path, bytes);
+  const observed = {
+    path,
+    hashMode: path === RUNNER_RELATIVE_PATH ? "authority-block-normalized" : "raw",
+    bytes: authoritativeBytes.length,
+    sha256: sha256(authoritativeBytes)
+  };
+  if (!exactJsonEqual(observed, expected)) {
+    throw new Error(
+      `independent reviewed source authority mismatch for ${path}: expected=${JSON.stringify(expected)}, observed=${JSON.stringify(observed)}`
+    );
+  }
+  return expected;
+}
+
+export async function loadIndependentReviewedSourceAuthority(workspaceRoot) {
+  assertCanonicalAbsolutePath(workspaceRoot, "independent authority workspace root");
+  if (
+    INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.length !== REVIEWED_TOPOLOGY_SOURCE_PATHS.length ||
+    !INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.every(
+      (binding, index) => binding.path === REVIEWED_TOPOLOGY_SOURCE_PATHS[index]
+    )
+  ) {
+    throw new Error("independent reviewed source authority path list drift");
+  }
+  const bindings = [];
+  for (const expected of INDEPENDENT_REVIEWED_SOURCE_AUTHORITY) {
+    const bytes = await readFile(join(workspaceRoot, expected.path));
+    bindings.push(assertIndependentReviewedSourceBytes(expected.path, bytes));
+  }
+  return bindings;
+}
+
+function isoCompact(date = new Date()) {
+  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+}
+
+function jsonBytes(value) {
+  return Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return value.map(canonicalJson);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value).sort().map((key) => [key, canonicalJson(value[key])])
+    );
+  }
+  return value;
+}
+
+function exactJsonEqual(left, right) {
+  return JSON.stringify(canonicalJson(left)) === JSON.stringify(canonicalJson(right));
+}
+
+async function writeJsonAtomic(path, value) {
+  const temporaryPath = `${path}.writing-${process.pid}`;
+  await writeFile(temporaryPath, jsonBytes(value), { flag: "wx" });
+  await rename(temporaryPath, path);
+}
+
+async function syncParentDirectory(path) {
+  const handle = await open(dirname(path), "r");
+  try {
+    await handle.sync();
+  } catch (error) {
+    if (!['EINVAL', 'EBADF', 'ENOTSUP'].includes(error?.code)) throw error;
+  } finally {
+    await handle.close();
+  }
+}
+
+async function writeBytesDurableAtomic(path, bytes) {
+  const temporaryPath = `${path}.durable-writing-${process.pid}-${randomBytes(4).toString("hex")}`;
+  const handle = await open(temporaryPath, "wx");
+  try {
+    await handle.writeFile(bytes);
+    await handle.sync();
+  } catch (error) {
+    await handle.close().catch(() => {});
+    await rm(temporaryPath, { force: true }).catch(() => {});
+    throw error;
+  }
+  await handle.close();
+  await rename(temporaryPath, path);
+  await syncParentDirectory(path);
+}
+
+async function writeJsonDurableAtomic(path, value) {
+  await writeBytesDurableAtomic(path, jsonBytes(value));
+}
+
+export function assertStarshipAbsolutePath(path, label) {
+  if (
+    typeof path !== "string" ||
+    !isAbsolute(path) ||
+    !(path === "/Volumes/Starship" || path.startsWith(`/Volumes/Starship${sep}`))
+  ) {
+    throw new Error(`${label} must be an absolute path under /Volumes/Starship/: ${path}`);
+  }
+  return path;
+}
+
+export async function assertPhysicalStarshipDirectory(path, label) {
+  assertStarshipAbsolutePath(path, label);
+  const physicalPath = await realpath(path);
+  try {
+    assertStarshipAbsolutePath(physicalPath, `${label} physical path`);
+  } catch {
+    throw new Error(`${label} resolves outside /Volumes/Starship/: ${path} -> ${physicalPath}`);
+  }
+  return physicalPath;
+}
+
+function assertCanonicalAbsolutePath(path, label) {
+  assertStarshipAbsolutePath(path, label);
+  if (resolve(path) !== path) {
+    throw new Error(`${label} must be a canonical absolute path without dot segments: ${path}`);
+  }
+  return path;
+}
+
+function pathIsWithin(root, candidate) {
+  const canonicalRoot = assertCanonicalAbsolutePath(root, "containment root");
+  const canonicalCandidate = assertCanonicalAbsolutePath(candidate, "containment candidate");
+  return canonicalCandidate === canonicalRoot || canonicalCandidate.startsWith(`${canonicalRoot}${sep}`);
+}
+
+export function buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot }) {
+  for (const [path, label] of [
+    [runRoot, "run root"],
+    [tmpRoot, "temporary root"],
+    [dbRoot, "database root"]
+  ]) {
+    assertCanonicalAbsolutePath(path, label);
+    if (!pathIsWithin(runRoot, path)) {
+      throw new Error(`${label} must be contained by the unique run root: ${path}`);
+    }
+  }
+  const values = {
+    TMPDIR: tmpRoot,
+    TMP: tmpRoot,
+    TEMP: tmpRoot,
+    NODE_COMPILE_CACHE: join(tmpRoot, "node-compile-cache"),
+    XDG_CACHE_HOME: join(tmpRoot, "xdg-cache"),
+    npm_config_cache: join(tmpRoot, "npm-cache"),
+    HK_MATH_DB_DIR: dbRoot
+  };
+  if (JSON.stringify(Object.keys(values)) !== JSON.stringify(MUTABLE_ENVIRONMENT_KEYS)) {
+    throw new Error("canonical mutable environment key order drift");
+  }
+  for (const [key, value] of Object.entries(values)) {
+    assertStarshipAbsolutePath(value, `mutable environment ${key}`);
+    if (!pathIsWithin(runRoot, value)) {
+      throw new Error(`mutable environment ${key} escapes the unique run root: ${value}`);
+    }
+  }
+  return {
+    schemaVersion: "hk-question-bank-mutable-environment-v1",
+    keys: [...MUTABLE_ENVIRONMENT_KEYS],
+    values,
+    allPathsUnderUniqueRunRoot: true
+  };
+}
+
+export function childEnvironmentWithCanonicalMutablePaths(baseEnvironment, mutableEnvironment) {
+  if (!baseEnvironment || typeof baseEnvironment !== "object" || Array.isArray(baseEnvironment)) {
+    throw new Error("base child environment must be an object");
+  }
+  if (
+    mutableEnvironment?.schemaVersion !== "hk-question-bank-mutable-environment-v1" ||
+    JSON.stringify(mutableEnvironment?.keys) !== JSON.stringify(MUTABLE_ENVIRONMENT_KEYS)
+  ) {
+    throw new Error("canonical mutable environment receipt is malformed");
+  }
+  const runRoot = dirname(mutableEnvironment.values.TMPDIR);
+  const rebuilt = buildCanonicalMutableEnvironment({
+    runRoot,
+    tmpRoot: mutableEnvironment.values.TMPDIR,
+    dbRoot: mutableEnvironment.values.HK_MATH_DB_DIR
+  });
+  if (!exactJsonEqual(rebuilt, mutableEnvironment)) {
+    throw new Error("canonical mutable environment value drift");
+  }
+  const canonicalExecutableSearchPath = [
+    dirname(process.execPath),
+    "/usr/bin",
+    "/bin",
+    "/usr/sbin",
+    "/sbin"
+  ].filter((path, index, paths) => paths.indexOf(path) === index).join(":");
+  const environment = {
+    PATH: canonicalExecutableSearchPath,
+    ...mutableEnvironment.values
+  };
+  if (JSON.stringify(Object.keys(environment)) !== JSON.stringify(CANONICAL_CHILD_ENVIRONMENT_KEYS)) {
+    throw new Error("canonical child environment key order drift");
+  }
+  return environment;
+}
+
+function assertSafeRelativePath(path) {
+  if (!path || isAbsolute(path) || path === ".." || path.startsWith(`..${sep}`)) {
+    throw new Error(`unsafe source-manifest path: ${path}`);
+  }
+}
+
+async function loadFocusedLedgerBindingForSpec(workspaceRoot, spec) {
+  assertStarshipAbsolutePath(workspaceRoot, "workspace root");
+  const ledgerPath = join(workspaceRoot, spec.relativePath);
+  const bytes = await readFile(ledgerPath);
+  const fileSha256 = sha256(bytes);
+  if (fileSha256 !== spec.fileSha256) {
+    throw new Error(
+      `${spec.ledgerId} ledger SHA-256 mismatch: expected ${spec.fileSha256}, got ${fileSha256}`
+    );
+  }
+  const ledger = JSON.parse(bytes.toString("utf8"));
+  if (ledger.schemaVersion !== spec.schemaVersion) {
+    throw new Error(
+      `${spec.ledgerId} unexpected focused ledger schema: ${ledger.schemaVersion}`
+    );
+  }
+  if (ledger.canonicalSerialization !== CANONICAL_SERIALIZATION) {
+    throw new Error(`${spec.ledgerId} focused ledger canonical serialization drift`);
+  }
+  if (ledger.expectedSuiteCount !== spec.expectedSuiteCount) {
+    throw new Error(
+      `${spec.ledgerId} focused ledger suite-count mismatch: expected ${spec.expectedSuiteCount}, got ${ledger.expectedSuiteCount}`
+    );
+  }
+  if (ledger.suites?.length !== spec.expectedSuiteCount) {
+    throw new Error(`${spec.ledgerId} focused ledger suite array mismatch`);
+  }
+  if (ledger.expectedFocusedTestCount !== spec.expectedFocusedTestCount) {
+    throw new Error(
+      `${spec.ledgerId} focused ledger count mismatch: expected ${spec.expectedFocusedTestCount}, got ${ledger.expectedFocusedTestCount}`
+    );
+  }
+  if (ledger.testNameSha256 !== spec.testNameSha256) {
+    throw new Error(
+      `${spec.ledgerId} focused ledger test-name SHA mismatch: expected ${spec.testNameSha256}, got ${ledger.testNameSha256}`
+    );
+  }
+  const canonicalKeys = ledger.suites
+    .flatMap((suite) => suite.testNames.map((testName) => `${suite.suiteId}\u0000${testName}`))
+    .sort();
+  const computedNameSha256 = sha256(Buffer.from(JSON.stringify(canonicalKeys), "utf8"));
+  if (computedNameSha256 !== spec.testNameSha256) {
+    throw new Error(
+      `${spec.ledgerId} focused ledger canonical-name SHA mismatch: expected ${spec.testNameSha256}, got ${computedNameSha256}`
+    );
+  }
+  if (canonicalKeys.length !== spec.expectedFocusedTestCount) {
+    throw new Error(
+      `${spec.ledgerId} focused ledger must contain exactly ${spec.expectedFocusedTestCount} keys`
+    );
+  }
+  if (new Set(canonicalKeys).size !== canonicalKeys.length) {
+    throw new Error("focused ledger suite/name keys must be unique");
+  }
+  const expectedNames = ledger.suites.flatMap((suite) => suite.testNames);
+  if (new Set(expectedNames).size !== expectedNames.length) {
+    throw new Error("focused ledger TAP-visible test names must be globally unique");
+  }
+  return {
+    ledgerId: spec.ledgerId,
+    relativePath: spec.relativePath,
+    absolutePath: ledgerPath,
+    fileSha256,
+    testNameSha256: computedNameSha256,
+    expectedFocusedTestCount: spec.expectedFocusedTestCount,
+    expectedNames,
+    suiteIds: ledger.suites.map((suite) => suite.suiteId)
+  };
+}
+
+export async function loadFocusedLedgerBinding(workspaceRoot) {
+  return loadFocusedLedgerBindingForSpec(workspaceRoot, CANONICAL_FOCUSED_LEDGER_SPECS[0]);
+}
+
+export async function loadCanonicalFocusedLedgerBindings(workspaceRoot) {
+  const bindings = await Promise.all(
+    CANONICAL_FOCUSED_LEDGER_SPECS.map((spec) =>
+      loadFocusedLedgerBindingForSpec(workspaceRoot, spec)
+    )
+  );
+  const allNames = bindings.flatMap((binding) => binding.expectedNames);
+  if (new Set(allNames).size !== allNames.length) {
+    throw new Error("canonical focused ledgers contain duplicate TAP-visible test names");
+  }
+  const allSuiteIds = bindings.flatMap((binding) => binding.suiteIds);
+  if (new Set(allSuiteIds).size !== allSuiteIds.length) {
+    throw new Error("canonical focused ledgers contain duplicate suite IDs");
+  }
+  return bindings;
+}
+
+function literalTestName(node, sourcePath) {
+  if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
+    return node.text;
+  }
+  throw new Error(`${sourcePath}: canonical direct test name must be a literal string`);
+}
+
+function canonicalDirectNamesFromSource(source, sourcePath) {
+  const sourceFile = ts.createSourceFile(
+    sourcePath,
+    source,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TS
+  );
+  const registrarBindings = new Set();
+  const names = [];
+  const forbiddenMethods = [];
+
+  for (const statement of sourceFile.statements) {
+    if (
+      ts.isImportDeclaration(statement) &&
+      ts.isStringLiteral(statement.moduleSpecifier) &&
+      (statement.moduleSpecifier.text === "node:test" ||
+        statement.moduleSpecifier.text === "node:test/promises")
+    ) {
+      const clause = statement.importClause;
+      if (clause?.name) registrarBindings.add(clause.name.text);
+      if (clause?.namedBindings && ts.isNamedImports(clause.namedBindings)) {
+        for (const element of clause.namedBindings.elements) {
+          if ((element.propertyName ?? element.name).text === "test") {
+            registrarBindings.add(element.name.text);
+          }
+        }
+      }
+    }
+  }
+  if (registrarBindings.size !== 1) {
+    throw new Error(
+      `${sourcePath}: canonical direct source must import exactly one node:test registrar binding`
+    );
+  }
+
+  const visit = (node) => {
+    if (ts.isCallExpression(node)) {
+      if (ts.isIdentifier(node.expression) && registrarBindings.has(node.expression.text)) {
+        const firstArgument = node.arguments[0];
+        if (!firstArgument) throw new Error(`${sourcePath}: canonical direct test lacks a name`);
+        names.push(literalTestName(firstArgument, sourcePath));
+      }
+      if (
+        ts.isPropertyAccessExpression(node.expression) &&
+        ts.isIdentifier(node.expression.expression) &&
+        registrarBindings.has(node.expression.expression.text)
+      ) {
+        forbiddenMethods.push(node.expression.name.text);
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sourceFile);
+  if (forbiddenMethods.length > 0) {
+    throw new Error(
+      `${sourcePath}: canonical direct test.skip/only/todo methods are forbidden: ${forbiddenMethods.join(",")}`
+    );
+  }
+  if (names.length === 0) {
+    throw new Error(`${sourcePath}: canonical direct source registers no tests`);
+  }
+  if (new Set(names).size !== names.length) {
+    throw new Error(`${sourcePath}: canonical direct test names must be unique`);
+  }
+  return names;
+}
+
+export function assertCanonicalDirectTestIdentity({ expectedDirectTestCount, testNameSha256 }) {
+  if (
+    expectedDirectTestCount !== EXPECTED_DIRECT_TEST_COUNT ||
+    testNameSha256 !== EXPECTED_DIRECT_TEST_NAME_SHA256
+  ) {
+    throw new Error(
+      `canonical direct test ledger drift: expected ${EXPECTED_DIRECT_TEST_COUNT}/${EXPECTED_DIRECT_TEST_NAME_SHA256}, got ${expectedDirectTestCount}/${testNameSha256}`
+    );
+  }
+  return true;
+}
+
+export async function loadCanonicalDirectTestBinding(workspaceRoot) {
+  assertStarshipAbsolutePath(workspaceRoot, "workspace root");
+  const sourceFiles = [];
+  const expectedNames = [];
+  for (const compiledEntry of EXPECTED_DIRECT_TEST_ENTRIES) {
+    const sourcePath = compiledEntry.replace(/\.js$/, ".ts");
+    const bytes = await readFile(join(workspaceRoot, sourcePath));
+    const testNames = canonicalDirectNamesFromSource(bytes.toString("utf8"), sourcePath);
+    sourceFiles.push({
+      sourcePath,
+      bytes: bytes.length,
+      sha256: sha256(bytes),
+      expectedTestCount: testNames.length,
+      testNames
+    });
+    expectedNames.push(...testNames);
+  }
+  if (new Set(expectedNames).size !== expectedNames.length) {
+    throw new Error("canonical direct TAP-visible test names must be globally unique");
+  }
+  const testNameSha256 = sha256(Buffer.from(JSON.stringify([...expectedNames].sort()), "utf8"));
+  assertCanonicalDirectTestIdentity({
+    expectedDirectTestCount: expectedNames.length,
+    testNameSha256
+  });
+  return {
+    schemaVersion: "hk-question-bank-canonical-direct-test-binding-v1",
+    derivation:
+      "TypeScript AST literal node:test registrations from the exact package-local direct entry list",
+    compiledEntries: [...EXPECTED_DIRECT_TEST_ENTRIES],
+    sourceFiles,
+    expectedDirectTestCount: EXPECTED_DIRECT_TEST_COUNT,
+    testNameSha256,
+    expectedNames
+  };
+}
+
+function tapSummaryValue(tap, key) {
+  const match = tap.match(new RegExp(`^# ${key} (\\d+)$`, "m"));
+  return match ? Number(match[1]) : null;
+}
+
+const CANONICAL_TAP_SUMMARY_KEYS = [
+  "tests",
+  "pass",
+  "fail",
+  "cancelled",
+  "skipped",
+  "todo"
+];
+
+export function parseCanonicalRootTap(tap, expectedTotalTestCount) {
+  if (typeof tap !== "string" || !Number.isInteger(expectedTotalTestCount) || expectedTotalTestCount < 1) {
+    throw new Error("canonical root TAP requires text and a positive exact test count");
+  }
+  const lines = tap.split(/\r?\n/);
+  const versionIndexes = [];
+  const planRecords = [];
+  const resultRecords = [];
+  const summaryRecords = new Map(CANONICAL_TAP_SUMMARY_KEYS.map((key) => [key, []]));
+
+  for (const [lineIndex, line] of lines.entries()) {
+    if (line === "TAP version 13") {
+      versionIndexes.push(lineIndex);
+      continue;
+    }
+    const result = line.match(/^(ok|not ok) (\d+) - (.+?)(?: # .*)?$/);
+    if (result) {
+      resultRecords.push({
+        lineIndex,
+        ok: result[1] === "ok",
+        ordinal: Number(result[2]),
+        name: result[3]
+      });
+      continue;
+    }
+    const plan = line.match(/^1\.\.(\d+)$/);
+    if (plan) {
+      planRecords.push({ lineIndex, total: Number(plan[1]) });
+      continue;
+    }
+    const summary = line.match(/^# (tests|pass|fail|cancelled|skipped|todo) (\d+)$/);
+    if (summary) {
+      summaryRecords.get(summary[1]).push({ lineIndex, value: Number(summary[2]) });
+      continue;
+    }
+    if (
+      /^(?:ok|not ok)(?:\s|$)/.test(line) ||
+      /^\d+\.\.\d+/.test(line) ||
+      /^TAP version(?:\s|$)/.test(line) ||
+      /^Bail out!/.test(line)
+    ) {
+      throw new Error(`canonical root TAP contains a malformed or competing root record: ${line}`);
+    }
+  }
+
+  if (versionIndexes.length !== 1) {
+    throw new Error(`canonical root TAP must contain exactly one TAP version record, got ${versionIndexes.length}`);
+  }
+  if (planRecords.length !== 1) {
+    throw new Error(`canonical root TAP must contain exactly one plan, got ${planRecords.length}`);
+  }
+  const plan = planRecords[0];
+  if (plan.total !== expectedTotalTestCount) {
+    throw new Error(
+      `canonical root TAP plan mismatch: expected 1..${expectedTotalTestCount}, got 1..${plan.total}`
+    );
+  }
+  if (resultRecords.length !== expectedTotalTestCount) {
+    throw new Error(
+      `canonical root TAP result count mismatch: expected ${expectedTotalTestCount}, got ${resultRecords.length}`
+    );
+  }
+  if (versionIndexes[0] > resultRecords[0].lineIndex) {
+    throw new Error("canonical root TAP version record must precede every result record");
+  }
+  for (const [index, record] of resultRecords.entries()) {
+    if (!record.ok) {
+      throw new Error(`canonical root TAP contains not-ok result ${record.ordinal}: ${record.name}`);
+    }
+    if (record.ordinal !== index + 1) {
+      throw new Error(
+        `canonical root TAP ordinal mismatch at result ${index + 1}: got ${record.ordinal}`
+      );
+    }
+    if (record.lineIndex > plan.lineIndex) {
+      throw new Error(`canonical root TAP result ${record.ordinal} appears after the plan`);
+    }
+  }
+
+  const tapSummary = {};
+  for (const key of CANONICAL_TAP_SUMMARY_KEYS) {
+    const records = summaryRecords.get(key);
+    if (records.length !== 1) {
+      throw new Error(`canonical root TAP must contain exactly one ${key} summary, got ${records.length}`);
+    }
+    if (records[0].lineIndex < plan.lineIndex) {
+      throw new Error(`canonical root TAP ${key} summary appears before the plan`);
+    }
+    tapSummary[key] = records[0].value;
+  }
+  return {
+    names: resultRecords.map((record) => record.name),
+    ordinals: resultRecords.map((record) => record.ordinal),
+    plan: plan.total,
+    tapSummary
+  };
+}
+
+export function verifyTapLedgerAndArtifacts({ tap, ledgerBinding, artifactBasenames }) {
+  if (artifactBasenames.includes(FORBIDDEN_STALE_ARTIFACT_BASENAME)) {
+    throw new Error(
+      `forbidden stale artifact is present in the unique run: ${FORBIDDEN_STALE_ARTIFACT_BASENAME}`
+    );
+  }
+  const sortedArtifactBasenames = [...artifactBasenames].sort();
+  if (
+    JSON.stringify(sortedArtifactBasenames) !==
+    JSON.stringify(EXPECTED_LOG_ARTIFACT_BASENAMES)
+  ) {
+    throw new Error(
+      `unique log artifact set mismatch: expected ${JSON.stringify(EXPECTED_LOG_ARTIFACT_BASENAMES)}, got ${JSON.stringify(sortedArtifactBasenames)}`
+    );
+  }
+  const observedOkNames = [];
+  for (const line of tap.split(/\r?\n/)) {
+    const match = line.match(/^ok \d+ - (.+?)(?: # .*)?$/);
+    if (match) observedOkNames.push(match[1]);
+  }
+  const observedCounts = new Map();
+  for (const name of observedOkNames) {
+    observedCounts.set(name, (observedCounts.get(name) ?? 0) + 1);
+  }
+  const missing = ledgerBinding.expectedNames.filter((name) => !observedCounts.has(name));
+  const nonOnce = ledgerBinding.expectedNames
+    .filter((name) => observedCounts.get(name) !== 1)
+    .map((name) => ({ name, count: observedCounts.get(name) ?? 0 }));
+  if (missing.length > 0 || nonOnce.length > 0) {
+    throw new Error(
+      `exact57 TAP registration mismatch: missing=${JSON.stringify(missing)}, nonOnce=${JSON.stringify(nonOnce)}`
+    );
+  }
+  return {
+    schemaVersion: "hk-question-bank-exact57-tap-verification-v1",
+    ledgerRelativePath: ledgerBinding.relativePath,
+    ledgerFileSha256: ledgerBinding.fileSha256,
+    ledgerTestNameSha256: ledgerBinding.testNameSha256,
+    expectedFocusedTestCount: ledgerBinding.expectedFocusedTestCount,
+    observedFocusedTestCount: ledgerBinding.expectedNames.reduce(
+      (count, name) => count + (observedCounts.get(name) ?? 0),
+      0
+    ),
+    missing,
+    nonOnce,
+    tapSummary: {
+      tests: tapSummaryValue(tap, "tests"),
+      pass: tapSummaryValue(tap, "pass"),
+      fail: tapSummaryValue(tap, "fail"),
+      cancelled: tapSummaryValue(tap, "cancelled"),
+      skipped: tapSummaryValue(tap, "skipped"),
+      todo: tapSummaryValue(tap, "todo")
+    },
+    forbiddenArtifactBasename: FORBIDDEN_STALE_ARTIFACT_BASENAME,
+    artifactBasenames: sortedArtifactBasenames,
+    pass: true
+  };
+}
+
+export function verifyCompleteTapLedgerAndArtifacts({
+  tap,
+  focusedLedgerBindings,
+  directTestBinding,
+  artifactBasenames
+}) {
+  if (artifactBasenames.includes(FORBIDDEN_STALE_ARTIFACT_BASENAME)) {
+    throw new Error(
+      `forbidden stale artifact is present in the unique run: ${FORBIDDEN_STALE_ARTIFACT_BASENAME}`
+    );
+  }
+  const sortedArtifactBasenames = [...artifactBasenames].sort();
+  if (
+    JSON.stringify(sortedArtifactBasenames) !==
+    JSON.stringify(EXPECTED_LOG_ARTIFACT_BASENAMES)
+  ) {
+    throw new Error(
+      `unique log artifact set mismatch: expected ${JSON.stringify(EXPECTED_LOG_ARTIFACT_BASENAMES)}, got ${JSON.stringify(sortedArtifactBasenames)}`
+    );
+  }
+  const expectedNames = [
+    ...directTestBinding.expectedNames,
+    ...focusedLedgerBindings.flatMap((binding) => binding.expectedNames)
+  ];
+  if (new Set(expectedNames).size !== expectedNames.length) {
+    throw new Error("complete canonical expected test names are not globally unique");
+  }
+  const expectedTotalTestCount = expectedNames.length;
+  const parsedTap = parseCanonicalRootTap(tap, expectedTotalTestCount);
+  const observedNames = parsedTap.names;
+  const observedCounts = new Map();
+  for (const name of observedNames) {
+    observedCounts.set(name, (observedCounts.get(name) ?? 0) + 1);
+  }
+  const expectedSet = new Set(expectedNames);
+  const missing = expectedNames.filter((name) => !observedCounts.has(name));
+  const nonOnce = expectedNames
+    .filter((name) => observedCounts.get(name) !== 1)
+    .map((name) => ({ name, count: observedCounts.get(name) ?? 0 }));
+  const unexpected = [...observedCounts.keys()].filter((name) => !expectedSet.has(name));
+  if (missing.length > 0 || nonOnce.length > 0 || unexpected.length > 0) {
+    throw new Error(
+      `complete TAP registration mismatch: missing=${JSON.stringify(missing)}, nonOnce=${JSON.stringify(nonOnce)}, unexpected=${JSON.stringify(unexpected)}`
+    );
+  }
+  const tapSummary = parsedTap.tapSummary;
+  if (
+    tapSummary.tests !== expectedTotalTestCount ||
+    tapSummary.pass !== expectedTotalTestCount ||
+    observedNames.length !== expectedTotalTestCount ||
+    tapSummary.fail !== 0 ||
+    tapSummary.cancelled !== 0 ||
+    tapSummary.skipped !== 0 ||
+    tapSummary.todo !== 0
+  ) {
+    throw new Error(
+      `complete TAP count/status mismatch: expected=${expectedTotalTestCount}, observedNames=${observedNames.length}, summary=${JSON.stringify(tapSummary)}`
+    );
+  }
+  return {
+    schemaVersion: "hk-question-bank-complete-tap-verification-v1",
+    expectedTotalTestCount,
+    observedTotalTestCount: observedNames.length,
+    directTests: {
+      expectedDirectTestCount: directTestBinding.expectedDirectTestCount,
+      testNameSha256: directTestBinding.testNameSha256,
+      sourceFiles: directTestBinding.sourceFiles.map((sourceFile) => ({
+        sourcePath: sourceFile.sourcePath,
+        bytes: sourceFile.bytes,
+        sha256: sourceFile.sha256,
+        expectedTestCount: sourceFile.expectedTestCount
+      }))
+    },
+    focusedLedgers: focusedLedgerBindings.map((binding) => ({
+      ledgerId: binding.ledgerId,
+      relativePath: binding.relativePath,
+      fileSha256: binding.fileSha256,
+      testNameSha256: binding.testNameSha256,
+      expectedFocusedTestCount: binding.expectedFocusedTestCount,
+      suiteIds: binding.suiteIds
+    })),
+    missing,
+    nonOnce,
+    unexpected,
+    tapSummary,
+    artifactBasenames: sortedArtifactBasenames,
+    forbiddenArtifactBasename: FORBIDDEN_STALE_ARTIFACT_BASENAME,
+    pass: true
+  };
+}
+
+export async function acquireExclusiveLock(lockPath, owner) {
+  assertStarshipAbsolutePath(lockPath, "exclusive lock path");
+  await mkdir(dirname(lockPath), { recursive: true });
+  try {
+    await mkdir(lockPath);
+  } catch (error) {
+    if (error?.code === "EEXIST") {
+      let existingOwner = "unreadable";
+      try {
+        existingOwner = await readFile(join(lockPath, "owner.json"), "utf8");
+      } catch {
+        // The directory itself is the authoritative lock even if its receipt is incomplete.
+      }
+      throw new Error(`exclusive evidence lock already exists at ${lockPath}: ${existingOwner}`);
+    }
+    throw error;
+  }
+  const ownerPath = join(lockPath, "owner.json");
+  const ownerReceipt = {
+    schemaVersion: "hk-question-bank-evidence-lock-v1",
+    pid: process.pid,
+    ppid: process.ppid,
+    hostname: process.env.HOSTNAME ?? null,
+    acquiredAt: new Date().toISOString(),
+    ...owner
+  };
+  try {
+    await writeJsonAtomic(ownerPath, ownerReceipt);
+  } catch (error) {
+    await rmdir(lockPath);
+    throw error;
+  }
+  let released = false;
+  return {
+    ownerReceipt,
+    async release() {
+      if (released) throw new Error(`exclusive evidence lock already released: ${lockPath}`);
+      const currentOwner = JSON.parse(await readFile(ownerPath, "utf8"));
+      if (currentOwner.pid !== process.pid || currentOwner.runId !== owner.runId) {
+        throw new Error(`exclusive evidence lock ownership changed unexpectedly: ${lockPath}`);
+      }
+      await unlink(ownerPath);
+      await rmdir(lockPath);
+      released = true;
+    }
+  };
+}
+
+async function gitOutput(workspaceRoot, args) {
+  const { stdout } = await execFile("git", args, {
+    cwd: workspaceRoot,
+    encoding: "buffer",
+    maxBuffer: 64 * 1024 * 1024
+  });
+  return stdout;
+}
+
+export async function captureSourceManifest(workspaceRoot) {
+  assertStarshipAbsolutePath(workspaceRoot, "workspace root");
+  const rawPaths = await gitOutput(workspaceRoot, [
+    "ls-files",
+    "-z",
+    "--cached",
+    "--others",
+    "--exclude-standard"
+  ]);
+  const paths = rawPaths
+    .toString("utf8")
+    .split("\u0000")
+    .filter(Boolean)
+    .sort();
+  const entries = [];
+  for (const path of paths) {
+    assertSafeRelativePath(path);
+    const absolutePath = join(workspaceRoot, path);
+    try {
+      const stat = await lstat(absolutePath);
+      if (stat.isSymbolicLink()) {
+        const target = await readlink(absolutePath);
+        const bytes = Buffer.from(target, "utf8");
+        entries.push({ path, type: "symlink", bytes: bytes.length, sha256: sha256(bytes) });
+      } else if (stat.isFile()) {
+        const bytes = await readFile(absolutePath);
+        entries.push({ path, type: "file", bytes: bytes.length, sha256: sha256(bytes) });
+      } else {
+        throw new Error(`source-manifest path is neither file nor symlink: ${path}`);
+      }
+    } catch (error) {
+      if (error?.code === "ENOENT") {
+        entries.push({ path, type: "missing", bytes: 0, sha256: null });
+      } else {
+        throw error;
+      }
+    }
+  }
+  const canonical = entries
+    .map((entry) => `${entry.type}\u0000${entry.sha256 ?? "-"}\u0000${entry.bytes}\u0000${entry.path}\n`)
+    .join("");
+  const head = (await gitOutput(workspaceRoot, ["rev-parse", "HEAD"]))
+    .toString("utf8")
+    .trim();
+  const branch = (await gitOutput(workspaceRoot, ["branch", "--show-current"]))
+    .toString("utf8")
+    .trim();
+  return {
+    schemaVersion: "hk-question-bank-source-manifest-v1",
+    canonicalSerialization: "path-sorted type + NUL + sha256-or-dash + NUL + byte-count + NUL + path + LF",
+    workspaceRoot,
+    gitHead: head,
+    gitBranch: branch,
+    fileCount: entries.length,
+    aggregateSha256: sha256(Buffer.from(canonical, "utf8")),
+    entries
+  };
+}
+
+export function assertSourceManifestsUnchanged(pre, post) {
+  const unchanged = JSON.stringify(pre) === JSON.stringify(post);
+  if (!unchanged) {
+    throw new Error(
+      `source changed during canonical run: pre=${pre?.aggregateSha256 ?? null}, post=${post?.aggregateSha256 ?? null}`
+    );
+  }
+  return true;
+}
+
+function assertSourceManifestIntegrity(manifest, workspaceRoot, label) {
+  const failures = [];
+  if (manifest?.schemaVersion !== "hk-question-bank-source-manifest-v1") {
+    failures.push("schemaVersion");
+  }
+  if (manifest?.workspaceRoot !== workspaceRoot) failures.push("workspaceRoot");
+  if (!Array.isArray(manifest?.entries)) failures.push("entries");
+  const entries = Array.isArray(manifest?.entries) ? manifest.entries : [];
+  if (manifest?.fileCount !== entries.length) failures.push("fileCount");
+  const sortedPaths = entries.map((entry) => entry?.path);
+  if (JSON.stringify(sortedPaths) !== JSON.stringify([...sortedPaths].sort())) {
+    failures.push("entry order");
+  }
+  if (new Set(sortedPaths).size !== sortedPaths.length) failures.push("duplicate paths");
+  for (const entry of entries) {
+    try {
+      assertSafeRelativePath(entry?.path);
+    } catch {
+      failures.push(`unsafe path ${JSON.stringify(entry?.path)}`);
+    }
+    if (!['file', 'symlink', 'missing'].includes(entry?.type)) {
+      failures.push(`${entry?.path}: type`);
+    }
+    if (!Number.isInteger(entry?.bytes) || entry.bytes < 0) {
+      failures.push(`${entry?.path}: bytes`);
+    }
+    if (entry?.type === "missing") {
+      if (entry?.sha256 !== null || entry?.bytes !== 0) failures.push(`${entry?.path}: missing`);
+    } else if (!isSha256(entry?.sha256)) {
+      failures.push(`${entry?.path}: sha256`);
+    }
+  }
+  const canonical = entries
+    .map((entry) => `${entry.type}\u0000${entry.sha256 ?? "-"}\u0000${entry.bytes}\u0000${entry.path}\n`)
+    .join("");
+  if (manifest?.aggregateSha256 !== sha256(Buffer.from(canonical, "utf8"))) {
+    failures.push("aggregateSha256");
+  }
+  if (failures.length > 0) {
+    throw new Error(`${label} source manifest integrity failed: ${failures.join(", ")}`);
+  }
+  return true;
+}
+
+export async function bindIndependentReviewedSourceArtifacts({
+  workspaceRoot,
+  sourcePre,
+  sourcePost,
+  currentSource
+}) {
+  await loadIndependentReviewedSourceAuthority(workspaceRoot);
+  const preByPath = new Map(sourcePre.entries.map((entry) => [entry.path, entry]));
+  const postByPath = new Map(sourcePost.entries.map((entry) => [entry.path, entry]));
+  const currentByPath = new Map(currentSource.entries.map((entry) => [entry.path, entry]));
+  const bindings = [];
+  const failures = [];
+  for (const authority of INDEPENDENT_REVIEWED_SOURCE_AUTHORITY) {
+    const pre = preByPath.get(authority.path);
+    const post = postByPath.get(authority.path);
+    const current = currentByPath.get(authority.path);
+    const observedBytes = await readFile(join(workspaceRoot, authority.path));
+    const observedRaw = {
+      bytes: observedBytes.length,
+      sha256: sha256(observedBytes)
+    };
+    for (const [phase, entry] of [
+      ["pre", pre],
+      ["post", post],
+      ["current", current]
+    ]) {
+      if (entry?.type !== "file") failures.push(`${authority.path}: ${phase} type`);
+      if (
+        entry?.bytes !== observedRaw.bytes ||
+        entry?.sha256 !== observedRaw.sha256
+      ) {
+        failures.push(`${authority.path}: ${phase}/current byte binding`);
+      }
+    }
+    if (
+      authority.hashMode === "raw" &&
+      (observedRaw.bytes !== authority.bytes || observedRaw.sha256 !== authority.sha256)
+    ) {
+      failures.push(`${authority.path}: raw authority`);
+    }
+    bindings.push({
+      ...authority,
+      sourceBytes: observedRaw.bytes,
+      sourceSha256: observedRaw.sha256,
+      preSha256: pre?.sha256 ?? null,
+      postSha256: post?.sha256 ?? null,
+      currentSha256: current?.sha256 ?? null
+    });
+  }
+  if (failures.length > 0) {
+    throw new Error(`independent reviewed source cross-binding failed: ${failures.join("; ")}`);
+  }
+  return bindings;
+}
+
+export async function validateRetainedSourceManifests({
+  workspaceRoot,
+  sourcePrePath,
+  sourcePostPath,
+  sourceReceipt
+}) {
+  assertCanonicalAbsolutePath(workspaceRoot, "retained source workspace root");
+  for (const [path, label] of [
+    [sourcePrePath, "source-pre path"],
+    [sourcePostPath, "source-post path"]
+  ]) {
+    assertCanonicalAbsolutePath(path, label);
+  }
+  let sourcePreBytes;
+  let sourcePostBytes;
+  try {
+    [sourcePreBytes, sourcePostBytes] = await Promise.all([
+      readFile(sourcePrePath),
+      readFile(sourcePostPath)
+    ]);
+  } catch (error) {
+    throw new Error(
+      `retained source manifest physical read failed: ${error?.message ?? String(error)}`
+    );
+  }
+  const preFileSha256 = sha256(sourcePreBytes);
+  const postFileSha256 = sha256(sourcePostBytes);
+  if (
+    preFileSha256 !== sourceReceipt?.preManifestFileSha256 ||
+    postFileSha256 !== sourceReceipt?.postManifestFileSha256
+  ) {
+    throw new Error(
+      `retained source manifest SHA-256 mismatch: pre=${preFileSha256}/${sourceReceipt?.preManifestFileSha256}, post=${postFileSha256}/${sourceReceipt?.postManifestFileSha256}`
+    );
+  }
+  if (!sourcePreBytes.equals(sourcePostBytes)) {
+    throw new Error("retained source manifest bytes differ between pre and post");
+  }
+  let sourcePre;
+  let sourcePost;
+  try {
+    sourcePre = JSON.parse(sourcePreBytes.toString("utf8"));
+    sourcePost = JSON.parse(sourcePostBytes.toString("utf8"));
+  } catch (error) {
+    throw new Error(`retained source manifest JSON parse failed: ${error?.message ?? String(error)}`);
+  }
+  assertSourceManifestIntegrity(sourcePre, workspaceRoot, "pre");
+  assertSourceManifestIntegrity(sourcePost, workspaceRoot, "post");
+  assertSourceManifestsUnchanged(sourcePre, sourcePost);
+  if (
+    sourceReceipt?.unchanged !== true ||
+    sourceReceipt?.preAggregateSha256 !== sourcePre.aggregateSha256 ||
+    sourceReceipt?.postAggregateSha256 !== sourcePost.aggregateSha256
+  ) {
+    throw new Error("retained source manifest receipt aggregate mismatch");
+  }
+  const currentSource = await captureSourceManifest(workspaceRoot);
+  assertSourceManifestIntegrity(currentSource, workspaceRoot, "current");
+  try {
+    assertSourceManifestsUnchanged(sourcePre, currentSource);
+  } catch {
+    throw new Error(
+      `current source manifest differs from retained pre/post: retained=${sourcePre.aggregateSha256}, current=${currentSource.aggregateSha256}`
+    );
+  }
+  const reviewedSourceBindings = await bindIndependentReviewedSourceArtifacts({
+    workspaceRoot,
+    sourcePre,
+    sourcePost,
+    currentSource
+  });
+  return { sourcePre, sourcePost, currentSource, reviewedSourceBindings };
+}
+
+export function assertExecutingRunnerMatchesSourcePre(sourcePre) {
+  assertIndependentReviewedSourceBytes(
+    RUNNER_RELATIVE_PATH,
+    EXECUTING_RUNNER_LOADED_BYTES
+  );
+  const entry = (sourcePre?.entries ?? []).find(
+    (candidate) => candidate.path === EXECUTING_RUNNER_BINDING.relativePath
+  );
+  const expectedAbsolutePath = sourcePre?.workspaceRoot
+    ? join(sourcePre.workspaceRoot, EXECUTING_RUNNER_BINDING.relativePath)
+    : EXECUTING_RUNNER_BINDING.absolutePath;
+  if (
+    entry?.type !== "file" ||
+    entry?.bytes !== EXECUTING_RUNNER_BINDING.bytes ||
+    entry?.sha256 !== EXECUTING_RUNNER_BINDING.sha256 ||
+    expectedAbsolutePath !== EXECUTING_RUNNER_BINDING.absolutePath
+  ) {
+    throw new Error(
+      `executing runner bytes do not match source preflight: loaded=${EXECUTING_RUNNER_BINDING.sha256}/${EXECUTING_RUNNER_BINDING.bytes}/${EXECUTING_RUNNER_BINDING.absolutePath}, pre=${entry?.sha256 ?? null}/${entry?.bytes ?? null}/${expectedAbsolutePath}`
+    );
+  }
+  return true;
+}
+
+async function captureRegularDirectoryFiles(rootPath) {
+  const entries = [];
+  const visit = async (directoryPath) => {
+    const children = await readdir(directoryPath, { withFileTypes: true });
+    children.sort((left, right) => left.name.localeCompare(right.name, "en"));
+    for (const child of children) {
+      const absolutePath = join(directoryPath, child.name);
+      const relativePath = relative(rootPath, absolutePath);
+      if (!relativePath || isAbsolute(relativePath) || relativePath.startsWith(`..${sep}`)) {
+        throw new Error(`physical toolchain traversal escaped its root: ${absolutePath}`);
+      }
+      if (child.isDirectory()) {
+        await visit(absolutePath);
+        continue;
+      }
+      if (!child.isFile()) {
+        throw new Error(`physical TypeScript package contains unsupported entry: ${absolutePath}`);
+      }
+      const bytes = await readFile(absolutePath);
+      entries.push({
+        path: relativePath,
+        bytes: bytes.length,
+        sha256: sha256(bytes)
+      });
+    }
+  };
+  await visit(rootPath);
+  entries.sort((left, right) => left.path.localeCompare(right.path, "en"));
+  return entries;
+}
+
+async function capturePhysicalNpmPackageBinding({
+  nodeModulesPhysicalPath,
+  packageName,
+  importedModulePath
+}) {
+  const importedModulePhysicalPath = await realpath(importedModulePath);
+  assertStarshipAbsolutePath(importedModulePhysicalPath, "physical " + packageName + " module path");
+  if (!pathIsWithin(nodeModulesPhysicalPath, importedModulePhysicalPath)) {
+    throw new Error("physical " + packageName + " module escapes physical node_modules: " + importedModulePhysicalPath);
+  }
+  let packageRootPhysicalPath = dirname(importedModulePhysicalPath);
+  while (pathIsWithin(nodeModulesPhysicalPath, packageRootPhysicalPath)) {
+    const packageJsonPath = join(packageRootPhysicalPath, "package.json");
+    if (existsSync(packageJsonPath)) {
+      const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+      if (packageJson?.name === packageName && typeof packageJson?.version === "string") {
+        const entries = await captureRegularDirectoryFiles(packageRootPhysicalPath);
+        const canonicalPackageBytes = Buffer.from(
+          entries
+            .map((entry) => [entry.sha256, entry.bytes, entry.path].join("\u0000") + "\n")
+            .join(""),
+          "utf8"
+        );
+        return {
+          packageName,
+          importedModulePath,
+          importedModulePhysicalPath,
+          packageRootPhysicalPath,
+          packageVersion: packageJson.version,
+          fileCount: entries.length,
+          aggregateSha256: sha256(canonicalPackageBytes),
+          entries
+        };
+      }
+    }
+    if (packageRootPhysicalPath === nodeModulesPhysicalPath) break;
+    const parent = dirname(packageRootPhysicalPath);
+    if (parent === packageRootPhysicalPath) break;
+    packageRootPhysicalPath = parent;
+  }
+  throw new Error("unable to locate physical " + packageName + " package for " + importedModulePhysicalPath);
+}
+
+export async function capturePhysicalToolchainBinding(workspaceRoot) {
+  assertCanonicalAbsolutePath(workspaceRoot, "toolchain workspace root");
+  const nodeModulesPath = join(workspaceRoot, "node_modules");
+  const nodeModulesPhysicalPath = await realpath(nodeModulesPath);
+  assertStarshipAbsolutePath(nodeModulesPhysicalPath, "physical node_modules path");
+  const requestedLauncherPath = join(nodeModulesPath, ".bin", "tsc");
+  const physicalLauncherPath = await realpath(requestedLauncherPath);
+  assertStarshipAbsolutePath(physicalLauncherPath, "physical TypeScript launcher path");
+  const packageRootPhysicalPath = dirname(dirname(physicalLauncherPath));
+  if (!pathIsWithin(nodeModulesPhysicalPath, packageRootPhysicalPath)) {
+    throw new Error(
+      `physical TypeScript package escapes physical node_modules: ${packageRootPhysicalPath}`
+    );
+  }
+  const packageJsonPath = join(packageRootPhysicalPath, "package.json");
+  const importedModulePhysicalPath = await realpath(EXECUTING_TYPESCRIPT_MODULE_PATH);
+  if (!pathIsWithin(packageRootPhysicalPath, importedModulePhysicalPath)) {
+    throw new Error(
+      `runner-imported TypeScript module escapes the hashed physical package: ${importedModulePhysicalPath}`
+    );
+  }
+  const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+  if (packageJson?.name !== "typescript" || typeof packageJson?.version !== "string") {
+    throw new Error(`physical TypeScript package identity is invalid: ${packageJsonPath}`);
+  }
+  const entries = await captureRegularDirectoryFiles(packageRootPhysicalPath);
+  const canonicalTypeScriptBytes = Buffer.from(
+    entries
+      .map((entry) => `${entry.sha256}\u0000${entry.bytes}\u0000${entry.path}\n`)
+      .join(""),
+    "utf8"
+  );
+  const [tsx, esbuild] = await Promise.all([
+    capturePhysicalNpmPackageBinding({
+      nodeModulesPhysicalPath,
+      packageName: "tsx",
+      importedModulePath: EXECUTING_TSX_MODULE_PATH
+    }),
+    capturePhysicalNpmPackageBinding({
+      nodeModulesPhysicalPath,
+      packageName: "esbuild",
+      importedModulePath: EXECUTING_ESBUILD_MODULE_PATH
+    })
+  ]);
+  const nodePhysicalPath = await realpath(process.execPath);
+  const nodeBytes = await readFile(nodePhysicalPath);
+  const binding = {
+    schemaVersion: "hk-question-bank-physical-toolchain-binding-v2",
+    canonicalSerialization:
+      "Node requested/physical path, version, byte-count and SHA-256 plus path-sorted TypeScript, TSX, and esbuild package file SHA-256 + NUL + byte-count + NUL + relative-path + LF",
+    node: {
+      requestedPath: process.execPath,
+      physicalPath: nodePhysicalPath,
+      version: process.version,
+      bytes: nodeBytes.length,
+      sha256: sha256(nodeBytes)
+    },
+    typescript: {
+      nodeModulesPath,
+      nodeModulesPhysicalPath,
+      requestedLauncherPath,
+      physicalLauncherPath,
+      importedModulePath: EXECUTING_TYPESCRIPT_MODULE_PATH,
+      importedModulePhysicalPath,
+      packageRootPhysicalPath,
+      packageVersion: packageJson.version,
+      fileCount: entries.length,
+      aggregateSha256: sha256(canonicalTypeScriptBytes),
+      entries
+    },
+    tsx,
+    esbuild
+  };
+  return {
+    ...binding,
+    aggregateSha256: sha256(Buffer.from(JSON.stringify(canonicalJson(binding)), "utf8"))
+  };
+}
+
+export function assertPhysicalToolchainUnchanged(pre, post) {
+  if (!exactJsonEqual(pre, post)) {
+    throw new Error(
+      `physical toolchain changed during canonical run: pre=${pre?.aggregateSha256 ?? null}, post=${post?.aggregateSha256 ?? null}`
+    );
+  }
+  return true;
+}
+
+export function bindReviewedSourceArtifacts(requiredArtifacts, preManifest, postManifest) {
+  const failures = [];
+  const bound = [];
+  const preByPath = new Map((preManifest?.entries ?? []).map((entry) => [entry.path, entry]));
+  const postByPath = new Map((postManifest?.entries ?? []).map((entry) => [entry.path, entry]));
+  const seenPaths = new Set();
+  for (const required of requiredArtifacts) {
+    if (
+      typeof required?.path !== "string" ||
+      !required.path ||
+      isAbsolute(required.path) ||
+      required.path === ".." ||
+      required.path.startsWith(`..${sep}`)
+    ) {
+      failures.push(`invalid required path ${JSON.stringify(required?.path)}`);
+      continue;
+    }
+    if (!isSha256(required.sha256)) {
+      failures.push(`${required.path}: invalid required SHA-256`);
+      continue;
+    }
+    if (seenPaths.has(required.path)) {
+      failures.push(`${required.path}: duplicate required path`);
+      continue;
+    }
+    seenPaths.add(required.path);
+    const pre = preByPath.get(required.path);
+    const post = postByPath.get(required.path);
+    if (!pre) failures.push(`${required.path}: absent from pre manifest`);
+    if (!post) failures.push(`${required.path}: absent from post manifest`);
+    if (!pre || !post) continue;
+    if (pre.type !== "file") failures.push(`${required.path}: pre type is ${pre.type}`);
+    if (post.type !== "file") failures.push(`${required.path}: post type is ${post.type}`);
+    if (pre.sha256 !== required.sha256) {
+      failures.push(`${required.path}: pre SHA is ${pre.sha256}, expected ${required.sha256}`);
+    }
+    if (post.sha256 !== required.sha256) {
+      failures.push(`${required.path}: post SHA is ${post.sha256}, expected ${required.sha256}`);
+    }
+    if (pre.bytes !== post.bytes) {
+      failures.push(`${required.path}: pre/post byte counts differ`);
+    }
+    bound.push({
+      path: required.path,
+      sha256: required.sha256,
+      bytes: pre.bytes,
+      preSha256: pre.sha256,
+      postSha256: post.sha256
+    });
+  }
+  if (failures.length > 0) {
+    throw new Error(`reviewed source artifact binding failed: ${failures.join("; ")}`);
+  }
+  return bound;
+}
+
+function reviewedTopologySourceArtifacts() {
+  return INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.map((binding) => ({ ...binding }));
+}
+
+export function assertLoadedTopologyMatchesSourcePre({
+  sourcePre,
+  focusedLedgerBindings,
+  directTestBinding,
+  packageTopology
+}) {
+  const expectedByPath = new Map();
+  for (const binding of focusedLedgerBindings) {
+    expectedByPath.set(binding.relativePath, binding.fileSha256);
+  }
+  for (const sourceFile of directTestBinding.sourceFiles) {
+    expectedByPath.set(sourceFile.sourcePath, sourceFile.sha256);
+  }
+  expectedByPath.set("package.json", packageTopology.packageJsonSha256);
+  const preByPath = new Map((sourcePre?.entries ?? []).map((entry) => [entry.path, entry]));
+  const authorityByPath = new Map(
+    INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.map((binding) => [binding.path, binding])
+  );
+  const failures = [];
+  for (const [path, expectedSha256] of expectedByPath) {
+    const pre = preByPath.get(path);
+    if (pre?.type !== "file" || pre?.sha256 !== expectedSha256) {
+      failures.push(`${path}: loaded=${expectedSha256}, pre=${pre?.sha256 ?? null}`);
+    }
+    const authority = authorityByPath.get(path);
+    if (
+      authority?.hashMode !== "raw" ||
+      authority.sha256 !== expectedSha256 ||
+      authority.bytes !== pre?.bytes
+    ) {
+      failures.push(`${path}: loaded bytes lack matching independent authority`);
+    }
+  }
+  for (const authority of INDEPENDENT_REVIEWED_SOURCE_AUTHORITY) {
+    const pre = preByPath.get(authority.path);
+    if (pre?.type !== "file") {
+      failures.push(`${authority.path}: absent from source preflight`);
+      continue;
+    }
+    if (
+      authority.hashMode === "raw" &&
+      (pre.sha256 !== authority.sha256 || pre.bytes !== authority.bytes)
+    ) {
+      failures.push(`${authority.path}: source preflight differs from independent authority`);
+    }
+  }
+  if (failures.length > 0) {
+    throw new Error(`loaded topology changed before source preflight: ${failures.join("; ")}`);
+  }
+  return true;
+}
+
+export async function cleanupEphemeralRunPaths(runRoot, ephemeralPaths) {
+  assertStarshipAbsolutePath(runRoot, "run root");
+  for (const ephemeralPath of ephemeralPaths) {
+    assertStarshipAbsolutePath(ephemeralPath, "ephemeral cleanup path");
+    if (dirname(ephemeralPath) !== runRoot) {
+      throw new Error(`ephemeral cleanup path is not a direct child of run root: ${ephemeralPath}`);
+    }
+  }
+  const errors = [];
+  for (const ephemeralPath of ephemeralPaths) {
+    try {
+      await rm(ephemeralPath, { recursive: true, force: true });
+    } catch (error) {
+      errors.push(`${ephemeralPath}: ${error?.message ?? String(error)}`);
+    }
+  }
+  return { completed: errors.length === 0, errors };
+}
+
+function isSha256(value) {
+  return typeof value === "string" && /^[0-9a-f]{64}$/.test(value);
+}
+
+function canonicalCompileArguments() {
+  return [
+    "-p",
+    "tsconfig.json",
+    "--noEmit",
+    "--incremental",
+    "false"
+  ];
+}
+
+function canonicalTestArguments(workspaceRoot) {
+  return [
+    "--import",
+    "tsx",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    ...EXPECTED_DIRECT_TEST_ENTRIES.map((entry) =>
+      join(workspaceRoot, entry.replace(/\.js$/, ".ts"))
+    )
+  ];
+}
+
+function assertCompletedProcessReceipt({
+  processReceipt,
+  workspaceRoot,
+  paths,
+  childEnvironment
+}) {
+  const failures = [];
+  const wrapper = processReceipt?.wrapper;
+  const processes = processReceipt?.processes;
+  if (processReceipt?.schemaVersion !== "hk-question-bank-process-receipt-v3") {
+    failures.push("schemaVersion");
+  }
+  if (!Number.isInteger(wrapper?.pid) || wrapper.pid < 1) failures.push("wrapper.pid");
+  if (!Number.isInteger(wrapper?.ppid) || wrapper.ppid < 0) failures.push("wrapper.ppid");
+  if (wrapper?.execPath !== process.execPath) failures.push("wrapper.execPath");
+  if (wrapper?.cwd !== workspaceRoot) failures.push("wrapper.cwd");
+  if (wrapper?.nodeVersion !== process.version) failures.push("wrapper.nodeVersion");
+  const expectedRunnerPath = join(workspaceRoot, RUNNER_RELATIVE_PATH);
+  const allowedWrapperArgv = [
+    [process.execPath, expectedRunnerPath],
+    [process.execPath, expectedRunnerPath, "--workspace", workspaceRoot]
+  ];
+  if (!allowedWrapperArgv.some((argv) => exactJsonEqual(argv, wrapper?.argv))) {
+    failures.push("wrapper.argv");
+  }
+  if (!Array.isArray(processes) || processes.length !== 2) {
+    failures.push("exactly two child records");
+  } else {
+    const expectedRecords = [
+      {
+        label: "typescript-compile",
+        executable: join(workspaceRoot, "node_modules", ".bin", "tsc"),
+        args: canonicalCompileArguments(),
+        logPath: join(paths.logsRoot, "compile.log")
+      },
+      {
+        label: "canonical-question-bank-tests",
+        executable: process.execPath,
+        args: canonicalTestArguments(workspaceRoot),
+        logPath: join(paths.logsRoot, "test-question-bank.tap")
+      }
+    ];
+    for (const [index, record] of processes.entries()) {
+      const expected = expectedRecords[index];
+      for (const [key, value] of Object.entries(expected)) {
+        if (!exactJsonEqual(record?.[key], value)) failures.push(`processes[${index}].${key}`);
+      }
+      if (!Number.isInteger(record?.pid) || record.pid < 1) failures.push(`processes[${index}].pid`);
+      if (record?.ppid !== wrapper?.pid) failures.push(`processes[${index}].ppid`);
+      if (record?.processGroupId !== record?.pid) {
+        failures.push(`processes[${index}].processGroupId`);
+      }
+      if (record?.processGroupAbsent !== true) {
+        failures.push(`processes[${index}].processGroupAbsent`);
+      }
+      if (
+        typeof record?.processGroupAbsenceCheckedAt !== "string" ||
+        Number.isNaN(Date.parse(record.processGroupAbsenceCheckedAt))
+      ) {
+        failures.push(`processes[${index}].processGroupAbsenceCheckedAt`);
+      }
+      if (record?.unexpectedGroupSurvivor !== false) {
+        failures.push(`processes[${index}].unexpectedGroupSurvivor`);
+      }
+      if (record?.cwd !== workspaceRoot) failures.push(`processes[${index}].cwd`);
+      if (record?.exitCode !== 0) failures.push(`processes[${index}].exitCode`);
+      if (record?.signal !== null) failures.push(`processes[${index}].signal`);
+      if (record?.timeoutMs !== DEFAULT_CHILD_TIMEOUT_MS) {
+        failures.push(`processes[${index}].timeoutMs`);
+      }
+      if (record?.terminationGraceMs !== DEFAULT_CHILD_TERMINATION_GRACE_MS) {
+        failures.push(`processes[${index}].terminationGraceMs`);
+      }
+      if (record?.timedOut !== false) failures.push(`processes[${index}].timedOut`);
+      if (record?.aborted !== false) failures.push(`processes[${index}].aborted`);
+      if (record?.abortReason !== null) failures.push(`processes[${index}].abortReason`);
+      if (!Array.isArray(record?.terminationSignals) || record.terminationSignals.length !== 0) {
+        failures.push(`processes[${index}].terminationSignals`);
+      }
+      if (typeof record?.startedAt !== "string" || Number.isNaN(Date.parse(record.startedAt))) {
+        failures.push(`processes[${index}].startedAt`);
+      }
+      if (typeof record?.exitedAt !== "string" || Number.isNaN(Date.parse(record.exitedAt))) {
+        failures.push(`processes[${index}].exitedAt`);
+      }
+      if (
+        typeof record?.deadlineAt !== "string" ||
+        Number.isNaN(Date.parse(record.deadlineAt)) ||
+        Date.parse(record.deadlineAt) - Date.parse(record.startedAt) !== DEFAULT_CHILD_TIMEOUT_MS
+      ) {
+        failures.push(`processes[${index}].deadlineAt`);
+      }
+      if (
+        typeof record?.startedAt === "string" &&
+        typeof record?.exitedAt === "string" &&
+        Date.parse(record.exitedAt) < Date.parse(record.startedAt)
+      ) {
+        failures.push(`processes[${index}].time order`);
+      }
+      if (
+        typeof record?.exitedAt === "string" &&
+        typeof record?.deadlineAt === "string" &&
+        Date.parse(record.exitedAt) > Date.parse(record.deadlineAt)
+      ) {
+        failures.push(`processes[${index}].deadline exceeded`);
+      }
+      if (!exactJsonEqual(record?.environment, childEnvironment)) {
+        failures.push(`processes[${index}].environment`);
+      }
+    }
+    if (processes[0]?.pid === processes[1]?.pid) failures.push("child PID uniqueness");
+  }
+  if (failures.length > 0) {
+    throw new Error(`process receipt semantic mismatch: ${failures.join(", ")}`);
+  }
+  return true;
+}
+
+export async function validateCompletedOuterReceipt(receipt) {
+  const expectedFocusedLedgerReceipts = CANONICAL_FOCUSED_LEDGER_SPECS.map((spec) => ({
+    ledgerId: spec.ledgerId,
+    relativePath: spec.relativePath,
+    fileSha256: spec.fileSha256,
+    testNameSha256: spec.testNameSha256,
+    expectedFocusedTestCount: spec.expectedFocusedTestCount
+  }));
+  let expectedMutableEnvironment = null;
+  let expectedChildEnvironment = null;
+  let expectedRunPaths = null;
+  let expectedWorkspaceRoot = null;
+  let expectedRunRoot = null;
+  let expectedLockPath = null;
+  let reviewedSourceBindingsValid = false;
+  let executingRunnerBindingValid = false;
+  let physicalToolchainReceiptValid = false;
+  try {
+    assertCanonicalAbsolutePath(receipt?.workspaceRoot, "receipt workspace root");
+    if (
+      typeof receipt?.runId !== "string" ||
+      !receipt.runId ||
+      basename(receipt.runId) !== receipt.runId
+    ) {
+      throw new Error("receipt run ID is invalid");
+    }
+    expectedWorkspaceRoot = receipt.workspaceRoot;
+    expectedRunRoot = join(
+      expectedWorkspaceRoot,
+      ".tmp",
+      "hk-question-bank-evidence-runs",
+      receipt.runId
+    );
+    expectedLockPath = join(expectedWorkspaceRoot, ".tmp", "hk-question-bank-evidence.lock");
+    if (receipt.runRoot !== expectedRunRoot) throw new Error("receipt run root drift");
+    expectedMutableEnvironment = buildCanonicalMutableEnvironment({
+      runRoot: receipt?.runRoot,
+      tmpRoot: receipt?.paths?.tmpRoot,
+      dbRoot: receipt?.paths?.dbRoot
+    });
+    expectedChildEnvironment = childEnvironmentWithCanonicalMutablePaths(
+      {},
+      expectedMutableEnvironment
+    );
+    expectedRunPaths = {
+      compiledRoot: join(receipt.runRoot, "compiled"),
+      dbRoot: join(receipt.runRoot, "db"),
+      tmpRoot: join(receipt.runRoot, "tmp"),
+      logsRoot: join(receipt.runRoot, "logs"),
+      processReceiptPath: join(receipt.runRoot, "process-receipt.json"),
+      sourcePrePath: join(receipt.runRoot, "source-pre.json"),
+      sourcePostPath: join(receipt.runRoot, "source-post.json"),
+      completeVerificationPath: join(receipt.runRoot, "complete-test-ledger-verification.json"),
+      outerReceiptPath: join(receipt.runRoot, "outer-exit-receipt.json"),
+      outerReceiptShaPath: join(receipt.runRoot, "outer-exit-receipt.sha256"),
+      terminalReceiptPath: join(receipt.runRoot, "terminal-receipt.json"),
+      terminalReceiptShaPath: join(receipt.runRoot, "terminal-receipt.sha256")
+    };
+    reviewedSourceBindingsValid =
+      Array.isArray(receipt?.reviewedSourceBindings) &&
+      receipt.reviewedSourceBindings.length === INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.length &&
+      receipt.reviewedSourceBindings.every(
+        (binding, index) =>
+          binding?.path === INDEPENDENT_REVIEWED_SOURCE_AUTHORITY[index].path &&
+          binding?.hashMode === INDEPENDENT_REVIEWED_SOURCE_AUTHORITY[index].hashMode &&
+          binding?.bytes === INDEPENDENT_REVIEWED_SOURCE_AUTHORITY[index].bytes &&
+          binding?.sha256 === INDEPENDENT_REVIEWED_SOURCE_AUTHORITY[index].sha256 &&
+          Number.isInteger(binding?.sourceBytes) &&
+          binding.sourceBytes > 0 &&
+          isSha256(binding?.sourceSha256) &&
+          binding.preSha256 === binding.sourceSha256 &&
+          binding.postSha256 === binding.sourceSha256 &&
+          binding.currentSha256 === binding.sourceSha256
+      );
+    const reviewedRunnerBinding = receipt.reviewedSourceBindings?.find(
+      (binding) => binding?.path === EXECUTING_RUNNER_BINDING.relativePath
+    );
+    executingRunnerBindingValid =
+      exactJsonEqual(receipt?.executingRunnerBinding, EXECUTING_RUNNER_BINDING) &&
+      reviewedRunnerBinding?.sha256 ===
+        expectedIndependentReviewedBinding(RUNNER_RELATIVE_PATH)?.sha256 &&
+      reviewedRunnerBinding?.bytes ===
+        expectedIndependentReviewedBinding(RUNNER_RELATIVE_PATH)?.bytes &&
+      reviewedRunnerBinding?.sourceSha256 === EXECUTING_RUNNER_BINDING.sha256 &&
+      reviewedRunnerBinding?.sourceBytes === EXECUTING_RUNNER_BINDING.bytes;
+    physicalToolchainReceiptValid =
+      receipt?.physicalToolchain?.pre?.schemaVersion ===
+        "hk-question-bank-physical-toolchain-binding-v2" &&
+      isSha256(receipt?.physicalToolchain?.pre?.aggregateSha256) &&
+      receipt?.physicalToolchain?.postAggregateSha256 ===
+        receipt?.physicalToolchain?.pre?.aggregateSha256 &&
+      receipt?.physicalToolchain?.unchanged === true;
+  } catch {
+    // Keep validation fail-closed and report this through the common invariant error.
+  }
+  const invariants = [
+    [receipt?.schemaVersion === "hk-question-bank-outer-exit-receipt-v3", "schemaVersion"],
+    [receipt?.status === "VALIDATION_PENDING", "status"],
+    [receipt?.exitCode === null, "exitCode"],
+    [typeof receipt?.completedAt === "string", "completedAt"],
+    [
+      receipt?.validation?.schemaVersion === "hk-question-bank-outer-validation-v1" &&
+        receipt.validation.completed === false &&
+        receipt.validation.completedAt === null,
+      "validation pending"
+    ],
+    [receipt?.lock?.acquired === true, "lock.acquired"],
+    [receipt?.lock?.released === false, "lock.released"],
+    [receipt?.lock?.path === expectedLockPath, "lock.path"],
+    [Number.isInteger(receipt?.lock?.ownerPid) && receipt.lock.ownerPid > 0, "lock.ownerPid"],
+    [receipt?.cleanup?.completed === true, "cleanup.completed"],
+    [Array.isArray(receipt?.cleanup?.errors) && receipt.cleanup.errors.length === 0, "cleanup.errors"],
+    [
+      expectedRunPaths !== null &&
+        JSON.stringify(receipt?.cleanup?.ephemeralPaths) ===
+          JSON.stringify([
+            expectedRunPaths.compiledRoot,
+            expectedRunPaths.dbRoot,
+            expectedRunPaths.tmpRoot
+          ]),
+      "cleanup.ephemeralPaths"
+    ],
+    [
+      expectedRunPaths !== null &&
+        [
+          expectedRunPaths.compiledRoot,
+          expectedRunPaths.dbRoot,
+          expectedRunPaths.tmpRoot
+        ].every((path) => !existsSync(path)),
+      "cleanup physical absence"
+    ],
+    [receipt?.source?.unchanged === true, "source.unchanged"],
+    [receipt?.uniqueRunRoot === true, "uniqueRunRoot"],
+    [receipt?.runRoot === expectedRunRoot, "runRoot"],
+    [reviewedSourceBindingsValid, "reviewedSourceBindings"],
+    [executingRunnerBindingValid, "executingRunnerBinding"],
+    [physicalToolchainReceiptValid, "physicalToolchain"],
+    [
+      expectedRunPaths !== null &&
+        exactJsonEqual(receipt?.paths, expectedRunPaths),
+      "paths"
+    ],
+    [
+      expectedMutableEnvironment !== null &&
+        exactJsonEqual(receipt?.mutableEnvironment, expectedMutableEnvironment),
+      "mutableEnvironment"
+    ],
+    [
+      expectedChildEnvironment !== null &&
+        exactJsonEqual(receipt?.childEnvironment, expectedChildEnvironment),
+      "childEnvironment"
+    ],
+    [
+      isSha256(receipt?.source?.preAggregateSha256) &&
+        receipt.source.preAggregateSha256 === receipt?.source?.postAggregateSha256,
+      "source aggregate equality"
+    ],
+    [isSha256(receipt?.source?.preManifestFileSha256), "source.preManifestFileSha256"],
+    [
+      isSha256(receipt?.source?.postManifestFileSha256) &&
+        receipt.source.postManifestFileSha256 === receipt.source.preManifestFileSha256,
+      "source manifest file equality"
+    ],
+    [
+      JSON.stringify(receipt?.focusedLedgers) ===
+        JSON.stringify(expectedFocusedLedgerReceipts),
+      "focusedLedgers"
+    ],
+    [
+      receipt?.canonicalDirectTests?.expectedDirectTestCount === EXPECTED_DIRECT_TEST_COUNT,
+      "canonicalDirectTests.expectedDirectTestCount"
+    ],
+    [
+      receipt?.canonicalDirectTests?.testNameSha256 === EXPECTED_DIRECT_TEST_NAME_SHA256,
+      "canonicalDirectTests.testNameSha256"
+    ],
+    [receipt?.processReceipt?.path === expectedRunPaths?.processReceiptPath, "processReceipt.path"],
+    [isSha256(receipt?.processReceipt?.sha256), "processReceipt.sha256"],
+    [
+      Number.isInteger(receipt?.tap?.expectedTotalTestCount) &&
+        receipt.tap.expectedTotalTestCount ===
+          receipt?.canonicalDirectTests?.expectedDirectTestCount +
+            expectedFocusedLedgerReceipts.reduce(
+              (sum, ledger) => sum + ledger.expectedFocusedTestCount,
+              0
+            ),
+      "tap.expectedTotalTestCount"
+    ],
+    [receipt?.tap?.tests === receipt?.tap?.expectedTotalTestCount, "tap.tests"],
+    [receipt?.tap?.pass === receipt?.tap?.tests, "tap.pass"],
+    [receipt?.tap?.fail === 0, "tap.fail"],
+    [receipt?.tap?.cancelled === 0, "tap.cancelled"],
+    [receipt?.tap?.skipped === 0, "tap.skipped"],
+    [receipt?.tap?.todo === 0, "tap.todo"],
+    [isSha256(receipt?.tap?.tapLogSha256), "tap.tapLogSha256"],
+    [
+      isSha256(receipt?.tap?.completeVerificationFileSha256),
+      "tap.completeVerificationFileSha256"
+    ],
+    [receipt?.artifactPolicy?.staleArtifactConsumed === false, "staleArtifactConsumed"],
+    [
+      exactJsonEqual(
+        receipt?.artifactPolicy?.allowedLogBasenames,
+        EXPECTED_LOG_ARTIFACT_BASENAMES
+      ),
+      "allowedLogBasenames"
+    ],
+    [
+      receipt?.artifactPolicy?.forbiddenStaleBasename === FORBIDDEN_STALE_ARTIFACT_BASENAME,
+      "forbiddenStaleBasename"
+    ],
+    [receipt?.artifactPolicy?.authoritativeRunRoot === receipt?.runRoot, "authoritativeRunRoot"],
+    [
+      receipt?.artifactPolicy?.supersessionRule ===
+        "Only authoritativeRunRoot may support this receipt; every other HK question-bank or residual28 evidence root is diagnostic and superseded.",
+      "supersessionRule"
+    ]
+  ];
+  const failed = invariants.filter(([pass]) => !pass).map(([, name]) => name);
+  if (failed.length > 0) {
+    throw new Error(`outer validation candidate invariant failed: ${failed.join(", ")}`);
+  }
+
+  let processReceiptBytes;
+  let tapBytes;
+  let completeVerificationBytes;
+  try {
+    [processReceiptBytes, tapBytes, completeVerificationBytes] = await Promise.all([
+      readFile(expectedRunPaths.processReceiptPath),
+      readFile(join(expectedRunPaths.logsRoot, "test-question-bank.tap")),
+      readFile(expectedRunPaths.completeVerificationPath)
+    ]);
+  } catch (error) {
+    throw new Error(`outer PASS receipt physical read failed: ${error?.message ?? String(error)}`);
+  }
+  const processReceiptSha256 = sha256(processReceiptBytes);
+  if (processReceiptSha256 !== receipt.processReceipt.sha256) {
+    throw new Error(
+      `process receipt SHA-256 mismatch: expected ${receipt.processReceipt.sha256}, got ${processReceiptSha256}`
+    );
+  }
+  const tapLogSha256 = sha256(tapBytes);
+  if (tapLogSha256 !== receipt.tap.tapLogSha256) {
+    throw new Error(
+      `TAP log SHA-256 mismatch: expected ${receipt.tap.tapLogSha256}, got ${tapLogSha256}`
+    );
+  }
+  const completeVerificationFileSha256 = sha256(completeVerificationBytes);
+  if (completeVerificationFileSha256 !== receipt.tap.completeVerificationFileSha256) {
+    throw new Error(
+      `complete verification SHA-256 mismatch: expected ${receipt.tap.completeVerificationFileSha256}, got ${completeVerificationFileSha256}`
+    );
+  }
+
+  let processReceipt;
+  let retainedCompleteVerification;
+  try {
+    processReceipt = JSON.parse(processReceiptBytes.toString("utf8"));
+    retainedCompleteVerification = JSON.parse(completeVerificationBytes.toString("utf8"));
+  } catch (error) {
+    throw new Error(`retained receipt JSON parse failed: ${error?.message ?? String(error)}`);
+  }
+  assertCompletedProcessReceipt({
+    processReceipt,
+    workspaceRoot: expectedWorkspaceRoot,
+    paths: expectedRunPaths,
+    childEnvironment: expectedChildEnvironment
+  });
+  const [
+    focusedLedgerBindings,
+    directTestBinding,
+    artifactBasenames,
+    currentPhysicalToolchain
+  ] = await Promise.all([
+    loadCanonicalFocusedLedgerBindings(expectedWorkspaceRoot),
+    loadCanonicalDirectTestBinding(expectedWorkspaceRoot),
+    readdir(expectedRunPaths.logsRoot),
+    capturePhysicalToolchainBinding(expectedWorkspaceRoot)
+  ]);
+  assertPhysicalToolchainUnchanged(receipt.physicalToolchain.pre, currentPhysicalToolchain);
+  const recomputedCompleteVerification = verifyCompleteTapLedgerAndArtifacts({
+    tap: tapBytes.toString("utf8"),
+    focusedLedgerBindings,
+    directTestBinding,
+    artifactBasenames: artifactBasenames.map((name) => basename(name)).sort()
+  });
+  if (!exactJsonEqual(retainedCompleteVerification, recomputedCompleteVerification)) {
+    throw new Error("complete verification semantic mismatch with retained TAP and canonical ledgers");
+  }
+  const expectedOuterTap = {
+    ...recomputedCompleteVerification.tapSummary,
+    expectedTotalTestCount: recomputedCompleteVerification.expectedTotalTestCount,
+    tapLogSha256,
+    completeVerificationFileSha256
+  };
+  if (!exactJsonEqual(receipt.tap, expectedOuterTap)) {
+    throw new Error("outer TAP receipt semantic mismatch with retained complete verification");
+  }
+  const retainedSourceValidation = await validateRetainedSourceManifests({
+    workspaceRoot: expectedWorkspaceRoot,
+    sourcePrePath: expectedRunPaths.sourcePrePath,
+    sourcePostPath: expectedRunPaths.sourcePostPath,
+    sourceReceipt: receipt.source
+  });
+  if (
+    !exactJsonEqual(
+      receipt.reviewedSourceBindings,
+      retainedSourceValidation.reviewedSourceBindings
+    )
+  ) {
+    throw new Error(
+      "outer reviewed-source bindings differ from retained/current independent authority"
+    );
+  }
+  return {
+    schemaVersion: "hk-question-bank-outer-validation-v1",
+    completed: true,
+    completedAt: new Date().toISOString(),
+    currentSourceAggregateSha256:
+      retainedSourceValidation.currentSource.aggregateSha256,
+    reviewedSourceAuthorityCount:
+      retainedSourceValidation.reviewedSourceBindings.length,
+    processReceiptSha256,
+    tapLogSha256,
+    completeVerificationFileSha256,
+    physicalToolchainAggregateSha256: currentPhysicalToolchain.aggregateSha256
+  };
+}
+
+export async function writePostReleaseTerminalReceipt({
+  sealedOuterReceiptPath,
+  sealedOuterReceiptShaPath,
+  terminalReceiptPath,
+  terminalReceiptShaPath,
+  lockPath
+}) {
+  for (const [path, label] of [
+    [sealedOuterReceiptPath, "sealed outer receipt path"],
+    [sealedOuterReceiptShaPath, "sealed outer receipt SHA path"],
+    [terminalReceiptPath, "terminal receipt path"],
+    [terminalReceiptShaPath, "terminal receipt SHA path"],
+    [lockPath, "canonical lock path"]
+  ]) {
+    assertCanonicalAbsolutePath(path, label);
+  }
+  if (existsSync(lockPath)) {
+    throw new Error(`canonical lock still exists after requested release: ${lockPath}`);
+  }
+  const [sealedBytes, sealedShaBytes] = await Promise.all([
+    readFile(sealedOuterReceiptPath),
+    readFile(sealedOuterReceiptShaPath)
+  ]);
+  const sealedSha256 = sha256(sealedBytes);
+  const expectedSealedShaReceipt =
+    `${sealedSha256}  ${basename(sealedOuterReceiptPath)}\n`;
+  if (sealedShaBytes.toString("utf8") !== expectedSealedShaReceipt) {
+    throw new Error("sealed outer receipt SHA sidecar mismatch");
+  }
+  let sealedReceipt;
+  try {
+    sealedReceipt = JSON.parse(sealedBytes.toString("utf8"));
+  } catch (error) {
+    throw new Error(`sealed outer receipt JSON parse failed: ${error?.message ?? String(error)}`);
+  }
+  if (
+    sealedReceipt?.schemaVersion !== "hk-question-bank-outer-exit-receipt-v3" ||
+    sealedReceipt?.status !== "VALIDATED" ||
+    sealedReceipt?.exitCode !== null ||
+    sealedReceipt?.validation?.schemaVersion !== "hk-question-bank-outer-validation-v1" ||
+    sealedReceipt?.validation?.completed !== true ||
+    typeof sealedReceipt?.validation?.completedAt !== "string" ||
+    sealedReceipt?.lock?.path !== lockPath ||
+    sealedReceipt?.lock?.acquired !== true ||
+    sealedReceipt?.lock?.released !== false ||
+    sealedReceipt?.paths?.outerReceiptPath !== sealedOuterReceiptPath ||
+    sealedReceipt?.paths?.outerReceiptShaPath !== sealedOuterReceiptShaPath ||
+    sealedReceipt?.paths?.terminalReceiptPath !== terminalReceiptPath ||
+    sealedReceipt?.paths?.terminalReceiptShaPath !== terminalReceiptShaPath
+  ) {
+    throw new Error("sealed outer receipt is not independently validated under the held lock");
+  }
+  const terminalReceipt = {
+    schemaVersion: "hk-question-bank-terminal-receipt-v1",
+    status: "PASS",
+    exitCode: 0,
+    completedAt: new Date().toISOString(),
+    workspaceRoot: sealedReceipt.workspaceRoot,
+    runId: sealedReceipt.runId,
+    runRoot: sealedReceipt.runRoot,
+    validationCompleted: true,
+    lockReleased: true,
+    lockPath,
+    sealedOuterReceipt: {
+      path: sealedOuterReceiptPath,
+      sha256: sealedSha256,
+      status: sealedReceipt.status,
+      validationCompletedAt: sealedReceipt.validation.completedAt
+    }
+  };
+  await writeJsonDurableAtomic(terminalReceiptPath, terminalReceipt);
+  const terminalBytes = await readFile(terminalReceiptPath);
+  const terminalSha256 = sha256(terminalBytes);
+  await writeBytesDurableAtomic(
+    terminalReceiptShaPath,
+    Buffer.from(`${terminalSha256}  ${basename(terminalReceiptPath)}\n`, "utf8")
+  );
+  const [retainedTerminalBytes, retainedTerminalShaBytes] = await Promise.all([
+    readFile(terminalReceiptPath),
+    readFile(terminalReceiptShaPath)
+  ]);
+  if (
+    !retainedTerminalBytes.equals(terminalBytes) ||
+    retainedTerminalShaBytes.toString("utf8") !==
+      `${terminalSha256}  ${basename(terminalReceiptPath)}\n`
+  ) {
+    throw new Error("terminal receipt durable read-back mismatch");
+  }
+  return terminalReceipt;
+}
+
+function directTestEntries(script) {
+  const matches = script.matchAll(/\.tmp\/question-bank-tests\/(lib\/[^\s]+\.test\.js)/g);
+  return [...matches].map((match) => match[1]);
+}
+
+export async function loadPackageTopology(workspaceRoot) {
+  const packagePath = join(workspaceRoot, "package.json");
+  const bytes = await readFile(packagePath);
+  const packageJson = JSON.parse(bytes.toString("utf8"));
+  const script = packageJson.scripts?.["test:question-bank"];
+  if (typeof script !== "string") throw new Error("package.json lacks test:question-bank");
+  if (script !== EXPECTED_PACKAGE_SCRIPT) {
+    throw new Error(
+      `test:question-bank must invoke the unique evidence runner exactly once: ${script}`
+    );
+  }
+  if (directTestEntries(script).length !== 0) {
+    throw new Error("test:question-bank must not directly bypass the evidence runner");
+  }
+  const checkScript = packageJson.scripts?.check ?? "";
+  const checkOccurrences = checkScript.match(/npm run test:question-bank/g)?.length ?? 0;
+  if (checkOccurrences !== 1) {
+    throw new Error(`check must invoke test:question-bank exactly once, got ${checkOccurrences}`);
+  }
+  return {
+    packageJsonSha256: sha256(bytes),
+    packageScriptSha256: sha256(Buffer.from(script, "utf8")),
+    packageScript: script,
+    packageScriptUsesSharedCompilePath: false,
+    packageScriptUsesSharedDbPath: false,
+    packageScriptDirectNodeTestBypassCount: 0,
+    checkQuestionBankInvocationCount: checkOccurrences,
+    wrapperDirectTestEntries: [...EXPECTED_DIRECT_TEST_ENTRIES]
+  };
+}
+
+export const DEFAULT_CHILD_TIMEOUT_MS = 15 * 60 * 1000;
+export const DEFAULT_CHILD_TERMINATION_GRACE_MS = 5 * 1000;
+
+function signalChildProcessGroup(child, signal) {
+  if (!Number.isInteger(child?.pid) || child.pid < 1) return false;
+  try {
+    process.kill(-child.pid, signal);
+    return true;
+  } catch (error) {
+    if (error?.code === "ESRCH") return false;
+    try {
+      return child.kill(signal);
+    } catch (fallbackError) {
+      if (fallbackError?.code === "ESRCH") return false;
+      throw fallbackError;
+    }
+  }
+}
+
+function processGroupExists(processGroupId) {
+  if (!Number.isInteger(processGroupId) || processGroupId < 1) return false;
+  try {
+    process.kill(-processGroupId, 0);
+    return true;
+  } catch (error) {
+    if (error?.code === "ESRCH") return false;
+    if (error?.code === "EPERM") return true;
+    throw error;
+  }
+}
+
+function waitMilliseconds(milliseconds) {
+  return new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
+}
+
+async function waitForProcessGroupAbsence(processGroupId, timeoutMs) {
+  const deadline = Date.now() + timeoutMs;
+  while (processGroupExists(processGroupId)) {
+    if (Date.now() >= deadline) return false;
+    await waitMilliseconds(Math.min(20, Math.max(1, deadline - Date.now())));
+  }
+  return true;
+}
+
+async function writeProcessReceipt(processReceiptPath, processes) {
+  await writeJsonAtomic(processReceiptPath, {
+    schemaVersion: "hk-question-bank-process-receipt-v3",
+    wrapper: {
+      pid: process.pid,
+      ppid: process.ppid,
+      execPath: process.execPath,
+      argv: process.argv,
+      cwd: process.cwd(),
+      nodeVersion: process.version
+    },
+    processes
+  });
+}
+
+export async function runChild({
+  command,
+  args,
+  cwd,
+  env,
+  logPath,
+  label,
+  processReceiptPath,
+  processes,
+  timeoutMs = DEFAULT_CHILD_TIMEOUT_MS,
+  terminationGraceMs = DEFAULT_CHILD_TERMINATION_GRACE_MS,
+  abortSignal = undefined
+}) {
+  if (!Number.isInteger(timeoutMs) || timeoutMs < 1) {
+    throw new Error(`child timeout must be a positive integer, got ${timeoutMs}`);
+  }
+  if (!Number.isInteger(terminationGraceMs) || terminationGraceMs < 1) {
+    throw new Error(`child termination grace must be a positive integer, got ${terminationGraceMs}`);
+  }
+  const startedAtMs = Date.now();
+  const startedAt = new Date(startedAtMs).toISOString();
+  const stream = createWriteStream(logPath, { flags: "wx" });
+  let streamError = null;
+  const child = spawn(command, args, {
+    cwd,
+    env,
+    stdio: ["ignore", "pipe", "pipe"],
+    detached: true
+  });
+  const processGroupId = child.pid ?? null;
+  const record = {
+    label,
+    pid: child.pid,
+    ppid: process.pid,
+    executable: command,
+    args,
+    cwd,
+    startedAt,
+    exitedAt: null,
+    exitCode: null,
+    signal: null,
+    logPath,
+    processGroupId,
+    processGroupAbsent: false,
+    processGroupAbsenceCheckedAt: null,
+    unexpectedGroupSurvivor: false,
+    timeoutMs,
+    terminationGraceMs,
+    deadlineAt: new Date(startedAtMs + timeoutMs).toISOString(),
+    timedOut: false,
+    aborted: false,
+    abortReason: null,
+    terminationSignals: [],
+    environment: Object.fromEntries(
+      CANONICAL_CHILD_ENVIRONMENT_KEYS.map((key) => [key, env[key] ?? null])
+    )
+  };
+  processes.push(record);
+
+  let spawnError = null;
+  const closeOutcomePromise = new Promise((resolvePromise) => {
+    child.once("error", (error) => {
+      spawnError = error;
+    });
+    child.once("close", (exitCode, signal) => {
+      resolvePromise({ exitCode, signal });
+    });
+  });
+  child.stdout.on("data", (chunk) => {
+    stream.write(chunk);
+    process.stdout.write(chunk);
+  });
+  child.stderr.on("data", (chunk) => {
+    stream.write(chunk);
+    process.stderr.write(chunk);
+  });
+
+  let terminationPromise = null;
+  const requestTermination = (reason, { timedOut = false, aborted = false } = {}) => {
+    if (timedOut) record.timedOut = true;
+    if (aborted) {
+      record.aborted = true;
+      record.abortReason = reason;
+    }
+    if (terminationPromise) return terminationPromise;
+    terminationPromise = (async () => {
+      if (signalChildProcessGroup(child, "SIGTERM")) {
+        record.terminationSignals.push({
+          signal: "SIGTERM",
+          at: new Date().toISOString(),
+          reason
+        });
+      }
+      const graceDeadline = Date.now() + terminationGraceMs;
+      while (processGroupExists(processGroupId) && Date.now() < graceDeadline) {
+        await waitMilliseconds(Math.min(20, Math.max(1, graceDeadline - Date.now())));
+      }
+      if (processGroupExists(processGroupId) && signalChildProcessGroup(child, "SIGKILL")) {
+        record.terminationSignals.push({
+          signal: "SIGKILL",
+          at: new Date().toISOString(),
+          reason: `${reason}; process group survived ${terminationGraceMs}ms grace`
+        });
+      }
+      const absent = await waitForProcessGroupAbsence(
+        processGroupId,
+        Math.max(2_000, terminationGraceMs * 10)
+      );
+      record.processGroupAbsent = absent;
+      record.processGroupAbsenceCheckedAt = new Date().toISOString();
+      if (!absent) {
+        throw new Error(
+          `${label} process group ${processGroupId} survived TERM/KILL supervision`
+        );
+      }
+    })();
+    terminationPromise.catch(() => {});
+    return terminationPromise;
+  };
+  stream.on("error", (error) => {
+    streamError = error;
+    requestTermination("log-stream-error");
+  });
+  const abortHandler = () => {
+    const reason = abortSignal?.reason;
+    requestTermination(
+      reason instanceof Error ? reason.message : String(reason ?? "wrapper abort"),
+      { aborted: true }
+    );
+  };
+  if (abortSignal) {
+    if (abortSignal.aborted) abortHandler();
+    else abortSignal.addEventListener("abort", abortHandler, { once: true });
+  }
+  const deadlineTimer = setTimeout(
+    () => requestTermination(`deadline exceeded after ${timeoutMs}ms`, { timedOut: true }),
+    timeoutMs
+  );
+
+  let initialReceiptError = null;
+  try {
+    await writeProcessReceipt(processReceiptPath, processes);
+  } catch (error) {
+    initialReceiptError = error;
+    requestTermination("initial process-receipt write failed");
+  }
+
+  const outcome = await closeOutcomePromise;
+  if (processGroupExists(processGroupId) && !terminationPromise) {
+    record.unexpectedGroupSurvivor = true;
+    requestTermination("process group survived child close");
+  }
+  if (terminationPromise) await terminationPromise;
+  if (!record.processGroupAbsent) {
+    record.processGroupAbsent = !processGroupExists(processGroupId);
+    record.processGroupAbsenceCheckedAt = new Date().toISOString();
+  }
+  if (!record.processGroupAbsent) {
+    throw new Error(`${label} process group ${processGroupId} remains after child close`);
+  }
+  await new Promise((resolvePromise) => {
+    if (stream.closed || stream.writableFinished) {
+      resolvePromise();
+      return;
+    }
+    let resolved = false;
+    const resolveOnce = () => {
+      if (resolved) return;
+      resolved = true;
+      resolvePromise();
+    };
+    stream.once("finish", resolveOnce);
+    stream.once("close", resolveOnce);
+    stream.end();
+  });
+  record.exitedAt = new Date().toISOString();
+  record.exitCode = outcome.exitCode;
+  record.signal = outcome.signal;
+  clearTimeout(deadlineTimer);
+  if (abortSignal) abortSignal.removeEventListener("abort", abortHandler);
+  if (!initialReceiptError) await writeProcessReceipt(processReceiptPath, processes);
+  if (initialReceiptError) throw initialReceiptError;
+  if (spawnError) throw spawnError;
+  if (streamError) throw streamError;
+  return {
+    exitCode: outcome.exitCode,
+    signal: outcome.signal,
+    timedOut: record.timedOut,
+    aborted: record.aborted,
+    unexpectedGroupSurvivor: record.unexpectedGroupSurvivor,
+    processGroupAbsent: record.processGroupAbsent
+  };
+}
+
+export function assertCanonicalTapSummary(verification) {
+  const summary = verification.tapSummary;
+  const expectedZeros = {
+    fail: 0,
+    cancelled: 0,
+    skipped: 0,
+    todo: 0
+  };
+  for (const [key, value] of Object.entries(expectedZeros)) {
+    if (summary[key] !== value) {
+      throw new Error(
+        `canonical TAP summary must have ${key}=0, got ${JSON.stringify(summary)}`
+      );
+    }
+  }
+  const expectedCanonicalFocusedTestCount = CANONICAL_FOCUSED_LEDGER_SPECS.reduce(
+    (sum, spec) => sum + spec.expectedFocusedTestCount,
+    0
+  );
+  if (!Number.isInteger(summary.tests) || summary.tests < expectedCanonicalFocusedTestCount) {
+    throw new Error(
+      `canonical TAP summary has invalid total test count: ${JSON.stringify(summary)}`
+    );
+  }
+  if (summary.pass !== summary.tests) {
+    throw new Error(`canonical TAP pass count must equal test count: ${JSON.stringify(summary)}`);
+  }
+  return {
+    ...summary,
+    expectedTotalTestCount: null,
+    expectedTotalBindingStatus: "DEFERRED_UNTIL_FINAL_SOURCE_TOPOLOGY_FREEZE"
+  };
+}
+
+function makeRunId() {
+  return `${isoCompact()}-pid${process.pid}-${randomBytes(6).toString("hex")}`;
+}
+
+function throwIfAborted(abortSignal) {
+  if (!abortSignal?.aborted) return;
+  const reason = abortSignal.reason;
+  throw reason instanceof Error ? reason : new Error(String(reason ?? "operation aborted"));
+}
+
+export async function prepareQuestionBankEvidenceRun({
+  workspaceRoot: requestedWorkspaceRoot,
+  runId,
+  abortSignal = undefined
+}) {
+  const workspaceRoot = await realpath(resolve(requestedWorkspaceRoot));
+  assertStarshipAbsolutePath(workspaceRoot, "workspace root");
+  if (typeof runId !== "string" || !runId || basename(runId) !== runId) {
+    throw new Error(`run ID must be one safe path segment: ${runId}`);
+  }
+  const runsRoot = join(workspaceRoot, ".tmp", "hk-question-bank-evidence-runs");
+  const runRoot = join(runsRoot, runId);
+  const lockPath = join(workspaceRoot, ".tmp", "hk-question-bank-evidence.lock");
+  for (const [path, label] of [
+    [runsRoot, "runs root"],
+    [runRoot, "run root"],
+    [lockPath, "lock path"]
+  ]) {
+    assertStarshipAbsolutePath(path, label);
+  }
+  throwIfAborted(abortSignal);
+  await mkdir(runsRoot, { recursive: true });
+  await assertPhysicalStarshipDirectory(runsRoot, "runs root");
+  await assertPhysicalStarshipDirectory(dirname(lockPath), "lock parent");
+
+  let lock = null;
+  let createdRunRoot = false;
+  try {
+    throwIfAborted(abortSignal);
+    lock = await acquireExclusiveLock(lockPath, { runId, runRoot });
+    throwIfAborted(abortSignal);
+    await mkdir(runRoot, { recursive: false });
+    createdRunRoot = true;
+    const logsRoot = join(runRoot, "logs");
+    const compiledRoot = join(runRoot, "compiled");
+    const dbRoot = join(runRoot, "db");
+    const tmpRoot = join(runRoot, "tmp");
+    await Promise.all([mkdir(logsRoot), mkdir(dbRoot), mkdir(tmpRoot)]);
+    throwIfAborted(abortSignal);
+    await Promise.all([
+      assertPhysicalStarshipDirectory(runRoot, "run root"),
+      assertPhysicalStarshipDirectory(logsRoot, "logs root"),
+      assertPhysicalStarshipDirectory(dbRoot, "database root"),
+      assertPhysicalStarshipDirectory(tmpRoot, "temporary root")
+    ]);
+    const mutableEnvironment = buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot });
+    const childEnvironment = childEnvironmentWithCanonicalMutablePaths(
+      process.env,
+      mutableEnvironment
+    );
+    await Promise.all(
+      [
+        mutableEnvironment.values.NODE_COMPILE_CACHE,
+        mutableEnvironment.values.XDG_CACHE_HOME,
+        mutableEnvironment.values.npm_config_cache
+      ].map((path) => mkdir(path))
+    );
+    throwIfAborted(abortSignal);
+    return {
+      workspaceRoot,
+      runId,
+      runsRoot,
+      runRoot,
+      lockPath,
+      lock,
+      logsRoot,
+      compiledRoot,
+      dbRoot,
+      tmpRoot,
+      mutableEnvironment,
+      childEnvironment
+    };
+  } catch (error) {
+    const lifecycleErrors = [];
+    if (createdRunRoot) {
+      try {
+        await rm(runRoot, { recursive: true, force: true });
+      } catch (cleanupError) {
+        lifecycleErrors.push(`partial run cleanup: ${cleanupError?.message ?? String(cleanupError)}`);
+      }
+    }
+    if (lock) {
+      try {
+        await lock.release();
+      } catch (lockError) {
+        lifecycleErrors.push(`lock release: ${lockError?.message ?? String(lockError)}`);
+      }
+    }
+    if (lifecycleErrors.length > 0) {
+      throw new AggregateError(
+        [error, ...lifecycleErrors.map((message) => new Error(message))],
+        `evidence run setup failed and lifecycle cleanup was incomplete: ${error?.message ?? String(error)}`
+      );
+    }
+    throw error;
+  }
+}
+
+async function runQuestionBankEvidenceWithAbort({
+  workspaceRoot: requestedWorkspaceRoot,
+  abortSignal
+}) {
+  const runId = makeRunId();
+  const prepared = await prepareQuestionBankEvidenceRun({
+    workspaceRoot: requestedWorkspaceRoot,
+    runId,
+    abortSignal
+  });
+  const {
+    workspaceRoot,
+    runRoot,
+    lockPath,
+    lock,
+    logsRoot,
+    compiledRoot,
+    dbRoot,
+    tmpRoot,
+    mutableEnvironment,
+    childEnvironment
+  } = prepared;
+  const processReceiptPath = join(runRoot, "process-receipt.json");
+  const outerReceiptPath = join(runRoot, "outer-exit-receipt.json");
+  const outerReceiptShaPath = join(runRoot, "outer-exit-receipt.sha256");
+  const sourcePrePath = join(runRoot, "source-pre.json");
+  const sourcePostPath = join(runRoot, "source-post.json");
+  const completeVerificationPath = join(runRoot, "complete-test-ledger-verification.json");
+  const terminalReceiptPath = join(runRoot, "terminal-receipt.json");
+  const terminalReceiptShaPath = join(runRoot, "terminal-receipt.sha256");
+  const processes = [];
+  const receipt = {
+    schemaVersion: "hk-question-bank-outer-exit-receipt-v3",
+    status: "RUNNING",
+    exitCode: null,
+    startedAt: new Date().toISOString(),
+    completedAt: null,
+    workspaceRoot,
+    runId,
+    runRoot,
+    uniqueRunRoot: true,
+    mutableEnvironment,
+    childEnvironment,
+    executingRunnerBinding: null,
+    physicalToolchain: null,
+    lock: {
+      path: lockPath,
+      ownerPid: process.pid,
+      acquired: true,
+      released: false
+    },
+    paths: {
+      compiledRoot,
+      dbRoot,
+      tmpRoot,
+      logsRoot,
+      processReceiptPath,
+      sourcePrePath,
+      sourcePostPath,
+      completeVerificationPath,
+      outerReceiptPath,
+      outerReceiptShaPath,
+      terminalReceiptPath,
+      terminalReceiptShaPath
+    },
+    focusedLedgers: null,
+    reviewedSourceBindings: null,
+    canonicalDirectTests: null,
+    packageTopology: null,
+    source: null,
+    processReceipt: {
+      path: processReceiptPath,
+      sha256: null
+    },
+    tap: null,
+    artifactPolicy: {
+      allowedLogBasenames: EXPECTED_LOG_ARTIFACT_BASENAMES,
+      forbiddenStaleBasename: FORBIDDEN_STALE_ARTIFACT_BASENAME,
+      staleArtifactConsumed: false,
+      authoritativeRunRoot: runRoot,
+      supersessionRule:
+        "Only authoritativeRunRoot may support this receipt; every other HK question-bank or residual28 evidence root is diagnostic and superseded."
+    },
+    cleanup: {
+      ephemeralPaths: [compiledRoot, dbRoot, tmpRoot],
+      completed: false,
+      errors: []
+    },
+    validation: {
+      schemaVersion: "hk-question-bank-outer-validation-v1",
+      completed: false,
+      completedAt: null
+    },
+    error: null
+  };
+  let sourcePre = null;
+  let physicalToolchainPre = null;
+  let executionSucceeded = false;
+  let finalExitCode = 1;
+  let terminalReceipt = null;
+  try {
+    throwIfAborted(abortSignal);
+    sourcePre = await captureSourceManifest(workspaceRoot);
+    await writeJsonAtomic(sourcePrePath, sourcePre);
+    assertExecutingRunnerMatchesSourcePre(sourcePre);
+    receipt.executingRunnerBinding = { ...EXECUTING_RUNNER_BINDING };
+    physicalToolchainPre = await capturePhysicalToolchainBinding(workspaceRoot);
+    receipt.physicalToolchain = {
+      pre: physicalToolchainPre,
+      postAggregateSha256: null,
+      unchanged: null
+    };
+    await loadIndependentReviewedSourceAuthority(workspaceRoot);
+    const reviewedTopologyArtifacts = reviewedTopologySourceArtifacts();
+    const sourcePreBytes = await readFile(sourcePrePath);
+    receipt.source = {
+      preAggregateSha256: sourcePre.aggregateSha256,
+      preManifestFileSha256: sha256(sourcePreBytes),
+      postAggregateSha256: null,
+      postManifestFileSha256: null,
+      unchanged: null
+    };
+    await writeJsonAtomic(outerReceiptPath, receipt);
+
+    const [focusedLedgerBindings, directTestBinding, packageTopology] = await Promise.all([
+      loadCanonicalFocusedLedgerBindings(workspaceRoot),
+      loadCanonicalDirectTestBinding(workspaceRoot),
+      loadPackageTopology(workspaceRoot)
+    ]);
+    assertLoadedTopologyMatchesSourcePre({
+      sourcePre,
+      focusedLedgerBindings,
+      directTestBinding,
+      packageTopology
+    });
+    receipt.focusedLedgers = focusedLedgerBindings.map((binding) => ({
+      ledgerId: binding.ledgerId,
+      relativePath: binding.relativePath,
+      fileSha256: binding.fileSha256,
+      testNameSha256: binding.testNameSha256,
+      expectedFocusedTestCount: binding.expectedFocusedTestCount
+    }));
+    receipt.canonicalDirectTests = {
+      expectedDirectTestCount: directTestBinding.expectedDirectTestCount,
+      testNameSha256: directTestBinding.testNameSha256,
+      sourceFiles: directTestBinding.sourceFiles.map((sourceFile) => ({
+        sourcePath: sourceFile.sourcePath,
+        bytes: sourceFile.bytes,
+        sha256: sourceFile.sha256,
+        expectedTestCount: sourceFile.expectedTestCount
+      }))
+    };
+    receipt.packageTopology = packageTopology;
+
+    await writeJsonAtomic(outerReceiptPath, receipt);
+
+    const compileLogPath = join(logsRoot, "compile.log");
+    const tscPath = join(workspaceRoot, "node_modules", ".bin", "tsc");
+    if (!existsSync(tscPath)) throw new Error(`TypeScript compiler is absent: ${tscPath}`);
+    const compileOutcome = await runChild({
+      command: tscPath,
+      args: canonicalCompileArguments(),
+      cwd: workspaceRoot,
+      env: childEnvironment,
+      logPath: compileLogPath,
+      label: "typescript-compile",
+      processReceiptPath,
+      processes,
+      abortSignal
+    });
+    if (compileOutcome.timedOut) throw new Error("TypeScript compile exceeded its deadline");
+    if (compileOutcome.aborted) throw new Error("TypeScript compile aborted by wrapper signal");
+    if (compileOutcome.unexpectedGroupSurvivor || !compileOutcome.processGroupAbsent) {
+      throw new Error("TypeScript compile left an unexpected process-group survivor");
+    }
+    if (compileOutcome.exitCode !== 0) {
+      throw new Error(`TypeScript compile exited ${compileOutcome.exitCode}`);
+    }
+
+    const aliasRoot = join(compiledRoot, "node_modules", "@");
+    await mkdir(aliasRoot, { recursive: true });
+    for (const name of ["data", "lib", "components"]) {
+      await symlink(`../../${name}`, join(aliasRoot, name));
+    }
+
+    const tapLogPath = join(logsRoot, "test-question-bank.tap");
+    const testOutcome = await runChild({
+      command: process.execPath,
+      args: canonicalTestArguments(workspaceRoot),
+      cwd: workspaceRoot,
+      env: childEnvironment,
+      logPath: tapLogPath,
+      label: "canonical-question-bank-tests",
+      processReceiptPath,
+      processes,
+      abortSignal
+    });
+    if (testOutcome.timedOut) throw new Error("canonical question-bank tests exceeded their deadline");
+    if (testOutcome.aborted) throw new Error("canonical question-bank tests aborted by wrapper signal");
+    if (testOutcome.unexpectedGroupSurvivor || !testOutcome.processGroupAbsent) {
+      throw new Error("canonical question-bank tests left an unexpected process-group survivor");
+    }
+    if (testOutcome.exitCode !== 0) {
+      throw new Error(`canonical question-bank tests exited ${testOutcome.exitCode}`);
+    }
+
+    throwIfAborted(abortSignal);
+    const artifactBasenames = (await readdir(logsRoot)).map((name) => basename(name)).sort();
+    const tap = await readFile(tapLogPath, "utf8");
+    const verification = verifyCompleteTapLedgerAndArtifacts({
+      tap,
+      focusedLedgerBindings,
+      directTestBinding,
+      artifactBasenames
+    });
+    await writeJsonAtomic(completeVerificationPath, verification);
+    const completeVerificationBytes = await readFile(completeVerificationPath);
+    receipt.tap = {
+      ...verification.tapSummary,
+      expectedTotalTestCount: verification.expectedTotalTestCount,
+      tapLogSha256: sha256(Buffer.from(tap, "utf8")),
+      completeVerificationFileSha256: sha256(completeVerificationBytes)
+    };
+    const processReceiptBytes = await readFile(processReceiptPath);
+    receipt.processReceipt.sha256 = sha256(processReceiptBytes);
+
+    const sourcePost = await captureSourceManifest(workspaceRoot);
+    await writeJsonAtomic(sourcePostPath, sourcePost);
+    const sourcePostBytes = await readFile(sourcePostPath);
+    receipt.source.postAggregateSha256 = sourcePost.aggregateSha256;
+    receipt.source.postManifestFileSha256 = sha256(sourcePostBytes);
+    assertSourceManifestsUnchanged(sourcePre, sourcePost);
+    const physicalToolchainPost = await capturePhysicalToolchainBinding(workspaceRoot);
+    throwIfAborted(abortSignal);
+    assertPhysicalToolchainUnchanged(physicalToolchainPre, physicalToolchainPost);
+    receipt.physicalToolchain.postAggregateSha256 =
+      physicalToolchainPost.aggregateSha256;
+    receipt.physicalToolchain.unchanged = true;
+    receipt.reviewedSourceBindings = await bindIndependentReviewedSourceArtifacts({
+      workspaceRoot,
+      sourcePre,
+      sourcePost,
+      currentSource: sourcePost
+    });
+    receipt.source.unchanged = true;
+    receipt.status = "EXECUTION_COMPLETE";
+    executionSucceeded = true;
+  } catch (error) {
+    receipt.status = "FAIL";
+    receipt.error = {
+      name: error?.name ?? "Error",
+      message: error?.message ?? String(error),
+      stack: error?.stack ?? null
+    };
+    if (sourcePre && receipt.source?.postAggregateSha256 === null) {
+      try {
+        const sourcePost = await captureSourceManifest(workspaceRoot);
+        await writeJsonAtomic(sourcePostPath, sourcePost);
+        const sourcePostBytes = await readFile(sourcePostPath);
+        receipt.source.postAggregateSha256 = sourcePost.aggregateSha256;
+        receipt.source.postManifestFileSha256 = sha256(sourcePostBytes);
+        try {
+          assertSourceManifestsUnchanged(sourcePre, sourcePost);
+          receipt.source.unchanged = true;
+        } catch {
+          receipt.source.unchanged = false;
+        }
+      } catch (postError) {
+        receipt.error.postManifestError = postError?.message ?? String(postError);
+      }
+    }
+  } finally {
+    receipt.completedAt = new Date().toISOString();
+    const cleanup = await cleanupEphemeralRunPaths(runRoot, receipt.cleanup.ephemeralPaths);
+    receipt.cleanup.errors.push(...cleanup.errors);
+    receipt.cleanup.completed = cleanup.completed;
+    if (!receipt.cleanup.completed) {
+      receipt.status = "FAIL";
+      receipt.exitCode = 1;
+      executionSucceeded = false;
+      receipt.error ??= { name: "Error", message: "ephemeral cleanup failed", stack: null };
+    }
+
+    if (executionSucceeded && receipt.cleanup.completed) {
+      receipt.status = "VALIDATION_PENDING";
+      receipt.exitCode = null;
+      try {
+        const validation = await validateCompletedOuterReceipt(receipt);
+        receipt.validation = validation;
+        receipt.status = "VALIDATED";
+      } catch (validationError) {
+        receipt.status = "FAIL";
+        receipt.exitCode = 1;
+        executionSucceeded = false;
+        receipt.error = {
+          name: validationError?.name ?? "Error",
+          message: validationError?.message ?? String(validationError),
+          stack: validationError?.stack ?? null
+        };
+      }
+    } else {
+      receipt.status = "FAIL";
+      receipt.exitCode = 1;
+    }
+
+    let sealedOuterReceiptSha256 = null;
+    try {
+      await writeJsonDurableAtomic(outerReceiptPath, receipt);
+      const outerBytes = await readFile(outerReceiptPath);
+      sealedOuterReceiptSha256 = sha256(outerBytes);
+      await writeBytesDurableAtomic(
+        outerReceiptShaPath,
+        Buffer.from(
+          `${sealedOuterReceiptSha256}  ${basename(outerReceiptPath)}\n`,
+          "utf8"
+        )
+      );
+      const [retainedOuterBytes, retainedOuterShaBytes] = await Promise.all([
+        readFile(outerReceiptPath),
+        readFile(outerReceiptShaPath)
+      ]);
+      if (
+        sha256(retainedOuterBytes) !== sealedOuterReceiptSha256 ||
+        retainedOuterShaBytes.toString("utf8") !==
+          `${sealedOuterReceiptSha256}  ${basename(outerReceiptPath)}\n`
+      ) {
+        throw new Error("sealed outer receipt durable read-back mismatch");
+      }
+    } catch (sealError) {
+      receipt.status = "FAIL";
+      receipt.exitCode = 1;
+      executionSucceeded = false;
+      receipt.error ??= { name: "Error", message: "outer receipt sealing failed", stack: null };
+      receipt.error.sealError = sealError?.message ?? String(sealError);
+    }
+
+    let lockReleased = false;
+    try {
+      await lock.release();
+      lockReleased = true;
+    } catch (lockError) {
+      executionSucceeded = false;
+      receipt.error ??= { name: "Error", message: "lock release failed", stack: null };
+      receipt.error.lockReleaseError = lockError?.message ?? String(lockError);
+    }
+
+    if (
+      executionSucceeded &&
+      receipt.status === "VALIDATED" &&
+      sealedOuterReceiptSha256 &&
+      lockReleased
+    ) {
+      try {
+        terminalReceipt = await writePostReleaseTerminalReceipt({
+          sealedOuterReceiptPath: outerReceiptPath,
+          sealedOuterReceiptShaPath: outerReceiptShaPath,
+          terminalReceiptPath,
+          terminalReceiptShaPath,
+          lockPath
+        });
+        finalExitCode = 0;
+      } catch (terminalError) {
+        executionSucceeded = false;
+        finalExitCode = 1;
+        receipt.error ??= { name: "Error", message: "terminal receipt failed", stack: null };
+        receipt.error.terminalError = terminalError?.message ?? String(terminalError);
+      }
+    }
+
+    if (!terminalReceipt) {
+      finalExitCode = 1;
+      terminalReceipt = {
+        schemaVersion: "hk-question-bank-terminal-receipt-v1",
+        status: "FAIL",
+        exitCode: 1,
+        completedAt: new Date().toISOString(),
+        workspaceRoot,
+        runId,
+        runRoot,
+        validationCompleted: receipt.validation?.completed === true,
+        lockReleased,
+        lockPath,
+        sealedOuterReceipt: sealedOuterReceiptSha256
+          ? {
+              path: outerReceiptPath,
+              sha256: sealedOuterReceiptSha256,
+              status: receipt.status,
+              validationCompletedAt: receipt.validation?.completedAt ?? null
+            }
+          : null,
+        error: receipt.error
+      };
+      try {
+        await writeJsonDurableAtomic(terminalReceiptPath, terminalReceipt);
+        const terminalBytes = await readFile(terminalReceiptPath);
+        await writeBytesDurableAtomic(
+          terminalReceiptShaPath,
+          Buffer.from(
+            `${sha256(terminalBytes)}  ${basename(terminalReceiptPath)}\n`,
+            "utf8"
+          )
+        );
+      } catch {
+        // The non-zero process exit remains authoritative if failure evidence cannot be sealed.
+      }
+    }
+  }
+  return { exitCode: finalExitCode, runRoot, receipt: terminalReceipt, sealedReceipt: receipt };
+}
+
+export async function runQuestionBankEvidence({ workspaceRoot }) {
+  const controller = new AbortController();
+  const signalHandlers = new Map(
+    ["SIGINT", "SIGTERM"].map((signal) => [
+      signal,
+      () => {
+        if (!controller.signal.aborted) {
+          controller.abort(new Error(`${signal} received by evidence wrapper`));
+        }
+      }
+    ])
+  );
+  for (const [signal, handler] of signalHandlers) process.on(signal, handler);
+  try {
+    return await runQuestionBankEvidenceWithAbort({
+      workspaceRoot,
+      abortSignal: controller.signal
+    });
+  } finally {
+    for (const [signal, handler] of signalHandlers) process.removeListener(signal, handler);
+  }
+}
+
+function parseCli(argv) {
+  if (argv.length === 0) return { workspaceRoot: process.cwd() };
+  if (argv.length === 2 && argv[0] === "--workspace") {
+    return { workspaceRoot: argv[1] };
+  }
+  throw new Error("usage: node coordination/content-qa/hk-question-bank-evidence-runner.mjs [--workspace /Volumes/Starship/...]");
+}
+
+const isMain = process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+if (isMain) {
+  try {
+    const result = await runQuestionBankEvidence(parseCli(process.argv.slice(2)));
+    process.stdout.write(`\nHK_QUESTION_BANK_EVIDENCE_RUN_ROOT=${result.runRoot}\n`);
+    process.stdout.write(`HK_QUESTION_BANK_EVIDENCE_STATUS=${result.receipt.status}\n`);
+    process.exitCode = result.exitCode;
+  } catch (error) {
+    process.stderr.write(`${error?.stack ?? error}\n`);
+    process.exitCode = 1;
+  }
+}

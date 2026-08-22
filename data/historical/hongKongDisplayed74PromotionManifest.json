@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "preimageSnapshotSha256": "4743173f55ee440912f4b594454bb227d7c21b1e0d533dbb3e17b6c45662efd6",
+  "preimageQuestionsPayloadSha256": "673bdd81a8a19d53ff0589a4fdd08841ff58ec2af09930f23b95269c2c64889f",
+  "preimageVersionManifestSha256": "4d930e8cb468b171d97ea5020a6938231dc1fa1b478dcdb2ce12830ab1a78b9c",
+  "preimageActiveMappingCount": 1006,
+  "preimageRetiredIdCount": 1007,
+  "preimageHistoricalUniqueCount": 1692,
+  "preimageIdenticalOverlapIds": [
+    "q2",
+    "supp-algebra-basics-key-fact",
+    "q18",
+    "supp-polynomials-guided-example",
+    "graph-p4-decimals-number-line"
+  ],
+  "historyUniqueAdditionCount": 69,
+  "promotions": [
+    {
+      "fromId": "supp-p3-multiplication-division-first-step-v2",
+      "baseId": "supp-p3-multiplication-division-first-step",
+      "toId": "supp-p3-multiplication-division-first-step-v3",
+      "preimageMaterialSha256": "9970ab94b31f5d93cccba2eb339eb8247c80d87fa2480007c7da32bc4da06176",
+      "successorMaterialSha256": "1715dd3bde21c8b6465d70ca5a280bb2bfbe3a757e86eeabc71cc3257741b1cc",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-fractions-intro-first-step-v2",
+      "baseId": "supp-p3-fractions-intro-first-step",
+      "toId": "supp-p3-fractions-intro-first-step-v3",
+      "preimageMaterialSha256": "e2a18e21829434c3eb60d9896637ef24c67e79f6863ce7c5dcb2fe10927dea98",
+      "successorMaterialSha256": "c877db7b439d6c7e0e7bdddd0276b05b4ca7104627aa34a84e8a5356936fa35f",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-measurement-first-step-v2",
+      "baseId": "supp-p3-measurement-first-step",
+      "toId": "supp-p3-measurement-first-step-v3",
+      "preimageMaterialSha256": "9dc14878486b037d7a099e825a783913fecb91156f659ccfb1ecfe04549a8f79",
+      "successorMaterialSha256": "5a03df12662d3a9c9b215bd9c32567390ae003b814b4b7fe2da07eae40a02a9e",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-geometry-patterns-first-step-v2",
+      "baseId": "supp-p3-geometry-patterns-first-step",
+      "toId": "supp-p3-geometry-patterns-first-step-v3",
+      "preimageMaterialSha256": "0ff44bca40aeefd11a5a626b7204b0013a499f1163888d7541177ea97cd54561",
+      "successorMaterialSha256": "f355c99c9803d8dfd0173bcf9f9dc0d19759a4d7dd724e3dcfbb6f0d5b44ac12",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-large-numbers-first-step-v2",
+      "baseId": "supp-p4-large-numbers-first-step",
+      "toId": "supp-p4-large-numbers-first-step-v3",
+      "preimageMaterialSha256": "f8266267debdd41e61ca8caae1d5212ed8e99eca8d6a46f6b0d6988abd857e67",
+      "successorMaterialSha256": "6b1634ef6542aed06a9f244a690d07e838a7e8435242fb09256de94b86773e2a",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-decimals-first-step-v2",
+      "baseId": "supp-p4-decimals-first-step",
+      "toId": "supp-p4-decimals-first-step-v3",
+      "preimageMaterialSha256": "eb2656b14e48e576600974629a574b37a6e73875f08ff6386a1adb78d38f17d7",
+      "successorMaterialSha256": "b0951f0203f18904ead1284a1aa1310d1f627b7542df8ba5d7bfa4d3f32d41b9",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p4-perimeter-area-first-step-v2",
+      "baseId": "supp-p4-perimeter-area-first-step",
+      "toId": "supp-p4-perimeter-area-first-step-v3",
+      "preimageMaterialSha256": "d70215e622a9f2b3b23fcfe1dc18715d5aeebfd9d980e4b0c779fd0324bd0cdd",
+      "successorMaterialSha256": "b298201429727ea56c56081bf320e232b72d787f404b380fb0a9d7bee14908b5",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-fractions-operations-first-step-v2",
+      "baseId": "supp-p5-fractions-operations-first-step",
+      "toId": "supp-p5-fractions-operations-first-step-v3",
+      "preimageMaterialSha256": "8b383fbb99246e55cd6cecf0dd4cad469d04e6c6cc8992ac1e70755824b498cd",
+      "successorMaterialSha256": "5ae956e233a98aa54fc723164a759c31ac0b9052490c6a5d4073afbae9738a95",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-rates-first-step-v2",
+      "baseId": "supp-p5-rates-first-step",
+      "toId": "supp-p5-rates-first-step-v3",
+      "preimageMaterialSha256": "2947bd1918d0493f9dca44b1c68fddd4034f2084dd85c33000c30bf92cbca971",
+      "successorMaterialSha256": "ab10be1bbef00d18b68b397ec98f480cf6ce752c1b9894bace4d03a2da24432d",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-percentages-first-step-v2",
+      "baseId": "supp-p6-percentages-first-step",
+      "toId": "supp-p6-percentages-first-step-v3",
+      "preimageMaterialSha256": "d3011ba2c54c601567c7173c7f1abdc130943558eef4a943a14b34f3263e1149",
+      "successorMaterialSha256": "b2ad6ccb78e34c88b33d04e84838f8bb20d779c987052b38f542659b1ac25049",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-speed-first-step-v2",
+      "baseId": "supp-p6-speed-first-step",
+      "toId": "supp-p6-speed-first-step-v3",
+      "preimageMaterialSha256": "924b0bc7b71425b8aa4bf974a415de6173f3093665231c962f994458501a7e15",
+      "successorMaterialSha256": "71c6d9bf12d0a2c3d2078ddca8ad79ce5ef9317bda8126d84bbccd83b9760543",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-pre-secondary-problem-solving-first-step-v2",
+      "baseId": "supp-p6-pre-secondary-problem-solving-first-step",
+      "toId": "supp-p6-pre-secondary-problem-solving-first-step-v3",
+      "preimageMaterialSha256": "dc8e54ca364b23af8120772d56567d74061632fecc9b52cf981728b12e15181e",
+      "successorMaterialSha256": "b5d107a98766dbaf13b3a215276250af45d9fb505a7450def1478ef85c9942cd",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-integers-first-step-v2",
+      "baseId": "supp-integers-first-step",
+      "toId": "supp-integers-first-step-v3",
+      "preimageMaterialSha256": "b2d8c36fdf064b24092cc76dcbad6780895241298434297347ddb9e920eaf38f",
+      "successorMaterialSha256": "e81b687b5b42068bad8208d68d5e800bc3322ed4434666314b111ed11dcdd13c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-algebra-basics-first-step-v2",
+      "baseId": "supp-algebra-basics-first-step",
+      "toId": "supp-algebra-basics-first-step-v3",
+      "preimageMaterialSha256": "1e585d70a6bb8a4dbab0d23d7494f0dece3902aa33231e2e3daaddc806c20c47",
+      "successorMaterialSha256": "00007d16b5184b0fc9e7d2e1b341d1e86d166da2399a8dc57a4708d3b81345af",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-angles-first-step-v2",
+      "baseId": "supp-angles-first-step",
+      "toId": "supp-angles-first-step-v3",
+      "preimageMaterialSha256": "9e4db17903f73a5c99c61948ca5f4f9e82000ee37f99438f38e485169e31ee70",
+      "successorMaterialSha256": "6f9b72835335ff8de9078ceda0c7c8784b9c583df07a42b25d14e17493ba25bf",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-ratios-first-step-v2",
+      "baseId": "supp-ratios-first-step",
+      "toId": "supp-ratios-first-step-v3",
+      "preimageMaterialSha256": "b89649f2c00e708502e58cd3d8ec4d9707b658ec5438f37bdabdae9c13d0a9dd",
+      "successorMaterialSha256": "60d4025c0739a4b2a507f37b80269e5021595736850071f02911acaf4a7604a4",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-linear-equations-first-step-v2",
+      "baseId": "supp-linear-equations-first-step",
+      "toId": "supp-linear-equations-first-step-v3",
+      "preimageMaterialSha256": "2620745a185eb5d68594d9de197076a14c95d262168af79f4252cd5ac67b9cc3",
+      "successorMaterialSha256": "ee2e7aa338b5c5457c1eb4e02d245499af588367b0f70bde1a8e11b72a991f8e",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-coordinates-first-step-v2",
+      "baseId": "supp-coordinates-first-step",
+      "toId": "supp-coordinates-first-step-v3",
+      "preimageMaterialSha256": "938871e7917e6b60ee19b46388b41088c4a2aa267fc4865ef35002076f7245f6",
+      "successorMaterialSha256": "0de98f630b42bf7faf735681bf97290458835211b0a6fa748d151cdc5bf43f8f",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-transformations-first-step-v2",
+      "baseId": "supp-transformations-first-step",
+      "toId": "supp-transformations-first-step-v3",
+      "preimageMaterialSha256": "14ed81a4ba699c4c53936055148b03dbaf71f7897862b7f460379c94b62b6fe7",
+      "successorMaterialSha256": "54ac2b36e8ed7b7a4a2d9dd779ec9fb6ea47a62f740b97da53605a94296882ba",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-probability-s2-first-step-v2",
+      "baseId": "supp-probability-s2-first-step",
+      "toId": "supp-probability-s2-first-step-v3",
+      "preimageMaterialSha256": "ea9515e1964b0f3905da6732fe01bf1232ed53b238aee5b9b5a450209cc76c83",
+      "successorMaterialSha256": "d8f0efffa048e9353a9c91a01c36bc53478f513d61ec95eaa251e3902dad7b10",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-polynomials-first-step-v2",
+      "baseId": "supp-polynomials-first-step",
+      "toId": "supp-polynomials-first-step-v3",
+      "preimageMaterialSha256": "37808e436ae02a93d4ceff18d34faa792bef464aaa054f55882db350a7e7d140",
+      "successorMaterialSha256": "c7448d2d4bb4e09afced2c64e966d8a199f4044e1ec94a27a058a11197a412e7",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-identities-square-patterns-first-step",
+      "baseId": "supp-identities-square-patterns-first-step",
+      "toId": "supp-identities-square-patterns-first-step-v2",
+      "preimageMaterialSha256": "5c0af6bfaacebc3e063b98d306f5893fd1f3e2aaba589212026c1f665b57e114",
+      "successorMaterialSha256": "00007f0046491901c740db9eb82be0bccbff573e85eaf06d13ec5a98fca63b93",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-trigonometry-basics-first-step-v2",
+      "baseId": "supp-trigonometry-basics-first-step",
+      "toId": "supp-trigonometry-basics-first-step-v3",
+      "preimageMaterialSha256": "553194f87ed5a81a35b2740d55688a558de7f3e872818c1e689f0580112e4dce",
+      "successorMaterialSha256": "92f544d73948a04968eaddb66bcba27f420992e24b6fca0f667828e74fa6ea23",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-arc-length-sector-area-first-step",
+      "baseId": "supp-arc-length-sector-area-first-step",
+      "toId": "supp-arc-length-sector-area-first-step-v2",
+      "preimageMaterialSha256": "2f730a0042a2bc0274d93badf6673e60e95200247480b91049c53ce0f79fa516",
+      "successorMaterialSha256": "bf552e89a5ef28293d5816789cf751a40a47eeab7bc689e9fdb3444ae0bcd7cb",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-functions-first-step-v2",
+      "baseId": "supp-functions-first-step",
+      "toId": "supp-functions-first-step-v3",
+      "preimageMaterialSha256": "b77498c09df081abe01fe79e5177a62233268eeadba20b5f9e84a9bb79af3d2a",
+      "successorMaterialSha256": "860678e505163f46db5c95a524f13b4a513f351bc6b291ff8fc9e6e7a4d04126",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-coordinate-geometry-first-step-v2",
+      "baseId": "supp-coordinate-geometry-first-step",
+      "toId": "supp-coordinate-geometry-first-step-v3",
+      "preimageMaterialSha256": "3a3663d61064076d02db7e5f4ebf3780d394fd4237530f9cf4d7eb9390c2b7cb",
+      "successorMaterialSha256": "5dfa846a9f00b754384d180c29d0937a95f3594ce473ab759715d5fd49557c08",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-circles-first-step-v2",
+      "baseId": "supp-circles-first-step",
+      "toId": "supp-circles-first-step-v3",
+      "preimageMaterialSha256": "ea2593adf990ca7257bb72a045b1068cfe6003d2b1ae82456924ea2c359dadbd",
+      "successorMaterialSha256": "a833b90a6da5e26e4c783ca4ba2bc231e32a1ae59aa775c775dc56b5acfc140c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-more-algebra-first-step-v2",
+      "baseId": "supp-more-algebra-first-step",
+      "toId": "supp-more-algebra-first-step-v3",
+      "preimageMaterialSha256": "b4cd8f8b3a82e7df37271da0ba15cff917b44917845d38dfb6ff39343f176191",
+      "successorMaterialSha256": "fb60a6d4448457d3df35aa439c8105e8566f35ed9130d649308d3978bdf6b656",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-data-handling-first-step-v2",
+      "baseId": "supp-data-handling-first-step",
+      "toId": "supp-data-handling-first-step-v3",
+      "preimageMaterialSha256": "796f70b789c1d4c1ffe1111377b0b4439ac22bbd552df868e2c0d9111dfbd29a",
+      "successorMaterialSha256": "a505c4f43c2061f32d5af06d6fc16b4adf1ae62286b2df4d4890e77e0eb5658d",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-advanced-functions-first-step-v2",
+      "baseId": "supp-advanced-functions-first-step",
+      "toId": "supp-advanced-functions-first-step-v3",
+      "preimageMaterialSha256": "a4ec222baa802b7eac26a94a46a2d9743ab97d7519d036c7e1a23243748d7c42",
+      "successorMaterialSha256": "9ccfb116e5e369e795fa556d34495bb45403f6736db72e614c405d534e3e8fc5",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-trigonometry-s5-first-step-v2",
+      "baseId": "supp-trigonometry-s5-first-step",
+      "toId": "supp-trigonometry-s5-first-step-v3",
+      "preimageMaterialSha256": "fa8444967da9c55f665fc1e2bfb4f0b4bd0d508e4cee6641ab2925add5207205",
+      "successorMaterialSha256": "0bc5b984cc40e304f13ca1d30d56ae9ec51705533a10e67d23de7ba434dc232d",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-probability-s5-first-step-v2",
+      "baseId": "supp-probability-s5-first-step",
+      "toId": "supp-probability-s5-first-step-v3",
+      "preimageMaterialSha256": "0c982caea06fc8e65c20b29a0461c1b2a561e52bed157f09b67f03b5a732b462",
+      "successorMaterialSha256": "f7e098f298279529195cacc9db2945a56d45b501909d81b992301f06f5d09150",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-calculus-first-step-v2",
+      "baseId": "supp-calculus-first-step",
+      "toId": "supp-calculus-first-step-v3",
+      "preimageMaterialSha256": "bca3f0050afd101eed0e29a1d7b2554f01d41b31c75db107b322a81a9274f2c3",
+      "successorMaterialSha256": "2a35416c71795e7c52b98b769d7959e0055f1f47cb44b52314c9028a50dba85e",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-statistics-s6-first-step-v2",
+      "baseId": "supp-statistics-s6-first-step",
+      "toId": "supp-statistics-s6-first-step-v3",
+      "preimageMaterialSha256": "187e3994e2a7091aeb7b5dbf21a7cd2174bf8e3a58fcc0b30f8b469a627a2b7f",
+      "successorMaterialSha256": "5cde320d3e4cfdc54afa5862499e201cdf3bed7138777e2d0e251a8a16fddd6b",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-exam-revision-first-step-v2",
+      "baseId": "supp-exam-revision-first-step",
+      "toId": "supp-exam-revision-first-step-v3",
+      "preimageMaterialSha256": "158823e54d45942d81a2f07582989b39702aef2da6aeb1c41aba54f2f391e4dd",
+      "successorMaterialSha256": "18e919d8572363a055c0807cfc1efd873d8bc31ccb6e9f9cd5de0fba1cb3b760",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-mixed-problem-solving-first-step-v2",
+      "baseId": "supp-mixed-problem-solving-first-step",
+      "toId": "supp-mixed-problem-solving-first-step-v3",
+      "preimageMaterialSha256": "26ccd8cfdf304b90241f10be00986858999c54a8f9450ca8a0fc22c4b0c80baf",
+      "successorMaterialSha256": "55aa1878c133a0f6323e2eeb47a6eff16d43ca1b56a8bd2e2cfc7b4e3ef18254",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-integers-common-check-v2",
+      "baseId": "supp-integers-common-check",
+      "toId": "supp-integers-common-check-v3",
+      "preimageMaterialSha256": "f9667ffe0891c6e4e83af358d4918834bd3b895f546f44611418f8d0ecab89c7",
+      "successorMaterialSha256": "41b1db031885afdf98c1d00bad10a7c3cd00e2c623141356314759fdd99577c5",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-algebra-basics-common-check-v2",
+      "baseId": "supp-algebra-basics-common-check",
+      "toId": "supp-algebra-basics-common-check-v3",
+      "preimageMaterialSha256": "375cd6383cc94f5a25ce23eeb08d2e6eb628f6f23046b1470154cd43c35d9f4a",
+      "successorMaterialSha256": "4bd13b5dc77c3b824bb47fea5cf245db00ea68446855719bb9c9599a4df97e3c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-linear-equations-common-check-v2",
+      "baseId": "supp-linear-equations-common-check",
+      "toId": "supp-linear-equations-common-check-v3",
+      "preimageMaterialSha256": "1269d0a46b98cee3113101b5cb8a421d842c661880e63c9570a105b5e9760617",
+      "successorMaterialSha256": "de765ee143ddd235d1d6c045095fb6cf63c4d4ba2bf9bb136de6149fe9c8e5c9",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-probability-s2-common-check-v2",
+      "baseId": "supp-probability-s2-common-check",
+      "toId": "supp-probability-s2-common-check-v3",
+      "preimageMaterialSha256": "757fd328d2ac7e2180ba87b646b7848c6999825bc165cbc6924cc2d37f75cce0",
+      "successorMaterialSha256": "46ca73cb3c769a84680ede10bb51bcd391b21277f05cde094e15ef40b78479d2",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-trigonometry-basics-common-check-v2",
+      "baseId": "supp-trigonometry-basics-common-check",
+      "toId": "supp-trigonometry-basics-common-check-v3",
+      "preimageMaterialSha256": "ea3cf9a6b0920c71206a9bea1fd82c00477896220721dc58ca902b104ded4992",
+      "successorMaterialSha256": "a611c3b3008d109af2ff7bb2f12e41d3547d02ac6f66ed97550554a4ae917e12",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-arc-length-sector-area-common-check",
+      "baseId": "supp-arc-length-sector-area-common-check",
+      "toId": "supp-arc-length-sector-area-common-check-v2",
+      "preimageMaterialSha256": "fa138df8242159a0d7537997efb094b3a779c90329914f2e2e598a722f9627c1",
+      "successorMaterialSha256": "2b4a42285774e6c7967b3b516d9c0a8bb099ba3b2e0a43f7296107be9f966eda",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-more-algebra-common-check-v2",
+      "baseId": "supp-more-algebra-common-check",
+      "toId": "supp-more-algebra-common-check-v3",
+      "preimageMaterialSha256": "c15a5e26839aa30c17b6097f61bcc0ffba9a45bff1bc97dda6cb95060f17ef92",
+      "successorMaterialSha256": "167c758b6808131367e68f9e67037045b88e20432e2e3eb1977e349c5e85da38",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-advanced-functions-common-check-v2",
+      "baseId": "supp-advanced-functions-common-check",
+      "toId": "supp-advanced-functions-common-check-v3",
+      "preimageMaterialSha256": "e03d4f73d351cf089bbdb6d773220e855127c3e17e1730a242f8c8bec008041f",
+      "successorMaterialSha256": "079b7ff6bdcfcaa727372f291eea108a8cd88a4c18b992053f1e8917c0648d96",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-trigonometry-s5-common-check-v2",
+      "baseId": "supp-trigonometry-s5-common-check",
+      "toId": "supp-trigonometry-s5-common-check-v3",
+      "preimageMaterialSha256": "be30ff4559fc8b5e661c69fde5029a88d96d86e7292447f8cd80bf8090e9821d",
+      "successorMaterialSha256": "8018329c49615aac06a09cbd27e50c67021b56b5a887d266f1bddb0cffc7b07b",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-probability-s5-common-check-v2",
+      "baseId": "supp-probability-s5-common-check",
+      "toId": "supp-probability-s5-common-check-v3",
+      "preimageMaterialSha256": "18dd3fa3ed71e7f7504c43e0a7603b5ca02f4f52f38257f6d1487e16bee65a1e",
+      "successorMaterialSha256": "08f02f7a28dfdc1f51f3ebe43112e3ad98afbdf1cb8371623fdd2e1290e80f62",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-differentiation-intro-common-check-v2",
+      "baseId": "supp-differentiation-intro-common-check",
+      "toId": "supp-differentiation-intro-common-check-v3",
+      "preimageMaterialSha256": "7c26ed5df0dabddca10030d68b151a98eafa43ba69d9b9f1850085380a10b665",
+      "successorMaterialSha256": "98cac041452ca37d6f427c4554d952775a87fa7ced9fb141a1e7c9a573296cf8",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-statistics-s6-common-check-v2",
+      "baseId": "supp-statistics-s6-common-check",
+      "toId": "supp-statistics-s6-common-check-v3",
+      "preimageMaterialSha256": "5ff6be34dec0cf658c18edae6bc162c53d24d98a76aa203b962913962c00ea74",
+      "successorMaterialSha256": "3c95f5b5c3a796cde4076b2e4672243690b32a41c60bdf40aef82707e25047bf",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-mixed-problem-solving-common-check-v2",
+      "baseId": "supp-mixed-problem-solving-common-check",
+      "toId": "supp-mixed-problem-solving-common-check-v3",
+      "preimageMaterialSha256": "396132c5880e6c1c9ae65451304be40041cbb29afb301c0b9c2b4aa956d92e06",
+      "successorMaterialSha256": "4ebec0c7e5b0c113d9274c21ffebece005dec9847f3b338f05a736c97e37b0e9",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-volume-first-step-v2",
+      "baseId": "supp-p5-volume-first-step",
+      "toId": "supp-p5-volume-first-step-v3",
+      "preimageMaterialSha256": "c762a76c6ca977aac1532fef4c6d3c23751571d5ca7fcdbcf8d910088a99eea0",
+      "successorMaterialSha256": "fae25297741762a3754b99662c1a563e8dd401f848191f7ead549d7658ca9e0c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-charts-averages-first-step-v2",
+      "baseId": "supp-p5-charts-averages-first-step",
+      "toId": "supp-p5-charts-averages-first-step-v3",
+      "preimageMaterialSha256": "0e1d2d4e19daccb711cce277788fc6a0d92a3de1e75fb5bc812b4ad2ff402802",
+      "successorMaterialSha256": "43a460294925a3e07575b5778fa72cf13c41ab5ddad8d0269c9dbdf241519bcc",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p6-ratio-proportion-first-step-v2",
+      "baseId": "supp-p6-ratio-proportion-first-step",
+      "toId": "supp-p6-ratio-proportion-first-step-v3",
+      "preimageMaterialSha256": "7203bf8fde354de4ba1c9cc9567344660e48109bf477bd70e30981364c7ebe9f",
+      "successorMaterialSha256": "77884db7fa261b334bf610e9f4811800c7b4b8aa0f25d34bec2c58964626e3f1",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-statistics-s1-first-step-v2",
+      "baseId": "supp-statistics-s1-first-step",
+      "toId": "supp-statistics-s1-first-step-v3",
+      "preimageMaterialSha256": "d02d5acdf9fcef902600258bb4e365a055530747fc383fab94f4eaf18214798a",
+      "successorMaterialSha256": "e5e508a875f579d258038bc5a9c45fd1bb1893bde55a9ba037cda0bdf86d5a2c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-differentiation-intro-first-step-v2",
+      "baseId": "supp-differentiation-intro-first-step",
+      "toId": "supp-differentiation-intro-first-step-v3",
+      "preimageMaterialSha256": "e2e7f0f26715054962cb960967a2b944aaaff0ed4f730c59cb59b6647c1e28e2",
+      "successorMaterialSha256": "46ef4bf7670858cf62a6d6122c436724427cec5cddda6958701934ddc45578f3",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-ratios-common-check-v2",
+      "baseId": "supp-ratios-common-check",
+      "toId": "supp-ratios-common-check-v3",
+      "preimageMaterialSha256": "898fd0bec074abaf074f58077d24d83e7e9bf9194debd24c7a5c3b97e969d45b",
+      "successorMaterialSha256": "23d1b51662dacbe3b2168e5f9be45e163279b3cc58ce344969fb2fb71bc57f48",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-statistics-s1-common-check-v2",
+      "baseId": "supp-statistics-s1-common-check",
+      "toId": "supp-statistics-s1-common-check-v3",
+      "preimageMaterialSha256": "4c082e999db4c73df512375ac72ce7992d80a595be5a7c960bba6fe85b7e3ee1",
+      "successorMaterialSha256": "8342efcf96e85f3837ab224ca56f67182f1fd0a6ac89daae898458340fdae4c2",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-polynomials-common-check-v2",
+      "baseId": "supp-polynomials-common-check",
+      "toId": "supp-polynomials-common-check-v3",
+      "preimageMaterialSha256": "2b7c4328067614d0b05d40cd7b9b0e63e8e4be190d5995ad702b73daff33d921",
+      "successorMaterialSha256": "15a6ee42e5186a35548ac2de1d4116d4c998cfe9c7180d75545253dce1c10eb6",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-identities-square-patterns-common-check",
+      "baseId": "supp-identities-square-patterns-common-check",
+      "toId": "supp-identities-square-patterns-common-check-v2",
+      "preimageMaterialSha256": "500615df468ea33b78962b3243d2828eb4bfd6fbad0b225a8bc49021152ea777",
+      "successorMaterialSha256": "c72f3427cac0e64295fc2f4b4e5294a2dc3778e5b15b36d053c1223483f70dfa",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-circles-common-check-v2",
+      "baseId": "supp-circles-common-check",
+      "toId": "supp-circles-common-check-v3",
+      "preimageMaterialSha256": "924034201411f270d1609b0ef9ae3005a0e27040712e760916c629f5516216f7",
+      "successorMaterialSha256": "89640d94de4f9c4ddbf29d1d7b0900a924aae0d3223c38e0ed98f3e4ceb4eb41",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-calculus-common-check-v2",
+      "baseId": "supp-calculus-common-check",
+      "toId": "supp-calculus-common-check-v3",
+      "preimageMaterialSha256": "d127d64f953185cbd87ba3961913f3fe74748dc03f669f300d807aeaf108d5c8",
+      "successorMaterialSha256": "7fdf94f6904b2c6bc102fbd20b15ab0d4813ae7fddf57afc26f2592e0a3c3d8e",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-exam-revision-common-check-v2",
+      "baseId": "supp-exam-revision-common-check",
+      "toId": "supp-exam-revision-common-check-v3",
+      "preimageMaterialSha256": "dc5efc1674dc944566e5aa2cf82d77a4db9836428cf7e067812e4587db8f3e3d",
+      "successorMaterialSha256": "cfbbe051712c876a532e8c66f790d257e1a1a56f6b089d713093ed6b568ba0c5",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1"
+      }
+    },
+    {
+      "fromId": "supp-p3-multiplication-division-guided-example-v2",
+      "baseId": "supp-p3-multiplication-division-guided-example",
+      "toId": "supp-p3-multiplication-division-guided-example-v3",
+      "preimageMaterialSha256": "97273271431524eec0214e94ca76899c1fad1f2d33eea898d88c688e63ac22a4",
+      "successorMaterialSha256": "97273271431524eec0214e94ca76899c1fad1f2d33eea898d88c688e63ac22a4",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "q2",
+      "baseId": "q2",
+      "toId": "q2-v2",
+      "preimageMaterialSha256": "d28f0088a9907b2a94a0bae79f6f78e3ed793e891f373af7a8cfd98319382e89",
+      "successorMaterialSha256": "d28f0088a9907b2a94a0bae79f6f78e3ed793e891f373af7a8cfd98319382e89",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-algebra-basics-key-fact",
+      "baseId": "supp-algebra-basics-key-fact",
+      "toId": "supp-algebra-basics-key-fact-v2",
+      "preimageMaterialSha256": "6104bab3eb0f87584496d7e18c8218386b7493603366b290a8e84a6c7454f265",
+      "successorMaterialSha256": "6104bab3eb0f87584496d7e18c8218386b7493603366b290a8e84a6c7454f265",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "q18",
+      "baseId": "q18",
+      "toId": "q18-v2",
+      "preimageMaterialSha256": "9528b7951033007a6d276df42d967fe86c0600e685d549270999d87ffc7a72ab",
+      "successorMaterialSha256": "9528b7951033007a6d276df42d967fe86c0600e685d549270999d87ffc7a72ab",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-polynomials-key-fact-v2",
+      "baseId": "supp-polynomials-key-fact",
+      "toId": "supp-polynomials-key-fact-v3",
+      "preimageMaterialSha256": "0495d5d024dcca6cb5531cf0e61e7cde8743286a87d99db2423dda94e137c0ac",
+      "successorMaterialSha256": "0495d5d024dcca6cb5531cf0e61e7cde8743286a87d99db2423dda94e137c0ac",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-polynomials-guided-example",
+      "baseId": "supp-polynomials-guided-example",
+      "toId": "supp-polynomials-guided-example-v2",
+      "preimageMaterialSha256": "c0cb198916f6a26b69dd13d7d55bdc78b12ee977c98fedfca8855ee672ec0a80",
+      "successorMaterialSha256": "c0cb198916f6a26b69dd13d7d55bdc78b12ee977c98fedfca8855ee672ec0a80",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "hk-s3-identities-square-patterns-1",
+      "baseId": "hk-s3-identities-square-patterns-1",
+      "toId": "hk-s3-identities-square-patterns-1-v2",
+      "preimageMaterialSha256": "b9f66396988b5fd0aba92bca7cef66011eb1871ab3cae4c33a51ee30f00546d0",
+      "successorMaterialSha256": "b9f66396988b5fd0aba92bca7cef66011eb1871ab3cae4c33a51ee30f00546d0",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-identities-square-patterns-key-fact",
+      "baseId": "supp-identities-square-patterns-key-fact",
+      "toId": "supp-identities-square-patterns-key-fact-v2",
+      "preimageMaterialSha256": "0d5be877f27e56501a272b40d96f544b2ae4a3d1ad7963537e02fc1c5c1ab598",
+      "successorMaterialSha256": "0d5be877f27e56501a272b40d96f544b2ae4a3d1ad7963537e02fc1c5c1ab598",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "q10-v2",
+      "baseId": "q10",
+      "toId": "q10-v3",
+      "preimageMaterialSha256": "508e225d61f21e1a3f9debe4ee44cce8b32ba77e9f3a686fde52bf488d96361c",
+      "successorMaterialSha256": "508e225d61f21e1a3f9debe4ee44cce8b32ba77e9f3a686fde52bf488d96361c",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-differentiation-intro-key-fact-v2",
+      "baseId": "supp-differentiation-intro-key-fact",
+      "toId": "supp-differentiation-intro-key-fact-v3",
+      "preimageMaterialSha256": "16bc82ec04cc2760cff12b0d70a73acbfbce5e340c225de2c23c92eebcfb00a3",
+      "successorMaterialSha256": "16bc82ec04cc2760cff12b0d70a73acbfbce5e340c225de2c23c92eebcfb00a3",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-calculus-guided-example-v2",
+      "baseId": "supp-calculus-guided-example",
+      "toId": "supp-calculus-guided-example-v3",
+      "preimageMaterialSha256": "f562b2f98689af68fa59fa33ed84b7064315d2d0e040c6754402fcf45cbc1a8a",
+      "successorMaterialSha256": "f562b2f98689af68fa59fa33ed84b7064315d2d0e040c6754402fcf45cbc1a8a",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "supp-p5-volume-key-fact-v2",
+      "baseId": "supp-p5-volume-key-fact",
+      "toId": "supp-p5-volume-key-fact-v3",
+      "preimageMaterialSha256": "37c2915c9c8d0e6bd17b591d733593b1faefa93d7aa16dbec61de103990451ed",
+      "successorMaterialSha256": "02f3da8231bb5815949a5ed202adc1496330c046d9839df4e5b44976efe81ccb",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1"
+      }
+    },
+    {
+      "fromId": "graph-p4-decimals-number-line",
+      "baseId": "graph-p4-decimals-number-line",
+      "toId": "graph-p4-decimals-number-line-v2",
+      "preimageMaterialSha256": "64973b49626d101ad1d63a989c7f0e6911b880a4730aade045aa3a10c5824d6d",
+      "successorMaterialSha256": "580f79f582ad855468b44176276fe17d756e7f5ff322197bab11c5d5d1ee87ea",
+      "materialBindings": {
+        "question": "question-material-fingerprint-v1",
+        "responseContractRevision": "hk-displayed74-response-contract-v1",
+        "rendererSemanticsRevision": "p4-number-line-preanswer-no-solution-v1"
+      }
+    }
+  ]
+}

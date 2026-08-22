@@ -1,0 +1,334 @@
+{
+  "schemaVersion": "hk-ease-exact3-production-repair-preimage-v1",
+  "builderPath": "coordination/content-qa/build-hk-ease-exact3-production-repair-preimage.ts",
+  "outputPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+  "decision": "needs-repair-do-not-promote-v2",
+  "runtimePreRepairSha256": "af8679b39dce192bcce8c7c18724e5c6538f56e5ec1ce2529bcdb2a1bd51ee91",
+  "orderedBaseIds": [
+    "hk-ease-10481",
+    "hk-ease-10496",
+    "hk-ease-1041"
+  ],
+  "orderedBaseIdSha256": "ad0a746c13b9d5461a61dd9221e1cc57ee4d5c20fa4cacc3ca7562ae775b76d8",
+  "sourceFileSha256ByPath": {
+    "data/generated-content/hk-ease-practice-bank-v2/question-pack.json": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+    "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+    "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+    "data/historical/hongKongQuestionVersionManifest.json": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+    "data/historical/hongKongQuestions-hk-ease-39847.json": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1",
+    "data/historical/hongKongQuestions-3f8f12c4.json": "75af1eb004c8834136eed5307b25c229bc050f473638d1cc476dfca7c81593fd"
+  },
+  "dependentArtifactPaths": {
+    "immutablePreimages": [
+      "data/historical/hongKongQuestions-3f8f12c4.json",
+      "data/historical/hongKongQuestions-hk-ease-39847.json"
+    ],
+    "atomicPhase2Mutation": [
+      "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "data/historical/hongKongQuestionVersionManifest.json",
+      "lib/server/hongKongEaseResponseContracts.ts",
+      "lib/server/hongKongEaseResponseContracts.test.ts",
+      "lib/hongKongQuestionVersioning.ts",
+      "lib/hongKongQuestionVersioning.test.ts",
+      "lib/hongKongQuestionVersioningContract.ts"
+    ],
+    "downstreamRebuildAndRegression": [
+      "data/hongKongEasePracticeQuestions.ts",
+      "data/questions.ts",
+      "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+      "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "lib/hongKongEaseIndependentOracleV4.ts",
+      "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "lib/server/hongKongHistoricalQuestionProjection.ts",
+      "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "lib/fullQuestionBankSolvability.test.ts",
+      "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs"
+    ],
+    "versionManifestProvenanceConsumers": [
+      "coordination/content-qa/hongKongResidual28Provenance.ts",
+      "lib/hongKongResidual47RepairContract.test.ts"
+    ]
+  },
+  "requiredAtomicPhase2Surfaces": [
+    "question-pack-successor-material",
+    "strict-response-contract-and-audit-successor-material",
+    "new-v3-history-artifact",
+    "base-and-v2-to-v3-version-mapping-with-v2-retirement",
+    "history-safe-provenance-and-promotion-authority",
+    "production-runtime-dispatch",
+    "independent-v4-oracle-and-full-bank-regression-rebuild"
+  ],
+  "rows": [
+    {
+      "baseId": "hk-ease-10481",
+      "activePreimageId": "hk-ease-10481-v2",
+      "requiredSuccessorId": "hk-ease-10481-v3",
+      "frozenV2HistoryStatus": "immutable-do-not-edit",
+      "candidateQuestion": {
+        "recordSha256": "2c534cd8a697ad4c92f07b9bb91f06dd202a6987e9d1eb96084ac735bc46eefc",
+        "id": "hk-ease-10481",
+        "promptEn": "Classify the following numbers: \\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "promptZh": "把下列各數分類：\\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+        "answer": "(a) \\(\\frac{3}{5},\\frac{11}{12}\\); (b) \\(\\frac{7}{4},\\frac{9}{9}\\); (c) \\(2\\frac{1}{3},5\\frac{2}{7}\\)",
+        "acceptedAnswerCount": 8,
+        "acceptedAnswersSha256": "4d72d531aaf6ae54e731a27443ba57823900cf652b8496aefd89025e619faf77"
+      },
+      "strictContract": {
+        "recordSha256": "fe3770f1fb66024303d9d30543343cedff836b508a46cfcd55f724ca9d1672d2",
+        "kind": "all-of",
+        "canonicalAnswerCount": 2,
+        "canonicalAnswersSha256": "d722273d4b3fe1618ed85116f94ed3dd3c1532b2546f7aed15b36de2a04fb038"
+      },
+      "responseAudit": {
+        "recordSha256": "6862c41c2e13c2dad8110b40b61fa3e603a9a586c0d02ab1f35169a23bd487dd",
+        "index": 187,
+        "positiveProbesSha256": "98f675937cc277d97e1a15eed4d99b40d3d5152179ad41db4074c20cf2b24562",
+        "negativeProbesSha256": "bad66ab64d46dc1d943b70cf3a04da2b767dad353f6a2a5e6a9cf4926e1d73a0"
+      },
+      "frozenV2History": {
+        "recordSha256": "f6f041ee4c7d6586fae7e06395027f3e24d7b53919c35abdc264fa85c1a5bf5b",
+        "id": "hk-ease-10481-v2",
+        "promptEn": "Classify the following numbers: \\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "promptZh": "把下列各數分類：\\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+        "answer": "(a) \\(\\frac{3}{5},\\frac{11}{12}\\); (b) \\(\\frac{7}{4},\\frac{9}{9}\\); (c) \\(2\\frac{1}{3},5\\frac{2}{7}\\)",
+        "acceptedAnswerCount": 8,
+        "acceptedAnswersSha256": "4d72d531aaf6ae54e731a27443ba57823900cf652b8496aefd89025e619faf77"
+      },
+      "frozenLegacyHistory": {
+        "recordSha256": "accef3f738c43e2e332f3172cbf5da17713605fd25efbeb518d20ce24f790bff",
+        "id": "hk-ease-10481",
+        "promptEn": "(Classify the following fractions:) \\frac{3}{5}, \\quad \\frac{7}{4}, \\quad 2\\frac{1}{3}, \\quad \\frac{9}{9}, \\quad \\frac{11}{12}, \\quad 5\\frac{2}{7} (a)  (Proper Fractions): \\_\\_\\_(b)  (Improper Fractions): \\_\\_\\_(c)  (Mixed Fractions): \\_\\_\\_",
+        "promptZh": "把下列分數分類：\\frac{3}{5}, \\quad \\frac{7}{4}, \\quad 2\\frac{1}{3}, \\quad \\frac{9}{9}, \\quad \\frac{11}{12}, \\quad 5\\frac{2}{7} (a) 真分數 (Proper Fractions): \\_\\_\\_(b) 假分數 (Improper Fractions): \\_\\_\\_(c) 帶分數 (Mixed Fractions): \\_\\_\\_",
+        "answer": "(a) \\(\\frac{3}{5}, \\frac{11}{12}\\) ; (b) \\(\\frac{7}{4}, \\frac{9}{9}\\) ; (c) \\(2\\frac{1}{3}, 5\\frac{2}{7}\\)",
+        "acceptedAnswerCount": 1,
+        "acceptedAnswersSha256": "f7ade0e4db5f068408cc2a430e33af98ba379eb65ddc5614cbc34bc5deb30b11"
+      },
+      "targetSemanticContract": {
+        "kind": "exact-named-classified-number-groups",
+        "labels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "categoriesEn": [
+          "proper fractions",
+          "improper fractions",
+          "mixed numbers"
+        ],
+        "categoriesZh": [
+          "真分數",
+          "假分數",
+          "帶分數"
+        ],
+        "groups": [
+          [
+            "3/5",
+            "11/12"
+          ],
+          [
+            "7/4",
+            "9/9"
+          ],
+          [
+            "2 1/3",
+            "5 2/7"
+          ]
+        ],
+        "categoryLanguagePolicy": "all-English-or-all-Traditional-Chinese-no-mixing",
+        "representationPolicy": "original-representations-exactly-once-within-group-order-free"
+      },
+      "rowPreimageSha256": "3790269c37cd9cb7d482fea6cf2a695ddeece0711d55b337d4c80974d943e8fb"
+    },
+    {
+      "baseId": "hk-ease-10496",
+      "activePreimageId": "hk-ease-10496-v2",
+      "requiredSuccessorId": "hk-ease-10496-v3",
+      "frozenV2HistoryStatus": "immutable-do-not-edit",
+      "candidateQuestion": {
+        "recordSha256": "8a1b69587e94b9f35373c7a17a6b51d553634e37c5beb54e4ce1034285a76087",
+        "id": "hk-ease-10496",
+        "promptEn": "Classify the following numbers: \\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "promptZh": "把下列各數分類：\\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+        "answer": "(a) \\(\\frac{4}{7},\\frac{13}{15}\\); (b) \\(\\frac{11}{5},\\frac{8}{8}\\); (c) \\(3\\frac{1}{2},6\\frac{4}{9}\\)",
+        "acceptedAnswerCount": 8,
+        "acceptedAnswersSha256": "9e22310cc57913de738e1e48cc2542ce259ea947791621b514c45c35cd90acbf"
+      },
+      "strictContract": {
+        "recordSha256": "faa9904daa15ee66c4dff777c1bf0df62f2d416e60c59619cd77e2f73089a889",
+        "kind": "all-of",
+        "canonicalAnswerCount": 2,
+        "canonicalAnswersSha256": "592fa9e2a705fd5a1c9444e04e1974465ca771a1982e629ac0942e40da7439b6"
+      },
+      "responseAudit": {
+        "recordSha256": "4ce09bf50c278e3148857c27bdfa0202ca2466db3d22ed29fe0e3d0e23c9efa9",
+        "index": 188,
+        "positiveProbesSha256": "ca8ad16975e96f93a80b4e9af65036fd53742383c83e3475f289f2ac4446d9d3",
+        "negativeProbesSha256": "3a965e27e8b2156bf4304660032cead87c31cb95a73264746bc55ff4f9a5ff60"
+      },
+      "frozenV2History": {
+        "recordSha256": "2580e2560c0e1237027c0204deb8bebe7f2e330a0ef5bd909796ca333cf00888",
+        "id": "hk-ease-10496-v2",
+        "promptEn": "Classify the following numbers: \\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "promptZh": "把下列各數分類：\\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。",
+        "answer": "(a) \\(\\frac{4}{7},\\frac{13}{15}\\); (b) \\(\\frac{11}{5},\\frac{8}{8}\\); (c) \\(3\\frac{1}{2},6\\frac{4}{9}\\)",
+        "acceptedAnswerCount": 8,
+        "acceptedAnswersSha256": "9e22310cc57913de738e1e48cc2542ce259ea947791621b514c45c35cd90acbf"
+      },
+      "frozenLegacyHistory": {
+        "recordSha256": "423937d1efe2f5bc1ad7340843a75f75a10cec7fe59c11bc71fa9ec5278d22c3",
+        "id": "hk-ease-10496",
+        "promptEn": "Classify the following fractions and write them on the lines. \\frac{4}{7}, \\quad \\frac{11}{5}, \\quad 3\\frac{1}{2}, \\quad \\frac{8}{8}, \\quad \\frac{13}{15}, \\quad 6\\frac{4}{9} (a)  (Proper Fractions): \\_\\_\\_(b)  (Improper Fractions): \\_\\_\\_(c)  (Mixed Fractions): \\_\\_\\_",
+        "promptZh": "把下列分數歸類，填在橫線上。Classify the following fractions and write them on the lines. \\frac{4}{7}, \\quad \\frac{11}{5}, \\quad 3\\frac{1}{2}, \\quad \\frac{8}{8}, \\quad \\frac{13}{15}, \\quad 6\\frac{4}{9} (a) 真分數 (Proper Fractions): \\_\\_\\_(b) 假分數 (Improper Fractions): \\_\\_\\_(c) 帶分數 (Mixed Fractions): \\_\\_\\_",
+        "answer": "(a) \\frac{4}{7}, \\frac{13}{15} ; (b) \\frac{11}{5}, \\frac{8}{8} ; (c) 3\\frac{1}{2}, 6\\frac{4}{9}",
+        "acceptedAnswerCount": 2,
+        "acceptedAnswersSha256": "05e406fdd46457a581a2144116f751eb0cc0730dddde2e9ba93cf489287a0cd3"
+      },
+      "targetSemanticContract": {
+        "kind": "exact-named-classified-number-groups",
+        "labels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "categoriesEn": [
+          "proper fractions",
+          "improper fractions",
+          "mixed numbers"
+        ],
+        "categoriesZh": [
+          "真分數",
+          "假分數",
+          "帶分數"
+        ],
+        "groups": [
+          [
+            "4/7",
+            "13/15"
+          ],
+          [
+            "11/5",
+            "8/8"
+          ],
+          [
+            "3 1/2",
+            "6 4/9"
+          ]
+        ],
+        "categoryLanguagePolicy": "all-English-or-all-Traditional-Chinese-no-mixing",
+        "representationPolicy": "original-representations-exactly-once-within-group-order-free"
+      },
+      "rowPreimageSha256": "5cc1c62ee79a9f736c5777a3a2e9ed36f3edefc1e0f48c407c1cb602a8a27a5a"
+    },
+    {
+      "baseId": "hk-ease-1041",
+      "activePreimageId": "hk-ease-1041-v2",
+      "requiredSuccessorId": "hk-ease-1041-v3",
+      "frozenV2HistoryStatus": "immutable-do-not-edit",
+      "candidateQuestion": {
+        "recordSha256": "e4ef30a8bcd50f95910e6762d3c31c3bc45e9fa9aa8469351a0011c7d79c2f7d",
+        "id": "hk-ease-1041",
+        "promptEn": "For each number, state in order whether it is divisible by 2, 5, and 10: (a) 75; (b) 130; (c) 502; (d) 1200; (e) 1005; (f) 4020. Give all six parts in one response; each three-entry group must follow the order 2, 5, 10.",
+        "promptZh": "對每個數判斷它能否依次被 2、5、10 整除：(a) 75；(b) 130；(c) 502；(d) 1200；(e) 1005；(f) 4020。請在同一答案中按「(a) ✓/✗, ✓/✗, ✓/✗；…；(f) …」的格式作答，每組順序均為 2、5、10。",
+        "answer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "acceptedAnswerCount": 3,
+        "acceptedAnswersSha256": "44b4b472092326c4d1e560d4eb902ca5a73f7b2ba79677e2a64d62e6da61fb94"
+      },
+      "strictContract": {
+        "recordSha256": "0103adec3043ed116c452c2431562bced8f3d3d4cbc5195728105eeed11bb08d",
+        "kind": "multipart-response",
+        "canonicalAnswerCount": 1,
+        "canonicalAnswersSha256": "aaaa592fd4ff56f7e1ec52710f4550dc5f5e4ca236d3c1a839aee770c24c13a1"
+      },
+      "responseAudit": {
+        "recordSha256": "4b8c7c9db56119d7cb30bda3a3d813a16b1f7f2a47fc12a64d6da495bb71addc",
+        "index": 693,
+        "positiveProbesSha256": "91c9ad02ece01e3c2079cfacb3ccd3cc927c7b6b03c1f081ab3dc57a953ddc9a",
+        "negativeProbesSha256": "7a7f511fc6e639f5e4285234a3ebd4c0eac72b68e9b3074bc0208b1a4bd4544d"
+      },
+      "frozenV2History": {
+        "recordSha256": "7dd348b984cb84f74f1d17db35da8fb7d8922103fcbc2124d367107244c1bad3",
+        "id": "hk-ease-1041-v2",
+        "promptEn": "For each number, state in order whether it is divisible by 2, 5, and 10: (a) 75; (b) 130; (c) 502; (d) 1200; (e) 1005; (f) 4020. Give all six parts in one response; each three-entry group must follow the order 2, 5, 10.",
+        "promptZh": "對每個數判斷它能否依次被 2、5、10 整除：(a) 75；(b) 130；(c) 502；(d) 1200；(e) 1005；(f) 4020。請在同一答案中按「(a) ✓/✗, ✓/✗, ✓/✗；…；(f) …」的格式作答，每組順序均為 2、5、10。",
+        "answer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "acceptedAnswerCount": 3,
+        "acceptedAnswersSha256": "44b4b472092326c4d1e560d4eb902ca5a73f7b2ba79677e2a64d62e6da61fb94"
+      },
+      "frozenLegacyHistory": {
+        "recordSha256": "4def6f3cac037993de756a09d3835b28d5533eab5d8afb5650056f365fc81390",
+        "id": "hk-ease-1041",
+        "promptEn": "In the table below, determine whether the number given in each of the following is divisible by 2, 5, or 10.\n\nThe given number is divisible by 2? Divided by 5? Divided by 10?\n Example: 46 ✓ ✗ ✗\n (a) 75\n (b) 130\n (c) 502\n (d) 1200\n (e) 1005\n (f) 4020",
+        "promptZh": "在下表中，判別下列各所給的數是否可被2、5或10整除。\n\n\t\t所給的數\t被2整除？\t被5整除？\t被10整除？\n\t例：\t46\t✓\t✗\t✗\n\t(a)\t75\n\t(b)\t130\n\t(c)\t502\n\t(d)\t1200\n\t(e)\t1005\n\t(f)\t4020",
+        "answer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "acceptedAnswerCount": 2,
+        "acceptedAnswersSha256": "281c56fa1a096d9337e8475ef04153834c2f0df6198e25ebae6b91fed79d2f0b"
+      },
+      "targetSemanticContract": {
+        "kind": "exact-labelled-divisibility-matrix",
+        "labels": [
+          "a",
+          "b",
+          "c",
+          "d",
+          "e",
+          "f"
+        ],
+        "columns": [
+          2,
+          5,
+          10
+        ],
+        "matrix": [
+          [
+            false,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            false,
+            false
+          ],
+          [
+            true,
+            true,
+            true
+          ],
+          [
+            false,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true
+          ]
+        ],
+        "aliases": {
+          "true": [
+            "Yes",
+            "是",
+            "✓"
+          ],
+          "false": [
+            "No",
+            "否",
+            "✗"
+          ]
+        },
+        "responsePolicy": "all-six-labels-exactly-once-three-decisions-in-2-5-10-column-order"
+      },
+      "rowPreimageSha256": "5d4949847d85ca8370d1e3c517aa76631ccfb08984f3088df0b408f6a08664f3"
+    }
+  ],
+  "authorityPayloadSha256": "69e2ec19a990b91c90dafca0d48ed9e4148c23b24ed171c8de008a928a578f8e"
+}

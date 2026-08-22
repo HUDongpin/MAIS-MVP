@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "hk-displayed74-focused-test-ledger-v1",
+  "canonicalSerialization": "SHA-256 of UTF-8 JSON.stringify(lexicographically sorted suiteId + U+0000 + testName strings)",
+  "expectedSuiteCount": 6,
+  "expectedFocusedTestCount": 57,
+  "testNameSha256": "3f0ec176d5c3ecdd216a1eaeb9d7fd3bda9a716796b9f28bf6b8f99529a386fd",
+  "suites": [
+    {
+      "sourcePath": "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+      "suiteId": "hk-displayed74-history-provenance-v1",
+      "testNames": [
+        "the displayed-74 immutable preimage binds the independently approved final v2 decision",
+        "every authoritative adjudication digest is reproducible from package-local evidence",
+        "the provenance-only regeneration preserves the exact 74-row question set",
+        "the package-local extraction manifest binds the snapshot and exact preimage source bytes"
+      ]
+    },
+    {
+      "sourcePath": "lib/hongKongDisplayed74ContentContract.test.ts",
+      "suiteId": "hk-displayed74-content-contract-v1",
+      "testNames": [
+        "the machine-readable adjudication sets independently bind 61 explanation rows, 16 response rows, exact overlap 3, and union 74",
+        "the exact allowed-delta matrix partitions all 74 rows into 55+3+3+1+1+11 non-overlapping contracts",
+        "the extraction manifest binds every old ID, the exact package-local source bytes, and the execution boundary",
+        "the adjudicated explanation queue is exactly 61 rows: 49 generic and 12 bespoke",
+        "all 49 generic rows equal the package-local exact bilingual fallback payloads",
+        "all 12 bespoke rows preserve the authoritative bilingual wording and revised first steps",
+        "all 61 final explanations reject the eight internal authoring phrases",
+        "the three ambiguous distractors are replaced bilingually and the superseded phrases are absent",
+        "the tank content is exactly the final cuboid, explicit-unit prompt and learner reasoning",
+        "the P4 number-line adds only the exact diagram-local nonvisual ordinal-tick disclosure policy",
+        "every one of the 74 successors has exactly its per-ID allowed delta and all other fields are deep-equal to the frozen preimage",
+        "the three NOT-DEFECT rows retain their exact pre-adjudication material"
+      ]
+    },
+    {
+      "sourcePath": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "suiteId": "hk-displayed74-figure-history-contract-v1",
+      "testNames": [
+        "the exact 74-row preimage snapshot and its final-v2 provenance stay byte locked",
+        "one production promotion manifest binds all 74 exact generations and material revisions",
+        "the strict production promotion registry loads the same single manifest",
+        "the immutable pre-implementation history proves exactly five deep-equal overlaps and 69 unique additions",
+        "the post-implementation resolver deep-resolves all 74 preimages and exposes exactly 1761 unique generations",
+        "the adjudication overlap is independently fixed at exactly three IDs",
+        "all 74 preimages receive their exact next generation, retire the old ID, and remain immutable in history",
+        "exactly 11 question-identical response-contract rows are explicitly forced to promote without a heuristic",
+        "version manifest adds exactly the 74 target mappings without changing any non-target mapping or retirement",
+        "production 51x5 selects the exact promoted 74 positions and remains disjoint from EASE701",
+        "the P4 disclosure scanner catches decimal, fraction, mixed, percent, scientific, derivation, and word forms",
+        "only an explicit validated disclosure policy selects ordinal P4 semantics",
+        "unknown, malformed, or diagram-inconsistent disclosure policies fail closed",
+        "the new active P4 row carries the explicit policy and fingerprints it as material versioned state",
+        "the P4 number-line semantic helper gives exact EN/ZH/ZH-Hans source data without computing P=3.7",
+        "the P4 disclosure policy leaves every non-target number-line semantic shape unchanged",
+        "QuestionFigure semantic render preserves exact P4 caption and contains no computed-result variant"
+      ]
+    },
+    {
+      "sourcePath": "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+      "suiteId": "hk-displayed74-response-contract-v1",
+      "testNames": [
+        "the exact 13 strict response contracts are keyed only to active successor IDs",
+        "the exact 13 response-only rows preserve their whole question object outside the shared authorized delta contract",
+        "the typed P3 guided example uses a semantic quotient-and-remainder contract bounded by divisor 4",
+        "all exact ten algebra rows use polynomial equivalence and exactly three require expanded sums of monomials",
+        "polynomial parsing fails closed outside the supported polynomial domain",
+        "the cuboid-height row requires a convertible length unit including mm and 毫米",
+        "the P4 number-line row requires an ordinary decimal numeral equal to 3.7",
+        "the three NOT-DEFECT rows do not inherit broad aliases or the typed quotient parser"
+      ]
+    },
+    {
+      "sourcePath": "lib/hongKongQuestionVersioning.test.ts",
+      "suiteId": "hk-question-versioning-contract-v1",
+      "testNames": [
+        "the HK question-history snapshot is locked to the integration baseline",
+        "the complete prior 39847 EASE package is frozen as 699 v2 and two v3 historical generations",
+        "materially changed same-ID HK questions receive a new active ID and retire the old ID",
+        "a question already frozen through v3 advances to v4 without overwriting any historical generation",
+        "the real current EASE state reuses two frozen v3 rows and promotes exactly 82 repaired rows",
+        "unchanged current questions keep their IDs while removed historical IDs are retired",
+        "non-HK questions are never versioned by the HK history contract",
+        "the compact server manifest exactly matches the generated live versioning result",
+        "all 74 promoted generations retain an independent answer, with exact active overrides winning"
+      ]
+    },
+    {
+      "sourcePath": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "suiteId": "hk-historical-question-projection-contract-v1",
+      "testNames": [
+        "the explicit projector preserves all 17 locked historical diagrams in the strict figure contract",
+        "all 14 locked legacy coordinate grids receive stable IDs, bilingual labels, and lossless semantic summaries",
+        "projection is immutable and fails closed for unknown or altered legacy coordinate payloads",
+        "the lazy lookup resolves retired IDs only and returns persisted QuestionRecord-compatible fields",
+        "every retired HK manifest ID resolves to one exact locked HK projection",
+        "reference collection materializes only retired IDs used by historical state",
+        "question materialization retains active records, replaces referenced history, and removes unreferenced retired rows"
+      ]
+    }
+  ]
+}

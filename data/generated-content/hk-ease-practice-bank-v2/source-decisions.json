@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "hk-ease-source-decisions.v1",
+  "sourceCandidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+  "remediatedCandidateSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+  "status": "a18-decisions-recorded-pending-independent-retest",
+  "decisions": [
+    {
+      "index": 135,
+      "id": "hk-ease-10455",
+      "rootCause": "The raw Chinese asks literally for the maximum number of cloth pieces per group, while the raw English and standard answer ask for the greatest number of groups. The merged item chooses the English/key interpretation, so source fidelity is not univocal.",
+      "provenanceDecision": {
+        "action": "retain-greatest-number-of-groups-interpretation-and-record-conflict",
+        "authority": "raw EASE row 10455, candidate bound by SHA, and independent A18 adjudication",
+        "authorityEvidence": [
+          "raw English asks for the maximum number of groups",
+          "raw Traditional Chinese standard answer is 4 組",
+          "raw English standard answer is 4 groups",
+          "independent HCF(20,28)=4; each group then contains 5 red and 7 blue pieces",
+          "raw Chinese questionText literally asks for the maximum pieces per group and conflicts with the other evidence"
+        ],
+        "rawSourceId": "10455",
+        "rawSourceSha256": "04baf0c9936a045f1cc0fd9b76bdff738ede7acab0f3c4736f2d8db86069610b",
+        "candidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+        "crossReviewSha256": "52110ae44bd08f251ba80d68c53cf14782011f194c79e7c0130bfa540c813a26",
+        "noteRequired": true,
+        "note": "Fail closed unless the bilingual source conflict and the English/key authority decision are serialized."
+      },
+      "remediationArtifactSha256": "1769a6d849e0aee6930717ef72297609a2e72f437f72acec38cd1795f5f21d90"
+    },
+    {
+      "index": 262,
+      "id": "hk-ease-10668",
+      "rootCause": "The raw Chinese says 三五折, so the selling price is 35% of the original price, while the raw English says a discount of 7/20, which would normally mean subtracting 35%. The raw answer 28 agrees with the Chinese meaning.",
+      "provenanceDecision": {
+        "action": "retain-explicit-bilingual-repair-and-record-conflict",
+        "authority": "raw Chinese task plus raw standard answer 28",
+        "noteRequired": true,
+        "note": "Raw English discount wording conflicts with raw Chinese 三五折; Chinese meaning and answer key control this repaired candidate."
+      },
+      "remediationArtifactSha256": "53e1e4a2b99db247776eab6b4e29ea03f63f12bcbbcb24dd3534f95f1a4bf855"
+    },
+    {
+      "index": 530,
+      "id": "hk-ease-1262",
+      "rootCause": "The raw linear string 19.5÷3/7 does not unambiguously show whether 3/7 is the complete divisor, although the raw answer 45.5 establishes that intended grouping.",
+      "provenanceDecision": {
+        "action": "retain-parenthesized-repair-and-record-clarification",
+        "authority": "raw standard answer 45.5 plus independent recalculation",
+        "noteRequired": true,
+        "note": "Parentheses were added to expose the whole fraction 3/7 as the divisor; the raw text was ambiguous."
+      },
+      "remediationArtifactSha256": "53e1e4a2b99db247776eab6b4e29ea03f63f12bcbbcb24dd3534f95f1a4bf855"
+    },
+    {
+      "index": 538,
+      "id": "hk-ease-1271",
+      "rootCause": "The raw English drops spaces in both mixed numbers and changes 6 8/15 and 6 1/3 into misleading strings 68/15 and 61/3; the Chinese source and answer 2 preserve the intended task.",
+      "provenanceDecision": {
+        "action": "retain-mixed-number-reconstruction-and-record-conflict",
+        "authority": "raw Chinese mixed-number spacing plus raw standard answer 2",
+        "noteRequired": true,
+        "note": "The raw English lost mixed-number spacing; Chinese is authoritative for both mixed numbers."
+      },
+      "remediationArtifactSha256": "53e1e4a2b99db247776eab6b4e29ea03f63f12bcbbcb24dd3534f95f1a4bf855"
+    },
+    {
+      "index": 557,
+      "id": "hk-ease-1770",
+      "rootCause": "Raw Chinese and the standard answer contain four factors of 2, but raw English contains five. The merged bilingual item chooses four, so the source record itself is inconsistent.",
+      "provenanceDecision": {
+        "action": "retain-Chinese-and-standard-answer-factor-count-and-record-conflict",
+        "authority": "raw EASE row 1770, candidate bound by SHA, and independent A18 adjudication",
+        "authorityEvidence": [
+          "raw Chinese contains four factors of 2",
+          "both raw standard answers are 6^3 × 2^4",
+          "independent count gives exponent 4",
+          "raw English alone contains a fifth 2"
+        ],
+        "rawSourceId": "1770",
+        "rawSourceSha256": "04baf0c9936a045f1cc0fd9b76bdff738ede7acab0f3c4736f2d8db86069610b",
+        "candidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+        "crossReviewSha256": "52110ae44bd08f251ba80d68c53cf14782011f194c79e7c0130bfa540c813a26",
+        "noteRequired": true,
+        "note": "Fail closed unless the extra-factor corruption in raw English and the chosen authority are serialized."
+      },
+      "remediationArtifactSha256": "1769a6d849e0aee6930717ef72297609a2e72f437f72acec38cd1795f5f21d90"
+    },
+    {
+      "index": 561,
+      "id": "hk-ease-1774",
+      "rootCause": "Raw Chinese and the standard answer contain five factors of 3, but raw English contains six. The merged bilingual item chooses five, so the source record itself is inconsistent.",
+      "provenanceDecision": {
+        "action": "retain-Chinese-and-standard-answer-factor-count-and-record-conflict",
+        "authority": "raw EASE row 1774, candidate bound by SHA, and independent A18 adjudication",
+        "authorityEvidence": [
+          "raw Chinese contains five factors of 3",
+          "both raw standard answers are 2^3 × 3^5",
+          "independent count gives exponent 5",
+          "raw English alone contains a sixth 3"
+        ],
+        "rawSourceId": "1774",
+        "rawSourceSha256": "04baf0c9936a045f1cc0fd9b76bdff738ede7acab0f3c4736f2d8db86069610b",
+        "candidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+        "crossReviewSha256": "52110ae44bd08f251ba80d68c53cf14782011f194c79e7c0130bfa540c813a26",
+        "noteRequired": true,
+        "note": "Fail closed unless the extra-factor corruption in raw English and the chosen authority are serialized."
+      },
+      "remediationArtifactSha256": "1769a6d849e0aee6930717ef72297609a2e72f437f72acec38cd1795f5f21d90"
+    },
+    {
+      "index": 564,
+      "id": "hk-ease-1777",
+      "rootCause": "Raw Chinese and the standard answer contain five factors of 2, but raw English contains six. The merged bilingual item chooses five, so the source record itself is inconsistent.",
+      "provenanceDecision": {
+        "action": "retain-Chinese-and-standard-answer-factor-count-and-record-conflict",
+        "authority": "raw EASE row 1777, candidate bound by SHA, and independent A18 adjudication",
+        "authorityEvidence": [
+          "raw Chinese contains five factors of 2",
+          "both raw standard answers are 1^3 × 2^5",
+          "independent count gives exponent 5",
+          "raw English alone contains a sixth 2"
+        ],
+        "rawSourceId": "1777",
+        "rawSourceSha256": "04baf0c9936a045f1cc0fd9b76bdff738ede7acab0f3c4736f2d8db86069610b",
+        "candidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+        "crossReviewSha256": "52110ae44bd08f251ba80d68c53cf14782011f194c79e7c0130bfa540c813a26",
+        "noteRequired": true,
+        "note": "Fail closed unless the extra-factor corruption in raw English and the chosen authority are serialized."
+      },
+      "remediationArtifactSha256": "1769a6d849e0aee6930717ef72297609a2e72f437f72acec38cd1795f5f21d90"
+    },
+    {
+      "index": 584,
+      "id": "hk-ease-1807",
+      "rootCause": "The raw standard answer explicitly allows the rounded decimal 5.1667 as well as 5 1/6, while the merged prompt changes the contract to an exact simplest fraction only.",
+      "provenanceDecision": {
+        "action": "retain-exact-form-contract-and-record-rounded-source-alternative",
+        "authority": "raw EASE row 1807, candidate bound by SHA, and independent A18 adjudication",
+        "authorityEvidence": [
+          "independent exact value is 31/6 = 5 1/6",
+          "raw standard answer itself includes exact 5 1/6",
+          "raw 5.1667 is rounded and not equal to the exact value",
+          "candidate prompt explicitly requires the exact simplest mixed or improper fraction"
+        ],
+        "rawSourceId": "1807",
+        "rawSourceSha256": "04baf0c9936a045f1cc0fd9b76bdff738ede7acab0f3c4736f2d8db86069610b",
+        "candidateSha256": "7cb9cce50d90dc427789ea6f6214f777a48a59cde4c4794b4dc15a2661f5fdda",
+        "crossReviewSha256": "52110ae44bd08f251ba80d68c53cf14782011f194c79e7c0130bfa540c813a26",
+        "noteRequired": true,
+        "note": "Fail closed unless provenance records that the raw rounded alternative was deliberately retired in favor of the source-supported exact answer."
+      },
+      "remediationArtifactSha256": "1769a6d849e0aee6930717ef72297609a2e72f437f72acec38cd1795f5f21d90"
+    },
+    {
+      "index": 607,
+      "id": "hk-ease-2687",
+      "rootCause": "The raw English renders the missing-digit placeholder next to 4 as a multiplication sign, producing 4 × 972 instead of the five-digit pattern 4□972.",
+      "provenanceDecision": {
+        "action": "retain-square-placeholder-repair-and-record-glyph-corruption",
+        "authority": "five-digit wording, divisibility task, raw answer 5, and independent recalculation",
+        "noteRequired": true,
+        "note": "The multiplication glyph in raw English represented a missing-digit placeholder and was repaired to a square."
+      },
+      "remediationArtifactSha256": "53e1e4a2b99db247776eab6b4e29ea03f63f12bcbbcb24dd3534f95f1a4bf855"
+    },
+    {
+      "index": 670,
+      "id": "hk-ease-1789",
+      "rootCause": "Raw Chinese gives options [5, 6.75, 7.25, 8], raw English gives [5, 6, 7, 8], and both keys say B; only the Chinese B value equals 27 ÷ 4.",
+      "provenanceDecision": "Keep the historical raw EASE JSON immutable. Record the conflict, chosen reading, raw strings, answer-key evidence, and mathematical recomputation in candidate QA metadata before promotion. Resolve to the Chinese option set because independent arithmetic and key label B agree with 6.75; preserve the raw English discrepancy as an explicit source-conflict record.",
+      "remediationArtifactSha256": "bc56559f2f0c18c6d298f5b7eed93c1247278187727be59b923c2fb9fca06012"
+    },
+    {
+      "index": 671,
+      "id": "hk-ease-1790",
+      "rootCause": "Raw Chinese option D is 40, raw English option D is 30, and both keys say D; only 40 satisfies the expression.",
+      "provenanceDecision": "Keep the historical raw EASE JSON immutable. Record the conflict, chosen reading, raw strings, answer-key evidence, and mathematical recomputation in candidate QA metadata before promotion. Resolve to the Chinese option D because independent arithmetic and key label D agree with 40; preserve the raw English D=30 discrepancy as an explicit source-conflict record.",
+      "remediationArtifactSha256": "bc56559f2f0c18c6d298f5b7eed93c1247278187727be59b923c2fb9fca06012"
+    },
+    {
+      "index": 692,
+      "id": "hk-ease-920",
+      "rootCause": "Raw Chinese states 11/5 kg for Mrs Lee, while raw English states 1 1/5 kg and the raw standard answer 27/10 kg only agrees with 1 1/5 kg.",
+      "provenanceDecision": "Keep the historical raw EASE JSON immutable. Record the conflict, chosen reading, raw strings, answer-key evidence, and mathematical recomputation in candidate QA metadata before promotion. Resolve the candidate Chinese stem to 1 1/5 kg because it alone agrees with raw English, the standard answer, and independent calculation; never erase the raw 11/5 evidence.",
+      "remediationArtifactSha256": "bc56559f2f0c18c6d298f5b7eed93c1247278187727be59b923c2fb9fca06012"
+    }
+  ]
+}

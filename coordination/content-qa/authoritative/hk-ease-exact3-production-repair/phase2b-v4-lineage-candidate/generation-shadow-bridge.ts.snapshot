@@ -1,0 +1,20 @@
+import versionManifestJson from "../../data/historical/hongKongQuestionVersionManifest.json";
+import {
+  hongKongEaseResponseContractDecision,
+  hongKongEaseReviewedSimpleResponseDecision
+} from "../../lib/server/hongKongEaseResponseContracts";
+
+const manifest = versionManifestJson as { activeIdByHistoricalId: Record<string, string> };
+export const activeHongKongQuestionIdByHistoricalId =
+  new Map(Object.entries(manifest.activeIdByHistoricalId));
+
+export const questionAnswerMatches = (
+  question: { id?: string },
+  selectedAnswer: string
+): boolean => {
+  const strict = hongKongEaseResponseContractDecision(question.id, selectedAnswer);
+  if (strict !== null) return strict;
+  const simple = hongKongEaseReviewedSimpleResponseDecision(question.id, selectedAnswer);
+  if (simple !== null) return simple;
+  throw new Error(`PHASE2B4_RESPONSE_POLICY_UNBOUND:${question.id ?? "missing-id"}`);
+};

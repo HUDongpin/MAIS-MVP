@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "hk-residual28-semantic-reaudit-v3",
+  "status": "authoritative",
+  "scope": "exact-eleven-successor-semantic-corrections",
+  "sourceAuthority": "root-A18-independent-semantic-reaudit-messages-2026-08-13",
+  "supersedes": {
+    "semanticReauditPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual28-semantic-reaudit-v2.json",
+    "semanticReauditSha256": "e7770b90edb29e3aa3fea35ab6ded53b84ebaa607122c21ef9a90c96cd23bbec",
+    "repairContractPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual28-repair-contract-v1-superseded.json",
+    "repairContractSha256": "3dca07ca1d34af54e09444c462d41671b8dfbc3dd340ea4a24960e1334816235",
+    "reason": "Independent semantic re-audit found precision or mathematical defects in eleven already-promoted successor rows; their frozen v2 preimages and v3 generation IDs remain unchanged."
+  },
+  "counts": {
+    "rows": 11,
+    "issueInstances": 13,
+    "semanticCategories": 11,
+    "explanationOnlyRows": 7,
+    "answerOptionRows": 3,
+    "distractorOptionRows": 1
+  },
+  "rows": [
+    {
+      "toId": "supp-p1-addition-subtraction-common-check-v3",
+      "semanticCategory": "unknown-quantity structure",
+      "issueCodes": [
+        "unknown-quantity-controls-inverse-operation"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check the story action and identify the unknown before choosing addition or subtraction. If 5 items increase by a known 2 and the final amount is unknown, use \\(5+2=7\\). If the final amount is 7 and the increase is unknown, use \\(7-5=2\\).",
+        "explanation.zh": "先檢查故事中的數量變化，並找出未知量，再決定用加法還是減法。若原有 5 件，已知增加 2 件並要求最後數量，就用 \\(5+2=7\\)；若最後有 7 件、原有 5 件並要求增加了多少，就用 \\(7-5=2\\)。"
+      }
+    },
+    {
+      "toId": "supp-p3-multiplication-division-common-check-v3",
+      "semanticCategory": "whole-number remainder bounds",
+      "issueCodes": [
+        "whole-number-remainder-needs-nonnegative-lower-bound-and-positive-divisor"
+      ],
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that the remainder is at least 0 and smaller than the divisor",
+        "options[0].zh": "檢查餘數是否不少於 0 且小於除數",
+        "answer": "Check that the remainder is at least 0 and smaller than the divisor",
+        "explanation.en": "In whole-number division with a positive divisor, check that the remainder is at least 0 and smaller than the divisor. Since \\(47=4\\times11+3\\) and \\(0\\le3<4\\), quotient 11 remainder 3 is valid. If the remainder were 4 or more, another group of 4 could be made.",
+        "explanation.zh": "整數除法中，若除數是正數，餘數必須不少於 0 且小於除數。因為 \\(47=4\\times11+3\\) 而且 \\(0\\le3<4\\)，所以商 11 餘 3 是合理的。若餘數是 4 或以上，便仍可再分成一組 4。"
+      }
+    },
+    {
+      "toId": "supp-p3-fractions-intro-common-check-v3",
+      "semanticCategory": "fraction equivalence",
+      "issueCodes": [
+        "equivalent-fraction-scaling-needs-unambiguous-grouping"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check that the denominator names the equal parts. The denominator 3 in \\(1/3\\) means the whole is divided into three equal parts. For example, multiplying the numerator and denominator of \\(2/3\\) by 2 gives \\(4/6\\), so \\(2/3=4/6\\).",
+        "explanation.zh": "檢查分母是否表示等份總數。\\(1/3\\) 的分母 3 表示整體分成三等份。例如，把 \\(2/3\\) 的分子和分母同乘 2，得到 \\(4/6\\)，所以 \\(2/3=4/6\\)。"
+      }
+    },
+    {
+      "toId": "supp-p3-measurement-common-check-v3",
+      "semanticCategory": "measurement kind/unit/operation conditions",
+      "issueCodes": [
+        "measurement-operation-needs-same-kind-common-unit-and-question-context"
+      ],
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that the quantities are of the same kind and convert units when needed before calculating",
+        "options[0].zh": "計算前檢查各數量是否屬於同一種類，並按需要換算單位",
+        "answer": "Check that the quantities are of the same kind and convert units when needed before calculating",
+        "explanation.en": "Check that the quantities are of the same kind and convert units when needed before calculating. For quantities of the same kind, convert to a common unit before using the operation required by the question: \\(2\\text{ L}=2000\\text{ mL}\\). If the question asks for the total of lengths already measured in centimetres, \\(35+20=55\\text{ cm}\\).",
+        "explanation.zh": "計算前檢查各數量是否屬於同一種類，並按需要換算單位。同屬一種類的數量，先換成相同單位，再按題意選擇運算：\\(2\\text{ 升}=2000\\text{ 毫升}\\)。若題目要求把兩段已用厘米量度的長度相加，則 \\(35+20=55\\text{ 厘米}\\)。"
+      }
+    },
+    {
+      "toId": "supp-p4-large-numbers-common-check-v3",
+      "semanticCategory": "H.C.F./L.C.M. definitions and learner language",
+      "issueCodes": [
+        "hcf-lcm-need-greatest-least-definitions",
+        "correct-option-and-answer-need-natural-learner-language"
+      ],
+      "allowedPaths": [
+        "answer",
+        "explanation.en",
+        "explanation.zh",
+        "options[0].en",
+        "options[0].zh"
+      ],
+      "replacements": {
+        "options[0].en": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers",
+        "options[0].zh": "檢查每個因數都能整除，並核對每個聲稱的公因數或公倍數是否同時適用於兩個數",
+        "answer": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers",
+        "explanation.en": "Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers. A common factor must divide both numbers exactly; the H.C.F. is their greatest positive common factor. A common multiple must be divisible by both numbers; the L.C.M. is their least positive common multiple. For 12 and 18, the H.C.F. is 6 and the L.C.M. is 36.",
+        "explanation.zh": "檢查每個因數都能整除，並核對每個聲稱的公因數或公倍數是否同時適用於兩個數。公因數必須能整除兩數；最大公因數是兩數最大的正公因數。公倍數必須同時是兩數的倍數；最小公倍數是兩數最小的正公倍數。12 和 18 的最大公因數是 6，最小公倍數是 36。"
+      }
+    },
+    {
+      "toId": "supp-p4-perimeter-area-common-check-v3",
+      "semanticCategory": "perimeter/area unit conditions",
+      "issueCodes": [
+        "perimeter-unit-depends-on-given-length-unit"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Use linear units for perimeter and square units for area. Perimeter measures the outside boundary; when the lengths are in centimetres, report it in centimetres. Area measures a surface, so when the lengths are in centimetres, \\(6\\times4-3\\times2=18\\) is reported in square centimetres.",
+        "explanation.zh": "周界用長度單位，面積用平方單位。周界量度外圍；當邊長以厘米表示時，周界以厘米作答。面積量度表面，所以當邊長以厘米表示時，\\(6\\times4-3\\times2=18\\) 要以平方厘米作答。"
+      }
+    },
+    {
+      "toId": "supp-p5-fractions-operations-common-check-v3",
+      "semanticCategory": "fraction reduction",
+      "issueCodes": [
+        "simplest-form-needs-gcf-or-repeat-to-coprime"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Simplify the final fraction when possible. After using a common denominator and completing the operation, divide the numerator and denominator by their greatest common factor, or keep dividing by common factors until none greater than 1 remains. Since 7 and 12 have no common factor greater than 1, \\(7/12\\) is already in simplest form.",
+        "explanation.zh": "答案如可約簡，要化成最簡分數。通分並完成運算後，把分子和分母同除以它們的最大公因數，或持續以公因數約分，直至沒有大於 1 的公因數。7 和 12 沒有大於 1 的公因數，所以 \\(7/12\\) 已是最簡分數。"
+      }
+    },
+    {
+      "toId": "supp-p6-percentages-common-check-v3",
+      "semanticCategory": "percentage base",
+      "issueCodes": [
+        "percentage-change-must-use-original-base-amount"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Add the percentage amount to the original amount for an increase and subtract it from the original amount for a decrease. Since 25% of the original 60 is 15, a 25% increase gives \\(60+15=75\\); a 25% decrease gives \\(60-15=45\\).",
+        "explanation.zh": "增加時，把百分數所代表的數量加到原數量；減少時，則從原數量減去該數量。原數量 60 的 \\(25\\%\\) 是 15，所以增加 \\(25\\%\\) 後是 \\(60+15=75\\)；減少 \\(25\\%\\) 後是 \\(60-15=45\\)。"
+      }
+    },
+    {
+      "toId": "supp-p6-speed-common-check-v3",
+      "semanticCategory": "average-speed qualification",
+      "issueCodes": [
+        "distance-time-quotient-is-average-speed-and-product-needs-maintained-speed"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Check whether to divide or multiply using the units. Total distance divided by total elapsed time gives average speed, so \\(120\\text{ km}\\div2\\text{ h}=60\\text{ km/h}\\). If a speed of \\(6\\text{ km/h}\\) is maintained for \\(3\\text{ h}\\), then the distance is \\(6\\text{ km/h}\\times3\\text{ h}=18\\text{ km}\\).",
+        "explanation.zh": "按單位檢查應除還是乘。總路程除以總時間得平均速率，所以 \\(120\\text{ 公里}\\div2\\text{ 小時}=60\\text{ 公里每小時}\\)。若以 \\(6\\text{ 公里每小時}\\) 的速率持續 \\(3\\text{ 小時}\\)，路程就是 \\(6\\text{ 公里每小時}\\times3\\text{ 小時}=18\\text{ 公里}\\)。"
+      }
+    },
+    {
+      "toId": "supp-transformations-common-check-v3",
+      "semanticCategory": "single/composed transformations",
+      "issueCodes": [
+        "single-transformation-versus-stated-composition-sequence"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh",
+        "options[3].en",
+        "options[3].zh"
+      ],
+      "replacements": {
+        "options[3].en": "Apply a second transformation to the image even when the question specifies only one transformation",
+        "options[3].zh": "即使題目只指定一次變換，仍對影像再作第二次變換",
+        "explanation.en": "Label original and image points clearly. For one stated transformation, apply it once to each original point: translating \\((1,2)\\) by \\((3,-1)\\) gives \\((4,1)\\), and reflecting in the \\(x\\)-axis changes only the sign of \\(y\\). If the question states a sequence of transformations, use the image from one stated step as the input to the next.",
+        "explanation.zh": "清楚標示原像點和影像點。若題目只指定一次變換，就把該變換對每個原像點套用一次：把 \\((1,2)\\) 按 \\((3,-1)\\) 平移得到 \\((4,1)\\)；關於 \\(x\\) 軸反射只會改變 \\(y\\) 坐標的符號。若題目指定一連串變換，則把上一步的影像作為下一步的輸入。"
+      }
+    },
+    {
+      "toId": "supp-quadratic-patterns-first-step-v3",
+      "semanticCategory": "quadratic criteria/symmetry",
+      "issueCodes": [
+        "constant-zero-second-difference-does-not-identify-quadratic",
+        "parabola-has-no-centre-and-vertex-axis-do-not-uniquely-determine-shape"
+      ],
+      "allowedPaths": [
+        "explanation.en",
+        "explanation.zh"
+      ],
+      "replacements": {
+        "explanation.en": "Look for second differences, the vertex, or the axis of symmetry. For equally spaced input values, constant non-zero second differences indicate a quadratic pattern. A parabola has no centre of symmetry; its vertex lies on its axis of symmetry and helps locate the graph. For \\(y=x^2+2x+1\\), the axis of symmetry is \\(x=-b/(2a)=-1\\), and the vertex is \\((-1,0)\\).",
+        "explanation.zh": "先找二階差、頂點或對稱軸。當輸入值等距時，固定且非零的二階差表示二次規律。拋物線沒有對稱中心；它的頂點位於對稱軸上，可用來確定圖像的位置。對 \\(y=x^2+2x+1\\)，對稱軸是 \\(x=-b/(2a)=-1\\)，頂點是 \\((-1,0)\\)。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "hk-ease-exact3-v4-lineage-candidate-hold-authority-v1",
+  "status": "candidate-hold-not-live-promotion",
+  "builderBinding": {
+    "path": "coordination/content-qa/build-hk-ease-exact3-v4-lineage-candidate.ts",
+    "sha256": "a4732624b0de5cb1f8240eb49d23c8f5f9558aeacaafa6b943e21b2415dc8f2c"
+  },
+  "focusedTestBinding": {
+    "path": "coordination/content-qa/hk-ease-exact3-v4-lineage-candidate.test.ts",
+    "sha256": "7645f0e06fd95d5b4ba9aea32a7124e0a603eabe251f6dd4d8312d4876035e90"
+  },
+  "upstreamAuthorities": [
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+      "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+      "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+      "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+      "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-runtime-successor-provenance/v4-runtime-successor-authority-v1.json",
+      "sha256": "4feebefec120b2c227a913a22f517496170604903fcbfe452a0a7578f6e706fa",
+      "successorSha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c"
+    }
+  ],
+  "sourcePreimageBindings": [
+    {
+      "path": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+      "sha256": "67b2265380d8f8dad92eec621d7a838853ebc46c47ae583da82ebcb5a7a054ab"
+    },
+    {
+      "path": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+      "sha256": "459ee6c75f53de7ec4062d3a6224e1a50c4f66620ef4943d1bc93efc47272fab"
+    },
+    {
+      "path": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "sha256": "c04d59c92f7aefa8acb59d80fc1a147a511b32ba8dac778fa2a58da4d719522d"
+    },
+    {
+      "path": "coordination/content-qa/hk-ease-v4-derivation-dsl.ts",
+      "sha256": "62522f86bdd86b3bb1636675ed33881acf744c0034c9a6beef36c6650c33882f"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-runtime-successor-provenance/sha256/11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c.ts.snapshot",
+      "sha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/lib-server-hongKongEaseResponseContracts.ts.snapshot",
+      "sha256": "c3f462f619b0b90bf4a5a98475367927a7209a21300d59695b6e0a3ea97f03dd"
+    },
+    {
+      "path": "lib/server/hongKongEaseWorkedResponseContracts.ts",
+      "sha256": "45d64494963dff0cf5c3a1bd7db9c7d751b96e6b2b13b02fb4f4cf16790be590"
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "sha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472"
+    }
+  ],
+  "sourceTransformations": [
+    {
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+      "preimageSha256": "67b2265380d8f8dad92eec621d7a838853ebc46c47ae583da82ebcb5a7a054ab",
+      "postimageSha256": "432f29c1bb455bc9b1a88d634e893cc3d59d9e033234d67f09c57279d4e67107",
+      "exactChanges": [
+        "question-pack-sha256"
+      ]
+    },
+    {
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+      "preimageSha256": "459ee6c75f53de7ec4062d3a6224e1a50c4f66620ef4943d1bc93efc47272fab",
+      "postimageSha256": "fefa0d33056e0e28455df751129292bd650557499aed1fcf64bdb424087361c1",
+      "exactChanges": [
+        "sanitized-file-sha256",
+        "sanitized-rows-payload-sha256"
+      ]
+    },
+    {
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "preimageSha256": "c04d59c92f7aefa8acb59d80fc1a147a511b32ba8dac778fa2a58da4d719522d",
+      "postimageSha256": "6132185bdd6fb314659a35dd5b0a6311c5a0011fcd20615412e2b7f2cd5f551f",
+      "exactChanges": [
+        "question-pack-sha256",
+        "strict-contract-sha256",
+        "simple-contract-sha256",
+        "sanitized-file-sha256",
+        "supplement-file-sha256"
+      ]
+    },
+    {
+      "logicalTargetPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "preimageSha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+      "postimageSha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a",
+      "exactChanges": [
+        "immutable-exact26-sanitized-preimage-reader",
+        "fact-cardinality-1365",
+        "11c-option-consumption-error-code",
+        "prompt-selected-divisibility-response-format"
+      ]
+    }
+  ],
+  "exactSemanticDelta": {
+    "sanitizedChangedRowCount": 1,
+    "supplementChangedRowCount": 1,
+    "changedIndex": 693,
+    "changedBaseId": "hk-ease-1041",
+    "unchangedAnswerBlindRows": 700,
+    "exact3ProductionComparisonRows": [
+      "hk-ease-10481",
+      "hk-ease-10496",
+      "hk-ease-1041"
+    ]
+  },
+  "outputPolicy": {
+    "exactArtifactCount": 8,
+    "materializationDirectory": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate",
+    "fileMode": "0444",
+    "liveOverwriteAllowed": false
+  },
+  "outputBindings": [
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/v4-sanitized-derivation-input-exact3-v1.json",
+      "sha256": "54e9861f4fe6963e005752dbe5f741fed8ba71b8596eec8d80d365fc46ad0cfb",
+      "byteLength": 406616
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/v4-row-specific-derivation-supplement-exact3-v1.json",
+      "sha256": "2eec0d9b7ce7adf06d9f50d1dfa30738df9a8d97481d09c0458ad9023eca181e",
+      "byteLength": 4313462
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/independent-answer-oracle-v4-exact3-v1.json",
+      "sha256": "236b6bf6342a9524869b2cff5562a35ef74efd9712456054f326f4e6b9a16844",
+      "byteLength": 816783
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-derivation-input-v4-postimage.ts.snapshot",
+      "sha256": "432f29c1bb455bc9b1a88d634e893cc3d59d9e033234d67f09c57279d4e67107",
+      "byteLength": 6732
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-independent-oracle-v4-supplement-postimage.ts.snapshot",
+      "sha256": "fefa0d33056e0e28455df751129292bd650557499aed1fcf64bdb424087361c1",
+      "byteLength": 202692
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-independent-oracle-v4-postimage.ts.snapshot",
+      "sha256": "6132185bdd6fb314659a35dd5b0a6311c5a0011fcd20615412e2b7f2cd5f551f",
+      "byteLength": 9863
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/generation-shadow-bridge.ts.snapshot",
+      "sha256": "28b08b046c4d476493908f28eb73b07362412ea3a508e1700c1a5ebb820ebe08",
+      "byteLength": 901
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/lib-hongKongEaseIndependentOracleV4.test.ts.snapshot",
+      "sha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a",
+      "byteLength": 97936
+    }
+  ],
+  "topology": {
+    "questionCount": 701,
+    "rowSpecificDerivationCount": 701,
+    "multipleChoiceCount": 90,
+    "strictResponsePolicyCount": 344,
+    "reviewedSimpleResponsePolicyCount": 357,
+    "directProductionGraderMatchCount": 651,
+    "structuredSemanticMatchCount": 50,
+    "orderedBaseIdSha256": "fe20c8ff458b6d67b911c20ee02675202b188c44b4cc933066a2f64bd965b66a"
+  },
+  "promotion": {
+    "liveDataMutationAuthorized": false,
+    "liveV4ArtifactMutationAuthorized": false,
+    "liveV4SourceMutationAuthorized": false,
+    "fullBankIntegrationAuthorized": false,
+    "canonicalRunnerAuthorized": false,
+    "browserAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "independent A18 review of the exact hk-ease-1041 V4 row delta",
+      "independent source-bound review receipt for the exact V4 shadow suite",
+      "focused-ledger and canonical runner integration",
+      "browser and release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+}

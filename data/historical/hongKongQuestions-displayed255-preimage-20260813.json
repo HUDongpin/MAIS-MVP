@@ -1,0 +1,2732 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+  "adjudicationSha256": {
+    "explanation": "d86746cf2fc44cbe7f66ab22c86668340db72e1687dfaaeff2e45c5c7e0f7d55",
+    "response": "e282d7e64ae2e17f20a59c0a9f990a27f14659cdbb148660ad9b400703d57281",
+    "responseDecisionV1": "4c7155b9cb854241df3e570ca79465f841ecd49575426f35c608251c7bc9cbe9",
+    "responseDecisionV2": "bcd65fca1f789a9d9f60f343d13607c099ae044a0379b423b0b84592f843287f"
+  },
+  "adjudicationAuthority": {
+    "responseDecisionV1": "superseded-immutable-audit-record",
+    "responseDecisionV2": "final-implementation-authority"
+  },
+  "orderedIdListSha256": "fcb17ad572d52be11b4bb7651c6eff17c82bd97d2cee18a6b61fadda86dbfcc0",
+  "sortedIdListSha256": "26d50e2670666468c342d20b1a2f8a04992b06a9fab3274e953bf875afaacf93",
+  "questionsPayloadSha256": "673bdd81a8a19d53ff0589a4fdd08841ff58ec2af09930f23b95269c2c64889f",
+  "frozenAt": "2026-08-13T13:08:19Z",
+  "questions": [
+    {
+      "id": "supp-p3-multiplication-division-first-step-v2",
+      "grade": "P3",
+      "topicId": "p3-multiplication-division",
+      "topic": {
+        "en": "Multiplication and Division",
+        "zh": "乘法與除法"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Multiplication and Division, which action is the best first step?",
+        "zh": "開始處理關於「乘法與除法」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Decide whether the situation needs multi-digit multiplication, sharing, or grouping",
+          "zh": "先判斷情境需要多位數乘法、平均分還是分組"
+        },
+        {
+          "en": "Accept a remainder that is at least as large as the divisor",
+          "zh": "接受大於或等於除數的餘數"
+        },
+        {
+          "en": "Use the number of groups when the question asks for the size of each share",
+          "zh": "題目求每份數量時卻回答組數"
+        },
+        {
+          "en": "Multiply the dividend and divisor because both describe the grouping",
+          "zh": "因被除數和除數都描述分組便把兩者相乘"
+        }
+      ],
+      "answer": "Decide whether the situation needs multi-digit multiplication, sharing, or grouping",
+      "explanation": {
+        "en": "Decide whether the situation needs multi-digit multiplication, sharing, or grouping. The topic's key fact shows why this structure matters: \\(4 \\times 200=800\\) and \\(4 \\times 6=24\\), so the total is \\(824\\). The alternatives instead encode these specific misconceptions: “Accept a remainder that is at least as large as the divisor”; “Use the number of groups when the question asks for the size of each share”; “Multiply the dividend and divisor because both describe the grouping”.",
+        "zh": "先判斷情境需要多位數乘法、平均分還是分組。本課題的關鍵知識說明這個結構為何重要：\\(4 \\times 200=800\\) 而 \\(4 \\times 6=24\\)，所以合共是 \\(824\\)。 其餘選項分別包含以下具體誤解：「接受大於或等於除數的餘數」；「題目求每份數量時卻回答組數」；「因被除數和除數都描述分組便把兩者相乘」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p3-fractions-intro-first-step-v2",
+      "grade": "P3",
+      "topicId": "p3-fractions-intro",
+      "topic": {
+        "en": "Fractions Intro",
+        "zh": "分數入門"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Fractions Intro, which action is the best first step?",
+        "zh": "開始處理關於「分數入門」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify the number of equal parts first",
+          "zh": "先辨認一共分成多少等份"
+        },
+        {
+          "en": "Compare fractions using only their numerators",
+          "zh": "只按分子比較分數"
+        },
+        {
+          "en": "Add denominators when making an equivalent fraction",
+          "zh": "製作等值分數時把分母相加"
+        },
+        {
+          "en": "Count parts of unequal size as though they were equal fractional parts",
+          "zh": "把大小不同的部分當作相等等份點算"
+        }
+      ],
+      "answer": "Identify the number of equal parts first",
+      "explanation": {
+        "en": "Identify the number of equal parts first. The topic's key fact shows why this structure matters: \\(1/3\\) means one of three equal parts. The alternatives instead encode these specific misconceptions: “Compare fractions using only their numerators”; “Add denominators when making an equivalent fraction”; “Count parts of unequal size as though they were equal fractional parts”.",
+        "zh": "先辨認一共分成多少等份。本課題的關鍵知識說明這個結構為何重要：\\(1/3\\) 表示三等份中的一份。 其餘選項分別包含以下具體誤解：「只按分子比較分數」；「製作等值分數時把分母相加」；「把大小不同的部分當作相等等份點算」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p3-measurement-first-step-v2",
+      "grade": "P3",
+      "topicId": "p3-measurement",
+      "topic": {
+        "en": "Measurement and Bar Charts",
+        "zh": "度量與棒形圖"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Measurement, which action is the best first step?",
+        "zh": "開始處理關於「度量」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Read the measuring unit or bar-chart scale before calculating",
+          "zh": "計算前先讀清楚量度單位或棒形圖刻度"
+        },
+        {
+          "en": "Use 1 L = 100 mL for a capacity conversion",
+          "zh": "換算容量時使用 1 升 = 100 毫升"
+        },
+        {
+          "en": "Combine kilograms and millilitres in one calculation as though they measured the same attribute",
+          "zh": "把公斤和毫升當作量度同一屬性而直接計算"
+        },
+        {
+          "en": "Read a bar's drawn height without using the labelled vertical scale",
+          "zh": "不使用已標示的縱軸刻度，只按棒的圖上高度讀數"
+        }
+      ],
+      "answer": "Read the measuring unit or bar-chart scale before calculating",
+      "explanation": {
+        "en": "Read the measuring unit or bar-chart scale before calculating. The topic's key fact shows why this structure matters: \\(1\\) L \\(= 1000\\) mL, so \\(2\\) L \\(= 2000\\) mL. The alternatives instead encode these specific misconceptions: “Use 1 L = 100 mL for a capacity conversion”; “Combine kilograms and millilitres in one calculation as though they measured the same attribute”; “Read a bar's drawn height without using the labelled vertical scale”.",
+        "zh": "計算前先讀清楚量度單位或棒形圖刻度。本課題的關鍵知識說明這個結構為何重要：\\(1\\) 升 \\(= 1000\\) 毫升，所以 \\(2\\) 升 \\(= 2000\\) 毫升。 其餘選項分別包含以下具體誤解：「換算容量時使用 1 升 = 100 毫升」；「把公斤和毫升當作量度同一屬性而直接計算」；「不使用已標示的縱軸刻度，只按棒的圖上高度讀數」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p3-geometry-patterns-first-step-v2",
+      "grade": "P3",
+      "topicId": "p3-geometry-patterns",
+      "topic": {
+        "en": "Quadrilaterals and Triangles",
+        "zh": "四邊形與三角形"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Quadrilaterals and Triangles, which action is the best first step?",
+        "zh": "開始處理關於「四邊形與三角形」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Count the sides, then compare equal or parallel sides before naming the shape",
+          "zh": "先數邊數，再比較相等邊或平行邊，然後為圖形命名"
+        },
+        {
+          "en": "Name a shape from its orientation on the page",
+          "zh": "按圖形在頁面上的朝向命名"
+        },
+        {
+          "en": "Assume every four-sided figure is a square",
+          "zh": "假設每個四邊形都是正方形"
+        },
+        {
+          "en": "Infer equal side lengths when no matching marks or measurements are given",
+          "zh": "沒有相同記號或量度資料仍推斷各邊相等"
+        }
+      ],
+      "answer": "Count the sides, then compare equal or parallel sides before naming the shape",
+      "explanation": {
+        "en": "Count the sides, then compare equal or parallel sides before naming the shape. The topic's key fact shows why this structure matters: Every closed plane figure with four straight sides is a quadrilateral. The alternatives instead encode these specific misconceptions: “Name a shape from its orientation on the page”; “Assume every four-sided figure is a square”; “Infer equal side lengths when no matching marks or measurements are given”.",
+        "zh": "先數邊數，再比較相等邊或平行邊，然後為圖形命名。本課題的關鍵知識說明這個結構為何重要：任何有四條直邊的封閉平面圖形都是四邊形。 其餘選項分別包含以下具體誤解：「按圖形在頁面上的朝向命名」；「假設每個四邊形都是正方形」；「沒有相同記號或量度資料仍推斷各邊相等」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p4-large-numbers-first-step-v2",
+      "grade": "P4",
+      "topicId": "p4-large-numbers",
+      "topic": {
+        "en": "Multiples, Factors, H.C.F. and L.C.M.",
+        "zh": "倍數、因數、最大公因數與最小公倍數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Multiples, Factors, H.C.F. and L.C.M., which action is the best first step?",
+        "zh": "開始處理關於「倍數、因數、最大公因數與最小公倍數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Decide whether to list factors or multiples, then work systematically",
+          "zh": "先判斷要列出因數還是倍數，再有系統地處理"
+        },
+        {
+          "en": "Reverse factor and multiple when deciding which number divides the other",
+          "zh": "判斷哪個數整除另一個數時，把因數和倍數倒轉"
+        },
+        {
+          "en": "List multiples only and call every listed value a factor",
+          "zh": "只列倍數，並把每個列出的數稱為因數"
+        },
+        {
+          "en": "Divide the larger number by the smaller once and call the quotient the H.C.F.",
+          "zh": "把較大數除以較小數一次，便把所得商稱為最大公因數"
+        }
+      ],
+      "answer": "Decide whether to list factors or multiples, then work systematically",
+      "explanation": {
+        "en": "Decide whether to list factors or multiples, then work systematically. The topic's key fact shows why this structure matters: Multiply \\(7\\) by \\(1\\), \\(2\\), and \\(3\\): \\(7,14,21\\). The alternatives instead encode these specific misconceptions: “Reverse factor and multiple when deciding which number divides the other”; “List multiples only and call every listed value a factor”; “Divide the larger number by the smaller once and call the quotient the H.C.F.”.",
+        "zh": "先判斷要列出因數還是倍數，再有系統地處理。本課題的關鍵知識說明這個結構為何重要：把 \\(7\\) 分別乘 \\(1\\)、\\(2\\) 和 \\(3\\)，得 \\(7,14,21\\)。 其餘選項分別包含以下具體誤解：「判斷哪個數整除另一個數時，把因數和倍數倒轉」；「只列倍數，並把每個列出的數稱為因數」；「把較大數除以較小數一次，便把所得商稱為最大公因數」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p4-decimals-first-step-v2",
+      "grade": "P4",
+      "topicId": "p4-decimals",
+      "topic": {
+        "en": "Decimals",
+        "zh": "小數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Decimals, which action is the best first step?",
+        "zh": "開始處理關於「小數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Line up decimal places before comparing or calculating",
+          "zh": "比較或計算前先對齊小數位"
+        },
+        {
+          "en": "Compare decimal digits from left to right without matching place values",
+          "zh": "未對齊位值，便由左至右逐個小數數字比較"
+        },
+        {
+          "en": "Assume the decimal with more written digits is always greater",
+          "zh": "假設寫得較多位的小數一定較大"
+        },
+        {
+          "en": "Align the left edges of decimal numerals instead of their decimal points",
+          "zh": "把小數的左邊對齊，而不是把小數點對齊"
+        }
+      ],
+      "answer": "Line up decimal places before comparing or calculating",
+      "explanation": {
+        "en": "Line up decimal places before comparing or calculating. The topic's key fact shows why this structure matters: \\(0.5 = 0.50\\), and \\(0.50 > 0.47\\). The alternatives instead encode these specific misconceptions: “Compare decimal digits from left to right without matching place values”; “Assume the decimal with more written digits is always greater”; “Align the left edges of decimal numerals instead of their decimal points”.",
+        "zh": "比較或計算前先對齊小數位。本課題的關鍵知識說明這個結構為何重要：\\(0.5 = 0.50\\)，而 \\(0.50 > 0.47\\)。 其餘選項分別包含以下具體誤解：「未對齊位值，便由左至右逐個小數數字比較」；「假設寫得較多位的小數一定較大」；「把小數的左邊對齊，而不是把小數點對齊」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p4-perimeter-area-first-step-v2",
+      "grade": "P4",
+      "topicId": "p4-perimeter-area",
+      "topic": {
+        "en": "Perimeter and Area",
+        "zh": "周界與面積"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Perimeter and Area, which action is the best first step?",
+        "zh": "開始處理關於「周界與面積」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Decide whether the question asks for boundary or surface",
+          "zh": "先判斷題目問周界還是面積"
+        },
+        {
+          "en": "Multiply length and width when the question asks for perimeter",
+          "zh": "題目求周界時把長和闊相乘"
+        },
+        {
+          "en": "Count an internal split twice as part of a composite shape's outside boundary",
+          "zh": "求組合圖形外圍時把內部分割線重複計算"
+        },
+        {
+          "en": "Add component areas but report the result in centimetres rather than square centimetres",
+          "zh": "把各部分面積相加後，卻以厘米而非平方厘米作答"
+        }
+      ],
+      "answer": "Decide whether the question asks for boundary or surface",
+      "explanation": {
+        "en": "Decide whether the question asks for boundary or surface. The topic's key fact shows why this structure matters: Perimeter \\(= 4 \\times 6 = 24\\) cm. The alternatives instead encode these specific misconceptions: “Multiply length and width when the question asks for perimeter”; “Count an internal split twice as part of a composite shape's outside boundary”; “Add component areas but report the result in centimetres rather than square centimetres”.",
+        "zh": "先判斷題目問周界還是面積。本課題的關鍵知識說明這個結構為何重要：周界 \\(= 4 \\times 6 = 24\\) 厘米。 其餘選項分別包含以下具體誤解：「題目求周界時把長和闊相乘」；「求組合圖形外圍時把內部分割線重複計算」；「把各部分面積相加後，卻以厘米而非平方厘米作答」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p5-fractions-operations-first-step-v2",
+      "grade": "P5",
+      "topicId": "p5-fractions-operations",
+      "topic": {
+        "en": "Fraction Operations",
+        "zh": "分數運算"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Fraction Operations, which action is the best first step?",
+        "zh": "開始處理關於「分數運算」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Find a common denominator before adding or subtracting unlike denominators",
+          "zh": "異分母加減前先找公分母"
+        },
+        {
+          "en": "Add numerators and denominators separately for unlike fractions",
+          "zh": "異分母分數運算時分別把分子和分母相加"
+        },
+        {
+          "en": "Convert every fraction to a rounded decimal before operating",
+          "zh": "運算前把每個分數都化成四捨五入小數"
+        },
+        {
+          "en": "Make only the numerators common while leaving unlike denominators unchanged",
+          "zh": "只把分子改成相同，分母仍保持不同"
+        }
+      ],
+      "answer": "Find a common denominator before adding or subtracting unlike denominators",
+      "explanation": {
+        "en": "Find a common denominator before adding or subtracting unlike denominators. The topic's key fact shows why this structure matters: Use denominator \\(8\\): \\(4/8+2/8+1/8=7/8\\). The alternatives instead encode these specific misconceptions: “Add numerators and denominators separately for unlike fractions”; “Convert every fraction to a rounded decimal before operating”; “Make only the numerators common while leaving unlike denominators unchanged”.",
+        "zh": "異分母加減前先找公分母。本課題的關鍵知識說明這個結構為何重要：通分至分母 \\(8\\)：\\(4/8+2/8+1/8=7/8\\)。 其餘選項分別包含以下具體誤解：「異分母分數運算時分別把分子和分母相加」；「運算前把每個分數都化成四捨五入小數」；「只把分子改成相同，分母仍保持不同」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p5-rates-first-step-v2",
+      "grade": "P5",
+      "topicId": "p5-rates",
+      "topic": {
+        "en": "Unitary Method for Unit Price",
+        "zh": "歸一法求單價"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Unitary Method for Unit Price, which action is the best first step?",
+        "zh": "開始處理關於「歸一法求單價」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Divide the total price by the number of items to find the unit price",
+          "zh": "把總價除以件數，求出單價"
+        },
+        {
+          "en": "Divide the item count by the total price",
+          "zh": "以物件數量除以總價"
+        },
+        {
+          "en": "Compare pack totals without finding the price for one equal item",
+          "zh": "未求每件單價，便直接比較整包總價"
+        },
+        {
+          "en": "Multiply the total pack price by the number of items to obtain unit price",
+          "zh": "把整包總價乘物件數量來求單價"
+        }
+      ],
+      "answer": "Divide the total price by the number of items to find the unit price",
+      "explanation": {
+        "en": "Divide the total price by the number of items to find the unit price. The topic's key fact shows why this structure matters: \\(18 \\div 3 = 6\\), so each notebook costs HK$6. The alternatives instead encode these specific misconceptions: “Divide the item count by the total price”; “Compare pack totals without finding the price for one equal item”; “Multiply the total pack price by the number of items to obtain unit price”.",
+        "zh": "把總價除以件數，求出單價。本課題的關鍵知識說明這個結構為何重要：\\(18 \\div 3 = 6\\)，所以每本港幣 6 元。 其餘選項分別包含以下具體誤解：「以物件數量除以總價」；「未求每件單價，便直接比較整包總價」；「把整包總價乘物件數量來求單價」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p6-percentages-first-step-v2",
+      "grade": "P6",
+      "topicId": "p6-percentages",
+      "topic": {
+        "en": "Percentages",
+        "zh": "百分數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Percentages, which action is the best first step?",
+        "zh": "開始處理關於「百分數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify the original amount and find the given percentage of it",
+          "zh": "先找出原來數量，再求題目所給百分數所代表的數量"
+        },
+        {
+          "en": "Treat 25% as the whole number 25 in the calculation",
+          "zh": "在計算中把 25% 當作整數 25"
+        },
+        {
+          "en": "Apply the given percentage to the changed amount instead of the stated original",
+          "zh": "不以題目所述原數量為整體，改用變更後數量"
+        },
+        {
+          "en": "Subtract the percentage amount when the situation says the quantity increases",
+          "zh": "情境說數量增加時卻減去百分數所代表的量"
+        }
+      ],
+      "answer": "Identify the original amount and find the given percentage of it",
+      "explanation": {
+        "en": "Identify the original amount and find the given percentage of it. The topic's key fact shows why this structure matters: \\(25\\%\\) is one quarter, and \\(120 \\div 4 = 30\\). The alternatives instead encode these specific misconceptions: “Treat 25% as the whole number 25 in the calculation”; “Apply the given percentage to the changed amount instead of the stated original”; “Subtract the percentage amount when the situation says the quantity increases”.",
+        "zh": "先找出原來數量，再求題目所給百分數所代表的數量。本課題的關鍵知識說明這個結構為何重要：\\(25\\%\\) 是四分之一，而 \\(120 \\div 4 = 30\\)。 其餘選項分別包含以下具體誤解：「在計算中把 25% 當作整數 25」；「不以題目所述原數量為整體，改用變更後數量」；「情境說數量增加時卻減去百分數所代表的量」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p6-speed-first-step-v2",
+      "grade": "P6",
+      "topicId": "p6-speed",
+      "topic": {
+        "en": "Speed",
+        "zh": "速率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Speed, which action is the best first step?",
+        "zh": "開始處理關於「速率」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify distance, time, and speed before choosing the formula",
+          "zh": "先辨認路程、時間和速率，再選公式"
+        },
+        {
+          "en": "Multiply distance by time when finding speed",
+          "zh": "求速率時把路程乘時間"
+        },
+        {
+          "en": "Write distance units alone for a speed answer",
+          "zh": "速率答案只寫路程單位"
+        },
+        {
+          "en": "Read a distance-time graph's height as speed instead of comparing change in distance with change in time",
+          "zh": "把距離時間圖的高度當作速率，而不比較路程變化與時間變化"
+        }
+      ],
+      "answer": "Identify distance, time, and speed before choosing the formula",
+      "explanation": {
+        "en": "Identify distance, time, and speed before choosing the formula. The topic's key fact shows why this structure matters: Speed \\(= 120 \\div 2 = 60\\) km/h. The alternatives instead encode these specific misconceptions: “Multiply distance by time when finding speed”; “Write distance units alone for a speed answer”; “Read a distance-time graph's height as speed instead of comparing change in distance with change in time”.",
+        "zh": "先辨認路程、時間和速率，再選公式。本課題的關鍵知識說明這個結構為何重要：速率 \\(= 120 \\div 2 = 60\\) 公里每小時。 其餘選項分別包含以下具體誤解：「求速率時把路程乘時間」；「速率答案只寫路程單位」；「把距離時間圖的高度當作速率，而不比較路程變化與時間變化」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p6-pre-secondary-problem-solving-first-step-v2",
+      "grade": "P6",
+      "topicId": "p6-pre-secondary-problem-solving",
+      "topic": {
+        "en": "Pre-secondary Problem Solving",
+        "zh": "升中解難"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Pre-secondary Problem Solving, which action is the best first step?",
+        "zh": "開始處理關於「升中解難」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Break the problem into facts, operations, and final target",
+          "zh": "把題目拆成已知資料、運算和最終目標"
+        },
+        {
+          "en": "Calculate with the first two numbers before identifying the final target",
+          "zh": "未辨認最終目標，便先用頭兩個數計算"
+        },
+        {
+          "en": "Use every number in one operation even when the quantities play different roles",
+          "zh": "即使各數量作用不同，仍把所有數放進同一運算"
+        },
+        {
+          "en": "Stop after finding an intermediate total without answering what remains or changes",
+          "zh": "求得中途總數便停止，沒有回答餘下或改變後的數量"
+        }
+      ],
+      "answer": "Break the problem into facts, operations, and final target",
+      "explanation": {
+        "en": "Break the problem into facts, operations, and final target. The topic's key fact shows why this structure matters: First \\(4 \\times 6 = 24\\), then \\(24 - 9 = 15\\). The alternatives instead encode these specific misconceptions: “Calculate with the first two numbers before identifying the final target”; “Use every number in one operation even when the quantities play different roles”; “Stop after finding an intermediate total without answering what remains or changes”.",
+        "zh": "把題目拆成已知資料、運算和最終目標。本課題的關鍵知識說明這個結構為何重要：先算 \\(4 \\times 6 = 24\\)，再算 \\(24 - 9 = 15\\)。 其餘選項分別包含以下具體誤解：「未辨認最終目標，便先用頭兩個數計算」；「即使各數量作用不同，仍把所有數放進同一運算」；「求得中途總數便停止，沒有回答餘下或改變後的數量」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-integers-first-step-v2",
+      "grade": "S1",
+      "topicId": "integers",
+      "topic": {
+        "en": "Integers",
+        "zh": "整數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Integers, which action is the best first step?",
+        "zh": "開始處理關於「整數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Mark zero and the direction of movement on the number line",
+          "zh": "先標示零點和數線移動方向"
+        },
+        {
+          "en": "Add the absolute values and attach the sign seen most often",
+          "zh": "把絕對值相加，再套上出現次數最多的符號"
+        },
+        {
+          "en": "Treat subtracting a negative as another move to the left",
+          "zh": "把減去負數當作再次向左移"
+        },
+        {
+          "en": "Choose the sign before comparing the directed movement from zero",
+          "zh": "未比較從零開始的有向移動，便先決定正負號"
+        }
+      ],
+      "answer": "Mark zero and the direction of movement on the number line",
+      "explanation": {
+        "en": "Mark zero and the direction of movement on the number line. The topic's key fact shows why this structure matters: Move \\(9\\) steps right from \\(-6\\) to reach \\(3\\). The alternatives instead encode these specific misconceptions: “Add the absolute values and attach the sign seen most often”; “Treat subtracting a negative as another move to the left”; “Choose the sign before comparing the directed movement from zero”.",
+        "zh": "先標示零點和數線移動方向。本課題的關鍵知識說明這個結構為何重要：由 \\(-6\\) 向右移 \\(9\\) 格到達 \\(3\\)。 其餘選項分別包含以下具體誤解：「把絕對值相加，再套上出現次數最多的符號」；「把減去負數當作再次向左移」；「未比較從零開始的有向移動，便先決定正負號」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-algebra-basics-first-step-v2",
+      "grade": "S1",
+      "topicId": "algebra-basics",
+      "topic": {
+        "en": "Algebra Basics",
+        "zh": "代數基礎"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Algebra Basics, which action is the best first step?",
+        "zh": "開始處理關於「代數基礎」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify variables and collect like terms",
+          "zh": "先辨認變量並合併同類項"
+        },
+        {
+          "en": "Add the coefficients of terms even when their variable parts differ",
+          "zh": "即使代數項的變量部分不同，也把係數相加"
+        },
+        {
+          "en": "Remove every variable symbol and calculate only the visible numbers",
+          "zh": "刪去所有變量符號，只計算可見數字"
+        },
+        {
+          "en": "Multiply coefficients whenever two algebraic terms are joined by a plus sign",
+          "zh": "兩個代數項以加號連接時便把係數相乘"
+        }
+      ],
+      "answer": "Identify variables and collect like terms",
+      "explanation": {
+        "en": "Identify variables and collect like terms. The topic's key fact shows why this structure matters: The coefficients add: \\(4a + 3a = 7a\\). The alternatives instead encode these specific misconceptions: “Add the coefficients of terms even when their variable parts differ”; “Remove every variable symbol and calculate only the visible numbers”; “Multiply coefficients whenever two algebraic terms are joined by a plus sign”.",
+        "zh": "先辨認變量並合併同類項。本課題的關鍵知識說明這個結構為何重要：同類項的係數相加：\\(4a + 3a = 7a\\)。 其餘選項分別包含以下具體誤解：「即使代數項的變量部分不同，也把係數相加」；「刪去所有變量符號，只計算可見數字」；「兩個代數項以加號連接時便把係數相乘」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-angles-first-step-v2",
+      "grade": "S1",
+      "topicId": "angles",
+      "topic": {
+        "en": "Angles",
+        "zh": "角"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Angles, which action is the best first step?",
+        "zh": "開始處理關於「角」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Name the angle fact used by the line, point, triangle, or parallel lines",
+          "zh": "先說明使用直線、一點、三角形或平行線的角度性質"
+        },
+        {
+          "en": "Use 360 degrees as the total for angles on one straight line",
+          "zh": "把直線上鄰角的總和當作 360 度"
+        },
+        {
+          "en": "Assume two lines are parallel because they look parallel in the sketch",
+          "zh": "只因草圖看來平行便假設兩線平行"
+        },
+        {
+          "en": "Equate adjacent angles as though they were vertically opposite",
+          "zh": "把鄰角當作對頂角而判定相等"
+        }
+      ],
+      "answer": "Name the angle fact used by the line, point, triangle, or parallel lines",
+      "explanation": {
+        "en": "Name the angle fact used by the line, point, triangle, or parallel lines. The topic's key fact shows why this structure matters: The interior angles of any triangle add to \\(180^\\circ\\). The alternatives instead encode these specific misconceptions: “Use 360 degrees as the total for angles on one straight line”; “Assume two lines are parallel because they look parallel in the sketch”; “Equate adjacent angles as though they were vertically opposite”.",
+        "zh": "先說明使用直線、一點、三角形或平行線的角度性質。本課題的關鍵知識說明這個結構為何重要：任何三角形的內角和都是 \\(180^\\circ\\)。 其餘選項分別包含以下具體誤解：「把直線上鄰角的總和當作 360 度」；「只因草圖看來平行便假設兩線平行」；「把鄰角當作對頂角而判定相等」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-ratios-first-step-v2",
+      "grade": "S1",
+      "topicId": "ratios",
+      "topic": {
+        "en": "Ratios",
+        "zh": "比與率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Ratios, which action is the best first step?",
+        "zh": "開始處理關於「比與率」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Add the ratio parts before sharing a total",
+          "zh": "分配總量前先加總比的份數"
+        },
+        {
+          "en": "Add the same number to both ratio terms to make an equivalent ratio",
+          "zh": "在比的兩項加上同一個數以製作等值比"
+        },
+        {
+          "en": "Compare only the first term and leave the second term unscaled",
+          "zh": "只比較第一項，第二項不按同一倍數縮放"
+        },
+        {
+          "en": "Cross-multiply before matching which quantities correspond",
+          "zh": "未配對相應數量，便先作交叉相乘"
+        }
+      ],
+      "answer": "Add the ratio parts before sharing a total",
+      "explanation": {
+        "en": "Add the ratio parts before sharing a total. The topic's key fact shows why this structure matters: \\(3 + 5 = 8\\) total parts. The alternatives instead encode these specific misconceptions: “Add the same number to both ratio terms to make an equivalent ratio”; “Compare only the first term and leave the second term unscaled”; “Cross-multiply before matching which quantities correspond”.",
+        "zh": "分配總量前先加總比的份數。本課題的關鍵知識說明這個結構為何重要：總份數為 \\(3 + 5 = 8\\)。 其餘選項分別包含以下具體誤解：「在比的兩項加上同一個數以製作等值比」；「只比較第一項，第二項不按同一倍數縮放」；「未配對相應數量，便先作交叉相乘」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-linear-equations-first-step-v2",
+      "grade": "S2",
+      "topicId": "linear-equations",
+      "topic": {
+        "en": "Linear Equations",
+        "zh": "一次方程"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Linear Equations, which action is the best first step?",
+        "zh": "開始處理關於「一次方程」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Undo operations in reverse order while keeping both sides balanced",
+          "zh": "按相反次序消去運算，並保持兩邊平衡"
+        },
+        {
+          "en": "Divide by the coefficient before undoing an added constant",
+          "zh": "未消去所加常數，便先除以係數"
+        },
+        {
+          "en": "Move a term across the equals sign without applying an inverse operation",
+          "zh": "把一項移過等號，但不作逆運算"
+        },
+        {
+          "en": "Change only the side containing the variable and leave the other side unchanged",
+          "zh": "只改變含變量的一邊，另一邊保持不變"
+        }
+      ],
+      "answer": "Undo operations in reverse order while keeping both sides balanced",
+      "explanation": {
+        "en": "Undo operations in reverse order while keeping both sides balanced. The topic's key fact shows why this structure matters: Subtract \\(7\\) from both sides. The alternatives instead encode these specific misconceptions: “Divide by the coefficient before undoing an added constant”; “Move a term across the equals sign without applying an inverse operation”; “Change only the side containing the variable and leave the other side unchanged”.",
+        "zh": "按相反次序消去運算，並保持兩邊平衡。本課題的關鍵知識說明這個結構為何重要：兩邊同減 \\(7\\)。 其餘選項分別包含以下具體誤解：「未消去所加常數，便先除以係數」；「把一項移過等號，但不作逆運算」；「只改變含變量的一邊，另一邊保持不變」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-coordinates-first-step-v2",
+      "grade": "S2",
+      "topicId": "coordinates",
+      "topic": {
+        "en": "Coordinates",
+        "zh": "坐標"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Coordinates, which action is the best first step?",
+        "zh": "開始處理關於「坐標」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Read the x-coordinate first, then the y-coordinate",
+          "zh": "先讀 x 坐標，再讀 y 坐標"
+        },
+        {
+          "en": "Read the vertical coordinate before the horizontal coordinate",
+          "zh": "先讀縱坐標，再讀橫坐標"
+        },
+        {
+          "en": "Decide the quadrant from the signs without checking which coordinate is x",
+          "zh": "未辨認哪個是 x 坐標，便只按正負號判斷象限"
+        },
+        {
+          "en": "Measure the point's drawn distance from the page edge instead of using the axes",
+          "zh": "量度點與頁面邊緣的圖上距離，而不用坐標軸讀數"
+        }
+      ],
+      "answer": "Read the x-coordinate first, then the y-coordinate",
+      "explanation": {
+        "en": "Read the x-coordinate first, then the y-coordinate. The topic's key fact shows why this structure matters: The first coordinate is \\(x\\). The alternatives instead encode these specific misconceptions: “Read the vertical coordinate before the horizontal coordinate”; “Decide the quadrant from the signs without checking which coordinate is x”; “Measure the point's drawn distance from the page edge instead of using the axes”.",
+        "zh": "先讀 x 坐標，再讀 y 坐標。本課題的關鍵知識說明這個結構為何重要：第一個坐標是 \\(x\\) 坐標。 其餘選項分別包含以下具體誤解：「先讀縱坐標，再讀橫坐標」；「未辨認哪個是 x 坐標，便只按正負號判斷象限」；「量度點與頁面邊緣的圖上距離，而不用坐標軸讀數」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-transformations-first-step-v2",
+      "grade": "S2",
+      "topicId": "transformations",
+      "topic": {
+        "en": "Transformations",
+        "zh": "變換"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Transformations, which action is the best first step?",
+        "zh": "開始處理關於「變換」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "State the transformation rule before moving points",
+          "zh": "移動點前先寫出變換規則"
+        },
+        {
+          "en": "Reflect the figure whenever a translation vector contains a negative component",
+          "zh": "平移向量有負分量時便把圖形反射"
+        },
+        {
+          "en": "Rotate every figure about the origin even when another centre is stated",
+          "zh": "即使題目指定另一中心，仍一律繞原點旋轉"
+        },
+        {
+          "en": "Transform the image coordinates again instead of starting from the original figure",
+          "zh": "不由原圖開始，而再次變換像的坐標"
+        }
+      ],
+      "answer": "State the transformation rule before moving points",
+      "explanation": {
+        "en": "State the transformation rule before moving points. The topic's key fact shows why this structure matters: Add coordinates: \\((1 + 3, 2 - 1) = (4, 1)\\). The alternatives instead encode these specific misconceptions: “Reflect the figure whenever a translation vector contains a negative component”; “Rotate every figure about the origin even when another centre is stated”; “Transform the image coordinates again instead of starting from the original figure”.",
+        "zh": "移動點前先寫出變換規則。本課題的關鍵知識說明這個結構為何重要：坐標相加：\\((1 + 3, 2 - 1) = (4, 1)\\)。 其餘選項分別包含以下具體誤解：「平移向量有負分量時便把圖形反射」；「即使題目指定另一中心，仍一律繞原點旋轉」；「不由原圖開始，而再次變換像的坐標」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-probability-s2-first-step-v2",
+      "grade": "S2",
+      "topicId": "probability-s2",
+      "topic": {
+        "en": "Probability",
+        "zh": "概率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Probability, which action is the best first step?",
+        "zh": "開始處理關於「概率」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "List the sample space and count favourable outcomes",
+          "zh": "先列出樣本空間並數有利結果"
+        },
+        {
+          "en": "Treat named categories as equally likely without counting the individual outcomes",
+          "zh": "不數個別結果，便把各個具名類別當作等可能"
+        },
+        {
+          "en": "Use one short experimental run as the exact theoretical probability",
+          "zh": "把一次短實驗所得頻率當作精確理論概率"
+        },
+        {
+          "en": "Include outcomes that the stated sample space cannot produce",
+          "zh": "把題目樣本空間不可能出現的結果也包括在內"
+        }
+      ],
+      "answer": "List the sample space and count favourable outcomes",
+      "explanation": {
+        "en": "List the sample space and count favourable outcomes. The topic's key fact shows why this structure matters: There is \\(1\\) head outcome out of \\(2\\) equally likely outcomes. The alternatives instead encode these specific misconceptions: “Treat named categories as equally likely without counting the individual outcomes”; “Use one short experimental run as the exact theoretical probability”; “Include outcomes that the stated sample space cannot produce”.",
+        "zh": "先列出樣本空間並數有利結果。本課題的關鍵知識說明這個結構為何重要：兩個等可能結果中有 \\(1\\) 個是正面。 其餘選項分別包含以下具體誤解：「不數個別結果，便把各個具名類別當作等可能」；「把一次短實驗所得頻率當作精確理論概率」；「把題目樣本空間不可能出現的結果也包括在內」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-polynomials-first-step-v2",
+      "grade": "S3",
+      "topicId": "polynomials",
+      "topic": {
+        "en": "Polynomials",
+        "zh": "多項式"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Polynomials, which action is the best first step?",
+        "zh": "開始處理關於「多項式」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify terms, coefficients, and like terms",
+          "zh": "先辨認項、係數和同類項"
+        },
+        {
+          "en": "Combine terms whose variables have different powers",
+          "zh": "把變量次方不同的項合併"
+        },
+        {
+          "en": "Add exponents when polynomial terms are added",
+          "zh": "多項式各項相加時把指數相加"
+        },
+        {
+          "en": "Factor only the constant term and leave the common variable factor outside the search",
+          "zh": "只分解常數項，不尋找共同變量因子"
+        }
+      ],
+      "answer": "Identify terms, coefficients, and like terms",
+      "explanation": {
+        "en": "Identify terms, coefficients, and like terms. The topic's key fact shows why this structure matters: Like terms with \\(x^2\\) can be combined. The alternatives instead encode these specific misconceptions: “Combine terms whose variables have different powers”; “Add exponents when polynomial terms are added”; “Factor only the constant term and leave the common variable factor outside the search”.",
+        "zh": "先辨認項、係數和同類項。本課題的關鍵知識說明這個結構為何重要：含 \\(x^2\\) 的同類項可以合併。 其餘選項分別包含以下具體誤解：「把變量次方不同的項合併」；「多項式各項相加時把指數相加」；「只分解常數項，不尋找共同變量因子」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-identities-square-patterns-first-step",
+      "grade": "S3",
+      "topicId": "identities-square-patterns",
+      "topic": {
+        "en": "Algebraic Identities and Square Patterns",
+        "zh": "代數恆等式與平方圖樣"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Algebraic Identities and Square Patterns, which action is the best first step?",
+        "zh": "開始處理關於「代數恆等式與平方圖樣」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Match each algebraic term to an area in the square model",
+          "zh": "先把每一個代數項配對到正方形模型中的面積"
+        },
+        {
+          "en": "Expand a squared sum as the sum of two squares with no middle term",
+          "zh": "把和的平方展開成兩個平方之和，漏去中間項"
+        },
+        {
+          "en": "Treat an equality verified at one chosen value as an identity",
+          "zh": "只代入一個選定數值相等，便把等式當作恆等式"
+        },
+        {
+          "en": "Use a positive middle term when expanding a squared difference",
+          "zh": "展開差的平方時使用正的中間項"
+        }
+      ],
+      "answer": "Match each algebraic term to an area in the square model",
+      "explanation": {
+        "en": "Match each algebraic term to an area in the square model. The topic's key fact shows why this structure matters: The two equal rectangles each have area \\(ab\\), so the middle term is \\(2ab\\). The alternatives instead encode these specific misconceptions: “Expand a squared sum as the sum of two squares with no middle term”; “Treat an equality verified at one chosen value as an identity”; “Use a positive middle term when expanding a squared difference”.",
+        "zh": "先把每一個代數項配對到正方形模型中的面積。本課題的關鍵知識說明這個結構為何重要：兩個相等長方形的面積各為 \\(ab\\)，所以中間項是 \\(2ab\\)。 其餘選項分別包含以下具體誤解：「把和的平方展開成兩個平方之和，漏去中間項」；「只代入一個選定數值相等，便把等式當作恆等式」；「展開差的平方時使用正的中間項」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-trigonometry-basics-first-step-v2",
+      "grade": "S3",
+      "topicId": "trigonometry-basics",
+      "topic": {
+        "en": "Trigonometry Basics",
+        "zh": "三角比基礎"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Trigonometry Basics, which action is the best first step?",
+        "zh": "開始處理關於「三角比基礎」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Label opposite, adjacent, and hypotenuse",
+          "zh": "先標示對邊、鄰邊和斜邊"
+        },
+        {
+          "en": "Choose sine, cosine, or tangent from whichever two numbers look largest",
+          "zh": "只按看來最大的兩個數選正弦、餘弦或正切"
+        },
+        {
+          "en": "Call the longest drawn segment the hypotenuse without locating the right angle",
+          "zh": "未找出直角，便把圖上畫得最長的線段稱為斜邊"
+        },
+        {
+          "en": "Use the side opposite a different angle from the one named in the question",
+          "zh": "使用相對於另一個角的對邊，而不是題目所指角"
+        }
+      ],
+      "answer": "Label opposite, adjacent, and hypotenuse",
+      "explanation": {
+        "en": "Label opposite, adjacent, and hypotenuse. The topic's key fact shows why this structure matters: \\(\\cos\\theta = \\frac{\\text{adjacent}}{\\text{hypotenuse}}\\). The alternatives instead encode these specific misconceptions: “Choose sine, cosine, or tangent from whichever two numbers look largest”; “Call the longest drawn segment the hypotenuse without locating the right angle”; “Use the side opposite a different angle from the one named in the question”.",
+        "zh": "先標示對邊、鄰邊和斜邊。本課題的關鍵知識說明這個結構為何重要：\\(\\cos\\theta = \\frac{\\text{鄰邊}}{\\text{斜邊}}\\)。 其餘選項分別包含以下具體誤解：「只按看來最大的兩個數選正弦、餘弦或正切」；「未找出直角，便把圖上畫得最長的線段稱為斜邊」；「使用相對於另一個角的對邊，而不是題目所指角」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-arc-length-sector-area-first-step",
+      "grade": "S3",
+      "topicId": "arc-length-sector-area",
+      "topic": {
+        "en": "Arc Length and Sector Area",
+        "zh": "弧長與扇形面積"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Arc Length and Sector Area, which action is the best first step?",
+        "zh": "開始處理關於「弧長與扇形面積」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Write the angle at the centre as a fraction of a full circle",
+          "zh": "先把圓心角寫成整個圓的分數"
+        },
+        {
+          "en": "Use the angle at the centre over 180 as the fraction of a full circle",
+          "zh": "以圓心角除以 180 作為整個圓的分數"
+        },
+        {
+          "en": "Apply the circumference formula when the question asks for sector area",
+          "zh": "題目求扇形面積時使用圓周公式"
+        },
+        {
+          "en": "Multiply by the full-circle measure instead of taking the stated fraction",
+          "zh": "把數值乘整個圓的量，而不是取題目所給的分數"
+        }
+      ],
+      "answer": "Write the angle at the centre as a fraction of a full circle",
+      "explanation": {
+        "en": "Write the angle at the centre as a fraction of a full circle. The topic's key fact shows why this structure matters: Arc length \\(=(80/360)(2\\pi)(9)=4\\pi\\) cm, approximately \\(12.57\\) cm. The alternatives instead encode these specific misconceptions: “Use the angle at the centre over 180 as the fraction of a full circle”; “Apply the circumference formula when the question asks for sector area”; “Multiply by the full-circle measure instead of taking the stated fraction”.",
+        "zh": "先把圓心角寫成整個圓的分數。本課題的關鍵知識說明這個結構為何重要：弧長 \\(=(80/360)(2\\pi)(9)=4\\pi\\) 厘米，約為 \\(12.57\\) 厘米。 其餘選項分別包含以下具體誤解：「以圓心角除以 180 作為整個圓的分數」；「題目求扇形面積時使用圓周公式」；「把數值乘整個圓的量，而不是取題目所給的分數」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-functions-first-step-v2",
+      "grade": "S4",
+      "topicId": "functions",
+      "topic": {
+        "en": "Functions",
+        "zh": "函數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Functions, which action is the best first step?",
+        "zh": "開始處理關於「函數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify the input, rule, and output",
+          "zh": "先辨認輸入、規則和輸出"
+        },
+        {
+          "en": "Swap the input and output before applying the function rule",
+          "zh": "套用函數規則前先把輸入和輸出對調"
+        },
+        {
+          "en": "Use the y-intercept as the output for every input",
+          "zh": "把 y 軸截距當作每個輸入的輸出"
+        },
+        {
+          "en": "Combine the input with the function name as if they were like terms",
+          "zh": "把輸入與函數名稱當作同類項合併"
+        }
+      ],
+      "answer": "Identify the input, rule, and output",
+      "explanation": {
+        "en": "Identify the input, rule, and output. The topic's key fact shows why this structure matters: \\(3(2)+2=8\\). The alternatives instead encode these specific misconceptions: “Swap the input and output before applying the function rule”; “Use the y-intercept as the output for every input”; “Combine the input with the function name as if they were like terms”.",
+        "zh": "先辨認輸入、規則和輸出。本課題的關鍵知識說明這個結構為何重要：\\(3(2)+2=8\\)。 其餘選項分別包含以下具體誤解：「套用函數規則前先把輸入和輸出對調」；「把 y 軸截距當作每個輸入的輸出」；「把輸入與函數名稱當作同類項合併」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-coordinate-geometry-first-step-v2",
+      "grade": "S4",
+      "topicId": "coordinate-geometry",
+      "topic": {
+        "en": "Coordinate Geometry",
+        "zh": "坐標幾何"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Coordinate Geometry, which action is the best first step?",
+        "zh": "開始處理關於「坐標幾何」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Choose slope, distance, midpoint, or line equation based on the target",
+          "zh": "按題目要求選擇斜率、距離、中點或直線方程"
+        },
+        {
+          "en": "Subtract x-coordinates in one order and y-coordinates in the opposite order",
+          "zh": "x 坐標按一個次序相減，y 坐標卻按相反次序相減"
+        },
+        {
+          "en": "Average the coordinate differences to obtain the gradient",
+          "zh": "把坐標差取平均當作斜率"
+        },
+        {
+          "en": "Read the drawn steepness without using rise divided by run",
+          "zh": "不計算升幅除以橫距，只按圖上斜度讀答案"
+        }
+      ],
+      "answer": "Choose slope, distance, midpoint, or line equation based on the target",
+      "explanation": {
+        "en": "Choose slope, distance, midpoint, or line equation based on the target. The topic's key fact shows why this structure matters: Average the coordinates: \\(((2+6)/2,(4+8)/2)=(4,6)\\). The alternatives instead encode these specific misconceptions: “Subtract x-coordinates in one order and y-coordinates in the opposite order”; “Average the coordinate differences to obtain the gradient”; “Read the drawn steepness without using rise divided by run”.",
+        "zh": "按題目要求選擇斜率、距離、中點或直線方程。本課題的關鍵知識說明這個結構為何重要：坐標取平均：\\(((2+6)/2,(4+8)/2)=(4,6)\\)。 其餘選項分別包含以下具體誤解：「x 坐標按一個次序相減，y 坐標卻按相反次序相減」；「把坐標差取平均當作斜率」；「不計算升幅除以橫距，只按圖上斜度讀答案」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-circles-first-step-v2",
+      "grade": "S4",
+      "topicId": "circles",
+      "topic": {
+        "en": "Circle Geometry",
+        "zh": "圓幾何"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Circle Geometry, which action is the best first step?",
+        "zh": "開始處理關於「圓幾何」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify the chord, tangent, arc, or angle at the centre being used",
+          "zh": "先辨認使用的是弦、切線、弧還是圓心角"
+        },
+        {
+          "en": "Treat a tangent as parallel to the radius at the contact point",
+          "zh": "把切線當作在接觸點與半徑平行"
+        },
+        {
+          "en": "Use the angle at the circumference as twice the angle at the centre standing on the same arc",
+          "zh": "把同一弧所對的圓周角當作圓心角的兩倍"
+        },
+        {
+          "en": "Replace every chord by a diameter before using the stated theorem",
+          "zh": "使用題目所述定理前，先把每條弦都當作直徑"
+        }
+      ],
+      "answer": "Identify the chord, tangent, arc, or angle at the centre being used",
+      "explanation": {
+        "en": "Identify the chord, tangent, arc, or angle at the centre being used. The topic's key fact shows why this structure matters: A tangent is perpendicular to the radius at the point of contact. The alternatives instead encode these specific misconceptions: “Treat a tangent as parallel to the radius at the contact point”; “Use the angle at the circumference as twice the angle at the centre standing on the same arc”; “Replace every chord by a diameter before using the stated theorem”.",
+        "zh": "先辨認使用的是弦、切線、弧還是圓心角。本課題的關鍵知識說明這個結構為何重要：切線垂直於接觸點的半徑。 其餘選項分別包含以下具體誤解：「把切線當作在接觸點與半徑平行」；「把同一弧所對的圓周角當作圓心角的兩倍」；「使用題目所述定理前，先把每條弦都當作直徑」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-more-algebra-first-step-v2",
+      "grade": "S4",
+      "topicId": "more-algebra",
+      "topic": {
+        "en": "More Algebra",
+        "zh": "進階代數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about More Algebra, which action is the best first step?",
+        "zh": "開始處理關於「進階代數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "State denominator restrictions, then factor before cancelling a rational expression",
+          "zh": "先寫出分母限制，再把有理式因式分解後約簡"
+        },
+        {
+          "en": "Cancel terms across addition before factoring the numerator",
+          "zh": "未把分子因式分解，便跨越加法約去項"
+        },
+        {
+          "en": "Cancel a denominator factor before recording its excluded value",
+          "zh": "未記錄不容許值，便約去分母因子"
+        },
+        {
+          "en": "Treat a value that makes the denominator zero as an extra solution",
+          "zh": "把令分母為零的數值當作額外解"
+        }
+      ],
+      "answer": "State denominator restrictions, then factor before cancelling a rational expression",
+      "explanation": {
+        "en": "State denominator restrictions, then factor before cancelling a rational expression. The topic's key fact shows why this structure matters: \\(a^2-4=(a-2)(a+2)\\). Since \\(a \\ne 2\\), cancel \\(a-2\\) to obtain \\(a+2\\). The alternatives instead encode these specific misconceptions: “Cancel terms across addition before factoring the numerator”; “Cancel a denominator factor before recording its excluded value”; “Treat a value that makes the denominator zero as an extra solution”.",
+        "zh": "先寫出分母限制，再把有理式因式分解後約簡。本課題的關鍵知識說明這個結構為何重要：\\(a^2-4=(a-2)(a+2)\\)。因為 \\(a \\ne 2\\)，可約去 \\(a-2\\)，得 \\(a+2\\)。 其餘選項分別包含以下具體誤解：「未把分子因式分解，便跨越加法約去項」；「未記錄不容許值，便約去分母因子」；「把令分母為零的數值當作額外解」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-data-handling-first-step-v2",
+      "grade": "S4",
+      "topicId": "data-handling",
+      "topic": {
+        "en": "Data Handling",
+        "zh": "數據處理"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Data Handling, which action is the best first step?",
+        "zh": "開始處理關於「數據處理」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify data type, distribution shape, and possible bias",
+          "zh": "先辨認數據類型、分佈形狀和可能偏差"
+        },
+        {
+          "en": "Choose the mean automatically even when extreme outliers dominate",
+          "zh": "即使極端離群值影響很大，仍一律選平均數"
+        },
+        {
+          "en": "Infer a median from the visual shape when the raw ordered values are unavailable",
+          "zh": "未有已排序原始數值，便只按圖形外觀推斷中位數"
+        },
+        {
+          "en": "Interpret an association in a graph as proof that one variable causes the other",
+          "zh": "把圖上的關聯解讀為一個變量導致另一變量的證明"
+        }
+      ],
+      "answer": "Identify data type, distribution shape, and possible bias",
+      "explanation": {
+        "en": "Identify data type, distribution shape, and possible bias. The topic's key fact shows why this structure matters: The mean uses every value, so an extreme value can pull it. The alternatives instead encode these specific misconceptions: “Choose the mean automatically even when extreme outliers dominate”; “Infer a median from the visual shape when the raw ordered values are unavailable”; “Interpret an association in a graph as proof that one variable causes the other”.",
+        "zh": "先辨認數據類型、分佈形狀和可能偏差。本課題的關鍵知識說明這個結構為何重要：平均數使用所有數值，所以極端值會拉動它。 其餘選項分別包含以下具體誤解：「即使極端離群值影響很大，仍一律選平均數」；「未有已排序原始數值，便只按圖形外觀推斷中位數」；「把圖上的關聯解讀為一個變量導致另一變量的證明」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-advanced-functions-first-step-v2",
+      "grade": "S5",
+      "topicId": "advanced-functions",
+      "topic": {
+        "en": "Advanced Functions",
+        "zh": "進階函數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Advanced Functions, which action is the best first step?",
+        "zh": "開始處理關於「進階函數」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify the logarithm base and require its argument to be positive",
+          "zh": "先辨認對數底數，並確保真數為正數"
+        },
+        {
+          "en": "Evaluate a logarithm before checking that its argument is positive",
+          "zh": "未檢查真數為正，便先計算對數"
+        },
+        {
+          "en": "Accept base 1 because it is a positive number",
+          "zh": "因為 1 是正數便接受它作對數的底"
+        },
+        {
+          "en": "Transfer an exponential product rule directly to a logarithmic sum",
+          "zh": "把指數的乘法規則直接套到對數的和"
+        }
+      ],
+      "answer": "Identify the logarithm base and require its argument to be positive",
+      "explanation": {
+        "en": "Identify the logarithm base and require its argument to be positive. The topic's key fact shows why this structure matters: \\(\\log_3 81=4\\) because \\(3^4=81\\). The alternatives instead encode these specific misconceptions: “Evaluate a logarithm before checking that its argument is positive”; “Accept base 1 because it is a positive number”; “Transfer an exponential product rule directly to a logarithmic sum”.",
+        "zh": "先辨認對數底數，並確保真數為正數。本課題的關鍵知識說明這個結構為何重要：\\(\\log_3 81=4\\)，因為 \\(3^4=81\\)。 其餘選項分別包含以下具體誤解：「未檢查真數為正，便先計算對數」；「因為 1 是正數便接受它作對數的底」；「把指數的乘法規則直接套到對數的和」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-trigonometry-s5-first-step-v2",
+      "grade": "S5",
+      "topicId": "trigonometry-s5",
+      "topic": {
+        "en": "Trigonometry",
+        "zh": "三角學"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Trigonometry, which action is the best first step?",
+        "zh": "開始處理關於「三角學」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify amplitude, period, phase, or identity before solving",
+          "zh": "求解前先辨認振幅、週期、相位或恆等式"
+        },
+        {
+          "en": "Read the coefficient of x as the amplitude",
+          "zh": "把 x 的係數讀作振幅"
+        },
+        {
+          "en": "Ignore the sign of a horizontal phase shift",
+          "zh": "忽略水平相位移的正負號"
+        },
+        {
+          "en": "List periodic solutions before checking the required interval",
+          "zh": "未檢查題目指定區間，便先列出週期解"
+        }
+      ],
+      "answer": "Identify amplitude, period, phase, or identity before solving",
+      "explanation": {
+        "en": "Identify amplitude, period, phase, or identity before solving. The topic's key fact shows why this structure matters: The basic sine graph repeats every \\(360^\\circ\\). The alternatives instead encode these specific misconceptions: “Read the coefficient of x as the amplitude”; “Ignore the sign of a horizontal phase shift”; “List periodic solutions before checking the required interval”.",
+        "zh": "求解前先辨認振幅、週期、相位或恆等式。本課題的關鍵知識說明這個結構為何重要：基本正弦圖像每 \\(360^\\circ\\) 重複一次。 其餘選項分別包含以下具體誤解：「把 x 的係數讀作振幅」；「忽略水平相位移的正負號」；「未檢查題目指定區間，便先列出週期解」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-probability-s5-first-step-v2",
+      "grade": "S5",
+      "topicId": "probability-s5",
+      "topic": {
+        "en": "Probability",
+        "zh": "概率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Probability, which action is the best first step?",
+        "zh": "開始處理關於「概率」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify equally likely individual objects and the conditioning event, then update the sample space after each draw without replacement",
+          "zh": "先辨認等可能的個別物件和條件事件，再於每次不放回抽取後更新樣本空間"
+        },
+        {
+          "en": "Count the colour labels as equally likely outcomes even when their ball counts differ",
+          "zh": "即使各顏色的球數不同，也把顏色標籤當作等可能結果"
+        },
+        {
+          "en": "Keep the original denominator after the first ball is removed",
+          "zh": "抽走第一個球後仍保留原來分母"
+        },
+        {
+          "en": "Multiply two unconditional first-draw probabilities for a without-replacement event",
+          "zh": "處理不放回事例時，把兩個無條件的首次抽取概率相乘"
+        }
+      ],
+      "answer": "Identify equally likely individual objects and the conditioning event, then update the sample space after each draw without replacement",
+      "explanation": {
+        "en": "Identify equally likely individual objects and the conditioning event, then update the sample space after each draw without replacement. The topic's key fact shows why this structure matters: After one green ball is removed, the \\(4\\) remaining individual balls are equally likely and exactly \\(1\\) favourable ball is yellow, so the conditional probability is \\(1/4\\). The alternatives instead encode these specific misconceptions: “Count the colour labels as equally likely outcomes even when their ball counts differ”; “Keep the original denominator after the first ball is removed”; “Multiply two unconditional first-draw probabilities for a without-replacement event”.",
+        "zh": "先辨認等可能的個別物件和條件事件，再於每次不放回抽取後更新樣本空間。本課題的關鍵知識說明這個結構為何重要：抽走一個綠球後，餘下 \\(4\\) 個實體球是等可能結果，當中恰有 \\(1\\) 個有利結果是黃球，所以條件概率是 \\(1/4\\)。 其餘選項分別包含以下具體誤解：「即使各顏色的球數不同，也把顏色標籤當作等可能結果」；「抽走第一個球後仍保留原來分母」；「處理不放回事例時，把兩個無條件的首次抽取概率相乘」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-calculus-first-step-v2",
+      "grade": "S6",
+      "topicId": "calculus",
+      "topic": {
+        "en": "Calculus — HKDSE Extended Part (M1/M2)",
+        "zh": "微積分——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Calculus — HKDSE Extended Part (M1/M2), which action is the best first step?",
+        "zh": "開始處理關於「微積分——香港中學文憑延伸部分（M1/M2）」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Read the sign of f'(x) on each relevant interval before classifying the graph's behaviour",
+          "zh": "先讀取各相關區間內 f'(x) 的正負，再判斷圖像的走勢"
+        },
+        {
+          "en": "Classify a stationary point from f'(x)=0 without checking either side",
+          "zh": "只因 f'(x)=0 便為駐點分類，不檢查兩側"
+        },
+        {
+          "en": "Treat the function value as though it were the tangent gradient",
+          "zh": "把函數值當作切線斜率"
+        },
+        {
+          "en": "Decide that the graph is increasing whenever x is positive",
+          "zh": "只要 x 為正便判定圖像上升"
+        }
+      ],
+      "answer": "Read the sign of f'(x) on each relevant interval before classifying the graph's behaviour",
+      "explanation": {
+        "en": "Read the sign of f'(x) on each relevant interval before classifying the graph's behaviour. The topic's key fact shows why this structure matters: Because \\(f'(x)<0\\) throughout the interval, \\(f\\) is decreasing there. The alternatives instead encode these specific misconceptions: “Classify a stationary point from f'(x)=0 without checking either side”; “Treat the function value as though it were the tangent gradient”; “Decide that the graph is increasing whenever x is positive”.",
+        "zh": "先讀取各相關區間內 f'(x) 的正負，再判斷圖像的走勢。本課題的關鍵知識說明這個結構為何重要：由於整個區間內 \\(f'(x)<0\\)，所以 \\(f\\) 在該區間遞減。 其餘選項分別包含以下具體誤解：「只因 f'(x)=0 便為駐點分類，不檢查兩側」；「把函數值當作切線斜率」；「只要 x 為正便判定圖像上升」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-statistics-s6-first-step-v2",
+      "grade": "S6",
+      "topicId": "statistics-s6",
+      "topic": {
+        "en": "Statistics — HKDSE Extended Part M1",
+        "zh": "統計——香港中學文憑延伸部分 M1"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Statistics — HKDSE Extended Part M1, which action is the best first step?",
+        "zh": "開始處理關於「統計——香港中學文憑延伸部分 M1」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Confirm that the standard deviation is greater than 0, then convert the observed value to a standard score (z-score) for the stated normal distribution",
+          "zh": "先確認標準差大於 0，再把觀察值轉換成該正態分佈的標準分（z 分數）"
+        },
+        {
+          "en": "Divide x by the standard deviation without subtracting the mean",
+          "zh": "未減去平均數，便把 x 除以標準差"
+        },
+        {
+          "en": "Use the variance in place of the stated standard deviation",
+          "zh": "以方差代替題目所給的標準差"
+        },
+        {
+          "en": "Continue with the z-score formula even when the standard deviation is zero",
+          "zh": "即使標準差是零，仍繼續使用標準分公式"
+        }
+      ],
+      "answer": "Confirm that the standard deviation is greater than 0, then convert the observed value to a standard score (z-score) for the stated normal distribution",
+      "explanation": {
+        "en": "Confirm that the standard deviation is greater than 0, then convert the observed value to a standard score (z-score) for the stated normal distribution. The topic's key fact shows why this structure matters: The standard deviation is \\(5>0\\), so \\(z=(65-50)/5=3\\). The alternatives instead encode these specific misconceptions: “Divide x by the standard deviation without subtracting the mean”; “Use the variance in place of the stated standard deviation”; “Continue with the z-score formula even when the standard deviation is zero”.",
+        "zh": "先確認標準差大於 0，再把觀察值轉換成該正態分佈的標準分（z 分數）。本課題的關鍵知識說明這個結構為何重要：標準差 \\(5>0\\)，所以 \\(z=(65-50)/5=3\\)。 其餘選項分別包含以下具體誤解：「未減去平均數，便把 x 除以標準差」；「以方差代替題目所給的標準差」；「即使標準差是零，仍繼續使用標準分公式」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-exam-revision-first-step-v2",
+      "grade": "S6",
+      "topicId": "exam-revision",
+      "topic": {
+        "en": "Exam Revision",
+        "zh": "考試溫習"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Exam Revision, which action is the best first step?",
+        "zh": "開始處理關於「考試溫習」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Sort questions by marks, confidence, and time available",
+          "zh": "先按分數、信心和可用時間排序題目"
+        },
+        {
+          "en": "Divide marks by minutes when the requested unit is minutes per mark",
+          "zh": "題目要求分鐘／分時，卻用分數除以分鐘"
+        },
+        {
+          "en": "Give every question equal time regardless of its marks",
+          "zh": "不理會題目分值，把相同時間分給每題"
+        },
+        {
+          "en": "Round the time ratio before completing the division",
+          "zh": "未完成除法便先把時間比四捨五入"
+        }
+      ],
+      "answer": "Sort questions by marks, confidence, and time available",
+      "explanation": {
+        "en": "Sort questions by marks, confidence, and time available. The topic's key fact shows why this structure matters: \\(120/90=1.333\\ldots\\), so the time is \\(1.33\\) minutes per mark to 2 decimal places. The alternatives instead encode these specific misconceptions: “Divide marks by minutes when the requested unit is minutes per mark”; “Give every question equal time regardless of its marks”; “Round the time ratio before completing the division”.",
+        "zh": "先按分數、信心和可用時間排序題目。本課題的關鍵知識說明這個結構為何重要：\\(120/90=1.333\\ldots\\)，所以取至小數點後兩位是 \\(1.33\\) 分鐘／分。 其餘選項分別包含以下具體誤解：「題目要求分鐘／分時，卻用分數除以分鐘」；「不理會題目分值，把相同時間分給每題」；「未完成除法便先把時間比四捨五入」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-mixed-problem-solving-first-step-v2",
+      "grade": "S6",
+      "topicId": "mixed-problem-solving",
+      "topic": {
+        "en": "Mixed Problem Solving",
+        "zh": "綜合解難"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Mixed Problem Solving, which action is the best first step?",
+        "zh": "開始處理關於「綜合解難」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Link the quantities in the graph or table to the variables in the equation before calculating",
+          "zh": "計算前先把圖像或表格中的數量連繫到方程的變量"
+        },
+        {
+          "en": "Combine graph and table values before matching their quantities and units",
+          "zh": "未配對數量和單位，便先合併圖像與表格數值"
+        },
+        {
+          "en": "Add distance, speed, and time because all three are numerical",
+          "zh": "因路程、速率和時間都是數值便把三者相加"
+        },
+        {
+          "en": "Read the height of a distance-time line as speed instead of using its gradient",
+          "zh": "把距離時間線的高度當作速率，而不用斜率"
+        }
+      ],
+      "answer": "Link the quantities in the graph or table to the variables in the equation before calculating",
+      "explanation": {
+        "en": "Link the quantities in the graph or table to the variables in the equation before calculating. The topic's key fact shows why this structure matters: Match \\(d=36\\) and \\(t=1.5\\) across the two representations, then \\(v=d/t=36/1.5=24\\) km/h. The alternatives instead encode these specific misconceptions: “Combine graph and table values before matching their quantities and units”; “Add distance, speed, and time because all three are numerical”; “Read the height of a distance-time line as speed instead of using its gradient”.",
+        "zh": "計算前先把圖像或表格中的數量連繫到方程的變量。本課題的關鍵知識說明這個結構為何重要：把兩種表示方式中的 \\(d=36\\) 和 \\(t=1.5\\) 配對，再算 \\(v=d/t=36/1.5=24\\) 公里每小時。 其餘選項分別包含以下具體誤解：「未配對數量和單位，便先合併圖像與表格數值」；「因路程、速率和時間都是數值便把三者相加」；「把距離時間線的高度當作速率，而不用斜率」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-integers-common-check-v2",
+      "grade": "S1",
+      "topicId": "integers",
+      "topic": {
+        "en": "Integers",
+        "zh": "整數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Integers?",
+        "zh": "哪項檢查最能避免「整數」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check whether the operation moves left or right before calculating",
+          "zh": "計算前先檢查運算代表向左還是向右移"
+        },
+        {
+          "en": "Confirm the result has the sign belonging to the numeral with more digits",
+          "zh": "只檢查答案符號是否跟隨位數較多的數"
+        },
+        {
+          "en": "Recalculate with absolute values only and treat matching magnitudes as sufficient",
+          "zh": "只用絕對值重算，並把大小相符當作充分檢查"
+        },
+        {
+          "en": "Check subtraction by repeating the same signed subtraction rather than using its inverse",
+          "zh": "不用逆運算，而重複同一個帶符號減法作檢查"
+        }
+      ],
+      "answer": "Check whether the operation moves left or right before calculating",
+      "explanation": {
+        "en": "Check whether the operation moves left or right before calculating. This check is consistent with both the key fact (Move \\(9\\) steps right from \\(-6\\) to reach \\(3\\).) and the guided example (Subtracting \\(7\\) moves \\(7\\) steps left from \\(-4\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "計算前先檢查運算代表向左還是向右移。這項檢查同時符合關鍵知識（由 \\(-6\\) 向右移 \\(9\\) 格到達 \\(3\\)。）和引導例題（減 \\(7\\) 即由 \\(-4\\) 向左移 \\(7\\) 格。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-algebra-basics-common-check-v2",
+      "grade": "S1",
+      "topicId": "algebra-basics",
+      "topic": {
+        "en": "Algebra Basics",
+        "zh": "代數基礎"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Algebra Basics?",
+        "zh": "哪項檢查最能避免「代數基礎」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Only combine terms with the same variable part",
+          "zh": "只合併變量部分相同的項"
+        },
+        {
+          "en": "Compare coefficients while disregarding whether the variable powers match",
+          "zh": "只比較係數，不理會變量次方是否相同"
+        },
+        {
+          "en": "Substitute only zero and accept expressions that agree at that single value",
+          "zh": "只代入零，兩式在這一個數值相等便接受"
+        },
+        {
+          "en": "Count the number of written terms instead of checking the combined expression",
+          "zh": "只點算寫出的項數，不檢查合併後的代數式"
+        }
+      ],
+      "answer": "Only combine terms with the same variable part",
+      "explanation": {
+        "en": "Only combine terms with the same variable part. This check is consistent with both the key fact (The coefficients add: \\(4a + 3a = 7a\\).) and the guided example (\\(3(2) + 1 = 7\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "只合併變量部分相同的項。這項檢查同時符合關鍵知識（同類項的係數相加：\\(4a + 3a = 7a\\)。）和引導例題（\\(3(2) + 1 = 7\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-linear-equations-common-check-v2",
+      "grade": "S2",
+      "topicId": "linear-equations",
+      "topic": {
+        "en": "Linear Equations",
+        "zh": "一次方程"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Linear Equations?",
+        "zh": "哪項檢查最能避免「一次方程」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Do the same operation to both sides of the equation",
+          "zh": "方程兩邊要做相同運算"
+        },
+        {
+          "en": "Substitute the proposed solution into the left side only",
+          "zh": "只把擬議解代入方程左邊"
+        },
+        {
+          "en": "Restore balance by adding different values to the two sides",
+          "zh": "在等式兩邊加上不同數值來恢復平衡"
+        },
+        {
+          "en": "Round the proposed solution before substituting it into the original equation",
+          "zh": "代回原方程前先把擬議解四捨五入"
+        }
+      ],
+      "answer": "Do the same operation to both sides of the equation",
+      "explanation": {
+        "en": "Do the same operation to both sides of the equation. This check is consistent with both the key fact (Subtract \\(7\\) from both sides.) and the guided example (Divide both sides by \\(3\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "方程兩邊要做相同運算。這項檢查同時符合關鍵知識（兩邊同減 \\(7\\)。）和引導例題（兩邊同除以 \\(3\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-probability-s2-common-check-v2",
+      "grade": "S2",
+      "topicId": "probability-s2",
+      "topic": {
+        "en": "Probability",
+        "zh": "概率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Probability?",
+        "zh": "哪項檢查最能避免「概率」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Use favourable outcomes over total equally likely outcomes",
+          "zh": "用有利結果數除以等可能總結果數"
+        },
+        {
+          "en": "Confirm the probabilities by giving each named category an equal share",
+          "zh": "把相同概率分給每個具名類別來核對答案"
+        },
+        {
+          "en": "Accept experimental frequencies that add to more than the number of trials",
+          "zh": "接受總和超過試驗次數的實驗頻數"
+        },
+        {
+          "en": "Compare theory and experiment without checking how many trials were run",
+          "zh": "未檢查試驗次數便比較理論與實驗結果"
+        }
+      ],
+      "answer": "Use favourable outcomes over total equally likely outcomes",
+      "explanation": {
+        "en": "Use favourable outcomes over total equally likely outcomes. This check is consistent with both the key fact (There is \\(1\\) head outcome out of \\(2\\) equally likely outcomes.) and the guided example (The favourable results are 5 and 6, so 2 of the 6 equally likely outcomes are favourable: \\(2/6 = 1/3\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "用有利結果數除以等可能總結果數。這項檢查同時符合關鍵知識（兩個等可能結果中有 \\(1\\) 個是正面。）和引導例題（有利結果是 5 和 6；6 個等可能結果中有 2 個是有利結果，所以 \\(2/6 = 1/3\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-trigonometry-basics-common-check-v2",
+      "grade": "S3",
+      "topicId": "trigonometry-basics",
+      "topic": {
+        "en": "Trigonometry Basics",
+        "zh": "三角比基礎"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Trigonometry Basics?",
+        "zh": "哪項檢查最能避免「三角比基礎」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Choose SOH, CAH, or TOA after labelling sides",
+          "zh": "標示邊後才選 SOH、CAH 或 TOA"
+        },
+        {
+          "en": "Accept a sine or cosine value above 1 when the arithmetic is tidy",
+          "zh": "算式整齊便接受大於 1 的正弦或餘弦值"
+        },
+        {
+          "en": "Confirm side names from their drawn lengths rather than their positions relative to the named angle",
+          "zh": "按圖上邊長而非相對指定角的位置核對邊名"
+        },
+        {
+          "en": "Switch to a different reference angle during the check",
+          "zh": "檢查途中改用另一個參照角"
+        }
+      ],
+      "answer": "Choose SOH, CAH, or TOA after labelling sides",
+      "explanation": {
+        "en": "Choose SOH, CAH, or TOA after labelling sides. This check is consistent with both the key fact (\\(\\cos\\theta = \\frac{\\text{adjacent}}{\\text{hypotenuse}}\\).) and the guided example (\\(\\tan\\theta = 6/8 = 3/4\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "標示邊後才選 SOH、CAH 或 TOA。這項檢查同時符合關鍵知識（\\(\\cos\\theta = \\frac{\\text{鄰邊}}{\\text{斜邊}}\\)。）和引導例題（\\(\\tan\\theta = 6/8 = 3/4\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-arc-length-sector-area-common-check",
+      "grade": "S3",
+      "topicId": "arc-length-sector-area",
+      "topic": {
+        "en": "Arc Length and Sector Area",
+        "zh": "弧長與扇形面積"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Arc Length and Sector Area?",
+        "zh": "哪項檢查最能避免「弧長與扇形面積」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Use length units for an arc and square units for a sector area",
+          "zh": "弧長使用長度單位，扇形面積使用平方單位"
+        },
+        {
+          "en": "Confirm a sector answer using angle/180 as its circle fraction",
+          "zh": "以圓心角／180 作圓的分數來核對扇形答案"
+        },
+        {
+          "en": "Use linear units for sector area",
+          "zh": "扇形面積使用長度單位"
+        },
+        {
+          "en": "Accept an arc length larger than the full circumference without revisiting the fraction",
+          "zh": "弧長大於整個圓周仍不重新檢查所取分數"
+        }
+      ],
+      "answer": "Use length units for an arc and square units for a sector area",
+      "explanation": {
+        "en": "Use length units for an arc and square units for a sector area. This check is consistent with both the key fact (Arc length \\(=(80/360)(2\\pi)(9)=4\\pi\\) cm, approximately \\(12.57\\) cm.) and the guided example (Sector area \\(=(120/360)\\pi(6^2)=12\\pi\\) cm², approximately \\(37.70\\) cm².); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "弧長使用長度單位，扇形面積使用平方單位。這項檢查同時符合關鍵知識（弧長 \\(=(80/360)(2\\pi)(9)=4\\pi\\) 厘米，約為 \\(12.57\\) 厘米。）和引導例題（扇形面積 \\(=(120/360)\\pi(6^2)=12\\pi\\) 平方厘米，約為 \\(37.70\\) 平方厘米。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-more-algebra-common-check-v2",
+      "grade": "S4",
+      "topicId": "more-algebra",
+      "topic": {
+        "en": "More Algebra",
+        "zh": "進階代數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in More Algebra?",
+        "zh": "哪項檢查最能避免「進階代數」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check every original denominator restriction remains stated after cancellation",
+          "zh": "約簡後仍要列出原式分母的所有限制"
+        },
+        {
+          "en": "Check the simplified form while omitting the original denominator restriction",
+          "zh": "核對約簡式時漏去原分母限制"
+        },
+        {
+          "en": "Substitute an excluded value because it works in the cancelled expression",
+          "zh": "因不容許值代入約簡式可計算便接受它"
+        },
+        {
+          "en": "Verify exponent division by subtracting bases instead of exponents",
+          "zh": "核對同底冪除法時把底數相減，而不是指數相減"
+        }
+      ],
+      "answer": "Check every original denominator restriction remains stated after cancellation",
+      "explanation": {
+        "en": "Check every original denominator restriction remains stated after cancellation. This check is consistent with both the key fact (\\(a^2-4=(a-2)(a+2)\\). Since \\(a \\ne 2\\), cancel \\(a-2\\) to obtain \\(a+2\\).) and the guided example (Factor the numerator: \\(b^2+3b=b(b+3)\\). Because \\(b \\ne 0\\), cancelling the nonzero factor \\(b\\) gives \\(b+3\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "約簡後仍要列出原式分母的所有限制。這項檢查同時符合關鍵知識（\\(a^2-4=(a-2)(a+2)\\)。因為 \\(a \\ne 2\\)，可約去 \\(a-2\\)，得 \\(a+2\\)。）和引導例題（先把分子因式分解：\\(b^2+3b=b(b+3)\\)。因為 \\(b \\ne 0\\)，可約去非零因子 \\(b\\)，得 \\(b+3\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-advanced-functions-common-check-v2",
+      "grade": "S5",
+      "topicId": "advanced-functions",
+      "topic": {
+        "en": "Advanced Functions",
+        "zh": "進階函數"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Advanced Functions?",
+        "zh": "哪項檢查最能避免「進階函數」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check that the logarithm base is positive and not 1, and that the argument is positive",
+          "zh": "檢查對數底數為正且不等於 1，並確保真數為正數"
+        },
+        {
+          "en": "Accept logarithm arguments equal to zero",
+          "zh": "接受等於零的對數真數"
+        },
+        {
+          "en": "Allow logarithm base 1 or a negative base",
+          "zh": "容許對數底為 1 或負數"
+        },
+        {
+          "en": "Check an inverse exponential-logarithm pair in only one direction",
+          "zh": "只按一個方向核對指數與對數的互逆關係"
+        }
+      ],
+      "answer": "Check that the logarithm base is positive and not 1, and that the argument is positive",
+      "explanation": {
+        "en": "Check that the logarithm base is positive and not 1, and that the argument is positive. This check is consistent with both the key fact (\\(\\log_3 81=4\\) because \\(3^4=81\\).) and the guided example (The logarithm argument must be positive: \\(x+2>0\\), so \\(x>-2\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "檢查對數底數為正且不等於 1，並確保真數為正數。這項檢查同時符合關鍵知識（\\(\\log_3 81=4\\)，因為 \\(3^4=81\\)。）和引導例題（對數的真數必須為正數：\\(x+2>0\\)，所以 \\(x>-2\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-trigonometry-s5-common-check-v2",
+      "grade": "S5",
+      "topicId": "trigonometry-s5",
+      "topic": {
+        "en": "Trigonometry",
+        "zh": "三角學"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Trigonometry?",
+        "zh": "哪項檢查最能避免「三角學」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Use the required interval when listing solutions",
+          "zh": "列解時必須使用題目指定區間"
+        },
+        {
+          "en": "Keep a negative amplitude instead of taking its magnitude",
+          "zh": "保留負振幅，而不取其大小"
+        },
+        {
+          "en": "Compare phase shift with period as though they were the same parameter",
+          "zh": "把相位移和週期當作同一參數比較"
+        },
+        {
+          "en": "Accept a solution list without checking whether either stated interval endpoint is also a solution",
+          "zh": "未檢查指定區間的端點是否也是解，便接受解列表"
+        }
+      ],
+      "answer": "Use the required interval when listing solutions",
+      "explanation": {
+        "en": "Use the required interval when listing solutions. This check is consistent with both the key fact (The basic sine graph repeats every \\(360^\\circ\\).) and the guided example (Amplitude is the absolute value of the multiplier.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "列解時必須使用題目指定區間。這項檢查同時符合關鍵知識（基本正弦圖像每 \\(360^\\circ\\) 重複一次。）和引導例題（振幅是乘數的絕對值。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-probability-s5-common-check-v2",
+      "grade": "S5",
+      "topicId": "probability-s5",
+      "topic": {
+        "en": "Probability",
+        "zh": "概率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Probability?",
+        "zh": "哪項檢查最能避免「概率」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Confirm equally likely individual outcomes, then update both the favourable count and total after a draw without replacement",
+          "zh": "先確認等可能的個別結果，再於不放回抽取後更新有利結果數目和總數"
+        },
+        {
+          "en": "Check that each colour receives probability one half",
+          "zh": "檢查每種顏色是否都獲分配二分之一概率"
+        },
+        {
+          "en": "Reuse the original total as the denominator after a ball is removed",
+          "zh": "抽走一球後仍以原來總數作分母"
+        },
+        {
+          "en": "Reverse the conditioning order and treat P(A|B) as P(B|A)",
+          "zh": "倒轉條件次序，把 P(A|B) 當作 P(B|A)"
+        }
+      ],
+      "answer": "Confirm equally likely individual outcomes, then update both the favourable count and total after a draw without replacement",
+      "explanation": {
+        "en": "Confirm equally likely individual outcomes, then update both the favourable count and total after a draw without replacement. This check is consistent with both the key fact (After one green ball is removed, the \\(4\\) remaining individual balls are equally likely and exactly \\(1\\) favourable ball is yellow, so the conditional probability is \\(1/4\\).) and the guided example (Count equally likely individual-ball branches, not the two colour labels. The second probability is conditional on the first red draw: \\((3/5)(2/4)=6/20=3/10\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "先確認等可能的個別結果，再於不放回抽取後更新有利結果數目和總數。這項檢查同時符合關鍵知識（抽走一個綠球後，餘下 \\(4\\) 個實體球是等可能結果，當中恰有 \\(1\\) 個有利結果是黃球，所以條件概率是 \\(1/4\\)。）和引導例題（應按等可能的個別球分支計算，而不是把兩種顏色各當一個等可能結果。第二次抽到紅球的概率以第一次已抽到紅球為條件：\\((3/5)(2/4)=6/20=3/10\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-differentiation-intro-common-check-v2",
+      "grade": "S5",
+      "topicId": "differentiation-intro",
+      "topic": {
+        "en": "Differentiation Intro — HKDSE Extended Part (M1/M2)",
+        "zh": "微分入門——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Differentiation Intro — HKDSE Extended Part (M1/M2)?",
+        "zh": "哪項檢查最能避免「微分入門——香港中學文憑延伸部分（M1/M2）」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Reduce the power by one after multiplying by the original power",
+          "zh": "檢查是否先乘以原來的指數，再把指數減 1"
+        },
+        {
+          "en": "Confirm only that every exponent has been reduced by one",
+          "zh": "只檢查每個指數是否已減一"
+        },
+        {
+          "en": "Treat the derivative at a point as the original function value",
+          "zh": "把某點的導數當作原函數值"
+        },
+        {
+          "en": "Keep a nonzero derivative for an additive constant",
+          "zh": "為加法常數保留非零導數"
+        }
+      ],
+      "answer": "Reduce the power by one after multiplying by the original power",
+      "explanation": {
+        "en": "Reduce the power by one after multiplying by the original power. This check is consistent with both the key fact (Power rule: \\(\\frac{d}{dx}x^n = nx^{n-1}\\).) and the guided example (A straight line \\(y=5x\\) has constant gradient \\(5\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "檢查是否先乘以原來的指數，再把指數減 1。這項檢查同時符合關鍵知識（冪法則：\\(\\frac{d}{dx}x^n = nx^{n-1}\\)。）和引導例題（直線 \\(y=5x\\) 的斜率固定為 \\(5\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-statistics-s6-common-check-v2",
+      "grade": "S6",
+      "topicId": "statistics-s6",
+      "topic": {
+        "en": "Statistics — HKDSE Extended Part M1",
+        "zh": "統計——香港中學文憑延伸部分 M1"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Statistics — HKDSE Extended Part M1?",
+        "zh": "哪項檢查最能避免「統計——香港中學文憑延伸部分 M1」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check that the standard deviation is greater than 0, then subtract the mean from the observed value and divide by the standard deviation",
+          "zh": "先檢查標準差大於 0，再以觀察值減平均數，然後除以標準差"
+        },
+        {
+          "en": "Verify z using (mean - x) divided by the standard deviation",
+          "zh": "以（平均數－x）除以標準差來核對 z"
+        },
+        {
+          "en": "Divide by the variance and accept the result as a standard score",
+          "zh": "除以方差並把結果當作標準分"
+        },
+        {
+          "en": "Accept a calculation whose standard deviation denominator is zero",
+          "zh": "接受以零作標準差分母的計算"
+        }
+      ],
+      "answer": "Check that the standard deviation is greater than 0, then subtract the mean from the observed value and divide by the standard deviation",
+      "explanation": {
+        "en": "Check that the standard deviation is greater than 0, then subtract the mean from the observed value and divide by the standard deviation. This check is consistent with both the key fact (The standard deviation is \\(5>0\\), so \\(z=(65-50)/5=3\\).) and the guided example (\\(z=0\\) means the value equals the mean.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "先檢查標準差大於 0，再以觀察值減平均數，然後除以標準差。這項檢查同時符合關鍵知識（標準差 \\(5>0\\)，所以 \\(z=(65-50)/5=3\\)。）和引導例題（\\(z=0\\) 表示數值等於平均數。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-mixed-problem-solving-common-check-v2",
+      "grade": "S6",
+      "topicId": "mixed-problem-solving",
+      "topic": {
+        "en": "Mixed Problem Solving",
+        "zh": "綜合解難"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Mixed Problem Solving?",
+        "zh": "哪項檢查最能避免「綜合解難」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check that graph, table, and equation use the same quantities and compatible units",
+          "zh": "檢查圖像、表格和方程使用相同數量及相容單位"
+        },
+        {
+          "en": "Compare graph and table numbers without reconciling their units",
+          "zh": "未統一單位便比較圖像和表格數字"
+        },
+        {
+          "en": "Accept a calculation made before the target variable is defined",
+          "zh": "未定義目標變量便接受已作的計算"
+        },
+        {
+          "en": "Substitute speed and time into the wrong positions in d = vt",
+          "zh": "在 d = vt 中把速率和時間代入錯誤位置"
+        }
+      ],
+      "answer": "Check that graph, table, and equation use the same quantities and compatible units",
+      "explanation": {
+        "en": "Check that graph, table, and equation use the same quantities and compatible units. This check is consistent with both the key fact (Match \\(d=36\\) and \\(t=1.5\\) across the two representations, then \\(v=d/t=36/1.5=24\\) km/h.) and the guided example (The graph gives \\(v=18/1.5=12\\) km/h. Connect that speed to the table's total time: \\(d=vt=12(2.5)=30\\) km.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "檢查圖像、表格和方程使用相同數量及相容單位。這項檢查同時符合關鍵知識（把兩種表示方式中的 \\(d=36\\) 和 \\(t=1.5\\) 配對，再算 \\(v=d/t=36/1.5=24\\) 公里每小時。）和引導例題（由圖像得 \\(v=18/1.5=12\\) 公里每小時，再把該速率連繫到表格的總時間：\\(d=vt=12(2.5)=30\\) 公里。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p5-volume-first-step-v2",
+      "grade": "P5",
+      "topicId": "p5-volume",
+      "topic": {
+        "en": "Volume",
+        "zh": "體積"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Volume, which action is the best first step?",
+        "zh": "開始處理關於「體積」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Identify length, width, and height before multiplying",
+          "zh": "先辨認長、闊和高，再相乘"
+        },
+        {
+          "en": "Add length, width, and height to find volume",
+          "zh": "把長、闊和高相加來求體積"
+        },
+        {
+          "en": "Use square centimetres for a three-dimensional capacity",
+          "zh": "以平方厘米表示三維容量"
+        },
+        {
+          "en": "Multiply only the two dimensions visible on the front face",
+          "zh": "只把正面可見的兩個尺寸相乘"
+        }
+      ],
+      "answer": "Identify length, width, and height before multiplying",
+      "explanation": {
+        "en": "Identify length, width, and height before multiplying. The topic's key fact shows why this structure matters: Height \\(= 48 \\div (4 \\times 3) = 4\\) cm. The alternatives instead encode these specific misconceptions: “Add length, width, and height to find volume”; “Use square centimetres for a three-dimensional capacity”; “Multiply only the two dimensions visible on the front face”.",
+        "zh": "先辨認長、闊和高，再相乘。本課題的關鍵知識說明這個結構為何重要：高 \\(= 48 \\div (4 \\times 3) = 4\\) 厘米。 其餘選項分別包含以下具體誤解：「把長、闊和高相加來求體積」；「以平方厘米表示三維容量」；「只把正面可見的兩個尺寸相乘」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p5-charts-averages-first-step-v2",
+      "grade": "P5",
+      "topicId": "p5-charts-averages",
+      "topic": {
+        "en": "Compound Bar Charts",
+        "zh": "複合棒形圖"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Compound Bar Charts, which action is the best first step?",
+        "zh": "開始處理關於「複合棒形圖」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Use the legend to identify both series before reading the paired data values",
+          "zh": "先用圖例辨認兩組數據，再讀取相應數值"
+        },
+        {
+          "en": "Compare bars from different categories because their colours match",
+          "zh": "只因顏色相同，便比較不同類別的棒"
+        },
+        {
+          "en": "Read a bar value from its pixel height without using the axis interval",
+          "zh": "不使用坐標軸間距，只按棒的像素高度讀值"
+        },
+        {
+          "en": "Use the difference between two bar heights as their combined total",
+          "zh": "把兩支棒的高度差當作兩者總和"
+        }
+      ],
+      "answer": "Use the legend to identify both series before reading the paired data values",
+      "explanation": {
+        "en": "Use the legend to identify both series before reading the paired data values. The topic's key fact shows why this structure matters: \\(9+6=15\\). The alternatives instead encode these specific misconceptions: “Compare bars from different categories because their colours match”; “Read a bar value from its pixel height without using the axis interval”; “Use the difference between two bar heights as their combined total”.",
+        "zh": "先用圖例辨認兩組數據，再讀取相應數值。本課題的關鍵知識說明這個結構為何重要：\\(9+6=15\\)。 其餘選項分別包含以下具體誤解：「只因顏色相同，便比較不同類別的棒」；「不使用坐標軸間距，只按棒的像素高度讀值」；「把兩支棒的高度差當作兩者總和」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p6-ratio-proportion-first-step-v2",
+      "grade": "P6",
+      "topicId": "p6-ratio-proportion",
+      "topic": {
+        "en": "Averages and Broken-Line Graphs",
+        "zh": "平均數與折線圖"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Averages and Broken-Line Graphs, which action is the best first step?",
+        "zh": "開始處理關於「平均數與折線圖」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "For a mean, find total divided by count; for a broken-line graph, read the ordered axes and units",
+          "zh": "求平均數時用總和除以數據個數；閱讀折線圖時先看有序坐標軸和單位"
+        },
+        {
+          "en": "Divide the count by the total when finding a mean",
+          "zh": "求平均數時以數據個數除以總和"
+        },
+        {
+          "en": "Sort the values and choose the middle one instead of calculating the mean",
+          "zh": "把數值排序後選中間一個，而不計算平均數"
+        },
+        {
+          "en": "Join categorical values with a line even when no ordered or continuous sequence exists",
+          "zh": "即使數據沒有有序或連續次序，仍把類別數值連成折線"
+        }
+      ],
+      "answer": "For a mean, find total divided by count; for a broken-line graph, read the ordered axes and units",
+      "explanation": {
+        "en": "For a mean, find total divided by count; for a broken-line graph, read the ordered axes and units. The topic's key fact shows why this structure matters: Mean \\(=\\) total \\(\\div\\) count \\(=(6+8+10)\\div3=8\\). The alternatives instead encode these specific misconceptions: “Divide the count by the total when finding a mean”; “Sort the values and choose the middle one instead of calculating the mean”; “Join categorical values with a line even when no ordered or continuous sequence exists”.",
+        "zh": "求平均數時用總和除以數據個數；閱讀折線圖時先看有序坐標軸和單位。本課題的關鍵知識說明這個結構為何重要：平均數 \\(=\\) 總和 \\(\\div\\) 數據個數 \\(=(6+8+10)\\div3=8\\)。 其餘選項分別包含以下具體誤解：「求平均數時以數據個數除以總和」；「把數值排序後選中間一個，而不計算平均數」；「即使數據沒有有序或連續次序，仍把類別數值連成折線」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-statistics-s1-first-step-v2",
+      "grade": "S1",
+      "topicId": "statistics-s1",
+      "topic": {
+        "en": "Statistics",
+        "zh": "統計"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Statistics, which action is the best first step?",
+        "zh": "開始處理關於「統計」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Order or organize the data before choosing an average",
+          "zh": "先整理或排序數據，再選擇平均數"
+        },
+        {
+          "en": "Calculate a mean before deciding whether the data are numerical",
+          "zh": "未判斷數據是否屬數值，便先計算平均數"
+        },
+        {
+          "en": "Order category names alphabetically and treat their positions as values",
+          "zh": "按字母次序排列類別名稱，並把位置當作數值"
+        },
+        {
+          "en": "Infer the whole distribution from one unusually high observation",
+          "zh": "只憑一個特別高的觀察值推斷整個分佈"
+        }
+      ],
+      "answer": "Order or organize the data before choosing an average",
+      "explanation": {
+        "en": "Order or organize the data before choosing an average. The topic's key fact shows why this structure matters: Range is highest minus lowest: \\(12 - 3 = 9\\). The alternatives instead encode these specific misconceptions: “Calculate a mean before deciding whether the data are numerical”; “Order category names alphabetically and treat their positions as values”; “Infer the whole distribution from one unusually high observation”.",
+        "zh": "先整理或排序數據，再選擇平均數。本課題的關鍵知識說明這個結構為何重要：全距是最大值減最小值：\\(12 - 3 = 9\\)。 其餘選項分別包含以下具體誤解：「未判斷數據是否屬數值，便先計算平均數」；「按字母次序排列類別名稱，並把位置當作數值」；「只憑一個特別高的觀察值推斷整個分佈」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-differentiation-intro-first-step-v2",
+      "grade": "S5",
+      "topicId": "differentiation-intro",
+      "topic": {
+        "en": "Differentiation Intro — HKDSE Extended Part (M1/M2)",
+        "zh": "微分入門——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "When starting a question about Differentiation Intro — HKDSE Extended Part (M1/M2), which action is the best first step?",
+        "zh": "開始處理關於「微分入門——香港中學文憑延伸部分（M1/M2）」的題目時，哪項行動是最佳的第一步？"
+      },
+      "options": [
+        {
+          "en": "Interpret derivative as gradient or rate of change",
+          "zh": "先把導數理解為斜率或變化率"
+        },
+        {
+          "en": "Reduce the exponent before multiplying by the original exponent",
+          "zh": "未乘原來指數，便先把指數減一"
+        },
+        {
+          "en": "Subtract one from the coefficient instead of the power",
+          "zh": "把係數減一，而不是把次方減一"
+        },
+        {
+          "en": "Carry an additive constant into the derivative unchanged",
+          "zh": "把加法常數原封不動寫進導數"
+        }
+      ],
+      "answer": "Interpret derivative as gradient or rate of change",
+      "explanation": {
+        "en": "Interpret derivative as gradient or rate of change. The topic's key fact shows why this structure matters: Power rule: \\(\\frac{d}{dx}x^n = nx^{n-1}\\). The alternatives instead encode these specific misconceptions: “Reduce the exponent before multiplying by the original exponent”; “Subtract one from the coefficient instead of the power”; “Carry an additive constant into the derivative unchanged”.",
+        "zh": "先把導數理解為斜率或變化率。本課題的關鍵知識說明這個結構為何重要：冪法則：\\(\\frac{d}{dx}x^n = nx^{n-1}\\)。 其餘選項分別包含以下具體誤解：「未乘原來指數，便先把指數減一」；「把係數減一，而不是把次方減一」；「把加法常數原封不動寫進導數」。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-ratios-common-check-v2",
+      "grade": "S1",
+      "topicId": "ratios",
+      "topic": {
+        "en": "Ratios",
+        "zh": "比與率"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Ratios?",
+        "zh": "哪項檢查最能避免「比與率」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Keep the same multiplier on every part",
+          "zh": "每一份都要使用同一倍數"
+        },
+        {
+          "en": "Confirm equivalence after dividing only one ratio term",
+          "zh": "只把比的一項相除後便確認等值"
+        },
+        {
+          "en": "Use the sum of the first ratio term and the total as the number of sharing parts",
+          "zh": "把比的第一項與總量相加作分配份數"
+        },
+        {
+          "en": "Treat a part-to-part ratio as though its second term were the whole",
+          "zh": "把部分與部分的比當作第二項就是整體"
+        }
+      ],
+      "answer": "Keep the same multiplier on every part",
+      "explanation": {
+        "en": "Keep the same multiplier on every part. This check is consistent with both the key fact (\\(3 + 5 = 8\\) total parts.) and the guided example (One part is \\(40 / 8 = 5\\); the smaller share is \\(3 \\times 5 = 15\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "每一份都要使用同一倍數。這項檢查同時符合關鍵知識（總份數為 \\(3 + 5 = 8\\)。）和引導例題（每份是 \\(40 / 8 = 5\\)；較小份是 \\(3 \\times 5 = 15\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-statistics-s1-common-check-v2",
+      "grade": "S1",
+      "topicId": "statistics-s1",
+      "topic": {
+        "en": "Statistics",
+        "zh": "統計"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Statistics?",
+        "zh": "哪項檢查最能避免「統計」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Sort the data before finding the median",
+          "zh": "求中位數前必須先排序"
+        },
+        {
+          "en": "Read the median before sorting the observations",
+          "zh": "未排列觀察值便讀取中位數"
+        },
+        {
+          "en": "Use the range as the number of observations",
+          "zh": "把全距當作觀察值個數"
+        },
+        {
+          "en": "Accept a visual difference without checking whether the vertical axis is truncated",
+          "zh": "未檢查縱軸是否截斷，便接受圖上的視覺差異"
+        }
+      ],
+      "answer": "Sort the data before finding the median",
+      "explanation": {
+        "en": "Sort the data before finding the median. This check is consistent with both the key fact (Range is highest minus lowest: \\(12 - 3 = 9\\).) and the guided example (Order the data as \\(2, 5, 9\\); the middle value is \\(5\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "求中位數前必須先排序。這項檢查同時符合關鍵知識（全距是最大值減最小值：\\(12 - 3 = 9\\)。）和引導例題（排序為 \\(2, 5, 9\\)；中間值是 \\(5\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-polynomials-common-check-v2",
+      "grade": "S3",
+      "topicId": "polynomials",
+      "topic": {
+        "en": "Polynomials",
+        "zh": "多項式"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Polynomials?",
+        "zh": "哪項檢查最能避免「多項式」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check factorization by expanding back",
+          "zh": "因式分解後用展開檢查"
+        },
+        {
+          "en": "Re-expand and accept a result with unlike powers merged",
+          "zh": "重新展開後仍接受合併了不同次方項的結果"
+        },
+        {
+          "en": "Check a factorisation at only x = 0",
+          "zh": "只在 x = 0 時檢查因式分解"
+        },
+        {
+          "en": "Verify the constant term but not the leading or middle terms",
+          "zh": "只核對常數項，不核對首項和中間項"
+        }
+      ],
+      "answer": "Check factorization by expanding back",
+      "explanation": {
+        "en": "Check factorization by expanding back. This check is consistent with both the key fact (Like terms with \\(x^2\\) can be combined.) and the guided example (Multiply \\(x\\) into each term.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "因式分解後用展開檢查。這項檢查同時符合關鍵知識（含 \\(x^2\\) 的同類項可以合併。）和引導例題（把 \\(x\\) 分別乘入每一項。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-identities-square-patterns-common-check",
+      "grade": "S3",
+      "topicId": "identities-square-patterns",
+      "topic": {
+        "en": "Algebraic Identities and Square Patterns",
+        "zh": "代數恆等式與平方圖樣"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Algebraic Identities and Square Patterns?",
+        "zh": "哪項檢查最能避免「代數恆等式與平方圖樣」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Expand the factors to verify every term and sign",
+          "zh": "把因式重新展開，檢查每一項和正負號"
+        },
+        {
+          "en": "Verify the identity at one convenient numerical pair only",
+          "zh": "只用一組方便的數值核對恆等式"
+        },
+        {
+          "en": "Accept an expansion whose middle term is missing",
+          "zh": "接受漏去中間項的展開式"
+        },
+        {
+          "en": "Use the same positive middle term for both squared sum and squared difference",
+          "zh": "和的平方與差的平方都使用相同的正中間項"
+        }
+      ],
+      "answer": "Expand the factors to verify every term and sign",
+      "explanation": {
+        "en": "Expand the factors to verify every term and sign. This check is consistent with both the key fact (The two equal rectangles each have area \\(ab\\), so the middle term is \\(2ab\\).) and the guided example (\\(a^2-b^2 \\equiv (a-b)(a+b)\\) is the difference-of-squares identity.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "把因式重新展開，檢查每一項和正負號。這項檢查同時符合關鍵知識（兩個相等長方形的面積各為 \\(ab\\)，所以中間項是 \\(2ab\\)。）和引導例題（\\(a^2-b^2 \\equiv (a-b)(a+b)\\) 是平方差恆等式。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-circles-common-check-v2",
+      "grade": "S4",
+      "topicId": "circles",
+      "topic": {
+        "en": "Circle Geometry",
+        "zh": "圓幾何"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Circle Geometry?",
+        "zh": "哪項檢查最能避免「圓幾何」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Mark radii and equal lengths on the diagram",
+          "zh": "在圖中標示半徑和相等長度"
+        },
+        {
+          "en": "Use the doubling relation between the angle at the centre and the angle at the circumference without confirming that they stand on the same arc",
+          "zh": "未確認兩角由同一弧所對，便使用圓心角與圓周角的倍數關係"
+        },
+        {
+          "en": "Confirm a tangent theorem away from the point of contact",
+          "zh": "在接觸點以外的位置核對切線定理"
+        },
+        {
+          "en": "Treat every chord as a radius when marking equal lengths",
+          "zh": "標示相等長度時把每條弦都當作半徑"
+        }
+      ],
+      "answer": "Mark radii and equal lengths on the diagram",
+      "explanation": {
+        "en": "Mark radii and equal lengths on the diagram. This check is consistent with both the key fact (A tangent is perpendicular to the radius at the point of contact.) and the guided example (The angle at the centre is twice the angle at the circumference standing on the same arc.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "在圖中標示半徑和相等長度。這項檢查同時符合關鍵知識（切線垂直於接觸點的半徑。）和引導例題（同一弧所對的圓心角是圓周角的兩倍。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-calculus-common-check-v2",
+      "grade": "S6",
+      "topicId": "calculus",
+      "topic": {
+        "en": "Calculus — HKDSE Extended Part (M1/M2)",
+        "zh": "微積分——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Calculus — HKDSE Extended Part (M1/M2)?",
+        "zh": "哪項檢查最能避免「微積分——香港中學文憑延伸部分（M1/M2）」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Check the sign of f'(x) on both sides of a stationary point before classifying it",
+          "zh": "為駐點分類前，檢查駐點兩側 f'(x) 的正負"
+        },
+        {
+          "en": "Check only that f'(x)=0 and ignore the signs on both sides",
+          "zh": "只檢查 f'(x)=0，而忽略駐點兩側的符號"
+        },
+        {
+          "en": "Treat the function value as though it were the tangent gradient",
+          "zh": "把函數值當作切線斜率"
+        },
+        {
+          "en": "Identify a maximum when f'(x) changes from negative to positive",
+          "zh": "f'(x) 由負變正時判定為極大值"
+        }
+      ],
+      "answer": "Check the sign of f'(x) on both sides of a stationary point before classifying it",
+      "explanation": {
+        "en": "Check the sign of f'(x) on both sides of a stationary point before classifying it. This check is consistent with both the key fact (Because \\(f'(x)<0\\) throughout the interval, \\(f\\) is decreasing there.) and the guided example (Use the power rule: \\(4 \\times 2x = 8x\\).); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "為駐點分類前，檢查駐點兩側 f'(x) 的正負。這項檢查同時符合關鍵知識（由於整個區間內 \\(f'(x)<0\\)，所以 \\(f\\) 在該區間遞減。）和引導例題（用冪法則：\\(4 \\times 2x = 8x\\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-exam-revision-common-check-v2",
+      "grade": "S6",
+      "topicId": "exam-revision",
+      "topic": {
+        "en": "Exam Revision",
+        "zh": "考試溫習"
+      },
+      "difficulty": "Medium",
+      "type": "multiple-choice",
+      "prompt": {
+        "en": "Which check best prevents a typical mistake in Exam Revision?",
+        "zh": "哪項檢查最能避免「考試溫習」中的典型錯誤？"
+      },
+      "options": [
+        {
+          "en": "Leave time for checking high-mark answers",
+          "zh": "預留時間檢查高分題"
+        },
+        {
+          "en": "Verify marks per minute when the required unit is minutes per mark",
+          "zh": "題目要求分鐘／分時卻核對分／分鐘"
+        },
+        {
+          "en": "Accept a rounded value with fewer decimal places than requested",
+          "zh": "接受少於題目指定小數位的近似值"
+        },
+        {
+          "en": "Allocate question times whose total exceeds the paper duration",
+          "zh": "接受各題分配時間總和超過試卷時限"
+        }
+      ],
+      "answer": "Leave time for checking high-mark answers",
+      "explanation": {
+        "en": "Leave time for checking high-mark answers. This check is consistent with both the key fact (\\(120/90=1.333\\ldots\\), so the time is \\(1.33\\) minutes per mark to 2 decimal places.) and the guided example (\\(9/6=1.5\\), which is \\(1.50\\) minutes per mark to 2 decimal places.); the other checks would preserve a topic-specific error rather than expose it.",
+        "zh": "預留時間檢查高分題。這項檢查同時符合關鍵知識（\\(120/90=1.333\\ldots\\)，所以取至小數點後兩位是 \\(1.33\\) 分鐘／分。）和引導例題（\\(9/6=1.5\\)，取至小數點後兩位是 \\(1.50\\) 分鐘／分。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-p3-multiplication-division-guided-example-v2",
+      "grade": "P3",
+      "topicId": "p3-multiplication-division",
+      "topic": {
+        "en": "Multiplication and Division",
+        "zh": "乘法與除法"
+      },
+      "difficulty": "Medium",
+      "type": "short-answer",
+      "prompt": {
+        "en": "\\(47\\) cards are shared equally among \\(4\\) pupils. How many cards does each pupil get, and how many remain?",
+        "zh": "把 \\(47\\) 張卡平均分給 \\(4\\) 位同學。每人有多少張，餘下多少張？"
+      },
+      "answer": "11 each, 3 remain",
+      "explanation": {
+        "en": "\\(47=4 \\times 11+3\\), so each pupil gets \\(11\\) cards and \\(3\\) remain.",
+        "zh": "\\(47=4 \\times 11+3\\)，所以每人有 \\(11\\) 張，餘下 \\(3\\) 張。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "11each,3remain",
+        "每人11張，餘3張",
+        "每人 11 張，餘 3 張",
+        "每人11張，餘下3張",
+        "每人 11 張，餘下 3 張",
+        "商11餘3",
+        "商 11 餘 3"
+      ]
+    },
+    {
+      "id": "q2",
+      "grade": "S1",
+      "topicId": "algebra-basics",
+      "topic": {
+        "en": "Algebra Basics",
+        "zh": "代數基礎"
+      },
+      "difficulty": "Low",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Simplify: \\(3x + 2x\\)",
+        "zh": "化簡：\\(3x + 2x\\)"
+      },
+      "answer": "5x",
+      "acceptedAnswers": [
+        "5 x",
+        "5*x"
+      ],
+      "explanation": {
+        "en": "Like terms can be added: \\(3x + 2x = 5x\\).",
+        "zh": "同類項可以相加：\\(3x + 2x = 5x\\)。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-algebra-basics-key-fact",
+      "grade": "S1",
+      "topicId": "algebra-basics",
+      "topic": {
+        "en": "Algebra Basics",
+        "zh": "代數基礎"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Simplify \\(4a + 3a\\).",
+        "zh": "化簡 \\(4a + 3a\\)。"
+      },
+      "answer": "7a",
+      "explanation": {
+        "en": "The coefficients add: \\(4a + 3a = 7a\\).",
+        "zh": "同類項的係數相加：\\(4a + 3a = 7a\\)。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "7 a",
+        "7*a"
+      ]
+    },
+    {
+      "id": "q18",
+      "grade": "S3",
+      "topicId": "polynomials",
+      "topic": {
+        "en": "Polynomials",
+        "zh": "多項式"
+      },
+      "difficulty": "Medium",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Expand: \\((x + 3)(x + 2)\\).",
+        "zh": "展開：\\((x + 3)(x + 2)\\)。"
+      },
+      "answer": "x^2 + 5x + 6",
+      "explanation": {
+        "en": "Multiply each term: \\(x^2 + 2x + 3x + 6 = x^2 + 5x + 6\\).",
+        "zh": "逐項相乘：\\(x^2 + 2x + 3x + 6 = x^2 + 5x + 6\\)。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "x^2+5x+6"
+      ]
+    },
+    {
+      "id": "supp-polynomials-key-fact-v2",
+      "grade": "S3",
+      "topicId": "polynomials",
+      "topic": {
+        "en": "Polynomials",
+        "zh": "多項式"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Simplify \\(2x^2 + 5x^2\\).",
+        "zh": "化簡 \\(2x^2 + 5x^2\\)。"
+      },
+      "answer": "7x^2",
+      "explanation": {
+        "en": "Like terms with \\(x^2\\) can be combined.",
+        "zh": "含 \\(x^2\\) 的同類項可以合併。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "7*x^2"
+      ]
+    },
+    {
+      "id": "supp-polynomials-guided-example",
+      "grade": "S3",
+      "topicId": "polynomials",
+      "topic": {
+        "en": "Polynomials",
+        "zh": "多項式"
+      },
+      "difficulty": "Medium",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Expand \\(x(x + 4)\\).",
+        "zh": "展開 \\(x(x + 4)\\)。"
+      },
+      "answer": "x^2 + 4x",
+      "explanation": {
+        "en": "Multiply \\(x\\) into each term.",
+        "zh": "把 \\(x\\) 分別乘入每一項。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "x^2+4x"
+      ]
+    },
+    {
+      "id": "hk-s3-identities-square-patterns-1",
+      "grade": "S3",
+      "topicId": "identities-square-patterns",
+      "topic": {
+        "en": "Algebraic Identities and Square Patterns",
+        "zh": "代數恆等式與平方圖樣"
+      },
+      "difficulty": "Medium",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Expand \\((a+b)^2\\).",
+        "zh": "展開 \\((a+b)^2\\)。"
+      },
+      "answer": "a^2 + 2ab + b^2",
+      "acceptedAnswers": [
+        "a^2+2ab+b^2",
+        "b^2 + 2ab + a^2",
+        "b^2+2ab+a^2"
+      ],
+      "explanation": {
+        "en": "The square is split into areas \\(a^2\\), \\(ab\\), \\(ab\\), and \\(b^2\\), so \\((a+b)^2 \\equiv a^2+2ab+b^2\\).",
+        "zh": "正方形分成 \\(a^2\\)、\\(ab\\)、\\(ab\\) 和 \\(b^2\\) 四部分，所以 \\((a+b)^2 \\equiv a^2+2ab+b^2\\)。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "supp-identities-square-patterns-key-fact",
+      "grade": "S3",
+      "topicId": "identities-square-patterns",
+      "topic": {
+        "en": "Algebraic Identities and Square Patterns",
+        "zh": "代數恆等式與平方圖樣"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Complete the identity: \\((a-b)^2 \\equiv a^2-\\square+b^2\\).",
+        "zh": "完成恆等式：\\((a-b)^2 \\equiv a^2-\\square+b^2\\)。"
+      },
+      "answer": "2ab",
+      "explanation": {
+        "en": "The two equal rectangles each have area \\(ab\\), so the middle term is \\(2ab\\).",
+        "zh": "兩個相等長方形的面積各為 \\(ab\\)，所以中間項是 \\(2ab\\)。"
+      },
+      "curriculumTrack": "HK"
+    },
+    {
+      "id": "q10-v2",
+      "grade": "S5",
+      "topicId": "differentiation-intro",
+      "topic": {
+        "en": "Differentiation Intro — HKDSE Extended Part (M1/M2)",
+        "zh": "微分入門——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Medium",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Differentiate \\(y = x^2\\) with respect to \\(x\\).",
+        "zh": "對 \\(y = x^2\\) 關於 \\(x\\) 求導。"
+      },
+      "answer": "2x",
+      "explanation": {
+        "en": "Using the power rule, \\(\\frac{d}{dx}(x^2) = 2x\\).",
+        "zh": "利用冪法則，\\(\\frac{d}{dx}(x^2) = 2x\\)。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "2 x",
+        "2*x"
+      ]
+    },
+    {
+      "id": "supp-differentiation-intro-key-fact-v2",
+      "grade": "S5",
+      "topicId": "differentiation-intro",
+      "topic": {
+        "en": "Differentiation Intro — HKDSE Extended Part (M1/M2)",
+        "zh": "微分入門——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Differentiate \\(x^3\\).",
+        "zh": "求 \\(x^3\\) 的導數。"
+      },
+      "answer": "3x^2",
+      "explanation": {
+        "en": "Power rule: \\(\\frac{d}{dx}x^n = nx^{n-1}\\).",
+        "zh": "冪法則：\\(\\frac{d}{dx}x^n = nx^{n-1}\\)。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "3*x^2"
+      ]
+    },
+    {
+      "id": "supp-calculus-guided-example-v2",
+      "grade": "S6",
+      "topicId": "calculus",
+      "topic": {
+        "en": "Calculus — HKDSE Extended Part (M1/M2)",
+        "zh": "微積分——香港中學文憑延伸部分（M1/M2）"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Differentiate \\(4x^2\\).",
+        "zh": "求 \\(4x^2\\) 的導數。"
+      },
+      "answer": "8x",
+      "explanation": {
+        "en": "Use the power rule: \\(4 \\times 2x = 8x\\).",
+        "zh": "用冪法則：\\(4 \\times 2x = 8x\\)。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "8 x",
+        "8*x"
+      ]
+    },
+    {
+      "id": "supp-p5-volume-key-fact-v2",
+      "grade": "P5",
+      "topicId": "p5-volume",
+      "topic": {
+        "en": "Volume",
+        "zh": "體積"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "A tank has volume \\(48\\) cm^3, length \\(4\\) cm, and width \\(3\\) cm. What is its height?",
+        "zh": "一個水箱體積是 \\(48\\) 立方厘米，長 \\(4\\) 厘米、闊 \\(3\\) 厘米。高是多少？"
+      },
+      "answer": "4 cm",
+      "explanation": {
+        "en": "Height \\(= 48 \\div (4 \\times 3) = 4\\) cm.",
+        "zh": "高 \\(= 48 \\div (4 \\times 3) = 4\\) 厘米。"
+      },
+      "curriculumTrack": "HK",
+      "acceptedAnswers": [
+        "4cm",
+        "4 厘米"
+      ]
+    },
+    {
+      "id": "graph-p4-decimals-number-line",
+      "difficulty": "Low",
+      "type": "graph",
+      "prompt": {
+        "en": "The number line shows point P between 3 and 4. Each small tick is 0.1. What decimal does P represent?",
+        "zh": "數線上點 P 在 3 和 4 之間，每小格是 0.1。P 代表哪個小數？"
+      },
+      "answer": "3.7",
+      "explanation": {
+        "en": "Each tick is \\(0.1\\). P is \\(7\\) ticks after \\(3\\), so P \\(= 3.7\\).",
+        "zh": "每小格是 \\(0.1\\)。P 在 \\(3\\) 之後第 \\(7\\) 格，所以 P \\(= 3.7\\)。"
+      },
+      "diagram": {
+        "kind": "number-line",
+        "range": [
+          3,
+          4
+        ],
+        "tickInterval": 0.1,
+        "points": [
+          {
+            "value": 3.7,
+            "label": "P"
+          }
+        ]
+      },
+      "grade": "P4",
+      "topicId": "p4-decimals",
+      "topic": {
+        "en": "Decimals",
+        "zh": "小數"
+      },
+      "curriculumTrack": "HK"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "hk-ease-v4-runtime-successor-provenance-v1",
+  "status": "independently-reviewed-runtime-successor-candidate-production-cascade-hold",
+  "sourceClassification": "pre-existing-unattributed-postimage-adopted-only-after-independent-review",
+  "ownerAttribution": null,
+  "ownerEvidence": "no durable original-owner or authorization artifact was present when the 11c postimage was observed",
+  "adoptionBoundary": "the observed postimage is adopted only as a reviewed immutable successor; historical 697c remains the predecessor and is never rewritten",
+  "builderBinding": {
+    "path": "coordination/content-qa/build-hk-ease-v4-runtime-successor-provenance.ts",
+    "sha256": "8a761a71b4dc7940b056737ebdf68b3508a01fa73aecc6b2d1fc6d30c876ba6e",
+    "byteLength": 13131
+  },
+  "predecessor": {
+    "logicalPath": "lib/hongKongEaseIndependentOracleV4.ts",
+    "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1.ts.snapshot",
+    "sha256": "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1",
+    "byteLength": 192607,
+    "modePolicy": "immutable-content-addressed-0444"
+  },
+  "successor": {
+    "logicalPath": "lib/hongKongEaseIndependentOracleV4.ts",
+    "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-runtime-successor-provenance/sha256/11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c.ts.snapshot",
+    "sha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c",
+    "byteLength": 210235,
+    "modePolicy": "immutable-content-addressed-0444",
+    "liveBytesMustEqualSnapshot": true
+  },
+  "supplement": {
+    "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+    "sha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+    "byteLength": 4313749,
+    "rowCount": 701,
+    "rowsPayloadSha256": "315a47b34b0e48eeb4674e3b7b88f3de0b6ed1b5ce0348b1afe4cb64ae43f335"
+  },
+  "predecessorFocusedTest": {
+    "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+    "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472.ts.snapshot",
+    "sha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+    "byteLength": 97702
+  },
+  "independentHardeningTest": {
+    "path": "coordination/content-qa/hk-ease-v4-runtime-successor-hardening.test.ts",
+    "sha256": "4508e5707db45f0e6c552437e36e333926adb8bb0d5aba0a31625da516e1ae8c",
+    "byteLength": 15999
+  },
+  "step0SuccessorPolicyTest": {
+    "path": "coordination/content-qa/hk-ease-exact3-step0-immutable-preimage-relocation.test.ts",
+    "sha256": "3dd7c2bbc19647a54127fb6354a5c17aaf604a87545e6bce0f4b9f1336746a59",
+    "byteLength": 41597
+  },
+  "historicalStep0Receipt": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+    "sha256": "9d661d739710a72c9a4744e224f221ffe808632dacb12b63d49c39fe4886262e",
+    "role": "historical-predecessor-relocation-receipt-unchanged"
+  },
+  "parallelPhase2ACandidateBoundary": {
+    "status": "out-of-scope-not-adopted-by-this-lineage",
+    "policy": "this runtime lineage neither reads nor blesses Phase2A candidate bytes; later candidate regeneration cannot rewrite or invalidate the 697c-to-11c provenance"
+  },
+  "exactDiff": {
+    "predecessorSha256": "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1",
+    "successorSha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c",
+    "hunkCount": 21,
+    "additions": 568,
+    "deletions": 20,
+    "categories": [
+      "strict-plain-JSON-prototype-symbol-descriptor-and-enumerability-guards",
+      "strict-array-density-order-and-finite-value-guards",
+      "cycle-safe-strict-JSON-data-validation",
+      "replay-bound-expression-factor-payload-variants",
+      "registered-operation-allowlist-and-exhaustive-dispatch",
+      "exact-parameter-and-output-key-schemas",
+      "select-unique-option-input-consumption-and-output-binding"
+    ]
+  },
+  "review": {
+    "currentPositiveCorpus": {
+      "supplementSha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+      "rowsPayloadSha256": "315a47b34b0e48eeb4674e3b7b88f3de0b6ed1b5ce0348b1afe4cb64ae43f335",
+      "expectedPassCount": 701,
+      "expectedFailCount": 0
+    },
+    "mutationCoverage": [
+      "exotic-prototype",
+      "symbol-key",
+      "accessor-property",
+      "non-enumerable-property",
+      "sparse-array",
+      "cyclic-data",
+      "non-finite-number",
+      "unknown-operation",
+      "parameter-schema-drift",
+      "output-schema-drift",
+      "factor-payload-drift",
+      "select-unique-option-consumption-drift",
+      "signed-zero-value-distinction",
+      "array-order-drift",
+      "value-drift",
+      "plain-object-key-reorder-differential"
+    ],
+    "acceptanceExpansionPolicy": "only-plain-JSON-object-key-order-is-relaxed-arrays-order-and-values-remain-strict",
+    "failClosedPolicy": "all non-allowlisted shape-operation-schema-factor-selector-array-or-value mutations reject"
+  },
+  "successorPolicy": {
+    "predecessorCount": 1,
+    "authorizedSuccessorCount": 1,
+    "acceptedLiveSha256": [
+      "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1",
+      "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c"
+    ],
+    "arbitraryLiveDriftAccepted": false,
+    "lineage": "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1->11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c"
+  },
+  "promotion": {
+    "status": "hold-not-authorized-for-production-cascade",
+    "authorizedActions": [
+      "preserve-11c-as-content-addressed-immutable-successor",
+      "independently-verify-runtime-semantics-and-provenance"
+    ],
+    "forbiddenActions": [
+      "rewrite-697c-predecessor",
+      "edit-live-runtime",
+      "edit-v4-artifacts",
+      "edit-phase2a-candidate",
+      "promote-exact3-live",
+      "release"
+    ]
+  },
+  "authorityPayloadSha256": "61cc8a5449690174b1f185ae91af03da913db2f47e32750d7228adf07b46fe0d"
+}

@@ -1,0 +1,4275 @@
+{
+  "schemaVersion": "hk-ease-v4-independent-pass1-review-red-v1",
+  "status": "red-not-approved",
+  "reviewer": "A18-independent-hk-ease-v4",
+  "task": "/root/hk_ease_v4_independent_review",
+  "reviewBoundary": "READ_ONLY; pass1 sole input v4-sanitized prompt/options/diagram; no production answer/acceptedAnswers/explanations/v3 oracle; pass2 one post-derivation join to v4 supplement/oracle; no writes/tests/npm/tsc/browser/Git/signals",
+  "completedAt": "2026-08-19T02:06:24Z",
+  "evidence": {
+    "design": {
+      "classification": "immutable-artifact-resolvable",
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-derivation-design-contract.json",
+      "sha256": "69a2bd9161ee21731fef08d5b4fd2affb64f93cc78442dfb267d60c3b9bb449d"
+    },
+    "sanitized": {
+      "classification": "immutable-artifact-resolvable",
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "sha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634"
+    },
+    "supplementRed": {
+      "classification": "immutable-artifact-resolvable",
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement-pass1-red-20260819.json",
+      "sha256": "b6b3c39e281e0b89d8c49eb5004843758c3881da8b56b8d1b38cc1f9caac3abd"
+    },
+    "oracleRed": {
+      "classification": "immutable-artifact-resolvable",
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-answer-oracle-pass1-red-20260819.json",
+      "sha256": "8f306dc2d34b3595e70c0f8ef55345dc321fdae97278cb404d499d40635e2e9d"
+    }
+  },
+  "sourceBinding": {
+    "sourcePath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+    "sourceSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+    "sanitizedRowsPayloadSha256": "b8a580d7667065e98932c06fe460817f0b89026651d3c6d81ea72b642b0175cb",
+    "orderedBaseIdSha256": "fe20c8ff458b6d67b911c20ee02675202b188c44b4cc933066a2f64bd965b66a",
+    "orderedBaseIdAlgorithm": "SHA256(UTF8(rows.map(r=>r.baseId).join('\\n')+'\\n'))"
+  },
+  "result": {
+    "allRows": 701,
+    "semanticMathMatches": 701,
+    "overallPass": 660,
+    "overallFail": 41,
+    "partition": {
+      "fill-in": 507,
+      "short-answer": 104,
+      "multiple-choice": 90
+    },
+    "categories": {
+      "FORMAT_REQUIREMENT_METADATA_MISSING": 4,
+      "FORMAT_RESPONSE_MISMATCH": 13,
+      "UNIT_REQUIREMENT_METADATA_MISSING": 3,
+      "UNIT_REQUIREMENT_FALSE_POSITIVE": 13,
+      "METHOD_OUTPUT_INCOMPLETE": 10,
+      "METHOD_PRESENTATION_MISMATCH": 4,
+      "SYMBOLIC_SERIALIZATION_AMBIGUOUS": 1
+    },
+    "multipleChoiceCount": 90,
+    "independentlyUniqueCorrectMultipleChoiceCount": 90,
+    "multipleChoiceLedgerSha256": "421139637ff384bf05531b4697c3430a6cbdf12c95cae629c85e2630def7aa3a",
+    "diagramsPresent": 0,
+    "answerCriticalDiagramCount": 0,
+    "joinMismatchIds": [],
+    "outcomePayloadCanonical": "JSON.stringify(outcomes)",
+    "outcomePayloadByteLength": 56049,
+    "outcomePayloadSha256": "b0692c519e6549f45c5bc6a1929f0522ff7eb2055c9e7cd59795d4bf216cb6d1",
+    "conclusion": "candidate-rejected; repair exact41 then repeat independent 701-row review"
+  },
+  "outcomes": [
+    {
+      "index": 0,
+      "baseId": "hk-ease-10629",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 1,
+      "baseId": "hk-ease-10630",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 2,
+      "baseId": "hk-ease-10631",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 3,
+      "baseId": "hk-ease-10632",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 4,
+      "baseId": "hk-ease-10633",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 5,
+      "baseId": "hk-ease-10634",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 6,
+      "baseId": "hk-ease-10635",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 7,
+      "baseId": "hk-ease-10636",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 8,
+      "baseId": "hk-ease-10637",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 9,
+      "baseId": "hk-ease-10638",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 10,
+      "baseId": "hk-ease-10639",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 11,
+      "baseId": "hk-ease-10640",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 12,
+      "baseId": "hk-ease-10641",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 13,
+      "baseId": "hk-ease-10642",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 14,
+      "baseId": "hk-ease-10643",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 15,
+      "baseId": "hk-ease-10644",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 16,
+      "baseId": "hk-ease-10645",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 17,
+      "baseId": "hk-ease-10647",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 18,
+      "baseId": "hk-ease-10648",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 19,
+      "baseId": "hk-ease-10649",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 20,
+      "baseId": "hk-ease-10650",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 21,
+      "baseId": "hk-ease-10652",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 22,
+      "baseId": "hk-ease-10653",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 23,
+      "baseId": "hk-ease-10654",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 24,
+      "baseId": "hk-ease-10655",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 25,
+      "baseId": "hk-ease-10656",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 26,
+      "baseId": "hk-ease-10658",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 27,
+      "baseId": "hk-ease-10659",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 28,
+      "baseId": "hk-ease-10660",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 29,
+      "baseId": "hk-ease-10661",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 30,
+      "baseId": "hk-ease-10651",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_REQUIREMENT_METADATA_MISSING: quoted (a) ... L; (b) ... L format not captured"
+    },
+    {
+      "index": 31,
+      "baseId": "hk-ease-10662",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_REQUIREMENT_METADATA_MISSING: quoted (a) ...; (b) ... format not captured"
+    },
+    {
+      "index": 32,
+      "baseId": "hk-ease-10564",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 33,
+      "baseId": "hk-ease-10565",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 34,
+      "baseId": "hk-ease-10566",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 35,
+      "baseId": "hk-ease-10567",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 36,
+      "baseId": "hk-ease-10568",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 37,
+      "baseId": "hk-ease-10569",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 38,
+      "baseId": "hk-ease-10570",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 39,
+      "baseId": "hk-ease-10571",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 40,
+      "baseId": "hk-ease-10572",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 41,
+      "baseId": "hk-ease-10573",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 42,
+      "baseId": "hk-ease-10574",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 43,
+      "baseId": "hk-ease-10575",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 44,
+      "baseId": "hk-ease-10576",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 45,
+      "baseId": "hk-ease-10577",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 46,
+      "baseId": "hk-ease-10578",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 47,
+      "baseId": "hk-ease-10579",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 48,
+      "baseId": "hk-ease-10580",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 49,
+      "baseId": "hk-ease-10581",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 50,
+      "baseId": "hk-ease-10582",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 51,
+      "baseId": "hk-ease-10583",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 52,
+      "baseId": "hk-ease-10584",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 53,
+      "baseId": "hk-ease-10585",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 54,
+      "baseId": "hk-ease-10586",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 55,
+      "baseId": "hk-ease-10587",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 56,
+      "baseId": "hk-ease-10588",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 57,
+      "baseId": "hk-ease-10589",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 58,
+      "baseId": "hk-ease-10590",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 59,
+      "baseId": "hk-ease-10591",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 60,
+      "baseId": "hk-ease-10592",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 61,
+      "baseId": "hk-ease-10593",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 62,
+      "baseId": "hk-ease-10594",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 63,
+      "baseId": "hk-ease-10595",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 64,
+      "baseId": "hk-ease-10596",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 65,
+      "baseId": "hk-ease-10597",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 66,
+      "baseId": "hk-ease-10598",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 67,
+      "baseId": "hk-ease-10599",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 68,
+      "baseId": "hk-ease-10600",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 69,
+      "baseId": "hk-ease-10601",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 70,
+      "baseId": "hk-ease-10389",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 71,
+      "baseId": "hk-ease-10390",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 72,
+      "baseId": "hk-ease-10391",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 73,
+      "baseId": "hk-ease-10392",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 74,
+      "baseId": "hk-ease-10393",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 75,
+      "baseId": "hk-ease-10394",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 76,
+      "baseId": "hk-ease-10395",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 77,
+      "baseId": "hk-ease-10396",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 78,
+      "baseId": "hk-ease-10397",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 79,
+      "baseId": "hk-ease-10398",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 80,
+      "baseId": "hk-ease-10399",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 81,
+      "baseId": "hk-ease-10400",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 82,
+      "baseId": "hk-ease-10401",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 83,
+      "baseId": "hk-ease-10402",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 84,
+      "baseId": "hk-ease-10403",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 85,
+      "baseId": "hk-ease-10404",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 86,
+      "baseId": "hk-ease-10405",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 87,
+      "baseId": "hk-ease-10406",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 88,
+      "baseId": "hk-ease-10407",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 89,
+      "baseId": "hk-ease-10471",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 90,
+      "baseId": "hk-ease-10408",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 91,
+      "baseId": "hk-ease-10409",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 92,
+      "baseId": "hk-ease-10410",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 93,
+      "baseId": "hk-ease-10411",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 94,
+      "baseId": "hk-ease-10412",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 95,
+      "baseId": "hk-ease-10413",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 96,
+      "baseId": "hk-ease-10414",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 97,
+      "baseId": "hk-ease-10415",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 98,
+      "baseId": "hk-ease-10416",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 99,
+      "baseId": "hk-ease-10417",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 100,
+      "baseId": "hk-ease-10418",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 101,
+      "baseId": "hk-ease-10419",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 102,
+      "baseId": "hk-ease-10420",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 103,
+      "baseId": "hk-ease-10421",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 104,
+      "baseId": "hk-ease-10422",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 105,
+      "baseId": "hk-ease-10423",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 106,
+      "baseId": "hk-ease-10424",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 107,
+      "baseId": "hk-ease-10425",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 108,
+      "baseId": "hk-ease-10426",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 109,
+      "baseId": "hk-ease-10427",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 110,
+      "baseId": "hk-ease-10428",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 111,
+      "baseId": "hk-ease-10429",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 112,
+      "baseId": "hk-ease-10430",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 113,
+      "baseId": "hk-ease-10431",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 114,
+      "baseId": "hk-ease-10432",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 115,
+      "baseId": "hk-ease-10433",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 116,
+      "baseId": "hk-ease-10434",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 117,
+      "baseId": "hk-ease-10435",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 118,
+      "baseId": "hk-ease-10436",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 119,
+      "baseId": "hk-ease-10437",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 120,
+      "baseId": "hk-ease-10438",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 121,
+      "baseId": "hk-ease-10439",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 122,
+      "baseId": "hk-ease-10440",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 123,
+      "baseId": "hk-ease-10441",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 124,
+      "baseId": "hk-ease-10442",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 125,
+      "baseId": "hk-ease-10445",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 126,
+      "baseId": "hk-ease-10446",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 127,
+      "baseId": "hk-ease-10447",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 128,
+      "baseId": "hk-ease-10443",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 129,
+      "baseId": "hk-ease-10449",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 130,
+      "baseId": "hk-ease-10450",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 131,
+      "baseId": "hk-ease-10451",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 132,
+      "baseId": "hk-ease-10452",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 133,
+      "baseId": "hk-ease-10453",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 134,
+      "baseId": "hk-ease-10454",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 135,
+      "baseId": "hk-ease-10455",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 136,
+      "baseId": "hk-ease-10456",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 137,
+      "baseId": "hk-ease-10458",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 138,
+      "baseId": "hk-ease-10459",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 139,
+      "baseId": "hk-ease-10460",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 140,
+      "baseId": "hk-ease-10461",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 141,
+      "baseId": "hk-ease-10462",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 142,
+      "baseId": "hk-ease-10463",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 143,
+      "baseId": "hk-ease-10464",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 144,
+      "baseId": "hk-ease-10465",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 145,
+      "baseId": "hk-ease-10466",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 146,
+      "baseId": "hk-ease-10467",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 147,
+      "baseId": "hk-ease-10468",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 148,
+      "baseId": "hk-ease-10457",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 149,
+      "baseId": "hk-ease-10469",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 150,
+      "baseId": "hk-ease-10470",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 151,
+      "baseId": "hk-ease-10472",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 152,
+      "baseId": "hk-ease-10473",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 153,
+      "baseId": "hk-ease-10474",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 154,
+      "baseId": "hk-ease-10475",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 155,
+      "baseId": "hk-ease-10476",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 156,
+      "baseId": "hk-ease-10477",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 157,
+      "baseId": "hk-ease-10478",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 158,
+      "baseId": "hk-ease-10479",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 159,
+      "baseId": "hk-ease-10480",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 160,
+      "baseId": "hk-ease-10482",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 161,
+      "baseId": "hk-ease-10483",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 162,
+      "baseId": "hk-ease-10484",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 163,
+      "baseId": "hk-ease-10485",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 164,
+      "baseId": "hk-ease-10486",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 165,
+      "baseId": "hk-ease-10487",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 166,
+      "baseId": "hk-ease-10488",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 167,
+      "baseId": "hk-ease-10489",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 168,
+      "baseId": "hk-ease-10490",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 169,
+      "baseId": "hk-ease-10491",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 170,
+      "baseId": "hk-ease-10492",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 171,
+      "baseId": "hk-ease-10493",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 172,
+      "baseId": "hk-ease-10494",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 173,
+      "baseId": "hk-ease-10497",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 174,
+      "baseId": "hk-ease-10498",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 175,
+      "baseId": "hk-ease-10499",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 176,
+      "baseId": "hk-ease-10500",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 177,
+      "baseId": "hk-ease-10501",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 178,
+      "baseId": "hk-ease-10502",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 179,
+      "baseId": "hk-ease-10503",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 180,
+      "baseId": "hk-ease-10504",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 181,
+      "baseId": "hk-ease-10505",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 182,
+      "baseId": "hk-ease-10506",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 183,
+      "baseId": "hk-ease-10507",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 184,
+      "baseId": "hk-ease-10508",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 185,
+      "baseId": "hk-ease-10509",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 186,
+      "baseId": "hk-ease-10510",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 187,
+      "baseId": "hk-ease-10481",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required proper/improper/mixed category labels omitted"
+    },
+    {
+      "index": 188,
+      "baseId": "hk-ease-10496",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required proper/improper/mixed category labels omitted"
+    },
+    {
+      "index": 189,
+      "baseId": "hk-ease-10511",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 190,
+      "baseId": "hk-ease-10512",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 191,
+      "baseId": "hk-ease-10513",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 192,
+      "baseId": "hk-ease-10514",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 193,
+      "baseId": "hk-ease-10516",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 194,
+      "baseId": "hk-ease-10517",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 195,
+      "baseId": "hk-ease-10518",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 196,
+      "baseId": "hk-ease-10519",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 197,
+      "baseId": "hk-ease-10520",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 198,
+      "baseId": "hk-ease-10521",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 199,
+      "baseId": "hk-ease-10522",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 200,
+      "baseId": "hk-ease-10523",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_METADATA_MISSING: target mL omitted"
+    },
+    {
+      "index": 201,
+      "baseId": "hk-ease-10524",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 202,
+      "baseId": "hk-ease-10525",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 203,
+      "baseId": "hk-ease-10526",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 204,
+      "baseId": "hk-ease-10527",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 205,
+      "baseId": "hk-ease-10528",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 206,
+      "baseId": "hk-ease-10529",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 207,
+      "baseId": "hk-ease-10530",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 208,
+      "baseId": "hk-ease-10531",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 209,
+      "baseId": "hk-ease-10532",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 210,
+      "baseId": "hk-ease-10533",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 211,
+      "baseId": "hk-ease-10534",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 212,
+      "baseId": "hk-ease-10535",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 213,
+      "baseId": "hk-ease-10536",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 214,
+      "baseId": "hk-ease-10537",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 215,
+      "baseId": "hk-ease-10538",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_METADATA_MISSING: target mL omitted"
+    },
+    {
+      "index": 216,
+      "baseId": "hk-ease-10539",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_METADATA_MISSING: target L omitted"
+    },
+    {
+      "index": 217,
+      "baseId": "hk-ease-10540",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 218,
+      "baseId": "hk-ease-10541",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 219,
+      "baseId": "hk-ease-10515",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 220,
+      "baseId": "hk-ease-10542",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 221,
+      "baseId": "hk-ease-10543",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 222,
+      "baseId": "hk-ease-10544",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 223,
+      "baseId": "hk-ease-10545",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 224,
+      "baseId": "hk-ease-10546",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 225,
+      "baseId": "hk-ease-10547",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 226,
+      "baseId": "hk-ease-10548",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 227,
+      "baseId": "hk-ease-10549",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 228,
+      "baseId": "hk-ease-10550",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 229,
+      "baseId": "hk-ease-10551",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 230,
+      "baseId": "hk-ease-10552",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 231,
+      "baseId": "hk-ease-10553",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 232,
+      "baseId": "hk-ease-10554",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 233,
+      "baseId": "hk-ease-10555",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 234,
+      "baseId": "hk-ease-10556",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 235,
+      "baseId": "hk-ease-10557",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 236,
+      "baseId": "hk-ease-10558",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 237,
+      "baseId": "hk-ease-10559",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 238,
+      "baseId": "hk-ease-10561",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 239,
+      "baseId": "hk-ease-10562",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 240,
+      "baseId": "hk-ease-10563",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 241,
+      "baseId": "hk-ease-10602",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 242,
+      "baseId": "hk-ease-10603",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 243,
+      "baseId": "hk-ease-10604",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 244,
+      "baseId": "hk-ease-10605",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 245,
+      "baseId": "hk-ease-10606",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 246,
+      "baseId": "hk-ease-10607",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 247,
+      "baseId": "hk-ease-10608",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 248,
+      "baseId": "hk-ease-10619",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 249,
+      "baseId": "hk-ease-10620",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 250,
+      "baseId": "hk-ease-10621",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 251,
+      "baseId": "hk-ease-10622",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 252,
+      "baseId": "hk-ease-10624",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 253,
+      "baseId": "hk-ease-10625",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 254,
+      "baseId": "hk-ease-10626",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 255,
+      "baseId": "hk-ease-10627",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 256,
+      "baseId": "hk-ease-10628",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 257,
+      "baseId": "hk-ease-10663",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 258,
+      "baseId": "hk-ease-10664",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 259,
+      "baseId": "hk-ease-10665",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 260,
+      "baseId": "hk-ease-10666",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 261,
+      "baseId": "hk-ease-10667",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 262,
+      "baseId": "hk-ease-10668",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 263,
+      "baseId": "hk-ease-10669",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 264,
+      "baseId": "hk-ease-10670",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 265,
+      "baseId": "hk-ease-10671",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 266,
+      "baseId": "hk-ease-10672",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 267,
+      "baseId": "hk-ease-54",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 268,
+      "baseId": "hk-ease-114",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 269,
+      "baseId": "hk-ease-115",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L | FORMAT_RESPONSE_MISMATCH: required (a)/(b) labels omitted"
+    },
+    {
+      "index": 270,
+      "baseId": "hk-ease-180",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 271,
+      "baseId": "hk-ease-181",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 272,
+      "baseId": "hk-ease-182",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 273,
+      "baseId": "hk-ease-183",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 274,
+      "baseId": "hk-ease-184",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 275,
+      "baseId": "hk-ease-185",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L | FORMAT_RESPONSE_MISMATCH: required (a)/(b) labels omitted"
+    },
+    {
+      "index": 276,
+      "baseId": "hk-ease-186",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 277,
+      "baseId": "hk-ease-187",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 278,
+      "baseId": "hk-ease-188",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 279,
+      "baseId": "hk-ease-235",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 280,
+      "baseId": "hk-ease-236",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 281,
+      "baseId": "hk-ease-303",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 282,
+      "baseId": "hk-ease-364",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. and L.C.M. prime-factor products omitted"
+    },
+    {
+      "index": 283,
+      "baseId": "hk-ease-410",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. and L.C.M. prime-factor products omitted"
+    },
+    {
+      "index": 284,
+      "baseId": "hk-ease-427",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 285,
+      "baseId": "hk-ease-428",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L | FORMAT_RESPONSE_MISMATCH: required (a)/(b) labels omitted"
+    },
+    {
+      "index": 286,
+      "baseId": "hk-ease-429",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 287,
+      "baseId": "hk-ease-430",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 288,
+      "baseId": "hk-ease-431",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 289,
+      "baseId": "hk-ease-489",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 290,
+      "baseId": "hk-ease-490",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 291,
+      "baseId": "hk-ease-491",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 292,
+      "baseId": "hk-ease-492",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 293,
+      "baseId": "hk-ease-550",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 294,
+      "baseId": "hk-ease-591",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 295,
+      "baseId": "hk-ease-592",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 296,
+      "baseId": "hk-ease-593",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 297,
+      "baseId": "hk-ease-594",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 298,
+      "baseId": "hk-ease-665",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 299,
+      "baseId": "hk-ease-667",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 300,
+      "baseId": "hk-ease-668",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 301,
+      "baseId": "hk-ease-670",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 302,
+      "baseId": "hk-ease-671",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 303,
+      "baseId": "hk-ease-672",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 304,
+      "baseId": "hk-ease-673",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 305,
+      "baseId": "hk-ease-734",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 306,
+      "baseId": "hk-ease-735",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 307,
+      "baseId": "hk-ease-736",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required HCF=value, LCM=value pattern not followed"
+    },
+    {
+      "index": 308,
+      "baseId": "hk-ease-746",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 309,
+      "baseId": "hk-ease-748",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 310,
+      "baseId": "hk-ease-760",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 311,
+      "baseId": "hk-ease-790",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 312,
+      "baseId": "hk-ease-794",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 313,
+      "baseId": "hk-ease-795",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 314,
+      "baseId": "hk-ease-812",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 315,
+      "baseId": "hk-ease-827",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 316,
+      "baseId": "hk-ease-828",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 317,
+      "baseId": "hk-ease-829",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 318,
+      "baseId": "hk-ease-851",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 319,
+      "baseId": "hk-ease-862",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 320,
+      "baseId": "hk-ease-863",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 321,
+      "baseId": "hk-ease-900",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 322,
+      "baseId": "hk-ease-901",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required HCF=value, LCM=value pattern not followed"
+    },
+    {
+      "index": 323,
+      "baseId": "hk-ease-902",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required HCF=value, LCM=value pattern not followed"
+    },
+    {
+      "index": 324,
+      "baseId": "hk-ease-903",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 325,
+      "baseId": "hk-ease-904",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 326,
+      "baseId": "hk-ease-905",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 327,
+      "baseId": "hk-ease-906",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 328,
+      "baseId": "hk-ease-919",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 329,
+      "baseId": "hk-ease-1042",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 330,
+      "baseId": "hk-ease-1043",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 331,
+      "baseId": "hk-ease-1044",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 332,
+      "baseId": "hk-ease-1045",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 333,
+      "baseId": "hk-ease-1046",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 334,
+      "baseId": "hk-ease-1047",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 335,
+      "baseId": "hk-ease-1048",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 336,
+      "baseId": "hk-ease-1049",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 337,
+      "baseId": "hk-ease-1050",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 338,
+      "baseId": "hk-ease-1051",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 339,
+      "baseId": "hk-ease-1052",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 340,
+      "baseId": "hk-ease-1053",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 341,
+      "baseId": "hk-ease-1054",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 342,
+      "baseId": "hk-ease-1055",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 343,
+      "baseId": "hk-ease-1056",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 344,
+      "baseId": "hk-ease-1057",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 345,
+      "baseId": "hk-ease-1058",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 346,
+      "baseId": "hk-ease-1059",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 347,
+      "baseId": "hk-ease-1060",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 348,
+      "baseId": "hk-ease-1061",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 349,
+      "baseId": "hk-ease-1062",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 350,
+      "baseId": "hk-ease-1063",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 351,
+      "baseId": "hk-ease-1064",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 352,
+      "baseId": "hk-ease-1065",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 353,
+      "baseId": "hk-ease-1066",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 354,
+      "baseId": "hk-ease-1067",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 355,
+      "baseId": "hk-ease-1068",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 356,
+      "baseId": "hk-ease-1069",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 357,
+      "baseId": "hk-ease-1070",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 358,
+      "baseId": "hk-ease-1071",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 359,
+      "baseId": "hk-ease-1072",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 360,
+      "baseId": "hk-ease-1073",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 361,
+      "baseId": "hk-ease-1074",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 362,
+      "baseId": "hk-ease-1075",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 363,
+      "baseId": "hk-ease-1076",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 364,
+      "baseId": "hk-ease-1077",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 365,
+      "baseId": "hk-ease-1078",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 366,
+      "baseId": "hk-ease-1079",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 367,
+      "baseId": "hk-ease-1080",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 368,
+      "baseId": "hk-ease-1081",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 369,
+      "baseId": "hk-ease-1082",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 370,
+      "baseId": "hk-ease-1083",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 371,
+      "baseId": "hk-ease-1084",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 372,
+      "baseId": "hk-ease-1085",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 373,
+      "baseId": "hk-ease-1086",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 374,
+      "baseId": "hk-ease-1087",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 375,
+      "baseId": "hk-ease-1088",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 376,
+      "baseId": "hk-ease-1089",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 377,
+      "baseId": "hk-ease-1090",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 378,
+      "baseId": "hk-ease-1091",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 379,
+      "baseId": "hk-ease-1092",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 380,
+      "baseId": "hk-ease-1093",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 381,
+      "baseId": "hk-ease-1094",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 382,
+      "baseId": "hk-ease-1095",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 383,
+      "baseId": "hk-ease-1096",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 384,
+      "baseId": "hk-ease-1097",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 385,
+      "baseId": "hk-ease-1098",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 386,
+      "baseId": "hk-ease-1099",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 387,
+      "baseId": "hk-ease-1100",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 388,
+      "baseId": "hk-ease-1101",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 389,
+      "baseId": "hk-ease-1102",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. product expression omitted"
+    },
+    {
+      "index": 390,
+      "baseId": "hk-ease-1103",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 391,
+      "baseId": "hk-ease-1104",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 392,
+      "baseId": "hk-ease-1105",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 393,
+      "baseId": "hk-ease-1106",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. prime-factor product expression omitted"
+    },
+    {
+      "index": 394,
+      "baseId": "hk-ease-1107",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. prime-factor product expression omitted"
+    },
+    {
+      "index": 395,
+      "baseId": "hk-ease-1108",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. prime-factor product expression omitted"
+    },
+    {
+      "index": 396,
+      "baseId": "hk-ease-1109",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 397,
+      "baseId": "hk-ease-1110",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 398,
+      "baseId": "hk-ease-1111",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 399,
+      "baseId": "hk-ease-1112",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required L.C.M. product expression omitted"
+    },
+    {
+      "index": 400,
+      "baseId": "hk-ease-1113",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 401,
+      "baseId": "hk-ease-1114",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 402,
+      "baseId": "hk-ease-1115",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 403,
+      "baseId": "hk-ease-1116",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 404,
+      "baseId": "hk-ease-1117",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 405,
+      "baseId": "hk-ease-1118",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 406,
+      "baseId": "hk-ease-1119",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_PRESENTATION_MISMATCH: response shows prime factorisation instead of requested short division"
+    },
+    {
+      "index": 407,
+      "baseId": "hk-ease-1120",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_PRESENTATION_MISMATCH: response shows prime factorisation instead of requested short division"
+    },
+    {
+      "index": 408,
+      "baseId": "hk-ease-1121",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_PRESENTATION_MISMATCH: response shows prime factorisation instead of requested short division"
+    },
+    {
+      "index": 409,
+      "baseId": "hk-ease-1122",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 410,
+      "baseId": "hk-ease-1123",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 411,
+      "baseId": "hk-ease-1124",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 412,
+      "baseId": "hk-ease-1125",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 413,
+      "baseId": "hk-ease-1126",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 414,
+      "baseId": "hk-ease-1127",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_PRESENTATION_MISMATCH: response shows prime factorisation instead of requested short division"
+    },
+    {
+      "index": 415,
+      "baseId": "hk-ease-1128",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 416,
+      "baseId": "hk-ease-1129",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 417,
+      "baseId": "hk-ease-1130",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 418,
+      "baseId": "hk-ease-1131",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 419,
+      "baseId": "hk-ease-1132",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 420,
+      "baseId": "hk-ease-1133",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 421,
+      "baseId": "hk-ease-1134",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 422,
+      "baseId": "hk-ease-1135",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 423,
+      "baseId": "hk-ease-1136",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 424,
+      "baseId": "hk-ease-1137",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 425,
+      "baseId": "hk-ease-1138",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 426,
+      "baseId": "hk-ease-1139",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 427,
+      "baseId": "hk-ease-1140",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 428,
+      "baseId": "hk-ease-1141",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 429,
+      "baseId": "hk-ease-1142",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 430,
+      "baseId": "hk-ease-1143",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 431,
+      "baseId": "hk-ease-1144",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 432,
+      "baseId": "hk-ease-1145",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 433,
+      "baseId": "hk-ease-1146",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 434,
+      "baseId": "hk-ease-1147",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 435,
+      "baseId": "hk-ease-1148",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 436,
+      "baseId": "hk-ease-1149",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 437,
+      "baseId": "hk-ease-1150",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 438,
+      "baseId": "hk-ease-1151",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 439,
+      "baseId": "hk-ease-1152",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 440,
+      "baseId": "hk-ease-1153",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 441,
+      "baseId": "hk-ease-1154",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 442,
+      "baseId": "hk-ease-1155",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 443,
+      "baseId": "hk-ease-1156",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 444,
+      "baseId": "hk-ease-1157",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 445,
+      "baseId": "hk-ease-1158",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 446,
+      "baseId": "hk-ease-1159",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 447,
+      "baseId": "hk-ease-1160",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 448,
+      "baseId": "hk-ease-1161",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 449,
+      "baseId": "hk-ease-1162",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 450,
+      "baseId": "hk-ease-1163",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 451,
+      "baseId": "hk-ease-1164",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 452,
+      "baseId": "hk-ease-1165",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 453,
+      "baseId": "hk-ease-1166",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 454,
+      "baseId": "hk-ease-1167",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 455,
+      "baseId": "hk-ease-1168",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 456,
+      "baseId": "hk-ease-1169",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 457,
+      "baseId": "hk-ease-1170",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 458,
+      "baseId": "hk-ease-1171",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 459,
+      "baseId": "hk-ease-1172",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 460,
+      "baseId": "hk-ease-1173",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 461,
+      "baseId": "hk-ease-1174",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 462,
+      "baseId": "hk-ease-1175",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 463,
+      "baseId": "hk-ease-1176",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 464,
+      "baseId": "hk-ease-1177",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 465,
+      "baseId": "hk-ease-1178",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 466,
+      "baseId": "hk-ease-1179",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 467,
+      "baseId": "hk-ease-1180",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 468,
+      "baseId": "hk-ease-1181",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 469,
+      "baseId": "hk-ease-1182",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 470,
+      "baseId": "hk-ease-1189",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 471,
+      "baseId": "hk-ease-1190",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 472,
+      "baseId": "hk-ease-1193",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 473,
+      "baseId": "hk-ease-1194",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 474,
+      "baseId": "hk-ease-1195",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 475,
+      "baseId": "hk-ease-1196",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 476,
+      "baseId": "hk-ease-1197",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 477,
+      "baseId": "hk-ease-1198",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 478,
+      "baseId": "hk-ease-1200",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 479,
+      "baseId": "hk-ease-1201",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 480,
+      "baseId": "hk-ease-1202",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 481,
+      "baseId": "hk-ease-1205",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 482,
+      "baseId": "hk-ease-1206",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 483,
+      "baseId": "hk-ease-1207",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 484,
+      "baseId": "hk-ease-1210",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 485,
+      "baseId": "hk-ease-1211",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 486,
+      "baseId": "hk-ease-1212",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 487,
+      "baseId": "hk-ease-1213",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 488,
+      "baseId": "hk-ease-1214",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 489,
+      "baseId": "hk-ease-1216",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 490,
+      "baseId": "hk-ease-1217",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 491,
+      "baseId": "hk-ease-1218",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 492,
+      "baseId": "hk-ease-1219",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 493,
+      "baseId": "hk-ease-1220",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 494,
+      "baseId": "hk-ease-1221",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 495,
+      "baseId": "hk-ease-1223",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 496,
+      "baseId": "hk-ease-1227",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 497,
+      "baseId": "hk-ease-1228",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 498,
+      "baseId": "hk-ease-1229",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 499,
+      "baseId": "hk-ease-1230",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 500,
+      "baseId": "hk-ease-1232",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 501,
+      "baseId": "hk-ease-1233",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 502,
+      "baseId": "hk-ease-1234",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 503,
+      "baseId": "hk-ease-1235",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 504,
+      "baseId": "hk-ease-1236",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 505,
+      "baseId": "hk-ease-1237",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 506,
+      "baseId": "hk-ease-1238",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 507,
+      "baseId": "hk-ease-1239",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 508,
+      "baseId": "hk-ease-1240",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 509,
+      "baseId": "hk-ease-1241",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 510,
+      "baseId": "hk-ease-1242",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 511,
+      "baseId": "hk-ease-1243",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 512,
+      "baseId": "hk-ease-1244",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 513,
+      "baseId": "hk-ease-1245",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 514,
+      "baseId": "hk-ease-1246",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 515,
+      "baseId": "hk-ease-1247",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 516,
+      "baseId": "hk-ease-1248",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 517,
+      "baseId": "hk-ease-1249",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 518,
+      "baseId": "hk-ease-1250",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 519,
+      "baseId": "hk-ease-1251",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 520,
+      "baseId": "hk-ease-1252",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 521,
+      "baseId": "hk-ease-1253",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 522,
+      "baseId": "hk-ease-1254",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 523,
+      "baseId": "hk-ease-1255",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 524,
+      "baseId": "hk-ease-1256",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 525,
+      "baseId": "hk-ease-1257",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 526,
+      "baseId": "hk-ease-1258",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 527,
+      "baseId": "hk-ease-1259",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 528,
+      "baseId": "hk-ease-1260",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 529,
+      "baseId": "hk-ease-1261",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 530,
+      "baseId": "hk-ease-1262",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 531,
+      "baseId": "hk-ease-1264",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 532,
+      "baseId": "hk-ease-1265",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 533,
+      "baseId": "hk-ease-1266",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 534,
+      "baseId": "hk-ease-1267",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 535,
+      "baseId": "hk-ease-1268",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 536,
+      "baseId": "hk-ease-1269",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 537,
+      "baseId": "hk-ease-1270",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 538,
+      "baseId": "hk-ease-1271",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 539,
+      "baseId": "hk-ease-1272",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 540,
+      "baseId": "hk-ease-1273",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 541,
+      "baseId": "hk-ease-1274",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L | FORMAT_RESPONSE_MISMATCH: required (a)/(b) labels omitted"
+    },
+    {
+      "index": 542,
+      "baseId": "hk-ease-1275",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 543,
+      "baseId": "hk-ease-1276",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L"
+    },
+    {
+      "index": 544,
+      "baseId": "hk-ease-1277",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: L.C.M. misread as litre L | FORMAT_RESPONSE_MISMATCH: required (a)/(b) labels omitted"
+    },
+    {
+      "index": 545,
+      "baseId": "hk-ease-1278",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 546,
+      "baseId": "hk-ease-1759",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 547,
+      "baseId": "hk-ease-1760",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 548,
+      "baseId": "hk-ease-1761",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 549,
+      "baseId": "hk-ease-1762",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 550,
+      "baseId": "hk-ease-1763",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 551,
+      "baseId": "hk-ease-1764",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 552,
+      "baseId": "hk-ease-1765",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 553,
+      "baseId": "hk-ease-1766",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 554,
+      "baseId": "hk-ease-1767",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 555,
+      "baseId": "hk-ease-1768",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 556,
+      "baseId": "hk-ease-1769",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 557,
+      "baseId": "hk-ease-1770",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 558,
+      "baseId": "hk-ease-1771",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 559,
+      "baseId": "hk-ease-1772",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 560,
+      "baseId": "hk-ease-1773",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 561,
+      "baseId": "hk-ease-1774",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 562,
+      "baseId": "hk-ease-1775",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 563,
+      "baseId": "hk-ease-1776",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 564,
+      "baseId": "hk-ease-1777",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 565,
+      "baseId": "hk-ease-1778",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 566,
+      "baseId": "hk-ease-1779",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 567,
+      "baseId": "hk-ease-1780",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 568,
+      "baseId": "hk-ease-1781",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 569,
+      "baseId": "hk-ease-1782",
+      "status": "FAIL",
+      "discrepancyNote": "SYMBOLIC_SERIALIZATION_AMBIGUOUS: y^2m does not unambiguously encode y^(2m) | UNIT_REQUIREMENT_FALSE_POSITIVE: exponent variable m misread as metre"
+    },
+    {
+      "index": 570,
+      "baseId": "hk-ease-1783",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 571,
+      "baseId": "hk-ease-1794",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 572,
+      "baseId": "hk-ease-1795",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 573,
+      "baseId": "hk-ease-1796",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 574,
+      "baseId": "hk-ease-1797",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 575,
+      "baseId": "hk-ease-1798",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 576,
+      "baseId": "hk-ease-1799",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 577,
+      "baseId": "hk-ease-1800",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 578,
+      "baseId": "hk-ease-1801",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 579,
+      "baseId": "hk-ease-1802",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 580,
+      "baseId": "hk-ease-1803",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 581,
+      "baseId": "hk-ease-1804",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 582,
+      "baseId": "hk-ease-1805",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 583,
+      "baseId": "hk-ease-1806",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 584,
+      "baseId": "hk-ease-1807",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 585,
+      "baseId": "hk-ease-1808",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 586,
+      "baseId": "hk-ease-1809",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 587,
+      "baseId": "hk-ease-1810",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 588,
+      "baseId": "hk-ease-1811",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 589,
+      "baseId": "hk-ease-1812",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 590,
+      "baseId": "hk-ease-1813",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 591,
+      "baseId": "hk-ease-2035",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_REQUIREMENT_METADATA_MISSING: quoted format not captured | FORMAT_RESPONSE_MISMATCH: required 48=...;72=...;HCF=...;LCM=... pattern not followed"
+    },
+    {
+      "index": 592,
+      "baseId": "hk-ease-2672",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 593,
+      "baseId": "hk-ease-2673",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 594,
+      "baseId": "hk-ease-2674",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 595,
+      "baseId": "hk-ease-2675",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 596,
+      "baseId": "hk-ease-2676",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 597,
+      "baseId": "hk-ease-2677",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 598,
+      "baseId": "hk-ease-2678",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 599,
+      "baseId": "hk-ease-2679",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 600,
+      "baseId": "hk-ease-2680",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 601,
+      "baseId": "hk-ease-2681",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 602,
+      "baseId": "hk-ease-2682",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 603,
+      "baseId": "hk-ease-2683",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 604,
+      "baseId": "hk-ease-2684",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 605,
+      "baseId": "hk-ease-2685",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 606,
+      "baseId": "hk-ease-2686",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 607,
+      "baseId": "hk-ease-2687",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 608,
+      "baseId": "hk-ease-2847",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 609,
+      "baseId": "hk-ease-2848",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 610,
+      "baseId": "hk-ease-2849",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 611,
+      "baseId": "hk-ease-2850",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 612,
+      "baseId": "hk-ease-2851",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 613,
+      "baseId": "hk-ease-2915",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 614,
+      "baseId": "hk-ease-2916",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 615,
+      "baseId": "hk-ease-3663",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 616,
+      "baseId": "hk-ease-3664",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 617,
+      "baseId": "hk-ease-3665",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 618,
+      "baseId": "hk-ease-3666",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 619,
+      "baseId": "hk-ease-3667",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 620,
+      "baseId": "hk-ease-3669",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 621,
+      "baseId": "hk-ease-3670",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 622,
+      "baseId": "hk-ease-3671",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 623,
+      "baseId": "hk-ease-3672",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 624,
+      "baseId": "hk-ease-40",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 625,
+      "baseId": "hk-ease-41",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 626,
+      "baseId": "hk-ease-47",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 627,
+      "baseId": "hk-ease-48",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 628,
+      "baseId": "hk-ease-99",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 629,
+      "baseId": "hk-ease-100",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 630,
+      "baseId": "hk-ease-105",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 631,
+      "baseId": "hk-ease-107",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 632,
+      "baseId": "hk-ease-108",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 633,
+      "baseId": "hk-ease-131",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 634,
+      "baseId": "hk-ease-133",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 635,
+      "baseId": "hk-ease-176",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 636,
+      "baseId": "hk-ease-177",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 637,
+      "baseId": "hk-ease-178",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 638,
+      "baseId": "hk-ease-179",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 639,
+      "baseId": "hk-ease-206",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 640,
+      "baseId": "hk-ease-207",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 641,
+      "baseId": "hk-ease-289",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 642,
+      "baseId": "hk-ease-290",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 643,
+      "baseId": "hk-ease-291",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 644,
+      "baseId": "hk-ease-350",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 645,
+      "baseId": "hk-ease-351",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 646,
+      "baseId": "hk-ease-352",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 647,
+      "baseId": "hk-ease-421",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 648,
+      "baseId": "hk-ease-422",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 649,
+      "baseId": "hk-ease-424",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 650,
+      "baseId": "hk-ease-441",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 651,
+      "baseId": "hk-ease-442",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 652,
+      "baseId": "hk-ease-565",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 653,
+      "baseId": "hk-ease-567",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 654,
+      "baseId": "hk-ease-568",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 655,
+      "baseId": "hk-ease-663",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 656,
+      "baseId": "hk-ease-664",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 657,
+      "baseId": "hk-ease-666",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 658,
+      "baseId": "hk-ease-782",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 659,
+      "baseId": "hk-ease-815",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 660,
+      "baseId": "hk-ease-816",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 661,
+      "baseId": "hk-ease-854",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 662,
+      "baseId": "hk-ease-924",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 663,
+      "baseId": "hk-ease-926",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 664,
+      "baseId": "hk-ease-927",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 665,
+      "baseId": "hk-ease-1784",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 666,
+      "baseId": "hk-ease-1785",
+      "status": "FAIL",
+      "discrepancyNote": "UNIT_REQUIREMENT_FALSE_POSITIVE: exponent variable m misread as metre"
+    },
+    {
+      "index": 667,
+      "baseId": "hk-ease-1786",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 668,
+      "baseId": "hk-ease-1787",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 669,
+      "baseId": "hk-ease-1788",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 670,
+      "baseId": "hk-ease-1789",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 671,
+      "baseId": "hk-ease-1790",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 672,
+      "baseId": "hk-ease-1792",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 673,
+      "baseId": "hk-ease-2043",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 674,
+      "baseId": "hk-ease-2044",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 675,
+      "baseId": "hk-ease-2045",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 676,
+      "baseId": "hk-ease-2046",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 677,
+      "baseId": "hk-ease-2047",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 678,
+      "baseId": "hk-ease-2048",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 679,
+      "baseId": "hk-ease-2050",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 680,
+      "baseId": "hk-ease-2051",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 681,
+      "baseId": "hk-ease-2052",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 682,
+      "baseId": "hk-ease-398",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 683,
+      "baseId": "hk-ease-425",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required Factors/classification labels omitted"
+    },
+    {
+      "index": 684,
+      "baseId": "hk-ease-426",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_RESPONSE_MISMATCH: required Factors/classification labels omitted"
+    },
+    {
+      "index": 685,
+      "baseId": "hk-ease-796",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 686,
+      "baseId": "hk-ease-797",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 687,
+      "baseId": "hk-ease-798",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 688,
+      "baseId": "hk-ease-864",
+      "status": "FAIL",
+      "discrepancyNote": "FORMAT_REQUIREMENT_METADATA_MISSING: quoted (a)...;(b)...;(c)...;(d)... format not captured"
+    },
+    {
+      "index": 689,
+      "baseId": "hk-ease-866",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 690,
+      "baseId": "hk-ease-868",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 691,
+      "baseId": "hk-ease-883",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 692,
+      "baseId": "hk-ease-920",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 693,
+      "baseId": "hk-ease-1041",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 694,
+      "baseId": "hk-ease-2036",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 695,
+      "baseId": "hk-ease-2037",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. and L.C.M. prime-factor products omitted"
+    },
+    {
+      "index": 696,
+      "baseId": "hk-ease-2038",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 697,
+      "baseId": "hk-ease-2039",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. and L.C.M. prime-factor products omitted"
+    },
+    {
+      "index": 698,
+      "baseId": "hk-ease-2040",
+      "status": "PASS",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 699,
+      "baseId": "hk-ease-2041",
+      "status": "FAIL",
+      "discrepancyNote": "METHOD_OUTPUT_INCOMPLETE: required H.C.F. and L.C.M. prime-factor products omitted"
+    },
+    {
+      "index": 700,
+      "baseId": "hk-ease-2042",
+      "status": "PASS",
+      "discrepancyNote": ""
+    }
+  ]
+}

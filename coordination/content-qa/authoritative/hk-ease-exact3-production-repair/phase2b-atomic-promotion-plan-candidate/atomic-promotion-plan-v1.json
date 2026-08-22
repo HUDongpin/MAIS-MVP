@@ -1,0 +1,1320 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-atomic-promotion-plan-candidate-v1",
+  "status": "candidate-hold-dry-run-only-not-live-promotion",
+  "sourceAuthorityBindings": [
+    {
+      "id": "phase2b-data-plane",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+      "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+      "schemaVersion": "hk-ease-exact3-phase2b-data-plane-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-promotable-until-phase3",
+      "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+    },
+    {
+      "id": "phase2b-runtime",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+      "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+      "schemaVersion": "hk-ease-exact3-phase2b-serving-runtime-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+    },
+    {
+      "id": "phase2b-historical-regression",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+      "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+      "schemaVersion": "hk-ease-exact3-phase2b-historical-regression-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+    },
+    {
+      "id": "phase2b-v4-lineage",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+      "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+      "schemaVersion": "hk-ease-exact3-v4-lineage-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+    },
+    {
+      "id": "phase2b-fullbank",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+      "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+      "schemaVersion": "hk-ease-exact3-phase2b-fullbank-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+    },
+    {
+      "id": "phase2b-canonical241",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/canonical241-hold-authority-v1.json",
+      "sha256": "50626bc4c870682afaaac5a3f99562b45e01267edbe07c8d42b9e15346e7841a",
+      "schemaVersion": "hk-ease-exact3-phase2b-canonical241-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "5da1810e8a6feefebe8eae80ba1c531a81ac5236cfbbcf41de7b09f9ccafdcb1"
+    }
+  ],
+  "independentReviewReceiptBinding": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-independent-oracle-overlay-review-v2.json",
+    "sha256": "0aacfce318a7839f44beba7d3d5f6722e11a129b4ee6f8a3ac770b712382cd2e",
+    "detachedPayloadSha256": "c0387a5f0ea824510ab24d84f8e062a289354e8731caa3acde9320f30ecd825b",
+    "status": "independent-review-approved-for-candidate-overlay-not-live-promotion"
+  },
+  "operationTopology": {
+    "exactOperationCount": 32,
+    "replaceExistingCount": 30,
+    "createNewCount": 2,
+    "authorityOperationCounts": {
+      "phase2b-data-plane": 7,
+      "phase2b-runtime": 4,
+      "phase2b-historical-regression": 8,
+      "phase2b-v4-lineage": 7,
+      "phase2b-fullbank": 3,
+      "phase2b-canonical241": 3
+    },
+    "preimageEvidenceCounts": {
+      "source-authority-output-binding": 18,
+      "source-authority-transformation": 4,
+      "phase2b-data-plane-forbidden-live-inventory": 6,
+      "atomic-plan-current-byte-pin": 2
+    },
+    "replacementTargets": [
+      "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "data/historical/hongKongQuestionVersionManifest.json",
+      "data/hongKongEasePracticeQuestions.ts",
+      "lib/hongKongQuestionVersioningContract.ts",
+      "lib/hongKongQuestionVersioning.ts",
+      "lib/server/hongKongEaseResponseContracts.ts",
+      "lib/hongKongQuestionVersioning.test.ts",
+      "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "lib/hongKongResidual47RepairContract.test.ts",
+      "lib/server/hongKongEaseResponseContracts.test.ts",
+      "lib/hongKongResidual47FocusedTestLedger.ts",
+      "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+      "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+      "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+      "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "lib/questionBankSolvability.ts",
+      "lib/hongKongEaseIndependentOracle.ts",
+      "lib/fullQuestionBankSolvability.test.ts",
+      "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "lib/hongKongLessonQualityContract.test.ts"
+    ],
+    "creationTargets": [
+      "data/generated-content/hk-ease-practice-bank-v2/exact3-independent-oracle-supplement.json",
+      "data/historical/hongKongQuestions-hk-ease-exact3-v3.json"
+    ],
+    "orderedTargetPathSha256": "a18b2d53a0025b0b73313d550ca0fd3bc6a6b15192cb356e4442dc2fc43bccf9",
+    "preimageTupleSha256": "01c59eaaa0998c6878776e1c4fa56676e322e1837683229e670b924dcf45045a",
+    "postimageTupleSha256": "ed1450001f979fd5e32e7f378076502f6cb8f542768a93183ecee514a8bb20b8"
+  },
+  "operations": [
+    {
+      "index": 0,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+        "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2"
+      },
+      "currentPreimage": {
+        "path": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+        "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+        "byteLength": 1430986,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-question-pack-base-id-v1.json",
+        "sha256": "afed98f9aca07951dffbc6ac8ce93bb6074629298c80ac848842bd7792fd7bdf",
+        "byteLength": 1435398,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 1,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+        "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28"
+      },
+      "currentPreimage": {
+        "path": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+        "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+        "byteLength": 861677,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-response-contract-audit-v1.json",
+        "sha256": "3f5671299ecb88fd58e0d22c6241737a27cd7d3a1e8332da989eea1f3b15010a",
+        "byteLength": 890576,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 2,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+        "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4"
+      },
+      "currentPreimage": {
+        "path": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+        "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+        "byteLength": 292266,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-strict-response-contracts-v1.json",
+        "sha256": "86333f5482a6a90da42c4ae12d575df8e2859409ff12de18032122a6c67c2b2c",
+        "byteLength": 298862,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 3,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+        "sha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597"
+      },
+      "currentPreimage": {
+        "path": "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+        "sha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597",
+        "byteLength": 1259409,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-simple-response-contracts-v1.json",
+        "sha256": "d5f226b600e98cd4cfa1df6497137a0844e0f9685d8f87e4a6e1130aaa5c3d41",
+        "byteLength": 1259409,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 4,
+      "operation": "create-new",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/exact3-independent-oracle-supplement.json",
+      "preimageEvidence": null,
+      "currentPreimage": null,
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/independent-answer-oracle-exact3-overlay-supplement-v2.json",
+        "sha256": "3b1b5b5a4e4034712086de8345b04e74e435f58e4c7c8ed73c5d801cfad4b19c",
+        "byteLength": 8718,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 5,
+      "operation": "create-new",
+      "logicalTargetPath": "data/historical/hongKongQuestions-hk-ease-exact3-v3.json",
+      "preimageEvidence": null,
+      "currentPreimage": null,
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/v3-history-v1.json",
+        "sha256": "e5a696da5e8d5e1cc31259a6736d6d9974c08fdf25a57298a6958ffcd11b440b",
+        "byteLength": 13338,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 6,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/historical/hongKongQuestionVersionManifest.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/historical/hongKongQuestionVersionManifest.json",
+        "sha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92"
+      },
+      "currentPreimage": {
+        "path": "data/historical/hongKongQuestionVersionManifest.json",
+        "sha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+        "byteLength": 84167,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-question-version-manifest-v1.json",
+        "sha256": "abf8da2300978b554efa07d96c5b70e721a9f0977e190a3f86105388591dfe8d",
+        "byteLength": 84368,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-data-plane",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+        "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+        "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+      }
+    },
+    {
+      "index": 7,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/hongKongEasePracticeQuestions.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-runtime",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "data/hongKongEasePracticeQuestions.ts",
+        "sha256": "01bf8aef5f76dfa46d17b357b110957fa551ba12fd98027315a1a8e825f40137"
+      },
+      "currentPreimage": {
+        "path": "data/hongKongEasePracticeQuestions.ts",
+        "sha256": "01bf8aef5f76dfa46d17b357b110957fa551ba12fd98027315a1a8e825f40137",
+        "byteLength": 20657,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/data-hongKongEasePracticeQuestions.ts.snapshot",
+        "sha256": "692872955440282bd21426e1fa04e18368ae91b8d3b516bc0fdb97b568cb3dff",
+        "byteLength": 27329,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-runtime",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+        "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+        "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+      }
+    },
+    {
+      "index": 8,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongQuestionVersioningContract.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-runtime",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongQuestionVersioningContract.ts",
+        "sha256": "226230450e87dbefa7c89358d8121dac187b212aaba2738f2ccf18f5b13e844d"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongQuestionVersioningContract.ts",
+        "sha256": "226230450e87dbefa7c89358d8121dac187b212aaba2738f2ccf18f5b13e844d",
+        "byteLength": 408,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/lib-hongKongQuestionVersioningContract.ts.snapshot",
+        "sha256": "8c450a89cb767b4864a6c739dd4849c69616245c86f0a36a4db8554a5044fd0a",
+        "byteLength": 558,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-runtime",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+        "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+        "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+      }
+    },
+    {
+      "index": 9,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongQuestionVersioning.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-runtime",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongQuestionVersioning.ts",
+        "sha256": "66ef792de4ddb2bc6512217fe24a919284c24a5b5dbfb88cb03dcfd2a08a33f1"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongQuestionVersioning.ts",
+        "sha256": "66ef792de4ddb2bc6512217fe24a919284c24a5b5dbfb88cb03dcfd2a08a33f1",
+        "byteLength": 23465,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/lib-hongKongQuestionVersioning.ts.snapshot",
+        "sha256": "43001bbdc9a57db6ef3c90aa8bd42913baea6180653436135d94227258252df4",
+        "byteLength": 25687,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-runtime",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+        "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+        "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+      }
+    },
+    {
+      "index": 10,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/server/hongKongEaseResponseContracts.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-runtime",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/server/hongKongEaseResponseContracts.ts",
+        "sha256": "1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1"
+      },
+      "currentPreimage": {
+        "path": "lib/server/hongKongEaseResponseContracts.ts",
+        "sha256": "1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1",
+        "byteLength": 76868,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/lib-server-hongKongEaseResponseContracts.ts.snapshot",
+        "sha256": "c3f462f619b0b90bf4a5a98475367927a7209a21300d59695b6e0a3ea97f03dd",
+        "byteLength": 80546,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-runtime",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+        "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+        "authorityPayloadSha256": "622e51fa75d065140142503505399b4af2d42a9bc621dd7e828b16cb23b34227"
+      }
+    },
+    {
+      "index": 11,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongQuestionVersioning.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongQuestionVersioning.test.ts",
+        "sha256": "751b0381cc68b17487cc2dbcadad50b9f919e2590278ac0c3ef4769853b83402"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongQuestionVersioning.test.ts",
+        "sha256": "751b0381cc68b17487cc2dbcadad50b9f919e2590278ac0c3ef4769853b83402",
+        "byteLength": 10382,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongQuestionVersioning.test.ts.snapshot",
+        "sha256": "4e2640bf0d4fd0b28fb3186e73625022b0d00989e0380ed1a5304e38b64b6128",
+        "byteLength": 11553,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 12,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+        "sha256": "197df7e56e964210341cdeb50b4ae8fc14c985d74eed5b991f85e768f093b22e"
+      },
+      "currentPreimage": {
+        "path": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+        "sha256": "197df7e56e964210341cdeb50b4ae8fc14c985d74eed5b991f85e768f093b22e",
+        "byteLength": 15819,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongHistoricalQuestionProjection.test.ts.snapshot",
+        "sha256": "abeb79cb4c2b437bb687ac09b63fd948959ddd30428d0734ce91aabc35c4b963",
+        "byteLength": 15819,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 13,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+        "sha256": "0c6b677d07f473bbe81692cecdca1fbda1f6240cd19a0583a17b48046848d506"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+        "sha256": "0c6b677d07f473bbe81692cecdca1fbda1f6240cd19a0583a17b48046848d506",
+        "byteLength": 41356,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongDisplayed74FigureHistoryContract.test.ts.snapshot",
+        "sha256": "bb77a21004cdfd9eb8eb2d07b37fb134e0c82d19f45e5a0afc605e454cffa869",
+        "byteLength": 41477,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 14,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongResidual47RepairContract.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongResidual47RepairContract.test.ts",
+        "sha256": "143db278d2a924b992d26e3be00918dcb7b41ceb40da8f54a521d95bf4da3fbb"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongResidual47RepairContract.test.ts",
+        "sha256": "143db278d2a924b992d26e3be00918dcb7b41ceb40da8f54a521d95bf4da3fbb",
+        "byteLength": 50221,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47RepairContract.test.ts.snapshot",
+        "sha256": "1600b6131f448720223b7ad41592c4912e52f8a08406ce57f590c19fefcde800",
+        "byteLength": 50343,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 15,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/server/hongKongEaseResponseContracts.test.ts",
+        "sha256": "01156ab629d631a7ba4e53f789877d90f7ef66be69728d29a4cf715d6fd7dbc5"
+      },
+      "currentPreimage": {
+        "path": "lib/server/hongKongEaseResponseContracts.test.ts",
+        "sha256": "01156ab629d631a7ba4e53f789877d90f7ef66be69728d29a4cf715d6fd7dbc5",
+        "byteLength": 22626,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongEaseResponseContracts.test.ts.snapshot",
+        "sha256": "b71f2b6780895cb303033fbe1879a05515fc174102350d8081c0412c1ac31026",
+        "byteLength": 22626,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 16,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongResidual47FocusedTestLedger.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongResidual47FocusedTestLedger.ts",
+        "sha256": "6b79ac5f0df83bb8d416abecb23f53706542b5e34c6b8cf1fcbbb263a3586a96"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongResidual47FocusedTestLedger.ts",
+        "sha256": "6b79ac5f0df83bb8d416abecb23f53706542b5e34c6b8cf1fcbbb263a3586a96",
+        "byteLength": 8088,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47FocusedTestLedger.ts.snapshot",
+        "sha256": "2c20817b6c96b42ed5a89972c7ea4d084205538a2d35f5278f2dddd3a38b3c63",
+        "byteLength": 8088,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 17,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+        "sha256": "3db51ff0c238675293ae7d3a7ee214f7f6511c3552d904ea5a005fa791bef94b"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+        "sha256": "3db51ff0c238675293ae7d3a7ee214f7f6511c3552d904ea5a005fa791bef94b",
+        "byteLength": 1632,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-residual47-focused-test-ledger.json.snapshot",
+        "sha256": "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0",
+        "byteLength": 1632,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 18,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-historical-regression",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+        "sha256": "aa9ef44b07f6c452090f312c77a43b7384bbaae5684e1c6137c46b1542e00bfe"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+        "sha256": "aa9ef44b07f6c452090f312c77a43b7384bbaae5684e1c6137c46b1542e00bfe",
+        "byteLength": 1307,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-ease-response-focused-test-ledger.json.snapshot",
+        "sha256": "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91",
+        "byteLength": 1307,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-historical-regression",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+        "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+        "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+      }
+    },
+    {
+      "index": 19,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "preimageEvidence": {
+        "classification": "atomic-plan-current-byte-pin",
+        "authorityId": null,
+        "authorityField": null,
+        "logicalTargetPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+        "sha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634",
+        "disposition": "exact current regular-file bytes are pinned by this HOLD plan; independent reviewer must explicitly adjudicate this missing upstream preimage field before promotion"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+        "sha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634",
+        "byteLength": 406488,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/v4-sanitized-derivation-input-exact3-v1.json",
+        "sha256": "54e9861f4fe6963e005752dbe5f741fed8ba71b8596eec8d80d365fc46ad0cfb",
+        "byteLength": 406616,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 20,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "preimageEvidence": {
+        "classification": "atomic-plan-current-byte-pin",
+        "authorityId": null,
+        "authorityField": null,
+        "logicalTargetPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+        "sha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+        "disposition": "exact current regular-file bytes are pinned by this HOLD plan; independent reviewer must explicitly adjudicate this missing upstream preimage field before promotion"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+        "sha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+        "byteLength": 4313749,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/v4-row-specific-derivation-supplement-exact3-v1.json",
+        "sha256": "2eec0d9b7ce7adf06d9f50d1dfa30738df9a8d97481d09c0458ad9023eca181e",
+        "byteLength": 4313462,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 21,
+      "operation": "replace-existing",
+      "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+      "preimageEvidence": {
+        "classification": "phase2b-data-plane-forbidden-live-inventory",
+        "authorityId": "phase2b-data-plane",
+        "authorityField": "forbiddenLiveInventory",
+        "logicalTargetPath": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+        "sha256": "8f306dc2d34b3595e70c0f8ef55345dc321fdae97278cb404d499d40635e2e9d"
+      },
+      "currentPreimage": {
+        "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+        "sha256": "8f306dc2d34b3595e70c0f8ef55345dc321fdae97278cb404d499d40635e2e9d",
+        "byteLength": 816464,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/independent-answer-oracle-v4-exact3-v1.json",
+        "sha256": "236b6bf6342a9524869b2cff5562a35ef74efd9712456054f326f4e6b9a16844",
+        "byteLength": 816783,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 22,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-transformation",
+        "authorityId": "phase2b-v4-lineage",
+        "authorityField": "sourceTransformations",
+        "logicalTargetPath": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+        "sha256": "67b2265380d8f8dad92eec621d7a838853ebc46c47ae583da82ebcb5a7a054ab"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+        "sha256": "67b2265380d8f8dad92eec621d7a838853ebc46c47ae583da82ebcb5a7a054ab",
+        "byteLength": 6732,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-derivation-input-v4-postimage.ts.snapshot",
+        "sha256": "432f29c1bb455bc9b1a88d634e893cc3d59d9e033234d67f09c57279d4e67107",
+        "byteLength": 6732,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 23,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-transformation",
+        "authorityId": "phase2b-v4-lineage",
+        "authorityField": "sourceTransformations",
+        "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+        "sha256": "459ee6c75f53de7ec4062d3a6224e1a50c4f66620ef4943d1bc93efc47272fab"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+        "sha256": "459ee6c75f53de7ec4062d3a6224e1a50c4f66620ef4943d1bc93efc47272fab",
+        "byteLength": 202692,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-independent-oracle-v4-supplement-postimage.ts.snapshot",
+        "sha256": "fefa0d33056e0e28455df751129292bd650557499aed1fcf64bdb424087361c1",
+        "byteLength": 202692,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 24,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-transformation",
+        "authorityId": "phase2b-v4-lineage",
+        "authorityField": "sourceTransformations",
+        "logicalTargetPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+        "sha256": "c04d59c92f7aefa8acb59d80fc1a147a511b32ba8dac778fa2a58da4d719522d"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+        "sha256": "c04d59c92f7aefa8acb59d80fc1a147a511b32ba8dac778fa2a58da4d719522d",
+        "byteLength": 9863,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/build-hk-ease-independent-oracle-v4-postimage.ts.snapshot",
+        "sha256": "6132185bdd6fb314659a35dd5b0a6311c5a0011fcd20615412e2b7f2cd5f551f",
+        "byteLength": 9863,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 25,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-transformation",
+        "authorityId": "phase2b-v4-lineage",
+        "authorityField": "sourceTransformations",
+        "logicalTargetPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+        "sha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+        "sha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+        "byteLength": 97702,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/lib-hongKongEaseIndependentOracleV4.test.ts.snapshot",
+        "sha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a",
+        "byteLength": 97936,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-v4-lineage",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+        "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+        "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+      }
+    },
+    {
+      "index": 26,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/questionBankSolvability.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-fullbank",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/questionBankSolvability.ts",
+        "sha256": "48970ce1a17231269fd03c35d257272b1a0b7fb60c346462cbf230df3d43984d"
+      },
+      "currentPreimage": {
+        "path": "lib/questionBankSolvability.ts",
+        "sha256": "48970ce1a17231269fd03c35d257272b1a0b7fb60c346462cbf230df3d43984d",
+        "byteLength": 107693,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-questionBankSolvability.ts.snapshot",
+        "sha256": "2b400503b0cb9fb90e4627fd7e285e58c830b78ac2d22839b0fa5a16c0b69e7f",
+        "byteLength": 107715,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-fullbank",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+        "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+        "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+      }
+    },
+    {
+      "index": 27,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongEaseIndependentOracle.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-fullbank",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongEaseIndependentOracle.ts",
+        "sha256": "0263947c3449d42f378ae721c555896b429fbfab309081229500eab6fb96045b"
+      },
+      "currentPreimage": {
+        "path": "lib/hongKongEaseIndependentOracle.ts",
+        "sha256": "0263947c3449d42f378ae721c555896b429fbfab309081229500eab6fb96045b",
+        "byteLength": 30904,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-hongKongEaseIndependentOracle.ts.snapshot",
+        "sha256": "08c315e86ec0c0a917c4f7b9f85f6844b25e427807a44bc03ed6d2088a480b6c",
+        "byteLength": 31714,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-fullbank",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+        "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+        "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+      }
+    },
+    {
+      "index": 28,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/fullQuestionBankSolvability.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-fullbank",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/fullQuestionBankSolvability.test.ts",
+        "sha256": "f964d1f2d11dbd5eeb8c1ebf2aea5a3bdf73d73189ed511fa68dc09d2ebe984c"
+      },
+      "currentPreimage": {
+        "path": "lib/fullQuestionBankSolvability.test.ts",
+        "sha256": "f964d1f2d11dbd5eeb8c1ebf2aea5a3bdf73d73189ed511fa68dc09d2ebe984c",
+        "byteLength": 30200,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-fullQuestionBankSolvability.test.ts.snapshot",
+        "sha256": "1d1ed1c4fcaaae556b6ddde0dcdc4bed74f93add4ee2f0d445083672ba72c7f0",
+        "byteLength": 32604,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-fullbank",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+        "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+        "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+      }
+    },
+    {
+      "index": 29,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-canonical241",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+        "sha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+        "sha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d",
+        "byteLength": 111582,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/hk-question-bank-evidence-runner.mjs.snapshot",
+        "sha256": "afe8ca51d48c3111ab9d365d3972c9d8cb72611bbe619c28a070c4f0f6a984df",
+        "byteLength": 112841,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-canonical241",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/canonical241-hold-authority-v1.json",
+        "sha256": "50626bc4c870682afaaac5a3f99562b45e01267edbe07c8d42b9e15346e7841a",
+        "authorityPayloadSha256": "5da1810e8a6feefebe8eae80ba1c531a81ac5236cfbbcf41de7b09f9ccafdcb1"
+      }
+    },
+    {
+      "index": 30,
+      "operation": "replace-existing",
+      "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-canonical241",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+        "sha256": "b57fe6e21f614300d33452d9b140ba45e8af7567c9665a17ef997bf9244d03b5"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+        "sha256": "b57fe6e21f614300d33452d9b140ba45e8af7567c9665a17ef997bf9244d03b5",
+        "byteLength": 59151,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": null,
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/hk-question-bank-evidence-runner.test.mjs.snapshot",
+        "sha256": "3afcb469840041450dbe4cf6eb08baee86b940628bbfbb627271cfb088b7d824",
+        "byteLength": 58753,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-canonical241",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/canonical241-hold-authority-v1.json",
+        "sha256": "50626bc4c870682afaaac5a3f99562b45e01267edbe07c8d42b9e15346e7841a",
+        "authorityPayloadSha256": "5da1810e8a6feefebe8eae80ba1c531a81ac5236cfbbcf41de7b09f9ccafdcb1"
+      }
+    },
+    {
+      "index": 31,
+      "operation": "replace-existing",
+      "logicalTargetPath": "lib/hongKongLessonQualityContract.test.ts",
+      "preimageEvidence": {
+        "classification": "source-authority-output-binding",
+        "authorityId": "phase2b-canonical241",
+        "authorityField": "outputBindings",
+        "logicalTargetPath": "lib/hongKongLessonQualityContract.test.ts",
+        "sha256": "15a54de50c52ac839b01f9560b8ddc475abdcde4163beb6abc9204f68ffdf557"
+      },
+      "currentPreimage": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/lib-hongKongLessonQualityContract.test.ts.preimage.snapshot",
+        "sha256": "15a54de50c52ac839b01f9560b8ddc475abdcde4163beb6abc9204f68ffdf557",
+        "byteLength": 44311,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "preappliedCandidateWorkspaceTarget": {
+        "path": "lib/hongKongLessonQualityContract.test.ts",
+        "sha256": "14ed04358cff26d50a60d69437c5d43ca14aba6a744de70645fa7c95fc9eee11",
+        "byteLength": 45108,
+        "mode": "0644",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "candidate": {
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/lib-hongKongLessonQualityContract.test.ts.snapshot",
+        "sha256": "14ed04358cff26d50a60d69437c5d43ca14aba6a744de70645fa7c95fc9eee11",
+        "byteLength": 45108,
+        "mode": "0444",
+        "regularFile": true,
+        "symbolicLink": false
+      },
+      "sourceAuthority": {
+        "id": "phase2b-canonical241",
+        "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical241-candidate/canonical241-hold-authority-v1.json",
+        "sha256": "50626bc4c870682afaaac5a3f99562b45e01267edbe07c8d42b9e15346e7841a",
+        "authorityPayloadSha256": "5da1810e8a6feefebe8eae80ba1c531a81ac5236cfbbcf41de7b09f9ccafdcb1"
+      }
+    }
+  ],
+  "unchangedInvariants": [
+    {
+      "path": "data/questions.ts",
+      "sha256": "96d90f3c090b14bd7797155ffcbb20edcbf2230147a945f6c02ec32a470dbca8",
+      "byteLength": 202667,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracleV4.ts",
+      "sha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c",
+      "byteLength": 210235,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+      "byteLength": 647460,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1",
+      "byteLength": 727305,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/declared-simple-ledger.json",
+      "sha256": "11ad86d97706a08379df4b75630bfe35e73a7e2dba257ce0e435044d03784284",
+      "byteLength": 1211812,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "package.json",
+      "sha256": "60fc5dd020cc95fbead086f335d1f34287cc89517d44a0cb4a0acab9b939cfa1",
+      "byteLength": 17120,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8",
+      "byteLength": 1109,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    }
+  ],
+  "diagnosticExclusions": [
+    "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/generation-shadow-bridge.ts.snapshot"
+  ],
+  "implementationBindings": {
+    "builder": {
+      "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-atomic-promotion-plan.ts",
+      "sha256": "9ab92af9ec0ed384c4e6607d70d20f49a20ce20fd194d5366e647d71103e621f",
+      "byteLength": 47543,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    },
+    "focusedTest": {
+      "path": "coordination/content-qa/hk-ease-exact3-phase2b-atomic-promotion-plan-candidate.test.ts",
+      "sha256": "7e19518072649f6a2aecae666448e7fd34f28bf118e73e0379f5f55d9ff269df",
+      "byteLength": 20478,
+      "mode": "0644",
+      "regularFile": true,
+      "symbolicLink": false
+    }
+  },
+  "executionPolicy": {
+    "executableApplyCodeIncluded": false,
+    "rollbackCodeIncluded": false,
+    "planIsReadOnlyEvidenceOnly": true,
+    "allCandidateFilesMustRemainImmutable0444": true,
+    "allReplacementPreimagesMustMatchAtFutureExecutionTime": true,
+    "allCreationTargetsMustRemainAbsentAtFutureExecutionTime": true,
+    "futurePromotionRequiresFreshIndependentReviewAndExplicitOwnerAuthorization": true
+  },
+  "promotionBoundary": {
+    "planExecutionAuthorized": false,
+    "liveMutationAuthorized": false,
+    "canonicalExecutionAuthorized": false,
+    "browserExecutionAuthorized": false,
+    "releaseAuthorized": false,
+    "verdict": "candidate-only"
+  },
+  "planPayloadSha256": "2e896768c594b65756e99ea85d5a41267640779bb9c046c808f274573e608444"
+}

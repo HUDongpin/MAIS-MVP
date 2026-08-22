@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-canonical216-candidate-hold-authority-v1",
+  "status": "candidate-hold-not-live-promotion",
+  "boundary": "candidate-only exact216 runner topology and independent reviewed-source pins; no live source mutation, canonical execution, browser evidence, promotion, or release authorization",
+  "implementationBindings": [
+    {
+      "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-canonical216-candidate.ts",
+      "sha256": "4c5851baf36bded07b9b815a05a70a8b9b7efed1f3c109bf0b03f6c04adee527",
+      "byteLength": 30643
+    },
+    {
+      "path": "coordination/content-qa/hk-ease-exact3-phase2b-canonical216-candidate.test.ts",
+      "sha256": "f797a16b9b2e0db2399a14ba4ceee57642622a2964fbac4a7de143a05e2b8dce",
+      "byteLength": 6616
+    }
+  ],
+  "priorAuthorityBindings": [
+    {
+      "name": "historicalRegression",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+      "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+      "schemaVersion": "hk-ease-exact3-phase2b-historical-regression-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "726dc3988661fa32ebd726f9d7859dfbb4ee804e4842e28dd8466f8f04583be9"
+    },
+    {
+      "name": "v4Lineage",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+      "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+      "schemaVersion": "hk-ease-exact3-v4-lineage-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "e3c593bd46bc5210930f8cc8072862eb81bee9277bd3cf4258f9b1833c7a756d"
+    },
+    {
+      "name": "fullbank",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/fullbank-hold-authority-v1.json",
+      "sha256": "f4d302234a7163f40e599c4c96fa158ffcb4ef696ffe6c5315ba174140ce6e73",
+      "schemaVersion": "hk-ease-exact3-phase2b-fullbank-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion",
+      "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+    }
+  ],
+  "runnerPreimageBindings": [
+    {
+      "path": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "sha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d"
+    },
+    {
+      "path": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "sha256": "b57fe6e21f614300d33452d9b140ba45e8af7567c9665a17ef997bf9244d03b5"
+    }
+  ],
+  "futureSourceBindings": [
+    {
+      "logicalPath": "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+      "physicalPath": "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+      "sha256": "c676acf3931e4a59761cfc4f7249ebd7546fa144854c8ae89fdb59c4562e12fc"
+    },
+    {
+      "logicalPath": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-residual47-focused-test-ledger.json.snapshot",
+      "sha256": "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0"
+    },
+    {
+      "logicalPath": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/hk-ease-response-focused-test-ledger.json.snapshot",
+      "sha256": "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91"
+    },
+    {
+      "logicalPath": "lib/mainlandPepHighQuestionBank.test.ts",
+      "physicalPath": "lib/mainlandPepHighQuestionBank.test.ts",
+      "sha256": "99b80bd34047c0640a49a56f662a7d578d04a9fb8e156eb64d7608e269f3a312"
+    },
+    {
+      "logicalPath": "lib/mainlandPepPrimaryQuestionBank.test.ts",
+      "physicalPath": "lib/mainlandPepPrimaryQuestionBank.test.ts",
+      "sha256": "498f80b94e702008cd465aa016409c802cce5ed5f8a3891145755f4dddf9fd18"
+    },
+    {
+      "logicalPath": "lib/mainlandPepJuniorQuestionBank.test.ts",
+      "physicalPath": "lib/mainlandPepJuniorQuestionBank.test.ts",
+      "sha256": "ca107d64204403652b72bb2bfc53e2d16b83ed00379b161aa13a352d2856dc92"
+    },
+    {
+      "logicalPath": "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+      "physicalPath": "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+      "sha256": "7f28efb0b790f6d048a2d216721c6459f1bae3014642ab3cfe0ee942b1366417"
+    },
+    {
+      "logicalPath": "lib/mainlandBnuJuniorQuestionBank.test.ts",
+      "physicalPath": "lib/mainlandBnuJuniorQuestionBank.test.ts",
+      "sha256": "7c284f0b221a3f1af09d7f1ffa59b55d6fcdd79cbd2ee98909856bcff2606019"
+    },
+    {
+      "logicalPath": "lib/fullQuestionBankSolvability.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-fullQuestionBankSolvability.test.ts.snapshot",
+      "sha256": "1d1ed1c4fcaaae556b6ddde0dcdc4bed74f93add4ee2f0d445083672ba72c7f0"
+    },
+    {
+      "logicalPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/lib-hongKongEaseIndependentOracleV4.test.ts.snapshot",
+      "sha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a"
+    },
+    {
+      "logicalPath": "lib/questionFigure.test.ts",
+      "physicalPath": "lib/questionFigure.test.ts",
+      "sha256": "9590f3afb22dbe9fb0ed77100fa7f47ac79db4b511aafb0ffd8eefaea8b575c7"
+    },
+    {
+      "logicalPath": "lib/practiceFigureAudit.test.ts",
+      "physicalPath": "lib/practiceFigureAudit.test.ts",
+      "sha256": "27b62748f87b3c0fb5a84a7c1c1bf6efb3f0148fd25508f11343b1aac4cb8b26"
+    },
+    {
+      "logicalPath": "lib/hongKongDisplayed74ContentContract.test.ts",
+      "physicalPath": "lib/hongKongDisplayed74ContentContract.test.ts",
+      "sha256": "2a2925b3b72481010a788f8f5da07b72cf139b4ed7c2c6869ebfbc757e2988c4"
+    },
+    {
+      "logicalPath": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongDisplayed74FigureHistoryContract.test.ts.snapshot",
+      "sha256": "bb77a21004cdfd9eb8eb2d07b37fb134e0c82d19f45e5a0afc605e454cffa869"
+    },
+    {
+      "logicalPath": "lib/hongKongDisplayed74FocusedTestLedger.ts",
+      "physicalPath": "lib/hongKongDisplayed74FocusedTestLedger.ts",
+      "sha256": "7575a452f27f312c026590f6a209e0c03366719810a8e4a5c6a77d6617e8d175"
+    },
+    {
+      "logicalPath": "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+      "physicalPath": "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+      "sha256": "0073b2953308203e6953f6674f08241a126ca6e25098d6c31cc2dfe46ce686b9"
+    },
+    {
+      "logicalPath": "lib/hongKongQuestionVersioning.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongQuestionVersioning.test.ts.snapshot",
+      "sha256": "4e2640bf0d4fd0b28fb3186e73625022b0d00989e0380ed1a5304e38b64b6128"
+    },
+    {
+      "logicalPath": "lib/hongKongResidual47FocusedTestLedger.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47FocusedTestLedger.ts.snapshot",
+      "sha256": "2c20817b6c96b42ed5a89972c7ea4d084205538a2d35f5278f2dddd3a38b3c63"
+    },
+    {
+      "logicalPath": "lib/hongKongResidual47RepairContract.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-hongKongResidual47RepairContract.test.ts.snapshot",
+      "sha256": "1600b6131f448720223b7ad41592c4912e52f8a08406ce57f590c19fefcde800"
+    },
+    {
+      "logicalPath": "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+      "physicalPath": "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+      "sha256": "f27ba969b99091e7bd8a66e7fb6e4aa279909ce5bb3fb21dc6a020153afad27f"
+    },
+    {
+      "logicalPath": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongEaseResponseContracts.test.ts.snapshot",
+      "sha256": "b71f2b6780895cb303033fbe1879a05515fc174102350d8081c0412c1ac31026"
+    },
+    {
+      "logicalPath": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/lib-server-hongKongHistoricalQuestionProjection.test.ts.snapshot",
+      "sha256": "abeb79cb4c2b437bb687ac09b63fd948959ddd30428d0734ce91aabc35c4b963"
+    },
+    {
+      "logicalPath": "lib/questionBankSolvability.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-questionBankSolvability.ts.snapshot",
+      "sha256": "2b400503b0cb9fb90e4627fd7e285e58c830b78ac2d22839b0fa5a16c0b69e7f"
+    },
+    {
+      "logicalPath": "lib/hongKongEaseIndependentOracle.ts",
+      "physicalPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-hongKongEaseIndependentOracle.ts.snapshot",
+      "sha256": "08c315e86ec0c0a917c4f7b9f85f6844b25e427807a44bc03ed6d2088a480b6c"
+    },
+    {
+      "logicalPath": "package.json",
+      "physicalPath": "package.json",
+      "sha256": "60fc5dd020cc95fbead086f335d1f34287cc89517d44a0cb4a0acab9b939cfa1"
+    },
+    {
+      "logicalPath": "tsconfig.json",
+      "physicalPath": "tsconfig.json",
+      "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+    }
+  ],
+  "outputBindings": [
+    {
+      "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "preimageSha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical216-candidate/hk-question-bank-evidence-runner.mjs.snapshot",
+      "sha256": "575809b725a47ac175ca7c4ad98738e7fd89177cb0c392b3039fad53d5361fc0",
+      "byteLength": 112557
+    },
+    {
+      "logicalTargetPath": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "preimageSha256": "b57fe6e21f614300d33452d9b140ba45e8af7567c9665a17ef997bf9244d03b5",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-canonical216-candidate/hk-question-bank-evidence-runner.test.mjs.snapshot",
+      "sha256": "bb67ba429e3fa61f6c8323cb00884e820cce91489ab5085de1d533924abd5abc",
+      "byteLength": 58700
+    }
+  ],
+  "topology": {
+    "directTestCount": 142,
+    "directTestNameSha256": "8bdc6c236279a80a07b4699ae284ef9d954af06d64560410629a3d91035b58f5",
+    "directSourceTestCounts": [
+      38,
+      8,
+      8,
+      11,
+      7,
+      5,
+      36,
+      19,
+      10
+    ],
+    "focusedTestCount": 74,
+    "focusedLedgerCounts": [
+      57,
+      10,
+      7
+    ],
+    "expectedCanonicalTestCount": 216,
+    "globallyUniqueTestNameCount": 216,
+    "collisions": []
+  },
+  "reviewedSourceAuthority": [
+    {
+      "path": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "hashMode": "authority-block-normalized",
+      "bytes": 106930,
+      "sha256": "47d4b4577ed26d0100cdff8c763dac8bdd0966b407b0951fe4640430967efc41"
+    },
+    {
+      "path": "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+      "hashMode": "raw",
+      "bytes": 58700,
+      "sha256": "bb67ba429e3fa61f6c8323cb00884e820cce91489ab5085de1d533924abd5abc"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+      "hashMode": "raw",
+      "bytes": 7170,
+      "sha256": "c676acf3931e4a59761cfc4f7249ebd7546fa144854c8ae89fdb59c4562e12fc"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+      "hashMode": "raw",
+      "bytes": 1632,
+      "sha256": "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+      "hashMode": "raw",
+      "bytes": 1307,
+      "sha256": "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91"
+    },
+    {
+      "path": "lib/mainlandPepHighQuestionBank.test.ts",
+      "hashMode": "raw",
+      "bytes": 80182,
+      "sha256": "99b80bd34047c0640a49a56f662a7d578d04a9fb8e156eb64d7608e269f3a312"
+    },
+    {
+      "path": "lib/mainlandPepPrimaryQuestionBank.test.ts",
+      "hashMode": "raw",
+      "bytes": 11835,
+      "sha256": "498f80b94e702008cd465aa016409c802cce5ed5f8a3891145755f4dddf9fd18"
+    },
+    {
+      "path": "lib/mainlandPepJuniorQuestionBank.test.ts",
+      "hashMode": "raw",
+      "bytes": 12770,
+      "sha256": "ca107d64204403652b72bb2bfc53e2d16b83ed00379b161aa13a352d2856dc92"
+    },
+    {
+      "path": "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+      "hashMode": "raw",
+      "bytes": 18710,
+      "sha256": "7f28efb0b790f6d048a2d216721c6459f1bae3014642ab3cfe0ee942b1366417"
+    },
+    {
+      "path": "lib/mainlandBnuJuniorQuestionBank.test.ts",
+      "hashMode": "raw",
+      "bytes": 15197,
+      "sha256": "7c284f0b221a3f1af09d7f1ffa59b55d6fcdd79cbd2ee98909856bcff2606019"
+    },
+    {
+      "path": "lib/fullQuestionBankSolvability.test.ts",
+      "hashMode": "raw",
+      "bytes": 32604,
+      "sha256": "1d1ed1c4fcaaae556b6ddde0dcdc4bed74f93add4ee2f0d445083672ba72c7f0"
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "hashMode": "raw",
+      "bytes": 97936,
+      "sha256": "459c89f15d073f50927b21605be093543e6e64ffede351734c23f1188251285a"
+    },
+    {
+      "path": "lib/questionFigure.test.ts",
+      "hashMode": "raw",
+      "bytes": 35373,
+      "sha256": "9590f3afb22dbe9fb0ed77100fa7f47ac79db4b511aafb0ffd8eefaea8b575c7"
+    },
+    {
+      "path": "lib/practiceFigureAudit.test.ts",
+      "hashMode": "raw",
+      "bytes": 6474,
+      "sha256": "27b62748f87b3c0fb5a84a7c1c1bf6efb3f0148fd25508f11343b1aac4cb8b26"
+    },
+    {
+      "path": "lib/hongKongDisplayed74ContentContract.test.ts",
+      "hashMode": "raw",
+      "bytes": 25927,
+      "sha256": "2a2925b3b72481010a788f8f5da07b72cf139b4ed7c2c6869ebfbc757e2988c4"
+    },
+    {
+      "path": "lib/hongKongDisplayed74FigureHistoryContract.test.ts",
+      "hashMode": "raw",
+      "bytes": 41477,
+      "sha256": "bb77a21004cdfd9eb8eb2d07b37fb134e0c82d19f45e5a0afc605e454cffa869"
+    },
+    {
+      "path": "lib/hongKongDisplayed74FocusedTestLedger.ts",
+      "hashMode": "raw",
+      "bytes": 8696,
+      "sha256": "7575a452f27f312c026590f6a209e0c03366719810a8e4a5c6a77d6617e8d175"
+    },
+    {
+      "path": "lib/hongKongDisplayed74HistoryProvenance.test.ts",
+      "hashMode": "raw",
+      "bytes": 8962,
+      "sha256": "0073b2953308203e6953f6674f08241a126ca6e25098d6c31cc2dfe46ce686b9"
+    },
+    {
+      "path": "lib/hongKongQuestionVersioning.test.ts",
+      "hashMode": "raw",
+      "bytes": 11553,
+      "sha256": "4e2640bf0d4fd0b28fb3186e73625022b0d00989e0380ed1a5304e38b64b6128"
+    },
+    {
+      "path": "lib/hongKongResidual47FocusedTestLedger.ts",
+      "hashMode": "raw",
+      "bytes": 8088,
+      "sha256": "2c20817b6c96b42ed5a89972c7ea4d084205538a2d35f5278f2dddd3a38b3c63"
+    },
+    {
+      "path": "lib/hongKongResidual47RepairContract.test.ts",
+      "hashMode": "raw",
+      "bytes": 50343,
+      "sha256": "1600b6131f448720223b7ad41592c4912e52f8a08406ce57f590c19fefcde800"
+    },
+    {
+      "path": "lib/server/hongKongDisplayed74ResponseContracts.test.ts",
+      "hashMode": "raw",
+      "bytes": 13958,
+      "sha256": "f27ba969b99091e7bd8a66e7fb6e4aa279909ce5bb3fb21dc6a020153afad27f"
+    },
+    {
+      "path": "lib/server/hongKongEaseResponseContracts.test.ts",
+      "hashMode": "raw",
+      "bytes": 22626,
+      "sha256": "b71f2b6780895cb303033fbe1879a05515fc174102350d8081c0412c1ac31026"
+    },
+    {
+      "path": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "hashMode": "raw",
+      "bytes": 15819,
+      "sha256": "abeb79cb4c2b437bb687ac09b63fd948959ddd30428d0734ce91aabc35c4b963"
+    },
+    {
+      "path": "lib/questionBankSolvability.ts",
+      "hashMode": "raw",
+      "bytes": 107715,
+      "sha256": "2b400503b0cb9fb90e4627fd7e285e58c830b78ac2d22839b0fa5a16c0b69e7f"
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracle.ts",
+      "hashMode": "raw",
+      "bytes": 31714,
+      "sha256": "08c315e86ec0c0a917c4f7b9f85f6844b25e427807a44bc03ed6d2088a480b6c"
+    },
+    {
+      "path": "package.json",
+      "hashMode": "raw",
+      "bytes": 17120,
+      "sha256": "60fc5dd020cc95fbead086f335d1f34287cc89517d44a0cb4a0acab9b939cfa1"
+    },
+    {
+      "path": "tsconfig.json",
+      "hashMode": "raw",
+      "bytes": 1109,
+      "sha256": "463a2abe6c2c803606ddf13aa6cb7d2f68cab049052ed876e5ffb77f5f4d96a8"
+    }
+  ],
+  "promotion": {
+    "liveMutationAuthorized": false,
+    "canonicalExecutionAuthorized": false,
+    "browserAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "isolated exact216 runner-unit shadow replay",
+      "independent A18 source-bound V4 review receipt",
+      "independent review of the exact216 runner candidate and its source authority",
+      "authorized atomic promotion followed by canonical, browser, and release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "bf945e127cca383f4970d522bfc49bd43013f7bdd3fcc46afa67327d8c79aefa"
+}

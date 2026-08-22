@@ -1,0 +1,4057 @@
+import { createHash } from "node:crypto";
+
+import {
+  canonicalHongKongEaseV4ProblemPayload,
+  type HongKongEaseV4SanitizedInput,
+  type HongKongEaseV4SanitizedInputRow
+} from "@/coordination/content-qa/build-hk-ease-derivation-input-v4";
+import {
+  assertExactHongKongEaseV4SanitizedInput,
+  HK_EASE_V4_SANITIZED_INPUT_SHA256,
+  type DerivationFact,
+  type DerivationStep,
+  type HongKongEaseV4DerivationRow,
+  type HongKongEaseV4DerivationSupplement,
+  type PromptRequirements,
+  type OptionAdjudication
+} from "@/coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement";
+import {
+  ExactRational,
+  evaluateExactExpression,
+  integerGcd,
+  integerLcm,
+  isPrime,
+  positiveFactors,
+  primeFactorization,
+  renderPrimeFactorization,
+  type RationalJson
+} from "@/coordination/content-qa/hk-ease-v4-derivation-dsl";
+
+export type HongKongEaseV4FailureCode =
+  | "V4_SOURCE_LINEAGE_DRIFT"
+  | "V4_SANITIZED_INPUT_FORBIDDEN_KEY"
+  | "V4_QUESTION_ORDER_DRIFT"
+  | "V4_PROMPT_BINDING_DRIFT"
+  | "V4_OPTIONS_BINDING_DRIFT"
+  | "V4_DIAGRAM_BINDING_DRIFT"
+  | "V4_FACT_LOCATOR_INVALID"
+  | "V4_STEP_INPUT_BINDING_INVALID"
+  | "V4_STEP_EXECUTION_INVALID"
+  | "V4_STEP_OUTPUT_INVALID"
+  | "V4_DOMAIN_RULE_UNSUPPORTED"
+  | "V4_DOMAIN_RULE_OUTPUT_INVALID"
+  | "V4_OPTION_ADJUDICATION_INVALID"
+  | "V4_DERIVATION_PAYLOAD_DRIFT"
+  | "V4_ANSWER_BINDING_DRIFT"
+  | "V4_RESPONSE_POLICY_BINDING_DRIFT"
+  | "V4_DERIVED_ANSWER_MISMATCH"
+  | "V4_NON_ROW_SPECIFIC_DERIVATION"
+  | "V4_REVIEW_STATUS_INCOMPLETE";
+
+export class HongKongEaseV4ValidationError extends Error {
+  constructor(
+    public readonly code: HongKongEaseV4FailureCode,
+    public readonly baseId: string | null,
+    public readonly field: string | null,
+    message: string
+  ) {
+    super(`${code}:${baseId ?? "package"}:${field ?? "package"}:${message}`);
+    this.name = "HongKongEaseV4ValidationError";
+  }
+}
+
+const fail = (
+  code: HongKongEaseV4FailureCode,
+  message: string,
+  baseId: string | null = null,
+  field: string | null = null
+): never => {
+  throw new HongKongEaseV4ValidationError(code, baseId, field, message);
+};
+
+type HongKongEaseV4Invariant = (
+  condition: unknown,
+  code: HongKongEaseV4FailureCode,
+  message: string,
+  baseId?: string | null,
+  field?: string | null
+) => asserts condition;
+
+const invariant: HongKongEaseV4Invariant = (
+  condition,
+  code,
+  message,
+  baseId = null,
+  field = null
+) => {
+  if (!condition) fail(code, message, baseId, field);
+};
+
+export const hongKongEaseV4Sha256 = (value: string | Buffer): string =>
+  createHash("sha256").update(value).digest("hex");
+
+const canonicalDerivationRowWithoutHash = (row: HongKongEaseV4DerivationRow): string => {
+  const { derivationPayloadSha256: _hash, ...payload } = row;
+  return JSON.stringify(payload);
+};
+
+const textAtFactLocator = (
+  source: HongKongEaseV4SanitizedInputRow,
+  fact: DerivationFact
+): string => {
+  const locator = fact.locator;
+  if (locator.source === "prompt.en") return source.prompt.en;
+  if (locator.source === "prompt.zh") return source.prompt.zh;
+  const options = locator.source === "options.en" ? source.options.en : source.options.zh;
+  invariant(
+    Array.isArray(options) && locator.optionIndex !== undefined && typeof options[locator.optionIndex] === "string",
+    "V4_FACT_LOCATOR_INVALID",
+    "option locator does not resolve",
+    source.baseId,
+    fact.factId
+  );
+  return options[locator.optionIndex];
+};
+
+const validateFact = (source: HongKongEaseV4SanitizedInputRow, fact: DerivationFact): void => {
+  assertExactPlainObjectKeys(
+    fact,
+    ["factId", "kind", "locator", "value"],
+    "V4_FACT_LOCATOR_INVALID",
+    "fact schema drifted",
+    source.baseId,
+    fact?.factId ?? null
+  );
+  assertExactPlainObjectKeys(
+    fact.locator,
+    fact.locator.source === "options.en" || fact.locator.source === "options.zh"
+      ? ["source", "optionIndex", "exact", "occurrence", "start", "end"]
+      : ["source", "exact", "occurrence", "start", "end"],
+    "V4_FACT_LOCATOR_INVALID",
+    "fact locator schema drifted",
+    source.baseId,
+    fact.factId
+  );
+  const text = textAtFactLocator(source, fact);
+  invariant(
+    Number.isInteger(fact.locator.start) && Number.isInteger(fact.locator.end),
+    "V4_FACT_LOCATOR_INVALID",
+    "locator bounds must be integers",
+    source.baseId,
+    fact.factId
+  );
+  invariant(
+    text.slice(fact.locator.start, fact.locator.end) === fact.locator.exact,
+    "V4_FACT_LOCATOR_INVALID",
+    "locator does not select its exact source bytes",
+    source.baseId,
+    fact.factId
+  );
+  let cursor = -1;
+  for (let occurrence = 0; occurrence <= fact.locator.occurrence; occurrence += 1) {
+    cursor = text.indexOf(fact.locator.exact, cursor + 1);
+  }
+  invariant(
+    cursor === fact.locator.start,
+    "V4_FACT_LOCATOR_INVALID",
+    "locator occurrence does not resolve to its start",
+    source.baseId,
+    fact.factId
+  );
+  const rationalValue = fact.value as { numerator?: unknown; denominator?: unknown };
+  if (
+    fact.kind === "prompt-quantity" &&
+    typeof rationalValue?.numerator === "string" &&
+    typeof rationalValue?.denominator === "string"
+  ) {
+    const exact = fact.locator.exact.replace(/,/g, "").trim();
+    const isPureExactQuantity =
+      /^[+-]?(?:\d+(?:\.\d+)?|\.\d+)$/.test(exact) ||
+      /^\d+\s+\d+\s*\/\s*\d+$/.test(exact) ||
+      /^\d+\s*\/\s*\d+$/.test(exact) ||
+      /^\d*\\(?:d?frac|tfrac)\s*\{\d+\}\s*\{\d+\}$/.test(exact);
+    if (isPureExactQuantity) {
+      const replay = evaluateExactExpression(exact).value.toJson();
+      invariant(
+        deepEqualJson(replay, rationalValue),
+        "V4_FACT_LOCATOR_INVALID",
+        "prompt quantity value is not the exact located quantity",
+        source.baseId,
+        fact.factId
+      );
+    }
+  }
+};
+
+const deepEqualJson = (left: unknown, right: unknown): boolean =>
+  JSON.stringify(left) === JSON.stringify(right);
+
+type AssertExactPlainObjectKeys = (
+  value: unknown,
+  expectedKeys: readonly string[],
+  code: HongKongEaseV4FailureCode,
+  message: string,
+  baseId: string | null,
+  field: string | null
+) => asserts value is Record<string, unknown>;
+
+const assertExactPlainObjectKeys: AssertExactPlainObjectKeys = (
+  value,
+  expectedKeys,
+  code,
+  message,
+  baseId,
+  field
+) => {
+  invariant(
+    typeof value === "object" && value !== null && !Array.isArray(value),
+    code,
+    `${message}: expected a plain object`,
+    baseId,
+    field
+  );
+  const actualKeys = Object.keys(value as Record<string, unknown>).sort();
+  const sortedExpectedKeys = [...expectedKeys].sort();
+  invariant(
+    deepEqualJson(actualKeys, sortedExpectedKeys),
+    code,
+    `${message}: expected keys ${sortedExpectedKeys.join(",")}; got ${actualKeys.join(",")}`,
+    baseId,
+    field
+  );
+};
+
+const expectedPromptUnits = (rawPrompt: string): string[] => {
+  const prompt = rawPrompt.replace(/L\.?C\.?M\.?/gi, "LCM");
+  const units = new Set<string>();
+  for (const match of prompt.matchAll(/_{2,}\s*(cm|mm|km|mL|kg|g|m|L)(?=\s|[.,;)]|$)/g)) {
+    units.add(match[1]);
+  }
+  for (const match of prompt.matchAll(/(?:in|answer in|nearest)\s+(centimetres?|metres?|kilometres?|millimetres?|litres?|millilitres?|kilograms?|grams?|seconds?|minutes?|hours?)/gi)) {
+    units.add(match[1].toLowerCase());
+  }
+  for (const match of prompt.matchAll(/(?:\d|\)|²|³)\s*(cm|mm|km|mL|kg|g|m|L)(?=\s|[.,;)]|$)/g)) {
+    const prefix = prompt.slice(Math.max(0, match.index! - 24), match.index! + 1);
+    if (match[1] === "m" && /power of\s*$/i.test(prefix)) continue;
+    units.add(match[1]);
+  }
+  if (/HK\$/.test(prompt)) units.add("HK$");
+  if (/\bdegrees?\b|°/.test(prompt)) units.add("degrees");
+  if (/square-centimetre units|square centimetre units|cm²/i.test(prompt)) units.add("cm²");
+  return [...units].sort();
+};
+
+const expectedExplicitFormat = (source: HongKongEaseV4SanitizedInputRow): string | null => {
+  const prompt = source.prompt.en.replace(/\s+/g, " ").trim();
+  const promptZh = source.prompt.zh.replace(/\s+/g, " ").trim();
+  return prompt.match(/(?:format|form)\s+[“"'](.+?)[”"']/i)?.[1]
+    ?? prompt.match(/\b(?:enter|give) (?:your )?answer as\s+(.+?)(?:\.|$)/i)?.[1]
+    ?? prompt.match(/\busing\s+[“"'](.+?)[”"']/i)?.[1]
+    ?? promptZh.match(/按[「“"'](.+?)[」”"'](?:的)?格式/)?.[1]
+    ?? null;
+};
+
+const expectedPromptRequirements = (
+  source: HongKongEaseV4SanitizedInputRow
+): PromptRequirements => {
+  const prompt = source.prompt.en.replace(/\s+/g, " ").trim();
+  const method: PromptRequirements["method"] = /short division/i.test(prompt)
+    ? "short-division"
+    : /prime factor(?:isation|ization)/i.test(prompt)
+      ? "prime-factorisation"
+      : /divisibility (?:test|rule)|explain your method|briefly explain/i.test(prompt)
+        ? "divisibility-rule"
+        : /show (?:the |your )?(?:calculation|working|steps)|do not give only/i.test(prompt)
+          ? "show-calculation"
+          : /(?:rectangle|square)-area formula/i.test(prompt)
+            ? "area-formula"
+            : /commutative or associative property of multiplication/i.test(prompt)
+              ? "commutative-or-associative-property"
+              : /round both numbers to the nearest ten and estimate/i.test(prompt)
+                ? "nearest-ten-estimation"
+                : /using enumeration/i.test(prompt)
+                  ? "enumeration"
+                  : null;
+  const representations = [
+    [/simplest form/i, "simplest-form"],
+    [/mixed number/i, "mixed-number-allowed"],
+    [/improper fraction/i, "improper-fraction-allowed"],
+    [/fraction(?!s of)/i, "fraction"],
+    [/decimal/i, "decimal"],
+    [/(?:index|exponential) notation/i, "index-notation"],
+    [/equation/i, "equation"],
+    [/do not evaluate/i, "expression-only"],
+    [/using\s+>\s+between/i, "inequality-greater-than"],
+    [/using\s+<\s+between/i, "inequality-less-than"]
+  ] as const;
+  const components = [
+    [/H\.?C\.?F\.?/i, "hcf"],
+    [/L\.?C\.?M\.?/i, "lcm"],
+    [/\b(?:list|write|find)\b.*\ball (?:the )?(?:positive )?factors\b/i, "complete-factor-list"],
+    [/list all (?:positive )?common factors|complete common-factor set|which .*common factors|find .*common factors/i, "common-factor-list"],
+    [/prime, composite, or neither|prime or composite|prime number or a composite number|classif(?:y|ication).*prime/i, "prime-composite-classification"],
+    [/multiply the common divisors|write both products/i, "common-divisor-product"],
+    [/multiply all divisors|write both products/i, "all-divisor-product"],
+    [/H\.?C\.?F\.? (?:prime-factor )?product|prime-factor product and value for both results/i, "hcf-product"],
+    [/L\.?C\.?M\.? (?:prime-factor )?product|prime-factor product and value for both results/i, "lcm-product"],
+    [/explain|reason/i, "reason"],
+    [/Yes\/No|decide whether|determine whether|Give your decision|Is this statement correct|state .*whether/i, "decision"],
+    [/\(a\)/, "part-a"],
+    [/\(b\)/, "part-b"],
+    [/\(c\)/, "part-c"],
+    [/\(d\)/, "part-d"],
+    [/\(e\)/, "part-e"],
+    [/\(f\)/, "part-f"]
+  ] as const;
+  const units = expectedPromptUnits(prompt);
+  return {
+    method,
+    representations: representations.filter(([pattern]) => pattern.test(prompt)).map(([, label]) => label),
+    components: components.filter(([pattern]) => pattern.test(prompt)).map(([, label]) => label),
+    units,
+    explicitFormat: expectedExplicitFormat(source)
+  };
+};
+
+const validatePromptRequirements = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow
+): void => {
+  const expected = expectedPromptRequirements(source);
+  invariant(
+    deepEqualJson(row.promptRequirements, expected),
+    "V4_PROMPT_BINDING_DRIFT",
+    "stored prompt requirements do not independently replay from the prompt",
+    row.baseId,
+    "promptRequirements"
+  );
+  const semantic = row.computedResult.semanticValue as Record<string, unknown> | null;
+  const response = row.computedResult.responseText;
+  if (expected.method === "short-division") {
+    const trace = semantic?.shortDivisionTrace ?? row.steps
+      .map((step) => (step.parameters as Record<string, unknown>).shortDivisionTrace)
+      .find((value) => value !== undefined);
+    invariant(
+      Array.isArray(trace) && trace.length > 0,
+      "V4_STEP_EXECUTION_INVALID",
+      "short-division prompt lacks an executable trace",
+      row.baseId,
+      "promptRequirements.method"
+    );
+    invariant(
+      response.includes("÷"),
+      "V4_STEP_EXECUTION_INVALID",
+      "prompt-required short-division trace is absent from the response",
+      row.baseId,
+      "promptRequirements.method"
+    );
+    if (/H\.?C\.?F\.?/i.test(source.prompt.en) && !/L\.?C\.?M\.?/i.test(source.prompt.en)) {
+      const hcfTrace = trace as Array<{ after?: unknown; dividesEveryCurrentValue?: unknown }>;
+      invariant(
+        hcfTrace.every((step) => step.dividesEveryCurrentValue === true),
+        "V4_STEP_EXECUTION_INVALID",
+        "H.C.F.-only short division contains a non-common divisor step",
+        row.baseId,
+        "promptRequirements.method"
+      );
+      const terminal = hcfTrace.at(-1)?.after;
+      invariant(
+        Array.isArray(terminal) && terminal.length >= 2 && terminal.every((value) => typeof value === "string" && /^\d+$/.test(value)) &&
+          integerGcd(...terminal.map((value) => BigInt(value))) === BigInt("1"),
+        "V4_STEP_EXECUTION_INVALID",
+        "H.C.F.-only short division did not stop exactly when the remaining gcd became 1",
+        row.baseId,
+        "promptRequirements.method"
+      );
+    }
+  }
+  const divisionProducts = semantic?.divisionProducts ?? row.steps
+    .map((step) => (step.parameters as Record<string, unknown>).divisionProducts)
+    .find((value) => value !== undefined);
+  if (expected.components.includes("common-divisor-product")) {
+    const products = divisionProducts as { hcfProduct?: { expression?: string; value?: string } } | undefined;
+    invariant(
+      Boolean(products?.hcfProduct?.expression) &&
+        response.includes(`${products!.hcfProduct!.expression} = ${products!.hcfProduct!.value}`),
+      "V4_STEP_EXECUTION_INVALID",
+      "prompt-required common-divisor product is absent",
+      row.baseId,
+      "promptRequirements.components"
+    );
+  }
+  if (expected.components.includes("all-divisor-product")) {
+    const products = divisionProducts as { lcmProduct?: { expression?: string; value?: string } } | undefined;
+    invariant(
+      Boolean(products?.lcmProduct?.expression) &&
+        response.includes(`${products!.lcmProduct!.expression} = ${products!.lcmProduct!.value}`),
+      "V4_STEP_EXECUTION_INVALID",
+      "prompt-required all-divisor product is absent",
+      row.baseId,
+      "promptRequirements.components"
+    );
+  }
+  if (expected.components.includes("hcf-product")) {
+    invariant(
+      /H\.C\.F\. product:\s*[^;]+\s=\s*\d+/i.test(response),
+      "V4_STEP_EXECUTION_INVALID",
+      "prompt-required H.C.F. product is absent",
+      row.baseId,
+      "promptRequirements.components"
+    );
+  }
+  if (expected.components.includes("lcm-product")) {
+    invariant(
+      /L\.C\.M\. product:\s*[^;]+\s=\s*\d+/i.test(response),
+      "V4_STEP_EXECUTION_INVALID",
+      "prompt-required L.C.M. product is absent",
+      row.baseId,
+      "promptRequirements.components"
+    );
+  }
+};
+
+const validateExpressionStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  const expression = step.parameters.expression;
+  invariant(
+    typeof expression === "string" && expression.trim() !== "",
+    "V4_STEP_EXECUTION_INVALID",
+    "expression step has no source expression",
+    row.baseId,
+    step.stepId
+  );
+  const promptExpressionFacts = step.inputFactIds
+    .map((factId) => factsById.get(factId))
+    .filter((fact): fact is DerivationFact => fact?.kind === "prompt-expression");
+  if (promptExpressionFacts.length > 0) {
+    invariant(
+      promptExpressionFacts.length === 1 &&
+        step.inputFactIds.length === 1 &&
+        step.inputStepIds.length === 0 &&
+        (promptExpressionFacts[0].value as { expression?: unknown }).expression === expression,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "expression step does not execute its located prompt expression",
+      row.baseId,
+      step.stepId
+    );
+  }
+  if (step.inputStepIds.length > 0) {
+    const sourceSteps = step.inputStepIds.map((stepId) => stepsById.get(stepId)!);
+    invariant(
+      step.inputFactIds.length === 0 &&
+        sourceSteps.length === 1 &&
+        (sourceSteps[0].output as { expression?: unknown }).expression === expression,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "expression step does not execute the expression emitted by its prior step",
+      row.baseId,
+      step.stepId
+    );
+  }
+  const replay = evaluateExactExpression(expression);
+  const output = step.output as { value?: unknown; operationTrace?: unknown; responseText?: unknown };
+  invariant(
+    deepEqualJson(replay.ast, step.parameters.ast),
+    "V4_STEP_EXECUTION_INVALID",
+    "stored expression AST is not reproducible",
+    row.baseId,
+    step.stepId
+  );
+  invariant(
+    deepEqualJson(replay.value.toJson(), output.value) && deepEqualJson(replay.trace, output.operationTrace),
+    "V4_STEP_EXECUTION_INVALID",
+    "stored expression result/trace is not reproducible",
+    row.baseId,
+    step.stepId
+  );
+  if (output.responseText !== undefined) {
+    const sourceStep = stepsById.get(step.inputStepIds[0]);
+    const displayExpression = (sourceStep?.output as { displayExpression?: unknown })?.displayExpression;
+    invariant(
+      typeof displayExpression === "string" &&
+        output.responseText === `${displayExpression} = ${replay.value.toImproperString()}`,
+      "V4_STEP_OUTPUT_INVALID",
+      "expression response does not render its prior-step expression and replayed value",
+      row.baseId,
+      step.stepId
+    );
+  }
+};
+
+const rationalFromStepOutput = (
+  row: HongKongEaseV4DerivationRow,
+  consumer: DerivationStep,
+  producer: DerivationStep
+): ExactRational => {
+  const value = (producer.output as { value?: { numerator?: unknown; denominator?: unknown } }).value;
+  if (typeof value === "string" && /^-?\d+$/.test(value)) {
+    return new ExactRational(value);
+  }
+  invariant(
+    value && typeof value.numerator === "string" && typeof value.denominator === "string",
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "step input does not expose an exact rational value",
+    row.baseId,
+    consumer.stepId
+  );
+  return ExactRational.fromJson(value as { numerator: string; denominator: string });
+};
+
+const renderExactRational = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  value: ExactRational
+): string => {
+  const mode = step.parameters.mode;
+  invariant(
+    mode === "integer-or-improper" || mode === "integer-or-mixed" || mode === "finite-decimal",
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "unknown rational render mode",
+    row.baseId,
+    step.stepId
+  );
+  if (mode === "integer-or-mixed") return value.toMixedString();
+  if (mode === "finite-decimal") {
+    const decimal = value.toFiniteDecimalString();
+    invariant(decimal !== null, "V4_STEP_OUTPUT_INVALID", "finite-decimal mode received a non-terminating rational", row.baseId, step.stepId);
+    return decimal;
+  }
+  return value.toImproperString();
+};
+
+const decorateV4RationalResponse = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  rendered: string,
+  value: ExactRational
+): string => {
+  const decorator = step.parameters.responseDecorator;
+  if (decorator === undefined || decorator === "identity") return rendered;
+  invariant(
+    decorator === "row-specific",
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "unknown rational response decorator",
+    row.baseId,
+    step.stepId
+  );
+  const rowSpecific: Record<string, () => string> = {
+    "hk-ease-10631": () => `100 - (40 + 20) = ${rendered}`,
+    "hk-ease-10565": () => `P = 4 × 9 = ${rendered} cm`,
+    "hk-ease-10569": () => value.compare(new ExactRational(0)) === 0 ? "Equal" : "Not equal",
+    "hk-ease-10577": () => `P = 2 × (25 + 18) = ${rendered} m`,
+    "hk-ease-10578": () => value.compare(new ExactRational(0)) === 0 ? "Equal" : "Not equal",
+    "hk-ease-10418": () => value.floor().toString(),
+    "hk-ease-10428": () => value.floor().toString()
+  };
+  invariant(
+    Object.prototype.hasOwnProperty.call(rowSpecific, row.baseId),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "row-specific rational decorator has no independent executor",
+    row.baseId,
+    step.stepId
+  );
+  return rowSpecific[row.baseId]();
+};
+
+const validateRenderRationalStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  invariant(
+    step.inputFactIds.length === 0 && step.inputStepIds.length === 1,
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "rational rendering must consume exactly one prior step",
+    row.baseId,
+    step.stepId
+  );
+  const value = rationalFromStepOutput(row, step, stepsById.get(step.inputStepIds[0])!);
+  const expected = decorateV4RationalResponse(row, step, renderExactRational(row, step, value), value);
+  invariant(
+    deepEqualJson(step.output, { responseText: expected }),
+    "V4_STEP_OUTPUT_INVALID",
+    "rational response does not replay from its prior exact value",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const validateCompareRationalsStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  invariant(
+    step.inputFactIds.length === 0 && step.inputStepIds.length === 2 && Object.keys(step.parameters).length === 0,
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "rational comparison must consume exactly two prior values",
+    row.baseId,
+    step.stepId
+  );
+  const [left, right] = step.inputStepIds.map((stepId) => rationalFromStepOutput(row, step, stepsById.get(stepId)!));
+  const comparison = left.compare(right);
+  invariant(
+    deepEqualJson(step.output, {
+      comparison,
+      responseText: comparison < 0 ? "<" : comparison > 0 ? ">" : "="
+    }),
+    "V4_STEP_OUTPUT_INVALID",
+    "rational comparison output does not replay",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const integerFactValue = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  fact: DerivationFact | undefined
+): bigint => {
+  const value = fact?.value as { numerator?: unknown; denominator?: unknown } | undefined;
+  invariant(
+    value?.denominator === "1" && typeof value.numerator === "string" && /^\d+$/.test(value.numerator),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "typed integer fact is missing",
+    row.baseId,
+    step.stepId
+  );
+  return BigInt(value.numerator);
+};
+
+const validateAreaFormulaStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  const prompt = source.prompt.en.replace(/\s+/g, " ").trim();
+  const rectangle = prompt.match(/A rectangle is\s+(\d+)\s+cm long and\s+(\d+)\s+cm wide\. Use the rectangle-area formula/i);
+  const square = prompt.match(/A square has side length\s+(\d+)\s+cm\. Use the square-area formula/i);
+  invariant(Boolean(rectangle) !== Boolean(square), "V4_STEP_INPUT_BINDING_INVALID", "area formula prompt did not resolve uniquely", row.baseId, step.stepId);
+  const expectedFacts = step.inputFactIds.map((factId) => integerFactValue(row, step, factsById.get(factId)));
+  const shape = rectangle ? "rectangle" : "square";
+  const sourceFactors = rectangle ? [BigInt(rectangle[1]), BigInt(rectangle[2])] : [BigInt(square![1])];
+  invariant(
+    step.inputStepIds.length === 0 && deepEqualJson(expectedFacts.map(String), sourceFactors.map(String)),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "area formula does not consume the located dimensions exactly",
+    row.baseId,
+    step.stepId
+  );
+  const factors = rectangle ? sourceFactors : [sourceFactors[0], sourceFactors[0]];
+  const factorTexts = factors.map(String);
+  const area = (factors[0] * factors[1]).toString();
+  const formula = shape === "rectangle" ? "length × width = area" : "side × side = area";
+  const responseText = `${factorTexts[0]} × ${factorTexts[1]} = ${area} cm²`;
+  invariant(
+    deepEqualJson(step.parameters, { shape, formula, factors: factorTexts, outputUnit: "cm²" }) &&
+      deepEqualJson(step.output, { shape, formula, factors: factorTexts, area, unit: "cm²", responseText }),
+    "V4_STEP_OUTPUT_INVALID",
+    "area formula output does not replay from the prompt dimensions",
+    row.baseId,
+    step.stepId
+  );
+  invariant(
+    deepEqualJson(row.computedResult, {
+      kind: "response-text",
+      responseText,
+      semanticValue: { shape, formula, factors: factorTexts, area, unit: "cm²" }
+    }),
+    "V4_STEP_OUTPUT_INVALID",
+    "area formula computed result is not the typed formula output",
+    row.baseId,
+    "computedResult"
+  );
+};
+
+const validateMultiplicationPropertyStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  const prompt = source.prompt.en.replace(/\s+/g, " ").trim();
+  const match = prompt.match(/commutative or associative property of multiplication to calculate\s+(\d+)\s*×\s*(\d+)\s*×\s*(\d+)/i);
+  invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "multiplication-property prompt did not resolve", row.baseId, step.stepId);
+  const sourceValues = match.slice(1, 4);
+  const factValues = step.inputFactIds.map((factId) => integerFactValue(row, step, factsById.get(factId)).toString());
+  invariant(step.inputStepIds.length === 0 && deepEqualJson(factValues, sourceValues), "V4_STEP_INPUT_BINDING_INVALID", "multiplication-property facts drifted", row.baseId, step.stepId);
+  const [first, second, third] = sourceValues;
+  const groupedProduct = (BigInt(first) * BigInt(third)).toString();
+  const value = (BigInt(groupedProduct) * BigInt(second)).toString();
+  const sourceExpression = `${first} × ${second} × ${third}`;
+  const transformedExpression = `(${first} × ${third}) × ${second}`;
+  const responseText = `${sourceExpression}=${first}×${third}×${second}=${transformedExpression}=${groupedProduct}×${second}=${value} (commutative and associative properties)`;
+  const output = { sourceExpression, transformedExpression, properties: ["commutative", "associative"], groupedProduct, value, responseText };
+  invariant(
+    deepEqualJson(step.parameters, { properties: ["commutative", "associative"] }) && deepEqualJson(step.output, output),
+    "V4_STEP_OUTPUT_INVALID",
+    "multiplication-property transformation does not replay",
+    row.baseId,
+    step.stepId
+  );
+  invariant(
+    deepEqualJson(row.computedResult, { kind: "response-text", responseText, semanticValue: { sourceExpression, transformedExpression, groupedProduct, value } }),
+    "V4_STEP_OUTPUT_INVALID",
+    "multiplication-property computed result drifted",
+    row.baseId,
+    "computedResult"
+  );
+};
+
+const validateRoundToNearestPlaceStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  invariant(step.inputStepIds.length === 0 && step.inputFactIds.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "rounding step input arity drifted", row.baseId, step.stepId);
+  const original = integerFactValue(row, step, factsById.get(step.inputFactIds[0]));
+  const placeFact = factsById.get(step.inputFactIds[1]);
+  invariant((placeFact?.value as { place?: unknown } | undefined)?.place === "ten", "V4_STEP_INPUT_BINDING_INVALID", "rounding place is not prompt-bound", row.baseId, step.stepId);
+  const rounded = ((original + BigInt("5")) / BigInt("10")) * BigInt("10");
+  invariant(
+    deepEqualJson(step.parameters, { place: "ten" }) &&
+      deepEqualJson(step.output, { original: original.toString(), place: "ten", rounded: rounded.toString() }),
+    "V4_STEP_OUTPUT_INVALID",
+    "nearest-ten output does not replay",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const validateMultiplyRoundedValuesStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  invariant(step.inputFactIds.length === 0 && step.inputStepIds.length === 2 && Object.keys(step.parameters).length === 0, "V4_STEP_INPUT_BINDING_INVALID", "rounded multiplication input shape drifted", row.baseId, step.stepId);
+  const factors = step.inputStepIds.map((stepId) => {
+    const producer = stepsById.get(stepId);
+    invariant(producer?.operation === "round-to-nearest-place", "V4_STEP_INPUT_BINDING_INVALID", "rounded multiplication did not consume rounding steps", row.baseId, step.stepId);
+    const rounded = (producer.output as { rounded?: unknown }).rounded;
+    invariant(typeof rounded === "string" && /^\d+$/.test(rounded), "V4_STEP_INPUT_BINDING_INVALID", "rounded operand is invalid", row.baseId, step.stepId);
+    return rounded;
+  });
+  const product = (BigInt(factors[0]) * BigInt(factors[1])).toString();
+  invariant(deepEqualJson(step.output, { factors, product }), "V4_STEP_OUTPUT_INVALID", "rounded product does not replay", row.baseId, step.stepId);
+};
+
+const validateComposeEstimateAndExactStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  invariant(step.inputFactIds.length === 0 && step.inputStepIds.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "estimate/exact composition arity drifted", row.baseId, step.stepId);
+  const estimateStep = stepsById.get(step.inputStepIds[0]);
+  const exactStep = stepsById.get(step.inputStepIds[1]);
+  invariant(estimateStep?.operation === "multiply-rounded-values" && exactStep?.operation === "evaluate-rational-expression", "V4_STEP_INPUT_BINDING_INVALID", "estimate/exact composition dependencies drifted", row.baseId, step.stepId);
+  const estimate = (estimateStep.output as { product?: unknown }).product;
+  const exactValue = (exactStep.output as { value?: RationalJson }).value;
+  invariant(typeof estimate === "string" && exactValue !== undefined, "V4_STEP_INPUT_BINDING_INVALID", "estimate/exact inputs are incomplete", row.baseId, step.stepId);
+  const exact = ExactRational.fromJson(exactValue).toImproperString();
+  const responseText = `${estimate};${exact}`;
+  invariant(
+    deepEqualJson(step.parameters, { separator: ";", explicitFormat: expectedExplicitFormat(source) }) &&
+      deepEqualJson(step.output, { responseText }),
+    "V4_STEP_OUTPUT_INVALID",
+    "estimate/exact response does not replay",
+    row.baseId,
+    step.stepId
+  );
+  const roundedValues = (estimateStep.output as { factors: string[] }).factors;
+  invariant(
+    deepEqualJson(row.computedResult, { kind: "response-text", responseText, semanticValue: { roundedValues, estimate, exact } }),
+    "V4_STEP_OUTPUT_INVALID",
+    "estimate/exact computed result drifted",
+    row.baseId,
+    "computedResult"
+  );
+};
+
+const displayExpressionFromStep = (step: DerivationStep): string => {
+  const expression = String(step.parameters.expression);
+  return expression
+    .replace(/\\(?:d?frac|tfrac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g, "$1/$2")
+    .replace(/\\\(|\\\)|\$/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+};
+
+const validateSortRationalsStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  const direction = step.parameters.direction;
+  const separator = step.parameters.separator;
+  invariant(
+    step.inputFactIds.length === 0 &&
+      step.inputStepIds.length >= 2 &&
+      (direction === "ascending" || direction === "descending") &&
+      separator === (direction === "ascending" ? "<" : ">"),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "rational sort parameters or inputs are invalid",
+    row.baseId,
+    step.stepId
+  );
+  const inputs = step.inputStepIds.map((stepId, index) => {
+    const producer = stepsById.get(stepId)!;
+    return { index, value: rationalFromStepOutput(row, step, producer), display: displayExpressionFromStep(producer) };
+  });
+  const ordered = [...inputs].sort((left, right) => {
+    const comparison = left.value.compare(right.value);
+    return direction === "ascending" ? comparison : -comparison;
+  });
+  invariant(
+    deepEqualJson(step.output, {
+      orderedInputIndices: ordered.map((entry) => entry.index),
+      responseText: ordered.map((entry) => entry.display).join(` ${separator} `)
+    }),
+    "V4_STEP_OUTPUT_INVALID",
+    "rational ordering does not replay from its prior exact values",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const validateDivisibilityStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  const promptRule = source.prompt.en.match(
+    /divisible by\s+\\?\(?(\d+)\\?\)?\s+but not (?:divisible )?by\s+\\?\(?(\d+)\\?\)?/i
+  );
+  invariant(
+    promptRule !== null &&
+      step.inputStepIds.length === 0 &&
+      step.parameters.required === promptRule[1] &&
+      step.parameters.forbidden === promptRule[2],
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "divisibility rule parameters do not resolve from the prompt",
+    row.baseId,
+    step.stepId
+  );
+  const required = BigInt(promptRule[1]);
+  const forbidden = BigInt(promptRule[2]);
+  const judgments = step.inputFactIds.map((factId) => {
+    const fact = factsById.get(factId)!;
+    const valueRecord = fact.value as { label?: unknown; integer?: unknown };
+    invariant(
+      typeof valueRecord.label === "string" && typeof valueRecord.integer === "string" && fact.locator.exact === valueRecord.integer,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "divisibility candidate does not resolve from its located fact",
+      row.baseId,
+      step.stepId
+    );
+    const value = BigInt(valueRecord.integer);
+    const requiredRemainder = value % required;
+    const forbiddenRemainder = value % forbidden;
+    return {
+      label: valueRecord.label,
+      value: value.toString(),
+      requiredRemainder: requiredRemainder.toString(),
+      forbiddenRemainder: forbiddenRemainder.toString(),
+      truth: requiredRemainder === BigInt("0") && forbiddenRemainder !== BigInt("0")
+    };
+  });
+  invariant(
+    deepEqualJson(step.output, {
+      judgments,
+      responseText: judgments.filter((entry) => entry.truth).map((entry) => entry.label).join(", ")
+    }),
+    "V4_STEP_OUTPUT_INVALID",
+    "divisibility judgments do not replay from located candidates",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const integerFromLocatedFact = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  fact: DerivationFact
+): bigint => {
+  const value = fact.value as Record<string, unknown>;
+  if (fact.kind === "prompt-quantity") {
+    const locatedInteger = fact.locator.exact.replaceAll(",", "").trim();
+    invariant(
+      /^-?\d+$/.test(locatedInteger) && value.integer === locatedInteger,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "number-theory quantity does not equal its located integer",
+      row.baseId,
+      step.stepId
+    );
+    return BigInt(locatedInteger);
+  }
+  if (fact.kind === "prompt-expression") {
+    invariant(
+      value.expression === fact.locator.exact,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "number-theory expression does not equal its located source bytes",
+      row.baseId,
+      step.stepId
+    );
+    const replay = evaluateExactExpression(fact.locator.exact);
+    invariant(
+      deepEqualJson(value.ast, replay.ast) && replay.value.denominator === BigInt("1"),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "number-theory expression fact does not replay to an integer",
+      row.baseId,
+      step.stepId
+    );
+    return replay.value.numerator;
+  }
+  return fail(
+    "V4_STEP_INPUT_BINDING_INVALID",
+    `unsupported number-theory fact kind ${fact.kind}`,
+    row.baseId,
+    step.stepId
+  );
+};
+
+const exactIntegerSquareRoot = (value: bigint): bigint | null => {
+  if (value < BigInt("0")) return null;
+  let lower = BigInt("0");
+  let upper = value;
+  while (lower <= upper) {
+    const middle = (lower + upper) / BigInt("2");
+    const square = middle * middle;
+    if (square === value) return middle;
+    if (square < value) lower = middle + BigInt("1");
+    else upper = middle - BigInt("1");
+  }
+  return null;
+};
+
+const validateNumberTheoryStep = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  const inputFacts = step.inputFactIds.map((factId) => factsById.get(factId)!);
+  const inputSteps = step.inputStepIds.map((stepId) => stepsById.get(stepId)!);
+  const uniqueInputs =
+    new Set(step.inputFactIds).size === step.inputFactIds.length &&
+    new Set(step.inputStepIds).size === step.inputStepIds.length;
+
+  if (step.operation === "prime-factorize") {
+    invariant(
+      uniqueInputs && inputFacts.length === 1 && inputSteps.length === 0,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "prime factorization must consume exactly one located integer fact",
+      row.baseId,
+      step.stepId
+    );
+    const value = integerFromLocatedFact(row, step, inputFacts[0]);
+    invariant(
+      value > BigInt("1") && deepEqualJson(step.parameters, { value: value.toString() }),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "prime-factorization parameters do not equal the located integer",
+      row.baseId,
+      step.stepId
+    );
+    const factors = primeFactorization(value);
+    invariant(
+      deepEqualJson(step.output, {
+        factors,
+        rendered: renderPrimeFactorization(factors)
+      }),
+      "V4_STEP_OUTPUT_INVALID",
+      "prime factorization does not replay from the located integer",
+      row.baseId,
+      step.stepId
+    );
+    return;
+  }
+
+  if (step.operation === "compute-integer-square-root") {
+    invariant(
+      uniqueInputs && inputFacts.length === 1 && inputSteps.length === 0,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "integer square root must consume exactly one located radicand fact",
+      row.baseId,
+      step.stepId
+    );
+    const radicand = integerFromLocatedFact(row, step, inputFacts[0]);
+    invariant(
+      deepEqualJson(step.parameters, { radicandFactId: inputFacts[0].factId }),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "square-root parameters do not identify the located radicand",
+      row.baseId,
+      step.stepId
+    );
+    const squareRoot = exactIntegerSquareRoot(radicand);
+    invariant(
+      squareRoot !== null && deepEqualJson(step.output, {
+        radicand: radicand.toString(),
+        value: squareRoot.toString()
+      }),
+      "V4_STEP_OUTPUT_INVALID",
+      "integer square root does not replay from the located radicand",
+      row.baseId,
+      step.stepId
+    );
+    return;
+  }
+
+  if (step.operation !== "compute-gcd" && step.operation !== "compute-lcm") return;
+  invariant(
+    uniqueInputs && (inputFacts.length === 2 || inputFacts.length === 3),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    `${step.operation} must consume two or three unique located integer facts`,
+    row.baseId,
+    step.stepId
+  );
+  const values = inputFacts.map((fact) => integerFromLocatedFact(row, step, fact));
+  invariant(
+    values.every((value) => value > BigInt("0")),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    `${step.operation} operands must be positive integers`,
+    row.baseId,
+    step.stepId
+  );
+  const renderedValues = values.map(String);
+  const parameters = step.parameters as Record<string, unknown>;
+  let expectedParameters: Record<string, unknown>;
+
+  if (parameters.interpretation !== undefined) {
+    invariant(
+      step.operation === "compute-gcd" && inputSteps.length === 0,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "equal-group interpretation must be a direct GCD of located counts",
+      row.baseId,
+      step.stepId
+    );
+    expectedParameters = {
+      values: renderedValues,
+      interpretation: "maximum-equal-group-count"
+    };
+  } else {
+    invariant(
+      inputSteps.length === inputFacts.length,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      `${step.operation} must consume one independently replayed step per located operand`,
+      row.baseId,
+      step.stepId
+    );
+    for (const [index, producer] of inputSteps.entries()) {
+      const expectedFactId = inputFacts[index].factId;
+      invariant(
+        producer.inputFactIds.length === 1 &&
+          producer.inputFactIds[0] === expectedFactId &&
+          producer.inputStepIds.length === 0,
+        "V4_STEP_INPUT_BINDING_INVALID",
+        `${step.operation} producer does not consume its corresponding located operand`,
+        row.baseId,
+        step.stepId
+      );
+      if (producer.operation === "evaluate-rational-expression") {
+        const rational = rationalFromStepOutput(row, step, producer);
+        invariant(
+          rational.denominator === BigInt("1") && rational.numerator === values[index],
+          "V4_STEP_INPUT_BINDING_INVALID",
+          `${step.operation} evaluated producer does not equal its located operand`,
+          row.baseId,
+          step.stepId
+        );
+      } else if (producer.operation === "prime-factorize") {
+        const factors = primeFactorization(values[index]);
+        invariant(
+          deepEqualJson(producer.output, {
+            factors,
+            rendered: renderPrimeFactorization(factors)
+          }),
+          "V4_STEP_INPUT_BINDING_INVALID",
+          `${step.operation} factorization producer does not equal its located operand`,
+          row.baseId,
+          step.stepId
+        );
+      } else {
+        fail(
+          "V4_STEP_INPUT_BINDING_INVALID",
+          `${step.operation} cannot consume ${producer.operation}`,
+          row.baseId,
+          step.stepId
+        );
+      }
+    }
+
+    if (parameters.method === "short-division") {
+      invariant(
+        inputSteps.every((producer) => producer.operation === "prime-factorize"),
+        "V4_STEP_INPUT_BINDING_INVALID",
+        "short division must consume the independently replayed factorization steps",
+        row.baseId,
+        step.stepId
+      );
+      expectedParameters = {
+        values: renderedValues,
+        method: "short-division",
+        shortDivisionTrace: v4ShortDivisionTraceFor(values)
+      };
+    } else if (parameters.method === "prime-factorisation") {
+      invariant(
+        inputSteps.every((producer) => producer.operation === "prime-factorize"),
+        "V4_STEP_INPUT_BINDING_INVALID",
+        "prime-factorisation method must consume independently replayed factorizations",
+        row.baseId,
+        step.stepId
+      );
+      expectedParameters = {
+        values: renderedValues,
+        method: "prime-factorisation"
+      };
+    } else {
+      invariant(
+        inputSteps.every((producer) => producer.operation === "evaluate-rational-expression"),
+        "V4_STEP_INPUT_BINDING_INVALID",
+        "exponent-rule result must consume independently evaluated prompt expressions",
+        row.baseId,
+        step.stepId
+      );
+      expectedParameters = {
+        values: renderedValues,
+        exponentRule: step.operation === "compute-gcd" ? "minimum" : "maximum"
+      };
+    }
+  }
+
+  invariant(
+    deepEqualJson(step.parameters, expectedParameters),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    `${step.operation} parameters do not resolve from located facts and prior outputs`,
+    row.baseId,
+    step.stepId
+  );
+  const result = step.operation === "compute-gcd" ? integerGcd(...values) : integerLcm(...values);
+  invariant(
+    deepEqualJson(step.output, { value: result.toString() }),
+    "V4_STEP_OUTPUT_INVALID",
+    `${step.operation} does not replay from its bound operands`,
+    row.baseId,
+    step.stepId
+  );
+  if (row.steps.at(-1)?.stepId === step.stepId) {
+    invariant(
+      deepEqualJson(row.computedResult, {
+        kind: "response-text",
+        responseText: result.toString(),
+        semanticValue: {
+          operation: step.operation === "compute-gcd" ? "gcd" : "lcm",
+          operands: renderedValues,
+          result: result.toString()
+        }
+      }),
+      "V4_STEP_OUTPUT_INVALID",
+      `${step.operation} final semantic payload does not replay from its bound operands`,
+      row.baseId,
+      step.stepId
+    );
+  }
+};
+
+type V4ShortDivisionProductEvidence = {
+  commonDivisors: string[];
+  hcfProduct: { expression: string; value: string };
+  allDivisors?: string[];
+  lcmProduct?: { expression: string; value: string };
+};
+
+const validateShortDivisionTrace = (
+  row: HongKongEaseV4DerivationRow,
+  trace: unknown
+): V4ShortDivisionProductEvidence | null => {
+  if (trace === undefined || trace === null) return null;
+  invariant(Array.isArray(trace) && trace.length > 0, "V4_STEP_EXECUTION_INVALID", "empty short-division trace", row.baseId, "shortDivisionTrace");
+  let previousAfter: string[] | null = null;
+  for (const [index, candidate] of trace.entries()) {
+    invariant(candidate && typeof candidate === "object", "V4_STEP_EXECUTION_INVALID", "invalid short-division step", row.baseId, `shortDivisionTrace[${index}]`);
+    const step = candidate as { divisor: string; before: string[]; after: string[]; dividesEveryCurrentValue: boolean };
+    const divisor = BigInt(step.divisor);
+    invariant(divisor > BigInt("1") && isPrime(divisor), "V4_STEP_EXECUTION_INVALID", "short-division divisor must be prime", row.baseId, `shortDivisionTrace[${index}]`);
+    invariant(step.before.length === step.after.length, "V4_STEP_EXECUTION_INVALID", "short-division arity drift", row.baseId, `shortDivisionTrace[${index}]`);
+    if (previousAfter) invariant(deepEqualJson(step.before, previousAfter), "V4_STEP_EXECUTION_INVALID", "short-division chain discontinuity", row.baseId, `shortDivisionTrace[${index}]`);
+    const divisibility = step.before.map((value) => BigInt(value) % divisor === BigInt("0"));
+    invariant(step.dividesEveryCurrentValue === divisibility.every(Boolean), "V4_STEP_EXECUTION_INVALID", "short-division common-divisor flag is false", row.baseId, `shortDivisionTrace[${index}]`);
+    const replayAfter = step.before.map((value, valueIndex) => {
+      const integer = BigInt(value);
+      return (divisibility[valueIndex] ? integer / divisor : integer).toString();
+    });
+    invariant(deepEqualJson(replayAfter, step.after), "V4_STEP_EXECUTION_INVALID", "short-division transition is false", row.baseId, `shortDivisionTrace[${index}]`);
+    previousAfter = step.after;
+  }
+  const typedTrace = trace as Array<{ divisor: string; dividesEveryCurrentValue: boolean }>;
+  const commonDivisors = typedTrace
+    .filter((step) => step.dividesEveryCurrentValue)
+    .map((step) => step.divisor);
+  const allDivisors = typedTrace.map((step) => step.divisor);
+  const product = (values: string[]) => values.reduce((value, factor) => value * BigInt(factor), BigInt("1"));
+  return {
+    commonDivisors,
+    allDivisors,
+    hcfProduct: {
+      expression: commonDivisors.length > 0 ? commonDivisors.join(" × ") : "1",
+      value: product(commonDivisors).toString()
+    },
+    lcmProduct: {
+      expression: allDivisors.length > 0 ? allDivisors.join(" × ") : "1",
+      value: product(allDivisors).toString()
+    }
+  };
+};
+
+const validateDivisionProductsMathematics = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  const parameters = step.parameters as Record<string, unknown>;
+  if (parameters.divisionProducts === undefined) return;
+  const lcmRequested = /L\.?C\.?M\.?/i.test(source.prompt.en);
+  assertExactPlainObjectKeys(
+    parameters.divisionProducts,
+    lcmRequested
+      ? ["commonDivisors", "hcfProduct", "allDivisors", "lcmProduct"]
+      : ["commonDivisors", "hcfProduct"],
+    "V4_STEP_EXECUTION_INVALID",
+    lcmRequested
+      ? "LCM-request short-division product schema drifted"
+      : "HCF-only short-division product schema carries unrelated LCM fields",
+    row.baseId,
+    step.stepId
+  );
+  const products = parameters.divisionProducts as Record<string, unknown>;
+  const trace = parameters.shortDivisionTrace;
+  invariant(
+    Array.isArray(trace) && trace.length > 0,
+    "V4_STEP_EXECUTION_INVALID",
+    "short-division products have no source trace",
+    row.baseId,
+    step.stepId
+  );
+  const typedTrace = trace as Array<{
+    divisor?: unknown;
+    before?: unknown;
+    dividesEveryCurrentValue?: unknown;
+  }>;
+  invariant(
+    Array.isArray(typedTrace[0].before) &&
+      typedTrace[0].before.length >= 2 &&
+      typedTrace[0].before.every((value) => typeof value === "string" && /^[1-9]\d*$/.test(value)),
+    "V4_STEP_EXECUTION_INVALID",
+    "short-division products do not bind positive initial values",
+    row.baseId,
+    step.stepId
+  );
+  invariant(
+    typedTrace.every((entry) => typeof entry.divisor === "string" && /^[1-9]\d*$/.test(entry.divisor) && entry.divisor !== "1"),
+    "V4_STEP_EXECUTION_INVALID",
+    "short-division products do not bind exact divisor factors",
+    row.baseId,
+    step.stepId
+  );
+  const positiveIntegerStrings = (candidate: unknown): candidate is string[] =>
+    Array.isArray(candidate) &&
+    candidate.length >= 2 &&
+    candidate.every((value) => typeof value === "string" && /^[1-9]\d*$/.test(value));
+  const valuesFromOperands = (candidate: unknown): string[] | null => {
+    if (!Array.isArray(candidate) || candidate.length < 2) return null;
+    const values = candidate.map((operand) => {
+      const value = (operand as { value?: { numerator?: unknown; denominator?: unknown } })?.value;
+      return value?.denominator === "1" &&
+        typeof value.numerator === "string" &&
+        /^[1-9]\d*$/.test(value.numerator)
+        ? value.numerator
+        : null;
+    });
+    return values.every((value): value is string => value !== null) ? values : null;
+  };
+  let typedInputOperands: string[] | null = null;
+  if (step.operation === "compose-structured-response") {
+    const inputSteps = step.inputStepIds.map((stepId) => stepsById.get(stepId));
+    invariant(
+      inputSteps.length === 2 && inputSteps.every((inputStep) => inputStep !== undefined),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "composed short division does not resolve exactly two prior typed results",
+      row.baseId,
+      step.stepId
+    );
+    const gcdStep = inputSteps.find((inputStep) => inputStep!.operation === "compute-gcd");
+    const lcmStep = inputSteps.find((inputStep) => inputStep!.operation === "compute-lcm");
+    const gcdValues = (gcdStep?.parameters as { values?: unknown } | undefined)?.values;
+    const lcmValues = (lcmStep?.parameters as { values?: unknown } | undefined)?.values;
+    invariant(
+      gcdStep !== undefined && lcmStep !== undefined &&
+        positiveIntegerStrings(gcdValues) && positiveIntegerStrings(lcmValues) &&
+        deepEqualJson(gcdValues, lcmValues),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "composed short division is not bound to the same exact GCD/LCM operand list",
+      row.baseId,
+      step.stepId
+    );
+    typedInputOperands = gcdValues;
+  } else if (positiveIntegerStrings(parameters.values)) {
+    typedInputOperands = parameters.values;
+  } else {
+    typedInputOperands = valuesFromOperands(parameters.operands);
+  }
+  invariant(
+    typedInputOperands !== null && deepEqualJson(typedTrace[0].before, typedInputOperands),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "short-division initial values do not equal the exact typed source operands",
+    row.baseId,
+    step.stepId
+  );
+  const initialValues = (typedTrace[0].before as string[]).map(BigInt);
+  const traceCommonDivisors = typedTrace
+    .filter((entry) => entry.dividesEveryCurrentValue === true)
+    .map((entry) => entry.divisor as string);
+  const traceAllDivisors = typedTrace.map((entry) => entry.divisor as string);
+  const parseFactorList = (candidate: unknown, field: string): string[] => {
+    invariant(
+      Array.isArray(candidate) && candidate.every(
+        (value) => typeof value === "string" && /^[1-9]\d*$/.test(value) && value !== "1"
+      ),
+      "V4_STEP_EXECUTION_INVALID",
+      `${field} is not an exact divisor-factor list`,
+      row.baseId,
+      step.stepId
+    );
+    return candidate as string[];
+  };
+  const validateProduct = (
+    candidate: unknown,
+    factors: string[],
+    expectedValue: bigint,
+    field: string
+  ): void => {
+    assertExactPlainObjectKeys(
+      candidate,
+      ["expression", "value"],
+      "V4_STEP_EXECUTION_INVALID",
+      `${field} schema drifted`,
+      row.baseId,
+      step.stepId
+    );
+    const product = candidate as Record<string, unknown>;
+    const factorProduct = factors.reduce((value, factor) => value * BigInt(factor), BigInt("1"));
+    invariant(
+      product.expression === (factors.length > 0 ? factors.join(" × ") : "1"),
+      "V4_STEP_EXECUTION_INVALID",
+      `${field} expression does not serialize its divisor list`,
+      row.baseId,
+      step.stepId
+    );
+    invariant(
+      product.value === factorProduct.toString(),
+      "V4_STEP_EXECUTION_INVALID",
+      `${field} expression product is false`,
+      row.baseId,
+      step.stepId
+    );
+    invariant(
+      product.value === expectedValue.toString(),
+      "V4_STEP_EXECUTION_INVALID",
+      `${field} does not equal the independently computed value`,
+      row.baseId,
+      step.stepId
+    );
+  };
+
+  const commonDivisors = parseFactorList(products.commonDivisors, "commonDivisors");
+  invariant(
+    deepEqualJson(commonDivisors, traceCommonDivisors),
+    "V4_STEP_EXECUTION_INVALID",
+    "commonDivisors do not match the displayed common short-division steps",
+    row.baseId,
+    step.stepId
+  );
+  validateProduct(products.hcfProduct, commonDivisors, integerGcd(...initialValues), "hcfProduct");
+  if (lcmRequested) {
+    const allDivisors = parseFactorList(products.allDivisors, "allDivisors");
+    invariant(
+      deepEqualJson(allDivisors, traceAllDivisors),
+      "V4_STEP_EXECUTION_INVALID",
+      "allDivisors do not match the complete short-division trace",
+      row.baseId,
+      step.stepId
+    );
+    validateProduct(products.lcmProduct, allDivisors, integerLcm(...initialValues), "lcmProduct");
+  }
+  const semanticReplicas = [
+    (step.output as { semanticValue?: Record<string, unknown> }).semanticValue,
+    row.computedResult.semanticValue as Record<string, unknown>
+  ].filter((semantic): semantic is Record<string, unknown> => semantic !== undefined);
+  for (const semantic of semanticReplicas) {
+    invariant(
+      deepEqualJson(semantic.shortDivisionTrace, trace) &&
+        deepEqualJson(semantic.divisionProducts, parameters.divisionProducts),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "short-division output/computed semantic replicas drifted from the typed parameters",
+      row.baseId,
+      step.stepId
+    );
+  }
+};
+
+type V4DomainReplay = {
+  parameters: Record<string, unknown>;
+  output: unknown;
+};
+
+type V4DomainContext = {
+  source: HongKongEaseV4SanitizedInputRow;
+  row: HongKongEaseV4DerivationRow;
+  step: DerivationStep;
+  factsById: ReadonlyMap<string, DerivationFact>;
+};
+
+const v4PromptWithoutMathDelimiters = (source: HongKongEaseV4SanitizedInputRow): string =>
+  source.prompt.en.replace(/\\\(|\\\)/g, " ").replace(/\s+/g, " ").trim();
+
+const v4DomainInputFacts = (context: V4DomainContext): DerivationFact[] => {
+  const inputFacts = context.step.inputFactIds.map((factId) => context.factsById.get(factId)!);
+  invariant(
+    context.step.inputStepIds.length === 0 &&
+      inputFacts.length === context.factsById.size &&
+      new Set(context.step.inputFactIds).size === context.factsById.size &&
+      [...context.factsById.keys()].every((factId) => context.step.inputFactIds.includes(factId)),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "domain rule must consume every located row fact exactly once and no prior steps",
+    context.row.baseId,
+    context.step.stepId
+  );
+  return inputFacts;
+};
+
+const v4ShortDivisionTraceFor = (values: bigint[]): Array<{
+  divisor: string;
+  before: string[];
+  after: string[];
+  dividesEveryCurrentValue: boolean;
+}> => {
+  const current = [...values];
+  const trace: Array<{
+    divisor: string;
+    before: string[];
+    after: string[];
+    dividesEveryCurrentValue: boolean;
+  }> = [];
+  const divideBy = (divisor: bigint, dividesEveryCurrentValue: boolean): void => {
+    const before = current.map(String);
+    for (let index = 0; index < current.length; index += 1) {
+      if (current[index] % divisor === BigInt("0")) current[index] /= divisor;
+    }
+    trace.push({
+      divisor: divisor.toString(),
+      before,
+      after: current.map(String),
+      dividesEveryCurrentValue
+    });
+  };
+  while (integerGcd(...current) > BigInt("1")) {
+    const divisor = BigInt(primeFactorization(integerGcd(...current))[0].prime);
+    divideBy(divisor, true);
+  }
+  while (current.some((value) => value > BigInt("1"))) {
+    const next = current.find((value) => value > BigInt("1"))!;
+    divideBy(BigInt(primeFactorization(next)[0].prime), false);
+  }
+  return trace;
+};
+
+const v4RenderShortDivisionTrace = (
+  trace: Array<{ divisor: string; before: string[]; after: string[] }>
+): string => trace
+  .map((entry) => `${entry.before.join(",")} ÷${entry.divisor}→${entry.after.join(",")}`)
+  .join(" ");
+
+const v4FactorizationRecords = (values: bigint[]) => values.map((value) => {
+  const factors = primeFactorization(value);
+  return {
+    value: value.toString(),
+    factors,
+    rendered: renderPrimeFactorization(factors)
+  };
+});
+
+const v4EnrichComputedDomainReplay = (
+  source: HongKongEaseV4SanitizedInputRow,
+  ruleId: string,
+  parameters: Record<string, unknown>,
+  responseText: string,
+  semanticValue: Record<string, unknown>,
+  values: bigint[] | null
+): V4DomainReplay => {
+  const rawTrace = /short division/i.test(source.prompt.en) && values?.length
+    ? v4ShortDivisionTraceFor(values)
+    : null;
+  const hcfOnlyPrompt = /H\.?C\.?F\.?/i.test(source.prompt.en) && !/L\.?C\.?M\.?/i.test(source.prompt.en);
+  const trace = rawTrace && hcfOnlyPrompt
+    ? rawTrace.filter((entry) => entry.dividesEveryCurrentValue)
+    : rawTrace;
+  const wantsCommonProduct = /multiply the common divisors|write both products|H\.?C\.?F\.? (?:prime-factor )?product/i.test(source.prompt.en);
+  const wantsAllProduct = /multiply all divisors|write both products|L\.?C\.?M\.? (?:prime-factor )?product/i.test(source.prompt.en);
+  const products: V4ShortDivisionProductEvidence | null = trace && (wantsCommonProduct || wantsAllProduct)
+    ? (() => {
+        const commonDivisors = trace.filter((entry) => entry.dividesEveryCurrentValue).map((entry) => entry.divisor);
+        const allDivisors = trace.map((entry) => entry.divisor);
+        const product = (items: string[]) => items.reduce((value, factor) => value * BigInt(factor), BigInt("1"));
+        const hcfProduct = {
+          expression: commonDivisors.length > 0 ? commonDivisors.join(" × ") : "1",
+          value: product(commonDivisors).toString()
+        };
+        if (!wantsAllProduct) {
+          return {
+            commonDivisors,
+            hcfProduct
+          };
+        }
+        return {
+          commonDivisors,
+          allDivisors,
+          hcfProduct,
+          lcmProduct: {
+            expression: allDivisors.length > 0 ? allDivisors.join(" × ") : "1",
+            value: product(allDivisors).toString()
+          },
+        };
+      })()
+    : null;
+  const enrichedParameters = trace
+    ? {
+        ...parameters,
+        requestedMethod: "short-division",
+        shortDivisionTrace: trace,
+        ...(products ? { divisionProducts: products } : {})
+      }
+    : parameters;
+  const enrichedSemantic = trace
+    ? {
+        ...semanticValue,
+        shortDivisionTrace: trace,
+        ...(products ? { divisionProducts: products } : {})
+      }
+    : semanticValue;
+  const withTrace = trace
+    ? `${v4RenderShortDivisionTrace(trace)}; ${responseText}`
+    : responseText;
+  const productClauses = products
+    ? [
+        ...(wantsCommonProduct
+          ? [`H.C.F. product: ${products.hcfProduct.expression} = ${products.hcfProduct.value}`]
+          : []),
+        ...(wantsAllProduct
+          ? [`L.C.M. product: ${products.lcmProduct!.expression} = ${products.lcmProduct!.value}`]
+          : [])
+      ]
+    : [];
+  return {
+    parameters: { ruleId, ...enrichedParameters },
+    output: {
+      responseText: productClauses.length > 0 ? `${withTrace}; ${productClauses.join("; ")}` : withTrace,
+      semanticValue: enrichedSemantic
+    }
+  };
+};
+
+const v4ReplaySingleGcdOrLcm = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (ruleId !== "compute-gcd-from-expressions-v1" && ruleId !== "compute-lcm-from-expressions-v1") {
+    return null;
+  }
+  const prompt = v4PromptWithoutMathDelimiters(context.source);
+  const match = prompt.match(/(?:Find|find)\s+(?:the\s+)?(H\.?C\.?F\.?|HCF|L\.?C\.?M\.?|LCM)\s+of\s+(.+?)(?:[.;]|$)/i);
+  invariant(match && !/;\s*\(b\)/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "GCD/LCM prompt grammar did not resolve", context.row.baseId, context.step.stepId);
+  const operandTexts = match[2]
+    .replace(/\s+using\s+prime factorization$/i, "")
+    .split(/\s*,\s+and\s+|\s*,\s*|\s+and\s+/i)
+    .map((value) => value.trim())
+    .filter(Boolean);
+  invariant(operandTexts.length >= 2 && operandTexts.length <= 3, "V4_STEP_INPUT_BINDING_INVALID", "GCD/LCM operand arity did not resolve", context.row.baseId, context.step.stepId);
+  const evaluations = operandTexts.map((operand) => evaluateExactExpression(operand));
+  invariant(
+    evaluations.every((entry) => entry.value.denominator === BigInt("1") && entry.value.numerator > BigInt("0")),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "GCD/LCM operands must resolve to positive integers",
+    context.row.baseId,
+    context.step.stepId
+  );
+  const values = evaluations.map((entry) => entry.value.numerator);
+  const isLcm = /^L/i.test(match[1]);
+  invariant(
+    isLcm === (ruleId === "compute-lcm-from-expressions-v1"),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "domain rule does not match the located GCD/LCM request",
+    context.row.baseId,
+    context.step.stepId
+  );
+  const result = isLcm ? integerLcm(...values) : integerGcd(...values);
+  const factorizations = v4FactorizationRecords(values);
+  const requiresWorking = /Use (?:prime factorization|prime factorisation|short division)|give each complete|show every/i.test(prompt);
+  const method = /short division/i.test(prompt)
+    ? "short-division"
+    : /prime factor/i.test(prompt)
+      ? "prime-factorisation"
+      : "unspecified";
+  const needsPrimeFactorProduct = new RegExp(`${isLcm ? "L\\.?C\\.?M\\.?" : "H\\.?C\\.?F\\.?"} prime-factor product and value`, "i").test(prompt);
+  const responseText = method === "short-division"
+    ? `${isLcm ? "L.C.M." : "H.C.F."}=${result}`
+    : needsPrimeFactorProduct
+      ? `${factorizations.map((entry) => `${entry.value}=${entry.rendered}`).join(";")};${isLcm ? "L.C.M." : "H.C.F."} product: ${renderPrimeFactorization(primeFactorization(result))} = ${result}`
+      : requiresWorking
+        ? `${factorizations.map((entry) => `${entry.value}=${entry.rendered}`).join(";")};${isLcm ? "L.C.M." : "H.C.F."}=${result}`
+        : result.toString();
+  return v4EnrichComputedDomainReplay(
+    context.source,
+    ruleId,
+    {
+      operands: evaluations.map((evaluation, index) => ({
+        exact: operandTexts[index],
+        ast: evaluation.ast,
+        value: evaluation.value.toJson()
+      })),
+      method
+    },
+    responseText,
+    { values: values.map(String), result: result.toString(), factorizations },
+    values
+  );
+};
+
+const v4ReplayRepeatedIndexNotation = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (ruleId !== "count-equal-factor-occurrences-v1" && ruleId !== "compress-repeated-product-index-notation-v1") {
+    return null;
+  }
+  const prompt = v4PromptWithoutMathDelimiters(context.source);
+  const product = prompt.match(/Express\s+(.+?)\s+(?:using|in) (?:index|exponential) notation/i)?.[1]
+    ?? prompt.match(/Express in index notation:\s*(.+?)(?:\.|$)/i)?.[1];
+  invariant(product, "V4_STEP_INPUT_BINDING_INVALID", "repeated-product prompt grammar did not resolve", context.row.baseId, context.step.stepId);
+  const tokens = product
+    .replace(/^["'“‘]+|["'”’]+$/g, "")
+    .split(/\s*(?:\\times|×|\*)\s*/)
+    .map((token) => token.trim())
+    .filter((token) => /^(?:\d+|[a-z])$/i.test(token));
+  invariant(tokens.length >= 2, "V4_STEP_INPUT_BINDING_INVALID", "repeated product has fewer than two factors", context.row.baseId, context.step.stepId);
+  const counts = new Map<string, number>();
+  for (const token of tokens) if (token !== "1") counts.set(token, (counts.get(token) ?? 0) + 1);
+  const insertionEntries = [...counts];
+  const entries = ruleId === "count-equal-factor-occurrences-v1"
+    ? [...insertionEntries].sort(([left], [right]) => BigInt(left) < BigInt(right) ? -1 : 1)
+    : insertionEntries;
+  const responseText = entries.map(([base, exponent]) => exponent === 1 ? base : `${base}^${exponent}`).join(" × ");
+  if (ruleId === "count-equal-factor-occurrences-v1") {
+    const factIntegers = v4DomainInputFacts(context).map((fact) => (fact.value as { integer?: unknown }).integer);
+    invariant(deepEqualJson(factIntegers, tokens), "V4_STEP_INPUT_BINDING_INVALID", "factor parameters do not equal the located factors", context.row.baseId, context.step.stepId);
+    return {
+      parameters: { ruleId, factors: tokens },
+      output: {
+        groups: entries.map(([base, exponent]) => ({ base, exponent })),
+        responseText
+      }
+    };
+  }
+  return {
+    parameters: { ruleId, tokens, counts: Object.fromEntries(counts) },
+    output: {
+      responseText,
+      semanticValue: { factors: entries.map(([base, exponent]) => ({ base, exponent })) }
+    }
+  };
+};
+
+const v4ReplayPrimeFactorization = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (ruleId !== "prime-factorize-v1") return null;
+  const prompt = v4PromptWithoutMathDelimiters(context.source);
+  const match = prompt.match(/(?:Express|Write)\s+(.+?)\s+as a product of prime factors(?: and represent it)?(?:(?: using| in)?(?: exponential| index) notation)?/i);
+  invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "prime-factorization prompt grammar did not resolve", context.row.baseId, context.step.stepId);
+  const evaluation = evaluateExactExpression(match[1]);
+  invariant(evaluation.value.denominator === BigInt("1") && evaluation.value.numerator > BigInt("0"), "V4_STEP_INPUT_BINDING_INVALID", "prime-factorization input is not a positive integer", context.row.baseId, context.step.stepId);
+  const value = evaluation.value.numerator;
+  const factors = primeFactorization(value);
+  return v4EnrichComputedDomainReplay(
+    context.source,
+    ruleId,
+    { expression: match[1], expressionAst: evaluation.ast, value: value.toString() },
+    renderPrimeFactorization(factors),
+    { inputValue: evaluation.value.toJson(), factors },
+    null
+  );
+};
+
+const V4_ORDINAL_WORDS: Readonly<Record<string, number>> = {
+  first: 1,
+  second: 2,
+  third: 3,
+  fourth: 4,
+  fifth: 5,
+  sixth: 6,
+  seventh: 7,
+  eighth: 8,
+  ninth: 9,
+  tenth: 10
+};
+
+const V4_CARDINAL_WORDS: Readonly<Record<string, number>> = {
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10
+};
+
+const v4ReplayGenericNumberTheory = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  const prompt = v4PromptWithoutMathDelimiters(context.source).replace(/\n/g, " ");
+  const replay = (
+    expectedRuleId: string,
+    parameters: Record<string, unknown>,
+    responseText: string,
+    semanticValue: Record<string, unknown>,
+    values: bigint[] | null = null
+  ): V4DomainReplay => {
+    invariant(
+      ruleId === expectedRuleId,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      `located prompt resolves ${expectedRuleId}, not ${ruleId}`,
+      context.row.baseId,
+      context.step.stepId
+    );
+    return v4EnrichComputedDomainReplay(
+      context.source,
+      expectedRuleId,
+      parameters,
+      responseText,
+      semanticValue,
+      values
+    );
+  };
+
+  if (ruleId === "euclidean-division-v1") {
+    const facts = v4DomainInputFacts(context);
+    invariant(facts.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "Euclidean division requires dividend and divisor facts", context.row.baseId, context.step.stepId);
+    const values = facts.map((fact) => BigInt(String((fact.value as { integer?: unknown }).integer)));
+    const [dividend, divisor] = values;
+    invariant(dividend >= BigInt("0") && divisor > BigInt("0"), "V4_STEP_INPUT_BINDING_INVALID", "Euclidean division facts are outside the supported domain", context.row.baseId, context.step.stepId);
+    const quotient = dividend / divisor;
+    const remainder = dividend % divisor;
+    return {
+      parameters: { ruleId },
+      output: {
+        quotient: quotient.toString(),
+        remainder: remainder.toString(),
+        reconstruction: `${divisor}×${quotient}+${remainder}=${dividend}`,
+        remainderBound: `0≤${remainder}<${divisor}`
+      }
+    };
+  }
+
+  if (ruleId === "integer-filter-v1") {
+    const facts = v4DomainInputFacts(context);
+    const values = facts.map((fact) => BigInt(String((fact.value as { integer?: unknown }).integer)));
+    let predicate: Record<string, unknown>;
+    let test: (value: bigint) => boolean;
+    const both = prompt.match(/multiples of both\s+(\d+)\s+and\s+(\d+)/i);
+    const divisible = prompt.match(/divisible by\s+(\d+)/i);
+    if (both) {
+      const divisors = [both[1], both[2]];
+      predicate = { kind: "multiple-of-all", divisors };
+      test = (value) => divisors.every((divisor) => value % BigInt(divisor) === BigInt("0"));
+    } else if (/\beven numbers\b/i.test(prompt)) {
+      predicate = { kind: "even" };
+      test = (value) => value % BigInt("2") === BigInt("0");
+    } else if (/\bodd numbers\b/i.test(prompt)) {
+      predicate = { kind: "odd" };
+      test = (value) => value % BigInt("2") !== BigInt("0");
+    } else if (/\bprime numbers\b/i.test(prompt)) {
+      predicate = { kind: "prime" };
+      test = isPrime;
+    } else {
+      invariant(divisible, "V4_STEP_INPUT_BINDING_INVALID", "integer-filter predicate did not resolve from the prompt", context.row.baseId, context.step.stepId);
+      predicate = { kind: "divisible-by", divisor: divisible[1] };
+      test = (value) => value % BigInt(divisible[1]) === BigInt("0");
+    }
+    const judgments = values.map((value) => ({ value: value.toString(), truth: test(value) }));
+    return {
+      parameters: { ruleId, predicate },
+      output: {
+        judgments,
+        selected: judgments.filter((entry) => entry.truth).map((entry) => entry.value)
+      }
+    };
+  }
+
+  if (ruleId === "greatest-multiple-below-exclusive-bound-v1") {
+    const match = prompt.match(/number less than\s+(\d+).*?divisible by\s+(\d+).*?maximum value/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "exclusive upper-bound prompt did not resolve", context.row.baseId, context.step.stepId);
+    const bound = BigInt(match[1]);
+    const divisor = BigInt(match[2]);
+    const quotient = (bound - BigInt("1")) / divisor;
+    const value = quotient * divisor;
+    return replay(ruleId, { bound: bound.toString(), divisor: divisor.toString(), quotient: quotient.toString() }, value.toString(), {
+      value: value.toString(), remainder: (value % divisor).toString(), next: (value + divisor).toString()
+    });
+  }
+
+  if (ruleId === "least-multiple-above-exclusive-bound-v1") {
+    const match = prompt.match(/number greater than\s+(\d+).*?divisible by\s+(\d+).*?minimum value/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "exclusive lower-bound prompt did not resolve", context.row.baseId, context.step.stepId);
+    const bound = BigInt(match[1]);
+    const divisor = BigInt(match[2]);
+    const quotient = (bound + divisor) / divisor;
+    const value = quotient * divisor;
+    return replay(ruleId, { bound: bound.toString(), divisor: divisor.toString(), quotient: quotient.toString() }, value.toString(), {
+      value: value.toString(), remainder: (value % divisor).toString(), previous: (value - divisor).toString()
+    });
+  }
+
+  if (ruleId === "greatest-multiple-below-bound-v1") {
+    const match = prompt.match(/(?:number less than|numbers less than)\s+(\d+).*?(?:divisible by|largest multiple of)\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "greatest-multiple prompt did not resolve", context.row.baseId, context.step.stepId);
+    const exclusiveUpperBound = BigInt(match[1]);
+    const divisor = BigInt(match[2]);
+    const quotient = (exclusiveUpperBound - BigInt("1")) / divisor;
+    const value = quotient * divisor;
+    return replay(ruleId, { exclusiveUpperBound: exclusiveUpperBound.toString(), divisor: divisor.toString() }, value.toString(), {
+      value: value.toString(),
+      ...(context.row.baseId === "hk-ease-1077" ? {} : { quotient: quotient.toString() })
+    });
+  }
+
+  if (ruleId === "digit-substitution-divisibility-search-v1") {
+    const match = prompt.match(/([0-9♥]+)\s+is a (?:three|four)-digit number divisible by\s+(\d+).*?all possible values of\s+♥/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "digit-substitution prompt did not resolve", context.row.baseId, context.step.stepId);
+    const pattern = match[1];
+    const divisor = BigInt(match[2]);
+    const candidates = Array.from({ length: 10 }, (_unused, digit) => digit);
+    const judgments = candidates.map((digit) => {
+      const value = BigInt(pattern.replace("♥", String(digit)));
+      return { digit, value: value.toString(), remainder: (value % divisor).toString(), truth: value % divisor === BigInt("0") };
+    });
+    const digits = judgments.filter((entry) => entry.truth).map((entry) => entry.digit);
+    return replay(ruleId, { pattern, divisor: divisor.toString(), candidates }, digits.join(", "), { judgments, digits });
+  }
+
+  if (ruleId === "conjunction-of-divisibility-tests-v1") {
+    const match = prompt.match(/Determine whether\s+(\d+)\s+is divisible by both\s+(\d+)\s+and\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "conjoined divisibility prompt did not resolve", context.row.baseId, context.step.stepId);
+    const value = BigInt(match[1]);
+    const divisors = [BigInt(match[2]), BigInt(match[3])];
+    const checks = divisors.map((divisor) => ({
+      divisor: divisor.toString(),
+      remainder: (value % divisor).toString(),
+      truth: value % divisor === BigInt("0")
+    }));
+    const truth = checks.every((entry) => entry.truth);
+    return replay(ruleId, { value: value.toString(), divisors: divisors.map(String) }, truth ? "Yes" : "No", { checks, truth });
+  }
+
+  if (ruleId === "single-divisibility-decision-v1") {
+    const match = prompt.match(/Determine whether\s+(\d+)\s+is divisible by\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "single divisibility prompt did not resolve", context.row.baseId, context.step.stepId);
+    const value = BigInt(match[1]);
+    const divisor = BigInt(match[2]);
+    const remainder = value % divisor;
+    const truth = remainder === BigInt("0");
+    const reason = `${value} ÷ ${divisor} has remainder ${remainder}`;
+    const asksExplanation = /explain your method|reason:/i.test(prompt);
+    const responseText = asksExplanation
+      ? (/decision:/i.test(prompt) ? `decision: ${truth ? "Yes" : "No"}; reason: ${reason}.` : `${truth ? "Yes" : "No"}; ${reason}.`)
+      : truth ? "Yes" : "No";
+    return replay(ruleId, { value: value.toString(), divisor: divisor.toString() }, responseText, {
+      truth,
+      quotient: (value / divisor).toString(),
+      remainder: remainder.toString(),
+      reason
+    });
+  }
+
+  if (ruleId === "box-digit-divisibility-search-v1") {
+    const match = prompt.match(/(\d*)\\square(\d*).*divisible by\s+(\d+).*What digit belongs in the box/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "box-digit prompt did not resolve", context.row.baseId, context.step.stepId);
+    const [prefix, suffix] = match.slice(1, 3);
+    const divisor = BigInt(match[3]);
+    const candidateDigits = Array.from({ length: 10 }, (_unused, digit) => digit);
+    const checks = candidateDigits.map((digit) => {
+      const value = BigInt(`${prefix}${digit}${suffix}`);
+      return { digit, value: value.toString(), remainder: (value % divisor).toString() };
+    });
+    const digits = checks.filter((entry) => entry.remainder === "0").map((entry) => entry.digit);
+    invariant(digits.length === 1, "V4_STEP_EXECUTION_INVALID", "box digit is not unique", context.row.baseId, context.step.stepId);
+    return replay(ruleId, { prefix, suffix, divisor: divisor.toString(), candidateDigits }, String(digits[0]), { checks, digit: digits[0] });
+  }
+
+  if (ruleId === "inverse-nth-positive-multiple-v1") {
+    const match = prompt.match(/If\s+(\d+)\s+is the\s+(\w+)\s+positive multiple of\s+([a-z]),\s*find\s+\3/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "inverse-multiple prompt did not resolve", context.row.baseId, context.step.stepId);
+    const multiple = BigInt(match[1]);
+    const ordinal = V4_ORDINAL_WORDS[match[2].toLowerCase()];
+    invariant(ordinal, "V4_STEP_INPUT_BINDING_INVALID", "inverse-multiple ordinal did not resolve", context.row.baseId, context.step.stepId);
+    const base = new ExactRational(multiple, ordinal);
+    return replay(ruleId, { multiple: multiple.toString(), ordinal }, base.toImproperString(), { base: base.toJson() });
+  }
+
+  if (ruleId === "enumerate-first-positive-multiples-v1") {
+    const match = prompt.match(/(?:List|Write) the first\s+(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+positive multiples of\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "multiple enumeration prompt did not resolve", context.row.baseId, context.step.stepId);
+    const count = /^\d+$/.test(match[1]) ? Number(match[1]) : V4_CARDINAL_WORDS[match[1].toLowerCase()];
+    const base = BigInt(match[2]);
+    const values = Array.from({ length: count }, (_unused, index) => base * BigInt(index + 1));
+    return replay(ruleId, { base: base.toString(), count }, values.join(", "), { values: values.map(String) });
+  }
+
+  if (ruleId === "nth-positive-multiple-v1") {
+    const match = prompt.match(/Write the\s+(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth)\s+multiple of\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "nth-multiple prompt did not resolve", context.row.baseId, context.step.stepId);
+    const ordinal = V4_ORDINAL_WORDS[match[1].toLowerCase()];
+    const base = BigInt(match[2]);
+    const value = base * BigInt(ordinal);
+    return replay(ruleId, { base: base.toString(), ordinal }, value.toString(), { value: value.toString() });
+  }
+
+  if (ruleId === "enumerate-positive-factors-v1") {
+    const match = prompt.match(/(?:(?:Using enumeration,\s*)?(?:List|Write))(?: all)?(?: the)?(?: positive)? factors of\s+(\d+)|List all the positive factors of\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "factor enumeration prompt did not resolve", context.row.baseId, context.step.stepId);
+    const value = BigInt(match[1] ?? match[2]);
+    const factors = positiveFactors(value);
+    const asksForClassification = /prime(?: number)? or (?:a )?composite(?: number)?/i.test(prompt);
+    const asksForReason = /explain|why|reason/i.test(prompt);
+    const classification = value > BigInt("1") && isPrime(value) ? "prime" : value > BigInt("1") ? "composite" : "neither";
+    const requiresLabeledFormat = /Factors:\s*(?:…|\.{3});\s*classification:\s*(?:…|\.{3})/i.test(prompt);
+    const responseText = asksForClassification
+      ? `${requiresLabeledFormat ? `Factors: ${factors.join(", ")}; classification: ${classification}` : `${factors.join(", ")}; ${classification}`}${asksForReason ? `; ${classification === "prime" ? `${value} has exactly two positive factors` : `${value} has more than two positive factors`}` : ""}`
+      : factors.join(", ");
+    return replay(ruleId, { value: value.toString(), asksForClassification, asksForReason, requiresLabeledFormat }, responseText, {
+      factors: factors.map(String),
+      ...(asksForClassification ? { classification } : {})
+    });
+  }
+
+  if (ruleId === "enumerate-primes-in-range-v1" || ruleId === "enumerate-composites-in-range-v1") {
+    const kind = ruleId === "enumerate-primes-in-range-v1" ? "prime" : "composite";
+    const match = prompt.match(new RegExp(`(?:List|Write) all ${kind} numbers from\\s+(\\d+)\\s+to\\s+(\\d+)\\s+inclusive`, "i"));
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", `${kind} range prompt did not resolve`, context.row.baseId, context.step.stepId);
+    const minimum = BigInt(match[1]);
+    const maximum = BigInt(match[2]);
+    const values: bigint[] = [];
+    for (let value = minimum; value <= maximum; value += BigInt("1")) {
+      if (kind === "prime" ? isPrime(value) : value > BigInt("1") && !isPrime(value)) values.push(value);
+    }
+    return replay(ruleId, { minimum: minimum.toString(), maximum: maximum.toString() }, values.join(", "), { values: values.map(String) });
+  }
+
+  if (ruleId === "compute-gcd-v1" || ruleId === "compute-lcm-v1") {
+    const isLcm = ruleId === "compute-lcm-v1";
+    invariant(
+      isLcm ? /Least Common Multiple|L\.?C\.?M\.?|LCM/i.test(prompt) : /Highest Common Factor|H\.?C\.?F\.?|HCF/i.test(prompt),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "GCD/LCM operation did not resolve from the prompt",
+      context.row.baseId,
+      context.step.stepId
+    );
+    const match = prompt.match(/\bof\s+([0-9 ,and]+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", `${isLcm ? "LCM" : "GCD"} prompt did not resolve`, context.row.baseId, context.step.stepId);
+    const values = [...match[1].matchAll(/\d+/g)].map((entry) => BigInt(entry[0]));
+    invariant(values.length >= 2, "V4_STEP_INPUT_BINDING_INVALID", "GCD/LCM value list did not resolve", context.row.baseId, context.step.stepId);
+    const value = isLcm ? integerLcm(...values) : integerGcd(...values);
+    return replay(
+      ruleId,
+      { values: values.map(String) },
+      value.toString(),
+      isLcm
+        ? { lcm: value.toString(), primeFactorizations: values.map((entry) => primeFactorization(entry)) }
+        : { gcd: value.toString(), factorSets: values.map((entry) => positiveFactors(entry).map(String)) },
+      values
+    );
+  }
+
+  if (ruleId === "two-digit-common-multiples-v1") {
+    const match = prompt.match(/List all two-digit numbers that are multiples of both\s+(\d+)\s+and\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "two-digit common-multiple prompt did not resolve", context.row.baseId, context.step.stepId);
+    const first = BigInt(match[1]);
+    const second = BigInt(match[2]);
+    const base = integerLcm(first, second);
+    const values: bigint[] = [];
+    for (let value = base; value < BigInt("100"); value += base) if (value >= BigInt("10")) values.push(value);
+    return replay(ruleId, { first: first.toString(), second: second.toString(), lcm: base.toString() }, values.join(", "), { values: values.map(String) });
+  }
+
+  if (ruleId === "enumerate-common-factors-v1") {
+    const match = prompt.match(/List all(?: the)? positive common factors of\s+(\d+)\s+and\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "common-factor prompt did not resolve", context.row.baseId, context.step.stepId);
+    const first = BigInt(match[1]);
+    const second = BigInt(match[2]);
+    const factors = positiveFactors(integerGcd(first, second));
+    return replay(ruleId, { first: first.toString(), second: second.toString() }, factors.join(", "), { factors: factors.map(String) });
+  }
+
+  if (ruleId === "enumerate-bounded-common-multiples-v1") {
+    const match = prompt.match(/List all(?: the)? positive common multiples of\s+(\d+)\s+and\s+(\d+)\s+that are less than\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "bounded common-multiple prompt did not resolve", context.row.baseId, context.step.stepId);
+    const first = BigInt(match[1]);
+    const second = BigInt(match[2]);
+    const maximum = BigInt(match[3]);
+    const base = integerLcm(first, second);
+    const values: bigint[] = [];
+    for (let value = base; value < maximum; value += base) values.push(value);
+    return replay(ruleId, { first: first.toString(), second: second.toString(), maximum: maximum.toString() }, values.join(", "), { values: values.map(String) });
+  }
+
+  if (ruleId === "minimum-common-multiple-from-equal-groups-v1") {
+    invariant(/divided (?:equally|evenly) into/i.test(prompt) && /minimum possible number/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "equal-group LCM prompt did not resolve", context.row.baseId, context.step.stepId);
+    const conditionText = prompt.split(/Find the minimum possible number/i)[0];
+    const divisors = [...conditionText.matchAll(/\d+/g)].map((entry) => BigInt(entry[0]));
+    invariant(divisors.length >= 2, "V4_STEP_INPUT_BINDING_INVALID", "equal-group divisors did not resolve", context.row.baseId, context.step.stepId);
+    const value = integerLcm(...divisors);
+    return replay(ruleId, { divisors: divisors.map(String) }, value.toString(), {
+      divisors: divisors.map(String),
+      leastCommonMultiple: value.toString(),
+      primeFactorizations: divisors.map((entry) => primeFactorization(entry))
+    }, divisors);
+  }
+
+  if (ruleId === "labelled-prime-decisions-v1") {
+    const match = prompt.match(/Determine whether each number is prime:\s*(.+?)\.\s*In one response/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "labelled-prime prompt did not resolve", context.row.baseId, context.step.stepId);
+    const values = [...match[1].matchAll(/\(([a-z])\)\s*(\d+)/gi)].map((entry) => ({ label: entry[1].toLowerCase(), value: BigInt(entry[2]) }));
+    const decisions = values.map(({ label, value }) => ({
+      label,
+      value: value.toString(),
+      prime: isPrime(value),
+      factors: positiveFactors(value).map(String)
+    }));
+    return replay(ruleId, { values: values.map(({ label, value }) => ({ label, value: value.toString() })) }, decisions.map((entry) => `(${entry.label}) ${entry.prime ? "Yes" : "No"}`).join(" "), { decisions });
+  }
+
+  return null;
+};
+
+const v4ReplayNaturalLanguageExpression = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (ruleId !== "natural-language-arithmetic-to-ast-v1") return null;
+  const prompt = v4PromptWithoutMathDelimiters(context.source);
+  let operands: [string, string] | null = null;
+  let operator: "+" | "-" | "*" | "/" | null = null;
+  let match = prompt.match(/(?:Write an expression for [“"])?(\d+)\s+plus\s+(\d+)/i)
+    ?? prompt.match(/sum of\s+(\d+)\s+and\s+(\d+)/i);
+  if (match) {
+    operands = [match[1], match[2]];
+    operator = "+";
+  }
+  match = prompt.match(/(?:Write an expression for [“"])?(\d+)\s+times\s+(\d+)/i)
+    ?? prompt.match(/product of\s+(\d+)\s+and\s+(\d+)/i);
+  if (match) {
+    operands = [match[1], match[2]];
+    operator = "*";
+  }
+  match = prompt.match(/subtract\s+(\d+)\s+from\s+(\d+)/i);
+  if (match) {
+    operands = [match[2], match[1]];
+    operator = "-";
+  }
+  match = prompt.match(/(\d+)\s+divided by\s+(\d+)/i)
+    ?? prompt.match(/Divide\s+(\d+)\s+by\s+(\d+)/i);
+  if (match) {
+    operands = [match[1], match[2]];
+    operator = "/";
+  }
+  invariant(operands && operator, "V4_STEP_INPUT_BINDING_INVALID", "natural-language arithmetic did not resolve", context.row.baseId, context.step.stepId);
+  const factValues = v4DomainInputFacts(context).map((fact) => (fact.value as { integer?: unknown }).integer);
+  invariant(deepEqualJson(factValues, operands), "V4_STEP_INPUT_BINDING_INVALID", "natural-language operands do not equal located facts", context.row.baseId, context.step.stepId);
+  const expression = `${operands[0]}${operator}${operands[1]}`;
+  const displayOperator = operator === "*" ? "×" : operator === "/" ? "÷" : operator;
+  const evaluation = evaluateExactExpression(expression);
+  return {
+    parameters: { ruleId, operator, operandOrder: operands },
+    output: {
+      expression,
+      displayExpression: `${operands[0]} ${displayOperator} ${operands[1]}`,
+      ast: evaluation.ast
+    }
+  };
+};
+
+const v4ReplayTwoPartDomain = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (!["two-part-gcd-v1", "two-part-lcm-v1", "two-part-exact-expression-evaluation-v1"].includes(ruleId)) return null;
+  const prompt = context.source.prompt.en.replace(/\s+/g, " ").trim();
+  const parts = [...prompt.matchAll(/\(([ab])\)\s*\\\((.+?)\\\)(?=\s*\([ab]\)|$)/g)];
+  invariant(parts.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "two-part prompt did not resolve exactly two parts", context.row.baseId, context.step.stepId);
+  if (ruleId === "two-part-exact-expression-evaluation-v1") {
+    invariant(/Find the value of each expression/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "two-part expression request did not resolve", context.row.baseId, context.step.stepId);
+    const computations = parts.map((part) => {
+      const evaluation = evaluateExactExpression(part[2]);
+      return {
+        label: part[1],
+        expression: part[2],
+        ast: evaluation.ast,
+        value: evaluation.value.toJson(),
+        rendered: evaluation.value.toMixedString()
+      };
+    });
+    return v4EnrichComputedDomainReplay(
+      context.source,
+      ruleId,
+      { computations: computations.map(({ label, expression, ast }) => ({ label, expression, ast })) },
+      computations.map((part) => `(${part.label}) ${part.rendered}`).join("; "),
+      { computations },
+      null
+    );
+  }
+  const isLcm = ruleId === "two-part-lcm-v1";
+  invariant(
+    new RegExp(`Find the\\s+${isLcm ? "(?:L\\.?C\\.?M\\.?|LCM)" : "(?:H\\.?C\\.?F\\.?|HCF)"}\\s+of each (?:pair|group)`, "i").test(prompt),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "two-part GCD/LCM request did not resolve",
+    context.row.baseId,
+    context.step.stepId
+  );
+  const computations = parts.map((part) => {
+    const expressions = part[2].split(/\s*,\s*|\s+and\s+/i).map((operand) => evaluateExactExpression(operand));
+    const values = expressions.map((expression) => {
+      invariant(expression.value.denominator === BigInt("1") && expression.value.numerator > BigInt("0"), "V4_STEP_INPUT_BINDING_INVALID", "two-part GCD/LCM operand is not a positive integer", context.row.baseId, context.step.stepId);
+      return expression.value.numerator;
+    });
+    const result = isLcm ? integerLcm(...values) : integerGcd(...values);
+    return {
+      label: part[1],
+      expressions: expressions.map((expression) => ({ ast: expression.ast, value: expression.value.toJson() })),
+      values: values.map(String),
+      result: result.toString()
+    };
+  });
+  return v4EnrichComputedDomainReplay(
+    context.source,
+    ruleId,
+    { computations },
+    computations.map((part) => `(${part.label}) ${part.result}`).join("; "),
+    { operation: isLcm ? "lcm" : "gcd", computations },
+    null
+  );
+};
+
+const v4ReplayIndexNotationPhrase = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  if (ruleId !== "phrase-to-index-notation-v1" && ruleId !== "two-verbal-powers-to-index-notation-v1") return null;
+  const prompt = context.source.prompt.en.replace(/\s+/g, " ").trim();
+  const two = prompt.match(/[“"](\d+)\s+to the power of\s+(\d+)\s+multiplied by\s+(\d+)\s+to the power of\s+(\d+)[”"]/i);
+  if (two) {
+    invariant(ruleId === "two-verbal-powers-to-index-notation-v1", "V4_STEP_INPUT_BINDING_INVALID", "two-power phrase uses wrong domain rule", context.row.baseId, context.step.stepId);
+    const terms = [
+      { base: two[1], exponent: Number(two[2]) },
+      { base: two[3], exponent: Number(two[4]) }
+    ];
+    return v4EnrichComputedDomainReplay(context.source, ruleId, { terms }, `${terms[0].base}^${terms[0].exponent} × ${terms[1].base}^${terms[1].exponent}`, { terms }, null);
+  }
+  const verbal = prompt.match(/[“"]([^”"]+?)\s+to the power of\s+([^”"]+)[”"]/i);
+  const ordinal = prompt.match(/[“"]([^”"]+?)\s+to the\s+(\d+)(?:st|nd|rd|th)\s+power[”"]/i);
+  const match = verbal ?? ordinal;
+  invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "single-power phrase did not resolve", context.row.baseId, context.step.stepId);
+  const base = match[1].trim();
+  const exponent = match[2].trim();
+  invariant(/^(?:\d+|[a-z])$/i.test(base) && /^(?:\d+|[a-z]|\d+[a-z])$/i.test(exponent), "V4_STEP_INPUT_BINDING_INVALID", "power phrase contains unsupported symbols", context.row.baseId, context.step.stepId);
+  const responseText = /^(?:\d+|[a-z])$/i.test(exponent) ? `${base}^${exponent}` : `${base}^(${exponent})`;
+  return v4EnrichComputedDomainReplay(context.source, ruleId, { base, exponent }, responseText, { base, exponent }, null);
+};
+
+const v4ReplayStructuredNumberTheory = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  const prompt = v4PromptWithoutMathDelimiters(context.source).replace(/\n/g, " ");
+  const replay = (
+    parameters: Record<string, unknown>,
+    responseText: string,
+    semanticValue: Record<string, unknown>,
+    values: bigint[] | null = null
+  ) => v4EnrichComputedDomainReplay(context.source, ruleId, parameters, responseText, semanticValue, values);
+
+  if (ruleId === "minimum-composite-in-range-v1") {
+    const match = prompt.match(/From\s+(\d+)\s+to\s+(\d+)\s*,\s*inclusive,.*smallest composite/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "minimum-composite range did not resolve", context.row.baseId, context.step.stepId);
+    const minimum = Number(match[1]);
+    const maximum = Number(match[2]);
+    let firstComposite: number | null = null;
+    for (let value = minimum; value <= maximum; value += 1) {
+      if (value > 1 && !isPrime(BigInt(value))) {
+        firstComposite = value;
+        break;
+      }
+    }
+    invariant(firstComposite !== null, "V4_STEP_EXECUTION_INVALID", "range contains no composite", context.row.baseId, context.step.stepId);
+    return replay({ minimum, maximum }, String(firstComposite), {
+      firstComposite,
+      factors: positiveFactors(BigInt(firstComposite)).map(Number)
+    });
+  }
+
+  if (ruleId === "maximum-composite-in-range-v1") {
+    const match = prompt.match(/greatest composite number that is at most\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "maximum-composite bound did not resolve", context.row.baseId, context.step.stepId);
+    const maximum = Number(match[1]);
+    let value = maximum;
+    while (value > 1 && isPrime(BigInt(value))) value -= 1;
+    invariant(value > 1, "V4_STEP_EXECUTION_INVALID", "bound contains no composite", context.row.baseId, context.step.stepId);
+    return replay({ maximum }, String(value), { value, factors: positiveFactors(BigInt(value)).map(Number) });
+  }
+
+  if (ruleId === "classify-one-v1") {
+    invariant(/\b1\b.*prime, composite, or neither/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "classification-of-one prompt did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ positiveFactors: [1] }, "neither prime nor composite; 1 has only one positive factor", {
+      classification: "neither",
+      factors: [1]
+    });
+  }
+
+  if (ruleId === "unordered-factor-pair-count-v1") {
+    const match = prompt.match(/has\s+(\d+)\s+square tiles/i);
+    invariant(match && /same combination/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "factor-pair prompt did not resolve", context.row.baseId, context.step.stepId);
+    const value = BigInt(match[1]);
+    const factors = positiveFactors(value);
+    const pairs = factors
+      .filter((factor) => factor * factor <= value)
+      .map((factor) => [Number(factor), Number(value / factor)]);
+    return replay({ factors: factors.map(Number) }, String(pairs.length), { pairs });
+  }
+
+  if (ruleId === "smallest-prime-parity-v1") {
+    invariant(/smallest prime number/i.test(prompt) && /even or odd/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "smallest-prime prompt did not resolve", context.row.baseId, context.step.stepId);
+    const value = 2;
+    return replay({ factors: [1, value] }, "(a) 2; (b) even", { value, parity: "even" });
+  }
+
+  if (ruleId === "sieve-remainder-class-v1") {
+    const crossedText = prompt.match(/multiples of\s+([0-9, and]+)\s*\(/i)?.[1] ?? "";
+    const crossed = [...crossedText.matchAll(/\d+/g)].map((entry) => Number(entry[0]));
+    const maximum = Number(prompt.match(/within\s+(\d+)/i)?.[1]);
+    invariant(/Sieve of Eratosthenes/i.test(prompt) && deepEqualJson(crossed, [2, 3, 5, 7]) && maximum === 100 && /except for 1/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "sieve prompt did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ crossedPrimeMultiples: crossed, maximum }, "prime numbers", { classification: "prime" });
+  }
+
+  if (ruleId === "structured-factor-sets-v1") {
+    const values = [...prompt.matchAll(/factors of\s+(\d+)/gi)].map((entry) => BigInt(entry[1])).slice(0, 2);
+    invariant(values.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "structured factor values did not resolve", context.row.baseId, context.step.stepId);
+    const first = positiveFactors(values[0]).map(Number);
+    const second = positiveFactors(values[1]).map(Number);
+    const secondSet = new Set(second);
+    const common = first.filter((value) => secondSet.has(value));
+    return replay(
+      { values: values.map(Number) },
+      `(a) ${first.join(", ")}; (b) ${second.join(", ")}; (c) ${common.join(", ")}`,
+      { [`factors${values[0]}`]: first, [`factors${values[1]}`]: second, common }
+    );
+  }
+
+  if (ruleId === "structured-multiple-lists-v1") {
+    const matches = [...prompt.matchAll(/first\s+(\d+)\s+positive multiples of\s+(\d+)/gi)];
+    invariant(matches.length === 2 && matches[0][1] === matches[1][1], "V4_STEP_INPUT_BINDING_INVALID", "structured multiple lists did not resolve", context.row.baseId, context.step.stepId);
+    const count = Number(matches[0][1]);
+    const bases = matches.map((entry) => Number(entry[2]));
+    const lists = bases.map((base) => Array.from({ length: count }, (_unused, index) => base * (index + 1)));
+    const secondSet = new Set(lists[1]);
+    const firstTwoCommon = lists[0].filter((value) => secondSet.has(value)).slice(0, 2);
+    return replay(
+      { bases, count },
+      `(a) ${lists[0].join(", ")}; (b) ${lists[1].join(", ")}; (c) ${firstTwoCommon.join(", ")}`,
+      { [`multiples${bases[0]}`]: lists[0], [`multiples${bases[1]}`]: lists[1], firstTwoCommon }
+    );
+  }
+
+  if (ruleId === "largest-equal-square-tiling-v1") {
+    const match = prompt.match(/A\s+(\d+)\s*cm by\s+(\d+)\s*cm rectangular sheet/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "square-tiling dimensions did not resolve", context.row.baseId, context.step.stepId);
+    const rectangle = [BigInt(match[1]), BigInt(match[2])];
+    const side = integerGcd(...rectangle);
+    const grid = rectangle.map((value) => value / side);
+    const count = grid[0] * grid[1];
+    return replay(
+      { rectangle: rectangle.map(String), sideByGcd: side.toString(), grid: grid.map(String) },
+      `(a) ${side} cm; (b) ${count} squares`,
+      { side: side.toString(), across: grid[0].toString(), down: grid[1].toString(), count: count.toString() },
+      rectangle
+    );
+  }
+
+  if (ruleId === "minimum-equal-cubes-by-gcd-side-v1") {
+    const match = prompt.match(/(?:size|measuring)\s+(\d+)\s*cm\s*×\s*(\d+)\s*cm\s*×\s*(\d+)\s*cm/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "equal-cube dimensions did not resolve", context.row.baseId, context.step.stepId);
+    const dimensions = match.slice(1, 4).map(BigInt);
+    const side = integerGcd(...dimensions);
+    const counts = dimensions.map((value) => value / side);
+    const cubeCount = counts.reduce((product, value) => product * value, BigInt("1"));
+    return replay(
+      { dimensions: dimensions.map(String), sideByGcd: side.toString(), countsAlongAxes: counts.map(String) },
+      cubeCount.toString(),
+      { cubeSide: side.toString(), countsAlongAxes: counts.map(String), cubeCount: cubeCount.toString() },
+      dimensions
+    );
+  }
+
+  if (ruleId === "minimum-common-group-count-v1") {
+    const groupCounts = [...prompt.matchAll(/(\d+)\s+groups/gi)].map((entry) => Number(entry[1]));
+    invariant(groupCounts.length >= 2 && /minimum possible number/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "common-group prompt did not resolve", context.row.baseId, context.step.stepId);
+    const lcm = Number(integerLcm(...groupCounts.map(BigInt)));
+    return replay({ groupCounts, operation: "lcm" }, String(lcm), { lcm });
+  }
+
+  if (ruleId === "next-primes-product-v1") {
+    const match = prompt.match(/first\s+(\w+)\s+prime numbers after\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "next-primes prompt did not resolve", context.row.baseId, context.step.stepId);
+    const count = V4_CARDINAL_WORDS[match[1].toLowerCase()];
+    const after = Number(match[2]);
+    invariant(count, "V4_STEP_INPUT_BINDING_INVALID", "next-primes count did not resolve", context.row.baseId, context.step.stepId);
+    const selectedPrimes: number[] = [];
+    for (let candidate = after + 1; selectedPrimes.length < count; candidate += 1) if (isPrime(BigInt(candidate))) selectedPrimes.push(candidate);
+    const product = selectedPrimes.reduce((value, prime) => value * prime, 1);
+    return replay({ after, selectedPrimes, operation: selectedPrimes.join("*") }, String(product), { primes: selectedPrimes, product });
+  }
+
+  if (ruleId === "compute-hcf-and-lcm-v1") {
+    const match = prompt.match(/for\s+(\d+)\s+and\s+(\d+),\s*then find their H\.?C\.?F\.? and L\.?C\.?M\.?/i);
+    invariant(match && /prime factor/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "joint HCF/LCM prompt did not resolve", context.row.baseId, context.step.stepId);
+    const values = [BigInt(match[1]), BigInt(match[2])];
+    const hcf = integerGcd(...values);
+    const lcm = integerLcm(...values);
+    const factorizations = v4FactorizationRecords(values);
+    return replay(
+      { values: values.map(String), method: "prime-factorisation", factorizations },
+      `${factorizations.map((entry) => `${entry.value}=${entry.rendered}`).join(";")};H.C.F.=${hcf};L.C.M.=${lcm}`,
+      { values: values.map(String), hcf: hcf.toString(), lcm: lcm.toString(), factorizations, method: "prime-factorisation" },
+      values
+    );
+  }
+
+  if (ruleId === "prime-factorisation-and-hcf-v1") {
+    const match = prompt.match(/Express\s+(\d+)\s+as a product of prime factors.*?H\.?C\.?F\.? of\s+\1\s+and\s+(.+?)\.\s+In one response/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "prime-factorisation/HCF prompt did not resolve", context.row.baseId, context.step.stepId);
+    const first = BigInt(match[1]);
+    const secondExpression = match[2].replace(/\\times|×/g, "*").replace(/\s+/g, "");
+    const secondEvaluation = evaluateExactExpression(secondExpression);
+    invariant(secondEvaluation.value.denominator === BigInt("1"), "V4_STEP_INPUT_BINDING_INVALID", "second HCF expression is not integral", context.row.baseId, context.step.stepId);
+    const second = secondEvaluation.value.numerator;
+    const firstFactors = primeFactorization(first);
+    const secondFactors = primeFactorization(second);
+    const hcf = integerGcd(first, second);
+    return replay(
+      { first: first.toString(), firstFactors, secondExpression, secondAst: secondEvaluation.ast, second: second.toString(), secondFactors },
+      `(b) prime factorisation = ${first}=${renderPrimeFactorization(firstFactors)}; (c) H.C.F. = ${hcf}`,
+      { first: first.toString(), firstFactors, second: second.toString(), secondFactors, hcf: hcf.toString() }
+    );
+  }
+
+  if (ruleId === "gcd-lcm-from-index-factorizations-v1") {
+    const match = prompt.match(/of\s+(.+?)\s+and\s+(.+?)\.\s+Answer in the format/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "index-factor HCF/LCM prompt did not resolve", context.row.baseId, context.step.stepId);
+    const parseFactorMap = (expression: string): Record<string, number> => Object.fromEntries(
+      primeFactorization(evaluateExactExpression(expression).value.numerator).map((entry) => [entry.prime, entry.exponent])
+    );
+    const first = parseFactorMap(match[1]);
+    const second = parseFactorMap(match[2]);
+    const primes = [...new Set([...Object.keys(first), ...Object.keys(second)])].sort((left, right) => Number(left) - Number(right));
+    const gcdFactors = Object.fromEntries(primes.flatMap((prime) => {
+      const exponent = Math.min(first[prime] ?? 0, second[prime] ?? 0);
+      return exponent > 0 ? [[prime, exponent]] : [];
+    }));
+    const lcmFactors = Object.fromEntries(primes.map((prime) => [prime, Math.max(first[prime] ?? 0, second[prime] ?? 0)]));
+    const multiplyMap = (map: Record<string, number>) => Object.entries(map).reduce((product, [prime, exponent]) => product * Number(BigInt(prime) ** BigInt(exponent)), 1);
+    const gcd = multiplyMap(gcdFactors);
+    const lcm = multiplyMap(lcmFactors);
+    return replay(
+      { first, second, gcdRule: "minimum-exponents", lcmRule: "maximum-exponents" },
+      `HCF=${gcd}, LCM=${lcm}`,
+      { gcdFactors, lcmFactors, gcd, lcm }
+    );
+  }
+
+  if (ruleId === "partition-by-divisibility-v1") {
+    const valuesMatch = prompt.match(/From\s+([0-9, and]+),\s*list/i);
+    const divisorMatches = [...prompt.matchAll(/numbers divisible by\s+(\d+)/gi)];
+    invariant(valuesMatch && divisorMatches.length === 3, "V4_STEP_INPUT_BINDING_INVALID", "partition-by-divisibility prompt did not resolve", context.row.baseId, context.step.stepId);
+    const values = [...valuesMatch[1].matchAll(/\d+/g)].map((entry) => Number(entry[0]));
+    const divisors = divisorMatches.map((entry) => Number(entry[1]));
+    const groups = divisors.map((divisor) => values.filter((value) => value % divisor === 0));
+    return replay(
+      { values, divisors },
+      groups.map((group) => group.join(", ")).join(";"),
+      Object.fromEntries(divisors.map((divisor, index) => [`by${divisor}`, groups[index]]))
+    );
+  }
+
+  if (ruleId === "partition-values-by-divisibility-v1") {
+    const considered = prompt.match(/^Consider\s+([0-9, and]+)\./i);
+    const divisorMatches = [...prompt.matchAll(/\(([a-d])\)\s+Which are divisible by\s+(\d+)/gi)];
+    invariant(considered && divisorMatches.length > 0, "V4_STEP_INPUT_BINDING_INVALID", "structured divisibility partition did not resolve", context.row.baseId, context.step.stepId);
+    const values = [...considered[1].matchAll(/\d+/g)].map((entry) => BigInt(entry[0]));
+    const groups = divisorMatches.map((entry) => {
+      const divisor = BigInt(entry[2]);
+      const checks = values.map((value) => ({ value: value.toString(), remainder: (value % divisor).toString(), truth: value % divisor === BigInt("0") }));
+      return { label: entry[1], divisor: divisor.toString(), checks, selected: checks.filter((check) => check.truth).map((check) => check.value) };
+    });
+    return replay(
+      { values: values.map(String), divisors: groups.map((group) => group.divisor) },
+      groups.map((group) => `(${group.label}) ${group.selected.length ? group.selected.join(", ") : "none"}`).join("; "),
+      { groups }
+    );
+  }
+
+  if (ruleId === "ordered-divisibility-decision-table-v1") {
+    const divisorsMatch = prompt.match(/whether it is divisible by\s+(\d+),\s*(\d+),\s*and\s*(\d+)/i);
+    invariant(divisorsMatch, "V4_STEP_INPUT_BINDING_INVALID", "ordered divisor list did not resolve", context.row.baseId, context.step.stepId);
+    const divisors = divisorsMatch.slice(1, 4).map(BigInt);
+    const values = [...prompt.matchAll(/\(([a-f])\)\s*(\d+)/gi)].map((entry) => ({ label: entry[1], value: BigInt(entry[2]) }));
+    const useCheckmarks = /✓\/✗/.test(context.source.prompt.zh);
+    const groups = values.map(({ label, value }) => ({
+      label,
+      value: value.toString(),
+      decisions: divisors.map((divisor) => ({
+        divisor: divisor.toString(),
+        remainder: (value % divisor).toString(),
+        truth: value % divisor === BigInt("0")
+      }))
+    }));
+    const booleanMatrix = groups.map((group) => group.decisions.map((decision) => decision.truth));
+    return replay(
+      { divisors: divisors.map(String), values: values.map(({ label, value }) => ({ label, value: value.toString() })), responseSymbols: useCheckmarks ? "checkmark-cross" : "yes-no" },
+      groups.map((group) => `(${group.label}) ${group.decisions
+        .map((decision) => useCheckmarks ? (decision.truth ? "✓" : "✗") : (decision.truth ? "Yes" : "No"))
+        .join(", ")}`).join("; "),
+      { divisors: divisors.map(String), groups, booleanMatrix }
+    );
+  }
+
+  if (ruleId === "short-division-hcf-and-complete-common-factors-v1") {
+    const match = prompt.match(/H\.?C\.?F\.? of\s+(\d+)\s+and\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "short-division HCF values did not resolve", context.row.baseId, context.step.stepId);
+    const values = [BigInt(match[1]), BigInt(match[2])];
+    const trace = v4ShortDivisionTraceFor(values);
+    const commonTrace = trace.filter((entry) => entry.dividesEveryCurrentValue);
+    const hcf = integerGcd(...values);
+    const commonFactors = positiveFactors(hcf);
+    return replay(
+      { values: values.map(String), shortDivisionTrace: commonTrace },
+      `H.C.F.=${hcf}; common factors=${commonFactors.join(",")}`,
+      { hcf: hcf.toString(), commonFactors: commonFactors.map(String), shortDivisionTrace: commonTrace },
+      values
+    );
+  }
+
+  if (ruleId === "short-division-lcm-and-bounded-common-multiples-v1") {
+    const match = prompt.match(/L\.?C\.?M\.? of\s+(\d+)\s+and\s+(\d+)/i);
+    invariant(match && /three-digit common multiples/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "short-division LCM values did not resolve", context.row.baseId, context.step.stepId);
+    const values = [BigInt(match[1]), BigInt(match[2])];
+    const minimum = BigInt("100");
+    const maximum = BigInt("999");
+    const trace = v4ShortDivisionTraceFor(values);
+    const lcm = integerLcm(...values);
+    const commonMultiples: bigint[] = [];
+    for (let value = ((minimum + lcm - BigInt("1")) / lcm) * lcm; value <= maximum; value += lcm) commonMultiples.push(value);
+    return replay(
+      { values: values.map(String), minimum: minimum.toString(), maximum: maximum.toString(), shortDivisionTrace: trace },
+      `L.C.M.=${lcm}; common multiples=${commonMultiples.join(",")}`,
+      { lcm: lcm.toString(), commonMultiples: commonMultiples.map(String), shortDivisionTrace: trace },
+      values
+    );
+  }
+
+  return null;
+};
+
+const V4_DECIMAL_PLACE_NAMES = [
+  "tenths",
+  "hundredths",
+  "thousandths",
+  "ten-thousandths",
+  "hundred-thousandths",
+  "millionths"
+] as const;
+
+const v4ReplayFractionDecimalDomain = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  const prompt = v4PromptWithoutMathDelimiters(context.source);
+  const replay = (parameters: Record<string, unknown>, responseText: string, semanticValue: Record<string, unknown>) =>
+    v4EnrichComputedDomainReplay(context.source, ruleId, parameters, responseText, semanticValue, null);
+
+  if (ruleId === "classify-fraction-forms-v1") {
+    invariant(/Classify the following numbers/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "fraction-classification prompt did not resolve", context.row.baseId, context.step.stepId);
+    const exactForms = v4DomainInputFacts(context).map((fact) => fact.locator.exact);
+    const forms = exactForms.map((exact) => exact
+      .replace(/(\d+)\\frac\{(\d+)\}\{(\d+)\}/g, "$1 $2/$3")
+      .replace(/\\frac\{(\d+)\}\{(\d+)\}/g, "$1/$2")
+      .replace(/\s+/g, " ")
+      .trim());
+    const proper: string[] = [];
+    const improper: string[] = [];
+    const mixed: string[] = [];
+    const properExact: string[] = [];
+    const improperExact: string[] = [];
+    const mixedExact: string[] = [];
+    for (let index = 0; index < forms.length; index += 1) {
+      const mixedMatch = forms[index].match(/^(\d+)\s+(\d+)\/(\d+)$/);
+      if (mixedMatch) {
+        mixed.push(forms[index]);
+        mixedExact.push(exactForms[index]);
+        continue;
+      }
+      const fraction = forms[index].match(/^(\d+)\/(\d+)$/);
+      invariant(fraction, "V4_STEP_INPUT_BINDING_INVALID", "fraction form did not resolve", context.row.baseId, context.step.stepId);
+      if (BigInt(fraction[1]) < BigInt(fraction[2])) {
+        proper.push(forms[index]);
+        properExact.push(exactForms[index]);
+      } else {
+        improper.push(forms[index]);
+        improperExact.push(exactForms[index]);
+      }
+    }
+    return replay(
+      { forms, rule: "proper numerator<denominator; improper numerator>=denominator; mixed whole+proper-fraction" },
+      `(a) proper fractions: \\(${properExact.join(",")}\\); (b) improper fractions: \\(${improperExact.join(",")}\\); (c) mixed numbers: \\(${mixedExact.join(",")}\\)`,
+      { proper, improper, mixed }
+    );
+  }
+
+  if (ruleId === "decimal-place-unit-v1") {
+    const place = prompt.match(/in the\s+([a-z-]+) place/i)?.[1];
+    invariant(place === "tenths", "V4_STEP_INPUT_BINDING_INVALID", "decimal place unit did not resolve", context.row.baseId, context.step.stepId);
+    const placeExponent = -(V4_DECIMAL_PLACE_NAMES.indexOf(place) + 1);
+    const denominator = BigInt("10") ** BigInt(-placeExponent);
+    const unit = new ExactRational(BigInt("1"), denominator);
+    return replay({ placeExponent }, unit.toFiniteDecimalString()!, { unitValue: unit.toImproperString() });
+  }
+
+  if (ruleId === "decimal-digit-place-value-v1") {
+    const match = prompt.match(/digit\s+'?\s*(\d+)\s*'?\s+in the number\s+(\d+\.\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "decimal digit/value prompt did not resolve", context.row.baseId, context.step.stepId);
+    const digit = Number(match[1]);
+    const decimal = match[2];
+    const index = decimal.split(".")[1].indexOf(String(digit)) + 1;
+    invariant(index > 0 && index <= V4_DECIMAL_PLACE_NAMES.length, "V4_STEP_INPUT_BINDING_INVALID", "decimal digit occurrence did not resolve", context.row.baseId, context.step.stepId);
+    const denominator = BigInt("10") ** BigInt(index);
+    const value = new ExactRational(digit, denominator);
+    return replay(
+      { digit, place: V4_DECIMAL_PLACE_NAMES[index - 1], multiplier: `1/${denominator}` },
+      value.toFiniteDecimalString()!,
+      { value: value.toImproperString() }
+    );
+  }
+
+  if (ruleId === "construct-fixed-place-decimal-v1") {
+    const count = /four-decimal-place/i.test(prompt) ? 4 : /three-decimal-place/i.test(prompt) ? 3 : null;
+    invariant(count !== null, "V4_STEP_INPUT_BINDING_INVALID", "fixed decimal-place count did not resolve", context.row.baseId, context.step.stepId);
+    const integer = Number(prompt.match(/integer part of\s+(\d+)/i)?.[1] ?? "0");
+    const digitsAfterDecimal = Array.from({ length: count }, () => 0);
+    for (let index = 0; index < count; index += 1) {
+      const place = V4_DECIMAL_PLACE_NAMES[index];
+      const match = prompt.match(new RegExp(`(\\d+) in the ${place.replace(/s$/, "s?")} place`, "i"));
+      if (match) digitsAfterDecimal[index] = Number(match[1]);
+    }
+    const responseText = `${integer}.${digitsAfterDecimal.join("")}`;
+    const digits = responseText.replace(".", "").split("").map(Number);
+    return replay(
+      { ...(integer === 0 ? {} : { integer }), digitsAfterDecimal },
+      responseText,
+      { digits, ...(/exactly four digits after the decimal point/i.test(prompt) ? { requiredTrailingZero: true } : {}) }
+    );
+  }
+
+  if (ruleId === "identify-place-and-value-v1") {
+    const match = prompt.match(/In\s+(\d+\.\d+),\s*identify the place and value of the digit\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "place-and-value prompt did not resolve", context.row.baseId, context.step.stepId);
+    const digits = match[1].split(".")[1];
+    const digit = Number(match[2]);
+    const index = digits.indexOf(String(digit)) + 1;
+    invariant(index > 0, "V4_STEP_INPUT_BINDING_INVALID", "target digit is absent", context.row.baseId, context.step.stepId);
+    const denominator = BigInt("10") ** BigInt(index);
+    const value = new ExactRational(digit, denominator);
+    return replay(
+      { digitIndexAfterDecimal: index, digit },
+      `${V4_DECIMAL_PLACE_NAMES[index - 1]};${value.toFiniteDecimalString()}`,
+      { place: V4_DECIMAL_PLACE_NAMES[index - 1], value: value.toImproperString() }
+    );
+  }
+
+  if (ruleId === "identify-two-decimal-places-v1") {
+    const match = prompt.match(/In\s+(\d+\.\d+),\s*identify the place of\s+(\d+)\s+and the place of\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "two-place prompt did not resolve", context.row.baseId, context.step.stepId);
+    const decimalDigits = match[1].split(".")[1];
+    const firstDigit = match[2];
+    const secondDigit = match[3];
+    const firstIndex = decimalDigits.indexOf(firstDigit) + 1;
+    const secondIndex = decimalDigits.indexOf(secondDigit) + 1;
+    invariant(firstIndex > 0 && secondIndex > 0, "V4_STEP_INPUT_BINDING_INVALID", "decimal place digits are absent", context.row.baseId, context.step.stepId);
+    return replay(
+      { [`digit${firstDigit}IndexAfterDecimal`]: firstIndex, [`digit${secondDigit}IndexAfterDecimal`]: secondIndex },
+      `${V4_DECIMAL_PLACE_NAMES[firstIndex - 1]};${V4_DECIMAL_PLACE_NAMES[secondIndex - 1]}`,
+      { [`place${firstDigit}`]: V4_DECIMAL_PLACE_NAMES[firstIndex - 1], [`place${secondDigit}`]: V4_DECIMAL_PLACE_NAMES[secondIndex - 1] }
+    );
+  }
+
+  if (ruleId === "decimal-fraction-equivalence-v1") {
+    const values = v4DomainInputFacts(context).map((fact) => evaluateExactExpression(fact.locator.exact).value);
+    invariant(values.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "decimal/fraction equivalence inputs did not resolve", context.row.baseId, context.step.stepId);
+    const truth = values[0].compare(values[1]) === 0;
+    return replay(
+      { decimal: values[0].toImproperString(), fraction: values[1].toImproperString() },
+      truth ? "True" : "False",
+      { truth }
+    );
+  }
+
+  if (ruleId === "compare-price-representations-v1") {
+    const match = context.source.prompt.en.match(/mineral water costs HK\$(\d+\.\d+).*?juice costs HK\$(\d+)\s+(\d+)\/(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "price comparison prompt did not resolve", context.row.baseId, context.step.stepId);
+    const mineral = ExactRational.fromDecimal(match[1]);
+    const juiceExpression = `${match[2]}+${match[3]}/${match[4]}`;
+    const juice = evaluateExactExpression(juiceExpression).value;
+    const comparison = juice.compare(mineral) < 0 ? "juice-lower" : juice.compare(mineral) > 0 ? "mineral-water-lower" : "equal";
+    return replay(
+      { mineralWater: match[1], juice: juiceExpression },
+      comparison === "juice-lower" ? "Juice" : comparison === "mineral-water-lower" ? "Mineral water" : "Equal",
+      { mineralWater: mineral.toImproperString(), juice: juice.toImproperString(), comparison }
+    );
+  }
+
+  if (ruleId === "divisible-by-10-last-digit-v1") {
+    invariant(/divisible by both 5 and 10/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "last-digit divisibility prompt did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ divisors: [5, 10] }, "0", { requiredLastDigit: 0 });
+  }
+
+  if (ruleId === "smallest-digit-divisibility-search-v1") {
+    const match = prompt.match(/box in\s+(\d+)□.*smallest.*divisible by\s+(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "smallest digit search did not resolve", context.row.baseId, context.step.stepId);
+    const prefix = match[1];
+    const divisor = Number(match[2]);
+    const candidates = Array.from({ length: 10 }, (_unused, digit) => digit);
+    const digit = candidates.find((candidate) => Number(`${prefix}${candidate}`) % divisor === 0)!;
+    const number = Number(`${prefix}${digit}`);
+    return replay({ candidates, predicate: "last-digit-even", objective: "minimum-number" }, String(digit), { digit, number });
+  }
+
+  if (ruleId === "digit-sum-divisibility-search-v1") {
+    const match = context.source.prompt.en.match(/(\d+)\\square(\d+).*divisible by\s+\\?\(?(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "digit-sum search did not resolve", context.row.baseId, context.step.stepId);
+    const fixedDigitSum = [...`${match[1]}${match[2]}`].reduce((sum, digit) => sum + Number(digit), 0);
+    const divisor = Number(match[3]);
+    const candidates = Array.from({ length: 10 }, (_unused, digit) => digit);
+    const digits = candidates.filter((digit) => (fixedDigitSum + digit) % divisor === 0);
+    const sums = digits.map((digit) => fixedDigitSum + digit);
+    return replay({ fixedDigitSum, candidates }, digits.join(", "), { digits, sums });
+  }
+
+  if (ruleId === "last-two-digits-divisibility-by-four-v1") {
+    const match = prompt.match(/([A-Z])(\d+) is a .*?digit from\s+(\d+)\s+to\s+(\d+).*?divisible by\s+(\d+)/i);
+    invariant(match && match[5] === "4", "V4_STEP_INPUT_BINDING_INVALID", "last-two-digits divisibility prompt did not resolve", context.row.baseId, context.step.stepId);
+    const lastTwoDigits = Number(match[2].slice(-2));
+    const divisor = Number(match[5]);
+    const remainder = lastTwoDigits % divisor;
+    const truth = remainder === 0;
+    return replay(
+      { lastTwoDigits, divisor, unknownLeadingDigitRange: [Number(match[3]), Number(match[4])] },
+      `${truth ? "Yes" : "No"}; the last two digits are ${lastTwoDigits}, and ${lastTwoDigits} leaves remainder ${remainder} when divided by ${divisor}.`,
+      { truth, remainder, independentOfA: true }
+    );
+  }
+
+  return null;
+};
+
+const V4_COMPASS_BEARINGS: Readonly<Record<string, number>> = {
+  north: 0,
+  northeast: 45,
+  east: 90,
+  southeast: 135,
+  south: 180,
+  southwest: 225,
+  west: 270,
+  northwest: 315
+};
+
+const v4CompassName = (bearing: number): string => {
+  const normalized = ((bearing % 360) + 360) % 360;
+  const entry = Object.entries(V4_COMPASS_BEARINGS).find(([, value]) => value === normalized);
+  invariant(entry, "V4_STEP_EXECUTION_INVALID", `unsupported compass bearing ${normalized}`);
+  return entry[0][0].toUpperCase() + entry[0].slice(1);
+};
+
+const v4VectorForDirection = (direction: string, magnitude = 1): [number, number] => {
+  const vectors: Record<string, [number, number]> = {
+    north: [0, 1],
+    northeast: [1, 1],
+    east: [1, 0],
+    southeast: [1, -1],
+    south: [0, -1],
+    southwest: [-1, -1],
+    west: [-1, 0],
+    northwest: [-1, 1]
+  };
+  const vector = vectors[direction.toLowerCase()];
+  invariant(vector, "V4_STEP_INPUT_BINDING_INVALID", `unknown located direction ${direction}`);
+  return [vector[0] * magnitude, vector[1] * magnitude];
+};
+
+const v4DirectionForVector = ([x, y]: [number, number]): string => {
+  invariant(x !== 0 || y !== 0, "V4_STEP_EXECUTION_INVALID", "zero vector has no compass direction");
+  const horizontal = x > 0 ? "East" : x < 0 ? "West" : "";
+  const vertical = y > 0 ? "North" : y < 0 ? "South" : "";
+  return vertical && horizontal ? `${vertical}${horizontal.toLowerCase()}` : horizontal || vertical;
+};
+
+const v4ReplayDefinitionGeometryDirection = (context: V4DomainContext): V4DomainReplay | null => {
+  const ruleId = String(context.step.parameters.ruleId);
+  const prompt = v4PromptWithoutMathDelimiters(context.source).replace(/\n/g, " ");
+  const replay = (parameters: Record<string, unknown>, responseText: string, semanticValue: Record<string, unknown>) =>
+    v4EnrichComputedDomainReplay(context.source, ruleId, parameters, responseText, semanticValue, null);
+
+  if (ruleId === "factor-multiple-statements-v1") {
+    const equation = prompt.match(/Based on\s+(\d+)\\times(\d+)=(\d+)/i);
+    invariant(equation, "V4_STEP_INPUT_BINDING_INVALID", "factor/multiple equation did not resolve", context.row.baseId, context.step.stepId);
+    const first = Number(equation[1]);
+    const second = Number(equation[2]);
+    const product = Number(equation[3]);
+    invariant(first * second === product, "V4_STEP_EXECUTION_INVALID", "located factor equation is false", context.row.baseId, context.step.stepId);
+    const statements = {
+      A: `${product}%${first}=0`,
+      B: `${product}%${first}=0`,
+      C: `${second}>=${product}`,
+      D: `${second}%${product}=0`
+    };
+    const semanticValue = {
+      A: product % first === 0,
+      B: product % first === 0,
+      C: second >= product,
+      D: second % product === 0
+    };
+    const correct = Object.entries(semanticValue).filter(([, truth]) => truth).map(([label]) => label);
+    return replay({ statements }, correct.join(", "), semanticValue);
+  }
+
+  if (ruleId === "prime-definition-v1") {
+    invariant(/All prime numbers have exactly 2 factors/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "prime-definition statement did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ definition: "prime has exactly two positive factors" }, "True", { truth: true });
+  }
+
+  if (ruleId === "factor-multiple-inverse-v1") {
+    const match = prompt.match(/Given\s+(\d+)\\times(\d+)=(\d+)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "factor/multiple inverse equation did not resolve", context.row.baseId, context.step.stepId);
+    const factors = [Number(match[1]), Number(match[2])];
+    const product = Number(match[3]);
+    invariant(factors[0] * factors[1] === product, "V4_STEP_EXECUTION_INVALID", "located product equation is false", context.row.baseId, context.step.stepId);
+    return replay({ product, factors }, "(a) multiple; (b) factor", { a: "multiple", b: "factor" });
+  }
+
+  if (ruleId === "coprime-definition-v1") {
+    const hcf = Number(prompt.match(/HCF\)? of two integers is\s+(\d+)/i)?.[1]);
+    invariant(hcf === 1, "V4_STEP_INPUT_BINDING_INVALID", "coprime HCF premise did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ hcf }, "The two integers are coprime; they have no positive common factor other than 1.", { classification: "coprime" });
+  }
+
+  if (ruleId === "lcm-when-one-multiple-v1") {
+    invariant(/positive integer\s+A\s+is a multiple of positive integer\s+B/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "multiple relation did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ relation: "B divides A" }, "A", { lcm: "A" });
+  }
+
+  if (ruleId === "hcf-upper-bound-v1") {
+    invariant(/positive common factor.*larger than their HCF/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "HCF upper-bound request did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ definition: "HCF is greatest positive common factor" }, "No; the HCF is the greatest positive common factor.", { decision: false });
+  }
+
+  if (ruleId === "gcd-distinct-primes-v1") {
+    invariant(/two different prime numbers/i.test(prompt) && /Highest Common Factor|HCF/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "distinct-primes HCF premise did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ onlyPositiveCommonFactor: 1 }, "1", { gcd: 1 });
+  }
+
+  if (ruleId === "factor-relation-gcd-lcm-v1") {
+    invariant(/positive integer\s+A\s+is a factor of positive integer\s+B/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "factor relation did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ relation: "A divides B" }, "(a) HCF = A; (b) LCM = B", { gcd: "A", lcm: "B" });
+  }
+
+  if (ruleId === "common-factor-multiple-cardinality-v1") {
+    invariant(/infinitely many positive common multiples/i.test(prompt) && /finitely many positive common factors/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "common factor/multiple cardinality premise did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ positiveIntegers: true }, "True", { truth: true });
+  }
+
+  if (ruleId === "lcm-relative-to-common-factor-v1") {
+    invariant(/LCM of two positive integers.*each positive common factor/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "LCM/common-factor relation did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ relation: "each common factor divides each integer and hence divides lcm" }, "multiple", { relation: "multiple" });
+  }
+
+  if (ruleId === "periodic-coincidence-v1") {
+    const match = prompt.match(/every\s+(\d+)\s+minutes.*?every\s+(\d+)\s+minutes.*?at\s+(\d+):(\d+)\s*p\.m\./i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "minute coincidence prompt did not resolve", context.row.baseId, context.step.stepId);
+    const periodsMinutes = [Number(match[1]), Number(match[2])];
+    const lcmMinutes = Number(integerLcm(...periodsMinutes.map(BigInt)));
+    const startHour24 = Number(match[3]) % 12 + 12;
+    const startMinute = Number(match[4]);
+    const nextTotal = startHour24 * 60 + startMinute + lcmMinutes;
+    const nextHour24 = Math.floor(nextTotal / 60) % 24;
+    const nextMinute = nextTotal % 60;
+    const next = `${String(nextHour24).padStart(2, "0")}:${String(nextMinute).padStart(2, "0")}`;
+    const displayHour = nextHour24 > 12 ? nextHour24 - 12 : nextHour24;
+    return replay(
+      { periodsMinutes, lcmMinutes, start: `${String(startHour24).padStart(2, "0")}:${String(startMinute).padStart(2, "0")}` },
+      `${displayHour}:${String(nextMinute).padStart(2, "0")} p.m.`,
+      { next }
+    );
+  }
+
+  if (ruleId === "periodic-coincidence-seconds-v1") {
+    const match = prompt.match(/every\s+(\d+)\s+seconds.*?every\s+(\d+)\s+seconds.*?at\s+(\d+):(\d+)\s*p\.m\./i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "second coincidence prompt did not resolve", context.row.baseId, context.step.stepId);
+    const periodsSeconds = [Number(match[1]), Number(match[2])];
+    const lcmSeconds = Number(integerLcm(...periodsSeconds.map(BigInt)));
+    const hour24 = Number(match[3]) % 12 + 12;
+    const minute = Number(match[4]);
+    const next = `${String(hour24).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(lcmSeconds).padStart(2, "0")}`;
+    return replay({ periodsSeconds, lcmSeconds }, `${Number(match[3])}:${String(minute).padStart(2, "0")}:${String(lcmSeconds).padStart(2, "0")} p.m.`, { next });
+  }
+
+  if (ruleId === "rhombus-property-truth-set-v1") {
+    invariant(/Which statements about a rhombus are correct/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "rhombus truth-set prompt did not resolve", context.row.baseId, context.step.stepId);
+    const claims = { A: "all-four-sides-equal", B: "all-four-angles-right", C: "opposite-sides-parallel" };
+    const definingProperties = ["all-four-sides-equal", "opposite-sides-parallel"];
+    return replay({ claims, definingProperties }, "A, C", { A: true, B: false, C: true });
+  }
+
+  if (ruleId === "rhombus-side-from-perimeter-v1") {
+    const perimeter = Number(prompt.match(/perimeter of a rhombus is\s+(\d+)\s*cm/i)?.[1]);
+    invariant(Number.isInteger(perimeter) && perimeter > 0, "V4_STEP_INPUT_BINDING_INVALID", "rhombus perimeter did not resolve", context.row.baseId, context.step.stepId);
+    const equalSideCount = 4;
+    const sideLengthCm = perimeter / equalSideCount;
+    return replay({ perimeter, equalSideCount, operation: `${perimeter}/${equalSideCount}` }, String(sideLengthCm), { sideLengthCm });
+  }
+
+  if (ruleId === "rhombus-opposite-angle-property-v1") {
+    invariant(/opposite angles of a rhombus/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "rhombus angle request did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ quadrilateral: "rhombus" }, "equal", { relation: "equal" });
+  }
+
+  if (ruleId === "rectangle-square-subset-v1") {
+    invariant(/All rectangles are squares/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "rectangle/square claim did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ rectangleRequiresEqualSides: false, squareRequiresEqualSides: true }, "False", { truth: false });
+  }
+
+  if (ruleId === "square-is-rhombus-v1") {
+    invariant(/square is also a type of rhombus/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "square/rhombus request did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ squareSidesEqual: 4, rhombusDefinition: "four equal sides" }, "A square has four equal sides, so it satisfies the definition of a rhombus.", { satisfies: "four-equal-sides" });
+  }
+
+  if (ruleId === "parallelogram-shape-filter-v1") {
+    const candidatesText = prompt.match(/separated by commas:\s*(.+?)\.?$/i)?.[1];
+    invariant(candidatesText, "V4_STEP_INPUT_BINDING_INVALID", "parallelogram candidates did not resolve", context.row.baseId, context.step.stepId);
+    const candidateNames = candidatesText.split(/,\s*/).map((value) => value.trim().replace(/\.$/, ""));
+    const parallelPairs: Record<string, number> = { square: 2, rectangle: 2, rhombus: 2, trapezium: 1 };
+    invariant(candidateNames.every((name) => Object.prototype.hasOwnProperty.call(parallelPairs, name)), "V4_STEP_INPUT_BINDING_INVALID", "unknown quadrilateral candidate", context.row.baseId, context.step.stepId);
+    const candidates = Object.fromEntries(candidateNames.map((name) => [name, parallelPairs[name]]));
+    const requiredParallelSidePairs = 2;
+    const selected = candidateNames.filter((name) => candidates[name] === requiredParallelSidePairs);
+    return replay({ candidates, requiredParallelSidePairs }, selected.join(", "), { selected });
+  }
+
+  if (ruleId === "classify-rhombus-from-properties-v1") {
+    invariant(/two pairs of parallel opposite sides/i.test(prompt) && /four equal sides/i.test(prompt) && /not all right angles/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "rhombus property classification did not resolve", context.row.baseId, context.step.stepId);
+    return replay({ parallelSidePairs: 2, equalSideCount: 4, allRightAngles: false }, "rhombus", { shape: "rhombus" });
+  }
+
+  if (ruleId === "opposite-compass-direction-v1") {
+    const start = prompt.match(/facing\s+(northeast|northwest|southeast|southwest|north|east|south|west)/i)?.[1];
+    invariant(start && /turns around/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "opposite compass prompt did not resolve", context.row.baseId, context.step.stepId);
+    const startDegreesClockwiseFromNorth = V4_COMPASS_BEARINGS[start.toLowerCase()];
+    const turnDegrees = 180;
+    const finalDegrees = (startDegreesClockwiseFromNorth + turnDegrees) % 360;
+    return replay({ startDegreesClockwiseFromNorth, turnDegrees }, v4CompassName(finalDegrees), { finalDegrees });
+  }
+
+  if (ruleId === "compass-quarter-turn-v1" || ruleId === "compass-eighth-turn-v1") {
+    const start = prompt.match(/(?:points|walks)\s+["“]?(northeast|northwest|southeast|southwest|north|east|south|west)/i)?.[1];
+    invariant(start, "V4_STEP_INPUT_BINDING_INVALID", "compass turn start did not resolve", context.row.baseId, context.step.stepId);
+    const startDegreesClockwiseFromNorth = V4_COMPASS_BEARINGS[start.toLowerCase()];
+    if (ruleId === "compass-quarter-turn-v1") {
+      const turnDegrees = Number(prompt.match(/right\s*\((\d+)° clockwise\)/i)?.[1]);
+      invariant(turnDegrees === 90, "V4_STEP_INPUT_BINDING_INVALID", "quarter turn did not resolve", context.row.baseId, context.step.stepId);
+      const finalDegrees = (startDegreesClockwiseFromNorth + turnDegrees) % 360;
+      return replay({ startDegreesClockwiseFromNorth, turnDegrees }, v4CompassName(finalDegrees), { finalDegrees });
+    }
+    const magnitude = Number(prompt.match(/(\d+)° left turn/i)?.[1]);
+    invariant(magnitude === 45, "V4_STEP_INPUT_BINDING_INVALID", "eighth turn did not resolve", context.row.baseId, context.step.stepId);
+    const signedTurnDegrees = -magnitude;
+    const finalDegrees = (startDegreesClockwiseFromNorth + signedTurnDegrees + 360) % 360;
+    return replay({ startDegreesClockwiseFromNorth, signedTurnDegrees }, v4CompassName(finalDegrees), { finalDegrees });
+  }
+
+  if (ruleId === "return-along-opposite-bearing-v1") {
+    const outbound = prompt.match(/sails\s+(northeast|northwest|southeast|southwest|north|east|south|west)/i)?.[1];
+    invariant(outbound && /return.*along the same path/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "return-bearing prompt did not resolve", context.row.baseId, context.step.stepId);
+    const outboundDegreesClockwiseFromNorth = V4_COMPASS_BEARINGS[outbound.toLowerCase()];
+    const returnDegrees = (outboundDegreesClockwiseFromNorth + 180) % 360;
+    return replay({ outboundDegreesClockwiseFromNorth }, v4CompassName(returnDegrees), { returnDegrees });
+  }
+
+  if (ruleId === "inverse-relative-direction-v1") {
+    const direction = prompt.match(/City A is\s+(northeast|northwest|southeast|southwest|north|east|south|west) of City B/i)?.[1];
+    invariant(direction, "V4_STEP_INPUT_BINDING_INVALID", "inverse relative direction did not resolve", context.row.baseId, context.step.stepId);
+    const cityAFromB = v4VectorForDirection(direction);
+    const cityBFromA: [number, number] = [-cityAFromB[0], -cityAFromB[1]];
+    return replay({ cityAFromB }, v4DirectionForVector(cityBFromA), { cityBFromA });
+  }
+
+  if (ruleId === "relative-direction-vector-v1") {
+    if (/library is to the West of the school/i.test(prompt)) {
+      const libraryFromSchool = v4VectorForDirection("west");
+      const parkFromSchool = v4VectorForDirection("south");
+      const vector: [number, number] = [libraryFromSchool[0] - parkFromSchool[0], libraryFromSchool[1] - parkFromSchool[1]];
+      const direction = v4DirectionForVector(vector);
+      return replay({ libraryFromSchool, parkFromSchool, target: "library-from-park" }, direction, { vector, direction });
+    }
+    const match = prompt.match(/treasure is buried\s+(\d+)m due\s+(north|east|south|west).*?flag is\s+(\d+)m due\s+(north|east|south|west)/i);
+    invariant(match, "V4_STEP_INPUT_BINDING_INVALID", "relative vector prompt did not resolve", context.row.baseId, context.step.stepId);
+    const treasureFromTree = v4VectorForDirection(match[2], Number(match[1]));
+    const flagFromTree = v4VectorForDirection(match[4], Number(match[3]));
+    const vector: [number, number] = [treasureFromTree[0] - flagFromTree[0], treasureFromTree[1] - flagFromTree[1]];
+    const direction = v4DirectionForVector(vector);
+    return replay({ treasureFromTree, flagFromTree, target: "treasure-from-flag" }, direction, { vector, direction });
+  }
+
+  if (ruleId === "compose-relative-direction-vectors-v1") {
+    invariant(/cat is to the Southeast of the dog/i.test(prompt) && /dog is due East of the rabbit/i.test(prompt), "V4_STEP_INPUT_BINDING_INVALID", "relative vector composition did not resolve", context.row.baseId, context.step.stepId);
+    const catFromDog = v4VectorForDirection("southeast");
+    const dogFromRabbit = v4VectorForDirection("east");
+    const catFromRabbit: [number, number] = [catFromDog[0] + dogFromRabbit[0], catFromDog[1] + dogFromRabbit[1]];
+    const direction = v4DirectionForVector(catFromRabbit);
+    return replay({ catFromDog, dogFromRabbit }, direction, { catFromRabbit, direction });
+  }
+
+  return null;
+};
+
+const validateSelectAreaUnitRule = (
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  const parameters = step.parameters as Record<string, unknown>;
+  const inputFacts = step.inputFactIds.map((factId) => factsById.get(factId)!);
+  invariant(
+    inputFacts.length === 2 && step.inputStepIds.length === 0,
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "area-unit rule must use exactly the located object and magnitude facts",
+    row.baseId,
+    step.stepId
+  );
+  const locatedObject = inputFacts[0].locator.exact;
+  const locatedMagnitude = Number(inputFacts[1].locator.exact.replace(/,/g, ""));
+  const expectedClass = /card/i.test(locatedObject)
+    ? "small-card"
+    : /blackboard/i.test(locatedObject)
+      ? "room-fixture"
+      : /hall/i.test(locatedObject)
+        ? "large-room"
+        : null;
+  invariant(
+    expectedClass !== null &&
+      Number.isFinite(locatedMagnitude) &&
+      deepEqualJson(parameters, {
+        ruleId: "select-area-unit-v1",
+        objectClass: expectedClass,
+        magnitude: locatedMagnitude
+      }),
+    "V4_STEP_INPUT_BINDING_INVALID",
+    "area-unit parameters do not resolve from the located object and magnitude",
+    row.baseId,
+    step.stepId
+  );
+  const expectedUnit = expectedClass === "small-card" ? "cm²" : "m²";
+  invariant(
+    deepEqualJson(step.output, {
+      responseText: expectedUnit,
+      semanticValue: { unit: expectedUnit }
+    }),
+    "V4_DOMAIN_RULE_OUTPUT_INVALID",
+    "area-unit rule output does not match the independently selected unit",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const validateDomainStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  factsById: ReadonlyMap<string, DerivationFact>
+): void => {
+  const parameters = step.parameters as Record<string, unknown>;
+  invariant(
+    typeof parameters.ruleId === "string" && parameters.ruleId.trim() !== "",
+    "V4_NON_ROW_SPECIFIC_DERIVATION",
+    "domain step has no typed rule ID",
+    row.baseId,
+    step.stepId
+  );
+  const context: V4DomainContext = { source, row, step, factsById };
+  v4DomainInputFacts(context);
+  if (parameters.ruleId === "select-area-unit-v1") {
+    validateSelectAreaUnitRule(row, step, factsById);
+    return;
+  }
+  const independentReplay = v4ReplaySingleGcdOrLcm(context)
+    ?? v4ReplayRepeatedIndexNotation(context)
+    ?? v4ReplayPrimeFactorization(context)
+    ?? v4ReplayGenericNumberTheory(context)
+    ?? v4ReplayNaturalLanguageExpression(context)
+    ?? v4ReplayTwoPartDomain(context)
+    ?? v4ReplayIndexNotationPhrase(context)
+    ?? v4ReplayStructuredNumberTheory(context)
+    ?? v4ReplayFractionDecimalDomain(context)
+    ?? v4ReplayDefinitionGeometryDirection(context);
+  if (independentReplay) {
+    invariant(
+      deepEqualJson(step.parameters, independentReplay.parameters),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "domain-rule parameters do not replay from the located problem facts",
+      row.baseId,
+      step.stepId
+    );
+    invariant(
+      deepEqualJson(step.output, independentReplay.output),
+      "V4_DOMAIN_RULE_OUTPUT_INVALID",
+      "domain-rule output does not replay from independently executed parameters",
+      row.baseId,
+      step.stepId
+    );
+    return;
+  }
+  return fail(
+    "V4_DOMAIN_RULE_UNSUPPORTED",
+    `no independent executor is registered for ${parameters.ruleId}`,
+    row.baseId,
+    step.stepId
+  );
+};
+
+const validateStructuredResponseStep = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow,
+  step: DerivationStep,
+  stepsById: ReadonlyMap<string, DerivationStep>
+): void => {
+  const parameters = step.parameters as Record<string, unknown>;
+  const replayedDivisionProducts = validateShortDivisionTrace(row, parameters.shortDivisionTrace);
+  if (parameters.divisionProducts !== undefined) {
+    invariant(
+      replayedDivisionProducts !== null && deepEqualJson(parameters.divisionProducts, replayedDivisionProducts),
+      "V4_STEP_EXECUTION_INVALID",
+      "composed short-division products do not replay from the trace",
+      row.baseId,
+      step.stepId
+    );
+    const semantic = row.computedResult.semanticValue as Record<string, unknown>;
+    invariant(
+      deepEqualJson(semantic?.divisionProducts, replayedDivisionProducts),
+      "V4_STEP_EXECUTION_INVALID",
+      "computed response does not bind the replayed short-division products",
+      row.baseId,
+      step.stepId
+    );
+  }
+  const inputSteps = step.inputStepIds.map((stepId) => stepsById.get(stepId)!);
+  if (parameters.divisionProducts !== undefined) {
+    const gcdStep = inputSteps.find((inputStep) => inputStep.operation === "compute-gcd");
+    const lcmStep = inputSteps.find((inputStep) => inputStep.operation === "compute-lcm");
+    const gcdOperands = (gcdStep?.parameters as { values?: unknown } | undefined)?.values;
+    const lcmOperands = (lcmStep?.parameters as { values?: unknown } | undefined)?.values;
+    const gcdValue = (gcdStep?.output as { value?: unknown } | undefined)?.value;
+    const lcmValue = (lcmStep?.output as { value?: unknown } | undefined)?.value;
+    invariant(
+      Array.isArray(gcdOperands) && gcdOperands.length >= 2 &&
+        gcdOperands.every((value) => typeof value === "string" && /^[1-9]\d*$/.test(value)) &&
+        deepEqualJson(gcdOperands, lcmOperands) &&
+        typeof gcdValue === "string" && typeof lcmValue === "string",
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "short-division structured response does not consume exact typed GCD/LCM operands and results",
+      row.baseId,
+      step.stepId
+    );
+    const exactOperands = gcdOperands as string[];
+    const expectedSemantic = {
+      operands: exactOperands,
+      gcd: gcdValue,
+      lcm: lcmValue,
+      factorizations: v4FactorizationRecords(exactOperands.map(BigInt)),
+      shortDivisionTrace: parameters.shortDivisionTrace,
+      divisionProducts: parameters.divisionProducts
+    };
+    invariant(
+      deepEqualJson(row.computedResult.semanticValue, expectedSemantic),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "short-division computed semantic object does not exactly replay every typed operand, factorization, trace, and product",
+      row.baseId,
+      step.stepId
+    );
+  }
+  const renderShortDivision = (trace: unknown): string => {
+    invariant(Array.isArray(trace), "V4_STEP_INPUT_BINDING_INVALID", "structured response has no short-division trace", row.baseId, step.stepId);
+    return (trace as Array<{ divisor: string; before: string[]; after: string[] }>)
+      .map((entry) => `${entry.before.join(",")} ÷${entry.divisor}→${entry.after.join(",")}`)
+      .join(" ");
+  };
+  const numericStepValue = (candidate: DerivationStep): string => {
+    const value = (candidate.output as { value?: unknown }).value;
+    invariant(typeof value === "string", "V4_STEP_INPUT_BINDING_INVALID", "structured response input has no integer value", row.baseId, step.stepId);
+    return value;
+  };
+  const primeFactorizationEntries = (): Array<{ value: string; rendered: string }> => row.steps
+    .flatMap((candidate): Array<{ value: string; rendered: string }> => {
+      if (candidate.operation === "prime-factorize") {
+        return [{
+          value: String(candidate.parameters.value),
+          rendered: String((candidate.output as { rendered?: unknown }).rendered)
+        }];
+      }
+      const output = candidate.output as {
+        value?: { numerator?: unknown; denominator?: unknown };
+        primeFactorization?: Array<{ prime: string; exponent: number }>;
+      };
+      if (
+        candidate.operation === "evaluate-rational-expression" &&
+        Array.isArray(output.primeFactorization) &&
+        output.value?.denominator === "1"
+      ) {
+        return [{
+          value: String(output.value.numerator),
+          rendered: renderPrimeFactorization(output.primeFactorization)
+        }];
+      }
+      return [];
+    });
+  const primeFactorizationWorking = (): string => primeFactorizationEntries()
+    .map((entry) => `${entry.value} = ${entry.rendered}`)
+    .join("; ");
+  const renderExplicitGcdLcmResponse = (format: string, gcd: string, lcm: string): string => {
+    const factorizations = primeFactorizationEntries();
+    let factorizationIndex = 0;
+    const withFactorizations = format.replace(/factorization/gi, () => {
+      const factorization = factorizations[factorizationIndex++];
+      invariant(factorization, "V4_STEP_INPUT_BINDING_INVALID", "explicit factorization format exceeds its typed inputs", row.baseId, step.stepId);
+      return factorization.rendered;
+    });
+    invariant(
+      factorizationIndex === 0 || factorizationIndex === factorizations.length,
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "explicit factorization format does not consume all typed inputs",
+      row.baseId,
+      step.stepId
+    );
+    return withFactorizations
+      .replace(/((?:H\.?C\.?F\.?|HCF)\s*=\s*)(?:value|…|\.{3})/gi, (_match, prefix: string) => `${prefix}${gcd}`)
+      .replace(/((?:L\.?C\.?M\.?|LCM)\s*=\s*)(?:value|…|\.{3})/gi, (_match, prefix: string) => `${prefix}${lcm}`);
+  };
+
+  let expectedResponse: string | null = null;
+  if (typeof parameters.template === "string") {
+    const template = parameters.template;
+    if (template.includes("{q}") || template.includes("{r}")) {
+      invariant(inputSteps.length === 1, "V4_STEP_INPUT_BINDING_INVALID", "quotient template must consume one Euclidean step", row.baseId, step.stepId);
+      const quotientOutput = inputSteps[0].output as { quotient?: unknown; remainder?: unknown };
+      invariant(typeof quotientOutput.quotient === "string" && typeof quotientOutput.remainder === "string", "V4_STEP_INPUT_BINDING_INVALID", "quotient template input is incomplete", row.baseId, step.stepId);
+      expectedResponse = template
+        .replaceAll("{q}", quotientOutput.quotient)
+        .replaceAll("{r}", quotientOutput.remainder);
+    } else {
+      const rendered = inputSteps.map((candidate) => {
+        const value = rationalFromStepOutput(row, step, candidate);
+        if (row.baseId === "hk-ease-920") return value.toMixedString();
+        if (row.baseId === "hk-ease-851" || row.baseId === "hk-ease-883") {
+          const decimal = value.toFiniteDecimalString();
+          invariant(decimal !== null, "V4_STEP_OUTPUT_INVALID", "structured decimal is non-terminating", row.baseId, step.stepId);
+          return decimal;
+        }
+        return value.toImproperString();
+      });
+      expectedResponse = rendered.reduce(
+        (result, value, index) => result.replaceAll(`{${index}}`, value),
+        template
+      );
+    }
+  } else if (typeof parameters.separator === "string") {
+    invariant(inputSteps.length === 1, "V4_STEP_INPUT_BINDING_INVALID", "selection composition must consume one prior step", row.baseId, step.stepId);
+    const selected = (inputSteps[0].output as { selected?: unknown }).selected;
+    invariant(Array.isArray(selected) && selected.every((value) => typeof value === "string"), "V4_STEP_INPUT_BINDING_INVALID", "selection composition input is incomplete", row.baseId, step.stepId);
+    expectedResponse = selected.join(parameters.separator);
+  } else if (parameters.responseStyle !== undefined) {
+    invariant(inputSteps.length === 2, "V4_STEP_INPUT_BINDING_INVALID", "HCF/LCM composition must consume exactly two results", row.baseId, step.stepId);
+    const gcd = numericStepValue(inputSteps[0]);
+    const lcm = numericStepValue(inputSteps[1]);
+    const trace = (inputSteps[0].parameters as Record<string, unknown>).shortDivisionTrace;
+    const explicitFormat = typeof parameters.explicitFormat === "string" ? parameters.explicitFormat : null;
+    const explicitResponse = explicitFormat ? renderExplicitGcdLcmResponse(explicitFormat, gcd, lcm) : null;
+    if (trace !== undefined) {
+      const formattedResult = explicitResponse ?? (parameters.responseStyle === "a-b"
+        ? `(a) H.C.F. = ${gcd}; (b) L.C.M. = ${lcm}`
+        : parameters.responseStyle === "comma-labels"
+          ? `HCF=${gcd}, LCM=${lcm}`
+          : `H.C.F. = ${gcd}; L.C.M. = ${lcm}`);
+      expectedResponse = `${renderShortDivision(trace)}; ${formattedResult}`;
+    } else if (explicitResponse !== null) {
+      expectedResponse = explicitResponse;
+    } else if (parameters.responseStyle === "worked" && parameters.includeWorking === true) {
+      expectedResponse = `${primeFactorizationWorking()}; H.C.F. = ${gcd}; L.C.M. = ${lcm}`;
+    } else {
+      invariant(parameters.responseStyle === "a-b" && parameters.includeWorking === false, "V4_STEP_INPUT_BINDING_INVALID", "unknown HCF/LCM response style", row.baseId, step.stepId);
+      expectedResponse = `(a) H.C.F. = ${gcd}; (b) L.C.M. = ${lcm}`;
+    }
+  } else if (parameters.promptRequirements !== undefined) {
+    invariant(
+      inputSteps.length === 2 && deepEqualJson(parameters.promptRequirements, row.promptRequirements),
+      "V4_STEP_INPUT_BINDING_INVALID",
+      "prompt-driven HCF/LCM composition is not bound to the prompt requirements",
+      row.baseId,
+      step.stepId
+    );
+    const gcd = numericStepValue(inputSteps[0]);
+    const lcm = numericStepValue(inputSteps[1]);
+    const requirements = parameters.promptRequirements as PromptRequirements;
+    const needsBothPrimeFactorProducts = /prime-factor product and value for both results/i.test(source.prompt.en);
+    if (requirements.explicitFormat !== null) {
+      expectedResponse = renderExplicitGcdLcmResponse(requirements.explicitFormat, gcd, lcm);
+    } else if (needsBothPrimeFactorProducts) {
+      expectedResponse = `${primeFactorizationWorking()}; H.C.F. product: ${renderPrimeFactorization(primeFactorization(BigInt(gcd)))} = ${gcd}; L.C.M. product: ${renderPrimeFactorization(primeFactorization(BigInt(lcm)))} = ${lcm}`;
+    } else if (parameters.shortDivisionTrace !== undefined) {
+      expectedResponse = `${renderShortDivision(parameters.shortDivisionTrace)}; H.C.F. = ${gcd}; L.C.M. = ${lcm}`;
+      const products = replayedDivisionProducts!;
+      if (requirements.components.includes("common-divisor-product")) {
+        expectedResponse += `; H.C.F. product: ${products.hcfProduct.expression} = ${products.hcfProduct.value}`;
+      }
+      if (requirements.components.includes("all-divisor-product")) {
+        expectedResponse += `; L.C.M. product: ${products.lcmProduct!.expression} = ${products.lcmProduct!.value}`;
+      }
+    } else if (row.promptRequirements.method === "prime-factorisation") {
+      expectedResponse = `${primeFactorizationWorking()}; H.C.F. = ${gcd}; L.C.M. = ${lcm}`;
+    } else {
+      expectedResponse = `H.C.F. = ${gcd}; L.C.M. = ${lcm}`;
+    }
+  }
+  invariant(expectedResponse !== null, "V4_STEP_INPUT_BINDING_INVALID", "unknown structured response operation", row.baseId, step.stepId);
+  invariant(
+    deepEqualJson(step.output, { responseText: expectedResponse }),
+    "V4_STEP_OUTPUT_INVALID",
+    "structured response does not replay from its prior typed outputs",
+    row.baseId,
+    step.stepId
+  );
+};
+
+const v4RomanSetFromOption = (option: string): string[] => {
+  if (/^Only\s+I$/i.test(option)) return ["I"];
+  if (/^Only\s+II$/i.test(option)) return ["II"];
+  if (/^Only\s+III$/i.test(option)) return ["III"];
+  return ["I", "II", "III"].filter((roman) => new RegExp(`\\b${roman}\\b`).test(option));
+};
+
+const v4StatementTruthsFromPrompt = (prompt: string): Record<string, boolean> | null => {
+  const normalized = prompt.replace(/\\\(|\\\)/g, "").replace(/\n/g, " ");
+  let match = normalized.match(
+    /L\.?C\.?M\.? of two numbers is\s+(\d+).*?I\.\s*(\d+)\s*,\s*(\d+).*?II\.\s*(\d+)\s*,\s*(\d+).*?III\.\s*(\d+)\s*,\s*(\d+)/i
+  );
+  if (match) {
+    const target = BigInt(match[1]);
+    const pairs = [[match[2], match[3]], [match[4], match[5]], [match[6], match[7]]];
+    return Object.fromEntries(pairs.map((pair, pairIndex) => [
+      ["I", "II", "III"][pairIndex],
+      integerLcm(...pair.map(BigInt)) === target
+    ]));
+  }
+  match = normalized.match(
+    /integers divide\s+(\d+)(?: exactly)?\?.*?I\.\s*(\d+).*?II\.\s*(\d+).*?III\.\s*(\d+)/i
+  );
+  if (match) {
+    const target = BigInt(match[1]);
+    return Object.fromEntries(match.slice(2, 5).map((value, valueIndex) => [
+      ["I", "II", "III"][valueIndex],
+      target % BigInt(value) === BigInt("0")
+    ]));
+  }
+  match = normalized.match(
+    /numbers are divisible by both\s+(\d+)\s+and\s+(\d+)\?.*?I\.\s*(\d+).*?II\.\s*(\d+).*?III\.\s*(\d+)/i
+  );
+  if (match) {
+    const divisors = [BigInt(match[1]), BigInt(match[2])];
+    return Object.fromEntries(match.slice(3, 6).map((value, valueIndex) => [
+      ["I", "II", "III"][valueIndex],
+      divisors.every((divisor) => BigInt(value) % divisor === BigInt("0"))
+    ]));
+  }
+  match = normalized.match(
+    /H\.?C\.?F\.? and L\.?C\.?M\.? of two integers are\s+(\d+)\s+and\s+(\d+)\s+respectively/i
+  );
+  if (match) {
+    const gcd = BigInt(match[1]);
+    const lcm = BigInt(match[2]);
+    const commonMultiple = normalized.match(/I\.\s*(\d+)\s+is a common multiple/i)?.[1];
+    const divisors = [...normalized.matchAll(/Both integers are divisible by\s+(\d+)/gi)]
+      .map((result) => BigInt(result[1]));
+    if (commonMultiple && divisors.length === 2) {
+      return {
+        I: BigInt(commonMultiple) % lcm === BigInt("0"),
+        II: gcd % divisors[0] === BigInt("0"),
+        III: gcd % divisors[1] === BigInt("0")
+      };
+    }
+  }
+  match = normalized.match(
+    /integer is divisible by both\s+(\d+)\s+and\s+(\d+).*?I\.\s*The sum of its digits is divisible by\s+(\d+).*?II\.\s*The sum of its digits is divisible by\s+(\d+).*?III\.\s*The sum of its digits is divisible by\s+(\d+)/i
+  );
+  if (match) {
+    const required = [BigInt(match[1]), BigInt(match[2])];
+    return Object.fromEntries(match.slice(3, 6).map((value, index) => {
+      const divisor = BigInt(value);
+      const guaranteed = (divisor === BigInt("3") || divisor === BigInt("9")) &&
+        required.some((requiredDivisor) => requiredDivisor % divisor === BigInt("0"));
+      return [["I", "II", "III"][index], guaranteed];
+    }));
+  }
+  if (/Which statements are correct/i.test(normalized)) {
+    const segments = [
+      ...normalized.matchAll(/(?:^|\s)(I|II|III)\.\s*(.*?)(?=\s+(?:I|II|III)\.|$)/g)
+    ];
+    if (segments.length === 3) {
+      const entries = segments.map((segment): [string, boolean] | null => {
+        const claim = segment[2].trim().replace(/[.]$/, "")
+          .match(/^(\d+)\s+is divisible by\s+(.+)$/i);
+        if (!claim) return null;
+        const value = BigInt(claim[1]);
+        const divisors = [...claim[2].matchAll(/\d+/g)].map((item) => BigInt(item[0]));
+        return divisors.length > 0
+          ? [segment[1], divisors.every((divisor) => value % divisor === BigInt("0"))]
+          : null;
+      });
+      if (entries.every((entry): entry is [string, boolean] => entry !== null)) {
+        return Object.fromEntries(entries);
+      }
+    }
+  }
+  return null;
+};
+
+const normalizeV4SymbolicOption = (value: string): string =>
+  value
+    .replace(/\\\(|\\\)/g, "")
+    .replace(/\\times|×/g, "*")
+    .replace(/\^\{([^{}]+)\}/g, "^($1)")
+    .replace(/\^\(([^()]+)\)/g, "^($1)")
+    .replace(/\s+/g, "")
+    .replace(/\^\((\d+|[a-z])\)/gi, "^$1");
+
+const v4SymbolicExpectationFromPrompt = (prompt: string): string | null => {
+  const normalized = prompt.replace(/[“”]/g, "'");
+  const compound = normalized.match(
+    /Express\s+'([^']+?)\s+to the power of\s+([^']+?)\s+multiplied by\s+([^']+?)\s+to the power of\s+([^']+)'/i
+  );
+  if (compound) {
+    return `${compound[1].trim()}^(${compound[2].trim()})*${compound[3].trim()}^(${compound[4].trim()})`;
+  }
+  const single = normalized.match(/Express\s+'([^']+?)\s+to the power of\s+([^']+)'/i);
+  return single ? `${single[1].trim()}^(${single[2].trim()})` : null;
+};
+
+type IndependentOptionEvaluation = {
+  kind: string;
+  truth: boolean;
+  operands: unknown;
+  result: unknown;
+};
+
+const v4CompletePrimeFactorizationEvaluation = (
+  option: string,
+  target: bigint,
+  requireIndexNotation: boolean
+): IndependentOptionEvaluation => {
+  const evaluation = evaluateExactExpression(option);
+  const normalized = option
+    .replace(/\\\(|\\\)/g, "")
+    .replace(/\\times|×/g, "*")
+    .replace(/\s+/g, "")
+    .replace(/\^\{(\d+)\}/g, "^$1");
+  const tokenChecks = normalized.split("*").map((token) => {
+    const match = token.match(/^(\d+)(?:\^(\d+))?$/);
+    if (!match) return { token, primeBase: false, exponent: null };
+    return { token, primeBase: isPrime(BigInt(match[1])), exponent: Number(match[2] ?? "1") };
+  });
+  const equalsTarget = evaluation.value.denominator === BigInt("1") && evaluation.value.numerator === target;
+  const allPrimeBases = tokenChecks.every((check) => check.primeBase && (check.exponent ?? 0) > 0);
+  const bases = tokenChecks
+    .map((check) => check.token.match(/^(\d+)/)?.[1])
+    .filter((base): base is string => base !== undefined);
+  const indexNotationCompliant = !requireIndexNotation || new Set(bases).size === bases.length;
+  return {
+    kind: "complete-prime-factorization",
+    truth: equalsTarget && allPrimeBases && indexNotationCompliant,
+    operands: { option, target: target.toString(), requireIndexNotation },
+    result: {
+      evaluated: evaluation.value.toJson(),
+      equalsTarget,
+      tokenChecks,
+      allPrimeBases,
+      indexNotationCompliant
+    }
+  };
+};
+
+const independentlyEvaluateV4Option = (
+  source: HongKongEaseV4SanitizedInputRow,
+  index: number
+): IndependentOptionEvaluation => {
+  const option = source.options.en?.[index];
+  invariant(typeof option === "string", "V4_OPTION_ADJUDICATION_INVALID", "option does not resolve", source.baseId, `options[${index}]`);
+  const prompt = source.prompt.en.replace(/\n/g, " ");
+
+  const area = prompt.match(
+    /(?:Rectangle A is|Shape P is a rectangle)\s+(\d+)\s+cm long and\s+(\d+)\s+cm wide\.\s+(?:Square B has|Shape Q is a square with) side length\s+(\d+)\s+cm/i
+  );
+  if (area) {
+    const areaA = new ExactRational(BigInt(area[1]) * BigInt(area[2]));
+    const areaB = new ExactRational(BigInt(area[3]) * BigInt(area[3]));
+    const comparison = areaA.compare(areaB);
+    const labels = source.options.en ?? [];
+    const correctLabel = comparison > 0 ? labels[0] : comparison < 0 ? labels[1] : "Equal";
+    const truth = option.toLowerCase() === correctLabel.toLowerCase();
+    return {
+      kind: "area-comparison-label",
+      truth,
+      operands: { areaA: areaA.toJson(), areaB: areaB.toJson(), comparison },
+      result: { claimedLabel: option, correctLabel, truth }
+    };
+  }
+
+  const yesNo = prompt.match(/^Is\s+(\d+)\s+divisible by\s+(\d+)\?$/i);
+  if (yesNo) {
+    const value = BigInt(yesNo[1]);
+    const divisor = BigInt(yesNo[2]);
+    const divisible = value % divisor === BigInt("0");
+    const claimed = /^yes$/i.test(option);
+    return {
+      kind: "yes-no-divisibility",
+      truth: claimed === divisible,
+      operands: { value: value.toString(), divisor: divisor.toString(), claimed },
+      result: { remainder: (value % divisor).toString(), divisible }
+    };
+  }
+
+  const notFactor = prompt.match(/not a factor of\s+\\?\(?([0-9]+)\\?\)?/i);
+  if (notFactor) {
+    const target = BigInt(notFactor[1]);
+    const candidate = BigInt(option.replace(/\D/g, ""));
+    return {
+      kind: "not-a-factor",
+      truth: target % candidate !== BigInt("0"),
+      operands: { target: target.toString(), candidate: candidate.toString() },
+      result: { remainder: (target % candidate).toString() }
+    };
+  }
+
+  const completePrime = prompt.match(/Express\s+\\?\(?([0-9]+)\\?\)?\s+as a complete product of prime factors/i);
+  if (completePrime) {
+    return v4CompletePrimeFactorizationEvaluation(
+      option,
+      BigInt(completePrime[1]),
+      /index notation/i.test(prompt)
+    );
+  }
+
+  if (/Based on\s+.*?which equation is correct/i.test(prompt)) {
+    const equation = option.replace(/\\\(|\\\)/g, "").split("=");
+    invariant(equation.length === 2, "V4_OPTION_ADJUDICATION_INVALID", "equation option has no equality", source.baseId, `options[${index}]`);
+    const left = evaluateExactExpression(equation[0]);
+    const right = evaluateExactExpression(equation[1]);
+    return {
+      kind: "equation-identity-option",
+      truth: left.value.compare(right.value) === 0,
+      operands: { left: equation[0], right: equation[1] },
+      result: { left: left.value.toJson(), right: right.value.toJson() }
+    };
+  }
+
+  const directions = prompt.match(
+    /direction lies between\s+(north|northeast|east|southeast|south|southwest|west|northwest)\s+and\s+(north|northeast|east|southeast|south|southwest|west|northwest)/i
+  );
+  if (directions) {
+    const bearings: Record<string, number> = {
+      north: 0, northeast: 45, east: 90, southeast: 135,
+      south: 180, southwest: 225, west: 270, northwest: 315
+    };
+    const first = bearings[directions[1].toLowerCase()];
+    const second = bearings[directions[2].toLowerCase()];
+    const clockwiseDistance = (second - first + 360) % 360;
+    const signedShortestDistance = clockwiseDistance <= 180 ? clockwiseDistance : clockwiseDistance - 360;
+    const midpoint = (first + signedShortestDistance / 2 + 360) % 360;
+    const expected = Object.entries(bearings).find(([, bearing]) => bearing === midpoint)?.[0];
+    return {
+      kind: "eight-point-compass-midpoint-option",
+      truth: option.trim().toLowerCase() === expected,
+      operands: { first: directions[1], second: directions[2] },
+      result: { firstBearing: first, secondBearing: second, midpoint, expected }
+    };
+  }
+
+  const factorOfX = prompt.match(/If\s+(\d+)\s+is a factor of\s+X,\s*which pair could both be values of X/i);
+  if (factorOfX) {
+    const divisor = BigInt(factorOfX[1]);
+    const values = [...option.matchAll(/\d+/g)].map((match) => BigInt(match[0]));
+    invariant(values.length === 2, "V4_OPTION_ADJUDICATION_INVALID", "factor-pair option arity", source.baseId, `options[${index}]`);
+    const checks = values.map((value) => ({
+      value: value.toString(),
+      remainder: (value % divisor).toString(),
+      divisible: value % divisor === BigInt("0")
+    }));
+    return {
+      kind: "factor-of-x-pair-option",
+      truth: checks.every((check) => check.divisible),
+      operands: { divisor: divisor.toString(), values: values.map(String) },
+      result: { checks }
+    };
+  }
+
+  const normalizedPrompt = prompt.replace(/\\\(|\\\)/g, "");
+  const placeholder = normalizedPrompt.match(/(\d*)(?:\\square|□|x)(\d*)/i);
+  const placeholderDivisors = normalizedPrompt.match(/divisible by(?: both)?\s+(\d+)(?:\s+and\s+(\d+))?/i);
+  if (placeholder && placeholderDivisors && /^\d$/.test(option.trim())) {
+    const digit = Number(option.trim());
+    const value = BigInt(`${placeholder[1]}${digit}${placeholder[2]}`);
+    const divisors = placeholderDivisors.slice(1).filter(Boolean).map(BigInt);
+    const oddConstraint = /odd digit/i.test(normalizedPrompt);
+    const rangeConstraint = /strictly between\s+0\s+and\s+9/i.test(normalizedPrompt);
+    const checks = divisors.map((divisor) => ({
+      divisor: divisor.toString(),
+      remainder: (value % divisor).toString(),
+      divisible: value % divisor === BigInt("0")
+    }));
+    return {
+      kind: "digit-placeholder-divisibility-option",
+      truth: checks.every((check) => check.divisible) &&
+        (!oddConstraint || digit % 2 === 1) &&
+        (!rangeConstraint || (digit > 0 && digit < 9)),
+      operands: {
+        prefix: placeholder[1], suffix: placeholder[2], digit,
+        divisors: divisors.map(String), oddConstraint, rangeConstraint
+      },
+      result: { value: value.toString(), checks }
+    };
+  }
+
+  const factoredHcfLcm = normalizedPrompt.match(
+    /Find the\s+(L\.?C\.?M\.?|LCM|H\.?C\.?F\.?|HCF)\s+of\s+(.+?)\./i
+  );
+  if (factoredHcfLcm) {
+    const expressions = factoredHcfLcm[2].split(/\s*,\s*|\s+and\s+/i).map((value) => value.trim());
+    try {
+      const values = expressions.map((expression) => evaluateExactExpression(expression).value);
+      if (values.length >= 2 && values.every((value) => value.denominator === BigInt("1") && value.numerator > BigInt("0"))) {
+        const lcm = /^L/i.test(factoredHcfLcm[1]);
+        const expected = lcm
+          ? integerLcm(...values.map((value) => value.numerator))
+          : integerGcd(...values.map((value) => value.numerator));
+        const candidate = evaluateExactExpression(option).value;
+        return {
+          kind: lcm ? "lcm-expression-option" : "gcd-expression-option",
+          truth: candidate.denominator === BigInt("1") && candidate.numerator === expected,
+          operands: { expressions, values: values.map((value) => value.toJson()), candidate: candidate.toJson() },
+          result: { expected: expected.toString() }
+        };
+      }
+    } catch {
+      // A following typed grammar may own the prompt.
+    }
+  }
+
+  const nthCommonMultiple = normalizedPrompt.match(
+    /(\d+)(?:st|nd|rd|th) positive common multiple of\s+(\d+)\s+and\s+(\d+)/i
+  );
+  if (nthCommonMultiple && /^\d+$/.test(option.trim())) {
+    const ordinal = BigInt(nthCommonMultiple[1]);
+    const bases = [BigInt(nthCommonMultiple[2]), BigInt(nthCommonMultiple[3])];
+    const lcm = integerLcm(...bases);
+    const expected = ordinal * lcm;
+    const candidate = BigInt(option.trim());
+    return {
+      kind: "nth-common-multiple-option",
+      truth: candidate === expected,
+      operands: { ordinal: ordinal.toString(), bases: bases.map(String), candidate: candidate.toString() },
+      result: { lcm: lcm.toString(), expected: expected.toString() }
+    };
+  }
+
+  if (/Which pair of numbers has a product equal to its L\.?C\.?M\.?/i.test(normalizedPrompt)) {
+    const pair = [...option.matchAll(/\d+/g)].map((match) => BigInt(match[0]));
+    invariant(pair.length === 2, "V4_OPTION_ADJUDICATION_INVALID", "LCM pair option arity", source.baseId, `options[${index}]`);
+    const product = pair[0] * pair[1];
+    const lcm = integerLcm(...pair);
+    return {
+      kind: "pair-product-equals-lcm-option",
+      truth: product === lcm,
+      operands: { pair: pair.map(String) },
+      result: { product: product.toString(), lcm: lcm.toString() }
+    };
+  }
+
+  const simpleDivisible = prompt.match(
+    /Which (?:of the following |number |integer |of the following integers |of the following numbers )?(?:three-digit |four-digit )?(?:numbers? |integers? )?is divisible by\s+\\?\(?([0-9]+)\\?\)?(?:\s+but not by\s+\\?\(?([0-9]+)\\?\)?)?/i
+  );
+  const bothDivisible = prompt.match(
+    /divisible by both\s+\\?\(?([0-9]+)\\?\)?\s+and\s+\\?\(?([0-9]+)\\?\)?/i
+  );
+  const tripleDivisible = prompt.match(
+    /divisible by\s+\\?\(?([0-9]+)\\?\)?,\s*\\?\(?([0-9]+)\\?\)?,\s*and\s+\\?\(?([0-9]+)\\?\)?/i
+  );
+  if ((simpleDivisible || bothDivisible || tripleDivisible) && /^\d+$/.test(option.trim())) {
+    const value = BigInt(option.trim());
+    const required = tripleDivisible
+      ? tripleDivisible.slice(1, 4).map(BigInt)
+      : bothDivisible
+        ? bothDivisible.slice(1, 3).map(BigInt)
+        : [BigInt(simpleDivisible![1])];
+    const forbidden = simpleDivisible?.[2] ? BigInt(simpleDivisible[2]) : null;
+    const requiredChecks = required.map((divisor) => ({
+      divisor: divisor.toString(), remainder: (value % divisor).toString(), passes: value % divisor === BigInt("0")
+    }));
+    const forbiddenCheck = forbidden
+      ? { divisor: forbidden.toString(), remainder: (value % forbidden).toString(), passes: value % forbidden !== BigInt("0") }
+      : null;
+    return {
+      kind: "divisibility-option",
+      truth: requiredChecks.every((check) => check.passes) && (forbiddenCheck?.passes ?? true),
+      operands: { value: value.toString(), required: required.map(String), forbidden: forbidden?.toString() ?? null },
+      result: { requiredChecks, forbiddenCheck }
+    };
+  }
+
+  const statementTruths = v4StatementTruthsFromPrompt(prompt);
+  if (statementTruths) {
+    const trueStatements = Object.entries(statementTruths)
+      .filter(([, truth]) => truth)
+      .map(([roman]) => roman);
+    const claimedStatements = v4RomanSetFromOption(option);
+    return {
+      kind: "statement-truth-set",
+      truth: deepEqualJson(claimedStatements, trueStatements),
+      operands: { statementTruths, claimedStatements },
+      result: { trueStatements }
+    };
+  }
+
+  const simpleHcfLcm = prompt.match(/Find the\s+(L\.C\.M\.|H\.C\.F\.)\s+of\s+(.+?)\.?$/i);
+  if (simpleHcfLcm && /^\d+$/.test(option.trim())) {
+    const values = [...simpleHcfLcm[2].matchAll(/\d+/g)].map((match) => BigInt(match[0]));
+    const lcm = /^L/i.test(simpleHcfLcm[1]);
+    const expected = lcm ? integerLcm(...values) : integerGcd(...values);
+    const candidate = BigInt(option.trim());
+    return {
+      kind: lcm ? "lcm-option" : "gcd-option",
+      truth: candidate === expected,
+      operands: { values: values.map(String), candidate: candidate.toString() },
+      result: { expected: expected.toString() }
+    };
+  }
+
+  const symbolicExpected = v4SymbolicExpectationFromPrompt(prompt);
+  if (symbolicExpected) {
+    const normalizedOption = normalizeV4SymbolicOption(option);
+    const normalizedExpected = normalizeV4SymbolicOption(symbolicExpected);
+    return {
+      kind: "symbolic-index-notation",
+      truth: normalizedOption === normalizedExpected,
+      operands: { prompt, option: normalizedOption },
+      result: { expected: normalizedExpected }
+    };
+  }
+
+  const expressionQuestion = prompt.match(/^(.+?)\s*=\s*\?$/);
+  if (expressionQuestion && /^[-+]?\d+(?:\.\d+)?$/.test(option.trim())) {
+    const evaluation = evaluateExactExpression(expressionQuestion[1]);
+    const candidate = evaluateExactExpression(option).value;
+    return {
+      kind: "expression-value-option",
+      truth: candidate.compare(evaluation.value) === 0,
+      operands: { expression: expressionQuestion[1], candidate: candidate.toJson() },
+      result: { expected: evaluation.value.toJson(), trace: evaluation.trace }
+    };
+  }
+
+  return fail(
+    "V4_OPTION_ADJUDICATION_INVALID",
+    "independent evaluator has no grammar for option",
+    source.baseId,
+    `options[${index}]`
+  );
+};
+
+const validateOptionAdjudications = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow
+): void => {
+  if (source.type !== "multiple-choice") {
+    invariant(row.optionAdjudications.length === 0, "V4_OPTION_ADJUDICATION_INVALID", "non-MC row has option adjudications", row.baseId, "optionAdjudications");
+    return;
+  }
+  const optionsEn = source.options.en ?? [];
+  const optionsZh = source.options.zh ?? [];
+  invariant(row.optionAdjudications.length === optionsEn.length, "V4_OPTION_ADJUDICATION_INVALID", "not every option is adjudicated", row.baseId, "optionAdjudications");
+  const seen = new Set<number>();
+  for (const adjudication of row.optionAdjudications) {
+    assertExactPlainObjectKeys(
+      adjudication,
+      ["index", "localizedOption", "localizedOptionSha256", "truth", "evaluation", "rowSpecificReason"],
+      "V4_OPTION_ADJUDICATION_INVALID",
+      "option adjudication schema drifted",
+      row.baseId,
+      `optionAdjudications[${adjudication?.index ?? "unknown"}]`
+    );
+    assertExactPlainObjectKeys(
+      adjudication.localizedOption,
+      ["en", "zh"],
+      "V4_OPTION_ADJUDICATION_INVALID",
+      "localized option schema drifted",
+      row.baseId,
+      `optionAdjudications[${adjudication.index}].localizedOption`
+    );
+    assertExactPlainObjectKeys(
+      adjudication.evaluation,
+      ["kind", "operands", "result"],
+      "V4_OPTION_ADJUDICATION_INVALID",
+      "option evaluation schema drifted",
+      row.baseId,
+      `optionAdjudications[${adjudication.index}].evaluation`
+    );
+    invariant(!seen.has(adjudication.index), "V4_OPTION_ADJUDICATION_INVALID", "duplicate option adjudication", row.baseId, "optionAdjudications");
+    seen.add(adjudication.index);
+    const localized = { en: optionsEn[adjudication.index], zh: optionsZh[adjudication.index] };
+    invariant(deepEqualJson(localized, adjudication.localizedOption), "V4_OPTIONS_BINDING_DRIFT", "localized option payload drifted", row.baseId, `options[${adjudication.index}]`);
+    invariant(hongKongEaseV4Sha256(JSON.stringify(localized)) === adjudication.localizedOptionSha256, "V4_OPTIONS_BINDING_DRIFT", "localized option hash drifted", row.baseId, `options[${adjudication.index}]`);
+    invariant(adjudication.rowSpecificReason.trim().length >= 20, "V4_NON_ROW_SPECIFIC_DERIVATION", "option reason is empty/generic", row.baseId, `optionAdjudications[${adjudication.index}]`);
+    const independent = independentlyEvaluateV4Option(source, adjudication.index);
+    invariant(
+      adjudication.truth === independent.truth &&
+        adjudication.evaluation.kind === independent.kind &&
+        deepEqualJson(adjudication.evaluation.operands, independent.operands) &&
+        deepEqualJson(adjudication.evaluation.result, independent.result),
+      "V4_OPTION_ADJUDICATION_INVALID",
+      "stored truth/evaluation does not match independent option execution",
+      row.baseId,
+      `optionAdjudications[${adjudication.index}]`
+    );
+  }
+  invariant(row.optionAdjudications.filter((entry) => entry.truth).length === 1, "V4_OPTION_ADJUDICATION_INVALID", "MC row must have exactly one true option", row.baseId, "optionAdjudications");
+  const chosen = row.optionAdjudications.find((entry) => entry.truth)!;
+  const semantic = row.computedResult.semanticValue as { correctIndex?: number; localizedOption?: unknown };
+  invariant(
+    semantic.correctIndex === chosen.index &&
+      row.computedResult.responseText === chosen.localizedOption.en &&
+      (semantic.localizedOption === undefined || deepEqualJson(semantic.localizedOption, chosen.localizedOption)),
+    "V4_OPTION_ADJUDICATION_INVALID",
+    "computed MC result is not the unique true option",
+    row.baseId,
+    "computedResult"
+  );
+};
+
+export const validateHongKongEaseV4DerivationRow = (
+  source: HongKongEaseV4SanitizedInputRow,
+  row: HongKongEaseV4DerivationRow
+): void => {
+  assertExactPlainObjectKeys(
+    row,
+    [
+      "index",
+      "baseId",
+      "problemPayloadSha256",
+      "derivationKind",
+      "facts",
+      "steps",
+      "promptRequirements",
+      "computedResult",
+      "optionAdjudications",
+      "derivationPayloadSha256"
+    ],
+    "V4_DERIVATION_PAYLOAD_DRIFT",
+    "derivation row schema drifted",
+    row?.baseId ?? null,
+    "row"
+  );
+  assertExactPlainObjectKeys(
+    row.promptRequirements,
+    ["method", "representations", "components", "units", "explicitFormat"],
+    "V4_PROMPT_BINDING_DRIFT",
+    "prompt requirements schema drifted",
+    row.baseId,
+    "promptRequirements"
+  );
+  assertExactPlainObjectKeys(
+    row.computedResult,
+    ["kind", "responseText", "semanticValue"],
+    "V4_STEP_OUTPUT_INVALID",
+    "computed result schema drifted",
+    row.baseId,
+    "computedResult"
+  );
+  invariant(source.index === row.index && source.baseId === row.baseId, "V4_QUESTION_ORDER_DRIFT", "row ordering drifted", row?.baseId ?? null, "index");
+  const { index: _index, problemPayloadSha256: _problemHash, ...problem } = source;
+  invariant(hongKongEaseV4Sha256(canonicalHongKongEaseV4ProblemPayload(problem)) === source.problemPayloadSha256, "V4_PROMPT_BINDING_DRIFT", "sanitized problem hash drifted", row.baseId, "problemPayloadSha256");
+  invariant(row.problemPayloadSha256 === source.problemPayloadSha256, "V4_PROMPT_BINDING_DRIFT", "derivation points to another problem payload", row.baseId, "problemPayloadSha256");
+  invariant(hongKongEaseV4Sha256(canonicalDerivationRowWithoutHash(row)) === row.derivationPayloadSha256, "V4_DERIVATION_PAYLOAD_DRIFT", "row derivation hash drifted", row.baseId, "derivationPayloadSha256");
+  invariant(row.facts.length > 0 && row.steps.length > 0 && row.derivationKind.trim() !== "", "V4_NON_ROW_SPECIFIC_DERIVATION", "row has no executable derivation", row.baseId, "derivation");
+  validatePromptRequirements(source, row);
+  const factIds = new Set<string>();
+  const factsById = new Map<string, DerivationFact>();
+  for (const fact of row.facts) {
+    invariant(!factIds.has(fact.factId), "V4_FACT_LOCATOR_INVALID", "duplicate fact ID", row.baseId, fact.factId);
+    factIds.add(fact.factId);
+    factsById.set(fact.factId, fact);
+    validateFact(source, fact);
+  }
+  const stepIds = new Set<string>();
+  const stepsById = new Map<string, DerivationStep>();
+  for (const step of row.steps) {
+    assertExactPlainObjectKeys(
+      step,
+      ["stepId", "operation", "inputFactIds", "inputStepIds", "parameters", "output"],
+      "V4_STEP_EXECUTION_INVALID",
+      "step schema drifted",
+      row.baseId,
+      step?.stepId ?? null
+    );
+    invariant(!stepIds.has(step.stepId), "V4_STEP_EXECUTION_INVALID", "duplicate step ID", row.baseId, step.stepId);
+    invariant(step.inputFactIds.every((factId) => factIds.has(factId)), "V4_STEP_EXECUTION_INVALID", "step references an unknown fact", row.baseId, step.stepId);
+    invariant(step.inputStepIds.every((stepId) => stepIds.has(stepId)), "V4_STEP_EXECUTION_INVALID", "step references a missing/future step", row.baseId, step.stepId);
+    validateDivisionProductsMathematics(source, row, step, stepsById);
+    if (step.operation === "evaluate-rational-expression") validateExpressionStep(row, step, factsById, stepsById);
+    if (step.operation === "render-rational") validateRenderRationalStep(row, step, stepsById);
+    if (step.operation === "compare-rationals") validateCompareRationalsStep(row, step, stepsById);
+    if (step.operation === "sort-rationals") validateSortRationalsStep(row, step, stepsById);
+    if (step.operation === "test-divisibility") validateDivisibilityStep(source, row, step, factsById);
+    if (step.operation === "apply-area-formula") validateAreaFormulaStep(source, row, step, factsById);
+    if (step.operation === "apply-multiplication-property") validateMultiplicationPropertyStep(source, row, step, factsById);
+    if (step.operation === "round-to-nearest-place") validateRoundToNearestPlaceStep(row, step, factsById);
+    if (step.operation === "multiply-rounded-values") validateMultiplyRoundedValuesStep(row, step, stepsById);
+    if (step.operation === "compose-estimate-and-exact") validateComposeEstimateAndExactStep(source, row, step, stepsById);
+    if (["prime-factorize", "compute-gcd", "compute-lcm", "compute-integer-square-root"].includes(step.operation)) {
+      validateNumberTheoryStep(row, step, factsById, stepsById);
+    }
+    if (step.operation === "apply-domain-rule") validateDomainStep(source, row, step, factsById);
+    if (step.operation === "compose-structured-response") validateStructuredResponseStep(source, row, step, stepsById);
+    stepIds.add(step.stepId);
+    stepsById.set(step.stepId, step);
+  }
+  const lastOutput = row.steps.at(-1)?.output as { responseText?: unknown; value?: unknown; displayExpression?: unknown; semanticValue?: unknown } | undefined;
+  if (lastOutput?.responseText !== undefined) {
+    invariant(lastOutput.responseText === row.computedResult.responseText, "V4_STEP_EXECUTION_INVALID", "final step response does not equal computed response", row.baseId, "computedResult");
+    if (lastOutput.semanticValue !== undefined) {
+      invariant(
+        deepEqualJson(lastOutput.semanticValue, row.computedResult.semanticValue),
+        "V4_STEP_EXECUTION_INVALID",
+        "final typed semantic output does not equal computed semantic result",
+        row.baseId,
+        "computedResult"
+      );
+    }
+  } else if (lastOutput?.displayExpression !== undefined && row.derivationKind === "natural-language-expression-only") {
+    invariant(lastOutput.displayExpression === row.computedResult.responseText, "V4_STEP_EXECUTION_INVALID", "expression-only result does not equal derived display expression", row.baseId, "computedResult");
+  } else if (lastOutput?.value !== undefined && typeof row.computedResult.semanticValue === "object") {
+    const semantic = row.computedResult.semanticValue as Record<string, unknown>;
+    const comparable = semantic.result ?? semantic.gcd ?? semantic.hcf ?? semantic.lcm;
+    if (comparable !== undefined) invariant(String(lastOutput.value) === String(comparable), "V4_STEP_EXECUTION_INVALID", "final numeric step does not equal computed semantic result", row.baseId, "computedResult");
+    invariant(
+      row.computedResult.responseText === String(lastOutput.value),
+      "V4_STEP_EXECUTION_INVALID",
+      "final numeric step does not render the computed response",
+      row.baseId,
+      "computedResult"
+    );
+  }
+  validateOptionAdjudications(source, row);
+};
+
+export const validateHongKongEaseV4DerivationSupplement = (
+  sanitized: HongKongEaseV4SanitizedInput,
+  supplement: HongKongEaseV4DerivationSupplement
+): void => {
+  assertExactHongKongEaseV4SanitizedInput(sanitized);
+  assertExactPlainObjectKeys(
+    supplement,
+    [
+      "schemaVersion",
+      "status",
+      "sourcePath",
+      "sourceSha256",
+      "questionCount",
+      "multipleChoiceCount",
+      "diagramCount",
+      "rowSpecificDerivationCount",
+      "orderedBaseIdSha256",
+      "rowsPayloadSha256",
+      "rows"
+    ],
+    "V4_SOURCE_LINEAGE_DRIFT",
+    "derivation supplement schema drifted",
+    null,
+    "supplement"
+  );
+  invariant(
+    supplement.schemaVersion === "hk-ease-v4-row-specific-derivation-supplement-v1" &&
+      supplement.status === "candidate-pending-independent-row-by-row-re-review" &&
+      supplement.sourcePath ===
+        "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json" &&
+      supplement.sourceSha256 === HK_EASE_V4_SANITIZED_INPUT_SHA256,
+    "V4_SOURCE_LINEAGE_DRIFT",
+    "supplement source/status envelope drifted"
+  );
+  invariant(sanitized.questionCount === 701 && supplement.questionCount === 701, "V4_QUESTION_ORDER_DRIFT", "question count is not 701");
+  invariant(sanitized.rows.length === 701 && supplement.rows.length === 701, "V4_QUESTION_ORDER_DRIFT", "row count is not 701");
+  invariant(
+    supplement.multipleChoiceCount === 90 &&
+      supplement.multipleChoiceCount === supplement.rows.filter((row) => row.optionAdjudications.length > 0).length,
+    "V4_OPTION_ADJUDICATION_INVALID",
+    "multiple-choice coverage count drifted"
+  );
+  invariant(
+    supplement.rowSpecificDerivationCount === 701 &&
+      supplement.rowSpecificDerivationCount === supplement.rows.length,
+    "V4_NON_ROW_SPECIFIC_DERIVATION",
+    "row-specific derivation coverage count drifted"
+  );
+  invariant(
+    supplement.diagramCount === sanitized.rows.filter((row) => row.diagram.present).length,
+    "V4_SOURCE_LINEAGE_DRIFT",
+    "diagram coverage count drifted"
+  );
+  invariant(
+    supplement.orderedBaseIdSha256 ===
+      hongKongEaseV4Sha256(`${supplement.rows.map((row) => row.baseId).join("\n")}\n`) &&
+      supplement.orderedBaseIdSha256 === sanitized.orderedBaseIdSha256,
+    "V4_QUESTION_ORDER_DRIFT",
+    "ordered base-ID hash drifted"
+  );
+  invariant(hongKongEaseV4Sha256(JSON.stringify(supplement.rows)) === supplement.rowsPayloadSha256, "V4_DERIVATION_PAYLOAD_DRIFT", "supplement rows payload hash drifted");
+  const seen = new Set<string>();
+  for (let index = 0; index < 701; index += 1) {
+    const source = sanitized.rows[index];
+    const row = supplement.rows[index];
+    invariant(!seen.has(row.baseId), "V4_QUESTION_ORDER_DRIFT", "duplicate row", row.baseId, "baseId");
+    seen.add(row.baseId);
+    validateHongKongEaseV4DerivationRow(source, row);
+  }
+};
+
+export type V4ProductionQuestion = {
+  id: string;
+  type: string;
+  answer: string;
+  acceptedAnswers: string[];
+  optionsEn: string[];
+  optionsZh: string[];
+};
+
+export type V4ResponsePolicy = {
+  kind: "strict" | "reviewed-simple";
+  contract: unknown;
+};
+
+const exactNumberToken = (text: string, value: string): boolean =>
+  new RegExp(`(^|[^0-9])${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([^0-9]|$)`).test(text);
+
+const rationalValuesInText = (text: string): ExactRational[] => {
+  const values: ExactRational[] = [];
+  const add = (value: ExactRational) => {
+    if (!values.some((existing) => existing.compare(value) === 0)) values.push(value);
+  };
+  for (const match of text.matchAll(/(-?\d+)\s+(-?\d+)\s*\/\s*(\d+)/g)) {
+    add(new ExactRational(BigInt(match[1]) * BigInt(match[3]) + BigInt(match[2]), match[3]));
+  }
+  for (const match of text.matchAll(/\\(?:d?frac|tfrac)\s*\{(-?\d+)\}\s*\{(\d+)\}/g)) add(new ExactRational(match[1], match[2]));
+  for (const match of text.matchAll(/(?<![\d/])(-?\d+)\s*\/\s*(\d+)(?![\d/])/g)) add(new ExactRational(match[1], match[2]));
+  for (const match of text.matchAll(/(?<![\d.])(-?\d+(?:\.\d+)?)(?![\d.])/g)) add(ExactRational.fromDecimal(match[1]));
+  return values;
+};
+
+const semanticComparison = (
+  question: V4ProductionQuestion,
+  row: HongKongEaseV4DerivationRow,
+  directGraderAccepted: boolean
+): { matched: boolean; mode: string; claims: string[] } => {
+  if (directGraderAccepted) return { matched: true, mode: "production-grader-direct", claims: [] };
+  const answerCorpus = [question.answer, ...question.acceptedAnswers].join("\n");
+  const semantic = row.computedResult.semanticValue as Record<string, unknown>;
+  const numericClaims: string[] = [];
+  for (const key of ["gcd", "hcf", "lcm", "result", "maximumGroupCount", "cubeCount", "side"]) {
+    if (semantic && semantic[key] !== undefined) numericClaims.push(String(semantic[key]));
+  }
+  if (/gcd|hcf|lcm/i.test(row.derivationKind) || row.promptRequirements.components.some((value) => value === "hcf" || value === "lcm")) {
+    const matched = numericClaims.length > 0 && numericClaims.every((claim) => exactNumberToken(answerCorpus, claim));
+    return { matched, mode: "structured-number-theory-results", claims: numericClaims };
+  }
+  if (semantic && Array.isArray(semantic.factors)) {
+    const factors = semantic.factors.map(String);
+    const classification = semantic.classification === undefined ? [] : [String(semantic.classification)];
+    return {
+      matched: factors.every((factor) => exactNumberToken(answerCorpus, factor)) && classification.every((value) => answerCorpus.toLowerCase().includes(value.toLowerCase())),
+      mode: "factor-list-and-classification",
+      claims: [...factors, ...classification]
+    };
+  }
+  if (/divisibility|last-two-digits/i.test(row.derivationKind)) {
+    const decision = /^(yes|no)/i.exec(row.computedResult.responseText)?.[1]?.toLowerCase();
+    return { matched: Boolean(decision && new RegExp(`(^|\\b)${decision}(\\b|$)`, "i").test(answerCorpus)), mode: "structured-divisibility-decision", claims: decision ? [decision] : [] };
+  }
+  if (/index-notation/.test(row.derivationKind)) {
+    const normalize = (value: string) => value.toLowerCase().replace(/\\\(|\\\)|\s|[(){}]/g, "").replace(/\^/g, "^").replace(/×|\\times/g, "*");
+    return { matched: normalize(answerCorpus).includes(normalize(row.computedResult.responseText)), mode: "symbolic-index-equivalence", claims: [row.computedResult.responseText] };
+  }
+  if (row.derivationKind === "multi-part-prompt-quantity-formula" && Array.isArray(row.computedResult.semanticValue)) {
+    const expected = (row.computedResult.semanticValue as Array<{ numerator: string; denominator: string }>).map(ExactRational.fromJson);
+    const observed = rationalValuesInText(answerCorpus);
+    return { matched: expected.every((value) => observed.some((candidate) => candidate.compare(value) === 0)), mode: "multi-part-exact-rational-values", claims: expected.map((value) => value.toImproperString()) };
+  }
+  return { matched: false, mode: "unclassified-strict-comparison", claims: [] };
+};
+
+export const compareHongKongEaseV4DerivedRowToProduction = (
+  question: V4ProductionQuestion,
+  row: HongKongEaseV4DerivationRow,
+  policy: V4ResponsePolicy,
+  activeId: string,
+  grader: (question: { id: string; answer: string; accepted_answers: string[]; options: Array<{ en: string; zh: string }> }, response: string) => boolean
+): {
+  activeId: string;
+  directProductionGraderAccepted: boolean;
+  semanticComparisonMode: string;
+  semanticClaims: string[];
+  matched: true;
+} => {
+  const directProductionGraderAccepted = grader(
+    {
+      id: activeId,
+      answer: question.answer,
+      accepted_answers: question.acceptedAnswers,
+      options: question.optionsEn.map((en, index) => ({ en, zh: question.optionsZh[index] ?? "" }))
+    },
+    row.computedResult.responseText
+  );
+  const comparison = semanticComparison(question, row, directProductionGraderAccepted);
+  invariant(comparison.matched, "V4_DERIVED_ANSWER_MISMATCH", `independently derived result does not match production semantics (${comparison.mode})`, row.baseId, "computedResult");
+  invariant(policy.kind === "strict" || policy.kind === "reviewed-simple", "V4_RESPONSE_POLICY_BINDING_DRIFT", "missing response policy", row.baseId, "responsePolicy");
+  return {
+    activeId,
+    directProductionGraderAccepted,
+    semanticComparisonMode: comparison.mode,
+    semanticClaims: comparison.claims,
+    matched: true
+  };
+};

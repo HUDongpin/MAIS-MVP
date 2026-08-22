@@ -1,0 +1,740 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2a-response-contract-audit-successor-rows-v1",
+  "status": "phase2a-candidate-only-promotion-not-authorized",
+  "sourceBindings": {
+    "phase1PreimageAuthority": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+      "sha256": "8c087e024d184f92e1a6a51798cdb5f9ae3ddcff7dbc15e7ec65bb0fe1c2b608"
+    },
+    "expandedStep0Receipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+      "sha256": "9d661d739710a72c9a4744e224f221ffe808632dacb12b63d49c39fe4886262e"
+    },
+    "v2History": {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1"
+    }
+  },
+  "rowCount": 3,
+  "orderedRowIds": [
+    "hk-ease-10481",
+    "hk-ease-10496",
+    "hk-ease-1041"
+  ],
+  "orderedRowIdSha256": "ad0a746c13b9d5461a61dd9221e1cc57ee4d5c20fa4cacc3ca7562ae775b76d8",
+  "rowsPayloadSha256": "8e7c9b2f0de46bca9a4919f4541fe561eaf5df97ecf5b3212aaa25861eefa402",
+  "rowSha256": [
+    "d8fd1fa90398a362f5f4cd8dab90b910940eb023fdf69c5cdcb6e4476f172162",
+    "b5009b6351471172c19d4d4fcc68a2b328892265e98132077c130a40adc46386",
+    "550059772e74c82a04f30b23de5c8aff6eceaf8aee94ffa254a209f87c0300cc"
+  ],
+  "entries": [
+    {
+      "baseId": "hk-ease-10481",
+      "successorId": "hk-ease-10481-v3",
+      "preimageRecordSha256": "6862c41c2e13c2dad8110b40b61fa3e603a9a586c0d02ab1f35169a23bd487dd",
+      "postimageRecordSha256": "98749ed469c28a0f4265510716ec720fe7cb92565329bb6aea50ee5d3eb86934",
+      "allowedDeltaPaths": [
+        "kind",
+        "params",
+        "positiveProbes",
+        "negativeProbes",
+        "source",
+        "draftStatus"
+      ],
+      "postimage": {
+        "index": 187,
+        "baseId": "hk-ease-10481",
+        "kind": "exact3-named-classified-number-groups-v1",
+        "params": {
+          "canonicalAnswer": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+          "acceptedSurfaceForms": [
+            "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)"
+          ],
+          "labels": [
+            "a",
+            "b",
+            "c"
+          ],
+          "categoryNames": {
+            "en": [
+              "proper fractions",
+              "improper fractions",
+              "mixed numbers"
+            ],
+            "zh": [
+              "真分數",
+              "假分數",
+              "帶分數"
+            ]
+          },
+          "expectedOriginalRepresentationGroups": [
+            [
+              "3/5",
+              "11/12"
+            ],
+            [
+              "7/4",
+              "9/9"
+            ],
+            [
+              "2 1/3",
+              "5 2/7"
+            ]
+          ],
+          "categoryLanguagePolicy": "one-response-all-English-or-all-Traditional-Chinese-no-mixing",
+          "representationPolicy": "each-original-representation-exactly-once-in-its-named-group-no-value-conversion",
+          "withinGroupOrder": "not-semantic",
+          "labelOrder": "exact-a-b-c",
+          "extraMissingDuplicatePolicy": "reject",
+          "parserBinding": {
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "sourceSha256": "f78ce1b211fa2723a635028f18f9db080b60063927d376edfc96e5cc676a8824",
+            "failurePolicy": "reject-no-surface-only-or-generic-fallback"
+          }
+        },
+        "positiveProbes": [
+          {
+            "input": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "negativeProbes": [
+          {
+            "input": "(a) 3/5, 11/12; (b) 7/4, 9/9; (c) 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 999, 888; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 999, 888",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 7/4, 9/9; (b) improper fractions: 3/5, 11/12; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 3/5; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7, 1/2",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 1; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 7/3, 37/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed numbers: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 3/5, 11/12; (b) improper fractions: 7/4, 9/9; (c) mixed fractions: 2 1/3, 5 2/7",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "source": [
+          {
+            "type": "A18-independent-adjudication",
+            "reviewerLane": "A18",
+            "task": "exact3 named-category accepted-form adjudication",
+            "boundary": "Phase2A candidate-only; production promotion not authorized"
+          },
+          {
+            "type": "candidate-full-parser",
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "failurePolicy": "reject-no-generic-fallback"
+          }
+        ],
+        "onFailure": "reject-no-generic-fallback",
+        "draftStatus": "phase2a-candidate-hold-promotion-not-authorized"
+      }
+    },
+    {
+      "baseId": "hk-ease-10496",
+      "successorId": "hk-ease-10496-v3",
+      "preimageRecordSha256": "4ce09bf50c278e3148857c27bdfa0202ca2466db3d22ed29fe0e3d0e23c9efa9",
+      "postimageRecordSha256": "52a37e0caffec70f4fd10340a8559c795bc50dfc54d5c80bb7b6055a1f3e3c0d",
+      "allowedDeltaPaths": [
+        "kind",
+        "params",
+        "positiveProbes",
+        "negativeProbes",
+        "source",
+        "draftStatus"
+      ],
+      "postimage": {
+        "index": 188,
+        "baseId": "hk-ease-10496",
+        "kind": "exact3-named-classified-number-groups-v1",
+        "params": {
+          "canonicalAnswer": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+          "acceptedSurfaceForms": [
+            "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)"
+          ],
+          "labels": [
+            "a",
+            "b",
+            "c"
+          ],
+          "categoryNames": {
+            "en": [
+              "proper fractions",
+              "improper fractions",
+              "mixed numbers"
+            ],
+            "zh": [
+              "真分數",
+              "假分數",
+              "帶分數"
+            ]
+          },
+          "expectedOriginalRepresentationGroups": [
+            [
+              "4/7",
+              "13/15"
+            ],
+            [
+              "11/5",
+              "8/8"
+            ],
+            [
+              "3 1/2",
+              "6 4/9"
+            ]
+          ],
+          "categoryLanguagePolicy": "one-response-all-English-or-all-Traditional-Chinese-no-mixing",
+          "representationPolicy": "each-original-representation-exactly-once-in-its-named-group-no-value-conversion",
+          "withinGroupOrder": "not-semantic",
+          "labelOrder": "exact-a-b-c",
+          "extraMissingDuplicatePolicy": "reject",
+          "parserBinding": {
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "sourceSha256": "f78ce1b211fa2723a635028f18f9db080b60063927d376edfc96e5cc676a8824",
+            "failurePolicy": "reject-no-surface-only-or-generic-fallback"
+          }
+        },
+        "positiveProbes": [
+          {
+            "input": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "negativeProbes": [
+          {
+            "input": "(a) 4/7, 13/15; (b) 11/5, 8/8; (c) 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 999, 888; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 999, 888",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 11/5, 8/8; (b) improper fractions: 4/7, 13/15; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 4/7; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9, 1/2",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 1; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 7/2, 58/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 真分數: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed numbers: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) proper fractions: 4/7, 13/15; (b) improper fractions: 11/5, 8/8; (c) mixed fractions: 3 1/2, 6 4/9",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "source": [
+          {
+            "type": "A18-independent-adjudication",
+            "reviewerLane": "A18",
+            "task": "exact3 named-category accepted-form adjudication",
+            "boundary": "Phase2A candidate-only; production promotion not authorized"
+          },
+          {
+            "type": "candidate-full-parser",
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "failurePolicy": "reject-no-generic-fallback"
+          }
+        ],
+        "onFailure": "reject-no-generic-fallback",
+        "draftStatus": "phase2a-candidate-hold-promotion-not-authorized"
+      }
+    },
+    {
+      "baseId": "hk-ease-1041",
+      "successorId": "hk-ease-1041-v3",
+      "preimageRecordSha256": "4b8c7c9db56119d7cb30bda3a3d813a16b1f7f2a47fc12a64d6da495bb71addc",
+      "postimageRecordSha256": "98d925cd1b7a856294d6a027b94904ea33ab3918ebaf88d42b3feef3dc715c86",
+      "allowedDeltaPaths": [
+        "kind",
+        "params",
+        "positiveProbes",
+        "negativeProbes",
+        "source",
+        "draftStatus"
+      ],
+      "postimage": {
+        "index": 693,
+        "baseId": "hk-ease-1041",
+        "kind": "exact3-labelled-divisibility-matrix-v1",
+        "params": {
+          "canonicalAnswer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+          "acceptedSurfaceForms": [
+            "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+            "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+            "(a) 否, 是, 否; (b) 是, 是, 是; (c) 是, 否, 否; (d) 是, 是, 是; (e) 否, 是, 否; (f) 是, 是, 是"
+          ],
+          "labels": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f"
+          ],
+          "columns": [
+            2,
+            5,
+            10
+          ],
+          "expectedBooleanMatrix": [
+            [
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              true
+            ],
+            [
+              true,
+              false,
+              false
+            ],
+            [
+              true,
+              true,
+              true
+            ],
+            [
+              false,
+              true,
+              false
+            ],
+            [
+              true,
+              true,
+              true
+            ]
+          ],
+          "tokenAliases": {
+            "true": [
+              "Yes",
+              "是",
+              "✓"
+            ],
+            "false": [
+              "No",
+              "否",
+              "✗"
+            ]
+          },
+          "labelPolicy": "each-a-through-f-exactly-once-in-order",
+          "columnOrderPolicy": "exactly-2-5-10-with-three-decisions-per-label",
+          "illegalTokenPolicy": "reject",
+          "parserBinding": {
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "sourceSha256": "f78ce1b211fa2723a635028f18f9db080b60063927d376edfc96e5cc676a8824",
+            "failurePolicy": "reject-no-multipart-shape-or-generic-fallback"
+          }
+        },
+        "positiveProbes": [
+          {
+            "input": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) 否, 是, 否; (b) 是, 是, 是; (c) 是, 否, 否; (d) 是, 是, 是; (e) 否, 是, 否; (f) 是, 是, 是",
+            "expected": "accept",
+            "rationale": "Complete candidate response satisfies the dedicated exact3 parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "negativeProbes": [
+          {
+            "input": "(a) arbitrary; (b) arbitrary; (c) arbitrary; (d) arbitrary; (e) arbitrary; (f) arbitrary",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) ✓, ✗, ✗; (b) ✓, ✓, ✓; (c) ✗, ✗, ✓; (d) ✓, ✓, ✓; (e) ✓, ✗, ✗; (f) ✓, ✓, ✓",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (e) ✓, ✓, ✓",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) ✗, ✓, maybe; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "✗, ✓, ✗; ✓, ✓, ✓; ✓, ✗, ✗; ✓, ✓, ✓; ✗, ✓, ✗; ✓, ✓, ✓",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) ✓, ✓, ✗; (b) ✓, ✓, ✓; (c) ✗, ✓, ✗; (d) ✓, ✓, ✓; (e) ✓, ✓, ✗; (f) ✓, ✓, ✓",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          },
+          {
+            "input": "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) No, No, Yes; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+            "expected": "reject",
+            "rationale": "Known false-green is rejected by the dedicated exact3 full parser.",
+            "origin": "deterministic-exact3-phase2a-full-parser-probe"
+          }
+        ],
+        "source": [
+          {
+            "type": "A18-independent-adjudication",
+            "reviewerLane": "A18",
+            "task": "independent Task B2 final",
+            "boundary": "Phase2A candidate-only; production promotion not authorized"
+          },
+          {
+            "type": "candidate-full-parser",
+            "modulePath": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+            "exportName": "evaluateHongKongEaseExact3Phase2AContract",
+            "failurePolicy": "reject-no-generic-fallback"
+          }
+        ],
+        "onFailure": "reject-no-generic-fallback",
+        "draftStatus": "phase2a-candidate-hold-promotion-not-authorized"
+      }
+    }
+  ]
+}

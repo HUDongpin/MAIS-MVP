@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "hk-residual47-focused-test-ledger-v1",
+  "canonicalSerialization": "SHA-256 of UTF-8 JSON.stringify(lexicographically sorted suiteId + U+0000 + testName strings)",
+  "expectedSuiteCount": 1,
+  "expectedFocusedTestCount": 10,
+  "testNameSha256": "d89c4aee3a620ecf6c5ff150b4b29def12b5f53107b41a1478c2cfa2a6437bfd",
+  "suites": [
+    {
+      "sourcePath": "lib/hongKongResidual47RepairContract.test.ts",
+      "suiteId": "hk-residual47-repair-contract-v1",
+      "testNames": [
+        "residual47 authority, partition, preimage, and repair artifacts are exact immutable bytes",
+        "the exact 28-row snapshot binds full Question objects, 27 v2 rows, one base row, and one identical history overlap",
+        "the machine contract binds exact28 repairs plus exact11 semantic re-audit rows and 13 issue instances",
+        "every repair has only its exact allowed leaf delta and every successor object equals the frozen contract",
+        "all 19 clean residual rows remain active and byte-exact",
+        "all 28 old IDs are retired and immutable, all exact next IDs are active, and compact lineage changes only 55 affected keys",
+        "the immutable resolver adds exactly 27 unique residual preimages and exposes all 1791 generations",
+        "all exact learner-facing semantics are clean, localized MC answers remain unique, and decimal grading stays strict",
+        "post-repair HK remains the exact disjoint 255 displayed plus 701 EASE plus promoted residual47 partition",
+        "residual28 provenance and recovered source evidence are package-local exhaustive and fail closed"
+      ]
+    }
+  ]
+}

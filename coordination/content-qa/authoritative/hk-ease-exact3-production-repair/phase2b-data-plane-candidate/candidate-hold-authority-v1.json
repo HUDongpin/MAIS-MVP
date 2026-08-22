@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-data-plane-candidate-hold-authority-v1",
+  "status": "candidate-hold-not-promotable-until-phase3",
+  "builderBinding": {
+    "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-data-plane-candidate.ts",
+    "sha256": "92322e8067106643b529c9107de63cef9b096a9e6c8d7cf29693b5c1b58ca108"
+  },
+  "focusedTestBinding": {
+    "path": "coordination/content-qa/hk-ease-exact3-phase2b-atomic-promotion-dry-run.test.ts",
+    "sha256": "a309d48eb12570877803ac83165018c5927fe59817e5c2877ec3bdd3011e86cc"
+  },
+  "independentReviewReceipt": {
+    "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-independent-oracle-overlay-review-v2.json",
+    "sha256": "0aacfce318a7839f44beba7d3d5f6722e11a129b4ee6f8a3ac770b712382cd2e",
+    "detachedPayloadSha256": "c0387a5f0ea824510ab24d84f8e062a289354e8731caa3acde9320f30ecd825b",
+    "reviewerIndependentOfBuilder": true
+  },
+  "requiredInputBindings": [
+    {
+      "name": "independentReceipt",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-independent-oracle-overlay-review-v2.json",
+      "sha256": "0aacfce318a7839f44beba7d3d5f6722e11a129b4ee6f8a3ac770b712382cd2e"
+    },
+    {
+      "name": "phase2aAuthority",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/candidate-authority-v1.json",
+      "sha256": "a116dd12e3221cc623d7698f67f5b998087c6f8086b64f655e5fb40e41dd60f8"
+    },
+    {
+      "name": "phase2aQuestionRows",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/question-successor-rows-v1.json",
+      "sha256": "0048c168167af24bc0f48ed7d6562d6dd6d503ef21f4dec627ff48b10f203615"
+    },
+    {
+      "name": "phase2aAuditRows",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/response-contract-audit-successor-rows-v1.json",
+      "sha256": "b86fbde8450bcf8e8437491eb10e8f9c8f6759d774f4173c416a3143ec9f1cd9"
+    },
+    {
+      "name": "phase2aStrictRows",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/strict-response-contract-successor-rows-v1.json",
+      "sha256": "a79e7471643832b54f2c730f90986dfb72e05c90ed6978f25179ac1ac1fc94db"
+    },
+    {
+      "name": "phase2aHistory",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/v3-history-v1.json",
+      "sha256": "e5a696da5e8d5e1cc31259a6736d6d9974c08fdf25a57298a6958ffcd11b440b"
+    },
+    {
+      "name": "phase2aVersionDelta",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2a-candidate/version-manifest-delta-v1.json",
+      "sha256": "2916311a4e9de0106e009c0854fb05463344ad6cebad3e2c7bebfd6a1752df96"
+    },
+    {
+      "name": "oldPack",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2.json",
+      "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2"
+    },
+    {
+      "name": "oldAudit",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28.json",
+      "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28"
+    },
+    {
+      "name": "oldStrict",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4.json",
+      "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4"
+    },
+    {
+      "name": "oldSimple",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597.json",
+      "sha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597"
+    },
+    {
+      "name": "oldV3Oracle",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62.json",
+      "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62"
+    },
+    {
+      "name": "oldVersionManifest",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92.json",
+      "sha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92"
+    },
+    {
+      "name": "declaredSimpleLedger",
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/declared-simple-ledger.json",
+      "sha256": "11ad86d97706a08379df4b75630bfe35e73a7e2dba257ce0e435044d03784284"
+    },
+    {
+      "name": "phase2aSemantics",
+      "path": "coordination/content-qa/hk-ease-exact3-phase2a-candidate-semantics.ts",
+      "sha256": "f78ce1b211fa2723a635028f18f9db080b60063927d376edfc96e5cc676a8824"
+    }
+  ],
+  "outputPolicy": {
+    "exactDataArtifactCount": 7,
+    "exactControlArtifactCount": 1,
+    "dataArtifactsAreFullPostimages": true,
+    "authorityIsControlEvidenceNotAnEighthDataArtifact": true,
+    "materializationDirectory": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate",
+    "fileMode": "0444"
+  },
+  "outputBindings": [
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-question-pack-base-id-v1.json",
+      "sha256": "afed98f9aca07951dffbc6ac8ce93bb6074629298c80ac848842bd7792fd7bdf",
+      "byteLength": 1435398,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-response-contract-audit-v1.json",
+      "sha256": "3f5671299ecb88fd58e0d22c6241737a27cd7d3a1e8332da989eea1f3b15010a",
+      "byteLength": 890576,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-strict-response-contracts-v1.json",
+      "sha256": "86333f5482a6a90da42c4ae12d575df8e2859409ff12de18032122a6c67c2b2c",
+      "byteLength": 298862,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-simple-response-contracts-v1.json",
+      "sha256": "d5f226b600e98cd4cfa1df6497137a0844e0f9685d8f87e4a6e1130aaa5c3d41",
+      "byteLength": 1259409,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/independent-answer-oracle-exact3-overlay-supplement-v2.json",
+      "sha256": "3b1b5b5a4e4034712086de8345b04e74e435f58e4c7c8ed73c5d801cfad4b19c",
+      "byteLength": 8718,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/v3-history-v1.json",
+      "sha256": "e5a696da5e8d5e1cc31259a6736d6d9974c08fdf25a57298a6958ffcd11b440b",
+      "byteLength": 13338,
+      "classification": "isolated-full-data-postimage-candidate"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/full-question-version-manifest-v1.json",
+      "sha256": "abf8da2300978b554efa07d96c5b70e721a9f0977e190a3f86105388591dfe8d",
+      "byteLength": 84368,
+      "classification": "isolated-full-data-postimage-candidate"
+    }
+  ],
+  "forbiddenLiveInventory": [
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "preMaterializationObservedSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "postMaterializationExpectedSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "preMaterializationObservedSha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "postMaterializationExpectedSha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "preMaterializationObservedSha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+      "postMaterializationExpectedSha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "preMaterializationObservedSha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597",
+      "postMaterializationExpectedSha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "preMaterializationObservedSha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+      "postMaterializationExpectedSha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "preMaterializationObservedSha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1",
+      "postMaterializationExpectedSha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/historical/hongKongQuestionVersionManifest.json",
+      "preMaterializationObservedSha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+      "postMaterializationExpectedSha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/questions.ts",
+      "preMaterializationObservedSha256": "96d90f3c090b14bd7797155ffcbb20edcbf2230147a945f6c02ec32a470dbca8",
+      "postMaterializationExpectedSha256": "96d90f3c090b14bd7797155ffcbb20edcbf2230147a945f6c02ec32a470dbca8",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/hongKongEasePracticeQuestions.ts",
+      "preMaterializationObservedSha256": "01bf8aef5f76dfa46d17b357b110957fa551ba12fd98027315a1a8e825f40137",
+      "postMaterializationExpectedSha256": "01bf8aef5f76dfa46d17b357b110957fa551ba12fd98027315a1a8e825f40137",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+      "preMaterializationObservedSha256": "8f306dc2d34b3595e70c0f8ef55345dc321fdae97278cb404d499d40635e2e9d",
+      "postMaterializationExpectedSha256": "8f306dc2d34b3595e70c0f8ef55345dc321fdae97278cb404d499d40635e2e9d",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracleV4.ts",
+      "preMaterializationObservedSha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c",
+      "postMaterializationExpectedSha256": "11c46a9ed03fe592065db05e579165c9a5bf65a660be948d6d582cf10dd5be8c",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "external-concurrent-successor-not-adopted-by-phase2b-data-plane"
+    },
+    {
+      "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "preMaterializationObservedSha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+      "postMaterializationExpectedSha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "lib/server/hongKongEaseResponseContracts.ts",
+      "preMaterializationObservedSha256": "1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1",
+      "postMaterializationExpectedSha256": "1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "lib/fullQuestionBankSolvability.test.ts",
+      "preMaterializationObservedSha256": "f964d1f2d11dbd5eeb8c1ebf2aea5a3bdf73d73189ed511fa68dc09d2ebe984c",
+      "postMaterializationExpectedSha256": "f964d1f2d11dbd5eeb8c1ebf2aea5a3bdf73d73189ed511fa68dc09d2ebe984c",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    },
+    {
+      "path": "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+      "preMaterializationObservedSha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d",
+      "postMaterializationExpectedSha256": "7288e9d91fe6e6057b22a2c5d35c2237bd07588ace11d8141729c539f64f052d",
+      "candidateBuilderWriteTarget": false,
+      "candidateWriteAuthorized": false,
+      "disposition": "must-remain-byte-identical"
+    }
+  ],
+  "promotion": {
+    "livePromotionAuthorized": false,
+    "runtimeDispatchAuthorized": false,
+    "historyPromotionAuthorized": false,
+    "v4RegenerationAuthorized": false,
+    "fullBankIntegrationAuthorized": false,
+    "canonicalRunnerAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "Phase2B.2 deterministic TypeScript/runtime apply candidate",
+      "Phase2B.3 coherent V3 overlay consumption and historical regression closure",
+      "V4 sanitized-supplement-oracle regeneration for the new hk-ease-1041 prompt",
+      "full-bank and canonical runner integration",
+      "A11 regression and A22 release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "984c473210ca7fa8af6dcd6f90a8d1bb1754189d3986a9a5e58cfc8ff33a4622"
+}

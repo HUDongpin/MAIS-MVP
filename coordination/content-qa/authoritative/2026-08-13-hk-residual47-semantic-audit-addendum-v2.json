@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "status": "needs-repair",
+  "supersedesAuditSha256": "5021bcdb57c085fc2d9fcc9a573554da69a6f5aa4555b9e3ddaf774d2d7cb7da",
+  "scope": {
+    "hkActive": 1003,
+    "displayed": 255,
+    "displayedUnique": 255,
+    "ease": 701,
+    "displayedEaseIntersection": [],
+    "residual": 47,
+    "residualOrderedIdSha256": "c33a5f05db153f39b7b7328177f7c3f894f711e12d642b182e77504051bc00b6",
+    "residualPayloadSha256": "fb2d405426994d4fd2ede55ee706fc3ede7582ebaac2380a1f64fc3ece65f88c"
+  },
+  "counts": {
+    "reviewedRows": 47,
+    "issueRows": 28,
+    "issueInstances": 29,
+    "cleanRows": 19,
+    "unresolvedRows": 0,
+    "authoringTemplateRows": 27,
+    "commonCheckAuthoringTemplateRows": 25,
+    "firstStepAuthoringTemplateRows": 2,
+    "additionalContentOrRepresentationInstances": 2
+  },
+  "authoringTemplateIds": [
+    "supp-p1-counting-number-bonds-common-check-v2",
+    "supp-p1-addition-subtraction-common-check-v2",
+    "supp-p1-measurement-time-common-check-v2",
+    "supp-p2-place-value-common-check-v2",
+    "supp-p2-multiplication-foundations-common-check-v2",
+    "supp-p2-money-time-common-check-v2",
+    "supp-p3-multiplication-division-common-check-v2",
+    "supp-p3-fractions-intro-common-check-v2",
+    "supp-p3-measurement-common-check-v2",
+    "supp-p3-geometry-patterns-common-check-v2",
+    "supp-p4-large-numbers-common-check-v2",
+    "supp-p4-decimals-common-check-v2",
+    "supp-p4-angles-first-step-v2",
+    "supp-p4-angles-common-check-v2",
+    "supp-p4-perimeter-area-common-check-v2",
+    "supp-p5-fractions-operations-common-check-v2",
+    "supp-p5-volume-common-check-v2",
+    "supp-p5-rates-common-check-v2",
+    "supp-p6-percentages-common-check-v2",
+    "supp-p6-speed-common-check-v2",
+    "supp-p6-pre-secondary-problem-solving-common-check-v2",
+    "supp-angles-common-check-v2",
+    "supp-coordinates-common-check-v2",
+    "supp-transformations-common-check-v2",
+    "supp-functions-common-check-v2",
+    "supp-quadratic-patterns-first-step-v2",
+    "supp-quadratic-patterns-common-check-v2"
+  ],
+  "additionalDefects": [
+    {
+      "id": "supp-p1-counting-number-bonds-common-check-v2",
+      "severity": "P1",
+      "kind": "bilingual-answer-option-semantic-mismatch",
+      "fields": [
+        "options[0].en",
+        "answer",
+        "explanation.en"
+      ],
+      "finding": "The English answer says to decide whether the missing number is before or after the given number. A missing part in a number bond is not a predecessor/successor relation. The Chinese option correctly distinguishes three question types: previous number, next number, or missing number.",
+      "requiredRepair": "Make the English answer and option distinguish the number before, the number after, or a missing part, matching the Chinese semantics; give one number-bond example and one predecessor/successor example. Preserve the other three options and their order."
+    },
+    {
+      "id": "supp-p4-decimals-guided-example",
+      "severity": "P1",
+      "kind": "unstated-response-representation-restriction",
+      "fields": [
+        "prompt.en",
+        "prompt.zh"
+      ],
+      "finding": "The prompt only says to find 4.6 minus 1.2, but the active dimensionless-number response contract rejects the exact equivalent 17/5. A format restriction must be stated to the learner if the grader enforces it.",
+      "requiredRepair": "Add 'Give your answer as a decimal' / '並以小數作答' to the prompt and preserve strict decimal grading, or explicitly authorize generic numeric equivalence. The decimal-topic intent supports the prompt clarification."
+    }
+  ],
+  "cleanIds": [
+    "pq-p4-angles-square-corner-5",
+    "graph-quadratic-patterns-opening-v2",
+    "supp-p1-shapes-patterns-common-check-v2",
+    "supp-p2-length-data-common-check-v2",
+    "supp-p4-angles-guided-example-v2",
+    "supp-p5-volume-guided-example-v2",
+    "supp-p5-charts-averages-key-fact-v2",
+    "supp-p5-charts-averages-guided-example-v2",
+    "supp-p5-charts-averages-common-check-v2",
+    "supp-p6-ratio-proportion-common-check-v2",
+    "supp-p6-speed-guided-example-v2",
+    "supp-coordinates-key-fact",
+    "supp-coordinates-guided-example",
+    "supp-functions-guided-example",
+    "supp-quadratic-patterns-key-fact-v2",
+    "supp-quadratic-patterns-guided-example-v2",
+    "supp-coordinate-geometry-guided-example",
+    "supp-coordinate-geometry-common-check-v2",
+    "supp-data-handling-common-check-v2"
+  ],
+  "evidence": {
+    "sourcePartitionPath": ".tmp/hk-residual-audit/evidence/residual.json",
+    "sourcePartitionSha256": "d1f7c2eaeea5deaa41fafcf75be28498e0919ce3eff9eeace55cf7c55baeeb37",
+    "sourceContentPath": ".tmp/hk-residual-audit/evidence/residual-content.txt",
+    "sourceContentSha256": "250aeec93a13ae0efd7b1ddc1dc161120eb785d8c4ea97bdc0b3e415912a1442",
+    "exactRewritePath": ".tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+    "productionFilesEdited": false,
+    "e2eRun": false
+  }
+}

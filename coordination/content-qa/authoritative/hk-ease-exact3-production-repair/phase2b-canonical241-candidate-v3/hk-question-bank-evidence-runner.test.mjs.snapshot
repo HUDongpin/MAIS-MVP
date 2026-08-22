@@ -1,0 +1,1640 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import test from "node:test";
+
+const runnerPath = new URL("./hk-question-bank-evidence-runner.mjs", import.meta.url);
+
+function fixtureJsonBytes(value) {
+  return Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function fixtureSha256(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function fixtureSourceManifestAggregate(entries) {
+  return fixtureSha256(
+    Buffer.from(
+      entries
+        .map(
+          (entry) =>
+            `${entry.type}\u0000${entry.sha256 ?? "-"}\u0000${entry.bytes}\u0000${entry.path}\n`
+        )
+        .join(""),
+      "utf8"
+    )
+  );
+}
+
+test("the question-bank evidence runner is present", () => {
+  assert.equal(
+    existsSync(runnerPath),
+    true,
+    "expected the fail-closed evidence runner to be implemented"
+  );
+});
+
+test("the default package gate invokes the unique evidence runner once with no legacy bypass", async () => {
+  const workspaceRoot = process.cwd();
+  const packageJson = JSON.parse(await readFile(join(workspaceRoot, "package.json"), "utf8"));
+  const questionBankScript = packageJson.scripts["test:question-bank"];
+  assert.equal(
+    questionBankScript,
+    "node coordination/content-qa/hk-question-bank-evidence-runner.mjs"
+  );
+  assert.equal(
+    questionBankScript.match(/hk-question-bank-evidence-runner\.mjs/g)?.length,
+    1
+  );
+  assert.equal(questionBankScript.includes(".tmp/question-bank-tests"), false);
+  assert.equal(questionBankScript.includes(".tmp/question-bank-db"), false);
+  assert.equal(questionBankScript.includes("node --test"), false);
+  assert.equal(
+    packageJson.scripts.check.match(/npm run test:question-bank/g)?.length,
+    1
+  );
+});
+
+test("Starship path validation rejects every off-volume run root", async () => {
+  const {
+    assertPhysicalStarshipDirectory,
+    assertStarshipAbsolutePath,
+    buildCanonicalMutableEnvironment,
+    childEnvironmentWithCanonicalMutablePaths
+  } = await import(
+    runnerPath
+  );
+  assert.doesNotThrow(() =>
+    assertStarshipAbsolutePath(
+      "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/evidence/run-1",
+      "run root"
+    )
+  );
+  assert.throws(
+    () =>
+      assertStarshipAbsolutePath(
+        "/Users/dongpinhu/Desktop/off-starship-evidence",
+        "run root"
+      ),
+    /must be an absolute path under \/Volumes\/Starship\//
+  );
+  assert.throws(
+    () => assertStarshipAbsolutePath(".tmp/evidence", "run root"),
+    /must be an absolute path under \/Volumes\/Starship\//
+  );
+
+  const workspaceRoot = process.cwd();
+  const sandbox = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-evidence-physical-path-test-${process.pid}`
+  );
+  const escapePath = join(sandbox, "escape");
+  await rm(sandbox, { recursive: true, force: true });
+  await mkdir(sandbox, { recursive: true });
+  const { symlink } = await import("node:fs/promises");
+  await symlink("/Users/dongpinhu/Desktop", escapePath);
+  await assert.rejects(
+    () => assertPhysicalStarshipDirectory(escapePath, "physical run root"),
+    /resolves outside \/Volumes\/Starship\//
+  );
+  await rm(sandbox, { recursive: true, force: true });
+
+  const runRoot = join(workspaceRoot, ".tmp", "mutable-environment-fixture");
+  const canonicalMutableEnvironment = buildCanonicalMutableEnvironment({
+    runRoot,
+    tmpRoot: join(runRoot, "tmp"),
+    dbRoot: join(runRoot, "db")
+  });
+  const sanitizedChildEnvironment = childEnvironmentWithCanonicalMutablePaths(
+    {
+      KEEP_ME: "no",
+      PATH: "/tmp/attacker-bin",
+      TMPDIR: "/tmp",
+      NODE_OPTIONS: "--require=/tmp/injected.cjs",
+      NODE_PATH: "/tmp/injected-modules",
+      NODE_V8_COVERAGE: "/tmp/coverage-escape",
+      V8_COMPILE_CACHE_CACHE_DIR: "/tmp/v8-cache-escape",
+      BABEL_CACHE_PATH: "/tmp/babel-cache-escape",
+      NPM_CONFIG_CACHE: "/tmp/npm-cache-escape",
+      LD_PRELOAD: "/tmp/injected.so",
+      DYLD_INSERT_LIBRARIES: "/tmp/injected.dylib"
+    },
+    canonicalMutableEnvironment
+  );
+  assert.deepEqual(Object.keys(sanitizedChildEnvironment), [
+    "PATH",
+    ...canonicalMutableEnvironment.keys
+  ]);
+  assert.notEqual(sanitizedChildEnvironment.PATH, "/tmp/attacker-bin");
+  assert.equal(
+    sanitizedChildEnvironment.PATH.split(":")[0],
+    new URL(".", `file://${process.execPath}`).pathname.replace(/\/$/, "")
+  );
+  for (const inheritedKey of [
+    "KEEP_ME",
+    "NODE_OPTIONS",
+    "NODE_PATH",
+    "NODE_V8_COVERAGE",
+    "V8_COMPILE_CACHE_CACHE_DIR",
+    "BABEL_CACHE_PATH",
+    "NPM_CONFIG_CACHE",
+    "LD_PRELOAD",
+    "DYLD_INSERT_LIBRARIES"
+  ]) {
+    assert.equal(inheritedKey in sanitizedChildEnvironment, false, inheritedKey);
+  }
+  assert.throws(
+    () =>
+      buildCanonicalMutableEnvironment({
+        runRoot,
+        tmpRoot: `${runRoot}/tmp/../../escape`,
+        dbRoot: join(runRoot, "db")
+      }),
+    /canonical absolute path without dot segments/
+  );
+  assert.throws(
+    () =>
+      childEnvironmentWithCanonicalMutablePaths(
+        {},
+        {
+          ...canonicalMutableEnvironment,
+          values: { ...canonicalMutableEnvironment.values, TMP: "/tmp" }
+        }
+      ),
+    /mutable environment value drift/
+  );
+});
+
+test("the exact57 ledger binding fails on any byte or semantic drift", async () => {
+  const {
+    EXPECTED_FOCUSED_LEDGER_FILE_SHA256,
+    EXPECTED_FOCUSED_TEST_COUNT,
+    loadFocusedLedgerBinding
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const binding = await loadFocusedLedgerBinding(workspaceRoot);
+  assert.equal(binding.fileSha256, EXPECTED_FOCUSED_LEDGER_FILE_SHA256);
+  assert.equal(binding.expectedFocusedTestCount, EXPECTED_FOCUSED_TEST_COUNT);
+  assert.equal(binding.expectedNames.length, EXPECTED_FOCUSED_TEST_COUNT);
+
+  const sandbox = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-evidence-ledger-test-${process.pid}`
+  );
+  await rm(sandbox, { recursive: true, force: true });
+  await mkdir(join(sandbox, "coordination", "content-qa", "authoritative"), {
+    recursive: true
+  });
+  const source = join(
+    workspaceRoot,
+    "coordination",
+    "content-qa",
+    "authoritative",
+    "2026-08-13-hk-displayed74-focused-test-ledger.json"
+  );
+  const altered = `${await readFile(source, "utf8")}\n`;
+  await writeFile(
+    join(
+      sandbox,
+      "coordination",
+      "content-qa",
+      "authoritative",
+      "2026-08-13-hk-displayed74-focused-test-ledger.json"
+    ),
+    altered
+  );
+  await assert.rejects(() => loadFocusedLedgerBinding(sandbox), /ledger SHA-256 mismatch/);
+  await rm(sandbox, { recursive: true, force: true });
+});
+
+test("the canonical focused-ledger set binds displayed57, residual10, and EASE response7", async () => {
+  const {
+    EXPECTED_EASE_RESPONSE_LEDGER_FILE_SHA256,
+    EXPECTED_EASE_RESPONSE_TEST_NAME_SHA256,
+    EXPECTED_RESIDUAL47_LEDGER_FILE_SHA256,
+    EXPECTED_RESIDUAL47_TEST_NAME_SHA256,
+    loadCanonicalFocusedLedgerBindings
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const bindings = await loadCanonicalFocusedLedgerBindings(workspaceRoot);
+  assert.deepEqual(
+    bindings.map((binding) => binding.ledgerId),
+    ["displayed74-exact57", "residual47-exact10", "ease-response-exact7"]
+  );
+  assert.deepEqual(
+    bindings.map((binding) => binding.expectedFocusedTestCount),
+    [57, 10, 7]
+  );
+  assert.equal(bindings[1].fileSha256, EXPECTED_RESIDUAL47_LEDGER_FILE_SHA256);
+  assert.equal(bindings[1].testNameSha256, EXPECTED_RESIDUAL47_TEST_NAME_SHA256);
+  assert.deepEqual(bindings[1].suiteIds, ["hk-residual47-repair-contract-v1"]);
+  assert.equal(bindings[2].fileSha256, EXPECTED_EASE_RESPONSE_LEDGER_FILE_SHA256);
+  assert.equal(bindings[2].testNameSha256, EXPECTED_EASE_RESPONSE_TEST_NAME_SHA256);
+  assert.deepEqual(bindings[2].suiteIds, ["hong-kong-ease-response-contracts-exact7-v1"]);
+  assert.equal(
+    new Set(bindings.flatMap((binding) => binding.expectedNames)).size,
+    74,
+    "focused TAP-visible names must be globally unique across ledgers"
+  );
+});
+
+test("the full-bank aggregator uniquely imports residual47 exact10 and EASE response exact7", async () => {
+  const workspaceRoot = process.cwd();
+  const source = await readFile(join(workspaceRoot, "lib/fullQuestionBankSolvability.test.ts"), "utf8");
+  assert.match(
+    source,
+    /import\s*\{\s*HONG_KONG_RESIDUAL47_REPAIR_CONTRACT_SUITE_ID\s*\}\s*from\s*"\.\/hongKongResidual47RepairContract\.test";/
+  );
+  assert.match(
+    source,
+    /import\s*\{\s*assertHongKongResidual47FocusedTestLedger\s*\}\s*from\s*"\.\/hongKongResidual47FocusedTestLedger";/
+  );
+  assert.equal(
+    source.match(/assertHongKongResidual47FocusedTestLedger\(\s*HONG_KONG_RESIDUAL47_REPAIR_CONTRACT_SUITE_ID\s*\)/g)?.length,
+    1
+  );
+  assert.equal(
+    source.match(/HONG_KONG_RESIDUAL47_REPAIR_CONTRACT_SUITE_ID/g)?.length,
+    3,
+    "suite ID must occur only in its import, canonical suite list, and ledger assertion"
+  );
+  assert.match(
+    source,
+    /import\s*\{\s*HONG_KONG_EASE_RESPONSE_CONTRACT_SUITE_ID\s*\}\s*from\s*"\.\/server\/hongKongEaseResponseContracts\.test";/
+  );
+  assert.equal(
+    source.match(/HONG_KONG_EASE_RESPONSE_CONTRACT_SUITE_ID/g)?.length,
+    2,
+    "EASE suite ID must occur only in its import and exact suite assertion"
+  );
+  assert.equal(
+    source.match(/\/lib\/server\/hongKongEaseResponseContracts\.test\.js/g)?.length,
+    1,
+    "the EASE suite must be forbidden as an independent direct worker"
+  );
+});
+
+test("complete TAP verification derives total and unexpected names from focused ledgers plus canonical direct tests", async () => {
+  const {
+    EXPECTED_DIRECT_TEST_COUNT,
+    EXPECTED_DIRECT_TEST_NAME_SHA256,
+    assertCanonicalDirectTestIdentity,
+    loadCanonicalDirectTestBinding,
+    loadCanonicalFocusedLedgerBindings,
+    verifyCompleteTapLedgerAndArtifacts
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const focusedLedgerBindings = await loadCanonicalFocusedLedgerBindings(workspaceRoot);
+  const directTestBinding = await loadCanonicalDirectTestBinding(workspaceRoot);
+  assert.equal(directTestBinding.expectedDirectTestCount, EXPECTED_DIRECT_TEST_COUNT);
+  assert.equal(directTestBinding.testNameSha256, EXPECTED_DIRECT_TEST_NAME_SHA256);
+  assert.deepEqual(
+    directTestBinding.sourceFiles.map((sourceFile) => sourceFile.expectedTestCount),
+    [38, 8, 8, 11, 7, 5, 36, 25, 19, 10]
+  );
+  assert.throws(
+    () =>
+      assertCanonicalDirectTestIdentity({
+        expectedDirectTestCount: EXPECTED_DIRECT_TEST_COUNT - 1,
+        testNameSha256: EXPECTED_DIRECT_TEST_NAME_SHA256
+      }),
+    /canonical direct test ledger drift/
+  );
+  assert.throws(
+    () =>
+      assertCanonicalDirectTestIdentity({
+        expectedDirectTestCount: EXPECTED_DIRECT_TEST_COUNT,
+        testNameSha256: "f".repeat(64)
+      }),
+    /canonical direct test ledger drift/
+  );
+  const expectedNames = [
+    ...directTestBinding.expectedNames,
+    ...focusedLedgerBindings.flatMap((binding) => binding.expectedNames)
+  ];
+  const tap = [
+    "TAP version 13",
+    ...expectedNames.map((name, index) => `ok ${index + 1} - ${name}`),
+    `1..${expectedNames.length}`,
+    `# tests ${expectedNames.length}`,
+    `# pass ${expectedNames.length}`,
+    "# fail 0",
+    "# cancelled 0",
+    "# skipped 0",
+    "# todo 0"
+  ].join("\n");
+  const verification = verifyCompleteTapLedgerAndArtifacts({
+    tap,
+    focusedLedgerBindings,
+    directTestBinding,
+    artifactBasenames: ["compile.log", "test-question-bank.tap"]
+  });
+  assert.equal(verification.pass, true);
+  assert.equal(verification.expectedTotalTestCount, expectedNames.length);
+  assert.equal(verification.observedTotalTestCount, expectedNames.length);
+  assert.deepEqual(verification.missing, []);
+  assert.deepEqual(verification.nonOnce, []);
+  assert.deepEqual(verification.unexpected, []);
+  assert.deepEqual(
+    verification.focusedLedgers.map((binding) => binding.expectedFocusedTestCount),
+    [57, 10, 7]
+  );
+
+  assert.throws(
+    () =>
+      verifyCompleteTapLedgerAndArtifacts({
+        tap: tap.replace(
+          `ok 1 - ${expectedNames[0]}`,
+          `ok 1 - unexpected canonical test name`
+        ),
+        focusedLedgerBindings,
+        directTestBinding,
+        artifactBasenames: ["compile.log", "test-question-bank.tap"]
+      }),
+    /complete TAP registration mismatch.*missing=.*unexpected=/
+  );
+  assert.throws(
+    () =>
+      verifyCompleteTapLedgerAndArtifacts({
+        tap: tap.replace(
+          `ok 2 - ${expectedNames[1]}`,
+          `ok 2 - ${expectedNames[0]}`
+        ),
+        focusedLedgerBindings,
+        directTestBinding,
+        artifactBasenames: ["compile.log", "test-question-bank.tap"]
+      }),
+    /complete TAP registration mismatch.*nonOnce=/
+  );
+
+  const tapMutationsThatMustFailClosed = [
+    ["missing root plan", tap.replace(`\n1..${expectedNames.length}`, "")],
+    [
+      "duplicate root plan",
+      tap.replace(
+        `1..${expectedNames.length}`,
+        `1..${expectedNames.length}\n1..${expectedNames.length}`
+      )
+    ],
+    [
+      "wrong root plan",
+      tap.replace(`1..${expectedNames.length}`, `1..${expectedNames.length - 1}`)
+    ],
+    [
+      "duplicate ordinal",
+      tap.replace(`ok 2 - ${expectedNames[1]}`, `ok 1 - ${expectedNames[1]}`)
+    ],
+    [
+      "out-of-order ordinals",
+      tap
+        .replace(`ok 1 - ${expectedNames[0]}`, `ok 2 - ${expectedNames[0]}`)
+        .replace(`ok 2 - ${expectedNames[1]}`, `ok 1 - ${expectedNames[1]}`)
+    ],
+    ["duplicate tests summary", tap.replace("# tests 241", "# tests 241\n# tests 241")],
+    ["duplicate skipped summary", tap.replace("# skipped 0", "# skipped 0\n# skipped 0")],
+    ["trailing competing TAP root", `${tap}\nTAP version 13`]
+  ];
+  for (const [label, mutatedTap] of tapMutationsThatMustFailClosed) {
+    assert.throws(
+      () =>
+        verifyCompleteTapLedgerAndArtifacts({
+          tap: mutatedTap,
+          focusedLedgerBindings,
+          directTestBinding,
+          artifactBasenames: ["compile.log", "test-question-bank.tap"]
+        }),
+      /canonical root TAP|complete TAP/,
+      label
+    );
+  }
+});
+
+test("TAP verification binds all exact57 names once and excludes stale logs", async () => {
+  const { loadFocusedLedgerBinding, verifyTapLedgerAndArtifacts } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const binding = await loadFocusedLedgerBinding(workspaceRoot);
+  const tap = [
+    "TAP version 13",
+    ...binding.expectedNames.map((name, index) => `ok ${index + 1} - ${name}`),
+    `1..${binding.expectedNames.length}`,
+    `# tests ${binding.expectedNames.length}`,
+    `# pass ${binding.expectedNames.length}`,
+    "# fail 0",
+    "# cancelled 0",
+    "# skipped 0",
+    "# todo 0"
+  ].join("\n");
+  const verified = verifyTapLedgerAndArtifacts({
+    tap,
+    ledgerBinding: binding,
+    artifactBasenames: ["compile.log", "test-question-bank.tap"]
+  });
+  assert.equal(verified.pass, true);
+  assert.deepEqual(verified.missing, []);
+  assert.deepEqual(verified.nonOnce, []);
+  assert.equal(verified.ledgerFileSha256, binding.fileSha256);
+
+  assert.throws(
+    () =>
+      verifyTapLedgerAndArtifacts({
+        tap,
+        ledgerBinding: binding,
+        artifactBasenames: ["test-question-bank.log", "test-question-bank.tap"]
+      }),
+    /forbidden stale artifact/
+  );
+  assert.throws(
+    () =>
+      verifyTapLedgerAndArtifacts({
+        tap,
+        ledgerBinding: binding,
+        artifactBasenames: ["compile.log", "unexpected.log", "test-question-bank.tap"]
+      }),
+    /unique log artifact set mismatch/
+  );
+  assert.throws(
+    () =>
+      verifyTapLedgerAndArtifacts({
+        tap: tap.replace(`ok 1 - ${binding.expectedNames[0]}\n`, ""),
+        ledgerBinding: binding,
+        artifactBasenames: ["compile.log", "test-question-bank.tap"]
+      }),
+    /exact57 TAP registration mismatch/
+  );
+});
+
+test("the exclusive lock rejects a concurrent writer and retains PID evidence", async () => {
+  const { acquireExclusiveLock } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const lockPath = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-evidence-lock-test-${process.pid}`
+  );
+  await rm(lockPath, { recursive: true, force: true });
+  const first = await acquireExclusiveLock(lockPath, {
+    runId: "contract-test",
+    runRoot: join(workspaceRoot, ".tmp", "contract-test")
+  });
+  const lockReceipt = JSON.parse(await readFile(join(lockPath, "owner.json"), "utf8"));
+  assert.equal(lockReceipt.pid, process.pid);
+  assert.equal(lockReceipt.runId, "contract-test");
+  await assert.rejects(
+    () =>
+      acquireExclusiveLock(lockPath, {
+        runId: "concurrent-test",
+        runRoot: join(workspaceRoot, ".tmp", "concurrent-test")
+      }),
+    /exclusive evidence lock already exists/
+  );
+  await first.release();
+  assert.equal(existsSync(lockPath), false);
+});
+
+test("run setup releases the canonical lock when a post-lock run-root collision fails", async (t) => {
+  const { prepareQuestionBankEvidenceRun } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runId = `setup-failure-fixture-${process.pid}`;
+  const runRoot = join(workspaceRoot, ".tmp", "hk-question-bank-evidence-runs", runId);
+  const lockPath = join(workspaceRoot, ".tmp", "hk-question-bank-evidence.lock");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  assert.equal(existsSync(lockPath), false, "canonical evidence lock precondition");
+  await mkdir(runRoot, { recursive: true });
+  await writeFile(join(runRoot, "preexisting-marker"), "do not delete");
+  await assert.rejects(
+    () => prepareQuestionBankEvidenceRun({ workspaceRoot, runId }),
+    /EEXIST|file already exists/
+  );
+  assert.equal(existsSync(lockPath), false, "setup failure must release the acquired lock");
+  assert.equal(
+    await readFile(join(runRoot, "preexisting-marker"), "utf8"),
+    "do not delete",
+    "a colliding pre-existing run root must never be removed"
+  );
+  await rm(runRoot, { recursive: true, force: true });
+});
+
+test("bounded child execution terminates a hung process group and persists its final receipt", async (t) => {
+  const {
+    buildCanonicalMutableEnvironment,
+    childEnvironmentWithCanonicalMutablePaths,
+    runChild
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-run-child-timeout-test-${process.pid}`
+  );
+  const tmpRoot = join(runRoot, "tmp");
+  const dbRoot = join(runRoot, "db");
+  const logsRoot = join(runRoot, "logs");
+  const logPath = join(logsRoot, "hung-child.log");
+  const processReceiptPath = join(runRoot, "process-receipt.json");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await Promise.all([
+    mkdir(tmpRoot, { recursive: true }),
+    mkdir(dbRoot, { recursive: true }),
+    mkdir(logsRoot, { recursive: true })
+  ]);
+  const mutableEnvironment = buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot });
+  const environment = childEnvironmentWithCanonicalMutablePaths({}, mutableEnvironment);
+  const processes = [];
+  t.after(() => {
+    const groupId = processes[0]?.processGroupId ?? processes[0]?.pid;
+    if (!Number.isInteger(groupId)) return;
+    try {
+      process.kill(-groupId, "SIGKILL");
+    } catch (error) {
+      if (error.code !== "ESRCH") throw error;
+    }
+  });
+  const outcome = await runChild({
+    command: process.execPath,
+    args: [
+      "-e",
+      "process.on('SIGTERM',()=>{});setInterval(()=>{},1000)"
+    ],
+    cwd: workspaceRoot,
+    env: environment,
+    logPath,
+    label: "hung-fixture",
+    processReceiptPath,
+    processes,
+    timeoutMs: 150,
+    terminationGraceMs: 100
+  });
+  assert.equal(outcome.timedOut, true);
+  assert.equal(processes.length, 1);
+  assert.equal(processes[0].timedOut, true);
+  assert.equal(processes[0].aborted, false);
+  assert.deepEqual(
+    processes[0].terminationSignals.map((event) => event.signal),
+    ["SIGTERM", "SIGKILL"]
+  );
+  assert.equal(processes[0].processGroupId, processes[0].pid);
+  assert.equal(processes[0].processGroupAbsent, true);
+  assert.equal(typeof processes[0].exitedAt, "string");
+  assert.equal(processes[0].exitCode, null);
+  assert.equal(processes[0].signal, "SIGKILL");
+  const retained = JSON.parse(await readFile(processReceiptPath, "utf8"));
+  assert.deepEqual(retained.processes, processes);
+  assert.throws(() => process.kill(processes[0].pid, 0), /ESRCH/);
+  await rm(runRoot, { recursive: true, force: true });
+});
+
+test("an abort signal gracefully terminates the active child and persists abort semantics", async (t) => {
+  const {
+    buildCanonicalMutableEnvironment,
+    childEnvironmentWithCanonicalMutablePaths,
+    runChild
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-run-child-abort-test-${process.pid}`
+  );
+  const tmpRoot = join(runRoot, "tmp");
+  const dbRoot = join(runRoot, "db");
+  const logsRoot = join(runRoot, "logs");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await Promise.all([
+    mkdir(tmpRoot, { recursive: true }),
+    mkdir(dbRoot, { recursive: true }),
+    mkdir(logsRoot, { recursive: true })
+  ]);
+  const mutableEnvironment = buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot });
+  const environment = childEnvironmentWithCanonicalMutablePaths({}, mutableEnvironment);
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(new Error("SIGTERM received by wrapper")), 100);
+  const processes = [];
+  const outcome = await runChild({
+    command: process.execPath,
+    args: ["-e", "setInterval(()=>{},1000)"],
+    cwd: workspaceRoot,
+    env: environment,
+    logPath: join(logsRoot, "aborted-child.log"),
+    label: "aborted-fixture",
+    processReceiptPath: join(runRoot, "process-receipt.json"),
+    processes,
+    timeoutMs: 5000,
+    terminationGraceMs: 100,
+    abortSignal: controller.signal
+  });
+  assert.equal(outcome.aborted, true);
+  assert.equal(processes[0].aborted, true);
+  assert.equal(processes[0].abortReason, "SIGTERM received by wrapper");
+  assert.deepEqual(
+    processes[0].terminationSignals.map((event) => event.signal),
+    ["SIGTERM"]
+  );
+  assert.equal(processes[0].processGroupAbsent, true);
+  assert.equal(processes[0].signal, "SIGTERM");
+  assert.throws(() => process.kill(processes[0].pid, 0), /ESRCH/);
+  await rm(runRoot, { recursive: true, force: true });
+});
+
+test("leader exit after TERM cannot strand a TERM-ignoring descendant in the process group", async (t) => {
+  const {
+    buildCanonicalMutableEnvironment,
+    childEnvironmentWithCanonicalMutablePaths,
+    runChild
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-run-child-descendant-test-${process.pid}`
+  );
+  const tmpRoot = join(runRoot, "tmp");
+  const dbRoot = join(runRoot, "db");
+  const logsRoot = join(runRoot, "logs");
+  const logPath = join(logsRoot, "descendant-child.log");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await Promise.all([
+    mkdir(tmpRoot, { recursive: true }),
+    mkdir(dbRoot, { recursive: true }),
+    mkdir(logsRoot, { recursive: true })
+  ]);
+  const mutableEnvironment = buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot });
+  const environment = childEnvironmentWithCanonicalMutablePaths({}, mutableEnvironment);
+  const processes = [];
+  t.after(() => {
+    const groupId = processes[0]?.processGroupId ?? processes[0]?.pid;
+    if (!Number.isInteger(groupId)) return;
+    try {
+      process.kill(-groupId, "SIGKILL");
+    } catch (error) {
+      if (error.code !== "ESRCH") throw error;
+    }
+  });
+  const outcome = await runChild({
+    command: process.execPath,
+    args: [
+      "-e",
+      [
+        "const {spawn}=require('node:child_process')",
+        "const descendant=spawn(process.execPath,['-e',\"process.on('SIGTERM',()=>{});setInterval(()=>{},1000)\"],{stdio:'ignore'})",
+        "process.stdout.write(`DESCENDANT_PID=${descendant.pid}\\n`)",
+        "process.on('SIGTERM',()=>process.exit(0))",
+        "setInterval(()=>{},1000)"
+      ].join(";")
+    ],
+    cwd: workspaceRoot,
+    env: environment,
+    logPath,
+    label: "leader-with-stubborn-descendant-fixture",
+    processReceiptPath: join(runRoot, "process-receipt.json"),
+    processes,
+    timeoutMs: 200,
+    terminationGraceMs: 100
+  });
+  assert.equal(outcome.timedOut, true);
+  assert.equal(processes[0].processGroupId, processes[0].pid);
+  assert.equal(processes[0].processGroupAbsent, true);
+  assert.equal(typeof processes[0].processGroupAbsenceCheckedAt, "string");
+  assert.deepEqual(
+    processes[0].terminationSignals.map((event) => event.signal),
+    ["SIGTERM", "SIGKILL"]
+  );
+  assert.equal(
+    processes[0].terminationSignals.every(
+      (event) => typeof event.at === "string" && !Number.isNaN(Date.parse(event.at))
+    ),
+    true
+  );
+  const log = await readFile(logPath, "utf8");
+  const descendantPid = Number(log.match(/DESCENDANT_PID=(\d+)/)?.[1]);
+  assert.equal(Number.isInteger(descendantPid), true);
+  assert.throws(() => process.kill(descendantPid, 0), /ESRCH/);
+  assert.throws(() => process.kill(-processes[0].processGroupId, 0), /ESRCH/);
+});
+
+test("an initial process-receipt write failure still supervises the already-spawned group", async (t) => {
+  const {
+    buildCanonicalMutableEnvironment,
+    childEnvironmentWithCanonicalMutablePaths,
+    runChild
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-run-child-receipt-failure-test-${process.pid}`
+  );
+  const tmpRoot = join(runRoot, "tmp");
+  const dbRoot = join(runRoot, "db");
+  const logsRoot = join(runRoot, "logs");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await Promise.all([
+    mkdir(tmpRoot, { recursive: true }),
+    mkdir(dbRoot, { recursive: true }),
+    mkdir(logsRoot, { recursive: true })
+  ]);
+  const mutableEnvironment = buildCanonicalMutableEnvironment({ runRoot, tmpRoot, dbRoot });
+  const environment = childEnvironmentWithCanonicalMutablePaths({}, mutableEnvironment);
+  const processes = [];
+  let rejected = null;
+  try {
+    await runChild({
+      command: process.execPath,
+      args: ["-e", "setInterval(()=>{},1000)"],
+      cwd: workspaceRoot,
+      env: environment,
+      logPath: join(logsRoot, "receipt-failure-child.log"),
+      label: "receipt-failure-fixture",
+      processReceiptPath: join(runRoot, "missing-parent", "process-receipt.json"),
+      processes,
+      timeoutMs: 5000,
+      terminationGraceMs: 100
+    });
+  } catch (error) {
+    rejected = error;
+  }
+  assert.match(rejected?.message ?? "", /ENOENT|no such file or directory/);
+  assert.equal(processes.length, 1);
+  const groupId = processes[0].processGroupId ?? processes[0].pid;
+  let survived = false;
+  try {
+    process.kill(-groupId, 0);
+    survived = true;
+  } catch (error) {
+    assert.equal(error.code, "ESRCH");
+  }
+  if (survived) {
+    process.kill(-groupId, "SIGKILL");
+  }
+  assert.equal(survived, false, "runChild must clean the group before rejecting setup failure");
+  assert.equal(processes[0].processGroupAbsent, true);
+  assert.equal(typeof processes[0].exitedAt, "string");
+});
+
+test("source pre/post comparison fails closed on path, byte, hash, or aggregate drift", async () => {
+  const { assertSourceManifestsUnchanged } = await import(runnerPath);
+  const pre = {
+    schemaVersion: "hk-question-bank-source-manifest-v1",
+    canonicalSerialization: "fixture serialization",
+    workspaceRoot: process.cwd(),
+    gitHead: "a".repeat(40),
+    gitBranch: "codex/a18-fixture",
+    fileCount: 1,
+    aggregateSha256: "aggregate-a",
+    entries: [{ path: "package.json", type: "file", bytes: 100, sha256: "sha-a" }]
+  };
+  assert.doesNotThrow(() => assertSourceManifestsUnchanged(pre, structuredClone(pre)));
+  for (const post of [
+    { ...pre, aggregateSha256: "aggregate-b" },
+    { ...pre, gitHead: "b".repeat(40) },
+    { ...pre, gitBranch: "codex/a18-drift" },
+    { ...pre, entries: [{ ...pre.entries[0], bytes: 101 }] },
+    { ...pre, entries: [{ ...pre.entries[0], sha256: "sha-b" }] },
+    { ...pre, entries: [{ ...pre.entries[0], path: "other.json" }] }
+  ]) {
+    assert.throws(() => assertSourceManifestsUnchanged(pre, post), /source changed during canonical run/);
+  }
+});
+
+test("explicit reviewed source bindings require exact file SHAs in both pre and post manifests", async () => {
+  const {
+    EXECUTING_RUNNER_BINDING,
+    assertLoadedTopologyMatchesSourcePre,
+    assertExecutingRunnerMatchesSourcePre,
+    bindReviewedSourceArtifacts,
+    captureSourceManifest,
+    loadCanonicalDirectTestBinding,
+    loadCanonicalFocusedLedgerBindings,
+    loadPackageTopology
+  } = await import(runnerPath);
+  const required = [
+    { path: "lib/server/example.test.ts", sha256: "a".repeat(64) },
+    { path: "data/example.json", sha256: "b".repeat(64) }
+  ];
+  const manifest = {
+    entries: [
+      { path: required[0].path, type: "file", bytes: 100, sha256: required[0].sha256 },
+      { path: required[1].path, type: "file", bytes: 200, sha256: required[1].sha256 }
+    ]
+  };
+  const binding = bindReviewedSourceArtifacts(required, manifest, structuredClone(manifest));
+  assert.deepEqual(binding, [
+    { ...required[0], bytes: 100, preSha256: required[0].sha256, postSha256: required[0].sha256 },
+    { ...required[1], bytes: 200, preSha256: required[1].sha256, postSha256: required[1].sha256 }
+  ]);
+
+  const mutationCases = [
+    { required: [{ ...required[0], sha256: "c".repeat(64) }], pre: manifest, post: manifest },
+    { required: [required[0]], pre: { entries: [] }, post: manifest },
+    { required: [required[0]], pre: manifest, post: { entries: [] } },
+    {
+      required: [required[0]],
+      pre: { entries: [{ ...manifest.entries[0], type: "symlink" }] },
+      post: manifest
+    },
+    {
+      required: [required[0]],
+      pre: manifest,
+      post: { entries: [{ ...manifest.entries[0], sha256: "d".repeat(64) }] }
+    }
+  ];
+  for (const candidate of mutationCases) {
+    assert.throws(
+      () => bindReviewedSourceArtifacts(candidate.required, candidate.pre, candidate.post),
+      /reviewed source artifact binding failed/
+    );
+  }
+
+  const workspaceRoot = process.cwd();
+  const [
+    topologyManifest,
+    focusedLedgerBindings,
+    directTestBinding,
+    packageTopology
+  ] = await Promise.all([
+    captureSourceManifest(workspaceRoot),
+    loadCanonicalFocusedLedgerBindings(workspaceRoot),
+    loadCanonicalDirectTestBinding(workspaceRoot),
+    loadPackageTopology(workspaceRoot)
+  ]);
+  assert.doesNotThrow(() =>
+    assertLoadedTopologyMatchesSourcePre({
+      sourcePre: topologyManifest,
+      focusedLedgerBindings,
+      directTestBinding,
+      packageTopology
+    })
+  );
+  assert.throws(
+    () =>
+      assertLoadedTopologyMatchesSourcePre({
+        sourcePre: {
+          ...topologyManifest,
+          entries: topologyManifest.entries.map((entry) =>
+            entry.path === focusedLedgerBindings[0].relativePath
+              ? { ...entry, sha256: "d".repeat(64) }
+              : entry
+          )
+        },
+        focusedLedgerBindings,
+        directTestBinding,
+        packageTopology
+      }),
+    /loaded topology changed before source preflight/
+  );
+
+  const executingManifest = {
+    entries: [
+      {
+        path: EXECUTING_RUNNER_BINDING.relativePath,
+        type: "file",
+        bytes: EXECUTING_RUNNER_BINDING.bytes,
+        sha256: EXECUTING_RUNNER_BINDING.sha256
+      }
+    ]
+  };
+  assert.doesNotThrow(() => assertExecutingRunnerMatchesSourcePre(executingManifest));
+  assert.throws(
+    () =>
+      assertExecutingRunnerMatchesSourcePre({
+        entries: [
+          { ...executingManifest.entries[0], sha256: "f".repeat(64) }
+        ]
+      }),
+    /executing runner bytes do not match source preflight/
+  );
+});
+
+test("independent reviewed-source pins reject a same-name no-op test-body mutation", async () => {
+  const {
+    INDEPENDENT_REVIEWED_SOURCE_AUTHORITY,
+    assertIndependentReviewedSourceBytes,
+    loadIndependentReviewedSourceAuthority
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const bindings = await loadIndependentReviewedSourceAuthority(workspaceRoot);
+  assert.deepEqual(bindings, INDEPENDENT_REVIEWED_SOURCE_AUTHORITY);
+  for (const requiredPath of [
+    "coordination/content-qa/hk-question-bank-evidence-runner.mjs",
+    "coordination/content-qa/hk-question-bank-evidence-runner.test.mjs",
+    "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+    "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+    "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+    "lib/mainlandPepHighQuestionBank.test.ts",
+    "lib/mainlandPepPrimaryQuestionBank.test.ts",
+    "lib/mainlandPepJuniorQuestionBank.test.ts",
+    "lib/mainlandBnuPrimaryQuestionBank.test.ts",
+    "lib/mainlandBnuJuniorQuestionBank.test.ts",
+    "lib/fullQuestionBankSolvability.test.ts",
+    "lib/hongKongEaseIndependentOracleV4.test.ts",
+    "lib/hongKongLessonQualityContract.test.ts",
+    "lib/questionBankSolvability.ts",
+    "lib/hongKongEaseIndependentOracle.ts",
+    "lib/questionFigure.test.ts",
+    "lib/practiceFigureAudit.test.ts",
+    "lib/hongKongDisplayed74FocusedTestLedger.ts",
+    "lib/hongKongResidual47FocusedTestLedger.ts",
+    "lib/hongKongResidual47RepairContract.test.ts",
+    "lib/server/hongKongEaseResponseContracts.test.ts",
+    "package.json",
+    "tsconfig.json"
+  ]) {
+    assert.equal(
+      INDEPENDENT_REVIEWED_SOURCE_AUTHORITY.some((binding) => binding.path === requiredPath),
+      true,
+      requiredPath
+    );
+  }
+
+  const mutatedPath = "lib/practiceFigureAudit.test.ts";
+  const originalBytes = await readFile(join(workspaceRoot, mutatedPath));
+  assert.doesNotThrow(() =>
+    assertIndependentReviewedSourceBytes(mutatedPath, originalBytes)
+  );
+  const source = originalBytes.toString("utf8");
+  const sameNameMarker =
+    'test("every shipped California practice figure passes the conceptual-correctness audit", () => {';
+  const bodyStart = source.indexOf(sameNameMarker);
+  const bodyEnd = source.indexOf("\n});", bodyStart);
+  assert.notEqual(bodyStart, -1);
+  assert.notEqual(bodyEnd, -1);
+  const sameNameNoopSource = `${source.slice(0, bodyStart)}${sameNameMarker.slice(0, -1)}{});${source.slice(bodyEnd + 4)}`;
+  assert.match(
+    sameNameNoopSource,
+    /test\("every shipped California practice figure passes the conceptual-correctness audit", \(\) => \{\}\);/
+  );
+  assert.throws(
+    () =>
+      assertIndependentReviewedSourceBytes(
+        mutatedPath,
+        Buffer.from(sameNameNoopSource, "utf8")
+      ),
+    /independent reviewed source authority mismatch/
+  );
+});
+
+test("the physical Node, TypeScript, TSX, and esbuild toolchain binding is deterministic and drift-sensitive", async () => {
+  const {
+    assertPhysicalToolchainUnchanged,
+    capturePhysicalToolchainBinding
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const first = await capturePhysicalToolchainBinding(workspaceRoot);
+  const second = await capturePhysicalToolchainBinding(workspaceRoot);
+  assert.deepEqual(second, first);
+  assert.equal(first.schemaVersion, "hk-question-bank-physical-toolchain-binding-v2");
+  assert.equal(first.node.requestedPath, process.execPath);
+  assert.equal(first.node.version, process.version);
+  assert.match(first.node.sha256, /^[0-9a-f]{64}$/);
+  assert.equal(first.typescript.requestedLauncherPath, join(workspaceRoot, "node_modules", ".bin", "tsc"));
+  assert.equal(first.typescript.fileCount > 0, true);
+  assert.match(first.typescript.aggregateSha256, /^[0-9a-f]{64}$/);
+  assert.equal(first.tsx.packageName, "tsx");
+  assert.equal(first.tsx.fileCount > 0, true);
+  assert.match(first.tsx.aggregateSha256, /^[0-9a-f]{64}$/);
+  assert.equal(first.esbuild.packageName, "esbuild");
+  assert.equal(first.esbuild.fileCount > 0, true);
+  assert.match(first.esbuild.aggregateSha256, /^[0-9a-f]{64}$/);
+  assert.equal(
+    first.typescript.importedModulePhysicalPath.startsWith(
+      `${first.typescript.packageRootPhysicalPath}/`
+    ),
+    true,
+    "the TypeScript AST implementation imported by the runner must be inside the hashed package root"
+  );
+  assert.doesNotThrow(() => assertPhysicalToolchainUnchanged(first, second));
+  assert.throws(
+    () =>
+      assertPhysicalToolchainUnchanged(first, {
+        ...second,
+        typescript: { ...second.typescript, aggregateSha256: "f".repeat(64) }
+      }),
+    /physical toolchain changed during canonical run/
+  );
+});
+
+test("ephemeral cleanup is constrained to direct run-root children", async () => {
+  const { cleanupEphemeralRunPaths } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-evidence-cleanup-test-${process.pid}`
+  );
+  const compiledRoot = join(runRoot, "compiled");
+  const dbRoot = join(runRoot, "db");
+  const tmpRoot = join(runRoot, "tmp");
+  await mkdir(runRoot, { recursive: true });
+  await Promise.all([
+    mkdir(compiledRoot),
+    mkdir(dbRoot),
+    mkdir(tmpRoot)
+  ]);
+  const cleanup = await cleanupEphemeralRunPaths(runRoot, [compiledRoot, dbRoot, tmpRoot]);
+  assert.deepEqual(cleanup.errors, []);
+  assert.equal(cleanup.completed, true);
+  assert.equal(existsSync(compiledRoot), false);
+  assert.equal(existsSync(dbRoot), false);
+  assert.equal(existsSync(tmpRoot), false);
+  await assert.rejects(
+    () => cleanupEphemeralRunPaths(runRoot, [join(workspaceRoot, ".tmp")]),
+    /not a direct child of run root/
+  );
+  await rm(runRoot, { recursive: true, force: true });
+});
+
+test("retained source manifests are physically hashed, byte-identical, current, and independently pinned", async (t) => {
+  const {
+    captureSourceManifest,
+    validateRetainedSourceManifests
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runRoot = join(
+    workspaceRoot,
+    ".tmp",
+    `hk-question-bank-source-manifest-receipt-test-${process.pid}`
+  );
+  const sourcePrePath = join(runRoot, "source-pre.json");
+  const sourcePostPath = join(runRoot, "source-post.json");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await mkdir(runRoot, { recursive: true });
+  const sourceManifest = await captureSourceManifest(workspaceRoot);
+  const sourceBytes = fixtureJsonBytes(sourceManifest);
+  await Promise.all([
+    writeFile(sourcePrePath, sourceBytes),
+    writeFile(sourcePostPath, sourceBytes)
+  ]);
+  const sourceReceipt = {
+    preAggregateSha256: sourceManifest.aggregateSha256,
+    postAggregateSha256: sourceManifest.aggregateSha256,
+    preManifestFileSha256: fixtureSha256(sourceBytes),
+    postManifestFileSha256: fixtureSha256(sourceBytes),
+    unchanged: true
+  };
+  const validated = await validateRetainedSourceManifests({
+    workspaceRoot,
+    sourcePrePath,
+    sourcePostPath,
+    sourceReceipt
+  });
+  assert.deepEqual(validated.sourcePre, sourceManifest);
+  assert.deepEqual(validated.sourcePost, sourceManifest);
+  assert.deepEqual(validated.currentSource, sourceManifest);
+  assert.equal(validated.reviewedSourceBindings.length > 20, true);
+
+  await rm(sourcePrePath);
+  await assert.rejects(
+    () =>
+      validateRetainedSourceManifests({
+        workspaceRoot,
+        sourcePrePath,
+        sourcePostPath,
+        sourceReceipt
+      }),
+    /retained source manifest physical read failed/
+  );
+  await writeFile(sourcePrePath, sourceBytes);
+
+  const reformattedPostBytes = Buffer.concat([sourceBytes, Buffer.from("\n")]);
+  await writeFile(sourcePostPath, reformattedPostBytes);
+  await assert.rejects(
+    () =>
+      validateRetainedSourceManifests({
+        workspaceRoot,
+        sourcePrePath,
+        sourcePostPath,
+        sourceReceipt: {
+          ...sourceReceipt,
+          postManifestFileSha256: fixtureSha256(reformattedPostBytes)
+        }
+      }),
+    /retained source manifest bytes differ/
+  );
+
+  const mutatedManifest = structuredClone(sourceManifest);
+  const reviewedTestEntry = mutatedManifest.entries.find(
+    (entry) => entry.path === "lib/practiceFigureAudit.test.ts"
+  );
+  assert.ok(reviewedTestEntry);
+  reviewedTestEntry.sha256 = "f".repeat(64);
+  mutatedManifest.aggregateSha256 = fixtureSourceManifestAggregate(mutatedManifest.entries);
+  const mutatedBytes = fixtureJsonBytes(mutatedManifest);
+  await Promise.all([
+    writeFile(sourcePrePath, mutatedBytes),
+    writeFile(sourcePostPath, mutatedBytes)
+  ]);
+  await assert.rejects(
+    () =>
+      validateRetainedSourceManifests({
+        workspaceRoot,
+        sourcePrePath,
+        sourcePostPath,
+        sourceReceipt: {
+          preAggregateSha256: mutatedManifest.aggregateSha256,
+          postAggregateSha256: mutatedManifest.aggregateSha256,
+          preManifestFileSha256: fixtureSha256(mutatedBytes),
+          postManifestFileSha256: fixtureSha256(mutatedBytes),
+          unchanged: true
+        }
+      }),
+    /independent reviewed source|current source manifest differs/
+  );
+});
+
+test("terminal PASS can only be minted after lock release from a durably sealed VALIDATED receipt", async (t) => {
+  const { writePostReleaseTerminalReceipt } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runId = `terminal-receipt-fixture-${process.pid}`;
+  const runRoot = join(workspaceRoot, ".tmp", "hk-question-bank-evidence-runs", runId);
+  const lockPath = join(workspaceRoot, ".tmp", `terminal-receipt-lock-fixture-${process.pid}`);
+  const outerReceiptPath = join(runRoot, "outer-exit-receipt.json");
+  const outerReceiptShaPath = join(runRoot, "outer-exit-receipt.sha256");
+  const terminalReceiptPath = join(runRoot, "terminal-receipt.json");
+  const terminalReceiptShaPath = join(runRoot, "terminal-receipt.sha256");
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  t.after(() => rm(lockPath, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  await rm(lockPath, { recursive: true, force: true });
+  await mkdir(runRoot, { recursive: true });
+  const sealedReceipt = {
+    schemaVersion: "hk-question-bank-outer-exit-receipt-v3",
+    status: "VALIDATED",
+    exitCode: null,
+    workspaceRoot,
+    runId,
+    runRoot,
+    validation: {
+      schemaVersion: "hk-question-bank-outer-validation-v1",
+      completed: true,
+      completedAt: "2026-08-14T00:00:00.000Z"
+    },
+    lock: {
+      path: lockPath,
+      acquired: true,
+      released: false
+    },
+    paths: {
+      outerReceiptPath,
+      outerReceiptShaPath,
+      terminalReceiptPath,
+      terminalReceiptShaPath
+    }
+  };
+  const writeSeal = async (receipt) => {
+    const bytes = fixtureJsonBytes(receipt);
+    await writeFile(outerReceiptPath, bytes);
+    await writeFile(
+      outerReceiptShaPath,
+      `${fixtureSha256(bytes)}  outer-exit-receipt.json\n`
+    );
+    return bytes;
+  };
+
+  await writeSeal({
+    ...sealedReceipt,
+    status: "VALIDATION_PENDING",
+    validation: { ...sealedReceipt.validation, completed: false }
+  });
+  await assert.rejects(
+    () =>
+      writePostReleaseTerminalReceipt({
+        sealedOuterReceiptPath: outerReceiptPath,
+        sealedOuterReceiptShaPath: outerReceiptShaPath,
+        terminalReceiptPath,
+        terminalReceiptShaPath,
+        lockPath
+      }),
+    /sealed outer receipt is not independently validated/
+  );
+
+  await writeSeal(sealedReceipt);
+  await mkdir(lockPath);
+  await assert.rejects(
+    () =>
+      writePostReleaseTerminalReceipt({
+        sealedOuterReceiptPath: outerReceiptPath,
+        sealedOuterReceiptShaPath: outerReceiptShaPath,
+        terminalReceiptPath,
+        terminalReceiptShaPath,
+        lockPath
+      }),
+    /canonical lock still exists/
+  );
+  await rm(lockPath, { recursive: true, force: false });
+
+  const terminal = await writePostReleaseTerminalReceipt({
+    sealedOuterReceiptPath: outerReceiptPath,
+    sealedOuterReceiptShaPath: outerReceiptShaPath,
+    terminalReceiptPath,
+    terminalReceiptShaPath,
+    lockPath
+  });
+  assert.equal(terminal.status, "PASS");
+  assert.equal(terminal.exitCode, 0);
+  assert.equal(terminal.validationCompleted, true);
+  assert.equal(terminal.lockReleased, true);
+  assert.equal(terminal.sealedOuterReceipt.status, "VALIDATED");
+  const terminalBytes = await readFile(terminalReceiptPath);
+  assert.deepEqual(JSON.parse(terminalBytes.toString("utf8")), terminal);
+  assert.equal(
+    await readFile(terminalReceiptShaPath, "utf8"),
+    `${fixtureSha256(terminalBytes)}  terminal-receipt.json\n`
+  );
+});
+
+test("outer validation candidate physically rehashes source, process, TAP, and complete verification receipts", async (t) => {
+  const {
+    EXECUTING_RUNNER_BINDING,
+    bindIndependentReviewedSourceArtifacts,
+    buildCanonicalMutableEnvironment,
+    captureSourceManifest,
+    capturePhysicalToolchainBinding,
+    childEnvironmentWithCanonicalMutablePaths,
+    loadCanonicalDirectTestBinding,
+    loadCanonicalFocusedLedgerBindings,
+    verifyCompleteTapLedgerAndArtifacts,
+    validateCompletedOuterReceipt
+  } = await import(runnerPath);
+  const workspaceRoot = process.cwd();
+  const runId = `receipt-fixture-${process.pid}`;
+  const runRoot = join(workspaceRoot, ".tmp", "hk-question-bank-evidence-runs", runId);
+  t.after(() => rm(runRoot, { recursive: true, force: true }));
+  await rm(runRoot, { recursive: true, force: true });
+  const paths = {
+    compiledRoot: join(runRoot, "compiled"),
+    tmpRoot: join(runRoot, "tmp"),
+    dbRoot: join(runRoot, "db"),
+    logsRoot: join(runRoot, "logs"),
+    processReceiptPath: join(runRoot, "process-receipt.json"),
+    sourcePrePath: join(runRoot, "source-pre.json"),
+    sourcePostPath: join(runRoot, "source-post.json"),
+    completeVerificationPath: join(runRoot, "complete-test-ledger-verification.json"),
+    outerReceiptPath: join(runRoot, "outer-exit-receipt.json"),
+    outerReceiptShaPath: join(runRoot, "outer-exit-receipt.sha256"),
+    terminalReceiptPath: join(runRoot, "terminal-receipt.json"),
+    terminalReceiptShaPath: join(runRoot, "terminal-receipt.sha256")
+  };
+  await mkdir(paths.logsRoot, { recursive: true });
+  const mutableEnvironment = buildCanonicalMutableEnvironment({
+    runRoot,
+    tmpRoot: paths.tmpRoot,
+    dbRoot: paths.dbRoot
+  });
+  const childEnvironment = childEnvironmentWithCanonicalMutablePaths(
+    {
+      NODE_OPTIONS: "--require=/tmp/must-not-survive.cjs",
+      NODE_PATH: "/tmp/must-not-survive"
+    },
+    mutableEnvironment
+  );
+  const physicalToolchain = await capturePhysicalToolchainBinding(workspaceRoot);
+  const sourceManifest = await captureSourceManifest(workspaceRoot);
+  const sourceManifestBytes = fixtureJsonBytes(sourceManifest);
+  const reviewedSourceBindings = await bindIndependentReviewedSourceArtifacts({
+    workspaceRoot,
+    sourcePre: sourceManifest,
+    sourcePost: sourceManifest,
+    currentSource: sourceManifest
+  });
+  const focusedLedgerBindings = await loadCanonicalFocusedLedgerBindings(workspaceRoot);
+  const directTestBinding = await loadCanonicalDirectTestBinding(workspaceRoot);
+  const expectedNames = [
+    ...directTestBinding.expectedNames,
+    ...focusedLedgerBindings.flatMap((binding) => binding.expectedNames)
+  ];
+  const tap = [
+    "TAP version 13",
+    ...expectedNames.map((name, index) => `ok ${index + 1} - ${name}`),
+    `1..${expectedNames.length}`,
+    `# tests ${expectedNames.length}`,
+    `# pass ${expectedNames.length}`,
+    "# fail 0",
+    "# cancelled 0",
+    "# skipped 0",
+    "# todo 0"
+  ].join("\n");
+  const completeVerification = verifyCompleteTapLedgerAndArtifacts({
+    tap,
+    focusedLedgerBindings,
+    directTestBinding,
+    artifactBasenames: ["compile.log", "test-question-bank.tap"]
+  });
+  const compileArgs = [
+    "-p",
+    "tsconfig.json",
+    "--noEmit",
+    "--incremental",
+    "false"
+  ];
+  const processReceipt = {
+    schemaVersion: "hk-question-bank-process-receipt-v3",
+    wrapper: {
+      pid: 4242,
+      ppid: 1,
+      execPath: process.execPath,
+      argv: [process.execPath, new URL(runnerPath).pathname],
+      cwd: workspaceRoot,
+      nodeVersion: process.version
+    },
+    processes: [
+      {
+        label: "typescript-compile",
+        pid: 4243,
+        ppid: 4242,
+        executable: join(workspaceRoot, "node_modules", ".bin", "tsc"),
+        args: compileArgs,
+        cwd: workspaceRoot,
+        startedAt: "2026-08-13T00:00:00.000Z",
+        exitedAt: "2026-08-13T00:01:00.000Z",
+        deadlineAt: "2026-08-13T00:15:00.000Z",
+        exitCode: 0,
+        signal: null,
+        logPath: join(paths.logsRoot, "compile.log"),
+        processGroupId: 4243,
+        processGroupAbsent: true,
+        processGroupAbsenceCheckedAt: "2026-08-13T00:01:00.000Z",
+        unexpectedGroupSurvivor: false,
+        timeoutMs: 900000,
+        terminationGraceMs: 5000,
+        timedOut: false,
+        aborted: false,
+        abortReason: null,
+        terminationSignals: [],
+        environment: childEnvironment
+      },
+      {
+        label: "canonical-question-bank-tests",
+        pid: 4244,
+        ppid: 4242,
+        executable: process.execPath,
+        args: [
+          "--import",
+          "tsx",
+          "--test",
+          "--test-concurrency=1",
+          "--test-reporter=tap",
+          ...directTestBinding.compiledEntries.map((entry) =>
+            join(workspaceRoot, entry.replace(/\.js$/, ".ts"))
+          )
+        ],
+        cwd: workspaceRoot,
+        startedAt: "2026-08-13T00:01:00.000Z",
+        exitedAt: "2026-08-13T00:02:00.000Z",
+        deadlineAt: "2026-08-13T00:16:00.000Z",
+        exitCode: 0,
+        signal: null,
+        logPath: join(paths.logsRoot, "test-question-bank.tap"),
+        processGroupId: 4244,
+        processGroupAbsent: true,
+        processGroupAbsenceCheckedAt: "2026-08-13T00:02:00.000Z",
+        unexpectedGroupSurvivor: false,
+        timeoutMs: 900000,
+        terminationGraceMs: 5000,
+        timedOut: false,
+        aborted: false,
+        abortReason: null,
+        terminationSignals: [],
+        environment: childEnvironment
+      }
+    ]
+  };
+  const processReceiptBytes = fixtureJsonBytes(processReceipt);
+  const completeVerificationBytes = fixtureJsonBytes(completeVerification);
+  const tapBytes = Buffer.from(tap, "utf8");
+  await Promise.all([
+    writeFile(join(paths.logsRoot, "compile.log"), ""),
+    writeFile(join(paths.logsRoot, "test-question-bank.tap"), tapBytes),
+    writeFile(paths.processReceiptPath, processReceiptBytes),
+    writeFile(paths.completeVerificationPath, completeVerificationBytes),
+    writeFile(paths.sourcePrePath, sourceManifestBytes),
+    writeFile(paths.sourcePostPath, sourceManifestBytes)
+  ]);
+  const valid = {
+    schemaVersion: "hk-question-bank-outer-exit-receipt-v3",
+    status: "VALIDATION_PENDING",
+    exitCode: null,
+    completedAt: "2026-08-13T00:00:00.000Z",
+    workspaceRoot,
+    runId,
+    runRoot,
+    uniqueRunRoot: true,
+    paths,
+    mutableEnvironment,
+    childEnvironment,
+    executingRunnerBinding: EXECUTING_RUNNER_BINDING,
+    physicalToolchain: {
+      pre: physicalToolchain,
+      postAggregateSha256: physicalToolchain.aggregateSha256,
+      unchanged: true
+    },
+    reviewedSourceBindings,
+    lock: {
+      path: join(workspaceRoot, ".tmp", "hk-question-bank-evidence.lock"),
+      ownerPid: 4242,
+      acquired: true,
+      released: false
+    },
+    cleanup: {
+      ephemeralPaths: [paths.compiledRoot, paths.dbRoot, paths.tmpRoot],
+      completed: true,
+      errors: []
+    },
+    source: {
+      preAggregateSha256: sourceManifest.aggregateSha256,
+      postAggregateSha256: sourceManifest.aggregateSha256,
+      preManifestFileSha256: fixtureSha256(sourceManifestBytes),
+      postManifestFileSha256: fixtureSha256(sourceManifestBytes),
+      unchanged: true
+    },
+    focusedLedgers: [
+      {
+        ledgerId: "displayed74-exact57",
+        relativePath:
+          "coordination/content-qa/authoritative/2026-08-13-hk-displayed74-focused-test-ledger.json",
+        fileSha256: "c676acf3931e4a59761cfc4f7249ebd7546fa144854c8ae89fdb59c4562e12fc",
+        testNameSha256: "3f0ec176d5c3ecdd216a1eaeb9d7fd3bda9a716796b9f28bf6b8f99529a386fd",
+        expectedFocusedTestCount: 57
+      },
+      {
+        ledgerId: "residual47-exact10",
+        relativePath:
+          "coordination/content-qa/authoritative/2026-08-13-hk-residual47-focused-test-ledger.json",
+        fileSha256: "8ecfc6570714daa6d35e1c9d1a1f5bee92a0b0b60b3230408e3f9acaaebb12c0",
+        testNameSha256: "d89c4aee3a620ecf6c5ff150b4b29def12b5f53107b41a1478c2cfa2a6437bfd",
+        expectedFocusedTestCount: 10
+      },
+      {
+        ledgerId: "ease-response-exact7",
+        relativePath:
+          "coordination/content-qa/authoritative/2026-08-13-hk-ease-response-focused-test-ledger.json",
+        fileSha256: "ca64cfd9403206ec5094d170c97f31a2556351e17b6beed7cbdcd11f64dcbe91",
+        testNameSha256: "38d338428107012f5813a051e84afec2c04e8b0a048e54186b419a7475db8b1a",
+        expectedFocusedTestCount: 7
+      }
+    ],
+    canonicalDirectTests: {
+      expectedDirectTestCount: 167,
+      testNameSha256: "660a3780b9dcb8daf5b39ac1d3fb3ada5869a89bfa4b14e932577ffe59c7ff37",
+      sourceFiles: directTestBinding.sourceFiles.map((sourceFile) => ({
+        sourcePath: sourceFile.sourcePath,
+        bytes: sourceFile.bytes,
+        sha256: sourceFile.sha256,
+        expectedTestCount: sourceFile.expectedTestCount
+      }))
+    },
+    processReceipt: {
+      path: paths.processReceiptPath,
+      sha256: fixtureSha256(processReceiptBytes)
+    },
+    tap: {
+      expectedTotalTestCount: 241,
+      tests: 241,
+      pass: 241,
+      fail: 0,
+      cancelled: 0,
+      skipped: 0,
+      todo: 0,
+      completeVerificationFileSha256: fixtureSha256(completeVerificationBytes),
+      tapLogSha256: fixtureSha256(tapBytes)
+    },
+    artifactPolicy: {
+      allowedLogBasenames: ["compile.log", "test-question-bank.tap"],
+      forbiddenStaleBasename: "test-question-bank.log",
+      staleArtifactConsumed: false,
+      authoritativeRunRoot: runRoot,
+      supersessionRule:
+        "Only authoritativeRunRoot may support this receipt; every other HK question-bank or residual28 evidence root is diagnostic and superseded."
+    },
+    validation: {
+      schemaVersion: "hk-question-bank-outer-validation-v1",
+      completed: false,
+      completedAt: null
+    }
+  };
+  const validation = await validateCompletedOuterReceipt(valid);
+  assert.equal(validation.completed, true);
+  assert.equal(validation.reviewedSourceAuthorityCount, reviewedSourceBindings.length);
+  for (const invalid of [
+    { ...valid, exitCode: 1 },
+    { ...valid, lock: { ...valid.lock, released: true } },
+    { ...valid, cleanup: { completed: false, errors: ["x"] } },
+    { ...valid, source: { ...valid.source, unchanged: false } },
+    { ...valid, source: { ...valid.source, preAggregateSha256: undefined } },
+    { ...valid, source: { ...valid.source, postManifestFileSha256: undefined } },
+    { ...valid, source: { ...valid.source, postManifestFileSha256: "c".repeat(64) } },
+    {
+      ...valid,
+      executingRunnerBinding: {
+        ...valid.executingRunnerBinding,
+        sha256: "f".repeat(64)
+      }
+    },
+    {
+      ...valid,
+      physicalToolchain: {
+        ...valid.physicalToolchain,
+        postAggregateSha256: "f".repeat(64)
+      }
+    },
+    { ...valid, reviewedSourceBindings: valid.reviewedSourceBindings.slice(1) },
+    {
+      ...valid,
+      mutableEnvironment: {
+        ...valid.mutableEnvironment,
+        values: { ...valid.mutableEnvironment.values, TMP: "/tmp" }
+      }
+    },
+    {
+      ...valid,
+      focusedLedgers: valid.focusedLedgers.map((ledger, index) =>
+        index === 1 ? { ...ledger, fileSha256: "d".repeat(64) } : ledger
+      )
+    },
+    { ...valid, processReceipt: { sha256: null } },
+    {
+      ...valid,
+      canonicalDirectTests: { ...valid.canonicalDirectTests, expectedDirectTestCount: 105 }
+    },
+    {
+      ...valid,
+      canonicalDirectTests: { ...valid.canonicalDirectTests, testNameSha256: "f".repeat(64) }
+    },
+    { ...valid, tap: { ...valid.tap, pass: 179 } },
+    { ...valid, artifactPolicy: { ...valid.artifactPolicy, staleArtifactConsumed: true } },
+    {
+      ...valid,
+      artifactPolicy: { ...valid.artifactPolicy, authoritativeRunRoot: `${runRoot}-other` }
+    }
+  ]) {
+    await assert.rejects(
+      () => validateCompletedOuterReceipt(invalid),
+      /outer validation candidate invariant failed/
+    );
+  }
+
+  await assert.rejects(
+    () =>
+      validateCompletedOuterReceipt({
+        ...valid,
+        processReceipt: { ...valid.processReceipt, sha256: "e".repeat(64) }
+      }),
+    /process receipt SHA-256 mismatch/
+  );
+  const forgedProcessReceipt = structuredClone(processReceipt);
+  forgedProcessReceipt.processes[0].exitCode = 1;
+  const forgedProcessReceiptBytes = fixtureJsonBytes(forgedProcessReceipt);
+  await writeFile(paths.processReceiptPath, forgedProcessReceiptBytes);
+  await assert.rejects(
+    () =>
+      validateCompletedOuterReceipt({
+        ...valid,
+        processReceipt: {
+          ...valid.processReceipt,
+          sha256: fixtureSha256(forgedProcessReceiptBytes)
+        }
+      }),
+    /process receipt semantic mismatch/
+  );
+  await writeFile(paths.processReceiptPath, processReceiptBytes);
+
+  const planlessTapBytes = Buffer.from(tap.replace(`\n1..${expectedNames.length}`, ""), "utf8");
+  await writeFile(join(paths.logsRoot, "test-question-bank.tap"), planlessTapBytes);
+  await assert.rejects(
+    () =>
+      validateCompletedOuterReceipt({
+        ...valid,
+        tap: { ...valid.tap, tapLogSha256: fixtureSha256(planlessTapBytes) }
+      }),
+    /canonical root TAP/
+  );
+  await writeFile(join(paths.logsRoot, "test-question-bank.tap"), tapBytes);
+
+  const forgedCompleteVerification = {
+    ...completeVerification,
+    observedTotalTestCount: completeVerification.observedTotalTestCount - 1
+  };
+  const forgedCompleteVerificationBytes = fixtureJsonBytes(forgedCompleteVerification);
+  await writeFile(paths.completeVerificationPath, forgedCompleteVerificationBytes);
+  await assert.rejects(
+    () =>
+      validateCompletedOuterReceipt({
+        ...valid,
+        tap: {
+          ...valid.tap,
+          completeVerificationFileSha256: fixtureSha256(forgedCompleteVerificationBytes)
+        }
+      }),
+    /complete verification semantic mismatch/
+  );
+  await rm(runRoot, { recursive: true, force: true });
+});

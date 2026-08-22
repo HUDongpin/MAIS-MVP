@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2b-fullbank-candidate-hold-authority-v1",
+  "status": "candidate-hold-not-live-promotion",
+  "boundary": "candidate-only closure of the full-bank independent-answer and immutable V3 replay gaps; no live source mutation, canonical execution, browser evidence, or release authorization",
+  "implementationBindings": [
+    {
+      "path": "coordination/content-qa/build-hk-ease-exact3-phase2b-fullbank-candidate.ts",
+      "sha256": "4e35021458472c64bd3942feef998bf2a978a08fed6cc6a8a52a2ea78bcbeac8",
+      "byteLength": 21477
+    },
+    {
+      "path": "coordination/content-qa/hk-ease-exact3-phase2b-fullbank-candidate.test.ts",
+      "sha256": "c490c85f89b340b64a422e961f7992806e2e4543e227f031eb5f8dbe3abca5d4",
+      "byteLength": 6722
+    }
+  ],
+  "priorAuthorityBindings": [
+    {
+      "name": "dataPlane",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-data-plane-candidate/candidate-hold-authority-v1.json",
+      "sha256": "572b0c9826db2c11fe3ec235a375676a82e6155283b8fa20a5a78f5f161eba16",
+      "schemaVersion": "hk-ease-exact3-phase2b-data-plane-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-promotable-until-phase3"
+    },
+    {
+      "name": "runtime",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-runtime-candidate/runtime-hold-authority-v1.json",
+      "sha256": "980ab2f3ec057a9f09d2fa2faccd787b9c9f03de838efa78eaa8b48056e26013",
+      "schemaVersion": "hk-ease-exact3-phase2b-serving-runtime-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion"
+    },
+    {
+      "name": "historicalRegression",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-historical-regression-candidate/historical-regression-hold-authority-v1.json",
+      "sha256": "cef3e6916ed0c050d4843fb71ed9005f4830df1dabebd76a95ab6ee16e14a1ea",
+      "schemaVersion": "hk-ease-exact3-phase2b-historical-regression-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion"
+    },
+    {
+      "name": "v4Lineage",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-v4-lineage-candidate/candidate-hold-authority-v1.json",
+      "sha256": "14af10dc5cfdb24e1f4dfda4678aa9c88819f7afac7eaaa377c2d845bc383948",
+      "schemaVersion": "hk-ease-exact3-v4-lineage-candidate-hold-authority-v1",
+      "status": "candidate-hold-not-live-promotion"
+    }
+  ],
+  "immutablePreimageBindings": [
+    {
+      "name": "questionPack",
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2.json",
+      "sha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "role": "authoritative-pre-promotion-byte-source"
+    },
+    {
+      "name": "responseAudit",
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28.json",
+      "sha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "role": "authoritative-pre-promotion-byte-source"
+    },
+    {
+      "name": "responseContracts",
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4.json",
+      "sha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+      "role": "authoritative-pre-promotion-byte-source"
+    }
+  ],
+  "outputBindings": [
+    {
+      "logicalTargetPath": "lib/questionBankSolvability.ts",
+      "preimageSha256": "48970ce1a17231269fd03c35d257272b1a0b7fb60c346462cbf230df3d43984d",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-questionBankSolvability.ts.snapshot",
+      "sha256": "2b400503b0cb9fb90e4627fd7e285e58c830b78ac2d22839b0fa5a16c0b69e7f",
+      "byteLength": 107715
+    },
+    {
+      "logicalTargetPath": "lib/hongKongEaseIndependentOracle.ts",
+      "preimageSha256": "0263947c3449d42f378ae721c555896b429fbfab309081229500eab6fb96045b",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-hongKongEaseIndependentOracle.ts.snapshot",
+      "sha256": "08c315e86ec0c0a917c4f7b9f85f6844b25e427807a44bc03ed6d2088a480b6c",
+      "byteLength": 31714
+    },
+    {
+      "logicalTargetPath": "lib/fullQuestionBankSolvability.test.ts",
+      "preimageSha256": "f964d1f2d11dbd5eeb8c1ebf2aea5a3bdf73d73189ed511fa68dc09d2ebe984c",
+      "snapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/phase2b-fullbank-candidate/lib-fullQuestionBankSolvability.test.ts.snapshot",
+      "sha256": "1d1ed1c4fcaaae556b6ddde0dcdc4bed74f93add4ee2f0d445083672ba72c7f0",
+      "byteLength": 32604
+    }
+  ],
+  "semanticClosure": {
+    "exactResidualQuestionId": "supp-p1-counting-number-bonds-common-check-v3",
+    "independentAnswerSourceKey": "supp-p1-counting-number-bonds-common-check",
+    "expectedQuestionBankTotal": 24580,
+    "expectedQuestionBankPassRows": 24580,
+    "v3OracleReplayCoordinate": "immutable-step0-preimage-not-live-postimage"
+  },
+  "promotion": {
+    "liveMutationAuthorized": false,
+    "fullBankCanonicalAuthorized": false,
+    "browserAuthorized": false,
+    "releaseAuthorized": false,
+    "remainingGates": [
+      "isolated full-bank shadow replay against exact Phase2B.1-.5 bytes",
+      "exact216 canonical runner candidate and independent source authority",
+      "independent A18 V4 delta review",
+      "browser and release evidence"
+    ]
+  },
+  "authorityPayloadSha256": "07a99f0bc9b781e2b014d02af6ee5886285146a798266bf68ed7999ac50e80d5"
+}

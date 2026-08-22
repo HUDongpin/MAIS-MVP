@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "authority": {
+    "explanationAdjudicationSha256": "d86746cf2fc44cbe7f66ab22c86668340db72e1687dfaaeff2e45c5c7e0f7d55",
+    "responseAdjudicationSha256": "e282d7e64ae2e17f20a59c0a9f990a27f14659cdbb148660ad9b400703d57281",
+    "responseDecisionV2Sha256": "bcd65fca1f789a9d9f60f343d13607c099ae044a0379b423b0b84592f843287f"
+  },
+  "explanation": {
+    "genericFirstStepIds": [
+      "supp-p3-multiplication-division-first-step-v2",
+      "supp-p3-fractions-intro-first-step-v2",
+      "supp-p3-measurement-first-step-v2",
+      "supp-p3-geometry-patterns-first-step-v2",
+      "supp-p4-large-numbers-first-step-v2",
+      "supp-p4-decimals-first-step-v2",
+      "supp-p4-perimeter-area-first-step-v2",
+      "supp-p5-fractions-operations-first-step-v2",
+      "supp-p5-rates-first-step-v2",
+      "supp-p6-percentages-first-step-v2",
+      "supp-p6-speed-first-step-v2",
+      "supp-p6-pre-secondary-problem-solving-first-step-v2",
+      "supp-integers-first-step-v2",
+      "supp-algebra-basics-first-step-v2",
+      "supp-angles-first-step-v2",
+      "supp-ratios-first-step-v2",
+      "supp-linear-equations-first-step-v2",
+      "supp-coordinates-first-step-v2",
+      "supp-transformations-first-step-v2",
+      "supp-probability-s2-first-step-v2",
+      "supp-polynomials-first-step-v2",
+      "supp-identities-square-patterns-first-step",
+      "supp-trigonometry-basics-first-step-v2",
+      "supp-arc-length-sector-area-first-step",
+      "supp-functions-first-step-v2",
+      "supp-coordinate-geometry-first-step-v2",
+      "supp-circles-first-step-v2",
+      "supp-more-algebra-first-step-v2",
+      "supp-data-handling-first-step-v2",
+      "supp-advanced-functions-first-step-v2",
+      "supp-trigonometry-s5-first-step-v2",
+      "supp-probability-s5-first-step-v2",
+      "supp-calculus-first-step-v2",
+      "supp-statistics-s6-first-step-v2",
+      "supp-exam-revision-first-step-v2",
+      "supp-mixed-problem-solving-first-step-v2"
+    ],
+    "genericCommonCheckIds": [
+      "supp-integers-common-check-v2",
+      "supp-algebra-basics-common-check-v2",
+      "supp-linear-equations-common-check-v2",
+      "supp-probability-s2-common-check-v2",
+      "supp-trigonometry-basics-common-check-v2",
+      "supp-arc-length-sector-area-common-check",
+      "supp-more-algebra-common-check-v2",
+      "supp-advanced-functions-common-check-v2",
+      "supp-trigonometry-s5-common-check-v2",
+      "supp-probability-s5-common-check-v2",
+      "supp-differentiation-intro-common-check-v2",
+      "supp-statistics-s6-common-check-v2",
+      "supp-mixed-problem-solving-common-check-v2"
+    ],
+    "bespokeFirstStepIds": [
+      "supp-p5-volume-first-step-v2",
+      "supp-p5-charts-averages-first-step-v2",
+      "supp-p6-ratio-proportion-first-step-v2",
+      "supp-statistics-s1-first-step-v2",
+      "supp-differentiation-intro-first-step-v2"
+    ],
+    "bespokeCommonCheckIds": [
+      "supp-ratios-common-check-v2",
+      "supp-statistics-s1-common-check-v2",
+      "supp-polynomials-common-check-v2",
+      "supp-identities-square-patterns-common-check",
+      "supp-circles-common-check-v2",
+      "supp-calculus-common-check-v2",
+      "supp-exam-revision-common-check-v2"
+    ]
+  },
+  "responseDefectIds": [
+    "supp-p3-multiplication-division-guided-example-v2",
+    "q2",
+    "supp-algebra-basics-key-fact",
+    "q18",
+    "supp-polynomials-key-fact-v2",
+    "supp-polynomials-guided-example",
+    "hk-s3-identities-square-patterns-1",
+    "supp-identities-square-patterns-key-fact",
+    "q10-v2",
+    "supp-differentiation-intro-key-fact-v2",
+    "supp-calculus-guided-example-v2",
+    "supp-p5-volume-key-fact-v2",
+    "graph-p4-decimals-number-line",
+    "supp-linear-equations-first-step-v2",
+    "supp-trigonometry-s5-first-step-v2",
+    "supp-differentiation-intro-first-step-v2"
+  ],
+  "overlapIds": [
+    "supp-linear-equations-first-step-v2",
+    "supp-trigonometry-s5-first-step-v2",
+    "supp-differentiation-intro-first-step-v2"
+  ],
+  "allowedQuestionDeltaMatrix": {
+    "versioningInvariant": "Every old row advances to its exact mandatory successor ID; id is therefore an allowed and required leaf delta for all 74 rows.",
+    "explanationOnlyLeafPaths": ["id", "explanation.en", "explanation.zh"],
+    "explanationOnlyIds": [
+      "supp-p3-multiplication-division-first-step-v2",
+      "supp-p3-fractions-intro-first-step-v2",
+      "supp-p3-measurement-first-step-v2",
+      "supp-p3-geometry-patterns-first-step-v2",
+      "supp-p4-large-numbers-first-step-v2",
+      "supp-p4-decimals-first-step-v2",
+      "supp-p4-perimeter-area-first-step-v2",
+      "supp-p5-fractions-operations-first-step-v2",
+      "supp-p5-rates-first-step-v2",
+      "supp-p6-percentages-first-step-v2",
+      "supp-p6-speed-first-step-v2",
+      "supp-p6-pre-secondary-problem-solving-first-step-v2",
+      "supp-integers-first-step-v2",
+      "supp-algebra-basics-first-step-v2",
+      "supp-angles-first-step-v2",
+      "supp-ratios-first-step-v2",
+      "supp-coordinates-first-step-v2",
+      "supp-transformations-first-step-v2",
+      "supp-probability-s2-first-step-v2",
+      "supp-polynomials-first-step-v2",
+      "supp-identities-square-patterns-first-step",
+      "supp-trigonometry-basics-first-step-v2",
+      "supp-arc-length-sector-area-first-step",
+      "supp-functions-first-step-v2",
+      "supp-coordinate-geometry-first-step-v2",
+      "supp-circles-first-step-v2",
+      "supp-more-algebra-first-step-v2",
+      "supp-data-handling-first-step-v2",
+      "supp-advanced-functions-first-step-v2",
+      "supp-probability-s5-first-step-v2",
+      "supp-calculus-first-step-v2",
+      "supp-statistics-s6-first-step-v2",
+      "supp-exam-revision-first-step-v2",
+      "supp-mixed-problem-solving-first-step-v2",
+      "supp-integers-common-check-v2",
+      "supp-algebra-basics-common-check-v2",
+      "supp-linear-equations-common-check-v2",
+      "supp-probability-s2-common-check-v2",
+      "supp-trigonometry-basics-common-check-v2",
+      "supp-arc-length-sector-area-common-check",
+      "supp-more-algebra-common-check-v2",
+      "supp-advanced-functions-common-check-v2",
+      "supp-trigonometry-s5-common-check-v2",
+      "supp-probability-s5-common-check-v2",
+      "supp-differentiation-intro-common-check-v2",
+      "supp-statistics-s6-common-check-v2",
+      "supp-mixed-problem-solving-common-check-v2",
+      "supp-p5-charts-averages-first-step-v2",
+      "supp-ratios-common-check-v2",
+      "supp-statistics-s1-common-check-v2",
+      "supp-polynomials-common-check-v2",
+      "supp-identities-square-patterns-common-check",
+      "supp-circles-common-check-v2",
+      "supp-calculus-common-check-v2",
+      "supp-exam-revision-common-check-v2"
+    ],
+    "firstStepOptionAnswerExplanationLeafPaths": ["id", "answer", "options.0.en", "options.0.zh", "explanation.en", "explanation.zh"],
+    "firstStepOptionAnswerExplanationIds": [
+      "supp-p5-volume-first-step-v2",
+      "supp-p6-ratio-proportion-first-step-v2",
+      "supp-statistics-s1-first-step-v2"
+    ],
+    "distractorAndExplanationIds": [
+      "supp-linear-equations-first-step-v2",
+      "supp-trigonometry-s5-first-step-v2",
+      "supp-differentiation-intro-first-step-v2"
+    ],
+    "tankPromptExplanationId": "supp-p5-volume-key-fact-v2",
+    "tankPromptExplanationLeafPaths": ["id", "prompt.en", "prompt.zh", "explanation.en", "explanation.zh"],
+    "numberLineDisclosureOnlyId": "graph-p4-decimals-number-line",
+    "numberLineDisclosureOnlyLeafPaths": ["id", "diagram.semanticDisclosurePolicy"],
+    "responseContractOnlyNoQuestionObjectDeltaLeafPaths": ["id"],
+    "responseContractOnlyNoQuestionObjectDeltaIds": [
+      "supp-p3-multiplication-division-guided-example-v2",
+      "q2",
+      "supp-algebra-basics-key-fact",
+      "q18",
+      "supp-polynomials-key-fact-v2",
+      "supp-polynomials-guided-example",
+      "hk-s3-identities-square-patterns-1",
+      "supp-identities-square-patterns-key-fact",
+      "q10-v2",
+      "supp-differentiation-intro-key-fact-v2",
+      "supp-calculus-guided-example-v2"
+    ]
+  },
+  "distractorReplacements": [
+    {
+      "id": "supp-linear-equations-first-step-v2",
+      "index": 1,
+      "allowedLeafPathsIncludingVersionedId": ["id", "explanation.en", "explanation.zh", "options.1.en", "options.1.zh"],
+      "old": { "en": "Divide by the coefficient before undoing an added constant", "zh": "未消去所加常數，便先除以係數" },
+      "replacement": { "en": "Divide only the variable term by its coefficient while leaving the constant and the other side unchanged.", "zh": "只把含變量的一項除以係數，常數項和方程另一邊保持不變。" }
+    },
+    {
+      "id": "supp-trigonometry-s5-first-step-v2",
+      "index": 3,
+      "allowedLeafPathsIncludingVersionedId": ["id", "explanation.en", "explanation.zh", "options.3.en", "options.3.zh"],
+      "old": { "en": "List periodic solutions before checking the required interval", "zh": "未檢查題目指定區間，便先列出週期解" },
+      "replacement": { "en": "Give only one principal value and never generate or check the other solutions in the required interval.", "zh": "只寫一個主值，不列出或檢查指定區間內的其他解。" }
+    },
+    {
+      "id": "supp-differentiation-intro-first-step-v2",
+      "index": 1,
+      "allowedLeafPathsIncludingVersionedId": ["id", "explanation.en", "explanation.zh", "options.1.en", "options.1.zh"],
+      "old": { "en": "Reduce the exponent before multiplying by the original exponent", "zh": "未乘原來指數，便先把指數減一" },
+      "replacement": { "en": "Reduce the exponent by one but never multiply by the original exponent.", "zh": "只把指數減一，卻沒有乘以原來的指數。" }
+    }
+  ],
+  "tank": {
+    "id": "supp-p5-volume-key-fact-v2",
+    "prompt": {
+      "en": "A cuboid tank has volume 48 cm^3, length 4 cm, and width 3 cm. What is its height? Give your answer with a length unit.",
+      "zh": "一個長方體水箱的體積是 48 立方厘米，長 4 厘米、闊 3 厘米。高是多少？答案須附上長度單位。"
+    },
+    "explanation": {
+      "en": "Here height is unknown. From V = lwh, divide the volume by the base area: h = 48 ÷ (4 × 3) = 4 cm.",
+      "zh": "這題的未知量是高。由 V = lwh，用體積除以底面積：h = 48 ÷（4 × 3）= 4 厘米。"
+    }
+  },
+  "numberLineDisclosure": {
+    "id": "graph-p4-decimals-number-line",
+    "path": "diagram.semanticDisclosurePolicy",
+    "value": {
+      "kind": "ordinal-tick-position",
+      "pointLabel": "P",
+      "ordinalTickFromMinimum": 7,
+      "caption": {
+        "en": "Number line from 3 to 4 in intervals of 0.1. Point P is on the seventh small tick after 3.",
+        "zh": "數線由 3 至 4，每小格表示 0.1。點 P 位於 3 之後第七個小刻度。",
+        "zhHans": "数轴从 3 到 4，每小格表示 0.1。点 P 位于 3 之后第七个小刻度。"
+      }
+    }
+  }
+}

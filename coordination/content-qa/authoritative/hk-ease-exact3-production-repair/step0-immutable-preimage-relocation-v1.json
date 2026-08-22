@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "hk-ease-exact3-step0-immutable-preimage-relocation-v1",
+  "builderPath": "coordination/content-qa/materialize-hk-ease-exact3-step0-immutable-preimages.ts",
+  "outputPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+  "status": "step0-frozen-live-phase2-mutation-not-authorized",
+  "authorizationBoundary": "immutable-preimage-plus-relocation-only; no learner content, live pack, live contracts, live audit, live version manifest, or runtime dispatch mutation",
+  "snapshotDirectory": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256",
+  "exact26SnapshotDirectory": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256",
+  "sourceRelocations": [
+    {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "expectedOldSha256": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2.json"
+    },
+    {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "expectedOldSha256": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4.json"
+    },
+    {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+      "expectedOldSha256": "3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/3ae431cd883638f2a60924816353540bfead2a11463558417b690caf11986a28.json"
+    },
+    {
+      "logicalPath": "data/historical/hongKongQuestionVersionManifest.json",
+      "expectedOldSha256": "f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/f0cfaeaf745325d6b8e99353082f7e0be9d63fdb2cb18db0d3b7568c0415af92.json"
+    },
+    {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "expectedOldSha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62.json"
+    },
+    {
+      "logicalPath": "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "expectedOldSha256": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimages/sha256/fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597.json"
+    }
+  ],
+  "exact26FrozenCoordinateRelocations": [
+    {
+      "logicalPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "expectedOldSha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634",
+      "storedExtension": ".json",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634.json"
+    },
+    {
+      "logicalPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "expectedOldSha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+      "storedExtension": ".json",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6.json"
+    },
+    {
+      "logicalPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-exact26-review-receipt.json",
+      "expectedOldSha256": "5f2252132c425923d8edfaeac047664823c2770225ad7cf9fdd11859287bf3d5",
+      "storedExtension": ".json",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/5f2252132c425923d8edfaeac047664823c2770225ad7cf9fdd11859287bf3d5.json"
+    },
+    {
+      "logicalPath": "coordination/content-qa/recover-hk-ease-independent-oracle-v4-exact26-preimage.ts",
+      "expectedOldSha256": "2ce83f09fd4f1d61ea248f3de3a15cbad1f3f76a4b20d0240b7c82b2b486a01f",
+      "storedExtension": ".ts.snapshot",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/2ce83f09fd4f1d61ea248f3de3a15cbad1f3f76a4b20d0240b7c82b2b486a01f.ts.snapshot"
+    },
+    {
+      "logicalPath": "lib/hongKongEaseIndependentOracleV4.ts",
+      "expectedOldSha256": "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1",
+      "storedExtension": ".ts.snapshot",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1.ts.snapshot"
+    },
+    {
+      "logicalPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "expectedOldSha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472",
+      "storedExtension": ".ts.snapshot",
+      "immutableSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/exact26-frozen-coordinates/sha256/cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472.ts.snapshot"
+    }
+  ],
+  "implementationSourceBindings": [
+    {
+      "role": "materializer-and-receipt-builder",
+      "path": "coordination/content-qa/materialize-hk-ease-exact3-step0-immutable-preimages.ts",
+      "sha256": "93ad10af8a688d8fa5d34445af4f3d261628059ad9f15299254f7da4d50e285d"
+    },
+    {
+      "role": "dual-key-relocation-resolver",
+      "path": "coordination/content-qa/hk-ease-exact3-immutable-preimage-relocation.ts",
+      "sha256": "9c8a54ff5a409db393ae2aee0483618374f477f73aa3eb1ab7e2d5b22505d303"
+    }
+  ],
+  "versionManifestDualUsePolicy": "both residual28 reconstruction occurrences retain the same logical f0cf pair and resolve to the one f0cf content-addressed snapshot",
+  "runtimePreRepairRecovery": {
+    "status": "recovered-authentic-exact-reverse-of-recorded-phase1-isolated-insertion",
+    "logicalPath": "lib/server/hongKongEaseResponseContracts.ts",
+    "claimedPreRepairSha256": "af8679b39dce192bcce8c7c18724e5c6538f56e5ec1ce2529bcdb2a1bd51ee91",
+    "recoveredSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/runtime-preimages/sha256/af8679b39dce192bcce8c7c18724e5c6538f56e5ec1ce2529bcdb2a1bd51ee91.ts",
+    "recoveredByteLength": 72694,
+    "phase1PostimageSha256": "1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1",
+    "phase1PostimageByteLength": 76868,
+    "phase1PostimageSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/runtime-phase1-postimages/sha256/1ebefbb799f3f5b64f57ae9beff0f5641939eb5ea6f81aa93f5fe9fc21def3f1.ts",
+    "exactInsertedByteLength": 4174,
+    "exactInsertedSha256": "d98dc50edc6509c9834d966d019eab3d80a2eb4a74d1c840aff98e07c7024d9c",
+    "exactInsertedSnapshotPath": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/runtime-phase1-insertions/sha256/d98dc50edc6509c9834d966d019eab3d80a2eb4a74d1c840aff98e07c7024d9c.blob",
+    "startMarker": "type ExactClassifiedFractionGroups = readonly [",
+    "endMarker": "function matchContract(contract: Contract, selectedAnswer: string): boolean {",
+    "markerOccurrencePolicy": "each-marker-exactly-once",
+    "recoveryPolicy": "remove-only-the-byte-range-from-start-marker-up-to-end-marker",
+    "substitutionPolicy": "current-or-unverified-bytes-must-never-substitute-for-the-claimed-pre-repair-image"
+  },
+  "preservedHistoricalJsonAuthorities": [
+    {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+      "sha256": "8c087e024d184f92e1a6a51798cdb5f9ae3ddcff7dbc15e7ec65bb0fe1c2b608"
+    },
+    {
+      "path": "coordination/content-qa/authoritative/2026-08-13-hk-residual28-repair-contract.json",
+      "sha256": "89891eb15b8823f29c7ca5c22a1a7f59ad4501d5c7600fea7a2ef82dce72f0b4"
+    },
+    {
+      "path": "data/historical/hongKongResidual28PromotionManifest.json",
+      "sha256": "b1e77a04e0ef7c6d381afcd114e790bdaae97dedc5b8829328fe0d7945aa7540"
+    }
+  ],
+  "exact26FrozenCoordinates": {
+    "sanitizedInput": {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "sha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634"
+    },
+    "finalSupplement": {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "sha256": "6322b360ff71778fb7611190b7bf5a0a8f4be64287e2c5b3e7744ece4e3e57c6",
+      "rowsPayloadSha256": "315a47b34b0e48eeb4674e3b7b88f3de0b6ed1b5ce0348b1afe4cb64ae43f335"
+    },
+    "independentReviewReceipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-exact26-review-receipt.json",
+      "sha256": "5f2252132c425923d8edfaeac047664823c2770225ad7cf9fdd11859287bf3d5"
+    },
+    "preimageRecoveryBuilder": {
+      "path": "coordination/content-qa/recover-hk-ease-independent-oracle-v4-exact26-preimage.ts",
+      "sha256": "2ce83f09fd4f1d61ea248f3de3a15cbad1f3f76a4b20d0240b7c82b2b486a01f"
+    },
+    "oracleRuntime": {
+      "path": "lib/hongKongEaseIndependentOracleV4.ts",
+      "sha256": "697c62f2433bf03ca0d9296dd66a90e441fed22a904f55ca2cdb074f49ffa2c1"
+    },
+    "oracleFocusedTest": {
+      "path": "lib/hongKongEaseIndependentOracleV4.test.ts",
+      "sha256": "cf8fc58da712b3fa277c34cf940a5c434ab48712ce4932e09e0de987cd945472"
+    }
+  },
+  "forbiddenLiveMutationPaths": [
+    "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+    "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+    "data/generated-content/hk-ease-practice-bank-v2/response-contract-audit.json",
+    "data/historical/hongKongQuestionVersionManifest.json",
+    "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+    "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-independent-exact26-review-receipt.json",
+    "coordination/content-qa/recover-hk-ease-independent-oracle-v4-exact26-preimage.ts",
+    "lib/hongKongEaseIndependentOracleV4.ts",
+    "lib/hongKongEaseIndependentOracleV4.test.ts",
+    "lib/server/hongKongEaseResponseContracts.ts"
+  ],
+  "receiptPayloadSha256": "da58923bdf7fa850d2aa989d957578603cfcd5a35bcf9024768c94966b8fc915"
+}

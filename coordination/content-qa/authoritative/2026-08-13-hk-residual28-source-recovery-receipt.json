@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 2,
+  "artifact": "hk-residual28-source-recovery-receipt",
+  "status": "immutable-recovery-evidence",
+  "recoveryAlgorithm": "Audit and parse the exact package-local tsx source-map container; require map.sources to contain the exact original questions.ts coordinate exactly once at index 0; encode map.sourcesContent[0] as UTF-8 without transformation; require byte length 202554 and SHA-256 24ec6f...; compare those exact bytes with the package-local non-compilable source preimage.",
+  "historicalCacheContainer": {
+    "classification": "non-authoritative-recovery-coordinate",
+    "historicalPath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-ease-independent-oracle-tdd/green/tsx-501/17866-9396cafdfc09c1deecabfc772c5b683043120ef4",
+    "historicalSha256": "cf1723ab41cec7dfafdb0e947994c53c6855f8d8fde2aa3ee5d08681fbca4e82",
+    "byteLength": 544299
+  },
+  "immutableCacheContainer": {
+    "classification": "immutable-artifact-resolvable",
+    "path": "coordination/content-qa/authoritative/2026-08-13-data-questions-residual28-preimage-source-map.json.txt",
+    "sha256": "cf1723ab41cec7dfafdb0e947994c53c6855f8d8fde2aa3ee5d08681fbca4e82",
+    "byteLength": 544299
+  },
+  "containerContentAudit": {
+    "auditVersion": "hk-residual28-source-map-container-secret-pattern-audit-v1",
+    "topLevelKeys": [
+      "code",
+      "map",
+      "warnings"
+    ],
+    "sourceMapKeys": [
+      "ignoreList",
+      "mappings",
+      "names",
+      "sources",
+      "sourcesContent",
+      "version"
+    ],
+    "sourceCount": 1,
+    "sourcesContentCount": 1,
+    "secretPatternCounts": {
+      "bearer": 0,
+      "authorizationHeader": 0,
+      "cookie": 0,
+      "privateKey": 0,
+      "openai": 0,
+      "aws": 0,
+      "jwt": 0,
+      "envSecret": 0
+    }
+  },
+  "sourceMapExtraction": {
+    "classification": "non-authoritative-recovery-coordinate",
+    "sourceIndex": 0,
+    "historicalPath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/questions.ts",
+    "matchingSourceCount": 1,
+    "utf8ByteLength": 202554,
+    "historicalSha256": "24ec6fb77921f0d22a8281179ac3a07f55817351ad31894a94cf72cfa5cc8f7a"
+  },
+  "recoveredArtifact": {
+    "classification": "immutable-artifact-resolvable",
+    "path": "coordination/content-qa/authoritative/2026-08-13-data-questions-residual28-preimage.txt",
+    "sha256": "24ec6fb77921f0d22a8281179ac3a07f55817351ad31894a94cf72cfa5cc8f7a",
+    "byteLength": 202554
+  }
+}

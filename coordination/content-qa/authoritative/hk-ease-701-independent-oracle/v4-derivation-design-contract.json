@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "hk-ease-independent-oracle-v4-derivation-design-v2",
+  "status": "tdd-red-pending-sanitized-input-701-executable-derivations-and-independent-re-review",
+  "purpose": "Supersede the v3 evidence-strength boundary without rewriting v3: all 701 rows must carry a typed, executable, row-specific mathematical or logical derivation bound to an answer-free learner stimulus. Production answers and response contracts enter only after derivation, in a separate comparison layer.",
+  "immutablePredecessor": {
+    "path": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+    "sha256": "8436f0c97fafe803f8fe6930cfa65f6363c4cb05174f7a2e7465d688a29d0d62",
+    "schemaVersion": "hk-ease-independent-answer-oracle-v3",
+    "rowSpecificDerivationCount": 234,
+    "classificationOnlyCount": 467,
+    "authorityBoundary": "immutable predecessor evidence only; its 467 review-method classifications are not row-specific derivations and cannot satisfy final 701-row semantic acceptance"
+  },
+  "boundSources": {
+    "data/generated-content/hk-ease-practice-bank-v2/question-pack.json": "fa5b861a84a502725b9286d71961bd27a58bf6bf09e4d2412b7f4b1a1aca03e2",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-a.json": "fa53a9255c60e71111c8b8837c33cf9cc14b539964884566fd28c2269ee24b1d",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-b.json": "d291f64b2676b719053c1042183de8155e3b07acace27e7cd6ccb1eda7da1c0f",
+    "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/semantic-shard-c.json": "5fe839673194828096a1e8ed0ce36bd683f5a9347c816be4b8ddc38ef37e8261",
+    "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json": "06c1bc402b6d16b0d453743a001cc164bd68aa9128f6bddd744efabfa8006ab4",
+    "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json": "fdb823e7e0923eff7cabb569e171680965dfa6d1e9edce36567fb4bf24ebc597"
+  },
+  "predecessorPartition": {
+    "classificationOnlySet": {
+      "count": 467,
+      "firstId": "hk-ease-10556",
+      "lastId": "hk-ease-2042",
+      "orderedIdListSha256": "6160e6ec4d87d440a279dea4214882905a1b2936c106808d6de93e4c62aae67d",
+      "sortedIdListSha256": "c0a5b7076115afe38abfb4ccda749efe6f26f54bfcd2a5cb558c4c511f9c8ae4",
+      "tupleCanonicalSerialization": "JSON.stringify(rows.map(({baseId, reviewMethodClassification}) => ({id: baseId, oldClassification: reviewMethodClassification, oldSolutionBasisSha256: SHA256(JSON.stringify(boundSemanticShardRowById.get(baseId).reviewBasis))})))",
+      "orderedTupleSha256": "6319a02722f57fea7cc349de315a1485f4a69c9f90bd93d09a45b33eae8d6dae",
+      "sortedTupleSha256": "eee2cf0196be00bcd221be6e542c1d2dbe4e55f1e1f6907ca6101f4672e0aa9d",
+      "oldClassificationDistribution": {
+        "manual bilingual reading plus independent compass/vector reasoning": 9,
+        "manual bilingual reading plus independent decimal arithmetic": 7,
+        "manual bilingual reading plus independent exact arithmetic and operation-order evaluation": 132,
+        "manual bilingual reading plus independent exact rational arithmetic": 10,
+        "manual bilingual reading plus independent exact rational/decimal arithmetic": 48,
+        "manual bilingual reading plus independent exponent-notation reconstruction": 15,
+        "manual bilingual reading plus independent integer factorisation, divisibility, HCF/LCM, enumeration, and required-method verification": 46,
+        "manual bilingual reading plus independent integer factorisation, divisibility, HCF/LCM, or enumeration": 94,
+        "manual bilingual reading plus independent multi-step word-problem arithmetic": 5,
+        "manual bilingual reading plus independent option-by-option arithmetic, divisibility, factorisation, HCF/LCM, or exponent truth table": 62,
+        "manual bilingual reading plus independent option-by-option divisibility/number-theory truth table": 23,
+        "manual bilingual reading plus independent quadrilateral-definition reasoning": 7,
+        "manual bilingual reading plus independent unit conversion or multi-step word-problem arithmetic": 9
+      }
+    },
+    "rowSpecificSet": {
+      "count": 234,
+      "orderedIdListSha256": "fb169b9fba17b11fc9631aca395b12d469e9d75f48be51b5c390cf7f2f6415a9",
+      "sortedIdListSha256": "01a5707f8aa0f5c26a66626d40c8c2f4afb0a9d842d603a5eab593972fe04951"
+    },
+    "unionCount": 701,
+    "intersectionCount": 0
+  },
+  "layer1SanitizedProblemInput": {
+    "builderPath": "coordination/content-qa/build-hk-ease-derivation-input-v4.ts",
+    "artifactPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+    "sourcePath": "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+    "requiredQuestionCount": 701,
+    "problemPayloadCanonicalSerialization": "JSON.stringify({baseId: question.id, type: question.type, prompt: {en: question.promptEn, zh: question.promptZh}, options: {en: question.optionsEn ?? null, zh: question.optionsZh ?? null}, diagram: {present: Object.hasOwn(question, 'diagram'), value: question.diagram ?? null}})",
+    "requiredPerRowFields": [
+      "index",
+      "baseId",
+      "type",
+      "prompt",
+      "options",
+      "diagram",
+      "problemPayloadSha256"
+    ],
+    "forbiddenKeysAtAnyDepth": [
+      "answer",
+      "acceptedAnswers",
+      "explanation",
+      "explanationEn",
+      "explanationZh",
+      "responseContract",
+      "responsePolicy",
+      "productionResponse"
+    ],
+    "boundary": "This immutable artifact is the sole problem source visible to the derivation-author process. Required unit, method, and representation constraints must be extracted from the bilingual prompt itself; production response-contract metadata is deliberately excluded."
+  },
+  "layer2AnswerBlindDerivation": {
+    "builderPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4-supplement.ts",
+    "supplementPath": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+    "allowedDataInputPaths": [
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json"
+    ],
+    "forbiddenDataInputPaths": [
+      "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle.json",
+      "data/hongKongEasePracticeQuestions.ts"
+    ],
+    "requiredPerRowFields": [
+      "index",
+      "baseId",
+      "problemPayloadSha256",
+      "derivationKind",
+      "facts",
+      "steps",
+      "computedResult",
+      "optionAdjudications",
+      "derivationPayloadSha256"
+    ],
+    "factContract": "Every fact is typed and has a row-local locator into the sanitized prompt, ordered options, or diagram. No fact may carry a production answer or accepted alias.",
+    "stepContract": "Every step is an executable typed operation that references declared fact/step IDs and yields a typed intermediate value; free prose alone is invalid.",
+    "constructedResponseContract": "Constructed-response rows must declare typed operands, relations or cases, units, requested method/format extracted from prompt, executable steps, and a computed result.",
+    "multipleChoiceContract": "Every MC row must include optionAdjudications[] with every option index exactly once, the exact localized option payload/hash, a boolean truth value computed from row facts, and a row-specific reason; exactly one option is true.",
+    "generationProhibition": "The supplement-author process must not import, read, receive, or derive from production answer, acceptedAnswers, learner explanations, response contracts, v3 reviewed answers, or any answer-bearing question source. Static import/source scans plus runtime injected-I/O tests must prove this boundary.",
+    "answerIndependenceInvariant": "Removing or blanking every production answer/acceptedAnswers field outside the sanitized artifact produces byte-identical supplement output. Mutating production answers never regenerates facts, steps, option adjudications, or computedResult."
+  },
+  "layer3PostDerivationComparison": {
+    "builderPath": "coordination/content-qa/build-hk-ease-independent-oracle-v4.ts",
+    "validatorPath": "lib/hongKongEaseIndependentOracleV4.ts",
+    "oraclePath": "data/generated-content/hk-ease-practice-bank-v2/independent-answer-oracle-v4.json",
+    "testPath": "lib/hongKongEaseIndependentOracleV4.test.ts",
+    "schemaVersion": "hk-ease-independent-answer-oracle-v4",
+    "requiredQuestionCount": 701,
+    "requiredRowSpecificDerivationCount": 701,
+    "classificationOnlyCount": 0,
+    "joinInputs": [
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+      "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-row-specific-derivation-supplement.json",
+      "data/generated-content/hk-ease-practice-bank-v2/question-pack.json",
+      "data/generated-content/hk-ease-practice-bank-v2/response-contracts.json",
+      "data/generated-content/hk-ease-practice-bank-v2/simple-response-contracts.json"
+    ],
+    "comparisonOnlyPerRowFields": [
+      "answerPayloadSha256",
+      "responsePolicyPayloadSha256",
+      "productionComparison",
+      "rowEvidenceSha256"
+    ],
+    "answerCanonicalSerialization": "JSON.stringify({canonical: question.answer, acceptedAnswers: question.acceptedAnswers})",
+    "responsePolicyCanonicalSerialization": "JSON.stringify(exact ID-scoped strict contract, simple contract, or explicit generic grading policy selected after derivation)",
+    "comparisonBoundary": "Only this layer may read production answer/acceptedAnswers or response-contract metadata. It compares the already computed result with production semantics; it cannot rewrite or regenerate the derivation."
+  },
+  "failureCodes": [
+    "V4_SOURCE_LINEAGE_DRIFT",
+    "V4_PREDECESSOR_PARTITION_DRIFT",
+    "V4_SANITIZED_INPUT_FORBIDDEN_KEY",
+    "V4_QUESTION_ORDER_DRIFT",
+    "V4_PROMPT_BINDING_DRIFT",
+    "V4_OPTIONS_BINDING_DRIFT",
+    "V4_DIAGRAM_BINDING_DRIFT",
+    "V4_ANSWER_BLIND_IMPORT_VIOLATION",
+    "V4_FACT_LOCATOR_INVALID",
+    "V4_STEP_EXECUTION_INVALID",
+    "V4_OPTION_ADJUDICATION_INVALID",
+    "V4_DERIVATION_PAYLOAD_DRIFT",
+    "V4_ANSWER_BINDING_DRIFT",
+    "V4_RESPONSE_POLICY_BINDING_DRIFT",
+    "V4_DERIVED_ANSWER_MISMATCH",
+    "V4_NON_ROW_SPECIFIC_DERIVATION",
+    "V4_REVIEW_STATUS_INCOMPLETE"
+  ],
+  "requiredMutationMatrix": {
+    "sanitizedInputForbiddenAnswerLeak": 1,
+    "productionAnswerWrongComparisonOnly": 701,
+    "productionAnswerBlankDerivationByteIdentity": 701,
+    "acceptedAliasMutationComparisonOnly": 701,
+    "promptMutation": 701,
+    "multipleChoiceOptionPayloadAndOrderMutation": 90,
+    "diagramMutation": "every row with a diagram plus an absent-to-present injection gate",
+    "factMutation": "every fact",
+    "stepMutation": "every step",
+    "computedResultMutation": 701,
+    "rowDeleteDuplicateSwap": 3,
+    "crossRowDerivationTransplant": 701,
+    "answerOnlyReplay": 701,
+    "genericCategoryProse": 701,
+    "unitMethodFormatMutation": "every row whose prompt requires a unit, method, or representation",
+    "optionAdjudicationMissingDuplicateOrMultipleTrue": "every MC row"
+  },
+  "independentReReviewPlan": {
+    "statusBeforeReview": "candidate-pending-independent-row-by-row-re-review",
+    "pass1": "A reviewer who did not author the supplement recomputes every row from the sanitized prompt/options/diagram artifact only, records pass/fail and a short discrepancy note, and may not use production answers, accepted aliases, response contracts, or learner explanation text as an oracle.",
+    "pass2": "A separate fail-closed executable validator checks exact problem hashes, fact locators, every typed derivation step, MC option truth tables, computed-result integrity, and only then compares units, requested method/format, canonical answers, accepted forms, and response policies.",
+    "acceptance": "701/701 typed row-specific derivations pass both gates, discrepancy IDs are empty, deterministic double-generation is byte-identical, every required mutation reaches its exact semantic failure code, and a frozen review receipt binds sanitized input, supplement, v4 oracle, builder, and validator SHA-256 values.",
+    "claimBoundary": "Until the independent re-review receipt is complete, v4 remains a candidate evidence package and the overall HK all-question goal remains open."
+  }
+}

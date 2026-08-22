@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "hk-ease-exact3-phase2a-v3-history-v1",
+  "status": "phase2a-candidate-only-promotion-not-authorized",
+  "sourceBindings": {
+    "phase1PreimageAuthority": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/preimage-v1.json",
+      "sha256": "8c087e024d184f92e1a6a51798cdb5f9ae3ddcff7dbc15e7ec65bb0fe1c2b608"
+    },
+    "expandedStep0Receipt": {
+      "path": "coordination/content-qa/authoritative/hk-ease-exact3-production-repair/step0-immutable-preimage-relocation-v1.json",
+      "sha256": "9d661d739710a72c9a4744e224f221ffe808632dacb12b63d49c39fe4886262e"
+    },
+    "v2History": {
+      "path": "data/historical/hongKongQuestions-hk-ease-39847.json",
+      "sha256": "8c6fed873fdb520eecf985074fcb5eb32fb36a01c66c48a4afbb394f121f66d1"
+    }
+  },
+  "rowCount": 3,
+  "orderedRowIds": [
+    "hk-ease-10481-v3",
+    "hk-ease-10496-v3",
+    "hk-ease-1041-v3"
+  ],
+  "orderedRowIdSha256": "f080f64c2ac8b199571165cdc21eb386379feb5976bc48e5ab8ca7aa3894c380",
+  "rowsPayloadSha256": "354ea19dda82fe00464757cf2304b5fa3530311c7425f34d7576a72d884cf0b1",
+  "rowSha256": [
+    "439c01340950fd10f9b1013d9159e365a50c583156c77bcf74ea6c00ebbb132f",
+    "a94f9aa765c3a31b494cf02e28bb118a4879a557dcb0c3d736b029ebe4a8b61a",
+    "0bd16a967f6d0abfa567b86d0e2d19ac6a7a0646968f9e29edbfb5bea3cde06d"
+  ],
+  "questions": [
+    {
+      "id": "hk-ease-10481-v3",
+      "curriculumTrack": "HK",
+      "region": "HK",
+      "canonicalTopicId": "hk-ease-4n6",
+      "grade": "P4",
+      "topicId": "hk-ease-4n6",
+      "topic": {
+        "en": "Fractions (II)",
+        "zh": "分數 (二)"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Classify the following numbers: \\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "zh": "把下列各數分類：\\(\\frac{3}{5},\\;\\frac{7}{4},\\;2\\frac{1}{3},\\;\\frac{9}{9},\\;\\frac{11}{12},\\;5\\frac{2}{7}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。"
+      },
+      "answer": "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+      "acceptedAnswers": [
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) proper fractions: \\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\); (b) improper fractions: \\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\); (c) mixed numbers: \\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(2\\frac{1}{3}\\), \\(5\\frac{2}{7}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{7}{4}\\), \\(\\frac{9}{9}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{3}{5}\\), \\(\\frac{11}{12}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)",
+        "(a) 真分數：\\(\\frac{11}{12}\\), \\(\\frac{3}{5}\\)；(b) 假分數：\\(\\frac{9}{9}\\), \\(\\frac{7}{4}\\)；(c) 帶分數：\\(5\\frac{2}{7}\\), \\(2\\frac{1}{3}\\)"
+      ],
+      "explanation": {
+        "en": "A proper fraction has numerator less than denominator, so the proper fractions are \\(\\frac{3}{5}\\) and \\(\\frac{11}{12}\\). An improper fraction has numerator greater than or equal to denominator, so the improper fractions are \\(\\frac{7}{4}\\) and \\(\\frac{9}{9}\\). The remaining numbers, \\(2\\frac{1}{3}\\) and \\(5\\frac{2}{7}\\), are mixed numbers.",
+        "zh": "真分數的分子小於分母，所以是 \\(\\frac{3}{5}\\) 和 \\(\\frac{11}{12}\\)；假分數的分子大於或等於分母，所以是 \\(\\frac{7}{4}\\) 和 \\(\\frac{9}{9}\\)；其餘 \\(2\\frac{1}{3}\\) 和 \\(5\\frac{2}{7}\\) 是帶分數。"
+      }
+    },
+    {
+      "id": "hk-ease-10496-v3",
+      "curriculumTrack": "HK",
+      "region": "HK",
+      "canonicalTopicId": "hk-ease-4n6",
+      "grade": "P4",
+      "topicId": "hk-ease-4n6",
+      "topic": {
+        "en": "Fractions (II)",
+        "zh": "分數 (二)"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "Classify the following numbers: \\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\). In one response, use the format “(a) proper fractions: …; (b) improper fractions: …; (c) mixed numbers: …”.",
+        "zh": "把下列各數分類：\\(\\frac{4}{7},\\;\\frac{11}{5},\\;3\\frac{1}{2},\\;\\frac{8}{8},\\;\\frac{13}{15},\\;6\\frac{4}{9}\\)。請在同一個答案中按「(a) 真分數：…；(b) 假分數：…；(c) 帶分數：…」格式作答。"
+      },
+      "answer": "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+      "acceptedAnswers": [
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) proper fractions: \\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\); (b) improper fractions: \\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\); (c) mixed numbers: \\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(3\\frac{1}{2}\\), \\(6\\frac{4}{9}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{11}{5}\\), \\(\\frac{8}{8}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{4}{7}\\), \\(\\frac{13}{15}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)",
+        "(a) 真分數：\\(\\frac{13}{15}\\), \\(\\frac{4}{7}\\)；(b) 假分數：\\(\\frac{8}{8}\\), \\(\\frac{11}{5}\\)；(c) 帶分數：\\(6\\frac{4}{9}\\), \\(3\\frac{1}{2}\\)"
+      ],
+      "explanation": {
+        "en": "A proper fraction has numerator less than denominator, so the proper fractions are \\(\\frac{4}{7}\\) and \\(\\frac{13}{15}\\). An improper fraction has numerator greater than or equal to denominator, so the improper fractions are \\(\\frac{11}{5}\\) and \\(\\frac{8}{8}\\). The remaining numbers, \\(3\\frac{1}{2}\\) and \\(6\\frac{4}{9}\\), are mixed numbers.",
+        "zh": "真分數的分子小於分母，所以是 \\(\\frac{4}{7}\\) 和 \\(\\frac{13}{15}\\)；假分數的分子大於或等於分母，所以是 \\(\\frac{11}{5}\\) 和 \\(\\frac{8}{8}\\)；其餘 \\(3\\frac{1}{2}\\) 和 \\(6\\frac{4}{9}\\) 是帶分數。"
+      }
+    },
+    {
+      "id": "hk-ease-1041-v3",
+      "curriculumTrack": "HK",
+      "region": "HK",
+      "canonicalTopicId": "hk-ease-n1",
+      "grade": "S1",
+      "topicId": "hk-ease-n1",
+      "topic": {
+        "en": "Basic computation",
+        "zh": "基礎計算"
+      },
+      "difficulty": "Low",
+      "type": "short-answer",
+      "prompt": {
+        "en": "For each number, state in order whether it is divisible by 2, 5, and 10: (a) 75; (b) 130; (c) 502; (d) 1200; (e) 1005; (f) 4020. Give all six parts in one response in the format “(a) No, Yes, No; …; (f) …”. You may use ✓ for Yes and ✗ for No. Each three-entry group must follow the order 2, 5, 10.",
+        "zh": "對每個數判斷它能否依次被 2、5、10 整除：(a) 75；(b) 130；(c) 502；(d) 1200；(e) 1005；(f) 4020。請在同一答案中按「(a) 否、是、否；…；(f) …」格式作答；可用 ✓ 表示「是」、✗ 表示「否」。每組順序均為 2、5、10。"
+      },
+      "answer": "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+      "acceptedAnswers": [
+        "(a) ✗, ✓, ✗; (b) ✓, ✓, ✓; (c) ✓, ✗, ✗; (d) ✓, ✓, ✓; (e) ✗, ✓, ✗; (f) ✓, ✓, ✓",
+        "(a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; (f) Yes, Yes, Yes",
+        "(a) 否, 是, 否; (b) 是, 是, 是; (c) 是, 否, 否; (d) 是, 是, 是; (e) 否, 是, 否; (f) 是, 是, 是"
+      ],
+      "explanation": {
+        "en": "A number is divisible by 2 if its last digit is even, by 5 if its last digit is 0 or 5, and by 10 if its last digit is 0. Applying these rules gives (a) No, Yes, No; (b) Yes, Yes, Yes; (c) Yes, No, No; (d) Yes, Yes, Yes; (e) No, Yes, No; and (f) Yes, Yes, Yes.",
+        "zh": "能被 2 整除要看末位是否為偶數；能被 5 整除要看末位是否為 0 或 5；能被 10 整除要看末位是否為 0。依此可得：(a) ✗, ✓, ✗；(b) ✓, ✓, ✓；(c) ✓, ✗, ✗；(d) ✓, ✓, ✓；(e) ✗, ✓, ✗；(f) ✓, ✓, ✓。"
+      }
+    }
+  ],
+  "questionCount": 3,
+  "frozenPredecessorPolicy": "v2-history-bytes-remain-immutable"
+}

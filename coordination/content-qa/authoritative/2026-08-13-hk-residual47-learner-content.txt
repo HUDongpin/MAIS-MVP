@@ -1,0 +1,376 @@
+
+### pq-p4-angles-square-corner-5
+PEN A square sheet ABCD is cut along diagonal AC. Which two pieces form the original square when composed again?
+PZH 把正方形紙張 ABCD 沿對角線 AC 分割。把哪兩塊圖形重新拼砌，便可組成原來的正方形？
+A two congruent triangles
+EEN The diagonal divides the square into two congruent triangles; composing those same two pieces along the cut reconstructs the square.
+EZH 對角線把正方形分割成兩個全等三角形；沿分割邊把兩塊重新拼砌，便可還原正方形。
+OPT [{"en":"two congruent triangles","zh":"兩個全等三角形"},{"en":"two unequal triangles","zh":"兩個不全等三角形"},{"en":"one triangle and one pentagon","zh":"一個三角形和一個五邊形"},{"en":"two circles","zh":"兩個圓形"}]
+
+### graph-quadratic-patterns-opening-v2
+PEN Does this parabola open upward or downward?
+PZH 這條拋物線開口向上還是向下？
+A downward
+EEN The vertex is the highest point and the arms go down on both sides, so the parabola opens downward.
+EZH 頂點是最高點，兩邊向下延伸，所以拋物線開口向下。
+OPT null
+
+### supp-p1-counting-number-bonds-common-check-v2
+PEN Which check best prevents a typical mistake in Counting and Number Bonds?
+PZH 哪項檢查最能避免「數數與數的組合」中的典型錯誤？
+A Check whether the missing number is before or after the given number
+EEN Check whether the missing number is before or after the given number. This check is consistent with both the key fact (\(4\) needs \(5\) more to make \(9\).) and the guided example (Counting back one from \(16\) gives \(15\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查題目問的是前一個數、後一個數，還是缺少的數。這項檢查同時符合關鍵知識（\(4\) 再加 \(5\) 就是 \(9\)。）和引導例題（由 \(16\) 倒數一個是 \(15\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check whether the missing number is before or after the given number","zh":"檢查題目問的是前一個數、後一個數，還是缺少的數"},{"en":"Start again at 1","zh":"重新由 1 開始數"},{"en":"Join the two parts as digits","zh":"把兩部分拼成一個數"},{"en":"Count the starting number twice","zh":"把起始數重複數兩次"}]
+
+### supp-p1-addition-subtraction-common-check-v2
+PEN Which check best prevents a typical mistake in Addition and Subtraction?
+PZH 哪項檢查最能避免「加法與減法」中的典型錯誤？
+A Check the story action before choosing addition or subtraction
+EEN Check the story action before choosing addition or subtraction. This check is consistent with both the key fact (\(8 + 3 = 11\).) and the guided example (Counting back \(5\) from \(12\) gives \(7\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 先檢查故事動作，再決定用加法還是減法。這項檢查同時符合關鍵知識（\(8 + 3 = 11\)。）和引導例題（由 \(12\) 倒數 \(5\) 得 \(7\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check the story action before choosing addition or subtraction","zh":"先檢查故事動作，再決定用加法還是減法"},{"en":"Subtract because two numbers appear","zh":"因題目有兩個數便相減"},{"en":"Add the item number too","zh":"把物件編號也加進去"},{"en":"Count only the new objects","zh":"只數新增的物件"}]
+
+### supp-p1-shapes-patterns-common-check-v2
+PEN Which check best prevents a typical mistake in Shapes and Patterns?
+PZH 哪項檢查最能避免「圖形與規律」中的典型錯誤？
+A Check one full repeat before choosing the next shape
+EEN In triangle, circle, triangle, circle, the complete repeat is triangle–circle. Checking that full repeat shows that the next shape is a triangle; a fact about the sides of a square would not test this pattern.
+EZH 在三角形、圓形、三角形、圓形的圖樣中，完整重複單位是「三角形—圓形」。核對這組完整重複便可知道下一個圖形是三角形；正方形邊數的知識並不能檢查這個規律。
+OPT [{"en":"Check one full repeat before choosing the next shape","zh":"先找出一組完整重複，再選下一個圖形"},{"en":"Use colour or size to name the shape","zh":"按顏色或大小命名圖形"},{"en":"For ABAB, start at B and call BA the unit","zh":"對 ABAB 由 B 開始，把 BA 當作重複單位"},{"en":"Copy only the last shape","zh":"只抄寫最後一個圖形"}]
+
+### supp-p1-measurement-time-common-check-v2
+PEN Which check best prevents a typical mistake in Measurement and Time?
+PZH 哪項檢查最能避免「度量與時間」中的典型錯誤？
+A Check the unit or clock hand before answering
+EEN Check the unit or clock hand before answering. This check is consistent with both the key fact (The minute hand at \(6\) shows half past, and the hour hand has passed \(3\), so the time is \(3{:}30\).) and the guided example (The minute hand at \(12\) shows an o'clock time, so it is 5 o'clock.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 作答前先檢查單位或鐘面指針。這項檢查同時符合關鍵知識（分針指向 \(6\) 表示半小時，時針已過 \(3\)，所以是 \(3{:}30\)。）和引導例題（分針指向 \(12\) 表示整點，所以是 5 時。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check the unit or clock hand before answering","zh":"作答前先檢查單位或鐘面指針"},{"en":"Swap the short and long clock hands","zh":"把短針和長針倒轉閱讀"},{"en":"Write half past as :50","zh":"把半小時寫成 :50"},{"en":"Compare lengths before matching units","zh":"未統一單位便比較長度"}]
+
+### supp-p2-place-value-common-check-v2
+PEN Which check best prevents a typical mistake in Place Value to 1000?
+PZH 哪項檢查最能避免「一千以內的位值」中的典型錯誤？
+A Check that each digit is placed in the correct place value
+EEN Check that each digit is placed in the correct place value. This check is consistent with both the key fact (\(735\) has \(7\) hundreds.) and the guided example (\(500 + 20 + 9 = 529\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查每個數字是否放在正確位值。這項檢查同時符合關鍵知識（\(735\) 有 \(7\) 個百。）和引導例題（\(500 + 20 + 9 = 529\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check that each digit is placed in the correct place value","zh":"檢查每個數字是否放在正確位值"},{"en":"Read 507 as 57","zh":"把 507 讀成 57"},{"en":"Treat ten hundreds as one hundred","zh":"把十個百當作一個百"},{"en":"Compare ones before hundreds","zh":"先比較個位，後比較百位"}]
+
+### supp-p2-multiplication-foundations-common-check-v2
+PEN Which check best prevents a typical mistake in Multiplication Foundations?
+PZH 哪項檢查最能避免「乘法基礎」中的典型錯誤？
+A Check the size of each group and the number of groups
+EEN Check the size of each group and the number of groups. This check is consistent with both the key fact (\(6\) is added \(4\) times, so it is \(4 \times 6\).) and the guided example (\(3 \times 4 = 12\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查每組數量和組數。這項檢查同時符合關鍵知識（\(6\) 加了 \(4\) 次，所以是 \(4 \times 6\)。）和引導例題（\(3 \times 4 = 12\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check the size of each group and the number of groups","zh":"檢查每組數量和組數"},{"en":"Use 5 + 2 for five groups of two","zh":"用 5 + 2 表示五組、每組兩個"},{"en":"Count only one group","zh":"只數其中一組"},{"en":"Change the group size while counting","zh":"點算時改變每組數量"}]
+
+### supp-p2-money-time-common-check-v2
+PEN Which check best prevents a typical mistake in Money and Time?
+PZH 哪項檢查最能避免「金錢與時間」中的典型錯誤？
+A Check whether the answer should be money or time
+EEN Check whether the answer should be money or time. This check is consistent with both the key fact (\(10 - 6 = 4\).) and the guided example (Adding \(30\) minutes to \(2:30\) gives \(3:00\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查答案應是金錢還是時間。這項檢查同時符合關鍵知識（\(10 - 6 = 4\)。）和引導例題（\(2:30\) 加 \(30\) 分鐘是 \(3:00\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check whether the answer should be money or time","zh":"檢查答案應是金錢還是時間"},{"en":"Add the price and amount paid","zh":"把售價和付款金額相加"},{"en":"Read the long hand as hours","zh":"把長針讀作小時"},{"en":"Write half past as :50","zh":"把半小時寫成 :50"}]
+
+### supp-p2-length-data-common-check-v2
+PEN Which check best prevents a typical mistake in Metres and Pictograms?
+PZH 哪項檢查最能避免「米與象形圖」中的典型錯誤？
+A Use 1 m = 100 cm and keep every pictogram key at one icon for one object
+EEN For length, \(1\text{ m}=100\text{ cm}\), so \(110\text{ cm}=1\text{ m }10\text{ cm}\). For a one-to-one pictogram, a key of one icon for one object means four icons represent four objects; the key must stay unchanged throughout the chart.
+EZH 長度方面，\(1\text{ 米}=100\text{ 厘米}\)，所以 \(110\text{ 厘米}=1\text{ 米 }10\text{ 厘米}\)。一一對應的象形圖若規定一個圖示代表一件物件，四個圖示便代表四件物件，而且整幅圖必須使用同一圖例。
+OPT [{"en":"Use 1 m = 100 cm and keep every pictogram key at one icon for one object","zh":"使用 1 米 = 100 厘米，並確保象形圖每個圖示只代表一件物件"},{"en":"Use 1 m = 10 cm","zh":"使用 1 米 = 10 厘米"},{"en":"Start measuring at the 1 mark","zh":"由 1 刻度開始量度"},{"en":"Give each icon an unstated multiplier","zh":"自行為每個圖示加倍數"}]
+
+### supp-p3-multiplication-division-common-check-v2
+PEN Which check best prevents a typical mistake in Multiplication and Division?
+PZH 哪項檢查最能避免「乘法與除法」中的典型錯誤？
+A Check whether a remainder is smaller than the divisor
+EEN Check whether a remainder is smaller than the divisor. This check is consistent with both the key fact (\(4 \times 200=800\) and \(4 \times 6=24\), so the total is \(824\).) and the guided example (\(47=4 \times 11+3\), so each pupil gets \(11\) cards and \(3\) remain.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查餘數是否小於除數。這項檢查同時符合關鍵知識（\(4 \times 200=800\) 而 \(4 \times 6=24\)，所以合共是 \(824\)。）和引導例題（\(47=4 \times 11+3\)，所以每人有 \(11\) 張，餘下 \(3\) 張。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check whether a remainder is smaller than the divisor","zh":"檢查餘數是否小於除數"},{"en":"Accept a remainder that is at least as large as the divisor","zh":"接受大於或等於除數的餘數"},{"en":"Use the number of groups when the question asks for the size of each share","zh":"題目求每份數量時卻回答組數"},{"en":"Multiply the dividend and divisor because both describe the grouping","zh":"因被除數和除數都描述分組便把兩者相乘"}]
+
+### supp-p3-fractions-intro-common-check-v2
+PEN Which check best prevents a typical mistake in Fractions Intro?
+PZH 哪項檢查最能避免「分數入門」中的典型錯誤？
+A Check that the denominator names the equal parts
+EEN Check that the denominator names the equal parts. This check is consistent with both the key fact (\(1/3\) means one of three equal parts.) and the guided example (Multiply numerator and denominator by \(2\): \(2/3 = 4/6\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查分母是否表示等份總數。這項檢查同時符合關鍵知識（\(1/3\) 表示三等份中的一份。）和引導例題（分子和分母同乘 \(2\)：\(2/3 = 4/6\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check that the denominator names the equal parts","zh":"檢查分母是否表示等份總數"},{"en":"Compare fractions using only their numerators","zh":"只按分子比較分數"},{"en":"Add denominators when making an equivalent fraction","zh":"製作等值分數時把分母相加"},{"en":"Count parts of unequal size as though they were equal fractional parts","zh":"把大小不同的部分當作相等等份點算"}]
+
+### supp-p3-measurement-common-check-v2
+PEN Which check best prevents a typical mistake in Measurement?
+PZH 哪項檢查最能避免「度量」中的典型錯誤？
+A Check whether units need converting before calculating
+EEN Check whether units need converting before calculating. This check is consistent with both the key fact (\(1\) L \(= 1000\) mL, so \(2\) L \(= 2000\) mL.) and the guided example (\(35 + 20 = 55\) cm.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 計算前檢查是否需要換算單位。這項檢查同時符合關鍵知識（\(1\) 升 \(= 1000\) 毫升，所以 \(2\) 升 \(= 2000\) 毫升。）和引導例題（\(35 + 20 = 55\) 厘米。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check whether units need converting before calculating","zh":"計算前檢查是否需要換算單位"},{"en":"Use 1 L = 100 mL for a capacity conversion","zh":"換算容量時使用 1 升 = 100 毫升"},{"en":"Combine kilograms and millilitres in one calculation as though they measured the same attribute","zh":"把公斤和毫升當作量度同一屬性而直接計算"},{"en":"Read a bar's drawn height without using the labelled vertical scale","zh":"不使用已標示的縱軸刻度，只按棒的圖上高度讀數"}]
+
+### supp-p3-geometry-patterns-common-check-v2
+PEN Which check best prevents a typical mistake in Quadrilaterals and Triangles?
+PZH 哪項檢查最能避免「四邊形與三角形」中的典型錯誤？
+A Check that the figure is closed and count its straight sides before naming it
+EEN Check that the figure is closed and count its straight sides before naming it. This check is consistent with both the key fact (Every closed plane figure with four straight sides is a quadrilateral.) and the guided example (A triangle with all three sides equal is an equilateral triangle.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 為圖形命名前，先檢查它是否封閉，並數清楚直邊數目。這項檢查同時符合關鍵知識（任何有四條直邊的封閉平面圖形都是四邊形。）和引導例題（三條邊全部相等的三角形是等邊三角形。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check that the figure is closed and count its straight sides before naming it","zh":"為圖形命名前，先檢查它是否封閉，並數清楚直邊數目"},{"en":"Name a shape from its orientation on the page","zh":"按圖形在頁面上的朝向命名"},{"en":"Assume every four-sided figure is a square","zh":"假設每個四邊形都是正方形"},{"en":"Infer equal side lengths when no matching marks or measurements are given","zh":"沒有相同記號或量度資料仍推斷各邊相等"}]
+
+### supp-p4-large-numbers-common-check-v2
+PEN Which check best prevents a typical mistake in Multiples, Factors, H.C.F. and L.C.M.?
+PZH 哪項檢查最能避免「倍數、因數、最大公因數與最小公倍數」中的典型錯誤？
+A Verify that every factor leaves remainder 0 and every common result works for both numbers
+EEN Verify that every factor leaves remainder 0 and every common result works for both numbers. This check is consistent with both the key fact (Multiply \(7\) by \(1\), \(2\), and \(3\): \(7,14,21\).) and the guided example (The common factors are \(1,2,3,6\), so the H.C.F. is \(6\). Listing multiples shows that \(36\) is the first common multiple, so the L.C.M. is \(36\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查每個因數都能整除而餘數為 0，並核對公因數或公倍數同時適用於兩個數。這項檢查同時符合關鍵知識（把 \(7\) 分別乘 \(1\)、\(2\) 和 \(3\)，得 \(7,14,21\)。）和引導例題（公因數是 \(1,2,3,6\)，所以最大公因數是 \(6\)；列出倍數可見 \(36\) 是首個公倍數，所以最小公倍數是 \(36\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Verify that every factor leaves remainder 0 and every common result works for both numbers","zh":"檢查每個因數都能整除而餘數為 0，並核對公因數或公倍數同時適用於兩個數"},{"en":"Reverse factor and multiple when deciding which number divides the other","zh":"判斷哪個數整除另一個數時，把因數和倍數倒轉"},{"en":"List multiples only and call every listed value a factor","zh":"只列倍數，並把每個列出的數稱為因數"},{"en":"Divide the larger number by the smaller once and call the quotient the H.C.F.","zh":"把較大數除以較小數一次，便把所得商稱為最大公因數"}]
+
+### supp-p4-decimals-guided-example
+PEN Find \(4.6 - 1.2\).
+PZH 計算 \(4.6 - 1.2\)。
+A 3.4
+EEN \(4.6 - 1.2 = 3.4\).
+EZH \(4.6 - 1.2 = 3.4\)。
+OPT null
+
+### supp-p4-decimals-common-check-v2
+PEN Which check best prevents a typical mistake in Decimals?
+PZH 哪項檢查最能避免「小數」中的典型錯誤？
+A Keep the decimal point aligned in every step
+EEN Keep the decimal point aligned in every step. This check is consistent with both the key fact (\(0.5 = 0.50\), and \(0.50 > 0.47\).) and the guided example (\(4.6 - 1.2 = 3.4\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 每一步都要對齊小數點。這項檢查同時符合關鍵知識（\(0.5 = 0.50\)，而 \(0.50 > 0.47\)。）和引導例題（\(4.6 - 1.2 = 3.4\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Keep the decimal point aligned in every step","zh":"每一步都要對齊小數點"},{"en":"Compare decimal digits from left to right without matching place values","zh":"未對齊位值，便由左至右逐個小數數字比較"},{"en":"Assume the decimal with more written digits is always greater","zh":"假設寫得較多位的小數一定較大"},{"en":"Align the left edges of decimal numerals instead of their decimal points","zh":"把小數的左邊對齊，而不是把小數點對齊"}]
+
+### supp-p4-angles-first-step-v2
+PEN When starting a question about Quadrilateral Families and Shape Composition, which action is the best first step?
+PZH 開始處理關於「四邊形類別與圖形拼砌」的題目時，哪項行動是最佳的第一步？
+A Identify the quadrilateral's side relationships before choosing a family name
+EEN Identify the quadrilateral's side relationships before choosing a family name. The topic's key fact shows why this structure matters: Every square is both a rectangle and a rhombus; this inclusion does not make every rectangle or every rhombus a square. The alternatives instead encode these specific misconceptions: “Treat rectangle, rhombus, and square as mutually exclusive families”; “Name the quadrilateral only from how it looks in the sketch”; “Use equal-side information as proof of every rectangle property”.
+EZH 選擇四邊形類別前，先辨認各邊的關係。本課題的關鍵知識說明這個結構為何重要：每個正方形同時是長方形和菱形；這項包含關係不表示每個長方形或每個菱形都是正方形。 其餘選項分別包含以下具體誤解：「把長方形、菱形和正方形當作互不包含的類別」；「只按草圖外觀為四邊形命名」；「把邊相等資料當作所有長方形性質的證明」。
+OPT [{"en":"Identify the quadrilateral's side relationships before choosing a family name","zh":"選擇四邊形類別前，先辨認各邊的關係"},{"en":"Treat rectangle, rhombus, and square as mutually exclusive families","zh":"把長方形、菱形和正方形當作互不包含的類別"},{"en":"Name the quadrilateral only from how it looks in the sketch","zh":"只按草圖外觀為四邊形命名"},{"en":"Use equal-side information as proof of every rectangle property","zh":"把邊相等資料當作所有長方形性質的證明"}]
+
+### supp-p4-angles-guided-example-v2
+PEN A parallelogram has four equal sides. What more specific quadrilateral family must it belong to?
+PZH 一個平行四邊形有四條相等的邊。它必定屬於哪個較具體的四邊形類別？
+A rhombus
+EEN A parallelogram with four equal sides is a rhombus, but the given side information alone does not prove it is a square.
+EZH 四條邊相等的平行四邊形是菱形，但單憑已知的邊資料不能證明它是正方形。
+OPT null
+
+### supp-p4-angles-common-check-v2
+PEN Which check best prevents a typical mistake in Quadrilateral Families and Shape Composition?
+PZH 哪項檢查最能避免「四邊形類別與圖形拼砌」中的典型錯誤？
+A Check the direction of each family inclusion and do not assume its converse
+EEN Check the direction of each family inclusion and do not assume its converse. This check is consistent with both the key fact (Every square is both a rectangle and a rhombus; this inclusion does not make every rectangle or every rhombus a square.) and the guided example (A parallelogram with four equal sides is a rhombus, but the given side information alone does not prove it is a square.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查各類別包含關係的方向，不要擅自把關係逆轉。這項檢查同時符合關鍵知識（每個正方形同時是長方形和菱形；這項包含關係不表示每個長方形或每個菱形都是正方形。）和引導例題（四條邊相等的平行四邊形是菱形，但單憑已知的邊資料不能證明它是正方形。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check the direction of each family inclusion and do not assume its converse","zh":"檢查各類別包含關係的方向，不要擅自把關係逆轉"},{"en":"Treat rectangle, rhombus, and square as mutually exclusive families","zh":"把長方形、菱形和正方形當作互不包含的類別"},{"en":"Name the quadrilateral only from how it looks in the sketch","zh":"只按草圖外觀為四邊形命名"},{"en":"Use equal-side information as proof of every rectangle property","zh":"把邊相等資料當作所有長方形性質的證明"}]
+
+### supp-p4-perimeter-area-common-check-v2
+PEN Which check best prevents a typical mistake in Perimeter and Area?
+PZH 哪項檢查最能避免「周界與面積」中的典型錯誤？
+A Use linear units for perimeter and square units for area
+EEN Use linear units for perimeter and square units for area. This check is consistent with both the key fact (Perimeter \(= 4 \times 6 = 24\) cm.) and the guided example (Split the composite rectilinear shape by subtracting the missing rectangle: \(6\times4-3\times2=24-6=18\) square centimetres.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 周界用長度單位，面積用平方單位。這項檢查同時符合關鍵知識（周界 \(= 4 \times 6 = 24\) 厘米。）和引導例題（把組合直線圖形分拆並減去缺少的長方形：\(6\times4-3\times2=24-6=18\) 平方厘米。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Use linear units for perimeter and square units for area","zh":"周界用長度單位，面積用平方單位"},{"en":"Multiply length and width when the question asks for perimeter","zh":"題目求周界時把長和闊相乘"},{"en":"Count an internal split twice as part of a composite shape's outside boundary","zh":"求組合圖形外圍時把內部分割線重複計算"},{"en":"Add component areas but report the result in centimetres rather than square centimetres","zh":"把各部分面積相加後，卻以厘米而非平方厘米作答"}]
+
+### supp-p5-fractions-operations-common-check-v2
+PEN Which check best prevents a typical mistake in Fraction Operations?
+PZH 哪項檢查最能避免「分數運算」中的典型錯誤？
+A Simplify the final fraction when possible
+EEN Simplify the final fraction when possible. This check is consistent with both the key fact (Use denominator \(8\): \(4/8+2/8+1/8=7/8\).) and the guided example (\(5/6=10/12\) and \(1/4=3/12\), so \(10/12-3/12=7/12\); \(7/12\) is already in simplest fractional form.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 答案如可約簡，要化成最簡分數。這項檢查同時符合關鍵知識（通分至分母 \(8\)：\(4/8+2/8+1/8=7/8\)。）和引導例題（\(5/6=10/12\) 而 \(1/4=3/12\)，所以 \(10/12-3/12=7/12\)；\(7/12\) 已是最簡分數。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Simplify the final fraction when possible","zh":"答案如可約簡，要化成最簡分數"},{"en":"Add numerators and denominators separately for unlike fractions","zh":"異分母分數運算時分別把分子和分母相加"},{"en":"Convert every fraction to a rounded decimal before operating","zh":"運算前把每個分數都化成四捨五入小數"},{"en":"Make only the numerators common while leaving unlike denominators unchanged","zh":"只把分子改成相同，分母仍保持不同"}]
+
+### supp-p5-volume-guided-example-v2
+PEN A box has base area \(10\) cm^2 and height \(3\) cm. Find its volume.
+PZH 一個盒子的底面積是 \(10\) 平方厘米，高 \(3\) 厘米。求體積。
+A 30 cm^3
+EEN Volume \(= 10 \times 3 = 30\) cubic centimetres.
+EZH 體積 \(= 10 \times 3 = 30\) 立方厘米。
+OPT null
+
+### supp-p5-volume-common-check-v2
+PEN Which check best prevents a typical mistake in Volume?
+PZH 哪項檢查最能避免「體積」中的典型錯誤？
+A Multiply length, width, and height instead of adding the edge lengths
+EEN Multiply length, width, and height instead of adding the edge lengths. This check is consistent with both the key fact (Height \(= 48 \div (4 \times 3) = 4\) cm.) and the guided example (Volume \(= 10 \times 3 = 30\) cubic centimetres.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 要把長、闊和高相乘，不是把邊長相加。這項檢查同時符合關鍵知識（高 \(= 48 \div (4 \times 3) = 4\) 厘米。）和引導例題（體積 \(= 10 \times 3 = 30\) 立方厘米。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Multiply length, width, and height instead of adding the edge lengths","zh":"要把長、闊和高相乘，不是把邊長相加"},{"en":"Add length, width, and height to find volume","zh":"把長、闊和高相加來求體積"},{"en":"Use square centimetres for a three-dimensional capacity","zh":"以平方厘米表示三維容量"},{"en":"Multiply only the two dimensions visible on the front face","zh":"只把正面可見的兩個尺寸相乘"}]
+
+### supp-p5-rates-common-check-v2
+PEN Which check best prevents a typical mistake in Unitary Method for Unit Price?
+PZH 哪項檢查最能避免「歸一法求單價」中的典型錯誤？
+A State the price for one item, not the total pack price
+EEN State the price for one item, not the total pack price. This check is consistent with both the key fact (\(18 \div 3 = 6\), so each notebook costs HK$6.) and the guided example (\(48 \div 8=6\), so each box costs HK$6.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 答案要寫一件的單價，不是整包總價。這項檢查同時符合關鍵知識（\(18 \div 3 = 6\)，所以每本港幣 6 元。）和引導例題（\(48 \div 8=6\)，所以每盒售港幣 6 元。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"State the price for one item, not the total pack price","zh":"答案要寫一件的單價，不是整包總價"},{"en":"Divide the item count by the total price","zh":"以物件數量除以總價"},{"en":"Compare pack totals without finding the price for one equal item","zh":"未求每件單價，便直接比較整包總價"},{"en":"Multiply the total pack price by the number of items to obtain unit price","zh":"把整包總價乘物件數量來求單價"}]
+
+### supp-p5-charts-averages-key-fact-v2
+PEN A compound bar chart shows \(9\) votes for Class A and \(6\) for Class B. How many votes are there altogether?
+PZH 複合棒形圖顯示甲班有 \(9\) 票、乙班有 \(6\) 票。合共有多少票？
+A 15
+EEN \(9+6=15\).
+EZH \(9+6=15\)。
+OPT null
+
+### supp-p5-charts-averages-guided-example-v2
+PEN In one category of a compound bar chart, the two series are \(12\) and \(8\). Find their difference.
+PZH 複合棒形圖某一類別的兩組數值是 \(12\) 和 \(8\)。求兩者之差。
+A 4
+EEN \(12-8=4\).
+EZH \(12-8=4\)。
+OPT null
+
+### supp-p5-charts-averages-common-check-v2
+PEN Which check best prevents a typical mistake in Compound Bar Charts?
+PZH 哪項檢查最能避免「複合棒形圖」中的典型錯誤？
+A Match each bar to the correct series and category
+EEN Read the legend before using a bar: in the Class A/Class B example, the bar identified by the Class A legend is \(9\) and the Class B bar is \(6\). For a difference such as \(12-8=4\), first confirm that both bars belong to the same category and to the intended two series.
+EZH 使用棒形數值前要先讀圖例：在甲班／乙班的例子中，圖例標示為甲班的棒是 \(9\)，乙班的棒是 \(6\)。計算如 \(12-8=4\) 的差之前，也要先確認兩支棒屬於同一類別及題目指定的兩組數據。
+OPT [{"en":"Match each bar to the correct series and category","zh":"把每一支棒配對到正確的數據組和類別"},{"en":"Compare bars from different categories because their colours match","zh":"只因顏色相同，便比較不同類別的棒"},{"en":"Read a bar value from its pixel height without using the axis interval","zh":"不使用坐標軸間距，只按棒的像素高度讀值"},{"en":"Use the difference between two bar heights as their combined total","zh":"把兩支棒的高度差當作兩者總和"}]
+
+### supp-p6-percentages-common-check-v2
+PEN Which check best prevents a typical mistake in Percentages?
+PZH 哪項檢查最能避免「百分數」中的典型錯誤？
+A Add the percentage amount for an increase and subtract it for a decrease
+EEN Add the percentage amount for an increase and subtract it for a decrease. This check is consistent with both the key fact (\(25\%\) is one quarter, and \(120 \div 4 = 30\).) and the guided example (\(25\%\) of \(60\) is \(15\); an increase gives \(60+15=75\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 增加時加上百分數所代表的數量，減少時則把它減去。這項檢查同時符合關鍵知識（\(25\%\) 是四分之一，而 \(120 \div 4 = 30\)。）和引導例題（\(60\) 的 \(25\%\) 是 \(15\)；增加後有 \(60+15=75\) 張。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Add the percentage amount for an increase and subtract it for a decrease","zh":"增加時加上百分數所代表的數量，減少時則把它減去"},{"en":"Treat 25% as the whole number 25 in the calculation","zh":"在計算中把 25% 當作整數 25"},{"en":"Apply the given percentage to the changed amount instead of the stated original","zh":"不以題目所述原數量為整體，改用變更後數量"},{"en":"Subtract the percentage amount when the situation says the quantity increases","zh":"情境說數量增加時卻減去百分數所代表的量"}]
+
+### supp-p6-ratio-proportion-common-check-v2
+PEN Which check best prevents a typical mistake in Averages and Broken-Line Graphs?
+PZH 哪項檢查最能避免「平均數與折線圖」中的典型錯誤？
+A Verify total and count for a mean, and preserve the ordered sequence and axis units on a broken-line graph
+EEN For a mean, check both the total and the number of values, as in \((6+8+10)\div3=8\). On a broken-line graph, follow the points in the stated time order and read the labelled axis unit; for example, the point at \(11{:}00\) represents \(24\)\(^\circ\text{C}\), not an unlabelled 24.
+EZH 求平均數時要同時核對總和與數據個數，例如 \((6+8+10)\div3=8\)。閱讀折線圖時要按題目所列時序追蹤各點，並讀取坐標軸標示的單位；例如 \(11{:}00\) 的點表示 \(24\)\(^\circ\text{C}\)，不是沒有單位的 24。
+OPT [{"en":"Verify total and count for a mean, and preserve the ordered sequence and axis units on a broken-line graph","zh":"求平均數時核對總和與項數；閱讀折線圖時保留有序時序及坐標軸單位"},{"en":"Divide the count by the total when finding a mean","zh":"求平均數時以數據個數除以總和"},{"en":"Sort the values and choose the middle one instead of calculating the mean","zh":"把數值排序後選中間一個，而不計算平均數"},{"en":"Join categorical values with a line even when no ordered or continuous sequence exists","zh":"即使數據沒有有序或連續次序，仍把類別數值連成折線"}]
+
+### supp-p6-speed-guided-example-v2
+PEN At \(6\) km/h, how far do you walk in \(3\) hours?
+PZH 以每小時 \(6\) 公里步行 \(3\) 小時，路程是多少？
+A 18 km
+EEN Distance \(= 6 \times 3 = 18\) km.
+EZH 路程 \(= 6 \times 3 = 18\) 公里。
+OPT null
+
+### supp-p6-speed-common-check-v2
+PEN Which check best prevents a typical mistake in Speed?
+PZH 哪項檢查最能避免「速率」中的典型錯誤？
+A Check whether to divide or multiply using the units
+EEN Check whether to divide or multiply using the units. This check is consistent with both the key fact (Speed \(= 120 \div 2 = 60\) km/h.) and the guided example (Distance \(= 6 \times 3 = 18\) km.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 按單位檢查應除還是乘。這項檢查同時符合關鍵知識（速率 \(= 120 \div 2 = 60\) 公里每小時。）和引導例題（路程 \(= 6 \times 3 = 18\) 公里。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check whether to divide or multiply using the units","zh":"按單位檢查應除還是乘"},{"en":"Multiply distance by time when finding speed","zh":"求速率時把路程乘時間"},{"en":"Write distance units alone for a speed answer","zh":"速率答案只寫路程單位"},{"en":"Read a distance-time graph's height as speed instead of comparing change in distance with change in time","zh":"把距離時間圖的高度當作速率，而不比較路程變化與時間變化"}]
+
+### supp-p6-pre-secondary-problem-solving-common-check-v2
+PEN Which check best prevents a typical mistake in Pre-secondary Problem Solving?
+PZH 哪項檢查最能避免「升中解難」中的典型錯誤？
+A Check that every step answers the final question, not just an intermediate value
+EEN Check that every step answers the final question, not just an intermediate value. This check is consistent with both the key fact (First \(4 \times 6 = 24\), then \(24 - 9 = 15\).) and the guided example (Translate the row diagram into \(5\times7=35\), then use the note: \(35+8-6=37\) usable seats.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 檢查每一步是否通向最終問題，而不只是中途數值。這項檢查同時符合關鍵知識（先算 \(4 \times 6 = 24\)，再算 \(24 - 9 = 15\)。）和引導例題（先把行列圖表示成 \(5\times7=35\)，再運用備註：\(35+8-6=37\)，所以有 \(37\) 個可用座位。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Check that every step answers the final question, not just an intermediate value","zh":"檢查每一步是否通向最終問題，而不只是中途數值"},{"en":"Calculate with the first two numbers before identifying the final target","zh":"未辨認最終目標，便先用頭兩個數計算"},{"en":"Use every number in one operation even when the quantities play different roles","zh":"即使各數量作用不同，仍把所有數放進同一運算"},{"en":"Stop after finding an intermediate total without answering what remains or changes","zh":"求得中途總數便停止，沒有回答餘下或改變後的數量"}]
+
+### supp-angles-common-check-v2
+PEN Which check best prevents a typical mistake in Angles?
+PZH 哪項檢查最能避免「角」中的典型錯誤？
+A Write the angle-sum reason before the arithmetic
+EEN Write the angle-sum reason before the arithmetic. This check is consistent with both the key fact (The interior angles of any triangle add to \(180^\circ\).) and the guided example (\(180 - 50 - 70 = 60\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 計算前先寫出角和理由。這項檢查同時符合關鍵知識（任何三角形的內角和都是 \(180^\circ\)。）和引導例題（\(180 - 50 - 70 = 60\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Write the angle-sum reason before the arithmetic","zh":"計算前先寫出角和理由"},{"en":"Use 360 degrees as the total for angles on one straight line","zh":"把直線上鄰角的總和當作 360 度"},{"en":"Assume two lines are parallel because they look parallel in the sketch","zh":"只因草圖看來平行便假設兩線平行"},{"en":"Equate adjacent angles as though they were vertically opposite","zh":"把鄰角當作對頂角而判定相等"}]
+
+### supp-coordinates-key-fact
+PEN What is the \(x\)-coordinate of \((-4, 6)\)?
+PZH \((-4, 6)\) 的 \(x\) 坐標是多少？
+A -4
+EEN The first coordinate is \(x\).
+EZH 第一個坐標是 \(x\) 坐標。
+OPT null
+
+### supp-coordinates-guided-example
+PEN Which quadrant contains \((-2, 5)\)?
+PZH \((-2, 5)\) 位於哪一象限？
+A II
+EEN Negative \(x\) and positive \(y\) give Quadrant II.
+EZH \(x\) 負、\(y\) 正，所以是第二象限。
+OPT null
+
+### supp-coordinates-common-check-v2
+PEN Which check best prevents a typical mistake in Coordinates?
+PZH 哪項檢查最能避免「坐標」中的典型錯誤？
+A Do not swap the x- and y-coordinates
+EEN Do not swap the x- and y-coordinates. This check is consistent with both the key fact (The first coordinate is \(x\).) and the guided example (Negative \(x\) and positive \(y\) give Quadrant II.); the other checks would preserve a topic-specific error rather than expose it.
+EZH 不要把 x 和 y 坐標倒轉。這項檢查同時符合關鍵知識（第一個坐標是 \(x\) 坐標。）和引導例題（\(x\) 負、\(y\) 正，所以是第二象限。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Do not swap the x- and y-coordinates","zh":"不要把 x 和 y 坐標倒轉"},{"en":"Read the vertical coordinate before the horizontal coordinate","zh":"先讀縱坐標，再讀橫坐標"},{"en":"Decide the quadrant from the signs without checking which coordinate is x","zh":"未辨認哪個是 x 坐標，便只按正負號判斷象限"},{"en":"Measure the point's drawn distance from the page edge instead of using the axes","zh":"量度點與頁面邊緣的圖上距離，而不用坐標軸讀數"}]
+
+### supp-transformations-common-check-v2
+PEN Which check best prevents a typical mistake in Transformations?
+PZH 哪項檢查最能避免「變換」中的典型錯誤？
+A Label original and image points clearly
+EEN Label original and image points clearly. This check is consistent with both the key fact (Add coordinates: \((1 + 3, 2 - 1) = (4, 1)\).) and the guided example (Reflection in the \(x\)-axis changes the sign of \(y\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 清楚標示原像點和影像點。這項檢查同時符合關鍵知識（坐標相加：\((1 + 3, 2 - 1) = (4, 1)\)。）和引導例題（關於 \(x\) 軸反射會改變 \(y\) 的符號。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Label original and image points clearly","zh":"清楚標示原像點和影像點"},{"en":"Reflect the figure whenever a translation vector contains a negative component","zh":"平移向量有負分量時便把圖形反射"},{"en":"Rotate every figure about the origin even when another centre is stated","zh":"即使題目指定另一中心，仍一律繞原點旋轉"},{"en":"Transform the image coordinates again instead of starting from the original figure","zh":"不由原圖開始，而再次變換像的坐標"}]
+
+### supp-functions-guided-example
+PEN If \(g(x)=x^2\), find \(g(-3)\).
+PZH 若 \(g(x)=x^2\)，求 \(g(-3)\)。
+A 9
+EEN \((-3)^2=9\).
+EZH \((-3)^2=9\)。
+OPT null
+
+### supp-functions-common-check-v2
+PEN Which check best prevents a typical mistake in Functions?
+PZH 哪項檢查最能避免「函數」中的典型錯誤？
+A Substitute the whole input before simplifying
+EEN Substitute the whole input before simplifying. This check is consistent with both the key fact (\(3(2)+2=8\).) and the guided example (\((-3)^2=9\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 先完整代入輸入值，再化簡。這項檢查同時符合關鍵知識（\(3(2)+2=8\)。）和引導例題（\((-3)^2=9\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Substitute the whole input before simplifying","zh":"先完整代入輸入值，再化簡"},{"en":"Swap the input and output before applying the function rule","zh":"套用函數規則前先把輸入和輸出對調"},{"en":"Use the y-intercept as the output for every input","zh":"把 y 軸截距當作每個輸入的輸出"},{"en":"Combine the input with the function name as if they were like terms","zh":"把輸入與函數名稱當作同類項合併"}]
+
+### supp-quadratic-patterns-first-step-v2
+PEN When starting a question about Quadratic Functions, which action is the best first step?
+PZH 開始處理關於「二次函數」的題目時，哪項行動是最佳的第一步？
+A Look for second differences, vertex, or axis of symmetry
+EEN Look for second differences, vertex, or axis of symmetry. The topic's key fact shows why this structure matters: \(x = -\frac{b}{2a} = -1\). The alternatives instead encode these specific misconceptions: “Read the y-intercept as the vertex of every parabola”; “Use the two visible roots as the axis equation without finding their midpoint”; “Assume the coefficient of x is the x-coordinate of the vertex”.
+EZH 先找二階差、頂點或對稱軸。本課題的關鍵知識說明這個結構為何重要：\(x = -\frac{b}{2a} = -1\)。 其餘選項分別包含以下具體誤解：「把 y 軸截距當作每條拋物線的頂點」；「未求中點，便把兩個可見根當作對稱軸方程」；「假設 x 項的係數就是頂點的 x 坐標」。
+OPT [{"en":"Look for second differences, vertex, or axis of symmetry","zh":"先找二階差、頂點或對稱軸"},{"en":"Read the y-intercept as the vertex of every parabola","zh":"把 y 軸截距當作每條拋物線的頂點"},{"en":"Use the two visible roots as the axis equation without finding their midpoint","zh":"未求中點，便把兩個可見根當作對稱軸方程"},{"en":"Assume the coefficient of x is the x-coordinate of the vertex","zh":"假設 x 項的係數就是頂點的 x 坐標"}]
+
+### supp-quadratic-patterns-key-fact-v2
+PEN For \(y = x^2 + 2x + 1\), what is the axis of symmetry?
+PZH 對於 \(y = x^2 + 2x + 1\)，對稱軸是甚麼？
+A x = -1
+EEN \(x = -\frac{b}{2a} = -1\).
+EZH \(x = -\frac{b}{2a} = -1\)。
+OPT null
+
+### supp-quadratic-patterns-guided-example-v2
+PEN What is the vertex of \(y = (x - 3)^2 + 2\)?
+PZH \(y = (x - 3)^2 + 2\) 的頂點是甚麼？
+A (3, 2)
+EEN Vertex form \(y=(x-h)^2+k\) has vertex \((h,k)\).
+EZH 頂點式 \(y=(x-h)^2+k\) 的頂點是 \((h,k)\)。
+OPT null
+
+### supp-quadratic-patterns-common-check-v2
+PEN Which check best prevents a typical mistake in Quadratic Functions?
+PZH 哪項檢查最能避免「二次函數」中的典型錯誤？
+A Use the sign carefully in vertex form
+EEN Use the sign carefully in vertex form. This check is consistent with both the key fact (\(x = -\frac{b}{2a} = -1\).) and the guided example (Vertex form \(y=(x-h)^2+k\) has vertex \((h,k)\).); the other checks would preserve a topic-specific error rather than expose it.
+EZH 使用頂點式時要小心括號內的符號。這項檢查同時符合關鍵知識（\(x = -\frac{b}{2a} = -1\)。）和引導例題（頂點式 \(y=(x-h)^2+k\) 的頂點是 \((h,k)\)。）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。
+OPT [{"en":"Use the sign carefully in vertex form","zh":"使用頂點式時要小心括號內的符號"},{"en":"Read the y-intercept as the vertex of every parabola","zh":"把 y 軸截距當作每條拋物線的頂點"},{"en":"Use the two visible roots as the axis equation without finding their midpoint","zh":"未求中點，便把兩個可見根當作對稱軸方程"},{"en":"Assume the coefficient of x is the x-coordinate of the vertex","zh":"假設 x 項的係數就是頂點的 x 坐標"}]
+
+### supp-coordinate-geometry-guided-example
+PEN Find the distance between \((0,0)\) and \((3,4)\).
+PZH 求 \((0,0)\) 和 \((3,4)\) 的距離。
+A 5
+EEN Use Pythagoras: \(\sqrt{3^2+4^2}=5\).
+EZH 用畢氏定理：\(\sqrt{3^2+4^2}=5\)。
+OPT null
+
+### supp-coordinate-geometry-common-check-v2
+PEN Which check best prevents a typical mistake in Coordinate Geometry?
+PZH 哪項檢查最能避免「坐標幾何」中的典型錯誤？
+A Keep x-differences and y-differences in matching order
+EEN For points \((1,2)\) and \((4,8)\), using the same point order gives gradient \((8-2)/(4-1)=2\). Reversing both differences also gives \((2-8)/(1-4)=2\); reversing only one difference would give the wrong sign.
+EZH 對點 \((1,2)\) 和 \((4,8)\)，兩個差使用同一點序可得斜率 \((8-2)/(4-1)=2\)。若兩個差同時倒轉，\((2-8)/(1-4)=2\) 仍相同；只倒轉其中一個差則會得到錯誤符號。
+OPT [{"en":"Keep x-differences and y-differences in matching order","zh":"x 差和 y 差要保持同一方向"},{"en":"Subtract x-coordinates in one order and y-coordinates in the opposite order","zh":"x 坐標按一個次序相減，y 坐標卻按相反次序相減"},{"en":"Average the coordinate differences to obtain the gradient","zh":"把坐標差取平均當作斜率"},{"en":"Read the drawn steepness without using rise divided by run","zh":"不計算升幅除以橫距，只按圖上斜度讀答案"}]
+
+### supp-data-handling-common-check-v2
+PEN Which check best prevents a typical mistake in Data Handling?
+PZH 哪項檢查最能避免「數據處理」中的典型錯誤？
+A Check whether the graph scale is misleading
+EEN A vertical axis truncated from 95 to 100 can make values 98 and 99 look far apart even though they differ by only 1. Check the axis start, interval, and whether intervals are equal before judging a visual difference.
+EZH 若縱軸由 95 而不是 0 開始，數值 98 和 99 在圖上可能看似相差很大，但實際只相差 1。判斷視覺差異前，要檢查坐標軸起點、刻度間距及各間距是否相等。
+OPT [{"en":"Check whether the graph scale is misleading","zh":"檢查圖表比例是否誤導"},{"en":"Choose the mean automatically even when extreme outliers dominate","zh":"即使極端離群值影響很大，仍一律選平均數"},{"en":"Infer a median from the visual shape when the raw ordered values are unavailable","zh":"未有已排序原始數值，便只按圖形外觀推斷中位數"},{"en":"Interpret an association in a graph as proof that one variable causes the other","zh":"把圖上的關聯解讀為一個變量導致另一變量的證明"}]

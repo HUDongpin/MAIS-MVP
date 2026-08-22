@@ -1,0 +1,4363 @@
+{
+  "schemaVersion": "hk-ease-v4-independent-exact26-review-receipt-v1",
+  "status": "frozen-independent-review-authority-needs-semantic-repair",
+  "reviewBoundary": "sanitized bilingual prompts plus row-specific derivation supplement preimage; no production answer, accepted-answer, contract, mapper, v3, or generated-v4-oracle authority",
+  "sanitizedInput": {
+    "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/v4-sanitized-derivation-input.json",
+    "sha256": "1b36361daad78bbd54d1e8a42d1e58dbdd8b62ab65638783a8697943ddf10634"
+  },
+  "supplementPreimage": {
+    "path": "coordination/content-qa/authoritative/hk-ease-701-independent-oracle/preimages/v4-row-specific-derivation-supplement-a855b861.json",
+    "sha256": "a855b86192312ca450c17969749f9d4643ce21b493e01dace10273bb57dbe763"
+  },
+  "orderedBaseIdSha256": "fe20c8ff458b6d67b911c20ee02675202b188c44b4cc933066a2f64bd965b66a",
+  "outcomeCanonicalization": "UTF-8 JSON.stringify([{index,baseId,status,discrepancyNote}], sanitized row order)",
+  "outcomeByteLength": 56916,
+  "outcomeSha256": "e970336f13d7e16b30115a10de89e435af916dd1fd15e4ea113c464a95973c6b",
+  "summary": {
+    "total": 701,
+    "pass": 675,
+    "fail": 26
+  },
+  "exact26LedgerSha256": "38fff7d384b16490fa347b1ee6189ff00c53f3e3f4c19cd538d40a297b43ab8e",
+  "exact26Ledger": [
+    {
+      "index": 19,
+      "baseId": "hk-ease-10649",
+      "discrepancyNote": "metadata-only: prompt requires a greatest-to-least chain using >, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 28,
+      "baseId": "hk-ease-10660",
+      "discrepancyNote": "metadata-only: prompt requires a least-to-greatest chain using <, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 55,
+      "baseId": "hk-ease-10587",
+      "discrepancyNote": "metadata-only: prompt requires the rectangle-area formula and exact length × width = area form, but method and explicitFormat are null; response 15 × 6 = 90 cm² is correct."
+    },
+    {
+      "index": 62,
+      "baseId": "hk-ease-10594",
+      "discrepancyNote": "metadata-only: prompt requires the square-area formula and exact side × side = area form, but method and explicitFormat are null; response 7 × 7 = 49 cm² is correct."
+    },
+    {
+      "index": 72,
+      "baseId": "hk-ease-10391",
+      "discrepancyNote": "step/trace + metadata: prompt requires a commutative or associative property; method is null, and the executable trace computes (25 × 17) × 4 instead of deriving the response chain 25 × 4 × 17 = (25 × 4) × 17; final 1700 is correct."
+    },
+    {
+      "index": 73,
+      "baseId": "hk-ease-10392",
+      "discrepancyNote": "step/trace + metadata: nearest-ten estimation is required, but method is null and no typed rounding step derives 198 → 200 and 32 → 30 before 200 × 30; response 6000;6336 is numerically correct."
+    },
+    {
+      "index": 113,
+      "baseId": "hk-ease-10431",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 118,
+      "baseId": "hk-ease-10436",
+      "discrepancyNote": "metadata-only: prime/composite/neither classification is required, but components omits prime-composite-classification; response and reason are correct."
+    },
+    {
+      "index": 123,
+      "baseId": "hk-ease-10441",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 137,
+      "baseId": "hk-ease-10458",
+      "discrepancyNote": "metadata-only: an explicit decision plus reason is required, but components includes reason and omits decision; response is correct."
+    },
+    {
+      "index": 138,
+      "baseId": "hk-ease-10459",
+      "discrepancyNote": "metadata/fact coverage: explicit (a)…;(b)…;(c)… format and complete factor lists for 18 and 27 are required, but explicitFormat is null and components omits complete-factor-list; facts also omit the part-(c)/format request; response sets are correct."
+    },
+    {
+      "index": 146,
+      "baseId": "hk-ease-10467",
+      "discrepancyNote": "metadata-only: prompt asks for a truth decision, not a common-factor list; components incorrectly includes common-factor-list and omits decision; response True is correct."
+    },
+    {
+      "index": 148,
+      "baseId": "hk-ease-10457",
+      "discrepancyNote": "metadata/fact coverage: explicit (a)…;(b)…;(c)… format and the part-(c) first-two-common-multiples case are required, but explicitFormat is null and facts omit the part-(c)/format request; response lists are correct."
+    },
+    {
+      "index": 204,
+      "baseId": "hk-ease-10527",
+      "discrepancyNote": "metadata-only: prompt explicitly requires place;value format, but explicitFormat is null; response hundredths;0.03 is correct."
+    },
+    {
+      "index": 210,
+      "baseId": "hk-ease-10533",
+      "discrepancyNote": "metadata-only: prompt requires a largest-to-smallest chain using >, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 219,
+      "baseId": "hk-ease-10515",
+      "discrepancyNote": "metadata-only: prompt explicitly requires place of 4;place of 6 format, but explicitFormat is null; response is correct."
+    },
+    {
+      "index": 272,
+      "baseId": "hk-ease-182",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors and classification are correct."
+    },
+    {
+      "index": 273,
+      "baseId": "hk-ease-183",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors and classification are correct."
+    },
+    {
+      "index": 299,
+      "baseId": "hk-ease-667",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors, classification, and reason are correct."
+    },
+    {
+      "index": 305,
+      "baseId": "hk-ease-734",
+      "discrepancyNote": "metadata-only: prompt explicitly requires enumeration, but method is null; typed factor enumeration and response are correct."
+    },
+    {
+      "index": 358,
+      "baseId": "hk-ease-1071",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 376,
+      "baseId": "hk-ease-1089",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; all four decisions are correct."
+    },
+    {
+      "index": 377,
+      "baseId": "hk-ease-1090",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; all four decisions are correct."
+    },
+    {
+      "index": 389,
+      "baseId": "hk-ease-1102",
+      "discrepancyNote": "step/trace semantic defect: HCF short division must stop after 56,84 ÷2→28,42; ÷2→14,21; ÷7→2,3 because gcd(2,3)=1. The appended ÷2 and ÷3 steps do not divide every current value and are invalid HCF steps, although HCF 28 and the common-factor list are correct."
+    },
+    {
+      "index": 688,
+      "baseId": "hk-ease-864",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; response groups are correct."
+    },
+    {
+      "index": 693,
+      "baseId": "hk-ease-1041",
+      "discrepancyNote": "response/bilingual + metadata: EN asks six ordered Yes/No groups while ZH explicitly requires a ✓/✗ template; response uses Yes/No, explicitFormat is null, and components stops at part-c, omitting part-d/e/f and decision. All divisibility decisions are correct."
+    }
+  ],
+  "outcomes": [
+    {
+      "index": 0,
+      "baseId": "hk-ease-10629",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 1,
+      "baseId": "hk-ease-10630",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 2,
+      "baseId": "hk-ease-10631",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 3,
+      "baseId": "hk-ease-10632",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 4,
+      "baseId": "hk-ease-10633",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 5,
+      "baseId": "hk-ease-10634",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 6,
+      "baseId": "hk-ease-10635",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 7,
+      "baseId": "hk-ease-10636",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 8,
+      "baseId": "hk-ease-10637",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 9,
+      "baseId": "hk-ease-10638",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 10,
+      "baseId": "hk-ease-10639",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 11,
+      "baseId": "hk-ease-10640",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 12,
+      "baseId": "hk-ease-10641",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 13,
+      "baseId": "hk-ease-10642",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 14,
+      "baseId": "hk-ease-10643",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 15,
+      "baseId": "hk-ease-10644",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 16,
+      "baseId": "hk-ease-10645",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 17,
+      "baseId": "hk-ease-10647",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 18,
+      "baseId": "hk-ease-10648",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 19,
+      "baseId": "hk-ease-10649",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a greatest-to-least chain using >, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 20,
+      "baseId": "hk-ease-10650",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 21,
+      "baseId": "hk-ease-10652",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 22,
+      "baseId": "hk-ease-10653",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 23,
+      "baseId": "hk-ease-10654",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 24,
+      "baseId": "hk-ease-10655",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 25,
+      "baseId": "hk-ease-10656",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 26,
+      "baseId": "hk-ease-10658",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 27,
+      "baseId": "hk-ease-10659",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 28,
+      "baseId": "hk-ease-10660",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a least-to-greatest chain using <, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 29,
+      "baseId": "hk-ease-10661",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 30,
+      "baseId": "hk-ease-10651",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 31,
+      "baseId": "hk-ease-10662",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 32,
+      "baseId": "hk-ease-10564",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 33,
+      "baseId": "hk-ease-10565",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 34,
+      "baseId": "hk-ease-10566",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 35,
+      "baseId": "hk-ease-10567",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 36,
+      "baseId": "hk-ease-10568",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 37,
+      "baseId": "hk-ease-10569",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 38,
+      "baseId": "hk-ease-10570",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 39,
+      "baseId": "hk-ease-10571",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 40,
+      "baseId": "hk-ease-10572",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 41,
+      "baseId": "hk-ease-10573",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 42,
+      "baseId": "hk-ease-10574",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 43,
+      "baseId": "hk-ease-10575",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 44,
+      "baseId": "hk-ease-10576",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 45,
+      "baseId": "hk-ease-10577",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 46,
+      "baseId": "hk-ease-10578",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 47,
+      "baseId": "hk-ease-10579",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 48,
+      "baseId": "hk-ease-10580",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 49,
+      "baseId": "hk-ease-10581",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 50,
+      "baseId": "hk-ease-10582",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 51,
+      "baseId": "hk-ease-10583",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 52,
+      "baseId": "hk-ease-10584",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 53,
+      "baseId": "hk-ease-10585",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 54,
+      "baseId": "hk-ease-10586",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 55,
+      "baseId": "hk-ease-10587",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires the rectangle-area formula and exact length × width = area form, but method and explicitFormat are null; response 15 × 6 = 90 cm² is correct."
+    },
+    {
+      "index": 56,
+      "baseId": "hk-ease-10588",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 57,
+      "baseId": "hk-ease-10589",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 58,
+      "baseId": "hk-ease-10590",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 59,
+      "baseId": "hk-ease-10591",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 60,
+      "baseId": "hk-ease-10592",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 61,
+      "baseId": "hk-ease-10593",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 62,
+      "baseId": "hk-ease-10594",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires the square-area formula and exact side × side = area form, but method and explicitFormat are null; response 7 × 7 = 49 cm² is correct."
+    },
+    {
+      "index": 63,
+      "baseId": "hk-ease-10595",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 64,
+      "baseId": "hk-ease-10596",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 65,
+      "baseId": "hk-ease-10597",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 66,
+      "baseId": "hk-ease-10598",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 67,
+      "baseId": "hk-ease-10599",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 68,
+      "baseId": "hk-ease-10600",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 69,
+      "baseId": "hk-ease-10601",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 70,
+      "baseId": "hk-ease-10389",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 71,
+      "baseId": "hk-ease-10390",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 72,
+      "baseId": "hk-ease-10391",
+      "status": "fail",
+      "discrepancyNote": "step/trace + metadata: prompt requires a commutative or associative property; method is null, and the executable trace computes (25 × 17) × 4 instead of deriving the response chain 25 × 4 × 17 = (25 × 4) × 17; final 1700 is correct."
+    },
+    {
+      "index": 73,
+      "baseId": "hk-ease-10392",
+      "status": "fail",
+      "discrepancyNote": "step/trace + metadata: nearest-ten estimation is required, but method is null and no typed rounding step derives 198 → 200 and 32 → 30 before 200 × 30; response 6000;6336 is numerically correct."
+    },
+    {
+      "index": 74,
+      "baseId": "hk-ease-10393",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 75,
+      "baseId": "hk-ease-10394",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 76,
+      "baseId": "hk-ease-10395",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 77,
+      "baseId": "hk-ease-10396",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 78,
+      "baseId": "hk-ease-10397",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 79,
+      "baseId": "hk-ease-10398",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 80,
+      "baseId": "hk-ease-10399",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 81,
+      "baseId": "hk-ease-10400",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 82,
+      "baseId": "hk-ease-10401",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 83,
+      "baseId": "hk-ease-10402",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 84,
+      "baseId": "hk-ease-10403",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 85,
+      "baseId": "hk-ease-10404",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 86,
+      "baseId": "hk-ease-10405",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 87,
+      "baseId": "hk-ease-10406",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 88,
+      "baseId": "hk-ease-10407",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 89,
+      "baseId": "hk-ease-10471",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 90,
+      "baseId": "hk-ease-10408",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 91,
+      "baseId": "hk-ease-10409",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 92,
+      "baseId": "hk-ease-10410",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 93,
+      "baseId": "hk-ease-10411",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 94,
+      "baseId": "hk-ease-10412",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 95,
+      "baseId": "hk-ease-10413",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 96,
+      "baseId": "hk-ease-10414",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 97,
+      "baseId": "hk-ease-10415",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 98,
+      "baseId": "hk-ease-10416",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 99,
+      "baseId": "hk-ease-10417",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 100,
+      "baseId": "hk-ease-10418",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 101,
+      "baseId": "hk-ease-10419",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 102,
+      "baseId": "hk-ease-10420",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 103,
+      "baseId": "hk-ease-10421",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 104,
+      "baseId": "hk-ease-10422",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 105,
+      "baseId": "hk-ease-10423",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 106,
+      "baseId": "hk-ease-10424",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 107,
+      "baseId": "hk-ease-10425",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 108,
+      "baseId": "hk-ease-10426",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 109,
+      "baseId": "hk-ease-10427",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 110,
+      "baseId": "hk-ease-10428",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 111,
+      "baseId": "hk-ease-10429",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 112,
+      "baseId": "hk-ease-10430",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 113,
+      "baseId": "hk-ease-10431",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 114,
+      "baseId": "hk-ease-10432",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 115,
+      "baseId": "hk-ease-10433",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 116,
+      "baseId": "hk-ease-10434",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 117,
+      "baseId": "hk-ease-10435",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 118,
+      "baseId": "hk-ease-10436",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prime/composite/neither classification is required, but components omits prime-composite-classification; response and reason are correct."
+    },
+    {
+      "index": 119,
+      "baseId": "hk-ease-10437",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 120,
+      "baseId": "hk-ease-10438",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 121,
+      "baseId": "hk-ease-10439",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 122,
+      "baseId": "hk-ease-10440",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 123,
+      "baseId": "hk-ease-10441",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 124,
+      "baseId": "hk-ease-10442",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 125,
+      "baseId": "hk-ease-10445",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 126,
+      "baseId": "hk-ease-10446",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 127,
+      "baseId": "hk-ease-10447",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 128,
+      "baseId": "hk-ease-10443",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 129,
+      "baseId": "hk-ease-10449",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 130,
+      "baseId": "hk-ease-10450",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 131,
+      "baseId": "hk-ease-10451",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 132,
+      "baseId": "hk-ease-10452",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 133,
+      "baseId": "hk-ease-10453",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 134,
+      "baseId": "hk-ease-10454",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 135,
+      "baseId": "hk-ease-10455",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 136,
+      "baseId": "hk-ease-10456",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 137,
+      "baseId": "hk-ease-10458",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: an explicit decision plus reason is required, but components includes reason and omits decision; response is correct."
+    },
+    {
+      "index": 138,
+      "baseId": "hk-ease-10459",
+      "status": "fail",
+      "discrepancyNote": "metadata/fact coverage: explicit (a)…;(b)…;(c)… format and complete factor lists for 18 and 27 are required, but explicitFormat is null and components omits complete-factor-list; facts also omit the part-(c)/format request; response sets are correct."
+    },
+    {
+      "index": 139,
+      "baseId": "hk-ease-10460",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 140,
+      "baseId": "hk-ease-10461",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 141,
+      "baseId": "hk-ease-10462",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 142,
+      "baseId": "hk-ease-10463",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 143,
+      "baseId": "hk-ease-10464",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 144,
+      "baseId": "hk-ease-10465",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 145,
+      "baseId": "hk-ease-10466",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 146,
+      "baseId": "hk-ease-10467",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt asks for a truth decision, not a common-factor list; components incorrectly includes common-factor-list and omits decision; response True is correct."
+    },
+    {
+      "index": 147,
+      "baseId": "hk-ease-10468",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 148,
+      "baseId": "hk-ease-10457",
+      "status": "fail",
+      "discrepancyNote": "metadata/fact coverage: explicit (a)…;(b)…;(c)… format and the part-(c) first-two-common-multiples case are required, but explicitFormat is null and facts omit the part-(c)/format request; response lists are correct."
+    },
+    {
+      "index": 149,
+      "baseId": "hk-ease-10469",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 150,
+      "baseId": "hk-ease-10470",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 151,
+      "baseId": "hk-ease-10472",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 152,
+      "baseId": "hk-ease-10473",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 153,
+      "baseId": "hk-ease-10474",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 154,
+      "baseId": "hk-ease-10475",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 155,
+      "baseId": "hk-ease-10476",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 156,
+      "baseId": "hk-ease-10477",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 157,
+      "baseId": "hk-ease-10478",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 158,
+      "baseId": "hk-ease-10479",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 159,
+      "baseId": "hk-ease-10480",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 160,
+      "baseId": "hk-ease-10482",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 161,
+      "baseId": "hk-ease-10483",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 162,
+      "baseId": "hk-ease-10484",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 163,
+      "baseId": "hk-ease-10485",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 164,
+      "baseId": "hk-ease-10486",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 165,
+      "baseId": "hk-ease-10487",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 166,
+      "baseId": "hk-ease-10488",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 167,
+      "baseId": "hk-ease-10489",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 168,
+      "baseId": "hk-ease-10490",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 169,
+      "baseId": "hk-ease-10491",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 170,
+      "baseId": "hk-ease-10492",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 171,
+      "baseId": "hk-ease-10493",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 172,
+      "baseId": "hk-ease-10494",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 173,
+      "baseId": "hk-ease-10497",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 174,
+      "baseId": "hk-ease-10498",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 175,
+      "baseId": "hk-ease-10499",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 176,
+      "baseId": "hk-ease-10500",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 177,
+      "baseId": "hk-ease-10501",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 178,
+      "baseId": "hk-ease-10502",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 179,
+      "baseId": "hk-ease-10503",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 180,
+      "baseId": "hk-ease-10504",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 181,
+      "baseId": "hk-ease-10505",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 182,
+      "baseId": "hk-ease-10506",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 183,
+      "baseId": "hk-ease-10507",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 184,
+      "baseId": "hk-ease-10508",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 185,
+      "baseId": "hk-ease-10509",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 186,
+      "baseId": "hk-ease-10510",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 187,
+      "baseId": "hk-ease-10481",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 188,
+      "baseId": "hk-ease-10496",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 189,
+      "baseId": "hk-ease-10511",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 190,
+      "baseId": "hk-ease-10512",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 191,
+      "baseId": "hk-ease-10513",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 192,
+      "baseId": "hk-ease-10514",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 193,
+      "baseId": "hk-ease-10516",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 194,
+      "baseId": "hk-ease-10517",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 195,
+      "baseId": "hk-ease-10518",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 196,
+      "baseId": "hk-ease-10519",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 197,
+      "baseId": "hk-ease-10520",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 198,
+      "baseId": "hk-ease-10521",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 199,
+      "baseId": "hk-ease-10522",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 200,
+      "baseId": "hk-ease-10523",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 201,
+      "baseId": "hk-ease-10524",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 202,
+      "baseId": "hk-ease-10525",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 203,
+      "baseId": "hk-ease-10526",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 204,
+      "baseId": "hk-ease-10527",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt explicitly requires place;value format, but explicitFormat is null; response hundredths;0.03 is correct."
+    },
+    {
+      "index": 205,
+      "baseId": "hk-ease-10528",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 206,
+      "baseId": "hk-ease-10529",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 207,
+      "baseId": "hk-ease-10530",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 208,
+      "baseId": "hk-ease-10531",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 209,
+      "baseId": "hk-ease-10532",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 210,
+      "baseId": "hk-ease-10533",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a largest-to-smallest chain using >, but promptRequirements declares no inequality-symbol representation; response is correct."
+    },
+    {
+      "index": 211,
+      "baseId": "hk-ease-10534",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 212,
+      "baseId": "hk-ease-10535",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 213,
+      "baseId": "hk-ease-10536",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 214,
+      "baseId": "hk-ease-10537",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 215,
+      "baseId": "hk-ease-10538",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 216,
+      "baseId": "hk-ease-10539",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 217,
+      "baseId": "hk-ease-10540",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 218,
+      "baseId": "hk-ease-10541",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 219,
+      "baseId": "hk-ease-10515",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt explicitly requires place of 4;place of 6 format, but explicitFormat is null; response is correct."
+    },
+    {
+      "index": 220,
+      "baseId": "hk-ease-10542",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 221,
+      "baseId": "hk-ease-10543",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 222,
+      "baseId": "hk-ease-10544",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 223,
+      "baseId": "hk-ease-10545",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 224,
+      "baseId": "hk-ease-10546",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 225,
+      "baseId": "hk-ease-10547",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 226,
+      "baseId": "hk-ease-10548",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 227,
+      "baseId": "hk-ease-10549",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 228,
+      "baseId": "hk-ease-10550",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 229,
+      "baseId": "hk-ease-10551",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 230,
+      "baseId": "hk-ease-10552",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 231,
+      "baseId": "hk-ease-10553",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 232,
+      "baseId": "hk-ease-10554",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 233,
+      "baseId": "hk-ease-10555",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 234,
+      "baseId": "hk-ease-10556",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 235,
+      "baseId": "hk-ease-10557",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 236,
+      "baseId": "hk-ease-10558",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 237,
+      "baseId": "hk-ease-10559",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 238,
+      "baseId": "hk-ease-10561",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 239,
+      "baseId": "hk-ease-10562",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 240,
+      "baseId": "hk-ease-10563",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 241,
+      "baseId": "hk-ease-10602",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 242,
+      "baseId": "hk-ease-10603",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 243,
+      "baseId": "hk-ease-10604",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 244,
+      "baseId": "hk-ease-10605",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 245,
+      "baseId": "hk-ease-10606",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 246,
+      "baseId": "hk-ease-10607",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 247,
+      "baseId": "hk-ease-10608",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 248,
+      "baseId": "hk-ease-10619",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 249,
+      "baseId": "hk-ease-10620",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 250,
+      "baseId": "hk-ease-10621",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 251,
+      "baseId": "hk-ease-10622",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 252,
+      "baseId": "hk-ease-10624",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 253,
+      "baseId": "hk-ease-10625",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 254,
+      "baseId": "hk-ease-10626",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 255,
+      "baseId": "hk-ease-10627",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 256,
+      "baseId": "hk-ease-10628",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 257,
+      "baseId": "hk-ease-10663",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 258,
+      "baseId": "hk-ease-10664",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 259,
+      "baseId": "hk-ease-10665",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 260,
+      "baseId": "hk-ease-10666",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 261,
+      "baseId": "hk-ease-10667",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 262,
+      "baseId": "hk-ease-10668",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 263,
+      "baseId": "hk-ease-10669",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 264,
+      "baseId": "hk-ease-10670",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 265,
+      "baseId": "hk-ease-10671",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 266,
+      "baseId": "hk-ease-10672",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 267,
+      "baseId": "hk-ease-54",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 268,
+      "baseId": "hk-ease-114",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 269,
+      "baseId": "hk-ease-115",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 270,
+      "baseId": "hk-ease-180",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 271,
+      "baseId": "hk-ease-181",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 272,
+      "baseId": "hk-ease-182",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors and classification are correct."
+    },
+    {
+      "index": 273,
+      "baseId": "hk-ease-183",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors and classification are correct."
+    },
+    {
+      "index": 274,
+      "baseId": "hk-ease-184",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 275,
+      "baseId": "hk-ease-185",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 276,
+      "baseId": "hk-ease-186",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 277,
+      "baseId": "hk-ease-187",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 278,
+      "baseId": "hk-ease-188",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 279,
+      "baseId": "hk-ease-235",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 280,
+      "baseId": "hk-ease-236",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 281,
+      "baseId": "hk-ease-303",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 282,
+      "baseId": "hk-ease-364",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 283,
+      "baseId": "hk-ease-410",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 284,
+      "baseId": "hk-ease-427",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 285,
+      "baseId": "hk-ease-428",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 286,
+      "baseId": "hk-ease-429",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 287,
+      "baseId": "hk-ease-430",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 288,
+      "baseId": "hk-ease-431",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 289,
+      "baseId": "hk-ease-489",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 290,
+      "baseId": "hk-ease-490",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 291,
+      "baseId": "hk-ease-491",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 292,
+      "baseId": "hk-ease-492",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 293,
+      "baseId": "hk-ease-550",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 294,
+      "baseId": "hk-ease-591",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 295,
+      "baseId": "hk-ease-592",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 296,
+      "baseId": "hk-ease-593",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 297,
+      "baseId": "hk-ease-594",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 298,
+      "baseId": "hk-ease-665",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 299,
+      "baseId": "hk-ease-667",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response factors, classification, and reason are correct."
+    },
+    {
+      "index": 300,
+      "baseId": "hk-ease-668",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 301,
+      "baseId": "hk-ease-670",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 302,
+      "baseId": "hk-ease-671",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 303,
+      "baseId": "hk-ease-672",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 304,
+      "baseId": "hk-ease-673",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 305,
+      "baseId": "hk-ease-734",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt explicitly requires enumeration, but method is null; typed factor enumeration and response are correct."
+    },
+    {
+      "index": 306,
+      "baseId": "hk-ease-735",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 307,
+      "baseId": "hk-ease-736",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 308,
+      "baseId": "hk-ease-746",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 309,
+      "baseId": "hk-ease-748",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 310,
+      "baseId": "hk-ease-760",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 311,
+      "baseId": "hk-ease-790",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 312,
+      "baseId": "hk-ease-794",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 313,
+      "baseId": "hk-ease-795",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 314,
+      "baseId": "hk-ease-812",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 315,
+      "baseId": "hk-ease-827",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 316,
+      "baseId": "hk-ease-828",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 317,
+      "baseId": "hk-ease-829",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 318,
+      "baseId": "hk-ease-851",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 319,
+      "baseId": "hk-ease-862",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 320,
+      "baseId": "hk-ease-863",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 321,
+      "baseId": "hk-ease-900",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 322,
+      "baseId": "hk-ease-901",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 323,
+      "baseId": "hk-ease-902",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 324,
+      "baseId": "hk-ease-903",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 325,
+      "baseId": "hk-ease-904",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 326,
+      "baseId": "hk-ease-905",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 327,
+      "baseId": "hk-ease-906",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 328,
+      "baseId": "hk-ease-919",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 329,
+      "baseId": "hk-ease-1042",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 330,
+      "baseId": "hk-ease-1043",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 331,
+      "baseId": "hk-ease-1044",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 332,
+      "baseId": "hk-ease-1045",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 333,
+      "baseId": "hk-ease-1046",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 334,
+      "baseId": "hk-ease-1047",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 335,
+      "baseId": "hk-ease-1048",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 336,
+      "baseId": "hk-ease-1049",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 337,
+      "baseId": "hk-ease-1050",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 338,
+      "baseId": "hk-ease-1051",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 339,
+      "baseId": "hk-ease-1052",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 340,
+      "baseId": "hk-ease-1053",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 341,
+      "baseId": "hk-ease-1054",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 342,
+      "baseId": "hk-ease-1055",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 343,
+      "baseId": "hk-ease-1056",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 344,
+      "baseId": "hk-ease-1057",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 345,
+      "baseId": "hk-ease-1058",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 346,
+      "baseId": "hk-ease-1059",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 347,
+      "baseId": "hk-ease-1060",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 348,
+      "baseId": "hk-ease-1061",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 349,
+      "baseId": "hk-ease-1062",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 350,
+      "baseId": "hk-ease-1063",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 351,
+      "baseId": "hk-ease-1064",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 352,
+      "baseId": "hk-ease-1065",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 353,
+      "baseId": "hk-ease-1066",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 354,
+      "baseId": "hk-ease-1067",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 355,
+      "baseId": "hk-ease-1068",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 356,
+      "baseId": "hk-ease-1069",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 357,
+      "baseId": "hk-ease-1070",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 358,
+      "baseId": "hk-ease-1071",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt requires a complete factor list, but components omits complete-factor-list; response list is correct."
+    },
+    {
+      "index": 359,
+      "baseId": "hk-ease-1072",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 360,
+      "baseId": "hk-ease-1073",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 361,
+      "baseId": "hk-ease-1074",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 362,
+      "baseId": "hk-ease-1075",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 363,
+      "baseId": "hk-ease-1076",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 364,
+      "baseId": "hk-ease-1077",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 365,
+      "baseId": "hk-ease-1078",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 366,
+      "baseId": "hk-ease-1079",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 367,
+      "baseId": "hk-ease-1080",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 368,
+      "baseId": "hk-ease-1081",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 369,
+      "baseId": "hk-ease-1082",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 370,
+      "baseId": "hk-ease-1083",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 371,
+      "baseId": "hk-ease-1084",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 372,
+      "baseId": "hk-ease-1085",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 373,
+      "baseId": "hk-ease-1086",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 374,
+      "baseId": "hk-ease-1087",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 375,
+      "baseId": "hk-ease-1088",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 376,
+      "baseId": "hk-ease-1089",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; all four decisions are correct."
+    },
+    {
+      "index": 377,
+      "baseId": "hk-ease-1090",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; all four decisions are correct."
+    },
+    {
+      "index": 378,
+      "baseId": "hk-ease-1091",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 379,
+      "baseId": "hk-ease-1092",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 380,
+      "baseId": "hk-ease-1093",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 381,
+      "baseId": "hk-ease-1094",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 382,
+      "baseId": "hk-ease-1095",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 383,
+      "baseId": "hk-ease-1096",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 384,
+      "baseId": "hk-ease-1097",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 385,
+      "baseId": "hk-ease-1098",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 386,
+      "baseId": "hk-ease-1099",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 387,
+      "baseId": "hk-ease-1100",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 388,
+      "baseId": "hk-ease-1101",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 389,
+      "baseId": "hk-ease-1102",
+      "status": "fail",
+      "discrepancyNote": "step/trace semantic defect: HCF short division must stop after 56,84 ÷2→28,42; ÷2→14,21; ÷7→2,3 because gcd(2,3)=1. The appended ÷2 and ÷3 steps do not divide every current value and are invalid HCF steps, although HCF 28 and the common-factor list are correct."
+    },
+    {
+      "index": 390,
+      "baseId": "hk-ease-1103",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 391,
+      "baseId": "hk-ease-1104",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 392,
+      "baseId": "hk-ease-1105",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 393,
+      "baseId": "hk-ease-1106",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 394,
+      "baseId": "hk-ease-1107",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 395,
+      "baseId": "hk-ease-1108",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 396,
+      "baseId": "hk-ease-1109",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 397,
+      "baseId": "hk-ease-1110",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 398,
+      "baseId": "hk-ease-1111",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 399,
+      "baseId": "hk-ease-1112",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 400,
+      "baseId": "hk-ease-1113",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 401,
+      "baseId": "hk-ease-1114",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 402,
+      "baseId": "hk-ease-1115",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 403,
+      "baseId": "hk-ease-1116",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 404,
+      "baseId": "hk-ease-1117",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 405,
+      "baseId": "hk-ease-1118",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 406,
+      "baseId": "hk-ease-1119",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 407,
+      "baseId": "hk-ease-1120",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 408,
+      "baseId": "hk-ease-1121",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 409,
+      "baseId": "hk-ease-1122",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 410,
+      "baseId": "hk-ease-1123",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 411,
+      "baseId": "hk-ease-1124",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 412,
+      "baseId": "hk-ease-1125",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 413,
+      "baseId": "hk-ease-1126",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 414,
+      "baseId": "hk-ease-1127",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 415,
+      "baseId": "hk-ease-1128",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 416,
+      "baseId": "hk-ease-1129",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 417,
+      "baseId": "hk-ease-1130",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 418,
+      "baseId": "hk-ease-1131",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 419,
+      "baseId": "hk-ease-1132",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 420,
+      "baseId": "hk-ease-1133",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 421,
+      "baseId": "hk-ease-1134",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 422,
+      "baseId": "hk-ease-1135",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 423,
+      "baseId": "hk-ease-1136",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 424,
+      "baseId": "hk-ease-1137",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 425,
+      "baseId": "hk-ease-1138",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 426,
+      "baseId": "hk-ease-1139",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 427,
+      "baseId": "hk-ease-1140",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 428,
+      "baseId": "hk-ease-1141",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 429,
+      "baseId": "hk-ease-1142",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 430,
+      "baseId": "hk-ease-1143",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 431,
+      "baseId": "hk-ease-1144",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 432,
+      "baseId": "hk-ease-1145",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 433,
+      "baseId": "hk-ease-1146",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 434,
+      "baseId": "hk-ease-1147",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 435,
+      "baseId": "hk-ease-1148",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 436,
+      "baseId": "hk-ease-1149",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 437,
+      "baseId": "hk-ease-1150",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 438,
+      "baseId": "hk-ease-1151",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 439,
+      "baseId": "hk-ease-1152",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 440,
+      "baseId": "hk-ease-1153",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 441,
+      "baseId": "hk-ease-1154",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 442,
+      "baseId": "hk-ease-1155",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 443,
+      "baseId": "hk-ease-1156",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 444,
+      "baseId": "hk-ease-1157",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 445,
+      "baseId": "hk-ease-1158",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 446,
+      "baseId": "hk-ease-1159",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 447,
+      "baseId": "hk-ease-1160",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 448,
+      "baseId": "hk-ease-1161",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 449,
+      "baseId": "hk-ease-1162",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 450,
+      "baseId": "hk-ease-1163",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 451,
+      "baseId": "hk-ease-1164",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 452,
+      "baseId": "hk-ease-1165",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 453,
+      "baseId": "hk-ease-1166",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 454,
+      "baseId": "hk-ease-1167",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 455,
+      "baseId": "hk-ease-1168",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 456,
+      "baseId": "hk-ease-1169",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 457,
+      "baseId": "hk-ease-1170",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 458,
+      "baseId": "hk-ease-1171",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 459,
+      "baseId": "hk-ease-1172",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 460,
+      "baseId": "hk-ease-1173",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 461,
+      "baseId": "hk-ease-1174",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 462,
+      "baseId": "hk-ease-1175",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 463,
+      "baseId": "hk-ease-1176",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 464,
+      "baseId": "hk-ease-1177",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 465,
+      "baseId": "hk-ease-1178",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 466,
+      "baseId": "hk-ease-1179",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 467,
+      "baseId": "hk-ease-1180",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 468,
+      "baseId": "hk-ease-1181",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 469,
+      "baseId": "hk-ease-1182",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 470,
+      "baseId": "hk-ease-1189",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 471,
+      "baseId": "hk-ease-1190",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 472,
+      "baseId": "hk-ease-1193",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 473,
+      "baseId": "hk-ease-1194",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 474,
+      "baseId": "hk-ease-1195",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 475,
+      "baseId": "hk-ease-1196",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 476,
+      "baseId": "hk-ease-1197",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 477,
+      "baseId": "hk-ease-1198",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 478,
+      "baseId": "hk-ease-1200",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 479,
+      "baseId": "hk-ease-1201",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 480,
+      "baseId": "hk-ease-1202",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 481,
+      "baseId": "hk-ease-1205",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 482,
+      "baseId": "hk-ease-1206",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 483,
+      "baseId": "hk-ease-1207",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 484,
+      "baseId": "hk-ease-1210",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 485,
+      "baseId": "hk-ease-1211",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 486,
+      "baseId": "hk-ease-1212",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 487,
+      "baseId": "hk-ease-1213",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 488,
+      "baseId": "hk-ease-1214",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 489,
+      "baseId": "hk-ease-1216",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 490,
+      "baseId": "hk-ease-1217",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 491,
+      "baseId": "hk-ease-1218",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 492,
+      "baseId": "hk-ease-1219",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 493,
+      "baseId": "hk-ease-1220",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 494,
+      "baseId": "hk-ease-1221",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 495,
+      "baseId": "hk-ease-1223",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 496,
+      "baseId": "hk-ease-1227",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 497,
+      "baseId": "hk-ease-1228",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 498,
+      "baseId": "hk-ease-1229",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 499,
+      "baseId": "hk-ease-1230",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 500,
+      "baseId": "hk-ease-1232",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 501,
+      "baseId": "hk-ease-1233",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 502,
+      "baseId": "hk-ease-1234",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 503,
+      "baseId": "hk-ease-1235",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 504,
+      "baseId": "hk-ease-1236",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 505,
+      "baseId": "hk-ease-1237",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 506,
+      "baseId": "hk-ease-1238",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 507,
+      "baseId": "hk-ease-1239",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 508,
+      "baseId": "hk-ease-1240",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 509,
+      "baseId": "hk-ease-1241",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 510,
+      "baseId": "hk-ease-1242",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 511,
+      "baseId": "hk-ease-1243",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 512,
+      "baseId": "hk-ease-1244",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 513,
+      "baseId": "hk-ease-1245",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 514,
+      "baseId": "hk-ease-1246",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 515,
+      "baseId": "hk-ease-1247",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 516,
+      "baseId": "hk-ease-1248",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 517,
+      "baseId": "hk-ease-1249",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 518,
+      "baseId": "hk-ease-1250",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 519,
+      "baseId": "hk-ease-1251",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 520,
+      "baseId": "hk-ease-1252",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 521,
+      "baseId": "hk-ease-1253",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 522,
+      "baseId": "hk-ease-1254",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 523,
+      "baseId": "hk-ease-1255",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 524,
+      "baseId": "hk-ease-1256",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 525,
+      "baseId": "hk-ease-1257",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 526,
+      "baseId": "hk-ease-1258",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 527,
+      "baseId": "hk-ease-1259",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 528,
+      "baseId": "hk-ease-1260",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 529,
+      "baseId": "hk-ease-1261",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 530,
+      "baseId": "hk-ease-1262",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 531,
+      "baseId": "hk-ease-1264",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 532,
+      "baseId": "hk-ease-1265",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 533,
+      "baseId": "hk-ease-1266",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 534,
+      "baseId": "hk-ease-1267",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 535,
+      "baseId": "hk-ease-1268",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 536,
+      "baseId": "hk-ease-1269",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 537,
+      "baseId": "hk-ease-1270",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 538,
+      "baseId": "hk-ease-1271",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 539,
+      "baseId": "hk-ease-1272",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 540,
+      "baseId": "hk-ease-1273",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 541,
+      "baseId": "hk-ease-1274",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 542,
+      "baseId": "hk-ease-1275",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 543,
+      "baseId": "hk-ease-1276",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 544,
+      "baseId": "hk-ease-1277",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 545,
+      "baseId": "hk-ease-1278",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 546,
+      "baseId": "hk-ease-1759",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 547,
+      "baseId": "hk-ease-1760",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 548,
+      "baseId": "hk-ease-1761",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 549,
+      "baseId": "hk-ease-1762",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 550,
+      "baseId": "hk-ease-1763",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 551,
+      "baseId": "hk-ease-1764",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 552,
+      "baseId": "hk-ease-1765",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 553,
+      "baseId": "hk-ease-1766",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 554,
+      "baseId": "hk-ease-1767",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 555,
+      "baseId": "hk-ease-1768",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 556,
+      "baseId": "hk-ease-1769",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 557,
+      "baseId": "hk-ease-1770",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 558,
+      "baseId": "hk-ease-1771",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 559,
+      "baseId": "hk-ease-1772",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 560,
+      "baseId": "hk-ease-1773",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 561,
+      "baseId": "hk-ease-1774",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 562,
+      "baseId": "hk-ease-1775",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 563,
+      "baseId": "hk-ease-1776",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 564,
+      "baseId": "hk-ease-1777",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 565,
+      "baseId": "hk-ease-1778",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 566,
+      "baseId": "hk-ease-1779",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 567,
+      "baseId": "hk-ease-1780",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 568,
+      "baseId": "hk-ease-1781",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 569,
+      "baseId": "hk-ease-1782",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 570,
+      "baseId": "hk-ease-1783",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 571,
+      "baseId": "hk-ease-1794",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 572,
+      "baseId": "hk-ease-1795",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 573,
+      "baseId": "hk-ease-1796",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 574,
+      "baseId": "hk-ease-1797",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 575,
+      "baseId": "hk-ease-1798",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 576,
+      "baseId": "hk-ease-1799",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 577,
+      "baseId": "hk-ease-1800",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 578,
+      "baseId": "hk-ease-1801",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 579,
+      "baseId": "hk-ease-1802",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 580,
+      "baseId": "hk-ease-1803",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 581,
+      "baseId": "hk-ease-1804",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 582,
+      "baseId": "hk-ease-1805",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 583,
+      "baseId": "hk-ease-1806",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 584,
+      "baseId": "hk-ease-1807",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 585,
+      "baseId": "hk-ease-1808",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 586,
+      "baseId": "hk-ease-1809",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 587,
+      "baseId": "hk-ease-1810",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 588,
+      "baseId": "hk-ease-1811",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 589,
+      "baseId": "hk-ease-1812",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 590,
+      "baseId": "hk-ease-1813",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 591,
+      "baseId": "hk-ease-2035",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 592,
+      "baseId": "hk-ease-2672",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 593,
+      "baseId": "hk-ease-2673",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 594,
+      "baseId": "hk-ease-2674",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 595,
+      "baseId": "hk-ease-2675",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 596,
+      "baseId": "hk-ease-2676",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 597,
+      "baseId": "hk-ease-2677",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 598,
+      "baseId": "hk-ease-2678",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 599,
+      "baseId": "hk-ease-2679",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 600,
+      "baseId": "hk-ease-2680",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 601,
+      "baseId": "hk-ease-2681",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 602,
+      "baseId": "hk-ease-2682",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 603,
+      "baseId": "hk-ease-2683",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 604,
+      "baseId": "hk-ease-2684",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 605,
+      "baseId": "hk-ease-2685",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 606,
+      "baseId": "hk-ease-2686",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 607,
+      "baseId": "hk-ease-2687",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 608,
+      "baseId": "hk-ease-2847",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 609,
+      "baseId": "hk-ease-2848",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 610,
+      "baseId": "hk-ease-2849",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 611,
+      "baseId": "hk-ease-2850",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 612,
+      "baseId": "hk-ease-2851",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 613,
+      "baseId": "hk-ease-2915",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 614,
+      "baseId": "hk-ease-2916",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 615,
+      "baseId": "hk-ease-3663",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 616,
+      "baseId": "hk-ease-3664",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 617,
+      "baseId": "hk-ease-3665",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 618,
+      "baseId": "hk-ease-3666",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 619,
+      "baseId": "hk-ease-3667",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 620,
+      "baseId": "hk-ease-3669",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 621,
+      "baseId": "hk-ease-3670",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 622,
+      "baseId": "hk-ease-3671",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 623,
+      "baseId": "hk-ease-3672",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 624,
+      "baseId": "hk-ease-40",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 625,
+      "baseId": "hk-ease-41",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 626,
+      "baseId": "hk-ease-47",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 627,
+      "baseId": "hk-ease-48",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 628,
+      "baseId": "hk-ease-99",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 629,
+      "baseId": "hk-ease-100",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 630,
+      "baseId": "hk-ease-105",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 631,
+      "baseId": "hk-ease-107",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 632,
+      "baseId": "hk-ease-108",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 633,
+      "baseId": "hk-ease-131",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 634,
+      "baseId": "hk-ease-133",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 635,
+      "baseId": "hk-ease-176",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 636,
+      "baseId": "hk-ease-177",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 637,
+      "baseId": "hk-ease-178",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 638,
+      "baseId": "hk-ease-179",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 639,
+      "baseId": "hk-ease-206",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 640,
+      "baseId": "hk-ease-207",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 641,
+      "baseId": "hk-ease-289",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 642,
+      "baseId": "hk-ease-290",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 643,
+      "baseId": "hk-ease-291",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 644,
+      "baseId": "hk-ease-350",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 645,
+      "baseId": "hk-ease-351",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 646,
+      "baseId": "hk-ease-352",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 647,
+      "baseId": "hk-ease-421",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 648,
+      "baseId": "hk-ease-422",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 649,
+      "baseId": "hk-ease-424",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 650,
+      "baseId": "hk-ease-441",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 651,
+      "baseId": "hk-ease-442",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 652,
+      "baseId": "hk-ease-565",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 653,
+      "baseId": "hk-ease-567",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 654,
+      "baseId": "hk-ease-568",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 655,
+      "baseId": "hk-ease-663",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 656,
+      "baseId": "hk-ease-664",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 657,
+      "baseId": "hk-ease-666",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 658,
+      "baseId": "hk-ease-782",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 659,
+      "baseId": "hk-ease-815",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 660,
+      "baseId": "hk-ease-816",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 661,
+      "baseId": "hk-ease-854",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 662,
+      "baseId": "hk-ease-924",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 663,
+      "baseId": "hk-ease-926",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 664,
+      "baseId": "hk-ease-927",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 665,
+      "baseId": "hk-ease-1784",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 666,
+      "baseId": "hk-ease-1785",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 667,
+      "baseId": "hk-ease-1786",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 668,
+      "baseId": "hk-ease-1787",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 669,
+      "baseId": "hk-ease-1788",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 670,
+      "baseId": "hk-ease-1789",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 671,
+      "baseId": "hk-ease-1790",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 672,
+      "baseId": "hk-ease-1792",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 673,
+      "baseId": "hk-ease-2043",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 674,
+      "baseId": "hk-ease-2044",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 675,
+      "baseId": "hk-ease-2045",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 676,
+      "baseId": "hk-ease-2046",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 677,
+      "baseId": "hk-ease-2047",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 678,
+      "baseId": "hk-ease-2048",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 679,
+      "baseId": "hk-ease-2050",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 680,
+      "baseId": "hk-ease-2051",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 681,
+      "baseId": "hk-ease-2052",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 682,
+      "baseId": "hk-ease-398",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 683,
+      "baseId": "hk-ease-425",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 684,
+      "baseId": "hk-ease-426",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 685,
+      "baseId": "hk-ease-796",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 686,
+      "baseId": "hk-ease-797",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 687,
+      "baseId": "hk-ease-798",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 688,
+      "baseId": "hk-ease-864",
+      "status": "fail",
+      "discrepancyNote": "metadata-only: prompt has four labeled cases (a)-(d), but components stops at part-c and omits part-d; response groups are correct."
+    },
+    {
+      "index": 689,
+      "baseId": "hk-ease-866",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 690,
+      "baseId": "hk-ease-868",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 691,
+      "baseId": "hk-ease-883",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 692,
+      "baseId": "hk-ease-920",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 693,
+      "baseId": "hk-ease-1041",
+      "status": "fail",
+      "discrepancyNote": "response/bilingual + metadata: EN asks six ordered Yes/No groups while ZH explicitly requires a ✓/✗ template; response uses Yes/No, explicitFormat is null, and components stops at part-c, omitting part-d/e/f and decision. All divisibility decisions are correct."
+    },
+    {
+      "index": 694,
+      "baseId": "hk-ease-2036",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 695,
+      "baseId": "hk-ease-2037",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 696,
+      "baseId": "hk-ease-2038",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 697,
+      "baseId": "hk-ease-2039",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 698,
+      "baseId": "hk-ease-2040",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 699,
+      "baseId": "hk-ease-2041",
+      "status": "pass",
+      "discrepancyNote": ""
+    },
+    {
+      "index": 700,
+      "baseId": "hk-ease-2042",
+      "status": "pass",
+      "discrepancyNote": ""
+    }
+  ]
+}

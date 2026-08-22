@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+  "sourcePackageSha256": "d5ec0bfe6e45d110383d2fd5a66f9b6284e3d8b53b82cd8b4aca9a8f9cbe9a67",
+  "frozenAt": "2026-08-09T20:18:08Z",
+  "questions": [
+    {
+      "id": "hk-ease-10672-v2",
+      "curriculumTrack": "HK",
+      "region": "HK",
+      "canonicalTopicId": "hk-ease-5n3",
+      "grade": "P5",
+      "topicId": "hk-ease-5n3",
+      "topic": {
+        "en": "Fractions (IV)",
+        "zh": "分數 (四)"
+      },
+      "difficulty": "High",
+      "type": "fill-in",
+      "prompt": {
+        "en": "A rope is 12 m long. The first cut is \\(\\frac{1}{4}\\) of the total length. The second cut is \\(\\frac{2}{3}\\) of the first cut's length. How many metres was the second cut?",
+        "zh": "一條繩子長 12 米。第一次剪去全長的 \\(\\frac{1}{4}\\)，第二次剪去第一次長度的 \\(\\frac{2}{3}\\)。第二次剪去了多少米？"
+      },
+      "answer": "2 m",
+      "acceptedAnswers": [
+        "\\(12 \\times \\frac{1}{4} \\times \\frac{2}{3} = 3 \\times \\frac{2}{3} = \\mathbf{2}\\) (米/m)",
+        "2m",
+        "2 米"
+      ],
+      "explanation": {
+        "en": "Answer: 2 m. This text-only item passed S18 answer-key verification.",
+        "zh": "答案：2 m。此題已通過 S18 文字題答案核驗。"
+      }
+    },
+    {
+      "id": "hk-ease-1129-v2",
+      "curriculumTrack": "HK",
+      "region": "HK",
+      "canonicalTopicId": "hk-ease-n1",
+      "grade": "S1",
+      "topicId": "hk-ease-n1",
+      "topic": {
+        "en": "Basic computation",
+        "zh": "基礎計算"
+      },
+      "difficulty": "Low",
+      "type": "fill-in",
+      "prompt": {
+        "en": "Write the formula \"15 times 6\".",
+        "zh": "寫出「15乘以6」的算式。"
+      },
+      "answer": "15 × 6",
+      "acceptedAnswers": [
+        "15 \\times 6",
+        "15×6",
+        "15*6",
+        "15 times 6",
+        "15乘6",
+        "15乘以6"
+      ],
+      "explanation": {
+        "en": "Answer: 15 × 6. This text-only item passed S18 answer-key verification.",
+        "zh": "答案：15 × 6。此題已通過 S18 文字題答案核驗。"
+      }
+    }
+  ]
+}
