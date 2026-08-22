@@ -385,7 +385,7 @@ test("teacher ops submission persistence owns deterministic assignment grading f
     now: string;
     createId: () => string;
     questionAnswerMatches: (
-      question: { answer: string; accepted_answers?: string[] | null; options?: LocalizedText[] | null },
+      question: { id?: string; answer: string; accepted_answers?: string[] | null; options?: LocalizedText[] | null },
       selectedAnswer: string
     ) => boolean;
   }) => TeacherOpsSubmissionPersistenceDatabase["assignment_grading_runs"][number];
@@ -415,7 +415,10 @@ test("teacher ops submission persistence owns deterministic assignment grading f
     attempt,
     now: fixedNow,
     createId: () => "correct-id",
-    questionAnswerMatches: (question, selectedAnswer) => question.answer === selectedAnswer.trim()
+    questionAnswerMatches: (question, selectedAnswer) => {
+      assert.equal(question.id, "question-linked", "question-scoped grading contracts require the linked question id");
+      return question.answer === selectedAnswer.trim();
+    }
   });
   assert.equal(correct.id, "grading-run-correct-id");
   assert.equal(correct.submission_id, "submission-owned-1");
