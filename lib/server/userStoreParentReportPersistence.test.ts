@@ -137,6 +137,7 @@ function createDatabase(): ParentReportPersistenceDatabase {
     users: [
       { id: "parent-1", username: "Pat Parent", role: "parent" },
       { id: "parent-2", username: "Other Parent", role: "parent" },
+      { id: "admin-1", username: "Support Admin", role: "admin" },
       { id: "teacher-1", username: "Teacher Chan", role: "teacher" },
       { id: "student-1", username: "Ada", role: "student" },
       { id: "student-2", username: "Ben", role: "student" },
@@ -197,6 +198,10 @@ test("parent report persistence rejects unavailable parent report data", async (
   assert.deepEqual((await store.getParentReportData("parent-2"))?.reports, []);
 });
 
+test("parent report persistence rejects admin reads", async () => {
+  assert.equal(await createTestStore().getParentReportData("admin-1"), null);
+});
+
 test("parent report persistence owns parent report lookup helper for legacy userStore", async () => {
   const persistenceSource = await readFile(path.join(process.cwd(), "lib/server/userStore/parentReportPersistence.ts"), "utf8");
   const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
@@ -254,11 +259,14 @@ test("an explicit studentId still narrows to that child alone", async () => {
   assert.deepEqual([...new Set(data?.reports.map((report) => report.studentId))], ["student-2"]);
 });
 
-test("an unknown studentId falls back to the all-children view, not to child #1", async () => {
-  // A stale or hand-edited URL must not silently scope the parent to one child.
-  const data = await createTestStore().getParentReportData("parent-1", "student-does-not-exist");
+test("every explicitly invalid report studentId fails closed instead of expanding to all children", async () => {
+  const store = createTestStore();
 
-  assert.equal(data?.selectedChild, null);
-  const studentIds = new Set(data?.reports.map((report) => report.studentId));
-  assert.ok(studentIds.has("student-1") && studentIds.has("student-2"));
+  for (const studentId of ["", "student-does-not-exist", "student-3"]) {
+    assert.equal(
+      await store.getParentReportData("parent-1", studentId),
+      null,
+      `explicit filter ${JSON.stringify(studentId)} must not expand to all linked reports`
+    );
+  }
 });

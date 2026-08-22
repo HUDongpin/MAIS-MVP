@@ -190,6 +190,7 @@ function createDatabase(): ParentNoticePersistenceDatabase {
     users: [
       { id: "parent-1", username: "Pat Parent", role: "parent" },
       { id: "parent-2", username: "Other Parent", role: "parent" },
+      { id: "admin-1", username: "Support Admin", role: "admin" },
       { id: "teacher-1", username: "Teacher Chan", role: "teacher" },
       { id: "student-1", username: "Ada", role: "student" },
       { id: "student-2", username: "Ben", role: "student" }
@@ -254,7 +255,66 @@ test("parent notice persistence targets a recipient and acknowledges allowed not
   assert.equal(database.teacher_notice_recipients[0].acknowledged_by, "parent-1");
   assert.equal(database.teacher_notice_recipients[0].acknowledged_at, generatedAt);
   assert.equal(database.teacher_notices[0].updated_at, generatedAt);
-  assert.equal(result.notice?.acknowledgement.acknowledged, 1);
+  assert.deepEqual(result, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: generatedAt
+    }
+  });
+});
+
+test("every explicitly invalid or conflicting notice filter fails closed", async () => {
+  const store = createTestStore();
+  const invalidFilters = [
+    { selectedStudentId: "" },
+    { selectedStudentId: "student-does-not-exist" },
+    { recipientId: "" },
+    { recipientId: "recipient-does-not-exist" },
+    { recipientId: "recipient-other-parent" },
+    { selectedStudentId: "student-1", recipientId: "recipient-2" }
+  ];
+
+  for (const filters of invalidFilters) {
+    assert.equal(
+      await store.getParentNoticeData("parent-1", filters),
+      null,
+      `explicit filters ${JSON.stringify(filters)} must not expand to visible notices`
+    );
+  }
+
+  assert.deepEqual(
+    (await store.getParentNoticeData("parent-1"))?.notices.map((notice) => notice.id),
+    ["notice-2", "notice-1"],
+    "omitting every filter must preserve the all-linked-children view"
+  );
+});
+
+test("parent notice acknowledgement returns only the current guardian receipt", async () => {
+  const store = createTestStore();
+
+  const result = await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "recipient-1" });
+
+  assert.deepEqual(result, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: generatedAt
+    }
+  });
+});
+
+test("admin cannot write a guardian acknowledgement", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const result = await store.acknowledgeParentNotice({ parentId: "admin-1", recipientId: "recipient-1" });
+
+  assert.deepEqual(result, { status: "forbidden" });
+  assert.equal(database.teacher_notice_recipients[0].status, "pending");
+  assert.equal(database.teacher_notice_recipients[0].acknowledged_at, null);
 });
 
 test("parent notice persistence rejects unavailable or unauthorized acknowledgement", async () => {
@@ -264,6 +324,10 @@ test("parent notice persistence rejects unavailable or unauthorized acknowledgem
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "teacher-1", recipientId: "recipient-1" }), { status: "forbidden" });
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "missing" }), { status: "not-found" });
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" }), { status: "forbidden" });
+});
+
+test("parent notice persistence rejects admin reads", async () => {
+  assert.equal(await createTestStore().getParentNoticeData("admin-1"), null);
 });
 
 test("parent notice persistence owns parent-safe review lesson draft helpers for legacy userStore", async () => {
@@ -439,7 +503,14 @@ test("parent notice acknowledgement is idempotent and never re-stamps the receip
 
   // Still succeeds, so callers and the UI are unaffected...
   assert.equal(second.status, "acknowledged");
-  assert.equal(second.notice?.acknowledgement.acknowledged, 1);
+  assert.deepEqual(second, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: "2026-06-20T11:00:00.000Z"
+    }
+  });
   // ...but the receipt of record is untouched.
   assert.equal(
     database.teacher_notice_recipients[0].acknowledged_at,

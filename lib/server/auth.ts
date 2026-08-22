@@ -60,7 +60,7 @@ export function canAccessTeacherArea(user?: Pick<StudentSession, "role"> | null)
 }
 
 export function canAccessParentArea(user?: Pick<StudentSession, "role"> | null) {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
 }
 
 export async function requireTeacherUser(request: Request) {

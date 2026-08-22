@@ -3,9 +3,9 @@ import type {
   ParentReportData,
   StudentSession,
   TeacherReport,
-  TeacherReportPreview,
   TeacherReportType
 } from "@/types";
+import { readTeacherReportPreview } from "@/lib/server/userStore/teacherReportPreviewDecoder";
 
 type UserRole = StudentSession["role"];
 
@@ -53,32 +53,7 @@ export type ParentReportPersistenceStoreDependencies = {
 export type ParentReportPersistenceStore = ReturnType<typeof createParentReportPersistenceStore>;
 
 function canUseParentArea(user?: ParentReportUserRecord | null): user is ParentReportUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
-}
-
-function readTeacherReportPreview(value?: string): TeacherReportPreview | undefined {
-  if (!value) return undefined;
-  try {
-    const parsed = JSON.parse(value) as Partial<TeacherReportPreview> | null;
-    if (
-      typeof parsed?.id === "string" &&
-      typeof parsed.type === "string" &&
-      typeof parsed.title === "string" &&
-      typeof parsed.subtitle === "string" &&
-      typeof parsed.generatedAt === "string" &&
-      typeof parsed.subjectName === "string" &&
-      parsed.metrics &&
-      Array.isArray(parsed.strengths) &&
-      Array.isArray(parsed.weaknesses) &&
-      Array.isArray(parsed.mistakeTypes) &&
-      Array.isArray(parsed.suggestedPractice)
-    ) {
-      return parsed as TeacherReportPreview;
-    }
-  } catch {
-    return undefined;
-  }
-  return undefined;
+  return user?.role === "parent";
 }
 
 function toTeacherReport(record: ParentReportRecord): TeacherReport {
@@ -128,9 +103,11 @@ export function createParentReportPersistenceStore({
       // request with only the first child's reports, so a parent with two or more children saw
       // a subset while the UI told them they were seeing everything.
       // `parentNoticePersistence` resolves the same choice this way.
-      const selectedChild = selectedStudentId
+      const hasSelectedStudent = selectedStudentId !== undefined && selectedStudentId !== null;
+      const selectedChild = hasSelectedStudent
         ? children.find((child) => child.student.id === selectedStudentId) ?? null
         : null;
+      if (hasSelectedStudent && !selectedChild) return null;
       const allowedStudentIds = new Set(children.map((child) => child.student.id));
       const selectedStudentIds = selectedChild ? new Set([selectedChild.student.id]) : allowedStudentIds;
 

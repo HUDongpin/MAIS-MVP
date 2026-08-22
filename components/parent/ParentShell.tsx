@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel, formatLearnerName } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import type { ParentChildSummary, StudentSession } from "@/types";
+import type { ParentChildSummarySafe, ParentIdentitySafe } from "@/types";
 
 const parentNavItems = [
   { href: "/parent", label: { en: "Overview", zh: "總覽" }, activePaths: ["/parent"] },
@@ -44,8 +44,8 @@ export function ParentShell({
   children: linkedChildren,
   childrenContent
 }: {
-  parent: StudentSession;
-  children: ParentChildSummary[];
+  parent: ParentIdentitySafe;
+  children: ParentChildSummarySafe[];
   childrenContent: ReactNode;
 }) {
   const pathname = usePathname();

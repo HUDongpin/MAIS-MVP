@@ -11,12 +11,12 @@ import { formatDateInHongKong } from "@/lib/utils";
 import type {
   GuardianRelationship,
   Language,
-  ParentChildSummary,
-  ParentFoundationData,
+  ParentChildSummarySafe,
+  ParentFoundationSafeData,
   ParentMessageCategory,
   ParentMessagesData,
-  ParentReportData,
-  TeacherReport
+  ParentReportSafe,
+  ParentReportSafeData
 } from "@/types";
 
 function percent(value: number) {
@@ -56,11 +56,11 @@ function suggestedPracticeForLanguage(items: string[], language: string) {
   });
 }
 
-function pendingAssignmentCount(child: ParentChildSummary) {
+function pendingAssignmentCount(child: ParentChildSummarySafe) {
   return child.assignments.filter((item) => openAssignmentStatuses.has(item.submission.status)).length;
 }
 
-function correctionAssignmentCount(child: ParentChildSummary) {
+function correctionAssignmentCount(child: ParentChildSummarySafe) {
   return child.assignments.filter((item) => item.submission.status === "correction-required").length;
 }
 
@@ -114,7 +114,7 @@ function parentMessageStatusClasses(status: string) {
   return "border-cyan-300/60 bg-cyan-400/12 text-cyan-800 dark:text-cyan-100";
 }
 
-function parentReportMessageHref(report: TeacherReport) {
+function parentReportMessageHref(report: ParentReportSafe) {
   const params = new URLSearchParams();
   if (report.studentId) params.set("studentId", report.studentId);
   params.set("category", "report-question");
@@ -138,7 +138,7 @@ function EmptyParentState({ title, body, actionHref }: { title: string; body: st
   );
 }
 
-function ChildPulseCard({ child }: { child: ParentChildSummary }) {
+function ChildPulseCard({ child }: { child: ParentChildSummarySafe }) {
   const { language, t, text } = useSettings();
   const maxMinutes = Math.max(1, ...child.weeklyActivity.map((day) => day.minutes));
 
@@ -206,7 +206,7 @@ function ChildPulseCard({ child }: { child: ParentChildSummary }) {
   );
 }
 
-function FamilyOperationsBoard({ data }: { data: ParentFoundationData }) {
+function FamilyOperationsBoard({ data }: { data: ParentFoundationSafeData }) {
   const { language, t, text } = useSettings();
   const selectedChild = data.selectedChild ?? data.children[0];
   const totalMinutes = data.children.reduce((sum, child) => sum + child.learningMinutes7d, 0);
@@ -326,7 +326,7 @@ function FamilyOperationsBoard({ data }: { data: ParentFoundationData }) {
   );
 }
 
-export function ParentOverview({ data }: { data: ParentFoundationData }) {
+export function ParentOverview({ data }: { data: ParentFoundationSafeData }) {
   const { language, t } = useSettings();
   if (!data.children.length) {
     return <EmptyParentState title={t({ en: "Connect your first child", zh: "綁定第一位孩子" })} body={t({ en: "Ask the teacher for a parent invite code to open learning summaries and parent-teacher messages.", zh: "向教師索取家長邀請碼，即可查看學習摘要和家校私信。" })} actionHref="/parent/connect" />;
@@ -376,7 +376,7 @@ export function ParentOverview({ data }: { data: ParentFoundationData }) {
   );
 }
 
-function ChildWorkflowStrip({ child }: { child: ParentChildSummary }) {
+function ChildWorkflowStrip({ child }: { child: ParentChildSummarySafe }) {
   const { language, t } = useSettings();
   const childParams = new URLSearchParams({ studentId: child.student.id });
   const messageParams = new URLSearchParams({ studentId: child.student.id, category: "learning-support" });
@@ -425,7 +425,7 @@ function ChildWorkflowStrip({ child }: { child: ParentChildSummary }) {
   );
 }
 
-export function ParentChildDetail({ child }: { child: ParentChildSummary }) {
+export function ParentChildDetail({ child }: { child: ParentChildSummarySafe }) {
   const { language, t, text } = useSettings();
 
   return (
@@ -499,7 +499,7 @@ export function ParentChildDetail({ child }: { child: ParentChildSummary }) {
   );
 }
 
-function ReportCard({ report, showActions = false }: { report: TeacherReport; showActions?: boolean }) {
+function ReportCard({ report, showActions = false }: { report: ParentReportSafe; showActions?: boolean }) {
   const { language, t, text } = useSettings();
   const suggestedPractice = report.preview ? suggestedPracticeForLanguage(report.preview.suggestedPractice, language).slice(0, 2) : [];
   const previewMetrics = report.preview
@@ -567,7 +567,7 @@ function ReportCard({ report, showActions = false }: { report: TeacherReport; sh
   );
 }
 
-export function ParentReportsView({ data }: { data: ParentReportData }) {
+export function ParentReportsView({ data }: { data: ParentReportSafeData }) {
   const { language, t } = useSettings();
   if (!data.children.length) {
     return <EmptyParentState title={t({ en: "No linked child yet", zh: "尚未綁定孩子" })} body={t({ en: "Connect a child before reading parent summaries.", zh: "綁定孩子後即可查看家長摘要。" })} actionHref="/parent/connect" />;

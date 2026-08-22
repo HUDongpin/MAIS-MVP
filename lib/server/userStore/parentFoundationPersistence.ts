@@ -200,15 +200,16 @@ export type ParentFoundationPersistenceStoreDependencies = {
 export type ParentFoundationPersistenceStore = ReturnType<typeof createParentFoundationPersistenceStore>;
 
 function canUseParentArea(user?: ParentFoundationUserRecord | null): user is ParentFoundationUserRecord {
-  return user?.role === "parent" || user?.role === "admin";
+  return user?.role === "parent";
 }
 
 export function parentGuardianLinkRecordsFor(
   database: ParentFoundationPersistenceDatabase,
   user: ParentFoundationUserRecord
 ) {
+  if (!canUseParentArea(user)) return [];
   return database.guardian_links
-    .filter((link) => link.status === "active" && (user.role === "admin" || link.parent_id === user.id))
+    .filter((link) => link.status === "active" && link.parent_id === user.id)
     .sort((a, b) => (a.created_at ?? "").localeCompare(b.created_at ?? ""));
 }
 
@@ -218,9 +219,7 @@ function parentCanAccessStudentInDatabase(
   studentId: string
 ) {
   const parent = database.users.find((candidate) => candidate.id === parentId);
-  if (parent?.role === "admin") {
-    return database.users.some((candidate) => candidate.id === studentId && candidate.role === "student");
-  }
+  if (!canUseParentArea(parent)) return false;
   return database.guardian_links.some((link) => (
     link.parent_id === parentId &&
     link.student_id === studentId &&
@@ -264,9 +263,8 @@ export function parentTopicIdsForStudent<Database extends ParentClassTopicCandid
 }
 
 export function selectedParentChild(children: ParentChildSummary[], selectedStudentId?: string | null) {
-  return selectedStudentId
-    ? children.find((child) => child.student.id === selectedStudentId) ?? null
-    : children[0] ?? null;
+  if (selectedStudentId === undefined || selectedStudentId === null) return children[0] ?? null;
+  return children.find((child) => child.student.id === selectedStudentId) ?? null;
 }
 
 function isPendingAssignmentStatus(status: SubmissionStatus) {
@@ -465,13 +463,14 @@ export function createParentFoundationPersistenceStore({
     ): Promise<ParentFoundationData | null> {
       const database = await readDatabase();
       const user = database.users.find((candidate) => candidate.id === parentId);
-      if (!canUseParentArea(user)) return null;
+      if (user?.role !== "parent") return null;
       const parent = toParentSession(database, user);
       if (!parent) return null;
 
       const links = parentGuardianLinkRecordsFor(database, user).map((link) => toGuardianLink(database, link));
       const children = parentChildSummariesFor(database, user, buildParentChildSummary);
       const selectedChild = selectedParentChild(children, selectedStudentId);
+      if (selectedStudentId !== undefined && selectedStudentId !== null && !selectedChild) return null;
       const linkedStudentIds = new Set(children.map((child) => child.student.id));
 
       return {

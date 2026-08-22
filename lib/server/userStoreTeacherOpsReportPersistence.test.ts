@@ -46,6 +46,7 @@ function previewFixture(patch: Partial<TeacherReportPreview> = {}): TeacherRepor
     subtitle: "S3 Algebra",
     generatedAt: "2026-06-20T10:00:00.000Z",
     subjectName: "Class 3A",
+    classId: "class-1",
     className: "3A",
     metrics: {
       learningMinutes: 120,
@@ -65,6 +66,9 @@ function previewFixture(patch: Partial<TeacherReportPreview> = {}): TeacherRepor
 
 function createDatabase(): TeacherOpsReportPersistenceDatabase {
   return {
+    class_enrollments: [
+      { class_id: "class-1", student_id: "student-1" }
+    ],
     student_profiles: [
       {
         user_id: "teacher-1",
@@ -447,8 +451,9 @@ test("teacher ops report persistence stores parent-summary preview JSON and reje
   const store = createTestStore(database);
   const preview = previewFixture({
     type: "parent-summary",
+    studentId: "student-1",
     subjectName: "Ada Student",
-    className: undefined
+    className: "3A"
   });
 
   const result = await store.saveTeacherReportPreview("teacher-1", preview);
@@ -457,6 +462,136 @@ test("teacher ops report persistence stores parent-summary preview JSON and reje
   assert.equal(result.report.studentId, "student-1");
   assert.deepEqual(result.report.preview, JSON.parse(JSON.stringify(preview)));
   assert.deepEqual(await store.saveTeacherReportPreview("student-1", preview), { status: "forbidden" });
+});
+
+test("parent-summary preview rejects a student outside the requested accessible class", async () => {
+  const database = createReportPreviewDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-3", role: "student" });
+  database.student_profiles.push({ user_id: "student-3", name: "Outside Student", grade: "S3" });
+  database.teacher_classes.push({ id: "class-2", teacher_id: "teacher-2", name: "Other Class", grade: "S3" });
+  database.class_enrollments?.push({ class_id: "class-2", student_id: "student-3" });
+
+  const preview = await createTestStore(database).getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "parent-summary",
+    language: "en",
+    classId: "class-1",
+    studentId: "student-3"
+  });
+
+  assert.equal(preview, null);
+});
+
+test("parent-summary preview carries the authorized stable class and student ids", async () => {
+  const preview = await createTestStore(createReportPreviewDatabase()).getTeacherReportPreview({
+    teacherId: "teacher-1",
+    type: "parent-summary",
+    language: "en",
+    classId: "class-1",
+    studentId: "student-1"
+  });
+
+  assert.equal(preview?.classId, "class-1");
+  assert.equal(preview?.studentId, "student-1");
+});
+
+for (const type of ["student", "parent-summary"] as const) {
+  test(`${type} preview requires explicit non-empty classId and studentId`, async () => {
+    const store = createTestStore(createDatabase());
+
+    const missingClassId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      studentId: "student-1"
+    });
+    const emptyClassId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "",
+      studentId: "student-1"
+    });
+    const missingStudentId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "class-1"
+    });
+    const emptyStudentId = await store.getTeacherReportPreview({
+      teacherId: "teacher-1",
+      type,
+      language: "en",
+      classId: "class-1",
+      studentId: ""
+    });
+
+    assert.deepEqual(
+      { missingClassId, emptyClassId, missingStudentId, emptyStudentId },
+      { missingClassId: null, emptyClassId: null, missingStudentId: null, emptyStudentId: null }
+    );
+  });
+
+  test(`${type} save rejects missing or empty stable ids without inserting`, async () => {
+    const database = createDatabase();
+    const store = createTestStore(database);
+    const originalReportIds = database.teacher_reports.map((report) => report.id);
+
+    const results = await Promise.all([
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: undefined, studentId: "student-1" })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "", studentId: "student-1" })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "class-1", studentId: undefined })),
+      store.saveTeacherReportPreview("teacher-1", previewFixture({ type, classId: "class-1", studentId: "" }))
+    ]);
+
+    assert.deepEqual(results, Array.from({ length: 4 }, () => ({ status: "not-found" })));
+    assert.deepEqual(database.teacher_reports.map((report) => report.id), originalReportIds);
+  });
+}
+
+test("student-scoped report preview never derives a class from studentId", async () => {
+  const source = await readFile(path.join(process.cwd(), "lib/server/userStore/teacherOpsReportPersistence.ts"), "utf8");
+
+  assert.doesNotMatch(source, /teacherClassForStudent/);
+});
+
+test("parent-summary save binds stable ids instead of duplicate display names", async () => {
+  const database = createDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-other", role: "student" });
+  database.teacher_classes.unshift({ id: "class-other", teacher_id: "teacher-2", name: "3A" });
+  database.student_profiles.unshift({ user_id: "student-other", name: "Ada Student", grade: "S3" });
+  const store = createTestStore(database);
+
+  const result = await store.saveTeacherReportPreview("teacher-1", previewFixture({
+    type: "parent-summary",
+    classId: "class-1",
+    studentId: "student-1",
+    subjectName: "Ada Student"
+  }));
+
+  assert.equal(result.status, "saved");
+  assert.equal(result.report.classId, "class-1");
+  assert.equal(result.report.studentId, "student-1");
+});
+
+test("parent-summary save rejects stable ids outside the teacher scope", async () => {
+  const database = createDatabase();
+  database.users.push({ id: "teacher-2", role: "teacher" }, { id: "student-other", role: "student" });
+  database.teacher_classes.push({ id: "class-other", teacher_id: "teacher-2", name: "Other" });
+  database.student_profiles.push({ user_id: "student-other", name: "Other Student", grade: "S3" });
+  database.class_enrollments = [{ class_id: "class-other", student_id: "student-other" }];
+  const store = createTestStore(database);
+
+  const result = await store.saveTeacherReportPreview("teacher-1", previewFixture({
+    type: "parent-summary",
+    classId: "class-other",
+    studentId: "student-other",
+    subjectName: "Other Student",
+    className: "Other"
+  }));
+
+  assert.deepEqual(result, { status: "not-found" });
+  assert.equal(database.teacher_reports.some((report) => report.student_id === "student-other"), false);
 });
 
 test("teacher ops report persistence lists scoped reports without legacy userStore imports", async () => {
@@ -569,7 +704,14 @@ test("teacher ops report persistence owns report projection helpers", async () =
   assert.equal(typeof helpers.readTeacherOpsReportPreview, "function");
   assert.equal(typeof helpers.toTeacherOpsReport, "function");
   assert.deepEqual(readTeacherOpsReportPreview(JSON.stringify(preview)), preview);
-  assert.equal(readTeacherOpsReportPreview("not-json"), undefined);
+  assert.throws(() => readTeacherOpsReportPreview("not-json"), /Invalid teacher report preview/);
+  assert.throws(
+    () => readTeacherOpsReportPreview(JSON.stringify({
+      ...preview,
+      strengths: [{ answerText: "raw minor answer", providerMessageId: "private-provider-id" }]
+    })),
+    /Invalid teacher report preview/
+  );
   assert.deepEqual(toTeacherOpsReport({
     id: "report-1",
     type: "class",
@@ -732,7 +874,9 @@ test("teacher ops report persistence owns seed teacher report records for legacy
     subtitle: "HK Student Peter · S3A Mathematics",
     generatedAt: "2026-06-20T10:00:00.000Z",
     subjectName: "HK Student Peter",
+    classId: "class-s3a-2026",
     className: "S3A Mathematics",
+    studentId: "student-peter",
     metrics: {
       learningMinutes: 95,
       masteryChange: 8,

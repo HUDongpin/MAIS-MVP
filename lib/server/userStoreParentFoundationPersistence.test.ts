@@ -212,13 +212,32 @@ test("parent foundation persistence builds foundation data without legacy userSt
   });
 });
 
+test("parent foundation persistence rejects admin reads", async () => {
+  const foundation = await createTestStore(createDatabase()).getParentFoundationData("admin-1");
+
+  assert.equal(foundation, null);
+});
+
+test("parent foundation persistence fails closed for every explicitly invalid student filter", async () => {
+  const store = createTestStore(createDatabase());
+
+  for (const studentId of ["", "student-does-not-exist", "student-3"]) {
+    assert.equal(
+      await store.getParentFoundationData("parent-1", studentId),
+      null,
+      `explicit filter ${JSON.stringify(studentId)} must not expand to a linked child`
+    );
+  }
+  assert.equal((await store.getParentFoundationData("parent-1"))?.selectedChild?.student.id, "student-1");
+});
+
 test("parent foundation persistence checks child summary access", async () => {
   const store = createTestStore(createDatabase());
 
   assert.equal((await store.getParentChildSummary("parent-1", "student-1"))?.student.id, "student-1");
   assert.equal(await store.getParentChildSummary("parent-1", "student-3"), null);
   assert.equal(await store.getParentChildSummary("teacher-1", "student-1"), null);
-  assert.equal((await store.getParentChildSummary("admin-1", "student-2"))?.student.id, "student-2");
+  assert.equal(await store.getParentChildSummary("admin-1", "student-2"), null);
 });
 
 test("parent foundation persistence owns parent weekly activity helper for legacy userStore", async () => {
@@ -318,7 +337,7 @@ test("parent foundation persistence owns parent child-summary helper for legacy 
   );
   assert.deepEqual(
     helpers.parentGuardianLinkRecordsFor(database, { id: "admin-1", role: "admin" }).map((link) => link.id),
-    ["link-1", "link-2"]
+    []
   );
   assert.equal(helpers.selectedParentChild(children, "student-2")?.student.id, "student-2");
   assert.equal(helpers.selectedParentChild(children, "missing-student"), null);

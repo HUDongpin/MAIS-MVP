@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatDateInHongKong } from "@/lib/utils";
-import type { Language, ParentNoticeData, TeacherNoticeRecipient } from "@/types";
+import type { Language, ParentNoticeRecipientSafe, ParentNoticeSafeData } from "@/types";
 
 type NoticeFilter = "all" | "pending" | "acknowledged";
 
@@ -19,7 +19,7 @@ function formatDate(value: string | null | undefined, language: Language) {
   });
 }
 
-function preferredRecipient(recipients: TeacherNoticeRecipient[], targetRecipientId?: string | null) {
+function preferredRecipient(recipients: ParentNoticeRecipientSafe[], targetRecipientId?: string | null) {
   return (
     (targetRecipientId ? recipients.find((recipient) => recipient.id === targetRecipientId) : null) ??
     recipients.find((recipient) => recipient.status === "pending") ??
@@ -28,12 +28,12 @@ function preferredRecipient(recipients: TeacherNoticeRecipient[], targetRecipien
   );
 }
 
-function recipientMatchesFilter(recipient: TeacherNoticeRecipient | null, filter: NoticeFilter) {
+function recipientMatchesFilter(recipient: ParentNoticeRecipientSafe | null, filter: NoticeFilter) {
   if (filter === "all") return true;
   return recipient?.status === filter;
 }
 
-export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNoticeData; targetRecipientId?: string | null }) {
+export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNoticeSafeData; targetRecipientId?: string | null }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, t, text } = useSettings();
