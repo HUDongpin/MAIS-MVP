@@ -224,7 +224,7 @@ function initialManimCheckpointState(sceneId: string): ManimCheckpointState {
   return {
     cameraMode: "guided",
     elapsedSeconds: 0,
-    playbackState: "playing",
+    playbackState: "paused",
     sceneId
   };
 }
@@ -3758,7 +3758,7 @@ export function ThreeDLabCanvas({
     setManimFrameIndex(0);
     setSteppedManimFrameStep(null);
     setManimHistoryStore(createSceneHistoryStore(initialManimCheckpointState(manimHistorySceneId), { label: "initial" }));
-    setManimPlaybackState("playing");
+    setManimPlaybackState("paused");
     setManimRunFromBeatIndex(0);
     setManimSelectedParameterId("value");
     previousManimRuntimeStateRef.current = null;
@@ -9174,6 +9174,7 @@ export function ThreeDLabCanvas({
             position: defaultCameraPosition().toArray()
           }}
           dpr={canvasDevicePixelRatio}
+          frameloop={manimPlaybackState === "playing" ? "always" : "demand"}
           gl={canvasRendererGl}
           onCreated={({ camera, gl, scene }) => {
             scene.background = canvasTransparentBackground ? null : background;

@@ -214,7 +214,7 @@ test("configured renderer consumes the pure Three.js render plan", () => {
   const source = fs.readFileSync("components/visualizations/ConfiguredVisualizationLab.tsx", "utf8");
 
   assert.match(source, /import \{ resolveConfiguredThreeDRenderPlan \} from "@\/components\/visualizations\/three\/configuredThreeDRenderPlan"/);
-  assert.match(source, /const threeDRenderPlan = resolveConfiguredThreeDRenderPlan\(/);
+  assert.match(source, /const threeDRenderPlan = useMemo\([\s\S]*resolveConfiguredThreeDRenderPlan\(/);
   assert.match(source, /labId: lab\?\.labId/);
   assert.match(source, /threeDEnabled: lab\?\.threeD\?\.enabled === true/);
   assert.match(source, /showThreeDCanvas = threeDRenderPlan\.showThreeDCanvas/);

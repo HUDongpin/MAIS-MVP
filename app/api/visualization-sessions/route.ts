@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { isValidLearningAnalyticsEvent } from "@/lib/learningAnalytics";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { listVisualizationSessionsForUser, markVisualizationSession } from "@/lib/server/userStore";
+import {
+  isEligibleVisualizationSession,
+  isVisualizationSessionEligibleForLearner
+} from "@/lib/server/visualizationSessionEligibility";
+import { isCanonicalVisualizationSessionIdentity } from "@/lib/visualizationSessionContract";
 import type { LearningAnalyticsEvent } from "@/types";
 
 export const runtime = "nodejs";
@@ -40,6 +45,26 @@ export async function POST(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({
+      error: "Student access required.",
+      reason: "student-only"
+    }, { status: 403 });
+  }
+
+  const encodedOwnerUserId = request.headers.get("x-mais-visualization-user-id");
+  if (!encodedOwnerUserId) {
+    return NextResponse.json({ error: "Visualization owner is required." }, { status: 409 });
+  }
+  let ownerUserId = "";
+  try {
+    ownerUserId = decodeURIComponent(encodedOwnerUserId);
+  } catch {
+    return NextResponse.json({ error: "Invalid visualization owner." }, { status: 409 });
+  }
+  if (!ownerUserId || ownerUserId !== authenticated.user.id) {
+    return NextResponse.json({ error: "Visualization owner mismatch." }, { status: 409 });
+  }
 
   let body: unknown;
   try {
@@ -50,11 +75,28 @@ export async function POST(request: Request) {
 
   const record = body as { moduleId?: unknown; topicId?: unknown; source?: unknown } | null;
   if (
-    typeof record?.moduleId !== "string" ||
-    typeof record.topicId !== "string" ||
+    !isCanonicalVisualizationSessionIdentity(record?.moduleId) ||
+    !isCanonicalVisualizationSessionIdentity(record.topicId) ||
     !isVisualizationSource(record.source)
   ) {
     return NextResponse.json({ error: "moduleId, topicId, and source are required." }, { status: 400 });
+  }
+  const identity = {
+    moduleId: record.moduleId,
+    topicId: record.topicId,
+    source: record.source
+  };
+  if (!isEligibleVisualizationSession(identity)) {
+    return NextResponse.json({
+      error: "Unknown visualization session identity.",
+      reason: "unknown-visualization-session"
+    }, { status: 400 });
+  }
+  if (!isVisualizationSessionEligibleForLearner(identity, authenticated.user)) {
+    return NextResponse.json({
+      error: "Visualization is outside the authenticated learner curriculum.",
+      reason: "curriculum-scope-mismatch"
+    }, { status: 403 });
   }
 
   const session = await markVisualizationSession({
@@ -64,13 +106,23 @@ export async function POST(request: Request) {
     source: record.source
   });
 
-  return NextResponse.json({ session: serializeVisualizationSession(session) });
+  return NextResponse.json({
+    acknowledgedUserId: authenticated.user.id,
+    durablyPersisted: true,
+    session: serializeVisualizationSession(session)
+  });
 }
 
 export async function GET(request: Request) {
   const authenticated = await requireAuthenticatedUser(request);
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+  if (authenticated.user.role !== "student") {
+    return NextResponse.json({
+      error: "Student access required.",
+      reason: "student-only"
+    }, { status: 403 });
   }
 
   const sessions = await listVisualizationSessionsForUser(authenticated.user.id);

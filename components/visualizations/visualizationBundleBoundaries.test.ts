@@ -3,7 +3,13 @@ import fs from "node:fs";
 import test from "node:test";
 import { topics } from "@/data/topics";
 import { topicsMetadata } from "@/data/topicsMetadata";
-import { getPremiumThreeDDirectLab } from "./premiumThreeDDirectLabs";
+import { getVisualizationLabByLabId } from "@/data/visualizationLabs";
+import { buildVisualizationLabHref } from "./visualizationDiagnostics";
+import {
+  getPremiumThreeDAuthoringCandidateLab,
+  getPremiumThreeDDirectLab,
+  resolvePremiumThreeDDirectRoute
+} from "./premiumThreeDDirectLabs";
 
 test("Visualization Lab first screen defers the full catalog and active lab runtime", () => {
   const source = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
@@ -44,7 +50,7 @@ test("ConfiguredVisualizationLab keeps the Three.js canvas in a lazy runtime chu
   assert.doesNotMatch(source, /data-viz-surface[\s\S]{0,160}data-viz-three-runtime-loading/);
 });
 
-test("premium 3D direct topic route stays off the full catalog path", () => {
+test("premium 3D direct topic route keeps catalog authority behind its server-only resolver", () => {
   const routeSource = fs.readFileSync("app/student/tools/visualizations/[labId]/page.tsx", "utf8");
   const directMetadataSource = fs.readFileSync("components/visualizations/premiumThreeDDirectLabs.ts", "utf8");
   const directMetadataImportLines = directMetadataSource
@@ -52,8 +58,10 @@ test("premium 3D direct topic route stays off the full catalog path", () => {
     .filter((line) => line.includes("@/data/visualizationLabs"));
 
   assert.match(routeSource, /PremiumThreeDDirectRouteShell/);
-  assert.match(routeSource, /getPremiumThreeDDirectLab\(normalizedLabId\)/);
-  assert.match(routeSource, /if \(directLab\?\.threeD\?\.premiumLaunch\)/);
+  assert.match(routeSource, /resolvePremiumThreeDDirectRoute\(normalizedLabId\)/);
+  assert.match(routeSource, /if \(resolution\.kind === "direct"\)/);
+  assert.match(routeSource, /if \(resolution\.kind === "catalog-fallback"\) redirect\(resolution\.href\)/);
+  assert.match(routeSource, /buildPremiumThreeDDirectRouteStaticParams\(\)/);
   assert.doesNotMatch(routeSource, /VisualizationLabRouteShell/);
   assert.doesNotMatch(routeSource, /@\/data\/visualizationLabs/);
   const directShellSource = fs.readFileSync("components/visualizations/PremiumThreeDDirectRouteShell.tsx", "utf8");
@@ -74,36 +82,59 @@ test("premium 3D direct topic route stays off the full catalog path", () => {
   assert.doesNotMatch(directShellSource, /href=\{directoryHref\}/);
   assert.doesNotMatch(directShellSource, /visualizationDiagnostics/);
   assert.doesNotMatch(directMetadataSource, /from "@\/data\/topics"/);
-  assert.deepEqual(directMetadataImportLines, [
-    'import type { FeaturedLabDefinition } from "@/data/visualizationLabs";'
-  ]);
-  assert.match(directMetadataSource, /import type \{ FeaturedLabDefinition \} from "@\/data\/visualizationLabs"/);
+  assert.deepEqual(directMetadataImportLines, ['} from "@/data/visualizationLabs";']);
+  assert.match(directMetadataSource, /getVisualizationLabByLabId/);
+  assert.match(directMetadataSource, /visualizationLabCatalog/);
+  assert.match(directMetadataSource, /function isCatalogPremiumThreeDDirectLab/);
+  assert.match(directMetadataSource, /lab\.threeD\?\.enabled === true && lab\.threeD\.premiumLaunch === true/);
   assert.match(directMetadataSource, /us-ca-math-s4-chapter-05/);
   assert.match(directMetadataSource, /buildGenericPremiumThreeDDirectLab/);
   assert.match(directMetadataSource, /isPremiumThreeDLaunchLab\(labId\)/);
 });
 
-test("reported PEP S4 plane vectors direct lab preserves the vector-conic 3D mode", () => {
-  const lab = getPremiumThreeDDirectLab("pep-high-s4-plane-vectors");
+test("reported PEP S4 plane vectors stays authoring-only while Mainland live 3D is downgraded", () => {
+  const labId = "pep-high-s4-plane-vectors";
+  const authoringCandidate = getPremiumThreeDAuthoringCandidateLab(labId);
+  const catalogLab = getVisualizationLabByLabId(labId);
 
-  assert.ok(lab);
-  assert.equal(lab.templateId, "vector-conic-3d/strategy-map");
-  assert.equal(lab.threeD?.fallbackTemplateId, "vector-conic-3d/strategy-map");
-  assert.equal(lab.threeD?.familyId, "three-vector-conic-strategy");
-  assert.equal(lab.threeD?.premiumLaunch, true);
-  assert.equal(lab.threeD?.enabled, true);
+  assert.ok(authoringCandidate);
+  assert.ok(catalogLab);
+  assert.equal(authoringCandidate.templateId, "vector-conic-3d/strategy-map");
+  assert.equal(authoringCandidate.threeD?.fallbackTemplateId, "vector-conic-3d/strategy-map");
+  assert.equal(authoringCandidate.threeD?.familyId, "three-vector-conic-strategy");
+  assert.equal(authoringCandidate.threeD?.premiumLaunch, true);
+  assert.equal(authoringCandidate.threeD?.enabled, true);
+  assert.equal(catalogLab.threeD?.premiumLaunch, false);
+  assert.equal(catalogLab.threeD?.enabled, false);
+  assert.equal(getPremiumThreeDDirectLab(labId), null);
+  assert.deepEqual(resolvePremiumThreeDDirectRoute(labId), {
+    href: buildVisualizationLabHref(catalogLab),
+    kind: "catalog-fallback",
+    lab: catalogLab
+  });
 });
 
-test("HK functions direct lab stays on the canonical function graph Manim scene", () => {
-  const lab = getPremiumThreeDDirectLab("functions");
+test("HK functions stays authoring-only while the HK verified 3D allowlist is empty", () => {
+  const labId = "functions";
+  const authoringCandidate = getPremiumThreeDAuthoringCandidateLab(labId);
+  const catalogLab = getVisualizationLabByLabId(labId);
 
-  assert.ok(lab);
-  assert.equal(lab.analyticsSource, "function-graph");
-  assert.equal(lab.templateId, "function-graph");
-  assert.equal(lab.threeD?.fallbackTemplateId, "function-graph");
-  assert.equal(lab.threeD?.familyId, "three-function-graph");
-  assert.equal(lab.threeD?.premiumLaunch, true);
-  assert.equal(lab.threeD?.enabled, true);
+  assert.ok(authoringCandidate);
+  assert.ok(catalogLab);
+  assert.equal(authoringCandidate.analyticsSource, "function-graph");
+  assert.equal(authoringCandidate.templateId, "function-graph");
+  assert.equal(authoringCandidate.threeD?.fallbackTemplateId, "function-graph");
+  assert.equal(authoringCandidate.threeD?.familyId, "three-function-graph");
+  assert.equal(authoringCandidate.threeD?.premiumLaunch, true);
+  assert.equal(authoringCandidate.threeD?.enabled, true);
+  assert.equal(catalogLab.threeD?.premiumLaunch, false);
+  assert.equal(catalogLab.threeD?.enabled, false);
+  assert.equal(getPremiumThreeDDirectLab(labId), null);
+  assert.deepEqual(resolvePremiumThreeDDirectRoute(labId), {
+    href: buildVisualizationLabHref(catalogLab),
+    kind: "catalog-fallback",
+    lab: catalogLab
+  });
 });
 
 test("roadmap route shell keeps roadmap pages on server-rendered imports", () => {

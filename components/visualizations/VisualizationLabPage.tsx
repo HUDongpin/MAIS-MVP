@@ -3481,7 +3481,7 @@ function VisualizationLabPageContent({
                     data-viz-back-to-control-panel-link
                     data-viz-back-to-control-panel-grade={activeDirectoryLab.grade}
                     data-viz-back-to-control-panel-track={effectiveTrackFilter}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
                   >
                     ← {backToLabsLabel}
                   </a>
@@ -3496,7 +3496,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-link
                     data-viz-copy-lab-link-state={shareState}
                     data-viz-copy-lab-link-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {!activeLabCanDistribute || shareState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3512,7 +3512,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-snapshot
                     data-viz-snapshot-state={snapshotState}
                     data-viz-snapshot-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {!activeLabCanDistribute || snapshotState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })

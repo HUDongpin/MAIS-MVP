@@ -35,7 +35,7 @@ import {
 const directEntryTracks = ["all", "HK", "US", "MAINLAND_PEP_PRIMARY", "MAINLAND_PEP_JUNIOR", "MAINLAND_PEP_HIGH", "MAINLAND_HJB", "MAINLAND_BNU", "CAPSTONE"] as const;
 
 test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () => {
-  const lab = visualizationLabCatalog.find((entry) => entry.labId === "pep-high-s4-trigonometry") ?? visualizationLabCatalog[0];
+  const lab = visualizationLabCatalog.find((entry) => entry.labId === "us-ca-math-s4-chapter-05") ?? visualizationLabCatalog[0];
 
   assert.equal(
     buildVisualizationLabHref(lab),
@@ -46,9 +46,11 @@ test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () 
 });
 
 test("premium Three.js launch labs expose canonical topic-specific page URLs", () => {
-  const premiumLabs = visualizationLabCatalog.filter((lab) => lab.threeD?.premiumLaunch);
+  const premiumLabs = visualizationLabCatalog.filter(
+    (lab) => lab.threeD?.enabled === true && lab.threeD.premiumLaunch === true
+  );
 
-  assert.equal(premiumLabs.length, 80);
+  assert.equal(premiumLabs.length, 24);
 
   for (const lab of premiumLabs) {
     const href = buildVisualizationLabHref(lab);
@@ -66,21 +68,13 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
   const variants = targets.map((target) => target.sceneVariant).sort();
 
   assert.deepEqual(variants, [
-    "conic-section-deep",
-    "cross-section-slicer",
     "curriculum-crosswalk",
     "distribution-machine",
-    "exam-strategy-capstone",
     "fraction-slices",
     "function-ribbon",
     "geometry-axes",
     "measurement-rail",
-    "optimization-landscape",
-    "projection-views",
-    "solid-net-fold",
-    "space-vector-plane",
-    "statistical-inference",
-    "vector-conic-strategy"
+    "statistical-inference"
   ]);
 
   for (const target of targets) {

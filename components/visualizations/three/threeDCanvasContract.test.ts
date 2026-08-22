@@ -68,6 +68,16 @@ test("ThreeDLabCanvas uses the pure formula contract for its math overlay", () =
   assert.match(source, /const formulaText = formulaForThreeDScene\(state\.familyId,\s*state\.templateId\)/);
 });
 
+test("ThreeDLabCanvas suspends the continuous render loop while Manim playback is paused", () => {
+  const source = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+
+  assert.match(
+    source,
+    /<Canvas[\s\S]*frameloop=\{manimPlaybackState === "playing" \? "always" : "demand"\}/,
+    "a paused lesson visualization must not consume a continuous mobile render loop"
+  );
+});
+
 test("ThreeDLabCanvas exposes VMobject pointwise_become_partial source evidence", () => {
   const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
   const curveSource = fs.readFileSync("components/visualizations/three/manim/mathCurveObject.ts", "utf8");
@@ -4091,12 +4101,22 @@ test("ThreeDLabCanvas exposes a MAIS Manim scene-spec selector for authoring", (
     threeDCanvasRequiredSelectors.includes("data-viz-manim-scene-selector-control" as (typeof threeDCanvasRequiredSelectors)[number]),
     "MAIS Manim scene selector should be discoverable by browser smoke tests"
   );
-  assert.match(canvasSource, /import \{ buildMathSceneSelectorCatalog, mathSceneSelectorDataAttributes, summarizeMathSceneSelectorCatalog \} from "\.\/manim\/mathSceneSelectorCatalog"/);
+  assert.match(canvasSource, /from "\.\/manim\/mathSceneSelectorCatalog"/);
+  for (const symbol of [
+    "buildMathSceneSelectorCatalogEntry",
+    "mathSceneSelectorDataAttributes",
+    "summarizeMathSceneSelectorCatalog",
+    "MathSceneSelectorCatalogEntry"
+  ]) {
+    assert.match(canvasSource, new RegExp(`\\b${symbol}\\b`));
+  }
   assert.match(canvasSource, /const \[manimSelectedSceneFamilyId, setManimSelectedSceneFamilyId\] = useState<ThreeDFamilyId>\(state\.familyId\)/);
   assert.match(canvasSource, /const selectedManimSceneState = useMemo/);
   assert.match(canvasSource, /familyId: manimSelectedSceneFamilyId/);
-  assert.match(canvasSource, /const manimSceneSelectorCatalog = useMemo/);
-  assert.match(canvasSource, /buildMathSceneSelectorCatalog\(\{ accent, state \}\)/);
+  assert.match(canvasSource, /const \[manimSceneSelectorCatalog, setManimSceneSelectorCatalog\] = useState<MathSceneSelectorCatalogEntry\[]>\(\[]\)/);
+  assert.match(canvasSource, /const familyQueue = \[\.\.\.maisManimFamilyIds\]/);
+  assert.match(canvasSource, /buildMathSceneSelectorCatalogEntry\(\{ accent, familyId, state: catalogStateRef\.current \}\)/);
+  assert.match(canvasSource, /setManimSceneSelectorCatalog\(entries\.slice\(\)\)/);
   assert.match(canvasSource, /buildMathSceneSpecForThreeDFamily\(\{ accent, state: selectedManimSceneState \}\)/);
   assert.match(canvasSource, /data-viz-manim-scene-selector-control/);
   assert.match(canvasSource, /value=\{manimSelectedSceneFamilyId\}/);
@@ -4134,7 +4154,7 @@ test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls 
   assert.match(canvasSource, /import \{ buildScenePlaybackPlan[\s\S]*\} from "\.\/manim\/mathScenePlayback"/);
   assert.match(canvasSource, /import \{[\s\S]*createCheckpointStore[\s\S]*listCheckpointKeys[\s\S]*restoreCheckpoint[\s\S]*saveCheckpoint[\s\S]*type SceneCheckpointStore[\s\S]*\} from "\.\/manim\/mathSceneCheckpoint"/);
   assert.match(canvasSource, /type ManimPlaybackState = "playing" \| "paused" \| "scrubbing" \| "checkpoint"/);
-  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("playing"\)/);
+  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("paused"\)/);
   assert.match(canvasSource, /buildScenePlaybackPlan\(manimScene\.timeline/);
   assert.match(canvasSource, /const \[manimCheckpointStore, setManimCheckpointStore\] = useState<SceneCheckpointStore<ManimCheckpointState>>/);
   assert.match(canvasSource, /saveCheckpoint\(currentStore/);

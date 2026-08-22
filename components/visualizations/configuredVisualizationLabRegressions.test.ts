@@ -49,12 +49,13 @@ test("grade 1 add-subtract number-line lab uses Set, Start, and Step controls", 
   assert.match(source, /const gradeOneAddSubtractLabId = "us-ca-math-p1-1-oa-add-subtract"/);
   // Accept either the plain `mode` or the grade-band `cappedMode` fallback.
   assert.match(source, /const modelMode = usesGradeOneSetControls \? 1 : (?:mode|cappedMode)/);
-  assert.match(source, /const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
+  assert.match(source, /const comparisonDisabled = !semanticModel && templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
   // Single-mode labs keep grid-cols-1; four-mode labs (function-graph
-  // exponential model) use grid-cols-2; the default stays grid-cols-3.
+  // exponential model) use two responsive columns; the default reaches three
+  // columns only at tablet width so 44px learner controls never become narrow.
   assert.match(
     source,
-    /controlCopy\.modeLabels\.length === 1 \? "grid-cols-1" : controlCopy\.modeLabels\.length === 4 \? "grid-cols-2" : "grid-cols-3"/
+    /modeOptions\.length === 1[\s\S]{0,80}"grid-cols-1"[\s\S]{0,100}modeOptions\.length === 4[\s\S]{0,120}"grid-cols-1 min-\[360px\]:grid-cols-2"[\s\S]{0,160}"grid-cols-1 min-\[360px\]:grid-cols-2 min-\[768px\]:grid-cols-3"/
   );
   assert.match(source, /modeLabels: usesGradeOneSetControls[\s\S]*en: "Set"/);
   assert.match(source, /valueLabel: usesGradeOneSetControls[\s\S]*en: "Start"/);
@@ -127,7 +128,7 @@ test("3D labs show the 2D configured surface while the heavy runtime loads", () 
 test("fraction bar shaded overlays are clipped to rounded bar outlines", () => {
   const branch = templateBranch("fraction-bar");
 
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
+  assert.match(source, /import type \{ ComponentType, ReactNode, SyntheticEvent \} from "react";/);
   assert.match(source, /useId/);
   assert.match(branch, /const fractionBarClipId =/);
   assert.match(branch, /const equivalentFractionBarClipId =/);
@@ -201,7 +202,7 @@ test("configured visualization renderer omits introductory metadata panels from 
 });
 
 test("configured visualization lab exposes a footer action slot for lesson embeds", () => {
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
+  assert.match(source, /import type \{ ComponentType, ReactNode, SyntheticEvent \} from "react";/);
   assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*controlFooterAction\?: ReactNode;[\s\S]*lab\?: FeaturedLabDefinition \| null;/);
   assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);

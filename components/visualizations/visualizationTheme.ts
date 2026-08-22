@@ -61,9 +61,9 @@ const dayVisualizationTheme: VisualizationTheme = {
 
 const nightVisualizationTheme: VisualizationTheme = {
   mode: "night",
-  surfaceClassName: "border-white/10 bg-slate-950 shadow-inner",
-  paddedSurfaceClassName: "rounded-3xl border border-white/10 bg-slate-950 p-3 shadow-inner sm:p-5",
-  compactSurfaceClassName: "rounded-3xl border border-white/10 bg-slate-950 p-2 shadow-inner sm:p-3",
+  surfaceClassName: "border-white/10 bg-slate-950",
+  paddedSurfaceClassName: "rounded-3xl border border-white/10 bg-slate-950 p-3 sm:p-5",
+  compactSurfaceClassName: "rounded-3xl border border-white/10 bg-slate-950 p-2 sm:p-3",
   svgBackground: "#020617",
   panelFill: "rgba(255, 255, 255, 0.025)",
   panelStroke: "rgba(255, 255, 255, 0.10)",
