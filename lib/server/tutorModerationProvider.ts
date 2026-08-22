@@ -27,10 +27,12 @@
 // so the gap is visible in the audit log rather than invisible in production.
 //
 // Provider responses are untrusted input. Nothing in the response is executed or
-// echoed to the student — it is parsed into the closed
-// TutorModerationClassification shape and anything unrecognised is discarded.
+// echoed to the student. Recognised policy and duty-of-care signals are reduced
+// to closed local shapes; malformed or unsupported-only verdicts enter the
+// audited unavailable path rather than masquerading as a clean response.
 
 import { boundedLLMNumber } from "@/lib/server/llmProvider";
+import type { ContentSafetyClassification } from "@/lib/server/contentSafety";
 import {
   applyTutorOutputModeration,
   buildModerationRedirectReply,
@@ -75,6 +77,10 @@ export type TutorModerationProviderResult = {
   // On "skipped" and "unavailable" this is the not-flagged classification —
   // that is what failing open means.
   classification: TutorModerationClassification;
+  // Duty-of-care signals are kept separate from policy moderation so a student
+  // in crisis reaches the teacher safety surface instead of being recorded as a
+  // policy violation.
+  safetyClassification?: ContentSafetyClassification;
   failure?: TutorModerationProviderFailure;
 };
 
@@ -106,6 +112,7 @@ export type TutorModerationGovernanceEvent = {
 
 export type TutorInputModerationResolution = {
   classification: TutorModerationClassification;
+  safetyClassification?: ContentSafetyClassification;
   blocked: boolean;
   layer?: TutorModerationLayer;
   governanceEvents: TutorModerationGovernanceEvent[];
@@ -119,6 +126,7 @@ export type TutorOutputModerationResolution = {
   redirected: boolean;
   mode?: "moderation-redirect";
   classification: TutorModerationClassification;
+  safetyClassification?: ContentSafetyClassification;
   layer?: TutorModerationLayer;
   governanceEvents: TutorModerationGovernanceEvent[];
   providerStatus: TutorModerationProviderStatus;
@@ -174,7 +182,8 @@ type MappedCategory = {
 // duty-of-care signals and belong to lib/server/contentSafety.ts, which raises a
 // teacher alert. Routing them through this module would file a student in crisis
 // as a policy violation in the governance log and never reach their teacher.
-// Anything unmapped is discarded rather than guessed at.
+// Unmapped policy categories are never guessed. A verdict containing only an
+// unsupported positive category is treated as an unavailable provider response.
 const providerCategoryMap: Record<string, MappedCategory> = {
   sexual: { category: "sexual", severity: "block" },
   "sexual/minors": { category: "sexual", severity: "block" },
@@ -197,6 +206,16 @@ const providerCategoryMap: Record<string, MappedCategory> = {
   profanity: { category: "profanity", severity: "flag" },
   insult: { category: "insult", severity: "flag" }
 };
+
+const providerSelfHarmCategoryKeys = new Set([
+  "self-harm",
+  "self-harm/intent",
+  "self-harm-intent",
+  "self-harm/instructions",
+  "self-harm-instructions",
+  "suicide",
+  "suicidal"
+]);
 
 function readOptionalEnv(value: string | undefined) {
   const trimmed = value?.trim();
@@ -343,20 +362,10 @@ function collectPositiveCategoryKeys(payload: Record<string, unknown>) {
   return keys;
 }
 
-// Reduces a provider payload to the existing classification shape. Returns null —
-// meaning "understood, nothing to act on" — when the response is well-formed but
-// carries no category this module recognises (e.g. a self-harm-only verdict,
-// which contentSafety owns).
-export function classificationFromProviderPayload(
-  payload: unknown,
+function policyClassificationFromPositiveKeys(
+  positiveKeys: string[],
   text: string
 ): TutorModerationClassification | null {
-  const record = unwrapModerationPayload(payload);
-  if (!record) return null;
-
-  const positiveKeys = collectPositiveCategoryKeys(record);
-  if (!positiveKeys.length) return null;
-
   let best: (MappedCategory & { key: string }) | null = null;
   const matchedTerms: string[] = [];
 
@@ -385,6 +394,113 @@ export function classificationFromProviderPayload(
     matchedTerms: Array.from(new Set(matchedTerms)).slice(0, maxMatchedTerms),
     excerpt: buildProviderExcerpt(text)
   };
+}
+
+function safetyClassificationFromPositiveKeys(
+  positiveKeys: string[],
+  text: string
+): ContentSafetyClassification | null {
+  const matchedTerms = positiveKeys
+    .map(normalizeProviderCategoryKey)
+    .filter((key) => providerSelfHarmCategoryKeys.has(key))
+    .map((key) => `provider:${key}`);
+
+  if (!matchedTerms.length) return null;
+
+  return {
+    flagged: true,
+    category: "self-harm",
+    severity: "critical",
+    matchedTerms: Array.from(new Set(matchedTerms)).slice(0, maxMatchedTerms),
+    excerpt: buildProviderExcerpt(text)
+  };
+}
+
+function hasValidProviderVerdictShape(record: Record<string, unknown>) {
+  let hasVerdictField = false;
+
+  if ("flagged" in record) {
+    hasVerdictField = true;
+    if (typeof record.flagged !== "boolean") return false;
+  }
+
+  if ("categories" in record) {
+    hasVerdictField = true;
+    const categories = record.categories;
+    const validArray = Array.isArray(categories)
+      && categories.every((entry) => typeof entry === "string");
+    const validMap = isRecord(categories)
+      && Object.values(categories).every(
+        (value) => typeof value === "boolean" || (typeof value === "number" && Number.isFinite(value))
+      );
+    if (!validArray && !validMap) return false;
+  }
+
+  if ("category_scores" in record) {
+    hasVerdictField = true;
+    if (
+      !isRecord(record.category_scores)
+      || !Object.values(record.category_scores).every(
+        (value) => typeof value === "number" && Number.isFinite(value)
+      )
+    ) {
+      return false;
+    }
+  }
+
+  return hasVerdictField;
+}
+
+export type TutorModerationProviderPayloadParseResult =
+  | { kind: "malformed" }
+  | {
+      kind: "completed";
+      classification: TutorModerationClassification;
+      safetyClassification?: ContentSafetyClassification;
+    };
+
+// A clean verdict and an unsupported response are deliberately distinct. Both
+// produce no policy classification, but only the former may be reported as a
+// completed provider check.
+export function parseTutorModerationProviderPayload(
+  payload: unknown,
+  text: string
+): TutorModerationProviderPayloadParseResult {
+  const record = unwrapModerationPayload(payload);
+  if (!record || !hasValidProviderVerdictShape(record)) return { kind: "malformed" };
+
+  const positiveKeys = collectPositiveCategoryKeys(record);
+  const classification = policyClassificationFromPositiveKeys(positiveKeys, text);
+  const safetyClassification = safetyClassificationFromPositiveKeys(positiveKeys, text);
+
+  // A positive verdict that carries no supported category is not a clean bill of
+  // health. Treat it as unavailable so the fail-open path remains auditable.
+  if (
+    !classification
+    && !safetyClassification
+    && (positiveKeys.length > 0 || record.flagged === true)
+  ) {
+    return { kind: "malformed" };
+  }
+
+  return {
+    kind: "completed",
+    classification: classification ?? notFlagged,
+    ...(safetyClassification ? { safetyClassification } : {})
+  };
+}
+
+// Compatibility helper for callers that only need the closed policy
+// classification. Clean, duty-of-care-only, and malformed payloads all have no
+// policy classification here; the provider call itself uses the discriminated
+// parser above so malformed data cannot be mistaken for a clean verdict.
+export function classificationFromProviderPayload(
+  payload: unknown,
+  text: string
+): TutorModerationClassification | null {
+  const parsed = parseTutorModerationProviderPayload(payload, text);
+  if (parsed.kind === "malformed" || !parsed.classification.flagged) return null;
+  return parsed.classification;
 }
 
 function unavailable(failure: TutorModerationProviderFailure): TutorModerationProviderResult {
@@ -435,14 +551,29 @@ export async function classifyTutorModerationWithProvider(
     // surface as an unhandled rejection.
     request.catch(() => {});
 
-    const settled = await Promise.race([request, timeout]);
+    const operation = request.then(async (response) => {
+      if (!response.ok) {
+        return { kind: "http-error" as const, status: response.status };
+      }
+
+      try {
+        return { kind: "payload" as const, payload: await response.json() };
+      } catch {
+        return { kind: "malformed-response" as const };
+      }
+    });
+    // The body reader may reject after the timeout wins. Keep that late failure
+    // contained just like a late fetch rejection.
+    operation.catch(() => {});
+
+    const settled = await Promise.race([operation, timeout]);
     if (settled === "timeout") {
       controller.abort();
       console.warn("AI Tutor moderation provider unavailable", { failure: "timeout" });
       return unavailable("timeout");
     }
 
-    if (!settled.ok) {
+    if (settled.kind === "http-error") {
       console.warn("AI Tutor moderation provider unavailable", {
         failure: "http-error",
         status: settled.status
@@ -450,16 +581,24 @@ export async function classifyTutorModerationWithProvider(
       return unavailable("http-error");
     }
 
-    let payload: unknown;
-    try {
-      payload = await settled.json();
-    } catch {
+    if (settled.kind === "malformed-response") {
       console.warn("AI Tutor moderation provider unavailable", { failure: "malformed-response" });
       return unavailable("malformed-response");
     }
 
-    const classification = classificationFromProviderPayload(payload, text);
-    return { status: "completed", classification: classification ?? notFlagged };
+    const parsed = parseTutorModerationProviderPayload(settled.payload, text);
+    if (parsed.kind === "malformed") {
+      console.warn("AI Tutor moderation provider unavailable", { failure: "malformed-response" });
+      return unavailable("malformed-response");
+    }
+
+    return {
+      status: "completed",
+      classification: parsed.classification,
+      ...(parsed.safetyClassification
+        ? { safetyClassification: parsed.safetyClassification }
+        : {})
+    };
   } catch (error) {
     console.warn("AI Tutor moderation provider unavailable", {
       failure: "request-failed",
@@ -599,6 +738,9 @@ export async function resolveTutorInputModeration({
 
     return {
       classification: merged,
+      ...(provider.safetyClassification
+        ? { safetyClassification: provider.safetyClassification }
+        : {}),
       blocked,
       layer: "provider",
       governanceEvents,
@@ -608,6 +750,9 @@ export async function resolveTutorInputModeration({
 
   return {
     classification: merged,
+    ...(provider.safetyClassification
+      ? { safetyClassification: provider.safetyClassification }
+      : {}),
     blocked: false,
     governanceEvents,
     providerStatus: provider.status
@@ -713,11 +858,20 @@ export async function resolveTutorOutputModeration({
       redirected: true,
       mode: "moderation-redirect",
       classification: provider.classification,
+      ...(provider.safetyClassification
+        ? { safetyClassification: provider.safetyClassification }
+        : {}),
       layer: "provider",
       governanceEvents,
       providerStatus: provider.status
     };
   }
 
-  return { ...passthrough, providerStatus: provider.status };
+  return {
+    ...passthrough,
+    ...(provider.safetyClassification
+      ? { safetyClassification: provider.safetyClassification }
+      : {}),
+    providerStatus: provider.status
+  };
 }

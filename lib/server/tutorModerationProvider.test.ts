@@ -46,6 +46,19 @@ function neverResolvingFetch() {
   return { calls, fetchImpl };
 }
 
+function neverResolvingJsonFetch() {
+  const calls: FetchCall[] = [];
+  const fetchImpl: TutorModerationFetch = async (url, init) => {
+    calls.push({ url, init });
+    return {
+      ok: true,
+      status: 200,
+      json: () => new Promise(() => {})
+    };
+  };
+  return { calls, fetchImpl };
+}
+
 function throwingFetch() {
   const fetchImpl: TutorModerationFetch = async () => {
     throw new Error("network down");
@@ -354,6 +367,34 @@ test("(b) a provider timeout falls back to the lexical allow, with an audit even
   assert.equal(event.metadata.fallbackVerdict, "lexical:allow");
 });
 
+test("the hard timeout covers response body parsing, not only response headers", async () => {
+  const { calls, fetchImpl } = neverResolvingJsonFetch();
+  const startedAt = Date.now();
+  const result = await Promise.race([
+    classifyTutorModerationWithProvider("some student text", {
+      config: providerConfig,
+      timeoutMs: 25,
+      fetchImpl
+    }),
+    new Promise<"outer-watchdog">((resolve) => {
+      setTimeout(() => resolve("outer-watchdog"), 250);
+    })
+  ]);
+  const elapsedMs = Date.now() - startedAt;
+
+  assert.notEqual(
+    result,
+    "outer-watchdog",
+    "the provider deadline must also release a response whose json() never settles"
+  );
+  if (result === "outer-watchdog") return;
+
+  assert.equal(result.status, "unavailable");
+  assert.equal(result.failure, "timeout");
+  assert.equal(calls.length, 1);
+  assert.ok(elapsedMs < 200, `the body deadline is enforced by wall clock (took ${elapsedMs}ms)`);
+});
+
 test("a timeout preserves a co-occurring lexical flag rather than dropping it", async () => {
   const { fetchImpl } = neverResolvingFetch();
   const decision = await resolveTutorInputModeration({
@@ -403,6 +444,24 @@ test("http errors, network errors and garbage bodies all fail open and are audit
     assert.equal(decision.governanceEvents.length, 1, `${label} is audited`);
     assert.equal(decision.governanceEvents[0].reason, "provider-moderation-unavailable");
   }
+});
+
+test("valid JSON with an unsupported schema is unavailable and audited", async () => {
+  const { fetchImpl } = stubFetch({ nonsense: true });
+  const decision = await resolveTutorInputModeration({
+    input: "Please explain how to factor this quadratic.",
+    role: "student",
+    config: providerConfig,
+    fetchImpl
+  });
+
+  assert.equal(decision.blocked, false, "malformed provider data still fails open");
+  assert.equal(decision.providerStatus, "unavailable");
+  assert.equal(decision.providerFailure, "malformed-response");
+  assert.equal(decision.governanceEvents.length, 1);
+  assert.equal(decision.governanceEvents[0].action, "request-admitted");
+  assert.equal(decision.governanceEvents[0].reason, "provider-moderation-unavailable");
+  assert.equal(decision.governanceEvents[0].metadata.failure, "malformed-response");
 });
 
 test("an exhausted request deadline is audited rather than silently unmoderated", async () => {

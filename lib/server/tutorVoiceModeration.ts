@@ -129,10 +129,11 @@ export async function resolveTutorVoiceModeration({
   // reply is not moderated there, so it is not moderated here either.
   if (role !== "student") return allowed;
 
-  // Gate 1 — duty of care. The voice text is judged as tutor output because that
-  // is what it claims to be, and the tutor-output bar withholds on any flag
-  // rather than only on critical/high.
-  const safety = classifyContentSafety(text, { source: "tutor-output" });
+  // Gate 1 — duty of care. The route applies the strict tutor-output threshold
+  // because the text will be spoken in the tutor's voice, but provenance remains
+  // student-input: the request body is supplied by the student and is not a
+  // trusted copy of a tutor reply.
+  const safety = classifyContentSafety(text, { source: "student-input" });
   if (safety.flagged && safety.category && safety.severity) {
     return {
       allowed: false,
@@ -142,11 +143,11 @@ export async function resolveTutorVoiceModeration({
       governanceEvents: [
         {
           action: "content-safety-flagged",
-          reason: `content-safety:tutor-output:${safety.category}:${safety.severity}:withheld`,
+          reason: `content-safety:student-input:${safety.category}:${safety.severity}:withheld`,
           metadata: {
             category: safety.category,
             severity: safety.severity,
-            source: "tutor-output",
+            source: "student-input",
             blockedReply: true
           }
         }
@@ -154,7 +155,7 @@ export async function resolveTutorVoiceModeration({
       safetyFlag: {
         category: safety.category,
         severity: safety.severity,
-        source: "tutor-output",
+        source: "student-input",
         excerpt: safety.excerpt,
         matchedTerms: safety.matchedTerms,
         language,
@@ -174,6 +175,41 @@ export async function resolveTutorVoiceModeration({
     timeoutMs,
     fetchImpl
   });
+
+  const providerSafety = moderation.safetyClassification;
+  if (providerSafety?.flagged && providerSafety.category && providerSafety.severity) {
+    return {
+      allowed: false,
+      refusal: "content-safety",
+      safety: providerSafety,
+      moderation: moderation.classification,
+      layer: "provider",
+      governanceEvents: [
+        {
+          action: "content-safety-flagged",
+          reason: `content-safety:student-input:${providerSafety.category}:${providerSafety.severity}:withheld:provider`,
+          metadata: {
+            category: providerSafety.category,
+            severity: providerSafety.severity,
+            source: "student-input",
+            blockedReply: true,
+            layer: "provider",
+            providerSignals: providerSafety.matchedTerms
+          }
+        }
+      ],
+      safetyFlag: {
+        category: providerSafety.category,
+        severity: providerSafety.severity,
+        source: "student-input",
+        excerpt: providerSafety.excerpt,
+        matchedTerms: providerSafety.matchedTerms,
+        language,
+        blockedReply: true
+      },
+      providerStatus: moderation.providerStatus
+    };
+  }
 
   return {
     allowed: !moderation.redirected,

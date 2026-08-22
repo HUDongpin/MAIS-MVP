@@ -93,7 +93,7 @@ test("refuses to speak crisis text and raises the teacher safety flag", async ()
   assert.ok(decision.safetyFlag, "a crisis refusal must reach the teacher surface");
   assert.equal(decision.safetyFlag?.category, "self-harm");
   assert.equal(decision.safetyFlag?.severity, "critical");
-  assert.equal(decision.safetyFlag?.source, "tutor-output");
+  assert.equal(decision.safetyFlag?.source, "student-input");
   assert.equal(decision.safetyFlag?.blockedReply, true);
   assert.equal(decision.safetyFlag?.language, "zh-Hans");
   assert.ok((decision.safetyFlag?.excerpt.length ?? 0) > 0);
@@ -103,8 +103,9 @@ test("refuses to speak crisis text and raises the teacher safety flag", async ()
   assert.equal(decision.governanceEvents[0].action, "content-safety-flagged");
   assert.equal(
     decision.governanceEvents[0].reason,
-    "content-safety:tutor-output:self-harm:critical:withheld"
+    "content-safety:student-input:self-harm:critical:withheld"
   );
+  assert.equal(decision.governanceEvents[0].metadata.source, "student-input");
 });
 
 test("a content-safety refusal short-circuits the moderation gate entirely", async () => {
@@ -200,6 +201,45 @@ test("refuses text the lexical net cleared but the provider flags", async () => 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].url, providerOn.apiUrl);
   assert.match(String(calls[0].init.body), /born less capable/);
+});
+
+test("routes a provider-only self-harm signal to duty of care with student provenance", async () => {
+  const { calls, fetchImpl } = stubFetch({
+    results: [{ flagged: true, categories: { "self-harm": true } }]
+  });
+  const text = "I want to unalive myself";
+
+  const decision = await resolveTutorVoiceModeration({
+    text,
+    role: "student",
+    language: "en",
+    config: providerOn,
+    fetchImpl
+  });
+
+  assert.equal(decision.allowed, false);
+  assert.equal(decision.refusal, "content-safety");
+  assert.equal(decision.layer, "provider");
+  assert.equal(decision.providerStatus, "completed");
+  assert.equal(decision.safety.category, "self-harm");
+  assert.equal(decision.safety.severity, "critical");
+  assert.deepEqual(decision.safety.matchedTerms, ["provider:self-harm"]);
+  assert.equal(decision.moderation.flagged, false, "a crisis is not a policy violation");
+
+  assert.equal(decision.safetyFlag?.source, "student-input");
+  assert.equal(decision.safetyFlag?.category, "self-harm");
+  assert.equal(decision.safetyFlag?.severity, "critical");
+  assert.equal(decision.safetyFlag?.blockedReply, true);
+
+  assert.equal(decision.governanceEvents.length, 1);
+  assert.equal(decision.governanceEvents[0].action, "content-safety-flagged");
+  assert.equal(
+    decision.governanceEvents[0].reason,
+    "content-safety:student-input:self-harm:critical:withheld:provider"
+  );
+  assert.equal(decision.governanceEvents[0].metadata.source, "student-input");
+  assert.equal(decision.governanceEvents[0].metadata.layer, "provider");
+  assert.equal(calls.length, 1);
 });
 
 test("speaks the reply when the provider clears it", async () => {
