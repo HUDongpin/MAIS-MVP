@@ -346,7 +346,7 @@ export const hongKongUpJuniorEnglishSafeCards: HongKongUpJuniorSafeCard[] = [
     prohibitedReuseNotes: upJuniorEnglishOriginalityGuards
   },
   {
-    id: "hk-up-junior-en-3a-quadratics-functions",
+    id: "hk-up-junior-en-3a-identities-square-patterns",
     curriculumTrack: "HK",
     publisher: "HK_UNITED_PRIME_MIA",
     stage: "junior-secondary",
@@ -355,19 +355,19 @@ export const hongKongUpJuniorEnglishSafeCards: HongKongUpJuniorSafeCard[] = [
     grade: "S3",
     semester: "upper",
     chapterSequence: 2,
-    chapter: "Quadratic patterns, equations, and function readiness",
-    topicIds: ["quadratic-patterns", "polynomials"],
-    conceptIds: ["quadratic-expression", "quadratic-equation", "parabolic-pattern", "zero-product", "turning-point-readiness", "parameter"],
-    competencyTags: ["symbolic reasoning", "pattern generalization", "representation transfer", "condition checking"],
-    itemTypeTags: ["quadratic equation", "pattern generalization", "graph-readiness task", "parameter classification"],
+    chapter: "Algebraic identities and square area patterns",
+    topicIds: ["identities-square-patterns"],
+    conceptIds: ["area-model", "perfect-square-identity", "difference-of-squares", "expansion", "factorisation", "identity-sign"],
+    competencyTags: ["symbolic reasoning", "area model reasoning", "equivalence reasoning", "sign checking"],
+    itemTypeTags: ["area model task", "identity expansion", "identity factorisation", "identity sign diagnostic"],
     difficultyBand: "challenge",
-    safeSummary: "The English UP S3 3A quadratic sequence can bridge factorization to quadratic equations and early function thinking through roots, patterns, and constraints.",
+    safeSummary: "The English UP S3 3A sequence links area models to (a+b)^2, (a-b)^2, and a^2-b^2 so learners can expand, factorise, and check each identity sign.",
     generationGuidance: [
-      "Use fresh numerical patterns, expressions, and constraints that do not resemble source layouts.",
-      "Pair symbolic solving with a short explanation of what the solution represents.",
-      "Include checks for extraneous or infeasible results in challenge variants."
+      "Use newly authored rectangle and square area models before writing the matching symbolic identity.",
+      "Ask learners to expand and factorise the same expression, then verify the identity sign by substitution.",
+      "Contrast (a+b)^2, (a-b)^2, and a^2-b^2 without introducing senior function-graph semantics."
     ],
-    misconceptionTags: ["zero-product condition missed", "root and factor confused", "pattern rule overfit", "parameter boundary omitted"],
+    misconceptionTags: ["middle term omitted", "negative middle term sign lost", "difference of squares confused with a squared difference", "identity sign copied without checking"],
     sourceFiles: ["Pearson/UP junior English S3 3A local private PDF"],
     prohibitedReuseNotes: upJuniorEnglishOriginalityGuards
   },
@@ -398,7 +398,7 @@ export const hongKongUpJuniorEnglishSafeCards: HongKongUpJuniorSafeCard[] = [
     prohibitedReuseNotes: upJuniorEnglishOriginalityGuards
   },
   {
-    id: "hk-up-junior-en-3b-circles-angle-geometry",
+    id: "hk-up-junior-en-3b-arc-length-sector-area",
     curriculumTrack: "HK",
     publisher: "HK_UNITED_PRIME_MIA",
     stage: "junior-secondary",
@@ -407,19 +407,19 @@ export const hongKongUpJuniorEnglishSafeCards: HongKongUpJuniorSafeCard[] = [
     grade: "S3",
     semester: "lower",
     chapterSequence: 1,
-    chapter: "Circles, angle geometry, and proof readiness",
-    topicIds: ["circles", "angles"],
-    conceptIds: ["circle-geometry", "chord", "tangent-readiness", "cyclic-angle-readiness", "angle-relation", "proof-readiness"],
-    competencyTags: ["geometric reasoning", "visualization", "condition checking", "mathematical communication"],
-    itemTypeTags: ["circle geometry task", "angle chasing", "diagram-supported explanation", "short proof readiness"],
+    chapter: "Arc length and sector area",
+    topicIds: ["arc-length-sector-area"],
+    conceptIds: ["arc-length", "sector-area", "central-angle-degrees", "exact-pi", "measurement-units", "full-circle-invariant"],
+    competencyTags: ["proportional reasoning", "measurement reasoning", "unit checking", "exact and approximate values"],
+    itemTypeTags: ["arc length calculation", "sector area calculation", "exact pi response", "unit diagnostic"],
     difficultyBand: "challenge",
-    safeSummary: "The English UP S3 3B circle-geometry sequence can support original condition-aware angle reasoning and concise justification before senior geometry.",
+    safeSummary: "The English UP S3 3B sequence develops s=(theta/360)*2pi r and A=(theta/360)*pi r^2 with theta in degrees, exact pi and approximation, length units and area units, and the theta=360 full circle invariant.",
     generationGuidance: [
-      "Create original circle diagrams with enough labels to state the intended relation unambiguously.",
-      "Ask students to name the theorem-like relation before numerical work.",
-      "Use distractors around visually plausible but unsupported angle claims."
+      "Create original arc and sector measurements with theta stated in degrees and require the correct proportion of a full turn.",
+      "Ask for an exact pi form before a decimal approximation and require length units for s and area units for A.",
+      "Use theta=360 as an invariant check that recovers the full circumference and full disk area."
     ],
-    misconceptionTags: ["diagram measurement used as proof", "tangent condition assumed", "same segment relation misapplied", "reason omitted"],
+    misconceptionTags: ["degree proportion inverted", "radius omitted from circumference", "length and area units confused", "pi rounded before the exact form"],
     sourceFiles: ["Pearson/UP junior English S3 3B local private PDF"],
     prohibitedReuseNotes: upJuniorEnglishOriginalityGuards
   },
@@ -460,7 +460,7 @@ export const hongKongUpJuniorEnglishSafeCards: HongKongUpJuniorSafeCard[] = [
     semester: "lower",
     chapterSequence: 3,
     chapter: "Junior-to-senior transition and mixed problem solving",
-    topicIds: ["polynomials", "quadratic-patterns", "trigonometry-basics", "circles"],
+    topicIds: ["polynomials", "identities-square-patterns", "trigonometry-basics", "arc-length-sector-area"],
     conceptIds: ["cross-topic-synthesis", "method-selection", "algebra-geometry-link", "representation-transfer", "readiness-checking", "mathematical-communication"],
     competencyTags: ["strategic reasoning", "resilience", "method selection", "communication"],
     itemTypeTags: ["mixed-topic review", "linked investigation", "readiness check", "teacher planning"],

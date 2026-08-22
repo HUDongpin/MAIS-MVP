@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { isRetiredHongKongQuestionId } from "@/lib/hongKongQuestionRetirement";
 import { toPrcSimplifiedText } from "@/lib/i18n";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
 import type {
@@ -970,6 +971,7 @@ export function createTeacherOpsAssignmentPersistenceStore({
       const fallback = assignmentFallbackCopy[contentType];
       const localizedTitle = localizedAssignmentField(trimmedTitle, inputLanguage, fallback.title);
       const localizedDescription = localizedAssignmentField(trimmedDescription, inputLanguage, fallback.description);
+      const trimmedTargetId = targetId?.trim() || undefined;
 
       return runMutation((database) => {
         const user = database.users.find((candidate) => candidate.id === teacherId);
@@ -977,6 +979,9 @@ export function createTeacherOpsAssignmentPersistenceStore({
 
         const teacherClass = teacherCanAccessClass(database, user, classId);
         if (!teacherClass) return { status: "not-found" as const };
+        if (contentType === "practice" && trimmedTargetId && isRetiredHongKongQuestionId(trimmedTargetId)) {
+          return { status: "invalid" as const };
+        }
 
         const enrolledStudentIds = teacherStudentIdsForClass(database, classId);
         const selectedStudentIds = studentIds?.length
@@ -996,7 +1001,7 @@ export function createTeacherOpsAssignmentPersistenceStore({
           description_zh: localizedDescription.zh,
           description_zh_hans: localizedDescription.zhHans,
           content_type: contentType,
-          target_id: targetId?.trim() || undefined,
+          target_id: trimmedTargetId,
           status: "active",
           due_at: dueAt ? new Date(dueAt).toISOString() : null,
           allow_retake: allowRetake,

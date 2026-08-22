@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
-import { questions } from "../data/questions";
+import { activeHongKongQuestionIdByHistoricalId, questions } from "../data/questions";
 import { mainlandPepJuniorDroppedGraphQuestionIds } from "../data/mainlandPepJuniorQuestions";
 import { deriveGraphAnswer, isExpectedAnswerRepresented } from "./questionBankSolvability";
 import {
+  buildBarChartLayout,
   buildCoordinateGridLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
   buildTenFrameLayout,
+  buildQuestionDiagramSemanticSummary,
   normalizeQuestionDiagram,
   numberLinePointValue,
   planeFigureAngleDegrees,
@@ -25,9 +28,49 @@ import type { PlaneFigureQuestionDiagram, Question } from "@/types";
 
 const englishText: FigureTextResolver = (value) => (typeof value === "string" ? value : value.en);
 
+const validCoordinateGridPayload = {
+  kind: "coordinate-grid",
+  xRange: [0, 6],
+  yRange: [0, 8],
+  xAxisLabel: { en: "Time (s)", zh: "時間（秒）" },
+  yAxisLabel: { en: "Distance (m)", zh: "距離（米）" },
+  xTickInterval: 2,
+  yTickInterval: 2,
+  points: [
+    { id: "point-a", label: "A", x: 1, y: 2 },
+    { id: "point-b", label: "B", x: 5, y: 6 }
+  ],
+  lines: [
+    {
+      id: "line-ab",
+      label: { en: "Journey AB", zh: "路程 AB" },
+      points: [{ x: 1, y: 2 }, { x: 5, y: 6 }]
+    }
+  ]
+} as const;
+
+const validBarChartPayload = {
+  kind: "bar-chart",
+  mode: "grouped",
+  title: { en: "Books read", zh: "閱讀書籍" },
+  xAxisLabel: { en: "Class", zh: "班別" },
+  yAxisLabel: { en: "Books", zh: "書籍數量" },
+  yRange: [0, 10],
+  tickInterval: 2,
+  series: [
+    { id: "girls", label: { en: "Girls", zh: "女生" } },
+    { id: "boys", label: { en: "Boys", zh: "男生" } }
+  ],
+  categories: [
+    { id: "class-a", label: { en: "Class A", zh: "甲班" }, values: { girls: 8, boys: 6 } },
+    { id: "class-b", label: { en: "Class B", zh: "乙班" }, values: { girls: 7, boys: 9 } }
+  ]
+} as const;
+
 function questionById(id: string): Question {
-  const question = questions.find((candidate) => candidate.id === id);
-  assert.ok(question, `Expected question ${id} to exist in the bank`);
+  const activeId = activeHongKongQuestionIdByHistoricalId.get(id) ?? id;
+  const question = questions.find((candidate) => candidate.id === activeId);
+  assert.ok(question, `Expected active question ${activeId} for ${id} to exist in the bank`);
   return question;
 }
 
@@ -78,8 +121,10 @@ test("normalizeQuestionDiagram accepts every diagram kind and rebuilds clean obj
     kind: "coordinate-grid",
     xRange: [0, 5],
     yRange: [0, 5],
-    points: [{ label: "A", x: 1, y: 1 }],
-    lines: [{ label: "AB", points: [{ x: 1, y: 1 }, { x: 4, y: 4 }] }]
+    xAxisLabel: { en: "x", zh: "x 軸" },
+    yAxisLabel: { en: "y", zh: "y 軸" },
+    points: [{ id: "point-a", label: "A", x: 1, y: 1 }],
+    lines: [{ id: "line-ab", label: { en: "AB", zh: "AB" }, points: [{ x: 1, y: 1 }, { x: 4, y: 4 }] }]
   });
   assert.equal(grid?.kind, "coordinate-grid");
 
@@ -91,6 +136,230 @@ test("normalizeQuestionDiagram accepts every diagram kind and rebuilds clean obj
     ]
   });
   assert.equal(tenFrame?.kind, "ten-frame");
+});
+
+test("coordinate-grid normalization enforces bounded bilingual semantic data", () => {
+  const normalized = normalizeQuestionDiagram(validCoordinateGridPayload);
+  assert.ok(normalized && normalized.kind === "coordinate-grid");
+  assert.deepEqual(normalized.xAxisLabel, { en: "Time (s)", zh: "時間（秒）", zhHans: "時間（秒）" });
+  assert.equal(normalized.lines?.[0].label.zh, "路程 AB");
+
+  const invalidPayloads: unknown[] = [
+    { ...validCoordinateGridPayload, xAxisLabel: undefined },
+    { ...validCoordinateGridPayload, yAxisLabel: { en: "Distance" } },
+    { ...validCoordinateGridPayload, xRange: [2, 2] },
+    { ...validCoordinateGridPayload, yRange: [0, Number.NaN] },
+    { ...validCoordinateGridPayload, xTickInterval: 0 },
+    { ...validCoordinateGridPayload, yTickInterval: Number.POSITIVE_INFINITY },
+    { ...validCoordinateGridPayload, xTickInterval: 7 },
+    { ...validCoordinateGridPayload, points: [{ label: "P", x: 1, y: 2 }] },
+    { ...validCoordinateGridPayload, points: [{ id: "not-finite", label: "P", x: Number.NaN, y: 2 }] },
+    { ...validCoordinateGridPayload, points: [{ id: "outside", label: "P", x: 7, y: 2 }] },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ id: "outside-line", label: { en: "Outside", zh: "界外" }, points: [{ x: 0, y: 0 }, { x: 7, y: 2 }] }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      points: [{ id: "same", label: "A", x: 1, y: 1 }, { id: "same", label: "B", x: 2, y: 2 }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      points: [{ id: "one", label: "A", x: 1, y: 1 }, { id: "two", label: "A", x: 2, y: 2 }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [
+        { id: "same", label: { en: "First", zh: "第一" }, points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] },
+        { id: "same", label: { en: "Second", zh: "第二" }, points: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }
+      ]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [
+        { id: "first", label: { en: "Same", zh: "相同" }, points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] },
+        { id: "second", label: { en: "Same", zh: "相同" }, points: [{ x: 1, y: 1 }, { x: 2, y: 2 }] }
+      ]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ id: "unlabelled", points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ id: "not-bilingual", label: { en: "English only" }, points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ label: { en: "No ID", zh: "沒有 ID" }, points: [{ x: 0, y: 0 }, { x: 1, y: 1 }] }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ id: "not-finite", label: { en: "Not finite", zh: "非有限數" }, points: [{ x: 0, y: 0 }, { x: Number.POSITIVE_INFINITY, y: 1 }] }]
+    },
+    {
+      ...validCoordinateGridPayload,
+      lines: [{ id: "short", label: { en: "Short", zh: "太短" }, points: [{ x: 0, y: 0 }] }]
+    }
+  ];
+
+  invalidPayloads.forEach((payload, index) => {
+    assert.equal(normalizeQuestionDiagram(payload), undefined, `invalid coordinate payload ${index} was accepted`);
+  });
+});
+
+test("bar-chart normalization enforces series/category cardinality and exact values", () => {
+  const normalized = normalizeQuestionDiagram(validBarChartPayload);
+  assert.ok(normalized && normalized.kind === "bar-chart");
+  assert.equal(normalized.categories[1].values.boys, 9);
+  const single = normalizeQuestionDiagram({
+    ...validBarChartPayload,
+    mode: "single",
+    series: [validBarChartPayload.series[0]],
+    categories: validBarChartPayload.categories.map((category) => ({
+      ...category,
+      values: { girls: category.values.girls }
+    }))
+  });
+  assert.ok(single && single.kind === "bar-chart" && single.mode === "single");
+
+  const invalidPayloads: unknown[] = [
+    { ...validBarChartPayload, mode: "stacked" },
+    { ...validBarChartPayload, title: { en: "Books read" } },
+    { ...validBarChartPayload, xAxisLabel: { en: "Class" } },
+    { ...validBarChartPayload, yAxisLabel: { zh: "書籍數量" } },
+    { ...validBarChartPayload, yRange: [1, 10] },
+    { ...validBarChartPayload, yRange: [0, 0] },
+    { ...validBarChartPayload, yRange: [0, Number.POSITIVE_INFINITY] },
+    { ...validBarChartPayload, tickInterval: 0 },
+    { ...validBarChartPayload, tickInterval: Number.POSITIVE_INFINITY },
+    { ...validBarChartPayload, tickInterval: 11 },
+    { ...validBarChartPayload, series: [] },
+    { ...validBarChartPayload, mode: "single", series: validBarChartPayload.series },
+    { ...validBarChartPayload, mode: "grouped", series: [validBarChartPayload.series[0]] },
+    { ...validBarChartPayload, categories: [] },
+    {
+      ...validBarChartPayload,
+      series: [validBarChartPayload.series[0], { id: "girls", label: { en: "Other", zh: "其他" } }]
+    },
+    {
+      ...validBarChartPayload,
+      series: [validBarChartPayload.series[0], { label: { en: "No ID", zh: "沒有 ID" } }]
+    },
+    {
+      ...validBarChartPayload,
+      series: [validBarChartPayload.series[0], { id: "not-bilingual", label: { en: "English only" } }]
+    },
+    {
+      ...validBarChartPayload,
+      series: [validBarChartPayload.series[0], { id: "other", label: { en: "Girls", zh: "女生" } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [validBarChartPayload.categories[0], { ...validBarChartPayload.categories[1], id: "class-a" }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ label: { en: "No ID", zh: "沒有 ID" }, values: { girls: 8, boys: 6 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ id: "not-bilingual", label: { en: "English only" }, values: { girls: 8, boys: 6 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [validBarChartPayload.categories[0], { ...validBarChartPayload.categories[1], label: { en: "Class A", zh: "甲班" } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ ...validBarChartPayload.categories[0], values: { girls: 8 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ ...validBarChartPayload.categories[0], values: { girls: 8, boys: 6, teachers: 1 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ ...validBarChartPayload.categories[0], values: { girls: -1, boys: 6 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ ...validBarChartPayload.categories[0], values: { girls: Number.NaN, boys: 6 } }]
+    },
+    {
+      ...validBarChartPayload,
+      categories: [{ ...validBarChartPayload.categories[0], values: { girls: 11, boys: 6 } }]
+    }
+  ];
+
+  invalidPayloads.forEach((payload, index) => {
+    assert.equal(normalizeQuestionDiagram(payload), undefined, `invalid bar-chart payload ${index} was accepted`);
+  });
+});
+
+test("coordinate-grid and bar-chart layouts honor deterministic tick and bar geometry", () => {
+  const coordinate = normalizeQuestionDiagram(validCoordinateGridPayload);
+  assert.ok(coordinate && coordinate.kind === "coordinate-grid");
+  const coordinateLayout = buildCoordinateGridLayout(coordinate);
+  assert.deepEqual(coordinateLayout.xTicks, [0, 2, 4, 6]);
+  assert.deepEqual(coordinateLayout.yTicks, [0, 2, 4, 6, 8]);
+  assert.equal(coordinateLayout.renderedLines[0].lineKey, "line-ab");
+
+  const barChart = normalizeQuestionDiagram(validBarChartPayload);
+  assert.ok(barChart && barChart.kind === "bar-chart");
+  const first = buildBarChartLayout(barChart, englishText);
+  const second = buildBarChartLayout(barChart, englishText);
+  assert.deepEqual(first, second);
+  assert.deepEqual(first.yTicks.map((tick) => tick.value), [0, 2, 4, 6, 8, 10]);
+  assert.equal(first.bars.length, 4);
+  assert.equal(new Set(first.bars.map((bar) => bar.fill)).size, 2);
+  assert.ok(first.bars.every((bar) => bar.x >= first.plot.left && bar.x + bar.width <= first.plot.left + first.plot.width));
+  assert.ok(first.bars.every((bar) => bar.y >= first.plot.top && bar.y + bar.height === first.plot.top + first.plot.height));
+  assert.deepEqual(first.legend.map((entry) => entry.text), ["Girls", "Boys"]);
+});
+
+test("semantic summaries expose complete localized coordinate and bar-chart tables", () => {
+  const coordinate = normalizeQuestionDiagram(validCoordinateGridPayload);
+  assert.ok(coordinate && coordinate.kind === "coordinate-grid");
+  const coordinateEn = buildQuestionDiagramSemanticSummary(coordinate, "en");
+  const coordinateZh = buildQuestionDiagramSemanticSummary(coordinate, "zh");
+  assert.ok(coordinateEn.caption.includes("Coordinate grid"));
+  assert.ok(coordinateZh.caption.includes("座標網格"));
+  assert.deepEqual(coordinateEn.table?.headers, ["Element", "Label", "Values"]);
+  assert.deepEqual(coordinateZh.table?.headers, ["元素", "標籤", "數值"]);
+  assert.deepEqual(coordinateEn.table?.rows.map((row) => row.key), ["axis-x", "axis-y", "point-point-a", "point-point-b", "line-line-ab"]);
+  assert.ok(coordinateEn.table?.rows[0].cells[2].includes("0 to 6"));
+  assert.ok(coordinateEn.table?.rows[0].cells[2].includes("tick interval 2"));
+  assert.ok(coordinateEn.table?.rows[0].cells[2].includes("ticks 0, 2, 4, 6"));
+  assert.ok(coordinateZh.table?.rows[1].cells[2].includes("刻度 0、2、4、6、8"));
+  assert.equal(coordinateEn.table?.rows[2].cells[2], "(1, 2)");
+  assert.equal(coordinateEn.table?.rows[4].cells[2], "(1, 2) → (5, 6)");
+  assert.equal(coordinateZh.table?.rows[4].cells[1], "路程 AB");
+
+  const barChart = normalizeQuestionDiagram(validBarChartPayload);
+  assert.ok(barChart && barChart.kind === "bar-chart");
+  const barEn = buildQuestionDiagramSemanticSummary(barChart, "en");
+  const barZh = buildQuestionDiagramSemanticSummary(barChart, "zh");
+  assert.equal(barEn.caption, "Books read. Bar chart with 2 categories.");
+  assert.deepEqual(barEn.table?.headers, ["Class", "Girls", "Boys"]);
+  assert.deepEqual(barZh.table?.headers, ["班別", "女生", "男生"]);
+  assert.deepEqual(barEn.table?.rows.map((row) => row.cells), [["Class A", "8", "6"], ["Class B", "7", "9"]]);
+  assert.deepEqual(barZh.table?.rows.map((row) => row.cells), [["甲班", "8", "6"], ["乙班", "7", "9"]]);
+});
+
+test("QuestionFigure source preserves accessible figure descendants", () => {
+  const source = readFileSync("components/practice/QuestionFigure.tsx", "utf8");
+  assert.match(source, /<figure\b/);
+  assert.doesNotMatch(source, /role="img"/);
+  assert.match(source, /<figcaption\b/);
+  assert.match(source, /<table\b/);
+  assert.match(source, /className="sr-only"/);
+  assert.match(source, /aria-hidden="true"/);
+  assert.doesNotMatch(source, /tabIndex=/);
+  assert.match(source, /textFor\(diagram\.xAxisLabel\)/);
+  assert.match(source, /textFor\(diagram\.yAxisLabel\)/);
+  assert.doesNotMatch(source, />\s*x\s*<\/text>/);
+  assert.doesNotMatch(source, />\s*y\s*<\/text>/);
 });
 
 test("normalizeQuestionDiagram rejects malformed payloads fail-closed", () => {

@@ -129,9 +129,9 @@ CHAPTER_BLUEPRINTS = {
             "conceptIds": ["polynomial", "expansion", "factorization", "identity", "common-factor"],
         },
         {
-            "chapterSignal": "Quadratic patterns, equations, and function readiness",
-            "topicIds": ["quadratic-patterns", "polynomials"],
-            "conceptIds": ["quadratic-expression", "quadratic-equation", "parabolic-pattern", "zero-product", "parameter"],
+            "chapterSignal": "Algebraic identities and square area patterns",
+            "topicIds": ["identities-square-patterns"],
+            "conceptIds": ["area-model", "perfect-square-identity", "difference-of-squares", "expansion", "factorisation", "identity-sign"],
         },
         {
             "chapterSignal": "Trigonometric ratios and measurement modelling",
@@ -141,9 +141,9 @@ CHAPTER_BLUEPRINTS = {
     ],
     "3B": [
         {
-            "chapterSignal": "Circles, angle geometry, and proof readiness",
-            "topicIds": ["circles", "angles"],
-            "conceptIds": ["circle-geometry", "chord", "tangent-readiness", "angle-relation", "proof-readiness"],
+            "chapterSignal": "Arc length and sector area",
+            "topicIds": ["arc-length-sector-area"],
+            "conceptIds": ["arc-length", "sector-area", "central-angle-degrees", "exact-pi", "measurement-units", "full-circle-invariant"],
         },
         {
             "chapterSignal": "Statistics, probability, and interpretation consolidation",
@@ -152,7 +152,7 @@ CHAPTER_BLUEPRINTS = {
         },
         {
             "chapterSignal": "Junior-to-senior transition and mixed problem solving",
-            "topicIds": ["polynomials", "quadratic-patterns", "trigonometry-basics", "circles"],
+            "topicIds": ["polynomials", "identities-square-patterns", "trigonometry-basics", "arc-length-sector-area"],
             "conceptIds": ["cross-topic-synthesis", "method-selection", "algebra-geometry-link", "representation-transfer"],
         },
     ],
@@ -353,6 +353,16 @@ def run_self_test() -> None:
     assert manifest["missingExpectedVolumes"] == [], manifest["missingExpectedVolumes"]
     assert manifest["duplicateExpectedVolumes"] == [], manifest["duplicateExpectedVolumes"]
     assert len(cards) == 18, len(cards)
+    s3_topics = {
+        topic_id
+        for card in cards
+        if card["grade"] == "S3"
+        for topic_id in card["topicIds"]
+    }
+    assert "quadratic-patterns" not in s3_topics, s3_topics
+    assert "circles" not in s3_topics, s3_topics
+    assert "identities-square-patterns" in s3_topics, s3_topics
+    assert "arc-length-sector-area" in s3_topics, s3_topics
     serialized = json.dumps(manifest, ensure_ascii=False)
     for forbidden in ["body text sample", "sourcePage", "page image bytes", "embeddingPayload"]:
         assert forbidden not in serialized

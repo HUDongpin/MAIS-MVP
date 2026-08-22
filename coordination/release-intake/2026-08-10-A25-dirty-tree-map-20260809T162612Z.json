@@ -1,0 +1,1996 @@
+{
+  "generatedAt": "2026-08-09T16:26:12.909Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "HK all-math content QA pre-integration release-scope audit",
+  "statusSignature": "8a560c7491b97bc05cc7d06e79b573a6f075b5118dbfa3d24672f024f5eb111c",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T162612Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-08-10-A25-dirty-tree-map-20260809T162612Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 76,
+    "expandedStatusEntries": 77,
+    "trackedModified": 51,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 25,
+    "untrackedFiles": 26,
+    "unmappedEntries": 8,
+    "unblockedUnmappedEntries": 8,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 13,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "A12 Backend/API platform and storage contract": 24,
+    "A21 Content pipeline and RAG candidate operations": 22,
+    "A18 Curriculum QA and independent content acceptance": 9,
+    "Unmapped owner needed": 8,
+    "A04 Practice Arena, Mistake Book, and question data": 4,
+    "A05 Lesson pages and lesson content modules": 4,
+    "A15 Adaptive engine and recommendation quality": 2,
+    "A03 Curriculum roadmap and grade/topic structure": 1,
+    "A08 Shared provider state, analytics, and app-wide types": 1,
+    "A24 Deterministic question-figure exact layer": 1,
+    "A24 Deterministic question-figure regression contract": 1
+  },
+  "sliceBuckets": {
+    "runtime app/API/data/public": 28,
+    "tests/regression evidence": 26,
+    "generated/content/RAG backlog": 23
+  },
+  "releaseHygieneEntries": [],
+  "unmappedEntries": [
+    {
+      "status": " M",
+      "path": "lib/practiceQuestionDeduping.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestionVersionManifest.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestions-3f8f12c4.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongLessonQualityContract.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionRetirement.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioningContract.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    }
+  ],
+  "unblockedUnmappedEntries": [
+    {
+      "status": " M",
+      "path": "lib/practiceQuestionDeduping.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestionVersionManifest.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestions-3f8f12c4.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongLessonQualityContract.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionRetirement.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioningContract.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    }
+  ],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": " M",
+      "path": "app/api/adaptive-learning/next/route.ts",
+      "owner": "A15 Adaptive engine and recommendation quality",
+      "ownerId": "A15",
+      "packageId": "A15-adaptive-engine",
+      "matchedPathspec": "app/api/adaptive-learning/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A15"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "app/api/adaptive-learning/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "app/api/adaptive-learning/refresh/route.ts",
+      "owner": "A15 Adaptive engine and recommendation quality",
+      "ownerId": "A15",
+      "packageId": "A15-adaptive-engine",
+      "matchedPathspec": "app/api/adaptive-learning/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A15"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2598,
+        "precedence": 0,
+        "matchedPathspec": "app/api/adaptive-learning/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/LessonView.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/lesson/StudentLessonPage.tsx",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "components/practice/QuestionFigure.tsx",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "components/practice/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1998,
+        "precedence": 0,
+        "matchedPathspec": "components/practice/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "data/lessons.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "data/lessons.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1500,
+        "precedence": 0,
+        "matchedPathspec": "data/lessons.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "data/questions.ts",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "data/questions.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1700,
+        "precedence": 0,
+        "matchedPathspec": "data/questions.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "data/rag/hongKongMathEdB.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "data/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 898,
+        "precedence": 0,
+        "matchedPathspec": "data/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "data/rag/hongKongUpJunior.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "data/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 898,
+        "precedence": 0,
+        "matchedPathspec": "data/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "data/rag/hongKongUpJuniorEnglish.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "data/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 898,
+        "precedence": 0,
+        "matchedPathspec": "data/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "data/topics.ts",
+      "owner": "A03 Curriculum roadmap and grade/topic structure",
+      "ownerId": "A03",
+      "packageId": "A03-roadmap",
+      "matchedPathspec": "data/topics.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A03"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1400,
+        "precedence": 0,
+        "matchedPathspec": "data/topics.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/fullQuestionBankSolvability.test.ts",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "lib/fullQuestionBankSolvability.test.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 3900,
+        "precedence": 0,
+        "matchedPathspec": "lib/fullQuestionBankSolvability.test.ts"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/practiceQuestionDeduping.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/questionBankSolvability.ts",
+      "owner": "A04 Practice Arena, Mistake Book, and question data",
+      "ownerId": "A04",
+      "packageId": "A04-practice",
+      "matchedPathspec": "lib/questionBankSolvability.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A04"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 3000,
+        "precedence": 0,
+        "matchedPathspec": "lib/questionBankSolvability.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/questionFigure.test.ts",
+      "owner": "A24 Deterministic question-figure regression contract",
+      "ownerId": "A24",
+      "packageId": "A24-question-figure-test-contract",
+      "matchedPathspec": "lib/questionFigure.test.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "tests/regression evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A24"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2600,
+        "precedence": 0,
+        "matchedPathspec": "lib/questionFigure.test.ts"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/questionFigure.ts",
+      "owner": "A24 Deterministic question-figure exact layer",
+      "ownerId": "A24",
+      "packageId": "A24-question-figure-source-contract",
+      "matchedPathspec": "lib/questionFigure.ts",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A24"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 2100,
+        "precedence": 0,
+        "matchedPathspec": "lib/questionFigure.ts"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongDseEph.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongDseEph.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongDseMath.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongDseUp.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongDseUp.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongEaseQuestions.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongEaseQuestions.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongMath.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongMathEdB.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongMathEdB.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongModernPrimary.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongModernPrimary.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongUpJunior.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongUpJunior.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongUpJuniorEnglish.test.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/rag/hongKongUpJuniorResources.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/answerGrading.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/answerMatching.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/answerMatching.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/practiceAttemptStore.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/practiceAttemptStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/questionStore.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/questionStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/studentActivityPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsAssessmentPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsAssignmentPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStore/teacherOpsSubmissionPersistence.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStoreStudentActivityPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStoreTeacherOpsAssessmentPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStoreTeacherOpsAssignmentPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "lib/server/userStoreTeacherOpsSubmissionPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": " M",
+      "path": "scripts/build-hk-up-junior-english-textbook-manifest.py",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "scripts/build-*.py",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 1699,
+        "precedence": 0,
+        "matchedPathspec": "scripts/build-*.py"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "scripts/build-hk-up-junior-textbook-manifest.py",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "scripts/build-*.py",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 1699,
+        "precedence": 0,
+        "matchedPathspec": "scripts/build-*.py"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": " M",
+      "path": "types/index.ts",
+      "owner": "A08 Shared provider state, analytics, and app-wide types",
+      "ownerId": "A08",
+      "packageId": "A08-shared-state-types",
+      "matchedPathspec": "types/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A08"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 598,
+        "precedence": 0,
+        "matchedPathspec": "types/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "components/lesson/lessonExtensionRendering.test.ts",
+      "owner": "A05 Lesson pages and lesson content modules",
+      "ownerId": "A05",
+      "packageId": "A05-lessons",
+      "matchedPathspec": "components/lesson/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A05"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1798,
+        "precedence": 0,
+        "matchedPathspec": "components/lesson/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-full-question-bank-solvability-audit.csv",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-full-question-bank-solvability-audit.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-full-question-bank-solvability-audit.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-mainland-pep-full-question-bank-qa.csv",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-mainland-pep-full-question-bank-qa.json",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/2026-08-09-S18-mainland-pep-full-question-bank-qa.md",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/generate-hk-question-history-snapshot.test.ts",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/generate-hk-question-history-snapshot.ts",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "coordination/content-qa/generate-hk-question-version-manifest.ts",
+      "owner": "A18 Curriculum QA and independent content acceptance",
+      "ownerId": "A18",
+      "packageId": "A18-content-qa",
+      "matchedPathspec": "coordination/content-qa/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A18"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2398,
+        "precedence": 0,
+        "matchedPathspec": "coordination/content-qa/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestionVersionManifest.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "data/historical/hongKongQuestions-3f8f12c4.json",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongLessonQualityContract.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionRetirement.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.test.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioning.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/hongKongQuestionVersioningContract.ts",
+      "owner": "Unmapped owner needed",
+      "ownerId": "UNMAPPED",
+      "packageId": "unmapped",
+      "matchedPathspec": null,
+      "secretQuarantine": false,
+      "ownerResolution": {
+        "status": "unmapped",
+        "finalOwners": [],
+        "rawMatchCount": 0,
+        "topCandidateCount": 0,
+        "matchedPathspec": null
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/rag/hongKongMathTopicRouting.ts",
+      "owner": "A21 Content pipeline and RAG candidate operations",
+      "ownerId": "A21",
+      "packageId": "A21-content-rag-candidates",
+      "matchedPathspec": "lib/rag/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "generated/content/RAG backlog",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A21"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 798,
+        "precedence": 0,
+        "matchedPathspec": "lib/rag/**"
+      },
+      "slice": "generated/content/RAG backlog"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/answerGrading.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/hongKongHistoricalQuestionProjection.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/hongKongHistoricalQuestionProjection.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/questionResponseContracts.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/questionResponseContracts.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "runtime app/API/data/public"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStoreAdaptiveRagEligibility.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStoreHistoricalQuestionPersistence.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    },
+    {
+      "status": "??",
+      "path": "lib/server/userStoreLessonBlockOrder.test.ts",
+      "owner": "A12 Backend/API platform and storage contract",
+      "ownerId": "A12",
+      "packageId": "A12-backend-api-storage",
+      "matchedPathspec": "lib/server/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "runtime app/API/data/public",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A12"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1098,
+        "precedence": 0,
+        "matchedPathspec": "lib/server/**"
+      },
+      "slice": "tests/regression evidence"
+    }
+  ]
+}

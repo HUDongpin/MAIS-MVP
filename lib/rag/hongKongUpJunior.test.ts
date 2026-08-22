@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { hongKongUpJuniorSafeCards } from "../../data/rag/hongKongUpJunior";
+import { hongKongUpJuniorEnglishSafeCards } from "../../data/rag/hongKongUpJuniorEnglish";
 import { curriculumProfileForPublisher } from "../curriculumProfile";
 import { buildHongKongMathEvidencePack } from "./hongKongMath";
 import {
@@ -40,16 +41,16 @@ test("UP junior S1-S3 textbook queries retrieve grade and volume safe cards", ()
     {
       grade: "S3" as const,
       volume: "3A" as const,
-      topicId: "quadratic-patterns",
-      conceptIds: ["quadratic-equation", "zero-product"],
-      expected: "hk-up-junior-3a-quadratics-functions"
+      topicId: "identities-square-patterns",
+      conceptIds: ["perfect-square-identity", "difference-of-squares"],
+      expected: "hk-up-junior-3a-identities-square-patterns"
     },
     {
       grade: "S3" as const,
       volume: "3B" as const,
-      topicId: "circles",
-      conceptIds: ["circle-geometry", "angle-relation"],
-      expected: "hk-up-junior-3b-circles-angle-geometry"
+      topicId: "arc-length-sector-area",
+      conceptIds: ["arc-length", "sector-area"],
+      expected: "hk-up-junior-3b-arc-length-sector-area"
     }
   ];
 
@@ -73,11 +74,103 @@ test("UP junior S1-S3 textbook queries retrieve grade and volume safe cards", ()
   }
 });
 
+test("UP junior S3 routing removes senior topic ids and exposes bilingual identity and sector cards", () => {
+  for (const sourceLanguage of ["zh", "en"] as const) {
+    const oldQuadratics = getHongKongUpJuniorSafeCards({
+      grade: "S3",
+      volume: "3A",
+      sourceLanguage,
+      topicId: "quadratic-patterns",
+      intent: "generate-lesson",
+      limit: 5
+    });
+    const oldCircles = getHongKongUpJuniorSafeCards({
+      grade: "S3",
+      volume: "3B",
+      sourceLanguage,
+      topicId: "circles",
+      intent: "generate-lesson",
+      limit: 5
+    });
+    const identities = getHongKongUpJuniorSafeCards({
+      grade: "S3",
+      volume: "3A",
+      sourceLanguage,
+      topicId: "identities-square-patterns",
+      intent: "generate-lesson",
+      limit: 5
+    });
+    const sectors = getHongKongUpJuniorSafeCards({
+      grade: "S3",
+      volume: "3B",
+      sourceLanguage,
+      topicId: "arc-length-sector-area",
+      intent: "generate-lesson",
+      limit: 5
+    });
+
+    assert.deepEqual(oldQuadratics, []);
+    assert.deepEqual(oldCircles, []);
+    assert.ok(identities.length > 0);
+    assert.ok(sectors.length > 0);
+    assert.equal(identities[0]?.id, sourceLanguage === "en" ? "hk-up-junior-en-3a-identities-square-patterns" : "hk-up-junior-3a-identities-square-patterns");
+    assert.equal(sectors[0]?.id, sourceLanguage === "en" ? "hk-up-junior-en-3b-arc-length-sector-area" : "hk-up-junior-3b-arc-length-sector-area");
+    assert.ok(identities.every((card) => card.topicIds.includes("identities-square-patterns")));
+    assert.ok(sectors.every((card) => card.topicIds.includes("arc-length-sector-area")));
+  }
+
+  const allCards = [...hongKongUpJuniorSafeCards, ...hongKongUpJuniorEnglishSafeCards];
+  const identityCards = allCards.filter((card) => card.id.endsWith("-identities-square-patterns"));
+  const sectorCards = allCards.filter((card) => card.id.endsWith("-arc-length-sector-area"));
+  const identityText = JSON.stringify(identityCards);
+  const sectorText = JSON.stringify(sectorCards);
+
+  assert.equal(identityCards.length, 2);
+  assert.match(identityText, /area model/i);
+  assert.match(identityText, /\(a\+b\)\^2/);
+  assert.match(identityText, /\(a-b\)\^2/);
+  assert.match(identityText, /a\^2-b\^2/);
+  assert.match(identityText, /expand/i);
+  assert.match(identityText, /factoris/i);
+  assert.match(identityText, /identity sign/i);
+  assert.doesNotMatch(identityText, /parabola|vertex|root/i);
+
+  assert.equal(sectorCards.length, 2);
+  assert.match(sectorText, /s=\(theta\/360\)\*2pi r/i);
+  assert.match(sectorText, /A=\(theta\/360\)\*pi r\^2/i);
+  assert.match(sectorText, /degrees/i);
+  assert.match(sectorText, /exact pi/i);
+  assert.match(sectorText, /approximation/i);
+  assert.match(sectorText, /length units/i);
+  assert.match(sectorText, /area units/i);
+  assert.match(sectorText, /theta=360/i);
+  assert.match(sectorText, /full circle/i);
+  assert.doesNotMatch(sectorText, /cyclic|tangent|inscribed.angle/i);
+});
+
+test("combined S3 HK retrieval rejects the senior-owned legacy topic ids", () => {
+  for (const topicId of ["quadratic-patterns", "circles"]) {
+    const pack = buildHongKongMathEvidencePack({
+      curriculumProfile: curriculumProfileForPublisher("HK_UNITED_PRIME_MIA"),
+      grade: "S3",
+      topicId,
+      intent: "tutor-explain",
+      limit: 8
+    });
+
+    assert.deepEqual(pack.curriculumCards, []);
+    assert.deepEqual(pack.textbookCards, []);
+    assert.deepEqual(pack.examPatternCards, []);
+    assert.deepEqual(pack.questionPatternCards, []);
+  }
+});
+
 test("UP junior retrieval keeps S1-S3 textbook volumes separated from DSE UP cards", () => {
   const s3Cards = getHongKongUpJuniorSafeCards({
     grade: "S3",
     volume: "3B",
-    conceptIds: ["circle-geometry"],
+    topicId: "arc-length-sector-area",
+    conceptIds: ["arc-length", "sector-area"],
     intent: "exam-practice",
     difficultyBand: "challenge",
     limit: 4
@@ -86,8 +179,8 @@ test("UP junior retrieval keeps S1-S3 textbook volumes separated from DSE UP car
     curriculumProfile: curriculumProfileForPublisher("HK_UNITED_PRIME_MIA"),
     grade: "S3",
     textbookVolume: "3B",
-    topicId: "circles",
-    conceptIds: ["circle-geometry", "angle-relation"],
+    topicId: "arc-length-sector-area",
+    conceptIds: ["arc-length", "sector-area"],
     intent: "exam-practice",
     difficultyBand: "challenge",
     limit: 4
@@ -102,8 +195,8 @@ test("UP junior retrieval keeps S1-S3 textbook volumes separated from DSE UP car
     limit: 4
   });
 
-  assert.equal(s3Cards[0]?.id, "hk-up-junior-3b-circles-angle-geometry");
-  assert.ok(combinedJunior.textbookCards.some((card) => card.id === "hk-up-junior-3b-circles-angle-geometry"));
+  assert.equal(s3Cards[0]?.id, "hk-up-junior-3b-arc-length-sector-area");
+  assert.ok(combinedJunior.textbookCards.some((card) => card.id === "hk-up-junior-3b-arc-length-sector-area"));
   assert.ok(combinedJunior.textbookCards.every((card) => card.publisher === "HK_UNITED_PRIME_MIA"));
   assert.ok(combinedJunior.textbookCards.every((card) => !("sourceLanguage" in card) || card.sourceLanguage === "zh"));
   assert.equal(combinedJunior.examPatternCards.length, 0);

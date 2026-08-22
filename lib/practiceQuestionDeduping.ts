@@ -1,5 +1,13 @@
 import type { PublicQuestion } from "@/types";
 
+export const lessonPracticeQuestionLimit = 5;
+
+const handwritingCapableQuestionTypes = new Set<PublicQuestion["type"]>([
+  "fill-in",
+  "short-answer",
+  "graph"
+]);
+
 function normalizeQuestionText(value: string) {
   return value
     .replace(/\\\(|\\\)|\\\[|\\\]/g, " ")
@@ -46,7 +54,7 @@ export function practiceQuestionConceptKey(question: PublicQuestion) {
   return `${question.topicId}:prompt:${prompt}`;
 }
 
-export function dedupePracticeQuestions(questions: PublicQuestion[]) {
+export function dedupePracticeQuestions<T extends PublicQuestion>(questions: T[]) {
   const seenConcepts = new Set<string>();
 
   return questions.filter((question) => {
@@ -55,4 +63,29 @@ export function dedupePracticeQuestions(questions: PublicQuestion[]) {
     seenConcepts.add(conceptKey);
     return true;
   });
+}
+
+/**
+ * Select the exact five questions rendered by both lesson-page entry paths.
+ * Keep this policy shared so content QA audits the same questions learners see.
+ */
+export function selectLessonPracticeQuestions<T extends PublicQuestion>(questions: T[]) {
+  if (questions.length <= lessonPracticeQuestionLimit) return questions;
+
+  const dedupedQuestions = dedupePracticeQuestions(questions);
+  const selectedQuestions = dedupedQuestions.slice(0, lessonPracticeQuestionLimit);
+
+  if (selectedQuestions.some((question) => handwritingCapableQuestionTypes.has(question.type))) {
+    return selectedQuestions;
+  }
+
+  const handwritingQuestion = dedupedQuestions.find((question) =>
+    handwritingCapableQuestionTypes.has(question.type)
+  );
+  if (!handwritingQuestion) return selectedQuestions;
+
+  return [
+    ...selectedQuestions.slice(0, Math.max(0, lessonPracticeQuestionLimit - 1)),
+    handwritingQuestion
+  ];
 }

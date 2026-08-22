@@ -83,6 +83,45 @@ test("combined HK evidence routes Modern P3 profiles to HK Modern and not UP or 
   assert.doesNotMatch(pack.evidenceText, /DSE exam pattern card/);
 });
 
+test("all eight live Modern P1/P3 topic IDs resolve only to their reviewed legacy safe-card route", () => {
+  const expectedCardByTopic = new Map([
+    ["p1-counting-number-bonds", "hk-modern-p1-number-sense-counting"],
+    ["p1-addition-subtraction", "hk-modern-p1-addition-subtraction-readiness"],
+    ["p1-shapes-patterns", "hk-modern-p1-shapes-position-patterns"],
+    ["p1-measurement-time", "hk-modern-p1-measurement-time-money-data"],
+    ["p3-multiplication-division", "hk-modern-p3-3b-multiplication-division-problem-solving"],
+    ["p3-fractions-intro", "hk-modern-p3-3c-fractions-decimals-readiness"],
+    ["p3-measurement", "hk-modern-p3-3a-measurement-time-money"],
+    ["p3-geometry-patterns", "hk-modern-p3-3b-geometry-spatial-description"]
+  ] as const);
+
+  for (const [topicId, expectedCardId] of expectedCardByTopic) {
+    const grade = topicId.startsWith("p1-") ? "P1" : "P3";
+    const cards = getHongKongModernPrimarySafeCards({
+      grade,
+      topicId,
+      intent: "generate-lesson",
+      limit: 5
+    });
+    assert.deepEqual(cards.map((card) => card.id), [expectedCardId], topicId);
+  }
+});
+
+test("Modern primary topic routing fails closed for unrelated or cross-topic cards", () => {
+  assert.deepEqual(getHongKongModernPrimarySafeCards({
+    grade: "P1",
+    topicId: "p3-measurement",
+    intent: "generate-lesson",
+    limit: 5
+  }), []);
+  assert.deepEqual(getHongKongModernPrimarySafeCards({
+    grade: "P3",
+    topicId: "p6-speed",
+    intent: "generate-lesson",
+    limit: 5
+  }), []);
+});
+
 test("HK Modern primary safe cards and evidence pack avoid source-copying artifacts", () => {
   const joined = (...parts: string[]) => parts.join("");
   const forbiddenPatterns = [

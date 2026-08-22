@@ -1,11 +1,61 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+
+import { questions } from "../../data/questions";
 import { questionAnswerMatches } from "./answerMatching";
 
 const shortAnswerQuestion = (answer: string) => ({
   answer,
   accepted_answers: null,
   options: null
+});
+
+function questionById(id: string) {
+  const question = questions.find((candidate) => candidate.id === id);
+  assert.ok(question, `${id}: missing active question`);
+  return {
+    id: question.id,
+    answer: question.answer,
+    accepted_answers: question.acceptedAnswers ?? null,
+    options: question.options ?? null
+  };
+}
+
+test("active strict response contracts override generic scalar equivalence", () => {
+  const fixedDenominator = questionById("pq-p3-fractions-intro-2-v2");
+  assert.equal(questionAnswerMatches(fixedDenominator, "2/4"), true);
+  assert.equal(questionAnswerMatches(fixedDenominator, String.raw`\frac{2}{4}`), true);
+  assert.equal(questionAnswerMatches(fixedDenominator, "1/2"), false);
+  assert.equal(questionAnswerMatches(fixedDenominator, "0.5"), false);
+
+  const quantity = questionById("pq-p5-volume-1-v2");
+  assert.equal(questionAnswerMatches(quantity, "24 cm^3"), true);
+  assert.equal(questionAnswerMatches(quantity, "24 立方厘米"), true);
+  assert.equal(questionAnswerMatches(quantity, "24"), false);
+  assert.equal(questionAnswerMatches(quantity, "24 cm^2"), false);
+
+  const precision = questionById("supp-exam-revision-guided-example-v2");
+  assert.equal(questionAnswerMatches(precision, "1.50 min/mark"), true);
+  assert.equal(questionAnswerMatches(precision, "1.5 min/mark"), false);
+});
+
+test("active HK free responses accept natural Traditional Chinese and harmless equivalent order", () => {
+  assert.equal(
+    questionAnswerMatches(questionById("supp-p3-multiplication-division-guided-example-v2"), "每人11張，餘3張"),
+    true
+  );
+  assert.equal(
+    questionAnswerMatches(questionById("supp-p3-geometry-patterns-key-fact-v2"), "四邊形"),
+    true
+  );
+  assert.equal(
+    questionAnswerMatches(questionById("supp-p4-angles-key-fact-v2"), "菱形和長方形"),
+    true
+  );
+  assert.equal(
+    questionAnswerMatches(questionById("supp-more-algebra-key-fact-v2"), "2+a"),
+    true
+  );
 });
 
 test("short-answer grading accepts English number words for numeric answers", () => {

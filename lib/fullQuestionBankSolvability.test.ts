@@ -4,7 +4,11 @@ import {
   hongKongEasePracticeQuestionGenerationMetadata,
   hongKongEasePracticeQuestions
 } from "../data/hongKongEasePracticeQuestions";
+import { productionLessonByTopicId } from "../data/lessons";
+import { questions } from "../data/questions";
+import { topics } from "../data/topics";
 import { contentMatchesCurriculumProfile } from "./curriculumProfile";
+import { selectLessonPracticeQuestions } from "./practiceQuestionDeduping";
 import {
   buildFullQuestionBankSolvabilityAudit,
   expectedHkBaseQuestionCount,
@@ -29,7 +33,8 @@ import {
   expectedUnitedStatesArkansasG6G12QuestionCount,
   expectedUnitedStatesArkansasK5QuestionCount,
   expectedUnitedStatesArkansasQuestionCount,
-  expectedUnitedStatesFloridaMiddleSchoolQuestionCount
+  expectedUnitedStatesFloridaMiddleSchoolQuestionCount,
+  hkIndependentAnswersById
 } from "./questionBankSolvability";
 
 test("full question bank is independently solvable and answer-key matched", () => {
@@ -106,6 +111,48 @@ test("Hong Kong EASE Practice V1 exposes only S18 green text-only questions acro
     assert.ok(contentMatchesCurriculumProfile(question, { region: "HK", publisher: "HK_UNITED_PRIME_MIA" }));
     assert.ok(contentMatchesCurriculumProfile(question, { region: "HK", publisher: "HK_EPH_MIF" }));
   }
+});
+
+test("all 51 HK lessons display five unique questions covered by the independent oracle", () => {
+  const hkTopics = topics.filter((topic) => topic.curriculumTrack === "HK");
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  const auditRowById = new Map(
+    buildFullQuestionBankSolvabilityAudit("2026-08-09").rows
+      .filter((row) => row.curriculumTrack === "HK")
+      .map((row) => [row.questionId, row])
+  );
+  const independentAnswers = hkIndependentAnswersById();
+  const displayedQuestionIds: string[] = [];
+
+  assert.equal(hkTopics.length, 51);
+
+  for (const topic of hkTopics) {
+    const lesson = productionLessonByTopicId.get(topic.id);
+    assert.ok(lesson, `${topic.id}: missing production lesson`);
+
+    const lessonQuestions = lesson.practiceQuestionIds?.length
+      ? lesson.practiceQuestionIds.map((questionId) => {
+          const question = questionById.get(questionId);
+          assert.ok(question, `${topic.id}: linked question ${questionId} is missing`);
+          return question;
+        })
+      : questions.filter((question) => question.curriculumTrack === "HK" && question.topicId === topic.id);
+    const selectedQuestions = selectLessonPracticeQuestions(lessonQuestions);
+
+    assert.equal(selectedQuestions.length, 5, `${topic.id}: expected five displayed questions`);
+
+    for (const question of selectedQuestions) {
+      assert.ok(question, `${topic.id}: linked question is missing`);
+      displayedQuestionIds.push(question.id);
+      assert.equal(question.curriculumTrack, "HK", `${question.id}: wrong curriculum track`);
+      assert.equal(question.topicId, topic.id, `${question.id}: wrong topic binding`);
+      assert.ok(independentAnswers.has(question.id), `${question.id}: missing independent answer`);
+      assert.equal(auditRowById.get(question.id)?.status, "pass", `${question.id}: independent audit is not green`);
+    }
+  }
+
+  assert.equal(displayedQuestionIds.length, 51 * 5);
+  assert.equal(new Set(displayedQuestionIds).size, 51 * 5, "displayed HK question IDs must be globally unique");
 });
 
 test("Mainland PEP full question bank emits row-level solvability and answer-key QA verdicts", () => {

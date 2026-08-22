@@ -49,9 +49,9 @@ const juniorTopicIds = [
   "transformations",
   "probability-s2",
   "polynomials",
-  "quadratic-patterns",
+  "identities-square-patterns",
   "trigonometry-basics",
-  "circles"
+  "arc-length-sector-area"
 ];
 
 const seniorCompulsoryTopicIds = [
@@ -62,7 +62,8 @@ const seniorCompulsoryTopicIds = [
   "advanced-functions",
   "trigonometry-s5",
   "probability-s5",
-  "differentiation-intro",
+  "quadratic-patterns",
+  "circles",
   "exam-revision",
   "mixed-problem-solving"
 ];
@@ -181,7 +182,7 @@ export const hongKongMathEdBRagCards: HongKongMathEdBRagCard[] = [
     grades: [...juniorGrades],
     sourceFiles: ["数学教育学习领域课程指引补充文件-初中数学科学习内容jsmc2017_tc.pdf"],
     topicIds: juniorTopicIds,
-    conceptIds: ["integers", "algebra", "angles", "ratios", "statistics", "linear-equations", "coordinates", "transformations", "probability", "polynomials", "quadratics", "trigonometry", "circles"],
+    conceptIds: ["integers", "algebra", "angles", "ratios", "statistics", "linear-equations", "coordinates", "transformations", "probability", "polynomials", "algebraic-identities", "trigonometry", "arc-sector-measurement"],
     competencyTags: ["symbolic reasoning", "geometric reasoning", "data handling", "proportional reasoning", "proof readiness"],
     itemTypeTags: ["algebraic manipulation", "coordinate task", "geometric explanation", "data interpretation", "probability model"],
     difficultyBand: "core",
@@ -248,11 +249,11 @@ export const hongKongMathEdBRagCards: HongKongMathEdBRagCard[] = [
       "高中数学（必修部分）修订课程内容与高中数学（必修部分）现行课程内容的比较CT_CP_tc.pdf"
     ],
     topicIds: seniorCompulsoryTopicIds,
-    conceptIds: ["functions", "coordinate-geometry", "algebra", "trigonometry", "data-handling", "probability", "differentiation", "modeling", "exam-revision"],
+    conceptIds: ["functions", "coordinate-geometry", "algebra", "quadratic-equations", "circle-geometry", "trigonometry", "data-handling", "probability", "modeling", "exam-revision"],
     competencyTags: ["abstract reasoning", "symbolic manipulation", "modeling", "data interpretation", "structured problem solving"],
     itemTypeTags: ["function investigation", "coordinate geometry task", "modeling application", "data and probability task", "structured assessment item"],
     difficultyBand: "exam",
-    safeSummary: "Senior compulsory mathematics should connect functions, algebra, coordinate geometry, trigonometry, data, probability, and introductory calculus to modeling and structured reasoning.",
+    safeSummary: "Senior compulsory mathematics should connect functions, quadratic equations, algebra, coordinate and circle geometry, trigonometry, data, and probability to modeling and structured reasoning.",
     generationGuidance: [
       "Generate original senior tasks with clear subgoals: interpret, calculate, justify, and check reasonableness.",
       "Combine symbolic and graphical reasoning without reusing any source layout.",

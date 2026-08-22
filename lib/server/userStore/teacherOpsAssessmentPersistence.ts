@@ -14,6 +14,7 @@ import {
   difficultyMatchesAnyActiveFilter,
   isActiveDifficulty
 } from "@/lib/difficulty";
+import { isRetiredHongKongQuestionId } from "@/lib/hongKongQuestionRetirement";
 import { normalizeQuestionDiagram } from "@/lib/questionFigure";
 import type {
   BuildTeacherReviewLessonDraftInput,
@@ -1537,6 +1538,7 @@ export function teacherOpsReviewLessonPracticeBank(
   const topicIds = new Set(analytics.map((item) => item.topicId).filter((topicId): topicId is string => Boolean(topicId)));
   return database.questions
     .filter((question) =>
+      !isRetiredHongKongQuestionId(question.id) &&
       question.grade === teacherClass.grade &&
       questionMatchesClassCurriculum(database, question, teacherClass) &&
       (!topicIds.size || topicIds.has(question.topic_id))
@@ -1756,8 +1758,19 @@ export function createTeacherOpsAssessmentPersistenceStore({
     assessmentClass: TeacherOpsAssessmentClassRecord,
     questionId: string
   ) {
+    if (isRetiredHongKongQuestionId(questionId)) return false;
     const question = database.questions.find((candidate) => candidate.id === questionId);
     return Boolean(question && question.grade === assessmentClass.grade && questionMatchesClassCurriculum(database, question, assessmentClass));
+  }
+
+  function assessmentAuthoringInputReferencesRetiredQuestion(
+    questionIds: string[] | undefined,
+    paperSections: AssessmentPaperSection[] | undefined
+  ) {
+    return (questionIds ?? []).some((questionId) => isRetiredHongKongQuestionId(questionId.trim())) ||
+      (paperSections ?? []).some((section) => section.items.some((item) => (
+        typeof item.questionId === "string" && isRetiredHongKongQuestionId(item.questionId.trim())
+      )));
   }
 
   function normalizePaperSectionsInput(
@@ -1966,6 +1979,7 @@ export function createTeacherOpsAssessmentPersistenceStore({
     if (sourceType === "resource" && sourceResource?.topic_id) {
       const resourceTopicQuestions = database.questions
         .filter((question) => (
+          !isRetiredHongKongQuestionId(question.id) &&
           question.grade === assessmentClass.grade &&
           question.topic_id === sourceResource.topic_id &&
           questionMatchesClassCurriculum(database, question, assessmentClass)
@@ -1975,7 +1989,11 @@ export function createTeacherOpsAssessmentPersistenceStore({
     }
 
     return database.questions
-      .filter((question) => question.grade === assessmentClass.grade && questionMatchesClassCurriculum(database, question, assessmentClass))
+      .filter((question) => (
+        !isRetiredHongKongQuestionId(question.id) &&
+        question.grade === assessmentClass.grade &&
+        questionMatchesClassCurriculum(database, question, assessmentClass)
+      ))
       .slice(0, 5)
       .map((question) => question.id);
   }
@@ -2410,6 +2428,9 @@ export function createTeacherOpsAssessmentPersistenceStore({
 
         const teacherClass = teacherCanAccessClass(database, user, classId);
         if (!teacherClass) return { status: "not-found" as const };
+        if (assessmentAuthoringInputReferencesRetiredQuestion(questionIds, paperSections)) {
+          return { status: "invalid" as const };
+        }
 
         const resource =
           sourceResourceId && sourceType === "resource"
@@ -2515,6 +2536,9 @@ export function createTeacherOpsAssessmentPersistenceStore({
         const teacherClass = assessment ? teacherCanAccessClass(database, user, assessment.class_id) : null;
         if (!assessment || !teacherClass) return { status: "not-found" as const };
         if (assessmentHasSubmittedSubmissions(database, assessment.id)) return { status: "locked" as const };
+        if (assessmentAuthoringInputReferencesRetiredQuestion(questionIds, paperSections)) {
+          return { status: "invalid" as const };
+        }
 
         const nextType = normalizeAssessmentType(type, assessment.type ?? "quiz");
         const nextSourceType = normalizeAssessmentSourceType(sourceType, assessment.source_type ?? "question-bank");
@@ -2728,7 +2752,11 @@ export function createTeacherOpsAssessmentPersistenceStore({
           .sort((a, b) => a.grade.localeCompare(b.grade) || a.sort_order - b.sort_order)
           .map(topicOptionForRecord),
         questionBank: database.questions
-          .filter((question) => questionMatchesUserCurriculum(database, question, user) && classGrades.has(question.grade))
+          .filter((question) => (
+            !isRetiredHongKongQuestionId(question.id) &&
+            questionMatchesUserCurriculum(database, question, user) &&
+            classGrades.has(question.grade)
+          ))
           .slice(0, 80)
           .map((question) => questionOptionForRecord(database, question))
       };
@@ -2800,6 +2828,7 @@ export function createTeacherOpsAssessmentPersistenceStore({
       }
 
       const questions = database.questions.filter((question) => {
+        if (isRetiredHongKongQuestionId(question.id)) return false;
         if (!questionMatchesClassCurriculum(database, question, teacherClass) || question.grade !== teacherClass.grade) return false;
         if (source === "mistakes" && !mistakeCounts.has(question.id)) return false;
         if (cleanTopicIds.size && !cleanTopicIds.has(question.topic_id)) return false;

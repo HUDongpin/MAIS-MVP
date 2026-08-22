@@ -1,5 +1,6 @@
 import { hongKongDseMathExamPatternCards } from "../../data/rag/hongKongDseMathExamPatterns";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import { cardHasExactHongKongTopic, isHongKongOptionalExtendedPartTopic } from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongDseMathEvidencePack,
@@ -107,9 +108,11 @@ function minimumRelevantScore(query: HongKongDseMathRagQuery) {
 }
 
 export function getHongKongDseMathExamPatternCards(query: HongKongDseMathRagQuery): HongKongDseMathExamPatternCard[] {
+  if (isHongKongOptionalExtendedPartTopic(query.topicId)) return [];
   const minimumScore = minimumRelevantScore(query);
   const scored = hongKongDseMathExamPatternCards
     .filter((card) => card.curriculumTrack === "HK")
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.index - b.index);

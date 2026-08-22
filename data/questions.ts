@@ -1,4 +1,5 @@
 import type { Question } from "@/types";
+import { versionMateriallyChangedHongKongQuestions } from "@/lib/hongKongQuestionVersioning";
 import { withResolvedMainlandPepQuestionAssets } from "@/lib/mainlandPepQuestionAssets";
 import { hongKongEasePracticeQuestions } from "./hongKongEasePracticeQuestions";
 import { mainlandBnuHighQuestions } from "./mainlandBnuHighQuestions";
@@ -79,10 +80,10 @@ const coreQuestions: HongKongQuestionSeed[] = [
   },
   {
     id: "q5",
-    grade: "S3",
+    grade: "S4",
     topicId: "quadratic-patterns",
-    topic: { en: "Quadratic Patterns", zh: "二次規律" },
-    difficulty: "High",
+    topic: { en: "Quadratic Functions", zh: "二次函數" },
+    difficulty: "Medium",
     type: "multiple-choice",
     prompt: { en: `For ${math("y = x^2 - 4x + 3")}, what is the axis of symmetry?`, zh: `對於 ${math("y = x^2 - 4x + 3")}，對稱軸是甚麼？` },
     options: [
@@ -102,7 +103,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S3",
     topicId: "trigonometry-basics",
     topic: { en: "Trigonometry Basics", zh: "三角比基礎" },
-    difficulty: "High",
+    difficulty: "Medium",
     type: "short-answer",
     prompt: { en: `In a right triangle, opposite ${math("= 3")} and hypotenuse ${math("= 5")}. What is ${math(String.raw`\sin\theta`)}?`, zh: `在直角三角形中，對邊 ${math("= 3")}，斜邊 ${math("= 5")}。${math(String.raw`\sin\theta`)} 是多少？` },
     answer: "3/5",
@@ -130,7 +131,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S4",
     topicId: "coordinate-geometry",
     topic: { en: "Coordinate Geometry", zh: "坐標幾何" },
-    difficulty: "High",
+    difficulty: "Medium",
     type: "short-answer",
     prompt: { en: `Find the gradient of the line through ${math("(1, 2)")} and ${math("(3, 8)")}.`, zh: `求通過 ${math("(1, 2)")} 和 ${math("(3, 8)")} 的直線斜率。` },
     answer: "3",
@@ -141,24 +142,30 @@ const coreQuestions: HongKongQuestionSeed[] = [
     grade: "S5",
     topicId: "probability-s5",
     topic: { en: "Probability", zh: "概率" },
-    difficulty: "High",
+    difficulty: "Medium",
     type: "multiple-choice",
-    prompt: { en: `A fair die is rolled once. What is ${math(String.raw`P(\text{rolling an even number})`)}?`, zh: `擲一次公平骰子，${math(String.raw`P(\text{擲出偶數})`)} 是多少？` },
+    prompt: {
+      en: `A bag contains ${math("3")} red balls and ${math("2")} blue balls. Each physical ball is equally likely to be drawn at each stage. Two balls are drawn without replacement. Given that the first ball is red, what is the conditional probability that the second ball is blue?`,
+      zh: `袋中有 ${math("3")} 個紅球和 ${math("2")} 個藍球，每次抽取時每個實體球被抽中的機會相等。不放回地抽取兩個球。已知第一個球是紅球，第二個球是藍球的條件概率是多少？`
+    },
     options: [
-      { en: "1/6", zh: "1/6" },
-      { en: "1/3", zh: "1/3" },
+      { en: "2/5", zh: "2/5" },
       { en: "1/2", zh: "1/2" },
-      { en: "2/3", zh: "2/3" }
+      { en: "2/3", zh: "2/3" },
+      { en: "3/5", zh: "3/5" }
     ],
     answer: "1/2",
-    explanation: { en: `Even outcomes are ${math("2, 4, 6")}, so ${math(String.raw`\frac{3}{6} = \frac{1}{2}`)}.`, zh: `偶數結果為 ${math("2, 4, 6")}，所以 ${math(String.raw`\frac{3}{6} = \frac{1}{2}`)}。` }
+    explanation: {
+      en: `After a red ball is removed, the ${math("4")} remaining individual balls are equally likely outcomes and ${math("2")} are favourable blue balls, so ${math(String.raw`P(\text{second blue}\mid\text{first red})=\frac{2}{4}=\frac{1}{2}`)}.`,
+      zh: `抽走一個紅球後，餘下 ${math("4")} 個實體球都是等可能結果，其中 ${math("2")} 個有利結果是藍球，所以 ${math(String.raw`P(\text{第二個藍球}\mid\text{第一個紅球})=\frac{2}{4}=\frac{1}{2}`)}。`
+    }
   },
   {
     id: "q10",
     grade: "S5",
     topicId: "differentiation-intro",
-    topic: { en: "Differentiation Intro", zh: "微分入門" },
-    difficulty: "High",
+    topic: { en: "Differentiation Intro — HKDSE Extended Part (M1/M2)", zh: "微分入門——香港中學文憑延伸部分（M1/M2）" },
+    difficulty: "Medium",
     type: "short-answer",
     prompt: { en: `Differentiate ${math("y = x^2")} with respect to ${math("x")}.`, zh: `對 ${math("y = x^2")} 關於 ${math("x")} 求導。` },
     answer: "2x",
@@ -168,13 +175,13 @@ const coreQuestions: HongKongQuestionSeed[] = [
     id: "q11",
     grade: "S6",
     topicId: "calculus",
-    topic: { en: "Calculus", zh: "微積分" },
-    difficulty: "High",
+    topic: { en: "Calculus — HKDSE Extended Part (M1/M2)", zh: "微積分——香港中學文憑延伸部分（M1/M2）" },
+    difficulty: "Medium",
     type: "multiple-choice",
     prompt: { en: `If ${math("f'(x)")} changes from positive to negative at ${math("x = 2")}, what may occur at ${math("x = 2")}?`, zh: `若 ${math("f'(x)")} 在 ${math("x = 2")} 由正變負，${math("x = 2")} 可能出現甚麼？` },
     options: [
-      { en: "Local maximum", zh: "局部最大值" },
-      { en: "Local minimum", zh: "局部最小值" },
+      { en: "Local maximum", zh: "局部極大值" },
+      { en: "Local minimum", zh: "局部極小值" },
       { en: "No turning point", zh: "沒有轉折點" },
       { en: "Vertical asymptote", zh: "垂直漸近線" }
     ],
@@ -185,10 +192,13 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    id: "q12",
 	    grade: "S6",
     topicId: "statistics-s6",
-    topic: { en: "Statistics", zh: "統計" },
-    difficulty: "High",
+    topic: { en: "Statistics — HKDSE Extended Part M1", zh: "統計——香港中學文憑延伸部分 M1" },
+    difficulty: "Medium",
     type: "fill-in",
-    prompt: { en: `A normal distribution has mean ${math("50")} and standard deviation ${math("10")}. What is the ${math("z")}-score for ${math("x = 70")}?`, zh: `某常態分佈平均數為 ${math("50")}，標準差為 ${math("10")}。${math("x = 70")} 的 ${math("z")} 分數是多少？` },
+    prompt: {
+      en: `A normal distribution has mean ${math("50")} and standard deviation ${math("10")}. What is the standard score (z-score) for ${math("x = 70")}?`,
+      zh: `某正態分佈的平均數為 ${math("50")}、標準差為 ${math("10")}。${math("x = 70")} 的標準分（z 分數）是多少？`
+    },
 	    answer: "2",
 	    explanation: { en: `${math(String.raw`z = \frac{70 - 50}{10} = 2`)}.`, zh: `${math(String.raw`z = \frac{70 - 50}{10} = 2`)}。` }
 	  },
@@ -255,7 +265,10 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    topic: { en: "Probability", zh: "概率" },
 	    difficulty: "Medium",
 	    type: "multiple-choice",
-	    prompt: { en: `A bag has ${math("2")} red balls and ${math("3")} blue balls. What is ${math(String.raw`P(\text{red})`)}?`, zh: `袋中有 ${math("2")} 個紅球和 ${math("3")} 個藍球。${math(String.raw`P(\text{紅球})`)} 是多少？` },
+	    prompt: {
+	      en: `A bag has ${math("2")} red balls and ${math("3")} blue balls. One physical ball is drawn at random, with every ball equally likely to be selected. What is ${math(String.raw`P(\text{red})`)}?`,
+	      zh: `袋中有 ${math("2")} 個紅球和 ${math("3")} 個藍球。從中隨機抽出一個球，每個球被抽中的機會相同。${math(String.raw`P(\text{紅球})`)} 是多少？`
+	    },
 	    options: [
 	      { en: "2/5", zh: "2/5" },
 	      { en: "3/5", zh: "3/5" },
@@ -263,7 +276,7 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	      { en: "2/3", zh: "2/3" }
 	    ],
 	    answer: "2/5",
-	    explanation: { en: `There are ${math("2")} red outcomes out of ${math("5")} total balls, so ${math(String.raw`P(\text{red}) = \frac{2}{5}`)}.`, zh: `共有 ${math("5")} 個球，其中 ${math("2")} 個是紅球，所以 ${math(String.raw`P(\text{紅球}) = \frac{2}{5}`)}。` }
+	    explanation: { en: `The ${math("5")} physical balls are equally likely outcomes, and ${math("2")} are red, so ${math(String.raw`P(\text{red}) = \frac{2}{5}`)}.`, zh: `每個球被抽中的機會相同；${math("5")} 個球中有 ${math("2")} 個紅球，所以 ${math(String.raw`P(\text{紅球}) = \frac{2}{5}`)}。` }
 	  },
 	  {
 	    id: "q18",
@@ -277,13 +290,43 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    explanation: { en: `Multiply each term: ${math("x^2 + 2x + 3x + 6 = x^2 + 5x + 6")}.`, zh: `逐項相乘：${math("x^2 + 2x + 3x + 6 = x^2 + 5x + 6")}。` }
 	  },
 	  {
-	    id: "q19",
+	    id: "hk-s3-identities-square-patterns-1",
 	    grade: "S3",
+	    topicId: "identities-square-patterns",
+	    topic: { en: "Algebraic Identities and Square Patterns", zh: "代數恆等式與平方圖樣" },
+	    difficulty: "Medium",
+	    type: "short-answer",
+	    prompt: { en: `Expand ${math("(a+b)^2")}.`, zh: `展開 ${math("(a+b)^2")}。` },
+	    answer: "a^2 + 2ab + b^2",
+	    acceptedAnswers: ["a^2+2ab+b^2", "b^2 + 2ab + a^2", "b^2+2ab+a^2"],
+	    explanation: {
+	      en: `The square is split into areas ${math("a^2")}, ${math("ab")}, ${math("ab")}, and ${math("b^2")}, so ${math("(a+b)^2 \\equiv a^2+2ab+b^2")}.`,
+	      zh: `正方形分成 ${math("a^2")}、${math("ab")}、${math("ab")} 和 ${math("b^2")} 四部分，所以 ${math("(a+b)^2 \\equiv a^2+2ab+b^2")}。`
+	    }
+	  },
+	  {
+	    id: "hk-s3-arc-length-sector-area-1",
+	    grade: "S3",
+	    topicId: "arc-length-sector-area",
+	    topic: { en: "Arc Length and Sector Area", zh: "弧長與扇形面積" },
+	    difficulty: "Medium",
+	    type: "short-answer",
+	    prompt: { en: `A sector has radius ${math("6")} cm and angle at the centre ${math("120^\\circ")}. Find its exact arc length.`, zh: `一個扇形的半徑是 ${math("6")} 厘米，圓心角是 ${math("120^\\circ")}。求精確弧長。` },
+	    answer: "4π cm",
+	    acceptedAnswers: ["4 pi cm", "4pi cm", "4\\pi cm", "4π厘米", "4π 厘米"],
+	    explanation: {
+	      en: `Arc length ${math("=(120/360)(2\\pi)(6)=4\\pi")} cm, approximately ${math("12.57")} cm.`,
+	      zh: `弧長 ${math("=(120/360)(2\\pi)(6)=4\\pi")} 厘米，約為 ${math("12.57")} 厘米。`
+	    }
+	  },
+	  {
+	    id: "q19",
+	    grade: "S4",
 	    topicId: "circles",
-	    topic: { en: "Circles", zh: "圓" },
-	    difficulty: "High",
+	    topic: { en: "Circle Geometry", zh: "圓幾何" },
+	    difficulty: "Medium",
 	    type: "multiple-choice",
-	    prompt: { en: `The angle at the centre is ${math("100^\\circ")}. What is the angle at the circumference standing on the same arc?`, zh: `圓心角是 ${math("100^\\circ")}。同弧上的圓周角是多少？` },
+	    prompt: { en: `The angle at the centre is ${math("100^\\circ")}. What is the angle at the circumference standing on the same arc?`, zh: `一弧所對的圓心角是 ${math("100^\\circ")}。該弧所對的圓周角是多少？` },
 	    options: [
 	      { en: "50°", zh: "50°" },
 	      { en: "80°", zh: "80°" },
@@ -291,18 +334,21 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	      { en: "200°", zh: "200°" }
 	    ],
 	    answer: "50°",
-	    explanation: { en: `The angle at the centre is twice the angle at the circumference, so ${math("100^\\circ / 2 = 50^\\circ")}.`, zh: `圓心角是同弧圓周角的兩倍，所以 ${math("100^\\circ / 2 = 50^\\circ")}。` }
+	    explanation: { en: `The angle at the centre is twice the angle at the circumference standing on the same arc, so ${math("100^\\circ / 2 = 50^\\circ")}.`, zh: `同一弧所對的圓心角是圓周角的兩倍，所以 ${math("100^\\circ / 2 = 50^\\circ")}。` }
 	  },
 	  {
 	    id: "q20",
 	    grade: "S4",
 	    topicId: "more-algebra",
 	    topic: { en: "More Algebra", zh: "進階代數" },
-	    difficulty: "High",
+	    difficulty: "Medium",
 	    type: "short-answer",
-	    prompt: { en: `Simplify: ${math(String.raw`x^3 / x`)}.`, zh: `化簡：${math(String.raw`x^3 / x`)}。` },
+	    prompt: { en: `Given ${math(String.raw`x \ne 0`)}, simplify ${math(String.raw`x^3 / x`)}.`, zh: `已知 ${math(String.raw`x \ne 0`)}，化簡 ${math(String.raw`x^3 / x`)}。` },
 	    answer: "x^2",
-	    explanation: { en: `Subtract indices when dividing powers with the same base: ${math("x^3 / x = x^2")}.`, zh: `同底冪相除時指數相減：${math("x^3 / x = x^2")}。` }
+	    explanation: {
+	      en: `Because ${math(String.raw`x \ne 0`)}, division by ${math("x")} is defined; subtract the indices to obtain ${math("x^3/x=x^{3-1}=x^2")}.`,
+	      zh: `因為 ${math(String.raw`x \ne 0`)}，除以 ${math("x")} 有定義；同底冪相除時指數相減，得 ${math("x^3/x=x^{3-1}=x^2")}。`
+	    }
 	  },
 	  {
 	    id: "q21",
@@ -320,24 +366,30 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S5",
 	    topicId: "advanced-functions",
 	    topic: { en: "Advanced Functions", zh: "進階函數" },
-	    difficulty: "High",
+	    difficulty: "Medium",
 	    type: "multiple-choice",
-	    prompt: { en: `For ${math("f(x) = x^2 + 1")}, what is ${math("f(-2)")}?`, zh: `若 ${math("f(x) = x^2 + 1")}，${math("f(-2)")} 是多少？` },
+	    prompt: {
+	      en: `For ${math(String.raw`f(x)=\log_2(x-1)`)}, which statement gives both the correct domain and the correct value of ${math("f(9)")}?`,
+	      zh: `對於 ${math(String.raw`f(x)=\log_2(x-1)`)}，哪項敘述同時給出正確定義域和 ${math("f(9)")} 的正確值？`
+	    },
 	    options: [
-	      { en: "-3", zh: "-3" },
-	      { en: "3", zh: "3" },
-	      { en: "5", zh: "5" },
-	      { en: "9", zh: "9" }
+	      { en: "Domain x > 1; f(9) = 3", zh: "定義域 x > 1；f(9) = 3" },
+	      { en: "Domain x ≥ 1; f(9) = 3", zh: "定義域 x ≥ 1；f(9) = 3" },
+	      { en: "Domain x > 0; f(9) = 4", zh: "定義域 x > 0；f(9) = 4" },
+	      { en: "Domain: all real numbers; f(9) = 8", zh: "定義域：所有實數；f(9) = 8" }
 	    ],
-	    answer: "5",
-	    explanation: { en: `Substitute ${math("x = -2")}: ${math("(-2)^2 + 1 = 4 + 1 = 5")}.`, zh: `代入 ${math("x = -2")}：${math("(-2)^2 + 1 = 4 + 1 = 5")}。` }
+	    answer: "Domain x > 1; f(9) = 3",
+	    explanation: {
+	      en: `A logarithm requires ${math("x-1>0")}, so the domain is ${math("x>1")}. With base ${math("2")}, ${math(String.raw`f(9)=\log_2 8=3`)} because ${math("2^3=8")}.`,
+	      zh: `對數的真數必須滿足 ${math("x-1>0")}，所以定義域是 ${math("x>1")}。底數是 ${math("2")}，而 ${math(String.raw`f(9)=\log_2 8=3`)}，因為 ${math("2^3=8")}。`
+	    }
 	  },
 	  {
 	    id: "q23",
 	    grade: "S5",
 	    topicId: "trigonometry-s5",
 	    topic: { en: "Trigonometry", zh: "三角學" },
-	    difficulty: "High",
+	    difficulty: "Low",
 	    type: "short-answer",
 	    prompt: { en: `If ${math(String.raw`\sin\theta = \frac{1}{2}`)} for an acute angle ${math(String.raw`\theta`)}, find ${math(String.raw`\theta`)}.`, zh: `若銳角 ${math(String.raw`\theta`)} 滿足 ${math(String.raw`\sin\theta = \frac{1}{2}`)}，求 ${math(String.raw`\theta`)}。` },
 	    answer: "30°",
@@ -348,34 +400,37 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    grade: "S6",
 	    topicId: "exam-revision",
 	    topic: { en: "Exam Revision", zh: "考試溫習" },
-	    difficulty: "High",
+	    difficulty: "Low",
 	    type: "multiple-choice",
-	    prompt: { en: `A ${math("10")}-mark question should take about ${math("15")} minutes. How many minutes per mark is that?`, zh: `一題 ${math("10")} 分題目建議用約 ${math("15")} 分鐘。平均每分應用多少分鐘？` },
-	    options: [
-	      { en: "0.5", zh: "0.5" },
-	      { en: "1", zh: "1" },
-	      { en: "1.5", zh: "1.5" },
-	      { en: "2", zh: "2" }
-	    ],
-	    answer: "1.5",
-	    explanation: { en: `Divide time by marks: ${math("15 / 10 = 1.5")} minutes per mark.`, zh: `用時間除以分數：${math("15 / 10 = 1.5")} 分鐘每分。` }
+      prompt: {
+        en: `A ${math("10")}-mark question should take about ${math("15")} minutes. Find the time per mark in minutes per mark, giving your answer to 2 decimal places.`,
+        zh: `一道 ${math("10")} 分題目建議用約 ${math("15")} 分鐘。求平均每分所用時間，以分鐘／分作單位，答案取至小數點後兩位。`
+      },
+      options: [
+        { en: "0.50 minutes per mark", zh: "0.50 分鐘／分" },
+        { en: "1.00 minutes per mark", zh: "1.00 分鐘／分" },
+        { en: "1.50 minutes per mark", zh: "1.50 分鐘／分" },
+        { en: "2.00 minutes per mark", zh: "2.00 分鐘／分" }
+      ],
+      answer: "1.50 minutes per mark",
+      explanation: { en: `Divide time by marks: ${math("15/10=1.5")}, which is ${math("1.50")} minutes per mark to 2 decimal places.`, zh: `用時間除以分數：${math("15/10=1.5")}，取至小數點後兩位是 ${math("1.50")} 分鐘／分。` }
 	  },
 	  {
 	    id: "q25",
 	    grade: "S6",
 	    topicId: "mixed-problem-solving",
 	    topic: { en: "Mixed Problem Solving", zh: "綜合解難" },
-	    difficulty: "High",
+	    difficulty: "Medium",
 	    type: "multiple-choice",
 	    prompt: { en: "A problem combines a graph and an equation. What is usually the safest first step?", zh: "一道題同時包含圖像和方程。通常最安全的第一步是甚麼？" },
 	    options: [
-	      { en: "Guess the answer", zh: "猜答案" },
 	      { en: "List given facts and the target", zh: "列出已知資料和要求" },
-	      { en: "Skip the graph", zh: "跳過圖像" },
-	      { en: "Use the longest formula", zh: "使用最長的公式" }
+	      { en: "Read coordinates from the graph before deciding which quantity is required", zh: "先從圖像讀取坐標，再決定題目要求哪個量" },
+	      { en: "Rearrange the equation first and decide later which graph feature it represents", zh: "先整理方程，之後才判斷它代表哪項圖像特徵" },
+	      { en: "Estimate the graph intersection first and use the equation only as a final check", zh: "先估算圖像交點，只在最後用方程檢查" }
 	    ],
 	    answer: "List given facts and the target",
-	    explanation: { en: "For mixed problems, first identify what is given, what is required, and how each representation connects.", zh: "綜合題應先辨認已知、要求，以及不同表示方式如何連繫。" }
+	    explanation: { en: "Listing the facts and target first shows which graph feature must be translated into the equation; starting with only one representation can solve the wrong quantity.", zh: "先列出已知資料和目標，才能確定要把哪項圖像特徵轉化為方程；若只從其中一種表示方式入手，可能會求錯數量。" }
 	  },
 	  {
 	    id: "q26",
@@ -410,36 +465,6 @@ const coreQuestions: HongKongQuestionSeed[] = [
 	    ],
 	    explanation: { en: `Reflection in the ${math("y")}-axis changes ${math("x")} to ${math("-x")} while ${math("y")} stays the same.`, zh: `關於 ${math("y")} 軸反射會把 ${math("x")} 變成 ${math("-x")}，而 ${math("y")} 保持不變。` }
 	  },
-	  {
-	    id: "q28",
-	    grade: "S2",
-	    topicId: "coordinates",
-	    topic: { en: "Coordinates", zh: "坐標" },
-	    difficulty: "Medium",
-	    type: "graph",
-	    prompt: { en: "The diagram shows line AB. What is the gradient of AB?", zh: "圖中顯示直線 AB。AB 的斜率是多少？" },
-	    answer: "1",
-	    acceptedAnswers: ["1/1"],
-	    explanation: { en: `From ${math("A(1,1)")} to ${math("B(4,4)")}, the rise and run are both ${math("3")}, so the gradient is ${math("1")}.`, zh: `由 ${math("A(1,1)")} 到 ${math("B(4,4)")}，升幅和橫距同為 ${math("3")}，所以斜率是 ${math("1")}。` },
-	    diagram: {
-	      kind: "coordinate-grid",
-	      xRange: [0, 5],
-	      yRange: [0, 5],
-	      points: [
-	        { label: "A", x: 1, y: 1 },
-	        { label: "B", x: 4, y: 4 }
-	      ],
-	      lines: [
-	        {
-	          label: "AB",
-	          points: [
-	            { x: 1, y: 1 },
-	            { x: 4, y: 4 }
-	          ]
-	        }
-	      ]
-	    }
-	  }
 	];
 
 type QuestionBlueprint = Omit<Question, "curriculumTrack" | "grade" | "topicId" | "topic">;
@@ -506,7 +531,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         { en: "rectangle", zh: "長方形" }
       ],
       answer: "triangle",
-      explanation: { en: "A triangle has exactly 3 sides.", zh: "三角形正正有 3 條邊。" }
+      explanation: { en: "A triangle has exactly 3 sides.", zh: "三角形正好有 3 條邊。" }
     },
     {
       id: "pq-p1-shapes-patterns-2",
@@ -578,12 +603,12 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "multiple-choice",
       prompt: { en: `Which expression matches ${math("4 + 4 + 4")}?`, zh: `哪個算式表示 ${math("4 + 4 + 4")}？` },
       options: [
-        { en: "3 x 4", zh: "3 x 4" },
-        { en: "4 x 4", zh: "4 x 4" },
+        { en: "3 × 4", zh: "3 × 4" },
+        { en: "4 × 4", zh: "4 × 4" },
         { en: "3 + 4", zh: "3 + 4" },
         { en: "4 - 3", zh: "4 - 3" }
       ],
-      answer: "3 x 4",
+      answer: "3 × 4",
       explanation: { en: `${math("4")} is added ${math("3")} times, so it is ${math("3 \\times 4")}.`, zh: `${math("4")} 加了 ${math("3")} 次，所以是 ${math("3 \\times 4")}。` }
     },
     {
@@ -592,15 +617,15 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "short-answer",
       prompt: { en: `Find ${math("5 \\times 2")}.`, zh: `計算 ${math("5 \\times 2")}。` },
       answer: "10",
-      explanation: { en: `${math("5 \\times 2")} means two groups of five, which is ${math("10")}.`, zh: `${math("5 \\times 2")} 表示兩組五，共 ${math("10")}。` }
+      explanation: { en: `${math("5 \\times 2")} means five groups of two, which is ${math("10")}.`, zh: `${math("5 \\times 2")} 表示 5 組、每組 2 個，共 10 個。` }
     }
   ],
   "p2-money-time": [
     {
       id: "pq-p2-money-time-1",
-      difficulty: "Medium",
+      difficulty: "Low",
       type: "multiple-choice",
-      prompt: { en: `A snack costs HK$${math("8")}. You pay HK$${math("10")}. How much change do you get?`, zh: `小食售港幣 ${math("8")} 元，你付港幣 ${math("10")} 元，應找回多少？` },
+      prompt: { en: "A snack costs HK$8. You pay HK$10. How much change do you get?", zh: "小食售港幣 8 元，你付港幣 10 元，應找回多少？" },
       options: [
         { en: "HK$1", zh: "港幣 1 元" },
         { en: "HK$2", zh: "港幣 2 元" },
@@ -624,15 +649,19 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p2-length-data-1",
       difficulty: "Low",
       type: "short-answer",
-      prompt: { en: `A ribbon is ${math("18")} cm long. You cut off ${math("5")} cm. How many cm remain?`, zh: `一條絲帶長 ${math("18")} 厘米，剪去 ${math("5")} 厘米，還剩多少厘米？` },
-      answer: "13 cm",
-      explanation: { en: `${math("18 - 5 = 13")} cm.`, zh: `${math("18 - 5 = 13")} 厘米。` }
+      prompt: { en: `Complete the length fact: ${math("1\\text{ m} = \\square\\text{ cm}")}.`, zh: `完成長度關係：${math("1\\text{ 米} = \\square\\text{ 厘米}")}。` },
+      answer: "100",
+      acceptedAnswers: ["100 cm", "100cm", "100 厘米", "100厘米"],
+      explanation: { en: `${math("1\\text{ m} = 100\\text{ cm}")}.`, zh: `${math("1\\text{ 米} = 100\\text{ 厘米}")}。` }
     },
     {
       id: "pq-p2-length-data-2",
-      difficulty: "Medium",
+      difficulty: "Low",
       type: "multiple-choice",
-      prompt: { en: `A bar chart shows ${math("6")} apples and ${math("4")} bananas. How many fruits are shown?`, zh: `棒形圖顯示 ${math("6")} 個蘋果和 ${math("4")} 隻香蕉，共有多少水果？` },
+      prompt: {
+        en: "Key: each ● picture represents 1 object (one fruit).\nApples: ● ● ● ● ● ●\nBananas: ● ● ● ●\nHow many fruits are shown altogether?",
+        zh: "圖例：每個 ● 圖示代表 1 件物件（這裡是一個水果）。\n蘋果：● ● ● ● ● ●\n香蕉：● ● ● ●\n圖中合共有多少個水果？"
+      },
       options: [
         { en: "2", zh: "2" },
         { en: "4", zh: "4" },
@@ -640,7 +669,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         { en: "24", zh: "24" }
       ],
       answer: "10",
-      explanation: { en: `${math("6 + 4 = 10")}.`, zh: `${math("6 + 4 = 10")}。` }
+      explanation: { en: `There are ${math("6")} apple pictures and ${math("4")} banana pictures. Since each picture represents one fruit, ${math("6+4=10")}.`, zh: `蘋果有 ${math("6")} 個圖示，香蕉有 ${math("4")} 個圖示。每個圖示代表一個水果，所以 ${math("6+4=10")}。` }
     }
   ],
   "p3-multiplication-division": [
@@ -648,23 +677,23 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p3-multiplication-division-1",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Find ${math("7 \\times 6")}.`, zh: `計算 ${math("7 \\times 6")}。` },
-      answer: "42",
-      explanation: { en: `${math("7 \\times 6 = 42")}.`, zh: `${math("7 \\times 6 = 42")}。` }
+      prompt: { en: `Find ${math("124 \\times 3")}.`, zh: `計算 ${math("124 \\times 3")}。` },
+      answer: "372",
+      explanation: { en: `${math("3 \\times 4=12")}, ${math("3 \\times 20=60")}, and ${math("3 \\times 100=300")}; the total is ${math("372")}.`, zh: `${math("3 \\times 4=12")}、${math("3 \\times 20=60")}、${math("3 \\times 100=300")}；合共是 ${math("372")}。` }
     },
     {
       id: "pq-p3-multiplication-division-2",
-      difficulty: "Low",
+      difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `${math("24")} sweets are shared equally among ${math("4")} children. How many does each child get?`, zh: `${math("24")} 粒糖平均分給 ${math("4")} 個小朋友，每人有多少粒？` },
+      prompt: { en: `${math("53")} counters are put into groups of ${math("5")}. How many full groups are made and how many counters remain?`, zh: `把 ${math("53")} 粒計數珠每 ${math("5")} 粒分成一組，可分成多少完整組，餘下多少粒？` },
       options: [
-        { en: "4", zh: "4" },
-        { en: "6", zh: "6" },
-        { en: "8", zh: "8" },
-        { en: "20", zh: "20" }
+        { en: "9 full groups, 8 remain", zh: "9 組，餘 8 粒" },
+        { en: "10 full groups, 3 remain", zh: "10 組，餘 3 粒" },
+        { en: "10 full groups, 5 remain", zh: "10 組，餘 5 粒" },
+        { en: "11 full groups, none remain", zh: "11 組，沒有餘數" }
       ],
-      answer: "6",
-      explanation: { en: `${math("24 \\div 4 = 6")}.`, zh: `${math("24 \\div 4 = 6")}。` }
+      answer: "10 full groups, 3 remain",
+      explanation: { en: `${math("53=10 \\times 5+3")}, so there are ${math("10")} full groups with remainder ${math("3")}.`, zh: `${math("53=10 \\times 5+3")}，所以可分成 ${math("10")} 個完整組，餘數是 ${math("3")}。` }
     }
   ],
   "p3-fractions-intro": [
@@ -700,7 +729,7 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       options: [
         { en: "centimetres", zh: "厘米" },
         { en: "kilometres", zh: "公里" },
-        { en: "litres", zh: "公升" },
+        { en: "litres", zh: "升" },
         { en: "kilograms", zh: "公斤" }
       ],
       answer: "centimetres",
@@ -709,10 +738,24 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     {
       id: "pq-p3-measurement-2",
       difficulty: "Medium",
-      type: "short-answer",
-      prompt: { en: `A bottle has ${math("1")} L of water. That is how many mL?`, zh: `一個水樽有 ${math("1")} 公升水，即是多少毫升？` },
-      answer: "1000 mL",
-      explanation: { en: `${math("1")} L ${math("= 1000")} mL.`, zh: `${math("1")} 公升 ${math("= 1000")} 毫升。` }
+      type: "graph",
+      prompt: { en: "The single-series bar chart shows the water in two bottles. How much water is in Bottle B?", zh: "這幅單組棒形圖顯示兩個水樽的水量。水樽 B 有多少毫升水？" },
+      answer: "900 mL",
+      explanation: { en: `The bar for Bottle B reaches ${math("900")} mL.`, zh: `水樽 B 的棒形高度到達 ${math("900")} 毫升。` },
+      diagram: {
+        kind: "bar-chart",
+        mode: "single",
+        title: { en: "Water in bottles", zh: "水樽水量" },
+        xAxisLabel: { en: "Bottle", zh: "水樽" },
+        yAxisLabel: { en: "Water (mL)", zh: "水量（毫升）" },
+        yRange: [0, 1000],
+        tickInterval: 100,
+        series: [{ id: "water", label: { en: "Water", zh: "水量" } }],
+        categories: [
+          { id: "bottle-a", label: { en: "Bottle A", zh: "水樽 A" }, values: { water: 600 } },
+          { id: "bottle-b", label: { en: "Bottle B", zh: "水樽 B" }, values: { water: 900 } }
+        ]
+      }
     }
   ],
   "p3-geometry-patterns": [
@@ -720,23 +763,59 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p3-geometry-patterns-1",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: "Which angle is a right angle?", zh: "哪一個角是直角？" },
+      prompt: { en: "Triangle ABC has marks showing that AB and AC are equal. What kind of triangle is it?", zh: "三角形 ABC 的記號顯示 AB 和 AC 相等。它是哪一種三角形？" },
       options: [
-        { en: "30°", zh: "30°" },
-        { en: "60°", zh: "60°" },
-        { en: "90°", zh: "90°" },
-        { en: "120°", zh: "120°" }
+        { en: "isosceles triangle", zh: "等腰三角形" },
+        { en: "equilateral triangle", zh: "等邊三角形" },
+        { en: "scalene triangle", zh: "不等邊三角形" },
+        { en: "quadrilateral", zh: "四邊形" }
       ],
-      answer: "90°",
-      explanation: { en: `A right angle is ${math("90^\\circ")}.`, zh: `直角是 ${math("90^\\circ")}。` }
+      answer: "isosceles triangle",
+      explanation: { en: "A triangle with at least two equal sides is an isosceles triangle; the matching marks show AB = AC.", zh: "有至少兩條相等邊的三角形是等腰三角形；相同記號顯示 AB = AC。" },
+      diagram: {
+        kind: "plane-figure",
+        points: [
+          { id: "A", x: 0, y: 3, label: "A" },
+          { id: "B", x: -2, y: 0, label: "B" },
+          { id: "C", x: 2, y: 0, label: "C" }
+        ],
+        segments: [
+          { from: "A", to: "B", tickMarks: 1 },
+          { from: "A", to: "C", tickMarks: 1 },
+          { from: "B", to: "C" }
+        ],
+        polygons: [{ vertexIds: ["A", "B", "C"] }]
+      }
     },
     {
       id: "pq-p3-geometry-patterns-2",
-      difficulty: "Low",
-      type: "short-answer",
-      prompt: { en: `Continue the pattern: ${math("3, 6, 9, 12, \\square")}.`, zh: `延續規律：${math("3, 6, 9, 12, \\square")}。` },
-      answer: "15",
-      explanation: { en: `The pattern adds ${math("3")} each time, so the next number is ${math("15")}.`, zh: `規律是每次加 ${math("3")}，所以下一個數是 ${math("15")}。` }
+      difficulty: "Medium",
+      type: "multiple-choice",
+      prompt: { en: "The diagram shows quadrilateral ABCD. Matching arrow marks indicate parallel sides. Which statement is true?", zh: "圖中顯示四邊形 ABCD；相同箭嘴記號表示平行邊。哪項敘述正確？" },
+      options: [
+        { en: "Both pairs of opposite sides are parallel", zh: "兩組對邊互相平行" },
+        { en: "Only AB and BC are parallel", zh: "只有 AB 和 BC 平行" },
+        { en: "The shape has three sides", zh: "這個圖形有三條邊" },
+        { en: "Every pair of adjacent sides is parallel", zh: "每一組鄰邊都互相平行" }
+      ],
+      answer: "Both pairs of opposite sides are parallel",
+      explanation: { en: "The matching arrow marks pair AB with CD and BC with AD, so both pairs of opposite sides are parallel.", zh: "相同箭嘴記號分別把 AB 與 CD、BC 與 AD 配成平行邊，所以兩組對邊互相平行。" },
+      diagram: {
+        kind: "plane-figure",
+        points: [
+          { id: "A", x: -2, y: 0, label: "A" },
+          { id: "B", x: 2, y: 0, label: "B" },
+          { id: "C", x: 3, y: 3, label: "C" },
+          { id: "D", x: -1, y: 3, label: "D" }
+        ],
+        segments: [
+          { from: "A", to: "B", parallelMarks: 1 },
+          { from: "B", to: "C", parallelMarks: 2 },
+          { from: "C", to: "D", parallelMarks: 1 },
+          { from: "D", to: "A", parallelMarks: 2 }
+        ],
+        polygons: [{ vertexIds: ["A", "B", "C", "D"] }]
+      }
     }
   ],
   "p4-large-numbers": [
@@ -744,23 +823,29 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p4-large-numbers-1",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `Which number is greater than ${math("12,450")}?`, zh: `哪個數大於 ${math("12,450")}？` },
+      prompt: { en: `Which statement explains why ${math("12")} is a factor of ${math("60")}?`, zh: `哪項敘述能說明 ${math("12")} 是 ${math("60")} 的因數？` },
       options: [
-        { en: "12,405", zh: "12,405" },
-        { en: "12,449", zh: "12,449" },
-        { en: "12,500", zh: "12,500" },
-        { en: "12,045", zh: "12,045" }
+        { en: "60 ÷ 12 = 5 with remainder 0", zh: "60 ÷ 12 = 5，餘數是 0" },
+        { en: "60 and 12 are both even", zh: "60 和 12 都是偶數" },
+        { en: "60 is greater than 12", zh: "60 大於 12" },
+        { en: "60 ends in 0", zh: "60 的個位數字是 0" }
       ],
-      answer: "12,500",
-      explanation: { en: `${math("12,500")} is ${math("50")} more than ${math("12,450")}.`, zh: `${math("12,500")} 比 ${math("12,450")} 多 ${math("50")}。` }
+      answer: "60 ÷ 12 = 5 with remainder 0",
+      explanation: { en: `A whole number is a factor exactly when the division leaves remainder ${math("0")}; here ${math("60 \\div 12=5")} with no remainder.`, zh: `一個整數能整除另一個整數、餘數是 ${math("0")} 時，才是後者的因數；這裏 ${math("60 \\div 12=5")}，沒有餘數。` }
     },
     {
       id: "pq-p4-large-numbers-2",
-      difficulty: "Low",
-      type: "short-answer",
-      prompt: { en: `Round ${math("3,684")} to the nearest hundred.`, zh: `把 ${math("3,684")} 取近似值至最接近的百位。` },
-      answer: "3,700",
-      explanation: { en: `The tens digit is ${math("8")}, so ${math("3,684")} rounds up to ${math("3,700")}.`, zh: `十位數字是 ${math("8")}，所以 ${math("3,684")} 進上成 ${math("3,700")}。` }
+      difficulty: "Medium",
+      type: "multiple-choice",
+      prompt: { en: `Which list gives all the positive factor pairs of ${math("24")}?`, zh: `哪個列表列出 ${math("24")} 的所有正因數配對？` },
+      options: [
+        { en: "1 × 24, 2 × 12, 3 × 8, 4 × 6", zh: "1 × 24、2 × 12、3 × 8、4 × 6" },
+        { en: "1 × 24, 2 × 12, 3 × 8", zh: "1 × 24、2 × 12、3 × 8" },
+        { en: "1 × 24, 2 × 12, 4 × 6, 5 × 5", zh: "1 × 24、2 × 12、4 × 6、5 × 5" },
+        { en: "2 × 12, 3 × 8, 4 × 6, 6 × 6", zh: "2 × 12、3 × 8、4 × 6、6 × 6" }
+      ],
+      answer: "1 × 24, 2 × 12, 3 × 8, 4 × 6",
+      explanation: { en: `Each listed pair has product ${math("24")}, and listing factors in increasing order shows that no positive factor pair is missing.`, zh: `每一組配對的積都是 ${math("24")}；按由小至大列出因數，可見沒有遺漏任何正因數配對。` }
     }
   ],
   "p4-decimals": [
@@ -792,29 +877,97 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p4-angles-1",
       difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `An angle of ${math("120^\\circ")} is what type?`, zh: `${math("120^\\circ")} 是哪一類角？` },
+      prompt: { en: "A square can also belong to broader quadrilateral families. Which list is always correct?", zh: "正方形也可屬於較廣的四邊形類別。哪個列表必定正確？" },
       options: [
-        { en: "acute", zh: "銳角" },
-        { en: "right", zh: "直角" },
-        { en: "obtuse", zh: "鈍角" },
-        { en: "straight", zh: "平角" }
+        { en: "rectangle, rhombus, and parallelogram", zh: "長方形、菱形和平行四邊形" },
+        { en: "rectangle only", zh: "只屬於長方形" },
+        { en: "rhombus only", zh: "只屬於菱形" },
+        { en: "parallelogram only", zh: "只屬於平行四邊形" }
       ],
-      answer: "obtuse",
-      explanation: { en: `An obtuse angle is greater than ${math("90^\\circ")} and less than ${math("180^\\circ")}.`, zh: `鈍角大於 ${math("90^\\circ")} 而小於 ${math("180^\\circ")}。` }
+      answer: "rectangle, rhombus, and parallelogram",
+      explanation: { en: "A square has four right angles and four equal sides, so it satisfies the defining properties of a rectangle, a rhombus, and a parallelogram.", zh: "正方形有四個直角和四條等邊，因此符合長方形、菱形和平行四邊形的定義性質。" }
     },
     {
       id: "pq-p4-angles-2",
       difficulty: "Medium",
-      type: "short-answer",
-      prompt: { en: `Two angles on a straight line include ${math("75^\\circ")}. Find the other angle.`, zh: `一直線上的兩個角，其中一個是 ${math("75^\\circ")}。求另一個角。` },
-      answer: "105°",
-      explanation: { en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("180 - 75 = 105")}.`, zh: `一直線上的角和為 ${math("180^\\circ")}，所以 ${math("180 - 75 = 105")}。` }
+      type: "multiple-choice",
+      prompt: { en: "Which side property must every rhombus have?", zh: "每個菱形必定有哪項邊的性質？" },
+      options: [
+        { en: "All four sides are equal", zh: "四條邊全部相等" },
+        { en: "Exactly three sides are equal", zh: "恰有三條邊相等" },
+        { en: "Only one pair of sides is parallel", zh: "只有一組邊互相平行" },
+        { en: "No sides are parallel", zh: "沒有邊互相平行" }
+      ],
+      answer: "All four sides are equal",
+      explanation: { en: "A rhombus has four equal sides. It need not be a square, so equal sides alone do not justify the converse classification.", zh: "菱形有四條相等的邊；菱形不一定是正方形，因此不能只憑四邊相等便反過來判定為正方形。" }
+    },
+    {
+      id: "pq-p4-angles-square-corner-3",
+      difficulty: "Medium",
+      type: "multiple-choice",
+      prompt: { en: "Which side relationship must every rectangle have?", zh: "每個長方形必定有哪項邊的關係？" },
+      options: [
+        { en: "Both pairs of opposite sides are equal and parallel", zh: "兩組對邊分別相等並互相平行" },
+        { en: "All four sides must be equal", zh: "四條邊必須全部相等" },
+        { en: "Exactly one pair of opposite sides is parallel", zh: "恰有一組對邊互相平行" },
+        { en: "Each side has a different length", zh: "每條邊的長度都不同" }
+      ],
+      answer: "Both pairs of opposite sides are equal and parallel",
+      explanation: { en: "Every rectangle has two pairs of equal, parallel opposite sides. Those side relationships alone also occur in other parallelograms, so the converse needs more information.", zh: "每個長方形都有兩組分別相等且互相平行的對邊；其他平行四邊形也可有這些邊關係，因此反過來判定時還需要更多資料。" }
+    },
+    {
+      id: "pq-p4-angles-square-corner-4",
+      difficulty: "Medium",
+      type: "multiple-choice",
+      prompt: { en: "A parallelogram is found to have four equal sides. Which more specific family must it belong to?", zh: "一個平行四邊形有四條相等的邊。它必定屬於哪個較具體的類別？" },
+      options: [
+        { en: "rhombus", zh: "菱形" },
+        { en: "square", zh: "正方形" },
+        { en: "rectangle", zh: "長方形" },
+        { en: "triangle", zh: "三角形" }
+      ],
+      answer: "rhombus",
+      explanation: { en: "A parallelogram with all four sides equal is a rhombus. It is not necessarily a square, so the stronger converse conclusion is not justified.", zh: "四條邊全部相等的平行四邊形是菱形；它不一定是正方形，因此不能作出更強的反向結論。" }
+    },
+    {
+      id: "pq-p4-angles-square-corner-5",
+      difficulty: "Medium",
+      type: "multiple-choice",
+      prompt: { en: "A square sheet ABCD is cut along diagonal AC. Which two pieces form the original square when composed again?", zh: "把正方形紙張 ABCD 沿對角線 AC 分割。把哪兩塊圖形重新拼砌，便可組成原來的正方形？" },
+      options: [
+        { en: "two congruent triangles", zh: "兩個全等三角形" },
+        { en: "two unequal triangles", zh: "兩個不全等三角形" },
+        { en: "one triangle and one pentagon", zh: "一個三角形和一個五邊形" },
+        { en: "two circles", zh: "兩個圓形" }
+      ],
+      answer: "two congruent triangles",
+      explanation: { en: "The diagonal divides the square into two congruent triangles; composing those same two pieces along the cut reconstructs the square.", zh: "對角線把正方形分割成兩個全等三角形；沿分割邊把兩塊重新拼砌，便可還原正方形。" },
+      diagram: {
+        kind: "plane-figure",
+        points: [
+          { id: "A", x: 0, y: 4, label: "A" },
+          { id: "B", x: 4, y: 4, label: "B" },
+          { id: "C", x: 4, y: 0, label: "C" },
+          { id: "D", x: 0, y: 0, label: "D" }
+        ],
+        segments: [
+          { from: "A", to: "B" },
+          { from: "B", to: "C" },
+          { from: "C", to: "D" },
+          { from: "D", to: "A" },
+          { from: "A", to: "C", style: "dashed" }
+        ],
+        polygons: [
+          { vertexIds: ["A", "B", "C"] },
+          { vertexIds: ["A", "C", "D"] }
+        ]
+      }
     }
   ],
   "p4-perimeter-area": [
     {
       id: "pq-p4-perimeter-area-1",
-      difficulty: "Medium",
+      difficulty: "Low",
       type: "short-answer",
       prompt: { en: `A rectangle has length ${math("8")} cm and width ${math("3")} cm. Find its perimeter.`, zh: `長方形長 ${math("8")} 厘米、闊 ${math("3")} 厘米。求周界。` },
       answer: "22 cm",
@@ -840,23 +993,17 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p5-fractions-operations-1",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Find ${math("1/4 + 2/4")}.`, zh: `計算 ${math("1/4 + 2/4")}。` },
-      answer: "3/4",
-      explanation: { en: `Same denominators: add numerators to get ${math("3/4")}.`, zh: `分母相同，分子相加得 ${math("3/4")}。` }
+      prompt: { en: `Add the three fractions with unlike denominators: ${math("1/2+1/3+1/6")}.`, zh: `把三項異分母分數相加：${math("1/2+1/3+1/6")}。` },
+      answer: "1",
+      explanation: { en: `Use denominator ${math("6")}: ${math("3/6+2/6+1/6=6/6=1")}.`, zh: `通分至分母 ${math("6")}：${math("3/6+2/6+1/6=6/6=1")}。` }
     },
     {
       id: "pq-p5-fractions-operations-2",
-      difficulty: "Low",
-      type: "multiple-choice",
-      prompt: { en: `Simplify ${math("6/8")}.`, zh: `約簡 ${math("6/8")}。` },
-      options: [
-        { en: "2/3", zh: "2/3" },
-        { en: "3/4", zh: "3/4" },
-        { en: "6/4", zh: "6/4" },
-        { en: "8/6", zh: "8/6" }
-      ],
-      answer: "3/4",
-      explanation: { en: `Divide numerator and denominator by ${math("2")}: ${math("6/8 = 3/4")}.`, zh: `分子和分母同除以 ${math("2")}：${math("6/8 = 3/4")}。` }
+      difficulty: "Medium",
+      type: "short-answer",
+      prompt: { en: `Subtract fractions with unlike denominators: ${math("3/4-1/6")}. Give the answer in simplest fractional form.`, zh: `計算異分母分數減法 ${math("3/4-1/6")}，並把答案化至最簡分數。` },
+      answer: "7/12",
+      explanation: { en: `${math("3/4=9/12")} and ${math("1/6=2/12")}, so ${math("9/12-2/12=7/12")}.`, zh: `${math("3/4=9/12")} 而 ${math("1/6=2/12")}，所以 ${math("9/12-2/12=7/12")}。` }
     }
   ],
   "p5-volume": [
@@ -886,25 +1033,19 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   "p5-rates": [
     {
       id: "pq-p5-rates-1",
-      difficulty: "Medium",
+      difficulty: "Low",
       type: "short-answer",
-      prompt: { en: `A pack of ${math("4")} pens costs HK$${math("20")}. What is the cost per pen?`, zh: `${math("4")} 支筆售港幣 ${math("20")} 元，每支多少元？` },
+      prompt: { en: "A pack of 4 pens costs HK$20. What is the unit price per pen?", zh: "4 支筆售港幣 20 元，每支的單價是多少？" },
       answer: "HK$5",
       explanation: { en: `${math("20 \\div 4 = 5")}, so each pen costs HK$5.`, zh: `${math("20 \\div 4 = 5")}，所以每支港幣 5 元。` }
     },
     {
       id: "pq-p5-rates-2",
-      difficulty: "Medium",
-      type: "multiple-choice",
-      prompt: { en: `A car travels ${math("60")} km in ${math("2")} hours. What is its speed?`, zh: `汽車 ${math("2")} 小時行 ${math("60")} 公里，速率是多少？` },
-      options: [
-        { en: "20 km/h", zh: "每小時 20 公里" },
-        { en: "30 km/h", zh: "每小時 30 公里" },
-        { en: "58 km/h", zh: "每小時 58 公里" },
-        { en: "120 km/h", zh: "每小時 120 公里" }
-      ],
-      answer: "30 km/h",
-      explanation: { en: `Speed ${math("= 60 \\div 2 = 30")} km/h.`, zh: `速率 ${math("= 60 \\div 2 = 30")} 公里每小時。` }
+      difficulty: "Low",
+      type: "short-answer",
+      prompt: { en: "Five notebooks cost HK$35. What is the unit price per notebook?", zh: "5 本筆記簿售港幣 35 元，每本的單價是多少？" },
+      answer: "HK$7",
+      explanation: { en: `${math("35 \\div 5=7")}, so the unit price is HK$7 per notebook.`, zh: `${math("35 \\div 5=7")}，所以每本的單價是港幣 7 元。` }
     }
   ],
   "p5-charts-averages": [
@@ -912,23 +1053,106 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p5-charts-averages-1",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Find the mean of ${math("6, 8, 10")}.`, zh: `求 ${math("6, 8, 10")} 的平均數。` },
-      answer: "8",
-      explanation: { en: `${math("(6 + 8 + 10) \\div 3 = 8")}.`, zh: `${math("(6 + 8 + 10) \\div 3 = 8")}。` }
+      prompt: { en: "In a compound bar chart, Class A has 6 votes and Class B has 4 votes for football. How many more votes does Class A have?", zh: "在一幅複合棒形圖中，甲班有 6 票選足球，乙班有 4 票。甲班多多少票？" },
+      answer: "2",
+      explanation: { en: `${math("6-4=2")}, so Class A has ${math("2")} more votes.`, zh: `${math("6-4=2")}，所以甲班多 ${math("2")} 票。` },
+      diagram: {
+        kind: "bar-chart",
+        mode: "grouped",
+        title: { en: "Football votes by class", zh: "各班足球票數" },
+        xAxisLabel: { en: "Choice", zh: "選項" },
+        yAxisLabel: { en: "Number of votes", zh: "票數" },
+        yRange: [0, 8],
+        tickInterval: 1,
+        series: [
+          { id: "class-a", label: { en: "Class A", zh: "甲班" } },
+          { id: "class-b", label: { en: "Class B", zh: "乙班" } }
+        ],
+        categories: [
+          { id: "football", label: { en: "Football", zh: "足球" }, values: { "class-a": 6, "class-b": 4 } }
+        ]
+      }
     },
     {
       id: "pq-p5-charts-averages-2",
-      difficulty: "Low",
+      difficulty: "Medium",
       type: "multiple-choice",
-      prompt: { en: `A chart shows ${math("12")} sunny days and ${math("8")} rainy days. How many days are shown?`, zh: `圖表顯示 ${math("12")} 天晴天和 ${math("8")} 天雨天，共顯示多少天？` },
+      prompt: { en: "A compound bar chart shows 8 books for Class A and 7 books for Class B in Week 2. What is their Week 2 total?", zh: "一幅複合棒形圖顯示第 2 周甲班閱讀 8 本書、乙班閱讀 7 本書。兩班第 2 周合共閱讀多少本？" },
       options: [
-        { en: "4", zh: "4" },
+        { en: "1", zh: "1" },
         { en: "8", zh: "8" },
-        { en: "20", zh: "20" },
-        { en: "96", zh: "96" }
+        { en: "15", zh: "15" },
+        { en: "56", zh: "56" }
       ],
-      answer: "20",
-      explanation: { en: `${math("12 + 8 = 20")}.`, zh: `${math("12 + 8 = 20")}。` }
+      answer: "15",
+      explanation: { en: `${math("8+7=15")}, so the two classes read ${math("15")} books in Week 2.`, zh: `${math("8+7=15")}，所以兩班在第 2 周合共閱讀 ${math("15")} 本書。` },
+      diagram: {
+        kind: "bar-chart",
+        mode: "grouped",
+        title: { en: "Books read by class", zh: "各班閱讀本數" },
+        xAxisLabel: { en: "Week", zh: "周次" },
+        yAxisLabel: { en: "Number of books", zh: "書本數量" },
+        yRange: [0, 10],
+        tickInterval: 1,
+        series: [
+          { id: "class-a", label: { en: "Class A", zh: "甲班" } },
+          { id: "class-b", label: { en: "Class B", zh: "乙班" } }
+        ],
+        categories: [
+          { id: "week-1", label: { en: "Week 1", zh: "第 1 周" }, values: { "class-a": 6, "class-b": 4 } },
+          { id: "week-2", label: { en: "Week 2", zh: "第 2 周" }, values: { "class-a": 8, "class-b": 7 } }
+        ]
+      }
+    },
+    {
+      id: "pq-p5-charts-averages-chart-total-v2",
+      difficulty: "Medium",
+      type: "graph",
+      prompt: { en: "The compound bar chart compares two classes. How many books did Class A read across both weeks?", zh: "複合棒形圖比較兩個班別。甲班兩周合共閱讀了多少本書？" },
+      answer: "14",
+      explanation: { en: `${math("6+8=14")}, so Class A read ${math("14")} books.`, zh: `${math("6+8=14")}，所以甲班閱讀了 ${math("14")} 本書。` },
+      diagram: {
+        kind: "bar-chart",
+        mode: "grouped",
+        title: { en: "Books read by class", zh: "各班閱讀本數" },
+        xAxisLabel: { en: "Week", zh: "周次" },
+        yAxisLabel: { en: "Number of books", zh: "書本數量" },
+        yRange: [0, 10],
+        tickInterval: 1,
+        series: [
+          { id: "class-a", label: { en: "Class A", zh: "甲班" } },
+          { id: "class-b", label: { en: "Class B", zh: "乙班" } }
+        ],
+        categories: [
+          { id: "week-1", label: { en: "Week 1", zh: "第 1 周" }, values: { "class-a": 6, "class-b": 4 } },
+          { id: "week-2", label: { en: "Week 2", zh: "第 2 周" }, values: { "class-a": 8, "class-b": 7 } }
+        ]
+      }
+    },
+    {
+      id: "supp-p5-charts-averages-chart-total-v2",
+      difficulty: "Medium",
+      type: "graph",
+      prompt: { en: "The compound bar chart compares two teams. What is Team Blue's total over the two rounds?", zh: "複合棒形圖比較兩隊。藍隊兩輪合共取得多少分？" },
+      answer: "11",
+      explanation: { en: `${math("5+6=11")}, so Team Blue's total is ${math("11")}.`, zh: `${math("5+6=11")}，所以藍隊合共取得 ${math("11")} 分。` },
+      diagram: {
+        kind: "bar-chart",
+        mode: "grouped",
+        title: { en: "Points by round", zh: "各輪得分" },
+        xAxisLabel: { en: "Round", zh: "輪次" },
+        yAxisLabel: { en: "Points", zh: "分數" },
+        yRange: [0, 8],
+        tickInterval: 1,
+        series: [
+          { id: "team-blue", label: { en: "Team Blue", zh: "藍隊" } },
+          { id: "team-green", label: { en: "Team Green", zh: "綠隊" } }
+        ],
+        categories: [
+          { id: "round-1", label: { en: "Round 1", zh: "第 1 輪" }, values: { "team-blue": 5, "team-green": 4 } },
+          { id: "round-2", label: { en: "Round 2", zh: "第 2 輪" }, values: { "team-blue": 6, "team-green": 7 } }
+        ]
+      }
     }
   ],
   "p6-percentages": [
@@ -948,11 +1172,11 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
     },
     {
       id: "pq-p6-percentages-2",
-      difficulty: "Low",
+      difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Write ${math("0.25")} as a percentage.`, zh: `把 ${math("0.25")} 寫成百分數。` },
-      answer: "25%",
-      explanation: { en: `${math("0.25 = 25\\%")}.`, zh: `${math("0.25 = 25\\%")}。` }
+      prompt: { en: `A book costs HK$${math("80")}. Its price is decreased by ${math("25\\%")}. What is the new price?`, zh: `一本書售港幣 ${math("80")} 元，現減價 ${math("25\\%")}。新售價是多少？` },
+      answer: "HK$60",
+      explanation: { en: `${math("25\\%")} of HK$${math("80")} is HK$${math("20")}; subtracting the decrease gives HK$${math("80-20=60")}.`, zh: `港幣 ${math("80")} 元的 ${math("25\\%")} 是港幣 ${math("20")} 元；減去減價額，得新售價港幣 ${math("80-20=60")} 元。` }
     }
   ],
   "p6-ratio-proportion": [
@@ -960,23 +1184,43 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "pq-p6-ratio-proportion-1",
       difficulty: "Medium",
       type: "short-answer",
-      prompt: { en: `Share ${math("30")} in the ratio ${math("2:3")}. What is the larger share?`, zh: `把 ${math("30")} 按 ${math("2:3")} 分配。較大的一份是多少？` },
-      answer: "18",
-      explanation: { en: `There are ${math("5")} parts; one part is ${math("30 \\div 5 = 6")}; larger share ${math("3 \\times 6 = 18")}.`, zh: `共有 ${math("5")} 份；每份 ${math("30 \\div 5 = 6")}；較大份是 ${math("3 \\times 6 = 18")}。` }
+      prompt: { en: `Four students have ${math("7")}, ${math("9")}, ${math("8")}, and ${math("12")} stickers. If the stickers are shared fairly, how many does each student receive?`, zh: `四名學生分別有 ${math("7")}、${math("9")}、${math("8")} 和 ${math("12")} 張貼紙。若把貼紙公平分配，每人可得多少張？` },
+      answer: "9",
+      explanation: { en: `The total is ${math("7+9+8+12=36")}. The mean is the fair share: total ${math("36")} divided by count ${math("4")}, so ${math("36\\div4=9")}.`, zh: `總數是 ${math("7+9+8+12=36")}。平均數就是公平分配所得：用總數 ${math("36")} 除以數據個數 ${math("4")}，得 ${math("36\\div4=9")}。` }
     },
     {
       id: "pq-p6-ratio-proportion-2",
-      difficulty: "Low",
-      type: "multiple-choice",
-      prompt: { en: `Which ratio is equivalent to ${math("3:4")}?`, zh: `哪個比與 ${math("3:4")} 等值？` },
-      options: [
-        { en: "6:8", zh: "6:8" },
-        { en: "4:3", zh: "4:3" },
-        { en: "9:8", zh: "9:8" },
-        { en: "3:8", zh: "3:8" }
-      ],
-      answer: "6:8",
-      explanation: { en: `Multiply both parts of ${math("3:4")} by ${math("2")} to get ${math("6:8")}.`, zh: `${math("3:4")} 兩項同乘 ${math("2")} 得 ${math("6:8")}。` }
+      difficulty: "Medium",
+      type: "graph",
+      prompt: { en: "The broken-line graph shows the temperature recorded at consecutive hourly times. What temperature was recorded at 11:00?", zh: "折線圖顯示按連續每小時時序記錄的氣溫。11:00 的氣溫是多少？" },
+      answer: "24°C",
+      acceptedAnswers: ["24 °C", "24 degrees Celsius", "24 度", "攝氏 24 度"],
+      explanation: { en: `At ${math("11{:}00")}, the plotted point is at ${math("24")} °C on the labelled temperature axis.`, zh: `在 ${math("11{:}00")}，折線上的點對應已標示氣溫單位的縱軸 ${math("24")} °C。` },
+      diagram: {
+        kind: "coordinate-grid",
+        xRange: [8, 12],
+        yRange: [16, 26],
+        xAxisLabel: { en: "Time (hour of day)", zh: "時間（時）" },
+        yAxisLabel: { en: "Temperature (°C)", zh: "氣溫（°C）" },
+        xTickInterval: 1,
+        yTickInterval: 2,
+        points: [
+          { id: "temp-11", label: "T", x: 11, y: 24 }
+        ],
+        lines: [
+          {
+            id: "hourly-temp",
+            label: { en: "Hourly temperature", zh: "每小時氣溫" },
+            points: [
+              { x: 8, y: 18 },
+              { x: 9, y: 20 },
+              { x: 10, y: 22 },
+              { x: 11, y: 24 },
+              { x: 12, y: 22 }
+            ]
+          }
+        ]
+      }
     }
   ],
   "p6-speed": [
@@ -1010,13 +1254,13 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "multiple-choice",
       prompt: { en: "What is the best first step for a long word problem?", zh: "處理較長文字題時，最好先做甚麼？" },
       options: [
-        { en: "Guess quickly", zh: "快速猜答案" },
-        { en: "Underline known facts and the question", zh: "畫出已知資料和問題" },
-        { en: "Skip all units", zh: "跳過所有單位" },
-        { en: "Use any formula", zh: "任意使用公式" }
+        { en: "Underline known facts and the question", zh: "在已知資料及題目所求之下畫線" },
+        { en: "Draw a diagram from every number before deciding what the question asks", zh: "先把每個數字都畫成圖，之後才判斷題目所問" },
+        { en: "Choose an operation from the first sentence and revise it if the result looks wrong", zh: "先按第一句選擇運算，若答案看來不對才修改" },
+        { en: "Work backward from the last numerical value before checking the units", zh: "先從最後一個數值倒推，之後才檢查單位" }
       ],
       answer: "Underline known facts and the question",
-      explanation: { en: "A clear list of known facts and the target helps plan the steps.", zh: "清楚列出已知資料和目標，有助規劃步驟。" }
+      explanation: { en: "Underlining the known facts and the target separates relevant information from distractors and reveals the sequence of operations; choosing a representation or operation first can lock the solution into the wrong plan.", zh: "在已知資料及題目所求之下畫線，可把相關資料與干擾資料分開，並看出運算次序；若過早選擇圖示或運算，可能會把解題方向鎖定在錯誤方案。" }
     },
     {
       id: "pq-p6-pre-secondary-problem-solving-2",
@@ -1029,6 +1273,18 @@ const primaryQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
   ]
 };
 
+const questionTopicTitleOverrides: Partial<Record<string, Question["topic"]>> = {
+  "p2-length-data": { en: "Metres and Pictograms", zh: "米與象形圖" },
+  "p4-large-numbers": { en: "Multiples, Factors, H.C.F. and L.C.M.", zh: "倍數、因數、最大公因數與最小公倍數" },
+  "p4-angles": { en: "Quadrilateral Families and Shape Composition", zh: "四邊形類別與圖形拼砌" },
+  "p5-rates": { en: "Unitary Method for Unit Price", zh: "歸一法求單價" },
+  "p6-ratio-proportion": { en: "Averages and Broken-Line Graphs", zh: "平均數與折線圖" }
+};
+
+function questionTopicLabelForTopic(topic: (typeof topics)[number]): Question["topic"] {
+  return questionTopicTitleOverrides[topic.id] ?? topic.title;
+}
+
 const primaryQuestions: HongKongQuestionSeed[] = topics.filter((topic) => topic.curriculumTrack === "HK").flatMap((topic) => {
   if (!topic.grade.startsWith("P")) return [];
   const blueprints = primaryQuestionBlueprints[topic.id] ?? [];
@@ -1036,18 +1292,21 @@ const primaryQuestions: HongKongQuestionSeed[] = topics.filter((topic) => topic.
     ...blueprint,
     grade: topic.grade,
     topicId: topic.id,
-    topic: topic.title
+    topic: questionTopicLabelForTopic(topic)
   }));
 });
 
 type TopicDrill = {
   firstStep: Question["prompt"];
+  firstStepExplanation?: Question["explanation"];
   keyFactPrompt: Question["prompt"];
   keyFactAnswer: string;
   keyFactExplanation: Question["explanation"];
   examplePrompt: Question["prompt"];
   exampleAnswer: string;
   exampleExplanation: Question["explanation"];
+  exampleDiagram?: Question["diagram"];
+  guidedDifficulty?: Question["difficulty"];
   commonCheck: Question["prompt"];
 };
 
@@ -1065,12 +1324,17 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-2, 4],
         yRange: [-5, 5],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "V", x: 1, y: -4 }
+          { id: "vertex", label: "V", x: 1, y: -4 }
         ],
         lines: [
           {
-            label: "parabola",
+            id: "quad-vertex",
+            label: { en: "Parabola", zh: "拋物線" },
             points: [
               { x: -1, y: 0 },
               { x: 0, y: -3 },
@@ -1088,18 +1352,23 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "graph",
       prompt: { en: "Use the symmetry of the parabola. What is the axis of symmetry?", zh: "利用拋物線的對稱性。對稱軸是甚麼？" },
       answer: "x = -2",
-      acceptedAnswers: ["x=-2", "-2"],
+      acceptedAnswers: ["x=-2"],
       explanation: { en: `Matching points are equally spaced from ${math("x = -2")}, and the vertex lies on this vertical line.`, zh: `對應點與 ${math("x = -2")} 的距離相同，而頂點亦在這條垂直線上。` },
       diagram: {
         kind: "coordinate-grid",
         xRange: [-5, 2],
         yRange: [-2, 5],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "V", x: -2, y: -1 }
+          { id: "vertex", label: "V", x: -2, y: -1 }
         ],
         lines: [
           {
-            label: "parabola",
+            id: "quad-axis",
+            label: { en: "Parabola", zh: "拋物線" },
             points: [
               { x: -4, y: 3 },
               { x: -3, y: 0 },
@@ -1115,20 +1384,25 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       id: "graph-quadratic-patterns-y-intercept",
       difficulty: "Low",
       type: "graph",
-      prompt: { en: "Where does the parabola meet the y-axis?", zh: "拋物線在哪一點與 y 軸相交？" },
+      prompt: { en: "Where does the parabola meet the y-axis? Give the answer as an ordered pair.", zh: "拋物線在哪一點與 y 軸相交？答案須寫成有序數對。" },
       answer: "(0, -4)",
-      acceptedAnswers: ["(0,-4)", "0, -4", "0,-4", "-4"],
+      acceptedAnswers: ["(0,-4)"],
       explanation: { en: `The graph crosses the ${math("y")}-axis when ${math("x = 0")}, at ${math("(0, -4)")}.`, zh: `圖像在 ${math("x = 0")} 時與 ${math("y")} 軸相交，交點是 ${math("(0, -4)")}。` },
       diagram: {
         kind: "coordinate-grid",
         xRange: [-4, 4],
         yRange: [-5, 6],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "Y", x: 0, y: -4 }
+          { id: "y-intercept", label: "Y", x: 0, y: -4 }
         ],
         lines: [
           {
-            label: "parabola",
+            id: "quad-yint",
+            label: { en: "Parabola", zh: "拋物線" },
             points: [
               { x: -3, y: 5 },
               { x: -2, y: 0 },
@@ -1154,13 +1428,18 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [0, 4],
         yRange: [-2, 4],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "A", x: 1, y: 0 },
-          { label: "B", x: 3, y: 0 }
+          { id: "left-root", label: "A", x: 1, y: 0 },
+          { id: "right-root", label: "B", x: 3, y: 0 }
         ],
         lines: [
           {
-            label: "parabola",
+            id: "quad-roots",
+            label: { en: "Parabola", zh: "拋物線" },
             points: [
               { x: 0, y: 3 },
               { x: 1, y: 0 },
@@ -1184,12 +1463,17 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-4, 4],
         yRange: [-6, 5],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "V", x: 0, y: 4 }
+          { id: "vertex", label: "V", x: 0, y: 4 }
         ],
         lines: [
           {
-            label: "parabola",
+            id: "quad-opening",
+            label: { en: "Parabola", zh: "拋物線" },
             points: [
               { x: -3, y: -5 },
               { x: -2, y: 0 },
@@ -1217,9 +1501,14 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-5, 5],
         yRange: [-4, 4],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "C", x: -3, y: 2 }
-        ]
+          { id: "point-c", label: "C", x: -3, y: 2 }
+        ],
+        lines: []
       }
     },
     {
@@ -1234,9 +1523,14 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-5, 5],
         yRange: [-5, 5],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "P", x: -4, y: 3 }
-        ]
+          { id: "point-p", label: "P", x: -4, y: 3 }
+        ],
+        lines: []
       }
     }
   ],
@@ -1252,12 +1546,17 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-2, 3],
         yRange: [-2, 6],
+        xAxisLabel: { en: "Input x", zh: "輸入 x" },
+        yAxisLabel: { en: "Output f(x)", zh: "輸出 f(x)" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "A", x: 2, y: 5 }
+          { id: "output-point", label: "A", x: 2, y: 5 }
         ],
         lines: [
           {
-            label: "f",
+            id: "func-output",
+            label: { en: "Function f", zh: "函數 f" },
             points: [
               { x: -1, y: -1 },
               { x: 0, y: 1 },
@@ -1280,12 +1579,17 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [0, 5],
         yRange: [-3, 3],
+        xAxisLabel: { en: "Input x", zh: "輸入 x" },
+        yAxisLabel: { en: "Output f(x)", zh: "輸出 f(x)" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "Z", x: 2, y: 0 }
+          { id: "zero-point", label: "Z", x: 2, y: 0 }
         ],
         lines: [
           {
-            label: "f",
+            id: "func-zero",
+            label: { en: "Function f", zh: "函數 f" },
             points: [
               { x: 0, y: -2 },
               { x: 2, y: 0 },
@@ -1309,13 +1613,18 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-2, 5],
         yRange: [0, 5],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "A", x: -1, y: 2 },
-          { label: "B", x: 3, y: 4 }
+          { id: "point-a", label: "A", x: -1, y: 2 },
+          { id: "point-b", label: "B", x: 3, y: 4 }
         ],
         lines: [
           {
-            label: "AB",
+            id: "line-ab-gradient",
+            label: { en: "Line AB", zh: "直線 AB" },
             points: [
               { x: -1, y: 2 },
               { x: 3, y: 4 }
@@ -1336,13 +1645,18 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [-3, 5],
         yRange: [-2, 4],
+        xAxisLabel: { en: "x-coordinate", zh: "x 坐標" },
+        yAxisLabel: { en: "y-coordinate", zh: "y 坐標" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "A", x: -2, y: -1 },
-          { label: "B", x: 4, y: 3 }
+          { id: "point-a", label: "A", x: -2, y: -1 },
+          { id: "point-b", label: "B", x: 4, y: 3 }
         ],
         lines: [
           {
-            label: "AB",
+            id: "segment-ab-mid",
+            label: { en: "Segment AB", zh: "線段 AB" },
             points: [
               { x: -2, y: -1 },
               { x: 4, y: 3 }
@@ -1364,12 +1678,17 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         kind: "coordinate-grid",
         xRange: [0, 6],
         yRange: [0, 10],
+        xAxisLabel: { en: "Quiz number", zh: "測驗次序" },
+        yAxisLabel: { en: "Score", zh: "分數" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "E", x: 4, y: 8 }
+          { id: "score-high", label: "E", x: 4, y: 8 }
         ],
         lines: [
           {
-            label: "scores",
+            id: "quiz-scores",
+            label: { en: "Quiz scores", zh: "測驗分數" },
             points: [
               { x: 1, y: 4 },
               { x: 2, y: 6 },
@@ -1389,18 +1708,23 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       type: "graph",
       prompt: { en: "The distance-time graph shows a journey. How far had the student travelled after 2 hours?", zh: "距離-時間圖顯示一段旅程。2 小時後學生走了多遠？" },
       answer: "6 km",
-      acceptedAnswers: ["6", "6km", "6 km"],
+      acceptedAnswers: ["6km", "6 km"],
       explanation: { en: `At ${math("2")} hours, the graph shows ${math("6")} km.`, zh: `在 ${math("2")} 小時時，圖像顯示 ${math("6")} 公里。` },
       diagram: {
         kind: "coordinate-grid",
         xRange: [0, 5],
         yRange: [0, 8],
+        xAxisLabel: { en: "Time (hours)", zh: "時間（小時）" },
+        yAxisLabel: { en: "Distance (km)", zh: "路程（公里）" },
+        xTickInterval: 1,
+        yTickInterval: 1,
         points: [
-          { label: "D", x: 2, y: 6 }
+          { id: "time-2-point", label: "D", x: 2, y: 6 }
         ],
         lines: [
           {
-            label: "journey",
+            id: "journey-line",
+            label: { en: "Journey", zh: "旅程" },
             points: [
               { x: 0, y: 0 },
               { x: 2, y: 6 },
@@ -1411,9 +1735,9 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       }
     }
   ],
-  "p4-angles": [
+  angles: [
     {
-      id: "graph-p4-angles-straight-line",
+      id: "graph-s1-angles-straight-line",
       difficulty: "Medium",
       type: "graph",
       prompt: {
@@ -1421,7 +1745,7 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
         zh: `圖中 AOB 是直線，${math("\\angle AOC = 130^\\circ")}。求角 ${math("x")}。`
       },
       answer: "50°",
-      acceptedAnswers: ["50", "50 degrees", "50度"],
+      acceptedAnswers: ["50 degrees", "50度"],
       explanation: {
         en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("x = 180 - 130 = 50^\\circ")}.`,
         zh: `直線上的鄰角和為 ${math("180^\\circ")}，所以 ${math("x = 180 - 130 = 50^\\circ")}。`
@@ -1475,13 +1799,13 @@ const graphQuestionBlueprints: Record<string, QuestionBlueprint[]> = {
       difficulty: "Medium",
       type: "graph",
       prompt: {
-        en: "The figure shows a cube. Every edge has the length marked in the figure. Find its volume.",
-        zh: "圖中顯示一個正方體，每條棱長如圖所示。求它的體積。"
+        en: "The figure labels the cube's edge length as 3 cm. Find its volume.",
+        zh: "圖中標示正方體的稜長為 3 厘米。求它的體積。"
       },
       answer: "27 cm^3",
       explanation: {
         en: `Every edge of the cube is ${math("3")} cm, so the volume ${math("= 3 \\times 3 \\times 3 = 27")} cubic centimetres.`,
-        zh: `正方體每條棱長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
+        zh: `正方體每條稜長都是 ${math("3")} 厘米，所以體積 ${math("= 3 \\times 3 \\times 3 = 27")} 立方厘米。`
       },
       diagram: {
         kind: "solid-figure",
@@ -1501,7 +1825,7 @@ const graphQuestions: HongKongQuestionSeed[] = topics.filter((topic) => topic.cu
     ...blueprint,
     grade: topic.grade,
     topicId: topic.id,
-    topic: topic.title
+    topic: questionTopicLabelForTopic(topic)
   }));
 });
 
@@ -1517,7 +1841,8 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check whether the missing number is before or after the given number", zh: "檢查題目問的是前一個數、後一個數，還是缺少的數" }
   },
   "p1-addition-subtraction": {
-    firstStep: { en: "Decide whether the story adds to or takes away", zh: "先判斷故事是增加還是減少" },
+    firstStep: { en: "Notice that Mia gets more stickers, then add 5 + 2", zh: "先辨認 Mia 的貼紙增加了，再計算 5 + 2" },
+    firstStepExplanation: { en: `The words “gets ${math("2")} more” show an increase, so ${math("5+2=7")}.`, zh: `「再得到 ${math("2")} 張」表示數量增加，所以 ${math("5+2=7")}。` },
     keyFactPrompt: { en: `Liam has ${math("8")} pencils and gets ${math("3")} more. How many pencils does he have now?`, zh: `Liam 有 ${math("8")} 支鉛筆，又得到 ${math("3")} 支。現在共有多少支鉛筆？` },
     keyFactAnswer: "11",
     keyFactExplanation: { en: `${math("8 + 3 = 11")}.`, zh: `${math("8 + 3 = 11")}。` },
@@ -1527,7 +1852,8 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check the story action before choosing addition or subtraction", zh: "先檢查故事動作，再決定用加法還是減法" }
   },
   "p1-shapes-patterns": {
-    firstStep: { en: "Name the repeating unit or count the sides", zh: "先說出重複單位或數邊數" },
+    firstStep: { en: "Identify AB as the shortest repeating unit", zh: "先找出最短重複單位 AB" },
+    firstStepExplanation: { en: "AB repeats twice in ABAB, so AB is the shortest repeating unit.", zh: "AB 在 ABAB 中重複兩次，所以 AB 是最短重複單位。" },
     keyFactPrompt: { en: `How many sides does a square have?`, zh: `正方形有多少條邊？` },
     keyFactAnswer: "4",
     keyFactExplanation: { en: `A square has ${math("4")} equal sides.`, zh: `正方形有 ${math("4")} 條相等的邊。` },
@@ -1537,10 +1863,11 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check one full repeat before choosing the next shape", zh: "先找出一組完整重複，再選下一個圖形" }
   },
   "p1-measurement-time": {
-    firstStep: { en: "Choose the attribute first: length, time, or order", zh: "先判斷量度的是長度、時間還是次序" },
-    keyFactPrompt: { en: `How many minutes are in ${math("1")} hour?`, zh: `${math("1")} 小時有多少分鐘？` },
-    keyFactAnswer: "60",
-    keyFactExplanation: { en: `${math("1")} hour is ${math("60")} minutes.`, zh: `${math("1")} 小時等於 ${math("60")} 分鐘。` },
+    firstStep: { en: "Read the minute hand, then the hour hand", zh: "先讀分針，再讀時針" },
+    firstStepExplanation: { en: `The minute hand at ${math("6")} means ${math("30")} minutes, and the hour hand is between ${math("3")} and ${math("4")}, so the time is ${math("3{:}30")}.`, zh: `分針指向 ${math("6")} 表示 ${math("30")} 分鐘，時針在 ${math("3")} 和 ${math("4")} 之間，所以時間是 ${math("3{:}30")}。` },
+    keyFactPrompt: { en: `A clock shows the minute hand at ${math("6")} and the hour hand halfway between ${math("3")} and ${math("4")}. What time is it?`, zh: `鐘面上的分針指向 ${math("6")}，時針在 ${math("3")} 和 ${math("4")} 的正中間。現在是甚麼時間？` },
+    keyFactAnswer: "3:30",
+    keyFactExplanation: { en: `The minute hand at ${math("6")} shows half past, and the hour hand has passed ${math("3")}, so the time is ${math("3{:}30")}.`, zh: `分針指向 ${math("6")} 表示半小時，時針已過 ${math("3")}，所以是 ${math("3{:}30")}。` },
     examplePrompt: { en: `What time is shown by a clock with the hour hand at ${math("5")} and the minute hand at ${math("12")}?`, zh: `時針指向 ${math("5")}、分針指向 ${math("12")} 是甚麼時間？` },
     exampleAnswer: "5 o'clock",
     exampleExplanation: { en: `The minute hand at ${math("12")} shows an o'clock time, so it is 5 o'clock.`, zh: `分針指向 ${math("12")} 表示整點，所以是 5 時。` },
@@ -1548,6 +1875,7 @@ const topicDrills: Record<string, TopicDrill> = {
   },
   "p2-place-value": {
     firstStep: { en: "Read hundreds, tens, and ones in order", zh: "按百位、十位、個位順序讀數" },
+    firstStepExplanation: { en: `${math("507")} has ${math("5")} hundreds, ${math("0")} tens, and ${math("7")} ones, so reading the places in order gives five hundred and seven.`, zh: `${math("507")} 有 ${math("5")} 個百、${math("0")} 個十和 ${math("7")} 個一，按位值順序讀作五百零七。` },
     keyFactPrompt: { en: `In ${math("735")}, what digit is in the hundreds place?`, zh: `在 ${math("735")} 中，百位數字是甚麼？` },
     keyFactAnswer: "7",
     keyFactExplanation: { en: `${math("735")} has ${math("7")} hundreds.`, zh: `${math("735")} 有 ${math("7")} 個百。` },
@@ -1557,9 +1885,10 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check that each digit is placed in the correct place value", zh: "檢查每個數字是否放在正確位值" }
   },
   "p2-multiplication-foundations": {
-    firstStep: { en: "Count equal groups before writing multiplication", zh: "先數相等組數，再寫乘式" },
+    firstStep: { en: "Identify 5 equal groups of 2, then write 5 × 2", zh: "先辨認 5 組、每組 2 個，再寫 5 × 2" },
+    firstStepExplanation: { en: `${math("5\\times2")} means ${math("5")} equal groups of ${math("2")}, so the model contains ${math("10")} objects.`, zh: `${math("5\\times2")} 表示 ${math("5")} 組、每組 ${math("2")} 個，所以模型共有 ${math("10")} 個物件。` },
     keyFactPrompt: { en: `Which multiplication expression matches ${math("6 + 6 + 6 + 6")}?`, zh: `哪個乘式表示 ${math("6 + 6 + 6 + 6")}？` },
-    keyFactAnswer: "4 x 6",
+    keyFactAnswer: "4 × 6",
     keyFactExplanation: { en: `${math("6")} is added ${math("4")} times, so it is ${math("4 \\times 6")}.`, zh: `${math("6")} 加了 ${math("4")} 次，所以是 ${math("4 \\times 6")}。` },
     examplePrompt: { en: `Find ${math("3 \\times 4")}.`, zh: `計算 ${math("3 \\times 4")}。` },
     exampleAnswer: "12",
@@ -1567,34 +1896,36 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check the size of each group and the number of groups", zh: "檢查每組數量和組數" }
   },
   "p2-money-time": {
-    firstStep: { en: "Identify the price, amount paid, or time interval", zh: "先辨認價錢、付款金額或時間間隔" },
-    keyFactPrompt: { en: `A drink costs HK$${math("6")}. You pay HK$${math("10")}. How much change do you get?`, zh: `飲品售港幣 ${math("6")} 元，你付港幣 ${math("10")} 元，應找回多少？` },
+    firstStep: { en: "Identify the price and the amount paid", zh: "先辨認價錢和付款金額" },
+    firstStepExplanation: { en: `The price is HK$${math("6")} and the amount paid is HK$${math("10")}; subtract to find the change: HK$${math("10-6=4")}.`, zh: `價錢是港幣 ${math("6")} 元，付款金額是港幣 ${math("10")} 元；相減可得找續：港幣 ${math("10-6=4")} 元。` },
+    keyFactPrompt: { en: "A drink costs HK$6. You pay HK$10. How much change do you get?", zh: "飲品售港幣 6 元，你付港幣 10 元，應找回多少？" },
     keyFactAnswer: "HK$4",
     keyFactExplanation: { en: `${math("10 - 6 = 4")}.`, zh: `${math("10 - 6 = 4")}。` },
-    examplePrompt: { en: `Fifteen minutes after ${math("2:30")} is what time?`, zh: `${math("2:30")} 之後十五分鐘是甚麼時間？` },
-    exampleAnswer: "2:45",
-    exampleExplanation: { en: `Adding ${math("15")} minutes to ${math("2:30")} gives ${math("2:45")}.`, zh: `${math("2:30")} 加 ${math("15")} 分鐘是 ${math("2:45")}。` },
+    examplePrompt: { en: `Half an hour after ${math("2:30")} is what time?`, zh: `${math("2:30")} 之後半小時是甚麼時間？` },
+    exampleAnswer: "3:00",
+    exampleExplanation: { en: `Adding ${math("30")} minutes to ${math("2:30")} gives ${math("3:00")}.`, zh: `${math("2:30")} 加 ${math("30")} 分鐘是 ${math("3:00")}。` },
     commonCheck: { en: "Check whether the answer should be money or time", zh: "檢查答案應是金錢還是時間" }
   },
   "p2-length-data": {
-    firstStep: { en: "Read the unit or chart label before calculating", zh: "計算前先讀清楚單位或圖表標籤" },
-    keyFactPrompt: { en: `A string is ${math("20")} cm long. You use ${math("7")} cm. How many cm remain?`, zh: `一條繩長 ${math("20")} 厘米，用去 ${math("7")} 厘米，還剩多少厘米？` },
-    keyFactAnswer: "13 cm",
-    keyFactExplanation: { en: `${math("20 - 7 = 13")} cm.`, zh: `${math("20 - 7 = 13")} 厘米。` },
-    examplePrompt: { en: `A bar chart shows ${math("8")} oranges and ${math("5")} pears. How many fruits are shown?`, zh: `棒形圖顯示 ${math("8")} 個橙和 ${math("5")} 個梨，共有多少水果？` },
-    exampleAnswer: "13",
-    exampleExplanation: { en: `${math("8 + 5 = 13")}.`, zh: `${math("8 + 5 = 13")}。` },
-    commonCheck: { en: "Keep the length unit when the question asks for length", zh: "題目問長度時，答案要保留長度單位" }
+    firstStep: { en: "Choose metres for estimating the door height", zh: "估計門的高度時選用米" },
+    firstStepExplanation: { en: "A classroom door is tall enough for metres to be the suitable unit; estimate first, then check with a metre rule or tape.", zh: "課室門的高度適合用米表示；先作估計，再用米尺或捲尺量度核對。" },
+    keyFactPrompt: { en: `A classroom door is about ${math("2")} m tall, not ${math("2")} cm. Which estimate uses the suitable unit?`, zh: `課室門的高度約是 ${math("2")} 米，而不是 ${math("2")} 厘米。哪個估計使用合適單位？` },
+    keyFactAnswer: "2 m",
+    keyFactExplanation: { en: "A door is tall enough for metres to be the suitable unit; estimate first and then measure it with a metre rule or tape.", zh: "課室門的高度適合用米表示；應先估計，再用米尺或捲尺實際量度。" },
+    examplePrompt: { en: `A ribbon measures ${math("110")} cm. Write the same length using metres and centimetres, without a decimal.`, zh: `一條絲帶長 ${math("110")} 厘米。不用小數，以米和厘米寫出相同長度。` },
+    exampleAnswer: "1 m 10 cm",
+    exampleExplanation: { en: `Since ${math("1\\text{ m}=100\\text{ cm}")}, ${math("110\\text{ cm}=1\\text{ m }10\\text{ cm}")}.`, zh: `因為 ${math("1\\text{ 米}=100\\text{ 厘米}")}，所以 ${math("110\\text{ 厘米}=1\\text{ 米 }10\\text{ 厘米}")}。` },
+    commonCheck: { en: "Use 1 m = 100 cm and keep every pictogram key at one icon for one object", zh: "使用 1 米 = 100 厘米，並確保象形圖每個圖示只代表一件物件" }
   },
   "p3-multiplication-division": {
-    firstStep: { en: "Decide whether the situation has equal groups or sharing", zh: "先判斷情境是相等組數還是平均分" },
-    keyFactPrompt: { en: `Find ${math("8 \\times 4")}.`, zh: `計算 ${math("8 \\times 4")}。` },
-    keyFactAnswer: "32",
-    keyFactExplanation: { en: `${math("8 \\times 4 = 32")}.`, zh: `${math("8 \\times 4 = 32")}。` },
-    examplePrompt: { en: `${math("36")} stickers are shared equally among ${math("6")} pupils. How many does each pupil get?`, zh: `${math("36")} 張貼紙平均分給 ${math("6")} 位同學，每人有多少張？` },
-    exampleAnswer: "6",
-    exampleExplanation: { en: `${math("36 \\div 6 = 6")}.`, zh: `${math("36 \\div 6 = 6")}。` },
-    commonCheck: { en: "Check whether the question asks for total or each share", zh: "檢查題目問總數還是每份數量" }
+    firstStep: { en: "Decide whether the situation needs multi-digit multiplication, sharing, or grouping", zh: "先判斷情境需要多位數乘法、平均分還是分組" },
+    keyFactPrompt: { en: `Find ${math("206 \\times 4")}.`, zh: `計算 ${math("206 \\times 4")}。` },
+    keyFactAnswer: "824",
+    keyFactExplanation: { en: `${math("4 \\times 200=800")} and ${math("4 \\times 6=24")}, so the total is ${math("824")}.`, zh: `${math("4 \\times 200=800")} 而 ${math("4 \\times 6=24")}，所以合共是 ${math("824")}。` },
+    examplePrompt: { en: `${math("47")} cards are shared equally among ${math("4")} pupils. How many cards does each pupil get, and how many remain?`, zh: `把 ${math("47")} 張卡平均分給 ${math("4")} 位同學。每人有多少張，餘下多少張？` },
+    exampleAnswer: "11 each, 3 remain",
+    exampleExplanation: { en: `${math("47=4 \\times 11+3")}, so each pupil gets ${math("11")} cards and ${math("3")} remain.`, zh: `${math("47=4 \\times 11+3")}，所以每人有 ${math("11")} 張，餘下 ${math("3")} 張。` },
+    commonCheck: { en: "Check whether a remainder is smaller than the divisor", zh: "檢查餘數是否小於除數" }
   },
   "p3-fractions-intro": {
     firstStep: { en: "Identify the number of equal parts first", zh: "先辨認一共分成多少等份" },
@@ -1607,34 +1938,34 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check that the denominator names the equal parts", zh: "檢查分母是否表示等份總數" }
   },
   "p3-measurement": {
-    firstStep: { en: "Choose the correct measuring unit before calculating", zh: "計算前先選擇正確量度單位" },
-    keyFactPrompt: { en: `A jug has ${math("2")} L of water. That is how many mL?`, zh: `一個水壺有 ${math("2")} 公升水，即是多少毫升？` },
+    firstStep: { en: "Read the measuring unit or bar-chart scale before calculating", zh: "計算前先讀清楚量度單位或棒形圖刻度" },
+    keyFactPrompt: { en: `A jug has ${math("2")} L of water. That is how many mL?`, zh: `一個水壺有 ${math("2")} 升水，即是多少毫升？` },
     keyFactAnswer: "2000 mL",
-    keyFactExplanation: { en: `${math("1")} L ${math("= 1000")} mL, so ${math("2")} L ${math("= 2000")} mL.`, zh: `${math("1")} 公升 ${math("= 1000")} 毫升，所以 ${math("2")} 公升 ${math("= 2000")} 毫升。` },
+    keyFactExplanation: { en: `${math("1")} L ${math("= 1000")} mL, so ${math("2")} L ${math("= 2000")} mL.`, zh: `${math("1")} 升 ${math("= 1000")} 毫升，所以 ${math("2")} 升 ${math("= 2000")} 毫升。` },
     examplePrompt: { en: `A blue strip is ${math("35")} cm long and a red strip is ${math("20")} cm long. What is their total length?`, zh: `藍色紙條長 ${math("35")} 厘米，紅色紙條長 ${math("20")} 厘米。總長是多少？` },
     exampleAnswer: "55 cm",
     exampleExplanation: { en: `${math("35 + 20 = 55")} cm.`, zh: `${math("35 + 20 = 55")} 厘米。` },
     commonCheck: { en: "Check whether units need converting before calculating", zh: "計算前檢查是否需要換算單位" }
   },
   "p3-geometry-patterns": {
-    firstStep: { en: "Identify the angle fact or the pattern rule", zh: "先辨認角度性質或規律規則" },
-    keyFactPrompt: { en: `How many degrees are in a straight angle?`, zh: `平角是多少度？` },
-    keyFactAnswer: "180°",
-    keyFactExplanation: { en: `A straight angle is ${math("180^\\circ")}.`, zh: `平角是 ${math("180^\\circ")}。` },
-    examplePrompt: { en: `Continue the pattern: ${math("4, 8, 12, 16, \\square")}.`, zh: `延續規律：${math("4, 8, 12, 16, \\square")}。` },
-    exampleAnswer: "20",
-    exampleExplanation: { en: `The pattern adds ${math("4")} each time, so the next number is ${math("20")}.`, zh: `規律是每次加 ${math("4")}，所以下一個數是 ${math("20")}。` },
-    commonCheck: { en: "Check whether the task is about shape, angle, or number pattern", zh: "檢查題目問圖形、角度還是數列規律" }
+    firstStep: { en: "Count the sides, then compare equal or parallel sides before naming the shape", zh: "先數邊數，再比較相等邊或平行邊，然後為圖形命名" },
+    keyFactPrompt: { en: "A closed plane figure has four straight sides. Which shape family does it belong to?", zh: "一個封閉平面圖形有四條直邊。它屬於哪一類圖形？" },
+    keyFactAnswer: "quadrilateral",
+    keyFactExplanation: { en: "Every closed plane figure with four straight sides is a quadrilateral.", zh: "任何有四條直邊的封閉平面圖形都是四邊形。" },
+    examplePrompt: { en: "A triangle has three equal sides. What kind of triangle is it?", zh: "一個三角形有三條相等的邊。它是哪一種三角形？" },
+    exampleAnswer: "equilateral triangle",
+    exampleExplanation: { en: "A triangle with all three sides equal is an equilateral triangle.", zh: "三條邊全部相等的三角形是等邊三角形。" },
+    commonCheck: { en: "Check that the figure is closed and count its straight sides before naming it", zh: "為圖形命名前，先檢查它是否封閉，並數清楚直邊數目" }
   },
   "p4-large-numbers": {
-    firstStep: { en: "Compare digits from the largest place value", zh: "由最大位值開始比較數字" },
-    keyFactPrompt: { en: `Which number is greater: ${math("23,780")} or ${math("23,708")}?`, zh: `${math("23,780")} 和 ${math("23,708")}，哪個數較大？` },
-    keyFactAnswer: "23,780",
-    keyFactExplanation: { en: `The hundreds and tens comparison shows ${math("23,780 > 23,708")}.`, zh: `比較百位和十位可見 ${math("23,780 > 23,708")}。` },
-    examplePrompt: { en: `Round ${math("5,249")} to the nearest hundred.`, zh: `把 ${math("5,249")} 取近似值至最接近的百位。` },
-    exampleAnswer: "5,200",
-    exampleExplanation: { en: `The tens digit is ${math("4")}, so ${math("5,249")} rounds down to ${math("5,200")}.`, zh: `十位數字是 ${math("4")}，所以 ${math("5,249")} 捨去成 ${math("5,200")}。` },
-    commonCheck: { en: "Check the required place value before rounding", zh: "取近似值前先檢查題目指定的位值" }
+    firstStep: { en: "Decide whether to list factors or multiples, then work systematically", zh: "先判斷要列出因數還是倍數，再有系統地處理" },
+    keyFactPrompt: { en: `Write the first three positive multiples of ${math("7")} in increasing order.`, zh: `按由小至大寫出 ${math("7")} 的首三個正倍數。` },
+    keyFactAnswer: "7, 14, 21",
+    keyFactExplanation: { en: `Multiply ${math("7")} by ${math("1")}, ${math("2")}, and ${math("3")}: ${math("7,14,21")}.`, zh: `把 ${math("7")} 分別乘 ${math("1")}、${math("2")} 和 ${math("3")}，得 ${math("7,14,21")}。` },
+    examplePrompt: { en: `For ${math("12")} and ${math("18")}, give both the H.C.F. and the L.C.M.`, zh: `求 ${math("12")} 和 ${math("18")} 的最大公因數及最小公倍數。` },
+    exampleAnswer: "HCF = 6; LCM = 36",
+    exampleExplanation: { en: `The common factors are ${math("1,2,3,6")}, so the H.C.F. is ${math("6")}. Listing multiples shows that ${math("36")} is the first common multiple, so the L.C.M. is ${math("36")}.`, zh: `公因數是 ${math("1,2,3,6")}，所以最大公因數是 ${math("6")}；列出倍數可見 ${math("36")} 是首個公倍數，所以最小公倍數是 ${math("36")}。` },
+    commonCheck: { en: "Verify that every factor leaves remainder 0 and every common result works for both numbers", zh: "檢查每個因數都能整除而餘數為 0，並核對公因數或公倍數同時適用於兩個數" }
   },
   "p4-decimals": {
     firstStep: { en: "Line up decimal places before comparing or calculating", zh: "比較或計算前先對齊小數位" },
@@ -1647,44 +1978,64 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Keep the decimal point aligned in every step", zh: "每一步都要對齊小數點" }
   },
   "p4-angles": {
-    firstStep: { en: "Name the angle relationship before subtracting", zh: "相減前先說明角度關係" },
-    keyFactPrompt: { en: `Two angles on a straight line include ${math("110^\\circ")}. Find the other angle.`, zh: `一直線上的兩個角，其中一個是 ${math("110^\\circ")}。求另一個角。` },
-    keyFactAnswer: "70°",
-    keyFactExplanation: { en: `Angles on a straight line add to ${math("180^\\circ")}, so ${math("180 - 110 = 70")}.`, zh: `一直線上的角和為 ${math("180^\\circ")}，所以 ${math("180 - 110 = 70")}。` },
-    examplePrompt: { en: `Angles around a point include ${math("90^\\circ")}, ${math("120^\\circ")}, and ${math("80^\\circ")}. Find the remaining angle.`, zh: `一點周圍的角包括 ${math("90^\\circ")}、${math("120^\\circ")} 和 ${math("80^\\circ")}。求餘下的角。` },
-    exampleAnswer: "70°",
-    exampleExplanation: { en: `Angles around a point add to ${math("360^\\circ")}; ${math("360 - 90 - 120 - 80 = 70")}.`, zh: `一點周圍的角和為 ${math("360^\\circ")}；${math("360 - 90 - 120 - 80 = 70")}。` },
-    commonCheck: { en: "Check whether the total should be 180 degrees or 360 degrees", zh: "檢查總和應為 180 度還是 360 度" }
+    firstStep: { en: "Identify the quadrilateral's side relationships before choosing a family name", zh: "選擇四邊形類別前，先辨認各邊的關係" },
+    keyFactPrompt: { en: "Name the two families that every square belongs to in addition to the parallelogram family.", zh: "除平行四邊形外，每個正方形還屬於哪兩個類別？" },
+    keyFactAnswer: "rectangle and rhombus",
+    keyFactExplanation: { en: "Every square is both a rectangle and a rhombus; this inclusion does not make every rectangle or every rhombus a square.", zh: "每個正方形同時是長方形和菱形；這項包含關係不表示每個長方形或每個菱形都是正方形。" },
+    examplePrompt: { en: "A parallelogram has four equal sides. What more specific quadrilateral family must it belong to?", zh: "一個平行四邊形有四條相等的邊。它必定屬於哪個較具體的四邊形類別？" },
+    exampleAnswer: "rhombus",
+    exampleExplanation: { en: "A parallelogram with four equal sides is a rhombus, but the given side information alone does not prove it is a square.", zh: "四條邊相等的平行四邊形是菱形，但單憑已知的邊資料不能證明它是正方形。" },
+    commonCheck: { en: "Check the direction of each family inclusion and do not assume its converse", zh: "檢查各類別包含關係的方向，不要擅自把關係逆轉" }
   },
   "p4-perimeter-area": {
     firstStep: { en: "Decide whether the question asks for boundary or surface", zh: "先判斷題目問周界還是面積" },
     keyFactPrompt: { en: `A square has side length ${math("6")} cm. Find its perimeter.`, zh: `正方形邊長 ${math("6")} 厘米。求周界。` },
     keyFactAnswer: "24 cm",
     keyFactExplanation: { en: `Perimeter ${math("= 4 \\times 6 = 24")} cm.`, zh: `周界 ${math("= 4 \\times 6 = 24")} 厘米。` },
-    examplePrompt: { en: `A rectangle is ${math("7")} cm by ${math("3")} cm. What is its area?`, zh: `長方形長 ${math("7")} 厘米、闊 ${math("3")} 厘米，面積是多少？` },
-    exampleAnswer: "21 cm^2",
-    exampleExplanation: { en: `Area ${math("= 7 \\times 3 = 21")} square centimetres.`, zh: `面積 ${math("= 7 \\times 3 = 21")} 平方厘米。` },
+    examplePrompt: { en: `An L-shaped figure is formed from a ${math("6")} cm by ${math("4")} cm rectangle with a ${math("3")} cm by ${math("2")} cm rectangle removed from its top-right corner. Find the remaining area.`, zh: `一個 L 形圖形由一個長 ${math("6")} 厘米、闊 ${math("4")} 厘米的長方形，在右上角移去一個長 ${math("3")} 厘米、闊 ${math("2")} 厘米的長方形而成。求餘下面積。` },
+    exampleAnswer: "18 cm^2",
+    exampleExplanation: { en: `Split the composite rectilinear shape by subtracting the missing rectangle: ${math("6\\times4-3\\times2=24-6=18")} square centimetres.`, zh: `把組合直線圖形分拆並減去缺少的長方形：${math("6\\times4-3\\times2=24-6=18")} 平方厘米。` },
+    exampleDiagram: {
+      kind: "plane-figure",
+      points: [
+        { id: "A", x: 0, y: 0, label: "A" },
+        { id: "B", x: 6, y: 0, label: "B" },
+        { id: "C", x: 6, y: 2, label: "C" },
+        { id: "D", x: 3, y: 2, label: "D" },
+        { id: "E", x: 3, y: 4, label: "E" },
+        { id: "F", x: 0, y: 4, label: "F" }
+      ],
+      segments: [
+        { from: "A", to: "B", label: { en: "6 cm", zh: "6 厘米" } },
+        { from: "B", to: "C" },
+        { from: "C", to: "D", label: { en: "3 cm", zh: "3 厘米" } },
+        { from: "D", to: "E", label: { en: "2 cm", zh: "2 厘米" } },
+        { from: "E", to: "F" },
+        { from: "A", to: "F" }
+      ],
+      polygons: [{ vertexIds: ["A", "B", "C", "D", "E", "F"] }]
+    },
     commonCheck: { en: "Use linear units for perimeter and square units for area", zh: "周界用長度單位，面積用平方單位" }
   },
   "p6-percentages": {
-    firstStep: { en: "Convert the percentage to a fraction or decimal first", zh: "先把百分數化成分數或小數" },
+    firstStep: { en: "Identify the original amount and find the given percentage of it", zh: "先找出原來數量，再求題目所給百分數所代表的數量" },
     keyFactPrompt: { en: `What is ${math("25\\%")} of ${math("120")}?`, zh: `${math("120")} 的 ${math("25\\%")} 是多少？` },
     keyFactAnswer: "30",
     keyFactExplanation: { en: `${math("25\\%")} is one quarter, and ${math("120 \\div 4 = 30")}.`, zh: `${math("25\\%")} 是四分之一，而 ${math("120 \\div 4 = 30")}。` },
-    examplePrompt: { en: `Write ${math("0.6")} as a percentage.`, zh: `把 ${math("0.6")} 寫成百分數。` },
-    exampleAnswer: "60%",
-    exampleExplanation: { en: `${math("0.6 = 60\\%")}.`, zh: `${math("0.6 = 60\\%")}。` },
-    commonCheck: { en: "Check whether the question asks for a percent, decimal, or amount", zh: "檢查題目問百分數、小數還是數量" }
+    examplePrompt: { en: `A collection has ${math("60")} cards and increases by ${math("25\\%")} of the original amount. How many cards are there now?`, zh: `一組卡片原有 ${math("60")} 張，現增加原數量的 ${math("25\\%")}。現有多少張卡片？` },
+    exampleAnswer: "75",
+    exampleExplanation: { en: `${math("25\\%")} of ${math("60")} is ${math("15")}; an increase gives ${math("60+15=75")}.`, zh: `${math("60")} 的 ${math("25\\%")} 是 ${math("15")}；增加後有 ${math("60+15=75")} 張。` },
+    commonCheck: { en: "Add the percentage amount for an increase and subtract it for a decrease", zh: "增加時加上百分數所代表的數量，減少時則把它減去" }
   },
   "p6-ratio-proportion": {
-    firstStep: { en: "Find the total number of ratio parts before sharing", zh: "分配前先求比的總份數" },
-    keyFactPrompt: { en: `Share ${math("48")} in the ratio ${math("1:5")}. What is the larger share?`, zh: `把 ${math("48")} 按 ${math("1:5")} 分配。較大的一份是多少？` },
-    keyFactAnswer: "40",
-    keyFactExplanation: { en: `There are ${math("6")} parts; one part is ${math("48 \\div 6 = 8")}; larger share ${math("5 \\times 8 = 40")}.`, zh: `共有 ${math("6")} 份；每份 ${math("48 \\div 6 = 8")}；較大份是 ${math("5 \\times 8 = 40")}。` },
-    examplePrompt: { en: `Multiply both parts of ${math("5:7")} by ${math("2")}. What equivalent ratio do you get?`, zh: `把 ${math("5:7")} 兩項同乘 ${math("2")}。得到哪個等值比？` },
-    exampleAnswer: "10:14",
-    exampleExplanation: { en: `${math("5:7")} becomes ${math("10:14")}.`, zh: `${math("5:7")} 變成 ${math("10:14")}。` },
-    commonCheck: { en: "Apply the same multiplier or divisor to both ratio parts", zh: "比的兩項要同乘或同除同一個數" }
+    firstStep: { en: "For a mean, find total divided by count; for a broken-line graph, read the ordered axes and units", zh: "求平均數時用總和除以數據個數；閱讀折線圖時先看有序坐標軸和單位" },
+    keyFactPrompt: { en: `The three values are ${math("6")}, ${math("8")}, and ${math("10")}. What is their mean?`, zh: `三個數值是 ${math("6")}、${math("8")} 和 ${math("10")}。它們的平均數是多少？` },
+    keyFactAnswer: "8",
+    keyFactExplanation: { en: `Mean ${math("=")} total ${math("\\div")} count ${math("=(6+8+10)\\div3=8")}.`, zh: `平均數 ${math("=")} 總和 ${math("\\div")} 數據個數 ${math("=(6+8+10)\\div3=8")}。` },
+    examplePrompt: { en: `${math("45")} counters are shared fairly among ${math("5")} students. What is the mean number of counters per student?`, zh: `把 ${math("45")} 粒計數珠公平分給 ${math("5")} 名學生。平均每人有多少粒？` },
+    exampleAnswer: "9",
+    exampleExplanation: { en: `The mean is the fair share: total ${math("45")} divided by count ${math("5")}, so ${math("45\\div5=9")}.`, zh: `平均數就是公平分配所得：用總數 ${math("45")} 除以項數 ${math("5")}，得 ${math("45\\div5=9")}。` },
+    commonCheck: { en: "Verify total and count for a mean, and preserve the ordered sequence and axis units on a broken-line graph", zh: "求平均數時核對總和與項數；閱讀折線圖時保留有序時序及坐標軸單位" }
   },
   "p6-speed": {
     firstStep: { en: "Identify distance, time, and speed before choosing the formula", zh: "先辨認路程、時間和速率，再選公式" },
@@ -1701,9 +2052,9 @@ const topicDrills: Record<string, TopicDrill> = {
     keyFactPrompt: { en: `A club buys ${math("4")} packs of ${math("6")} badges and gives away ${math("9")} badges. How many badges remain?`, zh: `學會買了 ${math("4")} 包徽章，每包 ${math("6")} 個，送出 ${math("9")} 個。還剩多少個徽章？` },
     keyFactAnswer: "15",
     keyFactExplanation: { en: `First ${math("4 \\times 6 = 24")}, then ${math("24 - 9 = 15")}.`, zh: `先算 ${math("4 \\times 6 = 24")}，再算 ${math("24 - 9 = 15")}。` },
-    examplePrompt: { en: `A rectangle is ${math("9")} cm by ${math("4")} cm. Find its perimeter.`, zh: `長方形長 ${math("9")} 厘米、闊 ${math("4")} 厘米。求周界。` },
-    exampleAnswer: "26 cm",
-    exampleExplanation: { en: `Perimeter ${math("= 2(9 + 4) = 26")} cm.`, zh: `周界 ${math("= 2(9 + 4) = 26")} 厘米。` },
+    examplePrompt: { en: `A seating plan shows ${math("5")} equal rows with ${math("7")} seats in each row. A note says ${math("8")} extra seats are added, but ${math("6")} seats are unavailable. How many usable seats are there?`, zh: `座位圖顯示有 ${math("5")} 行相同座位，每行 ${math("7")} 個。備註指出另加 ${math("8")} 個座位，但其中 ${math("6")} 個座位不能使用。共有多少個可用座位？` },
+    exampleAnswer: "37",
+    exampleExplanation: { en: `Translate the row diagram into ${math("5\\times7=35")}, then use the note: ${math("35+8-6=37")} usable seats.`, zh: `先把行列圖表示成 ${math("5\\times7=35")}，再運用備註：${math("35+8-6=37")}，所以有 ${math("37")} 個可用座位。` },
     commonCheck: { en: "Check that every step answers the final question, not just an intermediate value", zh: "檢查每一步是否通向最終問題，而不只是中途數值" }
   },
   integers: {
@@ -1791,9 +2142,9 @@ const topicDrills: Record<string, TopicDrill> = {
     keyFactPrompt: { en: `A fair coin is tossed once. What is ${math(String.raw`P(\text{head})`)}?`, zh: `擲一次公平硬幣，${math(String.raw`P(\text{正面})`)} 是多少？` },
     keyFactAnswer: "1/2",
     keyFactExplanation: { en: `There is ${math("1")} head outcome out of ${math("2")} equally likely outcomes.`, zh: `兩個等可能結果中有 ${math("1")} 個是正面。` },
-    examplePrompt: { en: `A die is rolled once. What is ${math(String.raw`P(\text{number greater than 4})`)}?`, zh: `擲一次骰子，${math(String.raw`P(\text{大於 4})`)} 是多少？` },
+    examplePrompt: { en: `A fair six-sided die is rolled once. What is ${math(String.raw`P(\text{number greater than 4})`)}?`, zh: `擲一次公平六面骰子，${math(String.raw`P(\text{擲得大於 4 的點數})`)} 是多少？` },
     exampleAnswer: "1/3",
-    exampleExplanation: { en: `Favourable outcomes are ${math("5,6")}, so ${math("2/6 = 1/3")}.`, zh: `有利結果為 ${math("5,6")}，所以 ${math("2/6 = 1/3")}。` },
+    exampleExplanation: { en: `The favourable results are 5 and 6, so 2 of the 6 equally likely outcomes are favourable: ${math("2/6 = 1/3")}.`, zh: `有利結果是 5 和 6；6 個等可能結果中有 2 個是有利結果，所以 ${math("2/6 = 1/3")}。` },
     commonCheck: { en: "Use favourable outcomes over total equally likely outcomes", zh: "用有利結果數除以等可能總結果數" }
   },
   polynomials: {
@@ -1806,6 +2157,16 @@ const topicDrills: Record<string, TopicDrill> = {
     exampleExplanation: { en: `Multiply ${math("x")} into each term.`, zh: `把 ${math("x")} 分別乘入每一項。` },
     commonCheck: { en: "Check factorization by expanding back", zh: "因式分解後用展開檢查" }
   },
+  "identities-square-patterns": {
+    firstStep: { en: "Match each algebraic term to an area in the square model", zh: "先把每一個代數項配對到正方形模型中的面積" },
+    keyFactPrompt: { en: `Complete the identity: ${math("(a-b)^2 \\equiv a^2-\\square+b^2")}.`, zh: `完成恆等式：${math("(a-b)^2 \\equiv a^2-\\square+b^2")}。` },
+    keyFactAnswer: "2ab",
+    keyFactExplanation: { en: `The two equal rectangles each have area ${math("ab")}, so the middle term is ${math("2ab")}.`, zh: `兩個相等長方形的面積各為 ${math("ab")}，所以中間項是 ${math("2ab")}。` },
+    examplePrompt: { en: `Factorise ${math("a^2-b^2")}.`, zh: `把 ${math("a^2-b^2")} 因式分解。` },
+    exampleAnswer: "(a-b)(a+b)",
+    exampleExplanation: { en: `${math("a^2-b^2 \\equiv (a-b)(a+b)")} is the difference-of-squares identity.`, zh: `${math("a^2-b^2 \\equiv (a-b)(a+b)")} 是平方差恆等式。` },
+    commonCheck: { en: "Expand the factors to verify every term and sign", zh: "把因式重新展開，檢查每一項和正負號" }
+  },
   "quadratic-patterns": {
     firstStep: { en: "Look for second differences, vertex, or axis of symmetry", zh: "先找二階差、頂點或對稱軸" },
     keyFactPrompt: { en: `For ${math("y = x^2 + 2x + 1")}, what is the axis of symmetry?`, zh: `對於 ${math("y = x^2 + 2x + 1")}，對稱軸是甚麼？` },
@@ -1817,13 +2178,16 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Use the sign carefully in vertex form", zh: "使用頂點式時要小心括號內的符號" }
   },
   "p5-fractions-operations": {
-    firstStep: { en: "Check whether denominators match before adding or simplifying", zh: "加減或約簡前先檢查分母是否相同" },
-    keyFactPrompt: { en: `Find ${math("2/5 + 1/5")}.`, zh: `計算 ${math("2/5 + 1/5")}。` },
-    keyFactAnswer: "3/5",
-    keyFactExplanation: { en: `Same denominators: ${math("2/5 + 1/5 = 3/5")}.`, zh: `分母相同：${math("2/5 + 1/5 = 3/5")}。` },
-    examplePrompt: { en: `Simplify ${math("9/12")}.`, zh: `約簡 ${math("9/12")}。` },
-    exampleAnswer: "3/4",
-    exampleExplanation: { en: `Divide numerator and denominator by ${math("3")}: ${math("9/12 = 3/4")}.`, zh: `分子和分母同除以 ${math("3")}：${math("9/12 = 3/4")}。` },
+    firstStep: { en: "Find a common denominator before adding or subtracting unlike denominators", zh: "異分母加減前先找公分母" },
+    keyFactPrompt: { en: `Add three fractions with unlike denominators: ${math("1/2+1/4+1/8")}. Give the answer in simplest fractional form.`, zh: `把三項異分母分數相加：${math("1/2+1/4+1/8")}，並把答案化至最簡分數。` },
+    keyFactAnswer: "7/8",
+    keyFactExplanation: { en: `Use denominator ${math("8")}: ${math("4/8+2/8+1/8=7/8")}.`, zh: `通分至分母 ${math("8")}：${math("4/8+2/8+1/8=7/8")}。` },
+    examplePrompt: {
+      en: `Subtract the fractions with unlike denominators: ${math("5/6-1/4")}. Give the answer in simplest fractional form.`,
+      zh: `計算異分母分數減法 ${math("5/6-1/4")}，並把答案化至最簡分數。`
+    },
+    exampleAnswer: "7/12",
+    exampleExplanation: { en: `${math("5/6=10/12")} and ${math("1/4=3/12")}, so ${math("10/12-3/12=7/12")}; ${math("7/12")} is already in simplest fractional form.`, zh: `${math("5/6=10/12")} 而 ${math("1/4=3/12")}，所以 ${math("10/12-3/12=7/12")}；${math("7/12")} 已是最簡分數。` },
     commonCheck: { en: "Simplify the final fraction when possible", zh: "答案如可約簡，要化成最簡分數" }
   },
   "p5-volume": {
@@ -1837,43 +2201,56 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Multiply length, width, and height instead of adding the edge lengths", zh: "要把長、闊和高相乘，不是把邊長相加" }
   },
   "p5-rates": {
-    firstStep: { en: "Divide the total amount by the number of equal units", zh: "把總量除以相等單位數" },
-    keyFactPrompt: { en: `A pack of ${math("3")} notebooks costs HK$${math("18")}. What is the cost per notebook?`, zh: `${math("3")} 本筆記簿售港幣 ${math("18")} 元，每本多少元？` },
+    firstStep: { en: "Divide the total price by the number of items to find the unit price", zh: "把總價除以件數，求出單價" },
+    keyFactPrompt: { en: "Three notebooks cost HK$18. What is the unit price per notebook?", zh: "3 本筆記簿售港幣 18 元。每本的單價是多少？" },
     keyFactAnswer: "HK$6",
     keyFactExplanation: { en: `${math("18 \\div 3 = 6")}, so each notebook costs HK$6.`, zh: `${math("18 \\div 3 = 6")}，所以每本港幣 6 元。` },
-    examplePrompt: { en: `A cyclist travels ${math("45")} km in ${math("3")} hours. What is the speed?`, zh: `單車手 ${math("3")} 小時行 ${math("45")} 公里，速率是多少？` },
-    exampleAnswer: "15 km/h",
-    exampleExplanation: { en: `Speed ${math("= 45 \\div 3 = 15")} km/h.`, zh: `速率 ${math("= 45 \\div 3 = 15")} 公里每小時。` },
-    commonCheck: { en: "Keep the rate unit attached to the answer", zh: "答案要保留率的單位" }
+    examplePrompt: { en: "Eight juice boxes cost HK$48. What is the unit price per box?", zh: "8 盒果汁售港幣 48 元。每盒的單價是多少？" },
+    exampleAnswer: "HK$6",
+    exampleExplanation: { en: `${math("48 \\div 8=6")}, so each box costs HK$6.`, zh: `${math("48 \\div 8=6")}，所以每盒售港幣 6 元。` },
+    guidedDifficulty: "Low",
+    commonCheck: { en: "State the price for one item, not the total pack price", zh: "答案要寫一件的單價，不是整包總價" }
   },
   "p5-charts-averages": {
-    firstStep: { en: "Read the data values carefully before adding", zh: "相加前先仔細讀取數據" },
-    keyFactPrompt: { en: `Find the mean of ${math("5, 9, 10")}.`, zh: `求 ${math("5, 9, 10")} 的平均數。` },
-    keyFactAnswer: "8",
-    keyFactExplanation: { en: `${math("(5 + 9 + 10) \\div 3 = 8")}.`, zh: `${math("(5 + 9 + 10) \\div 3 = 8")}。` },
-    examplePrompt: { en: `A chart shows ${math("15")} cats and ${math("9")} dogs. How many animals are shown?`, zh: `圖表顯示 ${math("15")} 隻貓和 ${math("9")} 隻狗，共顯示多少隻動物？` },
-    exampleAnswer: "24",
-    exampleExplanation: { en: `${math("15 + 9 = 24")}.`, zh: `${math("15 + 9 = 24")}。` },
-    commonCheck: { en: "Check whether the question asks for a total or an average", zh: "檢查題目要求總數還是平均數" }
+    firstStep: { en: "Use the legend to identify both series before reading the paired data values", zh: "先用圖例辨認兩組數據，再讀取相應數值" },
+    keyFactPrompt: { en: `A compound bar chart shows ${math("9")} votes for Class A and ${math("6")} for Class B. How many votes are there altogether?`, zh: `複合棒形圖顯示甲班有 ${math("9")} 票、乙班有 ${math("6")} 票。合共有多少票？` },
+    keyFactAnswer: "15",
+    keyFactExplanation: { en: `${math("9+6=15")}.`, zh: `${math("9+6=15")}。` },
+    examplePrompt: { en: `In one category of a compound bar chart, the two series are ${math("12")} and ${math("8")}. Find their difference.`, zh: `複合棒形圖某一類別的兩組數值是 ${math("12")} 和 ${math("8")}。求兩者之差。` },
+    exampleAnswer: "4",
+    exampleExplanation: { en: `${math("12-8=4")}.`, zh: `${math("12-8=4")}。` },
+    commonCheck: { en: "Match each bar to the correct series and category", zh: "把每一支棒配對到正確的數據組和類別" }
   },
   "trigonometry-basics": {
     firstStep: { en: "Label opposite, adjacent, and hypotenuse", zh: "先標示對邊、鄰邊和斜邊" },
     keyFactPrompt: { en: `If adjacent ${math("= 4")} and hypotenuse ${math("= 5")}, what is ${math(String.raw`\cos\theta`)}?`, zh: `若鄰邊 ${math("= 4")}、斜邊 ${math("= 5")}，${math(String.raw`\cos\theta`)} 是多少？` },
     keyFactAnswer: "4/5",
-    keyFactExplanation: { en: `${math(String.raw`\cos\theta = \frac{\text{adjacent}}{\text{hypotenuse}}`)}`, zh: `${math(String.raw`\cos\theta = \frac{\text{鄰邊}}{\text{斜邊}}`)}。` },
+    keyFactExplanation: { en: `${math(String.raw`\cos\theta = \frac{\text{adjacent}}{\text{hypotenuse}}`)}.`, zh: `${math(String.raw`\cos\theta = \frac{\text{鄰邊}}{\text{斜邊}}`)}。` },
     examplePrompt: { en: `If opposite ${math("= 6")} and adjacent ${math("= 8")}, what is ${math(String.raw`\tan\theta`)}?`, zh: `若對邊 ${math("= 6")}、鄰邊 ${math("= 8")}，${math(String.raw`\tan\theta`)} 是多少？` },
     exampleAnswer: "3/4",
     exampleExplanation: { en: `${math(String.raw`\tan\theta = 6/8 = 3/4`)}.`, zh: `${math(String.raw`\tan\theta = 6/8 = 3/4`)}。` },
+    guidedDifficulty: "Medium",
     commonCheck: { en: "Choose SOH, CAH, or TOA after labelling sides", zh: "標示邊後才選 SOH、CAH 或 TOA" }
   },
+  "arc-length-sector-area": {
+    firstStep: { en: "Write the angle at the centre as a fraction of a full circle", zh: "先把圓心角寫成整個圓的分數" },
+    keyFactPrompt: { en: `A sector has radius ${math("9")} cm and angle at the centre ${math("80^\\circ")}. Find its exact arc length.`, zh: `一個扇形的半徑是 ${math("9")} 厘米，圓心角是 ${math("80^\\circ")}。求精確弧長。` },
+    keyFactAnswer: "4π cm",
+    keyFactExplanation: { en: `Arc length ${math("=(80/360)(2\\pi)(9)=4\\pi")} cm, approximately ${math("12.57")} cm.`, zh: `弧長 ${math("=(80/360)(2\\pi)(9)=4\\pi")} 厘米，約為 ${math("12.57")} 厘米。` },
+    examplePrompt: { en: `A sector has radius ${math("6")} cm and angle at the centre ${math("120^\\circ")}. Find its exact area.`, zh: `一個扇形的半徑是 ${math("6")} 厘米，圓心角是 ${math("120^\\circ")}。求精確面積。` },
+    exampleAnswer: "12π cm^2",
+    exampleExplanation: { en: `Sector area ${math("=(120/360)\\pi(6^2)=12\\pi")} cm², approximately ${math("37.70")} cm².`, zh: `扇形面積 ${math("=(120/360)\\pi(6^2)=12\\pi")} 平方厘米，約為 ${math("37.70")} 平方厘米。` },
+    commonCheck: { en: "Use length units for an arc and square units for a sector area", zh: "弧長使用長度單位，扇形面積使用平方單位" }
+  },
   circles: {
-    firstStep: { en: "Identify the chord, tangent, arc, or centre angle being used", zh: "先辨認使用的是弦、切線、弧還是圓心角" },
+    firstStep: { en: "Identify the chord, tangent, arc, or angle at the centre being used", zh: "先辨認使用的是弦、切線、弧還是圓心角" },
     keyFactPrompt: { en: `A tangent meets a radius at the point of contact. What angle is formed?`, zh: `切線與接觸點的半徑相交，形成甚麼角？` },
     keyFactAnswer: "90°",
     keyFactExplanation: { en: `A tangent is perpendicular to the radius at the point of contact.`, zh: `切線垂直於接觸點的半徑。` },
-    examplePrompt: { en: `An angle at the circumference is ${math("35^\\circ")}. What is the centre angle on the same arc?`, zh: `同弧圓周角是 ${math("35^\\circ")}。圓心角是多少？` },
+    examplePrompt: { en: `An angle at the circumference standing on an arc is ${math("35^\\circ")}. What is the angle at the centre standing on the same arc?`, zh: `一弧所對的圓周角是 ${math("35^\\circ")}。該弧所對的圓心角是多少？` },
     exampleAnswer: "70°",
-    exampleExplanation: { en: `The centre angle is twice the circumference angle.`, zh: `圓心角是同弧圓周角的兩倍。` },
+    exampleExplanation: { en: `The angle at the centre is twice the angle at the circumference standing on the same arc.`, zh: `同一弧所對的圓心角是圓周角的兩倍。` },
+    guidedDifficulty: "Medium",
     commonCheck: { en: "Mark radii and equal lengths on the diagram", zh: "在圖中標示半徑和相等長度" }
   },
   functions: {
@@ -1897,14 +2274,15 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Keep x-differences and y-differences in matching order", zh: "x 差和 y 差要保持同一方向" }
   },
   "more-algebra": {
-    firstStep: { en: "State restrictions and index laws before simplifying", zh: "化簡前先寫出限制和指數律" },
-    keyFactPrompt: { en: `Simplify ${math("a^2 \\times a^5")}.`, zh: `化簡 ${math("a^2 \\times a^5")}。` },
-    keyFactAnswer: "a^7",
-    keyFactExplanation: { en: `Add indices when multiplying same bases.`, zh: `同底相乘時指數相加。` },
-    examplePrompt: { en: `Simplify ${math("b^6 / b^2")}.`, zh: `化簡 ${math("b^6 / b^2")}。` },
-    exampleAnswer: "b^4",
-    exampleExplanation: { en: `Subtract indices when dividing same bases.`, zh: `同底相除時指數相減。` },
-    commonCheck: { en: "Check denominators are not zero", zh: "檢查分母不可為零" }
+    firstStep: { en: "State denominator restrictions, then factor before cancelling a rational expression", zh: "先寫出分母限制，再把有理式因式分解後約簡" },
+    keyFactPrompt: { en: `Given ${math("a \\ne 2")}, simplify ${math(String.raw`\frac{a^2-4}{a-2}`)}.`, zh: `已知 ${math("a \\ne 2")}，化簡 ${math(String.raw`\frac{a^2-4}{a-2}`)}。` },
+    keyFactAnswer: "a + 2",
+    keyFactExplanation: { en: `${math("a^2-4=(a-2)(a+2)")}. Since ${math("a \\ne 2")}, cancel ${math("a-2")} to obtain ${math("a+2")}.`, zh: `${math("a^2-4=(a-2)(a+2)")}。因為 ${math("a \\ne 2")}，可約去 ${math("a-2")}，得 ${math("a+2")}。` },
+    examplePrompt: { en: `Given ${math("b \\ne 0")}, simplify ${math(String.raw`\frac{b^2+3b}{b}`)}.`, zh: `已知 ${math("b \\ne 0")}，化簡 ${math(String.raw`\frac{b^2+3b}{b}`)}。` },
+    exampleAnswer: "b + 3",
+    exampleExplanation: { en: `Factor the numerator: ${math("b^2+3b=b(b+3)")}. Because ${math("b \\ne 0")}, cancelling the nonzero factor ${math("b")} gives ${math("b+3")}.`, zh: `先把分子因式分解：${math("b^2+3b=b(b+3)")}。因為 ${math("b \\ne 0")}，可約去非零因子 ${math("b")}，得 ${math("b+3")}。` },
+    guidedDifficulty: "Medium",
+    commonCheck: { en: "Check every original denominator restriction remains stated after cancellation", zh: "約簡後仍要列出原式分母的所有限制" }
   },
   "data-handling": {
     firstStep: { en: "Identify data type, distribution shape, and possible bias", zh: "先辨認數據類型、分佈形狀和可能偏差" },
@@ -1917,14 +2295,15 @@ const topicDrills: Record<string, TopicDrill> = {
     commonCheck: { en: "Check whether the graph scale is misleading", zh: "檢查圖表比例是否誤導" }
   },
   "advanced-functions": {
-    firstStep: { en: "Compare model type: polynomial, exponential, or logarithmic", zh: "先比較模型類型：多項式、指數或對數" },
-    keyFactPrompt: { en: `If ${math("f(x)=2^x")}, find ${math("f(3)")}.`, zh: `若 ${math("f(x)=2^x")}，求 ${math("f(3)")}。` },
-    keyFactAnswer: "8",
-    keyFactExplanation: { en: `${math("2^3=8")}.`, zh: `${math("2^3=8")}。` },
-    examplePrompt: { en: `For ${math("f(x)=x^3")}, what is ${math("f(-2)")}?`, zh: `對 ${math("f(x)=x^3")}，${math("f(-2)")} 是多少？` },
-    exampleAnswer: "-8",
-    exampleExplanation: { en: `${math("(-2)^3=-8")}.`, zh: `${math("(-2)^3=-8")}。` },
-    commonCheck: { en: "Check whether growth is additive or multiplicative", zh: "檢查增長是加法式還是乘法式" }
+    firstStep: { en: "Identify the logarithm base and require its argument to be positive", zh: "先辨認對數底數，並確保真數為正數" },
+    keyFactPrompt: { en: `Evaluate ${math(String.raw`\log_3 81`)}.`, zh: `計算 ${math(String.raw`\log_3 81`)}。` },
+    keyFactAnswer: "4",
+    keyFactExplanation: { en: `${math(String.raw`\log_3 81=4`)} because ${math("3^4=81")}.`, zh: `${math(String.raw`\log_3 81=4`)}，因為 ${math("3^4=81")}。` },
+    examplePrompt: { en: `Find the domain of ${math(String.raw`g(x)=\log_5(x+2)`)}.`, zh: `求 ${math(String.raw`g(x)=\log_5(x+2)`)} 的定義域。` },
+    exampleAnswer: "x > -2",
+    exampleExplanation: { en: `The logarithm argument must be positive: ${math("x+2>0")}, so ${math("x>-2")}.`, zh: `對數的真數必須為正數：${math("x+2>0")}，所以 ${math("x>-2")}。` },
+    guidedDifficulty: "Medium",
+    commonCheck: { en: "Check that the logarithm base is positive and not 1, and that the argument is positive", zh: "檢查對數底數為正且不等於 1，並確保真數為正數" }
   },
   "trigonometry-s5": {
     firstStep: { en: "Identify amplitude, period, phase, or identity before solving", zh: "求解前先辨認振幅、週期、相位或恆等式" },
@@ -1934,17 +2313,19 @@ const topicDrills: Record<string, TopicDrill> = {
     examplePrompt: { en: `What is the amplitude of ${math(String.raw`3\sin x`)}?`, zh: `${math(String.raw`3\sin x`)} 的振幅是多少？` },
     exampleAnswer: "3",
     exampleExplanation: { en: `Amplitude is the absolute value of the multiplier.`, zh: `振幅是乘數的絕對值。` },
+    guidedDifficulty: "Medium",
     commonCheck: { en: "Use the required interval when listing solutions", zh: "列解時必須使用題目指定區間" }
   },
   "probability-s5": {
-    firstStep: { en: "Decide whether the events are independent, dependent, or conditional", zh: "先判斷事件是獨立、相關還是條件概率" },
-    keyFactPrompt: { en: `How many ways can ${math("3")} different books be arranged in a row?`, zh: `${math("3")} 本不同書排成一列有多少方法？` },
-    keyFactAnswer: "6",
-    keyFactExplanation: { en: `${math("3! = 6")}.`, zh: `${math("3! = 6")}。` },
-    examplePrompt: { en: `A coin is tossed twice. What is ${math(String.raw`P(\text{two heads})`)}?`, zh: `擲硬幣兩次，${math(String.raw`P(\text{兩次正面})`)} 是多少？` },
-    exampleAnswer: "1/4",
-    exampleExplanation: { en: `Independent probabilities multiply: ${math("1/2 \\times 1/2 = 1/4")}.`, zh: `獨立概率相乘：${math("1/2 \\times 1/2 = 1/4")}。` },
-    commonCheck: { en: "Draw a tree diagram when events happen in stages", zh: "分階段事件可先畫樹形圖" }
+    firstStep: { en: "Identify equally likely individual objects and the conditioning event, then update the sample space after each draw without replacement", zh: "先辨認等可能的個別物件和條件事件，再於每次不放回抽取後更新樣本空間" },
+    keyFactPrompt: { en: `A bag has ${math("4")} green balls and ${math("1")} yellow ball, with each physical ball equally likely to be drawn. Two balls are drawn without replacement. Given that the first is green, find ${math(String.raw`P(\text{second is yellow})`)}.`, zh: `袋中有 ${math("4")} 個綠球和 ${math("1")} 個黃球，每個實體球被抽中的機會相等。不放回地抽取兩個球。已知第一個是綠球，求 ${math(String.raw`P(\text{第二個是黃球})`)}。` },
+    keyFactAnswer: "1/4",
+    keyFactExplanation: { en: `After one green ball is removed, the ${math("4")} remaining individual balls are equally likely and exactly ${math("1")} favourable ball is yellow, so the conditional probability is ${math("1/4")}.`, zh: `抽走一個綠球後，餘下 ${math("4")} 個實體球是等可能結果，當中恰有 ${math("1")} 個有利結果是黃球，所以條件概率是 ${math("1/4")}。` },
+    examplePrompt: { en: `A bag has ${math("3")} red balls and ${math("2")} blue balls, with each physical ball equally likely to be drawn at each stage. Two balls are drawn without replacement. Find ${math(String.raw`P(\text{both are red})`)}.`, zh: `袋中有 ${math("3")} 個紅球和 ${math("2")} 個藍球，每次抽取時每個實體球被抽中的機會相等。不放回地抽取兩個球。求 ${math(String.raw`P(\text{兩個都是紅球})`)}。` },
+    exampleAnswer: "3/10",
+    exampleExplanation: { en: `Count equally likely individual-ball branches, not the two colour labels. The second probability is conditional on the first red draw: ${math("(3/5)(2/4)=6/20=3/10")}.`, zh: `應按等可能的個別球分支計算，而不是把兩種顏色各當一個等可能結果。第二次抽到紅球的概率以第一次已抽到紅球為條件：${math("(3/5)(2/4)=6/20=3/10")}。` },
+    guidedDifficulty: "Medium",
+    commonCheck: { en: "Confirm equally likely individual outcomes, then update both the favourable count and total after a draw without replacement", zh: "先確認等可能的個別結果，再於不放回抽取後更新有利結果數目和總數" }
   },
   "differentiation-intro": {
     firstStep: { en: "Interpret derivative as gradient or rate of change", zh: "先把導數理解為斜率或變化率" },
@@ -1954,61 +2335,382 @@ const topicDrills: Record<string, TopicDrill> = {
     examplePrompt: { en: `If ${math("y=5x")}, what is ${math("dy/dx")}?`, zh: `若 ${math("y=5x")}，${math("dy/dx")} 是多少？` },
     exampleAnswer: "5",
     exampleExplanation: { en: `A straight line ${math("y=5x")} has constant gradient ${math("5")}.`, zh: `直線 ${math("y=5x")} 的斜率固定為 ${math("5")}。` },
-    commonCheck: { en: "Reduce the power by one after multiplying by the old power", zh: "乘以前方舊指數後，指數要減一" }
+    guidedDifficulty: "Low",
+    commonCheck: { en: "Reduce the power by one after multiplying by the original power", zh: "檢查是否先乘以原來的指數，再把指數減 1" }
   },
   calculus: {
-    firstStep: { en: "Choose derivative, integral, optimization, or area based on the task", zh: "按題目要求選擇導數、積分、優化或面積" },
-    keyFactPrompt: { en: `Integrate ${math("2x")} with respect to ${math("x")}.`, zh: `對 ${math("2x")} 關於 ${math("x")} 積分。` },
-    keyFactAnswer: "x^2 + C",
-    keyFactExplanation: { en: `An antiderivative of ${math("2x")} is ${math("x^2")}; add ${math("C")}.`, zh: `${math("2x")} 的一個反導數是 ${math("x^2")}；要加 ${math("C")}。` },
+    firstStep: { en: "Read the sign of f'(x) on each relevant interval before classifying the graph's behaviour", zh: "先讀取各相關區間內 f'(x) 的正負，再判斷圖像的走勢" },
+    keyFactPrompt: { en: `If ${math("f'(x)<0")} for ${math("2<x<5")}, how does ${math("f")} behave on this interval?`, zh: `若在 ${math("2<x<5")} 內 ${math("f'(x)<0")}，函數 ${math("f")} 在這個區間如何變化？` },
+    keyFactAnswer: "decreasing",
+    keyFactExplanation: { en: `Because ${math("f'(x)<0")} throughout the interval, ${math("f")} is decreasing there.`, zh: `由於整個區間內 ${math("f'(x)<0")}，所以 ${math("f")} 在該區間遞減。` },
     examplePrompt: { en: `Differentiate ${math("4x^2")}.`, zh: `求 ${math("4x^2")} 的導數。` },
     exampleAnswer: "8x",
     exampleExplanation: { en: `Use the power rule: ${math("4 \\times 2x = 8x")}.`, zh: `用冪法則：${math("4 \\times 2x = 8x")}。` },
-    commonCheck: { en: "Include the constant of integration for indefinite integrals", zh: "不定積分要寫積分常數" }
+    guidedDifficulty: "Low",
+    commonCheck: { en: "Check the sign of f'(x) on both sides of a stationary point before classifying it", zh: "為駐點分類前，檢查駐點兩側 f'(x) 的正負" }
   },
   "statistics-s6": {
-    firstStep: { en: "Standardize with a z-score before using the normal curve", zh: "使用常態曲線前先轉換成 z 分數" },
-    keyFactPrompt: { en: `Find the ${math("z")}-score for ${math("x=65")}, mean ${math("50")}, standard deviation ${math("5")}.`, zh: `平均數 ${math("50")}、標準差 ${math("5")} 時，${math("x=65")} 的 ${math("z")} 分數是多少？` },
+    firstStep: { en: "Confirm that the standard deviation is greater than 0, then convert the observed value to a standard score (z-score) for the stated normal distribution", zh: "先確認標準差大於 0，再把觀察值轉換成該正態分佈的標準分（z 分數）" },
+    keyFactPrompt: { en: `Find the standard score (z-score) for ${math("x=65")}, mean ${math("50")}, and standard deviation ${math("5")}.`, zh: `平均數為 ${math("50")}、標準差為 ${math("5")} 時，求 ${math("x=65")} 的標準分（z 分數）。` },
     keyFactAnswer: "3",
-    keyFactExplanation: { en: `${math(String.raw`z=(65-50)/5=3`)}.`, zh: `${math(String.raw`z=(65-50)/5=3`)}。` },
-    examplePrompt: { en: `If ${math("z=0")}, where is the value relative to the mean?`, zh: `若 ${math("z=0")}，該數值相對於平均數在哪裡？` },
+    keyFactExplanation: { en: `The standard deviation is ${math("5>0")}, so ${math(String.raw`z=(65-50)/5=3`)}.`, zh: `標準差 ${math("5>0")}，所以 ${math(String.raw`z=(65-50)/5=3`)}。` },
+    examplePrompt: { en: `In a normal distribution with standard deviation greater than ${math("0")}, if the standard score is ${math("z=0")}, where is the value relative to the mean?`, zh: `在標準差大於 ${math("0")} 的正態分佈中，若標準分為 ${math("z=0")}，該數值相對於平均數在哪裡？` },
     exampleAnswer: "at the mean",
     exampleExplanation: { en: `${math("z=0")} means the value equals the mean.`, zh: `${math("z=0")} 表示數值等於平均數。` },
-    commonCheck: { en: "Subtract the mean before dividing by the standard deviation", zh: "先減平均數，再除以標準差" }
+    guidedDifficulty: "Low",
+    commonCheck: { en: "Check that the standard deviation is greater than 0, then subtract the mean from the observed value and divide by the standard deviation", zh: "先檢查標準差大於 0，再以觀察值減平均數，然後除以標準差" }
   },
   "exam-revision": {
     firstStep: { en: "Sort questions by marks, confidence, and time available", zh: "先按分數、信心和可用時間排序題目" },
-    keyFactPrompt: { en: `A paper has ${math("90")} marks in ${math("120")} minutes. Approximate minutes per mark?`, zh: `一份試卷 ${math("90")} 分，限時 ${math("120")} 分鐘。每分約多少分鐘？` },
-    keyFactAnswer: "1.33",
-    keyFactExplanation: { en: `${math("120/90 \\approx 1.33")} minutes per mark.`, zh: `${math("120/90 \\approx 1.33")} 分鐘每分。` },
-    examplePrompt: { en: `A ${math("6")}-mark part uses ${math("9")} minutes. How many minutes per mark?`, zh: `${math("6")} 分分題用了 ${math("9")} 分鐘。每分多少分鐘？` },
-    exampleAnswer: "1.5",
-    exampleExplanation: { en: `${math("9/6=1.5")}.`, zh: `${math("9/6=1.5")}。` },
+    keyFactPrompt: { en: `A paper has ${math("90")} marks in ${math("120")} minutes. Find the time per mark in minutes per mark, to 2 decimal places.`, zh: `一份試卷共 ${math("90")} 分，限時 ${math("120")} 分鐘。求平均每分所用時間，以分鐘／分作單位，答案取至小數點後兩位。` },
+    keyFactAnswer: "1.33 minutes per mark",
+    keyFactExplanation: { en: `${math("120/90=1.333\\ldots")}, so the time is ${math("1.33")} minutes per mark to 2 decimal places.`, zh: `${math("120/90=1.333\\ldots")}，所以取至小數點後兩位是 ${math("1.33")} 分鐘／分。` },
+    examplePrompt: { en: `A ${math("6")}-mark part takes ${math("9")} minutes. Find the time per mark in minutes per mark, to 2 decimal places.`, zh: `一個 6 分的分題用了 ${math("9")} 分鐘。求平均每分所用時間，以分鐘／分作單位，答案取至小數點後兩位。` },
+    exampleAnswer: "1.50 minutes per mark",
+    exampleExplanation: { en: `${math("9/6=1.5")}, which is ${math("1.50")} minutes per mark to 2 decimal places.`, zh: `${math("9/6=1.5")}，取至小數點後兩位是 ${math("1.50")} 分鐘／分。` },
+    guidedDifficulty: "Low",
     commonCheck: { en: "Leave time for checking high-mark answers", zh: "預留時間檢查高分題" }
   },
   "mixed-problem-solving": {
-    firstStep: { en: "List known facts, unknowns, constraints, and useful representations", zh: "先列出已知、未知、限制和可用表示方式" },
-    keyFactPrompt: { en: "What should you identify first in an unfamiliar multi-step problem?", zh: "遇到陌生多步題時，最先應辨認甚麼？" },
-    keyFactAnswer: "known facts and target",
-    keyFactExplanation: { en: "A clear target prevents random formula use.", zh: "清楚目標可避免亂套公式。" },
-    examplePrompt: { en: "If a question includes a diagram and algebra, what should connect them?", zh: "若題目同時有圖形和代數，應用甚麼連接兩者？" },
-    exampleAnswer: "shared quantities",
-    exampleExplanation: { en: "Shared lengths, coordinates, angles, or variables link representations.", zh: "共同的長度、坐標、角或變量可連接不同表示方式。" },
-    commonCheck: { en: "Check whether the final answer is reasonable in context", zh: "檢查最終答案在情境中是否合理" }
+    firstStep: { en: "Link the quantities in the graph or table to the variables in the equation before calculating", zh: "計算前先把圖像或表格中的數量連繫到方程的變量" },
+    keyFactPrompt: { en: `A route diagram labels a distance of ${math("36")} km, and a table gives a travel time of ${math("1.5")} h. Use ${math("d=vt")} to find the speed.`, zh: `路線圖標示路程為 ${math("36")} 公里，表格顯示行程時間為 ${math("1.5")} 小時。用 ${math("d=vt")} 求速率。` },
+    keyFactAnswer: "24 km/h",
+    keyFactExplanation: { en: `Match ${math("d=36")} and ${math("t=1.5")} across the two representations, then ${math("v=d/t=36/1.5=24")} km/h.`, zh: `把兩種表示方式中的 ${math("d=36")} 和 ${math("t=1.5")} 配對，再算 ${math("v=d/t=36/1.5=24")} 公里每小時。` },
+    examplePrompt: { en: `A distance-time graph marks ${math("18")} km at ${math("1.5")} h. A table says the same speed continues until the total time is ${math("2.5")} h. Use ${math("d=vt")} to find the total distance.`, zh: `距離－時間圖顯示 ${math("1.5")} 小時時路程為 ${math("18")} 公里；表格指出其後保持相同速率，總時間為 ${math("2.5")} 小時。用 ${math("d=vt")} 求總路程。` },
+    exampleAnswer: "30 km",
+    exampleExplanation: { en: `The graph gives ${math("v=18/1.5=12")} km/h. Connect that speed to the table's total time: ${math("d=vt=12(2.5)=30")} km.`, zh: `由圖像得 ${math("v=18/1.5=12")} 公里每小時，再把該速率連繫到表格的總時間：${math("d=vt=12(2.5)=30")} 公里。` },
+    guidedDifficulty: "Medium",
+    commonCheck: { en: "Check that graph, table, and equation use the same quantities and compatible units", zh: "檢查圖像、表格和方程使用相同數量及相容單位" }
   }
 };
 
-const firstStepDistractors: NonNullable<Question["options"]> = [
-  { en: "Guess from appearance only", zh: "只憑外觀猜測" },
-  { en: "Use the longest formula first", zh: "先使用最長公式" },
-  { en: "Ignore labels and units", zh: "忽略標籤和單位" }
-];
+type DistractorSet = [Question["prompt"], Question["prompt"], Question["prompt"]];
 
-const commonCheckDistractors: NonNullable<Question["options"]> = [
-  { en: "Skip the diagram or table", zh: "跳過圖形或表格" },
-  { en: "Round before every step", zh: "每一步都先四捨五入" },
-  { en: "Change notation without checking meaning", zh: "未檢查意思就改變記號" }
-];
+function distractorSet(
+  en: [string, string, string],
+  zh: [string, string, string]
+): DistractorSet {
+  return en.map((text, index) => ({ en: text, zh: zh[index] })) as DistractorSet;
+}
+
+const firstStepDistractorsByTopic: Record<string, DistractorSet> = {
+  integers: distractorSet(
+    ["Add the absolute values and attach the sign seen most often", "Treat subtracting a negative as another move to the left", "Choose the sign before comparing the directed movement from zero"],
+    ["把絕對值相加，再套上出現次數最多的符號", "把減去負數當作再次向左移", "未比較從零開始的有向移動，便先決定正負號"]
+  ),
+  "algebra-basics": distractorSet(
+    ["Add the coefficients of terms even when their variable parts differ", "Remove every variable symbol and calculate only the visible numbers", "Multiply coefficients whenever two algebraic terms are joined by a plus sign"],
+    ["即使代數項的變量部分不同，也把係數相加", "刪去所有變量符號，只計算可見數字", "兩個代數項以加號連接時便把係數相乘"]
+  ),
+  coordinates: distractorSet(
+    ["Read the vertical coordinate before the horizontal coordinate", "Decide the quadrant from the signs without checking which coordinate is x", "Measure the point's drawn distance from the page edge instead of using the axes"],
+    ["先讀縱坐標，再讀橫坐標", "未辨認哪個是 x 坐標，便只按正負號判斷象限", "量度點與頁面邊緣的圖上距離，而不用坐標軸讀數"]
+  ),
+  "linear-equations": distractorSet(
+    ["Divide by the coefficient before undoing an added constant", "Move a term across the equals sign without applying an inverse operation", "Change only the side containing the variable and leave the other side unchanged"],
+    ["未消去所加常數，便先除以係數", "把一項移過等號，但不作逆運算", "只改變含變量的一邊，另一邊保持不變"]
+  ),
+  "quadratic-patterns": distractorSet(
+    ["Read the y-intercept as the vertex of every parabola", "Use the two visible roots as the axis equation without finding their midpoint", "Assume the coefficient of x is the x-coordinate of the vertex"],
+    ["把 y 軸截距當作每條拋物線的頂點", "未求中點，便把兩個可見根當作對稱軸方程", "假設 x 項的係數就是頂點的 x 坐標"]
+  ),
+  "trigonometry-basics": distractorSet(
+    ["Choose sine, cosine, or tangent from whichever two numbers look largest", "Call the longest drawn segment the hypotenuse without locating the right angle", "Use the side opposite a different angle from the one named in the question"],
+    ["只按看來最大的兩個數選正弦、餘弦或正切", "未找出直角，便把圖上畫得最長的線段稱為斜邊", "使用相對於另一個角的對邊，而不是題目所指角"]
+  ),
+  functions: distractorSet(
+    ["Swap the input and output before applying the function rule", "Use the y-intercept as the output for every input", "Combine the input with the function name as if they were like terms"],
+    ["套用函數規則前先把輸入和輸出對調", "把 y 軸截距當作每個輸入的輸出", "把輸入與函數名稱當作同類項合併"]
+  ),
+  "coordinate-geometry": distractorSet(
+    ["Subtract x-coordinates in one order and y-coordinates in the opposite order", "Average the coordinate differences to obtain the gradient", "Read the drawn steepness without using rise divided by run"],
+    ["x 坐標按一個次序相減，y 坐標卻按相反次序相減", "把坐標差取平均當作斜率", "不計算升幅除以橫距，只按圖上斜度讀答案"]
+  ),
+  "probability-s5": distractorSet(
+    ["Count the colour labels as equally likely outcomes even when their ball counts differ", "Keep the original denominator after the first ball is removed", "Multiply two unconditional first-draw probabilities for a without-replacement event"],
+    ["即使各顏色的球數不同，也把顏色標籤當作等可能結果", "抽走第一個球後仍保留原來分母", "處理不放回事例時，把兩個無條件的首次抽取概率相乘"]
+  ),
+  "differentiation-intro": distractorSet(
+    ["Reduce the exponent before multiplying by the original exponent", "Subtract one from the coefficient instead of the power", "Carry an additive constant into the derivative unchanged"],
+    ["未乘原來指數，便先把指數減一", "把係數減一，而不是把次方減一", "把加法常數原封不動寫進導數"]
+  ),
+  calculus: distractorSet(
+    ["Classify a stationary point from f'(x)=0 without checking either side", "Treat the function value as though it were the tangent gradient", "Decide that the graph is increasing whenever x is positive"],
+    ["只因 f'(x)=0 便為駐點分類，不檢查兩側", "把函數值當作切線斜率", "只要 x 為正便判定圖像上升"]
+  ),
+  "statistics-s6": distractorSet(
+    ["Divide x by the standard deviation without subtracting the mean", "Use the variance in place of the stated standard deviation", "Continue with the z-score formula even when the standard deviation is zero"],
+    ["未減去平均數，便把 x 除以標準差", "以方差代替題目所給的標準差", "即使標準差是零，仍繼續使用標準分公式"]
+  ),
+  angles: distractorSet(
+    ["Use 360 degrees as the total for angles on one straight line", "Assume two lines are parallel because they look parallel in the sketch", "Equate adjacent angles as though they were vertically opposite"],
+    ["把直線上鄰角的總和當作 360 度", "只因草圖看來平行便假設兩線平行", "把鄰角當作對頂角而判定相等"]
+  ),
+  ratios: distractorSet(
+    ["Add the same number to both ratio terms to make an equivalent ratio", "Compare only the first term and leave the second term unscaled", "Cross-multiply before matching which quantities correspond"],
+    ["在比的兩項加上同一個數以製作等值比", "只比較第一項，第二項不按同一倍數縮放", "未配對相應數量，便先作交叉相乘"]
+  ),
+  "statistics-s1": distractorSet(
+    ["Calculate a mean before deciding whether the data are numerical", "Order category names alphabetically and treat their positions as values", "Infer the whole distribution from one unusually high observation"],
+    ["未判斷數據是否屬數值，便先計算平均數", "按字母次序排列類別名稱，並把位置當作數值", "只憑一個特別高的觀察值推斷整個分佈"]
+  ),
+  transformations: distractorSet(
+    ["Reflect the figure whenever a translation vector contains a negative component", "Rotate every figure about the origin even when another centre is stated", "Transform the image coordinates again instead of starting from the original figure"],
+    ["平移向量有負分量時便把圖形反射", "即使題目指定另一中心，仍一律繞原點旋轉", "不由原圖開始，而再次變換像的坐標"]
+  ),
+  "probability-s2": distractorSet(
+    ["Treat named categories as equally likely without counting the individual outcomes", "Use one short experimental run as the exact theoretical probability", "Include outcomes that the stated sample space cannot produce"],
+    ["不數個別結果，便把各個具名類別當作等可能", "把一次短實驗所得頻率當作精確理論概率", "把題目樣本空間不可能出現的結果也包括在內"]
+  ),
+  polynomials: distractorSet(
+    ["Combine terms whose variables have different powers", "Add exponents when polynomial terms are added", "Factor only the constant term and leave the common variable factor outside the search"],
+    ["把變量次方不同的項合併", "多項式各項相加時把指數相加", "只分解常數項，不尋找共同變量因子"]
+  ),
+  "identities-square-patterns": distractorSet(
+    ["Expand a squared sum as the sum of two squares with no middle term", "Treat an equality verified at one chosen value as an identity", "Use a positive middle term when expanding a squared difference"],
+    ["把和的平方展開成兩個平方之和，漏去中間項", "只代入一個選定數值相等，便把等式當作恆等式", "展開差的平方時使用正的中間項"]
+  ),
+  "arc-length-sector-area": distractorSet(
+    ["Use the angle at the centre over 180 as the fraction of a full circle", "Apply the circumference formula when the question asks for sector area", "Multiply by the full-circle measure instead of taking the stated fraction"],
+    ["以圓心角除以 180 作為整個圓的分數", "題目求扇形面積時使用圓周公式", "把數值乘整個圓的量，而不是取題目所給的分數"]
+  ),
+  circles: distractorSet(
+    ["Treat a tangent as parallel to the radius at the contact point", "Use the angle at the circumference as twice the angle at the centre standing on the same arc", "Replace every chord by a diameter before using the stated theorem"],
+    ["把切線當作在接觸點與半徑平行", "把同一弧所對的圓周角當作圓心角的兩倍", "使用題目所述定理前，先把每條弦都當作直徑"]
+  ),
+  "more-algebra": distractorSet(
+    ["Cancel terms across addition before factoring the numerator", "Cancel a denominator factor before recording its excluded value", "Treat a value that makes the denominator zero as an extra solution"],
+    ["未把分子因式分解，便跨越加法約去項", "未記錄不容許值，便約去分母因子", "把令分母為零的數值當作額外解"]
+  ),
+  "data-handling": distractorSet(
+    ["Choose the mean automatically even when extreme outliers dominate", "Infer a median from the visual shape when the raw ordered values are unavailable", "Interpret an association in a graph as proof that one variable causes the other"],
+    ["即使極端離群值影響很大，仍一律選平均數", "未有已排序原始數值，便只按圖形外觀推斷中位數", "把圖上的關聯解讀為一個變量導致另一變量的證明"]
+  ),
+  "advanced-functions": distractorSet(
+    ["Evaluate a logarithm before checking that its argument is positive", "Accept base 1 because it is a positive number", "Transfer an exponential product rule directly to a logarithmic sum"],
+    ["未檢查真數為正，便先計算對數", "因為 1 是正數便接受它作對數的底", "把指數的乘法規則直接套到對數的和"]
+  ),
+  "trigonometry-s5": distractorSet(
+    ["Read the coefficient of x as the amplitude", "Ignore the sign of a horizontal phase shift", "List periodic solutions before checking the required interval"],
+    ["把 x 的係數讀作振幅", "忽略水平相位移的正負號", "未檢查題目指定區間，便先列出週期解"]
+  ),
+  "exam-revision": distractorSet(
+    ["Divide marks by minutes when the requested unit is minutes per mark", "Give every question equal time regardless of its marks", "Round the time ratio before completing the division"],
+    ["題目要求分鐘／分時，卻用分數除以分鐘", "不理會題目分值，把相同時間分給每題", "未完成除法便先把時間比四捨五入"]
+  ),
+  "mixed-problem-solving": distractorSet(
+    ["Combine graph and table values before matching their quantities and units", "Add distance, speed, and time because all three are numerical", "Read the height of a distance-time line as speed instead of using its gradient"],
+    ["未配對數量和單位，便先合併圖像與表格數值", "因路程、速率和時間都是數值便把三者相加", "把距離時間線的高度當作速率，而不用斜率"]
+  ),
+  "p1-counting-number-bonds": distractorSet(
+    ["Start again at 1", "Join the two parts as digits", "Count the starting number twice"],
+    ["重新由 1 開始數", "把兩部分拼成一個數", "把起始數重複數兩次"]
+  ),
+  "p1-addition-subtraction": distractorSet(
+    ["Subtract because two numbers appear", "Add the item number too", "Count only the new objects"],
+    ["因題目有兩個數便相減", "把物件編號也加進去", "只數新增的物件"]
+  ),
+  "p1-shapes-patterns": distractorSet(
+    ["Use colour or size to name the shape", "For ABAB, start at B and call BA the unit", "Copy only the last shape"],
+    ["按顏色或大小命名圖形", "對 ABAB 由 B 開始，把 BA 當作重複單位", "只抄寫最後一個圖形"]
+  ),
+  "p1-measurement-time": distractorSet(
+    ["Swap the short and long clock hands", "Write half past as :50", "Compare lengths before matching units"],
+    ["把短針和長針倒轉閱讀", "把半小時寫成 :50", "未統一單位便比較長度"]
+  ),
+  "p2-place-value": distractorSet(
+    ["Read 507 as 57", "Treat ten hundreds as one hundred", "Compare ones before hundreds"],
+    ["把 507 讀成 57", "把十個百當作一個百", "先比較個位，後比較百位"]
+  ),
+  "p2-multiplication-foundations": distractorSet(
+    ["Use 5 + 2 for five groups of two", "Count only one group", "Change the group size while counting"],
+    ["用 5 + 2 表示五組、每組兩個", "只數其中一組", "點算時改變每組數量"]
+  ),
+  "p2-money-time": distractorSet(
+    ["Add the price and amount paid", "Read the long hand as hours", "Write half past as :50"],
+    ["把售價和付款金額相加", "把長針讀作小時", "把半小時寫成 :50"]
+  ),
+  "p2-length-data": distractorSet(
+    ["Use 1 m = 10 cm", "Start measuring at the 1 mark", "Give each icon an unstated multiplier"],
+    ["使用 1 米 = 10 厘米", "由 1 刻度開始量度", "自行為每個圖示加倍數"]
+  ),
+  "p3-multiplication-division": distractorSet(
+    ["Accept a remainder that is at least as large as the divisor", "Use the number of groups when the question asks for the size of each share", "Multiply the dividend and divisor because both describe the grouping"],
+    ["接受大於或等於除數的餘數", "題目求每份數量時卻回答組數", "因被除數和除數都描述分組便把兩者相乘"]
+  ),
+  "p3-fractions-intro": distractorSet(
+    ["Compare fractions using only their numerators", "Add denominators when making an equivalent fraction", "Count parts of unequal size as though they were equal fractional parts"],
+    ["只按分子比較分數", "製作等值分數時把分母相加", "把大小不同的部分當作相等等份點算"]
+  ),
+  "p3-measurement": distractorSet(
+    ["Use 1 L = 100 mL for a capacity conversion", "Combine kilograms and millilitres in one calculation as though they measured the same attribute", "Read a bar's drawn height without using the labelled vertical scale"],
+    ["換算容量時使用 1 升 = 100 毫升", "把公斤和毫升當作量度同一屬性而直接計算", "不使用已標示的縱軸刻度，只按棒的圖上高度讀數"]
+  ),
+  "p3-geometry-patterns": distractorSet(
+    ["Name a shape from its orientation on the page", "Assume every four-sided figure is a square", "Infer equal side lengths when no matching marks or measurements are given"],
+    ["按圖形在頁面上的朝向命名", "假設每個四邊形都是正方形", "沒有相同記號或量度資料仍推斷各邊相等"]
+  ),
+  "p4-large-numbers": distractorSet(
+    ["Reverse factor and multiple when deciding which number divides the other", "List multiples only and call every listed value a factor", "Divide the larger number by the smaller once and call the quotient the H.C.F."],
+    ["判斷哪個數整除另一個數時，把因數和倍數倒轉", "只列倍數，並把每個列出的數稱為因數", "把較大數除以較小數一次，便把所得商稱為最大公因數"]
+  ),
+  "p4-decimals": distractorSet(
+    ["Compare decimal digits from left to right without matching place values", "Assume the decimal with more written digits is always greater", "Align the left edges of decimal numerals instead of their decimal points"],
+    ["未對齊位值，便由左至右逐個小數數字比較", "假設寫得較多位的小數一定較大", "把小數的左邊對齊，而不是把小數點對齊"]
+  ),
+  "p4-angles": distractorSet(
+    ["Treat rectangle, rhombus, and square as mutually exclusive families", "Name the quadrilateral only from how it looks in the sketch", "Use equal-side information as proof of every rectangle property"],
+    ["把長方形、菱形和正方形當作互不包含的類別", "只按草圖外觀為四邊形命名", "把邊相等資料當作所有長方形性質的證明"]
+  ),
+  "p4-perimeter-area": distractorSet(
+    ["Multiply length and width when the question asks for perimeter", "Count an internal split twice as part of a composite shape's outside boundary", "Add component areas but report the result in centimetres rather than square centimetres"],
+    ["題目求周界時把長和闊相乘", "求組合圖形外圍時把內部分割線重複計算", "把各部分面積相加後，卻以厘米而非平方厘米作答"]
+  ),
+  "p5-fractions-operations": distractorSet(
+    ["Add numerators and denominators separately for unlike fractions", "Convert every fraction to a rounded decimal before operating", "Make only the numerators common while leaving unlike denominators unchanged"],
+    ["異分母分數運算時分別把分子和分母相加", "運算前把每個分數都化成四捨五入小數", "只把分子改成相同，分母仍保持不同"]
+  ),
+  "p5-volume": distractorSet(
+    ["Add length, width, and height to find volume", "Use square centimetres for a three-dimensional capacity", "Multiply only the two dimensions visible on the front face"],
+    ["把長、闊和高相加來求體積", "以平方厘米表示三維容量", "只把正面可見的兩個尺寸相乘"]
+  ),
+  "p5-rates": distractorSet(
+    ["Divide the item count by the total price", "Compare pack totals without finding the price for one equal item", "Multiply the total pack price by the number of items to obtain unit price"],
+    ["以物件數量除以總價", "未求每件單價，便直接比較整包總價", "把整包總價乘物件數量來求單價"]
+  ),
+  "p5-charts-averages": distractorSet(
+    ["Compare bars from different categories because their colours match", "Read a bar value from its pixel height without using the axis interval", "Use the difference between two bar heights as their combined total"],
+    ["只因顏色相同，便比較不同類別的棒", "不使用坐標軸間距，只按棒的像素高度讀值", "把兩支棒的高度差當作兩者總和"]
+  ),
+  "p6-percentages": distractorSet(
+    ["Treat 25% as the whole number 25 in the calculation", "Apply the given percentage to the changed amount instead of the stated original", "Subtract the percentage amount when the situation says the quantity increases"],
+    ["在計算中把 25% 當作整數 25", "不以題目所述原數量為整體，改用變更後數量", "情境說數量增加時卻減去百分數所代表的量"]
+  ),
+  "p6-ratio-proportion": distractorSet(
+    ["Divide the count by the total when finding a mean", "Sort the values and choose the middle one instead of calculating the mean", "Join categorical values with a line even when no ordered or continuous sequence exists"],
+    ["求平均數時以數據個數除以總和", "把數值排序後選中間一個，而不計算平均數", "即使數據沒有有序或連續次序，仍把類別數值連成折線"]
+  ),
+  "p6-speed": distractorSet(
+    ["Multiply distance by time when finding speed", "Write distance units alone for a speed answer", "Read a distance-time graph's height as speed instead of comparing change in distance with change in time"],
+    ["求速率時把路程乘時間", "速率答案只寫路程單位", "把距離時間圖的高度當作速率，而不比較路程變化與時間變化"]
+  ),
+  "p6-pre-secondary-problem-solving": distractorSet(
+    ["Calculate with the first two numbers before identifying the final target", "Use every number in one operation even when the quantities play different roles", "Stop after finding an intermediate total without answering what remains or changes"],
+    ["未辨認最終目標，便先用頭兩個數計算", "即使各數量作用不同，仍把所有數放進同一運算", "求得中途總數便停止，沒有回答餘下或改變後的數量"]
+  )
+};
+
+const commonCheckDistractorsByTopic: Partial<Record<string, DistractorSet>> = {
+  integers: distractorSet(
+    ["Confirm the result has the sign belonging to the numeral with more digits", "Recalculate with absolute values only and treat matching magnitudes as sufficient", "Check subtraction by repeating the same signed subtraction rather than using its inverse"],
+    ["只檢查答案符號是否跟隨位數較多的數", "只用絕對值重算，並把大小相符當作充分檢查", "不用逆運算，而重複同一個帶符號減法作檢查"]
+  ),
+  "algebra-basics": distractorSet(
+    ["Compare coefficients while disregarding whether the variable powers match", "Substitute only zero and accept expressions that agree at that single value", "Count the number of written terms instead of checking the combined expression"],
+    ["只比較係數，不理會變量次方是否相同", "只代入零，兩式在這一個數值相等便接受", "只點算寫出的項數，不檢查合併後的代數式"]
+  ),
+  "linear-equations": distractorSet(
+    ["Substitute the proposed solution into the left side only", "Restore balance by adding different values to the two sides", "Round the proposed solution before substituting it into the original equation"],
+    ["只把擬議解代入方程左邊", "在等式兩邊加上不同數值來恢復平衡", "代回原方程前先把擬議解四捨五入"]
+  ),
+  "trigonometry-basics": distractorSet(
+    ["Accept a sine or cosine value above 1 when the arithmetic is tidy", "Confirm side names from their drawn lengths rather than their positions relative to the named angle", "Switch to a different reference angle during the check"],
+    ["算式整齊便接受大於 1 的正弦或餘弦值", "按圖上邊長而非相對指定角的位置核對邊名", "檢查途中改用另一個參照角"]
+  ),
+  "probability-s5": distractorSet(
+    ["Check that each colour receives probability one half", "Reuse the original total as the denominator after a ball is removed", "Reverse the conditioning order and treat P(A|B) as P(B|A)"],
+    ["檢查每種顏色是否都獲分配二分之一概率", "抽走一球後仍以原來總數作分母", "倒轉條件次序，把 P(A|B) 當作 P(B|A)"]
+  ),
+  "differentiation-intro": distractorSet(
+    ["Confirm only that every exponent has been reduced by one", "Treat the derivative at a point as the original function value", "Keep a nonzero derivative for an additive constant"],
+    ["只檢查每個指數是否已減一", "把某點的導數當作原函數值", "為加法常數保留非零導數"]
+  ),
+  calculus: distractorSet(
+    ["Check only that f'(x)=0 and ignore the signs on both sides", "Treat the function value as though it were the tangent gradient", "Identify a maximum when f'(x) changes from negative to positive"],
+    ["只檢查 f'(x)=0，而忽略駐點兩側的符號", "把函數值當作切線斜率", "f'(x) 由負變正時判定為極大值"]
+  ),
+  "statistics-s6": distractorSet(
+    ["Verify z using (mean - x) divided by the standard deviation", "Divide by the variance and accept the result as a standard score", "Accept a calculation whose standard deviation denominator is zero"],
+    ["以（平均數－x）除以標準差來核對 z", "除以方差並把結果當作標準分", "接受以零作標準差分母的計算"]
+  ),
+  ratios: distractorSet(
+    ["Confirm equivalence after dividing only one ratio term", "Use the sum of the first ratio term and the total as the number of sharing parts", "Treat a part-to-part ratio as though its second term were the whole"],
+    ["只把比的一項相除後便確認等值", "把比的第一項與總量相加作分配份數", "把部分與部分的比當作第二項就是整體"]
+  ),
+  "statistics-s1": distractorSet(
+    ["Read the median before sorting the observations", "Use the range as the number of observations", "Accept a visual difference without checking whether the vertical axis is truncated"],
+    ["未排列觀察值便讀取中位數", "把全距當作觀察值個數", "未檢查縱軸是否截斷，便接受圖上的視覺差異"]
+  ),
+  "probability-s2": distractorSet(
+    ["Confirm the probabilities by giving each named category an equal share", "Accept experimental frequencies that add to more than the number of trials", "Compare theory and experiment without checking how many trials were run"],
+    ["把相同概率分給每個具名類別來核對答案", "接受總和超過試驗次數的實驗頻數", "未檢查試驗次數便比較理論與實驗結果"]
+  ),
+  polynomials: distractorSet(
+    ["Re-expand and accept a result with unlike powers merged", "Check a factorisation at only x = 0", "Verify the constant term but not the leading or middle terms"],
+    ["重新展開後仍接受合併了不同次方項的結果", "只在 x = 0 時檢查因式分解", "只核對常數項，不核對首項和中間項"]
+  ),
+  "identities-square-patterns": distractorSet(
+    ["Verify the identity at one convenient numerical pair only", "Accept an expansion whose middle term is missing", "Use the same positive middle term for both squared sum and squared difference"],
+    ["只用一組方便的數值核對恆等式", "接受漏去中間項的展開式", "和的平方與差的平方都使用相同的正中間項"]
+  ),
+  "arc-length-sector-area": distractorSet(
+    ["Confirm a sector answer using angle/180 as its circle fraction", "Use linear units for sector area", "Accept an arc length larger than the full circumference without revisiting the fraction"],
+    ["以圓心角／180 作圓的分數來核對扇形答案", "扇形面積使用長度單位", "弧長大於整個圓周仍不重新檢查所取分數"]
+  ),
+  circles: distractorSet(
+    ["Use the doubling relation between the angle at the centre and the angle at the circumference without confirming that they stand on the same arc", "Confirm a tangent theorem away from the point of contact", "Treat every chord as a radius when marking equal lengths"],
+    ["未確認兩角由同一弧所對，便使用圓心角與圓周角的倍數關係", "在接觸點以外的位置核對切線定理", "標示相等長度時把每條弦都當作半徑"]
+  ),
+  "more-algebra": distractorSet(
+    ["Check the simplified form while omitting the original denominator restriction", "Substitute an excluded value because it works in the cancelled expression", "Verify exponent division by subtracting bases instead of exponents"],
+    ["核對約簡式時漏去原分母限制", "因不容許值代入約簡式可計算便接受它", "核對同底冪除法時把底數相減，而不是指數相減"]
+  ),
+  "advanced-functions": distractorSet(
+    ["Accept logarithm arguments equal to zero", "Allow logarithm base 1 or a negative base", "Check an inverse exponential-logarithm pair in only one direction"],
+    ["接受等於零的對數真數", "容許對數底為 1 或負數", "只按一個方向核對指數與對數的互逆關係"]
+  ),
+  "trigonometry-s5": distractorSet(
+    ["Keep a negative amplitude instead of taking its magnitude", "Compare phase shift with period as though they were the same parameter", "Accept a solution list without checking whether either stated interval endpoint is also a solution"],
+    ["保留負振幅，而不取其大小", "把相位移和週期當作同一參數比較", "未檢查指定區間的端點是否也是解，便接受解列表"]
+  ),
+  "exam-revision": distractorSet(
+    ["Verify marks per minute when the required unit is minutes per mark", "Accept a rounded value with fewer decimal places than requested", "Allocate question times whose total exceeds the paper duration"],
+    ["題目要求分鐘／分時卻核對分／分鐘", "接受少於題目指定小數位的近似值", "接受各題分配時間總和超過試卷時限"]
+  ),
+  "mixed-problem-solving": distractorSet(
+    ["Compare graph and table numbers without reconciling their units", "Accept a calculation made before the target variable is defined", "Substitute speed and time into the wrong positions in d = vt"],
+    ["未統一單位便比較圖像和表格數字", "未定義目標變量便接受已作的計算", "在 d = vt 中把速率和時間代入錯誤位置"]
+  )
+};
+
+const youngLearnerFirstStepContextByTopic: Partial<Record<string, Question["prompt"]>> = {
+  "p1-counting-number-bonds": { en: `Think about ${math("4+\\square=9")}.`, zh: `想一想 ${math("4+\\square=9")}。` },
+  "p1-addition-subtraction": { en: `Mia has ${math("5")} stickers and gets ${math("2")} more.`, zh: `Mia 有 ${math("5")} 張貼紙，再得到 ${math("2")} 張。` },
+  "p1-shapes-patterns": { en: "Look at the pattern ABAB from its first symbol.", zh: "由第一個符號開始看圖樣 ABAB。" },
+  "p1-measurement-time": { en: "A clock shows half past 3.", zh: "鐘面顯示 3 時半。" },
+  "p2-place-value": { en: `Read ${math("507")}.`, zh: `讀出 ${math("507")}。` },
+  "p2-multiplication-foundations": { en: `Model ${math("5\\times2")} as equal groups.`, zh: `用相等組表示 ${math("5\\times2")}。` },
+  "p2-money-time": { en: "A snack costs HK$6 and you pay HK$10.", zh: "小食售港幣 6 元，你付港幣 10 元。" },
+  "p2-length-data": { en: "Estimate the height of a classroom door.", zh: "估計一扇課室門的高度。" }
+};
+
+function strategyLabelForTopic(topic: (typeof topics)[number]) {
+  if (topic.id === "p3-measurement") return { en: "Measurement", zh: "度量" };
+  if (topic.id === "p5-charts-averages") return { en: "Compound Bar Charts", zh: "複合棒形圖" };
+  return questionTopicLabelForTopic(topic);
+}
+
+function firstStepOptionsForTopic(topic: (typeof topics)[number], drill: TopicDrill): NonNullable<Question["options"]> {
+  const distractors = firstStepDistractorsByTopic[topic.id];
+  if (!distractors) throw new Error(`Missing topic-specific first-step distractors: ${topic.id}`);
+  return [drill.firstStep, ...distractors];
+}
+
+function commonCheckOptionsForTopic(topic: (typeof topics)[number], drill: TopicDrill): NonNullable<Question["options"]> {
+  const distractors = commonCheckDistractorsByTopic[topic.id] ?? firstStepDistractorsByTopic[topic.id];
+  if (!distractors) throw new Error(`Missing topic-specific common-check distractors: ${topic.id}`);
+  return [drill.commonCheck, ...distractors];
+}
 
 function defaultDrillForTopic(topic: (typeof topics)[number]): TopicDrill {
   const blueprints = primaryQuestionBlueprints[topic.id];
@@ -2033,7 +2735,10 @@ function defaultDrillForTopic(topic: (typeof topics)[number]): TopicDrill {
 
 function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKongQuestionSeed[] {
   const drill = topicDrills[topic.id] ?? defaultDrillForTopic(topic);
-  const topicLabel = topic.title;
+  const topicLabel = questionTopicLabelForTopic(topic);
+  const strategyLabel = strategyLabelForTopic(topic);
+  const youngLearnerContext = youngLearnerFirstStepContextByTopic[topic.id];
+  const conciseFirstStepExplanation = topic.grade === "P1" || topic.grade === "P2";
 
   return [
     {
@@ -2041,17 +2746,21 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       grade: topic.grade,
       topicId: topic.id,
       topic: topicLabel,
-      difficulty: topic.difficulty,
+      difficulty: "Medium",
       type: "multiple-choice",
       prompt: {
-        en: `When starting a ${topicLabel.en} question, which step is most useful?`,
-        zh: `開始處理「${topicLabel.zh}」題目時，哪一步最有用？`
+        en: `When starting a question about ${strategyLabel.en}, which action is the best first step?${youngLearnerContext ? ` ${youngLearnerContext.en}` : ""}`,
+        zh: `開始處理關於「${strategyLabel.zh}」的題目時，哪項行動是最佳的第一步？${youngLearnerContext ? ` ${youngLearnerContext.zh}` : ""}`
       },
-      options: [drill.firstStep, ...firstStepDistractors],
+      options: firstStepOptionsForTopic(topic, drill),
       answer: drill.firstStep.en,
       explanation: {
-        en: `A strong first step for this topic is: ${drill.firstStep.en}.`,
-        zh: `這個課題較好的第一步是：${drill.firstStep.zh}。`
+        en: drill.firstStepExplanation?.en ?? (conciseFirstStepExplanation
+          ? `${drill.firstStep.en}. The key fact confirms it: ${drill.keyFactExplanation.en}`
+          : `${drill.firstStep.en}. The topic's key fact shows why this structure matters: ${drill.keyFactExplanation.en} The alternatives instead encode these specific misconceptions: ${firstStepDistractorsByTopic[topic.id].map((option) => `“${option.en}”`).join("; ")}.`),
+        zh: drill.firstStepExplanation?.zh ?? (conciseFirstStepExplanation
+          ? `${drill.firstStep.zh}。關鍵知識可核對這一步：${drill.keyFactExplanation.zh}`
+          : `${drill.firstStep.zh}。本課題的關鍵知識說明這個結構為何重要：${drill.keyFactExplanation.zh} 其餘選項分別包含以下具體誤解：${firstStepDistractorsByTopic[topic.id].map((option) => `「${option.zh}」`).join("；")}。`)
       }
     },
     {
@@ -2070,11 +2779,12 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       grade: topic.grade,
       topicId: topic.id,
       topic: topicLabel,
-      difficulty: topic.difficulty,
+      difficulty: drill.guidedDifficulty ?? topic.difficulty,
       type: "short-answer",
       prompt: drill.examplePrompt,
       answer: drill.exampleAnswer,
-      explanation: drill.exampleExplanation
+      explanation: drill.exampleExplanation,
+      ...(drill.exampleDiagram ? { diagram: drill.exampleDiagram } : {})
     },
     {
       id: `supp-${topic.id}-common-check`,
@@ -2084,34 +2794,73 @@ function supplementalQuestionsForTopic(topic: (typeof topics)[number]): HongKong
       difficulty: "Medium",
       type: "multiple-choice",
       prompt: {
-        en: `Which check best avoids a common ${topicLabel.en} mistake?`,
-        zh: `哪項檢查最能避免「${topicLabel.zh}」常見錯誤？`
+        en: `Which check best prevents a typical mistake in ${strategyLabel.en}?`,
+        zh: `哪項檢查最能避免「${strategyLabel.zh}」中的典型錯誤？`
       },
-      options: [drill.commonCheck, ...commonCheckDistractors],
+      options: commonCheckOptionsForTopic(topic, drill),
       answer: drill.commonCheck.en,
       explanation: {
-        en: drill.commonCheck.en,
-        zh: drill.commonCheck.zh
+        en: `${drill.commonCheck.en}. This check is consistent with both the key fact (${drill.keyFactExplanation.en}) and the guided example (${drill.exampleExplanation.en}); the other checks would preserve a topic-specific error rather than expose it.`,
+        zh: `${drill.commonCheck.zh}。這項檢查同時符合關鍵知識（${drill.keyFactExplanation.zh}）和引導例題（${drill.exampleExplanation.zh}）；其餘檢查會保留本課題的具體錯誤，而不能揭示錯誤。`
       }
     }
   ];
 }
 
 const cjkAnswerAliases: Record<string, string[]> = {
-  "3 x 4": ["3*4", "3乘4"],
+  "3 × 4": ["3*4", "3乘4", "3乘以4"],
+  "4π cm": ["4 pi cm", "4pi cm", "4\\pi cm", "4π厘米", "4π 厘米"],
+  "12π cm^2": ["12 pi cm^2", "12pi cm^2", "12\\pi cm^2", "12π cm²", "12π平方厘米", "12π 平方厘米"],
+  "11 each, 3 remain": ["每人11張，餘3張", "每人 11 張，餘 3 張", "每人11張，餘下3張", "每人 11 張，餘下 3 張", "商11餘3", "商 11 餘 3"],
+  "1.33 minutes per mark": ["1.33 min/mark", "1.33 min per mark", "1.33分鐘／分", "1.33 分鐘／分"],
+  "1.50 minutes per mark": ["1.50 min/mark", "1.50 min per mark", "1.50分鐘／分", "1.50 分鐘／分"],
+  "1 m 10 cm": ["1m10cm", "1 m 10cm", "1米10厘米", "1 米 10 厘米"],
+  "2 m": ["2m", "2 米"],
+  "hcf = 6; lcm = 36": ["H.C.F. = 6; L.C.M. = 36", "HCF=6;LCM=36", "最大公因數 = 6；最小公倍數 = 36", "最大公因數是6，最小公倍數是36"],
+  "rectangle and rhombus": ["rectangle, rhombus", "長方形和菱形", "長方形、菱形"],
+  rhombus: ["菱形"],
   "a classroom door": ["一扇課室門", "課室門"],
   "at the mean": ["平均數", "在平均數", "等於平均數"],
   centimetres: ["厘米"],
   circle: ["圓形"],
+  decreasing: ["decreases", "遞減", "下降"],
   downward: ["向下", "開口向下"],
+  "equilateral triangle": ["等邊三角形"],
   ii: ["第二象限"],
+  "isosceles triangle": ["等腰三角形"],
   mean: ["平均數"],
   "known facts and target": ["已知資料和目標", "已知和目標"],
   obtuse: ["鈍角"],
+  quadrilateral: ["四邊形"],
+  "right angle": ["直角"],
   "shared quantities": ["共同量", "共同數量", "共同的量"],
   triangle: ["三角形"],
-  "underline known facts and the question": ["畫出已知資料和問題", "畫出已知資料和題目所問"]
+  "underline known facts and the question": ["在已知資料及題目所求之下畫線", "圈出已知資料和題目所問"],
+  "x > -2": ["x>-2", "x 大於 -2"]
 };
+
+const strictFractionFormQuestionIds = new Set([
+  "pq-p3-fractions-intro-2",
+  "supp-p3-fractions-intro-key-fact",
+  "supp-p3-fractions-intro-guided-example",
+  "supp-probability-s2-guided-example",
+  "pq-p5-fractions-operations-2",
+  "supp-p5-fractions-operations-key-fact",
+  "supp-p5-fractions-operations-guided-example"
+]);
+
+const equationAnswersRequiringVariable = new Set([
+  "graph-quadratic-patterns-axis",
+  "supp-quadratic-patterns-key-fact"
+]);
+
+const promptSuppliedUnitAnswerIds = new Set([
+  "pq-p2-length-data-1"
+]);
+
+const orderedPairAnswersRequiringParentheses = new Set([
+  "graph-quadratic-patterns-y-intercept"
+]);
 
 function addAlias(aliases: Set<string>, answer: string, alias: string) {
   const normalized = alias.trim();
@@ -2126,7 +2875,13 @@ function terminatingDecimalAlias(numerator: number, denominator: number) {
   return Number.isFinite(rounded) ? String(rounded) : null;
 }
 
-function generatedAnswerAliases(answer: string) {
+function generatedAnswerAliases(
+  answer: string,
+  includeDecimalFractionAlias = true,
+  includeBareLinearEquationAlias = true,
+  includeBareQuantityAlias = true,
+  includeBareCoordinateAlias = true
+) {
   const aliases = new Set<string>();
   const trimmed = answer.trim();
   const compact = trimmed.replace(/\s+/g, "");
@@ -2153,7 +2908,7 @@ function generatedAnswerAliases(answer: string) {
   if (commaNumber) addAlias(aliases, trimmed, trimmed.replace(/,/g, ""));
 
   const coordinate = trimmed.match(/^\((-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)\)$/);
-  if (coordinate) {
+  if (coordinate && includeBareCoordinateAlias) {
     addAlias(aliases, trimmed, `${coordinate[1]}, ${coordinate[2]}`);
     addAlias(aliases, trimmed, `${coordinate[1]},${coordinate[2]}`);
   }
@@ -2161,14 +2916,16 @@ function generatedAnswerAliases(answer: string) {
   const linearEquation = trimmed.match(/^([a-z])\s*=\s*(-?\d+(?:\.\d+)?)$/i);
   if (linearEquation) {
     addAlias(aliases, trimmed, `${linearEquation[1]}=${linearEquation[2]}`);
-    addAlias(aliases, trimmed, linearEquation[2]);
+    if (includeBareLinearEquationAlias) addAlias(aliases, trimmed, linearEquation[2]);
   }
 
   const fraction = trimmed.match(/^(-?\d+)\/(-?\d+)$/);
   if (fraction) {
     addAlias(aliases, trimmed, `${fraction[1]} / ${fraction[2]}`);
-    const decimal = terminatingDecimalAlias(Number(fraction[1]), Number(fraction[2]));
-    if (decimal) addAlias(aliases, trimmed, decimal);
+    if (includeDecimalFractionAlias) {
+      const decimal = terminatingDecimalAlias(Number(fraction[1]), Number(fraction[2]));
+      if (decimal) addAlias(aliases, trimmed, decimal);
+    }
   }
 
   const ratio = trimmed.match(/^(\d+):(\d+)$/);
@@ -2176,7 +2933,7 @@ function generatedAnswerAliases(answer: string) {
 
   const degree = trimmed.match(/^(-?\d+(?:\.\d+)?)°$/);
   if (degree) {
-    addAlias(aliases, trimmed, degree[1]);
+    if (includeBareQuantityAlias) addAlias(aliases, trimmed, degree[1]);
     addAlias(aliases, trimmed, `${degree[1]} degrees`);
     addAlias(aliases, trimmed, `${degree[1]} degree`);
     addAlias(aliases, trimmed, `${degree[1]}度`);
@@ -2184,7 +2941,7 @@ function generatedAnswerAliases(answer: string) {
 
   const percent = trimmed.match(/^(-?\d+(?:\.\d+)?)%$/);
   if (percent) {
-    addAlias(aliases, trimmed, percent[1]);
+    if (includeBareQuantityAlias) addAlias(aliases, trimmed, percent[1]);
     addAlias(aliases, trimmed, `${percent[1]} %`);
     addAlias(aliases, trimmed, `${percent[1]} percent`);
     addAlias(aliases, trimmed, `${percent[1]}百分比`);
@@ -2192,26 +2949,30 @@ function generatedAnswerAliases(answer: string) {
 
   const currency = trimmed.match(/^HK\$\s*(-?\d+(?:\.\d+)?)$/i);
   if (currency) {
-    addAlias(aliases, trimmed, currency[1]);
+    if (includeBareQuantityAlias) addAlias(aliases, trimmed, currency[1]);
     addAlias(aliases, trimmed, `$${currency[1]}`);
     addAlias(aliases, trimmed, `HK$ ${currency[1]}`);
     addAlias(aliases, trimmed, `港幣 ${currency[1]} 元`);
     addAlias(aliases, trimmed, `${currency[1]}元`);
   }
 
-  const unit = trimmed.match(/^(-?\d+(?:\.\d+)?)\s+(cm\^2|cm\^3|cm|mL|L|km\/h|km)$/i);
+  const unit = trimmed.match(/^(-?\d+(?:\.\d+)?)\s+(cm\^2|cm\^3|cm|mL|L|km\/h|km|m)$/i);
   if (unit) {
     const value = unit[1];
     const unitText = unit[2];
-    addAlias(aliases, trimmed, value);
+    if (includeBareQuantityAlias) addAlias(aliases, trimmed, value);
     addAlias(aliases, trimmed, `${value}${unitText}`);
 
     if (/^cm$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 厘米`);
     if (/^cm\^2$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 平方厘米`);
     if (/^cm\^3$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 立方厘米`);
     if (/^mL$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 毫升`);
-    if (/^L$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 公升`);
+    if (/^L$/i.test(unitText)) {
+      addAlias(aliases, trimmed, `${value} 升`);
+      addAlias(aliases, trimmed, `${value} 公升`);
+    }
     if (/^km$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 公里`);
+    if (/^m$/i.test(unitText)) addAlias(aliases, trimmed, `${value} 米`);
     if (/^km\/h$/i.test(unitText)) {
       addAlias(aliases, trimmed, `${value}km/h`);
       addAlias(aliases, trimmed, `${value} kmh`);
@@ -2222,7 +2983,7 @@ function generatedAnswerAliases(answer: string) {
   const oclock = trimmed.match(/^(\d{1,2}) o'clock$/i);
   if (oclock) {
     addAlias(aliases, trimmed, `${oclock[1]}:00`);
-    addAlias(aliases, trimmed, oclock[1]);
+    if (includeBareQuantityAlias) addAlias(aliases, trimmed, oclock[1]);
     addAlias(aliases, trimmed, `${oclock[1]}時`);
   }
 
@@ -2235,7 +2996,6 @@ function generatedAnswerAliases(answer: string) {
   const exponent = trimmed.match(/^(-?\d*)?([a-z])\^(\d+)$/i);
   if (exponent) {
     const coefficient = exponent[1] ?? "";
-    addAlias(aliases, trimmed, `${coefficient}${exponent[2]}${exponent[3]}`);
     if (coefficient) addAlias(aliases, trimmed, `${coefficient}*${exponent[2]}^${exponent[3]}`);
   }
 
@@ -2251,7 +3011,7 @@ function generatedAnswerAliases(answer: string) {
     addAlias(aliases, trimmed, "立方厘米");
   }
 
-  const multiplicationExpression = trimmed.match(/^(-?\d+)\s+x\s+(-?\d+)$/i);
+  const multiplicationExpression = trimmed.match(/^(-?\d+)\s*×\s*(-?\d+)$/i);
   if (multiplicationExpression) {
     const leftFactor = multiplicationExpression[1];
     const rightFactor = multiplicationExpression[2];
@@ -2266,15 +3026,38 @@ function generatedAnswerAliases(answer: string) {
   return Array.from(aliases);
 }
 
-function answerAliasesFor(answer: string, acceptedAnswers: string[] = []) {
+function answerAliasesFor(
+  answer: string,
+  acceptedAnswers: string[] = [],
+  includeDecimalFractionAlias = true,
+  includeBareLinearEquationAlias = true,
+  includeBareQuantityAlias = true,
+  includeBareCoordinateAlias = true
+) {
   const aliases = new Set<string>();
-  [...acceptedAnswers, ...generatedAnswerAliases(answer)].forEach((alias) => addAlias(aliases, answer, alias));
+  [
+    ...acceptedAnswers,
+    ...generatedAnswerAliases(
+      answer,
+      includeDecimalFractionAlias,
+      includeBareLinearEquationAlias,
+      includeBareQuantityAlias,
+      includeBareCoordinateAlias
+    )
+  ].forEach((alias) => addAlias(aliases, answer, alias));
   return Array.from(aliases);
 }
 
 function withGeneratedAnswerAliases(question: Question): Question {
   if (question.type === "multiple-choice") return question;
-  const acceptedAnswers = answerAliasesFor(question.answer, question.acceptedAnswers);
+  const acceptedAnswers = answerAliasesFor(
+    question.answer,
+    question.acceptedAnswers,
+    !strictFractionFormQuestionIds.has(question.id),
+    !equationAnswersRequiringVariable.has(question.id),
+    question.curriculumTrack !== "HK" || promptSuppliedUnitAnswerIds.has(question.id),
+    !orderedPairAnswersRequiringParentheses.has(question.id)
+  );
   return acceptedAnswers.length ? { ...question, acceptedAnswers } : question;
 }
 
@@ -2306,6 +3089,12 @@ const curatedQuestions: Question[] = [
   ...usCaliforniaQuestions
 ];
 
-export const questions: Question[] = curatedQuestions
+const resolvedQuestions: Question[] = curatedQuestions
   .map(withResolvedMainlandPepQuestionAssets)
   .map(withGeneratedAnswerAliases);
+
+const hongKongQuestionVersioning = versionMateriallyChangedHongKongQuestions(resolvedQuestions);
+
+export const questions: Question[] = hongKongQuestionVersioning.questions;
+export const activeHongKongQuestionIdByHistoricalId = hongKongQuestionVersioning.activeIdByHistoricalId;
+export const retiredHongKongQuestionIds = hongKongQuestionVersioning.retiredHistoricalIds;

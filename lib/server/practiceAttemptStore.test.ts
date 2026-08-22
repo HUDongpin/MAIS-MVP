@@ -27,12 +27,14 @@ test("practice attempt fast path defines dedicated Postgres row tables without s
   assert.equal(typeof store.clearLearningEventsFast, "function");
   assert.match(ddl, /practice_attempts_topic_created_at_idx/);
   assert.match(ddl, /learning_events_user_topic_created_at_idx/);
+  assert.match(ddl, /learning_events_question_created_at_idx/);
 });
 
 test("practice attempt fast path stays decoupled from full snapshot storage", async () => {
   const source = await readFile(join(process.cwd(), "lib/server/practiceAttemptStore.ts"), "utf8");
 
   assert.doesNotMatch(source, /userStore|requireAuthenticatedUser|readDatabase|mutateDatabase|app_state|FOR UPDATE/i);
+  assert.match(source, /gradeQuestionAttempt\(question, selectedAnswer\)/);
 });
 
 test("practice attempt fast path returns answer feedback when row persistence is unavailable", () => {

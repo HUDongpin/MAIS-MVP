@@ -1,5 +1,10 @@
 import { hongKongEaseQuestionPatternCards } from "../../data/rag/hongKongEaseQuestions";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import {
+  cardHasExactHongKongTopic,
+  isHongKongOptionalExtendedPartTopic,
+  isHongKongSeniorCompulsoryOwnedTopic
+} from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongEaseQuestionEvidencePack,
@@ -46,6 +51,10 @@ function countMatches(queryValues: string[], cardValues: string[]) {
 
 function isSecondaryGrade(grade: GradeId | undefined) {
   return grade?.startsWith("S") ?? false;
+}
+
+function isSeniorGrade(grade: GradeId | undefined) {
+  return grade === "S4" || grade === "S5" || grade === "S6";
 }
 
 function gradeScore(card: HongKongEaseQuestionPatternCard, grade: GradeId | undefined) {
@@ -119,9 +128,12 @@ function minimumRelevantScore(query: HongKongEaseQuestionRagQuery) {
 
 export function getHongKongEaseQuestionPatternCards(query: HongKongEaseQuestionRagQuery): HongKongEaseQuestionPatternCard[] {
   if (query.grade && !isSecondaryGrade(query.grade)) return [];
+  if (isHongKongOptionalExtendedPartTopic(query.topicId)) return [];
   const minimumScore = minimumRelevantScore(query);
   const scored = hongKongEaseQuestionPatternCards
     .filter((card) => card.curriculumTrack === "HK" && card.publisher === "HK_EASE_SHARED")
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
+    .filter((card) => !isSeniorGrade(query.grade) || !isHongKongSeniorCompulsoryOwnedTopic(query.topicId) || card.stage === "senior-secondary")
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.index - b.index);

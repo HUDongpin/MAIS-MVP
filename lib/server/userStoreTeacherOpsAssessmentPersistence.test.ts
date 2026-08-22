@@ -21,6 +21,7 @@ import {
   toTeacherOpsAssessmentSubmission,
   type TeacherOpsAssessmentPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsAssessmentPersistence";
+import { isRetiredHongKongQuestionId } from "@/lib/hongKongQuestionRetirement";
 import type {
   AssessmentSubmission,
   TeacherAssessmentQuestionAnalytics,
@@ -645,6 +646,18 @@ function createDatabase(): TeacherOpsAssessmentTestDatabase {
   };
 }
 
+function addRetiredHongKongQuestionToOwnedClass(database: TeacherOpsAssessmentTestDatabase) {
+  const activeTemplate = database.questions.find((question) => question.id === "q-s2");
+  assert.ok(activeTemplate);
+  assert.equal(isRetiredHongKongQuestionId("q28"), true);
+  database.questions.unshift({
+    ...activeTemplate,
+    id: "q28",
+    prompt_en: "Locked retired S2 prompt",
+    prompt_zh: "Locked retired S2 prompt"
+  });
+}
+
 function createTestStore(database: TeacherOpsAssessmentPersistenceDatabase, createIds = ["clone"]) {
   const ids = [...createIds];
 
@@ -722,6 +735,138 @@ test("teacher ops assessment persistence builds create data without legacy userS
   });
   assert.deepEqual(data?.questionBank.map((question) => question.id), ["q-s2", "q-s2-high", "q-s3"]);
   assert.deepEqual(data?.questionBank[0]?.topicTitle, { en: "S2 topic", zh: "S2 topic" });
+});
+
+test("teacher ops assessment persistence excludes retired Hong Kong questions from every active authoring pool", async () => {
+  const database = createDatabase();
+  addRetiredHongKongQuestionToOwnedClass(database);
+  database.mistakes.unshift({ user_id: "student-a", question_id: "q28", mastered: false });
+  const store = createTestStore(database, ["resource-active", "mistake-active"]);
+
+  const createData = await store.getTeacherAssessmentCreateData("teacher-1");
+  assert.equal(createData?.questionBank.some((question) => question.id === "q28"), false);
+
+  const questionBank = await store.getTeacherAssessmentBuilderQuestions({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    source: "question-bank",
+    page: 1,
+    pageSize: 20
+  });
+  assert.equal(questionBank?.questions.some((question) => question.id === "q28"), false);
+
+  const mistakeBank = await store.getTeacherAssessmentBuilderQuestions({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    source: "mistakes",
+    page: 1,
+    pageSize: 20
+  });
+  assert.equal(mistakeBank?.questions.some((question) => question.id === "q28"), false);
+
+  const teacherClass = database.teacher_classes.find((candidate) => candidate.id === "class-owned");
+  assert.ok(teacherClass);
+  assert.equal(
+    teacherOpsReviewLessonPracticeBank(database, teacherClass, []).some((question) => question.questionId === "q28"),
+    false
+  );
+
+  const resourceResult = await store.createTeacherAssessment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Active resource pool",
+    type: "quiz",
+    sourceType: "resource",
+    sourceResourceId: "resource-owned",
+    questionIds: [],
+    statusIntent: "draft",
+    randomizeQuestionOrder: false,
+    showAnswersImmediately: true
+  });
+  assert.equal(resourceResult.status, "created");
+  assert.equal(database.assessments[0]?.question_ids?.includes("q28"), false);
+
+  const mistakeResult = await store.createTeacherAssessment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Active mistake pool",
+    type: "quiz",
+    sourceType: "mistake-generated",
+    questionIds: [],
+    statusIntent: "draft",
+    randomizeQuestionOrder: false,
+    showAnswersImmediately: true
+  });
+  assert.equal(mistakeResult.status, "created");
+  assert.equal(database.assessments[0]?.question_ids?.includes("q28"), false);
+});
+
+test("teacher ops assessment persistence rejects retired direct IDs but still resolves locked historical detail", async () => {
+  const database = createDatabase();
+  addRetiredHongKongQuestionToOwnedClass(database);
+  const historicalAssessment = database.assessments.find((assessment) => assessment.id === "assessment-owned");
+  assert.ok(historicalAssessment?.paper_sections?.[0]?.items[0]);
+  historicalAssessment.paper_sections[0].items[0].questionId = "q28";
+
+  database.assessments.unshift({
+    id: "assessment-active-draft",
+    class_id: "class-owned",
+    title_en: "Active draft",
+    title_zh: "Active draft",
+    type: "quiz",
+    status: "draft",
+    source_type: "question-bank",
+    question_ids: ["q-s2"],
+    manual_questions: [],
+    paper_sections: [],
+    created_by: "teacher-1",
+    created_at: "2026-06-19T00:00:00.000Z",
+    updated_at: "2026-06-19T00:00:00.000Z"
+  });
+  const originalAssessmentCount = database.assessments.length;
+  const store = createTestStore(database, ["must-not-be-consumed"]);
+
+  assert.deepEqual(await store.createTeacherAssessment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Rejected retired direct selection",
+    type: "quiz",
+    sourceType: "question-bank",
+    questionIds: ["q-s2", "q28"],
+    statusIntent: "draft",
+    randomizeQuestionOrder: false,
+    showAnswersImmediately: true
+  }), { status: "invalid" });
+  assert.equal(database.assessments.length, originalAssessmentCount);
+
+  assert.deepEqual(await store.createTeacherAssessment({
+    teacherId: "teacher-1",
+    classId: "class-owned",
+    title: "Rejected retired paper item",
+    type: "quiz",
+    sourceType: "mixed",
+    paperSections: [{
+      id: "section-retired",
+      title: { en: "Retired", zh: "Retired" },
+      order: 0,
+      items: [{ id: "retired-item", source: "question-bank", questionId: "q28", points: 10, order: 0 }]
+    }],
+    statusIntent: "draft",
+    randomizeQuestionOrder: false,
+    showAnswersImmediately: true
+  }), { status: "invalid" });
+  assert.equal(database.assessments.length, originalAssessmentCount);
+
+  assert.deepEqual(await store.updateTeacherAssessment({
+    teacherId: "teacher-1",
+    assessmentId: "assessment-active-draft",
+    sourceType: "question-bank",
+    questionIds: ["q28"]
+  }), { status: "invalid" });
+  assert.deepEqual(database.assessments.find((assessment) => assessment.id === "assessment-active-draft")?.question_ids, ["q-s2"]);
+
+  const historicalDetail = await store.getTeacherAssessmentDetailData("teacher-1", "assessment-owned");
+  assert.equal(historicalDetail?.questionAnalytics[0]?.prompt.en, "Locked retired S2 prompt");
 });
 
 test("teacher ops assessment persistence builds scoped assessment list data", async () => {

@@ -101,7 +101,7 @@ test("DSE EPH S6 queries retrieve calculus and final paper readiness cards", () 
   assert.equal(revision[0]?.id, "hk-dse-eph-e-final-paper-readiness");
 });
 
-test("combined HK evidence includes EPH only for the EPH profile", () => {
+test("combined HK evidence excludes EPH and UP publisher cards for optional topics without explicit module eligibility", () => {
   const upPack = buildHongKongMathEvidencePack({
     curriculumProfile: curriculumProfileForPublisher("HK_UNITED_PRIME_MIA"),
     grade: "S6",
@@ -124,16 +124,16 @@ test("combined HK evidence includes EPH only for the EPH profile", () => {
     limit: 4
   });
 
-  assert.ok(upPack.curriculumCards.length > 0);
-  assert.ok(upPack.examPatternCards.length > 0);
-  assert.ok(upPack.textbookCards.every((card) => card.publisher === "HK_UNITED_PRIME_MIA"));
-  assert.match(upPack.evidenceText, /DSE UP textbook publisher layer/);
+  assert.deepEqual(upPack.curriculumCards, []);
+  assert.deepEqual(upPack.examPatternCards, []);
+  assert.deepEqual(upPack.textbookCards, []);
+  assert.match(upPack.evidenceText, /optional HKDSE Extended Part/);
   assert.doesNotMatch(upPack.evidenceText, /DSE EPH textbook card/);
 
-  assert.ok(ephPack.curriculumCards.length > 0);
-  assert.ok(ephPack.examPatternCards.length > 0);
-  assert.ok(ephPack.textbookCards.every((card) => card.publisher === "HK_EPH_MIF"));
-  assert.match(ephPack.evidenceText, /DSE EPH textbook publisher layer/);
+  assert.deepEqual(ephPack.curriculumCards, []);
+  assert.deepEqual(ephPack.examPatternCards, []);
+  assert.deepEqual(ephPack.textbookCards, []);
+  assert.match(ephPack.evidenceText, /optional HKDSE Extended Part/);
   assert.doesNotMatch(ephPack.evidenceText, /DSE UP textbook card/);
 });
 

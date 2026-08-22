@@ -415,7 +415,8 @@ test("teacher ops submission persistence owns deterministic assignment grading f
     attempt,
     now: fixedNow,
     createId: () => "correct-id",
-    questionAnswerMatches: (question, selectedAnswer) => question.answer === selectedAnswer.trim()
+    questionAnswerMatches: (question, selectedAnswer) =>
+      (question as { id?: string }).id === "question-linked" && question.answer === selectedAnswer.trim()
   });
   assert.equal(correct.id, "grading-run-correct-id");
   assert.equal(correct.submission_id, "submission-owned-1");

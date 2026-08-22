@@ -1,5 +1,6 @@
 import { hongKongModernPrimarySafeCards } from "../../data/rag/hongKongModernPrimary";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import { cardHasExactHongKongModernPrimaryTopic } from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongModernPrimaryEvidencePack,
@@ -135,6 +136,7 @@ export function getHongKongModernPrimarySafeCards(query: HongKongModernPrimaryRa
     .filter((card) => card.curriculumTrack === "HK" && card.publisher === "HK_MODERN_EDUCATIONAL_RESEARCH_SOCIETY" && card.stage === "primary")
     .filter((card) => !query.grade || card.grade === query.grade)
     .filter((card) => !query.volume || card.volumes.includes(query.volume))
+    .filter((card) => cardHasExactHongKongModernPrimaryTopic(query.topicId, card))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.card.chapterSequence - b.card.chapterSequence || a.index - b.index);
