@@ -107,6 +107,8 @@ type PracticeAnswerResult = {
   correctAnswer?: string;
   durationSeconds: number;
   answeredAt: number;
+  feedback: AttemptFeedback;
+  selectedAnswer: string;
 };
 type PracticeAnswerSummaryItem = PracticeAnswerResult & {
   question: PublicQuestion;
@@ -161,10 +163,13 @@ type PracticePagerAnswerResult = {
   feedback: AttemptFeedback;
   durationSeconds: number;
   questionNumber: number;
+  selectedAnswer: string;
 };
 type LazyPracticeQuestionCardProps = {
   question: PublicQuestion;
-  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
+  initialFeedback?: AttemptFeedback | null;
+  initialSelectedAnswer?: string;
+  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => void;
 };
 
 const PracticeQuestionCard = dynamic<LazyPracticeQuestionCardProps>(
@@ -646,6 +651,12 @@ function clampQuestionIndex(index: number, questionCount: number) {
   return Math.min(questionCount - 1, Math.max(0, index));
 }
 
+function resumeQuestionIndex(questions: PublicQuestion[], answerResults: Record<string, PracticeAnswerResult>) {
+  const firstUnansweredIndex = questions.findIndex((question) => !answerResults[question.id]);
+  if (firstUnansweredIndex >= 0) return firstUnansweredIndex;
+  return questions.length ? questions.length - 1 : 0;
+}
+
 function ChooseModeArrowIcon({ className = "size-4" }: { className?: string }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="none">
@@ -819,6 +830,7 @@ function PracticeMissionSummary({
 
 type QuestionPagerProps = {
   questions: PublicQuestion[];
+  answerResults: Record<string, PracticeAnswerResult>;
   onAnswered?: (result: PracticePagerAnswerResult) => void;
   onQuestionStarted?: (question: PublicQuestion) => void;
   interactionEnabled?: boolean;
@@ -826,6 +838,7 @@ type QuestionPagerProps = {
 
 function QuestionPager({
   questions,
+  answerResults,
   onAnswered,
   onQuestionStarted,
   interactionEnabled = true
@@ -836,9 +849,10 @@ function QuestionPager({
     (localized: LocalizedText) => normalizePracticeSimplifiedText(settingsT(localized), language),
     [language, settingsT]
   );
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [jumpValue, setJumpValue] = useState("1");
-  const [answerResults, setAnswerResults] = useState<Record<string, boolean>>({});
+  const questionCount = questions.length;
+  const initialQuestionIndex = resumeQuestionIndex(questions, answerResults);
+  const [currentIndex, setCurrentIndex] = useState(initialQuestionIndex);
+  const [jumpValue, setJumpValue] = useState(questionCount ? String(initialQuestionIndex + 1) : "");
   const [soundEnabled, setSoundEnabled] = useState(false);
   const { accommodations } = useStudentAccommodations();
   const readAloud = useReadAloud(language);
@@ -846,8 +860,16 @@ function QuestionPager({
   const pagerActivityRef = useRef(interactionEnabled);
   const questionStartedAtRef = useRef<Record<string, number>>({});
   const questionSignature = useMemo(() => questions.map((question) => question.id).join("|"), [questions]);
-  const questionCount = questions.length;
+  const previousQuestionSignatureRef = useRef(questionSignature);
   const currentQuestionNumber = questionCount ? currentIndex + 1 : 0;
+  const answerCorrectness = useMemo(
+    () => questions.reduce<Record<string, boolean>>((current, question) => {
+      const result = answerResults[question.id];
+      if (result) current[question.id] = result.correct;
+      return current;
+    }, {}),
+    [answerResults, questions]
+  );
 
   const clearAutoAdvance = useCallback(() => {
     if (autoAdvanceTimerRef.current === null) return;
@@ -870,12 +892,14 @@ function QuestionPager({
   }, [currentIndex, goToIndex]);
 
   useEffect(() => {
+    if (previousQuestionSignatureRef.current === questionSignature) return;
+    previousQuestionSignatureRef.current = questionSignature;
     clearAutoAdvance();
     questionStartedAtRef.current = {};
-    setCurrentIndex(0);
-    setAnswerResults({});
-    setJumpValue(questionCount ? "1" : "");
-  }, [clearAutoAdvance, questionCount, questionSignature]);
+    const nextIndex = resumeQuestionIndex(questions, answerResults);
+    setCurrentIndex(nextIndex);
+    setJumpValue(questionCount ? String(nextIndex + 1) : "");
+  }, [answerResults, clearAutoAdvance, questionCount, questionSignature, questions]);
 
   useEffect(() => {
     setSoundEnabled(readPracticeSoundEnabled(window.localStorage.getItem(practiceSoundStorageKey(currentUser?.id))));
@@ -960,7 +984,7 @@ function QuestionPager({
     onQuestionStarted?.(question);
   }, [interactionEnabled, onQuestionStarted]);
 
-  const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback) => {
+  const handleAnswered = useCallback((question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => {
     if (!pagerActivityRef.current) return;
     const startedAt = questionStartedAtRef.current[question.id] ?? Date.now();
     const durationSeconds = Math.max(1, Math.round((Date.now() - startedAt) / 1000));
@@ -968,7 +992,6 @@ function QuestionPager({
 
     delete questionStartedAtRef.current[question.id];
     const isRoundNowComplete = questions.every((item) => item.id === question.id || answerResults[item.id] !== undefined);
-    setAnswerResults((current) => ({ ...current, [question.id]: feedback.correct }));
     if (pagerActivityRef.current && soundEnabled) {
       playPracticeSound(isRoundNowComplete ? "complete" : feedback.correct ? "correct" : "wrong");
     }
@@ -976,7 +999,8 @@ function QuestionPager({
       question,
       feedback,
       durationSeconds,
-      questionNumber: answeredIndex + 1
+      questionNumber: answeredIndex + 1,
+      selectedAnswer
     });
     if (!pagerActivityRef.current || answeredIndex < 0 || answeredIndex !== currentIndex || answeredIndex >= questionCount - 1) return;
 
@@ -992,7 +1016,7 @@ function QuestionPager({
 
   const isYoungLearnerRound = isYoungLearnerPracticeRound(questions);
   // Pager header shows the round's live star haul on the right of the eyebrow.
-  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id] === true ? 1 : 0), 0);
+  const correctCount = questions.reduce((sum, question) => sum + (answerResults[question.id]?.correct === true ? 1 : 0), 0);
   const answeredCount = questions.reduce((sum, question) => sum + (answerResults[question.id] !== undefined ? 1 : 0), 0);
 
   if (!questionCount) return null;
@@ -1017,7 +1041,7 @@ function QuestionPager({
         </div>
 
         <PracticeMissionTrail
-          answerResults={answerResults}
+          answerResults={answerCorrectness}
           currentIndex={currentIndex}
           onSelect={goToIndex}
           prefersReducedMotion={prefersReducedMotion}
@@ -1117,18 +1141,26 @@ function QuestionPager({
       </div>
 
       <div className="grid gap-5">
-        {questions.map((question, index) => (
-          <div
-            key={question.id}
-            className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm sm:p-5"
-            hidden={index !== currentIndex}
-            aria-hidden={index !== currentIndex}
-            onFocusCapture={() => startQuestionTimer(question)}
-            onPointerDownCapture={() => startQuestionTimer(question)}
-          >
-            <PracticeQuestionCard question={question} onAnswered={handleAnswered} />
-          </div>
-        ))}
+        {questions.map((question, index) => {
+          const result = answerResults[question.id];
+          return (
+            <div
+              key={question.id}
+              className="rounded-3xl border border-sky-100 bg-white/95 p-4 shadow-sm sm:p-5"
+              hidden={index !== currentIndex}
+              aria-hidden={index !== currentIndex}
+              onFocusCapture={() => startQuestionTimer(question)}
+              onPointerDownCapture={() => startQuestionTimer(question)}
+            >
+              <PracticeQuestionCard
+                question={question}
+                initialFeedback={result?.feedback ?? null}
+                initialSelectedAnswer={result?.selectedAnswer ?? ""}
+                onAnswered={handleAnswered}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -1419,6 +1451,11 @@ export default function PracticePage() {
   const firstQuestionCatalogTopicId = questionCatalogTopics.find(
     (question) => question.questionCount >= freeSelectionRoundQuestionCount
   )?.topicId ?? null;
+  const adaptiveExploreTopicId = adaptivePlan?.topic.id && questionCatalogTopics.some(
+    (topic) => topic.topicId === adaptivePlan.topic.id && topic.questionCount >= freeSelectionRoundQuestionCount
+  )
+    ? adaptivePlan.topic.id
+    : firstQuestionCatalogTopicId;
 
   useEffect(() => {
     if (practiceArenaMode !== "unit") return;
@@ -1451,7 +1488,10 @@ export default function PracticePage() {
   const isFreeSelectionUnlocked = Boolean(adaptiveRoundKey && freeSelectionUnlockedTopicId === adaptiveRoundKey);
   const canFallbackToFreeSelection = questionCatalogLoaded && adaptivePlanSettled && !questionCatalogError && !adaptivePlan;
   const hasManualTopicSelection = topicFilter !== "all";
-  const shouldShowFreeSelection = isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
+  const canExploreQuestionCatalog =
+    practiceArenaMode === "explore" && questionCatalogLoaded && !questionCatalogError;
+  const shouldShowFreeSelection =
+    canExploreQuestionCatalog || isFreeSelectionUnlocked || canFallbackToFreeSelection || hasManualTopicSelection;
   const missionSetupDecisionSettled = questionCatalogLoaded && adaptivePlanSettled;
   const showMissionSetupSkeleton =
     !adaptivePlan && !shouldShowFreeSelection && !questionCatalogError && !missionSetupDecisionSettled;
@@ -1671,7 +1711,7 @@ export default function PracticePage() {
     runRefresh();
   }, [refreshAdaptiveRecommendation]);
 
-  const handleAdaptiveAnswered = useCallback(({ question, feedback, durationSeconds }: PracticePagerAnswerResult) => {
+  const handleAdaptiveAnswered = useCallback(({ question, feedback, durationSeconds, selectedAnswer }: PracticePagerAnswerResult) => {
     adaptiveProgressQuestionIdsRef.current.add(question.id);
 
     setCompletedAdaptiveQuestionIds((current) => {
@@ -1688,7 +1728,9 @@ export default function PracticePage() {
         correct: feedback.correct,
         correctAnswer: feedback.correctAnswer,
         durationSeconds,
-        answeredAt: Date.now()
+        answeredAt: Date.now(),
+        feedback,
+        selectedAnswer
       }
     }));
 
@@ -1699,14 +1741,16 @@ export default function PracticePage() {
     adaptiveProgressQuestionIdsRef.current.add(question.id);
   }, []);
 
-  const handleFreeSelectionAnswered = useCallback(({ question, feedback, durationSeconds }: PracticePagerAnswerResult) => {
+  const handleFreeSelectionAnswered = useCallback(({ question, feedback, durationSeconds, selectedAnswer }: PracticePagerAnswerResult) => {
     setFreeSelectionQuestionResults((current) => ({
       ...current,
       [question.id]: {
         correct: feedback.correct,
         correctAnswer: feedback.correctAnswer,
         durationSeconds,
-        answeredAt: Date.now()
+        answeredAt: Date.now(),
+        feedback,
+        selectedAnswer
       }
     }));
   }, []);
@@ -2327,6 +2371,22 @@ export default function PracticePage() {
       return;
     }
 
+    if ((region.kind === "adaptive" || region.kind === "review") && practiceArenaMode === "explore") {
+      if (!adaptiveExploreTopicId) {
+        setIslandRegionNotice({
+          en: "No complete five-question mission is available here yet. Try another region.",
+          zh: "這個區域目前還沒有完整的五題任務，請試試其他區域。",
+          zhHans: "这个区域目前还没有完整的五题任务，请试试其他区域。"
+        });
+        return;
+      }
+
+      setIslandRegionNotice(null);
+      setTopicFilter(adaptiveExploreTopicId);
+      scrollToPracticeSection("free-selection", "mission-setup-filters");
+      return;
+    }
+
     if (region.kind === "adaptive" || region.kind === "review") {
       setIslandRegionNotice(null);
       scrollToPracticeSection(adaptivePlan ? "adaptive-practice-round" : "free-selection", "mission-setup-filters");
@@ -2360,11 +2420,13 @@ export default function PracticePage() {
     scrollToPracticeSection("free-selection", "mission-setup-filters");
   }, [
     activeGradeFilter,
+    adaptiveExploreTopicId,
     adaptivePlan,
     adventureGradeLock.gradeSelectionDisabled,
     islandRegionTopicBuckets,
     islandStarTotal,
     mastersKeepLocked,
+    practiceArenaMode,
     scrollToPracticeSection,
     selectedGrade,
     topicFilter
@@ -2551,6 +2613,7 @@ export default function PracticePage() {
         <div id="adaptive-practice-round" className="scroll-mt-28">
           <QuestionPager
             questions={adaptiveRoundQuestions}
+            answerResults={adaptiveQuestionResults}
             onAnswered={handleAdaptiveAnswered}
             onQuestionStarted={handleAdaptiveQuestionStarted}
             interactionEnabled={practiceArenaMode === "unit"}
@@ -2762,6 +2825,7 @@ export default function PracticePage() {
         <div id="free-selection" className="scroll-mt-28">
           <QuestionPager
             questions={freeSelectionRoundQuestions}
+            answerResults={freeSelectionQuestionResults}
             onAnswered={handleFreeSelectionAnswered}
             interactionEnabled={practiceArenaMode === "unit"}
           />
@@ -2796,6 +2860,7 @@ export default function PracticePage() {
           </div>
           <QuestionPager
             questions={freeSelectionRoundQuestions}
+            answerResults={freeSelectionQuestionResults}
             onAnswered={handleFreeSelectionAnswered}
             interactionEnabled={practiceArenaMode === "explore"}
           />
