@@ -42,12 +42,12 @@ import {
   shouldWithholdTutorReply,
   type ContentSafetyClassification
 } from "@/lib/server/contentSafety";
+import { buildModerationRedirectReply } from "@/lib/server/tutorModeration";
 import {
-  applyTutorOutputModeration,
-  buildModerationRedirectReply,
-  classifyTutorModeration,
-  shouldBlockTutorInput
-} from "@/lib/server/tutorModeration";
+  resolveTutorInputModeration,
+  resolveTutorModerationProviderTimeoutMs,
+  resolveTutorOutputModeration
+} from "@/lib/server/tutorModerationProvider";
 import { classAiTutorRateLimitRulesFromPolicy } from "@/lib/server/aiGovernance";
 import {
   boundedLLMNumber,
@@ -1897,6 +1897,11 @@ async function handleAITutorPost(
 
   const elapsedMs = () => Date.now() - requestStartedAt;
   const remainingMs = () => Math.max(0, totalDeadlineMs - elapsedMs());
+  // The moderation hop is a gate in front of the model call, not the call itself,
+  // so it never gets to eat the tutor's total deadline: it takes the configured
+  // budget or whatever is left of the request, whichever is smaller.
+  const tutorModerationBudgetMs = () =>
+    Math.min(resolveTutorModerationProviderTimeoutMs(), remainingMs());
 
   function markStage(stage: string) {
     stageTimings[stage] = elapsedMs();
@@ -2282,57 +2287,62 @@ async function handleAITutorPost(
   // still tutored. Scoped to students, mirroring content-safety. This is not a
   // duty-of-care alert, so it is written to the governance audit log, not the
   // teacher safety-alert surface.
-  const studentInputModeration = authenticated.user.role === "student"
-    ? classifyTutorModeration(input, { source: "student-input" })
-    : { flagged: false, matchedTerms: [] as string[], excerpt: "" };
-  if (studentInputModeration.flagged && studentInputModeration.category && studentInputModeration.severity) {
-    const blockInput = shouldBlockTutorInput(studentInputModeration);
+  //
+  // Two layers, lexical first. The lexical net is synchronous and always on, and
+  // a lexical block refuses here without ever touching the network — the worst
+  // case for the highest-harm input is unchanged. The provider check only ever
+  // sees input the lexical net let through, and only when
+  // TUTOR_MODERATION_API_URL/TUTOR_MODERATION_API_KEY are set; with them unset
+  // this resolves to exactly what the lexical gate alone did, including the audit
+  // strings it writes.
+  const inputModeration = await resolveTutorInputModeration({
+    input,
+    role: authenticated.user.role,
+    timeoutMs: tutorModerationBudgetMs()
+  });
+  inputModeration.governanceEvents.forEach((event) => {
     recordAiGovernanceEventAfterResponse({
       userId: authenticatedUserId,
       capability: "ai-tutor-chat",
-      action: "content-moderation-blocked",
-      reason: `content-moderation:student-input:${studentInputModeration.category}:${studentInputModeration.severity}${blockInput ? ":blocked" : ""}`,
-      metadata: {
-        category: studentInputModeration.category,
-        severity: studentInputModeration.severity,
-        source: "student-input",
-        blocked: blockInput
+      action: event.action,
+      reason: event.reason,
+      metadata: event.metadata
+    });
+  });
+  if (inputModeration.providerStatus !== "skipped") markStage("input-provider-moderation");
+
+  if (inputModeration.blocked) {
+    const reply = buildModerationRedirectReply(language);
+    recordTutorMessageAfterResponse({
+      userId: authenticatedUserId,
+      role: "student",
+      content: input,
+      context: context
+        ? { ...context, grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+        : { grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
+    });
+    recordTutorMessageAfterResponse({
+      userId: authenticatedUserId,
+      role: "tutor",
+      content: reply,
+      context: {
+        grade,
+        language,
+        page,
+        mode: "moderation-redirect",
+        moderationCategory: inputModeration.classification.category,
+        moderationSeverity: inputModeration.classification.severity
       }
     });
-
-    if (blockInput) {
-      const reply = buildModerationRedirectReply(language);
-      recordTutorMessageAfterResponse({
-        userId: authenticatedUserId,
-        role: "student",
-        content: input,
-        context: context
-          ? { ...context, grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
-          : { grade, language, page, attachments, dataScopes: resolvedContextHints.dataScopes, targetStudentId: resolvedContextHints.targetStudentId || undefined }
-      });
-      recordTutorMessageAfterResponse({
-        userId: authenticatedUserId,
-        role: "tutor",
-        content: reply,
-        context: {
-          grade,
-          language,
-          page,
-          mode: "moderation-redirect",
-          moderationCategory: studentInputModeration.category,
-          moderationSeverity: studentInputModeration.severity
-        }
-      });
-      recordTutorUsageAfterResponse({
-        userId: authenticatedUserId,
-        model: primaryProviderConfig.model,
-        error: "AI Tutor content-moderation redirect"
-      });
-      return jsonWithDeferredTutorSideEffects({ reply, mode: "moderation-redirect" });
-    }
-    // Flag severity: logged for audit; the tutor still answers the math question
-    // (the input message is recorded in the normal flow below).
+    recordTutorUsageAfterResponse({
+      userId: authenticatedUserId,
+      model: primaryProviderConfig.model,
+      error: "AI Tutor content-moderation redirect"
+    });
+    return jsonWithDeferredTutorSideEffects({ reply, mode: "moderation-redirect" });
   }
+  // Flag severity (either layer): logged for audit; the tutor still answers the
+  // math question (the input message is recorded in the normal flow below).
 
   if (asksForSensitiveInternalMaterial(input)) {
     const reply = buildSensitiveRequestReply(language, input);
@@ -3059,29 +3069,31 @@ async function handleAITutorPost(
     // belong in a minors' tutor (profanity, insults, sexual/hateful/dangerous
     // content). The tutor is held to a higher bar than the student, so any flag
     // — not just block severity — withholds. Logged to the governance audit log.
+    //
+    // Same two layers as the input gate: the lexical net decides first and never
+    // touches the network; the provider only sees replies the lexical net cleared,
+    // and only when it is configured.
     let moderationRedirected = false;
     if (authenticated.user.role === "student" && !safetyRedirected) {
-      const outputModeration = applyTutorOutputModeration({
+      const outputModeration = await resolveTutorOutputModeration({
         modelReply,
         role: authenticated.user.role,
-        language
+        language,
+        timeoutMs: tutorModerationBudgetMs()
       });
-      const { category, severity } = outputModeration.classification;
-      if (outputModeration.redirected && category && severity) {
-        moderationRedirected = true;
-        reply = outputModeration.reply;
+      outputModeration.governanceEvents.forEach((event) => {
         recordAiGovernanceEventAfterResponse({
           userId: authenticatedUserId,
           capability: "ai-tutor-chat",
-          action: "content-moderation-blocked",
-          reason: `content-moderation:tutor-output:${category}:${severity}:withheld`,
-          metadata: {
-            category,
-            severity,
-            source: "tutor-output",
-            blocked: true
-          }
+          action: event.action,
+          reason: event.reason,
+          metadata: event.metadata
         });
+      });
+      if (outputModeration.providerStatus !== "skipped") markStage("output-provider-moderation");
+      if (outputModeration.redirected) {
+        moderationRedirected = true;
+        reply = outputModeration.reply;
       }
     }
 
