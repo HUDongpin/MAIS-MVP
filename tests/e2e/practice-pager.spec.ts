@@ -74,7 +74,9 @@ async function readPageHtmlWithTransientRetry(page: Page, path: string) {
 
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     try {
-      return await (await page.request.get(path)).text();
+      const response = await page.request.get(path);
+      expect(response.ok(), `HTML evidence request failed with ${response.status()}`).toBeTruthy();
+      return await response.text();
     } catch (error) {
       lastError = error;
       if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
