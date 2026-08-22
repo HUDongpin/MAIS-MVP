@@ -25,7 +25,14 @@ function practiceRegion(page: Page) {
   return page.getByRole("region", { name: /Practice questions/i });
 }
 
-async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: string, grade = "S3") {
+async function registerStudentThroughApi(
+  page: Page,
+  testInfo: TestInfo,
+  label: string,
+  grade = "S3",
+  language: "en" | "zh" | "zh-Hans" = "en",
+  theme: "light" | "dark" = "dark"
+) {
   const suffix = uniqueSuffix(testInfo);
   let lastError: unknown;
 
@@ -38,8 +45,8 @@ async function registerStudentThroughApi(page: Page, testInfo: TestInfo, label: 
           password: "start12345",
           grade,
           curriculumTrack: "HK",
-          language: "en",
-          theme: "dark"
+          language,
+          theme
         }
       });
       expect(response.ok(), `student API registration failed with ${response.status()}: ${await response.text()}`).toBeTruthy();
@@ -271,13 +278,15 @@ async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps 
   // instant isVisible() checks below can page past the target question
   // before its card has rendered. Scoped to main because lesson pages keep a
   // hidden SSR copy of the pager outside it.
-  await expect(page.getByRole("main").getByText(/Question \d+ of \d+/i).first()).toBeVisible();
+  await expect(
+    page.getByRole("main").getByText(/Question \d+ of \d+|第\s*\d+\s*[題题]，共\s*\d+\s*[題题]/i).first()
+  ).toBeVisible();
 
   for (let step = 0; step < maxSteps; step += 1) {
     const card = page.locator("article:visible").filter({ hasText: text }).first();
     if (await card.waitFor({ state: "visible", timeout: 1500 }).then(() => true, () => false)) return card;
 
-    const nextButton = page.getByRole("button", { name: /Next question/i });
+    const nextButton = page.getByRole("button", { name: /Next question|下一[題题]/i });
     if (!await nextButton.isEnabled().catch(() => false)) break;
     await nextButton.click();
   }
@@ -493,6 +502,32 @@ test.describe("Practice Arena question pager", () => {
     }
 
     await setAnswerValue(answer, "");
+    await pressSoftKey(keyboard, "123", "Insert 3");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 2");
+    await pressSoftKey(keyboard, "123", "Insert plus sign");
+    await pressSoftKey(keyboard, "123", "Insert 4");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+    await keyboard.getByRole("button", { name: /Undo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await keyboard.getByRole("button", { name: /Redo soft keyboard input/i }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "3+2+4=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "123", 1);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("1=23");
+
+    await setAnswerValue(answer, "123");
+    await selectAnswerText(answer);
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("=");
+
+    await setAnswerValue(answer, "");
     await pressSoftKey(keyboard, "∞≠∈", "Insert Euler's number");
     await pressSoftKey(keyboard, "123", "Insert exponent marker");
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
@@ -502,7 +537,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
     await pressSoftKey(keyboard, "123", "Insert plus sign");
     await pressSoftKey(keyboard, "123", "Insert 1");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 0");
     await expect(answer).toHaveValue("e^(i*pi)+1=0");
 
@@ -511,7 +546,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "123", "Insert exponent 2");
@@ -528,7 +563,7 @@ test.describe("Practice Arena question pager", () => {
     await pressSoftKey(keyboard, "abc", "Wrap with parentheses");
     await pressSoftKey(keyboard, "abc", "Insert x");
     await pressSoftKey(keyboard, "abc", "Insert closing parenthesis");
-    await pressSoftKey(keyboard, "123", "Insert equals sign");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await pressSoftKey(keyboard, "123", "Insert 2");
     await pressSoftKey(keyboard, "abc", "Insert a");
     await pressSoftKey(keyboard, "abc", "Insert x");
@@ -826,6 +861,60 @@ test.describe("Practice Arena question pager", () => {
     await expect(handwrittenAnswer).toBeVisible();
     await expect(uploadButton).toBeVisible();
     await expectNoOverlap(canvas, uploadButton);
+  });
+
+  test("lesson fill-in math keyboard calculates in Simplified Chinese and preserves symbolic equals", async ({ page }, testInfo) => {
+    test.slow();
+
+    await registerStudentThroughApi(page, testInfo, "lesson-calculator", "S1", "zh-Hans", "light");
+
+    await page.goto("/student/lessons/algebra-basics");
+    await expect(page.getByRole("heading", { level: 1, name: /代数基础：代数式与简单方程/ })).toBeVisible();
+
+    const card = await findVisibleLessonPracticeCard(page, /填空答案/);
+    await card.getByRole("button", { name: /数学键盘/ }).click();
+
+    const keyboard = card.getByRole("group", { name: "数学软键盘", exact: true });
+    const answer = card.getByRole("textbox").first();
+    const calculate = keyboard.getByRole("button", { name: "计算或输入等号", exact: true });
+    const pressInsert = async (insert: string) => {
+      await keyboard.getByRole("tabpanel").locator(`button[data-math-key-insert="${insert}"]`).click();
+    };
+
+    await expect(keyboard).toBeVisible({ timeout: 60_000 });
+    await expect(calculate).toBeVisible();
+    for (const token of ["3", "+", "2", "+", "4"]) await pressInsert(token);
+    await calculate.click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await keyboard.getByRole("button", { name: "复原软键盘输入", exact: true }).click();
+    await expect(answer).toHaveValue("3+2+4");
+    await keyboard.getByRole("button", { name: "重做软键盘输入", exact: true }).click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "f(x)");
+    await calculate.click();
+    await expect(answer).toHaveValue("f(x)=");
+
+    await setAnswerValue(answer, "3+2+4=");
+    await calculate.click();
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    await expectNoHorizontalDocumentOverflow(page);
+    await expectKeyboardButtonsDoNotOverlap(keyboard);
+
+    const [attemptRequest, attemptResponse] = await Promise.all([
+      page.waitForRequest((request) => (
+        request.method() === "POST" && new URL(request.url()).pathname === "/api/attempts"
+      )),
+      page.waitForResponse((response) => (
+        response.request().method() === "POST" && new URL(response.url()).pathname === "/api/attempts"
+      )),
+      card.getByRole("button", { name: /检查答案/ }).click()
+    ]);
+    const submittedPayload = attemptRequest.postDataJSON() as { selectedAnswer?: unknown };
+    expect(submittedPayload.selectedAnswer).toBe("3+2+4=9");
+    expect(attemptResponse.ok()).toBeTruthy();
   });
 
   test("lesson fill-in questions expose and convert with the handwriting input mode", async ({ page }, testInfo) => {

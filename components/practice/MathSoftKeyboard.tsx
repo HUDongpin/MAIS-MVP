@@ -2,13 +2,14 @@
 
 import { useState, type RefObject } from "react";
 import { MathText } from "@/components/math/MathText";
+import { calculateMathKeyboardAnswer } from "@/components/practice/mathSoftKeyboardCalculation";
 import { cn, localize } from "@/lib/utils";
 import type { Language, LocalizedText } from "@/types";
 
 type AnswerControl = HTMLInputElement | HTMLTextAreaElement;
 type KeyboardTabId = "numbers" | "symbols" | "letters" | "greek";
 type MathKeyTone = "default" | "command" | "danger";
-type MathKeyAction = "clear" | "backspace" | "move-left" | "move-right" | "toggle-sign" | "toggle-shift" | "undo" | "redo";
+type MathKeyAction = "clear" | "backspace" | "calculate-or-equals" | "move-left" | "move-right" | "toggle-sign" | "toggle-shift" | "undo" | "redo";
 type Snapshot = {
   value: string;
   start: number;
@@ -159,7 +160,10 @@ const keyboardRows: Record<KeyboardTabId, MathKey[][]> = {
       digitKey("9"),
       insertKey("-", "-", "Insert minus sign", "輸入減號"),
       insertKey("/", "/", "Insert division slash", "輸入除號"),
-      insertKey("=", "=", "Insert equals sign", "輸入等號")
+      actionKey("=", "calculate-or-equals", "Calculate or insert equals sign", "計算或輸入等號", {
+        ariaZhHans: "计算或输入等号",
+        tone: "command"
+      })
     ]
   ],
   symbols: [
@@ -466,12 +470,12 @@ function actionKey(
   action: MathKeyAction,
   ariaEn: string,
   ariaZh: string,
-  options: Partial<Pick<MathKey, "tone" | "wide" | "extraWide">> = {}
+  options: Partial<Pick<MathKey, "tone" | "wide" | "extraWide">> & { ariaZhHans?: string } = {}
 ): MathKey {
   return {
     label,
     action,
-    aria: { en: ariaEn, zh: ariaZh },
+    aria: { en: ariaEn, zh: ariaZh, zhHans: options.ariaZhHans },
     tone: options.tone,
     wide: options.wide,
     extraWide: options.extraWide
@@ -535,8 +539,8 @@ export function MathSoftKeyboard({
   targetRef,
   language,
   onChange,
-  ariaLabel = { en: "Math soft keyboard", zh: "數學軟鍵盤" },
-  clearAriaLabel = { en: "Clear answer", zh: "清空答案" }
+  ariaLabel = { en: "Math soft keyboard", zh: "數學軟鍵盤", zhHans: "数学软键盘" },
+  clearAriaLabel = { en: "Clear answer", zh: "清空答案", zhHans: "清空答案" }
 }: MathSoftKeyboardProps) {
   const [activeTab, setActiveTab] = useState<KeyboardTabId>("numbers");
   const [shiftActive, setShiftActive] = useState(false);
@@ -583,6 +587,22 @@ export function MathSoftKeyboard({
     setShiftActive(false);
   }
 
+  function calculateOrInsertEquals() {
+    const snapshot = getSnapshot();
+    const result =
+      snapshot.start === snapshot.end && snapshot.end === snapshot.value.length
+        ? calculateMathKeyboardAnswer(snapshot.value)
+        : null;
+
+    if (result === null) {
+      insertText("=");
+      return;
+    }
+
+    commit(result, result.length);
+    setShiftActive(false);
+  }
+
   function toggleSign() {
     const snapshot = getSnapshot();
     const selectedText = snapshot.value.slice(snapshot.start, snapshot.end);
@@ -610,6 +630,11 @@ export function MathSoftKeyboard({
   }
 
   function handleAction(action: MathKeyAction) {
+    if (action === "calculate-or-equals") {
+      calculateOrInsertEquals();
+      return;
+    }
+
     if (action === "clear") {
       clearAnswer();
       return;
@@ -726,12 +751,14 @@ export function MathSoftKeyboard({
   }
 
   const editingControls = [
-    actionKey("↶", "undo", "Undo soft keyboard input", "復原軟鍵盤輸入"),
-    actionKey("↷", "redo", "Redo soft keyboard input", "重做軟鍵盤輸入"),
-    actionKey("←", "move-left", "Move cursor left", "游標向左"),
-    actionKey("→", "move-right", "Move cursor right", "游標向右"),
-    actionKey("⌫", "backspace", "Backspace", "刪除前一字元"),
-    actionKey("AC", "clear", localize(clearAriaLabel, "en"), localize(clearAriaLabel, "zh"))
+    actionKey("↶", "undo", "Undo soft keyboard input", "復原軟鍵盤輸入", { ariaZhHans: "复原软键盘输入" }),
+    actionKey("↷", "redo", "Redo soft keyboard input", "重做軟鍵盤輸入", { ariaZhHans: "重做软键盘输入" }),
+    actionKey("←", "move-left", "Move cursor left", "游標向左", { ariaZhHans: "光标向左" }),
+    actionKey("→", "move-right", "Move cursor right", "游標向右", { ariaZhHans: "光标向右" }),
+    actionKey("⌫", "backspace", "Backspace", "刪除前一字元", { ariaZhHans: "删除前一字符" }),
+    actionKey("AC", "clear", localize(clearAriaLabel, "en"), localize(clearAriaLabel, "zh"), {
+      ariaZhHans: localize(clearAriaLabel, "zh-Hans")
+    })
   ];
 
   return (
@@ -767,7 +794,11 @@ export function MathSoftKeyboard({
           })}
         </div>
 
-        <div role="group" aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制" }, language)} className="flex flex-wrap gap-2">
+        <div
+          role="group"
+          aria-label={localize({ en: "Soft keyboard editing controls", zh: "軟鍵盤編輯控制", zhHans: "软键盘编辑控制" }, language)}
+          className="flex flex-wrap gap-2"
+        >
           {editingControls.map((control) => (
             <KeyButton
               key={`control-${control.action}`}
