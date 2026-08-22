@@ -141,6 +141,15 @@ export async function openPracticeFiltersPanel(page: Page) {
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
 }
 
+export async function choosePracticeModeIfVisible(page: Page, mode: "guided" | "explore") {
+  const chooser = page.getByRole("group", { name: /Choose a practice mode/i });
+  if (!(await chooser.isVisible().catch(() => false))) return false;
+
+  const buttonName = mode === "guided" ? /Choose Unit Exercise/i : /Choose Free Exploration/i;
+  await chooser.getByRole("button", { name: buttonName }).click();
+  return true;
+}
+
 export function registrationRoleRadio(page: Page, role: "parent" | "student" | "teacher") {
   return page.getByRole("radio", { name: new RegExp(`^\\s*(?:✓\\s*)?${role}`, "i") }).first();
 }
