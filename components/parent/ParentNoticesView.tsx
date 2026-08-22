@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { parentFetchWithTimeout } from "@/components/parent/parentMessageUi";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatDateInHongKong } from "@/lib/utils";
 import type { Language, ParentNoticeRecipientSafe, ParentNoticeSafeData } from "@/types";
@@ -37,7 +38,7 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language, t, text } = useSettings();
-  const [message, setMessage] = useState("");
+  const [feedback, setFeedback] = useState<{ kind: "status" | "error"; text: string } | null>(null);
   const [filter, setFilter] = useState<NoticeFilter>("all");
   const [acknowledgingId, setAcknowledgingId] = useState("");
   const regularNotices = data.notices.filter((notice) => notice.source?.kind !== "teacher-review-lesson");
@@ -72,11 +73,61 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
   }, [router, searchParams, targetRecipient?.id, targetRecipient?.studentId]);
 
   async function acknowledge(recipientId: string) {
+    if (acknowledgingId) return;
     setAcknowledgingId(recipientId);
-    const response = await fetch(`/api/parent/notices/${encodeURIComponent(recipientId)}/ack`, { method: "POST" });
-    setMessage(response.ok ? t({ en: "Receipt confirmed.", zh: "已確認回執。" }) : t({ en: "Could not confirm receipt.", zh: "暫時未能確認回執。" }));
-    setAcknowledgingId("");
-    router.refresh();
+    setFeedback(null);
+    try {
+      let response: Response;
+      try {
+        response = await parentFetchWithTimeout(`/api/parent/notices/${encodeURIComponent(recipientId)}/ack`, { method: "POST" });
+      } catch {
+        setFeedback({ kind: "error", text: t({ en: "The connection ended before confirmation. Check your network and try again.", zh: "連線在確認回執前中斷，請檢查網絡後再試。", zhHans: "连接在确认回执前中断，请检查网络后重试。" }) });
+        return;
+      }
+      const payload = await response.json().catch(() => null) as { receipt?: { recipientId?: string; status?: string } } | null;
+      if (!response.ok) {
+        if (response.status === 400) {
+          setFeedback({ kind: "error", text: t({ en: "This receipt request is invalid and was not confirmed.", zh: "此回執要求無效，尚未確認。", zhHans: "此回执请求无效，尚未确认。" }) });
+        } else if (response.status === 404) {
+          setFeedback({ kind: "error", text: t({ en: "This notice is no longer available to this family.", zh: "此家庭已無法查看這則通知。", zhHans: "此家庭已无法查看这则通知。" }) });
+        } else if (response.status === 429) {
+          const seconds = Number(response.headers.get("Retry-After"));
+          setFeedback({
+            kind: "error",
+            text: Number.isFinite(seconds)
+              ? t({ en: `Too many attempts. Try again in about ${Math.ceil(seconds)} seconds.`, zh: `嘗試次數過多，請約 ${Math.ceil(seconds)} 秒後再試。`, zhHans: `尝试次数过多，请约 ${Math.ceil(seconds)} 秒后重试。` })
+              : t({ en: "Too many attempts. Please wait before trying again.", zh: "嘗試次數過多，請稍後再試。", zhHans: "尝试次数过多，请稍后重试。" })
+          });
+        } else if (response.status === 503) {
+          setFeedback({ kind: "error", text: t({ en: "The service is temporarily unavailable. The receipt was not confirmed; please retry.", zh: "服務暫時不可用，回執尚未確認；請再試一次。", zhHans: "服务暂时不可用，回执尚未确认；请重试。" }) });
+        } else {
+          setFeedback({ kind: "error", text: t({ en: "The receipt could not be confirmed.", zh: "暫時未能確認回執。", zhHans: "暂时无法确认回执。" }) });
+        }
+        return;
+      }
+      if (payload?.receipt?.recipientId !== recipientId || payload.receipt.status !== "acknowledged") {
+        setFeedback({ kind: "error", text: t({ en: "The server response could not confirm the receipt. Refresh before trying again.", zh: "伺服器回應未能確認回執，請重新載入後再試。", zhHans: "服务器响应未能确认回执，请重新加载后重试。" }) });
+        return;
+      }
+      setFeedback({ kind: "status", text: t({ en: "Receipt confirmed.", zh: "已確認回執。", zhHans: "已确认回执。" }) });
+      router.refresh();
+    } finally {
+      setAcknowledgingId("");
+    }
+  }
+
+  if (!data.children.length) {
+    return (
+      <section className="glass-panel p-6 text-center">
+        <h1 className="text-3xl font-black text-slate-950 dark:text-white">{t({ en: "Connect a child to receive notices", zh: "綁定孩子以接收通知", zhHans: "绑定孩子以接收通知" })}</h1>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+          {t({ en: "Use a current teacher invitation before viewing and confirming school notices.", zh: "使用有效的教師邀請碼後，即可查看並確認學校通知。", zhHans: "使用有效的教师邀请码后，即可查看并确认学校通知。" })}
+        </p>
+        <Link href="/parent/connect" className="focus-ring mt-5 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+          {t({ en: "Connect a child", zh: "綁定孩子", zhHans: "绑定孩子" })}
+        </Link>
+      </section>
+    );
   }
 
   return (
@@ -100,14 +151,14 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
           ))}
         </div>
         <div className="mt-5 flex flex-wrap gap-2">
-          <Link href="/parent/notices" className={`focus-ring rounded-full border px-4 py-2 text-sm font-black ${!selectedStudentId ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"}`}>
+          <Link href="/parent/notices" aria-current={!selectedStudentId ? "page" : undefined} className={`focus-ring rounded-full border px-4 py-2 text-sm font-black ${!selectedStudentId ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"}`}>
             {t({ en: "All children", zh: "全部孩子" })}
           </Link>
           {data.children.map((child) => {
             const params = new URLSearchParams({ studentId: child.student.id });
             const active = selectedStudentId === child.student.id;
             return (
-              <Link key={child.student.id} href={`/parent/notices?${params.toString()}`} className={`focus-ring rounded-full border px-4 py-2 text-sm font-black ${active ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"}`}>
+              <Link key={child.student.id} href={`/parent/notices?${params.toString()}`} aria-current={active ? "page" : undefined} className={`focus-ring max-w-full rounded-full border px-4 py-2 text-sm font-black [overflow-wrap:anywhere] ${active ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"}`}>
                 {child.student.name}
               </Link>
             );
@@ -122,6 +173,7 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
             <button
               key={item.id}
               type="button"
+              aria-pressed={filter === item.id}
               onClick={() => setFilter(item.id)}
               className={`focus-ring rounded-full border px-4 py-2 text-sm font-black ${filter === item.id ? "border-cyan-500 bg-cyan-400/15 text-cyan-800 dark:text-cyan-100" : "border-slate-200/80 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300"}`}
             >
@@ -129,7 +181,15 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
             </button>
           ))}
         </div>
-        {message ? <p className="mt-4 rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-bold text-cyan-800 dark:text-cyan-100">{message}</p> : null}
+        {feedback ? (
+          <p
+            role={feedback.kind === "error" ? "alert" : "status"}
+            aria-live={feedback.kind === "error" ? "assertive" : "polite"}
+            className={`mt-4 rounded-2xl border px-4 py-3 text-sm font-bold [overflow-wrap:anywhere] ${feedback.kind === "error" ? "border-rose-300/50 bg-rose-400/10 text-rose-700 dark:text-rose-200" : "border-emerald-300/50 bg-emerald-400/10 text-emerald-800 dark:text-emerald-100"}`}
+          >
+            {feedback.text}
+          </p>
+        ) : null}
       </section>
 
       {draftCards.length ? (
@@ -144,17 +204,17 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
             (() => {
               const pending = recipient?.status === "pending";
               return (
-                <article key={draft.id} className="glass-panel p-5">
+                <article key={draft.id} className="glass-panel min-w-0 overflow-hidden p-5">
                   <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xl font-black text-slate-950 dark:text-white">{text(draft.title)}</p>
-                      <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{draft.className} · {formatDate(draft.publishedAt, language)}</p>
+                    <div className="min-w-0">
+                      <p className="text-xl font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{text(draft.title)}</p>
+                      <p className="mt-1 text-sm font-bold text-slate-500 [overflow-wrap:anywhere] dark:text-slate-400">{draft.className} · {formatDate(draft.publishedAt, language)}</p>
                     </div>
                     <span className="rounded-full border border-emerald-300/60 bg-emerald-400/12 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-100">
                       {t({ en: "Teacher approved", zh: "教師已審核" })}
                     </span>
                   </div>
-                  <p className="mt-4 whitespace-pre-line text-sm leading-6 text-slate-600 dark:text-slate-300">{text(draft.summary)}</p>
+                  <p className="mt-4 whitespace-pre-line text-sm leading-6 text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">{text(draft.summary)}</p>
                   <div className="mt-4 grid gap-2 sm:grid-cols-3">
                     <p className="rounded-2xl bg-white/70 px-3 py-2 text-xs font-bold text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">
                       {t({ en: "Teacher", zh: "教師" })}: {draft.teacherName}
@@ -197,19 +257,19 @@ export function ParentNoticesView({ data, targetRecipientId }: { data: ParentNot
           const recipient = preferredRecipient(notice.recipients, targetRecipientId);
           const pending = recipient?.status === "pending";
           return (
-            <article key={notice.id} className="glass-panel p-5">
+            <article key={notice.id} className="glass-panel min-w-0 overflow-hidden p-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="text-xl font-black text-slate-950 dark:text-white">{text(notice.subject)}</p>
-                  <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{notice.className} · {formatDate(notice.sentAt, language)}</p>
+                <div className="min-w-0">
+                  <p className="text-xl font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{text(notice.subject)}</p>
+                  <p className="mt-1 text-sm font-bold text-slate-500 [overflow-wrap:anywhere] dark:text-slate-400">{notice.className} · {formatDate(notice.sentAt, language)}</p>
                 </div>
                 <span className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.12em] ${pending ? "border-amber-300/60 bg-amber-400/12 text-amber-800 dark:text-amber-100" : "border-emerald-300/60 bg-emerald-400/12 text-emerald-800 dark:text-emerald-100"}`}>
                   {pending ? t({ en: "Pending", zh: "待確認" }) : t({ en: "Acknowledged", zh: "已確認" })}
                 </span>
               </div>
-              <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{text(notice.body)}</p>
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-slate-600 [overflow-wrap:anywhere] dark:text-slate-300">{text(notice.body)}</p>
               <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                <p className="rounded-2xl bg-white/70 px-3 py-2 text-xs font-bold text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">
+                <p className="rounded-2xl bg-white/70 px-3 py-2 text-xs font-bold text-slate-600 [overflow-wrap:anywhere] dark:bg-white/[0.06] dark:text-slate-300">
                   {t({ en: "Channel", zh: "渠道" })}: {notice.channelName}
                 </p>
                 <p className="rounded-2xl bg-white/70 px-3 py-2 text-xs font-bold text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">
