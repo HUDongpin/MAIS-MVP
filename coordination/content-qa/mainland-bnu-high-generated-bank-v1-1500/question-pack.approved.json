@@ -58,18 +58,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for preparatory; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-001：在北师大版高中预备知识练习中，已知 3x + 2 = 11，求 x = （ ）",
-      "answer": "3",
-      "acceptedAnswers": [
-        "3"
-      ],
-      "explanationZhHans": "移项得 3x=9，两边同除以 3，所以 x=3。",
+      "promptZhHans": "题组s4-001：不等式(x-1)(x+2)>0的解集为（ ）",
       "optionsZhHans": [
-        "4",
-        "3",
-        "2",
-        "5"
-      ]
+        "(-2,1)",
+        "[-2,1]",
+        "(-∞,-2)∪(1,+∞)",
+        "(-∞,-2]∪[1,+∞)"
+      ],
+      "answer": "(-∞,-2)∪(1,+∞)",
+      "acceptedAnswers": [
+        "(-∞,-2)∪(1,+∞)",
+        "x<-2或x>1"
+      ],
+      "explanationZhHans": "方程(x-1)(x+2)=0的两个根为-2和1。二次项系数为正，所以乘积在两根外侧为正。因此解集为(-∞,-2)∪(1,+∞)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-002",
@@ -129,13 +130,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for preparatory; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-002：在北师大版高中预备知识练习中，已知 6x + 3 = 15，求 x = ",
-      "answer": "2",
+      "promptZhHans": "题组s4-002：已知集合A={x|x≥-1}，B={x|x<3}，求A∩B。",
+      "optionsZhHans": [],
+      "answer": "[-1,3)",
       "acceptedAnswers": [
-        "2"
+        "[-1,3)",
+        "{x|-1≤x<3}"
       ],
-      "explanationZhHans": "移项得 6x=12，两边同除以 6，所以 x=2。",
-      "optionsZhHans": []
+      "explanationZhHans": "A中的元素满足x≥-1，B中的元素满足x<3。同时满足两个条件可得-1≤x<3，所以A∩B=[-1,3)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-003",
@@ -332,13 +334,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for preparatory; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-005：在北师大版高中预备知识练习中，已知 5x + 6 = 46，求 x = ",
-      "answer": "8",
+      "promptZhHans": "题组s4-005：解不等式|2x-1|≤3，并用区间表示解集。",
+      "optionsZhHans": [],
+      "answer": "[-1,2]",
       "acceptedAnswers": [
-        "8"
+        "[-1,2]",
+        "-1≤x≤2",
+        "x∈[-1,2]",
+        "x in [-1,2]"
       ],
-      "explanationZhHans": "移项得 5x=40，两边同除以 5，所以 x=8。",
-      "optionsZhHans": []
+      "explanationZhHans": "由|2x-1|≤3得-3≤2x-1≤3，所以-2≤2x≤4，进而-1≤x≤2，解集为[-1,2]。"
     },
     {
       "id": "bnu-high-ds-v1-s4-006",
@@ -398,13 +403,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for preparatory; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-006：在北师大版高中预备知识练习中，已知 3x + 7 = 28，求 x = ____。",
-      "answer": "7",
+      "promptZhHans": "题组s4-006：设命题p为x>2，命题q为x>1。p是q的____条件（从“充分不必要”“必要不充分”“充要”“既不充分也不必要”中选择）。",
+      "optionsZhHans": [],
+      "answer": "充分不必要",
       "acceptedAnswers": [
-        "7"
+        "充分不必要",
+        "充分但不必要",
+        "充分非必要",
+        "sufficient but not necessary"
       ],
-      "explanationZhHans": "移项得 3x=21，两边同除以 3，所以 x=7。",
-      "optionsZhHans": []
+      "explanationZhHans": "若x>2，则一定有x>1，所以p能推出q；但x=3/2时q成立而p不成立，因此q不能推出p。故p是q的充分不必要条件。"
     },
     {
       "id": "bnu-high-ds-v1-s4-007",
@@ -2494,18 +2502,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for function; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-037：设函数 f(x) = 6x - 3，求 f(3) = （ ）",
-      "answer": "15",
-      "acceptedAnswers": [
-        "15"
-      ],
-      "explanationZhHans": "把 x=3 代入，f(3)=6×3-3=15。",
+      "promptZhHans": "题组s4-037：函数f(x)=x²-4x+1在闭区间[0,3]上的最小值为（ ）",
       "optionsZhHans": [
-        "16",
-        "15",
-        "14",
-        "17"
-      ]
+        "-4",
+        "-3",
+        "-2",
+        "1"
+      ],
+      "answer": "-3",
+      "acceptedAnswers": [
+        "-3"
+      ],
+      "explanationZhHans": "f(x)=x²-4x+1=(x-2)²-3。因为顶点横坐标2在区间[0,3]内，所以当x=2时函数取得最小值-3。"
     },
     {
       "id": "bnu-high-ds-v1-s4-038",
@@ -2565,13 +2573,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for function; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-038：设函数 f(x) = 4x - 4，求 f(4) = ",
-      "answer": "12",
+      "promptZhHans": "题组s4-038：求函数f(x)=√(2x-4)的定义域。",
+      "optionsZhHans": [],
+      "answer": "[2,+∞)",
       "acceptedAnswers": [
-        "12"
+        "[2,+∞)",
+        "x≥2"
       ],
-      "explanationZhHans": "把 x=4 代入，f(4)=4×4-4=12。",
-      "optionsZhHans": []
+      "explanationZhHans": "要使根式√(2x-4)有意义，必须满足2x-4≥0，解得x≥2。因此函数的定义域为[2,+∞)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-039",
@@ -2768,13 +2777,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for function; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-041：设函数 f(x) = 3x + 2，求 f(7) = ",
-      "answer": "23",
+      "promptZhHans": "题组s4-041：判断函数f(x)=x³+x（定义域为R）的奇偶性，并写出代数依据。请按“结论；依据”作答。",
+      "optionsZhHans": [],
+      "answer": "奇函数；f(-x)=-f(x)",
       "acceptedAnswers": [
-        "23"
+        "奇函数；f(-x)=-f(x)",
+        "f(x)是奇函数；f(-x)=-f(x)",
+        "奇函數；f(-x)=-f(x)",
+        "Odd function; f(-x)=-f(x)"
       ],
-      "explanationZhHans": "把 x=7 代入，f(7)=3×7+2=23。",
-      "optionsZhHans": []
+      "explanationZhHans": "定义域R关于原点对称，且f(-x)=(-x)³+(-x)=-x³-x=-f(x)，所以f是奇函数。"
     },
     {
       "id": "bnu-high-ds-v1-s4-042",
@@ -2834,13 +2846,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for function; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-042：设函数 f(x) = 6x + 1，求 f(1) = ____。",
-      "answer": "7",
+      "promptZhHans": "题组s4-042：函数f(x)={x+2，x<0；x²，x≥0}，则f(-3)+f(2)=____。",
+      "optionsZhHans": [],
+      "answer": "3",
       "acceptedAnswers": [
-        "7"
+        "3",
+        "f(-3)+f(2)=3"
       ],
-      "explanationZhHans": "把 x=1 代入，f(1)=6×1+1=7。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为-3<0，所以f(-3)=-3+2=-1；因为2≥0，所以f(2)=2²=4。因此f(-3)+f(2)=3。"
     },
     {
       "id": "bnu-high-ds-v1-s4-043",
@@ -4930,18 +4943,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for exponent; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-073：化简指数运算 2^4 × 2^2 = 2^k，求 k = （ ）",
-      "answer": "6",
-      "acceptedAnswers": [
-        "6"
-      ],
-      "explanationZhHans": "同底数幂相乘，指数相加，k=4+2=6。",
+      "promptZhHans": "题组s4-073：函数f(x)=(1/2)^x，则f(-1)、f(0)、f(2)中的最大值为（ ）",
       "optionsZhHans": [
-        "7",
-        "6",
-        "5",
-        "8"
-      ]
+        "1/4",
+        "1/2",
+        "1",
+        "2"
+      ],
+      "answer": "2",
+      "acceptedAnswers": [
+        "2"
+      ],
+      "explanationZhHans": "f(-1)=2，f(0)=1，f(2)=1/4，所以三个函数值中的最大值为2。这也符合底数1/2在(0,1)内时指数函数单调递减的性质。"
     },
     {
       "id": "bnu-high-ds-v1-s4-074",
@@ -5001,13 +5014,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for exponent; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-074：化简指数运算 2^2 × 2^2 = 2^k，求 k = ",
+      "promptZhHans": "题组s4-074：解指数方程3^(x-1)=27。",
+      "optionsZhHans": [],
       "answer": "4",
       "acceptedAnswers": [
         "4"
       ],
-      "explanationZhHans": "同底数幂相乘，指数相加，k=2+2=4。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为27=3³，所以3^(x-1)=3³。由指数函数的单调性得x-1=3，因此x=4。"
     },
     {
       "id": "bnu-high-ds-v1-s4-075",
@@ -5204,13 +5217,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for exponent; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-077：化简指数运算 2^6 × 2^2 = 2^k，求 k = ",
-      "answer": "8",
+      "promptZhHans": "题组s4-077：某细菌培养物初始有80个细菌，每3小时数量变为原来的2倍。设t为培养时间（小时），建立数量模型N(t)，其中t≥0，并求t=9时的数量。请按“模型；数量”作答。",
+      "optionsZhHans": [],
+      "answer": "N(t)=80×2^(t/3)；N(9)=640个",
       "acceptedAnswers": [
-        "8"
+        "N(t)=80×2^(t/3)；N(9)=640个",
+        "N(t)=80·2^(t/3)；640个",
+        "N(t)=80×2^(t/3)；N(9)=640個",
+        "N(t)=80×2^(t/3); N(9)=640 bacteria",
+        "N(t)=80×2^(t/3); N(9)=640"
       ],
-      "explanationZhHans": "同底数幂相乘，指数相加，k=6+2=8。",
-      "optionsZhHans": []
+      "explanationZhHans": "每3小时乘2，所以经过t小时共有t/3个倍增周期，N(t)=80×2^(t/3)。当t=9时，N(9)=80×2³=640。"
     },
     {
       "id": "bnu-high-ds-v1-s4-078",
@@ -5270,13 +5287,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for exponent; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-078：化简指数运算 2^4 × 2^2 = 2^k，求 k = ____。",
-      "answer": "6",
+      "promptZhHans": "题组s4-078：指数函数f(x)=a^x（a>0且a≠1）在R上单调递减，则a的取值范围是____。",
+      "optionsZhHans": [],
+      "answer": "0<a<1",
       "acceptedAnswers": [
-        "6"
+        "0<a<1",
+        "a∈(0,1)",
+        "(0,1)"
       ],
-      "explanationZhHans": "同底数幂相乘，指数相加，k=4+2=6。",
-      "optionsZhHans": []
+      "explanationZhHans": "指数函数y=a^x在0<a<1时单调递减，在a>1时单调递增。因此a的取值范围为0<a<1。"
     },
     {
       "id": "bnu-high-ds-v1-s4-079",
@@ -7366,18 +7385,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for logarithm; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-109：已知 log_2 4 = m，求 m = （ ）",
-      "answer": "2",
-      "acceptedAnswers": [
-        "2"
-      ],
-      "explanationZhHans": "因为 4=2^2，所以 log_2 4=2。",
+      "promptZhHans": "题组s4-109：函数f(x)=log_2(x-1)的定义域为（ ）",
       "optionsZhHans": [
-        "3",
-        "2",
-        "1",
-        "4"
-      ]
+        "(1,+∞)",
+        "[1,+∞)",
+        "(0,+∞)",
+        "(-∞,1)"
+      ],
+      "answer": "(1,+∞)",
+      "acceptedAnswers": [
+        "(1,+∞)",
+        "x>1"
+      ],
+      "explanationZhHans": "对数的真数必须大于0，所以x-1>0，即x>1。因此定义域为(1,+∞)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-110",
@@ -7437,13 +7457,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for logarithm; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-110：已知 log_2 32 = m，求 m = ",
-      "answer": "5",
+      "promptZhHans": "题组s4-110：已知a>0且a≠1，log_a(2)=m，log_a(3)=n，用m、n表示log_a(18)。",
+      "optionsZhHans": [],
+      "answer": "m+2n",
       "acceptedAnswers": [
-        "5"
+        "m+2n",
+        "2n+m"
       ],
-      "explanationZhHans": "因为 32=2^5，所以 log_2 32=5。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为 \\(18=2×3²\\)，所以 \\(\\log_a(18)=\\log_a(2)+\\log_a(3²)=\\log_a(2)+2\\log_a(3)=m+2n\\)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-111",
@@ -7640,13 +7661,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for logarithm; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-113：已知 log_2 16 = m，求 m = ",
-      "answer": "4",
+      "promptZhHans": "题组s4-113：函数f(x)=log_(1/2)x的定义域为(0,+∞)。判断其单调性，并比较f(2)与f(4)的大小。请按“单调性；大小关系”作答。",
+      "optionsZhHans": [],
+      "answer": "在(0,+∞)上单调递减；f(2)>f(4)",
       "acceptedAnswers": [
-        "4"
+        "在(0,+∞)上单调递减；f(2)>f(4)",
+        "在(0,+∞)上递减；f(2)>f(4)",
+        "在(0,+∞)上單調遞減；f(2)>f(4)",
+        "Decreasing on (0,+∞); f(2)>f(4)"
       ],
-      "explanationZhHans": "因为 16=2^4，所以 log_2 16=4。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为底数1/2满足0<1/2<1，所以f在(0,+∞)上单调递减。又2<4，因此f(2)>f(4)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-114",
@@ -7706,13 +7730,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for logarithm; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-114：已知 log_2 4 = m，求 m = ____。",
-      "answer": "2",
+      "promptZhHans": "题组s4-114：解方程log_2(x-1)=3，x=____。",
+      "optionsZhHans": [],
+      "answer": "9",
       "acceptedAnswers": [
-        "2"
+        "9",
+        "x=9"
       ],
-      "explanationZhHans": "因为 4=2^2，所以 log_2 4=2。",
-      "optionsZhHans": []
+      "explanationZhHans": "真数要求x-1>0。由log_2(x-1)=3得x-1=2³=8，所以x=9，且满足定义域。"
     },
     {
       "id": "bnu-high-ds-v1-s4-115",
@@ -9802,18 +9827,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-145：某模型记为 y = 23 + 3t，当 t = 6 时，y = （ ）",
-      "answer": "41",
-      "acceptedAnswers": [
-        "41"
-      ],
-      "explanationZhHans": "代入 t=6 得 y=23+3×6=41。",
+      "promptZhHans": "题组s4-145：某种微生物初始数量为200，每2小时数量变为原来的3倍。按照这一模型，6小时后的数量为（ ）",
       "optionsZhHans": [
-        "43",
-        "41",
-        "39",
-        "45"
-      ]
+        "1800",
+        "3600",
+        "5400",
+        "16200"
+      ],
+      "answer": "5400",
+      "acceptedAnswers": [
+        "5400"
+      ],
+      "explanationZhHans": "6小时包含3个完整的2小时时段，因此数量为200×3³=200×27=5400。"
     },
     {
       "id": "bnu-high-ds-v1-s4-146",
@@ -9873,13 +9898,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-146：某模型记为 y = 21 + 3t，当 t = 4 时，y = ",
-      "answer": "33",
+      "promptZhHans": "题组s4-146：某市出租车前3千米的起步价为12元，超过3千米的部分每千米收费2.5元。一次行程恰为7千米且不计其他费用，车费是多少元？",
+      "optionsZhHans": [],
+      "answer": "22",
       "acceptedAnswers": [
-        "33"
+        "22",
+        "22元",
+        "22 yuan"
       ],
-      "explanationZhHans": "代入 t=4 得 y=21+3×4=33。",
-      "optionsZhHans": []
+      "explanationZhHans": "前3千米收费12元，超出的路程为7-3=4千米，超出部分收费4×2.5=10元。因此总车费为12+10=22元。"
     },
     {
       "id": "bnu-high-ds-v1-s4-147",
@@ -10005,18 +10032,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-148：某模型记为 y = 27 + 3t，当 t = 5 时，y = （ ）",
-      "answer": "42",
-      "acceptedAnswers": [
-        "42"
-      ],
-      "explanationZhHans": "代入 t=5 得 y=27+3×5=42。",
+      "promptZhHans": "题组s4-148：甲、乙两种增长模型分别为A(t)=100+30t和B(t)=100×1.2^t，其中t为非负整数。B(t)第一次大于A(t)时，t的值是（ ）。",
       "optionsZhHans": [
-        "44",
-        "42",
-        "40",
-        "46"
-      ]
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6",
+        "t=6",
+        "C",
+        "C. 6"
+      ],
+      "explanationZhHans": "t=5时，A(5)=250，B(5)=248.832，B(5)还未超过A(5)；t=6时，A(6)=280，B(6)=298.5984，所以第一次超过发生在t=6。"
     },
     {
       "id": "bnu-high-ds-v1-s4-149",
@@ -10076,13 +10106,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-149：某模型记为 y = 25 + 3t，当 t = 3 时，y = ",
-      "answer": "34",
+      "promptZhHans": "题组s4-149：一个水箱开始有120升水，以每分钟8升的恒定速率排水。设t为排水时间（分钟）。建立剩余水量V(t)的函数模型，写出符合实际情境的t取值范围，并求水箱恰好排空的时间。请按“模型；取值范围；排空时间”的格式作答。",
+      "optionsZhHans": [],
+      "answer": "V(t)=120-8t；0≤t≤15；15分钟",
       "acceptedAnswers": [
-        "34"
+        "V(t)=120-8t；0≤t≤15；15分钟",
+        "V(t)=120-8t；t∈[0,15]；15分钟",
+        "V(t)=120-8t；0≤t≤15；15分鐘",
+        "V(t)=120-8t; 0≤t≤15; 15 minutes"
       ],
-      "explanationZhHans": "代入 t=3 得 y=25+3×3=34。",
-      "optionsZhHans": []
+      "explanationZhHans": "排水t分钟后剩余V(t)=120-8t。水量不能为负，所以0≤t≤15；令V(t)=0，得t=15，因此15分钟排空。"
     },
     {
       "id": "bnu-high-ds-v1-s4-150",
@@ -12238,18 +12271,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-181：一组数据为 7，10，13，求这组数据的平均数 = （ ）",
-      "answer": "10",
-      "acceptedAnswers": [
-        "10"
-      ],
-      "explanationZhHans": "平均数为 (7+10+13)÷3=10。",
+      "promptZhHans": "题组s4-181：为调查全校学生每日睡眠时长，下列抽样方案中最有代表性的是（ ）。",
       "optionsZhHans": [
-        "11",
-        "10",
-        "9",
-        "12"
-      ]
+        "按各年级人数比例，从每个年级随机抽取学生",
+        "只抽取校篮球队学生",
+        "只抽取每天最早到校的学生",
+        "在学校社交平台上征集自愿回答者"
+      ],
+      "answer": "按各年级人数比例，从每个年级随机抽取学生",
+      "acceptedAnswers": [
+        "按各年级人数比例，从每个年级随机抽取学生",
+        "按各年級人數比例，從每個年級隨機抽取學生",
+        "Randomly sample students from every grade in proportion to each grade's enrollment.",
+        "A",
+        "A. 按各年级人数比例，从每个年级随机抽取学生"
+      ],
+      "explanationZhHans": "按年级人数比例进行分层随机抽样，能让各年级按总体结构进入样本。其余方案分别受到运动队选择、到校时间选择或自愿回答偏差影响。"
     },
     {
       "id": "bnu-high-ds-v1-s4-182",
@@ -12441,18 +12478,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-184：一组数据为 7，10，13，求这组数据的平均数 = （ ）",
-      "answer": "10",
-      "acceptedAnswers": [
-        "10"
-      ],
-      "explanationZhHans": "平均数为 (7+10+13)÷3=10。",
+      "promptZhHans": "题组s4-184：一组数据 x₁，x₂，…，xₙ 的方差为 9。若 yᵢ=2xᵢ-1（i=1，2，…，n），则数据 y₁，y₂，…，yₙ 的方差为（ ）",
       "optionsZhHans": [
-        "11",
-        "10",
-        "9",
-        "12"
-      ]
+        "18",
+        "36",
+        "35",
+        "81"
+      ],
+      "answer": "36",
+      "acceptedAnswers": [
+        "36"
+      ],
+      "explanationZhHans": "数据同时减去1不改变方差，数据同时乘以2会使方差乘以2²。因此新数据的方差为2²×9=36。"
     },
     {
       "id": "bnu-high-ds-v1-s4-185",
@@ -12512,13 +12549,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-185：一组数据为 7，10，13，求这组数据的极差 = ",
-      "answer": "6",
+      "promptZhHans": "题组s4-185：某年级三个班的人数分别为40、50、60。采用分层随机抽样从全年级抽取30人，三个班应分别抽取多少人？",
+      "optionsZhHans": [],
+      "answer": "8人、10人、12人",
       "acceptedAnswers": [
-        "6"
+        "8人、10人、12人",
+        "8，10，12",
+        "8人,10人,12人"
       ],
-      "explanationZhHans": "极差为 13-7=6。",
-      "optionsZhHans": []
+      "explanationZhHans": "全年级共有40+50+60=150人，抽样比为30÷150=1/5。三个班按相同比例分别抽取40×1/5=8人、50×1/5=10人、60×1/5=12人。"
     },
     {
       "id": "bnu-high-ds-v1-s4-186",
@@ -12644,18 +12683,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-187：一组数据为 7，10，13，求这组数据的平均数 = （ ）",
-      "answer": "10",
-      "acceptedAnswers": [
-        "10"
-      ],
-      "explanationZhHans": "平均数为 (7+10+13)÷3=10。",
+      "promptZhHans": "题组s4-187：某样本按区间[0,10)、[10,20)、[20,30)、[30,40)分组，对应频数分别为4、8、12、6。区间[20,30)的频率是（ ）。",
       "optionsZhHans": [
-        "11",
-        "10",
-        "9",
-        "12"
-      ]
+        "20%",
+        "30%",
+        "40%",
+        "60%"
+      ],
+      "answer": "40%",
+      "acceptedAnswers": [
+        "40%",
+        "0.4",
+        "C",
+        "C. 40%"
+      ],
+      "explanationZhHans": "样本总数为4+8+12+6=30，区间[20,30)的频数为12，所以频率为12/30=0.4=40%。"
     },
     {
       "id": "bnu-high-ds-v1-s4-188",
@@ -14674,18 +14716,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-217：袋中有 3 个红球和 7 个蓝球，随机取出 1 个球，取到红球的概率为 （ ）",
-      "answer": "3/10",
-      "acceptedAnswers": [
-        "3/10"
-      ],
-      "explanationZhHans": "共有 10 个球，其中红球 3 个，概率为 3/10=3/10。",
+      "promptZhHans": "题组s4-217：事件A与B相互独立，且P(A)=1/2，P(B)=1/3，则P(A∪B)=（ ）",
       "optionsZhHans": [
-        "7/10",
-        "3/10",
-        "3/11",
-        "4/11"
-      ]
+        "1/6",
+        "1/2",
+        "2/3",
+        "5/6"
+      ],
+      "answer": "2/3",
+      "acceptedAnswers": [
+        "2/3"
+      ],
+      "explanationZhHans": "因为A与B相互独立，所以P(A∩B)=P(A)P(B)=1/6。由容斥公式，P(A∪B)=P(A)+P(B)-P(A∩B)=1/2+1/3-1/6=2/3。"
     },
     {
       "id": "bnu-high-ds-v1-s4-218",
@@ -14745,13 +14787,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-218：袋中有 3 个红球和 5 个蓝球，随机取出 1 个球，取到红球的概率为 ",
-      "answer": "3/8",
+      "promptZhHans": "题组s4-218：袋中有3个红球和2个蓝球，从中随机同时取出2个球，两个球都是红球的概率是多少？",
+      "optionsZhHans": [],
+      "answer": "3/10",
       "acceptedAnswers": [
-        "3/8"
+        "3/10"
       ],
-      "explanationZhHans": "共有 8 个球，其中红球 3 个，概率为 3/8=3/8。",
-      "optionsZhHans": []
+      "explanationZhHans": "从5个球中任取2个共有C(5,2)=10种等可能结果，从3个红球中取2个有C(3,2)=3种。因此两个球都是红球的概率为3/10。"
     },
     {
       "id": "bnu-high-ds-v1-s4-219",
@@ -14877,18 +14919,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-220：袋中有 3 个红球和 6 个蓝球，随机取出 1 个球，取到红球的概率为 （ ）",
-      "answer": "1/3",
-      "acceptedAnswers": [
-        "1/3"
-      ],
-      "explanationZhHans": "共有 9 个球，其中红球 3 个，概率为 3/9=1/3。",
+      "promptZhHans": "题组s4-220：将一枚均匀硬币独立抛掷1000次，观察到正面487次。下列说法正确的是（ ）。",
       "optionsZhHans": [
-        "2/3",
-        "1/3",
-        "3/10",
-        "2/5"
-      ]
+        "0.487是本次试验的正面频率，可作为理论概率0.5的估计；重复次数增加时频率通常会更稳定",
+        "因为487不等于500，所以这枚硬币一定不均匀",
+        "下一次抛掷出现正面的概率一定是0.487",
+        "再做一次同样的试验，正面频率必定恰好等于0.5"
+      ],
+      "answer": "0.487是本次试验的正面频率，可作为理论概率0.5的估计；重复次数增加时频率通常会更稳定",
+      "acceptedAnswers": [
+        "0.487是本次试验的正面频率，可作为理论概率0.5的估计；重复次数增加时频率通常会更稳定",
+        "0.487是本次試驗的正面頻率，可作為理論概率0.5的估計；重複次數增加時頻率通常會更穩定",
+        "The observed head frequency is 0.487, which estimates the theoretical probability 0.5; the frequency usually becomes more stable as the number of trials increases.",
+        "A",
+        "A. 0.487是本次试验的正面频率，可作为理论概率0.5的估计；重复次数增加时频率通常会更稳定"
+      ],
+      "explanationZhHans": "本次经验频率为487/1000=0.487，它可估计理论概率0.5，但有限次试验频率不必等于理论概率；下一次概率仍为0.5，另一次试验也不保证频率恰为0.5。"
     },
     {
       "id": "bnu-high-ds-v1-s4-221",
@@ -14948,13 +14994,62 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-221：袋中有 3 个红球和 4 个蓝球，随机取出 1 个球，取到红球的概率为 ",
-      "answer": "3/7",
+      "promptZhHans": "题组s4-221：同时抛掷两枚可区分的均匀硬币，用“H”表示正面、“T”表示反面。写出样本空间Ω，并求恰有一枚硬币出现正面的概率。请按“样本空间；概率”作答。",
+      "optionsZhHans": [],
+      "answer": "Ω={HH,HT,TH,TT}；1/2",
       "acceptedAnswers": [
-        "3/7"
+        "Ω={HH,HT,TH,TT}；1/2",
+        "Ω={HH,HT,TH,TT}; 1/2",
+        "Ω={HH,HT,TT,TH}；1/2",
+        "Ω={HH,HT,TT,TH}; 1/2",
+        "Ω={HH,TH,HT,TT}；1/2",
+        "Ω={HH,TH,HT,TT}; 1/2",
+        "Ω={HH,TH,TT,HT}；1/2",
+        "Ω={HH,TH,TT,HT}; 1/2",
+        "Ω={HH,TT,HT,TH}；1/2",
+        "Ω={HH,TT,HT,TH}; 1/2",
+        "Ω={HH,TT,TH,HT}；1/2",
+        "Ω={HH,TT,TH,HT}; 1/2",
+        "Ω={HT,HH,TH,TT}；1/2",
+        "Ω={HT,HH,TH,TT}; 1/2",
+        "Ω={HT,HH,TT,TH}；1/2",
+        "Ω={HT,HH,TT,TH}; 1/2",
+        "Ω={HT,TH,HH,TT}；1/2",
+        "Ω={HT,TH,HH,TT}; 1/2",
+        "Ω={HT,TH,TT,HH}；1/2",
+        "Ω={HT,TH,TT,HH}; 1/2",
+        "Ω={HT,TT,HH,TH}；1/2",
+        "Ω={HT,TT,HH,TH}; 1/2",
+        "Ω={HT,TT,TH,HH}；1/2",
+        "Ω={HT,TT,TH,HH}; 1/2",
+        "Ω={TH,HH,HT,TT}；1/2",
+        "Ω={TH,HH,HT,TT}; 1/2",
+        "Ω={TH,HH,TT,HT}；1/2",
+        "Ω={TH,HH,TT,HT}; 1/2",
+        "Ω={TH,HT,HH,TT}；1/2",
+        "Ω={TH,HT,HH,TT}; 1/2",
+        "Ω={TH,HT,TT,HH}；1/2",
+        "Ω={TH,HT,TT,HH}; 1/2",
+        "Ω={TH,TT,HH,HT}；1/2",
+        "Ω={TH,TT,HH,HT}; 1/2",
+        "Ω={TH,TT,HT,HH}；1/2",
+        "Ω={TH,TT,HT,HH}; 1/2",
+        "Ω={TT,HH,HT,TH}；1/2",
+        "Ω={TT,HH,HT,TH}; 1/2",
+        "Ω={TT,HH,TH,HT}；1/2",
+        "Ω={TT,HH,TH,HT}; 1/2",
+        "Ω={TT,HT,HH,TH}；1/2",
+        "Ω={TT,HT,HH,TH}; 1/2",
+        "Ω={TT,HT,TH,HH}；1/2",
+        "Ω={TT,HT,TH,HH}; 1/2",
+        "Ω={TT,TH,HH,HT}；1/2",
+        "Ω={TT,TH,HH,HT}; 1/2",
+        "Ω={TT,TH,HT,HH}；1/2",
+        "Ω={TT,TH,HT,HH}; 1/2",
+        "Ω={正正,正反,反正,反反}；1/2",
+        "Omega={HH,HT,TH,TT}; 1/2"
       ],
-      "explanationZhHans": "共有 7 个球，其中红球 3 个，概率为 3/7=3/7。",
-      "optionsZhHans": []
+      "explanationZhHans": "两枚硬币可区分，四个等可能结果分别记作“HH”“HT”“TH”“TT”，组成样本空间Ω。恰有一个“H”的结果是“HT”“TH”，共2个，所以概率为2/4=1/2。"
     },
     {
       "id": "bnu-high-ds-v1-s4-222",
@@ -17108,18 +17203,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-253：某模型记为 y = 27 + 3t，当 t = 5 时，y = （ ）",
-      "answer": "42",
-      "acceptedAnswers": [
-        "42"
-      ],
-      "explanationZhHans": "代入 t=5 得 y=27+3×5=42。",
+      "promptZhHans": "题组s4-253：甲、乙两种服务的费用模型分别为C甲=20+3t和C乙=8+5t（单位：元，t≥0）。当两种服务费用相等时，t的值为（ ）",
       "optionsZhHans": [
-        "44",
-        "42",
-        "40",
-        "46"
-      ]
+        "4",
+        "6",
+        "8",
+        "12"
+      ],
+      "answer": "6",
+      "acceptedAnswers": [
+        "6"
+      ],
+      "explanationZhHans": "令两种费用相等，得20+3t=8+5t。移项得12=2t，所以t=6。代回两个模型，费用均为38元，结果符合情境。"
     },
     {
       "id": "bnu-high-ds-v1-s4-254",
@@ -17177,13 +17272,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-254：某模型记为 y = 25 + 3t，当 t = 3 时，y = ",
-      "answer": "34",
+      "promptZhHans": "题组s4-254：某水池在t=0时有水120立方米，匀速排水4小时后剩余96立方米。建立剩余水量V（立方米）关于时间t（小时）的线性模型，并求排水10小时后的剩余水量。",
+      "optionsZhHans": [],
+      "answer": "V(t)=120-6t，V(10)=60",
       "acceptedAnswers": [
-        "34"
+        "V(t)=120-6t，V(10)=60",
+        "V(t)=120-6t, V(10)=60",
+        "V=120-6t，60",
+        "V(t)=120-6t; V(10)=60 cubic meters",
+        "V(t)=120-6t; V(10)=60 cubic metres"
       ],
-      "explanationZhHans": "代入 t=3 得 y=25+3×3=34。",
-      "optionsZhHans": []
+      "explanationZhHans": "4小时内水量减少120-96=24立方米，匀速排水速率为24÷4=6立方米/小时。因此在水排空前，V(t)=120-6t。代入t=10，得V(10)=120-60=60立方米。"
     },
     {
       "id": "bnu-high-ds-v1-s4-255",
@@ -17305,18 +17404,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-256：某模型记为 y = 21 + 3t，当 t = 4 时，y = （ ）",
-      "answer": "33",
-      "acceptedAnswers": [
-        "33"
-      ],
-      "explanationZhHans": "代入 t=4 得 y=21+3×4=33。",
+      "promptZhHans": "题组s4-256：根据前4周数据拟合销售量模型y=20+3t。下列对该模型的使用最合理的是（ ）。",
       "optionsZhHans": [
-        "35",
-        "33",
-        "31",
-        "37"
-      ]
+        "在条件相近时预测第5周，并说明预测存在误差",
+        "断定销售量将永远按同一速度增长",
+        "断定模型会精确等于每一个观测值",
+        "把负数t直接解释为实际销售周数"
+      ],
+      "answer": "在条件相近时预测第5周，并说明预测存在误差",
+      "acceptedAnswers": [
+        "在条件相近时预测第5周，并说明预测存在误差",
+        "在條件相近時預測第5週，並說明預測存在誤差",
+        "Use it to predict week 5 under similar conditions and state that the prediction has error.",
+        "A",
+        "A. 在条件相近时预测第5周，并说明预测存在误差"
+      ],
+      "explanationZhHans": "模型只是在已有数据和假设下的近似。用于邻近时段预测并说明误差是合理的；无限外推、要求逐点精确或把无实际意义的负时间直接解释为销售周数都不合理。"
     },
     {
       "id": "bnu-high-ds-v1-s4-257",
@@ -17374,13 +17477,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-257：某模型记为 y = 29 + 3t，当 t = 7 时，y = ",
-      "answer": "50",
+      "promptZhHans": "题组s4-257：某容器在t=0、2、4（小时）时的水量分别为100、84、68升。假设水量随时间线性变化，建立模型V(t)，预测t=7时的水量；又测得t=6时水量为53升，若误差不超过2升视为模型有效，判断该测量是否支持模型。请按“模型；预测值；判断及依据”作答。",
+      "optionsZhHans": [],
+      "answer": "V(t)=100-8t；44升；支持，|53-52|=1≤2",
       "acceptedAnswers": [
-        "50"
+        "V(t)=100-8t；44升；支持，|53-52|=1≤2",
+        "V(t)=100-8t；V(7)=44升；支持，因为误差为1升",
+        "V(t)=100-8t；44升；支持，誤差1升不超過2升",
+        "V(t)=100-8t; V(7)=44 L; supported because |53-52|=1≤2"
       ],
-      "explanationZhHans": "代入 t=7 得 y=29+3×7=50。",
-      "optionsZhHans": []
+      "explanationZhHans": "每2小时减少16升，斜率为-8，所以V(t)=100-8t，V(7)=44。模型给出V(6)=52，实测53与预测相差1升，不超过2升，因此支持模型。"
     },
     {
       "id": "bnu-high-ds-v1-s4-258",
@@ -19473,18 +19579,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trigonometry; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-289：函数 y = 3sin(2x) 中，振幅是 （ ）",
-      "answer": "3",
-      "acceptedAnswers": [
-        "3"
-      ],
-      "explanationZhHans": "对 y=Asin(wx)，振幅为 A，x 的系数为 w；本题所求为 3。",
+      "promptZhHans": "题组s4-289：函数y=2sin x-1的值域是（ ）。",
       "optionsZhHans": [
-        "4",
-        "3",
-        "2",
-        "5"
-      ]
+        "[-3,1]",
+        "[-2,2]",
+        "[-1,3]",
+        "[-2,1]"
+      ],
+      "answer": "[-3,1]",
+      "acceptedAnswers": [
+        "[-3,1]",
+        "[-3, 1]",
+        "A",
+        "A. [-3,1]"
+      ],
+      "explanationZhHans": "因为-1≤sin x≤1，所以-2≤2sin x≤2，进而-3≤2sin x-1≤1，值域为[-3,1]。"
     },
     {
       "id": "bnu-high-ds-v1-s4-290",
@@ -19543,13 +19652,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trigonometry; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-290：函数 y = 3sin(1x) 中，振幅是 ",
+      "promptZhHans": "题组s4-290：函数 y=3sin x 的振幅是多少？",
+      "optionsZhHans": [],
       "answer": "3",
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "对 y=Asin(wx)，振幅为 A，x 的系数为 w；本题所求为 3。",
-      "optionsZhHans": []
+      "explanationZhHans": "对 y=A sin(ωx)，振幅为|A|。本题A=3，所以振幅为|3|=3。"
     },
     {
       "id": "bnu-high-ds-v1-s4-291",
@@ -19673,18 +19782,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trigonometry; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-292：函数 y = 3sin(2x) 中，振幅是 （ ）",
-      "answer": "3",
-      "acceptedAnswers": [
-        "3"
-      ],
-      "explanationZhHans": "对 y=Asin(wx)，振幅为 A，x 的系数为 w；本题所求为 3。",
+      "promptZhHans": "题组s4-292：函数 y=2sin(3x-π/6)+1 的最小正周期为（ ）",
       "optionsZhHans": [
-        "4",
-        "3",
-        "2",
-        "5"
-      ]
+        "π/3",
+        "2π/3",
+        "π",
+        "3π/2"
+      ],
+      "answer": "2π/3",
+      "acceptedAnswers": [
+        "2π/3",
+        "2π÷3"
+      ],
+      "explanationZhHans": "对于函数y=Asin(ωx+φ)+b，最小正周期为2π/|ω|。本题ω=3，所以最小正周期T=2π/3。"
     },
     {
       "id": "bnu-high-ds-v1-s4-293",
@@ -19743,13 +19853,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trigonometry; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-293：函数 y = 3sin(1x) 中，振幅是 ",
-      "answer": "3",
+      "promptZhHans": "题组s4-293：已知角α=5π/6，求sinα和cosα的值。",
+      "optionsZhHans": [],
+      "answer": "sinα=1/2，cosα=-√3/2",
       "acceptedAnswers": [
-        "3"
+        "sinα=1/2，cosα=-√3/2",
+        "sinα=1/2,cosα=-√3/2",
+        "1/2，-√3/2"
       ],
-      "explanationZhHans": "对 y=Asin(wx)，振幅为 A，x 的系数为 w；本题所求为 3。",
-      "optionsZhHans": []
+      "explanationZhHans": "α=5π/6位于第二象限，参考角为π/6。第二象限正弦为正、余弦为负，所以sinα=sin(π/6)=1/2，cosα=-cos(π/6)=-√3/2。"
     },
     {
       "id": "bnu-high-ds-v1-s4-294",
@@ -19873,18 +19985,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trigonometry; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-295：函数 y = 3sin(2x) 中，振幅是 （ ）",
-      "answer": "3",
-      "acceptedAnswers": [
-        "3"
-      ],
-      "explanationZhHans": "对 y=Asin(wx)，振幅为 A，x 的系数为 w；本题所求为 3。",
+      "promptZhHans": "题组s4-295：把函数y=sin x的图像变换为y=sin(x-π/3)的图像，需要（ ）。",
       "optionsZhHans": [
-        "4",
-        "3",
-        "2",
-        "5"
-      ]
+        "向右平移π/3个单位",
+        "向左平移π/3个单位",
+        "向上平移π/3个单位",
+        "向下平移π/3个单位"
+      ],
+      "answer": "向右平移π/3个单位",
+      "acceptedAnswers": [
+        "向右平移π/3个单位",
+        "向右平移π/3個單位",
+        "Shift it right by π/3 units.",
+        "A",
+        "A. 向右平移π/3个单位"
+      ],
+      "explanationZhHans": "在y=sin x中把x替换为x-π/3，图像沿x轴向右平移π/3个单位，所以得到y=sin(x-π/3)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-296",
@@ -21943,13 +22059,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-326：已知向量 a = (2, 3)，b = (2, -1)，求 a·b = ",
-      "answer": "1",
+      "promptZhHans": "题组s4-326：已知非零向量 a=(2,1)，b=(6,3)。判断 a 与 b 是否共线，并写出 b 与 a 的倍数关系。请按“关系；倍数式”的格式作答。",
+      "optionsZhHans": [],
+      "answer": "共线；b=3a",
       "acceptedAnswers": [
-        "1"
+        "共线；b=3a",
+        "a与b共线；b=3a",
+        "Collinear; b=3a"
       ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=1。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为6=3×2且3=3×1，所以b=3a。两个非零向量互为实数倍，因此a与b共线。"
     },
     {
       "id": "bnu-high-ds-v1-s4-327",
@@ -22008,13 +22126,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-327：已知向量 a = (5, 3)，b = (4, 2)，求 a·b = ____。",
-      "answer": "26",
+      "promptZhHans": "题组s4-327：已知向量a=(2,-1)，b=(-3,4)，则2a-b=____。",
+      "optionsZhHans": [],
+      "answer": "(7,-6)",
       "acceptedAnswers": [
-        "26"
+        "(7,-6)",
+        "(7, -6)",
+        "2a-b=(7,-6)",
+        "⟨7,-6⟩"
       ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=26。",
-      "optionsZhHans": []
+      "explanationZhHans": "2a-b=2(2,-1)-(-3,4)=(4,-2)-(-3,4)=(7,-6)。"
     },
     {
       "id": "bnu-high-ds-v1-s4-328",
@@ -22073,18 +22194,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-328：已知向量 a = (3, 3)，b = (3, 0)，求 a·b = （ ）",
-      "answer": "9",
-      "acceptedAnswers": [
-        "9"
-      ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=9。",
+      "promptZhHans": "题组s4-328：已知非零向量 a=(1,1)，b=(1,-1)，则 a 与 b 的夹角为（ ）。",
       "optionsZhHans": [
-        "10",
-        "9",
-        "8",
-        "11"
-      ]
+        "0°",
+        "45°",
+        "90°",
+        "135°"
+      ],
+      "answer": "90°",
+      "acceptedAnswers": [
+        "90°",
+        "90度",
+        "C",
+        "C. 90°"
+      ],
+      "explanationZhHans": "a·b=1×1+1×(-1)=0。两个向量都不是零向量，所以a⊥b，夹角为90°。"
     },
     {
       "id": "bnu-high-ds-v1-s4-329",
@@ -22143,13 +22267,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-329：已知向量 a = (1, 3)，b = (2, -2)，求 a·b = ",
-      "answer": "-4",
+      "promptZhHans": "题组s4-329：已知向量a=(-3,4)，求|a|。",
+      "optionsZhHans": [],
+      "answer": "5",
       "acceptedAnswers": [
-        "-4"
+        "5",
+        "|a|=5"
       ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=-4。",
-      "optionsZhHans": []
+      "explanationZhHans": "|a|=√[(-3)²+4²]=√25=5。"
     },
     {
       "id": "bnu-high-ds-v1-s4-330",
@@ -24272,18 +24397,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-361：某模型记为 y = 21 + 3t，当 t = 4 时，y = （ ）",
-      "answer": "33",
-      "acceptedAnswers": [
-        "33"
-      ],
-      "explanationZhHans": "代入 t=4 得 y=21+3×4=33。",
+      "promptZhHans": "题组s4-361：无人机从起点向东飞行3千米，再向北飞行4千米。将两段位移视为互相垂直的向量，此时无人机到起点的直线距离为（ ）千米",
       "optionsZhHans": [
-        "35",
-        "33",
-        "31",
-        "37"
-      ]
+        "1",
+        "5",
+        "7",
+        "12"
+      ],
+      "answer": "5",
+      "acceptedAnswers": [
+        "5"
+      ],
+      "explanationZhHans": "向东与向北的位移互相垂直，合位移的长度为√(3²+4²)=5千米。"
     },
     {
       "id": "bnu-high-ds-v1-s4-362",
@@ -24341,13 +24466,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-362：某模型记为 y = 29 + 3t，当 t = 7 时，y = ",
-      "answer": "50",
+      "promptZhHans": "题组s4-362：在水平地面上，测量者站在距旗杆底部20米处，眼睛离地1.6米，测得旗杆顶端相对眼睛的仰角为45°。求旗杆的高度。",
+      "optionsZhHans": [],
+      "answer": "21.6",
       "acceptedAnswers": [
-        "50"
+        "21.6",
+        "21.6米"
       ],
-      "explanationZhHans": "代入 t=7 得 y=29+3×7=50。",
-      "optionsZhHans": []
+      "explanationZhHans": "旗杆顶端高出眼睛的高度为20×tan45°=20米。再加上眼睛离地的1.6米，旗杆高度为20+1.6=21.6米。"
     },
     {
       "id": "bnu-high-ds-v1-s4-363",
@@ -24405,13 +24531,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-363：某模型记为 y = 27 + 3t，当 t = 5 时，y = ____。",
-      "answer": "42",
+      "promptZhHans": "题组s4-363：同一时刻在水平地面上，一根1.5米高的直杆影长为2米，一座建筑物影长为24米。假设太阳光线平行，建筑物与直杆都垂直于地面，则建筑物高度为____。",
+      "optionsZhHans": [],
+      "answer": "18米",
       "acceptedAnswers": [
-        "42"
+        "18米",
+        "18 m",
+        "18"
       ],
-      "explanationZhHans": "代入 t=5 得 y=27+3×5=42。",
-      "optionsZhHans": []
+      "explanationZhHans": "同一时刻太阳高度角相同，形成的直角三角形相似。由h/24=1.5/2，得h=24×1.5÷2=18米。"
     },
     {
       "id": "bnu-high-ds-v1-s4-364",
@@ -24469,18 +24597,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-364：某模型记为 y = 25 + 3t，当 t = 3 时，y = （ ）",
-      "answer": "34",
-      "acceptedAnswers": [
-        "34"
-      ],
-      "explanationZhHans": "代入 t=3 得 y=25+3×3=34。",
+      "promptZhHans": "题组s4-364：用仰角模型h=d·tan45°+1.6估计物体高度，其中d为水平距离。若d被高估1米而其他量不变，则估计的高度会被高估（ ）。",
       "optionsZhHans": [
-        "36",
-        "34",
-        "32",
-        "38"
-      ]
+        "0.5米",
+        "1米",
+        "1.6米",
+        "2米"
+      ],
+      "answer": "1米",
+      "acceptedAnswers": [
+        "1米",
+        "1 m",
+        "B",
+        "B. 1米"
+      ],
+      "explanationZhHans": "tan45°=1，所以高度变化量Δh=Δd·tan45°=1×1=1米；眼高1.6米在两次计算中相同，不影响误差差值。"
     },
     {
       "id": "bnu-high-ds-v1-s4-365",
@@ -26634,18 +26765,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trig-identity; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-397：若 θ 为锐角，且 sinθ = 5/13，求 cosθ = （ ）",
-      "answer": "12/13",
-      "acceptedAnswers": [
-        "12/13"
-      ],
-      "explanationZhHans": "锐角余弦为正，cosθ=√(1-sin²θ)=12/13。",
+      "promptZhHans": "题组s4-397：已知tanα=1/2，tanβ=1/3，则tan(α+β)的值是（ ）。",
       "optionsZhHans": [
-        "5/13",
-        "12/13",
         "1",
-        "6/7"
-      ]
+        "5/6",
+        "1/5",
+        "5"
+      ],
+      "answer": "1",
+      "acceptedAnswers": [
+        "1",
+        "tan(α+β)=1",
+        "A",
+        "A. 1"
+      ],
+      "explanationZhHans": "tan(α+β)=(tanα+tanβ)/(1-tanαtanβ)=(1/2+1/3)/(1-1/6)=1。"
     },
     {
       "id": "bnu-high-ds-v1-s4-398",
@@ -26702,13 +26836,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trig-identity; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-398：若 θ 为锐角，且 sinθ = 5/13，求 cosθ = ",
-      "answer": "12/13",
+      "promptZhHans": "题组s4-398：用降幂公式把sin²x改写成含cos2x的式子。",
+      "optionsZhHans": [],
+      "answer": "(1-cos2x)/2",
       "acceptedAnswers": [
-        "12/13"
+        "(1-cos2x)/2",
+        "(1-cos(2x))/2",
+        "1/2(1-cos2x)",
+        "sin²x=(1-cos2x)/2"
       ],
-      "explanationZhHans": "锐角余弦为正，cosθ=√(1-sin²θ)=12/13。",
-      "optionsZhHans": []
+      "explanationZhHans": "由cos2x=1-2sin²x移项，得2sin²x=1-cos2x，所以sin²x=(1-cos2x)/2。"
     },
     {
       "id": "bnu-high-ds-v1-s4-399",
@@ -26765,13 +26902,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trig-identity; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-399：若 θ 为锐角，且 sinθ = 5/13，求 cosθ = ____。",
-      "answer": "12/13",
+      "promptZhHans": "题组s4-399：已知角α在第四象限，且cosα=4/5，则sin2α=____。",
+      "optionsZhHans": [],
+      "answer": "-24/25",
       "acceptedAnswers": [
-        "12/13"
+        "-24/25"
       ],
-      "explanationZhHans": "锐角余弦为正，cosθ=√(1-sin²θ)=12/13。",
-      "optionsZhHans": []
+      "explanationZhHans": "角α在第四象限，所以sinα<0。由sin²α+cos²α=1得sinα=-3/5。因此sin2α=2sinαcosα=2×(-3/5)×(4/5)=-24/25。"
     },
     {
       "id": "bnu-high-ds-v1-s4-400",
@@ -26896,13 +27033,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for trig-identity; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-401：若 θ 为锐角，且 sinθ = 5/13，求 cosθ = ",
-      "answer": "12/13",
+      "promptZhHans": "题组s4-401：化简sin(α+β)cosβ-cos(α+β)sinβ。",
+      "optionsZhHans": [],
+      "answer": "sinα",
       "acceptedAnswers": [
-        "12/13"
+        "sinα",
+        "sin(α)"
       ],
-      "explanationZhHans": "锐角余弦为正，cosθ=√(1-sin²θ)=12/13。",
-      "optionsZhHans": []
+      "explanationZhHans": "利用正弦差角公式sin(u-v)=sin u·cos v-cos u·sin v。令u=α+β，v=β，则原式=sin[(α+β)-β]=sinα。"
     },
     {
       "id": "bnu-high-ds-v1-s4-402",
@@ -28837,13 +28975,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for complex; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-431：复数 z = (1+2i)+(2+2i)，求 z 的实部 = ",
-      "answer": "3",
+      "promptZhHans": "题组s4-431：已知复数z=3-4i，求|z|。",
+      "optionsZhHans": [],
+      "answer": "5",
       "acceptedAnswers": [
-        "3"
+        "5"
       ],
-      "explanationZhHans": "复数相加时实部相加，实部为 1+2=3。",
-      "optionsZhHans": []
+      "explanationZhHans": "复数z=a+bi的模为|z|=√(a²+b²)。因此|3-4i|=√(3²+(-4)²)=√25=5。"
     },
     {
       "id": "bnu-high-ds-v1-s4-432",
@@ -28965,18 +29103,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for complex; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-433：复数 z = (-1+3i)+(2+3i)，求 z 的实部 = （ ）",
-      "answer": "1",
-      "acceptedAnswers": [
-        "1"
-      ],
-      "explanationZhHans": "复数相加时实部相加，实部为 -1+2=1。",
+      "promptZhHans": "题组s4-433：计算i(2-3i)的结果为（ ）",
       "optionsZhHans": [
-        "2",
-        "1",
-        "0",
-        "3"
-      ]
+        "-3+2i",
+        "3+2i",
+        "2+3i",
+        "2-3i"
+      ],
+      "answer": "3+2i",
+      "acceptedAnswers": [
+        "3+2i",
+        "2i+3"
+      ],
+      "explanationZhHans": "i(2-3i)=2i-3i²。因为i²=-1，所以2i-3i²=2i+3=3+2i。"
     },
     {
       "id": "bnu-high-ds-v1-s4-434",
@@ -29034,13 +29173,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for complex; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-434：复数 z = (1+1i)+(2+2i)，求 z 的实部 = ",
-      "answer": "3",
+      "promptZhHans": "题组s4-434：计算复数(2+i)(3-2i)。",
+      "optionsZhHans": [],
+      "answer": "8-i",
       "acceptedAnswers": [
-        "3"
+        "8-i",
+        "8−i",
+        "8-1i",
+        "8 - i"
       ],
-      "explanationZhHans": "复数相加时实部相加，实部为 1+2=3。",
-      "optionsZhHans": []
+      "explanationZhHans": "展开并利用i²=-1，(2+i)(3-2i)=6-4i+3i-2i²=6-i+2=8-i。"
     },
     {
       "id": "bnu-high-ds-v1-s4-435",
@@ -29098,13 +29240,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for complex; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-435：复数 z = (3+4i)+(2+4i)，求 z 的实部 = ____。",
-      "answer": "5",
+      "promptZhHans": "题组s4-435：复数z=3-4i的共轭复数是____。",
+      "optionsZhHans": [],
+      "answer": "3+4i",
       "acceptedAnswers": [
-        "5"
+        "3+4i",
+        "3 + 4i",
+        "conj(z)=3+4i"
       ],
-      "explanationZhHans": "复数相加时实部相加，实部为 3+2=5。",
-      "optionsZhHans": []
+      "explanationZhHans": "共轭复数保持实部不变，并把虚部的符号改为相反数，所以3-4i的共轭复数是3+4i。"
     },
     {
       "id": "bnu-high-ds-v1-s4-436",
@@ -31147,13 +31291,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for solid; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-466：长方体的长、宽、高分别为 4，5，3，求体积 = ",
-      "answer": "60",
+      "promptZhHans": "题组s4-466：一个正方体的棱长为3，求它的表面积。",
+      "optionsZhHans": [],
+      "answer": "54",
       "acceptedAnswers": [
-        "60"
+        "54"
       ],
-      "explanationZhHans": "长方体体积为长×宽×高，V=4×5×3=60。",
-      "optionsZhHans": []
+      "explanationZhHans": "正方体有6个全等的正方形表面，每个面的面积为3²=9，所以表面积为6×9=54。"
     },
     {
       "id": "bnu-high-ds-v1-s4-467",
@@ -31211,18 +31355,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for solid; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-467：长方体的长、宽、高分别为 4，4，6，求体积 = （ ）",
-      "answer": "96",
-      "acceptedAnswers": [
-        "96"
-      ],
-      "explanationZhHans": "长方体体积为长×宽×高，V=4×4×6=96。",
+      "promptZhHans": "题组s4-467：在正方体ABCD-A₁B₁C₁D₁中，与底面ABCD垂直的棱是（ ）",
       "optionsZhHans": [
-        "99",
-        "96",
-        "93",
-        "102"
-      ]
+        "AB",
+        "AD",
+        "A₁B₁",
+        "AA₁"
+      ],
+      "answer": "AA₁",
+      "acceptedAnswers": [
+        "AA₁",
+        "AA1"
+      ],
+      "explanationZhHans": "正方体的侧棱AA₁垂直于底面内相交的两条直线AB和AD，因此AA₁垂直于底面ABCD。其余三个选项都与底面平行或位于底面内。"
     },
     {
       "id": "bnu-high-ds-v1-s4-468",
@@ -31344,18 +31489,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for solid; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-469：长方体的长、宽、高分别为 4，5，2，求体积 = （ ）",
-      "answer": "40",
-      "acceptedAnswers": [
-        "40"
-      ],
-      "explanationZhHans": "长方体体积为长×宽×高，V=4×5×2=40。",
+      "promptZhHans": "题组s4-469：在正方体ABCD-A₁B₁C₁D₁中，下列哪一对棱所在的直线互为异面直线？",
       "optionsZhHans": [
-        "43",
-        "40",
-        "37",
-        "46"
-      ]
+        "AB与CD",
+        "AB与A₁B₁",
+        "AB与CC₁",
+        "AB与BC"
+      ],
+      "answer": "AB与CC₁",
+      "acceptedAnswers": [
+        "AB与CC₁",
+        "AB與CC₁",
+        "Lines AB and CC₁",
+        "C",
+        "C. AB与CC₁"
+      ],
+      "explanationZhHans": "AB与CD、A₁B₁均平行，AB与BC相交；AB与CC₁既不相交也不平行，且不共面，所以互为异面直线。"
     },
     {
       "id": "bnu-high-ds-v1-s4-470",
@@ -31413,13 +31562,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for solid; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s4-470：长方体的长、宽、高分别为 4，4，5，求体积 = ",
-      "answer": "80",
+      "promptZhHans": "题组s4-470：一个棱锥的底面面积为24，高为5。求这个棱锥的体积。",
+      "optionsZhHans": [],
+      "answer": "40",
       "acceptedAnswers": [
-        "80"
+        "40",
+        "40立方单位",
+        "40立方單位",
+        "40 cubic units"
       ],
-      "explanationZhHans": "长方体体积为长×宽×高，V=4×4×5=80。",
-      "optionsZhHans": []
+      "explanationZhHans": "棱锥体积V=(1/3)Sh=(1/3)×24×5=40。"
     },
     {
       "id": "bnu-high-ds-v1-s4-471",
@@ -33477,7 +33629,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-4--2)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-4-(-2))÷(4-2)=-1。",
       "optionsZhHans": [
         "0",
         "-1",
@@ -33546,7 +33698,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(3--1)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(3-(-1))÷(7-5)=2。",
       "optionsZhHans": []
     },
     {
@@ -33605,13 +33757,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for line-circle; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-003：直线经过点 A(3, 0) 和 B(5, 6)，求这条直线的斜率 = ____。",
-      "answer": "3",
+      "promptZhHans": "题组s5-003：直线 l 经过点 A(3, -2) 和 B(3, 5)。判断其斜率是否存在，并写出直线 l 的方程。请按“斜率；方程”的格式作答：____。",
+      "optionsZhHans": [],
+      "answer": "斜率不存在；x=3",
       "acceptedAnswers": [
-        "3"
+        "斜率不存在；x=3",
+        "斜率不存在，直线方程为x=3",
+        "斜率不存在，直線方程為x=3",
+        "The slope is undefined; x=3",
+        "undefined; x=3",
+        "slope undefined; x=3"
       ],
-      "explanationZhHans": "斜率 k=(6-0)÷(5-3)=3。",
-      "optionsZhHans": []
+      "explanationZhHans": "两点的横坐标相同，所以 l 是竖直直线，斜率不存在；直线上每一点都满足 x=3。"
     },
     {
       "id": "bnu-high-ds-v1-s5-004",
@@ -33738,13 +33895,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for line-circle; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-005：直线经过点 A(4, 2) 和 B(6, 4)，求这条直线的斜率 = ",
-      "answer": "1",
+      "promptZhHans": "题组s5-005：判断直线 l: 3x+4y-12=0 与圆 C: x²+y²=4 的位置关系。",
+      "optionsZhHans": [],
+      "answer": "相离",
       "acceptedAnswers": [
-        "1"
+        "相离",
+        "直线l与圆C相离",
+        "直线 l 与圆 C 相离",
+        "直線 l 與圓 C 相離",
+        "disjoint",
+        "the line and the circle are disjoint",
+        "disjoint (相离)"
       ],
-      "explanationZhHans": "斜率 k=(4-2)÷(6-4)=1。",
-      "optionsZhHans": []
+      "explanationZhHans": "圆 C 的圆心为 O(0,0)，半径为 2。圆心到直线 l 的距离 d=|-12|/√(3²+4²)=12/5>2，所以直线与圆没有公共点，二者相离。"
     },
     {
       "id": "bnu-high-ds-v1-s5-006",
@@ -33866,18 +34029,21 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for line-circle; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-007：直线经过点 A(5, -3) 和 B(7, 1)，求这条直线的斜率 = （ ）",
-      "answer": "2",
-      "acceptedAnswers": [
-        "2"
-      ],
-      "explanationZhHans": "斜率 k=(1--3)÷(7-5)=2。",
+      "promptZhHans": "题组s5-007：圆 C 的圆心为 (2, -1)，半径为 3。圆 C 的标准方程是（ ）。",
       "optionsZhHans": [
-        "3",
-        "2",
-        "1",
-        "4"
-      ]
+        "(x+2)²+(y-1)²=9",
+        "(x-2)²+(y+1)²=9",
+        "(x-2)²+(y+1)²=3",
+        "(x+2)²+(y-1)²=3"
+      ],
+      "answer": "(x-2)²+(y+1)²=9",
+      "acceptedAnswers": [
+        "(x-2)²+(y+1)²=9",
+        "(x-2)^2+(y+1)^2=9",
+        "B",
+        "B. (x-2)²+(y+1)²=9"
+      ],
+      "explanationZhHans": "圆的标准方程为 (x-a)²+(y-b)²=r²。代入圆心 (2,-1) 和半径 3，得 (x-2)²+(y+1)²=9，所以选 B。"
     },
     {
       "id": "bnu-high-ds-v1-s5-008",
@@ -33940,7 +34106,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(4--2)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(4-(-2))÷(5-3)=3。",
       "optionsZhHans": []
     },
     {
@@ -33999,13 +34165,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for line-circle; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-009：直线经过点 A(1, -1) 和 B(3, -5)，求这条直线的斜率 = ____。",
-      "answer": "-2",
+      "promptZhHans": "题组s5-009：点P(1,2)到直线3x+4y-10=0的距离为____。",
+      "optionsZhHans": [],
+      "answer": "1/5",
       "acceptedAnswers": [
-        "-2"
+        "1/5",
+        "0.2",
+        "d=1/5",
+        "d=0.2"
       ],
-      "explanationZhHans": "斜率 k=(-5--1)÷(3-1)=-2。",
-      "optionsZhHans": []
+      "explanationZhHans": "由点到直线的距离公式，d=|3×1+4×2-10|/√(3²+4²)=1/5。"
     },
     {
       "id": "bnu-high-ds-v1-s5-010",
@@ -34334,7 +34503,7 @@
       "acceptedAnswers": [
         "-2"
       ],
-      "explanationZhHans": "斜率 k=(-7--3)÷(3-1)=-2。",
+      "explanationZhHans": "斜率 k=(-7-(-3))÷(3-1)=-2。",
       "optionsZhHans": []
     },
     {
@@ -34398,7 +34567,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(0--2)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(0-(-2))÷(6-4)=1。",
       "optionsZhHans": []
     },
     {
@@ -34462,7 +34631,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-3--1)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-3-(-1))÷(4-2)=-1。",
       "optionsZhHans": [
         "0",
         "-1",
@@ -34792,7 +34961,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-5--3)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-5-(-3))÷(4-2)=-1。",
       "optionsZhHans": []
     },
     {
@@ -34856,7 +35025,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(2--2)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(2-(-2))÷(7-5)=2。",
       "optionsZhHans": [
         "3",
         "2",
@@ -34925,7 +35094,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(5--1)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(5-(-1))÷(5-3)=3。",
       "optionsZhHans": []
     },
     {
@@ -35250,7 +35419,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(3--3)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(3-(-3))÷(5-3)=3。",
       "optionsZhHans": [
         "4",
         "3",
@@ -35319,7 +35488,7 @@
       "acceptedAnswers": [
         "-2"
       ],
-      "explanationZhHans": "斜率 k=(-6--2)÷(3-1)=-2。",
+      "explanationZhHans": "斜率 k=(-6-(-2))÷(3-1)=-2。",
       "optionsZhHans": []
     },
     {
@@ -35383,7 +35552,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(1--1)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(1-(-1))÷(6-4)=1。",
       "optionsZhHans": []
     },
     {
@@ -35713,7 +35882,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(-1--3)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(-1-(-3))÷(6-4)=1。",
       "optionsZhHans": []
     },
     {
@@ -35777,7 +35946,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-4--2)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-4-(-2))÷(4-2)=-1。",
       "optionsZhHans": []
     },
     {
@@ -35841,7 +36010,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(3--1)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(3-(-1))÷(7-5)=2。",
       "optionsZhHans": [
         "3",
         "2",
@@ -36171,7 +36340,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(1--3)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(1-(-3))÷(7-5)=2。",
       "optionsZhHans": []
     },
     {
@@ -36235,7 +36404,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(4--2)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(4-(-2))÷(5-3)=3。",
       "optionsZhHans": [
         "4",
         "3",
@@ -36304,7 +36473,7 @@
       "acceptedAnswers": [
         "-2"
       ],
-      "explanationZhHans": "斜率 k=(-5--1)÷(3-1)=-2。",
+      "explanationZhHans": "斜率 k=(-5-(-1))÷(3-1)=-2。",
       "optionsZhHans": []
     },
     {
@@ -36629,7 +36798,7 @@
       "acceptedAnswers": [
         "-2"
       ],
-      "explanationZhHans": "斜率 k=(-7--3)÷(3-1)=-2。",
+      "explanationZhHans": "斜率 k=(-7-(-3))÷(3-1)=-2。",
       "optionsZhHans": [
         "-1",
         "-2",
@@ -36698,7 +36867,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(0--2)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(0-(-2))÷(6-4)=1。",
       "optionsZhHans": []
     },
     {
@@ -36762,7 +36931,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-3--1)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-3-(-1))÷(4-2)=-1。",
       "optionsZhHans": []
     },
     {
@@ -37092,7 +37261,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-5--3)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-5-(-3))÷(4-2)=-1。",
       "optionsZhHans": []
     },
     {
@@ -37156,7 +37325,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(2--2)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(2-(-2))÷(7-5)=2。",
       "optionsZhHans": []
     },
     {
@@ -37220,7 +37389,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(5--1)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(5-(-1))÷(5-3)=3。",
       "optionsZhHans": [
         "4",
         "3",
@@ -37550,7 +37719,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "斜率 k=(3--3)÷(5-3)=3。",
+      "explanationZhHans": "斜率 k=(3-(-3))÷(5-3)=3。",
       "optionsZhHans": []
     },
     {
@@ -37614,7 +37783,7 @@
       "acceptedAnswers": [
         "-2"
       ],
-      "explanationZhHans": "斜率 k=(-6--2)÷(3-1)=-2。",
+      "explanationZhHans": "斜率 k=(-6-(-2))÷(3-1)=-2。",
       "optionsZhHans": [
         "-1",
         "-2",
@@ -37683,7 +37852,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(1--1)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(1-(-1))÷(6-4)=1。",
       "optionsZhHans": []
     },
     {
@@ -38008,7 +38177,7 @@
       "acceptedAnswers": [
         "1"
       ],
-      "explanationZhHans": "斜率 k=(-1--3)÷(6-4)=1。",
+      "explanationZhHans": "斜率 k=(-1-(-3))÷(6-4)=1。",
       "optionsZhHans": [
         "2",
         "1",
@@ -38077,7 +38246,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "斜率 k=(-4--2)÷(4-2)=-1。",
+      "explanationZhHans": "斜率 k=(-4-(-2))÷(4-2)=-1。",
       "optionsZhHans": []
     },
     {
@@ -38141,7 +38310,7 @@
       "acceptedAnswers": [
         "2"
       ],
-      "explanationZhHans": "斜率 k=(3--1)÷(7-5)=2。",
+      "explanationZhHans": "斜率 k=(3-(-1))÷(7-5)=2。",
       "optionsZhHans": []
     },
     {
@@ -38200,18 +38369,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for conic; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-073：椭圆满足 a² = 15，b² = 9，求 c² = （ ）",
-      "answer": "6",
-      "acceptedAnswers": [
-        "6"
-      ],
-      "explanationZhHans": "椭圆中 c²=a²-b²，所以 c²=15-9=6。",
+      "promptZhHans": "题组s5-073：双曲线x²/9-y²/16=1的渐近线方程为（ ）",
       "optionsZhHans": [
-        "7",
-        "6",
-        "5",
-        "8"
-      ]
+        "y=±(3/4)x",
+        "y=±(4/3)x",
+        "y=±4x",
+        "y=±(1/3)x"
+      ],
+      "answer": "y=±(4/3)x",
+      "acceptedAnswers": [
+        "y=±(4/3)x",
+        "y=±4x/3"
+      ],
+      "explanationZhHans": "双曲线x²/a²-y²/b²=1的渐近线为y=±(b/a)x。本题a=3，b=4，所以渐近线为y=±(4/3)x。"
     },
     {
       "id": "bnu-high-ds-v1-s5-074",
@@ -38333,13 +38503,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for conic; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-075：椭圆满足 a² = 16，b² = 9，求 c² = ____。",
-      "answer": "7",
+      "promptZhHans": "题组s5-075：椭圆x²/25+y²/9=1的离心率为____。",
+      "optionsZhHans": [],
+      "answer": "4/5",
       "acceptedAnswers": [
-        "7"
+        "4/5",
+        "0.8"
       ],
-      "explanationZhHans": "椭圆中 c²=a²-b²，所以 c²=16-9=7。",
-      "optionsZhHans": []
+      "explanationZhHans": "椭圆的a²=25，b²=9，所以c²=a²-b²=16，c=4。离心率e=c/a=4/5。"
     },
     {
       "id": "bnu-high-ds-v1-s5-076",
@@ -38466,13 +38637,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for conic; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-077：椭圆满足 a² = 17，b² = 9，求 c² = ",
-      "answer": "8",
+      "promptZhHans": "题组s5-077：判断直线y=2x+3与抛物线y=x²的公共点个数，并写出消元后方程的判别式。请按“公共点个数；判别式”作答。",
+      "optionsZhHans": [],
+      "answer": "2个；Δ=16",
       "acceptedAnswers": [
-        "8"
+        "2个；Δ=16",
+        "两个公共点；Δ=16",
+        "兩個公共點；Δ=16",
+        "Two intersection points; Δ=16",
+        "2 intersection points; Δ=16"
       ],
-      "explanationZhHans": "椭圆中 c²=a²-b²，所以 c²=17-9=8。",
-      "optionsZhHans": []
+      "explanationZhHans": "联立得x²=2x+3，即x²-2x-3=0。判别式Δ=(-2)²-4×1×(-3)=16>0，所以有两个公共点。"
     },
     {
       "id": "bnu-high-ds-v1-s5-078",
@@ -38594,18 +38769,20 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for conic; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-079：椭圆满足 a² = 13，b² = 9，求 c² = （ ）",
-      "answer": "4",
-      "acceptedAnswers": [
-        "4"
-      ],
-      "explanationZhHans": "椭圆中 c²=a²-b²，所以 c²=13-9=4。",
+      "promptZhHans": "题组s5-079：抛物线y²=8x的焦点是（ ）。",
       "optionsZhHans": [
-        "5",
-        "4",
-        "3",
-        "6"
-      ]
+        "(2,0)",
+        "(-2,0)",
+        "(4,0)",
+        "(0,2)"
+      ],
+      "answer": "(2,0)",
+      "acceptedAnswers": [
+        "(2,0)",
+        "A",
+        "A. (2,0)"
+      ],
+      "explanationZhHans": "抛物线y²=4px中，4p=8，所以p=2，焦点为(p,0)=(2,0)。"
     },
     {
       "id": "bnu-high-ds-v1-s5-080",
@@ -42928,18 +43105,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for space-vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-145：已知向量 a = (4, 3, 1)，b = (2, 1, 2)，求 a·b = （ ）",
-      "answer": "13",
-      "acceptedAnswers": [
-        "13"
-      ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=13。",
+      "promptZhHans": "题组s5-145：直线l的一个方向向量为d=(1,1,√2)，平面α的一个法向量为n=(0,0,1)。直线l与平面α所成的锐角是（ ）。",
       "optionsZhHans": [
-        "14",
-        "13",
-        "12",
-        "15"
-      ]
+        "30°",
+        "45°",
+        "60°",
+        "90°"
+      ],
+      "answer": "45°",
+      "acceptedAnswers": [
+        "45°",
+        "45度",
+        "45 degrees",
+        "B",
+        "B. 45°"
+      ],
+      "explanationZhHans": "设线面角为θ，则sinθ=|d·n|/(|d||n|)=√2/2，所以θ=45°。"
     },
     {
       "id": "bnu-high-ds-v1-s5-146",
@@ -43061,13 +43242,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for space-vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-147：已知向量 a = (5, 3, 2)，b = (3, 2, 2)，求 a·b = ____。",
-      "answer": "25",
+      "promptZhHans": "题组s5-147：点P(1,2,2)到平面α: 2x-y+2z=0的距离为____。请用最简分数作答。",
+      "optionsZhHans": [],
+      "answer": "4/3",
       "acceptedAnswers": [
-        "25"
+        "4/3",
+        "4÷3"
       ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=25。",
-      "optionsZhHans": []
+      "explanationZhHans": "点到平面的距离为|2×1-2+2×2|/√(2²+(-1)²+2²)=4/3。"
     },
     {
       "id": "bnu-high-ds-v1-s5-148",
@@ -43194,13 +43376,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for space-vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-149：已知向量 a = (1, 3, 3)，b = (4, -2, 2)，求 a·b = ",
-      "answer": "4",
+      "promptZhHans": "题组s5-149：已知空间向量a=(1,0,1)，b=(0,1,1)，c=(1,1,2)。判断a、b、c是否线性相关，并写出一个能说明结论的向量关系。请按“结论；向量关系”作答。",
+      "optionsZhHans": [],
+      "answer": "线性相关；c=a+b",
       "acceptedAnswers": [
-        "4"
+        "线性相关；c=a+b",
+        "线性相关；a+b=c",
+        "線性相關；c=a+b",
+        "線性相關；a+b=c",
+        "linearly dependent; c=a+b",
+        "The vectors are linearly dependent; c=a+b"
       ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=4。",
-      "optionsZhHans": []
+      "explanationZhHans": "因为a+b=(1,1,2)=c，所以a、b、c线性相关。关系c=a+b直接说明其中一个向量可由另外两个向量线性表示。"
     },
     {
       "id": "bnu-high-ds-v1-s5-150",
@@ -43322,18 +43509,20 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for space-vector; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-151：已知向量 a = (2, 3, 1)，b = (2, -1, 2)，求 a·b = （ ）",
-      "answer": "3",
-      "acceptedAnswers": [
-        "3"
-      ],
-      "explanationZhHans": "数量积为对应坐标乘积之和，a·b=3。",
+      "promptZhHans": "题组s5-151：平面α: 2x-y+2z=3的一个法向量是（ ）。",
       "optionsZhHans": [
-        "4",
-        "3",
-        "2",
-        "5"
-      ]
+        "(2,-1,2)",
+        "(2,1,2)",
+        "(1,-2,2)",
+        "(2,-1,-2)"
+      ],
+      "answer": "(2,-1,2)",
+      "acceptedAnswers": [
+        "(2,-1,2)",
+        "A",
+        "A. (2,-1,2)"
+      ],
+      "explanationZhHans": "平面Ax+By+Cz=D的法向量可取(A,B,C)，所以本题可取(2,-1,2)。"
     },
     {
       "id": "bnu-high-ds-v1-s5-152",
@@ -47725,13 +47914,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-218：某模型记为 y = 27 + 3t，当 t = 5 时，y = ",
-      "answer": "42",
+      "promptZhHans": "题组s5-218：某线性模型的图像经过点(1,2)和(5,10)。建立模型y=ax+b，并求x=7时的预测值。",
+      "optionsZhHans": [],
+      "answer": "y=2x，y(7)=14",
       "acceptedAnswers": [
-        "42"
+        "y=2x，y(7)=14",
+        "y=2x, y(7)=14",
+        "y=2x，14"
       ],
-      "explanationZhHans": "代入 t=5 得 y=27+3×5=42。",
-      "optionsZhHans": []
+      "explanationZhHans": "斜率a=(10-2)/(5-1)=2。将点(1,2)代入y=2x+b，得b=0，所以模型为y=2x。代入x=7，得到预测值y(7)=14。"
     },
     {
       "id": "bnu-high-ds-v1-s5-219",
@@ -47789,13 +47980,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-219：某模型记为 y = 25 + 3t，当 t = 3 时，y = ____。",
-      "answer": "34",
+      "promptZhHans": "题组s5-219：某目标在平面直角坐标系中的轨迹满足x²+y²=25。当x=3且y>0时，y=____。",
+      "optionsZhHans": [],
+      "answer": "4",
       "acceptedAnswers": [
-        "34"
+        "4"
       ],
-      "explanationZhHans": "代入 t=3 得 y=25+3×3=34。",
-      "optionsZhHans": []
+      "explanationZhHans": "将x=3代入轨迹方程，得9+y²=25，所以y²=16。因为题目给出y>0，故y=4。"
     },
     {
       "id": "bnu-high-ds-v1-s5-220",
@@ -47922,13 +48113,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-221：某模型记为 y = 21 + 3t，当 t = 4 时，y = ",
-      "answer": "33",
+      "promptZhHans": "题组s5-221：某传感器的覆盖区域用圆C:(x-2)²+(y+1)²≤25表示。判断点Q(5,3)是否在覆盖区域内，并写出依据。请按“判断；代入结果与比较”作答。",
+      "optionsZhHans": [],
+      "answer": "在覆盖区域内；(5-2)²+(3+1)²=25≤25",
       "acceptedAnswers": [
-        "33"
+        "在覆盖区域内；(5-2)²+(3+1)²=25≤25",
+        "Q在覆盖区域内；9+16=25≤25",
+        "在覆蓋區域內；(5-2)²+(3+1)²=25≤25",
+        "Inside the coverage area; (5-2)²+(3+1)²=25≤25"
       ],
-      "explanationZhHans": "代入 t=4 得 y=21+3×4=33。",
-      "optionsZhHans": []
+      "explanationZhHans": "代入Q(5,3)，得(5-2)²+(3+1)²=9+16=25≤25，所以Q在圆的边界上，属于覆盖区域。"
     },
     {
       "id": "bnu-high-ds-v1-s5-222",
@@ -47986,13 +48180,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for modeling; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-222：某模型记为 y = 29 + 3t，当 t = 7 时，y = ____。",
-      "answer": "50",
+      "promptZhHans": "题组s5-222：无人机从原点依次完成位移a=(1,2,2)千米和b=(2,2,-2)千米。完成两段位移后，无人机到原点的直线距离为____。",
+      "optionsZhHans": [],
+      "answer": "5千米",
       "acceptedAnswers": [
-        "50"
+        "5千米",
+        "5公里",
+        "5 km",
+        "5"
       ],
-      "explanationZhHans": "代入 t=7 得 y=29+3×7=50。",
-      "optionsZhHans": []
+      "explanationZhHans": "合位移a+b=(3,4,0)，其长度为√(3²+4²+0²)=5，所以无人机到原点的直线距离为5千米。"
     },
     {
       "id": "bnu-high-ds-v1-s5-223",
@@ -52319,13 +52516,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for counting; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-288：从 6 名学生中选出 2 名组成学习小组，共有多少种选法？____。",
-      "answer": "15",
+      "promptZhHans": "题组s5-288：某学习小组从4名男生和2名女生中任选3人参加竞赛，要求至少有1名女生。共有多少种不同的选法？____。",
+      "optionsZhHans": [],
+      "answer": "16",
       "acceptedAnswers": [
-        "15"
+        "16",
+        "16种",
+        "16種",
+        "16 ways",
+        "C(6,3)-C(4,3)=16"
       ],
-      "explanationZhHans": "不计顺序，选法数为 C(6,2)=6×5÷2=15。",
-      "optionsZhHans": []
+      "explanationZhHans": "不限制时有C(6,3)=20种；全是男生有C(4,3)=4种。用补集计数，所求为20-4=16种。"
     },
     {
       "id": "bnu-high-ds-v1-s5-289",
@@ -52513,13 +52714,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for counting; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-291：从 6 名学生中选出 2 名组成学习小组，共有多少种选法？____。",
-      "answer": "15",
+      "promptZhHans": "题组s5-291：在(1+2x)⁵的展开式中，x²项的系数为____。",
+      "optionsZhHans": [],
+      "answer": "40",
       "acceptedAnswers": [
-        "15"
+        "40"
       ],
-      "explanationZhHans": "不计顺序，选法数为 C(6,2)=6×5÷2=15。",
-      "optionsZhHans": []
+      "explanationZhHans": "展开式的通项为C(5,k)(2x)ᵏ。令k=2，x²项的系数为C(5,2)×2²=10×4=40。"
     },
     {
       "id": "bnu-high-ds-v1-s5-292",
@@ -52644,13 +52845,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for counting; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-293：从 10 名学生中选出 2 名组成学习小组，共有多少种选法？",
-      "answer": "45",
+      "promptZhHans": "题组s5-293：用数字1、2、3、4组成没有重复数字的三位偶数，共有多少个？",
+      "optionsZhHans": [],
+      "answer": "12",
       "acceptedAnswers": [
-        "45"
+        "12",
+        "12个"
       ],
-      "explanationZhHans": "不计顺序，选法数为 C(10,2)=10×9÷2=45。",
-      "optionsZhHans": []
+      "explanationZhHans": "个位必须是2或4，共有2种选择；百位从剩余3个数字中选择，共有3种；十位再从剩余2个数字中选择，共有2种。由分步乘法计数原理，共有2×3×2=12个。"
     },
     {
       "id": "bnu-high-ds-v1-s5-294",
@@ -52707,13 +52909,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for counting; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-294：从 6 名学生中选出 2 名组成学习小组，共有多少种选法？____。",
-      "answer": "15",
+      "promptZhHans": "题组s5-294：把字母A、A、B、B、C排成一列，共有多少种不同的排列？____。",
+      "optionsZhHans": [],
+      "answer": "30",
       "acceptedAnswers": [
-        "15"
+        "30",
+        "30种",
+        "30種",
+        "30 arrangements",
+        "5!/(2!2!)=30"
       ],
-      "explanationZhHans": "不计顺序，选法数为 C(6,2)=6×5÷2=15。",
-      "optionsZhHans": []
+      "explanationZhHans": "若5个字母都不同，会有5!种排列；两个A和两个B各造成2!次重复，所以不同排列数为5!/(2!2!)=30。"
     },
     {
       "id": "bnu-high-ds-v1-s5-295",
@@ -56915,13 +57121,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-359：袋中有 3 个红球和 3 个蓝球，随机取出 1 个球，取到红球的概率为 ",
-      "answer": "1/2",
+      "promptZhHans": "题组s5-359：离散型随机变量X的取值为0、1、2，对应概率分别为1/4、1/2、1/4。求E(X)。",
+      "optionsZhHans": [],
+      "answer": "1",
       "acceptedAnswers": [
-        "1/2"
+        "1"
       ],
-      "explanationZhHans": "共有 6 个球，其中红球 3 个，概率为 3/6=1/2。",
-      "optionsZhHans": []
+      "explanationZhHans": "离散型随机变量的期望为各取值与对应概率乘积之和，所以E(X)=0×1/4+1×1/2+2×1/4=1。"
     },
     {
       "id": "bnu-high-ds-v1-s5-360",
@@ -57047,18 +57253,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-361：袋中有 3 个红球和 4 个蓝球，随机取出 1 个球，取到红球的概率为 （ ）",
-      "answer": "3/7",
-      "acceptedAnswers": [
-        "3/7"
-      ],
-      "explanationZhHans": "共有 7 个球，其中红球 3 个，概率为 3/7=3/7。",
+      "promptZhHans": "题组s5-361：若随机变量X服从二项分布B(4,1/2)，则P(X=2)=（ ）",
       "optionsZhHans": [
-        "4/7",
-        "3/7",
+        "1/8",
+        "1/4",
         "3/8",
         "1/2"
-      ]
+      ],
+      "answer": "3/8",
+      "acceptedAnswers": [
+        "3/8"
+      ],
+      "explanationZhHans": "由二项分布概率公式，P(X=2)=C(4,2)(1/2)²(1/2)²=6/16=3/8。"
     },
     {
       "id": "bnu-high-ds-v1-s5-362",
@@ -57118,13 +57324,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-362：袋中有 3 个红球和 7 个蓝球，随机取出 1 个球，取到红球的概率为 ",
-      "answer": "3/10",
+      "promptZhHans": "题组s5-362：随机变量X的分布为P(X=0)=1/4，P(X=1)=1/2，P(X=2)=1/4。求E(X)和Var(X)，并按“期望；方差”的格式作答。",
+      "optionsZhHans": [],
+      "answer": "1；1/2",
       "acceptedAnswers": [
-        "3/10"
+        "1；1/2",
+        "E(X)=1；Var(X)=1/2",
+        "1; 1/2",
+        "E(X)=1; Var(X)=1/2"
       ],
-      "explanationZhHans": "共有 10 个球，其中红球 3 个，概率为 3/10=3/10。",
-      "optionsZhHans": []
+      "explanationZhHans": "E(X)=0×1/4+1×1/2+2×1/4=1；E(X²)=0+1/2+4×1/4=3/2，所以Var(X)=E(X²)-[E(X)]²=3/2-1=1/2。"
     },
     {
       "id": "bnu-high-ds-v1-s5-363",
@@ -57184,13 +57393,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for probability; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-363：袋中有 3 个红球和 5 个蓝球，随机取出 1 个球，取到红球的概率为 ____。",
-      "answer": "3/8",
+      "promptZhHans": "题组s5-363：某班60%的学生参加社团A；参加社团A的学生中有70%通过选拔。随机抽取一名学生，该生参加社团A且通过选拔的概率为____。",
+      "optionsZhHans": [],
+      "answer": "42%",
       "acceptedAnswers": [
-        "3/8"
+        "42%",
+        "0.42",
+        "42 percent"
       ],
-      "explanationZhHans": "共有 8 个球，其中红球 3 个，概率为 3/8=3/8。",
-      "optionsZhHans": []
+      "explanationZhHans": "设A表示“参加社团A”，B表示“通过选拔”。则P(A∩B)=P(A)×P(B|A)=0.60×0.70=0.42=42%。"
     },
     {
       "id": "bnu-high-ds-v1-s5-364",
@@ -61715,18 +61926,20 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-430：一组数据为 11，14，17，求这组数据的平均数 = （ ）",
-      "answer": "14",
-      "acceptedAnswers": [
-        "14"
-      ],
-      "explanationZhHans": "平均数为 (11+14+17)÷3=14。",
+      "promptZhHans": "题组s5-430：某研究的散点图显示学习时间与测试成绩有较强正相关。下列结论正确的是（ ）。",
       "optionsZhHans": [
-        "15",
-        "14",
-        "13",
-        "16"
-      ]
+        "学习时间较长通常与较高成绩相关，但仅凭该散点图不能断定因果关系",
+        "延长学习时间一定会使每名学生的成绩提高",
+        "学习时间与测试成绩没有相关关系",
+        "成绩提高一定是学习时间增加造成的"
+      ],
+      "answer": "学习时间较长通常与较高成绩相关，但仅凭该散点图不能断定因果关系",
+      "acceptedAnswers": [
+        "学习时间较长通常与较高成绩相关，但仅凭该散点图不能断定因果关系",
+        "A",
+        "A. 学习时间较长通常与较高成绩相关，但仅凭该散点图不能断定因果关系"
+      ],
+      "explanationZhHans": "散点图的较强正相关只说明两个变量倾向于同向变化；它不能排除其他变量，也不能单独证明因果关系。"
     },
     {
       "id": "bnu-high-ds-v1-s5-431",
@@ -61785,13 +61998,17 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-431：一组数据为 11，14，17，求这组数据的平均数 = ",
-      "answer": "14",
+      "promptZhHans": "题组s5-431：在200名学生中，80人参加活动A，100人参加活动B，40人同时参加A和B。判断事件“参加A”和“参加B”是否独立，并写出概率依据。",
+      "optionsZhHans": [],
+      "answer": "独立；P(A∩B)=40/200=0.2=P(A)P(B)=(80/200)(100/200)",
       "acceptedAnswers": [
-        "14"
+        "独立；P(A∩B)=40/200=0.2=P(A)P(B)=(80/200)(100/200)",
+        "独立；P(A∩B)=0.2，P(A)P(B)=0.4×0.5=0.2",
+        "Independent; P(A∩B)=0.2=P(A)P(B)=0.4×0.5",
+        "Independent; P(A∩B)=40/200=0.2=P(A)P(B)=(80/200)(100/200)",
+        "Independent; P(A∩B)=40/200=0.2=P(A)P(B)=(80/200)(100/200)=0.4×0.5=0.2"
       ],
-      "explanationZhHans": "平均数为 (11+14+17)÷3=14。",
-      "optionsZhHans": []
+      "explanationZhHans": "P(A)=80/200=0.4，P(B)=100/200=0.5，P(A∩B)=40/200=0.2。因为P(A∩B)=P(A)P(B)=0.4×0.5=0.2，所以A与B独立。"
     },
     {
       "id": "bnu-high-ds-v1-s5-432",
@@ -61915,18 +62132,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-433：一组数据为 11，14，17，求这组数据的平均数 = （ ）",
-      "answer": "14",
-      "acceptedAnswers": [
-        "14"
-      ],
-      "explanationZhHans": "平均数为 (11+14+17)÷3=14。",
+      "promptZhHans": "题组s5-433：某校根据每周自主学习时间x（小时）与测试成绩y（分）建立线性回归方程ŷ=1.8x+62。当每周自主学习时间增加1小时时，预测成绩平均增加多少分？（ ）",
       "optionsZhHans": [
-        "15",
-        "14",
-        "13",
-        "16"
-      ]
+        "0.8",
+        "1.8",
+        "62",
+        "63.8"
+      ],
+      "answer": "1.8",
+      "acceptedAnswers": [
+        "1.8"
+      ],
+      "explanationZhHans": "线性回归方程中x的系数表示x每增加1个单位时，预测值ŷ平均改变的数量。因此每周自主学习时间增加1小时，预测成绩平均增加1.8分；这不是对每名学生实际成绩变化的必然断言。"
     },
     {
       "id": "bnu-high-ds-v1-s5-434",
@@ -61985,13 +62202,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for statistics; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s5-434：一组数据为 11，14，17，求这组数据的平均数 = ",
-      "answer": "14",
+      "promptZhHans": "题组s5-434：调查200名学生，其中80名规律运动，规律运动者中60名睡眠状况良好；其余120名不规律运动者中60名睡眠状况良好。规律运动组的睡眠良好率比不规律运动组高多少个百分点？",
+      "optionsZhHans": [],
+      "answer": "25",
       "acceptedAnswers": [
-        "14"
+        "25"
       ],
-      "explanationZhHans": "平均数为 (11+14+17)÷3=14。",
-      "optionsZhHans": []
+      "explanationZhHans": "规律运动组的睡眠良好率为60÷80=75%，不规律运动组为60÷120=50%，两者相差75%-50%=25个百分点。该样本差异可以提示统计关联，但观察性调查本身不能证明因果关系。"
     },
     {
       "id": "bnu-high-ds-v1-s5-435",
@@ -66562,13 +66779,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for sequence; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-002：等差数列首项 a1 = 3，公差 d = 5，求 a7 = ",
-      "answer": "33",
+      "promptZhHans": "题组s6-002：等差数列{aₙ}的首项a₁=3，公差d=2。求前10项和S₁₀。",
+      "optionsZhHans": [],
+      "answer": "120",
       "acceptedAnswers": [
-        "33"
+        "120",
+        "S₁₀=120",
+        "S10=120",
+        "The sum is 120"
       ],
-      "explanationZhHans": "等差数列通项 a_n=a1+(n-1)d，所以 a7=3+6×5=33。",
-      "optionsZhHans": []
+      "explanationZhHans": "由等差数列前n项和公式，S₁₀=10/2×[2×3+(10-1)×2]=5×24=120。"
     },
     {
       "id": "bnu-high-ds-v1-s6-003",
@@ -66694,18 +66914,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for sequence; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-004：等差数列首项 a1 = 7，公差 d = 1，求 a9 = （ ）",
-      "answer": "15",
-      "acceptedAnswers": [
-        "15"
-      ],
-      "explanationZhHans": "等差数列通项 a_n=a1+(n-1)d，所以 a9=7+8×1=15。",
+      "promptZhHans": "题组s6-004：等比数列{aₙ}的首项a₁=3，公比q=2，则前5项和S₅为（ ）",
       "optionsZhHans": [
-        "17",
-        "15",
-        "13",
-        "19"
-      ]
+        "45",
+        "63",
+        "93",
+        "96"
+      ],
+      "answer": "93",
+      "acceptedAnswers": [
+        "93"
+      ],
+      "explanationZhHans": "由等比数列前n项和公式，S₅=3(1-2⁵)/(1-2)=3×31=93。也可直接相加3+6+12+24+48=93。"
     },
     {
       "id": "bnu-high-ds-v1-s6-005",
@@ -66831,13 +67051,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for sequence; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-006：等差数列首项 a1 = 5，公差 d = 2，求 a11 = ____。",
-      "answer": "25",
+      "promptZhHans": "题组s6-006：等比数列{aₙ}的首项a₁=3，公比q=-2，则a₅=____。",
+      "optionsZhHans": [],
+      "answer": "48",
       "acceptedAnswers": [
-        "25"
+        "48",
+        "a₅=48",
+        "a5=48",
+        "a_5=48"
       ],
-      "explanationZhHans": "等差数列通项 a_n=a1+(n-1)d，所以 a11=5+10×2=25。",
-      "optionsZhHans": []
+      "explanationZhHans": "由等比数列通项公式，a₅=a₁q⁴=3×(-2)⁴=48。"
     },
     {
       "id": "bnu-high-ds-v1-s6-007",
@@ -66968,13 +67191,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for sequence; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-008：等差数列首项 a1 = 3，公差 d = 3，求 a6 = ",
-      "answer": "18",
+      "promptZhHans": "题组s6-008：数列{aₙ}满足a₁=1，aₙ₊₁=aₙ+2n，求a₄。",
+      "optionsZhHans": [],
+      "answer": "13",
       "acceptedAnswers": [
-        "18"
+        "13"
       ],
-      "explanationZhHans": "等差数列通项 a_n=a1+(n-1)d，所以 a6=3+5×3=18。",
-      "optionsZhHans": []
+      "explanationZhHans": "由递推关系依次计算：a₂=a₁+2×1=3，a₃=a₂+2×2=7，a₄=a₃+2×3=13。"
     },
     {
       "id": "bnu-high-ds-v1-s6-009",
@@ -81716,18 +81939,19 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-226：函数 f(x) = 2x² - 1x + 2，求 f'(6) = （ ）",
-      "answer": "23",
-      "acceptedAnswers": [
-        "23"
-      ],
-      "explanationZhHans": "f'(x)=4x-1，代入 x=6 得 23。",
+      "promptZhHans": "题组s6-226：曲线y=x²在点(1,1)处的切线方程为（ ）",
       "optionsZhHans": [
-        "25",
-        "23",
-        "21",
-        "27"
-      ]
+        "y=x-1",
+        "y=2x-1",
+        "y=2x+1",
+        "y=x+1"
+      ],
+      "answer": "y=2x-1",
+      "acceptedAnswers": [
+        "y=2x-1",
+        "2x-y-1=0"
+      ],
+      "explanationZhHans": "函数f(x)=x²的导数为f'(x)=2x，所以在x=1处的切线斜率为2。由点斜式y-1=2(x-1)，化简得y=2x-1。"
     },
     {
       "id": "bnu-high-ds-v1-s6-227",
@@ -81787,13 +82011,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-227：函数 f(x) = 5x² + 0x + 2，求 f'(2) = ",
-      "answer": "20",
+      "promptZhHans": "题组s6-227：求函数f(x)=x³-3x的递增区间和递减区间，并按“递增区间；递减区间”的顺序作答。",
+      "optionsZhHans": [],
+      "answer": "(-∞,-1)∪(1,+∞)；(-1,1)",
       "acceptedAnswers": [
-        "20"
+        "(-∞,-1)∪(1,+∞)；(-1,1)",
+        "(-∞,-1)U(1,+∞);(-1,1)"
       ],
-      "explanationZhHans": "f'(x)=10x+0，代入 x=2 得 20。",
-      "optionsZhHans": []
+      "explanationZhHans": "f'(x)=3x²-3=3(x-1)(x+1)。当x<-1或x>1时，f'(x)>0，函数递增；当-1<x<1时，f'(x)<0，函数递减。因此递增区间为(-∞,-1)∪(1,+∞)，递减区间为(-1,1)。"
     },
     {
       "id": "bnu-high-ds-v1-s6-228",
@@ -81853,13 +82078,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-228：函数 f(x) = 3x² + 1x + 2，求 f'(4) = ____。",
-      "answer": "25",
+      "promptZhHans": "题组s6-228：函数f(x)=x³-3ax在x=1处取得极小值，则实数a=____。",
+      "optionsZhHans": [],
+      "answer": "1",
       "acceptedAnswers": [
-        "25"
+        "1",
+        "a=1"
       ],
-      "explanationZhHans": "f'(x)=6x+1，代入 x=4 得 25。",
-      "optionsZhHans": []
+      "explanationZhHans": "极值点必须满足f′(1)=0。由f′(x)=3x²-3a，得3-3a=0，所以a=1；又f″(1)=6>0，确为极小值。"
     },
     {
       "id": "bnu-high-ds-v1-s6-229",
@@ -81919,18 +82145,20 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-229：函数 f(x) = 1x² + 2x + 2，求 f'(6) = （ ）",
-      "answer": "14",
-      "acceptedAnswers": [
-        "14"
-      ],
-      "explanationZhHans": "f'(x)=2x+2，代入 x=6 得 14。",
+      "promptZhHans": "题组s6-229：函数f(x)=-x²+6x+1在闭区间[0,5]上的最大值是（ ）。",
       "optionsZhHans": [
-        "16",
-        "14",
-        "12",
-        "18"
-      ]
+        "6",
+        "9",
+        "10",
+        "11"
+      ],
+      "answer": "10",
+      "acceptedAnswers": [
+        "10",
+        "C",
+        "C. 10"
+      ],
+      "explanationZhHans": "f′(x)=-2x+6，在x=3处由正变负。比较f(0)=1、f(3)=10、f(5)=6，最大值为10。"
     },
     {
       "id": "bnu-high-ds-v1-s6-230",
@@ -96947,18 +97175,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-451：函数 f(x) = 2x² + 0x + 2，求 f'(6) = （ ）",
-      "answer": "24",
-      "acceptedAnswers": [
-        "24"
-      ],
-      "explanationZhHans": "f'(x)=4x+0，代入 x=6 得 24。",
+      "promptZhHans": "题组s6-451：已知f(x)=x²，并定义数列aₙ=f'(n)。数列{aₙ}的前5项和为（ ）",
       "optionsZhHans": [
-        "26",
-        "24",
-        "22",
-        "28"
-      ]
+        "20",
+        "25",
+        "30",
+        "40"
+      ],
+      "answer": "30",
+      "acceptedAnswers": [
+        "30"
+      ],
+      "explanationZhHans": "f'(x)=2x，所以aₙ=f'(n)=2n。前5项和为2+4+6+8+10=30。该数列也是首项为2、公差为2的等差数列。"
     },
     {
       "id": "bnu-high-ds-v1-s6-452",
@@ -97024,13 +97252,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-452：函数 f(x) = 5x² + 1x + 2，求 f'(2) = ",
-      "answer": "21",
+      "promptZhHans": "题组s6-452：等差数列{aₙ}的首项a₁=2，公差d=3，求前10项和S₁₀。",
+      "optionsZhHans": [],
+      "answer": "155",
       "acceptedAnswers": [
-        "21"
+        "155"
       ],
-      "explanationZhHans": "f'(x)=10x+1，代入 x=2 得 21。",
-      "optionsZhHans": []
+      "explanationZhHans": "由等差数列前n项和公式，S₁₀=10[2×2+(10-1)×3]/2=5×31=155。"
     },
     {
       "id": "bnu-high-ds-v1-s6-453",
@@ -97096,18 +97324,20 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-453：函数 f(x) = 3x² + 2x + 2，求 f'(4) = （ ）",
-      "answer": "26",
-      "acceptedAnswers": [
-        "26"
-      ],
-      "explanationZhHans": "f'(x)=6x+2，代入 x=4 得 26。",
+      "promptZhHans": "题组s6-453：已知f(x)=x³，并定义数列aₙ=f′(n)（n∈N*）。则S₃=a₁+a₂+a₃为（ ）。",
       "optionsZhHans": [
-        "28",
-        "26",
-        "24",
-        "30"
-      ]
+        "36",
+        "39",
+        "42",
+        "45"
+      ],
+      "answer": "42",
+      "acceptedAnswers": [
+        "42",
+        "C",
+        "C. 42"
+      ],
+      "explanationZhHans": "f′(x)=3x²，所以a₁=3，a₂=12，a₃=27，S₃=3+12+27=42。"
     },
     {
       "id": "bnu-high-ds-v1-s6-454",
@@ -97245,18 +97475,22 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-455：函数 f(x) = 4x² - 3x + 2，求 f'(2) = （ ）",
-      "answer": "13",
-      "acceptedAnswers": [
-        "13"
-      ],
-      "explanationZhHans": "f'(x)=8x-3，代入 x=2 得 13。",
+      "promptZhHans": "题组s6-455：已知函数f(x)=x²，定义数列aₙ=f(n+1)-f(n)（n∈N*）。则aₙ=（ ）。",
       "optionsZhHans": [
-        "15",
-        "13",
-        "11",
-        "17"
-      ]
+        "2n+1",
+        "2n",
+        "n²+1",
+        "2n-1"
+      ],
+      "answer": "2n+1",
+      "acceptedAnswers": [
+        "2n+1",
+        "aₙ=2n+1",
+        "a_n=2n+1",
+        "A",
+        "A. 2n+1"
+      ],
+      "explanationZhHans": "由定义，aₙ=f(n+1)-f(n)=(n+1)²-n²=2n+1。"
     },
     {
       "id": "bnu-high-ds-v1-s6-456",
@@ -97322,13 +97556,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 deterministic approved remediation for derivative; generated from committed BNU high safe-RAG metadata without protected source wording.",
-      "promptZhHans": "题组s6-456：函数 f(x) = 2x² - 2x + 2，求 f'(4) = ",
-      "answer": "14",
+      "promptZhHans": "题组s6-456：数列{aₙ}满足a₁=1，aₙ₊₁=2aₙ+1。求a₄，并写出递推过程。",
+      "optionsZhHans": [],
+      "answer": "a₂=3，a₃=7，a₄=15",
       "acceptedAnswers": [
-        "14"
+        "a₂=3，a₃=7，a₄=15",
+        "a2=3，a3=7，a4=15",
+        "a₂=3; a₃=7; a₄=15"
       ],
-      "explanationZhHans": "f'(x)=4x-2，代入 x=4 得 14。",
-      "optionsZhHans": []
+      "explanationZhHans": "依次代入递推式：a₂=2×1+1=3，a₃=2×3+1=7，a₄=2×7+1=15。"
     },
     {
       "id": "bnu-high-ds-v1-s6-457",

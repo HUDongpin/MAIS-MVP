@@ -3,6 +3,11 @@ import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
+import {
+  applyHjbPrimaryA18Corrections,
+  syncHjbPrimaryA18TargetBatches
+} from "./a18-primary-runtime-closure-corrections.mjs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "../../..");
 const batchDir = path.join(__dirname, "batches");
@@ -748,8 +753,9 @@ async function main() {
   }
 
   questions.sort((left, right) => left.id.localeCompare(right.id));
-  writeJsonl(path.join(__dirname, "questions.jsonl"), questions);
-  writeCsv(path.join(__dirname, "questions.csv"), questions, [
+  const curatedQuestions = applyHjbPrimaryA18Corrections(questions);
+  writeJsonl(path.join(__dirname, "questions.jsonl"), curatedQuestions);
+  writeCsv(path.join(__dirname, "questions.csv"), curatedQuestions, [
     "id",
     "batch",
     "grade",
@@ -774,7 +780,7 @@ async function main() {
     "manualQaStatus",
     "reviewNotes"
   ]);
-  writeCsv(path.join(__dirname, "coverage-matrix.csv"), buildCoverageRows(questions), [
+  writeCsv(path.join(__dirname, "coverage-matrix.csv"), buildCoverageRows(curatedQuestions), [
     "grade",
     "semester",
     "topicId",
@@ -786,11 +792,11 @@ async function main() {
     "assessmentPatternCardIds",
     "paperPatternCardIds"
   ]);
-  fs.writeFileSync(path.join(__dirname, "question-pack.json"), `${JSON.stringify({ questions }, null, 2)}\n`);
+  fs.writeFileSync(path.join(__dirname, "question-pack.json"), `${JSON.stringify({ questions: curatedQuestions }, null, 2)}\n`);
   fs.writeFileSync(
     path.join(__dirname, "qa-report.md"),
     buildQaReport({
-      questions,
+      questions: curatedQuestions,
       plan,
       model,
       apiUrl,
@@ -800,6 +806,7 @@ async function main() {
       assessmentPatternCards
     })
   );
+  syncHjbPrimaryA18TargetBatches(curatedQuestions, batchDir);
   console.log("Generation complete: wrote questions.jsonl, questions.csv, question-pack.json, coverage-matrix.csv, qa-report.md");
 }
 

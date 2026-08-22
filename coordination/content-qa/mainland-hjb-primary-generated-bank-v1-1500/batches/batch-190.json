@@ -218,18 +218,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丁丁记录了某地连续6个月每月1日的平均气温，并画成折线统计图。横轴是月份（1月到6月），纵轴是气温（单位：℃）。数据点：1月2℃，2月5℃，3月9℃，4月14℃，5月19℃，6月24℃。下列说法正确的是（ ）。",
+      "promptZhHans": "某地连续6个月每月1日记录的平均气温分别为：1月2℃，2月5℃，3月9℃，4月14℃，5月19℃，6月24℃。下面哪个说法正确？",
       "optionsZhHans": [
-        "气温一直在下降",
-        "3月到4月气温上升得最快",
-        "6月气温最高，所以6月最热",
-        "1月到2月上升了2℃"
+        "记录的平均气温一直下降",
+        "3月1日到4月1日上升了6℃",
+        "6月1日记录的平均气温最高，为24℃",
+        "1月1日到2月1日上升了2℃"
       ],
-      "answer": "6月气温最高，所以6月最热",
+      "answer": "6月1日记录的平均气温最高，为24℃",
       "acceptedAnswers": [
-        "6月气温最高，所以6月最热"
+        "6月1日记录的平均气温最高，为24℃",
+        "The highest recorded average temperature was 24°C on June 1"
       ],
-      "explanationZhHans": "6月24℃最高，所以最热。气温一直上升；3月到4月上升5℃，不是最快（4到5月也上升5℃，5到6月上升5℃）；1月到2月上升3℃。"
+      "explanationZhHans": "六个记录值依次上升，最高记录值是6月1日的24℃。3月1日到4月1日上升5℃，1月1日到2月1日上升3℃，所以只有第三项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-200",

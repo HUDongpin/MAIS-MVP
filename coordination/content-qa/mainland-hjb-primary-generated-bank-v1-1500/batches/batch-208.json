@@ -48,16 +48,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校图书馆有一批新书，故事书的本数是科技书的3倍。如果故事书借出15本后，剩下的故事书比科技书多20本。设科技书有x本，请列出方程并求出科技书和故事书各有多少本。",
+      "promptZhHans": "学校图书馆里，故事书本数是科技书的3倍。故事书借出15本后，剩下的故事书比科技书多55本。科技书和故事书原来各有多少本？请按“科技书___本；故事书___本”的格式填写。",
       "optionsZhHans": [],
-      "answer": "科技书有35本，故事书有105本",
+      "answer": "科技书35本；故事书105本",
       "acceptedAnswers": [
-        "科技书有35本，故事书有105本",
+        "科技书35本；故事书105本",
         "科技书35本，故事书105本",
-        "x=35，故事书105本",
-        "科技书35本，故事书105本。"
+        "35 science books; 105 storybooks"
       ],
-      "explanationZhHans": "设科技书有x本，则故事书有3x本。借出15本后，故事书剩3x-15本。根据条件得方程3x-15=x+20，解得x=35。故事书为3×35=105本。检验：105-15=90，比35多20，符合题意。"
+      "explanationZhHans": "设科技书有x本，则故事书有3x本。根据题意列方程3x-15=x+55，解得x=35，故事书有3×35=105本。检验：105-15-35=55。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-037",

@@ -126,13 +126,13 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "为了解某小区家庭月均用水情况，随机调查了该小区部分家庭，数据如下：月用水量（吨）：4，5，6，7，8，9；户数：2，4，7，5，3，1。这组数据的方差为______（结果保留两位小数）。",
+      "promptZhHans": "某校九年级（2）班22名学生参加数学测验，成绩（单位：分）如下：68, 72, 76, 70, 68, 74, 72, 76, 70, 72, 74, 68, 76, 72, 70, 74, 68, 72, 76, 70, 74, 72。这组数据的方差是______（保留两位小数）。",
       "optionsZhHans": [],
-      "answer": "1.77",
+      "answer": "7.27",
       "acceptedAnswers": [
-        "1.77"
+        "7.27"
       ],
-      "explanationZhHans": "总户数=2+4+7+5+3+1=22。平均数=(4×2+5×4+6×7+7×5+8×3+9×1)/22=138/22≈6.27。方差=[2×(4-6.27)²+4×(5-6.27)²+7×(6-6.27)²+5×(7-6.27)²+3×(8-6.27)²+1×(9-6.27)²]/22≈38.92/22≈1.77。"
+      "explanationZhHans": "数据中68、70、72、74、76分别出现4、4、6、4、4次，总和为1584，平均数为72。总体方差=[4×(68-72)²+4×(70-72)²+6×(72-72)²+4×(74-72)²+4×(76-72)²]÷22=160÷22=80/11≈7.27。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-448",

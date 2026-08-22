@@ -51,3 +51,7 @@
 ## Recommendation
 
 Promote this v2 bank to the public Mainland PEP junior question aggregate for the owner-authorized implementation. Keep the v1 900-question candidate pack as historical QA context only.
+
+## 2026-08-20 result-only contract addendum
+
+The rational-number short-answer family now asks only for the calculated result. Four sampled rows (`sa-001`, `sa-012`, `sa-021`, and `sa-022`) whose prompts changed were independently re-adjudicated for arithmetic correctness and prompt/answer/scoring consistency; all four passed. The corresponding queue and results rows were updated to the current prompts. This addendum does not claim that all 132 samples received a new manual review on this date; the remaining rows retain the historical 2026-05-23 evidence above.

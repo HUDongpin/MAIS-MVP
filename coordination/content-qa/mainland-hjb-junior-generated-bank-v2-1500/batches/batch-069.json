@@ -117,13 +117,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "已知直线l1∥l2，直线l3与l1、l2分别交于点A、B，∠1 = 75°，∠2 = 55°。求∠3的度数，并说明推理依据。",
+      "promptZhHans": "在同一平面内，直线AB与直线CD相交于点O，且∠AOC=40°。过点O作射线OE，使得∠COE=60°，且射线OA、OE位于直线CD两侧。求∠AOE的度数。",
       "optionsZhHans": [],
-      "answer": "50°",
+      "answer": "100°",
       "acceptedAnswers": [
-        "50°"
+        "100°",
+        "100度",
+        "100"
       ],
-      "explanationZhHans": "过点B作l1的平行线，则∠1 = ∠4 = 75°（两直线平行，同位角相等）。∠2 = 55°已知，∠3 = ∠4 - ∠2 = 75° - 55° = 20°。"
+      "explanationZhHans": "射线OA、OE位于直线CD两侧，因此∠AOC与∠COE是∠AOE的两个相邻部分。∠AOE=∠AOC+∠COE=40°+60°=100°。"
     },
     {
       "id": "hjb-junior-ds-v2-s1-343",

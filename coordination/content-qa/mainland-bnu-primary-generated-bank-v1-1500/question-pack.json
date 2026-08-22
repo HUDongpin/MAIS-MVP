@@ -29174,15 +29174,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看是横着排成一行的2个正方形，从上面看是横着排成一行的3个正方形。请描述这个立体图形是怎样搭的。",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，下面一行有3个正方形，中间的正方形上方还有1个正方形；从上面看是横着排成一行的3个正方形。请描述这个立体图形是怎样搭的。",
       "optionsZhHans": [],
-      "answer": "第一层摆3个正方体横排，第二层在中间或某一端上方摆1个，但正面只能看到2个，所以第二层的正方体应放在第一层中间或一端的上方，且从正面看时被前面的正方体挡住一个。例如：底层横排3个，第二层在中间上方摆1个，从正面看只能看到底层左右两个和第二层中间一个，共2个正方形。",
+      "answer": "第一层横着摆3个小正方体，再在中间的小正方体上面摆1个小正方体。",
       "acceptedAnswers": [
-        "第一层摆3个正方体横排，第二层在中间或某一端上方摆1个，但正面只能看到2个，所以第二层的正方体应放在第一层中间或一端的上方，且从正面看时被前面的正方体挡住一个。例如：底层横排3个，第二层在中间上方摆1个，从正面看只能看到底层左右两个和第二层中间一个，共2个正方形。",
+        "第一层横着摆3个小正方体，再在中间的小正方体上面摆1个小正方体。",
         "第一层摆3个正方体横排，第二层在中间上方摆1个",
         "底层3个横排，上层中间放1个"
       ],
-      "explanationZhHans": "从上面看一排3个，说明底层有3个横排。从正面看一排2个，说明有上下两层，且上层正方体在正面视角中与底层某个重叠，只露出2个。常见搭法：底层3个，上层中间1个。"
+      "explanationZhHans": "从上面看横排3个，说明3个占地位置在同一横排；从正面看下排3个且中间上方还有1个，说明第4个小正方体叠在中间的小正方体上面。因此可搭成：第一层横排3个，在中间位置上方再摆1个。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-019",
@@ -52891,14 +52891,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根绳子长4.8米，剪成每段0.6米长的小段。可以剪成多少段？请列式并计算。",
+      "promptZhHans": "8段同样长的绳子，每段长0.6米。把它们首尾相接，接成的长绳一共长多少米？",
       "optionsZhHans": [],
-      "answer": "8段",
+      "answer": "4.8米",
       "acceptedAnswers": [
-        "8段",
-        "8"
+        "4.8米",
+        "4.8"
       ],
-      "explanationZhHans": "4.8÷0.6=8（段）。可以想：48个0.1米里面有几个6个0.1米，48÷6=8。"
+      "explanationZhHans": "0.6×8=4.8（米）。也可以想：6个0.1米乘8得到48个0.1米，也就是4.8米。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-181",
@@ -53351,14 +53351,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根彩带长2.4米，做一朵花需要用0.35米。先估一估这根彩带大约能做多少朵花，再列竖式算一算，最后把得数填在横线上。\n估：____________________\n竖式：\n答：这根彩带能做______朵花。（得数保留整数）",
+      "promptZhHans": "做一朵花需要0.35米彩带。做6朵这样的花一共需要______米彩带。",
       "optionsZhHans": [],
-      "answer": "6",
+      "answer": "2.1",
       "acceptedAnswers": [
-        "6",
-        "6朵"
+        "2.1",
+        "2.1米"
       ],
-      "explanationZhHans": "估算：2.4÷0.35≈2.4÷0.4=6（朵）。竖式计算：将除数0.35和被除数2.4同时乘100，变成240÷35，商6余30，所以能做6朵花。"
+      "explanationZhHans": "0.35×6=2.1（米）。也可以想：35个0.01米乘6得到210个0.01米，也就是2.1米。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-189",

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isDeepStrictEqual } from "node:util";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const generationPlanPath = path.join(__dirname, "generation-plan.jsonl");
@@ -8,6 +9,12 @@ const legacyManualQueuePath = path.join(__dirname, "manual-review-queue.csv");
 const deepseekQueuePath = path.join(__dirname, "deepseek-v4-pro-solvability-qa", "deepseek-remediation-queue.csv");
 const approvedPackPath = path.join(__dirname, "question-pack.approved.json");
 const approvedJsonlPath = path.join(__dirname, "approved-questions.jsonl");
+const approvedQuestionFamilyManifestPath = path.join(__dirname, "approved-question-family-manifest.json");
+const reviewedApprovedRowOverridesPath = path.join(__dirname, "reviewed-approved-row-overrides.json");
+const productionApprovedPackPath = path.resolve(
+  __dirname,
+  "../../../data/generated-content/mainland-bnu-high-generated-bank-v1-1500/question-pack.approved.json"
+);
 const approvalSummaryPath = path.join(__dirname, "approval-summary.md");
 const approvalAuditPath = path.join(__dirname, "approved-solvability-audit.json");
 const manualReviewResultsPath = path.join(__dirname, "manual-review-results.csv");
@@ -58,6 +65,14 @@ function normalizeIdentity(text) {
     .normalize("NFKC")
     .replace(/\s+/g, "")
     .replace(/[，、；;：:。！？?!（）()【】\[\]{}“”"‘’']/g, "");
+}
+
+function normalizeOptionIdentity(text) {
+  return String(text ?? "")
+    .toLowerCase()
+    .normalize("NFKC")
+    .replace(/\s+/g, "")
+    .replace(/[。！？?!]+$/g, "");
 }
 
 function gcd(a, b) {
@@ -143,6 +158,35 @@ function familyFor(row) {
   if (/函数应用|建模/.test(text)) return "modeling";
   if (/函数/.test(text)) return "function";
   return "preparatory";
+}
+
+function generatedTaskFamily(row, family) {
+  const taskFamily = {
+    preparatory: "linear-equation",
+    function: "affine-evaluation",
+    exponent: "exponent-product-law",
+    logarithm: "direct-log-value",
+    modeling: "bare-linear-substitution",
+    probability: "single-draw-urn",
+    "trig-identity": "pythagorean-complement",
+    vector: "2d-dot-product",
+    "space-vector": "3d-dot-product",
+    complex: "real-part-of-sum",
+    solid: "cuboid-volume",
+    "line-circle": "two-point-slope",
+    conic: "ellipse-c2",
+    sequence: "arithmetic-nth-term",
+    derivative: "polynomial-derivative-value",
+    counting: "choose-2"
+  }[family];
+  if (taskFamily) return taskFamily;
+  if (family === "statistics") return row.difficulty === "Foundation" ? "range" : "mean";
+  if (family === "trigonometry") {
+    return row.difficulty === "Challenge" || row.difficulty === "Exam"
+      ? "coefficient-identification"
+      : "amplitude-identification";
+  }
+  throw new Error(`${row.id} has no durable task family for generated family ${family}.`);
 }
 
 function preparatoryQuestion(row, seed) {
@@ -340,13 +384,85 @@ function lineCircleQuestion(row, seed) {
   const y2 = y1 + slope * dx;
   const answer = String(slope);
   const prompt = `直线经过点 A(${x1}, ${y1}) 和 B(${x2}, ${y2})，求这条直线的斜率 = `;
+  const rise = `${y2}-${y1 < 0 ? `(${y1})` : y1}`;
+  const run = `${x2}-${x1 < 0 ? `(${x1})` : x1}`;
   return packageByType({
     type: row.type,
     prompt,
     answer,
-    explanation: `斜率 k=(${y2}-${y1})÷(${x2}-${x1})=${answer}。`,
+    explanation: `斜率 k=(${rise})÷(${run})=${answer}。`,
     options: numericOptions(answer, seed)
   }, seed);
+}
+
+function loadReviewedApprovedRowOverrides() {
+  const parsed = JSON.parse(fs.readFileSync(reviewedApprovedRowOverridesPath, "utf8"));
+  if (
+    parsed.version !== 1
+    || !Number.isInteger(parsed.expectedOverrideCount)
+    || parsed.expectedOverrideCount < 1
+    || !Array.isArray(parsed.overrides)
+  ) {
+    throw new Error(
+      "Reviewed approved-row override manifest must use version 1 and contain a positive expectedOverrideCount plus an overrides array."
+    );
+  }
+
+  const byId = Object.create(null);
+  for (const entry of parsed.overrides) {
+    const requiredStrings = [
+      "id",
+      "expectedTopicId",
+      "expectedType",
+      "expectedDifficulty",
+      "taskFamily",
+      "promptZhHans",
+      "answer",
+      "explanationZhHans"
+    ];
+    for (const field of requiredStrings) {
+      if (typeof entry[field] !== "string" || !entry[field].trim()) {
+        throw new Error(`Reviewed override ${entry.id ?? "<missing-id>"} has invalid ${field}.`);
+      }
+    }
+    if (!Array.isArray(entry.optionsZhHans) || !Array.isArray(entry.acceptedAnswers)) {
+      throw new Error(`Reviewed override ${entry.id} must contain optionsZhHans and acceptedAnswers arrays.`);
+    }
+    if (byId[entry.id]) throw new Error(`Duplicate reviewed override ID ${entry.id}.`);
+    byId[entry.id] = Object.freeze({ ...entry });
+  }
+  if (Object.keys(byId).length !== parsed.expectedOverrideCount) {
+    throw new Error(
+      `Expected ${parsed.expectedOverrideCount} reviewed approved-row overrides; found ${Object.keys(byId).length}.`
+    );
+  }
+  return Object.freeze(byId);
+}
+
+const reviewedApprovedRowOverridesById = loadReviewedApprovedRowOverrides();
+
+function reviewedApprovedRowOverride(row) {
+  const reviewed = reviewedApprovedRowOverridesById[row.id];
+  if (!reviewed) return null;
+  if (
+    row.topicId !== reviewed.expectedTopicId
+    || row.type !== reviewed.expectedType
+    || row.difficulty !== reviewed.expectedDifficulty
+  ) {
+    throw new Error(
+      `${row.id} reviewed override expected ${reviewed.expectedTopicId}/${reviewed.expectedType}/${reviewed.expectedDifficulty}; `
+      + `generation plan has ${row.topicId}/${row.type}/${row.difficulty}.`
+    );
+  }
+  const {
+    id: _id,
+    expectedTopicId: _expectedTopicId,
+    expectedType: _expectedType,
+    expectedDifficulty: _expectedDifficulty,
+    taskFamily,
+    ...generated
+  } = reviewed;
+  return { generated, taskFamily };
 }
 
 function conicQuestion(row, seed) {
@@ -408,7 +524,7 @@ function countingQuestion(row, seed) {
   }, seed);
 }
 
-function buildQuestion(row, index) {
+function buildQuestionWithFamily(row, index) {
   const seed = seedFor(row, index);
   const family = familyFor(row);
   const builder = {
@@ -431,20 +547,29 @@ function buildQuestion(row, index) {
     derivative: derivativeQuestion,
     counting: countingQuestion
   }[family] ?? preparatoryQuestion;
-  const generated = builder(row, seed);
+  const reviewed = reviewedApprovedRowOverride(row);
+  const generated = reviewed?.generated ?? builder(row, seed);
+  const taskFamily = reviewed?.taskFamily ?? generatedTaskFamily(row, family);
   const exerciseNumber = String(row.id).replace(/^bnu-high-ds-v1-/, "");
 
   return {
-    ...row,
-    batch: "bnu-high-v1-approved",
-    sourceDistanceStatus: "passed-auto-source-scan",
-    mathQaStatus: "pass",
-    terminologyQaStatus: "pass",
-    manualQaStatus: "approved",
-    reviewNotes: `S18 deterministic approved remediation for ${family}; generated from committed BNU high safe-RAG metadata without protected source wording.`,
-    ...generated,
-    promptZhHans: `题组${exerciseNumber}：${generated.promptZhHans}`
+    question: {
+      ...row,
+      batch: "bnu-high-v1-approved",
+      sourceDistanceStatus: "passed-auto-source-scan",
+      mathQaStatus: "pass",
+      terminologyQaStatus: "pass",
+      manualQaStatus: "approved",
+      reviewNotes: `S18 deterministic approved remediation for ${family}; generated from committed BNU high safe-RAG metadata without protected source wording.`,
+      ...generated,
+      promptZhHans: `题组${exerciseNumber}：${generated.promptZhHans}`
+    },
+    family: { id: row.id, topicId: row.topicId, taskFamily }
   };
+}
+
+function buildQuestion(row, index) {
+  return buildQuestionWithFamily(row, index).question;
 }
 
 function validateApprovedQuestions(rows) {
@@ -479,7 +604,9 @@ function validateApprovedQuestions(rows) {
     if (row.type === "multiple-choice") {
       if (!Array.isArray(row.optionsZhHans) || row.optionsZhHans.length !== 4) issues.push(`${row.id} does not have 4 options.`);
       if (!row.optionsZhHans.includes(row.answer)) issues.push(`${row.id} answer is not represented in options.`);
-      if (new Set(row.optionsZhHans.map(normalizeIdentity)).size !== row.optionsZhHans.length) issues.push(`${row.id} has duplicate options.`);
+      if (new Set(row.optionsZhHans.map(normalizeOptionIdentity)).size !== row.optionsZhHans.length) {
+        issues.push(`${row.id} has duplicate options.`);
+      }
     } else if (row.optionsZhHans.length) {
       issues.push(`${row.id} non-MC row has options.`);
     }
@@ -579,19 +706,79 @@ S04/S03 may wire the approved pack into BNU high practice/topic data with publis
 `;
 }
 
-function main() {
+function generateApprovedRows() {
   const planRows = readJsonl(generationPlanPath);
-  const approvedRows = planRows.map(buildQuestion);
+  const builtRows = planRows.map(buildQuestionWithFamily);
+  const approvedRows = builtRows.map(({ question }) => question);
+  const familyRows = builtRows.map(({ family }) => family);
+  const seenOverrides = new Set(approvedRows.filter((row) => reviewedApprovedRowOverridesById[row.id]).map((row) => row.id));
+  if (seenOverrides.size !== Object.keys(reviewedApprovedRowOverridesById).length) {
+    throw new Error(
+      `Generation plan contains only ${seenOverrides.size}/${Object.keys(reviewedApprovedRowOverridesById).length} reviewed override rows.`
+    );
+  }
   const audit = validateApprovedQuestions(approvedRows);
   if (audit.issues.length) {
-    console.error(audit.issues.join("\n"));
-    process.exitCode = 1;
-    return;
+    throw new Error(audit.issues.join("\n"));
   }
+  if (
+    familyRows.length !== 1500
+    || new Set(familyRows.map(({ id }) => id)).size !== 1500
+    || familyRows.some(({ id, topicId, taskFamily }) => !id || !topicId || !taskFamily)
+  ) {
+    throw new Error("Approved question-family manifest must contain 1,500 unique, complete rows.");
+  }
+  return { approvedRows, audit, familyRows };
+}
+
+function questionFamilyManifest(familyRows) {
+  return { version: 1, expectedQuestionCount: 1500, rows: familyRows };
+}
+
+function assertQuestionRowsEqual(expected, actual, label) {
+  if (actual.length !== expected.length) {
+    throw new Error(`${label} has ${actual.length} rows; expected ${expected.length}.`);
+  }
+  for (let index = 0; index < expected.length; index += 1) {
+    if (!isDeepStrictEqual(actual[index], expected[index])) {
+      throw new Error(
+        `${label} differs from fresh generation at index ${index}: `
+        + `${expected[index]?.id ?? "<missing-generated-id>"} / ${actual[index]?.id ?? "<missing-artifact-id>"}.`
+      );
+    }
+  }
+}
+
+function checkApprovedParity() {
+  const { approvedRows, familyRows } = generateApprovedRows();
+  const coordinationRows = JSON.parse(fs.readFileSync(approvedPackPath, "utf8")).questions;
+  const productionRows = JSON.parse(fs.readFileSync(productionApprovedPackPath, "utf8")).questions;
+  const jsonlRows = readJsonl(approvedJsonlPath);
+  assertQuestionRowsEqual(approvedRows, coordinationRows, "coordination approved pack");
+  assertQuestionRowsEqual(approvedRows, productionRows, "production approved pack");
+  assertQuestionRowsEqual(approvedRows, jsonlRows, "approved JSONL");
+  if (!fs.existsSync(approvedQuestionFamilyManifestPath)) {
+    throw new Error("Missing approved-question-family-manifest.json.");
+  }
+  const storedFamilyManifest = JSON.parse(fs.readFileSync(approvedQuestionFamilyManifestPath, "utf8"));
+  if (!isDeepStrictEqual(storedFamilyManifest, questionFamilyManifest(familyRows))) {
+    throw new Error("approved-question-family-manifest.json differs from fresh generation.");
+  }
+  process.stdout.write(`${JSON.stringify({
+    artifactRows: coordinationRows.length,
+    familyRows: familyRows.length,
+    generatedRows: approvedRows.length,
+    reviewedOverrideRows: Object.keys(reviewedApprovedRowOverridesById).length
+  })}\n`);
+}
+
+function main() {
+  const { approvedRows, audit, familyRows } = generateApprovedRows();
 
   const reviewRows = selectApprovalReviewRows(approvedRows);
   fs.writeFileSync(approvedPackPath, `${JSON.stringify({ questions: approvedRows }, null, 2)}\n`);
   fs.writeFileSync(approvedJsonlPath, `${approvedRows.map((row) => JSON.stringify(row)).join("\n")}\n`);
+  fs.writeFileSync(approvedQuestionFamilyManifestPath, `${JSON.stringify(questionFamilyManifest(familyRows), null, 2)}\n`);
   fs.writeFileSync(approvalAuditPath, `${JSON.stringify(audit, null, 2)}\n`);
   writeCsv(manualReviewResultsPath, reviewRows.map((row) => ({
     id: row.id,
@@ -606,4 +793,72 @@ function main() {
   console.log(`Approved BNU high pack built: ${approvedRows.length} rows, ${reviewRows.length} review rows.`);
 }
 
-main();
+function syncReviewedApprovedRows() {
+  const planRows = readJsonl(generationPlanPath);
+  const targetIds = new Set(Object.keys(reviewedApprovedRowOverridesById));
+  const replacements = new Map();
+  const familyRows = [];
+  planRows.forEach((row, index) => {
+    const built = buildQuestionWithFamily(row, index);
+    familyRows.push(built.family);
+    if (targetIds.has(row.id)) replacements.set(row.id, built.question);
+  });
+  if (replacements.size !== targetIds.size) {
+    throw new Error(`Expected ${targetIds.size} reviewed approved plan rows; found ${replacements.size}.`);
+  }
+
+  function replaceRows(rows, label) {
+    const originalNonTargets = rows.filter((row) => !targetIds.has(row.id));
+    const seen = new Set();
+    const updated = rows.map((row) => {
+      const replacement = replacements.get(row.id);
+      if (!replacement) return row;
+      seen.add(row.id);
+      return replacement;
+    });
+    if (seen.size !== targetIds.size) {
+      throw new Error(`${label} contains only ${seen.size}/${targetIds.size} reviewed approved rows.`);
+    }
+    const updatedNonTargets = updated.filter((row) => !targetIds.has(row.id));
+    if (JSON.stringify(originalNonTargets) !== JSON.stringify(updatedNonTargets)) {
+      throw new Error(`${label} changed a row outside the reviewed approved-row ID set.`);
+    }
+    if (updated.length !== 1500 || new Set(updated.map((row) => row.id)).size !== 1500) {
+      throw new Error(`${label} must retain exactly 1,500 unique rows.`);
+    }
+    for (const [id, replacement] of replacements) {
+      const actual = updated.find((row) => row.id === id);
+      if (JSON.stringify(actual) !== JSON.stringify(replacement)) {
+        throw new Error(`${label} did not reproduce the exact reviewed row ${id}.`);
+      }
+    }
+    return updated;
+  }
+
+  const plannedPackWrites = [];
+  for (const filePath of [approvedPackPath, productionApprovedPackPath]) {
+    const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const questions = replaceRows(parsed.questions, path.relative(__dirname, filePath));
+    plannedPackWrites.push([filePath, `${JSON.stringify({ ...parsed, questions }, null, 2)}\n`]);
+  }
+
+  const jsonlRows = replaceRows(readJsonl(approvedJsonlPath), path.basename(approvedJsonlPath));
+  const coordinationAudit = validateApprovedQuestions(
+    JSON.parse(plannedPackWrites.find(([filePath]) => filePath === approvedPackPath)[1]).questions
+  );
+  if (coordinationAudit.issues.length) {
+    throw new Error(`coordination approved pack: ${coordinationAudit.issues.join("\n")}`);
+  }
+
+  for (const [filePath, content] of plannedPackWrites) fs.writeFileSync(filePath, content);
+  fs.writeFileSync(approvedJsonlPath, `${jsonlRows.map((row) => JSON.stringify(row)).join("\n")}\n`);
+  fs.writeFileSync(approvedQuestionFamilyManifestPath, `${JSON.stringify(questionFamilyManifest(familyRows), null, 2)}\n`);
+  console.log(`Synced ${targetIds.size} reviewed approved rows across approved artifacts.`);
+}
+
+if (process.argv.includes("--check-approved-parity")) checkApprovedParity();
+else if (
+  process.argv.includes("--sync-reviewed-approved-only")
+  || process.argv.includes("--sync-reviewed-line-circle-only")
+) syncReviewedApprovedRows();
+else main();

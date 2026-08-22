@@ -3,6 +3,8 @@ import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
+import { applyHjbJuniorCuratedCorrection } from "./curated-corrections.mjs";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "../../..");
 const batchDir = path.join(__dirname, "batches");
@@ -470,16 +472,17 @@ function normalizeIdentity(text) {
 }
 
 function normalizeQuestion(target, raw, { usedPromptKeys, batchPromptKeys } = {}) {
-  const promptZhHans = typeof raw.promptZhHans === "string" ? raw.promptZhHans.trim() : "";
-  const answer = typeof raw.answer === "string" ? raw.answer.trim() : "";
-  const explanationZhHans = typeof raw.explanationZhHans === "string" ? raw.explanationZhHans.trim() : "";
-  const optionsZhHans = Array.isArray(raw.optionsZhHans) ? raw.optionsZhHans.map((value) => String(value).trim()).filter(Boolean) : [];
-  const acceptedAnswers = Array.isArray(raw.acceptedAnswers)
-    ? raw.acceptedAnswers.map((value) => String(value).trim()).filter(Boolean)
+  const correctedRaw = applyHjbJuniorCuratedCorrection(target.id, raw);
+  const promptZhHans = typeof correctedRaw.promptZhHans === "string" ? correctedRaw.promptZhHans.trim() : "";
+  const answer = typeof correctedRaw.answer === "string" ? correctedRaw.answer.trim() : "";
+  const explanationZhHans = typeof correctedRaw.explanationZhHans === "string" ? correctedRaw.explanationZhHans.trim() : "";
+  const optionsZhHans = Array.isArray(correctedRaw.optionsZhHans) ? correctedRaw.optionsZhHans.map((value) => String(value).trim()).filter(Boolean) : [];
+  const acceptedAnswers = Array.isArray(correctedRaw.acceptedAnswers)
+    ? correctedRaw.acceptedAnswers.map((value) => String(value).trim()).filter(Boolean)
     : [];
   const errors = [];
 
-  if (raw.id !== target.id) errors.push(`id mismatch: expected ${target.id}, got ${raw.id}`);
+  if (correctedRaw.id !== target.id) errors.push(`id mismatch: expected ${target.id}, got ${correctedRaw.id}`);
   if (!promptZhHans) errors.push("missing promptZhHans");
   if (!answer) errors.push("missing answer");
   if (!explanationZhHans) errors.push("missing explanationZhHans");

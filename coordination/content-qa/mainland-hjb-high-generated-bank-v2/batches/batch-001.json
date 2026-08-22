@@ -318,16 +318,16 @@
         "hjb-high-compulsory-1-sets-logic-topic-review"
       ],
       "sourceDistanceStatus": "passed-auto-source-scan",
-      "mathQaStatus": "pending-manual",
-      "terminologyQaStatus": "pending-manual",
-      "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS safe-RAG metadata only; manual S18 sampling required before app integration.",
-      "promptZhHans": "已知集合 A = {1, a, b}，B = {a, a², ab}，且 A = B，求 a²⁰²³ + b²⁰²⁴ 的值。",
+      "mathQaStatus": "remediated-pending-final-audit",
+      "terminologyQaStatus": "remediated-pending-final-audit",
+      "reviewNotes": "S18 P0 remediation 2026-05-24: add-distinctness-and-correct-answer. Original issue manual-answer-mismatch; rerun solvability and quality audits before app integration.",
+      "promptZhHans": "已知 a、b、1 两两不同，集合 A = {1, a, b}，B = {a, a², ab}，且 A = B，求 a²⁰²³ + b²⁰²⁴ 的值。",
       "optionsZhHans": [],
-      "answer": "2",
+      "answer": "-1",
       "acceptedAnswers": [
-        "2"
+        "-1"
       ],
-      "explanationZhHans": "由集合相等及互异性，得 a=-1，b=0。则 a²⁰²³=-1，b²⁰²⁴=0，和为 -1？检查：A={1,-1,0}，B={-1,1,0}，相等。但 a²⁰²³=-1，b²⁰²⁴=0，和为 -1。原答案有误，应为 -1。"
+      "explanationZhHans": "集合相等意味着{1,b}={a²,ab}。若ab=1，则a²=b，进而a³=1；由于a是实数，得a=1，与两两不同矛盾。因此a²=1，且a≠1，所以a=-1。此时B={-1,1,-b}，A={1,-1,b}；集合相等给出b=0。因此(-1)^{2023}+0^{2024}=-1。"
     },
     {
       "id": "hjb-high-ds-v2-s4-010",

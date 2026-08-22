@@ -103,13 +103,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校图书馆新买来故事书和科技书共240本，其中故事书的本数是科技书的3倍。故事书和科技书各有多少本？请先写出数量关系，再列式解答。",
+      "promptZhHans": "学校图书馆新买来故事书和科技书共240本，故事书的本数是科技书的3倍。故事书和科技书各有多少本？",
       "optionsZhHans": [],
-      "answer": "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）",
+      "answer": "科技书60本，故事书180本",
       "acceptedAnswers": [
-        "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）"
+        "科技书60本，故事书180本",
+        "科技书：60本；故事书：180本",
+        "科技书：240÷(3+1)=60（本），故事书：60×3=180（本）"
       ],
-      "explanationZhHans": "数量关系：科技书本数 + 故事书本数 = 总本数，故事书本数 = 科技书本数 × 3。把科技书本数看作1份，故事书就是3份，共4份。240÷4=60，科技书60本，故事书180本。"
+      "explanationZhHans": "科技书和故事书共有240本，故事书本数是科技书的3倍。把科技书本数看作1份，故事书就是3份，共4份。科技书有240÷4=60（本），故事书有60×3=180（本）。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-148",

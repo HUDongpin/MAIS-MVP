@@ -452,14 +452,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS BNU primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根彩带长2.4米，做一朵花需要用0.35米。先估一估这根彩带大约能做多少朵花，再列竖式算一算，最后把得数填在横线上。\n估：____________________\n竖式：\n答：这根彩带能做______朵花。（得数保留整数）",
+      "promptZhHans": "做一朵花需要0.35米彩带。做6朵这样的花一共需要______米彩带。",
       "optionsZhHans": [],
-      "answer": "6",
+      "answer": "2.1",
       "acceptedAnswers": [
-        "6",
-        "6朵"
+        "2.1",
+        "2.1米"
       ],
-      "explanationZhHans": "估算：2.4÷0.35≈2.4÷0.4=6（朵）。竖式计算：将除数0.35和被除数2.4同时乘100，变成240÷35，商6余30，所以能做6朵花。"
+      "explanationZhHans": "0.35×6=2.1（米）。也可以想：35个0.01米乘6得到210个0.01米，也就是2.1米。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-189",

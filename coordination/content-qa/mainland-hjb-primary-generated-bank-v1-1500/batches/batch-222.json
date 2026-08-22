@@ -48,18 +48,20 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丁记录了五（1）班第一小组6名同学1分钟跳绳的次数：120、135、110、125、130、140。关于这组数据，下面哪种说法是正确的？",
+      "promptZhHans": "五（1）班第一小组6名同学1分钟跳绳的次数是120、135、110、125、130、140。关于这组数据，下面哪个说法正确？",
       "optionsZhHans": [
-        "这组数据的平均数是130次。",
-        "这组数据的平均数是125次。",
-        "这组数据的平均数是126次。",
-        "这组数据的平均数是128次。"
+        "平均数是130次",
+        "平均数是125次",
+        "平均数约127次",
+        "平均数是128次"
       ],
-      "answer": "这组数据的平均数是126次。",
+      "answer": "平均数约127次",
       "acceptedAnswers": [
-        "这组数据的平均数是126次。"
+        "平均数约127次",
+        "平均数约为127次",
+        "The mean is about 127"
       ],
-      "explanationZhHans": "平均数=总次数÷人数。总次数=120+135+110+125+130+140=760次，人数=6，760÷6≈126.67，四舍五入为126次。"
+      "explanationZhHans": "总次数是120+135+110+125+130+140=760，平均数是760÷6≈126.67，取整约为127次。因此第三项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-107",

@@ -48,15 +48,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小马虎计算 528 + 196 时，把 528 看成了 582，算出的结果是 778。他检查时想用减法验算，但不知道正确的和应该是多少。请你帮他分析：他看错的数在百位、十位、个位上分别发生了什么变化？正确的和是多少？",
+      "promptZhHans": "小马虎把528看成582，与196相加得到778。请依次写出百位、十位、个位的变化，并求正确的和。",
       "optionsZhHans": [],
-      "answer": "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
+      "answer": "百位不变，十位多了6个十，个位少了6个一；正确的和是724。",
       "acceptedAnswers": [
-        "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
-        "百位不变，十位多了5，个位少了4；正确的和是724",
-        "百位不变，十位多5，个位少4；正确的和是724"
+        "百位不变，十位多了6个十，个位少了6个一；正确的和是724。",
+        "百位不变，十位多6个十，个位少6个一；正确的和是724。",
+        "The hundreds digit is unchanged, the tens increase by six tens, and the ones decrease by six ones; the correct sum is 724."
       ],
-      "explanationZhHans": "582比528十位多5，个位少4。错误和778多加了50又少加了4，实际多加了46。正确和是778 - 46 = 724。"
+      "explanationZhHans": "582比528多54：百位不变，十位由2变8，多6个十；个位由8变2，少6个一，净增加60-6=54。因此正确的和是778-54=724。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-012",

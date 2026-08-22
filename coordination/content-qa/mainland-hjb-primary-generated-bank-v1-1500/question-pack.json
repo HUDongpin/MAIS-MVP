@@ -7065,12 +7065,16 @@
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在计算 17 - 8 时，小丁把 8 分成了 7 和 1，先算 17 - 7 = 10，再算 10 - 1 = 9。这种方法是______法。",
       "optionsZhHans": [],
-      "answer": "分拆减数",
+      "answer": "平十法",
       "acceptedAnswers": [
         "分拆减数",
-        "分拆减数法"
+        "分拆减数法",
+        "平十",
+        "平十法",
+        "splitting the subtrahend",
+        "bridge-to-ten method"
       ],
-      "explanationZhHans": "把减数8拆成7和1，先减7得10，再减1得9，这就是分拆减数法。"
+      "explanationZhHans": "把减数8拆成7和1，先减7凑成10，再减1得9。这种方法叫平十法，也叫分拆减数法。"
     },
     {
       "id": "hjb-primary-ds-v1-p1-126",
@@ -7234,12 +7238,19 @@
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在计算12 - 7时，小明把7分成了2和5。他先算12 - 2 = 10，再算10 - 5 = 5。这种方法是______法。",
       "optionsZhHans": [],
-      "answer": "连减",
+      "answer": "平十法",
       "acceptedAnswers": [
         "连减",
-        "分拆减数"
+        "连减法",
+        "分拆减数",
+        "分拆减数法",
+        "平十",
+        "平十法",
+        "successive subtraction",
+        "splitting the subtrahend",
+        "bridge-to-ten method"
       ],
-      "explanationZhHans": "把减数7拆成2和5，先减2得10，再减5得5，这是连减法，也叫分拆减数。"
+      "explanationZhHans": "把减数7拆成2和5，先减2凑成10，再减5得5。这是连减法，也叫平十法或分拆减数法。"
     },
     {
       "id": "hjb-primary-ds-v1-p1-129",
@@ -15766,18 +15777,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪种付钱方式正好能买一个价格为3元8角的卷笔刀？",
+      "promptZhHans": "下面哪个金额正好等于3元8角？",
       "optionsZhHans": [
-        "2张1元，3张5角，3张1角",
-        "1张2元，1张1元，1张5角，3张1角",
-        "3张1元，1张5角，3张1角",
-        "1张2元，1张1元，1张5角，2张2角"
+        "3.3元",
+        "3.7元",
+        "3.8元",
+        "3.9元"
       ],
-      "answer": "3张1元，1张5角，3张1角",
+      "answer": "3.8元",
       "acceptedAnswers": [
-        "3张1元，1张5角，3张1角"
+        "3.8元",
+        "3.8 yuan"
       ],
-      "explanationZhHans": "选项三：3元+5角+3角=3元8角，正好。其他选项均不是3元8角。"
+      "explanationZhHans": "8角=0.8元，所以3元8角=3.8元，只有第三个选项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-029",
@@ -17824,18 +17836,20 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "四个小朋友站在校园不同位置，描述如下：\n小明说：“我在图书馆的东面。”\n小红说：“我在操场的北面。”\n小刚说：“我在花坛的西面。”\n小丽说：“我在校门的南面。”\n\n已知图书馆在操场的北面，花坛在操场的东面，校门在操场的南面。谁和小明在同一个方向（以操场为中心）？",
+      "promptZhHans": "以操场为原点O(0,0)，向东为x轴正方向，向北为y轴正方向。图书馆在(0,2)，花坛在(2,0)，校门在(0,-2)。小明在图书馆东面1格，小红在操场北面1格，小刚在花坛西面1格，小丽在校门南面1格。谁和小明在以操场为中心的同一个方向？",
       "optionsZhHans": [
         "小红",
         "小刚",
         "小丽",
         "没有人"
       ],
-      "answer": "小刚",
+      "answer": "没有人",
       "acceptedAnswers": [
-        "小刚"
+        "没有人",
+        "无人",
+        "No one"
       ],
-      "explanationZhHans": "以操场为中心：图书馆在北，花坛在东，校门在南。小明在图书馆东面，即操场东北。小刚在花坛西面，即操场东面偏北，也是东北方向。所以小刚和小明同方向。"
+      "explanationZhHans": "小明在(1,2)，相对操场在东北方向；小红在(0,1)，小刚在(1,0)，小丽在(0,-3)，分别在北、东、南方向。因此没有人与小明方向相同。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-065",
@@ -21084,16 +21098,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小杰在复习方向时，写了一段话：\"早晨，我面向太阳，前面是东，后面是西，左面是北，右面是南。\"他写得对吗？如果不对，请改正。",
+      "promptZhHans": "早晨太阳从东方升起。小杰面向太阳，说：“前面是东，后面是西，左面是北，右面是南。”他说得对吗？请完整写出判断和四个方向。",
       "optionsZhHans": [],
-      "answer": "不对，左面是北，右面是南。改正：左面是北，右面是南。",
+      "answer": "对；前面是东，后面是西，左面是北，右面是南。",
       "acceptedAnswers": [
-        "不对，左面是北，右面是南。改正：左面是北，右面是南。",
-        "不对，左面是北，右面是南。",
-        "不对，左和右写反了，应该是左北右南。",
-        "不对，早晨面向太阳，前面是东，后面是西，左面是北，右面是南。"
+        "对；前面是东，后面是西，左面是北，右面是南。",
+        "正确；前面是东，后面是西，左面是北，右面是南。",
+        "Correct; east is in front, west is behind, north is to the left, and south is to the right."
       ],
-      "explanationZhHans": "早晨面向太阳即面向东，按顺时针方向，右是南，后是西，左是北。小杰把左右方向写反了。"
+      "explanationZhHans": "早晨太阳从东方升起，面向太阳就是面向东；面向东时，后面是西，左面是北，右面是南，所以小杰的说法完全正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-121",
@@ -21318,18 +21331,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "复习课上，老师让同学们把下面的算式分类：① 3×5  ② 2+2+2  ③ 4×6  ④ 5+5+5。下面哪种分类是正确的？",
+      "promptZhHans": "复习课上，老师让同学们把下面的算式按运算符号分类：①3×5，②2+2+2，③4×6，④5+5+5。下面哪种分类正确？",
       "optionsZhHans": [
-        "乘法算式：①③，加法算式：②④",
-        "结果是15的：①④，结果是12的：②③",
-        "加数相同的加法：②④，乘法：①③",
-        "乘法算式：①②，加法算式：③④"
+        "乘法算式：①③；加法算式：②④",
+        "乘法算式：①④；加法算式：②③",
+        "乘法算式：②③；加法算式：①④",
+        "乘法算式：①②；加法算式：③④"
       ],
-      "answer": "乘法算式：①③，加法算式：②④",
+      "answer": "乘法算式：①③；加法算式：②④",
       "acceptedAnswers": [
-        "乘法算式：①③，加法算式：②④"
+        "乘法算式：①③；加法算式：②④",
+        "Multiplication: 1 and 3; addition: 2 and 4"
       ],
-      "explanationZhHans": "①和③是乘法算式，②和④是加法算式。分类时要根据运算符号，不能只看数字或结果。"
+      "explanationZhHans": "①和③含乘号，是乘法算式；②和④含加号，是加法算式。因此第一种分类正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-125",
@@ -22150,14 +22164,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丽用一根长20厘米的绳子测量课桌的长边，量了3次后绳子还多出5厘米。课桌的长边是多少厘米？请写出算式和答案。",
+      "promptZhHans": "小丽用一根长20厘米的绳子沿课桌长边连续量3次。第三次量到课桌边缘时，有5厘米绳子超出桌边。课桌长边是多少厘米？请列式计算。",
       "optionsZhHans": [],
-      "answer": "65厘米",
+      "answer": "20×3-5=55（厘米）",
       "acceptedAnswers": [
-        "65厘米",
-        "65"
+        "20×3-5=55（厘米）",
+        "20×3-5=55厘米",
+        "20×3-5=55 cm"
       ],
-      "explanationZhHans": "3次测量长度为20×3=60厘米，加上多出的5厘米，总长60+5=65厘米。"
+      "explanationZhHans": "三次绳长共20×3=60（厘米），其中5厘米超出桌边，不属于课桌长度，所以课桌长边是60-5=55（厘米）。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-139",
@@ -25798,18 +25813,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "用数字卡片 3、0、5、8 摆出一个四位数，要求这个数只读一个零，并且千位上的数字比百位上的数字小。这个数是多少？",
+      "promptZhHans": "用数字卡片3、0、5、8各一次摆出一个四位数，要求这个数只读一个零，并且千位上的数字比百位上的数字小。下面哪个数符合要求？",
       "optionsZhHans": [
-        "3058",
+        "3508",
         "3085",
         "5083",
         "8053"
       ],
-      "answer": "3085",
+      "answer": "3508",
       "acceptedAnswers": [
-        "3085"
+        "3508"
       ],
-      "explanationZhHans": "千位比百位小，千位只能是3，百位是5或8。只读一个零，中间连续0只读一个，所以3085读作三千零八十五，符合。3058读作三千零五十八，也读一个零，但百位是0，千位3比0大，不符合千位比百位小。"
+      "explanationZhHans": "3508读作“三千五百零八”，只读一个零，并且千位3小于百位5。其余三个数的百位都是0，千位数字都大于0，不符合条件。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-202",
@@ -29332,15 +29347,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小马虎计算 528 + 196 时，把 528 看成了 582，算出的结果是 778。他检查时想用减法验算，但不知道正确的和应该是多少。请你帮他分析：他看错的数在百位、十位、个位上分别发生了什么变化？正确的和是多少？",
+      "promptZhHans": "小马虎把528看成582，与196相加得到778。请依次写出百位、十位、个位的变化，并求正确的和。",
       "optionsZhHans": [],
-      "answer": "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
+      "answer": "百位不变，十位多了6个十，个位少了6个一；正确的和是724。",
       "acceptedAnswers": [
-        "百位不变，十位多了5个十，个位少了4个一；正确的和是724",
-        "百位不变，十位多了5，个位少了4；正确的和是724",
-        "百位不变，十位多5，个位少4；正确的和是724"
+        "百位不变，十位多了6个十，个位少了6个一；正确的和是724。",
+        "百位不变，十位多6个十，个位少6个一；正确的和是724。",
+        "The hundreds digit is unchanged, the tens increase by six tens, and the ones decrease by six ones; the correct sum is 724."
       ],
-      "explanationZhHans": "582比528十位多5，个位少4。错误和778多加了50又少加了4，实际多加了46。正确和是778 - 46 = 724。"
+      "explanationZhHans": "582比528多54：百位不变，十位由2变8，多6个十；个位由8变2，少6个一，净增加60-6=54。因此正确的和是778-54=724。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-012",
@@ -30989,18 +31004,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "老师把一些铅笔分给小朋友，每人分4支，正好分完；如果每人分6支，也正好分完。铅笔的数量可能是多少支？",
+      "promptZhHans": "老师把一些铅笔分给小朋友，每人分4支正好分完；每人分6支也正好分完。铅笔的数量可能是多少支？",
       "optionsZhHans": [
         "18支",
         "24支",
         "30支",
-        "36支"
+        "42支"
       ],
       "answer": "24支",
       "acceptedAnswers": [
-        "24支"
+        "24支",
+        "24 pencils"
       ],
-      "explanationZhHans": "铅笔数既是4的倍数又是6的倍数，即4和6的公倍数。4和6的最小公倍数是12，选项中24是12的2倍，符合条件。18、30、36都不是4和6的公倍数。"
+      "explanationZhHans": "铅笔数必须同时是4和6的倍数，也就是12的倍数。四个选项中只有24是12的倍数，所以选第二项。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-041",
@@ -34888,14 +34904,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根绳子对折一次后，从中间剪开，得到几段？其中一段是原来绳子的几分之一？请写出你的思考过程。",
+      "promptZhHans": "一根绳子对折一次，使两端重合，再在折后绳子的中点剪一刀，同时剪断两层。展开后，依次填写段数和从一端到另一端各段占原绳长的分数，格式为“___段；___，___，___”。",
       "optionsZhHans": [],
-      "answer": "3段，其中一段是原来绳子的1/4",
+      "answer": "3段；1/4，1/2，1/4",
       "acceptedAnswers": [
-        "3段，其中一段是原来绳子的1/4",
-        "3段，一段是1/4"
+        "3段；1/4，1/2，1/4",
+        "3段；1/4、1/2、1/4",
+        "3 pieces; 1/4, 1/2, 1/4"
       ],
-      "explanationZhHans": "对折后绳子变成2层，从中间剪开，两端是半个对折段，中间是完整对折段，共3段。每段占原长的1/4。"
+      "explanationZhHans": "折后中点对应原绳的1/4和3/4位置，一刀同时形成两个切口。展开后共有3段，长度依次是原绳的1/4、1/2、1/4。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-109",
@@ -42292,18 +42309,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校要给一块长方形花坛围上篱笆，花坛长8米、宽5米。下面哪个选项是正确的？",
+      "promptZhHans": "学校要给一块长8米、宽5米的长方形花坛围上篱笆。下面哪个说法正确？",
       "optionsZhHans": [
-        "篱笆的长度是40米",
-        "篱笆的长度是26米",
-        "花坛的面积是26平方米",
-        "花坛的面积是40平方米"
+        "篱笆长40米",
+        "篱笆长26米",
+        "花坛面积是26平方米",
+        "花坛面积是45平方米"
       ],
-      "answer": "篱笆的长度是26米",
+      "answer": "篱笆长26米",
       "acceptedAnswers": [
-        "篱笆的长度是26米"
+        "篱笆长26米",
+        "The fence is 26 m long"
       ],
-      "explanationZhHans": "篱笆长度即周长：(8+5)×2=26米。面积是8×5=40平方米。选项A误用面积，C误用周长，D是面积但单位错。"
+      "explanationZhHans": "篱笆长度是花坛周长，(8+5)×2=26（米）；花坛面积是8×5=40（平方米）。因此只有第二项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-238",
@@ -43003,18 +43021,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "三（2）班同学最喜欢的运动项目统计如下：足球12人，篮球8人，乒乓球10人，羽毛球6人。下面哪种说法是正确的？",
+      "promptZhHans": "三（2）班最喜欢各运动项目的人数为：足球12人，篮球8人，乒乓球10人，羽毛球6人。下面哪个说法正确？",
       "optionsZhHans": [
-        "喜欢足球的人数是羽毛球的2倍",
-        "喜欢篮球的人数比乒乓球少2人",
-        "喜欢乒乓球的人数比篮球多4人",
-        "喜欢羽毛球的人数最少"
+        "喜欢足球的人数是喜欢羽毛球人数的3倍",
+        "喜欢篮球的人数比喜欢乒乓球的少2人",
+        "喜欢乒乓球的人数比喜欢篮球的多4人",
+        "喜欢篮球的人数最少"
       ],
-      "answer": "喜欢篮球的人数比乒乓球少2人",
+      "answer": "喜欢篮球的人数比喜欢乒乓球的少2人",
       "acceptedAnswers": [
-        "喜欢篮球的人数比乒乓球少2人"
+        "喜欢篮球的人数比喜欢乒乓球的少2人",
+        "Basketball has 2 fewer students than table tennis"
       ],
-      "explanationZhHans": "篮球8人，乒乓球10人，10-8=2，所以篮球比乒乓球少2人。其他选项计算错误。"
+      "explanationZhHans": "10-8=2，所以喜欢篮球的比喜欢乒乓球的少2人。12不是6的3倍，10只比8多2，人数最少的是羽毛球。因此只有第二项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-250",
@@ -45882,14 +45901,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小华和小明各有一块同样大小的长方形蛋糕。小华吃了自己蛋糕的2/8，小明吃了自己蛋糕的3/8。谁吃的蛋糕多？请用分数比较说明，并解释为什么不能直接比较2/8和3/8的分子大小就得出结论。",
+      "promptZhHans": "小华和小明各有一块同样大小的长方形蛋糕。小华吃了2/8，小明吃了3/8。依次填写吃得更多的人和比较理由，格式为“___；___”。",
       "optionsZhHans": [],
-      "answer": "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
+      "answer": "小明；整体相同、分母相同，分子3>2，所以3/8>2/8。",
       "acceptedAnswers": [
-        "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
-        "小明吃的多，因为3/8大于2/8，整体相同，分母相同，分子大的分数大。"
+        "小明；整体相同、分母相同，分子3>2，所以3/8>2/8。",
+        "小明；两块蛋糕同样大，分母相同，3>2，所以3/8>2/8。",
+        "Xiaoming; the wholes and denominators are the same, and 3>2, so 3/8>2/8."
       ],
-      "explanationZhHans": "比较分数大小时，必须确保整体相同。这里两块蛋糕同样大，整体相同，分母都是8，分子3大于2，所以3/8 > 2/8，小明吃的多。"
+      "explanationZhHans": "两块蛋糕同样大，整体相同；两个分数的分母同为8，所以可以直接比较分子。3>2，因此3/8>2/8，小明吃得更多。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-049",
@@ -48879,15 +48899,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小圆用量角器量一个角时，把量角器的中心与角的顶点重合，0°刻度线与角的一条边重合，角的另一条边指向130°。小圆说这个角是130°。小方用同样的方法量同一个角，却得到50°。谁对？为什么？",
+      "promptZhHans": "用量角器量∠AOB时，射线OA与量角器右端的0°刻度线重合，射线OB经过内圈130°、外圈50°的同一条刻度线。小圆读130°，小方读50°。依次填写角度、读对的人和理由，格式为“___；___；___”。",
       "optionsZhHans": [],
-      "answer": "小圆对。因为小圆读的是外圈刻度，小方读的是内圈刻度，同一个角从不同方向看刻度不同，但角的大小是130°。",
+      "answer": "130°；小圆；OA对准右端0°，应从右端0°起读内圈刻度。",
       "acceptedAnswers": [
-        "小圆对。因为小圆读的是外圈刻度，小方读的是内圈刻度，同一个角从不同方向看刻度不同，但角的大小是130°。",
-        "小圆对。因为小方看错了内圈刻度。",
-        "小圆对。因为角的大小是130°，小方误读了内圈刻度。"
+        "130°；小圆；OA对准右端0°，应从右端0°起读内圈刻度。",
+        "130度；小圆；OA对准右端0度，应读内圈130度。",
+        "130°; Xiaoyuan; OA aligns with 0° on the right, so read the inner scale starting from that right-hand 0° mark."
       ],
-      "explanationZhHans": "量角器有内外两圈刻度，当0°刻度线对准角的一边时，另一边所指的刻度可能是内圈或外圈。小圆读外圈得130°，小方读内圈得50°，但角的大小是130°。"
+      "explanationZhHans": "读量角器时要从与角的一边重合的0°刻度起读。OA对准右端0°，因此沿内圈从右向左读到OB是130°，小圆正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-100",
@@ -51681,13 +51701,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校图书馆新买来故事书和科技书共240本，其中故事书的本数是科技书的3倍。故事书和科技书各有多少本？请先写出数量关系，再列式解答。",
+      "promptZhHans": "学校图书馆新买来故事书和科技书共240本，故事书的本数是科技书的3倍。故事书和科技书各有多少本？",
       "optionsZhHans": [],
-      "answer": "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）",
+      "answer": "科技书60本，故事书180本",
       "acceptedAnswers": [
-        "科技书：240 ÷ (3 + 1) = 60（本），故事书：60 × 3 = 180（本）"
+        "科技书60本，故事书180本",
+        "科技书：60本；故事书：180本",
+        "科技书：240÷(3+1)=60（本），故事书：60×3=180（本）"
       ],
-      "explanationZhHans": "数量关系：科技书本数 + 故事书本数 = 总本数，故事书本数 = 科技书本数 × 3。把科技书本数看作1份，故事书就是3份，共4份。240÷4=60，科技书60本，故事书180本。"
+      "explanationZhHans": "科技书和故事书共有240本，故事书本数是科技书的3倍。把科技书本数看作1份，故事书就是3份，共4份。科技书有240÷4=60（本），故事书有60×3=180（本）。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-148",
@@ -54050,14 +54072,16 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小胖记录了自己一周内每天跳绳的个数：星期一120个，星期二135个，星期三130个，星期四140个，星期五125个。他打算画折线统计图，纵轴每格表示5个。如果纵轴从115开始，那么星期二的点应该画在纵轴从下往上数第几格的位置？",
+      "promptZhHans": "折线统计图的纵轴以115为起始刻度线，每相邻两条刻度线相差5。若星期二的数据是135，且不把115这条起始线计入向上的条数，135应画在115上方第几条刻度线上？",
       "optionsZhHans": [],
-      "answer": "4",
+      "answer": "第4条刻度线",
       "acceptedAnswers": [
+        "第4条刻度线",
+        "第4条",
         "4",
-        "四"
+        "the 4th gridline"
       ],
-      "explanationZhHans": "纵轴起点115，每格5。星期二135个，135-115=20，20÷5=4，所以画在第4格。"
+      "explanationZhHans": "135-115=20，20÷5=4。不计115起始线，135在它上方第4条刻度线上。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-189",
@@ -54688,18 +54712,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丁丁记录了某地连续6个月每月1日的平均气温，并画成折线统计图。横轴是月份（1月到6月），纵轴是气温（单位：℃）。数据点：1月2℃，2月5℃，3月9℃，4月14℃，5月19℃，6月24℃。下列说法正确的是（ ）。",
+      "promptZhHans": "某地连续6个月每月1日记录的平均气温分别为：1月2℃，2月5℃，3月9℃，4月14℃，5月19℃，6月24℃。下面哪个说法正确？",
       "optionsZhHans": [
-        "气温一直在下降",
-        "3月到4月气温上升得最快",
-        "6月气温最高，所以6月最热",
-        "1月到2月上升了2℃"
+        "记录的平均气温一直下降",
+        "3月1日到4月1日上升了6℃",
+        "6月1日记录的平均气温最高，为24℃",
+        "1月1日到2月1日上升了2℃"
       ],
-      "answer": "6月气温最高，所以6月最热",
+      "answer": "6月1日记录的平均气温最高，为24℃",
       "acceptedAnswers": [
-        "6月气温最高，所以6月最热"
+        "6月1日记录的平均气温最高，为24℃",
+        "The highest recorded average temperature was 24°C on June 1"
       ],
-      "explanationZhHans": "6月24℃最高，所以最热。气温一直上升；3月到4月上升5℃，不是最快（4到5月也上升5℃，5到6月上升5℃）；1月到2月上升3℃。"
+      "explanationZhHans": "六个记录值依次上升，最高记录值是6月1日的24℃。3月1日到4月1日上升5℃，1月1日到2月1日上升3℃，所以只有第三项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-200",
@@ -56884,13 +56909,13 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小胖用“五舍六入”法将一个小数保留一位小数后得到 3.5。这个小数最大可能是多少？",
+      "promptZhHans": "一个小数恰有两位小数。用“五舍六入”法保留一位小数，即百分位是0至5时舍去，是6至9时向十分位进1。所得结果是3.5，这个两位小数最大是多少？",
       "optionsZhHans": [],
-      "answer": "3.54",
+      "answer": "3.55",
       "acceptedAnswers": [
-        "3.54"
+        "3.55"
       ],
-      "explanationZhHans": "五舍六入保留一位小数，看百分位。要最大，十分位为5，百分位最大为4，千分位不影响，故最大是3.54。"
+      "explanationZhHans": "要使原数尽量大且舍去百分位后仍为3.5，十分位取5，百分位最多取5。因此最大是3.55；若百分位是6，就会进位得到3.6。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-237",
@@ -59803,16 +59828,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校图书馆有一批新书，故事书的本数是科技书的3倍。如果故事书借出15本后，剩下的故事书比科技书多20本。设科技书有x本，请列出方程并求出科技书和故事书各有多少本。",
+      "promptZhHans": "学校图书馆里，故事书本数是科技书的3倍。故事书借出15本后，剩下的故事书比科技书多55本。科技书和故事书原来各有多少本？请按“科技书___本；故事书___本”的格式填写。",
       "optionsZhHans": [],
-      "answer": "科技书有35本，故事书有105本",
+      "answer": "科技书35本；故事书105本",
       "acceptedAnswers": [
-        "科技书有35本，故事书有105本",
+        "科技书35本；故事书105本",
         "科技书35本，故事书105本",
-        "x=35，故事书105本",
-        "科技书35本，故事书105本。"
+        "35 science books; 105 storybooks"
       ],
-      "explanationZhHans": "设科技书有x本，则故事书有3x本。借出15本后，故事书剩3x-15本。根据条件得方程3x-15=x+20，解得x=35。故事书为3×35=105本。检验：105-15=90，比35多20，符合题意。"
+      "explanationZhHans": "设科技书有x本，则故事书有3x本。根据题意列方程3x-15=x+55，解得x=35，故事书有3×35=105本。检验：105-15-35=55。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-037",
@@ -63436,7 +63460,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录（单位：下）：\n小杰：132  小雅：145  小宇：128  小婷：150  小浩：135\n\n（1）这5名同学1分钟跳绳的平均成绩是多少下？\n（2）根据平均成绩，你认为这个小组的跳绳水平怎么样？请用数据说明你的结论。",
+      "promptZhHans": "下面是四（1）班第一小组5名同学1分钟跳绳的成绩记录（单位：下）：\n小杰：132  小雅：145  小宇：128  小婷：150  小浩：135\n\n该校把五年级学生1分钟跳绳130下作为“整体较好”的参考线。\n（1）这5名同学1分钟跳绳的平均成绩是多少下？\n（2）根据平均成绩，你认为这个小组的跳绳水平怎么样？请用数据说明你的结论。",
       "optionsZhHans": [],
       "answer": "（1）138下。（2）这个小组的跳绳水平整体较好，因为平均成绩138下，超过了130下，且大部分同学的成绩都在130下以上。",
       "acceptedAnswers": [
@@ -63783,15 +63807,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面是某商店一周内每天卖出书包数量的统计表：\n\n| 星期 | 一 | 二 | 三 | 四 | 五 | 六 | 日 |\n|------|----|----|----|----|----|----|----|\n| 数量（个） | 8 | 6 | 9 | 7 | 10 | 12 | 11 |\n\n（1）这一周平均每天卖出多少个书包？\n（2）哪几天卖出的数量高于平均数？请写出来。",
+      "promptZhHans": "某商店星期一到星期日卖出的书包数依次是8、6、9、7、10、12、11个。依次填写日平均数和高于平均数的星期，格式为“平均___个；星期___”。",
       "optionsZhHans": [],
-      "answer": "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
+      "answer": "平均9个；星期五、星期六、星期日",
       "acceptedAnswers": [
-        "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
-        "（1）9个。（2）三、五、六、日",
-        "（1）平均9个。（2）星期三、五、六、日"
+        "平均9个；星期五、星期六、星期日",
+        "日平均9个；星期五、星期六、星期日",
+        "mean 9; Friday, Saturday, and Sunday"
       ],
-      "explanationZhHans": "总数量=8+6+9+7+10+12+11=63个，天数=7，平均=63÷7=9个。高于9个的有：星期三9个（等于不算高于）、星期五10个、星期六12个、星期日11个。注意星期三9个等于平均数，不算高于。"
+      "explanationZhHans": "总数是8+6+9+7+10+12+11=63，平均数是63÷7=9。只有星期五10个、星期六12个、星期日11个高于9；星期三9个等于平均数，不算高于。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-106",
@@ -63840,18 +63864,20 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丁记录了五（1）班第一小组6名同学1分钟跳绳的次数：120、135、110、125、130、140。关于这组数据，下面哪种说法是正确的？",
+      "promptZhHans": "五（1）班第一小组6名同学1分钟跳绳的次数是120、135、110、125、130、140。关于这组数据，下面哪个说法正确？",
       "optionsZhHans": [
-        "这组数据的平均数是130次。",
-        "这组数据的平均数是125次。",
-        "这组数据的平均数是126次。",
-        "这组数据的平均数是128次。"
+        "平均数是130次",
+        "平均数是125次",
+        "平均数约127次",
+        "平均数是128次"
       ],
-      "answer": "这组数据的平均数是126次。",
+      "answer": "平均数约127次",
       "acceptedAnswers": [
-        "这组数据的平均数是126次。"
+        "平均数约127次",
+        "平均数约为127次",
+        "The mean is about 127"
       ],
-      "explanationZhHans": "平均数=总次数÷人数。总次数=120+135+110+125+130+140=760次，人数=6，760÷6≈126.67，四舍五入为126次。"
+      "explanationZhHans": "总次数是120+135+110+125+130+140=760，平均数是760÷6≈126.67，取整约为127次。因此第三项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-107",
@@ -64930,15 +64956,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "五年级一班环保小组记录了上周每天收集的废纸数量（单位：千克）：周一5.2，周二4.8，周三5.0，周四5.6，周五4.4。他们计划用这些废纸换再生纸，每千克废纸可换0.8千克再生纸。先计算这五天收集废纸的平均数，再根据平均数估算本周大约能换多少千克再生纸。",
+      "promptZhHans": "环保小组上周5个上学日收集废纸5.2、4.8、5.0、5.6、4.4千克。本周也按5个上学日估算，假设每天收集量约等于上周日平均数；每千克废纸可换0.8千克再生纸。依次填写上周日平均数和本周约能换的再生纸质量。",
       "optionsZhHans": [],
-      "answer": "平均数5千克，大约能换4千克再生纸",
+      "answer": "日平均5千克；本周约换20千克再生纸",
       "acceptedAnswers": [
-        "平均数5千克，大约能换4千克再生纸",
-        "平均5千克，大约换4千克再生纸",
-        "5千克，4千克"
+        "日平均5千克；本周约换20千克再生纸",
+        "平均5千克；本周大约换20千克再生纸",
+        "daily mean 5 kg; about 20 kg of recycled paper this week"
       ],
-      "explanationZhHans": "五天废纸总重：5.2+4.8+5.0+5.6+4.4=25千克，平均25÷5=5千克。用平均数估算换再生纸：5×0.8=4千克。平均数代表每天收集废纸的典型水平，可用来估算总量。"
+      "explanationZhHans": "上周总量是5.2+4.8+5.0+5.6+4.4=25（千克），日平均是25÷5=5（千克）。本周5个上学日估计收集5×5=25（千克），可换25×0.8=20（千克）再生纸。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-126",
@@ -64987,16 +65013,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面是五年级一班第一小组6名同学1分钟跳绳的成绩（单位：下）：145、138、152、140、148、155。\n（1）这组数据的平均数是多少？\n（2）这个平均数表示什么？",
+      "promptZhHans": "6名同学1分钟跳绳的成绩是145、138、152、140、148、155下。（1）求平均数，结果保留两位小数；（2）说明这个平均数表示什么。请完整填写两项。",
       "optionsZhHans": [],
-      "answer": "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
+      "answer": "（1）146.33下；（2）表示这6名同学1分钟跳绳的整体水平。",
       "acceptedAnswers": [
-        "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146下 （2）表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146 （2）表示第一小组6名同学1分钟跳绳的整体水平。"
+        "（1）146.33下；（2）表示这6名同学1分钟跳绳的整体水平。",
+        "146.33下；表示这6名同学1分钟跳绳的整体水平。",
+        "(1) 146.33 jumps; (2) it represents the overall one-minute jump-rope performance of the six students."
       ],
-      "explanationZhHans": "（1）平均数=总成绩÷人数，(145+138+152+140+148+155)÷6=878÷6≈146.33，通常保留整数为146下。（2）平均数反映一组数据的集中趋势，代表整体水平。"
+      "explanationZhHans": "总成绩是145+138+152+140+148+155=878（下），平均数是878÷6=439/3≈146.33（下）。平均数用于表示这6名同学1分钟跳绳的整体水平。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-127",
@@ -66250,7 +66275,7 @@
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
       "promptZhHans": "下面哪个数既是42的因数，又是7的倍数？",
       "optionsZhHans": [
-        "14",
+        "12",
         "21",
         "28",
         "35"
@@ -66259,7 +66284,7 @@
       "acceptedAnswers": [
         "21"
       ],
-      "explanationZhHans": "42的因数有1,2,3,6,7,14,21,42。7的倍数有7,14,21,28,35,…。同时满足的只有21。"
+      "explanationZhHans": "21×2=42，所以21是42的因数；21=7×3，所以21也是7的倍数。其余三个选项不同时满足两个条件。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-149",
@@ -75242,14 +75267,15 @@
       "optionsZhHans": [
         "6:10和9:15",
         "20:5和1:4",
-        "0.5:0.2和3:1.2",
-        "1.2:0.4和0.6:0.2"
+        "0.5:0.2和3:2",
+        "1.2:0.4和0.6:0.3"
       ],
       "answer": "6:10和9:15",
       "acceptedAnswers": [
-        "6:10和9:15"
+        "6:10和9:15",
+        "6:10 and 9:15"
       ],
-      "explanationZhHans": "6:10化简为3:5，9:15化简也为3:5，比值相等，可以组成比例。其他选项化简后比值不同，不能组成比例。"
+      "explanationZhHans": "6:10=3:5，9:15=3:5，两个比相等，可以组成比例。其余各组的两个比值分别不相等，所以只有第一项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p6-053",
@@ -84442,7 +84468,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "方程2(x - 3) = 8的解与下面哪个方程的解相同？",
+      "promptZhHans": "方程2(x-3)=8去括号后得到下面哪个方程？",
       "optionsZhHans": [
         "x - 3 = 4",
         "2x - 3 = 8",
@@ -84451,9 +84477,10 @@
       ],
       "answer": "2x - 6 = 8",
       "acceptedAnswers": [
-        "2x - 6 = 8"
+        "2x - 6 = 8",
+        "2x-6=8"
       ],
-      "explanationZhHans": "原方程去括号得2x - 6 = 8，与选项D相同。选项A是x - 3 = 4，解为x=7；原方程解为x=7，但方程形式不同，题目要求方程相同，故选D。"
+      "explanationZhHans": "用乘法分配律把2分别乘括号内的x和-3，得到2x-6=8，所以选第四项。"
     },
     {
       "id": "hjb-primary-ds-v1-p6-206",
@@ -84566,14 +84593,16 @@
       "optionsZhHans": [
         "2x+1=5",
         "3x-4=5",
-        "4x-3=9",
+        "4x-3=8",
         "5x+2=18"
       ],
       "answer": "3x-4=5",
       "acceptedAnswers": [
-        "3x-4=5"
+        "3x-4=5",
+        "3x-4 = 5",
+        "B"
       ],
-      "explanationZhHans": "将x=3代入各选项：A.2×3+1=7≠5；B.3×3-4=5，成立；C.4×3-3=9，成立但非唯一？检查D.5×3+2=17≠18。B正确。"
+      "explanationZhHans": "把x=3分别代入四个方程：2×3+1=7≠5；3×3-4=5；4×3-3=9≠8；5×3+2=17≠18。只有第二个方程成立，所以解为x=3的是3x-4=5。"
     },
     {
       "id": "hjb-primary-ds-v1-p6-208",
@@ -84920,7 +84949,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 HJB primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "方程2(x - 4) = 10的解与下面哪个方程的解相同？",
+      "promptZhHans": "方程2(x-4)=10两边同时除以2后得到下面哪个方程？",
       "optionsZhHans": [
         "x - 4 = 5",
         "2x - 4 = 10",
@@ -84929,9 +84958,10 @@
       ],
       "answer": "x - 4 = 5",
       "acceptedAnswers": [
-        "x - 4 = 5"
+        "x - 4 = 5",
+        "x-4=5"
       ],
-      "explanationZhHans": "2(x-4)=10两边除以2得x-4=5，解为x=9。选项A即x-4=5，解相同。其他选项解不同。"
+      "explanationZhHans": "方程两边同时除以2，左边2(x-4)÷2=x-4，右边10÷2=5，得到x-4=5，所以选第一项。"
     },
     {
       "id": "hjb-primary-ds-v1-p6-214",

@@ -1319,20 +1319,20 @@
             "1.2 使用列代数式完成一个可检验的任务。",
             "1.3 根据“只凭系数判断同类项”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "观察 化简 3x+5x-2，先圈出同类结构或关键运算符号，再说明第一步准备做什么。",
-          "conceptExplanation": "整式及其加减 的关键是识别结构。先分清项、因式、指数或符号位置，再按照运算律和等价变形完成化简或求解。",
+          "prerequisiteWarmUp": "观察式子 3x+5x-2，圈出同类项，并说明第一步准备做什么。",
+          "conceptExplanation": "整式及其加减的关键是识别结构。先分清项、因式、指数或符号位置，再按照运算律和等价变形完成化简或求解。",
           "workedExamples": [
             {
               "title": "例1：结构识别",
-              "prompt": "化简 3x+5x-2",
+              "prompt": "化简 3x+5x-2。",
               "solution": "结果为 8x-2。同类项的字母部分相同，系数相加减，字母部分保持不变。",
               "check": "用代入一个简单数值的方法，可以快速检查变形前后是否一致。"
             },
             {
               "title": "例2：纠错说明",
-              "prompt": "同学把 化简 3x+5x-2 的关键结构忽略了，直接合并不同部分。请指出问题。",
-              "solution": "问题在于没有先判断哪些部分可以合并或变形。必须先识别相同结构，再运算。",
-              "check": "不能因为符号看起来相近就合并，结构一致才可以。"
+              "prompt": "有同学写出 3x+5x-2=6x。请指出错误并正确化简。",
+              "solution": "3x 与 5x 是同类项，可以合并为 8x；常数项 -2 不能与含 x 的项合并。因此结果是 8x-2。",
+              "check": "合并同类项时，只把系数相加减，字母及其指数保持不变；不同类项不能合并。"
             }
           ],
           "commonPitfalls": [
@@ -1353,7 +1353,7 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "化简 3x+5x-2",
+              "prompt": "化简 3x+5x-2。",
               "answer": "8x-2",
               "explanation": "同类项的字母部分相同，系数相加减，字母部分保持不变。"
             },
@@ -2579,20 +2579,20 @@
             "1.2 使用方程意义完成一个可检验的任务。",
             "1.3 根据“等式两边没有同时做同一变形”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "读题后先找未知量和等量或大小关系，再决定是否需要设未知数。",
-          "conceptExplanation": "一元一次方程 强调把关系写成数学式。求解时每一步都要保持关系成立，最后把答案放回条件中检查。",
+          "prerequisiteWarmUp": "读题后先找未知量和等量关系，再决定怎样设未知数。",
+          "conceptExplanation": "一元一次方程强调把关系写成数学式。求解时每一步都要保持关系成立，最后把答案放回条件中检查。",
           "workedExamples": [
             {
               "title": "例1：求解",
-              "prompt": "3x+5=17",
+              "prompt": "解方程 3x+5=17。",
               "solution": "答案：x=4。3x+5=17 → 3x=12 → x=4。",
               "check": "把答案代回题目关系，左右或条件应保持一致。"
             },
             {
               "title": "例2：建模",
-              "prompt": "一个数按本课关系变化后满足 3x+5=17。求解前应先做什么？",
-              "solution": "先设未知数，写清这个未知数表示什么，再列式求解。",
-              "check": "未知数含义改变会导致式子含义混乱。"
+              "prompt": "一个数的 3 倍加 5 等于 17。设这个数为 x，列方程并求解。",
+              "solution": "根据题意列方程 3x+5=17。移项得 3x=12，所以 x=4。",
+              "check": "代回原情境：4 的 3 倍加 5 等于 17，结果符合题意。"
             }
           ],
           "commonPitfalls": [
@@ -2613,7 +2613,7 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "3x+5=17",
+              "prompt": "解方程 3x+5=17。",
               "answer": "x=4",
               "explanation": "3x+5=17 → 3x=12 → x=4。"
             },
@@ -3210,7 +3210,7 @@
             "1.3 根据“调查问题与结论不匹配”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "记录 5 个数据：7，8，8，9，11。先判断哪个统计量最容易计算。",
-          "conceptExplanation": "数据的收集与整理 要先明确调查问题和数据来源，再选择平均数、中位数、众数或图表来表达信息，结论不能超过数据支持范围。",
+          "conceptExplanation": "数据的收集与整理要先明确调查问题和数据来源，再选择合适的统计量或图表来表达信息，结论不能超过数据支持范围。",
           "workedExamples": [
             {
               "title": "例1：平均数",
@@ -3839,20 +3839,20 @@
             "1.2 使用同底数幂完成一个可检验的任务。",
             "1.3 根据“幂的运算法则使用错误”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "观察 计算 3a^2·4a^3，先圈出同类结构或关键运算符号，再说明第一步准备做什么。",
-          "conceptExplanation": "整式的乘除 的关键是识别结构。先分清项、因式、指数或符号位置，再按照运算律和等价变形完成化简或求解。",
+          "prerequisiteWarmUp": "观察式子 3a^2·4a^3，分别指出系数和同底数幂，并说明运算顺序。",
+          "conceptExplanation": "整式乘除的关键是识别系数、底数、指数和因式结构，再依据乘法分配律、幂的运算性质等规则逐步计算，并用代入或乘回检查结果。",
           "workedExamples": [
             {
               "title": "例1：结构识别",
-              "prompt": "计算 3a^2·4a^3",
+              "prompt": "计算 3a^2·4a^3。",
               "solution": "结果为 12a^5。同底数幂相乘，指数相加，系数相乘。",
               "check": "用代入一个简单数值的方法，可以快速检查变形前后是否一致。"
             },
             {
               "title": "例2：纠错说明",
-              "prompt": "同学把 计算 3a^2·4a^3 的关键结构忽略了，直接合并不同部分。请指出问题。",
-              "solution": "问题在于没有先判断哪些部分可以合并或变形。必须先识别相同结构，再运算。",
-              "check": "不能因为符号看起来相近就合并，结构一致才可以。"
+              "prompt": "有同学写出 3a^2·4a^3=12a^6。请指出错误并正确计算。",
+              "solution": "系数相乘得 12；同底数幂相乘时指数相加，而不是相乘，所以 a^2·a^3=a^5。正确结果是 12a^5。",
+              "check": "区分同底数幂的乘法与幂的乘方：前者指数相加，后者指数相乘。"
             }
           ],
           "commonPitfalls": [
@@ -3873,7 +3873,7 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "计算 3a^2·4a^3",
+              "prompt": "计算 3a^2·4a^3。",
               "answer": "12a^5",
               "explanation": "同底数幂相乘，指数相加，系数相乘。"
             },
@@ -4469,8 +4469,8 @@
             "1.2 使用邻补角完成一个可检验的任务。",
             "1.3 根据“只凭图形外观假定平行”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "写出“相交线与平行线”中一个图形对象和一个关系词，例如边、角、平行、相等或对应。",
-          "conceptExplanation": "相交线与平行线 学习要区分“看起来像”和“条件说明”。推理时先标出已知关系，再用定义、性质或判定写出理由。",
+          "prerequisiteWarmUp": "画两条相交直线，标出一组对顶角和一组邻补角，并分别说出它们的数量关系。",
+          "conceptExplanation": "两条直线相交会形成对顶角和邻补角；两条直线被第三条直线所截时，会形成同位角、内错角和同旁内角。判断两直线平行，必须依据角的数量关系或其他已知条件，不能只看图形外观。",
           "workedExamples": [
             {
               "title": "例1：角度关系",
@@ -4480,9 +4480,9 @@
             },
             {
               "title": "例2：条件判断",
-              "prompt": "如果只凭画面感觉两条线平行，能否直接使用平行线性质？",
-              "solution": "不能。必须有已知条件或经过证明，才能使用相应性质。",
-              "check": "几何推理不能只依赖外观。"
+              "prompt": "直线 a、b 被直线 c 所截，一组同位角相等。能否判定 a∥b？",
+              "solution": "能。两条直线被第三条直线所截，如果同位角相等，那么这两条直线平行，所以 a∥b。",
+              "check": "使用判定前要确认这两个角确实是由同一条截线形成的一组同位角。"
             }
           ],
           "commonPitfalls": [
@@ -4503,50 +4503,50 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "一个角为 40 度，它的补角是多少度？",
-              "answer": "140 度",
-              "explanation": "两个角和为 180 度时互为补角。"
+              "prompt": "两条直线相交，一个角为 40°，它的邻补角是多少度？",
+              "answer": "140°",
+              "explanation": "邻补角的和为 180°，所以 180°-40°=140°。"
             },
             {
               "id": "c2",
-              "prompt": "几何证明第一步通常是什么？",
-              "answer": "整理已知条件",
-              "explanation": "已知条件决定能使用哪些性质。"
+              "prompt": "一组同位角相等时，可以得到什么结论？",
+              "answer": "形成这组同位角的两条被截直线平行。",
+              "explanation": "同位角相等是判定两直线平行的一种方法。"
             },
             {
               "id": "c3",
-              "prompt": "为什么要写理由？",
-              "answer": "让结论可检验",
-              "explanation": "理由把条件和结论连接起来。"
+              "prompt": "为什么不能只凭图形外观判断两直线平行？",
+              "answer": "图形只是示意，必须有角关系或其他条件作为依据。",
+              "explanation": "几何结论由已知条件和定理推出，而不是由目测决定。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出邻补角、对顶角，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先识别角对的位置关系，再区分使用相交线性质还是平行线判定，并把每一步理由写清楚。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“相交线与平行线”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [
             {
-              "term": "图形",
-              "en": "figure",
-              "definition": "由点、线、面或空间对象组成的数学对象。",
-              "enDefinition": "A mathematical object made of points, lines, surfaces, or solids."
+              "term": "对顶角",
+              "en": "vertical angles",
+              "definition": "两条直线相交时，位置相对的两个角；对顶角相等。",
+              "enDefinition": "Opposite angles formed by two intersecting lines; they are equal."
             },
             {
-              "term": "性质",
-              "en": "property",
-              "definition": "符合条件的对象必然具有的关系。",
-              "enDefinition": "A relationship that must hold under given conditions."
+              "term": "邻补角",
+              "en": "linear pair",
+              "definition": "有公共顶点和一条公共边，另外两边互为反向延长线的两个角；它们的和为 180°。",
+              "enDefinition": "Adjacent angles whose noncommon sides form a straight line; their sum is 180 degrees."
             },
             {
-              "term": "判定",
-              "en": "criterion",
-              "definition": "确认对象具有某种关系的方法。",
-              "enDefinition": "A method for confirming a relationship."
+              "term": "同位角",
+              "en": "corresponding angles",
+              "definition": "两条直线被第三条直线所截时，位于截线同侧且位置对应的一对角。",
+              "enDefinition": "Angles in corresponding positions when a transversal crosses two lines."
             },
             {
-              "term": "证明",
-              "en": "proof",
-              "definition": "用理由一步步推出结论。",
-              "enDefinition": "Reasoning step by step to a conclusion."
+              "term": "平行线判定",
+              "en": "parallel-line criterion",
+              "definition": "由同位角相等、内错角相等或同旁内角互补等条件推出两直线平行。",
+              "enDefinition": "A criterion that concludes two lines are parallel from specified angle relationships."
             }
           ]
         },
@@ -5730,17 +5730,17 @@
             "1.3 根据“自变量和因变量颠倒”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "写出一个会随另一个量变化的生活数量，并说明谁随谁变化。",
-          "conceptExplanation": "变量之间的关系 的核心是用表格、式子或图象表示两个变量的对应关系，并解释变化趋势。",
+          "conceptExplanation": "变量之间关系的核心是用表格、关系式或图象表示两个变量的对应关系，并结合实际意义解释变化趋势。",
           "workedExamples": [
             {
               "title": "例1：代入求值",
-              "prompt": "已知 总价 y 与数量 x 满足 y=4x。买 5 件时 y=20 是否正确？",
+              "prompt": "已知总价 y 与数量 x 满足 y=4x。买 5 件时 y=20 是否正确？",
               "solution": "正确。代入 x=5，得 y=4×5=20。",
               "check": "代入给定的 x 值并按运算顺序计算。"
             },
             {
               "title": "例2：解释变化",
-              "prompt": "在 总价 y 与数量 x 满足 y=4x 中，x 增大时 y 怎样变化？",
+              "prompt": "在总价 y 与数量 x 满足 y=4x 的关系中，x 增大时 y 怎样变化？",
               "solution": "数量 x 每增加 1 件，总价 y 增加 4 元，因此 y 随 x 增大而增大。",
               "check": "解释趋势时要联系式子结构，而不是只看一个数值。"
             }
@@ -5763,7 +5763,7 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "已知 总价 y 与数量 x 满足 y=4x，求指定值。",
+              "prompt": "已知总价 y 与数量 x 满足 y=4x，求 x=5 时的 y。",
               "answer": "买 5 件时 y=20",
               "explanation": "代入 x=5，得 y=4×5=20。"
             },
@@ -6990,7 +6990,7 @@
             "1.3 根据“把列出的结果都默认看成等可能”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "袋中有 3 个红球和 4 个白球，任取一个，先说出总可能数。",
-          "conceptExplanation": "概率初步 要先明确试验、所有等可能结果和目标事件，再用“目标结果数/所有结果数”描述概率。",
+          "conceptExplanation": "概率初步要先明确随机试验、所有等可能结果和目标事件，再用“目标结果数÷所有等可能结果数”计算概率。",
           "workedExamples": [
             {
               "title": "例1：一步概率",
@@ -9516,7 +9516,7 @@
             "1.3 根据“混淆斜率和截距的作用”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "写出一个会随另一个量变化的生活数量，并说明谁随谁变化。",
-          "conceptExplanation": "一次函数 的核心是用表格、式子或图象表示两个变量的对应关系，并解释变化趋势。",
+          "conceptExplanation": "一次函数的核心是用表格、解析式或图象表示两个变量的对应关系，并结合系数解释变化趋势。",
           "workedExamples": [
             {
               "title": "例1：代入求值",
@@ -10782,7 +10782,7 @@
             "1.3 根据“未看离散程度就使用平均数”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "记录 5 个数据：7，8，8，9，11。先判断哪个统计量最容易计算。",
-          "conceptExplanation": "数据的分析 要先明确调查问题和数据来源，再选择平均数、中位数、众数或图表来表达信息，结论不能超过数据支持范围。",
+          "conceptExplanation": "数据分析要先明确问题和数据来源，再根据数据分布选择平均数、中位数、众数等统计量或图表，结论不能超过样本支持的范围。",
           "workedExamples": [
             {
               "title": "例1：平均数",
@@ -11411,20 +11411,20 @@
             "1.2 使用平行线判定完成一个可检验的任务。",
             "1.3 根据“只凭外观判断平行关系”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "写出“平行线的证明”中一个图形对象和一个关系词，例如边、角、平行、相等或对应。",
-          "conceptExplanation": "平行线的证明 学习要区分“看起来像”和“条件说明”。推理时先标出已知关系，再用定义、性质或判定写出理由。",
+          "prerequisiteWarmUp": "回忆同位角、内错角和同旁内角的位置关系，并各写出一条能判定两直线平行的角条件。",
+          "conceptExplanation": "证明两直线平行时，要先确认角对由同一条截线形成，再使用“同位角相等”“内错角相等”或“同旁内角互补”等判定。已知两直线平行后，才可以反向使用对应的平行线性质求角。",
           "workedExamples": [
             {
-              "title": "例1：角度关系",
-              "prompt": "两条直线相交形成一对邻补角，其中一个角为 40 度，另一个角是多少度？",
-              "solution": "邻补角和为 180 度，所以另一个角为 140 度。",
-              "check": "只有确认是邻补角，才能使用和为 180 度。"
+              "title": "例1：平行线判定",
+              "prompt": "直线 a、b 被直线 c 所截，形成的一组内错角都等于 65°。证明 a∥b。",
+              "solution": "这两个角是一组内错角，且都等于 65°，所以内错角相等。根据“内错角相等，两直线平行”，可得 a∥b。",
+              "check": "证明中既要写出角相等，也要说明它们是由截线 c 形成的一组内错角。"
             },
             {
-              "title": "例2：条件判断",
-              "prompt": "如果只凭画面感觉两条线平行，能否直接使用平行线性质？",
-              "solution": "不能。必须有已知条件或经过证明，才能使用相应性质。",
-              "check": "几何推理不能只依赖外观。"
+              "title": "例2：使用平行线性质",
+              "prompt": "已知 a∥b，直线 c 截 a、b 所成的一组同旁内角中，一个角为 112°。求另一个角。",
+              "solution": "两直线平行，同旁内角互补，所以另一个角为 180°-112°=68°。",
+              "check": "这里先有 a∥b 的条件，才能使用同旁内角互补这一性质。"
             }
           ],
           "commonPitfalls": [
@@ -11445,50 +11445,50 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "一个角为 40 度，它的补角是多少度？",
-              "answer": "140 度",
-              "explanation": "两个角和为 180 度时互为补角。"
+              "prompt": "一组内错角相等时，可以得到什么结论？",
+              "answer": "两条被截直线平行。",
+              "explanation": "内错角相等是判定两直线平行的一种方法。"
             },
             {
               "id": "c2",
-              "prompt": "几何证明第一步通常是什么？",
-              "answer": "整理已知条件",
-              "explanation": "已知条件决定能使用哪些性质。"
+              "prompt": "两直线平行时，一组同旁内角的和是多少？",
+              "answer": "180°",
+              "explanation": "两直线平行，同旁内角互补。"
             },
             {
               "id": "c3",
-              "prompt": "为什么要写理由？",
-              "answer": "让结论可检验",
-              "explanation": "理由把条件和结论连接起来。"
+              "prompt": "平行线的判定与性质有什么方向差别？",
+              "answer": "判定由角关系推出平行；性质由平行推出角关系。",
+              "explanation": "不能在尚未证明平行时先使用平行线性质。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出平行线判定、平行线性质，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先标明角对和截线，再区分由角关系判定平行还是由平行关系推出角关系。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“平行线的证明”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [
             {
-              "term": "图形",
-              "en": "figure",
-              "definition": "由点、线、面或空间对象组成的数学对象。",
-              "enDefinition": "A mathematical object made of points, lines, surfaces, or solids."
+              "term": "同位角",
+              "en": "corresponding angles",
+              "definition": "两直线被截线所截时，位于截线同侧并处于对应位置的一对角。",
+              "enDefinition": "Angles in corresponding positions when a transversal crosses two lines."
             },
             {
-              "term": "性质",
-              "en": "property",
-              "definition": "符合条件的对象必然具有的关系。",
-              "enDefinition": "A relationship that must hold under given conditions."
+              "term": "内错角",
+              "en": "alternate interior angles",
+              "definition": "两直线被截线所截时，位于两直线之间且在截线两侧的一对角。",
+              "enDefinition": "Interior angles on opposite sides of a transversal."
             },
             {
-              "term": "判定",
-              "en": "criterion",
-              "definition": "确认对象具有某种关系的方法。",
-              "enDefinition": "A method for confirming a relationship."
+              "term": "同旁内角",
+              "en": "same-side interior angles",
+              "definition": "两直线被截线所截时，位于两直线之间且在截线同侧的一对角。",
+              "enDefinition": "Interior angles on the same side of a transversal."
             },
             {
-              "term": "证明",
-              "en": "proof",
-              "definition": "用理由一步步推出结论。",
-              "enDefinition": "Reasoning step by step to a conclusion."
+              "term": "平行线判定",
+              "en": "parallel-line criterion",
+              "definition": "由规定的角关系推出两条直线平行的定理。",
+              "enDefinition": "A theorem that concludes two lines are parallel from a specified angle relationship."
             }
           ]
         },
@@ -12038,23 +12038,23 @@
           "hook": "本课使用 MAIS 自主设计情境学习“三角形的证明及其应用”。先把对象、条件和核心语言说清楚，再用一个小任务检验理解。",
           "objectives": [
             "1.1 说清“三角形的证明及其应用”中的核心对象、条件和目标。",
-            "1.2 使用内角和完成一个可检验的任务。",
+            "1.2 使用全等判定和等腰三角形性质完成可检验的推理。",
             "1.3 根据“把性质和判定用反”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "写出“三角形的证明及其应用”中一个图形对象和一个关系词，例如边、角、平行、相等或对应。",
-          "conceptExplanation": "三角形的证明及其应用 学习要区分“看起来像”和“条件说明”。推理时先标出已知关系，再用定义、性质或判定写出理由。",
+          "prerequisiteWarmUp": "写出三角形全等的 SSS、SAS、ASA、AAS 判定条件，并说明“对应”为什么重要。",
+          "conceptExplanation": "三角形证明要先确定对应顶点，再把已知边角条件与全等判定、等腰三角形性质或垂直平分线性质匹配。证明全等后，才能由对应边、对应角相等推出所需结论。",
           "workedExamples": [
             {
-              "title": "例1：角度关系",
-              "prompt": "两条直线相交形成一对邻补角，其中一个角为 40 度，另一个角是多少度？",
-              "solution": "邻补角和为 180 度，所以另一个角为 140 度。",
-              "check": "只有确认是邻补角，才能使用和为 180 度。"
+              "title": "例1：等腰三角形",
+              "prompt": "在 △ABC 中，AB=AC，∠B=55°。求 ∠C 和 ∠A。",
+              "solution": "AB=AC，所以底角 ∠B=∠C=55°。由三角形内角和，∠A=180°-55°-55°=70°。",
+              "check": "等边对等角时，AB、AC 所对的角分别是 ∠C、∠B。"
             },
             {
-              "title": "例2：条件判断",
-              "prompt": "如果只凭画面感觉两条线平行，能否直接使用平行线性质？",
-              "solution": "不能。必须有已知条件或经过证明，才能使用相应性质。",
-              "check": "几何推理不能只依赖外观。"
+              "title": "例2：全等证明",
+              "prompt": "已知 AB=DC、AC=DB。说明为什么 △ABC≌△DCB。",
+              "solution": "AB=DC、AC=DB，且 BC=CB（公共边），三组对应边分别相等，所以 △ABC≌△DCB（SSS）。",
+              "check": "全等符号两边的顶点顺序必须体现对应关系：A↔D，B↔C，C↔B。"
             }
           ],
           "commonPitfalls": [
@@ -12075,50 +12075,50 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "一个角为 40 度，它的补角是多少度？",
-              "answer": "140 度",
-              "explanation": "两个角和为 180 度时互为补角。"
+              "prompt": "等腰三角形的顶角为 40°，每个底角是多少度？",
+              "answer": "70°",
+              "explanation": "两个底角相等，均为 (180°-40°)÷2=70°。"
             },
             {
               "id": "c2",
-              "prompt": "几何证明第一步通常是什么？",
-              "answer": "整理已知条件",
-              "explanation": "已知条件决定能使用哪些性质。"
+              "prompt": "已知三组对应边分别相等，可用哪种方法判定两个三角形全等？",
+              "answer": "SSS",
+              "explanation": "三边分别相等的两个三角形全等。"
             },
             {
               "id": "c3",
-              "prompt": "为什么要写理由？",
-              "answer": "让结论可检验",
-              "explanation": "理由把条件和结论连接起来。"
+              "prompt": "写全等结论时为什么要按对应顶点排序？",
+              "answer": "才能正确使用对应边和对应角相等。",
+              "explanation": "顶点对应错误会使后续推出的边角关系错误。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出内角和、等腰三角形，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先按对应关系标出已知边角，再选择全等判定或三角形性质，并逐步写出依据。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“三角形的证明及其应用”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [
             {
-              "term": "图形",
-              "en": "figure",
-              "definition": "由点、线、面或空间对象组成的数学对象。",
-              "enDefinition": "A mathematical object made of points, lines, surfaces, or solids."
+              "term": "全等三角形",
+              "en": "congruent triangles",
+              "definition": "形状和大小完全相同、能够完全重合的两个三角形。",
+              "enDefinition": "Triangles with exactly the same shape and size."
             },
             {
-              "term": "性质",
-              "en": "property",
-              "definition": "符合条件的对象必然具有的关系。",
-              "enDefinition": "A relationship that must hold under given conditions."
+              "term": "SSS 判定",
+              "en": "SSS criterion",
+              "definition": "三组对应边分别相等的两个三角形全等。",
+              "enDefinition": "Two triangles are congruent when all three pairs of corresponding sides are equal."
             },
             {
-              "term": "判定",
-              "en": "criterion",
-              "definition": "确认对象具有某种关系的方法。",
-              "enDefinition": "A method for confirming a relationship."
+              "term": "对应边",
+              "en": "corresponding sides",
+              "definition": "两个三角形中按照顶点对应关系彼此匹配的边。",
+              "enDefinition": "Sides matched according to the correspondence of two triangles."
             },
             {
-              "term": "证明",
-              "en": "proof",
-              "definition": "用理由一步步推出结论。",
-              "enDefinition": "Reasoning step by step to a conclusion."
+              "term": "等腰三角形",
+              "en": "isosceles triangle",
+              "definition": "有两条边相等的三角形；相等边所对的角也相等。",
+              "enDefinition": "A triangle with two equal sides; the opposite angles are equal."
             }
           ]
         },
@@ -12671,20 +12671,20 @@
             "1.2 使用不等式性质完成一个可检验的任务。",
             "1.3 根据“不等式两边乘除负数时未改变方向”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "读题后先找未知量和等量或大小关系，再决定是否需要设未知数。",
-          "conceptExplanation": "不等式与不等式组 强调把关系写成数学式。求解时每一步都要保持关系成立，最后把答案放回条件中检查。",
+          "prerequisiteWarmUp": "比较 3 与 5、-3 与 -5 的大小，再说明同乘 -1 后不等号方向发生什么变化。",
+          "conceptExplanation": "不等式的解通常是一个范围。移项、合并同类项不改变不等关系；两边同乘或同除以负数时，不等号必须改变方向。解不等式组时，要在数轴上取各个解集的公共部分。",
           "workedExamples": [
             {
               "title": "例1：求解",
-              "prompt": "解不等式 3x+1<11",
+              "prompt": "解不等式 3x+1<11。",
               "solution": "答案：x<10/3。3x+1<11 → 3x<10 → x<10/3。因为除以正数 3，不等号方向不变。",
               "check": "把答案代回题目关系，左右或条件应保持一致。"
             },
             {
-              "title": "例2：建模",
-              "prompt": "一个数按本课关系变化后满足 解不等式 3x+1<11。求解前应先做什么？",
-              "solution": "先设未知数，写清这个未知数表示什么，再列式求解。",
-              "check": "未知数含义改变会导致式子含义混乱。"
+              "title": "例2：负数系数",
+              "prompt": "解不等式 -2x+3≥7。",
+              "solution": "移项得 -2x≥4。两边同除以 -2，不等号方向改变，所以 x≤-2。",
+              "check": "两边同乘或同除以负数时，不等号必须改变方向。可取 x=-3 代入检查：9≥7。"
             }
           ],
           "commonPitfalls": [
@@ -12705,21 +12705,21 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "解不等式 3x+1<11",
+              "prompt": "解不等式 3x+1<11。",
               "answer": "x<10/3",
               "explanation": "3x+1<11 → 3x<10 → x<10/3。因为除以正数 3，不等号方向不变。"
             },
             {
               "id": "c2",
-              "prompt": "求解后为什么要检验？",
-              "answer": "防止计算或条件遗漏",
-              "explanation": "检验能发现不符合题意或限制条件的结果。"
+              "prompt": "不等式两边同除以负数时，不等号怎样变化？",
+              "answer": "不等号方向改变。",
+              "explanation": "例如 2<3，同乘 -1 后得到 -2>-3。"
             },
             {
               "id": "c3",
-              "prompt": "列式建模第一步是什么？",
-              "answer": "定义未知数",
-              "explanation": "明确未知数含义后，式子才有实际意义。"
+              "prompt": "解不等式组时，怎样得到最终解集？",
+              "answer": "取各个不等式解集的公共部分。",
+              "explanation": "不等式组的解必须同时满足组内每一个不等式。"
             }
           ],
           "examStyleStrategy": "考试型任务中，先标出不等式性质、解一元一次不等式，再把结论写成可检查的步骤。",
@@ -14568,7 +14568,7 @@
             "1.3 说明去分母时每一步为什么保持等价。"
           ],
           "prerequisiteWarmUp": "先写出 x+1≠0，再观察方程 3/(x+1)=1 中未知数出现在哪里。",
-          "conceptExplanation": "分式是分母中含有字母的式子，分母必须不为 0。分式方程通常含有未知数分母，解题时先写取值限制，再乘以最简公分母去分母，求出候选解后必须代回原分母检验，排除使分母为 0 的增根。",
+          "conceptExplanation": "形如 A/B 的式子中，A、B 都是整式，B 含有字母且 B≠0，这样的式子叫分式。分式方程的分母中含有未知数；解题时先写取值限制，再乘以最简公分母去分母，求出候选解后必须代回原方程检验，排除增根。",
           "workedExamples": [
             {
               "title": "例1：解分式方程",
@@ -15200,23 +15200,23 @@
           "hook": "本课使用 MAIS 自主设计情境学习“平行四边形”。先把对象、条件和核心语言说清楚，再用一个小任务检验理解。",
           "objectives": [
             "1.1 说清“平行四边形”中的核心对象、条件和目标。",
-            "1.2 使用平行四边形性质完成一个可检验的任务。",
+            "1.2 使用平行四边形的性质与判定完成可检验的推理。",
             "1.3 根据“未证明四边形类别就先使用性质”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "写出“平行四边形”中一个图形对象和一个关系词，例如边、角、平行、相等或对应。",
-          "conceptExplanation": "平行四边形 学习要区分“看起来像”和“条件说明”。推理时先标出已知关系，再用定义、性质或判定写出理由。",
+          "prerequisiteWarmUp": "画一个平行四边形 ABCD，标出两组对边和两条对角线，并写出定义中给出的平行关系。",
+          "conceptExplanation": "两组对边分别平行的四边形是平行四边形。平行四边形的对边相等、对角相等、对角线互相平分；反过来，可用两组对边分别平行或相等、对角线互相平分等条件判定四边形是平行四边形。",
           "workedExamples": [
             {
-              "title": "例1：角度关系",
-              "prompt": "两条直线相交形成一对邻补角，其中一个角为 40 度，另一个角是多少度？",
-              "solution": "邻补角和为 180 度，所以另一个角为 140 度。",
-              "check": "只有确认是邻补角，才能使用和为 180 度。"
+              "title": "例1：使用性质",
+              "prompt": "在平行四边形 ABCD 中，AB=6，BC=4。求 CD 和 AD 的长。",
+              "solution": "平行四边形的对边相等，所以 CD=AB=6，AD=BC=4。",
+              "check": "必须先确认 ABCD 是平行四边形，才能直接使用对边相等的性质。"
             },
             {
-              "title": "例2：条件判断",
-              "prompt": "如果只凭画面感觉两条线平行，能否直接使用平行线性质？",
-              "solution": "不能。必须有已知条件或经过证明，才能使用相应性质。",
-              "check": "几何推理不能只依赖外观。"
+              "title": "例2：使用判定",
+              "prompt": "四边形 ABCD 的对角线 AC、BD 交于点 O，且 AO=CO、BO=DO。能否判定 ABCD 是平行四边形？",
+              "solution": "能。AO=CO、BO=DO 表明两条对角线互相平分，所以 ABCD 是平行四边形。",
+              "check": "这里使用的是平行四边形判定：对角线互相平分的四边形是平行四边形。"
             }
           ],
           "commonPitfalls": [
@@ -15237,50 +15237,50 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "一个角为 40 度，它的补角是多少度？",
-              "answer": "140 度",
-              "explanation": "两个角和为 180 度时互为补角。"
+              "prompt": "平行四边形的一组邻边长分别为 5 和 8，它的周长是多少？",
+              "answer": "26",
+              "explanation": "对边相等，周长为 2×(5+8)=26。"
             },
             {
               "id": "c2",
-              "prompt": "几何证明第一步通常是什么？",
-              "answer": "整理已知条件",
-              "explanation": "已知条件决定能使用哪些性质。"
+              "prompt": "四边形的对角线互相平分，可以判定它是什么图形？",
+              "answer": "平行四边形",
+              "explanation": "这是平行四边形的一条判定定理。"
             },
             {
               "id": "c3",
-              "prompt": "为什么要写理由？",
-              "answer": "让结论可检验",
-              "explanation": "理由把条件和结论连接起来。"
+              "prompt": "为什么不能看见一组对边相等就判定四边形是平行四边形？",
+              "answer": "只有一组对边相等不是充分条件。",
+              "explanation": "应使用两组对边分别相等等充分条件，或补充其他能完成判定的条件。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出平行四边形性质、平行四边形判定，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先确认是使用已知图形的性质还是根据条件判定图形，再逐步写出边、角或对角线关系。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“平行四边形”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [
             {
-              "term": "图形",
-              "en": "figure",
-              "definition": "由点、线、面或空间对象组成的数学对象。",
-              "enDefinition": "A mathematical object made of points, lines, surfaces, or solids."
+              "term": "平行四边形",
+              "en": "parallelogram",
+              "definition": "两组对边分别平行的四边形。",
+              "enDefinition": "A quadrilateral with both pairs of opposite sides parallel."
             },
             {
-              "term": "性质",
-              "en": "property",
-              "definition": "符合条件的对象必然具有的关系。",
-              "enDefinition": "A relationship that must hold under given conditions."
+              "term": "对边",
+              "en": "opposite sides",
+              "definition": "四边形中不相邻的两条边；平行四边形的两组对边分别平行且相等。",
+              "enDefinition": "Nonadjacent sides of a quadrilateral; opposite sides of a parallelogram are parallel and equal."
             },
             {
-              "term": "判定",
-              "en": "criterion",
-              "definition": "确认对象具有某种关系的方法。",
-              "enDefinition": "A method for confirming a relationship."
+              "term": "对角线互相平分",
+              "en": "diagonals bisect each other",
+              "definition": "两条对角线的交点分别是每条对角线的中点。",
+              "enDefinition": "The intersection point is the midpoint of each diagonal."
             },
             {
-              "term": "证明",
-              "en": "proof",
-              "definition": "用理由一步步推出结论。",
-              "enDefinition": "Reasoning step by step to a conclusion."
+              "term": "平行四边形判定",
+              "en": "parallelogram criterion",
+              "definition": "由两组对边分别平行或相等、对角线互相平分等充分条件判定四边形为平行四边形。",
+              "enDefinition": "A sufficient condition used to prove a quadrilateral is a parallelogram."
             }
           ]
         },
@@ -17100,7 +17100,7 @@
             "1.3 根据“列举结果时遗漏情况”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "袋中有 3 个红球和 4 个白球，任取一个，先说出总可能数。",
-          "conceptExplanation": "概率的进一步认识 要先明确试验、所有等可能结果和目标事件，再用“目标结果数/所有结果数”描述概率。",
+          "conceptExplanation": "进一步研究概率时，要明确随机试验、样本空间和目标事件；等可能情形可用“目标结果数÷所有结果数”计算，复杂情形可借助列表或树状图避免遗漏。",
           "workedExamples": [
             {
               "title": "例1：一步概率",
@@ -17729,20 +17729,20 @@
             "1.2 使用比例关系完成一个可检验的任务。",
             "1.3 根据“对应边匹配错误”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "写出“图形的相似”中一个图形对象和一个关系词，例如边、角、平行、相等或对应。",
-          "conceptExplanation": "图形的相似 学习要区分“看起来像”和“条件说明”。推理时先标出已知关系，再用定义、性质或判定写出理由。",
+          "prerequisiteWarmUp": "把三角形 ABC 与三角形 DEF 的顶点按 A↔D、B↔E、C↔F 对应，写出三组对应边。",
+          "conceptExplanation": "相似图形的对应角相等、对应边成比例。证明两个三角形相似时，可使用两角分别相等、两边成比例且夹角相等等判定；求长度时必须先按同一对应顺序写比例，不能把相似比方向混用。",
           "workedExamples": [
             {
-              "title": "例1：角度关系",
-              "prompt": "两条直线相交形成一对邻补角，其中一个角为 40 度，另一个角是多少度？",
-              "solution": "邻补角和为 180 度，所以另一个角为 140 度。",
-              "check": "只有确认是邻补角，才能使用和为 180 度。"
+              "title": "例1：相似三角形求边",
+              "prompt": "已知 △ABC∽△DEF，且 A↔D、B↔E、C↔F。若 AB=6、DE=9、BC=8，求 EF。",
+              "solution": "对应边成比例，AB/DE=BC/EF，即 6/9=8/EF，所以 EF=12。",
+              "check": "比例两边必须保持同一方向：第一个三角形的边都写在分子。"
             },
             {
-              "title": "例2：条件判断",
-              "prompt": "如果只凭画面感觉两条线平行，能否直接使用平行线性质？",
-              "solution": "不能。必须有已知条件或经过证明，才能使用相应性质。",
-              "check": "几何推理不能只依赖外观。"
+              "title": "例2：相似判定",
+              "prompt": "在 △ABC 和 △DEF 中，∠A=∠D、∠B=∠E。能否判定两个三角形相似？",
+              "solution": "能。两个三角形有两组对应角分别相等，所以 △ABC∽△DEF（AA）。",
+              "check": "写相似结论时按对应顶点排序，才能正确匹配后续的对应边。"
             }
           ],
           "commonPitfalls": [
@@ -17763,50 +17763,50 @@
           "checkpoints": [
             {
               "id": "c1",
-              "prompt": "一个角为 40 度，它的补角是多少度？",
-              "answer": "140 度",
-              "explanation": "两个角和为 180 度时互为补角。"
+              "prompt": "若两个相似三角形的相似比为 2:3，对应边 8 所对应的另一条边是多少？",
+              "answer": "12",
+              "explanation": "8/x=2/3，所以 x=12。"
             },
             {
               "id": "c2",
-              "prompt": "几何证明第一步通常是什么？",
-              "answer": "整理已知条件",
-              "explanation": "已知条件决定能使用哪些性质。"
+              "prompt": "两组对应角分别相等，可以用什么方法判定三角形相似？",
+              "answer": "AA 判定",
+              "explanation": "两个角分别相等时，第三个角也相等，两个三角形相似。"
             },
             {
               "id": "c3",
-              "prompt": "为什么要写理由？",
-              "answer": "让结论可检验",
-              "explanation": "理由把条件和结论连接起来。"
+              "prompt": "列对应边比例时为什么要保持同一方向？",
+              "answer": "避免把不同的相似比混在同一个等式中。",
+              "explanation": "所有比都应按“同一个三角形/另一个三角形”或其倒数统一书写。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出比例关系、相似判定，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先按相同顺序标出对应顶点和对应边，再选择相似判定或列出同方向的比例式。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“图形的相似”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [
             {
-              "term": "图形",
-              "en": "figure",
-              "definition": "由点、线、面或空间对象组成的数学对象。",
-              "enDefinition": "A mathematical object made of points, lines, surfaces, or solids."
+              "term": "相似图形",
+              "en": "similar figures",
+              "definition": "形状相同、大小可以不同，且对应角相等、对应边成比例的图形。",
+              "enDefinition": "Figures with the same shape whose corresponding angles are equal and corresponding sides are proportional."
             },
             {
-              "term": "性质",
-              "en": "property",
-              "definition": "符合条件的对象必然具有的关系。",
-              "enDefinition": "A relationship that must hold under given conditions."
+              "term": "对应边",
+              "en": "corresponding sides",
+              "definition": "两个相似图形中按照顶点对应关系彼此匹配的边。",
+              "enDefinition": "Sides matched according to the correspondence of two similar figures."
             },
             {
-              "term": "判定",
-              "en": "criterion",
-              "definition": "确认对象具有某种关系的方法。",
-              "enDefinition": "A method for confirming a relationship."
+              "term": "相似比",
+              "en": "scale factor",
+              "definition": "两个相似图形对应边长度的比；书写时必须保持对应方向一致。",
+              "enDefinition": "The ratio of corresponding side lengths in two similar figures."
             },
             {
-              "term": "证明",
-              "en": "proof",
-              "definition": "用理由一步步推出结论。",
-              "enDefinition": "Reasoning step by step to a conclusion."
+              "term": "AA 判定",
+              "en": "AA similarity criterion",
+              "definition": "两组对应角分别相等的两个三角形相似。",
+              "enDefinition": "Two triangles are similar when two pairs of corresponding angles are equal."
             }
           ]
         },
@@ -18990,7 +18990,7 @@
             "1.3 根据“把反比例关系误看成线性下降”解释如何避免错误。"
           ],
           "prerequisiteWarmUp": "写出一个会随另一个量变化的生活数量，并说明谁随谁变化。",
-          "conceptExplanation": "反比例函数 的核心是用表格、式子或图象表示两个变量的对应关系，并解释变化趋势。",
+          "conceptExplanation": "反比例函数 y=k/x（k≠0）的自变量 x 不能为 0，且 xy=k 保持不变。研究图象和变化趋势时必须分象限、分取值范围讨论。",
           "workedExamples": [
             {
               "title": "例1：代入求值",
@@ -21506,11 +21506,11 @@
           "hook": "本课使用 MAIS 自主设计情境学习“统计与概率”。先把对象、条件和核心语言说清楚，再用一个小任务检验理解。",
           "objectives": [
             "1.1 说清“统计与概率”中的核心对象、条件和目标。",
-            "1.2 使用数据整理分析完成一个可检验的任务。",
+            "1.2 使用统计量和试验频率完成可检验的数据与概率任务。",
             "1.3 根据“未看数据分布就直接使用平均数”解释如何避免错误。"
           ],
-          "prerequisiteWarmUp": "记录 5 个数据：7，8，8，9，11。先判断哪个统计量最容易计算。",
-          "conceptExplanation": "统计与概率 要先明确调查问题和数据来源，再选择平均数、中位数、众数或图表来表达信息，结论不能超过数据支持范围。",
+          "prerequisiteWarmUp": "记录 5 个数据：7，8，8，9，11，分别求出平均数和中位数，并比较它们表达的信息。",
+          "conceptExplanation": "统计分析要先明确调查问题、数据来源和样本范围，再选择平均数、中位数、众数或图表表达信息。概率试验中，事件频率会随试验次数增加而趋于稳定，可用大量重复试验的频率估计概率，但不能把一次频率当作精确概率。",
           "workedExamples": [
             {
               "title": "例1：平均数",
@@ -21519,10 +21519,10 @@
               "check": "平均数应位于最小值和最大值之间。"
             },
             {
-              "title": "例2：解释结论",
-              "prompt": "如果只调查一个小组，能否直接代表全年级？",
-              "solution": "不能。样本范围太小，结论只能作为参考。",
-              "check": "统计结论要说明数据来源和限制。"
+              "title": "例2：用频率估计概率",
+              "prompt": "重复抛掷一枚质地均匀的硬币 200 次，其中正面朝上 108 次。正面朝上的频率是多少？它与理论概率有什么关系？",
+              "solution": "频率为 108/200=0.54。质地均匀硬币正面朝上的理论概率为 0.5；0.54 是本次试验的频率估计，不是理论概率的精确值。",
+              "check": "试验次数较多时频率通常在概率附近波动，但有限次试验的频率不必恰好等于概率。"
             }
           ],
           "commonPitfalls": [
@@ -21549,18 +21549,18 @@
             },
             {
               "id": "c2",
-              "prompt": "调查前先确定什么？",
-              "answer": "调查问题",
-              "explanation": "问题决定需要收集哪些数据。"
+              "prompt": "抛硬币 200 次，正面出现 108 次，正面频率是多少？",
+              "answer": "0.54",
+              "explanation": "正面频率=108÷200=0.54。"
             },
             {
               "id": "c3",
-              "prompt": "为什么统计结论要说明范围？",
-              "answer": "避免过度推广",
-              "explanation": "样本只能支持相应范围内的判断。"
+              "prompt": "为什么不能把有限次试验的频率说成理论概率的精确值？",
+              "answer": "频率会随机波动，只能在大量试验中趋近概率。",
+              "explanation": "理论概率由随机试验模型决定，频率是具体样本中的观测结果。"
             }
           ],
-          "examStyleStrategy": "考试型任务中，先标出数据整理分析、平均数中位数众数，再把结论写成可检查的步骤。",
+          "examStyleStrategy": "考试型任务中，先区分描述数据、抽样推断和概率估计，再选择统计量或用“事件次数÷试验总次数”计算频率。",
           "extension": "请改编本课第一个例题的数字或条件，设计一个新的“统计与概率”任务，并写出完整解答。",
           "exitTicket": "用一句话说明本课“概念建构”最需要检查的一个条件。",
           "glossary": [

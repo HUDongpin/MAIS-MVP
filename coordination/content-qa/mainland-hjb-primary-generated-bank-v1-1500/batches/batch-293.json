@@ -169,7 +169,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "方程2(x - 4) = 10的解与下面哪个方程的解相同？",
+      "promptZhHans": "方程2(x-4)=10两边同时除以2后得到下面哪个方程？",
       "optionsZhHans": [
         "x - 4 = 5",
         "2x - 4 = 10",
@@ -178,9 +178,10 @@
       ],
       "answer": "x - 4 = 5",
       "acceptedAnswers": [
-        "x - 4 = 5"
+        "x - 4 = 5",
+        "x-4=5"
       ],
-      "explanationZhHans": "2(x-4)=10两边除以2得x-4=5，解为x=9。选项A即x-4=5，解相同。其他选项解不同。"
+      "explanationZhHans": "方程两边同时除以2，左边2(x-4)÷2=x-4，右边10÷2=5，得到x-4=5，所以选第一项。"
     },
     {
       "id": "hjb-primary-ds-v1-p6-214",

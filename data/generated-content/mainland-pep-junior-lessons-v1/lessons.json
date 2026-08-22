@@ -130,7 +130,7 @@
           "glossary": [
             {
               "term": "有理数",
-              "definition": "能写成整数或分数形式的数。"
+              "definition": "能写成 p/q 形式的数，其中 p、q 都是整数且 q≠0。"
             },
             {
               "term": "数轴",
@@ -211,7 +211,7 @@
           "glossary": [
             {
               "term": "rational number",
-              "definition": "A number that can be written as an integer or a fraction."
+              "definition": "A number that can be written as p/q, where p and q are integers and q≠0."
             },
             {
               "term": "number line",
@@ -321,8 +321,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "有理数: 能写成整数或分数形式的数。\n数轴: 用位置表示数大小和方向的直线。\n相反数: 到零距离相同、方向相反的两个数。\n绝对值: 一个数到零的距离。",
-              "en": "rational number: A number that can be written as an integer or a fraction.\nnumber line: A line that represents size and direction by position.\nopposite number: Two numbers with the same distance from zero and opposite directions.\nabsolute value: The distance of a number from zero."
+              "zhHans": "有理数: 能写成 p/q 形式的数，其中 p、q 都是整数且 q≠0。\n数轴: 用位置表示数大小和方向的直线。\n相反数: 到零距离相同、方向相反的两个数。\n绝对值: 一个数到零的距离。",
+              "en": "rational number: A number that can be written as p/q, where p and q are integers and q≠0.\nnumber line: A line that represents size and direction by position.\nopposite number: Two numbers with the same distance from zero and opposite directions.\nabsolute value: The distance of a number from zero."
             }
           ]
         },
@@ -540,7 +540,7 @@
           "glossary": [
             {
               "term": "整式",
-              "definition": "由数、字母和运算组成的式子。"
+              "definition": "由单项式相加组成，字母不作除数且字母指数都是非负整数的式子。"
             },
             {
               "term": "同类项",
@@ -620,8 +620,8 @@
           "exitTicket": "Why can \\(3x+2x\\) be combined, but \\(3x+2y\\) cannot?",
           "glossary": [
             {
-              "term": "algebraic expression",
-              "definition": "An expression made of numbers, letters, and operations."
+              "term": "polynomial expression",
+              "definition": "A sum of monomials in which variables are not divisors and have nonnegative integer exponents."
             },
             {
               "term": "like terms",
@@ -731,8 +731,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "整式: 由数、字母和运算组成的式子。\n同类项: 字母部分完全相同的项。\n一元一次方程: 只含一个未知数且最高次数为一的方程。\n等式性质: 等式两边同做相同运算，等式仍成立。",
-              "en": "algebraic expression: An expression made of numbers, letters, and operations.\nlike terms: Terms with exactly the same letter part.\none-variable linear equation: An equation with one unknown whose highest power is one.\nproperties of equality: Doing the same operation to both sides keeps an equation true."
+              "zhHans": "整式: 由单项式相加组成，字母不作除数且字母指数都是非负整数的式子。\n同类项: 字母部分完全相同的项。\n一元一次方程: 只含一个未知数且最高次数为一的方程。\n等式性质: 等式两边同做相同运算，等式仍成立。",
+              "en": "polynomial expression: A sum of monomials in which variables are not divisors and have nonnegative integer exponents.\nlike terms: Terms with exactly the same letter part.\none-variable linear equation: An equation with one unknown whose highest power is one.\nproperties of equality: Doing the same operation to both sides keeps an equation true."
             }
           ]
         },
@@ -934,7 +934,7 @@
             {
               "id": "c2",
               "prompt": "若 \\(\\angle A=28^\\circ\\)，\\(\\angle B=82^\\circ\\)，哪个角更大？",
-              "answer": "angle B",
+              "answer": "\\(\\angle B\\)",
               "explanation": "\\(82^\\circ>28^\\circ\\)，所以 \\(\\angle B\\) 更大。"
             },
             {
@@ -954,7 +954,7 @@
             },
             {
               "term": "射线",
-              "definition": "有一个端点并向一个方向延伸的线。"
+              "definition": "有一个端点并向一个方向无限延伸的线。"
             },
             {
               "term": "直线",
@@ -1035,7 +1035,7 @@
             },
             {
               "term": "ray",
-              "definition": "A line part with one endpoint that extends in one direction."
+              "definition": "A line part with one endpoint that extends without end in one direction."
             },
             {
               "term": "line",
@@ -1113,7 +1113,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 线段 \\(PQ\\) 有几个端点？\n答案: 2. 线段有两个端点，分别是 \\(P\\) 和 \\(Q\\)。\n小练习 2: 若 \\(\\angle A=28^\\circ\\)，\\(\\angle B=82^\\circ\\)，哪个角更大？\n答案: angle B. \\(82^\\circ>28^\\circ\\)，所以 \\(\\angle B\\) 更大。\n小练习 3: 点 \\(M\\) 在线段 \\(XY\\) 上，\\(XM=3\\)，\\(MY=9\\)，求 \\(XY\\)。\n答案: 12. \\(XY=XM+MY=3+9=12\\)。",
+              "zhHans": "小练习 1: 线段 \\(PQ\\) 有几个端点？\n答案: 2. 线段有两个端点，分别是 \\(P\\) 和 \\(Q\\)。\n小练习 2: 若 \\(\\angle A=28^\\circ\\)，\\(\\angle B=82^\\circ\\)，哪个角更大？\n答案: \\(\\angle B\\). \\(82^\\circ>28^\\circ\\)，所以 \\(\\angle B\\) 更大。\n小练习 3: 点 \\(M\\) 在线段 \\(XY\\) 上，\\(XM=3\\)，\\(MY=9\\)，求 \\(XY\\)。\n答案: 12. \\(XY=XM+MY=3+9=12\\)。",
               "en": "Checkpoint 1: How many endpoints does segment \\(PQ\\) have?\nAnswer: 2. A segment has two endpoints, \\(P\\) and \\(Q\\).\nCheckpoint 2: If \\(\\angle A=28^\\circ\\) and \\(\\angle B=82^\\circ\\), which angle is larger?\nAnswer: angle B. \\(82^\\circ>28^\\circ\\), so \\(\\angle B\\) is larger.\nCheckpoint 3: Point \\(M\\) lies on segment \\(XY\\). If \\(XM=3\\) and \\(MY=9\\), find \\(XY\\).\nAnswer: 12. \\(XY=XM+MY=3+9=12\\)."
             },
             {
@@ -1141,8 +1141,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "线段: 有两个端点的直线部分。\n射线: 有一个端点并向一个方向延伸的线。\n直线: 向两个方向无限延伸的线。\n角: 由两条有公共端点的射线组成的图形。",
-              "en": "segment: Part of a line with two endpoints.\nray: A line part with one endpoint that extends in one direction.\nline: A line extending without end in two directions.\nangle: A figure formed by two rays with a common endpoint."
+              "zhHans": "线段: 有两个端点的直线部分。\n射线: 有一个端点并向一个方向无限延伸的线。\n直线: 向两个方向无限延伸的线。\n角: 由两条有公共端点的射线组成的图形。",
+              "en": "segment: Part of a line with two endpoints.\nray: A line part with one endpoint that extends without end in one direction.\nline: A line extending without end in two directions.\nangle: A figure formed by two rays with a common endpoint."
             }
           ]
         },
@@ -1315,7 +1315,7 @@
               "title": "例2：坐标平移",
               "prompt": "点 \\(A(-2,5)\\) 向右平移 \\(6\\) 个单位，再向下平移 \\(3\\) 个单位，得到点 \\(A'\\)。求 \\(A'\\) 坐标。",
               "solution": "向右使 \\(x\\) 加 \\(6\\)：\\(-2+6=4\\)；向下使 \\(y\\) 减 \\(3\\)：\\(5-3=2\\)。所以 \\(A'(4,2)\\)。",
-              "check": "右移不改变纵坐标之前的变化方向，下移不改变横坐标。"
+              "check": "右移只改变横坐标，不改变纵坐标；下移只改变纵坐标，不改变横坐标。"
             }
           ],
           "commonPitfalls": [
@@ -1337,13 +1337,13 @@
             {
               "id": "c1",
               "prompt": "若邻补角之一为 \\(73^\\circ\\)，另一个是多少？",
-              "answer": "107 degrees",
+              "answer": "\\(107^\\circ\\)",
               "explanation": "\\(180^\\circ-73^\\circ=107^\\circ\\)。"
             },
             {
               "id": "c2",
               "prompt": "点 \\(B(0,-5)\\) 在哪个坐标轴上？",
-              "answer": "y-axis",
+              "answer": "\\(y\\) 轴",
               "explanation": "横坐标为 \\(0\\)，所以点在 \\(y\\) 轴上。"
             },
             {
@@ -1494,7 +1494,7 @@
               "id": "worked-examples",
               "labelZh": "例题精讲",
               "labelEn": "Worked Examples",
-              "zhHans": "例1 例1：角关系\n两条直线相交。若一个角为 \\(64^\\circ\\)，求它的对顶角和邻补角。\n对顶角相等，所以为 \\(64^\\circ\\)。邻补角与它和为 \\(180^\\circ\\)，所以 \\(180^\\circ-64^\\circ=116^\\circ\\)。\n检查: 四个角应成两组相等角，且相邻两个角和为 \\(180^\\circ\\)。\n\n例2 例2：坐标平移\n点 \\(A(-2,5)\\) 向右平移 \\(6\\) 个单位，再向下平移 \\(3\\) 个单位，得到点 \\(A'\\)。求 \\(A'\\) 坐标。\n向右使 \\(x\\) 加 \\(6\\)：\\(-2+6=4\\)；向下使 \\(y\\) 减 \\(3\\)：\\(5-3=2\\)。所以 \\(A'(4,2)\\)。\n检查: 右移不改变纵坐标之前的变化方向，下移不改变横坐标。",
+              "zhHans": "例1 例1：角关系\n两条直线相交。若一个角为 \\(64^\\circ\\)，求它的对顶角和邻补角。\n对顶角相等，所以为 \\(64^\\circ\\)。邻补角与它和为 \\(180^\\circ\\)，所以 \\(180^\\circ-64^\\circ=116^\\circ\\)。\n检查: 四个角应成两组相等角，且相邻两个角和为 \\(180^\\circ\\)。\n\n例2 例2：坐标平移\n点 \\(A(-2,5)\\) 向右平移 \\(6\\) 个单位，再向下平移 \\(3\\) 个单位，得到点 \\(A'\\)。求 \\(A'\\) 坐标。\n向右使 \\(x\\) 加 \\(6\\)：\\(-2+6=4\\)；向下使 \\(y\\) 减 \\(3\\)：\\(5-3=2\\)。所以 \\(A'(4,2)\\)。\n检查: 右移只改变横坐标，不改变纵坐标；下移只改变纵坐标，不改变横坐标。",
               "en": "Example 1 Example 1: Angle Relationship\nTwo lines intersect. If one angle is \\(64^\\circ\\), find its vertical angle and its adjacent supplementary angle.\nThe vertical angle is equal, so it is \\(64^\\circ\\). The adjacent supplementary angle sums with it to \\(180^\\circ\\), so \\(180^\\circ-64^\\circ=116^\\circ\\).\nCheck: The four angles should form two equal pairs, and adjacent angles should sum to \\(180^\\circ\\).\n\nExample 2 Example 2: Coordinate Translation\nPoint \\(A(-2,5)\\) moves \\(6\\) units right and then \\(3\\) units down to point \\(A'\\). Find the coordinates of \\(A'\\).\nMoving right adds \\(6\\) to \\(x\\): \\(-2+6=4\\). Moving down subtracts \\(3\\) from \\(y\\): \\(5-3=2\\). Thus \\(A'(4,2)\\).\nCheck: A right shift changes only the x-coordinate, and a down shift changes only the y-coordinate."
             },
             {
@@ -1522,7 +1522,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 若邻补角之一为 \\(73^\\circ\\)，另一个是多少？\n答案: 107 degrees. \\(180^\\circ-73^\\circ=107^\\circ\\)。\n小练习 2: 点 \\(B(0,-5)\\) 在哪个坐标轴上？\n答案: y-axis. 横坐标为 \\(0\\)，所以点在 \\(y\\) 轴上。\n小练习 3: 点 \\(C(3,1)\\) 向左 \\(4\\) 个单位后坐标是多少？\n答案: (-1,1). 向左使 \\(x\\) 减 \\(4\\)，得 \\(3-4=-1\\)，所以为 \\((-1,1)\\)。",
+              "zhHans": "小练习 1: 若邻补角之一为 \\(73^\\circ\\)，另一个是多少？\n答案: \\(107^\\circ\\). \\(180^\\circ-73^\\circ=107^\\circ\\)。\n小练习 2: 点 \\(B(0,-5)\\) 在哪个坐标轴上？\n答案: \\(y\\) 轴. 横坐标为 \\(0\\)，所以点在 \\(y\\) 轴上。\n小练习 3: 点 \\(C(3,1)\\) 向左 \\(4\\) 个单位后坐标是多少？\n答案: (-1,1). 向左使 \\(x\\) 减 \\(4\\)，得 \\(3-4=-1\\)，所以为 \\((-1,1)\\)。",
               "en": "Checkpoint 1: If one angle in a linear pair is \\(73^\\circ\\), what is the other?\nAnswer: 107 degrees. \\(180^\\circ-73^\\circ=107^\\circ\\).\nCheckpoint 2: Which axis contains point \\(B(0,-5)\\)?\nAnswer: y-axis. The x-coordinate is \\(0\\), so the point lies on the \\(y\\)-axis.\nCheckpoint 3: What are the coordinates after point \\(C(3,1)\\) moves \\(4\\) units left?\nAnswer: (-1,1). Moving left subtracts \\(4\\) from \\(x\\): \\(3-4=-1\\), so the point is \\((-1,1)\\)."
             },
             {
@@ -1752,7 +1752,7 @@
             {
               "id": "c2",
               "prompt": "解不等式 \\(4x-1\\ge 15\\)。",
-              "answer": "x>=4",
+              "answer": "\\(x\\ge 4\\)",
               "explanation": "两边加 \\(1\\) 得 \\(4x\\ge16\\)，所以 \\(x\\ge4\\)。"
             },
             {
@@ -1931,7 +1931,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 解 \\(x+2y=11\\)，\\(x=3\\) 时 \\(y\\) 是多少？\n答案: 4. 代入得 \\(3+2y=11\\)，所以 \\(2y=8\\)，\\(y=4\\)。\n小练习 2: 解不等式 \\(4x-1\\ge 15\\)。\n答案: x>=4. 两边加 \\(1\\) 得 \\(4x\\ge16\\)，所以 \\(x\\ge4\\)。\n小练习 3: 一组数据为 \\(5,7,7,9\\)，平均数是多少？\n答案: 7. \\((5+7+7+9)\\div4=7\\)。",
+              "zhHans": "小练习 1: 解 \\(x+2y=11\\)，\\(x=3\\) 时 \\(y\\) 是多少？\n答案: 4. 代入得 \\(3+2y=11\\)，所以 \\(2y=8\\)，\\(y=4\\)。\n小练习 2: 解不等式 \\(4x-1\\ge 15\\)。\n答案: \\(x\\ge 4\\). 两边加 \\(1\\) 得 \\(4x\\ge16\\)，所以 \\(x\\ge4\\)。\n小练习 3: 一组数据为 \\(5,7,7,9\\)，平均数是多少？\n答案: 7. \\((5+7+7+9)\\div4=7\\)。",
               "en": "Checkpoint 1: If \\(x+2y=11\\) and \\(x=3\\), what is \\(y\\)?\nAnswer: 4. Substitute to get \\(3+2y=11\\), so \\(2y=8\\) and \\(y=4\\).\nCheckpoint 2: Solve \\(4x-1\\ge 15\\).\nAnswer: x>=4. Add \\(1\\) to both sides to get \\(4x\\ge16\\), so \\(x\\ge4\\).\nCheckpoint 3: For the data \\(5,7,7,9\\), what is the mean?\nAnswer: 7. \\((5+7+7+9)\\div4=7\\)."
             },
             {
@@ -2154,7 +2154,7 @@
             {
               "id": "c1",
               "prompt": "三角形两角为 \\(40^\\circ\\) 和 \\(75^\\circ\\)，第三角是多少？",
-              "answer": "65 degrees",
+              "answer": "\\(65^\\circ\\)",
               "explanation": "\\(180^\\circ-40^\\circ-75^\\circ=65^\\circ\\)。"
             },
             {
@@ -2166,7 +2166,7 @@
             {
               "id": "c3",
               "prompt": "轴对称中，对称点到对称轴的距离有什么关系？",
-              "answer": "equal",
+              "answer": "相等",
               "explanation": "对称点到对称轴距离相等。"
             }
           ],
@@ -2339,7 +2339,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 三角形两角为 \\(40^\\circ\\) 和 \\(75^\\circ\\)，第三角是多少？\n答案: 65 degrees. \\(180^\\circ-40^\\circ-75^\\circ=65^\\circ\\)。\n小练习 2: \\(AB=PQ\\)，\\(BC=QR\\)，\\(AC=PR\\) 可用什么判定全等？\n答案: SSS. 三组对应边相等，所以用 \\(SSS\\)。\n小练习 3: 轴对称中，对称点到对称轴的距离有什么关系？\n答案: equal. 对称点到对称轴距离相等。",
+              "zhHans": "小练习 1: 三角形两角为 \\(40^\\circ\\) 和 \\(75^\\circ\\)，第三角是多少？\n答案: \\(65^\\circ\\). \\(180^\\circ-40^\\circ-75^\\circ=65^\\circ\\)。\n小练习 2: \\(AB=PQ\\)，\\(BC=QR\\)，\\(AC=PR\\) 可用什么判定全等？\n答案: SSS. 三组对应边相等，所以用 \\(SSS\\)。\n小练习 3: 轴对称中，对称点到对称轴的距离有什么关系？\n答案: 相等. 对称点到对称轴距离相等。",
               "en": "Checkpoint 1: A triangle has angles \\(40^\\circ\\) and \\(75^\\circ\\). What is the third angle?\nAnswer: 65 degrees. \\(180^\\circ-40^\\circ-75^\\circ=65^\\circ\\).\nCheckpoint 2: If \\(AB=PQ\\), \\(BC=QR\\), and \\(AC=PR\\), which criterion proves congruence?\nAnswer: SSS. Three pairs of corresponding sides are equal, so use \\(SSS\\).\nCheckpoint 3: In axial symmetry, what is true about the distances from corresponding points to the axis?\nAnswer: equal. Corresponding points are the same distance from the axis."
             },
             {
@@ -2554,7 +2554,7 @@
           ],
           "strategyChecklist": [
             "先观察是否有公因式。",
-            "再判断是否符合平方差或完全平方公式。",
+            "判断多项式是否符合平方差或完全平方公式。",
             "分式先写限制再约分。",
             "分式方程最后代回原分母检查。"
           ],
@@ -2635,7 +2635,7 @@
           ],
           "strategyChecklist": [
             "First look for a common factor.",
-            "Then check for difference-of-squares or perfect-square patterns.",
+            "Check whether the polynomial matches a difference-of-squares or perfect-square pattern.",
             "For fractions, write restrictions before canceling.",
             "For fraction equations, substitute back into original denominators."
           ],
@@ -2740,8 +2740,8 @@
               "id": "strategy-checklist",
               "labelZh": "策略清单",
               "labelEn": "Strategy Checklist",
-              "zhHans": "1. 先观察是否有公因式。\n2. 再判断是否符合平方差或完全平方公式。\n3. 分式先写限制再约分。\n4. 分式方程最后代回原分母检查。",
-              "en": "1. First look for a common factor.\n2. Then check for difference-of-squares or perfect-square patterns.\n3. For fractions, write restrictions before canceling.\n4. For fraction equations, substitute back into original denominators."
+              "zhHans": "1. 先观察是否有公因式。\n2. 判断多项式是否符合平方差或完全平方公式。\n3. 分式先写限制再约分。\n4. 分式方程最后代回原分母检查。",
+              "en": "1. First look for a common factor.\n2. Check whether the polynomial matches a difference-of-squares or perfect-square pattern.\n3. For fractions, write restrictions before canceling.\n4. For fraction equations, substitute back into original denominators."
             },
             {
               "id": "checkpoints",
@@ -2972,7 +2972,7 @@
             {
               "id": "c1",
               "prompt": "化简 \\(\\sqrt{50}\\)。",
-              "answer": "5sqrt2",
+              "answer": "\\(5\\sqrt{2}\\)",
               "explanation": "\\(50=25\\times2\\)，所以 \\(\\sqrt{50}=5\\sqrt2\\)。"
             },
             {
@@ -2990,11 +2990,11 @@
           ],
           "examStyleStrategy": "含长度的几何题先判断类型和条件，能保留根式时不要过早取近似值。",
           "extension": "设计一个坐标中的四边形，用边长或斜率说明它是否为平行四边形。",
-          "exitTicket": "为什么三边 \\(5,6,7\\) 不能直接套用 \\(a^2+b^2=c^2\\) 求新边？",
+          "exitTicket": "为什么 \\(5^2+6^2\\neq7^2\\) 能说明边长为 \\(5,6,7\\) 的三角形不是直角三角形？",
           "glossary": [
             {
               "term": "二次根式",
-              "definition": "形如根号下非负数的式子。"
+              "definition": "形如 \\(\\sqrt a\\)（\\(a\\ge0\\)）的式子。"
             },
             {
               "term": "勾股定理",
@@ -3071,11 +3071,11 @@
           ],
           "examStyleStrategy": "For geometry tasks with lengths, identify the figure type and conditions first. Keep radicals exact instead of approximating too early.",
           "extension": "Design a quadrilateral on a coordinate grid and use side lengths or slopes to decide whether it is a parallelogram.",
-          "exitTicket": "Why can we not directly use \\(a^2+b^2=c^2\\) to find a new side from sides \\(5,6,7\\)?",
+          "exitTicket": "Why does \\(5^2+6^2\\neq7^2\\) show that a triangle with side lengths \\(5,6,7\\) is not a right triangle?",
           "glossary": [
             {
               "term": "square radical",
-              "definition": "An expression involving the square root of a nonnegative quantity."
+              "definition": "An expression of the form \\(\\sqrt a\\), where \\(a\\ge0\\)."
             },
             {
               "term": "Pythagorean theorem",
@@ -3157,7 +3157,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 化简 \\(\\sqrt{50}\\)。\n答案: 5sqrt2. \\(50=25\\times2\\)，所以 \\(\\sqrt{50}=5\\sqrt2\\)。\n小练习 2: 直角三角形两直角边为 \\(5\\) 和 \\(12\\)，斜边是多少？\n答案: 13. \\(5^2+12^2=25+144=169\\)，所以斜边为 \\(13\\)。\n小练习 3: 平行四边形一组对边长为 \\(9\\)，对应对边长是多少？\n答案: 9. 平行四边形对边相等，所以对应对边为 \\(9\\)。",
+              "zhHans": "小练习 1: 化简 \\(\\sqrt{50}\\)。\n答案: \\(5\\sqrt{2}\\). \\(50=25\\times2\\)，所以 \\(\\sqrt{50}=5\\sqrt2\\)。\n小练习 2: 直角三角形两直角边为 \\(5\\) 和 \\(12\\)，斜边是多少？\n答案: 13. \\(5^2+12^2=25+144=169\\)，所以斜边为 \\(13\\)。\n小练习 3: 平行四边形一组对边长为 \\(9\\)，对应对边长是多少？\n答案: 9. 平行四边形对边相等，所以对应对边为 \\(9\\)。",
               "en": "Checkpoint 1: Simplify \\(\\sqrt{50}\\).\nAnswer: 5sqrt2. \\(50=25\\times2\\), so \\(\\sqrt{50}=5\\sqrt2\\).\nCheckpoint 2: A right triangle has legs \\(5\\) and \\(12\\). What is the hypotenuse?\nAnswer: 13. \\(5^2+12^2=25+144=169\\), so the hypotenuse is \\(13\\).\nCheckpoint 3: In a parallelogram, one side has length \\(9\\). What is the length of the opposite side?\nAnswer: 9. Opposite sides of a parallelogram are equal, so the opposite side is \\(9\\)."
             },
             {
@@ -3178,15 +3178,15 @@
               "id": "exit-ticket",
               "labelZh": "出门票",
               "labelEn": "Exit Ticket",
-              "zhHans": "为什么三边 \\(5,6,7\\) 不能直接套用 \\(a^2+b^2=c^2\\) 求新边？",
-              "en": "Why can we not directly use \\(a^2+b^2=c^2\\) to find a new side from sides \\(5,6,7\\)?"
+              "zhHans": "为什么 \\(5^2+6^2\\neq7^2\\) 能说明边长为 \\(5,6,7\\) 的三角形不是直角三角形？",
+              "en": "Why does \\(5^2+6^2\\neq7^2\\) show that a triangle with side lengths \\(5,6,7\\) is not a right triangle?"
             },
             {
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "二次根式: 形如根号下非负数的式子。\n勾股定理: 直角三角形两直角边平方和等于斜边平方。\n逆定理: 把原定理的条件和结论反过来形成的判断。\n平行四边形: 两组对边分别平行的四边形。",
-              "en": "square radical: An expression involving the square root of a nonnegative quantity.\nPythagorean theorem: In a right triangle, the sum of the squares of the legs equals the square of the hypotenuse.\nconverse: A statement formed by reversing the condition and conclusion of a theorem.\nparallelogram: A quadrilateral with both pairs of opposite sides parallel."
+              "zhHans": "二次根式: 形如 \\(\\sqrt a\\)（\\(a\\ge0\\)）的式子。\n勾股定理: 直角三角形两直角边平方和等于斜边平方。\n逆定理: 把原定理的条件和结论反过来形成的判断。\n平行四边形: 两组对边分别平行的四边形。",
+              "en": "square radical: An expression of the form \\(\\sqrt a\\), where \\(a\\ge0\\).\nPythagorean theorem: In a right triangle, the sum of the squares of the legs equals the square of the hypotenuse.\nconverse: A statement formed by reversing the condition and conclusion of a theorem.\nparallelogram: A quadrilateral with both pairs of opposite sides parallel."
             }
           ]
         },
@@ -3348,7 +3348,7 @@
             "根据问题选择平均数、中位数或众数。"
           ],
           "prerequisiteWarmUp": "数对 \\((0,3)\\) 和 \\((2,7)\\) 的纵坐标每当横坐标增加 \\(1\\) 时变化多少？",
-          "conceptExplanation": "一次函数常写成 \\(y=kx+b\\)。其中 \\(k\\) 表示每增加 \\(1\\) 个横坐标单位时纵坐标的变化量，\\(b\\) 是图象与 \\(y\\) 轴的交点纵坐标。数据分析中，平均数受极端值影响，中位数强调中间位置，众数强调出现次数最多的值。",
+          "conceptExplanation": "一次函数写成 \\(y=kx+b\\)，其中 \\(k\\neq0\\)。\\(k\\) 表示横坐标每增加 \\(1\\) 个单位时纵坐标的变化量，\\(b\\) 是图象与 \\(y\\) 轴交点的纵坐标。数据分析中，平均数受极端值影响，中位数强调中间位置，众数强调出现次数最多的值。",
           "workedExamples": [
             {
               "title": "例1：求一次函数表达式",
@@ -3388,7 +3388,7 @@
             {
               "id": "c2",
               "prompt": "点 \\((2,5)\\) 是否在 \\(y=2x+1\\) 上？",
-              "answer": "yes",
+              "answer": "是",
               "explanation": "代入 \\(x=2\\) 得 \\(2\\times2+1=5\\)，成立。"
             },
             {
@@ -3404,11 +3404,11 @@
           "glossary": [
             {
               "term": "一次函数",
-              "definition": "图象为直线且变化率固定的函数。"
+              "definition": "形如 \\(y=kx+b\\)（\\(k\\neq0\\)）且图象为直线的函数。"
             },
             {
               "term": "斜率",
-              "definition": "横坐标增加一个单位时纵坐标的变化量。"
+              "definition": "一次函数中横坐标增加一个单位时纵坐标的非零变化量。"
             },
             {
               "term": "截距",
@@ -3429,7 +3429,7 @@
             "Choose mean, median, or mode according to the question."
           ],
           "prerequisiteWarmUp": "For points \\((0,3)\\) and \\((2,7)\\), how much does the y-coordinate change when the x-coordinate increases by \\(1\\)?",
-          "conceptExplanation": "A linear function is often written as \\(y=kx+b\\). Here \\(k\\) is the change in y when x increases by \\(1\\), and \\(b\\) is the y-coordinate of the y-intercept. In data analysis, the mean is affected by outliers, the median emphasizes middle position, and the mode emphasizes the most frequent value.",
+          "conceptExplanation": "A linear function has the form \\(y=kx+b\\), where \\(k\\neq0\\). Here \\(k\\) is the change in y when x increases by \\(1\\), and \\(b\\) is the y-coordinate of the y-intercept. In data analysis, the mean is affected by outliers, the median emphasizes middle position, and the mode emphasizes the most frequent value.",
           "workedExamples": [
             {
               "title": "Example 1: Find a Linear Formula",
@@ -3485,11 +3485,11 @@
           "glossary": [
             {
               "term": "linear function",
-              "definition": "A function with a straight-line graph and constant rate of change."
+              "definition": "A function of the form \\(y=kx+b\\), where \\(k\\neq0\\), whose graph is a straight line."
             },
             {
               "term": "slope",
-              "definition": "The change in y for a one-unit increase in x."
+              "definition": "The nonzero change in y for a one-unit increase in x in a linear function."
             },
             {
               "term": "intercept",
@@ -3532,8 +3532,8 @@
               "id": "concept",
               "labelZh": "核心讲解",
               "labelEn": "Core Concept",
-              "zhHans": "一次函数常写成 \\(y=kx+b\\)。其中 \\(k\\) 表示每增加 \\(1\\) 个横坐标单位时纵坐标的变化量，\\(b\\) 是图象与 \\(y\\) 轴的交点纵坐标。数据分析中，平均数受极端值影响，中位数强调中间位置，众数强调出现次数最多的值。",
-              "en": "A linear function is often written as \\(y=kx+b\\). Here \\(k\\) is the change in y when x increases by \\(1\\), and \\(b\\) is the y-coordinate of the y-intercept. In data analysis, the mean is affected by outliers, the median emphasizes middle position, and the mode emphasizes the most frequent value."
+              "zhHans": "一次函数写成 \\(y=kx+b\\)，其中 \\(k\\neq0\\)。\\(k\\) 表示横坐标每增加 \\(1\\) 个单位时纵坐标的变化量，\\(b\\) 是图象与 \\(y\\) 轴交点的纵坐标。数据分析中，平均数受极端值影响，中位数强调中间位置，众数强调出现次数最多的值。",
+              "en": "A linear function has the form \\(y=kx+b\\), where \\(k\\neq0\\). Here \\(k\\) is the change in y when x increases by \\(1\\), and \\(b\\) is the y-coordinate of the y-intercept. In data analysis, the mean is affected by outliers, the median emphasizes middle position, and the mode emphasizes the most frequent value."
             },
             {
               "id": "worked-examples",
@@ -3567,7 +3567,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 函数 \\(y=3x-2\\) 的斜率是多少？\n答案: 3. \\(y=kx+b\\) 中 \\(k=3\\)。\n小练习 2: 点 \\((2,5)\\) 是否在 \\(y=2x+1\\) 上？\n答案: yes. 代入 \\(x=2\\) 得 \\(2\\times2+1=5\\)，成立。\n小练习 3: 数据 \\(4,4,6,7,9\\) 的众数是多少？\n答案: 4. \\(4\\) 出现次数最多。",
+              "zhHans": "小练习 1: 函数 \\(y=3x-2\\) 的斜率是多少？\n答案: 3. \\(y=kx+b\\) 中 \\(k=3\\)。\n小练习 2: 点 \\((2,5)\\) 是否在 \\(y=2x+1\\) 上？\n答案: 是. 代入 \\(x=2\\) 得 \\(2\\times2+1=5\\)，成立。\n小练习 3: 数据 \\(4,4,6,7,9\\) 的众数是多少？\n答案: 4. \\(4\\) 出现次数最多。",
               "en": "Checkpoint 1: What is the slope of \\(y=3x-2\\)?\nAnswer: 3. In \\(y=kx+b\\), \\(k=3\\).\nCheckpoint 2: Does point \\((2,5)\\) lie on \\(y=2x+1\\)?\nAnswer: yes. Substitute \\(x=2\\) to get \\(2\\times2+1=5\\), so yes.\nCheckpoint 3: What is the mode of \\(4,4,6,7,9\\)?\nAnswer: 4. \\(4\\) appears most often."
             },
             {
@@ -3595,8 +3595,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "一次函数: 图象为直线且变化率固定的函数。\n斜率: 横坐标增加一个单位时纵坐标的变化量。\n截距: 图象与坐标轴的交点对应数值。\n中位数: 按顺序排列后位于中间的数据。",
-              "en": "linear function: A function with a straight-line graph and constant rate of change.\nslope: The change in y for a one-unit increase in x.\nintercept: The value where a graph crosses an axis.\nmedian: The middle value when data are ordered."
+              "zhHans": "一次函数: 形如 \\(y=kx+b\\)（\\(k\\neq0\\)）且图象为直线的函数。\n斜率: 一次函数中横坐标增加一个单位时纵坐标的非零变化量。\n截距: 图象与坐标轴的交点对应数值。\n中位数: 按顺序排列后位于中间的数据。",
+              "en": "linear function: A function of the form \\(y=kx+b\\), where \\(k\\neq0\\), whose graph is a straight line.\nslope: The nonzero change in y for a one-unit increase in x in a linear function.\nintercept: The value where a graph crosses an axis.\nmedian: The middle value when data are ordered."
             }
           ]
         },
@@ -3792,7 +3792,7 @@
             {
               "id": "c1",
               "prompt": "解 \\(x^2-9=0\\)。",
-              "answer": "x=3 or x=-3",
+              "answer": "\\(x=3\\) 或 \\(x=-3\\)",
               "explanation": "\\((x-3)(x+3)=0\\)，所以 \\(x=3\\) 或 \\(x=-3\\)。"
             },
             {
@@ -3818,11 +3818,11 @@
             },
             {
               "term": "二次函数",
-              "definition": "可写成二次多项式形式的函数。"
+              "definition": "形如 \\(y=ax^2+bx+c\\)（\\(a\\neq0\\)）的函数。"
             },
             {
               "term": "圆",
-              "definition": "到定点距离相等的所有点组成的图形。"
+              "definition": "平面内到一个定点距离等于定长的所有点组成的图形。"
             },
             {
               "term": "样本空间",
@@ -3900,11 +3900,11 @@
             },
             {
               "term": "quadratic function",
-              "definition": "A function that can be written as a quadratic polynomial."
+              "definition": "A function of the form \\(y=ax^2+bx+c\\), where \\(a\\neq0\\)."
             },
             {
               "term": "circle",
-              "definition": "The set of points at a fixed distance from a fixed point."
+              "definition": "The set of points in a plane at a fixed distance from a fixed point."
             },
             {
               "term": "sample space",
@@ -3978,7 +3978,7 @@
               "id": "checkpoints",
               "labelZh": "小练习",
               "labelEn": "Checkpoints",
-              "zhHans": "小练习 1: 解 \\(x^2-9=0\\)。\n答案: x=3 or x=-3. \\((x-3)(x+3)=0\\)，所以 \\(x=3\\) 或 \\(x=-3\\)。\n小练习 2: 函数 \\(y=(x-1)^2+4\\) 的顶点是什么？\n答案: (1,4). 顶点式直接给出顶点 \\((1,4)\\)。\n小练习 3: 掷一枚均匀硬币一次，出现正面的概率是多少？\n答案: 1/2. 样本空间为 \\(2\\) 个结果，正面为 \\(1\\) 个，所以概率为 \\(\\frac12\\)。",
+              "zhHans": "小练习 1: 解 \\(x^2-9=0\\)。\n答案: \\(x=3\\) 或 \\(x=-3\\). \\((x-3)(x+3)=0\\)，所以 \\(x=3\\) 或 \\(x=-3\\)。\n小练习 2: 函数 \\(y=(x-1)^2+4\\) 的顶点是什么？\n答案: (1,4). 顶点式直接给出顶点 \\((1,4)\\)。\n小练习 3: 掷一枚均匀硬币一次，出现正面的概率是多少？\n答案: 1/2. 样本空间为 \\(2\\) 个结果，正面为 \\(1\\) 个，所以概率为 \\(\\frac12\\)。",
               "en": "Checkpoint 1: Solve \\(x^2-9=0\\).\nAnswer: x=3 or x=-3. \\((x-3)(x+3)=0\\), so \\(x=3\\) or \\(x=-3\\).\nCheckpoint 2: What is the vertex of \\(y=(x-1)^2+4\\)?\nAnswer: (1,4). Vertex form gives the vertex \\((1,4)\\).\nCheckpoint 3: Flip a fair coin once. What is the probability of heads?\nAnswer: 1/2. The sample space has \\(2\\) outcomes and heads is \\(1\\) outcome, so the probability is \\(\\frac12\\)."
             },
             {
@@ -4006,8 +4006,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "一元二次方程: 只含一个未知数且最高次数为二的方程。\n二次函数: 可写成二次多项式形式的函数。\n圆: 到定点距离相等的所有点组成的图形。\n样本空间: 随机试验所有可能结果的集合。",
-              "en": "quadratic equation: An equation in one unknown whose highest power is two.\nquadratic function: A function that can be written as a quadratic polynomial.\ncircle: The set of points at a fixed distance from a fixed point.\nsample space: The set of all possible outcomes of a random experiment."
+              "zhHans": "一元二次方程: 只含一个未知数且最高次数为二的方程。\n二次函数: 形如 \\(y=ax^2+bx+c\\)（\\(a\\neq0\\)）的函数。\n圆: 平面内到一个定点距离等于定长的所有点组成的图形。\n样本空间: 随机试验所有可能结果的集合。",
+              "en": "quadratic equation: An equation in one unknown whose highest power is two.\nquadratic function: A function of the form \\(y=ax^2+bx+c\\), where \\(a\\neq0\\).\ncircle: The set of points in a plane at a fixed distance from a fixed point.\nsample space: The set of all possible outcomes of a random experiment."
             }
           ]
         },
@@ -4169,8 +4169,8 @@
             "使用相似判定并找准对应边。",
             "选择正弦、余弦或正切解决直角三角形问题。"
           ],
-          "prerequisiteWarmUp": "若两个相似三角形的相似比为 \\(2:5\\)，较小的三角形一边为 \\(6\\)，对应较大的三角形边长是多少？",
-          "conceptExplanation": "反比例函数常写成 \\(y=\\frac{k}{x}\\)，其中 \\(xy=k\\) 表示乘积保持不变。相似图形对应角相等、对应边成比例。直角三角形中，\\(\\sin A\\)、\\(\\cos A\\)、\\(\\tan A\\) 分别连接角与对边、邻边、斜边之间的比例。视图问题要先确认观察方向。",
+          "prerequisiteWarmUp": "若两个相似三角形中，较小三角形与较大三角形对应边的比为 \\(2:5\\)，较小三角形一边长 \\(6\\)，较大三角形的对应边长是多少？",
+          "conceptExplanation": "反比例函数写成 \\(y=\\frac{k}{x}\\)，其中 \\(k\\neq0\\)、\\(x\\neq0\\)，且 \\(xy=k\\) 表示乘积保持不变。相似图形对应角相等、对应边成比例。直角三角形中，\\(\\sin A=\\frac{\\text{对边}}{\\text{斜边}}\\)、\\(\\cos A=\\frac{\\text{邻边}}{\\text{斜边}}\\)、\\(\\tan A=\\frac{\\text{对边}}{\\text{邻边}}\\)。视图问题要先确认观察方向。",
           "workedExamples": [
             {
               "title": "例1：反比例函数",
@@ -4227,7 +4227,7 @@
           "glossary": [
             {
               "term": "反比例函数",
-              "definition": "形如 y 等于常数除以 x 的函数。"
+              "definition": "形如 \\(y=\\frac{k}{x}\\) 的函数，其中 \\(k\\neq0\\)、\\(x\\neq0\\)。"
             },
             {
               "term": "相似",
@@ -4251,8 +4251,8 @@
             "Use similarity criteria and identify corresponding sides accurately.",
             "Choose sine, cosine, or tangent to solve right-triangle problems."
           ],
-          "prerequisiteWarmUp": "If two similar triangles have scale ratio \\(2:5\\) and a side of the smaller triangle is \\(6\\), what is the corresponding side of the larger triangle?",
-          "conceptExplanation": "An inverse proportional function is often written as \\(y=\\frac{k}{x}\\), where \\(xy=k\\) means the product stays constant. Similar figures have equal corresponding angles and proportional corresponding sides. In a right triangle, \\(\\sin A\\), \\(\\cos A\\), and \\(\\tan A\\) connect an angle with ratios involving opposite side, adjacent side, and hypotenuse. For view problems, confirm the viewing direction first.",
+          "prerequisiteWarmUp": "For two similar triangles, the smaller-to-larger corresponding-side ratio is \\(2:5\\). If a side of the smaller triangle is \\(6\\), what is the corresponding side of the larger triangle?",
+          "conceptExplanation": "An inverse proportional function has the form \\(y=\\frac{k}{x}\\), where \\(k\\neq0\\) and \\(x\\neq0\\); \\(xy=k\\) means the product stays constant. Similar figures have equal corresponding angles and proportional corresponding sides. In a right triangle, \\(\\sin A=\\frac{\\text{opposite}}{\\text{hypotenuse}}\\), \\(\\cos A=\\frac{\\text{adjacent}}{\\text{hypotenuse}}\\), and \\(\\tan A=\\frac{\\text{opposite}}{\\text{adjacent}}\\). For view problems, confirm the viewing direction first.",
           "workedExamples": [
             {
               "title": "Example 1: Inverse Proportion",
@@ -4309,7 +4309,7 @@
           "glossary": [
             {
               "term": "inverse proportional function",
-              "definition": "A function where y equals a constant divided by x."
+              "definition": "A function of the form \\(y=\\frac{k}{x}\\), where \\(k\\neq0\\) and \\(x\\neq0\\)."
             },
             {
               "term": "similarity",
@@ -4349,15 +4349,15 @@
               "id": "warm-up",
               "labelZh": "预备热身",
               "labelEn": "Prerequisite Warm-Up",
-              "zhHans": "若两个相似三角形的相似比为 \\(2:5\\)，较小的三角形一边为 \\(6\\)，对应较大的三角形边长是多少？",
-              "en": "If two similar triangles have scale ratio \\(2:5\\) and a side of the smaller triangle is \\(6\\), what is the corresponding side of the larger triangle?"
+              "zhHans": "若两个相似三角形中，较小三角形与较大三角形对应边的比为 \\(2:5\\)，较小三角形一边长 \\(6\\)，较大三角形的对应边长是多少？",
+              "en": "For two similar triangles, the smaller-to-larger corresponding-side ratio is \\(2:5\\). If a side of the smaller triangle is \\(6\\), what is the corresponding side of the larger triangle?"
             },
             {
               "id": "concept",
               "labelZh": "核心讲解",
               "labelEn": "Core Concept",
-              "zhHans": "反比例函数常写成 \\(y=\\frac{k}{x}\\)，其中 \\(xy=k\\) 表示乘积保持不变。相似图形对应角相等、对应边成比例。直角三角形中，\\(\\sin A\\)、\\(\\cos A\\)、\\(\\tan A\\) 分别连接角与对边、邻边、斜边之间的比例。视图问题要先确认观察方向。",
-              "en": "An inverse proportional function is often written as \\(y=\\frac{k}{x}\\), where \\(xy=k\\) means the product stays constant. Similar figures have equal corresponding angles and proportional corresponding sides. In a right triangle, \\(\\sin A\\), \\(\\cos A\\), and \\(\\tan A\\) connect an angle with ratios involving opposite side, adjacent side, and hypotenuse. For view problems, confirm the viewing direction first."
+              "zhHans": "反比例函数写成 \\(y=\\frac{k}{x}\\)，其中 \\(k\\neq0\\)、\\(x\\neq0\\)，且 \\(xy=k\\) 表示乘积保持不变。相似图形对应角相等、对应边成比例。直角三角形中，\\(\\sin A=\\frac{\\text{对边}}{\\text{斜边}}\\)、\\(\\cos A=\\frac{\\text{邻边}}{\\text{斜边}}\\)、\\(\\tan A=\\frac{\\text{对边}}{\\text{邻边}}\\)。视图问题要先确认观察方向。",
+              "en": "An inverse proportional function has the form \\(y=\\frac{k}{x}\\), where \\(k\\neq0\\) and \\(x\\neq0\\); \\(xy=k\\) means the product stays constant. Similar figures have equal corresponding angles and proportional corresponding sides. In a right triangle, \\(\\sin A=\\frac{\\text{opposite}}{\\text{hypotenuse}}\\), \\(\\cos A=\\frac{\\text{adjacent}}{\\text{hypotenuse}}\\), and \\(\\tan A=\\frac{\\text{opposite}}{\\text{adjacent}}\\). For view problems, confirm the viewing direction first."
             },
             {
               "id": "worked-examples",
@@ -4419,8 +4419,8 @@
               "id": "glossary",
               "labelZh": "术语表",
               "labelEn": "Glossary",
-              "zhHans": "反比例函数: 形如 y 等于常数除以 x 的函数。\n相似: 形状相同、大小可以不同的图形关系。\n正切: 直角三角形内某个锐角的对边与邻边之比。\n视图: 从某个方向观察立体得到的平面图。",
-              "en": "inverse proportional function: A function where y equals a constant divided by x.\nsimilarity: A relationship where figures have the same shape but may differ in size.\ntangent: For an acute angle in a right triangle, the ratio of opposite side to adjacent side.\nprojection view: A plane view of a solid from a chosen direction."
+              "zhHans": "反比例函数: 形如 \\(y=\\frac{k}{x}\\) 的函数，其中 \\(k\\neq0\\)、\\(x\\neq0\\)。\n相似: 形状相同、大小可以不同的图形关系。\n正切: 直角三角形内某个锐角的对边与邻边之比。\n视图: 从某个方向观察立体得到的平面图。",
+              "en": "inverse proportional function: A function of the form \\(y=\\frac{k}{x}\\), where \\(k\\neq0\\) and \\(x\\neq0\\).\nsimilarity: A relationship where figures have the same shape but may differ in size.\ntangent: For an acute angle in a right triangle, the ratio of opposite side to adjacent side.\nprojection view: A plane view of a solid from a chosen direction."
             }
           ]
         },

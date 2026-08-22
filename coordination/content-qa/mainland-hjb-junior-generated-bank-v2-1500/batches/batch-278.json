@@ -126,13 +126,11 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "已知⊙O的半径为5，弦AB=8，弦CD=6，且AB∥CD，AB与CD之间的距离为7。则圆心O到AB的距离为______。",
       "optionsZhHans": [],
-      "answer": "3或4",
+      "answer": "3",
       "acceptedAnswers": [
-        "3或4",
-        "3",
-        "4"
+        "3"
       ],
-      "explanationZhHans": "设O到AB距离为d1，到CD距离为d2。由垂径定理，d1=√(5²-4²)=3，d2=√(5²-3²)=4。因AB∥CD，两弦可在圆心同侧或异侧，故距离为|d1±d2|，即7或1。已知距离为7，故d1=3或4。"
+      "explanationZhHans": "半径垂直平分弦AB。AB=8，所以半弦长为4，圆心O到AB的距离为√(5²-4²)=3。另一条弦CD只用于说明两条弦位于圆心两侧；它不改变所问的O到AB的距离。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-388",

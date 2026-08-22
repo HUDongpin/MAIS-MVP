@@ -196,11 +196,12 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在△ABC中，AD是∠BAC的平分线，交BC于点D。已知AB=13，AC=20，BC=21。过点D作DE⊥AB于点E，DF⊥AC于点F。请证明DE=DF，并求DE的长度。",
       "optionsZhHans": [],
-      "answer": "证明：∵AD平分∠BAC，DE⊥AB，DF⊥AC，∴DE=DF（角平分线上的点到角两边的距离相等）。求DE：设BD=x，则CD=21-x。由角平分线性质得AB/AC=BD/CD，即13/20=x/(21-x)，解得x=7，BD=7，CD=14。在△ABD中，由余弦定理求cos∠BAD：cos∠BAD=(AB²+AD²-BD²)/(2·AB·AD)，但AD未知。改用面积法：S△ABC=S△ABD+S△ACD。由海伦公式，半周长p=(13+20+21)/2=27，S△ABC=√[27(27-13)(27-20)(27-21)]=√(27×14×7×6)=√15876=126。又S△ABD=(1/2)·AB·DE=(1/2)·13·DE，S△ACD=(1/2)·AC·DF=(1/2)·20·DE，故(1/2)·13·DE+(1/2)·20·DE=126，解得DE=84/11。",
+      "answer": "DE=DF，因为角平分线上的点到角两边的距离相等；DE=DF=84/11",
       "acceptedAnswers": [
-        "证明：∵AD平分∠BAC，DE⊥AB，DF⊥AC，∴DE=DF（角平分线上的点到角两边的距离相等）。求DE：设BD=x，则CD=21-x。由角平分线性质得AB/AC=BD/CD，即13/20=x/(21-x)，解得x=7，BD=7，CD=14。在△ABD中，由余弦定理求cos∠BAD：cos∠BAD=(AB²+AD²-BD²)/(2·AB·AD)，但AD未知。改用面积法：S△ABC=S△ABD+S△ACD。由海伦公式，半周长p=(13+20+21)/2=27，S△ABC=√[27(27-13)(27-20)(27-21)]=√(27×14×7×6)=√15876=126。又S△ABD=(1/2)·AB·DE=(1/2)·13·DE，S△ACD=(1/2)·AC·DF=(1/2)·20·DE，故(1/2)·13·DE+(1/2)·20·DE=126，解得DE=84/11。"
+        "DE=DF，因为角平分线上的点到角两边的距离相等；DE=DF=84/11",
+        "由角平分线上的点到两边距离相等得DE=DF；DE=DF=84/11"
       ],
-      "explanationZhHans": "由角平分线性质得DE=DF。利用角平分线分线段成比例求出BD=7，CD=14。再用海伦公式求△ABC面积为126，通过面积和建立方程(1/2)(13+20)DE=126，解得DE=84/11。"
+      "explanationZhHans": "因为D在∠BAC的平分线上，且DE、DF分别垂直于角的两边，所以DE=DF。三角形三边为13、20、21，半周长为27，由海伦公式得面积为√(27×14×7×6)=126。又126=(1/2)×13×DE+(1/2)×20×DF=(33/2)DE，所以DE=DF=84/11。"
     },
     {
       "id": "hjb-junior-ds-v2-s2-199",

@@ -1,16 +1,20 @@
 import fs from "node:fs";
 import path from "node:path";
-import vm from "node:vm";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "../../..");
+const require = createRequire(import.meta.url);
+const generationOutputDir = process.env.MAIS_PEP_JUNIOR_GENERATED_OUTPUT_DIR
+  ? path.resolve(process.env.MAIS_PEP_JUNIOR_GENERATED_OUTPUT_DIR)
+  : __dirname;
 
 const outputFiles = {
-  jsonl: path.join(__dirname, "questions.jsonl"),
-  csv: path.join(__dirname, "questions.csv"),
-  pack: path.join(__dirname, "question-pack.json"),
-  coverage: path.join(__dirname, "coverage-matrix.csv")
+  jsonl: path.join(generationOutputDir, "questions.jsonl"),
+  csv: path.join(generationOutputDir, "questions.csv"),
+  pack: path.join(generationOutputDir, "question-pack.json"),
+  coverage: path.join(generationOutputDir, "coverage-matrix.csv")
 };
 
 const batch = "junior-rag-v2-1200";
@@ -42,13 +46,23 @@ const difficultyQuotasByGrade = {
 const gradeOrder = ["S1", "S2", "S3"];
 
 function loadTsExport(filePath, exportName) {
-  const source = fs
-    .readFileSync(filePath, "utf8")
-    .replace(/^import\s+type\s+.*;\s*$/gm, "")
-    .replace(new RegExp(`export const ${exportName}: [^=]+ =`), `exports.${exportName} =`);
-  const context = { exports: {} };
-  vm.runInNewContext(source, context, { filename: filePath });
-  return context.exports[exportName];
+  const esbuild = require(path.join(rootDir, "node_modules/esbuild"));
+  const result = esbuild.buildSync({
+    entryPoints: [filePath],
+    bundle: true,
+    write: false,
+    platform: "node",
+    format: "cjs",
+    target: "node20",
+    logLevel: "silent"
+  });
+  const generatedModule = { exports: {} };
+  new Function("require", "module", "exports", result.outputFiles[0].text)(
+    require,
+    generatedModule,
+    generatedModule.exports
+  );
+  return generatedModule.exports[exportName];
 }
 
 function csvEscape(value) {
@@ -94,8 +108,25 @@ function optionsFor(answer, distractors, seed) {
   const numericFallbacks = Number.isFinite(numericAnswer)
     ? [numericAnswer + 1, numericAnswer - 1, numericAnswer + 2, numericAnswer - 2, -numericAnswer + 3].map(String)
     : [];
-  const textFallbacks = [`${answer}（少一步）`, `${answer}（符号相反）`, `${answer}（单位错误）`];
-  const values = unique([answer, ...distractors, ...numericFallbacks, ...textFallbacks]).slice(0, 4);
+  const angleMatch = String(answer).match(/^(-?\d+(?:\.\d+)?)°$/);
+  const angleFallbacks = angleMatch
+    ? [Number(angleMatch[1]) + 1, Number(angleMatch[1]) - 1, Number(angleMatch[1]) + 2].map((value) => `${value}°`)
+    : [];
+  const coordinateMatch = String(answer).match(/^\((-?\d+),(-?\d+)\)$/);
+  const coordinateFallbacks = coordinateMatch
+    ? [
+        `(${coordinateMatch[1]},${Number(coordinateMatch[2]) + 1})`,
+        `(${Number(coordinateMatch[1]) + 1},${coordinateMatch[2]})`,
+        `(${coordinateMatch[1]},${Number(coordinateMatch[2]) - 1})`
+      ]
+    : [];
+  const values = unique([
+    answer,
+    ...distractors,
+    ...numericFallbacks,
+    ...angleFallbacks,
+    ...coordinateFallbacks
+  ]).slice(0, 4);
   if (values.length !== 4) throw new Error(`Could not build four options for answer ${answer}`);
   return rotate(values, seed);
 }
@@ -247,10 +278,10 @@ function rationalNumbers(type, n) {
   const c = 4 + (n % 23);
   const answer = String(-a + b - c);
   return {
-    promptZhHans: `计算并说明符号：-${a}+${b}-${c}。`,
+    promptZhHans: `计算：-${a}+${b}-${c}。`,
     optionsZhHans: [],
     answer,
-    acceptedAnswers: accepted(answer),
+    acceptedAnswers: [],
     explanationZhHans: `先合并正负变化，-${a}+${b}-${c}=${answer}，结果为负数。`
   };
 }
@@ -263,12 +294,12 @@ function expressionsLinearEquations(type, n) {
   if (type === "multiple-choice") {
     const coeff = a + c;
     const constant = b - d;
-    const answer = constant >= 0 ? `${coeff}x+${constant}` : `${coeff}x${constant}`;
+    const answer = constant === 0 ? `${coeff}x` : constant > 0 ? `${coeff}x+${constant}` : `${coeff}x${constant}`;
     return {
       promptZhHans: `化简：(${a}x+${b})+(${c}x-${d})。`,
       optionsZhHans: optionsFor(answer, [`${coeff}x+${b + d}`, `${a + c + b}x-${d}`, `${a - c}x+${constant}`], n),
       answer,
-      acceptedAnswers: accepted(answer),
+      acceptedAnswers: accepted(answer, constant === 0 ? [`${coeff}x+0`] : []),
       explanationZhHans: `同类项合并得(${a}+${c})x+(${b}-${d})=${answer}。`
     };
   }
@@ -326,7 +357,7 @@ function geometricFigures(type, n) {
   const small = 20 + ((n * 7) % 69);
   const answer = `${90 - small}°`;
   return {
-    promptZhHans: `两个角互余，其中一个角是${small}°。求另一个角的度数，并写出理由。`,
+    promptZhHans: `两个角互余，其中一个角是${small}°。求另一个角的度数。`,
     optionsZhHans: [],
     answer,
     acceptedAnswers: accepted(answer, [String(90 - small)]),
@@ -364,7 +395,7 @@ function linesCoordinates(type, n) {
   const b = 3 + ((n * 2) % 31);
   const answer = `第四象限`;
   return {
-    promptZhHans: `点Q(${a},-${b})位于哪个象限？说明判断依据。`,
+    promptZhHans: `点Q(${a},-${b})位于哪个象限？`,
     optionsZhHans: [],
     answer,
     acceptedAnswers: accepted(answer, ["第IV象限", "第4象限"]),
@@ -436,7 +467,11 @@ function trianglesCongruence(type, n) {
   }
   const sideA = 4 + (n % 19);
   const sideB = 6 + ((n * 2) % 23);
-  const sideC = 8 + ((n * 3) % 29);
+  const generatedSideC = 8 + ((n * 3) % 29);
+  const sideC = Math.min(
+    Math.max(generatedSideC, Math.abs(sideA - sideB) + 1),
+    sideA + sideB - 1
+  );
   return {
     promptZhHans: `在△ABC和△DEF中，AB=DE=${sideA}厘米，BC=EF=${sideB}厘米，AC=DF=${sideC}厘米。可用哪一种判定说明两个三角形全等？`,
     optionsZhHans: [],
@@ -476,13 +511,19 @@ function polynomialsFractions(type, n) {
   }
   const k = 2 + (n % 8);
   const c = 1 + ((n * 3) % 7);
-  const answer = String(k);
+  const simplified = String(k);
+  const answer = `${simplified}, x≠-${c}`;
   return {
     promptZhHans: `化简分式(${k}x+${k * c})/(x+${c})，并注明x不能等于什么。`,
     optionsZhHans: [],
     answer,
-    acceptedAnswers: accepted(answer, [`${answer}，x≠-${c}`]),
-    explanationZhHans: `分子提公因式得${k}(x+${c})，约分后为${answer}，且x≠-${c}。`
+    acceptedAnswers: accepted(answer, [
+      `${simplified}，x≠-${c}`,
+      `${simplified},x≠-${c}`,
+      `${simplified}; x≠-${c}`,
+      `${simplified}, x != -${c}`
+    ]),
+    explanationZhHans: `分子提公因式得${k}(x+${c})，约分后为${simplified}，且x≠-${c}。`
   };
 }
 
@@ -765,6 +806,7 @@ function buildCoverageRows(rows, curriculumCards) {
 }
 
 function main() {
+  fs.mkdirSync(generationOutputDir, { recursive: true });
   const curriculumCards = loadTsExport(path.join(rootDir, "data/rag/mainlandPepJunior.ts"), "mainlandPepJuniorRagCards");
   const paperPatterns = loadTsExport(path.join(rootDir, "data/rag/mainlandPepJuniorPaperPatterns.ts"), "mainlandPepJuniorPaperPatternCards");
   const examPatterns = loadTsExport(path.join(rootDir, "data/rag/mainlandPepJuniorExamPatterns.ts"), "mainlandPepJuniorExamPatternCards");
@@ -808,7 +850,7 @@ function main() {
   ]);
 
   console.log(JSON.stringify({
-    outputDir: __dirname,
+    outputDir: generationOutputDir,
     generatedQuestions: rows.length,
     knowledgePoints: curriculumCards.length,
     gradeCounts: Object.fromEntries(gradeOrder.map((grade) => [grade, rows.filter((row) => row.grade === grade).length])),

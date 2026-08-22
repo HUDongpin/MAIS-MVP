@@ -6527,7 +6527,7 @@
             {
               "title": "例 1",
               "prompt": "某活动成功概率为 \\(0.6\\)，独立进行 \\(3\\) 次，求恰好成功 \\(2\\) 次的概率。",
-              "solution": "服从二项分布，概率为 \\(C_3^2(0.6)^2(0.4)=0.432\\)。",
+              "solution": "服从二项分布，概率为 \\(C_3^2(0.6)^2(0.4)^1=0.432\\)。",
               "check": "把结果代回原条件，确认定义域、符号或单位没有被遗漏。"
             }
           ],
@@ -6576,7 +6576,7 @@
             {
               "title": "Example 1",
               "prompt": "An activity succeeds with probability \\(0.6\\) independently over \\(3\\) trials. Find the probability of exactly \\(2\\) successes.",
-              "solution": "Use the binomial model: \\(C_3^2(0.6)^2(0.4)=0.432\\).",
+              "solution": "Use the binomial model: \\(C_3^2(0.6)^2(0.4)^1=0.432\\).",
               "check": "Substitute or reason back into the original conditions to confirm no domain, sign, or unit condition was missed."
             }
           ],
@@ -6637,8 +6637,8 @@
           },
           {
             "section": "worked-example-1",
-            "zhHans": "服从二项分布，概率为 \\(C_3^2(0.6)^2(0.4)=0.432\\)。",
-            "en": "Use the binomial model: \\(C_3^2(0.6)^2(0.4)=0.432\\)."
+            "zhHans": "服从二项分布，概率为 \\(C_3^2(0.6)^2(0.4)^1=0.432\\)。",
+            "en": "Use the binomial model: \\(C_3^2(0.6)^2(0.4)^1=0.432\\)."
           },
           {
             "section": "common-pitfalls",

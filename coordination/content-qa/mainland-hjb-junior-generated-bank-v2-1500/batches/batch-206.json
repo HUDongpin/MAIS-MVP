@@ -185,15 +185,16 @@
       "promptZhHans": "已知线段a=4 cm，b=9 cm，c=6 cm，d=13.5 cm。下列比例式中正确的是（　）",
       "optionsZhHans": [
         "a∶b=c∶d",
-        "a∶c=b∶d",
+        "a∶c=d∶b",
         "a∶d=b∶c",
         "b∶c=a∶d"
       ],
       "answer": "a∶b=c∶d",
       "acceptedAnswers": [
-        "a∶b=c∶d"
+        "a∶b=c∶d",
+        "A"
       ],
-      "explanationZhHans": "计算a∶b=4∶9，c∶d=6∶13.5=4∶9，故a∶b=c∶d成立。其他选项比例不相等。"
+      "explanationZhHans": "a∶b=4∶9，而c∶d=6∶13.5=4∶9，所以第一项成立。其余三个比例式的两边比值均不相等。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-029",

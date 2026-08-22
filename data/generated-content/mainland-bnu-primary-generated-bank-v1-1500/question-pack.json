@@ -25829,7 +25829,7 @@
       "acceptedAnswers": [
         "对边相等、4个角都是直角的四边形"
       ],
-      "explanationZhHans": "长方形的特征是：对边相等且四个角都是直角。选项A缺少边和角的特征，选项C描述的是正方形，选项D只说了边的长短，都不完整。"
+      "explanationZhHans": "长方形的判定条件是四边形的4个角都是直角；长方形的对边相等。选项B完整给出了这些条件。选项A没有说明角是直角；选项C只说明4条边相等，没有说明角是直角，可能是菱形；选项D也没有说明角是直角。因此只有选项B一定是长方形。"
     },
     {
       "id": "bnu-primary-ds-v1-p2-210",
@@ -26626,7 +26626,7 @@
       "acceptedAnswers": [
         "B. 30分钟"
       ],
-      "explanationZhHans": "分针走一大格是5分钟。从12到6走了6大格，5×6=30分钟。选项A的6分钟是时针走一大格的时间，选项C和D单位不对。"
+      "explanationZhHans": "分针走一大格是5分钟。从12到6走了6大格，5×6=30分钟。时针走一大格是1小时，也就是60分钟；选项A把走过的6个大格误当成了6分钟，选项C和D的单位不对。"
     },
     {
       "id": "bnu-primary-ds-v1-p2-224",
@@ -29174,15 +29174,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看是横着排成一行的2个正方形，从上面看是横着排成一行的3个正方形。请描述这个立体图形是怎样搭的。",
+      "promptZhHans": "用4个同样的小正方体搭成一个立体图形。从正面看，下面一行有3个正方形，中间的正方形上方还有1个正方形；从上面看是横着排成一行的3个正方形。请描述这个立体图形是怎样搭的。",
       "optionsZhHans": [],
-      "answer": "第一层摆3个正方体横排，第二层在中间或某一端上方摆1个，但正面只能看到2个，所以第二层的正方体应放在第一层中间或一端的上方，且从正面看时被前面的正方体挡住一个。例如：底层横排3个，第二层在中间上方摆1个，从正面看只能看到底层左右两个和第二层中间一个，共2个正方形。",
+      "answer": "第一层横着摆3个小正方体，再在中间的小正方体上面摆1个小正方体。",
       "acceptedAnswers": [
-        "第一层摆3个正方体横排，第二层在中间或某一端上方摆1个，但正面只能看到2个，所以第二层的正方体应放在第一层中间或一端的上方，且从正面看时被前面的正方体挡住一个。例如：底层横排3个，第二层在中间上方摆1个，从正面看只能看到底层左右两个和第二层中间一个，共2个正方形。",
+        "第一层横着摆3个小正方体，再在中间的小正方体上面摆1个小正方体。",
         "第一层摆3个正方体横排，第二层在中间上方摆1个",
         "底层3个横排，上层中间放1个"
       ],
-      "explanationZhHans": "从上面看一排3个，说明底层有3个横排。从正面看一排2个，说明有上下两层，且上层正方体在正面视角中与底层某个重叠，只露出2个。常见搭法：底层3个，上层中间1个。"
+      "explanationZhHans": "从上面看横排3个，说明3个占地位置在同一横排；从正面看下排3个且中间上方还有1个，说明第4个小正方体叠在中间的小正方体上面。因此可搭成：第一层横排3个，在中间位置上方再摆1个。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-019",
@@ -30075,7 +30075,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校图书馆原有故事书 426 本，又买来 389 本，现在大约有多少本？下面哪个估算方法最合适？",
+      "promptZhHans": "学校图书馆原有故事书 426 本，又买来 389 本。如果把每个数看作最接近的整十数，下面哪个估算方法正确？",
       "optionsZhHans": [
         "把 426 看作 400，把 389 看作 400，400 + 400 = 800",
         "把 426 看作 430，把 389 看作 390，430 + 390 = 820",
@@ -30086,7 +30086,7 @@
       "acceptedAnswers": [
         "把 426 看作 430，把 389 看作 390，430 + 390 = 820"
       ],
-      "explanationZhHans": "估算时把两个数都看作最接近的整十数，426≈430，389≈390，和约为820，最接近精确结果815，所以这个估算最合适。"
+      "explanationZhHans": "题目要求把每个数看作最接近的整十数。426最接近430，389最接近390，所以426+389≈430+390=820。其他选项没有按最接近的整十数估算。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-035",
@@ -33358,11 +33358,11 @@
         "星期日",
         "星期一"
       ],
-      "answer": "星期日",
+      "answer": "星期一",
       "acceptedAnswers": [
-        "星期日"
+        "星期一"
       ],
-      "explanationZhHans": "从3月1日到3月31日经过30天。30÷7=4周余2天。星期六往后推2天是星期日。"
+      "explanationZhHans": "从3月1日到3月31日经过30天。30÷7=4周余2天。星期六往后推1天是星期日，再往后推1天是星期一，所以3月31日是星期一。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-092",
@@ -40945,13 +40945,13 @@
         "喜欢苹果的人数最多",
         "喜欢草莓的人数比橘子多4人",
         "喜欢香蕉的人数比苹果多2人",
-        "喜欢橘子的人数最少"
+        "喜欢橘子的人数比喜欢苹果的多2人"
       ],
       "answer": "喜欢草莓的人数比橘子多4人",
       "acceptedAnswers": [
         "喜欢草莓的人数比橘子多4人"
       ],
-      "explanationZhHans": "草莓10人，橘子6人，10-6=4，所以草莓比橘子多4人。其他选项：苹果8人不是最多，香蕉比苹果多4人，橘子不是最少。"
+      "explanationZhHans": "草莓10人，橘子6人，10-6=4，所以草莓比橘子多4人。苹果8人不是最多；香蕉12人比苹果8人多4人，不是2人；橘子6人比苹果8人少2人，不是多2人。因此只有选项B正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-224",
@@ -41059,15 +41059,15 @@
       "promptZhHans": "三（2）班四个小组收集废电池的数量如下：第一组15节，第二组20节，第三组18节，第四组22节。下面说法正确的是（ ）。",
       "optionsZhHans": [
         "第一组收集的废电池数量最多",
-        "第四组比第二组多收集2节",
-        "第三组比第一组多收集3节",
+        "第四组比第二组多收集4节",
+        "第三组比第一组多收集2节",
         "第二组和第三组一共收集38节"
       ],
       "answer": "第二组和第三组一共收集38节",
       "acceptedAnswers": [
         "第二组和第三组一共收集38节"
       ],
-      "explanationZhHans": "第二组20节，第三组18节，20+18=38节，正确。其他选项：第一组15节不是最多，第四组比第二组多2节，第三组比第一组多3节。"
+      "explanationZhHans": "第二组20节，第三组18节，20+18=38节。第一组15节不是最多；第四组22节比第二组20节多2节，不是4节；第三组18节比第一组15节多3节，不是2节。因此只有选项D正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p3-226",
@@ -44489,7 +44489,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "计算125×32时，下面哪种方法运用了乘法结合律？\nA. 125×32 = 125×8×4\nB. 125×32 = 125×30 + 125×2\nC. 125×32 = 100×32 + 25×32\nD. 125×32 = 125×16×2",
+      "promptZhHans": "计算125×32时，下面哪种变形明确运用了乘法结合律？\nA. 125×32 = 125×(8×4) = (125×8)×4\nB. 125×32 = 125×30 + 125×2\nC. 125×32 = 100×32 + 25×32\nD. 125×32 = 125×(16+16) = 125×16+125×16",
       "optionsZhHans": [
         "A",
         "B",
@@ -44500,7 +44500,7 @@
       "acceptedAnswers": [
         "A"
       ],
-      "explanationZhHans": "乘法结合律是指三个数相乘，先把前两个数相乘或先把后两个数相乘，积不变。A选项把32拆成8×4，然后125×8×4，运用了结合律。B、C是乘法分配律，D只是拆分，未体现结合律。"
+      "explanationZhHans": "乘法结合律只改变三个因数的结合顺序，不改变因数和乘积。选项A把125×(8×4)变为(125×8)×4，明确运用了乘法结合律。选项B、C、D都是把一个因数拆成和，再运用乘法分配律。因此只有选项A正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-035",
@@ -45362,13 +45362,13 @@
         "25 × (4 + 8) = 25 × 4 + 8",
         "36 × 7 + 36 × 3 = 36 × (7 + 3)",
         "125 × 8 × 4 = 125 × 4 × 8",
-        "99 × 5 = 100 × 5 - 5"
+        "99 × 5 = 100 × 5 - 1"
       ],
       "answer": "36 × 7 + 36 × 3 = 36 × (7 + 3)",
       "acceptedAnswers": [
         "36 × 7 + 36 × 3 = 36 × (7 + 3)"
       ],
-      "explanationZhHans": "乘法分配律：两个数的和与一个数相乘，可以先把它们分别与这个数相乘，再相加。选项B把36×7+36×3转化为36×(7+3)，符合分配律，且结果不变。A漏乘了8，C是乘法交换律和结合律，D是拆分99为100-1，属于简便计算但不是分配律的标准形式。"
+      "explanationZhHans": "选项B把36×7+36×3变为36×(7+3)，符合乘法分配律且结果不变。选项A中的8没有乘25；选项C交换了因数的位置；选项D把99看作100-1时应计算100×5-1×5，而不是100×5-1。因此只有选项B正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-050",
@@ -46389,18 +46389,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "以学校为观测点，公园在学校北偏西50°方向，距离600米；电影院在学校南偏东30°方向，距离400米。下面说法正确的是？",
+      "promptZhHans": "以学校为观测点，公园在学校北偏西50°方向，距离600米；电影院在学校南偏东30°方向，距离400米。下面哪种说法一定正确？",
       "optionsZhHans": [
         "公园在电影院的北偏西方向",
-        "电影院在公园的南偏东方向",
-        "公园和电影院在学校的两侧，方向相反",
+        "电影院在公园的北偏西方向",
+        "公园和电影院相对于学校的方向完全相反",
         "公园和电影院之间的距离是1000米"
       ],
-      "answer": "公园和电影院在学校的两侧，方向相反",
+      "answer": "公园在电影院的北偏西方向",
       "acceptedAnswers": [
-        "公园和电影院在学校的两侧，方向相反"
+        "公园在电影院的北偏西方向"
       ],
-      "explanationZhHans": "公园在北偏西，电影院在南偏东，两者方向大致相反，确实在学校两侧。A、B选项没有给出具体参照点无法判断，D选项距离不能直接相加，因为方向不同。"
+      "explanationZhHans": "公园在学校的西北侧，电影院在学校的东南侧，所以从电影院到公园要向西、向北移动，公园在电影院的北偏西方向。反过来，电影院在公园的南偏东方向。北偏西50°的相反方向应是南偏东50°，不是南偏东30°，所以两地相对于学校的方向并非完全相反；两地距离也不能把600米和400米直接相加。因此只有选项A正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-068",
@@ -52891,14 +52891,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根绳子长4.8米，剪成每段0.6米长的小段。可以剪成多少段？请列式并计算。",
+      "promptZhHans": "8段同样长的绳子，每段长0.6米。把它们首尾相接，接成的长绳一共长多少米？",
       "optionsZhHans": [],
-      "answer": "8段",
+      "answer": "4.8米",
       "acceptedAnswers": [
-        "8段",
-        "8"
+        "4.8米",
+        "4.8"
       ],
-      "explanationZhHans": "4.8÷0.6=8（段）。可以想：48个0.1米里面有几个6个0.1米，48÷6=8。"
+      "explanationZhHans": "0.6×8=4.8（米）。也可以想：6个0.1米乘8得到48个0.1米，也就是4.8米。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-181",
@@ -53351,14 +53351,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一根彩带长2.4米，做一朵花需要用0.35米。先估一估这根彩带大约能做多少朵花，再列竖式算一算，最后把得数填在横线上。\n估：____________________\n竖式：\n答：这根彩带能做______朵花。（得数保留整数）",
+      "promptZhHans": "做一朵花需要0.35米彩带。做6朵这样的花一共需要______米彩带。",
       "optionsZhHans": [],
-      "answer": "6",
+      "answer": "2.1",
       "acceptedAnswers": [
-        "6",
-        "6朵"
+        "2.1",
+        "2.1米"
       ],
-      "explanationZhHans": "估算：2.4÷0.35≈2.4÷0.4=6（朵）。竖式计算：将除数0.35和被除数2.4同时乘100，变成240÷35，商6余30，所以能做6朵花。"
+      "explanationZhHans": "0.35×6=2.1（米）。也可以想：35个0.01米乘6得到210个0.01米，也就是2.1米。"
     },
     {
       "id": "bnu-primary-ds-v1-p4-189",
@@ -61391,7 +61391,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一个组合图形由一个正方形和一个等腰直角三角形拼成。正方形边长8厘米，三角形的一条直角边与正方形的一条边完全重合，另一条直角边长6厘米。这个组合图形的面积是多少平方厘米？",
+      "promptZhHans": "一个组合图形由一个正方形和一个直角三角形拼成。正方形边长8厘米，三角形的一条直角边与正方形的一条边完全重合，另一条直角边长6厘米。这个组合图形的面积是多少平方厘米？",
       "optionsZhHans": [
         "88平方厘米",
         "76平方厘米",
@@ -62252,7 +62252,7 @@
       "promptZhHans": "一个不透明的袋子里装有3个红球、2个蓝球和5个黄球，这些球除颜色外完全相同。从袋子里任意摸出一个球，下面哪种说法是正确的？",
       "optionsZhHans": [
         "摸到红球的可能性最大",
-        "摸到蓝球的可能性最小",
+        "摸到红球的可能性最小",
         "摸到黄球的可能性比摸到红球的可能性大",
         "摸到红球和摸到蓝球的可能性相等"
       ],
@@ -62260,7 +62260,7 @@
       "acceptedAnswers": [
         "摸到黄球的可能性比摸到红球的可能性大"
       ],
-      "explanationZhHans": "袋子里共有10个球，黄球5个，红球3个，蓝球2个。数量越多，摸到的可能性越大。黄球最多，所以摸到黄球的可能性最大；蓝球最少，所以摸到蓝球的可能性最小。比较黄球和红球，5>3，因此摸到黄球的可能性比红球大。"
+      "explanationZhHans": "袋子里共有10个球，黄球5个，红球3个，蓝球2个。球的数量越多，摸到该颜色的可能性越大。因此黄球的可能性最大，蓝球的可能性最小；只有“摸到黄球的可能性比摸到红球的可能性大”这一说法正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p5-092",
@@ -63104,7 +63104,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "在计算3.6÷0.4时，下面哪种想法是正确的？",
+      "promptZhHans": "在计算3.6÷0.4时，要利用商不变的性质把除数0.4变成一位整数。下面哪种变形符合要求？",
       "optionsZhHans": [
         "把3.6和0.4都乘10，变成36÷4，商不变",
         "把3.6和0.4都乘100，变成360÷40，商不变",
@@ -63115,7 +63115,7 @@
       "acceptedAnswers": [
         "把3.6和0.4都乘10，变成36÷4，商不变"
       ],
-      "explanationZhHans": "除数是小数的除法，利用商不变的性质，把被除数和除数同时乘相同的数（10、100等），使除数变成整数。乘10后除数变成4，计算简便。"
+      "explanationZhHans": "被除数和除数同时乘10，商不变，3.6÷0.4变为36÷4，除数4是一位整数，符合要求。选项B虽然商不变，但除数40是两位整数；选项C的除数0.04仍是小数；选项D同时加10不能保持商不变。因此只有选项A正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p5-107",
@@ -74825,18 +74825,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V1 automated source-distance/structure gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪个百分数表示“男生人数是女生人数的120%”？（    ）",
+      "promptZhHans": "下面哪个说法与“男生人数是女生人数的120%”意思相同？（    ）",
       "optionsZhHans": [
-        "男生人数比女生人数多20%。",
+        "男生人数比女生人数多120%。",
         "女生人数比男生人数少20%。",
         "男生人数是女生人数的1.2倍。",
-        "女生人数是男生人数的5/6。"
+        "女生人数是男生人数的4/5。"
       ],
       "answer": "男生人数是女生人数的1.2倍。",
       "acceptedAnswers": [
         "男生人数是女生人数的1.2倍。"
       ],
-      "explanationZhHans": "120%=1.2，所以男生人数是女生人数的1.2倍。选项A表示男生比女生多20%，即男生是女生的120%，但说法不同。选项C直接等价于120%。选项B和D错误。"
+      "explanationZhHans": "120%=1.2，所以男生人数是女生人数的1.2倍，选项C正确。选项A表示男生是女生的220%；选项B和D都表示女生是男生的80%，也就是男生是女生的125%。因此只有选项C与题意相同。"
     },
     {
       "id": "bnu-primary-ds-v1-p6-059",
@@ -78816,7 +78816,7 @@
       "promptZhHans": "在复习“圆的面积”时，小华说：“半径是 2 厘米的圆，它的周长和面积相等。”你认为小华的说法正确吗？",
       "optionsZhHans": [
         "正确，因为周长和面积的数值都是 12.56",
-        "不正确，因为周长和面积的意义不同，不能比较",
+        "不正确，因为圆的周长一定大于圆的面积",
         "正确，因为周长和面积的计算结果相同",
         "不正确，因为周长是 12.56 厘米，面积是 12.56 平方厘米，单位不同"
       ],
@@ -78824,7 +78824,7 @@
       "acceptedAnswers": [
         "不正确，因为周长是 12.56 厘米，面积是 12.56 平方厘米，单位不同"
       ],
-      "explanationZhHans": "周长和面积是不同类的量，单位不同，不能仅凭数值相等就说它们相等。周长约为 12.56 厘米，面积约为 12.56 平方厘米，意义完全不同。"
+      "explanationZhHans": "圆的周长约为12.56厘米，面积约为12.56平方厘米。周长和面积是不同类的量，单位和意义都不同，不能因为数值相同就说它们相等，也不能直接比较谁大谁小。因此只有选项D的判断和理由都正确。"
     },
     {
       "id": "bnu-primary-ds-v1-p6-128",
@@ -84086,15 +84086,15 @@
       "promptZhHans": "学校要设计一个长方形花坛，周长是24米。下面哪种设计方案是可行的？",
       "optionsZhHans": [
         "长8米，宽4米",
-        "长10米，宽2米",
+        "长10米，宽3米",
         "长7米，宽6米",
-        "长9米，宽3米"
+        "长9米，宽4米"
       ],
       "answer": "长8米，宽4米",
       "acceptedAnswers": [
         "长8米，宽4米"
       ],
-      "explanationZhHans": "长方形周长=（长+宽）×2。选项A：（8+4）×2=24米，符合条件。其他选项计算后均不等于24米。"
+      "explanationZhHans": "长方形周长=（长+宽）×2。选项A的周长是（8+4）×2=24米；选项B、C、D的周长分别是26米、26米、26米。因此只有选项A符合条件。"
     },
     {
       "id": "bnu-primary-ds-v1-p6-218",

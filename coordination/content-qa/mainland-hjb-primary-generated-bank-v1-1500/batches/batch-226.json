@@ -48,16 +48,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面是五年级一班第一小组6名同学1分钟跳绳的成绩（单位：下）：145、138、152、140、148、155。\n（1）这组数据的平均数是多少？\n（2）这个平均数表示什么？",
+      "promptZhHans": "6名同学1分钟跳绳的成绩是145、138、152、140、148、155下。（1）求平均数，结果保留两位小数；（2）说明这个平均数表示什么。请完整填写两项。",
       "optionsZhHans": [],
-      "answer": "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
+      "answer": "（1）146.33下；（2）表示这6名同学1分钟跳绳的整体水平。",
       "acceptedAnswers": [
-        "（1）146下 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146 （2）这个平均数表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146下 （2）表示第一小组6名同学1分钟跳绳的整体水平。",
-        "（1）146 （2）表示第一小组6名同学1分钟跳绳的整体水平。"
+        "（1）146.33下；（2）表示这6名同学1分钟跳绳的整体水平。",
+        "146.33下；表示这6名同学1分钟跳绳的整体水平。",
+        "(1) 146.33 jumps; (2) it represents the overall one-minute jump-rope performance of the six students."
       ],
-      "explanationZhHans": "（1）平均数=总成绩÷人数，(145+138+152+140+148+155)÷6=878÷6≈146.33，通常保留整数为146下。（2）平均数反映一组数据的集中趋势，代表整体水平。"
+      "explanationZhHans": "总成绩是145+138+152+140+148+155=878（下），平均数是878÷6=439/3≈146.33（下）。平均数用于表示这6名同学1分钟跳绳的整体水平。"
     },
     {
       "id": "hjb-primary-ds-v1-p5-127",

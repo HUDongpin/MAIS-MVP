@@ -288,7 +288,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "方程2(x - 3) = 8的解与下面哪个方程的解相同？",
+      "promptZhHans": "方程2(x-3)=8去括号后得到下面哪个方程？",
       "optionsZhHans": [
         "x - 3 = 4",
         "2x - 3 = 8",
@@ -297,9 +297,10 @@
       ],
       "answer": "2x - 6 = 8",
       "acceptedAnswers": [
-        "2x - 6 = 8"
+        "2x - 6 = 8",
+        "2x-6=8"
       ],
-      "explanationZhHans": "原方程去括号得2x - 6 = 8，与选项D相同。选项A是x - 3 = 4，解为x=7；原方程解为x=7，但方程形式不同，题目要求方程相同，故选D。"
+      "explanationZhHans": "用乘法分配律把2分别乘括号内的x和-3，得到2x-6=8，所以选第四项。"
     }
   ]
 }

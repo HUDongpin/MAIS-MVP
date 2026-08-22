@@ -103,18 +103,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "学校要给一块长方形花坛围上篱笆，花坛长8米、宽5米。下面哪个选项是正确的？",
+      "promptZhHans": "学校要给一块长8米、宽5米的长方形花坛围上篱笆。下面哪个说法正确？",
       "optionsZhHans": [
-        "篱笆的长度是40米",
-        "篱笆的长度是26米",
-        "花坛的面积是26平方米",
-        "花坛的面积是40平方米"
+        "篱笆长40米",
+        "篱笆长26米",
+        "花坛面积是26平方米",
+        "花坛面积是45平方米"
       ],
-      "answer": "篱笆的长度是26米",
+      "answer": "篱笆长26米",
       "acceptedAnswers": [
-        "篱笆的长度是26米"
+        "篱笆长26米",
+        "The fence is 26 m long"
       ],
-      "explanationZhHans": "篱笆长度即周长：(8+5)×2=26米。面积是8×5=40平方米。选项A误用面积，C误用周长，D是面积但单位错。"
+      "explanationZhHans": "篱笆长度是花坛周长，(8+5)×2=26（米）；花坛面积是8×5=40（平方米）。因此只有第二项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p3-238",

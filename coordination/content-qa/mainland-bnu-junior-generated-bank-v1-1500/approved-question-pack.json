@@ -68854,14 +68854,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "一个不透明的袋子里装有4个红球和1个蓝球，这些球除颜色外完全相同。小刚从袋子里随机摸出一个球，记录颜色后放回并摇匀，然后再随机摸出一个球。请列出所有等可能的结果，并求至少有一次摸出红球的概率。",
+      "promptZhHans": "一个不透明的袋子里装有4个红球和1个蓝球，这些球除颜色外完全相同。小刚从袋子里随机摸出一个球，记录颜色后放回并摇匀，然后再随机摸出一个球。求两次摸球中至少有一次摸出红球的概率。",
       "optionsZhHans": [],
       "answer": "24/25",
       "acceptedAnswers": [
         "24/25",
         "0.96"
       ],
-      "explanationZhHans": "总结果25种。两次都摸出蓝球只有1种，所以至少一次红球有24种，概率24/25。"
+      "explanationZhHans": "把每个球视为一个等可能结果。两次有放回摸球共有5×5=25个等可能的有序结果；两次都摸到蓝球只有1个结果，所以至少一次摸到红球有25-1=24个结果，概率为24/25。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-105",

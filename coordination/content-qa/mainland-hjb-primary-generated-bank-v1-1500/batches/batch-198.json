@@ -49,13 +49,13 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小胖用“五舍六入”法将一个小数保留一位小数后得到 3.5。这个小数最大可能是多少？",
+      "promptZhHans": "一个小数恰有两位小数。用“五舍六入”法保留一位小数，即百分位是0至5时舍去，是6至9时向十分位进1。所得结果是3.5，这个两位小数最大是多少？",
       "optionsZhHans": [],
-      "answer": "3.54",
+      "answer": "3.55",
       "acceptedAnswers": [
-        "3.54"
+        "3.55"
       ],
-      "explanationZhHans": "五舍六入保留一位小数，看百分位。要最大，十分位为5，百分位最大为4，千分位不影响，故最大是3.54。"
+      "explanationZhHans": "要使原数尽量大且舍去百分位后仍为3.5，十分位取5，百分位最多取5。因此最大是3.55；若百分位是6，就会进位得到3.6。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-237",

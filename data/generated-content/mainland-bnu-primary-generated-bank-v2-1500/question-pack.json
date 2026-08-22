@@ -49,7 +49,7 @@
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
       "promptZhHans": "教室里，老师让小朋友们数一数窗台上花盆的数量。小丽用手指一个一个点着花盆数：1、2、3、4、5、6。她数完后说：“一共有6个花盆。”小丽数的结果对吗？为什么？",
       "optionsZhHans": [
-        "对，因为她数到了6，所以是6个。",
+        "对，因为只要最后数到6，即使漏数或重复数也一定是6个。",
         "不对，因为她没有用手指点每一个花盆。",
         "对，因为她用手指点着数，最后一个数是6，所以是6个。",
         "不对，因为她数的声音太小了。"
@@ -58,7 +58,7 @@
       "acceptedAnswers": [
         "对，因为她用手指点着数，最后一个数是6，所以是6个。"
       ],
-      "explanationZhHans": "小丽用手指一个一个点着花盆数，做到了一一对应。她数的最后一个数是6，就表示一共有6个花盆，所以结果是对的。"
+      "explanationZhHans": "小丽用手指把每个花盆只点一次，做到了花盆和数词一一对应；最后一个数是6，所以一共有6个花盆。只说“数到了6”并不充分，如果漏数或重复数，结果仍可能错误。因此只有选项C完整说明了理由。"
     },
     {
       "id": "bnu-primary-ds-v2-p1-002",
@@ -10796,18 +10796,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪个图形是长方形？",
+      "promptZhHans": "下面哪个图形有2条长边、2条短边，而且4个角都是直角？",
       "optionsZhHans": [
-        "有4条边，4个角，每条边都一样长",
-        "有4条边，4个角，相对的两条边一样长",
+        "有4条边，每条边都一样长，4个角都是直角",
+        "有4条边，2条长边一样长，2条短边一样长，4个角都是直角",
         "有3条边，3个角",
         "没有边，没有角，是弯弯的"
       ],
-      "answer": "有4条边，4个角，相对的两条边一样长",
+      "answer": "有4条边，2条长边一样长，2条短边一样长，4个角都是直角",
       "acceptedAnswers": [
-        "有4条边，4个角，相对的两条边一样长"
+        "有4条边，2条长边一样长，2条短边一样长，4个角都是直角"
       ],
-      "explanationZhHans": "长方形有4条边和4个角，相对的两条边一样长，相邻的边不一样长。选项1是正方形，选项3是三角形，选项4是圆。"
+      "explanationZhHans": "题目要求图形有2条长边、2条短边，而且4个角都是直角。选项2完整符合这些条件；选项1的4条边都一样长，不符合“两条长边、两条短边”的描述。"
     },
     {
       "id": "bnu-primary-ds-v2-p1-192",
@@ -10860,13 +10860,9 @@
       "optionsZhHans": [],
       "answer": "平行四边形",
       "acceptedAnswers": [
-        "平行四边形",
-        "长方形",
-        "正方形",
-        "三角形",
-        "菱形"
+        "平行四边形"
       ],
-      "explanationZhHans": "两个完全一样的三角形可以拼成平行四边形、长方形、正方形或更大的三角形等。写出一种即可。"
+      "explanationZhHans": "把两个完全一样的三角形的一组对应边重合，并把其中一个三角形绕这组对应边的中点旋转180°，所得四边形的两组对边分别平行且相等，因此一定可以拼成平行四边形。"
     },
     {
       "id": "bnu-primary-ds-v2-p1-193",
@@ -18534,16 +18530,13 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "量一量，你的食指大约有多长？选择合适的单位填空：我的食指大约长______厘米。",
+      "promptZhHans": "小明用直尺测量食指长度，食指的一端对准0刻度，另一端对准5厘米刻度。小明的食指大约长______厘米。",
       "optionsZhHans": [],
       "answer": "5",
       "acceptedAnswers": [
-        "5",
-        "6",
-        "4",
-        "7"
+        "5"
       ],
-      "explanationZhHans": "二年级学生食指长度通常在4到7厘米之间，填写合理数值即可。"
+      "explanationZhHans": "测量时一端对准0刻度，另一端对准5厘米刻度，所以食指长度是5-0=5厘米。"
     },
     {
       "id": "bnu-primary-ds-v2-p2-078",
@@ -25953,7 +25946,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪个图形是长方形？\nA. 有4条边，其中两条边长5厘米，另外两条边长3厘米，4个角都是直角。\nB. 有4条边，4条边都长4厘米，4个角都是直角。\nC. 有3条边，3个角。\nD. 有4条边，其中两条边长5厘米，另外两条边长4厘米，4个角都不是直角。",
+      "promptZhHans": "下面哪个图形符合“有2条长边、2条短边，而且4个角都是直角”的描述？\nA. 有4条边，其中两条边长5厘米，另外两条边长3厘米，4个角都是直角。\nB. 有4条边，4条边都长4厘米，4个角都是直角。\nC. 有3条边，3个角。\nD. 有4条边，其中两条边长5厘米，另外两条边长4厘米，4个角都不是直角。",
       "optionsZhHans": [
         "A",
         "B",
@@ -25964,7 +25957,7 @@
       "acceptedAnswers": [
         "A"
       ],
-      "explanationZhHans": "长方形有4条边，对边相等，4个角都是直角。选项A符合这些特征：4条边，对边分别长5厘米和3厘米，4个直角。选项B是正方形，选项C是三角形，选项D的角不是直角，因此都不是长方形。"
+      "explanationZhHans": "选项A有2条5厘米的长边、2条3厘米的短边，而且4个角都是直角，完整符合题目描述。选项B的4条边都一样长，不符合“两条长边、两条短边”的描述；选项C只有3条边；选项D没有直角。因此只有选项A正确。"
     },
     {
       "id": "bnu-primary-ds-v2-p2-210",
@@ -27526,7 +27519,7 @@
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
       "promptZhHans": "二（1）班同学最喜欢的运动项目调查结果如下：跑步8人，跳绳12人，踢毽子5人，打球10人。下面说法正确的是？",
       "optionsZhHans": [
-        "喜欢跳绳的人数最多",
+        "喜欢跑步的人数最多",
         "喜欢跑步的人数是5人",
         "喜欢踢毽子的人数比打球多",
         "喜欢跳绳和打球的一共有22人"
@@ -27535,7 +27528,7 @@
       "acceptedAnswers": [
         "喜欢跳绳和打球的一共有22人"
       ],
-      "explanationZhHans": "跳绳12人，打球10人，12+10=22人，所以正确。"
+      "explanationZhHans": "跳绳12人，打球10人，12+10=22人。跑步8人不是最多；跑步人数不是5人；踢毽子5人少于打球10人。因此只有选项D正确。"
     },
     {
       "id": "bnu-primary-ds-v2-p2-238",
@@ -30230,7 +30223,7 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "果园里上午摘了 487 千克苹果，下午摘了 356 千克苹果。下面哪个算式最适合用来估算一天大约摘了多少千克苹果？",
+      "promptZhHans": "果园里上午摘了487千克苹果，下午摘了356千克苹果。如果把每个数看作最接近的整百数，下面哪个估算算式正确？",
       "optionsZhHans": [
         "500 + 400 = 900",
         "487 + 356 = 843",
@@ -30241,7 +30234,7 @@
       "acceptedAnswers": [
         "500 + 400 = 900"
       ],
-      "explanationZhHans": "估算时把 487 看作 500，356 看作 400，500 + 400 = 900，所以大约摘了 900 千克。选项 B 是精确计算，不是估算；C 和 D 的近似值不够接近，误差较大。"
+      "explanationZhHans": "题目要求把每个数看作最接近的整百数。487最接近500，356最接近400，所以487+356≈500+400=900。选项B是精确计算；选项C没有估成整百数；选项D也没有取最接近的整百数。因此只有选项A正确。"
     },
     {
       "id": "bnu-primary-ds-v2-p3-035",
@@ -74952,18 +74945,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "S18 BNU primary V2 automated source-distance/structure/v1-distance gate passed with 300-row grade sample queue generated; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪个数可以写成百分数？",
+      "promptZhHans": "下面哪个数量表示“完成的部分占总量的比率”，可以直接改写成百分数？",
       "optionsZhHans": [
         "一根绳子长0.8米",
-        "一本书看了0.5",
-        "男生人数是女生的1.2倍",
+        "一本书已经看了全书的0.5",
+        "一个书包重1.2千克",
         "一瓶饮料有500毫升"
       ],
-      "answer": "一本书看了0.5",
+      "answer": "一本书已经看了全书的0.5",
       "acceptedAnswers": [
-        "一本书看了0.5"
+        "一本书已经看了全书的0.5"
       ],
-      "explanationZhHans": "百分数表示一个数是另一个数的百分之几，不能带单位。0.8米、1.2倍、500毫升都带有单位或表示倍数，而“看了0.5”可以理解为看了全书的50%，可以写成百分数。"
+      "explanationZhHans": "“已经看了全书的0.5”表示已看部分占全书的比率，0.5=50%，可以直接改写成百分数。0.8米、1.2千克和500毫升都是带单位的具体数量，不能把这些数量本身直接写成百分数。因此只有选项B正确。"
     },
     {
       "id": "bnu-primary-ds-v2-p6-059",
@@ -81058,14 +81051,14 @@
       "optionsZhHans": [
         "3:4 和 6:9",
         "0.5:2 和 1.5:6",
-        "1/2:1/3 和 3:2",
+        "1/2:1/3 和 2:3",
         "5:8 和 10:18"
       ],
       "answer": "0.5:2 和 1.5:6",
       "acceptedAnswers": [
         "0.5:2 和 1.5:6"
       ],
-      "explanationZhHans": "判断两个比是否成比例，看比值是否相等。0.5:2=0.25，1.5:6=0.25，比值相等，可以组成比例。其他选项比值不相等。"
+      "explanationZhHans": "判断两个比能否组成比例，要比较它们的比值。选项B中，0.5:2=0.25，1.5:6=0.25，比值相等。选项A的比值是3/4和2/3，选项C的比值是3/2和2/3，选项D的比值是5/8和5/9，都不相等。因此只有选项B可以组成比例。"
     },
     {
       "id": "bnu-primary-ds-v2-p6-164",

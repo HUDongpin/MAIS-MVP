@@ -36,6 +36,8 @@ const mathRedFlagPattern =
   /设计有误|选项中没有|没有正确答案|无法确定|重新计算|但选项|但题目|假设图中|答案不唯一|可能有误|题目误写|重新生成|我将|根据输出要求|缺少条件|缺少图|不够条件/i;
 const genericStemPattern =
   /^(下面哪句(?:话)?是正确的[？?]?$|下面哪种说法是正确的[？?]?$|下列说法(?:中)?，?正确的是(?:哪一项)?[？?]?$|下列说法(?:中)?，?正确的是\s*[（(]\s*[）)]。?$|下面说法正确的是\s*[（(]\s*[）)]。?$)/;
+const decimalMultiplicationTopicId = "bnu-primary-p4-lower-decimal-multiplication";
+const decimalDivisionContentPattern = /÷|小数除法|除数|被除数|除以/u;
 
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return;
@@ -300,6 +302,7 @@ function userPrompt({ targets, curriculumCards, assessmentPatternCards }) {
         "Use fresh numbers, mathematical objects, contexts, and distractors.",
         "Use the target id as a uniqueness seed: vary names, numbers, objects, and the asked quantity so prompts are not repeated across targets.",
         "The stem must include topic-specific mathematical content; avoid bare generic stems such as 下面哪句话是正确的, 下面哪种说法是正确的, 下列说法正确的是.",
+        "For the decimal-multiplication target, assess multiplication only; never use decimal division, a divisor, a dividend, or the division symbol ÷.",
         "Do not copy examples, exercise wording, page language, diagram layout, or worked-solution phrasing.",
         "Do not use external diagrams; any graph, shape, table, or data set must be fully described in text.",
         "For geometry, measurement, direction-position, statistics, ratio, equation, circle, cylinder, cone, or data targets, write all quantities, point names, side lengths, angle measures, movement directions, formulas, or data lists in text.",
@@ -473,6 +476,9 @@ function normalizeQuestion(target, raw) {
   if (forbiddenSourcePattern.test(sourceRiskText(normalized))) errors.push("forbidden source or missing-visual wording detected");
   if (mathRedFlagPattern.test(sourceRiskText(normalized))) errors.push("math red-flag wording detected");
   if (genericStemPattern.test(normalized.promptZhHans.trim())) errors.push("overly generic prompt stem detected");
+  if (target.topicId === decimalMultiplicationTopicId && decimalDivisionContentPattern.test(sourceRiskText(normalized))) {
+    errors.push("decimal-multiplication target contains decimal-division content");
+  }
   if (!normalized.acceptedAnswers.length) errors.push("missing acceptedAnswers");
   return { question: normalized, errors };
 }

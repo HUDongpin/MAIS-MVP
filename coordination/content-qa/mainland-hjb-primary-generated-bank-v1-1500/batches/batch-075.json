@@ -224,18 +224,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "复习课上，老师让同学们把下面的算式分类：① 3×5  ② 2+2+2  ③ 4×6  ④ 5+5+5。下面哪种分类是正确的？",
+      "promptZhHans": "复习课上，老师让同学们把下面的算式按运算符号分类：①3×5，②2+2+2，③4×6，④5+5+5。下面哪种分类正确？",
       "optionsZhHans": [
-        "乘法算式：①③，加法算式：②④",
-        "结果是15的：①④，结果是12的：②③",
-        "加数相同的加法：②④，乘法：①③",
-        "乘法算式：①②，加法算式：③④"
+        "乘法算式：①③；加法算式：②④",
+        "乘法算式：①④；加法算式：②③",
+        "乘法算式：②③；加法算式：①④",
+        "乘法算式：①②；加法算式：③④"
       ],
-      "answer": "乘法算式：①③，加法算式：②④",
+      "answer": "乘法算式：①③；加法算式：②④",
       "acceptedAnswers": [
-        "乘法算式：①③，加法算式：②④"
+        "乘法算式：①③；加法算式：②④",
+        "Multiplication: 1 and 3; addition: 2 and 4"
       ],
-      "explanationZhHans": "①和③是乘法算式，②和④是加法算式。分类时要根据运算符号，不能只看数字或结果。"
+      "explanationZhHans": "①和③含乘号，是乘法算式；②和④含加号，是加法算式。因此第一种分类正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-125",

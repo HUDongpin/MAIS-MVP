@@ -41,6 +41,8 @@ const omittedVisualConditionPattern =
   /从(?:正面|前面|左面|右面|上面|后面)看(?:到的)?是\s*[，。；;,.]|看(?:到的)?是\s*[，。；;,.]/;
 const diagonalTranslationPattern =
   /相当于向.*方向平移.*格|(?:东南|东北|西南|西北)\s*√/;
+const decimalMultiplicationTopicId = "bnu-primary-p4-lower-decimal-multiplication";
+const decimalDivisionContentPattern = /÷|小数除法|除数|被除数|除以/u;
 
 function loadEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return;
@@ -386,6 +388,7 @@ function userPrompt({ targets, curriculumCards, assessmentPatternCards }) {
         "For direction-position tasks, do not ask the relative direction between two non-collinear locations that were only described from the same observation point; use coordinates or a collinear/opposite setup.",
         "For translation/motion tasks, do not combine horizontal and vertical moves into a diagonal/root-distance answer; ask for final position or separate horizontal and vertical movements.",
         "For decimal meaning/add-subtract targets, do not use decimal multiplication or division.",
+        "For the decimal-multiplication target, assess multiplication only; never use decimal division, a divisor, a dividend, or the division symbol ÷.",
         "For statistics/data multiple-choice targets, ask for one specific computed quantity or conclusion, such as total, average, maximum/minimum, or difference; do not use broad true-statement selection.",
         "Keep grade fit strict: no negative coordinates in P3 grid tasks, no trigonometry or diagonal-vector distance in P5 direction tasks, and no fractional people/books/items when the context requires whole counts.",
         "Before returning JSON, check answer, acceptedAnswers, and explanationZhHans agree exactly.",
@@ -563,6 +566,9 @@ function normalizeQuestion(target, raw) {
   if (diagonalTranslationPattern.test(sourceRiskText(normalized))) errors.push("diagonal translation/root-distance wording detected");
   if (mathRedFlagPattern.test(sourceRiskText(normalized))) errors.push("math red-flag wording detected");
   if (genericStemPattern.test(normalized.promptZhHans.trim())) errors.push("overly generic prompt stem detected");
+  if (target.topicId === decimalMultiplicationTopicId && decimalDivisionContentPattern.test(sourceRiskText(normalized))) {
+    errors.push("decimal-multiplication target contains decimal-division content");
+  }
   if (!normalized.acceptedAnswers.length) errors.push("missing acceptedAnswers");
   return { question: normalized, errors };
 }

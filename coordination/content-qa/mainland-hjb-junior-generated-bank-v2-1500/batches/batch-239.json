@@ -121,11 +121,12 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "某商品每件进价40元，当售价为60元时，每天可售出100件。经调查，售价每降低1元，每天多售出10件。设每件降价 x 元（0 ≤ x ≤ 20），每天总利润为 y 元。\n(1) 求 y 关于 x 的函数解析式，并化为一般式；\n(2) 当降价多少元时，每天总利润最大？最大利润是多少？",
       "optionsZhHans": [],
-      "answer": "(1) y = -10x^2 + 100x + 2000；(2) 降价5元，最大利润2025元",
+      "answer": "（1）y=-10x²+100x+2000；（2）降价5元时，最大日利润为2250元",
       "acceptedAnswers": [
-        "(1) y = -10x^2 + 100x + 2000；(2) 降价5元，最大利润2025元"
+        "（1）y=-10x²+100x+2000；（2）降价5元时，最大日利润为2250元",
+        "(1)y=-10x^2+100x+2000;(2)降价5元，最大日利润2250元"
       ],
-      "explanationZhHans": "降价 x 元后售价 (60-x) 元，销量 (100+10x) 件，单件利润 (20-x) 元。y = (20-x)(100+10x) = -10x^2+100x+2000。配方得 y = -10(x-5)^2+2025，开口向下，当 x=5 时 y_max=2025。"
+      "explanationZhHans": "降价x元后，单件利润为20-x元，每天销量为100+10x件，所以y=(20-x)(100+10x)=-10x²+100x+2000=-10(x-5)²+2250。因此降价5元时，每天总利润最大，为2250元。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-193",

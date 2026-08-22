@@ -119,15 +119,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小明在化简一个整式时，写下了以下步骤：\n原式 = 3a²b - [2ab² - (4a²b + ab²) - 5a²b] + 2ab²\n= 3a²b - 2ab² + 4a²b + ab² - 5a²b + 2ab²\n= (3a²b + 4a²b - 5a²b) + (-2ab² + ab² + 2ab²)\n= 2a²b + ab²\n请指出小明在哪一步开始出错，并写出正确的化简结果。",
+      "promptZhHans": "化简：4x²y - [3xy² - (2x²y + xy²) - 5x²y] + 2xy²。",
       "optionsZhHans": [],
-      "answer": "第一步去括号时符号错误；正确结果为 12a²b - 3ab²",
+      "answer": "11x²y",
       "acceptedAnswers": [
-        "第一步去括号时符号错误；正确结果为 12a²b - 3ab²",
-        "第一步符号错误，正确结果为 12a²b - 3ab²",
-        "第一步去括号符号错，正确结果 12a²b - 3ab²"
+        "11x²y",
+        "11x^2y"
       ],
-      "explanationZhHans": "原式 = 3a²b - [2ab² - (4a²b + ab²) - 5a²b] + 2ab²。先去小括号：= 3a²b - [2ab² - 4a²b - ab² - 5a²b] + 2ab²。合并中括号内同类项：2ab² - ab² = ab²，-4a²b - 5a²b = -9a²b，得 3a²b - [ab² - 9a²b] + 2ab²。去中括号：= 3a²b - ab² + 9a²b + 2ab² = 12a²b + ab²。小明第一步去括号时，- (4a²b + ab²) 变为 +4a²b + ab² 正确，但 -5a²b 前是减号，去括号应为 +5a²b，他写成了 -5a²b，导致错误。"
+      "explanationZhHans": "先化简中括号：3xy²-(2x²y+xy²)-5x²y=2xy²-7x²y。原式=4x²y-(2xy²-7x²y)+2xy²=11x²y，两个xy²项恰好抵消。"
     },
     {
       "id": "hjb-junior-ds-v2-s1-013",

@@ -168,14 +168,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小华和小明各有一块同样大小的长方形蛋糕。小华吃了自己蛋糕的2/8，小明吃了自己蛋糕的3/8。谁吃的蛋糕多？请用分数比较说明，并解释为什么不能直接比较2/8和3/8的分子大小就得出结论。",
+      "promptZhHans": "小华和小明各有一块同样大小的长方形蛋糕。小华吃了2/8，小明吃了3/8。依次填写吃得更多的人和比较理由，格式为“___；___”。",
       "optionsZhHans": [],
-      "answer": "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
+      "answer": "小明；整体相同、分母相同，分子3>2，所以3/8>2/8。",
       "acceptedAnswers": [
-        "小明吃的多，因为3/8 > 2/8，且两块蛋糕同样大，整体相同，分母相同，分子大的分数大。",
-        "小明吃的多，因为3/8大于2/8，整体相同，分母相同，分子大的分数大。"
+        "小明；整体相同、分母相同，分子3>2，所以3/8>2/8。",
+        "小明；两块蛋糕同样大，分母相同，3>2，所以3/8>2/8。",
+        "Xiaoming; the wholes and denominators are the same, and 3>2, so 3/8>2/8."
       ],
-      "explanationZhHans": "比较分数大小时，必须确保整体相同。这里两块蛋糕同样大，整体相同，分母都是8，分子3大于2，所以3/8 > 2/8，小明吃的多。"
+      "explanationZhHans": "两块蛋糕同样大，整体相同；两个分数的分母同为8，所以可以直接比较分子。3>2，因此3/8>2/8，小明吃得更多。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-049",

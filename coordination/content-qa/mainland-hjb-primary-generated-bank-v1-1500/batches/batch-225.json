@@ -278,15 +278,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "五年级一班环保小组记录了上周每天收集的废纸数量（单位：千克）：周一5.2，周二4.8，周三5.0，周四5.6，周五4.4。他们计划用这些废纸换再生纸，每千克废纸可换0.8千克再生纸。先计算这五天收集废纸的平均数，再根据平均数估算本周大约能换多少千克再生纸。",
+      "promptZhHans": "环保小组上周5个上学日收集废纸5.2、4.8、5.0、5.6、4.4千克。本周也按5个上学日估算，假设每天收集量约等于上周日平均数；每千克废纸可换0.8千克再生纸。依次填写上周日平均数和本周约能换的再生纸质量。",
       "optionsZhHans": [],
-      "answer": "平均数5千克，大约能换4千克再生纸",
+      "answer": "日平均5千克；本周约换20千克再生纸",
       "acceptedAnswers": [
-        "平均数5千克，大约能换4千克再生纸",
-        "平均5千克，大约换4千克再生纸",
-        "5千克，4千克"
+        "日平均5千克；本周约换20千克再生纸",
+        "平均5千克；本周大约换20千克再生纸",
+        "daily mean 5 kg; about 20 kg of recycled paper this week"
       ],
-      "explanationZhHans": "五天废纸总重：5.2+4.8+5.0+5.6+4.4=25千克，平均25÷5=5千克。用平均数估算换再生纸：5×0.8=4千克。平均数代表每天收集废纸的典型水平，可用来估算总量。"
+      "explanationZhHans": "上周总量是5.2+4.8+5.0+5.6+4.4=25（千克），日平均是25÷5=5（千克）。本周5个上学日估计收集5×5=25（千克），可换25×0.8=20（千克）再生纸。"
     }
   ]
 }

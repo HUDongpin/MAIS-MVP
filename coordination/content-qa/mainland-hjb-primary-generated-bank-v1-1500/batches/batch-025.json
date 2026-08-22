@@ -276,12 +276,16 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在计算 17 - 8 时，小丁把 8 分成了 7 和 1，先算 17 - 7 = 10，再算 10 - 1 = 9。这种方法是______法。",
       "optionsZhHans": [],
-      "answer": "分拆减数",
+      "answer": "平十法",
       "acceptedAnswers": [
         "分拆减数",
-        "分拆减数法"
+        "分拆减数法",
+        "平十",
+        "平十法",
+        "splitting the subtrahend",
+        "bridge-to-ten method"
       ],
-      "explanationZhHans": "把减数8拆成7和1，先减7得10，再减1得9，这就是分拆减数法。"
+      "explanationZhHans": "把减数8拆成7和1，先减7凑成10，再减1得9。这种方法叫平十法，也叫分拆减数法。"
     }
   ]
 }

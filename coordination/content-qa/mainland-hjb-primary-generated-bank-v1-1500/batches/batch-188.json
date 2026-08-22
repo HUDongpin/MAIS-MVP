@@ -163,14 +163,16 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小胖记录了自己一周内每天跳绳的个数：星期一120个，星期二135个，星期三130个，星期四140个，星期五125个。他打算画折线统计图，纵轴每格表示5个。如果纵轴从115开始，那么星期二的点应该画在纵轴从下往上数第几格的位置？",
+      "promptZhHans": "折线统计图的纵轴以115为起始刻度线，每相邻两条刻度线相差5。若星期二的数据是135，且不把115这条起始线计入向上的条数，135应画在115上方第几条刻度线上？",
       "optionsZhHans": [],
-      "answer": "4",
+      "answer": "第4条刻度线",
       "acceptedAnswers": [
+        "第4条刻度线",
+        "第4条",
         "4",
-        "四"
+        "the 4th gridline"
       ],
-      "explanationZhHans": "纵轴起点115，每格5。星期二135个，135-115=20，20÷5=4，所以画在第4格。"
+      "explanationZhHans": "135-115=20，20÷5=4。不计115起始线，135在它上方第4条刻度线上。"
     },
     {
       "id": "hjb-primary-ds-v1-p4-189",

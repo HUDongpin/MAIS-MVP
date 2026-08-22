@@ -58,11 +58,12 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在平面直角坐标系中，已知点A(1,2)、B(5,2)、C(3,6)。判断△ABC的外接圆圆心坐标，并说明理由。",
       "optionsZhHans": [],
-      "answer": "圆心坐标为(3,2)，因为AB是水平线段，其中垂线为x=3；AC和BC的中垂线交点也为(3,2)。",
+      "answer": "圆心为(3,7/2)，因为它是AB与AC的中垂线交点",
       "acceptedAnswers": [
-        "圆心坐标为(3,2)，因为AB是水平线段，其中垂线为x=3；AC和BC的中垂线交点也为(3,2)。"
+        "圆心为(3,7/2)，因为它是AB与AC的中垂线交点",
+        "圆心(3,7/2)，为AB和AC的中垂线交点"
       ],
-      "explanationZhHans": "由A(1,2)、B(5,2)得AB中垂线为x=3。计算AC中垂线：中点(2,4)，斜率-2，中垂线斜率1/2，方程y-4=(1/2)(x-2)，与x=3联立得y=2。故圆心(3,2)。"
+      "explanationZhHans": "AB的中点为(3,2)，所以AB的中垂线是x=3。设圆心为(3,y)，由它到A、C距离相等，得4+(y-2)²=(y-6)²，解得y=7/2。因此外接圆圆心为(3,7/2)，即两边中垂线的交点。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-322",

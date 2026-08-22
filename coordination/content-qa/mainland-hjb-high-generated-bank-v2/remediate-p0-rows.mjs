@@ -143,9 +143,9 @@ const remediations = new Map(Object.entries({
     optionsZhHans: [],
     answer: "-1",
     acceptedAnswers: [],
-    explanationZhHans: "由 1∈B 且 a≠1，结合集合相等可得 a=-1；此时 B={-1,1,-b} 与 A={1,-1,b} 相等，故 b=0。于是 a²⁰²³+b²⁰²⁴=-1+0=-1。",
+    explanationZhHans: "集合相等意味着{1,b}={a²,ab}。若ab=1，则a²=b，进而a³=1；由于a是实数，得a=1，与两两不同矛盾。因此a²=1，且a≠1，所以a=-1。此时B={-1,1,-b}，A={1,-1,b}；集合相等给出b=0。因此(-1)^{2023}+0^{2024}=-1。",
     manualIndependentAnswer: "-1",
-    manualNotes: "Added distinctness to make the set-equality reading unique and corrected the stored answer."
+    manualNotes: "Added distinctness, handled the excluded ab=1 branch explicitly, and corrected the stored answer."
   }),
   "hjb-high-ds-v2-s4-026": fix({
     issueCode: "manual-ambiguous-empty-set",

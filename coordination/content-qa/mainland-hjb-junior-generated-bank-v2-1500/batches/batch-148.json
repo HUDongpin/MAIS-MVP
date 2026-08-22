@@ -318,13 +318,14 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "在△ABC中，AB=AC=5，BC=6，AD平分∠BAC交BC于点D。过点D作DE⊥AB于点E，DF⊥AC于点F。连接EF。求证：四边形AEDF是正方形，并求EF的长。",
+      "promptZhHans": "在△ABC中，∠C=90°，AC=6，BC=8，AD平分∠BAC交BC于点D，DE⊥AB于点E。求DE的长。",
       "optionsZhHans": [],
-      "answer": "证明：由AB=AC，AD平分∠BAC，得AD是等腰三角形顶角平分线，也是底边BC的中线和高，故AD⊥BC，BD=CD=3。在Rt△ABD中，AB=5，BD=3，由勾股定理得AD=4。由角平分线性质，点D到AB、AC的距离相等，即DE=DF。又DE⊥AB，DF⊥AC，且∠EAF=∠BAC，∠AED=∠AFD=90°，故四边形AEDF有三个直角，是矩形；又DE=DF，邻边相等，故是正方形。由面积法，S△ABC=1/2×BC×AD=1/2×6×4=12，又S△ABC=S△ABD+S△ACD=1/2×AB×DE+1/2×AC×DF=1/2×5×DE+1/2×5×DE=5DE，故5DE=12，DE=12/5。正方形边长DE=12/5，对角线EF=DE×√2=12√2/5。",
+      "answer": "3",
       "acceptedAnswers": [
-        "证明：由AB=AC，AD平分∠BAC，得AD是等腰三角形顶角平分线，也是底边BC的中线和高，故AD⊥BC，BD=CD=3。在Rt△ABD中，AB=5，BD=3，由勾股定理得AD=4。由角平分线性质，点D到AB、AC的距离相等，即DE=DF。又DE⊥AB，DF⊥AC，且∠EAF=∠BAC，∠AED=∠AFD=90°，故四边形AEDF有三个直角，是矩形；又DE=DF，邻边相等，故是正方形。由面积法，S△ABC=1/2×BC×AD=1/2×6×4=12，又S△ABC=S△ABD+S△ACD=1/2×AB×DE+1/2×AC×DF=1/2×5×DE+1/2×5×DE=5DE，故5DE=12，DE=12/5。正方形边长DE=12/5，对角线EF=DE×√2=12√2/5。"
+        "3",
+        "DE=3"
       ],
-      "explanationZhHans": "先证AD⊥BC，用勾股定理求AD=4。由角平分线性质得DE=DF，结合垂直证矩形，再证正方形。用面积法求DE=12/5，最后得EF=12√2/5。"
+      "explanationZhHans": "由勾股定理得AB=10。角平分线定理给出BD∶DC=AB∶AC=10∶6=5∶3，而BC=8，所以DC=3。由于BC⊥AC，DC就是点D到AC的距离；D在∠BAC的平分线上，到AB与AC的距离相等，因此DE=DC=3。"
     }
   ]
 }

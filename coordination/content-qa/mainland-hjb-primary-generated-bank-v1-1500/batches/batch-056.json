@@ -159,18 +159,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面哪种付钱方式正好能买一个价格为3元8角的卷笔刀？",
+      "promptZhHans": "下面哪个金额正好等于3元8角？",
       "optionsZhHans": [
-        "2张1元，3张5角，3张1角",
-        "1张2元，1张1元，1张5角，3张1角",
-        "3张1元，1张5角，3张1角",
-        "1张2元，1张1元，1张5角，2张2角"
+        "3.3元",
+        "3.7元",
+        "3.8元",
+        "3.9元"
       ],
-      "answer": "3张1元，1张5角，3张1角",
+      "answer": "3.8元",
       "acceptedAnswers": [
-        "3张1元，1张5角，3张1角"
+        "3.8元",
+        "3.8 yuan"
       ],
-      "explanationZhHans": "选项三：3元+5角+3角=3元8角，正好。其他选项均不是3元8角。"
+      "explanationZhHans": "8角=0.8元，所以3元8角=3.8元，只有第三个选项正确。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-029",

@@ -163,12 +163,19 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "在计算12 - 7时，小明把7分成了2和5。他先算12 - 2 = 10，再算10 - 5 = 5。这种方法是______法。",
       "optionsZhHans": [],
-      "answer": "连减",
+      "answer": "平十法",
       "acceptedAnswers": [
         "连减",
-        "分拆减数"
+        "连减法",
+        "分拆减数",
+        "分拆减数法",
+        "平十",
+        "平十法",
+        "successive subtraction",
+        "splitting the subtrahend",
+        "bridge-to-ten method"
       ],
-      "explanationZhHans": "把减数7拆成2和5，先减2得10，再减5得5，这是连减法，也叫分拆减数。"
+      "explanationZhHans": "把减数7拆成2和5，先减2凑成10，再减5得5。这是连减法，也叫平十法或分拆减数法。"
     },
     {
       "id": "hjb-primary-ds-v1-p1-129",

@@ -328,15 +328,20 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "一个矩形的长比宽多3米，且面积为40平方米。设宽为 x 米，列出关于 x 的方程，并求出矩形的长和宽。",
+      "promptZhHans": "两个连续正整数的积是72。求这两个正整数。",
       "optionsZhHans": [],
-      "answer": "宽5米，长8米",
+      "answer": "8和9",
       "acceptedAnswers": [
-        "宽5米，长8米",
-        "宽5米,长8米",
-        "宽5米 长8米"
+        "8和9",
+        "9和8",
+        "8，9",
+        "9，8",
+        "8,9",
+        "9,8",
+        "8 and 9",
+        "9 and 8"
       ],
-      "explanationZhHans": "依题意得 x(x+3)=40，即 x²+3x-40=0，因式分解 (x+8)(x-5)=0，x>0，故 x=5，长=8。"
+      "explanationZhHans": "设较小的正整数为x，则另一个为x+1。由x(x+1)=72，得x²+x-72=0，即(x-8)(x+9)=0。因为x为正整数，所以x=8，这两个连续正整数是8和9。"
     }
   ]
 }

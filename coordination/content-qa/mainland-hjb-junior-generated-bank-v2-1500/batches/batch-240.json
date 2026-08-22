@@ -189,11 +189,12 @@
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
       "promptZhHans": "某商品每件进价40元，售价60元时每月可售出200件。调查表明：售价每上涨1元，月销量减少5件。设售价为x元（x≥60），月利润为y元。\n(1) 求y关于x的函数解析式，并写出x的取值范围；\n(2) 当售价定为多少元时，月利润最大？最大月利润是多少？",
       "optionsZhHans": [],
-      "answer": "(1) y = -5x² + 700x - 24000，60 ≤ x ≤ 100；(2) 售价70元，最大利润500元",
+      "answer": "（1）y=-5x²+700x-20000，60≤x≤100；（2）售价70元时，最大月利润为4500元",
       "acceptedAnswers": [
-        "(1) y = -5x² + 700x - 24000，60 ≤ x ≤ 100；(2) 售价70元，最大利润500元"
+        "（1）y=-5x²+700x-20000，60≤x≤100；（2）售价70元时，最大月利润为4500元",
+        "(1)y=-5x^2+700x-20000,60<=x<=100;(2)售价70元，最大月利润4500元"
       ],
-      "explanationZhHans": "销量=200-5(x-60)=500-5x，利润y=(x-40)(500-5x)=-5x²+700x-24000。由销量≥0得x≤100，故60≤x≤100。顶点x=70∈[60,100]，y=500。"
+      "explanationZhHans": "售价为x元时，销量为200-5(x-60)=500-5x，故y=(x-40)(500-5x)=-5x²+700x-20000。由x≥60且销量不为负得60≤x≤100。配方为y=-5(x-70)²+4500，因此售价70元时最大月利润为4500元。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-199",

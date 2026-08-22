@@ -277,18 +277,19 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "老师把一些铅笔分给小朋友，每人分4支，正好分完；如果每人分6支，也正好分完。铅笔的数量可能是多少支？",
+      "promptZhHans": "老师把一些铅笔分给小朋友，每人分4支正好分完；每人分6支也正好分完。铅笔的数量可能是多少支？",
       "optionsZhHans": [
         "18支",
         "24支",
         "30支",
-        "36支"
+        "42支"
       ],
       "answer": "24支",
       "acceptedAnswers": [
-        "24支"
+        "24支",
+        "24 pencils"
       ],
-      "explanationZhHans": "铅笔数既是4的倍数又是6的倍数，即4和6的公倍数。4和6的最小公倍数是12，选项中24是12的2倍，符合条件。18、30、36都不是4和6的公倍数。"
+      "explanationZhHans": "铅笔数必须同时是4和6的倍数，也就是12的倍数。四个选项中只有24是12的倍数，所以选第二项。"
     }
   ]
 }

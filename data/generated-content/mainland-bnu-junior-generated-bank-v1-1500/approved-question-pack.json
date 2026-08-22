@@ -359,16 +359,16 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "一个几何体由4个大小相同的小正方体搭成，从正面看和从左面看得到的形状都是“田”字形（即2行2列的正方形排列）。这个几何体最少由几个小正方体组成？最多由几个小正方体组成？请分别写出最少和最多的个数。",
+      "promptZhHans": "一个几何体由若干个大小相同的小正方体搭成，所有小正方体都放在水平面上并逐层竖直堆叠。从正面看和从左面看得到的形状都是“田”字形（即2行2列的正方形排列）。这个几何体最少由几个小正方体组成？最多由几个小正方体组成？请分别写出最少和最多的个数。",
       "optionsZhHans": [],
-      "answer": "最少4个，最多4个",
+      "answer": "最少4个，最多8个",
       "acceptedAnswers": [
-        "最少4个，最多4个",
-        "最少4个,最多4个",
-        "4,4",
-        "4 4"
+        "最少4个，最多8个",
+        "最少4个,最多8个",
+        "4,8",
+        "4 8"
       ],
-      "explanationZhHans": "从正面看和从左面看都是田字形，说明几何体在2×2的底面上每个位置都至少有一个小正方体，且高度一致。因此只能是4个小正方体排成2行2列一层，最少和最多都是4个。"
+      "explanationZhHans": "两个视图都宽2格、高2格，所以底面占用范围不超过2×2，每个位置的堆叠高度不超过2。最少时，可在2×2底面的两个对角位置各放一摞高2的小正方体，共4个；从正面和左面看仍都是2列且每列高2。最多时，2×2底面的4个位置都堆2层，共2×2×2=8个。因此最少4个，最多8个。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-007",
@@ -552,7 +552,7 @@
       "acceptedAnswers": [
         "5"
       ],
-      "explanationZhHans": "由从正面看和从左面看的信息，可推断几何体的俯视图为2行3列。要使小立方块总数最少，应在满足视图的条件下尽可能少放。分析可得最少需要5个小立方块，例如在(1,1)、(1,3)、(2,1)、(2,2)、(2,3)位置各放1个。"
+      "explanationZhHans": "正面三列的高度分别是2、1、2，因此三个正面列至少需要2+1+2=5个小立方块。这个下界可以达到：用坐标（正面列，左面列，层）表示位置，在(1,1,1)、(1,1,2)、(2,2,1)、(3,1,1)、(3,1,2)各放1个小立方块。此时正面三列高度为2、1、2，左面两列高度为2、1，共用5个。所以最少需要5个。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-010",
@@ -13097,16 +13097,16 @@
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
       "promptZhHans": "某班为了解同学们最喜欢的课外活动，设计了如下调查问题：“你最喜欢的课外活动是什么？A. 阅读 B. 运动 C. 音乐 D. 绘画”。全班40名同学的选择结果整理如下：阅读12人，运动15人，音乐8人，绘画5人。根据这些数据，以下哪个结论是合理的？",
       "optionsZhHans": [
-        "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多",
+        "在这个班的调查结果中，选择运动的人数最多",
         "全班同学都不喜欢绘画，因为只有5人选择",
-        "选择阅读的人数比选择音乐的人数多4人，所以阅读一定比音乐更受欢迎",
+        "选择阅读的人数比选择音乐的人数多6人",
         "因为选择运动的人数最多，所以全校学生最喜欢的课外活动也是运动"
       ],
-      "answer": "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多",
+      "answer": "在这个班的调查结果中，选择运动的人数最多",
       "acceptedAnswers": [
-        "全班同学最喜欢的课外活动是运动，因为选择运动的人数最多"
+        "在这个班的调查结果中，选择运动的人数最多"
       ],
-      "explanationZhHans": "调查结果只反映该班情况，不能推广到全校。选项A基于本班数据，人数最多即最受欢迎，合理。B中“都不喜欢”过于绝对，5人选择不代表其他人不喜欢。C中人数差不能直接推断受欢迎程度，且“一定”不严谨。D错误地将班级结论推广到全校。"
+      "explanationZhHans": "该班选择运动的有15人，多于阅读12人、音乐8人和绘画5人，所以选项A正确。选项B把“最喜欢”误解成“是否喜欢”；阅读比音乐多12-8=4人，不是6人；本班调查结果也不能直接推广到全校。因此只有选项A合理。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-212",
@@ -15922,13 +15922,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "计算：(-2a^3)^2 · (-3a^2)^3 ÷ (6a^5)^2。",
+      "promptZhHans": "计算：(-2a^3)^2 · (-3a^2)^3 ÷ (6a^5)^2（a≠0）。",
       "optionsZhHans": [],
       "answer": "-3a^2",
       "acceptedAnswers": [
         "-3a^2"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为-3a^2。 复核要点：题目计算正确结果为-3a^2，但答案给出-2a^5，解释中也错误得出-3a^2，"
+      "explanationZhHans": "因为除式 (6a^5)^2 不能为 0，所以 a≠0。先算幂：(-2a^3)^2=4a^6，(-3a^2)^3=-27a^6，(6a^5)^2=36a^10。因此原式=(4a^6×(-27a^6))÷(36a^10)=-108a^12÷36a^10=-3a^2。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-258",
@@ -18347,7 +18347,7 @@
       "acceptedAnswers": [
         "10°"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为10°。 复核要点：题目求∠EOD，由∠AOC=130°得∠AOD=50°，∠EOD=∠AOD-∠AOE=10°，但答案给出90°，解释中得出10°，且"
+      "explanationZhHans": "∠AOC与∠AOD组成平角，所以∠AOD=180°-130°=50°。射线OE在∠AOD内部且∠AOE=40°，因此∠EOD=50°-40°=10°。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-297",
@@ -18469,11 +18469,11 @@
         "120°",
         "150°"
       ],
-      "answer": "60°",
+      "answer": "120°",
       "acceptedAnswers": [
-        "60°"
+        "120°"
       ],
-      "explanationZhHans": "设∠AOC=x，则∠AOD=180°-x。OE平分∠AOD，得∠DOE=(180°-x)/2。∠COE=∠COD+∠DOE=180°+(180°-x)/2=150°，解得x=60°。"
+      "explanationZhHans": "射线OC与OD方向相反，所以∠COE与∠EOD组成平角，∠EOD=180°-150°=30°。OE平分∠AOD，因此∠AOE=∠EOD=30°，从而∠AOD=60°。∠AOC与∠AOD组成平角，所以∠AOC=180°-60°=120°。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-299",
@@ -21007,7 +21007,7 @@
       "acceptedAnswers": [
         "8"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为8。 复核要点：题目求最大值与最小值的差，由3<x<13得最小4最大12，差为8，但答案给出10，解释中计算12-4=8却写差为8，且错误。"
+      "explanationZhHans": "三角形任意两边之和大于第三边、任意两边之差小于第三边，所以8-5<x<8+5，即3<x<13。x为整数时，最小值是4，最大值是12，它们的差为12-4=8。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-340",
@@ -23673,11 +23673,13 @@
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
       "promptZhHans": "某市出租车收费标准如下：起步价 8 元（含 3 千米），超过 3 千米后每千米加收 1.5 元（不足 1 千米按 1 千米计）。设行驶路程为 x 千米（x≥3），应付车费为 y 元。\n（1）写出 y 与 x 的关系式。\n（2）当行驶路程为 8.3 千米时，应付车费多少元？",
       "optionsZhHans": [],
-      "answer": "（1）y=8+1.5(x-3)；（2）17元",
+      "answer": "（1）y=8+1.5⌈x-3⌉（x≥3）；（2）17元",
       "acceptedAnswers": [
-        "（1）y=8+1.5(x-3)；（2）17元"
+        "（1）y=8+1.5⌈x-3⌉（x≥3）；（2）17元",
+        "y=8+1.5⌈x-3⌉，17元",
+        "y=8+1.5*ceil(x-3)，17元"
       ],
-      "explanationZhHans": "（1）超过 3 千米部分为 (x-3) 千米，费用 1.5(x-3)，加上起步价 8 元，得 y=8+1.5(x-3)。（2）8.3 千米按 9 千米计，y=8+1.5×(9-3)=8+9=17 元。"
+      "explanationZhHans": "超过3千米的部分为x-3千米。由于不足1千米按1千米计，计费的超出里程应为⌈x-3⌉，其中⌈u⌉表示不小于u的最小整数。因此y=8+1.5⌈x-3⌉。当x=8.3时，⌈8.3-3⌉=⌈5.3⌉=6，所以y=8+1.5×6=17元。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-384",
@@ -28316,7 +28318,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球除颜色外完全相同。搅匀后从中随机摸出1个球，记录颜色后放回，再搅匀，再随机摸出1个球。请回答：两次摸球的结果共有多少种等可能的情况？其中两次都摸到红球的情况有多少种？",
+      "promptZhHans": "一个不透明的袋子里装有3个红球和2个白球，这些球大小、质量相同。为区分基本结果，在不影响随机性的情况下，把3个红球分别编号为R1、R2、R3，把2个白球分别编号为W1、W2。搅匀后随机摸出1个球，记录球的编号后放回；再次搅匀并随机摸出1个球，也记录编号。请回答：两次摸球形成的有序编号结果共有多少种等可能的情况？其中两次都摸到红球的情况有多少种？",
       "optionsZhHans": [],
       "answer": "共有25种等可能的情况，其中两次都摸到红球的情况有9种。",
       "acceptedAnswers": [
@@ -28325,7 +28327,7 @@
         "25,9",
         "25和9"
       ],
-      "explanationZhHans": "第一次摸球有5种等可能结果（3红2白），放回后第二次仍有5种等可能结果，因此总情况数为5×5=25。两次都摸到红球：第一次摸到红球有3种，第二次摸到红球也有3种，共3×3=9种。"
+      "explanationZhHans": "每次摸球都可能得到R1、R2、R3、W1、W2中的一个编号，共5种等可能结果。放回后两次摸球形成5×5=25种等可能的有序编号结果。两次都摸到红球时，每次都有R1、R2、R3这3种选择，因此共有3×3=9种。若只记录颜色，则只有红红、红白、白红、白白4类事件，但这4类事件并不等可能。"
     },
     {
       "id": "bnu-junior-ds-v1-s1-461",
@@ -33648,13 +33650,13 @@
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
       "promptZhHans": "已知数轴上点A表示的数是√5，点B表示的数是√7，点C表示的数是2.5。请用“<”连接这三个数，并说明√5是有理数还是无理数，简述理由。",
       "optionsZhHans": [],
-      "answer": "2.5<√5<√7，√5是无理数，因为√5是无限不循环小数。",
+      "answer": "√5<2.5<√7，√5是无理数，因为√5是无限不循环小数。",
       "acceptedAnswers": [
-        "2.5<√5<√7，√5是无理数，因为√5是无限不循环小数。",
-        "√5是无理数，因为√5是无限不循环小数，2.5<√5<√7。",
-        "无理数，因为无限不循环，2.5<√5<√7。"
+        "√5<2.5<√7，√5是无理数，因为√5是无限不循环小数。",
+        "√5是无理数，因为√5是无限不循环小数，√5<2.5<√7。",
+        "无理数，因为无限不循环，√5<2.5<√7。"
       ],
-      "explanationZhHans": "√5≈2.236，√7≈2.646，2.5在两者之间，故2.5<√5<√7。√5不能表示为分数，是无限不循环小数，因此是无理数。"
+      "explanationZhHans": "√5≈2.236，√7≈2.646，所以2.236<2.5<2.646，即√5<2.5<√7。因为5不是完全平方数，√5不能表示成两个整数之比，它的小数表示无限不循环，所以√5是无理数。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-048",
@@ -33781,13 +33783,13 @@
         "点A在点B的右侧",
         "点B在点C的左侧",
         "点C在点A的左侧",
-        "点A与点B之间的距离小于点B与点C之间的距离"
+        "点A与点B之间的距离大于点B与点C之间的距离"
       ],
       "answer": "点B在点C的左侧",
       "acceptedAnswers": [
         "点B在点C的左侧"
       ],
-      "explanationZhHans": "估算平方根：√5≈2.236，√10≈3.162，√17≈4.123。在数轴上，2.236<3.162<4.123，故点A在点B左侧，点B在点C左侧，点C在点A右侧。距离AB≈0.926，BC≈0.961，AB<BC。因此正确选项为“点B在点C的左侧”。"
+      "explanationZhHans": "估算平方根：√5≈2.236，√10≈3.162，√17≈4.123，所以点A、B、C从左到右依次排列，点B在点C的左侧。距离AB≈3.162-2.236=0.926，距离BC≈4.123-3.162=0.961，因此AB<BC，选项D所说的AB>BC错误。只有选项B正确。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-050",
@@ -38377,7 +38379,7 @@
       "promptZhHans": "某市出租车收费标准如下：起步价8元（含3千米），超过3千米后每千米收费1.5元。设行驶路程为x千米（x≥3），应付车费为y元。下列哪个函数关系式正确表示y与x的关系？",
       "optionsZhHans": [
         "y = 1.5x + 8",
-        "y = 1.5x + 3.5",
+        "y = 1.5x + 4.5",
         "y = 1.5(x - 3) + 8",
         "y = 1.5x + 3"
       ],
@@ -38385,7 +38387,7 @@
       "acceptedAnswers": [
         "y = 1.5(x - 3) + 8"
       ],
-      "explanationZhHans": "起步价8元含3千米，超过3千米后每千米1.5元。当x≥3时，超过部分为(x-3)千米，费用为1.5(x-3)，加上起步价8元，得y=1.5(x-3)+8。选项A多加了起步价；B和D截距错误。"
+      "explanationZhHans": "起步价8元包含前3千米，超过部分是x-3千米，所以y=8+1.5(x-3)，即选项C。化简后是y=1.5x+3.5；选项A、B、D的截距分别为8、4.5、3，都不符合收费标准。因此只有选项C正确。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-122",
@@ -40633,7 +40635,7 @@
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为3。 复核要点：题目可解，但解析中正确计算出x=1, y=2，x+y=3，但答案误写为2。"
+      "explanationZhHans": "将第一个方程乘以2，得4x+6y=16；将第二个方程乘以3，得9x-6y=-3。两式相加得13x=13，所以x=1。代回2x+3y=8，得y=2，因此x+y=3。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-158",
@@ -40751,7 +40753,7 @@
       "acceptedAnswers": [
         "-1"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为-1。 复核要点：题目可解，但解析中正确计算出a=1, b=2，a-b=-1，但答案误写为0。"
+      "explanationZhHans": "由3x-y=1得y=3x-1。代入x+2y=5，得x+2(3x-1)=5，即7x=7，所以x=1，y=2。因此a=1，b=2，a-b=-1。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-160",
@@ -43206,7 +43208,7 @@
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
       "promptZhHans": "某校篮球队队员的年龄（单位：岁）如下：13，14，14，15，15，15，16，16，17。下列说法正确的是（ ）",
       "optionsZhHans": [
-        "平均数是15岁",
+        "平均数是15.1岁",
         "中位数是15岁",
         "众数是16岁",
         "方差是0"
@@ -43215,7 +43217,7 @@
       "acceptedAnswers": [
         "中位数是15岁"
       ],
-      "explanationZhHans": "数据排序后为13,14,14,15,15,15,16,16,17，中位数是第5个数15。平均数≈15.1，众数是15，方差不为0。"
+      "explanationZhHans": "9个年龄的总和是135，平均数为135÷9=15岁，不是15.1岁。排在第5位的数是15，所以中位数是15岁。出现次数最多的数是15，众数不是16；数据并不完全相同，方差不为0。因此只有选项B正确。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-200",
@@ -45590,7 +45592,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G和H。给出以下四个条件：① ∠EGB = 60°，∠GHD = 120°；② ∠AGH = 70°，∠GHC = 110°；③ ∠BGH = 80°，∠DHF = 80°；④ ∠AGE = 50°，∠CHF = 130°。其中能判定AB∥CD的条件是哪一个？",
+      "promptZhHans": "直线AB与直线CD被直线EF所截，交点分别为G、H；点A、G、B依次在直线AB上，点C、H、D依次在直线CD上，点E、G、H、F依次在直线EF上，且点A、C位于直线EF的同一侧。给出以下四个条件：① ∠AGH=70°，∠GHC=110°；② ∠BGH=80°，∠GHC=70°；③ ∠EGB=60°，∠GHD=120°；④ ∠AGE=50°，∠GHC=130°。其中能判定AB∥CD的条件是哪一个？",
       "optionsZhHans": [
         "①",
         "②",
@@ -45601,7 +45603,7 @@
       "acceptedAnswers": [
         "①"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为①。 复核要点：条件①中∠EGB=60°与∠GHD=120°是同旁内角，互补可判定平行；条件③中∠BGH与∠DHF是同位角，相等可判定平行。题目要求选一个条件，但①和③均正确，答案③不唯一，且解释中错误否定①，导致"
+      "explanationZhHans": "条件①中的∠AGH与∠GHC是一对同旁内角，且70°+110°=180°，所以AB∥CD。条件②中的内错角80°与70°不相等；条件③和④中的同位角分别不相等，均不能判定平行。因此只有①正确。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-236",
@@ -45655,13 +45657,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。若∠AGE = 70°，∠CHF = 110°，判断AB与CD是否平行，并写出推理依据。",
+      "promptZhHans": "直线AB与直线CD被直线EF所截，交点分别为G、H；点A、G、B依次在直线AB上，点C、H、D依次在直线CD上，点E、G、H、F依次在直线EF上，且点A、C位于直线EF的同一侧。若∠AGE=70°，∠GHC=70°，判断AB与CD是否平行，并写出推理依据。",
       "optionsZhHans": [],
-      "answer": "AB与CD不平行。因为∠AGE与∠CHF是同位角，但∠AGE=70°，∠CHF=110°，不相等也不互补，故不能判定平行。",
+      "answer": "AB∥CD。因为∠AGE与∠GHC是同位角，且两角相等，所以两直线平行。",
       "acceptedAnswers": [
-        "AB与CD不平行。因为∠AGE与∠CHF是同位角，但∠AGE=70°，∠CHF=110°，不相等也不互补，故不能判定平行。"
+        "AB∥CD。因为∠AGE与∠GHC是同位角，且两角相等，所以两直线平行。",
+        "AB与CD平行，因为同位角相等，两直线平行。"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为AB与CD不平行。因为∠AGE与∠CHF是同位角，但∠AGE=70°，∠CHF=110°，不相等也不互补，故不能判定平行。。 复核要点：∠AGE与∠CHF是同位角，同位角相等才平行，70°≠110°，且同位角互补不是判定定理，"
+      "explanationZhHans": "按题目给出的点序，∠AGE与∠GHC处在截线EF的同一侧，并分别位于两条被截直线的相同位置，是一对同位角。两角都等于70°，由同位角相等可判定AB∥CD。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-237",
@@ -45775,7 +45778,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线AB与CD被直线EF所截，交点分别为G和H。给出下列四个条件：①∠EGB=50°，∠GHD=50°；②∠AGH=130°，∠GHD=50°；③∠EGB=50°，∠CHF=130°；④∠AGE=130°，∠CHF=130°。其中能判定AB∥CD的条件有（ ）",
+      "promptZhHans": "直线AB与直线CD被直线EF所截，交点分别为G、H；点A、G、B依次在直线AB上，点C、H、D依次在直线CD上，点E、G、H、F依次在直线EF上，且点A、C位于直线EF的同一侧。给出下列四个条件：①∠EGB=50°，∠GHD=50°；②∠AGH=130°，∠GHD=50°；③∠BGH=80°，∠GHC=80°；④∠AGE=130°，∠GHC=50°。其中能判定AB∥CD的条件有（ ）",
       "optionsZhHans": [
         "1个",
         "2个",
@@ -45786,7 +45789,7 @@
       "acceptedAnswers": [
         "2个"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为2个。 复核要点：条件③中∠EGB=50°，∠CHF=130°，∠CHF与∠GHD是对顶角，得∠GHD=130°，与∠EGB不相等，不能判定平行。故只有①②正确，共2个。"
+      "explanationZhHans": "条件①中的同位角相等，可以判定AB∥CD；条件③中的内错角相等，也可以判定AB∥CD。条件②中的内错角不相等，条件④中的同位角不相等，均不能判定平行。因此共有2个条件可以判定。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-239",
@@ -45840,13 +45843,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线 AB 与直线 CD 被直线 EF 所截，交点分别为 G 和 H。给出以下条件：\n① ∠AGE = 60°，∠CHG = 120°；\n② ∠BGE = 70°，∠DHF = 70°；\n③ ∠AGH = 50°，∠GHD = 50°；\n④ ∠BGH = 80°，∠CHF = 100°。\n请分别判断每种条件是否能推出 AB ∥ CD，并说明理由（只需写出“能”或“不能”，并简要说明依据的定理或性质）。",
+      "promptZhHans": "直线AB与直线CD被直线EF所截，交点分别为G、H；点A、G、B依次在直线AB上，点C、H、D依次在直线CD上，点E、G、H、F依次在直线EF上，且点A、C位于直线EF的同一侧。给出以下条件：\n① ∠AGH=60°，∠GHC=120°；\n② ∠EGB=70°，∠GHD=70°；\n③ ∠BGH=50°，∠GHC=50°；\n④ ∠BGH=80°，∠GHD=100°。\n请分别判断每种条件是否能推出AB∥CD，并简要说明依据。",
       "optionsZhHans": [],
       "answer": "①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④能，同旁内角互补，两直线平行。",
       "acceptedAnswers": [
         "①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④能，同旁内角互补，两直线平行。"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为①能，同旁内角互补，两直线平行；②能，同位角相等，两直线平行；③能，内错角相等，两直线平行；④能，同旁内角互补，两直线平行。。 复核要点：条件④中∠BGH=80°，∠CHF=100°，∠CHF与∠DHG是对顶角，得∠DHG=100°，与∠BGH是同旁内角，互补，可判定平行。否定④。"
+      "explanationZhHans": "①中∠AGH与∠GHC是同旁内角，和为180°；②中∠EGB与∠GHD是同位角，且相等；③中∠BGH与∠GHC是内错角，且相等；④中∠BGH与∠GHD是同旁内角，和为180°。四个条件都能分别判定AB∥CD。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-240",
@@ -46025,13 +46028,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "已知直线AB与直线CD被直线EF所截，交点分别为G、H。给出以下条件：①∠AGE=60°，②∠CHF=120°，③∠BGE=120°，④∠DHF=60°。若要证明AB∥CD，需要选择哪两个条件组合？并写出证明过程。",
+      "promptZhHans": "直线AB与直线CD被直线EF所截，交点分别为G、H；点A、G、B依次在直线AB上，点C、H、D依次在直线CD上，点E、G、H、F依次在直线EF上，且点A、C位于直线EF的同一侧。给出以下条件：①∠AGH=60°，②∠GHC=120°，③∠EGB=70°，④∠GHD=70°。若要证明AB∥CD，需要选择哪两个条件组合？并写出证明过程。",
       "optionsZhHans": [],
-      "answer": "选择条件①和②或③和④。证明：若选①和②，∠AGE=60°，∠CHF=120°，∠AGE与∠CHF是同旁内角，互补，故AB∥CD；若选③和④，∠BGE=120°，∠DHF=60°，∠BGE与∠DHF是同旁内角，互补，故AB∥CD。",
+      "answer": "选择条件①和②或③和④。①和②给出同旁内角互补，可得AB∥CD；③和④给出同位角相等，也可得AB∥CD。",
       "acceptedAnswers": [
-        "选择条件①和②或③和④。证明：若选①和②，∠AGE=60°，∠CHF=120°，∠AGE与∠CHF是同旁内角，互补，故AB∥CD；若选③和④，∠BGE=120°，∠DHF=60°，∠BGE与∠DHF是同旁内角，互补，故AB∥CD。"
+        "选择条件①和②或③和④。①和②给出同旁内角互补，可得AB∥CD；③和④给出同位角相等，也可得AB∥CD。",
+        "①②或③④"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为选择条件①和②或③和④。证明：若选①和②，∠AGE=60°，∠CHF=120°，∠AGE与∠CHF是同旁内角，互补，故AB∥CD；若选③和④，∠BGE=120°，∠DHF=60°，∠BGE与∠DHF是同旁内角，互补，故AB∥CD。。 复核要点：条件③和④组合也可判定平行，答案仅给出一种组合，未覆盖所有可能，且解释中称其他组合无法推出平行，不准确。"
+      "explanationZhHans": "选择①和②时，∠AGH与∠GHC是同旁内角，60°+120°=180°，所以AB∥CD。选择③和④时，∠EGB与∠GHD是同位角，且都等于70°，所以AB∥CD。交叉组合①④与②③分别给出不相等的对应角，不能判定平行。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-243",
@@ -48469,7 +48473,7 @@
       "acceptedAnswers": [
         "125°"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为125°。 复核要点：题目可解，但答案与解析矛盾。解析正确得出∠ADC=125°，而答案误写为105°。"
+      "explanationZhHans": "因为AB=AC且∠A=40°，所以∠ABC=∠ACB=(180°-40°)÷2=70°。点D在BC上，故∠ABD=70°。又因为BD=BA，所以△ABD是等腰三角形，∠BAD=∠ADB=(180°-70°)÷2=55°。∠ADC与∠ADB组成平角，因此∠ADC=180°-55°=125°。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-282",
@@ -50355,15 +50359,15 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "某校组织八年级学生参加研学活动，计划租用A、B两种型号的客车。每辆A型客车可乘坐45人，租金为800元；每辆B型客车可乘坐30人，租金为600元。学校共有师生315人，要求租用的客车总座位数不少于师生人数，且总租金不超过6000元。设租用A型客车x辆，B型客车y辆，求所有可能的租车方案。",
+      "promptZhHans": "某校组织八年级学生参加研学活动，计划租用A、B两种型号的客车。每辆A型客车可乘坐45人，租金为800元；每辆B型客车可乘坐30人，租金为600元。学校共有师生315人，要求租用的客车总座位数不少于师生人数，且总租金不超过6000元。设租用A型客车x辆，B型客车y辆，其中x、y均为非负整数，求所有可能的租车方案。",
       "optionsZhHans": [],
-      "answer": "x=3,y=6；x=4,y=5；x=5,y=3；x=6,y=2；x=7,y=0",
+      "answer": "x=3,y=6；x=5,y=3；x=6,y=2；x=7,y=0",
       "acceptedAnswers": [
-        "x=3,y=6；x=4,y=5；x=5,y=3；x=6,y=2；x=7,y=0",
-        "x=3,y=6;x=4,y=5;x=5,y=3;x=6,y=2;x=7,y=0",
-        "x=3,y=6, x=4,y=5, x=5,y=3, x=6,y=2, x=7,y=0"
+        "x=3,y=6；x=5,y=3；x=6,y=2；x=7,y=0",
+        "x=3,y=6;x=5,y=3;x=6,y=2;x=7,y=0",
+        "x=3,y=6, x=5,y=3, x=6,y=2, x=7,y=0"
       ],
-      "explanationZhHans": "由题意得45x+30y≥315，800x+600y≤6000，x,y为非负整数。化简得3x+2y≥21，4x+3y≤30。枚举x从0到7，满足条件的(x,y)为(3,6),(4,5),(5,3),(6,2),(7,0)。"
+      "explanationZhHans": "由题意得45x+30y≥315，800x+600y≤6000，且x、y为非负整数。化简得3x+2y≥21，4x+3y≤30。由第二个不等式可知0≤x≤7，逐一枚举整数x并取满足两个不等式的非负整数y，得到(x,y)=(3,6)、(5,3)、(6,2)、(7,0)。其中(4,5)的租金为6200元，超过6000元，不能取。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-312",
@@ -50418,14 +50422,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "若关于x的不等式组{2x-1>3, x-m<1}的解集为x>2，则m的取值范围是______。",
+      "promptZhHans": "若关于x的不等式组{2x-1>3, x-m<1}的解集为空集，则m的取值范围是______。",
       "optionsZhHans": [],
       "answer": "m≤1",
       "acceptedAnswers": [
         "m≤1",
         "m<=1"
       ],
-      "explanationZhHans": "解2x-1>3得x>2；解x-m<1得x<m+1。解集为x>2，需m+1≤2，即m≤1。"
+      "explanationZhHans": "解2x-1>3得x>2；解x-m<1得x<m+1。要使两个不等式没有公共解，必须有m+1≤2，因此m≤1。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-313",
@@ -57540,7 +57544,7 @@
       "acceptedAnswers": [
         "-8"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为-8。 复核要点：化简过程有误，正确化简结果为 (x^2-x+6)/(x^2+2x)，代入 x=-1 得 -8，但答案给出 1，与计算结果不符。"
+      "explanationZhHans": "原式要求 x≠-2、0、2。先通分：x/(x-2)-3/(x+2)=[x(x+2)-3(x-2)]/(x^2-4)=(x^2-x+6)/(x^2-4)。再除以(x^2+2x)/(x^2-4)，得到(x^2-x+6)/(x^2+2x)。代入x=-1，分子为8，分母为-1，所以原式=-8。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-426",
@@ -59960,7 +59964,7 @@
       "acceptedAnswers": [
         "3组"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为3组。 复核要点：解释中明确②③④正确，共3组，但答案给出2组，与解释矛盾，且选项无3组，导致"
+      "explanationZhHans": "条件①中一组对边平行、另一组对边相等，等腰梯形即可作为反例，不能判定。条件②给出两组对边分别相等，可以判定；条件③给出两条对角线互相平分，可以判定。条件④中AB∥CD，且∠A=∠C；由平行线性质得∠A+∠D=180°，于是∠C+∠D=180°，可推出AD∥BC，也能判定。因此②③④共3组。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-464",
@@ -60014,13 +60018,13 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "在平行四边形ABCD中，∠A的平分线交BC于点E，交DC的延长线于点F。若AB=8，AD=5，求CE的长。",
+      "promptZhHans": "在平行四边形ABCD中，∠A的平分线交BC的延长线于点E。若AB=8，AD=5，求CE的长。",
       "optionsZhHans": [],
       "answer": "3",
       "acceptedAnswers": [
         "3"
       ],
-      "explanationZhHans": "由平行四边形性质，AD=BC=5，AB=CD=8。AE平分∠A，得∠BAE=∠DAE。AD∥BC，∠DAE=∠AEB，故∠BAE=∠AEB，BE=AB=8。CE=BE-BC=8-5=3。"
+      "explanationZhHans": "由平行四边形的性质得BC=AD=5，且AD∥BC。因为AE平分∠A，所以∠BAE=∠DAE；又因为AD∥BC，所以∠DAE=∠AEB。因此∠BAE=∠AEB，BE=AB=8。由于BE>BC，点E在BC的延长线上，故CE=BE-BC=8-5=3。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-465",
@@ -60141,11 +60145,12 @@
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
       "promptZhHans": "在△ABC中，D、E分别是AB、AC的中点，F是BC延长线上一点，且CF=1/2 BC，连接DF、EF。若AB=10，BC=12，AC=8，求四边形DCFE的周长。",
       "optionsZhHans": [],
-      "answer": "21",
+      "answer": "12+2√79",
       "acceptedAnswers": [
-        "21"
+        "12+2√79",
+        "2√79+12"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为21。 复核要点：解释中计算周长为6+6+5+4=21，但答案给出24，且21为正确结果。"
+      "explanationZhHans": "取B=(0,0)，C=(12,0)。由AB=10、AC=8可得A=(15/2,5√7/2)。因为D、E分别是AB、AC的中点，所以D=(15/4,5√7/4)，E=(39/4,5√7/4)，且DE=BC/2=6。点F在BC的延长线上且CF=6，所以F=(18,0)。由距离公式得DC=EF=√79。因此四边形DCFE的周长为DC+CF+FE+ED=√79+6+√79+6=12+2√79。"
     },
     {
       "id": "bnu-junior-ds-v1-s2-467",
@@ -62909,18 +62914,18 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after DeepSeek V4 Pro issue review and deterministic remediation in approved-question-pack.json.",
-      "promptZhHans": "在矩形ABCD中，AB＝4，BC＝6，点E是边AD上一点，连接CE，将△CDE沿CE折叠，点D落在点D'处。当点D'恰好落在矩形的对角线AC上时，DE的长为（ ）",
+      "promptZhHans": "在矩形ABCD中，AB=6，BC=8，点E在边AD上。连接CE，将△CDE沿CE折叠，点D落在点D'处。当点D'恰好落在矩形的对角线AC上时，DE的长为（ ）",
       "optionsZhHans": [
         "2",
         "3",
         "4",
         "5"
       ],
-      "answer": "2",
+      "answer": "3",
       "acceptedAnswers": [
-        "2"
+        "3"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为2。 复核要点：题目可解，但解析中方程错误。正确解法应利用折叠性质和相似三角形，解得DE=2。解析中列出的方程√(16-x²)+√(x²+16)=2√13不正确，且未给出正确推导，但最终答案2与选项A一致。然而解析过程有误，导致答案匹配但解释不匹配。"
+      "explanationZhHans": "取A=(0,0)、B=(6,0)、C=(6,8)、D=(0,8)，则AC=10。折叠后CD'=CD=6，且D'在AC上，所以D'=C+(6/10)(A-C)=(12/5,16/5)。设DE=x，则E=(0,8-x)。折叠还给出ED'=ED=x，因此(12/5)^2+(x-24/5)^2=x^2，解得x=3。所以DE=3。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-011",
@@ -66222,7 +66227,7 @@
       "acceptedAnswers": [
         "(1) 证明：Δ = (2k+1)² - 4(k²+k) = 1 > 0，故方程总有两个不相等的实数根。\n(2) k = 1"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为(1) 证明：Δ = (2k+1)² - 4(k²+k) = 1 > 0，故方程总有两个不相等的实数根。\n(2) k = 1。 复核要点：第(2)问解释中解得k=1或k=-2，但k=-2时两根为负，不能作为直角边长，应舍去，故正确答案只有k=1。提供的答案包含k=-2，与解释矛盾且不符合题意。"
+      "explanationZhHans": "(1) 判别式Δ=(2k+1)^2-4(k^2+k)=1>0，所以对任意实数k，方程都有两个不相等的实数根。\n(2) 设两根为x1、x2，则x1+x2=2k+1，x1x2=k^2+k。由勾股定理，x1^2+x2^2=5，即(2k+1)^2-2(k^2+k)=5，化简得k^2+k-2=0，所以k=1或k=-2。k=1时两根为1、2，均为正数；k=-2时两根为-1、-2，不能作为边长。因此k=1。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-063",
@@ -68854,14 +68859,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "一个不透明的袋子里装有4个红球和1个蓝球，这些球除颜色外完全相同。小刚从袋子里随机摸出一个球，记录颜色后放回并摇匀，然后再随机摸出一个球。请列出所有等可能的结果，并求至少有一次摸出红球的概率。",
+      "promptZhHans": "一个不透明的袋子里装有4个红球和1个蓝球，这些球除颜色外完全相同。小刚从袋子里随机摸出一个球，记录颜色后放回并摇匀，然后再随机摸出一个球。求两次摸球中至少有一次摸出红球的概率。",
       "optionsZhHans": [],
       "answer": "24/25",
       "acceptedAnswers": [
         "24/25",
         "0.96"
       ],
-      "explanationZhHans": "总结果25种。两次都摸出蓝球只有1种，所以至少一次红球有24种，概率24/25。"
+      "explanationZhHans": "把每个球视为一个等可能结果。两次有放回摸球共有5×5=25个等可能的有序结果；两次都摸到蓝球只有1个结果，所以至少一次摸到红球有25-1=24个结果，概率为24/25。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-105",
@@ -75131,14 +75136,14 @@
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
       "promptZhHans": "一个几何体由完全相同的小立方块搭成，从正面、左面、上面观察这个几何体，看到的形状分别如下：正面看到的是由3列组成，第1列有2个正方形，第2列有1个正方形，第3列有1个正方形，且第1列的正方形与第2列的正方形底部对齐，第3列的正方形底部与第2列的正方形底部对齐；左面看到的是由2列组成，第1列有2个正方形，第2列有1个正方形，且两列底部对齐；上面看到的是由3列组成，第1列有2个正方形，第2列有1个正方形，第3列有1个正方形，且第1列的正方形与第2列的正方形底部对齐，第3列的正方形底部与第2列的正方形底部对齐。请回答：搭成这个几何体最少需要多少个小立方块？最多需要多少个小立方块？",
       "optionsZhHans": [],
-      "answer": "最少需要6个小立方块，最多需要8个小立方块",
+      "answer": "最少需要5个小立方块，最多需要5个小立方块",
       "acceptedAnswers": [
-        "最少需要6个小立方块，最多需要8个小立方块",
-        "最少6个，最多8个",
-        "6个和8个",
-        "最少6块，最多8块"
+        "最少需要5个小立方块，最多需要5个小立方块",
+        "最少5个，最多5个",
+        "5个和5个",
+        "最少5块，最多5块"
       ],
-      "explanationZhHans": "由三视图还原几何体：从俯视图看，底层至少有5个小立方块（第1列2个，第2列1个，第3列1个，且第1列的两个中有一个与第2列对齐）。结合主视图和左视图的高度，第1列最高2层，第2列最高1层，第3列最高1层。最少时，第1列只需1个2层，其余为1层，共6个；最多时，第1列两个都2层，第2、3列各1层，共8个。"
+      "explanationZhHans": "俯视图共有2+1+1=4个位置，且第2、3列的方块与第1列下方的方块对齐。主视图的列高为2、1、1，左视图的列高为2、1，因此只有第1列下方的位置必须叠放2个小立方块，其余3个位置各放1个。小立方块总数被三视图唯一确定为2+1+1+1=5，所以最少和最多均为5个。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-204",
@@ -81377,7 +81382,7 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "某数学兴趣小组测量一座古塔的高度。在塔的正东方向地面点A处，测得塔顶的仰角为30°；沿正东方向前进40米到达点B处，测得塔顶的仰角为45°。已知点A、B与塔底中心C在同一水平面内，且A、B、C三点共线。求古塔的高度（结果保留根号）。",
+      "promptZhHans": "某数学兴趣小组测量一座古塔的高度。在塔的正东方向地面点A处，测得塔顶的仰角为30°；沿正西方向（即向塔底方向）前进40米到达点B处，测得塔顶的仰角为45°。已知点A、B与塔底中心C在同一水平面内，且A、B、C三点共线。求古塔的高度（结果保留根号）。",
       "optionsZhHans": [],
       "answer": "20(√3+1)米",
       "acceptedAnswers": [
@@ -87608,14 +87613,14 @@
       "terminologyQaStatus": "pass",
       "manualQaStatus": "approved",
       "reviewNotes": "S18 approved after deterministic auto gate, manual review sample, and DeepSeek V4 Pro QA context review.",
-      "promptZhHans": "已知圆O中，圆心角∠AOB=80°，则弦AB所对的圆周角∠ACB的度数为______。",
+      "promptZhHans": "已知圆O中，圆心角∠AOB=80°，点C在优弧AB上，则弦AB所对的圆周角∠ACB的度数为______。",
       "optionsZhHans": [],
       "answer": "40°",
       "acceptedAnswers": [
         "40°",
         "40"
       ],
-      "explanationZhHans": "同弧所对的圆周角等于圆心角的一半，所以∠ACB=80°÷2=40°。"
+      "explanationZhHans": "点C在优弧AB上，所以∠ACB所对的是劣弧AB。根据同弧所对的圆周角等于圆心角的一半，∠ACB=80°÷2=40°。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-403",
@@ -87875,7 +87880,7 @@
       "acceptedAnswers": [
         "5"
       ],
-      "explanationZhHans": "根据题意复核计算，正确结果为5。 复核要点：题目可解，但解释中前半部分错误（∠ADC=90°、∠ADC=2∠ABC等），虽然后半部分给出正确解法并得到AC=5，但解释整体存在错误，且答案与正确结果一致，但解释不严谨。"
+      "explanationZhHans": "∠ABC=30°是弦AC所对的圆周角，因此弦AC所对的圆心角∠AOC=2×30°=60°。圆的直径为10，所以半径OA=OC=5。△AOC是顶角为60°的等腰三角形，三个角都为60°，因此它是等边三角形，AC=5。"
     },
     {
       "id": "bnu-junior-ds-v1-s3-407",

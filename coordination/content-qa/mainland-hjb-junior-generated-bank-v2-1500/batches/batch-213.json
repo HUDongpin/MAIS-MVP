@@ -124,15 +124,16 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB junior safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "在△ABC中，点D在边AB上，点E在边AC上，连接DE。给出下列条件：①∠ADE=∠B；②AD/AB=AE/AC；③DE∥BC。其中能判定△ADE∽△ABC的条件是______（填写所有正确条件的序号）。",
+      "promptZhHans": "在△ABC中，点D、E分别在边AB、AC上。给出下列条件：①∠ADE=∠C；②AD/AB=AE/AC；③DE∥BC。其中能判定△ADE∽△ABC的条件序号是______。",
       "optionsZhHans": [],
-      "answer": "①②",
+      "answer": "①②③",
       "acceptedAnswers": [
-        "①②",
-        "①,②",
-        "①、②"
+        "①②③",
+        "①,②,③",
+        "①，②，③",
+        "① ② ③"
       ],
-      "explanationZhHans": "①由两角对应相等得相似；②由两边对应成比例且夹角相等得相似；③平行只能得到△ADE∽△ABC，但需点D、E在边上，且平行本身不是判定定理，而是性质。故①②正确。"
+      "explanationZhHans": "①两角相等可判定相似；②两边成比例且夹角相等可判定相似；③平行可得同位角相等，进而两角相等判定相似。故三个条件均能判定。"
     },
     {
       "id": "hjb-junior-ds-v2-s3-063",

@@ -49,18 +49,18 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "用数字卡片 3、0、5、8 摆出一个四位数，要求这个数只读一个零，并且千位上的数字比百位上的数字小。这个数是多少？",
+      "promptZhHans": "用数字卡片3、0、5、8各一次摆出一个四位数，要求这个数只读一个零，并且千位上的数字比百位上的数字小。下面哪个数符合要求？",
       "optionsZhHans": [
-        "3058",
+        "3508",
         "3085",
         "5083",
         "8053"
       ],
-      "answer": "3085",
+      "answer": "3508",
       "acceptedAnswers": [
-        "3085"
+        "3508"
       ],
-      "explanationZhHans": "千位比百位小，千位只能是3，百位是5或8。只读一个零，中间连续0只读一个，所以3085读作三千零八十五，符合。3058读作三千零五十八，也读一个零，但百位是0，千位3比0大，不符合千位比百位小。"
+      "explanationZhHans": "3508读作“三千五百零八”，只读一个零，并且千位3小于百位5。其余三个数的百位都是0，千位数字都大于0，不符合条件。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-202",

@@ -279,15 +279,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "下面是某商店一周内每天卖出书包数量的统计表：\n\n| 星期 | 一 | 二 | 三 | 四 | 五 | 六 | 日 |\n|------|----|----|----|----|----|----|----|\n| 数量（个） | 8 | 6 | 9 | 7 | 10 | 12 | 11 |\n\n（1）这一周平均每天卖出多少个书包？\n（2）哪几天卖出的数量高于平均数？请写出来。",
+      "promptZhHans": "某商店星期一到星期日卖出的书包数依次是8、6、9、7、10、12、11个。依次填写日平均数和高于平均数的星期，格式为“平均___个；星期___”。",
       "optionsZhHans": [],
-      "answer": "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
+      "answer": "平均9个；星期五、星期六、星期日",
       "acceptedAnswers": [
-        "（1）平均每天卖出9个书包。（2）星期三、星期五、星期六、星期日卖出的数量高于平均数。",
-        "（1）9个。（2）三、五、六、日",
-        "（1）平均9个。（2）星期三、五、六、日"
+        "平均9个；星期五、星期六、星期日",
+        "日平均9个；星期五、星期六、星期日",
+        "mean 9; Friday, Saturday, and Sunday"
       ],
-      "explanationZhHans": "总数量=8+6+9+7+10+12+11=63个，天数=7，平均=63÷7=9个。高于9个的有：星期三9个（等于不算高于）、星期五10个、星期六12个、星期日11个。注意星期三9个等于平均数，不算高于。"
+      "explanationZhHans": "总数是8+6+9+7+10+12+11=63，平均数是63÷7=9。只有星期五10个、星期六12个、星期日11个高于9；星期三9个等于平均数，不算高于。"
     }
   ]
 }

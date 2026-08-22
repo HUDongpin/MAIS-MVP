@@ -166,14 +166,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小丽用一根长20厘米的绳子测量课桌的长边，量了3次后绳子还多出5厘米。课桌的长边是多少厘米？请写出算式和答案。",
+      "promptZhHans": "小丽用一根长20厘米的绳子沿课桌长边连续量3次。第三次量到课桌边缘时，有5厘米绳子超出桌边。课桌长边是多少厘米？请列式计算。",
       "optionsZhHans": [],
-      "answer": "65厘米",
+      "answer": "20×3-5=55（厘米）",
       "acceptedAnswers": [
-        "65厘米",
-        "65"
+        "20×3-5=55（厘米）",
+        "20×3-5=55厘米",
+        "20×3-5=55 cm"
       ],
-      "explanationZhHans": "3次测量长度为20×3=60厘米，加上多出的5厘米，总长60+5=65厘米。"
+      "explanationZhHans": "三次绳长共20×3=60（厘米），其中5厘米超出桌边，不属于课桌长度，所以课桌长边是60-5=55（厘米）。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-139",

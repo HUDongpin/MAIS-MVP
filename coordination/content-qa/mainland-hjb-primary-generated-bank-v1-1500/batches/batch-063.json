@@ -221,18 +221,20 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "四个小朋友站在校园不同位置，描述如下：\n小明说：“我在图书馆的东面。”\n小红说：“我在操场的北面。”\n小刚说：“我在花坛的西面。”\n小丽说：“我在校门的南面。”\n\n已知图书馆在操场的北面，花坛在操场的东面，校门在操场的南面。谁和小明在同一个方向（以操场为中心）？",
+      "promptZhHans": "以操场为原点O(0,0)，向东为x轴正方向，向北为y轴正方向。图书馆在(0,2)，花坛在(2,0)，校门在(0,-2)。小明在图书馆东面1格，小红在操场北面1格，小刚在花坛西面1格，小丽在校门南面1格。谁和小明在以操场为中心的同一个方向？",
       "optionsZhHans": [
         "小红",
         "小刚",
         "小丽",
         "没有人"
       ],
-      "answer": "小刚",
+      "answer": "没有人",
       "acceptedAnswers": [
-        "小刚"
+        "没有人",
+        "无人",
+        "No one"
       ],
-      "explanationZhHans": "以操场为中心：图书馆在北，花坛在东，校门在南。小明在图书馆东面，即操场东北。小刚在花坛西面，即操场东面偏北，也是东北方向。所以小刚和小明同方向。"
+      "explanationZhHans": "小明在(1,2)，相对操场在东北方向；小红在(0,1)，小刚在(1,0)，小丽在(0,-3)，分别在北、东、南方向。因此没有人与小明方向相同。"
     },
     {
       "id": "hjb-primary-ds-v1-p2-065",

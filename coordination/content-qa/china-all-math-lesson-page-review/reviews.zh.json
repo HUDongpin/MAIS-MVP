@@ -1,0 +1,1657 @@
+{
+  "schemaVersion": 2,
+  "language": "zh",
+  "generatedAt": "2026-08-09T11:57:13.774Z",
+  "records": {
+    "p1-addition-subtraction": {
+      "topicId": "p1-addition-subtraction",
+      "scope": "hong-kong",
+      "language": "zh",
+      "contentHash": "c9e4bfdd68835005b079cd941265b1c7c1ad118a7ccf71d5ffe495c24c5bd650",
+      "reviewedAt": "2026-08-09T10:15:20.350Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v10-2026-08-09-self-refuting-issue-rejection",
+      "result": {
+        "topicId": "p1-addition-subtraction",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pq-p1-addition-subtraction-1",
+            "independentAnswer": "5",
+            "answerMatch": "pass",
+            "rationale": "9 − 4 = 5. The keyed option is 5 (option index 1), which the production grader accepts. The displayed correctAnswerShownAfterWrongAttempt is '5'. All four options are distinct and the correct one is uniquely accepted."
+          },
+          {
+            "questionId": "pq-p1-addition-subtraction-2",
+            "independentAnswer": "14",
+            "answerMatch": "pass",
+            "rationale": "6 + 8 = 14. The storedAnswer is '14' and correctAnswerShownAfterWrongAttempt is '14'. The worked example on the same page also computes 6+8=14."
+          },
+          {
+            "questionId": "supp-p1-addition-subtraction-first-step",
+            "independentAnswer": "先判斷故事是增加還是減少",
+            "answerMatch": "pass",
+            "rationale": "The prompt asks for the most useful first step when starting an addition/subtraction problem. The correct pedagogical answer is to first decide whether the story adds to or takes away, which matches option 0. The production grader accepts exactly that option."
+          },
+          {
+            "questionId": "supp-p1-addition-subtraction-key-fact",
+            "independentAnswer": "11",
+            "answerMatch": "pass",
+            "rationale": "8 + 3 = 11. storedAnswer is '11' and correctAnswerShownAfterWrongAttempt is '11'."
+          },
+          {
+            "questionId": "supp-p1-addition-subtraction-guided-example",
+            "independentAnswer": "7",
+            "answerMatch": "pass",
+            "rationale": "12 − 5 = 7. storedAnswer is '7' and correctAnswerShownAfterWrongAttempt is '7'."
+          }
+        ],
+        "summary": "All five displayed practice questions were independently solved and every answer matches the keyed value. The Traditional Chinese (zh) page is semantically faithful to the Simplified Chinese reference; all mathematical statements, worked-example computations, explanations, and answer keys are correct. The multiple-choice questions each have exactly one accepted option with plausible distractors. The short-answer questions have correct stored answers and learner-facing correct-answer feedback. No content, language, mathematical, or interaction defects were found."
+      }
+    },
+    "p1-counting-number-bonds": {
+      "topicId": "p1-counting-number-bonds",
+      "scope": "hong-kong",
+      "language": "zh",
+      "contentHash": "8abc0f838a932a02a6ddf0655918f2bc4965b4abffcd3865fc5db670a709fb8c",
+      "reviewedAt": "2026-08-09T10:41:29.549Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v12-2026-08-09-resilient-validator-retry",
+      "result": {
+        "topicId": "p1-counting-number-bonds",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](supp-p1-counting-number-bonds-first-step).prompt",
+            "evidence": "The displayed Traditional Chinese prompt reads: 「數數或數的組合題有缺少的數時，第一步應做甚麼？」The reference Simplified Chinese prompt reads: 「数数或数的组合题有缺少的数时，第一步应做什么？」The reference uses 「数数或数的组合题」 (counting or number-bond problems), which is a general description of the problem type. The displayed Traditional Chinese version uses 「數數或數的組合題」, which is a faithful translation. However, the displayed correct answer (option 0) is 「先看空格的位置，再由已知數順數或倒數」, which describes a strategy for fill-in-the-blank number sentences (e.g., 7 + □ = 10). The prompt's phrasing 「數數或數的組合題有缺少的數時」 is ambiguous: it could refer to any problem with a missing number, including counting sequences (e.g., 'write the number before 16'). For a pure counting-sequence problem like practice[4] (write the number before 16), the strategy 'look at where the blank is, then count on or back from a known number' is still applicable, but the prompt does not clearly distinguish between number-bond fill-in-the-blank and counting-sequence problems. More critically, the prompt asks for the 'first step' (第一步), but the correct answer describes a two-part strategy (look at the blank position AND then count on/back). This is not a single first step but a compound strategy. The reference Simplified Chinese has the same issue, so this is a source-content defect carried into the translation.",
+            "reason": "The prompt asks for 「第一步」(the first step), but the keyed correct answer describes a compound two-part strategy rather than a single first step. This makes the question mathematically/ logically flawed because the answer does not match what the question asks for. A learner could reasonably argue that '先看空格的位置' alone is the first step, and the rest is the second step.",
+            "suggestedCorrection": "Revise the prompt to ask for the overall strategy rather than the first step, e.g., 「數數或數的組合題有缺少的數時，應該怎樣做？」(When a counting or number-bond problem has a missing number, what should you do?). Alternatively, split the correct answer so that only 「先看空格的位置」 is keyed as the first step, and adjust the explanation accordingly."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](supp-p1-counting-number-bonds-first-step).explanationShownAfterAttempt",
+            "evidence": "The displayed Traditional Chinese explanation reads: 「這個課題較好的第一步是：先看空格的位置，再由已知數順數或倒數。」The reference Simplified Chinese reads: 「这个课题较好的第一步是：先看空格的位置，再由已知数顺数或倒数。」Both versions describe a compound strategy as 'the better first step' (較好的第一步), which is self-contradictory: a first step cannot be a two-part compound action. This explanation inherits the same logical defect as the prompt.",
+            "reason": "The explanation reinforces the logical flaw by calling a compound strategy 'the first step'. This could confuse learners about what constitutes a single step in problem-solving.",
+            "suggestedCorrection": "If the prompt is revised as suggested above, update the explanation to match, e.g., 「這個課題較好的做法是：先看空格的位置，再由已知數順數或倒數。」(A better approach for this topic is: first look at where the blank is, then count on or back from a known number.)"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pq-p1-counting-number-bonds-1",
+            "independentAnswer": "3",
+            "answerMatch": "pass",
+            "rationale": "7 + □ = 10 → □ = 10 − 7 = 3. The keyed storedAnswer is '3', and runtimeSelectionChecks confirm option index 1 (displayed '3') is accepted by the production grader. Answer matches."
+          },
+          {
+            "questionId": "pq-p1-counting-number-bonds-2",
+            "independentAnswer": "19",
+            "answerMatch": "pass",
+            "rationale": "The number immediately after 18 is 19. The storedAnswer is '19' and correctAnswerShownAfterWrongAttempt is '19'. Answer matches."
+          },
+          {
+            "questionId": "supp-p1-counting-number-bonds-first-step",
+            "independentAnswer": "先看空格的位置，再由已知數順數或倒數",
+            "answerMatch": "pass",
+            "rationale": "This is a strategy question. The keyed correct option (index 0) is the only reasonable strategy among the four options. The other options are clearly wrong (always start from 1, choose larger number without counting, ignore blank position). The production grader accepts option 0. The answer matches the intended correct option. However, the question itself has a logical defect (asking for 'first step' but answer is compound), which is captured as a separate issue."
+          },
+          {
+            "questionId": "supp-p1-counting-number-bonds-key-fact",
+            "independentAnswer": "5",
+            "answerMatch": "pass",
+            "rationale": "4 + □ = 9 → □ = 9 − 4 = 5. The storedAnswer is '5' and correctAnswerShownAfterWrongAttempt is '5'. Answer matches."
+          },
+          {
+            "questionId": "supp-p1-counting-number-bonds-guided-example",
+            "independentAnswer": "15",
+            "answerMatch": "pass",
+            "rationale": "The number before 16 is 15. The storedAnswer is '15' and correctAnswerShownAfterWrongAttempt is '15'. Answer matches."
+          }
+        ],
+        "summary": "The page contains five practice questions covering counting and number bonds within 20 for P1 HK curriculum. All five independent answer checks pass: the mathematical answers (3, 19, 5, 15) are correct, and the strategy question's keyed option is the only reasonable choice among the four options. Language quality is acceptable: Traditional Chinese is used consistently throughout, and translations from the Simplified Chinese reference are faithful. Interaction content is sound: multiple-choice graders accept exactly the intended options, and short-answer graders accept the correct values. However, the page fails mathematical content due to a logical defect in practice[2]: the prompt asks for the 「第一步」(first step) but the keyed answer and explanation describe a compound two-part strategy, which is self-contradictory. This defect originates in the source (Simplified Chinese reference) and is carried into the Traditional Chinese version. Two issues are filed: one for the prompt and one for the explanation, both at major severity."
+      }
+    },
+    "p1-shapes-patterns": {
+      "topicId": "p1-shapes-patterns",
+      "scope": "hong-kong",
+      "language": "zh",
+      "contentHash": "6e3394fc061538c3cbf2f374f60bc3d9cdf968bb468f78c6f7cb50bf63e9e92a",
+      "reviewedAt": "2026-08-09T10:41:57.966Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v12-2026-08-09-resilient-validator-retry",
+      "result": {
+        "topicId": "p1-shapes-patterns",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pq-p1-shapes-patterns-1",
+            "independentAnswer": "三角形",
+            "answerMatch": "pass",
+            "rationale": "A shape with exactly 3 sides is a triangle. The displayed option 三角形 (triangle) is keyed as correct via canonicalMatchedOptionIndexes[1] and runtimeSelectionChecks confirm only that option is accepted. The mathematical answer is correct."
+          },
+          {
+            "questionId": "pq-p1-shapes-patterns-2",
+            "independentAnswer": "圓形",
+            "answerMatch": "pass",
+            "rationale": "The pattern 圓形、正方形 repeats every 2 items. Position 5 (after 圓形, 正方形, 圓形, 正方形) is 圓形. The displayed option 圓形 is keyed as correct via canonicalMatchedOptionIndexes[0] and runtimeSelectionChecks confirm only that option is accepted. The mathematical answer is correct."
+          },
+          {
+            "questionId": "supp-p1-shapes-patterns-first-step",
+            "independentAnswer": "先說出重複單位或數邊數",
+            "answerMatch": "pass",
+            "rationale": "For shapes-and-patterns problems, the most useful first step is to identify the repeating unit or count sides. The displayed option 先說出重複單位或數邊數 is keyed as correct via canonicalMatchedOptionIndexes[0] and runtimeSelectionChecks confirm only that option is accepted. The answer is pedagogically sound."
+          },
+          {
+            "questionId": "supp-p1-shapes-patterns-key-fact",
+            "independentAnswer": "4",
+            "answerMatch": "pass",
+            "rationale": "A square has exactly 4 sides. The storedAnswer is '4' and correctAnswerShownAfterWrongAttempt is '4'. The mathematical answer is correct."
+          },
+          {
+            "questionId": "supp-p1-shapes-patterns-guided-example",
+            "independentAnswer": "三角形",
+            "answerMatch": "pass",
+            "rationale": "The pattern 三角形、圓形 repeats every 2 items. Position 5 (after 三角形, 圓形, 三角形, 圓形) is 三角形. The storedAnswer is 'triangle' and acceptedAnswers includes '三角形'. correctAnswerShownAfterWrongAttempt is '三角形'. The mathematical answer is correct."
+          }
+        ],
+        "summary": "Complete independent QA review of the P1 圖形與規律 lesson page. All five practice questions were independently solved and all answers match the keyed correct answers. The Traditional Chinese (Hong Kong) content is semantically faithful to the Simplified Chinese reference. No mathematical errors, language defects, interaction issues, or learner-facing problems were found. The page passes all dimensions."
+      }
+    },
+    "p2-place-value": {
+      "topicId": "p2-place-value",
+      "scope": "hong-kong",
+      "language": "zh",
+      "contentHash": "a8c202cd039974890228753f2cc63fc39150198c86da29b0ccbab4036cbe7061",
+      "reviewedAt": "2026-08-09T10:06:02.936Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v9-2026-08-09-deterministic-answer-coherence",
+      "result": {
+        "topicId": "p2-place-value",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pq-p2-place-value-1",
+            "independentAnswer": "8",
+            "answerMatch": "pass",
+            "rationale": "In 482, the tens digit is 8 (hundreds=4, tens=8, ones=2). The keyed option index 2 displays '8' and is accepted by the production grader. Answer matches."
+          },
+          {
+            "questionId": "pq-p2-place-value-2",
+            "independentAnswer": "346",
+            "answerMatch": "pass",
+            "rationale": "300 + 40 + 6 = 346. The storedAnswer is '346' and correctAnswerShownAfterWrongAttempt is '346'. Answer matches."
+          },
+          {
+            "questionId": "supp-p2-place-value-first-step",
+            "independentAnswer": "按百位、十位、個位順序讀數",
+            "answerMatch": "pass",
+            "rationale": "The best first step for place-value problems is to read hundreds, tens, and ones in order. Option index 0 displays this in Traditional Chinese and is accepted by the production grader. Answer matches."
+          },
+          {
+            "questionId": "supp-p2-place-value-key-fact",
+            "independentAnswer": "7",
+            "answerMatch": "pass",
+            "rationale": "In 735, the hundreds digit is 7. The storedAnswer is '7' and correctAnswerShownAfterWrongAttempt is '7'. Answer matches."
+          },
+          {
+            "questionId": "supp-p2-place-value-guided-example",
+            "independentAnswer": "529",
+            "answerMatch": "pass",
+            "rationale": "500 + 20 + 9 = 529. The storedAnswer is '529' and correctAnswerShownAfterWrongAttempt is '529'. Answer matches."
+          }
+        ],
+        "summary": "Complete independent QA review of the P2 Place Value lesson page (Traditional Chinese, HK). All five practice questions were independently solved and all answers match the keyed values. The lesson content is mathematically correct, age-appropriate for P2, and internally consistent. Translation fidelity from Simplified Chinese reference is accurate — key terms like 位值/数位, 個/个, 一/一 are rendered correctly in Traditional Chinese throughout. The worked example (482 = 400 + 80 + 2) is correct. All three checklist items are sound. The two extension items are well-formed. Interaction types (2 multiple-choice, 3 short-answer) fit their prompts. Production grader runtime checks confirm exactly one intended option is accepted for each multiple-choice question. No defects found. Page passes all dimensions."
+      }
+    },
+    "pep-primary-p1-lower-money-data-review": {
+      "topicId": "pep-primary-p1-lower-money-data-review",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "0fbdb174423343770462c8562c9a234e8cdc0f95da82ea4ed30e4423a92d757e",
+      "reviewedAt": "2026-08-09T11:10:00.714Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p1-lower-money-data-review",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p1-l-fi-151).prompt",
+            "evidence": "Prompt: '班級統計紅卡4張、藍卡7張、綠卡7張。數量最多的一類有多少張？' There are two categories tied at 7 (蓝卡 and 绿卡). The question asks '數量最多的一類有多少張？' (singular '一類'), which implies a unique maximum. With a tie, there is no single '最多的一類'. The stored answer is 7, and the explanation says '比較三個數量，最大的是7張。' This is mathematically ambiguous for P1 learners: the maximum value is 7, but there are two distinct categories achieving it. The question wording does not account for the tie.",
+            "reason": "The prompt asks for a singular '最多的一類' but the data contains a tie (蓝卡7张, 绿卡7张). This creates ambiguity about whether the answer should be 7 (the maximum value) or whether the question is ill-posed because there is no unique category. For P1 learners, this ambiguity is a mathematical-correctness defect.",
+            "suggestedCorrection": "Either change the data so there is a unique maximum (e.g., 红卡4张、蓝卡7张、绿卡5张) or rephrase the question to handle ties, e.g., '數量最多的是多少張？' (asking for the maximum value rather than the category)."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p1-l-fi-151).explanationShownAfterAttempt",
+            "evidence": "Explanation: '比較三個數量，最大的是7張。' This ignores the tie between 蓝卡 and 绿卡 both having 7张. The explanation treats 7 as if it belongs to a single category, which is misleading.",
+            "reason": "The explanation fails to acknowledge the tie, reinforcing the ambiguity in the prompt.",
+            "suggestedCorrection": "If the data is changed to have a unique maximum, the explanation becomes correct. If the question is rephrased to ask for the maximum value, update the explanation accordingly, e.g., '比較三個數量，7是最大的，所以最多的一類有7張。'"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p1-l-fi-151",
+            "independentAnswer": "7张 (but note: two categories tie at 7)",
+            "answerMatch": "review",
+            "rationale": "The mathematical value 7 is correct as the maximum count, but the prompt asks for a singular '最多的一類' when two categories tie. The stored answer 7 matches the maximum value, but the question is ambiguous. AnswerMatch is review because the answer is mathematically correct in value but the question framing is problematic."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-152",
+            "independentAnswer": "8元",
+            "answerMatch": "pass",
+            "rationale": "5元 + 1元 + 1元 + 1元 = 8元. The stored answer 8 and correctAnswerShownAfterWrongAttempt '8元' both match."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-153",
+            "independentAnswer": "30分钟",
+            "answerMatch": "pass",
+            "rationale": "9:00 to 9:30 is 30 minutes. The stored answer '30 min' and correctAnswerShownAfterWrongAttempt '30分鐘' both represent 30 minutes."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-155",
+            "independentAnswer": "9张",
+            "answerMatch": "pass",
+            "rationale": "红卡3张, 蓝卡9张, 绿卡4张. Maximum is 9张 (蓝卡). Unique maximum, no tie. Stored answer 9 and correctAnswerShownAfterWrongAttempt '9張' match."
+          },
+          {
+            "questionId": "pep-primary-p1-l-sa-191",
+            "independentAnswer": "11个",
+            "answerMatch": "pass",
+            "rationale": "甲类4个, 乙类11个, 丙类7个. Maximum is 11个 (乙类). Unique maximum. Stored answer 11 and correctAnswerShownAfterWrongAttempt '11個' match."
+          }
+        ],
+        "summary": "The page has 5 practice questions. Questions 152, 153, 155, and 191 are mathematically correct with unique answers. Question 151 has a tie (蓝卡7张 and 绿卡7张) but asks for a singular '最多的一類', creating ambiguity. The Traditional Chinese translation is faithful to the Simplified Chinese reference. Language quality, interaction design, and all other content blocks are acceptable. The page fails due to the mathematical ambiguity in practice question 151."
+      }
+    },
+    "pep-primary-p1-lower-within-100-add-sub": {
+      "topicId": "pep-primary-p1-lower-within-100-add-sub",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "8b98b74d4351da42a97c4c89d4db9fc4e11fe162bccb4316eee14d164bd05b81",
+      "reviewedAt": "2026-08-09T11:45:19.296Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p1-lower-within-100-add-sub",
+        "status": "fail",
+        "languageQuality": "fail",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "whole-page",
+            "evidence": "The displayed target language is declared as Hong Kong Traditional Chinese (zh-HK), but every learner-facing string on the page uses Simplified Chinese characters identical to the referenceSimplifiedChinese. Examples: 数 (not 數), 个 (not 個), 书 (not 書), 还 (not 還), 气 (not 氣), 张 (not 張), 体 (not 體), 关 (not 關), 系 (not 係), 练 (not 練), 检 (not 檢), 查 (not 查), 说 (not 說), 词 (not 詞), 语 (not 語), 图 (not 圖), 释 (not 釋), 运 (not 運), 计 (not 計), 后 (not 後), 统 (not 統), 扩 (not 擴), 展 (not 展), 门 (not 門), 票 (not 票), 写 (not 寫), 为 (not 為), 么 (not 麼). The entire page is in Simplified Chinese, not Traditional Chinese as required for the Hong Kong target.",
+            "reason": "The page is intended for Hong Kong Traditional Chinese but contains zero Traditional Chinese characters. This is a complete localization failure that affects every learner-facing element.",
+            "suggestedCorrection": "Convert all learner-facing text to Hong Kong Traditional Chinese orthography. For example: 100以內數與加減法, 理解十位個位，運用湊十和分解解決加減問題, 小學一年級下冊, 數量關係, 模型, 結果, 課前熱身, 復述, 圖形特徵, 口算檢查, 核心講解, 練習, 重視, 表達, 統一, 例題精講與小練習, 書架, 本書, 現在, 檢查, 原來, 數量, 貼紙, 送出, 還剩, 說明, 練習前檢查, 說清, 關鍵, 數學詞語, 圖示, 算式, 語言, 解釋, 數位, 逆運算, 完成, 計算, 估算, 策略, 避免, 拓展與出門票, 提示, 一道, 為什麼, 先算, etc."
+          },
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "practice[0](pep-primary-p1-l-fi-101).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The learner-facing correctAnswerShownAfterWrongAttempt is '60本', which uses the Simplified character 本. In Hong Kong Traditional Chinese, the classifier for books is 本 (same character), but the numeral and surrounding context remain in Simplified. More critically, the entire string is in Simplified Chinese script.",
+            "reason": "The correct-answer feedback shown to the learner after a wrong attempt is in Simplified Chinese, not Hong Kong Traditional Chinese.",
+            "suggestedCorrection": "Convert to Traditional Chinese: '60本' (the character 本 is the same in both scripts, but ensure the overall page context is Traditional). The numeral '60' is fine; the classifier '本' is identical in both scripts. The issue is that the entire page context is Simplified, so this string appears in Simplified context."
+          },
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "practice[1](pep-primary-p1-l-fi-102).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The learner-facing correctAnswerShownAfterWrongAttempt is '57個'. The character 個 is actually Traditional (Simplified would be 个). However, the prompt uses 个 (Simplified), creating an inconsistency within the same question.",
+            "reason": "The prompt uses Simplified 个 while the feedback uses Traditional 個, creating an orthographic inconsistency within the same question.",
+            "suggestedCorrection": "Ensure consistent Traditional Chinese throughout: the prompt should use 個 (e.g., '盒子裏有72個小圓片，取出15個後，還剩多少個？'), and the feedback '57個' is already correct in Traditional."
+          },
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "practice[2](pep-primary-p1-l-fi-103).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The learner-facing correctAnswerShownAfterWrongAttempt is '75張'. 張 is Traditional (Simplified: 张). But the prompt uses 张 (Simplified), creating inconsistency.",
+            "reason": "Mixed script usage within the same question: prompt uses Simplified 张, feedback uses Traditional 張.",
+            "suggestedCorrection": "Use consistent Traditional Chinese: prompt should use 張 (e.g., '班級上午收集了48張卡片，下午收集了27張。一共收集了多少張？')."
+          },
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "practice[3](pep-primary-p1-l-fi-104).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The learner-facing correctAnswerShownAfterWrongAttempt is '51個'. 個 is Traditional, but the prompt uses 个 (Simplified) and 氣球 uses 气 (Simplified, should be 氣).",
+            "reason": "Inconsistent script: feedback uses Traditional 個 while prompt uses Simplified 个 and 气.",
+            "suggestedCorrection": "Use consistent Traditional Chinese: prompt should be '原來有58個氣球，破了7個，還剩多少個？'."
+          },
+          {
+            "severity": "major",
+            "category": "language-quality",
+            "location": "practice[4](pep-primary-p1-l-fi-105).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The learner-facing correctAnswerShownAfterWrongAttempt is '76本'. 本 is the same in both scripts, but the prompt uses Simplified characters like 书 (should be 書), 阅 (should be 閱), 读 (should be 讀).",
+            "reason": "The prompt is in Simplified Chinese while the target is Hong Kong Traditional Chinese.",
+            "suggestedCorrection": "Convert prompt to Traditional: '閱讀角原來有64本書，又增加12本。現在有多少本書？'."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p1-l-fi-101",
+            "independentAnswer": "60",
+            "answerMatch": "pass",
+            "rationale": "36 + 24 = 60. The storedAnswer is '60' and correctAnswerShownAfterWrongAttempt is '60本'. The mathematical value 60 is correct."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-102",
+            "independentAnswer": "57",
+            "answerMatch": "pass",
+            "rationale": "72 - 15 = 57. The storedAnswer is '57' and correctAnswerShownAfterWrongAttempt is '57個'. The mathematical value 57 is correct."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-103",
+            "independentAnswer": "75",
+            "answerMatch": "pass",
+            "rationale": "48 + 27 = 75. The storedAnswer is '75' and correctAnswerShownAfterWrongAttempt is '75張'. The mathematical value 75 is correct."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-104",
+            "independentAnswer": "51",
+            "answerMatch": "pass",
+            "rationale": "58 - 7 = 51. The storedAnswer is '51' and correctAnswerShownAfterWrongAttempt is '51個'. The mathematical value 51 is correct."
+          },
+          {
+            "questionId": "pep-primary-p1-l-fi-105",
+            "independentAnswer": "76",
+            "answerMatch": "pass",
+            "rationale": "64 + 12 = 76. The storedAnswer is '76' and correctAnswerShownAfterWrongAttempt is '76本'. The mathematical value 76 is correct."
+          }
+        ],
+        "summary": "The page contains five fill-in practice questions with mathematically correct answers (60, 57, 75, 51, 76). All independent answer checks pass. The interaction design is sound: fill-in response types are appropriate, graders accept the correct answers, and explanations are accurate. However, the page has a critical language-quality defect: the entire page is rendered in Simplified Chinese despite the target being Hong Kong Traditional Chinese. Every learner-facing string—prompts, explanations, feedback, concept blocks, worked examples, checklist items, and extension content—uses Simplified characters. Additionally, some correctAnswerShownAfterWrongAttempt strings use Traditional characters (個, 張) while their corresponding prompts use Simplified (个, 张), creating intra-question inconsistency. The page requires a complete conversion to Hong Kong Traditional Chinese orthography."
+      }
+    },
+    "pep-primary-p1-upper-number-sense": {
+      "topicId": "pep-primary-p1-upper-number-sense",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "b3d7acf996a7cfbecde557e7c89b80e846458db4c857b3734e2f1a6f78dde175",
+      "reviewedAt": "2026-08-09T11:43:05.742Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p1-upper-number-sense",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p1-u-mc-002).prompt",
+            "evidence": "The displayed prompt asks '在12和17中，哪個數大？' (Between 12 and 17, which number is larger?). The options displayed are '12', '15', '19', '17'. The prompt restricts the comparison to only the two numbers 12 and 17, but the option set includes 15 and 19, which are not among the two numbers named in the prompt. A learner who reads the prompt literally may be confused about why numbers not mentioned in the question appear as choices. The intended answer 17 is accepted (runtimeSelectionChecks confirm optionIndex 3 is accepted), but the presence of 15 and 19 as options is inconsistent with the prompt's explicit restriction to '12和17'.",
+            "reason": "The prompt explicitly names only two numbers (12 and 17) for comparison, yet the option set contains four numbers including 15 and 19. This creates ambiguity: a learner could reasonably wonder whether the question is actually about comparing all four numbers. The options should be limited to the two numbers named in the prompt, or the prompt should be reworded to match the broader option set.",
+            "suggestedCorrection": "Either (a) change the options to only '12' and '17', or (b) reword the prompt to something like '以下哪個數最大？' (Which of the following numbers is the largest?) to match the four-option set. Option (a) is preferred since the topic is comparing two specific numbers."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p1-u-mc-002).options[1]",
+            "evidence": "Option index 1 displays '15'. The prompt asks '在12和17中，哪個數大？' which restricts the comparison to 12 and 17 only. The number 15 is not one of the two numbers named in the prompt.",
+            "reason": "The option '15' is not among the two numbers (12, 17) that the prompt asks the learner to compare. This makes the question internally inconsistent.",
+            "suggestedCorrection": "Remove '15' from the options. If the prompt is kept as-is, the options should only be '12' and '17'."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p1-u-mc-002).options[2]",
+            "evidence": "Option index 2 displays '19'. The prompt asks '在12和17中，哪個數大？' which restricts the comparison to 12 and 17 only. The number 19 is not one of the two numbers named in the prompt.",
+            "reason": "The option '19' is not among the two numbers (12, 17) that the prompt asks the learner to compare. This makes the question internally inconsistent.",
+            "suggestedCorrection": "Remove '19' from the options. If the prompt is kept as-is, the options should only be '12' and '17'."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p1-u-mc-001",
+            "independentAnswer": "3",
+            "answerMatch": "pass",
+            "rationale": "14 - 11 = 3. The keyed answer is 3 (option index 0), which matches the independent computation. RuntimeSelectionChecks confirm only option 0 is accepted."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-002",
+            "independentAnswer": "17",
+            "answerMatch": "pass",
+            "rationale": "Between 12 and 17, 17 is larger. The keyed answer is 17 (option index 3), which matches. However, the prompt-option inconsistency is flagged as a separate mathematical-correctness issue."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-003",
+            "independentAnswer": "10",
+            "answerMatch": "pass",
+            "rationale": "The sequence 8, 9, __, 11 counts forward by 1. The missing number is 10. The keyed answer is 10 (option index 2), which matches."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-005",
+            "independentAnswer": "9",
+            "answerMatch": "pass",
+            "rationale": "Total is 13, one part is 4, so the other part is 13 - 4 = 9. The keyed answer is 9 (option index 0), which matches."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-006",
+            "independentAnswer": "8",
+            "answerMatch": "pass",
+            "rationale": "Total is 14, one part is 6, so the other part is 14 - 6 = 8. The keyed answer is 8 (option index 3), which matches."
+          }
+        ],
+        "summary": "The page contains five practice questions on number sense within 20. Four questions (001, 003, 005, 006) are mathematically correct with consistent prompts, options, and answers. Question 002 has a prompt-option inconsistency: the prompt asks to compare only 12 and 17, but the option set includes four numbers (12, 15, 19, 17), two of which (15, 19) are not named in the prompt. This creates ambiguity for learners. The language quality is acceptable Hong Kong Traditional Chinese throughout. All interaction grading is correct per runtimeSelectionChecks. The worked example and instructional blocks are mathematically sound."
+      }
+    },
+    "pep-primary-p1-upper-shapes-position-time": {
+      "topicId": "pep-primary-p1-upper-shapes-position-time",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "16c32cb846662ab8010f8ed7adcfdf72e0738c98908f557ef2dff46e5c401a5f",
+      "reviewedAt": "2026-08-09T10:44:37.974Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v12-2026-08-09-resilient-validator-retry",
+      "result": {
+        "topicId": "pep-primary-p1-upper-shapes-position-time",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p1-u-mc-052).prompt",
+            "evidence": "The prompt states: 「下面描述的是哪種立體圖形：有六個面，而且不是每個面都是正方形？」(Traditional Chinese) / reference: 「下面描述的是哪种立体图形：有六个面，而且不是每个面都是正方形？」. The description 「有六個面，而且不是每個面都是正方形」 (has six faces, and not every face is a square) is mathematically insufficient to uniquely identify a cuboid (長方體). A cube (正方體) also has six faces, and the condition 「不是每個面都是正方形」 merely excludes the cube. However, other polyhedra with six faces exist (e.g., some irregular hexahedra), and within the P1 curriculum the only remaining candidate is indeed the cuboid. But the phrasing 「不是每個面都是正方形」 is ambiguous: it could be interpreted as 「none of the faces are squares」 (i.e., all faces are non-square rectangles), which would be false for a typical cuboid that may have square faces (e.g., a cuboid with two square faces). A P1 learner could reasonably think a cuboid must have zero square faces. The intended meaning is 「並非每個面都是正方形」 (not every face is a square), which allows some square faces. The Traditional Chinese 「不是每個面都是正方形」 carries the same ambiguity as the Simplified reference. However, the reference Simplified Chinese prompt is identical in meaning and the issue is present in both. The mathematical defect is that the description does not uniquely and unambiguously identify the cuboid for a P1 learner; the condition is necessary but not sufficient, and the phrasing risks misinterpretation.",
+            "reason": "The prompt's description is mathematically ambiguous for the target grade level. The condition 'not every face is a square' is logically equivalent to 'at least one face is not a square,' which is true of a cuboid but does not by itself distinguish it from other six-faced solids a P1 student might imagine. Additionally, the phrasing could be misread as 'no face is a square,' which would be incorrect for many cuboids. This creates a genuine learner-facing mathematical ambiguity that could lead to confusion or incorrect answering.",
+            "suggestedCorrection": "Revise the prompt to provide a more precise and grade-appropriate description that uniquely identifies a cuboid, such as: 「下面描述的是哪種立體圖形：有六個面，每個面都是長方形（可能有兩個面是正方形）？」 or 「下面描述的是哪種立體圖形：有六個長方形面（相對的面相同）？」 Alternatively, keep the current description but add a clarifying condition like 「而且相對的面相同」 to ensure uniqueness."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[4](pep-primary-p1-u-fi-091).prompt",
+            "evidence": "The prompt states: 「觀察一個積木：相對的面形狀相同，多數面是長方形。這個積木屬於哪種立體圖形？」 The description 「相對的面形狀相同，多數面是長方形」 (opposite faces have the same shape, most faces are rectangles) does not uniquely identify a cuboid (長方體). A cube (正方體) also has opposite faces of the same shape, and all its faces are squares (which are special rectangles). The phrase 「多數面是長方形」 (most faces are rectangles) is intended to exclude the cube, but it is imprecise: a cube's faces are squares, which are a subset of rectangles. A P1 learner may not distinguish squares from rectangles in this context. Furthermore, the description could also fit other shapes not in the P1 curriculum. The condition is not mathematically sufficient to guarantee the answer is uniquely 長方體.",
+            "reason": "The fill-in prompt does not provide a mathematically unique description. 'Opposite faces have the same shape' is true for both cubes and cuboids. 'Most faces are rectangles' is ambiguous because squares are rectangles, and a P1 student may not understand the implicit exclusion. This creates a genuine risk that a learner could reasonably answer 正方體 (cube) and be marked wrong.",
+            "suggestedCorrection": "Revise the prompt to uniquely identify a cuboid, e.g.: 「觀察一個積木：有六個面，相對的面相同，而且不是每個面都是正方形。這個積木屬於哪種立體圖形？」 or provide a more direct description such as 「觀察一個積木：它的每個面都是長方形，但並非所有面都是正方形。這個積木屬於哪種立體圖形？」"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p1-u-mc-051",
+            "independentAnswer": "球",
+            "answerMatch": "pass",
+            "rationale": "The prompt asks which 3D shape can roll in all directions. Only a sphere (球) has this property. The keyed answer is 球 (option index 2), which matches the independent answer."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-052",
+            "independentAnswer": "長方體",
+            "answerMatch": "pass",
+            "rationale": "The description 'has six faces, and not every face is a square' is intended to identify a cuboid (長方體). Despite the ambiguity noted in the issue, the intended answer within the P1 curriculum is clearly 長方體, and the keyed answer (option index 1, 長方體) matches."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-053",
+            "independentAnswer": "正方體",
+            "answerMatch": "pass",
+            "rationale": "The description 'every face is a square' uniquely identifies a cube (正方體). The keyed answer is 正方體 (option index 0), which matches."
+          },
+          {
+            "questionId": "pep-primary-p1-u-mc-054",
+            "independentAnswer": "圓柱",
+            "answerMatch": "pass",
+            "rationale": "The description 'has two circular faces' uniquely identifies a cylinder (圓柱). The keyed answer is 圓柱 (option index 3), which matches."
+          },
+          {
+            "questionId": "pep-primary-p1-u-fi-091",
+            "independentAnswer": "長方體",
+            "answerMatch": "pass",
+            "rationale": "The description 'opposite faces have the same shape, most faces are rectangles' is intended to identify a cuboid (長方體). Despite the ambiguity noted in the issue, the intended answer within the P1 curriculum is 長方體, and the keyed answer (長方體) matches."
+          }
+        ],
+        "summary": "The page contains five practice questions on 3D shapes for P1. All five independent answer checks pass — the keyed answers are mathematically correct for the intended curriculum. However, two prompts (practice[1] mc-052 and practice[4] fi-091) contain mathematically ambiguous descriptions that do not uniquely identify the target shape for P1 learners. Practice[1] uses 'not every face is a square' which is logically weak and could be misinterpreted. Practice[4] uses 'most faces are rectangles' which fails to exclude a cube since squares are rectangles. These are major mathematical-correctness issues requiring prompt revision. Language quality (Traditional Chinese translation fidelity) and interaction grading (all runtimeSelectionChecks accept exactly the intended option) are both pass. Overall status: fail due to mathematical content issues."
+      }
+    },
+    "pep-primary-p2-lower-division-remainder": {
+      "topicId": "pep-primary-p2-lower-division-remainder",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "198b508052c4cf8f0fd6458729d19f795ccdeea579a48384159e4b402efec484",
+      "reviewedAt": "2026-08-09T11:47:10.643Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p2-lower-division-remainder",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p2-l-fi-103).explanationShownAfterAttempt",
+            "evidence": "The displayed Traditional Chinese explanation reads: 「47=7x6+5，所以商是6，余數是5。」The multiplication symbol 'x' is used instead of the standard multiplication sign '×'. In the reference Simplified Chinese, the same explanation uses 'x' as well. However, the worked example block (blocks[1]) uses the proper '×' symbol (e.g., 「6 × 4 = 24」, 「3 × 5 + 2 = 17」). This inconsistency in mathematical notation within the same lesson page is a mathematical-correctness defect: the explanation uses a non-standard multiplication symbol 'x' (the letter x) rather than the multiplication sign '×'.",
+            "reason": "The explanation uses the letter 'x' as a multiplication operator instead of the standard '×' symbol. This is inconsistent with the worked example on the same page which correctly uses '×'. For P2 learners, consistent and correct mathematical notation is essential.",
+            "suggestedCorrection": "Change 「47=7x6+5」 to 「47=7×6+5」 in the explanationShownAfterAttempt for practice[2]."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[4](pep-primary-p2-l-fi-105).explanationShownAfterAttempt",
+            "evidence": "The displayed Traditional Chinese explanation reads: 「7=2x3+1，所以可以分成3組，還剩1個。」The multiplication symbol 'x' is used instead of the standard multiplication sign '×'. This is the same defect as in practice[2] and is inconsistent with the worked example block which correctly uses '×'.",
+            "reason": "Same non-standard multiplication symbol 'x' used instead of '×', inconsistent with the worked example on the same page.",
+            "suggestedCorrection": "Change 「7=2x3+1」 to 「7=2×3+1」 in the explanationShownAfterAttempt for practice[4]."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p2-l-fi-103).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The correctAnswerShownAfterWrongAttempt is 「6餘5」. The prompt asks: 「把47張卡片按每組7張分組，商和余數是多少？」(using 余). The correct answer shown uses 「餘」. While both 余 and 餘 are acceptable Traditional Chinese variants for 'remainder', the prompt uses 余 (as in 余數) while the answer uses 餘. More critically, the worked example (blocks[1]) consistently uses 「余」 (e.g., 「17 ÷ 5 = 3 余 2」, 「余數 2 小於 5」). The checklist and extension blocks also use 「余」. The correctAnswerShownAfterWrongAttempt uses 「餘」 which is inconsistent with the rest of the lesson page. This is a mathematical-correctness issue because the term for remainder should be consistent throughout the lesson.",
+            "reason": "The correctAnswerShownAfterWrongAttempt uses 「6餘5」 but the prompt, worked example, and other lesson content consistently use 「余」 (not 餘). This inconsistency in the mathematical term for 'remainder' can confuse P2 learners.",
+            "suggestedCorrection": "Change 「6餘5」 to 「6余5」 in correctAnswerShownAfterWrongAttempt for practice[2] to match the consistent usage of 余 throughout the lesson."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[4](pep-primary-p2-l-fi-105).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The correctAnswerShownAfterWrongAttempt is 「3餘1」. Same issue as practice[2]: the lesson consistently uses 「余」 (e.g., worked example: 「17 ÷ 5 = 3 余 2」, checklist items use 余數, extension uses 余數), but this answer uses 「餘」.",
+            "reason": "Inconsistent use of 餘 vs 余 for 'remainder'. The lesson page consistently uses 余; this answer uses 餘.",
+            "suggestedCorrection": "Change 「3餘1」 to 「3余1」 in correctAnswerShownAfterWrongAttempt for practice[4] to match the consistent usage of 余 throughout the lesson."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p2-l-fi-101",
+            "independentAnswer": "4組",
+            "answerMatch": "pass",
+            "rationale": "24 ÷ 6 = 4, so 4 groups. The keyed correctAnswerShownAfterWrongAttempt is 「4組」 which matches."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-102",
+            "independentAnswer": "9個",
+            "answerMatch": "pass",
+            "rationale": "36 ÷ 4 = 9, so 9 boxes. The keyed correctAnswerShownAfterWrongAttempt is 「9個」 which matches."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-103",
+            "independentAnswer": "6余5",
+            "answerMatch": "pass",
+            "rationale": "47 ÷ 7 = 6 remainder 5. The keyed correctAnswerShownAfterWrongAttempt is 「6餘5」. Despite the 餘/余 character variant, the mathematical value (quotient 6, remainder 5) is correct. The character variant is flagged as a separate issue."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-104",
+            "independentAnswer": "8張",
+            "answerMatch": "pass",
+            "rationale": "56 ÷ 7 = 8, so 8 stickers each. The keyed correctAnswerShownAfterWrongAttempt is 「8張」 which matches."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-105",
+            "independentAnswer": "3余1",
+            "answerMatch": "pass",
+            "rationale": "7 ÷ 2 = 3 remainder 1. The keyed correctAnswerShownAfterWrongAttempt is 「3餘1」. The mathematical value is correct; the 餘/余 variant is flagged separately."
+          }
+        ],
+        "summary": "The lesson page contains 5 fill-in practice questions on division with and without remainders for P2. All five independent answer checks pass mathematically. However, two categories of mathematical-correctness defects were found: (1) The explanations for practice[2] and practice[4] use the letter 'x' instead of the standard multiplication sign '×', inconsistent with the worked example on the same page. (2) The correctAnswerShownAfterWrongAttempt for practice[2] and practice[4] uses 「餘」 while the entire rest of the lesson (prompts, worked examples, checklist, extension) consistently uses 「余」. These inconsistencies in mathematical notation and terminology warrant a fail for mathematicalContent. Language quality (Traditional Chinese localization) and interaction content (fill-in grading) pass."
+      }
+    },
+    "pep-primary-p2-lower-place-value-measurement-data": {
+      "topicId": "pep-primary-p2-lower-place-value-measurement-data",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "768fc22e8e49a3b6d91652a6cb6016d0526e37c1aa7f7cf62d0353ab215ca368",
+      "reviewedAt": "2026-08-09T11:11:23.880Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p2-lower-place-value-measurement-data",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p2-l-fi-151",
+            "independentAnswer": "3",
+            "answerMatch": "pass",
+            "rationale": "8357: 千位8, 百位3, 十位5, 個位7. 百位數字是3. storedAnswer為3, correctAnswerShownAfterWrongAttempt為3, 完全匹配."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-152",
+            "independentAnswer": "2000",
+            "answerMatch": "pass",
+            "rationale": "1千克=1000克, 2千克=2000克. storedAnswer為2000, correctAnswerShownAfterWrongAttempt為2000克, 數值一致. acceptedAnswers包含2000克等變體, 合理."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-153",
+            "independentAnswer": "8",
+            "answerMatch": "pass",
+            "rationale": "34-26=8. storedAnswer為8, correctAnswerShownAfterWrongAttempt為8個, 數值一致. acceptedAnswers包含8个, 8个瓶子等變體, 合理."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-154",
+            "independentAnswer": "2",
+            "answerMatch": "pass",
+            "rationale": "3208: 千位3, 百位2, 十位0, 個位8. 百位數字是2. storedAnswer為2, correctAnswerShownAfterWrongAttempt為2, 完全匹配."
+          },
+          {
+            "questionId": "pep-primary-p2-l-fi-155",
+            "independentAnswer": "5",
+            "answerMatch": "pass",
+            "rationale": "4555: 千位4, 百位5, 十位5, 個位5. 百位數字是5. storedAnswer為5, correctAnswerShownAfterWrongAttempt為5, 完全匹配."
+          }
+        ],
+        "summary": "完整審閱了香港繁體中文版「萬以內數、質量、時間與數據」課程頁面。五道練習題全部獨立求解並與存儲答案比對，全部匹配。繁體中文翻譯與簡體中文參考版在數學語義、條件、單位和答案上完全一致。所有填空題的答案、解釋和反饋均正確無誤。頁面無任何學習者面向的缺陷，語言、數學和互動三個維度均通過。"
+      }
+    },
+    "pep-primary-p2-upper-length-angles-observation": {
+      "topicId": "pep-primary-p2-upper-length-angles-observation",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "2a1d5b4fe8083eb68e8071f239b16ecb4b8cf83b028cee729de098654215bfbf",
+      "reviewedAt": "2026-08-09T11:01:27.258Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v13-2026-08-09-diagnostic-distractor-contract",
+      "result": {
+        "topicId": "pep-primary-p2-upper-length-angles-observation",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p2-u-mc-054).options[1]",
+            "evidence": "The prompt asks: 一根彩帶長26釐米，另一根比它長11釐米。另一根長多少釐米？ 26 + 11 = 37, so the correct answer is 37釐米 (option index 3). Option index 1 displays 38釐米. 38 is not 26+11 (which is 37) and is not 26−11 (which is 15). It is an off-by-one error (37+1) that does not correspond to any standard misconception for this operation. The distractor 38釐米 is not a plausible diagnostic distractor for this specific arithmetic; it risks confusing learners because it is numerically adjacent to the correct answer without a clear pedagogical rationale.",
+            "reason": "The distractor 38釐米 is not a credible misconception for 26+11. A typical distractor for this problem would be 26−11=15 (already present as option index 2) or 26+11=37 (correct). 38 has no clear derivation from the given numbers and may mislead learners or appear as a random error. This weakens the diagnostic quality of the item.",
+            "suggestedCorrection": "Replace 38釐米 with a distractor that encodes a common learner error, such as 26+10=36釐米 (forgetting to add the extra 1), or remove it and use a different plausible wrong answer."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p2-u-mc-051).options[0]",
+            "evidence": "The prompt asks: 一根彩帶長84釐米，另一根比它長8釐米。另一根長多少釐米？ 84 + 8 = 92, so the correct answer is 92釐米 (option index 2). Option index 0 displays 93釐米. 93 is 84+9, not 84+8. It is an off-by-one error (92+1) that does not correspond to any standard misconception for this specific addition. A typical distractor would be 84−8=76 (already present as option index 1). 93 has no clear derivation from 84 and 8.",
+            "reason": "The distractor 93釐米 is not a credible misconception for 84+8. It is numerically adjacent to the correct answer (92) but has no pedagogical basis in the given numbers. This weakens the diagnostic value of the item and may confuse learners.",
+            "suggestedCorrection": "Replace 93釐米 with a distractor that encodes a common learner error, such as 84+8+1=93 if the intent is to catch carrying errors, but 84+8 does not involve carrying across tens. A better distractor would be 84+6=90 (misreading 8 as 6) or another plausible error. Alternatively, use 84+8=92 as correct and ensure all distractors have clear error rationales."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p2-u-mc-051",
+            "independentAnswer": "92釐米",
+            "answerMatch": "pass",
+            "rationale": "84 + 8 = 92. The keyed option is 92釐米 (option index 2), which matches the independent computation. The production grader accepts exactly this option."
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-052",
+            "independentAnswer": "4",
+            "answerMatch": "pass",
+            "rationale": "A rectangle has 4 right angles. The keyed option is 4 (option index 1), which matches. The production grader accepts exactly this option."
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-053",
+            "independentAnswer": "3",
+            "answerMatch": "pass",
+            "rationale": "Three identical cubes placed side by side in a row: from the front, each cube shows one square face, so 3 squares are visible. The keyed option is 3 (option index 0), which matches. The production grader accepts exactly this option."
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-054",
+            "independentAnswer": "37釐米",
+            "answerMatch": "pass",
+            "rationale": "26 + 11 = 37. The keyed option is 37釐米 (option index 3), which matches the independent computation. The production grader accepts exactly this option."
+          },
+          {
+            "questionId": "pep-primary-p2-u-fi-091",
+            "independentAnswer": "39厘米",
+            "answerMatch": "pass",
+            "rationale": "23 + 16 = 39. The stored answer is 39 cm, acceptedAnswers include 39厘米 and 39. The correctAnswerShownAfterWrongAttempt is 39厘米. The independent answer matches."
+          }
+        ],
+        "summary": "The page contains five practice questions covering length addition, right angles in a rectangle, and 3D observation. All five independent answer checks pass. The language quality is acceptable: Traditional Chinese (zh) is used consistently throughout, matching the reference Simplified Chinese in mathematical meaning. However, two multiple-choice distractors are mathematically weak: practice[0] option 93釐米 (84+9, not 84+8) and practice[3] option 38釐米 (26+12, not 26+11) are off-by-one from the correct answers without clear pedagogical rationale. These are not standard misconception distractors and weaken diagnostic quality. No interaction or feedback defects were found; all production graders accept exactly the intended option. The page fails mathematical content due to the two distractor issues."
+      }
+    },
+    "pep-primary-p2-upper-multiplication-arrays": {
+      "topicId": "pep-primary-p2-upper-multiplication-arrays",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "a5e54ea5a3600ace7e2c61a55ec534acc165b05c1bf3110f1e09f62490f3d144",
+      "reviewedAt": "2026-08-09T11:10:10.333Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p2-upper-multiplication-arrays",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p2-u-mc-001",
+            "independentAnswer": "16",
+            "answerMatch": "pass",
+            "rationale": "8行每行2個 → 8 × 2 = 16。選項16為正確答案，runtimeSelectionChecks確認僅選項0被接受。"
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-002",
+            "independentAnswer": "12",
+            "answerMatch": "pass",
+            "rationale": "2個托盤每盤6個 → 2 × 6 = 12。選項12為正確答案，runtimeSelectionChecks確認僅選項3被接受。"
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-003",
+            "independentAnswer": "8",
+            "answerMatch": "pass",
+            "rationale": "4組每組2個 → 4 × 2 = 8。選項8為正確答案，runtimeSelectionChecks確認僅選項2被接受。"
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-004",
+            "independentAnswer": "36",
+            "answerMatch": "pass",
+            "rationale": "6組每組6個 → 6 × 6 = 36。選項36為正確答案，runtimeSelectionChecks確認僅選項1被接受。"
+          },
+          {
+            "questionId": "pep-primary-p2-u-mc-005",
+            "independentAnswer": "63",
+            "answerMatch": "pass",
+            "rationale": "7組每組9個 → 7 × 9 = 63。選項63為正確答案，runtimeSelectionChecks確認僅選項0被接受。"
+          }
+        ],
+        "summary": "完整審查了「表內乘法與陣列」頁面（繁體中文版）。五道練習題全部獨立求解並與答案比對，全部匹配。所有題目的 runtimeSelectionChecks 均確認僅一個正確選項被接受，干擾項均為合理的常見錯誤（加法、相鄰乘法事實等）。繁體中文翻譯與簡體中文參考版本在數學語義上完全一致，僅有字體轉換（如「陣列」vs「阵列」、「鉛筆」vs「铅笔」等），無翻譯錯誤。教學內容、例題、檢查清單和拓展部分均無數學錯誤或學習者面向的缺陷。頁面通過所有維度審查。"
+      }
+    },
+    "pep-primary-p3-lower-statistics-review": {
+      "topicId": "pep-primary-p3-lower-statistics-review",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "36f9ab3a41f125aad6b670ec7918c036eb0b59aa64038dbe9a606a29df5ea3c7",
+      "reviewedAt": "2026-08-09T11:50:31.502Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p3-lower-statistics-review",
+        "status": "pass",
+        "languageQuality": "pass",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p3-l-sa-151",
+            "independentAnswer": "4人",
+            "answerMatch": "pass",
+            "rationale": "12 − 8 = 4，籃球比足球多4人。correctAnswerShownAfterWrongAttempt 為「4人」，storedAnswer「4」與 acceptedAnswers 均接受此答案，數學正確。"
+          },
+          {
+            "questionId": "pep-primary-p3-l-sa-152",
+            "independentAnswer": "22本",
+            "answerMatch": "pass",
+            "rationale": "7 + 9 + 6 = 22，共22本。correctAnswerShownAfterWrongAttempt 為「22本」，storedAnswer「22」與 acceptedAnswers 均接受此答案，數學正確。"
+          },
+          {
+            "questionId": "pep-primary-p3-l-sa-153",
+            "independentAnswer": "9票",
+            "answerMatch": "pass",
+            "rationale": "15、11、9中最小為9，最少票數為9票。correctAnswerShownAfterWrongAttempt 為「9票」，storedAnswer「9」與 acceptedAnswers 均接受此答案，數學正確。"
+          },
+          {
+            "questionId": "pep-primary-p3-l-sa-154",
+            "independentAnswer": "4天",
+            "answerMatch": "pass",
+            "rationale": "15 − 11 = 4，晴天比陰天多4天。correctAnswerShownAfterWrongAttempt 為「4天」，storedAnswer「4」與 acceptedAnswers 均接受此答案，數學正確。"
+          },
+          {
+            "questionId": "pep-primary-p3-l-sa-155",
+            "independentAnswer": "39人",
+            "answerMatch": "pass",
+            "rationale": "14 + 13 + 12 = 39，共39人。correctAnswerShownAfterWrongAttempt 為「39人」，storedAnswer「39」與 acceptedAnswers 均接受此答案，數學正確。"
+          }
+        ],
+        "summary": "整頁五道練習題經獨立求解，數學答案全部正確。語言為香港繁體中文，用字自然、一致，無簡體殘留或翻譯錯誤。概念講解、例題、檢查清單及拓展內容均無數學或語言缺陷。互動方面，五題均為短答題，評分器接受正確答案，回饋語言與目標一致。無任何需修正的內容問題，整頁通過。"
+      }
+    },
+    "pep-primary-p3-upper-measurement-time-geometry": {
+      "topicId": "pep-primary-p3-upper-measurement-time-geometry",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "bbb1763aaabc758ce1703edbcce1815a96e0e7b6673def207bedadad7cfa5a62",
+      "reviewedAt": "2026-08-09T11:49:56.944Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p3-upper-measurement-time-geometry",
+        "status": "fail",
+        "languageQuality": "review",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p3-u-mc-051).options[0]",
+            "evidence": "選項 A 顯示「103厘米」。3 米 = 300 厘米，103 厘米與正確答案無關，且 103 厘米作為一個長度值本身並非錯誤事實，但作為本題選項，它不代表任何常見的單位換算錯誤模式（常見錯誤如 30、3000）。更關鍵的是，103 厘米 = 1.03 米，與 3 米無任何合理關聯，可能讓學生困惑。",
+            "reason": "選項 A「103厘米」與 3 米換算無任何數學關聯，不是合理的診斷性干擾項。常見的合理錯誤包括：忘記換算直接寫 3（但單位是厘米所以是 3 厘米，不在選項中）、乘以 10 得 30、乘以 1000 得 3000。103 厘米無法對應任何已知的學習者錯誤模式。",
+            "suggestedCorrection": "將選項 A 改為一個合理的診斷性干擾項，例如「3厘米」（忘記換算）、「30厘米」（錯誤使用 1米=10厘米）或保留其他已有干擾項並移除 103厘米。"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p3-u-mc-054).options[0]",
+            "evidence": "選項 A 顯示「35分钟」（35分鐘）。10:35 到 11:20：從 10:35 到 11:00 是 25 分鐘，11:00 到 11:20 是 20 分鐘，合計 45 分鐘。35 分鐘是將 10:35 中的「35」直接當作答案的錯誤，這是一個合理的診斷性干擾項。但此處選項文字為「35分钟」而非「35分鐘」，與其他選項的「55分鐘」「85分鐘」「45分鐘」不一致——其他三個選項使用「分鐘」而選項 A 使用「分钟」。",
+            "reason": "選項 A 使用簡體中文「分钟」，而其他三個選項及題目整體使用繁體中文「分鐘」。這是不一致的顯示，可能造成混淆。但這屬於語言/顯示一致性問題，不影響數學正確性。然而，從數學角度審查：35 分鐘是合理的診斷性干擾項（學生可能誤將開始時間的分鐘數當作答案），沒有數學缺陷。",
+            "suggestedCorrection": "將選項 A 的「35分钟」改為「35分鐘」以與其他選項保持一致。"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p3-u-mc-054).correctAnswerShownAfterWrongAttempt",
+            "evidence": "correctAnswerShownAfterWrongAttempt 顯示「45分钟」，使用簡體中文「分钟」而非繁體中文「分鐘」。題目 prompt 使用「分鐘」，選項 B、C、D 使用「分鐘」，但選項 A 和 correctAnswerShownAfterWrongAttempt 使用「分钟」。",
+            "reason": "correctAnswerShownAfterWrongAttempt 是學習者可見的反饋文字，應與頁面整體的繁體中文一致。使用「分钟」而非「分鐘」是不一致的顯示。",
+            "suggestedCorrection": "將 correctAnswerShownAfterWrongAttempt 改為「45分鐘」。"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p3-u-mc-054).explanationShownAfterAttempt",
+            "evidence": "解釋文字使用「分钟」而非「分鐘」：「10:35到11:00经过25分钟，11:00到11:20经过20分钟，一共25+20=45分钟。」其中「经过」應為「經過」，「分钟」應為「分鐘」。",
+            "reason": "解釋文字中混用簡體中文詞彙（经过、分钟），與頁面整體的繁體中文不一致。這是學習者可見的反饋內容。",
+            "suggestedCorrection": "將解釋文字改為：「10:35到11:00經過25分鐘，11:00到11:20經過20分鐘，一共25+20=45分鐘。」"
+          },
+          {
+            "severity": "minor",
+            "category": "language-quality",
+            "location": "practice[1](pep-primary-p3-u-mc-052).options[2]",
+            "evidence": "選項 C 顯示「锐角」，使用簡體中文「锐」而非繁體中文「銳」。其他選項使用「平角」「直角」「钝角」（鈍角使用簡體「钝」而非繁體「鈍」）。",
+            "reason": "選項 C 的「锐」和選項 D 的「钝」均為簡體中文，與頁面整體的繁體中文不一致。但 runtimeSelectionChecks 中 submittedOptionValue 顯示為「銳角」和「鈍角」，說明實際提交值為繁體，僅顯示文字為簡體。這可能導致學習者看到的文字與實際提交不一致。",
+            "suggestedCorrection": "將選項 C 的顯示文字改為「銳角」，選項 D 的顯示文字改為「鈍角」，與 runtimeSelectionChecks 中的 submittedOptionValue 保持一致。"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p3-u-mc-051",
+            "independentAnswer": "300厘米",
+            "answerMatch": "pass",
+            "rationale": "3米 = 3 × 100厘米 = 300厘米。正確選項為第3個（300厘米），runtimeSelectionChecks 確認該選項被接受。"
+          },
+          {
+            "questionId": "pep-primary-p3-u-mc-052",
+            "independentAnswer": "直角",
+            "answerMatch": "pass",
+            "rationale": "正方形的每個角都是90°，即直角。正確選項為第2個（直角），runtimeSelectionChecks 確認該選項被接受。"
+          },
+          {
+            "questionId": "pep-primary-p3-u-mc-053",
+            "independentAnswer": "366",
+            "answerMatch": "pass",
+            "rationale": "閏年全年有366天。正確選項為第1個（366），runtimeSelectionChecks 確認該選項被接受。"
+          },
+          {
+            "questionId": "pep-primary-p3-u-mc-054",
+            "independentAnswer": "45分鐘",
+            "answerMatch": "pass",
+            "rationale": "10:35到11:20：10:35到11:00是25分鐘，11:00到11:20是20分鐘，合計45分鐘。正確選項為第4個（45分鐘），runtimeSelectionChecks 確認該選項被接受。"
+          },
+          {
+            "questionId": "pep-primary-p3-u-fi-076",
+            "independentAnswer": "235厘米",
+            "answerMatch": "pass",
+            "rationale": "2米35厘米 = 200厘米 + 35厘米 = 235厘米。acceptedAnswers 包含「235厘米」「235」「235cm」「235 厘米」，涵蓋合理答案格式。"
+          }
+        ],
+        "summary": "五道練習題的數學答案均正確，互動評分行為正常。但存在以下缺陷：(1) practice[0] 選項A「103厘米」不是合理的診斷性干擾項，與3米換算無任何數學關聯；(2) practice[3] 的選項A、correctAnswerShownAfterWrongAttempt 和 explanationShownAfterAttempt 混用簡體中文「分钟」「经过」而非繁體中文「分鐘」「經過」；(3) practice[1] 的選項C和D顯示文字使用簡體「锐」「钝」而非繁體「銳」「鈍」。這些問題影響學習者體驗和內容一致性。"
+      }
+    },
+    "pep-primary-p4-lower-decimals-average": {
+      "topicId": "pep-primary-p4-lower-decimals-average",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "1641fa870fa75b5941cdc2b241f85c2d5feb60fcbdee90d393397bab91bf3798",
+      "reviewedAt": "2026-08-09T11:53:00.984Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p4-lower-decimals-average",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p4-l-fi-101).explanationShownAfterAttempt",
+            "evidence": "The displayed explanation reads: 「小數點對齊計算：1.5+2.7=4.2。」 The prompt asks for the total length in metres (米), and the correctAnswerShownAfterWrongAttempt is 「4.2米」. The explanation omits the unit 「米」, making the equation 1.5+2.7=4.2 dimensionally inconsistent: 1.5 and 2.7 are implicitly in metres, but the sum is stated as a bare number. This contradicts the unit-aware approach taught in the lesson.",
+            "reason": "The explanation presents a mathematically incomplete equality that drops the unit of measurement, which can confuse learners who are being taught to include units in their answers.",
+            "suggestedCorrection": "Change the explanation to 「小數點對齊計算：1.5+2.7=4.2（米）。」 or 「小數點對齊計算：1.5米+2.7米=4.2米。」"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example states: 「例 1：小數加法：3.6 + 2.75 = ? 答案：把 3.6 寫成 3.60，小數點對齊：3.60 + 2.75 = 6.35。 檢查：3.6 + 2.7 大約是 6.3，6.35 合理。」 The check uses 2.7 as an approximation for 2.75, but 3.6 + 2.7 = 6.3, not approximately 6.3 — it is exactly 6.3. The wording 「大約是 6.3」 (approximately 6.3) is misleading because 3.6 + 2.7 is exactly 6.3, not an approximation. The approximation step is actually replacing 2.75 with 2.7, and the result of that replacement is exactly 6.3.",
+            "reason": "The check statement incorrectly labels an exact sum as approximate. The approximation is in the substitution of 2.75 by 2.7, not in the arithmetic 3.6 + 2.7. This can confuse learners about what estimation means.",
+            "suggestedCorrection": "Change to: 「檢查：把 2.75 看作 2.7，3.6 + 2.7 = 6.3，6.35 接近 6.3，合理。」 or similar wording that correctly identifies where the approximation occurs."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p4-l-fi-101",
+            "independentAnswer": "4.2米",
+            "answerMatch": "pass",
+            "rationale": "1.5 + 2.7 = 4.2, with unit 米. The storedAnswer is 4.2, acceptedAnswers include 4.2米 and 4.2 m, and correctAnswerShownAfterWrongAttempt is 4.2米. The mathematical answer is correct."
+          },
+          {
+            "questionId": "pep-primary-p4-l-fi-102",
+            "independentAnswer": "3.2",
+            "answerMatch": "pass",
+            "rationale": "5.8 - 2.6 = 3.2. The storedAnswer is 3.2 and correctAnswerShownAfterWrongAttempt is 3.2. Correct."
+          },
+          {
+            "questionId": "pep-primary-p4-l-fi-103",
+            "independentAnswer": "8",
+            "answerMatch": "pass",
+            "rationale": "(6 + 8 + 10) ÷ 3 = 24 ÷ 3 = 8. The storedAnswer is 8 and correctAnswerShownAfterWrongAttempt is 8. Correct."
+          },
+          {
+            "questionId": "pep-primary-p4-l-fi-104",
+            "independentAnswer": "0",
+            "answerMatch": "pass",
+            "rationale": "2.50 - 2.5 = 0 because 2.50 = 2.5. The storedAnswer is 0 and correctAnswerShownAfterWrongAttempt is 0. Correct."
+          },
+          {
+            "questionId": "pep-primary-p4-l-fi-105",
+            "independentAnswer": "6.25",
+            "answerMatch": "pass",
+            "rationale": "10 - 3.75 = 6.25. The storedAnswer is 6.25 and correctAnswerShownAfterWrongAttempt is 6.25. Correct."
+          }
+        ],
+        "summary": "The page has five fill-in practice questions, all with mathematically correct answers and appropriate grading. The Traditional Chinese localization is natural and faithful to the Simplified Chinese reference. Two mathematical-correctness issues were found: (1) practice question 101's explanation drops the unit 米, making the equation dimensionally inconsistent; (2) the worked example's estimation check mislabels an exact sum (3.6 + 2.7 = 6.3) as approximate. These are major defects requiring correction. All independent answer checks pass."
+      }
+    },
+    "pep-primary-p4-lower-perimeter-area-lines": {
+      "topicId": "pep-primary-p4-lower-perimeter-area-lines",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "6fcb6cb7a1f06a29774a4c84a51febc7581390f1d3b969acd9e78cca1076701a",
+      "reviewedAt": "2026-08-09T11:14:30.647Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p4-lower-perimeter-area-lines",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[4](pep-primary-p4-l-sa-155).prompt",
+            "evidence": "The prompt asks '在長方形ABCD中，哪條邊與AB平行？' but no diagram is provided (diagram is null). Without a diagram showing the vertex ordering of rectangle ABCD, the learner cannot determine which side is opposite AB. In a rectangle labeled ABCD, the opposite side to AB could be CD (if vertices are labeled consecutively) or could be ambiguous if the labeling convention is not established. The reference Simplified Chinese version also has no diagram.",
+            "reason": "The question is unanswerable without a diagram establishing the vertex ordering of rectangle ABCD. A P4 student cannot infer which side is opposite AB without seeing the rectangle's vertex labels.",
+            "suggestedCorrection": "Add a diagram showing rectangle ABCD with vertices labeled in order (A, B, C, D clockwise or counterclockwise), or rephrase the prompt to specify the vertex ordering, e.g., '在長方形ABCD中（頂點按順時針標記），哪條邊與AB平行？'"
+          },
+          {
+            "severity": "major",
+            "category": "ambiguity-or-missing-condition",
+            "location": "practice[4](pep-primary-p4-l-sa-155).prompt",
+            "evidence": "The prompt references rectangle ABCD but provides no diagram. The accepted answers are 'CD' and 'DC'. However, without a diagram, if vertices are labeled A, B, C, D consecutively, the side opposite AB is indeed CD. But if the rectangle were labeled differently (e.g., A, B, D, C), the answer could differ. The question assumes a specific but unstated vertex ordering convention.",
+            "reason": "Missing diagram creates ambiguity that makes the question unanswerable for the target P4 audience.",
+            "suggestedCorrection": "Provide a diagram of rectangle ABCD with clearly labeled vertices, or explicitly state the vertex ordering in the prompt."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p4-l-sa-151",
+            "independentAnswer": "32厘米",
+            "answerMatch": "pass",
+            "rationale": "Perimeter = (9+7)×2 = 32 cm. The keyed correctAnswerShownAfterWrongAttempt is '32厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p4-l-sa-152",
+            "independentAnswer": "33平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Area = 11×3 = 33 cm². The keyed correctAnswerShownAfterWrongAttempt is '33平方厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p4-l-sa-153",
+            "independentAnswer": "36平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Area = 6×6 = 36 cm². The keyed correctAnswerShownAfterWrongAttempt is '36平方厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p4-l-sa-154",
+            "independentAnswer": "90度",
+            "answerMatch": "pass",
+            "rationale": "Perpendicular lines intersect at 90°. The keyed correctAnswerShownAfterWrongAttempt is '90度', which matches."
+          },
+          {
+            "questionId": "pep-primary-p4-l-sa-155",
+            "independentAnswer": "CD",
+            "answerMatch": "pass",
+            "rationale": "In a rectangle with consecutive vertices A-B-C-D, the side opposite AB is CD. The keyed correctAnswerShownAfterWrongAttempt is 'CD', which matches under the standard consecutive labeling convention. However, the absence of a diagram makes the question ambiguous (reported as a separate issue)."
+          }
+        ],
+        "summary": "The page contains 5 practice questions. Questions 1-4 are mathematically correct with proper answers and explanations. Question 5 (pep-primary-p4-l-sa-155) asks which side is parallel to AB in rectangle ABCD but provides no diagram, making it unanswerable for P4 students who cannot infer the vertex ordering convention. This is a major mathematical-correctness and ambiguity defect. All other content (worked examples, concept block, checklist, extension) is accurate and well-translated to Traditional Chinese. Language quality and interaction content pass. The page fails due to the missing diagram in practice question 5."
+      }
+    },
+    "pep-primary-p4-upper-large-numbers-multiplication": {
+      "topicId": "pep-primary-p4-upper-large-numbers-multiplication",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "b8303b7de09f7a57bedef719c6a9c254b79514c2d721d6fda1d1cfe070a1ad81",
+      "reviewedAt": "2026-08-09T11:13:46.749Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p4-upper-large-numbers-multiplication",
+        "status": "fail",
+        "languageQuality": "review",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p4-u-mc-001).prompt",
+            "evidence": "The prompt states: 「手工桌每箱有29本練習本，準備33箱，一共有多少本？」The word 「手工桌」 (handcraft table) is semantically incoherent with 「每箱有29本練習本」 (each box has 29 exercise books). A table does not contain boxes of exercise books. The reference Simplified Chinese prompt is identical: 「手工桌每箱有29本练习本，准备33箱，一共有多少本？」, which contains the same semantic error. This appears to be a garbled term — likely 「手工桌」 should be 「手工課」 (handcraft class) or 「文具店」 (stationery store) or similar.",
+            "reason": "The prompt contains a semantically incoherent noun 「手工桌」 that makes the word problem nonsensical. A learner cannot reasonably interpret what entity has boxes of exercise books. This is a concrete learner-facing defect that undermines the question's validity.",
+            "suggestedCorrection": "Replace 「手工桌」 with a coherent subject such as 「手工課」 (handcraft class) or 「文具店」 (stationery store), e.g.: 「手工課每箱有29本練習本，準備33箱，一共有多少本？」"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example states: 「例 2：三位數乘兩位數：128 × 24 等於多少？ 答案：128 × 24 = 128 × 20 + 128 × 4 = 2560 + 512 = 3072。」 However, 128 is a three-digit number (三位數) and 24 is a two-digit number (兩位數). The topic title is 「大數認識與三位數乘法」 (Large Number Recognition and Three-Digit Multiplication). The lesson description and core concept both reference 「三位數乘法」. But the worked example and all five practice questions involve two-digit × two-digit multiplication (29×33, 13×37, 15×41, 16×32, 17×35), not three-digit multiplication. The only three-digit number in the worked example is 128, but it is multiplied by a two-digit number (24), which is a three-digit × two-digit multiplication, not 「三位數乘法」 (which typically means three-digit × three-digit). The practice questions are all two-digit × two-digit, which is misaligned with the lesson topic.",
+            "reason": "The lesson topic claims to cover 「三位數乘法」 (three-digit multiplication), but the practice questions are all two-digit × two-digit multiplication. The worked example uses a three-digit × two-digit problem (128×24) but the practice never reinforces this. This is a significant curriculum-alignment defect: the lesson title and description promise content that is not delivered in the practice.",
+            "suggestedCorrection": "Either (a) rename the topic to reflect two-digit × two-digit multiplication, e.g., 「兩位數乘法」, and update the worked example to use two-digit × two-digit, or (b) replace the practice questions with three-digit multiplication problems that match the topic title. The worked example's 128×24 should also be aligned with whatever the corrected topic scope is."
+          },
+          {
+            "severity": "minor",
+            "category": "language-quality",
+            "location": "blocks[2](checklist).items[4]",
+            "evidence": "The checklist item reads: 「避免：大數中間的 0 漏讀漏寫。」 The reference Simplified Chinese reads: 「避免：大数中间的 0 漏读漏写。」 The Traditional Chinese version uses 「漏讀漏寫」 which is correct Traditional Chinese. However, the term 「大數」 (large numbers) is used throughout the lesson, but the practice questions only involve numbers up to 3 digits (e.g., 29, 33, 957). There is no actual large-number content in the practice. This checklist item about 「大數中間的 0 漏讀漏寫」 (avoid missing zeros in the middle of large numbers) is not relevant to any practice question on this page.",
+            "reason": "The checklist item references large-number reading/writing skills that are not practiced anywhere on this page, creating a disconnect between the checklist guidance and the actual practice content.",
+            "suggestedCorrection": "Either add practice questions that involve reading/writing large numbers with internal zeros, or replace this checklist item with guidance relevant to the actual practice content (two-digit multiplication), such as: 「避免：乘法進位時漏加進位數。」"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p4-u-mc-001",
+            "independentAnswer": "957",
+            "answerMatch": "pass",
+            "rationale": "29 × 33 = 29 × 30 + 29 × 3 = 870 + 87 = 957. The keyed answer 957 matches. The prompt has a semantic issue (「手工桌」) but the mathematics is correct."
+          },
+          {
+            "questionId": "pep-primary-p4-u-mc-002",
+            "independentAnswer": "481",
+            "answerMatch": "pass",
+            "rationale": "13 × 37 = 13 × 30 + 13 × 7 = 390 + 91 = 481. The keyed answer 481 matches."
+          },
+          {
+            "questionId": "pep-primary-p4-u-mc-003",
+            "independentAnswer": "615",
+            "answerMatch": "pass",
+            "rationale": "15 × 41 = 15 × 40 + 15 × 1 = 600 + 15 = 615. The keyed answer 615 matches."
+          },
+          {
+            "questionId": "pep-primary-p4-u-mc-004",
+            "independentAnswer": "512",
+            "answerMatch": "pass",
+            "rationale": "16 × 32 = 16 × 30 + 16 × 2 = 480 + 32 = 512. The keyed answer 512 matches."
+          },
+          {
+            "questionId": "pep-primary-p4-u-mc-005",
+            "independentAnswer": "595",
+            "answerMatch": "pass",
+            "rationale": "17 × 35 = 17 × 30 + 17 × 5 = 510 + 85 = 595. The keyed answer 595 matches."
+          }
+        ],
+        "summary": "The page has five multiple-choice practice questions whose mathematics is individually correct and whose grading interactions work properly. However, there are two significant defects: (1) Practice question 001 uses the semantically incoherent term 「手工桌」 (handcraft table) in its prompt, making the word problem nonsensical. (2) The lesson topic is titled 「大數認識與三位數乘法」 (Large Number Recognition and Three-Digit Multiplication), but all five practice questions are two-digit × two-digit multiplication, and the only three-digit number appears in the worked example (128×24). The practice content does not deliver on the promised three-digit multiplication or large-number topics. A minor checklist item about large-number zeros is also irrelevant to the actual practice. The mathematical answers are all correct, and the interaction grading is sound."
+      }
+    },
+    "pep-primary-p5-lower-factors-fractions": {
+      "topicId": "pep-primary-p5-lower-factors-fractions",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "d94ab2855190f9b3091d4a0b6f646227d9b2d7a9ac63d687c383c1e925e6cb30",
+      "reviewedAt": "2026-08-09T11:55:39.925Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p5-lower-factors-fractions",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example states: '例 2：異分母分數加法：1/4 + 1/6 = ? 答案：4 和 6 的最小公倍數是 12，1/4 = 3/12，1/6 = 2/12，所以和是 5/12。 檢查：5/12 小於 1，結果合理。' The reference Simplified Chinese confirms the same content. The computation is correct: LCM(4,6)=12, 1/4=3/12, 1/6=2/12, sum=5/12. However, the '檢查' (check) statement says '5/12 小於 1，結果合理' (5/12 is less than 1, the result is reasonable). This check is mathematically insufficient and pedagogically misleading: many incorrect fraction additions also produce results less than 1 (e.g., 1/4+1/6 = 2/10 = 1/5 < 1). The check does not verify the correctness of the computation. A proper check would use estimation (1/4 ≈ 0.25, 1/6 ≈ 0.167, sum ≈ 0.417 ≈ 5/12) or verify via subtraction (5/12 − 1/4 = 5/12 − 3/12 = 2/12 = 1/6). Presenting 'less than 1' as a sufficient reasonableness check teaches a flawed verification strategy.",
+            "reason": "The worked example presents a mathematically insufficient verification criterion as if it confirms correctness. This could mislead learners into thinking any fraction sum less than 1 is correct, which is a concrete pedagogical defect.",
+            "suggestedCorrection": "Replace the check with a meaningful verification, e.g.: '檢查：5/12 ≈ 0.417，1/4 = 0.25，1/6 ≈ 0.167，0.25 + 0.167 = 0.417，結果一致。' or '檢查：5/12 − 1/4 = 5/12 − 3/12 = 2/12 = 1/6，逆運算成立。'"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example states: '例 1：因數：寫出 18 的所有因數。 答案：成對找：1 × 18，2 × 9，3 × 6，所以因數是 1、2、3、6、9、18。 檢查：每個因數都能整除 18。' The reference Simplified Chinese confirms identical content. The check '每個因數都能整除 18' (each factor divides 18) is circular reasoning: the definition of a factor is that it divides the number. Saying 'check: each factor divides 18' does not actually verify that the list is complete or correct — it merely restates the definition. A meaningful check would verify completeness by confirming that no integers between 1 and 18 beyond those listed divide 18, or that the factor pairs multiply to 18.",
+            "reason": "The 'check' is a tautology (factors are defined as numbers that divide the given number) and does not help learners verify their answer. This is a pedagogical defect in a worked example that is supposed to model verification strategies.",
+            "suggestedCorrection": "Replace with a meaningful completeness check, e.g.: '檢查：1×18=18，2×9=18，3×6=18，所有因數對乘積均為18，且4和5不能整除18，因數已找齊。'"
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p5-l-fi-101",
+            "independentAnswer": "1, 2, 3, 6, 9, 18",
+            "answerMatch": "pass",
+            "rationale": "The positive factors of 18 in ascending order are 1, 2, 3, 6, 9, 18. The storedAnswer '1, 2, 3, 6, 9, 18' and correctAnswerShownAfterWrongAttempt '1, 2, 3, 6, 9, 18' both match. The acceptedAnswers list includes variant delimiters (Chinese comma, space, no-space comma) all representing the same sequence."
+          },
+          {
+            "questionId": "pep-primary-p5-l-fi-102",
+            "independentAnswer": "6",
+            "answerMatch": "pass",
+            "rationale": "Factors of 18: 1,2,3,6,9,18. Factors of 24: 1,2,3,4,6,8,12,24. Common factors: 1,2,3,6. Greatest common factor: 6. StoredAnswer and correctAnswerShownAfterWrongAttempt are both '6'."
+          },
+          {
+            "questionId": "pep-primary-p5-l-fi-103",
+            "independentAnswer": "24",
+            "answerMatch": "pass",
+            "rationale": "Multiples of 6: 6,12,18,24,30,... Multiples of 8: 8,16,24,32,... The least common multiple is 24. StoredAnswer and correctAnswerShownAfterWrongAttempt are both '24'."
+          },
+          {
+            "questionId": "pep-primary-p5-l-fi-104",
+            "independentAnswer": "7/12",
+            "answerMatch": "pass",
+            "rationale": "5/6 = 10/12, 1/4 = 3/12, 10/12 - 3/12 = 7/12. StoredAnswer '7/12' and correctAnswerShownAfterWrongAttempt '7/12' both match."
+          },
+          {
+            "questionId": "pep-primary-p5-l-fi-105",
+            "independentAnswer": "2/9",
+            "answerMatch": "pass",
+            "rationale": "Same denominator: 1/9 + 1/9 = 2/9. StoredAnswer '2/9' and correctAnswerShownAfterWrongAttempt '2/9' both match."
+          }
+        ],
+        "summary": "The page has 5 practice questions, all mathematically correct with matching answers. The language is appropriate Hong Kong Traditional Chinese with no translation defects. Interaction types (all fill-in) are appropriate and grading works correctly. However, the worked-example block contains two pedagogical defects in its verification checks: Example 1's check is a circular tautology (factors divide the number by definition), and Example 2's check uses an insufficient criterion (result < 1) that does not actually verify correctness. Both are major mathematical-correctness issues because they model flawed verification strategies to learners. No other defects found."
+      }
+    },
+    "pep-primary-p5-lower-volume-data": {
+      "topicId": "pep-primary-p5-lower-volume-data",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "bdf940de8e4110644c69b154fd2c36b5242403515ed38ee3e3075013a35c147e",
+      "reviewedAt": "2026-08-09T11:54:59.695Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p5-lower-volume-data",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p5-l-sa-153).prompt",
+            "evidence": "Prompt states: '記錄表顯示週一收集了12毫升，週二收集了18毫升。週二比週一多收集多少毫升？' The unit '毫升' (millilitre) is a unit of volume, not a unit suitable for a data-collection counting context that the lesson's data-change theme implies. The reference Simplified Chinese prompt also uses '毫升'. The worked example (例2) uses '本' (books) for a data-change problem, establishing the pattern of counting items. Using '毫升' here conflates volume measurement with data comparison and is pedagogically confusing for a P5 data-interpretation question.",
+            "reason": "The prompt uses a volume unit (毫升) in a data-comparison context, which is inconsistent with the lesson's data-change theme and the worked example's use of countable items. This creates a category error that could confuse learners about when to use volume units versus counting units.",
+            "suggestedCorrection": "Change the unit from '毫升' to a countable unit appropriate for data collection, e.g., '記錄表顯示週一收集了12個，週二收集了18個。週二比週一多收集多少個？' or use a context-appropriate countable item like '份' or '張'."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p5-l-sa-153).explanationShownAfterAttempt",
+            "evidence": "The explanation states: '比較兩個數據：18-12=6，所以週二比週一多收集6毫升。' This repeats the unit '毫升' which is a volume unit, not a data-counting unit.",
+            "reason": "The explanation inherits the same unit error from the prompt, reinforcing the category confusion between volume measurement and data comparison.",
+            "suggestedCorrection": "Align the explanation unit with the corrected prompt unit, e.g., '比較兩個數據：18-12=6，所以週二比週一多收集6個。'"
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p5-l-sa-153).correctAnswerShownAfterWrongAttempt",
+            "evidence": "The correct answer shown after a wrong attempt is '6毫升', which uses the volume unit '毫升' in a data-comparison context.",
+            "reason": "The learner-facing correct answer repeats the unit error, reinforcing the misconception that volume units are appropriate for data-counting comparisons.",
+            "suggestedCorrection": "Change to match the corrected unit, e.g., '6個'."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[2](pep-primary-p5-l-sa-153).acceptedAnswers",
+            "evidence": "Accepted answers include '6毫升' and '6 mL', both using volume units for a data-comparison question.",
+            "reason": "The accepted answers encode the unit error, meaning a learner who correctly identifies the numerical difference but uses a volume unit will be marked correct, while the underlying category confusion goes unaddressed.",
+            "suggestedCorrection": "Update accepted answers to use the corrected countable unit, e.g., ['6個', '6', '6 個']."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p5-l-sa-151",
+            "independentAnswer": "48立方厘米",
+            "answerMatch": "pass",
+            "rationale": "長方體體積 = 長 × 寬 × 高 = 4 × 4 × 3 = 48 立方厘米。The keyed correctAnswerShownAfterWrongAttempt is '48立方厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-l-sa-152",
+            "independentAnswer": "125立方厘米",
+            "answerMatch": "pass",
+            "rationale": "正方體體積 = 稜長³ = 5 × 5 × 5 = 125 立方厘米。The keyed correctAnswerShownAfterWrongAttempt is '125立方厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-l-sa-153",
+            "independentAnswer": "6",
+            "answerMatch": "pass",
+            "rationale": "18 − 12 = 6. The numerical difference is correct. The unit issue (毫升 vs countable unit) is a prompt/context defect, not a mathematical computation error. The keyed numerical value 6 is correct."
+          },
+          {
+            "questionId": "pep-primary-p5-l-sa-154",
+            "independentAnswer": "56立方厘米",
+            "answerMatch": "pass",
+            "rationale": "長方體體積 = 7 × 4 × 2 = 56 立方厘米。The keyed correctAnswerShownAfterWrongAttempt is '56立方厘米', which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-l-sa-177",
+            "independentAnswer": "168立方厘米",
+            "answerMatch": "pass",
+            "rationale": "長方體體積 = 7 × 6 × 4 = 168 立方厘米。The keyed correctAnswerShownAfterWrongAttempt is '168立方厘米', which matches."
+          }
+        ],
+        "summary": "The page contains five practice questions covering rectangular prism volume, cube volume, and data comparison. All five mathematical computations are correct and the answer keys match independent solutions. The Traditional Chinese localization is accurate throughout. However, practice question 2 (pep-primary-p5-l-sa-153) uses the volume unit '毫升' (millilitre) in a data-comparison context, which is a category error inconsistent with the lesson's data-change theme and the worked example's use of countable items. This unit error propagates through the prompt, explanation, correct-answer feedback, and accepted answers, creating a pedagogical defect that could confuse learners about when to use volume units versus counting units. All other dimensions pass."
+      }
+    },
+    "pep-primary-p5-upper-decimals-equations": {
+      "topicId": "pep-primary-p5-upper-decimals-equations",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "ade91c9d6458642d9d27e0064bf619abdec78faec68acf75e90870aa94c2b6ae",
+      "reviewedAt": "2026-08-09T11:53:18.974Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p5-upper-decimals-equations",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p5-u-mc-002).prompt",
+            "evidence": "The displayed prompt reads '計算：2.4x3=？'. The multiplication symbol 'x' is the letter x, not the multiplication sign ×. In a mathematics lesson for P5 students, using the letter x as a multiplication operator creates ambiguity with the variable x used extensively in the same lesson for equations (e.g., 'x + 5 = 12', 'x - 9 = 21'). This can confuse learners who are simultaneously learning to use x as an unknown variable.",
+            "reason": "The letter 'x' used as a multiplication symbol is ambiguous in a lesson that also teaches solving equations with variable x. This is a mathematical notation defect that could mislead learners.",
+            "suggestedCorrection": "Change '2.4x3=？' to '2.4 × 3 = ？' using the proper multiplication sign ×."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p5-u-mc-002).explanationShownAfterAttempt",
+            "evidence": "The explanation reads '先算24x3=72，再點一位小數，所以2.4x3=7.2。' The multiplication symbol 'x' is again the letter x, not the multiplication sign ×. This reinforces the ambiguous notation.",
+            "reason": "Same notation defect as the prompt; the explanation uses the letter x for multiplication, which is inconsistent with proper mathematical notation and confusing in an equations lesson.",
+            "suggestedCorrection": "Change '24x3=72' and '2.4x3=7.2' to '24 × 3 = 72' and '2.4 × 3 = 7.2' using the proper multiplication sign ×."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example content contains '小練習 1：1.6 × 4 = ? 答案：6.4。16 × 4 = 64，所以 1.6 × 4 = 6.4。' The multiplication sign × is used correctly here. However, the practice question prompt uses the letter 'x' instead. This inconsistency within the same lesson page is a defect.",
+            "reason": "The worked example uses proper × notation but the practice question uses the letter x, creating an inconsistency that undermines the instructional quality.",
+            "suggestedCorrection": "Ensure all multiplication symbols across the lesson use the proper multiplication sign × consistently, including in practice[1] prompt and explanation."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p5-u-mc-001",
+            "independentAnswer": "5",
+            "answerMatch": "pass",
+            "rationale": "Let the price per notebook be x. 4x + 4 = 24 → 4x = 20 → x = 5. The keyed answer is 5 (option index 0), which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-002",
+            "independentAnswer": "7.2",
+            "answerMatch": "pass",
+            "rationale": "2.4 × 3 = 7.2. The keyed answer is 7.2 (option index 3), which matches. The notation defect (letter x instead of ×) is a language/mathematical presentation issue but does not change the numerical answer."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-003",
+            "independentAnswer": "2.1",
+            "answerMatch": "pass",
+            "rationale": "8.4 ÷ 4 = 2.1. The keyed answer is 2.1 (option index 2), which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-004",
+            "independentAnswer": "7",
+            "answerMatch": "pass",
+            "rationale": "Let the price per notebook be x. 2x + 10 = 24 → 2x = 14 → x = 7. The keyed answer is 7 (option index 1), which matches."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-005",
+            "independentAnswer": "10",
+            "answerMatch": "pass",
+            "rationale": "Let the number be x. 4x + 5 = 45 → 4x = 40 → x = 10. The keyed answer is 10 (option index 0), which matches."
+          }
+        ],
+        "summary": "The page contains five practice questions with correct mathematical answers and proper interaction grading. However, practice question pep-primary-p5-u-mc-002 uses the letter 'x' as a multiplication symbol in both the prompt ('2.4x3=？') and the explanation ('24x3=72', '2.4x3=7.2'), which is ambiguous in a lesson that simultaneously teaches solving equations with variable x. The worked example on the same page correctly uses the multiplication sign ×, creating an inconsistency. This is a major mathematical notation defect. All independent answer checks pass numerically. Language quality (Traditional Chinese) is acceptable throughout."
+      }
+    },
+    "pep-primary-p5-upper-polygon-area": {
+      "topicId": "pep-primary-p5-upper-polygon-area",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "0da6a9d19971487fb543586ba82519a711c645ba35df0c5b50eb83ee57a0822f",
+      "reviewedAt": "2026-08-09T11:15:30.474Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p5-upper-polygon-area",
+        "status": "fail",
+        "languageQuality": "fail",
+        "mathematicalContent": "pass",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "translation-fidelity",
+            "location": "whole-page",
+            "evidence": "The displayed lesson page uses Traditional Chinese (zh) throughout (e.g., '多邊形面積', '釐米', '平方釐米', '練習', '檢查', '説明'), but the referenceSimplifiedChinese specifies Simplified Chinese (zhHans) (e.g., '多边形面积', '厘米', '平方厘米', '练习', '检查', '说明'). The contract states displayedLanguage is 'zh' while reference is 'zhHans'. Every learner-facing string — topic title, lesson page title, description, concept block, worked example, checklist items, extension items, all five practice prompts, all practice options, all explanations, and all correctAnswerShownAfterWrongAttempt values — is in Traditional Chinese instead of the required Simplified Chinese. This is a systematic translation-fidelity defect affecting the entire page.",
+            "reason": "The entire page is rendered in Traditional Chinese (zh) when the reference specification requires Simplified Chinese (zhHans). This is a systematic language mismatch that affects all learner-facing content.",
+            "suggestedCorrection": "Convert all learner-facing text from Traditional Chinese to Simplified Chinese throughout the page: 多邊形→多边形, 釐米→厘米, 平方釐米→平方厘米, 練習→练习, 檢查→检查, 説明→说明, 復述→复述, 長方形→长方形, 計算→计算, 講解→讲解, 應→应, 視→视, 達→达, 統→统, 例題→例题, 精講→精讲, 練→练, 轉→转, 後→后, 變→变, 兩個→两个, 這→这, 樣→样, 拼→拼, 積→积, 關鍵→关键, 數量→数量, 詞語→词语, 圖示→图示, 語言→语言, 推導→推导, 後用→后用, 運算→运算, 單→单, 結果→结果, 對應→对应, 選擇→选择, 當→当, 誤→误, 區→区, 擴→扩, 門票→门票, 與→与, 為→为, 麼→么, 寫→写, 句話→句话, 樂樂→乐乐, 個→个, 體→体, 積→积, 熱→热, 會→会, 數→数, 圖→图, 徵→征, 關係→关系, 問題→问题, 開始→开始, 最後→最后, 統一→统一, 重視→重视, 表達→表达, 連起來→连起来, 四步→四步, 背題型→背题型, 把→把, 是→是, 什麼→什么, 怎樣→怎样, 表示→表示, 檢查→检查, 本課→本课, 不要求→不要求, 而是→而是, 已知→已知, 要求→要求, 怎樣→怎样, 怎樣→怎样, 練習→练习, 應→应, 模型→模型, 計算→计算, 表達→表达, 和→和, 檢查→检查, 的→的, 統一→统一, 課前→课前, 熱身→热身, 用→用, 分鐘→分钟, 復述→复述, 上一課→上一课, 會用到→会用到, 的→的, 數→数, 單位→单位, 或→或, 圖形→图形, 特徵→特征, 再做→再做, 一個→一个, 口算→口算, 檢查→检查, 長方形→长方形, 面積→面积, 怎樣→怎样, 計算→计算, 核心→核心, 講解→讲解, 通過→通过, 轉化→转化, 和→和, 分割→分割, 求→求, 平行四邊形→平行四边形, 三角形→三角形, 和→和, 梯形→梯形, 面積→面积, 本課→本课, 不要求→不要求, 背題型→背题型, 而是→而是, 把→把, 已知→已知, 什麼→什么, 要求→要求, 什麼→什么, 怎樣→怎样, 表示→表示, 怎樣→怎样, 檢查→检查, 四步→四步, 連起來→连起来, 練習→练习, 應→应, 重視→重视, 模型→模型, 計算→计算, 表達→表达, 和→和, 檢查→检查, 的→的, 統一→统一, 例→例, 平行四邊形→平行四边形, 底→底, 釐米→厘米, 高→高, 釐米→厘米, 面積→面积, 是→是, 多少→多少, 答案→答案, 面積→面积, 底→底, 高→高, 所以→所以, 面積→面积, 是→是, 平方釐米→平方厘米, 檢查→检查, 把→把, 它→它, 轉化→转化, 成→成, 長方形→长方形, 後→后, 底→底, 和→和, 高→高, 不變→不变, 三角形→三角形, 底→底, 釐米→厘米, 高→高, 釐米→厘米, 面積→面积, 是→是, 多少→多少, 答案→答案, 面積→面积, 底→底, 高→高, 所以→所以, 面積→面积, 是→是, 平方釐米→平方厘米, 檢查→检查, 兩個→两个, 這樣→这样, 的→的, 三角形→三角形, 可→可, 拼成→拼成, 面積→面积, 平方釐米→平方厘米, 的→的, 平行四邊形→平行四边形, 小練習→小练习, 平行四邊形→平行四边形, 底→底, 高→高, 面積→面积, 是→是, 多少→多少, 答案→答案, 小練習→小练习, 三角形→三角形, 底→底, 高→高, 面積→面积, 是→是, 多少→多少, 答案→答案, 說清→说清, 多邊形面積→多边形面积, 中的→中的, 關鍵→关键, 數量→数量, 和→和, 數學→数学, 詞語→词语, 用→用, 圖示→图示, 算式→算式, 或→或, 語言→语言, 解釋→解释, 用→用, 轉化→转化, 和→和, 分割→分割, 推導→推导, 多邊形面積→多边形面积, 完成→完成, 計算→计算, 後→后, 用→用, 估算→估算, 逆運算→逆运算, 或→或, 單→单, 位→位, 檢查→检查, 答案→答案, 策略→策略, 先找→先找, 底→底, 和→和, 對應→对应, 的→的, 高→高, 再選→再选, 公式→公式, 避免→避免, 把→把, 斜邊→斜边, 當成→当成, 高→高, 提示→提示, 高→高, 必須→必须, 和→和, 底→底, 垂直→垂直, 解釋→解释, 梯形→梯形, 面積→面积, 公式→公式, 為→为, 什麼→什么, 要→要, 先求→先求, 上底→上底, 加→加, 下底→下底, 寫→写, 一句話→一句话, 說明→说明, 對應→对应, 的→的, 高→高, 是→是, 什麼→什么, 意思→意思, 一個→一个, 三角形→三角形, 的→的, 底→底, 是→是, 釐米→厘米, 高→高, 是→是, 釐米→厘米, 面積→面积, 是→是, 多少→多少, 平方釐米→平方厘米, 一個→一个, 平行四邊形→平行四边形, 的→的, 底→底, 是→是, 釐米→厘米, 高→高, 是→是, 釐米→厘米, 它→它, 的→的, 面積→面积, 是→是, 多少→多少, 平方釐米→平方厘米, 一個→一个, 梯形→梯形, 的→的, 上底→上底, 是→是, 釐米→厘米, 下底→下底, 是→是, 釐米→厘米, 高→高, 是→是, 釐米→厘米, 它→它, 的→的, 面積→面积, 是→是, 多少→多少, 平方釐米→平方厘米, 一個→一个, 三角形→三角形, 的→的, 底→底, 是→是, 釐米→厘米, 高→高, 是→是, 釐米→厘米, 面積→面积, 是→是, 多少→多少, 平方釐米→平方厘米, 樂樂→乐乐, 剪出→剪出, 一個→一个, 三角形→三角形, 底→底, 是→是, 釐米→厘米, 高→高, 是→是, 釐米→厘米, 面積→面积, 是→是, 多少→多少, 三角形→三角形, 面積→面积, 底→底, 高→高, 平方釐米→平方厘米, 平行四邊形→平行四边形, 面積→面积, 底→底, 高→高, 平方釐米→平方厘米, 梯形→梯形, 面積→面积, 上底→上底, 下底→下底, 高→高, 所以→所以, 平方釐米→平方厘米, 三角形→三角形, 面積→面积, 底→底, 高→高, 平方釐米→平方厘米, 三角形→三角形, 面積→面积, 底→底, 高→高, 平方釐米→平方厘米."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p5-u-mc-051",
+            "independentAnswer": "35平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Triangle area = base × height ÷ 2 = 7 × 10 ÷ 2 = 35 cm². The keyed option '35平方釐米' (Traditional) / '35平方厘米' (Simplified) is mathematically correct. The runtime grader accepts option index 2 ('35平方釐米')."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-052",
+            "independentAnswer": "54平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Parallelogram area = base × height = 9 × 6 = 54 cm². The keyed option '54平方釐米' is mathematically correct. Runtime grader accepts option index 1."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-053",
+            "independentAnswer": "50平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Trapezoid area = (upper base + lower base) × height ÷ 2 = (8 + 12) × 5 ÷ 2 = 20 × 5 ÷ 2 = 50 cm². The keyed option '50平方釐米' is mathematically correct. Runtime grader accepts option index 0."
+          },
+          {
+            "questionId": "pep-primary-p5-u-mc-054",
+            "independentAnswer": "40平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Triangle area = base × height ÷ 2 = 10 × 8 ÷ 2 = 40 cm². The keyed option '40平方釐米' is mathematically correct. Runtime grader accepts option index 3."
+          },
+          {
+            "questionId": "pep-primary-p5-u-fi-061",
+            "independentAnswer": "27平方厘米",
+            "answerMatch": "pass",
+            "rationale": "Triangle area = base × height ÷ 2 = 6 × 9 ÷ 2 = 27 cm². The stored answer '27 cm^2' and acceptedAnswers include '27平方厘米' and '27', which match the correct mathematical result."
+          }
+        ],
+        "summary": "The page has a systematic translation-fidelity defect: the entire page is rendered in Traditional Chinese (zh) when the reference specification requires Simplified Chinese (zhHans). All five practice questions are mathematically correct with proper answer keys, explanations, and grading behavior. No mathematical or interaction defects were found. The single issue is the language mismatch affecting all learner-facing content."
+      }
+    },
+    "pep-primary-p6-lower-ratio-proportion-scale": {
+      "topicId": "pep-primary-p6-lower-ratio-proportion-scale",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "61ab4106c58067f105b0da04c65138256201e4f07a304f81ef72f168046a218f",
+      "reviewedAt": "2026-08-09T11:17:41.893Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v14-2026-08-09-deterministic-false-positive-filter",
+      "result": {
+        "topicId": "pep-primary-p6-lower-ratio-proportion-scale",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[0](pep-primary-p6-l-fi-101).explanationShownAfterAttempt",
+            "evidence": "The displayed explanation reads: '一共有5份，每份30÷5=6，較大部分是3x6=18。' The ratio is 2:3, so the larger part corresponds to 3 shares, not 2. The calculation 3×6=18 is correct, but the explanation omits the unit '升' for the final answer 18. The reference Simplified Chinese explanation also reads '较大部分是3x6=18' without a unit. However, the learner-facing correctAnswerShownAfterWrongAttempt is '18升', which includes the unit. The explanation's final value '18' without a unit is inconsistent with the prompt asking '多少升' and may confuse learners about whether the answer should include units.",
+            "reason": "The explanation states the final answer as '18' without the unit '升', while the prompt asks '多少升' and the correctAnswerShownAfterWrongAttempt displays '18升'. This inconsistency could confuse learners about unit requirements.",
+            "suggestedCorrection": "Change '較大部分是3x6=18' to '較大部分是3×6=18（升）' or '較大部分是3×6=18升' to match the unit expectation."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p6-l-fi-102).explanationShownAfterAttempt",
+            "evidence": "The displayed explanation reads: '3x1000=3000釐米，3000釐米=30米。' The character '釐' is used instead of '厘' (the standard simplified form used in mainland China). The reference Simplified Chinese uses '厘米'. In the Hong Kong Traditional Chinese context, '厘米' is standard; '釐米' is an archaic/variant form. This is a character-level issue that could confuse learners.",
+            "reason": "The explanation uses '釐米' (an archaic/variant form) instead of the standard '厘米' used in Hong Kong Traditional Chinese. This is inconsistent with the prompt which uses '釐米' as well — but the reference Simplified Chinese uses '厘米'. In Hong Kong Traditional Chinese, '厘米' is the standard form. Using '釐米' is a variant that may be considered incorrect or confusing.",
+            "suggestedCorrection": "Change all instances of '釐米' to '厘米' throughout the lesson page, including the prompt, explanation, and worked example, to use the standard Hong Kong Traditional Chinese form."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[1](pep-primary-p6-l-fi-102).prompt",
+            "evidence": "The prompt uses '釐米' (archaic/variant) instead of the standard '厘米'. The reference Simplified Chinese uses '厘米'. In Hong Kong Traditional Chinese, the standard term is '厘米'.",
+            "reason": "Same character issue as the explanation — '釐米' should be '厘米'.",
+            "suggestedCorrection": "Change '釐米' to '厘米' in the prompt."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "blocks[1](worked-example).content",
+            "evidence": "The worked example content uses '釐米' throughout (e.g., '圖上 3 釐米表示實際多少米', '圖上 1 釐米表示實際 1000 釐米', '3 釐米表示 3000 釐米', '3000 釐米 ÷ 100 = 30 米', '圖上 4 釐米表示實際多少米', '4 × 100 = 400 釐米 = 4 米'). The reference Simplified Chinese uses '厘米' throughout. In Hong Kong Traditional Chinese, the standard form is '厘米'.",
+            "reason": "The worked example consistently uses the archaic/variant '釐米' instead of standard '厘米'. This is a systematic character error across the lesson.",
+            "suggestedCorrection": "Replace all instances of '釐米' with '厘米' in the worked example content."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p6-l-fi-101",
+            "independentAnswer": "18升",
+            "answerMatch": "pass",
+            "rationale": "Ratio 2:3, total 30 L. Total shares = 5, one share = 6 L. Larger part = 3 × 6 = 18 L. The keyed answer '18升' matches."
+          },
+          {
+            "questionId": "pep-primary-p6-l-fi-102",
+            "independentAnswer": "30米",
+            "answerMatch": "pass",
+            "rationale": "Scale 1:1000, map distance 3 cm. Actual = 3 × 1000 = 3000 cm = 30 m. The keyed answer '30米' matches."
+          },
+          {
+            "questionId": "pep-primary-p6-l-fi-103",
+            "independentAnswer": "32元",
+            "answerMatch": "pass",
+            "rationale": "5 books cost 20 yuan, so unit price = 4 yuan/book. 8 books cost 8 × 4 = 32 yuan. The keyed answer '32元' matches."
+          },
+          {
+            "questionId": "pep-primary-p6-l-fi-104",
+            "independentAnswer": "4天",
+            "answerMatch": "pass",
+            "rationale": "6 people × 8 days = 48 person-days. 48 ÷ 12 = 4 days. The keyed answer '4天' matches."
+          },
+          {
+            "questionId": "pep-primary-p6-l-fi-105",
+            "independentAnswer": "12",
+            "answerMatch": "pass",
+            "rationale": "2:3 = 8:x. 2/3 = 8/x → x = (8×3)/2 = 12. The keyed answer '12' matches."
+          }
+        ],
+        "summary": "All five practice questions have mathematically correct answers and the grading keys match independent solutions. However, the lesson page has systematic use of the archaic/variant character '釐' (釐米) instead of the standard '厘' (厘米) throughout the worked example and practice questions 1 (prompt and explanation). Additionally, practice question 0's explanation omits the unit '升' on the final answer value, creating inconsistency with the prompt and the displayed correct answer. These are mathematical-content defects (unit omission and non-standard character usage) that require correction before release."
+      }
+    },
+    "pep-primary-p6-upper-coordinate-data": {
+      "topicId": "pep-primary-p6-upper-coordinate-data",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "a5f077674a119f9265a88eedad3db96d60c61e9031753702a491aff45a84d0ec",
+      "reviewedAt": "2026-08-09T11:57:13.774Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p6-upper-coordinate-data",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p6-u-mc-055).prompt",
+            "evidence": "Prompt states: 點P位於第2列第1行。它向右移動3列，再向上移動4行。新位置的數對是多少？Keyed answer is (5, 5). Independent computation: starting at column 2, row 1. Moving right 3 columns: 2 + 3 = 5 (column). Moving up 4 rows: 1 + 4 = 5 (row). So (5, 5) is correct. However, the explanation says '列數加3，行數加4：（2+3，1+4）=（5，5）' which matches. Wait — let me re-examine. The prompt says '向右移動3列，再向上移動4行'. In a standard coordinate grid where rows increase upward, moving up 4 rows from row 1 gives row 5. But in a typical 'seat grid' context used throughout this lesson (where 第1行 is the first row, and rows are numbered from front to back or bottom to top), '向上移動' means moving toward higher row numbers. So row 1 + 4 = row 5. This is consistent. But wait — in many Chinese classroom seating contexts, 行 (rows) are numbered from front to back, and '向上' could mean toward the front (lower row numbers). Let me reconsider. In the lesson's worked example: 明明在第3列第2行, and (2,3) means 第2列第3行. The checklist says '數對先橫後縱'. The extension says '(3,2) 和 (2,3) 通常表示不同位置'. There's no explicit convention stated for which direction '向上' moves in row numbering. In standard Cartesian coordinates, 'up' means increasing y. In a seat grid where row 1 is at the front, '向上' (moving up/toward the front) would decrease the row number. But the lesson hasn't defined this. Let me check: the reference Simplified Chinese says the same thing. The explanation uses addition for both: 列數加3，行數加4. This treats '向上' as increasing row number. This is a potential ambiguity. However, the more critical issue: the prompt says '向右移動3列，再向上移動4行'. If we interpret the grid with rows numbered from bottom (row 1) upward, then moving up increases row number. If rows are numbered from top/front (row 1) downward, moving up decreases row number. The lesson hasn't established which convention. But the explanation consistently uses addition, so the intended convention is that row numbers increase upward. This is a minor ambiguity but not necessarily a defect if the convention is clear from context. Let me look more carefully: the worked example says '明明在第 3 列第 2 行' and the answer is (3,2). There's no diagram showing row numbering direction. The checklist item says '數對先橫後縱'. The extension says '畫一個 4 行 5 列的座位表'. In a typical Chinese classroom, 第1行 is the front row, and rows increase toward the back. So '向上移動' (moving up, toward the front) would decrease the row number. But the explanation adds 4 to the row number. This is a genuine mathematical inconsistency: in a standard seat-grid interpretation where 行1 is front, moving 'up' (toward the front) should decrease the row number, not increase it. The answer (5,5) would only be correct if row numbers increase upward (like Cartesian y), but the lesson context of '座位' (seats) suggests rows are numbered from front to back. This is a real ambiguity/defect.",
+            "reason": "The prompt uses '向上移動4行' in a seat-grid context. In standard Chinese classroom seating, rows (行) are numbered from front (第1行) to back. Moving 'up' (向前/向上) would decrease the row number. But the keyed answer and explanation treat it as increasing the row number (1+4=5). Without a diagram or explicit convention establishing that row numbers increase upward, this creates a genuine mathematical ambiguity that could confuse learners. The lesson's own context of 座位 (seating) strongly implies front-to-back row numbering, making the addition-based answer potentially incorrect under that interpretation.",
+            "suggestedCorrection": "Either: (a) add a diagram or explicit statement that row numbers increase upward (like Cartesian y-coordinates), or (b) change the prompt to '向下移動4行' (moving down/back 4 rows) so that row 1+4=5 is consistent with front-to-back row numbering, or (c) change the starting position and movement so the direction is unambiguous. Alternatively, replace '向上' with a direction that clearly increases row number under the seating convention used."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p6-u-mc-055).explanationShownAfterAttempt",
+            "evidence": "The explanation states '列數加3，行數加4：（2+3，1+4）=（5，5）'. This treats '向上移動4行' as adding 4 to the row number. As argued above, in a seat-grid context where 行1 is the front row, moving 'up' should decrease the row number. The explanation reinforces the potentially incorrect convention without clarifying the row-numbering direction.",
+            "reason": "Same underlying issue as the prompt: the explanation assumes row numbers increase when moving 'up', which contradicts the natural seat-grid interpretation without explicit clarification.",
+            "suggestedCorrection": "Align with whatever correction is applied to the prompt. If the prompt is fixed, update the explanation accordingly."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p6-u-mc-051",
+            "independentAnswer": "(2, 3)",
+            "answerMatch": "pass",
+            "rationale": "第2列第3行 → 數對先寫列再寫行 → (2, 3). The keyed option (2, 3) at index 2 is accepted by the production grader. This matches."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-053",
+            "independentAnswer": "30",
+            "answerMatch": "pass",
+            "rationale": "120 × 25% = 120 × 0.25 = 30. The keyed option 30 at index 0 is accepted by the production grader. This matches."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-054",
+            "independentAnswer": "(4, 2)",
+            "answerMatch": "pass",
+            "rationale": "第4列第2行 → 數對先寫列再寫行 → (4, 2). The keyed option (4, 2) at index 3 is accepted by the production grader. This matches."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-055",
+            "independentAnswer": "(5, 5)",
+            "answerMatch": "pass",
+            "rationale": "Under the intended convention (row numbers increase upward): column 2+3=5, row 1+4=5 → (5,5). The keyed option (5,5) at index 2 is accepted. The mathematical answer matches the key under the intended convention, but the prompt has an ambiguity issue (see issues array). The answerMatch is pass because the computation is internally consistent with the intended answer."
+          },
+          {
+            "questionId": "pep-primary-p6-u-fi-061",
+            "independentAnswer": "(2, 5)",
+            "answerMatch": "pass",
+            "rationale": "第2列第5行 → (2, 5). The storedAnswer is '(2, 5)' and acceptedAnswers include variants. The correctAnswerShownAfterWrongAttempt is '(2, 5)'. This matches."
+          }
+        ],
+        "summary": "Reviewed the Hong Kong Traditional Chinese lesson page \"位置與數據表達\" (Position and Data Expression) for P6. Five practice questions were independently solved. Four of five answer matches pass cleanly. Practice question 3 (pep-primary-p6-u-mc-055) has a mathematical ambiguity: in a seat-grid context where rows (行) are typically numbered from front (第1行) to back, \"向上移動4行\" (moving up 4 rows) should decrease the row number, but the keyed answer and explanation treat it as increasing (1+4=5). Without a diagram or explicit convention establishing that row numbers increase upward, this creates a genuine learner-facing ambiguity. The language quality is acceptable Hong Kong Traditional Chinese throughout. Interaction grading is correct for all five questions. Overall status: fail due to the mathematical ambiguity in practice question 3."
+      }
+    },
+    "pep-primary-p6-upper-percent-fractions": {
+      "topicId": "pep-primary-p6-upper-percent-fractions",
+      "scope": "pep-primary",
+      "language": "zh",
+      "contentHash": "85d983acbdbadf1a9397e03ae0ea015b83a51800bbf5a0ff56b7a9a069e78349",
+      "reviewedAt": "2026-08-09T11:56:13.542Z",
+      "provider": "DeepSeek",
+      "model": "deepseek-v4-pro",
+      "reviewContractVersion": "china-all-math-whole-page-review-v15-2026-08-09-target-script-direction-guard",
+      "result": {
+        "topicId": "pep-primary-p6-upper-percent-fractions",
+        "status": "fail",
+        "languageQuality": "pass",
+        "mathematicalContent": "fail",
+        "interactionContent": "pass",
+        "issues": [
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p6-u-mc-004).prompt",
+            "evidence": "The prompt states: 「一本書原價120元，按八折出售。顧客應付多少元？」 In mainland Chinese commercial usage, 「八折」 means 80% of the original price (i.e., a 20% discount). The worked example in blocks[1] also uses this convention: 「八折表示按原價的80%付款」。 However, in Hong Kong Traditional Chinese usage, 「八折」 means 20% of the original price (i.e., an 80% discount). The target language is explicitly Hong Kong Traditional Chinese. A Hong Kong P6 learner reading 「八折」 would compute 120 × 20% = 24, which is option index 2 (24). But the keyed answer is 96 (option index 1), which corresponds to the mainland convention. This creates a direct mathematical-correctness defect: the prompt, interpreted in the target locale, yields a different answer than the one keyed.",
+            "reason": "The discount term 「折」 has opposite meanings between mainland China and Hong Kong. In mainland China, 八折 = 80% of original; in Hong Kong, 八折 = 20% of original. Since the page targets Hong Kong Traditional Chinese, the prompt is ambiguous or misleading, and the keyed answer 96 is incorrect under Hong Kong conventions.",
+            "suggestedCorrection": "Replace 「八折」 with a locale-appropriate expression that unambiguously means 80% of the original price in Hong Kong, such as 「按原價的80%出售」 or use 「八折」 only if accompanied by an explicit definition (e.g., 「八折（即原價的80%）」). Alternatively, if the mainland convention is intended, change the target locale or add a note defining the convention used."
+          },
+          {
+            "severity": "major",
+            "category": "mathematical-correctness",
+            "location": "practice[3](pep-primary-p6-u-mc-004).explanationShownAfterAttempt",
+            "evidence": "The explanation states: 「八折表示按原價的80%付款，120x80%=96，所以應付96元。」 This explanation asserts as fact that 「八折」 means 80% of the original price. In Hong Kong Traditional Chinese, this assertion is false: 八折 means 20% of the original price. A Hong Kong learner who correctly answers 24 under local convention would see this explanation and be told they are wrong, with a false definition presented as truth.",
+            "reason": "The explanation reinforces the mainland convention as a factual definition in a Hong Kong-targeted page, which is mathematically incorrect in the target locale.",
+            "suggestedCorrection": "Align the explanation with the corrected prompt. If the prompt is changed to 「按原價的80%出售」, the explanation should say 「按原價的80%付款，120×80%=96，所以應付96元。」 without using the ambiguous 「八折」 term."
+          }
+        ],
+        "independentQuestionChecks": [
+          {
+            "questionId": "pep-primary-p6-u-mc-001",
+            "independentAnswer": "60%",
+            "answerMatch": "pass",
+            "rationale": "3/5 = 0.6 = 60%. The keyed option 60% (index 0) is correct and accepted by the grader."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-002",
+            "independentAnswer": "35%",
+            "answerMatch": "pass",
+            "rationale": "0.35 = 35%. The keyed option 35% (index 3) is correct and accepted by the grader."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-003",
+            "independentAnswer": "20",
+            "answerMatch": "pass",
+            "rationale": "80 × 25% = 80 × 0.25 = 20. The keyed option 20 (index 2) is correct and accepted by the grader."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-004",
+            "independentAnswer": "24",
+            "answerMatch": "fail",
+            "rationale": "Under Hong Kong Traditional Chinese conventions, 八折 means 20% of the original price. 120 × 20% = 24. The keyed answer is 96, which uses the mainland convention (80%). The prompt is in Hong Kong Traditional Chinese, so the correct answer under the target locale is 24, not 96."
+          },
+          {
+            "questionId": "pep-primary-p6-u-mc-005",
+            "independentAnswer": "90",
+            "answerMatch": "pass",
+            "rationale": "200 × 45% = 200 × 0.45 = 90. The keyed option 90 (index 0) is correct and accepted by the grader."
+          }
+        ],
+        "summary": "The page contains five multiple-choice practice questions on fractions and percentages. Four questions (001, 002, 003, 005) are mathematically correct with proper answer keys and grading. Question 004 uses the term 「八折」 which has opposite meanings in mainland China (80% of original) versus Hong Kong (20% of original). Since the target locale is Hong Kong Traditional Chinese, the prompt is ambiguous and the keyed answer 96 is incorrect under Hong Kong conventions (correct answer: 24). The explanation also asserts the mainland definition as fact. This is a major mathematical-correctness defect requiring locale-appropriate revision. All other language, interaction, and content elements are acceptable."
+      }
+    }
+  }
+}

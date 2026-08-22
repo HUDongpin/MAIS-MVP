@@ -287,16 +287,15 @@
       "terminologyQaStatus": "pending-s18-review",
       "manualQaStatus": "pending-s18-review",
       "reviewNotes": "Generated offline with DeepSeek V4 Pro from MAIS HJB primary safe-RAG metadata only; candidate QA package only, not approved for public integration.",
-      "promptZhHans": "小杰在复习方向时，写了一段话：\"早晨，我面向太阳，前面是东，后面是西，左面是北，右面是南。\"他写得对吗？如果不对，请改正。",
+      "promptZhHans": "早晨太阳从东方升起。小杰面向太阳，说：“前面是东，后面是西，左面是北，右面是南。”他说得对吗？请完整写出判断和四个方向。",
       "optionsZhHans": [],
-      "answer": "不对，左面是北，右面是南。改正：左面是北，右面是南。",
+      "answer": "对；前面是东，后面是西，左面是北，右面是南。",
       "acceptedAnswers": [
-        "不对，左面是北，右面是南。改正：左面是北，右面是南。",
-        "不对，左面是北，右面是南。",
-        "不对，左和右写反了，应该是左北右南。",
-        "不对，早晨面向太阳，前面是东，后面是西，左面是北，右面是南。"
+        "对；前面是东，后面是西，左面是北，右面是南。",
+        "正确；前面是东，后面是西，左面是北，右面是南。",
+        "Correct; east is in front, west is behind, north is to the left, and south is to the right."
       ],
-      "explanationZhHans": "早晨面向太阳即面向东，按顺时针方向，右是南，后是西，左是北。小杰把左右方向写反了。"
+      "explanationZhHans": "早晨太阳从东方升起，面向太阳就是面向东；面向东时，后面是西，左面是北，右面是南，所以小杰的说法完全正确。"
     }
   ]
 }
