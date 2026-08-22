@@ -351,6 +351,115 @@ test("parent message creation routes by exact class and report ownership instead
   })).status, "invalid");
 });
 
+test("parent report messages target the authorized co-teacher who generated the report", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  database.teacher_reports?.push({
+    id: "report-student-1-co-teacher",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "co-teacher-report-create-0001",
+    category: "report-question",
+    subject: "Question for the report author",
+    body: "Please ask the teacher who generated this report.",
+    reportId: "report-student-1-co-teacher"
+  });
+
+  assert.equal(result.status, "created");
+  assert.equal(result.thread?.teacherName, "Teacher Two");
+  assert.equal(database.teacher_messages[0]?.teacher_id, "teacher-2");
+  assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+});
+
+test("parent replies to a report author only while co-teacher class access remains active", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  database.teacher_messages.unshift({
+    id: "thread-co-teacher-report",
+    class_id: "class-a",
+    student_id: "student-1",
+    teacher_id: "teacher-2",
+    guardian_id: "parent-1",
+    report_id: "report-student-1-co-teacher",
+    parent_category: "report-question",
+    subject_en: "Question for the report author",
+    subject_zh: "Question for the report author",
+    latest_message: "Original question",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: "2026-06-19T11:00:00.000Z",
+    created_at: "2026-06-19T11:00:00.000Z"
+  });
+  const store = createTestStore(database);
+
+  const activeReply = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: "thread-co-teacher-report",
+    idempotencyKey: "co-teacher-report-reply-0001",
+    body: "A follow-up for the report author."
+  });
+  assert.equal(activeReply.status, "sent");
+  assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+
+  database.school_memberships = [];
+  const entryCountAfterActiveReply = database.teacher_message_entries.length;
+  const revokedReply = await store.replyToParentMessageThread({
+    parentId: "parent-1",
+    threadId: "thread-co-teacher-report",
+    idempotencyKey: "co-teacher-report-reply-0002",
+    body: "This must fail after access is revoked."
+  });
+
+  assert.equal(revokedReply.status, "not-found");
+  assert.equal(database.teacher_message_entries.length, entryCountAfterActiveReply);
+});
+
+test("parent report messages reject admin authors instead of falling back to the class owner", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "admin-1", class_id: "class-a", role: "admin" as const }
+    ]
+  });
+  database.users.push({ id: "admin-1", username: "admin-one", role: "admin" });
+  database.teacher_reports?.push({
+    id: "report-student-1-admin",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "admin-1"
+  });
+  const originalThreadCount = database.teacher_messages.length;
+
+  const result = await createTestStore(database).createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "admin-report-create-000001",
+    category: "report-question",
+    subject: "Do not route to an admin",
+    body: "This request must fail closed.",
+    reportId: "report-student-1-admin"
+  });
+
+  assert.equal(result.status, "not-found");
+  assert.equal(database.teacher_messages.length, originalThreadCount);
+});
+
 test("parent message creation is idempotent and rejects key reuse with a different request", async () => {
   const database = createDatabase();
   let nextThread = 0;

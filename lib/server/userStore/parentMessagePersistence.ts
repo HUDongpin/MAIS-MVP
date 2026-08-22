@@ -48,6 +48,12 @@ type ParentMessageTeacherClassRecord = {
   grade?: GradeId;
 };
 
+type ParentMessageSchoolMembershipRecord = {
+  user_id: string;
+  role: UserRole;
+  class_id?: string;
+};
+
 type ParentMessageThreadRecord = {
   id: string;
   class_id?: string;
@@ -94,6 +100,7 @@ type ParentMessageReportRecord = {
 export type ParentMessagePersistenceDatabase = {
   class_enrollments: ParentMessageClassEnrollmentRecord[];
   guardian_links: ParentMessageGuardianLinkRecord[];
+  school_memberships?: ParentMessageSchoolMembershipRecord[];
   student_profiles?: ParentMessageStudentProfileRecord[];
   teacher_classes: ParentMessageTeacherClassRecord[];
   teacher_message_entries: ParentMessageEntryRecord[];
@@ -235,7 +242,7 @@ function replyRequestHash({ parentId, threadId, body }: { parentId: string; thre
   return digest(JSON.stringify({ parentId, threadId, body }));
 }
 
-function exactTeacherClassForStudent(
+function exactClassForStudent(
   database: ParentMessagePersistenceDatabase,
   studentId: string,
   classId: string
@@ -245,12 +252,37 @@ function exactTeacherClassForStudent(
     enrollment.class_id === classId && enrollment.student_id === studentId
   ));
   if (!enrolled) return null;
-  const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;
-  if (!teacherClass) return null;
+  return database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;
+}
+
+function teacherHasCurrentClassMessageAccess(
+  database: ParentMessagePersistenceDatabase,
+  teacherId: string,
+  classId: string
+) {
   const teacher = database.users.find((candidate) => (
-    candidate.id === teacherClass.teacher_id && candidate.role === "teacher"
+    candidate.id === teacherId && candidate.role === "teacher"
   ));
-  return teacher ? teacherClass : null;
+  if (!teacher) return false;
+  const teacherClass = database.teacher_classes.find((candidate) => candidate.id === classId) ?? null;
+  if (!teacherClass) return false;
+  if (teacherClass.teacher_id === teacher.id) return true;
+  return (database.school_memberships ?? []).some((membership) => (
+    membership.user_id === teacher.id &&
+    membership.class_id === classId &&
+    membership.role === "teacher"
+  ));
+}
+
+function exactTeacherClassForStudent(
+  database: ParentMessagePersistenceDatabase,
+  studentId: string,
+  classId: string
+) {
+  const teacherClass = exactClassForStudent(database, studentId, classId);
+  return teacherClass && teacherHasCurrentClassMessageAccess(database, teacherClass.teacher_id, teacherClass.id)
+    ? teacherClass
+    : null;
 }
 
 function exactReportTeacherClass(
@@ -267,10 +299,13 @@ function exactReportTeacherClass(
     typeof candidate.generated_by === "string" &&
     Boolean(candidate.generated_by)
   )) ?? null;
-  if (!report) return null;
-  const teacherClass = exactTeacherClassForStudent(database, studentId, classId);
-  if (!teacherClass || teacherClass.teacher_id !== report.generated_by) return null;
-  return { report, teacherClass };
+  const teacherId = report?.generated_by;
+  if (!report || !teacherId) return null;
+  const teacherClass = exactClassForStudent(database, studentId, classId);
+  if (!teacherClass || !teacherHasCurrentClassMessageAccess(database, teacherId, classId)) {
+    return null;
+  }
+  return { report, teacherClass, teacherId };
 }
 
 function teacherClassesForStudent(database: ParentMessagePersistenceDatabase, studentId: string) {
@@ -448,8 +483,8 @@ export function createParentMessagePersistenceStore({
       !thread.class_id ||
       !parentCanAccessStudentInDatabase(database, parentId, thread.student_id)
     ) return { status: "not-found" as const };
-    const teacherClass = exactTeacherClassForStudent(database, thread.student_id, thread.class_id);
-    if (!teacherClass || teacherClass.teacher_id !== thread.teacher_id) {
+    const teacherClass = exactClassForStudent(database, thread.student_id, thread.class_id);
+    if (!teacherClass || !teacherHasCurrentClassMessageAccess(database, thread.teacher_id, thread.class_id)) {
       return { status: "not-found" as const };
     }
     return { status: "found" as const, parent, teacherClass, thread };
@@ -564,6 +599,7 @@ export function createParentMessagePersistenceStore({
           ? reportTarget?.teacherClass ?? null
           : exactTeacherClassForStudent(database, value.studentId, value.classId);
         if (!teacherClass || (value.reportId && !reportTarget)) return { status: "not-found" };
+        const teacherId = reportTarget?.teacherId ?? teacherClass.teacher_id;
 
         const keyHash = idempotencyKeyHash("create", value.parentId, value.idempotencyKey);
         const requestHash = createRequestHash(value);
@@ -572,7 +608,7 @@ export function createParentMessagePersistenceStore({
           id: createThreadId(),
           class_id: teacherClass.id,
           student_id: value.studentId,
-          teacher_id: teacherClass.teacher_id,
+          teacher_id: teacherId,
           guardian_id: parent.id,
           ...(reportTarget ? { report_id: reportTarget.report.id } : {}),
           parent_category: normalizeParentMessageCategory(value.category),
@@ -594,7 +630,7 @@ export function createParentMessagePersistenceStore({
           thread_id: thread.id,
           sender_id: parent.id,
           sender_role: "parent",
-          recipient_id: teacherClass.teacher_id,
+          recipient_id: teacherId,
           body: value.body,
           attachments: [],
           created_at: timestamp
