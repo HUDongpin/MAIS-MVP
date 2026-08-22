@@ -70,7 +70,11 @@ import {
   practiceIslandStarsForAccuracy,
   readPracticeIslandStarRecord
 } from "@/lib/practiceIslandProgress";
-import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
+import {
+  dedupePracticeQuestions,
+  lessonPracticeQuestionLimit,
+  selectLessonPracticeQuestions
+} from "@/lib/practiceQuestionDeduping";
 import {
   playPracticeSound,
   practiceSoundStorageKey,
@@ -167,11 +171,10 @@ type LessonIllustration = {
 
 const celebrationColors = ["#06b6d4", "#8b5cf6", "#22c55e", "#f59e0b", "#ec4899", "#38bdf8"];
 const lessonGalaxyCollapseDurationMs = 520;
-const lessonPracticeQuestionLimit = 5;
 const autoAdvanceDelayMs = 1200;
-const handwritingCapableQuestionTypes = new Set<PublicQuestion["type"]>(["fill-in", "short-answer", "graph"]);
 const lessonGalaxySectionId = "lesson-galaxy-directory";
 const lessonOverviewSectionId = "lesson-overview";
+const lessonChecklistSectionId = "lesson-checklist";
 const lessonPracticeSectionId = "lesson-practice";
 const nextLessonItemButtonBaseClassName = "focus-ring inline-flex min-h-[4.5rem] w-full max-w-full items-center justify-center gap-4 rounded-xl bg-blue-600 px-8 py-4 text-xl font-black text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0 dark:bg-blue-500 dark:hover:bg-blue-400";
 const nextLessonItemInlineButtonClassName = `${nextLessonItemButtonBaseClassName} sm:w-auto sm:min-w-[18.75rem] sm:text-2xl`;
@@ -545,17 +548,7 @@ function compactLessonGalaxyDescription(value: string, fallback: string) {
 function limitLessonPracticeQuestions(lesson: LessonDetail | null) {
   if (!lesson || lesson.practiceQuestions.length <= lessonPracticeQuestionLimit) return lesson;
 
-  const dedupedQuestions = dedupePracticeQuestions(lesson.practiceQuestions);
-  const selectedQuestions = dedupedQuestions.slice(0, lessonPracticeQuestionLimit);
-  const handwritingQuestion = dedupedQuestions.find((question) => handwritingCapableQuestionTypes.has(question.type));
-  const practiceQuestions = selectedQuestions.some((question) => handwritingCapableQuestionTypes.has(question.type))
-    ? selectedQuestions
-    : handwritingQuestion
-      ? [
-        ...selectedQuestions.slice(0, Math.max(0, lessonPracticeQuestionLimit - 1)),
-        handwritingQuestion
-      ]
-      : selectedQuestions;
+  const practiceQuestions = selectLessonPracticeQuestions(lesson.practiceQuestions);
   const practiceQuestionIds = new Set(practiceQuestions.map((question) => question.id));
 
   return {
@@ -2111,6 +2104,12 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   );
   const teacherGuideBlocks = useMemo(() => blocksByType(lesson, "teacher-guide"), [lesson]);
   const visualizationBlock = useMemo(() => blocksByType(lesson, "visualization")[0], [lesson]);
+  const isHongKongLesson = lesson?.topic.curriculumTrack === "HK";
+  const extensionBlocks = useMemo(
+    () => isHongKongLesson ? blocksByType(lesson, "extension") : [],
+    [isHongKongLesson, lesson]
+  );
+  const firstExtensionBlockId = extensionBlocks[0]?.id ?? null;
   const visualizationContent = useMemo(() => {
     if (!visualizationBlock?.content) return "";
 
@@ -2245,6 +2244,17 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
       });
     }
 
+    extensionBlocks.forEach((block) => {
+      items.push({
+        description: blockDescription(block),
+        id: `block-${block.id}`,
+        kind: "extension",
+        subtitle: t({ en: "Extension challenge", zh: "延伸挑戰", zhHans: "延伸挑战" }),
+        targetId: lessonBlockSectionId(block.id),
+        title: text(block.title)
+      });
+    });
+
     if (lessonPracticeQuestions.length) {
       items.push({
         description: t({
@@ -2281,6 +2291,7 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
   }, [
     canViewTeacherGuide,
     conceptBlocks,
+    extensionBlocks,
     lesson,
     lessonPracticeQuestions.length,
     t,
@@ -2746,16 +2757,51 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
         ? lessonBlockSectionId(firstWorkedExampleBlockId)
         : visualizationBlock
           ? "visualization"
-          : lessonPracticeSectionId;
+          : firstExtensionBlockId
+            ? lessonBlockSectionId(firstExtensionBlockId)
+            : isHongKongLesson && checklistItems.length
+              ? lessonChecklistSectionId
+              : lessonPracticeSectionId;
 
     scrollToLessonSection(targetId, { revealLastNextItemButton: true });
   }
 
   function scrollToLessonItemAfterWorkedExample() {
-    scrollToLessonSection(visualizationBlock ? "visualization" : lessonPracticeSectionId, { revealLastNextItemButton: true });
+    const targetId = visualizationBlock
+      ? "visualization"
+      : firstExtensionBlockId
+        ? lessonBlockSectionId(firstExtensionBlockId)
+        : isHongKongLesson && checklistItems.length
+          ? lessonChecklistSectionId
+          : lessonPracticeSectionId;
+
+    scrollToLessonSection(targetId, { revealLastNextItemButton: true });
   }
 
   function scrollToLessonPracticeItem() {
+    const targetId = isHongKongLesson
+      ? firstExtensionBlockId
+        ? lessonBlockSectionId(firstExtensionBlockId)
+        : checklistItems.length
+          ? lessonChecklistSectionId
+          : lessonPracticeSectionId
+      : lessonPracticeSectionId;
+
+    scrollToLessonSection(targetId, { revealLastNextItemButton: true });
+  }
+
+  function scrollToLessonItemAfterExtension(extensionIndex: number) {
+    const nextExtensionBlock = extensionBlocks[extensionIndex + 1];
+    const targetId = nextExtensionBlock
+      ? lessonBlockSectionId(nextExtensionBlock.id)
+      : checklistItems.length
+        ? lessonChecklistSectionId
+        : lessonPracticeSectionId;
+
+    scrollToLessonSection(targetId, { revealLastNextItemButton: true });
+  }
+
+  function scrollToLessonPracticeSection() {
     scrollToLessonSection(lessonPracticeSectionId);
   }
 
@@ -3153,18 +3199,77 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
               <DeferredLessonPanel />
             )
           ) : (
-            <div className="rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">
-              {t({
-                en: `No interactive module is registered for ${visualizationBlock.visualizationConfig?.moduleId ?? "this lesson"}.`,
-                zh: "此課節暫未登記互動模組。"
-              })}
-            </div>
+            <>
+              <div className="rounded-2xl border border-amber-300/40 bg-amber-400/10 p-4 text-sm font-semibold text-amber-800 dark:text-amber-100">
+                {t({
+                  en: `No interactive module is registered for ${visualizationBlock.visualizationConfig?.moduleId ?? "this lesson"}.`,
+                  zh: "此課節暫未登記互動模組。"
+                })}
+              </div>
+              {isHongKongLesson ? (
+                <div className="mt-5 flex justify-end">
+                  {visualizationNextItemAction}
+                </div>
+              ) : null}
+            </>
           )}
         </section>
       ) : null}
 
+      {extensionBlocks.map((block, index) => {
+        const sectionId = lessonBlockSectionId(block.id);
+        const titleId = `${sectionId}-title`;
+
+        return (
+          <section
+            key={block.id}
+            id={sectionId}
+            aria-labelledby={titleId}
+            data-ai-selectable="lesson-block"
+            data-ai-lesson-slug={lesson.slug}
+            data-ai-topic-id={lesson.topicId}
+            data-ai-block-id={block.id}
+            data-ai-block-type={block.type}
+            data-ai-title={text(block.title)}
+            data-lesson-block-type={block.type}
+            className="mt-8 scroll-mt-28 glass-panel border-violet-300/40 bg-violet-50/70 p-5 dark:bg-violet-950/20 sm:p-6"
+          >
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-violet-600 dark:text-violet-200">
+              {t({ en: "Extension challenge", zh: "延伸挑戰", zhHans: "延伸挑战" })}
+            </p>
+            <h2 id={titleId} className="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              <MathText as="span" text={text(block.title)} />
+            </h2>
+            {block.content ? (
+              <MathText
+                as="p"
+                text={formatLessonMathText(text(block.content))}
+                className="mt-3 text-base font-semibold leading-7 text-slate-700 dark:text-slate-200"
+              />
+            ) : null}
+            {block.items?.length ? (
+              <ul className="mt-5 space-y-3 text-base font-semibold leading-7 text-slate-700 dark:text-slate-200">
+                {block.items.map((item, itemIndex) => (
+                  <li key={`${block.id}-${itemIndex}`} className="flex gap-3">
+                    <span className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
+                    <MathText as="span" text={formatLessonMathText(text(item))} className="min-w-0" />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-7 flex justify-end">
+              {renderNextLessonItemButton(
+                () => scrollToLessonItemAfterExtension(index),
+                nextLessonItemInlineButtonClassName
+              )}
+            </div>
+          </section>
+        );
+      })}
+
       {checklistItems.length ? (
         <aside
+          id={lessonChecklistSectionId}
           data-tour="student-lesson-checklist"
           className="mt-8 scroll-mt-28 glass-panel border-emerald-300/40 bg-emerald-50/80 p-5 dark:bg-emerald-950/20 sm:p-6"
           aria-label={t({ en: "Lesson completion checklist", zh: "課節完成清單", zhHans: "课时完成清单" })}
@@ -3255,6 +3360,11 @@ export function LessonView({ gradeLessons = [], slug, initialLesson, visualizati
                   : t({ en: "Mark lesson complete", zh: "標記課節完成", zhHans: "标记课时完成" })}
             </button>
           </div>
+          {isHongKongLesson ? (
+            <div className="mt-5 flex justify-end border-t border-emerald-200/70 pt-5 dark:border-emerald-300/15">
+              {renderNextLessonItemButton(scrollToLessonPracticeSection, nextLessonItemInlineButtonClassName)}
+            </div>
+          ) : null}
         </aside>
       ) : null}
 

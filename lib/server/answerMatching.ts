@@ -1,6 +1,11 @@
 import type { LocalizedText } from "@/types";
+import {
+  questionResponseContractFor,
+  responseMatchesQuestionContract
+} from "@/lib/server/questionResponseContracts";
 
 type GradingQuestion = {
+  id?: string;
   answer: string;
   accepted_answers?: string[] | null;
   options?: LocalizedText[] | null;
@@ -391,7 +396,16 @@ export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
 
 export function questionAnswerMatches(question: GradingQuestion, selectedAnswer: string) {
   const acceptedAnswers = [question.answer, ...(question.accepted_answers ?? [])];
-  if (acceptedAnswers.some((answer) => answerMatches(selectedAnswer, answer))) return true;
+  const contract = questionResponseContractFor(question.id);
+  if (responseMatchesQuestionContract({
+    contract,
+    selectedAnswer,
+    acceptedAnswers,
+    genericMatches: answerMatches,
+    parseScalar: parseScalarAnswer
+  })) return true;
+
+  if (contract.kind !== "generic-equivalence") return false;
 
   return (question.options ?? []).some((option) => {
     const localizedOptions = [option.en, option.zh, option.zhHans ?? ""].filter(Boolean);

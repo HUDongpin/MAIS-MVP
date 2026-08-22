@@ -81,24 +81,16 @@ test("Visualization Lab browser regression plan keeps canonical premium variants
   const plan = buildVisualizationBrowserRegressionPlan(visualizationLabCatalog);
 
   assert.deepEqual(plan.premiumSceneVariants, [
-    "conic-section-deep",
-    "cross-section-slicer",
     "curriculum-crosswalk",
     "distribution-machine",
-    "exam-strategy-capstone",
     "fraction-slices",
     "function-ribbon",
     "geometry-axes",
     "measurement-rail",
-    "optimization-landscape",
-    "projection-views",
-    "solid-net-fold",
-    "space-vector-plane",
-    "statistical-inference",
-    "vector-conic-strategy"
+    "statistical-inference"
   ]);
   assert.equal(plan.premiumSceneVariantPackages.length, plan.premiumSceneVariants.length);
-  assert.ok(plan.premiumSceneVariantPackages.some((regressionPackage) => regressionPackage.sceneVariant === "projection-views"));
+  assert.equal(plan.premiumSceneVariantPackages.some((regressionPackage) => regressionPackage.sceneVariant === "projection-views"), false);
 });
 
 test("Visualization Lab browser regression plan covers every HK lab without cross-track mixing", () => {
@@ -123,10 +115,11 @@ test("Visualization Lab browser regression plan serializes stable A11 handoff at
     attributes["data-viz-browser-regression-plan-source-contract"],
     VISUALIZATION_BROWSER_REGRESSION_PLAN_SOURCE_CONTRACT
   );
-  assert.equal(attributes["data-viz-browser-regression-plan-premium-variant-count"], "15");
-  assert.equal(attributes["data-viz-browser-regression-plan-projection-views"], "included");
+  assert.equal(attributes["data-viz-browser-regression-plan-premium-variant-count"], "7");
+  assert.equal(attributes["data-viz-browser-regression-plan-projection-views"], "missing");
   assert.equal(attributes["data-viz-browser-regression-plan-hk-package-max-labs"], "8");
-  assert.match(attributes["data-viz-browser-regression-plan-premium-variants"], /projection-views/);
+  assert.match(attributes["data-viz-browser-regression-plan-premium-variants"], /distribution-machine/);
+  assert.doesNotMatch(attributes["data-viz-browser-regression-plan-premium-variants"], /projection-views/);
   assert.match(attributes["data-viz-browser-regression-plan-non-hk-tracks"], /MAINLAND_PEP_HIGH/);
 });
 

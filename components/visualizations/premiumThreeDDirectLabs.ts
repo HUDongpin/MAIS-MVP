@@ -1,4 +1,9 @@
-import type { FeaturedLabDefinition } from "@/data/visualizationLabs";
+import {
+  getVisualizationLabByLabId,
+  visualizationLabCatalog,
+  type FeaturedLabDefinition
+} from "@/data/visualizationLabs";
+import { buildVisualizationLabHref } from "@/components/visualizations/visualizationDiagnostics";
 import {
   familyForVisualizationLab,
   isPremiumThreeDLaunchLab,
@@ -151,9 +156,10 @@ const templateIdByThreeDFamily = Object.fromEntries(
   Object.entries(threeDTemplateFamilyMap).map(([templateId, familyId]) => [familyId, templateId])
 ) as Partial<Record<ThreeDFamilyId, VisualizationTemplateId>>;
 
-// Snapshot of data/visualizationLabs.ts template assignments for premium
-// launch labs. The direct topic route must render the same model the catalog
-// route renders; visualizationDiagnostics.premiumSmoke.test.ts asserts sync.
+// Historical authoring-candidate snapshot. It may describe registered launch
+// candidates that the live catalog has since downgraded. Live direct routing
+// must never read this inventory as authority; the catalog gate below decides
+// eligibility, while this snapshot remains available only for authoring audit.
 const catalogTemplateByPremiumLabId: Record<string, VisualizationTemplateId> = {
   "advanced-functions": "function-family",
   "bnu-high-s4-三角函数": "trig-unit-wave",
@@ -473,6 +479,37 @@ function buildGenericPremiumThreeDDirectLab(labId: string): FeaturedLabDefinitio
   };
 }
 
-export function getPremiumThreeDDirectLab(labId: string) {
+export function getPremiumThreeDAuthoringCandidateLab(labId: string) {
   return premiumThreeDDirectLabById[labId] ?? buildGenericPremiumThreeDDirectLab(labId);
+}
+
+function isCatalogPremiumThreeDDirectLab(lab: FeaturedLabDefinition) {
+  return lab.threeD?.enabled === true && lab.threeD.premiumLaunch === true;
+}
+
+export function getPremiumThreeDDirectLab(labId: string) {
+  const catalogLab = getVisualizationLabByLabId(labId);
+
+  return catalogLab && isCatalogPremiumThreeDDirectLab(catalogLab) ? catalogLab : null;
+}
+
+export function buildPremiumThreeDDirectRouteStaticParams() {
+  return visualizationLabCatalog
+    .filter(isCatalogPremiumThreeDDirectLab)
+    .map((lab) => ({ labId: lab.labId }));
+}
+
+export function resolvePremiumThreeDDirectRoute(labId: string) {
+  const catalogLab = getVisualizationLabByLabId(labId);
+
+  if (!catalogLab) return { kind: "not-found" } as const;
+  if (isCatalogPremiumThreeDDirectLab(catalogLab)) {
+    return { kind: "direct", lab: catalogLab } as const;
+  }
+
+  return {
+    href: buildVisualizationLabHref(catalogLab),
+    kind: "catalog-fallback",
+    lab: catalogLab
+  } as const;
 }

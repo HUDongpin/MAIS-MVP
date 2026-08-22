@@ -9,7 +9,12 @@ import {
 } from "@/lib/curriculumProfile";
 import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/difficulty";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
+import {
+  activeHongKongQuestionIdFor,
+  isRetiredHongKongQuestionId
+} from "@/lib/hongKongQuestionRetirement";
 import { analyticsWindowDays, exportLearningAnalyticsSummary, summarizeLearningAnalytics } from "@/lib/learningAnalytics";
+import { normalizeQuestionDiagram } from "@/lib/questionFigure";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
 import { normalizeAssessmentAnalysisSettings } from "@/lib/teacherAssessmentAnalysis";
 import type {
@@ -43,6 +48,7 @@ import type {
   DashboardData,
   Difficulty,
   GradeId,
+  HongKongMathEdBStage,
   AssignmentContentType,
   LessonBlock,
   LessonBlockType,
@@ -101,6 +107,7 @@ export type StudentActivityAdaptiveLearningInput = {
   grade: GradeId;
   topicId?: string | null;
   curriculumTrack?: StudentActivityCurriculumScope;
+  hongKongStage?: HongKongMathEdBStage;
 };
 
 export type StudentActivityAdaptiveRefreshResult = {
@@ -262,6 +269,7 @@ export type StudentActivityLessonProgressNormalizationOptions = {
   demoUserId: string;
   lessonSlugForTopic: (topicId: string) => string;
   seedTopics: StudentActivityLessonProgressSeedTopic[];
+  topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
 };
 
 export type StudentActivityAdaptiveSkillStateRecord = {
@@ -981,15 +989,19 @@ type StudentActivityLessonProgressSeedBuilderInput = {
   now: string;
   lessonSlugForTopic: StudentActivityLessonProgressNormalizationOptions["lessonSlugForTopic"];
   seedTopics: StudentActivityLessonProgressSeedTopic[];
+  topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
 };
 
 export function studentActivityEmptyLessonProgressRecords({
   userId,
   now,
   lessonSlugForTopic,
-  seedTopics
+  seedTopics,
+  topicIdsRequiringExplicitInteraction
 }: StudentActivityLessonProgressSeedBuilderInput) {
-  return seedTopics.map((topic) =>
+  return seedTopics
+    .filter((topic) => !topicIdsRequiringExplicitInteraction?.has(topic.id))
+    .map((topic) =>
     baselineStudentActivityLessonProgressRecord(userId, topic, now, false, lessonSlugForTopic)
   );
 }
@@ -998,9 +1010,12 @@ export function studentActivitySeedLessonProgressRecords({
   userId,
   now,
   lessonSlugForTopic,
-  seedTopics
+  seedTopics,
+  topicIdsRequiringExplicitInteraction
 }: StudentActivityLessonProgressSeedBuilderInput) {
-  return seedTopics.map((topic) =>
+  return seedTopics
+    .filter((topic) => !topicIdsRequiringExplicitInteraction?.has(topic.id))
+    .map((topic) =>
     baselineStudentActivityLessonProgressRecord(userId, topic, now, true, lessonSlugForTopic)
   );
 }
@@ -1021,7 +1036,12 @@ export function normalizeStudentActivityLessonProgressRecords(
   existingRecords: StudentActivityLessonProgressRecord[] | undefined,
   profiles: Array<Pick<StudentActivityStudentProfileRecord, "user_id">>,
   now: string,
-  { demoUserId, lessonSlugForTopic, seedTopics }: StudentActivityLessonProgressNormalizationOptions
+  {
+    demoUserId,
+    lessonSlugForTopic,
+    seedTopics,
+    topicIdsRequiringExplicitInteraction
+  }: StudentActivityLessonProgressNormalizationOptions
 ) {
   const records: StudentActivityLessonProgressRecord[] = (existingRecords ?? []).map((progress) => ({
     ...progress,
@@ -1036,6 +1056,7 @@ export function normalizeStudentActivityLessonProgressRecords(
     seedTopics.forEach((topic) => {
       const key = `${profile.user_id}:${topic.id}`;
       if (recordKeys.has(key)) return;
+      if (topicIdsRequiringExplicitInteraction?.has(topic.id)) return;
       records.push(
         baselineStudentActivityLessonProgressRecord(
           profile.user_id,
@@ -1050,6 +1071,15 @@ export function normalizeStudentActivityLessonProgressRecords(
   });
 
   return records;
+}
+
+export function mergeStudentActivityCanonicalTopicRecords<Topic extends { id: string }>(
+  existingTopics: Topic[] | undefined,
+  canonicalTopics: Topic[]
+) {
+  const canonicalIds = new Set(canonicalTopics.map((topic) => topic.id));
+  const customTopics = (existingTopics ?? []).filter((topic) => !canonicalIds.has(topic.id));
+  return [...canonicalTopics, ...customTopics];
 }
 
 export function normalizeAdaptiveSkillStateRecords(
@@ -1544,7 +1574,10 @@ function toPublicQuestion(database: StudentActivityPersistenceDatabase, question
       zh: question.prompt_zh
     },
     options: question.options ?? undefined,
-    diagram: question.diagram ?? undefined,
+    // Persisted/custom records can contain the legacy coordinate-grid JSON shape.
+    // Revalidate at the public projection boundary so malformed or pre-contract
+    // diagrams fail closed instead of crashing the question renderer.
+    diagram: normalizeQuestionDiagram(question.diagram),
     questionAssets: question.question_assets ?? undefined
   };
 }
@@ -2122,11 +2155,24 @@ function lessonDetailForDatabase(
   const blocks = (database.lesson_blocks ?? [])
     .filter((block) => block.lesson_slug === lesson.slug)
     .sort((a, b) => a.sort_order - b.sort_order || a.id.localeCompare(b.id))
-    .map((block) => lessonBlockForRecord(block, translateLessonTextEn));
+    .map((block) => lessonBlockForRecord(block, translateLessonTextEn))
+    .map((block) => block.type === "practice"
+      ? {
+          ...block,
+          practiceQuestionIds: block.practiceQuestionIds
+            ?.map((questionId) => activeHongKongQuestionIdFor(questionId))
+            .filter((questionId) => !isRetiredHongKongQuestionId(questionId))
+        }
+      : block);
   const practiceIds = new Set(blocks.flatMap((block) => block.practiceQuestionIds ?? []));
   const practiceQuestions = Array.from(practiceIds)
+    .map((questionId) => activeHongKongQuestionIdFor(questionId))
     .map((questionId) => (database.questions ?? []).find((question) => question.id === questionId))
-    .filter((question): question is QuestionRecord => Boolean(question && questionMatchesCurriculum(question, lessonScope)))
+    .filter((question): question is QuestionRecord => Boolean(
+      question &&
+      !isRetiredHongKongQuestionId(question.id) &&
+      questionMatchesCurriculum(question, lessonScope)
+    ))
     .map((question) => toPublicQuestion(database, question));
   const progress = userId ? lessonProgressFor(database, userId, lesson) : null;
 
@@ -3465,6 +3511,7 @@ export function createStudentActivityPersistenceStore({
 
       return (database.questions ?? [])
         .filter((question) => {
+          if (isRetiredHongKongQuestionId(question.id)) return false;
           const curriculumTrackMatches = questionMatchesCurriculumProfile(question, curriculumProfile);
           const gradeMatches = !filters.grade || question.grade === filters.grade;
           const topicMatches = !filters.topicId || question.topic_id === filters.topicId;
@@ -3489,6 +3536,7 @@ export function createStudentActivityPersistenceStore({
       answerWorkPhotos?: { objectKey: string }[];
     }): Promise<AttemptFeedback | null> {
       return runMutation(async (database) => {
+        if (isRetiredHongKongQuestionId(questionId)) return null;
         const question = questionForId(database, questionId);
         if (!question) return null;
         if (!questionMatchesCurriculum(question, curriculumTrack)) return null;
@@ -3669,26 +3717,45 @@ export function createStudentActivityPersistenceStore({
       userId,
       moduleId,
       topicId,
-      source
+      source,
+      interacted = true
     }: {
       userId: string;
       moduleId: string;
       topicId: string;
       source: LearningAnalyticsEvent["source"];
+      interacted?: boolean;
     }) {
+      if (!interacted) {
+        const renderedAt = now().toISOString();
+        return {
+          user_id: userId,
+          module_id: moduleId,
+          topic_id: topicId,
+          source,
+          explored: false,
+          completed_at: null,
+          updated_at: renderedAt
+        } satisfies VisualizationSessionRecord;
+      }
       return runMutation(async (database) => {
         const updatedAt = now().toISOString();
         const sessions = visualizationSessionsFor(database);
         let session = sessions.find(
-          (candidate) => candidate.user_id === userId && candidate.module_id === moduleId
+          (candidate) =>
+            candidate.user_id === userId &&
+            candidate.module_id === moduleId &&
+            candidate.topic_id === topicId
         );
         const wasCompleted = Boolean(session?.completed_at);
 
+        if (session?.completed_at) {
+          return session;
+        }
         if (session) {
-          session.topic_id = topicId;
           session.source = source;
           session.explored = true;
-          session.completed_at = session.completed_at ?? updatedAt;
+          session.completed_at = updatedAt;
           session.updated_at = updatedAt;
         } else {
           session = {

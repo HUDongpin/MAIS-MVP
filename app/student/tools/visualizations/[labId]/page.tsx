@@ -1,7 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PremiumThreeDDirectRouteShell } from "@/components/visualizations/PremiumThreeDDirectRouteShell";
-import { getPremiumThreeDDirectLab } from "@/components/visualizations/premiumThreeDDirectLabs";
-import { buildPremiumThreeDTopicStaticParams } from "@/components/visualizations/three/threeDSceneMath";
+import {
+  buildPremiumThreeDDirectRouteStaticParams,
+  resolvePremiumThreeDDirectRoute
+} from "@/components/visualizations/premiumThreeDDirectLabs";
 
 type PremiumThreeDVisualizationTopicPageProps = {
   params: Promise<{
@@ -18,17 +20,19 @@ function normalizeLabIdParam(value: string) {
 }
 
 export function generateStaticParams() {
-  return buildPremiumThreeDTopicStaticParams();
+  return buildPremiumThreeDDirectRouteStaticParams();
 }
 
 export default async function PremiumThreeDVisualizationTopicPage({ params }: PremiumThreeDVisualizationTopicPageProps) {
   const { labId } = await params;
   const normalizedLabId = normalizeLabIdParam(labId);
-  const directLab = getPremiumThreeDDirectLab(normalizedLabId);
+  const resolution = resolvePremiumThreeDDirectRoute(normalizedLabId);
 
-  if (directLab?.threeD?.premiumLaunch) {
-    return <PremiumThreeDDirectRouteShell lab={directLab} />;
+  if (resolution.kind === "direct") {
+    return <PremiumThreeDDirectRouteShell lab={resolution.lab} />;
   }
+
+  if (resolution.kind === "catalog-fallback") redirect(resolution.href);
 
   notFound();
 }

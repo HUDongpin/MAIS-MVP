@@ -978,12 +978,189 @@ test("student activity persistence marks visualization sessions through fake sto
     moduleId: "coordinate-plane",
     topicId: "topic-2",
     source: "lesson",
-    wasCompleted: true,
+    wasCompleted: false,
     completedAt: now.toISOString(),
     updatedAt: now.toISOString(),
     session: repeatSession
   });
   assert.equal(sideEffects.length, 2);
+
+  const idempotentSession = await store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-2",
+    source: "lesson"
+  });
+
+  assert.deepEqual(idempotentSession, repeatSession);
+  assert.equal(database.visualization_sessions?.length, 2);
+  assert.equal(sideEffects.length, 2);
+
+  const renderOnly = await store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "probability",
+    topicId: "topic-3",
+    source: "visualization-lab",
+    interacted: false
+  });
+
+  assert.deepEqual(renderOnly, {
+    user_id: "student-1",
+    module_id: "probability",
+    topic_id: "topic-3",
+    source: "visualization-lab",
+    explored: false,
+    completed_at: null,
+    updated_at: now.toISOString()
+  });
+  assert.equal(database.visualization_sessions?.length, 2);
+  assert.equal(sideEffects.length, 2);
+});
+
+test("an incomplete legacy visualization session completes only its exact user-module-topic row", async () => {
+  const incomplete = {
+    user_id: "student-legacy",
+    module_id: "configured-visualization-lab",
+    topic_id: "topic-a",
+    source: "lesson" as const,
+    explored: false,
+    completed_at: null,
+    updated_at: "2025-01-01T00:00:00.000Z"
+  };
+  const otherTopic = {
+    ...incomplete,
+    topic_id: "topic-b"
+  };
+  const database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: [incomplete, otherTopic]
+  };
+  const sideEffects: unknown[] = [];
+  const store = createTestStore(database, {
+    afterMarkVisualizationSession: async (_database, context) => {
+      sideEffects.push(JSON.parse(JSON.stringify(context)));
+    }
+  });
+
+  const completed = await store.markVisualizationSession({
+    userId: "student-legacy",
+    moduleId: "configured-visualization-lab",
+    topicId: "topic-a",
+    source: "lesson"
+  });
+
+  assert.equal(database.visualization_sessions?.length, 2);
+  assert.deepEqual(completed, {
+    ...incomplete,
+    explored: true,
+    completed_at: now.toISOString(),
+    updated_at: now.toISOString()
+  });
+  assert.deepEqual(database.visualization_sessions?.[1], otherTopic);
+  assert.equal(sideEffects.length, 1);
+  assert.equal((sideEffects[0] as { wasCompleted: boolean }).wasCompleted, false);
+
+  await store.markVisualizationSession({
+    userId: "student-legacy",
+    moduleId: "configured-visualization-lab",
+    topicId: "topic-a",
+    source: "lesson"
+  });
+  assert.equal(database.visualization_sessions?.length, 2);
+  assert.equal(sideEffects.length, 1, "re-completing the exact triple must be idempotent");
+});
+
+test("canonical topic merge refreshes metadata while retaining custom topics", () => {
+  const mergeCanonicalTopics = (
+    studentActivityPersistence as Record<string, unknown>
+  ).mergeStudentActivityCanonicalTopicRecords;
+  assert.equal(typeof mergeCanonicalTopics, "function");
+  if (typeof mergeCanonicalTopics !== "function") return;
+
+  const existing = [
+    {
+      id: "topic-current",
+      title_en: "Stale persisted title",
+      title_zh: "過期標題",
+      sort_order: 99
+    },
+    {
+      id: "topic-retired",
+      title_en: "Historical topic",
+      title_zh: "歷史主題",
+      sort_order: 2
+    }
+  ];
+  const canonical = [
+    {
+      id: "topic-current",
+      title_en: "Current canonical title",
+      title_zh: "目前標題",
+      sort_order: 1
+    },
+    {
+      id: "topic-new",
+      title_en: "New canonical topic",
+      title_zh: "新主題",
+      sort_order: 3
+    }
+  ];
+
+  const merge = mergeCanonicalTopics as (
+    existingTopics: Array<{ id: string; title_en: string; title_zh: string; sort_order: number }>,
+    canonicalTopics: Array<{ id: string; title_en: string; title_zh: string; sort_order: number }>
+  ) => Array<{ id: string; title_en: string; title_zh: string; sort_order: number }>;
+  assert.deepEqual(merge(existing, canonical), [canonical[0], canonical[1], existing[1]]);
+});
+
+test("lesson progress keeps retired history and leaves interaction-gated canonical topics absent", () => {
+  const records = studentActivityPersistence.normalizeStudentActivityLessonProgressRecords([
+    {
+      user_id: "student-1",
+      topic_id: "topic-retired",
+      lesson_slug: "lesson-topic-retired",
+      status: "completed",
+      mastery: 88,
+      started_at: "2026-06-01T08:00:00.000Z",
+      completed_at: "2026-06-02T08:00:00.000Z",
+      duration_seconds: 360,
+      checklist_state: { practice: true },
+      updated_at: "2026-06-02T08:00:00.000Z"
+    }
+  ], [{ user_id: "student-1" }], now.toISOString(), {
+    demoUserId: "demo-user",
+    lessonSlugForTopic: (topicId) => `lesson-${topicId}`,
+    seedTopics: [
+      { id: "topic-current", status: "completed", mastery: 95 },
+      { id: "topic-new", status: "in-progress", mastery: 60 }
+    ],
+    topicIdsRequiringExplicitInteraction: new Set(["topic-new"])
+  });
+
+  assert.deepEqual(records.find((record) => record.topic_id === "topic-retired"), {
+    user_id: "student-1",
+    topic_id: "topic-retired",
+    lesson_slug: "lesson-topic-retired",
+    status: "completed",
+    mastery: 88,
+    started_at: "2026-06-01T08:00:00.000Z",
+    completed_at: "2026-06-02T08:00:00.000Z",
+    duration_seconds: 360,
+    checklist_state: { practice: true },
+    updated_at: "2026-06-02T08:00:00.000Z"
+  });
+  assert.deepEqual(records.find((record) => record.topic_id === "topic-current"), {
+    user_id: "student-1",
+    topic_id: "topic-current",
+    lesson_slug: "lesson-topic-current",
+    status: "not-started",
+    mastery: 0,
+    started_at: null,
+    completed_at: null,
+    duration_seconds: null,
+    checklist_state: {},
+    updated_at: now.toISOString()
+  });
+  assert.equal(records.some((record) => record.topic_id === "topic-new"), false);
 });
 
 test("student activity persistence returns visualization session before slow side effects settle", async () => {
@@ -1429,7 +1606,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
@@ -3757,6 +3935,43 @@ test("student activity persistence owns topic label projection for legacy userSt
     en: "Question topic English",
     zh: "題目主題中文"
   });
+});
+
+test("student public-question projection fails legacy coordinate-grid JSON closed instead of crashing render", () => {
+  const helpers = studentActivityPersistence as Record<string, unknown>;
+  const toPublicQuestion = helpers.studentActivityToPublicQuestion as (
+    database: StudentActivityPersistenceDatabase,
+    question: NonNullable<StudentActivityPersistenceDatabase["questions"]>[number]
+  ) => { diagram?: unknown };
+  const legacyQuestion = {
+    id: "legacy-coordinate-grid-extra",
+    curriculum_track: "HK",
+    curriculum_region: "HK",
+    textbook_publisher: null,
+    canonical_topic_id: "coordinates",
+    grade: "S2",
+    topic_id: "coordinates",
+    difficulty: "Medium",
+    type: "free-response",
+    prompt_en: "Read the legacy grid.",
+    prompt_zh: "閱讀舊座標網格。",
+    answer: "1",
+    explanation_en: "Historical fixture.",
+    explanation_zh: "歷史測試資料。",
+    diagram: {
+      kind: "coordinate-grid",
+      xRange: [-2, 2],
+      yRange: [-2, 2],
+      points: [{ label: "A", x: 1, y: 1 }],
+      lines: [{ points: [{ x: -1, y: -1 }, { x: 1, y: 1 }] }]
+    }
+  } as unknown as NonNullable<StudentActivityPersistenceDatabase["questions"]>[number];
+  const database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: [],
+    questions: [legacyQuestion]
+  };
+
+  assert.equal(toPublicQuestion(database, legacyQuestion).diagram, undefined);
 });
 
 test("student activity persistence owns localized topic title helper with seed topic repair", async () => {

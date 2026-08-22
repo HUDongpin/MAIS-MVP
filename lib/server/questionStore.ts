@@ -6,6 +6,10 @@ import {
   normalizeStoredCurriculumProfile
 } from "@/lib/curriculumProfile";
 import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/difficulty";
+import {
+  activeHongKongQuestionIdFor,
+  isRetiredHongKongQuestionId
+} from "@/lib/hongKongQuestionRetirement";
 import { answerMatches } from "@/lib/server/answerMatching";
 import { hongKongBaseQuestions } from "@/lib/server/hongKongBaseQuestions";
 import type {
@@ -277,6 +281,10 @@ function questionMatchesFilters(question: Question, filters: PublicQuestionFilte
     && difficultyMatchesActiveFilter(question.difficulty, filters.difficulty);
 }
 
+function isActiveCatalogQuestion(question: Question) {
+  return !isRetiredHongKongQuestionId(question.id);
+}
+
 export async function getPublicQuestionsFromStore(filters: PublicQuestionFilters = {}) {
   const key = filtersCacheKey(filters);
   const cached = publicQuestionsCache.get(key);
@@ -284,6 +292,7 @@ export async function getPublicQuestionsFromStore(filters: PublicQuestionFilters
 
   const questions = await sourceQuestionsForFilters(filters);
   const publicQuestions = questions
+    .filter(isActiveCatalogQuestion)
     .filter((question) => questionMatchesFilters(question, filters))
     .map(toPublicQuestion);
 
@@ -336,6 +345,7 @@ export async function getReducedChoicePublicQuestionsFromStore(
 
   const questions = await sourceQuestionsForFilters(filters);
   return questions
+    .filter(isActiveCatalogQuestion)
     .filter((question) => questionMatchesFilters(question, filters))
     .map((question) => reduceQuestionChoices(question, maxChoices))
     .map(toPublicQuestion);
@@ -378,6 +388,9 @@ export async function getQuestionForAttemptFromStore(
   scope?: CurriculumScope,
   options: { allowAnyCurriculumWhenScopeMissing?: boolean } = {}
 ) {
+  // This is the active submission resolver. A historical ID must never be
+  // re-graded against a materially different current question.
+  if (isRetiredHongKongQuestionId(questionId)) return null;
   const questions = await sourceQuestionsForAttempt(scope);
   return questions.find((question) => {
     if (question.id !== questionId) return false;
@@ -386,10 +399,44 @@ export async function getQuestionForAttemptFromStore(
   }) ?? null;
 }
 
+export async function getActiveQuestionForHistoricalIdFromStore(
+  questionId: string,
+  scope?: CurriculumScope,
+  options: { allowAnyCurriculumWhenScopeMissing?: boolean } = {}
+) {
+  return getQuestionForAttemptFromStore(
+    activeHongKongQuestionIdFor(questionId),
+    scope,
+    options
+  );
+}
+
+export async function getHistoricalQuestionForAttemptFromStore(
+  questionId: string,
+  scope?: CurriculumScope,
+  options: { allowAnyCurriculumWhenScopeMissing?: boolean } = {}
+) {
+  if (isRetiredHongKongQuestionId(questionId)) {
+    // Keep the 877 KB immutable history snapshot off the public question hot
+    // path. It is loaded only when a historical attempt, mistake, or submission
+    // actually asks for a retired ID.
+    const { historicalHongKongQuestionForId } = await import("@/lib/hongKongQuestionVersioning");
+    const historical = historicalHongKongQuestionForId(questionId);
+    if (!historical) return null;
+    if (!scope && options.allowAnyCurriculumWhenScopeMissing) return historical;
+    return questionMatchesCurriculum(historical, scope) ? historical : null;
+  }
+
+  return getQuestionForAttemptFromStore(questionId, scope, options);
+}
+
 export const __questionStoreTestHooks = {
   clearCaches() {
     publicQuestionsCache.clear();
     topicCatalogCache.clear();
     sourceQuestionsCache.clear();
+  },
+  seedSourceQuestions(profile: CurriculumProfile, grade: GradeId | undefined, questions: Question[]) {
+    sourceQuestionsCache.set(sourceQuestionsCacheKey(profile, grade), Promise.resolve(questions));
   }
 };

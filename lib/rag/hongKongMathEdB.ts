@@ -1,5 +1,9 @@
 import { hongKongMathEdBRagCards } from "../../data/rag/hongKongMathEdB";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import {
+  cardHasExactHongKongTopic,
+  isHongKongTopicEligibleForStage
+} from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongMathEdBEvidencePack,
@@ -122,9 +126,12 @@ function minimumRelevantScore(query: HongKongMathEdBRagQuery) {
 }
 
 export function getHongKongMathEdBRagCards(query: HongKongMathEdBRagQuery): HongKongMathEdBRagCard[] {
+  if (!isHongKongTopicEligibleForStage(query.topicId, query.stage)) return [];
   const minimumScore = minimumRelevantScore(query);
   const scored = hongKongMathEdBRagCards
     .filter((card) => card.curriculumTrack === "HK")
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
+    .filter((card) => !query.topicId || !query.stage || card.stage === query.stage)
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.index - b.index);

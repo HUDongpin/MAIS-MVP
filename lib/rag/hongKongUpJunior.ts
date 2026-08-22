@@ -1,6 +1,7 @@
 import { hongKongUpJuniorSafeCards as hongKongUpJuniorChineseSafeCards } from "../../data/rag/hongKongUpJunior";
 import { hongKongUpJuniorEnglishSafeCards } from "../../data/rag/hongKongUpJuniorEnglish";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import { cardHasExactHongKongTopic } from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongUpJuniorEvidencePack,
@@ -169,6 +170,7 @@ export function getHongKongUpJuniorSafeCards(query: HongKongUpJuniorRagQuery): H
     .filter((card) => !query.grade || card.grade === query.grade)
     .filter((card) => !query.volume || card.volume === query.volume)
     .filter((card) => !query.semester || card.semester === query.semester)
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.card.chapterSequence - b.card.chapterSequence || a.index - b.index);

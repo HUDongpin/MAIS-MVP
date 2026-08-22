@@ -7,6 +7,10 @@ import { buildHongKongModernPrimaryEvidencePack, isHongKongModernPrimaryGrade } 
 import { buildHongKongUpJuniorEvidencePack } from "./hongKongUpJunior";
 import { buildHongKongUpJuniorResourceEvidencePack, isHongKongUpJuniorGrade } from "./hongKongUpJuniorResources";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import {
+  isHongKongOptionalExtendedPartTopic,
+  isHongKongSeniorCompulsoryOwnedTopic
+} from "./hongKongMathTopicRouting";
 import type {
   HongKongDseEphRagIntent,
   HongKongDseEphVolume,
@@ -215,10 +219,33 @@ function upJuniorSourceLanguageFor(query: HongKongMathRagQuery) {
   return query.language === "en" ? "en" : "zh";
 }
 
+function inferredEdBStageForGrade(grade: HongKongMathRagQuery["grade"]): HongKongMathRagQuery["stage"] {
+  if (!grade) return undefined;
+  if (isHongKongPrimaryGrade(grade)) return "primary";
+  if (isHongKongUpJuniorGrade(grade)) return "junior-secondary";
+  if (isHongKongDseGrade(grade)) return "senior-secondary-compulsory";
+  return undefined;
+}
+
 export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): HongKongMathEvidencePack {
+  const optionalExtendedPartTopic = isHongKongOptionalExtendedPartTopic(query.topicId);
+  const resolvedEdBStage = query.stage ?? inferredEdBStageForGrade(query.grade);
+  const juniorQueryForSeniorOwnedTopic = isHongKongUpJuniorGrade(query.grade) && isHongKongSeniorCompulsoryOwnedTopic(query.topicId);
+
+  if (juniorQueryForSeniorOwnedTopic) {
+    return {
+      curriculumTrack: "HK",
+      curriculumCards: [],
+      textbookCards: [],
+      examPatternCards: [],
+      questionPatternCards: [],
+      evidenceText: "No HK evidence selected: this topic is owned by senior-secondary compulsory mathematics and must not route for an S1-S3 query."
+    };
+  }
+
   const curriculumPack = buildHongKongMathEdBEvidencePack({
     ...(query.grade ? { grade: query.grade } : {}),
-    ...(query.stage ? { stage: query.stage } : {}),
+    ...(resolvedEdBStage ? { stage: resolvedEdBStage } : {}),
     ...(query.documentPurpose ? { documentPurpose: query.documentPurpose } : {}),
     ...(query.conceptIds?.length ? { conceptIds: query.conceptIds } : {}),
     ...(query.topicId ? { topicId: query.topicId } : {}),
@@ -226,7 +253,9 @@ export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): Hong
     ...(query.difficultyBand ? { difficultyBand: query.difficultyBand } : {}),
     limit: query.limit ? Math.min(5, query.limit) : 4
   });
-  const textbookPack = shouldUseUpJuniorTextbookLayer(query)
+  const textbookPack = optionalExtendedPartTopic
+    ? null
+    : shouldUseUpJuniorTextbookLayer(query)
     ? buildHongKongUpJuniorEvidencePack({
         ...(query.grade ? { grade: query.grade } : {}),
         ...(isUpJuniorVolume(query.textbookVolume) ? { volume: query.textbookVolume } : {}),
@@ -268,7 +297,7 @@ export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): Hong
             limit: query.limit ? Math.min(5, query.limit) : 4
         })
       : null;
-  const upJuniorResourcePack = shouldUseUpJuniorResourceLayer(query)
+  const upJuniorResourcePack = !optionalExtendedPartTopic && shouldUseUpJuniorResourceLayer(query)
     ? buildHongKongUpJuniorResourceEvidencePack({
         ...(query.grade ? { grade: query.grade } : {}),
         ...(isUpJuniorVolume(query.textbookVolume) ? { volume: query.textbookVolume } : {}),
@@ -281,17 +310,27 @@ export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): Hong
         limit: query.limit ? Math.min(5, query.limit) : 4
       })
     : null;
-  const questionPack = buildHongKongEaseQuestionEvidencePack({
-    ...(query.grade ? { grade: query.grade } : {}),
-    ...(query.topicId ? { topicId: query.topicId } : {}),
-    ...(query.conceptIds?.length ? { conceptIds: query.conceptIds } : {}),
-    ...(query.language ? { language: query.language } : {}),
-    intent: toEaseQuestionIntent(query.intent),
-    ...(query.difficultyBand ? { difficultyBand: query.difficultyBand } : {}),
-    ...(query.requiresImageAssets ? { requiresImageAssets: query.requiresImageAssets } : {}),
-    limit: query.limit ? Math.min(5, query.limit) : 4
-  });
-  const examPack = shouldUseDseExamPatternLayer(query)
+  const questionPack = optionalExtendedPartTopic
+    ? {
+        cards: [],
+        evidenceText: "No EASE question-pattern layer selected because this optional HKDSE Extended Part topic has no explicit M1/M2 eligibility metadata in EASE cards."
+      }
+    : buildHongKongEaseQuestionEvidencePack({
+        ...(query.grade ? { grade: query.grade } : {}),
+        ...(query.topicId ? { topicId: query.topicId } : {}),
+        ...(query.conceptIds?.length ? { conceptIds: query.conceptIds } : {}),
+        ...(query.language ? { language: query.language } : {}),
+        intent: toEaseQuestionIntent(query.intent),
+        ...(query.difficultyBand ? { difficultyBand: query.difficultyBand } : {}),
+        ...(query.requiresImageAssets ? { requiresImageAssets: query.requiresImageAssets } : {}),
+        limit: query.limit ? Math.min(5, query.limit) : 4
+      });
+  const examPack = optionalExtendedPartTopic
+    ? {
+        cards: [],
+        evidenceText: "No DSE exam-pattern layer selected because these cards do not prove M1/M2 eligibility for this optional HKDSE Extended Part topic."
+      }
+    : shouldUseDseExamPatternLayer(query)
     ? buildHongKongDseMathEvidencePack({
         ...(query.grade ? { grade: query.grade } : {}),
         ...(query.topicId ? { topicId: query.topicId } : {}),
@@ -306,7 +345,9 @@ export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): Hong
         cards: [],
         evidenceText: "No DSE exam-pattern layer selected for this non-senior-secondary Hong Kong query."
       };
-  const textbookLayerLabel = shouldUseUpJuniorTextbookLayer(query)
+  const textbookLayerLabel = optionalExtendedPartTopic
+    ? "No publisher textbook layer selected: optional HKDSE Extended Part eligibility is not explicit in publisher cards."
+    : shouldUseUpJuniorTextbookLayer(query)
     ? query.language === "en"
       ? "UP junior S1-S3 English textbook publisher layer:"
       : "UP junior S1-S3 Chinese textbook publisher layer:"
@@ -319,13 +360,18 @@ export function buildHongKongMathEvidencePack(query: HongKongMathRagQuery): Hong
         : upJuniorResourcePack
           ? "No S4-S6 HK textbook publisher layer selected for this query."
           : "No HK textbook publisher layer selected for this curriculum profile.";
-  const examLayerLabel = shouldUseDseExamPatternLayer(query)
+  const examLayerLabel = optionalExtendedPartTopic
+    ? "No DSE exam-pattern layer for this optional HKDSE Extended Part query:"
+    : shouldUseDseExamPatternLayer(query)
     ? "DSE exam-pattern layer:"
     : "No DSE exam-pattern layer for this primary or junior-secondary query:";
   const evidenceText = [
     "MAIS-safe combined HK mathematics evidence pack.",
     "Layer 1 is Hong Kong EDB curriculum guidance; layer 2 is selected textbook-publisher or resource-pattern guidance; layer 3 is EASE publisher-neutral question/image pattern guidance; layer 4 is DSE Mathematics aggregated exam-pattern guidance when the query is senior-secondary.",
     "Use all selected layers only to create original MAIS teaching, diagnostic, practice, and planning output.",
+    optionalExtendedPartTopic
+      ? "This topic belongs to the optional HKDSE Extended Part. Return only curriculum cards with explicit M1/M2 eligibility; do not infer eligibility from grade, publisher, exam, question-bank, intent, or score metadata."
+      : "",
     "Do not quote, translate, paraphrase, reconstruct, or lightly modify any source curriculum wording, source exam wording, worked response, marking wording, figure, table, option set, or recognisable layout.",
     "Do not store or infer private source locators, scans, machine-extracted source text, embeddings, or source-document excerpts.",
     ...illustrationTextMatchStandardForRag,

@@ -188,27 +188,29 @@ test("premium CAPSTONE topic pages are allowed through the authenticated learner
 });
 
 test("premium direct topic labs render the same template and 3D family as the catalog", async () => {
-  const [{ getPremiumThreeDDirectLab }, { premiumThreeDLaunchLabIds }, { getVisualizationLabByLabId }] = await Promise.all([
+  const [{ getPremiumThreeDDirectLab }, { visualizationLabCatalog }] = await Promise.all([
     import("./premiumThreeDDirectLabs"),
-    import("./three/threeDSceneMath"),
     import("../../data/visualizationLabs")
   ]);
+  const livePremiumLabs = visualizationLabCatalog.filter(
+    (lab) => lab.threeD?.enabled === true && lab.threeD.premiumLaunch === true
+  );
 
-  for (const labId of premiumThreeDLaunchLabIds) {
-    const directLab = getPremiumThreeDDirectLab(labId);
-    const catalogLab = getVisualizationLabByLabId(labId);
+  assert.equal(livePremiumLabs.length, 24);
 
-    assert.ok(directLab, `${labId} should resolve on the premium direct route`);
-    assert.ok(catalogLab, `${labId} should exist in the visualization catalog`);
+  for (const catalogLab of livePremiumLabs) {
+    const directLab = getPremiumThreeDDirectLab(catalogLab.labId);
+
+    assert.strictEqual(directLab, catalogLab, `${catalogLab.labId} should resolve the exact live catalog record`);
     assert.equal(
-      directLab!.templateId,
-      catalogLab!.templateId,
-      `${labId} direct-route template must match the catalog (regenerate catalogTemplateByPremiumLabId)`
+      directLab.templateId,
+      catalogLab.templateId,
+      `${catalogLab.labId} direct-route template must match the catalog`
     );
     assert.equal(
-      directLab!.threeD?.familyId,
-      catalogLab!.threeD?.familyId,
-      `${labId} direct-route 3D family must match the catalog`
+      directLab.threeD?.familyId,
+      catalogLab.threeD?.familyId,
+      `${catalogLab.labId} direct-route 3D family must match the catalog`
     );
   }
 });

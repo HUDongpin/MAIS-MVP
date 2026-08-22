@@ -1,5 +1,6 @@
 import { hongKongDseEphSafeCards } from "../../data/rag/hongKongDseEph";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import { cardHasExactHongKongTopic, isHongKongOptionalExtendedPartTopic } from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongDseEphEvidencePack,
@@ -125,9 +126,11 @@ function minimumRelevantScore(query: HongKongDseEphRagQuery) {
 }
 
 export function getHongKongDseEphSafeCards(query: HongKongDseEphRagQuery): HongKongDseEphSafeCard[] {
+  if (isHongKongOptionalExtendedPartTopic(query.topicId)) return [];
   const minimumScore = minimumRelevantScore(query);
   const scored = hongKongDseEphSafeCards
     .filter((card) => card.curriculumTrack === "HK" && card.publisher === "HK_EPH_MIF")
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.index - b.index);

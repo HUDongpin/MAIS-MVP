@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { hongKongMathEdBRagCards } from "../../data/rag/hongKongMathEdB";
 import { buildHongKongMathEdBEvidencePack, getHongKongMathEdBRagCards } from "./hongKongMathEdB";
+import { buildHongKongMathEvidencePack } from "./hongKongMath";
 
 test("primary HK queries prioritize primary curriculum cards and avoid senior modules", () => {
   const cards = getHongKongMathEdBRagCards({
@@ -55,6 +56,100 @@ test("senior M2 queries retrieve algebra and calculus extension card first", () 
 
   assert.ok(cards.length > 0);
   assert.equal(cards[0].id, "hk-edb-senior-m2-algebra-calculus");
+});
+
+test("optional HKDSE topics require an explicitly eligible Extended Part module", () => {
+  for (const topicId of ["statistics-s6", "differentiation-intro", "calculus"]) {
+    const compulsory = buildHongKongMathEvidencePack({
+      grade: "S6",
+      stage: "senior-secondary-compulsory",
+      topicId,
+      intent: "tutor-explain",
+      limit: 5
+    });
+    assert.deepEqual(compulsory.curriculumCards, [], `${topicId} leaked into compulsory curriculum evidence`);
+    assert.deepEqual(compulsory.textbookCards, [], `${topicId} leaked into compulsory publisher evidence`);
+    assert.deepEqual(compulsory.examPatternCards, [], `${topicId} leaked into compulsory exam evidence`);
+    assert.deepEqual(compulsory.questionPatternCards, [], `${topicId} leaked into compulsory question evidence`);
+  }
+
+  const m1Statistics = buildHongKongMathEvidencePack({
+    grade: "S6",
+    stage: "senior-secondary-m1",
+    topicId: "statistics-s6",
+    intent: "tutor-explain",
+    limit: 5
+  });
+  assert.deepEqual(m1Statistics.curriculumCards.map((card) => card.id), ["hk-edb-senior-m1-calculus-statistics"]);
+  assert.deepEqual(m1Statistics.textbookCards, []);
+  assert.deepEqual(m1Statistics.examPatternCards, []);
+  assert.deepEqual(m1Statistics.questionPatternCards, []);
+
+  const m2Statistics = buildHongKongMathEvidencePack({
+    grade: "S6",
+    stage: "senior-secondary-m2",
+    topicId: "statistics-s6",
+    intent: "tutor-explain",
+    limit: 5
+  });
+  assert.deepEqual(m2Statistics.curriculumCards, []);
+
+  for (const stage of ["senior-secondary-m1", "senior-secondary-m2"] as const) {
+    for (const topicId of ["differentiation-intro", "calculus"]) {
+      const pack = buildHongKongMathEvidencePack({
+        grade: "S6",
+        stage,
+        topicId,
+        intent: "tutor-explain",
+        limit: 5
+      });
+      assert.equal(pack.curriculumCards.length, 1);
+      assert.ok(pack.curriculumCards.every((card) => card.stage === stage && card.topicIds.includes(topicId)));
+      assert.deepEqual(pack.textbookCards, []);
+      assert.deepEqual(pack.examPatternCards, []);
+      assert.deepEqual(pack.questionPatternCards, []);
+    }
+  }
+});
+
+test("topic-specific HK queries fail closed and senior compulsory owns quadratic-patterns and circles", () => {
+  const missing = buildHongKongMathEvidencePack({
+    grade: "S4",
+    stage: "senior-secondary-compulsory",
+    topicId: "missing-topic-with-grade-match",
+    intent: "generate-question",
+    limit: 5
+  });
+  assert.deepEqual(missing.curriculumCards, []);
+  assert.deepEqual(missing.textbookCards, []);
+  assert.deepEqual(missing.examPatternCards, []);
+  assert.deepEqual(missing.questionPatternCards, []);
+
+  for (const topicId of ["quadratic-patterns", "circles"]) {
+    const senior = buildHongKongMathEvidencePack({
+      grade: "S4",
+      stage: "senior-secondary-compulsory",
+      topicId,
+      intent: "generate-lesson",
+      limit: 8
+    });
+    assert.ok(senior.curriculumCards.some((card) => card.id === "hk-edb-senior-compulsory-content"));
+    assert.ok(senior.curriculumCards.every((card) => card.topicIds.includes(topicId)));
+    assert.ok(senior.curriculumCards.every((card) => card.stage === "senior-secondary-compulsory"));
+    assert.ok(senior.textbookCards.every((card) => !card.id.startsWith("hk-up-junior-")));
+    assert.ok(senior.textbookCards.every((card) => card.topicIds.includes(topicId)));
+    assert.ok(senior.examPatternCards.every((card) => card.topicIds.includes(topicId)));
+    assert.ok(senior.questionPatternCards.every((card) => card.topicIds.includes(topicId)));
+    assert.ok(senior.questionPatternCards.every((card) => card.stage === "senior-secondary"));
+  }
+});
+
+test("senior compulsory EDB cards contain no calculus claims", () => {
+  const compulsory = hongKongMathEdBRagCards.filter((card) => card.stage === "senior-secondary-compulsory");
+  const text = JSON.stringify(compulsory);
+  assert.doesNotMatch(text, /calculus|differentiat/i);
+  assert.ok(compulsory.every((card) => card.topicIds.includes("quadratic-patterns")));
+  assert.ok(compulsory.every((card) => card.topicIds.includes("circles")));
 });
 
 test("learning diversity queries retrieve student support guidance", () => {

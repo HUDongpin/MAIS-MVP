@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { refreshAdaptiveLearningRecommendation } from "@/lib/server/userStore";
+import { isHongKongMathEdBStage } from "@/lib/rag/hongKongMathTopicRouting";
 import type { GradeId } from "@/types";
 
 export const runtime = "nodejs";
@@ -31,6 +32,12 @@ export async function POST(request: Request) {
   const bodyRecord = isRecord(body) ? body : {};
   const gradeParam = typeof bodyRecord.grade === "string" ? bodyRecord.grade : url.searchParams.get("grade");
   const topicParam = typeof bodyRecord.topicId === "string" ? bodyRecord.topicId : url.searchParams.get("topicId");
+  const stageParam = typeof bodyRecord.hongKongStage === "string"
+    ? bodyRecord.hongKongStage
+    : url.searchParams.get("hongKongStage");
+  if (stageParam !== null && stageParam !== undefined && !isHongKongMathEdBStage(stageParam)) {
+    return NextResponse.json({ error: "Invalid Hong Kong curriculum stage." }, { status: 400 });
+  }
   const grade = isValidGradeId(gradeParam)
     ? (gradeParam as GradeId)
     : authenticated.settings.selectedGrade;
@@ -39,7 +46,8 @@ export async function POST(request: Request) {
     userId: authenticated.user.id,
     grade,
     topicId: topicParam,
-    curriculumTrack: authenticated.user.curriculumProfile
+    curriculumTrack: authenticated.user.curriculumProfile,
+    ...(stageParam ? { hongKongStage: stageParam } : {})
   });
 
   return NextResponse.json(result);

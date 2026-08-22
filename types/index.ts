@@ -1645,18 +1645,47 @@ export type CoordinateGridQuestionDiagram = {
   kind: "coordinate-grid";
   xRange: [number, number];
   yRange: [number, number];
+  xAxisLabel: LocalizedText;
+  yAxisLabel: LocalizedText;
+  xTickInterval?: number;
+  yTickInterval?: number;
   points?: {
+    id: string;
     label: string;
     x: number;
     y: number;
   }[];
   lines?: {
-    label?: string;
+    id: string;
+    label: LocalizedText;
     points: {
       x: number;
       y: number;
     }[];
   }[];
+};
+
+export type BarChartSeries = {
+  id: string;
+  label: LocalizedText;
+};
+
+export type BarChartCategory = {
+  id: string;
+  label: LocalizedText;
+  values: Record<string, number>;
+};
+
+export type BarChartQuestionDiagram = {
+  kind: "bar-chart";
+  mode: "single" | "grouped";
+  title: LocalizedText;
+  xAxisLabel: LocalizedText;
+  yAxisLabel: LocalizedText;
+  yRange: [0, number];
+  tickInterval: number;
+  series: BarChartSeries[];
+  categories: BarChartCategory[];
 };
 
 export type PlaneFigurePoint = {
@@ -1777,6 +1806,7 @@ export type TenFrameQuestionDiagram = {
 
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
+  | BarChartQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
   | SolidFigureQuestionDiagram
