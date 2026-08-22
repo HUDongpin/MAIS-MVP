@@ -566,6 +566,11 @@ test.describe("Practice Arena question pager", () => {
     await page.waitForTimeout(1500);
     await expectQuestion(page, 2, total);
 
+    // Narrowing to the answered question's own topic keeps that question in the
+    // new round. A filter change must still start a fresh round at question 1.
+    await page.getByRole("combobox", { name: /Topic/i }).selectOption("quadratic-patterns");
+    await expectQuestion(page, 1);
+
     await page.getByRole("combobox", { name: /Question type/i }).selectOption("short-answer");
     await expectQuestion(page, 1);
     await expect(page.locator("article:visible")).toHaveCount(1);
