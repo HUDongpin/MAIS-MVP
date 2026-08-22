@@ -1,8 +1,13 @@
 #!/usr/bin/env node
+import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import {
+  assertNoQaOnlyInstrumentationBytesSync,
+  assertNoQaOnlyInstrumentationSync
+} from "./assert-no-qa-only-instrumentation.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -18,6 +23,11 @@ const REQUIRED_BUILD_OUTPUTS = [
 ];
 
 export async function runReleaseBuildGate(options = {}) {
+  assertNoQaOnlyInstrumentationSync({
+    env: process.env,
+    mode: "release",
+    root: REPO_ROOT
+  });
   const config = buildReleaseBuildGateConfig(options, process.env);
   const startedAt = new Date().toISOString();
   const tsconfigSnapshot = await snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath));
@@ -40,6 +50,15 @@ export async function runReleaseBuildGate(options = {}) {
     await restoreFileSnapshot(tsconfigSnapshot);
   }
 
+  // A clean preflight is not enough if the source tree changes while Next is
+  // running. Refuse the output unless the release source is still free of both
+  // QA markers and residual instrumentation sentinels after the child exits.
+  assertNoQaOnlyInstrumentationSync({
+    env: process.env,
+    mode: "release",
+    root: REPO_ROOT
+  });
+
   if (result.exitCode !== 0) {
     throw new Error(
       [
@@ -50,6 +69,15 @@ export async function runReleaseBuildGate(options = {}) {
     );
   }
 
+  // The build child can transiently instrument a clean source tree, emit those
+  // bytes, and restore the source before this process regains control. Scan the
+  // actual isolated output tree itself before trusting even one expected file.
+  // The shared byte scanner also rejects symlinks, hardlinks, special entries,
+  // unreadable files, and directory/file identity races.
+  const outputInstrumentationScan = assertNoQaOnlyInstrumentationBytesSync({
+    label: "release build output",
+    root: config.absoluteDistDir
+  });
   const outputChecks = await verifyBuildOutputs(config.absoluteDistDir);
 
   if (config.cleanup) {
@@ -60,6 +88,7 @@ export async function runReleaseBuildGate(options = {}) {
     cleanup: config.cleanup,
     completedAt: new Date().toISOString(),
     distDir: config.distDir,
+    outputInstrumentationScan,
     outputChecks,
     runId: config.runId,
     startedAt,
@@ -68,24 +97,125 @@ export async function runReleaseBuildGate(options = {}) {
 }
 
 export async function snapshotFile(absolutePath) {
-  const content = await fs.readFile(absolutePath, "utf8").catch((error) => {
-    if (error?.code === "ENOENT") return null;
+  const resolved = path.resolve(absolutePath);
+  if (!isInside(resolved, REPO_ROOT) || resolved === REPO_ROOT) {
+    throw new Error(`Release build tsconfig must stay inside the repository: ${resolved}`);
+  }
+  const before = await fs.lstat(resolved, { bigint: true });
+  assertSafeRegularFile(before, `Release build tsconfig ${resolved}`);
+  const canonical = await fs.realpath(resolved);
+  if (canonical !== resolved) {
+    throw new Error(`Release build tsconfig must not traverse a symlink: ${resolved}`);
+  }
+  const handle = await fs.open(
+    resolved,
+    fsConstants.O_RDWR | (fsConstants.O_NOFOLLOW ?? 0)
+  );
+  try {
+    const opened = await handle.stat({ bigint: true });
+    if (!sameExactIdentity(before, opened)) {
+      throw new Error(`Release build tsconfig changed before it could be snapshotted: ${resolved}`);
+    }
+    const content = await handle.readFile();
+    const afterRead = await handle.stat({ bigint: true });
+    const afterPath = await fs.lstat(resolved, { bigint: true });
+    if (!sameExactIdentity(opened, afterRead) || !sameExactIdentity(afterRead, afterPath)) {
+      throw new Error(`Release build tsconfig changed while it was being snapshotted: ${resolved}`);
+    }
+    return {
+      absolutePath: resolved,
+      content,
+      handle,
+      identity: afterRead,
+      originalMode: Number(afterRead.mode & 0o777n)
+    };
+  } catch (error) {
+    await handle.close().catch(() => undefined);
     throw error;
-  });
-
-  return {
-    absolutePath,
-    content
-  };
+  }
 }
 
 export async function restoreFileSnapshot(snapshot) {
-  if (snapshot.content === null) {
-    await fs.rm(snapshot.absolutePath, { force: true });
-    return;
+  const { handle } = snapshot;
+  try {
+    const [opened, currentPath] = await Promise.all([
+      handle.stat({ bigint: true }),
+      fs.lstat(snapshot.absolutePath, { bigint: true })
+    ]);
+    assertSafeRegularFile(opened, `Open release build tsconfig ${snapshot.absolutePath}`);
+    assertSafeRegularFile(currentPath, `Release build tsconfig path ${snapshot.absolutePath}`);
+    if (
+      !sameObjectIdentity(snapshot.identity, opened) ||
+      !sameObjectIdentity(opened, currentPath)
+    ) {
+      throw new Error(
+        `Refusing to restore release build tsconfig because its pathname identity changed: ${snapshot.absolutePath}`
+      );
+    }
+    await handle.truncate(0);
+    if (snapshot.content.length > 0) {
+      const { bytesWritten } = await handle.write(
+        snapshot.content,
+        0,
+        snapshot.content.length,
+        0
+      );
+      if (bytesWritten !== snapshot.content.length) {
+        throw new Error(`Could not restore every release build tsconfig byte: ${snapshot.absolutePath}`);
+      }
+    }
+    await handle.chmod(snapshot.originalMode);
+    await handle.sync();
+    const [restored, restoredPath] = await Promise.all([
+      handle.stat({ bigint: true }),
+      fs.lstat(snapshot.absolutePath, { bigint: true })
+    ]);
+    if (
+      !sameObjectIdentity(snapshot.identity, restored) ||
+      !sameObjectIdentity(restored, restoredPath) ||
+      restored.size !== BigInt(snapshot.content.length)
+    ) {
+      throw new Error(`Release build tsconfig identity changed during restoration: ${snapshot.absolutePath}`);
+    }
+    const reread = Buffer.alloc(snapshot.content.length);
+    let offset = 0;
+    while (offset < reread.length) {
+      const { bytesRead } = await handle.read(reread, offset, reread.length - offset, offset);
+      if (bytesRead === 0) break;
+      offset += bytesRead;
+    }
+    const finalIdentity = await handle.stat({ bigint: true });
+    if (
+      offset !== snapshot.content.length ||
+      !reread.equals(snapshot.content) ||
+      !sameExactIdentity(restored, finalIdentity)
+    ) {
+      throw new Error(`Release build tsconfig bytes changed during restoration: ${snapshot.absolutePath}`);
+    }
+  } finally {
+    await handle.close().catch(() => undefined);
   }
+}
 
-  await fs.writeFile(snapshot.absolutePath, snapshot.content);
+function assertSafeRegularFile(identity, label) {
+  if (identity.isSymbolicLink() || !identity.isFile() || identity.nlink !== 1n) {
+    throw new Error(`${label} must be one regular non-symlink, non-hardlinked file.`);
+  }
+}
+
+function sameObjectIdentity(left, right) {
+  return left.dev === right.dev &&
+    left.ino === right.ino &&
+    left.nlink === right.nlink &&
+    left.isFile() === right.isFile();
+}
+
+function sameExactIdentity(left, right) {
+  return sameObjectIdentity(left, right) &&
+    left.mode === right.mode &&
+    left.size === right.size &&
+    left.mtimeNs === right.mtimeNs &&
+    left.ctimeNs === right.ctimeNs;
 }
 
 export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
@@ -98,13 +228,30 @@ export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
   const absoluteDistDir = path.resolve(REPO_ROOT, distDir);
   assertSafeBuildGateDistDir(absoluteDistDir);
 
+  const tsconfigPath = normalizeTsconfigPath(
+    options.tsconfigPath ?? env.NEXT_TSCONFIG_PATH ?? DEFAULT_TSCONFIG_PATH
+  );
+
   return {
     absoluteDistDir,
     cleanup: options.cleanup ?? env.MAIS_RELEASE_BUILD_GATE_KEEP_DIST_DIR !== "1",
     distDir,
     runId,
-    tsconfigPath: options.tsconfigPath ?? env.NEXT_TSCONFIG_PATH ?? DEFAULT_TSCONFIG_PATH
+    tsconfigPath
   };
+}
+
+function normalizeTsconfigPath(value) {
+  const raw = String(value).trim();
+  if (!raw) throw new Error("Release build tsconfig path cannot be empty.");
+  const absolute = path.resolve(REPO_ROOT, raw);
+  if (!isInside(absolute, REPO_ROOT) || absolute === REPO_ROOT) {
+    throw new Error(`Release build tsconfig must stay inside the repository: ${absolute}`);
+  }
+  if (path.dirname(absolute) !== REPO_ROOT || !/^tsconfig(?:[.][a-zA-Z0-9_-]+)*[.]json$/.test(path.basename(absolute))) {
+    throw new Error(`Release build tsconfig must be one root tsconfig*.json file: ${raw}`);
+  }
+  return toPosix(path.relative(REPO_ROOT, absolute));
 }
 
 async function verifyBuildOutputs(absoluteDistDir) {

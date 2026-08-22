@@ -12,6 +12,8 @@ const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconf
 const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
 const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
 const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
+const e2eCrashpadDir = process.env.PLAYWRIGHT_CRASHPAD_DIR?.trim();
+const disableCrashpadForTestingArgument = "--disable-crashpad-for-testing";
 process.env.PLAYWRIGHT_RUN_ID = runId;
 process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
 process.env.HK_MATH_DB_PATH = e2eDbPath;
@@ -53,6 +55,7 @@ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIs
 
 assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
+if (e2eCrashpadDir) assertSafeE2eGeneratedPath("PLAYWRIGHT_CRASHPAD_DIR", e2eCrashpadDir);
 
 function sanitizePathSegment(value: string) {
   return value
@@ -157,6 +160,14 @@ export default defineConfig({
   use: {
     baseURL,
     channel: browserChannel || undefined,
+    launchOptions: e2eCrashpadDir
+      ? {
+          args: [
+            disableCrashpadForTestingArgument,
+            `--breakpad-dump-location=${path.resolve(e2eCrashpadDir)}`
+          ]
+        }
+      : undefined,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
@@ -180,11 +191,23 @@ export default defineConfig({
   projects: [
     {
       name: "desktop-chrome",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 1100 } }
+      use: {
+        ...devices["Desktop Chrome"],
+        // Playwright Test 1.57 does not forward the top-level `screen` device
+        // option through its fixture pipeline. Keep the reviewed screen in
+        // contextOptions as well so window.screen remains independently
+        // frozen instead of collapsing to the viewport dimensions.
+        contextOptions: { screen: { width: 1920, height: 1080 } },
+        viewport: { width: 1440, height: 1100 }
+      }
     },
     {
       name: "mobile-chrome",
-      use: { ...devices["Pixel 5"], isMobile: true }
+      use: {
+        ...devices["Pixel 5"],
+        contextOptions: { screen: { width: 393, height: 851 } },
+        isMobile: true
+      }
     }
   ]
 });

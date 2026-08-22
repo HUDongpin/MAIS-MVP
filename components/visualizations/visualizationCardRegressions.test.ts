@@ -24,3 +24,10 @@ test("visualization card keeps the manual mark-explored button removed", () => {
   assert.doesNotMatch(source, /en: "Mark explored"/);
   assert.doesNotMatch(source, /data-viz-mark-explored-button/);
 });
+
+test("visualization card can replace backdrop blur with an opaque deterministic surface", () => {
+  assert.match(source, /opaqueSurface = false/);
+  assert.match(source, /opaqueSurface\?: boolean/);
+  assert.match(source, /opaqueSurface\s+\? "overflow-hidden rounded-2xl border border-slate-200 bg-white/);
+  assert.match(source, /: "glass-panel overflow-hidden p-4 sm:p-6"/);
+});

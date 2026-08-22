@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
-import { resolveConfiguredThreeDRenderPlan } from "./configuredThreeDRenderPlan";
+import {
+  resolveConfiguredThreeDRenderPlan,
+  usesAuditedTwoDimensionalValueRenderer
+} from "./configuredThreeDRenderPlan";
 import { familyForVisualizationTemplate, threeDFamilyIds } from "./threeDSceneMath";
 import type { ThreeDFamilyId } from "./threeDSceneTypes";
 
@@ -208,6 +211,32 @@ test("configured Three.js render plan keeps the reported California S6 function-
   assert.equal(plan.regionalPriority, "california");
   assert.equal(plan.showThreeDCanvas, false);
   assert.equal(plan.state.templateId, "function-family");
+  assert.equal(
+    usesAuditedTwoDimensionalValueRenderer({
+      familyId: "three-function-family",
+      labId: "us-ca-math-s6-chapter-04",
+      templateId: "function-family"
+    }),
+    true
+  );
+  assert.equal(
+    usesAuditedTwoDimensionalValueRenderer({
+      familyId: "three-function-family",
+      labId: "us-ca-math-s6-chapter-02",
+      templateId: "function-family"
+    }),
+    false,
+    "The audited 2D exception must not admit another California premium route."
+  );
+  assert.equal(
+    usesAuditedTwoDimensionalValueRenderer({
+      familyId: "three-function-graph",
+      labId: "us-ca-math-s6-chapter-04",
+      templateId: "function-family"
+    }),
+    false,
+    "The audited 2D exception must fail closed if the reviewed family changes."
+  );
 });
 
 test("configured renderer consumes the pure Three.js render plan", () => {

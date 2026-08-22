@@ -511,11 +511,14 @@ export function ThreeDLabCanvas({
   fallback,
   label,
   onCanvasReady,
+  presentation = "authoring",
   premiumLaunch = false,
   regionalPriority,
   runtime = "primitive",
   state
 }: ThreeDLabCanvasProps) {
+  const showAuthoringControls = presentation === "authoring";
+  const presentationResetPlaybackState: ManimPlaybackState = presentation === "learner" ? "paused" : "playing";
   const [canvasReady, setCanvasReady] = useState(false);
   const [cameraState, setCameraState] = useState(formatThreeDCanvasCameraState(threeDCanvasCameraContract.defaultCamera));
   const [manimAuthoringMode, setManimAuthoringMode] = useState<ManimAuthoringMode>("playback");
@@ -3493,14 +3496,14 @@ export function ThreeDLabCanvas({
     setManimElapsedSeconds(0);
     setManimFrameIndex(0);
     setSteppedManimFrameStep(null);
-    setManimPlaybackState("playing");
+    setManimPlaybackState(presentationResetPlaybackState);
     setManimRunFromBeatIndex(0);
     setManimSelectedSceneFamilyId(state.familyId);
     setManimSelectedParameterId("value");
     setManimHistoryStore(createSceneHistoryStore(initialManimCheckpointState(manimHistorySceneId), { label: "reset" }));
     setCameraState(formatThreeDCanvasCameraState(threeDCanvasCameraContract.defaultCamera));
     setResetSignal((current) => current + 1);
-  }, [manimHistorySceneId, state.familyId]);
+  }, [manimHistorySceneId, presentationResetPlaybackState, state.familyId]);
 
   const switchManimCameraMode = useCallback((mode: ManimCameraMode) => {
     setManimHistoryStore((currentStore) => pushSceneHistory(currentStore, currentManimHistoryState({ cameraMode: mode }), {
@@ -3759,11 +3762,11 @@ export function ThreeDLabCanvas({
     setManimFrameIndex(0);
     setSteppedManimFrameStep(null);
     setManimHistoryStore(createSceneHistoryStore(initialManimCheckpointState(manimHistorySceneId), { label: "initial" }));
-    setManimPlaybackState("playing");
+    setManimPlaybackState(presentationResetPlaybackState);
     setManimRunFromBeatIndex(0);
     setManimSelectedParameterId("value");
     previousManimRuntimeStateRef.current = null;
-  }, [manimHistorySceneId, runtime, state.familyId]);
+  }, [manimHistorySceneId, presentationResetPlaybackState, runtime, state.familyId]);
 
   useEffect(() => {
     return () => {
@@ -11012,6 +11015,8 @@ export function ThreeDLabCanvas({
           ))}
           <div
             data-viz-manim-control-dock
+            data-viz-manim-presentation={presentation}
+            data-viz-manim-authoring-controls-visible={String(showAuthoringControls)}
             className="relative z-10 flex flex-col gap-2 border-t border-white/10 bg-slate-950/88 p-2 text-[11px] font-black text-cyan-50 shadow-inner shadow-slate-950/20 sm:p-3"
           >
             <div data-viz-manim-control-row="camera" className="flex min-w-0 flex-wrap items-center gap-2">
@@ -11023,6 +11028,7 @@ export function ThreeDLabCanvas({
               >
                 Reset camera
               </button>
+          {showAuthoringControls ? (
           <div
             data-viz-manim-camera-mode-control
             role="group"
@@ -11069,7 +11075,9 @@ export function ThreeDLabCanvas({
               ))}
             </select>
           </div>
+          ) : null}
             </div>
+            {showAuthoringControls ? (
             <div data-viz-manim-control-row="capture" className="flex min-w-0 flex-wrap items-center gap-2">
           <div
             data-viz-manim-capture-control
@@ -11134,6 +11142,7 @@ export function ThreeDLabCanvas({
             </button>
           </div>
             </div>
+            ) : null}
             <div data-viz-manim-control-row="playback" className="flex min-w-0 flex-wrap items-center gap-2">
           <div
             data-viz-manim-playback-control
@@ -11167,6 +11176,7 @@ export function ThreeDLabCanvas({
             <span data-viz-manim-timeline-label className="tabular-nums text-cyan-50/85">
               {manimElapsedSeconds.toFixed(1)}s / {manimTotalDuration.toFixed(1)}s
             </span>
+            {showAuthoringControls ? (
             <div data-viz-manim-parameter-panel-control className="flex min-w-0 flex-wrap items-center gap-1">
               <select
                 aria-label="Inspect MAIS Manim parameter"
@@ -11188,6 +11198,8 @@ export function ThreeDLabCanvas({
                 {activeManimParameter ? activeManimParameter.value.toFixed(2) : "n/a"}
               </span>
             </div>
+            ) : null}
+            {showAuthoringControls ? (
             <div data-viz-manim-checkpoint-control className="flex min-w-0 flex-wrap items-center gap-1">
               <input
                 data-viz-manim-checkpoint-paste-input
@@ -11223,6 +11235,8 @@ export function ThreeDLabCanvas({
                 Restore {manimCheckpointKeys.length}
               </button>
             </div>
+            ) : null}
+            {showAuthoringControls ? (
             <div data-viz-manim-history-control className="flex min-w-0 flex-wrap items-center gap-1">
               <button
                 type="button"
@@ -11243,6 +11257,8 @@ export function ThreeDLabCanvas({
                 Redo
               </button>
             </div>
+            ) : null}
+            {showAuthoringControls ? (
             <div data-viz-manim-authoring-control className="flex min-w-0 flex-wrap items-center gap-1">
               <select
                 data-viz-manim-run-from-beat
@@ -11266,6 +11282,7 @@ export function ThreeDLabCanvas({
                 Final
               </button>
             </div>
+            ) : null}
           </div>
             </div>
           </div>

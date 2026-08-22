@@ -1859,6 +1859,20 @@ export default function CommutativeLab() {
           .stage {
             --stage-h: 380px;
           }
+          .opsw {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+          }
+          .opsw .dk {
+            grid-row: auto;
+          }
+          .segs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+          }
+          .drole.full {
+            grid-column: 1;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .btn,
