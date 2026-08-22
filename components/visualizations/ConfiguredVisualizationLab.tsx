@@ -3380,8 +3380,15 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                 coverageTier={threeDRenderPlan.coverageTier}
                 fallback={svgSurface}
                 label={surfaceLabel}
+                learnerControlLabels={{
+                  pause: t({ en: "Pause", zh: "暫停", zhHans: "暂停" }),
+                  play: t({ en: "Play", zh: "播放", zhHans: "播放" }),
+                  resetCamera: t({ en: "Reset camera", zh: "重設視角", zhHans: "重置视角" }),
+                  timeline: t({ en: "Animation timeline", zh: "動畫時間軸", zhHans: "动画时间轴" })
+                }}
                 onCanvasReady={() => setThreeDCanvasReady(true)}
                 premiumLaunch={threeDRenderPlan.premiumLaunch}
+                presentation="learner"
                 regionalPriority={threeDRenderPlan.regionalPriority}
                 runtime={threeDRenderPlan.runtime}
                 state={threeDRenderPlan.state}

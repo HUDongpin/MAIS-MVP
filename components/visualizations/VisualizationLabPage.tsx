@@ -6,7 +6,16 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { VisualizationCard } from "@/components/visualizations/VisualizationCard";
 import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
-import { buildVisualizationLabHref, buildVisualizationPracticeHref, buildVisualizationSessionModuleId, buildVisualizationSnapshotMarkSample } from "@/components/visualizations/visualizationDiagnostics";
+import { resolveVisualizationLabDisplayCopy } from "@/components/visualizations/visualizationLabDisplayMetadata";
+import { signatureBenchLabel } from "@/components/visualizations/signatureBenchLabel";
+import {
+  buildVisualizationDirectoryLabHref,
+  buildVisualizationLabHref,
+  buildVisualizationPracticeHref,
+  buildVisualizationSessionModuleId,
+  buildVisualizationSnapshotMarkSample,
+  isPremiumThreeDTopicPageLab
+} from "@/components/visualizations/visualizationDiagnostics";
 import { ccssStandardEmoji, defaultLabEmoji, visualizationTemplateEmoji } from "@/data/visualizationLabEmoji";
 import { gradeIds } from "@/data/grades";
 import { getSignatureLabAssignment, type SignatureLabId } from "@/data/signatureLabAssignments";
@@ -1687,15 +1696,6 @@ function componentForDirectoryLab(lab: FeaturedLabDefinition | null) {
   return labComponentRegistry[lab.moduleId] ?? ConfiguredVisualizationLab;
 }
 
-/** "ExponentialFunctionLab" -> "Exponential Function" for a switcher chip. */
-function signatureBenchLabel(id: SignatureLabId): string {
-  return id
-    .replace(/Lab$/, "")
-    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
-    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
-    .trim();
-}
-
 /**
  * Renders a signature lab and, when its topic's assignment fans out to several
  * benches, a chip row that switches between them. The `primary` renders by
@@ -1709,6 +1709,9 @@ function SignatureBenchSwitcher({
   lab,
   topicId,
   labId,
+  labelForBench,
+  primaryBenchLabel,
+  relatedLabsLabel,
   onRuntimeReady,
   onBenchSwitch
 }: {
@@ -1716,6 +1719,9 @@ function SignatureBenchSwitcher({
   lab: FeaturedLabDefinition;
   topicId: string;
   labId?: string;
+  labelForBench: (benchId: SignatureLabId, benchIndex: number) => string;
+  primaryBenchLabel: string;
+  relatedLabsLabel: string;
   onRuntimeReady?: (labId: string) => void;
   /**
    * Fired when the student switches to a DIFFERENT bench. Until 2026-07-25 this
@@ -1724,15 +1730,10 @@ function SignatureBenchSwitcher({
    * here, behind a click, rather than as a topic's `primary`. Re-selecting the
    * bench already showing is not a switch and is not reported.
    *
-   * READ THIS BEFORE ANALYSING VISUALIZATION-PROBE COUNTS. Switching remounts
-   * the bench (the `key` below), and `SignatureLabAdapter` emits a
-   * `visualization-probe` from a mount effect. That probe carries the TOPIC's
-   * id, not the bench's — so on a fan-out topic every switch adds a probe that
-   * is indistinguishable from opening the lab fresh, and probe counts per topic
-   * over-state opens. The probe is left alone deliberately: dashboards already
-   * aggregate on it and its shape is load-bearing. Use the `bench-switch`
-   * navigation events emitted here to subtract switches from probe counts —
-   * one is emitted immediately before each remount.
+   * Switching remounts the bench (the `key` below). The adapter deliberately
+   * performs no network or analytics write on mount, so a switch produces only
+   * the explicit `bench-switch` navigation event emitted here. This keeps
+   * page-load and interaction counts stable across React remounts.
    */
   onBenchSwitch?: (benchId: SignatureLabId) => void;
 }) {
@@ -1741,45 +1742,106 @@ function SignatureBenchSwitcher({
     [assignment]
   );
   const [activeBenchId, setActiveBenchId] = useState<SignatureLabId>(assignment.primary);
+  const switcherDomId = useMemo(
+    () => `signature-${(labId ?? topicId).replace(/[^a-zA-Z0-9_-]+/g, "-")}`,
+    [labId, topicId]
+  );
+  const panelId = `${switcherDomId}-panel`;
 
   // Reset to the primary whenever the topic (and thus the assignment) changes.
   useEffect(() => {
     setActiveBenchId(assignment.primary);
   }, [assignment.primary, topicId]);
 
-  const BenchComponent = SignatureLabRoutes[activeBenchId] ?? SignatureLabRoutes[assignment.primary];
+  // Effects run after paint. Resolve an assignment change synchronously as
+  // well, so a newly selected topic can never render the previous topic's
+  // active bench for one frame while the reset effect catches up.
+  const resolvedActiveBenchId = benchIds.includes(activeBenchId) ? activeBenchId : assignment.primary;
+  const BenchComponent = SignatureLabRoutes[resolvedActiveBenchId] ?? SignatureLabRoutes[assignment.primary];
+
+  function activateBench(benchId: SignatureLabId) {
+    if (benchId === resolvedActiveBenchId) return;
+    onBenchSwitch?.(benchId);
+    setActiveBenchId(benchId);
+  }
 
   return (
-    <div data-viz-signature-switcher>
+    <div
+      data-viz-signature-switcher
+      data-viz-active-signature-bench={resolvedActiveBenchId}
+    >
       {benchIds.length > 1 ? (
-        <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Related labs for this topic">
-          {benchIds.map((benchId) => {
-            const isActive = benchId === activeBenchId;
+        <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label={relatedLabsLabel}>
+          {benchIds.map((benchId, benchIndex) => {
+            const isActive = benchId === resolvedActiveBenchId;
+            const tabId = `${switcherDomId}-tab-${benchId}`;
+            const benchLabel = labelForBench(benchId, benchIndex);
+            const accessibleBenchLabel = benchId === assignment.primary
+              ? `${benchLabel} · ${primaryBenchLabel}`
+              : benchLabel;
             return (
               <button
                 key={benchId}
+                id={tabId}
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => {
-                  if (benchId === activeBenchId) return;
-                  onBenchSwitch?.(benchId);
-                  setActiveBenchId(benchId);
+                aria-controls={panelId}
+                aria-label={accessibleBenchLabel}
+                data-viz-signature-bench-id={benchId}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => activateBench(benchId)}
+                onKeyDown={(event) => {
+                  let nextIndex: number | null = null;
+
+                  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                    nextIndex = (benchIndex + 1) % benchIds.length;
+                  } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                    nextIndex = (benchIndex - 1 + benchIds.length) % benchIds.length;
+                  } else if (event.key === "Home") {
+                    nextIndex = 0;
+                  } else if (event.key === "End") {
+                    nextIndex = benchIds.length - 1;
+                  }
+
+                  if (nextIndex === null) return;
+                  event.preventDefault();
+                  const tabs = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>(
+                    "[data-viz-signature-bench-id]"
+                  );
+                  const nextTab = tabs?.[nextIndex];
+                  nextTab?.focus();
+                  nextTab?.click();
                 }}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
+                className={`min-h-11 rounded-full border px-3.5 py-1.5 text-xs font-black transition ${
                   isActive
                     ? "border-cyan-500 bg-cyan-500 text-white shadow"
                     : "border-slate-300 bg-white text-slate-600 hover:border-cyan-300 hover:text-slate-900 dark:border-slate-100/20 dark:bg-transparent dark:text-slate-200"
                 }`}
               >
-                {signatureBenchLabel(benchId)}
-                {benchId === assignment.primary ? <span className="ml-1.5 opacity-70">· primary</span> : null}
+                {benchLabel}
+                {benchId === assignment.primary ? <span className="ml-1.5">· {primaryBenchLabel}</span> : null}
               </button>
             );
           })}
         </div>
       ) : null}
-      <BenchComponent key={activeBenchId} lab={lab} topicId={topicId} labId={labId} onRuntimeReady={onRuntimeReady} />
+      <div
+        id={panelId}
+        role={benchIds.length > 1 ? "tabpanel" : undefined}
+        aria-labelledby={benchIds.length > 1 ? `${switcherDomId}-tab-${resolvedActiveBenchId}` : undefined}
+        data-viz-signature-bench-panel={resolvedActiveBenchId}
+        tabIndex={benchIds.length > 1 ? 0 : undefined}
+        className="focus-ring rounded-2xl [&_[data-viz-keyboard-equivalent]_button]:min-h-11 [&_[data-viz-keyboard-equivalent]_button]:min-w-11 [&_[data-viz-keyboard-equivalent]_input]:min-h-11 [&_[data-viz-keyboard-equivalent]_select]:min-h-11 [&_[data-viz-keyboard-equivalent]_select]:min-w-11"
+      >
+        <BenchComponent
+          key={resolvedActiveBenchId}
+          lab={lab}
+          topicId={topicId}
+          labId={labId}
+          onRuntimeReady={onRuntimeReady}
+        />
+      </div>
     </div>
   );
 }
@@ -1875,7 +1937,7 @@ function labMatchesLearnerCurriculum(lab: FeaturedLabDefinition, currentUser: St
 
   const publisher = currentUser.curriculumProfile.publisher;
   if (isUnitedStatesMathUser(currentUser)) return lab.curriculumTrack === "US" && lab.publisher === publisher;
-  if (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.premiumLaunch) return true;
+  if (lab.curriculumTrack === "CAPSTONE" && isPremiumThreeDTopicPageLab(lab)) return true;
 
   if (publisher === "MAINLAND_PEP") return isMainlandPepVisualizationTrack(lab.curriculumTrack);
   if (publisher === "MAINLAND_HJB") return lab.curriculumTrack === "MAINLAND_HJB";
@@ -2067,12 +2129,15 @@ function labTileEmojiForLab(lab: FeaturedLabDefinition) {
 }
 
 function LabRuntimeLoading() {
+  const { t } = useSettings();
+
   return (
     <div
-      className="grid min-h-[28rem] place-items-center rounded-2xl border border-cyan-200 bg-cyan-50/70 p-6 text-center text-sm font-black text-cyan-800 shadow-inner"
+      className="grid min-h-[28rem] place-items-center rounded-2xl border border-cyan-200 bg-cyan-50/70 p-6 text-center text-sm font-black text-cyan-800 shadow-inner dark:border-cyan-300/25 dark:bg-cyan-300/10 dark:text-cyan-100"
       data-viz-lab-runtime-loading
+      role="status"
     >
-      Loading lab runtime...
+      {t({ en: "Loading lab runtime…", zh: "正在載入實驗…", zhHans: "正在加载实验…" })}
     </div>
   );
 }
@@ -2160,6 +2225,7 @@ function LabTile({
   active,
   categoryChipLabel,
   description,
+  displayDisambiguator,
   emoji,
   exploredLabel,
   gradeBadgeLabel,
@@ -2175,6 +2241,7 @@ function LabTile({
   active: boolean;
   categoryChipLabel: string;
   description: string;
+  displayDisambiguator: string | null;
   emoji: string;
   exploredLabel: string;
   gradeBadgeLabel: string;
@@ -2191,6 +2258,7 @@ function LabTile({
   const standardIds = labTileStandardIds(lab);
   const visibleStandardIds = standardIds.slice(0, 3);
   const extraStandardCount = standardIds.length - visibleStandardIds.length;
+  const accessibleTitle = displayDisambiguator ? `${title} · ${displayDisambiguator}` : title;
 
   return (
     <a
@@ -2198,6 +2266,11 @@ function LabTile({
       href={href}
       onClick={(event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        // Premium cards advertise a canonical 3D route in their href. Let the
+        // browser follow that same route for an ordinary click so click,
+        // keyboard activation, copy-link, and open-in-new-tab cannot display
+        // different experiments for one lab ID.
+        if (isPremiumThreeDTopicPageLab(lab)) return;
         event.preventDefault();
         onOpen();
       }}
@@ -2227,11 +2300,19 @@ function LabTile({
       </span>
       <span
         lang={/^[\x00-\x7F\s'-]+$/.test(title) ? "en" : undefined}
-        title={title}
+        title={accessibleTitle}
         className="mt-3 line-clamp-2 min-w-0 break-words font-bold leading-snug text-slate-950 [overflow-wrap:anywhere] group-hover:text-[#2f5fe0] dark:text-white dark:group-hover:text-[#6f95ff]"
       >
         {title}
       </span>
+      {displayDisambiguator ? (
+        <span
+          data-viz-display-disambiguator
+          className="mt-1.5 self-start rounded-full bg-amber-100 px-2.5 py-1 text-[0.68rem] font-black leading-none text-amber-900 dark:bg-amber-300/15 dark:text-amber-100"
+        >
+          {displayDisambiguator}
+        </span>
+      ) : null}
       <span className="mt-1.5 line-clamp-3 flex-1 text-sm text-[#4a4f5c] dark:text-[#b9bdcc]">{description}</span>
       <span className="mt-3 flex flex-wrap items-center gap-1.5">
         {visibleStandardIds.map((standardId) => (
@@ -2354,17 +2435,66 @@ function VisualizationHeroTeaser({ eyebrow, tagline }: { eyebrow: string; taglin
   );
 }
 
+function VisualizationCatalogLoadError({ requestedLabId }: { requestedLabId: string | null }) {
+  const { t } = useSettings();
+
+  return (
+    <section
+      id={requestedLabId ? `lab-example-${requestedLabId}` : undefined}
+      aria-label={t({
+        en: "Visualization Lab workspace",
+        zh: "可視化實驗室工作區",
+        zhHans: "可视化实验室工作区"
+      })}
+      data-viz-catalog-deferred
+      data-viz-catalog-load-status="error"
+      data-viz-panel-mode="error"
+      data-viz-requested-lab-id={requestedLabId ?? ""}
+      className="page-container py-8"
+    >
+      <div
+        role="alert"
+        className="mx-auto max-w-2xl rounded-2xl border border-rose-200 bg-white p-6 text-slate-900 shadow-xl shadow-rose-900/10 dark:border-rose-300/20 dark:bg-slate-950 dark:text-white"
+      >
+        <h2 className="text-xl font-black">
+          {t({
+            en: "Visualization Labs could not load",
+            zh: "未能載入可視化實驗",
+            zhHans: "未能加载可视化实验"
+          })}
+        </h2>
+        <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+          {t({
+            en: "Check your connection, then try loading the catalog again.",
+            zh: "請檢查網絡連線，然後重新載入實驗目錄。",
+            zhHans: "请检查网络连接，然后重新加载实验目录。"
+          })}
+        </p>
+        <button
+          type="button"
+          data-viz-retry-catalog-load
+          onClick={() => window.location.reload()}
+          className="focus-ring mt-5 inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl bg-rose-600 px-5 py-2 text-sm font-black text-white shadow-md shadow-rose-600/25 transition hover:-translate-y-0.5 hover:bg-rose-500"
+        >
+          {t({ en: "Try again", zh: "重試", zhHans: "重试" })}
+        </button>
+      </div>
+    </section>
+  );
+}
+
 export function VisualizationLabPage(props: VisualizationLabPageProps = {}) {
+  const { t } = useSettings();
   const { onRouteShellReady } = props;
   const [catalog, setCatalog] = useState<VisualizationCatalogState | null>(null);
   const [catalogLoadFailed, setCatalogLoadFailed] = useState(false);
   const loadingWorkspaceLabId = getInitialVisualizationLabRequestedLabId(props.initialLabId, getVisualizationLabRouteLocation());
-  const loadingWorkspaceSectionId = props.suppressLoadingWorkspaceSelector ? null : loadingWorkspaceLabId;
+  const loadingWorkspaceSectionId = loadingWorkspaceLabId;
 
   useLayoutEffect(() => {
-    if (!catalog) return;
+    if (!catalog && !catalogLoadFailed) return;
     onRouteShellReady?.();
-  }, [catalog, onRouteShellReady]);
+  }, [catalog, catalogLoadFailed, onRouteShellReady]);
 
   useEffect(() => {
     let mounted = true;
@@ -2389,10 +2519,24 @@ export function VisualizationLabPage(props: VisualizationLabPageProps = {}) {
   }, []);
 
   if (!catalog) {
+    // The route shell already owns the visible loading workspace while this
+    // client-only page and its deferred catalog chunk load. Rendering a second
+    // full skeleton here produces two stacked "Preparing visualizations"
+    // panels on slow connections. Standalone embeds still keep this fallback.
+    if (props.suppressLoadingWorkspaceSelector && !catalogLoadFailed) return null;
+
+    if (catalogLoadFailed) {
+      return <VisualizationCatalogLoadError requestedLabId={loadingWorkspaceLabId} />;
+    }
+
     return (
       <section
         id={loadingWorkspaceSectionId ? `lab-example-${loadingWorkspaceSectionId}` : undefined}
-        aria-label="Visualization Lab workspace"
+        aria-label={t({
+          en: "Visualization Lab workspace",
+          zh: "可視化實驗室工作區",
+          zhHans: "可视化实验室工作区"
+        })}
         data-viz-catalog-deferred
         data-viz-catalog-load-status={catalogLoadFailed ? "error" : "loading"}
         data-viz-panel-mode="loading"
@@ -2495,9 +2639,13 @@ function VisualizationLabPageContent({
     activeDirectoryLab?.moduleId === "signature-lab"
       ? getSignatureLabAssignment(activeDirectoryLab.topicId)
       : null;
-  const activeHasRelatedBenches = (activeSignatureAssignment?.related?.length ?? 0) > 0;
   const activeDirectorySessionModuleId = activeDirectoryLab ? buildVisualizationSessionModuleId(activeDirectoryLab) : null;
-  const activeDirectoryLabHref = activeDirectoryLab ? buildVisualizationLabHref(activeDirectoryLab, effectiveTrackFilter) : null;
+  // This panel is the catalog/signature renderer. Its copy and snapshot links
+  // must preserve that exact renderer even when the topic also has a premium
+  // 3D canonical route.
+  const activeDirectoryLabHref = activeDirectoryLab
+    ? buildVisualizationDirectoryLabHref(activeDirectoryLab, effectiveTrackFilter)
+    : null;
   const activeLabCanDistribute = labAllowsExternalDistribution(activeDirectoryLab);
   const activeLabSafeguardStatus = activeDirectoryLab?.safeguard?.status ?? "none";
   const recommendedLabHref = recommendedLab
@@ -2643,6 +2791,15 @@ function VisualizationLabPageContent({
 
   function displayCatalogText(value: string) {
     return simplifyChineseText(value, language);
+  }
+
+  function displayLabCopy(lab: FeaturedLabDefinition, compact = false) {
+    const copy = resolveVisualizationLabDisplayCopy(lab, language);
+    return {
+      accessibleTitle: displayCatalogText(copy.accessibleTitle),
+      disambiguator: copy.disambiguator ? displayCatalogText(copy.disambiguator) : null,
+      title: displayCatalogText(compact ? compactTitle(copy.title) : copy.title)
+    };
   }
 
   function displayLabGradeLabel(lab: FeaturedLabDefinition) {
@@ -3057,6 +3214,8 @@ function VisualizationLabPageContent({
     : directLinkStatus === "unavailable"
       ? t({ en: "This lab exists, but it is not available under the current curriculum or filter.", zh: "此實驗存在，但不屬於目前課程或篩選條件。", zhHans: "此实验存在，但不属于当前课程或筛选条件。" })
       : null;
+  const recommendedDisplayCopy = recommendedLab ? displayLabCopy(recommendedLab, true) : null;
+  const activeDirectoryDisplayCopy = activeDirectoryLab ? displayLabCopy(activeDirectoryLab) : null;
 
   return (
     <div className="min-h-full overflow-hidden bg-transparent text-slate-950">
@@ -3090,11 +3249,12 @@ function VisualizationLabPageContent({
                     <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
                       <a
                         href={recommendedLabHref}
-                        onClick={(event) => {
-                          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-                          if (!recommendedLab) return;
-                          event.preventDefault();
-                          selectDirectoryLab(recommendedLab, "start-quest");
+                      onClick={(event) => {
+                        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                        if (!recommendedLab) return;
+                        if (isPremiumThreeDTopicPageLab(recommendedLab)) return;
+                        event.preventDefault();
+                        selectDirectoryLab(recommendedLab, "start-quest");
                         }}
                         data-viz-start-quest-link
                         data-viz-recommended-lab-id={recommendedLab?.labId ?? ""}
@@ -3139,8 +3299,10 @@ function VisualizationLabPageContent({
                   {recommendedLab ? (
                     <a
                       href={recommendedLabHref}
+                      aria-label={recommendedDisplayCopy?.accessibleTitle}
                       onClick={(event) => {
                         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                        if (isPremiumThreeDTopicPageLab(recommendedLab)) return;
                         event.preventDefault();
                         selectDirectoryLab(recommendedLab, "next-up-card");
                       }}
@@ -3163,8 +3325,16 @@ function VisualizationLabPageContent({
                               youngLearnerMode ? "text-lg" : ""
                             )}
                           >
-                            {displayCatalogText(compactTitle(text(recommendedLab.title)))}
+                            {recommendedDisplayCopy?.title}
                           </span>
+                          {recommendedDisplayCopy?.disambiguator ? (
+                            <span
+                              data-viz-display-disambiguator
+                              className="mt-1.5 inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-[0.68rem] font-black leading-none text-amber-900 dark:bg-amber-300/15 dark:text-amber-100"
+                            >
+                              {recommendedDisplayCopy.disambiguator}
+                            </span>
+                          ) : null}
                           <span className={cn("mt-1 block font-bold text-slate-600 dark:text-slate-300", youngLearnerMode ? "text-base leading-7" : "text-sm leading-6")}>
                             {recommendedLabIsProgressBased ? nextUpProgressHint : (
                               <span className="line-clamp-2">{displayCatalogText(text(recommendedLab.description))}</span>
@@ -3233,20 +3403,22 @@ function VisualizationLabPageContent({
                       {visibleLabs.map((lab) => {
                         const explored = exploredSessionIds.has(buildVisualizationSessionModuleId(lab));
                         const isRecommended = recommendedLab?.labId === lab.labId;
+                        const displayCopy = displayLabCopy(lab, true);
                         return (
                           <a
                             key={lab.labId}
                             href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
                             onClick={(event) => {
                               if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                              if (isPremiumThreeDTopicPageLab(lab)) return;
                               event.preventDefault();
                               selectDirectoryLab(lab, "mission-strip");
                             }}
                             data-viz-mission-strip-lab={lab.labId}
                             data-viz-mission-strip-lab-explored={String(explored)}
-                            title={displayCatalogText(text(lab.title))}
+                            title={displayCopy.accessibleTitle}
                             className={cn(
-                              "focus-ring group inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-bold transition hover:-translate-y-0.5",
+                              "focus-ring group inline-flex min-h-11 min-w-11 shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-bold transition hover:-translate-y-0.5",
                               explored
                                 ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-100"
                                 : isRecommended
@@ -3258,8 +3430,16 @@ function VisualizationLabPageContent({
                               {labTileEmojiForLab(lab)}
                             </span>
                             <span className="max-w-[9rem] truncate">
-                              {displayCatalogText(compactTitle(text(lab.title)))}
+                              {displayCopy.title}
                             </span>
+                            {displayCopy.disambiguator ? (
+                              <span
+                                data-viz-display-disambiguator
+                                className="shrink-0 rounded-full bg-amber-100 px-2 py-1 text-[0.65rem] font-black leading-none text-amber-900 dark:bg-amber-300/15 dark:text-amber-100"
+                              >
+                                {displayCopy.disambiguator}
+                              </span>
+                            ) : null}
                             <span
                               aria-hidden="true"
                               className={cn(
@@ -3330,7 +3510,7 @@ function VisualizationLabPageContent({
                         data-viz-track-filter-active={String(trackFilter === option)}
                         data-viz-track-filter-value={option}
                         className={cn(
-                          "focus-ring rounded-full border px-3 py-1.5 text-xs font-black leading-none transition hover:-translate-y-0.5",
+                          "focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border px-3 py-1.5 text-xs font-black leading-none transition hover:-translate-y-0.5",
                           trackFilter === option
                             ? "border-cyan-400 bg-cyan-400 text-slate-950 shadow-md shadow-cyan-500/20"
                             : "border-slate-200 bg-white text-slate-500 hover:bg-cyan-50 dark:border-white/15 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-cyan-950/40"
@@ -3414,25 +3594,29 @@ function VisualizationLabPageContent({
                 <div ref={labGridRef} className="scroll-mt-24">
                   {visibleLabs.length > 0 ? (
                     <div className="mt-6 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                      {visibleLabs.map((lab) => (
-                        <LabTile
-                          key={lab.labId}
-                          active={activeDirectoryLab?.labId === lab.labId}
-                          categoryChipLabel={displayCatalogText(text(lab.category))}
-                          description={displayCatalogText(text(lab.description))}
-                          emoji={labTileEmojiForLab(lab)}
-                          gradeBadgeLabel={displayGradeChipLabel(lab.grade)}
-                          isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
-                          lab={lab}
-                          href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
-                          onOpen={() => selectDirectoryLab(lab, "lab-tile")}
-                          recommended={recommendedLab?.labId === lab.labId}
-                          recommendedLabel={tryThisLabel}
-                          exploredLabel={exploredLabel}
-                          readyLabel={readyLabel}
-                          title={displayCatalogText(compactTitle(text(lab.title)))}
-                        />
-                      ))}
+                      {visibleLabs.map((lab) => {
+                        const displayCopy = displayLabCopy(lab, true);
+                        return (
+                          <LabTile
+                            key={lab.labId}
+                            active={activeDirectoryLab?.labId === lab.labId}
+                            categoryChipLabel={displayCatalogText(text(lab.category))}
+                            description={displayCatalogText(text(lab.description))}
+                            displayDisambiguator={displayCopy.disambiguator}
+                            emoji={labTileEmojiForLab(lab)}
+                            gradeBadgeLabel={displayGradeChipLabel(lab.grade)}
+                            isExplored={exploredSessionIds.has(buildVisualizationSessionModuleId(lab))}
+                            lab={lab}
+                            href={buildVisualizationLabHref(lab, effectiveTrackFilter)}
+                            onOpen={() => selectDirectoryLab(lab, "lab-tile")}
+                            recommended={recommendedLab?.labId === lab.labId}
+                            recommendedLabel={tryThisLabel}
+                            exploredLabel={exploredLabel}
+                            readyLabel={readyLabel}
+                            title={displayCopy.title}
+                          />
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-white/10 dark:bg-white/5">
@@ -3467,7 +3651,7 @@ function VisualizationLabPageContent({
               data-viz-current-track={activeDirectoryLab.curriculumTrack}
               data-viz-direct-lab-href={activeDirectoryLabHref ?? ""}
               data-viz-copy-controls-ready={String(isHydrated)}
-              className="rounded-[1.35rem] bg-white/95 p-4 shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 sm:p-7"
+              className="rounded-[1.35rem] bg-white p-4 shadow-2xl shadow-cyan-900/15 ring-1 ring-cyan-100 dark:bg-slate-950 dark:shadow-black/30 dark:ring-white/10 sm:p-7"
             >
               <div className="mb-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
                 <div className="flex flex-wrap items-center gap-3">
@@ -3481,13 +3665,21 @@ function VisualizationLabPageContent({
                     data-viz-back-to-control-panel-link
                     data-viz-back-to-control-panel-grade={activeDirectoryLab.grade}
                     data-viz-back-to-control-panel-track={effectiveTrackFilter}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                    className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-white/10"
                   >
                     ← {backToLabsLabel}
                   </a>
-                  <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700">
+                  <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700 dark:border-blue-200/20 dark:bg-blue-300/10 dark:text-blue-100">
                     {displayLabGradeLabel(activeDirectoryLab)}
                   </span>
+                  {activeDirectoryDisplayCopy?.disambiguator ? (
+                    <span
+                      data-viz-display-disambiguator
+                      className="rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-black text-amber-800 dark:border-amber-200/20 dark:bg-amber-300/10 dark:text-amber-100"
+                    >
+                      {activeDirectoryDisplayCopy.disambiguator}
+                    </span>
+                  ) : null}
                   <button
                     type="button"
                     onClick={copyActiveLabLink}
@@ -3496,7 +3688,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-link
                     data-viz-copy-lab-link-state={shareState}
                     data-viz-copy-lab-link-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700 dark:border-cyan-200/20 dark:bg-cyan-300/10 dark:text-cyan-100 dark:hover:bg-cyan-300/20 dark:disabled:border-slate-600 dark:disabled:bg-slate-800 dark:disabled:text-slate-200"
                   >
                     {!activeLabCanDistribute || shareState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3512,7 +3704,7 @@ function VisualizationLabPageContent({
                     data-viz-copy-lab-snapshot
                     data-viz-snapshot-state={snapshotState}
                     data-viz-snapshot-safeguard-status={activeLabSafeguardStatus}
-                    className="focus-ring inline-flex items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-violet-100 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-700 dark:border-violet-200/20 dark:bg-violet-300/10 dark:text-violet-100 dark:hover:bg-violet-300/20 dark:disabled:border-slate-600 dark:disabled:bg-slate-800 dark:disabled:text-slate-200"
                   >
                     {!activeLabCanDistribute || snapshotState === "blocked"
                       ? t({ en: "Approval required", zh: "需要批准", zhHans: "需要批准" })
@@ -3521,21 +3713,28 @@ function VisualizationLabPageContent({
                       : t({ en: "Copy snapshot", zh: "複製快照", zhHans: "复制快照" })}
                   </button>
                   {shareState === "error" ? (
-                    <span className="text-xs font-bold text-rose-600" role="status">
+                    <span className="text-xs font-bold text-rose-600 dark:text-rose-300" role="status">
                       {t({ en: "Use the address bar link.", zh: "請使用網址列連結。", zhHans: "请使用地址栏链接。" })}
                     </span>
                   ) : null}
                   {snapshotState === "error" ? (
-                    <span className="text-xs font-bold text-rose-600" role="status">
+                    <span className="text-xs font-bold text-rose-600 dark:text-rose-300" role="status">
                       {t({ en: "Snapshot unavailable.", zh: "未能複製快照。", zhHans: "未能复制快照。" })}
                     </span>
                   ) : null}
                 </div>
               </div>
 
-              <div className="min-w-0">
+              <div
+                data-viz-lab-workspace
+                className="min-w-0 [&_a[role=button]]:inline-flex [&_a[role=button]]:min-h-11 [&_a[role=button]]:min-w-11 [&_button]:min-h-11 [&_button]:min-w-11 [&_input:not([type=range])]:min-h-11 [&_input:not([type=range])]:min-w-11 [&_input[type=range]]:min-h-11 [&_input[type=range]]:min-w-0 [&_[role=slider]]:min-h-11 [&_[role=slider]]:min-w-11 [&_select]:min-h-11 [&_select]:min-w-11"
+              >
                 <VisualizationCard
-                  title={displayCatalogText(text(activeDirectoryLab.title))}
+                  accessibleTitle={
+                    activeDirectoryDisplayCopy?.accessibleTitle ??
+                    displayCatalogText(text(activeDirectoryLab.title))
+                  }
+                  title={activeDirectoryDisplayCopy?.title ?? displayCatalogText(text(activeDirectoryLab.title))}
                   analyticsSource={activeDirectoryLab.analyticsSource}
                   autoExplore={activeLabRuntimeReadyId === activeDirectoryLab.labId}
                   explorationScopeKey={currentUser?.id ?? "guest"}
@@ -3564,12 +3763,22 @@ function VisualizationLabPageContent({
                   }}
                   topicId={activeDirectoryLab.topicId}
                 >
-                  {activeSignatureAssignment && activeHasRelatedBenches ? (
+                  {activeSignatureAssignment ? (
                     <SignatureBenchSwitcher
+                      key={activeDirectoryLab.topicId}
                       assignment={activeSignatureAssignment}
                       lab={activeDirectoryLab}
                       topicId={activeDirectoryLab.topicId}
                       labId={activeDirectoryLab.labId}
+                      labelForBench={(benchId, benchIndex) =>
+                        signatureBenchLabel(benchId, language, benchIndex + 1)
+                      }
+                      primaryBenchLabel={t({ en: "primary", zh: "主要", zhHans: "主要" })}
+                      relatedLabsLabel={t({
+                        en: "Related labs for this topic",
+                        zh: "此主題的相關實驗",
+                        zhHans: "此主题的相关实验"
+                      })}
                       onRuntimeReady={handleActiveLabRuntimeReady}
                       onBenchSwitch={(benchId) => recordVisualizationNavigationEvent("bench-switch", benchId)}
                     />

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { VisualizationCard } from "@/components/visualizations/VisualizationCard";
 import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
 import { useSettings } from "@/components/providers/AppProviders";
+import { resolveVisualizationLabDisplayCopy } from "@/components/visualizations/visualizationLabDisplayMetadata";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { FeaturedLabDefinition } from "@/data/visualizationLabs";
 
@@ -32,7 +33,7 @@ function buildDirectVisualizationSessionModuleId(lab: FeaturedLabDefinition) {
 }
 
 export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinition }) {
-  const { currentUser, text, t } = useSettings();
+  const { currentUser, language, text, t } = useSettings();
   const workspaceRef = useRef<HTMLElement>(null);
   const [workspaceIdentityHydrated, setWorkspaceIdentityHydrated] = useState(false);
   const [directRuntimeReady, setDirectRuntimeReady] = useState(false);
@@ -40,6 +41,7 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
   const directoryHref = `${studentVisualizationToolsPath}?grade=${encodeURIComponent(lab.grade)}&track=all&lab=${encodeURIComponent(lab.labId)}`;
   const practiceHref = buildDirectVisualizationPracticeHref(lab);
   const formula = lab.templateConfig.formula ? text(lab.templateConfig.formula) : undefined;
+  const displayCopy = resolveVisualizationLabDisplayCopy(lab, language);
 
   useEffect(() => {
     setWorkspaceIdentityHydrated(true);
@@ -95,7 +97,11 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
       <section
         ref={workspaceRef}
         id={workspaceIdentityHydrated ? `lab-example-${lab.labId}` : undefined}
-        aria-label="Visualization Lab workspace"
+        aria-label={t({
+          en: "Visualization Lab workspace",
+          zh: "可視化實驗室工作區",
+          zhHans: "可视化实验室工作区"
+        })}
         data-tour="student-tool-workspace"
         data-viz-direct-optimized-route
         data-viz-direct-workspace-id-ready={String(workspaceIdentityHydrated)}
@@ -111,33 +117,57 @@ export function PremiumThreeDDirectRouteShell({ lab }: { lab: FeaturedLabDefinit
             type="button"
             onClick={openFullDirectory}
             data-viz-open-full-lab-directory-link
-            className="focus-ring inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
+            className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
           >
-            {t({ en: "Full directory", zh: "完整目錄", zhHans: "完整目录" })}
+            {t({
+              en: "Open signature labs",
+              zh: "開啟主題實驗",
+              zhHans: "打开主题实验"
+            })}
           </button>
           <a
             href={practiceHref}
             data-viz-open-practice-link
-            className="focus-ring inline-flex items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 dark:border-cyan-200/20 dark:bg-cyan-300/10 dark:text-cyan-100"
+            className="focus-ring inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-black text-cyan-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-100 dark:border-cyan-200/20 dark:bg-cyan-300/10 dark:text-cyan-100"
           >
             {t({ en: "Practice", zh: "練習", zhHans: "练习" })}
           </a>
           <span className="rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-black text-blue-700 dark:border-blue-200/20 dark:bg-blue-300/10 dark:text-blue-100">
             {text(lab.gradeLabel)}
           </span>
+          {displayCopy.disambiguator ? (
+            <span
+              data-viz-display-disambiguator
+              className="rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-black text-amber-800 dark:border-amber-200/20 dark:bg-amber-300/10 dark:text-amber-100"
+            >
+              {displayCopy.disambiguator}
+            </span>
+          ) : null}
+          <span
+            data-viz-premium-three-d-label
+            className="rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-black text-violet-700 dark:border-violet-200/20 dark:bg-violet-300/10 dark:text-violet-100"
+          >
+            {t({ en: "Premium Visualization Lab", zh: "Premium 可視化實驗", zhHans: "Premium 可视化实验" })}
+          </span>
         </div>
 
-        <VisualizationCard
-          title={text(lab.title)}
-          analyticsSource={lab.analyticsSource}
-          autoExplore
-          explorationScopeKey={currentUser?.id ?? "guest"}
-          formula={formula}
-          moduleId={moduleId}
-          topicId={lab.topicId}
+        <div
+          data-viz-lab-workspace
+          className="min-w-0 pb-[calc(5rem+env(safe-area-inset-bottom))] [&_a[role=button]]:inline-flex [&_a[role=button]]:min-h-11 [&_a[role=button]]:min-w-11 [&_button]:min-h-11 [&_button]:min-w-11 [&_input:not([type=range])]:min-h-11 [&_input:not([type=range])]:min-w-11 [&_input[type=range]]:min-h-11 [&_input[type=range]]:min-w-0 [&_[role=slider]]:min-h-11 [&_[role=slider]]:min-w-11 [&_select]:min-h-11 [&_select]:min-w-11"
         >
-          <ConfiguredVisualizationLab lab={lab} labId={lab.labId} topicId={lab.topicId} />
-        </VisualizationCard>
+          <VisualizationCard
+            accessibleTitle={displayCopy.accessibleTitle}
+            title={displayCopy.title}
+            analyticsSource={lab.analyticsSource}
+            autoExplore
+            explorationScopeKey={currentUser?.id ?? "guest"}
+            formula={formula}
+            moduleId={moduleId}
+            topicId={lab.topicId}
+          >
+            <ConfiguredVisualizationLab lab={lab} labId={lab.labId} topicId={lab.topicId} />
+          </VisualizationCard>
+        </div>
       </section>
     </main>
   );

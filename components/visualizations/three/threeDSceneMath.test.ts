@@ -5,8 +5,8 @@ import {
   buildThreeDStateSummary,
   familyForVisualizationTemplate,
   familyForVisualizationLab,
-  isPremiumThreeDLaunchLab,
-  premiumThreeDLaunchLabIds,
+  isPremiumThreeDCandidateLab,
+  premiumThreeDCandidateLabIds,
   regionalPriorityForThreeDLaunchLab,
   sceneVariantForThreeDFamily,
   threeDFamilyIds,
@@ -58,7 +58,7 @@ test("returns finite math summaries for every family", () => {
   }
 });
 
-test("selects the approved regional premium launch bands", () => {
+test("selects the approved regional premium candidate audit bands", () => {
   const counts: Record<ThreeDRegionalPriority, number> = {
     mainland: 0,
     california: 0,
@@ -66,13 +66,13 @@ test("selects the approved regional premium launch bands", () => {
     "cross-region": 0
   };
 
-  assert.equal(premiumThreeDLaunchLabIds.size, 80);
+  assert.equal(premiumThreeDCandidateLabIds.size, 80);
 
-  for (const labId of premiumThreeDLaunchLabIds) {
+  for (const labId of premiumThreeDCandidateLabIds) {
     const region = regionalPriorityForThreeDLaunchLab(labId);
     assert.ok(region, `${labId} should have a premium launch region`);
     counts[region] += 1;
-    assert.equal(isPremiumThreeDLaunchLab(labId), true);
+    assert.equal(isPremiumThreeDCandidateLab(labId), true);
   }
 
   assert.deepEqual(counts, {
@@ -82,11 +82,11 @@ test("selects the approved regional premium launch bands", () => {
     "cross-region": 19
   });
 
-  assert.equal(isPremiumThreeDLaunchLab("pep-high-s5-conics"), true);
-  assert.equal(isPremiumThreeDLaunchLab("us-ca-math-s6-chapter-05"), true);
-  assert.equal(isPremiumThreeDLaunchLab("calculus"), true);
-  assert.equal(isPremiumThreeDLaunchLab("capstone-hk-mainland-crosswalk-explorer"), true);
-  assert.equal(isPremiumThreeDLaunchLab("p1-counting-number-bonds"), false);
+  assert.equal(isPremiumThreeDCandidateLab("pep-high-s5-conics"), true);
+  assert.equal(isPremiumThreeDCandidateLab("us-ca-math-s6-chapter-05"), true);
+  assert.equal(isPremiumThreeDCandidateLab("calculus"), true);
+  assert.equal(isPremiumThreeDCandidateLab("capstone-hk-mainland-crosswalk-explorer"), true);
+  assert.equal(isPremiumThreeDCandidateLab("p1-counting-number-bonds"), false);
 });
 
 test("looks up fallback family for a template", () => {
@@ -127,9 +127,9 @@ test("Mainland PEP junior spatial-imagination pack maps only targeted labs to de
   );
   assert.equal(sceneVariantForThreeDFamily("three-projection-views" as never), "projection-views");
 
-  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s1-upper-geometric-figures"), false);
-  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s1-lower-lines-coordinates"), false);
-  assert.equal(isPremiumThreeDLaunchLab("pep-junior-s3-lower-inverse-similarity-trigonometry"), true);
+  assert.equal(isPremiumThreeDCandidateLab("pep-junior-s1-upper-geometric-figures"), false);
+  assert.equal(isPremiumThreeDCandidateLab("pep-junior-s1-lower-lines-coordinates"), false);
+  assert.equal(isPremiumThreeDCandidateLab("pep-junior-s3-lower-inverse-similarity-trigonometry"), true);
   assert.equal(regionalPriorityForThreeDLaunchLab("pep-junior-s3-lower-inverse-similarity-trigonometry"), "cross-region");
 
   const nonSpatialPepJuniorLabs = [

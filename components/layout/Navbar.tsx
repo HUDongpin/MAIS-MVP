@@ -120,11 +120,13 @@ export function Navbar() {
     // login page) would otherwise eagerly prefetch heavy authenticated routes they
     // cannot open yet, competing for bandwidth with the login flow itself. Marketing
     // routes like /about are intentionally left out — they are not a likely next click.
+    // Dynamic direct-lesson and Visualization-directory targets stay click-only:
+    // warming either URL here can race real navigation and surface as ERR_ABORTED.
     if (!currentUser) return;
-    const hrefs = [lessonHref, "/personalized-learning", studentVisualizationToolsPath, practiceHref]
+    const hrefs = ["/personalized-learning", practiceHref]
       .filter((href): href is string => Boolean(href && href !== studentLessonsPath));
     Array.from(new Set(hrefs)).forEach((href) => router.prefetch(href));
-  }, [currentUser, lessonHref, practiceHref, router]);
+  }, [currentUser, practiceHref, router]);
 
   const handleLogout = async () => {
     if (isLoggingOut) return;

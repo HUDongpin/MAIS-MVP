@@ -187,17 +187,17 @@ export const threeDLaunchRegionByLabId: Partial<Record<string, ThreeDRegionalPri
   "hjb-high-s5-数列": "cross-region"
 };
 
-export const premiumThreeDLaunchLabIds = new Set(Object.keys(threeDLaunchRegionByLabId));
+// Historical authoring/curriculum candidates. This set is intentionally not a
+// student-facing live-route registry: final catalog metadata may downgrade a
+// candidate after semantic review. Live static params and direct metadata are
+// generated from the final catalog in premiumThreeDDirectLabs.ts.
+export const premiumThreeDCandidateRegionByLabId = threeDLaunchRegionByLabId;
+export const premiumThreeDCandidateLabIds = new Set(Object.keys(premiumThreeDCandidateRegionByLabId));
 
-export type PremiumThreeDTopicStaticParam = {
-  labId: string;
-};
+/** @deprecated Candidate manifest only; do not use for live URLs or static params. */
+export const premiumThreeDLaunchLabIds = premiumThreeDCandidateLabIds;
 
-export function buildPremiumThreeDTopicStaticParams(): PremiumThreeDTopicStaticParam[] {
-  return [...premiumThreeDLaunchLabIds].map((labId) => ({ labId }));
-}
-
-const threeDRegionalSmokeOrder: readonly ThreeDRegionalPriority[] = [
+const threeDRegionalCandidateAuditOrder: readonly ThreeDRegionalPriority[] = [
   "mainland",
   "california",
   "hong-kong",
@@ -210,10 +210,10 @@ function compareLabIds(left: string, right: string) {
   return 0;
 }
 
-export function selectThreeDRegionalLaunchSmokeLabIds(): Record<ThreeDRegionalPriority, string> {
+export function selectThreeDRegionalCandidateAuditLabIds(): Record<ThreeDRegionalPriority, string> {
   const smokeTargets = {} as Record<ThreeDRegionalPriority, string>;
 
-  for (const region of threeDRegionalSmokeOrder) {
+  for (const region of threeDRegionalCandidateAuditOrder) {
     const labId = Object.entries(threeDLaunchRegionByLabId)
       .filter(([, launchRegion]) => launchRegion === region)
       .map(([entryLabId]) => entryLabId)
@@ -223,38 +223,6 @@ export function selectThreeDRegionalLaunchSmokeLabIds(): Record<ThreeDRegionalPr
   }
 
   return smokeTargets;
-}
-
-export type ThreeDRegionalLaunchSmokeTarget = {
-  expectedCanvasAttributes: {
-    "data-viz-premium-launch": "true";
-    "data-viz-regional-priority": ThreeDRegionalPriority;
-  };
-  href: string;
-  labId: string;
-  region: ThreeDRegionalPriority;
-};
-
-function buildPremiumThreeDTopicHref(labId: string) {
-  return `/student/tools/visualizations/${encodeURIComponent(labId)}`;
-}
-
-export function selectThreeDRegionalLaunchSmokeTargets(): ThreeDRegionalLaunchSmokeTarget[] {
-  const labIdsByRegion = selectThreeDRegionalLaunchSmokeLabIds();
-
-  return threeDRegionalSmokeOrder.map((region) => {
-    const labId = labIdsByRegion[region];
-
-    return {
-      expectedCanvasAttributes: {
-        "data-viz-premium-launch": "true",
-        "data-viz-regional-priority": region
-      },
-      href: buildPremiumThreeDTopicHref(labId),
-      labId,
-      region
-    };
-  });
 }
 
 export type ThreeDLaunchCoverageBand = {
@@ -375,8 +343,13 @@ export function isMainlandPepJuniorSpatialImagination3DLab(labId: string) {
   return (mainlandPepJuniorSpatialImagination3DLabIds as readonly string[]).includes(labId);
 }
 
+export function isPremiumThreeDCandidateLab(labId: string) {
+  return premiumThreeDCandidateLabIds.has(labId);
+}
+
+/** @deprecated Candidate manifest only; use the final catalog live contract for student routes. */
 export function isPremiumThreeDLaunchLab(labId: string) {
-  return premiumThreeDLaunchLabIds.has(labId);
+  return isPremiumThreeDCandidateLab(labId);
 }
 
 export function regionalPriorityForThreeDLaunchLab(labId: string) {

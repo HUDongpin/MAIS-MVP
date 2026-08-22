@@ -145,13 +145,16 @@ test("configured Three.js render plan routes every approved family through MAIS 
   }
 });
 
-test("configured Three.js render plan infers premium regional smoke metadata from lab id", () => {
+test("configured Three.js render plan consumes explicit live premium metadata instead of candidate lab IDs", () => {
   const premiumPlan = resolveConfiguredThreeDRenderPlan({
     comparison: 5,
     explicitFamilyId: null,
     labId: "us-ca-math-s6-chapter-03",
     mode: 1,
+    premiumLaunch: true,
+    regionalPriority: "california",
     templateId: "statistics-distribution",
+    threeDEnabled: true,
     value: 6
   });
 
@@ -173,6 +176,20 @@ test("configured Three.js render plan infers premium regional smoke metadata fro
   assert.equal(standardPlan.premiumLaunch, false);
   assert.equal(standardPlan.regionalPriority, undefined);
   assert.equal(standardPlan.showThreeDCanvas, false);
+
+  const candidateOnlyPlan = resolveConfiguredThreeDRenderPlan({
+    comparison: 5,
+    explicitFamilyId: "three-conic-sections-deep",
+    labId: "pep-high-s5-conics",
+    mode: 1,
+    templateId: "vector-conic-3d/strategy-map",
+    value: 6
+  });
+
+  assert.equal(candidateOnlyPlan.coverageTier, "standard-3d");
+  assert.equal(candidateOnlyPlan.premiumLaunch, false);
+  assert.equal(candidateOnlyPlan.regionalPriority, undefined);
+  assert.equal(candidateOnlyPlan.showThreeDCanvas, false);
 
   const capstonePlan = resolveConfiguredThreeDRenderPlan({
     comparison: 5,
@@ -198,7 +215,10 @@ test("configured Three.js render plan keeps the reported California S6 function-
     explicitFamilyId: null,
     labId: "us-ca-math-s6-chapter-04",
     mode: 0,
+    premiumLaunch: true,
+    regionalPriority: "california",
     templateId: "function-family",
+    threeDEnabled: true,
     value: 5
   });
 

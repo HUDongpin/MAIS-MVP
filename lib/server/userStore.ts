@@ -27,7 +27,10 @@ import {
 } from "@/lib/rag/mainlandHjbJunior";
 import { getMainlandPepEvidencePack } from "@/lib/rag/mainlandPep";
 import { buildUnitedStatesMathEvidencePack } from "@/lib/rag/usMath";
-import { analyticsWindowDays, summarizeLearningAnalytics } from "@/lib/learningAnalytics";
+import {
+  analyticsWindowDays,
+  summarizeLearningAnalytics
+} from "@/lib/learningAnalytics";
 import {
   type ForumAuditEvent,
   type ForumNotification,
@@ -297,6 +300,7 @@ import {
   studentActivityLessonProgressFor as lessonProgressForFromStudentActivity,
   studentActivityLessonSummaryForDatabase as lessonSummaryForFromStudentActivity,
   studentActivityLocalizedTopicTitleForRecord as localizedTopicTitleForRecordFromStudentActivity,
+  studentActivityLearningEventRecord,
   studentActivityQuestionRecordForId as questionForIdFromStudentActivity,
   studentActivitySeedLessonProgressRecords as seedLessonProgressRecordsFromStudentActivityPersistence,
   studentActivityDashboardDataForDatabase as dashboardDataForStudentActivityDatabase,
@@ -309,6 +313,7 @@ import {
   studentAverageMastery as studentAverageMasteryFromStudentActivity,
   studentActivityMediaObjectUrlFromKey as mediaObjectUrlFromKeyFromStudentActivityPersistence,
   studentActivityNormalizeStoredMediaObjectKey as normalizeStoredMediaObjectKeyFromStudentActivityPersistence,
+  type LearningEventsMutationOutcome,
   type StudentActivityPersistenceDatabase
 } from "@/lib/server/userStore/studentActivityPersistence";
 import { createStudentActivityUserStore } from "@/lib/server/userStore/studentActivityStore";
@@ -626,7 +631,29 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
-import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
+import {
+  acquireLearningEventIdLocks,
+  acquireLearningEventUserLock,
+  ensureLearningEventFastPathReady,
+  postgresLearningEventTransactionAdapter,
+  readLearningEventsFastForUsers
+} from "@/lib/server/practiceAttemptStore";
+import {
+  FastLearningEventAtomicConflictError,
+  type FastLearningEventAppendResult,
+  type FastLearningEventClearResult,
+  storedFastLearningEventRowMatches,
+  type StoredFastLearningEventRow
+} from "@/lib/server/learningEventFastPersistence";
+import {
+  appendLearningEventsInAtomicDualTransaction,
+  AtomicLearningEventDualPersistenceAbort,
+  canonicalLearningAnalyticsEventFromStoredFastRow,
+  clearLearningEventsInAtomicDualTransaction,
+  planAtomicLearningEventHistoricalReconciliation,
+  runAtomicLearningEventDualStoreTransaction,
+  type AtomicLearningEventSnapshotAdapter
+} from "@/lib/server/learningEventAtomicDualPersistence";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -1063,6 +1090,9 @@ export type LearningEventRecord = {
   grade: GradeId;
   topic_id: string;
   question_id?: string;
+  class_id?: string;
+  assignment_id?: string;
+  competency_id?: string;
   duration_seconds?: number;
   created_at: string;
 };
@@ -2819,8 +2849,10 @@ let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
 let postgresReady: Promise<void> | null = null;
 let sqliteReadCache: Database | null = null;
-let sqliteReadCacheUpdatedAt: string | null = null;
+let sqliteReadCacheIdentity: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
+let sqliteAfterNormalizationCasTestHook: (() => void | Promise<void>) | null = null;
+let sqliteAfterInitializationCommitTestHook: (() => void | Promise<void>) | null = null;
 const databaseIndexCache = new WeakMap<Database, DatabaseIndexes>();
 
 function lessonPerfDebugEnabled() {
@@ -2855,35 +2887,56 @@ function logLessonPerf(label: string, startedAt: number) {
 function readCachedSqliteDatabase() {
   if (sqliteReadCacheDisabled()) return null;
   if (!sqliteReadCache) return null;
-  const currentUpdatedAt = currentSqliteStateUpdatedAt();
-  if (!currentUpdatedAt || currentUpdatedAt !== sqliteReadCacheUpdatedAt) {
+  const currentIdentity = currentSqliteStateIdentity();
+  if (!currentIdentity || currentIdentity !== sqliteReadCacheIdentity) {
     clearSqliteReadCache();
     return null;
   }
   return sqliteReadCache;
 }
 
-function cacheSqliteDatabase(database: Database, updatedAt?: string | null) {
-  if (sqliteReadCacheDisabled()) {
+function cacheSqliteDatabase(database: Database, identity: string | null | undefined) {
+  if (sqliteReadCacheDisabled() || !identity) {
     clearSqliteReadCache();
     return;
   }
   sqliteReadCache = database;
-  sqliteReadCacheUpdatedAt = updatedAt ?? currentSqliteStateUpdatedAt();
+  // The payload and identity must come from the same locked/atomic read. Never
+  // query a newer identity here: doing so could tag an older payload with a
+  // peer process's revision and make the stale cache appear current.
+  sqliteReadCacheIdentity = identity;
 }
 
 function clearSqliteReadCache() {
   sqliteReadCache = null;
-  sqliteReadCacheUpdatedAt = null;
+  sqliteReadCacheIdentity = null;
   sqliteReadPromise = null;
 }
 
-function currentSqliteStateUpdatedAt() {
+function sqliteStateRevision(row: Pick<StateRow, "revision"> | null | undefined) {
+  const revision = typeof row?.revision === "bigint"
+    ? Number(row.revision)
+    : typeof row?.revision === "number"
+      ? row.revision
+      : typeof row?.revision === "string" && /^\d+$/.test(row.revision)
+        ? Number(row.revision)
+        : Number.NaN;
+  return Number.isSafeInteger(revision) && revision >= 0 ? revision : null;
+}
+
+function sqliteStateIdentity(row: Pick<StateRow, "revision" | "updated_at"> | null | undefined) {
+  const revision = sqliteStateRevision(row);
+  return revision !== null && typeof row?.updated_at === "string"
+    ? `${revision}:${row.updated_at}`
+    : null;
+}
+
+function currentSqliteStateIdentity() {
   try {
     const row = getSqliteDatabase()
-      .prepare("SELECT updated_at FROM app_state WHERE id = ?")
-      .get(stateRecordId) as { updated_at?: unknown } | undefined;
-    return typeof row?.updated_at === "string" ? row.updated_at : null;
+      .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+      .get(stateRecordId) as StateRow | undefined;
+    return sqliteStateIdentity(row);
   } catch {
     return null;
   }
@@ -2948,20 +3001,27 @@ function indexesForDatabase(database: Database) {
 }
 
 function ensureSqliteAppStateMetadataColumns(storage: DatabaseSync) {
-  const columns = new Set(
-    (storage.prepare("PRAGMA table_info(app_state)").all() as Array<{ name?: unknown }>)
-      .map((column) => (typeof column.name === "string" ? column.name : ""))
-      .filter(Boolean)
-  );
+  storage.exec("BEGIN IMMEDIATE");
+  try {
+    const columns = new Set(
+      (storage.prepare("PRAGMA table_info(app_state)").all() as Array<{ name?: unknown }>)
+        .map((column) => (typeof column.name === "string" ? column.name : ""))
+        .filter(Boolean)
+    );
 
-  if (!columns.has("tenant_id")) {
-    storage.exec(`ALTER TABLE app_state ADD COLUMN tenant_id TEXT NOT NULL DEFAULT '${stateTenantId}'`);
-  }
-  if (!columns.has("state_kind")) {
-    storage.exec(`ALTER TABLE app_state ADD COLUMN state_kind TEXT NOT NULL DEFAULT '${stateKind}'`);
-  }
-  if (!columns.has("revision")) {
-    storage.exec("ALTER TABLE app_state ADD COLUMN revision INTEGER NOT NULL DEFAULT 0");
+    if (!columns.has("tenant_id")) {
+      storage.exec(`ALTER TABLE app_state ADD COLUMN tenant_id TEXT NOT NULL DEFAULT '${stateTenantId}'`);
+    }
+    if (!columns.has("state_kind")) {
+      storage.exec(`ALTER TABLE app_state ADD COLUMN state_kind TEXT NOT NULL DEFAULT '${stateKind}'`);
+    }
+    if (!columns.has("revision")) {
+      storage.exec("ALTER TABLE app_state ADD COLUMN revision INTEGER NOT NULL DEFAULT 0");
+    }
+    storage.exec("COMMIT");
+  } catch (error) {
+    rollbackSqliteTransaction(storage);
+    throw error;
   }
 }
 
@@ -2998,12 +3058,9 @@ function getSqliteDatabase() {
       ON app_state(tenant_id, state_kind, updated_at);
   `);
 
-  const migration = sqlite.prepare("SELECT version FROM schema_migrations WHERE version = ?").get(schemaVersion);
-  if (!migration) {
-    sqlite
-      .prepare("INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)")
-      .run(schemaVersion, new Date().toISOString());
-  }
+  sqlite
+    .prepare("INSERT OR IGNORE INTO schema_migrations (version, applied_at) VALUES (?, ?)")
+    .run(schemaVersion, new Date().toISOString());
 
   return sqlite;
 }
@@ -3026,6 +3083,73 @@ function getPostgresClient() {
     prepare: false
   });
   return postgresClient;
+}
+
+const visualizationSessionProjectionPrimaryKeyName =
+  "projection_visualization_sessions_pkey";
+const legacyVisualizationSessionProjectionPrimaryKeyColumns = [
+  "user_id",
+  "module_id",
+  "topic_id"
+] as const;
+const currentVisualizationSessionProjectionPrimaryKeyColumns = [
+  "user_id",
+  "module_id",
+  "topic_id",
+  "source"
+] as const;
+const canonicalVisualizationSessionProjectionSources = [
+  "adaptive-learning",
+  "dashboard",
+  "practice",
+  "progress",
+  "lesson",
+  "ai-tutor",
+  "mistake-book",
+  "visualization-lab",
+  "function-graph",
+  "function-model",
+  "geometry",
+  "probability",
+  "coordinate-plane",
+  "trig-wave",
+  "calculus-stats",
+  "learning-path",
+  "navigation"
+] as const;
+
+type VisualizationSessionProjectionPrimaryKeyRecord = {
+  constraint_name: string;
+  column_names: string[];
+};
+
+function exactStringSequence(
+  actual: readonly string[],
+  expected: readonly string[]
+) {
+  return actual.length === expected.length &&
+    actual.every((value, index) => value === expected[index]);
+}
+
+export function visualizationSessionProjectionPrimaryKeyMigrationAction(
+  primaryKeys: readonly VisualizationSessionProjectionPrimaryKeyRecord[]
+) {
+  if (primaryKeys.length !== 1) {
+    throw new Error("Unexpected visualization-session projection primary-key count.");
+  }
+  const primaryKey = primaryKeys[0];
+  if (primaryKey.constraint_name !== visualizationSessionProjectionPrimaryKeyName) {
+    throw new Error("Unexpected visualization-session projection primary-key name.");
+  }
+  if (exactStringSequence(
+    primaryKey.column_names,
+    currentVisualizationSessionProjectionPrimaryKeyColumns
+  )) return "current" as const;
+  if (exactStringSequence(
+    primaryKey.column_names,
+    legacyVisualizationSessionProjectionPrimaryKeyColumns
+  )) return "migrate-legacy" as const;
+  throw new Error("Unexpected visualization-session projection primary-key columns.");
 }
 
 async function ensurePostgresStateTable() {
@@ -3241,9 +3365,51 @@ async function ensurePostgresStateTable() {
           completed_at TEXT,
           updated_at TEXT NOT NULL,
           record JSONB NOT NULL,
-          PRIMARY KEY (user_id, module_id, topic_id)
+          PRIMARY KEY (user_id, module_id, topic_id, source)
         )
       `;
+      await sql.begin(async (migrationSql) => {
+        await migrationSql`LOCK TABLE projection_visualization_sessions IN ACCESS EXCLUSIVE MODE`;
+        const invalidSources = await migrationSql<{ invalid_count: string }[]>`
+          SELECT COUNT(*)::TEXT AS invalid_count
+          FROM projection_visualization_sessions
+          WHERE source IS NULL
+            OR source = ''
+            OR source <> BTRIM(source)
+            OR CHAR_LENGTH(source) > 256
+            OR NOT (source = ANY(${canonicalVisualizationSessionProjectionSources}))
+        `;
+        if (invalidSources[0]?.invalid_count !== "0") {
+          throw new Error("Visualization-session projection contains a non-canonical source.");
+        }
+
+        const primaryKeys = await migrationSql<VisualizationSessionProjectionPrimaryKeyRecord[]>`
+          SELECT
+            constraint_row.conname AS constraint_name,
+            ARRAY_AGG(attribute_row.attname ORDER BY key_column.ordinality) AS column_names
+          FROM pg_constraint AS constraint_row
+          JOIN LATERAL UNNEST(constraint_row.conkey) WITH ORDINALITY
+            AS key_column(attribute_number, ordinality) ON TRUE
+          JOIN pg_attribute AS attribute_row
+            ON attribute_row.attrelid = constraint_row.conrelid
+            AND attribute_row.attnum = key_column.attribute_number
+          WHERE constraint_row.conrelid = TO_REGCLASS('projection_visualization_sessions')
+            AND constraint_row.contype = 'p'
+          GROUP BY constraint_row.conname
+        `;
+        const action = visualizationSessionProjectionPrimaryKeyMigrationAction(primaryKeys);
+        if (action === "migrate-legacy") {
+          await migrationSql`
+            ALTER TABLE projection_visualization_sessions
+            DROP CONSTRAINT projection_visualization_sessions_pkey
+          `;
+          await migrationSql`
+            ALTER TABLE projection_visualization_sessions
+            ADD CONSTRAINT projection_visualization_sessions_pkey
+            PRIMARY KEY (user_id, module_id, topic_id, source)
+          `;
+        }
+      });
       await sql`
         CREATE TABLE IF NOT EXISTS projection_school_memberships (
           id TEXT PRIMARY KEY,
@@ -3827,8 +3993,7 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
     await upsertPostgresProjectionRows(sql, "projection_visualization_sessions", visualizationSessions, visualizationSessionColumns, async (batch) => {
       await sql`
         INSERT INTO projection_visualization_sessions ${sql(batch, ...visualizationSessionColumns)}
-        ON CONFLICT (user_id, module_id, topic_id) DO UPDATE SET
-          source = excluded.source,
+        ON CONFLICT (user_id, module_id, topic_id, source) DO UPDATE SET
           explored = excluded.explored,
           completed_at = excluded.completed_at,
           updated_at = excluded.updated_at,
@@ -3839,8 +4004,8 @@ async function syncPostgresProjectionTablesWith(sql: PostgresExecutor, database:
   await deleteMissingPostgresProjectionCompositeRows(
     sql,
     "projection_visualization_sessions",
-    "user_id || chr(31) || module_id || chr(31) || topic_id",
-    visualizationSessions.map((row) => projectionCompositeKey(row.user_id, row.module_id, row.topic_id))
+    "user_id || chr(31) || module_id || chr(31) || topic_id || chr(31) || source",
+    visualizationSessions.map((row) => projectionCompositeKey(row.user_id, row.module_id, row.topic_id, row.source))
   );
 
   const schoolMemberships = database.school_memberships.map((record) => ({
@@ -4633,17 +4798,25 @@ async function loadSqliteDatabase() {
 
   try {
     const row = storage
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
+      .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
       .get(stateRecordId) as StateRow | undefined;
     const parsed = row ? parseStoredStatePayload(row.payload) : null;
     if (hasCoreTables(parsed)) {
       const database = normalizeDatabase(parsed);
-      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
-        ? await writeSqliteDatabase(database, { invalidateReadCache: false })
-        : typeof row?.updated_at === "string"
-          ? row.updated_at
-          : null;
-      cacheSqliteDatabase(database, cacheUpdatedAt);
+      if (databaseNeedsPersistenceSync(parsed, database)) {
+        const normalized = await runSqliteSnapshotCasMutationWithIdentity(
+          async (latestDatabase, latestParsed) => ({
+            changed: databaseNeedsPersistenceSync(latestParsed, latestDatabase),
+            value: latestDatabase
+          }),
+          { retrySafe: true, ensureInitialized: false }
+        );
+        await sqliteAfterNormalizationCasTestHook?.();
+        cacheSqliteDatabase(normalized.value, normalized.identity);
+        logLessonPerf("readDatabase(sqlite)", startedAt);
+        return normalized.value;
+      }
+      cacheSqliteDatabase(database, sqliteStateIdentity(row));
       logLessonPerf("readDatabase(sqlite)", startedAt);
       return database;
     }
@@ -4652,10 +4825,21 @@ async function loadSqliteDatabase() {
   }
 
   const database = await readLegacyDatabase() ?? createInitialDatabase();
-  const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-  cacheSqliteDatabase(database, cacheUpdatedAt);
+  await initializeSqliteDatabase(database);
+  await sqliteAfterInitializationCommitTestHook?.();
+  const initializedRow = getSqliteDatabase()
+    .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
+  const initializedParsed = initializedRow
+    ? parseStoredStatePayload(initializedRow.payload)
+    : null;
+  if (!hasCoreTables(initializedParsed)) {
+    throw new Error("SQLite application state initialization did not produce a readable snapshot.");
+  }
+  const initializedDatabase = normalizeDatabase(initializedParsed);
+  cacheSqliteDatabase(initializedDatabase, sqliteStateIdentity(initializedRow));
   logLessonPerf("readDatabase(sqlite:init)", startedAt);
-  return database;
+  return initializedDatabase;
 }
 
 async function readSqliteDatabase() {
@@ -4771,61 +4955,403 @@ async function readDatabase() {
   return storageProvider === "postgres" ? readPostgresDatabase() : readSqliteDatabase();
 }
 
-async function writeSqliteDatabase(database: Database, options: { invalidateReadCache?: boolean } = {}) {
+async function initializeSqliteDatabase(database: Database) {
   await mkdir(dbDirectory, { recursive: true });
-  const now = new Date().toISOString();
   databaseIndexCache.delete(database);
-  getSqliteDatabase()
-    .prepare(`
-      INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-      VALUES (?, ?, ?, ?, 1, ?, ?)
-      ON CONFLICT(id) DO UPDATE SET
-        tenant_id = excluded.tenant_id,
-        state_kind = excluded.state_kind,
-        schema_version = excluded.schema_version,
-        revision = app_state.revision + 1,
-        payload = excluded.payload,
-        updated_at = excluded.updated_at
-    `)
-    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, JSON.stringify(database), now);
-  if (options.invalidateReadCache ?? true) {
+  const storage = getSqliteDatabase();
+  storage.exec("BEGIN IMMEDIATE");
+  try {
+    const currentRow = storage
+      .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
+      .get(stateRecordId) as StateRow | undefined;
+    const currentParsed = currentRow
+      ? parseStoredStatePayload(currentRow.payload)
+      : null;
+    if (!hasCoreTables(currentParsed)) {
+      const now = new Date().toISOString();
+      if (currentRow) {
+        const baseRevision = sqliteStateRevision(currentRow);
+        if (baseRevision === null) {
+          throw new Error("SQLite application state has no canonical revision for recovery.");
+        }
+        const result = storage.prepare(`
+          UPDATE app_state
+          SET tenant_id = ?,
+              state_kind = ?,
+              schema_version = ?,
+              revision = revision + 1,
+              payload = ?,
+              updated_at = ?
+          WHERE id = ? AND revision = ?
+        `).run(
+          stateTenantId,
+          stateKind,
+          schemaVersion,
+          JSON.stringify(database),
+          now,
+          stateRecordId,
+          baseRevision
+        );
+        if (Number(result.changes) !== 1) {
+          throw new SqliteSnapshotRevisionConflictError();
+        }
+      } else {
+        storage.prepare(`
+          INSERT INTO app_state (
+            id, tenant_id, state_kind, schema_version, revision, payload, updated_at
+          ) VALUES (?, ?, ?, ?, 1, ?, ?)
+          ON CONFLICT(id) DO NOTHING
+        `).run(
+          stateRecordId,
+          stateTenantId,
+          stateKind,
+          schemaVersion,
+          JSON.stringify(database),
+          now
+        );
+      }
+    }
+    storage.exec("COMMIT");
     clearSqliteReadCache();
+  } catch (error) {
+    rollbackSqliteTransaction(storage);
+    clearSqliteReadCache();
+    throw error;
   }
-  return now;
-}
-
-async function writeDatabase(database: Database) {
-  if (storageProvider === "postgres") {
-    await writePostgresDatabase(database);
-    return;
-  }
-
-  await writeSqliteDatabase(database);
 }
 
 let mutationQueue: Promise<void> = Promise.resolve();
+
+type ExactSqliteSnapshotMutationOutcome<T> =
+  | { changed: true; value: T }
+  | { changed: false; value: T };
+
+const maxExactSqliteSnapshotMutationAttempts = 8;
+
+class SqliteSnapshotRevisionConflictError extends Error {
+  constructor() {
+    super("SQLite application state changed before the mutation could commit.");
+    this.name = "SqliteSnapshotRevisionConflictError";
+  }
+}
+
+function isSqliteBusyError(error: unknown) {
+  const record = error as { code?: unknown; errcode?: unknown } | null;
+  return record?.code === "SQLITE_BUSY" || record?.errcode === 5;
+}
+
+function rollbackSqliteTransaction(storage: DatabaseSync) {
+  try {
+    storage.exec("ROLLBACK");
+  } catch {
+    // There may be no active transaction when BEGIN IMMEDIATE itself failed.
+  }
+}
+
+async function runSqliteSnapshotCasMutationWithIdentity<T>(
+  mutator: (
+    database: Database,
+    parsed: Partial<Database>
+  ) => Promise<ExactSqliteSnapshotMutationOutcome<T>>,
+  {
+    retrySafe,
+    ensureInitialized = true
+  }: {
+    retrySafe: boolean;
+    ensureInitialized?: boolean;
+  }
+) {
+  await mkdir(dbDirectory, { recursive: true });
+  // Ensure schema initialization has completed before opening the short-lived
+  // CAS connection. The connection itself is never shared with cached reads.
+  if (ensureInitialized) await readSqliteDatabase();
+  else getSqliteDatabase();
+  const storage = new DatabaseSync(dbPath);
+  storage.exec("PRAGMA busy_timeout = 5000; PRAGMA foreign_keys = ON;");
+
+  try {
+    for (let attempt = 1; attempt <= maxExactSqliteSnapshotMutationAttempts; attempt += 1) {
+      const baseRow = storage
+        .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
+        .get(stateRecordId) as StateRow | undefined;
+      const baseRevision = sqliteStateRevision(baseRow);
+      const parsed = baseRow ? parseStoredStatePayload(baseRow.payload) : null;
+      if (baseRevision === null || !hasCoreTables(parsed)) {
+        throw new Error("SQLite application state is unavailable for an exact mutation.");
+      }
+
+      const database = normalizeDatabase(parsed);
+      let outcome: ExactSqliteSnapshotMutationOutcome<T>;
+      try {
+        outcome = await mutator(database, parsed);
+      } catch (error) {
+        databaseIndexCache.delete(database);
+        throw error;
+      }
+
+      try {
+        storage.exec("BEGIN IMMEDIATE");
+        const currentRow = storage
+          .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+          .get(stateRecordId) as StateRow | undefined;
+        if (sqliteStateRevision(currentRow) !== baseRevision) {
+          storage.exec("ROLLBACK");
+          databaseIndexCache.delete(database);
+          if (!retrySafe) throw new SqliteSnapshotRevisionConflictError();
+          continue;
+        }
+
+        if (!outcome.changed) {
+          const unchangedIdentity = sqliteStateIdentity(currentRow);
+          if (!unchangedIdentity) {
+            throw new Error("SQLite no-op mutation observed no canonical revision identity.");
+          }
+          storage.exec("COMMIT");
+          databaseIndexCache.delete(database);
+          return { value: outcome.value, identity: unchangedIdentity };
+        }
+
+        const updatedAt = new Date().toISOString();
+        const writeResult = storage.prepare(`
+          UPDATE app_state
+          SET tenant_id = ?,
+              state_kind = ?,
+              schema_version = ?,
+              revision = revision + 1,
+              payload = ?,
+              updated_at = ?
+          WHERE id = ? AND revision = ?
+        `).run(
+          stateTenantId,
+          stateKind,
+          schemaVersion,
+          JSON.stringify(database),
+          updatedAt,
+          stateRecordId,
+          baseRevision
+        );
+        if (Number(writeResult.changes) !== 1) {
+          storage.exec("ROLLBACK");
+          databaseIndexCache.delete(database);
+          if (!retrySafe) throw new SqliteSnapshotRevisionConflictError();
+          continue;
+        }
+        const committedRow = storage
+          .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+          .get(stateRecordId) as StateRow | undefined;
+        const committedIdentity = sqliteStateIdentity(committedRow);
+        if (!committedIdentity) {
+          throw new Error("SQLite exact mutation produced no canonical revision identity.");
+        }
+        storage.exec("COMMIT");
+        cacheSqliteDatabase(database, committedIdentity);
+        return { value: outcome.value, identity: committedIdentity };
+      } catch (error) {
+        rollbackSqliteTransaction(storage);
+        databaseIndexCache.delete(database);
+        clearSqliteReadCache();
+        if (
+          retrySafe &&
+          isSqliteBusyError(error) &&
+          attempt < maxExactSqliteSnapshotMutationAttempts
+        ) {
+          continue;
+        }
+        throw error;
+      }
+    }
+  } finally {
+    storage.close();
+  }
+
+  clearSqliteReadCache();
+  throw new Error("SQLite snapshot mutation exhausted its revision retries.");
+}
+
+async function runSqliteSnapshotCasMutation<T>(
+  mutator: (
+    database: Database,
+    parsed: Partial<Database>
+  ) => Promise<ExactSqliteSnapshotMutationOutcome<T>>,
+  options: {
+    retrySafe: boolean;
+    ensureInitialized?: boolean;
+  }
+) {
+  return (await runSqliteSnapshotCasMutationWithIdentity(mutator, options)).value;
+}
+
+async function mutateLearningEventsDatabase<T>(
+  mutator: (
+    database: Database
+  ) => LearningEventsMutationOutcome<T> | Promise<LearningEventsMutationOutcome<T>>
+) {
+  if (storageProvider === "postgres") {
+    await ensurePostgresStateTable();
+    return runExplicitVisualizationSessionPostgresMutation<Database, T>({
+      begin: async (callback) => getPostgresClient().begin(
+        async (sql) => callback(sql)
+      ) as Promise<unknown>,
+      clearDatabaseIndex: (database) => databaseIndexCache.delete(database),
+      mutator: async (database) => mutator(database),
+      readDatabase: (transaction) => readPostgresDatabaseFrom(
+        transaction as PostgresExecutor,
+        true,
+        true
+      ),
+      writeDatabase: (transaction, database) => writePostgresDatabaseWith(
+        transaction as PostgresExecutor,
+        database,
+        true
+      )
+    });
+  }
+
+  const run = mutationQueue.then(() => runSqliteSnapshotCasMutation(
+    async (database) => mutator(database),
+    { retrySafe: true }
+  ));
+  mutationQueue = run.then(
+    () => undefined,
+    () => undefined
+  );
+  return run;
+}
 
 async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>) {
   if (storageProvider === "postgres") {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
       const database = await readPostgresDatabaseFrom(sql, true, true);
-      const result = await mutator(database);
-      databaseIndexCache.delete(database);
-      await writePostgresDatabaseWith(sql, database, true);
-      return result;
+      try {
+        const result = await mutator(database);
+        databaseIndexCache.delete(database);
+        await writePostgresDatabaseWith(sql, database, true);
+        return result;
+      } catch (error) {
+        databaseIndexCache.delete(database);
+        throw error;
+      }
     });
   }
 
-  const run = mutationQueue.then(async () => {
+  const run = mutationQueue.then(() => runSqliteSnapshotCasMutation(
+    async (database) => ({
+      changed: true,
+      value: await mutator(database)
+    }),
+    { retrySafe: false }
+  ));
+
+  mutationQueue = run.then(
+    () => undefined,
+    () => undefined
+  );
+
+  return run;
+}
+
+export const __userStoreSqliteSnapshotTestHooks = {
+  mutateGeneric<T>(mutator: (database: unknown) => T | Promise<T>) {
+    return mutateDatabase((database) => mutator(database));
+  },
+  async readLearningEventIds() {
+    const database = await readSqliteDatabase();
+    return database.learning_events.map((event) => event.id);
+  },
+  clearReadCache() {
     clearSqliteReadCache();
-    const database = await readDatabase();
-    const result = await mutator(database);
-    databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
-    return result;
-  });
+  },
+  setAfterNormalizationCasHook(hook: (() => void | Promise<void>) | null) {
+    sqliteAfterNormalizationCasTestHook = hook;
+  },
+  setAfterInitializationCommitHook(hook: (() => void | Promise<void>) | null) {
+    sqliteAfterInitializationCommitTestHook = hook;
+  }
+};
+
+type ExplicitVisualizationSessionMutationOutcome<T> =
+  | { changed: true; value: T }
+  | { changed: false; value: T };
+
+export async function runExplicitVisualizationSessionPostgresMutation<TDatabase, TValue>({
+  begin,
+  clearDatabaseIndex,
+  mutator,
+  readDatabase,
+  writeDatabase
+}: {
+  begin: (
+    callback: (transaction: unknown) => Promise<unknown>
+  ) => Promise<unknown>;
+  clearDatabaseIndex: (database: TDatabase) => void;
+  mutator: (
+    database: TDatabase
+  ) => Promise<ExplicitVisualizationSessionMutationOutcome<TValue>>;
+  readDatabase: (transaction: unknown) => Promise<TDatabase>;
+  writeDatabase: (transaction: unknown, database: TDatabase) => Promise<void>;
+}): Promise<TValue> {
+  const exactNoopRollback = Object.freeze(Object.create(null) as object);
+  let exactNoopValue: TValue | undefined;
+  let hasExactNoopValue = false;
+  try {
+    const result = await begin(async (transaction) => {
+      let database: TDatabase | null = null;
+      try {
+        database = await readDatabase(transaction);
+        const outcome = await mutator(database);
+        if (!outcome.changed) {
+          exactNoopValue = outcome.value;
+          hasExactNoopValue = true;
+          throw exactNoopRollback;
+        }
+        clearDatabaseIndex(database);
+        await writeDatabase(transaction, database);
+        return outcome.value;
+      } catch (error) {
+        if (database) clearDatabaseIndex(database);
+        throw error;
+      }
+    });
+    return result as TValue;
+  } catch (error) {
+    if (error === exactNoopRollback && hasExactNoopValue) {
+      return exactNoopValue as TValue;
+    }
+    throw error;
+  }
+}
+
+async function mutateVisualizationSessionDatabase<T>(
+  mutator: (
+    database: Database
+  ) => Promise<ExplicitVisualizationSessionMutationOutcome<T>>
+): Promise<T> {
+  if (storageProvider === "postgres") {
+    await ensurePostgresStateTable();
+    return runExplicitVisualizationSessionPostgresMutation<Database, T>({
+      begin: async (callback) => getPostgresClient().begin(
+        async (sql) => callback(sql)
+      ) as Promise<unknown>,
+      clearDatabaseIndex: (database) => databaseIndexCache.delete(database),
+      mutator,
+      readDatabase: (transaction) => readPostgresDatabaseFrom(
+        transaction as PostgresExecutor,
+        true,
+        true
+      ),
+      writeDatabase: (transaction, database) => writePostgresDatabaseWith(
+        transaction as PostgresExecutor,
+        database,
+        true
+      )
+    });
+  }
+
+  const run = mutationQueue.then(() => runSqliteSnapshotCasMutation(
+    mutator,
+    { retrySafe: true }
+  ));
 
   mutationQueue = run.then(
     () => undefined,
@@ -5464,6 +5990,28 @@ async function getCachedStudentDashboardData(
   return request;
 }
 
+function applyLearningEventAppendDatabaseSideEffects(
+  database: StudentActivityPersistenceDatabase,
+  { userId, latestRecord }: {
+    userId: string;
+    latestRecord: { created_at: string };
+  }
+) {
+  maybeAwardLearningStreakReward(database as Database, userId, new Date(latestRecord.created_at));
+}
+
+function applyLearningEventAppendSideEffects(
+  database: StudentActivityPersistenceDatabase,
+  context: {
+    userId: string;
+    latestRecord: { created_at: string };
+  }
+) {
+  applyLearningEventAppendDatabaseSideEffects(database, context);
+  const { userId } = context;
+  clearStudentDashboardCacheForUser(userId);
+}
+
 const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
   contentUnavailableForProfile: contentUnavailableFor,
   defaultCurriculumTrack,
@@ -5478,10 +6026,20 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
     const result = await mutateDatabase((database) => mutator(database));
     return result as T;
   },
-  afterAppend: (database, { userId, latestRecord }) => {
-    maybeAwardLearningStreakReward(database as Database, userId, new Date(latestRecord.created_at));
-    clearStudentDashboardCacheForUser(userId);
-  },
+  mutateLearningEventsDatabase: async <T>(mutator: (
+    database: StudentActivityPersistenceDatabase
+  ) => LearningEventsMutationOutcome<T> | Promise<LearningEventsMutationOutcome<T>>) => mutateLearningEventsDatabase<T>(
+    (database) => mutator(database as StudentActivityPersistenceDatabase)
+  ),
+  mutateVisualizationSessionDatabase: async <T>(mutator: (
+    database: StudentActivityPersistenceDatabase
+  ) => Promise<
+    | { changed: true; value: T }
+    | { changed: false; value: T }
+  >) => mutateVisualizationSessionDatabase(
+    (database) => mutator(database as StudentActivityPersistenceDatabase)
+  ),
+  afterAppend: applyLearningEventAppendSideEffects,
   afterMarkMistakeMastered: (database, { userId, questionId, topic, masteredAt }) => {
     awardMistakeReviewReward(database as Database, {
       userId,
@@ -5495,6 +6053,7 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
     userId,
     moduleId,
     topicId,
+    source,
     wasCompleted,
     updatedAt
   }) => {
@@ -5517,6 +6076,7 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
         userId,
         moduleId,
         topicId,
+        source,
         topic,
         completedAt: updatedAt
       });
@@ -5612,6 +6172,220 @@ const studentActivityPersistenceStore = createStudentActivityPersistenceStore({
     clearStudentDashboardCacheForUser(userId);
   }
 });
+
+function learningEventRecordAsFastRow(record: LearningEventRecord): StoredFastLearningEventRow {
+  return {
+    id: record.id,
+    user_id: record.user_id,
+    type: record.type,
+    source: record.source,
+    grade: record.grade,
+    topic_id: record.topic_id,
+    question_id: record.question_id ?? null,
+    class_id: record.class_id ?? null,
+    assignment_id: record.assignment_id ?? null,
+    competency_id: record.competency_id ?? null,
+    duration_seconds: record.duration_seconds ?? null,
+    created_at: record.created_at
+  };
+}
+
+function createAtomicLearningEventSnapshotAdapter(
+  database: Database,
+  userId: string
+) {
+  let changed = false;
+  let invalidateDashboardAfterCommit = false;
+  const localStore = createStudentActivityPersistenceStore({
+    readDatabase: async () => database as StudentActivityPersistenceDatabase,
+    mutateDatabase: async (mutator) => mutator(database as StudentActivityPersistenceDatabase),
+    mutateLearningEventsDatabase: async (mutator) => {
+      const outcome = await mutator(database as StudentActivityPersistenceDatabase);
+      changed ||= outcome.changed;
+      return outcome.value;
+    },
+    afterAppend: (mutableDatabase, context) => {
+      applyLearningEventAppendDatabaseSideEffects(mutableDatabase, context);
+      invalidateDashboardAfterCommit = true;
+    }
+  });
+
+  const adapter: AtomicLearningEventSnapshotAdapter = {
+    ensureGenerationRequestId: () => localStore.ensureLearningEventGenerationRequestId(userId),
+    repairGeneration: async (state) => {
+      const result = await localStore.repairLearningEventGenerationForUser(userId, state);
+      if (result.status === "ok") invalidateDashboardAfterCommit = true;
+      return result;
+    },
+    async reconcileHistoricalRows(fast, events) {
+      const ids = [...new Set(events.map(({ id }) => id))];
+      if (!ids.length) return { status: "ok" as const };
+      const snapshotRows = database.learning_events.filter((row) => ids.includes(row.id));
+      const fastRows = await fast.readEvents(ids);
+      const reconciliation = planAtomicLearningEventHistoricalReconciliation({
+        userId,
+        requestedEventIds: ids,
+        snapshotRows: snapshotRows.map(learningEventRecordAsFastRow),
+        fastRows
+      });
+      if (reconciliation.status === "id-conflict") return reconciliation;
+
+      if (reconciliation.fastRowsToReplace.length) {
+        await fast.replaceEvents(reconciliation.fastRowsToReplace);
+        invalidateDashboardAfterCommit = true;
+      }
+      for (const fastRow of reconciliation.fastRowsToRecoverInSnapshot) {
+        const recovered = studentActivityLearningEventRecord(
+          userId,
+          canonicalLearningAnalyticsEventFromStoredFastRow(fastRow),
+          randomUUID
+        ) as LearningEventRecord;
+        database.learning_events.push(recovered);
+        if (
+          recovered.type.startsWith("visualization-") &&
+          !database.visualization_events.some(({ id }) => id === recovered.id)
+        ) {
+          database.visualization_events.push({
+            id: recovered.id,
+            user_id: recovered.user_id,
+            topic_id: recovered.topic_id,
+            source: recovered.source,
+            created_at: recovered.created_at
+          });
+        }
+        changed = true;
+      }
+      if (reconciliation.fastRowsToRecoverInSnapshot.length) {
+        const recoveredRecords = database.learning_events.filter((record) =>
+          reconciliation.fastRowsToRecoverInSnapshot.some(({ id }) => id === record.id) &&
+          record.user_id === userId
+        );
+        const latestRecord = recoveredRecords.reduce((latest, record) =>
+          Date.parse(record.created_at) > Date.parse(latest.created_at) ? record : latest
+        );
+        applyLearningEventAppendDatabaseSideEffects(
+          database as StudentActivityPersistenceDatabase,
+          { userId, latestRecord }
+        );
+        invalidateDashboardAfterCommit = true;
+      }
+
+      const resolvedFastRows = await fast.readEvents(ids);
+      const resolvedFastById = new Map(resolvedFastRows.map((row) => [row.id, row]));
+      for (const snapshotRow of database.learning_events.filter(
+        (row) => ids.includes(row.id) && row.user_id === userId
+      )) {
+        const resolved = resolvedFastById.get(snapshotRow.id);
+        if (!resolved || !storedFastLearningEventRowMatches(
+          resolved,
+          snapshotRow.user_id,
+          eventRecordToAnalyticsEventFromStudentActivityPersistence(snapshotRow)
+        )) {
+          throw new Error("Historical learning-event row reconciliation did not converge.");
+        }
+      }
+      return { status: "ok" as const };
+    },
+    append: async (events, generation) => {
+      const result = await localStore.appendLearningEvents(userId, events, generation);
+      if (typeof result === "number") {
+        throw new Error("Generation-aware snapshot append returned a legacy numeric receipt.");
+      }
+      return result;
+    }
+  };
+  return {
+    database,
+    adapter,
+    changed: () => changed,
+    markPhysicalMutation: () => {
+      invalidateDashboardAfterCommit = true;
+    },
+    afterCommit: () => {
+      if (invalidateDashboardAfterCommit) clearStudentDashboardCacheForUser(userId);
+    }
+  };
+}
+
+export async function appendLearningEventsAtomically(
+  userId: string,
+  events: LearningAnalyticsEvent[],
+  generation: number
+): Promise<FastLearningEventAppendResult | null> {
+  if (storageProvider !== "postgres" || !await ensureLearningEventFastPathReady()) return null;
+  await ensurePostgresStateTable();
+  try {
+    return await runAtomicLearningEventDualStoreTransaction<
+      PostgresExecutor,
+      Database,
+      FastLearningEventAppendResult
+    >({
+      userId,
+      eventIds: events.map(({ id }) => id),
+      begin: (callback) => getPostgresClient().begin((sql) => callback(sql)),
+      acquireUserLock: acquireLearningEventUserLock,
+      acquireEventIdLocks: acquireLearningEventIdLocks,
+      readSnapshotForUpdate: (sql) => readPostgresDatabaseFrom(sql, true, true),
+      createSnapshot: (database) => createAtomicLearningEventSnapshotAdapter(database, userId),
+      createFastAdapter: postgresLearningEventTransactionAdapter,
+      mutate: ({ fast, snapshot }) => appendLearningEventsInAtomicDualTransaction({
+        fast,
+        snapshot,
+        userId,
+        events,
+        generation
+      }),
+      writeSnapshot: (sql, database) => writePostgresDatabaseWith(sql, database, true)
+    });
+  } catch (error) {
+    if (error instanceof AtomicLearningEventDualPersistenceAbort) {
+      if ("acknowledgedEventIds" in error.result) return error.result;
+      throw error;
+    }
+    if (error instanceof FastLearningEventAtomicConflictError) return error.result;
+    throw error;
+  }
+}
+
+export async function clearLearningEventsAtomically(
+  userId: string,
+  clearedAt: string,
+  baseGeneration: number,
+  requestId: string
+): Promise<FastLearningEventClearResult | null> {
+  if (storageProvider !== "postgres" || !await ensureLearningEventFastPathReady()) return null;
+  await ensurePostgresStateTable();
+  try {
+    return await runAtomicLearningEventDualStoreTransaction<
+      PostgresExecutor,
+      Database,
+      FastLearningEventClearResult
+    >({
+      userId,
+      eventIds: [],
+      begin: (callback) => getPostgresClient().begin((sql) => callback(sql)),
+      acquireUserLock: acquireLearningEventUserLock,
+      acquireEventIdLocks: acquireLearningEventIdLocks,
+      readSnapshotForUpdate: (sql) => readPostgresDatabaseFrom(sql, true, true),
+      createSnapshot: (database) => createAtomicLearningEventSnapshotAdapter(database, userId),
+      createFastAdapter: postgresLearningEventTransactionAdapter,
+      mutate: ({ fast, snapshot }) => clearLearningEventsInAtomicDualTransaction({
+        fast,
+        snapshot,
+        userId,
+        clearedAt,
+        baseGeneration,
+        requestId
+      }),
+      writeSnapshot: (sql, database) => writePostgresDatabaseWith(sql, database, true)
+    });
+  } catch (error) {
+    if (error instanceof AtomicLearningEventDualPersistenceAbort) {
+      if (!("acknowledgedEventIds" in error.result)) return error.result;
+    }
+    throw error;
+  }
+}
 
 const authSessionPersistenceStore = createAuthSessionPersistenceStore({
   readDatabase: async () => {
@@ -10364,6 +11138,12 @@ export const clearMistakesForUser = studentActivityUserStore.clearMistakesForUse
 
 export const appendLearningEvents = studentActivityUserStore.appendLearningEvents;
 export const clearLearningEventsForUser = studentActivityUserStore.clearLearningEventsForUser;
+export const getLearningEventGenerationState =
+  studentActivityPersistenceStore.getLearningEventGenerationState;
+export const ensureLearningEventGenerationRequestId =
+  studentActivityPersistenceStore.ensureLearningEventGenerationRequestId;
+export const repairLearningEventGenerationForUser =
+  studentActivityPersistenceStore.repairLearningEventGenerationForUser;
 export const getAnalyticsSummary = studentActivityUserStore.getAnalyticsSummary;
 export const getAnalyticsExport = studentActivityUserStore.getAnalyticsExport;
 

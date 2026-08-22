@@ -63,20 +63,22 @@ the exact squared value beside it and labels the rounded one as rounded.
 | California topics in the catalog | 76 |
 | **Topics that render a signature lab** | **76** (all) |
 | Topics still on the template | 0 |
-| **Benches embedded (reachable via a topic)** | **183 / 187** |
-|  ↳ render by default (a topic's `primary`) | 54 |
-|  ↳ reachable via the switcher (`related` only) | 129 |
-| Benches ported but with no California home | 4 |
+| **Benches embedded (reachable via a topic)** | **186 / 192** |
+|  ↳ render by default (a topic's `primary`) | 58 |
+|  ↳ reachable via the switcher (`related` only) | 128 |
+| Benches ported but with no California home | 6 |
 
-The four with no home are `DerivativeLab`, `IntegralLab`, `LimitLab` and
-`SeriesLab`: CCSS-M has no calculus standards, so there is nothing for them to join
-on. Every other bench is reachable.
+The six with no home are `DerivativeLab`, `IntegralLab`, `LimitLab`, `SeriesLab`,
+`MatrixLab`, and `VectorLab`. CCSS-M has no calculus standards for the first four;
+the current California N-Q route does not teach the N-VM matrix/vector contract,
+so the latter two are deliberately not used as near-miss substitutes. Every other
+bench is reachable.
 
 Every embedded bench is reachable in the browser: the `primary` renders when the
 topic opens, and each `related` bench is one click away via the
 `SignatureBenchSwitcher` chip row. Verified live (dev server, Student guest):
-`us-ca-math-s3-chapter-03` renders `ExponentialFunctionLab` by default and switches
-to `LogarithmLab` on the chip; on 2026-07-25 every newly wired bench was opened the
+`us-ca-math-s3-chapter-03` renders `LineParabolaLab` by default and switches to
+`QuadraticEquationLab` on the chip; on 2026-07-25 every newly wired bench was opened the
 same way and confirmed to draw.
 
 ## CCSS coverage (2026-07-25 depth audit)
@@ -178,27 +180,28 @@ set (`GraphStoryLab`, `BestFitLab`, `FunctionLab`, `CompareFunctionsLab`,
 `signatureLabCcssOverrides.ts`. `normalizeCcss("Modeling") === "Modeling"`, so
 they join through the same pipeline as every other topic.
 
-**Two of those three primaries changed on 2026-07-25.** `s3-ch04` and `s6-ch01`
-had been reduced to the bare `Modeling` token by a description scrape that
-outranked their declared domains (G-GPE and N-Q), so a modeling bench ended up
-anchoring a coordinate-geometry chapter and a quantities chapter. With the domains
-restored the primaries are: `s3-ch04` → **CircleLab** (G-GPE.1), `s6-ch01` →
-**VectorLab** (N-VM.1), `s6-ch05` → CompareFunctionsLab (model selection, and
-genuinely a Modeling chapter). The modeling benches stay attached to all three as
-`related`, because the scraped `Modeling` tag is kept alongside the domain.
+`s3-ch04` and `s6-ch01` had once been reduced to the bare `Modeling` token by a
+description scrape that outranked their declared domains (G-GPE and N-Q), so a
+generic modeling bench anchored both routes. The current audited primaries are:
+`s3-ch04` → **CircleLab** (G-GPE.1), `s6-ch01` → **FormulaLab** with unit,
+conversion, rounding, and notation foundations (N-Q.1-.3), and `s6-ch05` →
+**CompareFunctionsLab** (model selection in a genuine Modeling chapter). Matrix
+and vector benches are no longer attached to the N-Q route merely because N-VM
+shares the Number & Quantity category.
 
-## The 4 benches with no California home
+## The 6 benches with no California home
 
-**This list was 16 until 2026-07-25.** Twelve of those benches were ported,
-routed and rendering, but no CA topic carried their standards, so the join had
-nowhere to place them — conics, coordinate and solid geometry, matrices, vectors,
-the complex plane, irrationals and radical equations. They now have chapters via
-`californiaChapterSupplementalStandards` in `data/visualizationLabs.ts` and are all
-reachable.
+**This list was 16 until 2026-07-25.** Most of those benches were ported and gained
+truthful homes through `californiaChapterSupplementalStandards` in
+`data/visualizationLabs.ts`: conics, coordinate and solid geometry, the complex
+plane, irrationals, and radical equations are now reachable. A later A18 semantic
+review removed the N-VM near-match from the N-Q quantities route, so `MatrixLab`
+and `VectorLab` correctly returned to this list.
 
-What genuinely remains homeless is the calculus set — `DerivativeLab`,
-`IntegralLab`, `LimitLab`, `SeriesLab` — because CCSS-M has no calculus standards
-to join on. That is a curriculum fact, not a gap to close.
+The other four are the calculus set — `DerivativeLab`, `IntegralLab`, `LimitLab`,
+and `SeriesLab` — because CCSS-M has no calculus standards to join on. These six
+unassigned benches represent curriculum or semantic boundaries, not missing route
+wiring to be repaired with a near-match.
 
 To give a bench a home, add a truthful CCSS tag in
 `data/signatureLabCcssOverrides.ts` **only if** the bench's own lesson teaches that

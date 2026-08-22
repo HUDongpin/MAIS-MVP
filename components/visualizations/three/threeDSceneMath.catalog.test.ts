@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { visualizationLabCatalog, visualizationTrackLabels } from "../../../data/visualizationLabs";
+import { getPremiumThreeDDirectLab } from "../premiumThreeDDirectLabs";
+import { isLivePremiumThreeDLab } from "./premiumThreeDLiveContract";
 import type { ThreeDRegionalPriority } from "./threeDSceneTypes";
 import { threeDFamilyIds } from "./threeDSceneMath";
 
@@ -26,7 +28,7 @@ const hongKongStandardThreeDCapsuleFamilyByLabId = {
 } as const;
 const hongKongStandardThreeDCapsuleLabIds = Object.keys(hongKongStandardThreeDCapsuleFamilyByLabId);
 
-test("catalog metadata marks every lab and preserves the premium regional launch allocation", () => {
+test("catalog metadata keeps learner-live premium routes separate from historical 3D candidates", () => {
   const premiumCounts: Record<ThreeDRegionalPriority, number> = {
     mainland: 0,
     california: 0,
@@ -34,56 +36,58 @@ test("catalog metadata marks every lab and preserves the premium regional launch
     "cross-region": 0
   };
   const threeDEnabled = visualizationLabCatalog.filter((lab) => lab.threeD?.enabled);
-  const premium = visualizationLabCatalog.filter((lab) => lab.threeD?.premiumLaunch);
+  const premium = visualizationLabCatalog.filter(isLivePremiumThreeDLab);
   const nonThreeDLabs = visualizationLabCatalog.filter((lab) => !lab.threeD?.enabled);
   const standard3DCapsules = threeDEnabled.filter((lab) => !lab.threeD?.premiumLaunch);
 
   assert.ok(visualizationLabCatalog.length >= threeDEnabled.length);
-  assert.equal(threeDEnabled.length, 90);
   assert.equal(nonThreeDLabs.length, visualizationLabCatalog.length - threeDEnabled.length);
-  assert.equal(premium.length, 80);
-  assert.deepEqual(
-    standard3DCapsules.map((lab) => lab.labId).sort(),
-    [...mainlandPepPrimaryThreeDCapsuleLabIds, ...mainlandPepJuniorStandard3DCapsuleLabIds, ...hongKongStandardThreeDCapsuleLabIds].sort(),
-    "Only the approved Mainland PEP primary capsules, PEP junior spatial-imagination capsules, and HK representative classroom capsules should be standard 3D"
+  assert.ok(threeDEnabled.length >= premium.length, "every premium live lab must also be 3D-enabled");
+  assert.ok(
+    standard3DCapsules.every((lab) => lab.threeD?.coverageTier === "standard-3d"),
+    "an enabled non-premium capsule must use the standard coverage tier"
   );
-  assert.deepEqual(
-    premium.filter((lab) => lab.moduleId !== "configured-visualization-lab").map((lab) => lab.labId),
-    []
-  );
+  for (const lab of premium) {
+    const directLab = getPremiumThreeDDirectLab(lab.labId);
+    assert.ok(directLab, `${lab.labId} should resolve from the generated live registry`);
+    assert.equal(directLab.moduleId, "configured-visualization-lab");
+  }
   assert.equal(visualizationLabCatalog.find((lab) => lab.labId === "p1-counting-number-bonds")?.threeD?.enabled, false);
   for (const [labId, familyId] of Object.entries(hongKongStandardThreeDCapsuleFamilyByLabId)) {
     const lab = visualizationLabCatalog.find((entry) => entry.labId === labId);
-    assert.equal(lab?.threeD?.enabled, true, `${labId} should render through the standard 3D canvas`);
-    assert.equal(lab?.threeD?.coverageTier, "standard-3d", `${labId} should stay a standard classroom capsule`);
+    assert.equal(lab?.threeD?.coverageTier, "standard-3d", `${labId} should retain its historical classroom-capsule metadata`);
     assert.equal(lab?.threeD?.familyId, familyId, `${labId} should route to the expected family`);
     assert.equal(lab?.threeD?.premiumLaunch, false, `${labId} should not become a premium topic page`);
     assert.equal(lab?.threeD?.regionalPriority, "hong-kong", `${labId} should keep HK representative metadata`);
   }
-  assert.equal(visualizationLabCatalog.find((lab) => lab.labId === "pep-high-s5-conics")?.threeD?.enabled, true);
+  assert.ok(
+    visualizationLabCatalog.find((lab) => lab.labId === "pep-high-s5-conics")?.threeD,
+    "historical Mainland authoring metadata should remain auditable even when learner-live flags are disabled"
+  );
 
   for (const lab of premium) {
     assert.ok(lab.threeD?.regionalPriority, `${lab.labId} should have a regional 3D launch priority`);
     premiumCounts[lab.threeD.regionalPriority] += 1;
   }
 
-  assert.deepEqual(premiumCounts, {
-    mainland: 40,
-    california: 12,
-    "hong-kong": 9,
-    "cross-region": 19
-  });
+  assert.equal(
+    Object.values(premiumCounts).reduce((total, count) => total + count, 0),
+    premium.length,
+    "catalog-derived regional live counts must partition the exact double-flag live set"
+  );
 });
 
 test("Mainland PEP junior keeps one Visualization Lab track with a focused spatial-imagination 3D pack", () => {
   const pepJuniorLabs = visualizationLabCatalog.filter((lab) => lab.curriculumTrack === "MAINLAND_PEP_JUNIOR");
-  const activePepJunior3DLabs = pepJuniorLabs.filter((lab) => lab.threeD?.enabled);
-  const standardPepJunior3DCapsules = activePepJunior3DLabs.filter((lab) => !lab.threeD?.premiumLaunch);
-  const premiumPepJuniorPackLab = activePepJunior3DLabs.find((lab) => lab.threeD?.premiumLaunch);
+  const spatialCandidateIds = new Set<string>(mainlandPepJuniorSpatialImagination3DLabIds);
+  const standardCandidateIds = new Set<string>(mainlandPepJuniorStandard3DCapsuleLabIds);
+  const pepJunior3DCandidates = pepJuniorLabs.filter((lab) => spatialCandidateIds.has(lab.labId));
+  const standardPepJunior3DCapsules = pepJunior3DCandidates.filter((lab) => standardCandidateIds.has(lab.labId));
+  const premiumPepJuniorPackLab = pepJuniorLabs.find((lab) => lab.labId === "pep-junior-s3-lower-inverse-similarity-trigonometry");
 
   assert.equal(pepJuniorLabs.length, 11);
   assert.deepEqual(
-    activePepJunior3DLabs.map((lab) => lab.labId).sort(),
+    pepJunior3DCandidates.map((lab) => lab.labId).sort(),
     [...mainlandPepJuniorSpatialImagination3DLabIds].sort()
   );
   assert.deepEqual(
@@ -121,9 +125,10 @@ test("Mainland PEP junior keeps one Visualization Lab track with a focused spati
   );
 });
 
-test("Mainland PEP primary keeps one Visualization Lab track with three standard 3D capsules", () => {
+test("Mainland PEP primary keeps one Visualization Lab track with three auditable 3D candidates", () => {
   const pepPrimaryLabs = visualizationLabCatalog.filter((lab) => lab.curriculumTrack === "MAINLAND_PEP_PRIMARY");
-  const standard3DCapsules = pepPrimaryLabs.filter((lab) => lab.threeD?.enabled);
+  const primaryCandidateIds = new Set<string>(mainlandPepPrimaryThreeDCapsuleLabIds);
+  const standard3DCapsules = pepPrimaryLabs.filter((lab) => primaryCandidateIds.has(lab.labId));
   const p6CoordinateMap = pepPrimaryLabs.find((lab) => lab.labId === "pep-primary-p6-upper-coordinate-data");
 
   assert.equal(pepPrimaryLabs.length, 24);

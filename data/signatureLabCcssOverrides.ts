@@ -16,11 +16,12 @@
  *
  * Benches intentionally NOT listed here have no CA K-12 home. That set shrank on
  * 2026-07-25: `californiaChapterSupplementalStandards` in `data/visualizationLabs.ts`
- * gave G-GPE, G-GMD, N-VM, N-CN, N-RN, A-REI and 8.NS a chapter to live on, so the
- * conic, coordinate-geometry, matrix, vector, complex-plane, rational-exponent and
- * irrational benches are now reachable. What remains homeless is the pure-calculus
- * set (Derivative, Integral, Limit, Series): CCSS-M has no calculus standards, so
- * there is nothing to join on.
+ * gave G-GPE, G-GMD, N-CN, N-RN, A-REI and 8.NS a chapter to live on, so the conic,
+ * coordinate-geometry, complex-plane, rational-exponent and irrational benches are
+ * now reachable. A later A18 semantic review confirmed that the N-Q quantities route
+ * does not teach the N-VM matrix/vector contract, so MatrixLab and VectorLab remain
+ * intentionally unassigned alongside the pure-calculus set (Derivative, Integral,
+ * Limit, Series), for which CCSS-M has no standards.
  * (OptimizationLab is the exception: it is tagged "Modeling" below, since
  * optimising a quantity is a modeling activity the CA Modeling chapters carry.)
  */

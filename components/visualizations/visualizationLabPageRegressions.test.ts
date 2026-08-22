@@ -3,6 +3,26 @@ import fs from "node:fs";
 import test from "node:test";
 
 const source = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
+const directShellSource = fs.readFileSync("components/visualizations/PremiumThreeDDirectRouteShell.tsx", "utf8");
+const cardSource = fs.readFileSync("components/visualizations/VisualizationCard.tsx", "utf8");
+const routeShellSource = fs.readFileSync("components/visualizations/VisualizationLabRouteShell.tsx", "utf8");
+const loadingSource = fs.readFileSync("components/visualizations/VisualizationLabLoading.tsx", "utf8");
+const signatureAdapterSource = fs.readFileSync("components/visualizations/SignatureLabAdapter.tsx", "utf8");
+
+function relativeLuminance(hex: string): number {
+  const channels = [1, 3, 5].map((index) => Number.parseInt(hex.slice(index, index + 2), 16) / 255);
+  const [red, green, blue] = channels.map((channel) =>
+    channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+  );
+  return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+}
+
+function contrastRatio(foreground: string, background: string): number {
+  const foregroundLuminance = relativeLuminance(foreground);
+  const backgroundLuminance = relativeLuminance(background);
+  return (Math.max(foregroundLuminance, backgroundLuminance) + 0.05) /
+    (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
+}
 
 test("visualization lab detail view omits the Start Practice CTA", () => {
   assert.doesNotMatch(source, /data-viz-start-practice-link/);
@@ -32,7 +52,7 @@ test("visualization lab scopes US curriculum users before cross-region capstone 
   assert.match(source, /return lab\.curriculumTrack === "US" && lab\.publisher === publisher;/);
 
   const usScopeIndex = source.indexOf("if (isUnitedStatesMathUser(currentUser))");
-  const capstoneBypassIndex = source.indexOf('if (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.premiumLaunch)');
+  const capstoneBypassIndex = source.indexOf('if (lab.curriculumTrack === "CAPSTONE" && isPremiumThreeDTopicPageLab(lab))');
 
   assert.notEqual(usScopeIndex, -1);
   assert.notEqual(capstoneBypassIndex, -1);
@@ -75,17 +95,35 @@ test("visualization lab direct-entry seeds workspace state before effects", () =
   assert.doesNotMatch(source, /useState<PanelMode>\("control"\)/);
 });
 
-test("visualization lab catalog loading shell exposes the direct-entry workspace selector", () => {
+test("standalone visualization loading exposes the direct-entry workspace selector", () => {
   assert.match(source, /suppressLoadingWorkspaceSelector\?: boolean/);
   assert.match(source, /function getInitialVisualizationLabRequestedLabId\(/);
   assert.match(source, /const loadingWorkspaceLabId = getInitialVisualizationLabRequestedLabId\(/);
-  assert.match(source, /const loadingWorkspaceSectionId = props\.suppressLoadingWorkspaceSelector \? null : loadingWorkspaceLabId;/);
+  assert.match(source, /const loadingWorkspaceSectionId = loadingWorkspaceLabId;/);
   assert.match(
     source,
     /id=\{loadingWorkspaceSectionId \? `lab-example-\$\{loadingWorkspaceSectionId\}` : undefined\}[\s\S]{0,280}data-viz-catalog-deferred/
   );
   assert.match(source, /data-viz-panel-mode="loading"/);
   assert.match(source, /data-viz-requested-lab-id=\{loadingWorkspaceLabId \?\? ""\}/);
+});
+
+test("visualization route shell owns the only visible catalog loading workspace", () => {
+  assert.match(source, /if \(props\.suppressLoadingWorkspaceSelector && !catalogLoadFailed\) return null;/);
+  assert.match(source, /if \(catalogLoadFailed\) \{\s*return <VisualizationCatalogLoadError requestedLabId=\{loadingWorkspaceLabId\} \/>;/);
+  assert.match(
+    routeShellSource,
+    /id=\{requestedLabId \? `lab-example-\$\{requestedLabId\}` : undefined\}[\s\S]{0,420}data-viz-panel-mode="loading"/
+  );
+});
+
+test("visualization catalog load failures replace the outer loader with one actionable error workspace", () => {
+  assert.match(source, /if \(!catalog && !catalogLoadFailed\) return;/);
+  assert.match(source, /\[catalog, catalogLoadFailed, onRouteShellReady\]/);
+  assert.match(source, /data-viz-catalog-load-status="error"/);
+  assert.match(source, /data-viz-panel-mode="error"/);
+  assert.match(source, /data-viz-retry-catalog-load/);
+  assert.match(source, /onClick=\{\(\) => window\.location\.reload\(\)\}/);
 });
 
 test("visualization lab notifies the route shell once the dynamic page mounts", () => {
@@ -205,6 +243,158 @@ test("visualization lab mobile rail hints overflow with an edge fade", () => {
   assert.match(source, /sm:\[mask-image:none\]/);
 });
 
+test("learner shell navigation and sharing controls keep a 44px hit target", () => {
+  for (const selector of [
+    "data-viz-back-to-control-panel-link",
+    "data-viz-copy-lab-link",
+    "data-viz-copy-lab-snapshot"
+  ]) {
+    const controlPattern = new RegExp(`${selector}[\\s\\S]{0,700}className="[^"]*min-h-11[^"]*min-w-11`);
+    assert.match(source, controlPattern, `${selector} must preserve a 44 by 44 minimum learner hit target`);
+  }
+});
+
+test("premium direct actions and signature tabs keep a 44px hit target", () => {
+  for (const selector of ["data-viz-open-full-lab-directory-link", "data-viz-open-practice-link"]) {
+    const controlPattern = new RegExp(`${selector}[\\s\\S]{0,500}className="[^"]*min-h-11[^"]*min-w-11`);
+    assert.match(directShellSource, controlPattern, `${selector} must preserve a 44 by 44 minimum hit target`);
+  }
+  assert.match(source, /data-viz-signature-bench-id=\{benchId\}[\s\S]{0,1200}className=\{`min-h-11/);
+  for (const control of ["button", "input", "select"]) {
+    assert.match(
+      source,
+      new RegExp(`\\[&_\\[data-viz-keyboard-equivalent\\]_${control}\\]:min-h-11`),
+      `signature keyboard-equivalent ${control} controls must inherit a 44px hit area`
+    );
+  }
+  assert.match(source, /\[&_\[data-viz-keyboard-equivalent\]_button\]:min-w-11/);
+  assert.match(source, /\[&_\[data-viz-keyboard-equivalent\]_select\]:min-w-11/);
+});
+
+test("premium direct shell describes the learner surface without claiming every route renders 3D", () => {
+  assert.match(
+    directShellSource,
+    /en: "Premium Visualization Lab", zh: "Premium 可視化實驗", zhHans: "Premium 可视化实验"/
+  );
+  assert.doesNotMatch(directShellSource, /Premium 3D (?:lab|實驗|实验)/);
+});
+
+test("catalog mission and curriculum controls keep a 44px hit target outside the lab workspace", () => {
+  assert.match(
+    source,
+    /data-viz-mission-strip-lab=\{lab\.labId\}[\s\S]{0,700}className=\{cn\([\s\S]{0,180}min-h-11 min-w-11/
+  );
+  assert.match(
+    source,
+    /data-viz-track-filter-button[\s\S]{0,500}className=\{cn\([\s\S]{0,180}min-h-11 min-w-11/
+  );
+});
+
+test("the lab workspace gives real controls a 44px touch-target floor at every viewport", () => {
+  const requiredUtilities = [
+    "[&_button]:min-h-11",
+    "[&_button]:min-w-11",
+    "[&_select]:min-h-11",
+    "[&_select]:min-w-11",
+    "[&_input:not([type=range])]:min-h-11",
+    "[&_input:not([type=range])]:min-w-11",
+    "[&_input[type=range]]:min-h-11",
+    "[&_input[type=range]]:min-w-0",
+    "[&_a[role=button]]:min-h-11",
+    "[&_a[role=button]]:min-w-11"
+  ];
+
+  assert.match(source, /data-viz-lab-workspace/);
+  for (const selector of requiredUtilities) {
+    assert.ok(source.includes(selector), selector + " must remain on the stable lab workspace wrapper");
+  }
+  assert.doesNotMatch(source, /\[&_input\[type=range\]\]:min-w-11/);
+  assert.match(directShellSource, /data-viz-lab-workspace/);
+  for (const utility of requiredUtilities) {
+    assert.ok(directShellSource.includes(utility), "premium direct workspace must include " + utility);
+  }
+});
+
+test("signature learner states use auditable opaque paint instead of group compositing", () => {
+  assert.match(signatureAdapterSource, /const signatureLearnerContrastCss =/);
+  assert.match(signatureAdapterSource, /\.btn:disabled,[\s\S]{0,1600}opacity: 1 !important;/);
+  assert.match(signatureAdapterSource, /\.choice\.dim[\s\S]{0,700}background: #f1f5f9 !important;/);
+  assert.match(signatureAdapterSource, /\.choice\.correct[\s\S]{0,260}background: #eaf5ef !important;[\s\S]{0,260}color: #166534 !important;/);
+  assert.match(signatureAdapterSource, /\.choice\.wrong[\s\S]{0,260}background: #eef2f6 !important;[\s\S]{0,260}color: #475569 !important;/);
+  assert.match(signatureAdapterSource, /:is\(\.stage, \.sorter-card, \.net, \.chbox\)[\s\S]{0,180}background-image: none !important;/);
+  assert.doesNotMatch(signatureAdapterSource, /:is\([^)]*\.swatch\.none/);
+  assert.match(signatureAdapterSource, /\.swatch\.none[\s\S]{0,360}background-image: linear-gradient\(/);
+  assert.match(signatureAdapterSource, /:is\(\.btn, \.chipbtn, \.obtn, \.seg-btn, \.segb, \.segbtn\):hover[\s\S]{0,100}filter: none !important;/);
+  assert.match(signatureAdapterSource, /\.jbtn:hover[\s\S]{0,180}filter: none !important;[\s\S]{0,180}outline: 2px solid currentColor !important;/);
+  assert.match(signatureAdapterSource, /\.el:hover[\s\S]{0,180}transform: none !important;[\s\S]{0,180}outline: 2px solid currentColor !important;/);
+  assert.match(signatureAdapterSource, /\.lens\.on[\s\S]{0,180}box-shadow: none !important;/);
+  assert.match(signatureAdapterSource, /\.stamp[\s\S]{0,260}opacity: 1 !important;[\s\S]{0,260}color: #166534 !important;/);
+  assert.match(signatureAdapterSource, /\.nameplate \.name\.flash[\s\S]{0,100}opacity: 1 !important;/);
+  assert.match(signatureAdapterSource, /\.route:not\(\.on\)[\s\S]{0,360}background-color: #f1f5f9 !important;/);
+  assert.match(signatureAdapterSource, /\.soon:not\(\.live\)[\s\S]{0,100}color: #475569 !important;/);
+  assert.match(signatureAdapterSource, /\.easy[\s\S]{0,180}background: #fef3c7 !important;[\s\S]{0,120}color: #713f12 !important;/);
+  assert.doesNotMatch(signatureAdapterSource, /className="[^"]*shadow-inner/);
+  assert.doesNotMatch(cardSource, /className="glass-panel/);
+  assert.match(cardSource, /className="[^"]*bg-white[^"]*dark:bg-slate-900/);
+  assert.match(source, /className="rounded-\[1\.35rem\] bg-white p-4[^"]*dark:bg-slate-950/);
+});
+
+test("signature learner accent palette passes normal-text contrast in tabs, DOM, and Canvas", () => {
+  assert.match(
+    signatureAdapterSource,
+    /"#2e8b6f": "#166534",\s*"#3f74a6": "#245b8f"/
+  );
+  assert.match(
+    signatureAdapterSource,
+    /\[role='tab'\]\[aria-selected='true'\][\s\S]{0,180}background: #0e7490 !important;[\s\S]{0,120}color: #ffffff !important;/
+  );
+  assert.match(
+    signatureAdapterSource,
+    /\[style\*='color: rgb\(63, 116, 166\)'\][\s\S]{0,180}color: #245b8f !important;/
+  );
+  assert.match(
+    signatureAdapterSource,
+    /\[style\*='color: rgb\(46, 139, 111\)'\][\s\S]{0,180}color: #166534 !important;/
+  );
+  assert.match(
+    signatureAdapterSource,
+    /\.btn\.ghost\.on:not\(:disabled\)[\s\S]{0,180}background: #166534 !important;[\s\S]{0,120}color: #ffffff !important;/
+  );
+  assert.match(signatureAdapterSource, /function installAccessibleSignatureCanvasPalette\(/);
+  assert.match(
+    signatureAdapterSource,
+    /useLayoutEffect\(\(\) => \{[\s\S]{0,260}canvases\.map\(installAccessibleSignatureCanvasPalette\)/
+  );
+  assert.doesNotMatch(signatureAdapterSource, /CanvasRenderingContext2D\.prototype\.[A-Za-z]+\s*=/);
+
+  const paper = "#eff1ee";
+  for (const foreground of ["#0e7490", "#245b8f", "#166534"]) {
+    assert.ok(
+      contrastRatio(foreground, paper) >= 4.5,
+      `${foreground} must retain at least 4.5:1 against the darkest signature paper token`
+    );
+  }
+  assert.ok(contrastRatio("#ffffff", "#0e7490") >= 4.5);
+});
+
+test("signature lab mount stays side-effect free until a learner action", () => {
+  assert.doesNotMatch(
+    signatureAdapterSource,
+    /useEffect\(\(\) => \{\s*recordLearningEvent\(\{ type: "visualization-probe"/
+  );
+  assert.match(
+    signatureAdapterSource,
+    /const handleReset = useCallback\(\(\) => \{[\s\S]{0,220}type: "visualization-reset"/
+  );
+  assert.match(source, /onBenchSwitch=\{\(benchId\) => recordVisualizationNavigationEvent\("bench-switch", benchId\)\}/);
+});
+test("signature tabs share one stable tabpanel target", () => {
+  assert.match(source, /const panelId = `\$\{switcherDomId\}-panel`;/);
+  assert.match(source, /aria-controls=\{panelId\}/);
+  assert.match(source, /<div\s+id=\{panelId\}[\s\S]{0,180}role=\{benchIds\.length > 1 \? "tabpanel" : undefined\}/);
+  assert.doesNotMatch(source, /panel-\$\{resolvedActiveBenchId\}/);
+});
+
 test("visualization lab records entry-point navigation analytics on the existing schema", () => {
   assert.match(source, /function recordVisualizationNavigationEvent\(action: string, detail: string\)/);
   assert.match(source, /type: "mouse-click",\s*source: "navigation",\s*topicId: `viz-nav:\$\{action\}:\$\{detail\}`/);
@@ -240,13 +430,70 @@ test("visualization lab scales controls for young learners without touching lab 
 test("visualization lab renders catalog copy through Simplified Chinese conversion", () => {
   assert.match(source, /function displayCatalogText\(value: string\)/);
   assert.match(source, /return simplifyChineseText\(value, language\);/);
-  assert.match(source, /title=\{displayCatalogText\(compactTitle\(text\(lab\.title\)\)\)\}/);
-  assert.match(source, /\{displayCatalogText\(compactTitle\(text\(recommendedLab\.title\)\)\)\}/);
-  assert.match(source, /title=\{displayCatalogText\(text\(activeDirectoryLab\.title\)\)\}/);
+  assert.match(source, /resolveVisualizationLabDisplayCopy\(lab, language\)/);
+  assert.match(source, /title: displayCatalogText\(compact \? compactTitle\(copy\.title\) : copy\.title\)/);
+});
+
+test("catalog, recommendation, mission, active, and direct surfaces consume shared display disambiguation", () => {
+  assert.match(source, /displayDisambiguator=\{displayCopy\.disambiguator\}/);
+  assert.match(source, /recommendedDisplayCopy\?\.disambiguator/);
+  assert.match(source, /const displayCopy = displayLabCopy\(lab, true\);/);
+  assert.match(source, /activeDirectoryDisplayCopy\?\.disambiguator/);
+  assert.ok((source.match(/data-viz-display-disambiguator/g) ?? []).length >= 4);
+  assert.match(directShellSource, /resolveVisualizationLabDisplayCopy\(lab, language\)/);
+  assert.match(directShellSource, /displayCopy\.disambiguator/);
+  assert.match(directShellSource, /data-viz-display-disambiguator/);
+});
+
+test("active and premium card headings expose the disambiguated accessible title", () => {
+  assert.match(cardSource, /accessibleTitle\?: string/);
+  assert.match(cardSource, /aria-label=\{accessibleTitle && accessibleTitle !== title \? accessibleTitle : undefined\}/);
+  assert.match(source, /accessibleTitle=\{[\s\S]{0,180}activeDirectoryDisplayCopy\?\.accessibleTitle/);
+  assert.match(directShellSource, /accessibleTitle=\{displayCopy\.accessibleTitle\}/);
+});
+
+test("loading, active, and premium workspaces localize their accessible label", () => {
+  for (const workspaceSource of [source, routeShellSource, directShellSource]) {
+    assert.match(workspaceSource, /zh: "可視化實驗室工作區"/);
+    assert.match(workspaceSource, /zhHans: "可视化实验室工作区"/);
+  }
+  assert.match(loadingSource, /zh: "可視化實驗室"/);
+  assert.match(loadingSource, /zhHans: "可视化实验室"/);
+  assert.match(loadingSource, /zh: "正在準備可視化內容…"/);
+  assert.match(loadingSource, /zhHans: "正在准备可视化内容…"/);
+});
+
+test("signature runtime loading is localized and dark-mode legible", () => {
+  const runtimeStart = source.indexOf("function LabRuntimeLoading()");
+  const runtimeEnd = source.indexOf("\nfunction GradeChip", runtimeStart);
+  assert.ok(runtimeStart >= 0 && runtimeEnd > runtimeStart);
+  const runtimeLoadingSource = source.slice(runtimeStart, runtimeEnd);
+
+  assert.match(runtimeLoadingSource, /const \{ t \} = useSettings\(\);/);
+  assert.match(runtimeLoadingSource, /data-viz-lab-runtime-loading/);
+  assert.match(runtimeLoadingSource, /role="status"/);
+  assert.match(runtimeLoadingSource, /en: "Loading lab runtime…", zh: "正在載入實驗…", zhHans: "正在加载实验…"/);
+  assert.match(runtimeLoadingSource, /dark:border-cyan-300\/25/);
+  assert.match(runtimeLoadingSource, /dark:bg-cyan-300\/10/);
+  assert.match(runtimeLoadingSource, /dark:text-cyan-100/);
+});
+
+test("the active detail shell retains dark-mode surfaces and controls", () => {
+  assert.match(source, /data-lab-id=\{activeDirectoryLab\.labId\}[\s\S]{0,420}dark:bg-slate-950/);
+  assert.doesNotMatch(source, /data-lab-id=\{activeDirectoryLab\.labId\}[\s\S]{0,420}(?:bg-white\/95|dark:bg-slate-950\/95)/);
+  for (const token of [
+    "dark:border-white/10",
+    "dark:bg-blue-300/10",
+    "dark:bg-amber-300/10",
+    "dark:bg-cyan-300/10",
+    "dark:bg-violet-300/10"
+  ]) {
+    assert.ok(source.includes(token), "active detail shell must retain " + token);
+  }
 });
 
 test("switching to a related bench is reported as navigation telemetry", () => {
-  // 138 of the 192 benches are reachable only through this chip row, so whether
+  // 128 of the 192 benches are reachable only through this chip row, so whether
   // students use it is the difference between "covered" and "met". Before
   // 2026-07-25 the click emitted nothing and the question was unanswerable.
   assert.match(source, /onBenchSwitch\?: \(benchId: SignatureLabId\) => void/);
@@ -254,5 +501,5 @@ test("switching to a related bench is reported as navigation telemetry", () => {
   // it rides the existing mouse-click/navigation channel — no schema change
   assert.match(source, /function recordVisualizationNavigationEvent\(action: string, detail: string\)/);
   // re-selecting the bench already showing is not a switch and must not report
-  assert.match(source, /if \(benchId === activeBenchId\) return;\s*\n\s*onBenchSwitch\?\.\(benchId\);/);
+  assert.match(source, /if \(benchId === resolvedActiveBenchId\) return;\s*\n\s*onBenchSwitch\?\.\(benchId\);/);
 });

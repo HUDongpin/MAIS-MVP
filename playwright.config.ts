@@ -1,7 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
+import { existsSync, lstatSync } from "node:fs";
 import path from "node:path";
 import ts from "typescript";
 
+const STARSHIP_VOLUME_ROOT = "/Volumes/Starship";
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
@@ -48,7 +50,31 @@ const selectedSpecArgs = process.argv
 const runsOnlyIsolatedStatefulSpecs =
   selectedSpecArgs.length > 0 &&
   selectedSpecArgs.every((arg) => isolatedStatefulSpecs.some((spec) => arg === spec || arg.endsWith(`/${spec}`)));
+const runsFormalCaliforniaLayerAProductSmoke =
+  process.env.CA_VIZ_PRODUCT_SMOKE_LAYER === "A" ||
+  selectedSpecArgs.some((arg) => arg.endsWith("california-visualization-product-smoke.spec.ts"));
 const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIsolatedStatefulSpecs;
+
+for (const forbiddenPrecedenceVariable of ["BREAKPAD_DUMP_LOCATION", "CFFIXED_USER_HOME"] as const) {
+  if (process.env[forbiddenPrecedenceVariable] !== undefined) {
+    throw new Error(
+      `${forbiddenPrecedenceVariable} must be absent; Chrome Crashpad containment is owned only by ` +
+      "PLAYWRIGHT_CRASHPAD_DIR and the command-line launch argument."
+    );
+  }
+}
+const configuredCrashpadDir = process.env.PLAYWRIGHT_CRASHPAD_DIR;
+if (configuredCrashpadDir !== undefined && configuredCrashpadDir.trim() === "") {
+  throw new Error("PLAYWRIGHT_CRASHPAD_DIR must not be empty when it is present.");
+}
+if (runsFormalCaliforniaLayerAProductSmoke && configuredCrashpadDir === undefined) {
+  throw new Error("PLAYWRIGHT_CRASHPAD_DIR is required for the formal California Layer-A product smoke.");
+}
+const e2eCrashpadDir = assertSafeStarshipGeneratedPath(
+  "PLAYWRIGHT_CRASHPAD_DIR",
+  configuredCrashpadDir?.trim() || path.resolve(e2eRunRoot, "chrome-crashpad"),
+  e2eRunRoot
+);
 
 assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
@@ -63,6 +89,38 @@ function sanitizePathSegment(value: string) {
 function isPathInside(absolutePath: string, root: string) {
   const relative = path.relative(root, absolutePath);
   return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
+function assertSafeStarshipGeneratedPath(label: string, value: string, generatedRootValue: string) {
+  const generatedRoot = path.resolve(generatedRootValue);
+  if (!path.isAbsolute(value)) {
+    throw new Error(`${label} must be an absolute path under ${generatedRoot}.`);
+  }
+  const absolutePath = path.resolve(value);
+  const starshipRoot = path.resolve(STARSHIP_VOLUME_ROOT);
+  if (generatedRoot === starshipRoot || !isPathInside(generatedRoot, starshipRoot)) {
+    throw new Error(`${generatedRoot} must be a strict descendant of ${STARSHIP_VOLUME_ROOT}.`);
+  }
+  if (absolutePath === generatedRoot || !isPathInside(absolutePath, generatedRoot)) {
+    throw new Error(`${label} must be a strict descendant of ${generatedRoot}.`);
+  }
+  let current = absolutePath;
+  while (current !== starshipRoot) {
+    if (existsSync(current)) {
+      const identity = lstatSync(current);
+      if (identity.isSymbolicLink()) {
+        throw new Error(`${label} must not traverse a symbolic link: ${current}`);
+      }
+      if ((current === absolutePath || current === generatedRoot) && !identity.isDirectory()) {
+        throw new Error(`${label} and its generated root must be directories when they already exist: ${current}`);
+      }
+    }
+    current = path.dirname(current);
+  }
+  if (!existsSync(starshipRoot) || !lstatSync(starshipRoot).isDirectory() || lstatSync(starshipRoot).isSymbolicLink()) {
+    throw new Error(`${STARSHIP_VOLUME_ROOT} must be an existing non-symlink directory.`);
+  }
+  return absolutePath;
 }
 
 function assertSafeE2eGeneratedPath(label: string, value: string) {
@@ -156,6 +214,7 @@ export default defineConfig({
   use: {
     baseURL,
     channel: browserChannel || undefined,
+    launchOptions: { args: [`--breakpad-dump-location=${e2eCrashpadDir}`] },
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"

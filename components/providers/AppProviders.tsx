@@ -10,14 +10,67 @@ import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurricul
 import { isStudentLessonPath, studentLessonsPath } from "@/lib/lessonLinks";
 import { isLegacyRoadmapPath, isStudentRoadmapPath } from "@/lib/roadmapRoutes";
 import {
+  acknowledgeLearningAnalyticsOutbox,
+  beginLearningAnalyticsClearFence,
+  beginLearningAnalyticsGenerationHandshake,
+  clearLearningAnalyticsOutbox,
+  clearLearningAnalyticsDurabilityFallbackBeforeBoundary,
   coalesceLearningAnalyticsEvents,
+  confirmLearningAnalyticsGenerationHandshake,
   createLearningAnalyticsEvent,
+  finishLearningAnalyticsLowerGenerationRecovery,
+  isDurableLearningAnalyticsDeliveryResponse,
   isHighFrequencyLearningAnalyticsEvent,
+  isLearningAnalyticsClearAcknowledgement,
+  learningAnalyticsClearFenceStorageKey,
+  learningAnalyticsClientProtocolStatus,
+  learningAnalyticsDurabilityLineageIsRecoverable,
+  learningAnalyticsDeliveryPauseTransition,
+  learningAnalyticsDeliveryGeneration,
+  learningAnalyticsEventForDelivery,
+  learningAnalyticsFlushRequestedEventName,
+  learningAnalyticsGenerationHandshakeStorageKey,
+  learningAnalyticsGenerationTransitionStorageKey,
+  learningAnalyticsGenerationStorageKey,
   learningAnalyticsUpdatedEventName,
+  learningAnalyticsWriterGateToken,
+  markLearningAnalyticsClearDeleteAttempted,
   maxStoredLearningAnalyticsEvents,
-  throttledLearningAnalyticsFlushMs
+  mergeDurableLearningAnalyticsEvents,
+  mergeOrderedLearningAnalyticsEvents,
+  mergeUnconfirmedLearningAnalyticsOutbox,
+  persistLearningAnalyticsEventsForCurrentProtocol,
+  persistLearningAnalyticsEventsWithDurabilityFallback,
+  persistUnconfirmedLearningAnalyticsEventsWithDurabilityFallback,
+  prepareLearningAnalyticsClearDeleteAfterMismatch,
+  prepareLearningAnalyticsForwardGenerationTransition,
+  readLearningAnalyticsClearFence,
+  readLearningAnalyticsGeneration,
+  readLearningAnalyticsGenerationMismatchReceipt,
+  readLearningAnalyticsOutbox,
+  readUnconfirmedLearningAnalyticsOutbox,
+  recoverLearningAnalyticsDurabilityFallback,
+  recoverLearningAnalyticsVolatileEvent,
+  replaceLearningAnalyticsGeneration,
+  resolveLearningAnalyticsClearHandshake,
+  resumeLearningAnalyticsGenerationTransition,
+  throttledLearningAnalyticsFlushMs,
+  visualizationSessionOutboxRetryDelayMs,
+  withRequiredLearningAnalyticsClearLock,
+  withLearningAnalyticsDeliveryGeneration
 } from "@/lib/learningAnalytics";
 import { isVisualizationLabPath } from "@/lib/visualizationRoutes";
+import {
+  acknowledgeVisualizationSessionOutbox,
+  isVisualizationSessionOutboxAcknowledgement,
+  quarantineVisualizationSessionOutboxRecord,
+  readVisualizationSessionOutbox,
+  visualizationSessionOutboxDeliveryDisposition,
+  visualizationSessionOutboxAcknowledgedEventName,
+  visualizationSessionOutboxFailedEventName,
+  visualizationSessionOutboxUpdatedEventName,
+  type VisualizationSessionOutboxRecord
+} from "@/lib/visualizationSessionOutbox";
 import type {
   CurriculumTrack,
   CurriculumProfile,
@@ -92,7 +145,10 @@ type SettingsContextValue = {
   mistakeRecords: MistakeRecord[];
   learningAnalyticsEvents: LearningAnalyticsEvent[];
   refreshMistakeRecordsAfterAttempt: () => void;
-  recordLearningEvent: (event: LearningAnalyticsInput) => void;
+  recordLearningEvent: (
+    event: LearningAnalyticsInput,
+    options?: LearningAnalyticsRecordOptions
+  ) => LearningAnalyticsRecordResult;
   clearLearningAnalytics: () => void;
   markMistakeMastered: (questionId: string) => void;
   removeMistake: (questionId: string) => void;
@@ -100,6 +156,18 @@ type SettingsContextValue = {
   text: (value: LocalizedText) => string;
   t: (value: LocalizedText) => string;
 };
+
+export type LearningAnalyticsRecordOptions = {
+  eventId?: string;
+  eventTimestamp?: string;
+};
+
+export type LearningAnalyticsRecordResult =
+  | "ignored"
+  | "confirmed"
+  | "unconfirmed"
+  | "fallback"
+  | "volatile";
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
 
@@ -382,6 +450,53 @@ function persistedSettingsKey(userId: string, language: Language, theme: ThemeMo
 
 const sessionSyncStorageKey = "hk-math-session-sync";
 
+type LearningAnalyticsIdentity = {
+  userId: string | null;
+  clientEpoch: number;
+};
+
+type LearningAnalyticsDeliveryFlight = LearningAnalyticsIdentity & {
+  generation: number;
+  token: number;
+};
+
+type LearningAnalyticsImmediateDrain = LearningAnalyticsIdentity & {
+  eventIds: Set<string>;
+};
+
+function isCurrentLearningAnalyticsIdentity(
+  current: LearningAnalyticsIdentity,
+  expected: LearningAnalyticsIdentity
+) {
+  return current.userId === expected.userId && current.clientEpoch === expected.clientEpoch;
+}
+
+function isCanonicalLearningAnalyticsRecordOption(
+  value: unknown,
+  kind: "eventId" | "eventTimestamp"
+) {
+  if (typeof value !== "string" || value.length === 0 || value !== value.trim()) {
+    return false;
+  }
+  if (kind === "eventId") return value.length <= 240;
+  try {
+    return new Date(value).toISOString() === value;
+  } catch {
+    return false;
+  }
+}
+
+async function withLearningAnalyticsClearLock<T>(
+  userId: string,
+  task: () => Promise<T>
+): Promise<T> {
+  return withRequiredLearningAnalyticsClearLock(
+    navigator.locks,
+    userId,
+    task
+  );
+}
+
 function broadcastSessionChange(userId: string | null) {
   try {
     window.localStorage.setItem(sessionSyncStorageKey, JSON.stringify({ userId, at: Date.now() }));
@@ -407,11 +522,44 @@ export function AppProviders({ children }: { children: ReactNode }) {
   const [mistakeRecords, setMistakeRecords] = useState<MistakeRecord[]>([]);
   const [learningAnalyticsEvents, setLearningAnalyticsEvents] = useState<LearningAnalyticsEvent[]>([]);
   const [pendingLearningEvents, setPendingLearningEvents] = useState<LearningAnalyticsEvent[]>([]);
+  const [analyticsDeliveryCycle, setAnalyticsDeliveryCycle] = useState(0);
+  const [analyticsGenerationHandshakeCycle, setAnalyticsGenerationHandshakeCycle] = useState(0);
   const [settingsReady, setSettingsReady] = useState(false);
   const analyticsFlushGenerationRef = useRef(0);
+  const analyticsIdentityRef = useRef<LearningAnalyticsIdentity>({
+    userId: null,
+    clientEpoch: 0
+  });
+  const analyticsGenerationReadyIdentityRef = useRef<LearningAnalyticsIdentity>({
+    userId: null,
+    clientEpoch: -1
+  });
+  const analyticsServerGenerationRef = useRef(0);
+  const analyticsDeliveryHandleRef = useRef<number | null>(null);
+  const analyticsImmediateDeliveryRequestedRef = useRef<LearningAnalyticsImmediateDrain | null>(null);
+  const analyticsDeliveryInFlightRef = useRef<LearningAnalyticsDeliveryFlight | null>(null);
+  const analyticsDeliveryFlightSequenceRef = useRef(0);
+  const analyticsGenerationHandshakeSequenceRef = useRef(0);
+  const analyticsClearRequestSequenceRef = useRef(0);
+  const analyticsDirectClearInFlightRef = useRef<{
+    userId: string;
+    requestId: string;
+  } | null>(null);
+  const analyticsDeliveryPausedRef = useRef(false);
   const pendingLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
   const highFrequencyLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
+  const analyticsAwaitingDurabilityRef = useRef<Array<{
+    boundaryToken: string | null;
+    event: LearningAnalyticsEvent;
+    generation: number;
+    userId: string;
+  }>>([]);
   const highFrequencyFlushHandleRef = useRef<number | null>(null);
+  const pageVisitScopeRef = useRef({ key: "", sequence: 0 });
+  const recordedPageViewTokenRef = useRef<string | null>(null);
+  const finalizeVisibleAnalyticsRef = useRef<(() => void) | null>(null);
+  const resumeVisibleAnalyticsRef = useRef<(() => void) | null>(null);
+  const currentUserRef = useRef<StudentSession | null>(null);
   const lessonEntryRequestKeyRef = useRef<string | null>(null);
   const persistedSettingsKeyRef = useRef<string | null>(null);
   const skipGlobalStudentWarmups = currentUser?.role === "student" && isFirstPaintSensitiveStudentPath(pathname);
@@ -423,19 +571,110 @@ export function AppProviders({ children }: { children: ReactNode }) {
     window.clearTimeout(highFrequencyFlushHandleRef.current);
     highFrequencyFlushHandleRef.current = null;
   }, []);
-  const appendLearningEventsToQueues = useCallback((events: LearningAnalyticsEvent[]) => {
-    if (events.length === 0) return;
-    const coalescedEvents = coalesceLearningAnalyticsEvents(events);
-
-    setLearningAnalyticsEvents((current) =>
-      coalesceLearningAnalyticsEvents([...current, ...coalescedEvents]).slice(-maxStoredLearningAnalyticsEvents)
+  const clearAnalyticsDeliveryHandle = useCallback(() => {
+    if (analyticsDeliveryHandleRef.current === null) return;
+    window.clearTimeout(analyticsDeliveryHandleRef.current);
+    analyticsDeliveryHandleRef.current = null;
+  }, []);
+  const setLearningAnalyticsDeliveryPaused = useCallback((nextPaused: boolean) => {
+    const transition = learningAnalyticsDeliveryPauseTransition(
+      analyticsDeliveryPausedRef.current,
+      nextPaused
     );
+    analyticsDeliveryPausedRef.current = transition.paused;
+    if (transition.wakeVisualizationSessions) {
+      window.dispatchEvent(new Event(visualizationSessionOutboxUpdatedEventName));
+    }
+  }, []);
+  const invalidateLearningAnalyticsGenerationReadiness = useCallback(() => {
+    analyticsGenerationReadyIdentityRef.current = {
+      userId: null,
+      clientEpoch: -1
+    };
+  }, []);
+  const requestLearningAnalyticsGenerationHandshake = useCallback(() => {
+    setAnalyticsGenerationHandshakeCycle((current) => current + 1);
+  }, []);
+  const analyticsOutboxUserId = currentUser?.role === "student" ? currentUser.id : null;
+  const analyticsOwnerIdentity: LearningAnalyticsIdentity = {
+    userId: analyticsOutboxUserId,
+    clientEpoch: analyticsIdentityRef.current.clientEpoch
+  };
+  const analyticsOwnerServerGeneration = analyticsServerGenerationRef.current;
+  const pageVisitKey = `${currentUser?.id ?? "guest"}\u001f${pathname}`;
+  if (pageVisitScopeRef.current.key !== pageVisitKey) {
+    pageVisitScopeRef.current = {
+      key: pageVisitKey,
+      sequence: pageVisitScopeRef.current.sequence + 1
+    };
+  }
+  const pageVisitToken = `${pageVisitKey}\u001f${pageVisitScopeRef.current.sequence}`;
+  const appendLearningEventsToQueues = useCallback((
+    events: LearningAnalyticsEvent[],
+    ownerIdentity: LearningAnalyticsIdentity = analyticsOwnerIdentity
+  ): LearningAnalyticsRecordResult => {
+    if (events.length === 0) return "ignored";
+    const coalescedEvents = coalesceLearningAnalyticsEvents(events);
+    let persistedAs: Exclude<LearningAnalyticsRecordResult, "ignored"> = "confirmed";
+
+    if (ownerIdentity.userId) {
+      const ownerGeneration = analyticsIdentityRef.current.userId === ownerIdentity.userId
+        ? analyticsServerGenerationRef.current
+        : learningAnalyticsDeliveryGeneration(coalescedEvents[0]);
+      try {
+        persistedAs = persistLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          ownerIdentity.userId,
+          coalescedEvents,
+          ownerGeneration
+        );
+      } catch {
+        // Neither primary nor refresh-durable fallback storage accepted the
+        // row. Retain an explicit in-memory retry, and never authorize network
+        // delivery from this state.
+        const otherUsers = analyticsAwaitingDurabilityRef.current.filter(
+          ({ userId }) => userId !== ownerIdentity.userId
+        );
+        const thisUser = mergeDurableLearningAnalyticsEvents(
+          analyticsAwaitingDurabilityRef.current
+            .filter(({ userId }) => userId === ownerIdentity.userId)
+            .map(({ event }) => event),
+          coalescedEvents
+        ).map((event) => ({
+          boundaryToken: learningAnalyticsWriterGateToken(
+            window.localStorage,
+            ownerIdentity.userId!
+          ),
+          event,
+          generation: ownerGeneration,
+          userId: ownerIdentity.userId!
+        }));
+        analyticsAwaitingDurabilityRef.current = [...otherUsers, ...thisUser];
+        persistedAs = "volatile";
+      }
+    }
+
+    // A stale route or identity effect may finish after another user becomes
+    // active. Its captured owner's durable outbox is still safe, but it must
+    // never repopulate the new user's in-memory delivery queue.
+    if (!isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, ownerIdentity)) {
+      return persistedAs;
+    }
+
+    setLearningAnalyticsEvents((current) => {
+      if (!isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, ownerIdentity)) return current;
+      return mergeOrderedLearningAnalyticsEvents(current, coalescedEvents);
+    });
+    if (persistedAs !== "confirmed") return persistedAs;
     setPendingLearningEvents((current) => {
-      const nextEvents = coalesceLearningAnalyticsEvents([...current, ...coalescedEvents]).slice(-maxStoredLearningAnalyticsEvents);
+      if (!isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, ownerIdentity)) return current;
+      const nextEvents = mergeDurableLearningAnalyticsEvents(current, coalescedEvents);
       pendingLearningEventsRef.current = nextEvents;
       return nextEvents;
     });
-  }, []);
+    return persistedAs;
+  }, [analyticsOutboxUserId, analyticsOwnerIdentity.clientEpoch]);
   const takeBufferedHighFrequencyLearningEvents = useCallback(() => {
     clearHighFrequencyFlushHandle();
     if (highFrequencyLearningEventsRef.current.length === 0) return [];
@@ -446,7 +685,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [clearHighFrequencyFlushHandle]);
   const flushBufferedHighFrequencyLearningEvents = useCallback(() => {
     const events = takeBufferedHighFrequencyLearningEvents();
-    appendLearningEventsToQueues(events);
+    appendLearningEventsToQueues(events, analyticsIdentityRef.current);
     return events;
   }, [appendLearningEventsToQueues, takeBufferedHighFrequencyLearningEvents]);
   const scheduleHighFrequencyLearningEventFlush = useCallback(() => {
@@ -457,21 +696,137 @@ export function AppProviders({ children }: { children: ReactNode }) {
       flushBufferedHighFrequencyLearningEvents();
     }, throttledLearningAnalyticsFlushMs);
   }, [flushBufferedHighFrequencyLearningEvents]);
-  const recordLearningEvent = useCallback((event: LearningAnalyticsInput) => {
-    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
+  const recordLearningEvent = useCallback((
+    event: LearningAnalyticsInput,
+    options: LearningAnalyticsRecordOptions = {}
+  ): LearningAnalyticsRecordResult => {
+    if (
+      !settingsReady ||
+      !currentUser ||
+      currentUser.role !== "student" ||
+      !analyticsOwnerIdentity.userId
+    ) return "ignored";
 
-    const analyticsEvent = createLearningAnalyticsEvent(event, selectedGrade);
+    const hasEventId = typeof options.eventId !== "undefined";
+    const hasEventTimestamp = typeof options.eventTimestamp !== "undefined";
+    if (
+      hasEventId !== hasEventTimestamp ||
+      (typeof options.eventId !== "undefined" &&
+        !isCanonicalLearningAnalyticsRecordOption(options.eventId, "eventId")) ||
+      (typeof options.eventTimestamp !== "undefined" &&
+        !isCanonicalLearningAnalyticsRecordOption(
+          options.eventTimestamp,
+          "eventTimestamp"
+        ))
+    ) return "ignored";
+
+    const currentIdentity = analyticsIdentityRef.current;
+    const recordingIdentity = currentIdentity.userId === analyticsOwnerIdentity.userId
+      ? currentIdentity
+      : analyticsOwnerIdentity;
+    const recordingUserId = recordingIdentity.userId;
+    if (!recordingUserId) return "ignored";
+    const recordingServerGeneration = currentIdentity.userId === analyticsOwnerIdentity.userId
+      ? analyticsServerGenerationRef.current
+      : analyticsOwnerServerGeneration;
+    const generatedEvent = createLearningAnalyticsEvent(event, selectedGrade);
+    const createdEvent: LearningAnalyticsEvent = {
+      ...generatedEvent,
+      ...(options.eventId ? { id: options.eventId } : {}),
+      ...(options.eventTimestamp ? { timestamp: options.eventTimestamp } : {})
+    };
+    const protocolStatus = learningAnalyticsClientProtocolStatus(
+      window.localStorage,
+      recordingUserId
+    );
+    const generationIsConfirmed = isCurrentLearningAnalyticsIdentity(
+      analyticsGenerationReadyIdentityRef.current,
+      recordingIdentity
+    ) && protocolStatus === "open";
+    if (!generationIsConfirmed) {
+      // A fresh or stale browser may not yet know that another device cleared
+      // analytics and advanced the server generation. Keep events in a
+      // separate exact-user durable area until an empty-batch handshake
+      // confirms which generation owns them. They can then be rebased without
+      // reviving any already-confirmed pre-clear rows.
+      let persistedAs: "unconfirmed" | "fallback" | "volatile" = "fallback";
+      try {
+        persistedAs = persistUnconfirmedLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          recordingUserId,
+          [createdEvent],
+          recordingServerGeneration
+        );
+      } catch {
+        analyticsAwaitingDurabilityRef.current.push({
+          boundaryToken: learningAnalyticsWriterGateToken(
+            window.localStorage,
+            recordingUserId
+          ),
+          event: createdEvent,
+          generation: recordingServerGeneration,
+          userId: recordingUserId
+        });
+        persistedAs = "volatile";
+      }
+      if (isCurrentLearningAnalyticsIdentity(currentIdentity, recordingIdentity)) {
+        setLearningAnalyticsEvents((current) =>
+          mergeOrderedLearningAnalyticsEvents(current, [createdEvent])
+        );
+      }
+      return persistedAs;
+    }
+    const analyticsEvent = withLearningAnalyticsDeliveryGeneration(
+      createdEvent,
+      recordingServerGeneration
+    );
+    if (!isCurrentLearningAnalyticsIdentity(currentIdentity, recordingIdentity)) {
+      return appendLearningEventsToQueues([analyticsEvent], recordingIdentity);
+    }
     if (isHighFrequencyLearningAnalyticsEvent(analyticsEvent)) {
+      // Persist the sample synchronously before the one-second coalescing
+      // window. A crash or immediate navigation may cancel the timer, but it
+      // must not erase the newest student interaction. The later merge removes
+      // the obsolete high-frequency key when a newer sample supersedes it.
+      try {
+        const persistedAs = persistLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          recordingUserId,
+          [analyticsEvent],
+          recordingServerGeneration
+        );
+        if (persistedAs !== "confirmed") {
+          if (isCurrentLearningAnalyticsIdentity(currentIdentity, recordingIdentity)) {
+            setLearningAnalyticsEvents((current) =>
+              mergeOrderedLearningAnalyticsEvents(current, [createdEvent])
+            );
+          }
+          return persistedAs;
+        }
+      } catch {
+        analyticsAwaitingDurabilityRef.current.push({
+          boundaryToken: learningAnalyticsWriterGateToken(
+            window.localStorage,
+            recordingUserId
+          ),
+          event: createdEvent,
+          generation: recordingServerGeneration,
+          userId: recordingUserId
+        });
+        return "volatile";
+      }
       highFrequencyLearningEventsRef.current = coalesceLearningAnalyticsEvents([
         ...highFrequencyLearningEventsRef.current,
         analyticsEvent
       ]);
       scheduleHighFrequencyLearningEventFlush();
-      return;
+      return "confirmed";
     }
 
-    appendLearningEventsToQueues([analyticsEvent]);
-  }, [appendLearningEventsToQueues, currentUser?.id, currentUser?.role, scheduleHighFrequencyLearningEventFlush, selectedGrade, settingsReady]);
+    return appendLearningEventsToQueues([analyticsEvent], recordingIdentity);
+  }, [analyticsOwnerIdentity.clientEpoch, analyticsOwnerIdentity.userId, analyticsOwnerServerGeneration, appendLearningEventsToQueues, currentUser?.role, scheduleHighFrequencyLearningEventFlush, selectedGrade, settingsReady]);
   const refreshMistakeRecords = useCallback(async () => {
     if (!currentUser) {
       setMistakeRecords([]);
@@ -541,6 +896,15 @@ export function AppProviders({ children }: { children: ReactNode }) {
             const sessionLessonEntryTarget = session.user.role === "student"
               ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
               : null;
+            analyticsServerGenerationRef.current = session.user.role === "student"
+              ? readLearningAnalyticsGeneration(window.localStorage, session.user.id)
+              : 0;
+            analyticsFlushGenerationRef.current += 1;
+            analyticsIdentityRef.current = {
+              userId: session.user.role === "student" ? session.user.id : null,
+              clientEpoch: analyticsFlushGenerationRef.current
+            };
+            currentUserRef.current = session.user;
             setCurrentUser(session.user);
             setLessonEntryTarget(sessionLessonEntryTarget);
             setLanguage(session.settings.language);
@@ -548,9 +912,6 @@ export function AppProviders({ children }: { children: ReactNode }) {
             setSelectedGradeState(sessionSelectedGrade);
             if (session.lessonEntryTarget) {
               storeLessonEntryTarget(session.user.id, session.lessonEntryTarget);
-            }
-            if (sessionLessonEntryTarget?.href) {
-              router.prefetch(sessionLessonEntryTarget.href);
             }
             persistedSettingsKeyRef.current = persistedSettingsKey(
               session.user.id,
@@ -574,7 +935,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     if (!settingsReady) return;
@@ -635,12 +996,6 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [refreshMistakeRecords, settingsReady, skipGlobalStudentWarmups]);
 
   useEffect(() => {
-    if (studentLessonHref) {
-      router.prefetch(studentLessonHref);
-    }
-  }, [router, studentLessonHref]);
-
-  useEffect(() => {
     if (!settingsReady || !currentUser?.passwordMustChange) return;
     if (pathname.startsWith("/change-password") || pathname.startsWith("/login") || pathname.startsWith("/forgot-password") || pathname.startsWith("/reset-password")) return;
 
@@ -668,136 +1023,1229 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [currentUser?.role, lessonEntryTarget, refreshLessonEntryTarget, selectedGrade, settingsReady, skipGlobalStudentWarmups]);
 
   useEffect(() => {
-    analyticsFlushGenerationRef.current += 1;
-    pendingLearningEventsRef.current = [];
-    highFrequencyLearningEventsRef.current = [];
-    clearHighFrequencyFlushHandle();
-    setLearningAnalyticsEvents([]);
-    setPendingLearningEvents([]);
-  }, [clearHighFrequencyFlushHandle, currentUser?.id]);
-
-  useEffect(() => {
     pendingLearningEventsRef.current = pendingLearningEvents;
   }, [pendingLearningEvents]);
 
-  const sendLearningEventsDuringPageExit = useCallback((events: LearningAnalyticsEvent[]) => {
-    if (events.length === 0) return;
+  const recoverLearningAnalyticsDurability = useCallback(() => {
+    if (
+      !settingsReady ||
+      !analyticsOutboxUserId ||
+      !isCurrentLearningAnalyticsIdentity(
+        analyticsGenerationReadyIdentityRef.current,
+        analyticsIdentityRef.current
+      ) ||
+      learningAnalyticsClientProtocolStatus(
+        window.localStorage,
+        analyticsOutboxUserId
+      ) !== "open"
+    ) return false;
 
-    for (let index = 0; index < events.length; index += 100) {
-      const payload = JSON.stringify({ events: events.slice(index, index + 100) });
-      if (typeof navigator.sendBeacon === "function") {
-        const queued = navigator.sendBeacon("/api/learning-events", new Blob([payload], { type: "application/json" }));
-        if (queued) continue;
+    const retainedInMemory: typeof analyticsAwaitingDurabilityRef.current = [];
+    let recoveredAny = false;
+    for (const pending of analyticsAwaitingDurabilityRef.current) {
+      if (pending.userId !== analyticsOutboxUserId) {
+        retainedInMemory.push(pending);
+        continue;
       }
-
-      void fetch("/api/learning-events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: payload,
-        keepalive: true
-      }).catch(() => {
-        // The page is leaving; the regular queue will retry only if the page stays alive.
-      });
+      if (!learningAnalyticsDurabilityLineageIsRecoverable(
+        window.localStorage,
+        pending.userId,
+        pending.generation,
+        pending.boundaryToken,
+        analyticsServerGenerationRef.current
+      )) {
+        // A peer tab advanced the shared generation. This private volatile row
+        // predates that boundary and must not be rebased into the new history.
+        continue;
+      }
+      const outcome = recoverLearningAnalyticsVolatileEvent(
+        window.localStorage,
+        pending.userId,
+        pending.event,
+        pending.generation,
+        pending.boundaryToken,
+        analyticsServerGenerationRef.current
+      );
+      if (outcome === "recovered") {
+        recoveredAny = true;
+      } else if (outcome === "deferred") {
+        retainedInMemory.push(pending);
+      }
     }
+    analyticsAwaitingDurabilityRef.current = retainedInMemory;
+    const fallbackRecovery = recoverLearningAnalyticsDurabilityFallback(
+      window.localStorage,
+      window.sessionStorage,
+      analyticsOutboxUserId,
+      analyticsServerGenerationRef.current
+    );
+    recoveredAny ||= fallbackRecovery.recovered.length > 0;
+    if (recoveredAny) {
+      setAnalyticsDeliveryCycle((current) => current + 1);
+    }
+    return recoveredAny;
+  }, [analyticsOutboxUserId, settingsReady]);
+
+  const reconcileLearningAnalyticsBoundaryDurability = useCallback((
+    userId: string,
+    allowedBoundaryTokens: readonly string[]
+  ) => {
+    const clearedFallback = clearLearningAnalyticsDurabilityFallbackBeforeBoundary(
+      window.sessionStorage,
+      userId,
+      allowedBoundaryTokens
+    );
+    if (clearedFallback === "unavailable") return false;
+    const recoveredFallback = recoverLearningAnalyticsDurabilityFallback(
+      window.localStorage,
+      window.sessionStorage,
+      userId,
+      analyticsServerGenerationRef.current
+    );
+    if (recoveredFallback.remaining.length > 0) return false;
+
+    const allowed = new Set(allowedBoundaryTokens);
+    const retained: typeof analyticsAwaitingDurabilityRef.current = [];
+    let allPreservedRowsAreDurable = true;
+    for (const pending of analyticsAwaitingDurabilityRef.current) {
+      if (pending.userId !== userId) {
+        retained.push(pending);
+        continue;
+      }
+      if (!pending.boundaryToken || !allowed.has(pending.boundaryToken)) {
+        // This exact-user row predates the clear boundary and is intentionally
+        // discarded with the user's clear request.
+        continue;
+      }
+      try {
+        persistUnconfirmedLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          userId,
+          [pending.event],
+          pending.generation
+        );
+      } catch {
+        retained.push(pending);
+        allPreservedRowsAreDurable = false;
+      }
+    }
+    analyticsAwaitingDurabilityRef.current = retained;
+    return allPreservedRowsAreDurable;
   }, []);
 
-  const flushLearningAnalyticsOnPageExit = useCallback((event?: Event) => {
-    if (event?.type === "visibilitychange" && document.visibilityState !== "hidden") return;
-    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
+  const restoreLearningAnalyticsOutbox = useCallback(() => {
+    if (!settingsReady || !analyticsOutboxUserId) return;
+    recoverLearningAnalyticsDurability();
+    const durableEvents = readLearningAnalyticsOutbox(
+      window.localStorage,
+      analyticsOutboxUserId,
+      analyticsServerGenerationRef.current
+    );
+    appendLearningEventsToQueues(durableEvents, {
+      userId: analyticsOutboxUserId,
+      clientEpoch: analyticsIdentityRef.current.clientEpoch
+    });
+  }, [analyticsOutboxUserId, appendLearningEventsToQueues, recoverLearningAnalyticsDurability, settingsReady]);
+
+  useEffect(() => {
+    const resumeIfProtocolOpen = () => {
+      if (
+        !analyticsOutboxUserId ||
+        learningAnalyticsClientProtocolStatus(
+          window.localStorage,
+          analyticsOutboxUserId
+        ) !== "open"
+      ) {
+        analyticsDeliveryPausedRef.current = true;
+        invalidateLearningAnalyticsGenerationReadiness();
+        requestLearningAnalyticsGenerationHandshake();
+        return;
+      }
+      setLearningAnalyticsDeliveryPaused(false);
+      restoreLearningAnalyticsOutbox();
+    };
+    resumeIfProtocolOpen();
+    const handlePageShow = () => {
+      resumeVisibleAnalyticsRef.current?.();
+      resumeIfProtocolOpen();
+    };
+    const handleOnline = () => resumeIfProtocolOpen();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") resumeIfProtocolOpen();
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    window.addEventListener("online", handleOnline);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+      window.removeEventListener("online", handleOnline);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [analyticsOutboxUserId, invalidateLearningAnalyticsGenerationReadiness, requestLearningAnalyticsGenerationHandshake, restoreLearningAnalyticsOutbox, setLearningAnalyticsDeliveryPaused]);
+
+  const persistLearningAnalyticsOnPageExit = useCallback(() => {
+    if (
+      !settingsReady ||
+      !analyticsOwnerIdentity.userId ||
+      !isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, analyticsOwnerIdentity)
+    ) return;
 
     const bufferedEvents = takeBufferedHighFrequencyLearningEvents();
-    const events = coalesceLearningAnalyticsEvents([
-      ...pendingLearningEventsRef.current,
-      ...bufferedEvents
-    ]);
+    const events = mergeDurableLearningAnalyticsEvents(
+      [],
+      [
+        ...pendingLearningEventsRef.current,
+        ...bufferedEvents
+      ]
+    );
     if (events.length === 0) return;
 
-    const eventIds = new Set(events.map((item) => item.id));
-    setPendingLearningEvents((current) => {
-      const nextEvents = current.filter((item) => !eventIds.has(item.id));
-      pendingLearningEventsRef.current = nextEvents;
-      return nextEvents;
-    });
-    sendLearningEventsDuringPageExit(events);
+    try {
+      if (isCurrentLearningAnalyticsIdentity(
+        analyticsGenerationReadyIdentityRef.current,
+        analyticsOwnerIdentity
+      )) {
+        persistLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          analyticsOwnerIdentity.userId,
+          events,
+          analyticsServerGenerationRef.current
+        );
+      } else {
+        persistUnconfirmedLearningAnalyticsEventsWithDurabilityFallback(
+          window.localStorage,
+          window.sessionStorage,
+          analyticsOwnerIdentity.userId,
+          events.map(learningAnalyticsEventForDelivery),
+          analyticsServerGenerationRef.current
+        );
+      }
+    } catch {
+      // Local storage is best-effort; the in-memory queue remains untouched.
+    }
   }, [
-    currentUser?.id,
-    currentUser?.role,
-    sendLearningEventsDuringPageExit,
+    analyticsOwnerIdentity.clientEpoch,
+    analyticsOwnerIdentity.userId,
     settingsReady,
     takeBufferedHighFrequencyLearningEvents
+  ]);
+
+  const pauseLearningAnalyticsDelivery = useCallback(() => {
+    analyticsDeliveryPausedRef.current = true;
+    analyticsImmediateDeliveryRequestedRef.current = null;
+    clearAnalyticsDeliveryHandle();
+    persistLearningAnalyticsOnPageExit();
+  }, [clearAnalyticsDeliveryHandle, persistLearningAnalyticsOnPageExit]);
+
+  const freezeLearningAnalyticsIdentity = useCallback(() => {
+    finalizeVisibleAnalyticsRef.current?.();
+    const frozenIdentity = analyticsIdentityRef.current;
+    const generationWasReady = isCurrentLearningAnalyticsIdentity(
+      analyticsGenerationReadyIdentityRef.current,
+      frozenIdentity
+    );
+    analyticsFlushGenerationRef.current += 1;
+    analyticsIdentityRef.current = {
+      userId: frozenIdentity.userId,
+      clientEpoch: analyticsFlushGenerationRef.current
+    };
+    invalidateLearningAnalyticsGenerationReadiness();
+    analyticsDeliveryFlightSequenceRef.current += 1;
+    analyticsDeliveryInFlightRef.current = null;
+    analyticsGenerationHandshakeSequenceRef.current += 1;
+    analyticsDeliveryPausedRef.current = true;
+    analyticsImmediateDeliveryRequestedRef.current = null;
+    clearAnalyticsDeliveryHandle();
+    clearHighFrequencyFlushHandle();
+
+    const bufferedEvents = takeBufferedHighFrequencyLearningEvents();
+    if (frozenIdentity.userId) {
+      const durableEvents = mergeDurableLearningAnalyticsEvents(
+        pendingLearningEventsRef.current,
+        bufferedEvents
+      );
+      try {
+        if (generationWasReady) {
+          persistLearningAnalyticsEventsWithDurabilityFallback(
+            window.localStorage,
+            window.sessionStorage,
+            frozenIdentity.userId,
+            durableEvents,
+            analyticsServerGenerationRef.current
+          );
+        } else {
+          persistUnconfirmedLearningAnalyticsEventsWithDurabilityFallback(
+            window.localStorage,
+            window.sessionStorage,
+            frozenIdentity.userId,
+            durableEvents.map(learningAnalyticsEventForDelivery),
+            analyticsServerGenerationRef.current
+          );
+        }
+      } catch {
+        const token = learningAnalyticsWriterGateToken(
+          window.localStorage,
+          frozenIdentity.userId
+        );
+        analyticsAwaitingDurabilityRef.current.push(
+          ...durableEvents.map((event) => ({
+            boundaryToken: token,
+            event,
+            generation: analyticsServerGenerationRef.current,
+            userId: frozenIdentity.userId!
+          }))
+        );
+      }
+    }
+
+    pendingLearningEventsRef.current = [];
+    highFrequencyLearningEventsRef.current = [];
+    setLearningAnalyticsEvents([]);
+    setPendingLearningEvents([]);
+  }, [
+    clearAnalyticsDeliveryHandle,
+    clearHighFrequencyFlushHandle,
+    invalidateLearningAnalyticsGenerationReadiness,
+    takeBufferedHighFrequencyLearningEvents
+  ]);
+
+  const resumeLearningAnalyticsDelivery = useCallback(() => {
+    resumeVisibleAnalyticsRef.current?.();
+    const resumeUser = currentUserRef.current;
+    if (resumeUser?.role !== "student") {
+      setLearningAnalyticsDeliveryPaused(false);
+      return;
+    }
+    if (
+      learningAnalyticsClientProtocolStatus(
+        window.localStorage,
+        resumeUser.id
+      ) !== "open"
+    ) {
+      analyticsDeliveryPausedRef.current = true;
+      invalidateLearningAnalyticsGenerationReadiness();
+      requestLearningAnalyticsGenerationHandshake();
+      return;
+    }
+    setLearningAnalyticsDeliveryPaused(false);
+    restoreLearningAnalyticsOutbox();
+    requestLearningAnalyticsGenerationHandshake();
+  }, [invalidateLearningAnalyticsGenerationReadiness, requestLearningAnalyticsGenerationHandshake, restoreLearningAnalyticsOutbox, setLearningAnalyticsDeliveryPaused]);
+
+  const activateLearningAnalyticsGeneration = useCallback((
+    userId: string,
+    generation: number
+  ) => {
+    if (
+      analyticsIdentityRef.current.userId !== userId ||
+      !Number.isSafeInteger(generation) ||
+      generation < 0 ||
+      learningAnalyticsClientProtocolStatus(window.localStorage, userId) !== "open"
+    ) return false;
+    const storedGeneration = replaceLearningAnalyticsGeneration(
+      window.localStorage,
+      userId,
+      generation
+    );
+    analyticsServerGenerationRef.current = storedGeneration;
+    const adoptedIdentity = analyticsIdentityRef.current;
+    analyticsGenerationReadyIdentityRef.current = adoptedIdentity;
+    setLearningAnalyticsDeliveryPaused(false);
+    resumeVisibleAnalyticsRef.current?.();
+    appendLearningEventsToQueues(
+      readLearningAnalyticsOutbox(window.localStorage, userId, storedGeneration),
+      adoptedIdentity
+    );
+    setAnalyticsDeliveryCycle((current) => current + 1);
+    return true;
+  }, [appendLearningEventsToQueues, setLearningAnalyticsDeliveryPaused]);
+
+  const adoptLearningAnalyticsForwardGeneration = useCallback((
+    userId: string,
+    generation: number,
+    clearedAt: string,
+    transitionId: string
+  ) => {
+    const fromGeneration = analyticsServerGenerationRef.current;
+    if (
+      analyticsIdentityRef.current.userId !== userId ||
+      !Number.isSafeInteger(generation) ||
+      generation <= fromGeneration
+    ) return false;
+    try {
+      const activeFence = readLearningAnalyticsClearFence(
+        window.localStorage,
+        userId
+      );
+      if (activeFence.status === "corrupt") return false;
+      const preTransitionTokens = activeFence.status === "valid"
+        ? [activeFence.value.requestId]
+        : [];
+      if (!reconcileLearningAnalyticsBoundaryDurability(
+        userId,
+        preTransitionTokens
+      )) return false;
+      // Install the exact-ID causal boundary before finalizing page duration
+      // or draining memory. Those newly created IDs are then synchronously
+      // diverted to the transition's unconfirmed, post-marker side.
+      prepareLearningAnalyticsForwardGenerationTransition(
+        window.localStorage,
+        userId,
+        fromGeneration,
+        generation,
+        clearedAt,
+        transitionId
+      );
+      freezeLearningAnalyticsIdentity();
+      const outcome = resumeLearningAnalyticsGenerationTransition(
+        window.localStorage,
+        userId
+      );
+      if (outcome !== "completed") return false;
+      return activateLearningAnalyticsGeneration(userId, generation);
+    } catch {
+      return false;
+    }
+  }, [activateLearningAnalyticsGeneration, freezeLearningAnalyticsIdentity, reconcileLearningAnalyticsBoundaryDurability]);
+
+  const adoptLearningAnalyticsLowerGeneration = useCallback((
+    userId: string,
+    generation: number,
+    handshakeRequestId: string,
+    transitionId: string
+  ) => {
+    const fromGeneration = analyticsServerGenerationRef.current;
+    if (
+      analyticsIdentityRef.current.userId !== userId ||
+      !Number.isSafeInteger(generation) ||
+      generation < 0 ||
+      generation >= fromGeneration
+    ) return false;
+    // Finalize while the empty handshake still holds generation readiness.
+    // The resulting event enters the unconfirmed area and is therefore one of
+    // the only rows the lower-generation recovery is allowed to preserve.
+    freezeLearningAnalyticsIdentity();
+    try {
+      if (!reconcileLearningAnalyticsBoundaryDurability(
+        userId,
+        [handshakeRequestId]
+      )) return false;
+      const outcome = finishLearningAnalyticsLowerGenerationRecovery(
+        window.localStorage,
+        userId,
+        fromGeneration,
+        generation,
+        handshakeRequestId,
+        new Date().toISOString(),
+        transitionId
+      );
+      if (outcome !== "completed") return false;
+      return activateLearningAnalyticsGeneration(userId, generation);
+    } catch {
+      return false;
+    }
+  }, [activateLearningAnalyticsGeneration, freezeLearningAnalyticsIdentity, reconcileLearningAnalyticsBoundaryDurability]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+    const generationKey = learningAnalyticsGenerationStorageKey(currentUser.id);
+    const clearFenceKey = learningAnalyticsClearFenceStorageKey(currentUser.id);
+    const handshakeKey = learningAnalyticsGenerationHandshakeStorageKey(
+      currentUser.id
+    );
+    const transitionKey = learningAnalyticsGenerationTransitionStorageKey(currentUser.id);
+    const handleGenerationChange = (event: StorageEvent) => {
+      if (
+        event.key !== generationKey &&
+        event.key !== clearFenceKey &&
+        event.key !== handshakeKey &&
+        event.key !== transitionKey
+      ) return;
+      if (
+        event.newValue !== null &&
+        (
+          event.key === clearFenceKey ||
+          event.key === handshakeKey ||
+          event.key === transitionKey
+        )
+      ) {
+        freezeLearningAnalyticsIdentity();
+      } else {
+        invalidateLearningAnalyticsGenerationReadiness();
+        analyticsDeliveryPausedRef.current = true;
+        clearAnalyticsDeliveryHandle();
+        analyticsDeliveryFlightSequenceRef.current += 1;
+        analyticsDeliveryInFlightRef.current = null;
+        analyticsGenerationHandshakeSequenceRef.current += 1;
+      }
+      requestLearningAnalyticsGenerationHandshake();
+    };
+    window.addEventListener("storage", handleGenerationChange);
+    return () => window.removeEventListener("storage", handleGenerationChange);
+  }, [clearAnalyticsDeliveryHandle, currentUser?.id, currentUser?.role, freezeLearningAnalyticsIdentity, invalidateLearningAnalyticsGenerationReadiness, requestLearningAnalyticsGenerationHandshake, settingsReady]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+
+    const handshakeUserId = currentUser.id;
+    const handshakeIdentity = analyticsIdentityRef.current;
+    if (
+      handshakeIdentity.userId !== handshakeUserId ||
+      (isCurrentLearningAnalyticsIdentity(
+        analyticsGenerationReadyIdentityRef.current,
+        handshakeIdentity
+      ) && learningAnalyticsClientProtocolStatus(
+        window.localStorage,
+        handshakeUserId
+      ) === "open")
+    ) return;
+
+    let cancelled = false;
+    let inFlight = false;
+    let retryAttempt = 0;
+    let retryHandle: number | null = null;
+
+    const clearRetryHandle = () => {
+      if (retryHandle === null) return;
+      window.clearTimeout(retryHandle);
+      retryHandle = null;
+    };
+    const scheduleHandshake = (delayMs: number) => {
+      if (cancelled || retryHandle !== null) return;
+      retryHandle = window.setTimeout(() => {
+        retryHandle = null;
+        void runHandshake();
+      }, delayMs);
+    };
+    const retryLater = () => {
+      retryAttempt += 1;
+      scheduleHandshake(Math.min(8_000, 1_000 * (2 ** Math.min(3, retryAttempt - 1))));
+    };
+    const runHandshake = async (clearLockHeld = false) => {
+      if (
+        cancelled ||
+        inFlight ||
+        !isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, handshakeIdentity) ||
+        document.visibilityState === "hidden" ||
+        navigator.onLine === false
+      ) return;
+
+      const fenceBeforeLock = readLearningAnalyticsClearFence(
+        window.localStorage,
+        handshakeUserId
+      );
+      if (!clearLockHeld) {
+        const directClear = analyticsDirectClearInFlightRef.current;
+        if (
+          fenceBeforeLock.status === "valid" &&
+          directClear?.userId === handshakeUserId &&
+          directClear.requestId === fenceBeforeLock.value.requestId
+        ) return;
+        inFlight = true;
+        try {
+          await withLearningAnalyticsClearLock(handshakeUserId, async () => {
+            inFlight = false;
+            await runHandshake(true);
+          });
+        } catch {
+          if (!cancelled) retryLater();
+        } finally {
+          inFlight = false;
+        }
+        return;
+      }
+
+      const resumedTransition = resumeLearningAnalyticsGenerationTransition(
+        window.localStorage,
+        handshakeUserId
+      );
+      if (resumedTransition === "corrupt") return;
+      if (resumedTransition === "unavailable") {
+        retryLater();
+        return;
+      }
+      if (resumedTransition === "completed") {
+        analyticsServerGenerationRef.current = readLearningAnalyticsGeneration(
+          window.localStorage,
+          handshakeUserId
+        );
+      }
+
+      const protocolStatus = learningAnalyticsClientProtocolStatus(
+        window.localStorage,
+        handshakeUserId
+      );
+      if (protocolStatus === "corrupt" || protocolStatus === "transitioning") return;
+      const clearFenceState = readLearningAnalyticsClearFence(
+        window.localStorage,
+        handshakeUserId
+      );
+      if (clearFenceState.status === "corrupt") return;
+      const clearFence = clearFenceState.status === "valid"
+        ? clearFenceState.value
+        : null;
+      const tentativeGeneration = clearFence?.baseGeneration ?? analyticsServerGenerationRef.current;
+      const handshakeSequence = analyticsGenerationHandshakeSequenceRef.current + 1;
+      analyticsGenerationHandshakeSequenceRef.current = handshakeSequence;
+      const handshakeRequestId = `handshake-${handshakeIdentity.clientEpoch}-${handshakeSequence}-${Date.now()}`;
+      inFlight = true;
+      try {
+        const handshakeSnapshot = beginLearningAnalyticsGenerationHandshake(
+          window.localStorage,
+          handshakeUserId,
+          tentativeGeneration,
+          new Date().toISOString(),
+          handshakeRequestId
+        );
+        const handshakeGeneration = handshakeSnapshot.generation;
+        const response = await fetch("/api/learning-events", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-MAIS-Analytics-User-Id": encodeURIComponent(handshakeUserId)
+          },
+          keepalive: true,
+          body: JSON.stringify({ generation: handshakeGeneration, events: [] })
+        });
+        const delivery: unknown = await response.json().catch(() => null);
+        if (
+          cancelled ||
+          analyticsGenerationHandshakeSequenceRef.current !== handshakeSequence ||
+          !isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, handshakeIdentity)
+        ) return;
+
+        if (
+          isDurableLearningAnalyticsDeliveryResponse(
+            response.status,
+            delivery,
+            handshakeUserId,
+            handshakeGeneration,
+            new Set<string>()
+          )
+        ) {
+          if (clearFence) {
+            if (
+              resolveLearningAnalyticsClearHandshake(
+                clearFence,
+                handshakeGeneration,
+                null
+              ) !== "retry-delete"
+            ) throw new Error("The clear fence cannot be retried from this handshake.");
+            markLearningAnalyticsClearDeleteAttempted(
+              window.localStorage,
+              handshakeUserId,
+              clearFence.requestId,
+              new Date().toISOString()
+            );
+            const clearResponse = await fetch("/api/learning-events", {
+              method: "DELETE",
+              headers: {
+                "X-MAIS-Analytics-User-Id": encodeURIComponent(handshakeUserId),
+                "X-MAIS-Analytics-Generation": String(clearFence.baseGeneration),
+                "X-MAIS-Analytics-Clear-Request-Id": clearFence.requestId
+              },
+              keepalive: true
+            });
+            const clearDelivery: unknown = await clearResponse.json().catch(() => null);
+            if (
+              cancelled ||
+              analyticsGenerationHandshakeSequenceRef.current !== handshakeSequence ||
+              !isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, handshakeIdentity) ||
+              !isLearningAnalyticsClearAcknowledgement(
+                clearResponse.status,
+                clearDelivery,
+                handshakeUserId,
+                clearFence.baseGeneration,
+                clearFence.requestId
+              )
+            ) throw new Error("Could not confirm the retried durable learning-event clear.");
+            const clearAcknowledgement = clearDelivery as {
+              clearedAt: string;
+              generation: number;
+            };
+            if (!adoptLearningAnalyticsForwardGeneration(
+              handshakeUserId,
+              clearAcknowledgement.generation,
+              clearAcknowledgement.clearedAt,
+              `clear-${clearFence.requestId}-${clearAcknowledgement.generation}`
+            )) throw new Error("Could not complete the retried learning-event clear transition.");
+            return;
+          }
+          if (confirmLearningAnalyticsGenerationHandshake(
+            window.localStorage,
+            handshakeSnapshot
+          ) !== "confirmed") {
+            throw new Error("The exact empty handshake was superseded before commit.");
+          }
+          if (!activateLearningAnalyticsGeneration(handshakeUserId, handshakeGeneration)) {
+            throw new Error("Could not activate the confirmed learning-analytics generation.");
+          }
+          return;
+        }
+
+        const mismatch = readLearningAnalyticsGenerationMismatchReceipt(
+          response.status,
+          delivery,
+          handshakeUserId,
+          handshakeGeneration,
+          new Set<string>()
+        );
+        if (mismatch) {
+          if (clearFence) {
+            if (mismatch.direction !== "forward") {
+              throw new Error("The clear fence received an unsafe generation receipt.");
+            }
+            const retryFence = prepareLearningAnalyticsClearDeleteAfterMismatch(
+              window.localStorage,
+              clearFence,
+              mismatch
+            );
+            if (!retryFence) {
+              throw new Error("The clear fence received an ambiguous generation receipt.");
+            }
+            markLearningAnalyticsClearDeleteAttempted(
+              window.localStorage,
+              handshakeUserId,
+              retryFence.requestId,
+              new Date().toISOString()
+            );
+            const retryResponse = await fetch("/api/learning-events", {
+              method: "DELETE",
+              headers: {
+                "X-MAIS-Analytics-User-Id": encodeURIComponent(handshakeUserId),
+                "X-MAIS-Analytics-Generation": String(retryFence.baseGeneration),
+                "X-MAIS-Analytics-Clear-Request-Id": retryFence.requestId
+              },
+              keepalive: true
+            });
+            const retryDelivery: unknown = await retryResponse.json().catch(() => null);
+            if (!isLearningAnalyticsClearAcknowledgement(
+              retryResponse.status,
+              retryDelivery,
+              handshakeUserId,
+              retryFence.baseGeneration,
+              retryFence.requestId
+            )) throw new Error("Could not confirm the rebased durable learning-event clear.");
+            const retryAcknowledgement = retryDelivery as {
+              clearedAt: string;
+              generation: number;
+            };
+            if (!adoptLearningAnalyticsForwardGeneration(
+              handshakeUserId,
+              retryAcknowledgement.generation,
+              retryAcknowledgement.clearedAt,
+              `clear-${retryFence.requestId}-${retryAcknowledgement.generation}`
+            )) throw new Error("Could not complete the rebased learning-event clear transition.");
+            return;
+          }
+          if (
+            mismatch.direction === "forward" &&
+            adoptLearningAnalyticsForwardGeneration(
+              handshakeUserId,
+              mismatch.currentGeneration,
+              mismatch.clearedAt,
+              `forward-${handshakeSnapshot.requestId}-${mismatch.currentGeneration}`
+            )
+          ) return;
+          if (
+            mismatch.direction === "authoritative-lower" &&
+            adoptLearningAnalyticsLowerGeneration(
+              handshakeUserId,
+              mismatch.currentGeneration,
+              handshakeSnapshot.requestId,
+              `lower-${handshakeSnapshot.requestId}-${mismatch.currentGeneration}`
+            )
+          ) return;
+        }
+
+        throw new Error("Could not confirm the learning-analytics server generation.");
+      } catch {
+        if (!cancelled) retryLater();
+      } finally {
+        inFlight = false;
+      }
+    };
+    const handleOnlineOrVisible = () => {
+      if (document.visibilityState === "hidden" || navigator.onLine === false) return;
+      retryAttempt = 0;
+      clearRetryHandle();
+      scheduleHandshake(0);
+    };
+
+    window.addEventListener("online", handleOnlineOrVisible);
+    window.addEventListener("pageshow", handleOnlineOrVisible);
+    document.addEventListener("visibilitychange", handleOnlineOrVisible);
+    scheduleHandshake(0);
+
+    return () => {
+      cancelled = true;
+      clearRetryHandle();
+      window.removeEventListener("online", handleOnlineOrVisible);
+      window.removeEventListener("pageshow", handleOnlineOrVisible);
+      document.removeEventListener("visibilitychange", handleOnlineOrVisible);
+    };
+  }, [
+    activateLearningAnalyticsGeneration,
+    adoptLearningAnalyticsForwardGeneration,
+    adoptLearningAnalyticsLowerGeneration,
+    analyticsGenerationHandshakeCycle,
+    currentUser?.id,
+    currentUser?.role,
+    settingsReady
+  ]);
+
+  const finalizeAndPauseLearningAnalytics = useCallback(() => {
+    finalizeVisibleAnalyticsRef.current?.();
+    pauseLearningAnalyticsDelivery();
+  }, [pauseLearningAnalyticsDelivery]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+
+    window.addEventListener("pagehide", finalizeAndPauseLearningAnalytics);
+    window.addEventListener("beforeunload", finalizeAndPauseLearningAnalytics);
+
+    return () => {
+      persistLearningAnalyticsOnPageExit();
+      clearAnalyticsDeliveryHandle();
+      window.removeEventListener("pagehide", finalizeAndPauseLearningAnalytics);
+      window.removeEventListener("beforeunload", finalizeAndPauseLearningAnalytics);
+    };
+  }, [
+    clearAnalyticsDeliveryHandle,
+    finalizeAndPauseLearningAnalytics,
+    currentUser?.role,
+    persistLearningAnalyticsOnPageExit,
+    settingsReady
   ]);
 
   useEffect(() => {
     if (!settingsReady || currentUser?.role !== "student") return;
 
-    document.addEventListener("visibilitychange", flushLearningAnalyticsOnPageExit);
-    window.addEventListener("pagehide", flushLearningAnalyticsOnPageExit);
-    window.addEventListener("beforeunload", flushLearningAnalyticsOnPageExit);
-
-    return () => {
-      flushLearningAnalyticsOnPageExit();
-      document.removeEventListener("visibilitychange", flushLearningAnalyticsOnPageExit);
-      window.removeEventListener("pagehide", flushLearningAnalyticsOnPageExit);
-      window.removeEventListener("beforeunload", flushLearningAnalyticsOnPageExit);
+    const flushForAcceptance = () => {
+      // This event is an explicit product-owned drain boundary for browser QA
+      // and diagnostics. It performs the same local operations as a normal
+      // timer tick, never a lifecycle-only network write.
+      finalizeVisibleAnalyticsRef.current?.();
+      flushBufferedHighFrequencyLearningEvents();
+      restoreLearningAnalyticsOutbox();
+      resumeVisibleAnalyticsRef.current?.();
+      clearAnalyticsDeliveryHandle();
+      const drainIdentity = analyticsIdentityRef.current;
+      const drainEventIds = drainIdentity.userId
+        ? new Set([
+            ...readLearningAnalyticsOutbox(
+              window.localStorage,
+              drainIdentity.userId
+            ),
+            ...readUnconfirmedLearningAnalyticsOutbox(
+              window.localStorage,
+              drainIdentity.userId
+            )
+          ].map((event) => event.id))
+        : new Set<string>();
+      analyticsImmediateDeliveryRequestedRef.current =
+        drainIdentity.userId && drainEventIds.size > 0
+          ? { ...drainIdentity, eventIds: drainEventIds }
+          : null;
+      setAnalyticsDeliveryCycle((current) => current + 1);
     };
-  }, [currentUser?.role, flushLearningAnalyticsOnPageExit, settingsReady]);
+
+    window.addEventListener(
+      learningAnalyticsFlushRequestedEventName,
+      flushForAcceptance
+    );
+    return () => {
+      window.removeEventListener(
+        learningAnalyticsFlushRequestedEventName,
+        flushForAcceptance
+      );
+    };
+  }, [
+    currentUser?.id,
+    currentUser?.role,
+    clearAnalyticsDeliveryHandle,
+    flushBufferedHighFrequencyLearningEvents,
+    restoreLearningAnalyticsOutbox,
+    settingsReady
+  ]);
 
   useEffect(() => {
-    if (!settingsReady || !currentUser || pendingLearningEvents.length === 0) return;
+    const deliveryIdentity = analyticsIdentityRef.current;
+    const deliveryGeneration = analyticsServerGenerationRef.current;
+    const deliveryProtocolBlocked = deliveryIdentity.userId === null ||
+      learningAnalyticsClientProtocolStatus(window.localStorage, deliveryIdentity.userId) !== "open";
+    const activeFlight = analyticsDeliveryInFlightRef.current;
+    const matchingFlight = Boolean(
+      activeFlight &&
+      activeFlight.userId === deliveryIdentity.userId &&
+      activeFlight.clientEpoch === deliveryIdentity.clientEpoch &&
+      activeFlight.generation === deliveryGeneration
+    );
+    if (
+      !settingsReady ||
+      !currentUser ||
+      deliveryProtocolBlocked ||
+      analyticsDeliveryPausedRef.current ||
+      matchingFlight ||
+      !isCurrentLearningAnalyticsIdentity(
+        analyticsGenerationReadyIdentityRef.current,
+        analyticsIdentityRef.current
+      ) ||
+      pendingLearningEvents.length === 0
+    ) return;
 
-    const handle = window.setTimeout(() => {
+    const immediateDrain = analyticsImmediateDeliveryRequestedRef.current;
+    const deliveryDelayMs = immediateDrain &&
+      isCurrentLearningAnalyticsIdentity(deliveryIdentity, immediateDrain) &&
+      pendingLearningEvents.some((event) => immediateDrain.eventIds.has(event.id))
+      ? 0
+      : 1_000;
+    analyticsDeliveryHandleRef.current = window.setTimeout(() => {
+      analyticsDeliveryHandleRef.current = null;
+      const flushIdentity = analyticsIdentityRef.current;
       const flushGeneration = analyticsFlushGenerationRef.current;
-      const events = pendingLearningEvents.slice(0, 100);
+      const flushUserId = currentUser.id;
+      const flushServerGeneration = analyticsServerGenerationRef.current;
+      const currentFlight = analyticsDeliveryInFlightRef.current;
+      if (
+        analyticsDeliveryPausedRef.current ||
+        learningAnalyticsClientProtocolStatus(window.localStorage, flushUserId) !== "open" ||
+        (currentFlight &&
+          currentFlight.userId === flushUserId &&
+          currentFlight.clientEpoch === flushIdentity.clientEpoch &&
+          currentFlight.generation === flushServerGeneration)
+      ) return;
+      const events = pendingLearningEvents
+        .filter((event) => learningAnalyticsDeliveryGeneration(event) === flushServerGeneration)
+        .slice(0, 100);
+      if (events.length === 0) return;
       const eventIds = new Set(events.map((event) => event.id));
-      setPendingLearningEvents((current) => {
-        const nextEvents = current.filter((event) => !eventIds.has(event.id));
-        pendingLearningEventsRef.current = nextEvents;
-        return nextEvents;
-      });
-
+      const invalidateAnalyticsSession = () => {
+        if (analyticsFlushGenerationRef.current !== flushGeneration) return;
+        const bufferedEvents = takeBufferedHighFrequencyLearningEvents();
+        try {
+          persistLearningAnalyticsEventsForCurrentProtocol(
+            window.localStorage,
+            flushUserId,
+            bufferedEvents,
+            flushServerGeneration
+          );
+        } catch {
+          // Preserve the already-durable batch; storage policy may reject only
+          // the newest high-frequency samples.
+        }
+        analyticsFlushGenerationRef.current += 1;
+        analyticsIdentityRef.current = {
+          userId: null,
+          clientEpoch: analyticsFlushGenerationRef.current
+        };
+        analyticsServerGenerationRef.current = 0;
+        currentUserRef.current = null;
+        setCurrentUser(null);
+        setLessonEntryTarget(null);
+        pendingLearningEventsRef.current = [];
+        highFrequencyLearningEventsRef.current = [];
+        analyticsImmediateDeliveryRequestedRef.current = null;
+        clearHighFrequencyFlushHandle();
+        setLearningAnalyticsEvents([]);
+        setPendingLearningEvents([]);
+      };
+      const flight: LearningAnalyticsDeliveryFlight = {
+        userId: flushUserId,
+        clientEpoch: flushIdentity.clientEpoch,
+        generation: flushServerGeneration,
+        token: analyticsDeliveryFlightSequenceRef.current + 1
+      };
+      analyticsDeliveryFlightSequenceRef.current = flight.token;
+      analyticsDeliveryInFlightRef.current = flight;
       void fetch("/api/learning-events", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Analytics-User-Id": encodeURIComponent(flushUserId)
         },
-        body: JSON.stringify({ events })
+        keepalive: true,
+        body: JSON.stringify({
+          generation: flushServerGeneration,
+          events: events.map(learningAnalyticsEventForDelivery)
+        })
       })
-        .then((response) => {
-          if (response.status === 401 || response.status === 403) {
-            if (analyticsFlushGenerationRef.current === flushGeneration) {
-              analyticsFlushGenerationRef.current += 1;
-              setCurrentUser(null);
-              setLessonEntryTarget(null);
-              pendingLearningEventsRef.current = [];
-              highFrequencyLearningEventsRef.current = [];
-              clearHighFrequencyFlushHandle();
-              setLearningAnalyticsEvents([]);
-              setPendingLearningEvents([]);
+        .then(async (response) => {
+          const delivery = await response.json().catch(() => null) as {
+            accepted?: unknown;
+            acknowledgedEventIds?: unknown;
+            acknowledgedUserId?: unknown;
+            currentGeneration?: unknown;
+            dispositions?: unknown;
+            durablyPersisted?: unknown;
+            generation?: unknown;
+            ignored?: unknown;
+            reason?: unknown;
+          } | null;
+          if (
+            analyticsDeliveryInFlightRef.current?.token !== flight.token ||
+            !isCurrentLearningAnalyticsIdentity(analyticsIdentityRef.current, flight) ||
+            analyticsServerGenerationRef.current !== flight.generation ||
+            learningAnalyticsClientProtocolStatus(window.localStorage, flushUserId) !== "open"
+          ) return;
+          if (
+            response.status === 401 ||
+            response.status === 403 ||
+            delivery?.ignored === true
+          ) {
+            invalidateAnalyticsSession();
+            return;
+          }
+          const mismatch = readLearningAnalyticsGenerationMismatchReceipt(
+            response.status,
+            delivery,
+            flushUserId,
+            flushServerGeneration,
+            eventIds
+          );
+          if (mismatch) {
+            if (mismatch.direction === "forward") {
+              const adopted = await withLearningAnalyticsClearLock(
+                flushUserId,
+                async () => adoptLearningAnalyticsForwardGeneration(
+                  flushUserId,
+                  mismatch.currentGeneration,
+                  mismatch.clearedAt,
+                  `delivery-forward-${flight.token}-${mismatch.currentGeneration}`
+                )
+              );
+              if (!adopted) {
+                freezeLearningAnalyticsIdentity();
+                requestLearningAnalyticsGenerationHandshake();
+              }
+            } else {
+              // A lower generation is recoverable only from a fresh exact-user
+              // empty handshake. Hold every row and start that protocol rather
+              // than treating a data POST as an authority reset.
+              freezeLearningAnalyticsIdentity();
+              requestLearningAnalyticsGenerationHandshake();
             }
             return;
           }
-          if (response.status === 400) return;
-          if (!response.ok) throw new Error("Could not flush learning events.");
+          if (!isDurableLearningAnalyticsDeliveryResponse(
+            response.status,
+            delivery,
+            flushUserId,
+            flushServerGeneration,
+            eventIds
+          )) {
+            throw new Error("Could not confirm durable learning-event delivery.");
+          }
+          const remainingAfterAcknowledgement = acknowledgeLearningAnalyticsOutbox(
+            window.localStorage,
+            flushUserId,
+            eventIds,
+            events
+          ).filter(
+            (event) => learningAnalyticsDeliveryGeneration(event) === flushServerGeneration
+          );
+          if (remainingAfterAcknowledgement.some((event) => eventIds.has(event.id))) {
+            throw new Error("Could not remove every durably acknowledged learning-event key.");
+          }
+          if (remainingAfterAcknowledgement.length === 0) {
+            analyticsImmediateDeliveryRequestedRef.current = null;
+          } else {
+            const activeDrain = analyticsImmediateDeliveryRequestedRef.current;
+            if (activeDrain && isCurrentLearningAnalyticsIdentity(activeDrain, flight)) {
+              eventIds.forEach((eventId) => activeDrain.eventIds.delete(eventId));
+              if (activeDrain.eventIds.size === 0) {
+                analyticsImmediateDeliveryRequestedRef.current = null;
+              }
+            }
+          }
           if (analyticsFlushGenerationRef.current === flushGeneration) {
+            setPendingLearningEvents((current) => {
+              const nextEvents = current.filter((event) => !eventIds.has(event.id));
+              pendingLearningEventsRef.current = nextEvents;
+              return nextEvents;
+            });
             window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
           }
         })
         .catch(() => {
-          if (analyticsFlushGenerationRef.current !== flushGeneration) return;
-          setPendingLearningEvents((current) => {
-            const currentIds = new Set(current.map((event) => event.id));
-            const missedEvents = events.filter((event) => !currentIds.has(event.id));
-            const nextEvents = coalesceLearningAnalyticsEvents([...missedEvents, ...current]).slice(-maxStoredLearningAnalyticsEvents);
-            pendingLearningEventsRef.current = nextEvents;
-            return nextEvents;
-          });
+          analyticsImmediateDeliveryRequestedRef.current = null;
+          // The in-memory and durable queues retain this exact batch until a
+          // later response confirms every requested ID.
+        })
+        .finally(() => {
+          if (analyticsDeliveryInFlightRef.current?.token === flight.token) {
+            analyticsDeliveryInFlightRef.current = null;
+          }
+          if (
+            isCurrentLearningAnalyticsIdentity(
+              analyticsIdentityRef.current,
+              flight
+            ) &&
+            analyticsServerGenerationRef.current === flight.generation &&
+            !analyticsDeliveryPausedRef.current
+          ) {
+            setAnalyticsDeliveryCycle((current) => current + 1);
+          }
         });
-    }, 1000);
+    }, deliveryDelayMs);
 
-    return () => window.clearTimeout(handle);
-  }, [clearHighFrequencyFlushHandle, currentUser?.id, pendingLearningEvents, settingsReady]);
+    return clearAnalyticsDeliveryHandle;
+  }, [adoptLearningAnalyticsForwardGeneration, analyticsDeliveryCycle, clearAnalyticsDeliveryHandle, clearHighFrequencyFlushHandle, currentUser?.id, freezeLearningAnalyticsIdentity, pendingLearningEvents, requestLearningAnalyticsGenerationHandshake, settingsReady, takeBufferedHighFrequencyLearningEvents]);
+
+  useEffect(() => {
+    if (!settingsReady || currentUser?.role !== "student") return;
+
+    const flushUserId = currentUser.id;
+    const flushIdentity = analyticsIdentityRef.current;
+    if (flushIdentity.userId !== flushUserId) return;
+    let cancelled = false;
+    let inFlight = false;
+    let retryAttempt = 0;
+    let retryHandle: number | null = null;
+
+    const clearRetryHandle = () => {
+      if (retryHandle === null) return;
+      window.clearTimeout(retryHandle);
+      retryHandle = null;
+    };
+    const dispatchSessionResult = (name: string, record: VisualizationSessionOutboxRecord) => {
+      window.dispatchEvent(new CustomEvent(name, { detail: record }));
+    };
+    const sessionDeliveryIsCurrent = () =>
+      !cancelled &&
+      currentUserRef.current?.role === "student" &&
+      currentUserRef.current.id === flushUserId &&
+      isCurrentLearningAnalyticsIdentity(
+        analyticsIdentityRef.current,
+        flushIdentity
+      );
+    const scheduleFlush = (delayMs: number) => {
+      if (cancelled || retryHandle !== null) return;
+      retryHandle = window.setTimeout(() => {
+        retryHandle = null;
+        void flushOutbox();
+      }, delayMs);
+    };
+    const flushOutbox = async () => {
+      if (
+        cancelled ||
+        inFlight ||
+        analyticsDeliveryPausedRef.current ||
+        document.visibilityState === "hidden" ||
+        navigator.onLine === false
+      ) return;
+
+      const records = readVisualizationSessionOutbox(window.localStorage, flushUserId);
+      if (records.length === 0) return;
+      inFlight = true;
+      let failed = false;
+
+      for (const record of records) {
+        if (cancelled) break;
+        try {
+          const response = await fetch("/api/visualization-sessions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-MAIS-Visualization-User-Id": encodeURIComponent(record.userId)
+            },
+            keepalive: true,
+            body: JSON.stringify({
+              moduleId: record.moduleId,
+              topicId: record.topicId,
+              source: record.source
+            })
+          });
+          const payload: unknown = await response.json().catch(() => null);
+          if (!sessionDeliveryIsCurrent()) break;
+          const disposition = visualizationSessionOutboxDeliveryDisposition(
+            response.status,
+            payload
+          );
+          if (disposition === "quarantine-and-continue") {
+            if (!quarantineVisualizationSessionOutboxRecord(
+              window.localStorage,
+              record,
+              response.status === 403
+                ? "curriculum-scope-mismatch"
+                : "server-rejected-400"
+            )) {
+              throw new Error("Could not durably quarantine a rejected visualization session.");
+            }
+            dispatchSessionResult(visualizationSessionOutboxFailedEventName, record);
+            continue;
+          }
+          if (!isVisualizationSessionOutboxAcknowledgement(response.status, payload, record)) {
+            throw new Error("Could not confirm durable visualization-session delivery.");
+          }
+          if (!sessionDeliveryIsCurrent()) break;
+          if (!acknowledgeVisualizationSessionOutbox(window.localStorage, record)) {
+            throw new Error("The visualization-session outbox record changed before acknowledgement.");
+          }
+          dispatchSessionResult(visualizationSessionOutboxAcknowledgedEventName, record);
+        } catch {
+          if (cancelled) break;
+          failed = true;
+          dispatchSessionResult(visualizationSessionOutboxFailedEventName, record);
+          break;
+        }
+      }
+
+      inFlight = false;
+      if (cancelled) return;
+      if (failed) {
+        retryAttempt += 1;
+        if (retryAttempt <= 5) {
+          scheduleFlush(Math.min(8_000, 1_000 * (2 ** (retryAttempt - 1))));
+        } else {
+          scheduleFlush(visualizationSessionOutboxRetryDelayMs(retryAttempt));
+        }
+        return;
+      }
+
+      retryAttempt = 0;
+      if (readVisualizationSessionOutbox(window.localStorage, flushUserId).length > 0) {
+        scheduleFlush(0);
+      }
+    };
+    const handleOutboxUpdate = () => {
+      if (
+        analyticsIdentityRef.current.userId !== flushUserId ||
+        currentUserRef.current?.id !== flushUserId
+      ) return;
+      retryAttempt = 0;
+      clearRetryHandle();
+      scheduleFlush(0);
+    };
+    const handleOnlineOrVisible = () => {
+      if (
+        analyticsIdentityRef.current.userId !== flushUserId ||
+        currentUserRef.current?.id !== flushUserId
+      ) return;
+      if (document.visibilityState === "hidden" || navigator.onLine === false) return;
+      retryAttempt = 0;
+      clearRetryHandle();
+      scheduleFlush(0);
+    };
+
+    window.addEventListener(visualizationSessionOutboxUpdatedEventName, handleOutboxUpdate);
+    window.addEventListener("online", handleOnlineOrVisible);
+    window.addEventListener("pageshow", handleOnlineOrVisible);
+    document.addEventListener("visibilitychange", handleOnlineOrVisible);
+    scheduleFlush(1_000);
+
+    return () => {
+      cancelled = true;
+      clearRetryHandle();
+      window.removeEventListener(visualizationSessionOutboxUpdatedEventName, handleOutboxUpdate);
+      window.removeEventListener("online", handleOnlineOrVisible);
+      window.removeEventListener("pageshow", handleOnlineOrVisible);
+      document.removeEventListener("visibilitychange", handleOnlineOrVisible);
+    };
+  }, [currentUser?.id, currentUser?.role, settingsReady]);
 
   const setSelectedGrade = useCallback((grade: GradeId) => {
     setSelectedGradeState(grade);
@@ -809,9 +2257,12 @@ export function AppProviders({ children }: { children: ReactNode }) {
     let accumulatedVisibleSeconds = 0;
     let visibleStartedAt = document.visibilityState === "visible" ? Date.now() : null;
 
-    recordLearningEvent({ type: "page-view", source, topicId });
-    if (source === "mistake-book") {
-      recordLearningEvent({ type: "mistake-review", source, topicId });
+    if (recordedPageViewTokenRef.current !== pageVisitToken) {
+      recordedPageViewTokenRef.current = pageVisitToken;
+      recordLearningEvent({ type: "page-view", source, topicId });
+      if (source === "mistake-book") {
+        recordLearningEvent({ type: "mistake-review", source, topicId });
+      }
     }
 
     function collectVisibleSeconds() {
@@ -830,12 +2281,26 @@ export function AppProviders({ children }: { children: ReactNode }) {
       recordLearningEvent({ type: "page-view", source, topicId, durationSeconds });
     }
 
+    const finalizeVisibleAnalytics = () => {
+      recordVisibleDuration();
+      visibleStartedAt = null;
+    };
+    const resumeVisibleAnalytics = () => {
+      if (document.visibilityState === "visible" && visibleStartedAt === null) {
+        visibleStartedAt = Date.now();
+      }
+    };
+    finalizeVisibleAnalyticsRef.current = finalizeVisibleAnalytics;
+    resumeVisibleAnalyticsRef.current = resumeVisibleAnalytics;
+
     function handleVisibilityChange() {
       if (document.visibilityState === "hidden") {
-        recordVisibleDuration();
-        visibleStartedAt = null;
+        finalizeVisibleAnalytics();
+        pauseLearningAnalyticsDelivery();
       } else {
-        visibleStartedAt = Date.now();
+        resumeVisibleAnalytics();
+        setLearningAnalyticsDeliveryPaused(false);
+        restoreLearningAnalyticsOutbox();
       }
     }
 
@@ -845,9 +2310,15 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return () => {
       window.clearInterval(durationHandle);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      recordVisibleDuration();
+      finalizeVisibleAnalytics();
+      if (finalizeVisibleAnalyticsRef.current === finalizeVisibleAnalytics) {
+        finalizeVisibleAnalyticsRef.current = null;
+      }
+      if (resumeVisibleAnalyticsRef.current === resumeVisibleAnalytics) {
+        resumeVisibleAnalyticsRef.current = null;
+      }
     };
-  }, [pathname, recordLearningEvent]);
+  }, [pageVisitToken, pathname, pauseLearningAnalyticsDelivery, recordLearningEvent, restoreLearningAnalyticsOutbox, setLearningAnalyticsDeliveryPaused]);
 
   const applyAuthSession = useCallback((session: AuthSessionResponse) => {
     const sessionSelectedGrade = session.settings.selectedGrade;
@@ -857,7 +2328,19 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const sessionLessonEntryTarget = session.user.role === "student"
       ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
       : null;
-    analyticsFlushGenerationRef.current += 1;
+    const nextAnalyticsUserId = session.user.role === "student" ? session.user.id : null;
+    if (analyticsIdentityRef.current.userId !== nextAnalyticsUserId) {
+      freezeLearningAnalyticsIdentity();
+      analyticsIdentityRef.current = {
+        userId: nextAnalyticsUserId,
+        clientEpoch: analyticsFlushGenerationRef.current
+      };
+    }
+    analyticsServerGenerationRef.current = nextAnalyticsUserId
+      ? readLearningAnalyticsGeneration(window.localStorage, nextAnalyticsUserId)
+      : 0;
+    setLearningAnalyticsDeliveryPaused(false);
+    resumeVisibleAnalyticsRef.current?.();
     lessonEntryRequestKeyRef.current = null;
     persistedSettingsKeyRef.current = session.settingsPersisted === false
       ? null
@@ -867,8 +2350,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
           session.settings.theme,
           session.settings.selectedGrade
         );
-    setLearningAnalyticsEvents([]);
-    setPendingLearningEvents([]);
+    currentUserRef.current = session.user;
     setCurrentUser(session.user);
     setLessonEntryTarget(sessionLessonEntryTarget);
     setLanguage(session.settings.language);
@@ -877,87 +2359,117 @@ export function AppProviders({ children }: { children: ReactNode }) {
     if (session.lessonEntryTarget) {
       storeLessonEntryTarget(session.user.id, session.lessonEntryTarget);
     }
-    if (sessionLessonEntryTarget?.href) {
-      router.prefetch(sessionLessonEntryTarget.href);
+    if (nextAnalyticsUserId) {
+      const activeIdentity = analyticsIdentityRef.current;
+      appendLearningEventsToQueues(
+        readLearningAnalyticsOutbox(
+          window.localStorage,
+          nextAnalyticsUserId,
+          analyticsServerGenerationRef.current
+        ),
+        activeIdentity
+      );
+      if (
+        !isCurrentLearningAnalyticsIdentity(
+          analyticsGenerationReadyIdentityRef.current,
+          activeIdentity
+        )
+      ) {
+        requestLearningAnalyticsGenerationHandshake();
+      }
     }
     broadcastSessionChange(session.user.id);
-  }, [router]);
+  }, [appendLearningEventsToQueues, freezeLearningAnalyticsIdentity, requestLearningAnalyticsGenerationHandshake, setLearningAnalyticsDeliveryPaused]);
 
   const login = useCallback(async (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username: identifier, password, grade, curriculumProfile, curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined, language, theme })
-    });
+    freezeLearningAnalyticsIdentity();
+    let identityReplaced = false;
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username: identifier, password, grade, curriculumProfile, curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined, language, theme })
+      });
 
-    if (!response.ok) {
-      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
-      if (response.status === 400 || response.status === 401) return { ok: false, reason: "invalid" };
-      return { ok: false, reason: "error" };
+      if (!response.ok) {
+        if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
+        if (response.status === 400 || response.status === 401) return { ok: false, reason: "invalid" };
+        return { ok: false, reason: "error" };
+      }
+
+      const body = await response.json();
+      const pending = body as { requiresCurriculumTrack?: unknown; user?: { name?: unknown; username?: unknown; grade?: unknown } } | null;
+      if (
+        pending?.requiresCurriculumTrack === true &&
+        typeof pending.user?.name === "string" &&
+        typeof pending.user.username === "string" &&
+        isGrade(pending.user.grade)
+      ) {
+        return {
+          ok: false,
+          reason: "requires-curriculum-track",
+          requiresCurriculumTrack: true,
+          pendingUser: {
+            name: pending.user.name,
+            username: pending.user.username,
+            grade: pending.user.grade
+          }
+        };
+      }
+
+      const session = readAuthSession(body);
+      if (!session) return { ok: false, reason: "error" };
+
+      applyAuthSession(session);
+      identityReplaced = true;
+      return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
+    } finally {
+      if (!identityReplaced) resumeLearningAnalyticsDelivery();
     }
-
-    const body = await response.json();
-    const pending = body as { requiresCurriculumTrack?: unknown; user?: { name?: unknown; username?: unknown; grade?: unknown } } | null;
-    if (
-      pending?.requiresCurriculumTrack === true &&
-      typeof pending.user?.name === "string" &&
-      typeof pending.user.username === "string" &&
-      isGrade(pending.user.grade)
-    ) {
-      return {
-        ok: false,
-        reason: "requires-curriculum-track",
-        requiresCurriculumTrack: true,
-        pendingUser: {
-          name: pending.user.name,
-          username: pending.user.username,
-          grade: pending.user.grade
-        }
-      };
-    }
-
-    const session = readAuthSession(body);
-    if (!session) return { ok: false, reason: "error" };
-
-    applyAuthSession(session);
-    return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession, language, theme]);
+  }, [applyAuthSession, freezeLearningAnalyticsIdentity, language, resumeLearningAnalyticsDelivery, theme]);
 
   const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile }: RegisterInput): Promise<AuthActionResult> => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        role,
-        name,
-        username,
-        email,
-        password,
-        grade,
-        curriculumProfile,
-        curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
-        language,
-        theme
-      })
-    });
+    freezeLearningAnalyticsIdentity();
+    let identityReplaced = false;
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          role,
+          name,
+          username,
+          email,
+          password,
+          grade,
+          curriculumProfile,
+          curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
+          language,
+          theme
+        })
+      });
 
-    if (!response.ok) {
-      if (response.status === 409) return { ok: false, reason: "duplicate" };
-      if (response.status === 400) return { ok: false, reason: "invalid" };
-      if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
-      return { ok: false, reason: "error" };
+      if (!response.ok) {
+        if (response.status === 409) return { ok: false, reason: "duplicate" };
+        if (response.status === 400) return { ok: false, reason: "invalid" };
+        if (response.status === 503) return { ok: false, reason: await unavailableAuthReason(response) };
+        return { ok: false, reason: "error" };
+      }
+
+      const session = readAuthSession(await response.json());
+      if (!session) return { ok: false, reason: "error" };
+
+      applyAuthSession(session);
+      identityReplaced = true;
+      return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
+    } finally {
+      if (!identityReplaced) resumeLearningAnalyticsDelivery();
     }
-
-    const session = readAuthSession(await response.json());
-    if (!session) return { ok: false, reason: "error" };
-
-    applyAuthSession(session);
-    return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession, language, theme]);
+  }, [applyAuthSession, freezeLearningAnalyticsIdentity, language, resumeLearningAnalyticsDelivery, theme]);
 
   const completePasswordReset = useCallback(async (token: string, password: string): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/password-reset/confirm", {
@@ -1070,16 +2582,27 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [applyAuthSession]);
 
   const clearLocalSession = useCallback(() => {
-    analyticsFlushGenerationRef.current += 1;
+    freezeLearningAnalyticsIdentity();
+    analyticsIdentityRef.current = {
+      userId: null,
+      clientEpoch: analyticsFlushGenerationRef.current
+    };
+    invalidateLearningAnalyticsGenerationReadiness();
+    analyticsDeliveryFlightSequenceRef.current += 1;
+    analyticsDeliveryInFlightRef.current = null;
+    analyticsGenerationHandshakeSequenceRef.current += 1;
+    analyticsServerGenerationRef.current = 0;
+    currentUserRef.current = null;
     lessonEntryRequestKeyRef.current = null;
     persistedSettingsKeyRef.current = null;
     setCurrentUser(null);
     setLessonEntryTarget(null);
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-  }, []);
+  }, [freezeLearningAnalyticsIdentity, invalidateLearningAnalyticsGenerationReadiness]);
 
   const logout = useCallback(async () => {
+    freezeLearningAnalyticsIdentity();
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } catch {
@@ -1087,13 +2610,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     }
     clearLocalSession();
     broadcastSessionChange(null);
-  }, [clearLocalSession]);
-
-  const currentUserRef = useRef<StudentSession | null>(null);
-
-  useEffect(() => {
-    currentUserRef.current = currentUser;
-  }, [currentUser]);
+  }, [clearLocalSession, freezeLearningAnalyticsIdentity]);
 
   const sessionRevalidationInFlightRef = useRef(false);
 
@@ -1103,6 +2620,10 @@ export function AppProviders({ children }: { children: ReactNode }) {
   const revalidateSession = useCallback(async () => {
     if (sessionRevalidationInFlightRef.current) return;
     sessionRevalidationInFlightRef.current = true;
+    // Fence the captured browser identity before reading a cookie that another
+    // tab may already have replaced. A rejected old-owner request remains in
+    // that owner's exact durable outbox instead of being attributed to B.
+    freezeLearningAnalyticsIdentity();
     try {
       const response = await fetch("/api/auth/session-state?includeLessonEntry=false", { cache: "no-store" });
       const previousUser = currentUserRef.current;
@@ -1126,9 +2647,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       const session = readAuthSession(payload);
       if (!session) return;
 
-      if (session.user.id !== previousUser?.id) {
-        applyAuthSession(session);
-      }
+      applyAuthSession(session);
 
       const pathname = window.location.pathname;
       const canUseTeacherArea = session.user.role === "teacher" || session.user.role === "admin";
@@ -1142,8 +2661,22 @@ export function AppProviders({ children }: { children: ReactNode }) {
       // Keep the current state when the session check is unavailable.
     } finally {
       sessionRevalidationInFlightRef.current = false;
+      const resumedUser = currentUserRef.current;
+      if (analyticsDeliveryPausedRef.current && resumedUser?.role === "student") {
+        setLearningAnalyticsDeliveryPaused(false);
+        const activeIdentity = analyticsIdentityRef.current;
+        appendLearningEventsToQueues(
+          readLearningAnalyticsOutbox(
+            window.localStorage,
+            resumedUser.id,
+            analyticsServerGenerationRef.current
+          ),
+          activeIdentity
+        );
+        requestLearningAnalyticsGenerationHandshake();
+      }
     }
-  }, [applyAuthSession, clearLocalSession, router]);
+  }, [appendLearningEventsToQueues, applyAuthSession, clearLocalSession, freezeLearningAnalyticsIdentity, requestLearningAnalyticsGenerationHandshake, router, setLearningAnalyticsDeliveryPaused]);
 
   useEffect(() => {
     if (!settingsReady) return;
@@ -1191,21 +2724,144 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [refreshMistakeRecords]);
 
   const clearLearningAnalytics = useCallback(() => {
+    finalizeVisibleAnalyticsRef.current?.();
+    const clearUser = currentUserRef.current;
+    const clearRequestSequence = analyticsClearRequestSequenceRef.current + 1;
+    analyticsClearRequestSequenceRef.current = clearRequestSequence;
     const clearGeneration = analyticsFlushGenerationRef.current + 1;
     analyticsFlushGenerationRef.current = clearGeneration;
+    analyticsIdentityRef.current = {
+      userId: clearUser?.role === "student" ? clearUser.id : null,
+      clientEpoch: clearGeneration
+    };
+    invalidateLearningAnalyticsGenerationReadiness();
+    analyticsDeliveryFlightSequenceRef.current += 1;
+    analyticsDeliveryInFlightRef.current = null;
+    analyticsGenerationHandshakeSequenceRef.current += 1;
+    analyticsDeliveryPausedRef.current = true;
+    analyticsImmediateDeliveryRequestedRef.current = null;
+    clearAnalyticsDeliveryHandle();
+    clearHighFrequencyFlushHandle();
+    pendingLearningEventsRef.current = [];
+    highFrequencyLearningEventsRef.current = [];
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-    if (currentUser) {
-      void fetch("/api/learning-events", { method: "DELETE" })
-        .finally(() => {
-          if (analyticsFlushGenerationRef.current === clearGeneration) {
-            window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
+    if (clearUser?.role === "student") {
+      const clearUserId = clearUser.id;
+      let activeClearFence: ReturnType<typeof beginLearningAnalyticsClearFence> | null = null;
+      void withLearningAnalyticsClearLock(clearUserId, async () => {
+        // Marker creation is inside the same exact-user lock as DELETE. Two
+        // tabs can no longer both observe "absent" and overwrite one another's
+        // writer-gate token.
+        const existingFence = readLearningAnalyticsClearFence(
+          window.localStorage,
+          clearUserId
+        );
+        if (existingFence.status !== "absent") {
+          throw new Error("An existing or corrupt clear fence requires handshake recovery.");
+        }
+        const clearFence = beginLearningAnalyticsClearFence(
+          window.localStorage,
+          clearUserId,
+          analyticsServerGenerationRef.current,
+          new Date().toISOString(),
+          `clear-${clearUserId}-${clearRequestSequence}-${Date.now()}`
+        );
+        activeClearFence = clearFence;
+        if (!reconcileLearningAnalyticsBoundaryDurability(
+          clearUserId,
+          [clearFence.requestId]
+        )) {
+          throw new Error("Could not reconcile the exact-user durability fallback.");
+        }
+        // The durable fence is written first. From this point every same-user
+        // writer synchronously diverts new rows to the unconfirmed area.
+        clearLearningAnalyticsOutbox(
+          window.localStorage,
+          clearUserId,
+          clearFence.clearedStorageKeys
+        );
+        analyticsDirectClearInFlightRef.current = {
+          userId: clearUserId,
+          requestId: clearFence.requestId
+        };
+        const activeFence = readLearningAnalyticsClearFence(
+          window.localStorage,
+          clearUserId
+        );
+        if (
+          activeFence.status !== "valid" ||
+          activeFence.value.requestId !== clearFence.requestId
+        ) throw new Error("The learning-event clear fence was superseded.");
+        markLearningAnalyticsClearDeleteAttempted(
+          window.localStorage,
+          clearUserId,
+          clearFence.requestId,
+          new Date().toISOString()
+        );
+        const response = await fetch("/api/learning-events", {
+          method: "DELETE",
+          headers: {
+            "X-MAIS-Analytics-User-Id": encodeURIComponent(clearUserId),
+            "X-MAIS-Analytics-Generation": String(clearFence.baseGeneration),
+            "X-MAIS-Analytics-Clear-Request-Id": clearFence.requestId
           }
         });
+        const delivery: unknown = await response.json().catch(() => null);
+        if (
+          analyticsClearRequestSequenceRef.current !== clearRequestSequence ||
+          analyticsIdentityRef.current.userId !== clearUserId ||
+          !isLearningAnalyticsClearAcknowledgement(
+            response.status,
+            delivery,
+            clearUserId,
+            clearFence.baseGeneration,
+            clearFence.requestId
+          )
+        ) throw new Error("Could not confirm durable learning-event clear.");
+        const clearAcknowledgement = delivery as {
+          clearedAt: string;
+          generation: number;
+        };
+        if (!adoptLearningAnalyticsForwardGeneration(
+          clearUserId,
+          clearAcknowledgement.generation,
+          clearAcknowledgement.clearedAt,
+          `clear-${clearFence.requestId}-${clearAcknowledgement.generation}`
+        )) throw new Error("Could not complete the learning-event clear transition.");
+      })
+        .catch(() => {
+          // Keep the fence and every post-request event durable. The normal
+          // visible handshake loop will determine whether the lost response
+          // committed before it considers retrying DELETE.
+          if (
+            analyticsClearRequestSequenceRef.current === clearRequestSequence &&
+            analyticsIdentityRef.current.userId === clearUserId
+          ) {
+            resumeVisibleAnalyticsRef.current?.();
+            requestLearningAnalyticsGenerationHandshake();
+          }
+          window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
+        })
+        .finally(() => {
+          const clearFence = activeClearFence;
+          const directClear = analyticsDirectClearInFlightRef.current;
+          if (
+            clearFence &&
+            directClear?.userId === clearUserId &&
+            directClear.requestId === clearFence.requestId
+          ) analyticsDirectClearInFlightRef.current = null;
+          if (
+            analyticsIdentityRef.current.userId === clearUserId &&
+            readLearningAnalyticsClearFence(window.localStorage, clearUserId).status === "valid"
+          ) requestLearningAnalyticsGenerationHandshake();
+        });
+      window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
     } else {
+      setLearningAnalyticsDeliveryPaused(false);
       window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
     }
-  }, [currentUser?.id]);
+  }, [adoptLearningAnalyticsForwardGeneration, clearAnalyticsDeliveryHandle, clearHighFrequencyFlushHandle, invalidateLearningAnalyticsGenerationReadiness, reconcileLearningAnalyticsBoundaryDurability, requestLearningAnalyticsGenerationHandshake, setLearningAnalyticsDeliveryPaused]);
 
   const value = useMemo<SettingsContextValue>(
     () => ({

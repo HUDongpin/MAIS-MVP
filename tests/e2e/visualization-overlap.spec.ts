@@ -1,5 +1,10 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { buildVisualizationLabHref, visualizationLabSectionSelector } from "../../components/visualizations/visualizationDiagnostics";
+import {
+  buildVisualizationLabHref,
+  selectPremiumThreeDSceneVariantSmokeLabs,
+  visualizationLabSectionSelector
+} from "../../components/visualizations/visualizationDiagnostics";
+import { isLivePremiumThreeDLab } from "../../components/visualizations/three/premiumThreeDLiveContract";
 import { visualizationLabCatalog } from "../../data/visualizationLabs";
 import { collectPageErrors, expectNoPageErrors, uniqueSuffix } from "./helpers";
 import type { FeaturedLabDefinition } from "../../data/visualizationLabs";
@@ -224,15 +229,22 @@ test.describe("Visualization Lab overlap detection", () => {
     }
   });
 
-  test("premium Three.js regional labs stay visible on mobile", async ({ browser }, testInfo) => {
+  test("learner-live premium Three.js labs stay visible on mobile", async ({ browser }, testInfo) => {
     test.setTimeout(120_000);
+    const liveVariantTargets = selectPremiumThreeDSceneVariantSmokeLabs(visualizationLabCatalog);
+    const californiaTargets = selectPremiumThreeDSceneVariantSmokeLabs(
+      visualizationLabCatalog.filter((lab) => lab.publisher === "US_CA_MATH")
+    );
+    const californiaVariants = new Set(californiaTargets.map((target) => target.sceneVariant));
     const targetLabs = [
-      { expectedFamilyId: "three-conic-sections-deep", expectedSceneVariant: "conic-section-deep", labId: "pep-high-s5-conics" },
-      { expectedFamilyId: "three-statistical-inference-lab", expectedSceneVariant: "statistical-inference", labId: "us-ca-math-s6-chapter-03" },
-      { expectedFamilyId: "three-calculus-rate-area", expectedSceneVariant: "function-ribbon", labId: "calculus" }
-    ];
+      ...californiaTargets,
+      ...liveVariantTargets.filter((target) => !californiaVariants.has(target.sceneVariant))
+    ].slice(0, 3);
 
-    for (const { expectedFamilyId, expectedSceneVariant, labId } of targetLabs) {
+    expect(californiaTargets.length, "California should expose learner-live premium 3D labs").toBeGreaterThan(0);
+    expect(targetLabs.length, "mobile premium smoke should cover three distinct live variants").toBe(3);
+
+    for (const target of targetLabs) {
       // Each premium lab gets a fresh browser context: sequential WebGL
       // canvases in one page exhaust headless GL contexts, which unmounts the
       // r3f surface mid-assertion and flakes the attribute checks.
@@ -240,19 +252,19 @@ test.describe("Visualization Lab overlap detection", () => {
       const page = await context.newPage();
       const pageErrors = collectPageErrors(page);
 
-      const lab = visualizationLabCatalog.find((candidate) => candidate.labId === labId);
-      expect(lab, `${labId} should exist`).toBeTruthy();
-      await registerVisualizationStudentForLab(page, testInfo, lab!);
-      await page.goto(buildVisualizationLabHref(lab!));
+      const lab = target.lab;
+      expect(isLivePremiumThreeDLab(lab), `${lab.labId} should remain learner-live`).toBe(true);
+      await registerVisualizationStudentForLab(page, testInfo, lab);
+      await page.goto(buildVisualizationLabHref(lab));
       await disableMotion(page);
 
-      const section = page.locator(visualizationLabSectionSelector(lab!));
+      const section = page.locator(visualizationLabSectionSelector(lab));
       await expect(section).toBeVisible();
       const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
       await expect(surface).toBeVisible({ timeout: 20_000 });
       await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
-      await expect(surface).toHaveAttribute("data-viz-family-id", expectedFamilyId);
-      await expect(surface).toHaveAttribute("data-viz-scene-variant", expectedSceneVariant);
+      await expect(surface).toHaveAttribute("data-viz-family-id", target.familyId);
+      await expect(surface).toHaveAttribute("data-viz-scene-variant", target.sceneVariant);
       const box = await surface.boundingBox();
       expect(box?.width ?? 0).toBeGreaterThan(250);
       expect(box?.height ?? 0).toBeGreaterThan(130);
@@ -264,9 +276,11 @@ test.describe("Visualization Lab overlap detection", () => {
 
   test("MAIS Manim function graph surface stays visible on mobile", async ({ page }, testInfo) => {
     const pageErrors = collectPageErrors(page);
-    const lab = visualizationLabCatalog.find((candidate) => candidate.labId === "functions");
+    const lab = visualizationLabCatalog.find(
+      (candidate) => candidate.labId === "us-ca-math-s4-chapter-04" && isLivePremiumThreeDLab(candidate)
+    );
 
-    expect(lab, "function graph lab should exist").toBeTruthy();
+    expect(lab, "a learner-live function graph lab should exist").toBeTruthy();
 
     await page.setViewportSize({ width: 390, height: 844 });
     await registerVisualizationStudentForLab(page, testInfo, lab!);
@@ -298,7 +312,8 @@ test.describe("Visualization Lab overlap detection", () => {
 async function registerVisualizationStudentForLab(page: Page, testInfo: TestInfo, lab: FeaturedLabDefinition) {
   const suffix = `${uniqueSuffix(testInfo)}-${lab.labId}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase().slice(0, 48);
   const username = `visualization-mobile-${suffix}@example.test`;
-  const isCalifornia = lab.publisher === "US_CA_MATH";
+  const isUnitedStates = lab.curriculumTrack === "US";
+  const unitedStatesPublisher = isUnitedStates ? (lab.publisher ?? "US_CA_MATH") : null;
   const isMainland = lab.curriculumTrack.startsWith("MAINLAND") || lab.publisher?.startsWith("MAINLAND");
   const response = await page.request.post("/api/auth/register", {
     data: {
@@ -308,9 +323,9 @@ async function registerVisualizationStudentForLab(page: Page, testInfo: TestInfo
       email: username,
       password: "start12345",
       grade: lab.grade,
-      curriculumTrack: isCalifornia ? "US_CA_MATH" : isMainland ? "MAINLAND_PEP_HIGH" : "HK",
-      curriculumProfile: isCalifornia
-        ? { region: "US", publisher: "US_CA_MATH" }
+      curriculumTrack: unitedStatesPublisher ?? (isMainland ? "MAINLAND_PEP_HIGH" : "HK"),
+      curriculumProfile: unitedStatesPublisher
+        ? { region: "US", publisher: unitedStatesPublisher }
         : isMainland
           ? { region: "MAINLAND", publisher: lab.publisher ?? "MAINLAND_PEP" }
           : { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },

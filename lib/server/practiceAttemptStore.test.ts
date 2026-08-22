@@ -15,6 +15,7 @@ const requiredTables = [
 
 test("practice attempt fast path defines dedicated Postgres row tables without snapshot locks", async () => {
   const store = await import("./practiceAttemptStore");
+  const source = await readFile(join(process.cwd(), "lib/server/practiceAttemptStore.ts"), "utf8");
   const ddl = store.__practiceAttemptStoreTestHooks.postgresStudentActivitySchemaSql().join("\n");
 
   for (const table of requiredTables) {
@@ -25,6 +26,19 @@ test("practice attempt fast path defines dedicated Postgres row tables without s
   assert.equal(typeof store.submitQuestionAttemptFast, "function");
   assert.equal(typeof store.appendLearningEventsFast, "function");
   assert.equal(typeof store.clearLearningEventsFast, "function");
+  assert.match(ddl, /learning_event_clears[\s\S]*generation BIGINT/i);
+  assert.match(ddl, /ALTER TABLE learning_event_clears ADD COLUMN IF NOT EXISTS generation/i);
+  assert.match(ddl, /class_id TEXT/);
+  assert.match(ddl, /assignment_id TEXT/);
+  assert.match(ddl, /competency_id TEXT/);
+  assert.match(source, /pg_advisory_xact_lock/);
+  const appendSource = source.slice(
+    source.indexOf("export async function appendLearningEventsFast"),
+    source.indexOf("export async function clearLearningEventsFast")
+  );
+  assert.match(appendSource, /appendLearningEventsInFastTransaction/);
+  assert.match(appendSource, /acquireLearningEventUserLock/);
+  assert.doesNotMatch(appendSource, /Date\.parse\(event\.timestamp\)\s*[<>]=?\s*Date\.parse\([^)]*clearedAt/);
   assert.match(ddl, /practice_attempts_topic_created_at_idx/);
   assert.match(ddl, /learning_events_user_topic_created_at_idx/);
 });

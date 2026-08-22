@@ -2,17 +2,15 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import {
-  buildPremiumThreeDTopicStaticParams,
-  premiumThreeDLaunchLabIds,
-  selectThreeDRegionalLaunchSmokeLabIds,
-  selectThreeDRegionalLaunchSmokeTargets,
+  premiumThreeDCandidateLabIds,
+  selectThreeDRegionalCandidateAuditLabIds,
   summarizeThreeDLaunchCoverage,
   threeDLaunchCoverageRequirement,
   threeDLaunchRegionByLabId,
   validateThreeDLaunchCoverage
 } from "./threeDSceneMath";
 
-test("approved aggressive Three.js launch coverage stays inside required bands without importing live content", () => {
+test("approved Three.js candidate coverage stays inside authoring bands without importing live content", () => {
   const report = summarizeThreeDLaunchCoverage();
   const issues = validateThreeDLaunchCoverage(report);
 
@@ -41,20 +39,13 @@ test("every approved Three.js family is reachable from a template or premium ove
   assert.equal(report.overrideFamilyCount, 10);
 });
 
-test("premium Three.js topic static params come from the approved launch manifest", () => {
-  const params = buildPremiumThreeDTopicStaticParams();
-  const labIds = params.map((param) => param.labId);
-  const uniqueLabIds = new Set(labIds);
-
-  assert.equal(params.length, 80);
-  assert.equal(uniqueLabIds.size, params.length);
-  assert.deepEqual(uniqueLabIds, premiumThreeDLaunchLabIds);
-  assert.ok(params.every((param) => typeof param.labId === "string" && param.labId.length > 0));
+test("premium Three.js candidate manifest remains a unique audit inventory", () => {
+  assert.equal(premiumThreeDCandidateLabIds.size, 80);
+  assert.ok([...premiumThreeDCandidateLabIds].every((labId) => typeof labId === "string" && labId.length > 0));
 });
 
-test("regional Three.js smoke targets are deterministic static topic pages", () => {
-  const smokeTargets = selectThreeDRegionalLaunchSmokeLabIds();
-  const staticParamIds = new Set(buildPremiumThreeDTopicStaticParams().map((param) => param.labId));
+test("regional Three.js candidate audit samples are deterministic", () => {
+  const smokeTargets = selectThreeDRegionalCandidateAuditLabIds();
 
   assert.deepEqual(Object.keys(smokeTargets).sort(), ["california", "cross-region", "hong-kong", "mainland"]);
   assert.deepEqual(smokeTargets, {
@@ -66,32 +57,7 @@ test("regional Three.js smoke targets are deterministic static topic pages", () 
 
   for (const [region, labId] of Object.entries(smokeTargets)) {
     assert.equal(threeDLaunchRegionByLabId[labId], region);
-    assert.equal(staticParamIds.has(labId), true, `${labId} should be statically generated for regional smoke`);
-  }
-});
-
-test("regional Three.js smoke targets include browser hrefs and runtime assertions", () => {
-  const targets = selectThreeDRegionalLaunchSmokeTargets();
-
-  assert.deepEqual(
-    targets.map((target) => target.region),
-    ["mainland", "california", "hong-kong", "cross-region"]
-  );
-
-  assert.deepEqual(
-    targets.map((target) => target.href),
-    [
-      "/student/tools/visualizations/bnu-high-s4-%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0",
-      "/student/tools/visualizations/us-ca-math-s2-chapter-02",
-      "/student/tools/visualizations/advanced-functions",
-      "/student/tools/visualizations/bnu-high-s6-%E6%95%B0%E5%88%97"
-    ]
-  );
-
-  for (const target of targets) {
-    assert.equal(target.expectedCanvasAttributes["data-viz-premium-launch"], "true");
-    assert.equal(target.expectedCanvasAttributes["data-viz-regional-priority"], target.region);
-    assert.equal(premiumThreeDLaunchLabIds.has(target.labId), true);
+    assert.equal(premiumThreeDCandidateLabIds.has(labId), true, `${labId} should remain in the candidate audit inventory`);
   }
 });
 

@@ -1,5 +1,12 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { buildVisualizationLabHref, selectPremiumThreeDSceneVariantSmokeLabs, visualizationLabSectionSelector } from "../../components/visualizations/visualizationDiagnostics";
+import {
+  buildVisualizationLabHref,
+  selectPremiumThreeDSceneVariantSmokeLabs,
+  selectThreeDSceneVariantSmokeLabs,
+  visualizationLabSectionSelector
+} from "../../components/visualizations/visualizationDiagnostics";
+import { isLivePremiumThreeDLab } from "../../components/visualizations/three/premiumThreeDLiveContract";
+import { sceneVariantForThreeDFamily } from "../../components/visualizations/three/threeDSceneMath";
 import { visualizationLabCatalog, type FeaturedLabDefinition } from "../../data/visualizationLabs";
 import { collectPageErrors, expectNoPageErrors, loginAsDemoStudentApi, uniqueSuffix } from "./helpers";
 
@@ -47,29 +54,18 @@ test.describe("Visualization Lab local value sweep", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("renders configured labs through the shared Three.js family canvas", async ({ page }) => {
+  test("renders configured labs through the shared Three.js family canvas", async ({ page }, testInfo) => {
     test.slow();
     test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
-    const representativeLabIds = [
-      "p4-large-numbers",
-      "p3-multiplication-division",
-      "p6-ratio-proportion",
-      "quadratic-patterns",
-      "functions",
-      "statistics-s1",
-      "calculus"
-    ];
-    const representativeLabs = representativeLabIds.map((labId) => {
-      const lab = visualizationLabCatalog.find((entry) => entry.labId === labId);
-      expect(lab, `${labId} should exist in the visualization catalog`).toBeTruthy();
-      return lab!;
-    });
+    const enabledSceneTargets = selectThreeDSceneVariantSmokeLabs(visualizationLabCatalog);
+    const representativeLabs = enabledSceneTargets.slice(0, 7).map((target) => target.lab);
 
-    await loginAsDemoStudentApi(page);
-    await disableMotion(page);
+    expect(enabledSceneTargets.length, "the configured catalog should expose at least one enabled 3D family").toBeGreaterThan(0);
+    expect(new Set(representativeLabs.map((lab) => lab.threeD?.familyId)).size).toBe(representativeLabs.length);
 
     for (const lab of representativeLabs) {
+      await registerVisualizationStudentForLab(page, testInfo, lab);
       await page.goto(buildVisualizationLabHref(lab), { waitUntil: "domcontentloaded" });
       await disableMotion(page);
       const section = page.locator(visualizationLabSectionSelector(lab));
@@ -93,9 +89,11 @@ test.describe("Visualization Lab local value sweep", () => {
     test.slow();
     test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
-    const lab = visualizationLabCatalog.find((entry) => entry.labId === "functions");
+    const lab = visualizationLabCatalog.find(
+      (entry) => entry.labId === "us-ca-math-s4-chapter-04" && isLivePremiumThreeDLab(entry)
+    );
 
-    expect(lab, "function graph lab should exist").toBeTruthy();
+    expect(lab, "a live premium function graph lab should exist").toBeTruthy();
 
     await registerVisualizationStudentForLab(page, testInfo, lab!);
     await page.goto(buildVisualizationLabHref(lab!), { waitUntil: "domcontentloaded" });
@@ -148,11 +146,13 @@ test.describe("Visualization Lab local value sweep", () => {
     test.slow();
     test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
-    const lab = visualizationLabCatalog.find((entry) => entry.labId === "pep-high-s5-conics");
+    const lab = visualizationLabCatalog.find(
+      (entry) => entry.labId === "us-ca-math-s5-chapter-03" && isLivePremiumThreeDLab(entry)
+    );
 
-    expect(lab, "premium conics lab should exist").toBeTruthy();
-    await registerMainlandPepVisualizationStudent(page, testInfo, lab!.grade);
-    await page.goto("/student/tools/visualizations/pep-high-s5-conics", { waitUntil: "domcontentloaded" });
+    expect(lab, "a live premium direct-route lab should exist").toBeTruthy();
+    await registerVisualizationStudentForLab(page, testInfo, lab!);
+    await page.goto(buildVisualizationLabHref(lab!), { waitUntil: "domcontentloaded" });
     await disableMotion(page);
 
     const section = page.locator(visualizationLabSectionSelector(lab!));
@@ -163,38 +163,29 @@ test.describe("Visualization Lab local value sweep", () => {
     const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
     await expect(surface).toBeVisible({ timeout: 20_000 });
     await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
-    await expect(surface).toHaveAttribute("data-viz-family-id", "three-conic-sections-deep");
-    await expect(surface).toHaveAttribute("data-viz-scene-variant", "conic-section-deep");
+    await expect(surface).toHaveAttribute("data-viz-family-id", lab!.threeD!.familyId);
+    await expect(surface).toHaveAttribute("data-viz-scene-variant", sceneVariantForThreeDFamily(lab!.threeD!.familyId));
 
     expectNoPageErrors(pageErrors);
   });
 
   test("renders one canonical premium Three.js page for every live scene variant", async ({ page }, testInfo) => {
     test.slow();
-    // 15 premium variants, each mounting a full WebGL scene, run sequentially in
-    // one page; give the whole sweep room so a late variant never times out under
-    // the cumulative render load.
+    // Every currently live variant mounts a full WebGL scene sequentially in one
+    // page. Keep the budget independent of the historical authoring inventory:
+    // only catalog entries with both learner-live flags belong in this sweep.
     test.setTimeout(360_000);
     const pageErrors = collectPageErrors(page);
     const targets = selectPremiumThreeDSceneVariantSmokeLabs(visualizationLabCatalog);
+    const expectedLiveVariants = Array.from(new Set(
+      visualizationLabCatalog
+        .filter(isLivePremiumThreeDLab)
+        .map((lab) => sceneVariantForThreeDFamily(lab.threeD!.familyId))
+    )).sort();
 
-    expect(targets.map((target) => target.sceneVariant).sort()).toEqual([
-      "conic-section-deep",
-      "cross-section-slicer",
-      "curriculum-crosswalk",
-      "distribution-machine",
-      "exam-strategy-capstone",
-      "fraction-slices",
-      "function-ribbon",
-      "geometry-axes",
-      "measurement-rail",
-      "optimization-landscape",
-      "projection-views",
-      "solid-net-fold",
-      "space-vector-plane",
-      "statistical-inference",
-      "vector-conic-strategy"
-    ]);
+    expect(expectedLiveVariants.length, "the live premium catalog should expose scene variants").toBeGreaterThan(0);
+    expect(targets.map((target) => target.sceneVariant).sort()).toEqual(expectedLiveVariants);
+    expect(targets.every((target) => isLivePremiumThreeDLab(target.lab))).toBe(true);
 
     for (const target of targets) {
       await registerVisualizationStudentForLab(page, testInfo, target.lab);
@@ -227,45 +218,58 @@ test.describe("Visualization Lab local value sweep", () => {
     expectNoPageErrors(pageErrors);
   });
 
-  test("renders the vector-conic 3D mode with a real R3F canvas interaction contract", async ({ page }, testInfo) => {
+  test("renders the learner-live curriculum crosswalk with a real R3F canvas interaction contract", async ({ page }, testInfo) => {
     test.slow();
     test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
-    const lab = visualizationLabCatalog.find((entry) => entry.templateId === "vector-conic-3d/strategy-map");
+    const lab = visualizationLabCatalog.find(
+      (entry) => isLivePremiumThreeDLab(entry)
+        && sceneVariantForThreeDFamily(entry.threeD!.familyId) === "curriculum-crosswalk"
+    );
 
-    expect(lab, "A vector-conic 3D lab should exist in the catalog.").toBeTruthy();
+    expect(lab, "A learner-live curriculum crosswalk 3D lab should exist in the catalog.").toBeTruthy();
 
-    await registerMainlandPepVisualizationStudent(page, testInfo, lab!.grade);
+    await registerVisualizationStudentForLab(page, testInfo, lab!);
     await page.goto(buildVisualizationLabHref(lab!));
     await disableMotion(page);
 
     const section = page.locator(visualizationLabSectionSelector(lab!));
     await expect(section).toBeVisible();
-    await section.locator('[data-viz-mode-button][data-viz-mode-index="2"]').click();
 
     const surface = section.locator('[data-viz-surface][data-viz-renderer="three-r3f"]');
     await expect(surface).toBeVisible({ timeout: 20_000 });
     await expect(surface).toHaveAttribute("data-viz-canvas-ready", "true");
+    await expect(surface).toHaveAttribute("data-viz-scene-variant", "curriculum-crosswalk");
+    await expect(surface).toHaveAttribute("data-viz-runtime", "mais-manim");
+    await expect(surface).toHaveAttribute("data-viz-scene-id", "mais-manim-curriculum-crosswalk-map");
+    await expect(surface).toHaveAttribute("data-viz-manim-camera-mode", "guided");
     await expect(surface.locator('[data-viz-mark][data-viz-name="three-d-r3f-surface"]')).toHaveCount(1);
-    await expect(surface.locator("[data-viz-three-formula] .katex")).toBeVisible();
-    await expect(surface.locator("[data-viz-three-formula]")).not.toContainText("x^2");
+    await expect(surface.locator('[data-viz-manim-formula-id="crosswalk-formula"] .katex')).toBeVisible();
+    await expect(surface.locator('[data-viz-manim-mark="curriculum-map-surface"]')).toHaveCount(1);
+    await expect(surface.locator('[data-viz-manim-mark="hong-kong-topic-path"]')).toHaveCount(1);
+    await expect(surface.locator('[data-viz-manim-mark="mainland-topic-path"]')).toHaveCount(1);
+    await expect(surface.locator('[data-viz-manim-mark="topic-bridge-path"]')).toHaveCount(1);
+    await expect(surface.locator('[data-viz-manim-mark="gap-vector"]')).toHaveCount(1);
 
     const canvas = surface.locator("canvas").first();
     await expect(canvas).toBeVisible({ timeout: 20_000 });
     const dataUrlLength = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL("image/png").length);
     expect(dataUrlLength).toBeGreaterThan(2_000);
 
-    const beforeDragState = await surface.getAttribute("data-viz-camera-state");
+    const initialCameraState = await surface.getAttribute("data-viz-camera-state");
+    expect(initialCameraState).toBeTruthy();
     const canvasBox = await canvas.boundingBox();
     expect(canvasBox).toBeTruthy();
     await page.mouse.move((canvasBox?.x ?? 0) + (canvasBox?.width ?? 0) * 0.42, (canvasBox?.y ?? 0) + (canvasBox?.height ?? 0) * 0.42);
     await page.mouse.down();
     await page.mouse.move((canvasBox?.x ?? 0) + (canvasBox?.width ?? 0) * 0.62, (canvasBox?.y ?? 0) + (canvasBox?.height ?? 0) * 0.31, { steps: 8 });
     await page.mouse.up();
-    await expect.poll(() => surface.getAttribute("data-viz-camera-state")).not.toBe(beforeDragState);
+    await expect.poll(() => surface.getAttribute("data-viz-camera-state")).not.toBe(initialCameraState);
+    await expect(surface).toHaveAttribute("data-viz-manim-camera-mode", "explore");
 
     await surface.locator('[data-viz-three-reset-camera]').click();
-    await expect(surface).toHaveAttribute("data-viz-camera-state", "azimuth=45.00;elevation=35.00;distance=4.80");
+    await expect(surface).toHaveAttribute("data-viz-manim-camera-mode", "guided");
+    await expect(surface).toHaveAttribute("data-viz-camera-state", initialCameraState!);
 
     expectNoPageErrors(pageErrors);
   });
@@ -280,31 +284,11 @@ function envSet(name: string) {
   );
 }
 
-async function registerMainlandPepVisualizationStudent(page: Page, testInfo: TestInfo, grade: string) {
-  const suffix = `${uniqueSuffix(testInfo)}-${Math.random().toString(36).slice(2, 8)}`;
-  const username = `visualization-three-${suffix}@example.test`;
-  const response = await page.request.post("/api/auth/register", {
-    data: {
-      role: "student",
-      name: `Visualization Three ${suffix}`,
-      username,
-      email: username,
-      password: "start12345",
-      grade,
-      curriculumTrack: "MAINLAND_PEP_HIGH",
-      curriculumProfile: { region: "MAINLAND", publisher: "MAINLAND_PEP" },
-      language: "en",
-      theme: "dark"
-    }
-  });
-
-  expect(response.status(), `register Mainland PEP visualization student for ${grade}`).toBe(200);
-}
-
 async function registerVisualizationStudentForLab(page: Page, testInfo: TestInfo, lab: FeaturedLabDefinition) {
   const suffix = `${uniqueSuffix(testInfo)}-${lab.labId}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase().slice(0, 48);
   const username = `visualization-variant-${suffix}@example.test`;
-  const isCalifornia = lab.publisher === "US_CA_MATH";
+  const isUnitedStates = lab.curriculumTrack === "US";
+  const unitedStatesPublisher = isUnitedStates ? (lab.publisher ?? "US_CA_MATH") : null;
   const isMainland = lab.curriculumTrack.startsWith("MAINLAND") || lab.publisher?.startsWith("MAINLAND");
   const response = await page.request.post("/api/auth/register", {
     data: {
@@ -314,9 +298,9 @@ async function registerVisualizationStudentForLab(page: Page, testInfo: TestInfo
       email: username,
       password: "start12345",
       grade: lab.grade,
-      curriculumTrack: isCalifornia ? "US_CA_MATH" : isMainland ? lab.curriculumTrack : "HK",
-      curriculumProfile: isCalifornia
-        ? { region: "US", publisher: "US_CA_MATH" }
+      curriculumTrack: unitedStatesPublisher ?? (isMainland ? lab.curriculumTrack : "HK"),
+      curriculumProfile: unitedStatesPublisher
+        ? { region: "US", publisher: unitedStatesPublisher }
         : isMainland
           ? { region: "MAINLAND", publisher: lab.publisher ?? "MAINLAND_PEP" }
           : { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },

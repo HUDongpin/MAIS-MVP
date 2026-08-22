@@ -145,8 +145,57 @@ test("legacy userStore clears student dashboard cache after dashboard-affecting 
       .sort((a, b) => a - b)[0] ?? storeConfigSource.length;
     const hookSource = storeConfigSource.slice(hookStart, nextHookStart);
     assert.notEqual(hookStart, -1, `${hook} should be wired in the student activity store.`);
+    if (hook === "afterAppend") {
+      assert.match(hookSource, /afterAppend: applyLearningEventAppendSideEffects/);
+      const helperStart = source.indexOf("function applyLearningEventAppendSideEffects(");
+      const helperEnd = source.indexOf("const studentActivityPersistenceStore", helperStart);
+      const helperSource = source.slice(helperStart, helperEnd);
+      assert.notEqual(helperStart, -1, "The named append side-effect helper should exist.");
+      assert.match(
+        helperSource,
+        /clearStudentDashboardCacheForUser\(userId\)/,
+        "The ordinary append hook should invalidate student dashboard cache."
+      );
+      continue;
+    }
     assert.match(hookSource, /clearStudentDashboardCacheForUser\(userId\)/, `${hook} should invalidate student dashboard cache.`);
   }
+
+  const atomicAdapterStart = source.indexOf("function createAtomicLearningEventSnapshotAdapter(");
+  const atomicAdapterEnd = source.indexOf("export async function appendLearningEventsAtomically", atomicAdapterStart);
+  const atomicAdapterSource = source.slice(atomicAdapterStart, atomicAdapterEnd);
+  assert.match(
+    atomicAdapterSource,
+    /afterAppend:[\s\S]*applyLearningEventAppendDatabaseSideEffects\(mutableDatabase, context\)/,
+    "Ordinary atomic inserts must apply durable reward side effects inside the transaction."
+  );
+  assert.match(
+    atomicAdapterSource,
+    /fastRowsToRecoverInSnapshot\.length[\s\S]*applyLearningEventAppendDatabaseSideEffects/,
+    "A recovered fast-only lost-ACK event must apply the same durable reward side effects."
+  );
+  assert.match(
+    atomicAdapterSource,
+    /fastRowsToReplace\.length[\s\S]*invalidateDashboardAfterCommit = true/,
+    "A replace-only hot repair must invalidate projections after commit without rewriting app_state."
+  );
+  assert.match(
+    atomicAdapterSource,
+    /repairGeneration: async \(state\)[\s\S]*result\.status === "ok"\) invalidateDashboardAfterCommit = true/,
+    "An exact atomic clear or generation repair must invalidate event-derived dashboard cache after commit."
+  );
+  assert.match(
+    atomicAdapterSource,
+    /markPhysicalMutation:[\s\S]*invalidateDashboardAfterCommit = true/,
+    "Fast-only generation/bootstrap mutations must publish cache invalidation after commit."
+  );
+  assert.match(atomicAdapterSource, /invalidateDashboardAfterCommit = true/);
+  assert.match(atomicAdapterSource, /afterCommit:[\s\S]*clearStudentDashboardCacheForUser\(userId\)/);
+  assert.doesNotMatch(
+    atomicAdapterSource.slice(0, atomicAdapterSource.indexOf("afterCommit:")),
+    /clearStudentDashboardCacheForUser\(userId\)/,
+    "The atomic path must defer its non-transactional cache invalidation until commit."
+  );
 });
 
 test("legacy userStore scopes and de-duplicates student dashboard cache safely", async () => {
@@ -957,14 +1006,14 @@ test("student activity persistence marks visualization sessions through fake sto
     }
   ]);
 
-  const repeatSession = await store.markVisualizationSession({
+  const secondTopicSession = await store.markVisualizationSession({
     userId: "student-1",
     moduleId: "coordinate-plane",
     topicId: "topic-2",
     source: "lesson"
   });
 
-  assert.deepEqual(repeatSession, {
+  assert.deepEqual(secondTopicSession, {
     user_id: "student-1",
     module_id: "coordinate-plane",
     topic_id: "topic-2",
@@ -973,20 +1022,96 @@ test("student activity persistence marks visualization sessions through fake sto
     completed_at: now.toISOString(),
     updated_at: now.toISOString()
   });
+  assert.equal(database.visualization_sessions.length, 2);
   assert.deepEqual(sideEffects.at(-1), {
     userId: "student-1",
     moduleId: "coordinate-plane",
     topicId: "topic-2",
     source: "lesson",
-    wasCompleted: true,
+    wasCompleted: false,
     completedAt: now.toISOString(),
     updatedAt: now.toISOString(),
-    session: repeatSession
+    session: secondTopicSession
   });
   assert.equal(sideEffects.length, 2);
+
+  const secondSourceSession = await store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-2",
+    source: "geometry"
+  });
+  assert.equal(database.visualization_sessions.length, 3);
+  assert.deepEqual(secondSourceSession, {
+    user_id: "student-1",
+    module_id: "coordinate-plane",
+    topic_id: "topic-2",
+    source: "geometry",
+    explored: true,
+    completed_at: now.toISOString(),
+    updated_at: now.toISOString()
+  });
+
+  const sessionBytesBeforeReplay = JSON.stringify(database.visualization_sessions);
+  const exactReplay = await store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-2",
+    source: "geometry"
+  });
+  assert.deepEqual(exactReplay, secondSourceSession);
+  assert.equal(JSON.stringify(database.visualization_sessions), sessionBytesBeforeReplay);
+  assert.equal(sideEffects.length, 3);
 });
 
-test("student activity persistence returns visualization session before slow side effects settle", async () => {
+test("student activity persistence exposes an explicit serialized no-op for concurrent exact sessions", async () => {
+  let database: StudentActivityPersistenceDatabase = {
+    visualization_sessions: []
+  };
+  let mutationQueue = Promise.resolve();
+  let durableWrites = 0;
+  let rewardHooks = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => structuredClone(database),
+    mutateVisualizationSessionDatabase: (mutator) => {
+      const run = mutationQueue.then(async () => {
+        const working = structuredClone(database);
+        const outcome = await mutator(working);
+        if (outcome.changed) {
+          database = working;
+          durableWrites += 1;
+        }
+        return outcome.value;
+      });
+      mutationQueue = run.then(
+        () => undefined,
+        () => undefined
+      );
+      return run;
+    },
+    afterMarkVisualizationSession: () => {
+      rewardHooks += 1;
+    }
+  });
+  const identity = {
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-1",
+    source: "visualization-lab" as const
+  };
+
+  const [left, right] = await Promise.all([
+    store.markVisualizationSession(identity),
+    store.markVisualizationSession(identity)
+  ]);
+
+  assert.deepEqual(right, left);
+  assert.equal(durableWrites, 1);
+  assert.equal(rewardHooks, 1);
+  assert.equal(database.visualization_sessions?.length, 1);
+});
+
+test("student activity persistence waits for visualization side effects before returning a durable session", async () => {
   const database: StudentActivityPersistenceDatabase = {
     visualization_sessions: []
   };
@@ -998,23 +1123,22 @@ test("student activity persistence returns visualization session before slow sid
     afterMarkVisualizationSession: () => sideEffectSettled
   });
 
+  const pendingWrite = store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-1",
+    source: "visualization-lab"
+  });
   const result = await Promise.race([
-    store.markVisualizationSession({
-      userId: "student-1",
-      moduleId: "coordinate-plane",
-      topicId: "topic-1",
-      source: "visualization-lab"
-    }).then((session) => ({ status: "resolved" as const, session })),
+    pendingWrite.then((session) => ({ status: "resolved" as const, session })),
     new Promise<{ status: "pending" }>((resolve) => setTimeout(() => resolve({ status: "pending" }), 20))
   ]);
 
+  assert.equal(result.status, "pending");
   releaseSideEffect();
-
-  assert.equal(result.status, "resolved");
-  if (result.status === "resolved") {
-    assert.equal(result.session.module_id, "coordinate-plane");
-    assert.equal(database.visualization_sessions?.length, 1);
-  }
+  const session = await pendingWrite;
+  assert.equal(session.module_id, "coordinate-plane");
+  assert.equal(database.visualization_sessions?.length, 1);
 });
 
 test("student activity persistence appends analytics events without legacy userStore imports", async () => {
@@ -1188,7 +1312,9 @@ test("student activity persistence summarizes, exports, and clears analytics eve
   assert.deepEqual(database.learning_event_clears, [
     {
       user_id: "student-1",
-      cleared_at: "2026-06-20T11:00:00.000Z"
+      cleared_at: "2026-06-20T11:00:00.000Z",
+      generation: 2,
+      request_id: null
     }
   ]);
 });
@@ -1429,7 +1555,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",
@@ -5204,8 +5331,11 @@ test("legacy userStore delegates analytics activity operations to extracted pers
   assert.doesNotMatch(source, /export async function markMistakeMastered/);
   assert.doesNotMatch(source, /export async function deleteMistake/);
   assert.doesNotMatch(source, /export async function clearMistakesForUser/);
-  assert.doesNotMatch(source, /export async function appendLearningEvents/);
-  assert.doesNotMatch(source, /export async function clearLearningEventsForUser/);
+  assert.doesNotMatch(source, /export async function appendLearningEvents\s*\(/);
+  assert.doesNotMatch(source, /export async function clearLearningEventsForUser\s*\(/);
+  assert.match(source, /export async function appendLearningEventsAtomically\s*\(/);
+  assert.match(source, /export async function clearLearningEventsAtomically\s*\(/);
+  assert.match(source, /runAtomicLearningEventDualStoreTransaction/);
   assert.doesNotMatch(source, /export async function getAnalyticsSummary/);
   assert.doesNotMatch(source, /export async function getAnalyticsExport/);
   assert.doesNotMatch(source, /export async function markVisualizationSession/);

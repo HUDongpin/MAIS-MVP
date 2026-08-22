@@ -22,6 +22,7 @@ import {
 } from "./mathRuntimeIndicationOverlay";
 import { applyMathUpdaters } from "./mathUpdaterRegistry";
 import type { MathSceneSpec, Vec3 } from "./mathSceneTypes";
+import { mathSceneColorForRole, mathSceneVisualPalette } from "./mathSceneVisualPalette";
 import type { ThreeDSceneProps } from "../threeDSceneTypes";
 
 type MathSceneRuntimeProps = ThreeDSceneProps & {
@@ -30,19 +31,6 @@ type MathSceneRuntimeProps = ThreeDSceneProps & {
   runtimeState?: MathSceneRuntimeState | null;
   scene?: MathSceneSpec | null;
 };
-
-function colorForRole(role: string, accent: string) {
-  if (role === "function") return accent;
-  if (role === "probe") return "#facc15";
-  if (role === "trace") return "#22d3ee";
-  if (role === "surface") return "#38bdf8";
-  if (role === "surface-grid") return "#bae6fd";
-  if (role === "attention") return "#fb7185";
-  if (role === "area") return "#34d399";
-  if (role === "parameter") return "#c084fc";
-  if (role === "reference") return "#94a3b8";
-  return "#e0f2fe";
-}
 
 function clippingPlanesForMaterial(materialProps: MobjectMaterialUniformProps) {
   if (materialProps.clippingPlaneCount === 0) return undefined;
@@ -71,13 +59,33 @@ function AxisObject({
   const xAxisPoints = runtimeObject.renderState.xAxisPoints;
   const yAxisPoints = runtimeObject.renderState.yAxisPoints;
   const zAxisPoints = runtimeObject.renderState.zAxisPoints;
-  const axisLineProps = lineMaterialProps(1, materialProps);
+  const xAxisLineProps = lineMaterialProps(mathSceneVisualPalette.axes.x.opacity, materialProps);
+  const yAxisLineProps = lineMaterialProps(mathSceneVisualPalette.axes.y.opacity, materialProps);
+  const zAxisLineProps = lineMaterialProps(mathSceneVisualPalette.axes.z.opacity, materialProps);
 
   return (
     <group>
-      <Line color="#38bdf8" lineWidth={3} points={xAxisPoints} {...axisLineProps} />
-      <Line color="#f472b6" lineWidth={3} points={zAxisPoints} {...axisLineProps} />
-      <Line color="#e0f2fe" lineWidth={2} points={yAxisPoints} {...axisLineProps} />
+      <Line
+        color={mathSceneVisualPalette.axes.x.color}
+        lineWidth={mathSceneVisualPalette.axes.x.lineWidth}
+        points={xAxisPoints}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
+        {...xAxisLineProps}
+      />
+      <Line
+        color={mathSceneVisualPalette.axes.z.color}
+        lineWidth={mathSceneVisualPalette.axes.z.lineWidth}
+        points={zAxisPoints}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
+        {...zAxisLineProps}
+      />
+      <Line
+        color={mathSceneVisualPalette.axes.y.color}
+        lineWidth={mathSceneVisualPalette.axes.y.lineWidth}
+        points={yAxisPoints}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
+        {...yAxisLineProps}
+      />
     </group>
   );
 }
@@ -104,18 +112,19 @@ function SceneObject({
     });
     const curveLineProps = vmobjectLineProps({
       fallbackColorRole: object.colorRole,
-      fallbackOpacity: 1,
-      fallbackStrokeWidth: 5,
+      fallbackOpacity: mathSceneVisualPalette.lines.curve.opacity,
+      fallbackStrokeWidth: mathSceneVisualPalette.lines.curve.lineWidth,
       materialProps,
       style: runtimeObject.renderState.kind === "polyline" ? runtimeObject.renderState.style : object.style
     });
 
     return (
       <Line
-        color={colorForRole(curveLineProps.colorRole, accent)}
+        color={mathSceneColorForRole(curveLineProps.colorRole, accent)}
         lineWidth={curveLineProps.lineWidth}
         opacity={curveLineProps.opacity}
         points={points}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
         transparent={curveLineProps.transparent}
       />
     );
@@ -137,15 +146,15 @@ function SceneObject({
       : null;
     const surfaceRowLineProps = vmobjectLineProps({
       fallbackColorRole: object.colorRole,
-      fallbackOpacity: 0.7,
-      fallbackStrokeWidth: 2,
+      fallbackOpacity: mathSceneVisualPalette.lines.surfaceRow.opacity,
+      fallbackStrokeWidth: mathSceneVisualPalette.lines.surfaceRow.lineWidth,
       materialProps,
       style: surfaceStyle
     });
     const surfaceColumnLineProps = vmobjectLineProps({
       fallbackColorRole: "surface-grid",
-      fallbackOpacity: 0.42,
-      fallbackStrokeWidth: 1.4,
+      fallbackOpacity: mathSceneVisualPalette.lines.surfaceColumn.opacity,
+      fallbackStrokeWidth: mathSceneVisualPalette.lines.surfaceColumn.lineWidth,
       materialProps,
       style: surfaceStyle
     });
@@ -162,10 +171,11 @@ function SceneObject({
             </bufferGeometry>
             <meshBasicMaterial
               clippingPlanes={clippingPlanes}
-              color={colorForRole(surfaceFillMeshProps.colorRole, accent)}
+              color={mathSceneColorForRole(surfaceFillMeshProps.colorRole, accent)}
               depthWrite={surfaceFillMeshProps.depthWrite}
               opacity={surfaceFillMeshProps.opacity}
               side={THREE.DoubleSide}
+              toneMapped={mathSceneVisualPalette.renderer.toneMapped}
               transparent={surfaceFillMeshProps.transparent}
             />
           </mesh>
@@ -173,20 +183,22 @@ function SceneObject({
         {wireframeRows.filter((points) => points.length >= 2).map((points, index) => (
           <Line
             key={`${object.id}:row:${index}`}
-            color={colorForRole(surfaceRowLineProps.colorRole, accent)}
+            color={mathSceneColorForRole(surfaceRowLineProps.colorRole, accent)}
             lineWidth={surfaceRowLineProps.lineWidth}
             opacity={surfaceRowLineProps.opacity}
             points={points}
+            toneMapped={mathSceneVisualPalette.renderer.toneMapped}
             transparent={surfaceRowLineProps.transparent}
           />
         ))}
         {wireframeColumns.filter((points) => points.length >= 2).map((points, index) => (
           <Line
             key={`${object.id}:column:${index}`}
-            color={colorForRole(surfaceColumnLineProps.colorRole, accent)}
+            color={mathSceneColorForRole(surfaceColumnLineProps.colorRole, accent)}
             lineWidth={surfaceColumnLineProps.lineWidth}
             opacity={surfaceColumnLineProps.opacity}
             points={points}
+            toneMapped={mathSceneVisualPalette.renderer.toneMapped}
             transparent={surfaceColumnLineProps.transparent}
           />
         ))}
@@ -199,24 +211,32 @@ function SceneObject({
     const position = runtimeObject.renderState.kind === "point" ? runtimeObject.renderState.position : fallbackPosition;
     return (
       <mesh position={position}>
-        <sphereGeometry args={[0.11, 24, 16]} />
+        <sphereGeometry
+          args={[
+            mathSceneVisualPalette.points.moving.radius,
+            mathSceneVisualPalette.points.moving.widthSegments,
+            mathSceneVisualPalette.points.moving.heightSegments
+          ]}
+        />
         {materialProps.shadeIn3D ? (
           <meshStandardMaterial
             clippingPlanes={clippingPlanes}
-            color={colorForRole(object.colorRole, accent)}
+            color={mathSceneColorForRole(object.colorRole, accent)}
             depthWrite={materialProps.depthWrite}
             emissive="#78350f"
             emissiveIntensity={0.22}
             opacity={materialProps.opacity}
             roughness={0.32}
+            toneMapped={mathSceneVisualPalette.renderer.toneMapped}
             transparent={materialProps.transparent}
           />
         ) : (
           <meshBasicMaterial
             clippingPlanes={clippingPlanes}
-            color={colorForRole(object.colorRole, accent)}
+            color={mathSceneColorForRole(object.colorRole, accent)}
             depthWrite={materialProps.depthWrite}
             opacity={materialProps.opacity}
+            toneMapped={mathSceneVisualPalette.renderer.toneMapped}
             transparent={materialProps.transparent}
           />
         )}
@@ -228,8 +248,8 @@ function SceneObject({
     const tracePoints = runtimeObject.renderState.kind === "polyline" ? runtimeObject.renderState.points : [];
     const traceLineProps = vmobjectLineProps({
       fallbackColorRole: object.colorRole,
-      fallbackOpacity: 0.55,
-      fallbackStrokeWidth: 3,
+      fallbackOpacity: mathSceneVisualPalette.lines.trace.opacity,
+      fallbackStrokeWidth: mathSceneVisualPalette.lines.trace.lineWidth,
       materialProps,
       style: runtimeObject.renderState.kind === "polyline" ? runtimeObject.renderState.style : object.style
     });
@@ -238,10 +258,11 @@ function SceneObject({
 
     return (
       <Line
-        color={colorForRole(traceLineProps.colorRole, accent)}
+        color={mathSceneColorForRole(traceLineProps.colorRole, accent)}
         lineWidth={traceLineProps.lineWidth}
         opacity={traceLineProps.opacity}
         points={tracePoints}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
         transparent={traceLineProps.transparent}
       />
     );
@@ -253,18 +274,19 @@ function SceneObject({
       : [object.from, object.to];
     const vectorLineProps = vmobjectLineProps({
       fallbackColorRole: object.colorRole,
-      fallbackOpacity: 1,
-      fallbackStrokeWidth: 5,
+      fallbackOpacity: mathSceneVisualPalette.lines.vector.opacity,
+      fallbackStrokeWidth: mathSceneVisualPalette.lines.vector.lineWidth,
       materialProps,
       style: runtimeObject.renderState.kind === "vector" ? runtimeObject.renderState.style : object.style
     });
 
     return (
       <Line
-        color={colorForRole(vectorLineProps.colorRole, accent)}
+        color={mathSceneColorForRole(vectorLineProps.colorRole, accent)}
         lineWidth={vectorLineProps.lineWidth}
         opacity={vectorLineProps.opacity}
         points={vectorPoints}
+        toneMapped={mathSceneVisualPalette.renderer.toneMapped}
         transparent={vectorLineProps.transparent}
       />
     );
@@ -287,10 +309,11 @@ function RuntimeIndicationOverlay({
           return (
             <Line
               key={`${frame.objectId}:${frame.segmentId}:indication-overlay`}
-              color={colorForRole(frame.colorRole, accent)}
+              color={mathSceneColorForRole(frame.colorRole, accent)}
               lineWidth={frame.lineWidth}
               opacity={frame.opacity}
               points={frame.points}
+              toneMapped={mathSceneVisualPalette.renderer.toneMapped}
               transparent
             />
           );
@@ -298,10 +321,17 @@ function RuntimeIndicationOverlay({
 
         return (
           <mesh key={`${frame.objectId}:point:indication-overlay`} position={frame.position}>
-            <sphereGeometry args={[frame.radius, 32, 16]} />
+            <sphereGeometry
+              args={[
+                frame.radius,
+                mathSceneVisualPalette.points.indication.widthSegments,
+                mathSceneVisualPalette.points.indication.heightSegments
+              ]}
+            />
             <meshBasicMaterial
-              color={colorForRole(frame.colorRole, accent)}
+              color={mathSceneColorForRole(frame.colorRole, accent)}
               opacity={frame.opacity}
+              toneMapped={mathSceneVisualPalette.renderer.toneMapped}
               transparent
             />
           </mesh>

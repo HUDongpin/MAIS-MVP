@@ -22,7 +22,7 @@ test("learning-events API ignores non-student sessions before LRS and storage wo
   const source = await readFile(path.join(process.cwd(), "app/api/learning-events/route.ts"), "utf8");
   const authIndex = source.indexOf("const authenticated = await requireAuthenticatedUser(request)");
   const roleGuardIndex = source.indexOf('authenticated.user.role !== "student"');
-  const jsonParseIndex = source.indexOf("await request.json()", authIndex);
+  const jsonParseIndex = source.indexOf("await parseExactLearningEventsRequestBody(request)", authIndex);
   const lrsIndex = source.indexOf("emitLearningEventsToLrs", authIndex);
   const appendIndex = source.indexOf("appendLearningEvents", authIndex);
 
@@ -68,18 +68,20 @@ test("student analytics summary and export APIs are student-only", async () => {
 test("student learning-events API persists local analytics before scheduling optional LRS delivery", async () => {
   const source = await readFile(path.join(process.cwd(), "app/api/learning-events/route.ts"), "utf8");
   const authIndex = source.indexOf("const authenticated = await requireAuthenticatedUser(request)");
-  const jsonParseIndex = source.indexOf("await request.json()", authIndex);
+  const jsonParseIndex = source.indexOf("await parseExactLearningEventsRequestBody(request)", authIndex);
+  const normalizeBatchIndex = source.indexOf("normalizeLearningAnalyticsEventBatch(events)", jsonParseIndex);
   const appendCallIndex = source.indexOf("await appendLearningEvents", jsonParseIndex);
   const scheduleCallIndex = source.indexOf("scheduleLearningEventsLrsDelivery", appendCallIndex);
-  const responseIndex = source.indexOf("return NextResponse.json({ accepted", appendCallIndex);
+  const responseIndex = source.indexOf("return NextResponse.json({", scheduleCallIndex);
   const lrsCallIndex = source.indexOf("emitLearningEventsToLrs", responseIndex);
 
   assert.notEqual(appendCallIndex, -1, "Student learning events should be appended to local analytics storage.");
+  assert.notEqual(normalizeBatchIndex, -1, "Learning-event batches should be normalized before choosing a persistence backend.");
   assert.notEqual(scheduleCallIndex, -1, "Student learning events should still schedule optional LRS delivery.");
-  assert.notEqual(responseIndex, -1, "Student learning events should respond after the local analytics append.");
+  assert.notEqual(responseIndex, -1, "Student learning events should return a strict durable receipt after the local analytics append.");
   assert.notEqual(lrsCallIndex, -1, "Optional LRS delivery should still be attempted outside the awaited response path.");
   assert.ok(
-    jsonParseIndex < appendCallIndex && appendCallIndex < scheduleCallIndex && scheduleCallIndex < responseIndex && responseIndex < lrsCallIndex,
+    jsonParseIndex < normalizeBatchIndex && normalizeBatchIndex < appendCallIndex && appendCallIndex < scheduleCallIndex && scheduleCallIndex < responseIndex && responseIndex < lrsCallIndex,
     "Local analytics storage must be the only awaited durable write so LRS latency cannot slow student analytics responses."
   );
   assert.equal(source.includes("await emitLearningEventsToLrs"), false);

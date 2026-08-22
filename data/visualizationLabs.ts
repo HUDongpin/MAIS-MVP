@@ -91,10 +91,12 @@ export type VisualizationStudentNote = {
 export type VisualizationCaliforniaAlignment = {
   curriculumTrack: "US_CA_MATH";
   sourcePolicy: LocalizedText;
+  /** Curriculum targets associated with this route, not a claim that one visualization demonstrates every target. */
   standardIds: string[];
   domainId: string;
   domainTitle: LocalizedText;
   clusterId?: string;
+  /** What the current visualization and its attached benches actually demonstrate. */
   capabilitySummary: LocalizedText;
 };
 
@@ -240,6 +242,14 @@ const templateMetadata: Record<
 const configuredModuleId: VisualizationLabModuleId = "configured-visualization-lab";
 const signatureModuleId: VisualizationLabModuleId = "signature-lab";
 
+/** California premium candidates whose 2D and 3D semantic contracts match. */
+export const californiaSemanticallyVerifiedThreeDLabIds = [
+  "us-ca-math-s4-chapter-04",
+  "us-ca-math-s5-chapter-03"
+] as const;
+
+const californiaSemanticallyVerifiedThreeDLabIdSet = new Set<string>(californiaSemanticallyVerifiedThreeDLabIds);
+
 const hiddenVisualizationLabIds = new Set<string>();
 
 function isVisibleVisualizationLab(lab: FeaturedLabDefinition) {
@@ -352,6 +362,7 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ca-math-k-k-nbt-teen-numbers": "base-ten",
   "us-ca-math-k-k-md-attributes-data": "measurement-scale",
   "us-ca-math-k-k-g-shapes-position": "angle-geometry",
+  "us-ca-math-p2-2-oa-fluency-arrays": "number-line",
   "us-ca-math-p1-1-md-measure-data": "measurement-scale",
   "us-ca-math-p1-1-h3-cube-train-join-models-to-10": "number-line",
   "us-ca-math-p1-1-l3-cube-train-take-away-models-to-10": "number-line",
@@ -368,12 +379,17 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ca-math-s5-chapter-02": "function-family",
   "us-ca-math-s5-chapter-05": "statistics-distribution",
   "us-ca-math-s2-chapter-04": "coordinate-transform",
-  "us-ca-math-s6-chapter-01": "statistics-distribution",
+  "us-ca-math-s6-chapter-01": "measurement-scale",
   "us-ca-math-s6-chapter-03": "statistics-distribution",
   "us-ca-math-s6-chapter-05": "statistics-distribution",
 };
 
 const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
+  "us-ca-math-p2-2-oa-fluency-arrays": {
+    en: "whole number = pairs + remainder (0 or 1)",
+    zh: "整數 = 成對數量 + 餘數（0 或 1）",
+    zhHans: "整数 = 成对数量 + 余数（0 或 1）"
+  },
   "p1-counting-number-bonds": {
     en: "known part + missing part = total",
     zh: "已知部分 + 未知部分 = 總數",
@@ -1420,9 +1436,9 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
     zhHans: "样本 -> 推断 -> 结论"
   },
   "us-ca-math-s6-chapter-01": {
-    en: "measurement = mean +/- uncertainty",
-    zh: "測量值 = 平均 +/- 不確定度",
-    zhHans: "测量值 = 平均 +/- 不确定度"
+    en: "formula -> unit choice -> reported precision",
+    zh: "公式 -> 單位選擇 -> 報告精度",
+    zhHans: "公式 -> 单位选择 -> 报告精度"
   },
   "us-ca-math-s6-chapter-04": {
     en: "function -> rate of change",
@@ -1461,17 +1477,421 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
 };
 
+const californiaTopicTitleOverrides: Record<string, LocalizedText> = {
+  "us-ca-math-k-k-cc-count-sequence": localizedText(
+    "K-A.1 Kindergarten Counting and Cardinality: Count Sequence",
+    "K-A.1 幼兒園數數與基數：數序",
+    "K-A.1 幼儿园计数与基数：数序"
+  ),
+  "us-ca-math-k-k-cc-cardinality-compare": localizedText(
+    "K-B.1 Kindergarten Counting and Cardinality: Cardinality Compare",
+    "K-B.1 幼兒園數數與基數：基數比較",
+    "K-B.1 幼儿园计数与基数：基数比较"
+  ),
+  "us-ca-math-k-k-oa-compose-decompose": localizedText(
+    "K-C.1 Kindergarten Operations and Algebraic Thinking: Compose and Decompose",
+    "K-C.1 幼兒園運算與代數思維：組合與分解",
+    "K-C.1 幼儿园运算与代数思维：组合与分解"
+  ),
+  "us-ca-math-k-k-nbt-teen-numbers": localizedText(
+    "K-D.1 Kindergarten Number and Operations in Base Ten: Teen Numbers",
+    "K-D.1 幼兒園十進位數與運算：十幾",
+    "K-D.1 幼儿园十进制数与运算：十几"
+  ),
+  "us-ca-math-k-k-md-attributes-data": localizedText(
+    "K-E.1 Kindergarten Measurement and Data: Attributes and Data",
+    "K-E.1 幼兒園度量與數據：屬性與數據",
+    "K-E.1 幼儿园测量与数据：属性与数据"
+  ),
+  "us-ca-math-k-k-g-shapes-position": localizedText(
+    "K-F.1 Kindergarten Geometry: Shapes and Position",
+    "K-F.1 幼兒園幾何：圖形與位置",
+    "K-F.1 幼儿园几何：图形与位置"
+  ),
+  "us-ca-math-p1-1-oa-add-subtract": localizedText(
+    "1-A.1 Grade 1 Operations and Algebraic Thinking: Add Subtract",
+    "1-A.1 一年級運算與代數思維：加法與減法",
+    "1-A.1 一年级运算与代数思维：加法与减法"
+  ),
+  "us-ca-math-p1-1-nbt-place-value": localizedText(
+    "1-B.1 Grade 1 Number and Operations in Base Ten: Place Value",
+    "1-B.1 一年級十進位數與運算：位值",
+    "1-B.1 一年级十进制数与运算：数位"
+  ),
+  "us-ca-math-p1-1-md-measure-data": localizedText(
+    "1-C.1 Grade 1 Measurement and Data: Measure Data",
+    "1-C.1 一年級度量與數據：測量與數據",
+    "1-C.1 一年级测量与数据：测量与数据"
+  ),
+  "us-ca-math-p1-1-g-shape-reasoning": localizedText(
+    "1-D.1 Grade 1 Geometry: Shape Reasoning",
+    "1-D.1 一年級幾何：圖形推理",
+    "1-D.1 一年级几何：图形推理"
+  ),
+  "us-ca-math-p2-2-oa-fluency-arrays": localizedText(
+    "2-A.1 Odd and Even Pair-Off",
+    "2-A.1 奇數與偶數配對",
+    "2-A.1 奇数与偶数配对"
+  ),
+  "us-ca-math-p2-2-nbt-three-digit-place-value": localizedText(
+    "2-B.1 Grade 2 Number and Operations in Base Ten: Three Digit Place Value",
+    "2-B.1 二年級十進位數與運算：三位數位值",
+    "2-B.1 二年级十进制数与运算：三位数的数位"
+  ),
+  "us-ca-math-p2-2-md-measure-data-money-time": localizedText(
+    "2-C.1 Grade 2 Measurement and Data: Measure Data Money Time",
+    "2-C.1 二年級度量與數據：測量、數據、金錢與時間",
+    "2-C.1 二年级测量与数据：测量、数据、金钱与时间"
+  ),
+  "us-ca-math-p2-2-g-partition-shapes": localizedText(
+    "2-D.1 Grade 2 Geometry: Partition Shapes",
+    "2-D.1 二年級幾何：分割圖形",
+    "2-D.1 二年级几何：分割图形"
+  ),
+  "us-ca-math-p3-3-oa-mult-div": localizedText(
+    "3-A.1 Grade 3 Operations and Algebraic Thinking: Mult Div",
+    "3-A.1 三年級運算與代數思維：乘法與除法",
+    "3-A.1 三年级运算与代数思维：乘法与除法"
+  ),
+  "us-ca-math-p3-3-nbt-arithmetic": localizedText(
+    "3-B.1 Grade 3 Number and Operations in Base Ten: Arithmetic",
+    "3-B.1 三年級十進位數與運算：算術運算",
+    "3-B.1 三年级十进制数与运算：算术运算"
+  ),
+  "us-ca-math-p3-3-nf-fraction-meaning": localizedText(
+    "3-C.1 Grade 3 Number and Operations - Fractions: Fraction Meaning",
+    "3-C.1 三年級數與運算（分數）：分數的意義",
+    "3-C.1 三年级数与运算（分数）：分数的意义"
+  ),
+  "us-ca-math-p3-3-md-time-data-area-perimeter": localizedText(
+    "3-D.1 Grade 3 Measurement and Data: Time Data Area Perimeter",
+    "3-D.1 三年級度量與數據：時間、數據、面積與周界",
+    "3-D.1 三年级测量与数据：时间、数据、面积与周长"
+  ),
+  "us-ca-math-p3-3-g-categories": localizedText(
+    "3-E.1 Grade 3 Geometry: Categories",
+    "3-E.1 三年級幾何：圖形分類",
+    "3-E.1 三年级几何：图形分类"
+  ),
+  "us-ca-math-p4-4-oa-factors-patterns": localizedText(
+    "4-A.1 Grade 4 Operations and Algebraic Thinking: Factors Patterns",
+    "4-A.1 四年級運算與代數思維：因數與規律",
+    "4-A.1 四年级运算与代数思维：因数与规律"
+  ),
+  "us-ca-math-p4-4-nbt-multi-digit": localizedText(
+    "4-B.1 Grade 4 Number and Operations in Base Ten: Multi Digit",
+    "4-B.1 四年級十進位數與運算：多位數",
+    "4-B.1 四年级十进制数与运算：多位数"
+  ),
+  "us-ca-math-p4-4-nf-fraction-decimal": localizedText(
+    "4-C.1 Grade 4 Number and Operations - Fractions: Fraction Decimal",
+    "4-C.1 四年級數與運算（分數）：分數與小數",
+    "4-C.1 四年级数与运算（分数）：分数与小数"
+  ),
+  "us-ca-math-p4-4-md-conversion-angles": localizedText(
+    "4-D.1 Grade 4 Measurement and Data: Conversion Angles",
+    "4-D.1 四年級度量與數據：單位換算與角度",
+    "4-D.1 四年级测量与数据：单位换算与角度"
+  ),
+  "us-ca-math-p4-4-g-lines-shapes": localizedText(
+    "4-E.1 Grade 4 Geometry: Lines Shapes",
+    "4-E.1 四年級幾何：直線與圖形",
+    "4-E.1 四年级几何：直线与图形"
+  ),
+  "us-ca-math-p5-5-oa-expressions-patterns": localizedText(
+    "5-A.1 Grade 5 Operations and Algebraic Thinking: Expressions Patterns",
+    "5-A.1 五年級運算與代數思維：表達式與規律",
+    "5-A.1 五年级运算与代数思维：表达式与规律"
+  ),
+  "us-ca-math-p5-5-nbt-decimals": localizedText(
+    "5-B.1 Grade 5 Number and Operations in Base Ten: Decimals",
+    "5-B.1 五年級十進位數與運算：小數",
+    "5-B.1 五年级十进制数与运算：小数"
+  ),
+  "us-ca-math-p5-5-nf-operations": localizedText(
+    "5-C.1 Grade 5 Number and Operations - Fractions: Operations",
+    "5-C.1 五年級數與運算（分數）：分數運算",
+    "5-C.1 五年级数与运算（分数）：分数运算"
+  ),
+  "us-ca-math-p5-5-md-volume-data": localizedText(
+    "5-D.1 Grade 5 Measurement and Data: Volume Data",
+    "5-D.1 五年級度量與數據：體積與數據",
+    "5-D.1 五年级测量与数据：体积与数据"
+  ),
+  "us-ca-math-p5-5-g-coordinate-shapes": localizedText(
+    "5-E.1 Grade 5 Geometry: Coordinate Shapes",
+    "5-E.1 五年級幾何：坐標與圖形",
+    "5-E.1 五年级几何：坐标与图形"
+  ),
+  "us-ca-math-p1-1-h1-picture-join-stories-to-10": localizedText(
+    "1-H.1 Picture Join Stories to Ten",
+    "1-H.1 看圖解答 10 以內合併情境",
+    "1-H.1 看图解答 10 以内合并情境"
+  ),
+  "us-ca-math-p1-1-h2-picture-story-addition-equations": localizedText(
+    "1-H.2 Picture Story Addition Equations",
+    "1-H.2 看圖寫加法算式",
+    "1-H.2 看图写加法算式"
+  ),
+  "us-ca-math-p1-1-h3-cube-train-join-models-to-10": localizedText(
+    "1-H.3 Cube-Train Join Models to Ten",
+    "1-H.3 積木列車合併模型（10 以內）",
+    "1-H.3 积木列车合并模型（10 以内）"
+  ),
+  "us-ca-math-p1-1-h4-join-stories-within-10": localizedText(
+    "1-H.4 Join Stories Within Ten",
+    "1-H.4 10 以內合併情境題",
+    "1-H.4 10 以内合并情境题"
+  ),
+  "us-ca-math-p1-1-h5-model-equation-join-stories-to-10": localizedText(
+    "1-H.5 Model-and-Equation Join Stories",
+    "1-H.5 用模型與算式表示合併情境",
+    "1-H.5 用模型与算式表示合并情境"
+  ),
+  "us-ca-math-p1-1-h6-equation-match-join-stories-to-10": localizedText(
+    "1-H.6 Equation Match for Join Stories",
+    "1-H.6 合併情境與算式配對",
+    "1-H.6 合并情境与算式配对"
+  ),
+  "us-ca-math-p1-1-l1-picture-take-away-stories-to-10": localizedText(
+    "1-L.1 Picture Take-Away Stories to Ten",
+    "1-L.1 看圖解答 10 以內拿走情境",
+    "1-L.1 看图解答 10 以内拿走情境"
+  ),
+  "us-ca-math-p1-1-l2-picture-story-subtraction-equations": localizedText(
+    "1-L.2 Picture Story Subtraction Equations",
+    "1-L.2 看圖寫減法算式",
+    "1-L.2 看图写减法算式"
+  ),
+  "us-ca-math-p1-1-l3-cube-train-take-away-models-to-10": localizedText(
+    "1-L.3 Cube-Train Take-Away Models to Ten",
+    "1-L.3 積木列車拿走模型（10 以內）",
+    "1-L.3 积木列车拿走模型（10 以内）"
+  ),
+  "us-ca-math-p1-1-l4-take-away-stories-within-10": localizedText(
+    "1-L.4 Take-Away Stories Within Ten",
+    "1-L.4 10 以內拿走情境題",
+    "1-L.4 10 以内拿走情境题"
+  ),
+  "us-ca-math-p1-1-l5-model-equation-take-away-stories-to-10": localizedText(
+    "1-L.5 Model-and-Equation Take-Away Stories",
+    "1-L.5 用模型與算式表示拿走情境",
+    "1-L.5 用模型与算式表示拿走情境"
+  ),
+  "us-ca-math-p1-1-l6-break-apart-subtraction-equations-to-10": localizedText(
+    "1-L.6 Break-Apart Subtraction Equations",
+    "1-L.6 拆分減法算式",
+    "1-L.6 拆分减法算式"
+  ),
+  "us-ca-math-p6-chapter-01": localizedText(
+    "6-A.1 Ratios, Rates, and Percent Reasoning",
+    "6-A.1 比、比率與百分比推理",
+    "6-A.1 比、比率与百分比推理"
+  ),
+  "us-ca-math-p6-chapter-02": localizedText(
+    "6-B.1 Rational Numbers and the Number Line",
+    "6-B.1 有理數與數線",
+    "6-B.1 有理数与数轴"
+  ),
+  "us-ca-math-p6-chapter-03": localizedText(
+    "6-C.1 Expressions, Equations, and Variables",
+    "6-C.1 表達式、方程與變量",
+    "6-C.1 表达式、方程与变量"
+  ),
+  "us-ca-math-p6-chapter-04": localizedText(
+    "6-D.1 Geometry: Area, Surface Area, and Volume",
+    "6-D.1 幾何：面積、表面積與體積",
+    "6-D.1 几何：面积、表面积与体积"
+  ),
+  "us-ca-math-p6-chapter-05": localizedText(
+    "6-E.1 Statistics and Data Distributions",
+    "6-E.1 統計與數據分佈",
+    "6-E.1 统计与数据分布"
+  ),
+  "us-ca-math-s1-chapter-01": localizedText(
+    "7-A.1 Proportional Relationships",
+    "7-A.1 比例關係",
+    "7-A.1 比例关系"
+  ),
+  "us-ca-math-s1-chapter-02": localizedText(
+    "7-B.1 Operations with Rational Numbers",
+    "7-B.1 有理數運算",
+    "7-B.1 有理数运算"
+  ),
+  "us-ca-math-s1-chapter-03": localizedText(
+    "7-C.1 Linear Expressions and Equations",
+    "7-C.1 線性表達式與方程",
+    "7-C.1 线性表达式与方程"
+  ),
+  "us-ca-math-s1-chapter-04": localizedText(
+    "7-D.1 Scale, Geometry, and Measurement",
+    "7-D.1 比例、幾何與度量",
+    "7-D.1 比例、几何与测量"
+  ),
+  "us-ca-math-s1-chapter-05": localizedText(
+    "7-E.1 Sampling, Probability, and Inference",
+    "7-E.1 抽樣、概率與推論",
+    "7-E.1 抽样、概率与推断"
+  ),
+  "us-ca-math-s2-chapter-01": localizedText(
+    "8-A.1 Linear Equations and Systems Readiness",
+    "8-A.1 一次方程與方程組預備",
+    "8-A.1 一次方程与方程组准备"
+  ),
+  "us-ca-math-s2-chapter-02": localizedText(
+    "8-B.1 Functions and Rate of Change",
+    "8-B.1 函數與變化率",
+    "8-B.1 函数与变化率"
+  ),
+  "us-ca-math-s2-chapter-03": localizedText(
+    "8-C.1 Transformations and Similarity",
+    "8-C.1 幾何變換與相似",
+    "8-C.1 几何变换与相似"
+  ),
+  "us-ca-math-s2-chapter-04": localizedText(
+    "8-D.1 Pythagorean Reasoning and Coordinate Geometry",
+    "8-D.1 畢氏定理推理與坐標幾何",
+    "8-D.1 勾股定理推理与坐标几何"
+  ),
+  "us-ca-math-s2-chapter-05": localizedText(
+    "8-E.1 Bivariate Data and Claims",
+    "8-E.1 雙變量數據與結論",
+    "8-E.1 双变量数据与结论"
+  ),
+  "us-ca-math-s3-chapter-01": localizedText(
+    "9-A.1 Equations from Context",
+    "9-A.1 從情境建立方程",
+    "9-A.1 从情境建立方程"
+  ),
+  "us-ca-math-s3-chapter-02": localizedText(
+    "9-B.1 Function Notation and Interpretation",
+    "9-B.1 函數記法與詮釋",
+    "9-B.1 函数记法与解释"
+  ),
+  "us-ca-math-s3-chapter-03": localizedText(
+    "9-C.1 Linear and Quadratic Models",
+    "9-C.1 線性與二次模型",
+    "9-C.1 线性与二次模型"
+  ),
+  "us-ca-math-s3-chapter-04": localizedText(
+    "9-D.1 Coordinate Geometry Methods",
+    "9-D.1 坐標幾何方法",
+    "9-D.1 坐标几何方法"
+  ),
+  "us-ca-math-s3-chapter-05": localizedText(
+    "9-E.1 Modeling with Evidence",
+    "9-E.1 以證據建模",
+    "9-E.1 基于证据建模"
+  ),
+  "us-ca-math-s4-chapter-01": localizedText(
+    "10-A.1 Congruence and Proof",
+    "10-A.1 全等與證明",
+    "10-A.1 全等与证明"
+  ),
+  "us-ca-math-s4-chapter-02": localizedText(
+    "10-B.1 Similarity and Right-Triangle Reasoning",
+    "10-B.1 相似與直角三角形推理",
+    "10-B.1 相似与直角三角形推理"
+  ),
+  "us-ca-math-s4-chapter-03": localizedText(
+    "10-C.1 Circle Geometry",
+    "10-C.1 圓幾何",
+    "10-C.1 圆几何"
+  ),
+  "us-ca-math-s4-chapter-04": localizedText(
+    "10-D.1 Quadratic Structure",
+    "10-D.1 二次式結構",
+    "10-D.1 二次式结构"
+  ),
+  "us-ca-math-s4-chapter-05": localizedText(
+    "10-E.1 Conditional Probability",
+    "10-E.1 條件概率",
+    "10-E.1 条件概率"
+  ),
+  "us-ca-math-s5-chapter-01": localizedText(
+    "11-A.1 Function Transformations and Inverses",
+    "11-A.1 函數變換與反函數",
+    "11-A.1 函数变换与反函数"
+  ),
+  "us-ca-math-s5-chapter-02": localizedText(
+    "11-B.1 Exponential and Logarithmic Models",
+    "11-B.1 指數與對數模型",
+    "11-B.1 指数与对数模型"
+  ),
+  "us-ca-math-s5-chapter-03": localizedText(
+    "11-C.1 Trigonometric Functions and Graphs",
+    "11-C.1 三角函數與圖像",
+    "11-C.1 三角函数与图象"
+  ),
+  "us-ca-math-s5-chapter-04": localizedText(
+    "11-D.1 Data Modeling and Residuals",
+    "11-D.1 數據建模與殘差",
+    "11-D.1 数据建模与残差"
+  ),
+  "us-ca-math-s5-chapter-05": localizedText(
+    "11-E.1 Statistical Inference and Claims",
+    "11-E.1 統計推論與結論",
+    "11-E.1 统计推断与结论"
+  ),
+  "us-ca-math-s6-chapter-01": localizedText(
+    "12-A.1 Quantities, Units, and Precision",
+    "12-A.1 數量、單位與精度",
+    "12-A.1 数量、单位与精度"
+  ),
+  "us-ca-math-s6-chapter-02": localizedText(
+    "12-B.1 Polynomial Structure and Behavior",
+    "12-B.1 多項式結構與性質",
+    "12-B.1 多项式结构与性质"
+  ),
+  "us-ca-math-s6-chapter-03": localizedText(
+    "12-C.1 Decision Statistics",
+    "12-C.1 決策統計",
+    "12-C.1 决策统计"
+  ),
+  "us-ca-math-s6-chapter-04": localizedText(
+    "12-D.1 Function Analysis and Rates",
+    "12-D.1 函數分析與變化率",
+    "12-D.1 函数分析与变化率"
+  ),
+  "us-ca-math-s6-chapter-05": localizedText(
+    "12-E.1 Capstone Modeling",
+    "12-E.1 綜合建模",
+    "12-E.1 综合建模"
+  )
+};
+
 const topicTitleOverrides: Partial<Record<string, LocalizedText>> = {
-  "us-ca-math-k-k-cc-count-sequence": localizedUsTopicTitle("K-A.1 Kindergarten Counting and Cardinality: Count Sequence"),
-  "us-ca-math-k-k-cc-cardinality-compare": localizedUsTopicTitle("K-B.1 Kindergarten Counting and Cardinality: Cardinality Compare"),
-  "us-ca-math-k-k-oa-compose-decompose": localizedUsTopicTitle("K-C.1 Kindergarten Operations and Algebraic Thinking: Compose and Decompose"),
-  "us-ca-math-k-k-nbt-teen-numbers": localizedUsTopicTitle("K-D.1 Kindergarten Number and Operations in Base Ten: Teen Numbers"),
-  "us-ca-math-k-k-md-attributes-data": localizedUsTopicTitle("K-E.1 Kindergarten Measurement and Data: Attributes and Data"),
-  "us-ca-math-k-k-g-shapes-position": localizedUsTopicTitle("K-F.1 Kindergarten Geometry: Shapes and Position"),
+  ...californiaTopicTitleOverrides,
   "us-ar-math-g4-gm-3": localizedUsTopicTitle("Arkansas Unknown Angle Measures"),
   "us-ar-math-g10-chapter-03-circle-geometry": localizedUsTopicTitle("Arkansas Circle Geometry"),
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": localizedUsTopicTitle("Arkansas Exponential and Logarithmic Models"),
   "us-ar-math-g12-chapter-03-decision-statistics": localizedUsTopicTitle("Arkansas Decision Statistics"),
+};
+
+const topicCategoryOverrides: Partial<Record<string, LocalizedText>> = {
+  "us-ca-math-p2-2-oa-fluency-arrays": {
+    en: "Odd and even pairing",
+    zh: "奇數與偶數配對",
+    zhHans: "奇数与偶数配对"
+  }
+};
+
+const topicDescriptionOverrides: Partial<Record<string, LocalizedText>> = {
+  "us-ca-math-p2-2-oa-fluency-arrays": {
+    en: "Pair counters in twos. If none are left over, the number is even; if one is left over, it is odd.",
+    zh: "把圓片每兩個配成一組：沒有剩下就是偶數，剩下一個就是奇數。",
+    zhHans: "把圆片每两个配成一组：没有剩下就是偶数，剩下一个就是奇数。"
+  },
+  "us-ca-math-s6-chapter-01": {
+    en: "Use formulas, unit choices, conversions, rounding, and scientific notation to build a foundation for quantity modeling. Begin with units and precision before tackling a full modeling task.",
+    zh: "運用公式、單位選擇、換算、捨入與科學記數法，建立數量建模的基礎；先掌握單位與精度，再進入完整建模任務。",
+    zhHans: "运用公式、单位选择、换算、舍入与科学记数法，建立数量建模的基础；先掌握单位与精度，再进入完整建模任务。"
+  },
+  "us-ca-math-s6-chapter-04": {
+    en: "Compare constant rates with a line model and connect them to related function families. Begin with constant rate of change before studying average rate over nonlinear intervals.",
+    zh: "用直線模型比較恆定變化率，並連繫相關函數族；先掌握恆定變化率，再學習非線性區間上的平均變化率。",
+    zhHans: "用直线模型比较恒定变化率，并联系相关函数族；先掌握恒定变化率，再学习非线性区间上的平均变化率。"
+  }
 };
 
 const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
@@ -1505,6 +1925,11 @@ const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
     zh: "幼兒園圖形與位置實驗：命名簡單圖形，並放在上方、下方、旁邊或裡面。",
     zhHans: "幼儿园图形与位置实验：命名简单图形，并放在上方、下方、旁边或里面。"
   },
+  "us-ca-math-p2-2-oa-fluency-arrays": {
+    en: "Pair counters in twos and use what is left over to see whether a whole number is even or odd.",
+    zh: "把圓片每兩個配成一組，再利用剩下的圓片判斷整數是偶數還是奇數。",
+    zhHans: "把圆片每两个配成一组，再利用剩下的圆片判断整数是偶数还是奇数。"
+  },
   "us-ar-math-g4-gm-3": usStandardsFocus("Arkansas 4.GM.3", "Unknown Angle Measures", "幾何角度", "几何角度"),
   "us-ar-math-g10-chapter-03-circle-geometry": usStandardsFocus("Arkansas AR.Math.HS.G-C", "Circle Geometry", "幾何", "几何"),
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": usStandardsFocus("Arkansas AR.Math.HS.F-LE", "Exponential and Logarithmic Models", "函數族", "函数族"),
@@ -1514,10 +1939,30 @@ const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
     zh: "用幾何模型，觀察California Grade 10: 圓的幾何中的關鍵關係。",
     zhHans: "用几何模型，观察California Grade 10: 圆的几何中的关键关系。"
   },
+  "us-ca-math-s3-chapter-03": {
+    en: "Explore linear and quadratic equations, expression structure, and their shared solution points with source-scoped A-REI and A-SSE models.",
+    zh: "用來源限定的 A-REI 與 A-SSE 模型，探索一次與二次方程、表達式結構及其共同解點。",
+    zhHans: "用来源限定的 A-REI 与 A-SSE 模型，探索一次与二次方程、表达式结构及其共同解点。"
+  },
   "us-ca-math-s5-chapter-02": {
     en: "California Math Practice Beta Chapter 2 strand for Exponential and Logarithmic Models, with MAIS-authored standards-aligned practice questions.",
     zh: "用函數族模型，觀察California Grade 11: 指數與對數模型中的關鍵關係。",
     zhHans: "用函数族模型，观察California Grade 11: 指数与对数模型中的关键关系。"
+  },
+  "us-ca-math-s5-chapter-03": {
+    en: "Explore trigonometric functions and graphs through unit-circle values, periodic behavior, inverses, and identities.",
+    zh: "透過單位圓數值、週期行為、反函數與恆等式探索三角函數及其圖像。",
+    zhHans: "通过单位圆数值、周期行为、反函数与恒等式探索三角函数及其图象。"
+  },
+  "us-ca-math-s6-chapter-01": {
+    en: "Build quantity-modeling foundations by connecting formulas, unit choices, conversions, rounding, and scientific notation, then carry units and precision into a full modeling task.",
+    zh: "連繫公式、單位選擇、換算、捨入與科學記數法，建立數量建模基礎，再把單位與精度帶入完整建模任務。",
+    zhHans: "联系公式、单位选择、换算、舍入与科学记数法，建立数量建模基础，再把单位与精度带入完整建模任务。"
+  },
+  "us-ca-math-s6-chapter-04": {
+    en: "Compare constant rates with a line model, connect them to related function families, and prepare to study average rate of change over nonlinear intervals.",
+    zh: "用直線模型比較恆定變化率，連繫相關函數族，並為學習非線性區間上的平均變化率作準備。",
+    zhHans: "用直线模型比较恒定变化率，联系相关函数族，并为学习非线性区间上的平均变化率作准备。"
   },
   "us-ca-math-s6-chapter-03": {
     en: "California Math Practice Beta Chapter 3 strand for Decision Statistics, with MAIS-authored standards-aligned practice questions.",
@@ -1551,332 +1996,596 @@ const californiaDomainAlignments: Record<string, CaliforniaDomainAlignmentRecord
   "K.CC": {
     domainTitle: localizedText("Counting and Cardinality", "數數與基數", "数数与基数"),
     standardIds: ["K.CC.A.1", "K.CC.A.2", "K.CC.A.3", "K.CC.B.4", "K.CC.B.5", "K.CC.C.6", "K.CC.C.7"],
-    capabilitySummary: localizedText("Connect number words, written numerals, ordered counts, and quantity comparisons with concrete or picture models.")
+    capabilitySummary: localizedText(
+      "Connect number words, written numerals, ordered counts, and quantity comparisons with concrete or picture models.",
+      "運用實物或圖像模型，連繫數詞、書寫數字、有序數數與數量比較。",
+      "运用实物或图像模型，联系数词、书写数字、有序计数与数量比较。"
+    )
   },
   "K.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["K.OA.A.1", "K.OA.A.2", "K.OA.A.3", "K.OA.A.4", "K.OA.A.5"],
-    capabilitySummary: localizedText("Represent joining, separating, and decomposing within 10 with objects, drawings, equations, and part-whole models.")
+    capabilitySummary: localizedText(
+      "Represent joining, separating, and decomposing within 10 with objects, drawings, equations, and part-whole models.",
+      "用實物、圖畫、等式和部分—整體模型表示 10 以內的合併、分開與分解。",
+      "用实物、图画、等式和部分—整体模型表示 10 以内的合并、分开与分解。"
+    )
   },
   "K.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["K.NBT.A.1"],
-    capabilitySummary: localizedText("Treat teen numbers as one ten and extra ones through base-ten and ten-frame representations.")
+    capabilitySummary: localizedText(
+      "Treat teen numbers as one ten and extra ones through base-ten and ten-frame representations.",
+      "透過十進位和十格框表示，把十幾理解為一個十和若干個一。",
+      "通过十进制模型和十格框表示，把十几理解为一个十和若干个一。"
+    )
   },
   "K.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["K.MD.A.1", "K.MD.A.2", "K.MD.B.3"],
-    capabilitySummary: localizedText("Describe, compare, classify, and organize measurable attributes with simple visual data models.")
+    capabilitySummary: localizedText(
+      "Describe, compare, classify, and organize measurable attributes with simple visual data models.",
+      "運用簡單的視覺數據模型描述、比較、分類及整理可測量屬性。",
+      "运用简单的可视化数据模型描述、比较、分类及整理可测量属性。"
+    )
   },
   "K.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["K.G.A.1", "K.G.A.2", "K.G.A.3", "K.G.B.4", "K.G.B.5", "K.G.B.6"],
-    capabilitySummary: localizedText("Name, compare, compose, and position two- and three-dimensional shapes.")
+    capabilitySummary: localizedText(
+      "Name, compare, compose, and position two- and three-dimensional shapes.",
+      "命名、比較、組合並確定二維與三維圖形的位置。",
+      "命名、比较、组合并确定二维与三维图形的位置。"
+    )
   },
   "1.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["1.OA.A.1", "1.OA.A.2", "1.OA.B.3", "1.OA.B.4", "1.OA.C.5", "1.OA.C.6", "1.OA.D.7", "1.OA.D.8"],
-    capabilitySummary: localizedText("Model addition and subtraction situations, properties, unknowns, and fluency within 20.")
+    capabilitySummary: localizedText(
+      "Model addition and subtraction situations, properties, unknowns, and fluency within 20.",
+      "建立加減情境、運算性質、未知數及 20 以內熟練運算的模型。",
+      "建立加减情境、运算性质、未知数及 20 以内熟练运算的模型。"
+    )
   },
   "1.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["1.NBT.A.1", "1.NBT.B.2", "1.NBT.B.3", "1.NBT.C.4", "1.NBT.C.5", "1.NBT.C.6"],
-    capabilitySummary: localizedText("Count, compare, and operate with two-digit numbers using tens, ones, and place-value structure.")
+    capabilitySummary: localizedText(
+      "Count, compare, and operate with two-digit numbers using tens, ones, and place-value structure.",
+      "運用十位、個位和位值結構，數數、比較並運算兩位數。",
+      "运用十位、个位和数位结构，计数、比较并运算两位数。"
+    )
   },
   "1.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["1.MD.A.1", "1.MD.A.2", "1.MD.B.3", "1.MD.C.4"],
-    capabilitySummary: localizedText("Compare lengths, iterate units, tell time, and interpret simple data displays.")
+    capabilitySummary: localizedText(
+      "Compare lengths, iterate units, tell time, and interpret simple data displays.",
+      "比較長度、反覆使用測量單位、讀出時間，並解讀簡單數據圖表。",
+      "比较长度、重复使用测量单位、读出时间，并解读简单数据图表。"
+    )
   },
   "1.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["1.G.A.1", "1.G.A.2", "1.G.A.3"],
-    capabilitySummary: localizedText("Compose, partition, and reason about defining attributes of shapes.")
+    capabilitySummary: localizedText(
+      "Compose, partition, and reason about defining attributes of shapes.",
+      "組合及分割圖形，並依據圖形的定義屬性推理。",
+      "组合及分割图形，并依据图形的定义属性推理。"
+    )
   },
   "2.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["2.OA.A.1", "2.OA.B.2", "2.OA.C.3", "2.OA.C.4"],
-    capabilitySummary: localizedText("Solve addition/subtraction problems, build fluency, and represent equal groups with arrays.")
+    capabilitySummary: localizedText(
+      "Solve addition/subtraction problems, build fluency, and represent equal groups with arrays.",
+      "解決加減問題、提升運算熟練度，並用陣列表示等量組。",
+      "解决加减问题、提升运算熟练度，并用阵列表示等量组。"
+    )
   },
   "2.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["2.NBT.A.1", "2.NBT.A.2", "2.NBT.A.3", "2.NBT.A.4", "2.NBT.B.5", "2.NBT.B.6", "2.NBT.B.7", "2.NBT.B.8", "2.NBT.B.9"],
-    capabilitySummary: localizedText("Represent, compare, add, and subtract within 1000 using base-ten reasoning.")
+    capabilitySummary: localizedText(
+      "Represent, compare, add, and subtract within 1000 using base-ten reasoning.",
+      "運用十進位推理表示、比較、相加及相減 1000 以內的數。",
+      "运用十进制推理表示、比较、相加及相减 1000 以内的数。"
+    )
   },
   "2.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["2.MD.A.1", "2.MD.A.2", "2.MD.A.3", "2.MD.A.4", "2.MD.B.5", "2.MD.B.6", "2.MD.C.7", "2.MD.C.8", "2.MD.D.9", "2.MD.D.10"],
-    capabilitySummary: localizedText("Measure length, connect measurement to number lines, work with time/money, and display data.")
+    capabilitySummary: localizedText(
+      "Measure length, connect measurement to number lines, work with time/money, and display data.",
+      "測量長度、連繫測量與數線、處理時間和金錢，並呈現數據。",
+      "测量长度、联系测量与数轴、处理时间和金钱，并呈现数据。"
+    )
   },
   "2.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["2.G.A.1", "2.G.A.2", "2.G.A.3"],
-    capabilitySummary: localizedText("Recognize shape attributes and partition rectangles or circles into equal shares.")
+    capabilitySummary: localizedText(
+      "Recognize shape attributes and partition rectangles or circles into equal shares.",
+      "辨認圖形屬性，並把長方形或圓分成相等部分。",
+      "辨认图形属性，并把长方形或圆分成相等部分。"
+    )
   },
   "3.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["3.OA.A.1", "3.OA.A.2", "3.OA.A.3", "3.OA.A.4", "3.OA.B.5", "3.OA.B.6", "3.OA.C.7", "3.OA.D.8", "3.OA.D.9"],
-    capabilitySummary: localizedText("Interpret multiplication and division, solve situations, use properties, and identify patterns.")
+    capabilitySummary: localizedText(
+      "Interpret multiplication and division, solve situations, use properties, and identify patterns.",
+      "理解乘法與除法、解決情境問題、運用運算性質，並識別規律。",
+      "理解乘法与除法、解决情境问题、运用运算性质，并识别规律。"
+    )
   },
   "3.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["3.NBT.A.1", "3.NBT.A.2", "3.NBT.A.3"],
-    capabilitySummary: localizedText("Round and compute with multi-digit numbers using place-value strategies.")
+    capabilitySummary: localizedText(
+      "Round and compute with multi-digit numbers using place-value strategies.",
+      "運用位值策略為多位數四捨五入並進行運算。",
+      "运用数位策略对多位数四舍五入并进行运算。"
+    )
   },
   "3.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
     standardIds: ["3.NF.A.1", "3.NF.A.2", "3.NF.A.3"],
-    capabilitySummary: localizedText("Understand fractions as numbers, locate them on number lines, and reason about equivalence or comparison.")
+    capabilitySummary: localizedText(
+      "Understand fractions as numbers, locate them on number lines, and reason about equivalence or comparison.",
+      "把分數理解為數，在數線上標示分數，並推理分數的等值或大小比較。",
+      "把分数理解为数，在数轴上标示分数，并推理分数的等值或大小比较。"
+    )
   },
   "3.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["3.MD.A.1", "3.MD.A.2", "3.MD.B.3", "3.MD.B.4", "3.MD.C.5", "3.MD.C.6", "3.MD.C.7", "3.MD.D.8"],
-    capabilitySummary: localizedText("Reason about elapsed time, measurement, graphing, area, and perimeter models.")
+    capabilitySummary: localizedText(
+      "Reason about elapsed time, measurement, graphing, area, and perimeter models.",
+      "運用經過時間、測量、製圖、面積及周界模型進行推理。",
+      "运用经过时间、测量、绘图、面积及周长模型进行推理。"
+    )
   },
   "3.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["3.G.A.1", "3.G.A.2"],
-    capabilitySummary: localizedText("Classify shapes by attributes and partition shapes into fractional areas.")
+    capabilitySummary: localizedText(
+      "Classify shapes by attributes and partition shapes into fractional areas.",
+      "按屬性分類圖形，並把圖形分割成以分數表示的面積。",
+      "按属性分类图形，并把图形分割成用分数表示的面积。"
+    )
   },
   "4.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["4.OA.A.1", "4.OA.A.2", "4.OA.A.3", "4.OA.B.4", "4.OA.C.5"],
-    capabilitySummary: localizedText("Use multiplicative comparison, factors, multiples, primes, composites, and pattern rules.")
+    capabilitySummary: localizedText(
+      "Use multiplicative comparison, factors, multiples, primes, composites, and pattern rules.",
+      "運用乘法比較、因數、倍數、質數、合數及規律規則。",
+      "运用乘法比较、因数、倍数、质数、合数及规律规则。"
+    )
   },
   "4.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["4.NBT.A.1", "4.NBT.A.2", "4.NBT.A.3", "4.NBT.B.4", "4.NBT.B.5", "4.NBT.B.6"],
-    capabilitySummary: localizedText("Generalize place value and perform multi-digit operations with models and reasonableness checks.")
+    capabilitySummary: localizedText(
+      "Generalize place value and perform multi-digit operations with models and reasonableness checks.",
+      "概括位值規律，並運用模型和合理性檢查進行多位數運算。",
+      "概括数位规律，并运用模型和合理性检查进行多位数运算。"
+    )
   },
   "4.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
     standardIds: ["4.NF.A.1", "4.NF.A.2", "4.NF.B.3", "4.NF.B.4", "4.NF.C.5", "4.NF.C.6", "4.NF.C.7"],
-    capabilitySummary: localizedText("Use fraction equivalence, comparison, operations, whole-number multiplication, and decimal notation.")
+    capabilitySummary: localizedText(
+      "Use fraction equivalence, comparison, operations, whole-number multiplication, and decimal notation.",
+      "運用分數等值、大小比較、分數運算、整數乘法及小數記法。",
+      "运用分数等值、大小比较、分数运算、整数乘法及小数记法。"
+    )
   },
   "4.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["4.MD.A.1", "4.MD.A.2", "4.MD.A.3", "4.MD.B.4", "4.MD.C.5", "4.MD.C.6", "4.MD.C.7"],
-    capabilitySummary: localizedText("Use unit conversion, area/perimeter formulas, line plots, and angle measure.")
+    capabilitySummary: localizedText(
+      "Use unit conversion, area/perimeter formulas, line plots, and angle measure.",
+      "運用單位換算、面積與周界公式、線圖及角度測量。",
+      "运用单位换算、面积与周长公式、线图及角度测量。"
+    )
   },
   "4.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["4.G.A.1", "4.G.A.2", "4.G.A.3"],
-    capabilitySummary: localizedText("Reason about lines, angles, symmetry, and shape classification.")
+    capabilitySummary: localizedText(
+      "Reason about lines, angles, symmetry, and shape classification.",
+      "就直線、角、對稱及圖形分類進行推理。",
+      "对直线、角、对称及图形分类进行推理。"
+    )
   },
   "5.OA": {
     domainTitle: localizedText("Operations and Algebraic Thinking", "運算與代數思維", "运算与代数思维"),
     standardIds: ["5.OA.A.1", "5.OA.A.2", "5.OA.B.3"],
-    capabilitySummary: localizedText("Write and interpret numerical expressions and analyze pattern relationships.")
+    capabilitySummary: localizedText(
+      "Write and interpret numerical expressions and analyze pattern relationships.",
+      "書寫及解讀數值表達式，並分析規律之間的關係。",
+      "书写及解读数值表达式，并分析规律之间的关系。"
+    )
   },
   "5.NBT": {
-    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进位数与运算"),
+    domainTitle: localizedText("Number and Operations in Base Ten", "十進位數與運算", "十进制数与运算"),
     standardIds: ["5.NBT.A.1", "5.NBT.A.2", "5.NBT.A.3", "5.NBT.A.4", "5.NBT.B.5", "5.NBT.B.6", "5.NBT.B.7"],
-    capabilitySummary: localizedText("Use place-value patterns and decimal operations with powers of ten, rounding, and algorithms.")
+    capabilitySummary: localizedText(
+      "Use place-value patterns and decimal operations with powers of ten, rounding, and algorithms.",
+      "運用位值規律、十的冪、四捨五入及演算法進行小數運算。",
+      "运用数位规律、十的幂、四舍五入及算法进行小数运算。"
+    )
   },
   "5.NF": {
     domainTitle: localizedText("Number and Operations - Fractions", "數與運算：分數", "数与运算：分数"),
     standardIds: ["5.NF.A.1", "5.NF.A.2", "5.NF.B.3", "5.NF.B.4", "5.NF.B.5", "5.NF.B.6", "5.NF.B.7"],
-    capabilitySummary: localizedText("Use fraction addition/subtraction and multiplication/division models before algorithms.")
+    capabilitySummary: localizedText(
+      "Use fraction addition/subtraction and multiplication/division models before algorithms.",
+      "先運用分數加減及乘除模型，再過渡至演算法。",
+      "先运用分数加减及乘除模型，再过渡至算法。"
+    )
   },
   "5.MD": {
     domainTitle: localizedText("Measurement and Data", "度量與數據", "测量与数据"),
     standardIds: ["5.MD.A.1", "5.MD.B.2", "5.MD.C.3", "5.MD.C.4", "5.MD.C.5"],
-    capabilitySummary: localizedText("Convert measures, display data, and reason about volume with layers and unit cubes.")
+    capabilitySummary: localizedText(
+      "Convert measures, display data, and reason about volume with layers and unit cubes.",
+      "換算度量單位、呈現數據，並運用分層和單位立方體推理體積。",
+      "换算测量单位、呈现数据，并运用分层和单位立方体推理体积。"
+    )
   },
   "5.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["5.G.A.1", "5.G.A.2", "5.G.B.3", "5.G.B.4"],
-    capabilitySummary: localizedText("Graph points on coordinate planes and classify shapes by properties.")
+    capabilitySummary: localizedText(
+      "Graph points on coordinate planes and classify shapes by properties.",
+      "在坐標平面上描點，並按性質分類圖形。",
+      "在坐标平面上描点，并按性质分类图形。"
+    )
   },
   "6.RP": {
     domainTitle: localizedText("Ratios and Proportional Relationships", "比與比例關係", "比与比例关系"),
     standardIds: ["6.RP.1", "6.RP.2", "6.RP.3"],
-    capabilitySummary: localizedText("Connect ratios, rates, percent, tables, double number lines, equations, and coordinate plots.")
+    capabilitySummary: localizedText(
+      "Connect ratios, rates, percent, tables, double number lines, equations, and coordinate plots.",
+      "連繫比、率、百分比、表格、雙數線、方程及坐標圖。",
+      "联系比、率、百分比、表格、双数轴、方程及坐标图。"
+    )
   },
   "6.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
     standardIds: ["6.NS.1", "6.NS.2", "6.NS.3", "6.NS.4", "6.NS.5", "6.NS.6", "6.NS.7", "6.NS.8"],
-    capabilitySummary: localizedText("Use rational numbers, number-line position, coordinate-plane signs, and arithmetic fluency.")
+    capabilitySummary: localizedText(
+      "Use rational numbers, number-line position, coordinate-plane signs, and arithmetic fluency.",
+      "運用有理數、數線位置、坐標平面的正負號及熟練運算。",
+      "运用有理数、数轴位置、坐标平面的正负号及熟练运算。"
+    )
   },
   "6.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
     standardIds: ["6.EE.1", "6.EE.2", "6.EE.3", "6.EE.4", "6.EE.5", "6.EE.6", "6.EE.7", "6.EE.8", "6.EE.9"],
-    capabilitySummary: localizedText("Represent variables, expressions, equations, inequalities, and dependent relationships.")
+    capabilitySummary: localizedText(
+      "Represent variables, expressions, equations, inequalities, and dependent relationships.",
+      "表示變量、表達式、方程、不等式及相依關係。",
+      "表示变量、表达式、方程、不等式及依赖关系。"
+    )
   },
   "6.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["6.G.1", "6.G.2", "6.G.3", "6.G.4"],
-    capabilitySummary: localizedText("Find area, surface area, and volume using decomposition, nets, and coordinate geometry.")
+    capabilitySummary: localizedText(
+      "Find area, surface area, and volume using decomposition, nets, and coordinate geometry.",
+      "運用分解、展開圖及坐標幾何求面積、表面積與體積。",
+      "运用分解、展开图及坐标几何求面积、表面积与体积。"
+    )
   },
   "6.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
     standardIds: ["6.SP.1", "6.SP.2", "6.SP.3", "6.SP.4", "6.SP.5"],
-    capabilitySummary: localizedText("Describe statistical questions, distributions, center, variability, and data displays.")
+    capabilitySummary: localizedText(
+      "Describe statistical questions, distributions, center, variability, and data displays.",
+      "描述統計問題、分佈、中心、變異程度及數據圖表。",
+      "描述统计问题、分布、中心、变异程度及数据图表。"
+    )
   },
   "7.RP": {
     domainTitle: localizedText("Ratios and Proportional Relationships", "比與比例關係", "比与比例关系"),
     standardIds: ["7.RP.1", "7.RP.2", "7.RP.3"],
-    capabilitySummary: localizedText("Analyze proportional relationships, unit rates, graphs, equations, and percent reasoning.")
+    capabilitySummary: localizedText(
+      "Analyze proportional relationships, unit rates, graphs, equations, and percent reasoning.",
+      "分析比例關係、單位率、圖像、方程及百分比推理。",
+      "分析比例关系、单位率、图象、方程及百分比推理。"
+    )
   },
   "7.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
     standardIds: ["7.NS.1", "7.NS.2", "7.NS.3"],
-    capabilitySummary: localizedText("Operate with signed rational numbers and connect operations to real-world constraints.")
+    capabilitySummary: localizedText(
+      "Operate with signed rational numbers and connect operations to real-world constraints.",
+      "進行帶符號有理數運算，並把運算連繫到現實情境的限制。",
+      "进行带符号有理数运算，并把运算联系到现实情境的限制。"
+    )
   },
   "7.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
     standardIds: ["7.EE.1", "7.EE.2", "7.EE.3", "7.EE.4"],
-    capabilitySummary: localizedText("Use equivalent expressions and equations or inequalities to solve multi-step problems.")
+    capabilitySummary: localizedText(
+      "Use equivalent expressions and equations or inequalities to solve multi-step problems.",
+      "運用等價表達式、方程或不等式解決多步驟問題。",
+      "运用等价表达式、方程或不等式解决多步骤问题。"
+    )
   },
   "7.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["7.G.1", "7.G.2", "7.G.3", "7.G.4", "7.G.5", "7.G.6"],
-    capabilitySummary: localizedText("Reason about scale drawings, circles, angles, area, surface area, and volume.")
+    capabilitySummary: localizedText(
+      "Reason about scale drawings, circles, angles, area, surface area, and volume.",
+      "就比例圖、圓、角、面積、表面積及體積進行推理。",
+      "对比例图、圆、角、面积、表面积及体积进行推理。"
+    )
   },
   "7.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
     standardIds: ["7.SP.1", "7.SP.2", "7.SP.3", "7.SP.4", "7.SP.5", "7.SP.6", "7.SP.7", "7.SP.8"],
-    capabilitySummary: localizedText("Use samples, comparisons, probability models, and simulations to make informal inferences.")
+    capabilitySummary: localizedText(
+      "Use samples, comparisons, probability models, and simulations to make informal inferences.",
+      "運用樣本、比較、概率模型及模擬作出非正式推論。",
+      "运用样本、比较、概率模型及模拟作出非正式推断。"
+    )
   },
   "8.NS": {
     domainTitle: localizedText("The Number System", "數系", "数系"),
     standardIds: ["8.NS.1", "8.NS.2"],
-    capabilitySummary: localizedText("Reason about rational and irrational numbers, approximations, and number-line placement.")
+    capabilitySummary: localizedText(
+      "Reason about rational and irrational numbers, approximations, and number-line placement.",
+      "就有理數、無理數、近似值及數線位置進行推理。",
+      "对有理数、无理数、近似值及数轴位置进行推理。"
+    )
   },
   "8.EE": {
     domainTitle: localizedText("Expressions and Equations", "表達式與方程", "表达式与方程"),
     standardIds: ["8.EE.1", "8.EE.2", "8.EE.3", "8.EE.4", "8.EE.5", "8.EE.6", "8.EE.7", "8.EE.8"],
-    capabilitySummary: localizedText("Use exponents, roots, proportional lines, linear equations, and systems.")
+    capabilitySummary: localizedText(
+      "Use exponents, roots, proportional lines, linear equations, and systems.",
+      "運用指數、根式、比例直線、一次方程及方程組。",
+      "运用指数、根式、比例直线、一次方程及方程组。"
+    )
   },
   "8.F": {
     domainTitle: localizedText("Functions", "函數", "函数"),
     standardIds: ["8.F.1", "8.F.2", "8.F.3", "8.F.4", "8.F.5"],
-    capabilitySummary: localizedText("Compare functions across graphs, tables, equations, and verbal descriptions.")
+    capabilitySummary: localizedText(
+      "Compare functions across graphs, tables, equations, and verbal descriptions.",
+      "跨圖像、表格、方程及文字描述比較函數。",
+      "跨图象、表格、方程及文字描述比较函数。"
+    )
   },
   "8.G": {
     domainTitle: localizedText("Geometry", "幾何", "几何"),
     standardIds: ["8.G.1", "8.G.2", "8.G.3", "8.G.4", "8.G.5", "8.G.6", "8.G.7", "8.G.8", "8.G.9"],
-    capabilitySummary: localizedText("Use transformations, similarity, congruence, Pythagorean reasoning, and volume.")
+    capabilitySummary: localizedText(
+      "Use transformations, similarity, congruence, Pythagorean reasoning, and volume.",
+      "運用變換、相似、全等、畢氏定理推理及體積。",
+      "运用变换、相似、全等、勾股定理推理及体积。"
+    )
   },
   "8.SP": {
     domainTitle: localizedText("Statistics and Probability", "統計與概率", "统计与概率"),
     standardIds: ["8.SP.1", "8.SP.2", "8.SP.3", "8.SP.4"],
-    capabilitySummary: localizedText("Investigate bivariate data with scatter plots, trend lines, and two-way tables.")
+    capabilitySummary: localizedText(
+      "Investigate bivariate data with scatter plots, trend lines, and two-way tables.",
+      "運用散點圖、趨勢線及雙向表探究雙變量數據。",
+      "运用散点图、趋势线及双向表探究双变量数据。"
+    )
   },
   "N-RN": {
     domainTitle: localizedText("Number and Quantity - Real Number System", "數與量：實數系", "数与量：实数系"),
     standardIds: ["N-RN.1", "N-RN.2", "N-RN.3"],
-    capabilitySummary: localizedText("Extend exponent properties and reason about rational or irrational expressions.")
+    capabilitySummary: localizedText(
+      "Extend exponent properties and reason about rational or irrational expressions.",
+      "延伸指數性質，並對有理或無理表達式進行推理。",
+      "延伸指数性质，并对有理或无理表达式进行推理。"
+    )
   },
   "N-Q": {
     domainTitle: localizedText("Number and Quantity - Quantities", "數與量：數量", "数与量：数量"),
     standardIds: ["N-Q.1", "N-Q.2", "N-Q.3"],
-    capabilitySummary: localizedText("Choose units, define quantities, and report precision in modeling contexts.")
+    capabilitySummary: localizedText(
+      "Choose units, define quantities, and report precision in modeling contexts.",
+      "在建模情境中選擇單位、定義數量，並說明精確程度。",
+      "在建模情境中选择单位、定义数量，并说明精确程度。"
+    )
   },
   "N-CN": {
     domainTitle: localizedText("Number and Quantity - Complex Numbers", "數與量：複數", "数与量：复数"),
     standardIds: ["N-CN.1", "N-CN.2", "N-CN.3", "N-CN.4", "N-CN.5", "N-CN.6", "N-CN.7", "N-CN.8", "N-CN.9"],
-    capabilitySummary: localizedText("Operate with complex numbers and connect complex solutions to polynomial equations.")
+    capabilitySummary: localizedText(
+      "Operate with complex numbers and connect complex solutions to polynomial equations.",
+      "進行複數運算，並連繫複數解與多項式方程。",
+      "进行复数运算，并联系复数解与多项式方程。"
+    )
   },
   "N-VM": {
     domainTitle: localizedText("Number and Quantity - Vector and Matrix Quantities", "數與量：向量與矩陣", "数与量：向量与矩阵"),
     standardIds: ["N-VM.1", "N-VM.2", "N-VM.3", "N-VM.4", "N-VM.5", "N-VM.6", "N-VM.7", "N-VM.8", "N-VM.9", "N-VM.10", "N-VM.11", "N-VM.12"],
-    capabilitySummary: localizedText("Use vectors and matrices for quantities, transformations, and modeling when assigned.")
+    capabilitySummary: localizedText(
+      "Use vectors and matrices for quantities, transformations, and modeling when assigned.",
+      "在指定內容中，運用向量和矩陣表示數量、變換及建模。",
+      "在指定内容中，运用向量和矩阵表示数量、变换及建模。"
+    )
   },
   "A-SSE": {
     domainTitle: localizedText("Algebra - Seeing Structure in Expressions", "代數：看見表達式結構", "代数：看见表达式结构"),
     standardIds: ["A-SSE.1", "A-SSE.2", "A-SSE.3", "A-SSE.4"],
-    capabilitySummary: localizedText("Interpret, rewrite, and use structure in expressions.")
+    capabilitySummary: localizedText(
+      "Interpret, rewrite, and use structure in expressions.",
+      "解讀、改寫並運用表達式的結構。",
+      "解读、改写并运用表达式的结构。"
+    )
   },
   "A-APR": {
     domainTitle: localizedText("Algebra - Arithmetic with Polynomials and Rational Expressions", "代數：多項式與有理式運算", "代数：多项式与有理式运算"),
     standardIds: ["A-APR.1", "A-APR.2", "A-APR.3", "A-APR.4", "A-APR.5", "A-APR.6", "A-APR.7"],
-    capabilitySummary: localizedText("Operate with polynomials or rational expressions and use identities, zeros, and graphs.")
+    capabilitySummary: localizedText(
+      "Operate with polynomials or rational expressions and use identities, zeros, and graphs.",
+      "進行多項式或有理式運算，並運用恆等式、零點及圖像。",
+      "进行多项式或有理式运算，并运用恒等式、零点及图象。"
+    )
   },
   "A-CED": {
     domainTitle: localizedText("Algebra - Creating Equations", "代數：建立方程", "代数：建立方程"),
     standardIds: ["A-CED.1", "A-CED.2", "A-CED.3", "A-CED.4"],
-    capabilitySummary: localizedText("Create equations, inequalities, systems, and rearranged formulas to model constraints.")
+    capabilitySummary: localizedText(
+      "Create equations, inequalities, systems, and rearranged formulas to model constraints.",
+      "建立方程、不等式、方程組及重新排列的公式，以表示限制條件。",
+      "建立方程、不等式、方程组及重新排列的公式，以表示限制条件。"
+    )
   },
   "A-REI": {
     domainTitle: localizedText("Algebra - Reasoning with Equations and Inequalities", "代數：方程與不等式推理", "代数：方程与不等式推理"),
     standardIds: ["A-REI.1", "A-REI.2", "A-REI.3", "A-REI.4", "A-REI.5", "A-REI.6", "A-REI.7", "A-REI.8", "A-REI.9", "A-REI.10", "A-REI.11", "A-REI.12"],
-    capabilitySummary: localizedText("Solve and justify equations, inequalities, systems, and graphical solution sets.")
+    capabilitySummary: localizedText(
+      "Solve and justify equations, inequalities, systems, and graphical solution sets.",
+      "求解並論證方程、不等式、方程組及圖像解集。",
+      "求解并论证方程、不等式、方程组及图象解集。"
+    )
   },
   "F-IF": {
     domainTitle: localizedText("Functions - Interpreting Functions", "函數：詮釋函數", "函数：诠释函数"),
     standardIds: ["F-IF.1", "F-IF.2", "F-IF.3", "F-IF.4", "F-IF.5", "F-IF.6", "F-IF.7", "F-IF.8", "F-IF.9"],
-    capabilitySummary: localizedText("Interpret notation, features, rates of change, and representations of functions.")
+    capabilitySummary: localizedText(
+      "Interpret notation, features, rates of change, and representations of functions.",
+      "解讀函數的記法、特徵、變化率及不同表示方式。",
+      "解读函数的记法、特征、变化率及不同表示方式。"
+    )
   },
   "F-BF": {
     domainTitle: localizedText("Functions - Building Functions", "函數：建立函數", "函数：建立函数"),
     standardIds: ["F-BF.1", "F-BF.2", "F-BF.3", "F-BF.4", "F-BF.5"],
-    capabilitySummary: localizedText("Build functions from contexts, operations, transformations, inverses, and sequences.")
+    capabilitySummary: localizedText(
+      "Build functions from contexts, operations, transformations, inverses, and sequences.",
+      "根據情境、運算、變換、反函數及數列建立函數。",
+      "根据情境、运算、变换、反函数及数列建立函数。"
+    )
   },
   "F-LE": {
     domainTitle: localizedText("Functions - Linear, Quadratic, and Exponential Models", "函數：線性、二次與指數模型", "函数：线性、二次与指数模型"),
     standardIds: ["F-LE.1", "F-LE.2", "F-LE.3", "F-LE.4", "F-LE.5"],
-    capabilitySummary: localizedText("Build and interpret linear, quadratic, and exponential models.")
+    capabilitySummary: localizedText(
+      "Build and interpret linear, quadratic, and exponential models.",
+      "建立並解讀線性、二次及指數模型。",
+      "建立并解读线性、二次及指数模型。"
+    )
   },
   "F-TF": {
     domainTitle: localizedText("Functions - Trigonometric Functions", "函數：三角函數", "函数：三角函数"),
     standardIds: ["F-TF.1", "F-TF.2", "F-TF.3", "F-TF.4", "F-TF.5", "F-TF.6", "F-TF.7", "F-TF.8", "F-TF.9"],
-    capabilitySummary: localizedText("Use radian measure, unit-circle reasoning, trig graphs, identities, and inverse trig where assigned.")
+    capabilitySummary: localizedText(
+      "Use radian measure, unit-circle reasoning, trig graphs, identities, and inverse trig where assigned.",
+      "在指定內容中，運用弧度、單位圓推理、三角函數圖像、恆等式及反三角函數。",
+      "在指定内容中，运用弧度、单位圆推理、三角函数图象、恒等式及反三角函数。"
+    )
   },
   "G-CO": {
     domainTitle: localizedText("Geometry - Congruence", "幾何：全等", "几何：全等"),
     standardIds: ["G-CO.1", "G-CO.2", "G-CO.3", "G-CO.4", "G-CO.5", "G-CO.6", "G-CO.7", "G-CO.8", "G-CO.9", "G-CO.10", "G-CO.11", "G-CO.12", "G-CO.13"],
-    capabilitySummary: localizedText("Use transformations, congruence criteria, constructions, and proof reasoning.")
+    capabilitySummary: localizedText(
+      "Use transformations, congruence criteria, constructions, and proof reasoning.",
+      "運用變換、全等判定、幾何作圖及證明推理。",
+      "运用变换、全等判定、几何作图及证明推理。"
+    )
   },
   "G-SRT": {
     domainTitle: localizedText("Geometry - Similarity, Right Triangles, and Trigonometry", "幾何：相似、直角三角形與三角", "几何：相似、直角三角形与三角"),
     standardIds: ["G-SRT.1", "G-SRT.2", "G-SRT.3", "G-SRT.4", "G-SRT.5", "G-SRT.6", "G-SRT.7", "G-SRT.8", "G-SRT.9", "G-SRT.10", "G-SRT.11"],
-    capabilitySummary: localizedText("Use similarity, right-triangle relationships, trig ratios, and related triangle models.")
+    capabilitySummary: localizedText(
+      "Use similarity, right-triangle relationships, trig ratios, and related triangle models.",
+      "運用相似、直角三角形關係、三角比及相關三角形模型。",
+      "运用相似、直角三角形关系、三角比及相关三角形模型。"
+    )
   },
   "G-C": {
     domainTitle: localizedText("Geometry - Circles", "幾何：圓", "几何：圆"),
     standardIds: ["G-C.1", "G-C.2", "G-C.3", "G-C.4", "G-C.5"],
-    capabilitySummary: localizedText("Reason about circle theorems, arcs, sectors, and constructions.")
+    capabilitySummary: localizedText(
+      "Reason about circle theorems, arcs, sectors, and constructions.",
+      "就圓定理、弧、扇形及幾何作圖進行推理。",
+      "对圆定理、弧、扇形及几何作图进行推理。"
+    )
   },
   "G-GPE": {
     domainTitle: localizedText("Geometry - Expressing Geometric Properties with Equations", "幾何：用方程表達性質", "几何：用方程表达性质"),
     standardIds: ["G-GPE.1", "G-GPE.2", "G-GPE.3", "G-GPE.4", "G-GPE.5", "G-GPE.6", "G-GPE.7"],
-    capabilitySummary: localizedText("Use coordinates, equations, distance, midpoint, slope, and conic relationships.")
+    capabilitySummary: localizedText(
+      "Use coordinates, equations, distance, midpoint, slope, and conic relationships.",
+      "運用坐標、方程、距離、中點、斜率及圓錐曲線關係。",
+      "运用坐标、方程、距离、中点、斜率及圆锥曲线关系。"
+    )
   },
   "G-GMD": {
     domainTitle: localizedText("Geometry - Geometric Measurement and Dimension", "幾何：幾何度量與維度", "几何：几何测量与维度"),
     standardIds: ["G-GMD.1", "G-GMD.2", "G-GMD.3", "G-GMD.4"],
-    capabilitySummary: localizedText("Use geometric measurement, volume formulas, cross-sections, and units.")
+    capabilitySummary: localizedText(
+      "Use geometric measurement, volume formulas, cross-sections, and units.",
+      "運用幾何度量、體積公式、截面及單位。",
+      "运用几何测量、体积公式、截面及单位。"
+    )
   },
   "G-MG": {
     domainTitle: localizedText("Geometry - Modeling with Geometry", "幾何：用幾何建模", "几何：用几何建模"),
     standardIds: ["G-MG.1", "G-MG.2", "G-MG.3"],
-    capabilitySummary: localizedText("Apply geometric ideas to design, density, scale, and optimization contexts.")
+    capabilitySummary: localizedText(
+      "Apply geometric ideas to design, density, scale, and optimization contexts.",
+      "把幾何概念應用於設計、密度、比例及最佳化情境。",
+      "把几何概念应用于设计、密度、比例及优化情境。"
+    )
   },
   "S-ID": {
     domainTitle: localizedText("Statistics and Probability - Interpreting Categorical and Quantitative Data", "統計與概率：詮釋數據", "统计与概率：诠释数据"),
     standardIds: ["S-ID.1", "S-ID.2", "S-ID.3", "S-ID.4", "S-ID.5", "S-ID.6", "S-ID.7", "S-ID.8", "S-ID.9"],
-    capabilitySummary: localizedText("Summarize, compare, fit, and interpret one- and two-variable data.")
+    capabilitySummary: localizedText(
+      "Summarize, compare, fit, and interpret one- and two-variable data.",
+      "概括、比較、擬合並解讀單變量與雙變量數據。",
+      "概括、比较、拟合并解读单变量与双变量数据。"
+    )
   },
   "S-IC": {
     domainTitle: localizedText("Statistics and Probability - Making Inferences and Justifying Conclusions", "統計與概率：推論與結論", "统计与概率：推论与结论"),
     standardIds: ["S-IC.1", "S-IC.2", "S-IC.3", "S-IC.4", "S-IC.5", "S-IC.6"],
-    capabilitySummary: localizedText("Use sampling, simulation, experiments, and inference decisions.")
+    capabilitySummary: localizedText(
+      "Use sampling, simulation, experiments, and inference decisions.",
+      "運用抽樣、模擬、實驗及推論決策。",
+      "运用抽样、模拟、实验及推断决策。"
+    )
   },
   "S-CP": {
     domainTitle: localizedText("Statistics and Probability - Conditional Probability and Rules of Probability", "統計與概率：條件概率與概率規則", "统计与概率：条件概率与概率规则"),
     standardIds: ["S-CP.1", "S-CP.2", "S-CP.3", "S-CP.4", "S-CP.5", "S-CP.6", "S-CP.7", "S-CP.8", "S-CP.9"],
-    capabilitySummary: localizedText("Use events, independence, conditional probability, and probability rules.")
+    capabilitySummary: localizedText(
+      "Use events, independence, conditional probability, and probability rules.",
+      "運用事件、獨立性、條件概率及概率規則。",
+      "运用事件、独立性、条件概率及概率规则。"
+    )
   },
   "S-MD": {
     domainTitle: localizedText("Statistics and Probability - Using Probability to Make Decisions", "統計與概率：用概率決策", "统计与概率：用概率决策"),
     standardIds: ["S-MD.1", "S-MD.2", "S-MD.3", "S-MD.4", "S-MD.5", "S-MD.6", "S-MD.7"],
-    capabilitySummary: localizedText("Use expected value, probability models, payoff tables, and decision comparisons.")
+    capabilitySummary: localizedText(
+      "Use expected value, probability models, payoff tables, and decision comparisons.",
+      "運用期望值、概率模型、收益表及決策比較。",
+      "运用期望值、概率模型、收益表及决策比较。"
+    )
   },
   Modeling: {
     domainTitle: localizedText("Modeling", "建模", "建模"),
     standardIds: ["Modeling"],
-    capabilitySummary: localizedText("Formulate assumptions, represent constraints, compute, interpret, validate, and revise models.")
+    capabilitySummary: localizedText(
+      "Formulate assumptions, represent constraints, compute, interpret, validate, and revise models.",
+      "提出假設、表示限制條件、計算、解讀、驗證並修正模型。",
+      "提出假设、表示限制条件、计算、解读、验证并修正模型。"
+    )
   }
 };
 
@@ -1930,7 +2639,7 @@ const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
   "us-ca-math-s2-chapter-05": "8.SP",
   "us-ca-math-s3-chapter-01": "A-CED",
   "us-ca-math-s3-chapter-02": "F-IF",
-  "us-ca-math-s3-chapter-03": "F-LE",
+  "us-ca-math-s3-chapter-03": "A-REI",
   "us-ca-math-s3-chapter-04": "G-GPE",
   "us-ca-math-s3-chapter-05": "S-ID",
   "us-ca-math-s4-chapter-01": "G-CO",
@@ -1948,6 +2657,79 @@ const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
   "us-ca-math-s6-chapter-03": "S-MD",
   "us-ca-math-s6-chapter-04": "F-IF",
   "us-ca-math-s6-chapter-05": "Modeling"
+};
+
+/** Exact chapter/route splits curated from the live California lesson assignments. */
+const californiaTopicStandardOverrides: Partial<Record<string, string[]>> = {
+  "us-ca-math-p2-2-oa-fluency-arrays": ["2.OA.C.3"],
+  "us-ca-math-s2-chapter-01": ["8.EE.C.7", "8.EE.C.8", "8.NS.A.1", "8.NS.A.2"],
+  "us-ca-math-s2-chapter-03": ["8.G.A.1", "8.G.A.2", "8.G.A.3", "8.G.A.4", "8.G.A.5"],
+  "us-ca-math-s2-chapter-04": [
+    "8.G.B.6",
+    "8.G.B.7",
+    "8.G.B.8",
+    "8.G.C.9",
+    "8.EE.A.1",
+    "8.EE.A.2",
+    "8.EE.A.3",
+    "8.EE.A.4"
+  ],
+  "us-ca-math-s3-chapter-03": [
+    "A-REI.1",
+    "A-REI.2",
+    "A-REI.3",
+    "A-REI.4",
+    "A-REI.5",
+    "A-REI.6",
+    "A-REI.7",
+    "A-REI.8",
+    "A-REI.9",
+    "A-REI.10",
+    "A-REI.11",
+    "A-REI.12",
+    "A-SSE.1",
+    "A-SSE.2",
+    "A-SSE.3"
+  ],
+  "us-ca-math-s6-chapter-01": ["N-Q.1", "N-Q.2", "N-Q.3", "Modeling"]
+};
+
+const californiaTopicCapabilityOverrides: Partial<Record<string, LocalizedText>> = {
+  "us-ca-math-p2-2-oa-fluency-arrays": localizedText(
+    "Pair objects in twos and use a remainder of zero or one to classify an even or odd whole number.",
+    "把物件每兩個配成一組，並用餘數零或一判斷整數是偶數還是奇數。",
+    "把物件每两个配成一组，并用余数零或一判断整数是偶数还是奇数。"
+  ),
+  "us-ca-math-s2-chapter-01": localizedText(
+    "Solve linear equations and systems while using rational and irrational numbers as readiness knowledge.",
+    "解一次方程與方程組，並把有理數與無理數作為準備知識。",
+    "解一次方程与方程组，并把有理数与无理数作为准备知识。"
+  ),
+  "us-ca-math-s2-chapter-03": localizedText(
+    "Use transformations to reason about congruence, similarity, and angle relationships.",
+    "用變換推理全等、相似與角的關係。",
+    "用变换推理全等、相似与角的关系。"
+  ),
+  "us-ca-math-s2-chapter-04": localizedText(
+    "Use exponent and root readiness for Pythagorean distance reasoning and three-dimensional volume.",
+    "用指數與方根準備知識進行勾股距離推理及立體體積探究。",
+    "用指数与方根准备知识进行勾股距离推理及立体体积探究。"
+  ),
+  "us-ca-math-s3-chapter-03": localizedText(
+    "Interpret expression structure and solve or compare linear and quadratic equations and systems.",
+    "詮釋表達式結構，並求解或比較一次與二次方程及方程組。",
+    "解释表达式结构，并求解或比较一次与二次方程及方程组。"
+  ),
+  "us-ca-math-s6-chapter-01": localizedText(
+    "Connect formulas, unit choices, conversion, rounding, and notation as foundations for quantity and precision work.",
+    "連繫公式、單位選擇、換算、捨入與記數法，建立數量與精度工作的基礎。",
+    "联系公式、单位选择、换算、舍入与记数法，建立数量与精度工作的基础。"
+  ),
+  "us-ca-math-s6-chapter-04": localizedText(
+    "Interpret function representations, compare constant rates, and prepare to compare average rates over nonlinear intervals.",
+    "詮釋函數表示、比較恆定變化率，並為比較非線性區間上的平均變化率作準備。",
+    "解释函数表示、比较恒定变化率，并为比较非线性区间上的平均变化率作准备。"
+  )
 };
 
 /**
@@ -1968,9 +2750,6 @@ const californiaChapterDomainOverrides: Partial<Record<string, string>> = {
  * the rest of N-CN) are deliberately absent — they are build work, not tagging.
  */
 const californiaChapterSupplementalStandards: Partial<Record<string, string[]>> = {
-  // 8-A.1 Linear Equations and Systems Readiness — irrationals are the readiness
-  // prerequisite for radicals; 8.NS has no chapter of its own in the CA catalog.
-  "us-ca-math-s2-chapter-01": ["8.NS.A.1", "8.NS.A.2"], // RationalNumbersLab, IrrationalLab
   // 9-A.1 Equations from Context — creating a constraint and solving it are the
   // same lesson; A-REI has no chapter of its own.
   "us-ca-math-s3-chapter-01": ["A-REI.1", "A-REI.3", "A-REI.5", "A-REI.6", "A-REI.10", "A-REI.12"], // EquationLab, InequalityLab, SystemsOfEquationsLab, SubstitutionLab, TwoVariableInequalityLab
@@ -1994,25 +2773,6 @@ const californiaChapterSupplementalStandards: Partial<Record<string, string[]>> 
   // 11-B.1 Exponential and Logarithmic Models — rational exponents underpin the
   // exponential function; radical equations are where extraneous roots appear.
   "us-ca-math-s5-chapter-02": ["N-RN.1", "N-RN.2", "N-RN.3", "A-REI.2"], // RationalExponentLab, ExtraneousLab, ClosureLab
-  // 12-A.1 Quantities, Units, and Precision — vector and matrix quantities sit in
-  // the same CCSS category (Number & Quantity) as N-Q, and the matrix form of a
-  // linear system is taught on the same bench.
-  "us-ca-math-s6-chapter-01": [
-    "N-VM.1",
-    "N-VM.2",
-    "N-VM.3",
-    "N-VM.4",
-    "N-VM.5",
-    "N-VM.6",
-    "N-VM.7",
-    "N-VM.8",
-    "N-VM.9",
-    "N-VM.10",
-    "N-VM.11",
-    "N-VM.12",
-    "A-REI.8",
-    "A-REI.9"
-  ], // VectorLab, MatrixLab
   // 12-B.1 Polynomial Structure and Behavior — complex roots are polynomial
   // behaviour; the plane is the prerequisite the bench builds first.
   "us-ca-math-s6-chapter-02": ["N-CN.1", "N-CN.2", "N-CN.3", "N-CN.4", "N-CN.5", "N-CN.6", "N-CN.7", "N-CN.9"] // ComplexPlaneLab, ComplexArithmeticLab
@@ -2134,16 +2894,18 @@ function californiaAlignmentForTopic(topic: Topic, templateId: VisualizationTemp
   // A chapter whose declared domain really is Modeling keeps the scraped value.
   const scrapedOnlyModeling = explicitStandardIds.length === 1 && explicitStandardIds[0] === "Modeling";
   const chapterOutranksModelingScrape = scrapedOnlyModeling && domainCode !== "Modeling";
+  const topicStandardOverride = californiaTopicStandardOverrides[topic.id];
   const resolvedStandardIds =
-    explicitStandardIds.length > 0 && !chapterOutranksModelingScrape
+    topicStandardOverride ??
+    (explicitStandardIds.length > 0 && !chapterOutranksModelingScrape
       ? explicitStandardIds
-      : (cluster?.standardIds ?? domain.standardIds);
+      : (cluster?.standardIds ?? domain.standardIds));
   const standardIds = [
     ...new Set([
       ...resolvedStandardIds,
       // The scraped "Modeling" tag is kept alongside the domain it no longer
       // replaces, so the modeling benches that join on it stay attached.
-      ...(chapterOutranksModelingScrape ? explicitStandardIds : []),
+      ...(chapterOutranksModelingScrape && !topicStandardOverride ? explicitStandardIds : []),
       ...(californiaChapterSupplementalStandards[topic.id] ?? [])
     ])
   ];
@@ -2155,7 +2917,7 @@ function californiaAlignmentForTopic(topic: Topic, templateId: VisualizationTemp
     domainId: `CA.CCSS.Math.${domainCode}`,
     domainTitle: domain.domainTitle,
     clusterId: cluster?.clusterId,
-    capabilitySummary: domain.capabilitySummary
+    capabilitySummary: californiaTopicCapabilityOverrides[topic.id] ?? domain.capabilitySummary
   };
 }
 
@@ -2271,15 +3033,17 @@ function californiaStudentNoteForTopic(
 ): VisualizationStudentNote {
   const standards = alignment.standardIds.slice(0, 4).join(", ");
   const moreStandards = alignment.standardIds.length > 4 ? "..." : "";
-  const modelType = templateMetadata[templateId].category.en.toLowerCase();
+  const category = topicCategoryOverrides[topic.id] ?? templateMetadata[templateId].category;
+  const modelType = category.en.toLowerCase();
+  const title = displayTitleForTopic(topic);
 
   return {
     authorId: "S06-visualization-safeguard",
     updatedAt: "2026-06-19T00:00:00.000Z",
     text: {
-      en: `Read me first: This ${modelType} is a deterministic California standards-aligned practice visualization for ${topic.title.en}. It supports ${alignment.domainId} (${standards}${moreStandards}) with MAIS-authored wording. Use the sliders to reason about the relationship; do not treat the picture as a complete California course, official standards text, or proof that approximate visual values are exact.`,
-      zh: `Read me first：這個${templateMetadata[templateId].category.zh}是面向 ${topic.title.zh} 的確定性 California 標準對齊練習視覺化，支援 ${alignment.domainId}（${standards}${moreStandards}），文字由 MAIS 自寫。請用滑桿推理關係；不要把圖像視為完整 California 課程、官方標準原文，或把近似視覺值當成精確值。`,
-      zhHans: `Read me first：这个${simplifiedCatalogText(templateMetadata[templateId].category)}是面向 ${simplifiedCatalogText(topic.title)} 的确定性 California 标准对齐练习可视化，支持 ${alignment.domainId}（${standards}${moreStandards}），文字由 MAIS 自写。请用滑块推理关系；不要把图像视为完整 California 课程、官方标准原文，或把近似视觉值当成精确值。`
+      en: `Read me first: This deterministic practice visualization uses ${modelType} for ${title.en}. It connects this practice to California curriculum targets ${alignment.domainId} (${standards}${moreStandards}). What this lab demonstrates: ${alignment.capabilitySummary.en} The wording is MAIS-authored. Use the controls to reason about the relationship; do not treat the picture as a complete California course, official standards text, or proof that approximate visual values are exact.`,
+      zh: `請先閱讀：這個確定性練習視覺化運用${category.zh}模型探索 ${title.zh}。它把這項練習連繫到 California 課程目標 ${alignment.domainId}（${standards}${moreStandards}）。本實驗實際展示：${alignment.capabilitySummary.zh} 文字由 MAIS 自寫。請使用控制項推理關係；不要把圖像視為完整 California 課程、官方標準原文，或把近似視覺值當成精確值。`,
+      zhHans: `请先阅读：这个确定性练习可视化运用${simplifiedCatalogText(category)}模型探索 ${simplifiedCatalogText(title)}。它把这项练习连接到 California 课程目标 ${alignment.domainId}（${standards}${moreStandards}）。本实验实际展示：${simplifiedCatalogText(alignment.capabilitySummary)} 文字由 MAIS 自写。请使用控件推理关系；不要把图像视为完整 California 课程、官方标准原文，或把近似视觉值当成精确值。`
     }
   };
 }
@@ -2411,6 +3175,9 @@ function labTitleForTopic(topic: Topic, track: VisualizationCurriculumTrack): Lo
 }
 
 function labDescriptionForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): LocalizedText {
+  const topicDescriptionOverride = topicDescriptionOverrides[topic.id];
+  if (topicDescriptionOverride) return topicDescriptionOverride;
+
   const template = templateMetadata[templateId];
   const mainland = track !== "HK" && track !== "US" && track !== "CAPSTONE";
   const title = displayTitleForTopic(topic);
@@ -2506,7 +3273,11 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const curriculumTrack = visualizationTrackForTopic(topic);
   const templateId = templateForTopic(topic);
   const template = templateMetadata[templateId];
-  const premiumLaunch = isPremiumThreeDLaunchLab(topic.id);
+  const premiumCandidate = isPremiumThreeDLaunchLab(topic.id);
+  const californiaPremiumCandidate = isCaliforniaTopic(topic) && premiumCandidate;
+  const premiumLaunch =
+    premiumCandidate &&
+    (!californiaPremiumCandidate || californiaSemanticallyVerifiedThreeDLabIdSet.has(topic.id));
   const standardThreeDLab = isStandardThreeDLab(topic.id);
   // Topics with a curated signature lab render that bench; every other topic
   // keeps the shared template renderer untouched.
@@ -2516,10 +3287,10 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const threeDFamilyId = familyForVisualizationLab(topic.id, templateId);
   const launchRegionalPriority = regionalPriorityForThreeDLaunchLab(topic.id);
   const threeD: ThreeDVisualizationMetadata = {
-    enabled: premiumLaunch || standardThreeDLab,
+    enabled: californiaPremiumCandidate ? premiumLaunch : premiumLaunch || standardThreeDLab,
     fallbackTemplateId: templateId,
     familyId: threeDFamilyId,
-    coverageTier: premiumLaunch ? "premium-3d" : "standard-3d",
+    coverageTier: premiumCandidate ? "premium-3d" : "standard-3d",
     premiumLaunch,
     regionalPriority: launchRegionalPriority ??
       (curriculumTrack === "MAINLAND_PEP_PRIMARY" ||
@@ -2540,7 +3311,7 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
     grade: topic.grade,
     title: labTitleForTopic(topic, curriculumTrack),
     description: labDescriptionForTopic(topic, templateId, curriculumTrack),
-    category: template.category,
+    category: topicCategoryOverrides[topic.id] ?? template.category,
     gradeLabel: gradeLabelForTopic(topic, curriculumTrack),
     topicId: topic.id,
     curriculumTrack,

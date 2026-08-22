@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import {
+  californiaSemanticallyVerifiedThreeDLabIds,
   gradeLabGroups,
   visualizationLabCatalog,
   visualizationLabCount,
@@ -13,6 +14,12 @@ import { unitedStatesMathGradeOverviewCards } from "../../data/rag/usMath";
 import { getSignatureLabAssignment } from "../../data/signatureLabAssignments";
 import { toPrcSimplifiedText } from "../../lib/i18n";
 import {
+  getPremiumThreeDDirectLab,
+  premiumThreeDDirectLabIds
+} from "./premiumThreeDDirectLabs";
+import { isLivePremiumThreeDLab } from "./three/premiumThreeDLiveContract";
+import { sceneVariantForThreeDFamily } from "./three/threeDSceneMath";
+import {
   auditVisualizationControlSurfaceContract,
   auditVisualizationDirectEntryContract,
   auditVisualizationPracticeHandoffContract,
@@ -20,6 +27,7 @@ import {
   auditVisualizationCatalogContract,
   auditVisualizationSourceCardAlignment,
   auditVisualizationTemplateConfigContract,
+  buildVisualizationDirectoryLabHref,
   buildPremiumThreeDTopicPagePath,
   buildVisualizationSessionModuleId,
   buildVisualizationLabHref,
@@ -35,7 +43,8 @@ import {
 const directEntryTracks = ["all", "HK", "US", "MAINLAND_PEP_PRIMARY", "MAINLAND_PEP_JUNIOR", "MAINLAND_PEP_HIGH", "MAINLAND_HJB", "MAINLAND_BNU", "CAPSTONE"] as const;
 
 test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () => {
-  const lab = visualizationLabCatalog.find((entry) => entry.labId === "pep-high-s4-trigonometry") ?? visualizationLabCatalog[0];
+  const lab = visualizationLabCatalog.find(isLivePremiumThreeDLab);
+  assert.ok(lab, "the catalog must retain at least one semantically verified live premium lab");
 
   assert.equal(
     buildVisualizationLabHref(lab),
@@ -46,9 +55,9 @@ test("builds stable direct-entry Visualization Lab URLs for browser sweeps", () 
 });
 
 test("premium Three.js launch labs expose canonical topic-specific page URLs", () => {
-  const premiumLabs = visualizationLabCatalog.filter((lab) => lab.threeD?.premiumLaunch);
+  const premiumLabs = visualizationLabCatalog.filter(isLivePremiumThreeDLab);
 
-  assert.equal(premiumLabs.length, 80);
+  assert.deepEqual(premiumLabs.map((lab) => lab.labId).sort(), [...premiumThreeDDirectLabIds].sort());
 
   for (const lab of premiumLabs) {
     const href = buildVisualizationLabHref(lab);
@@ -61,27 +70,91 @@ test("premium Three.js launch labs expose canonical topic-specific page URLs", (
   }
 });
 
+test("premium labs expose a renderer-preserving catalog workspace URL", () => {
+  const premiumLab = visualizationLabCatalog.find(isLivePremiumThreeDLab);
+  assert.ok(premiumLab);
+
+  const href = buildVisualizationDirectoryLabHref(premiumLab, "US");
+  const url = new URL(href, "https://mais.local");
+
+  assert.equal(url.pathname, "/student/tools/visualizations");
+  assert.equal(url.searchParams.get("grade"), premiumLab.grade);
+  assert.equal(url.searchParams.get("track"), "US");
+  assert.equal(url.searchParams.get("lab"), premiumLab.labId);
+});
+
+test("historical premium candidates without both live flags stay on the catalog workspace route", () => {
+  const candidateOnlyLab = visualizationLabCatalog.find(
+    (lab) => lab.labId === "us-ca-math-s4-chapter-05"
+  );
+  assert.ok(candidateOnlyLab);
+  assert.equal(candidateOnlyLab.threeD?.coverageTier, "premium-3d");
+  assert.equal(candidateOnlyLab.threeD?.enabled, false);
+  assert.equal(candidateOnlyLab.threeD?.premiumLaunch, false);
+
+  const href = buildVisualizationLabHref(candidateOnlyLab, "US");
+  const url = new URL(href, "https://mais.local");
+  assert.equal(url.pathname, "/visualization-lab");
+  assert.equal(url.searchParams.get("grade"), candidateOnlyLab.grade);
+  assert.equal(url.searchParams.get("track"), "US");
+  assert.equal(url.searchParams.get("lab"), candidateOnlyLab.labId);
+});
+
+test("California premium direct routes preserve curated topic identity and renderer", () => {
+  const californiaPremiumLabs = visualizationLabCatalog.filter(
+    (lab) => lab.publisher === "US_CA_MATH" && isLivePremiumThreeDLab(lab)
+  );
+
+  assert.deepEqual(
+    californiaPremiumLabs.map((lab) => lab.labId).sort(),
+    [...californiaSemanticallyVerifiedThreeDLabIds].sort(),
+    "California direct routes must equal the semantically verified catalog set"
+  );
+  for (const catalogLab of californiaPremiumLabs) {
+    const directLab = getPremiumThreeDDirectLab(catalogLab.labId);
+
+    assert.ok(directLab, `${catalogLab.labId} should have direct metadata`);
+    assert.deepEqual(directLab.title, catalogLab.title, `${catalogLab.labId} title drift`);
+    assert.deepEqual(directLab.description, catalogLab.description, `${catalogLab.labId} description drift`);
+    assert.deepEqual(directLab.gradeLabel, catalogLab.gradeLabel, `${catalogLab.labId} grade label drift`);
+    assert.equal(directLab.templateId, catalogLab.templateId, `${catalogLab.labId} template drift`);
+    assert.deepEqual(directLab.templateConfig, catalogLab.templateConfig, `${catalogLab.labId} template config drift`);
+    assert.equal(directLab.threeD?.familyId, catalogLab.threeD?.familyId, `${catalogLab.labId} family drift`);
+    assert.deepEqual(
+      JSON.parse(JSON.stringify(directLab.californiaAlignment)),
+      JSON.parse(JSON.stringify(catalogLab.californiaAlignment)),
+      `${catalogLab.labId} alignment drift`
+    );
+    const directOptionalMetadata = directLab as FeaturedLabDefinition & {
+      displayDisambiguator?: unknown;
+      textbookPlacement?: unknown;
+    };
+    const catalogOptionalMetadata = catalogLab as FeaturedLabDefinition & {
+      displayDisambiguator?: unknown;
+      textbookPlacement?: unknown;
+    };
+    assert.deepEqual(
+      directOptionalMetadata.displayDisambiguator,
+      catalogOptionalMetadata.displayDisambiguator,
+      `${catalogLab.labId} display disambiguator drift`
+    );
+    assert.deepEqual(
+      directOptionalMetadata.textbookPlacement,
+      catalogOptionalMetadata.textbookPlacement,
+      `${catalogLab.labId} textbook placement drift`
+    );
+  }
+});
+
 test("premium Three.js scene variant smoke targets cover each live premium variant", () => {
+  const liveLabs = visualizationLabCatalog.filter(isLivePremiumThreeDLab);
   const targets = selectPremiumThreeDSceneVariantSmokeLabs(visualizationLabCatalog);
   const variants = targets.map((target) => target.sceneVariant).sort();
+  const expectedVariants = [...new Set(
+    liveLabs.map((lab) => sceneVariantForThreeDFamily(lab.threeD!.familyId))
+  )].sort();
 
-  assert.deepEqual(variants, [
-    "conic-section-deep",
-    "cross-section-slicer",
-    "curriculum-crosswalk",
-    "distribution-machine",
-    "exam-strategy-capstone",
-    "fraction-slices",
-    "function-ribbon",
-    "geometry-axes",
-    "measurement-rail",
-    "optimization-landscape",
-    "projection-views",
-    "solid-net-fold",
-    "space-vector-plane",
-    "statistical-inference",
-    "vector-conic-strategy"
-  ]);
+  assert.deepEqual(variants, expectedVariants);
 
   for (const target of targets) {
     const href = buildVisualizationLabHref(target.lab);
@@ -89,7 +162,8 @@ test("premium Three.js scene variant smoke targets cover each live premium varia
 
     assert.equal(url.pathname, buildPremiumThreeDTopicPagePath(target.lab));
     assert.equal(target.href, href);
-    assert.equal(target.lab.threeD?.premiumLaunch, true);
+    assert.equal(isLivePremiumThreeDLab(target.lab), true);
+    assert.ok(getPremiumThreeDDirectLab(target.lab.labId));
     assert.equal(target.familyId, target.lab.threeD?.familyId);
   }
 });
@@ -489,7 +563,7 @@ test("California Visualization Lab catalog keeps priority lab themes grade appro
       ["us-ca-math-p5-5-md-volume-data", ["P5", "array-area", /volume|unit cube|data/i]],
       ["us-ca-math-s2-chapter-02", ["S2", "function-family", /input|output|rate/i]],
       ["us-ca-math-s5-chapter-05", ["S5", "statistics-distribution", /sample|inference|claim/i]],
-      ["us-ca-math-s6-chapter-01", ["S6", "statistics-distribution", /precision|uncertainty|mean/i]]
+      ["us-ca-math-s6-chapter-01", ["S6", "measurement-scale", /formula.*unit choice.*reported precision/i]]
     ] as const
   );
   const forbiddenFormulaPattern = /\bmean \+\/- spread\b|\bdy\/dx\b|\(x, y\) -> \(x', y'\)|\b10 x tens\b/i;

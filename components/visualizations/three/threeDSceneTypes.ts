@@ -64,6 +64,14 @@ export type ThreeDVisualizationMetadata = {
 };
 
 export type ThreeDCanvasRuntime = "primitive" | "mais-manim";
+export type ThreeDCanvasPresentation = "learner" | "authoring";
+
+export type ThreeDLearnerControlLabels = {
+  pause: string;
+  play: string;
+  resetCamera: string;
+  timeline: string;
+};
 
 export type ThreeDControlState = {
   comparison: number;
@@ -97,8 +105,10 @@ export type ThreeDLabCanvasProps = {
   coverageTier?: ThreeDCoverageTier;
   fallback: ReactNode;
   label: string;
+  learnerControlLabels?: ThreeDLearnerControlLabels;
   onCanvasReady?: () => void;
   premiumLaunch?: boolean;
+  presentation?: ThreeDCanvasPresentation;
   regionalPriority?: ThreeDRegionalPriority;
   runtime?: ThreeDCanvasRuntime;
   state: ThreeDStateSummary;

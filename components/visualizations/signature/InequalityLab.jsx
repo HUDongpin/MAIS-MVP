@@ -1587,6 +1587,22 @@ export default function InequalityLab() {
           font-size: 11px;
           color: var(--ink-soft);
         }
+        @media (max-width: 560px) {
+          .opctl {
+            grid-template-columns: minmax(0, 1fr);
+          }
+          .opk,
+          .opgroup,
+          .oprole {
+            grid-column: 1;
+          }
+          .opk {
+            grid-row: auto;
+          }
+          .opgroup {
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+          }
+        }
         .dials {
           display: grid;
           gap: 12px;

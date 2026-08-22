@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import {
   createGamificationRecordId,
   recordGamificationEventOnce
@@ -8,6 +8,7 @@ import type {
   GamificationEventStatus,
   GradeId,
   LocalizedText,
+  LearningAnalyticsEventSource,
   RewardCatalogCategory,
   RewardCatalogItem,
   RewardEarnRule,
@@ -424,28 +425,64 @@ export function awardVisualizationCompletionReward(
     userId,
     moduleId,
     topicId,
+    source,
     topic,
     completedAt
   }: {
     userId: string;
     moduleId: string;
     topicId: string;
+    source: LearningAnalyticsEventSource;
     topic?: GamificationRewardTopicRecord | null;
     completedAt: string;
   },
   createId: () => string = randomUUID
 ) {
   const title = topic ? { en: topic.title_en, zh: topic.title_zh } : { en: topicId, zh: topicId };
+  const legacySourceKey = `visualization-complete:${userId}:${moduleId}`
+    .trim()
+    .replace(/\s+/g, "-")
+    .slice(0, 240);
+  const priorTupleSourceKey = visualizationCompletionRewardV2SourceKey(userId, moduleId, topicId);
+  if (database.reward_point_ledger.some((entry) =>
+    entry.reason === "visualization-complete" &&
+    (entry.source_key === legacySourceKey || entry.source_key === priorTupleSourceKey)
+  )) {
+    return false;
+  }
   return awardAutomaticRewardOnce(database, {
     studentId: userId,
     reason: "visualization-complete",
-    sourceKey: `visualization-complete:${userId}:${moduleId}`,
+    sourceKey: visualizationCompletionRewardSourceKey(userId, moduleId, topicId, source),
     label: {
       en: `Explored the ${title.en} visualization`,
       zh: `完成${title.zh}視覺化探索`
     },
     createdAt: completedAt
   }, createId);
+}
+
+function visualizationCompletionRewardV2SourceKey(
+  userId: string,
+  moduleId: string,
+  topicId: string
+) {
+  const tupleDigest = createHash("sha256")
+    .update(JSON.stringify([userId, moduleId, topicId]), "utf8")
+    .digest("hex");
+  return `visualization-complete:v2:${tupleDigest}`;
+}
+
+export function visualizationCompletionRewardSourceKey(
+  userId: string,
+  moduleId: string,
+  topicId: string,
+  source: LearningAnalyticsEventSource
+) {
+  const tupleDigest = createHash("sha256")
+    .update(JSON.stringify([userId, moduleId, topicId, source]), "utf8")
+    .digest("hex");
+  return `visualization-complete:v3:${tupleDigest}`;
 }
 
 export function awardLessonCompletionReward(

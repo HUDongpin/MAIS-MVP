@@ -191,7 +191,7 @@ test("mistake review reward helper awards one mastered-question reward", () => {
   assert.equal(database.gamification_events?.[0]?.label_en, "Reviewed a Fractions mistake");
 });
 
-test("visualization completion reward helper awards one module completion reward", () => {
+test("visualization completion reward helper keys rewards by the complete session identity", () => {
   const database = createDatabase();
 
   assert.equal(
@@ -199,6 +199,7 @@ test("visualization completion reward helper awards one module completion reward
       userId: "student-1",
       moduleId: "function-graph",
       topicId: "topic-functions",
+      source: "function-graph",
       topic: {
         id: "topic-functions",
         title_en: "Function graphs",
@@ -208,11 +209,13 @@ test("visualization completion reward helper awards one module completion reward
     }, () => "visualization-id"),
     true
   );
+  const databaseBytesBeforeExactReplay = JSON.stringify(database);
   assert.equal(
     awardVisualizationCompletionReward(database, {
       userId: "student-1",
       moduleId: "function-graph",
       topicId: "topic-functions",
+      source: "function-graph",
       topic: {
         id: "topic-functions",
         title_en: "Function graphs",
@@ -222,11 +225,39 @@ test("visualization completion reward helper awards one module completion reward
     }, () => "duplicate-visualization-id"),
     false
   );
-  assert.equal(database.reward_point_ledger.length, 1);
-  assert.equal(database.reward_point_ledger[0].id, "reward-ledger-visualization-id");
-  assert.equal(database.reward_point_ledger[0].amount, 20);
-  assert.equal(database.reward_point_ledger[0].reason, "visualization-complete");
-  assert.equal(database.reward_point_ledger[0].source_key, "visualization-complete:student-1:function-graph");
+  assert.equal(JSON.stringify(database), databaseBytesBeforeExactReplay);
+  assert.equal(
+    awardVisualizationCompletionReward(database, {
+      userId: "student-1",
+      moduleId: "function-graph",
+      topicId: "topic-functions",
+      source: "geometry",
+      topic: {
+        id: "topic-functions",
+        title_en: "Function graphs",
+        title_zh: "函數圖像"
+      },
+      completedAt: "2026-06-20T12:10:00.000Z"
+    }, () => "sibling-source-visualization-id"),
+    true
+  );
+  assert.equal(database.reward_point_ledger.length, 2);
+  const firstReward = database.reward_point_ledger.find((entry) => entry.id === "reward-ledger-visualization-id");
+  const siblingReward = database.reward_point_ledger.find((entry) => entry.id === "reward-ledger-sibling-source-visualization-id");
+  assert.ok(firstReward);
+  assert.ok(siblingReward);
+  assert.equal(firstReward.amount, 20);
+  assert.equal(firstReward.reason, "visualization-complete");
+  const firstSourceKey = firstReward.source_key;
+  const siblingSourceKey = siblingReward.source_key;
+  assert.equal(typeof firstSourceKey, "string");
+  assert.equal(typeof siblingSourceKey, "string");
+  if (typeof firstSourceKey !== "string" || typeof siblingSourceKey !== "string") {
+    throw new TypeError("Visualization reward source keys must be durable strings.");
+  }
+  assert.match(firstSourceKey, /^visualization-complete:v3:[a-f0-9]{64}$/);
+  assert.match(siblingSourceKey, /^visualization-complete:v3:[a-f0-9]{64}$/);
+  assert.notEqual(firstSourceKey, siblingSourceKey);
   assert.equal(database.gamification_events?.[0]?.source, "visualization-complete");
   assert.equal(database.gamification_events?.[0]?.label_en, "Explored the Function graphs visualization");
 });

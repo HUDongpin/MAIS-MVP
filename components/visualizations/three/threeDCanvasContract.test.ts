@@ -4091,16 +4091,54 @@ test("ThreeDLabCanvas exposes a MAIS Manim scene-spec selector for authoring", (
     threeDCanvasRequiredSelectors.includes("data-viz-manim-scene-selector-control" as (typeof threeDCanvasRequiredSelectors)[number]),
     "MAIS Manim scene selector should be discoverable by browser smoke tests"
   );
-  assert.match(canvasSource, /import \{ buildMathSceneSelectorCatalog, mathSceneSelectorDataAttributes, summarizeMathSceneSelectorCatalog \} from "\.\/manim\/mathSceneSelectorCatalog"/);
+  assert.match(canvasSource, /import \{[\s\S]{0,240}buildMathSceneSelectorCatalogEntry,[\s\S]{0,240}mathSceneSelectorDataAttributes,[\s\S]{0,240}summarizeMathSceneSelectorCatalog,[\s\S]{0,240}\} from "\.\/manim\/mathSceneSelectorCatalog"/);
   assert.match(canvasSource, /const \[manimSelectedSceneFamilyId, setManimSelectedSceneFamilyId\] = useState<ThreeDFamilyId>\(state\.familyId\)/);
   assert.match(canvasSource, /const selectedManimSceneState = useMemo/);
   assert.match(canvasSource, /familyId: manimSelectedSceneFamilyId/);
-  assert.match(canvasSource, /const manimSceneSelectorCatalog = useMemo/);
-  assert.match(canvasSource, /buildMathSceneSelectorCatalog\(\{ accent, state \}\)/);
+  assert.match(canvasSource, /const manimLearnerSceneSelectorCatalog = useMemo<MathSceneSelectorCatalogEntry\[]>/);
+  assert.match(canvasSource, /const \[manimAuthoringSceneSelectorCatalog, setManimAuthoringSceneSelectorCatalog\] = useState<MathSceneSelectorCatalogEntry\[]>\(\[]\)/);
+  assert.match(canvasSource, /buildMathSceneSelectorCatalogEntry\(\{ accent, familyId, state: catalogStateRef\.current \}\)/);
+  assert.match(canvasSource, /const manimSceneSelectorCatalog = presentation === "authoring"[\s\S]{0,140}manimAuthoringSceneSelectorCatalog[\s\S]{0,140}manimLearnerSceneSelectorCatalog/);
   assert.match(canvasSource, /buildMathSceneSpecForThreeDFamily\(\{ accent, state: selectedManimSceneState \}\)/);
   assert.match(canvasSource, /data-viz-manim-scene-selector-control/);
   assert.match(canvasSource, /value=\{manimSelectedSceneFamilyId\}/);
   assert.match(canvasSource, /setManimSelectedSceneFamilyId\(event\.currentTarget\.value as ThreeDFamilyId\)/);
+});
+
+test("ThreeDLabCanvas keeps active scene evidence non-empty while the authoring catalog hydrates", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const hydratedCatalogStart = canvasSource.indexOf("const manimAuthoringSceneSelectorCatalogWithActiveScene");
+  const hydratedCatalogEnd = canvasSource.indexOf("const manimSceneSelectorCatalog", hydratedCatalogStart);
+  assert.ok(
+    hydratedCatalogStart >= 0 && hydratedCatalogEnd > hydratedCatalogStart,
+    "effective authoring selector catalog should remain source-auditable"
+  );
+  const hydratedCatalogSource = canvasSource.slice(hydratedCatalogStart, hydratedCatalogEnd);
+
+  assert.match(hydratedCatalogSource, /const activeEntry = manimLearnerSceneSelectorCatalog\[0\]/);
+  assert.match(hydratedCatalogSource, /if \(!activeEntry\) return manimAuthoringSceneSelectorCatalog/);
+  assert.match(hydratedCatalogSource, /if \(manimAuthoringSceneSelectorCatalog\.length === 0\) return manimLearnerSceneSelectorCatalog/);
+  assert.match(hydratedCatalogSource, /entry\.familyId === activeEntry\.familyId/);
+  assert.match(hydratedCatalogSource, /return \[activeEntry, \.\.\.manimAuthoringSceneSelectorCatalog\]/);
+  assert.match(hydratedCatalogSource, /return manimAuthoringSceneSelectorCatalog\.map/);
+  assert.match(hydratedCatalogSource, /entry\.familyId === activeEntry\.familyId \? activeEntry : entry/);
+  assert.match(
+    hydratedCatalogSource,
+    /\[manimAuthoringSceneSelectorCatalog, manimLearnerSceneSelectorCatalog\]/
+  );
+
+  assert.match(
+    canvasSource,
+    /const manimSceneSelectorCatalog = presentation === "authoring"[\s\S]{0,160}manimAuthoringSceneSelectorCatalogWithActiveScene[\s\S]{0,160}manimLearnerSceneSelectorCatalog/
+  );
+  assert.match(
+    canvasSource,
+    /\}, \[accent, presentation, runtime\]\);[\s\S]{0,900}const manimAuthoringSceneSelectorCatalogWithActiveScene/
+  );
+  assert.doesNotMatch(
+    canvasSource,
+    /\}, \[accent, presentation, runtime, state[\s\S]{0,100}\]\);/
+  );
 });
 
 test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls for MAIS Manim scenes", () => {
@@ -4134,7 +4172,14 @@ test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls 
   assert.match(canvasSource, /import \{ buildScenePlaybackPlan[\s\S]*\} from "\.\/manim\/mathScenePlayback"/);
   assert.match(canvasSource, /import \{[\s\S]*createCheckpointStore[\s\S]*listCheckpointKeys[\s\S]*restoreCheckpoint[\s\S]*saveCheckpoint[\s\S]*type SceneCheckpointStore[\s\S]*\} from "\.\/manim\/mathSceneCheckpoint"/);
   assert.match(canvasSource, /type ManimPlaybackState = "playing" \| "paused" \| "scrubbing" \| "checkpoint"/);
-  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("playing"\)/);
+  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("paused"\)/);
+  assert.match(canvasSource, /const resetCameraAndTimeline = useCallback\(\(\) => \{[\s\S]{0,900}setManimPlaybackState\("paused"\)/);
+  const runtimeResetStart = canvasSource.indexOf("setManimCheckpointStore(createCheckpointStore<ManimCheckpointState>());");
+  const runtimeResetEnd = canvasSource.indexOf("}, [manimHistorySceneId, presentation, runtime, state.familyId]);", runtimeResetStart);
+  assert.ok(runtimeResetStart >= 0 && runtimeResetEnd > runtimeResetStart, "runtime/family reset effect should remain source-auditable");
+  const runtimeResetSource = canvasSource.slice(runtimeResetStart, runtimeResetEnd);
+  assert.match(runtimeResetSource, /setManimPlaybackState\("paused"\)/);
+  assert.doesNotMatch(runtimeResetSource, /setManimPlaybackState\("playing"\)/);
   assert.match(canvasSource, /buildScenePlaybackPlan\(manimScene\.timeline/);
   assert.match(canvasSource, /const \[manimCheckpointStore, setManimCheckpointStore\] = useState<SceneCheckpointStore<ManimCheckpointState>>/);
   assert.match(canvasSource, /saveCheckpoint\(currentStore/);
@@ -4146,7 +4191,95 @@ test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls 
   assert.doesNotMatch(canvasSource, /<input[\s\S]*type="range"[\s\S]*data-viz-manim-timeline-scrubber/);
 });
 
-test("ThreeDLabCanvas docks MAIS Manim authoring controls outside the mobile scene frame", () => {
+test("ThreeDLabCanvas keeps initial and reset history paused until explicit Play or run-from-beat", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const initialStateStart = canvasSource.indexOf("function initialManimCheckpointState");
+  const initialStateEnd = canvasSource.indexOf("\n}\n", initialStateStart) + 2;
+  assert.ok(initialStateStart >= 0 && initialStateEnd > initialStateStart, "initial Manim history state should remain source-auditable");
+  const initialStateSource = canvasSource.slice(initialStateStart, initialStateEnd);
+
+  assert.match(initialStateSource, /playbackState: "paused"/);
+  assert.doesNotMatch(initialStateSource, /playbackState: "playing"/);
+  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("paused"\)/);
+  assert.match(
+    canvasSource,
+    /const applyManimHistoryState = useCallback\(\(nextState: ManimCheckpointState\) => \{[\s\S]{0,260}setManimPlaybackState\("paused"\)/
+  );
+
+  const resetStart = canvasSource.indexOf("const resetCameraAndTimeline");
+  const resetEnd = canvasSource.indexOf("const switchManimCameraMode", resetStart);
+  assert.ok(resetStart >= 0 && resetEnd > resetStart, "learner reset should remain source-auditable");
+  const resetSource = canvasSource.slice(resetStart, resetEnd);
+  assert.match(resetSource, /setManimPlaybackState\("paused"\)/);
+  assert.match(resetSource, /createSceneHistoryStore\(initialManimCheckpointState\(manimHistorySceneId\)/);
+
+  const runtimeResetStart = canvasSource.indexOf("setManimCheckpointStore(createCheckpointStore<ManimCheckpointState>());");
+  const runtimeResetEnd = canvasSource.indexOf("}, [manimHistorySceneId, presentation, runtime, state.familyId]);", runtimeResetStart);
+  assert.ok(runtimeResetStart >= 0 && runtimeResetEnd > runtimeResetStart, "mount/family/runtime reset should remain source-auditable");
+  const runtimeResetSource = canvasSource.slice(runtimeResetStart, runtimeResetEnd);
+  assert.match(runtimeResetSource, /createSceneHistoryStore\(initialManimCheckpointState\(manimHistorySceneId\)/);
+  assert.match(runtimeResetSource, /setManimPlaybackState\("paused"\)/);
+  assert.doesNotMatch(runtimeResetSource, /setManimPlaybackState\("playing"\)/);
+
+  const runFromBeatStart = canvasSource.indexOf("const runManimFromBeat");
+  const runFromBeatEnd = canvasSource.indexOf("const showManimFinalFrame", runFromBeatStart);
+  assert.ok(runFromBeatStart >= 0 && runFromBeatEnd > runFromBeatStart, "run-from-beat should remain source-auditable");
+  const runFromBeatSource = canvasSource.slice(runFromBeatStart, runFromBeatEnd);
+  assert.match(runFromBeatSource, /playbackState: "playing"/);
+  assert.match(runFromBeatSource, /setManimPlaybackState\("playing"\)/);
+  assert.equal((canvasSource.match(/setManimPlaybackState\("playing"\)/g) ?? []).length, 1);
+  assert.match(canvasSource, /const toggleManimPlayback = useCallback\(\(\) => \{[\s\S]{0,220}setManimPlaybackState\(\(current\) => \(current === "playing" \? "paused" : "playing"\)\)/);
+});
+
+test("ThreeDLabCanvas treats playback as transient across run, pause, edit, undo, and redo", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const normalizeStateStart = canvasSource.indexOf("function pausedManimHistoryState");
+  const componentStart = canvasSource.indexOf("export function ThreeDLabCanvas");
+  assert.ok(
+    normalizeStateStart >= 0 && componentStart > normalizeStateStart,
+    "paused history normalization should remain source-auditable"
+  );
+  const historyHelpersSource = canvasSource.slice(normalizeStateStart, componentStart);
+  assert.match(historyHelpersSource, /playbackState: "paused"/);
+  assert.match(historyHelpersSource, /current: pausedManimHistoryEntry\(store\.current\)/);
+  assert.match(historyHelpersSource, /undoStack: store\.undoStack\.map\(pausedManimHistoryEntry\)/);
+  assert.match(historyHelpersSource, /redoStack: store\.redoStack\.map\(pausedManimHistoryEntry\)/);
+  assert.match(historyHelpersSource, /pushSceneHistory\([\s\S]{0,260}pausedManimHistoryState\(nextState\)/);
+
+  const applyStart = canvasSource.indexOf("const applyManimHistoryState");
+  const applyEnd = canvasSource.indexOf("const resetCameraAndTimeline", applyStart);
+  assert.ok(applyStart >= 0 && applyEnd > applyStart, "history application should remain source-auditable");
+  const applySource = canvasSource.slice(applyStart, applyEnd);
+  assert.match(applySource, /setManimPlaybackState\("paused"\)/);
+  assert.doesNotMatch(applySource, /setManimPlaybackState\(nextState\.playbackState\)/);
+  assert.doesNotMatch(applySource, /"playing"/);
+
+  const runStart = canvasSource.indexOf("const runManimFromBeat");
+  const runEnd = canvasSource.indexOf("const showManimFinalFrame", runStart);
+  const runSource = canvasSource.slice(runStart, runEnd);
+  assert.match(runSource, /playbackState: "playing"/);
+  assert.match(runSource, /setManimPlaybackState\("playing"\)/);
+  assert.match(runSource, /pushPausedManimHistory\(currentStore, nextState/);
+  assert.doesNotMatch(runSource, /pushSceneHistory\(/);
+
+  for (const operation of ["undo", "redo"] as const) {
+    const start = canvasSource.indexOf(`const ${operation}ManimHistory`);
+    const end = operation === "undo"
+      ? canvasSource.indexOf("const redoManimHistory", start)
+      : canvasSource.indexOf("const captureManimScreenshot", start);
+    assert.ok(start >= 0 && end > start, `${operation} history should remain source-auditable`);
+    const source = canvasSource.slice(start, end);
+    assert.match(source, /pausedManimHistoryStore\(manimHistoryStore\)/);
+    assert.match(source, /pausedManimHistoryStore\(result\.store\)/);
+    assert.match(source, /applyManimHistoryState\(pausedManimHistoryState\(result\.state\)\)/);
+    assert.doesNotMatch(source, /"playing"/);
+  }
+
+  assert.equal((canvasSource.match(/pushSceneHistory\(/g) ?? []).length, 1);
+  assert.equal((canvasSource.match(/setManimPlaybackState\("playing"\)/g) ?? []).length, 1);
+});
+
+test("ThreeDLabCanvas defaults to a localized learner dock and keeps authoring controls behind explicit opt-in", () => {
   const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
 
   assert.ok(
@@ -4167,6 +4300,24 @@ test("ThreeDLabCanvas docks MAIS Manim authoring controls outside the mobile sce
   }
 
   assert.match(canvasSource, /data-viz-manim-mobile-layout=\{manimScene \? "docked" : "primitive"\}/);
+  assert.match(canvasSource, /presentation = "learner"/);
+  assert.match(canvasSource, /data-viz-manim-presentation=\{presentation\}/);
+  assert.match(canvasSource, /data-viz-manim-authoring-controls-visible=\{String\(presentation === "authoring"\)\}/);
+  assert.match(canvasSource, /\{presentation === "authoring" \? \(/);
+  assert.match(canvasSource, /runtime !== "mais-manim" \|\| presentation !== "authoring"/);
+  const learnerCatalogStart = canvasSource.indexOf("const manimLearnerSceneSelectorCatalog");
+  const learnerCatalogEnd = canvasSource.indexOf("const [manimAuthoringSceneSelectorCatalog", learnerCatalogStart);
+  assert.ok(learnerCatalogStart >= 0 && learnerCatalogEnd > learnerCatalogStart, "learner selector evidence should remain source-auditable");
+  const learnerCatalogSource = canvasSource.slice(learnerCatalogStart, learnerCatalogEnd);
+  assert.match(learnerCatalogSource, /if \(!manimSceneExport\) return \[]/);
+  assert.match(learnerCatalogSource, /familyId: manimSceneExport\.familyId/);
+  assert.doesNotMatch(learnerCatalogSource, /buildMathSceneSelectorCatalogEntry|buildMathSceneSpecForThreeDFamily/);
+  assert.match(canvasSource, /presentation === "learner" \? \([\s\S]{0,260}data-viz-manim-scene-selector-control[\s\S]{0,220}aria-hidden="true"[\s\S]{0,120}disabled[\s\S]{0,120}hidden/);
+  assert.match(canvasSource, /data-viz-manim-scene-selector-count=\{manimScene \? manimSceneSelectorAttributes\["data-viz-manim-scene-selector-count"\] : "0"\}/);
+  assert.match(canvasSource, /learnerControlLabels\.resetCamera/);
+  assert.match(canvasSource, /learnerControlLabels\.timeline/);
+  assert.match(canvasSource, /manimPlaybackState === "playing" \? learnerControlLabels\.pause : learnerControlLabels\.play/);
+  assert.match(canvasSource, /min-h-11 min-w-11/);
   assert.match(canvasSource, /data-viz-manim-scene-frame[\s\S]{0,240}className="relative aspect-\[16\/9\]/);
 
   for (const row of ["camera", "capture", "playback"]) {
@@ -5940,9 +6091,9 @@ test("ThreeDLabCanvas exposes Manim-style undo and redo history for authoring st
     assert.match(canvasSource, new RegExp(symbol));
   }
   assert.match(canvasSource, /const \[manimHistoryStore, setManimHistoryStore\] = useState<MathSceneHistoryStore<ManimCheckpointState>>/);
-  assert.match(canvasSource, /pushSceneHistory\(currentStore/);
-  assert.match(canvasSource, /undoSceneHistory\(manimHistoryStore\)/);
-  assert.match(canvasSource, /redoSceneHistory\(manimHistoryStore\)/);
+  assert.match(canvasSource, /pushPausedManimHistory\(currentStore/);
+  assert.match(canvasSource, /undoSceneHistory\(pausedManimHistoryStore\(manimHistoryStore\)\)/);
+  assert.match(canvasSource, /redoSceneHistory\(pausedManimHistoryStore\(manimHistoryStore\)\)/);
   assert.match(canvasSource, /sceneHistoryDataAttributes\(summarizeSceneHistory\(manimHistoryStore\)\)/);
   assert.match(canvasSource, /buildSceneHistoryManifest\(manimHistoryStore\)/);
   assert.match(canvasSource, /serializeSceneHistoryManifest\(manimHistoryManifest\)/);

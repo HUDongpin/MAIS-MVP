@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import { PremiumThreeDDirectRouteShell } from "@/components/visualizations/PremiumThreeDDirectRouteShell";
-import { getPremiumThreeDDirectLab } from "@/components/visualizations/premiumThreeDDirectLabs";
-import { buildPremiumThreeDTopicStaticParams } from "@/components/visualizations/three/threeDSceneMath";
+import {
+  buildPremiumThreeDTopicStaticParams,
+  getPremiumThreeDDirectLab
+} from "@/components/visualizations/premiumThreeDDirectLabs";
+import { isLivePremiumThreeDLab } from "@/components/visualizations/three/premiumThreeDLiveContract";
+
+export const dynamicParams = false;
 
 type PremiumThreeDVisualizationTopicPageProps = {
   params: Promise<{
@@ -26,7 +31,7 @@ export default async function PremiumThreeDVisualizationTopicPage({ params }: Pr
   const normalizedLabId = normalizeLabIdParam(labId);
   const directLab = getPremiumThreeDDirectLab(normalizedLabId);
 
-  if (directLab?.threeD?.premiumLaunch) {
+  if (directLab && isLivePremiumThreeDLab(directLab)) {
     return <PremiumThreeDDirectRouteShell lab={directLab} />;
   }
 

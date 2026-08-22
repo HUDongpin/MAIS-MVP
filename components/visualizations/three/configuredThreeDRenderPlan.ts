@@ -3,9 +3,7 @@ import { isThreeDFamilyReady } from "./ThreeDLabSceneRegistry";
 import { isMaisManimFamily } from "./manim/mathSceneRegistry";
 import {
   buildThreeDStateSummary,
-  familyForVisualizationTemplate,
-  isPremiumThreeDLaunchLab,
-  regionalPriorityForThreeDLaunchLab
+  familyForVisualizationTemplate
 } from "./threeDSceneMath";
 import type {
   ThreeDCanvasRuntime,
@@ -51,9 +49,8 @@ export function resolveConfiguredThreeDRenderPlan({
   value
 }: ConfiguredThreeDRenderPlanInput): ConfiguredThreeDRenderPlan {
   const familyId = explicitFamilyId ?? familyForVisualizationTemplate(templateId);
-  const inferredPremiumLaunch = labId ? isPremiumThreeDLaunchLab(labId) : false;
-  const resolvedPremiumLaunch = premiumLaunch ?? inferredPremiumLaunch;
-  const resolvedRegionalPriority = regionalPriority ?? (labId ? regionalPriorityForThreeDLaunchLab(labId) : undefined);
+  const resolvedPremiumLaunch = premiumLaunch === true;
+  const resolvedRegionalPriority = regionalPriority;
   const requiresAudited2DFallback = labId === "us-ca-math-s6-chapter-04" && templateId === "function-family" && familyId === "three-function-family";
   const state = buildThreeDStateSummary({
     comparison,

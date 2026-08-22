@@ -1,6 +1,19 @@
+import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
+import type { BigIntStats } from "node:fs";
 import path from "node:path";
 import type { NextConfig } from "next";
+import {
+  CA_VIZ_COMPOSED_QA_BUILD_ENV,
+  assertNoQaOnlyInstrumentationSync
+} from "./scripts/assert-no-qa-only-instrumentation.mjs";
+
+const composedQaBuildValue = process.env[CA_VIZ_COMPOSED_QA_BUILD_ENV];
+assertNoQaOnlyInstrumentationSync({
+  env: process.env,
+  mode: composedQaBuildValue === undefined ? "release" : "composed-qa-build",
+  root: process.cwd()
+});
 
 const distDir = process.env.NEXT_DIST_DIR?.trim();
 const explicitTsconfigPath = process.env.NEXT_TSCONFIG_PATH?.trim();
@@ -36,6 +49,53 @@ function sweepOrphanedDisposableTsconfigs(currentFileName: string) {
   }
 }
 
+function isSingleRegularFile(identity: BigIntStats) {
+  return identity.isFile() && !identity.isSymbolicLink() && identity.nlink === BigInt(1);
+}
+
+function sameFsObject(left: BigIntStats, right: BigIntStats) {
+  return left.dev === right.dev &&
+    left.ino === right.ino &&
+    left.nlink === right.nlink &&
+    left.isFile() === right.isFile();
+}
+
+function writeExclusiveDisposableTsconfig(filePath: string, content: string) {
+  let descriptor: number | undefined;
+  try {
+    descriptor = fs.openSync(
+      filePath,
+      fs.constants.O_WRONLY |
+        fs.constants.O_CREAT |
+        fs.constants.O_EXCL |
+        (fs.constants.O_NOFOLLOW ?? 0),
+      0o600
+    );
+    const opened = fs.fstatSync(descriptor, { bigint: true });
+    if (!isSingleRegularFile(opened)) {
+      throw new Error("created path is not one regular non-hardlinked file");
+    }
+    fs.writeFileSync(descriptor, content, "utf8");
+    fs.fsyncSync(descriptor);
+    const afterWrite = fs.fstatSync(descriptor, { bigint: true });
+    const pathIdentity = fs.lstatSync(filePath, { bigint: true });
+    if (
+      !isSingleRegularFile(afterWrite) ||
+      !isSingleRegularFile(pathIdentity) ||
+      !sameFsObject(opened, afterWrite) ||
+      !sameFsObject(afterWrite, pathIdentity) ||
+      afterWrite.size !== BigInt(Buffer.byteLength(content, "utf8"))
+    ) {
+      throw new Error("pathname identity changed while the disposable config was written");
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Could not create a safe disposable Next tsconfig at ${filePath}: ${message}`);
+  } finally {
+    if (descriptor !== undefined) fs.closeSync(descriptor);
+  }
+}
+
 // Next.js auto-injects `${distDir}/types/**/*.ts` into whatever tsconfig it is
 // handed. For a custom distDir with no explicit tsconfig that used to be the
 // shared tsconfig.json, so every dev server / ad-hoc build silently rewrote it
@@ -44,40 +104,38 @@ function sweepOrphanedDisposableTsconfigs(currentFileName: string) {
 // pristine. Playwright and other harnesses that pass NEXT_TSCONFIG_PATH keep
 // their explicit config; default builds (no custom distDir) keep tsconfig.next.json.
 function disposableTsconfigForDist(dist: string) {
-  try {
-    const label = dist.replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "dist";
-    const fileName = `tsconfig.dist-${label}.tmp.json`;
-    const content = `${JSON.stringify(
-      {
-        extends: "./tsconfig.json",
-        // Inherited from tsconfig.json via `extends`, but Next only inspects the
-        // top-level file and warns it can't auto-add its plugin otherwise, so
-        // restate it to keep dev startup quiet.
-        compilerOptions: { plugins: [{ name: "next" }] },
-        // A custom distDir writes its route types under `${dist}/types`, not
-        // `.next/types`, so only that dir is added here.
-        include: [
-          "**/*.ts",
-          "**/*.tsx",
-          "components/visualizations/signature/**/*.jsx",
-          "next-env.d.ts",
-          `${dist}/types/**/*.ts`
-        ],
-        // Mirror tsconfig.json's exclude so `**/*.ts` never sweeps stray build
-        // dirs (e.g. private/tmp/*-next) into this dev/build type-check.
-        exclude: ["node_modules", "private", "private/**/*", "Users", "Users/**/*"]
-      },
-      null,
-      2
-    )}\n`;
-    fs.writeFileSync(path.resolve(fileName), content);
-    sweepOrphanedDisposableTsconfigs(fileName);
-    return fileName;
-  } catch {
-    // If we can't write the throwaway config, fall back to the prior behavior
-    // rather than breaking the build.
-    return "tsconfig.json";
-  }
+  const fullLabel = dist.replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "dist";
+  const label = fullLabel.slice(0, 64);
+  const distDigest = createHash("sha256").update(dist).digest("hex").slice(0, 16);
+  // A random suffix plus exclusive creation prevents distinct/concurrent config
+  // loads from sharing a pathname even when their human-readable labels collide.
+  const fileName = `tsconfig.dist-${label}-${distDigest}-${randomUUID()}.tmp.json`;
+  const content = `${JSON.stringify(
+    {
+      extends: "./tsconfig.json",
+      // Inherited from tsconfig.json via `extends`, but Next only inspects the
+      // top-level file and warns it can't auto-add its plugin otherwise, so
+      // restate it to keep dev startup quiet.
+      compilerOptions: { plugins: [{ name: "next" }] },
+      // A custom distDir writes its route types under `${dist}/types`, not
+      // `.next/types`, so only that dir is added here.
+      include: [
+        "**/*.ts",
+        "**/*.tsx",
+        "components/visualizations/signature/**/*.jsx",
+        "next-env.d.ts",
+        `${dist}/types/**/*.ts`
+      ],
+      // Mirror tsconfig.json's exclude so `**/*.ts` never sweeps stray build
+      // dirs (e.g. private/tmp/*-next) into this dev/build type-check.
+      exclude: ["node_modules", "private", "private/**/*", "Users", "Users/**/*"]
+    },
+    null,
+    2
+  )}\n`;
+  writeExclusiveDisposableTsconfig(path.resolve(fileName), content);
+  sweepOrphanedDisposableTsconfigs(fileName);
+  return fileName;
 }
 
 const tsconfigPath =

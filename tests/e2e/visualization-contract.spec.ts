@@ -35,7 +35,7 @@ import { collectPageErrors, expectNoPageErrors, loginAsDemoStudentApi } from "./
 const accessibleLabs = visualizationLabCatalog.filter(
   (lab) =>
     lab.curriculumTrack === "HK" ||
-    (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.premiumLaunch === true)
+    (lab.curriculumTrack === "CAPSTONE" && lab.threeD?.enabled === true && lab.threeD.premiumLaunch === true)
 );
 
 // A deterministic spread across the accessible labs: first, middle, last.

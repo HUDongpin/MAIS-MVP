@@ -433,6 +433,7 @@ export default function SortLab() {
   const [orderBy, setOrderBy] = useState(false);
   const [focus, setFocus] = useState(null); // focused bin index or null
   const [answers, setAnswers] = useState({});
+  const [objectPick, setObjectPick] = useState(0);
 
   // calibration
   const [secret, setSecret] = useState(null); // the hidden attribute
@@ -628,7 +629,7 @@ export default function SortLab() {
       ctx.font = 'italic 12px system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('click an object to sort it →', tr.x + tr.w / 2, tr.y + tr.h - 12);
+      ctx.fillText('pick below or click an object →', tr.x + tr.w / 2, tr.y + tr.h - 12);
     }
 
     /* ---- bins ---- */
@@ -1008,7 +1009,7 @@ export default function SortLab() {
           >
             <canvas ref={canvasRef} />
             <span className="hint mono">
-              {calib ? 'pick the rule below' : 'click an object to sort · click a bin to spotlight'}
+              {calib ? 'pick the rule below' : 'click objects · keyboard picker below'}
             </span>
           </div>
           <p className="sr-only" aria-live="polite">
@@ -1042,6 +1043,21 @@ export default function SortLab() {
 
           {!calib && (
             <div className="toolbar">
+              <div className="object-picker" role="group" aria-label="Choose an object without a pointer" data-viz-keyboard-equivalent="object-picker">
+                <label>
+                  Object
+                  <select value={objectPick} onChange={(e) => setObjectPick(Number(e.target.value))}>
+                    {OBJECTS.map((o) => (
+                      <option key={o.i} value={o.i}>
+                        {o.i + 1}: {o.size} {o.color} {o.shape}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button type="button" className="btn ghost" onClick={() => togglePlaced(objectPick)}>
+                  {placed[objectPick] ? 'Return to tray' : 'Place in bin'}
+                </button>
+              </div>
               <button type="button" className="btn" onClick={sortAll} disabled={allPlaced}>
                 Sort them! ✨
               </button>
@@ -1350,6 +1366,45 @@ export default function SortLab() {
           display: flex;
           gap: 8px;
           flex-wrap: wrap;
+          align-items: end;
+        }
+        .object-picker {
+          display: flex;
+          flex: 1 1 300px;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: end;
+          padding: 7px;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .object-picker label {
+          display: inline-flex;
+          flex: 1 1 160px;
+          min-width: 0;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+        .object-picker select {
+          width: 100%;
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 600 12px/1.2 system-ui, sans-serif;
+          text-transform: none;
+        }
+        .object-picker .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;

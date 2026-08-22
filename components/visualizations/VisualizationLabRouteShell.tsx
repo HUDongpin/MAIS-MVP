@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import { useCallback, useState } from "react";
+import { useSettings } from "@/components/providers/AppProviders";
 import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
 import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { GradeId } from "@/types";
@@ -43,9 +44,16 @@ function VisualizationLabRouteLoadingShell({
 }: {
   requestedLabId: string | null;
 }) {
+  const { t } = useSettings();
+
   return (
     <section
-      aria-label="Visualization Lab workspace"
+      id={requestedLabId ? `lab-example-${requestedLabId}` : undefined}
+      aria-label={t({
+        en: "Visualization Lab workspace",
+        zh: "可視化實驗室工作區",
+        zhHans: "可视化实验室工作区"
+      })}
       data-viz-catalog-deferred
       data-viz-panel-mode="loading"
       data-viz-active-lab-id={requestedLabId ?? ""}

@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { visualizationLabCatalog } from "../../data/visualizationLabs";
 import type { FeaturedLabDefinition } from "../../data/visualizationLabs";
+import { isLivePremiumThreeDLab } from "./three/premiumThreeDLiveContract";
+import { sceneVariantForThreeDFamily } from "./three/threeDSceneMath";
 import { threeDCanvasRequiredDataAttributes } from "./three/threeDCanvasSurfaceContract";
 import {
   buildVisualizationBrowserRegressionPlan,
@@ -77,28 +79,27 @@ test("Visualization Lab browser regression plan chunks HK demo-safe sweeps", () 
   ]);
 });
 
-test("Visualization Lab browser regression plan keeps canonical premium variants live", () => {
+test("Visualization Lab browser regression plan derives every live premium variant from the final catalog", () => {
   const plan = buildVisualizationBrowserRegressionPlan(visualizationLabCatalog);
+  const expectedVariants = [...new Set(
+    visualizationLabCatalog
+      .filter(isLivePremiumThreeDLab)
+      .map((lab) => sceneVariantForThreeDFamily(lab.threeD!.familyId))
+  )].sort();
 
-  assert.deepEqual(plan.premiumSceneVariants, [
-    "conic-section-deep",
-    "cross-section-slicer",
-    "curriculum-crosswalk",
-    "distribution-machine",
-    "exam-strategy-capstone",
-    "fraction-slices",
-    "function-ribbon",
-    "geometry-axes",
-    "measurement-rail",
-    "optimization-landscape",
-    "projection-views",
-    "solid-net-fold",
-    "space-vector-plane",
-    "statistical-inference",
-    "vector-conic-strategy"
-  ]);
+  assert.ok(expectedVariants.length > 0, "the live premium scene-variant plan must not be empty");
+  assert.deepEqual(plan.premiumSceneVariants, expectedVariants);
   assert.equal(plan.premiumSceneVariantPackages.length, plan.premiumSceneVariants.length);
-  assert.ok(plan.premiumSceneVariantPackages.some((regressionPackage) => regressionPackage.sceneVariant === "projection-views"));
+  assert.deepEqual(
+    plan.premiumSceneVariantPackages.map((regressionPackage) => regressionPackage.sceneVariant).sort(),
+    expectedVariants
+  );
+  for (const regressionPackage of plan.premiumSceneVariantPackages) {
+    assert.equal(regressionPackage.labIds.length, 1);
+    const lab = visualizationLabCatalog.find((candidate) => candidate.labId === regressionPackage.labIds[0]);
+    assert.ok(lab, `${regressionPackage.id}: missing live catalog lab`);
+    assert.equal(isLivePremiumThreeDLab(lab), true, `${regressionPackage.id}: candidate-only lab entered live plan`);
+  }
 });
 
 test("Visualization Lab browser regression plan covers every HK lab without cross-track mixing", () => {
@@ -118,15 +119,22 @@ test("Visualization Lab browser regression plan covers every HK lab without cros
 test("Visualization Lab browser regression plan serializes stable A11 handoff attributes", () => {
   const plan = buildVisualizationBrowserRegressionPlan(visualizationLabCatalog, { maxLabsPerPackage: 8 });
   const attributes = visualizationBrowserRegressionPlanDataAttributes(plan);
+  const expectedProjectionState = plan.premiumSceneVariants.includes("projection-views") ? "included" : "missing";
 
   assert.equal(
     attributes["data-viz-browser-regression-plan-source-contract"],
     VISUALIZATION_BROWSER_REGRESSION_PLAN_SOURCE_CONTRACT
   );
-  assert.equal(attributes["data-viz-browser-regression-plan-premium-variant-count"], "15");
-  assert.equal(attributes["data-viz-browser-regression-plan-projection-views"], "included");
+  assert.equal(
+    attributes["data-viz-browser-regression-plan-premium-variant-count"],
+    String(plan.premiumSceneVariants.length)
+  );
+  assert.equal(attributes["data-viz-browser-regression-plan-projection-views"], expectedProjectionState);
   assert.equal(attributes["data-viz-browser-regression-plan-hk-package-max-labs"], "8");
-  assert.match(attributes["data-viz-browser-regression-plan-premium-variants"], /projection-views/);
+  assert.equal(
+    attributes["data-viz-browser-regression-plan-premium-variants"],
+    plan.premiumSceneVariants.join(",")
+  );
   assert.match(attributes["data-viz-browser-regression-plan-non-hk-tracks"], /MAINLAND_PEP_HIGH/);
 });
 

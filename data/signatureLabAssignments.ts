@@ -17,10 +17,9 @@
  * embedded even though there are far fewer CA topics than benches.
  *
  * Generated from `scripts/build-signature-lab-candidates.ts` (a CCSS join,
- * enriched by `data/signatureLabCcssOverrides.ts`). Phase-0 topics and the two
- * F-LE topics keep hand-written primaries/rationales; every already-rendering
- * primary is pinned so coverage only ever grows. `related` only names ported
- * benches. Do not hand-edit; re-run the generator.
+ * enriched by `data/signatureLabCcssOverrides.ts`) and then semantically ordered
+ * by A18 review. `related` only names ported benches. A generator rerun must
+ * preserve the reviewed primary/related contract or be followed by a new audit.
  */
 
 /** Every ported bench in `components/visualizations/signature/`. */
@@ -50,10 +49,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on K.CC.4, K.CC.5, K.CC.6, K.CC.7. 2 benches share these standards; CountingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-k-k-oa-compose-decompose": {
-    primary: "SubtractionLab",
-    related: ["NumberBondLab", "StoryProblemLab"],
+    primary: "NumberBondLab",
+    related: ["StoryProblemLab", "SubtractionLab"],
     rationale:
-      "CCSS join on K.OA.1, K.OA.2, K.OA.3, K.OA.4, K.OA.5. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs. StoryProblemLab was ported on 2026-07-25 and is the only bench that turns a word problem into the number sentence — K.OA.2's own subject."
+      "K.OA compose/decompose is a part-whole action before it is a subtraction procedure. NumberBondLab leads; StoryProblemLab connects a context to the number sentence and SubtractionLab remains an exact related operation model."
   },
   "us-ca-math-k-k-nbt-teen-numbers": {
     primary: "TeenNumbersLab",
@@ -80,10 +79,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 1.OA.1, 1.OA.2, 1.OA.3, 1.OA.4, 1.OA.5, 1.OA.6, 1.OA.7, 1.OA.8. 6 benches share these standards; AssociativeAdditionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p1-1-nbt-place-value": {
-    primary: "HundredChartLab",
-    related: ["NumberLab", "TeenNumbersLab", "TwoDigitNumberLab", "ComparingLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab", "PlaceJumpLab"],
+    primary: "TwoDigitNumberLab",
+    related: ["HundredChartLab", "NumberLab", "TeenNumbersLab", "ComparingLab", "PlaceJumpLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab"],
     rationale:
-      "CCSS join on 1.NBT.1, 1.NBT.2, 1.NBT.3, 1.NBT.4, 1.NBT.5, 1.NBT.6. 7 benches share these standards; HundredChartLab anchors the topic (fan-out) and the rest are offered as related labs. PlaceJumpLab was ported on 2026-07-25 and is the only bench for 1.NBT.5 — ten more / ten less as a one-column jump."
+      "TwoDigitNumberLab directly exposes tens and ones, the organizing idea of 1.NBT. HundredChartLab and the remaining exact number, comparison, ten-more/less, strategy, and regrouping models follow in conceptual order."
   },
   "us-ca-math-p1-1-md-measure-data": {
     primary: "LengthComparisonLab",
@@ -101,13 +100,13 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
     primary: "OddEvenLab",
     related: [],
     rationale:
-      "CCSS join on 2.OA.1, 2.OA.2, 2.OA.3, 2.OA.4. 1 bench share this standard; OddEvenLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "No current bench exactly covers the former combined fluency/array route. OddEvenLab exactly models 2.OA.C.3, so the visible catalog route is deliberately narrowed to odd/even pairing instead of overstating the unavailable strands."
   },
   "us-ca-math-p2-2-nbt-three-digit-place-value": {
-    primary: "TwoDigitNumberLab",
-    related: ["ComparingLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab", "PlaceJumpLab", "MultiplesLab"],
+    primary: "NumberLab",
+    related: ["PlaceJumpLab", "ComparingLab", "PlaceValueStrategiesLab", "RegroupingSubtractionLab", "TwoDigitNumberLab", "MultiplesLab"],
     rationale:
-      "CCSS join on 2.NBT.1, 2.NBT.2, 2.NBT.3, 2.NBT.4, 2.NBT.5, 2.NBT.6, 2.NBT.7, 2.NBT.8, 2.NBT.9. 4 benches share these standards; TwoDigitNumberLab anchors the topic (fan-out) and the rest are offered as related labs. PlaceJumpLab was ported on 2026-07-25 and is the only bench for 2.NBT.8 — mentally add or subtract 10 or 100, including the cascade at the nines."
+      "NumberLab is the only assigned model broad enough to lead a three-digit place-value route. PlaceJumpLab then makes 10/100 changes visible; comparison, strategy, regrouping, two-digit readiness, and multiples remain exact supporting models."
   },
   "us-ca-math-p2-2-md-measure-data-money-time": {
     primary: "MeasurementLab",
@@ -146,16 +145,16 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 3.MD.1, 3.MD.2, 3.MD.3, 3.MD.4, 3.MD.5, 3.MD.6, 3.MD.7, 3.MD.8. 8 benches share these standards; TimeLab anchors the topic (fan-out) and the rest are offered as related labs. Three tags were added 2026-07-25: AreaLab already taught 3.MD.5/3.MD.6 (area as an attribute, measured by counting unit squares) as its centrepiece but only claimed 3.MD.7; 3.MD.4 needs both new benches — FractionLinePlotLab for the halves/quarters scale and LinePlotLab for the measure-then-mark action."
   },
   "us-ca-math-p3-3-g-categories": {
-    primary: "EqualAreasLab",
-    related: ["QuadrilateralLab"],
+    primary: "QuadrilateralLab",
+    related: ["EqualAreasLab"],
     rationale:
-      "CCSS join on 3.G.1, 3.G.2. 2 benches share these standards; EqualAreasLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "QuadrilateralLab directly leads classification into shape categories under 3.G.1; EqualAreasLab follows for the equal-area partition work in 3.G.2."
   },
   "us-ca-math-p4-4-oa-factors-patterns": {
-    primary: "MultiplicativeComparisonLab",
-    related: ["DivisionLab", "FactorLab", "MultiplesLab", "PrimeNumbersLab", "PatternsLab"],
+    primary: "FactorLab",
+    related: ["PatternsLab", "MultiplesLab", "PrimeNumbersLab", "MultiplicativeComparisonLab", "DivisionLab"],
     rationale:
-      "CCSS join on 4.OA.1, 4.OA.2, 4.OA.3, 4.OA.4, 4.OA.5. 6 benches share these standards; MultiplicativeComparisonLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The route names factors and patterns, so FactorLab leads the exact 4.OA.4 factor-pair work and PatternsLab follows for 4.OA.5. Multiples, primes, multiplicative comparison, and division remain exact related models."
   },
   "us-ca-math-p4-4-nbt-multi-digit": {
     primary: "ComparingLab",
@@ -200,10 +199,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 5.NF.1, 5.NF.2, 5.NF.3, 5.NF.4, 5.NF.5, 5.NF.6, 5.NF.7. 7 benches share these standards; FractionAdditionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p5-5-md-volume-data": {
-    primary: "UnitConversionLab",
-    related: ["FractionLinePlotLab", "VolumeLab"],
+    primary: "VolumeLab",
+    related: ["FractionLinePlotLab", "UnitConversionLab"],
     rationale:
-      "CCSS join on 5.MD.1, 5.MD.2, 5.MD.3, 5.MD.4, 5.MD.5. 3 benches share these standards; UnitConversionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "VolumeLab directly models the chapter's 5.MD.3-.5 volume core. FractionLinePlotLab and UnitConversionLab retain the data and conversion strands as related models."
   },
   "us-ca-math-p5-5-g-coordinate-shapes": {
     primary: "PointLab",
@@ -212,22 +211,22 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 5.G.1, 5.G.2, 5.G.3, 5.G.4. PointLab anchors on the coordinate half (5.G.1/5.G.2). QuadrilateralLab was tagged 5.G.3/5.G.4 on 2026-07-25: its 'quadrilateral family' step IS the shape hierarchy the two classification standards ask for, and nothing on this topic had claimed them."
   },
   "us-ca-math-p1-1-h1-picture-join-stories-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "NumberBondLab"],
+    primary: "AddLab",
+    related: ["NumberBondLab", "SubtractionLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.6. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "This is explicitly a join story, so AddLab leads. NumberBondLab exposes the part-whole structure and SubtractionLab supports the inverse relationship."
   },
   "us-ca-math-p1-1-h2-picture-story-addition-equations": {
-    primary: "EqualSignLab",
-    related: ["AddLab"],
+    primary: "AddLab",
+    related: ["EqualSignLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.7, 1.OA.8. 2 benches share these standards; EqualSignLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The lesson first models addition from a picture story, so AddLab leads; EqualSignLab follows for reading and checking the resulting equation."
   },
   "us-ca-math-p1-1-h3-cube-train-join-models-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "NumberBondLab"],
+    primary: "AddLab",
+    related: ["NumberBondLab", "SubtractionLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.6. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The cube train is a concrete join model, so AddLab leads. NumberBondLab exposes its part-whole structure and SubtractionLab supports the inverse relationship."
   },
   "us-ca-math-p1-1-h4-join-stories-within-10": {
     primary: "NumberBondLab",
@@ -236,16 +235,16 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 1.OA.1, 1.OA.6. 3 benches share these standards; NumberBondLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p1-1-h5-model-equation-join-stories-to-10": {
-    primary: "SubtractionLab",
-    related: ["AddLab", "EqualSignLab"],
+    primary: "AddLab",
+    related: ["EqualSignLab", "SubtractionLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.5, 1.OA.7. 3 benches share these standards; SubtractionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The named action is joining, so AddLab leads. EqualSignLab supports the equation representation and SubtractionLab keeps the exact inverse connection available."
   },
   "us-ca-math-p1-1-h6-equation-match-join-stories-to-10": {
-    primary: "EqualSignLab",
-    related: ["AddLab"],
+    primary: "AddLab",
+    related: ["EqualSignLab"],
     rationale:
-      "CCSS join on 1.OA.1, 1.OA.7, 1.OA.8. 2 benches share these standards; EqualSignLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "Students first identify the addition represented by the join story, so AddLab leads; EqualSignLab follows for matching and checking the equation."
   },
   "us-ca-math-p1-1-l1-picture-take-away-stories-to-10": {
     primary: "SubtractionLab",
@@ -290,10 +289,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 6.RP.1, 6.RP.2, 6.RP.3. 3 benches share these standards; RatioLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-p6-chapter-02": {
-    primary: "FractionDivisionLab",
-    related: ["DistributiveLab", "EquivalentFractionsLab", "GreatestCommonFactorLab", "LCMLab", "PrimeFactorizationLab", "IntegerLab", "PointLab", "RationalNumbersLab", "AbsoluteValueLab", "LongDivisionLab", "DecimalArithmeticLab"],
+    primary: "RationalNumbersLab",
+    related: ["IntegerLab", "AbsoluteValueLab", "PointLab", "FractionDivisionLab", "DecimalArithmeticLab", "LongDivisionLab", "GreatestCommonFactorLab", "LCMLab", "PrimeFactorizationLab", "DistributiveLab", "EquivalentFractionsLab"],
     rationale:
-      "CCSS join on 6.NS.1, 6.NS.2, 6.NS.3, 6.NS.4, 6.NS.5, 6.NS.6, 6.NS.7, 6.NS.8. 10 benches share these standards; FractionDivisionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "RationalNumbersLab directly anchors the route's rational-number and number-line meaning. Signed integers, absolute value, coordinates, arithmetic, factors, and distributive/equivalence readiness follow as exact related models."
   },
   "us-ca-math-p6-chapter-03": {
     primary: "OperationsLab",
@@ -320,16 +319,16 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 7.RP.1, 7.RP.2, 7.RP.3. 2 benches share these standards; ProportionalLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s1-chapter-02": {
-    primary: "AbsoluteValueLab",
-    related: ["SignedAdditionLab", "RationalNumbersLab", "SignedNumbersLab"],
+    primary: "SignedAdditionLab",
+    related: ["SignedNumbersLab", "RationalNumbersLab", "AbsoluteValueLab"],
     rationale:
-      "CCSS join on 7.NS.1, 7.NS.2, 7.NS.3. 4 benches share these standards; AbsoluteValueLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "SignedAdditionLab leads the route's operation-with-rational-numbers action. Signed-number meaning, rational-number placement, and absolute value follow as exact supporting models."
   },
   "us-ca-math-s1-chapter-03": {
-    primary: "CommutativeLab",
-    related: ["DistributiveLab", "FormulaLab", "InequalityLab", "LikeTermsLab"],
+    primary: "DistributiveLab",
+    related: ["LikeTermsLab", "EquationLab", "InequalityLab", "FormulaLab", "CommutativeLab"],
     rationale:
-      "CCSS join on 7.EE.1, 7.EE.2, 7.EE.3, 7.EE.4. 5 benches share these standards; CommutativeLab anchors the topic (fan-out) and the rest are offered as related labs. LikeTermsLab was joined by 7.EE.2 but omitted from this list until 2026-07-25, leaving 7.EE.2 with no bench."
+      "DistributiveLab leads equivalent-expression work under 7.EE.1. Like terms, equations, inequalities, formulas, and the commutative property then provide the exact chapter sequence."
   },
   "us-ca-math-s1-chapter-04": {
     primary: "ScaleDrawingLab",
@@ -344,10 +343,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 7.SP.1, 7.SP.2, 7.SP.3, 7.SP.4, 7.SP.5, 7.SP.6, 7.SP.7, 7.SP.8. 4 benches share these standards; SamplingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s2-chapter-01": {
-    primary: "ExponentRulesLab",
-    related: ["RationalExponentLab", "RootsLab", "ScientificNotationLab", "ProportionalLab", "TwoVariableInequalityLab", "DilationsLab", "EquationLab", "SubstitutionLab", "SystemsOfEquationsLab", "IrrationalLab", "RationalNumbersLab"],
+    primary: "EquationLab",
+    related: ["SystemsOfEquationsLab", "IrrationalLab", "RationalNumbersLab"],
     rationale:
-      "CCSS join on 8.EE.1-8, plus 8.NS.1-2 added to this chapter on 2026-07-25 (8.NS had no CA chapter, so the irrationals that radicals depend on were unreachable). 12 benches share these standards; ExponentRulesLab anchors the topic (fan-out) and the rest are offered as related labs. IrrationalLab and RationalNumbersLab carry 8.NS."
+      "The curated chapter source is 8.EE.C.7-.8 plus 8.NS.A.1-.2, not the whole 8.EE domain. EquationLab leads linear-equation readiness; SystemsOfEquationsLab, IrrationalLab, and RationalNumbersLab cover the remaining exact split."
   },
   "us-ca-math-s2-chapter-02": {
     primary: "FunctionLab",
@@ -356,16 +355,16 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on 8.F.1, 8.F.2, 8.F.3, 8.F.4, 8.F.5. 5 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs. CompositionLab was ported on 2026-07-25; it takes 8.F.1 (one input, exactly one output) as its on-ramp before chaining two machines."
   },
   "us-ca-math-s2-chapter-03": {
-    primary: "CongruenceLab",
-    related: ["TransformationsLab", "DilationsLab", "TransversalLab", "TriangleLab", "PythagorasLab", "RectangularPrismLab", "DistanceLab", "ConeLab", "CylinderLab", "PyramidLab", "SphereLab"],
+    primary: "TransformationsLab",
+    related: ["CongruenceLab", "DilationsLab", "TransversalLab", "TriangleLab"],
     rationale:
-      "CCSS join on 8.G.1, 8.G.2, 8.G.3, 8.G.4, 8.G.5, 8.G.6, 8.G.7, 8.G.8, 8.G.9. 12 benches share these standards; CongruenceLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The curated source limits this chapter to transformation/similarity cluster 8.G.A.1-.5. TransformationsLab leads; congruence, dilation, transversal, and triangle models complete that exact cluster without Pythagorean or volume drift."
   },
   "us-ca-math-s2-chapter-04": {
-    primary: "CongruenceLab",
-    related: ["TransformationsLab", "DilationsLab", "TransversalLab", "TriangleLab", "PythagorasLab", "RectangularPrismLab", "DistanceLab", "ConeLab", "CylinderLab", "PyramidLab", "SphereLab"],
+    primary: "PythagorasLab",
+    related: ["DistanceLab", "RootsLab", "ExponentRulesLab", "ScientificNotationLab", "RectangularPrismLab", "ConeLab", "CylinderLab", "PyramidLab", "SphereLab"],
     rationale:
-      "CCSS join on 8.G.1, 8.G.2, 8.G.3, 8.G.4, 8.G.5, 8.G.6, 8.G.7, 8.G.8, 8.G.9. 12 benches share these standards; CongruenceLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The curated source is 8.G.B.6-.8, 8.G.C.9, with 8.EE.A exponent/root readiness. PythagorasLab leads; distance, roots, exponents, scientific notation, and solid-volume models follow without transformation-cluster drift."
   },
   "us-ca-math-s2-chapter-05": {
     primary: "BestFitLab",
@@ -386,10 +385,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-IF.1-9, plus A-REI.11 added to this chapter on 2026-07-25 — reading the x-values where f(x) = g(x) off the graph is function interpretation, and AbsoluteValueLab (already related here) is the bench that teaches it. 9 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s3-chapter-03": {
-    primary: "ExponentialFunctionLab",
-    related: ["LogarithmLab"],
+    primary: "LineParabolaLab",
+    related: ["QuadraticEquationLab", "QuadraticPolynomialLab", "FactoringQuadraticsLab", "EquationLab", "SystemsOfEquationsLab", "EliminationLab"],
     rationale:
-      "F-LE.1-5 (linear vs exponential models). ExponentialFunctionLab's constant-ratio staircase is the defining contrast to linear growth, so it anchors the chapter; LogarithmLab (the exponential's inverse) rides along as related."
+      "The curated lesson source assigns A-REI plus A-SSE.1-.3 to this linear/quadratic chapter, not F-LE. LineParabolaLab leads the linear-quadratic system; equation, structure, factoring, systems, and elimination models complete the exact source-backed route."
   },
   "us-ca-math-s3-chapter-04": {
     primary: "CircleLab",
@@ -434,10 +433,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on S-CP.1, S-CP.2, S-CP.3, S-CP.4, S-CP.5, S-CP.6, S-CP.7, S-CP.8, S-CP.9. 3 benches share these standards; ConditionalLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s5-chapter-01": {
-    primary: "SequencesLab",
-    related: ["AbsoluteValueLab", "UndoLab", "CompositionLab"],
+    primary: "AbsoluteValueLab",
+    related: ["UndoLab", "CompositionLab", "SequencesLab"],
     rationale:
-      "CCSS join on F-BF.1, F-BF.2, F-BF.3, F-BF.4, F-BF.5. 4 benches share these standards; SequencesLab anchors the topic (fan-out) and the rest are offered as related labs. CompositionLab was ported on 2026-07-25 and carries F-BF.1b/1c (combine and compose standard function types) — the half of F-BF.1 that UndoLab (the inverse) does not."
+      "AbsoluteValueLab gives the clearest visible parent-function transformation for the route title. UndoLab, CompositionLab, and SequencesLab follow for inverses, function composition/building, and recursive construction."
   },
   "us-ca-math-s5-chapter-02": {
     primary: "ExponentialFunctionLab",
@@ -452,10 +451,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on F-TF.1, F-TF.2, F-TF.3, F-TF.4, F-TF.5, F-TF.6, F-TF.7, F-TF.8, F-TF.9. 9 benches share these standards; UnitCircleLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s5-chapter-04": {
-    primary: "BoxPlotLab",
-    related: ["HistogramLab", "StandardDeviationLab", "VarianceLab", "NormalDistributionLab", "TableLab", "BestFitLab", "CorrelationLab", "LurkingVariableLab"],
+    primary: "BestFitLab",
+    related: ["CorrelationLab", "LurkingVariableLab", "BoxPlotLab", "HistogramLab", "StandardDeviationLab", "VarianceLab", "NormalDistributionLab", "TableLab"],
     rationale:
-      "CCSS join on S-ID.1, S-ID.2, S-ID.3, S-ID.4, S-ID.5, S-ID.6, S-ID.7, S-ID.8, S-ID.9. 9 benches share these standards; BoxPlotLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "The route is Data Modeling and Residuals, so BestFitLab leads the model-fit action. Correlation and lurking-variable analysis follow before the exact distribution and table support models."
   },
   "us-ca-math-s5-chapter-05": {
     primary: "SamplingLab",
@@ -464,10 +463,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on S-IC.1, S-IC.2, S-IC.3, S-IC.4, S-IC.5, S-IC.6. 2 benches share these standards; SamplingLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s6-chapter-01": {
-    primary: "VectorLab",
-    related: ["MatrixLab", "BestFitLab", "CompareFunctionsLab", "FormulaLab", "FunctionLab", "GraphStoryLab", "OptimizationLab"],
+    primary: "FormulaLab",
+    related: ["UnitConversionLab", "RoundingLab", "ScientificNotationLab"],
     rationale:
-      "N-Q.1-3 (this chapter is 12-A.1 Quantities, Units, and Precision), plus N-VM.1-3, N-VM.6-12, A-REI.8 and A-REI.9 added on 2026-07-25 — vector and matrix quantities sit in the same CCSS Number & Quantity category and had no chapter at all. Until then the description scrape reduced this chapter to the bare 'Modeling' token and BestFitLab anchored it. VectorLab — a quantity with magnitude and direction, N-VM.1 — now anchors the quantities chapter; MatrixLab carries N-VM.6-12 and the matrix form of a linear system; the modeling benches stay related on the retained 'Modeling' tag."
+      "No current bench exactly covers the full N-Q modeling practice. FormulaLab is the safest foundation-first lead, with UnitConversionLab, RoundingLab, and ScientificNotationLab honestly supporting formulas, units, and precision; vectors and matrices are not claimed."
   },
   "us-ca-math-s6-chapter-02": {
     primary: "PolynomialArithmeticLab",
@@ -482,10 +481,10 @@ export const signatureLabAssignments: Record<string, SignatureLabAssignment> = {
       "CCSS join on S-MD.1, S-MD.2, S-MD.3, S-MD.4, S-MD.5, S-MD.6, S-MD.7. 1 bench share this standard; ExpectedValueLab anchors the topic (fan-out) and the rest are offered as related labs."
   },
   "us-ca-math-s6-chapter-04": {
-    primary: "FunctionLab",
-    related: ["SequencesLab", "AbsoluteValueLab", "PiecewiseLab", "PolynomialFunctionLab", "QuadraticFunctionLab", "QuadraticPolynomialLab", "RationalFunctionLab", "CompareFunctionsLab"],
+    primary: "LineFunctionLab",
+    related: ["FunctionLab", "SequencesLab", "AbsoluteValueLab", "PiecewiseLab", "PolynomialFunctionLab", "QuadraticFunctionLab", "QuadraticPolynomialLab", "RationalFunctionLab", "CompareFunctionsLab"],
     rationale:
-      "CCSS join on F-IF.1, F-IF.2, F-IF.3, F-IF.4, F-IF.5, F-IF.6, F-IF.7, F-IF.8, F-IF.9. 9 benches share these standards; FunctionLab anchors the topic (fan-out) and the rest are offered as related labs."
+      "LineFunctionLab is the safest rate-first primary among the current F-IF benches. The existing function-family benches remain related; coverage of F-IF.6 is explicitly partial until a dedicated average-rate bench exists, and DerivativeLab is deliberately not substituted."
   },
   "us-ca-math-s6-chapter-05": {
     primary: "CompareFunctionsLab",

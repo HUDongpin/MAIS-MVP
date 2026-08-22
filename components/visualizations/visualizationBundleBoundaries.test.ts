@@ -47,13 +47,18 @@ test("ConfiguredVisualizationLab keeps the Three.js canvas in a lazy runtime chu
 test("premium 3D direct topic route stays off the full catalog path", () => {
   const routeSource = fs.readFileSync("app/student/tools/visualizations/[labId]/page.tsx", "utf8");
   const directMetadataSource = fs.readFileSync("components/visualizations/premiumThreeDDirectLabs.ts", "utf8");
+  const generatedMetadataSource = fs.readFileSync(
+    "components/visualizations/generated/premiumThreeDDirectCatalog.generated.ts",
+    "utf8"
+  );
   const directMetadataImportLines = directMetadataSource
     .split("\n")
     .filter((line) => line.includes("@/data/visualizationLabs"));
 
   assert.match(routeSource, /PremiumThreeDDirectRouteShell/);
   assert.match(routeSource, /getPremiumThreeDDirectLab\(normalizedLabId\)/);
-  assert.match(routeSource, /if \(directLab\?\.threeD\?\.premiumLaunch\)/);
+  assert.match(routeSource, /if \(directLab && isLivePremiumThreeDLab\(directLab\)\)/);
+  assert.match(routeSource, /export const dynamicParams = false/);
   assert.doesNotMatch(routeSource, /VisualizationLabRouteShell/);
   assert.doesNotMatch(routeSource, /@\/data\/visualizationLabs/);
   const directShellSource = fs.readFileSync("components/visualizations/PremiumThreeDDirectRouteShell.tsx", "utf8");
@@ -78,24 +83,31 @@ test("premium 3D direct topic route stays off the full catalog path", () => {
     'import type { FeaturedLabDefinition } from "@/data/visualizationLabs";'
   ]);
   assert.match(directMetadataSource, /import type \{ FeaturedLabDefinition \} from "@\/data\/visualizationLabs"/);
-  assert.match(directMetadataSource, /us-ca-math-s4-chapter-05/);
-  assert.match(directMetadataSource, /buildGenericPremiumThreeDDirectLab/);
-  assert.match(directMetadataSource, /isPremiumThreeDLaunchLab\(labId\)/);
+  assert.match(directMetadataSource, /premiumThreeDDirectCatalogSnapshot/);
+  assert.match(directMetadataSource, /premiumThreeDDirectLabIds/);
+  assert.match(directMetadataSource, /isLivePremiumThreeDLab\(lab\)/);
+  assert.doesNotMatch(directMetadataSource, /buildGenericPremiumThreeDDirectLab/);
+  assert.doesNotMatch(directMetadataSource, /isPremiumThreeDLaunchLab/);
+  assert.doesNotMatch(directMetadataSource, /humanizeLabId|catalogTemplateByPremiumLabId/);
+  assert.match(generatedMetadataSource, /us-ca-math-s4-chapter-04/);
+  assert.doesNotMatch(generatedMetadataSource, /us-ca-math-s4-chapter-05/);
+  assert.match(generatedMetadataSource, /import type \{ FeaturedLabDefinition \}/);
+  assert.doesNotMatch(generatedMetadataSource, /import \{ FeaturedLabDefinition \}/);
 });
 
-test("reported PEP S4 plane vectors direct lab preserves the vector-conic 3D mode", () => {
-  const lab = getPremiumThreeDDirectLab("pep-high-s4-plane-vectors");
+test("verified California trigonometry direct lab preserves the canonical 3D mode", () => {
+  const lab = getPremiumThreeDDirectLab("us-ca-math-s5-chapter-03");
 
   assert.ok(lab);
-  assert.equal(lab.templateId, "vector-conic-3d/strategy-map");
-  assert.equal(lab.threeD?.fallbackTemplateId, "vector-conic-3d/strategy-map");
-  assert.equal(lab.threeD?.familyId, "three-vector-conic-strategy");
+  assert.equal(lab.templateId, "trig-unit-wave");
+  assert.equal(lab.threeD?.fallbackTemplateId, "trig-unit-wave");
+  assert.equal(lab.threeD?.familyId, "three-trig-unit-wave");
   assert.equal(lab.threeD?.premiumLaunch, true);
   assert.equal(lab.threeD?.enabled, true);
 });
 
-test("HK functions direct lab stays on the canonical function graph Manim scene", () => {
-  const lab = getPremiumThreeDDirectLab("functions");
+test("verified California structure direct lab stays on the canonical function graph Manim scene", () => {
+  const lab = getPremiumThreeDDirectLab("us-ca-math-s4-chapter-04");
 
   assert.ok(lab);
   assert.equal(lab.analyticsSource, "function-graph");
@@ -163,6 +175,7 @@ test("visualization route shell defers the full lab page until after shell load"
   assert.match(shellSource, /function getRouteShellRequestedLabId\(/);
   assert.match(shellSource, /studentVisualizationToolsPath/);
   assert.match(shellSource, /function VisualizationLabRouteLoadingShell\(/);
+  assert.match(shellSource, /id=\{requestedLabId \? `lab-example-\$\{requestedLabId\}` : undefined\}/);
   assert.doesNotMatch(shellSource, /deferLoadingWorkspaceSelectorUntilHydrated/);
   assert.doesNotMatch(shellSource, /deferWorkspaceSelectorUntilHydrated/);
   assert.doesNotMatch(shellSource, /workspaceSelectorHydrated/);
@@ -199,5 +212,5 @@ test("visualization route shell defers the full lab page until after shell load"
   assert.doesNotMatch(premiumTopicRouteSource, /VisualizationLabRouteShell/);
   assert.doesNotMatch(premiumTopicRouteSource, /deferLoadingWorkspaceSelectorUntilHydrated/);
   assert.doesNotMatch(premiumTopicRouteSource, /@\/data\/visualizationLabs/);
-  assert.doesNotMatch(premiumTopicRouteSource, /export const dynamicParams = false/);
+  assert.match(premiumTopicRouteSource, /export const dynamicParams = false/);
 });

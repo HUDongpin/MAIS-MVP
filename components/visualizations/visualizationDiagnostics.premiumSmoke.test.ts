@@ -183,18 +183,17 @@ test("premium CAPSTONE topic pages are allowed through the authenticated learner
   const pageSource = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
 
   assert.match(pageSource, /lab\.curriculumTrack === "CAPSTONE"/);
-  assert.match(pageSource, /premiumLaunch/);
+  assert.match(pageSource, /isPremiumThreeDTopicPageLab\(lab\)/);
   assert.match(pageSource, /labMatchesLearnerCurriculum/);
 });
 
 test("premium direct topic labs render the same template and 3D family as the catalog", async () => {
-  const [{ getPremiumThreeDDirectLab }, { premiumThreeDLaunchLabIds }, { getVisualizationLabByLabId }] = await Promise.all([
+  const [{ getPremiumThreeDDirectLab, premiumThreeDDirectLabIds }, { getVisualizationLabByLabId }] = await Promise.all([
     import("./premiumThreeDDirectLabs"),
-    import("./three/threeDSceneMath"),
     import("../../data/visualizationLabs")
   ]);
 
-  for (const labId of premiumThreeDLaunchLabIds) {
+  for (const labId of premiumThreeDDirectLabIds) {
     const directLab = getPremiumThreeDDirectLab(labId);
     const catalogLab = getVisualizationLabByLabId(labId);
 
@@ -203,7 +202,7 @@ test("premium direct topic labs render the same template and 3D family as the ca
     assert.equal(
       directLab!.templateId,
       catalogLab!.templateId,
-      `${labId} direct-route template must match the catalog (regenerate catalogTemplateByPremiumLabId)`
+      `${labId} direct-route template must match the generated catalog snapshot`
     );
     assert.equal(
       directLab!.threeD?.familyId,

@@ -1,12 +1,23 @@
 import { randomUUID } from "crypto";
 import postgres from "postgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
+import {
+  appendLearningEventsInFastTransaction,
+  clearLearningEventsInFastTransaction,
+  FastLearningEventAtomicConflictError,
+  type FastLearningEventAppendResult,
+  type FastLearningEventClearResult,
+  type FastLearningEventTransactionAdapter,
+  type LearningEventGenerationState,
+  type StoredFastLearningEventRow
+} from "@/lib/server/learningEventFastPersistence";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
 import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
 
 type CurriculumScope = CurriculumTrack | CurriculumProfile | undefined | null;
-type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
+export type LearningEventPostgresExecutor = postgres.Sql | postgres.TransactionSql;
+type PostgresExecutor = LearningEventPostgresExecutor;
 
 type SubmitQuestionAttemptFastInput = {
   userId: string;
@@ -94,9 +105,15 @@ const postgresStudentActivitySchemaStatements = [
     grade TEXT NOT NULL,
     topic_id TEXT NOT NULL,
     question_id TEXT,
+    class_id TEXT,
+    assignment_id TEXT,
+    competency_id TEXT,
     duration_seconds INTEGER,
     created_at TIMESTAMPTZ NOT NULL
   )`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS class_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS assignment_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS competency_id TEXT`,
   `CREATE INDEX IF NOT EXISTS learning_events_user_created_at_idx
     ON learning_events(user_id, created_at DESC)`,
   `CREATE INDEX IF NOT EXISTS learning_events_user_topic_created_at_idx
@@ -105,8 +122,13 @@ const postgresStudentActivitySchemaStatements = [
     ON learning_events(topic_id, created_at DESC)`,
   `CREATE TABLE IF NOT EXISTS learning_event_clears (
     user_id TEXT PRIMARY KEY,
-    cleared_at TIMESTAMPTZ NOT NULL
+    cleared_at TIMESTAMPTZ NOT NULL,
+    generation BIGINT NOT NULL DEFAULT 0,
+    request_id TEXT
   )`,
+  `ALTER TABLE learning_event_clears ADD COLUMN IF NOT EXISTS generation BIGINT NOT NULL DEFAULT 0`,
+  `ALTER TABLE learning_event_clears ADD COLUMN IF NOT EXISTS request_id TEXT`,
+  `UPDATE learning_event_clears SET generation = 1 WHERE generation = 0`,
   `CREATE TABLE IF NOT EXISTS reward_point_ledger (
     id TEXT PRIMARY KEY,
     student_id TEXT NOT NULL,
@@ -160,6 +182,12 @@ async function ensurePostgresStudentActivityTables() {
   return postgresActivityReady;
 }
 
+export async function ensureLearningEventFastPathReady() {
+  if (!postgresRowsEnabled()) return false;
+  await ensurePostgresStudentActivityTables();
+  return true;
+}
+
 function normalizedDurationSeconds(durationSeconds?: number) {
   return typeof durationSeconds === "number" && Number.isFinite(durationSeconds) && durationSeconds > 0
     ? Math.round(durationSeconds)
@@ -208,76 +236,207 @@ function attemptFeedback(question: Question, selectedAnswer: string): AttemptFee
   };
 }
 
-function analyticsEventDurationSeconds(event: LearningAnalyticsEvent) {
-  return typeof event.durationSeconds === "number" && Number.isFinite(event.durationSeconds) && event.durationSeconds > 0
-    ? Math.round(event.durationSeconds)
-    : null;
+export async function acquireLearningEventUserLock(sql: PostgresExecutor, userId: string) {
+  await sql`
+    SELECT pg_advisory_xact_lock(
+      hashtextextended(${`mais-learning-events:${userId}`}, 0)
+    )
+  `;
 }
 
-function eventIsAfterClear(event: LearningAnalyticsEvent, clearedAt: string | null) {
-  if (!clearedAt) return true;
-  return new Date(event.timestamp).getTime() > new Date(clearedAt).getTime();
+export async function acquireLearningEventIdLocks(
+  sql: PostgresExecutor,
+  eventIds: readonly string[]
+) {
+  // Event IDs are globally unique, while the clear/generation fence is
+  // user-scoped. Lock IDs in canonical order so different users racing the
+  // same batch cannot each validate an empty row set or deadlock one another.
+  const canonicalIds = [...new Set(eventIds)].sort();
+  for (const eventId of canonicalIds) {
+    await sql`
+      SELECT pg_advisory_xact_lock(
+        hashtextextended(${`mais-learning-event-id:${eventId}`}, 0)
+      )
+    `;
+  }
+}
+
+export function postgresLearningEventTransactionAdapter(
+  sql: PostgresExecutor
+): FastLearningEventTransactionAdapter {
+  return {
+    async readGeneration(userId) {
+      const rows = await sql<Array<{
+        cleared_at: unknown;
+        generation: string | number;
+        request_id: unknown;
+      }>>`
+        SELECT generation, cleared_at::text AS cleared_at, request_id
+        FROM learning_event_clears
+        WHERE user_id = ${userId}
+        LIMIT 1
+      `;
+      if (!rows[0]) return { generation: 0, clearedAt: null, requestId: null };
+      return {
+        generation: Number(rows[0].generation),
+        clearedAt: rows[0].cleared_at === null
+          ? null
+          : new Date(rows[0].cleared_at as string | Date).toISOString(),
+        requestId: typeof rows[0].request_id === "string" ? rows[0].request_id : null
+      };
+    },
+    async writeLegacyRequestId({ userId, generation, requestId }) {
+      await sql`
+        UPDATE learning_event_clears
+        SET request_id = ${requestId}
+        WHERE user_id = ${userId}
+          AND generation = ${generation}
+          AND request_id IS NULL
+      `;
+    },
+    async deleteUserEvents(userId) {
+      await sql`DELETE FROM learning_events WHERE user_id = ${userId}`;
+    },
+    async replaceGeneration({ userId, state }) {
+      const rows = await sql<Array<{
+        cleared_at: unknown;
+        generation: string | number;
+        request_id: unknown;
+      }>>`
+        INSERT INTO learning_event_clears (user_id, cleared_at, generation, request_id)
+        VALUES (${userId}, ${state.clearedAt}, ${state.generation}, ${state.requestId})
+        ON CONFLICT (user_id) DO UPDATE SET
+          cleared_at = excluded.cleared_at,
+          generation = excluded.generation,
+          request_id = excluded.request_id
+        RETURNING generation, cleared_at::text AS cleared_at, request_id
+      `;
+      return {
+        generation: Number(rows[0]?.generation ?? -1),
+        clearedAt: rows[0]?.cleared_at === null || rows[0]?.cleared_at === undefined
+          ? null
+          : new Date(rows[0].cleared_at as string | Date).toISOString(),
+        requestId: typeof rows[0]?.request_id === "string" ? rows[0].request_id : null
+      };
+    },
+    async readEvents(ids) {
+      if (!ids.length) return [];
+      return sql<StoredFastLearningEventRow[]>`
+        SELECT id, user_id, type, source, grade, topic_id, question_id,
+          class_id, assignment_id, competency_id, duration_seconds,
+          created_at::text AS created_at
+        FROM learning_events
+        WHERE id IN ${sql([...ids])}
+      `;
+    },
+    async insertEvents(rows) {
+      if (!rows.length) return [];
+      const mutableRows = rows.map((row) => ({ ...row }));
+      const inserted = await sql`
+        INSERT INTO learning_events ${sql(
+          mutableRows,
+          "id",
+          "user_id",
+          "type",
+          "source",
+          "grade",
+          "topic_id",
+          "question_id",
+          "class_id",
+          "assignment_id",
+          "competency_id",
+          "duration_seconds",
+          "created_at"
+        )}
+        ON CONFLICT (id) DO NOTHING
+        RETURNING id
+      ` as Array<{ id: string }>;
+      return inserted.map((row) => row.id);
+    },
+    async replaceEvents(rows) {
+      if (!rows.length) return;
+      const mutableRows = rows.map((row) => ({ ...row }));
+      await sql`
+        INSERT INTO learning_events ${sql(
+          mutableRows,
+          "id",
+          "user_id",
+          "type",
+          "source",
+          "grade",
+          "topic_id",
+          "question_id",
+          "class_id",
+          "assignment_id",
+          "competency_id",
+          "duration_seconds",
+          "created_at"
+        )}
+        ON CONFLICT (id) DO UPDATE SET
+          type = excluded.type,
+          source = excluded.source,
+          grade = excluded.grade,
+          topic_id = excluded.topic_id,
+          question_id = excluded.question_id,
+          class_id = excluded.class_id,
+          assignment_id = excluded.assignment_id,
+          competency_id = excluded.competency_id,
+          duration_seconds = excluded.duration_seconds,
+          created_at = excluded.created_at
+        WHERE learning_events.user_id = excluded.user_id
+      `;
+    }
+  };
 }
 
 export async function appendLearningEventsFast(
   userId: string,
-  events: LearningAnalyticsEvent[]
-): Promise<number | null> {
+  events: LearningAnalyticsEvent[],
+  generation: number,
+  snapshotGenerationState?: LearningEventGenerationState
+): Promise<FastLearningEventAppendResult | null> {
   if (!postgresRowsEnabled()) return null;
-  if (!events.length) return 0;
 
   await ensurePostgresStudentActivityTables();
-  const sql = getPostgresClient();
-  const clearRows = await sql<{ cleared_at: string }[]>`
-    SELECT cleared_at
-    FROM learning_event_clears
-    WHERE user_id = ${userId}
-    LIMIT 1
-  `;
-  const clearedAt = clearRows[0]?.cleared_at ?? null;
-  const rows = events
-    .filter((event) => eventIsAfterClear(event, clearedAt))
-    .map((event) => ({
-      id: event.id,
-      user_id: userId,
-      type: event.type,
-      source: event.source,
-      grade: event.grade,
-      topic_id: event.topicId,
-      question_id: event.questionId ?? null,
-      duration_seconds: analyticsEventDurationSeconds(event),
-      created_at: event.timestamp
-    }));
-
-  if (!rows.length) return 0;
-
-  const inserted = await sql`
-    INSERT INTO learning_events ${sql(rows, "id", "user_id", "type", "source", "grade", "topic_id", "question_id", "duration_seconds", "created_at")}
-    ON CONFLICT (id) DO NOTHING
-    RETURNING id
-  ` as Array<{ id: string }>;
-
-  return inserted.length;
+  try {
+    return await getPostgresClient().begin(async (sql) => {
+      await acquireLearningEventUserLock(sql, userId);
+      await acquireLearningEventIdLocks(sql, events.map(({ id }) => id));
+      return appendLearningEventsInFastTransaction({
+        transaction: postgresLearningEventTransactionAdapter(sql),
+        userId,
+        events,
+        generation,
+        snapshotGenerationState
+      });
+    });
+  } catch (error) {
+    if (error instanceof FastLearningEventAtomicConflictError) return error.result;
+    throw error;
+  }
 }
 
-export async function clearLearningEventsFast(userId: string, clearedAt = new Date().toISOString()) {
-  if (!postgresRowsEnabled()) return false;
+export async function clearLearningEventsFast(
+  userId: string,
+  clearedAt = new Date().toISOString(),
+  baseGeneration: number,
+  requestId: string,
+  snapshotGenerationState?: LearningEventGenerationState
+): Promise<FastLearningEventClearResult | null> {
+  if (!postgresRowsEnabled()) return null;
 
   await ensurePostgresStudentActivityTables();
-  await getPostgresClient().begin(async (sql) => {
-    await sql`
-      DELETE FROM learning_events
-      WHERE user_id = ${userId}
-    `;
-    await sql`
-      INSERT INTO learning_event_clears (user_id, cleared_at)
-      VALUES (${userId}, ${clearedAt})
-      ON CONFLICT (user_id) DO UPDATE SET
-        cleared_at = excluded.cleared_at
-    `;
+  return getPostgresClient().begin(async (sql) => {
+    await acquireLearningEventUserLock(sql, userId);
+    return clearLearningEventsInFastTransaction({
+      transaction: postgresLearningEventTransactionAdapter(sql),
+      userId,
+      clearedAt,
+      baseGeneration,
+      requestId,
+      snapshotGenerationState
+    });
   });
-
-  return true;
 }
 
 export type FastLearningEventRow = {

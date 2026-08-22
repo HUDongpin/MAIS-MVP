@@ -1,4 +1,5 @@
 import { gradeIds } from "../../data/grades";
+import { isLivePremiumThreeDLab } from "./three/premiumThreeDLiveContract";
 import { sceneVariantForThreeDFamily } from "./three/threeDSceneMath";
 import type { ThreeDFamilyId, ThreeDSceneVariant } from "./three/threeDSceneTypes";
 import { visualizationTemplateIdValues } from "./visualizationTemplateIds";
@@ -280,11 +281,28 @@ const topicTemplateMismatchRules: Array<{
 ];
 
 export function isPremiumThreeDTopicPageLab(lab: FeaturedLabDefinition) {
-  return lab.threeD?.premiumLaunch === true;
+  return isLivePremiumThreeDLab(lab);
 }
 
 export function buildPremiumThreeDTopicPagePath(lab: FeaturedLabDefinition) {
   return `${studentVisualizationToolsPath}/${encodeURIComponent(lab.labId)}`;
+}
+
+/**
+ * Stable URL for the catalog/signature workspace, including premium topics.
+ * Premium topics also have a canonical 3D route; callers that are already
+ * showing the signature workspace must use this URL when copying or sharing
+ * the current view instead of silently switching renderers.
+ */
+export function buildVisualizationDirectoryLabHref(
+  lab: FeaturedLabDefinition,
+  track: VisualizationTrackFilter = "all"
+) {
+  const params = new URLSearchParams();
+  params.set("grade", lab.grade);
+  params.set("track", track);
+  params.set("lab", lab.labId);
+  return `${studentVisualizationToolsPath}?${params.toString()}`;
 }
 
 function decodeUrlPathSegment(value: string) {
@@ -296,14 +314,16 @@ function decodeUrlPathSegment(value: string) {
 }
 
 export function buildVisualizationLabHref(lab: FeaturedLabDefinition, track: VisualizationTrackFilter = "all") {
-  const params = new URLSearchParams();
-  params.set("grade", lab.grade);
-  params.set("track", track);
-
   if (isPremiumThreeDTopicPageLab(lab)) {
+    const params = new URLSearchParams();
+    params.set("grade", lab.grade);
+    params.set("track", track);
     return `${buildPremiumThreeDTopicPagePath(lab)}?${params.toString()}`;
   }
 
+  const params = new URLSearchParams();
+  params.set("grade", lab.grade);
+  params.set("track", track);
   params.set("lab", lab.labId);
   return `${visualizationLabPath}?${params.toString()}`;
 }
@@ -341,7 +361,7 @@ export function selectThreeDSceneVariantSmokeLabs(
 export function selectPremiumThreeDSceneVariantSmokeLabs(
   labs: readonly FeaturedLabDefinition[]
 ): PremiumThreeDSceneVariantSmokeTarget[] {
-  return selectThreeDSceneVariantSmokeLabsByPredicate(labs, (lab) => lab.threeD?.premiumLaunch === true);
+  return selectThreeDSceneVariantSmokeLabsByPredicate(labs, isLivePremiumThreeDLab);
 }
 
 export function buildVisualizationPracticeHref(labOrTopicId: FeaturedLabDefinition | string) {

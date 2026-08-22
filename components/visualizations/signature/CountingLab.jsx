@@ -1161,6 +1161,7 @@ export default function CountingLab() {
           <div className="toolbar">
             <button
               type="button"
+              aria-label={counting ? 'Stop counting animation' : 'Play counting animation'}
               className={
                 'btn ghost' +
                 (counting ? ' on' : '') +

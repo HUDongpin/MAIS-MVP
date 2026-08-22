@@ -42,17 +42,92 @@ const sandbox = new Function(
             countOf, countA, countB, countAB, condAgivenB, condBgivenA, probA,
             indepOf, CASES, DENOM_CHIPS, FRAC_CHIPS, askText, labelOf,
             denomTruth, fracTruth, makeCase, calibChecks, closeness,
-            isCalibrated, STEPS };`
+            isCalibrated, STEPS,
+            conditionalCanvasLayout:
+              typeof conditionalCanvasLayout === 'function' ? conditionalCanvasLayout : null };`
 )();
 const {
   CALIB_STEP, fracText, inB, LAYOUTS, countOf, countA, countB, countAB,
   condAgivenB, condBgivenA, probA, indepOf, CASES, DENOM_CHIPS, FRAC_CHIPS,
   askText, labelOf, denomTruth, fracTruth, makeCase, calibChecks, closeness,
-  isCalibrated, STEPS,
+  isCalibrated, STEPS, conditionalCanvasLayout,
 } = sandbox;
 
 /* ---------------------------------------------------------------------------
-   2. THE FIELD'S LAWS — censuses against brute dot-by-dot enumeration.
+   2. MOBILE CANVAS LAYOUT — the learner surface must stay drawable.
+
+   The formal Pixel 5 product run (393 x 727 viewport) yielded a 225 x 380
+   stage.  The former fixed `W - 300` reservation therefore made the 10 x 10
+   grid -75 px wide and passed a -2.1 radius to CanvasRenderingContext2D.arc.
+   Keep that exact failure arithmetic here as the regression's provenance,
+   then require the shipped layout to keep every region positive, on-canvas,
+   and disjoint at the physical size plus realistic minimum/extreme canaries.
+   ------------------------------------------------------------------------- */
+const pixel5Stage = { width: 225, height: 380 };
+const legacyPixel5Grid = Math.min(pixel5Stage.width - 300, pixel5Stage.height - 52 - 60);
+const legacyPixel5Radius = (legacyPixel5Grid / 10) * 0.28;
+check(legacyPixel5Grid === -75, 'Pixel 5 provenance: the former grid was exactly -75 px');
+check(Math.abs(legacyPixel5Radius - -2.1) < 1e-12, 'Pixel 5 provenance: the former dot radius was exactly -2.1 px');
+check(typeof conditionalCanvasLayout === 'function', 'a pure conditionalCanvasLayout geometry contract is shipped');
+
+function boxFitsCanvas(box, width, height) {
+  return (
+    Number.isFinite(box.x) && Number.isFinite(box.y) &&
+    Number.isFinite(box.width) && Number.isFinite(box.height) &&
+    box.x >= 0 && box.y >= 0 && box.width > 0 && box.height > 0 &&
+    box.x + box.width <= width + 1e-9 && box.y + box.height <= height + 1e-9
+  );
+}
+
+if (typeof conditionalCanvasLayout === 'function') {
+  const canaries = [
+    [152, 240, 'extreme narrow and short stage'],
+    [152, 380, 'minimum mobile-width stage'],
+    [225, 380, 'physical Pixel 5-derived stage'],
+    [320, 380, 'wide mobile stage'],
+    [690, 493, 'accepted desktop stage'],
+    [1120, 800, 'extreme wide stage'],
+  ];
+
+  for (const [width, height, label] of canaries) {
+    const layout = conditionalCanvasLayout(width, height);
+    check(['compact', 'desktop'].includes(layout.mode), `${label}: layout mode is explicit`);
+    check(Number.isFinite(layout.cell) && layout.cell > 0, `${label}: cell is finite and positive`);
+    check(Number.isFinite(layout.dotRadius) && layout.dotRadius > 0, `${label}: arc radius is finite and positive`);
+    check(boxFitsCanvas(layout.band, width, height), `${label}: band stays on-canvas`);
+    check(boxFitsCanvas(layout.grid, width, height), `${label}: 10 x 10 grid stays on-canvas`);
+    check(boxFitsCanvas(layout.readout, width, height), `${label}: census readout stays on-canvas`);
+    check(layout.grid.y >= layout.band.y + layout.band.height, `${label}: band cannot collide with the grid`);
+    if (layout.mode === 'compact') {
+      check(
+        layout.readout.y >= layout.grid.y + layout.grid.height,
+        `${label}: compact readout is stacked below the grid without overlap`
+      );
+    } else {
+      check(
+        layout.readout.x >= layout.grid.x + layout.grid.width,
+        `${label}: desktop readout remains beside the grid without overlap`
+      );
+    }
+  }
+
+  const pixel5 = conditionalCanvasLayout(pixel5Stage.width, pixel5Stage.height);
+  check(pixel5.mode === 'compact', 'physical Pixel 5-derived stage selects compact geometry');
+  check(pixel5.dotRadius > 0, 'physical Pixel 5-derived stage can never call arc with a negative radius');
+
+  const desktop = conditionalCanvasLayout(690, 493);
+  check(desktop.mode === 'desktop', 'accepted desktop stage preserves desktop geometry');
+  check(desktop.grid.x === 30 && desktop.grid.y === 82, 'desktop grid keeps the original origin');
+  check(desktop.grid.width === 381 && desktop.cell === 38.1, 'desktop grid keeps the original sizing formula');
+  check(desktop.readout.x === 437, 'desktop census keeps the original horizontal anchor');
+} else {
+  check(false, 'physical Pixel 5-derived stage has a positive shipped arc radius');
+  check(false, 'mobile grid and census readout have explicit non-overlapping bounds');
+  check(false, 'accepted desktop geometry has an invariant-preserving branch');
+}
+
+/* ---------------------------------------------------------------------------
+   3. THE FIELD'S LAWS — censuses against brute dot-by-dot enumeration.
    ------------------------------------------------------------------------- */
 check(countB() === 50, 'the left block holds exactly 50 dots');
 for (const key of Object.keys(LAYOUTS)) {
@@ -95,7 +170,7 @@ check(20 * 100 === 40 * 50, 'the independence identity, by hand');
 check(20 * 5 * 2 === 100 * 2 && 2 * 1 * 100 === 5 * 2 * 20, 'the product law 1/5 = (2/5)(1/2), cross-multiplied');
 
 /* ---------------------------------------------------------------------------
-   3. QUOTED FACTS.
+   4. QUOTED FACTS.
    ------------------------------------------------------------------------- */
 check(/40\/100 = 2\/5/.test(STEPS[0].choices[STEPS[0].answer]), 'step 1 counts the field');
 check(/20\/50 = 2\/5/.test(STEPS[1].choices[STEPS[1].answer]), 'step 2 recounts the crop');
@@ -108,7 +183,7 @@ check(/table bench/.test(STEPS[4].feedback), 'the kinship is cited once');
 check(/lurking-variable\s+bench/.test(STEPS[3].note.replace(/\s+/g, ' ')), 'the causation border is ceded');
 
 /* ---------------------------------------------------------------------------
-   4. LESSON STRUCTURE.
+   5. LESSON STRUCTURE.
    ------------------------------------------------------------------------- */
 check(STEPS.length === 6, 'six steps');
 check(!!STEPS[STEPS.length - 1].calib, 'last step is the calibration');
@@ -135,7 +210,7 @@ check(/conditioning is symmetric/.test(STEPS[4].choices.join('|')), 'the symmetr
 check(/glowing causes left-ness/.test(STEPS[2].choices.join('|')), 'the causation leap is offered');
 
 /* ---------------------------------------------------------------------------
-   5. CALIBRATION.
+   6. CALIBRATION.
    ------------------------------------------------------------------------- */
 check(CASES.length >= 6, 'several posted questions');
 const denomsPosted = new Set(CASES.map((_, i) => denomTruth(i)));
@@ -172,7 +247,7 @@ for (let i = 0; i < 200; i++) {
 for (let i = 0; i < 100; i++) check(makeCase(2) !== 2, 'a new case is genuinely new');
 
 /* ---------------------------------------------------------------------------
-   6. REFUSALS & RESTRAINT — grep the CODE (styled-jsx stripped).
+   7. REFUSALS & RESTRAINT — grep the CODE (styled-jsx stripped).
    ------------------------------------------------------------------------- */
 const forbid = [
   [/\bVenn\b|overlapping ovals|\bblobs?\b/i, 'no Venn (SetTheoryLab)'],
@@ -202,7 +277,10 @@ check(/const indepOf = \(key\) => countAB\(key\) \* 100 === countA\(key\) \* cou
 }
 /* the drawing reads the model */
 check(/LAYOUTS\[S\.layout\]\.inA\(r, c\)/.test(code), 'the glow is painted from the rule');
-check(/fracText\(\[S\.cAB, denom\]\)/.test(code), 'the share line reads the model');
+check(/fracText\(\[scene\.cAB, denom\]\)/.test(code), 'the share line reads the model');
+check(/const canvasLayout = conditionalCanvasLayout\(W, H2\)/.test(code), 'draw consumes the audited responsive geometry');
+check(/drawConditionalCanvasBand\(ctx, S\.bandLabel, canvasLayout\)/.test(code), 'band text uses the collision-aware canvas helper');
+check(/drawConditionalCanvasReadout\(ctx, S, canvasLayout\)/.test(code), 'census text uses the bounded responsive readout helper');
 
 /* ---------------------------------------------------------------------------
    verdict
