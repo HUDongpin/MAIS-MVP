@@ -59,11 +59,11 @@ test("student textbook lesson routes also use the lesson authentication gate", (
   assert.match(highSchoolRoute, /requireLessonAuthentication\("\/student\/lessons\/california-high-school-textbook"\)/);
 });
 
-test("lesson routes are protected by middleware before lesson modules compile", () => {
-  const middleware = source("middleware.ts");
+test("lesson routes are protected by proxy before lesson modules compile", () => {
+  const proxy = source("proxy.ts");
 
-  assert.match(middleware, /"\/lesson"/);
-  assert.match(middleware, /"\/student\/lessons"/);
-  assert.match(middleware, /"\/lesson\/:path\*"/);
-  assert.match(middleware, /"\/student\/lessons\/:path\*"/);
+  assert.match(proxy, /"\/lesson"/);
+  assert.match(proxy, /"\/student\/lessons"/);
+  assert.match(proxy, /"\/lesson\/:path\*"/);
+  assert.match(proxy, /"\/student\/lessons\/:path\*"/);
 });

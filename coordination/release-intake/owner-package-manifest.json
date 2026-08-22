@@ -64,6 +64,8 @@
       "pathspecs": [
         ".claude/launch.json",
         ".gitignore",
+        ".github/workflows/ci.yml",
+        ".nvmrc",
         "coordination/release-intake/assert-release-source-clean.mjs",
         "coordination/release-intake/assert-worktree-lifecycle.mjs",
         "scripts/release-env-guard.mjs",
@@ -103,7 +105,7 @@
       "id": "runtime-storage-contract-A12",
       "owner": "A12",
       "objective": "Keep backend/API/storage work in its independent owner package.",
-      "pathspecs": ["lib/server/**", "app/api/**", "middleware.ts"],
+      "pathspecs": ["lib/server/**", "app/api/**", "middleware.ts", "proxy.ts"],
       "checks": ["npm run test:backend", "npm run type-check"],
       "finalState": "blocker report",
       "blocker": "Not included in the governance guardrail commit; requires an A12-owned runtime slice."

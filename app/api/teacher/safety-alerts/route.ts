@@ -92,7 +92,7 @@ export async function PATCH(request: Request) {
   }
 
   // Keep the nav badge / dashboard summary fresh after a resolution.
-  revalidateTag(teacherWorkspaceCacheTag);
+  revalidateTag(teacherWorkspaceCacheTag, { expire: 0 });
 
   return NextResponse.json({ flag: result.flag });
 }

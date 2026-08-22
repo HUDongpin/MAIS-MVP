@@ -20,13 +20,17 @@ const REQUIRED_BUILD_OUTPUTS = [
 export async function runReleaseBuildGate(options = {}) {
   const config = buildReleaseBuildGateConfig(options, process.env);
   const startedAt = new Date().toISOString();
-  const tsconfigSnapshot = await snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath));
+  const generatedFileSnapshots = await Promise.all([
+    snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath)),
+    snapshotFile(path.resolve(REPO_ROOT, "next-env.d.ts"))
+  ]);
   let result;
 
   try {
+    const buildCommand = buildReleaseBuildCommand(config);
     result = await runCommand(
-      process.execPath,
-      ["scripts/next-clean-build.mjs"],
+      buildCommand.command,
+      buildCommand.args,
       {
         cwd: REPO_ROOT,
         env: {
@@ -37,7 +41,7 @@ export async function runReleaseBuildGate(options = {}) {
       }
     );
   } finally {
-    await restoreFileSnapshot(tsconfigSnapshot);
+    await Promise.all(generatedFileSnapshots.map((snapshot) => restoreFileSnapshot(snapshot)));
   }
 
   if (result.exitCode !== 0) {
@@ -57,6 +61,7 @@ export async function runReleaseBuildGate(options = {}) {
   }
 
   return {
+    bundler: config.bundler,
     cleanup: config.cleanup,
     completedAt: new Date().toISOString(),
     distDir: config.distDir,
@@ -97,13 +102,28 @@ export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
   );
   const absoluteDistDir = path.resolve(REPO_ROOT, distDir);
   assertSafeBuildGateDistDir(absoluteDistDir);
+  const bundler = options.bundler ?? env.MAIS_RELEASE_BUILD_GATE_BUNDLER ?? "turbopack";
+  if (bundler !== "turbopack" && bundler !== "webpack") {
+    throw new Error(`Unknown release build bundler: ${bundler}`);
+  }
 
   return {
     absoluteDistDir,
+    bundler,
     cleanup: options.cleanup ?? env.MAIS_RELEASE_BUILD_GATE_KEEP_DIST_DIR !== "1",
     distDir,
     runId,
     tsconfigPath: options.tsconfigPath ?? env.NEXT_TSCONFIG_PATH ?? DEFAULT_TSCONFIG_PATH
+  };
+}
+
+export function buildReleaseBuildCommand(config) {
+  return {
+    command: process.execPath,
+    args: [
+      "scripts/next-clean-build.mjs",
+      ...(config.bundler === "webpack" ? ["--webpack"] : [])
+    ]
   };
 }
 
@@ -169,8 +189,9 @@ function runCommand(command, args, options) {
   });
 }
 
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const args = {
+    bundler: undefined,
     cleanup: undefined,
     distDir: undefined,
     json: false,
@@ -185,6 +206,8 @@ function parseArgs(argv) {
       args.json = true;
     } else if (arg === "--keep-dist-dir") {
       args.cleanup = false;
+    } else if (arg === "--webpack") {
+      args.bundler = "webpack";
     } else if (arg === "--run-id") {
       args.runId = argv[++index];
     } else {
@@ -231,6 +254,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
         return;
       }
       console.log("Release build gate passed");
+      console.log(`Bundler: ${record.bundler}`);
       console.log(`Isolated Next dist: ${record.distDir}`);
       console.log(`Cleanup: ${record.cleanup ? "yes" : "no"}`);
     })

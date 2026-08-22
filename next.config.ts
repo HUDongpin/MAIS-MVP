@@ -61,7 +61,8 @@ function disposableTsconfigForDist(dist: string) {
           "**/*.tsx",
           "components/visualizations/signature/**/*.jsx",
           "next-env.d.ts",
-          `${dist}/types/**/*.ts`
+          `${dist}/types/**/*.ts`,
+          `${dist}/dev/types/**/*.ts`
         ],
         // Mirror tsconfig.json's exclude so `**/*.ts` never sweeps stray build
         // dirs (e.g. private/tmp/*-next) into this dev/build type-check.
@@ -95,7 +96,7 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   outputFileTracingRoot: process.cwd(),
   reactStrictMode: true,
-  skipMiddlewareUrlNormalize: true,
+  skipProxyUrlNormalize: true,
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
   async redirects() {
     return [

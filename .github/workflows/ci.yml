@@ -32,7 +32,7 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
   validate:
     # Gates every pull request. Until now this was workflow_dispatch-only, so a
@@ -58,7 +58,7 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Type check
         run: npm run type-check
@@ -79,6 +79,17 @@ jobs:
 
       - name: Run release governance gate (frozen package-script baseline + release command contracts)
         run: npm run test:release-governance
+
+      - name: Run release/build and Playwright cleanup helper contracts
+        run: >-
+          node --test --test-concurrency=1
+          scripts/next-clean-build.test.mjs
+          scripts/release-build-gate.test.mjs
+          scripts/deploy-vercel-preview.test.mjs
+          scripts/deploy-vercel-production.test.mjs
+          scripts/release-env-guard.test.mjs
+          scripts/next16-parity-contract.test.mjs
+          scripts/playwright-worker-cleanup-contract.test.mjs
 
       - name: Run analytics tests
         run: npm run test:analytics
@@ -133,8 +144,11 @@ jobs:
       - name: Run question bank contract tests (per-region live counts + solvability)
         run: npm run test:question-bank
 
-      - name: Build
-        run: npm run build
+      - name: Build with default Next 16 Turbopack
+        run: npm run release:build-gate -- --json --run-id ci-next16-default
+
+      - name: Build with Webpack compatibility mode
+        run: npm run release:build-gate -- --webpack --json --run-id ci-next16-webpack
 
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
@@ -155,7 +169,7 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
@@ -182,7 +196,7 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium

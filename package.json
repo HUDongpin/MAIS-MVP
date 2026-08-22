@@ -2,6 +2,9 @@
   "name": "hk-math-lab-template",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
@@ -9,7 +12,7 @@
     "kill-port": "node scripts/kill-port.mjs",
     "build": "node scripts/next-clean-build.mjs",
     "start": "next start",
-    "type-check": "tsc --noEmit --incremental false",
+    "type-check": "next typegen && tsc --noEmit --incremental false",
     "check:imports": "node scripts/check-import-targets.mjs",
     "check:stray-types": "node scripts/check-stray-generated-types.mjs",
     "check:hk-zh": "node scripts/audit-hk-chinese.mjs --self-test && node scripts/audit-hk-chinese.mjs --mode=report",
@@ -117,12 +120,12 @@
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "12.23.12",
     "katex": "^0.16.45",
-    "next": "15.5.23",
+    "next": "16.3.0",
     "phaser": "4.1.0",
     "postgres": "^3.4.9",
     "pptxgenjs": "^4.0.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "three": "0.184.0",
     "three-stdlib": "2.36.1",
     "ws": "^8.21.0"
@@ -130,13 +133,15 @@
   "overrides": {
     "motion-dom": "12.23.12",
     "motion-utils": "12.23.6",
-    "postcss": "8.5.26"
+    "postcss": "8.5.26",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@types/node": "^22.13.14",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@types/ws": "^8.18.1",
     "autoprefixer": "^10.4.21",
     "postcss": "8.5.26",

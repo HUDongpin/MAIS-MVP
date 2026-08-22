@@ -12,6 +12,7 @@ const {
   buildCleanBuildConfig,
   cleanNextBuildDirectory,
   findActiveNextProcesses,
+  normalizeNextBuildArgs,
   parseActiveNextProcesses
 } = nextCleanBuildModule;
 
@@ -29,6 +30,17 @@ test("next clean build detects active Next processes in the same repository", ()
 
   assert.equal(processes.length, 2);
   assert.deepEqual(processes.map((processInfo) => processInfo.pid), [123, 124]);
+});
+
+test("next clean build ignores a shell coordinator that contains a future Next start command", () => {
+  const output = [
+    `210 1 /bin/sh -c npm run build && exec node ${repoRoot}/node_modules/next/dist/bin/next start`,
+    `211 1 node ${repoRoot}/node_modules/next/dist/bin/next dev --port 3008`
+  ].join("\n");
+
+  const processes = parseActiveNextProcesses(output, { currentPid: 999, repoRoot });
+
+  assert.deepEqual(processes.map((processInfo) => processInfo.pid), [211]);
 });
 
 test("next clean build detects relative and retitled Next processes from PID cwd evidence", () => {
@@ -216,6 +228,40 @@ test("next clean build runs guard, cleanup, and build in strict order despite th
 
   assert.equal(exitCode, 0);
   assert.deepEqual(events, ["guard", "cleanup", "build"]);
+});
+
+test("next clean build forwards explicit bundler flags to the Next CLI", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-next-clean-repo-"));
+  t.after(async () => {
+    await fs.rm(isolatedRepoRoot, { recursive: true, force: true });
+  });
+  let receivedBuildArgs;
+
+  const exitCode = await nextCleanBuildModule.runNextCleanBuild({
+    buildArgs: ["--webpack"],
+    repoRoot: isolatedRepoRoot,
+    lockTimeoutMs: 250,
+    operations: {
+      findActiveNextProcesses: async () => [],
+      cleanNextBuildDirectory: async () => false,
+      checkStrayGeneratedTypes: () => {},
+      spawnNextBuild: async (_config, _env, buildArgs) => {
+        receivedBuildArgs = buildArgs;
+        return 0;
+      }
+    }
+  });
+
+  assert.equal(exitCode, 0);
+  assert.deepEqual(receivedBuildArgs, ["--webpack"]);
+});
+
+test("next clean build rejects unknown or ambiguous bundler arguments", () => {
+  assert.deepEqual(normalizeNextBuildArgs([]), []);
+  assert.deepEqual(normalizeNextBuildArgs(["--webpack"]), ["--webpack"]);
+  assert.throws(() => normalizeNextBuildArgs(["--turbopack"]), /Unsupported Next build arguments/);
+  assert.throws(() => normalizeNextBuildArgs(["--webpack", "--webpack"]), /Unsupported Next build arguments/);
+  assert.throws(() => normalizeNextBuildArgs(["--no-lint"]), /Unsupported Next build arguments/);
 });
 
 test("next clean build does not spawn when the process guard fails", async (t) => {

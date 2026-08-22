@@ -52,12 +52,12 @@ const TRANSIENT_DIRTY_PATH_RULES = [
 ];
 
 const SLICE_RULES = [
-  [/^(?:\.vercelignore|playwright\.config\.ts|tsconfig\.next\.json|package(?:-lock)?\.json|next\.config\.ts|scripts\/(?:release-|deploy-vercel|prepare-vercel|cleanup-generated-artifacts|next-clean-build|refresh-dirty-tree-map))/, "release hygiene tooling/config"],
+  [/^(?:\.github\/workflows\/ci\.yml|\.nvmrc|\.vercelignore|playwright\.config\.ts|tsconfig\.next\.json|package(?:-lock)?\.json|next\.config\.ts|scripts\/(?:release-|deploy-vercel|prepare-vercel|cleanup-generated-artifacts|next-clean-build|refresh-dirty-tree-map))/, "release hygiene tooling/config"],
   [/^(?:tests\/e2e|.*\.test\.(?:ts|tsx|mjs|js)$)/, "tests/regression evidence"],
   [/^(?:coordination\/content-qa|data\/generated-content|data\/rag|lib\/rag|scripts\/(?:build-|audit-mainland|query-us-ca-private))/, "generated/content/RAG backlog"],
   [/^(?:coordination|README\.md|AGENTS\.md|docs|Technical-Review|video-plan)(?:\/|$)/, "docs/coordination evidence"],
   [/^(?:\.local|\.tmp|\.next|node_modules|private|Users)(?:\/|$)/, "local/generated quarantine"],
-  [/^(?:app|components|data|lib|public|types|middleware\.ts)(?:\/|$)/, "runtime app/API/data/public"],
+  [/^(?:app|components|data|lib|public|types|(?:middleware|proxy)\.ts)(?:\/|$)/, "runtime app/API/data/public"],
   [/^\.env/, "secret/env quarantine"]
 ];
 

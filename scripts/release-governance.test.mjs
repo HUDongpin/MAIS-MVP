@@ -2160,7 +2160,7 @@ test("Git-index Next config composes the approved build hooks and nine compatibi
     const config = imported.default;
     assert.equal(config.distDir, ".tmp/object-proof/next-dist");
     assert.equal(config.devIndicators, false);
-    assert.equal(config.skipMiddlewareUrlNormalize, true);
+    assert.equal(config.skipProxyUrlNormalize, true);
     assert.deepEqual(config.transpilePackages, [
       "three",
       "@react-three/fiber",
@@ -2270,6 +2270,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:tutor-moderation",
     "test:tutor-transcript",
     "test:visualizations",
+    "type-check",
     "vercel:preview",
     "vercel:production",
     "vercel:stage"
@@ -2292,7 +2293,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "84168d8dae63b251410fdd0aa8e9403ce08632d0c463836a2ccadabb0266a6dd",
+    "160d65c559edf098f0ea46549fd76894de4a64e6ffebb9117df3cfdf29026e3e",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -2313,14 +2314,18 @@ test("P0 package delta and default release gates are self-contained in Git objec
     ...baseline.dependencies,
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
-    next: "15.5.23",
+    next: "16.3.0",
     pptxgenjs: "^4.0.1",
+    react: "19.2.8",
+    "react-dom": "19.2.8",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
     ws: "^8.21.0"
   });
   assert.deepEqual(current.devDependencies, {
     ...baseline.devDependencies,
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     "@types/ws": "^8.18.1",
     postcss: "8.5.26",
     tsx: "^4.22.4",
@@ -2328,11 +2333,14 @@ test("P0 package delta and default release gates are self-contained in Git objec
   });
   assert.deepEqual(current.overrides, {
     ...(baseline.overrides ?? {}),
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
     postcss: "8.5.26"
   });
+  assert.deepEqual(current.engines, { node: "24.x" });
   assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/next"].version, "16.3.0");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
   assert.equal(packageLock.packages["node_modules/three-stdlib"].version, "2.36.1");
@@ -2519,11 +2527,16 @@ test("package and coordination contracts preserve security versions and closure 
   const gitignore = await readFile(path.join(repoRoot, ".gitignore"), "utf8");
   const agents = await readFile(path.join(repoRoot, "AGENTS.md"), "utf8");
 
-  assert.equal(packageJson.dependencies.next, "15.5.23");
+  assert.equal(packageJson.dependencies.next, "16.3.0");
+  assert.equal(packageJson.dependencies.react, "19.2.8");
+  assert.equal(packageJson.dependencies["react-dom"], "19.2.8");
+  assert.equal(packageJson.devDependencies["@types/react"], "19.2.18");
+  assert.equal(packageJson.devDependencies["@types/react-dom"], "19.2.4");
+  assert.deepEqual(packageJson.engines, { node: "24.x" });
   assert.equal(packageJson.devDependencies.postcss, "8.5.26");
   assert.equal(packageJson.devDependencies.yaml, "2.9.0");
   assert.equal(packageJson.overrides.postcss, "8.5.26");
-  assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/next"].version, "16.3.0");
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
   assert.equal(packageLock.packages[""].devDependencies.yaml, "2.9.0");
   assert.equal(packageLock.packages["node_modules/yaml"].version, "2.9.0");

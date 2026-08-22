@@ -18,10 +18,11 @@ import { assertNoBrokenStrayGeneratedTypes } from "./check-stray-generated-types
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_NEXT_DIST_DIR = ".next";
+const PROCESS_CWD_INSPECTION_TIMEOUT_MS = 10_000;
 const execFileAsync = promisify(execFile);
 
 async function main() {
-  process.exitCode = await runNextCleanBuild();
+  process.exitCode = await runNextCleanBuild({ buildArgs: process.argv.slice(2) });
 }
 
 export function buildCleanBuildConfig(env = process.env, { repoRoot = REPO_ROOT } = {}) {
@@ -105,11 +106,13 @@ export async function assertSharedNextBuildIsIsolated(
 }
 
 export async function runNextCleanBuild({
+  buildArgs = [],
   env = process.env,
   repoRoot = REPO_ROOT,
   lockTimeoutMs = 5_000,
   operations = {}
 } = {}) {
+  const normalizedBuildArgs = normalizeNextBuildArgs(buildArgs);
   const config = buildCleanBuildConfig(env, { repoRoot });
   const findProcesses = operations.findActiveNextProcesses ?? findActiveNextProcesses;
   const cleanBuildDir = operations.cleanNextBuildDirectory ?? cleanNextBuildDirectory;
@@ -133,8 +136,17 @@ export async function runNextCleanBuild({
         checkStrayGeneratedTypes({ repoRoot: config.repoRoot });
       }
       await cleanBuildDir(config);
-      return await spawnBuild(config, env);
+      return await spawnBuild(config, env, normalizedBuildArgs);
     }
+  );
+}
+
+export function normalizeNextBuildArgs(buildArgs = []) {
+  if (buildArgs.length === 0) return [];
+  if (buildArgs.length === 1 && buildArgs[0] === "--webpack") return ["--webpack"];
+  throw new Error(
+    `Unsupported Next build arguments: ${buildArgs.join(" ")}. ` +
+    "The parity wrapper accepts only the default Turbopack build or one explicit --webpack flag."
   );
 }
 
@@ -282,7 +294,10 @@ async function resolveProcessCwdEvidence(pid) {
     const result = await execFileAsync("lsof", ["-a", "-p", String(pid), "-d", "cwd", "-Fn"], {
       encoding: "utf8",
       maxBuffer: 64 * 1024,
-      timeout: 2_000
+      // Parallel worktrees can make macOS lsof exceed two seconds even when
+      // it returns valid cwd evidence. Keep the guard fail-closed, but allow
+      // enough time for that read-only inspection before declaring it absent.
+      timeout: PROCESS_CWD_INSPECTION_TIMEOUT_MS
     });
     const cwdLine = result.stdout.split(/\r?\n/).find((line) => line.startsWith("n"));
     if (cwdLine?.slice(1)) {
@@ -311,6 +326,13 @@ function isProcessAlive(pid) {
 
 function classifyNextCommand(command) {
   const normalizedCommand = toPosix(command.trim());
+  // A shell coordinator can contain a future `next start` command in its
+  // command text while it is still waiting for the current build to finish.
+  // It is not itself a Next process; the real child is detected separately
+  // once the shell executes that command.
+  if (/^(?:[^\s]+\/)?(?:sh|bash|zsh)\s+-c(?:\s|$)/.test(normalizedCommand)) {
+    return null;
+  }
   if (/^next-server\s+\(v[^)]+\)/.test(normalizedCommand)) {
     return { kind: "next-server", absoluteBinaryPath: null };
   }
@@ -336,10 +358,10 @@ function isPathInsideRepo(candidatePath, repoRoot) {
   return relativePath === "" || (!relativePath.startsWith(`..${path.sep}`) && relativePath !== ".." && !path.isAbsolute(relativePath));
 }
 
-async function spawnNextBuild(config, env) {
+async function spawnNextBuild(config, env, buildArgs = []) {
   const require = createRequire(import.meta.url);
   const nextBin = require.resolve("next/dist/bin/next");
-  return await runCommand(process.execPath, [nextBin, "build"], {
+  return await runCommand(process.execPath, [nextBin, "build", ...buildArgs], {
     cwd: config.repoRoot,
     env
   });

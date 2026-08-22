@@ -58,7 +58,7 @@ export async function POST(request: Request) {
 
   // The teacher shell/foundation caches list the teacher's classes; drop them so
   // the new class shows up immediately instead of after the revalidate window.
-  revalidateTag(teacherWorkspaceCacheTag);
+  revalidateTag(teacherWorkspaceCacheTag, { expire: 0 });
 
   return NextResponse.json({ class: result.class }, { status: 201 });
 }

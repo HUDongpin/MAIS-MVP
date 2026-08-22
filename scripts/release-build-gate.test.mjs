@@ -4,7 +4,9 @@ import path from "node:path";
 import test from "node:test";
 
 import {
+  buildReleaseBuildCommand,
   buildReleaseBuildGateConfig,
+  parseArgs,
   restoreFileSnapshot,
   snapshotFile
 } from "./release-build-gate.mjs";
@@ -17,7 +19,37 @@ test("release build gate defaults to an isolated generated Next dist directory",
   assert.equal(config.distDir, ".tmp/release-build-gate-next-unit-test");
   assert.equal(config.absoluteDistDir, path.join(repoRoot, ".tmp", "release-build-gate-next-unit-test"));
   assert.equal(config.cleanup, true);
+  assert.equal(config.bundler, "turbopack");
   assert.equal(config.tsconfigPath, "tsconfig.next.json");
+  assert.deepEqual(buildReleaseBuildCommand(config).args, ["scripts/next-clean-build.mjs"]);
+});
+
+test("release build gate selects Webpack only when explicitly requested", () => {
+  const config = buildReleaseBuildGateConfig({ bundler: "webpack", runId: "webpack-unit" }, {});
+
+  assert.equal(config.bundler, "webpack");
+  assert.deepEqual(buildReleaseBuildCommand(config).args, [
+    "scripts/next-clean-build.mjs",
+    "--webpack"
+  ]);
+  assert.throws(
+    () => buildReleaseBuildGateConfig({ bundler: "rspack", runId: "invalid-unit" }, {}),
+    /Unknown release build bundler/
+  );
+});
+
+test("release build gate lets the environment select Webpack when the CLI omits a bundler", () => {
+  const cliOptions = parseArgs(["--json", "--run-id", "env-webpack-unit"]);
+  const config = buildReleaseBuildGateConfig(cliOptions, {
+    MAIS_RELEASE_BUILD_GATE_BUNDLER: "webpack"
+  });
+
+  assert.equal(cliOptions.bundler, undefined);
+  assert.equal(config.bundler, "webpack");
+  assert.deepEqual(buildReleaseBuildCommand(config).args, [
+    "scripts/next-clean-build.mjs",
+    "--webpack"
+  ]);
 });
 
 test("release build gate allows an explicit generated .tmp next dist directory", () => {
@@ -61,5 +93,18 @@ test("release build gate restores the configured tsconfig after Next mutates it"
     JSON.stringify({ include: ["next-env.d.ts"] }, null, 2)
   );
 
+  await fs.rm(tempDir, { recursive: true, force: true });
+});
+
+test("release build gate restores an originally absent generated file to absence", async () => {
+  const tempDir = path.join(repoRoot, ".tmp", "release-build-gate-absent-unit");
+  const generatedPath = path.join(tempDir, "next-env.d.ts");
+  await fs.mkdir(tempDir, { recursive: true });
+
+  const snapshot = await snapshotFile(generatedPath);
+  await fs.writeFile(generatedPath, "generated\n");
+  await restoreFileSnapshot(snapshot);
+
+  await assert.rejects(fs.stat(generatedPath), { code: "ENOENT" });
   await fs.rm(tempDir, { recursive: true, force: true });
 });

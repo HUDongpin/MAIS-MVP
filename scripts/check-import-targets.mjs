@@ -17,7 +17,7 @@ const DEFAULT_GIT_PATHS = [
   "scripts",
   "tests",
   "types",
-  "middleware.ts",
+  "proxy.ts",
   "next.config.ts",
   "playwright.config.ts",
   "postcss.config.mjs",

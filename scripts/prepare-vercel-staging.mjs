@@ -10,8 +10,6 @@ const DEFAULT_STAGING_ROOT = path.join(REPO_ROOT, ".tmp", "vercel-staging");
 
 const REQUIRED_ROOT_FILES = [
   ".vercelignore",
-  "middleware.ts",
-  "next-env.d.ts",
   "next.config.ts",
   "package-lock.json",
   "package.json",
@@ -24,6 +22,7 @@ const REQUIRED_ROOT_FILES = [
   "tailwind.config.ts",
   "tsconfig.json",
   "tsconfig.next.json",
+  "proxy.ts",
   // Vercel reads regions, crons, and headers from the UPLOADED tree — omitting
   // this file silently deploys with no keep-warm cron and no security headers.
   "vercel.json"
