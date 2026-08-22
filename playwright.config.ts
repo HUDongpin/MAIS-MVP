@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
 
@@ -6,17 +7,55 @@ const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
 const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
-const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
-const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
-const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
-const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
-const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
-const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
+const e2eRuntimeRoot = path.resolve(".tmp", "china-lesson-e2e-runtime");
+const e2eOwnedRunRoot = path.join(e2eRuntimeRoot, "runs", runId);
+const e2eOwnedOutputRoot = path.join(e2eRuntimeRoot, "outputs", runId);
+const e2eQuarantineRoot = path.join(e2eRuntimeRoot, "quarantine", runId);
+const e2eRunRootInput = resolveConfiguredGeneratedPath(
+  "PLAYWRIGHT_E2E_ROOT",
+  process.env.PLAYWRIGHT_E2E_ROOT,
+  e2eOwnedRunRoot
+);
+const e2eRunRoot = e2eRunRootInput.absolute;
+const e2eNextDistInput = resolveConfiguredGeneratedPath(
+  "PLAYWRIGHT_NEXT_DIST_DIR",
+  process.env.PLAYWRIGHT_NEXT_DIST_DIR,
+  path.join(e2eRunRoot, "next-dist")
+);
+const e2eNextDistDir = e2eNextDistInput.absolute;
+const e2eNextTsconfigInput = resolveConfiguredGeneratedPath(
+  "PLAYWRIGHT_NEXT_TSCONFIG_PATH",
+  process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH,
+  path.join(e2eRunRoot, "tsconfig.playwright.tmp.json")
+);
+const e2eNextTsconfigPath = e2eNextTsconfigInput.absolute;
+const e2eDbInput = resolveConfiguredGeneratedPath(
+  "HK_MATH_DB_PATH",
+  process.env.HK_MATH_DB_PATH,
+  path.join(e2eRunRoot, "db", "hk-math.sqlite")
+);
+const e2eDbPath = e2eDbInput.absolute;
+const e2eOutputInput = resolveConfiguredGeneratedPath(
+  "PLAYWRIGHT_OUTPUT_DIR",
+  process.env.PLAYWRIGHT_OUTPUT_DIR,
+  path.join(e2eRunRoot, "test-results")
+);
+const e2eOutputDir = e2eOutputInput.absolute;
+const e2eReportInput = resolveConfiguredGeneratedPath(
+  "PLAYWRIGHT_REPORT_DIR",
+  process.env.PLAYWRIGHT_REPORT_DIR,
+  path.join(e2eRunRoot, "playwright-report")
+);
+const e2eReportDir = e2eReportInput.absolute;
 const e2eCrashpadDir = process.env.PLAYWRIGHT_CRASHPAD_DIR?.trim();
 const disableCrashpadForTestingArgument = "--disable-crashpad-for-testing";
 process.env.PLAYWRIGHT_RUN_ID = runId;
 process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
+process.env.PLAYWRIGHT_NEXT_DIST_DIR = e2eNextDistDir;
+process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH = e2eNextTsconfigPath;
 process.env.HK_MATH_DB_PATH = e2eDbPath;
+process.env.PLAYWRIGHT_OUTPUT_DIR = e2eOutputDir;
+process.env.PLAYWRIGHT_REPORT_DIR = e2eReportDir;
 const disabledProviderEnv = [
   "LLM_API_KEY=",
   "OPENAI_API_KEY=",
@@ -55,13 +94,32 @@ const useGlobalWebServer = !process.env.PLAYWRIGHT_SKIP_WEBSERVER && !runsOnlyIs
 
 assertSafeE2eGeneratedPath("PLAYWRIGHT_E2E_ROOT", e2eRunRoot);
 assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_REPORT_DIR", e2eReportDir);
+assertSafeE2eGeneratedPath("HK_MATH_DB_PATH", e2eDbPath);
+assertSafeE2eGeneratedPath("PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath);
 if (e2eCrashpadDir) assertSafeE2eGeneratedPath("PLAYWRIGHT_CRASHPAD_DIR", e2eCrashpadDir);
+const e2eNextDistCleanupRoot = assertRunOwnedCleanupPaths();
+assertRequiredE2eRuntimePaths();
 
 function sanitizePathSegment(value: string) {
-  return value
+  const sanitized = value
     .trim()
     .replace(/[^a-zA-Z0-9._-]+/g, "-")
     .replace(/^-+|-+$/g, "") || "default";
+  return sanitized === "." || sanitized === ".." ? "default" : sanitized;
+}
+
+function assertNoRawParentTraversal(label: string, value: string) {
+  if (value.split(/[\\/]+/u).includes("..")) {
+    throw new Error(`${label} must not contain parent traversal (..).`);
+  }
+}
+
+function resolveConfiguredGeneratedPath(label: string, configuredValue: string | undefined, fallback: string) {
+  const rawValue = configuredValue?.trim() || fallback;
+  assertNoRawParentTraversal(label, rawValue);
+  return { label, raw: rawValue, absolute: path.resolve(rawValue) };
 }
 
 function isPathInside(absolutePath: string, root: string) {
@@ -69,22 +127,430 @@ function isPathInside(absolutePath: string, root: string) {
   return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
 }
 
+function resolvePhysicalPath(value: string) {
+  const absolutePath = path.resolve(value);
+  const missingSegments: string[] = [];
+  let existingAncestor = absolutePath;
+
+  while (true) {
+    try {
+      fs.lstatSync(existingAncestor);
+      break;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      const parent = path.dirname(existingAncestor);
+      if (parent === existingAncestor) {
+        throw new Error(`Could not resolve an existing ancestor for Playwright path: ${absolutePath}`);
+      }
+      missingSegments.unshift(path.basename(existingAncestor));
+      existingAncestor = parent;
+    }
+  }
+
+  let physicalAncestor: string;
+  try {
+    physicalAncestor = fs.realpathSync(existingAncestor);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Could not resolve Playwright path ${absolutePath}: ${reason}`);
+  }
+  return path.resolve(physicalAncestor, ...missingSegments);
+}
+
 function assertSafeE2eGeneratedPath(label: string, value: string) {
   const absolutePath = path.resolve(value);
   const defaultNextDir = path.resolve(".next");
   const tmpDir = path.resolve(".tmp");
+  const physicalPath = resolvePhysicalPath(absolutePath);
+  const physicalDefaultNextDir = resolvePhysicalPath(defaultNextDir);
+  const physicalTmpDir = resolvePhysicalPath(tmpDir);
 
-  if (absolutePath === defaultNextDir || isPathInside(absolutePath, defaultNextDir)) {
+  if (
+    absolutePath === defaultNextDir
+    || isPathInside(absolutePath, defaultNextDir)
+    || physicalPath === physicalDefaultNextDir
+    || isPathInside(physicalPath, physicalDefaultNextDir)
+  ) {
     throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
   }
 
-  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
-    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
+  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1") {
+    if (!isPathInside(absolutePath, tmpDir)) {
+      throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
+    }
+    if (!isPathInside(physicalPath, physicalTmpDir)) {
+      throw new Error(`${label} must resolve under the worktree .tmp directory: ${physicalPath}`);
+    }
+  }
+}
+
+function isStrictPathInside(absolutePath: string, root: string) {
+  return absolutePath !== root && isPathInside(absolutePath, root);
+}
+
+function pathStaysWithinPhysicalRoot(value: string, root: string, allowRoot: boolean) {
+  const absolutePath = path.resolve(value);
+  const absoluteRoot = path.resolve(root);
+  const physicalPath = resolvePhysicalPath(absolutePath);
+  const physicalRoot = resolvePhysicalPath(absoluteRoot);
+  const lexicalMatch = allowRoot
+    ? isPathInside(absolutePath, absoluteRoot)
+    : isStrictPathInside(absolutePath, absoluteRoot);
+  const physicalMatch = allowRoot
+    ? isPathInside(physicalPath, physicalRoot)
+    : isStrictPathInside(physicalPath, physicalRoot);
+  return lexicalMatch && physicalMatch;
+}
+
+function assertRunOwnedCleanupPaths() {
+  if (!pathStaysWithinPhysicalRoot(e2eRunRoot, e2eOwnedRunRoot, true)) {
+    throw new Error(
+      `PLAYWRIGHT_E2E_ROOT must stay within its run-owned cleanup root (${e2eOwnedRunRoot}): ${e2eRunRoot}`
+    );
+  }
+
+  if (pathStaysWithinPhysicalRoot(e2eNextDistDir, e2eRunRoot, false)) {
+    return e2eRunRoot;
+  }
+  if (pathStaysWithinPhysicalRoot(e2eNextDistDir, e2eOwnedOutputRoot, false)) {
+    return e2eOwnedOutputRoot;
+  }
+  throw new Error(
+    "PLAYWRIGHT_NEXT_DIST_DIR must be a strict descendant of PLAYWRIGHT_E2E_ROOT " +
+    `or its run-owned output root (${e2eOwnedOutputRoot}): ${e2eNextDistDir}`
+  );
+}
+
+function assertRequiredE2eRuntimePaths() {
+  const configuredRoot = process.env.MAIS_E2E_REQUIRED_WRITE_ROOT?.trim();
+  if (!configuredRoot) return;
+
+  assertNoRawParentTraversal("MAIS_E2E_REQUIRED_WRITE_ROOT", configuredRoot);
+
+  if (Object.prototype.hasOwnProperty.call(process.env, "MAIS_ALLOW_EXTERNAL_ARTIFACTS")) {
+    throw new Error(
+      "MAIS_ALLOW_EXTERNAL_ARTIFACTS must be unset when MAIS_E2E_REQUIRED_WRITE_ROOT is enabled."
+    );
+  }
+
+  const requiredRoot = resolvePhysicalPath(configuredRoot);
+  const repoRoot = resolvePhysicalPath(".");
+  if (!isPathInside(repoRoot, requiredRoot)) {
+    throw new Error(`Playwright worktree must stay under MAIS_E2E_REQUIRED_WRITE_ROOT: ${requiredRoot}`);
+  }
+
+  const generatedPaths = [
+    ["PLAYWRIGHT_E2E_ROOT", e2eRunRoot],
+    ["PLAYWRIGHT_NEXT_DIST_DIR", e2eNextDistDir],
+    ["PLAYWRIGHT_OUTPUT_DIR", e2eOutputDir],
+    ["PLAYWRIGHT_REPORT_DIR", e2eReportDir],
+    ["HK_MATH_DB_PATH", e2eDbPath],
+    ["PLAYWRIGHT_NEXT_TSCONFIG_PATH", e2eNextTsconfigPath]
+  ] as const;
+  for (const [label, value] of generatedPaths) {
+    const absolutePath = path.resolve(value);
+    if (!isPathInside(absolutePath, requiredRoot)) {
+      throw new Error(`${label} must stay under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${absolutePath}`);
+    }
+    const physicalPath = resolvePhysicalPath(absolutePath);
+    if (!isPathInside(physicalPath, requiredRoot)) {
+      throw new Error(`${label} must resolve under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${physicalPath}`);
+    }
+  }
+
+  const runRoot = path.resolve(e2eRunRoot);
+  const physicalRunRoot = resolvePhysicalPath(runRoot);
+  const runtimePathVariables = [
+    "HOME",
+    "TMPDIR",
+    "TMP",
+    "TEMP",
+    "XDG_CACHE_HOME",
+    "NODE_COMPILE_CACHE",
+    "PLAYWRIGHT_BROWSERS_PATH",
+    "npm_config_cache",
+    "npm_config_logs_dir"
+  ] as const;
+  for (const label of runtimePathVariables) {
+    const value = process.env[label]?.trim();
+    if (!value) {
+      throw new Error(`${label} is required when MAIS_E2E_REQUIRED_WRITE_ROOT is enabled.`);
+    }
+    assertNoRawParentTraversal(label, value);
+    const absolutePath = path.resolve(value);
+    if (!isPathInside(absolutePath, requiredRoot)) {
+      throw new Error(`${label} must stay under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${absolutePath}`);
+    }
+    const physicalPath = resolvePhysicalPath(absolutePath);
+    if (!isPathInside(physicalPath, requiredRoot)) {
+      throw new Error(`${label} must resolve under MAIS_E2E_REQUIRED_WRITE_ROOT (${requiredRoot}): ${physicalPath}`);
+    }
+    if (
+      isPathInside(absolutePath, runRoot)
+      || isPathInside(runRoot, absolutePath)
+      || isPathInside(physicalPath, physicalRunRoot)
+      || isPathInside(physicalRunRoot, physicalPath)
+    ) {
+      throw new Error(`${label} must stay outside PLAYWRIGHT_E2E_ROOT so webServer cleanup cannot remove it.`);
+    }
   }
 }
 
 function shellQuote(value: string) {
   return `'${value.replace(/'/g, "'\\''")}'`;
+}
+
+function cleanupGeneratedPathsCommand(
+  values: readonly {
+    label: string;
+    raw: string;
+    absolute: string;
+    allowedRoot: string;
+    allowRoot: boolean;
+  }[],
+  quarantineRoot: string
+) {
+  const cleanupTargets = values.map((value) => ({
+    label: value.label,
+    raw: value.raw,
+    canonical: value.absolute,
+    allowedRoot: path.resolve(value.allowedRoot),
+    allowRoot: value.allowRoot
+  }));
+  const script = `
+const fs = require("node:fs");
+const path = require("node:path");
+const { randomUUID } = require("node:crypto");
+const targets = ${JSON.stringify(cleanupTargets)};
+const runtimeRoot = ${JSON.stringify(e2eRuntimeRoot)};
+const quarantineRoot = ${JSON.stringify(path.resolve(quarantineRoot))};
+
+function isInside(candidate, root) {
+  const relative = path.relative(root, candidate);
+  if (relative === "") return true;
+  if (relative.startsWith("..")) return false;
+  return !path.isAbsolute(relative);
+}
+
+function isStrictInside(candidate, root) {
+  if (candidate === root) return false;
+  return isInside(candidate, root);
+}
+
+function hasParentTraversal(value) {
+  return value.split(/[\\\\/]+/u).includes("..");
+}
+
+function resolvePhysicalWithoutSymlinkAncestors(value) {
+  const absolutePath = path.resolve(value);
+  const missingSegments = [];
+  let existingAncestor = absolutePath;
+
+  while (true) {
+    try {
+      fs.lstatSync(existingAncestor);
+      break;
+    } catch (error) {
+      if (error) {
+        if (error.code !== "ENOENT") throw error;
+      }
+      const parent = path.dirname(existingAncestor);
+      if (parent === existingAncestor) {
+        throw new Error("Could not resolve cleanup target ancestor: " + absolutePath);
+      }
+      missingSegments.unshift(path.basename(existingAncestor));
+      existingAncestor = parent;
+    }
+  }
+
+  let cursor = existingAncestor;
+  while (true) {
+    const stat = fs.lstatSync(cursor);
+    if (stat.isSymbolicLink()) {
+      throw new Error("Refusing Playwright cleanup through symlinked ancestor: " + cursor);
+    }
+    const parent = path.dirname(cursor);
+    if (parent === cursor) break;
+    cursor = parent;
+  }
+
+  return path.resolve(fs.realpathSync(existingAncestor), ...missingSegments);
+}
+
+function assertOwnerOnlyDirectory(value, label) {
+  const stat = fs.lstatSync(value);
+  if (stat.isSymbolicLink() || !stat.isDirectory()) {
+    throw new Error(label + " must be a real directory: " + value);
+  }
+  if (typeof process.getuid === "function") {
+    if (stat.uid !== process.getuid()) {
+      throw new Error(label + " must be owned by the cleanup process: " + value);
+    }
+  }
+  if ((stat.mode & 0o077) !== 0) {
+    throw new Error(label + " must be owner-only (0700): " + value);
+  }
+  return stat;
+}
+
+const repoRoot = fs.realpathSync(process.cwd());
+const tmpRoot = path.join(repoRoot, ".tmp");
+const physicalTmpRoot = resolvePhysicalWithoutSymlinkAncestors(tmpRoot);
+const physicalRuntimeRoot = resolvePhysicalWithoutSymlinkAncestors(runtimeRoot);
+const defaultNextDir = path.join(repoRoot, ".next");
+const physicalDefaultNextDir = resolvePhysicalWithoutSymlinkAncestors(defaultNextDir);
+const configuredHome = process.env.HOME?.trim();
+const physicalHome = configuredHome
+  ? resolvePhysicalWithoutSymlinkAncestors(configuredHome)
+  : null;
+const configuredRequiredRoot = process.env.MAIS_E2E_REQUIRED_WRITE_ROOT?.trim();
+if (configuredRequiredRoot) {
+  if (hasParentTraversal(configuredRequiredRoot)) {
+    throw new Error("MAIS_E2E_REQUIRED_WRITE_ROOT must not contain parent traversal (..)." );
+  }
+  if (Object.prototype.hasOwnProperty.call(process.env, "MAIS_ALLOW_EXTERNAL_ARTIFACTS")) {
+    throw new Error("MAIS_ALLOW_EXTERNAL_ARTIFACTS must be unset when MAIS_E2E_REQUIRED_WRITE_ROOT is enabled.");
+  }
+}
+const requiredRoot = configuredRequiredRoot
+  ? resolvePhysicalWithoutSymlinkAncestors(configuredRequiredRoot)
+  : null;
+
+if (!isInside(physicalRuntimeRoot, physicalTmpRoot) || physicalRuntimeRoot === physicalTmpRoot) {
+  throw new Error("Playwright cleanup runtime must remain below the worktree .tmp directory: " + physicalRuntimeRoot);
+}
+if (!isInside(quarantineRoot, runtimeRoot) || quarantineRoot === runtimeRoot) {
+  throw new Error("Playwright cleanup quarantine must remain below its dedicated runtime: " + quarantineRoot);
+}
+fs.mkdirSync(quarantineRoot, { recursive: true, mode: 0o700 });
+const physicalQuarantineParent = resolvePhysicalWithoutSymlinkAncestors(quarantineRoot);
+if (!isInside(physicalQuarantineParent, physicalRuntimeRoot) || physicalQuarantineParent === physicalRuntimeRoot) {
+  throw new Error("Playwright cleanup quarantine resolved outside its dedicated runtime: " + physicalQuarantineParent);
+}
+assertOwnerOnlyDirectory(physicalQuarantineParent, "Playwright cleanup quarantine parent");
+const invocationQuarantine = fs.mkdtempSync(path.join(physicalQuarantineParent, "cleanup-"));
+const physicalInvocationQuarantine = resolvePhysicalWithoutSymlinkAncestors(invocationQuarantine);
+if (!isInside(physicalInvocationQuarantine, physicalQuarantineParent)) {
+  throw new Error("Playwright invocation quarantine escaped its owner-only parent: " + physicalInvocationQuarantine);
+}
+assertOwnerOnlyDirectory(physicalInvocationQuarantine, "Playwright invocation quarantine");
+if (requiredRoot) {
+  if (!isInside(repoRoot, requiredRoot)) {
+    throw new Error("Playwright worktree must stay under MAIS_E2E_REQUIRED_WRITE_ROOT: " + requiredRoot);
+  }
+  if (!isInside(physicalRuntimeRoot, requiredRoot)) {
+    throw new Error("Playwright cleanup runtime must stay under MAIS_E2E_REQUIRED_WRITE_ROOT: " + requiredRoot);
+  }
+  if (!isInside(physicalInvocationQuarantine, requiredRoot)) {
+    throw new Error("Playwright cleanup quarantine must stay under MAIS_E2E_REQUIRED_WRITE_ROOT: " + requiredRoot);
+  }
+}
+
+for (const target of targets) {
+  if (hasParentTraversal(target.raw)) {
+    throw new Error(target.label + " must not contain parent traversal (..)." );
+  }
+  const resolvedRawTarget = path.resolve(target.raw);
+  if (resolvedRawTarget !== target.canonical || path.resolve(target.canonical) !== target.canonical) {
+    throw new Error(target.label + " cleanup target changed after canonical validation: " + target.canonical);
+  }
+
+  const absoluteAllowedRoot = path.resolve(target.allowedRoot);
+  if (absoluteAllowedRoot !== target.allowedRoot) {
+    throw new Error(target.label + " cleanup root must be canonical: " + target.allowedRoot);
+  }
+  const physicalAllowedRoot = resolvePhysicalWithoutSymlinkAncestors(absoluteAllowedRoot);
+  const physicalTarget = resolvePhysicalWithoutSymlinkAncestors(target.canonical);
+  const lexicalAllowed = target.allowRoot
+    ? isInside(target.canonical, absoluteAllowedRoot)
+    : isStrictInside(target.canonical, absoluteAllowedRoot);
+  const physicalAllowed = target.allowRoot
+    ? isInside(physicalTarget, physicalAllowedRoot)
+    : isStrictInside(physicalTarget, physicalAllowedRoot);
+  if (!lexicalAllowed || !physicalAllowed) {
+    throw new Error(target.label + " cleanup target escaped its run-owned root: " + physicalTarget);
+  }
+
+  const filesystemRoot = path.parse(physicalTarget).root;
+  if (
+    physicalTarget === filesystemRoot
+    || isInside(repoRoot, physicalTarget)
+    || physicalTarget === physicalTmpRoot
+    || physicalTarget === physicalRuntimeRoot
+    || physicalTarget === physicalQuarantineParent
+    || physicalTarget === physicalInvocationQuarantine
+    || (physicalHome ? isInside(physicalHome, physicalTarget) : false)
+  ) {
+    throw new Error("Refusing broad Playwright cleanup target: " + physicalTarget);
+  }
+  if (
+    target.canonical === defaultNextDir
+    || isInside(target.canonical, defaultNextDir)
+    || physicalTarget === physicalDefaultNextDir
+    || isInside(physicalTarget, physicalDefaultNextDir)
+  ) {
+    throw new Error("Refusing Playwright cleanup of the shared .next directory: " + physicalTarget);
+  }
+
+  if (!isInside(target.canonical, runtimeRoot) || !isInside(physicalTarget, physicalRuntimeRoot)) {
+    throw new Error("Playwright cleanup target must remain under its dedicated runtime: " + physicalTarget);
+  }
+  if (requiredRoot) {
+    if (!isInside(target.canonical, requiredRoot) || !isInside(physicalTarget, requiredRoot)) {
+      throw new Error("Playwright cleanup target must remain under MAIS_E2E_REQUIRED_WRITE_ROOT: " + physicalTarget);
+    }
+  }
+
+  let targetStat;
+  try {
+    targetStat = fs.lstatSync(physicalTarget);
+  } catch (error) {
+    if (error) {
+      if (error.code === "ENOENT") continue;
+    }
+    throw error;
+  }
+  if (targetStat.isSymbolicLink()) {
+    throw new Error("Refusing Playwright cleanup of a symlink target: " + physicalTarget);
+  }
+
+  if (process.env.NODE_ENV === "test") {
+    if (process.env.PLAYWRIGHT_CLEANUP_TEST_SWAP_BEFORE_RENAME === target.label) {
+      const heldOriginal = physicalTarget + ".path-safety-held-original";
+      if (fs.existsSync(heldOriginal)) {
+        throw new Error("Synthetic cleanup race hold path already exists: " + heldOriginal);
+      }
+      fs.renameSync(physicalTarget, heldOriginal);
+      fs.mkdirSync(physicalTarget, { recursive: true, mode: 0o700 });
+      fs.writeFileSync(path.join(physicalTarget, "replacement-marker.txt"), "synthetic race replacement");
+    }
+  }
+
+  const quarantinedTarget = path.join(physicalInvocationQuarantine, process.pid + "-" + randomUUID());
+  try {
+    fs.renameSync(physicalTarget, quarantinedTarget);
+  } catch (error) {
+    if (error) {
+      if (error.code === "ENOENT") continue;
+    }
+    throw error;
+  }
+
+  const quarantinedStat = fs.lstatSync(quarantinedTarget);
+  if (quarantinedStat.dev !== targetStat.dev || quarantinedStat.ino !== targetStat.ino) {
+    throw new Error(target.label + " identity changed before quarantine deletion; preserved without recursive removal.");
+  }
+  if (quarantinedStat.isSymbolicLink()) {
+    fs.unlinkSync(quarantinedTarget);
+  } else if (quarantinedStat.isDirectory()) {
+    fs.rmSync(quarantinedTarget, { recursive: true, force: true });
+  } else {
+    fs.unlinkSync(quarantinedTarget);
+  }
+}
+fs.rmdirSync(physicalInvocationQuarantine);
+`;
+  return `node -e ${shellQuote(script)}`;
 }
 
 // Extra build-output globs the e2e temp tsconfig excludes on top of the
@@ -128,16 +594,30 @@ function e2eTempTsconfigExcludeGlobs() {
 }
 
 function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
+  const tsconfigDir = path.dirname(path.resolve(tsconfigPath));
+  const pathFromTsconfigDir = (target: string) => {
+    const relative = path.relative(tsconfigDir, path.resolve(target)).replace(/\\/g, "/");
+    return relative || ".";
+  };
+  const repoGlobFromTsconfigDir = (glob: string) => {
+    const repoPrefix = pathFromTsconfigDir(".");
+    return repoPrefix === "." ? glob : `${repoPrefix}/${glob}`;
+  };
   const content = JSON.stringify({
-    extends: "./tsconfig.json",
+    extends: repoGlobFromTsconfigDir("tsconfig.json"),
+    compilerOptions: {
+      baseUrl: pathFromTsconfigDir("."),
+      paths: { "@/*": ["*"] },
+      plugins: [{ name: "next" }]
+    },
     include: [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx",
-      ".next/types/**/*.ts",
-      `${nextDistDir}/types/**/*.ts`
+      repoGlobFromTsconfigDir("next-env.d.ts"),
+      repoGlobFromTsconfigDir("**/*.ts"),
+      repoGlobFromTsconfigDir("**/*.tsx"),
+      repoGlobFromTsconfigDir(".next/types/**/*.ts"),
+      `${pathFromTsconfigDir(nextDistDir)}/types/**/*.ts`
     ],
-    exclude: e2eTempTsconfigExcludeGlobs()
+    exclude: e2eTempTsconfigExcludeGlobs().map(repoGlobFromTsconfigDir)
   }, null, 2);
   const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
   return `node -e ${shellQuote(script)}`;
@@ -176,7 +656,13 @@ export default defineConfig({
     ? undefined
     : {
         command: [
-          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
+          cleanupGeneratedPathsCommand(
+            [
+              { ...e2eRunRootInput, allowedRoot: e2eOwnedRunRoot, allowRoot: true },
+              { ...e2eNextDistInput, allowedRoot: e2eNextDistCleanupRoot, allowRoot: false }
+            ],
+            e2eQuarantineRoot
+          ),
           `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
           `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
           writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
