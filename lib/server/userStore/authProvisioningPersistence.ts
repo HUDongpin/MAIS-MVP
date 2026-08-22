@@ -37,6 +37,8 @@ type AuthProvisioningUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: AuthProvisioningUserRole;
   created_at?: string;
 };
@@ -1088,6 +1090,8 @@ export function createAuthProvisioningPersistenceStore({
             password_salt: hashed.salt,
             school_id: schoolId,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "teacher",
             created_at: timestamp
           });
@@ -1188,6 +1192,8 @@ export function createAuthProvisioningPersistenceStore({
             password_salt: hashed.salt,
             school_id: schoolId,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "student",
             created_at: timestamp
           });

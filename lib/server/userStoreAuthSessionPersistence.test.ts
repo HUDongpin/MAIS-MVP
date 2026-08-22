@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
+import { createSessionToken, verifySessionToken } from "@/lib/session";
 import {
   type AuthDemoAccountSeed,
   type AuthLoginResult,
@@ -701,6 +702,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: "ada@example.com",
     school_id: " school-1 ",
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "student"
   });
 
@@ -719,6 +722,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: "teacher.one@example.com",
     school_id: undefined,
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "teacher"
   });
 
@@ -737,6 +742,8 @@ test("auth session persistence owns auth user record normalization for legacy us
     normalized_email: undefined,
     school_id: undefined,
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "parent"
   });
 });
@@ -1121,6 +1128,8 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     password_salt: "salt",
     school_id: "school-1",
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: "2026-06-20T10:00:00.000Z"
   }), {
@@ -1133,6 +1142,8 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     password_salt: "salt",
     school_id: "school-1",
     password_must_change: true,
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: "2026-06-20T10:00:00.000Z"
   });
@@ -1195,6 +1206,22 @@ test("auth session persistence owns hot-table projection helpers for legacy user
     created_at: "2026-06-20T10:00:00.000Z"
   });
   assert.equal(projectedPasswordResetTokenRecord({ id: "token-1", user_id: "student-1" }), null);
+  assert.equal(projectedPasswordResetTokenRecord({
+    id: "token-1",
+    user_id: "student-1",
+    token_hash: "hash",
+    expires_at: "not-a-timestamp",
+    used_at: null,
+    created_at: "2026-06-20T10:00:00.000Z"
+  }), null);
+  assert.equal(projectedPasswordResetTokenRecord({
+    id: "token-1",
+    user_id: "student-1",
+    token_hash: "hash",
+    expires_at: "2026-06-20T11:00:00.000Z",
+    used_at: null,
+    created_at: "not-a-timestamp"
+  }), null);
 });
 
 test("auth session persistence owns default user settings records for legacy userStore", async () => {
@@ -1461,6 +1488,7 @@ test("auth session persistence authenticates login users and preserves snapshot 
 
   assert.equal(authenticated.status, "authenticated");
   assert.equal(authenticated.status === "authenticated" ? authenticated.session.user.id : null, "student-1");
+  assert.equal(authenticated.status === "authenticated" ? authenticated.sessionRevision : null, 1);
   assert.equal(authenticated.status === "authenticated" ? authenticated.database : null, database);
 
   const requiresCurriculum = await store.authenticateUserForLogin("setup@example.com", "current-password");
@@ -1502,12 +1530,13 @@ test("auth session persistence lets login fast hooks short-circuit or fall back 
     readDatabase: async () => {
       throw new Error("snapshot should not be read after hot login hit");
     },
-    authenticateUserForLoginBeforeSnapshot: async () => ({ status: "authenticated", session: hotSession })
+    authenticateUserForLoginBeforeSnapshot: async () => ({ status: "authenticated", session: hotSession, sessionRevision: 5 })
   });
 
   assert.deepEqual(await hotStore.authenticateUserForLogin("hot@example.com", "current-password"), {
     status: "authenticated",
-    session: hotSession
+    session: hotSession,
+    sessionRevision: 5
   });
 
   const noRetryStore = createAuthSessionPersistenceStore({
@@ -1902,6 +1931,8 @@ test("auth session persistence owns demo account sync helpers for legacy userSto
 
   users[0].password_hash = "stale";
   assert.equal(module.authDemoRecordsNeedSync?.({ users, student_profiles: studentProfiles, user_settings: userSettings }, syncOptions), true);
+  module.syncAuthDemoAccounts?.(users, studentProfiles, userSettings, "2026-06-20T11:00:00.000Z", syncOptions);
+  assert.equal(users[0].session_revision, 2);
 });
 
 test("auth session persistence owns bootstrap admin helpers for legacy userStore", async () => {
@@ -1971,6 +2002,8 @@ test("auth session persistence owns bootstrap admin helpers for legacy userStore
       password_hash: "hash:admin-pass",
       password_salt: "admin-salt",
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "admin",
       created_at: "2026-06-20T10:00:00.000Z"
     }
@@ -2212,6 +2245,8 @@ test("auth session persistence owns storage-free example account records for leg
       password_hash: "",
       password_salt: "",
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "student",
       created_at: "2026-06-20T10:00:00.000Z"
     },
@@ -2581,6 +2616,8 @@ test("auth session persistence creates parent users through snapshot storage", a
     password_hash: "hash:parent-password",
     password_salt: "salt:parent-password",
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "parent",
     created_at: generatedAt.toISOString()
   });
@@ -2682,6 +2719,8 @@ test("auth session persistence creates student users and seeds lesson progress",
     normalized_email: "studenttwo@example.com",
     password_hash: "hash:student-password",
     password_salt: "salt:student-password",
+    session_revision: 1,
+    disabled_at: null,
     role: "student",
     created_at: generatedAt.toISOString()
   });
@@ -3039,6 +3078,136 @@ test("auth session persistence changes authenticated passwords through snapshot 
   );
 });
 
+test("session-aware authentication treats legacy users as revision one and fails closed", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 1))?.user.id, "student-1");
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.equal(await store.getAuthenticatedUserForSession("missing-user", 1), null);
+
+  const user = database.users.find((candidate) => candidate.id === "student-1");
+  assert.ok(user);
+  user.disabled_at = generatedAt.toISOString();
+
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), null);
+  assert.deepEqual(await store.authenticateUserForLogin("student-one", "current-password"), { status: "invalid" });
+});
+
+test("session admission and issuance fall back to revision-aware snapshot state when hot auth opts out", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database, {
+    lookupSessionBeforeRead: async () => undefined,
+    lookupSessionRevisionBeforeRead: async () => undefined
+  });
+
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 1))?.user.id, "student-1");
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), 1);
+
+  database.users.find((candidate) => candidate.id === "student-1")!.disabled_at = generatedAt.toISOString();
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal(await store.getActiveUserSessionRevision("student-1"), null);
+});
+
+test("password changes and resets atomically increment the stored session revision", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const changed = await store.changeAuthenticatedUserPassword({
+    userId: "student-1",
+    currentPassword: "current-password",
+    password: "changed-password"
+  });
+  assert.equal(changed.status, "updated");
+  assert.equal(changed.status === "updated" ? changed.sessionRevision : null, 2);
+  assert.equal(database.users.find((candidate) => candidate.id === "student-1")?.session_revision, 2);
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 2))?.user.id, "student-1");
+
+  const resetDatabase = createDatabase();
+  const resetStore = createTestStore(resetDatabase);
+  const reset = await resetStore.resetUserPassword("active", "reset-password");
+  assert.equal(reset.status, "reset");
+  assert.equal(reset.status === "reset" ? reset.sessionRevision : null, 2);
+  assert.equal(resetDatabase.users.find((candidate) => candidate.id === "student-1")?.session_revision, 2);
+  assert.equal(await resetStore.getAuthenticatedUserForSession("student-1", 1), null);
+  assert.equal((await resetStore.getAuthenticatedUserForSession("student-1", 2))?.user.id, "student-1");
+});
+
+test("logout-all and disable state transitions each revoke every previously minted session", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  assert.deepEqual(await store.revokeAllUserSessions("student-1"), {
+    status: "revoked",
+    sessionRevision: 2
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 1), null);
+
+  assert.deepEqual(await store.setUserDisabledState("student-1", true), {
+    status: "updated",
+    disabledAt: generatedAt.toISOString(),
+    sessionRevision: 3
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 2), null);
+  assert.deepEqual(await store.authenticateUserForLogin("student-one", "current-password"), { status: "invalid" });
+
+  assert.deepEqual(await store.setUserDisabledState("student-1", false), {
+    status: "updated",
+    disabledAt: null,
+    sessionRevision: 4
+  });
+  assert.equal(await store.getAuthenticatedUserForSession("student-1", 3), null);
+  assert.equal((await store.getAuthenticatedUserForSession("student-1", 4))?.user.id, "student-1");
+});
+
+test("password change, reset, and logout-all revoke two independently minted device tokens", async () => {
+  const previousSecret = process.env.AUTH_SESSION_SECRET;
+  process.env.AUTH_SESSION_SECRET = "two-device-session-revision-test-secret";
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const authenticateToken = async (token: string) => {
+    const payload = await verifySessionToken(token);
+    return payload ? store.getAuthenticatedUserForSession(payload.sub, payload.sr) : null;
+  };
+  const mintPair = async (sessionRevision: number) => Promise.all([
+    createSessionToken({ userId: "student-1", sessionRevision }),
+    createSessionToken({ userId: "student-1", sessionRevision })
+  ]);
+
+  try {
+    const passwordDevices = await mintPair(1);
+    assert.ok(await authenticateToken(passwordDevices[0]));
+    assert.ok(await authenticateToken(passwordDevices[1]));
+    assert.equal((await store.changeAuthenticatedUserPassword({
+      userId: "student-1",
+      currentPassword: "current-password",
+      password: "changed-password"
+    })).status, "updated");
+    assert.equal(await authenticateToken(passwordDevices[0]), null);
+    assert.equal(await authenticateToken(passwordDevices[1]), null);
+
+    const resetDevices = await mintPair(2);
+    assert.equal((await store.resetUserPassword("active", "reset-password")).status, "reset");
+    assert.equal(await authenticateToken(resetDevices[0]), null);
+    assert.equal(await authenticateToken(resetDevices[1]), null);
+
+    const logoutDevices = await mintPair(3);
+    assert.equal((await store.revokeAllUserSessions("student-1")).status, "revoked");
+    assert.equal(await authenticateToken(logoutDevices[0]), null);
+    assert.equal(await authenticateToken(logoutDevices[1]), null);
+
+    const current = await createSessionToken({ userId: "student-1", sessionRevision: 4 });
+    assert.equal((await authenticateToken(current))?.user.id, "student-1");
+  } finally {
+    if (previousSecret === undefined) delete process.env.AUTH_SESSION_SECRET;
+    else process.env.AUTH_SESSION_SECRET = previousSecret;
+  }
+});
+
 test("auth session persistence creates password reset requests without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/authSessionPersistence.ts"), "utf8");
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
@@ -3103,6 +3272,31 @@ test("auth session persistence resets passwords and consumes valid reset tokens"
   assert.deepEqual(await store.resetUserPassword("expired", "1234"), { status: "invalid" });
 });
 
+test("auth session persistence rejects malformed reset expiry without mutating account state", async () => {
+  const database = createDatabase();
+  passwordResetTokens(database).push({
+    id: "malformed-expiry-token",
+    user_id: "student-1",
+    token_hash: "hashed:malformed-expiry-token",
+    expires_at: "not-a-timestamp",
+    used_at: null,
+    created_at: "2026-06-20T09:30:00.000Z"
+  });
+  const originalUser = structuredClone(database.users.find((candidate) => candidate.id === "student-1"));
+
+  const result = await createTestStore(database).resetUserPassword(
+    "malformed-expiry-token",
+    "new-password"
+  );
+
+  assert.deepEqual(result, { status: "invalid" });
+  assert.deepEqual(database.users.find((candidate) => candidate.id === "student-1"), originalUser);
+  assert.equal(
+    passwordResetTokens(database).find((token) => token.id === "malformed-expiry-token")?.used_at,
+    null
+  );
+});
+
 test("auth session persistence lets password reset hot hooks short-circuit snapshot storage", async () => {
   const requestResult = {
     token: "hot-token",
@@ -3135,11 +3329,19 @@ test("auth session persistence lets password reset hot hooks short-circuit snaps
       throw new Error("snapshot should not be mutated after hot password reset hit");
     },
     createPasswordResetRequestBeforeSnapshot: async () => requestResult,
-    resetUserPasswordBeforeSnapshot: async () => ({ status: "reset", session: resetSession })
+    resetUserPasswordBeforeSnapshot: async () => ({
+      status: "reset",
+      session: resetSession,
+      sessionRevision: 9
+    })
   });
 
   assert.equal(await store.createPasswordResetRequest("hot@example.com"), requestResult);
-  assert.deepEqual(await store.resetUserPassword("hot-token", "new-password"), { status: "reset", session: resetSession });
+  assert.deepEqual(await store.resetUserPassword("hot-token", "new-password"), {
+    status: "reset",
+    session: resetSession,
+    sessionRevision: 9
+  });
 });
 
 test("legacy userStore delegates authenticated user lookup to extracted auth session persistence", async () => {

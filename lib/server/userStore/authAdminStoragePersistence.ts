@@ -14,6 +14,7 @@ import type {
   TextbookPublisher,
   ThemeMode
 } from "@/types";
+import { authDisabledAt, authSessionRevision } from "./authSessionPersistence";
 
 type AuthAdminStorageUserRole = "student" | "teacher" | "parent" | "admin";
 type AuthAdminStorageProvider = "sqlite" | "postgres";
@@ -28,6 +29,8 @@ type AuthAdminStorageUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: AuthAdminStorageUserRole;
   created_at: string;
 };
@@ -296,6 +299,8 @@ export function authAdminStorageHotAuthUserRows(users: AuthAdminStorageUserRecor
     password_salt: user.password_salt,
     school_id: user.school_id ?? null,
     password_must_change: user.password_must_change ?? false,
+    session_revision: authSessionRevision(user),
+    disabled_at: authDisabledAt(user),
     role: user.role,
     created_at: user.created_at
   }));

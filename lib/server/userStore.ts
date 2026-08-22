@@ -146,6 +146,7 @@ import {
   authInternalExampleAccountSeedForUserId as internalExampleAccountSeedForUserIdFromAuthSessionPersistence,
   authSelectedGradeForSettingsUpdate as selectedGradeForSettingsUpdateFromAuthSessionPersistence,
   authPasswordMatches as passwordMatchesFromAuthSessionPersistence,
+  authUserIsDisabled as userIsDisabledFromAuthSessionPersistence,
   authStudentProfileFor as studentProfileForFromAuthSessionPersistence,
   cleanAuthStudentProfileName as cleanStudentProfileNameFromAuthSessionPersistence,
   authenticatedLoginResultFromAuthDatabase as authenticatedLoginResultFromAuthDatabaseFromAuthSessionPersistence,
@@ -863,6 +864,8 @@ export type UserRecord = {
   password_salt: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision: number;
+  disabled_at: string | null;
   role: UserRole;
   created_at: string;
 };
@@ -1887,6 +1890,7 @@ export type AuthenticatedUser = {
 type AuthenticatedLoginResult = {
   status: "authenticated";
   session: AuthenticatedUser;
+  sessionRevision: number;
   database?: Database;
 };
 
@@ -1938,7 +1942,7 @@ const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
 // Increment whenever any SQL in bootstrapPostgresStateTables changes.
-const hotAuthSchemaVersion = 3;
+const hotAuthSchemaVersion = 4;
 const hotAuthTableNames = [
   "auth_users",
   "auth_student_profiles",
@@ -2714,6 +2718,8 @@ function createInitialDatabase(): Database {
     password_hash: password.hash,
     password_salt: password.salt,
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: seed.role,
     created_at: now
   }));
@@ -3138,10 +3144,14 @@ async function bootstrapPostgresStateTables() {
           password_salt TEXT NOT NULL,
           school_id TEXT,
           password_must_change BOOLEAN NOT NULL DEFAULT FALSE,
+          session_revision INTEGER NOT NULL DEFAULT 1,
+          disabled_at TEXT,
           role TEXT NOT NULL,
           created_at TEXT NOT NULL
         )
       `;
+      await migrationSql`ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS session_revision INTEGER NOT NULL DEFAULT 1`;
+      await migrationSql`ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS disabled_at TEXT`;
       await migrationSql`
         CREATE TABLE IF NOT EXISTS auth_student_profiles (
           user_id TEXT PRIMARY KEY,
@@ -4272,7 +4282,7 @@ async function syncPostgresHotAuthTablesWith(sql: PostgresExecutor, database: Da
   const users = hotAuthUserRows(hotRows.users);
   if (users.length) {
     await sql`
-      INSERT INTO auth_users ${sql(users, "id", "username", "normalized_username", "email", "normalized_email", "password_hash", "password_salt", "school_id", "password_must_change", "role", "created_at")}
+      INSERT INTO auth_users ${sql(users, "id", "username", "normalized_username", "email", "normalized_email", "password_hash", "password_salt", "school_id", "password_must_change", "session_revision", "disabled_at", "role", "created_at")}
       ON CONFLICT (id) DO UPDATE SET
         username = excluded.username,
         normalized_username = excluded.normalized_username,
@@ -4282,6 +4292,8 @@ async function syncPostgresHotAuthTablesWith(sql: PostgresExecutor, database: Da
         password_salt = excluded.password_salt,
         school_id = excluded.school_id,
         password_must_change = excluded.password_must_change,
+        session_revision = excluded.session_revision,
+        disabled_at = excluded.disabled_at,
         role = excluded.role,
         created_at = excluded.created_at
     `;
@@ -5469,6 +5481,10 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     !Array.isArray(parsed.forum_reports) ||
     !Array.isArray(parsed.forum_audit_events) ||
     !Array.isArray(parsed.forum_notifications) ||
+    (parsed.users ?? []).some((user) => (
+      !Object.prototype.hasOwnProperty.call(user, "session_revision")
+      || !Object.prototype.hasOwnProperty.call(user, "disabled_at")
+    )) ||
     database.users.some((user) => user.email && !user.normalized_email) ||
     database.users.some((user) => typeof user.password_must_change !== "boolean") ||
     database.student_profiles.some((profile) => !isValidStudentAvatarIdFromAuthSessionPersistence(profile.avatar_id)) ||
@@ -7321,6 +7337,10 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
     return result as T;
   },
   lookupBeforeRead: getAuthenticatedUserByIdFromHotTables,
+  lookupSessionBeforeRead: (userId, sessionRevision, signal) => signal
+    ? getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotPath(userId, sessionRevision, signal)
+    : getAuthenticatedUserForSessionFromPostgresHotTables(userId, sessionRevision),
+  lookupSessionRevisionBeforeRead: getActiveUserSessionRevisionFromPostgresHotTables,
   createId: () => randomUUID(),
   createParentInviteCode: (database) => uniqueParentInviteCodeFromParentAccess(database as Database),
   createResetToken: () => randomBytes(32).toString("base64url"),
@@ -7409,8 +7429,6 @@ const authUserStore = createAuthUserStore({
   authAdminStoragePersistenceStore,
   authProvisioningPersistenceStore,
   authSessionPersistenceStore,
-  getAuthenticatedUserByIdForAiTutorAdmissionBeforeSnapshot:
-    getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath,
   isGradeAllowedForCurriculumProfile: authGradeAllowedForCurriculumProfile,
   learnerProfilePersistenceStore
 });
@@ -8756,9 +8774,12 @@ async function authenticateUserForLoginFromHotTables(username: string, password:
     const candidateRows = await sql<Record<string, unknown>[]>`
       SELECT *
       FROM auth_users
-      WHERE normalized_username = ${normalizedIdentifier}
-        OR normalized_email = ${normalizedIdentifier}
-        OR (${normalizedEmailIdentifier} <> '' AND normalized_email = ${normalizedEmailIdentifier})
+      WHERE disabled_at IS NULL
+        AND (
+          normalized_username = ${normalizedIdentifier}
+          OR normalized_email = ${normalizedIdentifier}
+          OR (${normalizedEmailIdentifier} <> '' AND normalized_email = ${normalizedEmailIdentifier})
+        )
       ORDER BY CASE
         WHEN ${normalizedEmailIdentifier} <> '' AND normalized_email = ${normalizedEmailIdentifier} THEN 0
         WHEN normalized_username = ${normalizedIdentifier} THEN 1
@@ -8811,6 +8832,7 @@ async function authenticateUserForLoginJsonbProjection(username: string, passwor
         FROM app_state AS state
         CROSS JOIN LATERAL jsonb_array_elements(COALESCE(state.payload->'users', '[]'::jsonb)) AS user_items(user_record)
         WHERE state.id = ${stateRecordId}
+          AND COALESCE(user_items.user_record->>'disabled_at', '') = ''
           AND (
             user_items.user_record->>'normalized_username' = ${normalizedIdentifier}
             OR user_items.user_record->>'normalized_email' = ${normalizedIdentifier}
@@ -8845,7 +8867,7 @@ async function authenticateUserForLoginJsonbProjection(username: string, passwor
 
     for (const row of rows) {
       const user = projectedUserRecordFromAuthSessionPersistence(row.user_record);
-      if (!user || !passwordMatchesFromAuthSessionPersistence(password, user)) continue;
+      if (!user || userIsDisabledFromAuthSessionPersistence(user) || !passwordMatchesFromAuthSessionPersistence(password, user)) continue;
 
       const profile = projectedStudentProfileRecordFromAuthSessionPersistence(row.profile_record);
       if (!profile) return { status: "invalid" as const };
@@ -8869,7 +8891,9 @@ async function authenticateUserForLoginJsonbProjection(username: string, passwor
         settingsRecord: projectedUserSettingsRecordFromAuthSessionPersistence(row.settings_record),
         user
       });
-      return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
+      return session
+        ? { status: "authenticated" as const, session, sessionRevision: user.session_revision }
+        : { status: "invalid" as const };
     }
 
     return { status: "invalid" as const };
@@ -8917,15 +8941,19 @@ export async function authenticateGoogleIdentityForLogin({
       identity.provider === "google" && identity.provider_subject === subject
     );
     if (existingIdentity) {
+      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
+      if (!user || userIsDisabledFromAuthSessionPersistence(user)) return { status: "invalid" as const };
       existingIdentity.last_login_at = now;
       existingIdentity.email_at_link = trimmedEmail;
-      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
-      const session = user ? toAuthenticatedUser(database, user) : null;
-      return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
+      const session = toAuthenticatedUser(database, user);
+      return session
+        ? { status: "authenticated" as const, session, sessionRevision: user.session_revision }
+        : { status: "invalid" as const };
     }
 
     const existingEmailUser = database.users.find((candidate) => candidate.normalized_email === normalizedEmail);
     if (existingEmailUser) {
+      if (userIsDisabledFromAuthSessionPersistence(existingEmailUser)) return { status: "invalid" as const };
       database.auth_identities.push({
         provider: "google",
         provider_subject: subject,
@@ -8935,7 +8963,9 @@ export async function authenticateGoogleIdentityForLogin({
         last_login_at: now
       });
       const session = toAuthenticatedUser(database, existingEmailUser);
-      return session ? { status: "linked" as const, session } : { status: "invalid" as const };
+      return session
+        ? { status: "linked" as const, session, sessionRevision: existingEmailUser.session_revision }
+        : { status: "invalid" as const };
     }
 
     if (role === "teacher") {
@@ -8962,6 +8992,8 @@ export async function authenticateGoogleIdentityForLogin({
       password_hash: hashedPassword.hash,
       password_salt: hashedPassword.salt,
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role,
       created_at: now
     };
@@ -8996,7 +9028,9 @@ export async function authenticateGoogleIdentityForLogin({
     }
 
     const session = toAuthenticatedUser(database, user);
-    return session ? { status: "created" as const, session } : { status: "invalid" as const };
+    return session
+      ? { status: "created" as const, session, sessionRevision: user.session_revision }
+      : { status: "invalid" as const };
   });
 }
 
@@ -9083,11 +9117,24 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
   try {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
+      const stateRows = await sql<Array<{ payload: unknown }>>`
+        SELECT payload
+        FROM app_state
+        WHERE id = ${stateRecordId}
+        FOR UPDATE
+      `;
+      if (stateRows.length !== 1) {
+        throw new Error("The password reset state snapshot is unavailable.");
+      }
+
       const candidateRows = await sql<Record<string, unknown>[]>`
         SELECT *
         FROM auth_users
-        WHERE normalized_username = ${normalizedIdentifier}
-          OR normalized_email = ${normalizedIdentifier}
+        WHERE disabled_at IS NULL
+          AND (
+            normalized_username = ${normalizedIdentifier}
+            OR normalized_email = ${normalizedIdentifier}
+          )
         ORDER BY CASE
           WHEN normalized_username = ${normalizedIdentifier} THEN 0
           WHEN normalized_email = ${normalizedIdentifier} THEN 1
@@ -9107,19 +9154,48 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
 
       const resetToken = randomBytes(32).toString("base64url");
       const expiresAt = new Date(nowMs + passwordResetTokenMaxAgeMs).toISOString();
-      const tokenRow = hotAuthPasswordResetTokenRows([
-        {
-          id: randomUUID(),
-          user_id: user.id,
-          token_hash: hashPasswordResetTokenFromAuthSessionPersistence(resetToken),
-          expires_at: expiresAt,
-          used_at: null,
-          created_at: new Date(nowMs).toISOString()
-        }
-      ])[0];
+      const createdAt = new Date(nowMs).toISOString();
+      const tokenRecord: PasswordResetTokenRecord = {
+        id: randomUUID(),
+        user_id: user.id,
+        token_hash: hashPasswordResetTokenFromAuthSessionPersistence(resetToken),
+        expires_at: expiresAt,
+        used_at: null,
+        created_at: createdAt
+      };
+      const tokenRow = hotAuthPasswordResetTokenRows([tokenRecord])[0];
       await sql`
         INSERT INTO auth_password_reset_tokens ${sql([tokenRow], "id", "user_id", "token_hash", "expires_at", "used_at", "created_at")}
       `;
+      const updatedStateRows = await sql<Array<{ id: string }>>`
+        UPDATE app_state AS state
+        SET payload = jsonb_set(
+              state.payload,
+              '{password_reset_tokens}',
+              (
+                CASE
+                  WHEN jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                    THEN state.payload->'password_reset_tokens'
+                  ELSE '[]'::jsonb
+                END
+              ) || jsonb_build_array(jsonb_build_object(
+                'id', ${tokenRecord.id},
+                'user_id', ${tokenRecord.user_id},
+                'token_hash', ${tokenRecord.token_hash},
+                'expires_at', ${tokenRecord.expires_at},
+                'used_at', NULL::text,
+                'created_at', ${tokenRecord.created_at}
+              )),
+              TRUE
+            ),
+            revision = revision + 1,
+            updated_at = ${createdAt}
+        WHERE state.id = ${stateRecordId}
+        RETURNING state.id
+      `;
+      if (updatedStateRows.length !== 1) {
+        throw new Error("The password reset token could not be persisted to the state snapshot.");
+      }
 
       return { token: resetToken, expiresAt, email: user.email, username: user.username };
     });
@@ -9142,39 +9218,120 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
     await ensurePostgresStateTable();
     const tokenHash = hashPasswordResetTokenFromAuthSessionPersistence(trimmedToken);
     return getPostgresClient().begin(async (sql) => {
+      const stateRows = await sql<Array<{ payload: unknown }>>`
+        SELECT payload
+        FROM app_state
+        WHERE id = ${stateRecordId}
+        FOR UPDATE
+      `;
+      if (stateRows.length !== 1) {
+        throw new Error("The password reset state snapshot is unavailable.");
+      }
+
       const tokenRows = await sql<Record<string, unknown>[]>`
         SELECT *
         FROM auth_password_reset_tokens
         WHERE token_hash = ${tokenHash}
         LIMIT 1
+        FOR UPDATE
       `;
       const resetToken = tokenRows.map(projectedPasswordResetTokenRecordFromAuthSessionPersistence).find((candidate): candidate is PasswordResetTokenRecord => Boolean(candidate));
-      if (!resetToken) return undefined;
+      if (!resetToken) return { status: "invalid" as const };
 
       const nowMs = Date.now();
-      if (resetToken.used_at || Date.parse(resetToken.expires_at) <= nowMs) {
+      const expiresAtMs = Date.parse(resetToken.expires_at);
+      if (resetToken.used_at || !Number.isFinite(expiresAtMs) || expiresAtMs <= nowMs) {
         return { status: "invalid" as const };
       }
 
       const hotRows = await readPostgresHotAuthRowsForUserIds(sql, [resetToken.user_id]);
       const user = hotRows.users.find((candidate) => candidate.id === resetToken.user_id);
       const profile = hotRows.studentProfiles.find((candidate) => candidate.user_id === resetToken.user_id);
-      if (!user || !profile) return undefined;
+      if (!user || !profile) return { status: "invalid" as const };
 
       const hashedPassword = hashPasswordFromAuthSessionPersistence(password);
       const usedAt = new Date(nowMs).toISOString();
-      await sql`
+      const updatedUserRows = await sql<Array<{ session_revision: unknown }>>`
         UPDATE auth_users
         SET password_hash = ${hashedPassword.hash},
             password_salt = ${hashedPassword.salt},
-            password_must_change = FALSE
+            password_must_change = FALSE,
+            session_revision = session_revision + 1
         WHERE id = ${user.id}
+          AND disabled_at IS NULL
+        RETURNING session_revision
       `;
+      const sessionRevision = updatedUserRows[0]?.session_revision;
+      if (!Number.isSafeInteger(sessionRevision) || (sessionRevision as number) < 1) {
+        return { status: "invalid" as const };
+      }
       await sql`
         UPDATE auth_password_reset_tokens
         SET used_at = ${usedAt}
         WHERE id = ${resetToken.id}
       `;
+      const updatedStateRows = await sql<Array<{ id: string }>>`
+        UPDATE app_state AS state
+        SET payload = jsonb_set(
+              jsonb_set(
+                state.payload,
+                '{users}',
+                (
+                  SELECT jsonb_agg(
+                    CASE
+                      WHEN user_record->>'id' = ${user.id}
+                        THEN user_record || jsonb_build_object(
+                          'password_hash', ${hashedPassword.hash},
+                          'password_salt', ${hashedPassword.salt},
+                          'password_must_change', FALSE,
+                          'session_revision', ${sessionRevision as number}
+                        )
+                      ELSE user_record
+                    END
+                    ORDER BY ordinal
+                  )
+                  FROM jsonb_array_elements(state.payload->'users')
+                    WITH ORDINALITY AS user_records(user_record, ordinal)
+                ),
+                FALSE
+              ),
+              '{password_reset_tokens}',
+              COALESCE(
+                (
+                  SELECT jsonb_agg(
+                    CASE
+                      WHEN token_record->>'id' = ${resetToken.id}
+                        THEN token_record || jsonb_build_object('used_at', ${usedAt})
+                      ELSE token_record
+                    END
+                    ORDER BY ordinal
+                  )
+                  FROM jsonb_array_elements(
+                    CASE
+                      WHEN jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                        THEN state.payload->'password_reset_tokens'
+                      ELSE '[]'::jsonb
+                    END
+                  ) WITH ORDINALITY AS token_records(token_record, ordinal)
+                ),
+                '[]'::jsonb
+              ),
+              FALSE
+            ),
+            revision = revision + 1,
+            updated_at = ${usedAt}
+        WHERE state.id = ${stateRecordId}
+          AND jsonb_typeof(state.payload->'users') = 'array'
+          AND EXISTS (
+            SELECT 1
+            FROM jsonb_array_elements(state.payload->'users') AS user_records(user_record)
+            WHERE user_record->>'id' = ${user.id}
+          )
+        RETURNING state.id
+      `;
+      if (updatedStateRows.length !== 1) {
+        throw new Error("The password reset user is missing from the state snapshot.");
+      }
 
       const session = authenticatedUserFromAuthRecordsFromAuthSessionPersistence({
         mediaObjectUrlForKey: mediaObjectAccessUrl,
@@ -9182,16 +9339,18 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
           ...user,
           password_hash: hashedPassword.hash,
           password_salt: hashedPassword.salt,
-          password_must_change: false
+          password_must_change: false,
+          session_revision: sessionRevision as number
         },
         profile,
         settingsRecord:
           hotRows.userSettings.find((candidate) => candidate.user_id === resetToken.user_id) ?? null
       });
-      return session ? { status: "reset" as const, session } : { status: "invalid" as const };
+      if (!session) throw new Error("The password reset session could not be projected.");
+      return { status: "reset" as const, session, sessionRevision: sessionRevision as number };
     });
-  } catch {
-    return undefined;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -9218,8 +9377,55 @@ async function getAuthenticatedUserByIdFromHotTables(userId: string) {
   }
 }
 
-async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
+async function getAuthenticatedUserForSessionFromPostgresHotTables(
   userId: string,
+  sessionRevision: number
+): Promise<AuthenticatedUser | null | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+  if (!postgresHotAuthTablesEnabled()) return undefined;
+
+  await ensurePostgresStateTable();
+  const rows = await getPostgresClient()<AuthAdmissionJoinedRow[]>`
+    SELECT
+      TRUE AS schema_ready,
+      to_jsonb(auth_user) AS user_record,
+      CASE WHEN student_profile.user_id IS NULL THEN NULL ELSE to_jsonb(student_profile) END AS profile_record,
+      CASE WHEN user_settings.user_id IS NULL THEN NULL ELSE to_jsonb(user_settings) END AS settings_record
+    FROM auth_users AS auth_user
+    LEFT JOIN auth_student_profiles AS student_profile
+      ON student_profile.user_id = auth_user.id
+    LEFT JOIN auth_user_settings AS user_settings
+      ON user_settings.user_id = auth_user.id
+    WHERE auth_user.id = ${userId}
+      AND auth_user.session_revision = ${sessionRevision}
+      AND auth_user.disabled_at IS NULL
+    LIMIT 1
+  `;
+  if (rows.length !== 1) return null;
+  return mapAuthAdmissionJoinedRow(rows[0], { mediaObjectUrlForKey: mediaObjectAccessUrl });
+}
+
+async function getActiveUserSessionRevisionFromPostgresHotTables(
+  userId: string
+): Promise<number | null | undefined> {
+  if (storageProvider !== "postgres") return undefined;
+  if (!postgresHotAuthTablesEnabled()) return undefined;
+
+  await ensurePostgresStateTable();
+  const rows = await getPostgresClient()<Array<{ session_revision: unknown }>>`
+    SELECT session_revision
+    FROM auth_users
+    WHERE id = ${userId}
+      AND disabled_at IS NULL
+    LIMIT 1
+  `;
+  const revision = rows[0]?.session_revision;
+  return Number.isSafeInteger(revision) && (revision as number) >= 1 ? revision as number : null;
+}
+
+async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotPath(
+  userId: string,
+  sessionRevision: number,
   signal: AbortSignal
 ): Promise<AuthenticatedUser | null | undefined> {
   if (storageProvider !== "postgres") return undefined;
@@ -9274,6 +9480,8 @@ async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
           CROSS JOIN schema_readiness
           WHERE schema_readiness.schema_ready
             AND auth_user.id = ${lookupUserId}
+            AND auth_user.session_revision = ${sessionRevision}
+            AND auth_user.disabled_at IS NULL
           LIMIT 1
         )
         SELECT
@@ -9294,7 +9502,6 @@ async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
         mapRow: (row) => mapAuthAdmissionJoinedRow(row, {
           mediaObjectUrlForKey: mediaObjectAccessUrl
         }),
-        onAuthoritativeMiss: storageFreeExampleAuthenticatedUser,
         signal: admissionSignal,
         userId
       });
@@ -9311,8 +9518,10 @@ async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath(
 }
 
 export const getAuthenticatedUserById = authUserStore.getAuthenticatedUserById;
-export const getAuthenticatedUserByIdForAiTutorAdmission =
-  authUserStore.getAuthenticatedUserByIdForAiTutorAdmission;
+export const getAuthenticatedUserForSession = authUserStore.getAuthenticatedUserForSession;
+export const getActiveUserSessionRevision = authUserStore.getActiveUserSessionRevision;
+export const revokeAllUserSessions = authUserStore.revokeAllUserSessions;
+export const setUserDisabledState = authUserStore.setUserDisabledState;
 
 export const parentCanAccessStudent = parentUserStore.parentCanAccessStudent;
 

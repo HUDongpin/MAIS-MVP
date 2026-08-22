@@ -33,7 +33,7 @@ test("the real child-summary route rejects an authenticated admin without reveal
     const session = await import("@/lib/session");
     const auth = await import("@/lib/server/auth");
     const route = await import("@/app/api/parent/children/[studentId]/summary/route");
-    const token = await session.createSessionToken(adminId);
+    const token = await session.createSessionToken({ userId: adminId, sessionRevision: 1 });
     const request = new Request("http://localhost/api/parent/children/student-peter/summary", {
       headers: { cookie: `${session.SESSION_COOKIE_NAME}=${encodeURIComponent(token)}` }
     });

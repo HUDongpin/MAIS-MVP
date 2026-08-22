@@ -10,7 +10,7 @@ const authPath = join(process.cwd(), "lib/server/auth.ts");
 test("Nova Postgres admission uses a narrow policy read and atomic per-user rate ledger", async () => {
   const source = await readFile(userStorePath, "utf8");
 
-  assert.match(source, /const hotAuthSchemaVersion = 3;/);
+  assert.match(source, /const hotAuthSchemaVersion = 4;/);
   assert.match(source, /CREATE TABLE IF NOT EXISTS ai_governance_rate_limit_events/);
   assert.match(
     source,
@@ -266,8 +266,8 @@ test("Nova authentication uses one authoritative abort-bounded Postgres join wit
   const source = await readFile(userStorePath, "utf8");
   const clientStart = source.indexOf("function createAiTutorAdmissionPostgresClient");
   const clientEnd = source.indexOf("\nasync function resolveStudentAiTutorPolicyFromPostgresHotPath", clientStart + 1);
-  const start = source.indexOf("async function getAuthenticatedUserByIdForAiTutorAdmissionFromPostgresHotPath");
-  const end = source.indexOf("\nexport const getAuthenticatedUserByIdForAiTutorAdmission", start + 1);
+  const start = source.indexOf("async function getAuthenticatedUserForSessionForAiTutorAdmissionFromPostgresHotPath");
+  const end = source.indexOf("\nexport const getAuthenticatedUserById", start + 1);
 
   assert.ok(clientStart >= 0 && clientEnd > clientStart, "expected a bounded dedicated client factory");
   const clientSource = source.slice(clientStart, clientEnd);
@@ -317,7 +317,9 @@ test("Nova authentication uses one authoritative abort-bounded Postgres join wit
   assert.match(functionSource, /WHERE version = \$\{hotAuthSchemaVersion\}/);
   assert.match(functionSource, /FALSE AS schema_ready/);
   assert.match(functionSource, /runCancellableAuthAdmissionQuery/);
-  assert.match(functionSource, /storageFreeExampleAuthenticatedUser/);
+  assert.match(functionSource, /auth_user\.session_revision = \$\{sessionRevision\}/);
+  assert.match(functionSource, /auth_user\.disabled_at IS NULL/);
+  assert.doesNotMatch(functionSource, /storageFreeExampleAuthenticatedUser/);
   assert.match(
     functionSource,
     /if \(!postgresHotAuthTablesEnabled\(\)\)\s*\{[\s\S]*throw new Error/,
@@ -340,9 +342,9 @@ test("Nova authentication verifies the session before the dedicated admission lo
 
   assert.ok(
     functionSource.indexOf("verifySessionToken(token)")
-      < functionSource.indexOf("getAuthenticatedUserByIdForAiTutorAdmission"),
+      < functionSource.indexOf("getAuthenticatedUserForSession"),
     "signed session verification must complete before the database lookup"
   );
   assert.match(functionSource, /if \(!payload\) return null/);
-  assert.match(functionSource, /getAuthenticatedUserByIdForAiTutorAdmission\(payload\.sub, signal\)/);
+  assert.match(functionSource, /getAuthenticatedUserForSession\(payload\.sub, payload\.sr, signal\)/);
 });

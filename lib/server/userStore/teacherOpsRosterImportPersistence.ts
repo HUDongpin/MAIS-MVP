@@ -23,6 +23,8 @@ type TeacherOpsRosterImportUserRecord = {
   password_salt?: string;
   school_id?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
   role: TeacherOpsRosterImportUserRole;
   created_at?: string;
 };
@@ -486,6 +488,8 @@ export function createTeacherOpsRosterImportPersistenceStore({
             password_salt: passwordHash.salt,
             school_id: teacherClass.school_id ?? user.school_id,
             password_must_change: true,
+            session_revision: 1,
+            disabled_at: null,
             role: "student",
             created_at: timestamp
           };
@@ -571,6 +575,8 @@ export function createTeacherOpsRosterImportPersistenceStore({
               password_salt: passwordHash.salt,
               school_id: teacherClass.school_id ?? user.school_id,
               password_must_change: true,
+              session_revision: 1,
+              disabled_at: null,
               role: "parent",
               created_at: timestamp
             };

@@ -535,6 +535,8 @@ test("auth admin storage persistence owns hot-auth table row serializers", async
       password_salt: "salt",
       school_id: null,
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: "student",
       created_at: "2026-06-20T10:00:00.000Z"
     }

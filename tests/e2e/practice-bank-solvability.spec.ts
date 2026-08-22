@@ -682,8 +682,8 @@ async function createRouteHarness(testInfo: TestInfo): Promise<RouteHarness> {
   expect(result.status).toBe("created");
   if (result.status !== "created") throw new Error(`Could not create solvability user: ${result.status}`);
 
-  const token = await sessionModule.createSessionToken(result.session.user.id);
-  const orphanToken = await sessionModule.createSessionToken(`missing-${slug}`);
+  const token = await sessionModule.createSessionToken({ userId: result.session.user.id, sessionRevision: 1 });
+  const orphanToken = await sessionModule.createSessionToken({ userId: `missing-${slug}`, sessionRevision: 1 });
 
   return {
     attemptsPost: attemptsRoute.POST,
@@ -717,7 +717,7 @@ async function submitAttempt(harness: RouteHarness, questionId: string, selected
 }
 
 test.describe("Practice Arena item-bank solvability", () => {
-  test("attempts route keeps login required but falls back to seed grading for missing production user rows", async ({}, testInfo) => {
+  test("attempts route rejects anonymous requests and signed orphan sessions", async ({}, testInfo) => {
     const harness = await createRouteHarness(testInfo);
     const requestBody = {
       questionId: "pq-p5-volume-1",
@@ -740,11 +740,7 @@ test.describe("Practice Arena item-bank solvability", () => {
       },
       body: JSON.stringify(requestBody)
     }));
-    const correctBody = await correctResponse.json() as AttemptFeedback;
-
-    expect(correctResponse.status).toBe(200);
-    expect(correctBody.correct).toBe(true);
-    expect(correctBody.correctAnswer).toBeUndefined();
+    expect(correctResponse.status).toBe(401);
 
     const wrongResponse = await harness.attemptsPost(new Request("http://127.0.0.1/api/attempts", {
       method: "POST",
@@ -757,11 +753,7 @@ test.describe("Practice Arena item-bank solvability", () => {
         selectedAnswer: "25"
       })
     }));
-    const wrongBody = await wrongResponse.json() as AttemptFeedback;
-
-    expect(wrongResponse.status).toBe(200);
-    expect(wrongBody.correct).toBe(false);
-    expect(wrongBody.correctAnswer).toBe("24 cm^3");
+    expect(wrongResponse.status).toBe(401);
   });
 
   test("every current Practice Arena question has an accepted defensible answer", async ({}, testInfo) => {

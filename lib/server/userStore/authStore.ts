@@ -8,10 +8,6 @@ export type AuthUserStoreDependencies = {
   authAdminStoragePersistenceStore: AuthAdminStoragePersistenceStore;
   authProvisioningPersistenceStore: AuthProvisioningPersistenceStore;
   authSessionPersistenceStore: AuthSessionPersistenceStore;
-  getAuthenticatedUserByIdForAiTutorAdmissionBeforeSnapshot: (
-    userId: string,
-    signal: AbortSignal
-  ) => Promise<AuthSession | null | undefined>;
   isGradeAllowedForCurriculumProfile: (grade: GradeId, profile: CurriculumProfile) => boolean;
   learnerProfilePersistenceStore: LearnerProfilePersistenceStore;
 };
@@ -20,7 +16,6 @@ export function createAuthUserStore({
   authAdminStoragePersistenceStore,
   authProvisioningPersistenceStore,
   authSessionPersistenceStore,
-  getAuthenticatedUserByIdForAiTutorAdmissionBeforeSnapshot,
   isGradeAllowedForCurriculumProfile,
   learnerProfilePersistenceStore
 }: AuthUserStoreDependencies) {
@@ -43,11 +38,10 @@ export function createAuthUserStore({
     createPasswordResetRequest: authSessionPersistenceStore.createPasswordResetRequest,
     resetUserPassword: authSessionPersistenceStore.resetUserPassword,
     getAuthenticatedUserById: authSessionPersistenceStore.getAuthenticatedUserById,
-    getAuthenticatedUserByIdForAiTutorAdmission: async (userId: string, signal: AbortSignal) => {
-      const authenticated = await getAuthenticatedUserByIdForAiTutorAdmissionBeforeSnapshot(userId, signal);
-      if (authenticated !== undefined) return authenticated;
-      return authSessionPersistenceStore.getAuthenticatedUserById(userId);
-    },
+    getAuthenticatedUserForSession: authSessionPersistenceStore.getAuthenticatedUserForSession,
+    getActiveUserSessionRevision: authSessionPersistenceStore.getActiveUserSessionRevision,
+    revokeAllUserSessions: authSessionPersistenceStore.revokeAllUserSessions,
+    setUserDisabledState: authSessionPersistenceStore.setUserDisabledState,
     buildRedactedAdminStorageSnapshot: authAdminStoragePersistenceStore.buildRedactedAdminStorageSnapshot,
     exportDatabaseSnapshotForAdmin: authAdminStoragePersistenceStore.exportDatabaseSnapshotForAdmin,
     backfillPostgresHotAuthTablesForAdmin: authAdminStoragePersistenceStore.backfillPostgresHotAuthTablesForAdmin,

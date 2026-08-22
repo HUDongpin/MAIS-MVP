@@ -1,7 +1,6 @@
 import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
 import {
-  getAuthenticatedUserById,
-  getAuthenticatedUserByIdForAiTutorAdmission
+  getAuthenticatedUserForSession
 } from "@/lib/server/userStore/auth";
 import type { StudentSession } from "@/types";
 
@@ -27,7 +26,7 @@ export async function getAuthenticatedUserFromToken(token?: string | null) {
   const payload = await verifySessionToken(token);
   if (!payload) return null;
 
-  return getAuthenticatedUserById(payload.sub);
+  return getAuthenticatedUserForSession(payload.sub, payload.sr);
 }
 
 function throwIfAiTutorAuthenticationAborted(signal: AbortSignal) {
@@ -52,7 +51,7 @@ export async function getAiTutorAuthenticatedUserFromToken(
   if (!payload) return null;
   throwIfAiTutorAuthenticationAborted(signal);
 
-  return getAuthenticatedUserByIdForAiTutorAdmission(payload.sub, signal);
+  return getAuthenticatedUserForSession(payload.sub, payload.sr, signal);
 }
 
 export function canAccessTeacherArea(user?: Pick<StudentSession, "role"> | null) {

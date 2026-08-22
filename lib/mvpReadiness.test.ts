@@ -850,7 +850,7 @@ test("session tokens require an explicit production secret", async () => {
     delete process.env.NEXTAUTH_SECRET;
     setEnv("NODE_ENV", "production");
 
-    await assert.rejects(() => createSessionToken("student-peter"));
+    await assert.rejects(() => createSessionToken({ userId: "student-peter", sessionRevision: 1 }));
     assert.equal(await verifySessionToken("invalid.token"), null);
   } finally {
     restoreEnv("AUTH_SESSION_SECRET", previousSecret);
@@ -869,7 +869,11 @@ test("session tokens verify with a configured secret", async () => {
     delete process.env.NEXTAUTH_SECRET;
     setEnv("NODE_ENV", "production");
 
-    const token = await createSessionToken("student-peter", Date.UTC(2026, 4, 7));
+    const token = await createSessionToken({
+      userId: "student-peter",
+      sessionRevision: 1,
+      now: Date.UTC(2026, 4, 7)
+    });
     const payload = await verifySessionToken(token, Date.UTC(2026, 4, 7));
 
     assert.equal(payload?.sub, "student-peter");

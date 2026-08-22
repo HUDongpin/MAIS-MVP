@@ -34,6 +34,8 @@ type AuthSessionUserRecord = {
   password_hash?: string;
   password_salt?: string;
   password_must_change?: boolean;
+  session_revision?: number;
+  disabled_at?: string | null;
 };
 
 type AuthSessionStudentProfileRecord = {
@@ -71,6 +73,8 @@ export type AuthSessionProjectedUserRecord = AuthSessionUserRecord & {
   password_hash: string;
   password_salt: string;
   created_at: string;
+  session_revision: number;
+  disabled_at: string | null;
 };
 
 export type AuthSessionProjectedStudentProfileRecord = Omit<AuthSessionStudentProfileRecord, "avatar_id"> & {
@@ -182,7 +186,7 @@ export type AuthPasswordResetRequestResult = {
 
 export type AuthPasswordResetResult =
   | { status: "invalid" }
-  | { status: "reset"; session: AuthSession };
+  | { status: "reset"; session: AuthSession; sessionRevision: number };
 
 export type AuthPasswordChangeInput = {
   userId: string;
@@ -192,11 +196,12 @@ export type AuthPasswordChangeInput = {
 
 export type AuthPasswordChangeResult =
   | { status: "invalid" }
-  | { status: "updated"; session: AuthSession };
+  | { status: "updated"; session: AuthSession; sessionRevision: number };
 
 export type AuthLoginAuthenticatedResult<TDatabase = AuthSessionPersistenceDatabase> = {
   status: "authenticated";
   session: AuthSession;
+  sessionRevision: number;
   database?: TDatabase;
 };
 
@@ -248,7 +253,7 @@ export type AuthParentUserCreationInput = {
 };
 
 export type AuthParentUserCreationResult =
-  | { status: "created"; session: AuthSession }
+  | { status: "created"; session: AuthSession; sessionRevision: number }
   | { status: "duplicate" }
   | { status: "invalid" };
 
@@ -265,7 +270,7 @@ export type AuthCurriculumAccountCreationInput = {
 };
 
 export type AuthCurriculumAccountCreationResult =
-  | { status: "created"; session: AuthSession }
+  | { status: "created"; session: AuthSession; sessionRevision: number }
   | { status: "duplicate" }
   | { status: "invalid" };
 
@@ -296,6 +301,14 @@ export type AuthSessionPersistenceStoreDependencies = {
   initialStudentLessonProgressRecords?: (userId: string, nowIso: string) => AuthSessionLessonProgressRecord[];
   isGradeAllowedForCurriculumProfile?: (grade: GradeId, profile: CurriculumProfile) => boolean;
   lookupBeforeRead?: (userId: string) => Promise<AuthSession | null> | AuthSession | null;
+  lookupSessionBeforeRead?: (
+    userId: string,
+    sessionRevision: number,
+    signal?: AbortSignal
+  ) => Promise<AuthSession | null | undefined> | AuthSession | null | undefined;
+  lookupSessionRevisionBeforeRead?: (
+    userId: string
+  ) => Promise<number | null | undefined> | number | null | undefined;
   mediaObjectUrlForKey?: (objectKey: string) => string | null | undefined;
   mutateDatabase?: <T>(
     mutator: (database: AuthSessionPersistenceDatabase) => T | Promise<T>
@@ -421,6 +434,8 @@ export function projectedUserRecord(value: unknown): AuthSessionProjectedUserRec
     password_salt: passwordSalt,
     school_id: optionalStringRecordField(value, "school_id"),
     password_must_change: typeof value.password_must_change === "boolean" ? value.password_must_change : undefined,
+    session_revision: authSessionRevision(value),
+    disabled_at: authDisabledAt(value),
     role: value.role,
     created_at: createdAt
   };
@@ -473,7 +488,15 @@ export function projectedPasswordResetTokenRecord(value: unknown): AuthSessionPa
   const tokenHash = stringRecordField(value, "token_hash");
   const expiresAt = stringRecordField(value, "expires_at");
   const createdAt = stringRecordField(value, "created_at");
-  if (!id || !userId || !tokenHash || !expiresAt || !createdAt) return null;
+  if (
+    !id
+    || !userId
+    || !tokenHash
+    || !expiresAt
+    || !createdAt
+    || !Number.isFinite(Date.parse(expiresAt))
+    || !Number.isFinite(Date.parse(createdAt))
+  ) return null;
 
   return {
     id,
@@ -567,6 +590,8 @@ export function normalizeAuthUserRecord<
     email?: unknown;
     school_id?: unknown;
     password_must_change?: boolean | null;
+    session_revision?: unknown;
+    disabled_at?: unknown;
   }
 >(
   user: Record
@@ -577,6 +602,8 @@ export function normalizeAuthUserRecord<
   normalized_email: string | undefined;
   school_id: string | undefined;
   password_must_change: boolean;
+  session_revision: number;
+  disabled_at: string | null;
 } {
   const username = typeof user.username === "string" ? user.username.trim() : "";
   const email = typeof user.email === "string" && isLikelyAuthEmail(user.email)
@@ -592,8 +619,40 @@ export function normalizeAuthUserRecord<
     email,
     normalized_email: email ? normalizeAuthEmail(email) : undefined,
     school_id: typeof user.school_id === "string" && user.school_id.trim() ? user.school_id : undefined,
-    password_must_change: user.password_must_change ?? false
+    password_must_change: user.password_must_change ?? false,
+    session_revision: authSessionRevision(user),
+    disabled_at: authDisabledAt(user)
   };
+}
+
+export function authSessionRevision(user: { session_revision?: unknown }) {
+  if (user.session_revision === undefined) return 1;
+  if (Number.isSafeInteger(user.session_revision) && (user.session_revision as number) >= 1) {
+    return user.session_revision as number;
+  }
+  throw new Error("Invalid stored session revision.");
+}
+
+export function authDisabledAt(user: { disabled_at?: unknown }) {
+  if (user.disabled_at === undefined || user.disabled_at === null) return null;
+  if (typeof user.disabled_at === "string" && user.disabled_at.trim()) {
+    const timestamp = Date.parse(user.disabled_at);
+    if (Number.isFinite(timestamp)) return new Date(timestamp).toISOString();
+  }
+  throw new Error("Invalid stored disabled timestamp.");
+}
+
+export function authUserIsDisabled(user: { disabled_at?: unknown }) {
+  return authDisabledAt(user) !== null;
+}
+
+function incrementAuthSessionRevision(user: AuthSessionUserRecord) {
+  const current = authSessionRevision(user);
+  if (current >= Number.MAX_SAFE_INTEGER) {
+    throw new Error("User session revision cannot be incremented safely.");
+  }
+  user.session_revision = current + 1;
+  return user.session_revision;
 }
 
 export function normalizeAuthUserSettingsRecords<Record extends AuthSessionUserSettingsRecord>(
@@ -812,6 +871,8 @@ export function authStorageFreeExampleAccountRecords(
     password_hash: "",
     password_salt: "",
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: seed.role,
     created_at: now
   };
@@ -947,8 +1008,8 @@ export function syncAuthDemoAccounts(
   }: AuthDemoAccountSyncOptions
 ) {
   let replacementPassword: ReturnType<typeof hashAuthPassword> | null = null;
-  const passwordFor = (existingUser?: AuthSessionUserRecord) => {
-    if (existingUser && passwordMatches(demoPassword, existingUser)) {
+  const passwordFor = (existingUser: AuthSessionUserRecord | undefined, passwordIsCurrent: boolean) => {
+    if (existingUser && passwordIsCurrent) {
       return {
         hash: existingUser.password_hash ?? "",
         salt: existingUser.password_salt ?? ""
@@ -961,9 +1022,11 @@ export function syncAuthDemoAccounts(
 
   demoAccountSeeds.forEach((seed) => {
     const existingUser = users.find((candidate) => candidate.id === seed.id);
-    const password = passwordFor(existingUser);
+    const passwordIsCurrent = existingUser ? passwordMatches(demoPassword, existingUser) : false;
+    const password = passwordFor(existingUser, passwordIsCurrent);
 
     if (existingUser) {
+      if (!passwordIsCurrent) incrementAuthSessionRevision(existingUser);
       Object.assign(existingUser, {
         username: seed.username,
         normalized_username: normalizeAuthUsername(seed.username),
@@ -984,6 +1047,8 @@ export function syncAuthDemoAccounts(
         password_hash: password.hash,
         password_salt: password.salt,
         password_must_change: false,
+        session_revision: 1,
+        disabled_at: null,
         role: seed.role,
         created_at: now
       });
@@ -1106,6 +1171,8 @@ export function syncAuthBootstrapAdmin(
     password_hash: password.hash,
     password_salt: password.salt,
     password_must_change: false,
+    session_revision: 1,
+    disabled_at: null,
     role: "admin",
     created_at: now
   });
@@ -1217,7 +1284,7 @@ function authenticatedAuthUserForCredentials<TDatabase extends { users: AuthSess
   username: string;
 }): TDatabase["users"][number] | null {
   for (const user of orderedCandidateAuthUsers(database, username)) {
-    if (passwordMatches(password, user)) return user;
+    if (!authUserIsDisabled(user) && passwordMatches(password, user)) return user;
   }
   return null;
 }
@@ -1236,7 +1303,7 @@ async function authenticateAuthUserForCredentialsAsync<TDatabase extends { users
   username: string;
 }): Promise<TDatabase["users"][number] | null> {
   for (const user of orderedCandidateAuthUsers(database, username)) {
-    if (await passwordMatches(password, user)) return user;
+    if (!authUserIsDisabled(user) && await passwordMatches(password, user)) return user;
   }
   return null;
 }
@@ -1299,6 +1366,7 @@ function toAuthenticatedUserFromRecords({
   settingsRecord,
   user
 }: AuthenticatedUserFromAuthRecordsInput): AuthSession | null {
+  if (authUserIsDisabled(user)) return null;
   const curriculumProfile = normalizeStoredCurriculumProfile({
     curriculumTrack: profile.curriculum_track,
     region: profile.curriculum_region,
@@ -1370,7 +1438,9 @@ export function authenticatedLoginResultFromAuthDatabase<TDatabase extends Pick<
     now,
     user
   });
-  return session ? { status: "authenticated" as const, session, database } : { status: "invalid" as const };
+  return session
+    ? { status: "authenticated" as const, session, sessionRevision: authSessionRevision(user), database }
+    : { status: "invalid" as const };
 }
 
 function mergeAuthRecordsByKey<T>(snapshotRecords: T[] | undefined, hotRecords: T[] | undefined, keyFor: (record: T) => string) {
@@ -1436,7 +1506,9 @@ function authHotRowsLoginResult({
     user
   });
 
-  return session ? { status: "authenticated", session } : { status: "invalid" };
+  return session
+    ? { status: "authenticated", session, sessionRevision: authSessionRevision(user) }
+    : { status: "invalid" };
 }
 
 export function authenticatedUserForAuthHotRows({
@@ -1532,6 +1604,8 @@ export function createAuthSessionPersistenceStore({
   initialStudentLessonProgressRecords = () => [],
   isGradeAllowedForCurriculumProfile = () => true,
   lookupBeforeRead,
+  lookupSessionBeforeRead,
+  lookupSessionRevisionBeforeRead,
   mediaObjectUrlForKey = mediaObjectAccessUrl,
   mutateDatabase,
   now = () => new Date(),
@@ -1591,7 +1665,9 @@ export function createAuthSessionPersistenceStore({
       user
     });
 
-    return session ? { status: "authenticated", session, database } : { status: "invalid" };
+    return session
+      ? { status: "authenticated", session, sessionRevision: authSessionRevision(user), database }
+      : { status: "invalid" };
   };
 
   const shouldRetryDemoLoginAfterFastInvalid = (username: string, password: string) => {
@@ -1636,6 +1712,8 @@ export function createAuthSessionPersistenceStore({
       password_hash: "",
       password_salt: "",
       password_must_change: false,
+      session_revision: 1,
+      disabled_at: null,
       role: seed.role,
       created_at: nowIso
     };
@@ -1663,7 +1741,9 @@ export function createAuthSessionPersistenceStore({
       user
     });
 
-    return session ? { status: "authenticated", session, database } : { status: "invalid" };
+    return session
+      ? { status: "authenticated", session, sessionRevision: authSessionRevision(user), database }
+      : { status: "invalid" };
   };
 
   const createCurriculumAccountUser = async ({
@@ -1724,6 +1804,8 @@ export function createAuthSessionPersistenceStore({
         normalized_email: normalizedEmail || undefined,
         password_hash: hashedPassword.hash,
         password_salt: hashedPassword.salt,
+        session_revision: 1,
+        disabled_at: null,
         role,
         created_at: nowIso
       };
@@ -1768,7 +1850,9 @@ export function createAuthSessionPersistenceStore({
         settingsRecord: settings,
         user
       });
-      return session ? { status: "created", session } : { status: "invalid" };
+      return session
+        ? { status: "created", session, sessionRevision: authSessionRevision(user) }
+        : { status: "invalid" };
     });
   };
 
@@ -1953,6 +2037,8 @@ export function createAuthSessionPersistenceStore({
           password_hash: hashedPassword.hash,
           password_salt: hashedPassword.salt,
           password_must_change: false,
+          session_revision: 1,
+          disabled_at: null,
           role: "parent",
           created_at: nowIso
         };
@@ -1986,7 +2072,9 @@ export function createAuthSessionPersistenceStore({
           settingsRecord: settings,
           user
         });
-        return session ? { status: "created", session } : { status: "invalid" };
+        return session
+          ? { status: "created", session, sessionRevision: authSessionRevision(user) }
+          : { status: "invalid" };
       });
     },
     async createStudentUser(input: AuthCurriculumAccountCreationInput) {
@@ -2012,6 +2100,61 @@ export function createAuthSessionPersistenceStore({
         profile,
         settingsRecord: database.user_settings.find((candidate) => candidate.user_id === userId) ?? null,
         user
+      });
+    },
+    async getAuthenticatedUserForSession(userId: string, sessionRevision: number, signal?: AbortSignal) {
+      if (!userId || !Number.isSafeInteger(sessionRevision) || sessionRevision < 1) return null;
+
+      const hotUser = await lookupSessionBeforeRead?.(userId, sessionRevision, signal);
+      if (hotUser !== undefined) return hotUser;
+
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      if (!user || authUserIsDisabled(user) || authSessionRevision(user) !== sessionRevision) return null;
+
+      const profile = database.student_profiles.find((candidate) => candidate.user_id === userId);
+      if (!profile) return null;
+
+      return toAuthenticatedUserFromRecords({
+        mediaObjectUrlForKey,
+        now: now(),
+        profile,
+        settingsRecord: database.user_settings.find((candidate) => candidate.user_id === userId) ?? null,
+        user
+      });
+    },
+    async getActiveUserSessionRevision(userId: string) {
+      if (!userId) return null;
+      const hotRevision = await lookupSessionRevisionBeforeRead?.(userId);
+      if (hotRevision !== undefined) return hotRevision;
+
+      const database = await readDatabase();
+      const user = database.users.find((candidate) => candidate.id === userId);
+      return user && !authUserIsDisabled(user) ? authSessionRevision(user) : null;
+    },
+    async revokeAllUserSessions(userId: string) {
+      if (!userId) return { status: "invalid" as const };
+      return runMutation((database) => {
+        const user = database.users.find((candidate) => candidate.id === userId);
+        if (!user || authUserIsDisabled(user)) return { status: "invalid" as const };
+        return {
+          status: "revoked" as const,
+          sessionRevision: incrementAuthSessionRevision(user)
+        };
+      });
+    },
+    async setUserDisabledState(userId: string, disabled: boolean) {
+      if (!userId) return { status: "invalid" as const };
+      return runMutation((database) => {
+        const user = database.users.find((candidate) => candidate.id === userId);
+        if (!user || authUserIsDisabled(user) === disabled) return { status: "invalid" as const };
+        const disabledAt = disabled ? now().toISOString() : null;
+        user.disabled_at = disabledAt;
+        return {
+          status: "updated" as const,
+          disabledAt,
+          sessionRevision: incrementAuthSessionRevision(user)
+        };
       });
     },
     async updateUserSettings(
@@ -2086,7 +2229,7 @@ export function createAuthSessionPersistenceStore({
 
       return runMutation((database) => {
         const user = database.users.find((candidate) => candidate.id === userId);
-        if (!user || !passwordMatches(currentPassword, user)) return { status: "invalid" };
+        if (!user || authUserIsDisabled(user) || !passwordMatches(currentPassword, user)) return { status: "invalid" };
 
         const profile = database.student_profiles.find((candidate) => candidate.user_id === userId);
         if (!profile) return { status: "invalid" };
@@ -2095,6 +2238,7 @@ export function createAuthSessionPersistenceStore({
         user.password_hash = hashedPassword.hash;
         user.password_salt = hashedPassword.salt;
         user.password_must_change = false;
+        const sessionRevision = incrementAuthSessionRevision(user);
 
         const nowDate = now();
         const session = toAuthenticatedUserFromRecords({
@@ -2104,7 +2248,7 @@ export function createAuthSessionPersistenceStore({
           settingsRecord: database.user_settings.find((candidate) => candidate.user_id === userId) ?? null,
           user
         });
-        return session ? { status: "updated", session } : { status: "invalid" };
+        return session ? { status: "updated", session, sessionRevision } : { status: "invalid" };
       });
     },
     async createPasswordResetRequest(identifier: string) {
@@ -2126,7 +2270,7 @@ export function createAuthSessionPersistenceStore({
             candidate.normalized_username === normalizedIdentifier ||
             candidate.normalized_email === normalizedIdentifier
         );
-        if (!user) return null;
+        if (!user || authUserIsDisabled(user)) return null;
 
         const resetToken = createResetToken();
         const expiresAt = new Date(nowMs + passwordResetTokenMaxAgeMs).toISOString();
@@ -2158,12 +2302,18 @@ export function createAuthSessionPersistenceStore({
         const resetToken = (database.password_reset_tokens ?? []).find(
           (candidate) => candidate.token_hash === tokenHash
         );
-        if (!resetToken || resetToken.used_at || Date.parse(resetToken.expires_at) <= nowMs) {
+        const expiresAtMs = resetToken ? Date.parse(resetToken.expires_at) : Number.NaN;
+        if (
+          !resetToken
+          || resetToken.used_at
+          || !Number.isFinite(expiresAtMs)
+          || expiresAtMs <= nowMs
+        ) {
           return { status: "invalid" };
         }
 
         const user = database.users.find((candidate) => candidate.id === resetToken.user_id);
-        if (!user) return { status: "invalid" };
+        if (!user || authUserIsDisabled(user)) return { status: "invalid" };
 
         const profile = database.student_profiles.find((candidate) => candidate.user_id === resetToken.user_id);
         if (!profile) return { status: "invalid" };
@@ -2172,6 +2322,7 @@ export function createAuthSessionPersistenceStore({
         user.password_hash = hashedPassword.hash;
         user.password_salt = hashedPassword.salt;
         user.password_must_change = false;
+        const sessionRevision = incrementAuthSessionRevision(user);
         resetToken.used_at = nowDate.toISOString();
 
         const session = toAuthenticatedUserFromRecords({
@@ -2181,7 +2332,7 @@ export function createAuthSessionPersistenceStore({
           settingsRecord: database.user_settings.find((candidate) => candidate.user_id === resetToken.user_id) ?? null,
           user
         });
-        return session ? { status: "reset", session } : { status: "invalid" };
+        return session ? { status: "reset", session, sessionRevision } : { status: "invalid" };
       });
     },
     async updateUserProfile(

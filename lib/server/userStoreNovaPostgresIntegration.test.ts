@@ -57,7 +57,11 @@ function redactWorkerOutput(value: string) {
   return value.replace(/postgres(?:ql)?:\/\/[^\s]+/gi, "postgres://[redacted]");
 }
 
-async function runWorker(command: string, input: unknown = {}): Promise<WorkerOutcome> {
+async function runWorker(
+  command: string,
+  input: unknown = {},
+  options: { hotAuthTables?: boolean } = {}
+): Promise<WorkerOutcome> {
   if (!integrationUrl) throw new Error("MAIS_POSTGRES_INTEGRATION_URL is unavailable.");
   return new Promise((resolve, reject) => {
     const child = spawn(tsxPath, ["--tsconfig", "tsconfig.json", workerPath, command], {
@@ -69,7 +73,7 @@ async function runWorker(command: string, input: unknown = {}): Promise<WorkerOu
         AI_TUTOR_ADMISSION_STATEMENT_TIMEOUT_MS: "1500",
         AI_TUTOR_QUOTA_LOOKUP_TIMEOUT_MS: "1000",
         AI_TUTOR_RATE_LIMIT_ADMISSION_DEADLINE_MS: String(admissionDeadlinesMs.rate),
-        HK_MATH_POSTGRES_HOT_AUTH_TABLES: "true",
+        HK_MATH_POSTGRES_HOT_AUTH_TABLES: options.hotAuthTables === false ? "false" : "true",
         HK_MATH_STORAGE_PROVIDER: "postgres",
         NODE_ENV: "test",
         POSTGRES_MAX_CONNECTIONS: "2",
@@ -121,8 +125,12 @@ async function runWorker(command: string, input: unknown = {}): Promise<WorkerOu
   });
 }
 
-async function runSuccessfulWorker(command: string, input: unknown = {}) {
-  const outcome = await runWorker(command, input);
+async function runSuccessfulWorker(
+  command: string,
+  input: unknown = {},
+  options: { hotAuthTables?: boolean } = {}
+) {
+  const outcome = await runWorker(command, input, options);
   assert.equal(outcome.exitCode, 0, `${command} failed: ${String(outcome.result.error ?? "unknown error")}`);
   return outcome.result;
 }
@@ -179,7 +187,7 @@ test("Nova PostgreSQL harness rejects destructive targets before creating a clie
 });
 
 test(
-  "Nova PostgreSQL v3 migration, rollback compatibility, and admission projections are executable",
+  "Nova PostgreSQL v4 migration, rollback compatibility, and admission projections are executable",
   { skip: integrationUrl ? false : "MAIS_POSTGRES_INTEGRATION_URL is not configured" },
   async (t) => {
     assert.ok(integrationUrl);
@@ -194,7 +202,7 @@ test(
     try {
       await resetPublicSchema(sql);
 
-      await t.test("fresh PostgreSQL 16 bootstrap creates the attested v3 schema", async () => {
+      await t.test("fresh PostgreSQL 16 bootstrap creates the attested v4 schema", async () => {
         const readiness = await runSuccessfulWorker("readiness");
         assert.equal(readiness.provider, "postgres");
         assert.equal(readiness.schemaReady, true);
@@ -208,7 +216,7 @@ test(
           usage_journal_ready: boolean;
         }>>`
           SELECT
-            EXISTS (SELECT 1 FROM auth_schema_migrations WHERE version = 3) AS schema_ready,
+            EXISTS (SELECT 1 FROM auth_schema_migrations WHERE version = 4) AS schema_ready,
             to_regclass('public.projection_class_ai_tutor_policies') IS NOT NULL
               AS policy_projection_ready,
             to_regclass('public.ai_tutor_message_journal') IS NOT NULL AS message_journal_ready,
@@ -250,7 +258,7 @@ test(
 
       let studentId = "";
       const restrictedClassId = "000-integration-fallback-class";
-      await t.test("two concurrent v2-to-v3 bootstraps reconcile classroom projections before readiness", async () => {
+      await t.test("two concurrent v2-to-v4 bootstraps reconcile classroom projections before readiness", async () => {
         const state = await readState(sql);
         const payload = structuredClone(state.payload);
         const users = arrayFromPayload(payload, "users");
@@ -406,7 +414,7 @@ test(
             curriculum_region = excluded.curriculum_region,
             textbook_publisher = excluded.textbook_publisher
         `;
-        await sql`DELETE FROM auth_schema_migrations WHERE version = 3`;
+        await sql`DELETE FROM auth_schema_migrations WHERE version = 4`;
         await sql`
           INSERT INTO auth_schema_migrations (version, applied_at)
           VALUES (2, NOW())
@@ -424,7 +432,7 @@ test(
             SELECT jsonb_typeof(payload) AS payload_type FROM app_state WHERE id = 'primary'
           `)[0]?.payload_type,
           "object",
-          "v3 migration must persist an object readable by exact-v2 rollback SQL"
+          "v4 migration must persist an object readable by exact-v2 rollback SQL"
         );
 
         const projectionRows = await sql<Array<{
@@ -440,7 +448,7 @@ test(
               WHERE id = 'integration-fallback-enrollment') AS enrollment_count,
             (SELECT COUNT(*)::int FROM projection_class_ai_tutor_policies
               WHERE class_id = ${restrictedClassId}) AS policy_count,
-            EXISTS (SELECT 1 FROM auth_schema_migrations WHERE version = 3) AS schema_ready
+            EXISTS (SELECT 1 FROM auth_schema_migrations WHERE version = 4) AS schema_ready
         `;
         assert.deepEqual(projectionRows[0], {
           class_count: 1,
@@ -470,7 +478,7 @@ test(
         assert.deepEqual(backfillRows[0], { message_matches: true, usage_matches: true });
         const admissionStageTimings: Array<Record<string, unknown>> = [];
         for (let attempt = 1; attempt <= 5; attempt += 1) {
-          const admission = await runSuccessfulWorker("admission", { userId: studentId });
+          const admission = await runSuccessfulWorker("admission", { userId: studentId, sessionRevision: 1 });
           assert.equal(admission.policyMode, "fallback-only");
           assert.equal(admission.rateAllowed, true);
           const stageMs = admission.stageMs as Record<string, unknown>;
@@ -585,7 +593,7 @@ test(
         }
       });
 
-      await t.test("the persistent compatibility trigger preserves v2 rollback and v3 roll-forward visibility", async () => {
+      await t.test("the persistent compatibility trigger preserves v2 rollback and v4 roll-forward visibility", async () => {
         const rollbackMessage = {
           id: "integration-v2-message",
           user_id: studentId,
@@ -780,7 +788,83 @@ test(
         );
       });
 
-      await t.test("invalid v2 classroom source rolls back migration and never writes the v3 marker", async () => {
+      await t.test("session reset dual-writes revision and token use, supports flag-off fallback, and rolls back atomically", async () => {
+        const before = await readState(sql);
+        const fixtureUser = arrayFromPayload(before.payload, "users")
+          .find((record) => record.id === studentId);
+        assert.ok(fixtureUser);
+        const identifier = typeof fixtureUser.username === "string"
+          ? fixtureUser.username
+          : typeof fixtureUser.email === "string"
+            ? fixtureUser.email
+            : "";
+        assert.ok(identifier);
+
+        const reset = await runSuccessfulWorker("session-reset", { identifier, userId: studentId });
+        assert.equal(reset.oldSessionRejected, true);
+        assert.equal(reset.replacementSessionAccepted, true);
+        assert.equal(reset.replayRejected, true);
+        assert.equal(Number(reset.resetRevision), Number(reset.beforeRevision) + 1);
+
+        const afterReset = await readState(sql);
+        const snapshotUser = arrayFromPayload(afterReset.payload, "users")
+          .find((record) => record.id === studentId);
+        assert.equal(snapshotUser?.session_revision, reset.resetRevision);
+        const snapshotTokens = arrayFromPayload(afterReset.payload, "password_reset_tokens")
+          .filter((record) => record.user_id === studentId)
+          .sort((left, right) => String(left.created_at).localeCompare(String(right.created_at)));
+        assert.ok(snapshotTokens.length > 0);
+        assert.equal(typeof snapshotTokens.at(-1)?.used_at, "string");
+
+        const hotState = await sql<Array<{
+          session_revision: number;
+          used_tokens: number;
+        }>>`
+          SELECT
+            auth_user.session_revision,
+            (
+              SELECT COUNT(*)::int
+              FROM auth_password_reset_tokens
+              WHERE user_id = ${studentId}
+                AND used_at IS NOT NULL
+            ) AS used_tokens
+          FROM auth_users AS auth_user
+          WHERE auth_user.id = ${studentId}
+        `;
+        assert.equal(hotState[0]?.session_revision, reset.resetRevision);
+        assert.ok((hotState[0]?.used_tokens ?? 0) > 0);
+
+        const flagOff = await runSuccessfulWorker(
+          "session-flag-off",
+          { sessionRevision: reset.resetRevision, userId: studentId },
+          { hotAuthTables: false }
+        );
+        assert.deepEqual(flagOff, {
+          activeRevision: reset.resetRevision,
+          authenticated: true
+        });
+
+        const rollback = await runSuccessfulWorker("session-reset-rollback", {
+          identifier,
+          userId: studentId
+        });
+        assert.deepEqual(rollback, {
+          resetRolledBack: true,
+          revisionUnchanged: true,
+          tokenStillUnused: true
+        });
+
+        const malformedExpiry = await runSuccessfulWorker("session-reset-malformed-expiry", {
+          userId: studentId
+        });
+        assert.deepEqual(malformedExpiry, {
+          resetRejected: true,
+          revisionUnchanged: true,
+          tokenStillUnused: true
+        });
+      });
+
+      await t.test("invalid v2 classroom source rolls back migration and never writes the v4 marker", async () => {
         const state = await readState(sql);
         const payload = structuredClone(state.payload);
         payload.class_enrollments = [
@@ -829,7 +913,7 @@ test(
         assert.match(String(readiness.result.error), /classroom source data failed migration validation/i);
         assert.match(String(readiness.result.error), /policy_records_valid/i);
         const markerRows = await sql<Array<{ count: number }>>`
-          SELECT COUNT(*)::int AS count FROM auth_schema_migrations WHERE version = 3
+          SELECT COUNT(*)::int AS count FROM auth_schema_migrations WHERE version = 4
         `;
         assert.equal(markerRows[0]?.count, 0);
         const triggerRows = await sql<Array<{ count: number }>>`
@@ -843,7 +927,7 @@ test(
             SELECT to_regclass('public.ai_tutor_message_journal')::text AS table_name
           `)[0]?.table_name,
           null,
-          "failed migration must roll back its v3-only tables"
+          "failed migration must roll back its v4-only tables"
         );
 
         payload.class_enrollments = arrayFromPayload(payload, "class_enrollments")

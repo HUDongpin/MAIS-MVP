@@ -6,7 +6,7 @@ import {
   GOOGLE_OAUTH_STATE_COOKIE,
   verifyGoogleOAuthState
 } from "@/lib/server/googleOAuth";
-import { setSessionCookie } from "@/lib/server/sessionCookie";
+import { SessionCookieIssuanceError, sessionCookieOptions } from "@/lib/server/sessionCookie";
 import { handleGoogleOAuthCallback, type GoogleCallbackDependencies } from "./handler";
 
 const authSessionSecretFixture = crypto.randomUUID().replaceAll("-", "");
@@ -43,7 +43,9 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
   const calls = {
     exchangedCode: "",
     requestedRole: "",
-    grade: ""
+    grade: "",
+    sessionUserId: "",
+    sessionRevision: 0
   };
   const dependencies: GoogleCallbackDependencies = {
     verifyGoogleOAuthState: (input) => verifyGoogleOAuthState(input),
@@ -76,6 +78,7 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
       calls.grade = input.grade ?? "";
       return {
         status: "created",
+        sessionRevision: 7,
         session: {
           user: {
             id: "student-user-id",
@@ -84,7 +87,13 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
         }
       };
     },
-    setSessionCookie
+    setSessionCookie: async (response, userId, request, expectedSessionRevision) => {
+      calls.sessionUserId = userId;
+      calls.sessionRevision = expectedSessionRevision;
+      response.cookies.set(SESSION_COOKIE_NAME, "signed-session-fixture", {
+        ...sessionCookieOptions(request, 60)
+      });
+    }
   };
 
   const response = await handleGoogleOAuthCallback(
@@ -99,6 +108,8 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
   assert.equal(calls.exchangedCode, "auth-code");
   assert.equal(calls.requestedRole, "student");
   assert.equal(calls.grade, "S4");
+  assert.equal(calls.sessionUserId, "student-user-id");
+  assert.equal(calls.sessionRevision, 7);
   assert.equal(response.status, 307);
   const location = response.headers.get("location");
   assert.ok(location);
@@ -107,4 +118,53 @@ test("Google OAuth callback sets MAIS session cookie after verified Google ident
   assert.match(setCookie, new RegExp(`${SESSION_COOKIE_NAME}=`));
   assert.match(setCookie, new RegExp(`${GOOGLE_OAUTH_STATE_COOKIE}=`));
   assert.match(setCookie, /Max-Age=0/);
+
+  const racedResponse = await handleGoogleOAuthCallback(
+    new Request(`https://mais.test/api/auth/google/callback?state=${state}&code=auth-code`, {
+      headers: {
+        cookie: `${GOOGLE_OAUTH_STATE_COOKIE}=${encodeURIComponent(pending.cookie.value)}`
+      }
+    }),
+    {
+      ...dependencies,
+      setSessionCookie: async () => {
+        throw new SessionCookieIssuanceError("revision-mismatch");
+      }
+    }
+  );
+  assert.equal(racedResponse.status, 409);
+  assert.deepEqual(await racedResponse.json(), {
+    code: "account-created-session-refresh-required",
+    error: "Your account was created, but this device could not be signed in. Sign in again with your new account.",
+    accountCreated: true
+  });
+  assert.equal(racedResponse.cookies.get(SESSION_COOKIE_NAME)?.maxAge, 0);
+  assert.equal(racedResponse.cookies.get(GOOGLE_OAUTH_STATE_COOKIE)?.maxAge, 0);
+
+  const linkedRaceResponse = await handleGoogleOAuthCallback(
+    new Request(`https://mais.test/api/auth/google/callback?state=${state}&code=auth-code`, {
+      headers: {
+        cookie: `${GOOGLE_OAUTH_STATE_COOKIE}=${encodeURIComponent(pending.cookie.value)}`
+      }
+    }),
+    {
+      ...dependencies,
+      authenticateGoogleIdentityForLogin: async () => ({
+        status: "linked",
+        sessionRevision: 7,
+        session: { user: { id: "student-user-id", role: "student" } }
+      }),
+      setSessionCookie: async () => {
+        throw new SessionCookieIssuanceError("account-inactive");
+      }
+    }
+  );
+  assert.equal(linkedRaceResponse.status, 401);
+  assert.deepEqual(await linkedRaceResponse.json(), {
+    code: "identity-linked-session-refresh-required",
+    error: "Your Google identity was linked, but this device could not be signed in. Sign in again with Google.",
+    identityLinked: true
+  });
+  assert.equal(linkedRaceResponse.cookies.get(SESSION_COOKIE_NAME)?.maxAge, 0);
+  assert.equal(linkedRaceResponse.cookies.get(GOOGLE_OAUTH_STATE_COOKIE)?.maxAge, 0);
 });

@@ -339,10 +339,14 @@ test("teacher ops roster import persistence commits students parents memberships
   assert.equal(newStudent?.role, "student");
   assert.equal(newStudent?.password_hash, "hash-Temp-1");
   assert.equal(newStudent?.password_must_change, true);
+  assert.equal(newStudent?.session_revision, 1);
+  assert.equal(newStudent?.disabled_at, null);
   assert.equal(database.student_profiles.find((profile) => profile.user_id === newStudent?.id)?.parent_invite_code?.startsWith("MAIS-INVITE-"), true);
 
   const newParent = database.users.find((user) => user.normalized_email === "ben-parent@example.com");
   assert.equal(newParent?.role, "parent");
+  assert.equal(newParent?.session_revision, 1);
+  assert.equal(newParent?.disabled_at, null);
   assert.equal(database.guardian_links.some((link) => link.parent_id === newParent?.id && link.student_id === newStudent?.id && link.status === "active"), true);
 
   assert.deepEqual(database.class_roster_profiles.map((profile) => ({

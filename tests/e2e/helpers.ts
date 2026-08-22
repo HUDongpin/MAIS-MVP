@@ -206,13 +206,13 @@ function ensureDefaultE2eSessionSecret() {
 
 export async function sessionCookieHeaderForUserId(userId: string) {
   ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const token = await createSessionToken({ userId, sessionRevision: 1 });
   return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`;
 }
 
 export async function authenticateAsUserId(page: Page, userId: string) {
   ensureDefaultE2eSessionSecret();
-  const token = await createSessionToken(userId);
+  const token = await createSessionToken({ userId, sessionRevision: 1 });
   await page.context().addCookies([
     {
       name: SESSION_COOKIE_NAME,
