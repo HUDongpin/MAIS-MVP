@@ -1,6 +1,16 @@
 import type { LocalizedText } from "@/types";
+import {
+  normalizeSuperscriptExponents,
+  questionResponseContractFor,
+  responseMatchesQuestionContract
+} from "@/lib/server/questionResponseContracts";
+import {
+  hongKongEaseResponseContractDecision,
+  hongKongEaseReviewedSimpleResponseDecision
+} from "@/lib/server/hongKongEaseResponseContracts";
 
 type GradingQuestion = {
+  id?: string;
   answer: string;
   accepted_answers?: string[] | null;
   options?: LocalizedText[] | null;
@@ -59,13 +69,17 @@ const knownAnswerUnitWords = new Set([
 ]);
 
 export function normalizeAnswer(value: string) {
-  return value
+  return normalizeSuperscriptExponents(value)
     .normalize("NFKC")
     .trim()
     .toLowerCase()
     .replace(/[−–—]/g, "-")
     .replace(/×/g, "*")
     .replace(/÷/g, "/")
+    .replace(/\\(?:left|right)/g, "")
+    .replace(/\\(?:cdot|times)/g, "*")
+    .replace(/\\div/g, "/")
+    .replace(/\\(?:dfrac|tfrac|frac)\s*\{\s*([^{}]+?)\s*\}\s*\{\s*([^{}]+?)\s*\}/g, "$1/$2")
     .replace(/\\[()]/g, "")
     .replace(/\\,/g, " ")
     .replace(/\\text\{([^{}]+)\}/g, "$1")
@@ -390,8 +404,22 @@ export function answerMatches(selectedAnswer: string, acceptedAnswer: string) {
 }
 
 export function questionAnswerMatches(question: GradingQuestion, selectedAnswer: string) {
+  const easeContractDecision = hongKongEaseResponseContractDecision(question.id, selectedAnswer);
+  if (easeContractDecision !== null) return easeContractDecision;
+  const easeSimpleDecision = hongKongEaseReviewedSimpleResponseDecision(question.id, selectedAnswer);
+  if (easeSimpleDecision !== null) return easeSimpleDecision;
+
   const acceptedAnswers = [question.answer, ...(question.accepted_answers ?? [])];
-  if (acceptedAnswers.some((answer) => answerMatches(selectedAnswer, answer))) return true;
+  const contract = questionResponseContractFor(question.id);
+  if (responseMatchesQuestionContract({
+    contract,
+    selectedAnswer,
+    acceptedAnswers,
+    genericMatches: answerMatches,
+    parseScalar: parseScalarAnswer
+  })) return true;
+
+  if (contract.kind !== "generic-equivalence") return false;
 
   return (question.options ?? []).some((option) => {
     const localizedOptions = [option.en, option.zh, option.zhHans ?? ""].filter(Boolean);

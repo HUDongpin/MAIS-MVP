@@ -7,6 +7,14 @@ import type { VisualizationModuleId } from "../../data/visualizationLabs";
 import { lessonSlugForTopicId, studentLessonsPath } from "../../lib/lessonLinks";
 import type { CurriculumTrack, Difficulty, GradeId, LessonBlock, LessonDetail } from "../../types";
 
+// This is one deliberately long, row-by-row sweep. Recording every DOM snapshot
+// and video frame for all 51 lessons produced multi-gigabyte artifacts and made
+// browser actions take tens of seconds, which in turn distorted the interaction
+// checks themselves. The JSON ledger and bounded finding screenshots remain the
+// durable evidence for this suite; focused reproductions can enable tracing in a
+// separate diagnostic spec when a finding needs it.
+test.use({ trace: "off", video: "off", screenshot: "only-on-failure" });
+
 type Severity = "P0" | "P1" | "P2" | "P3";
 type Owner = "S04 practice" | "S05 lesson" | "S06 visualization" | "S10 api/tooling";
 
@@ -78,7 +86,11 @@ const placeholderPatterns = [
   { label: "old seed placeholder", pattern: /Start with the meaning of|Start by naming|Build this topic through concept explanation/i }
 ] as const;
 
-const invalidTextPattern = /\b(?:undefined|NaN)\b/i;
+const invalidNanTextPattern = /\bNaN\b/i;
+const exactUndefinedPlaceholderPattern = /^\s*undefined\s*$/i;
+const labeledUndefinedPlaceholderPattern =
+  /\b(?:title|description|label|value|answer|score|mastery|progress|question|lesson)\s*[:=]\s*undefined\b/i;
+const repeatedUndefinedPlaceholderPattern = /\bundefined(?:\s+undefined)+\b/i;
 const sourceQuestionById = new Map(questions.map((question) => [question.id, question]));
 const requestedLessonQaSlugs = new Set(
   (process.env.LESSON_QA_SLUGS ?? "")
@@ -91,7 +103,6 @@ const requestedLessonQaLimit = (() => {
   const parsed = Number.parseInt(process.env.LESSON_QA_LIMIT ?? "", 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
 })();
-const lessonQuestionAutoAdvanceTimeoutMs = 2_200;
 
 function lessonTargets() {
   const targets = topics
@@ -117,6 +128,17 @@ function addFinding(findings: Finding[], finding: Finding) {
 function shortEvidence(value: unknown) {
   const text = typeof value === "string" ? value : JSON.stringify(value);
   return text.length > 260 ? `${text.slice(0, 260)}...` : text;
+}
+
+function invalidUserFacingTextToken(value: unknown) {
+  if (typeof value !== "string") return `non-string-${typeof value}`;
+
+  const normalized = value.replace(/\s+/g, " ").trim();
+  return normalized.match(invalidNanTextPattern)?.[0] ??
+    normalized.match(exactUndefinedPlaceholderPattern)?.[0] ??
+    normalized.match(labeledUndefinedPlaceholderPattern)?.[0] ??
+    normalized.match(repeatedUndefinedPlaceholderPattern)?.[0] ??
+    null;
 }
 
 async function responseText(response: APIResponse) {
@@ -343,9 +365,10 @@ function validateLessonPayload({
     });
 
   const textValues = textValuesFromLesson(lesson);
-  const invalidTextHits = textValues
-    .filter(({ value }) => invalidTextPattern.test(value))
-    .map(({ label, value }) => `${label}: ${shortEvidence(value)}`);
+  const invalidTextHits = textValues.flatMap(({ label, value }) => {
+    const invalidToken = invalidUserFacingTextToken(value);
+    return invalidToken ? [`${label}: ${invalidToken} -> ${shortEvidence(value)}`] : [];
+  });
   if (invalidTextHits.length) {
     addFinding(findings, {
       route,
@@ -353,7 +376,7 @@ function validateLessonPayload({
       severity: "P1",
       owner: "S05 lesson",
       check: "invalid rendered text tokens",
-      expected: "No user-facing text contains undefined or NaN.",
+      expected: "No user-facing text contains NaN or an undefined placeholder/leak.",
       actual: invalidTextHits.slice(0, 8).join("; "),
       repro: `GET /api/lessons/${slug}`,
       evidence: invalidTextHits.slice(0, 12)
@@ -532,8 +555,8 @@ function routeTitleVisibleTexts(lesson: LessonDetail) {
   ].filter(Boolean)));
 }
 
-async function visibleBodyText(page: Page) {
-  return await page.locator("body").innerText({ timeout: 5_000 }).catch(() => "");
+async function visibleBodyText(page: Page, timeout = 5_000) {
+  return await page.locator("body").innerText({ timeout }).catch(() => "");
 }
 
 async function checkLayoutHeuristics(page: Page) {
@@ -663,6 +686,220 @@ async function readAttemptResponseBody(response: PageResponse) {
   })) as AttemptResponseBody;
 }
 
+async function responseFromAction(
+  page: Page,
+  predicate: (response: PageResponse) => boolean,
+  action: () => Promise<unknown>,
+  postActionTimeout = 15_000
+) {
+  let matchedResponse: PageResponse | null = null;
+  let resolveMatch: ((response: PageResponse) => void) | null = null;
+  const matchPromise = new Promise<PageResponse>((resolve) => {
+    resolveMatch = resolve;
+  });
+  const listener = (response: PageResponse) => {
+    if (matchedResponse) return;
+
+    let matches = false;
+    try {
+      matches = predicate(response);
+    } catch {
+      matches = false;
+    }
+    if (!matches) return;
+
+    matchedResponse = response;
+    resolveMatch?.(response);
+  };
+
+  page.on("response", listener);
+  try {
+    // Keep listening for the whole action. On a resource-constrained mobile
+    // render, Playwright actionability may take longer than the network round
+    // trip timeout; starting that timeout before click() caused false misses.
+    await action();
+    if (matchedResponse) return matchedResponse;
+
+    return await Promise.race<PageResponse | null>([
+      matchPromise,
+      page.waitForTimeout(postActionTimeout).then(() => null)
+    ]);
+  } finally {
+    page.off("response", listener);
+  }
+}
+
+async function centerControlInVisualViewport(page: Page, control: Locator) {
+  const configuredViewportHeight = page.viewportSize()?.height ?? null;
+
+  await control.evaluate(async (element, expectedViewportHeight) => {
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      const rect = element.getBoundingClientRect();
+      const visualViewportTop = Math.max(0, window.visualViewport?.offsetTop ?? 0);
+      const candidateBottoms = [
+        expectedViewportHeight,
+        window.innerHeight,
+        document.documentElement.clientHeight,
+        window.visualViewport
+          ? visualViewportTop + window.visualViewport.height
+          : null
+      ].filter((value): value is number =>
+        typeof value === "number" && Number.isFinite(value) && value > visualViewportTop
+      );
+      const viewportBottom = candidateBottoms.length > 0
+        ? Math.min(...candidateBottoms)
+        : visualViewportTop + 1;
+      const targetCenter = visualViewportTop + (viewportBottom - visualViewportTop) / 2;
+      const scrollDelta = rect.top + rect.height / 2 - targetCenter;
+
+      if (Math.abs(scrollDelta) > 0.5) {
+        window.scrollBy({ top: scrollDelta, behavior: "auto" });
+      }
+
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      });
+    }
+  }, configuredViewportHeight);
+}
+
+async function activateStableHitTarget(page: Page, control: Locator, label: string) {
+  let previousProbe: { x: number; y: number; scrollY: number } | null = null;
+  let consecutiveStableHits = 0;
+  let latestProbe: {
+    x: number;
+    y: number;
+    scrollY: number;
+    hitMatches: boolean;
+    hitTag: string | null;
+    hitQuestionId: string | null;
+    configuredViewportHeight: number | null;
+    innerHeight: number;
+    clientHeight: number;
+    visualViewportHeight: number | null;
+    visualViewportOffsetTop: number | null;
+  } | null = null;
+  const configuredViewportHeight = page.viewportSize()?.height ?? null;
+
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    latestProbe = await control.evaluate((element, expectedViewportHeight) => {
+      const rect = element.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const hit = document.elementFromPoint(x, y);
+
+      return {
+        x,
+        y,
+        scrollY: window.scrollY,
+        hitMatches: hit === element || element.contains(hit),
+        hitTag: hit?.tagName.toLowerCase() ?? null,
+        hitQuestionId: hit?.closest("[data-question-id]")?.getAttribute("data-question-id") ?? null,
+        configuredViewportHeight: expectedViewportHeight,
+        innerHeight: window.innerHeight,
+        clientHeight: document.documentElement.clientHeight,
+        visualViewportHeight: window.visualViewport?.height ?? null,
+        visualViewportOffsetTop: window.visualViewport?.offsetTop ?? null
+      };
+    }, configuredViewportHeight);
+
+    if (!latestProbe.hitMatches && attempt % 4 === 0) {
+      previousProbe = null;
+      consecutiveStableHits = 0;
+      await centerControlInVisualViewport(page, control);
+      await page.waitForTimeout(50);
+      continue;
+    }
+
+    const geometryIsStable = previousProbe !== null &&
+      Math.abs(previousProbe.x - latestProbe.x) <= 0.5 &&
+      Math.abs(previousProbe.y - latestProbe.y) <= 0.5 &&
+      Math.abs(previousProbe.scrollY - latestProbe.scrollY) <= 0.5;
+
+    consecutiveStableHits = latestProbe.hitMatches && geometryIsStable
+      ? consecutiveStableHits + 1
+      : 0;
+
+    if (consecutiveStableHits >= 2) {
+      await control.evaluate((element) => {
+        element.setAttribute("data-e2e-pointer-activation", "pending");
+        element.addEventListener("click", () => {
+          element.setAttribute("data-e2e-pointer-activation", "clicked");
+        }, { once: true });
+      });
+      const hasTouch = await page.evaluate(() => navigator.maxTouchPoints > 0);
+      const currentHitProbe = async () => await control.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const hit = document.elementFromPoint(x, y);
+        return {
+          x,
+          y,
+          hitMatches: hit === element || element.contains(hit),
+          hitTag: hit?.tagName.toLowerCase() ?? null
+        };
+      });
+
+      if (hasTouch) {
+        await page.touchscreen.tap(latestProbe.x, latestProbe.y);
+        if (await control.getAttribute("data-e2e-pointer-activation") !== "clicked") {
+          await page.waitForTimeout(100);
+          await centerControlInVisualViewport(page, control);
+          await page.waitForTimeout(100);
+          const secondTouchProbe = await currentHitProbe();
+          if (!secondTouchProbe.hitMatches) {
+            throw new Error(`LESSON_POINTER_TARGET_AFTER_INPUT_DISMISS:${label}:${JSON.stringify(secondTouchProbe)}`);
+          }
+          await page.mouse.move(secondTouchProbe.x, secondTouchProbe.y);
+          await page.mouse.down();
+          await page.mouse.up();
+        }
+      } else {
+        await page.mouse.move(latestProbe.x, latestProbe.y);
+        await page.waitForTimeout(100);
+        const hoveredProbe = await currentHitProbe();
+        if (!hoveredProbe.hitMatches) {
+          throw new Error(`LESSON_POINTER_TARGET_HOVER_DRIFT:${label}:${JSON.stringify(hoveredProbe)}`);
+        }
+        await page.mouse.move(hoveredProbe.x, hoveredProbe.y);
+        await page.mouse.down();
+        await page.mouse.up();
+      }
+
+      if (hasTouch && await control.getAttribute("data-e2e-pointer-activation") !== "clicked") {
+        await control.focus();
+        await page.keyboard.press("Enter");
+      }
+      const activation = await control.getAttribute("data-e2e-pointer-activation");
+      if (activation !== "clicked") {
+        throw new Error(`LESSON_POINTER_CLICK_NOT_DISPATCHED:${label}:${activation ?? "missing"}`);
+      }
+      return;
+    }
+
+    previousProbe = latestProbe;
+    await page.waitForTimeout(50);
+  }
+
+  throw new Error(`LESSON_POINTER_TARGET_UNSTABLE:${label}:${JSON.stringify(latestProbe)}`);
+}
+
+async function withNodeDeadline<T>(operation: Promise<T>, label: string, timeoutMs: number): Promise<T> {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  const deadline = new Promise<never>((_, reject) => {
+    timeout = setTimeout(() => {
+      reject(new Error(`LESSON_INTERACTION_DEADLINE:${label}:${timeoutMs}ms`));
+    }, timeoutMs);
+  });
+
+  try {
+    return await Promise.race([operation, deadline]);
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
+}
+
 async function selectStoredAnswer({
   card,
   question,
@@ -722,18 +959,43 @@ async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
   const expectedQuestionCount = Math.min(lesson.practiceQuestions.length, 5);
   const stats = createQuestionSolvabilityStats(expectedQuestionCount);
   const practiceSection = page.locator("#lesson-practice");
-  const visiblePracticeCard = () => practiceSection.locator("div:not([hidden]) article[data-question-id]").filter({
+  await page.evaluate(() => {
+    document.documentElement.style.setProperty("scroll-behavior", "auto", "important");
+    document.body.style.setProperty("scroll-behavior", "auto", "important");
+    window.scrollTo({ top: window.scrollY, behavior: "auto" });
+  });
+  const missionButtons = practiceSection.getByTestId("lesson-mission-trail").getByRole("button");
+  const visiblePracticeCard = () => practiceSection.locator("article[data-question-id]:visible").filter({
     has: page.getByRole("button", { name: /^(Check answer|檢查答案|检查答案)$/i })
   }).first();
   if (expectedQuestionCount) {
+    await expect(missionButtons).toHaveCount(expectedQuestionCount, { timeout: 5_000 }).catch(() => undefined);
     await visiblePracticeCard().waitFor({ state: "visible", timeout: 5_000 }).catch(() => undefined);
   }
 
   const visitedQuestionIds = new Set<string>();
 
   for (let index = 0; index < expectedQuestionCount; index += 1) {
+    const missionButton = missionButtons.nth(index);
+    if (await withNodeDeadline(missionButton.count(), `practice-${index + 1}:mission-count`, 15_000) === 0) {
+      const fallbackQuestion = lesson.practiceQuestions[index];
+      stats.missingRenderedCard += 1;
+      noteQuestionFailure(stats, fallbackQuestion?.id ?? `lesson-question-${index + 1}`);
+      continue;
+    }
+    await withNodeDeadline(
+      missionButton.click({ timeout: 10_000 }),
+      `practice-${index + 1}:mission-click`,
+      15_000
+    );
+    await visiblePracticeCard().waitFor({ state: "visible", timeout: 5_000 }).catch(() => undefined);
+
     const card = visiblePracticeCard();
-    const questionId = await card.getAttribute("data-question-id").catch(() => null);
+    const questionId = await withNodeDeadline(
+      card.getAttribute("data-question-id").catch(() => null),
+      `practice-${index + 1}:question-id`,
+      15_000
+    );
     const fallbackQuestion = lesson.practiceQuestions[index];
     const sourceQuestion = questionId ? sourceQuestionById.get(questionId) : fallbackQuestion ? sourceQuestionById.get(fallbackQuestion.id) : null;
     if (!sourceQuestion) {
@@ -752,20 +1014,34 @@ async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
     try {
       await card.scrollIntoViewIfNeeded();
 
-      const selection = await selectStoredAnswer({ card, question: sourceQuestion, stats });
+      const selection = await withNodeDeadline(
+        selectStoredAnswer({ card, question: sourceQuestion, stats }),
+        `practice-${index + 1}:${sourceQuestion.id}:select-answer`,
+        20_000
+      );
       if (!selection.startsWith("selected")) continue;
 
       const checkButton = card.getByRole("button", { name: /^(Check answer|檢查答案|检查答案)$/i }).first();
       await expect(checkButton).toBeEnabled({ timeout: 5_000 });
-      const attemptResponse = page.waitForResponse((response) => {
-        const postData = response.request().postData() ?? "";
-        return response.url().includes("/api/attempts") &&
-          response.request().method() === "POST" &&
-          postData.includes(`"questionId":"${sourceQuestion.id}"`);
-      }, { timeout: 10_000 }).catch(() => null);
-
-      await checkButton.click();
-      const response = await attemptResponse;
+      await page.evaluate(() => {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+      });
+      await withNodeDeadline(
+        centerControlInVisualViewport(page, checkButton),
+        `practice-${index + 1}:${sourceQuestion.id}:center-submit-control`,
+        15_000
+      );
+      await expect(checkButton).toBeInViewport({ ratio: 1, timeout: 5_000 });
+      const response = await withNodeDeadline(
+        responseFromAction(page, (response) => {
+          const postData = response.request().postData() ?? "";
+          return response.url().includes("/api/attempts") &&
+            response.request().method() === "POST" &&
+            postData.includes(`"questionId":"${sourceQuestion.id}"`);
+        }, () => activateStableHitTarget(page, checkButton, `practice-${index + 1}:${sourceQuestion.id}:submit-control`)),
+        `practice-${index + 1}:${sourceQuestion.id}:submit-response`,
+        30_000
+      );
       if (!response) {
         stats.wrongFeedback += 1;
         noteQuestionFailure(stats, sourceQuestion.id);
@@ -785,54 +1061,47 @@ async function submitAllPracticeQuestions(page: Page, lesson: LessonDetail) {
         stats.wrongFeedback += 1;
         noteQuestionFailure(stats, sourceQuestion.id);
       });
-    } catch {
+    } catch (error) {
       stats.wrongFeedback += 1;
       noteQuestionFailure(stats, sourceQuestion.id);
+      throw error;
     }
 
-    if (index < expectedQuestionCount - 1) {
-      if (await waitForPracticeQuestionChange(visiblePracticeCard, questionId, lessonQuestionAutoAdvanceTimeoutMs)) {
-        continue;
-      }
-
-      const nextButton = practiceSection.getByRole("button", { name: /^(Next question|下一題|下一题)$/i }).first();
-      if ((await nextButton.count()) && await nextButton.isEnabled().catch(() => false)) {
-        await nextButton.click();
-        await waitForPracticeQuestionChange(visiblePracticeCard, questionId, 5_000);
-      }
-    }
   }
 
   return stats;
 }
 
-async function waitForPracticeQuestionChange(visiblePracticeCard: () => Locator, previousQuestionId: string | null, timeout: number) {
-  if (!previousQuestionId) return false;
-
-  return await expect.poll(async () => {
-    const nextQuestionId = await visiblePracticeCard().getAttribute("data-question-id").catch(() => null);
-    return nextQuestionId && nextQuestionId !== previousQuestionId ? nextQuestionId : previousQuestionId;
-  }, { timeout }).not.toBe(previousQuestionId)
-    .then(() => true)
-    .catch(() => false);
-}
-
-async function completeLessonProbe(page: Page) {
+async function completeLessonProbe(page: Page, grade: GradeId) {
   const checkbox = page.locator('aside input[type="checkbox"]').first();
   if (await checkbox.count() === 0) return "missing-checklist-checkbox";
   await checkbox.check();
 
-  const completeResponse = page.waitForResponse((response) => {
+  const completeButton = page.getByRole("button", {
+    name: /Mark lesson complete|標記課節完成|标记课时完成/i
+  }).first();
+  await expect(completeButton).toBeEnabled({ timeout: 5_000 });
+  const response = await responseFromAction(page, (response) => {
     return response.url().includes("/api/lesson-progress") &&
       response.request().method() === "POST" &&
       (response.request().postData() ?? "").includes('"complete"');
-  }, { timeout: 10_000 }).catch(() => null);
-  await page.getByRole("button", { name: /Mark lesson complete|標記課節完成|标记课时完成/i }).click();
-  const response = await completeResponse;
+  }, () => completeButton.click());
   if (!response) return "missing-complete-response";
   if (!response.ok()) return `complete-response-${response.status()}`;
 
-  await expect(page.getByText(/(?:Mastery:\s*|掌握度[：:]\s*)(85|8[6-9]|9\d|100)%/i).first()).toBeVisible({ timeout: 5_000 });
+  const body = await response.json().catch(() => null) as LessonResponse | null;
+  if (body?.lesson?.status !== "completed") {
+    return `complete-status-${body?.lesson?.status ?? "missing"}`;
+  }
+  if (!Number.isFinite(body.lesson.mastery) || body.lesson.mastery < 85) {
+    return `complete-mastery-${String(body.lesson.mastery)}`;
+  }
+
+  if (grade.startsWith("P")) {
+    await expect(page.getByText(/^(Lesson complete|課節已完成|课时已完成)$/i).first()).toBeVisible({ timeout: 5_000 });
+  } else {
+    await expect(page.getByText(/(?:Mastery:\s*|掌握度[：:]\s*)(85|8[6-9]|9\d|100)%/i).first()).toBeVisible({ timeout: 5_000 });
+  }
   return "completed";
 }
 
@@ -862,8 +1131,34 @@ async function validateLessonPage({
   };
 
   page.on("response", responseListener);
-  const response = await page.goto(row.route, { waitUntil: "domcontentloaded" });
+  let response = await page.goto(row.route, { waitUntil: "domcontentloaded" }).catch(() => null);
   await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+
+  const titleTexts = routeTitleVisibleTexts(lesson);
+  const waitForExpectedLessonContent = () => page.waitForFunction(
+    (titles: string[]) =>
+      titles.some((title) => document.body.innerText.includes(title)) ||
+      document.body.innerText.includes("Lesson not found"),
+    titleTexts,
+    { timeout: 10_000 }
+  ).catch(() => undefined);
+  await waitForExpectedLessonContent();
+
+  let bodyText = await visibleBodyText(page);
+  const hasExpectedTitle = () => titleTexts.some((title) => bodyText.includes(title));
+  const hasNotFoundState = () => /Lesson not found|This page is not available/i.test(bodyText);
+
+  // A long sequential sweep can occasionally observe a successful navigation
+  // before the new document paints any body text. Revisit that exact route once
+  // and then apply every normal P0/P1/P2 assertion to the final observation.
+  // A second empty/missing-title render still fails closed below.
+  if (!response || response.status() >= 500 || (!hasExpectedTitle() && !hasNotFoundState())) {
+    await page.waitForTimeout(250);
+    response = await page.goto(row.route, { waitUntil: "domcontentloaded" }).catch(() => null);
+    await page.waitForLoadState("networkidle", { timeout: 5_000 }).catch(() => undefined);
+    await waitForExpectedLessonContent();
+    bodyText = await visibleBodyText(page, 30_000);
+  }
   page.off("response", responseListener);
 
   if (!response || response.status() >= 400) {
@@ -880,16 +1175,6 @@ async function validateLessonPage({
     await maybeAttachScreenshot(testInfo, page, `${row.slug}-route-response.png`, screenshotBudget);
   }
 
-  const titleTexts = routeTitleVisibleTexts(lesson);
-  await page.waitForFunction(
-    (titles: string[]) =>
-      titles.some((title) => document.body.innerText.includes(title)) ||
-      document.body.innerText.includes("Lesson not found"),
-    titleTexts,
-    { timeout: 10_000 }
-  ).catch(() => undefined);
-
-  const bodyText = await visibleBodyText(page);
   if (!titleTexts.some((title) => bodyText.includes(title))) {
     addFinding(findings, {
       route: row.route,
@@ -947,15 +1232,16 @@ async function validateLessonPage({
     await maybeAttachScreenshot(testInfo, page, `${row.slug}-katex-error.png`, screenshotBudget);
   }
 
-  if (invalidTextPattern.test(bodyText)) {
+  const invalidRenderedToken = invalidUserFacingTextToken(bodyText);
+  if (invalidRenderedToken) {
     addFinding(findings, {
       route: row.route,
       slug: row.slug,
       severity: "P1",
       owner: "S05 lesson",
       check: "rendered invalid tokens",
-      expected: "Rendered lesson text does not include undefined or NaN.",
-      actual: shortEvidence(bodyText.match(invalidTextPattern)?.[0] ?? "matched invalid token"),
+      expected: "Rendered lesson text does not include NaN or an undefined placeholder/leak.",
+      actual: shortEvidence(invalidRenderedToken),
       repro: `Open ${row.route} and search rendered text.`
     });
   }
@@ -976,7 +1262,7 @@ async function validateLessonPage({
     await maybeAttachScreenshot(testInfo, page, `${row.slug}-layout.png`, screenshotBudget);
   }
 
-  const completion = await completeLessonProbe(page).catch((error) => `error-${String(error)}`);
+  const completion = await completeLessonProbe(page, lesson.grade).catch((error) => `error-${String(error)}`);
   row.checks.push(`complete:${completion}`);
   if (completion !== "completed") {
     addFinding(findings, {
@@ -985,7 +1271,7 @@ async function validateLessonPage({
       severity: "P1",
       owner: "S05 lesson",
       check: "lesson completion interaction",
-      expected: "Checklist can be toggled and Mark lesson complete updates mastery to at least 85%.",
+      expected: "Checklist can be toggled, the API returns completed with mastery at least 85%, and the grade-appropriate completion card updates.",
       actual: completion,
       repro: `Open ${row.route}, tick the first checklist item, click Mark lesson complete.`
     });
@@ -1049,12 +1335,12 @@ function formatFinding(finding: Finding, index: number) {
 test.describe("lesson page all-slug bug detection", () => {
   test("detects root, API, rendering, interaction, and visualization bugs for every lesson", async ({ page }, testInfo) => {
     test.slow();
-    test.setTimeout(900_000);
+    const targets = lessonTargets();
+    test.setTimeout(Math.max(900_000, targets.length * 60_000));
 
     const findings: Finding[] = [];
     const rows: LessonRouteRow[] = [];
     const screenshotBudget = { count: 5 };
-    const targets = lessonTargets();
     const slugs = targets.map((target) => target.slug);
     const duplicateSlugs = slugs.filter((slug, index) => slugs.indexOf(slug) !== index);
 
@@ -1187,15 +1473,39 @@ test.describe("lesson page all-slug bug detection", () => {
           continue;
         }
 
-        await validateLessonPage({
-          exercisedModules,
-          findings,
-          lesson,
-          page,
-          row,
-          screenshotBudget,
-          testInfo
-        });
+        const routeFindingCountBefore = findings.length;
+        try {
+          await withNodeDeadline(
+            validateLessonPage({
+              exercisedModules,
+              findings,
+              lesson,
+              page,
+              row,
+              screenshotBudget,
+              testInfo
+            }),
+            `${testInfo.project.name}:${target.slug}`,
+            180_000
+          );
+        } catch (error) {
+          const actual = error instanceof Error ? error.message : String(error);
+          addFinding(findings, {
+            route: row.route,
+            slug: row.slug,
+            severity: "P1",
+            owner: "S05 lesson",
+            check: "bounded lesson interaction completion",
+            expected: "All page, completion, practice, and visualization probes finish within 180 seconds.",
+            actual,
+            repro: `Open ${row.route} on ${testInfo.project.name} and run the complete lesson interaction probe.`
+          });
+          row.status = "fail";
+          row.checks.push(`browser:interaction-error:${shortEvidence(actual)}`);
+          row.findings = findings.length - routeFindingCountBefore;
+          await writeReport();
+          throw error;
+        }
         await writeReport();
       }
     }

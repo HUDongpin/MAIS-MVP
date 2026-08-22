@@ -1,13 +1,13 @@
 import { redirect } from "next/navigation";
 import { LessonView } from "@/components/lesson/LessonView";
 import { requireLessonAuthentication } from "@/components/lesson/lessonAuthGate";
-import { dedupePracticeQuestions } from "@/lib/practiceQuestionDeduping";
+import {
+  lessonPracticeQuestionLimit,
+  selectLessonPracticeQuestions
+} from "@/lib/practiceQuestionDeduping";
 import { decodeLessonRouteSlug, lessonHrefForSlug } from "@/lib/lessonLinks";
 import type { FeaturedLabDefinition } from "@/data/visualizationLabs";
 import type { LessonDetail, LessonSummary } from "@/types";
-
-const lessonPracticeQuestionLimit = 5;
-const handwritingCapableQuestionTypes = new Set(["fill-in", "short-answer", "graph"]);
 
 // Lesson visualization module ids that render through ConfiguredVisualizationLab. Only these
 // consume the resolved `lab`. Resolving it here (server) means the client never imports
@@ -26,23 +26,6 @@ async function resolveVisualizationLabForLesson(
   const topicId = visualizationBlock?.visualizationConfig?.topicId ?? lesson.topicId;
   const { getPrimaryVisualizationLabForTopic } = await import("@/data/visualizationLabs");
   return getPrimaryVisualizationLabForTopic(topicId) ?? null;
-}
-
-function selectLessonPracticeQuestions(questions: LessonDetail["practiceQuestions"]) {
-  const dedupedQuestions = dedupePracticeQuestions(questions);
-  const selectedQuestions = dedupedQuestions.slice(0, lessonPracticeQuestionLimit);
-
-  if (selectedQuestions.some((question) => handwritingCapableQuestionTypes.has(question.type))) {
-    return selectedQuestions;
-  }
-
-  const handwritingQuestion = dedupedQuestions.find((question) => handwritingCapableQuestionTypes.has(question.type));
-  if (!handwritingQuestion) return selectedQuestions;
-
-  return [
-    ...selectedQuestions.slice(0, Math.max(0, lessonPracticeQuestionLimit - 1)),
-    handwritingQuestion
-  ];
 }
 
 function limitLessonPracticeQuestions(lesson: LessonDetail | null) {

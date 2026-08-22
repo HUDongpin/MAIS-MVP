@@ -1,5 +1,6 @@
 import { hongKongUpJuniorResourcePatternCards } from "../../data/rag/hongKongUpJuniorResources";
 import { illustrationTextMatchStandardForRag } from "./illustrationTextMatchStandard";
+import { cardHasExactHongKongTopic } from "./hongKongMathTopicRouting";
 import type {
   GradeId,
   HongKongUpJuniorResourceEvidencePack,
@@ -153,6 +154,7 @@ export function getHongKongUpJuniorResourcePatternCards(query: HongKongUpJuniorR
   const scored = hongKongUpJuniorResourcePatternCards
     .filter((card) => card.curriculumTrack === "HK" && card.publisher === "HK_UNITED_PRIME_MIA" && card.stage === "junior-secondary")
     .filter((card) => card.sourceLanguage === sourceLanguage)
+    .filter((card) => cardHasExactHongKongTopic(query.topicId, card.topicIds))
     .map((card, index) => ({ card, index, score: scoreCard(card, query) }))
     .filter((entry) => entry.score >= minimumScore || !hasSpecificQuery(query))
     .sort((a, b) => b.score - a.score || a.index - b.index);

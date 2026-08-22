@@ -40,16 +40,16 @@ test("UP junior English S1-S3 textbook queries retrieve grade and volume safe ca
     {
       grade: "S3" as const,
       volume: "3A" as const,
-      topicId: "quadratic-patterns",
-      conceptIds: ["quadratic-equation", "zero-product"],
-      expected: "hk-up-junior-en-3a-quadratics-functions"
+      topicId: "identities-square-patterns",
+      conceptIds: ["perfect-square-identity", "difference-of-squares"],
+      expected: "hk-up-junior-en-3a-identities-square-patterns"
     },
     {
       grade: "S3" as const,
       volume: "3B" as const,
-      topicId: "circles",
-      conceptIds: ["circle-geometry", "angle-relation"],
-      expected: "hk-up-junior-en-3b-circles-angle-geometry"
+      topicId: "arc-length-sector-area",
+      conceptIds: ["arc-length", "sector-area"],
+      expected: "hk-up-junior-en-3b-arc-length-sector-area"
     }
   ];
 

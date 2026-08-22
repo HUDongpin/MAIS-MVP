@@ -1,10 +1,12 @@
 import { angleAt, distance, formatNumber } from "./math";
 import type {
+  BarChartQuestionDiagram,
   CoordinateGridQuestionDiagram,
   LocalizedText,
   NumberLineHighlight,
   NumberLinePoint,
   NumberLineQuestionDiagram,
+  NumberLineSemanticDisclosurePolicy,
   PlaneFigureAngleMark,
   PlaneFigureCircle,
   PlaneFigurePoint,
@@ -68,6 +70,11 @@ export function integerTicks(min: number, max: number) {
   const start = Math.ceil(min);
   const end = Math.floor(max);
   return Array.from({ length: Math.max(0, end - start + 1) }, (_, index) => start + index);
+}
+
+export function intervalTicks(min: number, max: number, interval: number) {
+  const count = Math.floor((max - min) / interval + 1e-9);
+  return Array.from({ length: count + 1 }, (_, index) => Number((min + index * interval).toFixed(12)));
 }
 
 export function rectsOverlap(first: SvgRect, second: SvgRect) {
@@ -219,7 +226,7 @@ export function isXAxisPoint(point: { x: number; y: number }) {
 }
 
 export function shouldDrawAsQuadratic(line: CoordinateGridDiagramLine) {
-  const label = line.label?.toLowerCase() ?? "";
+  const label = line.label.en.toLowerCase();
   return line.points.length >= 3 && (label.includes("parabola") || label === "curve");
 }
 
@@ -417,8 +424,8 @@ export function buildCoordinateGridLayout(diagram: CoordinateGridQuestionDiagram
   const [xMin, xMax] = diagram.xRange;
   const [yMin, yMax] = diagram.yRange;
   const plot = { left: 36, top: 18, width: 214, height: 164 };
-  const xTicks = integerTicks(xMin, xMax);
-  const yTicks = integerTicks(yMin, yMax);
+  const xTicks = diagram.xTickInterval ? intervalTicks(xMin, xMax, diagram.xTickInterval) : integerTicks(xMin, xMax);
+  const yTicks = diagram.yTickInterval ? intervalTicks(yMin, yMax, diagram.yTickInterval) : integerTicks(yMin, yMax);
   const xSpan = xMax - xMin || 1;
   const ySpan = yMax - yMin || 1;
   const xFor = (x: number) => plot.left + ((x - xMin) / xSpan) * plot.width;
@@ -433,7 +440,7 @@ export function buildCoordinateGridLayout(diagram: CoordinateGridQuestionDiagram
   const showXAxis = yMin <= 0 && yMax >= 0;
   const renderedLines = (diagram.lines ?? []).map((line, index) => ({
     line,
-    lineKey: line.label ?? `line-${index}`,
+    lineKey: line.id || `line-${index}`,
     quadraticPath: quadraticPathForLine(line, xFor, yFor, [xMin, xMax], [yMin, yMax]),
     pointsAttr: line.points.map((point) => `${xFor(point.x)},${yFor(point.y)}`).join(" "),
     showValueMarkers: shouldShowLineValueMarkers(line),
@@ -483,6 +490,82 @@ export function buildCoordinateGridLayout(diagram: CoordinateGridQuestionDiagram
     showYAxis,
     renderedLines: renderedLines.map(({ collisionSamples: _collisionSamples, ...line }) => line),
     labeledPoints
+  };
+}
+
+// --- Bar chart -------------------------------------------------------------
+
+export const barChartPalette = ["#0057B8", "#C43D4D", "#007A5E", "#7A4EAB", "#A65300", "#006D77"] as const;
+
+export type BarChartLayout = {
+  viewBox: { width: number; height: number };
+  plot: { left: number; top: number; width: number; height: number };
+  title: string;
+  xAxisLabel: string;
+  yAxisLabel: string;
+  yTicks: { value: number; y: number }[];
+  categories: { key: string; text: string; x: number; y: number }[];
+  bars: {
+    key: string;
+    categoryId: string;
+    seriesId: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    fill: string;
+  }[];
+  legend: { key: string; text: string; fill: string }[];
+};
+
+export function buildBarChartLayout(diagram: BarChartQuestionDiagram, textFor: FigureTextResolver): BarChartLayout {
+  const viewBox = { width: 420, height: 300 };
+  const plot = { left: 58, top: 48, width: 334, height: 184 };
+  const yMax = diagram.yRange[1];
+  const yFor = (value: number) => plot.top + plot.height - (value / yMax) * plot.height;
+  const groupSpan = plot.width / diagram.categories.length;
+  const groupWidth = Math.min(groupSpan * 0.72, 72);
+  const barGap = diagram.series.length > 1 ? 3 : 0;
+  const barWidth = (groupWidth - barGap * (diagram.series.length - 1)) / diagram.series.length;
+  const yTicks = intervalTicks(0, yMax, diagram.tickInterval).map((value) => ({ value, y: yFor(value) }));
+  const categories = diagram.categories.map((category, categoryIndex) => ({
+    key: category.id,
+    text: textFor(category.label),
+    x: plot.left + groupSpan * (categoryIndex + 0.5),
+    y: plot.top + plot.height + 18
+  }));
+  const bars = diagram.categories.flatMap((category, categoryIndex) => {
+    const groupLeft = plot.left + categoryIndex * groupSpan + (groupSpan - groupWidth) / 2;
+    return diagram.series.map((series, seriesIndex) => {
+      const value = category.values[series.id];
+      const y = yFor(value);
+      return {
+        key: `${category.id}-${series.id}`,
+        categoryId: category.id,
+        seriesId: series.id,
+        x: groupLeft + seriesIndex * (barWidth + barGap),
+        y,
+        width: barWidth,
+        height: plot.top + plot.height - y,
+        fill: barChartPalette[seriesIndex]
+      };
+    });
+  });
+
+  return {
+    viewBox,
+    plot,
+    title: textFor(diagram.title),
+    xAxisLabel: textFor(diagram.xAxisLabel),
+    yAxisLabel: textFor(diagram.yAxisLabel),
+    yTicks,
+    categories,
+    bars,
+    legend: diagram.series.map((series, index) => ({
+      key: series.id,
+      text: textFor(series.label),
+      fill: barChartPalette[index]
+    }))
   };
 }
 
@@ -1509,6 +1592,14 @@ function tenFrameAltText(diagram: TenFrameQuestionDiagram): LocalizedText {
 export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText {
   if (diagram.kind === "ten-frame") return tenFrameAltText(diagram);
 
+  if (diagram.kind === "bar-chart") {
+    return {
+      en: `${diagram.title.en}. Bar chart with ${diagram.categories.length} categor${diagram.categories.length === 1 ? "y" : "ies"}.`,
+      zh: `${diagram.title.zh}。包含 ${diagram.categories.length} 個類別的棒形圖。`,
+      zhHans: `${diagram.title.zhHans ?? diagram.title.zh}。包含 ${diagram.categories.length} 个类别的柱状图。`
+    };
+  }
+
   if (diagram.kind === "coordinate-grid") {
     const pointLabels = (diagram.points ?? []).map((point) => point.label).filter(Boolean);
     const suffixEn = pointLabels.length ? ` with points ${pointLabels.join(", ")}` : "";
@@ -1544,6 +1635,24 @@ export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText 
 
   if (diagram.kind === "number-line") {
     const [min, max] = diagram.range;
+    if (
+      !Number.isFinite(min) ||
+      !Number.isFinite(max) ||
+      max <= min ||
+      (diagram.points ?? []).some(
+        (point) => !Number.isFinite(point.value) || point.value < min || point.value > max
+      )
+    ) {
+      throw new Error("Invalid number-line source geometry.");
+    }
+    const disclosurePolicy = validatedNumberLineDisclosurePolicy(diagram);
+    if (disclosurePolicy) {
+      return {
+        en: disclosurePolicy.caption.en,
+        zh: disclosurePolicy.caption.zh,
+        zhHans: disclosurePolicy.caption.zhHans
+      };
+    }
     const pointTexts = (diagram.points ?? [])
       .filter((point) => point.label)
       .map((point) => `${point.label} = ${formatNumber(point.value, 4)}`);
@@ -1572,6 +1681,205 @@ export function questionDiagramAltText(diagram: QuestionDiagram): LocalizedText 
   };
 }
 
+function englishOrdinal(value: number) {
+  const words = [
+    "zeroth",
+    "first",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh",
+    "eighth",
+    "ninth",
+    "tenth"
+  ];
+  if (words[value]) return words[value];
+  const remainder100 = value % 100;
+  const suffix = remainder100 >= 11 && remainder100 <= 13
+    ? "th"
+    : value % 10 === 1
+      ? "st"
+      : value % 10 === 2
+        ? "nd"
+        : value % 10 === 3
+          ? "rd"
+          : "th";
+  return `${value}${suffix}`;
+}
+
+function chineseOrdinal(value: number) {
+  const digits = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+  return digits[value] ?? String(value);
+}
+
+function numberLineOrdinalCaption(
+  diagram: NumberLineQuestionDiagram,
+  pointLabel: string,
+  ordinalTickFromMinimum: number
+) {
+  const [min, max] = diagram.range;
+  const interval = diagram.tickInterval as number;
+  return {
+    en: `Number line from ${formatNumber(min, 4)} to ${formatNumber(max, 4)} in intervals of ${formatNumber(interval, 4)}. Point ${pointLabel} is on the ${englishOrdinal(ordinalTickFromMinimum)} small tick after ${formatNumber(min, 4)}.`,
+    zh: `數線由 ${formatNumber(min, 4)} 至 ${formatNumber(max, 4)}，每小格表示 ${formatNumber(interval, 4)}。點 ${pointLabel} 位於 ${formatNumber(min, 4)} 之後第${chineseOrdinal(ordinalTickFromMinimum)}個小刻度。`,
+    zhHans: `数轴从 ${formatNumber(min, 4)} 到 ${formatNumber(max, 4)}，每小格表示 ${formatNumber(interval, 4)}。点 ${pointLabel} 位于 ${formatNumber(min, 4)} 之后第${chineseOrdinal(ordinalTickFromMinimum)}个小刻度。`
+  };
+}
+
+function validatedNumberLineDisclosurePolicy(
+  diagram: NumberLineQuestionDiagram
+): NumberLineSemanticDisclosurePolicy | null {
+  const value = (diagram as NumberLineQuestionDiagram & { semanticDisclosurePolicy?: unknown })
+    .semanticDisclosurePolicy;
+  if (typeof value === "undefined") return null;
+  if (
+    !isRecord(value) ||
+    !hasOnlyKeys(value, ["kind", "pointLabel", "ordinalTickFromMinimum", "caption"])
+  ) {
+    throw new Error("Invalid number-line semantic disclosure policy.");
+  }
+  if (value.kind !== "ordinal-tick-position") {
+    throw new Error("Unsupported number-line semantic disclosure policy.");
+  }
+  const pointLabel = readPlainLabel(value.pointLabel);
+  const ordinal = value.ordinalTickFromMinimum;
+  const interval = diagram.tickInterval;
+  if (
+    !pointLabel ||
+    typeof ordinal !== "number" ||
+    !Number.isInteger(ordinal) ||
+    ordinal < 1 ||
+    typeof interval !== "number" ||
+    !Number.isFinite(interval) ||
+    interval <= 0
+  ) {
+    throw new Error("Malformed number-line ordinal-tick disclosure policy.");
+  }
+  const [min, max] = diagram.range;
+  const tickCount = Math.round((max - min) / interval);
+  const expectedValue = min + ordinal * interval;
+  const matchingPoints = (diagram.points ?? []).filter((point) => point.label === pointLabel);
+  if (
+    ordinal > tickCount ||
+    matchingPoints.length !== 1 ||
+    Math.abs(matchingPoints[0].value - expectedValue) > 0.000001
+  ) {
+    throw new Error("Number-line disclosure policy does not match the source geometry.");
+  }
+  if (
+    !isRecord(value.caption) ||
+    !hasOnlyKeys(value.caption, ["en", "zh", "zhHans"]) ||
+    typeof value.caption.en !== "string" ||
+    typeof value.caption.zh !== "string" ||
+    typeof value.caption.zhHans !== "string"
+  ) {
+    throw new Error("Number-line disclosure policy is missing its localized caption.");
+  }
+  const expectedCaption = numberLineOrdinalCaption(diagram, pointLabel, ordinal);
+  if (
+    value.caption.en !== expectedCaption.en ||
+    value.caption.zh !== expectedCaption.zh ||
+    value.caption.zhHans !== expectedCaption.zhHans
+  ) {
+    throw new Error("Number-line disclosure caption does not match the source geometry.");
+  }
+  return {
+    kind: "ordinal-tick-position",
+    pointLabel,
+    ordinalTickFromMinimum: ordinal,
+    caption: expectedCaption
+  };
+}
+
+export type QuestionDiagramSemanticTable = {
+  caption: string;
+  headers: string[];
+  rows: { key: string; cells: string[] }[];
+};
+
+export type QuestionDiagramSemanticSummary = {
+  caption: string;
+  table?: QuestionDiagramSemanticTable;
+};
+
+function semanticText(value: LocalizedText, language: "en" | "zh" | "zh-Hans") {
+  if (language === "en") return value.en;
+  if (language === "zh-Hans") return value.zhHans ?? value.zh;
+  return value.zh;
+}
+
+export function buildQuestionDiagramSemanticSummary(
+  diagram: QuestionDiagram,
+  language: "en" | "zh" | "zh-Hans"
+): QuestionDiagramSemanticSummary {
+  const caption = semanticText(questionDiagramAltText(diagram), language);
+
+  if (diagram.kind === "coordinate-grid") {
+    const chinese = language !== "en";
+    const axisRange = (range: [number, number], tickInterval: number | undefined) => {
+      const ticks = (tickInterval ? intervalTicks(range[0], range[1], tickInterval) : integerTicks(range[0], range[1]))
+        .map((tick) => formatNumber(tick, 4));
+      return chinese
+        ? `範圍 ${formatNumber(range[0], 4)} 至 ${formatNumber(range[1], 4)}；刻度間距 ${formatNumber(tickInterval ?? 1, 4)}；刻度 ${ticks.join("、")}`
+        : `Range ${formatNumber(range[0], 4)} to ${formatNumber(range[1], 4)}; tick interval ${formatNumber(tickInterval ?? 1, 4)}; ticks ${ticks.join(", ")}`;
+    };
+    const pointCells = (diagram.points ?? []).map((point) => ({
+      key: `point-${point.id}`,
+      cells: [chinese ? "點" : "Point", point.label, `(${formatNumber(point.x, 4)}, ${formatNumber(point.y, 4)})`]
+    }));
+    const lineCells = (diagram.lines ?? []).map((line) => ({
+      key: `line-${line.id}`,
+      cells: [
+        chinese ? "線" : "Line",
+        semanticText(line.label, language),
+        line.points.map((point) => `(${formatNumber(point.x, 4)}, ${formatNumber(point.y, 4)})`).join(" → ")
+      ]
+    }));
+
+    return {
+      caption,
+      table: {
+        caption: chinese ? "座標網格語義數據" : "Coordinate-grid semantic data",
+        headers: chinese ? ["元素", "標籤", "數值"] : ["Element", "Label", "Values"],
+        rows: [
+          {
+            key: "axis-x",
+            cells: [chinese ? "橫軸" : "X axis", semanticText(diagram.xAxisLabel, language), axisRange(diagram.xRange, diagram.xTickInterval)]
+          },
+          {
+            key: "axis-y",
+            cells: [chinese ? "縱軸" : "Y axis", semanticText(diagram.yAxisLabel, language), axisRange(diagram.yRange, diagram.yTickInterval)]
+          },
+          ...pointCells,
+          ...lineCells
+        ]
+      }
+    };
+  }
+
+  if (diagram.kind === "bar-chart") {
+    const categoryHeader = semanticText(diagram.xAxisLabel, language);
+    return {
+      caption,
+      table: {
+        caption: language === "en" ? `${semanticText(diagram.title, language)} data` : `${semanticText(diagram.title, language)}數據`,
+        headers: [categoryHeader, ...diagram.series.map((series) => semanticText(series.label, language))],
+        rows: diagram.categories.map((category) => ({
+          key: `category-${category.id}`,
+          cells: [
+            semanticText(category.label, language),
+            ...diagram.series.map((series) => formatNumber(category.values[series.id], 4))
+          ]
+        }))
+      }
+    };
+  }
+
+  return { caption };
+}
+
 // --- Normalization ----------------------------------------------------------
 
 const maxAbsoluteCoordinate = 1000;
@@ -1587,6 +1895,10 @@ const maxNumberLineTicks = 61;
 const maxGridPoints = 12;
 const maxGridLines = 8;
 const maxGridLinePoints = 32;
+const maxGridTicks = 61;
+const maxBarSeries = 6;
+const maxBarCategories = 12;
+const maxBarTicks = 31;
 const maxPlainLabelLength = 24;
 const maxLocalizedLabelLength = 60;
 const maxPointIdLength = 16;
@@ -1633,6 +1945,22 @@ function readLocalizedLabel(value: unknown): LocalizedText | null {
   return { en: resolvedEn, zh: resolvedZh, zhHans: resolvedZhHans };
 }
 
+function readRequiredBilingualLabel(value: unknown): LocalizedText | null {
+  if (!isRecord(value) || !hasOnlyKeys(value, ["en", "zh", "zhHans"])) return null;
+  const en = typeof value.en === "string" ? value.en.trim() : "";
+  const zh = typeof value.zh === "string" ? value.zh.trim() : "";
+  const zhHans = typeof value.zhHans === "string" ? value.zhHans.trim() : "";
+  if (!en || !zh || en.length > maxLocalizedLabelLength || zh.length > maxLocalizedLabelLength) return null;
+  if (zhHans.length > maxLocalizedLabelLength) return null;
+  return { en, zh, zhHans: zhHans || zh };
+}
+
+function readTickInterval(value: unknown, span: number, maxTicks: number): number | null {
+  if (!isFiniteNumber(value) || value <= 0 || value > span) return null;
+  if (Math.floor(span / value) + 1 > maxTicks) return null;
+  return value;
+}
+
 function readRange(value: unknown): [number, number] | null {
   if (!Array.isArray(value) || value.length !== 2) return null;
   const min = readBoundedNumber(value[0], -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
@@ -1642,33 +1970,55 @@ function readRange(value: unknown): [number, number] | null {
 }
 
 function normalizeCoordinateGrid(value: Record<string, unknown>): CoordinateGridQuestionDiagram | undefined {
-  if (!hasOnlyKeys(value, ["kind", "xRange", "yRange", "points", "lines"])) return undefined;
+  if (!hasOnlyKeys(value, ["kind", "xRange", "yRange", "xAxisLabel", "yAxisLabel", "xTickInterval", "yTickInterval", "points", "lines"])) return undefined;
   const xRange = readRange(value.xRange);
   const yRange = readRange(value.yRange);
-  if (!xRange || !yRange) return undefined;
+  const xAxisLabel = readRequiredBilingualLabel(value.xAxisLabel);
+  const yAxisLabel = readRequiredBilingualLabel(value.yAxisLabel);
+  if (!xRange || !yRange || !xAxisLabel || !yAxisLabel) return undefined;
+
+  const xTickInterval = typeof value.xTickInterval === "undefined"
+    ? undefined
+    : readTickInterval(value.xTickInterval, xRange[1] - xRange[0], maxGridTicks) ?? undefined;
+  const yTickInterval = typeof value.yTickInterval === "undefined"
+    ? undefined
+    : readTickInterval(value.yTickInterval, yRange[1] - yRange[0], maxGridTicks) ?? undefined;
+  if (typeof value.xTickInterval !== "undefined" && typeof xTickInterval === "undefined") return undefined;
+  if (typeof value.yTickInterval !== "undefined" && typeof yTickInterval === "undefined") return undefined;
+
+  const seenElementIds = new Set<string>();
+  const seenPointLabels = new Set<string>();
 
   let points: CoordinateGridQuestionDiagram["points"];
   if (typeof value.points !== "undefined") {
     if (!Array.isArray(value.points) || value.points.length > maxGridPoints) return undefined;
     points = [];
     for (const entry of value.points) {
-      if (!isRecord(entry) || !hasOnlyKeys(entry, ["label", "x", "y"])) return undefined;
+      if (!isRecord(entry) || !hasOnlyKeys(entry, ["id", "label", "x", "y"])) return undefined;
+      const id = readPlainLabel(entry.id, maxPointIdLength);
       const label = readPlainLabel(entry.label);
       const x = readBoundedNumber(entry.x, -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
       const y = readBoundedNumber(entry.y, -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
-      if (!label || x === null || y === null) return undefined;
-      points.push({ label, x, y });
+      if (!id || !label || x === null || y === null) return undefined;
+      if (x < xRange[0] || x > xRange[1] || y < yRange[0] || y > yRange[1]) return undefined;
+      if (seenElementIds.has(id) || seenPointLabels.has(label)) return undefined;
+      seenElementIds.add(id);
+      seenPointLabels.add(label);
+      points.push({ id, label, x, y });
     }
   }
 
+  const seenLineLabelsEn = new Set<string>();
+  const seenLineLabelsZh = new Set<string>();
   let lines: CoordinateGridQuestionDiagram["lines"];
   if (typeof value.lines !== "undefined") {
     if (!Array.isArray(value.lines) || value.lines.length > maxGridLines) return undefined;
     lines = [];
     for (const entry of value.lines) {
-      if (!isRecord(entry) || !hasOnlyKeys(entry, ["label", "points"])) return undefined;
-      const label = typeof entry.label === "undefined" ? undefined : readPlainLabel(entry.label) ?? undefined;
-      if (typeof entry.label !== "undefined" && !label) return undefined;
+      if (!isRecord(entry) || !hasOnlyKeys(entry, ["id", "label", "points"])) return undefined;
+      const id = readPlainLabel(entry.id, maxPointIdLength);
+      const label = readRequiredBilingualLabel(entry.label);
+      if (!id || !label || seenElementIds.has(id) || seenLineLabelsEn.has(label.en) || seenLineLabelsZh.has(label.zh)) return undefined;
       if (!Array.isArray(entry.points) || entry.points.length < 2 || entry.points.length > maxGridLinePoints) return undefined;
       const linePoints: { x: number; y: number }[] = [];
       for (const pointEntry of entry.points) {
@@ -1676,13 +2026,94 @@ function normalizeCoordinateGrid(value: Record<string, unknown>): CoordinateGrid
         const x = readBoundedNumber(pointEntry.x, -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
         const y = readBoundedNumber(pointEntry.y, -maxAbsoluteCoordinate, maxAbsoluteCoordinate);
         if (x === null || y === null) return undefined;
+        if (x < xRange[0] || x > xRange[1] || y < yRange[0] || y > yRange[1]) return undefined;
         linePoints.push({ x, y });
       }
-      lines.push(label ? { label, points: linePoints } : { points: linePoints });
+      seenElementIds.add(id);
+      seenLineLabelsEn.add(label.en);
+      seenLineLabelsZh.add(label.zh);
+      lines.push({ id, label, points: linePoints });
     }
   }
 
-  return { kind: "coordinate-grid", xRange, yRange, ...(points ? { points } : {}), ...(lines ? { lines } : {}) };
+  return {
+    kind: "coordinate-grid",
+    xRange,
+    yRange,
+    xAxisLabel,
+    yAxisLabel,
+    ...(typeof xTickInterval === "number" ? { xTickInterval } : {}),
+    ...(typeof yTickInterval === "number" ? { yTickInterval } : {}),
+    ...(points ? { points } : {}),
+    ...(lines ? { lines } : {})
+  };
+}
+
+function normalizeBarChart(value: Record<string, unknown>): BarChartQuestionDiagram | undefined {
+  if (!hasOnlyKeys(value, ["kind", "mode", "title", "xAxisLabel", "yAxisLabel", "yRange", "tickInterval", "series", "categories"])) return undefined;
+  if (value.mode !== "single" && value.mode !== "grouped") return undefined;
+  const title = readRequiredBilingualLabel(value.title);
+  const xAxisLabel = readRequiredBilingualLabel(value.xAxisLabel);
+  const yAxisLabel = readRequiredBilingualLabel(value.yAxisLabel);
+  if (!title || !xAxisLabel || !yAxisLabel) return undefined;
+  if (!Array.isArray(value.yRange) || value.yRange.length !== 2 || value.yRange[0] !== 0) return undefined;
+  const yMax = readBoundedNumber(value.yRange[1], 0, maxAbsoluteCoordinate);
+  if (yMax === null || yMax <= 0) return undefined;
+  const tickInterval = readTickInterval(value.tickInterval, yMax, maxBarTicks);
+  if (tickInterval === null) return undefined;
+
+  if (!Array.isArray(value.series) || value.series.length < 1 || value.series.length > maxBarSeries) return undefined;
+  if ((value.mode === "single" && value.series.length !== 1) || (value.mode === "grouped" && value.series.length < 2)) return undefined;
+  const series: BarChartQuestionDiagram["series"] = [];
+  const seriesIds = new Set<string>();
+  const seriesLabelsEn = new Set<string>();
+  const seriesLabelsZh = new Set<string>();
+  for (const entry of value.series) {
+    if (!isRecord(entry) || !hasOnlyKeys(entry, ["id", "label"])) return undefined;
+    const id = readPlainLabel(entry.id, maxPointIdLength);
+    const label = readRequiredBilingualLabel(entry.label);
+    if (!id || !label || seriesIds.has(id) || seriesLabelsEn.has(label.en) || seriesLabelsZh.has(label.zh)) return undefined;
+    seriesIds.add(id);
+    seriesLabelsEn.add(label.en);
+    seriesLabelsZh.add(label.zh);
+    series.push({ id, label });
+  }
+
+  if (!Array.isArray(value.categories) || value.categories.length < 1 || value.categories.length > maxBarCategories) return undefined;
+  const categories: BarChartQuestionDiagram["categories"] = [];
+  const categoryIds = new Set<string>();
+  const categoryLabelsEn = new Set<string>();
+  const categoryLabelsZh = new Set<string>();
+  for (const entry of value.categories) {
+    if (!isRecord(entry) || !hasOnlyKeys(entry, ["id", "label", "values"]) || !isRecord(entry.values)) return undefined;
+    const id = readPlainLabel(entry.id, maxPointIdLength);
+    const label = readRequiredBilingualLabel(entry.label);
+    if (!id || !label || categoryIds.has(id) || categoryLabelsEn.has(label.en) || categoryLabelsZh.has(label.zh)) return undefined;
+    const valueKeys = Object.keys(entry.values);
+    if (valueKeys.length !== series.length || valueKeys.some((key) => !seriesIds.has(key))) return undefined;
+    const values: Record<string, number> = {};
+    for (const item of series) {
+      const amount = readBoundedNumber(entry.values[item.id], 0, yMax);
+      if (amount === null) return undefined;
+      values[item.id] = amount;
+    }
+    categoryIds.add(id);
+    categoryLabelsEn.add(label.en);
+    categoryLabelsZh.add(label.zh);
+    categories.push({ id, label, values });
+  }
+
+  return {
+    kind: "bar-chart",
+    mode: value.mode,
+    title,
+    xAxisLabel,
+    yAxisLabel,
+    yRange: [0, yMax],
+    tickInterval,
+    series,
+    categories
+  };
 }
 
 function normalizePlaneFigure(value: Record<string, unknown>): PlaneFigureQuestionDiagram | undefined {
@@ -1810,7 +2241,9 @@ function normalizePlaneFigure(value: Record<string, unknown>): PlaneFigureQuesti
 }
 
 function normalizeNumberLine(value: Record<string, unknown>): NumberLineQuestionDiagram | undefined {
-  if (!hasOnlyKeys(value, ["kind", "range", "tickInterval", "points", "highlights"])) return undefined;
+  if (!hasOnlyKeys(value, ["kind", "range", "tickInterval", "points", "highlights", "semanticDisclosurePolicy"])) {
+    return undefined;
+  }
   const range = readRange(value.range);
   if (!range) return undefined;
   const [min, max] = range;
@@ -1859,13 +2292,25 @@ function normalizeNumberLine(value: Record<string, unknown>): NumberLineQuestion
     }
   }
 
-  return {
+  const normalized: NumberLineQuestionDiagram = {
     kind: "number-line",
     range,
     ...(typeof tickInterval === "number" ? { tickInterval } : {}),
     ...(points ? { points } : {}),
     ...(highlights ? { highlights } : {})
   };
+  if (typeof value.semanticDisclosurePolicy !== "undefined") {
+    try {
+      const candidate = {
+        ...normalized,
+        semanticDisclosurePolicy: value.semanticDisclosurePolicy
+      } as unknown as NumberLineQuestionDiagram;
+      normalized.semanticDisclosurePolicy = validatedNumberLineDisclosurePolicy(candidate) ?? undefined;
+    } catch {
+      return undefined;
+    }
+  }
+  return normalized;
 }
 
 function normalizeSolidFigure(value: Record<string, unknown>): SolidFigureQuestionDiagram | undefined {
@@ -1966,6 +2411,7 @@ export function normalizeQuestionDiagram(value: unknown): QuestionDiagram | unde
   if (!isRecord(value)) return undefined;
 
   if (value.kind === "coordinate-grid") return normalizeCoordinateGrid(value);
+  if (value.kind === "bar-chart") return normalizeBarChart(value);
   if (value.kind === "plane-figure") return normalizePlaneFigure(value);
   if (value.kind === "number-line") return normalizeNumberLine(value);
   if (value.kind === "solid-figure") return normalizeSolidFigure(value);
@@ -2060,6 +2506,8 @@ export function validateQuestionDiagram(diagram: QuestionDiagram): string[] {
     });
     return issues;
   }
+
+  if (diagram.kind === "bar-chart") return issues;
 
   const resolvers: FigureTextResolver[] = [
     (value) => resolveDiagramText(value, "en"),

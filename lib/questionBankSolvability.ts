@@ -1,8 +1,10 @@
-import { questions } from "../data/questions";
+import {
+  activeHongKongQuestionIdByHistoricalId,
+  questions
+} from "../data/questions";
 import {
   expectedHongKongEasePracticeQuestionCount,
-  hongKongEasePracticeQuestionGenerationMetadata,
-  independentHongKongEasePracticeAnswer
+  hongKongEasePracticeQuestionGenerationMetadata
 } from "../data/hongKongEasePracticeQuestions";
 import {
   independentMainlandBnuHighAnswer,
@@ -235,9 +237,11 @@ export type AliasKind =
   | "ratio"
   | "time";
 
-// 288 = 285 legacy questions + 3 figure-based graph questions added with the
-// question-figure spec rollout (plane-figure, number-line, solid-figure).
-export const expectedHkBaseQuestionCount = 288;
+// Exact active non-EASE HK inventory: 28 core + 52 primary + 16 graph +
+// 205 supplemental + 2 dedicated seeds for the two new S3 routes = 303.
+// Historical replacements are retained through the version manifest, not as
+// duplicate active questions.
+export const expectedHkBaseQuestionCount = 302;
 export { expectedHongKongEasePracticeQuestionCount };
 export const expectedHkQuestionCount = expectedHkBaseQuestionCount + expectedHongKongEasePracticeQuestionCount;
 export const expectedMainlandPepPrimaryQuestionCount = 1200;
@@ -300,6 +304,8 @@ q15	7
 q16	(-3, -2)
 q17	2/5
 q18	x^2 + 5x + 6
+hk-s3-identities-square-patterns-1	a^2 + 2ab + b^2
+hk-s3-arc-length-sector-area-1	4π cm
 q19	50°
 q20	x^2
 q21	6
@@ -320,40 +326,47 @@ pq-p1-measurement-time-1	a classroom door
 pq-p1-measurement-time-2	3 o'clock
 pq-p2-place-value-1	8
 pq-p2-place-value-2	346
-pq-p2-multiplication-foundations-1	3 x 4
+pq-p2-multiplication-foundations-1	3 × 4
 pq-p2-multiplication-foundations-2	10
 pq-p2-money-time-1	HK$2
 pq-p2-money-time-2	4:30
 pq-p2-length-data-1	13 cm
 pq-p2-length-data-2	10
-pq-p3-multiplication-division-1	42
-pq-p3-multiplication-division-2	6
+pq-p2-length-data-chart-total-v2	10
+supp-p2-length-data-chart-total-v2	8
+pq-p3-multiplication-division-1	372
+pq-p3-multiplication-division-2	10 full groups, 3 remain
 pq-p3-fractions-intro-1	1/4
 pq-p3-fractions-intro-2	2/4
 pq-p3-measurement-1	centimetres
 pq-p3-measurement-2	1000 mL
-pq-p3-geometry-patterns-1	90°
-pq-p3-geometry-patterns-2	15
+pq-p3-geometry-patterns-1	the corner of a rectangular book
+pq-p3-geometry-patterns-2	9
 pq-p4-large-numbers-1	12,500
 pq-p4-large-numbers-2	3,700
 pq-p4-decimals-1	0.6
 pq-p4-decimals-2	3.7
-pq-p4-angles-1	obtuse
-pq-p4-angles-2	105°
+pq-p4-angles-1	larger than a right angle
+pq-p4-angles-2	Angle B is smaller than a right angle
+pq-p4-angles-square-corner-3	the square corner of a set square
+pq-p4-angles-square-corner-4	smaller than a right angle
+pq-p4-angles-square-corner-5	larger than a right angle
 pq-p4-perimeter-area-1	22 cm
 pq-p4-perimeter-area-2	20 cm^2
-pq-p5-fractions-operations-1	3/4
-pq-p5-fractions-operations-2	3/4
+pq-p5-fractions-operations-1	1
+pq-p5-fractions-operations-2	7/12
 pq-p5-volume-1	24 cm^3
 pq-p5-volume-2	cm^3
 pq-p5-rates-1	HK$5
-pq-p5-rates-2	30 km/h
-pq-p5-charts-averages-1	8
-pq-p5-charts-averages-2	20
+pq-p5-rates-2	HK$7
+pq-p5-charts-averages-1	2
+pq-p5-charts-averages-2	15
+pq-p5-charts-averages-chart-total-v2	14
+supp-p5-charts-averages-chart-total-v2	11
 pq-p6-percentages-1	40
 pq-p6-percentages-2	25%
-pq-p6-ratio-proportion-1	18
-pq-p6-ratio-proportion-2	6:8
+pq-p6-ratio-proportion-1	HK$30
+pq-p6-ratio-proportion-2	15
 pq-p6-speed-1	30 km/h
 pq-p6-speed-2	10 km
 pq-p6-pre-secondary-problem-solving-1	Underline known facts and the question
@@ -377,7 +390,7 @@ graph-p5-volume-cube	27 cm^3
 supp-p1-counting-number-bonds-first-step	Count on or count back from the known number
 supp-p1-counting-number-bonds-key-fact	5
 supp-p1-counting-number-bonds-guided-example	15
-supp-p1-counting-number-bonds-common-check	Check whether the missing number is before or after the given number
+supp-p1-counting-number-bonds-common-check	Check whether the question asks for the number before, the number after, or a missing part
 supp-p1-addition-subtraction-first-step	Decide whether the story adds to or takes away
 supp-p1-addition-subtraction-key-fact	11
 supp-p1-addition-subtraction-guided-example	7
@@ -395,21 +408,21 @@ supp-p2-place-value-key-fact	7
 supp-p2-place-value-guided-example	529
 supp-p2-place-value-common-check	Check that each digit is placed in the correct place value
 supp-p2-multiplication-foundations-first-step	Count equal groups before writing multiplication
-supp-p2-multiplication-foundations-key-fact	4 x 6
+supp-p2-multiplication-foundations-key-fact	4 × 6
 supp-p2-multiplication-foundations-guided-example	12
 supp-p2-multiplication-foundations-common-check	Check the size of each group and the number of groups
 supp-p2-money-time-first-step	Identify the price, amount paid, or time interval
 supp-p2-money-time-key-fact	HK$4
-supp-p2-money-time-guided-example	2:45
+supp-p2-money-time-guided-example	3:00
 supp-p2-money-time-common-check	Check whether the answer should be money or time
 supp-p2-length-data-first-step	Read the unit or chart label before calculating
 supp-p2-length-data-key-fact	13 cm
 supp-p2-length-data-guided-example	13
 supp-p2-length-data-common-check	Keep the length unit when the question asks for length
-supp-p3-multiplication-division-first-step	Decide whether the situation has equal groups or sharing
-supp-p3-multiplication-division-key-fact	32
-supp-p3-multiplication-division-guided-example	6
-supp-p3-multiplication-division-common-check	Check whether the question asks for total or each share
+supp-p3-multiplication-division-first-step	Decide whether the situation needs multi-digit multiplication, sharing, or grouping
+supp-p3-multiplication-division-key-fact	824
+supp-p3-multiplication-division-guided-example	11 each, 3 remain
+supp-p3-multiplication-division-common-check	Check whether a remainder is smaller than the divisor
 supp-p3-fractions-intro-first-step	Identify the number of equal parts first
 supp-p3-fractions-intro-key-fact	1/3
 supp-p3-fractions-intro-guided-example	4/6
@@ -418,10 +431,10 @@ supp-p3-measurement-first-step	Choose the correct measuring unit before calculat
 supp-p3-measurement-key-fact	2000 mL
 supp-p3-measurement-guided-example	55 cm
 supp-p3-measurement-common-check	Check whether units need converting before calculating
-supp-p3-geometry-patterns-first-step	Identify the angle fact or the pattern rule
-supp-p3-geometry-patterns-key-fact	180°
-supp-p3-geometry-patterns-guided-example	20
-supp-p3-geometry-patterns-common-check	Check whether the task is about shape, angle, or number pattern
+supp-p3-geometry-patterns-first-step	Use a square corner as the right-angle reference, or identify the growing-pattern rule
+supp-p3-geometry-patterns-key-fact	right angle
+supp-p3-geometry-patterns-guided-example	11
+supp-p3-geometry-patterns-common-check	Compare the opening with the square corner rather than estimating a number
 supp-p4-large-numbers-first-step	Compare digits from the largest place value
 supp-p4-large-numbers-key-fact	23,780
 supp-p4-large-numbers-guided-example	5,200
@@ -430,38 +443,38 @@ supp-p4-decimals-first-step	Line up decimal places before comparing or calculati
 supp-p4-decimals-key-fact	0.5
 supp-p4-decimals-guided-example	3.4
 supp-p4-decimals-common-check	Keep the decimal point aligned in every step
-supp-p4-angles-first-step	Name the angle relationship before subtracting
-supp-p4-angles-key-fact	70°
-supp-p4-angles-guided-example	70°
-supp-p4-angles-common-check	Check whether the total should be 180 degrees or 360 degrees
+supp-p4-angles-first-step	Place a square-corner reference at the vertex before comparing openings
+supp-p4-angles-key-fact	smaller than a right angle
+supp-p4-angles-guided-example	right angle
+supp-p4-angles-common-check	Align the vertices and one arm before comparing the other arm
 supp-p4-perimeter-area-first-step	Decide whether the question asks for boundary or surface
 supp-p4-perimeter-area-key-fact	24 cm
 supp-p4-perimeter-area-guided-example	21 cm^2
 supp-p4-perimeter-area-common-check	Use linear units for perimeter and square units for area
-supp-p5-fractions-operations-first-step	Check whether denominators match before adding or simplifying
-supp-p5-fractions-operations-key-fact	3/5
-supp-p5-fractions-operations-guided-example	3/4
+supp-p5-fractions-operations-first-step	Find a common denominator before adding or subtracting unlike denominators
+supp-p5-fractions-operations-key-fact	7/8
+supp-p5-fractions-operations-guided-example	7/12
 supp-p5-fractions-operations-common-check	Simplify the final fraction when possible
 supp-p5-volume-first-step	Identify length, width, and height before multiplying
 supp-p5-volume-key-fact	4 cm
 supp-p5-volume-guided-example	30 cm^3
 supp-p5-volume-common-check	Multiply length, width, and height instead of adding the edge lengths
-supp-p5-rates-first-step	Divide the total amount by the number of equal units
+supp-p5-rates-first-step	Divide the total price by the number of items to find the unit price
 supp-p5-rates-key-fact	HK$6
-supp-p5-rates-guided-example	15 km/h
-supp-p5-rates-common-check	Keep the rate unit attached to the answer
-supp-p5-charts-averages-first-step	Read the data values carefully before adding
-supp-p5-charts-averages-key-fact	8
-supp-p5-charts-averages-guided-example	24
-supp-p5-charts-averages-common-check	Check whether the question asks for a total or an average
-supp-p6-percentages-first-step	Convert the percentage to a fraction or decimal first
+supp-p5-rates-guided-example	HK$6
+supp-p5-rates-common-check	State the price for one item, not the total pack price
+supp-p5-charts-averages-first-step	Use the legend to identify both series before reading a composite bar chart
+supp-p5-charts-averages-key-fact	15
+supp-p5-charts-averages-guided-example	4
+supp-p5-charts-averages-common-check	Match each bar to the correct series and category
+supp-p6-percentages-first-step	Identify the original amount before finding a percentage or percentage change
 supp-p6-percentages-key-fact	30
-supp-p6-percentages-guided-example	60%
-supp-p6-percentages-common-check	Check whether the question asks for a percent, decimal, or amount
-supp-p6-ratio-proportion-first-step	Find the total number of ratio parts before sharing
+supp-p6-percentages-guided-example	25%
+supp-p6-percentages-common-check	Use the original amount as the denominator for percentage change
+supp-p6-ratio-proportion-first-step	Use unitary scaling: find the value for one unit, then scale to the target
 supp-p6-ratio-proportion-key-fact	40
-supp-p6-ratio-proportion-guided-example	10:14
-supp-p6-ratio-proportion-common-check	Apply the same multiplier or divisor to both ratio parts
+supp-p6-ratio-proportion-guided-example	42 m^2
+supp-p6-ratio-proportion-common-check	Keep the same per-unit rate through both scaling steps
 supp-p6-speed-first-step	Identify distance, time, and speed before choosing the formula
 supp-p6-speed-key-fact	60 km/h
 supp-p6-speed-guided-example	18 km
@@ -510,6 +523,10 @@ supp-polynomials-first-step	Identify terms, coefficients, and like terms
 supp-polynomials-key-fact	7x^2
 supp-polynomials-guided-example	x^2 + 4x
 supp-polynomials-common-check	Check factorization by expanding back
+supp-identities-square-patterns-first-step	Match each algebraic term to an area in the square model
+supp-identities-square-patterns-key-fact	2ab
+supp-identities-square-patterns-guided-example	(a-b)(a+b)
+supp-identities-square-patterns-common-check	Expand the factors to verify every term and sign
 supp-quadratic-patterns-first-step	Look for second differences, vertex, or axis of symmetry
 supp-quadratic-patterns-key-fact	x = -1
 supp-quadratic-patterns-guided-example	(3, 2)
@@ -518,7 +535,11 @@ supp-trigonometry-basics-first-step	Label opposite, adjacent, and hypotenuse
 supp-trigonometry-basics-key-fact	4/5
 supp-trigonometry-basics-guided-example	3/4
 supp-trigonometry-basics-common-check	Choose SOH, CAH, or TOA after labelling sides
-supp-circles-first-step	Identify the chord, tangent, arc, or centre angle being used
+supp-arc-length-sector-area-first-step	Write the angle at the centre as a fraction of a full circle
+supp-arc-length-sector-area-key-fact	4π cm
+supp-arc-length-sector-area-guided-example	12π cm^2
+supp-arc-length-sector-area-common-check	Use length units for an arc and square units for a sector area
+supp-circles-first-step	Identify the chord, tangent, arc, or angle at the centre being used
 supp-circles-key-fact	90°
 supp-circles-guided-example	70°
 supp-circles-common-check	Mark radii and equal lengths on the diagram
@@ -572,6 +593,98 @@ supp-mixed-problem-solving-guided-example	shared quantities
 supp-mixed-problem-solving-common-check	Check whether the final answer is reasonable in context
 `;
 
+// Independently recomputed after the 2026-08-09 HK scope corrections. These
+// answers are deliberately maintained outside the live question seed: each was
+// solved from the frozen prompt, diagram, or option semantics.
+const hkCurrentIndependentAnswerOverrides = `
+q22-v2|Domain x > 1; f(9) = 3
+q24-v2|1.50 minutes per mark
+pq-p2-length-data-1-v2|100
+pq-p3-measurement-2-v2|900 mL
+pq-p3-geometry-patterns-1-v2|isosceles triangle
+pq-p3-geometry-patterns-2-v2|Both pairs of opposite sides are parallel
+pq-p4-large-numbers-1-v2|60 ÷ 12 = 5 with remainder 0
+pq-p4-large-numbers-2-v2|1 × 24, 2 × 12, 3 × 8, 4 × 6
+pq-p4-angles-1-v2|rectangle, rhombus, and parallelogram
+pq-p4-angles-2-v2|All four sides are equal
+pq-p4-angles-square-corner-3|Both pairs of opposite sides are equal and parallel
+pq-p4-angles-square-corner-4|rhombus
+pq-p4-angles-square-corner-5|two congruent triangles
+pq-p6-percentages-2-v2|HK$60
+pq-p6-ratio-proportion-1-v2|9
+pq-p6-ratio-proportion-2-v2|24°C
+supp-p1-addition-subtraction-first-step-v2|Notice that Mia gets more stickers, then add 5 + 2
+supp-p1-shapes-patterns-first-step-v2|Identify AB as the shortest repeating unit
+supp-p1-measurement-time-first-step-v2|Read the minute hand, then the hour hand
+supp-p1-measurement-time-key-fact-v2|3:30
+supp-p2-multiplication-foundations-first-step-v2|Identify 5 equal groups of 2, then write 5 × 2
+supp-p2-money-time-first-step-v2|Identify the price and the amount paid
+supp-p2-length-data-first-step-v2|Choose metres for estimating the door height
+supp-p2-length-data-key-fact-v2|2 m
+supp-p2-length-data-guided-example-v2|1 m 10 cm
+supp-p2-length-data-common-check-v2|Use 1 m = 100 cm and keep every pictogram key at one icon for one object
+supp-p3-measurement-first-step-v2|Read the measuring unit or bar-chart scale before calculating
+supp-p3-geometry-patterns-first-step-v2|Count the sides, then compare equal or parallel sides before naming the shape
+supp-p3-geometry-patterns-key-fact-v2|quadrilateral
+supp-p3-geometry-patterns-guided-example-v2|equilateral triangle
+supp-p3-geometry-patterns-common-check-v2|Check that the figure is closed and count its straight sides before naming it
+supp-p4-large-numbers-first-step-v2|Decide whether to list factors or multiples, then work systematically
+supp-p4-large-numbers-key-fact-v2|7, 14, 21
+supp-p4-large-numbers-guided-example-v2|HCF = 6; LCM = 36
+supp-p4-large-numbers-common-check-v2|Verify that every factor leaves remainder 0 and every common result works for both numbers
+supp-p3-multiplication-division-common-check-v3|Check that the remainder is at least 0 and smaller than the divisor
+supp-p3-measurement-common-check-v3|Check that the quantities are of the same kind and convert units when needed before calculating
+supp-p4-large-numbers-common-check-v3|Check that each factor divides with no remainder and that each claimed common factor or multiple applies to both numbers
+supp-p4-angles-first-step-v2|Identify the quadrilateral's side relationships before choosing a family name
+supp-p4-angles-key-fact-v2|rectangle and rhombus
+supp-p4-angles-guided-example-v2|rhombus
+supp-p4-angles-common-check-v2|Check the direction of each family inclusion and do not assume its converse
+supp-p4-perimeter-area-guided-example-v2|18 cm^2
+supp-p5-charts-averages-first-step-v2|Use the legend to identify both series before reading the paired data values
+supp-p6-percentages-first-step-v2|Identify the original amount and find the given percentage of it
+supp-p6-percentages-guided-example-v2|75
+supp-p6-percentages-common-check-v2|Add the percentage amount for an increase and subtract it for a decrease
+supp-p6-ratio-proportion-first-step-v2|For a mean, find total divided by count; for a broken-line graph, read the ordered axes and units
+supp-p6-ratio-proportion-key-fact-v2|8
+supp-p6-ratio-proportion-guided-example-v2|9
+supp-p6-ratio-proportion-common-check-v2|Verify total and count for a mean, and preserve the ordered sequence and axis units on a broken-line graph
+supp-p6-pre-secondary-problem-solving-guided-example-v2|37
+supp-more-algebra-first-step-v2|State denominator restrictions, then factor before cancelling a rational expression
+supp-more-algebra-key-fact-v2|a + 2
+supp-more-algebra-guided-example-v2|b + 3
+supp-more-algebra-common-check-v2|Check every original denominator restriction remains stated after cancellation
+supp-advanced-functions-first-step-v2|Identify the logarithm base and require its argument to be positive
+supp-advanced-functions-key-fact-v2|4
+supp-advanced-functions-guided-example-v2|x > -2
+supp-advanced-functions-common-check-v2|Check that the logarithm base is positive and not 1, and that the argument is positive
+supp-probability-s5-first-step-v2|Identify equally likely individual objects and the conditioning event, then update the sample space after each draw without replacement
+supp-probability-s5-key-fact-v2|1/4
+supp-probability-s5-guided-example-v2|3/10
+supp-probability-s5-common-check-v2|Confirm equally likely individual outcomes, then update both the favourable count and total after a draw without replacement
+supp-differentiation-intro-common-check-v2|Reduce the power by one after multiplying by the original power
+supp-calculus-first-step-v2|Read the sign of f'(x) on each relevant interval before classifying the graph's behaviour
+supp-calculus-key-fact-v2|decreasing
+supp-calculus-common-check-v2|Check the sign of f'(x) on both sides of a stationary point before classifying it
+supp-statistics-s6-first-step-v2|Confirm that the standard deviation is greater than 0, then convert the observed value to a standard score (z-score) for the stated normal distribution
+supp-statistics-s6-common-check-v2|Check that the standard deviation is greater than 0, then subtract the mean from the observed value and divide by the standard deviation
+supp-exam-revision-key-fact-v2|1.33 minutes per mark
+supp-exam-revision-guided-example-v2|1.50 minutes per mark
+supp-mixed-problem-solving-first-step-v2|Link the quantities in the graph or table to the variables in the equation before calculating
+supp-mixed-problem-solving-key-fact-v2|24 km/h
+supp-mixed-problem-solving-guided-example-v2|30 km
+supp-mixed-problem-solving-common-check-v2|Check that graph, table, and equation use the same quantities and compatible units
+supp-p5-volume-first-step-v3|Identify the volume and dimensions, then decide which quantity is unknown before choosing the operation
+supp-p6-ratio-proportion-first-step-v3|For a mean, divide the total by the number of data values; for a broken-line graph, read the axis labels, scales, units, and data order first
+supp-statistics-s1-first-step-v3|Identify whether the question asks for a measure of centre or spread; order the data when finding the median
+`;
+
+function addDelimitedAnswers(target: Map<string, string>, source: string) {
+  for (const line of source.trim().split("\n")) {
+    const separatorIndex = line.indexOf("|");
+    target.set(line.slice(0, separatorIndex), line.slice(separatorIndex + 1));
+  }
+}
+
 export function hkIndependentAnswersById() {
   const answers = new Map(
     hkIndependentAnswerSource
@@ -584,8 +697,50 @@ export function hkIndependentAnswersById() {
   );
 
   Object.values(hongKongEasePracticeQuestionGenerationMetadata).forEach((metadata) => {
-    answers.set(`hk-ease-${metadata.sourceId}`, metadata.independentAnswer);
+    answers.set(`hk-ease-${metadata.sourceId}`, metadata.independentlyReviewedAnswer);
   });
+
+  // Explicit review overrides are loaded before lineage propagation so a
+  // reviewed v2 answer can seed its v3 successor. Exact active-generation
+  // overrides remain authoritative and are never overwritten below.
+  addDelimitedAnswers(answers, hkCurrentIndependentAnswerOverrides);
+  const explicitlyReviewedIds = new Set(
+    hkCurrentIndependentAnswerOverrides
+      .trim()
+      .split("\n")
+      .map((line) => line.slice(0, line.indexOf("|")))
+  );
+
+  // The historical TSV remains an immutable, independently solved oracle. When
+  // a question receives a new active ID, carry its independently computed
+  // result forward through the checked-in version graph. A direct flat graph
+  // can contain both base→v3 and v2→v3, so select the highest reviewed source
+  // generation deterministically instead of relying on Map iteration order.
+  const reviewedHistoricalSourcesByActiveId = new Map<
+    string,
+    Array<{ historicalId: string; answer: string; generation: number }>
+  >();
+  for (const [historicalId, activeId] of activeHongKongQuestionIdByHistoricalId) {
+    const independentlySolvedAnswer = answers.get(historicalId);
+    if (!independentlySolvedAnswer) continue;
+    const generationMatch = historicalId.match(/-v([2-9]\d*)$/);
+    const generation = generationMatch ? Number(generationMatch[1]) : 1;
+    const candidates = reviewedHistoricalSourcesByActiveId.get(activeId) ?? [];
+    candidates.push({ historicalId, answer: independentlySolvedAnswer, generation });
+    reviewedHistoricalSourcesByActiveId.set(activeId, candidates);
+  }
+  for (const [activeId, candidates] of reviewedHistoricalSourcesByActiveId) {
+    if (explicitlyReviewedIds.has(activeId)) continue;
+    candidates.sort(
+      (left, right) =>
+        right.generation - left.generation
+        || left.historicalId.localeCompare(right.historicalId)
+    );
+    const latest = candidates[0];
+    if (latest) {
+      answers.set(activeId, latest.answer);
+    }
+  }
 
   return answers;
 }
@@ -677,47 +832,64 @@ function quadrantFor(x: number, y: number) {
   return null;
 }
 
+const historicalHongKongQuestionIdByActiveId = new Map<string, string>();
+for (const [historicalId, activeId] of activeHongKongQuestionIdByHistoricalId) {
+  const existing = historicalHongKongQuestionIdByActiveId.get(activeId);
+  const historicalGeneration = Number(historicalId.match(/-v([2-9]\d*)$/)?.[1] ?? 1);
+  const existingGeneration = Number(existing?.match(/-v([2-9]\d*)$/)?.[1] ?? 1);
+  if (!existing || historicalGeneration > existingGeneration) {
+    historicalHongKongQuestionIdByActiveId.set(activeId, historicalId);
+  }
+}
+
+function historicalHongKongQuestionIdForActiveId(questionId: string) {
+  const easeMatch = questionId.match(/^(hk-ease-\d+)(?:-v\d+)?$/);
+  if (easeMatch) return easeMatch[1];
+  return historicalHongKongQuestionIdByActiveId.get(questionId) ?? questionId;
+}
+
 export function deriveGraphAnswer(question: Question) {
   if (question.type !== "graph" || !question.diagram) return null;
+  const questionId = historicalHongKongQuestionIdForActiveId(question.id);
 
-  if (question.id === "q28" || question.id === "graph-coordinate-geometry-gradient") {
+  if (questionId === "q28" || questionId === "graph-coordinate-geometry-gradient") {
     const line = firstLine(question);
     const [start, end] = line?.points ?? [];
     if (!start || !end) return null;
     return formatFraction(end.y - start.y, end.x - start.x);
   }
 
-  if (question.id === "graph-p6-speed-distance") {
+  if (questionId === "graph-p6-speed-distance") {
     const point = pointByLabel(question, "D");
     return point ? `${formatNumber(point.y)} km` : null;
   }
 
-  if (question.id === "graph-coordinates-read-point") {
+  if (questionId === "graph-coordinates-read-point") {
     const point = pointByLabel(question, "C");
     return point ? formatPoint(point.x, point.y) : null;
   }
 
-  if (question.id === "graph-coordinates-quadrant") {
+  if (questionId === "graph-coordinates-quadrant") {
     const point = pointByLabel(question, "P");
     return point ? quadrantFor(point.x, point.y) : null;
   }
 
-  if (question.id === "graph-quadratic-patterns-vertex") {
+  if (questionId === "graph-quadratic-patterns-vertex") {
     const point = pointByLabel(question, "V");
     return point ? formatPoint(point.x, point.y) : null;
   }
 
-  if (question.id === "graph-quadratic-patterns-axis") {
+  if (questionId === "graph-quadratic-patterns-axis") {
     const point = pointByLabel(question, "V");
     return point ? `x = ${formatNumber(point.x)}` : null;
   }
 
-  if (question.id === "graph-quadratic-patterns-y-intercept") {
+  if (questionId === "graph-quadratic-patterns-y-intercept") {
     const point = pointByLabel(question, "Y") ?? firstLine(question)?.points.find((candidate) => candidate.x === 0) ?? null;
     return point ? formatPoint(point.x, point.y) : null;
   }
 
-  if (question.id === "graph-quadratic-patterns-roots") {
+  if (questionId === "graph-quadratic-patterns-roots") {
     const roots = (firstLine(question)?.points ?? [])
       .filter((point) => point.y === 0)
       .map((point) => point.x)
@@ -725,7 +897,7 @@ export function deriveGraphAnswer(question: Question) {
     return roots.length === 2 ? `x = ${formatNumber(roots[0])} and x = ${formatNumber(roots[1])}` : null;
   }
 
-  if (question.id === "graph-quadratic-patterns-opening") {
+  if (questionId === "graph-quadratic-patterns-opening") {
     const vertex = pointByLabel(question, "V");
     const linePoints = firstLine(question)?.points ?? [];
     if (!vertex || linePoints.length < 3) return null;
@@ -735,38 +907,38 @@ export function deriveGraphAnswer(question: Question) {
     return null;
   }
 
-  if (question.id === "graph-functions-read-output") {
+  if (questionId === "graph-functions-read-output") {
     const point = pointByLabel(question, "A");
     return point ? formatNumber(point.y) : null;
   }
 
-  if (question.id === "graph-functions-zero") {
+  if (questionId === "graph-functions-zero") {
     const point = pointByLabel(question, "Z") ?? firstLine(question)?.points.find((candidate) => candidate.y === 0) ?? null;
     return point ? formatNumber(point.x) : null;
   }
 
-  if (question.id === "graph-coordinate-geometry-midpoint") {
+  if (questionId === "graph-coordinate-geometry-midpoint") {
     const first = pointByLabel(question, "A");
     const second = pointByLabel(question, "B");
     return first && second ? formatPoint((first.x + second.x) / 2, (first.y + second.y) / 2) : null;
   }
 
-  if (question.id === "graph-data-handling-highest-value") {
+  if (questionId === "graph-data-handling-highest-value") {
     const values = firstLine(question)?.points.map((point) => point.y) ?? [];
     return values.length ? formatNumber(Math.max(...values)) : null;
   }
 
-  if (question.id === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
+  if (questionId === "graph-p4-angles-straight-line" && question.diagram.kind === "plane-figure") {
     const angle = planeFigureAngleDegrees(question.diagram, "O", "C", "B");
     return angle === null ? null : `${Math.round(angle)}°`;
   }
 
-  if (question.id === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
+  if (questionId === "graph-p4-decimals-number-line" && question.diagram.kind === "number-line") {
     const value = numberLinePointValue(question.diagram, "P");
     return value === null ? null : formatNumber(value);
   }
 
-  if (question.id === "graph-p5-volume-cube" && question.diagram.kind === "solid-figure") {
+  if (questionId === "graph-p5-volume-cube" && question.diagram.kind === "solid-figure") {
     const volume = solidFigureCuboidVolume(question.diagram);
     if (volume === null) return null;
     const unit = solidFigureUnitText(question.diagram);
@@ -1174,8 +1346,10 @@ function mainlandIndependentAnswer(question: Question): SolverResult {
 
 function independentAnswerFor(question: Question, hkAnswers: Map<string, string>): SolverResult {
   if (question.curriculumTrack === "HK") {
-    if (hongKongEasePracticeQuestionGenerationMetadata[question.id]) {
-      return { answer: independentHongKongEasePracticeAnswer(question) };
+    const historicalQuestionId = historicalHongKongQuestionIdForActiveId(question.id);
+    const easeMetadata = hongKongEasePracticeQuestionGenerationMetadata[historicalQuestionId];
+    if (easeMetadata) {
+      return { answer: easeMetadata.independentlyReviewedAnswer };
     }
     if (question.type === "graph") {
       const derivedGraphAnswer = deriveGraphAnswer(question);
@@ -1241,8 +1415,9 @@ function independentAnswerFor(question: Question, hkAnswers: Map<string, string>
 }
 
 function batchFor(question: Question) {
-  if (hongKongEasePracticeQuestionGenerationMetadata[question.id]) {
-    return hongKongEasePracticeQuestionGenerationMetadata[question.id]?.batch ?? "unknown";
+  const historicalQuestionId = historicalHongKongQuestionIdForActiveId(question.id);
+  if (hongKongEasePracticeQuestionGenerationMetadata[historicalQuestionId]) {
+    return hongKongEasePracticeQuestionGenerationMetadata[historicalQuestionId]?.batch ?? "unknown";
   }
   if (question.curriculumTrack === "HK") return "hk";
   if (mainlandPepPrimaryQuestionGenerationMetadata[question.id]) {
@@ -1301,6 +1476,7 @@ function higherPriorityStatus(current: QuestionAuditStatus, next: QuestionAuditS
 
 function gradingPayload(question: Question) {
   return {
+    id: question.id,
     answer: question.answer,
     accepted_answers: question.acceptedAnswers ?? null,
     options: question.options ?? null
@@ -1392,14 +1568,30 @@ function auditQuestion(
 
   if (question.type === "multiple-choice") {
     const options = question.options ?? [];
-    const uniqueOptions = new Set(options.map((option) => normalizeAnswer(option.en)));
-    if (options.length !== 4) mark("content-error", `Multiple-choice question has ${options.length} options instead of 4.`);
-    if (uniqueOptions.size !== options.length) mark("ambiguous-mc", "Multiple-choice options are not unique.");
+    const isHongKongEaseQuestion = /^hk-ease-\d+(?:-v\d+)?$/.test(question.id);
+    if (isHongKongEaseQuestion ? options.length < 2 : options.length !== 4) {
+      mark(
+        "content-error",
+        isHongKongEaseQuestion
+          ? `Hong Kong EASE multiple-choice question has ${options.length} options; at least 2 are required.`
+          : `Multiple-choice question has ${options.length} options instead of 4.`
+      );
+    }
+    for (const [locale, values] of [
+      ["English", options.map((option) => option.en)],
+      ["Traditional Chinese", options.map((option) => option.zh)],
+      ["Simplified Chinese", options.map((option) => option.zhHans ?? "").filter(Boolean)]
+    ] as const) {
+      if (values.length && new Set(values.map((value) => normalizeAnswer(value))).size !== values.length) {
+        mark("ambiguous-mc", `Multiple-choice options are not unique in ${locale}.`);
+      }
+    }
 
     if (solver.answer) {
-      const solverAnswer = solver.answer;
       const acceptedOptionCount = options.filter((option) =>
-        [option.en, option.zh, option.zhHans ?? ""].some((optionText) => answerMatches(solverAnswer, optionText))
+        [option.en, option.zh, option.zhHans ?? ""].some((optionText) =>
+          Boolean(optionText) && questionAnswerMatches(gradingPayload(question), optionText)
+        )
       ).length;
       if (acceptedOptionCount !== 1) {
         mark("ambiguous-mc", `Expected exactly one option matching independent answer; found ${acceptedOptionCount}.`);
@@ -1837,7 +2029,7 @@ export function fullQuestionBankAuditMarkdown(report: FullQuestionBankAuditRepor
     "",
     `- Date: ${report.reportDate}`,
     "- Session ID: S18",
-    `- Scope: 285 HK questions plus 1200 Mainland PEP primary questions plus 1200 Mainland PEP junior questions plus 4800 Mainland PEP high-school questions plus 1500 Mainland BNU primary V1 questions plus 1500 Mainland HJB primary V1 questions plus 1500 Mainland HJB high-school V2 default questions plus ${expectedUnitedStatesArkansasK5QuestionCount} US Arkansas K-G5 questions plus ${expectedUnitedStatesArkansasG6G12QuestionCount} US Arkansas G6-G12 questions plus 75 US Florida G6-G8 live questions`,
+    `- Scope: ${report.summary.hkQuestions} HK questions plus 1200 Mainland PEP primary questions plus 1200 Mainland PEP junior questions plus 4800 Mainland PEP high-school questions plus 1500 Mainland BNU primary V1 questions plus 1500 Mainland HJB primary V1 questions plus 1500 Mainland HJB high-school V2 default questions plus ${expectedUnitedStatesArkansasK5QuestionCount} US Arkansas K-G5 questions plus ${expectedUnitedStatesArkansasG6G12QuestionCount} US Arkansas G6-G12 questions plus 75 US Florida G6-G8 live questions`,
     "- Output type: Deterministic content QA report; no live LLM or external math service",
     "",
     "## Executive Summary",

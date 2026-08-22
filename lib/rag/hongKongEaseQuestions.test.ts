@@ -81,6 +81,18 @@ test("EASE shared layer stays out of primary HK queries", () => {
   assert.deepEqual(cards, []);
 });
 
+test("EASE topic-specific queries do not qualify on grade or intent alone", () => {
+  const cards = getHongKongEaseQuestionPatternCards({
+    grade: "S6",
+    topicId: "missing-topic-with-grade-match",
+    intent: "exam-practice",
+    difficultyBand: "exam",
+    limit: 8
+  });
+
+  assert.deepEqual(cards, []);
+});
+
 test("EASE safe cards and evidence pack avoid raw source artifacts", () => {
   const forbiddenPatterns = [
     /questionText/i,
