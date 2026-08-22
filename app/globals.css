@@ -57,6 +57,48 @@
     @apply rounded-full border border-slate-200/70 bg-white/75 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 dark:hover:bg-white/[0.1];
   }
 
+  /* Public legal-document prose. The scope prevents these defaults from
+     changing learner-facing lessons and other product content. */
+  .legal-prose ul {
+    @apply flex list-disc flex-col gap-2 pl-6 marker:text-slate-400 dark:marker:text-slate-500;
+  }
+
+  .legal-prose ol {
+    @apply flex list-decimal flex-col gap-2 pl-6 marker:text-slate-400 dark:marker:text-slate-500;
+  }
+
+  .legal-prose a {
+    @apply rounded-md font-medium text-cyan-700 underline underline-offset-4 hover:text-cyan-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 dark:text-cyan-300 dark:hover:text-cyan-200;
+  }
+
+  .legal-prose strong {
+    @apply font-semibold text-slate-950 dark:text-white;
+  }
+
+  .legal-prose h3 {
+    @apply mt-2 text-base font-bold text-slate-950 dark:text-white;
+  }
+
+  .legal-prose code {
+    @apply rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.85em] text-slate-800 dark:bg-white/10 dark:text-slate-200;
+  }
+
+  .legal-table-scroll {
+    @apply -mx-1 overflow-x-auto px-1;
+  }
+
+  .legal-prose table {
+    @apply w-full min-w-[34rem] border-collapse text-left text-sm;
+  }
+
+  .legal-prose thead th {
+    @apply border-b border-slate-300 pb-2 pr-4 align-bottom font-semibold text-slate-950 dark:border-white/20 dark:text-white;
+  }
+
+  .legal-prose tbody td {
+    @apply border-b border-slate-200 py-2 pr-4 align-top text-slate-700 dark:border-white/10 dark:text-slate-300;
+  }
+
   .math-text .katex {
     font-size: 1.04em;
   }

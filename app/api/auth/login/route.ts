@@ -7,6 +7,7 @@ import {
 } from "@/lib/server/authRouteGuards";
 import { sessionSecretMissingResponse, setSessionCookie } from "@/lib/server/sessionCookie";
 import { shouldCompleteCurriculumTrackSelectionForLogin } from "@/lib/server/authLoginFlow";
+import { createGoogleOAuthLinkReauth } from "@/lib/server/googleOAuth";
 import { authenticateInternalCaliforniaFastLogin } from "@/lib/server/internalCaliforniaFastLogin";
 import { isValidLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
@@ -41,6 +42,19 @@ function settingsMatch(
   theme: string
 ) {
   return settings.selectedGrade === selectedGrade && settings.language === language && settings.theme === theme;
+}
+
+function setGoogleLinkReauthCookieIfRequested(
+  response: NextResponse,
+  request: Request,
+  userId: string,
+  requested: boolean
+) {
+  if (!requested) return;
+  const marker = createGoogleOAuthLinkReauth({ requestUrl: request.url, userId });
+  if (marker.status === "ready") {
+    response.cookies.set(marker.cookie.name, marker.cookie.value, marker.cookie.options);
+  }
 }
 
 export async function POST(request: Request) {
@@ -103,6 +117,12 @@ async function handleLogin(request: Request) {
     } catch {
       return sessionSecretMissingResponse();
     }
+    setGoogleLinkReauthCookieIfRequested(
+      response,
+      request,
+      internalCaliforniaFastLogin.session.user.id,
+      body.googleLinkIntent === true
+    );
     return response;
   }
 
@@ -205,6 +225,12 @@ async function handleLogin(request: Request) {
   } catch {
     return sessionSecretMissingResponse();
   }
+  setGoogleLinkReauthCookieIfRequested(
+    response,
+    request,
+    sessionData.user.id,
+    body.googleLinkIntent === true
+  );
 
   return response;
 }

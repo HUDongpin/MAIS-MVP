@@ -51,13 +51,17 @@ test("login page does not prefetch the protected dashboard before authentication
 
 test("login next targets are filtered by authenticated role", () => {
   const body = functionBody(loginPageSource(), "safeWorkspaceTarget");
+  const normalizationIndex = body.indexOf("const safeValue = safeRelativeAppPath(value, fallback)");
+  const teacherFilterIndex = body.indexOf('nextPathStartsWith(safeValue, "/teacher")');
 
+  assert.notEqual(normalizationIndex, -1);
+  assert.ok(normalizationIndex < teacherFilterIndex, "Redirect input must be normalized before role filtering.");
   assert.match(body, /role\s*===\s*"teacher"/);
   assert.match(body, /role\s*===\s*"admin"/);
-  assert.match(body, /nextPathStartsWith\(value,\s*"\/teacher"\)/);
+  assert.match(body, /nextPathStartsWith\(safeValue,\s*"\/teacher"\)/);
   assert.match(body, /role\s*===\s*"parent"/);
-  assert.match(body, /nextPathStartsWith\(value,\s*"\/parent"\)/);
+  assert.match(body, /nextPathStartsWith\(safeValue,\s*"\/parent"\)/);
   assert.match(body, /role\s*===\s*"student"/);
-  assert.match(body, /return\s+value/);
+  assert.match(body, /return\s+safeValue/);
   assert.doesNotMatch(body, /if\s*\(value\?\.startsWith\("\/"\)\s*&&\s*!value\.startsWith\("\/\/"\)\)\s*return\s+value/);
 });

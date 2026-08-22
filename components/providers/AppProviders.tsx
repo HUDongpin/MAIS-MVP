@@ -82,7 +82,7 @@ type SettingsContextValue = {
   currentUser: StudentSession | null;
   studentLessonHref: string | null;
   refreshLessonEntryTarget: (grade?: GradeId) => Promise<void>;
-  login: (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile) => Promise<AuthActionResult>;
+  login: (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile, googleLinkIntent?: boolean) => Promise<AuthActionResult>;
   register: (input: RegisterInput) => Promise<AuthActionResult>;
   completePasswordReset: (token: string, password: string) => Promise<AuthActionResult>;
   changePassword: (currentPassword: string, password: string) => Promise<AuthActionResult>;
@@ -581,23 +581,6 @@ export function AppProviders({ children }: { children: ReactNode }) {
 
     document.documentElement.classList.toggle("dark", theme === "dark");
     document.documentElement.lang = localeForLanguage(language);
-    const localizedTitle = textForLanguage(dictionary.common.siteName, language);
-    document.title = localizedTitle;
-    const titleHandles = [0, 100, 500].map((delay) =>
-      window.setTimeout(() => {
-        document.title = localizedTitle;
-      }, delay)
-    );
-    document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute(
-      "content",
-      textForLanguage(
-        {
-          en: "A personalized interactive mathematics learning platform for Hong Kong P1-S6 students.",
-          zh: "為香港小一至中六學生而設的數學適性互動學習平台。"
-        },
-        language
-      )
-    );
     if (currentUser) {
       window.localStorage.removeItem("hk-math-theme");
       window.localStorage.removeItem("hk-math-language");
@@ -626,7 +609,6 @@ export function AppProviders({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("hk-math-user");
     }
 
-    return () => titleHandles.forEach((handle) => window.clearTimeout(handle));
   }, [pathname, theme, language, selectedGrade, currentUser?.id, settingsReady]);
 
   useEffect(() => {
@@ -883,13 +865,28 @@ export function AppProviders({ children }: { children: ReactNode }) {
     broadcastSessionChange(session.user.id);
   }, [router]);
 
-  const login = useCallback(async (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
+  const login = useCallback(async (
+    identifier: string,
+    password: string,
+    grade?: GradeId,
+    curriculumProfile?: CurriculumProfile,
+    googleLinkIntent = false
+  ): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ username: identifier, password, grade, curriculumProfile, curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined, language, theme })
+      body: JSON.stringify({
+        username: identifier,
+        password,
+        grade,
+        curriculumProfile,
+        curriculumTrack: curriculumProfile ? curriculumTrackForProfile(curriculumProfile) : undefined,
+        language,
+        theme,
+        googleLinkIntent
+      })
     });
 
     if (!response.ok) {

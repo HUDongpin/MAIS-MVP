@@ -84,6 +84,8 @@ import {
   type AiCapability,
   type AiGovernanceAuditAction
 } from "@/lib/server/aiGovernance";
+import { isGoogleOAuthStudentSetupAllowed } from "@/lib/server/googleOAuth";
+import { isGoogleStudentSelfServiceGradeAllowed } from "@/lib/googleStudentOAuthPolicy";
 import {
   aiTutorDatabaseContextResult as aiTutorDatabaseContextResultFromAiGovernancePersistence,
   aiTutorDatabaseContextSubject as aiTutorDatabaseContextSubjectFromAiGovernancePersistence,
@@ -469,6 +471,7 @@ import {
   createTeacherOpsFoundationPersistenceStore,
   teacherOpsCanUseTeacherArea as canUseTeacherAreaFromTeacherOpsFoundation,
   teacherCanAccessClass as teacherCanAccessClassFromTeacherOpsFoundation,
+  teacherCanAccessStudentByOwnerHash as teacherCanAccessStudentByOwnerHashFromTeacherOpsFoundation,
   teacherClassRecordsFor as teacherClassRecordsForFromTeacherOpsFoundation,
   teacherOpsProjectionArray as projectionArrayFromTeacherOpsFoundation,
   teacherOpsProjectedClassesFromRecords as teacherClassesFromProjectedRecordsFromTeacherOpsFoundation,
@@ -609,6 +612,7 @@ import {
 } from "@/lib/server/userStore/teacherOpsAssessmentPersistence";
 import {
   mediaObjectAccessUrl,
+  mediaObjectOwnerHash,
   mediaObjectReferenceFromUnknown,
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
@@ -843,6 +847,8 @@ export type AuthIdentityRecord = {
   email_at_link: string;
   created_at: string;
   last_login_at: string;
+  student_age_assurance?: "self-attested-13-plus";
+  student_age_assurance_recorded_at?: string;
 };
 
 export type StudentProfileRecord = {
@@ -4218,7 +4224,13 @@ function normalizeDatabase(database: Partial<Database>) {
       user_id: identity.user_id,
       email_at_link: typeof identity.email_at_link === "string" ? identity.email_at_link.trim().toLowerCase() : "",
       created_at: identity.created_at ?? now,
-      last_login_at: identity.last_login_at ?? identity.created_at ?? now
+      last_login_at: identity.last_login_at ?? identity.created_at ?? now,
+      ...(identity.student_age_assurance === "self-attested-13-plus"
+        ? {
+            student_age_assurance: "self-attested-13-plus" as const,
+            student_age_assurance_recorded_at: identity.student_age_assurance_recorded_at ?? identity.created_at ?? now
+          }
+        : {})
     }));
   const studentProfiles = (database.student_profiles ?? []).map((profile): StudentProfileRecord =>
     normalizeStudentProfileRecordFromAuthSessionPersistence(profile, {
@@ -7184,8 +7196,10 @@ export async function authenticateGoogleIdentityForLogin({
   providerSubject,
   email,
   emailVerified,
+  authenticatedUserId,
   displayName,
   requestedRole,
+  studentAge13OrOlder,
   grade,
   curriculumProfile,
   language,
@@ -7194,8 +7208,11 @@ export async function authenticateGoogleIdentityForLogin({
   providerSubject: string;
   email: string;
   emailVerified: boolean;
+  emailAuthoritative?: boolean;
+  authenticatedUserId?: string;
   displayName?: string;
   requestedRole?: "student" | "parent" | "teacher";
+  studentAge13OrOlder?: boolean;
   grade?: GradeId;
   curriculumProfile?: CurriculumProfile;
   language?: Language;
@@ -7204,6 +7221,7 @@ export async function authenticateGoogleIdentityForLogin({
   const subject = providerSubject.trim();
   const normalizedEmail = normalizeEmailFromAuthSessionPersistence(email);
   const trimmedEmail = email.trim().toLowerCase();
+  const linkUserId = authenticatedUserId?.trim() ?? "";
   const role = requestedRole === "parent" || requestedRole === "teacher" ? requestedRole : "student";
   const name = cleanStudentProfileNameFromAuthSessionPersistence(displayName || trimmedEmail.split("@")[0] || "Google User");
 
@@ -7217,39 +7235,91 @@ export async function authenticateGoogleIdentityForLogin({
       identity.provider === "google" && identity.provider_subject === subject
     );
     if (existingIdentity) {
+      if (linkUserId && existingIdentity.user_id !== linkUserId) {
+        return { status: "account-link-conflict" as const };
+      }
+      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
+      if (user?.role === "student") {
+        const studentProfile = database.student_profiles.find((profile) => profile.user_id === user.id);
+        if (
+          studentAge13OrOlder !== true ||
+          existingIdentity.student_age_assurance !== "self-attested-13-plus" ||
+          !isGoogleStudentSelfServiceGradeAllowed(studentProfile?.grade)
+        ) {
+          return { status: "invalid" as const };
+        }
+      }
       existingIdentity.last_login_at = now;
       existingIdentity.email_at_link = trimmedEmail;
-      const user = database.users.find((candidate) => candidate.id === existingIdentity.user_id);
       const session = user ? toAuthenticatedUser(database, user) : null;
       return session ? { status: "authenticated" as const, session } : { status: "invalid" as const };
     }
 
-    const existingEmailUser = database.users.find((candidate) => candidate.normalized_email === normalizedEmail);
-    if (existingEmailUser) {
+    if (linkUserId) {
+      const linkUser = database.users.find((candidate) => candidate.id === linkUserId);
+      if (!linkUser) return { status: "account-link-required" as const };
+      if (linkUser.normalized_email !== normalizedEmail) {
+        return { status: "account-link-email-mismatch" as const };
+      }
+      if (linkUser.role === "student") {
+        const linkProfile = database.student_profiles.find((profile) => profile.user_id === linkUser.id);
+        if (
+          studentAge13OrOlder !== true ||
+          !isGoogleStudentSelfServiceGradeAllowed(linkProfile?.grade)
+        ) {
+          return { status: "invalid" as const };
+        }
+      }
+      const existingGoogleIdentityForUser = database.auth_identities.find((identity) =>
+        identity.provider === "google" && identity.user_id === linkUser.id
+      );
+      if (existingGoogleIdentityForUser) {
+        return { status: "account-link-conflict" as const };
+      }
+
       database.auth_identities.push({
         provider: "google",
         provider_subject: subject,
-        user_id: existingEmailUser.id,
+        user_id: linkUser.id,
         email_at_link: trimmedEmail,
         created_at: now,
-        last_login_at: now
+        last_login_at: now,
+        ...(linkUser.role === "student"
+          ? {
+              student_age_assurance: "self-attested-13-plus" as const,
+              student_age_assurance_recorded_at: now
+            }
+          : {})
       });
-      const session = toAuthenticatedUser(database, existingEmailUser);
+      const session = toAuthenticatedUser(database, linkUser);
       return session ? { status: "linked" as const, session } : { status: "invalid" as const };
+    }
+
+    const existingEmailUser = database.users.find((candidate) => candidate.normalized_email === normalizedEmail);
+    if (existingEmailUser) {
+      return { status: "account-link-required" as const };
     }
 
     if (role === "teacher") {
       return { status: "teacher-invite-required" as const };
     }
+    if (role === "parent") {
+      return { status: "account-link-required" as const };
+    }
 
-    const effectiveCurriculumProfile = role === "student" && curriculumProfile
-      ? normalizeStoredCurriculumProfile({ region: curriculumProfile.region, publisher: curriculumProfile.publisher })
-      : curriculumProfileForTrack(defaultCurriculumTrack);
-    const effectiveCurriculumTrack = curriculumTrackForProfile(effectiveCurriculumProfile);
-    const selectedGrade = role === "student" && grade && validGrades.has(grade) ? grade : "S3";
-    if (role === "student" && (!grade || !validGrades.has(grade) || !curriculumProfile)) {
+    if (
+      !grade ||
+      !curriculumProfile ||
+      !isGoogleOAuthStudentSetupAllowed(grade, curriculumProfile, studentAge13OrOlder === true)
+    ) {
       return { status: "invalid" as const };
     }
+    const effectiveCurriculumProfile = normalizeStoredCurriculumProfile({
+      region: curriculumProfile.region,
+      publisher: curriculumProfile.publisher
+    });
+    const effectiveCurriculumTrack = curriculumTrackForProfile(effectiveCurriculumProfile);
+    const selectedGrade = grade;
 
     const hashedPassword = hashPasswordFromAuthSessionPersistence(`google:${subject}:${randomUUID()}:${randomBytes(16).toString("hex")}`);
     const userId = `${role}-${randomUUID()}`;
@@ -7273,7 +7343,9 @@ export async function authenticateGoogleIdentityForLogin({
       user_id: userId,
       email_at_link: trimmedEmail,
       created_at: now,
-      last_login_at: now
+      last_login_at: now,
+      student_age_assurance: "self-attested-13-plus",
+      student_age_assurance_recorded_at: now
     });
     database.student_profiles.push({
       user_id: userId,
@@ -7282,7 +7354,7 @@ export async function authenticateGoogleIdentityForLogin({
       curriculum_track: effectiveCurriculumTrack,
       curriculum_region: effectiveCurriculumProfile.region,
       textbook_publisher: effectiveCurriculumProfile.publisher,
-      avatar_id: role === "parent" ? "theta" : defaultStudentAvatarIdFromAuthSessionPersistence
+      avatar_id: defaultStudentAvatarIdFromAuthSessionPersistence
     });
     database.user_settings.push({
       user_id: userId,
@@ -8508,6 +8580,28 @@ export const getTeacherClassDetailData = teacherOpsUserStore.getTeacherClassDeta
 
 export const getTeacherStudentProfileData = teacherOpsUserStore.getTeacherStudentProfileData;
 export const getStudentAiTutorTranscriptForTeacher = teacherOpsStudentProfilePersistenceStore.getStudentAiTutorTranscriptForTeacher;
+
+export async function teacherCanAccessStudentMediaOwner({
+  ownerHash,
+  teacherId
+}: {
+  ownerHash: string;
+  teacherId: string;
+}) {
+  try {
+    const database = await readDatabase();
+    const user = database.users.find((candidate) => candidate.id === teacherId);
+    if (!user) return false;
+    return teacherCanAccessStudentByOwnerHashFromTeacherOpsFoundation(
+      database,
+      user,
+      ownerHash,
+      mediaObjectOwnerHash
+    );
+  } catch {
+    return false;
+  }
+}
 
 export const getStudentRewardsData = gamificationUserStore.getStudentRewardsData;
 

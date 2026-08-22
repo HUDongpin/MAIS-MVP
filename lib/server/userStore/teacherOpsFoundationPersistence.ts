@@ -216,6 +216,29 @@ export function teacherCanAccessClass<ClassRecord extends TeacherOpsFoundationCl
   return teacherClassRecordsFor(database, user).some((candidate) => candidate.id === classId) ? teacherClass : null;
 }
 
+export function teacherCanAccessStudentByOwnerHash(
+  database: {
+    class_enrollments?: TeacherOpsFoundationClassEnrollmentRecord[];
+    school_memberships?: TeacherOpsFoundationSchoolMembershipRecord[];
+    teacher_classes: TeacherOpsFoundationClassRecord[];
+  },
+  user: TeacherOpsFoundationUserRecord,
+  studentOwnerHash: string,
+  hashUserId: (userId: string) => string
+) {
+  if (user.role !== "teacher") return false;
+
+  const accessibleClassIds = new Set(
+    teacherClassRecordsFor(database, user).map((teacherClass) => teacherClass.id)
+  );
+  if (!accessibleClassIds.size) return false;
+
+  return (database.class_enrollments ?? []).some((enrollment) => (
+    accessibleClassIds.has(enrollment.class_id)
+    && hashUserId(enrollment.student_id) === studentOwnerHash
+  ));
+}
+
 export function teacherOpsTeacherDisplayName(
   database: {
     student_profiles?: TeacherOpsFoundationStudentProfileRecord[];

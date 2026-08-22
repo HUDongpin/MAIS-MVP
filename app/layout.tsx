@@ -13,10 +13,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { StudentBackToTopButton } from "@/components/layout/StudentBackToTopButton";
 import { StudentGuidedTour } from "@/components/onboarding/StudentGuidedTour";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { PUBLIC_SITE_ORIGIN } from "@/lib/publicSiteIdentity";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(PUBLIC_SITE_ORIGIN),
   title: "MAIS",
-  description: "A bilingual interactive mathematics learning template for Hong Kong P1-S6 students."
+  description: "A personalised K–12 mathematics learning platform for students, families, teachers, and schools."
 };
 
 const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VERCEL_ENV);

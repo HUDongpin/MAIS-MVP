@@ -30,16 +30,31 @@ const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..
 const USER_AGENT = "MAIS-prod-certification/phase1";
 
 export const DOMAINS = ["https://www.mais.ac", "https://www.mais.hk"];
+export const GOOGLE_OAUTH_CANONICAL_DOMAIN = "https://www.mais.ac";
+const GOOGLE_PUBLIC_PAGE_CONTRACTS = [
+  { expectedUrl: "https://www.mais.ac/", kind: "homepage" },
+  { expectedUrl: "https://www.mais.ac/privacy", kind: "privacy" },
+  { expectedUrl: "https://www.mais.ac/terms", kind: "terms" }
+];
+export const GOOGLE_OAUTH_READINESS_PROBE_PARAMETERS = Object.freeze({
+  language: "en",
+  next: "/parent",
+  role: "parent",
+  theme: "dark"
+});
 const APEX_OF = {
   "https://www.mais.ac": "https://mais.ac",
   "https://www.mais.hk": "https://mais.hk"
 };
 
-// Render severity: the landing and login pages are P0 journeys; /about is P1.
+// Render severity: landing, login, and the public legal URLs required for Google
+// OAuth activation are P0 journeys; /about is P1.
 const PAGES = [
   { path: "/", name: "landing", renderSeverity: "P0" },
   { path: "/about", name: "about", renderSeverity: "P1" },
-  { path: "/login", name: "login", renderSeverity: "P0" }
+  { path: "/login", name: "login", renderSeverity: "P0" },
+  { path: "/privacy", name: "privacy-policy", renderSeverity: "P0" },
+  { path: "/terms", name: "terms-of-service", renderSeverity: "P0" }
 ];
 
 export const BUDGETS = {
@@ -104,10 +119,189 @@ export function extractNextAssets(html) {
   return [...assets].sort();
 }
 
+function extractCanonicalHref(html) {
+  for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
+    const tag = match[0];
+    const rel = tag.match(/\brel=["']([^"']*)["']/i)?.[1] ?? "";
+    if (!rel.split(/\s+/).some((value) => value.toLowerCase() === "canonical")) continue;
+    return tag.match(/\bhref=["']([^"']+)["']/i)?.[1] ?? "";
+  }
+  return "";
+}
+
+function equivalentAbsoluteUrl(actual, expected) {
+  try {
+    return new URL(actual).href === new URL(expected).href;
+  } catch {
+    return false;
+  }
+}
+
+export function evaluateGooglePublicPageContract({ expectedUrl, kind, response, html }) {
+  const failures = [];
+  if (response.status !== 200) failures.push(`HTTP status is not 200 (received ${response.status})`);
+  if (response.headers.get("location")) failures.push("redirect Location is present");
+  if (!equivalentAbsoluteUrl(response.url, expectedUrl)) failures.push("response URL does not match the submitted URL");
+
+  const canonicalHref = extractCanonicalHref(html);
+  if (!equivalentAbsoluteUrl(canonicalHref, expectedUrl)) failures.push("canonical URL does not match the submitted URL");
+
+  const requiredText = kind === "homepage"
+    ? ["Mathematics Adaptive Interactive System", "Optional Google Sign-In uses", 'href="/privacy"', 'href="/terms"']
+    : kind === "privacy"
+      ? ["Privacy Policy", "Google Sign-In data", "openid email profile", 'data-document-status="published"']
+      : ["Terms of Service", "Optional Google Sign-In", 'data-document-status="published"'];
+  for (const value of requiredText) {
+    if (!html.toLowerCase().includes(value.toLowerCase())) failures.push(`required ${kind} content is missing: ${value}`);
+  }
+  if (
+    (kind === "privacy" || kind === "terms") &&
+    /draft-pending-review|pending legal review/i.test(html)
+  ) {
+    failures.push("draft legal marker is still present");
+  }
+
+  return failures.length === 0
+    ? { ok: true, detail: `direct HTTP 200; exact canonical ${kind} page is published` }
+    : { ok: false, detail: `Google ${kind} URL contract failed: ${failures.join("; ")}` };
+}
+
 export function classifySmokeFailure(outputText) {
   const environmental =
     /request-timeout|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|EAI_AGAIN|fetch failed|UND_ERR|HeadersTimeoutError|socket hang up/i;
   return environmental.test(outputText) ? "environmental" : "real";
+}
+
+export function evaluateGoogleOAuthStartProbe({ status, headers }) {
+  const failures = [];
+  const location = headers.get("location") ?? "";
+  const setCookie = headers.get("set-cookie") ?? "";
+  const cacheControl = headers.get("cache-control") ?? "";
+  const referrerPolicy = headers.get("referrer-policy") ?? "";
+  let authorizationUrl = null;
+
+  if (status !== 307) failures.push("expected HTTP 307");
+  try {
+    authorizationUrl = new URL(location);
+  } catch {
+    failures.push("authorization Location is missing or invalid");
+  }
+
+  if (authorizationUrl) {
+    if (
+      authorizationUrl.origin !== "https://accounts.google.com" ||
+      authorizationUrl.pathname !== "/o/oauth2/v2/auth"
+    ) {
+      failures.push("authorization endpoint is not Google OIDC");
+    }
+    const requiredParameters = ["client_id", "redirect_uri", "state", "nonce", "code_challenge"];
+    for (const parameter of requiredParameters) {
+      if (!authorizationUrl.searchParams.get(parameter)) failures.push(`${parameter} is missing`);
+    }
+    if (authorizationUrl.searchParams.get("response_type") !== "code") {
+      failures.push("response_type is not code");
+    }
+    if (authorizationUrl.searchParams.get("code_challenge_method") !== "S256") {
+      failures.push("PKCE method is not S256");
+    }
+    if (!/^[A-Za-z0-9_-]{43}$/u.test(authorizationUrl.searchParams.get("code_challenge") ?? "")) {
+      failures.push("PKCE challenge format is invalid");
+    }
+    const scopes = new Set((authorizationUrl.searchParams.get("scope") ?? "").split(/\s+/u).filter(Boolean));
+    for (const scope of ["openid", "email", "profile"]) {
+      if (!scopes.has(scope)) failures.push(`${scope} scope is missing`);
+    }
+    if (
+      authorizationUrl.searchParams.get("redirect_uri") !==
+      `${GOOGLE_OAUTH_CANONICAL_DOMAIN}/api/auth/google/callback`
+    ) {
+      failures.push("redirect_uri is not the canonical production callback");
+    }
+  }
+
+  if (!/(?:^|,\s*)mais_google_oauth_state=[^;,\s]+/iu.test(setCookie)) {
+    failures.push("state cookie is missing");
+  }
+  if (!/;\s*HttpOnly(?:;|,|$)/iu.test(setCookie)) failures.push("state cookie is not HttpOnly");
+  if (!/;\s*Secure(?:;|,|$)/iu.test(setCookie)) failures.push("state cookie is not Secure");
+  if (!/;\s*Path=\/(?:;|,|$)/iu.test(setCookie)) failures.push("state cookie Path is not /");
+  if (!/;\s*Max-Age=600(?:;|,|$)/iu.test(setCookie)) failures.push("state cookie Max-Age is not 600");
+  if (!/;\s*SameSite=Lax(?:;|,|$)/iu.test(setCookie)) failures.push("state cookie is not SameSite=Lax");
+  if (!cacheControl.toLowerCase().split(",").some((value) => value.trim() === "no-store")) {
+    failures.push("Cache-Control is not no-store");
+  }
+  if (referrerPolicy.toLowerCase().trim() !== "no-referrer") {
+    failures.push("Referrer-Policy is not no-referrer");
+  }
+
+  return failures.length === 0
+    ? {
+        ok: true,
+        detail: "HTTP 307; Google OIDC state, nonce, PKCE, hardened state cookie, and no-store/no-referrer verified"
+      }
+    : {
+        ok: false,
+        detail: `Google OAuth start contract failed: ${failures.join("; ")}`
+      };
+}
+
+export function evaluateGoogleOAuthCanonicalHandoff({ status, headers }) {
+  const failures = [];
+  const location = headers.get("location") ?? "";
+  const setCookie = headers.get("set-cookie") ?? "";
+  const cacheControl = headers.get("cache-control") ?? "";
+  const referrerPolicy = headers.get("referrer-policy") ?? "";
+  let canonicalUrl = null;
+
+  if (status !== 307) failures.push("expected HTTP 307");
+  try {
+    canonicalUrl = new URL(location);
+  } catch {
+    failures.push("canonical handoff Location is missing or invalid");
+  }
+
+  if (canonicalUrl) {
+    if (
+      canonicalUrl.origin !== GOOGLE_OAUTH_CANONICAL_DOMAIN ||
+      canonicalUrl.pathname !== "/api/auth/google/start"
+    ) {
+      failures.push("handoff target is not the canonical OAuth start route");
+    }
+    for (const [key, value] of Object.entries(GOOGLE_OAUTH_READINESS_PROBE_PARAMETERS)) {
+      if (canonicalUrl.searchParams.get(key) !== value) failures.push(`${key} was not preserved`);
+    }
+  }
+
+  if (setCookie) failures.push("non-canonical handoff set a state cookie");
+  if (!cacheControl.toLowerCase().split(",").some((value) => value.trim() === "no-store")) {
+    failures.push("Cache-Control is not no-store");
+  }
+  if (referrerPolicy.toLowerCase().trim() !== "no-referrer") {
+    failures.push("Referrer-Policy is not no-referrer");
+  }
+
+  return failures.length === 0
+    ? { ok: true, detail: "HTTP 307; canonical OAuth handoff and hardened no-store/no-referrer response verified" }
+    : { ok: false, detail: `Google OAuth canonical handoff failed: ${failures.join("; ")}` };
+}
+
+export function evaluateStorageReadinessProbe({ status, body }) {
+  if (status !== 200) {
+    return { ok: false, detail: `storage readiness endpoint returned HTTP ${status}` };
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(body);
+  } catch {
+    return { ok: false, detail: "storage readiness endpoint did not return valid JSON" };
+  }
+
+  if (parsed?.warm === true && parsed?.storageReady === true) {
+    return { ok: true, detail: "durable shared storage is ready" };
+  }
+
+  return { ok: false, detail: "durable shared storage is not ready" };
 }
 
 export function daysUntil(dateText) {
@@ -292,8 +486,28 @@ async function runTier0(domain, push) {
       status: healthy ? "pass" : "fail",
       detail: `HTTP ${warmProbe.response.status} in ${warmProbe.ms}ms`
     });
+    const storageReadiness = evaluateStorageReadinessProbe({
+      status: warmProbe.response.status,
+      body: warmProbe.text()
+    });
+    push({
+      id: "production-storage-readiness",
+      tier: 0,
+      severity: "P0",
+      domain,
+      status: storageReadiness.ok ? "pass" : "fail",
+      detail: storageReadiness.detail
+    });
   } catch (error) {
     push({ id: "api-warm-endpoint", tier: 0, severity: "P1", domain, status: "fail", detail: String(error) });
+    push({
+      id: "production-storage-readiness",
+      tier: 0,
+      severity: "P0",
+      domain,
+      status: "fail",
+      detail: `storage readiness request failed (${error instanceof Error ? error.name : "unknown error"})`
+    });
   }
 
   try {
@@ -474,6 +688,99 @@ async function runTier1(domain, push) {
   }
 }
 
+export async function probeGooglePublicPageContracts() {
+  const pages = [];
+  for (const contract of GOOGLE_PUBLIC_PAGE_CONTRACTS) {
+    try {
+      const result = await fetchTimed(contract.expectedUrl, {
+        timeoutMs: 45_000,
+        redirect: "manual"
+      });
+      const evaluated = evaluateGooglePublicPageContract({
+        ...contract,
+        response: result.response,
+        html: result.text()
+      });
+      pages.push({
+        ...contract,
+        httpStatus: result.response.status,
+        responseUrl: result.response.url,
+        ok: evaluated.ok,
+        detail: evaluated.detail,
+        ms: result.ms
+      });
+    } catch (error) {
+      pages.push({
+        ...contract,
+        httpStatus: null,
+        responseUrl: null,
+        ok: false,
+        detail: `Google ${contract.kind} URL probe request failed (${error instanceof Error ? error.name : "unknown error"})`
+      });
+    }
+  }
+
+  const failedKinds = pages.filter((page) => !page.ok).map((page) => page.kind);
+  return {
+    ok: failedKinds.length === 0,
+    detail: failedKinds.length === 0
+      ? "homepage, privacy, and terms URLs satisfy the direct published canonical contract"
+      : `Google public URL contract failed for: ${failedKinds.join(", ")}`,
+    pages
+  };
+}
+
+async function runGooglePublicPageContracts(push) {
+  const probe = await probeGooglePublicPageContracts();
+  for (const page of probe.pages) {
+    push({
+      id: `google-public-url:${page.kind}`,
+      tier: 1,
+      severity: "P0",
+      domain: GOOGLE_OAUTH_CANONICAL_DOMAIN,
+      status: page.ok ? "pass" : "fail",
+      detail: page.detail,
+      ms: page.ms
+    });
+  }
+}
+
+export async function probeGoogleOAuthStart(baseUrl = GOOGLE_OAUTH_CANONICAL_DOMAIN) {
+  const query = new URLSearchParams(GOOGLE_OAUTH_READINESS_PROBE_PARAMETERS);
+
+  try {
+    const baseOrigin = new URL(baseUrl).origin;
+    const probe = await fetchTimed(
+      `${baseOrigin}/api/auth/google/start?${query}`,
+      { timeoutMs: 30_000, redirect: "manual" }
+    );
+    const responseShape = {
+      status: probe.response.status,
+      headers: probe.response.headers
+    };
+    return baseOrigin === GOOGLE_OAUTH_CANONICAL_DOMAIN
+      ? evaluateGoogleOAuthStartProbe(responseShape)
+      : evaluateGoogleOAuthCanonicalHandoff(responseShape);
+  } catch (error) {
+    return {
+      ok: false,
+      detail: `Google OAuth start probe request failed (${error instanceof Error ? error.name : "unknown error"})`
+    };
+  }
+}
+
+async function runGoogleOAuthStartProbe(push) {
+  const evaluation = await probeGoogleOAuthStart();
+  push({
+    id: "google-oauth-start",
+    tier: 1,
+    severity: "P0",
+    domain: GOOGLE_OAUTH_CANONICAL_DOMAIN,
+    status: evaluation.ok ? "pass" : "fail",
+    detail: evaluation.detail
+  });
+}
+
 async function runBrowserConsoleScan(domains, push) {
   let chromium;
   try {
@@ -649,11 +956,17 @@ async function main() {
   }
   checkBuildParity(homeHtmlByDomain, push);
 
+  console.error("[prod-certification] Tier 1 — Google Auth Platform public URLs");
+  await runGooglePublicPageContracts(push);
+
   for (const domain of DOMAINS) {
     if (homeHtmlByDomain[domain] === null) continue;
     console.error(`[prod-certification] Tier 1 — ${domain}`);
     await runTier1(domain, push);
   }
+
+  console.error(`[prod-certification] Tier 1 — Google OAuth start @ ${GOOGLE_OAUTH_CANONICAL_DOMAIN}`);
+  await runGoogleOAuthStartProbe(push);
 
   if (!args.skipBrowser) {
     console.error("[prod-certification] Tier 1 — browser console scan");

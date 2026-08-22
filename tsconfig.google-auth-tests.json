@@ -11,9 +11,14 @@
   },
   "include": [
     "app/login/page.tsx",
+    "app/change-password/page.tsx",
+    "app/api/auth/login/route.ts",
     "app/api/auth/google/start/route.test.ts",
     "app/api/auth/google/callback/route.test.ts",
+    "lib/authRedirect.test.ts",
+    "lib/publicSiteIdentity.test.ts",
     "lib/server/googleOAuth.test.ts",
-    "lib/server/userStoreGoogleAuth.test.ts"
+    "lib/server/userStoreGoogleAuth.test.ts",
+    "lib/server/userStoreGoogleAuthProcessWorker.ts"
   ]
 }

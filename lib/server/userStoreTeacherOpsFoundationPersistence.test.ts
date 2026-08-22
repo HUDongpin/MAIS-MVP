@@ -6,6 +6,7 @@ import test from "node:test";
 import {
   createTeacherOpsFoundationPersistenceStore,
   teacherOpsCanUseTeacherArea,
+  teacherCanAccessStudentByOwnerHash,
   teacherOpsTeacherDisplayName,
   type TeacherOpsFoundationPersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsFoundationPersistence";
@@ -342,6 +343,47 @@ test("teacher class access helper lives in teacher foundation persistence, not r
   assert.equal(teacherCanAccessClass(database, { id: "admin-1", role: "admin" }, "class-other")?.id, "class-other");
   assert.equal(teacherCanAccessClass(database, { id: "student-1", role: "student" }, "class-owned"), null);
   assert.equal(teacherCanAccessClass(database, { id: "teacher-1", role: "teacher" }, "missing-class"), null);
+});
+
+test("teacher media-owner access is limited to students enrolled in classes the teacher can access", () => {
+  const database = createDatabase();
+  const hashUserId = (userId: string) => `owner-hash:${userId}`;
+
+  assert.equal(teacherCanAccessStudentByOwnerHash(
+    database,
+    { id: "teacher-1", role: "teacher" },
+    hashUserId("student-a"),
+    hashUserId
+  ), true);
+  assert.equal(teacherCanAccessStudentByOwnerHash(
+    database,
+    { id: "teacher-1", role: "teacher" },
+    hashUserId("student-c"),
+    hashUserId
+  ), true, "explicit class membership grants the same scoped relationship as class ownership");
+  assert.equal(teacherCanAccessStudentByOwnerHash(
+    database,
+    { id: "teacher-1", role: "teacher" },
+    hashUserId("student-z"),
+    hashUserId
+  ), false);
+  assert.equal(teacherCanAccessStudentByOwnerHash(
+    database,
+    { id: "student-1", role: "student" },
+    hashUserId("student-a"),
+    hashUserId
+  ), false);
+});
+
+test("root userStore exposes the authoritative teacher-to-media-owner relationship check", async () => {
+  const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+
+  assert.match(
+    rootSource,
+    /teacherCanAccessStudentByOwnerHash as teacherCanAccessStudentByOwnerHashFromTeacherOpsFoundation/
+  );
+  assert.match(rootSource, /export async function teacherCanAccessStudentMediaOwner\b/);
+  assert.match(rootSource, /mediaObjectOwnerHash/);
 });
 
 test("teacher display name helper lives in teacher foundation persistence, not root userStore", async () => {

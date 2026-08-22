@@ -2204,6 +2204,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
+    "test:google-oauth": "node scripts/verify-google-oauth-slice.mjs",
+    "test:google-oauth:browser": "node scripts/verify-google-oauth-slice.mjs --browser",
     "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
@@ -2254,6 +2256,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:components",
     "test:content-safety",
     "test:e2e",
+    "test:google-oauth",
+    "test:google-oauth:browser",
     "test:imports",
     "test:lesson-menu",
     "test:mvp",
@@ -2292,7 +2296,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "84168d8dae63b251410fdd0aa8e9403ce08632d0c463836a2ccadabb0266a6dd",
+    "dd2ea82a5a54e262483d52fe15c9cac442cf0c3b3d09191835a33e979ff02ae6",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {

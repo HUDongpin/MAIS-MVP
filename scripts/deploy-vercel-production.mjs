@@ -5,6 +5,9 @@ import { spawn } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { assertDashboardSmokeAuthReady } from "./dashboard-smoke-auth-precheck.mjs";
 import { prepareVercelStaging } from "./prepare-vercel-staging.mjs";
+import { probeGoogleOAuthStart } from "./prod-certification.mjs";
+import { probeGooglePublicPageContracts } from "./prod-certification.mjs";
+import { GOOGLE_OAUTH_CANONICAL_DOMAIN } from "./prod-certification.mjs";
 import { runReleaseBuildGate } from "./release-build-gate.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -21,6 +24,8 @@ async function deployProduction(options = {}) {
     ?? DEFAULT_PRODUCTION_SMOKE_BASE_URL;
 
   await runPreflight();
+  const googleOAuthLegalApprovalGate = await runGoogleOAuthLegalApprovalGate();
+  const googleOAuthSyntheticGate = await runGoogleOAuthSyntheticGate();
   if (!options.dryRun) {
     assertDashboardSmokeAuthReady({ context: "Production deploy" });
   }
@@ -32,7 +37,12 @@ async function deployProduction(options = {}) {
   const staging = await prepareVercelStaging({
     runId: options.runId,
     stagingRoot: options.stagingRoot,
-    dryRun: options.dryRun
+    // A production dry-run must still materialize the exact local upload tree;
+    // otherwise its post-staging legal digest would validate no deployable bytes.
+    dryRun: false
+  });
+  const googleOAuthStagedLegalApprovalGate = await runGoogleOAuthLegalApprovalGate({
+    sourceRoot: staging.stagingDir
   });
 
   if (options.dryRun) {
@@ -46,10 +56,18 @@ async function deployProduction(options = {}) {
       stagingTotalBytes: staging.totalBytes,
       forbiddenPathCount: staging.forbiddenPathCount,
       productionBaseUrl,
+      googleOAuthLegalApprovalGate,
+      googleOAuthStagedLegalApprovalGate,
+      googleOAuthSyntheticGate,
       localBuildGate,
       deployed: false
     };
   }
+
+  const previousProductionDeploymentUrl = await resolveCurrentProductionDeploymentUrl(
+    GOOGLE_OAUTH_CANONICAL_DOMAIN,
+    scope
+  );
 
   const deployArgs = [
     "deploy",
@@ -87,6 +105,9 @@ async function deployProduction(options = {}) {
     throw new Error(formatCommandFailure(`vercel inspect ${deploymentUrl}`, inspectResult));
   }
 
+  const deploymentGoogleOAuthCanonicalHandoffGate = await runGoogleOAuthStartGate(deploymentUrl, {
+    failureIntro: "Deployment Google OAuth canonical-handoff gate failed; production domains were not promoted."
+  });
   const aiTutorLatencyGate = await runAITutorLatencyGate(deploymentUrl);
   const dashboardLatencyGate = await runDashboardLatencyGate(deploymentUrl, {
     failureIntro: "Dashboard latency gate failed; production domains were not promoted.",
@@ -102,21 +123,37 @@ async function deployProduction(options = {}) {
   if (promoteResult.exitCode !== 0) {
     throw new Error(formatCommandFailure(`vercel promote ${deploymentUrl}`, promoteResult));
   }
-  const productionDashboardLatencyGate = await runDashboardLatencyGate(productionBaseUrl, {
-    failureIntro: "Production-domain dashboard latency gate failed after promotion.",
-    name: "Production dashboard latency smoke"
-  });
-  const productionDashboardUiLoadingGate = await runDashboardUiLoadingGate(productionBaseUrl, {
-    failureIntro: "Production-domain dashboard UI loading gate failed after promotion.",
-    name: "Production dashboard UI loading smoke"
-  });
+  let productionDashboardLatencyGate;
+  let productionDashboardUiLoadingGate;
+  let productionGooglePublicPageGate;
+  let productionGoogleOAuthStartGate;
+  try {
+    productionGooglePublicPageGate = await runGooglePublicPageGate();
+    productionDashboardLatencyGate = await runDashboardLatencyGate(productionBaseUrl, {
+      failureIntro: "Production-domain dashboard latency gate failed after promotion.",
+      name: "Production dashboard latency smoke"
+    });
+    productionDashboardUiLoadingGate = await runDashboardUiLoadingGate(productionBaseUrl, {
+      failureIntro: "Production-domain dashboard UI loading gate failed after promotion.",
+      name: "Production dashboard UI loading smoke"
+    });
+    productionGoogleOAuthStartGate = await runGoogleOAuthStartGate(undefined, {
+      failureIntro: "Production Google OAuth start gate failed after promotion."
+    });
+  } catch (gateError) {
+    await rollbackAfterFailedPromotion(scope, previousProductionDeploymentUrl, gateError);
+  }
 
   const record = {
     aiTutorLatencyGate,
     dashboardLatencyGate,
     dashboardUiLoadingGate,
+    deploymentGoogleOAuthCanonicalHandoffGate,
     productionDashboardLatencyGate,
     productionDashboardUiLoadingGate,
+    productionGooglePublicPageGate,
+    productionGoogleOAuthStartGate,
+    previousProductionDeploymentUrl,
     deploymentUrl,
     inspectVerified: true,
     promotionVerified: true,
@@ -124,6 +161,9 @@ async function deployProduction(options = {}) {
     scope,
     project,
     target: "production",
+    googleOAuthLegalApprovalGate,
+    googleOAuthStagedLegalApprovalGate,
+    googleOAuthSyntheticGate,
     localBuildGate,
     stagingDir: staging.stagingDir,
     stagingFileCount: staging.fileCount,
@@ -148,6 +188,54 @@ async function runPreflight() {
   }
 }
 
+export async function runGoogleOAuthLegalApprovalGate({
+  runCommandFn = runCommand,
+  sourceRoot
+} = {}) {
+  const commandArgs = ["run", "check:google-oauth-legal-approval", "--", "--json"];
+  if (sourceRoot) commandArgs.push("--source-root", sourceRoot);
+  const gateResult = await runCommandFn(
+    "npm",
+    commandArgs,
+    { cwd: REPO_ROOT }
+  );
+  if (gateResult.exitCode !== 0) {
+    throw new Error(
+      [
+        "Google OAuth legal approval gate failed; production build and deployment were not started.",
+        "Both owner and counsel must approve the exact current Privacy Policy and Terms of Service digests.",
+        summarizeOutput(gateResult)
+      ].join("\n")
+    );
+  }
+
+  return {
+    command: "npm run check:google-oauth-legal-approval -- --json",
+    source: sourceRoot ? "vercel-staging" : "repository",
+    status: "passed"
+  };
+}
+
+export async function runGoogleOAuthSyntheticGate({ runCommandFn = runCommand } = {}) {
+  const gateResult = await runCommandFn("npm", ["run", "test:google-oauth"], {
+    cwd: REPO_ROOT
+  });
+  if (gateResult.exitCode !== 0) {
+    throw new Error(
+      [
+        "Google OAuth semantic gate failed; production build and deployment were not started.",
+        "The gate must prove callback/session behavior and that email collisions require explicit MAIS account linking.",
+        summarizeOutput(gateResult)
+      ].join("\n")
+    );
+  }
+
+  return {
+    command: "npm run test:google-oauth",
+    status: "passed"
+  };
+}
+
 async function runAITutorLatencyGate(deploymentUrl) {
   const gateResult = await runCommand(
     "node",
@@ -158,7 +246,7 @@ async function runAITutorLatencyGate(deploymentUrl) {
     throw new Error(
       [
         "AI Tutor live latency gate failed; production domains were not promoted.",
-        "The deployment was created with --skip-domain, so www.mais.hk remains on the previous production deployment.",
+        "The deployment was created with --skip-domain, so www.mais.ac remains on the previous production deployment.",
         summarizeOutput(gateResult)
       ].join("\n")
     );
@@ -182,7 +270,7 @@ async function runDashboardLatencyGate(baseUrl, {
         failureIntro,
         baseUrl.includes(".vercel.app")
           ? "The deployment was created with --skip-domain, so the current production domains remain on the previous production deployment."
-          : "The deployment was promoted, but the production-domain smoke did not pass; inspect aliases and consider rollback.",
+          : "The deployment was promoted, but the production-domain smoke did not pass; automatic rollback will be requested.",
         summarizeOutput(gateResult)
       ].join("\n")
     );
@@ -206,13 +294,121 @@ async function runDashboardUiLoadingGate(baseUrl, {
         failureIntro,
         baseUrl.includes(".vercel.app")
           ? "The deployment was created with --skip-domain, so the current production domains remain on the previous production deployment."
-          : "The deployment was promoted, but the production-domain UI loading smoke did not pass; inspect aliases and consider rollback.",
+          : "The deployment was promoted, but the production-domain UI loading smoke did not pass; automatic rollback will be requested.",
         summarizeOutput(gateResult)
       ].join("\n")
     );
   }
 
   return parseJsonFromCommandOutput(name, gateResult.stdout);
+}
+
+async function runGoogleOAuthStartGate(baseUrl, { failureIntro }) {
+  const result = await probeGoogleOAuthStart(baseUrl);
+  if (!result.ok) {
+    throw new Error(
+      [
+        failureIntro,
+        "The probe is redacted and never records authorization parameters or cookie values.",
+        result.detail
+      ].join("\n")
+    );
+  }
+  return result;
+}
+
+async function runGooglePublicPageGate() {
+  const result = await probeGooglePublicPageContracts();
+  if (!result.ok) {
+    throw new Error(
+      [
+        "Production Google Auth Platform public URL gate failed after promotion; automatic rollback will be requested.",
+        "The probe records only public URL contract evidence and never records OAuth parameters or cookie values.",
+        result.detail,
+        ...result.pages.filter((page) => !page.ok).map((page) => page.detail)
+      ].join("\n")
+    );
+  }
+  return result;
+}
+
+async function resolveCurrentProductionDeploymentUrl(referenceUrl, scope) {
+  const inspectResult = await runCommand(
+    "vercel",
+    ["inspect", referenceUrl, "--format=json", "--scope", scope],
+    { cwd: REPO_ROOT }
+  );
+  if (inspectResult.exitCode !== 0) {
+    throw new Error(
+      "Could not pin the currently live Vercel deployment before publish; production promotion was not attempted."
+    );
+  }
+  return parseInspectedDeploymentUrl(inspectResult.stdout);
+}
+
+export function parseInspectedDeploymentUrl(output) {
+  let record;
+  try {
+    record = parseJsonFromCommandOutput("Vercel production inspect", output);
+  } catch {
+    throw new Error("Vercel production inspect did not identify a Vercel deployment URL.");
+  }
+
+  const rawUrl = typeof record?.url === "string" ? record.url.trim() : "";
+  try {
+    const deploymentUrl = new URL(rawUrl.includes("://") ? rawUrl : `https://${rawUrl}`);
+    if (
+      deploymentUrl.protocol !== "https:" ||
+      !deploymentUrl.hostname.endsWith(".vercel.app") ||
+      deploymentUrl.pathname !== "/"
+    ) {
+      throw new Error("invalid deployment URL");
+    }
+    return deploymentUrl.origin;
+  } catch {
+    throw new Error("Vercel production inspect did not identify a Vercel deployment URL.");
+  }
+}
+
+async function rollbackAfterFailedPromotion(scope, previousProductionDeploymentUrl, gateError) {
+  const gateFailure = gateError instanceof Error ? gateError.message : String(gateError);
+  let rollbackResult;
+
+  try {
+    rollbackResult = await runCommand(
+      "vercel",
+      ["rollback", previousProductionDeploymentUrl, "-y", "--timeout", "5m", "--scope", scope],
+      { cwd: REPO_ROOT }
+    );
+  } catch (rollbackError) {
+    const rollbackFailure = rollbackError instanceof Error ? rollbackError.message : String(rollbackError);
+    throw new Error(
+      [
+        "Post-promotion production verification failed.",
+        `Original gate failure: ${gateFailure}`,
+        `Automatic Vercel rollback also failed to start: ${rollbackFailure}`
+      ].join("\n")
+    );
+  }
+
+  if (rollbackResult.exitCode !== 0) {
+    throw new Error(
+      [
+        "Post-promotion production verification failed.",
+        `Original gate failure: ${gateFailure}`,
+        "Automatic Vercel rollback also failed; production state requires immediate operator review.",
+        summarizeOutput(rollbackResult)
+      ].join("\n")
+    );
+  }
+
+  throw new Error(
+    [
+      "Post-promotion production verification failed.",
+      "Automatic Vercel rollback completed to the previous production deployment.",
+      `Original gate failure: ${gateFailure}`
+    ].join("\n")
+  );
 }
 
 function extractDeploymentUrl(output) {

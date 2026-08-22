@@ -80,11 +80,26 @@ type MediaObjectRequester = {
   role: string;
 };
 
+export type RelatedTeacherMediaAuthorizationRequest = {
+  capability: AiCapability;
+  ownerHash: string;
+  teacherId: string;
+};
+
+export type RelatedTeacherMediaAuthorizer = (
+  request: RelatedTeacherMediaAuthorizationRequest
+) => boolean | Promise<boolean>;
+
 const dayMs = 24 * 60 * 60 * 1000;
 const mediaObjectKeyPattern = /^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9._-]+)+$/;
 const metadataExtension = ".json";
 const objectExtension = ".bin";
 const allowedImageMimeTypes = new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]);
+const teacherReviewableCapabilities = new Set<AiCapability>([
+  "assignment-image",
+  "classroom-work-sample",
+  "practice-work-photo"
+]);
 
 function normalizeMimeType(value: string) {
   return value === "image/jpg" ? "image/jpeg" : value;
@@ -102,6 +117,10 @@ function mediaObjectStoreDir(env: EnvLike = process.env) {
 
 function ownerHash(ownerId: string) {
   return createHash("sha256").update(ownerId).digest("hex");
+}
+
+export function mediaObjectOwnerHash(ownerId: string) {
+  return ownerHash(ownerId);
 }
 
 function sha256(bytes: Buffer) {
@@ -306,17 +325,30 @@ function metadataFromUnknown(value: unknown): StoredMediaObjectMetadata | null {
   };
 }
 
-function canReadMediaObject(metadata: StoredMediaObjectMetadata, requester: MediaObjectRequester) {
+async function canReadMediaObject(
+  metadata: StoredMediaObjectMetadata,
+  requester: MediaObjectRequester,
+  authorizeRelatedTeacher?: RelatedTeacherMediaAuthorizer
+) {
   if (metadata.ownerHash === ownerHash(requester.id)) return true;
   if (requester.role === "admin") return true;
-  return requester.role === "teacher" && (
-    metadata.capability === "assignment-image"
-    || metadata.capability === "classroom-work-sample"
-    // Practice work photos are student-owned, but the whole point of attaching
-    // them is that a teacher can look at the working behind a wrong answer.
-    // Without this the reference persists and the teacher's read 403s.
-    || metadata.capability === "practice-work-photo"
-  );
+  if (
+    requester.role !== "teacher"
+    || !teacherReviewableCapabilities.has(metadata.capability)
+    || !authorizeRelatedTeacher
+  ) {
+    return false;
+  }
+
+  try {
+    return await authorizeRelatedTeacher({
+      capability: metadata.capability,
+      ownerHash: metadata.ownerHash,
+      teacherId: requester.id
+    });
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -443,11 +475,13 @@ export async function storeMediaObjectFromDataUrl({
 }
 
 export async function readStoredMediaObject({
+  authorizeRelatedTeacher,
   env = process.env,
   objectKey,
   requester,
   now = new Date()
 }: {
+  authorizeRelatedTeacher?: RelatedTeacherMediaAuthorizer;
   env?: EnvLike;
   objectKey: string;
   requester: MediaObjectRequester;
@@ -487,7 +521,7 @@ export async function readStoredMediaObject({
     };
   }
 
-  if (!canReadMediaObject(metadata, requester)) {
+  if (!await canReadMediaObject(metadata, requester, authorizeRelatedTeacher)) {
     return {
       status: "forbidden",
       code: "media-object-forbidden",

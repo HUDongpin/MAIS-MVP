@@ -18,6 +18,11 @@ const WORKTREE_LIFECYCLE_GATE = "coordination/release-intake/assert-worktree-lif
 const CLEAN_SOURCE_KINDS = new Set(["clean-worktree", "clean-clone", "reviewed-clean-slice"]);
 const REQUIRED_PRODUCTION_ENV = [
   "AUTH_SESSION_SECRET",
+  "GOOGLE_OAUTH_ENABLED",
+  "GOOGLE_OAUTH_CLIENT_ID",
+  "GOOGLE_OAUTH_CLIENT_SECRET",
+  "GOOGLE_OAUTH_REDIRECT_URI",
+  "GOOGLE_OAUTH_STATE_SECRET",
   "POSTGRES_URL",
   "HK_MATH_STORAGE_PROVIDER",
   "RESEND_API_KEY",
@@ -499,7 +504,7 @@ function formatVercelEnvBlock(result) {
     `Vercel ${result.target} environment is missing required release variables:`,
     ...result.missing.map((key) => `- ${key}`),
     "This check only inspects variable names and target environments; it does not read secret values.",
-    "S19 must complete redacted Vercel environment parity before publish."
+    "A19 must complete redacted Vercel environment parity before publish."
   ].join("\n");
 }
 

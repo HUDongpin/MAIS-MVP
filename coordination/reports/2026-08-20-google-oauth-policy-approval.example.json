@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "digestVersion": "mais-google-legal-v1",
+  "factsScheduleVersion": "[FINAL LEGAL FACTS SCHEDULE VERSION]",
+  "effectiveDate": "[YYYY-MM-DD]",
+  "documents": {
+    "privacy": {
+      "sha256": "[FINAL PRIVACY REVIEW-BUNDLE SHA-256]"
+    },
+    "terms": {
+      "sha256": "[FINAL TERMS REVIEW-BUNDLE SHA-256]"
+    }
+  },
+  "ownerApproval": {
+    "approved": true,
+    "approvedAt": "[ISO-8601 TIMESTAMP WITH TIMEZONE]",
+    "name": "[FULL LEGAL NAME]",
+    "title": "[AUTHORISED TITLE]",
+    "entity": "[EXACT LEGAL ENTITY]",
+    "evidenceReference": "[AUTHENTICATED EMAIL OR SIGNED-ARCHIVE REFERENCE]",
+    "privacySha256": "[FINAL PRIVACY REVIEW-BUNDLE SHA-256]",
+    "termsSha256": "[FINAL TERMS REVIEW-BUNDLE SHA-256]"
+  },
+  "counselApproval": {
+    "approved": true,
+    "approvedAt": "[ISO-8601 TIMESTAMP WITH TIMEZONE]",
+    "name": "[COUNSEL NAME]",
+    "firm": "[FIRM OR COUNSEL TITLE]",
+    "jurisdictions": [
+      "[REVIEWED JURISDICTION]"
+    ],
+    "conditions": "[none OR EXACT WRITTEN CONDITIONS]",
+    "evidenceReference": "[AUTHENTICATED FIRM EMAIL OR SIGNED-ARCHIVE REFERENCE]",
+    "privacySha256": "[FINAL PRIVACY REVIEW-BUNDLE SHA-256]",
+    "termsSha256": "[FINAL TERMS REVIEW-BUNDLE SHA-256]"
+  }
+}

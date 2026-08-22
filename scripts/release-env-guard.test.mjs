@@ -26,7 +26,7 @@ appendFileSync(${JSON.stringify(markerPath)}, \`worktree \${process.argv.slice(2
 }
 
 test("runtime release guard requires a current S25 dirty-tree map", async () => {
-  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-dirty-tree-map-"));
+  const tempDir = await mkdtemp(path.join(repoRoot, ".tmp", "mais-dirty-tree-map-"));
   const latestJson = path.join(tempDir, "latest-S25-dirty-tree-map.json");
   const releaseGateMarker = path.join(tempDir, "release-gates.log");
   const releaseGateEnv = await writePassingReleaseGateStubs(tempDir, releaseGateMarker);
@@ -61,9 +61,13 @@ test("runtime release guard requires a current S25 dirty-tree map", async () => 
       env: {
         ...process.env,
         ...releaseGateEnv,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
         MAIS_DIRTY_TREE_MAP_JSON: latestJson,
         MAIS_DIRTY_TREE_MAP_MAX_AGE_MINUTES: "120",
-        MAIS_RELEASE_MIN_FREE_GB: "1"
+        MAIS_OWNER_APPROVED_PRUNED_STAGING: "1",
+        MAIS_RELEASE_MIN_FREE_GB: "1",
+        MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+        MAIS_RELEASE_SOURCE_ROOT: tempDir
       }
     });
 
@@ -80,9 +84,13 @@ test("runtime release guard requires a current S25 dirty-tree map", async () => 
       env: {
         ...process.env,
         ...releaseGateEnv,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
         MAIS_DIRTY_TREE_MAP_JSON: latestJson,
         MAIS_DIRTY_TREE_MAP_MAX_AGE_MINUTES: "120",
-        MAIS_RELEASE_MIN_FREE_GB: "1"
+        MAIS_OWNER_APPROVED_PRUNED_STAGING: "1",
+        MAIS_RELEASE_MIN_FREE_GB: "1",
+        MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+        MAIS_RELEASE_SOURCE_ROOT: tempDir
       }
     });
 
@@ -102,6 +110,11 @@ test("production env guard requires POSTGRES_URL, not just DATABASE_URL", async 
 console.log(JSON.stringify({
   envs: [
     { key: "AUTH_SESSION_SECRET", target: ["production"] },
+    { key: "GOOGLE_OAUTH_ENABLED", target: ["production"] },
+    { key: "GOOGLE_OAUTH_CLIENT_ID", target: ["production"] },
+    { key: "GOOGLE_OAUTH_CLIENT_SECRET", target: ["production"] },
+    { key: "GOOGLE_OAUTH_REDIRECT_URI", target: ["production"] },
+    { key: "GOOGLE_OAUTH_STATE_SECRET", target: ["production"] },
     { key: "DATABASE_URL", target: ["production"] },
     { key: "HK_MATH_STORAGE_PROVIDER", target: ["production"] },
     { key: "RESEND_API_KEY", target: ["production"] },
@@ -140,8 +153,65 @@ console.log(JSON.stringify({
   }
 });
 
+test("production env guard requires every server-side Google OAuth variable by name", async () => {
+  const binDir = await mkdtemp(path.join(tmpdir(), "mais-google-oauth-env-guard-"));
+  const vercelBin = path.join(binDir, "vercel");
+
+  try {
+    await writeFile(vercelBin, `#!/usr/bin/env node
+console.log(JSON.stringify({
+  envs: [
+    { key: "AUTH_SESSION_SECRET", target: ["production"] },
+    { key: "POSTGRES_URL", target: ["production"] },
+    { key: "HK_MATH_STORAGE_PROVIDER", target: ["production"] },
+    { key: "RESEND_API_KEY", target: ["production"] },
+    { key: "PASSWORD_RESET_FROM", target: ["production"] },
+    { key: "PASSWORD_RESET_BASE_URL", target: ["production"] },
+    { key: "HK_MATH_EXPOSE_LOCAL_RESET_LINKS", target: ["production"] },
+    { key: "QWEN_API_KEY", target: ["production"] },
+    { key: "QWEN_API_URL", target: ["production"] },
+    { key: "QWEN_TEXT_MODEL", target: ["production"] },
+    { key: "AI_TUTOR_TOTAL_DEADLINE_MS", target: ["production"] },
+    { key: "AI_TUTOR_EDGE_RESPONSE_RESERVE_MS", target: ["production"] },
+    { key: "AI_TUTOR_PROVIDER_TIMEOUT_MS", target: ["production"] },
+    { key: "AI_TUTOR_LATENCY_ALERT_P95_MS", target: ["production"] },
+    { key: "AI_TUTOR_LATENCY_ALERT_TIMEOUT_RATE", target: ["production"] }
+  ]
+}));
+`);
+    await chmod(vercelBin, 0o755);
+
+    const result = spawnSync(process.execPath, ["scripts/release-env-guard.mjs", "env", "--json"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
+        MAIS_RELEASE_ENV_TARGET: "production",
+        MAIS_RELEASE_MIN_FREE_GB: "1",
+        VERCEL_SCOPE: "test-scope"
+      }
+    });
+
+    assert.notEqual(result.status, 0);
+    const output = `${result.stdout}\n${result.stderr}`;
+    for (const key of [
+      "GOOGLE_OAUTH_ENABLED",
+      "GOOGLE_OAUTH_CLIENT_ID",
+      "GOOGLE_OAUTH_CLIENT_SECRET",
+      "GOOGLE_OAUTH_REDIRECT_URI",
+      "GOOGLE_OAUTH_STATE_SECRET"
+    ]) {
+      assert.match(output, new RegExp(key));
+    }
+    assert.match(output, /only inspects variable names and target environments/i);
+  } finally {
+    await rm(binDir, { recursive: true, force: true });
+  }
+});
+
 test("staged production publish guard allows pruned staging without direct root deploy gate", async () => {
-  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-staged-publish-"));
+  const tempDir = await mkdtemp(path.join(repoRoot, ".tmp", "mais-staged-publish-"));
   const latestJson = path.join(tempDir, "latest-A25-dirty-tree-map.json");
   const vercelBin = path.join(tempDir, "vercel");
   const releaseGateMarker = path.join(tempDir, "release-gates.log");
@@ -152,6 +222,11 @@ test("staged production publish guard allows pruned staging without direct root 
 console.log(JSON.stringify({
   envs: [
     { key: "AUTH_SESSION_SECRET", target: ["production"] },
+    { key: "GOOGLE_OAUTH_ENABLED", target: ["production"] },
+    { key: "GOOGLE_OAUTH_CLIENT_ID", target: ["production"] },
+    { key: "GOOGLE_OAUTH_CLIENT_SECRET", target: ["production"] },
+    { key: "GOOGLE_OAUTH_REDIRECT_URI", target: ["production"] },
+    { key: "GOOGLE_OAUTH_STATE_SECRET", target: ["production"] },
     { key: "POSTGRES_URL", target: ["production"] },
     { key: "HK_MATH_STORAGE_PROVIDER", target: ["production"] },
     { key: "RESEND_API_KEY", target: ["production"] },
@@ -201,10 +276,14 @@ console.log(JSON.stringify({
         ...process.env,
         ...releaseGateEnv,
         PATH: `${tempDir}${path.delimiter}${process.env.PATH ?? ""}`,
+        MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
         MAIS_DIRTY_TREE_MAP_JSON: latestJson,
         MAIS_DIRTY_TREE_MAP_MAX_AGE_MINUTES: "120",
         MAIS_RELEASE_ENV_TARGET: "production",
         MAIS_RELEASE_MIN_FREE_GB: "1",
+        MAIS_OWNER_APPROVED_PRUNED_STAGING: "1",
+        MAIS_RELEASE_SOURCE_KIND: "pruned-staging",
+        MAIS_RELEASE_SOURCE_ROOT: tempDir,
         VERCEL_SCOPE: "test-scope"
       }
     });
@@ -215,7 +294,7 @@ console.log(JSON.stringify({
     assert.equal(parsed.rootDeploy, undefined);
     assert.equal(parsed.releaseSource.releaseSourceClean.passed, true);
     assert.equal(parsed.releaseSource.strictWorktreeLifecycle.passed, true);
-    assert.equal(parsed.stagedPublish.vercelEnv.present.length, 15);
+    assert.equal(parsed.stagedPublish.vercelEnv.present.length, 20);
     assert.match(parsed.stagedPublish.stagingRoot, /\.tmp[/\\]vercel-staging$/);
     assert.match(releaseGateLog, /release-source/);
     assert.match(releaseGateLog, /worktree --strict/);

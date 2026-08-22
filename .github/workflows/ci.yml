@@ -63,6 +63,9 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run Google OAuth synthetic gate (PKCE, callback, session, and account-link policy)
+        run: npm run test:google-oauth
+
       - name: Run import-target guard and its unit test
         run: npm run check:imports && npm run test:imports
 
@@ -162,6 +165,43 @@ jobs:
 
       - name: Run visualization DOM-contract spec
         run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
+
+  google-oauth-browser:
+    # Browser half of the Google OAuth gate. The synthetic half also runs in
+    # `validate`; this isolated job proves the actual login UI, step-up marker,
+    # state-cookie response, desktop layout, and mobile layout on every PR.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Google OAuth browser gate
+        run: npm run test:google-oauth:browser
+
+      - name: Upload Google OAuth Playwright failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-oauth-e2e-failure-artifacts
+          path: |
+            .tmp/e2e-run-*/test-results
+            .tmp/e2e-run-*/playwright-report
+          retention-days: 7
+          if-no-files-found: warn
 
   teacher-parent-e2e:
     # Teacher + parent journey E2E in CI (plan P2-3). Runs on every PR (first

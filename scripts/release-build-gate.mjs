@@ -8,8 +8,11 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
 const DEFAULT_TSCONFIG_PATH = "tsconfig.next.json";
-const REQUIRED_BUILD_OUTPUTS = [
+const NEXT_ENV_PATH = "next-env.d.ts";
+export const REQUIRED_BUILD_OUTPUTS = [
   "BUILD_ID",
+  "server/app/api/auth/google/start/route.js",
+  "server/app/api/auth/google/callback/route.js",
   "server/app/api/auth/login/route.js",
   "server/app/api/dashboard/route.js",
   "server/app/api/gamification/summary/route.js",
@@ -20,7 +23,7 @@ const REQUIRED_BUILD_OUTPUTS = [
 export async function runReleaseBuildGate(options = {}) {
   const config = buildReleaseBuildGateConfig(options, process.env);
   const startedAt = new Date().toISOString();
-  const tsconfigSnapshot = await snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath));
+  const mutableFileSnapshots = await Promise.all(config.mutableFilePaths.map(snapshotFile));
   let result;
 
   try {
@@ -37,7 +40,9 @@ export async function runReleaseBuildGate(options = {}) {
       }
     );
   } finally {
-    await restoreFileSnapshot(tsconfigSnapshot);
+    for (const snapshot of mutableFileSnapshots) {
+      await restoreFileSnapshot(snapshot);
+    }
   }
 
   if (result.exitCode !== 0) {
@@ -97,13 +102,15 @@ export function buildReleaseBuildGateConfig(options = {}, env = process.env) {
   );
   const absoluteDistDir = path.resolve(REPO_ROOT, distDir);
   assertSafeBuildGateDistDir(absoluteDistDir);
+  const tsconfigPath = options.tsconfigPath ?? env.NEXT_TSCONFIG_PATH ?? DEFAULT_TSCONFIG_PATH;
 
   return {
     absoluteDistDir,
     cleanup: options.cleanup ?? env.MAIS_RELEASE_BUILD_GATE_KEEP_DIST_DIR !== "1",
     distDir,
+    mutableFilePaths: [path.resolve(REPO_ROOT, tsconfigPath), path.resolve(REPO_ROOT, NEXT_ENV_PATH)],
     runId,
-    tsconfigPath: options.tsconfigPath ?? env.NEXT_TSCONFIG_PATH ?? DEFAULT_TSCONFIG_PATH
+    tsconfigPath
   };
 }
 
@@ -122,7 +129,7 @@ async function verifyBuildOutputs(absoluteDistDir) {
   if (missing.length > 0) {
     throw new Error(
       [
-        "Release build gate did not produce required dashboard deployment outputs:",
+        "Release build gate did not produce required deployment outputs:",
         ...missing.map((check) => `- ${check.path}`)
       ].join("\n")
     );

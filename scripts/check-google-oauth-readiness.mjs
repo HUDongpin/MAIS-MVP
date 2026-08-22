@@ -11,7 +11,9 @@ const REQUIRED_VARS = [
   "GOOGLE_OAUTH_REDIRECT_URI"
 ];
 const STATE_SECRET_VARS = ["GOOGLE_OAUTH_STATE_SECRET", "AUTH_SESSION_SECRET", "NEXTAUTH_SECRET"];
+const SESSION_SECRET_VARS = ["AUTH_SESSION_SECRET", "NEXTAUTH_SECRET"];
 const CALLBACK_PATH = "/api/auth/google/callback";
+const PRODUCTION_CALLBACK_URI = "https://www.mais.ac/api/auth/google/callback";
 
 const args = parseArgs(process.argv.slice(2));
 
@@ -114,8 +116,26 @@ function evaluateReadiness(env, { mode, allowLocalhost }) {
   } else if (looksPlaceholder(env[stateSecretSource])) {
     blockers.push(`${stateSecretSource} looks like a placeholder.`);
   } else if (env[stateSecretSource].length < 32) {
-    blockers.push(`${stateSecretSource} should be at least 32 characters for OAuth state signing.`);
+    blockers.push(`${stateSecretSource} should be at least 32 characters for OAuth state protection.`);
     checks.GOOGLE_OAUTH_STATE_SECRET_SOURCE = `weak:${stateSecretSource}`;
+  }
+
+  const sessionSecretSource = SESSION_SECRET_VARS.find((key) => Boolean(env[key]));
+  checks.AUTH_SESSION_SECRET_SOURCE = sessionSecretSource ? `present:${sessionSecretSource}` : "missing";
+  if (mode === "production") {
+    if (!sessionSecretSource) {
+      blockers.push("A production session secret is required: AUTH_SESSION_SECRET or NEXTAUTH_SECRET.");
+    } else if (looksPlaceholder(env[sessionSecretSource])) {
+      blockers.push(`${sessionSecretSource} looks like a placeholder.`);
+    } else if (env[sessionSecretSource].length < 32) {
+      blockers.push(`${sessionSecretSource} should be at least 32 characters for login-session protection.`);
+      checks.AUTH_SESSION_SECRET_SOURCE = `weak:${sessionSecretSource}`;
+    }
+    if (stateSecretSource !== "GOOGLE_OAUTH_STATE_SECRET") {
+      blockers.push("Production requires a dedicated GOOGLE_OAUTH_STATE_SECRET separate from the login-session secret.");
+    } else if (sessionSecretSource && env[stateSecretSource] === env[sessionSecretSource]) {
+      blockers.push("GOOGLE_OAUTH_STATE_SECRET and the login-session secret must be independent.");
+    }
   }
 
   const redirect = analyzeRedirectUri(env.GOOGLE_OAUTH_REDIRECT_URI, { mode, allowLocalhost });
@@ -177,9 +197,19 @@ function analyzeRedirectUri(value, { mode, allowLocalhost }) {
     return { status: "invalid", blockers: ["GOOGLE_OAUTH_REDIRECT_URI must be an absolute URL."], warnings };
   }
 
-  const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(url.hostname);
+  const isLocalhost = ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname);
+  const supportedTransport = url.protocol === "https:" || (url.protocol === "http:" && isLocalhost);
+  if (!supportedTransport) {
+    blockers.push("GOOGLE_OAUTH_REDIRECT_URI must use HTTPS except for loopback HTTP in local development.");
+  }
   if (url.pathname !== CALLBACK_PATH) {
     blockers.push(`GOOGLE_OAUTH_REDIRECT_URI path must be ${CALLBACK_PATH}.`);
+  }
+  if (url.username || url.password) {
+    blockers.push("GOOGLE_OAUTH_REDIRECT_URI must not contain URL credentials.");
+  }
+  if (url.search || url.hash) {
+    blockers.push("GOOGLE_OAUTH_REDIRECT_URI must not contain a query or fragment.");
   }
   if (mode === "production" && url.protocol !== "https:") {
     blockers.push("Production GOOGLE_OAUTH_REDIRECT_URI must use https.");
@@ -187,13 +217,12 @@ function analyzeRedirectUri(value, { mode, allowLocalhost }) {
   if (mode === "production" && isLocalhost) {
     blockers.push("Production GOOGLE_OAUTH_REDIRECT_URI must not use localhost.");
   }
+  if (mode === "production" && value.trim() !== PRODUCTION_CALLBACK_URI) {
+    blockers.push(`Production GOOGLE_OAUTH_REDIRECT_URI must exactly equal ${PRODUCTION_CALLBACK_URI}.`);
+  }
   if (isLocalhost && !allowLocalhost) {
     blockers.push("Localhost redirect URI is allowed only in local mode or with --allow-localhost.");
   }
-  if (mode !== "production" && url.protocol !== "https:" && !isLocalhost) {
-    warnings.push("Non-production non-localhost redirect URI should still prefer https.");
-  }
-
   const statusParts = ["present", url.protocol.replace(":", ""), url.hostname, url.pathname === CALLBACK_PATH ? "callback-path-ok" : "callback-path-mismatch"];
   return { status: statusParts.join(":"), blockers, warnings };
 }
@@ -219,6 +248,7 @@ function printHumanReport(result, envFile) {
 function runSelfTest() {
   const googleClientSecretFixture = crypto.randomUUID().replaceAll("-", "");
   const authSessionSecretFixture = crypto.randomUUID().replaceAll("-", "");
+  const googleStateSecretFixture = crypto.randomUUID().replaceAll("-", "");
   const readyLocal = evaluateReadiness({
     GOOGLE_OAUTH_ENABLED: "true",
     GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
@@ -227,6 +257,48 @@ function runSelfTest() {
     AUTH_SESSION_SECRET: authSessionSecretFixture
   }, { mode: "local", allowLocalhost: true });
   assert.equal(readyLocal.ready, true);
+
+  const readyProduction = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://www.mais.ac/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: googleStateSecretFixture,
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(readyProduction.ready, true);
+
+  const staleProductionAlias = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://www.mais.hk/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: googleStateSecretFixture,
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(staleProductionAlias.ready, false);
+  assert.ok(staleProductionAlias.blockers.some((blocker) => blocker.includes("www.mais.ac")));
+
+  const stateOnlyProduction = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: googleStateSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(stateOnlyProduction.ready, false);
+  assert.ok(stateOnlyProduction.blockers.some((blocker) => blocker.includes("production session secret")));
+
+  const sharedProductionSecrets = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback",
+    GOOGLE_OAUTH_STATE_SECRET: authSessionSecretFixture,
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(sharedProductionSecrets.ready, false);
+  assert.ok(sharedProductionSecrets.blockers.some((blocker) => blocker.includes("must be independent")));
 
   const disabled = evaluateReadiness({
     GOOGLE_OAUTH_ENABLED: "false",
@@ -248,6 +320,26 @@ function runSelfTest() {
   assert.equal(productionHttp.ready, false);
   assert.ok(productionHttp.blockers.some((blocker) => blocker.includes("https")));
   assert.ok(productionHttp.blockers.some((blocker) => blocker.includes("localhost")));
+
+  const nonLocalHttp = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "http://staging.mais.test/api/auth/google/callback",
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "local", allowLocalhost: true });
+  assert.equal(nonLocalHttp.ready, false);
+  assert.ok(nonLocalHttp.blockers.some((blocker) => blocker.includes("HTTPS except for loopback")));
+
+  const redirectWithQuery = evaluateReadiness({
+    GOOGLE_OAUTH_ENABLED: "true",
+    GOOGLE_OAUTH_CLIENT_ID: "redacted-client-id",
+    GOOGLE_OAUTH_CLIENT_SECRET: googleClientSecretFixture,
+    GOOGLE_OAUTH_REDIRECT_URI: "https://mais.test/api/auth/google/callback?unexpected=1",
+    AUTH_SESSION_SECRET: authSessionSecretFixture
+  }, { mode: "production", allowLocalhost: false });
+  assert.equal(redirectWithQuery.ready, false);
+  assert.ok(redirectWithQuery.blockers.some((blocker) => blocker.includes("query or fragment")));
 
   const publicSecret = evaluateReadiness({
     GOOGLE_OAUTH_ENABLED: "true",

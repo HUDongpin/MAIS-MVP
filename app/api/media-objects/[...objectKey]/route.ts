@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireAuthenticatedUser } from "@/lib/server/auth";
 import { readStoredMediaObject } from "@/lib/server/mediaObjectStore";
+import { teacherCanAccessStudentMediaOwner } from "@/lib/server/userStore";
 
 export const runtime = "nodejs";
 
@@ -20,6 +21,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ obj
   const { objectKey = [] } = await params;
   const joinedObjectKey = objectKey.join("/");
   const result = await readStoredMediaObject({
+    authorizeRelatedTeacher: teacherCanAccessStudentMediaOwner,
     objectKey: joinedObjectKey,
     requester: {
       id: authenticated.user.id,

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
+import { safePasswordChangeNextPath } from "@/lib/authRedirect";
 import type { StudentSession } from "@/types";
 
 const changePasswordCopy = {
@@ -32,11 +33,6 @@ function workspaceForRole(role?: StudentSession["role"]) {
   if (role === "teacher" || role === "admin") return "/teacher/dashboard";
   if (role === "parent") return "/parent";
   return "/dashboard";
-}
-
-function safeNextPath(value: string | null, role?: StudentSession["role"]) {
-  if (value?.startsWith("/") && !value.startsWith("//") && !value.startsWith("/login")) return value;
-  return workspaceForRole(role);
 }
 
 export default function ChangePasswordPage() {
@@ -73,7 +69,7 @@ export default function ChangePasswordPage() {
       const result = await changePassword(currentPassword, password);
       if (result.ok) {
         setMessage(t(changePasswordCopy.success));
-        router.push(safeNextPath(nextPath, result.role ?? currentUser?.role));
+        router.push(safePasswordChangeNextPath(nextPath, workspaceForRole(result.role ?? currentUser?.role)));
         return;
       }
 
