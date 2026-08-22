@@ -131,20 +131,18 @@ function safeResolverBody(response: Response, body: unknown) {
   }
 
   return {
-    body: response.ok
-      ? buildDeadlineTutorFallbackBody()
-      : buildUnexpectedTutorFallbackBody(),
+    body: buildUnexpectedTutorFallbackBody(),
     headers: response.headers,
-    ok: true,
-    status: 200
+    ok: false,
+    status: response.ok ? 502 : response.status
   };
 }
 
-async function fetchResolver(request: Request, bodyText: string, signal: AbortSignal) {
+async function fetchResolver(request: Request, bodyBytes: ArrayBuffer, signal: AbortSignal) {
   return fetch(resolverUrl(request), {
     method: "POST",
     headers: resolverHeaders(request),
-    body: bodyText,
+    body: bodyBytes,
     cache: "no-store",
     signal
   });
@@ -158,23 +156,60 @@ function streamAITutorPost(request: Request) {
     totalDeadlineMs,
     process.env.AI_TUTOR_EDGE_RESPONSE_RESERVE_MS
   );
+  const abortController = new AbortController();
+  let closed = false;
+  let hardDeadline: ReturnType<typeof setTimeout> | undefined;
+  let streamController: ReadableStreamDefaultController<Uint8Array> | undefined;
+
+  const cleanup = () => {
+    if (hardDeadline) clearTimeout(hardDeadline);
+    request.signal.removeEventListener("abort", abortForIncomingRequest);
+  };
+  const stopWithoutWriting = (reason?: unknown) => {
+    if (closed) return;
+    closed = true;
+    cleanup();
+    if (!abortController.signal.aborted) abortController.abort(reason);
+    try {
+      streamController?.close();
+    } catch {
+      // The consumer already cancelled the stream.
+    }
+  };
+  const abortForIncomingRequest = () => stopWithoutWriting(request.signal.reason);
+  request.signal.addEventListener("abort", abortForIncomingRequest, { once: true });
+  if (request.signal.aborted) abortForIncomingRequest();
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
-      let closed = false;
-      const abortController = new AbortController();
-      let hardDeadline: ReturnType<typeof setTimeout> | undefined;
+      streamController = controller;
+      if (closed) {
+        try {
+          controller.close();
+        } catch {
+          // The consumer already cancelled the stream.
+        }
+        return;
+      }
 
       const send = (event: string, data: unknown) => {
         if (closed) return;
-        controller.enqueue(encoder.encode(encodeAITutorSSE(event, data)));
+        try {
+          controller.enqueue(encoder.encode(encodeAITutorSSE(event, data)));
+        } catch (error) {
+          stopWithoutWriting(error);
+        }
       };
 
       const close = () => {
         if (closed) return;
         closed = true;
-        if (hardDeadline) clearTimeout(hardDeadline);
-        controller.close();
+        cleanup();
+        try {
+          controller.close();
+        } catch {
+          // The consumer already cancelled the stream.
+        }
       };
 
       const sendDeadlineFallback = () => {
@@ -191,8 +226,8 @@ function streamAITutorPost(request: Request) {
           text: body.reply
         });
         send("final", {
-          status: 200,
-          ok: true,
+          status: 503,
+          ok: false,
           body,
           elapsedMs: Date.now() - startedAt
         });
@@ -200,18 +235,12 @@ function streamAITutorPost(request: Request) {
       };
 
       send("status", { phase: "accepted", elapsedMs: 0 });
-      send("status", { phase: "context-start", elapsedMs: Date.now() - startedAt });
-      send("status", {
-        phase: "provider-start",
-        elapsedMs: Date.now() - startedAt,
-        provider: "qwen"
-      });
 
       hardDeadline = setTimeout(sendDeadlineFallback, edgeDeadlineMs);
 
       try {
-        const bodyText = await request.text();
-        const response = await fetchResolver(request, bodyText, abortController.signal);
+        const bodyBytes = await request.arrayBuffer();
+        const response = await fetchResolver(request, bodyBytes, abortController.signal);
         if (closed) return;
 
         const resolved = safeResolverBody(response, await readResolverJson(response));
@@ -221,6 +250,17 @@ function streamAITutorPost(request: Request) {
         const mode = typeof (resolved.body as { mode?: unknown }).mode === "string"
           ? (resolved.body as { mode: string }).mode
           : undefined;
+        const provider = response.headers.get("X-MAIS-AI-Provider");
+        const model = response.headers.get("X-MAIS-AI-Model");
+
+        if (resolved.ok && reply && provider && model && !mode?.includes("fallback")) {
+          send("status", {
+            phase: "provider-start",
+            elapsedMs: Date.now() - startedAt,
+            provider,
+            model
+          });
+        }
 
         if (reply) {
           send("chunk", {
@@ -237,10 +277,6 @@ function streamAITutorPost(request: Request) {
           elapsedMs: Date.now() - startedAt
         });
       } catch {
-        if (!closed && abortController.signal.aborted) {
-          sendDeadlineFallback();
-          return;
-        }
         if (!closed) {
           const body = buildUnexpectedTutorFallbackBody();
           send("chunk", {
@@ -250,8 +286,8 @@ function streamAITutorPost(request: Request) {
             text: body.reply
           });
           send("final", {
-            status: 200,
-            ok: true,
+            status: 503,
+            ok: false,
             body,
             elapsedMs: Date.now() - startedAt
           });
@@ -259,6 +295,9 @@ function streamAITutorPost(request: Request) {
       } finally {
         close();
       }
+    },
+    cancel(reason) {
+      stopWithoutWriting(reason);
     }
   });
 
@@ -284,11 +323,14 @@ export async function POST(request: Request) {
     process.env.AI_TUTOR_EDGE_RESPONSE_RESERVE_MS
   );
   const abortController = new AbortController();
+  const abortForIncomingRequest = () => abortController.abort(request.signal.reason);
+  request.signal.addEventListener("abort", abortForIncomingRequest, { once: true });
+  if (request.signal.aborted) abortForIncomingRequest();
   const hardDeadline = setTimeout(() => abortController.abort(), edgeDeadlineMs);
 
   try {
-    const bodyText = await request.text();
-    const response = await fetchResolver(request, bodyText, abortController.signal);
+    const bodyBytes = await request.arrayBuffer();
+    const response = await fetchResolver(request, bodyBytes, abortController.signal);
     const resolved = safeResolverBody(response, await readResolverJson(response));
     return jsonResponse(resolved.body, {
       headers: resolved.headers,
@@ -298,10 +340,12 @@ export async function POST(request: Request) {
     return jsonResponse(
       abortController.signal.aborted
         ? buildDeadlineTutorFallbackBody()
-        : buildUnexpectedTutorFallbackBody()
+        : buildUnexpectedTutorFallbackBody(),
+      { status: 503 }
     );
   } finally {
     clearTimeout(hardDeadline);
+    request.signal.removeEventListener("abort", abortForIncomingRequest);
   }
 }
 

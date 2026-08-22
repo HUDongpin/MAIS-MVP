@@ -3,8 +3,18 @@
 import { useState } from "react";
 import { MathCheck } from "@/components/lesson/ccss/MathCheck";
 import { Figure } from "@/components/lesson/ccss/Figure";
+import { buildMathAngleContract, serializeMathAngleContract } from "@/lib/mathDiagramGeometry";
 
 const ACCENT = "var(--band-high)";
+
+const preciseDefinitionsAngle = buildMathAngleContract({
+  id: "precise-definitions-angle",
+  origin: { x: 40, y: 120 },
+  radius: 40,
+  startRay: { x: 150, y: 0 },
+  endRay: { x: 120, y: -80 },
+  sweepRadians: Math.atan2(80, 120)
+});
 
 const TERMS = [
   { name: "Angle", def: "Two rays sharing a common endpoint (the vertex).", draw: "angle" },
@@ -30,17 +40,36 @@ export default function Lesson() {
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             {TERMS.map((tm, i) => (
-              <button key={tm.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{tm.name}</button>
+              <button
+                key={tm.name}
+                type="button"
+                aria-pressed={idx === i}
+                data-ccss-diagram-state={tm.draw}
+                data-ccss-diagram-state-button
+                onClick={() => setIdx(i)}
+                className="rounded-lg border px-3 py-1.5 text-sm font-bold"
+                style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}
+              >
+                {tm.name}
+              </button>
             ))}
           </div>
 
           <svg width={220} height={160} viewBox="0 0 220 160" role="img" aria-label={t.name}>
             {t.draw === "angle" && (
               <>
-                <line x1={40} y1={120} x2={190} y2={120} stroke={ACCENT} strokeWidth={3} />
-                <line x1={40} y1={120} x2={160} y2={40} stroke={ACCENT} strokeWidth={3} />
+                <path
+                  data-diagram-angle-arc
+                  data-math-angle-contract={serializeMathAngleContract(preciseDefinitionsAngle)}
+                  d="M 80 120 A 40 40 0 0 0 73.282 97.812"
+                  fill="none"
+                  stroke="var(--ink-soft)"
+                  strokeWidth={2}
+                  strokeLinecap="butt"
+                />
+                <line data-diagram-defining-ray x1={40} y1={120} x2={190} y2={120} stroke={ACCENT} strokeWidth={3} />
+                <line data-diagram-defining-ray x1={40} y1={120} x2={160} y2={40} stroke={ACCENT} strokeWidth={3} />
                 <circle cx={40} cy={120} r={4} fill="var(--ink)" />
-                <path d="M 80 120 A 40 40 0 0 0 66 96" fill="none" stroke="var(--ink-soft)" strokeWidth={2} />
                 <text x={44} y={136} fontSize={11} fill="var(--ink-faint)">vertex</text>
               </>
             )}

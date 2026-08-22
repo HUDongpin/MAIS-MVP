@@ -20,7 +20,10 @@ import { join, relative, sep } from "node:path";
  *
  * Compilation follows the pattern the other gates use — compile the project to
  * a scratch dir, then symlink `@/*` to the COMPILED output (not the TS sources)
- * so `node --test` can resolve the path alias.
+ * so `node --test` can resolve the path alias. Override the app's `jsx:
+ * preserve` setting for this Node-only output: preserving JSX emits `.jsx`
+ * files that CommonJS cannot load, which would prevent component tests from
+ * importing and rendering production TSX modules.
  */
 
 const outputDir = join(".tmp", `component-tests-${process.pid}-${Date.now()}`);
@@ -83,7 +86,9 @@ try {
     "--module",
     "commonjs",
     "--moduleResolution",
-    "node"
+    "node",
+    "--jsx",
+    "react-jsx"
   ]);
   if (!compiled) {
     console.error("\n✗ tsc failed to compile the component tests.");

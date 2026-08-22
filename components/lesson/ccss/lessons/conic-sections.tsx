@@ -27,13 +27,13 @@ export default function Lesson() {
 
       <Figure caption="Each conic is defined by a distance rule involving foci and/or a directrix.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex gap-2">
+          <div className="flex max-w-full flex-wrap justify-center gap-2">
             {CONICS.map((co, i) => (
               <button key={co.name} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{co.name}</button>
             ))}
           </div>
 
-          <svg width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.name}>
+          <svg className="mx-auto h-auto max-w-full" width={240} height={190} viewBox="0 0 240 190" role="img" aria-label={c.name}>
             <line x1={20} y1={95} x2={220} y2={95} stroke="var(--line)" strokeWidth={1} />
             <line x1={120} y1={20} x2={120} y2={170} stroke="var(--line)" strokeWidth={1} />
             {c.draw === "parabola" && (

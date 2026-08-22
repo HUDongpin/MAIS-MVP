@@ -141,8 +141,8 @@ export default function Lesson() {
             {whole && <> — and that&apos;s the whole, <strong>1</strong></>}.
           </div>
 
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2">
+          <div className="flex w-full max-w-sm flex-col items-center gap-3">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">
                 Equal parts
               </span>
@@ -162,7 +162,7 @@ export default function Lesson() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => setA(clampA(a - 1))}

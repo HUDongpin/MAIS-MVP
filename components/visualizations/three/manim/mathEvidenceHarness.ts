@@ -7078,10 +7078,12 @@ export function evidenceDataAttributes(snapshot: MathSceneEvidenceSnapshot): Rec
   const formulaCollisionAttributes = formulaOverlayCollisionDataAttributes({
     collisionCount: snapshot.manimFormulaCollisionCount,
     collisionLabelIds: snapshot.manimFormulaCollisionLabelIds,
+    edgeInsetPx: 12,
     formulaBox: { height: 0, width: 0, x: 0, y: 0 },
     formulaId: "evidence",
     mobileViewport: snapshot.manimFormulaMobileViewport,
     overflowEdges: "none",
+    placement: "top-left",
     safeAreaStatus: snapshot.manimFormulaSafeAreaStatus as Parameters<typeof formulaOverlayCollisionDataAttributes>[0]["safeAreaStatus"],
     sourceContract: snapshot.manimFormulaCollisionSourceContract,
     summary: snapshot.manimFormulaSafeAreaSummary,

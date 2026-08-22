@@ -40,7 +40,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="Subtract easy multiples of the divisor, largest first, until nothing is left.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="font-mono text-3xl font-black">{D.toLocaleString()} ÷ {d} = <span style={{ color: ACCENT }}>{quotient}</span>{remainder > 0 && <span> R {remainder}</span>}</div>
 
           <div className="flex flex-col gap-1.5">

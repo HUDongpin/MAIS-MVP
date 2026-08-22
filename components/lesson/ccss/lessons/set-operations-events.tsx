@@ -34,7 +34,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={260} height={170} viewBox="0 0 260 170" role="img" aria-label={o.name}>
+          <svg className="mx-auto h-auto max-w-full" width={260} height={170} viewBox="0 0 260 170" role="img" aria-label={o.name}>
             <rect x={5} y={5} width={250} height={160} fill={o.outside ? ACCENT : "none"} fillOpacity={o.outside ? 0.2 : 0} stroke="var(--line)" strokeWidth={1.5} />
             <defs>
               <clipPath id="aClip"><circle cx={100} cy={85} r={60} /></clipPath>

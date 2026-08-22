@@ -29,7 +29,7 @@ export default function Lesson() {
 
       <Figure caption="A cut parallel to the base makes a smaller similar triangle — sides split proportionally.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={200} viewBox="0 0 240 200" role="img" aria-label="side-splitter theorem">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={200} viewBox="0 0 240 200" role="img" aria-label="side-splitter theorem">
             {/* full triangle: apex at top */}
             <polygon points="120,20 40,180 200,180" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             {/* parallel cut */}

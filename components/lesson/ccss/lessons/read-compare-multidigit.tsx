@@ -30,7 +30,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="Expanded form breaks the number into the value of each digit.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="text-center">
             <div className="font-mono text-4xl font-black">{a.toLocaleString()}</div>
             <div className="mt-2 font-mono text-lg">
@@ -89,7 +89,7 @@ function Stepper({ label, value, onChange }: { label: string; value: number; onC
   return (
     <div className="flex flex-col items-center gap-1">
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--ink-faint)]">{label}</span>
-      <div className="flex items-center gap-1.5">
+      <div className="flex w-max max-w-none self-start items-center gap-1.5">
         <button type="button" onClick={() => set(value - 100)} className="h-9 w-11 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-sm font-bold" aria-label={`${label} minus 100`}>−100</button>
         <button type="button" onClick={() => set(value - 1)} className="h-9 w-9 rounded-lg border border-[var(--line)] bg-[var(--surface)] text-lg font-bold" aria-label={`Decrease ${label}`}>−</button>
         <span className="w-16 text-center text-xl font-black tabular-nums">{value}</span>

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import {
+  rescaleHandwritingStrokes,
   sanitizeHandwritingStrokes,
   type HandwritingPoint,
   type HandwritingRecognitionAlternative,
@@ -91,7 +92,7 @@ export function HandwritingAnswerBoard({
   const activePointerIdRef = useRef<number | null>(null);
   const activeStrokeRef = useRef<HandwritingStroke | null>(null);
   const strokesRef = useRef<HandwritingStroke[]>([]);
-  const canvasSizeRef = useRef({ width: 800, height: 256, pixelRatio: 1 });
+  const canvasSizeRef = useRef({ width: 0, height: 0, pixelRatio: 1 });
   const [tool, setTool] = useState<HandwritingTool>("pen");
   const [strokes, setStrokes] = useState<HandwritingStroke[]>([]);
   const [activeStroke, setActiveStroke] = useState<HandwritingStroke | null>(null);
@@ -128,13 +129,33 @@ export function HandwritingAnswerBoard({
     context.restore();
   }, []);
 
-  const redraw = useCallback(() => {
+  const resizeCanvasAndRedraw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas || collapsed) return;
 
     const rect = canvas.getBoundingClientRect();
     const context = canvas.getContext("2d");
     if (!context || rect.width <= 0 || rect.height <= 0) return;
+
+    const previousSize = canvasSizeRef.current;
+    const hasPreviousLogicalSize = previousSize.width > 0 && previousSize.height > 0;
+    const logicalSizeChanged =
+      hasPreviousLogicalSize &&
+      (Math.abs(previousSize.width - rect.width) > 0.01 || Math.abs(previousSize.height - rect.height) > 0.01);
+
+    if (logicalSizeChanged) {
+      if (strokesRef.current.length > 0) {
+        const resizedStrokes = rescaleHandwritingStrokes(strokesRef.current, previousSize, rect);
+        strokesRef.current = resizedStrokes;
+        setStrokes(resizedStrokes);
+      }
+
+      if (activeStrokeRef.current) {
+        const [resizedActiveStroke] = rescaleHandwritingStrokes([activeStrokeRef.current], previousSize, rect);
+        activeStrokeRef.current = resizedActiveStroke;
+        setActiveStroke(resizedActiveStroke);
+      }
+    }
 
     const pixelRatio = window.devicePixelRatio || 1;
     canvasSizeRef.current = { width: rect.width, height: rect.height, pixelRatio };
@@ -147,19 +168,32 @@ export function HandwritingAnswerBoard({
 
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     context.clearRect(0, 0, rect.width, rect.height);
-    strokes.forEach((stroke) => drawStroke(context, stroke));
-    if (activeStroke) drawStroke(context, activeStroke);
-  }, [activeStroke, collapsed, drawStroke, strokes]);
+    strokesRef.current.forEach((stroke) => drawStroke(context, stroke));
+    if (activeStrokeRef.current) drawStroke(context, activeStrokeRef.current);
+  }, [collapsed, drawStroke]);
 
   useEffect(() => {
-    redraw();
-  }, [redraw]);
+    resizeCanvasAndRedraw();
+  }, [activeStroke, resizeCanvasAndRedraw, strokes]);
 
   useEffect(() => {
     if (collapsed) return;
-    window.addEventListener("resize", redraw);
-    return () => window.removeEventListener("resize", redraw);
-  }, [collapsed, redraw]);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleResize = () => resizeCanvasAndRedraw();
+    window.addEventListener("resize", handleResize);
+
+    const resizeObserver = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(handleResize);
+    resizeObserver?.observe(canvas);
+
+    return () => {
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [collapsed, resizeCanvasAndRedraw]);
 
   useEffect(() => {
     setStrokes([]);
@@ -379,7 +413,7 @@ export function HandwritingAnswerBoard({
   }
 
   return (
-    <div id={boardId} role="group" aria-label={localize(copy.boardLabel, language)} className="soft-panel mt-3 overflow-hidden p-3 sm:p-4">
+    <div id={boardId} role="group" data-handwriting-board aria-label={localize(copy.boardLabel, language)} className="soft-panel mt-3 min-w-0 p-3 sm:p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-black uppercase tracking-[0.18em] text-cyan-600 dark:text-cyan-200">
           {localize(copy.boardLabel, language)}
@@ -444,13 +478,14 @@ export function HandwritingAnswerBoard({
           ref={canvasRef}
           role="img"
           aria-label={localize(copy.canvasLabel, language)}
+          data-diagram-blank-policy="intentional-empty-v1"
           data-testid="handwriting-draft-canvas"
           onPointerDown={startStroke}
           onPointerMove={continueStroke}
           onPointerUp={finishStroke}
           onPointerCancel={finishStroke}
           onPointerLeave={finishStroke}
-          className="mt-3 h-64 w-full touch-none rounded-2xl border border-slate-200 bg-white shadow-inner shadow-slate-900/5 dark:border-white/10 sm:h-72"
+          className="mt-3 block h-64 w-full max-w-full touch-none rounded-2xl border border-slate-200 bg-white shadow-inner shadow-slate-900/5 dark:border-white/10 sm:h-72"
         />
       ) : null}
 

@@ -333,6 +333,7 @@ export default function FractionLinePlotLab() {
   const [spanPick, setSpanPick] = useState(null);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
+  const [tickPick, setTickPick] = useState(V_MIN);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -413,7 +414,7 @@ export default function FractionLinePlotLab() {
       if (S.calib) {
         ctx.fillStyle = INK_SOFT;
         ctx.font = 'italic 600 12px system-ui, sans-serif';
-        ctx.fillText('tap its tick on the scale', W / 2, 106);
+        ctx.fillText('pick a tick below or tap it', W / 2, 106);
       }
     } else if (!S.calib || S.spanDone) {
       ctx.fillStyle = INK_SOFT;
@@ -533,6 +534,10 @@ export default function FractionLinePlotLab() {
   }, [step]);
 
   /* ---- interaction ------------------------------------------------------- */
+  const placeCardAt = (v) => {
+    if (!calib || allDealt) return;
+    setPlaced((prev) => [...prev, clampInt(v, V_MIN, V_MAX)]);
+  };
   const onPointerDown = (e) => {
     if (!calib || allDealt) return;
     const stage = stageRef.current;
@@ -541,7 +546,7 @@ export default function FractionLinePlotLab() {
     const py = e.clientY - rect.top;
     for (const t of geomRef.current.ticks) {
       if (px >= t.x && px <= t.x + t.w && py >= t.y && py <= t.y + t.h) {
-        setPlaced((prev) => [...prev, t.v]);
+        placeCardAt(t.v);
         return;
       }
     }
@@ -596,6 +601,23 @@ export default function FractionLinePlotLab() {
 
           {calib && (
             <div className="toolbar">
+              <div className="tick-picker" role="group" aria-label="Place the current card without a pointer" data-viz-keyboard-equivalent="tick-picker">
+                <label>
+                  {allDealt ? 'All cards placed' : `Place ${fmtCard(deck[placed.length])} at`}
+                  <select
+                    value={tickPick}
+                    onChange={(e) => setTickPick(Number(e.target.value))}
+                    disabled={allDealt}
+                  >
+                    {Array.from({ length: V_MAX - V_MIN + 1 }, (_, i) => V_MIN + i).map((v) => (
+                      <option key={v} value={v}>{ladderName(v)}</option>
+                    ))}
+                  </select>
+                </label>
+                <button type="button" className="btn" onClick={() => placeCardAt(tickPick)} disabled={allDealt}>
+                  Place card
+                </button>
+              </div>
               <button type="button" className="btn ghost" onClick={startOver}>
                 Start over
               </button>
@@ -662,7 +684,7 @@ export default function FractionLinePlotLab() {
                 </ol>
                 <span className="target-hint mono">
                   {!allDealt
-                    ? 'read the card, tap its tick'
+                    ? 'read the card, then choose its tick below'
                     : spanPick == null
                       ? 'longest minus shortest — count the walk'
                       : calibrated
@@ -855,6 +877,42 @@ export default function FractionLinePlotLab() {
           display: flex;
           gap: 9px;
           flex-wrap: wrap;
+          align-items: end;
+        }
+        .tick-picker {
+          display: flex;
+          gap: 8px;
+          flex: 1 1 280px;
+          flex-wrap: wrap;
+          align-items: end;
+          padding: 8px;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .tick-picker label {
+          display: inline-flex;
+          flex: 1 1 160px;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          text-transform: uppercase;
+        }
+        .tick-picker select {
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 700 13px/1 var(--mono);
+        }
+        .tick-picker .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;

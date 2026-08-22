@@ -24,7 +24,7 @@ const shouldRenderVercelAnalytics = Boolean(process.env.VERCEL || process.env.VE
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="overflow-x-hidden">
+      <body>
         <AppProviders>
           <AITutorProvider>
             <AnimatedMathBackground />

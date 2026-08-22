@@ -660,6 +660,22 @@ export default function EqualSharesLab() {
               Reset
             </button>
           </div>
+          {!calib && current.lens !== 'trio' && liveCut && (
+            <div className="toolbar chips" role="group" aria-label="Choose the shaded share" data-viz-keyboard-equivalent="share-picker">
+              <span className="picker-label">Shaded share</span>
+              {liveCut.polys.map((_, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className={'chipbtn' + (shade === i ? ' active' : '')}
+                  aria-pressed={shade === i}
+                  onClick={() => setShade(i)}
+                >
+                  Share {i + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* ---------- TUTOR ---------- */}
@@ -900,6 +916,8 @@ export default function EqualSharesLab() {
           flex-wrap: wrap;
         }
         .chipbtn {
+          min-width: 44px;
+          min-height: 44px;
           font: 600 12.5px/1.2 system-ui, sans-serif;
           padding: 8px 11px;
           border-radius: 8px;
@@ -916,6 +934,14 @@ export default function EqualSharesLab() {
         }
         .chipbtn:hover {
           border-color: var(--ink);
+        }
+        .picker-label {
+          align-self: center;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;

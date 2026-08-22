@@ -24,7 +24,7 @@ export default function Lesson() {
 
       <Figure caption="Two triangles with the same two angles are similar — corresponding sides are proportional.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-8">
+          <div className="flex max-w-full flex-col items-center gap-4 sm:flex-row sm:gap-8">
             <svg width={150} height={120} viewBox="0 0 150 120" role="img" aria-label="small triangle">
               <polygon points="20,100 110,100 45,35" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
               <text x={26} y={94} fontSize={11} fill="var(--band-upper)">{a1}°</text>

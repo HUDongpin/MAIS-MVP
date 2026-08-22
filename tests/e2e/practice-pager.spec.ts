@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
-import { isTransientApiTransportError, openPracticeFiltersPanel, uniqueSuffix } from "./helpers";
+import { choosePracticeModeIfVisible, isTransientApiTransportError, openPracticeFiltersPanel, uniqueSuffix } from "./helpers";
 
 type AuthenticatedResponse = {
   user: {
@@ -72,6 +72,7 @@ async function unlockFreeSelection(page: Page, userId: string, grade = "S3") {
 
   await page.reload();
   await page.waitForLoadState("networkidle");
+  await choosePracticeModeIfVisible(page, "explore");
   await openPracticeFiltersPanel(page);
 
   // Students practise at their own grade: Practice Arena locks the grade to the
@@ -301,6 +302,7 @@ test.describe("Practice Arena question pager", () => {
     await page.goto("/practice");
     await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
     await page.waitForLoadState("networkidle");
+    await choosePracticeModeIfVisible(page, "guided");
     await expect(page.getByRole("combobox", { name: /difficulty/i })).toHaveCount(0);
     await expectQuestion(page, 1);
 

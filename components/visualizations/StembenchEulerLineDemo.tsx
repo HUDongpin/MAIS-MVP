@@ -2,10 +2,22 @@
 
 import type { KeyboardEvent, PointerEvent } from "react";
 import { useMemo, useRef, useState } from "react";
+import {
+  buildEulerCenterLayout,
+  buildEulerFields,
+  buildEulerVertexLabelLayout,
+  canUseTriangle,
+  constrainEulerPoint,
+  eulerPlot as plot,
+  eulerVertexKeys as vertexKeys,
+  initialEulerTriangle
+} from "@/components/visualizations/eulerLineGeometry";
+import type {
+  EulerPoint as Point,
+  EulerTriangle,
+  EulerVertexKey as VertexKey
+} from "@/components/visualizations/eulerLineGeometry";
 
-type VertexKey = "A" | "B" | "C";
-type Point = { x: number; y: number };
-type Triangle = Record<VertexKey, Point>;
 type EvidenceEntry = {
   id: number;
   verb: string;
@@ -14,31 +26,6 @@ type EvidenceEntry = {
 type DragState = {
   key: VertexKey;
   pointerId: number;
-};
-
-type EulerFields = {
-  area: number;
-  circumRadius: number;
-  OG: number;
-  GH: number;
-  ratioGH_OG: number;
-  ninePointRadius: number;
-  collinear: boolean;
-  eulerDegenerate: boolean;
-  O: Point;
-  G: Point;
-  H: Point;
-  N: Point;
-  eulerLine: { a: Point; b: Point } | null;
-  ninePointDots: Point[];
-};
-
-const vertexKeys: VertexKey[] = ["A", "B", "C"];
-const plot = { x: 30, y: 30, width: 600, height: 400 };
-const initialTriangle: Triangle = {
-  A: { x: 322, y: 112 },
-  B: { x: 166, y: 382 },
-  C: { x: 545, y: 324 }
 };
 
 const taskBank = [
@@ -51,149 +38,9 @@ const taskBank = [
 const summaryCardClass =
   "rounded-lg border border-sky-300/25 bg-sky-950/45 px-4 py-3 shadow-[0_0_0_1px_rgba(96,165,250,0.04)]";
 
-function sq(value: number) {
-  return value * value;
-}
-
-function distance(a: Point, b: Point) {
-  return Math.hypot(a.x - b.x, a.y - b.y);
-}
-
-function midpoint(a: Point, b: Point): Point {
-  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-}
-
-function triangleArea(tri: Triangle) {
-  const { A, B, C } = tri;
-  return Math.abs((B.x - A.x) * (C.y - A.y) - (B.y - A.y) * (C.x - A.x)) / 2;
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
-}
-
-function add(a: Point, b: Point): Point {
-  return { x: a.x + b.x, y: a.y + b.y };
-}
-
-function subtract(a: Point, b: Point): Point {
-  return { x: a.x - b.x, y: a.y - b.y };
-}
-
-function scale(point: Point, factor: number): Point {
-  return { x: point.x * factor, y: point.y * factor };
-}
-
-function projectPointToLine(point: Point, lineA: Point, lineB: Point): Point {
-  const vx = lineB.x - lineA.x;
-  const vy = lineB.y - lineA.y;
-  const denom = vx * vx + vy * vy || 1;
-  const t = ((point.x - lineA.x) * vx + (point.y - lineA.y) * vy) / denom;
-  return { x: lineA.x + vx * t, y: lineA.y + vy * t };
-}
-
-function circumcenter(tri: Triangle): { center: Point; degenerate: boolean } {
-  const { A, B, C } = tri;
-  const d = 2 * (A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
-
-  if (Math.abs(d) < 0.001) {
-    return { center: centroid(tri), degenerate: true };
-  }
-
-  const a2 = sq(A.x) + sq(A.y);
-  const b2 = sq(B.x) + sq(B.y);
-  const c2 = sq(C.x) + sq(C.y);
-
-  return {
-    center: {
-      x: (a2 * (B.y - C.y) + b2 * (C.y - A.y) + c2 * (A.y - B.y)) / d,
-      y: (a2 * (C.x - B.x) + b2 * (A.x - C.x) + c2 * (B.x - A.x)) / d
-    },
-    degenerate: false
-  };
-}
-
-function centroid(tri: Triangle): Point {
-  return {
-    x: (tri.A.x + tri.B.x + tri.C.x) / 3,
-    y: (tri.A.y + tri.B.y + tri.C.y) / 3
-  };
-}
-
-function buildEulerLine(O: Point, H: Point): { a: Point; b: Point } | null {
-  const vector = subtract(H, O);
-  const length = Math.hypot(vector.x, vector.y);
-  if (length < 0.001) return null;
-
-  const unit = scale(vector, 1 / length);
-  return {
-    a: add(O, scale(unit, -900)),
-    b: add(O, scale(unit, 900))
-  };
-}
-
-function computeEulerFields(triangle: Triangle): EulerFields {
-  const OResult = circumcenter(triangle);
-  const O = OResult.center;
-  const G = centroid(triangle);
-  const H = {
-    x: triangle.A.x + triangle.B.x + triangle.C.x - 2 * O.x,
-    y: triangle.A.y + triangle.B.y + triangle.C.y - 2 * O.y
-  };
-  const N = midpoint(O, H);
-  const circumRadius = distance(O, triangle.A);
-  const OG = distance(O, G);
-  const GH = distance(G, H);
-  const ratioGH_OG = OG < 0.001 ? 0 : GH / OG;
-  const cross = Math.abs((G.x - O.x) * (H.y - O.y) - (G.y - O.y) * (H.x - O.x));
-  const collinearityError = cross / Math.max(1, distance(O, H));
-  const eulerLine = buildEulerLine(O, H);
-
-  return {
-    area: triangleArea(triangle),
-    circumRadius,
-    OG,
-    GH,
-    ratioGH_OG,
-    ninePointRadius: circumRadius / 2,
-    collinear: collinearityError < 0.4,
-    eulerDegenerate: OResult.degenerate || !eulerLine,
-    O,
-    G,
-    H,
-    N,
-    eulerLine,
-    ninePointDots: [
-      midpoint(triangle.A, triangle.B),
-      midpoint(triangle.B, triangle.C),
-      midpoint(triangle.C, triangle.A),
-      midpoint(triangle.A, H),
-      midpoint(triangle.B, H),
-      midpoint(triangle.C, H),
-      projectPointToLine(triangle.A, triangle.B, triangle.C),
-      projectPointToLine(triangle.B, triangle.C, triangle.A),
-      projectPointToLine(triangle.C, triangle.A, triangle.B)
-    ]
-  };
-}
-
 function formatMetric(value: number, digits = 1) {
   if (!Number.isFinite(value)) return "--";
   return value.toFixed(digits);
-}
-
-function constrainPoint(point: Point): Point {
-  return {
-    x: clamp(point.x, plot.x + 32, plot.x + plot.width - 32),
-    y: clamp(point.y, plot.y + 32, plot.y + plot.height - 32)
-  };
-}
-
-function canUseTriangle(triangle: Triangle) {
-  const separated = vertexKeys.every((key, index) =>
-    vertexKeys.slice(index + 1).every((otherKey) => distance(triangle[key], triangle[otherKey]) > 54)
-  );
-  return separated && triangleArea(triangle) > 2000;
 }
 
 function getSvgPoint(svg: SVGSVGElement | null, event: { clientX: number; clientY: number }) {
@@ -234,8 +81,8 @@ function FieldCard({
 export function StembenchEulerLineDemo() {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const dragRef = useRef<DragState | null>(null);
-  const triangleRef = useRef<Triangle>(initialTriangle);
-  const [triangle, setTriangle] = useState<Triangle>(initialTriangle);
+  const triangleRef = useRef<EulerTriangle>(initialEulerTriangle);
+  const [triangle, setTriangle] = useState<EulerTriangle>(initialEulerTriangle);
   const [dragging, setDragging] = useState<VertexKey | null>(null);
   const [activeVertex, setActiveVertex] = useState<VertexKey>("A");
   const [taskIndex, setTaskIndex] = useState(0);
@@ -243,7 +90,9 @@ export function StembenchEulerLineDemo() {
     { id: 1, verb: "report", detail: "Initial Euler fields computed from A, B, C." }
   ]);
 
-  const fields = useMemo(() => computeEulerFields(triangle), [triangle]);
+  const fields = useMemo(() => buildEulerFields(triangle), [triangle]);
+  const centerLayout = useMemo(() => buildEulerCenterLayout(fields, triangle), [fields, triangle]);
+  const vertexLabelLayout = useMemo(() => buildEulerVertexLabelLayout(triangle, fields), [triangle, fields]);
   const minorGridX = useMemo(() => Array.from({ length: 21 }, (_, index) => plot.x + index * 30), []);
   const minorGridY = useMemo(() => Array.from({ length: 15 }, (_, index) => plot.y + index * 30), []);
   const majorGridX = useMemo(() => Array.from({ length: 7 }, (_, index) => plot.x + index * 100), []);
@@ -255,7 +104,7 @@ export function StembenchEulerLineDemo() {
 
   function updateVertex(key: VertexKey, point: Point) {
     setTriangle((current) => {
-      const candidate = { ...current, [key]: constrainPoint(point) };
+      const candidate = { ...current, [key]: constrainEulerPoint(point) };
       const nextTriangle = canUseTriangle(candidate) ? candidate : current;
       triangleRef.current = nextTriangle;
       return nextTriangle;
@@ -274,7 +123,7 @@ export function StembenchEulerLineDemo() {
   function finishDrag(event?: PointerEvent<SVGSVGElement>) {
     const drag = dragRef.current;
     if (!drag) return;
-    const nextFields = computeEulerFields(triangleRef.current);
+    const nextFields = buildEulerFields(triangleRef.current);
     pushEvidence(
       "adjusted",
       `Moved vertex ${drag.key}; OG=${formatMetric(nextFields.OG)}, GH=${formatMetric(nextFields.GH)}, GH/OG=${formatMetric(nextFields.ratioGH_OG, 2)}.`
@@ -312,9 +161,9 @@ export function StembenchEulerLineDemo() {
   }
 
   function resetTriangle() {
-    triangleRef.current = initialTriangle;
+    triangleRef.current = initialEulerTriangle;
     dragRef.current = null;
-    setTriangle(initialTriangle);
+    setTriangle(initialEulerTriangle);
     setDragging(null);
     setActiveVertex("A");
     pushEvidence("reset", "Triangle returned to the demonstration seed state.");
@@ -418,30 +267,44 @@ export function StembenchEulerLineDemo() {
                 <circle key={`nine-point-${index}`} cx={point.x} cy={point.y} r="4.5" fill="#56f1b0" />
               ))}
 
-              {[
-                { key: "O", point: fields.O, color: "#f1bd3f", dx: 12, dy: 16 },
-                { key: "G", point: fields.G, color: "#f1bd3f", dx: 12, dy: -8 },
-                { key: "H", point: fields.H, color: "#f1bd3f", dx: 12, dy: -8 },
-                { key: "N", point: fields.N, color: "#56f1b0", dx: -24, dy: -8 }
-              ].map((mark) => (
-                <g key={mark.key}>
-                  <circle cx={mark.point.x} cy={mark.point.y} r="5" fill={mark.color} stroke="#082235" strokeWidth="1.8" />
-                  <text
-                    x={mark.point.x + mark.dx}
-                    y={mark.point.y + mark.dy}
-                    fill={mark.color}
-                    fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
-                    fontSize="18"
-                    fontWeight="900"
-                    fontStyle="italic"
-                  >
-                    {mark.key}
-                  </text>
-                </g>
+              {centerLayout.points.map((mark) => (
+                <circle
+                  key={mark.key}
+                  data-viz-mark
+                  data-viz-name={mark.vizName}
+                  data-viz-center-key={mark.key}
+                  cx={mark.point.x}
+                  cy={mark.point.y}
+                  r="5"
+                  fill={mark.color}
+                  stroke="#082235"
+                  strokeWidth="1.8"
+                />
+              ))}
+
+              {centerLayout.labels.map((mark) => (
+                <text
+                  key={mark.keys}
+                  data-viz-mark
+                  data-viz-name={mark.vizName}
+                  data-viz-center-label={mark.label}
+                  data-viz-center-keys={mark.keys}
+                  x={mark.textX}
+                  y={mark.textY}
+                  textAnchor={mark.textAnchor}
+                  fill={mark.color}
+                  fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+                  fontSize="18"
+                  fontWeight="900"
+                  fontStyle="italic"
+                >
+                  {mark.label}
+                </text>
               ))}
 
               {vertexKeys.map((key) => {
                 const point = triangle[key];
+                const label = vertexLabelLayout[key];
                 const isActive = activeVertex === key || dragging === key;
                 return (
 	                  <g
@@ -467,8 +330,9 @@ export function StembenchEulerLineDemo() {
 	                    <circle r={isActive ? 20 : 17} fill="#61a9f4" fillOpacity="0.48" />
 	                    <circle r="8" fill="#80c7ff" stroke="#082235" strokeWidth="3" />
                     <text
-                      x={key === "C" ? -18 : -15}
-                      y="-16"
+                      x={label.offsetX}
+                      y={label.offsetY}
+                      textAnchor={label.textAnchor}
                       fill="#79bdff"
                       fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
                       fontSize="18"

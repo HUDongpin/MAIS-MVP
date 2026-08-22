@@ -1358,6 +1358,11 @@ export default function ParabolaLab() {
         .dir-btns button:not(:disabled):hover {
           border-color: var(--ink);
         }
+        @media (max-width: 560px) {
+          .dir-btns {
+            grid-template-columns: repeat(2, minmax(44px, 1fr));
+          }
+        }
         .quiz {
           margin-top: 16px;
           padding-top: 14px;

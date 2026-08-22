@@ -52,6 +52,7 @@ export function FigureScroll({ children }: { children: ReactNode }) {
     <div
       ref={ref}
       onScroll={measure}
+      data-figure-scroll-region
       data-figure-overflowing={isOverflowing ? "true" : undefined}
       // Same trailing-edge mask the visualization lab rail uses for its
       // overflowing grade rail, so "there is more this way" reads the same way

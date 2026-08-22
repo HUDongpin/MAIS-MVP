@@ -74,10 +74,10 @@ export default function Lesson() {
             <button type="button" onClick={() => step(5)} className="rounded-lg px-3 py-2 text-sm font-bold text-white" style={{ background: MIN_HAND }}>+5</button>
           </div>
 
-          <div className="rounded-2xl border-2 border-[var(--line)] px-6 py-3 text-center">
+          <div className="max-w-full rounded-2xl border-2 border-[var(--line)] px-3 py-3 text-center sm:px-6">
             <div className="text-xs font-bold uppercase tracking-wide text-[var(--ink-faint)]">Elapsed time</div>
             <div className="font-mono text-lg font-black">{fmt(hour, minute)} + {elapsed} min = <span style={{ color: HOUR_HAND }}>{fmt(endH, endM)}</span></div>
-            <input type="range" min={5} max={120} step={5} value={elapsed} onChange={(e) => setElapsed(Number(e.target.value))} className="mt-2 w-48 accent-[var(--band-upper)]" aria-label="elapsed minutes" />
+            <input type="range" min={5} max={120} step={5} value={elapsed} onChange={(e) => setElapsed(Number(e.target.value))} className="mt-2 w-44 max-w-full accent-[var(--band-upper)] sm:w-48" aria-label="elapsed minutes" />
           </div>
         </div>
       </Figure>

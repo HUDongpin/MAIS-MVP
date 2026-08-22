@@ -39,7 +39,7 @@ export default function Lesson() {
 
       <Figure caption="Each X is one ribbon, measured to the nearest eighth-inch.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-end justify-center gap-7" style={{ minHeight: 120 }}>
+          <div className="mx-auto flex w-max max-w-none self-start items-end justify-center gap-7" style={{ minHeight: 120 }}>
             {POINTS.map((p, i) => (
               <div key={p.label} className="flex flex-col items-center gap-1">
                 <div className="flex flex-col-reverse gap-0.5" style={{ minHeight: 90 }}>

@@ -35,7 +35,7 @@ export default function Lesson() {
 
       <Figure caption="Look at the overall trend of the cloud — not any single point.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
             {ASSOCS.map((as, i) => (
               <button key={as.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: DOT, color: "white", borderColor: DOT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{as.name}</button>
             ))}

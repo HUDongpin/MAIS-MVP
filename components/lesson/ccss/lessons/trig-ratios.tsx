@@ -26,7 +26,7 @@ export default function Lesson() {
 
       <Figure caption="For angle θ: sin = opp/hyp, cos = adj/hyp, tan = opp/adj — the same for any similar right triangle.">
         <div className="flex flex-col items-center gap-6">
-          <svg width={240} height={170} viewBox="0 0 240 170" role="img" aria-label="right triangle trig ratios">
+          <svg className="mx-auto h-auto max-w-full" width={240} height={170} viewBox="0 0 240 170" role="img" aria-label="right triangle trig ratios">
             <polygon points="30,140 200,140 30,40" fill={ACCENT} fillOpacity={0.12} stroke={ACCENT} strokeWidth={2.5} />
             <rect x={30} y={128} width={12} height={12} fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />
             <text x={165} y={158} fontSize={12} fill="var(--band-upper)">θ = {angle}°</text>

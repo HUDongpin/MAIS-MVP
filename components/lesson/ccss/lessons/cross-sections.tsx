@@ -39,7 +39,7 @@ export default function Lesson() {
 
       <Figure caption="Choose a cut through the cube. The exposed face is the cross-section.">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
             {SLICES.map((s, i) => (
               <button key={s.key} type="button" onClick={() => setIdx(i)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={idx === i ? { background: CUT, color: "white", borderColor: CUT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{s.name}</button>
             ))}

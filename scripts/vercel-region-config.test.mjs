@@ -5,7 +5,7 @@ import test from "node:test";
 
 const projectRoot = process.cwd();
 const vercelConfigPath = path.join(projectRoot, "vercel.json");
-const expectedClassroomRegion = "pdx1";
+const expectedClassroomRegion = "sin1";
 const coreClassroomRoutes = [
   "app/api/auth/login/route.ts",
   "app/api/auth/register/route.ts",
@@ -40,30 +40,30 @@ function routeFilesUnder(relativeDirectory) {
   });
 }
 
-test("Vercel Node functions default to the US West Postgres-adjacent region", () => {
+test("Vercel Node functions default to the Singapore Postgres-adjacent region", () => {
   assert.equal(existsSync(vercelConfigPath), true, "vercel.json must define the deployment region");
   const config = JSON.parse(readFileSync(vercelConfigPath, "utf8"));
 
   assert.deepEqual(
     config.regions,
     [expectedClassroomRegion],
-    "Vercel Node functions should run in pdx1 to colocate with Neon/Postgres US West Oregon"
+    "Vercel Node functions should run in sin1 to colocate with Postgres ap-southeast-1 Singapore"
   );
 });
 
-test("core classroom APIs stay Node runtime and do not pin US traffic to Hong Kong", () => {
+test("core classroom APIs stay Node runtime and do not override the Singapore project region", () => {
   for (const route of coreClassroomRoutes) {
     const source = readProjectText(route);
     assert.match(source, /export const runtime = ["']nodejs["'];/, `${route} must stay on the Node runtime`);
     assert.doesNotMatch(
       source,
       /export const preferredRegion\s*=\s*["']hkg1["'];/,
-      `${route} must not override US classroom traffic to hkg1`
+      `${route} must not override the Singapore project region with hkg1`
     );
   }
 });
 
-test("AI Tutor routes do not pin US classroom traffic to Hong Kong", () => {
+test("AI Tutor routes do not hard-pin traffic to Hong Kong", () => {
   const aiTutorRoutes = routeFilesUnder("app/api/ai-tutor");
   assert.ok(aiTutorRoutes.length > 0, "AI Tutor route files should be present for region guard coverage");
 
@@ -72,7 +72,7 @@ test("AI Tutor routes do not pin US classroom traffic to Hong Kong", () => {
     assert.doesNotMatch(
       source,
       /export const preferredRegion\s*=\s*["']hkg1["'];/,
-      `${route} must not hard-pin US classroom AI Tutor traffic to hkg1`
+      `${route} must not hard-pin AI Tutor traffic to hkg1`
     );
   }
 });

@@ -17,7 +17,8 @@ export default function Lesson() {
   const [bi, setBi] = useState(0);
   const [joined, setJoined] = useState(false);
   const b = BUILDS[bi];
-  const gap = joined ? 0 : 34;
+  // Keep the separated roof apex inside the 200 × 180 viewBox.
+  const gap = joined ? 0 : 18;
 
   return (
     <div className="prose-lesson max-w-none">
@@ -42,14 +43,14 @@ export default function Lesson() {
                 {/* roof (moves down to sit on the square) */}
                 <polygon points="55,60 145,60 100,20" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${-gap}px)`, transition: "transform 0.5s ease" }} />
                 {/* square base (fixed) */}
-                <rect x="55" y="62" width="90" height="90" fill={A} stroke="var(--surface)" strokeWidth="2" />
+                <rect x="55" y="60" width="90" height="90" fill={A} stroke="var(--surface)" strokeWidth="2" />
               </>
             ) : (
               <>
                 {/* top trapezoid (fixed) */}
-                <polygon points="60,55 140,55 160,92 40,92" fill={A} stroke="var(--surface)" strokeWidth="2" />
+                <polygon points="60,55 140,55 160,93 40,93" fill={A} stroke="var(--surface)" strokeWidth="2" />
                 {/* bottom trapezoid (moves up) */}
-                <polygon points="40,94 160,94 140,131 60,131" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${gap}px)`, transition: "transform 0.5s ease" }} />
+                <polygon points="40,93 160,93 140,131 60,131" fill={B} stroke="var(--surface)" strokeWidth="2" style={{ transform: `translateY(${gap}px)`, transition: "transform 0.5s ease" }} />
               </>
             )}
           </svg>

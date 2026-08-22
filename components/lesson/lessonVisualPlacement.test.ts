@@ -23,6 +23,34 @@ test("concept illustrations render after audio and before the concept text", () 
   assert.ok(contentIndex < nonConceptIllustrationIndex, "Worked-example and other illustrations should stay after their text");
 });
 
+test("section audio stays compact beside the heading and exposes every playback speed", () => {
+  assert.match(
+    lessonViewSource,
+    /const lessonAudioRates = \[0\.85, 1, 1\.25\] as const;/,
+    "Audio speeds should render in the requested slow-to-fast order"
+  );
+  assert.match(
+    lessonViewSource,
+    /className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"/,
+    "The section heading and its audio control should share one responsive header row"
+  );
+  assert.match(
+    lessonViewSource,
+    /lessonAudioRates\.map\(\(audioRate\) =>/,
+    "Every supported playback speed should be visible instead of hidden behind a cycle button"
+  );
+  assert.match(
+    lessonViewSource,
+    /aria-pressed=\{isActive\}/,
+    "The selected playback speed should be exposed to assistive technology"
+  );
+  assert.doesNotMatch(
+    lessonViewSource,
+    /lessonAudioWaveBars/,
+    "The section-level control should not retain the full-width decorative waveform"
+  );
+});
+
 test("lesson illustration images are allowed to enlarge within the lesson panel", () => {
   assert.match(
     lessonViewSource,

@@ -40,7 +40,7 @@ export default function Lesson() {
               {/* height line */}
               <line x1={ax * CELL} y1={0} x2={ax * CELL} y2={H} stroke="var(--ink)" strokeWidth={1} strokeDasharray="3 3" />
               <text x={W / 2} y={H + 16} textAnchor="middle" fontSize={13} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">base = {b}</text>
-              <text x={ax * CELL + 6} y={H / 2} fontSize={13} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">h = {h}</text>
+              <text x={ax === b ? ax * CELL - 6 : ax * CELL + 6} y={H / 2} textAnchor={ax === b ? "end" : "start"} fontSize={13} fontWeight={800} fill="var(--ink)" fontFamily="var(--font-mono)">h = {h}</text>
             </g>
           </svg>
 

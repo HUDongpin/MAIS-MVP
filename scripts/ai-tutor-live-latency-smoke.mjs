@@ -63,6 +63,7 @@ function smokeConfig(args) {
   return {
     artifactDir: process.env.AI_TUTOR_LIVE_LATENCY_ARTIFACT_DIR || DEFAULT_ARTIFACT_DIR,
     baseUrl: stripTrailingSlash(args.baseUrl),
+    expectedModel: process.env.AI_TUTOR_LIVE_EXPECTED_MODEL || "qwen3.8-max",
     finalP95ThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FINAL_P95_MS, 8_000, 500, 60_000),
     finalP99ThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FINAL_P99_MS, 12_000, 500, 60_000),
     firstEventThresholdMs: boundedInteger(process.env.AI_TUTOR_LIVE_FIRST_EVENT_MS, 1_000, 100, 10_000),
@@ -98,6 +99,38 @@ function cookieHeaderFromSetCookie(value) {
     .join("; ");
 }
 
+function mergeCookieHeaders(...values) {
+  const cookies = new Map();
+  for (const value of values) {
+    for (const part of value.split(";")) {
+      const cookie = part.trim();
+      const separatorIndex = cookie.indexOf("=");
+      if (separatorIndex <= 0) continue;
+      const name = cookie.slice(0, separatorIndex).trim();
+      const cookieValue = cookie.slice(separatorIndex + 1).trim();
+      if (!name || !cookieValue) continue;
+      cookies.set(name, `${name}=${cookieValue}`);
+    }
+  }
+  return [...cookies.values()].join("; ");
+}
+
+function namedCookieFromSetCookie(value, name) {
+  const cookieHeader = cookieHeaderFromSetCookie(value);
+  return cookieHeader
+    .split(";")
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith(`${name}=`)) ?? "";
+}
+
+function vercelBypassCookieFromSetCookie(value) {
+  return namedCookieFromSetCookie(value, "_vercel_jwt");
+}
+
+function appSessionCookieFromSetCookie(value) {
+  return namedCookieFromSetCookie(value, "hk_math_session");
+}
+
 function loginCredentials() {
   const username = process.env.AI_TUTOR_LIVE_USERNAME;
   const password = process.env.AI_TUTOR_LIVE_PASSWORD;
@@ -113,9 +146,28 @@ function loginCredentials() {
   return null;
 }
 
+function requireLoginCredentials() {
+  const credentials = loginCredentials();
+  if (!credentials) {
+    throw new Error(
+      [
+        "Authenticated AI Tutor live latency smoke is disabled.",
+        "Set AI_TUTOR_LIVE_USERNAME and AI_TUTOR_LIVE_PASSWORD, or set AI_TUTOR_LIVE_USE_DEMO_LOGIN=1 for the demo account.",
+        "This guard is intentional because text probes can write production tutor message/usage records."
+      ].join(" ")
+    );
+  }
+  return credentials;
+}
+
+function vercelProtectionBypassSecret() {
+  return process.env.AI_TUTOR_LIVE_VERCEL_PROTECTION_BYPASS_SECRET
+    || process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+    || "";
+}
+
 function vercelProtectionBypassHeaders() {
-  const secret = process.env.AI_TUTOR_LIVE_VERCEL_PROTECTION_BYPASS_SECRET
-    || process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+  const secret = vercelProtectionBypassSecret();
   return secret ? { "x-vercel-protection-bypass": secret } : {};
 }
 
@@ -225,25 +277,36 @@ function requestTextWithTiming(url, config, {
   });
 }
 
-async function login(baseUrl, config) {
-  const credentials = loginCredentials();
-  if (!credentials) {
-    throw new Error(
-      [
-        "Authenticated AI Tutor live latency smoke is disabled.",
-        "Set AI_TUTOR_LIVE_USERNAME and AI_TUTOR_LIVE_PASSWORD, or set AI_TUTOR_LIVE_USE_DEMO_LOGIN=1 for the demo account.",
-        "This guard is intentional because text probes can write production tutor message/usage records."
-      ].join(" ")
-    );
-  }
+async function primeVercelProtectionBypassCookie(baseUrl, config) {
+  if (!vercelProtectionBypassSecret()) return "";
 
+  try {
+    const response = await requestTextWithTiming(`${baseUrl}/api/ai-tutor/status`, config, {
+      headers: {
+        "Accept": "text/html",
+        "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
+        ...vercelProtectionBypassHeaders(),
+        "x-vercel-set-bypass-cookie": "true"
+      }
+    });
+    const cookieHeader = vercelBypassCookieFromSetCookie(response.headers["set-cookie"]);
+    if (response.status < 200 || response.status >= 400 || !cookieHeader) {
+      throw new Error("missing-bypass-cookie");
+    }
+    return cookieHeader;
+  } catch {
+    throw new Error("Vercel protection bypass cookie setup failed.");
+  }
+}
+
+async function login(baseUrl, config, credentials, protectionCookieHeader = "") {
   const response = await requestTextWithTiming(`${baseUrl}/api/auth/login`, config, {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
       "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-      ...vercelProtectionBypassHeaders()
+      ...(protectionCookieHeader ? { Cookie: protectionCookieHeader } : {})
     },
     body: JSON.stringify({
       username: credentials.username,
@@ -254,14 +317,14 @@ async function login(baseUrl, config) {
     })
   });
 
-  const cookieHeader = cookieHeaderFromSetCookie(response.headers["set-cookie"]);
+  const appSessionCookieHeader = appSessionCookieFromSetCookie(response.headers["set-cookie"]);
 
-  if (!response.ok || !cookieHeader) {
+  if (!response.ok || !appSessionCookieHeader) {
     throw new Error(`AI Tutor live latency smoke login failed with HTTP ${response.status}.`);
   }
 
   return {
-    cookieHeader,
+    cookieHeader: mergeCookieHeaders(protectionCookieHeader, appSessionCookieHeader),
     usernameRedacted: "configured"
   };
 }
@@ -411,6 +474,8 @@ function requestSseWithTiming(url, config, {
         let buffer = "";
         let finalBody = {};
         let finalEventMs = null;
+        let finalOk = null;
+        let finalStatus = null;
         let firstEventMs = null;
         let rawBytes = 0;
 
@@ -430,6 +495,8 @@ function requestSseWithTiming(url, config, {
               finalEventMs = Date.now() - startedAt;
               const parsedBody = parsed.data?.body;
               finalBody = parsedBody && typeof parsedBody === "object" ? parsedBody : {};
+              finalOk = typeof parsed.data?.ok === "boolean" ? parsed.data.ok : null;
+              finalStatus = Number.isInteger(parsed.data?.status) ? parsed.data.status : null;
             }
           }
         };
@@ -448,6 +515,8 @@ function requestSseWithTiming(url, config, {
             events,
             finalBody,
             finalEventMs: finalEventMs ?? Date.now() - startedAt,
+            finalOk,
+            finalStatus,
             firstEventMs,
             ok: status >= 200 && status < 300,
             rawBytes,
@@ -478,7 +547,6 @@ async function runTextSample(config, cookieHeader, index) {
         "Accept": "text/event-stream",
         "Content-Type": "application/json",
         "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-        ...vercelProtectionBypassHeaders(),
         Cookie: cookieHeader
       },
       body: JSON.stringify({
@@ -497,14 +565,29 @@ async function runTextSample(config, cookieHeader, index) {
     const providerStart = parsed.events.find((event) =>
       event.event === "status" && event.data?.phase === "provider-start"
     );
+    const provider = typeof providerStart?.data?.provider === "string" ? providerStart.data.provider : null;
+    const model = typeof providerStart?.data?.model === "string" ? providerStart.data.model : null;
+    const fallbackMode = finalMode?.includes("fallback")
+      || finalMode === "registration-required"
+      || finalMode === "quota-exceeded"
+      || finalMode === "vision-provider-required";
 
     return {
       eventCount: parsed.events.length,
       finalEventMs: parsed.finalEventMs,
+      finalOk: parsed.finalOk,
+      finalStatus: parsed.finalStatus,
       firstEventMs: parsed.firstEventMs,
       mode: finalMode,
-      ok: parsed.ok && Boolean(finalReply),
-      provider: typeof providerStart?.data?.provider === "string" ? providerStart.data.provider : null,
+      model,
+      ok: parsed.ok
+        && parsed.finalOk === true
+        && parsed.finalStatus === 200
+        && Boolean(finalReply)
+        && provider === "qwen"
+        && model === config.expectedModel
+        && !fallbackMode,
+      provider,
       rawBytes: parsed.rawBytes,
       replyChars: finalReply.length,
       status: parsed.status
@@ -514,8 +597,11 @@ async function runTextSample(config, cookieHeader, index) {
       errorKind: error instanceof Error ? error.name : "UnknownError",
       eventCount: 0,
       finalEventMs: Date.now() - startedAt,
+      finalOk: false,
+      finalStatus: null,
       firstEventMs: null,
       mode: null,
+      model: null,
       ok: false,
       provider: null,
       rawBytes: 0,
@@ -526,13 +612,14 @@ async function runTextSample(config, cookieHeader, index) {
 }
 
 async function runTextSamples(config) {
-  const session = await login(config.baseUrl, config);
+  const credentials = requireLoginCredentials();
+  const protectionCookieHeader = await primeVercelProtectionBypassCookie(config.baseUrl, config);
+  const session = await login(config.baseUrl, config, credentials, protectionCookieHeader);
   const samples = [];
   await requestTextWithTiming(`${config.baseUrl}/api/ai-tutor`, config, {
     headers: {
       "Accept": "application/json",
       "User-Agent": "MAIS-AI-Tutor-Live-Latency-Smoke/1.0",
-      ...vercelProtectionBypassHeaders(),
       Cookie: session.cookieHeader
     }
   }).catch(() => undefined);
@@ -580,8 +667,17 @@ function summarizeText(samples, config) {
   const finalP99Ms = percentile(finalDurations, 99);
   const failures = [];
 
-  if (samples.some((sample) => !sample.ok)) failures.push("one or more text samples did not return a non-empty final/fallback reply");
+  if (samples.some((sample) => !sample.ok)) failures.push("one or more text samples did not prove a successful live provider reply");
   if (samples.some((sample) => sample.status !== 200)) failures.push("one or more text samples did not return HTTP 200");
+  if (samples.some((sample) => sample.finalOk !== true || sample.finalStatus !== 200)) {
+    failures.push("one or more text samples reported a failing SSE final envelope");
+  }
+  if (samples.some((sample) => sample.provider !== "qwen" || sample.model !== config.expectedModel)) {
+    failures.push(`one or more text samples did not expose qwen/${config.expectedModel} provider evidence`);
+  }
+  if (samples.some((sample) => sample.mode?.includes("fallback"))) {
+    failures.push("one or more text samples ended in fallback mode");
+  }
   if (samples.some((sample) => sample.firstEventMs === null)) failures.push("one or more text samples did not expose an SSE event");
   if (firstEventMaxMs !== null && firstEventMaxMs > config.firstEventThresholdMs) {
     failures.push(`first visible event max ${firstEventMaxMs}ms > ${config.firstEventThresholdMs}ms`);

@@ -30,7 +30,7 @@ export default function Lesson() {
       </p>
 
       <Figure caption="Estimate first with rounded numbers, then compute the exact answer and compare.">
-        <div className="flex flex-col items-center gap-6">
+        <div className="mx-auto flex w-max max-w-none self-start flex-col items-center gap-6">
           <div className="flex items-center gap-2">
             {(["add", "sub"] as const).map((o) => (
               <button key={o} type="button" onClick={() => setOp(o)} className="rounded-lg border px-3 py-1.5 text-sm font-bold" style={op === o ? { background: ACCENT, color: "white", borderColor: ACCENT } : { borderColor: "var(--line)", color: "var(--ink-soft)" }}>{o === "add" ? "Add" : "Subtract"}</button>

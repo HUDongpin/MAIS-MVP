@@ -70,7 +70,7 @@ export type LLMProviderHttpResponse = {
 const defaultDeepSeekApiUrl = "https://api.deepseek.com/chat/completions";
 const defaultDeepSeekModel = "deepseek-v4-pro";
 const defaultQwenApiUrl = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
-const defaultQwenTextModel = "qwen3.7-plus";
+const defaultQwenTextModel = "qwen3.8-max";
 const defaultQwenImageModel = "qwen3.7-plus";
 const defaultQwenRealtimeApiUrl = "wss://dashscope.aliyuncs.com/api-ws/v1/realtime";
 const defaultQwenRealtimeModel = "qwen3.5-omni-flash-realtime";
@@ -211,9 +211,11 @@ export function readQwenTextProviderConfig(): LLMProviderConfig {
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_TEXT_MODEL)
       ?? readOptionalEnv(process.env.QWEN_MODEL)
-      ?? readOptionalEnv(process.env.QWEN_IMAGE_MODEL)
       ?? defaultQwenTextModel,
-    provider: resolveLLMProviderName(apiUrl)
+    // QWEN_* variables describe a Qwen contract even when Alibaba serves it
+    // from a workspace-scoped MAAS hostname rather than the legacy DashScope
+    // hostname. Keep that explicit identity instead of guessing from the URL.
+    provider: "qwen"
   };
 }
 
@@ -267,10 +269,17 @@ export function readAITutorTextProviderConfigs() {
 }
 
 export function readAITutorImageProviderConfig(): LLMProviderConfig {
-  const qwen = readQwenImageProviderConfig();
+  const qwen = readAITutorQwenImageProviderConfig();
   const deepinfra = readDeepInfraVisionProviderConfig();
   const ordered = readAITutorPreferredTextProvider() === "deepinfra" ? [deepinfra, qwen] : [qwen, deepinfra];
   return ordered.find((candidate) => Boolean(candidate.apiKey)) ?? ordered[0];
+}
+
+function readAITutorQwenImageProviderConfig(): LLMProviderConfig {
+  return {
+    ...readQwenImageProviderConfig(),
+    model: readOptionalEnv(process.env.AI_TUTOR_QWEN_IMAGE_MODEL) ?? defaultQwenTextModel
+  };
 }
 
 export function readQwenImageProviderConfig(): LLMProviderConfig {
@@ -282,8 +291,16 @@ export function readQwenImageProviderConfig(): LLMProviderConfig {
     apiKey: readOptionalEnv(process.env.QWEN_API_KEY),
     apiUrl,
     model: readOptionalEnv(process.env.QWEN_IMAGE_MODEL) ?? defaultQwenImageModel,
-    provider: resolveLLMProviderName(apiUrl)
+    provider: "qwen"
   };
+}
+
+export function resolveNovaQwenThinkingMode(
+  provider: LLMProviderName,
+  model: string
+): LLMProviderThinkingMode | undefined {
+  if (provider !== "qwen") return undefined;
+  return model.trim().toLowerCase() === defaultQwenTextModel ? "disabled" : undefined;
 }
 
 export type LLMProviderCircuitBreaker = {
@@ -529,7 +546,7 @@ export function readAITutorProviderStatus(profile = readAITutorProviderProfile()
     candidates: textProviders.candidates.map((candidate) => buildAITutorCapabilityStatus(candidate, profile)),
     preferredProvider: textProviders.preferredProvider
   };
-  const image = buildAITutorCapabilityStatus(readQwenImageProviderConfig(), profile);
+  const image = buildAITutorCapabilityStatus(readAITutorImageProviderConfig(), profile);
   const voice = buildAITutorCapabilityStatus(readQwenRealtimeProviderConfig(), profile);
   const speech = buildAITutorCapabilityStatus(readQwenAsrRealtimeProviderConfig(), profile);
 
@@ -549,7 +566,8 @@ export function buildLLMProviderRequestBody({
   maxTokens,
   provider,
   responseFormat,
-  deepSeekThinking
+  deepSeekThinking,
+  qwenThinking
 }: {
   model: string;
   messages: LLMProviderMessage[];
@@ -557,6 +575,7 @@ export function buildLLMProviderRequestBody({
   provider: LLMProviderName;
   responseFormat?: LLMProviderResponseFormat;
   deepSeekThinking?: LLMProviderThinkingMode;
+  qwenThinking?: LLMProviderThinkingMode;
 }) {
   const structuredOutput = responseFormat ? { response_format: { type: responseFormat } } : {};
 
@@ -578,6 +597,9 @@ export function buildLLMProviderRequestBody({
       model,
       messages,
       ...structuredOutput,
+      ...(provider === "qwen" && qwenThinking
+        ? { enable_thinking: qwenThinking === "enabled" }
+        : {}),
       stream: false,
       max_tokens: maxTokens
     };

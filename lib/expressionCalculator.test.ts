@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { decimalToFraction, evaluateExpression } from "@/lib/expressionCalculator";
+import { decimalToFraction, evaluateExpression, evaluateExpressionTokens } from "@/lib/expressionCalculator";
 import type { CalculatorAngleMode } from "@/lib/calculatorEngine";
 
 function ev(input: string, mode: CalculatorAngleMode = "deg"): number | null {
@@ -24,6 +24,17 @@ test("power is right-associative and binds tighter than unary minus", () => {
   assert.equal(ev("-2^2"), -4); // -(2^2)
   assert.equal(ev("2^-2"), 0.25);
   assert.equal(ev("2^3+1"), 9);
+});
+
+test("scientific-notation results remain valid operands without swallowing the e constant", () => {
+  assert.equal(ev("1e+21 + 1"), 1e21);
+  approx(ev("1e-7 × 10"), 1e-6);
+  approx(ev("2 e 2"), 4 * Math.E);
+});
+
+test("calculator token boundaries distinguish a result exponent from the e button", () => {
+  assert.equal(evaluateExpressionTokens(["1e+21", "+", "1"], "deg"), 1e21);
+  approx(evaluateExpressionTokens(["2", "e", "2"], "deg"), 4 * Math.E);
 });
 
 test("postfix square, factorial, and percent", () => {
@@ -50,6 +61,13 @@ test("functions in degrees (default) and radians", () => {
   approx(ev("sin⁻¹(1)"), 90); // inverse returns degrees
   approx(ev("sin(π÷2)", "rad"), 1);
   approx(ev("cos(0)", "rad"), 1);
+});
+
+test("tangent rejects angles where cosine is zero", () => {
+  assert.equal(ev("tan(90)"), null);
+  assert.equal(ev("tan(270)"), null);
+  assert.equal(ev("tan(π÷2)", "rad"), null);
+  assert.equal(ev("tan(-π÷2)", "rad"), null);
 });
 
 test("logs, roots, nested functions, and constants", () => {

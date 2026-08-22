@@ -34,7 +34,7 @@ export default function Lesson() {
             ))}
           </div>
 
-          <svg width={240} height={180} viewBox="0 0 240 180" role="img" aria-label={`${a.tri} triangle`}>
+          <svg className="mx-auto h-auto max-w-full" width={240} height={180} viewBox="0 0 240 180" role="img" aria-label={`${a.tri} triangle`}>
             {/* right triangle: right angle at bottom-left */}
             <polygon points="40,150 200,150 40,40" fill={ACCENT} fillOpacity={0.15} stroke={ACCENT} strokeWidth={2.5} />
             <rect x="40" y="138" width="12" height="12" fill="none" stroke="var(--ink-soft)" strokeWidth={1.5} />

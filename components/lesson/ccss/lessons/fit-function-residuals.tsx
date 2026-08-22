@@ -16,9 +16,13 @@ export default function Lesson() {
   const [b, setB] = useState(2);
   const slope = m / 10;
 
-  const sx = (x: number) => Math.round((PAD + (x / 8) * (W - 2 * PAD)) * 100) / 100;
-  const sy = (y: number) => Math.round((H - PAD - (y / 14) * (H - 2 * PAD)) * 100) / 100;
   const pred = (x: number) => slope * x + b;
+  const yMax = Math.max(
+    14,
+    Math.ceil(Math.max(...DATA.map(([, y]) => y), pred(8)) / 2) * 2,
+  );
+  const sx = (x: number) => Math.round((PAD + (x / 8) * (W - 2 * PAD)) * 100) / 100;
+  const sy = (y: number) => Math.round((H - PAD - (y / yMax) * (H - 2 * PAD)) * 100) / 100;
   const resid = DATA.map(([x, y]) => r2(y - pred(x)));
   const ssr = r2(resid.reduce((s, r) => s + r * r, 0));
 

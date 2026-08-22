@@ -159,6 +159,18 @@ test("ThreeDLabCanvas passes MAIS Manim runtime state into the formula overlay f
   assert.match(canvasSource, /projectedLabelViewport=\{manimFormulaOverlayViewport\}/);
   assert.match(canvasSource, /projectedLabelViewportSource=\{manimFormulaOverlayViewportSource\}/);
   assert.doesNotMatch(canvasSource, /projectedLabelViewport=\{\{ width: 800, height: 450 \}\}/);
+  assert.match(
+    overlaySource,
+    /maxWidth: `\$\{formulaCollisionDiagnostics\.formulaBox\.width\.toFixed\(2\)\}px`/
+  );
+  assert.match(
+    overlaySource,
+    /maxHeight: `\$\{formulaCollisionDiagnostics\.formulaBox\.height\.toFixed\(2\)\}px`/
+  );
+  assert.match(
+    overlaySource,
+    /data-viz-manim-formula-overlay[\s\S]*?tabIndex=\{0\}[\s\S]*?className="[^"]*overflow-auto/
+  );
 
   for (const attribute of [
     "data-viz-manim-formula-collision-count",
@@ -4091,12 +4103,17 @@ test("ThreeDLabCanvas exposes a MAIS Manim scene-spec selector for authoring", (
     threeDCanvasRequiredSelectors.includes("data-viz-manim-scene-selector-control" as (typeof threeDCanvasRequiredSelectors)[number]),
     "MAIS Manim scene selector should be discoverable by browser smoke tests"
   );
-  assert.match(canvasSource, /import \{ buildMathSceneSelectorCatalog, mathSceneSelectorDataAttributes, summarizeMathSceneSelectorCatalog \} from "\.\/manim\/mathSceneSelectorCatalog"/);
+  assert.match(
+    canvasSource,
+    /import \{[\s\S]*buildMathSceneSelectorCatalogEntry[\s\S]*mathSceneSelectorDataAttributes[\s\S]*summarizeMathSceneSelectorCatalog[\s\S]*\} from "\.\/manim\/mathSceneSelectorCatalog"/
+  );
   assert.match(canvasSource, /const \[manimSelectedSceneFamilyId, setManimSelectedSceneFamilyId\] = useState<ThreeDFamilyId>\(state\.familyId\)/);
   assert.match(canvasSource, /const selectedManimSceneState = useMemo/);
   assert.match(canvasSource, /familyId: manimSelectedSceneFamilyId/);
-  assert.match(canvasSource, /const manimSceneSelectorCatalog = useMemo/);
-  assert.match(canvasSource, /buildMathSceneSelectorCatalog\(\{ accent, state \}\)/);
+  assert.match(canvasSource, /const \[manimSceneSelectorCatalog, setManimSceneSelectorCatalog\] = useState<MathSceneSelectorCatalogEntry\[]>\(\[]\)/);
+  assert.match(canvasSource, /const familyQueue = \[\.\.\.maisManimFamilyIds\]/);
+  assert.match(canvasSource, /buildMathSceneSelectorCatalogEntry\(\{ accent, familyId, state: catalogStateRef\.current \}\)/);
+  assert.match(canvasSource, /scheduleSlice\(buildNextFamily\)/);
   assert.match(canvasSource, /buildMathSceneSpecForThreeDFamily\(\{ accent, state: selectedManimSceneState \}\)/);
   assert.match(canvasSource, /data-viz-manim-scene-selector-control/);
   assert.match(canvasSource, /value=\{manimSelectedSceneFamilyId\}/);
@@ -4134,7 +4151,7 @@ test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls 
   assert.match(canvasSource, /import \{ buildScenePlaybackPlan[\s\S]*\} from "\.\/manim\/mathScenePlayback"/);
   assert.match(canvasSource, /import \{[\s\S]*createCheckpointStore[\s\S]*listCheckpointKeys[\s\S]*restoreCheckpoint[\s\S]*saveCheckpoint[\s\S]*type SceneCheckpointStore[\s\S]*\} from "\.\/manim\/mathSceneCheckpoint"/);
   assert.match(canvasSource, /type ManimPlaybackState = "playing" \| "paused" \| "scrubbing" \| "checkpoint"/);
-  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("playing"\)/);
+  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("paused"\)/);
   assert.match(canvasSource, /buildScenePlaybackPlan\(manimScene\.timeline/);
   assert.match(canvasSource, /const \[manimCheckpointStore, setManimCheckpointStore\] = useState<SceneCheckpointStore<ManimCheckpointState>>/);
   assert.match(canvasSource, /saveCheckpoint\(currentStore/);
@@ -4188,6 +4205,82 @@ test("ThreeDLabCanvas docks MAIS Manim authoring controls outside the mobile sce
   assert.doesNotMatch(
     canvasSource,
     /data-viz-manim-playback-control[\s\S]{0,220}className="absolute bottom-14 left-3 right-3/
+  );
+});
+
+test("ThreeDLabCanvas keeps authoring tools out of the direct learner presentation", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const typeSource = fs.readFileSync("components/visualizations/three/threeDSceneTypes.ts", "utf8");
+
+  assert.match(typeSource, /export type ThreeDPresentation = "authoring" \| "learner";/);
+  assert.match(typeSource, /presentation\?: ThreeDPresentation;/);
+  assert.match(canvasSource, /presentation = "authoring"/);
+  assert.match(canvasSource, /const showAuthoringControls = presentation === "authoring";/);
+  assert.match(
+    canvasSource,
+    /const presentationResetPlaybackState: ManimPlaybackState = presentation === "learner" \? "paused" : "playing";/
+  );
+  assert.equal(
+    canvasSource.match(/setManimPlaybackState\(presentationResetPlaybackState\)/g)?.length,
+    2,
+    "both learner reset and scene-identity reset must remain paused while authoring retains autoplay"
+  );
+  const resetStart = canvasSource.indexOf("const resetCameraAndTimeline = useCallback");
+  const resetEnd = canvasSource.indexOf("const switchManimCameraMode = useCallback", resetStart);
+  const sceneIdentityResetStart = canvasSource.indexOf(
+    'setManimHistoryStore(createSceneHistoryStore(initialManimCheckpointState(manimHistorySceneId), { label: "initial" }))'
+  );
+  const sceneIdentityResetEnd = canvasSource.indexOf("useEffect(() => {", sceneIdentityResetStart + 1);
+  const runFromBeatStart = canvasSource.indexOf("const runManimFromBeat = useCallback");
+  const runFromBeatEnd = canvasSource.indexOf("const showManimFinalFrame = useCallback", runFromBeatStart);
+  assert.ok(resetStart >= 0 && resetEnd > resetStart, "learner reset callback must remain inspectable");
+  assert.ok(
+    sceneIdentityResetStart >= 0 && sceneIdentityResetEnd > sceneIdentityResetStart,
+    "scene-identity reset effect must remain inspectable"
+  );
+  assert.ok(runFromBeatStart >= 0 && runFromBeatEnd > runFromBeatStart, "run-from-beat callback must remain inspectable");
+  assert.match(
+    canvasSource.slice(resetStart, resetEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(
+    canvasSource.slice(sceneIdentityResetStart, sceneIdentityResetEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(canvasSource.slice(runFromBeatStart, runFromBeatEnd), /setManimPlaybackState\("playing"\)/);
+  assert.doesNotMatch(
+    canvasSource.slice(runFromBeatStart, runFromBeatEnd),
+    /setManimPlaybackState\(presentationResetPlaybackState\)/
+  );
+  assert.match(
+    canvasSource,
+    /\}, \[manimHistorySceneId, presentationResetPlaybackState, state\.familyId\]\);/
+  );
+  assert.match(
+    canvasSource,
+    /\}, \[manimHistorySceneId, presentationResetPlaybackState, runtime, state\.familyId\]\);/
+  );
+  assert.match(canvasSource, /data-viz-manim-presentation=\{presentation\}/);
+  assert.match(canvasSource, /data-viz-manim-authoring-controls-visible=\{String\(showAuthoringControls\)\}/);
+
+  for (const selector of [
+    "data-viz-manim-camera-mode-control",
+    "data-viz-manim-control-row=\"capture\"",
+    "data-viz-manim-parameter-panel-control",
+    "data-viz-manim-checkpoint-control",
+    "data-viz-manim-history-control",
+    "data-viz-manim-authoring-control"
+  ]) {
+    assert.match(
+      canvasSource,
+      new RegExp(`showAuthoringControls \\? \\(\\s*[\\s\\S]{0,160}<[^>]+${selector}`),
+      `${selector} must be rendered only for the authoring presentation`
+    );
+  }
+
+  assert.match(
+    canvasSource,
+    /data-viz-manim-control-row="playback"[\s\S]*data-viz-manim-playback-toggle[\s\S]*data-viz-manim-timeline-scrubber/
   );
 });
 
