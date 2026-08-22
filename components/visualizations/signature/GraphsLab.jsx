@@ -1120,7 +1120,7 @@ export default function GraphsLab() {
           >
             <canvas ref={canvasRef} />
             <span className="hint mono">
-              {effView === 'bar' ? 'click a bar to focus · drag its top to change the count' : 'click a category to focus it'}
+              {effView === 'bar' ? 'drag bars · keyboard table controls below' : 'focus categories with the buttons below'}
             </span>
           </div>
           <p className="sr-only" aria-live="polite">
@@ -1129,7 +1129,7 @@ export default function GraphsLab() {
           </p>
 
           {/* frequency table — the counts, always editable */}
-          <div className="tablewrap">
+          <div className="tablewrap" data-viz-keyboard-equivalent="graph-table">
             <table className="freq">
               <thead>
                 <tr>
@@ -1158,10 +1158,17 @@ export default function GraphsLab() {
                         '%'
                       : '—';
                   return (
-                    <tr key={c.key} className={isFocus ? 'rf' : ''} onClick={() => setFocus(i)}>
+                    <tr key={c.key} className={isFocus ? 'rf' : ''}>
                       <td className="c-cat">
-                        <span className="sw" style={{ background: c.color }} />
-                        {c.name}
+                        <button
+                          type="button"
+                          className="catfocus"
+                          aria-pressed={isFocus}
+                          onClick={() => setFocus((prev) => (prev === i ? null : i))}
+                        >
+                          <span className="sw" style={{ background: c.color }} aria-hidden="true" />
+                          {c.name}
+                        </button>
                       </td>
                       <td className="c-cnt">
                         <span className="stepper">
@@ -1529,9 +1536,6 @@ export default function GraphsLab() {
           padding: 5px 8px;
           border-bottom: 1px solid rgba(28, 43, 58, 0.07);
         }
-        .freq tr {
-          cursor: pointer;
-        }
         .freq tr.rf td {
           background: rgba(200, 30, 79, 0.06);
         }
@@ -1541,6 +1545,24 @@ export default function GraphsLab() {
         }
         .c-cat {
           white-space: nowrap;
+        }
+        .catfocus {
+          display: inline-flex;
+          align-items: center;
+          min-width: 44px;
+          min-height: 44px;
+          padding: 3px 7px;
+          border: 1px solid transparent;
+          border-radius: 7px;
+          background: transparent;
+          color: var(--ink);
+          font: inherit;
+          cursor: pointer;
+        }
+        .catfocus:hover,
+        .catfocus[aria-pressed='true'] {
+          border-color: rgba(200, 30, 79, 0.35);
+          background: rgba(200, 30, 79, 0.06);
         }
         .c-enc {
           color: var(--ink-soft);
@@ -1560,8 +1582,8 @@ export default function GraphsLab() {
           gap: 8px;
         }
         .stepper button {
-          width: 24px;
-          height: 24px;
+          width: 44px;
+          height: 44px;
           border-radius: 6px;
           border: 1px solid rgba(28, 43, 58, 0.25);
           background: #fff;

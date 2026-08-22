@@ -62,6 +62,15 @@ test("visualization lab direct-entry workspace owns the stable lab-example selec
   );
 });
 
+test("sole signature benches retain the canonical active-bench wrapper", () => {
+  assert.doesNotMatch(source, /activeHasRelatedBenches/);
+  assert.match(
+    source,
+    /activeSignatureAssignment\s*\?\s*\(\s*<SignatureBenchSwitcher/,
+    "a signature topic with no related chips still needs its active bench identity and runtime wrapper"
+  );
+});
+
 test("visualization lab direct-entry seeds workspace state before effects", () => {
   assert.match(source, /type VisualizationLabInitialRouteState =/);
   assert.match(source, /function buildInitialVisualizationLabRouteState\(/);
@@ -73,6 +82,35 @@ test("visualization lab direct-entry seeds workspace state before effects", () =
   assert.match(source, /useState<DirectLinkStatus>\(initialRouteState\.directLinkStatus\)/);
   assert.match(source, /useState<string \| null>\(initialRouteState\.requestedLabId\)/);
   assert.doesNotMatch(source, /useState<PanelMode>\("control"\)/);
+});
+
+test("visualization lab waits for session settings before canonicalizing a learner route", () => {
+  assert.match(
+    source,
+    /const \{ currentUser, language, recordLearningEvent, selectedGrade, settingsReady, t, text \} = useSettings\(\);/
+  );
+  assert.match(
+    source,
+    /useEffect\(\(\) => \{\s+if \(!settingsReady\) return;\s+function openLabFromLocation\(\)/
+  );
+  assert.match(
+    source,
+    /\[activeGroup\.grade, currentUser, curriculumScopedGroups, initialGrade, initialLabId, settingsReady\]/
+  );
+});
+
+test("visualization lab gives signature benches an opaque host card", () => {
+  assert.match(source, /opaqueSurface=\{activeDirectoryLab\.moduleId === "signature-lab"\}/);
+});
+
+test("visualization lab shell keeps signature tabs and header controls accessible", () => {
+  assert.match(source, /min-h-11 rounded-full border px-3\.5 py-1\.5/);
+  assert.match(source, /border-cyan-700 bg-cyan-700 text-white/);
+  assert.doesNotMatch(source, /<span className="ml-1\.5 opacity-70">· primary<\/span>/);
+  assert.match(source, /<span className="pointer-events-none ml-1\.5">· primary<\/span>/);
+  assert.match(source, /data-viz-back-to-control-panel-link[\s\S]{0,260}min-h-11/);
+  assert.match(source, /data-viz-copy-lab-link[\s\S]{0,640}disabled:bg-slate-100 disabled:text-slate-700/);
+  assert.match(source, /data-viz-copy-lab-snapshot[\s\S]{0,640}disabled:bg-slate-100 disabled:text-slate-700/);
 });
 
 test("visualization lab catalog loading shell exposes the direct-entry workspace selector", () => {
