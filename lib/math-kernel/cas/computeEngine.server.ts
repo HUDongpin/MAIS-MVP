@@ -612,6 +612,9 @@ function compareExactOrderWithEngine(
   if (!boxedRight.ok) return boxedRight;
 
   try {
+    if (boxedLeft.value.isReal !== true || boxedRight.value.isReal !== true) {
+      return { ok: true, value: "unknown" };
+    }
     return {
       ok: true,
       value: compareExactOrderExpressions(

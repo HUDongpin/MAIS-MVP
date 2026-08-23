@@ -166,6 +166,9 @@ test("compares a close radical through its exact radicand", () => {
 });
 
 test("preflights real root domains before sign and equality proofs", () => {
+  const nonRealSqrt = ["Sqrt", -1] as const;
+  assert.equal(unwrap(compareExactOrder(nonRealSqrt, nonRealSqrt)), "unknown");
+
   const nonRealEvenRoot = ["Root", -16, 4] as const;
   assert.equal(unwrap(compareExactOrder(nonRealEvenRoot, 0)), "unknown");
   assert.equal(unwrap(compareExactOrder(0, nonRealEvenRoot)), "unknown");
@@ -174,9 +177,9 @@ test("preflights real root domains before sign and equality proofs", () => {
     "unknown",
   );
 
-  const realOddRoot = ["Root", -8, 3] as const;
-  assert.equal(unwrap(compareExactOrder(realOddRoot, 0)), "less");
-  assert.equal(unwrap(compareExactOrder(0, realOddRoot)), "greater");
+  const vendorNonRealOddRoot = ["Root", -8, 3] as const;
+  assert.equal(unwrap(compareExactOrder(vendorNonRealOddRoot, 0)), "unknown");
+  assert.equal(unwrap(compareExactOrder(0, vendorNonRealOddRoot)), "unknown");
 });
 
 test("exact order is explicit for equality, opposite signs, and symbolic uncertainty", () => {
