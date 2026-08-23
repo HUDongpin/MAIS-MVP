@@ -46,6 +46,8 @@ const MAIS_CAS_ALLOWED_OPERATORS: ReadonlySet<string> = new Set([
 ]);
 
 type ComputeExpression = ReturnType<ComputeEngine["box"]>;
+// This is a small proof profile for app-constructed arithmetic, not a general CAS.
+const EXACT_ORDER_REWRITE_DEPTH = 4;
 
 function casFailure<T>(message: string): KernelResult<T> {
   return {
@@ -282,6 +284,67 @@ function exactSquareDifference(
     .simplify();
 }
 
+function exactPower(
+  engine: ComputeEngine,
+  base: ComputeExpression,
+  exponent: number,
+): ComputeExpression {
+  return engine.box([
+    "Power",
+    base.toMathJson({ fractionalDigits: "auto" }),
+    exponent,
+  ] as MathJsonExpression);
+}
+
+interface ExactRootView {
+  readonly radicand: ComputeExpression;
+  readonly degree: number;
+}
+
+function rootExpression(expression: ComputeExpression): ExactRootView | null {
+  if (isFunction(expression, "Sqrt") && expression.nops === 1) {
+    return { radicand: expression.op1, degree: 2 };
+  }
+  if (!isFunction(expression, "Root") || expression.nops !== 2) return null;
+
+  const degree = expression.op2.toMathJson({ fractionalDigits: "auto" });
+  if (
+    typeof degree !== "number" ||
+    !Number.isSafeInteger(degree) ||
+    degree < 2
+  ) {
+    return null;
+  }
+  return { radicand: expression.op1, degree };
+}
+
+function exactRootPowerRadicand(
+  expression: ComputeExpression,
+): ComputeExpression | null {
+  let base: ComputeExpression;
+  let degree: number;
+  if (isFunction(expression, "Square") && expression.nops === 1) {
+    base = expression.op1;
+    degree = 2;
+  } else if (isFunction(expression, "Power") && expression.nops === 2) {
+    const exponent = expression.op2.toMathJson({ fractionalDigits: "auto" });
+    if (
+      typeof exponent !== "number" ||
+      !Number.isSafeInteger(exponent) ||
+      exponent < 2
+    ) {
+      return null;
+    }
+    base = expression.op1;
+    degree = exponent;
+  } else {
+    return null;
+  }
+
+  const root = rootExpression(base);
+  return root?.degree === degree ? root.radicand : null;
+}
+
 function exactNegation(
   engine: ComputeEngine,
   expression: ComputeExpression,
@@ -294,7 +357,44 @@ function exactNegation(
     .simplify();
 }
 
-function compareSimplifiedOrder(
+function compareExplicitDifferenceFromZero(
+  engine: ComputeEngine,
+  expression: ComputeExpression,
+  depth: number,
+): ExactOrderComparison | null {
+  if (isFunction(expression, "Subtract") && expression.nops === 2) {
+    return compareExactOrderExpressions(
+      engine,
+      expression.op1,
+      expression.op2,
+      depth + 1,
+    );
+  }
+  if (!isFunction(expression, "Add") || expression.nops !== 2) return null;
+
+  const [first, second] = expression.ops;
+  const firstSign = definiteSign(first);
+  const secondSign = definiteSign(second);
+  if (firstSign === "positive" && secondSign === "negative") {
+    return compareExactOrderExpressions(
+      engine,
+      first,
+      exactNegation(engine, second),
+      depth + 1,
+    );
+  }
+  if (firstSign === "negative" && secondSign === "positive") {
+    return compareExactOrderExpressions(
+      engine,
+      second,
+      exactNegation(engine, first),
+      depth + 1,
+    );
+  }
+  return null;
+}
+
+function compareExactOrderExpressions(
   engine: ComputeEngine,
   left: ComputeExpression,
   right: ComputeExpression,
@@ -302,12 +402,133 @@ function compareSimplifiedOrder(
 ): ExactOrderComparison {
   if (left.isSame(right)) return "equal";
 
-  const difference = exactBinaryExpression(engine, "Subtract", left, right);
-  const direct = orderFromDifferenceSign(definiteSign(difference));
-  if (direct !== null) return direct;
+  if (depth < EXACT_ORDER_REWRITE_DEPTH) {
+    const zero = engine.box(0 as MathJsonExpression);
+    const reducedLeft = exactRootPowerRadicand(left);
+    if (reducedLeft !== null) {
+      const domain = compareExactOrderExpressions(
+        engine,
+        reducedLeft,
+        zero,
+        depth + 1,
+      );
+      if (domain === "equal" || domain === "greater") {
+        return compareExactOrderExpressions(
+          engine,
+          reducedLeft,
+          right,
+          depth + 1,
+        );
+      }
+    }
+    const reducedRight = exactRootPowerRadicand(right);
+    if (reducedRight !== null) {
+      const domain = compareExactOrderExpressions(
+        engine,
+        reducedRight,
+        zero,
+        depth + 1,
+      );
+      if (domain === "equal" || domain === "greater") {
+        return compareExactOrderExpressions(
+          engine,
+          left,
+          reducedRight,
+          depth + 1,
+        );
+      }
+    }
+  }
 
   const leftSign = definiteSign(left);
   const rightSign = definiteSign(right);
+
+  if (depth < EXACT_ORDER_REWRITE_DEPTH) {
+    const leftRoot = rootExpression(left);
+    const rightRoot = rootExpression(right);
+    const zero = engine.box(0 as MathJsonExpression);
+    const leftRootDomain = leftRoot === null
+      ? null
+      : compareExactOrderExpressions(
+          engine,
+          leftRoot.radicand,
+          zero,
+          depth + 1,
+        );
+    const rightRootDomain = rightRoot === null
+      ? null
+      : compareExactOrderExpressions(
+          engine,
+          rightRoot.radicand,
+          zero,
+          depth + 1,
+        );
+    const leftRootIsReal =
+      leftRootDomain === "equal" || leftRootDomain === "greater";
+    const rightRootIsReal =
+      rightRootDomain === "equal" || rightRootDomain === "greater";
+
+    if (
+      leftRoot !== null &&
+      rightRoot !== null &&
+      leftRootIsReal &&
+      rightRootIsReal
+    ) {
+      if (leftRoot.degree === rightRoot.degree) {
+        return compareExactOrderExpressions(
+          engine,
+          leftRoot.radicand,
+          rightRoot.radicand,
+          depth + 1,
+        );
+      }
+      return compareExactOrderExpressions(
+        engine,
+        exactPower(engine, leftRoot.radicand, rightRoot.degree),
+        exactPower(engine, rightRoot.radicand, leftRoot.degree),
+        depth + 1,
+      );
+    }
+    if (leftRoot !== null && leftRootIsReal && rightSign === "negative") {
+      return "greater";
+    }
+    if (
+      leftRoot !== null &&
+      leftRootIsReal &&
+      (rightSign === "positive" || rightSign === "zero")
+    ) {
+      return compareExactOrderExpressions(
+        engine,
+        leftRoot.radicand,
+        exactPower(engine, right, leftRoot.degree),
+        depth + 1,
+      );
+    }
+    if (rightRoot !== null && rightRootIsReal && leftSign === "negative") {
+      return "less";
+    }
+    if (
+      rightRoot !== null &&
+      rightRootIsReal &&
+      (leftSign === "positive" || leftSign === "zero")
+    ) {
+      return compareExactOrderExpressions(
+        engine,
+        exactPower(engine, left, rightRoot.degree),
+        rightRoot.radicand,
+        depth + 1,
+      );
+    }
+  }
+
+  if (right.isSame(0) && depth < EXACT_ORDER_REWRITE_DEPTH) {
+    const explicit = compareExplicitDifferenceFromZero(engine, left, depth);
+    if (explicit !== null) return explicit;
+  }
+  if (left.isSame(0) && depth < EXACT_ORDER_REWRITE_DEPTH) {
+    const explicit = compareExplicitDifferenceFromZero(engine, right, depth);
+    if (explicit !== null) return reverseOrder(explicit);
+  }
 
   if (leftSign === "zero") {
     if (rightSign === "zero") return "equal";
@@ -321,6 +542,11 @@ function compareSimplifiedOrder(
   if (leftSign === "positive" && rightSign === "negative") return "greater";
   if (leftSign === "negative" && rightSign === "positive") return "less";
 
+  const difference = exactBinaryExpression(engine, "Subtract", left, right);
+  const differenceSign = definiteSign(difference);
+  if (differenceSign === "negative") return "less";
+  if (differenceSign === "positive") return "greater";
+
   if (
     (leftSign === "positive" && rightSign === "positive") ||
     (leftSign === "negative" && rightSign === "negative")
@@ -329,7 +555,7 @@ function compareSimplifiedOrder(
     const squareOrder = orderFromDifferenceSign(
       definiteSign(squareDifference),
     );
-    if (squareOrder !== null) {
+    if (squareOrder === "less" || squareOrder === "greater") {
       return leftSign === "negative"
         ? reverseOrder(squareOrder)
         : squareOrder;
@@ -340,33 +566,13 @@ function compareSimplifiedOrder(
   // terms have opposite definite signs, compare their positive magnitudes
   // using the same exact-sign strategy. This proves signs such as sqrt(2)-q
   // without numeric approximation or tolerance-based equality.
-  if (
-    depth < 2 &&
-    (isFunction(difference, "Add") || isFunction(difference, "Subtract")) &&
-    difference.nops === 2
-  ) {
-    const [first, second] = difference.ops;
-    if (difference.operator === "Subtract") {
-      return compareSimplifiedOrder(engine, first, second, depth + 1);
-    }
-    const firstSign = definiteSign(first);
-    const secondSign = definiteSign(second);
-    if (firstSign === "positive" && secondSign === "negative") {
-      return compareSimplifiedOrder(
-        engine,
-        first,
-        exactNegation(engine, second),
-        depth + 1,
-      );
-    }
-    if (firstSign === "negative" && secondSign === "positive") {
-      return compareSimplifiedOrder(
-        engine,
-        second,
-        exactNegation(engine, first),
-        depth + 1,
-      );
-    }
+  if (depth < 2) {
+    const explicit = compareExplicitDifferenceFromZero(
+      engine,
+      difference,
+      depth,
+    );
+    if (explicit !== null) return explicit;
   }
 
   return "unknown";
@@ -385,10 +591,10 @@ function compareExactOrderWithEngine(
   try {
     return {
       ok: true,
-      value: compareSimplifiedOrder(
+      value: compareExactOrderExpressions(
         engine,
-        boxedLeft.value.simplify(),
-        boxedRight.value.simplify(),
+        boxedLeft.value,
+        boxedRight.value,
       ),
     };
   } catch {

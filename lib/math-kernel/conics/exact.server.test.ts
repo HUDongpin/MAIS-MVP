@@ -21,6 +21,11 @@ const Q_ABOVE_SQRT_TWO = [
   { num: "1414213562373095048801688724209698078569671875376948073177" },
   { num: "1e+57" },
 ] as const;
+const TEN_TO_FIFTY = ["Power", 10, 50] as const;
+const SQRT_JUST_ABOVE_TEN_TO_FIFTY = [
+  "Sqrt",
+  ["Add", ["Power", 10, 100], 1],
+] as const;
 
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
   assert.equal(result.ok, true);
@@ -210,6 +215,24 @@ test("conic positivity and ellipse axis order use exact sign proofs", () => {
   assert.deepEqual(adversarial.messages, []);
   const ellipse = unwrap(adversarial.value);
   assert.equal(ellipse.majorAxis, "x");
+});
+
+test("exact ellipse preserves close radical semiaxes without CAS logging", () => {
+  const session = new CasSession();
+  const adversarial = captureAbnormalConsole(() =>
+    ellipseExact(
+      { a: SQRT_JUST_ABOVE_TEN_TO_FIFTY, b: TEN_TO_FIFTY },
+      session,
+    ),
+  );
+
+  assert.deepEqual(adversarial.messages, []);
+  const ellipse = unwrap(adversarial.value);
+  assert.equal(ellipse.majorAxis, "x");
+  assert.deepEqual(
+    ellipse.a,
+    unwrap(session.boxMathJson(SQRT_JUST_ABOVE_TEN_TO_FIFTY)),
+  );
 });
 
 test("exact construction does not require values to fit in a JavaScript number", () => {

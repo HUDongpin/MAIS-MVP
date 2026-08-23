@@ -23,6 +23,12 @@ const Q_ABOVE_SQRT_TWO = [
   { num: "1414213562373095048801688724209698078569671875376948073177" },
   { num: "1e+57" },
 ] as const;
+const TEN_TO_FIFTY = ["Power", 10, 50] as const;
+const SQRT_JUST_ABOVE_TEN_TO_FIFTY = [
+  "Sqrt",
+  ["Add", ["Power", 10, 100], 1],
+] as const;
+const SQRT_TEN_TO_HUNDRED = ["Sqrt", ["Power", 10, 100]] as const;
 
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
   assert.equal(result.ok, true);
@@ -140,6 +146,23 @@ test("proves exact order through sign-safe squared comparison without decimal to
     ),
     "less",
   );
+});
+
+test("compares a close radical through its exact radicand", () => {
+  assert.equal(
+    unwrap(compareExactOrder(SQRT_JUST_ABOVE_TEN_TO_FIFTY, TEN_TO_FIFTY)),
+    "greater",
+  );
+  assert.equal(
+    unwrap(compareExactOrder(TEN_TO_FIFTY, SQRT_JUST_ABOVE_TEN_TO_FIFTY)),
+    "less",
+  );
+  assert.equal(
+    unwrap(compareExactOrder(SQRT_TEN_TO_HUNDRED, TEN_TO_FIFTY)),
+    "equal",
+  );
+  assert.equal(unwrap(compareExactOrder(["Sqrt", -1], 0)), "unknown");
+  assert.equal(unwrap(compareExactOrder(0, ["Sqrt", -1])), "unknown");
 });
 
 test("exact order is explicit for equality, opposite signs, and symbolic uncertainty", () => {

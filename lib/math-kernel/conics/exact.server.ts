@@ -108,7 +108,9 @@ function exactConstant(
       `${label} must be a finite real constant.`,
     );
   }
-  const dto = session.toExactValueDto(input);
+  const boxed = session.boxMathJson(input);
+  if (!boxed.ok) return boxed;
+  const dto = session.toExactValueDto(boxed.value);
   if (!dto.ok) return dto;
   if (dto.value.decimal === null) {
     return fail(
@@ -119,7 +121,7 @@ function exactConstant(
   }
   return {
     ok: true,
-    value: { expression: dto.value.mathJson },
+    value: { expression: boxed.value },
   };
 }
 
