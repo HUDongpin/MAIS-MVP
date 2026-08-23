@@ -162,6 +162,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify server-only math CAS is absent from learner chunks
+        run: node scripts/check-math-kernel-client-bundle.mjs
+
   postgres-integration:
     # Runs the actual migration and compatibility SQL against PostgreSQL 16.
     # Source-regex tests remain useful, but cannot prove transaction, trigger,

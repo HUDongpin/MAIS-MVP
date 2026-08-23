@@ -2256,6 +2256,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:e2e",
     "test:imports",
     "test:lesson-menu",
+    "test:math-kernel",
     "test:mvp",
     "test:parent-console",
     "test:prod-certification",
@@ -2292,7 +2293,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "84168d8dae63b251410fdd0aa8e9403ce08632d0c463836a2ccadabb0266a6dd",
+    "f7004b53e1e9aada904b87bb1d887a0de40fa220df5f5bffa1fa8fda31b3151d",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -2311,10 +2312,12 @@ test("P0 package delta and default release gates are self-contained in Git objec
 
   assert.deepEqual(current.dependencies, {
     ...baseline.dependencies,
+    "@cortex-js/compute-engine": "0.118.1",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.6.1",
     next: "15.5.23",
     pptxgenjs: "^4.0.1",
+    "server-only": "0.0.1",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
     ws: "^8.21.0"
@@ -2333,7 +2336,13 @@ test("P0 package delta and default release gates are self-contained in Git objec
   assert.deepEqual(packageLock.packages[""].dependencies, current.dependencies);
   assert.deepEqual(packageLock.packages[""].devDependencies, current.devDependencies);
   assert.equal(packageLock.packages["node_modules/next"].version, "15.5.23");
+  assert.equal(packageLock.packages["node_modules/@cortex-js/compute-engine"].version, "0.118.1");
+  assert.match(packageLock.packages["node_modules/@cortex-js/compute-engine"].integrity, /^sha512-/u);
+  assert.equal(packageLock.packages["node_modules/complex-esm"].version, "2.1.1-esm1");
+  assert.match(packageLock.packages["node_modules/complex-esm"].integrity, /^sha512-/u);
   assert.equal(packageLock.packages["node_modules/postcss"].version, "8.5.26");
+  assert.equal(packageLock.packages["node_modules/server-only"].version, "0.0.1");
+  assert.match(packageLock.packages["node_modules/server-only"].integrity, /^sha512-/u);
   assert.equal(packageLock.packages["node_modules/three"].version, "0.184.0");
   assert.equal(packageLock.packages["node_modules/three-stdlib"].version, "2.36.1");
   assert.equal(packageLock.packages["node_modules/ws"].version, "8.21.1");
