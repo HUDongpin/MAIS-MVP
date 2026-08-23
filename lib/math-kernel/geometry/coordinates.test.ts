@@ -124,10 +124,53 @@ test("coordinate transforms reject invalid scale, non-finite points, and zero no
   expectError(mathNormalToWorldNormal([0, 0, 0]), KERNEL_ERROR_CODES.zeroDirection);
   expectError(
     mathNormalToWorldNormal([1e-300, 0, 0], 1e200),
-    KERNEL_ERROR_CODES.nonFiniteInput,
+    KERNEL_ERROR_CODES.invalidScale,
   );
   expectError(
     mathNormalToWorldNormal([Number.MIN_VALUE, 1, 0], 2),
     KERNEL_ERROR_CODES.nonFiniteInput,
   );
+});
+
+test("coordinate transforms reject scales whose determinant cannot stay finite and nonzero", () => {
+  expectError(
+    mathZUpToWorldYUp([1.5, 0, 0], Number.MIN_VALUE),
+    KERNEL_ERROR_CODES.invalidScale,
+  );
+  expectError(
+    worldYUpToMathZUp([Number.MIN_VALUE, 0, 0], Number.MIN_VALUE),
+    KERNEL_ERROR_CODES.invalidScale,
+  );
+  expectError(
+    mathNormalToWorldNormal([1, 0, 0], Number.MIN_VALUE),
+    KERNEL_ERROR_CODES.invalidScale,
+  );
+});
+
+test("coordinate and normal transforms reject materially lossy nonzero round trips", () => {
+  const tinyScale = 1e-107;
+  const hugeScale = 1e102;
+  assert.equal(unwrap(mathZUpToWorldDeterminant(tinyScale)), -1e-321);
+  assert.equal(unwrap(mathZUpToWorldDeterminant(hugeScale)), -1e306);
+
+  expectError(
+    mathZUpToWorldYUp([1.5e-216, 0, 0], tinyScale),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+  expectError(
+    worldYUpToMathZUp([1.5e-216, 0, 0], hugeScale),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+  expectError(
+    mathNormalToWorldNormal([1.5e-216, 1, 0], hugeScale),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
+test("invalid non-finite scale errors remain JSON round-trip safe", () => {
+  for (const scale of [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]) {
+    const result = mathZUpToWorldYUp([1, 2, 3], scale);
+    expectError(result, KERNEL_ERROR_CODES.invalidScale);
+    assert.deepEqual(JSON.parse(JSON.stringify(result)), result);
+  }
 });

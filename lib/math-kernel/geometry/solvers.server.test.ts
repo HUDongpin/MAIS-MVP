@@ -120,6 +120,22 @@ test("cube solver reproduces sqrt(3)/3 and finite render coordinates", () => {
   assert.equal(solution.provenance.operation, "cubeLinePlaneAngle");
 });
 
+test("solver absolute-dot intermediate values agree with their explanation", () => {
+  const session = new CasSession();
+  const pyramid = unwrap(
+    solveRegularQuadPyramidLinePlaneAngle(undefined, session),
+  );
+  const cube = unwrap(solveCubeLinePlaneAngle(undefined, session));
+  const pyramidDot = pyramid.intermediates.find((step) => step.id === "dot");
+  const cubeDot = cube.intermediates.find((step) => step.id === "dot");
+  assert.ok(pyramidDot?.value);
+  assert.ok(cubeDot?.value);
+  assert.match(pyramidDot?.explanation ?? "", /absolute/i);
+  assert.match(cubeDot?.explanation ?? "", /absolute/i);
+  if (pyramidDot?.value) exactEqual(session, pyramidDot.value, SQRT_TWO);
+  if (cubeDot?.value) exactEqual(session, cubeDot.value, 1);
+});
+
 test("solvers reject invalid exact dimensions, scales, and unrenderable approximations", () => {
   expectError(
     solveRegularQuadPyramidLinePlaneAngle({ baseEdge: 0 }),

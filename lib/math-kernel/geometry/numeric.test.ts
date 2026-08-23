@@ -61,6 +61,102 @@ test("numeric vector construction, midpoint, normal, and display direction are d
   );
 });
 
+test("midpoint avoids overflow when the finite midpoint is representable", () => {
+  const maximum = Number.MAX_VALUE;
+  assert.deepEqual(
+    unwrap(midpoint([maximum, maximum, maximum], [maximum, maximum, maximum])),
+    [maximum, maximum, maximum],
+  );
+});
+
+test("primitiveDirectionForDisplay accepts a finite direction whose squared norm overflows", () => {
+  const direction = unwrap(
+    primitiveDirectionForDisplay([Number.MAX_VALUE, 0, 0]),
+  );
+  assert.deepEqual(direction, [Number.MAX_VALUE, 0, 0]);
+  assert.equal(Object.isFrozen(direction), true);
+});
+
+test("normalFromPoints preserves a unit normal hidden by large-product cancellation", () => {
+  const n = 1e8;
+  assert.deepEqual(
+    unwrap(
+      normalFromPoints(
+        [0, 0, 0],
+        [n, n - 1, 0],
+        [n - 1, n - 2, 0],
+      ),
+    ),
+    [0, 0, -1],
+  );
+});
+
+test("normalFromPoints rejects uncertified non-integer cancellation instead of false collinearity", () => {
+  const n = 1e8 + 0.25;
+  expectError(
+    normalFromPoints(
+      [0, 0, 0],
+      [n, n - 1, 0],
+      [n - 1, n - 2, 0],
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
+test("tetrahedronVolume preserves a unit triple product hidden by cancellation", () => {
+  const n = 1e8;
+  near(
+    unwrap(
+      tetrahedronVolume(
+        [0, 0, 0],
+        [n, n - 1, 0],
+        [n - 1, n - 2, 0],
+        [0, 0, 1],
+      ),
+    ),
+    1 / 6,
+  );
+});
+
+test("tetrahedronVolume rejects uncertified non-integer triple cancellation", () => {
+  const n = 1e8 + 0.25;
+  expectError(
+    tetrahedronVolume(
+      [0, 0, 0],
+      [n, n - 1, 0],
+      [n - 1, n - 2, 0],
+      [0, 0, 1],
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
+test("pointPlaneDistance preserves a safe-integer dot product hidden by cancellation", () => {
+  const m = 4e15;
+  near(
+    unwrap(
+      pointPlaneDistance(
+        [m, m - 2, 0],
+        [0, 0, 0],
+        [m, -(m + 1), 0],
+      ),
+    ),
+    Math.SQRT1_2,
+  );
+});
+
+test("pointPlaneDistance rejects uncertified non-integer dot cancellation", () => {
+  const m = 4e15 + 0.5;
+  expectError(
+    pointPlaneDistance(
+      [m, m - 2, 0],
+      [0, 0, 0],
+      [m, -(m + 1), 0],
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
 test("numeric goldens reproduce line-plane, line-line, point-plane, and dihedral results", () => {
   const cube = unwrap(cubeCoordinates(1));
   const a1c = unwrap(vec3(
@@ -149,6 +245,35 @@ test("numeric volumes reproduce goldens and remain nonnegative", () => {
   for (const value of cases) assert.ok(value >= 0);
 });
 
+test("boxVolume avoids intermediate overflow when the product is representable", () => {
+  assert.equal(
+    unwrap(boxVolume(Number.MAX_VALUE, 2, 0.25)),
+    Number.MAX_VALUE / 2,
+  );
+});
+
+test("pyramidVolume divides a scaled product before an avoidable overflow", () => {
+  near(
+    unwrap(pyramidVolume(Number.MAX_VALUE, 2)),
+    (Number.MAX_VALUE / 3) * 2,
+  );
+});
+
+test("tetrahedronVolume scales a representable large triple product before dividing", () => {
+  const axis = 1e103;
+  near(
+    unwrap(
+      tetrahedronVolume(
+        [0, 0, 0],
+        [axis, 0, 0],
+        [0, axis, 0],
+        [0, 0, axis],
+      ),
+    ),
+    ((axis / 6) * axis) * axis,
+  );
+});
+
 test("positive nonzero volumes that underflow do not silently become zero", () => {
   expectError(boxVolume(Number.MIN_VALUE, 0.5, 1), KERNEL_ERROR_CODES.nonFiniteInput);
   expectError(prismVolume(Number.MIN_VALUE, 0.5), KERNEL_ERROR_CODES.nonFiniteInput);
@@ -168,6 +293,18 @@ test("positive nonzero volumes that underflow do not silently become zero", () =
       [1e-200, 0, 0],
       [0, 1e-200, 0],
       [0, 0, 1],
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
+test("tetrahedronVolume diagnoses a nonzero triple product before division underflows", () => {
+  expectError(
+    tetrahedronVolume(
+      [0, 0, 0],
+      [1, 0, 0],
+      [0, 1, 0],
+      [1, 1, Number.MIN_VALUE],
     ),
     KERNEL_ERROR_CODES.nonFiniteInput,
   );
@@ -193,6 +330,62 @@ test("unit-interval clamping accepts rounding noise and normalized subnormal rat
         second.map((value) => value / 1e-162) as unknown as Vec3<number>,
       ),
     ),
+  );
+});
+
+test("angle APIs reject uncertified non-integer dot cancellation", () => {
+  const epsilon = 2 ** -50;
+  const first: Vec3<number> = [1, 1 + epsilon, 0];
+  const second: Vec3<number> = [1, -1 + epsilon, 0];
+
+  expectError(
+    lineLineAngleCos(first, second),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+  expectError(
+    linePlaneAngleSin(first, second),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+  expectError(
+    dihedralCosFromNormals(first, second),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+  expectError(
+    dihedralHalfPlaneCos(
+      [0, 0, 0],
+      [0, 0, 1],
+      first,
+      second,
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
+test("dihedralHalfPlaneCos preserves a safe-integer half-plane hidden by projection cancellation", () => {
+  const n = 1e8;
+  near(
+    unwrap(
+      dihedralHalfPlaneCos(
+        [0, 0, 0],
+        [n, n - 1, 0],
+        [n - 1, n - 2, 0],
+        [n - 1, n - 2, 1],
+      ),
+    ),
+    1 / Math.sqrt(n * n + (n - 1) * (n - 1) + 1),
+  );
+});
+
+test("dihedralHalfPlaneCos rejects uncertified non-integer half-plane cancellation", () => {
+  const n = 1e8 + 0.25;
+  expectError(
+    dihedralHalfPlaneCos(
+      [0, 0, 0],
+      [n, n - 1, 0],
+      [n - 1, n - 2, 0],
+      [n - 1, n - 2, 1],
+    ),
+    KERNEL_ERROR_CODES.nonFiniteInput,
   );
 });
 

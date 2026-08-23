@@ -9,15 +9,17 @@ import type { KernelResult } from "../shared/types";
 import {
   boxVolumeValue,
   dihedralCosFromNormalsValue,
-  edgeOrthogonalComponent,
   lineLineAngleCosValue,
   linePlaneAngleSinValue,
   normalFromThreePoints,
   pointPlaneDistanceValue,
+  pointPlaneSignedNumeratorValue,
   prismVolumeValue,
   pyramidVolumeValue,
+  tetrahedronSignedTripleProductValue,
   tetrahedronVolumeValue,
   vecDivideByScalar,
+  vecDot,
   vecMidpoint,
   vecNormSquared,
   vecSub,
@@ -34,6 +36,12 @@ const NUMBER_OPS: ScalarOps<number> = {
   div: (left, right) => left / right,
   abs: Math.abs,
   sqrt: Math.sqrt,
+};
+
+const BIGINT_LINEAR_OPS = {
+  add: (left: bigint, right: bigint) => left + right,
+  sub: (left: bigint, right: bigint) => left - right,
+  mul: (left: bigint, right: bigint) => left * right,
 };
 
 function fail<T>(code: MathKernelErrorCode, message: string): KernelResult<T> {
@@ -151,10 +159,72 @@ function positiveDerivedScalar(value: number, label: string): KernelResult<numbe
   return finite;
 }
 
+interface BinaryScaledPositive {
+  readonly mantissa: number;
+  readonly exponent: number;
+}
+
+function decomposeBinaryPositive(value: number): BinaryScaledPositive {
+  let exponent = Math.floor(Math.log2(value));
+  let power = 2 ** exponent;
+  if (!Number.isFinite(power)) {
+    exponent -= 1;
+    power = 2 ** exponent;
+  }
+  return { mantissa: value / power, exponent };
+}
+
+function composeBinaryPositive(
+  mantissaInput: number,
+  exponentInput: number,
+): number {
+  if (!Number.isFinite(mantissaInput) || mantissaInput <= 0) {
+    return mantissaInput;
+  }
+  let mantissa = mantissaInput;
+  let exponent = exponentInput;
+  while (mantissa >= 2) {
+    mantissa /= 2;
+    exponent += 1;
+  }
+  while (mantissa < 1) {
+    mantissa *= 2;
+    exponent -= 1;
+  }
+  if (exponent > 1023) return Number.POSITIVE_INFINITY;
+  if (exponent >= -1022) return mantissa * 2 ** exponent;
+  const subnormalUnits = mantissa * 2 ** (exponent + 1074);
+  const lowerUnits = Math.floor(subnormalUnits);
+  const fraction = subnormalUnits - lowerUnits;
+  const roundedUnits = fraction < 0.5
+    ? lowerUnits
+    : fraction > 0.5
+      ? lowerUnits + 1
+      : lowerUnits % 2 === 0
+        ? lowerUnits
+        : lowerUnits + 1;
+  return roundedUnits * Number.MIN_VALUE;
+}
+
+function evaluateScaledPositiveFormula(
+  values: readonly number[],
+  formula: (normalized: readonly number[]) => number,
+): number {
+  const decomposed = values.map(decomposeBinaryPositive);
+  return composeBinaryPositive(
+    formula(decomposed.map((value) => value.mantissa)),
+    decomposed.reduce((sum, value) => sum + value.exponent, 0),
+  );
+}
+
 type NormalizedVectorDiagnostic =
   | { readonly kind: "zero" }
   | { readonly kind: "unrepresentable" }
-  | { readonly kind: "value"; readonly value: Vec3<number> };
+  | {
+      readonly kind: "value";
+      readonly value: Vec3<number>;
+      readonly exponent: number;
+    };
 
 function powerOfTwoNormalizedVector(
   vector: Vec3<number>,
@@ -178,15 +248,51 @@ function powerOfTwoNormalizedVector(
   ) {
     return { kind: "unrepresentable" };
   }
-  return { kind: "value", value: normalized };
+  return { kind: "value", value: normalized, exponent };
 }
 
-function scaledTetrahedronVolumeDiagnostic(
+type ScaledTetrahedronEvaluation =
+  | { readonly kind: "zero" }
+  | { readonly kind: "unrepresentable" }
+  | {
+      readonly kind: "value";
+      readonly normalizedTriple: number;
+      readonly normalizedVolume: number;
+      readonly exponent: number;
+      readonly cancellationUncertain: boolean;
+    };
+
+function tripleProductCancellationIsUncertain(
+  first: Vec3<number>,
+  second: Vec3<number>,
+  third: Vec3<number>,
+  result: number,
+): boolean {
+  const [ax, ay, az] = first;
+  const [bx, by, bz] = second;
+  const [cx, cy, cz] = third;
+  const terms = [
+    ax * by * cz,
+    ay * bz * cx,
+    az * bx * cy,
+    -(az * by * cx),
+    -(ay * bx * cz),
+    -(ax * bz * cy),
+  ];
+  const magnitude = terms.reduce(
+    (sum, term) => sum + Math.abs(term),
+    0,
+  );
+  return magnitude !== 0 &&
+    Math.abs(result) <= 32 * Number.EPSILON * magnitude;
+}
+
+function evaluateScaledTetrahedron(
   first: Vec3<number>,
   second: Vec3<number>,
   third: Vec3<number>,
   fourth: Vec3<number>,
-): "zero" | "nonzero" | "unrepresentable" {
+): ScaledTetrahedronEvaluation {
   const ab = vecSub(NUMBER_OPS, second, first);
   const ac = vecSub(NUMBER_OPS, third, first);
   const ad = vecSub(NUMBER_OPS, fourth, first);
@@ -198,15 +304,22 @@ function scaledTetrahedronVolumeDiagnostic(
     scaledAc.kind === "zero" ||
     scaledAd.kind === "zero"
   ) {
-    return "zero";
+    return { kind: "zero" };
   }
   if (
     scaledAb.kind === "unrepresentable" ||
     scaledAc.kind === "unrepresentable" ||
     scaledAd.kind === "unrepresentable"
   ) {
-    return "unrepresentable";
+    return { kind: "unrepresentable" };
   }
+  const normalizedTriple = tetrahedronSignedTripleProductValue(
+    NUMBER_OPS,
+    [0, 0, 0],
+    scaledAb.value,
+    scaledAc.value,
+    scaledAd.value,
+  );
   const normalizedVolume = tetrahedronVolumeValue(
     NUMBER_OPS,
     [0, 0, 0],
@@ -214,7 +327,18 @@ function scaledTetrahedronVolumeDiagnostic(
     scaledAc.value,
     scaledAd.value,
   );
-  return normalizedVolume === 0 ? "zero" : "nonzero";
+  return {
+    kind: "value",
+    normalizedTriple,
+    normalizedVolume,
+    exponent: scaledAb.exponent + scaledAc.exponent + scaledAd.exponent,
+    cancellationUncertain: tripleProductCancellationIsUncertain(
+      scaledAb.value,
+      scaledAc.value,
+      scaledAd.value,
+      normalizedTriple,
+    ),
+  };
 }
 
 function normalizedPlaneNormalDiagnostic(
@@ -246,6 +370,203 @@ function normalizedPlaneNormalDiagnostic(
     : "zero";
 }
 
+function differenceOfProductsIsUncertain(
+  leftFirst: number,
+  leftSecond: number,
+  rightFirst: number,
+  rightSecond: number,
+): boolean {
+  const firstProduct = leftFirst * leftSecond;
+  const secondProduct = rightFirst * rightSecond;
+  const magnitude = Math.abs(firstProduct) + Math.abs(secondProduct);
+  if (magnitude === 0) return false;
+  const result = firstProduct - secondProduct;
+  const errorBound = 8 * Number.EPSILON * magnitude;
+  return Math.abs(result) <= errorBound;
+}
+
+function planeNormalCancellationIsUncertain(
+  first: Vec3<number>,
+  second: Vec3<number>,
+  third: Vec3<number>,
+): boolean {
+  const firstEdge = powerOfTwoNormalizedVector(
+    vecSub(NUMBER_OPS, second, first),
+  );
+  const secondEdge = powerOfTwoNormalizedVector(
+    vecSub(NUMBER_OPS, third, first),
+  );
+  if (firstEdge.kind !== "value" || secondEdge.kind !== "value") {
+    return false;
+  }
+  return crossProductCancellationIsUncertain(
+    firstEdge.value,
+    secondEdge.value,
+  );
+}
+
+function crossProductCancellationIsUncertain(
+  firstEdge: Vec3<number>,
+  secondEdge: Vec3<number>,
+): boolean {
+  const [ax, ay, az] = firstEdge;
+  const [bx, by, bz] = secondEdge;
+  return (
+    differenceOfProductsIsUncertain(ay, bz, az, by) ||
+    differenceOfProductsIsUncertain(az, bx, ax, bz) ||
+    differenceOfProductsIsUncertain(ax, by, ay, bx)
+  );
+}
+
+function dotProductCancellationIsUncertain(
+  left: Vec3<number>,
+  right: Vec3<number>,
+): boolean {
+  const products = left.map((component, index) =>
+    component * right[index]);
+  const magnitude = products.reduce(
+    (sum, product) => sum + Math.abs(product),
+    0,
+  );
+  if (magnitude === 0) return false;
+  const result = vecDot(NUMBER_OPS, left, right);
+  return Math.abs(result) <= 16 * Number.EPSILON * magnitude;
+}
+
+function certifyDotProductCancellation(
+  left: Vec3<number>,
+  right: Vec3<number>,
+  label: string,
+): KernelResult<void> {
+  return dotProductCancellationIsUncertain(left, right)
+    ? fail(
+        KERNEL_ERROR_CODES.nonFiniteInput,
+        `${label} cancellation could not be certified in the finite numeric domain.`,
+      )
+    : { ok: true, value: undefined };
+}
+
+function exactSafeIntegerPlaneNormal(
+  first: Vec3<number>,
+  second: Vec3<number>,
+  third: Vec3<number>,
+): KernelResult<Vec3<number>> | null {
+  const coordinates = [...first, ...second, ...third];
+  if (!coordinates.every(Number.isSafeInteger)) return null;
+
+  const exact = normalFromThreePoints(
+    BIGINT_LINEAR_OPS,
+    toBigIntVector(first),
+    toBigIntVector(second),
+    toBigIntVector(third),
+  );
+  const numeric = exact.map(Number) as unknown as Vec3<number>;
+  if (!numeric.every(Number.isFinite)) {
+    return fail(
+      KERNEL_ERROR_CODES.nonFiniteInput,
+      "The exact integer plane normal overflowed the finite numeric domain.",
+    );
+  }
+  return { ok: true, value: numeric };
+}
+
+function toBigIntVector(vector: Vec3<number>): Vec3<bigint> {
+  return [BigInt(vector[0]), BigInt(vector[1]), BigInt(vector[2])];
+}
+
+function exactSafeIntegerTetrahedronTripleProduct(
+  first: Vec3<number>,
+  second: Vec3<number>,
+  third: Vec3<number>,
+  fourth: Vec3<number>,
+): bigint | null {
+  if (![...first, ...second, ...third, ...fourth].every(Number.isSafeInteger)) {
+    return null;
+  }
+  return tetrahedronSignedTripleProductValue(
+    BIGINT_LINEAR_OPS,
+    toBigIntVector(first),
+    toBigIntVector(second),
+    toBigIntVector(third),
+    toBigIntVector(fourth),
+  );
+}
+
+function exactSafeIntegerPointPlaneNumerator(
+  point: Vec3<number>,
+  planePoint: Vec3<number>,
+  planeNormal: Vec3<number>,
+): bigint | null {
+  if (![...point, ...planePoint, ...planeNormal].every(Number.isSafeInteger)) {
+    return null;
+  }
+  return pointPlaneSignedNumeratorValue(
+    BIGINT_LINEAR_OPS,
+    toBigIntVector(point),
+    toBigIntVector(planePoint),
+    toBigIntVector(planeNormal),
+  );
+}
+
+function stableHalfPlaneNormalDirection(
+  edgeStart: Vec3<number>,
+  edgeEnd: Vec3<number>,
+  halfPlanePoint: Vec3<number>,
+  label: string,
+): KernelResult<Vec3<number>> {
+  const exactIntegerNormal = exactSafeIntegerPlaneNormal(
+    edgeStart,
+    edgeEnd,
+    halfPlanePoint,
+  );
+  if (exactIntegerNormal !== null && !exactIntegerNormal.ok) {
+    return exactIntegerNormal;
+  }
+
+  let normal: Vec3<number>;
+  if (exactIntegerNormal !== null) {
+    normal = exactIntegerNormal.value;
+  } else {
+    const edge = powerOfTwoNormalizedVector(
+      vecSub(NUMBER_OPS, edgeEnd, edgeStart),
+    );
+    const fromStart = powerOfTwoNormalizedVector(
+      vecSub(NUMBER_OPS, halfPlanePoint, edgeStart),
+    );
+    if (edge.kind === "zero" || fromStart.kind === "zero") {
+      return fail(
+        KERNEL_ERROR_CODES.degenerateHalfPlane,
+        `${label} half-plane point must not lie on the edge.`,
+      );
+    }
+    if (edge.kind === "unrepresentable" || fromStart.kind === "unrepresentable") {
+      return fail(
+        KERNEL_ERROR_CODES.nonFiniteInput,
+        `${label} half-plane directions could not be normalized in the finite numeric domain.`,
+      );
+    }
+    if (crossProductCancellationIsUncertain(edge.value, fromStart.value)) {
+      return fail(
+        KERNEL_ERROR_CODES.nonFiniteInput,
+        `${label} half-plane normal cancellation could not be certified in the finite numeric domain.`,
+      );
+    }
+    normal = normalFromThreePoints(
+      NUMBER_OPS,
+      [0, 0, 0],
+      edge.value,
+      fromStart.value,
+    );
+  }
+
+  return stableDirection(
+    normal,
+    KERNEL_ERROR_CODES.degenerateHalfPlane,
+    `${label} half-plane point must not lie on the edge.`,
+    `${label} half-plane normal`,
+  );
+}
+
 export function vec3(x: number, y: number, z: number): KernelResult<Vec3<number>> {
   return validateVector([x, y, z], "vector").ok
     ? { ok: true, value: immutableVec3(x, y, z) }
@@ -257,7 +578,22 @@ export function midpoint(left: Vec3<number>, right: Vec3<number>): KernelResult<
   if (!validLeft.ok) return validLeft;
   const validRight = validateVector(right, "right point");
   if (!validRight.ok) return validRight;
-  return finiteVectorResult(vecMidpoint(NUMBER_OPS, left, right), "midpoint");
+  const componentScales = left.map((component, index) =>
+    Math.max(Math.abs(component), Math.abs(right[index]))) as unknown as Vec3<number>;
+  const normalizedLeft = left.map((component, index) =>
+    componentScales[index] === 0 ? 0 : component / componentScales[index]) as unknown as Vec3<number>;
+  const normalizedRight = right.map((component, index) =>
+    componentScales[index] === 0 ? 0 : component / componentScales[index]) as unknown as Vec3<number>;
+  const normalizedMidpoint = vecMidpoint(
+    NUMBER_OPS,
+    normalizedLeft,
+    normalizedRight,
+  );
+  return finiteVectorResult(
+    normalizedMidpoint.map((component, index) =>
+      component * componentScales[index]) as unknown as Vec3<number>,
+    "midpoint",
+  );
 }
 
 export function normalFromPoints(
@@ -269,7 +605,21 @@ export function normalFromPoints(
     const valid = validateVector(point, label);
     if (!valid.ok) return valid;
   }
-  const normal = normalFromThreePoints(NUMBER_OPS, first, second, third);
+  const exactIntegerNormal = exactSafeIntegerPlaneNormal(first, second, third);
+  if (exactIntegerNormal !== null && !exactIntegerNormal.ok) {
+    return exactIntegerNormal;
+  }
+  if (
+    exactIntegerNormal === null &&
+    planeNormalCancellationIsUncertain(first, second, third)
+  ) {
+    return fail(
+      KERNEL_ERROR_CODES.nonFiniteInput,
+      "Plane-normal cancellation could not be certified in the finite numeric domain.",
+    );
+  }
+  const normal = exactIntegerNormal?.value ??
+    normalFromThreePoints(NUMBER_OPS, first, second, third);
   const finite = finiteVectorResult(normal, "plane normal");
   if (!finite.ok) return finite;
   if (normal.every((component) => component === 0)) {
@@ -303,12 +653,21 @@ function integerGcd(left: number, right: number): number {
 export function primitiveDirectionForDisplay(vector: Vec3<number>): KernelResult<Vec3<number>> {
   const valid = validateVector(vector, "direction");
   if (!valid.ok) return valid;
-  const nonzero = normSquared(
-    vector,
-    KERNEL_ERROR_CODES.zeroDirection,
-    "A zero vector has no display direction.",
-  );
-  if (!nonzero.ok) return nonzero;
+  if (vector.every((component) => component === 0)) {
+    return fail(
+      KERNEL_ERROR_CODES.zeroDirection,
+      "A zero vector has no display direction.",
+    );
+  }
+  const squaredNorm = vecNormSquared(NUMBER_OPS, vector);
+  if (squaredNorm === 0) {
+    return fail(
+      KERNEL_ERROR_CODES.nonFiniteInput,
+      "The display direction squared norm underflowed to zero.",
+    );
+  }
+  // An overflowing squared norm does not invalidate the already finite,
+  // non-zero direction: display reduction never needs its magnitude.
 
   if (!vector.every(Number.isSafeInteger)) {
     return { ok: true, value: immutableVec3(vector[0], vector[1], vector[2]) };
@@ -340,6 +699,12 @@ export function linePlaneAngleSin(
     "Plane normal",
   );
   if (!stableNormal.ok) return stableNormal;
+  const certifiedDot = certifyDotProductCancellation(
+    stableLine.value,
+    stableNormal.value,
+    "Line-plane dot product",
+  );
+  if (!certifiedDot.ok) return certifiedDot;
   return boundedUnitResult(
     linePlaneAngleSinValue(NUMBER_OPS, stableLine.value, stableNormal.value),
     "Line-plane angle sine",
@@ -368,6 +733,12 @@ export function lineLineAngleCos(
     "Second line direction",
   );
   if (!stableSecond.ok) return stableSecond;
+  const certifiedDot = certifyDotProductCancellation(
+    stableFirst.value,
+    stableSecond.value,
+    "Line-line dot product",
+  );
+  if (!certifiedDot.ok) return certifiedDot;
   return boundedUnitResult(
     lineLineAngleCosValue(NUMBER_OPS, stableFirst.value, stableSecond.value),
     "Line-line angle cosine",
@@ -395,6 +766,19 @@ export function pointPlaneDistance(
     "point-plane displacement",
   );
   if (!displacement.ok) return displacement;
+  const exactIntegerNumerator = exactSafeIntegerPointPlaneNumerator(
+    point,
+    planePoint,
+    planeNormal,
+  );
+  if (exactIntegerNumerator !== null) {
+    const absoluteNumerator = exactIntegerNumerator < BigInt(0)
+      ? -exactIntegerNumerator
+      : exactIntegerNumerator;
+    const value = Number(absoluteNumerator) /
+      Math.hypot(planeNormal[0], planeNormal[1], planeNormal[2]);
+    return finiteScalar(value, "Point-plane distance");
+  }
   const displacementScale = Math.max(...displacement.value.map(Math.abs));
   if (displacementScale === 0) return { ok: true, value: 0 };
   const stableDisplacement = stableDirection(
@@ -404,6 +788,12 @@ export function pointPlaneDistance(
     "Point-plane displacement",
   );
   if (!stableDisplacement.ok) return stableDisplacement;
+  const certifiedDot = certifyDotProductCancellation(
+    stableDisplacement.value,
+    stableNormal.value,
+    "Point-plane dot product",
+  );
+  if (!certifiedDot.ok) return certifiedDot;
   const normalizedDistance = pointPlaneDistanceValue(
     NUMBER_OPS,
     stableDisplacement.value,
@@ -440,67 +830,35 @@ export function dihedralHalfPlaneCos(
     "Dihedral edge",
   );
   if (!stableEdge.ok) return stableEdge;
-  const firstFromStart = finiteVectorResult(
-    vecSub(NUMBER_OPS, firstHalfPlanePoint, edgeStart),
-    "first half-plane displacement",
+  // Crossing the common edge with each half-plane direction is equivalent to
+  // projecting those directions orthogonally to the edge, but it lets the
+  // integer path certify determinants exactly and the floating path apply the
+  // same bounded 2x2-cancellation policy as normalFromPoints().
+  const firstNormal = stableHalfPlaneNormalDirection(
+    edgeStart,
+    edgeEnd,
+    firstHalfPlanePoint,
+    "First",
   );
-  if (!firstFromStart.ok) return firstFromStart;
-  const stableFirstFromStart = stableDirection(
-    firstFromStart.value,
-    KERNEL_ERROR_CODES.degenerateHalfPlane,
-    "First half-plane point must not coincide with the edge start.",
-    "First half-plane displacement",
+  if (!firstNormal.ok) return firstNormal;
+  const secondNormal = stableHalfPlaneNormalDirection(
+    edgeStart,
+    edgeEnd,
+    secondHalfPlanePoint,
+    "Second",
   );
-  if (!stableFirstFromStart.ok) return stableFirstFromStart;
-  const secondFromStart = finiteVectorResult(
-    vecSub(NUMBER_OPS, secondHalfPlanePoint, edgeStart),
-    "second half-plane displacement",
+  if (!secondNormal.ok) return secondNormal;
+  const certifiedDot = certifyDotProductCancellation(
+    firstNormal.value,
+    secondNormal.value,
+    "Dihedral dot product",
   );
-  if (!secondFromStart.ok) return secondFromStart;
-  const stableSecondFromStart = stableDirection(
-    secondFromStart.value,
-    KERNEL_ERROR_CODES.degenerateHalfPlane,
-    "Second half-plane point must not coincide with the edge start.",
-    "Second half-plane displacement",
-  );
-  if (!stableSecondFromStart.ok) return stableSecondFromStart;
-  const first = finiteVectorResult(
-    edgeOrthogonalComponent(
-      NUMBER_OPS,
-      stableEdge.value,
-      stableFirstFromStart.value,
-    ),
-    "first half-plane component",
-  );
-  if (!first.ok) return first;
-  const second = finiteVectorResult(
-    edgeOrthogonalComponent(
-      NUMBER_OPS,
-      stableEdge.value,
-      stableSecondFromStart.value,
-    ),
-    "second half-plane component",
-  );
-  if (!second.ok) return second;
-  const stableFirst = stableDirection(
-    first.value,
-    KERNEL_ERROR_CODES.degenerateHalfPlane,
-    "First half-plane point must not lie on the edge.",
-    "First half-plane component",
-  );
-  if (!stableFirst.ok) return stableFirst;
-  const stableSecond = stableDirection(
-    second.value,
-    KERNEL_ERROR_CODES.degenerateHalfPlane,
-    "Second half-plane point must not lie on the edge.",
-    "Second half-plane component",
-  );
-  if (!stableSecond.ok) return stableSecond;
+  if (!certifiedDot.ok) return certifiedDot;
   return boundedUnitResult(
     dihedralCosFromNormalsValue(
       NUMBER_OPS,
-      stableFirst.value,
-      stableSecond.value,
+      firstNormal.value,
+      secondNormal.value,
     ),
     "Dihedral cosine",
   );
@@ -531,6 +889,12 @@ export function dihedralCosFromNormals(
     "Second half-plane normal",
   );
   if (!stableSecond.ok) return stableSecond;
+  const certifiedDot = certifyDotProductCancellation(
+    stableFirst.value,
+    stableSecond.value,
+    "Normal-based dihedral dot product",
+  );
+  if (!certifiedDot.ok) return certifiedDot;
   return boundedUnitResult(
     dihedralCosFromNormalsValue(NUMBER_OPS, stableFirst.value, stableSecond.value),
     "Normal-based dihedral cosine",
@@ -542,7 +906,14 @@ export function boxVolume(x: number, y: number, z: number): KernelResult<number>
     const valid = positiveScalar(value, label);
     if (!valid.ok) return valid;
   }
-  return positiveDerivedScalar(boxVolumeValue(NUMBER_OPS, x, y, z), "Box volume");
+  return positiveDerivedScalar(
+    evaluateScaledPositiveFormula(
+      [x, y, z],
+      ([normalizedX, normalizedY, normalizedZ]) =>
+        boxVolumeValue(NUMBER_OPS, normalizedX, normalizedY, normalizedZ),
+    ),
+    "Box volume",
+  );
 }
 
 export function prismVolume(baseArea: number, height: number): KernelResult<number> {
@@ -558,7 +929,14 @@ export function pyramidVolume(baseArea: number, height: number): KernelResult<nu
     const valid = positiveScalar(value, label);
     if (!valid.ok) return valid;
   }
-  return positiveDerivedScalar(pyramidVolumeValue(NUMBER_OPS, baseArea, height), "Pyramid volume");
+  return positiveDerivedScalar(
+    evaluateScaledPositiveFormula(
+      [baseArea, height],
+      ([normalizedBaseArea, normalizedHeight]) =>
+        pyramidVolumeValue(NUMBER_OPS, normalizedBaseArea, normalizedHeight),
+    ),
+    "Pyramid volume",
+  );
 }
 
 export function tetrahedronVolume(
@@ -571,13 +949,43 @@ export function tetrahedronVolume(
     const valid = validateVector(point, label);
     if (!valid.ok) return valid;
   }
-  const volume = tetrahedronVolumeValue(NUMBER_OPS, first, second, third, fourth);
+  const exactIntegerTriple = exactSafeIntegerTetrahedronTripleProduct(
+    first,
+    second,
+    third,
+    fourth,
+  );
+  if (exactIntegerTriple !== null) {
+    return finiteScalar(
+      Number(
+        exactIntegerTriple < BigInt(0)
+          ? -exactIntegerTriple
+          : exactIntegerTriple,
+      ) / 6,
+      "Tetrahedron volume",
+    );
+  }
+  const scaled = evaluateScaledTetrahedron(first, second, third, fourth);
+  if (scaled.kind === "zero") return { ok: true, value: 0 };
+  if (scaled.kind === "unrepresentable") {
+    return fail(
+      KERNEL_ERROR_CODES.nonFiniteInput,
+      "Tetrahedron edges could not be normalized in the finite numeric domain.",
+    );
+  }
+  if (scaled.cancellationUncertain) {
+    return fail(
+      KERNEL_ERROR_CODES.nonFiniteInput,
+      "Tetrahedron triple-product cancellation could not be certified in the finite numeric domain.",
+    );
+  }
+  const volume = composeBinaryPositive(
+    scaled.normalizedVolume,
+    scaled.exponent,
+  );
   const finite = finiteScalar(volume, "Tetrahedron volume");
   if (!finite.ok) return finite;
-  if (
-    volume === 0 &&
-    scaledTetrahedronVolumeDiagnostic(first, second, third, fourth) !== "zero"
-  ) {
+  if (volume === 0 && scaled.normalizedTriple !== 0) {
     return fail(
       KERNEL_ERROR_CODES.nonFiniteInput,
       "A non-degenerate tetrahedron volume underflowed to zero.",

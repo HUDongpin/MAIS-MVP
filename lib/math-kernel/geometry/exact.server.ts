@@ -380,6 +380,50 @@ function primitiveRationalDirection(
   ];
 }
 
+function primitiveSymbolicDirection(
+  vector: Vec3<MathJsonExpr>,
+  session: CasSession,
+): KernelResult<Vec3<MathJsonExpr> | null> {
+  let pivot: MathJsonExpr | null = null;
+  let pivotOrder: "less" | "greater" | null = null;
+  for (const component of vector) {
+    const order = session.compareExactOrder(component, 0);
+    if (!order.ok) return order;
+    if (order.value === "less" || order.value === "greater") {
+      pivot = component;
+      pivotOrder = order.value;
+      break;
+    }
+  }
+  if (pivot === null || pivotOrder === null) {
+    return { ok: true, value: null };
+  }
+
+  const ratios: MathJsonExpr[] = [];
+  for (const component of vector) {
+    const ratio = exactScalar(
+      EXACT_OPS.div(component, pivot),
+      "display direction ratio",
+      session,
+    );
+    if (!ratio.ok || rationalComponent(ratio.value.expression) === null) {
+      return { ok: true, value: null };
+    }
+    ratios.push(ratio.value.expression);
+  }
+  const primitive = primitiveRationalDirection(
+    ratios as unknown as Vec3<MathJsonExpr>,
+  );
+  if (primitive === null) return { ok: true, value: null };
+  return {
+    ok: true,
+    value: pivotOrder === "less"
+      ? primitive.map((component) =>
+          EXACT_OPS.sub(EXACT_OPS.zero, component)) as unknown as Vec3<MathJsonExpr>
+      : primitive,
+  };
+}
+
 export function primitiveDirectionForDisplay(
   vector: Vec3<MathJsonExpr>,
   session = new CasSession(),
@@ -396,8 +440,16 @@ export function primitiveDirectionForDisplay(
   if (!nonzero.ok) return nonzero;
 
   const primitive = primitiveRationalDirection(valid.value.expression);
-  return primitive
-    ? vectorDto(primitive, "primitive display direction", session)
+  if (primitive) {
+    return vectorDto(primitive, "primitive display direction", session);
+  }
+  const symbolic = primitiveSymbolicDirection(
+    valid.value.expression,
+    session,
+  );
+  if (!symbolic.ok) return symbolic;
+  return symbolic.value
+    ? vectorDto(symbolic.value, "primitive display direction", session)
     : { ok: true, value: valid.value.dto };
 }
 
@@ -689,25 +741,117 @@ export function tetrahedronVolume(
   );
 }
 
-function validExactVec3Dto(value: ExactVec3Dto): boolean {
+function hasOnlyDataProperties(
+  value: object,
+  keys: readonly string[],
+): boolean {
+  const prototype = Object.getPrototypeOf(value);
+  if (prototype !== Object.prototype && prototype !== null) return false;
+  const ownKeys = Reflect.ownKeys(value);
+  if (
+    ownKeys.length !== keys.length ||
+    ownKeys.some((key) => typeof key !== "string" || !keys.includes(key))
+  ) {
+    return false;
+  }
+  return keys.every((key) => {
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    return descriptor !== undefined &&
+      "value" in descriptor &&
+      descriptor.enumerable;
+  });
+}
+
+function isDenseStandardArray(value: unknown, length: number): value is unknown[] {
+  if (
+    !Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Array.prototype ||
+    value.length !== length
+  ) {
+    return false;
+  }
+  const expectedKeys = [
+    ...Array.from({ length }, (_, index) => String(index)),
+    "length",
+  ];
+  const ownKeys = Reflect.ownKeys(value);
+  if (
+    ownKeys.length !== expectedKeys.length ||
+    ownKeys.some((key) =>
+      typeof key !== "string" || !expectedKeys.includes(key))
+  ) {
+    return false;
+  }
+  return Array.from({ length }, (_, index) => index).every((index) => {
+    const descriptor = Object.getOwnPropertyDescriptor(value, String(index));
+    return descriptor !== undefined &&
+      "value" in descriptor &&
+      descriptor.enumerable;
+  });
+}
+
+function sameJsonValue(left: unknown, right: unknown): boolean {
+  try {
+    return JSON.stringify(left) === JSON.stringify(right);
+  } catch {
+    return false;
+  }
+}
+
+function validExactValueDto(
+  value: unknown,
+  session: CasSession,
+): value is ExactValueDto {
+  if (
+    value === null ||
+    typeof value !== "object" ||
+    !hasOnlyDataProperties(
+      value,
+      ["schemaVersion", "mathJson", "latex", "decimal", "approx"],
+    )
+  ) {
+    return false;
+  }
+  const component = value as ExactValueDto;
+  if (
+    component.schemaVersion !== 1 ||
+    typeof component.latex !== "string" ||
+    (component.decimal !== null && typeof component.decimal !== "string") ||
+    (component.approx !== null &&
+      (typeof component.approx !== "number" || !Number.isFinite(component.approx)))
+  ) {
+    return false;
+  }
+  const authoritative = session.toCanonicalExactValueDto(component.mathJson);
+  if (!authoritative.ok) return false;
+  return (
+    sameJsonValue(component.mathJson, authoritative.value.mathJson) &&
+    component.latex === authoritative.value.latex &&
+    component.decimal === authoritative.value.decimal &&
+    component.approx === authoritative.value.approx
+  );
+}
+
+function validExactVec3Dto(
+  value: ExactVec3Dto,
+  session: CasSession,
+): boolean {
   return (
     value !== null &&
     typeof value === "object" &&
+    hasOnlyDataProperties(value, ["schemaVersion", "components"]) &&
     value.schemaVersion === 1 &&
-    Array.isArray(value.components) &&
-    value.components.length === 3 &&
+    isDenseStandardArray(value.components, 3) &&
     value.components.every((component) =>
-      component !== null &&
-      typeof component === "object" &&
-      component.schemaVersion === 1 &&
-      typeof component.latex === "string")
+      validExactValueDto(component, session))
   );
 }
 
 export function formatExactVec3Latex(
   vector: ExactVec3Dto,
+  session = new CasSession(),
 ): KernelResult<string> {
-  if (!validExactVec3Dto(vector)) {
+  if (!validExactVec3Dto(vector, session)) {
     return fail(KERNEL_ERROR_CODES.invalidInput, "Exact vector DTO is invalid.");
   }
   return {
@@ -720,7 +864,7 @@ export function isReadableExactVec3(
   vector: ExactVec3Dto,
   session = new CasSession(),
 ): KernelResult<boolean> {
-  if (!validExactVec3Dto(vector)) {
+  if (!validExactVec3Dto(vector, session)) {
     return fail(KERNEL_ERROR_CODES.invalidInput, "Exact vector DTO is invalid.");
   }
   for (const component of vector.components) {

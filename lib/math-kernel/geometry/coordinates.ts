@@ -13,7 +13,12 @@ function fail<T>(
   message: string,
   details?: Readonly<Record<string, unknown>>,
 ): KernelResult<T> {
-  return { ok: false, error: { code, message, details } };
+  return {
+    ok: false,
+    error: details === undefined
+      ? { code, message }
+      : { code, message, details },
+  };
 }
 
 function frozenVec3(x: number, y: number, z: number): Vec3<number> {
@@ -29,6 +34,13 @@ function validateScale(scale: number): KernelResult<number> {
     return fail(
       KERNEL_ERROR_CODES.invalidScale,
       "Coordinate scale must be finite and non-zero.",
+    );
+  }
+  const determinant = -(scale * scale * scale);
+  if (!Number.isFinite(determinant) || determinant === 0) {
+    return fail(
+      KERNEL_ERROR_CODES.invalidScale,
+      "Coordinate scale must have a representable non-zero finite determinant.",
       { scale },
     );
   }
@@ -92,6 +104,44 @@ function rejectLostNonzeroComponents(
   return { ok: true, value: output };
 }
 
+const ROUND_TRIP_RELATIVE_TOLERANCE = 128 * Number.EPSILON;
+
+function rejectMaterialRoundTripLoss(
+  input: Vec3<number>,
+  output: Vec3<number>,
+  outputIndexForInput: readonly [number, number, number],
+  recover: (component: number) => number,
+  label: string,
+): KernelResult<Vec3<number>> {
+  for (let inputIndex = 0; inputIndex < 3; inputIndex += 1) {
+    const inputComponent = input[inputIndex];
+    const recovered = recover(output[outputIndexForInput[inputIndex]]);
+    if (!Number.isFinite(recovered)) {
+      return fail(
+        KERNEL_ERROR_CODES.nonFiniteInput,
+        `${label} inverse check produced a non-finite coordinate.`,
+        { inputIndex },
+      );
+    }
+    if (recovered === inputComponent) continue;
+    const magnitude = Math.max(
+      Math.abs(inputComponent),
+      Math.abs(recovered),
+    );
+    const relativeDifference = magnitude === 0
+      ? 0
+      : Math.abs(inputComponent / magnitude - recovered / magnitude);
+    if (relativeDifference > ROUND_TRIP_RELATIVE_TOLERANCE) {
+      return fail(
+        KERNEL_ERROR_CODES.nonFiniteInput,
+        `${label} lost material precision in a coordinate round trip.`,
+        { inputIndex },
+      );
+    }
+  }
+  return { ok: true, value: output };
+}
+
 /** Map mathematical (x, y, z) coordinates to the renderer's (x, z, y). */
 export function mathZUpToWorldYUp(
   point: Vec3<number>,
@@ -108,10 +158,18 @@ export function mathZUpToWorldYUp(
     "coordinate transform",
   );
   if (!transformed.ok) return transformed;
-  return rejectLostNonzeroComponents(
+  const preserved = rejectLostNonzeroComponents(
     point,
     transformed.value,
     [0, 2, 1],
+    "Coordinate transform",
+  );
+  if (!preserved.ok) return preserved;
+  return rejectMaterialRoundTripLoss(
+    point,
+    preserved.value,
+    [0, 2, 1],
+    (component) => component / scale,
     "Coordinate transform",
   );
 }
@@ -132,10 +190,18 @@ export function worldYUpToMathZUp(
     "inverse coordinate transform",
   );
   if (!transformed.ok) return transformed;
-  return rejectLostNonzeroComponents(
+  const preserved = rejectLostNonzeroComponents(
     point,
     transformed.value,
     [0, 2, 1],
+    "Inverse coordinate transform",
+  );
+  if (!preserved.ok) return preserved;
+  return rejectMaterialRoundTripLoss(
+    point,
+    preserved.value,
+    [0, 2, 1],
+    (component) => component * scale,
     "Inverse coordinate transform",
   );
 }
@@ -147,13 +213,6 @@ export function mathZUpToWorldDeterminant(
   const scaleResult = validateScale(scale);
   if (!scaleResult.ok) return scaleResult;
   const determinant = -(scale * scale * scale);
-  if (!Number.isFinite(determinant) || determinant === 0) {
-    return fail(
-      KERNEL_ERROR_CODES.invalidScale,
-      "Coordinate scale has no representable non-zero finite determinant.",
-      { scale },
-    );
-  }
   return { ok: true, value: determinant };
 }
 
@@ -191,13 +250,21 @@ export function mathNormalToWorldNormal(
     "Normal transform",
   );
   if (!preserved.ok) return preserved;
-  if (Math.hypot(...preserved.value) === 0) {
+  const reversible = rejectMaterialRoundTripLoss(
+    normal,
+    preserved.value,
+    [0, 2, 1],
+    (component) => component * scale,
+    "Normal transform",
+  );
+  if (!reversible.ok) return reversible;
+  if (Math.hypot(...reversible.value) === 0) {
     return fail(
       KERNEL_ERROR_CODES.nonFiniteInput,
       "Normal transform underflowed to a zero direction.",
     );
   }
-  return preserved;
+  return reversible;
 }
 
 export function reverseTriangleWinding<First, Second, Third>(

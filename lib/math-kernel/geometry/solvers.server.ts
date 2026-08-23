@@ -283,7 +283,10 @@ function solvePyramidWithSession(
   const renderPoints = renderPointRecord(session, points.value, validScale.value);
   if (!renderPoints.ok) return renderPoints;
 
-  const dot = exactScalar(session, vecDot(EXACT_OPS, beRaw, rawVector(primitiveNormal.value)));
+  const dot = exactScalar(
+    session,
+    EXACT_OPS.abs(vecDot(EXACT_OPS, beRaw, rawVector(primitiveNormal.value))),
+  );
   if (!dot.ok) return dot;
   const lineNorm = exactScalar(session, ["Sqrt", vecNormSquared(EXACT_OPS, beRaw)]);
   if (!lineNorm.ok) return lineNorm;
@@ -393,7 +396,10 @@ function solveCubeWithSession(
   if (!points.ok) return points;
   const renderPoints = renderPointRecord(session, points.value, validScale.value);
   if (!renderPoints.ok) return renderPoints;
-  const dot = exactScalar(session, vecDot(EXACT_OPS, lineRaw, rawVector(primitiveNormal.value)));
+  const dot = exactScalar(
+    session,
+    EXACT_OPS.abs(vecDot(EXACT_OPS, lineRaw, rawVector(primitiveNormal.value))),
+  );
   if (!dot.ok) return dot;
   const lineNorm = exactScalar(session, ["Sqrt", vecNormSquared(EXACT_OPS, lineRaw)]);
   if (!lineNorm.ok) return lineNorm;

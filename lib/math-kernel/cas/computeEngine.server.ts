@@ -214,6 +214,8 @@ function exactNumericDisplayWithEngine(
       exactOrder,
       numericOrder,
     );
+    const numericZeroIsExact =
+      numericOrder !== "equal" || exactOrder === "equal";
     const approximationSignIsConsistent = ordersDoNotContradict(
       exactOrder,
       numberOrder(realApproximation),
@@ -225,7 +227,9 @@ function exactNumericDisplayWithEngine(
       approximationSignIsConsistent;
 
     return {
-      decimal: decimalSignIsConsistent ? numeric.toString() : null,
+      decimal: decimalSignIsConsistent && numericZeroIsExact
+        ? numeric.toString()
+        : null,
       approx: hasSafeApproximation ? realApproximation : null,
     };
   } catch {

@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import { CasSession } from "../cas/computeEngine.server";
 import { KERNEL_ERROR_CODES } from "../shared/errors";
-import type { ExactValueDto, MathJsonExpr } from "../shared/types";
+import type { ExactValueDto, ExactVec3Dto, MathJsonExpr } from "../shared/types";
 import {
   boxVolume,
   dihedralCosFromNormals,
@@ -30,6 +30,13 @@ const Q_ABOVE_SQRT_TWO = [
   "Rational",
   { num: "1414213562373095048801688724209698078569671875376948073177" },
   { num: "1e+57" },
+] as const;
+const Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION = [
+  "Rational",
+  {
+    num: "141421356237309504880168872420969807856967187537694807317667973799073247846210703885038753432764157273501384624",
+  },
+  { num: "1e+110" },
 ] as const;
 
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
@@ -188,6 +195,36 @@ test("exact norm proofs preserve a close positive radical difference", () => {
   );
 });
 
+test("exact midpoint preserves a nonzero expression that numerically rounds to zero", () => {
+  const session = new CasSession();
+  const positiveBeyondDisplayPrecision = [
+    "Subtract",
+    ["Divide", Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION, SQRT_TWO],
+    1,
+  ] as const;
+  const middle = unwrap(
+    midpoint(
+      [positiveBeyondDisplayPrecision, 0, 0],
+      [positiveBeyondDisplayPrecision, 0, 0],
+      session,
+    ),
+  );
+  const canonical = unwrap(session.boxMathJson(positiveBeyondDisplayPrecision));
+  assert.notDeepEqual(middle.components[0].mathJson, 0);
+  assert.match(JSON.stringify(middle.components[0].mathJson), /Sqrt/);
+  assert.equal(
+    unwrap(
+      session.compareExactMathJson(
+        middle.components[0].mathJson,
+        canonical,
+      ),
+    ),
+    "equal",
+  );
+  assert.equal(middle.components[0].decimal, null);
+  assert.equal(middle.components[0].approx, null);
+});
+
 test("exact display direction has a defined rational primitive substitute", () => {
   const session = new CasSession();
   const direction = unwrap(primitiveDirectionForDisplay([6, -9, 3], session));
@@ -196,6 +233,112 @@ test("exact display direction has a defined rational primitive substitute", () =
   exactEqual(session, direction.components[2], 1);
   const normal = unwrap(normalFromPoints([0, 0, 0], [1, 0, 0], [0, 1, 0], session));
   exactEqual(session, normal.components[2], 1);
+});
+
+test("exact display direction removes a symbolic common factor from one nonzero axis", () => {
+  const session = new CasSession();
+  const direction = unwrap(
+    primitiveDirectionForDisplay(
+      [0, ["Multiply", 2, SQRT_TWO], 0],
+      session,
+    ),
+  );
+  exactEqual(session, direction.components[0], 0);
+  exactEqual(session, direction.components[1], 1);
+  exactEqual(session, direction.components[2], 0);
+});
+
+test("exact display direction reduces proportional symbolic components", () => {
+  const session = new CasSession();
+  const direction = unwrap(
+    primitiveDirectionForDisplay(
+      [
+        ["Multiply", 2, SQRT_TWO],
+        ["Multiply", 4, SQRT_TWO],
+        0,
+      ],
+      session,
+    ),
+  );
+  exactEqual(session, direction.components[0], 1);
+  exactEqual(session, direction.components[1], 2);
+  exactEqual(session, direction.components[2], 0);
+});
+
+test("exact display direction reduces an arbitrary-precision rational common factor", () => {
+  const session = new CasSession();
+  const direction = unwrap(
+    primitiveDirectionForDisplay(
+      [
+        { num: "100000000000000000001" },
+        { num: "200000000000000000002" },
+        0,
+      ],
+      session,
+    ),
+  );
+  exactEqual(session, direction.components[0], 1);
+  exactEqual(session, direction.components[1], 2);
+  exactEqual(session, direction.components[2], 0);
+});
+
+test("exact vector formatters reject DTO fields forged away from authoritative MathJSON", () => {
+  const forged = {
+    schemaVersion: 1,
+    components: [0, 1, 2].map(() => ({
+      schemaVersion: 1,
+      mathJson: 1,
+      latex: "FORGED",
+      decimal: "1",
+      approx: 1,
+    })),
+  } as unknown as ExactVec3Dto;
+
+  expectError(formatExactVec3Latex(forged), KERNEL_ERROR_CODES.invalidInput);
+  expectError(isReadableExactVec3(forged), KERNEL_ERROR_CODES.invalidInput);
+});
+
+test("exact vector formatters reject non-JSON DTO containers and hidden extras", () => {
+  const genuine = unwrap(vec3(1, 2, 3));
+  class VectorClass {
+    readonly schemaVersion = 1 as const;
+    readonly components = genuine.components;
+  }
+  const classInstance = new VectorClass() as ExactVec3Dto;
+  const sparseComponents = new Array(3);
+  sparseComponents[0] = genuine.components[0];
+  sparseComponents[2] = genuine.components[2];
+  const sparse = {
+    schemaVersion: 1,
+    components: sparseComponents,
+  } as unknown as ExactVec3Dto;
+  const symbolExtra = {
+    schemaVersion: 1,
+    components: [...genuine.components],
+  } as unknown as ExactVec3Dto;
+  Object.defineProperty(symbolExtra, Symbol("hidden"), { value: true });
+  const nonEnumerableExtra = {
+    schemaVersion: 1,
+    components: [...genuine.components],
+  } as unknown as ExactVec3Dto;
+  Object.defineProperty(nonEnumerableExtra, "hidden", { value: true });
+  const customArray = [...genuine.components];
+  Object.setPrototypeOf(customArray, Object.create(Array.prototype));
+  const customArrayPrototype = {
+    schemaVersion: 1,
+    components: customArray,
+  } as unknown as ExactVec3Dto;
+
+  for (const forged of [
+    classInstance,
+    sparse,
+    symbolExtra,
+    nonEnumerableExtra,
+    customArrayPrototype,
+  ]) {
+    expectError(formatExactVec3Latex(forged), KERNEL_ERROR_CODES.invalidInput);
+    expectError(isReadableExactVec3(forged), KERNEL_ERROR_CODES.invalidInput);
+  }
 });
 
 test("exact APIs return explicit errors for zero, degenerate, non-real, and unprovable inputs", () => {

@@ -31,7 +31,11 @@ export function vecAdd<S>(ops: ScalarOps<S>, left: Vec3<S>, right: Vec3<S>): Vec
   ];
 }
 
-export function vecSub<S>(ops: ScalarOps<S>, left: Vec3<S>, right: Vec3<S>): Vec3<S> {
+export function vecSub<S>(
+  ops: Pick<ScalarOps<S>, "sub">,
+  left: Vec3<S>,
+  right: Vec3<S>,
+): Vec3<S> {
   return [
     ops.sub(left[0], right[0]),
     ops.sub(left[1], right[1]),
@@ -59,14 +63,22 @@ export function vecDivideByScalar<S>(
   ];
 }
 
-export function vecDot<S>(ops: ScalarOps<S>, left: Vec3<S>, right: Vec3<S>): S {
+export function vecDot<S>(
+  ops: Pick<ScalarOps<S>, "add" | "mul">,
+  left: Vec3<S>,
+  right: Vec3<S>,
+): S {
   return ops.add(
     ops.add(ops.mul(left[0], right[0]), ops.mul(left[1], right[1])),
     ops.mul(left[2], right[2]),
   );
 }
 
-export function vecCross<S>(ops: ScalarOps<S>, left: Vec3<S>, right: Vec3<S>): Vec3<S> {
+export function vecCross<S>(
+  ops: Pick<ScalarOps<S>, "sub" | "mul">,
+  left: Vec3<S>,
+  right: Vec3<S>,
+): Vec3<S> {
   return [
     ops.sub(ops.mul(left[1], right[2]), ops.mul(left[2], right[1])),
     ops.sub(ops.mul(left[2], right[0]), ops.mul(left[0], right[2])),
@@ -91,7 +103,7 @@ export function vecMidpoint<S>(ops: ScalarOps<S>, left: Vec3<S>, right: Vec3<S>)
 }
 
 export function normalFromThreePoints<S>(
-  ops: ScalarOps<S>,
+  ops: Pick<ScalarOps<S>, "sub" | "mul">,
   first: Vec3<S>,
   second: Vec3<S>,
   third: Vec3<S>,
@@ -133,9 +145,18 @@ export function pointPlaneDistanceValue<S>(
   planeNormal: Vec3<S>,
 ): S {
   return ops.div(
-    ops.abs(vecDot(ops, vecSub(ops, point, planePoint), planeNormal)),
+    ops.abs(pointPlaneSignedNumeratorValue(ops, point, planePoint, planeNormal)),
     vecNorm(ops, planeNormal),
   );
+}
+
+export function pointPlaneSignedNumeratorValue<S>(
+  ops: Pick<ScalarOps<S>, "add" | "sub" | "mul">,
+  point: Vec3<S>,
+  planePoint: Vec3<S>,
+  planeNormal: Vec3<S>,
+): S {
+  return vecDot(ops, vecSub(ops, point, planePoint), planeNormal);
 }
 
 export function edgeOrthogonalComponent<S>(
@@ -198,10 +219,26 @@ export function tetrahedronVolumeValue<S>(
   third: Vec3<S>,
   fourth: Vec3<S>,
 ): S {
-  const triple = vecDot(
+  const triple = tetrahedronSignedTripleProductValue(
+    ops,
+    first,
+    second,
+    third,
+    fourth,
+  );
+  return ops.div(ops.abs(triple), ops.fromInteger(6));
+}
+
+export function tetrahedronSignedTripleProductValue<S>(
+  ops: Pick<ScalarOps<S>, "add" | "sub" | "mul">,
+  first: Vec3<S>,
+  second: Vec3<S>,
+  third: Vec3<S>,
+  fourth: Vec3<S>,
+): S {
+  return vecDot(
     ops,
     vecCross(ops, vecSub(ops, second, first), vecSub(ops, third, first)),
     vecSub(ops, fourth, first),
   );
-  return ops.div(ops.abs(triple), ops.fromInteger(6));
 }

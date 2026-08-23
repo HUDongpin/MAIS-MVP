@@ -167,6 +167,38 @@ test("canonical exact DTO preserves a close radical difference without simplifyi
   }
 });
 
+test("canonical exact DTO never publishes numeric zero for an exactly nonzero value", () => {
+  const session = new CasSession();
+  const positiveBeyondDisplayPrecision = [
+    "Subtract",
+    ["Divide", Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION, SQRT_TWO],
+    1,
+  ] as const;
+
+  assert.equal(
+    unwrap(
+      session.compareExactOrder(
+        Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION,
+        SQRT_TWO,
+      ),
+    ),
+    "greater",
+  );
+  const dto = unwrap(
+    session.toCanonicalExactValueDto(positiveBeyondDisplayPrecision),
+  );
+  assert.equal(dto.decimal, null);
+  assert.equal(dto.approx, null);
+
+  const simplifiedDto = unwrap(
+    session.toExactValueDto(positiveBeyondDisplayPrecision),
+  );
+  assert.deepEqual(simplifiedDto.mathJson, dto.mathJson);
+  assert.equal(simplifiedDto.latex, dto.latex);
+  assert.equal(simplifiedDto.decimal, null);
+  assert.equal(simplifiedDto.approx, null);
+});
+
 test("classifies finite real exact constants independently of renderer approximations", () => {
   const session = new CasSession();
   const beyondDisplayPrecision = [
