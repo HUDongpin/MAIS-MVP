@@ -394,12 +394,37 @@ function compareExplicitDifferenceFromZero(
   return null;
 }
 
+function rootDomainIsProvablyReal(
+  engine: ComputeEngine,
+  root: ExactRootView,
+  depth: number,
+): boolean {
+  if (depth >= EXACT_ORDER_REWRITE_DEPTH) return false;
+  const radicandOrder = compareExactOrderExpressions(
+    engine,
+    root.radicand,
+    engine.box(0 as MathJsonExpression),
+    depth + 1,
+  );
+  return root.degree % 2 === 0
+    ? radicandOrder === "equal" || radicandOrder === "greater"
+    : radicandOrder !== "unknown";
+}
+
 function compareExactOrderExpressions(
   engine: ComputeEngine,
   left: ComputeExpression,
   right: ComputeExpression,
   depth = 0,
 ): ExactOrderComparison {
+  const leftRoot = rootExpression(left);
+  const rightRoot = rootExpression(right);
+  if (
+    (leftRoot !== null && !rootDomainIsProvablyReal(engine, leftRoot, depth)) ||
+    (rightRoot !== null && !rootDomainIsProvablyReal(engine, rightRoot, depth))
+  ) {
+    return "unknown";
+  }
   if (left.isSame(right)) return "equal";
 
   if (depth < EXACT_ORDER_REWRITE_DEPTH) {
@@ -444,8 +469,6 @@ function compareExactOrderExpressions(
   const rightSign = definiteSign(right);
 
   if (depth < EXACT_ORDER_REWRITE_DEPTH) {
-    const leftRoot = rootExpression(left);
-    const rightRoot = rootExpression(right);
     const zero = engine.box(0 as MathJsonExpression);
     const leftRootDomain = leftRoot === null
       ? null

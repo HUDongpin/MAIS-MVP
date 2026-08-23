@@ -165,6 +165,20 @@ test("compares a close radical through its exact radicand", () => {
   assert.equal(unwrap(compareExactOrder(0, ["Sqrt", -1])), "unknown");
 });
 
+test("preflights real root domains before sign and equality proofs", () => {
+  const nonRealEvenRoot = ["Root", -16, 4] as const;
+  assert.equal(unwrap(compareExactOrder(nonRealEvenRoot, 0)), "unknown");
+  assert.equal(unwrap(compareExactOrder(0, nonRealEvenRoot)), "unknown");
+  assert.equal(
+    unwrap(compareExactOrder(nonRealEvenRoot, nonRealEvenRoot)),
+    "unknown",
+  );
+
+  const realOddRoot = ["Root", -8, 3] as const;
+  assert.equal(unwrap(compareExactOrder(realOddRoot, 0)), "less");
+  assert.equal(unwrap(compareExactOrder(0, realOddRoot)), "greater");
+});
+
 test("exact order is explicit for equality, opposite signs, and symbolic uncertainty", () => {
   const session = new CasSession();
   assert.equal(session.compareExactOrder(2, 2).ok, true);

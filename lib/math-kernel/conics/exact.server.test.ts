@@ -196,6 +196,10 @@ test("exact constructors reject unprovable symbolic domains rather than guessing
     circleExact({ r: "r" }),
     KERNEL_ERROR_CODES.indeterminateSymbolicResult,
   );
+  expectError(
+    circleExact({ r: ["Root", -16, 4] }),
+    KERNEL_ERROR_CODES.indeterminateSymbolicResult,
+  );
 });
 
 test("conic positivity and ellipse axis order use exact sign proofs", () => {
