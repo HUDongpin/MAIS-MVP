@@ -9,6 +9,7 @@ export const MATH_JSON_LIMITS = {
   maxTotalStringLength: 131_072,
   maxNumericDigits: 4_096,
   maxIntegerExponent: 10_000,
+  maxEstimatedPowerDigits: 100_000,
 } as const;
 
 export interface MathJsonValidationOptions {
@@ -394,8 +395,19 @@ function directIntegerExponent(value: unknown): number | string | null {
   return typeof token === "string" && /^-?\d+$/.test(token) ? token : null;
 }
 
+function directIntegerSignificantDigits(value: unknown): number | null {
+  if (typeof value === "number" && Number.isSafeInteger(value)) {
+    return String(Math.abs(value)).length;
+  }
+  if (!value || typeof value !== "object" || !isPlainObject(value)) return null;
+  const token = ownDataValue(value, "num");
+  if (typeof token !== "string" || !/^-?\d+$/.test(token)) return null;
+  return token.replace(/^-/, "").replace(/^0+/, "").length || 1;
+}
+
 function validateOperator(
   operator: string,
+  base: unknown,
   exponent: unknown,
   operatorPath: string,
   exponentPath: string,
@@ -422,13 +434,33 @@ function validateOperator(
           directExponent,
           MATH_JSON_LIMITS.maxIntegerExponent,
         );
-  return tooLarge
-    ? failure(
-        KERNEL_ERROR_CODES.mathJsonIntegerExponentLimit,
-        `Direct integer Power exponents must not exceed ${MATH_JSON_LIMITS.maxIntegerExponent} in absolute value.`,
-        exponentPath,
-      )
-    : null;
+  if (tooLarge) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonIntegerExponentLimit,
+      `Direct integer Power exponents must not exceed ${MATH_JSON_LIMITS.maxIntegerExponent} in absolute value.`,
+      exponentPath,
+    );
+  }
+
+  const baseDigits = directIntegerSignificantDigits(base);
+  const exponentMagnitude =
+    typeof directExponent === "number"
+      ? Math.abs(directExponent)
+      : directExponent === null
+        ? null
+        : Number(directExponent.replace(/^-/, ""));
+  if (
+    baseDigits !== null &&
+    exponentMagnitude !== null &&
+    baseDigits * exponentMagnitude > MATH_JSON_LIMITS.maxEstimatedPowerDigits
+  ) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonEstimatedPowerDigitsLimit,
+      `Estimated exact Power output must not exceed ${MATH_JSON_LIMITS.maxEstimatedPowerDigits} digits.`,
+      exponentPath,
+    );
+  }
+  return null;
 }
 
 function validateDictionaryValue(
@@ -498,6 +530,7 @@ function validateFunctionObject(
 
   const operatorFailure = validateOperator(
     head,
+    ownDataValue(value, "1"),
     ownDataValue(value, "2"),
     `${path}[0]`,
     `${path}[2]`,
@@ -624,6 +657,7 @@ function validateExpressionShape(
     }
     const operatorFailure = validateOperator(
       head,
+      ownDataValue(value, "1"),
       ownDataValue(value, "2"),
       `${path}[0]`,
       `${path}[2]`,
@@ -654,8 +688,9 @@ function validateExpressionShape(
 
 /**
  * Validates application-constructed MathJSON data before it reaches the CAS.
- * This is a resource guard, not a parser, worker sandbox, or authorization to
- * execute arbitrary user-supplied source strings.
+ * This foundation intentionally has no worker timeout: arbitrary-user CAS is
+ * forbidden, and this guard is not a parser, sandbox, or authorization to
+ * execute user-supplied source strings.
  */
 export function validateMathJson(
   input: unknown,

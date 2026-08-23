@@ -107,6 +107,21 @@ test("allows exact powers needed for large and tiny finite decimal DTOs", () => 
   assert.equal(validateMathJson(["Power", 10, -400]).ok, true);
 });
 
+test("rejects a compact Power AST whose estimated exact output is excessive", () => {
+  const result = validateMathJson([
+    "Power",
+    { num: "9".repeat(4_096) },
+    10_000,
+  ]);
+
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(
+    result.error.code,
+    KERNEL_ERROR_CODES.mathJsonEstimatedPowerDigitsLimit,
+  );
+});
+
 test("rejects cyclic input rather than recursing or serializing it", () => {
   const cyclic: unknown[] = ["Add", 1];
   cyclic.push(cyclic);

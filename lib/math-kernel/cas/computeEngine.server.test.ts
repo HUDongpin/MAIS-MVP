@@ -123,6 +123,18 @@ test("rejects operators outside the MAIS CAS allowlist", () => {
   assert.equal(result.error.code, KERNEL_ERROR_CODES.mathJsonInvalidShape);
 });
 
+test("keeps advanced Limit and Solve operators out of the base CAS session", () => {
+  for (const input of [
+    ["Limit", "x", "x", 0],
+    ["Solve", ["Equal", "x", 1], "x"],
+  ]) {
+    const result = boxMathJson(input);
+    assert.equal(result.ok, false);
+    if (result.ok) continue;
+    assert.equal(result.error.code, KERNEL_ERROR_CODES.mathJsonInvalidShape);
+  }
+});
+
 test("provides a reusable request-scoped session without exposing its engine", () => {
   const session = new CasSession();
   assert.equal(unwrap(session.simplifyMathJson(["Add", "x", 0])), "x");

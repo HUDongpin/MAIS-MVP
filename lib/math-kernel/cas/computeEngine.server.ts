@@ -16,44 +16,32 @@ const READABLE_MAX_NODES = 32;
 const READABLE_MAX_LATEX_LENGTH = 120;
 
 /**
- * Operators required by the MAIS exact-arithmetic, relation, and planned
- * single-expression calculus/solve contracts. Canonical CE output operators
- * such as Rational are included explicitly as well.
+ * Base-profile operators for MAIS exact arithmetic and relations. Advanced
+ * calculus/solve operators are deliberately excluded; a future analytic.server
+ * must expose them through its own constrained typed profile. Arbitrary-user
+ * CAS is forbidden, so this app-constructed-only layer has no worker timeout.
  */
 const MAIS_CAS_ALLOWED_OPERATORS: ReadonlySet<string> = new Set([
   "Abs",
   "Add",
   "And",
-  "ClosedInterval",
-  "D",
-  "Derivative",
   "Divide",
   "Equal",
   "Greater",
   "GreaterEqual",
-  "Integrate",
-  "Interval",
   "Less",
   "LessEqual",
-  "Limit",
-  "List",
   "Multiply",
   "Negate",
   "Not",
   "NotEqual",
-  "OpenInterval",
   "Or",
-  "Pair",
   "Power",
   "Rational",
   "Root",
-  "Roots",
-  "Solve",
   "Sqrt",
   "Square",
   "Subtract",
-  "Tuple",
-  "Union",
 ]);
 
 type ComputeExpression = ReturnType<ComputeEngine["box"]>;

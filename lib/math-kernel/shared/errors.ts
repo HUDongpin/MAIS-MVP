@@ -8,6 +8,7 @@ export const KERNEL_ERROR_CODES = {
   mathJsonTotalStringLengthLimit: "MATH_JSON_TOTAL_STRING_LENGTH_LIMIT",
   mathJsonNumericDigitsLimit: "MATH_JSON_NUMERIC_DIGITS_LIMIT",
   mathJsonIntegerExponentLimit: "MATH_JSON_INTEGER_EXPONENT_LIMIT",
+  mathJsonEstimatedPowerDigitsLimit: "MATH_JSON_ESTIMATED_POWER_DIGITS_LIMIT",
   mathJsonInvalidShape: "MATH_JSON_INVALID_SHAPE",
   casInvalidExpression: "CAS_INVALID_EXPRESSION",
   casOperationFailed: "CAS_OPERATION_FAILED",
