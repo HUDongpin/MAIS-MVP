@@ -121,6 +121,16 @@ function createDatabase(): ParentMessagePersistenceDatabase {
         body: "Older question",
         attachments: [],
         created_at: "2026-06-18T10:00:00.000Z"
+      },
+      {
+        id: "entry-other-family",
+        thread_id: "thread-other-parent",
+        sender_id: "parent-2",
+        sender_role: "parent",
+        recipient_id: "teacher-2",
+        body: "Other family's private message",
+        attachments: [],
+        created_at: "2026-06-19T08:10:00.000Z"
       }
     ],
     teacher_messages: [
@@ -210,7 +220,13 @@ function createDatabase(): ParentMessagePersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentMessagePersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentMessagePersistenceDatabase>;
+  } = {}
+) {
   return createParentMessagePersistenceStore({
     createEntryId: () => "message-entry-created",
     createThreadId: () => "message-thread-created",
@@ -224,9 +240,33 @@ function createTestStore(database = createDatabase()) {
     },
     getParentReportsForStudent: (_database, studentId) => [teacherReport(`report-for-${studentId}`, studentId)],
     mutateDatabase: async (mutator) => mutator(database),
-    readDatabase: async () => database
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {})
   });
 }
+
+test("parent message GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.deepEqual((await store.getParentMessagesData("parent-1"))?.threads.map((thread) => thread.id), [
+    "thread-newer",
+    "thread-older"
+  ]);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent message persistence returns visible threads without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentMessagePersistence.ts"), "utf8");
@@ -245,6 +285,10 @@ test("parent message persistence returns visible threads without legacy userStor
     "entry-newer-teacher",
     "entry-newer-parent"
   ]);
+  assert.equal(
+    data?.threads.flatMap((thread) => thread.messages).some((message) => message.id === "entry-other-family"),
+    false
+  );
   assert.deepEqual(data?.reports.map((report) => report.id), ["report-for-student-1", "report-for-student-2"]);
   assert.deepEqual(data?.categories.map((category) => category.id), [
     "learning-support",

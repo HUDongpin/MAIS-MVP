@@ -132,6 +132,13 @@ function createDatabase(): ParentFoundationPersistenceDatabase {
         student_id: "student-3",
         status: "revoked",
         created_at: "2026-06-03T00:00:00.000Z"
+      },
+      {
+        id: "link-other-family",
+        parent_id: "parent-2",
+        student_id: "student-3",
+        status: "active",
+        created_at: "2026-06-04T00:00:00.000Z"
       }
     ],
     teacher_messages: [
@@ -171,9 +178,16 @@ function createDatabase(): ParentFoundationPersistenceDatabase {
   };
 }
 
-function createTestStore(database: ParentFoundationPersistenceDatabase) {
+function createTestStore(
+  database: ParentFoundationPersistenceDatabase,
+  readers: {
+    readDatabase?: () => Promise<ParentFoundationPersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentFoundationPersistenceDatabase>;
+  } = {}
+) {
   return createParentFoundationPersistenceStore({
-    readDatabase: async () => database,
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {}),
     buildParentChildSummary: (_database, studentId) => {
       const summary = studentId === "student-1"
         ? childSummary(studentId, 2)
@@ -199,6 +213,44 @@ function createTestStore(database: ParentFoundationPersistenceDatabase) {
   });
 }
 
+test("parent foundation GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.equal((await store.getParentFoundationData("parent-1"))?.parent.id, "parent-1");
+  assert.equal((await store.getParentChildSummary("parent-1", "student-2"))?.student.id, "student-2");
+  assert.deepEqual(scopedParentIds, ["parent-1", "parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
+
+test("scoped parent results fail closed when the parent projection or active link is absent", async () => {
+  const missingParent = createDatabase();
+  missingParent.users = missingParent.users.filter((user) => user.id !== "parent-1");
+  assert.equal(await createTestStore(missingParent).getParentFoundationData("parent-1"), null);
+
+  const unlinkedParent = createDatabase();
+  unlinkedParent.guardian_links = unlinkedParent.guardian_links.filter((link) => link.parent_id !== "parent-1");
+  const emptyFoundation = await createTestStore(unlinkedParent).getParentFoundationData("parent-1");
+  assert.deepEqual(emptyFoundation?.children, []);
+  assert.deepEqual(emptyFoundation?.links, []);
+  assert.equal(
+    await createTestStore(unlinkedParent).getParentChildSummary("parent-1", "student-1"),
+    null,
+    "an explicit child lookup must not inherit data when no active guardian link exists"
+  );
+});
+
 test("parent foundation persistence builds foundation data without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentFoundationPersistence.ts"), "utf8");
   assert.doesNotMatch(source, /from ["']\.\.\/userStore["']/);
@@ -208,6 +260,7 @@ test("parent foundation persistence builds foundation data without legacy userSt
 
   assert.equal(foundation?.parent.id, "parent-1");
   assert.deepEqual(foundation?.links.map((link) => link.id), ["link-1", "link-2"]);
+  assert.equal(foundation?.links.some((link) => link.id === "link-other-family"), false);
   assert.deepEqual(foundation?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.equal(foundation?.selectedChild?.student.id, "student-2");
   assert.deepEqual(foundation?.totals, {
@@ -457,6 +510,7 @@ test("parent foundation persistence owns parent assignment item lookup for legac
       ["assignment-old", "submission-old", "3A", "S3", "in-progress"]
     ]
   );
+  assert.equal(items.some((item) => item.submission.id === "submission-other-student"), false);
 });
 
 test("parent foundation persistence owns parent child-summary builder for legacy userStore", async () => {

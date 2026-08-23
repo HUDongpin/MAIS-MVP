@@ -307,6 +307,7 @@ import {
   type ParentFoundationPersistenceDatabase,
   type ParentFoundationUserRecord
 } from "@/lib/server/userStore/parentFoundationPersistence";
+import { scopeParentPostgresCollections } from "@/lib/server/userStore/parentPostgresScopedCollections";
 import { createParentUserStore } from "@/lib/server/userStore/parentStore";
 import {
   completeStudentActivityMatchingAssignments as completeMatchingAssignmentsFromStudentActivityPersistence,
@@ -693,7 +694,10 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
-import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
+import {
+  ensurePostgresStudentActivityTables,
+  readLearningEventsFastForUsers
+} from "@/lib/server/practiceAttemptStore";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -8572,6 +8576,571 @@ const aiGovernanceUserStore = createAiGovernanceUserStore({
   novaLensPersistenceStore
 });
 
+type ParentPostgresScopedRow = {
+  scope_ready: boolean;
+  user_records: unknown;
+  student_profile_records: unknown;
+  user_setting_records: unknown;
+  guardian_link_records: unknown;
+  school_membership_records: unknown;
+  topic_records: unknown;
+  question_records: unknown;
+  attempt_records: unknown;
+  hot_attempt_records: unknown;
+  mistake_records: unknown;
+  hot_mistake_records: unknown;
+  lesson_progress_records: unknown;
+  learning_event_records: unknown;
+  hot_learning_event_records: unknown;
+  visualization_session_records: unknown;
+  ai_tutor_message_records: unknown;
+  teacher_class_records: unknown;
+  class_enrollment_records: unknown;
+  assignment_records: unknown;
+  submission_records: unknown;
+  assignment_submission_attempt_records: unknown;
+  assignment_grading_run_records: unknown;
+  assignment_teacher_review_records: unknown;
+  teacher_message_records: unknown;
+  teacher_message_entry_records: unknown;
+  teacher_notice_records: unknown;
+  teacher_notice_recipient_records: unknown;
+  teacher_review_lesson_records: unknown;
+  teacher_report_records: unknown;
+  reward_point_ledger_records: unknown;
+  reward_redemption_records: unknown;
+  gamification_event_records: unknown;
+};
+
+const parentPostgresScopedCollectionKeys = [
+  "user_records",
+  "student_profile_records",
+  "user_setting_records",
+  "guardian_link_records",
+  "school_membership_records",
+  "topic_records",
+  "question_records",
+  "attempt_records",
+  "hot_attempt_records",
+  "mistake_records",
+  "hot_mistake_records",
+  "lesson_progress_records",
+  "learning_event_records",
+  "hot_learning_event_records",
+  "visualization_session_records",
+  "ai_tutor_message_records",
+  "teacher_class_records",
+  "class_enrollment_records",
+  "assignment_records",
+  "submission_records",
+  "assignment_submission_attempt_records",
+  "assignment_grading_run_records",
+  "assignment_teacher_review_records",
+  "teacher_message_records",
+  "teacher_message_entry_records",
+  "teacher_notice_records",
+  "teacher_notice_recipient_records",
+  "teacher_review_lesson_records",
+  "teacher_report_records",
+  "reward_point_ledger_records",
+  "reward_redemption_records",
+  "gamification_event_records"
+] as const satisfies ReadonlyArray<Exclude<keyof ParentPostgresScopedRow, "scope_ready">>;
+
+const parentPostgresScopedReadStatementTimeoutMs = 5_000;
+const parentProjectionArray = projectionArrayFromTeacherOpsFoundation as <T>(value: unknown) => T[];
+
+async function readParentPostgresScopedDatabase(parentId: string) {
+  await ensurePostgresStateTable();
+  await ensurePostgresStudentActivityTables();
+  const rows = await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT set_config(
+        'statement_timeout',
+        ${`${parentPostgresScopedReadStatementTimeoutMs}ms`},
+        true
+      )
+    `;
+    return sql<ParentPostgresScopedRow[]>`
+    WITH scoped_state AS MATERIALIZED (
+      SELECT
+        state.payload->'guardian_links' AS guardian_links,
+        state.payload->'teacher_reports' AS teacher_reports,
+        state.payload->'teacher_message_entries' AS teacher_message_entries,
+        state.payload->'teacher_notices' AS teacher_notices,
+        state.payload->'teacher_notice_recipients' AS teacher_notice_recipients,
+        state.payload->'teacher_review_lessons' AS teacher_review_lessons,
+        state.payload->'assignment_submission_attempts' AS assignment_submission_attempts,
+        state.payload->'assignment_grading_runs' AS assignment_grading_runs
+      FROM app_state AS state
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+        AND jsonb_typeof(state.payload) = 'object'
+        AND jsonb_typeof(state.payload->'guardian_links') = 'array'
+        AND jsonb_typeof(state.payload->'teacher_reports') = 'array'
+        AND jsonb_typeof(state.payload->'teacher_message_entries') = 'array'
+        AND jsonb_typeof(state.payload->'teacher_notices') = 'array'
+        AND jsonb_typeof(state.payload->'teacher_notice_recipients') = 'array'
+        AND jsonb_typeof(state.payload->'teacher_review_lessons') = 'array'
+        AND jsonb_typeof(state.payload->'assignment_submission_attempts') = 'array'
+        AND jsonb_typeof(state.payload->'assignment_grading_runs') = 'array'
+      LIMIT 1
+    ),
+    authorized_parent AS (
+      SELECT projected_user.record AS user_record
+      FROM projection_users AS projected_user
+      WHERE projected_user.id = ${parentId}
+        AND projected_user.role = 'parent'
+        AND projected_user.id IS NOT DISTINCT FROM projected_user.record->>'id'
+        AND projected_user.role IS NOT DISTINCT FROM projected_user.record->>'role'
+        AND NULLIF(projected_user.record->>'disabled_at', '') IS NULL
+      LIMIT 1
+    ),
+    guardian_link_records AS (
+      SELECT link_record
+      FROM scoped_state
+      CROSS JOIN authorized_parent
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.guardian_links)
+        AS link_items(link_record)
+      WHERE link_record->>'parent_id' = ${parentId}
+        AND link_record->>'status' = 'active'
+        AND COALESCE(link_record->>'student_id', '') <> ''
+    ),
+    student_ids AS (
+      SELECT DISTINCT link_record->>'student_id' AS student_id
+      FROM guardian_link_records
+    ),
+    class_enrollment_records AS (
+      SELECT projected_enrollment.record AS enrollment_record
+      FROM projection_class_enrollments AS projected_enrollment
+      WHERE projected_enrollment.student_id IN (SELECT student_id FROM student_ids)
+        AND projected_enrollment.id IS NOT DISTINCT FROM projected_enrollment.record->>'id'
+        AND projected_enrollment.class_id IS NOT DISTINCT FROM projected_enrollment.record->>'class_id'
+        AND projected_enrollment.student_id IS NOT DISTINCT FROM projected_enrollment.record->>'student_id'
+    ),
+    class_ids AS (
+      SELECT DISTINCT enrollment_record->>'class_id' AS class_id
+      FROM class_enrollment_records
+      WHERE COALESCE(enrollment_record->>'class_id', '') <> ''
+    ),
+    teacher_class_records AS (
+      SELECT projected_class.record AS class_record
+      FROM projection_teacher_classes AS projected_class
+      WHERE projected_class.id IN (SELECT class_id FROM class_ids)
+        AND projected_class.id IS NOT DISTINCT FROM projected_class.record->>'id'
+        AND projected_class.teacher_id IS NOT DISTINCT FROM projected_class.record->>'teacher_id'
+        AND projected_class.grade IS NOT DISTINCT FROM projected_class.record->>'grade'
+    ),
+    teacher_report_records AS (
+      SELECT report_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.teacher_reports)
+        AS report_items(report_record)
+      WHERE report_record->>'type' = 'parent-summary'
+        AND report_record->>'student_id' IN (SELECT student_id FROM student_ids)
+        AND (
+          NULLIF(report_record->>'class_id', '') IS NULL
+          OR report_record->>'class_id' IN (SELECT class_id FROM class_ids)
+        )
+    ),
+    teacher_message_records AS (
+      SELECT projected_message.record AS message_record
+      FROM projection_teacher_messages AS projected_message
+      WHERE projected_message.record->>'guardian_id' = ${parentId}
+        AND projected_message.record->>'student_id' IN (SELECT student_id FROM student_ids)
+        AND projected_message.id IS NOT DISTINCT FROM projected_message.record->>'id'
+        AND projected_message.teacher_id IS NOT DISTINCT FROM projected_message.record->>'teacher_id'
+        AND projected_message.class_id IS NOT DISTINCT FROM NULLIF(projected_message.record->>'class_id', '')
+        AND projected_message.student_id IS NOT DISTINCT FROM projected_message.record->>'student_id'
+        AND (
+          NULLIF(projected_message.record->>'class_id', '') IS NULL
+          OR projected_message.record->>'class_id' IN (SELECT class_id FROM class_ids)
+        )
+    ),
+    message_thread_ids AS (
+      SELECT DISTINCT message_record->>'id' AS thread_id
+      FROM teacher_message_records
+      WHERE COALESCE(message_record->>'id', '') <> ''
+    ),
+    teacher_message_entry_records AS (
+      SELECT entry_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.teacher_message_entries)
+        AS entry_items(entry_record)
+      WHERE entry_record->>'thread_id' IN (SELECT thread_id FROM message_thread_ids)
+        AND (
+          entry_record->>'sender_id' = ${parentId}
+          OR entry_record->>'recipient_id' = ${parentId}
+        )
+    ),
+    teacher_notice_recipient_records AS (
+      SELECT recipient_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.teacher_notice_recipients)
+        AS recipient_items(recipient_record)
+      WHERE recipient_record->>'guardian_id' = ${parentId}
+        AND recipient_record->>'student_id' IN (SELECT student_id FROM student_ids)
+    ),
+    notice_ids AS (
+      SELECT DISTINCT recipient_record->>'notice_id' AS notice_id
+      FROM teacher_notice_recipient_records
+      WHERE COALESCE(recipient_record->>'notice_id', '') <> ''
+    ),
+    teacher_notice_records AS (
+      SELECT notice_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.teacher_notices)
+        AS notice_items(notice_record)
+      WHERE notice_record->>'id' IN (SELECT notice_id FROM notice_ids)
+        AND (
+          NULLIF(notice_record->>'class_id', '') IS NULL
+          OR notice_record->>'class_id' IN (SELECT class_id FROM class_ids)
+        )
+    ),
+    review_lesson_ids AS (
+      SELECT DISTINCT notice_record->>'source_id' AS review_lesson_id
+      FROM teacher_notice_records
+      WHERE notice_record->>'source_kind' = 'teacher-review-lesson'
+        AND COALESCE(notice_record->>'source_id', '') <> ''
+    ),
+    teacher_review_lesson_records AS (
+      SELECT review_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.teacher_review_lessons)
+        AS review_items(review_record)
+      WHERE review_record->>'id' IN (SELECT review_lesson_id FROM review_lesson_ids)
+    ),
+    teacher_ids AS (
+      SELECT class_record->>'teacher_id' AS teacher_id
+      FROM teacher_class_records
+      UNION
+      SELECT report_record->>'generated_by' AS teacher_id
+      FROM teacher_report_records
+      UNION
+      SELECT message_record->>'teacher_id' AS teacher_id
+      FROM teacher_message_records
+      UNION
+      SELECT notice_record->>'teacher_id' AS teacher_id
+      FROM teacher_notice_records
+    ),
+    relevant_user_ids AS (
+      SELECT user_record->>'id' AS user_id
+      FROM authorized_parent
+      UNION
+      SELECT student_id AS user_id
+      FROM student_ids
+      UNION
+      SELECT teacher_id AS user_id
+      FROM teacher_ids
+      WHERE COALESCE(teacher_id, '') <> ''
+    ),
+    user_records AS (
+      SELECT projected_user.record AS user_record
+      FROM projection_users AS projected_user
+      WHERE projected_user.id IN (SELECT user_id FROM relevant_user_ids)
+        AND projected_user.id IS NOT DISTINCT FROM projected_user.record->>'id'
+        AND projected_user.role IS NOT DISTINCT FROM projected_user.record->>'role'
+    ),
+    student_profile_records AS (
+      SELECT projected_profile.record AS profile_record
+      FROM projection_student_profiles AS projected_profile
+      WHERE projected_profile.user_id IN (SELECT user_id FROM relevant_user_ids)
+        AND projected_profile.user_id IS NOT DISTINCT FROM projected_profile.record->>'user_id'
+        AND projected_profile.grade IS NOT DISTINCT FROM projected_profile.record->>'grade'
+    ),
+    user_setting_records AS (
+      SELECT projected_settings.record AS settings_record
+      FROM projection_user_settings AS projected_settings
+      WHERE projected_settings.user_id IN (
+        SELECT user_id
+        FROM relevant_user_ids
+        WHERE user_id = ${parentId} OR user_id IN (SELECT student_id FROM student_ids)
+      )
+    ),
+    school_membership_records AS (
+      SELECT projected_membership.record AS membership_record
+      FROM projection_school_memberships AS projected_membership
+      WHERE projected_membership.user_id IN (SELECT teacher_id FROM teacher_ids)
+        AND projected_membership.class_id IN (SELECT class_id FROM class_ids)
+        AND projected_membership.role = 'teacher'
+        AND projected_membership.user_id IS NOT DISTINCT FROM projected_membership.record->>'user_id'
+        AND projected_membership.class_id IS NOT DISTINCT FROM NULLIF(projected_membership.record->>'class_id', '')
+        AND projected_membership.role IS NOT DISTINCT FROM projected_membership.record->>'role'
+    ),
+    assignment_records AS (
+      SELECT projected_assignment.record AS assignment_record
+      FROM projection_assignments AS projected_assignment
+      WHERE projected_assignment.class_id IN (SELECT class_id FROM class_ids)
+        AND projected_assignment.id IS NOT DISTINCT FROM projected_assignment.record->>'id'
+        AND projected_assignment.class_id IS NOT DISTINCT FROM projected_assignment.record->>'class_id'
+    ),
+    assignment_ids AS (
+      SELECT DISTINCT assignment_record->>'id' AS assignment_id
+      FROM assignment_records
+      WHERE COALESCE(assignment_record->>'id', '') <> ''
+    ),
+    submission_records AS (
+      SELECT projected_submission.record AS submission_record
+      FROM projection_submissions AS projected_submission
+      WHERE projected_submission.student_id IN (SELECT student_id FROM student_ids)
+        AND projected_submission.assignment_id IN (SELECT assignment_id FROM assignment_ids)
+        AND projected_submission.id IS NOT DISTINCT FROM projected_submission.record->>'id'
+        AND projected_submission.assignment_id IS NOT DISTINCT FROM projected_submission.record->>'assignment_id'
+        AND projected_submission.student_id IS NOT DISTINCT FROM projected_submission.record->>'student_id'
+    ),
+    submission_ids AS (
+      SELECT DISTINCT submission_record->>'id' AS submission_id
+      FROM submission_records
+      WHERE COALESCE(submission_record->>'id', '') <> ''
+    ),
+    assignment_teacher_review_records AS (
+      SELECT projected_review.record AS review_record
+      FROM projection_assignment_teacher_reviews AS projected_review
+      WHERE projected_review.submission_id IN (SELECT submission_id FROM submission_ids)
+    ),
+    assignment_submission_attempt_records AS (
+      SELECT attempt_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.assignment_submission_attempts)
+        AS attempt_items(attempt_record)
+      WHERE attempt_record->>'submission_id' IN (SELECT submission_id FROM submission_ids)
+    ),
+    assignment_grading_run_records AS (
+      SELECT grading_record
+      FROM scoped_state
+      CROSS JOIN LATERAL jsonb_array_elements(scoped_state.assignment_grading_runs)
+        AS grading_items(grading_record)
+      WHERE grading_record->>'submission_id' IN (SELECT submission_id FROM submission_ids)
+    ),
+    snapshot_attempt_records AS (
+      SELECT projected_attempt.record AS attempt_record
+      FROM projection_attempts AS projected_attempt
+      WHERE projected_attempt.user_id IN (SELECT student_id FROM student_ids)
+    ),
+    hot_attempt_records AS (
+      SELECT jsonb_build_object(
+        'id', id,
+        'user_id', user_id,
+        'question_id', question_id,
+        'selected_answer', selected_answer,
+        'is_correct', is_correct,
+        'duration_seconds', duration_seconds,
+        'created_at', created_at
+      ) AS attempt_record
+      FROM practice_attempts
+      WHERE user_id IN (SELECT student_id FROM student_ids)
+    ),
+    snapshot_mistake_records AS (
+      SELECT projected_mistake.record AS mistake_record
+      FROM projection_mistake_book_items AS projected_mistake
+      WHERE projected_mistake.user_id IN (SELECT student_id FROM student_ids)
+    ),
+    hot_mistake_records AS (
+      SELECT jsonb_build_object(
+        'user_id', user_id,
+        'question_id', question_id,
+        'last_selected_answer', last_selected_answer,
+        'correct_answer', correct_answer,
+        'wrong_attempts', wrong_attempts,
+        'first_wrong_at', first_wrong_at,
+        'last_attempt_at', last_attempt_at,
+        'mastered', mastered
+      ) AS mistake_record
+      FROM mistake_book_items
+      WHERE user_id IN (SELECT student_id FROM student_ids)
+    ),
+    snapshot_learning_event_records AS (
+      SELECT projected_event.record AS event_record
+      FROM projection_learning_events AS projected_event
+      WHERE projected_event.user_id IN (SELECT student_id FROM student_ids)
+    ),
+    hot_learning_event_records AS (
+      SELECT jsonb_build_object(
+        'id', id,
+        'user_id', user_id,
+        'type', type,
+        'source', source,
+        'grade', grade,
+        'topic_id', topic_id,
+        'question_id', question_id,
+        'duration_seconds', duration_seconds,
+        'created_at', created_at
+      ) AS event_record
+      FROM learning_events
+      WHERE user_id IN (SELECT student_id FROM student_ids)
+    ),
+    question_ids AS (
+      SELECT attempt_record->>'question_id' AS question_id
+      FROM snapshot_attempt_records
+      UNION
+      SELECT attempt_record->>'question_id' AS question_id
+      FROM hot_attempt_records
+      UNION
+      SELECT mistake_record->>'question_id' AS question_id
+      FROM snapshot_mistake_records
+      UNION
+      SELECT mistake_record->>'question_id' AS question_id
+      FROM hot_mistake_records
+      UNION
+      SELECT event_record->>'question_id' AS question_id
+      FROM snapshot_learning_event_records
+      UNION
+      SELECT event_record->>'question_id' AS question_id
+      FROM hot_learning_event_records
+    ),
+    student_grades AS (
+      SELECT profile_record->>'grade' AS grade
+      FROM student_profile_records
+      WHERE profile_record->>'user_id' IN (SELECT student_id FROM student_ids)
+      UNION
+      SELECT class_record->>'grade' AS grade
+      FROM teacher_class_records
+    ),
+    topic_records AS (
+      SELECT projected_topic.record AS topic_record
+      FROM projection_topics AS projected_topic
+      WHERE projected_topic.grade IN (
+        SELECT grade
+        FROM student_grades
+        WHERE COALESCE(grade, '') <> ''
+      )
+    ),
+    question_records AS (
+      SELECT projected_question.record AS question_record
+      FROM projection_questions AS projected_question
+      WHERE projected_question.id IN (
+        SELECT question_id
+        FROM question_ids
+        WHERE COALESCE(question_id, '') <> ''
+      )
+    )
+    SELECT
+      TRUE AS scope_ready,
+      COALESCE((SELECT jsonb_agg(user_record) FROM user_records), '[]'::jsonb) AS user_records,
+      COALESCE((SELECT jsonb_agg(profile_record) FROM student_profile_records), '[]'::jsonb) AS student_profile_records,
+      COALESCE((SELECT jsonb_agg(settings_record) FROM user_setting_records), '[]'::jsonb) AS user_setting_records,
+      COALESCE((SELECT jsonb_agg(link_record) FROM guardian_link_records), '[]'::jsonb) AS guardian_link_records,
+      COALESCE((SELECT jsonb_agg(membership_record) FROM school_membership_records), '[]'::jsonb) AS school_membership_records,
+      COALESCE((SELECT jsonb_agg(topic_record) FROM topic_records), '[]'::jsonb) AS topic_records,
+      COALESCE((SELECT jsonb_agg(question_record) FROM question_records), '[]'::jsonb) AS question_records,
+      COALESCE((SELECT jsonb_agg(attempt_record) FROM snapshot_attempt_records), '[]'::jsonb) AS attempt_records,
+      COALESCE((SELECT jsonb_agg(attempt_record) FROM hot_attempt_records), '[]'::jsonb) AS hot_attempt_records,
+      COALESCE((SELECT jsonb_agg(mistake_record) FROM snapshot_mistake_records), '[]'::jsonb) AS mistake_records,
+      COALESCE((SELECT jsonb_agg(mistake_record) FROM hot_mistake_records), '[]'::jsonb) AS hot_mistake_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM projection_lesson_progress
+        WHERE user_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS lesson_progress_records,
+      COALESCE((SELECT jsonb_agg(event_record) FROM snapshot_learning_event_records), '[]'::jsonb) AS learning_event_records,
+      COALESCE((SELECT jsonb_agg(event_record) FROM hot_learning_event_records), '[]'::jsonb) AS hot_learning_event_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM projection_visualization_sessions
+        WHERE user_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS visualization_session_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM ai_tutor_message_journal
+        WHERE user_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS ai_tutor_message_records,
+      COALESCE((SELECT jsonb_agg(class_record) FROM teacher_class_records), '[]'::jsonb) AS teacher_class_records,
+      COALESCE((SELECT jsonb_agg(enrollment_record) FROM class_enrollment_records), '[]'::jsonb) AS class_enrollment_records,
+      COALESCE((SELECT jsonb_agg(assignment_record) FROM assignment_records), '[]'::jsonb) AS assignment_records,
+      COALESCE((SELECT jsonb_agg(submission_record) FROM submission_records), '[]'::jsonb) AS submission_records,
+      COALESCE((SELECT jsonb_agg(attempt_record) FROM assignment_submission_attempt_records), '[]'::jsonb) AS assignment_submission_attempt_records,
+      COALESCE((SELECT jsonb_agg(grading_record) FROM assignment_grading_run_records), '[]'::jsonb) AS assignment_grading_run_records,
+      COALESCE((SELECT jsonb_agg(review_record) FROM assignment_teacher_review_records), '[]'::jsonb) AS assignment_teacher_review_records,
+      COALESCE((SELECT jsonb_agg(message_record) FROM teacher_message_records), '[]'::jsonb) AS teacher_message_records,
+      COALESCE((SELECT jsonb_agg(entry_record) FROM teacher_message_entry_records), '[]'::jsonb) AS teacher_message_entry_records,
+      COALESCE((SELECT jsonb_agg(notice_record) FROM teacher_notice_records), '[]'::jsonb) AS teacher_notice_records,
+      COALESCE((SELECT jsonb_agg(recipient_record) FROM teacher_notice_recipient_records), '[]'::jsonb) AS teacher_notice_recipient_records,
+      COALESCE((SELECT jsonb_agg(review_record) FROM teacher_review_lesson_records), '[]'::jsonb) AS teacher_review_lesson_records,
+      COALESCE((SELECT jsonb_agg(report_record) FROM teacher_report_records), '[]'::jsonb) AS teacher_report_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM projection_reward_point_ledger
+        WHERE student_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS reward_point_ledger_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM projection_reward_redemptions
+        WHERE student_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS reward_redemption_records,
+      COALESCE((
+        SELECT jsonb_agg(record)
+        FROM projection_gamification_events
+        WHERE student_id IN (SELECT student_id FROM student_ids)
+      ), '[]'::jsonb) AS gamification_event_records
+    FROM scoped_state
+    CROSS JOIN authorized_parent
+    LIMIT 1
+    `;
+  });
+
+  const rawRow = rows[0];
+  if (
+    rawRow?.scope_ready !== true
+    || parentPostgresScopedCollectionKeys.some((key) => !Array.isArray(rawRow[key]))
+  ) {
+    throw new Error("Parent Postgres scoped state is unavailable.");
+  }
+  const row = scopeParentPostgresCollections(rawRow, parentId);
+  if (!row) {
+    throw new Error("Parent Postgres scoped state is unavailable.");
+  }
+
+  const database = emptyTeacherDashboardDatabase({
+    users: parentProjectionArray<UserRecord>(row.user_records),
+    student_profiles: parentProjectionArray<StudentProfileRecord>(row.student_profile_records),
+    user_settings: parentProjectionArray<UserSettingsRecord>(row.user_setting_records),
+    guardian_links: parentProjectionArray<GuardianLinkRecord>(row.guardian_link_records),
+    school_memberships: parentProjectionArray<SchoolMembershipRecord>(row.school_membership_records),
+    topics: parentProjectionArray<TopicRecord>(row.topic_records),
+    questions: parentProjectionArray<QuestionRecord>(row.question_records),
+    attempts: parentProjectionArray<AttemptRecord>(row.attempt_records),
+    mistakes: parentProjectionArray<MistakeRecordRow>(row.mistake_records),
+    lesson_progress: parentProjectionArray<LessonProgressRecord>(row.lesson_progress_records),
+    learning_events: parentProjectionArray<LearningEventRecord>(row.learning_event_records),
+    visualization_sessions: parentProjectionArray<VisualizationSessionRecord>(row.visualization_session_records),
+    ai_tutor_messages: parentProjectionArray<AITutorMessageRecord>(row.ai_tutor_message_records),
+    teacher_classes: parentProjectionArray<TeacherClassRecord>(row.teacher_class_records),
+    class_enrollments: parentProjectionArray<ClassEnrollmentRecord>(row.class_enrollment_records),
+    assignments: parentProjectionArray<AssignmentRecord>(row.assignment_records),
+    submissions: parentProjectionArray<SubmissionRecord>(row.submission_records),
+    assignment_submission_attempts: parentProjectionArray<AssignmentSubmissionAttemptRecord>(row.assignment_submission_attempt_records),
+    assignment_grading_runs: parentProjectionArray<AssignmentGradingRunRecord>(row.assignment_grading_run_records),
+    assignment_teacher_reviews: parentProjectionArray<AssignmentTeacherReviewRecord>(row.assignment_teacher_review_records),
+    teacher_messages: parentProjectionArray<TeacherMessageRecord>(row.teacher_message_records),
+    teacher_message_entries: parentProjectionArray<TeacherMessageEntryRecord>(row.teacher_message_entry_records),
+    teacher_notices: parentProjectionArray<TeacherNoticeRecord>(row.teacher_notice_records),
+    teacher_notice_recipients: parentProjectionArray<TeacherNoticeRecipientRecord>(row.teacher_notice_recipient_records),
+    teacher_review_lessons: parentProjectionArray<TeacherReviewLessonRecord>(row.teacher_review_lesson_records),
+    teacher_reports: parentProjectionArray<TeacherReportRecord>(row.teacher_report_records),
+    reward_point_ledger: parentProjectionArray<RewardPointLedgerRecord>(row.reward_point_ledger_records),
+    reward_redemptions: parentProjectionArray<RewardRedemptionRecord>(row.reward_redemption_records),
+    gamification_events: parentProjectionArray<GamificationEventRecord>(row.gamification_event_records)
+  });
+  const questionTopicIds = new Map(database.questions.map((question) => [question.id, question.topic_id]));
+  overlayTeacherAnalyticsHotActivityRowsFromTeacherOpsOperations({
+    database,
+    hotAttempts: parentProjectionArray<AttemptRecord>(row.hot_attempt_records),
+    hotLearningEvents: parentProjectionArray<LearningEventRecord>(row.hot_learning_event_records),
+    hotMistakes: parentProjectionArray<MistakeRecordRow>(row.hot_mistake_records),
+    lessonSlugForTopic,
+    topicIdForQuestionId: (questionId) => questionTopicIds.get(questionId) ?? null
+  });
+  databaseIndexCache.delete(database);
+  return database;
+}
+
+async function readParentDatabaseForRead(parentId: string) {
+  if (storageProvider !== "postgres") return readDatabase();
+  return readParentPostgresScopedDatabase(parentId);
+}
+
 const parentAccessPersistenceStore = createParentAccessPersistenceStore({
   readDatabase: async () => {
     const database = await readDatabase();
@@ -8627,6 +9196,7 @@ const parentNoticePersistenceStore = createParentNoticePersistenceStore({
     const database = await readDatabase();
     return database as ParentNoticePersistenceDatabase;
   },
+  readParentDatabase: readParentDatabaseForRead,
   mutateDatabase: async <T>(mutator: (database: ParentNoticePersistenceDatabase) => T | Promise<T>) => {
     const result = await mutateDatabase((database) => mutator(database));
     return result as T;
@@ -8643,6 +9213,7 @@ const parentReportPersistenceStore = createParentReportPersistenceStore({
     const database = await readDatabase();
     return database as ParentReportPersistenceDatabase;
   },
+  readParentDatabase: readParentDatabaseForRead,
   getParentChildSummaries: (database, user) => parentChildSummariesForFromParentFoundation(
     database as unknown as ParentFoundationPersistenceDatabase,
     user as unknown as ParentFoundationUserRecord,
@@ -8655,6 +9226,7 @@ const parentMessagePersistenceStore = createParentMessagePersistenceStore({
     const database = await readDatabase();
     return database as ParentMessagePersistenceDatabase;
   },
+  readParentDatabase: readParentDatabaseForRead,
   mutateDatabase: async <T>(mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>) => {
     const result = await mutateDatabase((database) => mutator(database as ParentMessagePersistenceDatabase));
     return result as T;
@@ -8675,6 +9247,7 @@ const parentFoundationPersistenceStore = createParentFoundationPersistenceStore(
     const database = await readDatabase();
     return database as ParentFoundationPersistenceDatabase;
   },
+  readParentDatabase: readParentDatabaseForRead,
   buildParentChildSummary: buildParentChildSummaryForParentFoundation,
   toGuardianLink: (database, link) => toGuardianLinkFromParentAccess(database as ParentAccessPersistenceDatabase, link),
   toParentSession: (database, user) => toAuthenticatedUser(database as Database, user as UserRecord)?.user ?? null

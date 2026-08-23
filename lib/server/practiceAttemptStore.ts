@@ -23,6 +23,8 @@ const configuredPostgresMaxConnections = Number(process.env.HK_MATH_POSTGRES_MAX
 const postgresMaxConnections = Number.isFinite(configuredPostgresMaxConnections)
   ? Math.max(1, Math.min(20, Math.round(configuredPostgresMaxConnections)))
   : 10;
+const postgresActivitySchemaLockTimeoutMs = 1_000;
+const postgresActivitySchemaStatementTimeoutMs = 5_000;
 
 let postgresClient: postgres.Sql | null = null;
 let postgresActivityReady: Promise<void> | null = null;
@@ -147,14 +149,23 @@ function getPostgresClient() {
   return postgresClient;
 }
 
-async function ensurePostgresStudentActivityTables() {
+export async function ensurePostgresStudentActivityTables() {
   if (!postgresActivityReady) {
     const sql = getPostgresClient();
-    postgresActivityReady = (async () => {
+    const attempt = sql.begin(async (migrationSql) => {
+      await migrationSql`
+        SELECT
+          set_config('lock_timeout', ${`${postgresActivitySchemaLockTimeoutMs}ms`}, true),
+          set_config('statement_timeout', ${`${postgresActivitySchemaStatementTimeoutMs}ms`}, true)
+      `;
       for (const statement of postgresStudentActivitySchemaStatements) {
-        await sql.unsafe(statement);
+        await migrationSql.unsafe(statement);
       }
-    })();
+    });
+    postgresActivityReady = attempt;
+    void attempt.catch(() => {
+      if (postgresActivityReady === attempt) postgresActivityReady = null;
+    });
   }
 
   return postgresActivityReady;

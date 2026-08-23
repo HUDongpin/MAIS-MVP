@@ -214,7 +214,13 @@ function createDatabase(): ParentNoticePersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentNoticePersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentNoticePersistenceDatabase>;
+  } = {}
+) {
   return createParentNoticePersistenceStore({
     now: () => new Date(generatedAt),
     getParentChildSummaries: (_database, user) => {
@@ -223,10 +229,34 @@ function createTestStore(database = createDatabase()) {
         .filter((link) => link.parent_id === user.id && link.status === "active")
         .map((link) => childSummary(link.student_id, link.student_id === "student-1" ? "Ada Student" : "Ben Student"));
     },
-    readDatabase: async () => database,
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {}),
     mutateDatabase: async (mutator) => mutator(database)
   });
 }
+
+test("parent notice GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.deepEqual((await store.getParentNoticeData("parent-1"))?.notices.map((notice) => notice.id), [
+    "notice-2",
+    "notice-1"
+  ]);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent notice persistence filters visible notices without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentNoticePersistence.ts"), "utf8");
@@ -240,6 +270,10 @@ test("parent notice persistence filters visible notices without legacy userStore
   assert.deepEqual(data?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.deepEqual(data?.notices.map((notice) => notice.id), ["notice-1"]);
   assert.deepEqual(data?.notices[0].recipients.map((recipient) => recipient.id), ["recipient-1"]);
+  assert.equal(
+    data?.notices.flatMap((notice) => notice.recipients).some((recipient) => recipient.id === "recipient-other-parent"),
+    false
+  );
   assert.deepEqual(data?.notices[0].acknowledgement, { total: 1, acknowledged: 0, pending: 1 });
   assert.equal(data?.notices[0].className, "S3 Algebra");
   assert.equal(data?.notices[0].deliveryAttempts[0].id, "delivery-1");

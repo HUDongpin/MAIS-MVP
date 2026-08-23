@@ -150,7 +150,13 @@ function createDatabase(): ParentReportPersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentReportPersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentReportPersistenceDatabase>;
+  } = {}
+) {
   return createParentReportPersistenceStore({
     now: () => new Date(generatedAt),
     getParentChildSummaries: (_database, user) => {
@@ -160,9 +166,30 @@ function createTestStore(database = createDatabase()) {
         childSummary("student-2", "Ben Student")
       ];
     },
-    readDatabase: async () => database
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {})
   });
 }
+
+test("parent report GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.equal((await store.getParentReportData("parent-1"))?.reports.length, 3);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent report persistence returns every linked child's reports without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentReportPersistence.ts"), "utf8");
@@ -183,6 +210,7 @@ test("parent report persistence returns every linked child's reports without leg
     "report-older",
     "report-second-child"
   ]);
+  assert.equal(data?.reports.some((report) => report.id === "report-other-parent"), false);
   assert.equal(data?.reports[0].title.en, "Newer report");
   assert.equal(data?.reports[0].summary.zh, "較新摘要");
   assert.equal(data?.reports[0].generatedBy, "teacher-1");

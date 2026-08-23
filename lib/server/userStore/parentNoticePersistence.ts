@@ -127,6 +127,7 @@ export type ParentNoticePersistenceStoreDependencies = {
   ) => ParentChildSummary[];
   now?: () => Date;
   readDatabase: () => Promise<ParentNoticePersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentNoticePersistenceDatabase>;
   mutateDatabase: <T>(
     mutator: (database: ParentNoticePersistenceDatabase) => T | Promise<T>
   ) => Promise<T>;
@@ -315,14 +316,17 @@ export function createParentNoticePersistenceStore({
   getParentChildSummaries,
   now = () => new Date(),
   readDatabase,
+  readParentDatabase,
   mutateDatabase
 }: ParentNoticePersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+
   return {
     async getParentNoticeData(
       parentId: string,
       options: { selectedStudentId?: string | null; recipientId?: string | null } = {}
     ): Promise<ParentNoticeData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
       const children = getParentChildSummaries(database, user);
