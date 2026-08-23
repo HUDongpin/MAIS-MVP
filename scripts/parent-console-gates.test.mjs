@@ -186,6 +186,23 @@ test("CI artifact globs match Playwright's run-owned output directories", () => 
   assert.doesNotMatch(ci, /\.tmp\/e2e-run-\*\/(?:test-results|playwright-report)/u);
 });
 
+test("isolated dev servers hold next-env restoration for their full lifecycle", () => {
+  const isolatedApp = readRepoFile("tests/e2e/isolated-app.ts");
+
+  assert.match(isolatedApp, /scripts\/with-next-env-restore\.mjs/u);
+  assert.match(isolatedApp, /const appCommand = useProductionBuild \? "npm" : process\.execPath;/u);
+  assert.match(
+    isolatedApp,
+    /const appArgs = useProductionBuild[\s\S]*?"scripts\/with-next-env-restore\.mjs"[\s\S]*?"npm", "run", "dev"/u
+  );
+  assert.match(isolatedApp, /detached: false/u);
+  assert.doesNotMatch(
+    isolatedApp,
+    /spawn\("npm", \["run", startScript/u,
+    "an unwrapped detached next dev can outlive an interrupted Playwright worker and strand next-env.d.ts"
+  );
+});
+
 test("desktop-only duplicate suppression remains explicit in parent specs", () => {
   const expectedSkipCounts = new Map([
     ["tests/e2e/parent-console.spec.ts", 2],

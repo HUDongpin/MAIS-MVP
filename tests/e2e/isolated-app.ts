@@ -387,6 +387,14 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
   }
   const useProductionBuild = requestedMode !== "dev" && hasProductionBuild;
   const startScript = useProductionBuild ? "start" : "dev";
+  const appCommand = useProductionBuild ? "npm" : process.execPath;
+  const appArgs = useProductionBuild
+    ? ["run", "start", "--", "--hostname", "127.0.0.1", "--port", String(port)]
+    : [
+        "scripts/with-next-env-restore.mjs",
+        "--",
+        "npm", "run", "dev", "--", "--hostname", "127.0.0.1", "--port", String(port)
+      ];
 
   rmSync(rootDir, { recursive: true, force: true });
   mkdirSync(rootDir, { recursive: true });
@@ -418,9 +426,12 @@ export async function startIsolatedApp(suiteName: string, testInfo: TestInfo, op
         QWEN_REALTIME_API_URL: ""
       };
 
-  const appProcess = spawn("npm", ["run", startScript, "--", "--hostname", "127.0.0.1", "--port", String(port)], {
+  const appProcess = spawn(appCommand, appArgs, {
     cwd: projectRoot,
-    detached: process.platform !== "win32",
+    // Keep the restoration wrapper in the Playwright worker's foreground
+    // process group so a runner interruption reaches it. Normal teardown still
+    // walks and stops the exact child tree before the wrapper restores next-env.
+    detached: false,
     env: {
       ...process.env,
       ...providerEnv,
