@@ -9293,12 +9293,12 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
                   ELSE '[]'::jsonb
                 END
               ) || jsonb_build_array(jsonb_build_object(
-                'id', ${tokenRecord.id},
-                'user_id', ${tokenRecord.user_id},
-                'token_hash', ${tokenRecord.token_hash},
-                'expires_at', ${tokenRecord.expires_at},
+                'id', ${tokenRecord.id}::text,
+                'user_id', ${tokenRecord.user_id}::text,
+                'token_hash', ${tokenRecord.token_hash}::text,
+                'expires_at', ${tokenRecord.expires_at}::text,
                 'used_at', NULL::text,
-                'created_at', ${tokenRecord.created_at}
+                'created_at', ${tokenRecord.created_at}::text
               )),
               TRUE
             ),
@@ -9395,10 +9395,10 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
                     CASE
                       WHEN user_record->>'id' = ${user.id}
                         THEN user_record || jsonb_build_object(
-                          'password_hash', ${hashedPassword.hash},
-                          'password_salt', ${hashedPassword.salt},
+                          'password_hash', ${hashedPassword.hash}::text,
+                          'password_salt', ${hashedPassword.salt}::text,
                           'password_must_change', FALSE,
-                          'session_revision', ${sessionRevision as number}
+                          'session_revision', ${sessionRevision as number}::integer
                         )
                       ELSE user_record
                     END
@@ -9415,7 +9415,7 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
                   SELECT jsonb_agg(
                     CASE
                       WHEN token_record->>'id' = ${resetToken.id}
-                        THEN token_record || jsonb_build_object('used_at', ${usedAt})
+                        THEN token_record || jsonb_build_object('used_at', ${usedAt}::text)
                       ELSE token_record
                     END
                     ORDER BY ordinal

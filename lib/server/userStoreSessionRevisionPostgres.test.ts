@@ -107,6 +107,10 @@ test("Postgres authentication and reset enforce revision atomically", async () =
     /SELECT payload[\s\S]*?FROM app_state[\s\S]*?FOR UPDATE[\s\S]*?INSERT INTO auth_password_reset_tokens[\s\S]*?UPDATE app_state[\s\S]*?password_reset_tokens/
   );
   assert.match(
+    createResetSource,
+    /jsonb_build_object\([\s\S]*?'id', \$\{tokenRecord\.id\}::text[\s\S]*?'user_id', \$\{tokenRecord\.user_id\}::text[\s\S]*?'token_hash', \$\{tokenRecord\.token_hash\}::text[\s\S]*?'expires_at', \$\{tokenRecord\.expires_at\}::text[\s\S]*?'created_at', \$\{tokenRecord\.created_at\}::text/
+  );
+  assert.match(
     source,
     /async function resetUserPasswordInPostgresHotTables\([\s\S]*?FROM auth_password_reset_tokens[\s\S]*?FOR UPDATE[\s\S]*?UPDATE auth_users[\s\S]*?session_revision = session_revision \+ 1[\s\S]*?disabled_at IS NULL[\s\S]*?RETURNING session_revision/
   );
@@ -118,6 +122,11 @@ test("Postgres authentication and reset enforce revision atomically", async () =
     resetSource,
     /UPDATE app_state[\s\S]*?password_reset_tokens[\s\S]*?used_at[\s\S]*?\$\{usedAt\}/
   );
+  assert.match(
+    resetSource,
+    /jsonb_build_object\([\s\S]*?'password_hash', \$\{hashedPassword\.hash\}::text[\s\S]*?'password_salt', \$\{hashedPassword\.salt\}::text[\s\S]*?'session_revision', \$\{sessionRevision as number\}::integer/
+  );
+  assert.match(resetSource, /jsonb_build_object\('used_at', \$\{usedAt\}::text\)/);
   assert.match(resetSource, /if \(!resetToken\) return \{ status: "invalid" as const \}/);
   assert.match(
     resetSource,
