@@ -26,6 +26,12 @@ export interface ExactValueDto {
 
 export type ExactComparison = "equal" | "not-equal" | "unknown";
 
+export type ExactOrderComparison =
+  | "less"
+  | "equal"
+  | "greater"
+  | "unknown";
+
 export type KernelResult<T> =
   | { readonly ok: true; readonly value: T }
   | { readonly ok: false; readonly error: KernelErrorDto };

@@ -1,12 +1,13 @@
 import "server-only";
 
-import { ComputeEngine } from "@cortex-js/compute-engine";
+import { ComputeEngine, isFunction } from "@cortex-js/compute-engine";
 import type { MathJsonExpression } from "@cortex-js/compute-engine/math-json";
 
 import { KERNEL_ERROR_CODES } from "../shared/errors";
 import { validateMathJson } from "../shared/mathjson";
 import type {
   ExactComparison,
+  ExactOrderComparison,
   ExactValueDto,
   KernelResult,
   MathJsonExpr,
@@ -228,6 +229,173 @@ function compareExactMathJsonWithEngine(
   }
 }
 
+type DefiniteSign = "negative" | "zero" | "positive";
+
+function definiteSign(expression: ComputeExpression): DefiniteSign | null {
+  const sign = expression.sgn;
+  return sign === "negative" || sign === "zero" || sign === "positive"
+    ? sign
+    : null;
+}
+
+function orderFromDifferenceSign(
+  sign: DefiniteSign | null,
+): ExactOrderComparison | null {
+  if (sign === "negative") return "less";
+  if (sign === "zero") return "equal";
+  if (sign === "positive") return "greater";
+  return null;
+}
+
+function reverseOrder(order: ExactOrderComparison): ExactOrderComparison {
+  if (order === "less") return "greater";
+  if (order === "greater") return "less";
+  return order;
+}
+
+function exactBinaryExpression(
+  engine: ComputeEngine,
+  operator: "Subtract",
+  left: ComputeExpression,
+  right: ComputeExpression,
+): ComputeExpression {
+  return engine
+    .box([
+      operator,
+      left.toMathJson({ fractionalDigits: "auto" }),
+      right.toMathJson({ fractionalDigits: "auto" }),
+    ] as MathJsonExpression)
+    .simplify();
+}
+
+function exactSquareDifference(
+  engine: ComputeEngine,
+  left: ComputeExpression,
+  right: ComputeExpression,
+): ComputeExpression {
+  return engine
+    .box([
+      "Subtract",
+      ["Power", left.toMathJson({ fractionalDigits: "auto" }), 2],
+      ["Power", right.toMathJson({ fractionalDigits: "auto" }), 2],
+    ] as MathJsonExpression)
+    .simplify();
+}
+
+function exactNegation(
+  engine: ComputeEngine,
+  expression: ComputeExpression,
+): ComputeExpression {
+  return engine
+    .box([
+      "Negate",
+      expression.toMathJson({ fractionalDigits: "auto" }),
+    ] as MathJsonExpression)
+    .simplify();
+}
+
+function compareSimplifiedOrder(
+  engine: ComputeEngine,
+  left: ComputeExpression,
+  right: ComputeExpression,
+  depth = 0,
+): ExactOrderComparison {
+  if (left.isSame(right)) return "equal";
+
+  const difference = exactBinaryExpression(engine, "Subtract", left, right);
+  const direct = orderFromDifferenceSign(definiteSign(difference));
+  if (direct !== null) return direct;
+
+  const leftSign = definiteSign(left);
+  const rightSign = definiteSign(right);
+
+  if (leftSign === "zero") {
+    if (rightSign === "zero") return "equal";
+    if (rightSign === "positive") return "less";
+    if (rightSign === "negative") return "greater";
+  }
+  if (rightSign === "zero") {
+    if (leftSign === "positive") return "greater";
+    if (leftSign === "negative") return "less";
+  }
+  if (leftSign === "positive" && rightSign === "negative") return "greater";
+  if (leftSign === "negative" && rightSign === "positive") return "less";
+
+  if (
+    (leftSign === "positive" && rightSign === "positive") ||
+    (leftSign === "negative" && rightSign === "negative")
+  ) {
+    const squareDifference = exactSquareDifference(engine, left, right);
+    const squareOrder = orderFromDifferenceSign(
+      definiteSign(squareDifference),
+    );
+    if (squareOrder !== null) {
+      return leftSign === "negative"
+        ? reverseOrder(squareOrder)
+        : squareOrder;
+    }
+  }
+
+  // Canonical subtraction is commonly represented as a two-term Add. If its
+  // terms have opposite definite signs, compare their positive magnitudes
+  // using the same exact-sign strategy. This proves signs such as sqrt(2)-q
+  // without numeric approximation or tolerance-based equality.
+  if (
+    depth < 2 &&
+    (isFunction(difference, "Add") || isFunction(difference, "Subtract")) &&
+    difference.nops === 2
+  ) {
+    const [first, second] = difference.ops;
+    if (difference.operator === "Subtract") {
+      return compareSimplifiedOrder(engine, first, second, depth + 1);
+    }
+    const firstSign = definiteSign(first);
+    const secondSign = definiteSign(second);
+    if (firstSign === "positive" && secondSign === "negative") {
+      return compareSimplifiedOrder(
+        engine,
+        first,
+        exactNegation(engine, second),
+        depth + 1,
+      );
+    }
+    if (firstSign === "negative" && secondSign === "positive") {
+      return compareSimplifiedOrder(
+        engine,
+        second,
+        exactNegation(engine, first),
+        depth + 1,
+      );
+    }
+  }
+
+  return "unknown";
+}
+
+function compareExactOrderWithEngine(
+  engine: ComputeEngine,
+  left: unknown,
+  right: unknown,
+): KernelResult<ExactOrderComparison> {
+  const boxedLeft = boxValidated(engine, left);
+  if (!boxedLeft.ok) return boxedLeft;
+  const boxedRight = boxValidated(engine, right);
+  if (!boxedRight.ok) return boxedRight;
+
+  try {
+    return {
+      ok: true,
+      value: compareSimplifiedOrder(
+        engine,
+        boxedLeft.value.simplify(),
+        boxedRight.value.simplify(),
+      ),
+    };
+  } catch {
+    return casFailure("Compute Engine could not compare exact order.");
+  }
+}
+
 function exactMathJsonEqualWithEngine(
   engine: ComputeEngine,
   left: unknown,
@@ -303,6 +471,13 @@ export class CasSession {
     return compareExactMathJsonWithEngine(this.#engine, left, right);
   }
 
+  compareExactOrder(
+    left: unknown,
+    right: unknown,
+  ): KernelResult<ExactOrderComparison> {
+    return compareExactOrderWithEngine(this.#engine, left, right);
+  }
+
   /** @deprecated Prefer compareExactMathJson() so uncertainty stays explicit. */
   exactMathJsonEqual(left: unknown, right: unknown): KernelResult<boolean> {
     return exactMathJsonEqualWithEngine(this.#engine, left, right);
@@ -330,6 +505,13 @@ export function compareExactMathJson(
   right: unknown,
 ): KernelResult<ExactComparison> {
   return new CasSession().compareExactMathJson(left, right);
+}
+
+export function compareExactOrder(
+  left: unknown,
+  right: unknown,
+): KernelResult<ExactOrderComparison> {
+  return new CasSession().compareExactOrder(left, right);
 }
 
 /** @deprecated Prefer compareExactMathJson() so uncertainty stays explicit. */

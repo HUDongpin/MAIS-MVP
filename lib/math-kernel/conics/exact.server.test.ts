@@ -15,6 +15,13 @@ import {
 } from "./exact.server";
 import { toQuadratic2D } from "./model";
 
+const SQRT_TWO = ["Sqrt", 2] as const;
+const Q_ABOVE_SQRT_TWO = [
+  "Rational",
+  { num: "1414213562373095048801688724209698078569671875376948073177" },
+  { num: "1e+57" },
+] as const;
+
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
   assert.equal(result.ok, true);
   if (!result.ok) throw new Error("Expected a successful kernel result.");
@@ -163,6 +170,23 @@ test("exact constructors reject unprovable symbolic domains rather than guessing
     circleExact({ r: "r" }),
     KERNEL_ERROR_CODES.indeterminateSymbolicResult,
   );
+});
+
+test("conic positivity and ellipse axis order use exact sign proofs", () => {
+  const negativeRadius = circleExact({
+    r: ["Subtract", SQRT_TWO, Q_ABOVE_SQRT_TWO],
+  });
+  expectError(negativeRadius, KERNEL_ERROR_CODES.nonPositiveDimension);
+
+  const positiveRadius = circleExact({
+    r: ["Subtract", Q_ABOVE_SQRT_TWO, SQRT_TWO],
+  });
+  assert.equal(positiveRadius.ok, true);
+
+  const ellipse = unwrap(
+    ellipseExact({ a: Q_ABOVE_SQRT_TWO, b: SQRT_TWO }),
+  );
+  assert.equal(ellipse.majorAxis, "x");
 });
 
 test("exact construction does not require values to fit in a JavaScript number", () => {

@@ -7,6 +7,7 @@ import { MATH_JSON_LIMITS } from "../shared/mathjson";
 import {
   CasSession,
   boxMathJson,
+  compareExactOrder,
   compareExactMathJson,
   exactMathJsonEqual,
   isReadableExactMathJson,
@@ -14,6 +15,14 @@ import {
   toExactValueDto,
 } from "./computeEngine.server";
 import type { ExactComparison } from "../shared/types";
+import type { ExactOrderComparison } from "../shared/types";
+
+const SQRT_TWO = ["Sqrt", 2] as const;
+const Q_ABOVE_SQRT_TWO = [
+  "Rational",
+  { num: "1414213562373095048801688724209698078569671875376948073177" },
+  { num: "1e+57" },
+] as const;
 
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
   assert.equal(result.ok, true);
@@ -102,6 +111,44 @@ test("compares exact expressions without turning symbolic uncertainty into inequ
     legacy.error.code,
     KERNEL_ERROR_CODES.indeterminateSymbolicResult,
   );
+});
+
+test("proves exact order through sign-safe squared comparison without decimal tolerance", () => {
+  const greater: ExactOrderComparison = unwrap(
+    compareExactOrder(Q_ABOVE_SQRT_TWO, SQRT_TWO),
+  );
+  assert.equal(greater, "greater");
+  assert.equal(
+    unwrap(compareExactOrder(SQRT_TWO, Q_ABOVE_SQRT_TWO)),
+    "less",
+  );
+  assert.equal(
+    unwrap(
+      compareExactOrder(
+        ["Subtract", SQRT_TWO, Q_ABOVE_SQRT_TWO],
+        0,
+      ),
+    ),
+    "less",
+  );
+  assert.equal(
+    unwrap(
+      compareExactOrder(
+        ["Negate", Q_ABOVE_SQRT_TWO],
+        ["Negate", SQRT_TWO],
+      ),
+    ),
+    "less",
+  );
+});
+
+test("exact order is explicit for equality, opposite signs, and symbolic uncertainty", () => {
+  const session = new CasSession();
+  assert.equal(session.compareExactOrder(2, 2).ok, true);
+  assert.equal(unwrap(session.compareExactOrder(["Add", 1, 1], 2)), "equal");
+  assert.equal(unwrap(session.compareExactOrder(3, -4)), "greater");
+  assert.equal(unwrap(session.compareExactOrder(-3, 4)), "less");
+  assert.equal(unwrap(session.compareExactOrder("x", 0)), "unknown");
 });
 
 test("separates decimal strings from safe JavaScript approximations", () => {

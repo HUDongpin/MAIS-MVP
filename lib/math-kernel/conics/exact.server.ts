@@ -55,7 +55,6 @@ export interface CircleExactOptions {
 
 interface ExactConstant {
   readonly expression: MathJsonExpr;
-  readonly decimal: string;
 }
 
 function fail<T>(
@@ -68,11 +67,6 @@ function fail<T>(
 
 function validAxis(axis: unknown): axis is ConicAxis {
   return axis === "x" || axis === "y";
-}
-
-function decimalSign(decimal: string): -1 | 0 | 1 {
-  if (!/[1-9]/.test(decimal.replace(/[eE][+-]?\d+$/, ""))) return 0;
-  return decimal.startsWith("-") ? -1 : 1;
 }
 
 function add(...values: MathJsonExpr[]): MathJsonExpr {
@@ -125,7 +119,7 @@ function exactConstant(
   }
   return {
     ok: true,
-    value: { expression: dto.value.mathJson, decimal: dto.value.decimal },
+    value: { expression: dto.value.mathJson },
   };
 }
 
@@ -136,10 +130,41 @@ function positiveConstant(
 ): KernelResult<ExactConstant> {
   const constant = exactConstant(session, input, label);
   if (!constant.ok) return constant;
-  if (decimalSign(constant.value.decimal) !== 1) {
+  const order = session.compareExactOrder(constant.value.expression, 0);
+  if (!order.ok) return order;
+  if (order.value === "greater") return constant;
+  if (order.value === "less" || order.value === "equal") {
     return fail(
       KERNEL_ERROR_CODES.nonPositiveDimension,
       `${label} must be positive.`,
+      { label },
+    );
+  }
+  return fail(
+    KERNEL_ERROR_CODES.indeterminateSymbolicResult,
+    `${label} could not be proven positive.`,
+    { label },
+  );
+}
+
+function positiveDerivedConstant(
+  session: CasSession,
+  input: MathJsonExpr,
+  label: string,
+): KernelResult<ExactConstant> {
+  const constant = exactConstant(session, input, label);
+  if (!constant.ok) {
+    return fail(
+      KERNEL_ERROR_CODES.indeterminateSymbolicResult,
+      `${label} could not be proven finite, real, and positive.`,
+      { label },
+    );
+  }
+  const order = session.compareExactOrder(constant.value.expression, 0);
+  if (!order.ok || order.value !== "greater") {
+    return fail(
+      KERNEL_ERROR_CODES.indeterminateSymbolicResult,
+      `${label} could not be proven finite, real, and positive.`,
       { label },
     );
   }
@@ -185,33 +210,31 @@ export function ellipseExact(
   if (!a.ok) return a;
   const b = positiveConstant(session, options.b, "b");
   if (!b.ok) return b;
-  const equality = session.compareExactMathJson(a.value.expression, b.value.expression);
-  if (!equality.ok) return equality;
-  if (equality.value === "equal") {
+  const order = session.compareExactOrder(a.value.expression, b.value.expression);
+  if (!order.ok) return order;
+  if (order.value === "equal") {
     return fail(
       KERNEL_ERROR_CODES.degenerateConic,
       "Equal ellipse semiaxes define a circle; use circleExact().",
     );
   }
-  const difference = session.toExactValueDto(
-    sub(a.value.expression, b.value.expression),
-  );
-  if (!difference.ok) return difference;
-  if (difference.value.decimal === null) {
+  if (order.value === "unknown" && options.majorAxis === undefined) {
     return fail(
       KERNEL_ERROR_CODES.indeterminateSymbolicResult,
       "The CAS could not prove which ellipse semiaxis is longer.",
     );
   }
-  const ordering = decimalSign(difference.value.decimal);
-  if (ordering === 0) {
-    return fail(
-      KERNEL_ERROR_CODES.indeterminateSymbolicResult,
-      "The CAS could not prove which ellipse semiaxis is longer.",
-    );
-  }
-  const derivedMajorAxis: ConicAxis = ordering > 0 ? "x" : "y";
-  if (options.majorAxis !== undefined && options.majorAxis !== derivedMajorAxis) {
+  const derivedMajorAxis: ConicAxis =
+    order.value === "greater"
+      ? "x"
+      : order.value === "less"
+        ? "y"
+        : options.majorAxis!;
+  if (
+    order.value !== "unknown" &&
+    options.majorAxis !== undefined &&
+    options.majorAxis !== derivedMajorAxis
+  ) {
     return fail(
       KERNEL_ERROR_CODES.invalidMajorAxis,
       "majorAxis contradicts the exact semiaxis lengths.",
@@ -228,20 +251,21 @@ export function ellipseExact(
   const cRaw = sqrt(
     derivedMajorAxis === "x" ? sub(a2, b2) : sub(b2, a2),
   );
+  const c = positiveDerivedConstant(session, cRaw, "ellipse focal distance");
+  if (!c.ok) return c;
   const directrixCenter = derivedMajorAxis === "x" ? cx : cy;
   const directrixOffset = div(
     square(derivedMajorAxis === "x" ? ax : by),
-    cRaw,
+    c.value.expression,
   );
   const values = simplifyMany(session, [
-    cRaw,
-    div(cRaw, derivedMajorAxis === "x" ? ax : by),
+    div(c.value.expression, derivedMajorAxis === "x" ? ax : by),
     sub(directrixCenter, directrixOffset),
     add(directrixCenter, directrixOffset),
-    sub(cx, cRaw),
-    add(cx, cRaw),
-    sub(cy, cRaw),
-    add(cy, cRaw),
+    sub(cx, c.value.expression),
+    add(cx, c.value.expression),
+    sub(cy, c.value.expression),
+    add(cy, c.value.expression),
     sub(cx, ax),
     add(cx, ax),
     sub(cy, by),
@@ -254,7 +278,6 @@ export function ellipseExact(
   ]);
   if (!values.ok) return values;
   const [
-    c,
     eccentricity,
     directrixMinus,
     directrixPlus,
@@ -288,7 +311,7 @@ export function ellipseExact(
       b: by,
       center: [cx, cy],
       majorAxis: derivedMajorAxis,
-      c,
+      c: c.value.expression,
       eccentricity,
       foci,
       directrices: [
