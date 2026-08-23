@@ -13,6 +13,20 @@ export const KERNEL_ERROR_CODES = {
   casInvalidExpression: "CAS_INVALID_EXPRESSION",
   casOperationFailed: "CAS_OPERATION_FAILED",
   indeterminateSymbolicResult: "INDETERMINATE_SYMBOLIC_RESULT",
+  invalidInput: "INVALID_INPUT",
+  nonFiniteInput: "NON_FINITE_INPUT",
+  nonPositiveDimension: "NON_POSITIVE_DIMENSION",
+  invalidOrientation: "INVALID_ORIENTATION",
+  invalidMajorAxis: "INVALID_MAJOR_AXIS",
+  degenerateConic: "DEGENERATE_CONIC",
+  zeroParabolaParameter: "ZERO_PARABOLA_PARAMETER",
+  exactToNumberFailed: "EXACT_TO_NUMBER_FAILED",
+  invalidVertexId: "INVALID_VERTEX_ID",
+  duplicateVertex: "DUPLICATE_VERTEX",
+  invalidArity: "INVALID_ARITY",
+  selfLoopEdge: "SELF_LOOP_EDGE",
+  duplicateEdge: "DUPLICATE_EDGE",
+  unknownVertex: "UNKNOWN_VERTEX",
 } as const;
 
 export type MathKernelErrorCode =
