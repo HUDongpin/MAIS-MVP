@@ -404,6 +404,8 @@ test("the existing feature-matrix instances freeze real browser message-context 
   assert.match(featureMatrix, /window\.history\.pushState/u);
   assert.match(featureMatrix, /page\.goBack\(\)/u);
   assert.match(featureMatrix, /page\.goForward\(\)/u);
+  assert.match(featureMatrix, /expectRuntimeLabelAssociation/u);
+  assert.match(featureMatrix, /control\.labels\?\.\[0\]/u);
   assert.doesNotMatch(
     featureMatrix,
     /expect\(page\.getByRole\("alert"\)\)\.toHaveCount\(0\)/u,

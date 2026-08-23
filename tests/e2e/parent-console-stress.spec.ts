@@ -1,4 +1,4 @@
-import { expect, request as apiRequest, test, type APIRequestContext, type APIResponse, type Page, type TestInfo } from "@playwright/test";
+import { expect, request as apiRequest, test, type APIRequestContext, type APIResponse, type Locator, type Page, type TestInfo } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { mkdirSync, rmSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
@@ -214,6 +214,21 @@ const overflowFixtures = {
   longClassName: `long-class-name-${"ClassWithoutBreaks".repeat(12)}`,
   longTeacherName: `long-teacher-name-${"TeacherWithoutBreaks".repeat(11)}`
 } as const;
+
+async function expectRuntimeLabelAssociation(field: Locator, expectedLabel: string) {
+  const association = await field.evaluate((element) => {
+    const control = element as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const label = control.labels?.[0] ?? null;
+    return {
+      controlId: control.id,
+      labelFor: label?.htmlFor ?? "",
+      labelText: label?.querySelector(":scope > span")?.textContent?.trim() ?? ""
+    };
+  });
+  expect(association.controlId).not.toBe("");
+  expect(association.labelFor).toBe(association.controlId);
+  expect(association.labelText).toBe(expectedLabel);
+}
 
 function activeProjectNextListeners() {
   let listeningPids = new Set<string>();
@@ -826,11 +841,13 @@ test.describe("parent console robustness stress suite", () => {
               await expect(page.getByText(overflowFixtures.longUnbrokenMessage, { exact: true })).toBeVisible();
               await expect(page.getByText(overflowFixtures.longUrlMessage, { exact: true }).last()).toBeVisible();
               const compose = page.locator('form[aria-labelledby="parent-ask-teacher-heading"]');
-              const childSelect = compose.getByLabel("Child", { exact: true });
-              const classSelect = compose.getByLabel("Class and teacher", { exact: true });
+              const childSelect = compose.locator('[name="studentId"]');
+              const classSelect = compose.locator('[name="classId"]');
               await expect(childSelect).toBeVisible();
+              await expectRuntimeLabelAssociation(childSelect, "Child");
               await expect(childSelect.locator("option:checked")).toHaveText(overflowFixtures.longChildName);
               await expect(classSelect).toBeVisible();
+              await expectRuntimeLabelAssociation(classSelect, "Class and teacher");
               await expect(classSelect.locator("option:checked")).toContainText(overflowFixtures.longClassName);
               await expect(classSelect.locator("option:checked")).toContainText(overflowFixtures.longTeacherName);
             }

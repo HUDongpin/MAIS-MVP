@@ -1,4 +1,4 @@
-import { expect, request as apiRequest, test, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
+import { expect, request as apiRequest, test, type APIRequestContext, type Locator, type Page, type TestInfo } from "@playwright/test";
 import {
   collectPageErrors,
   demoTeacher,
@@ -307,15 +307,44 @@ async function expectParentReportComposeContext(
   expected: { studentId: string; reportId: string; classId: string; subject: string }
 ) {
   const compose = parentComposeForm(page);
-  await expect(compose.getByLabel("Child", { exact: true })).toHaveValue(expected.studentId);
-  await expect(compose.getByLabel("Class and teacher", { exact: true })).toHaveValue(expected.classId);
-  await expect(compose.getByLabel("Linked report", { exact: true })).toHaveValue(expected.reportId);
-  await expect(compose.getByLabel("Category", { exact: true })).toHaveValue("report-question");
-  await expect(compose.getByLabel("Subject", { exact: true })).toHaveValue(expected.subject);
+  await expectParentComposeLabels(compose);
+  await expect(compose.locator('[name="studentId"]')).toHaveValue(expected.studentId);
+  await expect(compose.locator('[name="classId"]')).toHaveValue(expected.classId);
+  await expect(compose.locator('[name="reportId"]')).toHaveValue(expected.reportId);
+  await expect(compose.locator('[name="category"]')).toHaveValue("report-question");
+  await expect(compose.locator('[name="subject"]')).toHaveValue(expected.subject);
 }
 
 function parentComposeForm(page: Page) {
   return page.locator('form[aria-labelledby="parent-ask-teacher-heading"]');
+}
+
+async function expectRuntimeLabelAssociation(field: Locator, expectedLabel: string) {
+  const association = await field.evaluate((element) => {
+    const control = element as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const label = control.labels?.[0] ?? null;
+    return {
+      controlId: control.id,
+      labelFor: label?.htmlFor ?? "",
+      labelText: label?.querySelector(":scope > span")?.textContent?.trim() ?? ""
+    };
+  });
+  expect(association.controlId).not.toBe("");
+  expect(association.labelFor).toBe(association.controlId);
+  expect(association.labelText).toBe(expectedLabel);
+}
+
+async function expectParentComposeLabels(compose: Locator) {
+  for (const [name, label] of [
+    ["studentId", "Child"],
+    ["classId", "Class and teacher"],
+    ["category", "Category"],
+    ["reportId", "Linked report"],
+    ["subject", "Subject"],
+    ["body", "Message"]
+  ] as const) {
+    await expectRuntimeLabelAssociation(compose.locator(`[name="${name}"]`), label);
+  }
 }
 
 /**
@@ -604,22 +633,23 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(page.getByRole("heading", { name: /Ask teacher/i })).toBeVisible();
 
     const compose = parentComposeForm(page);
+    await expectParentComposeLabels(compose);
     const threadBySubject = new Map<string, string>();
 
     for (const [subject, studentId] of [
       [firstSubject, demoStudentUserId],
       [secondSubject, extraChild.userId]
     ] as const) {
-      await compose.getByLabel("Child", { exact: true }).selectOption(studentId);
-      const classSelect = compose.getByLabel("Class and teacher", { exact: true });
+      await compose.locator('[name="studentId"]').selectOption(studentId);
+      const classSelect = compose.locator('[name="classId"]');
       if (await classSelect.inputValue() === "") {
         const firstAuthorizedClassId = await classSelect.locator('option:not([value=""])').first().getAttribute("value");
         expect(firstAuthorizedClassId, "A linked child must expose an authorized class/teacher target.").toBeTruthy();
         await classSelect.selectOption(firstAuthorizedClassId!);
       }
       const selectedClassId = await classSelect.inputValue();
-      await compose.getByLabel("Subject", { exact: true }).fill(subject);
-      await compose.getByLabel("Message", { exact: true }).fill(`Home context for ${subject}.`);
+      await compose.locator('[name="subject"]').fill(subject);
+      await compose.locator('[name="body"]').fill(`Home context for ${subject}.`);
       const created = page.waitForResponse((response) =>
         response.url().includes("/api/parent/messages") && response.request().method() === "POST");
       await compose.getByRole("button", { name: /Send message/i }).click();
@@ -636,7 +666,7 @@ test.describe.serial("parent console feature matrix", () => {
       await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(subject), "i") })).toBeVisible();
       await expect(page).toHaveURL(/thread=/);
       // The form clears so the next message does not inherit the previous subject.
-      await expect(compose.getByLabel("Subject", { exact: true })).toHaveValue("");
+      await expect(compose.locator('[name="subject"]')).toHaveValue("");
     }
 
     const threads = page.getByRole("heading", { name: /^Threads$/i }).locator("xpath=ancestor::aside[1]");
