@@ -219,7 +219,7 @@ function createTestStore(database: AuthAdminStoragePersistenceDatabase, options:
     stateRecordId: "primary",
     stateTenantId: "platform",
     storageProvider: "sqlite",
-    verifyPostgresDatabase: async () => undefined,
+    verifyPostgresMetadataReadiness: async () => undefined,
     ...options
   });
 }
@@ -360,6 +360,103 @@ test("auth admin storage persistence reports readiness and hot-auth backfill gat
     provider: "postgres",
     actorId: "admin-1"
   });
+});
+
+test("postgres readiness verifies app-state metadata without returning the snapshot payload", async () => {
+  const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const helperSource = await readFile(
+    path.join(process.cwd(), "lib/server/userStore/authAdminStoragePersistence.ts"),
+    "utf8"
+  );
+  const verifierStart = rootSource.indexOf("async function verifyPostgresMetadataReadiness()");
+  const verifierEnd = rootSource.indexOf("const authProvisioningPersistenceStore", verifierStart);
+  const verifierSource = rootSource.slice(verifierStart, verifierEnd);
+
+  assert.notEqual(verifierStart, -1);
+  assert.notEqual(verifierEnd, -1);
+  assert.match(helperSource, /verifyPostgresMetadataReadiness: \(\) => Promise<void>;/);
+  assert.doesNotMatch(helperSource, /verifyPostgresDatabase/);
+  assert.match(verifierSource, /await ensurePostgresStateTable\(\);/);
+  assert.match(verifierSource, /SELECT EXISTS \(/);
+  assert.match(verifierSource, /id = \$\{stateRecordId\}/);
+  assert.match(verifierSource, /tenant_id = \$\{stateTenantId\}/);
+  assert.match(verifierSource, /state_kind = \$\{stateKind\}/);
+  assert.match(verifierSource, /schema_version = \$\{schemaVersion\}/);
+  assert.match(verifierSource, /jsonb_typeof\(payload\) = 'object'/);
+  assert.doesNotMatch(verifierSource, /SELECT\s+payload/);
+  assert.doesNotMatch(verifierSource, /readPostgresDatabase/);
+});
+
+test("postgres readiness checks metadata before retaining the hot-auth readiness snapshot", async () => {
+  const callOrder: string[] = [];
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    readDatabase: async () => {
+      throw new Error("readiness must not load the application snapshot");
+    },
+    verifyPostgresMetadataReadiness: async () => {
+      callOrder.push("metadata");
+    },
+    getHotAuthReadinessSnapshot: async () => {
+      callOrder.push("hot-auth");
+      return {
+        mode: "postgres-row-hot-path",
+        readFlagEnv: "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+        readEnabled: true,
+        shadowSyncOnPostgres: true,
+        tables: [
+          "auth_users",
+          "auth_student_profiles",
+          "auth_user_settings",
+          "auth_password_reset_tokens"
+        ],
+        tablesReady: true,
+        counts: {
+          auth_users: 4,
+          auth_student_profiles: 2,
+          auth_user_settings: 2,
+          auth_password_reset_tokens: 1
+        }
+      };
+    }
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+
+  assert.deepEqual(callOrder, ["metadata", "hot-auth"]);
+  assert.equal(snapshot.status, "durable-ready");
+  assert.equal(snapshot.durableReady, true);
+  assert.equal(snapshot.hotAuthTables.tablesReady, true);
+  assert.deepEqual(snapshot.hotAuthTables.counts, {
+    auth_users: 4,
+    auth_student_profiles: 2,
+    auth_user_settings: 2,
+    auth_password_reset_tokens: 1
+  });
+});
+
+test("postgres readiness fails closed before hot-auth checks when metadata is invalid", async () => {
+  let hotAuthReadinessCalls = 0;
+  const store = createTestStore(createDatabase(), {
+    postgresUrlConfigured: true,
+    storageProvider: "postgres",
+    verifyPostgresMetadataReadiness: async () => {
+      throw new Error("invalid app_state metadata");
+    },
+    getHotAuthReadinessSnapshot: async () => {
+      hotAuthReadinessCalls += 1;
+      throw new Error("hot-auth readiness must not run after invalid metadata");
+    }
+  });
+
+  const snapshot = await store.getStorageReadinessSnapshot();
+
+  assert.equal(hotAuthReadinessCalls, 0);
+  assert.equal(snapshot.status, "postgres-unavailable");
+  assert.equal(snapshot.durableReady, false);
+  assert.equal(snapshot.hotAuthTables.tablesReady, false);
+  assert.equal(snapshot.hotAuthTables.counts, null);
 });
 
 test("auth admin storage persistence owns hot-auth readiness summary helpers", async () => {

@@ -9878,6 +9878,25 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
   mediaObjectUrlForKey: mediaObjectAccessUrl
 });
 
+async function verifyPostgresMetadataReadiness() {
+  await ensurePostgresStateTable();
+  const rows = await getPostgresClient()<Array<{ ready: boolean }>>`
+    SELECT EXISTS (
+      SELECT 1
+      FROM app_state
+      WHERE id = ${stateRecordId}
+        AND tenant_id = ${stateTenantId}
+        AND state_kind = ${stateKind}
+        AND schema_version = ${schemaVersion}
+        AND jsonb_typeof(payload) = 'object'
+    ) AS ready
+  `;
+
+  if (rows[0]?.ready !== true) {
+    throw new Error("Postgres app_state metadata is not ready.");
+  }
+}
+
 const authProvisioningPersistenceStore = createAuthProvisioningPersistenceStore({
   createId: (prefix) => `${prefix}-${randomUUID()}`,
   createTemporaryPassword: createTemporaryPasswordFromAuthProvisioning,
@@ -9925,10 +9944,7 @@ const authAdminStoragePersistenceStore = createAuthAdminStoragePersistenceStore(
   stateRecordId,
   stateTenantId,
   storageProvider,
-  verifyPostgresDatabase: async () => {
-    await ensurePostgresStateTable();
-    await readPostgresDatabase();
-  }
+  verifyPostgresMetadataReadiness
 });
 
 const authUserStore = createAuthUserStore({
