@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
+import { createParentNoticeAckHandler } from "@/app/api/parent/handlers";
+import { createParentMessageReplyPostHandler } from "@/app/api/parent/messageHandlers";
 import { defaultCurriculumProfile } from "@/lib/curriculumProfile";
 import {
   createParentMessagePersistenceStore,
@@ -392,6 +394,10 @@ type FakeSqlOptions = {
   createRow?: Record<string, unknown>;
   replyRow?: Record<string, unknown>;
   ackRow?: Record<string, unknown>;
+  duplicateMessageTarget?: boolean;
+  duplicateNoticeRecipientTarget?: boolean;
+  duplicateNoticeTarget?: boolean;
+  failLock?: Error;
   failProjection?: boolean;
 };
 
@@ -399,17 +405,38 @@ function fakePostgres(options: FakeSqlOptions) {
   const statements: CapturedStatement[] = [];
   let activeTransaction = false;
   let beginCount = 0;
+  let committedStatePatchCount = 0;
+  let transactionExitCount = 0;
   const sql = (async (strings: TemplateStringsArray, ...values: unknown[]) => {
     const text = strings.join("$value");
     statements.push({ activeTransaction, text, values });
     if (text.includes("parent_message_create_scope")) return options.createRow ? [options.createRow] : [];
     if (text.includes("parent_message_reply_scope")) return options.replyRow ? [options.replyRow] : [];
     if (text.includes("parent_notice_ack_scope")) return options.ackRow ? [options.ackRow] : [];
-    if (text.includes("parent_state_scope_lock")) return [{ id: "primary" }];
+    if (text.includes("parent_state_scope_lock")) {
+      if (options.failLock) throw options.failLock;
+      return [{ id: "primary" }];
+    }
     if (text.includes("parent_message_projection_upsert") && options.failProjection) {
       throw new Error("projection unavailable");
     }
-    if (text.includes("parent_message_state_patch") || text.includes("parent_notice_state_patch")) {
+    if (text.includes("parent_message_state_patch")) {
+      const exactTargetCountGuard = /SELECT\s+COUNT\(\*\)[\s\S]*?state\.payload->'teacher_messages'[\s\S]*?record->>'id'\s*=\s*\$value[\s\S]*?\)\s*=\s*1/iu
+        .test(text);
+      if (options.duplicateMessageTarget && exactTargetCountGuard) return [];
+      committedStatePatchCount += 1;
+      return [{ id: "primary" }];
+    }
+    if (text.includes("parent_notice_state_patch")) {
+      const exactRecipientCountGuard = /SELECT\s+COUNT\(\*\)[\s\S]*?state\.payload->'teacher_notice_recipients'[\s\S]*?record->>'id'\s*=\s*\$value[\s\S]*?\)\s*=\s*1/iu
+        .test(text);
+      const exactNoticeCountGuard = /SELECT\s+COUNT\(\*\)[\s\S]*?state\.payload->'teacher_notices'[\s\S]*?record->>'id'\s*=\s*\$value[\s\S]*?\)\s*=\s*1/iu
+        .test(text);
+      if (
+        (options.duplicateNoticeRecipientTarget && exactRecipientCountGuard) ||
+        (options.duplicateNoticeTarget && exactNoticeCountGuard)
+      ) return [];
+      committedStatePatchCount += 1;
       return [{ id: "primary" }];
     }
     return [];
@@ -424,15 +451,32 @@ function fakePostgres(options: FakeSqlOptions) {
         return await operation(sql);
       } finally {
         activeTransaction = false;
+        transactionExitCount += 1;
       }
     }
   }) as ParentPostgresClient;
-  return { client, statements, beginCount: () => beginCount };
+  return {
+    client,
+    statements,
+    activeTransaction: () => activeTransaction,
+    beginCount: () => beginCount,
+    committedStatePatchCount: () => committedStatePatchCount,
+    transactionExitCount: () => transactionExitCount
+  };
 }
 
-function messageRow(database: ParentMessagePersistenceDatabase) {
+function messageRow(
+  database: ParentMessagePersistenceDatabase,
+  integrity: {
+    authorizedThreadCount?: number;
+    globalThreadCount?: number;
+  } = {}
+) {
+  const defaultThreadCount = database.teacher_messages.length > 0 ? 1 : 0;
   return {
     schema_valid: true,
+    authorized_thread_count: integrity.authorizedThreadCount ?? defaultThreadCount,
+    global_thread_count: integrity.globalThreadCount ?? defaultThreadCount,
     users: database.users,
     student_profiles: database.student_profiles,
     guardian_links: database.guardian_links,
@@ -445,9 +489,21 @@ function messageRow(database: ParentMessagePersistenceDatabase) {
   };
 }
 
-function noticeRow(database: ParentNoticePersistenceDatabase) {
+function noticeRow(
+  database: ParentNoticePersistenceDatabase,
+  integrity: {
+    authorizedNoticeCount?: number;
+    authorizedRecipientCount?: number;
+    globalNoticeCount?: number;
+    globalRecipientCount?: number;
+  } = {}
+) {
   return {
     schema_valid: true,
+    authorized_notice_count: integrity.authorizedNoticeCount ?? 1,
+    authorized_recipient_count: integrity.authorizedRecipientCount ?? 1,
+    global_notice_count: integrity.globalNoticeCount ?? 1,
+    global_recipient_count: integrity.globalRecipientCount ?? 1,
     users: database.users,
     student_profiles: database.student_profiles,
     guardian_links: database.guardian_links,
@@ -525,6 +581,16 @@ test("Postgres message create locks an exact state row, patches only message arr
   assert.match(scopeQuery?.text ?? "", /AS schema_valid/u);
   assert.match(scopeQuery?.text ?? "", /jsonb_typeof\(scoped_state\.scoped_payload->'teacher_message_entries'\) = 'array'/u);
   assert.match(scopeQuery?.text ?? "", /disabled_at/u);
+  assert.match(scopeQuery?.text ?? "", /AS authorized_thread_count/u);
+  assert.match(scopeQuery?.text ?? "", /AS global_thread_count/u);
+  assert.match(
+    scopeQuery?.text ?? "",
+    /thread_records AS \([\s\S]*authorized_thread_count = 1[\s\S]*global_thread_count = 1/u
+  );
+  assert.match(
+    scopeQuery?.text ?? "",
+    /entry_records AS \([\s\S]*record->>'thread_id' IN \(SELECT record->>'id' FROM thread_records\)/u
+  );
   assert.ok(scopeQuery?.values.includes(stateIdentity.id));
   assert.ok(scopeQuery?.values.includes(stateIdentity.tenantId));
   assert.ok(scopeQuery?.values.includes(stateIdentity.stateKind));
@@ -537,6 +603,7 @@ test("Postgres message create locks an exact state row, patches only message arr
   assert.match(patch?.text ?? "", /disabled_at/u);
   assert.doesNotMatch(patch?.text ?? "", /password_reset_tokens|auth_users|DELETE FROM|payload\s*=\s*excluded\.payload/iu);
   assert.equal(fake.statements.filter((statement) => statement.text.includes("parent_message_projection_upsert")).length, 1);
+  await verifyScopedTransactionTimeouts();
 });
 
 test("the scoped write hot path never invokes the full-snapshot initializer", async () => {
@@ -788,7 +855,528 @@ test("reply and acknowledgement patch only their scoped records; projection fail
     }),
     /projection unavailable/u
   );
+  await verifyDuplicateBusinessIdsFailClosed();
 });
+
+test("idempotent reply collisions fail closed before a foreign entry reaches the route response", async () => {
+  const database = messageDatabase();
+  const request = {
+    parentId: "parent-1",
+    threadId: "thread-idempotent-collision",
+    idempotencyKey: "idempotent-collision-reply-0001",
+    body: "Durable reply"
+  };
+  database.teacher_messages.push({
+    id: request.threadId,
+    class_id: "class-1",
+    student_id: "student-1",
+    teacher_id: "teacher-1",
+    guardian_id: "parent-1",
+    subject_en: "Question",
+    subject_zh: "Question",
+    latest_message: "Initial",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: firstTimestamp,
+    created_at: firstTimestamp,
+    parent_idempotency_key_hash: "f".repeat(64),
+    parent_idempotency_request_hash: "e".repeat(64)
+  });
+  const seedStore = createParentMessagePersistenceStore({
+    createEntryId: () => "entry-idempotent-collision",
+    now: () => new Date(laterTimestamp),
+    getParentChildSummaries: () => [childSummary("student-1", "Ada Student")],
+    getParentReportsForStudent: () => [],
+    readDatabase: async () => database,
+    mutateDatabase: async (mutate) => mutate(database)
+  });
+  assert.equal((await seedStore.replyToParentMessageThread(request)).status, "sent");
+
+  database.teacher_messages.push({
+    id: request.threadId,
+    class_id: "class-other-family",
+    student_id: "student-other-family",
+    teacher_id: "teacher-other-family",
+    guardian_id: "parent-other-family",
+    subject_en: "other-family-secret",
+    subject_zh: "other-family-secret",
+    latest_message: "other-family-secret",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: firstTimestamp,
+    created_at: firstTimestamp
+  });
+  database.teacher_message_entries.push({
+    id: "entry-other-family-secret",
+    thread_id: request.threadId,
+    sender_id: "parent-other-family",
+    sender_role: "parent",
+    recipient_id: "teacher-other-family",
+    body: "other-family-secret",
+    attachments: [],
+    created_at: firstTimestamp
+  });
+  const fake = fakePostgres({
+    createRow: messageRow(database, { authorizedThreadCount: 1, globalThreadCount: 2 }),
+    replyRow: messageRow(database, { authorizedThreadCount: 1, globalThreadCount: 2 })
+  });
+  const adapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => fake.client,
+    state: stateIdentity
+  });
+  const store = createParentMessagePersistenceStore({
+    createEntryId: () => "entry-must-not-be-created",
+    now: () => new Date(laterTimestamp),
+    getParentChildSummaries: () => [childSummary("student-1", "Ada Student")],
+    getParentReportsForStudent: () => [],
+    readDatabase: async () => database,
+    mutateDatabase: async () => {
+      throw new Error("collision must not use the generic full-snapshot mutation");
+    },
+    readMutationDatabase: adapter.readMessageDatabase,
+    mutateMutationDatabase: adapter.mutateMessageDatabase
+  });
+  const handler = createParentMessageReplyPostHandler({
+    authenticateParent: async () => ({ user: { id: "parent-1" } }),
+    findReplay: async () => ({ status: "missing" as const }),
+    rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 }),
+    replyToThread: store.replyToParentMessageThread
+  });
+
+  const response = await handler(new Request(`http://localhost/api/parent/messages/${request.threadId}/reply`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ idempotencyKey: request.idempotencyKey, body: request.body })
+  }), { params: Promise.resolve({ threadId: request.threadId }) });
+  const responseBody = await response.json();
+
+  assert.equal(response.status, 503);
+  assert.deepEqual(responseBody, { error: "Parent data temporarily unavailable." });
+  assert.doesNotMatch(JSON.stringify(responseBody), /other-family-secret/u);
+  assert.equal(fake.committedStatePatchCount(), 0);
+  assert.equal(fake.statements.some((statement) => statement.text.includes("projection_upsert")), false);
+  const replyScope = fake.statements.find((statement) => statement.text.includes("parent_message_reply_scope"));
+  assert.match(replyScope?.text ?? "", /AS authorized_thread_count/u);
+  assert.match(replyScope?.text ?? "", /AS global_thread_count/u);
+  assert.match(
+    replyScope?.text ?? "",
+    /thread_records AS \([\s\S]*authorized_thread_count = 1[\s\S]*global_thread_count = 1[\s\S]*entry_records AS/u
+  );
+
+  await assert.rejects(
+    adapter.readMessageDatabase({
+      kind: "create",
+      parentId: "parent-1",
+      studentId: "student-1",
+      classId: "class-1",
+      reportId: null,
+      idempotencyKeyHash: "f".repeat(64)
+    }),
+    /integrity is unavailable/u
+  );
+  const createScope = fake.statements.find((statement) => statement.text.includes("parent_message_create_scope"));
+  assert.match(createScope?.text ?? "", /AS authorized_thread_count/u);
+  assert.match(createScope?.text ?? "", /AS global_thread_count/u);
+});
+
+test("already-acknowledged recipient and notice collisions fail closed through the private route boundary", async () => {
+  const baseNotice = noticeDatabase();
+  baseNotice.teacher_notice_recipients[0].status = "acknowledged";
+  baseNotice.teacher_notice_recipients[0].acknowledged_by = "parent-1";
+  baseNotice.teacher_notice_recipients[0].acknowledged_at = firstTimestamp;
+  baseNotice.teacher_notices[0].updated_at = firstTimestamp;
+
+  const runCollision = async ({
+    database,
+    integrity
+  }: {
+    database: ParentNoticePersistenceDatabase;
+    integrity: Parameters<typeof noticeRow>[1];
+  }) => {
+    const fake = fakePostgres({ ackRow: noticeRow(database, integrity) });
+    const adapter = createParentPostgresScopedMutationAdapter({
+      ensureSchema: async () => undefined,
+      getClient: () => fake.client,
+      state: stateIdentity
+    });
+    const store = createParentNoticePersistenceStore({
+      now: () => new Date(laterTimestamp),
+      getParentChildSummaries: () => [childSummary("student-1", "Ada Student")],
+      readDatabase: async () => database,
+      mutateDatabase: async () => {
+        throw new Error("collision must not use the generic full-snapshot mutation");
+      },
+      mutateMutationDatabase: adapter.mutateNoticeDatabase
+    });
+    const handler = createParentNoticeAckHandler({
+      authenticateParent: async () => ({ user: { id: "parent-1" } }),
+      acknowledgeNotice: store.acknowledgeParentNotice
+    });
+    const response = await handler(
+      new Request("http://localhost/api/parent/notices/recipient-1/ack", { method: "POST" }),
+      { params: Promise.resolve({ recipientId: "recipient-1" }) }
+    );
+    const body = await response.json();
+    assert.equal(response.status, 503);
+    assert.deepEqual(body, { error: "Parent data temporarily unavailable." });
+    assert.doesNotMatch(JSON.stringify(body), /other-family-secret/u);
+    assert.equal(fake.committedStatePatchCount(), 0);
+    const scopeQuery = fake.statements.find((statement) => statement.text.includes("parent_notice_ack_scope"));
+    assert.match(scopeQuery?.text ?? "", /AS authorized_recipient_count/u);
+    assert.match(scopeQuery?.text ?? "", /AS global_recipient_count/u);
+    assert.match(scopeQuery?.text ?? "", /AS authorized_notice_count/u);
+    assert.match(scopeQuery?.text ?? "", /AS global_notice_count/u);
+    assert.match(
+      scopeQuery?.text ?? "",
+      /recipient_records AS \([\s\S]*authorized_recipient_count = 1[\s\S]*global_recipient_count = 1/u
+    );
+    assert.match(
+      scopeQuery?.text ?? "",
+      /notice_records AS \([\s\S]*authorized_notice_count = 1[\s\S]*global_notice_count = 1/u
+    );
+  };
+
+  const recipientCollision = structuredClone(baseNotice);
+  recipientCollision.teacher_notice_recipients.push({
+    id: "recipient-1",
+    notice_id: "notice-other-family",
+    student_id: "student-other-family",
+    guardian_id: "parent-other-family",
+    status: "acknowledged",
+    acknowledged_at: firstTimestamp,
+    acknowledged_by: "parent-other-family",
+    created_at: firstTimestamp
+  });
+  await runCollision({
+    database: recipientCollision,
+    integrity: {
+      authorizedNoticeCount: 1,
+      authorizedRecipientCount: 1,
+      globalNoticeCount: 1,
+      globalRecipientCount: 2
+    }
+  });
+
+  const noticeCollision = structuredClone(baseNotice);
+  noticeCollision.teacher_notices.push({
+    ...noticeCollision.teacher_notices[0],
+    id: "notice-1",
+    teacher_id: "teacher-other-family",
+    class_id: "class-other-family",
+    subject_en: "other-family-secret",
+    subject_zh: "other-family-secret"
+  });
+  await runCollision({
+    database: noticeCollision,
+    integrity: {
+      authorizedNoticeCount: 2,
+      authorizedRecipientCount: 1,
+      globalNoticeCount: 2,
+      globalRecipientCount: 1
+    }
+  });
+});
+
+async function verifyScopedTransactionTimeouts() {
+  const lockTimeout = Object.assign(new Error("SENSITIVE database lock diagnostic"), { code: "55P03" });
+  const fake = fakePostgres({ failLock: lockTimeout });
+  const adapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => fake.client,
+    state: stateIdentity
+  });
+  const handler = createParentMessageReplyPostHandler({
+    authenticateParent: async () => ({ user: { id: "parent-1" } }),
+    findReplay: async () => ({ status: "missing" as const }),
+    rateLimit: () => ({ allowed: true, retryAfterSeconds: 0 }),
+    replyToThread: async () => {
+      await adapter.mutateMessageDatabase({
+        kind: "reply",
+        parentId: "parent-1",
+        threadId: "thread-1",
+        idempotencyKeyHash: "a".repeat(64)
+      }, () => {
+        throw new Error("the mutator must not run after a lock timeout");
+      });
+      throw new Error("unreachable after the scoped transaction timeout");
+    }
+  });
+
+  const response = await handler(new Request("http://localhost/api/parent/messages/thread-1/reply", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      idempotencyKey: "timeout-reply-key-0001",
+      body: "This must not be committed."
+    })
+  }), { params: Promise.resolve({ threadId: "thread-1" }) });
+  const responseBody = await response.json();
+
+  assert.equal(response.status, 503);
+  assert.deepEqual(responseBody, { error: "Parent data temporarily unavailable." });
+  assert.doesNotMatch(JSON.stringify(responseBody), /SENSITIVE|55P03|lock diagnostic/u);
+  const timeoutIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_scoped_mutation_timeouts")
+  ));
+  const lockIndex = fake.statements.findIndex((statement) => statement.text.includes("parent_state_scope_lock"));
+  assert.ok(timeoutIndex >= 0, "each scoped transaction must configure transaction-local server timeouts");
+  assert.ok(lockIndex > timeoutIndex, "timeouts must be active before waiting for the app_state row lock");
+  const timeoutStatement = fake.statements[timeoutIndex];
+  assert.match(timeoutStatement?.text ?? "", /set_config\('lock_timeout',[\s\S]*true\)/u);
+  assert.match(timeoutStatement?.text ?? "", /set_config\('statement_timeout',[\s\S]*true\)/u);
+  assert.ok(timeoutStatement?.values.includes("1000ms"));
+  assert.ok(timeoutStatement?.values.includes("5000ms"));
+  assert.equal(fake.committedStatePatchCount(), 0);
+  assert.equal(fake.statements.some((statement) => statement.text.includes("projection_upsert")), false);
+  assert.equal(fake.activeTransaction(), false, "the failed transaction must return its connection to the client");
+  assert.equal(fake.transactionExitCount(), 1, "the transaction callback must exit exactly once");
+}
+
+async function verifyDuplicateBusinessIdsFailClosed() {
+  const message = messageDatabase();
+  message.teacher_messages.push({
+    id: "thread-collision",
+    class_id: "class-1",
+    student_id: "student-1",
+    teacher_id: "teacher-1",
+    guardian_id: "parent-1",
+    subject_en: "Question",
+    subject_zh: "Question",
+    latest_message: "Initial",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: firstTimestamp,
+    created_at: firstTimestamp
+  }, {
+    id: "thread-collision",
+    class_id: "class-other-family",
+    student_id: "student-other-family",
+    teacher_id: "teacher-other-family",
+    guardian_id: "parent-other-family",
+    subject_en: "other-family-secret",
+    subject_zh: "other-family-secret",
+    latest_message: "other-family-secret",
+    status: "open",
+    priority: "normal",
+    starred: false,
+    last_message_at: firstTimestamp,
+    created_at: firstTimestamp
+  });
+  const messageFake = fakePostgres({
+    replyRow: messageRow(message),
+    duplicateMessageTarget: true
+  });
+  const messageAdapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => messageFake.client,
+    state: stateIdentity
+  });
+  await assert.rejects(
+    messageAdapter.mutateMessageDatabase({
+      kind: "reply",
+      parentId: "parent-1",
+      threadId: "thread-collision",
+      idempotencyKeyHash: "c".repeat(64)
+    }, (scoped) => {
+      scoped.teacher_messages[0].latest_message = "Safe family reply";
+      scoped.teacher_messages[0].status = "unread";
+      scoped.teacher_messages[0].last_message_at = laterTimestamp;
+      scoped.teacher_message_entries.push({
+        id: "entry-collision-reply",
+        thread_id: "thread-collision",
+        sender_id: "parent-1",
+        sender_role: "parent",
+        recipient_id: "teacher-1",
+        body: "Safe family reply",
+        attachments: [],
+        created_at: laterTimestamp,
+        parent_idempotency_key_hash: "c".repeat(64),
+        parent_idempotency_request_hash: "d".repeat(64)
+      });
+      return { status: "sent" as const };
+    }),
+    /state patch was not committed/u
+  );
+  const replyPatch = messageFake.statements.find((statement) => statement.text.includes("parent_message_state_patch"));
+  assert.match(
+    replyPatch?.text ?? "",
+    /WHEN\s+record->>'id'\s*=\s*\$value\s+AND\s+record->>'guardian_id'\s*=\s*\$value/u,
+    "the CASE branch must bind the thread id to the authorized guardian"
+  );
+  assert.match(
+    replyPatch?.text ?? "",
+    /SELECT\s+COUNT\(\*\)[\s\S]*state\.payload->'teacher_messages'[\s\S]*record->>'id'\s*=\s*\$value[\s\S]*\)\s*=\s*1/iu,
+    "the state patch must require one globally unique thread business id"
+  );
+  assert.equal(messageFake.committedStatePatchCount(), 0);
+  assert.equal(
+    messageFake.statements.some((statement) => statement.text.includes("parent_message_projection_upsert")),
+    false
+  );
+
+  const recipientCollisionNotice = noticeDatabase();
+  recipientCollisionNotice.users.push({ id: "parent-other-family", role: "parent" });
+  recipientCollisionNotice.guardian_links.push({
+    parent_id: "parent-other-family",
+    student_id: "student-other-family",
+    status: "active"
+  });
+  recipientCollisionNotice.teacher_notice_recipients.push({
+    id: "recipient-1",
+    notice_id: "notice-other-family",
+    student_id: "student-other-family",
+    guardian_id: "parent-other-family",
+    status: "pending",
+    acknowledged_at: null,
+    created_at: firstTimestamp
+  });
+  const recipientCollisionFake = fakePostgres({
+    ackRow: noticeRow(recipientCollisionNotice),
+    duplicateNoticeRecipientTarget: true
+  });
+  const recipientCollisionAdapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => recipientCollisionFake.client,
+    state: stateIdentity
+  });
+  const acknowledge = (adapter: ReturnType<typeof createParentPostgresScopedMutationAdapter>) => (
+    adapter.mutateNoticeDatabase({
+      kind: "ack",
+      parentId: "parent-1",
+      recipientId: "recipient-1"
+    }, (scoped) => {
+      scoped.teacher_notice_recipients[0].status = "acknowledged";
+      scoped.teacher_notice_recipients[0].acknowledged_by = "parent-1";
+      scoped.teacher_notice_recipients[0].acknowledged_at = laterTimestamp;
+      scoped.teacher_notices[0].updated_at = laterTimestamp;
+      return { status: "acknowledged" as const };
+    })
+  );
+  await assert.rejects(
+    acknowledge(recipientCollisionAdapter),
+    /state patch was not committed/u
+  );
+  const recipientCollisionPatch = recipientCollisionFake.statements.find(
+    (statement) => statement.text.includes("parent_notice_state_patch")
+  );
+  assert.match(
+    recipientCollisionPatch?.text ?? "",
+    /WHEN\s+record->>'id'\s*=\s*\$value\s+AND\s+record->>'guardian_id'\s*=\s*\$value\s+AND\s+record->>'student_id'\s*=\s*\$value\s+AND\s+record->>'notice_id'\s*=\s*\$value/u,
+    "the recipient CASE branch must bind the full authorized target context"
+  );
+  assert.match(
+    recipientCollisionPatch?.text ?? "",
+    /SELECT\s+COUNT\(\*\)[\s\S]*state\.payload->'teacher_notice_recipients'[\s\S]*record->>'id'\s*=\s*\$value[\s\S]*\)\s*=\s*1/iu,
+    "the acknowledgement patch must exact-count the recipient business id"
+  );
+  assert.equal(recipientCollisionFake.committedStatePatchCount(), 0);
+  assert.equal(
+    recipientCollisionFake.statements.some((statement) => statement.text.includes("projection_upsert")),
+    false
+  );
+
+  const noticeCollision = noticeDatabase();
+  noticeCollision.teacher_notices.push({
+    ...noticeCollision.teacher_notices[0],
+    id: "notice-1",
+    teacher_id: "teacher-other-family",
+    class_id: "class-other-family",
+    subject_en: "other-family-secret",
+    subject_zh: "other-family-secret"
+  });
+  const noticeCollisionFake = fakePostgres({
+    ackRow: noticeRow(noticeCollision),
+    duplicateNoticeTarget: true
+  });
+  const noticeCollisionAdapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => noticeCollisionFake.client,
+    state: stateIdentity
+  });
+  await assert.rejects(
+    acknowledge(noticeCollisionAdapter),
+    /state patch was not committed/u
+  );
+  const noticeCollisionPatch = noticeCollisionFake.statements.find(
+    (statement) => statement.text.includes("parent_notice_state_patch")
+  );
+  assert.match(
+    noticeCollisionPatch?.text ?? "",
+    /SELECT\s+COUNT\(\*\)[\s\S]*state\.payload->'teacher_notices'[\s\S]*record->>'id'\s*=\s*\$value[\s\S]*\)\s*=\s*1/iu,
+    "the acknowledgement patch must exact-count the notice business id"
+  );
+  assert.equal(noticeCollisionFake.committedStatePatchCount(), 0);
+  assert.equal(
+    noticeCollisionFake.statements.some((statement) => statement.text.includes("projection_upsert")),
+    false
+  );
+}
+
+async function verifyRejectedThenableIsConsumed() {
+  const database = messageDatabase();
+  const fake = fakePostgres({ createRow: messageRow(database) });
+  const adapter = createParentPostgresScopedMutationAdapter({
+    ensureSchema: async () => undefined,
+    getClient: () => fake.client,
+    state: stateIdentity
+  });
+  const unhandled: unknown[] = [];
+  const onUnhandled = (reason: unknown) => unhandled.push(reason);
+  let assimilationCount = 0;
+  const rejectedThenable = {
+    then(_resolve: (value: unknown) => void, reject: (reason: unknown) => void) {
+      assimilationCount += 1;
+      reject(new Error("provider rejection must be consumed"));
+    }
+  };
+  const mutation = (() => rejectedThenable) as unknown as (
+    scoped: ParentMessagePersistenceDatabase
+  ) => { status: "created" };
+  const rejectedPromiseMutation = (() => Promise.reject(
+    new Error("native provider rejection must be consumed")
+  )) as unknown as (
+    scoped: ParentMessagePersistenceDatabase
+  ) => { status: "created" };
+  process.on("unhandledRejection", onUnhandled);
+  try {
+    await assert.rejects(
+      adapter.mutateMessageDatabase({
+        kind: "create",
+        parentId: "parent-1",
+        studentId: "student-1",
+        classId: "class-1",
+        reportId: null,
+        idempotencyKeyHash: "a".repeat(64)
+      }, mutation),
+      /must not await provider or transport I\/O/u
+    );
+    await assert.rejects(
+      adapter.mutateMessageDatabase({
+        kind: "create",
+        parentId: "parent-1",
+        studentId: "student-1",
+        classId: "class-1",
+        reportId: null,
+        idempotencyKeyHash: "b".repeat(64)
+      }, rejectedPromiseMutation),
+      /must not await provider or transport I\/O/u
+    );
+    await new Promise<void>((resolve) => setImmediate(resolve));
+  } finally {
+    process.off("unhandledRejection", onUnhandled);
+  }
+
+  assert.equal(assimilationCount, 1, "the rejected thenable must have a rejection consumer attached");
+  assert.deepEqual(unhandled, []);
+  assert.equal(fake.committedStatePatchCount(), 0);
+  assert.equal(fake.statements.some((statement) => statement.text.includes("projection_upsert")), false);
+  assert.equal(fake.activeTransaction(), false);
+  assert.equal(fake.transactionExitCount(), 2);
+}
 
 test("replays do not write and missing scoped state fails closed", async () => {
   const database = messageDatabase();
@@ -902,6 +1490,7 @@ test("malformed scoped arrays and asynchronous mutators fail closed before any s
   );
   assert.equal(asyncFake.statements.some((statement) => statement.text.includes("state_patch")), false);
   assert.equal(asyncFake.statements.some((statement) => statement.text.includes("projection_upsert")), false);
+  await verifyRejectedThenableIsConsumed();
 });
 
 test("disabled parents are removed from every scoped authorization snapshot and cannot write", async () => {
