@@ -80,7 +80,7 @@
     "vercel:preview": "node scripts/deploy-vercel-preview.mjs",
     "vercel:production": "node scripts/deploy-vercel-production.mjs",
     "test:backend": "playwright test tests/e2e/backend-api.spec.ts --project=desktop-chrome",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs",
     "test:stray-types": "node --test scripts/check-stray-generated-types.test.mjs",

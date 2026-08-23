@@ -20,11 +20,9 @@ const REQUIRED_BUILD_OUTPUTS = [
 export async function runReleaseBuildGate(options = {}) {
   const config = buildReleaseBuildGateConfig(options, process.env);
   const startedAt = new Date().toISOString();
-  const tsconfigSnapshot = await snapshotFile(path.resolve(REPO_ROOT, config.tsconfigPath));
-  let result;
-
-  try {
-    result = await runCommand(
+  const result = await withRestoredReleaseBuildInputs(
+    { repoRoot: REPO_ROOT, tsconfigPath: config.tsconfigPath },
+    () => runCommand(
       process.execPath,
       ["scripts/next-clean-build.mjs"],
       {
@@ -35,10 +33,8 @@ export async function runReleaseBuildGate(options = {}) {
           NEXT_TSCONFIG_PATH: config.tsconfigPath
         }
       }
-    );
-  } finally {
-    await restoreFileSnapshot(tsconfigSnapshot);
-  }
+    )
+  );
 
   if (result.exitCode !== 0) {
     throw new Error(
@@ -77,6 +73,19 @@ export async function snapshotFile(absolutePath) {
     absolutePath,
     content
   };
+}
+
+export async function withRestoredReleaseBuildInputs({ repoRoot = REPO_ROOT, tsconfigPath }, action) {
+  const snapshots = await Promise.all([
+    snapshotFile(path.resolve(repoRoot, tsconfigPath)),
+    snapshotFile(path.join(repoRoot, "next-env.d.ts"))
+  ]);
+
+  try {
+    return await action();
+  } finally {
+    await Promise.all(snapshots.map((snapshot) => restoreFileSnapshot(snapshot)));
+  }
 }
 
 export async function restoreFileSnapshot(snapshot) {

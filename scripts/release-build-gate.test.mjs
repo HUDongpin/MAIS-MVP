@@ -3,11 +3,13 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
-import {
+import * as releaseBuildGate from "./release-build-gate.mjs";
+
+const {
   buildReleaseBuildGateConfig,
   restoreFileSnapshot,
   snapshotFile
-} from "./release-build-gate.mjs";
+} = releaseBuildGate;
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
 
@@ -62,4 +64,33 @@ test("release build gate restores the configured tsconfig after Next mutates it"
   );
 
   await fs.rm(tempDir, { recursive: true, force: true });
+});
+
+test("release build gate restores tsconfig and next-env after a mutating build action", async (t) => {
+  const tempDir = path.join(repoRoot, ".tmp", "release-build-gate-input-restore-unit");
+  const configPath = path.join(tempDir, "tsconfig.next.json");
+  const nextEnvPath = path.join(tempDir, "next-env.d.ts");
+  const originalConfig = JSON.stringify({ include: ["next-env.d.ts"] }, null, 2);
+  const originalNextEnv = '/// <reference path="./.next/types/routes.d.ts" />\n';
+
+  await fs.mkdir(tempDir, { recursive: true });
+  await fs.writeFile(configPath, originalConfig);
+  await fs.writeFile(nextEnvPath, originalNextEnv);
+  t.after(() => fs.rm(tempDir, { recursive: true, force: true }));
+
+  assert.equal(typeof releaseBuildGate.withRestoredReleaseBuildInputs, "function");
+  await assert.rejects(
+    releaseBuildGate.withRestoredReleaseBuildInputs(
+      { repoRoot: tempDir, tsconfigPath: "tsconfig.next.json" },
+      async () => {
+        await fs.writeFile(configPath, JSON.stringify({ include: ["generated/types/**/*.ts"] }, null, 2));
+        await fs.writeFile(nextEnvPath, '/// <reference path="./generated/types/routes.d.ts" />\n');
+        throw new Error("synthetic build failure");
+      }
+    ),
+    /synthetic build failure/
+  );
+
+  assert.equal(await fs.readFile(configPath, "utf8"), originalConfig);
+  assert.equal(await fs.readFile(nextEnvPath, "utf8"), originalNextEnv);
 });
