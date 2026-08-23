@@ -192,7 +192,7 @@ function simplifyMany(
 ): KernelResult<readonly MathJsonExpr[]> {
   const simplified: MathJsonExpr[] = [];
   for (const value of values) {
-    const result = session.simplifyMathJson(value);
+    const result = session.boxMathJson(value);
     if (!result.ok) return result;
     simplified.push(result.value);
   }
@@ -260,7 +260,7 @@ export function ellipseExact(
   );
   const values = simplifyMany(session, [
     div(c.value.expression, derivedMajorAxis === "x" ? ax : by),
-    sub(directrixCenter, directrixOffset),
+    add(directrixCenter, neg(directrixOffset)),
     add(directrixCenter, directrixOffset),
     sub(cx, c.value.expression),
     add(cx, c.value.expression),

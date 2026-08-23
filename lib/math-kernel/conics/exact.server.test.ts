@@ -46,6 +46,27 @@ function exactEqual(
   assert.equal(comparison, "equal");
 }
 
+function captureAbnormalConsole<T>(operation: () => T): {
+  readonly value: T;
+  readonly messages: readonly string[];
+} {
+  const originalError = console.error;
+  const originalWarn = console.warn;
+  const messages: string[] = [];
+  console.error = (...args: unknown[]) => {
+    messages.push(`error: ${args.map(String).join(" ")}`);
+  };
+  console.warn = (...args: unknown[]) => {
+    messages.push(`warn: ${args.map(String).join(" ")}`);
+  };
+  try {
+    return { value: operation(), messages };
+  } finally {
+    console.error = originalError;
+    console.warn = originalWarn;
+  }
+}
+
 test("exact ellipse remains JSON-safe and derives exact focal relations", () => {
   const session = new CasSession();
   const ellipse = unwrap(
@@ -183,9 +204,11 @@ test("conic positivity and ellipse axis order use exact sign proofs", () => {
   });
   assert.equal(positiveRadius.ok, true);
 
-  const ellipse = unwrap(
+  const adversarial = captureAbnormalConsole(() =>
     ellipseExact({ a: Q_ABOVE_SQRT_TWO, b: SQRT_TWO }),
   );
+  assert.deepEqual(adversarial.messages, []);
+  const ellipse = unwrap(adversarial.value);
   assert.equal(ellipse.majorAxis, "x");
 });
 
