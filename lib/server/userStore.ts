@@ -292,6 +292,10 @@ import {
   type ParentMessagePersistenceDatabase
 } from "@/lib/server/userStore/parentMessagePersistence";
 import {
+  createParentPostgresScopedMutationAdapter,
+  type ParentPostgresClient
+} from "@/lib/server/userStore/parentPostgresScopedMutations";
+import {
   createParentReportPersistenceStore,
   parentReportsForStudent as parentReportsForStudentFromParentReport,
   type ParentReportPersistenceDatabase
@@ -9191,6 +9195,19 @@ const buildParentChildSummaryForParentFoundation = createParentChildSummaryBuild
   (database: ParentFoundationPersistenceDatabase) => database as Database
 );
 
+const parentPostgresScopedMutationAdapter = storageProvider === "postgres"
+  ? createParentPostgresScopedMutationAdapter({
+      ensureSchema: ensurePostgresStateTable,
+      getClient: () => getPostgresClient() as unknown as ParentPostgresClient,
+      state: {
+        id: stateRecordId,
+        tenantId: stateTenantId,
+        stateKind,
+        schemaVersion
+      }
+    })
+  : null;
+
 const parentNoticePersistenceStore = createParentNoticePersistenceStore({
   readDatabase: async () => {
     const database = await readDatabase();
@@ -9201,6 +9218,9 @@ const parentNoticePersistenceStore = createParentNoticePersistenceStore({
     const result = await mutateDatabase((database) => mutator(database));
     return result as T;
   },
+  ...(parentPostgresScopedMutationAdapter
+    ? { mutateMutationDatabase: parentPostgresScopedMutationAdapter.mutateNoticeDatabase }
+    : {}),
   getParentChildSummaries: (database, user) => parentChildSummariesForFromParentFoundation(
     database as unknown as ParentFoundationPersistenceDatabase,
     user as unknown as ParentFoundationUserRecord,
@@ -9231,6 +9251,12 @@ const parentMessagePersistenceStore = createParentMessagePersistenceStore({
     const result = await mutateDatabase((database) => mutator(database as ParentMessagePersistenceDatabase));
     return result as T;
   },
+  ...(parentPostgresScopedMutationAdapter
+    ? {
+        mutateMutationDatabase: parentPostgresScopedMutationAdapter.mutateMessageDatabase,
+        readMutationDatabase: parentPostgresScopedMutationAdapter.readMessageDatabase
+      }
+    : {}),
   getParentChildSummaries: (database, user) => parentChildSummariesForFromParentFoundation(
     database as unknown as ParentFoundationPersistenceDatabase,
     user as unknown as ParentFoundationUserRecord,

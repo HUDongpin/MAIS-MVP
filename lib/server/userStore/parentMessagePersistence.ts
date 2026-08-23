@@ -110,6 +110,22 @@ export type ParentMessagePersistenceDatabase = {
   users: ParentMessageUserRecord[];
 };
 
+export type ParentMessageMutationScope =
+  | {
+      kind: "create";
+      parentId: string;
+      studentId: string;
+      classId: string;
+      reportId: string | null;
+      idempotencyKeyHash: string;
+    }
+  | {
+      kind: "reply";
+      parentId: string;
+      threadId: string;
+      idempotencyKeyHash: string;
+    };
+
 export type ParentMessagePersistenceStoreDependencies = {
   createEntryId?: () => string;
   createThreadId?: () => string;
@@ -124,9 +140,16 @@ export type ParentMessagePersistenceStoreDependencies = {
   mutateDatabase?: <T>(
     mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>
   ) => Promise<T>;
+  mutateMutationDatabase?: <T>(
+    scope: ParentMessageMutationScope,
+    mutator: (database: ParentMessagePersistenceDatabase) => T
+  ) => Promise<T>;
   now?: () => Date;
   readDatabase: () => Promise<ParentMessagePersistenceDatabase>;
   readParentDatabase?: (parentId: string) => Promise<ParentMessagePersistenceDatabase>;
+  readMutationDatabase?: (
+    scope: ParentMessageMutationScope
+  ) => Promise<ParentMessagePersistenceDatabase>;
 };
 
 export type ParentMessagePersistenceStore = ReturnType<typeof createParentMessagePersistenceStore>;
@@ -418,12 +441,20 @@ export function createParentMessagePersistenceStore({
   getParentChildSummaries,
   getParentReportsForStudent,
   mutateDatabase,
+  mutateMutationDatabase,
   now = () => new Date(),
   readDatabase,
-  readParentDatabase
+  readParentDatabase,
+  readMutationDatabase
 }: ParentMessagePersistenceStoreDependencies) {
   const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
-  const runMutation = async <T>(mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>) => {
+  const runMutation = async <T>(
+    scope: ParentMessageMutationScope,
+    mutator: (database: ParentMessagePersistenceDatabase) => T
+  ) => {
+    if (mutateMutationDatabase) {
+      return mutateMutationDatabase(scope, mutator);
+    }
     if (!mutateDatabase) {
       throw new Error("Parent message persistence mutation dependency is not configured.");
     }
@@ -626,7 +657,31 @@ export function createParentMessagePersistenceStore({
     async findParentMessageCreateReplay(input: CreateParams): Promise<ParentMessageCreateReplayResult> {
       const normalized = normalizedCreateInput(input);
       if (normalized.status !== "valid") return normalized;
-      return createReplayFromDatabase(await readDatabase(), normalized);
+      const scope: ParentMessageMutationScope = {
+        kind: "create",
+        parentId: normalized.value.parentId,
+        studentId: normalized.value.studentId,
+        classId: normalized.value.classId,
+        reportId: normalized.value.reportId,
+        idempotencyKeyHash: idempotencyKeyHash(
+          "create",
+          normalized.value.parentId,
+          normalized.value.idempotencyKey
+        )
+      };
+      const database = readMutationDatabase
+        ? await readMutationDatabase(scope)
+        : await readDatabase();
+      const replay = createReplayFromDatabase(database, normalized);
+      if (replay.status !== "replayed" || !mutateMutationDatabase || !readMutationDatabase) {
+        return replay;
+      }
+      // The unlocked narrow read keeps brand-new requests off the global app_state row lock.
+      // A replay may bypass rate limiting, so confirm that privileged result under the same
+      // scoped transaction/row lock used by the actual mutation before returning it.
+      return mutateMutationDatabase(scope, (lockedDatabase) => (
+        createReplayFromDatabase(lockedDatabase, normalized)
+      ));
     },
 
     async createParentMessageThread(input: CreateParams): Promise<ParentMessageCreateResult> {
@@ -634,7 +689,15 @@ export function createParentMessagePersistenceStore({
       if (normalized.status !== "valid") return normalized;
       const { value } = normalized;
 
-      return runMutation((database): ParentMessageCreateResult => {
+      const scope: ParentMessageMutationScope = {
+        kind: "create",
+        parentId: value.parentId,
+        studentId: value.studentId,
+        classId: value.classId,
+        reportId: value.reportId,
+        idempotencyKeyHash: idempotencyKeyHash("create", value.parentId, value.idempotencyKey)
+      };
+      return runMutation(scope, (database): ParentMessageCreateResult => {
         const replay = createReplayFromDatabase(database, normalized);
         if (replay.status !== "missing") return replay;
 
@@ -690,7 +753,26 @@ export function createParentMessagePersistenceStore({
     async findParentMessageReplyReplay(input: ReplyParams): Promise<ParentMessageReplyReplayResult> {
       const normalized = normalizedReplyInput(input);
       if (normalized.status !== "valid") return normalized;
-      return replyReplayFromDatabase(await readDatabase(), normalized);
+      const scope: ParentMessageMutationScope = {
+        kind: "reply",
+        parentId: normalized.value.parentId,
+        threadId: normalized.value.threadId,
+        idempotencyKeyHash: idempotencyKeyHash(
+          "reply",
+          normalized.value.parentId,
+          normalized.value.idempotencyKey
+        )
+      };
+      const database = readMutationDatabase
+        ? await readMutationDatabase(scope)
+        : await readDatabase();
+      const replay = replyReplayFromDatabase(database, normalized);
+      if (replay.status !== "replayed" || !mutateMutationDatabase || !readMutationDatabase) {
+        return replay;
+      }
+      return mutateMutationDatabase(scope, (lockedDatabase) => (
+        replyReplayFromDatabase(lockedDatabase, normalized)
+      ));
     },
 
     async replyToParentMessageThread(input: ReplyParams): Promise<ParentMessageReplyResult> {
@@ -698,7 +780,13 @@ export function createParentMessagePersistenceStore({
       if (normalized.status !== "valid") return normalized;
       const { value } = normalized;
 
-      return runMutation((database): ParentMessageReplyResult => {
+      const scope: ParentMessageMutationScope = {
+        kind: "reply",
+        parentId: value.parentId,
+        threadId: value.threadId,
+        idempotencyKeyHash: idempotencyKeyHash("reply", value.parentId, value.idempotencyKey)
+      };
+      return runMutation(scope, (database): ParentMessageReplyResult => {
         const replay = replyReplayFromDatabase(database, normalized);
         if (replay.status !== "missing") return replay;
         const target = currentReplyTarget(database, value.parentId, value.threadId);
