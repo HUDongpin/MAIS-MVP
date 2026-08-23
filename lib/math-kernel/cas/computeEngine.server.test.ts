@@ -5,12 +5,15 @@ import { test } from "node:test";
 import { KERNEL_ERROR_CODES } from "../shared/errors";
 import { MATH_JSON_LIMITS } from "../shared/mathjson";
 import {
+  CasSession,
   boxMathJson,
+  compareExactMathJson,
   exactMathJsonEqual,
   isReadableExactMathJson,
   simplifyMathJson,
   toExactValueDto,
 } from "./computeEngine.server";
+import type { ExactComparison } from "../shared/types";
 
 function unwrap<T>(result: { ok: true; value: T } | { ok: false }): T {
   assert.equal(result.ok, true);
@@ -78,6 +81,58 @@ test("checks exact equality without exposing Compute Engine expressions", () => 
     unwrap(exactMathJsonEqual(["Rational", 1, 3], ["Rational", 1, 2])),
     false,
   );
+});
+
+test("compares exact expressions without turning symbolic uncertainty into inequality", () => {
+  const identity: ExactComparison = unwrap(compareExactMathJson(
+    ["Power", ["Add", "x", 1], 2],
+    ["Add", ["Power", "x", 2], ["Multiply", 2, "x"], 1],
+  ));
+  assert.equal(identity, "equal");
+  assert.equal(
+    unwrap(compareExactMathJson(["Rational", 1, 3], ["Rational", 1, 2])),
+    "not-equal",
+  );
+  assert.equal(unwrap(compareExactMathJson("x", 2)), "unknown");
+
+  const legacy = exactMathJsonEqual("x", 2);
+  assert.equal(legacy.ok, false);
+  if (legacy.ok) return;
+  assert.equal(
+    legacy.error.code,
+    KERNEL_ERROR_CODES.indeterminateSymbolicResult,
+  );
+});
+
+test("separates decimal strings from safe JavaScript approximations", () => {
+  for (const exponent of [400, -400] as const) {
+    const dto = unwrap(toExactValueDto(["Power", 10, exponent]));
+    assert.notEqual(dto.decimal, null);
+    assert.equal(dto.approx, null);
+  }
+
+  const zero = unwrap(toExactValueDto(0));
+  assert.equal(zero.decimal, "0");
+  assert.equal(zero.approx, 0);
+});
+
+test("rejects operators outside the MAIS CAS allowlist", () => {
+  const result = boxMathJson(["TotallyUnknownOperator", 1]);
+  assert.equal(result.ok, false);
+  if (result.ok) return;
+  assert.equal(result.error.code, KERNEL_ERROR_CODES.mathJsonInvalidShape);
+});
+
+test("provides a reusable request-scoped session without exposing its engine", () => {
+  const session = new CasSession();
+  assert.equal(unwrap(session.simplifyMathJson(["Add", "x", 0])), "x");
+  assert.equal(
+    unwrap(session.compareExactMathJson(["Divide", 1, 3], ["Rational", 1, 3])),
+    "equal",
+  );
+  assert.deepEqual(Object.keys(session), []);
+  assert.equal("engine" in session, false);
+  assert.equal(JSON.stringify(session), "{}");
 });
 
 test("classifies compact finite constants as readable and excludes symbols or infinities", () => {

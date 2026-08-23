@@ -75,6 +75,38 @@ test("rejects MathJSON larger than 2000 nodes with a stable error code", () => {
   assert.equal(result.error.code, KERNEL_ERROR_CODES.mathJsonNodeLimit);
 });
 
+test("rejects excessive string and numeric resources before CAS execution", () => {
+  const oversizedString = validateMathJson("x".repeat(5_000_000));
+  assert.equal(oversizedString.ok, false);
+
+  const excessiveAggregate = validateMathJson([
+    "List",
+    ...Array.from({ length: 9 }, () => ({ str: "x".repeat(16_384) })),
+  ]);
+  assert.equal(excessiveAggregate.ok, false);
+
+  const oversizedNumericToken = validateMathJson({ num: "1".repeat(4_097) });
+  assert.equal(oversizedNumericToken.ok, false);
+
+  const excessivePower = validateMathJson(["Power", 2, 10_000_000]);
+  assert.equal(excessivePower.ok, false);
+
+  for (const result of [
+    oversizedString,
+    excessiveAggregate,
+    oversizedNumericToken,
+    excessivePower,
+  ]) {
+    if (result.ok) continue;
+    assert.match(result.error.code, /LIMIT$/);
+  }
+});
+
+test("allows exact powers needed for large and tiny finite decimal DTOs", () => {
+  assert.equal(validateMathJson(["Power", 10, 400]).ok, true);
+  assert.equal(validateMathJson(["Power", 10, -400]).ok, true);
+});
+
 test("rejects cyclic input rather than recursing or serializing it", () => {
   const cyclic: unknown[] = ["Add", 1];
   cyclic.push(cyclic);

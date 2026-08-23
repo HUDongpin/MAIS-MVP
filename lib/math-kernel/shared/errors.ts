@@ -4,9 +4,14 @@ export const KERNEL_ERROR_CODES = {
   mathJsonCycle: "MATH_JSON_CYCLE",
   mathJsonDepthLimit: "MATH_JSON_DEPTH_LIMIT",
   mathJsonNodeLimit: "MATH_JSON_NODE_LIMIT",
+  mathJsonStringLengthLimit: "MATH_JSON_STRING_LENGTH_LIMIT",
+  mathJsonTotalStringLengthLimit: "MATH_JSON_TOTAL_STRING_LENGTH_LIMIT",
+  mathJsonNumericDigitsLimit: "MATH_JSON_NUMERIC_DIGITS_LIMIT",
+  mathJsonIntegerExponentLimit: "MATH_JSON_INTEGER_EXPONENT_LIMIT",
   mathJsonInvalidShape: "MATH_JSON_INVALID_SHAPE",
   casInvalidExpression: "CAS_INVALID_EXPRESSION",
   casOperationFailed: "CAS_OPERATION_FAILED",
+  indeterminateSymbolicResult: "INDETERMINATE_SYMBOLIC_RESULT",
 } as const;
 
 export type MathKernelErrorCode =

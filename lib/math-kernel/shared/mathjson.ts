@@ -5,7 +5,15 @@ import type { KernelResult, MathJsonExpr } from "./types";
 export const MATH_JSON_LIMITS = {
   maxDepth: 64,
   maxNodes: 2_000,
+  maxStringLength: 16_384,
+  maxTotalStringLength: 131_072,
+  maxNumericDigits: 4_096,
+  maxIntegerExponent: 10_000,
 } as const;
+
+export interface MathJsonValidationOptions {
+  readonly allowedOperators?: ReadonlySet<string>;
+}
 
 type ValidationFailure = {
   readonly code: KernelErrorCode;
@@ -80,12 +88,40 @@ function isValidMathJsonSymbol(value: unknown): value is string {
   );
 }
 
+type ValidationState = {
+  nodes: number;
+  totalStringLength: number;
+};
+
+function validateStringBudget(
+  value: string,
+  path: string,
+  state: ValidationState,
+): ValidationFailure | null {
+  if (value.length > MATH_JSON_LIMITS.maxStringLength) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonStringLengthLimit,
+      `MathJSON strings must not exceed ${MATH_JSON_LIMITS.maxStringLength} UTF-16 code units.`,
+      path,
+    );
+  }
+  state.totalStringLength += value.length;
+  if (state.totalStringLength > MATH_JSON_LIMITS.maxTotalStringLength) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonTotalStringLengthLimit,
+      `MathJSON total string content must not exceed ${MATH_JSON_LIMITS.maxTotalStringLength} UTF-16 code units.`,
+      path,
+    );
+  }
+  return null;
+}
+
 function validateJsonValue(
   value: unknown,
   depth: number,
   path: string,
   active: WeakSet<object>,
-  state: { nodes: number },
+  state: ValidationState,
 ): ValidationFailure | null {
   if (depth > MATH_JSON_LIMITS.maxDepth) {
     return failure(
@@ -114,11 +150,11 @@ function validateJsonValue(
         );
   }
 
-  if (
-    value === null ||
-    typeof value === "string" ||
-    typeof value === "boolean"
-  ) {
+  if (typeof value === "string") {
+    return validateStringBudget(value, path, state);
+  }
+
+  if (value === null || typeof value === "boolean") {
     return null;
   }
 
@@ -307,9 +343,98 @@ function validateAttributes(
   return null;
 }
 
+const NUMERIC_TOKEN = /^(?:NaN|-Infinity|\+Infinity|-?\d+(?:\.\d+)?(?:\(\d+\))?(?:[eE][+-]?\d+)?)$/;
+
+function integerMagnitudeExceedsLimit(token: string, limit: number): boolean {
+  const magnitude = token.replace(/^[+-]/, "").replace(/^0+/, "") || "0";
+  const limitToken = String(limit);
+  return (
+    magnitude.length > limitToken.length ||
+    (magnitude.length === limitToken.length && magnitude > limitToken)
+  );
+}
+
+function validateNumericToken(
+  token: string,
+  path: string,
+): ValidationFailure | null {
+  if (!NUMERIC_TOKEN.test(token)) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonInvalidShape,
+      "MathJSON num must contain a valid numeric token.",
+      path,
+    );
+  }
+  const digitCount = token.match(/\d/g)?.length ?? 0;
+  if (digitCount > MATH_JSON_LIMITS.maxNumericDigits) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonNumericDigitsLimit,
+      `MathJSON numeric tokens must not exceed ${MATH_JSON_LIMITS.maxNumericDigits} digits.`,
+      path,
+    );
+  }
+  const exponent = token.match(/[eE]([+-]?\d+)$/)?.[1];
+  if (
+    exponent !== undefined &&
+    integerMagnitudeExceedsLimit(exponent, MATH_JSON_LIMITS.maxIntegerExponent)
+  ) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonIntegerExponentLimit,
+      `MathJSON integer exponents must not exceed ${MATH_JSON_LIMITS.maxIntegerExponent} in absolute value.`,
+      path,
+    );
+  }
+  return null;
+}
+
+function directIntegerExponent(value: unknown): number | string | null {
+  if (typeof value === "number" && Number.isSafeInteger(value)) return value;
+  if (!value || typeof value !== "object" || !isPlainObject(value)) return null;
+  const token = ownDataValue(value, "num");
+  return typeof token === "string" && /^-?\d+$/.test(token) ? token : null;
+}
+
+function validateOperator(
+  operator: string,
+  exponent: unknown,
+  operatorPath: string,
+  exponentPath: string,
+  options: MathJsonValidationOptions,
+): ValidationFailure | null {
+  if (
+    options.allowedOperators &&
+    !options.allowedOperators.has(operator)
+  ) {
+    return failure(
+      KERNEL_ERROR_CODES.mathJsonInvalidShape,
+      `MathJSON operator ${operator} is not allowed at this CAS boundary.`,
+      operatorPath,
+    );
+  }
+  if (operator !== "Power") return null;
+
+  const directExponent = directIntegerExponent(exponent);
+  const tooLarge =
+    typeof directExponent === "number"
+      ? Math.abs(directExponent) > MATH_JSON_LIMITS.maxIntegerExponent
+      : directExponent !== null &&
+        integerMagnitudeExceedsLimit(
+          directExponent,
+          MATH_JSON_LIMITS.maxIntegerExponent,
+        );
+  return tooLarge
+    ? failure(
+        KERNEL_ERROR_CODES.mathJsonIntegerExponentLimit,
+        `Direct integer Power exponents must not exceed ${MATH_JSON_LIMITS.maxIntegerExponent} in absolute value.`,
+        exponentPath,
+      )
+    : null;
+}
+
 function validateDictionaryValue(
   value: unknown,
   path: string,
+  options: MathJsonValidationOptions,
 ): ValidationFailure | null {
   if (
     typeof value === "boolean" ||
@@ -325,13 +450,14 @@ function validateDictionaryValue(
       const nested = validateDictionaryValue(
         ownDataValue(value, String(index)),
         `${path}[${index}]`,
+        options,
       );
       if (nested) return nested;
     }
     return null;
   }
   if (value && typeof value === "object" && isPlainObject(value)) {
-    return validateExpressionObject(value, path);
+    return validateExpressionObject(value, path, options);
   }
   return failure(
     KERNEL_ERROR_CODES.mathJsonInvalidShape,
@@ -343,6 +469,7 @@ function validateDictionaryValue(
 function validateFunctionObject(
   value: unknown,
   path: string,
+  options: MathJsonValidationOptions,
 ): ValidationFailure | null {
   if (!Array.isArray(value)) {
     return failure(
@@ -369,10 +496,20 @@ function validateFunctionObject(
     );
   }
 
+  const operatorFailure = validateOperator(
+    head,
+    ownDataValue(value, "2"),
+    `${path}[0]`,
+    `${path}[2]`,
+    options,
+  );
+  if (operatorFailure) return operatorFailure;
+
   for (let index = 1; index < length; index += 1) {
     const nested = validateExpressionShape(
       ownDataValue(value, String(index)),
       `${path}[${index}]`,
+      options,
     );
     if (nested) return nested;
   }
@@ -382,6 +519,7 @@ function validateFunctionObject(
 function validateExpressionObject(
   value: Record<string, unknown>,
   path: string,
+  options: MathJsonValidationOptions,
 ): ValidationFailure | null {
   const keys = Reflect.ownKeys(value).filter(
     (key): key is string => typeof key === "string",
@@ -411,13 +549,22 @@ function validateExpressionObject(
 
   const coreKey = coreKeys[0];
   const coreValue = ownDataValue(value, coreKey);
-  if (coreKey === "num" || coreKey === "str") {
+  if (coreKey === "num") {
+    return typeof coreValue === "string"
+      ? validateNumericToken(coreValue, `${path}.num`)
+      : failure(
+          KERNEL_ERROR_CODES.mathJsonInvalidShape,
+          "MathJSON num must be a string.",
+          `${path}.num`,
+        );
+  }
+  if (coreKey === "str") {
     return typeof coreValue === "string"
       ? null
       : failure(
           KERNEL_ERROR_CODES.mathJsonInvalidShape,
-          `MathJSON ${coreKey} must be a string.`,
-          `${path}.${coreKey}`,
+          "MathJSON str must be a string.",
+          `${path}.str`,
         );
   }
   if (coreKey === "sym") {
@@ -430,7 +577,7 @@ function validateExpressionObject(
         );
   }
   if (coreKey === "fn") {
-    return validateFunctionObject(coreValue, `${path}.fn`);
+    return validateFunctionObject(coreValue, `${path}.fn`, options);
   }
 
   if (!coreValue || typeof coreValue !== "object" || !isPlainObject(coreValue)) {
@@ -451,6 +598,7 @@ function validateExpressionObject(
     const nested = validateDictionaryValue(
       ownDataValue(coreValue, key),
       propertyPath(`${path}.dict`, key),
+      options,
     );
     if (nested) return nested;
   }
@@ -460,6 +608,7 @@ function validateExpressionObject(
 function validateExpressionShape(
   value: unknown,
   path: string,
+  options: MathJsonValidationOptions,
 ): ValidationFailure | null {
   if (typeof value === "number" || typeof value === "string") return null;
 
@@ -473,10 +622,19 @@ function validateExpressionShape(
         path,
       );
     }
+    const operatorFailure = validateOperator(
+      head,
+      ownDataValue(value, "2"),
+      `${path}[0]`,
+      `${path}[2]`,
+      options,
+    );
+    if (operatorFailure) return operatorFailure;
     for (let index = 1; index < length; index += 1) {
       const nested = validateExpressionShape(
         ownDataValue(value, String(index)),
         `${path}[${index}]`,
+        options,
       );
       if (nested) return nested;
     }
@@ -491,16 +649,24 @@ function validateExpressionShape(
     );
   }
 
-  return validateExpressionObject(value, path);
+  return validateExpressionObject(value, path, options);
 }
 
-export function validateMathJson(input: unknown): KernelResult<MathJsonExpr> {
+/**
+ * Validates application-constructed MathJSON data before it reaches the CAS.
+ * This is a resource guard, not a parser, worker sandbox, or authorization to
+ * execute arbitrary user-supplied source strings.
+ */
+export function validateMathJson(
+  input: unknown,
+  options: MathJsonValidationOptions = {},
+): KernelResult<MathJsonExpr> {
   const jsonFailure = validateJsonValue(
     input,
     1,
     "$",
     new WeakSet<object>(),
-    { nodes: 0 },
+    { nodes: 0, totalStringLength: 0 },
   );
   if (jsonFailure) {
     return {
@@ -509,7 +675,7 @@ export function validateMathJson(input: unknown): KernelResult<MathJsonExpr> {
     };
   }
 
-  const shapeFailure = validateExpressionShape(input, "$");
+  const shapeFailure = validateExpressionShape(input, "$", options);
   if (shapeFailure) {
     return {
       ok: false,
