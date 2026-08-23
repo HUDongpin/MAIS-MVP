@@ -210,7 +210,6 @@ test("accepts CE 0.118.1 object-form nodes and DictionaryValue variants", () => 
       fn: ["Add", 1, { sym: "x" }],
       sourceOffsets: [0, 4],
     },
-    { fn: [{ sym: "Add" }, 1, 2] },
     {
       dict: {
         flag: true,
@@ -229,11 +228,12 @@ test("accepts CE 0.118.1 object-form nodes and DictionaryValue variants", () => 
   }
 });
 
-test("requires object-form fn to be a non-empty function array with a symbol head", () => {
+test("requires object-form fn to be a non-empty array with a symbol string head", () => {
   const invalidFunctions: readonly unknown[] = [
     { fn: "Add" },
     { fn: [] },
     { fn: [1, 2] },
+    { fn: [{ sym: "Add" }, 1, 2] },
     { fn: [{ num: "1" }, 2] },
     { fn: { sym: "Add" } },
   ];

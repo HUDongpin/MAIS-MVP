@@ -361,28 +361,10 @@ function validateFunctionObject(
   }
 
   const head = ownDataValue(value, "0");
-  if (typeof head === "string") {
-    if (!isValidMathJsonSymbol(head)) {
-      return failure(
-        KERNEL_ERROR_CODES.mathJsonInvalidShape,
-        "A MathJSON function head must be a valid symbol.",
-        `${path}[0]`,
-      );
-    }
-  } else if (head && typeof head === "object" && isPlainObject(head)) {
-    const headFailure = validateExpressionObject(head, `${path}[0]`);
-    if (headFailure) return headFailure;
-    if (!Object.prototype.hasOwnProperty.call(head, "sym")) {
-      return failure(
-        KERNEL_ERROR_CODES.mathJsonInvalidShape,
-        "A MathJSON function head object must be a symbol object.",
-        `${path}[0]`,
-      );
-    }
-  } else {
+  if (!isValidMathJsonSymbol(head)) {
     return failure(
       KERNEL_ERROR_CODES.mathJsonInvalidShape,
-      "A MathJSON function head must be a symbol string or symbol object.",
+      "A MathJSON function head must be a valid symbol string.",
       `${path}[0]`,
     );
   }
