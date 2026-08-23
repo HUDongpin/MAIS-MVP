@@ -1,563 +1,766 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { deliverTeacherNoticeEmails } from "./teacherNoticeEmailDelivery";
+import {
+  deliverTeacherNoticeEmail,
+  type TeacherNoticeEmailInput
+} from "./teacherNoticeEmailDelivery";
+
+const providerMessageId = "550e8400-e29b-41d4-a716-446655440000";
 
 const baseInput = {
-  noticeId: "notice-test-1",
-  classId: "class-test-1",
-  className: "Synthetic S3A",
-  subject: "Test family notice",
-  body: "Please confirm this synthetic notice.",
-  dueAt: "2026-08-24T12:00:00.000Z",
-  idempotencyKey: "delivery-test-1",
-  recipients: [
-    {
-      recipientId: "notice-recipient-test-1",
-      email: "guardian-one@example.test",
-      acknowledgementUrl: "https://candidate.example.test/parent/notices?recipientId=notice-recipient-test-1"
-    }
-  ]
-};
+  recipientId: "notice-recipient-test-1",
+  email: "guardian-one@example.test",
+  locale: "en",
+  durableDeliveryKey: "delivery-test-1",
+  contentRevision: "revision-1"
+} satisfies TeacherNoticeEmailInput;
 
-const configuredEnv = {
+const dedicatedEnv = {
   TEACHER_NOTICE_EMAIL_ENABLED: "true",
-  TEACHER_NOTICE_EMAIL_ALLOWED_CLASS_IDS: "class-test-1,class-test-2",
-  TEACHER_NOTICE_FROM: "MAIS Test Notices <notices@example.test>",
-  RESEND_API_KEY: "test-resend-secret"
+  TEACHER_NOTICE_RESEND_API_KEY: "test-dedicated-resend-secret",
+  TEACHER_NOTICE_FROM: "MAIS Family Notices <notices@example.test>",
+  TEACHER_NOTICE_BASE_URL: "https://candidate.example.test",
+  TEACHER_NOTICE_ALLOWED_ORIGIN: "https://candidate.example.test",
+  TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "1000"
 };
 
-test("teacher notice email stays disabled when the feature flag is missing or false", async () => {
+const sharedEnv = {
+  TEACHER_NOTICE_EMAIL_ENABLED: "true",
+  TEACHER_NOTICE_ALLOW_SHARED_RESEND_KEY: "true",
+  TEACHER_NOTICE_EMAIL_ALLOWED_CLASS_IDS: "class-test-1,class-test-2",
+  TEACHER_NOTICE_FROM: "MAIS Family Notices <notices@example.test>",
+  TEACHER_NOTICE_BASE_URL: "https://candidate.example.test",
+  TEACHER_NOTICE_ALLOWED_ORIGIN: "https://candidate.example.test",
+  RESEND_API_KEY: "test-shared-resend-secret"
+};
+
+function acceptedResponse(
+  id: string = providerMessageId,
+  init: ResponseInit = {}
+): Response {
+  return new Response(JSON.stringify({ id }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+    ...init
+  });
+}
+
+async function captureRequest(
+  input: TeacherNoticeEmailInput = baseInput,
+  env: Record<string, string | undefined> = dedicatedEnv
+) {
+  const requests: Array<{ url: string; init?: RequestInit }> = [];
+  const result = await deliverTeacherNoticeEmail(input, {
+    env,
+    fetchImpl: async (url, init) => {
+      requests.push({ url: String(url), init });
+      return acceptedResponse();
+    }
+  });
+  return { requests, result };
+}
+
+test("teacher notice email is disabled unless the feature flag is exactly true", async () => {
   let fetchCalls = 0;
   const fetchImpl: typeof fetch = async () => {
     fetchCalls += 1;
-    return new Response(JSON.stringify({ id: "unexpected" }), { status: 200 });
+    return acceptedResponse();
   };
 
-  for (const env of [{}, { TEACHER_NOTICE_EMAIL_ENABLED: "false" }]) {
-    const result = await deliverTeacherNoticeEmails(baseInput, { env, fetchImpl });
+  for (const enabled of [undefined, "", "false", "TRUE", " true "]) {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: {
+        ...dedicatedEnv,
+        TEACHER_NOTICE_EMAIL_ENABLED: enabled
+      },
+      fetchImpl
+    });
     assert.deepEqual(result, {
       channel: "email",
       provider: "resend",
-      status: "disabled",
-      results: []
+      status: "disabled"
     });
   }
 
   assert.equal(fetchCalls, 0);
 });
 
-test("enabled teacher notice email reports only missing variable names and does not call the provider", async () => {
+test("enabled delivery fails closed with safe configuration variable names", async () => {
   let fetchCalls = 0;
-  const result = await deliverTeacherNoticeEmails(baseInput, {
+  const result = await deliverTeacherNoticeEmail(baseInput, {
     env: { TEACHER_NOTICE_EMAIL_ENABLED: "true" },
     fetchImpl: async () => {
       fetchCalls += 1;
-      return new Response(JSON.stringify({ id: "unexpected" }), { status: 200 });
+      return acceptedResponse();
     }
   });
 
   assert.deepEqual(result, {
     channel: "email",
     provider: "resend",
-    status: "not-configured",
+    status: "configuration-blocked",
+    errorCode: "missing-configuration",
     missingVariables: [
-      "RESEND_API_KEY",
-      "TEACHER_NOTICE_EMAIL_ALLOWED_CLASS_IDS",
-      "TEACHER_NOTICE_FROM"
-    ],
-    results: []
+      "TEACHER_NOTICE_RESEND_API_KEY",
+      "TEACHER_NOTICE_FROM",
+      "TEACHER_NOTICE_BASE_URL",
+      "TEACHER_NOTICE_ALLOWED_ORIGIN"
+    ]
   });
   assert.equal(fetchCalls, 0);
 });
 
-test("teacher notice email fails closed when the class is outside the configured allowlist", async () => {
-  let fetchCalls = 0;
-  const result = await deliverTeacherNoticeEmails(
-    { ...baseInput, classId: "class-not-authorized" },
-    {
-      env: configuredEnv,
-      fetchImpl: async () => {
-        fetchCalls += 1;
-        return new Response(JSON.stringify({ id: "unexpected" }), { status: 200 });
-      }
-    }
-  );
+test("the dedicated key is preferred and shared-key configuration is ignored", async () => {
+  const { requests, result } = await captureRequest(baseInput, {
+    ...dedicatedEnv,
+    TEACHER_NOTICE_ALLOW_SHARED_RESEND_KEY: "false",
+    TEACHER_NOTICE_EMAIL_ALLOWED_CLASS_IDS: "invalid class id",
+    RESEND_API_KEY: "test-shared-resend-secret"
+  });
 
   assert.deepEqual(result, {
     channel: "email",
     provider: "resend",
-    status: "class-not-allowed",
-    results: []
+    status: "accepted",
+    providerMessageId
   });
-  assert.equal(fetchCalls, 0);
+  assert.equal(requests.length, 1);
+  assert.equal(
+    new Headers(requests[0].init?.headers).get("Authorization"),
+    "Bearer test-dedicated-resend-secret"
+  );
 });
 
-test("teacher notice email sends one private Resend request per recipient with scoped idempotency keys", async () => {
-  const calls: Array<{
-    url: string;
-    method?: string;
-    headers: Headers;
-    body: Record<string, unknown>;
-  }> = [];
-  const recipients = [
-    baseInput.recipients[0],
-    {
-      recipientId: "notice-recipient-test-2",
-      email: "guardian-two@example.test",
-      acknowledgementUrl: "https://candidate.example.test/parent/notices?recipientId=notice-recipient-test-2"
+test("shared RESEND_API_KEY configuration never grants this adapter delivery capability", async () => {
+  let fetchCalls = 0;
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: sharedEnv,
+    fetchImpl: async () => {
+      fetchCalls += 1;
+      return acceptedResponse();
     }
-  ];
+  });
 
-  const result = await deliverTeacherNoticeEmails(
+  assert.deepEqual(result, {
+    channel: "email",
+    provider: "resend",
+    status: "configuration-blocked",
+    errorCode: "missing-configuration",
+    missingVariables: ["TEACHER_NOTICE_RESEND_API_KEY"]
+  });
+  assert.equal(fetchCalls, 0);
+  assert.doesNotMatch(JSON.stringify(result), /test-shared-resend-secret|class-test/u);
+});
+
+test("each supported locale sends only a fixed minimal reminder and server-built acknowledgement URL", async () => {
+  const expected = {
+    en: {
+      subject: "New MAIS family notice",
+      lead: "A new family notice is available in MAIS.",
+      action: "Sign in to review and acknowledge it",
+      safety: "If you were not expecting this notice, contact your school."
+    },
+    "zh-Hant": {
+      subject: "MAIS 新家校通知",
+      lead: "MAIS 有一則新的家校通知。",
+      action: "請登入後查看並確認",
+      safety: "如你未預期收到此通知，請聯絡學校。"
+    },
+    "zh-Hans": {
+      subject: "MAIS 新家校通知",
+      lead: "MAIS 有一则新的家校通知。",
+      action: "请登录后查看并确认",
+      safety: "如你未预期收到此通知，请联系学校。"
+    }
+  } as const;
+
+  for (const locale of ["en", "zh-Hant", "zh-Hans"] as const) {
+    const { requests, result } = await captureRequest({ ...baseInput, locale });
+    assert.equal(result.status, "accepted");
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0].url, "https://api.resend.com/emails");
+    assert.equal(requests[0].init?.method, "POST");
+
+    const payload = JSON.parse(String(requests[0].init?.body)) as Record<string, unknown>;
+    assert.deepEqual(Object.keys(payload).sort(), ["from", "html", "subject", "text", "to"]);
+    assert.equal(payload.from, dedicatedEnv.TEACHER_NOTICE_FROM);
+    assert.deepEqual(payload.to, [baseInput.email]);
+    assert.equal(payload.subject, expected[locale].subject);
+
+    const acknowledgementUrl = new URL(
+      `https://candidate.example.test/parent/notices?recipientId=${baseInput.recipientId}`
+    );
+    assert.equal(acknowledgementUrl.origin, dedicatedEnv.TEACHER_NOTICE_ALLOWED_ORIGIN);
+    assert.equal(acknowledgementUrl.pathname, "/parent/notices");
+    assert.deepEqual([...acknowledgementUrl.searchParams.keys()], ["recipientId"]);
+    assert.equal(acknowledgementUrl.searchParams.get("recipientId"), baseInput.recipientId);
+    assert.equal(acknowledgementUrl.hash, "");
+
+    for (const field of [String(payload.text), String(payload.html)]) {
+      assert.match(field, new RegExp(expected[locale].lead, "u"));
+      assert.match(field, new RegExp(expected[locale].action, "u"));
+      assert.match(field, new RegExp(expected[locale].safety, "u"));
+      assert.match(field, /https:\/\/candidate\.example\.test\/parent\/notices\?recipientId=notice-recipient-test-1/u);
+      assert.doesNotMatch(field, /Synthetic S3A|private teacher body|student-test|teacher-test/u);
+    }
+  }
+});
+
+test("the adapter rejects extra notice, class, teacher, or student fields before provider contact", async () => {
+  let fetchCalls = 0;
+  const result = await deliverTeacherNoticeEmail(
     {
       ...baseInput,
-      className: "Synthetic <S3A & guardians>",
-      body: "Please confirm <script>not executable</script> & keep this private.",
-      recipients
-    },
+      className: "Synthetic S3A",
+      body: "private teacher body",
+      studentId: "student-test",
+      teacherId: "teacher-test",
+      recipients: [{ recipientId: "second-recipient", email: "other@example.test" }]
+    } as TeacherNoticeEmailInput,
     {
-      env: configuredEnv,
-      fetchImpl: async (url, init) => {
-        const body = JSON.parse(String(init?.body ?? "{}")) as Record<string, unknown>;
-        calls.push({
-          url: String(url),
-          method: init?.method,
-          headers: new Headers(init?.headers),
-          body
-        });
-        return new Response(JSON.stringify({ id: `resend-message-${calls.length}` }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" }
-        });
-      }
-    }
-  );
-
-  assert.deepEqual(result, {
-    channel: "email",
-    provider: "resend",
-    status: "sent",
-    results: [
-      {
-        recipientId: "notice-recipient-test-1",
-        status: "sent",
-        providerMessageId: "resend-message-1"
-      },
-      {
-        recipientId: "notice-recipient-test-2",
-        status: "sent",
-        providerMessageId: "resend-message-2"
-      }
-    ]
-  });
-  assert.equal(calls.length, 2);
-
-  const idempotencyKeys = new Set<string>();
-  for (let index = 0; index < calls.length; index += 1) {
-    const call = calls[index];
-    const recipient = recipients[index];
-    assert.equal(call.url, "https://api.resend.com/emails");
-    assert.equal(call.method, "POST");
-    assert.equal(call.headers.get("authorization"), "Bearer test-resend-secret");
-    assert.equal(call.headers.get("content-type"), "application/json");
-    assert.equal(call.headers.get("user-agent"), "MAIS-MVP/teacher-notice");
-
-    const idempotencyKey = call.headers.get("idempotency-key");
-    assert.match(idempotencyKey ?? "", /^teacher-notice\/[a-f0-9]{64}$/u);
-    assert.ok((idempotencyKey?.length ?? 0) <= 256);
-    assert.doesNotMatch(idempotencyKey ?? "", /guardian|recipient|delivery-test/u);
-    idempotencyKeys.add(idempotencyKey ?? "");
-
-    assert.deepEqual(Object.keys(call.body).sort(), ["from", "html", "subject", "text", "to"]);
-    assert.deepEqual(call.body.to, [recipient.email]);
-    assert.equal(call.body.from, configuredEnv.TEACHER_NOTICE_FROM);
-    assert.equal(call.body.subject, baseInput.subject);
-
-    const html = String(call.body.html);
-    const text = String(call.body.text);
-    assert.match(html, new RegExp(recipient.acknowledgementUrl.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
-    assert.match(text, new RegExp(recipient.acknowledgementUrl.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
-    assert.doesNotMatch(html, /<script>/u);
-    assert.match(html, /&lt;script&gt;not executable&lt;\/script&gt;/u);
-    assert.match(html, /Synthetic &lt;S3A &amp; guardians&gt;/u);
-    assert.doesNotMatch(html, /guardian-(?:one|two)@example\.test/u);
-  }
-  assert.equal(idempotencyKeys.size, 2);
-});
-
-test("teacher notice email converts provider HTTP failures into stable safe outcomes", async () => {
-  const scenarios = [
-    {
-      httpStatus: 409,
-      errorCode: "idempotency-conflict",
-      responseHeaders: {},
-      retryAfterSeconds: undefined
-    },
-    {
-      httpStatus: 422,
-      errorCode: "invalid-request",
-      responseHeaders: {},
-      retryAfterSeconds: undefined
-    },
-    {
-      httpStatus: 429,
-      errorCode: "rate-limited",
-      responseHeaders: { "Retry-After": "37" },
-      retryAfterSeconds: 37
-    },
-    {
-      httpStatus: 500,
-      errorCode: "provider-unavailable",
-      responseHeaders: {},
-      retryAfterSeconds: undefined
-    },
-    {
-      httpStatus: 503,
-      errorCode: "provider-unavailable",
-      responseHeaders: {},
-      retryAfterSeconds: undefined
-    }
-  ] as const;
-
-  for (const scenario of scenarios) {
-    const result = await deliverTeacherNoticeEmails(baseInput, {
-      env: configuredEnv,
-      fetchImpl: async () =>
-        new Response(
-          JSON.stringify({
-            message: `provider diagnostic must stay private: ${configuredEnv.RESEND_API_KEY}`,
-            recipient: baseInput.recipients[0].email
-          }),
-          {
-            status: scenario.httpStatus,
-            headers: {
-              "Content-Type": "application/json",
-              ...scenario.responseHeaders
-            }
-          }
-        )
-    });
-
-    assert.deepEqual(result, {
-      channel: "email",
-      provider: "resend",
-      status: "failed",
-      results: [
-        {
-          recipientId: baseInput.recipients[0].recipientId,
-          status: "failed",
-          errorCode: scenario.errorCode,
-          httpStatus: scenario.httpStatus,
-          ...(scenario.retryAfterSeconds === undefined
-            ? {}
-            : { retryAfterSeconds: scenario.retryAfterSeconds })
-        }
-      ]
-    });
-
-    const serialized = JSON.stringify(result);
-    assert.doesNotMatch(serialized, /provider diagnostic|test-resend-secret|guardian-one@/u);
-  }
-});
-
-test("teacher notice email defers later recipients after a rate-limited response", async () => {
-  let fetchCalls = 0;
-  const recipients = [
-    baseInput.recipients[0],
-    {
-      recipientId: "notice-recipient-test-2",
-      email: "guardian-two@example.test",
-      acknowledgementUrl: "https://candidate.example.test/parent/notices?recipientId=notice-recipient-test-2"
-    }
-  ];
-
-  const result = await deliverTeacherNoticeEmails(
-    { ...baseInput, recipients },
-    {
-      env: configuredEnv,
+      env: dedicatedEnv,
       fetchImpl: async () => {
         fetchCalls += 1;
-        return new Response(JSON.stringify({ message: "synthetic rate limit" }), {
-          status: 429,
-          headers: { "Retry-After": "37" }
-        });
+        return acceptedResponse();
       }
     }
   );
 
-  assert.equal(fetchCalls, 1);
   assert.deepEqual(result, {
     channel: "email",
     provider: "resend",
-    status: "failed",
-    results: [
-      {
-        recipientId: "notice-recipient-test-1",
-        status: "failed",
-        errorCode: "rate-limited",
-        httpStatus: 429,
-        retryAfterSeconds: 37
-      },
-      {
-        recipientId: "notice-recipient-test-2",
-        status: "deferred",
-        errorCode: "rate-limited",
-        retryAfterSeconds: 37
-      }
-    ]
+    status: "terminal-failure",
+    errorCode: "invalid-input"
   });
+  assert.equal(fetchCalls, 0);
+  assert.doesNotMatch(JSON.stringify(result), /Synthetic S3A|private teacher body|student-test/u);
 });
 
-test("teacher notice email contains transport errors without logging or returning sensitive diagnostics", async () => {
-  const capturedLogs: unknown[][] = [];
-  const originalLog = console.log;
-  const originalWarn = console.warn;
-  const originalError = console.error;
-  console.log = (...args: unknown[]) => capturedLogs.push(args);
-  console.warn = (...args: unknown[]) => capturedLogs.push(args);
-  console.error = (...args: unknown[]) => capturedLogs.push(args);
+test("base URL and allowed origin must be the same canonical HTTPS origin", async () => {
+  const invalidConfigs = [
+    { TEACHER_NOTICE_BASE_URL: "http://candidate.example.test" },
+    { TEACHER_NOTICE_BASE_URL: "https://candidate.example.test/" },
+    { TEACHER_NOTICE_BASE_URL: "https://candidate.example.test/parent" },
+    { TEACHER_NOTICE_BASE_URL: "https://candidate.example.test?x=1" },
+    { TEACHER_NOTICE_BASE_URL: "https://candidate.example.test#fragment" },
+    { TEACHER_NOTICE_BASE_URL: "https://user@candidate.example.test" },
+    { TEACHER_NOTICE_ALLOWED_ORIGIN: "https://other.example.test" },
+    { TEACHER_NOTICE_ALLOWED_ORIGIN: "https://candidate.example.test/" }
+  ];
 
-  try {
-    const result = await deliverTeacherNoticeEmails(baseInput, {
-      env: configuredEnv,
+  for (const override of invalidConfigs) {
+    let fetchCalls = 0;
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: { ...dedicatedEnv, ...override },
       fetchImpl: async () => {
-        throw new Error(
-          `private transport detail ${configuredEnv.RESEND_API_KEY} ${baseInput.recipients[0].email}`
-        );
+        fetchCalls += 1;
+        return acceptedResponse();
       }
     });
-
-    assert.deepEqual(result, {
-      channel: "email",
-      provider: "resend",
-      status: "failed",
-      results: [
-        {
-          recipientId: baseInput.recipients[0].recipientId,
-          status: "failed",
-          errorCode: "transport-error"
-        }
-      ]
-    });
-    assert.equal(capturedLogs.length, 0);
-
-    const serialized = JSON.stringify(result);
-    assert.doesNotMatch(serialized, /private transport detail|test-resend-secret|guardian-one@/u);
-  } finally {
-    console.log = originalLog;
-    console.warn = originalWarn;
-    console.error = originalError;
+    assert.equal(result.status, "configuration-blocked");
+    assert.equal(fetchCalls, 0);
+    assert.doesNotMatch(JSON.stringify(result), /candidate\.example\.test|other\.example\.test/u);
   }
 });
 
-test("teacher notice email aborts a stalled provider request at the configured timeout", async () => {
-  let providerSignalWasAborted = false;
-  const startedAt = Date.now();
+test("sender, recipient address, locale, and durable identifiers are strictly validated", async () => {
+  const invalidInputs = [
+    { ...baseInput, email: "Guardian <guardian@example.test>" },
+    { ...baseInput, email: "guardian@example.test,other@example.test" },
+    { ...baseInput, email: "guardian@example.test\r\nBcc: other@example.test" },
+    { ...baseInput, email: " guardian@example.test" },
+    { ...baseInput, email: "guardian..one@example.test" },
+    { ...baseInput, email: ".guardian@example.test" },
+    { ...baseInput, email: "guardian@example..test" },
+    { ...baseInput, recipientId: "recipient with spaces" },
+    { ...baseInput, recipientId: "通知收件人" },
+    { ...baseInput, durableDeliveryKey: "delivery\r\nkey" },
+    { ...baseInput, contentRevision: "" },
+    { ...baseInput, locale: "zh" as "en" }
+  ];
 
-  const result = await deliverTeacherNoticeEmails(baseInput, {
-    env: {
-      ...configuredEnv,
-      TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "1000"
-    },
+  for (const input of invalidInputs) {
+    let fetchCalls = 0;
+    const result = await deliverTeacherNoticeEmail(input, {
+      env: dedicatedEnv,
+      fetchImpl: async () => {
+        fetchCalls += 1;
+        return acceptedResponse();
+      }
+    });
+    assert.equal(result.status, "terminal-failure");
+    assert.equal(result.errorCode, "invalid-input");
+    assert.equal(fetchCalls, 0);
+  }
+
+  for (const sender of [
+    "not-an-email",
+    "First <one@example.test>, Second <two@example.test>",
+    "MAIS <notices@example.test>\r\nBcc: other@example.test",
+    "MAIS <notices@example..test>"
+  ]) {
+    let fetchCalls = 0;
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: { ...dedicatedEnv, TEACHER_NOTICE_FROM: sender },
+      fetchImpl: async () => {
+        fetchCalls += 1;
+        return acceptedResponse();
+      }
+    });
+    assert.equal(result.status, "configuration-blocked");
+    assert.equal(fetchCalls, 0);
+  }
+});
+
+test("idempotency keys are stable across deployment payload drift and scoped by durable identity", async () => {
+  async function getKey(
+    input: TeacherNoticeEmailInput,
+    env: Record<string, string | undefined> = dedicatedEnv
+  ): Promise<string> {
+    const { requests, result } = await captureRequest(input, env);
+    assert.equal(result.status, "accepted");
+    const key = new Headers(requests[0].init?.headers).get("Idempotency-Key") ?? "";
+    assert.match(key, /^teacher-notice\/[a-f0-9]{64}$/u);
+    assert.ok(key.length <= 256);
+    return key;
+  }
+
+  const first = await getKey(baseInput);
+  const retry = await getKey({ ...baseInput });
+  assert.equal(retry, first);
+  assert.doesNotMatch(first, /notice-recipient|delivery-test|revision/u);
+
+  const payloadDriftVariants: Array<[
+    TeacherNoticeEmailInput,
+    Record<string, string | undefined>?
+  ]> = [
+    [{ ...baseInput, email: "guardian-two@example.test" }],
+    [{ ...baseInput, locale: "zh-Hant" }],
+    [baseInput, { ...dedicatedEnv, TEACHER_NOTICE_FROM: "MAIS <family@example.test>" }],
+    [
+      baseInput,
+      {
+        ...dedicatedEnv,
+        TEACHER_NOTICE_BASE_URL: "https://family.example.test",
+        TEACHER_NOTICE_ALLOWED_ORIGIN: "https://family.example.test"
+      }
+    ]
+  ];
+
+  for (const [input, env] of payloadDriftVariants) {
+    assert.equal(await getKey(input, env), first);
+  }
+
+  for (const input of [
+    { ...baseInput, recipientId: "notice-recipient-test-2" },
+    { ...baseInput, durableDeliveryKey: "delivery-test-2" },
+    { ...baseInput, contentRevision: "revision-2" }
+  ]) {
+    assert.notEqual(await getKey(input), first);
+  }
+});
+
+test("accepted delivery requires a strict provider UUID and performs exactly one request", async () => {
+  const validUppercaseId = providerMessageId.toUpperCase();
+  let fetchCalls = 0;
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: dedicatedEnv,
+    fetchImpl: async () => {
+      fetchCalls += 1;
+      return acceptedResponse(validUppercaseId);
+    }
+  });
+
+  assert.deepEqual(result, {
+    channel: "email",
+    provider: "resend",
+    status: "accepted",
+    providerMessageId
+  });
+  assert.equal(fetchCalls, 1);
+
+  for (const body of [
+    JSON.stringify({ id: "resend-not-a-uuid" }),
+    JSON.stringify({ id: `${providerMessageId}-extra` }),
+    JSON.stringify({}),
+    "not-json"
+  ]) {
+    const malformed = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
+      fetchImpl: async () =>
+        new Response(body, {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        })
+    });
+    assert.deepEqual(malformed, {
+      channel: "email",
+      provider: "resend",
+      status: "ambiguous",
+      errorCode: "invalid-response",
+      httpStatus: 200
+    });
+  }
+});
+
+test("409 distinguishes concurrent, locked, invalid-idempotency, and unknown conflicts", async () => {
+  const cases = [
+    [
+      "concurrent_idempotent_requests",
+      {
+        status: "deferred",
+        errorCode: "concurrent-request"
+      }
+    ],
+    [
+      "resource_locked",
+      {
+        status: "deferred",
+        errorCode: "resource-locked"
+      }
+    ],
+    [
+      "invalid_idempotent_request",
+      {
+        status: "terminal-failure",
+        errorCode: "idempotency-conflict"
+      }
+    ],
+    [
+      "not_allowlisted",
+      {
+        status: "ambiguous",
+        errorCode: "provider-conflict"
+      }
+    ]
+  ] as const;
+
+  for (const [name, expected] of cases) {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
+      fetchImpl: async () =>
+        new Response(JSON.stringify({ name, message: "private-provider-detail" }), {
+          status: 409,
+          headers: { "Content-Type": "application/json" }
+        })
+    });
+    assert.deepEqual(result, {
+      channel: "email",
+      provider: "resend",
+      ...expected,
+      httpStatus: 409
+    });
+    assert.doesNotMatch(JSON.stringify(result), /private-provider-detail|not_allowlisted/u);
+  }
+});
+
+test("429 distinguishes transient rate limiting from daily and monthly quota blocks", async () => {
+  const cases = [
+    [
+      "rate_limit_exceeded",
+      {
+        status: "deferred",
+        errorCode: "rate-limited",
+        retryAfterSeconds: 86400
+      }
+    ],
+    [
+      "daily_quota_exceeded",
+      {
+        status: "configuration-blocked",
+        errorCode: "provider-quota-exceeded"
+      }
+    ],
+    [
+      "monthly_quota_exceeded",
+      {
+        status: "configuration-blocked",
+        errorCode: "provider-quota-exceeded"
+      }
+    ]
+  ] as const;
+
+  for (const [name, expected] of cases) {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
+      fetchImpl: async () =>
+        new Response(JSON.stringify({ name, message: "do not expose" }), {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json",
+            "Retry-After": "999999"
+          }
+        })
+    });
+    assert.deepEqual(result, {
+      channel: "email",
+      provider: "resend",
+      ...expected,
+      httpStatus: 429
+    });
+  }
+});
+
+test("authentication, security, sender, and invalid-request responses are classified safely", async () => {
+  const cases = [
+    [401, "restricted_api_key", "configuration-blocked", "provider-authentication-failed"],
+    [403, "restricted_api_key", "configuration-blocked", "provider-authentication-failed"],
+    [403, "suspended_api_key", "configuration-blocked", "provider-authentication-failed"],
+    [403, "invalid_permission", "configuration-blocked", "provider-permission-denied"],
+    [
+      403,
+      "suspended_api_key_but_not_exact",
+      "configuration-blocked",
+      "provider-permission-denied"
+    ],
+    [403, "validation_error", "configuration-blocked", "sender-configuration-invalid"],
+    [403, "security_error", "configuration-blocked", "provider-security-block"],
+    [451, "security_error", "configuration-blocked", "provider-security-block"],
+    [422, "invalid_from_address", "configuration-blocked", "sender-configuration-invalid"],
+    [400, "validation_error", "terminal-failure", "invalid-request"],
+    [404, "not_found", "terminal-failure", "provider-rejected"],
+    [413, "validation_error", "terminal-failure", "provider-rejected"]
+  ] as const;
+
+  for (const [httpStatus, name, status, errorCode] of cases) {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
+      fetchImpl: async () =>
+        new Response(JSON.stringify({ name, message: "secret provider explanation" }), {
+          status: httpStatus,
+          headers: { "Content-Type": "application/json" }
+        })
+    });
+    assert.deepEqual(result, {
+      channel: "email",
+      provider: "resend",
+      status,
+      errorCode,
+      httpStatus
+    });
+    assert.doesNotMatch(
+      JSON.stringify(result),
+      /secret provider explanation|restricted_api_key|suspended_api_key|invalid_permission/u
+    );
+  }
+});
+
+test("408, 425, and 5xx responses are ambiguous because the provider may have committed", async () => {
+  for (const httpStatus of [408, 425, 500, 502, 503, 504]) {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
+      fetchImpl: async () =>
+        new Response(JSON.stringify({ name: "internal_server_error" }), {
+          status: httpStatus,
+          headers: { "Content-Type": "application/json" }
+        })
+    });
+    assert.deepEqual(result, {
+      channel: "email",
+      provider: "resend",
+      status: "ambiguous",
+      errorCode: "provider-unavailable",
+      httpStatus
+    });
+  }
+});
+
+test("request timeout is ambiguous, aborts the request, and exposes no diagnostics", async () => {
+  let sawAbort = false;
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: { ...dedicatedEnv, TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "25" },
     fetchImpl: async (_url, init) =>
       new Promise<Response>((_resolve, reject) => {
-        const signal = init?.signal;
-        const fallback = setTimeout(
-          () => reject(new Error("provider request was not aborted")),
-          1_500
-        );
-        signal?.addEventListener(
-          "abort",
-          () => {
-            clearTimeout(fallback);
-            providerSignalWasAborted = true;
-            reject(new DOMException("synthetic timeout detail", "AbortError"));
-          },
-          { once: true }
-        );
+        init?.signal?.addEventListener("abort", () => {
+          sawAbort = true;
+          reject(new Error("private timeout transport detail"));
+        });
       })
   });
 
   assert.deepEqual(result, {
     channel: "email",
     provider: "resend",
-    status: "failed",
-    results: [
-      {
-        recipientId: baseInput.recipients[0].recipientId,
-        status: "failed",
-        errorCode: "timeout"
-      }
-    ]
+    status: "ambiguous",
+    errorCode: "timeout"
   });
-  assert.equal(providerSignalWasAborted, true);
-  assert.ok(Date.now() - startedAt < 2_500);
+  assert.equal(sawAbort, true);
+  assert.doesNotMatch(JSON.stringify(result), /private timeout transport detail/u);
 });
 
-test("teacher notice email keeps the timeout active while reading a successful response body", async () => {
-  let providerSignalWasAborted = false;
-  const startedAt = Date.now();
-
-  const result = await deliverTeacherNoticeEmails(baseInput, {
-    env: {
-      ...configuredEnv,
-      TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "1000"
+test("timeout remains active during bounded response reading", async () => {
+  let streamCancelled = false;
+  const body = new ReadableStream<Uint8Array>({
+    start(controller) {
+      controller.enqueue(new TextEncoder().encode('{"id":"'));
     },
-    fetchImpl: async (_url, init) => {
-      const signal = init?.signal;
-      const stream = new ReadableStream<Uint8Array>({
-        start(controller) {
-          const fallback = setTimeout(
-            () => controller.error(new Error("provider response body was not aborted")),
-            1_500
-          );
-          signal?.addEventListener(
-            "abort",
-            () => {
-              clearTimeout(fallback);
-              providerSignalWasAborted = true;
-              controller.error(new DOMException("synthetic body timeout detail", "AbortError"));
-            },
-            { once: true }
-          );
-        }
-      });
-      return new Response(stream, {
+    cancel() {
+      streamCancelled = true;
+    }
+  });
+
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: { ...dedicatedEnv, TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "25" },
+    fetchImpl: async () =>
+      new Response(body, {
         status: 200,
         headers: { "Content-Type": "application/json" }
-      });
-    }
+      })
   });
 
   assert.deepEqual(result, {
     channel: "email",
     provider: "resend",
-    status: "failed",
-    results: [
-      {
-        recipientId: baseInput.recipients[0].recipientId,
-        status: "failed",
-        errorCode: "timeout"
-      }
-    ]
+    status: "ambiguous",
+    errorCode: "timeout"
   });
-  assert.equal(providerSignalWasAborted, true);
-  assert.ok(Date.now() - startedAt < 2_500);
+  assert.equal(streamCancelled, true);
 });
 
-test("teacher notice email rejects invalid delivery input before contacting the provider", async () => {
-  const invalidInputs = [
-    { ...baseInput, recipients: [] },
-    {
-      ...baseInput,
-      idempotencyKey: "   "
-    },
-    {
-      ...baseInput,
-      recipients: [{ ...baseInput.recipients[0], email: "not-an-email" }]
-    },
-    {
-      ...baseInput,
-      recipients: [
-        {
-          ...baseInput.recipients[0],
-          acknowledgementUrl: "http://candidate.example.test/parent/notices"
-        }
-      ]
-    },
-    {
-      ...baseInput,
-      recipients: [baseInput.recipients[0], { ...baseInput.recipients[0] }]
-    }
-  ];
+test("response-body cancellation rejection is consumed without an unhandled rejection", async () => {
+  const unhandledRejections: unknown[] = [];
+  const onUnhandledRejection = (reason: unknown) => {
+    unhandledRejections.push(reason);
+  };
+  process.on("unhandledRejection", onUnhandledRejection);
 
-  for (const input of invalidInputs) {
-    let fetchCalls = 0;
-    const result = await deliverTeacherNoticeEmails(input, {
-      env: configuredEnv,
+  try {
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('{"id":"'));
+      },
+      cancel() {
+        return Promise.reject(new Error("private cancellation detail"));
+      }
+    });
+
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: { ...dedicatedEnv, TEACHER_NOTICE_DELIVERY_TIMEOUT_MS: "25" },
+      fetchImpl: async () =>
+        new Response(body, {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        })
+    });
+    await new Promise<void>((resolve) => setImmediate(resolve));
+
+    assert.deepEqual(result, {
+      channel: "email",
+      provider: "resend",
+      status: "ambiguous",
+      errorCode: "timeout"
+    });
+    assert.deepEqual(unhandledRejections, []);
+    assert.doesNotMatch(JSON.stringify(result), /private cancellation detail/u);
+  } finally {
+    process.off("unhandledRejection", onUnhandledRejection);
+  }
+});
+
+test("transport failures are ambiguous and never leak error messages or secrets", async () => {
+  const originalConsoleError = console.error;
+  const consoleCalls: unknown[][] = [];
+  console.error = (...args: unknown[]) => {
+    consoleCalls.push(args);
+  };
+
+  try {
+    const result = await deliverTeacherNoticeEmail(baseInput, {
+      env: dedicatedEnv,
       fetchImpl: async () => {
-        fetchCalls += 1;
-        return new Response(JSON.stringify({ id: "unexpected" }), { status: 200 });
+        throw new Error(
+          `private transport detail ${dedicatedEnv.TEACHER_NOTICE_RESEND_API_KEY} ${baseInput.email}`
+        );
       }
     });
-
     assert.deepEqual(result, {
       channel: "email",
       provider: "resend",
-      status: "invalid",
-      errorCode: "invalid-input",
-      results: []
+      status: "ambiguous",
+      errorCode: "transport-error"
     });
-    assert.equal(fetchCalls, 0);
-  }
-});
-
-test("teacher notice email contains malformed successful provider responses", async () => {
-  const responses = [
-    new Response("not-json-private-provider-detail", {
-      status: 200,
-      headers: { "Content-Type": "application/json" }
-    }),
-    new Response(JSON.stringify({ diagnostic: "private-provider-detail" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" }
-    })
-  ];
-
-  for (const response of responses) {
-    const result = await deliverTeacherNoticeEmails(baseInput, {
-      env: configuredEnv,
-      fetchImpl: async () => response
-    });
-
-    assert.deepEqual(result, {
-      channel: "email",
-      provider: "resend",
-      status: "failed",
-      results: [
-        {
-          recipientId: baseInput.recipients[0].recipientId,
-          status: "failed",
-          errorCode: "invalid-response",
-          httpStatus: 200
-        }
-      ]
-    });
-    assert.doesNotMatch(JSON.stringify(result), /private-provider-detail|not-json/u);
-  }
-});
-
-test("teacher notice email reuses the same recipient-scoped idempotency keys on retry", async () => {
-  const recipients = [
-    baseInput.recipients[0],
-    {
-      recipientId: "notice-recipient-test-2",
-      email: "guardian-two@example.test",
-      acknowledgementUrl: "https://candidate.example.test/parent/notices?recipientId=notice-recipient-test-2"
-    }
-  ];
-  const attempts: string[][] = [];
-
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const keys: string[] = [];
-    await deliverTeacherNoticeEmails(
-      { ...baseInput, recipients },
-      {
-        env: configuredEnv,
-        fetchImpl: async (_url, init) => {
-          keys.push(new Headers(init?.headers).get("Idempotency-Key") ?? "");
-          return new Response(JSON.stringify({ id: `resend-retry-${attempt}-${keys.length}` }), {
-            status: 200,
-            headers: { "Content-Type": "application/json" }
-          });
-        }
-      }
+    assert.doesNotMatch(
+      JSON.stringify(result),
+      /private transport detail|test-dedicated-resend-secret|guardian-one/u
     );
-    attempts.push(keys);
+    assert.deepEqual(consoleCalls, []);
+  } finally {
+    console.error = originalConsoleError;
   }
+});
 
-  assert.equal(attempts[0].length, 2);
-  assert.notEqual(attempts[0][0], attempts[0][1]);
-  assert.deepEqual(attempts[1], attempts[0]);
+test("provider response reading is bounded and cancels oversized streams", async () => {
+  let streamCancelled = false;
+  const oversizedBody = new ReadableStream<Uint8Array>({
+    start(controller) {
+      controller.enqueue(new TextEncoder().encode(JSON.stringify({ id: "x".repeat(9000) })));
+    },
+    cancel() {
+      streamCancelled = true;
+    }
+  });
+
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: dedicatedEnv,
+    fetchImpl: async () =>
+      new Response(oversizedBody, {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+  });
+
+  assert.deepEqual(result, {
+    channel: "email",
+    provider: "resend",
+    status: "ambiguous",
+    errorCode: "invalid-response",
+    httpStatus: 200
+  });
+  assert.equal(streamCancelled, true);
+
+  const contentLengthResult = await deliverTeacherNoticeEmail(baseInput, {
+    env: dedicatedEnv,
+    fetchImpl: async () =>
+      new Response(JSON.stringify({ id: providerMessageId }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": "9000"
+        }
+      })
+  });
+  assert.equal(contentLengthResult.status, "ambiguous");
+  assert.equal(contentLengthResult.errorCode, "invalid-response");
+});
+
+test("only allowlisted provider error names affect classification", async () => {
+  const result = await deliverTeacherNoticeEmail(baseInput, {
+    env: dedicatedEnv,
+    fetchImpl: async () =>
+      new Response(
+        JSON.stringify({
+          name: "daily_quota_exceeded_but_not_exact",
+          message: `private ${dedicatedEnv.TEACHER_NOTICE_RESEND_API_KEY}`,
+          email: baseInput.email
+        }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", "Retry-After": "3.2" }
+        }
+      )
+  });
+
+  assert.deepEqual(result, {
+    channel: "email",
+    provider: "resend",
+    status: "deferred",
+    errorCode: "rate-limited",
+    httpStatus: 429,
+    retryAfterSeconds: 4
+  });
+  assert.doesNotMatch(
+    JSON.stringify(result),
+    /daily_quota_exceeded_but_not_exact|test-dedicated-resend-secret|guardian-one/u
+  );
 });
