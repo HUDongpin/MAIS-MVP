@@ -245,7 +245,7 @@ export type AuthAdminStoragePersistenceStoreDependencies = {
   stateRecordId: string;
   stateTenantId: string;
   storageProvider: AuthAdminStorageProvider;
-  verifyPostgresDatabase: () => Promise<void>;
+  verifyPostgresMetadataReadiness: () => Promise<void>;
 };
 
 export type AuthAdminStoragePersistenceStore = ReturnType<typeof createAuthAdminStoragePersistenceStore>;
@@ -445,7 +445,7 @@ export function createAuthAdminStoragePersistenceStore({
   stateRecordId,
   stateTenantId,
   storageProvider,
-  verifyPostgresDatabase
+  verifyPostgresMetadataReadiness
 }: AuthAdminStoragePersistenceStoreDependencies) {
   const tenantIdForSchool = (schoolId?: string | null) => schoolId ? `school:${schoolId}` : stateTenantId;
 
@@ -759,7 +759,7 @@ export function createAuthAdminStoragePersistenceStore({
         }
 
         try {
-          await verifyPostgresDatabase();
+          await verifyPostgresMetadataReadiness();
         } catch {
           const hotAuthTables = unavailablePostgresHotAuthReadinessSnapshot();
           return {

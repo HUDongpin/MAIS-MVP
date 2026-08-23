@@ -1,0 +1,27 @@
+# A12 Parent Postgres Hot-Path Session
+
+- Date: `2026-08-23`
+- Owner/lane: `A12` backend API, session, and storage platform
+- Worktree: `/Volumes/Starship/MAIS-MVP/.worktrees/a12-parent-postgres-hotpath-20260823`
+- Branch: `codex/a12-parent-postgres-hotpath-20260823`
+- Baseline candidate SHA: `c5335f42ac892670374a7025cbfc627f50d083a4`
+- Target PR: `pending`
+- Creation date: `2026-08-23`
+- Expected closeout date: `2026-08-24`
+- Objective: Slice A only — remove the full Postgres JSONB application-snapshot read from storage readiness while preserving metadata and hot-auth readiness checks. Parent read/write hot paths are explicitly deferred to a separate slice.
+- Intended write scope: A12-owned storage/readiness implementation under `lib/server/userStore.ts` and `lib/server/userStore/`, focused backend tests, and this session log.
+- Coordination boundaries: no provider credential values, no formal-domain promotion, no parent UI changes, no broad test-harness changes, and no edits to the dirty integration root.
+- Baseline symptom: production-target candidate `/api/warm` returns `storageReady=true` but repeatedly takes approximately 14–22 seconds; earlier parent-message p95 approached 156 seconds.
+- Implementation:
+  - renamed the readiness dependency from the generic `verifyPostgresDatabase` to `verifyPostgresMetadataReadiness`;
+  - replaced the full `readPostgresDatabase()` call with a bounded `SELECT EXISTS` probe;
+  - the probe validates the expected app-state id, tenant, state kind, schema version, and JSONB object type while returning only one boolean;
+  - retained the existing hot-auth readiness query after successful metadata validation and preserved fail-closed behavior.
+- TDD evidence:
+  - red: focused auth-admin storage test failed `8 pass / 1 fail` because the metadata-only verifier did not yet exist;
+  - green: focused auth-admin storage plus schema-readiness tests passed `19/19`.
+- Verification:
+  - `npm run type-check`: passed;
+  - `./node_modules/.bin/tsx --test lib/server/userStoreAuthAdminStoragePersistence.test.ts lib/server/userStore/postgresSchemaReadiness.test.ts`: passed `19/19`;
+  - `scripts/postgres-schema-fast-path.test.mjs`: pre-existing baseline assertion drift (`94` bootstrap statements in baseline `c5335f42`, test expects `92`); this slice does not edit the bootstrap or that test.
+- Final state: `reviewed commit` (SHA recorded in the handoff).
