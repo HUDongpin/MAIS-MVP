@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { resolve } from "node:path";
 import { test } from "node:test";
+import { pathToFileURL } from "node:url";
 
 import { KERNEL_ERROR_CODES } from "../shared/errors";
 import { MATH_JSON_LIMITS } from "../shared/mathjson";
@@ -78,6 +80,41 @@ test("converts one third to an exact DTO with LaTeX and finite approximations", 
   assert.ok(dto.approx !== null);
   assert.ok(Math.abs((dto.approx ?? 0) - 1 / 3) < 1e-15);
   assert.deepEqual(JSON.parse(JSON.stringify(dto)), dto);
+});
+
+test("rejects decimal and unsafe raw number atoms before exact CAS execution", () => {
+  for (const input of [
+    1.5,
+    ["Add", 1, 0.5],
+    ["Divide", 1.5, 1],
+    { num: "0.25" },
+    Number.MAX_SAFE_INTEGER + 1,
+  ]) {
+    const result = boxMathJson(input);
+    assert.equal(result.ok, false);
+    if (!result.ok) {
+      assert.equal(result.error.code, KERNEL_ERROR_CODES.invalidInput);
+    }
+  }
+  assert.deepEqual(unwrap(boxMathJson(["Rational", 3, 2])), [
+    "Rational",
+    3,
+    2,
+  ]);
+});
+
+test("fails closed when CE cannot faithfully serialize an exact rational", () => {
+  const dyadic = [
+    "Rational",
+    { num: "3602879701896397" },
+    { num: "36028797018963968" },
+  ] as const;
+  const dto = toCanonicalExactValueDto(dyadic);
+  assert.equal(dto.ok, false);
+  if (!dto.ok) {
+    assert.equal(dto.error.code, KERNEL_ERROR_CODES.casOperationFailed);
+    assert.match(dto.error.message, /without numeric precision loss/);
+  }
 });
 
 test("preserves sqrt(3) exactly while exposing a finite renderer approximation", () => {
@@ -398,7 +435,9 @@ test("applies MathJSON input limits before invoking the CAS", () => {
 });
 
 test("the Next server-only marker rejects direct import without react-server conditions", () => {
-  const moduleUrl = new URL("./computeEngine.server.ts", import.meta.url).href;
+  const moduleUrl = pathToFileURL(
+    resolve(process.cwd(), "lib/math-kernel/cas/computeEngine.server.ts"),
+  ).href;
   const child = spawnSync(
     process.execPath,
     [

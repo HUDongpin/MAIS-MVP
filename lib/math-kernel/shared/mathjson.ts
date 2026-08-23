@@ -16,6 +16,48 @@ export interface MathJsonValidationOptions {
   readonly allowedOperators?: ReadonlySet<string>;
 }
 
+function isExactIntegerNumericToken(value: string): boolean {
+  return /^-?\d+$/.test(value) || /^-?\d+[eE]\+?\d+$/.test(value);
+}
+
+/**
+ * Locate a decimal, unsafe, or otherwise inexact numeric atom after structural
+ * MathJSON validation. Exact server paths permit raw JSON numbers only when
+ * they are safe integers; fractions must be explicit Rational/Divide nodes.
+ */
+export function findNonExactNumericAtomPath(
+  value: unknown,
+  path = "$",
+): string | null {
+  if (typeof value === "number") {
+    return Number.isSafeInteger(value) ? null : path;
+  }
+  if (Array.isArray(value)) {
+    for (let index = 0; index < value.length; index += 1) {
+      const issue = findNonExactNumericAtomPath(value[index], `${path}[${index}]`);
+      if (issue !== null) return issue;
+    }
+    return null;
+  }
+  if (value !== null && typeof value === "object") {
+    const numericToken = Object.getOwnPropertyDescriptor(value, "num");
+    if (
+      numericToken &&
+      "value" in numericToken &&
+      typeof numericToken.value === "string"
+    ) {
+      return isExactIntegerNumericToken(numericToken.value)
+        ? null
+        : `${path}.num`;
+    }
+    for (const [key, child] of Object.entries(value)) {
+      const issue = findNonExactNumericAtomPath(child, `${path}.${key}`);
+      if (issue !== null) return issue;
+    }
+  }
+  return null;
+}
+
 type ValidationFailure = {
   readonly code: KernelErrorCode;
   readonly message: string;

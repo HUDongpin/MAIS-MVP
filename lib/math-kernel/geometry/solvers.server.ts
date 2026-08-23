@@ -36,25 +36,16 @@ import {
   cubeCoordinatesRaw,
   regularQuadPyramidCoordinatesRaw,
 } from "./solids";
+import type { GeometrySolutionDto } from "./solutionTypes";
+
+export type {
+  GeometrySolutionDto,
+  GeometrySolutionProvenanceDto,
+} from "./solutionTypes";
 
 const SOURCE_REVISION = "cf0bc1d68b4ea64307f57d7fac64667e6a3148cc" as const;
 
 const EXACT_OPS: ScalarOps<MathJsonExpr> = exactGeometryScalarOps;
-
-export interface GeometrySolutionProvenanceDto {
-  readonly kernel: "geometry";
-  readonly operation: "regularQuadPyramidLinePlaneAngle" | "cubeLinePlaneAngle";
-  readonly sourceRevision: typeof SOURCE_REVISION;
-}
-
-export interface GeometrySolutionDto {
-  readonly schemaVersion: 1;
-  readonly answer: ExactValueDto;
-  readonly points: Readonly<Record<string, readonly ExactValueDto[]>>;
-  readonly renderPoints: Readonly<Record<string, readonly [number, number, number]>>;
-  readonly intermediates: readonly SolutionStepDto[];
-  readonly provenance: GeometrySolutionProvenanceDto;
-}
 
 export interface RegularQuadPyramidLinePlaneAngleOptions {
   readonly baseEdge?: MathJsonExpr;

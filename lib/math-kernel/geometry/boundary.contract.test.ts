@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { test } from "node:test";
 
 import { KERNEL_ERROR_CODES } from "../shared/errors";
@@ -14,7 +15,7 @@ const implementationFiles = [
 ] as const;
 
 function source(file: string): string {
-  return readFileSync(new URL(file, import.meta.url), "utf8");
+  return readFileSync(resolve(process.cwd(), "lib/math-kernel/geometry", file), "utf8");
 }
 
 test("client-safe geometry modules are renderer, React, DOM, Three, CAS, and server independent", () => {

@@ -1,10 +1,12 @@
 import "server-only";
 
 import { ComputeEngine, isFunction } from "@cortex-js/compute-engine";
-import type { MathJsonExpression } from "@cortex-js/compute-engine/math-json";
 
 import { KERNEL_ERROR_CODES } from "../shared/errors";
-import { validateMathJson } from "../shared/mathjson";
+import {
+  findNonExactNumericAtomPath,
+  validateMathJson,
+} from "../shared/mathjson";
 import type {
   ExactComparison,
   ExactOrderComparison,
@@ -51,6 +53,7 @@ const MAIS_CAS_ALLOWED_OPERATORS: ReadonlySet<string> = new Set([
 ]);
 
 type ComputeExpression = ReturnType<ComputeEngine["box"]>;
+type ComputeEngineInput = Parameters<ComputeEngine["box"]>[0];
 // This is a small proof profile for app-constructed arithmetic, not a general CAS.
 const EXACT_ORDER_REWRITE_DEPTH = 8;
 const EXACT_FINITE_PROOF_DEPTH = 64;
@@ -84,6 +87,19 @@ function boxValidated(
   });
   if (!validated.ok) return validated;
 
+  const numericPolicyIssue = findNonExactNumericAtomPath(validated.value);
+  if (numericPolicyIssue !== null) {
+    return {
+      ok: false,
+      error: {
+        code: KERNEL_ERROR_CODES.invalidInput,
+        message:
+          "Exact CAS inputs accept only safe-integer JSON number atoms. Use explicit Rational/Divide MathJSON with integer atoms for fractions; use the numeric kernel for decimal interaction.",
+        path: numericPolicyIssue,
+      },
+    };
+  }
+
   // CE 0.118.1 can eagerly rationalize a direct quotient such as
   // (q - sqrt(2)) / sqrt(2) into a numerically and symbolically corrupted
   // canonical form. Writing a/b as a*(1/b) before boxing is exact, keeps the
@@ -97,7 +113,7 @@ function boxValidated(
 
   try {
     const expression = engine.box(
-      normalized.value as MathJsonExpression,
+      normalized.value as ComputeEngineInput,
     );
     if (!expression.isValid) return invalidExpression();
     return { ok: true, value: expression };
@@ -134,6 +150,14 @@ function serializeExpression(
 ): KernelResult<MathJsonExpr> {
   try {
     const serialized = expression.toMathJson({ fractionalDigits: "auto" });
+    // CE 0.118.1 can emit some exact integers above 2^53 as rounded raw
+    // JavaScript numbers, making MathJSON and CE-generated LaTeX disagree.
+    // Fail closed instead of publishing a DTO that only looks exact.
+    if (findNonExactNumericAtomPath(serialized) !== null) {
+      return casFailure(
+        "Compute Engine could not serialize the exact expression without numeric precision loss.",
+      );
+    }
     const validated = validateMathJson(serialized, {
       allowedOperators: MAIS_CAS_ALLOWED_OPERATORS,
     });
@@ -388,7 +412,7 @@ function exactOrderFromZero(
   return compareExactOrderExpressions(
     engine,
     expression,
-    engine.box(0 as MathJsonExpression),
+    engine.box(0 as ComputeEngineInput),
   );
 }
 
@@ -398,7 +422,7 @@ function structuralOrderFromZero(
   depth: number,
 ): ExactOrderComparison | null {
   if (depth >= EXACT_ORDER_REWRITE_DEPTH) return null;
-  const zero = engine.box(0 as MathJsonExpression);
+  const zero = engine.box(0 as ComputeEngineInput);
 
   if (isFunction(expression, "Negate") && expression.nops === 1) {
     return reverseOrder(
@@ -488,7 +512,7 @@ function exactBinaryExpression(
       operator,
       left.toMathJson({ fractionalDigits: "auto" }),
       right.toMathJson({ fractionalDigits: "auto" }),
-    ] as MathJsonExpression)
+    ] as ComputeEngineInput)
     .simplify();
 }
 
@@ -502,7 +526,7 @@ function exactSquareDifference(
       "Subtract",
       ["Power", left.toMathJson({ fractionalDigits: "auto" }), 2],
       ["Power", right.toMathJson({ fractionalDigits: "auto" }), 2],
-    ] as MathJsonExpression)
+    ] as ComputeEngineInput)
     .simplify();
 }
 
@@ -515,7 +539,7 @@ function exactPower(
     "Power",
     base.toMathJson({ fractionalDigits: "auto" }),
     exponent,
-  ] as MathJsonExpression);
+  ] as ComputeEngineInput);
 }
 
 interface ExactRootView {
@@ -575,7 +599,7 @@ function exactNegation(
     .box([
       "Negate",
       expression.toMathJson({ fractionalDigits: "auto" }),
-    ] as MathJsonExpression)
+    ] as ComputeEngineInput)
     .simplify();
 }
 
@@ -625,7 +649,7 @@ function rootDomainIsProvablyReal(
   const radicandOrder = compareExactOrderExpressions(
     engine,
     root.radicand,
-    engine.box(0 as MathJsonExpression),
+    engine.box(0 as ComputeEngineInput),
     depth + 1,
   );
   return root.degree % 2 === 0
@@ -650,7 +674,7 @@ function compareExactOrderExpressions(
   if (left.isSame(right)) return "equal";
 
   if (depth < EXACT_ORDER_REWRITE_DEPTH) {
-    const zero = engine.box(0 as MathJsonExpression);
+    const zero = engine.box(0 as ComputeEngineInput);
     const reducedLeft = exactRootPowerRadicand(left);
     if (reducedLeft !== null) {
       const domain = compareExactOrderExpressions(
@@ -691,7 +715,7 @@ function compareExactOrderExpressions(
   const rightSign = definiteSign(right);
 
   if (depth < EXACT_ORDER_REWRITE_DEPTH) {
-    const zero = engine.box(0 as MathJsonExpression);
+    const zero = engine.box(0 as ComputeEngineInput);
     const leftRootDomain = leftRoot === null
       ? null
       : compareExactOrderExpressions(
@@ -953,7 +977,7 @@ function isProvablyFiniteRealExpression(
     const denominatorOrder = compareExactOrderExpressions(
       engine,
       expression.op2,
-      engine.box(0 as MathJsonExpression),
+      engine.box(0 as ComputeEngineInput),
     );
     return denominatorOrder === "less" || denominatorOrder === "greater";
   }
@@ -971,7 +995,7 @@ function isProvablyFiniteRealExpression(
     const baseOrder = compareExactOrderExpressions(
       engine,
       expression.op1,
-      engine.box(0 as MathJsonExpression),
+      engine.box(0 as ComputeEngineInput),
     );
     return baseOrder === "less" || baseOrder === "greater";
   }
@@ -985,7 +1009,7 @@ function isProvablyFiniteRealExpression(
     const radicandOrder = compareExactOrderExpressions(
       engine,
       root.radicand,
-      engine.box(0 as MathJsonExpression),
+      engine.box(0 as ComputeEngineInput),
     );
     return radicandOrder === "equal" || radicandOrder === "greater";
   }
