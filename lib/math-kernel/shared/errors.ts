@@ -9,11 +9,15 @@ export const KERNEL_ERROR_CODES = {
   casOperationFailed: "CAS_OPERATION_FAILED",
 } as const;
 
-export type KernelErrorCode =
+export type MathKernelErrorCode =
   (typeof KERNEL_ERROR_CODES)[keyof typeof KERNEL_ERROR_CODES];
 
+/** @deprecated Use MathKernelErrorCode. */
+export type KernelErrorCode = MathKernelErrorCode;
+
 export interface KernelErrorDto {
-  readonly code: KernelErrorCode;
+  readonly code: MathKernelErrorCode;
   readonly message: string;
   readonly path?: string;
+  readonly details?: Readonly<Record<string, unknown>>;
 }

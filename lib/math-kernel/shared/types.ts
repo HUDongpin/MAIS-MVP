@@ -14,15 +14,7 @@ export type JsonValue =
  * third-party runtime values. Object-form MathJSON remains JSON data and is
  * checked by validateMathJson() before entering the CAS boundary.
  */
-export interface MathJsonFunction extends ReadonlyArray<MathJsonExpr> {
-  readonly 0: string;
-}
-
-export type MathJsonExpr =
-  | number
-  | string
-  | MathJsonFunction
-  | { readonly [key: string]: JsonValue };
+export type MathJsonExpr = JsonValue;
 
 export interface ExactValueDto {
   readonly schemaVersion: 1;
@@ -45,22 +37,32 @@ export interface SolutionStepDto {
 
 export type IntervalWitnessKind = "attained" | "limit" | "excluded";
 
-export interface IntervalWitnessDto {
+export interface RangeWitnessDto {
   readonly kind: IntervalWitnessKind;
   readonly parameters: Readonly<Record<string, ExactValueDto>>;
   readonly note: string | null;
 }
 
-export type IntervalEndpointDto =
+export type ExactEndpointDto =
   | {
       readonly kind: "finite";
       readonly value: ExactValueDto;
       readonly closed: boolean;
-      readonly witness: IntervalWitnessDto | null;
+      readonly witnesses: readonly RangeWitnessDto[];
     }
   | {
-      readonly kind: "negative-infinity" | "positive-infinity";
-      readonly value: null;
+      readonly kind: "infinity";
+      readonly sign: -1 | 1;
       readonly closed: false;
-      readonly witness: IntervalWitnessDto | null;
     };
+
+export interface ExactIntervalDto {
+  readonly lower: ExactEndpointDto;
+  readonly upper: ExactEndpointDto;
+}
+
+/** @deprecated Use RangeWitnessDto. */
+export type IntervalWitnessDto = RangeWitnessDto;
+
+/** @deprecated Use ExactEndpointDto. */
+export type IntervalEndpointDto = ExactEndpointDto;

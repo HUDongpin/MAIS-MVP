@@ -70,11 +70,11 @@ function serializeExpression(
 }
 
 function expressionNodeCount(value: MathJsonExpr): number {
-  if (typeof value === "number" || typeof value === "string") return 1;
+  if (value === null || typeof value !== "object") return 1;
   if (Array.isArray(value)) {
     return 1 + value.reduce((total, child) => total + expressionNodeCount(child), 0);
   }
-  return 1 + Object.values(value as Readonly<Record<string, unknown>>).reduce<number>(
+  return 1 + Object.values(value).reduce<number>(
     (total, child) => total + jsonNodeCount(child),
     0,
   );

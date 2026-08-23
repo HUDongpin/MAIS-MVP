@@ -63,6 +63,9 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Run math kernel tests
+        run: npm run test:math-kernel
+
       - name: Run AI Tutor authentication-admission gates
         run: |
           npx tsx --tsconfig tsconfig.json --test \

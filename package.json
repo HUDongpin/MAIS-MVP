@@ -10,6 +10,7 @@
     "build": "node scripts/next-clean-build.mjs",
     "start": "next start",
     "type-check": "tsc --noEmit --incremental false",
+    "test:math-kernel": "node --conditions=react-server --import tsx --test \"lib/math-kernel/**/*.test.ts\"",
     "check:imports": "node scripts/check-import-targets.mjs",
     "check:stray-types": "node scripts/check-stray-generated-types.mjs",
     "check:hk-zh": "node scripts/audit-hk-chinese.mjs --self-test && node scripts/audit-hk-chinese.mjs --mode=report",
