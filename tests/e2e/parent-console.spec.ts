@@ -76,6 +76,7 @@ type ParentChildSummary = {
 type TeacherReport = {
   id: string;
   type: string;
+  classId?: string;
   studentId?: string;
   title: { en: string; zh: string };
 };
@@ -104,14 +105,18 @@ type ParentReportsResponse = {
 
 type ParentMessagesResponse = {
   data: {
+    selectedChild: ParentChildSummary | null;
     threads: ParentMessageThread[];
     selectedThread: ParentMessageThread | null;
     reports: TeacherReport[];
+    composeTargets: Array<{ studentId: string; classId: string; className: string; teacherName: string }>;
   };
 };
 
 type ParentMessageThread = {
   id: string;
+  classId: string;
+  className: string;
   studentId: string;
   studentName: string;
   guardianId?: string;
@@ -303,11 +308,11 @@ test.describe("parent console viewport smoke", () => {
 
     await loginAsDemoParent(page);
     await expect(page.getByRole("navigation", { name: /Parent navigation/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Today’s home-school picture/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /This week/i })).toBeVisible();
     await expect(page.getByLabel(/Child focus/i)).toBeVisible();
     await expect(page.getByRole("link", { name: /Messages/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /^Celebrate$/i }).first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: /^Support$/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /View learning details/i })).toBeVisible();
 
     expectNoPageErrors(pageErrors);
   });
@@ -338,11 +343,11 @@ test.describe("parent console viewport smoke", () => {
 
     await parentNavigation.getByRole("link", { name: /^Overview$/i }).click();
     await expect(page).toHaveURL(/\/parent(?:\?studentId=[^&]+)?$/);
-    await expect(page.getByRole("heading", { name: /Today’s home-school picture/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
 
-    const childCard = page.locator("main").locator(`a[href="${childPath}"]`);
-    await expect(childCard).toHaveCount(1);
-    await childCard.click();
+    const childDetailsLink = page.getByRole("link", { name: /View learning details/i });
+    await expect(childDetailsLink).toHaveAttribute("href", childPath);
+    await childDetailsLink.click();
     await expect(page).toHaveURL(new RegExp(`${escapeRegex(childPath)}$`));
     await expect(page.getByRole("heading", { name: /Support topics/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Latest parent report/i })).toBeVisible();
@@ -415,7 +420,10 @@ test.describe.serial("parent console end-to-end verification", () => {
       const child = foundation.data.selectedChild;
       if (!child) throw new Error("Expected a linked demo child.");
       const childId = child.student.id;
-      await expect(page.locator("main").getByRole("heading", { name: child.student.name }).first()).toBeVisible();
+      const overview = page.locator("main");
+      await expect(overview.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
+      await expect(overview.getByText(child.student.name, { exact: true }).first()).toBeVisible();
+      await expect(overview.locator(`a[href="/parent/children/${encodeURIComponent(childId)}"]`)).toHaveCount(1);
 
       const childSummaryResponse = await page.request.get(`/api/parent/children/${encodeURIComponent(childId)}/summary`);
       expect(childSummaryResponse.status()).toBe(200);
@@ -547,6 +555,7 @@ test.describe.serial("parent console end-to-end verification", () => {
     const parentBody = `Could we get a home practice focus for ${suffix}?`;
     const teacherReply = `Teacher parent reply ${suffix}: review two factorisation examples.`;
     const parentFollowUp = `Parent follow-up ${suffix}: we will try that tonight.`;
+    const createIdempotencyKey = `parent-create-${suffix}`;
 
     try {
       const { context: studentContext } = await loginApi(contexts, demoStudent.username, demoStudent.password);
@@ -568,10 +577,14 @@ test.describe.serial("parent console end-to-end verification", () => {
       const reports = await reportsResponse.json() as ParentReportsResponse;
       const linkedReport = reports.data.reports[0];
       expect(linkedReport?.type).toBe("parent-summary");
+      expect(linkedReport?.classId).toBeTruthy();
+      const classId = linkedReport?.classId ?? "";
 
       const invalidMessageResponse = await page.request.post("/api/parent/messages", {
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `invalid-empty-${suffix}`,
           category: "homework",
           subject: "",
           body: parentBody,
@@ -583,6 +596,8 @@ test.describe.serial("parent console end-to-end verification", () => {
       const invalidReportResponse = await page.request.post("/api/parent/messages", {
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `invalid-report-${suffix}`,
           category: "report-question",
           subject: "Invalid report probe",
           body: parentBody,
@@ -594,6 +609,8 @@ test.describe.serial("parent console end-to-end verification", () => {
       const oversizedMessageResponse = await page.request.post("/api/parent/messages", {
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `oversized-create-${suffix}`,
           category: "homework",
           subject: "x".repeat(parentMessageSubjectMaxLength + 1),
           body: "x".repeat(parentMessageBodyMaxLength + 1),
@@ -602,28 +619,66 @@ test.describe.serial("parent console end-to-end verification", () => {
       });
       expect(oversizedMessageResponse.status()).toBe(413);
 
-      const createMessageResponse = await page.request.post("/api/parent/messages", {
-        data: {
-          studentId: child.student.id,
-          category: "homework",
-          subject: parentSubject,
-          body: parentBody,
-          reportId: linkedReport?.id
-        }
-      });
-      expect(createMessageResponse.status()).toBe(200);
-      const created = await createMessageResponse.json() as { thread: ParentMessageThread };
+      const createPayload = {
+        studentId: child.student.id,
+        classId,
+        idempotencyKey: createIdempotencyKey,
+        category: "homework",
+        subject: parentSubject,
+        body: parentBody,
+        reportId: linkedReport?.id
+      };
+      const createMessageResponse = await page.request.post("/api/parent/messages", { data: createPayload });
+      expect(createMessageResponse.status()).toBe(201);
+      const created = await createMessageResponse.json() as { thread: ParentMessageThread; replayed: boolean };
+      expect(created.replayed).toBe(false);
       expect(created.thread.parentCategory).toBe("homework");
       expect(created.thread.reportId).toBe(linkedReport?.id);
+      expect(created.thread.classId).toBe(classId);
       expect(created.thread.messages[0]?.senderRole).toBe("parent");
 
+      const replayedCreateResponse = await page.request.post("/api/parent/messages", { data: createPayload });
+      expect(replayedCreateResponse.status()).toBe(200);
+      const replayedCreate = await replayedCreateResponse.json() as { thread: ParentMessageThread; replayed: boolean };
+      expect(replayedCreate.replayed).toBe(true);
+      expect(replayedCreate.thread.id).toBe(created.thread.id);
+      const conflictingCreateResponse = await page.request.post("/api/parent/messages", {
+        data: { ...createPayload, body: `${parentBody} changed` }
+      });
+      expect(conflictingCreateResponse.status()).toBe(409);
+
       const oversizedReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
-        data: { body: "x".repeat(parentMessageBodyMaxLength + 1) }
+        data: {
+          idempotencyKey: `oversized-reply-${suffix}`,
+          body: "x".repeat(parentMessageBodyMaxLength + 1)
+        }
       });
       expect(oversizedReplyResponse.status()).toBe(413);
 
+      const directReplyPayload = {
+        idempotencyKey: `parent-reply-${suffix}`,
+        body: `Parent API idempotency follow-up ${suffix}.`
+      };
+      const directReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        data: directReplyPayload
+      });
+      expect(directReplyResponse.status()).toBe(201);
+      const directReply = await directReplyResponse.json() as { entryId: string; replayed: boolean };
+      expect(directReply.replayed).toBe(false);
+      const replayedReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        data: directReplyPayload
+      });
+      expect(replayedReplyResponse.status()).toBe(200);
+      const replayedReply = await replayedReplyResponse.json() as { entryId: string; replayed: boolean };
+      expect(replayedReply.replayed).toBe(true);
+      expect(replayedReply.entryId).toBe(directReply.entryId);
+      expect((await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        data: { ...directReplyPayload, body: `${directReplyPayload.body} changed` }
+      })).status()).toBe(409);
+
       const parentMessagesResponse = await page.request.get("/api/parent/messages");
       const parentMessages = await parentMessagesResponse.json() as ParentMessagesResponse;
+      expect(parentMessages.data.selectedChild, "All messages must remain unfiltered without an explicit studentId").toBeNull();
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === parentSubject)).toBeTruthy();
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === studentOnlySubject)).toBeFalsy();
 
@@ -665,7 +720,10 @@ test.describe.serial("parent console end-to-end verification", () => {
         response.request().method() === "GET"
       );
       await page.getByRole("button", { name: /Send reply/i }).click();
-      expect((await parentReplyResponse).ok()).toBeTruthy();
+      const sentParentReply = await parentReplyResponse;
+      expect(sentParentReply.status()).toBe(201);
+      const parentReplyRequest = sentParentReply.request().postDataJSON() as { idempotencyKey?: unknown };
+      expect(parentReplyRequest.idempotencyKey).toMatch(/^[A-Za-z0-9._:~-]{16,128}$/);
       expect((await parentReloadResponse).ok()).toBeTruthy();
       await expect(page.locator("main").getByText(parentFollowUp).last()).toBeVisible();
       await logoutIfVisible(page);

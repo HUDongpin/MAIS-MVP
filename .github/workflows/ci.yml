@@ -252,10 +252,10 @@ jobs:
         run: npx playwright test tests/e2e/teacher-operations.spec.ts tests/e2e/teacher-workspace.spec.ts --project=desktop-chrome
 
       - name: Run shared-server parent journeys (desktop + mobile de-duplicated by explicit spec skips)
-        run: npx playwright test tests/e2e/parent-console.spec.ts tests/e2e/parent-console-feature-matrix.spec.ts tests/e2e/teacher-parent-hydration.spec.ts --project=desktop-chrome --project=mobile-chrome
+        run: npx playwright test tests/e2e/parent-console.spec.ts tests/e2e/parent-console-feature-matrix.spec.ts tests/e2e/teacher-parent-hydration.spec.ts --project=desktop-chrome --project=mobile-chrome --reporter=line,./scripts/parent-console-playwright-reporter.mjs
 
       - name: Run isolated-stateful parent journeys (desktop + mobile de-duplicated by explicit spec skips)
-        run: npx playwright test tests/e2e/parent-console-stress.spec.ts tests/e2e/teacher-parent-p1-regressions.spec.ts --project=desktop-chrome --project=mobile-chrome
+        run: npx playwright test tests/e2e/parent-console-stress.spec.ts tests/e2e/teacher-parent-p1-regressions.spec.ts --project=desktop-chrome --project=mobile-chrome --reporter=line,./scripts/parent-console-playwright-reporter.mjs
 
       # Playwright retains a trace, screenshot, and video for each failed test
       # under `.tmp/china-lesson-e2e-runtime/runs/<id>/` (see playwright.config.ts:

@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { once } from "node:events";
 import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, statSync, symlinkSync, utimesSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import test from "node:test";
@@ -54,9 +53,9 @@ function nextEnvLockPaths(cwd) {
   assert.equal(typeof uid, "number", "POSIX lock tests require a numeric uid");
   const digest = createHash("sha256").update(canonicalCwd).digest("hex");
   const lockRoot = path.join(
-    realpathSync(tmpdir()),
-    "mais-next-env-restore-locks",
-    `uid-${uid}-${digest}`
+    realpathSync("/tmp"),
+    `mais-next-env-restore-locks-uid-${uid}`,
+    digest
   );
   return {
     lockRoot,
@@ -67,6 +66,14 @@ function nextEnvLockPaths(cwd) {
 
 function cleanupLockFixture(cwd) {
   rmSync(nextEnvLockPaths(cwd).lockRoot, { recursive: true, force: true });
+}
+
+function persistedChildProcessGroupId(lockRoot) {
+  if (!existsSync(lockRoot)) return null;
+  const childStateName = readdirSync(lockRoot).find((name) => name.includes(".lock.child-"));
+  if (!childStateName) return null;
+  const payload = JSON.parse(readFileSync(path.join(lockRoot, childStateName), "utf8"));
+  return Number.isSafeInteger(payload.processGroupId) ? payload.processGroupId : null;
 }
 
 function mutatingChild(exitCode, linger = false) {
@@ -299,6 +306,524 @@ test("concurrent wrappers serialize snapshot through restore", async () => {
   }
 });
 
+test("TMPDIR, TMP, and TEMP cannot split one worktree into concurrent snapshot owners", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const tempA = path.join(cwd, "temp-a");
+  const tempB = path.join(cwd, "temp-b");
+  let first;
+  let second;
+
+  try {
+    mkdirSync(tempA, { mode: 0o700 });
+    mkdirSync(tempB, { mode: 0o700 });
+    const startWrapper = (label, tempRoot, lingerMs) => {
+      const childScript = [
+        `require("node:fs").writeFileSync("next-env.d.ts", ${JSON.stringify(`${label} mutation\n`)})`,
+        `process.stdout.write(${JSON.stringify(`${label}-entered\n`)})`,
+        `setTimeout(() => process.exit(0), ${lingerMs})`
+      ].join(";");
+      const wrapper = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", childScript], {
+        cwd,
+        env: { ...process.env, TMPDIR: tempRoot, TMP: tempRoot, TEMP: tempRoot },
+        stdio: ["ignore", "pipe", "pipe"]
+      });
+      wrapper.stdout.setEncoding("utf8");
+      wrapper.stderr.setEncoding("utf8");
+      wrapper.output = "";
+      wrapper.errors = "";
+      wrapper.stdout.on("data", (chunk) => { wrapper.output += chunk; });
+      wrapper.stderr.on("data", (chunk) => { wrapper.errors += chunk; });
+      return wrapper;
+    };
+
+    first = startWrapper("first-temp", tempA, 750);
+    const firstOutcome = once(first, "exit");
+    await waitFor(() => first.output.includes("first-temp-entered\n"), 3_000);
+    second = startWrapper("second-temp", tempB, 100);
+    const secondOutcome = once(second, "exit");
+
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    assert.equal(
+      second.output.includes("second-temp-entered\n"),
+      false,
+      "environment-specific temp roots must not create overlapping snapshot owners"
+    );
+
+    const [[firstCode, firstSignal], [secondCode, secondSignal]] = await Promise.all([
+      firstOutcome,
+      secondOutcome
+    ]);
+    assert.deepEqual({ code: firstCode, signal: firstSignal }, { code: 0, signal: null }, first.errors);
+    assert.deepEqual({ code: secondCode, signal: secondSignal }, { code: 0, signal: null }, second.errors);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    for (const wrapper of [first, second]) {
+      if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a SIGKILLed wrapper fences its still-active child group and durably recovers the original snapshot", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const finishedMarker = path.join(cwd, "first-child-finished");
+  let first;
+  let second;
+  let firstChildProcessGroupId = null;
+
+  try {
+    const firstScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "first active mutation\\n")',
+      'process.stdout.write(`first-child-pgid:${process.pid}\\n`)',
+      'setTimeout(() => require("node:fs").writeFileSync("next-env.d.ts", "first late mutation\\n"), 550)',
+      `setTimeout(() => { require("node:fs").writeFileSync(${JSON.stringify(finishedMarker)}, "done\\n"); process.exit(0) }, 850)`
+    ].join(";");
+    first = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", firstScript], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    first.stdout.setEncoding("utf8");
+    first.stderr.setEncoding("utf8");
+    first.output = "";
+    first.errors = "";
+    first.stdout.on("data", (chunk) => {
+      first.output += chunk;
+      const match = /first-child-pgid:(\d+)/u.exec(first.output);
+      if (match) firstChildProcessGroupId = Number(match[1]);
+    });
+    first.stderr.on("data", (chunk) => { first.errors += chunk; });
+    await waitFor(() => Number.isSafeInteger(firstChildProcessGroupId), 3_000);
+    firstChildProcessGroupId = persistedChildProcessGroupId(lock.lockRoot) ?? firstChildProcessGroupId;
+
+    first.kill("SIGKILL");
+    const [firstCode, firstSignal] = await once(first, "exit");
+    assert.deepEqual({ code: firstCode, signal: firstSignal }, { code: null, signal: "SIGKILL" });
+    assert.equal(processGroupIsAlive(firstChildProcessGroupId), true, "the detached child fixture must outlive its wrapper");
+
+    const secondScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "second mutation\\n")',
+      'process.stdout.write("second-entered\\n")',
+      "process.exit(0)"
+    ].join(";");
+    second = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", secondScript], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    second.stdout.setEncoding("utf8");
+    second.stderr.setEncoding("utf8");
+    second.output = "";
+    second.errors = "";
+    second.stdout.on("data", (chunk) => { second.output += chunk; });
+    second.stderr.on("data", (chunk) => { second.errors += chunk; });
+
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    assert.equal(existsSync(finishedMarker), false, "the first child should still be active during the takeover probe");
+    assert.equal(second.output.includes("second-entered\n"), false, "a contender must not snapshot an active abandoned child mutation");
+
+    await waitFor(() => existsSync(finishedMarker), 3_000);
+    const [secondCode, secondSignal] = await once(second, "exit");
+    assert.deepEqual({ code: secondCode, signal: secondSignal }, { code: 0, signal: null }, second.errors);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+    assert.deepEqual(readdirSync(lock.lockRoot), [], "durable crash recovery must remove only its token-bound state");
+  } finally {
+    for (const wrapper of [first, second]) {
+      if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    }
+    if (firstChildProcessGroupId && processGroupIsAlive(firstChildProcessGroupId)) {
+      process.kill(-firstChildProcessGroupId, "SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("macOS process-birth identity stays stable across owner and contender locale and timezone", {
+  skip: process.platform !== "darwin"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const preloadPath = path.join(cwd, "locale-sensitive-ps.mjs");
+  const finishedMarker = path.join(cwd, "locale-owner-child-finished");
+  let first;
+  let contender;
+  let childProcessGroupId = null;
+
+  try {
+    writeFileSync(preloadPath, [
+      'import childProcess from "node:child_process"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      'const originalExecFileSync = childProcess.execFileSync.bind(childProcess)',
+      'childProcess.execFileSync = (file, args, options) => {',
+      '  if (file !== "/bin/ps") return originalExecFileSync(file, args, options)',
+      '  const effectiveEnv = options?.env ?? process.env',
+      '  return `${effectiveEnv.LC_ALL ?? ""}|${effectiveEnv.LANG ?? ""}|${effectiveEnv.LANGUAGE ?? ""}|${effectiveEnv.TZ ?? ""}|synthetic-start`',
+      '}',
+      'syncBuiltinESMExports()',
+      ""
+    ].join("\n"));
+    const preloadOption = `--import=${pathToFileURL(preloadPath).href}`;
+    const nodeOptions = [process.env.NODE_OPTIONS, preloadOption].filter(Boolean).join(" ");
+    const ownerScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "locale owner active mutation\\n")',
+      'process.stdout.write(`locale-owner-pgid:${process.pid}\\n`)',
+      `setTimeout(() => { require("node:fs").writeFileSync(${JSON.stringify(finishedMarker)}, "done\\n"); process.exit(0) }, 900)`
+    ].join(";");
+    first = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", ownerScript], {
+      cwd,
+      env: {
+        ...process.env,
+        NODE_OPTIONS: nodeOptions,
+        LC_ALL: "zh_CN.UTF-8",
+        LANG: "zh_CN.UTF-8",
+        LANGUAGE: "zh_CN.UTF-8",
+        TZ: "Asia/Hong_Kong",
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    first.stdout.setEncoding("utf8");
+    first.stderr.setEncoding("utf8");
+    first.output = "";
+    first.errors = "";
+    first.stdout.on("data", (chunk) => {
+      first.output += chunk;
+      const match = /locale-owner-pgid:(\d+)/u.exec(first.output);
+      if (match) childProcessGroupId = Number(match[1]);
+    });
+    first.stderr.on("data", (chunk) => { first.errors += chunk; });
+
+    await waitFor(() => Number.isSafeInteger(childProcessGroupId), 3_000);
+    childProcessGroupId = persistedChildProcessGroupId(lock.lockRoot) ?? childProcessGroupId;
+    first.kill("SIGKILL");
+    assert.deepEqual(await once(first, "exit"), [null, "SIGKILL"]);
+    assert.equal(processGroupIsAlive(childProcessGroupId), true);
+
+    const contenderScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "unsafe locale contender mutation\\n")',
+      'process.stdout.write("locale-contender-entered\\n")',
+      "process.exit(0)"
+    ].join(";");
+    contender = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", contenderScript], {
+      cwd,
+      env: {
+        ...process.env,
+        NODE_OPTIONS: nodeOptions,
+        LC_ALL: "C",
+        LANG: "C",
+        LANGUAGE: "C",
+        TZ: "UTC",
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    contender.stdout.setEncoding("utf8");
+    contender.stderr.setEncoding("utf8");
+    contender.output = "";
+    contender.errors = "";
+    contender.stdout.on("data", (chunk) => { contender.output += chunk; });
+    contender.stderr.on("data", (chunk) => { contender.errors += chunk; });
+
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    assert.equal(existsSync(finishedMarker), false, "the differently localized owner group must still be active");
+    assert.equal(
+      contender.output.includes("locale-contender-entered\n"),
+      false,
+      "locale and timezone changes must not look like a recycled live PGID"
+    );
+
+    await waitFor(() => existsSync(finishedMarker), 3_000);
+    assert.deepEqual(await once(contender, "exit"), [0, null], contender.errors);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    for (const wrapper of [first, contender]) {
+      if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    }
+    if (childProcessGroupId && processGroupIsAlive(childProcessGroupId)) {
+      process.kill(-childProcessGroupId, "SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a stale child heartbeat cannot admit a contender while an identity-unknown process group survives", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  let first;
+  let contender;
+  let childProcessGroupId = null;
+  let directChildPid = null;
+  let grandchildPid = null;
+
+  try {
+    const grandchildScript = [
+      'process.on("SIGTERM", () => {})',
+      "setInterval(() => {}, 1000)"
+    ].join(";");
+    const childScript = [
+      'const { spawn } = require("node:child_process")',
+      'process.on("SIGTERM", () => {})',
+      `const grandchild = spawn(process.execPath, ["-e", ${JSON.stringify(grandchildScript)}], { stdio: "ignore" })`,
+      'require("node:fs").writeFileSync("next-env.d.ts", "leader-gone active mutation\\n")',
+      'process.stdout.write(`leader-gone-ready:${process.pid}:${grandchild.pid}\\n`)',
+      "setInterval(() => {}, 1000)"
+    ].join(";");
+    first = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", childScript], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    first.stdout.setEncoding("utf8");
+    first.stderr.setEncoding("utf8");
+    first.output = "";
+    first.errors = "";
+    first.stdout.on("data", (chunk) => {
+      first.output += chunk;
+      const match = /leader-gone-ready:(\d+):(\d+)/u.exec(first.output);
+      if (match) {
+        directChildPid = Number(match[1]);
+        grandchildPid = Number(match[2]);
+      }
+    });
+    first.stderr.on("data", (chunk) => { first.errors += chunk; });
+
+    await waitFor(() => first.output.includes("leader-gone-ready:"), 3_000);
+    childProcessGroupId = persistedChildProcessGroupId(lock.lockRoot);
+    assert.ok(Number.isSafeInteger(childProcessGroupId));
+    first.kill("SIGKILL");
+    assert.deepEqual(await once(first, "exit"), [null, "SIGKILL"]);
+    assert.equal(processGroupIsAlive(childProcessGroupId), true);
+
+    // Kill only the detached gate leader, never the negative process group.
+    // The direct command and grandchild intentionally remain in its PGID.
+    process.kill(childProcessGroupId, "SIGKILL");
+    await new Promise((resolve) => setTimeout(resolve, 650));
+    assert.equal(processGroupIsAlive(childProcessGroupId), true, "the leaderless fixture group must still be active");
+
+    const contenderScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "unsafe contender mutation\\n")',
+      'process.stdout.write("leader-gone-contender-entered\\n")',
+      "process.exit(0)"
+    ].join(";");
+    contender = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", contenderScript], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    contender.stdout.setEncoding("utf8");
+    contender.stderr.setEncoding("utf8");
+    contender.output = "";
+    contender.errors = "";
+    contender.stdout.on("data", (chunk) => { contender.output += chunk; });
+    contender.stderr.on("data", (chunk) => { contender.errors += chunk; });
+
+    await new Promise((resolve) => setTimeout(resolve, 700));
+    assert.equal(
+      contender.output.includes("leader-gone-contender-entered\n"),
+      false,
+      "an identity-unknown live PGID must remain fail-closed after its heartbeat expires"
+    );
+    assert.equal(existsSync(lock.lockPath), true, "the canonical main lock must remain the recovery barrier");
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), "leader-gone active mutation\n");
+
+    contender.kill("SIGKILL");
+    assert.deepEqual(await once(contender, "exit"), [null, "SIGKILL"]);
+    for (const processId of [directChildPid, grandchildPid]) {
+      try {
+        if (processId) process.kill(processId, "SIGKILL");
+      } catch (error) {
+        if (error?.code !== "ESRCH") throw error;
+      }
+    }
+  } finally {
+    for (const wrapper of [first, contender]) {
+      if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    }
+    for (const processId of [directChildPid, grandchildPid]) {
+      try {
+        if (processId) process.kill(processId, "SIGKILL");
+      } catch (error) {
+        if (error?.code !== "ESRCH") throw error;
+      }
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a lease heartbeat failure stops the child group and restores before failing", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const preloadPath = path.join(cwd, "fail-heartbeat.mjs");
+  let wrapper;
+  let childProcessGroupId = null;
+
+  try {
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      'fs.futimesSync = () => { const error = new Error("synthetic heartbeat EIO"); error.code = "EIO"; throw error }',
+      'syncBuiltinESMExports()',
+      ""
+    ].join("\n"));
+    const childScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "heartbeat mutation\\n")',
+      'process.stdout.write(`heartbeat-child-pgid:${process.pid}\\n`)',
+      "setInterval(() => {}, 1000)"
+    ].join(";");
+    wrapper = spawn(
+      process.execPath,
+      ["--import", pathToFileURL(preloadPath).href, wrapperPath, "--", process.execPath, "-e", childScript],
+      { cwd, stdio: ["ignore", "pipe", "pipe"] }
+    );
+    wrapper.stdout.setEncoding("utf8");
+    wrapper.stderr.setEncoding("utf8");
+    wrapper.output = "";
+    wrapper.errors = "";
+    wrapper.stdout.on("data", (chunk) => {
+      wrapper.output += chunk;
+      const match = /heartbeat-child-pgid:(\d+)/u.exec(wrapper.output);
+      if (match) childProcessGroupId = Number(match[1]);
+    });
+    wrapper.stderr.on("data", (chunk) => { wrapper.errors += chunk; });
+    await waitFor(() => Number.isSafeInteger(childProcessGroupId), 3_000);
+    childProcessGroupId = persistedChildProcessGroupId(lock.lockRoot) ?? childProcessGroupId;
+
+    const outcome = await Promise.race([
+      once(wrapper, "exit"),
+      new Promise((resolve) => setTimeout(() => resolve(["timeout", "timeout"]), 2_000))
+    ]);
+    assert.notDeepEqual(outcome, ["timeout", "timeout"], "heartbeat failure must enter the wrapper control flow");
+    assert.deepEqual(outcome, [1, null], wrapper.errors);
+    assert.match(wrapper.errors, /heartbeat|synthetic heartbeat EIO/u);
+    assert.equal(processGroupIsAlive(childProcessGroupId), false);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    if (childProcessGroupId && processGroupIsAlive(childProcessGroupId)) {
+      process.kill(-childProcessGroupId, "SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a child-gate heartbeat failure reaps its full orphaned process group after the wrapper is SIGKILLed", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const heartbeatFailureMarker = path.join(cwd, "fail-child-gate-heartbeat");
+  const preloadPath = path.join(cwd, "fail-child-gate-heartbeat.mjs");
+  let wrapper;
+  let childProcessGroupId = null;
+
+  try {
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      `const failureMarker = ${JSON.stringify(heartbeatFailureMarker)}`,
+      'if (process.argv.includes("--child-gate")) {',
+      '  const originalFutimesSync = fs.futimesSync',
+      '  fs.futimesSync = (...args) => {',
+      '    if (fs.existsSync(failureMarker)) {',
+      '      const error = new Error("synthetic orphan child-gate heartbeat EIO")',
+      '      error.code = "EIO"',
+      '      throw error',
+      '    }',
+      '    return originalFutimesSync(...args)',
+      '  }',
+      '  syncBuiltinESMExports()',
+      '}',
+      ""
+    ].join("\n"));
+    const grandchildScript = [
+      'process.on("SIGTERM", () => {})',
+      'setInterval(() => {}, 1000)'
+    ].join(";");
+    const childScript = [
+      'const { spawn } = require("node:child_process")',
+      `const grandchild = spawn(process.execPath, ["-e", ${JSON.stringify(grandchildScript)}], { stdio: "ignore" })`,
+      'require("node:fs").writeFileSync("next-env.d.ts", "orphan heartbeat mutation\\n")',
+      'process.stdout.write(`orphan-heartbeat-ready:${process.pid}:${grandchild.pid}\\n`)',
+      'setInterval(() => {}, 1000)'
+    ].join(";");
+    wrapper = spawn(process.execPath, [wrapperPath, "--", process.execPath, "-e", childScript], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500",
+        NODE_OPTIONS: `--import=${pathToFileURL(preloadPath).href}`
+      },
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    wrapper.stdout.setEncoding("utf8");
+    wrapper.stderr.setEncoding("utf8");
+    wrapper.output = "";
+    wrapper.errors = "";
+    wrapper.stdout.on("data", (chunk) => { wrapper.output += chunk; });
+    wrapper.stderr.on("data", (chunk) => { wrapper.errors += chunk; });
+
+    await waitFor(() => wrapper.output.includes("orphan-heartbeat-ready:"), 3_000);
+    childProcessGroupId = persistedChildProcessGroupId(lock.lockRoot);
+    assert.ok(Number.isSafeInteger(childProcessGroupId));
+    assert.equal(processGroupIsAlive(childProcessGroupId), true);
+
+    wrapper.kill("SIGKILL");
+    const [wrapperCode, wrapperSignal] = await once(wrapper, "exit");
+    assert.deepEqual({ code: wrapperCode, signal: wrapperSignal }, { code: null, signal: "SIGKILL" });
+    writeFileSync(heartbeatFailureMarker, "fail\n");
+
+    await waitFor(() => !processGroupIsAlive(childProcessGroupId), 2_000);
+
+    const [command, ...args] = mutatingChild(0);
+    const contender = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      encoding: "utf8",
+      timeout: 5_000
+    });
+    assert.equal(contender.status, 0, `${contender.stdout}\n${contender.stderr}`);
+    assert.equal(contender.signal, null, `${contender.stdout}\n${contender.stderr}`);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+    assert.deepEqual(readdirSync(lock.lockRoot), []);
+  } finally {
+    if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
+    if (childProcessGroupId && processGroupIsAlive(childProcessGroupId)) {
+      process.kill(-childProcessGroupId, "SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
 test("repo tmp cleanup cannot remove the active lock or admit a second snapshot owner", async () => {
   const cwd = createFixture();
   const lock = nextEnvLockPaths(cwd);
@@ -404,6 +929,328 @@ test("a crash before publish metadata never exposes a partial final lock and the
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
     assert.deepEqual(readdirSync(lock.lockRoot), [], "only the exact crashed publish temp should be removed");
   } finally {
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a crash during snapshot-state publish leaves no partial final state and its exact temp is recovered", {
+  skip: process.platform === "win32"
+}, () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  try {
+    const crashed = spawnSync(
+      process.execPath,
+      [wrapperPath, "--", process.execPath, "-e", "process.exit(0)"],
+      {
+        cwd,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          MAIS_NEXT_ENV_RESTORE_TEST_CRASH_AFTER_SNAPSHOT_TEMP_OPEN: "1"
+        },
+        timeout: 3_000,
+        killSignal: "SIGKILL"
+      }
+    );
+
+    assert.equal(crashed.status, null, `${crashed.stdout}\n${crashed.stderr}`);
+    assert.equal(crashed.signal, "SIGKILL", `${crashed.stdout}\n${crashed.stderr}`);
+    assert.equal(existsSync(lock.lockPath), true, "the complete main lock is published before snapshot state");
+    const stateNames = readdirSync(lock.lockRoot).filter((name) => name.includes(".snapshot"));
+    assert.equal(stateNames.filter((name) => name.includes(".publish-")).length, 1);
+    assert.equal(stateNames.filter((name) => !name.includes(".publish-")).length, 0, "partial state must never occupy its final name");
+    assert.equal(statSync(path.join(lock.lockRoot, stateNames[0])).size, 0);
+
+    const [command, ...args] = mutatingChild(0);
+    const recovered = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
+      cwd,
+      encoding: "utf8",
+      timeout: 3_000,
+      killSignal: "SIGKILL"
+    });
+    assert.equal(recovered.status, 0, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.equal(recovered.signal, null, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+    assert.deepEqual(readdirSync(lock.lockRoot), [], "only the exact crashed state temp should be removed");
+  } finally {
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a release crash after the main-lock rename cannot strand an unrestored next-env snapshot", {
+  skip: process.platform === "win32"
+}, () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const preloadPath = path.join(cwd, "crash-after-main-release-rename.mjs");
+  const leaseOrderFailureMarker = path.join(cwd, "main-renamed-before-lease-cleanup");
+  try {
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'import path from "node:path"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      'const originalRename = fs.renameSync.bind(fs)',
+      'const target = path.resolve(process.env.MAIS_TEST_LOCK_PATH)',
+      'fs.renameSync = (from, to) => {',
+      '  const metadata = path.resolve(String(from)) === target',
+      '    ? JSON.parse(fs.readFileSync(from, "utf8"))',
+      '    : null',
+      '  const result = originalRename(from, to)',
+      '  if (path.resolve(String(from)) === target && path.basename(String(to)).includes(".quarantine-release-")) {',
+      '    const leasePath = path.join(path.dirname(target), metadata.leaseName)',
+      '    if (fs.existsSync(leasePath)) fs.writeFileSync(process.env.MAIS_TEST_LEASE_ORDER_FAILURE, "lease still present\\n")',
+      '    process.kill(process.pid, "SIGKILL")',
+      '  }',
+      '  return result',
+      '}',
+      'syncBuiltinESMExports()',
+      ""
+    ].join("\n"));
+
+    const [command, ...args] = mutatingChild(0);
+    const crashed = spawnSync(
+      process.execPath,
+      ["--import", pathToFileURL(preloadPath).href, wrapperPath, "--", command, ...args],
+      {
+        cwd,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          MAIS_TEST_LOCK_PATH: lock.lockPath,
+          MAIS_TEST_LEASE_ORDER_FAILURE: leaseOrderFailureMarker
+        },
+        timeout: 3_000,
+        killSignal: "SIGKILL"
+      }
+    );
+    assert.equal(crashed.status, null, `${crashed.stdout}\n${crashed.stderr}`);
+    assert.equal(crashed.signal, "SIGKILL", `${crashed.stdout}\n${crashed.stderr}`);
+    assert.equal(
+      readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"),
+      originalNextEnv,
+      "the durable snapshot must be restored before the canonical main lock can be renamed away"
+    );
+    assert.equal(
+      existsSync(leaseOrderFailureMarker),
+      false,
+      "the canonical lease must be removed before the canonical main lock is renamed away"
+    );
+
+    const recovered = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
+      cwd,
+      encoding: "utf8",
+      timeout: 3_000,
+      killSignal: "SIGKILL"
+    });
+    assert.equal(recovered.status, 0, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.equal(recovered.signal, null, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a stale-recovery crash after the main-lock rename cannot admit an unrestored third owner", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const preloadPath = path.join(cwd, "crash-after-stale-main-rename.mjs");
+  let abandonedWrapper;
+  let abandonedProcessGroupId = null;
+  try {
+    const abandonedScript = [
+      'require("node:fs").writeFileSync("next-env.d.ts", "abandoned stale mutation\\n")',
+      'process.stdout.write(`stale-release-ready:${process.pid}\\n`)',
+      "setTimeout(() => process.exit(0), 350)"
+    ].join(";");
+    abandonedWrapper = spawn(
+      process.execPath,
+      [wrapperPath, "--", process.execPath, "-e", abandonedScript],
+      {
+        cwd,
+        env: { ...process.env, MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500" },
+        stdio: ["ignore", "pipe", "pipe"]
+      }
+    );
+    abandonedWrapper.stdout.setEncoding("utf8");
+    abandonedWrapper.stderr.setEncoding("utf8");
+    abandonedWrapper.output = "";
+    abandonedWrapper.errors = "";
+    abandonedWrapper.stdout.on("data", (chunk) => { abandonedWrapper.output += chunk; });
+    abandonedWrapper.stderr.on("data", (chunk) => { abandonedWrapper.errors += chunk; });
+    await waitFor(() => abandonedWrapper.output.includes("stale-release-ready:"), 3_000);
+    abandonedProcessGroupId = persistedChildProcessGroupId(lock.lockRoot);
+    assert.ok(Number.isSafeInteger(abandonedProcessGroupId));
+    abandonedWrapper.kill("SIGKILL");
+    assert.deepEqual(await once(abandonedWrapper, "exit"), [null, "SIGKILL"]);
+    await waitFor(() => !processGroupIsAlive(abandonedProcessGroupId), 3_000);
+
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'import path from "node:path"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      'const originalRename = fs.renameSync.bind(fs)',
+      'const target = path.resolve(process.env.MAIS_TEST_LOCK_PATH)',
+      'fs.renameSync = (from, to) => {',
+      '  const result = originalRename(from, to)',
+      '  if (path.resolve(String(from)) === target && path.basename(String(to)).includes(".quarantine-stale-main-")) {',
+      '    process.kill(process.pid, "SIGKILL")',
+      '  }',
+      '  return result',
+      '}',
+      'syncBuiltinESMExports()',
+      ""
+    ].join("\n"));
+
+    const [command, ...args] = mutatingChild(0);
+    const crashedRecovery = spawnSync(
+      process.execPath,
+      ["--import", pathToFileURL(preloadPath).href, wrapperPath, "--", command, ...args],
+      {
+        cwd,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500",
+          MAIS_TEST_LOCK_PATH: lock.lockPath
+        },
+        timeout: 3_000,
+        killSignal: "SIGKILL"
+      }
+    );
+    assert.equal(crashedRecovery.status, null, `${crashedRecovery.stdout}\n${crashedRecovery.stderr}`);
+    assert.equal(crashedRecovery.signal, "SIGKILL", `${crashedRecovery.stdout}\n${crashedRecovery.stderr}`);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+
+    const thirdOwner = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
+      cwd,
+      env: { ...process.env, MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500" },
+      encoding: "utf8",
+      timeout: 3_000,
+      killSignal: "SIGKILL"
+    });
+    assert.equal(thirdOwner.status, 0, `${thirdOwner.stdout}\n${thirdOwner.stderr}`);
+    assert.equal(thirdOwner.signal, null, `${thirdOwner.stdout}\n${thirdOwner.stderr}`);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    if (abandonedWrapper?.exitCode === null && abandonedWrapper?.signalCode === null) {
+      abandonedWrapper.kill("SIGKILL");
+    }
+    if (abandonedProcessGroupId && processGroupIsAlive(abandonedProcessGroupId)) {
+      process.kill(-abandonedProcessGroupId, "SIGKILL");
+    }
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("two contenders can race to clean one crashed publish inode without failing or double-owning the lock", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  const preloadPath = path.join(cwd, "orphan-cleanup-barrier.mjs");
+  let first;
+  let second;
+
+  try {
+    const crashed = spawnSync(
+      process.execPath,
+      [wrapperPath, "--", process.execPath, "-e", "process.exit(0)"],
+      {
+        cwd,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          MAIS_NEXT_ENV_RESTORE_TEST_CRASH_AFTER_TEMP_OPEN: "1"
+        },
+        timeout: 3_000,
+        killSignal: "SIGKILL"
+      }
+    );
+    assert.equal(crashed.signal, "SIGKILL", `${crashed.stdout}\n${crashed.stderr}`);
+    const [orphanName] = readdirSync(lock.lockRoot).filter((name) => name.includes(".publish-"));
+    assert.ok(orphanName, "the crash fixture must leave one publish inode");
+    const orphanPath = path.join(lock.lockRoot, orphanName);
+
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'import path from "node:path"',
+      'import { syncBuiltinESMExports } from "node:module"',
+      'const originalUnlink = fs.unlinkSync.bind(fs)',
+      'const target = path.resolve(process.env.MAIS_TEST_ORPHAN_PATH)',
+      'const barrierRoot = path.resolve(process.env.MAIS_TEST_BARRIER_ROOT)',
+      'let waited = false',
+      'fs.unlinkSync = (value) => {',
+      '  if (!waited && path.resolve(String(value)) === target) {',
+      '    waited = true',
+      '    fs.writeFileSync(path.join(barrierRoot, `ready-${process.pid}`), "ready\\n")',
+      '    const deadline = Date.now() + 3000',
+      '    while (fs.readdirSync(barrierRoot).filter((name) => name.startsWith("ready-")).length < 2) {',
+      '      if (Date.now() >= deadline) throw new Error("orphan cleanup barrier timed out")',
+      '      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 10)',
+      '    }',
+      '  }',
+      '  return originalUnlink(value)',
+      '}',
+      'syncBuiltinESMExports()',
+      ""
+    ].join("\n"));
+
+    const startContender = (label) => {
+      const childScript = [
+        `require("node:fs").writeFileSync("next-env.d.ts", ${JSON.stringify(`${label} mutation\n`)})`,
+        `process.stdout.write(${JSON.stringify(`${label}-entered\n`)})`,
+        "setTimeout(() => process.exit(0), 120)"
+      ].join(";");
+      const contender = spawn(
+        process.execPath,
+        ["--import", pathToFileURL(preloadPath).href, wrapperPath, "--", process.execPath, "-e", childScript],
+        {
+          cwd,
+          env: {
+            ...process.env,
+            MAIS_TEST_ORPHAN_PATH: orphanPath,
+            MAIS_TEST_BARRIER_ROOT: cwd
+          },
+          stdio: ["ignore", "pipe", "pipe"]
+        }
+      );
+      contender.stdout.setEncoding("utf8");
+      contender.stderr.setEncoding("utf8");
+      contender.output = "";
+      contender.errors = "";
+      contender.stdout.on("data", (chunk) => { contender.output += chunk; });
+      contender.stderr.on("data", (chunk) => { contender.errors += chunk; });
+      return contender;
+    };
+
+    first = startContender("first");
+    second = startContender("second");
+    const [[firstCode, firstSignal], [secondCode, secondSignal]] = await Promise.all([
+      once(first, "exit"),
+      once(second, "exit")
+    ]);
+
+    assert.deepEqual({ code: firstCode, signal: firstSignal }, { code: 0, signal: null }, first.errors);
+    assert.deepEqual({ code: secondCode, signal: secondSignal }, { code: 0, signal: null }, second.errors);
+    assert.match(first.output, /first-entered/u);
+    assert.match(second.output, /second-entered/u);
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+    assert.deepEqual(
+      readdirSync(lock.lockRoot),
+      [],
+      "the orphan and both exact token-bound lock states must be removed"
+    );
+  } finally {
+    for (const contender of [first, second]) {
+      if (contender?.exitCode === null && contender?.signalCode === null) contender.kill("SIGKILL");
+    }
     cleanupLockFixture(cwd);
     rmSync(cwd, { recursive: true, force: true });
   }
@@ -592,6 +1439,87 @@ test("a recycled live PID with an expired lease identity is recovered without a 
     assert.equal(existsSync(lock.lockPath), false);
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
   } finally {
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
+
+test("a live recycled child PGID with the wrong process-birth identity is recovered without killing it", {
+  skip: process.platform === "win32"
+}, async () => {
+  const cwd = createFixture();
+  const lock = nextEnvLockPaths(cwd);
+  let decoy;
+  try {
+    decoy = spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], {
+      detached: true,
+      stdio: "ignore"
+    });
+    assert.ok(decoy.pid);
+    await waitFor(() => processGroupIsAlive(decoy.pid), 1_000);
+
+    mkdirSync(lock.lockRoot, { recursive: true, mode: 0o700 });
+    const stalePid = 2_147_483_647;
+    const token = "33333333-3333-4333-8333-333333333333";
+    const leaseName = `.next-env-restore.lock.lease-${stalePid}-${token}`;
+    const snapshotName = `.next-env-restore.lock.snapshot-${stalePid}-${token}`;
+    const childName = `.next-env-restore.lock.child-${stalePid}-${token}`;
+    const leasePath = path.join(lock.lockRoot, leaseName);
+    writeFileSync(leasePath, `${token}\n`, { mode: 0o600 });
+    const leaseStat = statSync(leasePath);
+    const expiredAt = new Date(Date.now() - 20_000);
+    utimesSync(leasePath, expiredAt, expiredAt);
+    writeFileSync(path.join(lock.lockRoot, snapshotName), `${JSON.stringify({
+      version: 1,
+      kind: "snapshot",
+      token,
+      canonicalCwd: realpathSync(cwd),
+      existed: true,
+      contentsBase64: Buffer.from(originalNextEnv).toString("base64"),
+      mode: 0o644
+    })}\n`, { mode: 0o600 });
+    writeFileSync(path.join(lock.lockRoot, childName), `${JSON.stringify({
+      version: 1,
+      kind: "child",
+      token,
+      canonicalCwd: realpathSync(cwd),
+      processGroupId: decoy.pid,
+      processBirthIdentity: `sha256:${"0".repeat(64)}`,
+      createdAt: new Date().toISOString()
+    })}\n`, { mode: 0o600 });
+    writeFileSync(lock.lockPath, JSON.stringify({
+      version: 2,
+      role: "main",
+      pid: stalePid,
+      token,
+      leaseName,
+      leaseDevice: String(leaseStat.dev),
+      leaseInode: String(leaseStat.ino),
+      canonicalCwd: realpathSync(cwd),
+      createdAt: "2026-01-01T00:00:00.000Z",
+      snapshotName,
+      childName
+    }), { mode: 0o600 });
+
+    const startedAt = Date.now();
+    const [command, ...args] = mutatingChild(0);
+    const recovered = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
+      cwd,
+      env: {
+        ...process.env,
+        MAIS_NEXT_ENV_RESTORE_TEST_LEASE_TIMEOUT_MS: "500"
+      },
+      encoding: "utf8",
+      timeout: 2_000,
+      killSignal: "SIGKILL"
+    });
+    assert.equal(recovered.status, 0, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.equal(recovered.signal, null, `${recovered.stdout}\n${recovered.stderr}`);
+    assert.ok(Date.now() - startedAt < 450, "wrong process-birth identity must not hold the lock for a stale heartbeat window");
+    assert.equal(processGroupIsAlive(decoy.pid), true, "a recycled, unrelated process group must never be killed");
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    if (decoy?.pid && processGroupIsAlive(decoy.pid)) process.kill(-decoy.pid, "SIGKILL");
     cleanupLockFixture(cwd);
     rmSync(cwd, { recursive: true, force: true });
   }

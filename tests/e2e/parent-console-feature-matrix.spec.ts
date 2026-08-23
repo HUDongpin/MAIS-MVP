@@ -53,7 +53,43 @@ type ParentFoundationResponse = {
 };
 
 type ParentMessagesResponse = {
-  data: { threads: Array<{ id: string; subject: { en: string }; studentId: string }> };
+  data: {
+    children: Array<{ student: { id: string; name: string } }>;
+    threads: Array<{ id: string; subject: { en: string }; studentId: string }>;
+    reports: Array<{
+      id: string;
+      studentId: string;
+      classId?: string;
+      title: { en: string; zh: string };
+    }>;
+    composeTargets: Array<{
+      studentId: string;
+      classId: string;
+      className: string;
+      teacherName: string;
+    }>;
+  };
+};
+
+type DeferredParentThreadFetchMode = "success" | "not-found";
+
+type DeferredParentThreadFetchControl = {
+  armed: boolean;
+  targetThreadId: string;
+  mode: DeferredParentThreadFetchMode;
+  started: boolean;
+  settled: boolean;
+  gate: Promise<void> | null;
+  release: (() => void) | null;
+};
+
+type ParentRaceTestWindow = typeof window & {
+  __maisParentDeferredThreadFetch?: DeferredParentThreadFetchControl;
+  next?: {
+    router?: {
+      push: (href: string, options?: { scroll?: boolean }) => void;
+    };
+  };
 };
 
 function escapeRegex(value: string) {
@@ -133,7 +169,150 @@ async function issueGuardianInvitationForStudent(
   expect(issueResponse.status()).toBe(201);
   const payload = await issueResponse.json() as { invitation: { token: string } };
   expect(payload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
-  return payload.invitation.token;
+  return { inviteCode: payload.invitation.token, classId: teacherClass.class.id };
+}
+
+async function saveParentSummaryReport(
+  teacherContext: APIRequestContext,
+  input: { classId: string; studentId: string; language: "en" | "zh"; marker: string }
+) {
+  const response = await teacherContext.post("/api/teacher/reports/save", {
+    data: {
+      type: "parent-summary",
+      language: input.language,
+      classId: input.classId,
+      studentId: input.studentId,
+      remarks: input.marker
+    }
+  });
+  expect(response.status()).toBe(201);
+  return await response.json() as { report: { id: string } };
+}
+
+async function installDeferredParentThreadFetch(page: Page) {
+  await page.evaluate(() => {
+    const testWindow = window as ParentRaceTestWindow;
+    if (testWindow.__maisParentDeferredThreadFetch) return;
+    const nativeFetch = window.fetch.bind(window);
+    const control: DeferredParentThreadFetchControl = {
+      armed: false,
+      targetThreadId: "",
+      mode: "success",
+      started: false,
+      settled: false,
+      gate: null,
+      release: null
+    };
+    testWindow.__maisParentDeferredThreadFetch = control;
+
+    window.fetch = async (input, init) => {
+      const requestUrl = new URL(
+        typeof input === "string" ? input : input instanceof Request ? input.url : input.toString(),
+        window.location.href
+      );
+      const requestMethod = (init?.method ?? (input instanceof Request ? input.method : "GET")).toUpperCase();
+      const shouldDefer = (
+        control.armed
+        && requestMethod === "GET"
+        && requestUrl.pathname === "/api/parent/messages"
+        && requestUrl.searchParams.get("thread") === control.targetThreadId
+      );
+      if (!shouldDefer) return nativeFetch(input, init);
+
+      control.armed = false;
+      control.started = true;
+      let response: Response;
+      if (control.mode === "success") {
+        const nativeResponse = await nativeFetch(input, {
+          ...init,
+          // Deliberately ignore the component's AbortSignal. This models a
+          // transport that finishes after navigation and exercises generation
+          // and context guards in addition to the normal abort path.
+          signal: new AbortController().signal
+        });
+        response = new Response(await nativeResponse.arrayBuffer(), {
+          status: nativeResponse.status,
+          statusText: nativeResponse.statusText,
+          headers: nativeResponse.headers
+        });
+      } else {
+        response = new Response(JSON.stringify({ error: "Synthetic stale thread." }), {
+          status: 404,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      await control.gate;
+      const nativeJson = response.json.bind(response);
+      response.json = async () => {
+        const payload = await nativeJson();
+        window.setTimeout(() => { control.settled = true; }, 0);
+        return payload;
+      };
+      return response;
+    };
+  });
+}
+
+async function armDeferredParentThreadFetch(
+  page: Page,
+  targetThreadId: string,
+  mode: DeferredParentThreadFetchMode
+) {
+  await page.evaluate(({ threadId, responseMode }) => {
+    const control = (window as ParentRaceTestWindow).__maisParentDeferredThreadFetch;
+    if (!control || control.release) throw new Error("Deferred parent thread fetch is not ready to arm.");
+    control.targetThreadId = threadId;
+    control.mode = responseMode;
+    control.started = false;
+    control.settled = false;
+    control.gate = new Promise<void>((resolve) => { control.release = resolve; });
+    control.armed = true;
+  }, { threadId: targetThreadId, responseMode: mode });
+}
+
+async function waitForDeferredParentThreadFetch(page: Page) {
+  await page.waitForFunction(() => (
+    (window as ParentRaceTestWindow).__maisParentDeferredThreadFetch?.started === true
+  ));
+}
+
+async function releaseDeferredParentThreadFetch(page: Page) {
+  await page.evaluate(() => {
+    const control = (window as ParentRaceTestWindow).__maisParentDeferredThreadFetch;
+    if (!control?.started || !control.release) throw new Error("No deferred parent thread fetch is pending.");
+    const release = control.release;
+    control.release = null;
+    release();
+  });
+  await page.waitForFunction(() => (
+    (window as ParentRaceTestWindow).__maisParentDeferredThreadFetch?.settled === true
+  ));
+  // Give React and the App Router one bounded turn to surface an illegal stale
+  // commit before asserting that the newer context remains authoritative.
+  await page.waitForTimeout(250);
+}
+
+async function pushParentMessageContext(page: Page, href: string) {
+  await page.evaluate((targetHref) => {
+    // Next 15 integrates native pushState calls with useSearchParams. Keeping
+    // this navigation client-side is essential: both report contexts must be
+    // resolved from the exact same initialData batch.
+    window.history.pushState(null, "", targetHref);
+  }, href);
+  await expect(page).toHaveURL(`${baseURL}${href}`);
+}
+
+async function expectParentReportComposeContext(
+  page: Page,
+  expected: { studentId: string; reportId: string; classId: string; subject: string }
+) {
+  const compose = page.locator("form").filter({ has: page.getByRole("button", { name: /Send message/i }) });
+  await expect(compose.getByLabel(/^Child$/i)).toHaveValue(expected.studentId);
+  await expect(compose.getByLabel(/Class and teacher/i)).toHaveValue(expected.classId);
+  await expect(compose.getByLabel(/Linked report/i)).toHaveValue(expected.reportId);
+  await expect(compose.getByLabel(/^Category$/i)).toHaveValue("report-question");
+  await expect(compose.getByLabel(/^Subject$/i)).toHaveValue(expected.subject);
 }
 
 /**
@@ -298,9 +477,15 @@ test.describe.serial("parent console feature matrix", () => {
   });
 
   test("the Child focus selector re-scopes list routes and swaps the child detail route", async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
     const extraChild = await registerStudentViaApi(contexts, testInfo, "focus");
-    const inviteCode = await issueGuardianInvitationForStudent(contexts, testInfo, extraChild, "focus");
+    const { inviteCode, classId: extraClassId } = await issueGuardianInvitationForStudent(
+      contexts,
+      testInfo,
+      extraChild,
+      "focus"
+    );
 
     await loginAsDemoParent(page);
     const linkResponse = await page.request.post("/api/parent/children/link", {
@@ -314,7 +499,13 @@ test.describe.serial("parent console feature matrix", () => {
 
     await focus.selectOption(extraChild.userId);
     await expect(page).toHaveURL(new RegExp(`studentId=${escapeRegex(encodeURIComponent(extraChild.userId))}`));
-    await expect(page.locator("main").getByRole("heading", { name: extraChild.name }).first()).toBeVisible();
+    const overview = page.locator("main");
+    const selectedChildPath = `/parent/children/${encodeURIComponent(extraChild.userId)}`;
+    const previousChildPath = `/parent/children/${encodeURIComponent(demoStudentUserId)}`;
+    await expect(overview.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
+    await expect(overview.getByText(extraChild.name, { exact: true }).first()).toBeVisible();
+    await expect(overview.locator(`a[href="${selectedChildPath}"]`)).toHaveCount(1);
+    await expect(overview.locator(`a[href="${previousChildPath}"]`)).toHaveCount(0);
 
     // The selector must carry the focus into a sibling list route rather than resetting it.
     await page.getByRole("navigation", { name: /Parent navigation/i }).getByRole("link", { name: /^Reports$/i }).click();
@@ -326,37 +517,146 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(page).toHaveURL(new RegExp(`/parent/children/${escapeRegex(encodeURIComponent(extraChild.userId))}$`));
     await expect(page.locator("main").getByRole("heading", { name: extraChild.name }).first()).toBeVisible();
 
+    const allMessagesResponse = await page.request.get("/api/parent/messages");
+    expect(allMessagesResponse.status()).toBe(200);
+    const allMessagesBeforeReports = await allMessagesResponse.json() as ParentMessagesResponse;
+    const demoClassId = allMessagesBeforeReports.data.composeTargets.find(
+      (target) => target.studentId === demoStudentUserId
+    )?.classId;
+    expect(demoClassId, "The demo child must expose an authorized teacher target.").toBeTruthy();
+
+    const { context: teacherContext } = await loginApi(contexts, demoTeacher.username, demoTeacher.password);
+    const reportA = await saveParentSummaryReport(teacherContext, {
+      classId: demoClassId!,
+      studentId: demoStudentUserId,
+      language: "en",
+      marker: `report-context-a ${uniqueSuffix(testInfo)}`
+    });
+    const reportB = await saveParentSummaryReport(teacherContext, {
+      classId: extraClassId,
+      studentId: extraChild.userId,
+      language: "en",
+      marker: `report-context-b ${uniqueSuffix(testInfo)}`
+    });
+
+    // Load one unfiltered server batch containing both reports. The client-only
+    // history sequence below proves A -> B -> back -> forward never resolves a
+    // report/class/student/subject from another data generation.
+    await page.goto("/parent/messages");
+    const reportPayloadResponse = await page.request.get("/api/parent/messages");
+    expect(reportPayloadResponse.status()).toBe(200);
+    const reportPayload = await reportPayloadResponse.json() as ParentMessagesResponse;
+    const parentReportA = reportPayload.data.reports.find((report) => report.id === reportA.report.id);
+    const parentReportB = reportPayload.data.reports.find((report) => report.id === reportB.report.id);
+    expect(parentReportA).toBeTruthy();
+    expect(parentReportB).toBeTruthy();
+
+    const reportHrefA = `/parent/messages?studentId=${encodeURIComponent(demoStudentUserId)}&category=report-question&reportId=${encodeURIComponent(parentReportA!.id)}`;
+    const reportHrefB = `/parent/messages?studentId=${encodeURIComponent(extraChild.userId)}&category=report-question&reportId=${encodeURIComponent(parentReportB!.id)}`;
+    const expectedReportA = {
+      studentId: demoStudentUserId,
+      reportId: parentReportA!.id,
+      classId: demoClassId!,
+      subject: `Question about ${parentReportA!.title.en}`
+    };
+    const expectedReportB = {
+      studentId: extraChild.userId,
+      reportId: parentReportB!.id,
+      classId: extraClassId,
+      subject: `Question about ${parentReportB!.title.en}`
+    };
+    await pushParentMessageContext(page, reportHrefA);
+    await expectParentReportComposeContext(page, expectedReportA);
+    await pushParentMessageContext(page, reportHrefB);
+    await expectParentReportComposeContext(page, expectedReportB);
+    await page.goBack();
+    await expect(page).toHaveURL(`${baseURL}${reportHrefA}`);
+    await expectParentReportComposeContext(page, expectedReportA);
+    await page.goForward();
+    await expect(page).toHaveURL(`${baseURL}${reportHrefB}`);
+    await expectParentReportComposeContext(page, expectedReportB);
+
     expectNoPageErrors(pageErrors);
   });
 
   test("the Ask teacher form creates a thread and the Threads list switches between them", async ({ page }, testInfo) => {
+    test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
     const suffix = uniqueSuffix(testInfo).slice(0, 24);
     const firstSubject = `Matrix compose A ${suffix}`;
     const secondSubject = `Matrix compose B ${suffix}`;
+    const extraChild = await registerStudentViaApi(contexts, testInfo, "thread-race");
+    const { inviteCode } = await issueGuardianInvitationForStudent(contexts, testInfo, extraChild, "thread-race");
 
     await loginAsDemoParent(page);
+    const linkResponse = await page.request.post("/api/parent/children/link", {
+      data: { inviteCode, relationship: "guardian" }
+    });
+    expect(linkResponse.status()).toBe(200);
     await page.goto("/parent/messages");
     await expect(page.getByRole("heading", { name: /Ask teacher/i })).toBeVisible();
 
-    const compose = page.locator("form").filter({ has: page.getByPlaceholder("Subject", { exact: true }) });
+    const compose = page.locator("form").filter({ has: page.getByRole("button", { name: /Send message/i }) });
+    const threadBySubject = new Map<string, string>();
 
-    for (const subject of [firstSubject, secondSubject]) {
-      await compose.getByPlaceholder("Subject", { exact: true }).fill(subject);
-      await compose.getByPlaceholder(/What context would help at home/i).fill(`Home context for ${subject}.`);
+    for (const [subject, studentId] of [
+      [firstSubject, demoStudentUserId],
+      [secondSubject, extraChild.userId]
+    ] as const) {
+      await compose.getByLabel(/^Child$/i).selectOption(studentId);
+      await compose.getByLabel(/^Subject$/i).fill(subject);
+      await compose.getByLabel(/^Message$/i).fill(`Home context for ${subject}.`);
       const created = page.waitForResponse((response) =>
         response.url().includes("/api/parent/messages") && response.request().method() === "POST");
       await compose.getByRole("button", { name: /Send message/i }).click();
-      expect((await created).status()).toBe(200);
+      const createdResponse = await created;
+      expect(createdResponse.status()).toBe(201);
+      const createRequest = createdResponse.request().postDataJSON() as {
+        classId?: unknown;
+        idempotencyKey?: unknown;
+      };
+      expect(createRequest.classId).toEqual(expect.any(String));
+      expect(String(createRequest.classId)).not.toHaveLength(0);
+      expect(createRequest.idempotencyKey).toMatch(/^[A-Za-z0-9._:~-]{16,128}$/);
+      const createdPayload = await createdResponse.json() as { thread: { id: string } };
+      threadBySubject.set(subject, createdPayload.thread.id);
       await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(subject), "i") })).toBeVisible();
       await expect(page).toHaveURL(/thread=/);
       // The form clears so the next message does not inherit the previous subject.
-      await expect(compose.getByPlaceholder("Subject", { exact: true })).toHaveValue("");
+      await expect(compose.getByLabel(/^Subject$/i)).toHaveValue("");
     }
 
     const threads = page.getByRole("heading", { name: /^Threads$/i }).locator("xpath=ancestor::aside[1]");
+    const firstThreadId = threadBySubject.get(firstSubject)!;
+    const secondThreadId = threadBySubject.get(secondSubject)!;
+    await installDeferredParentThreadFetch(page);
+
+    await armDeferredParentThreadFetch(page, firstThreadId, "success");
     await threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") }).click();
-    await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
+    await waitForDeferredParentThreadFetch(page);
+    // deferred-thread-context-child: an old A response must not cross the
+    // external child-context navigation into B.
+    await page.getByLabel(/Child focus/i).selectOption(extraChild.userId);
+    await expect(page).toHaveURL(new RegExp(`studentId=${escapeRegex(encodeURIComponent(extraChild.userId))}`));
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toHaveCount(0);
+    await releaseDeferredParentThreadFetch(page);
+    await expect(page).toHaveURL(new RegExp(`studentId=${escapeRegex(encodeURIComponent(extraChild.userId))}`));
+    await expect(page.locator("main").getByRole("alert")).toHaveCount(0);
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toHaveCount(0);
+
+    await armDeferredParentThreadFetch(page, secondThreadId, "not-found");
+    await threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") }).click();
+    await waitForDeferredParentThreadFetch(page);
+    // deferred-thread-context-all: an old 404 must not surface after switching
+    // from filtered B to the unfiltered All context.
+    await threads.getByRole("link", { name: /^All$/i }).click();
+    await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await releaseDeferredParentThreadFetch(page);
+    await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await expect(page.locator("main").getByRole("alert")).toHaveCount(0);
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
 
     const messages = await page.request.get("/api/parent/messages");
     const payload = await messages.json() as ParentMessagesResponse;
