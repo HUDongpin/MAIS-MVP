@@ -12,6 +12,7 @@ import {
   exactMathJsonEqual,
   isReadableExactMathJson,
   simplifyMathJson,
+  toCanonicalExactValueDto,
   toExactValueDto,
 } from "./computeEngine.server";
 import type { ExactComparison } from "../shared/types";
@@ -22,6 +23,16 @@ const Q_ABOVE_SQRT_TWO = [
   "Rational",
   { num: "1414213562373095048801688724209698078569671875376948073177" },
   { num: "1e+57" },
+] as const;
+
+// This rational exceeds sqrt(2), but only beyond the request-scoped CAS
+// precision. It exercises the exact-sign/display-sign consistency guard.
+const Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION = [
+  "Rational",
+  {
+    num: "141421356237309504880168872420969807856967187537694807317667973799073247846210703885038753432764157273501384624",
+  },
+  { num: "1e+110" },
 ] as const;
 const TEN_TO_FIFTY = ["Power", 10, 50] as const;
 const SQRT_JUST_ABOVE_TEN_TO_FIFTY = [
@@ -77,6 +88,106 @@ test("preserves sqrt(3) exactly while exposing a finite renderer approximation",
   assert.match(dto.decimal ?? "", /^1\.7320508075/);
   assert.ok(dto.approx !== null);
   assert.ok(Math.abs((dto.approx ?? 0) - Math.sqrt(3)) < 1e-15);
+});
+
+test("canonical exact DTO preserves a close radical difference without simplifying it", () => {
+  const session = new CasSession();
+  const input = ["Subtract", Q_ABOVE_SQRT_TWO, SQRT_TWO] as const;
+  const dto = unwrap(session.toCanonicalExactValueDto(input));
+
+  assert.deepEqual(dto, unwrap(toCanonicalExactValueDto(input)));
+  assert.deepEqual(dto.mathJson, unwrap(session.boxMathJson(input)));
+  assert.equal(
+    unwrap(session.compareExactMathJson(dto.mathJson, input)),
+    "equal",
+  );
+  assert.match(JSON.stringify(dto.mathJson), /1414213562373095048801688724209698078569671875376948073177/);
+  assert.match(JSON.stringify(dto.mathJson), /Sqrt/);
+  assert.match(
+    dto.latex.replaceAll("\\,", ""),
+    /1414213562373095048801688724209698078569671875376948073177/,
+  );
+  assert.match(dto.latex, /\\sqrt\{2\}/);
+  assert.doesNotMatch(dto.latex, /^0(?:\.0+)?$/);
+  assert.notEqual(dto.decimal, null);
+  assert.ok(Number(dto.decimal) > 0);
+  assert.notEqual(dto.approx, null);
+  assert.ok((dto.approx ?? 0) > 0);
+  assert.deepEqual(JSON.parse(JSON.stringify(dto)), dto);
+
+  const closeQuotient = ["Divide", input, SQRT_TWO] as const;
+  const quotientDto = unwrap(
+    session.toCanonicalExactValueDto(closeQuotient),
+  );
+  assert.equal(
+    unwrap(session.compareExactMathJson(quotientDto.mathJson, closeQuotient)),
+    "equal",
+  );
+  assert.ok((quotientDto.approx ?? 0) > 0);
+  assert.ok(dto.approx !== null && quotientDto.approx !== null);
+  assert.ok(
+    Math.abs(quotientDto.approx - dto.approx / Math.SQRT2) <= 1e-72,
+  );
+
+  const beyondDisplayPrecision = [
+    "Subtract",
+    Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION,
+    SQRT_TWO,
+  ] as const;
+  assert.equal(
+    unwrap(session.compareExactOrder(beyondDisplayPrecision, 0)),
+    "greater",
+  );
+  const guarded = unwrap(
+    session.toCanonicalExactValueDto(beyondDisplayPrecision),
+  );
+  assert.equal(guarded.decimal, null);
+  assert.equal(guarded.approx, null);
+
+  const underflow = unwrap(
+    session.toCanonicalExactValueDto(["Power", 10, -400]),
+  );
+  assert.notEqual(underflow.decimal, null);
+  assert.equal(underflow.approx, null);
+
+  const nonReal = session.toCanonicalExactValueDto(["Sqrt", -1]);
+  assert.deepEqual(nonReal, session.toExactValueDto(["Sqrt", -1]));
+  assert.equal(nonReal.ok, false);
+  if (!nonReal.ok) {
+    assert.equal(nonReal.error.code, KERNEL_ERROR_CODES.casOperationFailed);
+  }
+
+  const invalid = session.toCanonicalExactValueDto([
+    "TotallyUnknownOperator",
+    1,
+  ]);
+  assert.equal(invalid.ok, false);
+  if (!invalid.ok) {
+    assert.equal(invalid.error.code, KERNEL_ERROR_CODES.mathJsonInvalidShape);
+  }
+});
+
+test("classifies finite real exact constants independently of renderer approximations", () => {
+  const session = new CasSession();
+  const beyondDisplayPrecision = [
+    "Subtract",
+    Q_ABOVE_SQRT_TWO_BEYOND_DISPLAY_PRECISION,
+    SQRT_TWO,
+  ] as const;
+
+  assert.equal(
+    unwrap(session.isFiniteRealExactMathJson(beyondDisplayPrecision)),
+    true,
+  );
+  for (const input of [
+    "PositiveInfinity",
+    ["Abs", "PositiveInfinity"],
+    ["Add", 1, "PositiveInfinity"],
+    "x",
+    ["Sqrt", -1],
+  ] as const) {
+    assert.equal(unwrap(session.isFiniteRealExactMathJson(input)), false);
+  }
 });
 
 test("uses null decimal and approximation for symbolic or non-finite values", () => {

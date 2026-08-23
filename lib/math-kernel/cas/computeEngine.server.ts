@@ -15,6 +15,11 @@ import type {
 
 const READABLE_MAX_NODES = 32;
 const READABLE_MAX_LATEX_LENGTH = 120;
+// Compute Engine 0.118.1 effectively uses about 21 decimal digits at its
+// runtime default even though its type-level documentation advertises a much
+// higher default. Pin a bounded request-scoped precision so close radicals do
+// not acquire a contradictory renderer sign.
+const MAIS_CAS_DECIMAL_PRECISION = 100;
 
 /**
  * Base-profile operators for MAIS exact arithmetic and relations. Advanced
@@ -47,7 +52,8 @@ const MAIS_CAS_ALLOWED_OPERATORS: ReadonlySet<string> = new Set([
 
 type ComputeExpression = ReturnType<ComputeEngine["box"]>;
 // This is a small proof profile for app-constructed arithmetic, not a general CAS.
-const EXACT_ORDER_REWRITE_DEPTH = 4;
+const EXACT_ORDER_REWRITE_DEPTH = 8;
+const EXACT_FINITE_PROOF_DEPTH = 64;
 
 function casFailure<T>(message: string): KernelResult<T> {
   return {
@@ -78,15 +84,49 @@ function boxValidated(
   });
   if (!validated.ok) return validated;
 
+  // CE 0.118.1 can eagerly rationalize a direct quotient such as
+  // (q - sqrt(2)) / sqrt(2) into a numerically and symbolically corrupted
+  // canonical form. Writing a/b as a*(1/b) before boxing is exact, keeps the
+  // reciprocal grouped, and avoids that rewrite. Revalidate after expansion
+  // so the original MathJSON resource limits still guard the CAS boundary.
+  const normalized = validateMathJson(
+    normalizeSafeDivisions(validated.value),
+    { allowedOperators: MAIS_CAS_ALLOWED_OPERATORS },
+  );
+  if (!normalized.ok) return normalized;
+
   try {
     const expression = engine.box(
-      validated.value as MathJsonExpression,
+      normalized.value as MathJsonExpression,
     );
     if (!expression.isValid) return invalidExpression();
     return { ok: true, value: expression };
   } catch {
     return casFailure("Compute Engine could not box the MathJSON expression.");
   }
+}
+
+function normalizeSafeDivisions(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    const normalized = value.map(normalizeSafeDivisions);
+    if (
+      normalized.length === 3 &&
+      normalized[0] === "Divide" &&
+      normalized[1] !== 1
+    ) {
+      return ["Multiply", normalized[1], ["Divide", 1, normalized[2]]];
+    }
+    return normalized;
+  }
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, child]) => [
+        key,
+        normalizeSafeDivisions(child),
+      ]),
+    );
+  }
+  return value;
 }
 
 function serializeExpression(
@@ -151,6 +191,51 @@ function simplifyMathJsonWithEngine(
   }
 }
 
+interface ExactNumericDisplay {
+  readonly decimal: string | null;
+  readonly approx: number | null;
+}
+
+function exactNumericDisplayWithEngine(
+  engine: ComputeEngine,
+  exact: ComputeExpression,
+): ExactNumericDisplay {
+  try {
+    const numeric = exact.N();
+    const hasFiniteRealDecimal =
+      numeric.isFinite === true &&
+      numeric.isReal === true;
+    if (!hasFiniteRealDecimal) return { decimal: null, approx: null };
+
+    const realApproximation = numeric.re;
+    const exactOrder = exactOrderFromZero(engine, exact);
+    const numericOrder = exactOrderFromZero(engine, numeric);
+    const decimalSignIsConsistent = ordersDoNotContradict(
+      exactOrder,
+      numericOrder,
+    );
+    const approximationSignIsConsistent = ordersDoNotContradict(
+      exactOrder,
+      numberOrder(realApproximation),
+    );
+    const isExactZero = exactOrder === "equal";
+    const hasSafeApproximation =
+      Number.isFinite(realApproximation) &&
+      (realApproximation !== 0 || isExactZero) &&
+      approximationSignIsConsistent;
+
+    return {
+      decimal: decimalSignIsConsistent ? numeric.toString() : null,
+      approx: hasSafeApproximation ? realApproximation : null,
+    };
+  } catch {
+    // The exact MathJSON and LaTeX remain valid even when CE cannot form a
+    // numerical display (for example a close-radical 0/0 cancellation at the
+    // bounded session precision). Never discard or corrupt the exact value.
+    return { decimal: null, approx: null };
+  }
+}
+
 function toExactValueDtoWithEngine(
   engine: ComputeEngine,
   input: unknown,
@@ -163,16 +248,7 @@ function toExactValueDtoWithEngine(
     const mathJson = serializeExpression(exact);
     if (!mathJson.ok) return mathJson;
 
-    const numeric = exact.N();
-    const hasFiniteRealDecimal =
-      numeric.isFinite === true &&
-      numeric.isReal === true;
-    const realApproximation = numeric.re;
-    const isExactZero = exact.isSame(0);
-    const hasSafeApproximation =
-      hasFiniteRealDecimal &&
-      Number.isFinite(realApproximation) &&
-      (realApproximation !== 0 || isExactZero);
+    const display = exactNumericDisplayWithEngine(engine, exact);
 
     return {
       ok: true,
@@ -180,12 +256,43 @@ function toExactValueDtoWithEngine(
         schemaVersion: 1,
         mathJson: mathJson.value,
         latex: exact.latex,
-        decimal: hasFiniteRealDecimal ? numeric.toString() : null,
-        approx: hasSafeApproximation ? realApproximation : null,
+        decimal: display.decimal,
+        approx: display.approx,
       },
     };
   } catch {
     return casFailure("Compute Engine could not create the exact value DTO.");
+  }
+}
+
+function toCanonicalExactValueDtoWithEngine(
+  engine: ComputeEngine,
+  input: unknown,
+): KernelResult<ExactValueDto> {
+  const boxed = boxValidated(engine, input);
+  if (!boxed.ok) return boxed;
+
+  try {
+    const exact = boxed.value;
+    const mathJson = serializeExpression(exact);
+    if (!mathJson.ok) return mathJson;
+
+    const display = exactNumericDisplayWithEngine(engine, exact);
+
+    return {
+      ok: true,
+      value: {
+        schemaVersion: 1,
+        mathJson: mathJson.value,
+        latex: exact.latex,
+        decimal: display.decimal,
+        approx: display.approx,
+      },
+    };
+  } catch {
+    return casFailure(
+      "Compute Engine could not create the canonical exact value DTO.",
+    );
   }
 }
 
@@ -253,6 +360,117 @@ function reverseOrder(order: ExactOrderComparison): ExactOrderComparison {
   if (order === "less") return "greater";
   if (order === "greater") return "less";
   return order;
+}
+
+function numberOrder(value: number): ExactOrderComparison | null {
+  if (!Number.isFinite(value)) return null;
+  if (value < 0) return "less";
+  if (value > 0) return "greater";
+  return "equal";
+}
+
+function ordersDoNotContradict(
+  exact: ExactOrderComparison,
+  displayed: ExactOrderComparison | null,
+): boolean {
+  return exact === "unknown" || displayed === null || exact === displayed;
+}
+
+function exactOrderFromZero(
+  engine: ComputeEngine,
+  expression: ComputeExpression,
+): ExactOrderComparison {
+  if (expression.isReal !== true) return "unknown";
+  return compareExactOrderExpressions(
+    engine,
+    expression,
+    engine.box(0 as MathJsonExpression),
+  );
+}
+
+function structuralOrderFromZero(
+  engine: ComputeEngine,
+  expression: ComputeExpression,
+  depth: number,
+): ExactOrderComparison | null {
+  if (depth >= EXACT_ORDER_REWRITE_DEPTH) return null;
+  const zero = engine.box(0 as MathJsonExpression);
+
+  if (isFunction(expression, "Negate") && expression.nops === 1) {
+    return reverseOrder(
+      compareExactOrderExpressions(engine, expression.op1, zero, depth + 1),
+    );
+  }
+
+  if (isFunction(expression, "Abs") && expression.nops === 1) {
+    const operand = compareExactOrderExpressions(
+      engine,
+      expression.op1,
+      zero,
+      depth + 1,
+    );
+    if (operand === "equal") return "equal";
+    if (operand === "less" || operand === "greater") return "greater";
+    return "unknown";
+  }
+
+  if (isFunction(expression, "Multiply") && expression.nops >= 2) {
+    let negativeFactors = 0;
+    for (const factor of expression.ops) {
+      const order = compareExactOrderExpressions(
+        engine,
+        factor,
+        zero,
+        depth + 1,
+      );
+      if (order === "unknown") return "unknown";
+      if (order === "equal") return "equal";
+      if (order === "less") negativeFactors += 1;
+    }
+    return negativeFactors % 2 === 0 ? "greater" : "less";
+  }
+
+  if (isFunction(expression, "Divide") && expression.nops === 2) {
+    const numerator = compareExactOrderExpressions(
+      engine,
+      expression.op1,
+      zero,
+      depth + 1,
+    );
+    const denominator = compareExactOrderExpressions(
+      engine,
+      expression.op2,
+      zero,
+      depth + 1,
+    );
+    if (denominator === "equal" || denominator === "unknown") return "unknown";
+    if (numerator === "equal") return "equal";
+    if (numerator === "unknown") return "unknown";
+    return numerator === denominator ? "greater" : "less";
+  }
+
+  if (isFunction(expression, "Power") && expression.nops === 2) {
+    const exponent = expression.op2.toMathJson({ fractionalDigits: "auto" });
+    if (
+      typeof exponent !== "number" ||
+      !Number.isSafeInteger(exponent) ||
+      exponent === 0
+    ) {
+      return null;
+    }
+    const base = compareExactOrderExpressions(
+      engine,
+      expression.op1,
+      zero,
+      depth + 1,
+    );
+    if (base === "unknown") return "unknown";
+    if (base === "equal") return exponent > 0 ? "equal" : "unknown";
+    if (Math.abs(exponent) % 2 === 0) return "greater";
+    return base;
+  }
+
+  return null;
 }
 
 function exactBinaryExpression(
@@ -545,6 +763,8 @@ function compareExactOrderExpressions(
   }
 
   if (right.isSame(0) && depth < EXACT_ORDER_REWRITE_DEPTH) {
+    const structural = structuralOrderFromZero(engine, left, depth);
+    if (structural !== null) return structural;
     const explicit = compareExplicitDifferenceFromZero(engine, left, depth);
     if (explicit !== null) return explicit;
   }
@@ -673,6 +893,102 @@ function isReadableExactMathJsonWithEngine(
   }
 }
 
+function isFiniteRealExactMathJsonWithEngine(
+  engine: ComputeEngine,
+  input: unknown,
+): KernelResult<boolean> {
+  const boxed = boxValidated(engine, input);
+  if (!boxed.ok) return boxed;
+
+  try {
+    return {
+      ok: true,
+      value: isProvablyFiniteRealExpression(engine, boxed.value),
+    };
+  } catch {
+    return casFailure(
+      "Compute Engine could not classify the exact constant as finite and real.",
+    );
+  }
+}
+
+function isProvablyFiniteRealExpression(
+  engine: ComputeEngine,
+  expression: ComputeExpression,
+  depth = 0,
+): boolean {
+  if (
+    depth > EXACT_FINITE_PROOF_DEPTH ||
+    expression.unknowns.length !== 0 ||
+    expression.isReal !== true ||
+    expression.isFinite === false
+  ) {
+    return false;
+  }
+  if (expression.isFinite === true) return true;
+
+  const finiteOperands = (): boolean => {
+    if (!isFunction(expression)) return false;
+    return expression.ops.every((operand: ComputeExpression) =>
+      isProvablyFiniteRealExpression(engine, operand, depth + 1));
+  };
+
+  if (
+    (isFunction(expression, "Add") && expression.nops >= 2) ||
+    (isFunction(expression, "Subtract") && expression.nops === 2) ||
+    (isFunction(expression, "Multiply") && expression.nops >= 2) ||
+    (isFunction(expression, "Negate") && expression.nops === 1) ||
+    (isFunction(expression, "Abs") && expression.nops === 1) ||
+    (isFunction(expression, "Square") && expression.nops === 1)
+  ) {
+    return finiteOperands();
+  }
+
+  if (isFunction(expression, "Divide") && expression.nops === 2) {
+    if (!finiteOperands()) return false;
+    const denominatorOrder = compareExactOrderExpressions(
+      engine,
+      expression.op2,
+      engine.box(0 as MathJsonExpression),
+    );
+    return denominatorOrder === "less" || denominatorOrder === "greater";
+  }
+
+  if (isFunction(expression, "Power") && expression.nops === 2) {
+    const exponent = expression.op2.toMathJson({ fractionalDigits: "auto" });
+    if (
+      typeof exponent !== "number" ||
+      !Number.isSafeInteger(exponent) ||
+      !isProvablyFiniteRealExpression(engine, expression.op1, depth + 1)
+    ) {
+      return false;
+    }
+    if (exponent >= 0) return true;
+    const baseOrder = compareExactOrderExpressions(
+      engine,
+      expression.op1,
+      engine.box(0 as MathJsonExpression),
+    );
+    return baseOrder === "less" || baseOrder === "greater";
+  }
+
+  const root = rootExpression(expression);
+  if (root !== null) {
+    if (!isProvablyFiniteRealExpression(engine, root.radicand, depth + 1)) {
+      return false;
+    }
+    if (root.degree % 2 === 1) return true;
+    const radicandOrder = compareExactOrderExpressions(
+      engine,
+      root.radicand,
+      engine.box(0 as MathJsonExpression),
+    );
+    return radicandOrder === "equal" || radicandOrder === "greater";
+  }
+
+  return false;
+}
+
 /**
  * MAIS-owned, request-scoped CAS facade. Its private engine can be reused by a
  * solver during one request without exposing Compute Engine vendor types.
@@ -681,7 +997,7 @@ export class CasSession {
   readonly #engine: ComputeEngine;
 
   constructor() {
-    this.#engine = new ComputeEngine();
+    this.#engine = new ComputeEngine({ precision: MAIS_CAS_DECIMAL_PRECISION });
   }
 
   boxMathJson(input: unknown): KernelResult<MathJsonExpr> {
@@ -694,6 +1010,10 @@ export class CasSession {
 
   toExactValueDto(input: unknown): KernelResult<ExactValueDto> {
     return toExactValueDtoWithEngine(this.#engine, input);
+  }
+
+  toCanonicalExactValueDto(input: unknown): KernelResult<ExactValueDto> {
+    return toCanonicalExactValueDtoWithEngine(this.#engine, input);
   }
 
   compareExactMathJson(
@@ -718,6 +1038,10 @@ export class CasSession {
   isReadableExactMathJson(input: unknown): KernelResult<boolean> {
     return isReadableExactMathJsonWithEngine(this.#engine, input);
   }
+
+  isFiniteRealExactMathJson(input: unknown): KernelResult<boolean> {
+    return isFiniteRealExactMathJsonWithEngine(this.#engine, input);
+  }
 }
 
 export function boxMathJson(input: unknown): KernelResult<MathJsonExpr> {
@@ -730,6 +1054,12 @@ export function simplifyMathJson(input: unknown): KernelResult<MathJsonExpr> {
 
 export function toExactValueDto(input: unknown): KernelResult<ExactValueDto> {
   return new CasSession().toExactValueDto(input);
+}
+
+export function toCanonicalExactValueDto(
+  input: unknown,
+): KernelResult<ExactValueDto> {
+  return new CasSession().toCanonicalExactValueDto(input);
 }
 
 export function compareExactMathJson(
@@ -758,4 +1088,10 @@ export function isReadableExactMathJson(
   input: unknown,
 ): KernelResult<boolean> {
   return new CasSession().isReadableExactMathJson(input);
+}
+
+export function isFiniteRealExactMathJson(
+  input: unknown,
+): KernelResult<boolean> {
+  return new CasSession().isFiniteRealExactMathJson(input);
 }

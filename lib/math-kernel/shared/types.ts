@@ -24,6 +24,12 @@ export interface ExactValueDto {
   readonly approx: number | null;
 }
 
+/** JSON-safe exact three-vector with no Compute Engine values at the boundary. */
+export interface ExactVec3Dto {
+  readonly schemaVersion: 1;
+  readonly components: readonly [ExactValueDto, ExactValueDto, ExactValueDto];
+}
+
 export type ExactComparison = "equal" | "not-equal" | "unknown";
 
 export type ExactOrderComparison =
