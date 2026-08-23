@@ -74,6 +74,7 @@ test("cuboid and cube have stable 8-vertex, 12-edge topology", () => {
   const box = unwrap(cuboid());
   const equalBox = unwrap(cube());
 
+  assert.equal(cube, cuboid);
   assert.deepEqual(box.vertices, [
     "A",
     "B",
@@ -181,6 +182,53 @@ test("topology validation rejects self-loops, duplicate undirected edges, and un
     }),
     KERNEL_ERROR_CODES.unknownVertex,
   );
+});
+
+test("topology validation never throws for malformed unknown input", () => {
+  const invalidInputs: readonly unknown[] = [
+    null,
+    undefined,
+    [],
+    {},
+    { vertices: ["A"] },
+    { edges: [] },
+    { vertices: "A", edges: [] },
+    { vertices: ["A"], edges: {} },
+    { vertices: ["A"], edges: [null] },
+    { vertices: ["A"], edges: [[]] },
+    { vertices: ["A"], edges: ["A-B"] },
+  ];
+
+  for (const input of invalidInputs) {
+    let result: ReturnType<typeof validateBodyTopology> | undefined;
+    assert.doesNotThrow(() => {
+      result = validateBodyTopology(input);
+    });
+    assert.equal(result?.ok, false);
+    if (result?.ok === false) {
+      assert.equal(result.error.code, KERNEL_ERROR_CODES.invalidInput);
+    }
+  }
+});
+
+test("malformed vertex values and edge endpoints return INVALID_VERTEX_ID without throwing", () => {
+  const invalidInputs: readonly unknown[] = [
+    { vertices: [1], edges: [] },
+    { vertices: ["A"], edges: [{ a: 1, b: "A" }] },
+    { vertices: ["A"], edges: [{ a: "A", b: null }] },
+    { vertices: ["A"], edges: [{ a: " ", b: "A" }] },
+  ];
+
+  for (const input of invalidInputs) {
+    let result: ReturnType<typeof validateBodyTopology> | undefined;
+    assert.doesNotThrow(() => {
+      result = validateBodyTopology(input);
+    });
+    assert.equal(result?.ok, false);
+    if (result?.ok === false) {
+      assert.equal(result.error.code, KERNEL_ERROR_CODES.invalidVertexId);
+    }
+  }
 });
 
 test("successful topologies are newly allocated and deeply frozen", () => {

@@ -4,10 +4,12 @@
  * See third_party/edulab for the upstream license and modification notice.
  */
 
-export type ConicAxis = "x" | "y";
-export type Point2D<S> = readonly [S, S];
+import type { JsonValue } from "../shared/types";
 
-export interface Quadratic2D<S> {
+export type ConicAxis = "x" | "y";
+export type Point2D<S extends JsonValue> = readonly [S, S];
+
+export interface Quadratic2D<S extends JsonValue> {
   readonly x2: S;
   readonly xy: S;
   readonly y2: S;
@@ -16,12 +18,12 @@ export interface Quadratic2D<S> {
   readonly constant: S;
 }
 
-export interface Directrix<S> {
+export interface Directrix<S extends JsonValue> {
   readonly axis: ConicAxis;
   readonly value: S;
 }
 
-export interface EllipseModel<S> {
+export interface EllipseModel<S extends JsonValue> {
   readonly kind: "ellipse";
   /** x-direction and y-direction semiaxes, respectively. */
   readonly a: S;
@@ -41,7 +43,7 @@ export interface EllipseModel<S> {
   readonly quadratic: Quadratic2D<S>;
 }
 
-export interface HyperbolaModel<S> {
+export interface HyperbolaModel<S extends JsonValue> {
   readonly kind: "hyperbola";
   /** Transverse and conjugate semiaxes, respectively. */
   readonly a: S;
@@ -57,7 +59,7 @@ export interface HyperbolaModel<S> {
   readonly quadratic: Quadratic2D<S>;
 }
 
-export interface ParabolaModel<S> {
+export interface ParabolaModel<S extends JsonValue> {
   readonly kind: "parabola";
   readonly p: S;
   readonly vertex: Point2D<S>;
@@ -67,7 +69,7 @@ export interface ParabolaModel<S> {
   readonly quadratic: Quadratic2D<S>;
 }
 
-export interface CircleModel<S> {
+export interface CircleModel<S extends JsonValue> {
   readonly kind: "circle";
   readonly r: S;
   readonly center: Point2D<S>;
@@ -80,7 +82,7 @@ export interface CircleModel<S> {
   readonly quadratic: Quadratic2D<S>;
 }
 
-export type ConicModel<S> =
+export type ConicModel<S extends JsonValue> =
   | EllipseModel<S>
   | HyperbolaModel<S>
   | ParabolaModel<S>
@@ -99,6 +101,8 @@ export interface ConicRenderSpec {
   readonly branches: readonly ConicRenderBranch[];
 }
 
-export function toQuadratic2D<S>(model: ConicModel<S>): Quadratic2D<S> {
+export function toQuadratic2D<S extends JsonValue>(
+  model: ConicModel<S>,
+): Quadratic2D<S> {
   return model.quadratic;
 }

@@ -64,6 +64,58 @@ function finite(values: readonly number[]): boolean {
   return true;
 }
 
+function unsafeDerived<T>(label: string): KernelResult<T> {
+  return fail(
+    KERNEL_ERROR_CODES.nonFiniteInput,
+    `${label} cannot be represented as a non-zero finite JavaScript number.`,
+    { label },
+  );
+}
+
+function safeSquare(value: number, label: string): KernelResult<number> {
+  const squared = value * value;
+  return Number.isFinite(squared) && (value === 0 || squared !== 0)
+    ? { ok: true, value: squared }
+    : unsafeDerived(label);
+}
+
+function safeDouble(value: number, label: string): KernelResult<number> {
+  const doubled = 2 * value;
+  return Number.isFinite(doubled) && (value === 0 || doubled !== 0)
+    ? { ok: true, value: doubled }
+    : unsafeDerived(label);
+}
+
+function safeHalf(value: number, label: string): KernelResult<number> {
+  const halved = value / 2;
+  return Number.isFinite(halved) && (value === 0 || halved !== 0)
+    ? { ok: true, value: halved }
+    : unsafeDerived(label);
+}
+
+function nonZeroFinite(value: number, label: string): KernelResult<number> {
+  return Number.isFinite(value) && value !== 0
+    ? { ok: true, value }
+    : unsafeDerived(label);
+}
+
+function containsOnlyFiniteNumbers(value: unknown): boolean {
+  if (typeof value === "number") return Number.isFinite(value);
+  if (Array.isArray(value)) {
+    return value.every(containsOnlyFiniteNumbers);
+  }
+  if (value && typeof value === "object") {
+    return Object.values(value).every(containsOnlyFiniteNumbers);
+  }
+  return true;
+}
+
+function finiteModel<T extends ConicModel<number>>(model: T): KernelResult<T> {
+  return containsOnlyFiniteNumbers(model)
+    ? { ok: true, value: model }
+    : unsafeDerived("derived conic model");
+}
+
 function validAxis(axis: unknown): axis is ConicAxis {
   return axis === "x" || axis === "y";
 }
@@ -126,9 +178,24 @@ export function ellipseNumeric(
   const center = validatePoint(options.center ?? [0, 0], "center");
   if (!center.ok) return center;
   const [cx, cy] = center.value;
-  const c = Math.sqrt(Math.abs(options.a * options.a - options.b * options.b));
+  const aSquared = safeSquare(options.a, "a squared");
+  if (!aSquared.ok) return aSquared;
+  const bSquared = safeSquare(options.b, "b squared");
+  if (!bSquared.ok) return bSquared;
+  const focalSquare = Math.abs(aSquared.value - bSquared.value);
+  if (focalSquare === 0 || !Number.isFinite(focalSquare)) {
+    return unsafeDerived("ellipse focal distance squared");
+  }
+  const c = Math.sqrt(focalSquare);
   const major = derivedMajorAxis === "x" ? options.a : options.b;
-  const directrixOffset = (major * major) / c;
+  const majorSquared = derivedMajorAxis === "x" ? aSquared.value : bSquared.value;
+  const eccentricity = nonZeroFinite(c / major, "ellipse eccentricity");
+  if (!eccentricity.ok) return eccentricity;
+  const directrixOffset = nonZeroFinite(
+    majorSquared / c,
+    "ellipse directrix offset",
+  );
+  if (!directrixOffset.ok) return directrixOffset;
   const foci: EllipseModel<number>["foci"] =
     derivedMajorAxis === "x"
       ? [[cx - c, cy], [cx + c, cy]]
@@ -147,8 +214,8 @@ export function ellipseNumeric(
           [cx - options.a, cy],
           [cx + options.a, cy],
         ];
-  const a2 = options.a * options.a;
-  const b2 = options.b * options.b;
+  const a2 = aSquared.value;
+  const b2 = bSquared.value;
   const quadratic: Quadratic2D<number> = {
     x2: 1 / a2,
     xy: 0,
@@ -157,31 +224,28 @@ export function ellipseNumeric(
     y: (-2 * cy) / b2,
     constant: (cx * cx) / a2 + (cy * cy) / b2 - 1,
   };
-  return {
-    ok: true,
-    value: {
+  return finiteModel({
       kind: "ellipse",
       a: options.a,
       b: options.b,
       center: center.value,
       majorAxis: derivedMajorAxis,
       c,
-      eccentricity: c / major,
+      eccentricity: eccentricity.value,
       foci,
       directrices:
         derivedMajorAxis === "x"
           ? [
-              { axis: "x", value: cx - directrixOffset },
-              { axis: "x", value: cx + directrixOffset },
+              { axis: "x", value: cx - directrixOffset.value },
+              { axis: "x", value: cx + directrixOffset.value },
             ]
           : [
-              { axis: "y", value: cy - directrixOffset },
-              { axis: "y", value: cy + directrixOffset },
+              { axis: "y", value: cy - directrixOffset.value },
+              { axis: "y", value: cy + directrixOffset.value },
             ],
       vertices,
       quadratic,
-    },
-  };
+  });
 }
 
 export function hyperbolaNumeric(
@@ -196,10 +260,19 @@ export function hyperbolaNumeric(
   const center = validatePoint(options.center ?? [0, 0], "center");
   if (!center.ok) return center;
   const [cx, cy] = center.value;
-  const a2 = options.a * options.a;
-  const b2 = options.b * options.b;
-  const c = Math.sqrt(a2 + b2);
-  const directrixOffset = a2 / c;
+  const aSquared = safeSquare(options.a, "a squared");
+  if (!aSquared.ok) return aSquared;
+  const bSquared = safeSquare(options.b, "b squared");
+  if (!bSquared.ok) return bSquared;
+  const a2 = aSquared.value;
+  const b2 = bSquared.value;
+  const focalSquare = a2 + b2;
+  if (!Number.isFinite(focalSquare) || focalSquare === 0) {
+    return unsafeDerived("hyperbola focal distance squared");
+  }
+  const c = Math.sqrt(focalSquare);
+  const directrixOffset = nonZeroFinite(a2 / c, "hyperbola directrix offset");
+  if (!directrixOffset.ok) return directrixOffset;
   const foci: HyperbolaModel<number>["foci"] =
     orientation === "x"
       ? [[cx - c, cy], [cx + c, cy]]
@@ -226,10 +299,12 @@ export function hyperbolaNumeric(
           y: (-2 * cy) / a2,
           constant: -(cx * cx) / b2 + (cy * cy) / a2 - 1,
         };
-  const slope = orientation === "x" ? options.b / options.a : options.a / options.b;
-  return {
-    ok: true,
-    value: {
+  const slope = nonZeroFinite(
+    orientation === "x" ? options.b / options.a : options.a / options.b,
+    "hyperbola asymptote slope",
+  );
+  if (!slope.ok) return slope;
+  return finiteModel({
       kind: "hyperbola",
       a: options.a,
       b: options.b,
@@ -241,18 +316,17 @@ export function hyperbolaNumeric(
       directrices:
         orientation === "x"
           ? [
-              { axis: "x", value: cx - directrixOffset },
-              { axis: "x", value: cx + directrixOffset },
+              { axis: "x", value: cx - directrixOffset.value },
+              { axis: "x", value: cx + directrixOffset.value },
             ]
           : [
-              { axis: "y", value: cy - directrixOffset },
-              { axis: "y", value: cy + directrixOffset },
+              { axis: "y", value: cy - directrixOffset.value },
+              { axis: "y", value: cy + directrixOffset.value },
             ],
       vertices,
-      asymptoteSlopes: [slope, -slope],
+      asymptoteSlopes: [slope.value, -slope.value],
       quadratic,
-    },
-  };
+  });
 }
 
 export function parabolaNumeric(
@@ -274,20 +348,23 @@ export function parabolaNumeric(
   const vertex = validatePoint(options.vertex ?? [0, 0], "vertex");
   if (!vertex.ok) return vertex;
   const [cx, cy] = vertex.value;
-  const halfP = options.p / 2;
+  const halfP = safeHalf(options.p, "p divided by two");
+  if (!halfP.ok) return halfP;
+  const twoP = safeDouble(options.p, "two times p");
+  if (!twoP.ok) return twoP;
   const focus: Point2D<number> =
-    orientation === "x" ? [cx + halfP, cy] : [cx, cy + halfP];
+    orientation === "x" ? [cx + halfP.value, cy] : [cx, cy + halfP.value];
   const directrix =
     orientation === "x"
-      ? { axis: "x" as const, value: cx - halfP }
-      : { axis: "y" as const, value: cy - halfP };
+      ? { axis: "x" as const, value: cx - halfP.value }
+      : { axis: "y" as const, value: cy - halfP.value };
   const quadratic: Quadratic2D<number> =
     orientation === "x"
       ? {
           x2: 0,
           xy: 0,
           y2: 1,
-          x: -2 * options.p,
+          x: -twoP.value,
           y: -2 * cy,
           constant: cy * cy + 2 * options.p * cx,
         }
@@ -296,12 +373,10 @@ export function parabolaNumeric(
           xy: 0,
           y2: 0,
           x: -2 * cx,
-          y: -2 * options.p,
+          y: -twoP.value,
           constant: cx * cx + 2 * options.p * cy,
         };
-  return {
-    ok: true,
-    value: {
+  return finiteModel({
       kind: "parabola",
       p: options.p,
       vertex: vertex.value,
@@ -309,8 +384,7 @@ export function parabolaNumeric(
       focus,
       directrix,
       quadratic,
-    },
-  };
+  });
 }
 
 export function circleNumeric(
@@ -322,9 +396,9 @@ export function circleNumeric(
   if (!center.ok) return center;
   const [cx, cy] = center.value;
   const r = options.r;
-  return {
-    ok: true,
-    value: {
+  const radiusSquared = safeSquare(r, "radius squared");
+  if (!radiusSquared.ok) return radiusSquared;
+  return finiteModel({
       kind: "circle",
       r,
       center: center.value,
@@ -340,10 +414,9 @@ export function circleNumeric(
         y2: 1,
         x: -2 * cx,
         y: -2 * cy,
-        constant: cx * cx + cy * cy - r * r,
+        constant: cx * cx + cy * cy - radiusSquared.value,
       },
-    },
-  };
+  });
 }
 
 function sampleParameters(

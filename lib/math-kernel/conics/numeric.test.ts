@@ -206,6 +206,55 @@ test("numeric constructors reject non-finite, non-positive, degenerate, and inva
   );
 });
 
+test("numeric constructors reject finite inputs whose derived values overflow", () => {
+  const cases = [
+    circleNumeric({ r: 1e308 }),
+    circleNumeric({ r: 1, center: [1e308, 1e308] }),
+    ellipseNumeric({ a: 1e308, b: 1e307 }),
+    hyperbolaNumeric({ a: 1e308, b: 1e307 }),
+    parabolaNumeric({ p: 1e308 }),
+  ];
+
+  for (const result of cases) {
+    expectError(result, KERNEL_ERROR_CODES.nonFiniteInput);
+  }
+});
+
+test("numeric constructors reject non-zero defining quantities that underflow to zero", () => {
+  const tiny = Number.MIN_VALUE;
+  const cases = [
+    circleNumeric({ r: tiny }),
+    ellipseNumeric({ a: tiny * 2, b: tiny }),
+    hyperbolaNumeric({ a: tiny, b: tiny }),
+    parabolaNumeric({ p: tiny }),
+    parabolaNumeric({ p: -tiny }),
+  ];
+
+  for (const result of cases) {
+    expectError(result, KERNEL_ERROR_CODES.nonFiniteInput);
+  }
+});
+
+test("every successful numeric model contains only finite JSON numbers", () => {
+  const models = [
+    unwrap(circleNumeric({ r: 3, center: [-2, 5] })),
+    unwrap(ellipseNumeric({ a: 4, b: 2, center: [1, -3] })),
+    unwrap(hyperbolaNumeric({ a: 2, b: 3, center: [-4, 1] })),
+    unwrap(parabolaNumeric({ p: -2, vertex: [3, -1] })),
+  ];
+
+  for (const model of models) {
+    const serialized = JSON.stringify(model);
+    assert.doesNotMatch(serialized, /null/);
+    const visit = (value: unknown): void => {
+      if (typeof value === "number") assert.equal(Number.isFinite(value), true);
+      else if (Array.isArray(value)) value.forEach(visit);
+      else if (value && typeof value === "object") Object.values(value).forEach(visit);
+    };
+    visit(model);
+  }
+});
+
 test("rendering validates sample counts and finite ascending parameter ranges", () => {
   const ellipse = unwrap(ellipseNumeric({ a: 3, b: 2 }));
   expectError(

@@ -185,6 +185,15 @@ test("exact construction does not require values to fit in a JavaScript number",
   );
 });
 
+test("exact-to-numeric conversion inherits numeric derived-value safety", () => {
+  const session = new CasSession();
+  const exact = unwrap(circleExact({ r: ["Power", 10, 200] }, session));
+  expectError(
+    exactConicToNumeric(exact, session),
+    KERNEL_ERROR_CODES.nonFiniteInput,
+  );
+});
+
 test("exact constructors return stable errors for invalid constants and axes", () => {
   expectError(
     ellipseExact({ a: 0, b: 2 }),

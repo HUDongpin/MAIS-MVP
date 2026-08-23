@@ -67,63 +67,130 @@ function requireArity<T>(
  */
 export function validateBodyTopology<VertexId extends string>(
   topology: BodyTopology<VertexId>,
-): KernelResult<BodyTopology<VertexId>> {
-  const vertexIndex = new Map<VertexId, number>();
+): KernelResult<BodyTopology<VertexId>>;
+export function validateBodyTopology(
+  topology: unknown,
+): KernelResult<BodyTopology<string>>;
+export function validateBodyTopology(
+  topology: unknown,
+): KernelResult<BodyTopology<string>> {
+  try {
+    if (!isPlainRecord(topology)) {
+      return fail(
+        KERNEL_ERROR_CODES.invalidInput,
+        "A body topology must be a plain object.",
+      );
+    }
+    const vertices = ownDataProperty(topology, "vertices");
+    const edges = ownDataProperty(topology, "edges");
+    if (!Array.isArray(vertices) || !Array.isArray(edges)) {
+      return fail(
+        KERNEL_ERROR_CODES.invalidInput,
+        "A body topology must contain vertices and edges arrays.",
+      );
+    }
 
-  for (let index = 0; index < topology.vertices.length; index += 1) {
-    const vertex = topology.vertices[index];
-    if (typeof vertex !== "string" || vertex.trim().length === 0) {
-      return fail(
-        KERNEL_ERROR_CODES.invalidVertexId,
-        "Vertex identifiers must be non-empty strings.",
-        { index },
-      );
+    const vertexIndex = new Map<string, number>();
+    for (let index = 0; index < vertices.length; index += 1) {
+      const vertex = vertices[index];
+      if (typeof vertex !== "string" || vertex.trim().length === 0) {
+        return fail(
+          KERNEL_ERROR_CODES.invalidVertexId,
+          "Vertex identifiers must be non-empty strings.",
+          { index },
+        );
+      }
+      if (vertexIndex.has(vertex)) {
+        return fail(
+          KERNEL_ERROR_CODES.duplicateVertex,
+          `Vertex identifier ${JSON.stringify(vertex)} occurs more than once.`,
+          { index, vertex },
+        );
+      }
+      vertexIndex.set(vertex, index);
     }
-    if (vertexIndex.has(vertex)) {
-      return fail(
-        KERNEL_ERROR_CODES.duplicateVertex,
-        `Vertex identifier ${JSON.stringify(vertex)} occurs more than once.`,
-        { index, vertex },
-      );
+
+    const seenEdges = new Set<string>();
+    const frozenEdges: TopologyEdge<string>[] = [];
+    for (let index = 0; index < edges.length; index += 1) {
+      const current = edges[index];
+      if (!isPlainRecord(current)) {
+        return fail(
+          KERNEL_ERROR_CODES.invalidInput,
+          "Every topology edge must be a plain object.",
+          { edgeIndex: index },
+        );
+      }
+      const a = ownDataProperty(current, "a");
+      const b = ownDataProperty(current, "b");
+      if (
+        typeof a !== "string" ||
+        typeof b !== "string" ||
+        a.trim().length === 0 ||
+        b.trim().length === 0
+      ) {
+        return fail(
+          KERNEL_ERROR_CODES.invalidVertexId,
+          "Edge endpoints must be non-empty vertex identifiers.",
+          { edgeIndex: index },
+        );
+      }
+      const aIndex = vertexIndex.get(a);
+      const bIndex = vertexIndex.get(b);
+      if (aIndex === undefined || bIndex === undefined) {
+        return fail(
+          KERNEL_ERROR_CODES.unknownVertex,
+          "Every edge endpoint must identify a topology vertex.",
+          { edgeIndex: index, a, b },
+        );
+      }
+      if (a === b) {
+        return fail(
+          KERNEL_ERROR_CODES.selfLoopEdge,
+          "Topology edges must connect two different vertices.",
+          { edgeIndex: index, vertex: a },
+        );
+      }
+      const key = aIndex < bIndex ? `${aIndex}:${bIndex}` : `${bIndex}:${aIndex}`;
+      if (seenEdges.has(key)) {
+        return fail(
+          KERNEL_ERROR_CODES.duplicateEdge,
+          "A topology cannot contain the same undirected edge twice.",
+          { edgeIndex: index, a, b },
+        );
+      }
+      seenEdges.add(key);
+      frozenEdges.push(Object.freeze({ a, b }));
     }
-    vertexIndex.set(vertex, index);
+
+    const frozenVertices = Object.freeze([...vertexIndex.keys()]);
+    const frozenEdgeArray = Object.freeze(frozenEdges);
+    return {
+      ok: true,
+      value: Object.freeze({ vertices: frozenVertices, edges: frozenEdgeArray }),
+    };
+  } catch {
+    return fail(
+      KERNEL_ERROR_CODES.invalidInput,
+      "The body topology could not be safely inspected.",
+    );
   }
+}
 
-  const seenEdges = new Set<string>();
-  const frozenEdges: TopologyEdge<VertexId>[] = [];
-  for (let index = 0; index < topology.edges.length; index += 1) {
-    const current = topology.edges[index];
-    const aIndex = vertexIndex.get(current.a);
-    const bIndex = vertexIndex.get(current.b);
-    if (aIndex === undefined || bIndex === undefined) {
-      return fail(
-        KERNEL_ERROR_CODES.unknownVertex,
-        "Every edge endpoint must identify a topology vertex.",
-        { edgeIndex: index, a: current.a, b: current.b },
-      );
-    }
-    if (current.a === current.b) {
-      return fail(
-        KERNEL_ERROR_CODES.selfLoopEdge,
-        "Topology edges must connect two different vertices.",
-        { edgeIndex: index, vertex: current.a },
-      );
-    }
-    const key = aIndex < bIndex ? `${aIndex}:${bIndex}` : `${bIndex}:${aIndex}`;
-    if (seenEdges.has(key)) {
-      return fail(
-        KERNEL_ERROR_CODES.duplicateEdge,
-        "A topology cannot contain the same undirected edge twice.",
-        { edgeIndex: index, a: current.a, b: current.b },
-      );
-    }
-    seenEdges.add(key);
-    frozenEdges.push(Object.freeze({ a: current.a, b: current.b }));
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    return false;
   }
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
 
-  const vertices = Object.freeze([...topology.vertices]);
-  const edges = Object.freeze(frozenEdges);
-  return { ok: true, value: Object.freeze({ vertices, edges }) };
+function ownDataProperty(
+  value: Record<string, unknown>,
+  key: string,
+): unknown {
+  const descriptor = Object.getOwnPropertyDescriptor(value, key);
+  return descriptor && "value" in descriptor ? descriptor.value : undefined;
 }
 
 export function quadPyramid<VertexId extends string = string>(
@@ -201,11 +268,7 @@ export function cuboid<VertexId extends string = string>(
 }
 
 /** A cube has the same topology as a cuboid; edge lengths live in coordinates. */
-export function cube<VertexId extends string = string>(
-  options: CuboidOptions<VertexId> = {},
-): KernelResult<BodyTopology<VertexId>> {
-  return cuboid(options);
-}
+export const cube = cuboid;
 
 export function prism<VertexId extends string = string>(
   options: PrismOptions<VertexId> = {},
