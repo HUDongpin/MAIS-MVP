@@ -36,6 +36,9 @@ type ParentPostgresScopedMutationAdapterDependencies = {
 
 type ScopedRow = Record<string, unknown>;
 
+const parentScopedMutationLockTimeout = "1000ms";
+const parentScopedMutationStatementTimeout = "5000ms";
+
 function arrayField<T>(row: ScopedRow, field: string): T[] {
   const value = row[field];
   if (!Array.isArray(value)) {
@@ -47,6 +50,43 @@ function arrayField<T>(row: ScopedRow, field: string): T[] {
 function assertScopedSchema(row: ScopedRow, area: "message" | "notice") {
   if (row.schema_valid !== true) {
     throw new Error(`Parent ${area} Postgres scoped state schema is unavailable.`);
+  }
+}
+
+function scopedCountField(row: ScopedRow, field: string) {
+  const value = row[field];
+  if (!Number.isSafeInteger(value) || (value as number) < 0) {
+    throw new Error(`Parent Postgres scoped state count ${field} is unavailable.`);
+  }
+  return value as number;
+}
+
+function assertMessageTargetIntegrity(row: ScopedRow) {
+  const authorizedThreadCount = scopedCountField(row, "authorized_thread_count");
+  const globalThreadCount = scopedCountField(row, "global_thread_count");
+  if (
+    authorizedThreadCount > 0 &&
+    (authorizedThreadCount !== 1 || globalThreadCount !== 1)
+  ) {
+    throw new Error("Parent message Postgres scoped target integrity is unavailable.");
+  }
+}
+
+function assertNoticeTargetIntegrity(row: ScopedRow) {
+  const authorizedRecipientCount = scopedCountField(row, "authorized_recipient_count");
+  const globalRecipientCount = scopedCountField(row, "global_recipient_count");
+  const authorizedNoticeCount = scopedCountField(row, "authorized_notice_count");
+  const globalNoticeCount = scopedCountField(row, "global_notice_count");
+  if (
+    authorizedRecipientCount > 0 &&
+    (
+      authorizedRecipientCount !== 1 ||
+      globalRecipientCount !== 1 ||
+      authorizedNoticeCount !== 1 ||
+      globalNoticeCount !== 1
+    )
+  ) {
+    throw new Error("Parent notice Postgres scoped target integrity is unavailable.");
   }
 }
 
@@ -220,6 +260,10 @@ function assertSynchronousMutation(value: unknown) {
     (typeof value === "object" || typeof value === "function") &&
     typeof (value as { then?: unknown }).then === "function"
   ) {
+    // The mutator contract is synchronous because no provider or transport I/O may
+    // outlive the database transaction. Still consume a rejected thenable before
+    // rejecting the contract violation so it cannot surface as an unhandled rejection.
+    void Promise.resolve(value).catch(() => undefined);
     throw new Error("Parent Postgres scoped mutations must not await provider or transport I/O.");
   }
 }
@@ -266,6 +310,15 @@ async function lockParentStateRow(
   }
 }
 
+async function configureParentScopedMutationTimeouts(sql: ParentPostgresSql) {
+  await sql`
+    /* parent_scoped_mutation_timeouts */
+    SELECT
+      set_config('lock_timeout', ${parentScopedMutationLockTimeout}, true),
+      set_config('statement_timeout', ${parentScopedMutationStatementTimeout}, true)
+  `;
+}
+
 async function loadCreateScope(
   sql: ParentPostgresSql,
   state: ParentPostgresStateIdentity,
@@ -294,12 +347,29 @@ async function loadCreateScope(
         LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_reports') AS records(record)
       WHERE record->>'id' = ${reportId}
     ),
-    thread_records AS (
+    thread_candidates AS (
       SELECT record
       FROM scoped_state,
         LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_messages') AS records(record)
       WHERE record->>'guardian_id' = ${scope.parentId}
         AND record->>'parent_idempotency_key_hash' = ${scope.idempotencyKeyHash}
+    ),
+    thread_integrity AS (
+      SELECT
+        (SELECT COUNT(*)::integer FROM thread_candidates) AS authorized_thread_count,
+        (
+          SELECT COUNT(*)::integer
+          FROM scoped_state,
+            LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_messages') AS records(record)
+          WHERE record->>'id' IN (SELECT record->>'id' FROM thread_candidates)
+        ) AS global_thread_count
+    ),
+    thread_records AS (
+      SELECT candidate.record
+      FROM thread_candidates AS candidate
+      CROSS JOIN thread_integrity
+      WHERE thread_integrity.authorized_thread_count = 1
+        AND thread_integrity.global_thread_count = 1
     ),
     relevant_teacher_ids AS (
       SELECT record->>'teacher_id' AS teacher_id FROM class_records
@@ -326,6 +396,8 @@ async function loadCreateScope(
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_messages') = 'array'
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_message_entries') = 'array'
       ) AS schema_valid,
+      thread_integrity.authorized_thread_count AS authorized_thread_count,
+      thread_integrity.global_thread_count AS global_thread_count,
       COALESCE((
         SELECT jsonb_agg(record)
         FROM jsonb_array_elements(scoped_state.scoped_payload->'users') AS records(record)
@@ -372,11 +444,13 @@ async function loadCreateScope(
       COALESCE((SELECT jsonb_agg(record) FROM thread_records), '[]'::jsonb) AS teacher_messages,
       COALESCE((SELECT jsonb_agg(record) FROM entry_records), '[]'::jsonb) AS teacher_message_entries
     FROM scoped_state
+    CROSS JOIN thread_integrity
   `;
   if (rows.length !== 1) {
     throw new Error("Parent message Postgres state marker is unavailable.");
   }
   assertScopedSchema(rows[0], "message");
+  assertMessageTargetIntegrity(rows[0]);
   return messageDatabaseFromRow(rows[0], scope);
 }
 
@@ -395,12 +469,29 @@ async function loadReplyScope(
         AND state.state_kind = ${state.stateKind}
         AND state.schema_version = ${state.schemaVersion}
     ),
-    thread_records AS (
+    thread_candidates AS (
       SELECT record
       FROM scoped_state,
         LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_messages') AS records(record)
       WHERE record->>'id' = ${scope.threadId}
         AND record->>'guardian_id' = ${scope.parentId}
+    ),
+    thread_integrity AS (
+      SELECT
+        (SELECT COUNT(*)::integer FROM thread_candidates) AS authorized_thread_count,
+        (
+          SELECT COUNT(*)::integer
+          FROM scoped_state,
+            LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_messages') AS records(record)
+          WHERE record->>'id' = ${scope.threadId}
+        ) AS global_thread_count
+    ),
+    thread_records AS (
+      SELECT candidate.record
+      FROM thread_candidates AS candidate
+      CROSS JOIN thread_integrity
+      WHERE thread_integrity.authorized_thread_count = 1
+        AND thread_integrity.global_thread_count = 1
     ),
     entry_records AS (
       SELECT record
@@ -427,6 +518,8 @@ async function loadReplyScope(
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_messages') = 'array'
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_message_entries') = 'array'
       ) AS schema_valid,
+      thread_integrity.authorized_thread_count AS authorized_thread_count,
+      thread_integrity.global_thread_count AS global_thread_count,
       COALESCE((
         SELECT jsonb_agg(record)
         FROM jsonb_array_elements(scoped_state.scoped_payload->'users') AS records(record)
@@ -477,11 +570,13 @@ async function loadReplyScope(
       COALESCE((SELECT jsonb_agg(record) FROM thread_records), '[]'::jsonb) AS teacher_messages,
       COALESCE((SELECT jsonb_agg(record ORDER BY record->>'created_at', record->>'id') FROM entry_records), '[]'::jsonb) AS teacher_message_entries
     FROM scoped_state
+    CROSS JOIN thread_integrity
   `;
   if (rows.length !== 1) {
     throw new Error("Parent message Postgres state marker is unavailable.");
   }
   assertScopedSchema(rows[0], "message");
+  assertMessageTargetIntegrity(rows[0]);
   return messageDatabaseFromRow(rows[0], scope);
 }
 
@@ -510,16 +605,56 @@ async function loadAckScope(
         AND state.state_kind = ${state.stateKind}
         AND state.schema_version = ${state.schemaVersion}
     ),
-    recipient_records AS (
+    recipient_candidates AS (
       SELECT record
       FROM scoped_state,
         LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_notice_recipients') AS records(record)
       WHERE record->>'id' = ${scope.recipientId}
         AND record->>'guardian_id' = ${scope.parentId}
     ),
+    recipient_integrity AS (
+      SELECT
+        (SELECT COUNT(*)::integer FROM recipient_candidates) AS authorized_recipient_count,
+        (
+          SELECT COUNT(*)::integer
+          FROM scoped_state,
+            LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_notice_recipients') AS records(record)
+          WHERE record->>'id' = ${scope.recipientId}
+        ) AS global_recipient_count
+    ),
+    recipient_records AS (
+      SELECT candidate.record
+      FROM recipient_candidates AS candidate
+      CROSS JOIN recipient_integrity
+      WHERE recipient_integrity.authorized_recipient_count = 1
+        AND recipient_integrity.global_recipient_count = 1
+    ),
     recipient_context AS (
       SELECT record->>'student_id' AS student_id, record->>'notice_id' AS notice_id
       FROM recipient_records
+    ),
+    notice_candidates AS (
+      SELECT record
+      FROM scoped_state,
+        LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_notices') AS records(record)
+      WHERE record->>'id' IN (SELECT notice_id FROM recipient_context)
+    ),
+    notice_integrity AS (
+      SELECT
+        (SELECT COUNT(*)::integer FROM notice_candidates) AS authorized_notice_count,
+        (
+          SELECT COUNT(*)::integer
+          FROM scoped_state,
+            LATERAL jsonb_array_elements(scoped_state.scoped_payload->'teacher_notices') AS records(record)
+          WHERE record->>'id' IN (SELECT notice_id FROM recipient_context)
+        ) AS global_notice_count
+    ),
+    notice_records AS (
+      SELECT candidate.record
+      FROM notice_candidates AS candidate
+      CROSS JOIN notice_integrity
+      WHERE notice_integrity.authorized_notice_count = 1
+        AND notice_integrity.global_notice_count = 1
     )
     SELECT
       (
@@ -528,6 +663,10 @@ async function loadAckScope(
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_notice_recipients') = 'array'
         AND jsonb_typeof(scoped_state.scoped_payload->'teacher_notices') = 'array'
       ) AS schema_valid,
+      recipient_integrity.authorized_recipient_count AS authorized_recipient_count,
+      recipient_integrity.global_recipient_count AS global_recipient_count,
+      notice_integrity.authorized_notice_count AS authorized_notice_count,
+      notice_integrity.global_notice_count AS global_notice_count,
       COALESCE((
         SELECT jsonb_agg(record)
         FROM jsonb_array_elements(scoped_state.scoped_payload->'users') AS records(record)
@@ -545,18 +684,17 @@ async function loadAckScope(
       '[]'::jsonb AS teacher_classes,
       '[]'::jsonb AS teacher_notice_delivery_attempts,
       COALESCE((SELECT jsonb_agg(record) FROM recipient_records), '[]'::jsonb) AS teacher_notice_recipients,
-      COALESCE((
-        SELECT jsonb_agg(record)
-        FROM jsonb_array_elements(scoped_state.scoped_payload->'teacher_notices') AS records(record)
-        WHERE record->>'id' IN (SELECT notice_id FROM recipient_context)
-      ), '[]'::jsonb) AS teacher_notices,
+      COALESCE((SELECT jsonb_agg(record) FROM notice_records), '[]'::jsonb) AS teacher_notices,
       '[]'::jsonb AS teacher_review_lessons
     FROM scoped_state
+    CROSS JOIN recipient_integrity
+    CROSS JOIN notice_integrity
   `;
   if (rows.length !== 1) {
     throw new Error("Parent notice Postgres state marker is unavailable.");
   }
   assertScopedSchema(rows[0], "notice");
+  assertNoticeTargetIntegrity(rows[0]);
   return noticeDatabaseFromRow(rows[0], scope);
 }
 
@@ -672,6 +810,10 @@ async function patchMessageReply(
               SELECT jsonb_agg(
                 CASE
                   WHEN record->>'id' = ${thread.id}
+                    AND record->>'guardian_id' = ${scope.parentId}
+                    AND record->>'student_id' = ${thread.student_id}
+                    AND record->>'teacher_id' = ${thread.teacher_id}
+                    AND COALESCE(record->>'class_id', '') = ${thread.class_id ?? ""}
                     THEN record || jsonb_build_object(
                       'latest_message', ${thread.latest_message}::text,
                       'status', ${thread.status}::text,
@@ -705,12 +847,20 @@ async function patchMessageReply(
           AND record->>'role' = 'parent'
           AND COALESCE(record->>'disabled_at', '') = ''
       )
-      AND EXISTS (
-        SELECT 1
+      AND (
+        SELECT COUNT(*)
         FROM jsonb_array_elements(state.payload->'teacher_messages') AS records(record)
         WHERE record->>'id' = ${scope.threadId}
+      ) = 1
+      AND (
+        SELECT COUNT(*)
+        FROM jsonb_array_elements(state.payload->'teacher_messages') AS records(record)
+        WHERE record->>'id' = ${thread.id}
           AND record->>'guardian_id' = ${scope.parentId}
-      )
+          AND record->>'student_id' = ${thread.student_id}
+          AND record->>'teacher_id' = ${thread.teacher_id}
+          AND COALESCE(record->>'class_id', '') = ${thread.class_id ?? ""}
+      ) = 1
       AND NOT EXISTS (
         SELECT 1
         FROM jsonb_array_elements(state.payload->'teacher_message_entries') AS records(record)
@@ -875,6 +1025,9 @@ async function patchNoticeAck(
               SELECT jsonb_agg(
                 CASE
                   WHEN record->>'id' = ${recipient.id}
+                    AND record->>'guardian_id' = ${scope.parentId}
+                    AND record->>'student_id' = ${recipient.student_id}
+                    AND record->>'notice_id' = ${recipient.notice_id}
                     THEN record || jsonb_build_object(
                       'status', ${recipient.status}::text,
                       'acknowledged_by', ${recipient.acknowledged_by ?? null}::text,
@@ -895,6 +1048,15 @@ async function patchNoticeAck(
               SELECT jsonb_agg(
                 CASE
                   WHEN record->>'id' = ${recipient.notice_id}
+                    AND EXISTS (
+                      SELECT 1
+                      FROM jsonb_array_elements(state.payload->'teacher_notice_recipients')
+                        AS target_recipients(target_recipient)
+                      WHERE target_recipient->>'id' = ${recipient.id}
+                        AND target_recipient->>'guardian_id' = ${scope.parentId}
+                        AND target_recipient->>'student_id' = ${recipient.student_id}
+                        AND target_recipient->>'notice_id' = ${recipient.notice_id}
+                    )
                     THEN record || jsonb_build_object('updated_at', ${notice?.updated_at ?? recipient.acknowledged_at}::text)
                   ELSE record
                 END
@@ -929,12 +1091,24 @@ async function patchNoticeAck(
           AND record->>'student_id' = ${recipient.student_id}
           AND record->>'status' = 'active'
       )
-      AND EXISTS (
-        SELECT 1
+      AND (
+        SELECT COUNT(*)
         FROM jsonb_array_elements(state.payload->'teacher_notice_recipients') AS records(record)
         WHERE record->>'id' = ${scope.recipientId}
+      ) = 1
+      AND (
+        SELECT COUNT(*)
+        FROM jsonb_array_elements(state.payload->'teacher_notice_recipients') AS records(record)
+        WHERE record->>'id' = ${recipient.id}
           AND record->>'guardian_id' = ${scope.parentId}
-      )
+          AND record->>'student_id' = ${recipient.student_id}
+          AND record->>'notice_id' = ${recipient.notice_id}
+      ) = 1
+      AND (
+        SELECT COUNT(*)
+        FROM jsonb_array_elements(state.payload->'teacher_notices') AS records(record)
+        WHERE record->>'id' = ${recipient.notice_id}
+      ) = 1
     RETURNING state.id
   `;
   if (rows.length !== 1) {
@@ -1015,6 +1189,7 @@ export function createParentPostgresScopedMutationAdapter({
   const transaction = async <T>(operation: (sql: ParentPostgresSql) => Promise<T>) => {
     await ensureSchema();
     return getClient().begin(async (sql) => {
+      await configureParentScopedMutationTimeouts(sql);
       await lockParentStateRow(sql, state);
       return operation(sql);
     });
