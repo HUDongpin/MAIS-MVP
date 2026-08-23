@@ -54,6 +54,7 @@ export type ParentReportPersistenceStoreDependencies = {
   ) => ParentChildSummary[];
   now?: () => Date;
   readDatabase: () => Promise<ParentReportPersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentReportPersistenceDatabase>;
 };
 
 export type ParentReportPersistenceStore = ReturnType<typeof createParentReportPersistenceStore>;
@@ -108,11 +109,14 @@ export function parentReportsForStudent(
 export function createParentReportPersistenceStore({
   getParentChildSummaries,
   now = () => new Date(),
-  readDatabase
+  readDatabase,
+  readParentDatabase
 }: ParentReportPersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+
   return {
     async getParentReportData(parentId: string, selectedStudentId?: string | null): Promise<ParentReportData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
       const children = getParentChildSummaries(database, user);

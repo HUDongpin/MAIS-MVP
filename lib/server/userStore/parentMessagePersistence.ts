@@ -126,6 +126,7 @@ export type ParentMessagePersistenceStoreDependencies = {
   ) => Promise<T>;
   now?: () => Date;
   readDatabase: () => Promise<ParentMessagePersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentMessagePersistenceDatabase>;
 };
 
 export type ParentMessagePersistenceStore = ReturnType<typeof createParentMessagePersistenceStore>;
@@ -418,8 +419,10 @@ export function createParentMessagePersistenceStore({
   getParentReportsForStudent,
   mutateDatabase,
   now = () => new Date(),
-  readDatabase
+  readDatabase,
+  readParentDatabase
 }: ParentMessagePersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
   const runMutation = async <T>(mutator: (database: ParentMessagePersistenceDatabase) => T | Promise<T>) => {
     if (!mutateDatabase) {
       throw new Error("Parent message persistence mutation dependency is not configured.");
@@ -559,7 +562,7 @@ export function createParentMessagePersistenceStore({
       selectedStudentId?: string | null,
       selectedThreadId?: string | null
     ): Promise<ParentMessagesData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user)) return null;
       const rawChildren = getParentChildSummaries(database, user);

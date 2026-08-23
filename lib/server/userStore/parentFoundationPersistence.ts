@@ -187,6 +187,7 @@ export type ParentFoundationPersistenceStoreDependencies = {
     studentId: string
   ) => ParentChildSummary | null;
   readDatabase: () => Promise<ParentFoundationPersistenceDatabase>;
+  readParentDatabase?: (parentId: string) => Promise<ParentFoundationPersistenceDatabase>;
   toGuardianLink: (
     database: ParentFoundationPersistenceDatabase,
     link: ParentFoundationGuardianLinkRecord
@@ -472,15 +473,18 @@ export function createParentChildSummaryBuilder<SourceDatabase, Database extends
 export function createParentFoundationPersistenceStore({
   buildParentChildSummary,
   readDatabase,
+  readParentDatabase,
   toGuardianLink,
   toParentSession
 }: ParentFoundationPersistenceStoreDependencies) {
+  const loadParentDatabase = readParentDatabase ?? (async () => readDatabase());
+
   return {
     async getParentFoundationData(
       parentId: string,
       selectedStudentId?: string | null
     ): Promise<ParentFoundationData | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (user?.role !== "parent") return null;
       const parent = toParentSession(database, user);
@@ -516,7 +520,7 @@ export function createParentFoundationPersistenceStore({
       };
     },
     async getParentChildSummary(parentId: string, studentId: string): Promise<ParentChildSummary | null> {
-      const database = await readDatabase();
+      const database = await loadParentDatabase(parentId);
       const user = database.users.find((candidate) => candidate.id === parentId);
       if (!canUseParentArea(user) || !parentCanAccessStudentInDatabase(database, parentId, studentId)) return null;
       return buildParentChildSummary(database, studentId);
