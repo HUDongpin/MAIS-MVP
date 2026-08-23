@@ -36,10 +36,11 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/server/authRouteGuards.test.ts",
     "lib/server/contentSafetySeed.test.ts",
     "lib/server/questionStore.test.ts",
-    "app/api/questions/routeQuestionStore.test.ts"
+    "app/api/questions/routeQuestionStore.test.ts",
+    "components/ui/LanguageToggle.test.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 12);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 12);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 15);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 15);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -77,9 +78,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 34);
-  assert.equal(manifest.expectedParentConsoleTestCount, 262);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 260);
+  assert.equal(manifest.parentConsoleTestFiles.length, 35);
+  assert.equal(manifest.expectedParentConsoleTestCount, 265);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 263);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -343,11 +344,18 @@ test("the Playwright gate freezes all 40 project-test instances as 24 runs and 1
 
 test("the existing parent stress instance freezes five-width long-content overflow coverage", () => {
   const stress = readRepoFile("tests/e2e/parent-console-stress.spec.ts");
+  const viewportSmoke = readRepoFile("tests/e2e/parent-console.spec.ts");
 
   assert.match(stress, /const parentOverflowWidths = \[320, 375, 768, 1024, 1440\] as const;/u);
   assert.match(stress, /document\.documentElement\.scrollWidth/u);
   assert.match(stress, /document\.documentElement\.clientWidth/u);
   assert.match(stress, /horizontalOverflowTolerance/u);
+  assert.match(stress, /padEnd\(2000, "U"\)/u);
+  assert.match(stress, /toHaveLength\(2000\)/u);
+  assert.match(stress, /data-parent-messages-layout="three-panel"/u);
+  assert.match(stress, /gridTemplateColumns/u);
+  assert.match(stress, /Messages must render as three columns at 1440px/u);
+  assert.match(stress, /expect\(columnCount,[\s\S]*?\)\.toBe\(3\)/u);
   for (const coverageMarker of [
     "long-unbroken-message",
     "long-url-message",
@@ -360,6 +368,24 @@ test("the existing parent stress instance freezes five-width long-content overfl
   ]) {
     assert.match(stress, new RegExp(coverageMarker, "u"));
   }
+
+  assert.match(viewportSmoke, /parent-locale-theme-matrix/u);
+  const localeThemeStart = viewportSmoke.indexOf("// parent-locale-theme-matrix");
+  const localeThemeEnd = viewportSmoke.indexOf("] as const;", localeThemeStart);
+  assert.ok(localeThemeStart >= 0 && localeThemeEnd > localeThemeStart);
+  const localeThemeMatrix = viewportSmoke.slice(localeThemeStart, localeThemeEnd);
+  assert.equal((localeThemeMatrix.match(/language: "en",/gu) ?? []).length, 2);
+  assert.equal((localeThemeMatrix.match(/language: "zh",/gu) ?? []).length, 2);
+  assert.equal((localeThemeMatrix.match(/language: "zh-Hans",/gu) ?? []).length, 2);
+  assert.equal((localeThemeMatrix.match(/theme: "light",/gu) ?? []).length, 3);
+  assert.equal((localeThemeMatrix.match(/theme: "dark",/gu) ?? []).length, 3);
+  assert.match(viewportSmoke, /expect\(combinations\)\.toHaveLength\(6\)/u);
+  for (const localeMarker of ["en-HK", "zh-Hant-HK", "zh-Hans-CN"]) {
+    assert.match(viewportSmoke, new RegExp(localeMarker, "u"));
+  }
+  assert.match(viewportSmoke, /getByRole\("img"/u);
+  assert.match(viewportSmoke, /weeklyDescription/u);
+  assert.match(viewportSmoke, /document\.documentElement\.scrollWidth/u);
 });
 
 test("the existing feature-matrix instances freeze real browser message-context race coverage", () => {

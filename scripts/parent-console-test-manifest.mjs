@@ -19,14 +19,14 @@ export const parentDomainTestFiles = Object.freeze([
   "lib/server/userStoreParentSafeDto.test.ts"
 ]);
 
-// These four pre-existing prerequisites belonged to test:parent-console before
-// the parent-domain expansion. Preserve them so widening the gate cannot reduce
-// coverage elsewhere.
+// Preserve the original four prerequisites and the shared language-selector
+// keyboard contract so widening the gate cannot reduce supporting coverage.
 export const parentConsoleSupportTestFiles = Object.freeze([
   "lib/server/authRouteGuards.test.ts",
   "lib/server/contentSafetySeed.test.ts",
   "lib/server/questionStore.test.ts",
-  "app/api/questions/routeQuestionStore.test.ts"
+  "app/api/questions/routeQuestionStore.test.ts",
+  "components/ui/LanguageToggle.test.ts"
 ]);
 
 // These tests own the P0/P1 authorization and lifecycle contracts that the
@@ -60,18 +60,18 @@ export const parentConsoleTestFiles = Object.freeze([
 ]);
 
 export const expectedParentDomainTestCount = 106;
-export const expectedParentConsoleSupportTestCount = 12;
+export const expectedParentConsoleSupportTestCount = 15;
 export const expectedParentSecurityLifecycleTestCount = 144;
-export const expectedParentConsoleTestCount = 262;
+export const expectedParentConsoleTestCount = 265;
 
 // Runtime has two more tests than the source declaration count because two
 // teacher-report cases are declared inside a two-value loop. The runner below
 // therefore verifies the authoritative TAP runtime count rather than treating
 // a source regex as execution evidence.
 export const expectedParentDomainStaticDeclarationCount = 106;
-export const expectedParentConsoleSupportStaticDeclarationCount = 12;
+export const expectedParentConsoleSupportStaticDeclarationCount = 15;
 export const expectedParentSecurityLifecycleStaticDeclarationCount = 142;
-export const expectedParentConsoleStaticDeclarationCount = 260;
+export const expectedParentConsoleStaticDeclarationCount = 263;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);

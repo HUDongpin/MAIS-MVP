@@ -53,6 +53,7 @@ test("parent write actions recover busy state and use a bounded request", () => 
 });
 
 test("thread navigation isolates drafts and prevents stale selection commits", () => {
+  assert.match(parentViewsSource, /data-parent-messages-layout="three-panel"/);
   assert.match(parentViewsSource, /replyThreadRef\.current = selectedThreadId;[\s\S]*?setReply\(""\);[\s\S]*?replyAttemptRef\.current = null;/);
   assert.match(parentViewsSource, /setReportId\(nextReport\?\.id \?\? ""\)/, "a removed report query must clear the report binding");
   assert.match(parentViewsSource, /setSubject\(\(nextSubject \?\? \(nextReport \? parentReportPrefillSubject/, "navigation must replace, rather than retain, another context's subject");
@@ -63,6 +64,19 @@ test("thread navigation isolates drafts and prevents stale selection commits", (
 });
 
 test("a linked report locks the compose form to its exact safe author target", () => {
+  assert.match(parentViewsSource, /id="parent-ask-teacher-heading"/);
+  assert.match(parentViewsSource, /<form aria-labelledby="parent-ask-teacher-heading"/);
+  for (const [fieldId, fieldName] of [
+    ["parent-message-student", "studentId"],
+    ["parent-message-class", "classId"],
+    ["parent-message-category", "category"],
+    ["parent-message-report", "reportId"],
+    ["parent-message-subject", "subject"],
+    ["parent-message-body", "body"]
+  ] as const) {
+    assert.match(parentViewsSource, new RegExp(`htmlFor="${fieldId}"`));
+    assert.match(parentViewsSource, new RegExp(`id="${fieldId}"[\\s\\S]*?name="${fieldName}"`));
+  }
   assert.match(parentViewsSource, /resolveParentComposeTarget\(/);
   assert.match(parentViewsSource, /selectedReportTarget\?\.teacherName/);
   assert.match(parentViewsSource, /selectedReport && !selectedReportTarget/);
@@ -100,6 +114,7 @@ test("parent failures distinguish required HTTP and network outcomes", () => {
 });
 
 test("parent pending totals use the full safe summary count instead of the six-row display list", () => {
+  assert.match(parentViewsSource, /<h1 className="mt-2[^\"]*\[overflow-wrap:anywhere\][^\"]*">\{child\.student\.name\}<\/h1>/);
   assert.match(parentViewsSource, /function pendingAssignmentCount\(child: ParentChildSummarySafe\) \{\s*return child\.pendingAssignmentCount;\s*\}/);
   assert.doesNotMatch(parentViewsSource, /child\.assignments\.filter\(\(item\) => openAssignmentStatuses\.has/);
 });

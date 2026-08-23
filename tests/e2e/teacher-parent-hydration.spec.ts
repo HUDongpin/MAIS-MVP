@@ -34,7 +34,7 @@ test.describe("teacher and parent HKT hydration", () => {
     await loginAsDemoParent(page);
 
     const routes = [
-      { path: "/parent", heading: /Today.s home-school picture/i },
+      { path: "/parent", heading: /Today’s focus/i },
       { path: "/parent/reports", heading: /Teacher-published summaries/i }
     ];
 

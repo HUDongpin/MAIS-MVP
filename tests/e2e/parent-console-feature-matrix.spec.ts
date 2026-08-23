@@ -27,7 +27,6 @@ type NoticeRecipient = {
   id: string;
   studentId: string;
   studentName: string;
-  guardianId?: string;
   status: "pending" | "acknowledged";
   acknowledgedAt: string | null;
 };
@@ -307,12 +306,16 @@ async function expectParentReportComposeContext(
   page: Page,
   expected: { studentId: string; reportId: string; classId: string; subject: string }
 ) {
-  const compose = page.locator("form").filter({ has: page.getByRole("button", { name: /Send message/i }) });
-  await expect(compose.getByLabel(/^Child$/i)).toHaveValue(expected.studentId);
-  await expect(compose.getByLabel(/Class and teacher/i)).toHaveValue(expected.classId);
-  await expect(compose.getByLabel(/Linked report/i)).toHaveValue(expected.reportId);
-  await expect(compose.getByLabel(/^Category$/i)).toHaveValue("report-question");
-  await expect(compose.getByLabel(/^Subject$/i)).toHaveValue(expected.subject);
+  const compose = parentComposeForm(page);
+  await expect(compose.getByLabel("Child", { exact: true })).toHaveValue(expected.studentId);
+  await expect(compose.getByLabel("Class and teacher", { exact: true })).toHaveValue(expected.classId);
+  await expect(compose.getByLabel("Linked report", { exact: true })).toHaveValue(expected.reportId);
+  await expect(compose.getByLabel("Category", { exact: true })).toHaveValue("report-question");
+  await expect(compose.getByLabel("Subject", { exact: true })).toHaveValue(expected.subject);
+}
+
+function parentComposeForm(page: Page) {
+  return page.locator('form[aria-labelledby="parent-ask-teacher-heading"]');
 }
 
 /**
@@ -427,12 +430,16 @@ test.describe.serial("parent console feature matrix", () => {
 
     // Filter group must actually hide non-matching receipts.
     await noticeFilter(page, "Acknowledged").click();
+    await expect(noticeFilter(page, "Acknowledged")).toHaveAttribute("aria-pressed", "true");
+    await expect(noticeFilter(page, "Pending")).toHaveAttribute("aria-pressed", "false");
     await expect(card).toHaveCount(0);
     await noticeFilter(page, "Pending").click();
+    await expect(noticeFilter(page, "Pending")).toHaveAttribute("aria-pressed", "true");
+    await expect(noticeFilter(page, "Acknowledged")).toHaveAttribute("aria-pressed", "false");
     await expect(card).toHaveCount(1);
 
     await card.getByRole("button", { name: /Confirm receipt/i }).click();
-    await expect(page.getByText(/Receipt confirmed\./i)).toBeVisible();
+    await expect(page.getByRole("status")).toContainText(/Receipt confirmed\./i);
 
     await noticeFilter(page, "All").click();
     await expect(noticeCard(page, subject).getByText("Acknowledged", { exact: true })).toBeVisible();
@@ -596,16 +603,23 @@ test.describe.serial("parent console feature matrix", () => {
     await page.goto("/parent/messages");
     await expect(page.getByRole("heading", { name: /Ask teacher/i })).toBeVisible();
 
-    const compose = page.locator("form").filter({ has: page.getByRole("button", { name: /Send message/i }) });
+    const compose = parentComposeForm(page);
     const threadBySubject = new Map<string, string>();
 
     for (const [subject, studentId] of [
       [firstSubject, demoStudentUserId],
       [secondSubject, extraChild.userId]
     ] as const) {
-      await compose.getByLabel(/^Child$/i).selectOption(studentId);
-      await compose.getByLabel(/^Subject$/i).fill(subject);
-      await compose.getByLabel(/^Message$/i).fill(`Home context for ${subject}.`);
+      await compose.getByLabel("Child", { exact: true }).selectOption(studentId);
+      const classSelect = compose.getByLabel("Class and teacher", { exact: true });
+      if (await classSelect.inputValue() === "") {
+        const firstAuthorizedClassId = await classSelect.locator('option:not([value=""])').first().getAttribute("value");
+        expect(firstAuthorizedClassId, "A linked child must expose an authorized class/teacher target.").toBeTruthy();
+        await classSelect.selectOption(firstAuthorizedClassId!);
+      }
+      const selectedClassId = await classSelect.inputValue();
+      await compose.getByLabel("Subject", { exact: true }).fill(subject);
+      await compose.getByLabel("Message", { exact: true }).fill(`Home context for ${subject}.`);
       const created = page.waitForResponse((response) =>
         response.url().includes("/api/parent/messages") && response.request().method() === "POST");
       await compose.getByRole("button", { name: /Send message/i }).click();
@@ -615,24 +629,28 @@ test.describe.serial("parent console feature matrix", () => {
         classId?: unknown;
         idempotencyKey?: unknown;
       };
-      expect(createRequest.classId).toEqual(expect.any(String));
-      expect(String(createRequest.classId)).not.toHaveLength(0);
+      expect(createRequest.classId).toBe(selectedClassId);
       expect(createRequest.idempotencyKey).toMatch(/^[A-Za-z0-9._:~-]{16,128}$/);
       const createdPayload = await createdResponse.json() as { thread: { id: string } };
       threadBySubject.set(subject, createdPayload.thread.id);
       await expect(page.getByRole("heading", { name: new RegExp(escapeRegex(subject), "i") })).toBeVisible();
       await expect(page).toHaveURL(/thread=/);
       // The form clears so the next message does not inherit the previous subject.
-      await expect(compose.getByLabel(/^Subject$/i)).toHaveValue("");
+      await expect(compose.getByLabel("Subject", { exact: true })).toHaveValue("");
     }
 
     const threads = page.getByRole("heading", { name: /^Threads$/i }).locator("xpath=ancestor::aside[1]");
     const firstThreadId = threadBySubject.get(firstSubject)!;
     const secondThreadId = threadBySubject.get(secondSubject)!;
+    const firstThreadButton = threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") });
+    const secondThreadButton = threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") });
+    await expect(firstThreadButton).toHaveAttribute("aria-pressed", "false");
+    await expect(secondThreadButton).toHaveAttribute("aria-pressed", "true");
     await installDeferredParentThreadFetch(page);
 
     await armDeferredParentThreadFetch(page, firstThreadId, "success");
-    await threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") }).click();
+    await firstThreadButton.click();
+    await expect(firstThreadButton).toHaveAttribute("aria-busy", "true");
     await waitForDeferredParentThreadFetch(page);
     // deferred-thread-context-child: an old A response must not cross the
     // external child-context navigation into B.
@@ -647,11 +665,13 @@ test.describe.serial("parent console feature matrix", () => {
 
     await armDeferredParentThreadFetch(page, secondThreadId, "not-found");
     await threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") }).click();
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toHaveAttribute("aria-busy", "true");
     await waitForDeferredParentThreadFetch(page);
     // deferred-thread-context-all: an old 404 must not surface after switching
     // from filtered B to the unfiltered All context.
     await threads.getByRole("link", { name: /^All$/i }).click();
     await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await expect(threads.getByRole("link", { name: /^All$/i })).toHaveAttribute("aria-current", "page");
     await releaseDeferredParentThreadFetch(page);
     await expect(page).toHaveURL(`${baseURL}/parent/messages`);
     await expect(page.locator("main").getByRole("alert")).toHaveCount(0);

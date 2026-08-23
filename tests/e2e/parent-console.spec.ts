@@ -64,7 +64,7 @@ type AppStatePayload = {
 };
 
 type ParentChildSummary = {
-  student: { id: string; name: string; role: string; grade: string };
+  student: { id: string; name: string; grade: string };
   averageMastery: number;
   learningMinutes7d: number;
   supportTopics: unknown[];
@@ -83,7 +83,7 @@ type TeacherReport = {
 
 type ParentFoundationResponse = {
   data: {
-    parent: { id: string; name: string; role: string };
+    parent: { id: string; name: string };
     children: ParentChildSummary[];
     selectedChild: ParentChildSummary | null;
     totals: {
@@ -119,7 +119,6 @@ type ParentMessageThread = {
   className: string;
   studentId: string;
   studentName: string;
-  guardianId?: string;
   parentCategory?: string;
   reportId?: string;
   subject: { en: string; zh: string };
@@ -304,15 +303,172 @@ async function gotoWithDevRetry(page: Page, path: string) {
 
 test.describe("parent console viewport smoke", () => {
   test("parent overview renders without page errors on the active viewport", async ({ page }) => {
+    test.setTimeout(120_000);
     const pageErrors = collectPageErrors(page);
 
     await loginAsDemoParent(page);
-    await expect(page.getByRole("navigation", { name: /Parent navigation/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /This week/i })).toBeVisible();
-    await expect(page.getByLabel(/Child focus/i)).toBeVisible();
-    await expect(page.getByRole("link", { name: /Messages/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /View learning details/i })).toBeVisible();
+    // parent-locale-theme-matrix: this existing desktop+mobile test exercises
+    // all three UI languages in both themes without increasing the 40-item
+    // Playwright project-test enumeration.
+    const combinations = [
+      {
+        language: "en",
+        theme: "light",
+        htmlLang: "en-HK",
+        navigation: "Parent navigation",
+        focus: "Today’s focus",
+        week: "This week",
+        childFocus: "Child focus",
+        messages: "Messages",
+        details: "View learning details",
+        chart: "Weekly learning activity",
+        dailyUnit: "minutes",
+        separator: ", "
+      },
+      {
+        language: "en",
+        theme: "dark",
+        htmlLang: "en-HK",
+        navigation: "Parent navigation",
+        focus: "Today’s focus",
+        week: "This week",
+        childFocus: "Child focus",
+        messages: "Messages",
+        details: "View learning details",
+        chart: "Weekly learning activity",
+        dailyUnit: "minutes",
+        separator: ", "
+      },
+      {
+        language: "zh",
+        theme: "light",
+        htmlLang: "zh-Hant-HK",
+        navigation: "家長導覽",
+        focus: "今日關注",
+        week: "本週概覽",
+        childFocus: "孩子焦點",
+        messages: "家校私信",
+        details: "查看學習詳情",
+        chart: "每週學習活動",
+        dailyUnit: "分鐘",
+        separator: "；"
+      },
+      {
+        language: "zh",
+        theme: "dark",
+        htmlLang: "zh-Hant-HK",
+        navigation: "家長導覽",
+        focus: "今日關注",
+        week: "本週概覽",
+        childFocus: "孩子焦點",
+        messages: "家校私信",
+        details: "查看學習詳情",
+        chart: "每週學習活動",
+        dailyUnit: "分鐘",
+        separator: "；"
+      },
+      {
+        language: "zh-Hans",
+        theme: "light",
+        htmlLang: "zh-Hans-CN",
+        navigation: "家长导航",
+        focus: "今日关注",
+        week: "本周概览",
+        childFocus: "孩子焦点",
+        messages: "家校私信",
+        details: "查看学习详情",
+        chart: "每周学习活动",
+        dailyUnit: "分钟",
+        separator: "；"
+      },
+      {
+        language: "zh-Hans",
+        theme: "dark",
+        htmlLang: "zh-Hans-CN",
+        navigation: "家长导航",
+        focus: "今日关注",
+        week: "本周概览",
+        childFocus: "孩子焦点",
+        messages: "家校私信",
+        details: "查看学习详情",
+        chart: "每周学习活动",
+        dailyUnit: "分钟",
+        separator: "；"
+      }
+    ] as const;
+    expect(combinations).toHaveLength(6);
+
+    try {
+      for (const combination of combinations) {
+        const settings = await page.request.patch("/api/me/settings", {
+          data: { language: combination.language, theme: combination.theme }
+        });
+        expect(settings.status()).toBe(200);
+        await page.goto("/parent");
+
+        const html = page.locator("html");
+        await expect(html).toHaveAttribute("lang", combination.htmlLang);
+        if (combination.theme === "dark") {
+          await expect(html).toHaveClass(/\bdark\b/);
+        } else {
+          await expect(html).not.toHaveClass(/\bdark\b/);
+        }
+        await expect(page.getByRole("navigation", { name: combination.navigation })).toBeVisible();
+        await expect(page.getByRole("heading", { name: combination.focus })).toBeVisible();
+        await expect(page.getByRole("heading", { name: combination.week })).toBeVisible();
+        await expect(page.getByLabel(combination.childFocus)).toBeVisible();
+        await expect(page.getByRole("link", { name: combination.messages })).toBeVisible();
+        await expect(page.getByRole("link", { name: combination.details })).toBeVisible();
+
+        const weeklyChart = page.getByRole("img", { name: new RegExp(`^${escapeRegex(combination.chart)}\\.`) });
+        await expect(weeklyChart).toBeVisible();
+        const weeklyDescription = await weeklyChart.getAttribute("aria-label");
+        expect(weeklyDescription).toContain(combination.dailyUnit);
+        expect(weeklyDescription?.split(combination.separator)).toHaveLength(7);
+        const horizontalOverflow = await page.evaluate(() => (
+          document.documentElement.scrollWidth - document.documentElement.clientWidth
+        ));
+        expect(horizontalOverflow).toBeLessThanOrEqual(1);
+      }
+    } finally {
+      const restore = await page.request.patch("/api/me/settings", {
+        data: { language: "en", theme: "dark" }
+      });
+      expect(restore.status()).toBe(200);
+      await page.goto("/parent");
+    }
+
+    const languageSelector = page.getByRole("button", { name: "Language selector" });
+    await languageSelector.focus();
+    await expect(languageSelector).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("End");
+    await expect(page.getByRole("menuitemradio", { name: "Use Traditional Chinese" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(languageSelector).toBeFocused();
+
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeHidden();
+    await expect(page.getByRole("button", { name: "Switch to light mode" })).toBeFocused();
+
+    await languageSelector.focus();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("Shift+Tab");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeHidden();
+    await expect(languageSelector).toBeFocused();
+
+    const messagesLink = page
+      .getByRole("navigation", { name: "Parent navigation" })
+      .getByRole("link", { name: "Messages", exact: true });
+    await messagesLink.focus();
+    await expect(messagesLink).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/\/parent\/messages/);
+    await expect(page.getByRole("heading", { name: /^Threads$/i })).toBeVisible();
 
     expectNoPageErrors(pageErrors);
   });
@@ -409,7 +565,9 @@ test.describe.serial("parent console end-to-end verification", () => {
 
       await loginAsDemoParent(page);
       const foundation = await parentFoundation(page);
-      expect(foundation.data.parent.role).toBe("parent");
+      expect(Object.keys(foundation.data.parent).sort()).toEqual(["id", "name"]);
+      expect(foundation.data.parent.id).toEqual(expect.any(String));
+      expect(foundation.data.parent.name).toEqual(expect.any(String));
       expect(foundation.data.children.length).toBeGreaterThanOrEqual(1);
       expect(foundation.data.selectedChild).toBeTruthy();
       expect(foundation.data.totals.children).toBe(foundation.data.children.length);
@@ -509,14 +667,14 @@ test.describe.serial("parent console end-to-end verification", () => {
 
       await page.getByLabel(/Invite code/i).fill("MAIS-NOPE");
       await page.getByRole("button", { name: /^Connect$/i }).click();
-      // getByText alone passes whether or not the failure is announced. A parent who
+      // Text alone passes whether or not the failure is announced. A parent who
       // cannot see the red text gets no signal that the link failed, so assert the
       // alert role — the login form's convention for exactly this.
       // Filtered by text because Next.js always renders its own empty route announcer
       // (<div role="alert" id="__next-route-announcer__">), so a bare getByRole("alert")
       // is a strict-mode violation rather than an assertion about this message.
       await expect(
-        page.getByRole("alert").filter({ hasText: /Invite code could not be linked/i })
+        page.getByRole("alert").filter({ hasText: /Check the invite code and relationship/i })
       ).toBeVisible();
 
       await page.getByLabel(/Invite code/i).fill(inviteCode);

@@ -32,7 +32,7 @@ type TestUser = {
 };
 
 type ParentChildSummary = {
-  student: { id: string; name: string; role: string; grade: string };
+  student: { id: string; name: string; grade: string };
   latestParentReport: TeacherReport | null;
 };
 
@@ -46,7 +46,7 @@ type TeacherReport = {
 
 type ParentFoundationResponse = {
   data: {
-    parent: { id: string; name: string; role: string };
+    parent: { id: string; name: string };
     children: ParentChildSummary[];
     selectedChild: ParentChildSummary | null;
   };
@@ -77,7 +77,6 @@ type ParentMessageThread = {
   studentId: string;
   studentName: string;
   teacherName: string;
-  guardianId?: string;
   reportId?: string;
   parentCategory?: string;
   subject: { en: string; zh: string };
@@ -199,13 +198,14 @@ type AppStateRow = {
 const apiPaths = [
   "/api/parent/foundation",
   "/api/parent/reports",
-  "/api/parent/messages"
+  "/api/parent/messages",
+  "/api/parent/notices"
 ] as const;
 
 const parentOverflowWidths = [320, 375, 768, 1024, 1440] as const;
 const horizontalOverflowTolerance = 1;
 const overflowFixtures = {
-  longUnbrokenMessage: `long-unbroken-message-${"UNBROKENPARENTMESSAGE".repeat(18)}`,
+  longUnbrokenMessage: "long-unbroken-message-".padEnd(2000, "U"),
   longUrlMessage: `long-url-message-https://example.test/parent/${"very-long-url-segment/".repeat(16)}?context=${"q".repeat(96)}`,
   longEnglishTitle: `long-english-title-${"FamilyLearningProgressWithoutBreaks".repeat(8)}`,
   longTraditionalTitle: `long-traditional-title-${"繁體中文家校學習進度通知".repeat(18)}`,
@@ -344,6 +344,7 @@ async function registerStudentViaApi(
         password: student.password,
         grade,
         curriculumTrack: "HK",
+        curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
         language: "en",
         theme: "dark"
       }
@@ -379,6 +380,7 @@ async function registerTeacherViaApi(
         password: teacher.password,
         grade: "S3",
         curriculumTrack: "HK",
+        curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
         language: "en",
         theme: "dark"
       }
@@ -721,12 +723,15 @@ async function createParentOverflowFixture(
     className: overflowFixtures.longClassName,
     teacherName: overflowFixtures.longTeacherName
   });
-  expect(firstRead.data.composeTargets).toContainEqual({
-    studentId: student.userId,
-    classId: classPayload.class.id,
-    className: overflowFixtures.longClassName,
-    teacherName: overflowFixtures.longTeacherName
-  });
+  expect(firstRead.data.composeTargets).toEqual(expect.arrayContaining([
+    expect.objectContaining({
+      studentId: student.userId,
+      classId: classPayload.class.id,
+      className: overflowFixtures.longClassName,
+      teacherId: expect.any(String),
+      teacherName: overflowFixtures.longTeacherName
+    })
+  ]));
 
   return {
     studentId: student.userId,
@@ -785,6 +790,7 @@ test.describe("parent console robustness stress suite", () => {
 
       const childPath = `/parent/children/${encodeURIComponent(child.student.id)}`;
       if (testInfo.project.name === "desktop-chrome") {
+        expect(overflowFixtures.longUnbrokenMessage).toHaveLength(2000);
         const overflowFixture = await createParentOverflowFixture(app, contexts, testInfo);
         const overflowStudentId = encodeURIComponent(overflowFixture.studentId);
         const overflowThreadId = encodeURIComponent(overflowFixture.threadId);
@@ -818,10 +824,15 @@ test.describe("parent console robustness stress suite", () => {
               await expect(page.getByRole("heading", { name: /^Threads$/i })).toBeVisible();
               await expect(page.getByRole("heading", { name: /Ask teacher/i })).toBeVisible();
               await expect(page.getByText(overflowFixtures.longUnbrokenMessage, { exact: true })).toBeVisible();
-              await expect(page.getByText(overflowFixtures.longUrlMessage, { exact: true })).toBeVisible();
-              await expect(page.getByText(overflowFixtures.longChildName, { exact: true }).first()).toBeVisible();
-              await expect(page.getByText(overflowFixtures.longClassName, { exact: true }).first()).toBeVisible();
-              await expect(page.getByText(overflowFixtures.longTeacherName, { exact: true }).first()).toBeVisible();
+              await expect(page.getByText(overflowFixtures.longUrlMessage, { exact: true }).last()).toBeVisible();
+              const compose = page.locator('form[aria-labelledby="parent-ask-teacher-heading"]');
+              const childSelect = compose.getByLabel("Child", { exact: true });
+              const classSelect = compose.getByLabel("Class and teacher", { exact: true });
+              await expect(childSelect).toBeVisible();
+              await expect(childSelect.locator("option:checked")).toHaveText(overflowFixtures.longChildName);
+              await expect(classSelect).toBeVisible();
+              await expect(classSelect.locator("option:checked")).toContainText(overflowFixtures.longClassName);
+              await expect(classSelect.locator("option:checked")).toContainText(overflowFixtures.longTeacherName);
             }
           },
           {
@@ -859,6 +870,12 @@ test.describe("parent console robustness stress suite", () => {
             await page.goto(app.url(route.path));
             await expect(page.getByRole("navigation", { name: /Parent navigation/i })).toBeVisible();
             await route.assertContent();
+            if (width === 1440 && route.label.startsWith("Messages three-column")) {
+              const columnCount = await page.locator('[data-parent-messages-layout="three-panel"]').evaluate((element) => (
+                getComputedStyle(element).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length
+              ));
+              expect(columnCount, "Messages must render as three columns at 1440px.").toBe(3);
+            }
             await expectNoPageHorizontalOverflow(page, `${route.label} at ${width}px`);
           }
         }
@@ -902,7 +919,7 @@ test.describe("parent console robustness stress suite", () => {
       await page.goto(app.url("/parent/connect"));
       await page.getByLabel(/Invite code/i).fill("MAIS-NOPE");
       await page.getByRole("button", { name: /^Connect$/i }).click();
-      await expect(page.getByText(/Invite code could not be linked/i)).toBeVisible();
+      await expect(page.getByRole("alert").filter({ hasText: /Check the invite code and relationship/i })).toBeVisible();
 
       // The MAIS-NOPE probe above is meant to fail, and the browser reports that 400
       // fetch as a console error. Allow exactly that one; everything else stays strict.
@@ -945,7 +962,7 @@ test.describe("parent console robustness stress suite", () => {
         expect((await studentContext.get(apiPath)).status(), `student ${apiPath}`).toBe(403);
         expect((await teacherContext.get(apiPath)).status(), `teacher ${apiPath}`).toBe(403);
         expect((await parentContext.get(apiPath)).status(), `parent ${apiPath}`).toBe(200);
-        expect((await adminContext.get(apiPath)).status(), `admin ${apiPath}`).toBe(200);
+        expect((await adminContext.get(apiPath)).status(), `admin ${apiPath}`).toBe(403);
       }
 
       const foundation = await parentFoundation(parentContext);
@@ -957,6 +974,7 @@ test.describe("parent console robustness stress suite", () => {
       expect((await anonymous.get(`/api/parent/children/${encodeURIComponent(child.student.id)}/summary`)).status()).toBe(403);
       expect((await studentContext.get(`/api/parent/children/${encodeURIComponent(child.student.id)}/summary`)).status()).toBe(403);
       expect((await teacherContext.get(`/api/parent/children/${encodeURIComponent(child.student.id)}/summary`)).status()).toBe(403);
+      expect((await adminContext.get(`/api/parent/children/${encodeURIComponent(child.student.id)}/summary`)).status()).toBe(403);
       expect((await parentContext.get("/api/parent/children/not-a-real-student/summary")).status()).toBe(404);
 
       const otherParent = await registerParentViaApi(app, contexts, testInfo, "other-parent");
@@ -970,10 +988,10 @@ test.describe("parent console robustness stress suite", () => {
         }
       })).status()).toBe(200);
       expect((await parentContext.get(`/api/parent/children/${encodeURIComponent(otherStudent.userId)}/summary`)).status()).toBe(404);
-      const crossReports = await readJson<ParentReportsResponse>(
-        await parentContext.get(`/api/parent/reports?studentId=${encodeURIComponent(otherStudent.userId)}`)
+      const crossReports = await parentContext.get(
+        `/api/parent/reports?studentId=${encodeURIComponent(otherStudent.userId)}`
       );
-      expect(crossReports.data.reports.some((report) => report.studentId === otherStudent.userId)).toBeFalsy();
+      expect(crossReports.status()).toBe(404);
 
       const privateSubject = `Private student thread ${uniqueSlug(testInfo, "private")}`;
       expect((await studentContext.post("/api/messages", {

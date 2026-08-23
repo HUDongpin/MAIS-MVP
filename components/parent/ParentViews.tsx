@@ -387,13 +387,13 @@ function ChildWorkflowStrip({ child }: { child: ParentChildSummarySafe }) {
   const corrections = correctionAssignmentCount(child);
 
   return (
-    <section className="glass-panel p-5">
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
-        <div>
+    <section className="glass-panel min-w-0 overflow-hidden p-5">
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
+        <div className="min-w-0">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
             {t({ en: "Parent workflow", zh: "家長工作流" })}
           </p>
-          <h1 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{child.student.name}</h1>
+          <h1 className="mt-2 text-3xl font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{child.student.name}</h1>
           <p className="mt-2 text-sm font-bold text-slate-500 dark:text-slate-400">
             {formatGradeLabel(child.student.grade, language, true)} · {t({ en: "Latest activity", zh: "最近活動" })} {formatOptionalDate(child.latestActivityAt, language)}
           </p>
@@ -432,7 +432,7 @@ export function ParentChildDetail({ child }: { child: ParentChildSummarySafe }) 
   const { language, t, text } = useSettings();
 
   return (
-    <div className="grid gap-6">
+    <div className="grid min-w-0 gap-6">
       <ChildWorkflowStrip child={child} />
       <ChildPulseCard child={child} />
       <ParentMotivationSummary summary={child.motivationSummary} />
@@ -1092,7 +1092,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
   }
 
   return (
-    <div className="grid min-w-0 gap-5 xl:grid-cols-[minmax(250px,300px)_minmax(0,1fr)_minmax(290px,340px)]">
+    <div data-parent-messages-layout="three-panel" className="grid min-w-0 gap-5 xl:grid-cols-[minmax(250px,300px)_minmax(0,1fr)_minmax(290px,340px)]">
       {feedback ? (
         <p
           role={feedback.kind === "error" ? "alert" : "status"}
@@ -1207,7 +1207,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
       </section>
 
       <aside className="glass-panel min-w-0 overflow-hidden p-4">
-        <h2 className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Ask teacher", zh: "聯絡教師" })}</h2>
+        <h2 id="parent-ask-teacher-heading" className="text-xl font-black text-slate-950 dark:text-white">{t({ en: "Ask teacher", zh: "聯絡教師" })}</h2>
         <div className="mt-3 flex flex-wrap gap-2">
           {messageTemplates.map((template) => (
             <button
@@ -1224,10 +1224,12 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
             </button>
           ))}
         </div>
-        <form onSubmit={createThread} className="mt-4 grid gap-3">
-          <label className="grid min-w-0 gap-2">
+        <form aria-labelledby="parent-ask-teacher-heading" onSubmit={createThread} className="mt-4 grid gap-3">
+          <label htmlFor="parent-message-student" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Child", zh: "孩子" })}</span>
             <select
+              id="parent-message-student"
+              name="studentId"
               value={composeStudentId}
               onChange={(event) => {
                 const studentId = event.target.value;
@@ -1245,9 +1247,11 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               {data.children.map((child) => <option key={child.student.id} value={child.student.id}>{child.student.name}</option>)}
             </select>
           </label>
-          <label className="grid min-w-0 gap-2">
+          <label htmlFor="parent-message-class" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Class and teacher", zh: "班級與教師", zhHans: "班级与教师" })}</span>
             <select
+              id="parent-message-class"
+              name="classId"
               value={effectiveClassId}
               disabled={Boolean(selectedReport) || !availableComposeTargets.length}
               onChange={(event) => {
@@ -1274,15 +1278,17 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               {t({ en: "This child has more than one class. Choose the teacher who should receive this message.", zh: "此孩子屬於多個班級，請明確選擇接收訊息的教師。", zhHans: "此孩子属于多个班级，请明确选择接收消息的教师。" })}
             </p>
           ) : null}
-          <label className="grid min-w-0 gap-2">
+          <label htmlFor="parent-message-category" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Category", zh: "類別", zhHans: "类别" })}</span>
-            <select value={category} onChange={(event) => setCategory(event.target.value as ParentMessageCategory)} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
+            <select id="parent-message-category" name="category" value={category} onChange={(event) => setCategory(event.target.value as ParentMessageCategory)} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold dark:border-white/10 dark:bg-white/[0.06]">
               {data.categories.map((item) => <option key={item.id} value={item.id}>{text(item.label)}</option>)}
             </select>
           </label>
-          <label className="grid min-w-0 gap-2">
+          <label htmlFor="parent-message-report" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Linked report", zh: "關聯報告", zhHans: "关联报告" })}</span>
             <select
+              id="parent-message-report"
+              name="reportId"
               value={reportId}
               onChange={(event) => {
                 const nextReportId = event.target.value;
@@ -1324,14 +1330,14 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               })}
             </p>
           ) : null}
-          <label className="grid min-w-0 gap-2">
+          <label htmlFor="parent-message-subject" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Subject", zh: "主題", zhHans: "主题" })}</span>
-            <input value={subject} onChange={(event) => setSubject(event.target.value)} maxLength={parentMessageSubjectMaxLength} required className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold [overflow-wrap:anywhere] dark:border-white/10 dark:bg-white/[0.06]" />
+            <input id="parent-message-subject" name="subject" value={subject} onChange={(event) => setSubject(event.target.value)} maxLength={parentMessageSubjectMaxLength} required className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm font-semibold [overflow-wrap:anywhere] dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <p className="-mt-2 text-right text-xs font-bold text-slate-500 dark:text-slate-400">{subject.length}/{parentMessageSubjectMaxLength}</p>
-          <label className="grid min-w-0 gap-2">
+          <label htmlFor="parent-message-body" className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Message", zh: "訊息", zhHans: "消息" })}</span>
-            <textarea value={body} onChange={(event) => setBody(event.target.value)} maxLength={parentMessageBodyMaxLength} required rows={5} placeholder={t({ en: "What context would help at home?", zh: "家中想了解甚麼支援方向？", zhHans: "家中想了解什么支持方向？" })} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm [overflow-wrap:anywhere] dark:border-white/10 dark:bg-white/[0.06]" />
+            <textarea id="parent-message-body" name="body" value={body} onChange={(event) => setBody(event.target.value)} maxLength={parentMessageBodyMaxLength} required rows={5} placeholder={t({ en: "What context would help at home?", zh: "家中想了解甚麼支援方向？", zhHans: "家中想了解什么支持方向？" })} className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-4 py-3 text-sm [overflow-wrap:anywhere] dark:border-white/10 dark:bg-white/[0.06]" />
           </label>
           <p className="-mt-2 text-right text-xs font-bold text-slate-500 dark:text-slate-400">{body.length}/{parentMessageBodyMaxLength}</p>
           <button disabled={!composeStudentId || !effectiveClassId || !subject.trim() || !body.trim() || isSending} className="focus-ring rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950">
