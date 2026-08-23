@@ -4,12 +4,19 @@ import path from "node:path";
 // Keep execution explicit: discovery is a tripwire for newly added parent tests,
 // never an instruction to run an unreviewed file automatically.
 export const parentDomainTestFiles = Object.freeze([
+  "app/api/parent/parentChildSummaryAdminBoundary.test.ts",
+  "app/api/parent/parentMessageRoutes.test.ts",
+  "app/api/parent/parentNoticeAckRoute.test.ts",
+  "app/api/parent/parentPrivacyRoutes.test.ts",
+  "app/parent/parentRscSafeBoundary.test.ts",
   "components/parent/parentErrorAnnouncements.test.ts",
+  "components/parent/parentMessageUi.test.ts",
   "lib/server/userStoreParentAccessPersistence.test.ts",
   "lib/server/userStoreParentFoundationPersistence.test.ts",
   "lib/server/userStoreParentMessagePersistence.test.ts",
   "lib/server/userStoreParentNoticePersistence.test.ts",
-  "lib/server/userStoreParentReportPersistence.test.ts"
+  "lib/server/userStoreParentReportPersistence.test.ts",
+  "lib/server/userStoreParentSafeDto.test.ts"
 ]);
 
 // These four pre-existing prerequisites belonged to test:parent-console before
@@ -22,14 +29,49 @@ export const parentConsoleSupportTestFiles = Object.freeze([
   "app/api/questions/routeQuestionStore.test.ts"
 ]);
 
-export const parentConsoleTestFiles = Object.freeze([
-  ...parentConsoleSupportTestFiles,
-  ...parentDomainTestFiles
+// These tests own the P0/P1 authorization and lifecycle contracts that the
+// parent console depends on but that deliberately live outside parent-named
+// modules: teacher report authorization, guardian invitation rotation, and
+// revocable authentication sessions (including the real SQLite process races).
+export const parentSecurityLifecycleTestFiles = Object.freeze([
+  "app/api/attempts/routeSessionRevision.test.ts",
+  "app/api/auth/logout-all/route.test.ts",
+  "app/api/auth/password-change/routeSessionRevision.test.ts",
+  "app/api/auth/password-reset/confirm/routeSessionRevision.test.ts",
+  "app/api/auth/sessionIssuanceRoutes.test.ts",
+  "app/api/guardianInvitationRoutes.test.ts",
+  "app/api/teacher/teacherReportPreviewRoute.test.ts",
+  "components/teacher/GuardianAccessControls.test.ts",
+  "components/teacher/teacherReportFormState.test.ts",
+  "lib/server/sessionCookie.test.ts",
+  "lib/server/userStoreAuthSessionPersistence.test.ts",
+  "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+  "lib/server/userStoreSessionRevisionPostgres.test.ts",
+  "lib/server/userStoreSessionRevisionSqliteConcurrency.test.ts",
+  "lib/server/userStoreTeacherOpsReportPersistence.test.ts",
+  "lib/server/userStoreTeacherReportPreviewDecoder.test.ts",
+  "lib/session.test.ts"
 ]);
 
-export const expectedParentDomainTestCount = 49;
+export const parentConsoleTestFiles = Object.freeze([
+  ...parentConsoleSupportTestFiles,
+  ...parentDomainTestFiles,
+  ...parentSecurityLifecycleTestFiles
+]);
+
+export const expectedParentDomainTestCount = 106;
 export const expectedParentConsoleSupportTestCount = 12;
-export const expectedParentConsoleTestCount = 61;
+export const expectedParentSecurityLifecycleTestCount = 144;
+export const expectedParentConsoleTestCount = 262;
+
+// Runtime has two more tests than the source declaration count because two
+// teacher-report cases are declared inside a two-value loop. The runner below
+// therefore verifies the authoritative TAP runtime count rather than treating
+// a source regex as execution evidence.
+export const expectedParentDomainStaticDeclarationCount = 106;
+export const expectedParentConsoleSupportStaticDeclarationCount = 12;
+export const expectedParentSecurityLifecycleStaticDeclarationCount = 142;
+export const expectedParentConsoleStaticDeclarationCount = 260;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);
@@ -94,16 +136,26 @@ export function assertParentConsoleTestManifest(repoRoot) {
   const missingSupportFiles = parentConsoleSupportTestFiles.filter(
     (relativePath) => !existsSync(path.join(repoRoot, relativePath))
   );
+  const missingSecurityLifecycleFiles = parentSecurityLifecycleTestFiles.filter(
+    (relativePath) => !existsSync(path.join(repoRoot, relativePath))
+  );
   const duplicateFiles = parentConsoleTestFiles.filter(
     (relativePath, index) => parentConsoleTestFiles.indexOf(relativePath) !== index
   );
 
-  if (unlisted.length || stale.length || missingSupportFiles.length || duplicateFiles.length) {
+  if (
+    unlisted.length ||
+    stale.length ||
+    missingSupportFiles.length ||
+    missingSecurityLifecycleFiles.length ||
+    duplicateFiles.length
+  ) {
     throw new Error([
       "Parent console test manifest is out of date.",
       `Unlisted parent-domain tests: ${unlisted.join(", ") || "none"}`,
       `Stale parent-domain entries: ${stale.join(", ") || "none"}`,
       `Missing support tests: ${missingSupportFiles.join(", ") || "none"}`,
+      `Missing security-lifecycle tests: ${missingSecurityLifecycleFiles.join(", ") || "none"}`,
       `Duplicate entries: ${duplicateFiles.join(", ") || "none"}`
     ].join("\n"));
   }

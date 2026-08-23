@@ -24,9 +24,13 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   const discovered = manifest.discoverParentDomainTestFiles(repoRoot);
 
   assert.deepEqual(discovered, manifest.parentDomainTestFiles);
-  assert.equal(manifest.parentDomainTestFiles.length, 6);
-  assert.equal(manifest.expectedParentDomainTestCount, 49);
-  assert.equal(countStaticNodeTests(manifest.parentDomainTestFiles), 49);
+  assert.equal(manifest.parentDomainTestFiles.length, 13);
+  assert.equal(manifest.expectedParentDomainTestCount, 106);
+  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 106);
+  assert.equal(
+    countStaticNodeTests(manifest.parentDomainTestFiles),
+    manifest.expectedParentDomainStaticDeclarationCount
+  );
 
   assert.deepEqual(manifest.parentConsoleSupportTestFiles, [
     "lib/server/authRouteGuards.test.ts",
@@ -35,32 +39,85 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "app/api/questions/routeQuestionStore.test.ts"
   ]);
   assert.equal(manifest.expectedParentConsoleSupportTestCount, 12);
-  assert.equal(countStaticNodeTests(manifest.parentConsoleSupportTestFiles), 12);
-  assert.equal(manifest.parentConsoleTestFiles.length, 10);
-  assert.equal(manifest.expectedParentConsoleTestCount, 61);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 12);
+  assert.equal(
+    countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
+    manifest.expectedParentConsoleSupportStaticDeclarationCount
+  );
+
+  assert.deepEqual(manifest.parentSecurityLifecycleTestFiles, [
+    "app/api/attempts/routeSessionRevision.test.ts",
+    "app/api/auth/logout-all/route.test.ts",
+    "app/api/auth/password-change/routeSessionRevision.test.ts",
+    "app/api/auth/password-reset/confirm/routeSessionRevision.test.ts",
+    "app/api/auth/sessionIssuanceRoutes.test.ts",
+    "app/api/guardianInvitationRoutes.test.ts",
+    "app/api/teacher/teacherReportPreviewRoute.test.ts",
+    "components/teacher/GuardianAccessControls.test.ts",
+    "components/teacher/teacherReportFormState.test.ts",
+    "lib/server/sessionCookie.test.ts",
+    "lib/server/userStoreAuthSessionPersistence.test.ts",
+    "lib/server/userStoreGuardianInvitationPersistence.test.ts",
+    "lib/server/userStoreSessionRevisionPostgres.test.ts",
+    "lib/server/userStoreSessionRevisionSqliteConcurrency.test.ts",
+    "lib/server/userStoreTeacherOpsReportPersistence.test.ts",
+    "lib/server/userStoreTeacherReportPreviewDecoder.test.ts",
+    "lib/session.test.ts"
+  ]);
+  assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 17);
+  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 144);
+  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 142);
+  assert.equal(
+    countStaticNodeTests(manifest.parentSecurityLifecycleTestFiles),
+    manifest.expectedParentSecurityLifecycleStaticDeclarationCount
+  );
+  assert.doesNotMatch(
+    manifest.parentConsoleTestFiles.join("\n"),
+    /userStoreNovaPostgresIntegration\.test\.ts/u,
+    "live Postgres integration must stay a separately provisioned acceptance gate"
+  );
+
+  assert.equal(manifest.parentConsoleTestFiles.length, 34);
+  assert.equal(manifest.expectedParentConsoleTestCount, 262);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 260);
+  assert.equal(
+    countStaticNodeTests(manifest.parentConsoleTestFiles),
+    manifest.expectedParentConsoleStaticDeclarationCount
+  );
   assert.deepEqual(
     manifest.parentConsoleTestFiles,
-    [...manifest.parentConsoleSupportTestFiles, ...manifest.parentDomainTestFiles]
+    [
+      ...manifest.parentConsoleSupportTestFiles,
+      ...manifest.parentDomainTestFiles,
+      ...manifest.parentSecurityLifecycleTestFiles
+    ]
   );
 
   const tsconfig = JSON.parse(readRepoFile("tsconfig.parent-console.json"));
+  assert.equal(
+    tsconfig.compilerOptions.jsx,
+    "react-jsx",
+    "compiled TSX dependencies must emit loadable .js instead of unresolved .jsx"
+  );
   assert.deepEqual(tsconfig.files, manifest.parentConsoleTestFiles);
 
   const runner = readRepoFile("scripts/run-parent-console-tests.mjs");
   assert.match(runner, /parentConsoleTestFiles/u);
   assert.match(runner, /assertParentConsoleTestManifest/u);
+  assert.match(runner, /--test-concurrency=1/u);
+  assert.match(runner, /--test-reporter=tap/u);
+  assert.match(runner, /finalTapMetric/u);
+  assert.match(runner, /summary\.skipped !== 0/u);
+  assert.match(runner, /summary\.todo !== 0/u);
 });
 
-test("new parent RSC and message UI tests trip the explicit manifest instead of being silently skipped", async () => {
+test("new parent-domain tests trip the explicit manifest instead of being silently skipped", async () => {
   const manifest = await import(`./parent-console-test-manifest.mjs?rsc-tripwire=${Date.now()}`);
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), "parent-console-manifest-"));
-  const integrationTests = [
-    "app/parent/parentRscSafeBoundary.test.ts",
-    "components/parent/parentMessageUi.test.ts"
-  ];
+  const futureTest = "components/parent/parentFutureBoundary.test.ts";
 
   try {
-    for (const relativePath of [...manifest.parentConsoleTestFiles, ...integrationTests]) {
+    for (const relativePath of [...manifest.parentConsoleTestFiles, futureTest]) {
       const absolutePath = path.join(fixtureRoot, relativePath);
       mkdirSync(path.dirname(absolutePath), { recursive: true });
       writeFileSync(absolutePath, "// manifest fixture\n");
@@ -68,10 +125,7 @@ test("new parent RSC and message UI tests trip the explicit manifest instead of 
 
     assert.throws(
       () => manifest.assertParentConsoleTestManifest(fixtureRoot),
-      new RegExp(
-        `Unlisted parent-domain tests: ${integrationTests.map((relativePath) => relativePath.replaceAll(".", "\\.")).join(", ")}`,
-        "u"
-      )
+      /Unlisted parent-domain tests: components\/parent\/parentFutureBoundary\.test\.ts/u
     );
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true });
