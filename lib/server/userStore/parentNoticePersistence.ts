@@ -19,6 +19,7 @@ type UserRole = StudentSession["role"];
 type ParentNoticeUserRecord = {
   id: string;
   username?: string;
+  disabled_at?: string | null;
   role: UserRole;
 };
 
@@ -120,6 +121,12 @@ export type ParentNoticePersistenceDatabase = {
   users: ParentNoticeUserRecord[];
 };
 
+export type ParentNoticeMutationScope = {
+  kind: "ack";
+  parentId: string;
+  recipientId: string;
+};
+
 export type ParentNoticePersistenceStoreDependencies = {
   getParentChildSummaries: (
     database: ParentNoticePersistenceDatabase,
@@ -129,6 +136,10 @@ export type ParentNoticePersistenceStoreDependencies = {
   readDatabase: () => Promise<ParentNoticePersistenceDatabase>;
   mutateDatabase: <T>(
     mutator: (database: ParentNoticePersistenceDatabase) => T | Promise<T>
+  ) => Promise<T>;
+  mutateMutationDatabase?: <T>(
+    scope: ParentNoticeMutationScope,
+    mutator: (database: ParentNoticePersistenceDatabase) => T
   ) => Promise<T>;
 };
 
@@ -315,7 +326,8 @@ export function createParentNoticePersistenceStore({
   getParentChildSummaries,
   now = () => new Date(),
   readDatabase,
-  mutateDatabase
+  mutateDatabase,
+  mutateMutationDatabase
 }: ParentNoticePersistenceStoreDependencies) {
   return {
     async getParentNoticeData(
@@ -404,7 +416,7 @@ export function createParentNoticePersistenceStore({
       parentId: string;
       recipientId: string;
     }) {
-      return mutateDatabase((database) => {
+      const mutate = (database: ParentNoticePersistenceDatabase) => {
         const user = database.users.find((candidate) => candidate.id === parentId);
         if (user?.role !== "parent") return { status: "forbidden" as const };
         const recipient = database.teacher_notice_recipients.find((candidate) => candidate.id === recipientId);
@@ -436,7 +448,10 @@ export function createParentNoticePersistenceStore({
         const notice = database.teacher_notices.find((candidate) => candidate.id === recipient.notice_id);
         if (notice) notice.updated_at = updatedAt;
         return { status: "acknowledged" as const, receipt: toParentNoticeReceiptSafe(recipient) };
-      });
+      };
+      return mutateMutationDatabase
+        ? mutateMutationDatabase({ kind: "ack", parentId, recipientId }, mutate)
+        : mutateDatabase(mutate);
     }
   };
 }
