@@ -327,6 +327,44 @@ function parentDisplayName(
   return profile?.name ?? fallback;
 }
 
+function parentSafeReport(
+  database: ParentMessagePersistenceDatabase,
+  report: TeacherReport
+) {
+  const persisted = database.teacher_reports?.find((candidate) => (
+    candidate.id === report.id &&
+    candidate.type === "parent-summary" &&
+    candidate.student_id === report.studentId
+  ));
+  const teacherId = persisted?.generated_by ?? report.generatedBy;
+  return toParentReportSafe({
+    ...report,
+    ...(persisted?.student_id ? { studentId: persisted.student_id } : {}),
+    ...(persisted?.class_id ? { classId: persisted.class_id } : {}),
+    generatedBy: teacherId,
+    generatedByName: parentDisplayName(database, teacherId, "Teacher")
+  });
+}
+
+function reportComposeTarget(
+  database: ParentMessagePersistenceDatabase,
+  report: TeacherReport
+) {
+  const studentId = report.studentId;
+  const classId = report.classId;
+  if (!studentId || !classId) return null;
+  const target = exactReportTeacherClass(database, studentId, classId, report.id);
+  if (!target) return null;
+  return {
+    studentId,
+    classId,
+    className: target.teacherClass.name,
+    teacherId: target.teacherId,
+    teacherName: parentDisplayName(database, target.teacherId, "Teacher"),
+    reportId: target.report.id
+  };
+}
+
 function toParentMessageEntrySafe(database: ParentMessagePersistenceDatabase, record: ParentMessageEntryRecord) {
   return {
     id: record.id,
@@ -555,14 +593,20 @@ export function createParentMessagePersistenceStore({
       const selectedThread = selectedThreadRecord
         ? buildParentMessageThread(database, selectedThreadRecord)
         : null;
-      const composeTargets = Array.from(visibleStudentIds).flatMap((studentId) => (
+      const reports = Array.from(visibleStudentIds)
+        .flatMap((studentId) => getParentReportsForStudent(database, studentId));
+      const generalComposeTargets = Array.from(visibleStudentIds).flatMap((studentId) => (
         teacherClassesForStudent(database, studentId).map((teacherClass) => ({
           studentId,
           classId: teacherClass.id,
           className: teacherClass.name,
+          teacherId: teacherClass.teacher_id,
           teacherName: parentDisplayName(database, teacherClass.teacher_id, "Teacher")
         }))
       ));
+      const reportComposeTargets = reports
+        .map((report) => reportComposeTarget(database, report))
+        .filter((target): target is NonNullable<typeof target> => Boolean(target));
 
       return {
         generatedAt: now().toISOString(),
@@ -571,10 +615,8 @@ export function createParentMessagePersistenceStore({
         threads,
         selectedThread,
         categories: parentMessageCategories,
-        reports: Array.from(visibleStudentIds)
-          .flatMap((studentId) => getParentReportsForStudent(database, studentId))
-          .map(toParentReportSafe),
-        composeTargets
+        reports: reports.map((report) => parentSafeReport(database, report)),
+        composeTargets: [...generalComposeTargets, ...reportComposeTargets]
       };
     },
 

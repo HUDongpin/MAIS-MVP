@@ -3543,6 +3543,7 @@ export type TeacherReport = {
   classId?: string;
   studentId?: string;
   generatedBy: string;
+  generatedByName?: string;
   generatedAt: string;
   summary: LocalizedText;
   preview?: TeacherReportPreview;
@@ -3852,6 +3853,7 @@ export type ParentChildSummary = {
   strengths: Topic[];
   supportTopics: Topic[];
   assignments: StudentAssignmentItem[];
+  pendingAssignmentCount: number;
   rewardSummary: RewardPointSummary;
   motivationSummary: GamificationSummary | null;
   latestParentReport: TeacherReport | null;
@@ -3943,6 +3945,8 @@ export type ParentReportSafe = {
   title: LocalizedText;
   classId?: string;
   studentId?: string;
+  teacherId: string;
+  teacherName: string;
   generatedAt: string;
   summary: LocalizedText;
   preview?: ParentReportPreviewSafe;
@@ -3981,6 +3985,7 @@ export type ParentChildSummarySafe = {
   strengths: ParentTopicSafe[];
   supportTopics: ParentTopicSafe[];
   assignments: ParentAssignmentItemSafe[];
+  pendingAssignmentCount: number;
   rewardSummary: RewardPointSummary;
   motivationSummary: ParentMotivationSummarySafe | null;
   latestParentReport: ParentReportSafe | null;
@@ -4127,7 +4132,9 @@ export type ParentMessageComposeTargetSafe = {
   studentId: string;
   classId: string;
   className: string;
+  teacherId: string;
   teacherName: string;
+  reportId?: string;
 };
 
 export type ParentMessagesSafeData = {

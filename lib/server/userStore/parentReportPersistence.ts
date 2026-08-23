@@ -21,6 +21,11 @@ type ParentReportGuardianLinkRecord = {
   status: string;
 };
 
+type ParentReportStudentProfileRecord = {
+  user_id: string;
+  name?: string;
+};
+
 type ParentReportRecord = {
   id: string;
   type: TeacherReportType;
@@ -37,6 +42,7 @@ type ParentReportRecord = {
 
 export type ParentReportPersistenceDatabase = {
   guardian_links: ParentReportGuardianLinkRecord[];
+  student_profiles?: ParentReportStudentProfileRecord[];
   teacher_reports: ParentReportRecord[];
   users: ParentReportUserRecord[];
 };
@@ -56,7 +62,19 @@ function canUseParentArea(user?: ParentReportUserRecord | null): user is ParentR
   return user?.role === "parent";
 }
 
-function toTeacherReport(record: ParentReportRecord): TeacherReport {
+function reportAuthorName(
+  database: Pick<ParentReportPersistenceDatabase, "student_profiles">,
+  teacherId: string
+) {
+  // Parent-safe author labels never fall back to usernames because deployments may use an
+  // email address there. A profile name is allowlisted; otherwise use a role label.
+  return database.student_profiles?.find((profile) => profile.user_id === teacherId)?.name ?? "Teacher";
+}
+
+function toTeacherReport(
+  database: Pick<ParentReportPersistenceDatabase, "student_profiles">,
+  record: ParentReportRecord
+): TeacherReport {
   return {
     id: record.id,
     type: record.type,
@@ -67,6 +85,7 @@ function toTeacherReport(record: ParentReportRecord): TeacherReport {
     classId: record.class_id,
     studentId: record.student_id,
     generatedBy: record.generated_by,
+    generatedByName: reportAuthorName(database, record.generated_by),
     generatedAt: record.generated_at,
     summary: {
       en: record.summary_en,
@@ -77,13 +96,13 @@ function toTeacherReport(record: ParentReportRecord): TeacherReport {
 }
 
 export function parentReportsForStudent(
-  database: Pick<ParentReportPersistenceDatabase, "teacher_reports">,
+  database: Pick<ParentReportPersistenceDatabase, "student_profiles" | "teacher_reports">,
   studentId: string
 ) {
   return database.teacher_reports
     .filter((report) => report.type === "parent-summary" && report.student_id === studentId)
     .sort((a, b) => b.generated_at.localeCompare(a.generated_at))
-    .map((report) => toTeacherReport(report));
+    .map((report) => toTeacherReport(database, report));
 }
 
 export function createParentReportPersistenceStore({
@@ -123,7 +142,7 @@ export function createParentReportPersistenceStore({
             selectedStudentIds.has(report.student_id)
           ))
           .sort((a, b) => b.generated_at.localeCompare(a.generated_at))
-          .map((report) => toTeacherReport(report))
+          .map((report) => toTeacherReport(database, report))
       };
     }
   };

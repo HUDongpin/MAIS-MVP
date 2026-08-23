@@ -14,7 +14,7 @@ function assertNoForbiddenKeys(value: unknown) {
     "classCode", "inviteCode", "guardianInviteCode", "answerText", "correctAnswer", "imageDataUrl",
     "imageObjectKey", "imageUrl", "imageFileName", "ocrResult", "provider", "model", "error", "errorCode",
     "errorMessage", "usage", "promptTokens", "completionTokens", "totalTokens", "deliveryAttempts",
-    "providerMessageId", "guardianId", "guardianName", "acknowledgedBy", "teacherRemarks", "generatedBy",
+    "providerMessageId", "guardianId", "guardianName", "acknowledgedBy", "teacherRemarks", "generatedBy", "generatedByName",
     "sourceKey", "antiAbuseFlags", "leaderboard", "recentEvents", "economy"
   ]);
 
@@ -41,6 +41,7 @@ function unsafeReport() {
     classId: "class-1",
     studentId: "student-1",
     generatedBy: "teacher-1",
+    generatedByName: "Teacher Chan",
     generatedAt,
     summary: { en: "Steady progress", zh: "穩步進展" },
     preview: {
@@ -91,6 +92,7 @@ function unsafeChild() {
       model: "poison-model"
     }],
     supportTopics: [],
+    pendingAssignmentCount: 8,
     assignments: [{
       assignment: {
         id: "assignment-1",
@@ -196,8 +198,9 @@ test("parent API DTOs rebuild foundation, summary, reports and notices from expl
   assertExactKeys(foundation.links[0], ["id", "studentId", "studentName", "studentGrade", "relationship", "status", "createdAt", "updatedAt"], "foundation.links[0]");
   assertExactKeys(foundation.children[0], [
     "student", "classes", "generatedAt", "averageMastery", "learningMinutes7d", "latestActivityAt", "weeklyActivity",
-    "strengths", "supportTopics", "assignments", "rewardSummary", "motivationSummary", "latestParentReport", "celebrate", "support"
+    "strengths", "supportTopics", "assignments", "pendingAssignmentCount", "rewardSummary", "motivationSummary", "latestParentReport", "celebrate", "support"
   ], "foundation.children[0]");
+  assert.equal(foundation.children[0].pendingAssignmentCount, 8);
   assertExactKeys(foundation.children[0].student, ["id", "name", "grade"], "child.student");
   assertExactKeys(foundation.children[0].classes[0], ["id", "name", "grade"], "child.classes[0]");
   assertExactKeys(foundation.children[0].strengths[0], ["id", "title", "mastery"], "child.strengths[0]");
@@ -206,7 +209,9 @@ test("parent API DTOs rebuild foundation, summary, reports and notices from expl
     "id", "status", "score", "submittedAt", "gradedAt", "feedback", "correctionRequest", "correctionDueAt",
     "correctionRound", "maxCorrectionRounds", "resolvedAt", "updatedAt"
   ], "submission");
-  assertExactKeys(foundation.children[0].latestParentReport, ["id", "type", "title", "classId", "studentId", "generatedAt", "summary", "preview"], "latest report");
+  assertExactKeys(foundation.children[0].latestParentReport, ["id", "type", "title", "classId", "studentId", "teacherId", "teacherName", "generatedAt", "summary", "preview"], "latest report");
+  assert.equal(foundation.children[0].latestParentReport.teacherId, "teacher-1");
+  assert.equal(foundation.children[0].latestParentReport.teacherName, "Teacher Chan");
   assertExactKeys(foundation.children[0].latestParentReport.preview, [
     "id", "type", "language", "title", "subtitle", "generatedAt", "subjectName", "classId", "className", "studentId",
     "metrics", "strengths", "weaknesses", "mistakeTypes", "suggestedPractice"
@@ -222,7 +227,7 @@ test("parent API DTOs rebuild foundation, summary, reports and notices from expl
 
   const reports = helpers.toParentReportDataSafe({ generatedAt, children: [child], selectedChild: child, reports: [unsafeReport()] });
   assertExactKeys(reports, ["generatedAt", "children", "selectedChild", "reports"], "reports");
-  assertExactKeys(reports.reports[0], ["id", "type", "title", "classId", "studentId", "generatedAt", "summary", "preview"], "reports.reports[0]");
+  assertExactKeys(reports.reports[0], ["id", "type", "title", "classId", "studentId", "teacherId", "teacherName", "generatedAt", "summary", "preview"], "reports.reports[0]");
   assertNoForbiddenKeys(reports);
 
   const notices = helpers.toParentNoticeDataSafe({

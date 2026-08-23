@@ -92,6 +92,7 @@ function childSummary(studentId: string, pendingAssignments = 0): ParentChildSum
       className: "3A",
       classGrade: "S3"
     })),
+    pendingAssignmentCount: pendingAssignments,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -173,9 +174,13 @@ function createDatabase(): ParentFoundationPersistenceDatabase {
 function createTestStore(database: ParentFoundationPersistenceDatabase) {
   return createParentFoundationPersistenceStore({
     readDatabase: async () => database,
-    buildParentChildSummary: (_database, studentId) => studentId === "student-1"
-      ? childSummary(studentId, 2)
-      : childSummary(studentId, 0),
+    buildParentChildSummary: (_database, studentId) => {
+      const summary = studentId === "student-1"
+        ? childSummary(studentId, 2)
+        : childSummary(studentId, 0);
+      if (studentId === "student-1") summary.assignments = [];
+      return summary;
+    },
     toGuardianLink: (_database, link) => ({
       id: link.id ?? "",
       parentId: link.parent_id,
@@ -466,11 +471,23 @@ test("parent foundation persistence owns parent child-summary builder for legacy
   assert.doesNotMatch(rootSource, /function buildParentChildSummary\b/);
   assert.match(rootSource, /createParentChildSummaryBuilderFromParentFoundation/);
 
+  const allSubmissionStatuses: SubmissionStatus[] = [
+    "submitted",
+    "graded",
+    "correction-submitted",
+    "resolved",
+    "not-started",
+    "in-progress",
+    "late",
+    "correction-required"
+  ];
   const database = {
     ...createDatabase(),
-    assignments: [
-      { id: "assignment-1", class_id: "class-1", updated_at: "2026-06-20T00:00:00.000Z" }
-    ],
+    assignments: allSubmissionStatuses.map((_status, index) => ({
+      id: `assignment-${index + 1}`,
+      class_id: "class-1",
+      updated_at: `2026-06-${String(20 - index).padStart(2, "0")}T00:00:00.000Z`
+    })),
     class_enrollments: [
       { class_id: "class-1", student_id: "student-1" }
     ],
@@ -481,15 +498,13 @@ test("parent foundation persistence owns parent child-summary builder for legacy
     student_profiles: [
       { user_id: "student-1", grade: "S3" as const }
     ],
-    submissions: [
-      {
-        id: "submission-1",
-        assignment_id: "assignment-1",
-        student_id: "student-1",
-        status: "in-progress" as const,
-        updated_at: "2026-06-20T09:00:00.000Z"
-      }
-    ],
+    submissions: allSubmissionStatuses.map((status, index) => ({
+      id: `submission-${index + 1}`,
+      assignment_id: `assignment-${index + 1}`,
+      student_id: "student-1",
+      status,
+      updated_at: `2026-06-${String(20 - index).padStart(2, "0")}T09:00:00.000Z`
+    })),
     teacher_classes: [
       { id: "class-1", name: "3A", grade: "S3" as const }
     ],
@@ -581,12 +596,25 @@ test("parent foundation persistence owns parent child-summary builder for legacy
   assert.equal(summary?.latestActivityAt, "2026-06-20T10:00:00.000Z");
   assert.deepEqual(summary?.strengths.map((topic) => topic.id), ["topic-strength"]);
   assert.deepEqual(summary?.supportTopics.map((topic) => topic.id), ["topic-support"]);
-  assert.deepEqual(summary?.assignments.map((item) => item.assignment.id), ["assignment-1"]);
+  assert.deepEqual(
+    summary?.assignments.map((item) => item.assignment.id),
+    ["assignment-1", "assignment-2", "assignment-3", "assignment-4", "assignment-5", "assignment-6"],
+    "the card list remains capped at the latest six assignments"
+  );
+  assert.equal(
+    summary?.pendingAssignmentCount,
+    4,
+    "the count must include late and correction-required items outside the six-item display window"
+  );
   assert.equal(summary?.rewardSummary.available, 4);
   assert.equal(summary?.latestParentReport?.id, "report-1");
   assert.match(summary?.celebrate[0]?.en ?? "", /topic-strength/);
   assert.match(summary?.support[0]?.en ?? "", /topic-support/);
-  assert.match(summary?.support[1]?.en ?? "", /1 recent assignment item/);
+  assert.deepEqual(summary?.support[1], {
+    en: "4 assignment items need attention.",
+    zh: "有 4 項作業需要留意。",
+    zhHans: "有 4 项作业需要留意。"
+  });
   assert.equal(helpers.buildParentChildSummary(database, "missing-student", {
     latestStudentActivityAt: () => null,
     motivationSummaryForStudent: () => null,

@@ -33,6 +33,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -55,6 +56,9 @@ function createDatabase(): ParentReportPersistenceDatabase {
       { parent_id: "parent-1", student_id: "student-1", status: "active" },
       { parent_id: "parent-1", student_id: "student-2", status: "active" },
       { parent_id: "parent-2", student_id: "student-3", status: "active" }
+    ],
+    student_profiles: [
+      { user_id: "teacher-1", name: "Teacher Chan" }
     ],
     teacher_reports: [
       {
@@ -181,6 +185,8 @@ test("parent report persistence returns every linked child's reports without leg
   ]);
   assert.equal(data?.reports[0].title.en, "Newer report");
   assert.equal(data?.reports[0].summary.zh, "較新摘要");
+  assert.equal(data?.reports[0].generatedBy, "teacher-1");
+  assert.equal(data?.reports[0].generatedByName, "Teacher Chan");
   assert.equal(data?.reports[0].preview?.metrics.averageMastery, 82);
 });
 

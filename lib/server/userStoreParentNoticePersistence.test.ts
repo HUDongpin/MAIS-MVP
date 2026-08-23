@@ -33,6 +33,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -66,6 +67,11 @@ function createDatabase(): ParentNoticePersistenceDatabase {
         parent_id: "parent-2",
         student_id: "student-1",
         status: "active"
+      },
+      {
+        parent_id: "parent-revoked",
+        student_id: "student-3",
+        status: "revoked"
       }
     ],
     student_profiles: [
@@ -127,6 +133,15 @@ function createDatabase(): ParentNoticePersistenceDatabase {
         status: "pending",
         acknowledged_at: null,
         created_at: "2026-06-19T09:00:00.000Z"
+      },
+      {
+        id: "recipient-revoked",
+        notice_id: "notice-1",
+        student_id: "student-3",
+        guardian_id: "parent-revoked",
+        status: "pending",
+        acknowledged_at: null,
+        created_at: "2026-06-19T10:00:00.000Z"
       }
     ],
     teacher_notices: [
@@ -190,6 +205,7 @@ function createDatabase(): ParentNoticePersistenceDatabase {
     users: [
       { id: "parent-1", username: "Pat Parent", role: "parent" },
       { id: "parent-2", username: "Other Parent", role: "parent" },
+      { id: "parent-revoked", username: "Revoked Parent", role: "parent" },
       { id: "admin-1", username: "Support Admin", role: "admin" },
       { id: "teacher-1", username: "Teacher Chan", role: "teacher" },
       { id: "student-1", username: "Ada", role: "student" },
@@ -317,13 +333,14 @@ test("admin cannot write a guardian acknowledgement", async () => {
   assert.equal(database.teacher_notice_recipients[0].acknowledged_at, null);
 });
 
-test("parent notice persistence rejects unavailable or unauthorized acknowledgement", async () => {
+test("parent notice persistence hides foreign, revoked and absent recipients behind the same result", async () => {
   const store = createTestStore();
 
   assert.equal(await store.getParentNoticeData("teacher-1"), null);
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "teacher-1", recipientId: "recipient-1" }), { status: "forbidden" });
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "missing" }), { status: "not-found" });
-  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" }), { status: "forbidden" });
+  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" }), { status: "not-found" });
+  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-revoked", recipientId: "recipient-revoked" }), { status: "not-found" });
 });
 
 test("parent notice persistence rejects admin reads", async () => {
@@ -541,6 +558,6 @@ test("the idempotent acknowledgement path still enforces authorization", async (
   assert.equal(database.teacher_notice_recipients[0].acknowledged_at, "2026-06-20T11:00:00.000Z");
 
   const stranger = await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" });
-  assert.equal(stranger.status, "forbidden", "an unrelated guardian must not reach the idempotent path");
+  assert.equal(stranger.status, "not-found", "an unrelated guardian must not reach the idempotent path or learn that it exists");
   assert.equal(database.teacher_notice_recipients[0].acknowledged_by, "parent-1");
 });

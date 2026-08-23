@@ -1132,7 +1132,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
 
       const pathname = window.location.pathname;
       const canUseTeacherArea = session.user.role === "teacher" || session.user.role === "admin";
-      const canUseParentArea = session.user.role === "parent" || session.user.role === "admin";
+      const canUseParentArea = session.user.role === "parent";
       if (pathname.startsWith("/teacher") && !canUseTeacherArea) {
         router.replace(`/login?next=${encodeURIComponent(pathname)}&reason=teacher-account-required`);
       } else if (pathname.startsWith("/parent") && !canUseParentArea) {

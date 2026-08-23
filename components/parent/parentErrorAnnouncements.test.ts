@@ -26,6 +26,10 @@ const parentLoadingSource = readFileSync(
   join(process.cwd(), "app", "parent", "loading.tsx"),
   "utf8"
 );
+const appProvidersSource = readFileSync(
+  join(process.cwd(), "components", "providers", "AppProviders.tsx"),
+  "utf8"
+);
 
 const adaptiveAnnouncement = /role=\{feedback\.kind === "error" \? "alert" : "status"\}/g;
 
@@ -58,11 +62,19 @@ test("thread navigation isolates drafts and prevents stale selection commits", (
   assert.match(parentViewsSource, /if \(!isCurrentSelection\(\)\) return;/, "stale failures must not replace the latest selection feedback");
 });
 
+test("a linked report locks the compose form to its exact safe author target", () => {
+  assert.match(parentViewsSource, /resolveParentComposeTarget\(/);
+  assert.match(parentViewsSource, /selectedReportTarget\?\.teacherName/);
+  assert.match(parentViewsSource, /selectedReport && !selectedReportTarget/);
+  assert.match(parentViewsSource, /disabled=\{Boolean\(selectedReport\) \|\| !availableComposeTargets\.length\}/);
+  assert.match(parentViewsSource, /classId: effectiveClassId,[\s\S]*?reportId: normalizedReportId \|\| null/);
+});
+
 test("external student navigation invalidates old reads and resolves from the matching server props", () => {
   assert.match(parentViewsSource, /renderedNavigationContextKeyRef\.current = navigationContextKey/);
   assert.match(parentViewsSource, /threadSelectionGenerationRef\.current \+= 1;[\s\S]*?threadSelectionControllerRef\.current\?\.abort\(\);[\s\S]*?setSelectingThreadId\(""\)/);
   assert.match(parentViewsSource, /const nextReport = nextReportId \? initialData\.reports\.find/);
-  assert.match(parentViewsSource, /const availableClassIds = initialData\.composeTargets/);
+  assert.match(parentViewsSource, /const availableTargets = initialData\.composeTargets/);
   assert.match(parentViewsSource, /expectedContextKey[\s\S]*?expectedDataGeneration[\s\S]*?return null;/);
 });
 
@@ -85,6 +97,24 @@ test("parent failures distinguish required HTTP and network outcomes", () => {
   assert.match(parentViewsSource, /sent-refresh-failed/);
   assert.match(parentNoticesSource, /response\.status === 429/);
   assert.match(parentNoticesSource, /response\.status === 503/);
+});
+
+test("parent pending totals use the full safe summary count instead of the six-row display list", () => {
+  assert.match(parentViewsSource, /function pendingAssignmentCount\(child: ParentChildSummarySafe\) \{\s*return child\.pendingAssignmentCount;\s*\}/);
+  assert.doesNotMatch(parentViewsSource, /child\.assignments\.filter\(\(item\) => openAssignmentStatuses\.has/);
+});
+
+test("session revalidation never treats an admin account as a parent account", () => {
+  assert.match(
+    appProvidersSource,
+    /const canUseTeacherArea = session\.user\.role === "teacher" \|\| session\.user\.role === "admin";/,
+    "teacher session revalidation must retain explicit admin support"
+  );
+  assert.match(
+    appProvidersSource,
+    /const canUseParentArea = session\.user\.role === "parent";/,
+    "parent session revalidation must be parent-only"
+  );
 });
 
 test("the parent console matches the login form's error convention", () => {

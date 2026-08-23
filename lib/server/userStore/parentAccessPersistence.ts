@@ -380,9 +380,7 @@ export function parentCanAccessStudentInDatabase(
   studentId: string
 ) {
   const parent = database.users.find((candidate) => candidate.id === parentId);
-  if (parent?.role === "admin") {
-    return database.users.some((candidate) => candidate.id === studentId && candidate.role === "student");
-  }
+  if (!canUseParentArea(parent)) return false;
   return database.guardian_links.some((link) => (
     link.parent_id === parentId &&
     link.student_id === studentId &&

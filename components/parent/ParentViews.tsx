@@ -14,7 +14,7 @@ import {
   parentMessageOutcome,
   parentReportPrefillSubject,
   parentWeekdayLabel,
-  resolveComposeClassId,
+  resolveParentComposeTarget,
   type ParentIdempotencyAttempt,
   type ParentMessageOutcomeCode
 } from "@/components/parent/parentMessageUi";
@@ -70,7 +70,7 @@ function suggestedPracticeForLanguage(items: string[], language: string) {
 }
 
 function pendingAssignmentCount(child: ParentChildSummarySafe) {
-  return child.assignments.filter((item) => openAssignmentStatuses.has(item.submission.status)).length;
+  return child.pendingAssignmentCount;
 }
 
 function correctionAssignmentCount(child: ParentChildSummarySafe) {
@@ -519,7 +519,9 @@ function ReportCard({ report, showActions = false }: { report: ParentReportSafe;
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-sm font-black text-slate-950 [overflow-wrap:anywhere] dark:text-white">{text(report.title)}</p>
-          <p className="mt-1 text-xs font-bold text-cyan-700 dark:text-cyan-200">{formatDate(report.generatedAt, language)}</p>
+          <p className="mt-1 text-xs font-bold text-cyan-700 [overflow-wrap:anywhere] dark:text-cyan-200">
+            {formatDate(report.generatedAt, language)} · {t({ en: "Author", zh: "作者", zhHans: "作者" })}: {report.teacherName}
+          </p>
         </div>
         <span className="rounded-full border border-cyan-300/60 bg-cyan-400/12 px-3 py-1 text-xs font-black text-cyan-800 dark:text-cyan-100">
           {t({ en: "Parent summary", zh: "家長摘要" })}
@@ -669,14 +671,13 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
   ).slice(0, parentMessageSubjectMaxLength));
   const [body, setBody] = useState("");
   const [reply, setReply] = useState("");
-  const initialTargetClassIds = initialData.composeTargets
-    .filter((target) => target.studentId === initialComposeStudentId)
-    .map((target) => target.classId);
-  const [composeClassId, setComposeClassId] = useState(() => resolveComposeClassId({
-    reportClassId: initialReport?.classId,
+  const initialComposeTargets = initialData.composeTargets
+    .filter((target) => target.studentId === initialComposeStudentId);
+  const [composeClassId, setComposeClassId] = useState(() => resolveParentComposeTarget({
+    reportId: initialReport?.id,
     selectedClassId: null,
-    availableClassIds: initialTargetClassIds
-  }));
+    targets: initialComposeTargets
+  })?.classId ?? "");
   const [feedback, setFeedback] = useState<ParentActionFeedback | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
@@ -693,11 +694,19 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     () => data.composeTargets.filter((target) => target.studentId === composeStudentId),
     [composeStudentId, data.composeTargets]
   );
-  const effectiveClassId = resolveComposeClassId({
-    reportClassId: selectedReport?.classId,
+  const generalComposeTargetsForStudent = useMemo(
+    () => composeTargetsForStudent.filter((target) => !target.reportId),
+    [composeTargetsForStudent]
+  );
+  const selectedReportTarget = resolveParentComposeTarget({
+    reportId: selectedReport?.id,
     selectedClassId: composeClassId,
-    availableClassIds: composeTargetsForStudent.map((target) => target.classId)
+    targets: composeTargetsForStudent
   });
+  const availableComposeTargets = selectedReport
+    ? selectedReportTarget ? [selectedReportTarget] : []
+    : generalComposeTargetsForStudent;
+  const effectiveClassId = selectedReportTarget?.classId ?? "";
   const navigationContextKey = parentMessageContextKey({
     studentId: searchParams.get("studentId"),
     threadId: searchParams.get("thread"),
@@ -824,9 +833,8 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
     const nextReport = nextReportId ? initialData.reports.find((report) => report.id === nextReportId) ?? null : null;
     const fallbackStudentId = initialData.selectedChild?.student.id ?? initialData.children[0]?.student.id ?? "";
     const ownedStudentId = nextReport?.studentId || validStudentId || fallbackStudentId;
-    const availableClassIds = initialData.composeTargets
-      .filter((target) => target.studentId === ownedStudentId)
-      .map((target) => target.classId);
+    const availableTargets = initialData.composeTargets
+      .filter((target) => target.studentId === ownedStudentId);
     setComposeStudentId(ownedStudentId);
     setReportId(nextReport?.id ?? "");
     setCategory(nextReport
@@ -834,11 +842,11 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
       : nextCategory && initialData.categories.some((item) => item.id === nextCategory)
         ? nextCategory
         : "learning-support");
-    setComposeClassId(resolveComposeClassId({
-      reportClassId: nextReport?.classId,
+    setComposeClassId(resolveParentComposeTarget({
+      reportId: nextReport?.id,
       selectedClassId: null,
-      availableClassIds
-    }));
+      targets: availableTargets
+    })?.classId ?? "");
     const nextSubject = searchParams.get("subject");
     setSubject((nextSubject ?? (nextReport ? parentReportPrefillSubject(nextReport.title, language) : "")).slice(0, parentMessageSubjectMaxLength));
     setBody("");
@@ -1223,9 +1231,9 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               value={composeStudentId}
               onChange={(event) => {
                 const studentId = event.target.value;
-                const classIds = data.composeTargets.filter((target) => target.studentId === studentId).map((target) => target.classId);
+                const targets = data.composeTargets.filter((target) => target.studentId === studentId);
                 setComposeStudentId(studentId);
-                setComposeClassId(resolveComposeClassId({ reportClassId: null, selectedClassId: null, availableClassIds: classIds }));
+                setComposeClassId(resolveParentComposeTarget({ reportId: null, selectedClassId: null, targets })?.classId ?? "");
                 setReportId("");
                 setSubject("");
                 setBody("");
@@ -1241,7 +1249,7 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
             <span className="text-sm font-black text-slate-700 dark:text-slate-200">{t({ en: "Class and teacher", zh: "班級與教師", zhHans: "班级与教师" })}</span>
             <select
               value={effectiveClassId}
-              disabled={Boolean(selectedReport?.classId) || !composeTargetsForStudent.length}
+              disabled={Boolean(selectedReport) || !availableComposeTargets.length}
               onChange={(event) => {
                 setComposeClassId(event.target.value);
                 createAttemptRef.current = null;
@@ -1250,18 +1258,18 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
               className="focus-ring min-w-0 rounded-2xl border border-slate-200/80 bg-white/80 px-3 py-2 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-70 dark:border-white/10 dark:bg-white/[0.06]"
             >
               <option value="">
-                {composeTargetsForStudent.length
+                {availableComposeTargets.length
                   ? t({ en: "Choose a class and teacher", zh: "選擇班級與教師", zhHans: "选择班级与教师" })
                   : t({ en: "No available teacher", zh: "沒有可聯絡教師", zhHans: "没有可联系教师" })}
               </option>
-              {composeTargetsForStudent.map((target) => (
-                <option key={`${target.studentId}:${target.classId}`} value={target.classId}>
+              {availableComposeTargets.map((target) => (
+                <option key={`${target.studentId}:${target.classId}:${target.teacherId}:${target.reportId ?? "general"}`} value={target.classId}>
                   {target.className} · {target.teacherName}
                 </option>
               ))}
             </select>
           </label>
-          {composeTargetsForStudent.length > 1 && !selectedReport && !effectiveClassId ? (
+          {generalComposeTargetsForStudent.length > 1 && !selectedReport && !effectiveClassId ? (
             <p className="rounded-2xl border border-amber-300/50 bg-amber-400/10 px-3 py-2 text-xs font-bold leading-5 text-amber-800 dark:text-amber-100">
               {t({ en: "This child has more than one class. Choose the teacher who should receive this message.", zh: "此孩子屬於多個班級，請明確選擇接收訊息的教師。", zhHans: "此孩子属于多个班级，请明确选择接收消息的教师。" })}
             </p>
@@ -1280,7 +1288,12 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
                 const nextReportId = event.target.value;
                 const report = reportsForStudent.find((item) => item.id === nextReportId) ?? null;
                 setReportId(nextReportId);
-                if (report?.classId) setComposeClassId(report.classId);
+                const target = resolveParentComposeTarget({
+                  reportId: report?.id,
+                  selectedClassId: null,
+                  targets: composeTargetsForStudent
+                });
+                setComposeClassId(target?.classId ?? "");
                 if (report) {
                   setCategory("report-question");
                   setSubject(parentReportPrefillSubject(report.title, language).slice(0, parentMessageSubjectMaxLength));
@@ -1299,7 +1312,16 @@ export function ParentMessagesView({ initialData }: { initialData: ParentMessage
           </label>
           {selectedReport ? (
             <p className="rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-3 py-2 text-xs font-bold leading-5 text-cyan-800 [overflow-wrap:anywhere] dark:text-cyan-100">
-              {t({ en: "Linked report", zh: "關聯報告" })}: {text(selectedReport.title)}
+              {t({ en: "Linked report", zh: "關聯報告", zhHans: "关联报告" })}: {text(selectedReport.title)} · {t({ en: "Author", zh: "作者", zhHans: "作者" })}: {selectedReportTarget?.teacherName ?? selectedReport.teacherName}
+            </p>
+          ) : null}
+          {selectedReport && !selectedReportTarget ? (
+            <p role="alert" className="rounded-2xl border border-rose-300/50 bg-rose-400/10 px-3 py-2 text-xs font-bold leading-5 text-rose-700 [overflow-wrap:anywhere] dark:text-rose-200">
+              {t({
+                en: "This report author is no longer available for parent messages. Choose another report or contact an active class teacher without linking a report.",
+                zh: "此報告作者目前已不可接收家長私信。請選擇其他報告，或取消連結報告後聯絡仍在任的班級教師。",
+                zhHans: "此报告作者目前已无法接收家长消息。请选择其他报告，或取消关联报告后联系仍在任的班级教师。"
+              })}
             </p>
           ) : null}
           <label className="grid min-w-0 gap-2">

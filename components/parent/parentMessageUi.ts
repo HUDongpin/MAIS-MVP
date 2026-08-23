@@ -1,5 +1,10 @@
 import { textForLanguage } from "@/lib/i18n";
-import type { Language, LocalizedText, ParentMessageCategory } from "@/types";
+import type {
+  Language,
+  LocalizedText,
+  ParentMessageCategory,
+  ParentMessageComposeTargetSafe
+} from "@/types";
 
 export type ParentIdempotencyAttempt = {
   fingerprint: string;
@@ -109,6 +114,26 @@ export function resolveComposeClassId({
   if (reportClassId) return availableClassIds.includes(reportClassId) ? reportClassId : "";
   if (selectedClassId && availableClassIds.includes(selectedClassId)) return selectedClassId;
   return availableClassIds.length === 1 ? availableClassIds[0] : "";
+}
+
+export function resolveParentComposeTarget({
+  reportId,
+  selectedClassId,
+  targets
+}: {
+  reportId?: string | null;
+  selectedClassId?: string | null;
+  targets: ParentMessageComposeTargetSafe[];
+}): ParentMessageComposeTargetSafe | null {
+  if (reportId) {
+    return targets.find((target) => target.reportId === reportId) ?? null;
+  }
+
+  const generalTargets = targets.filter((target) => !target.reportId);
+  if (selectedClassId) {
+    return generalTargets.find((target) => target.classId === selectedClassId) ?? null;
+  }
+  return generalTargets.length === 1 ? generalTargets[0] : null;
 }
 
 export type ParentMessageOutcomeCode =

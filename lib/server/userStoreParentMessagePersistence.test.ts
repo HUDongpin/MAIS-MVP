@@ -34,6 +34,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -380,6 +381,95 @@ test("parent report messages target the authorized co-teacher who generated the 
   assert.equal(result.thread?.teacherName, "Teacher Two");
   assert.equal(database.teacher_messages[0]?.teacher_id, "teacher-2");
   assert.equal(database.teacher_message_entries.at(-1)?.recipient_id, "teacher-2");
+});
+
+test("message data exposes an exact report-author target even when the class owner is disabled", async () => {
+  const database = Object.assign(createDatabase(), {
+    school_memberships: [
+      { user_id: "teacher-2", class_id: "class-a", role: "teacher" as const }
+    ]
+  });
+  const classOwner = database.users.find((candidate) => candidate.id === "teacher-1");
+  assert.ok(classOwner);
+  Object.assign(classOwner, { disabled_at: "2026-06-20T11:00:00.000Z" });
+  database.teacher_reports?.push({
+    id: "report-active-co-teacher",
+    type: "parent-summary",
+    student_id: "student-1",
+    class_id: "class-a",
+    generated_by: "teacher-2"
+  });
+
+  const store = createParentMessagePersistenceStore({
+    createEntryId: () => "unused-entry",
+    createThreadId: () => "unused-thread",
+    now: () => new Date(generatedAt),
+    getParentChildSummaries: (_database, user) => user.id === "parent-1"
+      ? [childSummary("student-1", "Ada Student"), childSummary("student-2", "Ben Student")]
+      : [],
+    getParentReportsForStudent: (_database, studentId) => studentId === "student-1"
+      ? [{
+          id: "report-active-co-teacher",
+          type: "parent-summary",
+          title: { en: "Co-teacher report", zh: "協作教師報告" },
+          classId: "class-a",
+          studentId: "student-1",
+          generatedBy: "teacher-2",
+          generatedAt,
+          summary: { en: "Progress", zh: "進展" }
+        }]
+      : [],
+    mutateDatabase: async (mutator) => mutator(database),
+    readDatabase: async () => database
+  });
+
+  const active = await store.getParentMessagesData("parent-1", "student-1");
+  assert.deepEqual(active?.reports.map((report) => ({
+    id: report.id,
+    teacherId: report.teacherId,
+    teacherName: report.teacherName
+  })), [{ id: "report-active-co-teacher", teacherId: "teacher-2", teacherName: "Teacher Two" }]);
+  assert.deepEqual(active?.composeTargets.filter((target) => target.classId === "class-a"), [{
+    studentId: "student-1",
+    classId: "class-a",
+    className: "S3 Algebra",
+    teacherId: "teacher-2",
+    teacherName: "Teacher Two",
+    reportId: "report-active-co-teacher"
+  }]);
+  const created = await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "active-co-teacher-report-0001",
+    category: "report-question",
+    reportId: "report-active-co-teacher",
+    subject: "Question for the named author",
+    body: "Route this to the active co-teacher who wrote the report."
+  });
+  assert.equal(created.status, "created");
+  assert.equal(database.teacher_messages[0]?.teacher_id, "teacher-2");
+
+  const reportAuthor = database.users.find((candidate) => candidate.id === "teacher-2");
+  assert.ok(reportAuthor);
+  Object.assign(reportAuthor, { disabled_at: "2026-06-20T11:30:00.000Z" });
+  const stale = await store.getParentMessagesData("parent-1", "student-1");
+  assert.equal(stale?.reports[0]?.teacherName, "Teacher Two", "the safe report keeps its stable author label");
+  assert.deepEqual(
+    stale?.composeTargets.filter((target) => target.classId === "class-a"),
+    [],
+    "an inactive report author must not remain a selectable target and the disabled owner must not be a fallback"
+  );
+  assert.equal((await store.createParentMessageThread({
+    parentId: "parent-1",
+    studentId: "student-1",
+    classId: "class-a",
+    idempotencyKey: "inactive-co-teacher-report-0001",
+    category: "report-question",
+    reportId: "report-active-co-teacher",
+    subject: "Do not send",
+    body: "The author is no longer active."
+  })).status, "not-found");
 });
 
 test("parent replies to a report author only while co-teacher class access remains active", async () => {

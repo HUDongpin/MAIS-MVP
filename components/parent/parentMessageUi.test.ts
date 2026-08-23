@@ -10,6 +10,7 @@ import {
   parentMessageOutcome,
   parentReportPrefillSubject,
   parentWeekdayLabel,
+  resolveParentComposeTarget,
   resolveComposeClassId
 } from "@/components/parent/parentMessageUi";
 
@@ -106,6 +107,20 @@ test("report class is authoritative and multi-class compose requires an explicit
   assert.equal(resolveComposeClassId({ reportClassId: null, selectedClassId: "", availableClassIds: ["class-a"] }), "class-a");
   assert.equal(resolveComposeClassId({ reportClassId: null, selectedClassId: "", availableClassIds: ["class-a", "class-b"] }), "");
   assert.equal(resolveComposeClassId({ reportClassId: null, selectedClassId: "class-b", availableClassIds: ["class-a", "class-b"] }), "class-b");
+});
+
+test("report compose locks to the exact active author target and fails closed when it is stale", () => {
+  const targets = [
+    { studentId: "student-1", classId: "class-a", className: "Algebra", teacherId: "owner", teacherName: "Owner" },
+    { studentId: "student-1", classId: "class-b", className: "Geometry", teacherId: "other", teacherName: "Other" },
+    { studentId: "student-1", classId: "class-a", className: "Algebra", teacherId: "co-teacher", teacherName: "Co-teacher", reportId: "report-1" }
+  ];
+
+  assert.deepEqual(resolveParentComposeTarget({ reportId: "report-1", selectedClassId: "class-b", targets }), targets[2]);
+  assert.equal(resolveParentComposeTarget({ reportId: "stale-report", selectedClassId: "class-a", targets }), null);
+  assert.equal(resolveParentComposeTarget({ reportId: null, selectedClassId: null, targets }), null);
+  assert.deepEqual(resolveParentComposeTarget({ reportId: null, selectedClassId: "class-b", targets }), targets[1]);
+  assert.deepEqual(resolveParentComposeTarget({ reportId: null, selectedClassId: null, targets: [targets[0]] }), targets[0]);
 });
 
 test("request outcomes distinguish validation, rate limits, unavailability and ambiguous network loss", () => {

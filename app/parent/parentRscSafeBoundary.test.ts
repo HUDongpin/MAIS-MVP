@@ -57,3 +57,13 @@ test("all parent client props accept only parent-safe DTO types", async () => {
   assert.match(motivation, /ParentMotivationSummarySafe/);
   assert.doesNotMatch(motivation, /\bGamificationSummary\b/);
 });
+
+test("an authenticated parent with an explicit invalid child selection reaches the 404 boundary", async () => {
+  const foundation = await source("app/parent/getParentFoundation.ts");
+
+  assert.match(foundation, /import \{ notFound, redirect \} from "next\/navigation"/);
+  assert.match(
+    foundation,
+    /if \(!foundation\) \{\s*if \(selectedStudentId !== undefined && selectedStudentId !== null\) notFound\(\);\s*redirect\("\/dashboard"\);\s*\}/
+  );
+});

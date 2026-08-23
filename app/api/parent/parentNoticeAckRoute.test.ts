@@ -107,17 +107,27 @@ test("parent notice acknowledgement handler returns an exact safe receipt and en
     { params: Promise.resolve({ recipientId }) }
   );
 
-  for (const [userId, recipientId] of [
-    ["admin-1", "recipient-1"],
-    ["parent-2", "recipient-1"],
-    ["parent-revoked", "recipient-revoked"]
-  ] as const) {
-    const response = await call(userId, recipientId);
-    assert.equal(response.status, 403);
-    assert.deepEqual(await response.json(), { error: "forbidden" });
+  const adminResponse = await call("admin-1", "recipient-1");
+  assert.equal(adminResponse.status, 403);
+  assert.deepEqual(await adminResponse.json(), { error: "forbidden" });
+
+  const hiddenRecipientResponses = await Promise.all([
+    call("parent-2", "recipient-1"),
+    call("parent-revoked", "recipient-revoked"),
+    call("parent-2", "recipient-does-not-exist")
+  ]);
+  for (const response of hiddenRecipientResponses) {
+    assert.equal(response.status, 404);
+    assert.deepEqual(await response.json(), { error: "not-found" });
+    assert.equal(response.headers.get("cache-control"), "private, no-store");
   }
   assert.equal(database.teacher_notice_recipients[0].status, "pending");
   assert.equal(database.teacher_notice_recipients[1].status, "pending");
+
+  const malformedResponse = await call("parent-1", "%E0%A4%A");
+  assert.equal(malformedResponse.status, 400);
+  assert.deepEqual(await malformedResponse.json(), { error: "invalid" });
+  assert.equal(malformedResponse.headers.get("cache-control"), "private, no-store");
 
   const firstResponse = await call("parent-1", "recipient-1");
   const firstBody = await firstResponse.json() as Record<string, unknown>;

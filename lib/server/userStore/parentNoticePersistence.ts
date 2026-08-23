@@ -409,9 +409,12 @@ export function createParentNoticePersistenceStore({
         if (user?.role !== "parent") return { status: "forbidden" as const };
         const recipient = database.teacher_notice_recipients.find((candidate) => candidate.id === recipientId);
         if (!recipient) return { status: "not-found" as const };
-        if (recipient.guardian_id !== parentId) return { status: "forbidden" as const };
+        // Once the caller is known to be a parent, every inaccessible recipient is deliberately
+        // indistinguishable from an absent one. A 403 here would reveal that another family's
+        // recipient id exists; revoked links must close the same side channel.
+        if (recipient.guardian_id !== parentId) return { status: "not-found" as const };
         if (!parentCanAccessStudentInDatabase(database, parentId, recipient.student_id)) {
-          return { status: "forbidden" as const };
+          return { status: "not-found" as const };
         }
 
         // Acknowledgement is a receipt of record: `acknowledged_at` is the evidence of WHEN a

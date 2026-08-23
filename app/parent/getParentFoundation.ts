@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
 import { canAccessParentArea, getAuthenticatedUserFromToken } from "@/lib/server/auth";
 import { getParentFoundationData } from "@/lib/server/userStore";
@@ -20,6 +20,7 @@ export async function getParentFoundationForPage(selectedStudentId?: string | nu
 
   const foundation = await getParentFoundationData(authenticated.user.id, selectedStudentId);
   if (!foundation) {
+    if (selectedStudentId !== undefined && selectedStudentId !== null) notFound();
     redirect("/dashboard");
   }
 

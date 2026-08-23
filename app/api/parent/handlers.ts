@@ -203,9 +203,17 @@ export function createParentNoticeAckHandler({
       if (!authenticated) return parentPrivateJson({ error: "Parent access required." }, { status: 403 });
 
       const { recipientId } = await params;
+      let decodedRecipientId: string;
+      try {
+        decodedRecipientId = decodeURIComponent(recipientId);
+      } catch {
+        // A malformed route component is a client input error, not a database outage. Keep it
+        // inside the same private response boundary without misreporting it as a 503.
+        return parentPrivateJson({ error: "invalid" }, { status: 400 });
+      }
       const result = await acknowledgeNotice({
         parentId: authenticated.user.id,
-        recipientId: decodeURIComponent(recipientId)
+        recipientId: decodedRecipientId
       });
 
       if (result.status !== "acknowledged") {

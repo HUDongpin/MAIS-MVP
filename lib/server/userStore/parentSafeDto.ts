@@ -157,6 +157,8 @@ export function toParentReportSafe(value: TeacherReport): ParentReportSafe {
     title: toParentLocalizedText(value.title),
     ...(value.classId !== undefined ? { classId: value.classId } : {}),
     ...(value.studentId !== undefined ? { studentId: value.studentId } : {}),
+    teacherId: value.generatedBy,
+    teacherName: value.generatedByName ?? "Teacher",
     generatedAt: value.generatedAt,
     summary: toParentLocalizedText(value.summary),
     ...(value.preview ? { preview: toParentReportPreviewSafe(value.preview) } : {})
@@ -219,6 +221,7 @@ export function toParentChildSummarySafe(value: ParentChildSummary): ParentChild
       className: item.className,
       classGrade: item.classGrade
     })),
+    pendingAssignmentCount: value.pendingAssignmentCount,
     rewardSummary: toParentRewardPointSummary(value.rewardSummary),
     motivationSummary: toParentMotivationSummarySafe(value.motivationSummary),
     latestParentReport: value.latestParentReport ? toParentReportSafe(value.latestParentReport) : null,

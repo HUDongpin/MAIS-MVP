@@ -396,13 +396,16 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     .filter((topic) => topic.mastery >= 70)
     .sort((a, b) => b.mastery - a.mastery)
     .slice(0, 3);
-  const assignments = parentAssignmentItemsForStudent(
+  const allAssignmentItems = parentAssignmentItemsForStudent(
     database,
     studentId,
     dependencies.toAssignment,
     dependencies.toSubmission
-  ).slice(0, 6);
-  const pendingAssignments = assignments.filter((item) => parentSubmissionNeedsAttention(item.submission.status)).length;
+  );
+  const pendingAssignmentCount = allAssignmentItems.filter((item) => (
+    parentSubmissionNeedsAttention(item.submission.status)
+  )).length;
+  const assignments = allAssignmentItems.slice(0, 6);
   const rewardSummary = dependencies.rewardSummaryForStudent(database, studentId);
   const motivationSummary = dependencies.motivationSummaryForStudent(database, studentId, now);
   const latestParentReport = dependencies.parentReportsForStudent(database, studentId)[0] ?? null;
@@ -422,9 +425,17 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     supportTopics[0]
       ? { en: `Review ${supportTopics[0].title.en} together for 10 minutes.`, zh: `可一起用 10 分鐘重溫 ${supportTopics[0].title.zh}。` }
       : { en: "Ask your child to explain one solved question aloud.", zh: "可請孩子口頭講解一題已完成題目。" },
-    pendingAssignments > 0
-      ? { en: `${pendingAssignments} recent assignment item needs attention.`, zh: `有 ${pendingAssignments} 項近期作業需要留意。` }
-      : { en: "No urgent assignment follow-up in the latest list.", zh: "最近作業列表暫無緊急跟進。" }
+    pendingAssignmentCount > 0
+      ? {
+          en: `${pendingAssignmentCount} assignment item${pendingAssignmentCount === 1 ? "" : "s"} need${pendingAssignmentCount === 1 ? "s" : ""} attention.`,
+          zh: `有 ${pendingAssignmentCount} 項作業需要留意。`,
+          zhHans: `有 ${pendingAssignmentCount} 项作业需要留意。`
+        }
+      : {
+          en: "No assignment follow-up needs attention.",
+          zh: "目前沒有作業需要跟進。",
+          zhHans: "目前没有作业需要跟进。"
+        }
   ];
 
   return {
@@ -438,6 +449,7 @@ export function buildParentChildSummary<Database extends ParentChildSummaryDatab
     strengths,
     supportTopics,
     assignments,
+    pendingAssignmentCount,
     rewardSummary,
     motivationSummary,
     latestParentReport,
@@ -498,7 +510,7 @@ export function createParentFoundationPersistenceStore({
             message.status !== "resolved"
           ).length,
           pendingAssignments: children.reduce((sum, child) => {
-            return sum + child.assignments.filter((item) => parentSubmissionNeedsAttention(item.submission.status)).length;
+            return sum + child.pendingAssignmentCount;
           }, 0)
         }
       };

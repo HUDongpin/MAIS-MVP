@@ -49,7 +49,7 @@ test("parent access persistence checks active guardian links without legacy user
   assert.equal(await store.parentCanAccessStudent("parent-unknown", "student-1"), false);
 });
 
-test("parent access persistence lets admins access existing student records only", async () => {
+test("parent access persistence never treats admins as guardians", async () => {
   const store = createTestStore({
     guardian_links: [],
     users: [
@@ -59,7 +59,7 @@ test("parent access persistence lets admins access existing student records only
     ]
   });
 
-  assert.equal(await store.parentCanAccessStudent("admin-1", "student-1"), true);
+  assert.equal(await store.parentCanAccessStudent("admin-1", "student-1"), false);
   assert.equal(await store.parentCanAccessStudent("admin-1", "teacher-1"), false);
   assert.equal(await store.parentCanAccessStudent("admin-1", "missing-student"), false);
 });
@@ -264,7 +264,8 @@ test("parent access persistence owns guardian link projection helpers for legacy
   });
   assert.equal(parentCanAccessStudentInDatabase(database, "parent-1", "student-1"), true);
   assert.equal(parentCanAccessStudentInDatabase(database, "parent-1", "student-2"), false);
-  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-2"), true);
+  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-1"), false);
+  assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "student-2"), false);
   assert.equal(parentCanAccessStudentInDatabase(database, "admin-1", "teacher-1"), false);
 });
 

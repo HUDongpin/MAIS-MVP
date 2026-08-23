@@ -537,6 +537,7 @@ test("parent reports fail closed when persisted preview arrays contain nested pr
       strengths: [],
       supportTopics: [],
       assignments: [],
+      pendingAssignmentCount: 0,
       rewardSummary: {
         balance: 0,
         available: 0,
