@@ -57,6 +57,8 @@ test("queued responses never claim delivery and partial pagination distinguishes
   const source = await readFile(viewPath, "utf8");
   const helperSource = await readFile(helperPath, "utf8");
   assert.match(source, /Notice accepted and queued\. Delivery has not been confirmed yet\./);
+  assert.match(source, /result\.payload\.email\.status === "no-eligible"/);
+  assert.match(source, /Notice request was accepted, but no eligible family email recipients were available\./);
   assert.match(source, /Reminder requests queued\. Delivery has not been confirmed yet\./);
   assert.match(helperSource, /Some reminder requests were queued, but the next page could not be loaded\./);
   assert.match(helperSource, /Notice was accepted, but updated details could not be read\./);
@@ -82,6 +84,16 @@ test("a valid notice 202 immediately overrides any existing card without pretend
   assert.match(noticeAction, /router\.refresh\(\)/);
   assert.doesNotMatch(noticeAction, /try\s*\{\s*router\.refresh\(\)/u);
   assert.doesNotMatch(source, /updated details could not be read\. Refresh before retrying/u);
+});
+
+test("an already-sent notice cannot create a fresh-key provider retry from either renderer", async () => {
+  const source = await readFile(viewPath, "utf8");
+  const noticeCard = sourceSection(source, "function NoticeCard", "function NoticeReadyPanel");
+  const noticeReadyPanel = sourceSection(source, "function NoticeReadyPanel", "function PrepTeamReadyPanel");
+  for (const section of [noticeCard, noticeReadyPanel]) {
+    assert.match(section, /disabled=\{busy \|\| retryBlocked \|\| notice\.status === "sent"\}/);
+    assert.match(section, /notice\.status === "sent" \? t\(\{ en: "Sent", zh: "已發送" \}\)/);
+  }
 });
 
 test("TeacherOperations maps actionable HTTP and network failures and respects Retry-After", async () => {

@@ -172,11 +172,11 @@ function NoticeCard({
           <button
             type="button"
             onClick={() => onSend(notice)}
-            disabled={busy || retryBlocked}
+            disabled={busy || retryBlocked || notice.status === "sent"}
             aria-busy={busy}
             className="focus-ring w-full rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950 sm:w-auto"
           >
-            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "draft" ? t({ en: "Send", zh: "發送" }) : t({ en: "Retry", zh: "重試" })}
+            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "sent" ? t({ en: "Sent", zh: "已發送" }) : notice.status === "draft" ? t({ en: "Send", zh: "發送" }) : t({ en: "Retry", zh: "重試" })}
           </button>
         </div>
       </div>
@@ -233,11 +233,11 @@ function NoticeReadyPanel({
           <button
             type="button"
             onClick={() => onSend(notice)}
-            disabled={busy || retryBlocked}
+            disabled={busy || retryBlocked || notice.status === "sent"}
             aria-busy={busy}
             className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950"
           >
-            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "draft" ? t({ en: "Send now", zh: "立即發送" }) : t({ en: "Retry send", zh: "重新發送" })}
+            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "sent" ? t({ en: "Sent", zh: "已發送" }) : notice.status === "draft" ? t({ en: "Send now", zh: "立即發送" }) : t({ en: "Retry send", zh: "重新發送" })}
           </button>
           <a href={`#notice-${notice.id}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
             {t({ en: "Open receipts", zh: "查看回執" })}
@@ -1101,10 +1101,15 @@ export function TeacherOperationsView({
         retainForRetry = false;
         setNoticeOverrides((current) => ({ ...current, [result.payload.notice.id]: result.payload.notice }));
         setCreatedNotice((current) => current?.id === result.payload.notice.id ? result.payload.notice : current);
-        setMessage(t({
-          en: "Notice accepted and queued. Delivery has not been confirmed yet.",
-          zh: "通知已獲接受並加入隊列，尚未確認完成送達。"
-        }), "status");
+        setMessage(result.payload.email.status === "no-eligible"
+          ? t({
+              en: "Notice request was accepted, but no eligible family email recipients were available. Review the channel status in the notice details.",
+              zh: "通知請求已獲接受，但沒有符合條件的家庭電郵收件人。請在通知詳情中查看渠道狀態。"
+            })
+          : t({
+              en: "Notice accepted and queued. Delivery has not been confirmed yet.",
+              zh: "通知已獲接受並加入隊列，尚未確認完成送達。"
+            }), "status");
         router.refresh();
       } else {
         retainForRetry = result.retainForRetry;

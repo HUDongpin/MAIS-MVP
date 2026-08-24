@@ -723,7 +723,7 @@ test("PostgreSQL lock order protects both exact catalogs before provider mapping
     "LOCK TABLE public.teacher_notice_resend_webhook_schema_migrations IN SHARE MODE"
   ]);
   const source = readFileSync(
-    new URL("./teacherNoticeResendWebhookPersistence.ts", import.meta.url),
+    path.join(process.cwd(), "lib/server/userStore/teacherNoticeResendWebhookPersistence.ts"),
     "utf8"
   );
   assert.match(source, /WHERE provider_message_id = \$\{event\.providerMessageId\}[\s\S]*?LIMIT 2\s+FOR SHARE/u);
@@ -746,7 +746,7 @@ test("PostgreSQL maintenance is bounded, uses the database clock, and skips lock
   assert.equal(typeof maintainTeacherNoticeResendWebhookPostgres, "function");
   assert.equal(typeof readTeacherNoticeResendWebhookDeliverySafePostgres, "function");
   const source = readFileSync(
-    new URL("./teacherNoticeResendWebhookPersistence.ts", import.meta.url),
+    path.join(process.cwd(), "lib/server/userStore/teacherNoticeResendWebhookPersistence.ts"),
     "utf8"
   );
   assert.match(source, /maintainTeacherNoticeResendWebhookPostgres[\s\S]*?pg_catalog\.clock_timestamp\(\)/u);

@@ -111,13 +111,18 @@ export function teacherOperationFailureMessage(
   }
 }
 
-type TeacherNoticeEmailAggregate = {
-  status: "queued";
-  queued: number;
-  reused: number;
-  recovered: number;
-  skipped: number;
-};
+type TeacherNoticeEmailAggregate =
+  | {
+      status: "queued";
+      queued: number;
+      reused: number;
+      recovered: number;
+      skipped: number;
+    }
+  | {
+      status: "no-eligible";
+      skipped: number;
+    };
 
 export type TeacherNoticeQueuedPayload = {
   notice: TeacherNotice;
@@ -488,6 +493,10 @@ function isNoticeQueuedPayload(value: unknown): value is TeacherNoticeQueuedPayl
     (value.notice.status === "sent" && value.attempt.status === "sent") ||
     (value.notice.status === "failed" && value.attempt.status === "failed");
   if (!statusesAgree) return false;
+  if (value.email.status === "no-eligible") {
+    return hasOnlyKeys(value.email, ["status", "skipped"]) &&
+      isSafeNonnegativeInteger(value.email.skipped);
+  }
   return value.email.status === "queued" && hasOnlyKeys(value.email, ["status", "queued", "reused", "recovered", "skipped"]) &&
     isSafeNonnegativeInteger(value.email.queued) &&
     isSafeNonnegativeInteger(value.email.reused) &&
@@ -664,7 +673,8 @@ export async function runTeacherReminderPages({
   | { ok: true; state: TeacherReminderRequestState }
   | { ok: false; state: TeacherReminderRequestState; failure: TeacherOperationFailure }
 > {
-  if (!isStableIntentIdentifier(intent.teacherId) ||
+  if (!isRecord(intent) ||
+      !isStableIntentIdentifier(intent.teacherId) ||
       !isStableIntentIdentifier(intent.classId) ||
       (intent.assignmentId !== null && !isStableIntentIdentifier(intent.assignmentId)) ||
       typeof intent.manual !== "boolean") {

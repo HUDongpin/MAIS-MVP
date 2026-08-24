@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
 
 import { createTeacherNoticeResendWebhookMaintenanceHandler } from
@@ -48,7 +49,7 @@ test("maintenance cron requires a configured exact bearer secret before mutation
   assert.equal(calls, 0);
 
   const source = readFileSync(
-    new URL("./teacherNoticeResendWebhookMaintenanceHandler.ts", import.meta.url),
+    path.join(process.cwd(), "lib/server/teacherNoticeResendWebhookMaintenanceHandler.ts"),
     "utf8"
   );
   assert.match(source, /createHash/u);

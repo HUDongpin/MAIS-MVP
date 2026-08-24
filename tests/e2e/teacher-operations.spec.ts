@@ -355,6 +355,52 @@ test.describe("teacher operations queued client contracts", () => {
     await expect(page.getByRole("alert")).toContainText(/no eligible family email recipients/i);
   });
 
+  test("a production 202 with no eligible email is terminal partial success", async ({ page }) => {
+    let requestCount = 0;
+    await authenticateAsTeacher(page);
+    const initialOperations = await teacherOperations(page.request);
+    const originalNotice = initialOperations.data.notices[0];
+    expect(originalNotice).toBeDefined();
+    if (!originalNotice) return;
+    await page.route("**/api/teacher/notices/*/deliveries", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
+      requestCount += 1;
+      const noticeId = decodeURIComponent(new URL(route.request().url()).pathname.split("/").at(-2) ?? "notice-unknown");
+      await route.fulfill({
+        status: 202,
+        contentType: "application/json",
+        body: JSON.stringify({
+          notice: {
+            ...originalNotice,
+            id: noticeId,
+            status: "sent",
+            updatedAt: "2099-08-24T00:00:00.000Z",
+            sentAt: "2099-08-24T00:00:00.000Z"
+          },
+          attempt: {
+            id: "attempt-no-email-fixture",
+            noticeId,
+            channelId: originalNotice.channelId,
+            channelName: originalNotice.channelName,
+            status: "sent",
+            attemptedAt: "2026-08-24T00:00:00.000Z"
+          },
+          email: { status: "no-eligible", skipped: 1 }
+        })
+      });
+    });
+
+    await page.goto("/teacher/operations/notices");
+    const sendButton = page.getByRole("button", { name: /^(Send|Retry|Send now|Retry send)$/i }).first();
+    await expect(sendButton).toBeVisible({ timeout: 20_000 });
+    await sendButton.click();
+    await expect(page.getByRole("status")).toContainText(/accepted, but no eligible family email recipients/i);
+    const sentButton = page.getByRole("button", { name: /^Sent$/i }).first();
+    await expect(sentButton).toBeDisabled();
+    await sentButton.evaluate((button: HTMLButtonElement) => button.click());
+    await expect.poll(() => requestCount).toBe(1);
+  });
+
   test("reminder reload reuses the base key from page zero without storing the raw student cursor", async ({ page }) => {
     const observedBodies: Array<{
       classId: string;

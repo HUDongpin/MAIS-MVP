@@ -246,6 +246,8 @@ test("a reminder request fails closed before fetch when its top-level intent sco
   let requests = 0;
 
   for (const intent of [
+    null,
+    undefined,
     { teacherId: "teacher-1", classId: null, assignmentId: null, manual: false },
     { teacherId: "teacher-1", classId: "   ", assignmentId: null, manual: false },
     { teacherId: "", classId: "class-1", assignmentId: null, manual: false },
@@ -266,6 +268,152 @@ test("a reminder request fails closed before fetch when its top-level intent sco
     assert.equal(result.failure.retainForRetry, false);
   }
   assert.equal(requests, 0, "invalid top-level scope must fail before any request, including for empty run pages");
+});
+
+test("A12 and A13 share the exact notice DTO, request key, conflict, and production partial-success contract", async () => {
+  const client = await loadRequestState();
+  const queueTeacherNoticeRequest = requireFunction(client, "queueTeacherNoticeRequest");
+  const handlers = await import("@/lib/server/teacherNoticeEmailOutboxHandlers") as Record<string, unknown>;
+  const createHandler = requireFunction(handlers, "createTeacherNoticeEmailSendHandler") as (
+    dependencies: Record<string, unknown>
+  ) => (
+    request: Request,
+    context: { params: Promise<{ noticeId: string }> }
+  ) => Promise<Response>;
+  const calls: Array<Record<string, unknown>> = [];
+  const handler = createHandler({
+    authenticate: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    queueNoticeEmail: async (input: Record<string, unknown>) => {
+      calls.push(input);
+      return {
+        status: "sent",
+        notice: teacherNotice(),
+        attempt: teacherAttempt(),
+        email: { status: "queued", queued: 1, reused: 0, recovered: 0, skipped: 0 }
+      };
+    }
+  });
+  const bridge = (
+    target: (request: Request, context: { params: Promise<{ noticeId: string }> }) => Promise<Response>
+  ) => async (input: string, init?: RequestInit) => target(
+    new Request(new URL(input, "https://mais.example"), init),
+    { params: Promise.resolve({ noticeId: "notice-1" }) }
+  );
+
+  const accepted = await queueTeacherNoticeRequest({
+    intent: teacherNoticeQueueIntent(),
+    idempotencyKey: "teacher-operation/direct-notice-000001",
+    request: bridge(handler)
+  });
+  assert.equal(accepted.ok, true, "the real A12 202 response must pass the A13 closed DTO validator");
+  assert.deepEqual(calls, [{
+    teacherId: "teacher-1",
+    noticeId: "notice-1",
+    idempotencyKey: "teacher-operation/direct-notice-000001"
+  }]);
+
+  const noEmailHandler = createHandler({
+    authenticate: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    queueNoticeEmail: async () => ({
+      status: "sent",
+      notice: teacherNotice(),
+      attempt: teacherAttempt(),
+      email: { status: "no-eligible", skipped: 1 }
+    })
+  });
+  const acceptedWithoutEmail = await queueTeacherNoticeRequest({
+    intent: teacherNoticeQueueIntent(),
+    idempotencyKey: "teacher-operation/direct-no-email-0001",
+    request: bridge(noEmailHandler)
+  });
+  assert.equal(acceptedWithoutEmail.ok, true, "a real sent result with no eligible email is terminal partial success");
+  if (acceptedWithoutEmail.ok) {
+    assert.deepEqual(acceptedWithoutEmail.payload.email, { status: "no-eligible", skipped: 1 });
+  }
+
+  for (const [serverStatus, expectedKind] of [
+    ["conflict", "idempotency-conflict"]
+  ] as const) {
+    const conflictHandler = createHandler({
+      authenticate: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+      queueNoticeEmail: async () => ({ status: serverStatus })
+    });
+    const result = await queueTeacherNoticeRequest({
+      intent: teacherNoticeQueueIntent(),
+      idempotencyKey: `teacher-operation/direct-${serverStatus}-0001`,
+      request: bridge(conflictHandler)
+    });
+    assert.equal(result.ok, false);
+    assert.equal(result.kind, expectedKind);
+    assert.equal(result.httpStatus, 409);
+    assert.equal(result.retainForRetry, false);
+  }
+});
+
+test("A12 accepts A13 automatic, manual, cursor, and page-key reminder requests", async () => {
+  const client = await loadRequestState();
+  const createState = requireFunction(client, "createTeacherReminderRequestState");
+  const runPages = requireFunction(client, "runTeacherReminderPages");
+  const handlers = await import("@/lib/server/teacherNoticeEmailOutboxHandlers") as Record<string, unknown>;
+  const createHandler = requireFunction(handlers, "createTeacherMissingWorkReminderRunHandler") as (
+    dependencies: Record<string, unknown>
+  ) => (request: Request) => Promise<Response>;
+  const calls: Array<Record<string, unknown>> = [];
+  const handler = createHandler({
+    authenticate: async () => ({ user: { id: "teacher-1", role: "teacher" } }),
+    authorize: (user: { role: string }) => user.role === "teacher",
+    runReminders: async (input: Record<string, unknown>) => {
+      calls.push(input);
+      return {
+        status: "ran",
+        runs: [],
+        nextCursor: input.manual === false && input.cursor === null ? "cursor-direct-1" : null
+      };
+    }
+  });
+  const bridge = async (input: string, init?: RequestInit) => handler(
+    new Request(new URL(input, "https://mais.example"), init)
+  );
+
+  const automatic = await runPages({
+    intent: { teacherId: "teacher-1", classId: "class-1", assignmentId: null, manual: false },
+    state: createState("teacher-operation/direct-auto-0000001"),
+    request: bridge
+  });
+  assert.equal(automatic.ok, true);
+  assert.deepEqual(calls.slice(0, 2), [
+    {
+      teacherId: "teacher-1",
+      classId: "class-1",
+      assignmentId: null,
+      manual: false,
+      cursor: null,
+      idempotencyKey: "teacher-operation/direct-auto-0000001/page/0"
+    },
+    {
+      teacherId: "teacher-1",
+      classId: "class-1",
+      assignmentId: null,
+      manual: false,
+      cursor: "cursor-direct-1",
+      idempotencyKey: "teacher-operation/direct-auto-0000001/page/1"
+    }
+  ]);
+
+  const manual = await runPages({
+    intent: { teacherId: "teacher-1", classId: "class-1", assignmentId: "assignment-1", manual: true },
+    state: createState("teacher-operation/direct-manual-0001"),
+    request: bridge
+  });
+  assert.equal(manual.ok, true);
+  assert.deepEqual(calls[2], {
+    teacherId: "teacher-1",
+    classId: "class-1",
+    assignmentId: "assignment-1",
+    manual: true,
+    cursor: null,
+    idempotencyKey: "teacher-operation/direct-manual-0001/page/0"
+  });
 });
 
 function teacherNotice(id = "notice-1") {
@@ -487,7 +635,7 @@ test("nearly complete but invalid 202 aggregates are rejected before rendering",
   }
 });
 
-test("a successful 202 cannot bypass the stable no-eligible 409 contract", async () => {
+test("a production 202 preserves the terminal no-eligible email outcome as partial success", async () => {
   const module = await loadRequestState();
   const queueTeacherNoticeRequest = requireFunction(module, "queueTeacherNoticeRequest");
   const result = await queueTeacherNoticeRequest({
@@ -500,14 +648,9 @@ test("a successful 202 cannot bypass the stable no-eligible 409 contract", async
     }), { status: 202 })
   });
 
-  assert.deepEqual(result, {
-    ok: false,
-    kind: "invalid-response",
-    httpStatus: 202,
-    acceptance: "accepted",
-    retainForRetry: true,
-    retryAfterMs: null
-  });
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+  assert.deepEqual(result.payload.email, { status: "no-eligible", skipped: 1 });
 });
 
 test("notice receipts must agree with recipient acknowledgement status and fields", async () => {
