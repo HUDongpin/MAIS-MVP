@@ -294,12 +294,35 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
     headers: authorization ? { Authorization: authorization } : undefined
   });
 
-  const missingConfig = await createHandler({ readCronSecret: () => "", runWorker: async () => ({}) })(request());
-  assert.equal(missingConfig.status, 503);
-  const wrong = await createHandler({ readCronSecret: () => "cron-secret", runWorker: async () => ({}) })(request("Bearer wrong"));
+  const cronSecret = "fixture-cron-secret-with-at-least-32-bytes";
+  let workerCalls = 0;
+
+  for (const invalidSecret of [
+    undefined,
+    "",
+    "short-secret",
+    ` ${cronSecret}`,
+    `${cronSecret} `,
+    `fixture-cron-secret-with-tab\tand-32-bytes`,
+    "x".repeat(513)
+  ]) {
+    const invalidConfiguration = await createHandler({
+      readCronSecret: () => invalidSecret,
+      runWorker: async () => {
+        workerCalls += 1;
+        return {};
+      }
+    })(request(`Bearer ${cronSecret}`));
+    assert.equal(invalidConfiguration.status, 503);
+    assert.deepEqual(await invalidConfiguration.json(), {
+      error: "Service temporarily unavailable."
+    });
+  }
+  assert.equal(workerCalls, 0);
+
+  const wrong = await createHandler({ readCronSecret: () => cronSecret, runWorker: async () => ({}) })(request("Bearer wrong"));
   assert.equal(wrong.status, 401);
 
-  let workerCalls = 0;
   const aggregate = {
     claimed: 2,
     accepted: 1,
@@ -314,9 +337,9 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
     providerMessageId: "00000000-0000-4000-8000-000000000001"
   };
   const success = await createHandler({
-    readCronSecret: () => "cron-secret",
+    readCronSecret: () => cronSecret,
     runWorker: async () => { workerCalls += 1; return aggregate; }
-  })(request("Bearer cron-secret"));
+  })(request(`Bearer ${cronSecret}`));
   assert.equal(success.status, 200);
   assert.equal(success.headers.get("cache-control"), "private, no-store");
   assert.deepEqual(await success.json(), {
@@ -332,9 +355,9 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
   assert.equal(workerCalls, 1);
 
   const unavailable = await createHandler({
-    readCronSecret: () => "cron-secret",
+    readCronSecret: () => cronSecret,
     runWorker: async () => { throw new Error("private database detail"); }
-  })(request("Bearer cron-secret"));
+  })(request(`Bearer ${cronSecret}`));
   assert.equal(unavailable.status, 503);
   assert.deepEqual(await unavailable.json(), { error: "Service temporarily unavailable." });
 });

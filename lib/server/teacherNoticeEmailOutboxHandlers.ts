@@ -1,4 +1,6 @@
-import { createHash, timingSafeEqual } from "node:crypto";
+import { createHash } from "node:crypto";
+
+import { authorizeCronBearer } from "@/lib/server/cronAuthorization";
 
 type TeacherNoticeEmailAuthenticated = {
   user: {
@@ -53,11 +55,7 @@ export function constantTimeTeacherNoticeCronBearerMatches(
   authorization: string | null,
   secret: string | undefined
 ) {
-  if (!secret || !authorization || authorization !== authorization.trim()) return false;
-  const expected = `Bearer ${secret}`;
-  const actualDigest = createHash("sha256").update(authorization, "utf8").digest();
-  const expectedDigest = createHash("sha256").update(expected, "utf8").digest();
-  return timingSafeEqual(actualDigest, expectedDigest);
+  return authorizeCronBearer(authorization, secret) === "authorized";
 }
 
 export function createTeacherNoticeEmailSendHandler({
@@ -148,9 +146,20 @@ export function createTeacherNoticeEmailCronHandler({
   runWorker: () => Promise<TeacherNoticeEmailWorkerAggregate>;
 }) {
   return async function teacherNoticeEmailCronHandler(request: Request) {
-    const cronSecret = readCronSecret();
-    if (!cronSecret) return privateJson({ error: "Service temporarily unavailable." }, 503);
-    if (!constantTimeTeacherNoticeCronBearerMatches(request.headers.get("authorization"), cronSecret)) {
+    let cronSecret: string | undefined;
+    try {
+      cronSecret = readCronSecret();
+    } catch {
+      return privateJson({ error: "Service temporarily unavailable." }, 503);
+    }
+    const authorization = authorizeCronBearer(
+      request.headers.get("authorization"),
+      cronSecret
+    );
+    if (authorization === "unavailable") {
+      return privateJson({ error: "Service temporarily unavailable." }, 503);
+    }
+    if (authorization === "unauthorized") {
       return privateJson({ error: "Not authorized." }, 401);
     }
     try {

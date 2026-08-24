@@ -24,12 +24,14 @@ import {
 } from "@/lib/server/userStore/teacherNoticeEmailOutboxPersistence";
 
 test("cron bearer comparison is strict and does not accept whitespace or alternate schemes", () => {
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer exact-secret", "exact-secret"), true);
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer exact-secret ", "exact-secret"), false);
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches("bearer exact-secret", "exact-secret"), false);
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer other-secret", "exact-secret"), false);
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches(null, "exact-secret"), false);
-  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer exact-secret", ""), false);
+  const secret = "fixture-cron-secret-with-at-least-32-bytes";
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches(`Bearer ${secret}`, secret), true);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches(`Bearer ${secret} `, secret), false);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches(`bearer ${secret}`, secret), false);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer other-secret", secret), false);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches(null, secret), false);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches("Bearer short-secret", "short-secret"), false);
+  assert.equal(constantTimeTeacherNoticeCronBearerMatches(`Bearer ${secret}`, ""), false);
 });
 
 test("request idempotency binds the actor, operation, and payload without retaining the key", () => {

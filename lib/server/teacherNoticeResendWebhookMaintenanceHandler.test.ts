@@ -34,6 +34,26 @@ test("maintenance cron requires a configured exact bearer secret before mutation
   });
   assert.equal((await missingConfiguration(request())).status, 503);
 
+  for (const invalidSecret of [
+    "short-secret",
+    ` ${secret}`,
+    `${secret} `,
+    `fixture-cron-secret-with-tab\tand-32-bytes`,
+    `fixture-cron-secret-with-null\u0000and-32-bytes`,
+    "x".repeat(513)
+  ]) {
+    const invalidConfiguration = createTeacherNoticeResendWebhookMaintenanceHandler({
+      env: { CRON_SECRET: invalidSecret },
+      maintain: async () => {
+        calls += 1;
+        return result;
+      }
+    });
+    const response = await invalidConfiguration(request(`Bearer ${secret}`));
+    assert.equal(response.status, 503);
+    assert.deepEqual(await response.json(), { error: "Service temporarily unavailable." });
+  }
+
   const handler = createTeacherNoticeResendWebhookMaintenanceHandler({
     env: { CRON_SECRET: secret },
     maintain: async () => {
@@ -41,7 +61,13 @@ test("maintenance cron requires a configured exact bearer secret before mutation
       return result;
     }
   });
-  for (const authorization of [undefined, "Bearer wrong", `bearer ${secret}`, `${secret}`]) {
+  for (const authorization of [
+    undefined,
+    "Bearer wrong",
+    `bearer ${secret}`,
+    `${secret}`,
+    `Bearer  ${secret}`
+  ]) {
     const response = await handler(request(authorization));
     assert.equal(response.status, 401);
     assert.equal(response.headers.get("cache-control"), "private, no-store");
@@ -52,8 +78,7 @@ test("maintenance cron requires a configured exact bearer secret before mutation
     path.join(process.cwd(), "lib/server/teacherNoticeResendWebhookMaintenanceHandler.ts"),
     "utf8"
   );
-  assert.match(source, /createHash/u);
-  assert.match(source, /timingSafeEqual/u);
+  assert.match(source, /authorizeCronBearer/u);
 });
 
 test("authorized maintenance is bounded and returns only privacy-safe aggregate counts", async () => {

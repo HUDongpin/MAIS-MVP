@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createWarmRouteHandler } from "./handler";
 
+const cronSecret = "fixture-cron-secret-with-at-least-32-bytes";
+
 function assertPrivateNoStore(response: Response) {
   const cacheControl = response.headers.get("cache-control") ?? "";
   assert.match(cacheControl, /\bprivate\b/iu);
@@ -28,15 +30,42 @@ test("warm handler is private, fail-closed, and never probes storage without val
   assertPrivateNoStore(missingSecretResponse);
   assert.equal(probeCalls, 0, "a missing server secret must not make the endpoint public");
 
+  for (const invalidSecret of [
+    "short-secret",
+    ` ${cronSecret}`,
+    `${cronSecret} `,
+    `fixture-cron-secret-with-tab\tand-32-bytes`,
+    "x".repeat(513)
+  ]) {
+    const invalidConfigurationHandler = createWarmRouteHandler({
+      getStorageReadinessSnapshot: async () => {
+        probeCalls += 1;
+        return { durableReady: true };
+      },
+      readCronSecret: () => invalidSecret
+    });
+    const invalidConfigurationResponse = await invalidConfigurationHandler(
+      new Request("https://mais.example/api/warm", {
+        headers: { authorization: `Bearer ${cronSecret}` }
+      })
+    );
+    assert.equal(invalidConfigurationResponse.status, 503);
+    assert.deepEqual(await invalidConfigurationResponse.json(), {
+      error: "Warm endpoint unavailable."
+    });
+    assertPrivateNoStore(invalidConfigurationResponse);
+  }
+  assert.equal(probeCalls, 0, "invalid server configuration must not touch storage");
+
   const invalidBearerHandler = createWarmRouteHandler({
     getStorageReadinessSnapshot: async () => {
       probeCalls += 1;
       return { durableReady: true };
     },
-    readCronSecret: () => "expected-secret"
+    readCronSecret: () => cronSecret
   });
   const invalidBearerResponse = await invalidBearerHandler(new Request("https://mais.example/api/warm", {
-    headers: { authorization: "Bearer wrong-secret" }
+    headers: { authorization: "Bearer wrong-fixture-cron-secret-with-at-least-32-bytes" }
   }));
   assert.equal(invalidBearerResponse.status, 401);
   assert.deepEqual(await invalidBearerResponse.json(), { error: "Unauthorized." });
@@ -46,7 +75,7 @@ test("warm handler is private, fail-closed, and never probes storage without val
 
 test("authorized warm handler exposes only a stable scalar readiness result", async () => {
   const request = new Request("https://mais.example/api/warm", {
-    headers: { authorization: "Bearer expected-secret" }
+    headers: { authorization: `Bearer ${cronSecret}` }
   });
 
   let currentTime = 1_000;
@@ -56,7 +85,7 @@ test("authorized warm handler exposes only a stable scalar readiness result", as
       currentTime += 7;
       return currentTime;
     },
-    readCronSecret: () => "expected-secret"
+    readCronSecret: () => cronSecret
   });
   const readyResponse = await readyHandler(request);
   assert.equal(readyResponse.status, 200);
@@ -75,7 +104,7 @@ test("authorized warm handler exposes only a stable scalar readiness result", as
       );
     },
     now: () => 2_000,
-    readCronSecret: () => "expected-secret"
+    readCronSecret: () => cronSecret
   });
   const unavailableResponse = await unavailableHandler(request);
   assert.equal(unavailableResponse.status, 200);

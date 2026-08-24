@@ -1,5 +1,3 @@
-import { createHash, timingSafeEqual } from "node:crypto";
-
 import type {
   TeacherNoticeResendWebhookMaintenanceOptions,
   TeacherNoticeResendWebhookMaintenanceResult
@@ -7,6 +5,8 @@ import type {
 import {
   teacherNoticeResendWebhookMaintenanceBudgetMs
 } from "./userStore/teacherNoticeResendWebhookPersistence";
+import { authorizeCronBearer } from "./cronAuthorization";
+import type { CronAuthorizationDecision } from "./cronAuthorization";
 
 type MaintenanceOptions = TeacherNoticeResendWebhookMaintenanceOptions & {
   reconciliationLimit: number;
@@ -61,32 +61,25 @@ function safeMaintenanceResult(
   };
 }
 
-function authorizationDigest(value: string): Buffer {
-  return createHash("sha256").update(value, "utf8").digest();
-}
-
-function configuredCronSecret(env: Record<string, string | undefined>): string | null {
-  const value = env.CRON_SECRET;
-  if (
-    typeof value !== "string" ||
-    value.length < 32 ||
-    value.length > 512 ||
-    value !== value.trim()
-  ) return null;
-  return value;
-}
-
 export function createTeacherNoticeResendWebhookMaintenanceHandler(options: HandlerOptions) {
   const env = options.env ?? process.env;
   const monotonicNow = options.monotonicNow ?? (() => globalThis.performance.now());
   return async function handleTeacherNoticeResendWebhookMaintenance(
     request: Request
   ): Promise<Response> {
-    const secret = configuredCronSecret(env);
-    if (!secret) return response({ error: "Service temporarily unavailable." }, 503);
-    const expected = authorizationDigest(`Bearer ${secret}`);
-    const received = authorizationDigest(request.headers.get("authorization") ?? "");
-    if (!timingSafeEqual(expected, received)) {
+    let authorization: CronAuthorizationDecision;
+    try {
+      authorization = authorizeCronBearer(
+        request.headers.get("authorization"),
+        env.CRON_SECRET
+      );
+    } catch {
+      return response({ error: "Service temporarily unavailable." }, 503);
+    }
+    if (authorization === "unavailable") {
+      return response({ error: "Service temporarily unavailable." }, 503);
+    }
+    if (authorization === "unauthorized") {
       return response({ error: "Unauthorized." }, 401);
     }
     try {

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { authorizeCronBearer } from "@/lib/server/cronAuthorization";
+
 type WarmRouteDependencies = {
   getStorageReadinessSnapshot: () => Promise<{ durableReady?: boolean } | null>;
   now?: () => number;
@@ -16,14 +18,32 @@ export function createWarmRouteHandler({
   readCronSecret
 }: WarmRouteDependencies) {
   return async function handleWarmRequest(request: Request) {
-    const secret = readCronSecret()?.trim();
+    let secret: string | undefined;
+    try {
+      secret = readCronSecret();
+    } catch {
+      return NextResponse.json(
+        { error: "Warm endpoint unavailable." },
+        { status: 503, headers: privateNoStoreHeaders }
+      );
+    }
     if (!secret) {
       return NextResponse.json(
         { error: "Warm endpoint unavailable." },
         { status: 503, headers: privateNoStoreHeaders }
       );
     }
-    if (request.headers.get("authorization") !== `Bearer ${secret}`) {
+    const authorization = authorizeCronBearer(
+      request.headers.get("authorization"),
+      secret
+    );
+    if (authorization === "unavailable") {
+      return NextResponse.json(
+        { error: "Warm endpoint unavailable." },
+        { status: 503, headers: privateNoStoreHeaders }
+      );
+    }
+    if (authorization === "unauthorized") {
       return NextResponse.json(
         { error: "Unauthorized." },
         { status: 401, headers: privateNoStoreHeaders }
