@@ -159,10 +159,14 @@ skill work did not rewrite the renderer or visualization behavior.
 ## 7. Source and release state
 
 The package source is committed locally as part of the containing Git commit.
-After that commit is created, the global skill's `runtime-lock.json` must record
-the exact local MAIS package source SHA and its validation suite must be rerun.
-The global skill lives outside the Git worktree and is therefore not part of
-the repository commit.
+The exact package source commit is:
+
+```text
+f77d4358f4e88ec8432a177f93c9a937a2935725
+```
+
+The global skill's `runtime-lock.json` records that exact SHA. The skill lives
+outside the Git worktree and is therefore not part of the repository commit.
 
 No package was published. `publishConfig.access` is `restricted`, but npm scope
 ownership, authentication, registry contents, remote integrity and a release
