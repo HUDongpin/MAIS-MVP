@@ -9,6 +9,8 @@
   ],
   "exclude": [
     "node_modules",
+    "lib/math-kernel/dist",
+    "lib/math-kernel/dist/**/*",
     ".next-*",
     ".next-*/**/*",
     ".s??-*",

@@ -20,7 +20,11 @@ const SKIPPED_DIRECTORIES = new Set([
   "playwright-report",
   "test-results",
 ]);
-const BANNED_PACKAGES = ["@cortex-js/compute-engine", "server-only"] as const;
+const BANNED_PACKAGES = [
+  "@cortex-js/compute-engine",
+  "@mais/math-kernel/server",
+  "server-only",
+] as const;
 
 function sourceFilesUnder(directory: string): string[] {
   if (!existsSync(directory)) return [];

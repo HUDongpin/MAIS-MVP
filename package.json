@@ -2,6 +2,9 @@
   "name": "hk-math-lab-template",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "lib/math-kernel"
+  ],
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
@@ -11,6 +14,8 @@
     "start": "next start",
     "type-check": "tsc --noEmit --incremental false",
     "test:math-kernel": "node --conditions=react-server --import tsx --test \"lib/math-kernel/**/*.test.ts\"",
+    "build:math-kernel-package": "npm run build --workspace @mais/math-kernel",
+    "test:math-kernel-package": "npm run build --workspace @mais/math-kernel && npm run verify:dist --workspace @mais/math-kernel && npm run test:package --workspace @mais/math-kernel",
     "check:imports": "node scripts/check-import-targets.mjs",
     "check:stray-types": "node scripts/check-stray-generated-types.mjs",
     "check:hk-zh": "node scripts/audit-hk-chinese.mjs --self-test && node scripts/audit-hk-chinese.mjs --mode=report",

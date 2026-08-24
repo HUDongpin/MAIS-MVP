@@ -1,0 +1,250 @@
+{
+  "name": "@mais/math-kernel",
+  "version": "0.1.0",
+  "description": "Renderer-neutral numeric and exact mathematics kernels for MAIS.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.3.0",
+    "npm": ">=10.5.0"
+  },
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/entries/client.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/entries/client.d.ts",
+      "browser": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.js"
+    },
+    "./shared/types": {
+      "types": "./dist/types/shared/types.d.ts",
+      "browser": "./dist/esm/shared/types.js",
+      "import": "./dist/esm/shared/types.js",
+      "require": "./dist/cjs/shared/types.cjs",
+      "default": "./dist/esm/shared/types.js"
+    },
+    "./shared/errors": {
+      "types": "./dist/types/shared/errors.d.ts",
+      "browser": "./dist/esm/shared/errors.js",
+      "import": "./dist/esm/shared/errors.js",
+      "require": "./dist/cjs/shared/errors.cjs",
+      "default": "./dist/esm/shared/errors.js"
+    },
+    "./shared/mathjson": {
+      "types": "./dist/types/shared/mathjson.d.ts",
+      "browser": "./dist/esm/shared/mathjson.js",
+      "import": "./dist/esm/shared/mathjson.js",
+      "require": "./dist/cjs/shared/mathjson.cjs",
+      "default": "./dist/esm/shared/mathjson.js"
+    },
+    "./bodies": {
+      "types": "./dist/types/bodies/index.d.ts",
+      "browser": "./dist/esm/bodies/index.js",
+      "import": "./dist/esm/bodies/index.js",
+      "require": "./dist/cjs/bodies/index.cjs",
+      "default": "./dist/esm/bodies/index.js"
+    },
+    "./bodies/source-traceability": {
+      "types": "./dist/types/bodies/sourceTraceability.d.ts",
+      "browser": "./dist/esm/bodies/source-traceability.js",
+      "import": "./dist/esm/bodies/source-traceability.js",
+      "require": "./dist/cjs/bodies/source-traceability.cjs",
+      "default": "./dist/esm/bodies/source-traceability.js"
+    },
+    "./conics/model": {
+      "types": "./dist/types/conics/model.d.ts",
+      "browser": "./dist/esm/conics/model.js",
+      "import": "./dist/esm/conics/model.js",
+      "require": "./dist/cjs/conics/model.cjs",
+      "default": "./dist/esm/conics/model.js"
+    },
+    "./conics/numeric": {
+      "types": "./dist/types/conics/numeric.d.ts",
+      "browser": "./dist/esm/conics/numeric.js",
+      "import": "./dist/esm/conics/numeric.js",
+      "require": "./dist/cjs/conics/numeric.cjs",
+      "default": "./dist/esm/conics/numeric.js"
+    },
+    "./conics/source-traceability": {
+      "types": "./dist/types/conics/sourceTraceability.d.ts",
+      "browser": "./dist/esm/conics/source-traceability.js",
+      "import": "./dist/esm/conics/source-traceability.js",
+      "require": "./dist/cjs/conics/source-traceability.cjs",
+      "default": "./dist/esm/conics/source-traceability.js"
+    },
+    "./geometry/core": {
+      "types": "./dist/types/geometry/core.d.ts",
+      "browser": "./dist/esm/geometry/core.js",
+      "import": "./dist/esm/geometry/core.js",
+      "require": "./dist/cjs/geometry/core.cjs",
+      "default": "./dist/esm/geometry/core.js"
+    },
+    "./geometry/numeric": {
+      "types": "./dist/types/geometry/numeric.d.ts",
+      "browser": "./dist/esm/geometry/numeric.js",
+      "import": "./dist/esm/geometry/numeric.js",
+      "require": "./dist/cjs/geometry/numeric.cjs",
+      "default": "./dist/esm/geometry/numeric.js"
+    },
+    "./geometry/solids": {
+      "types": "./dist/types/geometry/solids.d.ts",
+      "browser": "./dist/esm/geometry/solids.js",
+      "import": "./dist/esm/geometry/solids.js",
+      "require": "./dist/cjs/geometry/solids.cjs",
+      "default": "./dist/esm/geometry/solids.js"
+    },
+    "./geometry/coordinates": {
+      "types": "./dist/types/geometry/coordinates.d.ts",
+      "browser": "./dist/esm/geometry/coordinates.js",
+      "import": "./dist/esm/geometry/coordinates.js",
+      "require": "./dist/cjs/geometry/coordinates.cjs",
+      "default": "./dist/esm/geometry/coordinates.js"
+    },
+    "./geometry/solution-types": {
+      "types": "./dist/types/geometry/solutionTypes.d.ts",
+      "browser": "./dist/esm/geometry/solution-types.js",
+      "import": "./dist/esm/geometry/solution-types.js",
+      "require": "./dist/cjs/geometry/solution-types.cjs",
+      "default": "./dist/esm/geometry/solution-types.js"
+    },
+    "./geometry/source-traceability": {
+      "types": "./dist/types/geometry/sourceTraceability.d.ts",
+      "browser": "./dist/esm/geometry/source-traceability.js",
+      "import": "./dist/esm/geometry/source-traceability.js",
+      "require": "./dist/cjs/geometry/source-traceability.cjs",
+      "default": "./dist/esm/geometry/source-traceability.js"
+    },
+    "./analytic/types": {
+      "types": "./dist/types/analytic/types.d.ts",
+      "browser": "./dist/esm/analytic/types.js",
+      "import": "./dist/esm/analytic/types.js",
+      "require": "./dist/cjs/analytic/types.cjs",
+      "default": "./dist/esm/analytic/types.js"
+    },
+    "./analytic/numeric": {
+      "types": "./dist/types/analytic/numeric.d.ts",
+      "browser": "./dist/esm/analytic/numeric.js",
+      "import": "./dist/esm/analytic/numeric.js",
+      "require": "./dist/cjs/analytic/numeric.cjs",
+      "default": "./dist/esm/analytic/numeric.js"
+    },
+    "./analytic/expressions": {
+      "types": "./dist/types/analytic/expressions.d.ts",
+      "browser": "./dist/esm/analytic/expressions.js",
+      "import": "./dist/esm/analytic/expressions.js",
+      "require": "./dist/cjs/analytic/expressions.cjs",
+      "default": "./dist/esm/analytic/expressions.js"
+    },
+    "./analytic/source-traceability": {
+      "types": "./dist/types/analytic/sourceTraceability.d.ts",
+      "browser": "./dist/esm/analytic/source-traceability.js",
+      "import": "./dist/esm/analytic/source-traceability.js",
+      "require": "./dist/cjs/analytic/source-traceability.cjs",
+      "default": "./dist/esm/analytic/source-traceability.js"
+    },
+    "./server": {
+      "types": "./dist/types/entries/server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/server/index.js",
+        "require": "./dist/cjs/server/index.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/server/index.js",
+        "require": "./dist/cjs/server/index.cjs"
+      }
+    },
+    "./server/cas": {
+      "types": "./dist/types/cas/computeEngine.server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/server/cas.js",
+        "require": "./dist/cjs/server/cas.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/server/cas.js",
+        "require": "./dist/cjs/server/cas.cjs"
+      }
+    },
+    "./conics/exact.server": {
+      "types": "./dist/types/conics/exact.server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/conics/exact.server.js",
+        "require": "./dist/cjs/conics/exact.server.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/conics/exact.server.js",
+        "require": "./dist/cjs/conics/exact.server.cjs"
+      }
+    },
+    "./geometry/exact.server": {
+      "types": "./dist/types/geometry/exact.server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/geometry/exact.server.js",
+        "require": "./dist/cjs/geometry/exact.server.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/geometry/exact.server.js",
+        "require": "./dist/cjs/geometry/exact.server.cjs"
+      }
+    },
+    "./geometry/solvers.server": {
+      "types": "./dist/types/geometry/solvers.server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/geometry/solvers.server.js",
+        "require": "./dist/cjs/geometry/solvers.server.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/geometry/solvers.server.js",
+        "require": "./dist/cjs/geometry/solvers.server.cjs"
+      }
+    },
+    "./analytic/analytic-kernel.server": {
+      "types": "./dist/types/analytic/analyticKernel.server.d.ts",
+      "react-server": {
+        "import": "./dist/esm/analytic/analytic-kernel.server.js",
+        "require": "./dist/cjs/analytic/analytic-kernel.server.cjs"
+      },
+      "node": {
+        "import": "./dist/esm/analytic/analytic-kernel.server.js",
+        "require": "./dist/cjs/analytic/analytic-kernel.server.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "verify:dist": "node ./scripts/verify-dist.mjs",
+    "test:source": "npm --prefix ../.. run test:math-kernel",
+    "test:package": "node ./scripts/pack-smoke.mjs",
+    "test": "npm run test:source && npm run build && npm run verify:dist && npm run test:package",
+    "prepack": "npm run build && npm run verify:dist"
+  },
+  "dependencies": {
+    "@cortex-js/compute-engine": "0.118.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.14",
+    "esbuild": "0.28.1",
+    "server-only": "0.0.1",
+    "tsx": "4.23.1",
+    "typescript": "5.8.3"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HUDongpin/MAIS-MVP.git",
+    "directory": "lib/math-kernel"
+  }
+}

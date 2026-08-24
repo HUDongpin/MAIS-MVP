@@ -1,0 +1,33 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "plugins": [],
+    "allowJs": false,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "./dist/types",
+    "rootDir": ".",
+    "incremental": false
+  },
+  "include": [
+    "analytic/**/*.ts",
+    "bodies/**/*.ts",
+    "cas/**/*.ts",
+    "conics/**/*.ts",
+    "entries/**/*.ts",
+    "geometry/**/*.ts",
+    "shared/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "demo/**",
+    "dist/**",
+    "test-fixtures/**"
+  ]
+}
