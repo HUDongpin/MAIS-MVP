@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "promotion-evidence.v1",
+  "evidenceId": "us-ca-math-rag-v2-g6-ratios-v1-a21-candidate-generation-v1",
+  "role": "A21",
+  "result": "pass",
+  "producedAt": "2026-08-25T00:00:00.000Z",
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "semanticPayload": {
+    "contractVersion": "promotion-a21-candidate.v1",
+    "candidatePackage": {
+      "id": "us-ca-math-rag-v2-candidate",
+      "sourceVersion": null,
+      "status": "candidate-only",
+      "generatedAt": "2026-06-19",
+      "immutableDuringShadow": true
+    },
+    "inventory": {
+      "safeCardRecords": 146,
+      "practiceRecords": 68,
+      "lessonRecords": 68
+    },
+    "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+    "artifacts": [
+      {
+        "kind": "safe-card",
+        "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+        "jsonPointer": "/108",
+        "rawFileSha256": "55dbd69f3155c395800ae7ab5f756e9ffc46ebfb749aa5da8bde665f98d7becb",
+        "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284",
+        "parentBindingField": "packageId",
+        "parentBindingValue": "us-ca-math-rag-v2-candidate",
+        "candidateStateField": "status",
+        "candidateStateValue": "candidate-only"
+      },
+      {
+        "kind": "practice",
+        "id": "s04-ca-rag-v2-q031-6-rp-ratios",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+        "jsonPointer": "/questions/30",
+        "rawFileSha256": "e86451098fce936f00b804ba8247486e3fb0bb7be80c5833ed6e9035f9b2ae50",
+        "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305",
+        "parentBindingField": "upstreamPackageId",
+        "parentBindingValue": "us-ca-math-rag-v2-candidate",
+        "candidateStateField": "approval.status",
+        "candidateStateValue": "candidate-only"
+      },
+      {
+        "kind": "lesson",
+        "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios",
+        "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json",
+        "jsonPointer": "/lessons/30",
+        "rawFileSha256": "5904f83d47620749c97fa2471029e7d0c56d41cdefa5f57649f78d7131e23de3",
+        "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d",
+        "parentBindingField": "upstreamPackageId",
+        "parentBindingValue": "us-ca-math-rag-v2-candidate",
+        "candidateStateField": "releaseStatus",
+        "candidateStateValue": "not-live"
+      }
+    ],
+    "sourceSafety": {
+      "safeCardCopiedSourceText": false,
+      "safeCardReleaseClaim": "candidate-only",
+      "practiceSourceDistanceStatus": "passed-source-distance-scan",
+      "practiceMathQaStatus": "passed-deterministic-candidate-check",
+      "lessonSourceDistanceStatus": "passed-source-distance-scan",
+      "lessonMathQaStatus": "passed-template-consistency-check"
+    },
+    "liveMutationAuthorized": false
+  }
+}
