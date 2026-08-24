@@ -180,7 +180,11 @@ test("CI and package preserve the parent, delivery, webhook, and readiness union
     const job = workflow.jobs[jobName];
     assert.ok(job, `${jobName} must exist`);
     assert.equal(job.if, fullPostgresEventMatrix, `${jobName} must cover the full event matrix`);
-    const checkoutSteps = job.steps.filter((step) => step.uses === "actions/checkout@v4");
+    const checkoutSteps = job.steps.filter(
+      (step) =>
+        step.uses ===
+        "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+    );
     assert.equal(checkoutSteps.length, 1, `${jobName} must have one checkout`);
     assert.equal(checkoutSteps[0].with?.ref, "${{ github.sha }}", `${jobName} must checkout the event SHA`);
     const shaAssertions = job.steps.filter(
@@ -290,7 +294,9 @@ test("CI artifact globs match Playwright's run-owned output directories", () => 
   const ci = readRepoFile(".github/workflows/ci.yml");
   const workflow = YAML.parse(ci);
   const uploadStep = workflow.jobs["teacher-parent-e2e"].steps.find(
-    (step) => step.uses === "actions/upload-artifact@v4"
+    (step) =>
+      step.uses ===
+      "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
   );
 
   assert.ok(uploadStep, "teacher-parent-e2e should retain a failure-artifact upload step");

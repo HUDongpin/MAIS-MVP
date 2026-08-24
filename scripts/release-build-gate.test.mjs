@@ -6,12 +6,58 @@ import test from "node:test";
 import * as releaseBuildGate from "./release-build-gate.mjs";
 
 const {
+  buildReleaseBuildChildEnvironment,
   buildReleaseBuildGateConfig,
   restoreFileSnapshot,
   snapshotFile
 } = releaseBuildGate;
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
+
+test("release build child environment is a strict non-credential allowlist", () => {
+  const childEnv = buildReleaseBuildChildEnvironment(
+    {
+      PATH: "/fixture/bin",
+      CI: "true",
+      LANG: "en_US.UTF-8",
+      NODE_OPTIONS: "--max-old-space-size=4096",
+      GITHUB_TOKEN: "fixture-github-token-not-real",
+      GH_TOKEN: "fixture-gh-token-not-real",
+      VERCEL_TOKEN: "fixture-vercel-token-not-real",
+      MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM: "fixture-confirmation-not-real",
+      POSTGRES_URL: "postgres://fixture:not-real@example.invalid/db",
+      RESEND_API_KEY: "fixture-resend-key-not-real",
+      QWEN_API_KEY: "fixture-qwen-key-not-real",
+      AWS_SECRET_ACCESS_KEY: "fixture-aws-secret-not-real"
+    },
+    {
+      NEXT_DIST_DIR: ".tmp/release-build-gate-next-fixture",
+      NEXT_TELEMETRY_DISABLED: "1",
+      NEXT_TSCONFIG_PATH: "tsconfig.next.json"
+    }
+  );
+
+  assert.equal(childEnv.PATH, "/fixture/bin");
+  assert.equal(childEnv.CI, "true");
+  assert.equal(childEnv.NODE_OPTIONS, "--max-old-space-size=4096");
+  assert.equal(childEnv.NEXT_DIST_DIR, ".tmp/release-build-gate-next-fixture");
+  for (const key of [
+    "GITHUB_TOKEN",
+    "GH_TOKEN",
+    "VERCEL_TOKEN",
+    "MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM",
+    "POSTGRES_URL",
+    "RESEND_API_KEY",
+    "QWEN_API_KEY",
+    "AWS_SECRET_ACCESS_KEY"
+  ]) {
+    assert.equal(childEnv[key], undefined, `${key} must not reach a Next build child`);
+  }
+  assert.throws(
+    () => buildReleaseBuildChildEnvironment({}, { POSTGRES_URL: "not-allowed" }),
+    /build environment override/u
+  );
+});
 
 test("release build gate defaults to an isolated generated Next dist directory", () => {
   const config = buildReleaseBuildGateConfig({ runId: "unit-test" }, {});

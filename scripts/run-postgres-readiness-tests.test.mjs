@@ -42,7 +42,7 @@ test("the formal Postgres readiness runner, package script, and CI use the exact
   );
   assert.match(
     postgresJob,
-    /uses: actions\/checkout@v4\s+with:\s+ref: \$\{\{ github\.sha \}\}/u,
+    /uses: actions\/checkout@11bd71901bbe5b1630ceea73d27597364c9af683[^\n]*\n\s+with:\s+ref: \$\{\{ github\.sha \}\}/u,
     "the database gate must test the exact event SHA for PR, merge queue, main, and manual runs"
   );
   assert.match(postgresJob, /EXPECTED_EVENT_SHA: \$\{\{ github\.sha \}\}/u);

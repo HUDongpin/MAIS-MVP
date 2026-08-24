@@ -8,6 +8,33 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
 const DEFAULT_TSCONFIG_PATH = "tsconfig.next.json";
+const RELEASE_BUILD_CHILD_BASE_ENV_KEYS = Object.freeze([
+  "CI",
+  "COLORTERM",
+  "COMSPEC",
+  "FORCE_COLOR",
+  "LANG",
+  "LC_ALL",
+  "LC_CTYPE",
+  "NODE_OPTIONS",
+  "NO_COLOR",
+  "PATH",
+  "PATHEXT",
+  "SHELL",
+  "SYSTEMROOT",
+  "TEMP",
+  "TERM",
+  "TMP",
+  "TMPDIR",
+  "TZ",
+  "WINDIR"
+]);
+const RELEASE_BUILD_CHILD_OVERRIDE_KEYS = new Set([
+  "MAIS_RELEASE_SHA",
+  "NEXT_DIST_DIR",
+  "NEXT_TELEMETRY_DISABLED",
+  "NEXT_TSCONFIG_PATH"
+]);
 const REQUIRED_BUILD_OUTPUTS = [
   "BUILD_ID",
   "server/app/api/auth/login/route.js",
@@ -18,7 +45,8 @@ const REQUIRED_BUILD_OUTPUTS = [
 ];
 
 export async function runReleaseBuildGate(options = {}) {
-  const config = buildReleaseBuildGateConfig(options, process.env);
+  const parentEnv = options.env ?? process.env;
+  const config = buildReleaseBuildGateConfig(options, parentEnv);
   const startedAt = new Date().toISOString();
   const result = await withRestoredReleaseBuildInputs(
     { repoRoot: REPO_ROOT, tsconfigPath: config.tsconfigPath },
@@ -27,11 +55,11 @@ export async function runReleaseBuildGate(options = {}) {
       ["scripts/next-clean-build.mjs"],
       {
         cwd: REPO_ROOT,
-        env: {
-          ...process.env,
+        env: buildReleaseBuildChildEnvironment(parentEnv, {
           NEXT_DIST_DIR: config.distDir,
+          NEXT_TELEMETRY_DISABLED: "1",
           NEXT_TSCONFIG_PATH: config.tsconfigPath
-        }
+        })
       }
     )
   );
@@ -61,6 +89,20 @@ export async function runReleaseBuildGate(options = {}) {
     startedAt,
     tsconfigPath: config.tsconfigPath
   };
+}
+
+export function buildReleaseBuildChildEnvironment(env = {}, overrides = {}) {
+  const childEnv = {};
+  for (const key of RELEASE_BUILD_CHILD_BASE_ENV_KEYS) {
+    if (typeof env?.[key] === "string") childEnv[key] = env[key];
+  }
+  for (const [key, value] of Object.entries(overrides)) {
+    if (!RELEASE_BUILD_CHILD_OVERRIDE_KEYS.has(key) || typeof value !== "string") {
+      throw new Error("Release build environment override was rejected.");
+    }
+    childEnv[key] = value;
+  }
+  return childEnv;
 }
 
 export async function snapshotFile(absolutePath) {

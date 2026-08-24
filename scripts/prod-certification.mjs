@@ -5,32 +5,112 @@
 //
 // Usage:
 //   npm run certify:production -- --candidate-sha <40-hex> --deployment-id <dpl_id> \
-//     --deployment-url https://<deployment>.vercel.app --build-id <next-build-id>
+//     --deployment-url https://<deployment>.vercel.app --vercel-scope <team-id-or-slug> \
+//     --build-id <local-next-build-id>
 //   node scripts/prod-certification.mjs <binding args> --skip-browser --json
 //
 // Verdict policy: a P0 failure fails certification; every other failure, warning,
 // or skip downgrades to CERTIFIED_WITH_FINDINGS. Strict mode is the non-disableable
 // default, so both FAILED and CERTIFIED_WITH_FINDINGS exit nonzero.
 //
-// Remote write footprint: none. This script issues only GET/HEAD requests and never
-// authenticates. The write-authorization arguments establish a fail-closed contract
-// for future, separate synthetic-family probes; Phase 1 executes no write probe.
+// Remote mutation footprint: none. This script issues only GET/HEAD requests. It
+// does not authenticate to the MAIS app. Read-only GitHub and Vercel management-API
+// GETs bind the exact candidate checks, provider source bytes, deployment ownership,
+// and production aliases. Phase 1 executes no application write probe.
 
 import dns from "node:dns/promises";
 import fs from "node:fs";
+import net from "node:net";
 import path from "node:path";
 import tls from "node:tls";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
+
+import {
+  BUILD_ARTIFACT_TREE_EXCLUSIONS,
+  captureBuildArtifactTree
+} from "./next-clean-build.mjs";
+import {
+  buildVercelStagingGitEnvironment,
+  prepareVercelStaging
+} from "./prepare-vercel-staging.mjs";
+import {
+  APPROVED_PRODUCTION_ORIGINS,
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_PROJECT_NAME,
+  APPROVED_VERCEL_TEAM_ID,
+  APPROVED_VERCEL_TEAM_SLUG,
+  isValidVercelToken,
+  validateVercelDeploymentIdentity,
+  validateVercelProductionAliases,
+  verifyVercelProviderDeployment
+} from "./vercel-provider-evidence.mjs";
+import {
+  verifyGithubCandidateChecks
+} from "./github-candidate-checks.mjs";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const USER_AGENT = "MAIS-prod-certification/phase1";
+const MAX_READ_ONLY_RESPONSE_BYTES = 32 * 1024 * 1024;
+const MAX_READ_ONLY_REDIRECTS = 5;
+const CERTIFICATION_CHILD_BASE_ENV_KEYS = Object.freeze([
+  "CI",
+  "COLORTERM",
+  "COMSPEC",
+  "FORCE_COLOR",
+  "LANG",
+  "LC_ALL",
+  "LC_CTYPE",
+  "NODE_OPTIONS",
+  "NO_COLOR",
+  "PATH",
+  "PATHEXT",
+  "SHELL",
+  "SYSTEMROOT",
+  "TEMP",
+  "TERM",
+  "TMP",
+  "TMPDIR",
+  "TZ",
+  "WINDIR"
+]);
 
-export const DOMAINS = ["https://www.mais.ac", "https://www.mais.hk"];
+export const DOMAINS = [...APPROVED_PRODUCTION_ORIGINS];
+export const BUILD_ATTESTATION_ARTIFACTS = Object.freeze([
+  "BUILD_ID",
+  "required-server-files.json",
+  "server/app-paths-manifest.json"
+]);
+export const MAX_BUILD_ATTESTATION_AGE_MS = 24 * 60 * 60 * 1_000;
+export const READ_ONLY_BROWSER_CONTEXT_OPTIONS = Object.freeze({
+  userAgent: USER_AGENT,
+  serviceWorkers: "block"
+});
 const APEX_OF = {
   "https://www.mais.ac": "https://mais.ac",
   "https://www.mais.hk": "https://mais.hk"
 };
+
+export function buildProductionCertificationChildEnvironment(
+  purpose,
+  env = process.env
+) {
+  if (purpose === "git") return buildVercelStagingGitEnvironment(env);
+  const credentialKey = purpose === "github"
+    ? "GITHUB_TOKEN"
+    : purpose === "vercel"
+      ? "VERCEL_TOKEN"
+      : null;
+  if (!credentialKey) {
+    throw new Error("Production certification child environment purpose was rejected.");
+  }
+  const child = {};
+  for (const key of [...CERTIFICATION_CHILD_BASE_ENV_KEYS, credentialKey]) {
+    if (typeof env?.[key] === "string") child[key] = env[key];
+  }
+  return child;
+}
 
 // Render severity: the landing and login pages are P0 journeys; /about is P1.
 const PAGES = [
@@ -56,6 +136,8 @@ export const BUDGETS = {
 const CANDIDATE_SHA_PATTERN = /^[a-f0-9]{40}$/u;
 const DEPLOYMENT_ID_PATTERN = /^dpl_[A-Za-z0-9]{8,128}$/u;
 const BUILD_ID_PATTERN = /^[A-Za-z0-9_-]{8,128}$/u;
+const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
+const BUILD_ATTESTATION_FUTURE_TOLERANCE_MS = 5 * 60 * 1_000;
 const SYNTHETIC_FAMILY_ID_PATTERN = /^mais-synthetic-family-[a-z0-9][a-z0-9-]{2,63}$/u;
 
 export function evaluateBudget(value, warnAt, failAt) {
@@ -107,7 +189,7 @@ export function formatReportMarkdown(report) {
     `- Domains: ${report.domains.join(", ")}`,
     `- Candidate SHA: ${report.releaseBinding.candidateSha}`,
     `- Deployment: ${report.releaseBinding.deploymentId} (${report.releaseBinding.deploymentUrl})`,
-    `- Next BUILD_ID: ${report.releaseBinding.buildId}`,
+    `- Local Next BUILD_ID: ${report.releaseBinding.buildId}`,
     `- Checks: ${report.results.length} (pass ${count(report, "pass")}, warn ${count(report, "warn")}, fail ${count(report, "fail")}, skip ${count(report, "skip")})`,
     `- Write footprint: ${report.writeFootprint}`,
     "",
@@ -129,20 +211,111 @@ function count(report, status) {
   return report.results.filter((result) => result.status === status).length;
 }
 
-async function fetchTimed(url, { timeoutMs = 30_000, headers = {}, redirect = "follow" } = {}) {
+export async function fetchTimed(url, {
+  timeoutMs = 30_000,
+  headers = {},
+  method = "GET",
+  redirect = "same-origin",
+  fetchImpl = globalThis.fetch,
+  maxBytes = MAX_READ_ONLY_RESPONSE_BYTES
+} = {}) {
+  if (method !== "GET" && method !== "HEAD") {
+    throw new Error("Read-only HTTP probe rejected a mutating method.");
+  }
   const startedAt = Date.now();
-  const response = await fetch(url, {
-    redirect,
-    signal: AbortSignal.timeout(timeoutMs),
-    headers: { "user-agent": USER_AGENT, ...headers }
-  });
-  const buffer = await response.arrayBuffer();
-  return {
-    response,
-    bytes: buffer.byteLength,
-    ms: Date.now() - startedAt,
-    text: () => new TextDecoder().decode(buffer)
-  };
+  const initial = requireSafeReadOnlyUrl(url);
+  const allowedOrigin = initial.origin;
+  let current = initial;
+  for (let hop = 0; hop <= MAX_READ_ONLY_REDIRECTS; hop += 1) {
+    const response = await fetchImpl(current.href, {
+      method,
+      redirect: redirect === "error" ? "error" : "manual",
+      signal: AbortSignal.timeout(timeoutMs),
+      headers: { "user-agent": USER_AGENT, ...headers }
+    });
+    if (redirect === "same-origin" && isRedirectStatus(response.status)) {
+      const location = response.headers.get("location");
+      if (!location || hop === MAX_READ_ONLY_REDIRECTS) {
+        throw new Error("Read-only HTTP redirect contract failed.");
+      }
+      const next = requireSafeReadOnlyUrl(new URL(location, current).href);
+      if (next.origin !== allowedOrigin) {
+        throw new Error("Read-only HTTP redirect left the approved origin.");
+      }
+      current = next;
+      continue;
+    }
+    const buffer = method === "HEAD"
+      ? new Uint8Array()
+      : await readResponseBodyLimited(response, maxBytes);
+    return {
+      response,
+      bytes: buffer.byteLength,
+      finalUrl: current.href,
+      ms: Date.now() - startedAt,
+      text: () => new TextDecoder().decode(buffer)
+    };
+  }
+  throw new Error("Read-only HTTP redirect contract failed.");
+}
+
+function isRedirectStatus(status) {
+  return [301, 302, 303, 307, 308].includes(status);
+}
+
+function requireSafeReadOnlyUrl(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error("Read-only HTTP target is invalid.");
+  }
+  if (
+    url.protocol !== "https:" ||
+    url.username ||
+    url.password ||
+    url.port ||
+    !url.hostname ||
+    net.isIP(url.hostname) !== 0
+  ) {
+    throw new Error("Read-only HTTP target is outside the approved public HTTPS boundary.");
+  }
+  return url;
+}
+
+async function readResponseBodyLimited(response, maxBytes) {
+  if (!Number.isSafeInteger(maxBytes) || maxBytes <= 0) {
+    throw new Error("Read-only HTTP response limit is invalid.");
+  }
+  const declaredLength = Number(response.headers.get("content-length"));
+  if (Number.isFinite(declaredLength) && declaredLength > maxBytes) {
+    throw new Error("Read-only HTTP response exceeded its bounded size.");
+  }
+  if (!response.body) return new Uint8Array();
+  const reader = response.body.getReader();
+  const chunks = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) {
+        await reader.cancel();
+        throw new Error("Read-only HTTP response exceeded its bounded size.");
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const combined = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return combined;
 }
 
 function tlsCertificate(host) {
@@ -176,13 +349,9 @@ async function mapLimit(items, limit, worker) {
 
 async function transferSize(url) {
   try {
-    const head = await fetch(url, {
-      method: "HEAD",
-      signal: AbortSignal.timeout(15_000),
-      headers: { "user-agent": USER_AGENT }
-    });
-    const contentLength = Number(head.headers.get("content-length"));
-    if (head.ok && Number.isFinite(contentLength) && contentLength > 0) return contentLength;
+    const head = await fetchTimed(url, { method: "HEAD", timeoutMs: 15_000 });
+    const contentLength = Number(head.response.headers.get("content-length"));
+    if (head.response.ok && Number.isFinite(contentLength) && contentLength > 0) return contentLength;
   } catch {
     // fall through to GET
   }
@@ -205,8 +374,8 @@ async function runTier0(domain, push) {
   try {
     const lookup = await dns.lookup(host);
     push({ id: "dns-resolve", tier: 0, severity: "P0", domain, status: "pass", detail: `${host} → ${lookup.address}` });
-  } catch (error) {
-    push({ id: "dns-resolve", tier: 0, severity: "P0", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "dns-resolve", tier: 0, severity: "P0", domain, status: "fail", detail: "DNS resolution failed; details redacted" });
     return null; // nothing else on this domain can work
   }
 
@@ -222,8 +391,8 @@ async function runTier0(domain, push) {
       status,
       detail: `expires ${certificate.valid_to} (${daysLeft.toFixed(0)} days)`
     });
-  } catch (error) {
-    push({ id: "tls-certificate", tier: 0, severity: "P0", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "tls-certificate", tier: 0, severity: "P0", domain, status: "fail", detail: "TLS certificate probe failed; details redacted" });
   }
 
   let home = null;
@@ -241,8 +410,8 @@ async function runTier0(domain, push) {
       detail: `HTTP ${home.response.status} in ${home.ms}ms (${formatBytes(home.bytes)})`,
       ms: home.ms
     });
-  } catch (error) {
-    push({ id: "home-availability", tier: 0, severity: "P0", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "home-availability", tier: 0, severity: "P0", domain, status: "fail", detail: "home availability probe failed; details redacted" });
     return null;
   }
 
@@ -257,8 +426,8 @@ async function runTier0(domain, push) {
       detail: `warm hit ${warmHit.ms}ms (first hit ${home.ms}ms)`,
       ms: warmHit.ms
     });
-  } catch (error) {
-    push({ id: "keep-warm-second-hit", tier: 0, severity: "P1", domain, status: "warn", detail: String(error) });
+  } catch {
+    push({ id: "keep-warm-second-hit", tier: 0, severity: "P1", domain, status: "warn", detail: "second-hit probe failed; details redacted" });
   }
 
   try {
@@ -275,8 +444,8 @@ async function runTier0(domain, push) {
       status: status === "pass" && contract.ok ? "pass" : "fail",
       detail: `HTTP ${warmProbe.response.status} in ${warmProbe.ms}ms; ${contract.ok ? "private no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
-  } catch (error) {
-    push({ id: "api-warm-endpoint", tier: 0, severity: "P1", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "api-warm-endpoint", tier: 0, severity: "P1", domain, status: "fail", detail: "warm endpoint probe failed; details redacted" });
   }
 
   try {
@@ -302,8 +471,8 @@ async function runTier0(domain, push) {
         detail: status === 200 ? "apex serves directly (no redirect)" : `HTTP ${status}`
       });
     }
-  } catch (error) {
-    push({ id: "apex-redirect", tier: 0, severity: "P1", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "apex-redirect", tier: 0, severity: "P1", domain, status: "fail", detail: "apex redirect probe failed; details redacted" });
   }
 
   const missingHeaders = ["strict-transport-security", "x-content-type-options"].filter(
@@ -361,8 +530,8 @@ async function runTier1(domain, push) {
     let result;
     try {
       result = await fetchTimed(url, { timeoutMs: 45_000 });
-    } catch (error) {
-      push({ id: `page-render:${page.name}`, tier: 1, severity: page.renderSeverity, domain, status: "fail", detail: String(error) });
+    } catch {
+      push({ id: `page-render:${page.name}`, tier: 1, severity: page.renderSeverity, domain, status: "fail", detail: "page render probe failed; details redacted" });
       continue;
     }
 
@@ -422,8 +591,8 @@ async function runTier1(domain, push) {
           detail: `no flight response (HTTP ${rsc.response.status}, ${contentType || "no content-type"})`
         });
       }
-    } catch (error) {
-      push({ id: `page-rsc-payload:${page.name}`, tier: 1, severity: "P1", domain, status: "skip", detail: String(error) });
+    } catch {
+      push({ id: `page-rsc-payload:${page.name}`, tier: 1, severity: "P1", domain, status: "skip", detail: "RSC payload probe failed; details redacted" });
     }
   }
 
@@ -437,8 +606,8 @@ async function runTier1(domain, push) {
       status: missing.response.status === 404 ? "pass" : "fail",
       detail: `HTTP ${missing.response.status} for a nonexistent route`
     });
-  } catch (error) {
-    push({ id: "not-found-behavior", tier: 1, severity: "P1", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "not-found-behavior", tier: 1, severity: "P1", domain, status: "fail", detail: "not-found probe failed; details redacted" });
   }
 
   try {
@@ -453,8 +622,8 @@ async function runTier1(domain, push) {
       status: (status === 401 || status === 403) && contract.ok ? "pass" : "fail",
       detail: `HTTP ${status} unauthenticated; ${contract.ok ? "no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
-  } catch (error) {
-    push({ id: "unauth-api-me", tier: 1, severity: "P1", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "unauth-api-me", tier: 1, severity: "P1", domain, status: "fail", detail: "unauthenticated identity probe failed; details redacted" });
   }
 
   try {
@@ -472,8 +641,8 @@ async function runTier1(domain, push) {
       status: (status === 401 || status === 403) && contract.ok ? "pass" : "fail",
       detail: `HTTP ${status}; ${contract.ok ? "private no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
-  } catch (error) {
-    push({ id: "unauth-parent-foundation", tier: 1, severity: "P0", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "unauth-parent-foundation", tier: 1, severity: "P0", domain, status: "fail", detail: "parent foundation probe failed; details redacted" });
   }
 
   try {
@@ -494,8 +663,175 @@ async function runTier1(domain, push) {
       status: redirectedToLogin && contract.ok ? "pass" : "fail",
       detail: `HTTP ${parent.response.status} to ${target?.pathname ?? "(missing)"}; ${contract.ok ? "no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
-  } catch (error) {
-    push({ id: "unauth-parent-entry", tier: 1, severity: "P0", domain, status: "fail", detail: String(error) });
+  } catch {
+    push({ id: "unauth-parent-entry", tier: 1, severity: "P0", domain, status: "fail", detail: "parent entry probe failed; details redacted" });
+  }
+}
+
+export function isReadOnlyBrowserRequestAllowed(request, allowedOrigin) {
+  const methodValue = typeof request?.method === "function" ? request.method() : request?.method;
+  const urlValue = typeof request?.url === "function" ? request.url() : request?.url;
+  const method = String(methodValue ?? "").toUpperCase();
+  if (method !== "GET" && method !== "HEAD") return false;
+  try {
+    const url = new URL(String(urlValue ?? ""));
+    return url.protocol === "https:" && url.origin === allowedOrigin;
+  } catch {
+    return false;
+  }
+}
+
+function sanitizeBrowserTarget(value) {
+  try {
+    const url = new URL(String(value ?? ""));
+    return `${url.origin}${url.pathname}`.slice(0, 300);
+  } catch {
+    return "invalid-or-relative-target";
+  }
+}
+
+function appendBlockedBrowserRecord(blockedRequests, entry) {
+  blockedRequests.push({
+    kind: String(entry?.kind ?? "request").slice(0, 40),
+    method: String(entry?.method ?? "").toUpperCase().slice(0, 16),
+    target: sanitizeBrowserTarget(entry?.target)
+  });
+}
+
+// This function must remain self-contained because Playwright serializes it into
+// each fresh page before any application script executes.
+export function browserReadOnlyInitScript() {
+  const record = (kind, target) => {
+    try {
+      const result = globalThis.__maisRecordBlockedBrowserMutation?.({
+        kind,
+        target: String(target ?? "")
+      });
+      if (result && typeof result.catch === "function") result.catch(() => {});
+    } catch {
+      // The network route remains the fail-closed backstop for HTTP requests.
+    }
+  };
+  const installValue = (target, key, value) => {
+    try {
+      Object.defineProperty(target, key, {
+        configurable: false,
+        enumerable: true,
+        value,
+        writable: false
+      });
+      return target[key] === value;
+    } catch {
+      try {
+        target[key] = value;
+        return target[key] === value;
+      } catch {
+        return false;
+      }
+    }
+  };
+
+  const blockedBeacon = (target) => {
+    record("sendBeacon", target);
+    return false;
+  };
+  class BlockedWebSocket {
+    constructor(target) {
+      record("WebSocket", target);
+      throw new Error("WebSocket blocked by the MAIS read-only certification guard");
+    }
+  }
+  class BlockedEventSource {
+    constructor(target) {
+      record("EventSource", target);
+      throw new Error("EventSource blocked by the MAIS read-only certification guard");
+    }
+  }
+  class BlockedWorker {
+    constructor(target) {
+      record("Worker", target);
+      throw new Error("Worker blocked by the MAIS read-only certification guard");
+    }
+  }
+  class BlockedSharedWorker {
+    constructor(target) {
+      record("SharedWorker", target);
+      throw new Error("SharedWorker blocked by the MAIS read-only certification guard");
+    }
+  }
+  class BlockedWebTransport {
+    constructor(target) {
+      record("WebTransport", target);
+      throw new Error("WebTransport blocked by the MAIS read-only certification guard");
+    }
+  }
+  class BlockedRTCPeerConnection {
+    constructor() {
+      record("RTCPeerConnection", "browser-direct-channel");
+      throw new Error("WebRTC blocked by the MAIS read-only certification guard");
+    }
+  }
+
+  const marker = Object.freeze({
+    version: 2,
+    sendBeacon: Boolean(globalThis.navigator) && installValue(globalThis.navigator, "sendBeacon", blockedBeacon),
+    webSocket: installValue(globalThis, "WebSocket", BlockedWebSocket),
+    eventSource: installValue(globalThis, "EventSource", BlockedEventSource),
+    worker: installValue(globalThis, "Worker", BlockedWorker),
+    sharedWorker: installValue(globalThis, "SharedWorker", BlockedSharedWorker),
+    webTransport: installValue(globalThis, "WebTransport", BlockedWebTransport),
+    rtcPeerConnection: installValue(
+      globalThis,
+      "RTCPeerConnection",
+      BlockedRTCPeerConnection
+    ),
+    webkitRtcPeerConnection: installValue(
+      globalThis,
+      "webkitRTCPeerConnection",
+      BlockedRTCPeerConnection
+    )
+  });
+  installValue(globalThis, "__maisReadOnlyBrowserGuard", marker);
+}
+
+export async function installReadOnlyBrowserGuards(context, allowedOrigin, blockedRequests) {
+  await context.exposeBinding("__maisRecordBlockedBrowserMutation", (_source, entry) => {
+    appendBlockedBrowserRecord(blockedRequests, entry);
+  });
+  await context.addInitScript(browserReadOnlyInitScript);
+  await context.route("**/*", async (route) => {
+    const request = route.request();
+    if (isReadOnlyBrowserRequestAllowed(request, allowedOrigin)) {
+      await route.continue();
+      return;
+    }
+    appendBlockedBrowserRecord(blockedRequests, {
+      kind: "network-request",
+      method: request.method(),
+      target: request.url()
+    });
+    await route.abort("blockedbyclient");
+  });
+  await context.routeWebSocket(/.*/u, async (webSocketRoute) => {
+    appendBlockedBrowserRecord(blockedRequests, {
+      kind: "websocket-route",
+      method: "WEBSOCKET",
+      target: webSocketRoute.url()
+    });
+    await webSocketRoute.close({ code: 1008, reason: "read-only certification" });
+  });
+}
+
+export function appendBrowserSkipResults(domains, push) {
+  for (const domain of domains) {
+    push({
+      id: "browser-console-scan",
+      tier: 1,
+      severity: "P1",
+      domain,
+      status: "skip",
+      detail: "browser checks explicitly skipped; a clean certification is forbidden"
+    });
   }
 }
 
@@ -512,10 +848,15 @@ async function runBrowserConsoleScan(domains, push) {
 
   let browser;
   try {
-    browser = await chromium.launch();
-  } catch (error) {
+    browser = await chromium.launch({
+      args: [
+        "--disable-features=WebTransport",
+        "--force-webrtc-ip-handling-policy=disable_non_proxied_udp"
+      ]
+    });
+  } catch {
     for (const domain of domains) {
-      push({ id: "browser-console-scan", tier: 1, severity: "P1", domain, status: "skip", detail: `browser launch failed: ${error}` });
+      push({ id: "browser-console-scan", tier: 1, severity: "P1", domain, status: "skip", detail: "browser launch failed; details redacted" });
     }
     return;
   }
@@ -523,19 +864,60 @@ async function runBrowserConsoleScan(domains, push) {
   try {
     for (const domain of domains) {
       for (const page of PAGES) {
-        const context = await browser.newContext({ userAgent: USER_AGENT });
+        const context = await browser.newContext(READ_ONLY_BROWSER_CONTEXT_OPTIONS);
+        const blockedRequests = [];
+        let guardInstalled = false;
+        try {
+          await installReadOnlyBrowserGuards(context, domain, blockedRequests);
+          guardInstalled = true;
+        } catch {
+          push({
+            id: `browser-read-only-guard:${page.name}`,
+            tier: 1,
+            severity: "P0",
+            domain,
+            status: "fail",
+            detail: "could not install read-only browser guard; details redacted"
+          });
+        }
+        if (!guardInstalled) {
+          await context.close();
+          continue;
+        }
         const browserPage = await context.newPage();
-        const consoleErrors = [];
-        const pageErrors = [];
+        let consoleErrorCount = 0;
+        let pageErrorCount = 0;
         browserPage.on("console", (message) => {
-          if (message.type() === "error") consoleErrors.push(message.text());
+          if (message.type() === "error") consoleErrorCount += 1;
         });
-        browserPage.on("pageerror", (error) => pageErrors.push(String(error)));
+        browserPage.on("pageerror", () => {
+          pageErrorCount += 1;
+        });
         try {
           await browserPage.goto(`${domain}${page.path}`, { waitUntil: "load", timeout: 60_000 });
           await browserPage.waitForTimeout(3_000);
-          const status = pageErrors.length ? "fail" : consoleErrors.length ? "warn" : "pass";
-          const firstIssue = pageErrors[0] ?? consoleErrors[0];
+          const guardState = await browserPage.evaluate(() => globalThis.__maisReadOnlyBrowserGuard ?? null);
+          const guardHealthy =
+            guardState?.version === 2 &&
+            guardState.sendBeacon === true &&
+            guardState.webSocket === true &&
+            guardState.eventSource === true &&
+            guardState.worker === true &&
+            guardState.sharedWorker === true &&
+            guardState.webTransport === true &&
+            guardState.rtcPeerConnection === true &&
+            guardState.webkitRtcPeerConnection === true;
+          push({
+            id: `browser-read-only-guard:${page.name}`,
+            tier: 1,
+            severity: "P0",
+            domain,
+            status: guardHealthy ? "pass" : "fail",
+            detail: guardHealthy
+              ? `${blockedRequests.length} disallowed browser request(s) blocked; no query values retained`
+              : "one or more browser mutation channels were not blocked"
+          });
+          const status = pageErrorCount ? "fail" : consoleErrorCount ? "warn" : "pass";
           push({
             id: `browser-console:${page.name}`,
             tier: 1,
@@ -545,10 +927,10 @@ async function runBrowserConsoleScan(domains, push) {
             detail:
               status === "pass"
                 ? "no console errors"
-                : `${pageErrors.length} uncaught, ${consoleErrors.length} console errors — first: ${String(firstIssue).slice(0, 160)}`
+                : `${pageErrorCount} uncaught, ${consoleErrorCount} console errors; details redacted`
           });
-        } catch (error) {
-          push({ id: `browser-console:${page.name}`, tier: 1, severity: "P1", domain, status: "fail", detail: String(error) });
+        } catch {
+          push({ id: `browser-console:${page.name}`, tier: 1, severity: "P1", domain, status: "fail", detail: "navigation or browser scan failed; details redacted" });
         } finally {
           await context.close();
         }
@@ -595,12 +977,17 @@ function validateReleaseBinding(releaseBinding) {
     throw new Error("--deployment-url must be a canonical HTTPS *.vercel.app origin.");
   }
   if (!BUILD_ID_PATTERN.test(releaseBinding.buildId ?? "")) {
-    throw new Error("--build-id must be an 8-128 character Next BUILD_ID.");
+    throw new Error("--build-id must be an 8-128 character local Next BUILD_ID.");
+  }
+  const vercelScope = String(releaseBinding.vercelScope ?? "");
+  if (![APPROVED_VERCEL_TEAM_ID, APPROVED_VERCEL_TEAM_SLUG].includes(vercelScope)) {
+    throw new Error("--vercel-scope must identify the approved MAIS Vercel team.");
   }
   return {
     candidateSha: releaseBinding.candidateSha.toLowerCase(),
     deploymentId: releaseBinding.deploymentId,
     deploymentUrl,
+    vercelScope,
     buildId: releaseBinding.buildId
   };
 }
@@ -652,6 +1039,7 @@ export function parseArgs(argv) {
     else if (argument === "--candidate-sha") args.releaseBinding.candidateSha = readRequiredArgument(argv, index++, argument);
     else if (argument === "--deployment-id") args.releaseBinding.deploymentId = readRequiredArgument(argv, index++, argument);
     else if (argument === "--deployment-url") args.releaseBinding.deploymentUrl = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--vercel-scope") args.releaseBinding.vercelScope = readRequiredArgument(argv, index++, argument);
     else if (argument === "--build-id") args.releaseBinding.buildId = readRequiredArgument(argv, index++, argument);
     else if (argument === "--allow-production-writes") args.rawWriteAuthorization.allowProductionWrites = true;
     else if (argument === "--synthetic-test-family-id") {
@@ -661,7 +1049,10 @@ export function parseArgs(argv) {
     } else if (argument === "--synthetic-test-family-confirmation") {
       args.rawWriteAuthorization.confirmation = readRequiredArgument(argv, index++, argument);
     }
-    else throw new Error(`Unknown argument: ${argument}`);
+    else {
+      const flag = String(argument).split("=", 1)[0].slice(0, 80);
+      throw new Error(flag.startsWith("--") ? `Unknown argument flag: ${flag}` : "Unknown argument.");
+    }
   }
   const releaseBinding = validateReleaseBinding(args.releaseBinding);
   const writeAuthorization = validateWriteAuthorization(args.rawWriteAuthorization);
@@ -678,7 +1069,15 @@ export function parseArgs(argv) {
 
 export function validateLocalReleaseBindingEvidence(
   releaseBinding,
-  { localSha, localBuildId, attestation }
+  {
+    localSha,
+    localBuildId,
+    attestation,
+    currentSourceClean,
+    currentArtifactDigests,
+    currentArtifactTree,
+    nowMs = Date.now()
+  }
 ) {
   if (localSha !== releaseBinding.candidateSha) {
     throw new Error("Candidate binding failed: --candidate-sha does not equal the local release-source HEAD.");
@@ -686,11 +1085,14 @@ export function validateLocalReleaseBindingEvidence(
   if (localBuildId !== releaseBinding.buildId) {
     throw new Error("Build binding failed: --build-id does not equal the local .next/BUILD_ID.");
   }
+  if (currentSourceClean !== true) {
+    throw new Error("Build binding failed: the current worktree is not clean.");
+  }
 
   const buildStartedAt = Date.parse(attestation?.buildStartedAt ?? "");
   const completedAt = Date.parse(attestation?.completedAt ?? "");
   const attestationMatches =
-    attestation?.schemaVersion === 1 &&
+    attestation?.schemaVersion === 3 &&
     attestation.candidateSha === releaseBinding.candidateSha &&
     attestation.buildId === releaseBinding.buildId &&
     attestation.distDir === ".next" &&
@@ -704,6 +1106,35 @@ export function validateLocalReleaseBindingEvidence(
       "Build binding failed: .next/mais-build-attestation.json must prove a clean, stable default build from the exact candidate SHA."
     );
   }
+  if (
+    buildStartedAt > nowMs + BUILD_ATTESTATION_FUTURE_TOLERANCE_MS ||
+    completedAt > nowMs + BUILD_ATTESTATION_FUTURE_TOLERANCE_MS
+  ) {
+    throw new Error("Build binding failed: build attestation timestamps are in the future.");
+  }
+  if (nowMs - completedAt > MAX_BUILD_ATTESTATION_AGE_MS) {
+    throw new Error("Build binding failed: a fresh build attestation completed within 24 hours is required.");
+  }
+  if (
+    !isExactArtifactDigestRecord(attestation.artifactDigests) ||
+    !isExactArtifactDigestRecord(currentArtifactDigests)
+  ) {
+    throw new Error("Build binding failed: build artifact digest evidence is incomplete or out of scope.");
+  }
+  for (const relativePath of BUILD_ATTESTATION_ARTIFACTS) {
+    if (attestation.artifactDigests[relativePath] !== currentArtifactDigests[relativePath]) {
+      throw new Error(`Build binding failed: artifact digest mismatch for ${relativePath}.`);
+    }
+  }
+  if (
+    !isValidLocalArtifactTree(attestation.artifactTree) ||
+    !isValidLocalArtifactTree(currentArtifactTree) ||
+    attestation.artifactTree.root !== currentArtifactTree.root ||
+    attestation.artifactTree.fileCount !== currentArtifactTree.fileCount ||
+    attestation.artifactTree.totalBytes !== currentArtifactTree.totalBytes
+  ) {
+    throw new Error("Build binding failed: complete local artifact tree integrity did not match.");
+  }
 
   return {
     ...releaseBinding,
@@ -711,15 +1142,73 @@ export function validateLocalReleaseBindingEvidence(
     localBuildIdMatched: true,
     localBuildAttestationMatched: true,
     buildStartedAt: attestation.buildStartedAt,
-    completedAt: attestation.completedAt
+    completedAt: attestation.completedAt,
+    artifactDigestsMatched: true,
+    localArtifactTreeMatched: true
   };
 }
 
-function assertLocalReleaseBinding(releaseBinding) {
+function isValidLocalArtifactTree(value) {
+  return Boolean(
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    value.algorithm === "sha256" &&
+    Array.isArray(value.exclusions) &&
+    value.exclusions.length === BUILD_ARTIFACT_TREE_EXCLUSIONS.length &&
+    value.exclusions.every(
+      (entry, index) => entry === BUILD_ARTIFACT_TREE_EXCLUSIONS[index]
+    ) &&
+    Number.isSafeInteger(value.fileCount) &&
+    value.fileCount > 0 &&
+    Number.isSafeInteger(value.totalBytes) &&
+    value.totalBytes >= 0 &&
+    typeof value.root === "string" &&
+    SHA256_PATTERN.test(value.root)
+  );
+}
+
+function isExactArtifactDigestRecord(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const keys = Object.keys(value).sort();
+  const expectedKeys = [...BUILD_ATTESTATION_ARTIFACTS].sort();
+  return keys.length === expectedKeys.length &&
+    keys.every((key, index) => key === expectedKeys[index]) &&
+    BUILD_ATTESTATION_ARTIFACTS.every(
+      (relativePath) => typeof value[relativePath] === "string" && SHA256_PATTERN.test(value[relativePath])
+    );
+}
+
+function captureCurrentBuildArtifactDigests() {
+  const digests = {};
+  for (const relativePath of BUILD_ATTESTATION_ARTIFACTS) {
+    let contents;
+    try {
+      contents = fs.readFileSync(path.join(REPO_ROOT, ".next", ...relativePath.split("/")));
+    } catch {
+      throw new Error(`Build binding failed: required local build artifact is unavailable: ${relativePath}.`);
+    }
+    digests[relativePath] = createHash("sha256").update(contents).digest("hex");
+  }
+  return digests;
+}
+
+async function assertLocalReleaseBinding(releaseBinding) {
   const localSha = execFileSync("git", ["rev-parse", "HEAD"], {
     cwd: REPO_ROOT,
-    encoding: "utf8"
+    encoding: "utf8",
+    env: buildProductionCertificationChildEnvironment("git")
   }).trim().toLowerCase();
+  const currentSourceClean = execFileSync(
+    "git",
+    ["status", "--porcelain=v1", "--untracked-files=all"],
+    {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: buildProductionCertificationChildEnvironment("git"),
+      maxBuffer: 4 * 1024 * 1024
+    }
+  ).length === 0;
 
   let localBuildId;
   let attestation;
@@ -739,89 +1228,202 @@ function assertLocalReleaseBinding(releaseBinding) {
   return validateLocalReleaseBindingEvidence(releaseBinding, {
     localSha,
     localBuildId,
-    attestation
+    attestation,
+    currentSourceClean,
+    currentArtifactDigests: captureCurrentBuildArtifactDigests(),
+    currentArtifactTree: await captureBuildArtifactTree({
+      nextBuildDir: path.join(REPO_ROOT, ".next")
+    })
   });
 }
 
-function responseBindingHeader(headers, names) {
-  for (const name of names) {
-    const value = headers.get(name)?.trim();
-    if (value) return value;
+export function validateVercelDeploymentEvidence(
+  releaseBinding,
+  payload,
+  { sourcePackageEvidence, aliasesPayload } = {}
+) {
+  try {
+    if (![APPROVED_VERCEL_TEAM_ID, APPROVED_VERCEL_TEAM_SLUG].includes(releaseBinding.vercelScope)) {
+      throw new Error("scope mismatch");
+    }
+    validateVercelDeploymentIdentity({
+      candidateSha: releaseBinding.candidateSha,
+      deploymentId: releaseBinding.deploymentId,
+      deploymentUrl: releaseBinding.deploymentUrl,
+      payload,
+      sourcePackageEvidence,
+      target: "production"
+    });
+    const productionOrigins = validateVercelProductionAliases(aliasesPayload);
+    return {
+      deploymentId: releaseBinding.deploymentId,
+      deploymentUrl: releaseBinding.deploymentUrl,
+      candidateSha: releaseBinding.candidateSha,
+      productionAliases: productionOrigins.map((origin) => new URL(origin).hostname),
+      readyState: "READY",
+      source: "cli",
+      sourceManifestRoot: sourcePackageEvidence.sourceManifestRoot,
+      target: "production"
+    };
+  } catch {
+    throw new Error("Vercel deployment binding failed: provider identity, source bytes, or aliases did not match.");
   }
-  return null;
 }
 
-async function runLiveBuildBinding(releaseBinding, push) {
-  const origins = [releaseBinding.deploymentUrl, ...DOMAINS];
-  const candidateHeaders = [];
-  const deploymentHeaders = [];
-  for (const origin of origins) {
-    const manifestUrl = `${origin}/_next/static/${encodeURIComponent(releaseBinding.buildId)}/_buildManifest.js`;
-    try {
-      const result = await fetchTimed(manifestUrl, { timeoutMs: 30_000 });
-      const contentType = (result.response.headers.get("content-type") ?? "").toLowerCase();
-      const noCookie = !result.response.headers.get("set-cookie");
-      const healthy = result.response.ok && /javascript|text\/plain/u.test(contentType) && noCookie;
+export function validateVercelAliasEvidence(payload) {
+  try {
+    return validateVercelProductionAliases(payload)
+      .map((origin) => new URL(origin).hostname);
+  } catch {
+    throw new Error("Vercel deployment binding failed: one or more exact production aliases are not assigned to this deployment.");
+  }
+}
+
+export function buildVercelDeploymentFetchOptions(token) {
+  if (!isValidVercelToken(token)) {
+    throw new Error("VERCEL_TOKEN is unavailable or invalid.");
+  }
+  return {
+    timeoutMs: 30_000,
+    redirect: "error",
+    headers: {
+      authorization: `Bearer ${token}`,
+      accept: "application/json"
+    }
+  };
+}
+
+async function runGithubCandidateBinding(releaseBinding, push, env = process.env) {
+  try {
+    const gitEnv = buildProductionCertificationChildEnvironment("git", env);
+    const expectedTreeSha = execFileSync(
+      "git",
+      ["rev-parse", `${releaseBinding.candidateSha}^{tree}`],
+      {
+        cwd: REPO_ROOT,
+        encoding: "utf8",
+        env: gitEnv
+      }
+    ).trim().toLowerCase();
+    const evidence = await verifyGithubCandidateChecks({
+      candidateSha: releaseBinding.candidateSha,
+      expectedTreeSha,
+      env: buildProductionCertificationChildEnvironment("github", env),
+      repoRoot: REPO_ROOT,
+      runCommand: (command, args, options = {}) =>
+        runProductionCertificationGitCommand(command, args, {
+          ...options,
+          env: gitEnv
+        })
+    });
+    push({
+      id: "github-candidate-checks",
+      tier: 0,
+      severity: "P0",
+      status: "pass",
+      detail: `GitHub confirmed the exact commit/tree and ${evidence.releaseChecks.length} latest successful release checks`
+    });
+  } catch {
+    push({
+      id: "github-candidate-checks",
+      tier: 0,
+      severity: "P0",
+      status: "fail",
+      detail: "GitHub exact-SHA candidate or required-check evidence could not be proven; details redacted"
+    });
+  }
+}
+
+async function runProductionCertificationGitCommand(command, args, options = {}) {
+  if (command !== "git") {
+    throw new Error("Production certification Git command was rejected.");
+  }
+  try {
+    const stdout = execFileSync(command, args, {
+      cwd: options.cwd,
+      encoding: "buffer",
+      env: options.env,
+      maxBuffer: 64 * 1024 * 1024
+    });
+    return { exitCode: 0, stderr: "", stdout };
+  } catch {
+    return { exitCode: 1, stderr: "", stdout: Buffer.alloc(0) };
+  }
+}
+
+async function runVercelDeploymentBinding(releaseBinding, push, env = process.env) {
+  try {
+    const expectedStaging = await prepareVercelStaging({
+      dryRun: true,
+      repoRoot: REPO_ROOT,
+      runId: "production-certification-readonly"
+    });
+    const evidence = await verifyVercelProviderDeployment({
+      candidateSha: releaseBinding.candidateSha,
+      deploymentId: releaseBinding.deploymentId,
+      deploymentUrl: releaseBinding.deploymentUrl,
+      env: buildProductionCertificationChildEnvironment("vercel", env),
+      expectedStaging,
+      requireProductionAliases: true,
+      target: "production"
+    });
+    push({
+      id: "vercel-source-package-binding",
+      tier: 0,
+      severity: "P0",
+      status: "pass",
+      detail: "provider source files were read back and their modes, sizes, SHA-1, SHA-256, and Git blob IDs matched the exact clean Git-bound package"
+    });
+    push({
+      id: "vercel-deployment-binding",
+      tier: 0,
+      severity: "P0",
+      status: "pass",
+      detail: "provider confirmed approved team/project, immutable deployment ID, CLI source, and READY production target"
+    });
+    for (const domain of DOMAINS) {
       push({
-        id: "live-build-manifest-binding",
+        id: "vercel-production-alias-binding",
         tier: 0,
         severity: "P0",
-        domain: origin,
-        status: healthy ? "pass" : "fail",
-        detail: `HTTP ${result.response.status}; BUILD_ID path ${healthy ? "present with no cookie" : "failed content/cookie contract"}`
+        domain,
+        status: evidence.productionAliases.includes(domain) ? "pass" : "fail",
+        detail: evidence.productionAliases.includes(domain)
+          ? "provider assigned this origin to the exact deployment"
+          : "provider did not assign this origin to the exact deployment"
       });
-
-      const cacheControl = (result.response.headers.get("cache-control") ?? "").toLowerCase();
+    }
+  } catch {
+    push({
+      id: "vercel-source-package-binding",
+      tier: 0,
+      severity: "P0",
+      status: "fail",
+      detail: "Vercel source package provenance could not be proven; details redacted"
+    });
+    push({
+      id: "vercel-deployment-binding",
+      tier: 0,
+      severity: "P0",
+      status: "fail",
+      detail: "Vercel deployment evidence query failed; details redacted"
+    });
+    for (const domain of DOMAINS) {
       push({
-        id: "live-build-manifest-cache",
-        tier: 0,
-        severity: "P1",
-        domain: origin,
-        status: /public|immutable|max-age=/u.test(cacheControl) && noCookie ? "pass" : "warn",
-        detail: noCookie ? "static response cookie-free; cache policy inspected" : "unexpected Set-Cookie on static build asset"
-      });
-
-      const candidate = responseBindingHeader(result.response.headers, [
-        "x-mais-candidate-sha",
-        "x-vercel-git-commit-sha"
-      ]);
-      const deployment = responseBindingHeader(result.response.headers, [
-        "x-mais-deployment-id",
-        "x-vercel-deployment-id"
-      ]);
-      if (candidate) candidateHeaders.push(candidate.toLowerCase());
-      if (deployment) deploymentHeaders.push(deployment);
-    } catch (error) {
-      push({
-        id: "live-build-manifest-binding",
+        id: "vercel-production-alias-binding",
         tier: 0,
         severity: "P0",
-        domain: origin,
+        domain,
         status: "fail",
-        detail: String(error)
+        detail: "alias binding could not be proven from provider evidence"
       });
     }
   }
-
-  const candidateMismatch = candidateHeaders.some((value) => value !== releaseBinding.candidateSha);
-  const deploymentMismatch = deploymentHeaders.some((value) => value !== releaseBinding.deploymentId);
-  const metadataComplete = candidateHeaders.length > 0 && deploymentHeaders.length > 0;
-  push({
-    id: "live-release-metadata-binding",
-    tier: 0,
-    severity: "P0",
-    status: candidateMismatch || deploymentMismatch ? "fail" : metadataComplete ? "pass" : "warn",
-    detail: candidateMismatch || deploymentMismatch
-      ? "candidate or deployment response metadata mismatched the supplied binding"
-      : metadataComplete
-        ? "candidate SHA and deployment ID response metadata matched"
-        : "live response metadata did not expose both candidate SHA and deployment ID; BUILD_ID path evidence remains separate"
-  });
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const releaseBinding = assertLocalReleaseBinding(args.releaseBinding);
+  const releaseBinding = await assertLocalReleaseBinding(args.releaseBinding);
   const results = [];
   const push = (result) => {
     results.push(result);
@@ -835,9 +1437,10 @@ async function main() {
     tier: 0,
     severity: "P0",
     status: "pass",
-    detail: "candidate SHA matched local HEAD and BUILD_ID matched the fresh local build"
+    detail: "candidate SHA matched clean local HEAD; fresh schema-v3 local build readiness attestation and complete artifact tree matched"
   });
-  await runLiveBuildBinding(releaseBinding, push);
+  await runGithubCandidateBinding(releaseBinding, push);
+  await runVercelDeploymentBinding(releaseBinding, push);
 
   const homeHtmlByDomain = {};
   for (const domain of DOMAINS) {
@@ -855,7 +1458,26 @@ async function main() {
   if (!args.skipBrowser) {
     console.error("[prod-certification] Tier 1 — browser console scan");
     await runBrowserConsoleScan(DOMAINS.filter((domain) => homeHtmlByDomain[domain] !== null), push);
+  } else {
+    appendBrowserSkipResults(DOMAINS, push);
   }
+
+  await assertLocalReleaseBinding(args.releaseBinding);
+  push({
+    id: "final-local-release-binding",
+    tier: 0,
+    severity: "P0",
+    status: "pass",
+    detail: "local HEAD, clean source, and complete local artifact tree remained stable through certification"
+  });
+  await runGithubCandidateBinding(releaseBinding, (result) => push({
+    ...result,
+    id: `final-${result.id}`
+  }));
+  await runVercelDeploymentBinding(releaseBinding, (result) => push({
+    ...result,
+    id: `final-${result.id}`
+  }));
 
   const verdict = aggregateVerdict(results);
   const report = {
@@ -871,7 +1493,7 @@ async function main() {
     releaseBinding,
     writeFootprint: args.writeAuthorization.authorized
       ? "none (GET/HEAD only; synthetic-family authorization supplied but no write probe is implemented or executed in Phase 1)"
-      : "none (GET/HEAD only; no authentication and no mutating route)",
+      : "none (GET/HEAD only; no MAIS app authentication; GitHub/Vercel credentials used only for provider management-API GETs)",
     results,
     verdict
   };
@@ -886,7 +1508,7 @@ async function main() {
   } else {
     console.log(formatReportMarkdown(report));
   }
-  console.error(`[prod-certification] report written to ${outDir}`);
+  console.error("[prod-certification] report written to the configured private output directory");
   console.error(`[prod-certification] verdict: ${verdict}`);
 
   if (verdict === "FAILED") process.exitCode = 1;
@@ -894,5 +1516,10 @@ async function main() {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  await main();
+  try {
+    await main();
+  } catch {
+    console.error("[prod-certification] certification failed; details redacted");
+    process.exitCode = 1;
+  }
 }
