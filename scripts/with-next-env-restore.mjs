@@ -124,11 +124,20 @@ function processGroupIsAlive(processGroupId) {
   }
 }
 
-function signalProcessGroup(processGroupId, signal) {
+function signalProcessGroup(processGroupId, signal, options = {}) {
   try {
     process.kill(-processGroupId, signal);
+    return true;
   } catch (error) {
-    if (error?.code !== "ESRCH") throw error;
+    if (error?.code === "ESRCH") return false;
+    if (error?.code === "EPERM" && options.waitForExitAfterPermissionError === true) {
+      // On macOS a process-group signal can transiently return EPERM while
+      // members are being reaped. EPERM is not proof that the group is gone,
+      // so callers may tolerate the send failure only when they subsequently
+      // keep the lock and wait until the group probe reaches ESRCH.
+      return false;
+    }
+    throw error;
   }
 }
 
@@ -1391,11 +1400,15 @@ export async function runWithNextEnvRestore(command, args, options = {}) {
 
   const forwardSignal = (signal) => {
     if (!childProcessGroupId || !processGroupIsAlive(childProcessGroupId)) return;
-    signalProcessGroup(childProcessGroupId, signal);
+    signalProcessGroup(childProcessGroupId, signal, {
+      waitForExitAfterPermissionError: true
+    });
     if (!forceKillTimer) {
       forceKillTimer = setTimeout(() => {
         if (processGroupIsAlive(childProcessGroupId)) {
-          signalProcessGroup(childProcessGroupId, "SIGKILL");
+          signalProcessGroup(childProcessGroupId, "SIGKILL", {
+            waitForExitAfterPermissionError: true
+          });
         }
       }, forceKillDelayMs);
     }

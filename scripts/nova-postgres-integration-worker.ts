@@ -419,35 +419,48 @@ async function main() {
           }
         ];
         const cleanupTokenIds = cleanupTokenRecords.map((record) => record.id);
-        const fixtureStateRows = await sql<Array<{ revision: unknown }>>`
-          UPDATE public.app_state AS state
-          SET payload = state.payload || pg_catalog.jsonb_build_object(
-                'password_reset_tokens',
-                CASE
-                  WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
-                    THEN state.payload->'password_reset_tokens'
-                  ELSE '[]'::pg_catalog.jsonb
-                END || ${sql.json(cleanupTokenRecords)}::pg_catalog.jsonb
-              ),
-              revision = revision + 1,
-              updated_at = pg_catalog.now()
-          WHERE state.id = 'primary'
-            AND state.tenant_id = 'platform'
-            AND state.state_kind = 'app-snapshot'
-            AND state.schema_version = 1
-          RETURNING revision
-        `;
-        if (fixtureStateRows.length !== 1) {
-          throw new Error("Session rollback cleanup fixture could not be installed.");
-        }
-        const fixtureHotRows = await sql<Array<{ count: number }>>`
-          SELECT COUNT(*)::int AS count
-          FROM public.auth_password_reset_tokens
-          WHERE id = ANY(${cleanupTokenIds}::text[])
-        `;
-        if (fixtureHotRows[0]?.count !== cleanupTokenIds.length) {
-          throw new Error("Session rollback cleanup fixture did not reach the hot table.");
-        }
+        await sql.begin(async (fixtureSql) => {
+          const fixtureStateRows = await fixtureSql<Array<{ revision: unknown }>>`
+            UPDATE public.app_state AS state
+            SET payload = state.payload || pg_catalog.jsonb_build_object(
+                  'password_reset_tokens',
+                  CASE
+                    WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                      THEN state.payload->'password_reset_tokens'
+                    ELSE '[]'::pg_catalog.jsonb
+                  END || ${fixtureSql.json(cleanupTokenRecords)}::pg_catalog.jsonb
+                ),
+                revision = revision + 1,
+                updated_at = pg_catalog.now()
+            WHERE state.id = 'primary'
+              AND state.tenant_id = 'platform'
+              AND state.state_kind = 'app-snapshot'
+              AND state.schema_version = 1
+            RETURNING revision
+          `;
+          if (fixtureStateRows.length !== 1) {
+            throw new Error("Session rollback cleanup fixture could not be installed.");
+          }
+          await fixtureSql`
+            INSERT INTO public.auth_password_reset_tokens ${fixtureSql(
+              cleanupTokenRecords,
+              "id",
+              "user_id",
+              "token_hash",
+              "expires_at",
+              "used_at",
+              "created_at"
+            )}
+          `;
+          const fixtureHotRows = await fixtureSql<Array<{ count: number }>>`
+            SELECT COUNT(*)::int AS count
+            FROM public.auth_password_reset_tokens
+            WHERE id = ANY(${cleanupTokenIds}::text[])
+          `;
+          if (fixtureHotRows[0]?.count !== cleanupTokenIds.length) {
+            throw new Error("Session rollback cleanup fixture did not reach the hot table.");
+          }
+        });
         await store.__userStorePostgresStorageReadinessTestHooks.reattestCurrentSnapshot();
 
         const request = await store.createPasswordResetRequest(identifier);

@@ -35,6 +35,12 @@ export const parentConsoleSupportTestFiles = Object.freeze([
   "tests/e2e/isolated-app-preflight.test.ts"
 ]);
 
+export const parentConsoleSupportHarnessFiles = Object.freeze([
+  "tests/e2e/isolated-app.ts",
+  "tests/e2e/isolated-app-lease-guardian.ts",
+  "tests/e2e/isolated-app-process-supervisor.ts"
+]);
+
 // These tests own the P0/P1 authorization and lifecycle contracts that the
 // parent console depends on but that deliberately live outside parent-named
 // modules: teacher report authorization, guardian invitation rotation, and
@@ -66,18 +72,18 @@ export const parentConsoleTestFiles = Object.freeze([
 ]);
 
 export const expectedParentDomainTestCount = 140;
-export const expectedParentConsoleSupportTestCount = 17;
+export const expectedParentConsoleSupportTestCount = 47;
 export const expectedParentSecurityLifecycleTestCount = 146;
-export const expectedParentConsoleTestCount = 303;
+export const expectedParentConsoleTestCount = 333;
 
 // Runtime has two more tests than the source declaration count because two
 // teacher-report cases are declared inside a two-value loop. The runner below
 // therefore verifies the authoritative TAP runtime count rather than treating
 // a source regex as execution evidence.
 export const expectedParentDomainStaticDeclarationCount = 140;
-export const expectedParentConsoleSupportStaticDeclarationCount = 17;
+export const expectedParentConsoleSupportStaticDeclarationCount = 47;
 export const expectedParentSecurityLifecycleStaticDeclarationCount = 144;
-export const expectedParentConsoleStaticDeclarationCount = 301;
+export const expectedParentConsoleStaticDeclarationCount = 331;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);
@@ -147,6 +153,9 @@ export function assertParentConsoleTestManifest(repoRoot) {
   const missingSupportFiles = parentConsoleSupportTestFiles.filter(
     (relativePath) => !existsSync(path.join(repoRoot, relativePath))
   );
+  const missingSupportHarnessFiles = parentConsoleSupportHarnessFiles.filter(
+    (relativePath) => !existsSync(path.join(repoRoot, relativePath))
+  );
   const missingSecurityLifecycleFiles = parentSecurityLifecycleTestFiles.filter(
     (relativePath) => !existsSync(path.join(repoRoot, relativePath))
   );
@@ -158,6 +167,7 @@ export function assertParentConsoleTestManifest(repoRoot) {
     unlisted.length ||
     stale.length ||
     missingSupportFiles.length ||
+    missingSupportHarnessFiles.length ||
     missingSecurityLifecycleFiles.length ||
     duplicateFiles.length
   ) {
@@ -166,6 +176,7 @@ export function assertParentConsoleTestManifest(repoRoot) {
       `Unlisted parent-domain tests: ${unlisted.join(", ") || "none"}`,
       `Stale parent-domain entries: ${stale.join(", ") || "none"}`,
       `Missing support tests: ${missingSupportFiles.join(", ") || "none"}`,
+      `Missing support harness files: ${missingSupportHarnessFiles.join(", ") || "none"}`,
       `Missing security-lifecycle tests: ${missingSecurityLifecycleFiles.join(", ") || "none"}`,
       `Duplicate entries: ${duplicateFiles.join(", ") || "none"}`
     ].join("\n"));

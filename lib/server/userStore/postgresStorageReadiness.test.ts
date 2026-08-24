@@ -1413,12 +1413,20 @@ test("the generic full snapshot path preserves lock order, actual-row defenses, 
     "async function installPostgresFullWriterFaultForIntegrationTest(",
     "async function writePostgresDatabaseWith("
   );
+  const postReturningDriftSource = sourceSection(
+    faultSource,
+    "async function applyPostgresFullWriterPostReturningDriftForIntegrationTest(",
+    "async function writePostgresDatabaseWith("
+  );
 
   const capabilityStage = writerSource.indexOf('recordPostgresFullWriterTestStage("capability-acquired")');
   const faultHook = writerSource.indexOf("installPostgresFullWriterFaultForIntegrationTest(sql)");
   const updateStage = writerSource.indexOf('recordPostgresFullWriterTestStage("update-executing")');
   const returningStage = writerSource.indexOf('recordPostgresFullWriterTestStage("returning-received")');
   const returningValidated = writerSource.indexOf('recordPostgresFullWriterTestStage("returning-validated")');
+  const postReturningDrift = writerSource.indexOf(
+    "applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql)"
+  );
   const finalReadStage = writerSource.indexOf('recordPostgresFullWriterTestStage("final-reread-executing")');
   const finalReadReceived = writerSource.indexOf('recordPostgresFullWriterTestStage("final-reread-received")');
   assert.ok(
@@ -1427,7 +1435,8 @@ test("the generic full snapshot path preserves lock order, actual-row defenses, 
       && updateStage > faultHook
       && returningStage > updateStage
       && returningValidated > returningStage
-      && finalReadStage > returningValidated
+      && postReturningDrift > returningValidated
+      && finalReadStage > postReturningDrift
       && finalReadReceived > finalReadStage
   );
 
@@ -1436,8 +1445,11 @@ test("the generic full snapshot path preserves lock order, actual-row defenses, 
   assert.match(hookSource, /"rewrite-returning"/u);
   assert.match(hookSource, /"post-returning-drift"/u);
   assert.match(hookSource, /BEFORE UPDATE ON public\.app_state/u);
-  assert.match(hookSource, /AFTER UPDATE ON public\.app_state/u);
-  assert.match(hookSource, /pg_catalog\.pg_trigger_depth\(\) = 1/u);
+  assert.doesNotMatch(hookSource, /AFTER UPDATE ON public\.app_state/u);
+  assert.match(postReturningDriftSource, /process\.env\.NODE_ENV !== "test"/u);
+  assert.match(postReturningDriftSource, /mode !== "post-returning-drift"/u);
+  assert.match(postReturningDriftSource, /UPDATE public\.app_state/u);
+  assert.match(postReturningDriftSource, /integration_post_returning_drift/u);
   }
 
   {

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { DatabaseSync } from "node:sqlite";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
 
@@ -524,7 +525,7 @@ test("configured operational read model rejects non-durable SQLite on Vercel bef
   let reads = 0;
   const read = createTeacherNoticeOperationalReadModel({
     env: {
-      HK_MATH_DB_PATH: "/Volumes/Starship/MAIS-MVP/.tmp/never-open.sqlite",
+      HK_MATH_DB_PATH: path.join(tmpdir(), "teacher-notice-operational-never-open.sqlite"),
       HK_MATH_STORAGE_PROVIDER: "sqlite",
       VERCEL: "1"
     },
@@ -616,18 +617,31 @@ test("configured PostgreSQL operational read coalescing releases a failed reques
 });
 
 test("configured operational read model opens and attests the existing SQLite contracts read-only", async () => {
+  const testSource = await readFile(path.join(
+    process.cwd(),
+    "lib/server/userStore/teacherNoticeOperationalReadModel.test.ts"
+  ), "utf8");
+  assert.doesNotMatch(
+    testSource,
+    /mkdtemp\(path\.join\(\s*"\/Volumes\//u,
+    "operational fixtures must not depend on one developer's absolute workspace path"
+  );
+  assert.match(testSource, /mkdtemp\(path\.join\(\s*tmpdir\(\),/u);
   const temporaryDirectory = await mkdtemp(path.join(
-    "/Volumes/Starship/MAIS-MVP/.tmp/",
+    tmpdir(),
     "teacher-notice-operational-"
   ));
-  const dbPath = path.join(temporaryDirectory, "operational.sqlite");
-  const setup = new DatabaseSync(dbPath);
-  setup.exec(teacherNoticeEmailOutboxSqliteSchema);
-  setup.exec(teacherNoticeResendWebhookSqliteSchema);
-  migrateTeacherNoticeEmailCronHeartbeatSqliteSchema(setup);
-  setup.close();
-
   try {
+    const dbPath = path.join(temporaryDirectory, "operational.sqlite");
+    const setup = new DatabaseSync(dbPath);
+    try {
+      setup.exec(teacherNoticeEmailOutboxSqliteSchema);
+      setup.exec(teacherNoticeResendWebhookSqliteSchema);
+      migrateTeacherNoticeEmailCronHeartbeatSqliteSchema(setup);
+    } finally {
+      setup.close();
+    }
+
     const snapshot = await createTeacherNoticeOperationalReadModel({
       env: {
         HK_MATH_DB_PATH: dbPath,
@@ -746,6 +760,15 @@ test("PostgreSQL operational read model normalizes aggregate rows without select
     query.includes("public.teacher_notice_email_outbox")
   );
   assert.match(outboxQuery ?? "", /next_attempt_at\s+<=/u);
+  const heartbeatQuery = queries.find((query) =>
+    query.includes("public.teacher_notice_email_cron_heartbeat")
+  );
+  assert.match(heartbeatQuery ?? "", /\bCOALESCE\s*\(/u);
+  assert.doesNotMatch(
+    heartbeatQuery ?? "",
+    /pg_catalog\.coalesce\s*\(/iu,
+    "COALESCE is PostgreSQL SQL syntax and cannot be schema-qualified as a function"
+  );
 });
 
 test("PostgreSQL operational read model rejects catalog drift before aggregate queries", async () => {

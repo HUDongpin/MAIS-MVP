@@ -46,6 +46,57 @@ type PostgresAuthorityWorkerWatchdog = {
   settle: () => boolean;
 };
 
+const postgresOutboxMigrationWorkerStagePrefix = "OUTBOX_PG_MIGRATION_STAGE=";
+const postgresOutboxMigrationWorkerStages = [
+  "process-started",
+  "import-ready",
+  "migration-started",
+  "migration-complete"
+] as const;
+type PostgresOutboxMigrationWorkerStage = typeof postgresOutboxMigrationWorkerStages[number];
+type PostgresOutboxMigrationWorkerController = {
+  ready: Promise<void>;
+  result: Promise<void>;
+  start: () => void;
+  terminate: () => void;
+};
+
+function createDeferred<T>() {
+  let resolve!: (value: T | PromiseLike<T>) => void;
+  let reject!: (reason?: unknown) => void;
+  const promise = new Promise<T>((resolvePromise, rejectPromise) => {
+    resolve = resolvePromise;
+    reject = rejectPromise;
+  });
+  return { promise, reject, resolve };
+}
+
+function postgresOutboxMigrationWorkerSafeStageSummary(stage: unknown) {
+  if (
+    typeof stage === "string" &&
+    postgresOutboxMigrationWorkerStages.includes(stage as PostgresOutboxMigrationWorkerStage)
+  ) {
+    return `after stage ${stage}`;
+  }
+  return "before the first allowlisted stage";
+}
+
+async function runPostgresOutboxMigrationWorkersTogether(
+  workers: PostgresOutboxMigrationWorkerController[]
+) {
+  const results = workers.map((worker) => worker.result);
+  for (const result of results) void result.catch(() => undefined);
+  try {
+    await Promise.all(workers.map((worker) => worker.ready));
+    for (const worker of workers) worker.start();
+    await Promise.all(results);
+  } catch (error) {
+    for (const worker of workers) worker.terminate();
+    await Promise.allSettled(results);
+    throw error;
+  }
+}
+
 function postgresAuthorityWorkerSafeStageSummary(stage: unknown) {
   if (
     typeof stage === "string" &&
@@ -277,6 +328,147 @@ test("authority worker watchdog resets only inactivity, preserves its hard cap, 
     onTimeout: () => undefined,
     scheduler
   }), /inactivity.*hard/i);
+});
+
+test("migration workers start together only after every cold import is ready and all settle on failure", async () => {
+  const readyOne = createDeferred<void>();
+  const readyTwo = createDeferred<void>();
+  const resultOne = createDeferred<void>();
+  const resultTwo = createDeferred<void>();
+  const starts: number[] = [];
+  const terminated: number[] = [];
+  const workers: PostgresOutboxMigrationWorkerController[] = [
+    {
+      ready: readyOne.promise,
+      result: resultOne.promise,
+      start: () => starts.push(1),
+      terminate: () => {
+        terminated.push(1);
+        resultOne.resolve();
+      }
+    },
+    {
+      ready: readyTwo.promise,
+      result: resultTwo.promise,
+      start: () => starts.push(2),
+      terminate: () => {
+        terminated.push(2);
+        resultTwo.resolve();
+      }
+    }
+  ];
+
+  const coordinated = runPostgresOutboxMigrationWorkersTogether(workers);
+  readyOne.resolve();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(starts, [], "a fast import must wait for every independent worker");
+  readyTwo.resolve();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(starts, [1, 2], "migration begins only after the shared readiness barrier");
+  const expectedError = new Error("fixture migration failure");
+  resultOne.reject(expectedError);
+  await assert.rejects(coordinated, (error: unknown) => error === expectedError);
+  assert.deepEqual(terminated, [1, 2], "a failed cohort must terminate and settle every child");
+});
+
+test("migration worker readiness rejection starts none and cleans the full cohort", async () => {
+  const expectedError = new Error("fixture import failure");
+  const firstReady = createDeferred<void>();
+  const secondReady = createDeferred<void>();
+  const firstResult = createDeferred<void>();
+  const secondResult = createDeferred<void>();
+  const starts: number[] = [];
+  const terminated: number[] = [];
+  const worker = (
+    id: number,
+    ready: Promise<void>,
+    result: ReturnType<typeof createDeferred<void>>
+  ): PostgresOutboxMigrationWorkerController => ({
+    ready,
+    result: result.promise,
+    start: () => starts.push(id),
+    terminate: () => {
+      terminated.push(id);
+      result.resolve();
+    }
+  });
+  const coordinated = runPostgresOutboxMigrationWorkersTogether([
+    worker(1, firstReady.promise, firstResult),
+    worker(2, secondReady.promise, secondResult)
+  ]);
+
+  firstReady.reject(expectedError);
+  await assert.rejects(coordinated, (error: unknown) => error === expectedError);
+  assert.deepEqual(starts, [], "no migration may start before the readiness barrier succeeds");
+  assert.deepEqual(terminated, [1, 2], "readiness failure must clean every child");
+});
+
+test("migration worker synchronous start failure terminates and settles the full cohort", async () => {
+  const expectedError = new Error("fixture start failure");
+  const results = [
+    createDeferred<void>(),
+    createDeferred<void>(),
+    createDeferred<void>()
+  ];
+  const starts: number[] = [];
+  const terminated: number[] = [];
+  const workers = results.map((result, index): PostgresOutboxMigrationWorkerController => {
+    const id = index + 1;
+    return {
+      ready: Promise.resolve(),
+      result: result.promise,
+      start: () => {
+        starts.push(id);
+        if (id === 2) throw expectedError;
+      },
+      terminate: () => {
+        terminated.push(id);
+        result.resolve();
+      }
+    };
+  });
+
+  await assert.rejects(
+    runPostgresOutboxMigrationWorkersTogether(workers),
+    (error: unknown) => error === expectedError
+  );
+  assert.deepEqual(starts, [1, 2], "the coordinator must stop dispatching after start fails");
+  assert.deepEqual(terminated, [1, 2, 3], "start failure must clean even an undispatched child");
+});
+
+test("single migration worker delegates ready, start, and cleanup to the guarded coordinator", async () => {
+  const source = await readFile(path.join(
+    process.cwd(),
+    "lib/server/userStoreTeacherNoticeEmailOutboxIntegration.test.ts"
+  ), "utf8");
+  const wrapperStart = source.lastIndexOf("\nfunction runPostgresOutboxMigrationWorker(");
+  const wrapperEnd = source.indexOf("\nfunction runPostgresAlterTableBarrierWorker(", wrapperStart);
+  assert.ok(wrapperStart >= 0 && wrapperEnd > wrapperStart, "single migration wrapper is missing");
+  const wrapper = source.slice(wrapperStart, wrapperEnd);
+
+  assert.match(
+    wrapper,
+    /return runPostgresOutboxMigrationWorkersTogether\(\[worker\]\)/u,
+    "the single-worker path must use the same guarded lifecycle as a concurrent cohort"
+  );
+  assert.doesNotMatch(
+    wrapper,
+    /void worker\.ready\.then/u,
+    "a floating ready continuation can turn a synchronous start error into an unhandled rejection"
+  );
+});
+
+test("migration worker stage summaries expose only fixed protocol progress", () => {
+  assert.equal(
+    postgresOutboxMigrationWorkerSafeStageSummary("import-ready"),
+    "after stage import-ready"
+  );
+  for (const unsafeStage of [null, "unknown", "migration-started\nprivate detail", 1]) {
+    assert.equal(
+      postgresOutboxMigrationWorkerSafeStageSummary(unsafeStage),
+      "before the first allowlisted stage"
+    );
+  }
 });
 
 test("authority worker failure summaries accept only an allowlisted stage", () => {
@@ -1182,51 +1374,149 @@ function runPostgresPublicationClaimLockOrderWorker(configuredUrl: string) {
   });
 }
 
-function runPostgresOutboxMigrationWorker(configuredUrl: string, workerId: number) {
+function startPostgresOutboxMigrationWorker(
+  configuredUrl: string,
+  workerId: number
+): PostgresOutboxMigrationWorkerController {
   const resultPrefix = `OUTBOX_PG_MIGRATION_${workerId}=`;
   const source = `
     await (async () => {
+      const emitStage = (stage) => new Promise((resolve) => {
+        process.stdout.write("${postgresOutboxMigrationWorkerStagePrefix}" + stage + "\\n", resolve);
+      });
+      await emitStage("process-started");
       const store = await import("./lib/server/userStore.ts");
+      await emitStage("import-ready");
+      let command = "";
+      for await (const chunk of process.stdin) {
+        command += String(chunk);
+        if (command.includes("\\n")) break;
+      }
+      if (command.trim() !== "start") throw new Error("migration start command is invalid");
+      await emitStage("migration-started");
       await store.__userStoreTeacherNoticeEmailOutboxPostgresTestHooks.migrateSchema();
+      await emitStage("migration-complete");
       process.stdout.write("${resultPrefix}ok\\n", () => process.exit(0));
     })().catch((error) => {
-      process.stderr.write((error instanceof Error ? error.name + ": " + error.message : "migration failed") + "\\n");
-      process.exit(1);
+      process.stderr.write(
+        (error instanceof Error ? error.name + ": " + error.message : "migration failed") + "\\n",
+        () => process.exit(1)
+      );
     });
   `;
-  return new Promise<void>((resolve, reject) => {
-    const child = spawn(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", source], {
-      cwd: process.cwd(),
-      env: {
-        ...process.env,
-        NODE_ENV: "test",
-        HK_MATH_STORAGE_PROVIDER: "postgres",
-        POSTGRES_MAX_CONNECTIONS: "1",
-        POSTGRES_URL: configuredUrl
-      },
-      stdio: ["ignore", "pipe", "pipe"]
-    });
-    let stdout = "";
-    let stderr = "";
-    const timeout = setTimeout(() => {
-      child.kill("SIGKILL");
-      reject(new Error(`PostgreSQL outbox migration worker ${workerId} timed out.`));
-    }, 30_000);
-    child.stdout.on("data", (chunk) => { stdout += String(chunk); });
-    child.stderr.on("data", (chunk) => { stderr += String(chunk); });
-    child.on("error", (error) => {
-      clearTimeout(timeout);
-      reject(error);
-    });
-    child.on("exit", (code) => {
-      clearTimeout(timeout);
-      if (code !== 0 || !stdout.split(/\r?\n/u).includes(`${resultPrefix}ok`)) {
-        reject(new Error(`PostgreSQL outbox migration worker ${workerId} failed (${code}): ${stderr.slice(0, 500)}`));
-        return;
-      }
-      resolve();
-    });
+  const child = spawn(process.execPath, ["--import", "tsx", "--input-type=module", "--eval", source], {
+    cwd: process.cwd(),
+    env: {
+      ...process.env,
+      NODE_ENV: "test",
+      HK_MATH_STORAGE_PROVIDER: "postgres",
+      POSTGRES_MAX_CONNECTIONS: "1",
+      POSTGRES_URL: configuredUrl
+    },
+    stdio: ["pipe", "pipe", "pipe"]
   });
+  let resolveReady!: () => void;
+  let rejectReady!: (reason?: unknown) => void;
+  const ready = new Promise<void>((resolve, reject) => {
+    resolveReady = resolve;
+    rejectReady = reject;
+  });
+  let resolveResult!: () => void;
+  let rejectResult!: (reason?: unknown) => void;
+  const result = new Promise<void>((resolve, reject) => {
+    resolveResult = resolve;
+    rejectResult = reject;
+  });
+  void ready.catch(() => undefined);
+  void result.catch(() => undefined);
+
+  let stdout = "";
+  let stderr = "";
+  let stdoutLineBuffer = "";
+  let nextStageIndex = 0;
+  let lastStage: PostgresOutboxMigrationWorkerStage | null = null;
+  let resultSettled = false;
+  let startSent = false;
+  const safeStageSummary = () => postgresOutboxMigrationWorkerSafeStageSummary(lastStage);
+  const settleRejected = (error: Error, terminate: boolean) => {
+    if (resultSettled) return;
+    resultSettled = true;
+    watchdog.settle();
+    if (terminate) child.kill("SIGKILL");
+    rejectReady(error);
+    rejectResult(error);
+  };
+  const watchdog = createPostgresAuthorityWorkerWatchdog({
+    inactivityTimeoutMs: 60_000,
+    hardTimeoutMs: 120_000,
+    onTimeout: (kind) => {
+      if (resultSettled) return;
+      resultSettled = true;
+      child.kill("SIGKILL");
+      const error = new Error(
+        `PostgreSQL outbox migration worker ${workerId} ${kind} timeout ${safeStageSummary()}.`
+      );
+      rejectReady(error);
+      rejectResult(error);
+    }
+  });
+  const observeLine = (line: string) => {
+    const expectedStage = postgresOutboxMigrationWorkerStages[nextStageIndex];
+    if (expectedStage === undefined || line !== `${postgresOutboxMigrationWorkerStagePrefix}${expectedStage}`) {
+      return;
+    }
+    nextStageIndex += 1;
+    lastStage = expectedStage;
+    watchdog.recordProgress();
+    if (expectedStage === "import-ready") resolveReady();
+  };
+  child.stdout.on("data", (chunk) => {
+    const text = String(chunk);
+    stdout += text;
+    stdoutLineBuffer += text;
+    const lines = stdoutLineBuffer.split(/\r?\n/u);
+    stdoutLineBuffer = lines.pop() ?? "";
+    for (const line of lines) observeLine(line);
+  });
+  child.stderr.on("data", (chunk) => { stderr += String(chunk); });
+  child.stdin.on("error", (error) => settleRejected(error, true));
+  child.on("error", (error) => settleRejected(error, false));
+  child.on("close", (code) => {
+    if (stdoutLineBuffer) observeLine(stdoutLineBuffer);
+    if (resultSettled) return;
+    resultSettled = true;
+    watchdog.settle();
+    const completed = lastStage === "migration-complete";
+    if (code !== 0 || !completed || !stdout.split(/\r?\n/u).includes(`${resultPrefix}ok`)) {
+      const errorName = postgresAuthorityWorkerSafeErrorName(stderr);
+      const error = new Error(
+        `PostgreSQL outbox migration worker ${workerId} failed (${code}; ${errorName}) ${safeStageSummary()}.`
+      );
+      rejectReady(error);
+      rejectResult(error);
+      return;
+    }
+    resolveReady();
+    resolveResult();
+  });
+
+  return {
+    ready,
+    result,
+    start() {
+      if (startSent || resultSettled) return;
+      startSent = true;
+      child.stdin.end("start\n");
+    },
+    terminate() {
+      if (!resultSettled) child.kill("SIGKILL");
+    }
+  };
+}
+
+function runPostgresOutboxMigrationWorker(configuredUrl: string, workerId: number) {
+  const worker = startPostgresOutboxMigrationWorker(configuredUrl, workerId);
+  return runPostgresOutboxMigrationWorkersTogether([worker]);
 }
 
 function runPostgresAlterTableBarrierWorker(configuredUrl: string) {
@@ -1606,9 +1896,11 @@ test("production outbox DDL and catalog probe attest exact PostgreSQL 16 semanti
 
     await sql.unsafe("DROP SCHEMA IF EXISTS public CASCADE");
     await sql.unsafe("CREATE SCHEMA public");
-    await Promise.all(Array.from({ length: 4 }, (_, workerId) =>
-      runPostgresOutboxMigrationWorker(postgres16IntegrationUrl, workerId + 1)
-    ));
+    await runPostgresOutboxMigrationWorkersTogether(
+      Array.from({ length: 4 }, (_, workerId) =>
+        startPostgresOutboxMigrationWorker(postgres16IntegrationUrl, workerId + 1)
+      )
+    );
     assert.equal(await attests(), true, "cold concurrent migrations must serialize to the exact v2 catalog");
     assert.deepEqual(await runPostgresAlterTableBarrierWorker(postgres16IntegrationUrl), {
       blockedCode: "55P03",

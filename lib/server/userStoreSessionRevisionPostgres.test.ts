@@ -191,6 +191,10 @@ test("the password-reset rollback worker uses the in-transaction failpoint and e
   assert.match(rollbackSource, /integration-reset-cleanup-used/u);
   assert.match(rollbackSource, /integration-reset-cleanup-expired/u);
   assert.match(rollbackSource, /integration-reset-cleanup-malformed/u);
+  assert.match(
+    rollbackSource,
+    /await sql\.begin\(async \(fixtureSql\) => \{[\s\S]*?UPDATE public\.app_state[\s\S]*?INSERT INTO public\.auth_password_reset_tokens/u
+  );
   assert.match(rollbackSource, /cleanupSymmetric/u);
   assert.match(rollbackSource, /fullRewriteDidNotResurrect/u);
   assert.doesNotMatch(rollbackSource, /SET payload = pg_catalog\.jsonb_set|SET payload = jsonb_set/u);

@@ -28,6 +28,7 @@ function processGroupIsAlive(processGroupId) {
     return true;
   } catch (error) {
     if (error?.code === "ESRCH") return false;
+    if (error?.code === "EPERM") return true;
     throw error;
   }
 }
@@ -175,6 +176,74 @@ for (const [forwardedSignal, expectedExitCode] of [
     }
   });
 }
+
+test("a transient process-group EPERM is fenced until ESRCH before restoring next-env.d.ts", {
+  skip: process.platform === "win32"
+}, () => {
+  const cwd = createFixture();
+  const preloadPath = path.join(cwd, "transient-process-group-eperm.mjs");
+  const injectedMarker = path.join(cwd, "eperm-injected");
+  const lateMutationMarker = path.join(cwd, "late-group-mutation");
+  try {
+    writeFileSync(preloadPath, [
+      'import fs from "node:fs"',
+      'const originalKill = process.kill.bind(process)',
+      'let injectedSignal = false',
+      'function permissionError() {',
+      '  const error = new Error("synthetic process-group EPERM")',
+      '  error.code = "EPERM"',
+      '  return error',
+      '}',
+      'process.kill = (target, signal) => {',
+      '  if (!Number.isSafeInteger(target) || target >= 0) return originalKill(target, signal)',
+      '  if (signal !== 0 && !injectedSignal) {',
+      '    injectedSignal = true',
+      '    fs.writeFileSync(process.env.MAIS_TEST_EPERM_MARKER, `${signal}\\n`)',
+      '    throw permissionError()',
+      '  }',
+      '  return originalKill(target, signal)',
+      '}',
+      ""
+    ].join("\n"));
+
+    const grandchildScript = [
+      'const fs = require("node:fs")',
+      'setTimeout(() => {',
+      '  fs.writeFileSync("next-env.d.ts", "late mutation while process group is still alive\\n")',
+      `  fs.writeFileSync(${JSON.stringify(lateMutationMarker)}, "late mutation completed\\n")`,
+      '  process.exit(0)',
+      '}, 250)'
+    ].join(";");
+    const childScript = [
+      'const { spawn } = require("node:child_process")',
+      'require("node:fs").writeFileSync("next-env.d.ts", "direct child mutation\\n")',
+      `spawn(process.execPath, ["-e", ${JSON.stringify(grandchildScript)}], { stdio: "ignore" })`,
+      'process.exit(0)'
+    ].join(";");
+    const startedAt = Date.now();
+    const result = spawnSync(
+      process.execPath,
+      ["--import", pathToFileURL(preloadPath).href, wrapperPath, "--", process.execPath, "-e", childScript],
+      {
+        cwd,
+        encoding: "utf8",
+        env: { ...process.env, MAIS_TEST_EPERM_MARKER: injectedMarker },
+        timeout: 3_000,
+        killSignal: "SIGKILL"
+      }
+    );
+
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    assert.equal(result.signal, null, `${result.stdout}\n${result.stderr}`);
+    assert.equal(readFileSync(injectedMarker, "utf8"), "SIGTERM\n");
+    assert.equal(readFileSync(lateMutationMarker, "utf8"), "late mutation completed\n");
+    assert.ok(Date.now() - startedAt >= 200, "the wrapper restored before the surviving process group exited");
+    assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
+  } finally {
+    cleanupLockFixture(cwd);
+    rmSync(cwd, { recursive: true, force: true });
+  }
+});
 
 test("SIGTERM stops the complete child process tree before restoring next-env.d.ts", async () => {
   const cwd = createFixture();
@@ -435,6 +504,8 @@ test("a SIGKILLed wrapper fences its still-active child group and durably recove
     assert.equal(second.output.includes("second-entered\n"), false, "a contender must not snapshot an active abandoned child mutation");
 
     await waitFor(() => existsSync(finishedMarker), 3_000);
+    await waitFor(() => !processGroupIsAlive(firstChildProcessGroupId), 3_000);
+    firstChildProcessGroupId = null;
     const [secondCode, secondSignal] = await once(second, "exit");
     assert.deepEqual({ code: secondCode, signal: secondSignal }, { code: 0, signal: null }, second.errors);
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
@@ -546,6 +617,8 @@ test("macOS process-birth identity stays stable across owner and contender local
     );
 
     await waitFor(() => existsSync(finishedMarker), 3_000);
+    await waitFor(() => !processGroupIsAlive(childProcessGroupId), 3_000);
+    childProcessGroupId = null;
     assert.deepEqual(await once(contender, "exit"), [0, null], contender.errors);
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
   } finally {
@@ -721,6 +794,7 @@ test("a lease heartbeat failure stops the child group and restores before failin
     assert.deepEqual(outcome, [1, null], wrapper.errors);
     assert.match(wrapper.errors, /heartbeat|synthetic heartbeat EIO/u);
     assert.equal(processGroupIsAlive(childProcessGroupId), false);
+    childProcessGroupId = null;
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
   } finally {
     if (wrapper?.exitCode === null && wrapper?.signalCode === null) wrapper.kill("SIGKILL");
@@ -799,6 +873,7 @@ test("a child-gate heartbeat failure reaps its full orphaned process group after
     writeFileSync(heartbeatFailureMarker, "fail\n");
 
     await waitFor(() => !processGroupIsAlive(childProcessGroupId), 2_000);
+    childProcessGroupId = null;
 
     const [command, ...args] = mutatingChild(0);
     const contender = spawnSync(process.execPath, [wrapperPath, "--", command, ...args], {
@@ -1089,6 +1164,7 @@ test("a stale-recovery crash after the main-lock rename cannot admit an unrestor
     abandonedWrapper.kill("SIGKILL");
     assert.deepEqual(await once(abandonedWrapper, "exit"), [null, "SIGKILL"]);
     await waitFor(() => !processGroupIsAlive(abandonedProcessGroupId), 3_000);
+    abandonedProcessGroupId = null;
 
     writeFileSync(preloadPath, [
       'import fs from "node:fs"',
@@ -1519,7 +1595,9 @@ test("a live recycled child PGID with the wrong process-birth identity is recove
     assert.equal(processGroupIsAlive(decoy.pid), true, "a recycled, unrelated process group must never be killed");
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv);
   } finally {
-    if (decoy?.pid && processGroupIsAlive(decoy.pid)) process.kill(-decoy.pid, "SIGKILL");
+    if (decoy?.pid && decoy.exitCode === null && decoy.signalCode === null) {
+      process.kill(-decoy.pid, "SIGKILL");
+    }
     cleanupLockFixture(cwd);
     rmSync(cwd, { recursive: true, force: true });
   }
@@ -1605,7 +1683,7 @@ test("a Playwright-like detached webServer SIGTERM lets the wrapper restore befo
     ));
     assert.equal(readFileSync(path.join(cwd, "next-env.d.ts"), "utf8"), originalNextEnv, `${stdout}\n${stderr}`);
   } finally {
-    if (webServer?.pid && processGroupIsAlive(webServer.pid)) {
+    if (webServer?.pid && webServer.exitCode === null && webServer.signalCode === null) {
       process.kill(-webServer.pid, "SIGKILL");
     }
     rmSync(cwd, { recursive: true, force: true });

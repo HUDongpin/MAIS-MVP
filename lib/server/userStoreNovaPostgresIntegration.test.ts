@@ -803,6 +803,10 @@ test(
       let studentId = "";
       const restrictedClassId = "000-integration-fallback-class";
       await t.test("two concurrent v2-to-v4 bootstraps reconcile classroom projections before readiness", async () => {
+        // A valid v2 fixture already has the complete snapshot mirrored into its
+        // hot-auth tables. Materialize that invariant before downgrading the
+        // migration marker and converting the payload to the legacy scalar form.
+        await runSuccessfulWorker("read-full-snapshot");
         const state = await readState(sql);
         const payload = structuredClone(state.payload);
         const users = arrayFromPayload(payload, "users");

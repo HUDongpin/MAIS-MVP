@@ -561,7 +561,7 @@ export async function readTeacherNoticeOperationalSnapshotFromPostgres({
     SELECT
       pg_catalog.count(*)::pg_catalog.text AS row_count,
       pg_catalog.max(status) AS heartbeat_status,
-      pg_catalog.coalesce(
+      COALESCE(
         pg_catalog.bool_or(release_sha = ${expectedReleaseSha}),
         FALSE
       ) AS candidate_matches,

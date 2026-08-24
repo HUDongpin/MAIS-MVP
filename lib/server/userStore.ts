@@ -7803,36 +7803,32 @@ async function installPostgresFullWriterFaultForIntegrationTest(sql: PostgresExe
   }
 
   if (mode === "post-returning-drift") {
-    await sql`
-      CREATE FUNCTION public.integration_full_writer_post_returning_drift()
-      RETURNS trigger
-      LANGUAGE plpgsql
-      SECURITY INVOKER
-      SET search_path = pg_catalog, public
-      AS $fixture$
-      BEGIN
-        IF pg_catalog.pg_trigger_depth() = 1 THEN
-          UPDATE public.app_state
-          SET payload = payload || pg_catalog.jsonb_build_object(
-            'integration_post_returning_drift',
-            true
-          )
-          WHERE id = NEW.id;
-        END IF;
-        RETURN NULL;
-      END
-      $fixture$
-    `;
-    await sql`
-      CREATE TRIGGER integration_full_writer_post_returning_drift
-      AFTER UPDATE ON public.app_state
-      FOR EACH ROW
-      EXECUTE FUNCTION public.integration_full_writer_post_returning_drift()
-    `;
     return;
   }
 
   throw new Error("Postgres full-writer fault mode is invalid.");
+}
+
+async function applyPostgresFullWriterPostReturningDriftForIntegrationTest(
+  sql: PostgresExecutor
+) {
+  const mode = postgresFullWriterFaultModeForIntegrationTest;
+  if (mode !== "post-returning-drift") return;
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres full-writer fault injection is available only to integration tests.");
+  }
+
+  await sql`
+    UPDATE public.app_state AS state
+    SET payload = state.payload || pg_catalog.jsonb_build_object(
+      'integration_post_returning_drift',
+      true
+    )
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
+  `;
 }
 
 async function writePostgresDatabaseWith(
@@ -7887,6 +7883,7 @@ async function writePostgresDatabaseWith(
   }
   validateCompletePostgresStorageSnapshot(writtenState.payload);
   recordPostgresFullWriterTestStage("returning-validated");
+  await applyPostgresFullWriterPostReturningDriftForIntegrationTest(sql);
   await syncPostgresHotAuthTablesWith(sql, database);
   await syncPostgresProjectionTablesWith(sql, database);
   recordPostgresFullWriterTestStage("final-reread-executing");

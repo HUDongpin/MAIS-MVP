@@ -50,8 +50,13 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "components/ui/LanguageToggle.test.ts",
     "tests/e2e/isolated-app-preflight.test.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 17);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 17);
+  assert.deepEqual(manifest.parentConsoleSupportHarnessFiles, [
+    "tests/e2e/isolated-app.ts",
+    "tests/e2e/isolated-app-lease-guardian.ts",
+    "tests/e2e/isolated-app-process-supervisor.ts"
+  ]);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 47);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 47);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -90,8 +95,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   );
 
   assert.equal(manifest.parentConsoleTestFiles.length, 40);
-  assert.equal(manifest.expectedParentConsoleTestCount, 303);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 301);
+  assert.equal(manifest.expectedParentConsoleTestCount, 333);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 331);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -322,8 +327,10 @@ test("CI artifact globs match Playwright's run-owned output directories", () => 
   assert.doesNotMatch(ci, /\.tmp\/e2e-run-\*\/(?:test-results|playwright-report)/u);
 });
 
-test("isolated dev servers hold next-env restoration for their full lifecycle", () => {
+test("isolated servers use a run-owned SQLite guardian and process group while next-env restoration stays wrapped", () => {
   const isolatedApp = readRepoFile("tests/e2e/isolated-app.ts");
+  const leaseGuardian = readRepoFile("tests/e2e/isolated-app-lease-guardian.ts");
+  const processSupervisor = readRepoFile("tests/e2e/isolated-app-process-supervisor.ts");
 
   assert.match(isolatedApp, /scripts\/with-next-env-restore\.mjs/u);
   assert.match(isolatedApp, /const appCommand = useProductionBuild \? "npm" : process\.execPath;/u);
@@ -331,7 +338,51 @@ test("isolated dev servers hold next-env restoration for their full lifecycle", 
     isolatedApp,
     /const appArgs = useProductionBuild[\s\S]*?"scripts\/with-next-env-restore\.mjs"[\s\S]*?"npm", "run", "dev"/u
   );
-  assert.match(isolatedApp, /detached: false/u);
+  assert.match(
+    isolatedApp,
+    /startSqliteAppLeaseGuardian\(dbPath, \{[\s\S]*?runId: runSlug,[\s\S]*?env: appEnv,[\s\S]*?rootDir[\s\S]*?\}\)/u
+  );
+  assert.match(isolatedApp, /const dbPath = canonicalSqliteDatabasePath\(requestedDbPath\)/u);
+  assert.match(isolatedApp, /HK_MATH_DB_PATH: identity\.dbPath/u);
+  assert.match(isolatedApp, /pre-existing isolated app lease DB has no recovery state/u);
+  assert.match(isolatedApp, /previousState\.status === "app-registering" && !processGroupId/u);
+  assert.doesNotMatch(isolatedApp, /previousState\.recoveryNonce !== recoveryNonce/u);
+  assert.match(isolatedApp, /await stopIsolatedProcess\(lifecycle\.appProcess, lifecycle\.logs, lifecycle\.processGroupId\)/u);
+  assert.match(isolatedApp, /const expectedProcessIdentity = appProcess\.processIdentity \?\? processStartIdentity\(rootPid\)/u);
+  assert.match(isolatedApp, /assertSignalIdentity\("SIGTERM"\)/u);
+  assert.match(isolatedApp, /assertSignalIdentity\("SIGKILL"\)/u);
+  assert.match(isolatedApp, /assertNoSqliteHolder\(lifecycle\.dbPath, lifecycle\.logs\)/u);
+  assert.match(isolatedApp, /await lifecycle\.sqliteLease\.release\(\)/u);
+  assert.match(
+    isolatedApp,
+    /safeToReleaseLease &&\s*leaseReleased &&\s*cleanupErrors\.length === 0/u
+  );
+  assert.match(isolatedApp, /removeCapturedIsolatedAppRunRoot/u);
+  assert.match(isolatedApp, /relativeSegments\.length !== 2/u);
+  assert.match(isolatedApp, /rootStat\.isSymbolicLink\(\)/u);
+  assert.match(isolatedApp, /identity: processStartIdentity\(pid\)/u);
+  assert.match(isolatedApp, /createHash\("sha256"\)\.update\(commandLine\)\.digest\("hex"\)/u);
+  assert.match(isolatedApp, /unsupported on Windows because its process-group and SQLite-holder teardown cannot be proven safe/u);
+  assert.match(isolatedApp, /isolated-app-lease-guardian\.ts/u);
+  assert.match(leaseGuardian, /lease\.beginAppRegistration\(port\)/u);
+  assert.match(leaseGuardian, /const processIdentity = lease\.activateApp\(spawnedProcess\.pid\)/u);
+  assert.match(leaseGuardian, /processIdentity/u);
+  assert.match(leaseGuardian, /detached: true/u);
+  assert.match(leaseGuardian, /const holderPids = sqliteHolderPids\(dbPath\)/u);
+  assert.match(leaseGuardian, /HK_MATH_DB_PATH: lease\.owner\.dbPath/u);
+  assert.match(leaseGuardian, /orphanCleanupStarted/u);
+  assert.match(leaseGuardian, /await stopOrphanedApp\(\)/u);
+  assert.equal(leaseGuardian.match(/lease\.readPersistedActiveApp\(\)/gu)?.length, 2);
+  assert.match(leaseGuardian, /assertActiveAppMatchesGuardian\(activeApp, "SIGTERM"\)/u);
+  assert.match(leaseGuardian, /assertActiveAppMatchesGuardian\(activeBeforeKill, "SIGKILL"\)/u);
+  assert.match(
+    leaseGuardian,
+    /lease\.release\(\);\s*if \(removeRunRoot && runRootIdentity\) removeCapturedIsolatedAppRunRoot\(runRootIdentity\)/u
+  );
+  assert.match(leaseGuardian, /isolated-app-process-supervisor\.ts/u);
+  assert.match(processSupervisor, /process\.kill\(process\.pid, "SIGSTOP"\)/u);
+  assert.match(processSupervisor, /for \(const signal of \["SIGTERM", "SIGINT", "SIGHUP"\] as const\)/u);
+  assert.match(processSupervisor, /groupMembers\.some\(\(pid\) => pid !== process\.pid\)/u);
   assert.doesNotMatch(
     isolatedApp,
     /spawn\("npm", \["run", startScript/u,
