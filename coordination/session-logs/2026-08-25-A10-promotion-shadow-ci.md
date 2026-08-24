@@ -63,6 +63,21 @@ Review-fix TDD evidence:
 - The validation report plus fresh and replay receipts are runner-temporary artifacts; the receipts use distinct run IDs. The workflow compares only `semanticReceiptDigest`, validates its lowercase SHA-256 shape, verifies fresh/replay/canonical receipts, and uploads the validation report with both runner-generated receipts. Raw receipts may legitimately differ through run ID, timestamp, or CI metadata, so raw inequality is diagnostic rather than a flaky hard gate.
 - This baseline does not yet contain the A23 CLI, real manifest, or canonical receipt. Therefore this A10 slice proves the npm, workflow, frozen-digest, YAML, and owner-routing contracts; executing the Promotion Gate itself remains an explicit integration dependency on the A23 slice.
 
+## Receipt-verification artifact follow-up
+
+The workflow now captures the fresh, replay, and canonical `promotion:verify-receipt --json` envelopes as three distinct runner-temporary JSON artifacts. A dedicated fail-closed assertion requires each envelope to have exactly the frozen six fields (`schemaVersion`, `result`, `manifestPath`, `manifestDigest`, `semanticReceiptDigest`, and `rawReceiptDigest`), requires `promotion-receipt-verification.v1` plus `result: pass`, validates lowercase SHA-256 shape, and binds every reported manifest/raw/semantic digest back to its corresponding Receipt.
+
+Follow-up TDD evidence:
+
+- RED: the focused Promotion Shadow suite passed `2/4` and failed `2/4` because all three verification-report environment variables and the dedicated executable assertion step were absent.
+- GREEN: the focused suite passed `4/4`. Its executable fixture matrix accepts three exact bound verification envelopes and rejects wrong schema, failed result, extra fields, manifest path/digest mismatch, semantic digest mismatch, and raw digest mismatch.
+- `npm run test:release-governance` — `88/88` passed.
+- YAML parsed with `yaml@2.9.0` as `promotion-shadow-gate` with 14 total steps and 11 shell `run` blocks; every run block passed `bash -n`.
+- `npm run release:package-gate -- --json` — `valid: true`, 8 release packages, 37 owner-path packages, and 25 exact owner-resolution checks.
+- `npm run type-check` — passed (`tsc --noEmit --incremental false`).
+
+No `package.json` command body changed in this follow-up, so the frozen reviewed command digest remains `1cc382fe95fb1fbf4cf0c167e1a22c32398697c17b5bb6cca102dd8a8133dc7d`.
+
 ## No-live/deploy boundary
 
-This slice authorizes only fail-closed, no-provider shadow validation. It contains no preview, deploy, production, live-promotion, provider, or remote-write command, performs no candidate-to-live mutation, does not deploy, and will not be pushed by this session.
+This slice authorizes only fail-closed, no-provider shadow validation. It contains no preview, deploy, production, live-promotion, provider, or remote-write command, performs no candidate-to-live mutation, and does not deploy. The assigned session branch is pushed for reviewable closeout; `main`, branch protection, and deployment state are not modified.

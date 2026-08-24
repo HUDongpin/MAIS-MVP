@@ -284,12 +284,27 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.equal(job.env?.PROMOTION_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}");
   assert.equal(job.env?.PROMOTION_REPLAY_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}-replay");
   assert.equal(job.env?.PROMOTION_VALIDATION_REPORT, "${{ runner.temp }}/promotion-validation-report.v1.json");
+  assert.equal(
+    job.env?.PROMOTION_FRESH_VERIFICATION_REPORT,
+    "${{ runner.temp }}/promotion-fresh-receipt-verification.v1.json"
+  );
+  assert.equal(
+    job.env?.PROMOTION_REPLAY_VERIFICATION_REPORT,
+    "${{ runner.temp }}/promotion-replay-receipt-verification.v1.json"
+  );
+  assert.equal(
+    job.env?.PROMOTION_CANONICAL_VERIFICATION_REPORT,
+    "${{ runner.temp }}/promotion-canonical-receipt-verification.v1.json"
+  );
   assert.ok(Array.isArray(job.steps));
   assert.ok(job.steps.some((step) => step.uses === "actions/checkout@v4"));
   assert.ok(job.steps.some((step) => step.uses === "actions/setup-node@v4"));
   const uploadStep = job.steps.find((step) => step.uses === "actions/upload-artifact@v4");
   assert.ok(uploadStep, "workflow must upload Promotion Shadow artifacts");
   assert.match(uploadStep.with?.path, /promotion-validation-report\.v1\.json/u);
+  assert.match(uploadStep.with?.path, /promotion-fresh-receipt-verification\.v1\.json/u);
+  assert.match(uploadStep.with?.path, /promotion-replay-receipt-verification\.v1\.json/u);
+  assert.match(uploadStep.with?.path, /promotion-canonical-receipt-verification\.v1\.json/u);
   assert.equal(uploadStep.with?.["if-no-files-found"], "error");
 
   const runCommands = job.steps.flatMap((step) => typeof step.run === "string" ? [step.run] : []);
@@ -311,15 +326,15 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   );
   assert.match(
     combinedRuns,
-    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_FRESH_RECEIPT" --json/u
+    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_FRESH_RECEIPT" --json > "\$PROMOTION_FRESH_VERIFICATION_REPORT"/u
   );
   assert.match(
     combinedRuns,
-    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_REPLAY_RECEIPT" --json/u
+    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_REPLAY_RECEIPT" --json > "\$PROMOTION_REPLAY_VERIFICATION_REPORT"/u
   );
   assert.match(
     combinedRuns,
-    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT" --json/u
+    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT" --json > "\$PROMOTION_CANONICAL_VERIFICATION_REPORT"/u
   );
   assert.match(combinedRuns, /semanticReceiptDigest/u);
   assert.match(combinedRuns, /\$PROMOTION_CANONICAL_RECEIPT/u);
@@ -330,6 +345,88 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   for (const command of promotionRuns) {
     assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|live)\b/iu);
     assert.doesNotMatch(command, /--(?:out|output-root)\b/u);
+  }
+});
+
+test("Promotion Shadow receipt verification reports execute fail closed for exact receipt bindings", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const assertionStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Assert receipt verification envelopes"
+  );
+  assert.ok(assertionStep, "workflow must execute a dedicated receipt-verification assertion step");
+  assert.equal(typeof assertionStep.run, "string");
+
+  const fixtureDir = await mkdtemp(path.join(tmpdir(), "mais-promotion-receipt-verification-"));
+  const variants = ["fresh", "replay", "canonical"];
+  const receiptPaths = Object.fromEntries(
+    variants.map((variant) => [variant, path.join(fixtureDir, `${variant}-receipt.v1.json`)])
+  );
+  const reportPaths = Object.fromEntries(
+    variants.map((variant) => [variant, path.join(fixtureDir, `${variant}-verification.v1.json`)])
+  );
+  const digestFor = (character) => character.repeat(64);
+  const receipts = Object.fromEntries(variants.map((variant, index) => [variant, {
+    manifest: {
+      path: "coordination/integration/pilots/example/promotion-manifest.v1.json",
+      rawSha256: digestFor(String(index + 1))
+    },
+    semanticReceiptDigest: digestFor(String.fromCharCode(97 + index)),
+    rawReceiptDigest: digestFor(String.fromCharCode(100 + index))
+  }]));
+  const reports = Object.fromEntries(variants.map((variant) => [variant, {
+    schemaVersion: "promotion-receipt-verification.v1",
+    result: "pass",
+    manifestPath: receipts[variant].manifest.path,
+    manifestDigest: receipts[variant].manifest.rawSha256,
+    semanticReceiptDigest: receipts[variant].semanticReceiptDigest,
+    rawReceiptDigest: receipts[variant].rawReceiptDigest
+  }]));
+  const env = {
+    ...process.env,
+    PROMOTION_FRESH_RECEIPT: receiptPaths.fresh,
+    PROMOTION_REPLAY_RECEIPT: receiptPaths.replay,
+    PROMOTION_CANONICAL_RECEIPT: receiptPaths.canonical,
+    PROMOTION_FRESH_VERIFICATION_REPORT: reportPaths.fresh,
+    PROMOTION_REPLAY_VERIFICATION_REPORT: reportPaths.replay,
+    PROMOTION_CANONICAL_VERIFICATION_REPORT: reportPaths.canonical
+  };
+  const runAssertion = () => spawnSync("bash", ["-c", assertionStep.run], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    env
+  });
+  const writeFixtures = async (overrides = {}) => {
+    for (const variant of variants) {
+      await writeFile(receiptPaths[variant], `${JSON.stringify(receipts[variant])}\n`);
+      await writeFile(
+        reportPaths[variant],
+        `${JSON.stringify(overrides[variant] ?? reports[variant])}\n`
+      );
+    }
+    return runAssertion();
+  };
+
+  try {
+    const valid = await writeFixtures();
+    assert.equal(valid.status, 0, combinedOutput(valid));
+
+    const invalidCases = [
+      ["wrong schema", { ...reports.fresh, schemaVersion: "promotion-receipt-verification.v0" }],
+      ["failed result", { ...reports.fresh, result: "fail" }],
+      ["unexpected field", { ...reports.fresh, unexpected: true }],
+      ["manifest path mismatch", { ...reports.fresh, manifestPath: "coordination/integration/other.json" }],
+      ["manifest digest mismatch", { ...reports.fresh, manifestDigest: digestFor("f") }],
+      ["semantic digest mismatch", { ...reports.fresh, semanticReceiptDigest: digestFor("f") }],
+      ["raw digest mismatch", { ...reports.fresh, rawReceiptDigest: digestFor("f") }]
+    ];
+
+    for (const [label, invalidFreshReport] of invalidCases) {
+      const result = await writeFixtures({ fresh: invalidFreshReport });
+      assert.notEqual(result.status, 0, `${label} must fail closed\n${combinedOutput(result)}`);
+    }
+  } finally {
+    await rm(fixtureDir, { recursive: true, force: true });
   }
 });
 

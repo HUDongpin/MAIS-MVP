@@ -22,6 +22,9 @@ jobs:
       PROMOTION_VALIDATION_REPORT: ${{ runner.temp }}/promotion-validation-report.v1.json
       PROMOTION_FRESH_RECEIPT: ${{ runner.temp }}/promotion-shadow-receipt.v1.json
       PROMOTION_REPLAY_RECEIPT: ${{ runner.temp }}/promotion-shadow-replay-receipt.v1.json
+      PROMOTION_FRESH_VERIFICATION_REPORT: ${{ runner.temp }}/promotion-fresh-receipt-verification.v1.json
+      PROMOTION_REPLAY_VERIFICATION_REPORT: ${{ runner.temp }}/promotion-replay-receipt-verification.v1.json
+      PROMOTION_CANONICAL_VERIFICATION_REPORT: ${{ runner.temp }}/promotion-canonical-receipt-verification.v1.json
       PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
       PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
     steps:
@@ -136,11 +139,83 @@ jobs:
             }
           ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_CANONICAL_RECEIPT"
 
-      - name: Verify fresh, replayed, and canonical receipts
+      - name: Verify fresh receipt
+        if: ${{ always() }}
+        run: npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_FRESH_RECEIPT" --json > "$PROMOTION_FRESH_VERIFICATION_REPORT"
+
+      - name: Verify replayed receipt
+        if: ${{ always() }}
+        run: npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_REPLAY_RECEIPT" --json > "$PROMOTION_REPLAY_VERIFICATION_REPORT"
+
+      - name: Verify canonical receipt
+        if: ${{ always() }}
+        run: npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_CANONICAL_RECEIPT" --json > "$PROMOTION_CANONICAL_VERIFICATION_REPORT"
+
+      - name: Assert receipt verification envelopes
+        if: ${{ always() }}
         run: |
-          npm run promotion:verify-receipt -- --receipt "$PROMOTION_FRESH_RECEIPT" --json
-          npm run promotion:verify-receipt -- --receipt "$PROMOTION_REPLAY_RECEIPT" --json
-          npm run promotion:verify-receipt -- --receipt "$PROMOTION_CANONICAL_RECEIPT" --json
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            if (paths.length !== 6) throw new Error(`Expected three receipt/report pairs, received ${paths.length / 2}.`);
+            const assertExactKeys = (value, expectedKeys, label) => {
+              if (!value || typeof value !== "object" || Array.isArray(value)) {
+                throw new Error(`${label} must be an object.`);
+              }
+              const actualKeys = Object.keys(value).sort();
+              const sortedExpectedKeys = [...expectedKeys].sort();
+              if (JSON.stringify(actualKeys) !== JSON.stringify(sortedExpectedKeys)) {
+                throw new Error(`${label} fields must be exactly ${sortedExpectedKeys.join(", ")}.`);
+              }
+            };
+            for (let index = 0; index < paths.length; index += 2) {
+              const receiptPath = paths[index];
+              const reportPath = paths[index + 1];
+              const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+              const report = JSON.parse(readFileSync(reportPath, "utf8"));
+              const label = `verification report ${reportPath}`;
+              assertExactKeys(
+                report,
+                [
+                  "schemaVersion",
+                  "result",
+                  "manifestPath",
+                  "manifestDigest",
+                  "semanticReceiptDigest",
+                  "rawReceiptDigest"
+                ],
+                label
+              );
+              if (report.schemaVersion !== "promotion-receipt-verification.v1") {
+                throw new Error(`${label} has unexpected schema ${report.schemaVersion}.`);
+              }
+              if (report.result !== "pass") {
+                throw new Error(`${label} result must be pass, received ${report.result}.`);
+              }
+              if (!receipt.manifest || typeof receipt.manifest.path !== "string") {
+                throw new Error(`Receipt ${receiptPath} has no manifest path.`);
+              }
+              const expected = {
+                manifestPath: receipt.manifest.path,
+                manifestDigest: receipt.manifest.rawSha256,
+                semanticReceiptDigest: receipt.semanticReceiptDigest,
+                rawReceiptDigest: receipt.rawReceiptDigest
+              };
+              for (const [field, expectedValue] of Object.entries(expected)) {
+                if (report[field] !== expectedValue) {
+                  throw new Error(`${label} ${field} does not match receipt ${receiptPath}.`);
+                }
+              }
+              for (const digestName of ["manifestDigest", "semanticReceiptDigest", "rawReceiptDigest"]) {
+                if (!/^[a-f0-9]{64}$/.test(report[digestName])) {
+                  throw new Error(`${label} ${digestName} must be a lowercase SHA-256 digest.`);
+                }
+              }
+            }
+          ' \
+            "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_FRESH_VERIFICATION_REPORT" \
+            "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_VERIFICATION_REPORT" \
+            "$PROMOTION_CANONICAL_RECEIPT" "$PROMOTION_CANONICAL_VERIFICATION_REPORT"
 
       - name: Upload Promotion Shadow gate artifacts
         if: ${{ always() }}
@@ -151,5 +226,8 @@ jobs:
             ${{ runner.temp }}/promotion-validation-report.v1.json
             ${{ runner.temp }}/promotion-shadow-receipt.v1.json
             ${{ runner.temp }}/promotion-shadow-replay-receipt.v1.json
+            ${{ runner.temp }}/promotion-fresh-receipt-verification.v1.json
+            ${{ runner.temp }}/promotion-replay-receipt-verification.v1.json
+            ${{ runner.temp }}/promotion-canonical-receipt-verification.v1.json
           if-no-files-found: error
           retention-days: 14
