@@ -3,7 +3,9 @@ import fs from "node:fs";
 import test from "node:test";
 import {
   buildPremiumThreeDTopicStaticParams,
+  hubRouteForRetiredPremiumThreeDLab,
   premiumThreeDLaunchLabIds,
+  retiredCaliforniaPremiumThreeDLabIds,
   selectThreeDRegionalLaunchSmokeLabIds,
   selectThreeDRegionalLaunchSmokeTargets,
   summarizeThreeDLaunchCoverage,
@@ -18,9 +20,13 @@ test("approved aggressive Three.js launch coverage stays inside required bands w
 
   assert.deepEqual(issues, []);
   assert.equal(report.familyCount, 27);
-  assert.equal(report.topicPageCount, 80);
+  // 80 until 2026-08-25, when the 12 California premium-3D topics were retired
+  // (Phase 2a of the Codex-lab replacement plan): their canonical lab is the
+  // Claude signature bench, and the california band is pinned to 0-0 so a CA
+  // id reappearing in the launch map fails this contract.
+  assert.equal(report.topicPageCount, 68);
   assert.deepEqual(report.regionalCounts, {
-    california: 12,
+    california: 0,
     "cross-region": 19,
     "hong-kong": 9,
     mainland: 40
@@ -46,7 +52,7 @@ test("premium Three.js topic static params come from the approved launch manifes
   const labIds = params.map((param) => param.labId);
   const uniqueLabIds = new Set(labIds);
 
-  assert.equal(params.length, 80);
+  assert.equal(params.length, 68);
   assert.equal(uniqueLabIds.size, params.length);
   assert.deepEqual(uniqueLabIds, premiumThreeDLaunchLabIds);
   assert.ok(params.every((param) => typeof param.labId === "string" && param.labId.length > 0));
@@ -56,9 +62,10 @@ test("regional Three.js smoke targets are deterministic static topic pages", () 
   const smokeTargets = selectThreeDRegionalLaunchSmokeLabIds();
   const staticParamIds = new Set(buildPremiumThreeDTopicStaticParams().map((param) => param.labId));
 
-  assert.deepEqual(Object.keys(smokeTargets).sort(), ["california", "cross-region", "hong-kong", "mainland"]);
+  // No california smoke target since the 2026-08-25 descope — CA topics have
+  // no premium-3D launch page to smoke; the signature bench is canonical.
+  assert.deepEqual(Object.keys(smokeTargets).sort(), ["cross-region", "hong-kong", "mainland"]);
   assert.deepEqual(smokeTargets, {
-    california: "us-ca-math-s2-chapter-02",
     "cross-region": "bnu-high-s6-数列",
     "hong-kong": "advanced-functions",
     mainland: "bnu-high-s4-三角函数"
@@ -75,14 +82,13 @@ test("regional Three.js smoke targets include browser hrefs and runtime assertio
 
   assert.deepEqual(
     targets.map((target) => target.region),
-    ["mainland", "california", "hong-kong", "cross-region"]
+    ["mainland", "hong-kong", "cross-region"]
   );
 
   assert.deepEqual(
     targets.map((target) => target.href),
     [
       "/student/tools/visualizations/bnu-high-s4-%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0",
-      "/student/tools/visualizations/us-ca-math-s2-chapter-02",
       "/student/tools/visualizations/advanced-functions",
       "/student/tools/visualizations/bnu-high-s6-%E6%95%B0%E5%88%97"
     ]
@@ -93,6 +99,27 @@ test("regional Three.js smoke targets include browser hrefs and runtime assertio
     assert.equal(target.expectedCanvasAttributes["data-viz-regional-priority"], target.region);
     assert.equal(premiumThreeDLaunchLabIds.has(target.labId), true);
   }
+});
+
+test("retired California premium-3D topics stay off the launch manifest and redirect to the hub", () => {
+  assert.equal(retiredCaliforniaPremiumThreeDLabIds.size, 12);
+
+  for (const labId of retiredCaliforniaPremiumThreeDLabIds) {
+    assert.match(labId, /^us-ca-math-/);
+    assert.equal(premiumThreeDLaunchLabIds.has(labId), false, `${labId} must stay retired`);
+    assert.equal(
+      hubRouteForRetiredPremiumThreeDLab(labId),
+      `/visualization-lab?lab=${encodeURIComponent(labId)}`
+    );
+  }
+
+  // Non-retired labs pass through untouched.
+  assert.equal(hubRouteForRetiredPremiumThreeDLab("advanced-functions"), null);
+
+  // The direct route wires the redirect ahead of the premium-launch gate.
+  const routeSource = fs.readFileSync("app/student/tools/visualizations/[labId]/page.tsx", "utf8");
+  assert.match(routeSource, /hubRouteForRetiredPremiumThreeDLab\(normalizedLabId\)/);
+  assert.match(routeSource, /if \(hubRoute\) redirect\(hubRoute\);/);
 });
 
 test("pure Three.js coverage contracts avoid importing the live visualization catalog", () => {
