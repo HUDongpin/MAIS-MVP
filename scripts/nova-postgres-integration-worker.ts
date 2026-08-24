@@ -1,5 +1,6 @@
 import process from "node:process";
 import { randomUUID } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 import postgres from "postgres";
 
 import type {
@@ -103,6 +104,83 @@ async function main() {
         provider: "postgres",
         schemaReady: true
       };
+    }
+
+    if (command === "force-bootstrap") {
+      await store.__userStoreAiTutorPostgresTestHooks.forceBootstrap();
+      return { bootstrapped: true };
+    }
+
+    if (command === "strict-readiness") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          ready: await store.probePostgresStorageReadinessStrict(sql as never, {
+            id: "primary",
+            tenantId: "platform",
+            stateKind: "app-snapshot",
+            schemaVersion: 1
+          })
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "hot-auth-readiness") {
+      const sql = createDirectIntegrationClient();
+      try {
+        return {
+          ready: await store.countPostgresHotAuthRowsForAdminDiagnostics(sql as never) !== null
+        };
+      } finally {
+        await sql.end({ timeout: 5 });
+      }
+    }
+
+    if (command === "reattest-readiness") {
+      await store.__userStorePostgresStorageReadinessTestHooks.reattestCurrentSnapshot();
+      return { reattested: true };
+    }
+
+    if (command === "read-full-snapshot") {
+      await store.__userStorePostgresStorageReadinessTestHooks.readCurrentSnapshot();
+      return { read: true };
+    }
+
+    if (command === "full-snapshot-rewrite") {
+      await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+      return { rewritten: true };
+    }
+
+    if (command === "full-snapshot-fault") {
+      const mode = input.mode;
+      if (
+        mode !== "suppress-returning"
+        && mode !== "rewrite-returning"
+        && mode !== "post-returning-drift"
+      ) {
+        throw new Error("Full snapshot fault mode is invalid.");
+      }
+      const stages: string[] = [];
+      store.__userStorePostgresStorageReadinessTestHooks.configureFullWriterFault({
+        mode,
+        observeStage: (stage) => {
+          stages.push(stage);
+        }
+      });
+      try {
+        await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+        return { rejected: false, stages };
+      } catch {
+        return {
+          rejected: true,
+          rejectedAt: stages.at(-1) ?? "before-capability",
+          stages
+        };
+      } finally {
+        store.__userStorePostgresStorageReadinessTestHooks.clearFullWriterFault();
+      }
     }
 
     if (command === "policy") {
@@ -249,104 +327,277 @@ async function main() {
     if (command === "session-reset-rollback") {
       const userId = typeof input.userId === "string" ? input.userId : "";
       const identifier = typeof input.identifier === "string" ? input.identifier : "";
-      const beforeRevision = await store.getActiveUserSessionRevision(userId);
-      if (!beforeRevision) throw new Error("Session rollback fixture user is unavailable.");
-      const request = await store.createPasswordResetRequest(identifier);
-      if (!request) throw new Error("Session rollback reset request was not created.");
-
       const sql = createDirectIntegrationClient();
-      let snapshotUser: Record<string, unknown> | null = null;
-      let tokenId = "";
-      try {
-        const stateRows = await sql<Array<{ payload: unknown }>>`
-          SELECT payload FROM app_state WHERE id = 'primary'
-        `;
-        const payload = typeof stateRows[0]?.payload === "string"
-          ? JSON.parse(stateRows[0].payload) as Record<string, unknown>
-          : stateRows[0]?.payload as Record<string, unknown> | undefined;
-        const users = Array.isArray(payload?.users) ? payload.users as Array<Record<string, unknown>> : [];
-        snapshotUser = users.find((candidate) => candidate.id === userId) ?? null;
-        if (!snapshotUser) throw new Error("Session rollback snapshot user is unavailable.");
-        const tokenRows = await sql<Array<{ id: string }>>`
-          SELECT id
-          FROM auth_password_reset_tokens
-          WHERE user_id = ${userId}
-          ORDER BY created_at DESC, id DESC
-          LIMIT 1
-        `;
-        tokenId = tokenRows[0]?.id ?? "";
-        if (!tokenId) throw new Error("Session rollback token row is unavailable.");
 
-        await sql`
-          UPDATE app_state AS state
-          SET payload = jsonb_set(
-                state.payload,
-                '{users}',
-                COALESCE((
-                  SELECT jsonb_agg(user_record ORDER BY ordinal)
-                  FROM jsonb_array_elements(state.payload->'users')
-                    WITH ORDINALITY AS user_records(user_record, ordinal)
-                  WHERE user_record->>'id' <> ${userId}
-                ), '[]'::jsonb),
-                FALSE
+      const captureRollbackEvidence = async () => {
+        const [stateRows, markerRows, authUserRows, tokenRows] = await Promise.all([
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              id,
+              tenant_id,
+              state_kind,
+              schema_version,
+              revision::text AS revision,
+              payload,
+              updated_at::text AS updated_at
+            FROM public.app_state
+            WHERE id = 'primary'
+            ORDER BY id
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              state_id,
+              tenant_id,
+              state_kind,
+              schema_version,
+              state_revision::text AS state_revision,
+              contract_version,
+              attested_at::text AS attested_at
+            FROM public.app_state_readiness_markers
+            WHERE state_id = 'primary'
+            ORDER BY state_id, tenant_id, state_kind, schema_version
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT
+              id,
+              username,
+              normalized_username,
+              email,
+              normalized_email,
+              password_hash,
+              password_salt,
+              school_id,
+              password_must_change,
+              session_revision,
+              disabled_at,
+              role,
+              created_at
+            FROM public.auth_users
+            WHERE id = ${userId}
+            ORDER BY id
+          `,
+          sql<Array<Record<string, unknown>>>`
+            SELECT id, user_id, token_hash, expires_at, used_at, created_at
+            FROM public.auth_password_reset_tokens
+            WHERE user_id = ${userId}
+            ORDER BY created_at, id
+          `
+        ]);
+        if (stateRows.length !== 1 || authUserRows.length !== 1) {
+          throw new Error("Session rollback evidence is unavailable.");
+        }
+        return { stateRows, markerRows, authUserRows, tokenRows };
+      };
+
+      const originalEvidence = await captureRollbackEvidence();
+      try {
+        const fixtureCreatedAt = new Date().toISOString();
+        const cleanupTokenRecords = [
+          {
+            id: `integration-reset-cleanup-used-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-used-${randomUUID()}`,
+            expires_at: new Date(Date.now() + 60_000).toISOString(),
+            used_at: fixtureCreatedAt,
+            created_at: fixtureCreatedAt
+          },
+          {
+            id: `integration-reset-cleanup-expired-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-expired-${randomUUID()}`,
+            expires_at: new Date(Date.now() - 60_000).toISOString(),
+            used_at: null,
+            created_at: fixtureCreatedAt
+          },
+          {
+            id: `integration-reset-cleanup-malformed-${randomUUID()}`,
+            user_id: userId,
+            token_hash: `integration-reset-cleanup-malformed-${randomUUID()}`,
+            expires_at: "not-a-timestamp",
+            used_at: null,
+            created_at: fixtureCreatedAt
+          }
+        ];
+        const cleanupTokenIds = cleanupTokenRecords.map((record) => record.id);
+        const fixtureStateRows = await sql<Array<{ revision: unknown }>>`
+          UPDATE public.app_state AS state
+          SET payload = state.payload || pg_catalog.jsonb_build_object(
+                'password_reset_tokens',
+                CASE
+                  WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                    THEN state.payload->'password_reset_tokens'
+                  ELSE '[]'::pg_catalog.jsonb
+                END || ${sql.json(cleanupTokenRecords)}::pg_catalog.jsonb
               ),
-              revision = revision + 1
+              revision = revision + 1,
+              updated_at = pg_catalog.now()
           WHERE state.id = 'primary'
+            AND state.tenant_id = 'platform'
+            AND state.state_kind = 'app-snapshot'
+            AND state.schema_version = 1
+          RETURNING revision
         `;
+        if (fixtureStateRows.length !== 1) {
+          throw new Error("Session rollback cleanup fixture could not be installed.");
+        }
+        const fixtureHotRows = await sql<Array<{ count: number }>>`
+          SELECT COUNT(*)::int AS count
+          FROM public.auth_password_reset_tokens
+          WHERE id = ANY(${cleanupTokenIds}::text[])
+        `;
+        if (fixtureHotRows[0]?.count !== cleanupTokenIds.length) {
+          throw new Error("Session rollback cleanup fixture did not reach the hot table.");
+        }
+        await store.__userStorePostgresStorageReadinessTestHooks.reattestCurrentSnapshot();
+
+        const request = await store.createPasswordResetRequest(identifier);
+        if (!request) throw new Error("Session rollback reset request was not created.");
+        const requestTokenHash = hashAuthPasswordResetToken(request.token);
+        const rollbackBaseline = await captureRollbackEvidence();
+        const baselinePayload = rollbackBaseline.stateRows[0]?.payload;
+        const baselineTokens = baselinePayload
+          && typeof baselinePayload === "object"
+          && !Array.isArray(baselinePayload)
+          && Array.isArray((baselinePayload as Record<string, unknown>).password_reset_tokens)
+          ? (baselinePayload as { password_reset_tokens: Array<Record<string, unknown>> }).password_reset_tokens
+          : [];
+        const baselineHotRequestRows = rollbackBaseline.tokenRows.filter(
+          (record) => record.token_hash === requestTokenHash
+        );
+        const baselineSnapshotRequestRows = baselineTokens.filter(
+          (record) => record.token_hash === requestTokenHash
+        );
+        const cleanupSymmetric = cleanupTokenIds.every((id) => (
+          !rollbackBaseline.tokenRows.some((record) => record.id === id)
+          && !baselineTokens.some((record) => record.id === id)
+        ))
+          && baselineHotRequestRows.length === 1
+          && baselineSnapshotRequestRows.length === 1
+          && baselineHotRequestRows[0]?.id === baselineSnapshotRequestRows[0]?.id;
+
+        await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
+        const afterFullRewrite = await captureRollbackEvidence();
+        const rewrittenPayload = afterFullRewrite.stateRows[0]?.payload;
+        const rewrittenTokens = rewrittenPayload
+          && typeof rewrittenPayload === "object"
+          && !Array.isArray(rewrittenPayload)
+          && Array.isArray((rewrittenPayload as Record<string, unknown>).password_reset_tokens)
+          ? (rewrittenPayload as { password_reset_tokens: Array<Record<string, unknown>> }).password_reset_tokens
+          : [];
+        const fullRewriteDidNotResurrect = cleanupTokenIds.every((id) => (
+          !afterFullRewrite.tokenRows.some((record) => record.id === id)
+          && !rewrittenTokens.some((record) => record.id === id)
+        ));
+        const resetRollbackBaseline = afterFullRewrite;
 
         let resetRolledBack = false;
+        store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = () => {
+          throw new Error("Integration password reset rollback failpoint.");
+        };
         try {
           await store.resetUserPassword(request.token, "integration-rollback-password-12345");
-        } catch {
-          resetRolledBack = true;
+        } catch (error) {
+          resetRolledBack = error instanceof Error
+            && error.message === "Integration password reset rollback failpoint.";
+        } finally {
+          store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = null;
         }
-        const hotRows = await sql<Array<{ session_revision: number }>>`
-          SELECT session_revision FROM auth_users WHERE id = ${userId}
-        `;
-        const tokenState = await sql<Array<{ used_at: string | null }>>`
-          SELECT used_at FROM auth_password_reset_tokens WHERE id = ${tokenId}
-        `;
+        const afterRollback = await captureRollbackEvidence();
         return {
           resetRolledBack,
-          revisionUnchanged: hotRows[0]?.session_revision === beforeRevision,
-          tokenStillUnused: tokenState[0]?.used_at === null
+          stateExact: isDeepStrictEqual(afterRollback.stateRows, resetRollbackBaseline.stateRows),
+          markerExact: isDeepStrictEqual(afterRollback.markerRows, resetRollbackBaseline.markerRows),
+          authExact: isDeepStrictEqual(afterRollback.authUserRows, resetRollbackBaseline.authUserRows),
+          tokensExact: isDeepStrictEqual(afterRollback.tokenRows, resetRollbackBaseline.tokenRows),
+          cleanupSymmetric,
+          fullRewriteDidNotResurrect
         };
       } finally {
-        if (snapshotUser) {
-          await sql`
-            UPDATE auth_users
-            SET password_hash = ${String(snapshotUser.password_hash ?? "")},
-                password_salt = ${String(snapshotUser.password_salt ?? "")},
-                password_must_change = ${snapshotUser.password_must_change === true},
-                session_revision = ${Number(snapshotUser.session_revision ?? 1)},
-                disabled_at = ${typeof snapshotUser.disabled_at === "string" ? snapshotUser.disabled_at : null}
-            WHERE id = ${userId}
-          `;
-          await sql`
-            UPDATE app_state AS state
-            SET payload = jsonb_set(
-                  jsonb_set(
-                    state.payload,
-                    '{users}',
-                    (state.payload->'users') || jsonb_build_array(${JSON.stringify(snapshotUser)}::jsonb),
-                    FALSE
-                  ),
-                  '{password_reset_tokens}',
-                  COALESCE((
-                    SELECT jsonb_agg(token_record ORDER BY ordinal)
-                    FROM jsonb_array_elements(state.payload->'password_reset_tokens')
-                      WITH ORDINALITY AS token_records(token_record, ordinal)
-                    WHERE token_record->>'id' <> ${tokenId}
-                  ), '[]'::jsonb),
-                  FALSE
-                ),
-                revision = revision + 1
-            WHERE state.id = 'primary'
-          `;
+        store.__userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite = null;
+        const originalState = originalEvidence.stateRows[0];
+        const originalAuthUser = originalEvidence.authUserRows[0];
+        if (!originalState || !originalAuthUser) {
+          throw new Error("Session rollback restoration evidence is unavailable.");
         }
-        if (tokenId) {
-          await sql`DELETE FROM auth_password_reset_tokens WHERE id = ${tokenId}`;
-        }
+        await sql.begin(async (restoreSql) => {
+          const restoredStateRows = await restoreSql<Array<{ id: string }>>`
+            UPDATE public.app_state
+            SET tenant_id = ${originalState.tenant_id as string},
+                state_kind = ${originalState.state_kind as string},
+                schema_version = ${originalState.schema_version as number},
+                revision = ${originalState.revision as string}::bigint,
+                payload = ${JSON.stringify(originalState.payload)}::pg_catalog.jsonb,
+                updated_at = ${originalState.updated_at as string}::pg_catalog.timestamptz
+            WHERE id = ${originalState.id as string}
+            RETURNING id
+          `;
+          if (restoredStateRows.length !== 1) {
+            throw new Error("Session rollback state restoration failed.");
+          }
+          await restoreSql`DELETE FROM public.auth_password_reset_tokens WHERE user_id = ${userId}`;
+          if (originalEvidence.tokenRows.length > 0) {
+            await restoreSql`
+              INSERT INTO public.auth_password_reset_tokens ${restoreSql(
+                originalEvidence.tokenRows,
+                "id",
+                "user_id",
+                "token_hash",
+                "expires_at",
+                "used_at",
+                "created_at"
+              )}
+            `;
+          }
+          await restoreSql`
+            INSERT INTO public.auth_users ${restoreSql(
+              [originalAuthUser],
+              "id",
+              "username",
+              "normalized_username",
+              "email",
+              "normalized_email",
+              "password_hash",
+              "password_salt",
+              "school_id",
+              "password_must_change",
+              "session_revision",
+              "disabled_at",
+              "role",
+              "created_at"
+            )}
+            ON CONFLICT (id) DO UPDATE SET
+              username = excluded.username,
+              normalized_username = excluded.normalized_username,
+              email = excluded.email,
+              normalized_email = excluded.normalized_email,
+              password_hash = excluded.password_hash,
+              password_salt = excluded.password_salt,
+              school_id = excluded.school_id,
+              password_must_change = excluded.password_must_change,
+              session_revision = excluded.session_revision,
+              disabled_at = excluded.disabled_at,
+              role = excluded.role,
+              created_at = excluded.created_at
+          `;
+          await restoreSql`
+            DELETE FROM public.app_state_readiness_markers
+            WHERE state_id = 'primary'
+          `;
+          if (originalEvidence.markerRows.length > 0) {
+            await restoreSql`
+              INSERT INTO public.app_state_readiness_markers ${restoreSql(
+                originalEvidence.markerRows,
+                "state_id",
+                "tenant_id",
+                "state_kind",
+                "schema_version",
+                "state_revision",
+                "contract_version",
+                "attested_at"
+              )}
+            `;
+          }
+        });
         await sql.end({ timeout: 5 });
       }
     }

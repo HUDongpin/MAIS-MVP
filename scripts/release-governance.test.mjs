@@ -2208,6 +2208,26 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
   };
+  const expectedParentDeliveryAndReadinessScripts = {
+    "maintain:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-maintenance.mjs",
+    "migrate:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-migration.mjs",
+    "teacher-notice-outbox:migrate":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --apply",
+    "teacher-notice-outbox:preflight":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --preflight",
+    "test:postgres-readiness":
+      "node --test scripts/run-postgres-readiness-tests.test.mjs && node scripts/run-postgres-readiness-tests.mjs",
+    "test:teacher-notice-outbox":
+      "node --import tsx --test scripts/teacher-notice-outbox-migration.test.mjs lib/server/teacherNoticeEmailDelivery.test.ts lib/server/teacherNoticeEmailOutboxHandlers.test.ts lib/server/userStoreTeacherNoticeEmailOutboxPersistence.test.ts lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts lib/server/userStoreTeacherNoticeEmailOutboxSqliteIntegration.test.ts lib/server/userStoreTeacherNoticeEmailOutboxRemediation.test.ts lib/server/userStoreTeacherOpsNoticePersistence.test.ts lib/server/userStoreTeacherOpsReminderPersistence.test.ts",
+    "test:teacher-notice-outbox:postgres16":
+      "node -e \"if (!process.env.MAIS_OUTBOX_POSTGRES16_INTEGRATION_URL) process.exit(2)\" && node --import tsx --test lib/server/userStoreTeacherNoticeEmailOutboxIntegration.test.ts",
+    "test:teacher-notice-resend-webhook":
+      "node scripts/run-teacher-notice-resend-webhook-tests.mjs",
+    "test:teacher-notice-resend-webhook:postgres":
+      "node --import tsx --test lib/server/userStoreTeacherNoticeResendWebhookPostgresIntegration.test.ts"
+  };
   const allowedScriptChanges = new Set([
     "audit:ccss-depth",
     "audit:lesson-illustrations",
@@ -2228,6 +2248,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "eval:adaptive",
     "fit:bkt",
     "kill-port",
+    "maintain:teacher-notice-resend-webhook",
+    "migrate:teacher-notice-resend-webhook",
     "rag:hk-up-junior-english-exercises-manifest",
     "rag:hk-up-junior-english-textbook-manifest",
     "rag:hk-up-junior-resources-manifest",
@@ -2247,6 +2269,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "smoke:dashboard-latency",
     "smoke:dashboard-ui-loading",
     "smoke:resend:local",
+    "teacher-notice-outbox:migrate",
+    "teacher-notice-outbox:preflight",
     "test:accommodations",
     "test:analytics",
     "test:ccss-depth",
@@ -2258,6 +2282,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:lesson-menu",
     "test:mvp",
     "test:parent-console",
+    "test:postgres-readiness",
     "test:prod-certification",
     "test:question-bank",
     "test:question-figure",
@@ -2267,6 +2292,10 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:signature-labs",
     "test:source-regressions",
     "test:stray-types",
+    "test:teacher-notice-outbox",
+    "test:teacher-notice-outbox:postgres16",
+    "test:teacher-notice-resend-webhook",
+    "test:teacher-notice-resend-webhook:postgres",
     "test:tutor-moderation",
     "test:tutor-transcript",
     "test:visualizations",
@@ -2292,7 +2321,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "8ecdbd2bf20efb8d4e8a995593cc8f975f5cdf4439098b0ac1d6a3d63059948e",
+    "dd6d499fcdeffe40b386ebb6654af826603f0dd8d787f4c064461913536dcf4a",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -2300,6 +2329,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
     const localTarget = command.split(/\s+/).find((token) => /\.(?:c?js|mjs)$/.test(token));
     assert.ok(localTarget, `${name} must resolve one local Node target`);
     assertTrackedInIndex(localTarget);
+  }
+  for (const [name, command] of Object.entries(expectedParentDeliveryAndReadinessScripts)) {
+    assert.equal(current.scripts[name], command, `${name} command`);
   }
 
   for (const command of Object.values(changedScripts)) {
@@ -2315,6 +2347,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "@react-three/fiber": "9.6.1",
     next: "15.5.23",
     pptxgenjs: "^4.0.1",
+    svix: "^2.0.0",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
     ws: "^8.21.0"

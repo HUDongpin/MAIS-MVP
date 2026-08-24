@@ -12,6 +12,16 @@ function readRepoFile(relativePath) {
   return readFileSync(path.join(repoRoot, relativePath), "utf8");
 }
 
+function ciJobSource(ci, jobName) {
+  const marker = `  ${jobName}:`;
+  const start = ci.indexOf(marker);
+  assert.notEqual(start, -1, `${jobName} must exist in CI`);
+  const tail = ci.slice(start + marker.length);
+  const nextJob = tail.match(/^  [a-zA-Z0-9_-]+:\s*$/mu);
+  const end = nextJob ? start + marker.length + nextJob.index : ci.length;
+  return ci.slice(start, end);
+}
+
 function countStaticNodeTests(relativePaths) {
   return relativePaths.reduce((total, relativePath) => {
     const source = readRepoFile(relativePath);
@@ -24,9 +34,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   const discovered = manifest.discoverParentDomainTestFiles(repoRoot);
 
   assert.deepEqual(discovered, manifest.parentDomainTestFiles);
-  assert.equal(manifest.parentDomainTestFiles.length, 16);
-  assert.equal(manifest.expectedParentDomainTestCount, 138);
-  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 138);
+  assert.equal(manifest.parentDomainTestFiles.length, 17);
+  assert.equal(manifest.expectedParentDomainTestCount, 140);
+  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 140);
   assert.equal(
     countStaticNodeTests(manifest.parentDomainTestFiles),
     manifest.expectedParentDomainStaticDeclarationCount
@@ -66,8 +76,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/session.test.ts"
   ]);
   assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 17);
-  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 144);
-  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 142);
+  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 146);
+  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 144);
   assert.equal(
     countStaticNodeTests(manifest.parentSecurityLifecycleTestFiles),
     manifest.expectedParentSecurityLifecycleStaticDeclarationCount
@@ -78,9 +88,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 38);
-  assert.equal(manifest.expectedParentConsoleTestCount, 297);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 295);
+  assert.equal(manifest.parentConsoleTestFiles.length, 39);
+  assert.equal(manifest.expectedParentConsoleTestCount, 301);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 299);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -110,6 +120,90 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   assert.match(runner, /finalTapMetric/u);
   assert.match(runner, /summary\.skipped !== 0/u);
   assert.match(runner, /summary\.todo !== 0/u);
+});
+
+test("CI and package preserve the parent, delivery, webhook, and readiness union", () => {
+  const packageJson = JSON.parse(readRepoFile("package.json"));
+  const expectedScripts = {
+    "maintain:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-maintenance.mjs",
+    "migrate:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-migration.mjs",
+    "teacher-notice-outbox:migrate":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --apply",
+    "teacher-notice-outbox:preflight":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --preflight",
+    "test:postgres-readiness":
+      "node --test scripts/run-postgres-readiness-tests.test.mjs && node scripts/run-postgres-readiness-tests.mjs",
+    "test:teacher-notice-outbox":
+      "node --import tsx --test scripts/teacher-notice-outbox-migration.test.mjs lib/server/teacherNoticeEmailDelivery.test.ts lib/server/teacherNoticeEmailOutboxHandlers.test.ts lib/server/userStoreTeacherNoticeEmailOutboxPersistence.test.ts lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts lib/server/userStoreTeacherNoticeEmailOutboxSqliteIntegration.test.ts lib/server/userStoreTeacherNoticeEmailOutboxRemediation.test.ts lib/server/userStoreTeacherOpsNoticePersistence.test.ts lib/server/userStoreTeacherOpsReminderPersistence.test.ts",
+    "test:teacher-notice-outbox:postgres16":
+      "node -e \"if (!process.env.MAIS_OUTBOX_POSTGRES16_INTEGRATION_URL) process.exit(2)\" && node --import tsx --test lib/server/userStoreTeacherNoticeEmailOutboxIntegration.test.ts",
+    "test:teacher-notice-resend-webhook":
+      "node scripts/run-teacher-notice-resend-webhook-tests.mjs",
+    "test:teacher-notice-resend-webhook:postgres":
+      "node --import tsx --test lib/server/userStoreTeacherNoticeResendWebhookPostgresIntegration.test.ts"
+  };
+  for (const [name, command] of Object.entries(expectedScripts)) {
+    assert.equal(packageJson.scripts[name], command, `${name} must retain its exact reviewed body`);
+  }
+  assert.equal(packageJson.dependencies.svix, "^2.0.0");
+  assert.equal(
+    Object.keys(packageJson.scripts).filter((name) => name === "test:postgres-readiness").length,
+    1,
+    "the readiness runner must have one canonical package entry"
+  );
+
+  const ci = readRepoFile(".github/workflows/ci.yml");
+  const workflow = YAML.parse(ci);
+  const validateRuns = workflow.jobs.validate.steps.map((step) => step.run).filter(Boolean);
+  for (const command of [
+    "npm run test:parent-console",
+    "npm run test:teacher-notice-outbox",
+    "npm run test:teacher-notice-resend-webhook",
+    "npm run test:postgres-readiness"
+  ]) {
+    assert.equal(
+      validateRuns.filter((run) => run === command).length,
+      1,
+      `${command} must appear exactly once in validate`
+    );
+  }
+
+  const fullPostgresEventMatrix =
+    "${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}";
+  for (const jobName of [
+    "postgres-integration",
+    "teacher-notice-outbox-postgres16",
+    "resend-webhook-postgres-integration"
+  ]) {
+    const job = workflow.jobs[jobName];
+    assert.ok(job, `${jobName} must exist`);
+    assert.equal(job.if, fullPostgresEventMatrix, `${jobName} must cover the full event matrix`);
+    const checkoutSteps = job.steps.filter((step) => step.uses === "actions/checkout@v4");
+    assert.equal(checkoutSteps.length, 1, `${jobName} must have one checkout`);
+    assert.equal(checkoutSteps[0].with?.ref, "${{ github.sha }}", `${jobName} must checkout the event SHA`);
+    const shaAssertions = job.steps.filter(
+      (step) => step.env?.EXPECTED_EVENT_SHA === "${{ github.sha }}"
+        && step.run === 'test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"'
+    );
+    assert.equal(shaAssertions.length, 1, `${jobName} must assert the checked-out event SHA`);
+  }
+
+  const runnerSelfTest = readRepoFile("scripts/run-postgres-readiness-tests.test.mjs");
+  assert.match(
+    runnerSelfTest,
+    /ci\.slice\(\s*ci\.indexOf\("  postgres-integration:"\),\s*ci\.indexOf\("  visualization-browser:"\)\s*\)/u
+  );
+  const configuredRunnerSlice = ci.slice(
+    ci.indexOf("  postgres-integration:"),
+    ci.indexOf("  visualization-browser:")
+  );
+  assert.equal(
+    configuredRunnerSlice,
+    ciJobSource(ci, "postgres-integration"),
+    "the readiness self-test slice must end at the current job boundary"
+  );
 });
 
 test("new parent-domain tests trip the explicit manifest instead of being silently skipped", async () => {

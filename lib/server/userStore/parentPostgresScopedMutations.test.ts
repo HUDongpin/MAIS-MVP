@@ -413,9 +413,15 @@ function fakePostgres(options: FakeSqlOptions) {
     if (text.includes("parent_message_create_scope")) return options.createRow ? [options.createRow] : [];
     if (text.includes("parent_message_reply_scope")) return options.replyRow ? [options.replyRow] : [];
     if (text.includes("parent_notice_ack_scope")) return options.ackRow ? [options.ackRow] : [];
-    if (text.includes("parent_state_scope_lock")) {
+    if (text.includes("parent_storage_capability_test")) {
       if (options.failLock) throw options.failLock;
-      return [{ id: "primary" }];
+      return [{ acquired: true }];
+    }
+    if (text.includes("parent_scoped_mutation_current_revision")) {
+      return [{ revision: 1 + committedStatePatchCount }];
+    }
+    if (text.includes("parent_storage_readiness_advance_test")) {
+      return [{ revision: values[0] }];
     }
     if (text.includes("parent_message_projection_upsert") && options.failProjection) {
       throw new Error("projection unavailable");
@@ -462,6 +468,35 @@ function fakePostgres(options: FakeSqlOptions) {
     beginCount: () => beginCount,
     committedStatePatchCount: () => committedStatePatchCount,
     transactionExitCount: () => transactionExitCount
+  };
+}
+
+function scopedStorageCapabilityDependencies() {
+  const capability = Object.freeze({ testOnlyOpaqueCapability: true });
+  return {
+    acquireStorageMutationCapability: async (sql: ParentPostgresSql) => {
+      const rows = await sql<Array<{ acquired: unknown }>>`
+        /* parent_storage_capability_test */
+        SELECT TRUE AS acquired
+      `;
+      if (rows.length !== 1 || rows[0]?.acquired !== true) {
+        throw new Error("Parent Postgres storage capability is unavailable.");
+      }
+      return capability;
+    },
+    advanceStorageReadinessAfterMutation: async (
+      sql: ParentPostgresSql,
+      receivedCapability: unknown,
+      revision: number
+    ) => {
+      assert.equal(receivedCapability, capability);
+      const rows = await sql<Array<{ revision: unknown }>>`
+        /* parent_storage_readiness_advance_test */
+        SELECT ${revision} AS revision
+      `;
+      assert.equal(rows.length, 1);
+      assert.equal(rows[0]?.revision, revision);
+    }
   };
 }
 
@@ -522,12 +557,13 @@ const stateIdentity = {
   schemaVersion: 1
 };
 
-test("Postgres message create locks an exact state row, patches only message arrays, and upserts one projection", async () => {
+test("Postgres message create follows capability, family scope, patch, projection, revision, readiness order", async () => {
   const database = messageDatabase();
   const fake = fakePostgres({ createRow: messageRow(database) });
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const scope: ParentMessageMutationScope = {
@@ -573,8 +609,6 @@ test("Postgres message create locks an exact state row, patches only message arr
   assert.deepEqual(result, { status: "created" });
   assert.equal(fake.beginCount(), 1);
   assert.ok(fake.statements.every((statement) => statement.activeTransaction));
-  const lockQuery = fake.statements.find((statement) => statement.text.includes("parent_state_scope_lock"));
-  assert.ok(lockQuery?.text.includes("FOR UPDATE"));
   const scopeQuery = fake.statements.find((statement) => statement.text.includes("parent_message_create_scope"));
   assert.doesNotMatch(scopeQuery?.text ?? "", /FOR UPDATE/iu);
   assert.ok(scopeQuery?.text.includes("jsonb_array_elements"));
@@ -603,6 +637,29 @@ test("Postgres message create locks an exact state row, patches only message arr
   assert.match(patch?.text ?? "", /disabled_at/u);
   assert.doesNotMatch(patch?.text ?? "", /password_reset_tokens|auth_users|DELETE FROM|payload\s*=\s*excluded\.payload/iu);
   assert.equal(fake.statements.filter((statement) => statement.text.includes("parent_message_projection_upsert")).length, 1);
+  const capabilityIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_storage_capability_test")
+  ));
+  const scopeIndex = fake.statements.indexOf(scopeQuery as CapturedStatement);
+  const patchIndex = fake.statements.indexOf(patch as CapturedStatement);
+  const projectionIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_message_projection_upsert")
+  ));
+  const revisionIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_scoped_mutation_current_revision")
+  ));
+  const readinessIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_storage_readiness_advance_test")
+  ));
+  assert.ok(
+    capabilityIndex >= 0
+      && scopeIndex > capabilityIndex
+      && patchIndex > scopeIndex
+      && projectionIndex > patchIndex
+      && revisionIndex > projectionIndex
+      && readinessIndex > revisionIndex,
+    "the scoped mutation must preserve capability -> family scope -> patch -> projection -> revision -> readiness order"
+  );
   await verifyScopedTransactionTimeouts();
 });
 
@@ -618,8 +675,20 @@ test("the scoped write hot path never invokes the full-snapshot initializer", as
     /ensureInitialState|ensureInitialPostgresState|postgresDatabasePayload|createInitialDatabase|writePostgresDatabaseWith|syncPostgresProjectionTablesWith/u
   );
   assert.doesNotMatch(source, /\bfetch\s*\(|\bconsole\s*\./u);
+  assert.doesNotMatch(
+    source,
+    /\b(?:FROM|UPDATE|INSERT INTO)\s+(?:app_state|projection_teacher_messages)\b/u,
+    "capability-backed scoped SQL must address the same public relations that the storage protocol attests and locks"
+  );
   assert.match(source, /const result = mutate\(database\);\s*assertSynchronousMutation\(result\);/u);
-  assert.match(userStoreSource, /createParentPostgresScopedMutationAdapter\(\{\s*ensureSchema:/u);
+  assert.match(
+    userStoreSource,
+    /createParentPostgresScopedMutationAdapter\(\{[\s\S]*?acquireStorageMutationCapability:\s*\(sql\)\s*=>\s*acquirePostgresStorageMutationCapability/u
+  );
+  assert.match(
+    userStoreSource,
+    /advanceStorageReadinessAfterMutation:\s*\(sql, capability, currentRevision\)\s*=>[\s\S]*?advancePostgresStorageReadinessAfterMutation/u
+  );
   assert.doesNotMatch(
     userStoreSource,
     /createParentPostgresScopedMutationAdapter\(\{[\s\S]{0,300}ensureInitialState/u
@@ -669,6 +738,7 @@ test("scoped reads defensively discard another family's sentinel records", async
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
 
@@ -709,6 +779,7 @@ test("scoped reads defensively discard another family's sentinel records", async
   const noticeAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => noticeFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   let seenNoticeScope = "";
@@ -758,6 +829,7 @@ test("reply and acknowledgement patch only their scoped records; projection fail
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
 
@@ -828,6 +900,7 @@ test("reply and acknowledgement patch only their scoped records; projection fail
   const failingAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => failing.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   await assert.rejects(
@@ -925,6 +998,7 @@ test("idempotent reply collisions fail closed before a foreign entry reaches the
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const store = createParentMessagePersistenceStore({
@@ -1000,6 +1074,7 @@ test("already-acknowledged recipient and notice collisions fail closed through t
     const adapter = createParentPostgresScopedMutationAdapter({
       ensureSchema: async () => undefined,
       getClient: () => fake.client,
+      ...scopedStorageCapabilityDependencies(),
       state: stateIdentity
     });
     const store = createParentNoticePersistenceStore({
@@ -1086,6 +1161,7 @@ async function verifyScopedTransactionTimeouts() {
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const handler = createParentMessageReplyPostHandler({
@@ -1121,9 +1197,11 @@ async function verifyScopedTransactionTimeouts() {
   const timeoutIndex = fake.statements.findIndex((statement) => (
     statement.text.includes("parent_scoped_mutation_timeouts")
   ));
-  const lockIndex = fake.statements.findIndex((statement) => statement.text.includes("parent_state_scope_lock"));
+  const capabilityIndex = fake.statements.findIndex((statement) => (
+    statement.text.includes("parent_storage_capability_test")
+  ));
   assert.ok(timeoutIndex >= 0, "each scoped transaction must configure transaction-local server timeouts");
-  assert.ok(lockIndex > timeoutIndex, "timeouts must be active before waiting for the app_state row lock");
+  assert.ok(capabilityIndex > timeoutIndex, "timeouts must be active before entering the storage capability lock protocol");
   const timeoutStatement = fake.statements[timeoutIndex];
   assert.match(timeoutStatement?.text ?? "", /set_config\('lock_timeout',[\s\S]*true\)/u);
   assert.match(timeoutStatement?.text ?? "", /set_config\('statement_timeout',[\s\S]*true\)/u);
@@ -1173,6 +1251,7 @@ async function verifyDuplicateBusinessIdsFailClosed() {
   const messageAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => messageFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   await assert.rejects(
@@ -1241,6 +1320,7 @@ async function verifyDuplicateBusinessIdsFailClosed() {
   const recipientCollisionAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => recipientCollisionFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const acknowledge = (adapter: ReturnType<typeof createParentPostgresScopedMutationAdapter>) => (
@@ -1295,6 +1375,7 @@ async function verifyDuplicateBusinessIdsFailClosed() {
   const noticeCollisionAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => noticeCollisionFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   await assert.rejects(
@@ -1322,6 +1403,7 @@ async function verifyRejectedThenableIsConsumed() {
   const adapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => fake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const unhandled: unknown[] = [];
@@ -1384,6 +1466,7 @@ test("replays do not write and missing scoped state fails closed", async () => {
   const replayAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => replayFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const scope = {
@@ -1397,25 +1480,34 @@ test("replays do not write and missing scoped state fails closed", async () => {
   await replayAdapter.readMessageDatabase(scope);
   assert.equal(replayFake.beginCount(), 0, "the rate-limit replay precheck must not open a transaction");
   assert.equal(
-    replayFake.statements.some((statement) => statement.text.includes("parent_state_scope_lock")),
+    replayFake.statements.some((statement) => statement.text.includes("parent_storage_capability_test")),
     false,
-    "the replay precheck must not acquire the global app_state row lock"
+    "the replay precheck must not acquire the mutation capability"
   );
   const replayResult = await replayAdapter.mutateMessageDatabase(scope, () => ({ status: "replayed" as const }));
 
   assert.deepEqual(replayResult, { status: "replayed" });
   assert.equal(replayFake.beginCount(), 1, "the actual mutation must recheck under a transaction");
   assert.equal(
-    replayFake.statements.filter((statement) => statement.text.includes("parent_state_scope_lock")).length,
+    replayFake.statements.filter((statement) => statement.text.includes("parent_storage_capability_test")).length,
     1
   );
   assert.equal(replayFake.statements.some((statement) => statement.text.includes("state_patch")), false);
   assert.equal(replayFake.statements.some((statement) => statement.text.includes("projection_upsert")), false);
+  assert.equal(
+    replayFake.statements.filter((statement) => statement.text.includes("parent_scoped_mutation_current_revision")).length,
+    1
+  );
+  assert.equal(
+    replayFake.statements.filter((statement) => statement.text.includes("parent_storage_readiness_advance_test")).length,
+    1
+  );
 
   const missingFake = fakePostgres({});
   const missingAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => missingFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   await assert.rejects(
@@ -1440,6 +1532,7 @@ test("malformed scoped arrays and asynchronous mutators fail closed before any s
   const malformedAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => malformedFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const scope = {
@@ -1467,6 +1560,7 @@ test("malformed scoped arrays and asynchronous mutators fail closed before any s
   const missingAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => missingFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   await assert.rejects(
@@ -1479,6 +1573,7 @@ test("malformed scoped arrays and asynchronous mutators fail closed before any s
   const asyncAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => asyncFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const asynchronousMutation = (async () => ({ status: "created" as const })) as unknown as (
@@ -1500,6 +1595,7 @@ test("disabled parents are removed from every scoped authorization snapshot and 
   const messageAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => messageFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const messageStore = createParentMessagePersistenceStore({
@@ -1547,6 +1643,7 @@ test("disabled parents are removed from every scoped authorization snapshot and 
   const replyAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => replyFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const replyStore = createParentMessagePersistenceStore({
@@ -1578,6 +1675,7 @@ test("disabled parents are removed from every scoped authorization snapshot and 
   const noticeAdapter = createParentPostgresScopedMutationAdapter({
     ensureSchema: async () => undefined,
     getClient: () => noticeFake.client,
+    ...scopedStorageCapabilityDependencies(),
     state: stateIdentity
   });
   const noticeStore = createParentNoticePersistenceStore({

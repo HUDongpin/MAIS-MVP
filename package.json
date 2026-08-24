@@ -99,6 +99,7 @@
     "teacher-notice-outbox:migrate": "node --import tsx scripts/teacher-notice-outbox-migration.mjs --apply",
     "test:teacher-notice-resend-webhook": "node scripts/run-teacher-notice-resend-webhook-tests.mjs",
     "test:teacher-notice-resend-webhook:postgres": "node --import tsx --test lib/server/userStoreTeacherNoticeResendWebhookPostgresIntegration.test.ts",
+    "test:postgres-readiness": "node --test scripts/run-postgres-readiness-tests.test.mjs && node scripts/run-postgres-readiness-tests.mjs",
     "test:content-safety": "node scripts/run-content-safety-tests.mjs",
     "test:tutor-moderation": "node scripts/run-tutor-moderation-tests.mjs",
     "test:components": "node scripts/run-component-tests.mjs",

@@ -212,6 +212,10 @@ export type AuthAdminStorageHotAuthReadinessSnapshot = AuthAdminStorageHotAuthSu
   counts: AuthAdminStorageHotAuthCounts | null;
 };
 
+export type AuthAdminStorageReadinessOptions = {
+  includeDiagnosticsCounts?: boolean;
+};
+
 type AuthAdminStorageHotAuthBackfillResult =
   | { status: "not-postgres"; provider: "sqlite" }
   | { status: "missing-postgres-url"; provider: "postgres" }
@@ -230,7 +234,9 @@ export type AuthAdminStoragePersistenceStoreDependencies = {
   configuredDbPath: string | null;
   databaseDirectory: string;
   databasePath: string;
-  getHotAuthReadinessSnapshot: () => Promise<AuthAdminStorageHotAuthReadinessSnapshot>;
+  getHotAuthReadinessSnapshot: (
+    options: Required<AuthAdminStorageReadinessOptions>
+  ) => Promise<AuthAdminStorageHotAuthReadinessSnapshot>;
   hotAuthDataLayerSummary: () => AuthAdminStorageHotAuthSummary;
   isVercelRuntime?: () => boolean;
   mutateDatabase: <T>(
@@ -245,7 +251,6 @@ export type AuthAdminStoragePersistenceStoreDependencies = {
   stateRecordId: string;
   stateTenantId: string;
   storageProvider: AuthAdminStorageProvider;
-  verifyPostgresMetadataReadiness: () => Promise<void>;
 };
 
 export type AuthAdminStoragePersistenceStore = ReturnType<typeof createAuthAdminStoragePersistenceStore>;
@@ -444,8 +449,7 @@ export function createAuthAdminStoragePersistenceStore({
   stateKind,
   stateRecordId,
   stateTenantId,
-  storageProvider,
-  verifyPostgresMetadataReadiness
+  storageProvider
 }: AuthAdminStoragePersistenceStoreDependencies) {
   const tenantIdForSchool = (schoolId?: string | null) => schoolId ? `school:${schoolId}` : stateTenantId;
 
@@ -736,7 +740,10 @@ export function createAuthAdminStoragePersistenceStore({
       });
     },
 
-    getStorageReadinessSnapshot: async () => {
+    getStorageReadinessSnapshot: async (
+      options: AuthAdminStorageReadinessOptions = {}
+    ) => {
+      const includeDiagnosticsCounts = options.includeDiagnosticsCounts === true;
       const runtime = isVercelRuntime() ? "vercel" : "local";
       if (storageProvider === "postgres") {
         if (!postgresUrlConfigured) {
@@ -758,10 +765,13 @@ export function createAuthAdminStoragePersistenceStore({
           };
         }
 
+        let hotAuthTables = unavailablePostgresHotAuthReadinessSnapshot();
         try {
-          await verifyPostgresMetadataReadiness();
+          hotAuthTables = await getHotAuthReadinessSnapshot({ includeDiagnosticsCounts });
+          if (hotAuthTables.tablesReady !== true) {
+            throw new Error("Postgres hot-auth tables are unavailable.");
+          }
         } catch {
-          const hotAuthTables = unavailablePostgresHotAuthReadinessSnapshot();
           return {
             generatedAt: now().toISOString(),
             provider: "postgres" as const,
@@ -775,11 +785,10 @@ export function createAuthAdminStoragePersistenceStore({
             databasePath: "postgres://[redacted]",
             databaseDirectory: "postgres://[redacted]",
             usingTmpFallback: false,
-            message: "POSTGRES_URL is configured, but the app could not verify the Postgres app_state table."
+            message: "POSTGRES_URL is configured, but the app could not verify the required Postgres storage metadata."
           };
         }
 
-        const hotAuthTables = await getHotAuthReadinessSnapshot();
         return {
           generatedAt: now().toISOString(),
           provider: "postgres" as const,

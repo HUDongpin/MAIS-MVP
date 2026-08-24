@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 import test from "node:test";
 
-const outboxModulePromise = import("@/lib/server/userStore/teacherNoticeEmailOutboxPersistence")
+const outboxModulePromise = import("./userStore/teacherNoticeEmailOutboxPersistence")
   .catch(() => null) as Promise<Record<string, unknown> | null>;
 
 const fingerprint = (value: string) => createHash("sha256").update(value, "utf8").digest("hex");
@@ -121,6 +121,197 @@ test("PostgreSQL DML transaction configures, locks, attests, then mutates on one
     }
   }), /could not be attested/i);
   assert.equal(mutated, false);
+});
+
+test("PostgreSQL publication takes storage and outbox locks in one global order before capability-backed DML", async () => {
+  const outboxModule = await outboxModulePromise;
+  assert.ok(outboxModule);
+  const runPublicationTransaction = outboxModule.runTeacherNoticeEmailOutboxStorageAttestedTransaction as <
+    Sql,
+    Capability,
+    Result
+  >(input: {
+    sql: Sql;
+    configure: (sql: Sql) => Promise<void>;
+    acquireStorageCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+    acquireOutboxCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+    acquireWebhookSchemaAdvisoryLock?: (sql: Sql) => Promise<void>;
+    acquireProviderMessageAdvisoryLock?: (sql: Sql) => Promise<void>;
+    lockStorageRelations: (sql: Sql) => Promise<void>;
+    lockOutbox: (sql: Sql) => Promise<void>;
+    lockMigrationMarker: (sql: Sql) => Promise<void>;
+    attestOutbox: (sql: Sql) => Promise<boolean>;
+    acquireStorageCapability: (sql: Sql) => Promise<Capability>;
+    operation: (sql: Sql, capability: Capability) => Promise<Result>;
+  }) => Promise<Result>;
+  assert.equal(typeof runPublicationTransaction, "function");
+
+  const transactionSql = { transaction: "same-publication-transaction" };
+  const storageCapability = Object.freeze({ previousRevision: 41 });
+  const order: string[] = [];
+  const step = (label: string) => async (sql: typeof transactionSql) => {
+    assert.equal(sql, transactionSql);
+    order.push(label);
+  };
+  const result = await runPublicationTransaction({
+    sql: transactionSql,
+    configure: step("configure"),
+    acquireStorageCooperativeAdvisoryLock: step("storage-advisory"),
+    acquireOutboxCooperativeAdvisoryLock: step("outbox-advisory"),
+    acquireWebhookSchemaAdvisoryLock: step("webhook-advisory"),
+    acquireProviderMessageAdvisoryLock: step("provider-advisory"),
+    lockStorageRelations: step("storage-relations"),
+    lockOutbox: step("outbox-relation"),
+    lockMigrationMarker: step("outbox-marker"),
+    attestOutbox: async (sql) => {
+      await step("outbox-attestation")(sql);
+      return true;
+    },
+    acquireStorageCapability: async (sql) => {
+      await step("storage-capability")(sql);
+      return storageCapability;
+    },
+    operation: async (sql, capability) => {
+      await step("publication-dml")(sql);
+      assert.equal(capability, storageCapability);
+      return "committed";
+    }
+  });
+
+  assert.equal(result, "committed");
+  assert.deepEqual(order, [
+    "configure",
+    "storage-advisory",
+    "outbox-advisory",
+    "webhook-advisory",
+    "provider-advisory",
+    "storage-relations",
+    "outbox-relation",
+    "outbox-marker",
+    "outbox-attestation",
+    "storage-capability",
+    "publication-dml"
+  ]);
+
+  const claimOrder: string[] = [];
+  const claimStep = (label: string) => async (sql: typeof transactionSql) => {
+    assert.equal(sql, transactionSql);
+    claimOrder.push(label);
+  };
+  assert.equal(await runPublicationTransaction({
+    sql: transactionSql,
+    configure: claimStep("configure"),
+    acquireStorageCooperativeAdvisoryLock: claimStep("storage-advisory"),
+    acquireOutboxCooperativeAdvisoryLock: claimStep("outbox-advisory"),
+    lockStorageRelations: claimStep("storage-relations"),
+    lockOutbox: claimStep("outbox-relation"),
+    lockMigrationMarker: claimStep("outbox-marker"),
+    attestOutbox: async (sql) => {
+      await claimStep("outbox-attestation")(sql);
+      return true;
+    },
+    acquireStorageCapability: async (sql) => {
+      await claimStep("storage-capability-app-state-row")(sql);
+      return storageCapability;
+    },
+    operation: async (sql, capability) => {
+      await claimStep("claim-outbox-row-dml")(sql);
+      assert.equal(capability, storageCapability);
+      return "claimed";
+    }
+  }), "claimed");
+  assert.deepEqual(claimOrder, [
+    "configure",
+    "storage-advisory",
+    "outbox-advisory",
+    "storage-relations",
+    "outbox-relation",
+    "outbox-marker",
+    "outbox-attestation",
+    "storage-capability-app-state-row",
+    "claim-outbox-row-dml"
+  ]);
+
+  let capabilityAcquired = false;
+  let mutated = false;
+  await assert.rejects(runPublicationTransaction({
+    sql: transactionSql,
+    configure: async () => undefined,
+    acquireStorageCooperativeAdvisoryLock: async () => undefined,
+    acquireOutboxCooperativeAdvisoryLock: async () => undefined,
+    lockStorageRelations: async () => undefined,
+    lockOutbox: async () => undefined,
+    lockMigrationMarker: async () => undefined,
+    attestOutbox: async () => false,
+    acquireStorageCapability: async () => {
+      capabilityAcquired = true;
+      return storageCapability;
+    },
+    operation: async () => {
+      mutated = true;
+      return "forbidden";
+    }
+  }), /could not be attested/i);
+  assert.equal(capabilityAcquired, false);
+  assert.equal(mutated, false);
+});
+
+test("publication transaction rolls back state, projections, marker, and outbox on either write failpoint", async () => {
+  const outboxModule = await outboxModulePromise;
+  assert.ok(outboxModule);
+  const runPublicationTransaction = outboxModule.runTeacherNoticeEmailOutboxStorageAttestedTransaction as <
+    Sql,
+    Capability,
+    Result
+  >(input: {
+    sql: Sql;
+    configure: (sql: Sql) => Promise<void>;
+    acquireStorageCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+    acquireOutboxCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+    lockStorageRelations: (sql: Sql) => Promise<void>;
+    lockOutbox: (sql: Sql) => Promise<void>;
+    lockMigrationMarker: (sql: Sql) => Promise<void>;
+    attestOutbox: (sql: Sql) => Promise<boolean>;
+    acquireStorageCapability: (sql: Sql) => Promise<Capability>;
+    operation: (sql: Sql, capability: Capability) => Promise<Result>;
+  }) => Promise<Result>;
+
+  const baseline = {
+    stateRevision: 11,
+    projectionRevision: 11,
+    markerRevision: 11,
+    outboxIds: [] as string[]
+  };
+  for (const failpoint of ["full-writer", "outbox-insert"] as const) {
+    let durable = structuredClone(baseline);
+    const begin = async <Result>(operation: (transaction: typeof durable) => Promise<Result>) => {
+      const transaction = structuredClone(durable);
+      const result = await operation(transaction);
+      durable = transaction;
+      return result;
+    };
+
+    await assert.rejects(begin((transaction) => runPublicationTransaction({
+      sql: transaction,
+      configure: async () => undefined,
+      acquireStorageCooperativeAdvisoryLock: async () => undefined,
+      acquireOutboxCooperativeAdvisoryLock: async () => undefined,
+      lockStorageRelations: async () => undefined,
+      lockOutbox: async () => undefined,
+      lockMigrationMarker: async () => undefined,
+      attestOutbox: async () => true,
+      acquireStorageCapability: async () => ({ previousRevision: transaction.stateRevision }),
+      operation: async () => {
+        transaction.stateRevision += 1;
+        transaction.projectionRevision += 1;
+        transaction.markerRevision += 1;
+        if (failpoint === "full-writer") throw new Error("full-writer failpoint");
+        transaction.outboxIds.push("outbox-1");
+        throw new Error("outbox-insert failpoint");
+      }
+    })), new RegExp(`${failpoint} failpoint`, "u"));
+    assert.deepEqual(durable, baseline, `${failpoint} must roll back every durable surface`);
+  }
 });
 
 function fixtureDatabase() {

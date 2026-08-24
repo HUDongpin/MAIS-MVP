@@ -32,6 +32,12 @@ type ParentPostgresScopedMutationAdapterDependencies = {
   ensureSchema: () => Promise<void>;
   getClient: () => ParentPostgresClient;
   state: ParentPostgresStateIdentity;
+  acquireStorageMutationCapability: (sql: ParentPostgresSql) => Promise<unknown>;
+  advanceStorageReadinessAfterMutation: (
+    sql: ParentPostgresSql,
+    capability: unknown,
+    currentRevision: number
+  ) => Promise<void>;
 };
 
 type ScopedRow = Record<string, unknown>;
@@ -291,32 +297,39 @@ function noticeOtherCollections(database: ParentNoticePersistenceDatabase) {
   };
 }
 
-async function lockParentStateRow(
-  sql: ParentPostgresSql,
-  state: ParentPostgresStateIdentity
-) {
-  const rows = await sql<Array<{ id: string }>>`
-    /* parent_state_scope_lock */
-    SELECT state.id
-    FROM app_state AS state
-    WHERE state.id = ${state.id}
-      AND state.tenant_id = ${state.tenantId}
-      AND state.state_kind = ${state.stateKind}
-      AND state.schema_version = ${state.schemaVersion}
-    FOR UPDATE
-  `;
-  if (rows.length !== 1) {
-    throw new Error("Parent Postgres state marker is unavailable.");
-  }
-}
-
 async function configureParentScopedMutationTimeouts(sql: ParentPostgresSql) {
   await sql`
     /* parent_scoped_mutation_timeouts */
     SELECT
-      set_config('lock_timeout', ${parentScopedMutationLockTimeout}, true),
-      set_config('statement_timeout', ${parentScopedMutationStatementTimeout}, true)
+      pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+      pg_catalog.set_config('lock_timeout', ${parentScopedMutationLockTimeout}, true),
+      pg_catalog.set_config('statement_timeout', ${parentScopedMutationStatementTimeout}, true)
   `;
+}
+
+function parentScopedMutationRevision(value: unknown) {
+  const revision = Number(value);
+  return Number.isSafeInteger(revision) && revision >= 1 ? revision : null;
+}
+
+async function readParentScopedMutationRevision(
+  sql: ParentPostgresSql,
+  state: ParentPostgresStateIdentity
+) {
+  const rows = await sql<Array<{ revision: unknown }>>`
+    /* parent_scoped_mutation_current_revision */
+    SELECT current_state.revision
+    FROM public.app_state AS current_state
+    WHERE current_state.id = ${state.id}
+      AND current_state.tenant_id = ${state.tenantId}
+      AND current_state.state_kind = ${state.stateKind}
+      AND current_state.schema_version = ${state.schemaVersion}
+  `;
+  const revision = parentScopedMutationRevision(rows[0]?.revision);
+  if (rows.length !== 1 || revision === null) {
+    throw new Error("Parent Postgres state marker is unavailable.");
+  }
+  return revision;
 }
 
 async function loadCreateScope(
@@ -329,7 +342,7 @@ async function loadCreateScope(
     /* parent_message_create_scope */
     WITH scoped_state AS (
       SELECT state.payload AS scoped_payload
-      FROM app_state AS state
+      FROM public.app_state AS state
       WHERE state.id = ${state.id}
         AND state.tenant_id = ${state.tenantId}
         AND state.state_kind = ${state.stateKind}
@@ -463,7 +476,7 @@ async function loadReplyScope(
     /* parent_message_reply_scope */
     WITH scoped_state AS (
       SELECT state.payload AS scoped_payload
-      FROM app_state AS state
+      FROM public.app_state AS state
       WHERE state.id = ${state.id}
         AND state.tenant_id = ${state.tenantId}
         AND state.state_kind = ${state.stateKind}
@@ -599,7 +612,7 @@ async function loadAckScope(
     /* parent_notice_ack_scope */
     WITH scoped_state AS (
       SELECT state.payload AS scoped_payload
-      FROM app_state AS state
+      FROM public.app_state AS state
       WHERE state.id = ${state.id}
         AND state.tenant_id = ${state.tenantId}
         AND state.state_kind = ${state.stateKind}
@@ -704,7 +717,7 @@ async function upsertMessageProjection(
 ) {
   await sql`
     /* parent_message_projection_upsert */
-    INSERT INTO projection_teacher_messages (
+    INSERT INTO public.projection_teacher_messages (
       id,
       teacher_id,
       class_id,
@@ -743,7 +756,7 @@ async function patchCreatedMessage(
 ) {
   const rows = await sql<Array<{ id: string }>>`
     /* parent_message_state_patch */
-    UPDATE app_state AS state
+    UPDATE public.app_state AS state
     SET payload = jsonb_set(
           jsonb_set(
             state.payload,
@@ -801,7 +814,7 @@ async function patchMessageReply(
 ) {
   const rows = await sql<Array<{ id: string }>>`
     /* parent_message_state_patch */
-    UPDATE app_state AS state
+    UPDATE public.app_state AS state
     SET payload = jsonb_set(
           jsonb_set(
             state.payload,
@@ -1016,7 +1029,7 @@ async function patchNoticeAck(
 ) {
   const rows = await sql<Array<{ id: string }>>`
     /* parent_notice_state_patch */
-    UPDATE app_state AS state
+    UPDATE public.app_state AS state
     SET payload = jsonb_set(
           jsonb_set(
             state.payload,
@@ -1184,14 +1197,19 @@ async function persistNoticeDelta(
 export function createParentPostgresScopedMutationAdapter({
   ensureSchema,
   getClient,
-  state
+  state,
+  acquireStorageMutationCapability,
+  advanceStorageReadinessAfterMutation
 }: ParentPostgresScopedMutationAdapterDependencies) {
   const transaction = async <T>(operation: (sql: ParentPostgresSql) => Promise<T>) => {
     await ensureSchema();
     return getClient().begin(async (sql) => {
       await configureParentScopedMutationTimeouts(sql);
-      await lockParentStateRow(sql, state);
-      return operation(sql);
+      const capability = await acquireStorageMutationCapability(sql);
+      const result = await operation(sql);
+      const currentRevision = await readParentScopedMutationRevision(sql, state);
+      await advanceStorageReadinessAfterMutation(sql, capability, currentRevision);
+      return result;
     });
   };
 

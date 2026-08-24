@@ -58,7 +58,12 @@ import {
 import {
   isValidQuestionFilter as isValidQuestionFilterFromQuestionFilter
 } from "@/lib/server/userStore/questionFilter";
-import { createPostgresSchemaReadinessGate } from "@/lib/server/userStore/postgresSchemaReadiness";
+import {
+  createPostgresSchemaReadinessGate,
+  PostgresAdvisoryBootstrapContentionError,
+  PostgresAdvisoryMarkerContentionError,
+  runPostgresBootstrapWithContentionRecovery
+} from "@/lib/server/userStore/postgresSchemaReadiness";
 import {
   buildKnowledgeComponents,
   classifyAdaptiveLLMError,
@@ -632,6 +637,7 @@ import {
   resolveTeacherNoticeEmailOutboxRecovery,
   runTeacherNoticeEmailOutboxAtomicMigration,
   runTeacherNoticeEmailOutboxAttestedTransaction,
+  runTeacherNoticeEmailOutboxStorageAttestedTransaction,
   teacherNoticeEmailOutboxCutoffMs,
   teacherNoticeEmailOutboxDeadlineHasAnyTime,
   teacherNoticeEmailOutboxDeadlineHasClaimReserve,
@@ -1997,7 +2003,8 @@ const stateRecordId = "primary";
 const stateTenantId = "platform";
 const stateKind = "app-snapshot";
 const schemaVersion = 1;
-// Increment whenever any SQL in bootstrapPostgresStateTables changes.
+// Increment when the canonical hot-auth schema changes. Storage-readiness
+// attestation has its own contract version below.
 const hotAuthSchemaVersion = 4;
 const hotAuthTableNames = [
   "auth_users",
@@ -2921,6 +2928,703 @@ type StateRow = {
 
 type PostgresExecutor = postgres.Sql | postgres.TransactionSql;
 
+type PostgresReadinessRows = Array<Record<string, unknown>>;
+
+type PostgresReadinessTransaction = (
+  strings: TemplateStringsArray,
+  ...values: unknown[]
+) => PromiseLike<PostgresReadinessRows>;
+
+type PostgresReadinessClient = PostgresReadinessTransaction & {
+  begin<T>(operation: (sql: PostgresReadinessTransaction) => Promise<T>): PromiseLike<T>;
+};
+
+type PostgresReadinessDestroyableClient = PostgresReadinessClient & {
+  end(options: { timeout: number }): PromiseLike<void>;
+};
+
+type PostgresStorageReadinessState = {
+  id: string;
+  tenantId: string;
+  stateKind: string;
+  schemaVersion: number;
+};
+
+const postgresStorageReadinessContractVersion = 1;
+const postgresStorageContractAdvisoryLockKey = "mais-postgres-storage-contract-v1";
+const postgresCapabilityIntegrationBarrierKey = "mais-test-postgres-capability-barrier-v1";
+const productionPostgresMutationLockTimeoutMs = 1_000;
+const productionPostgresMutationStatementTimeoutMs = 5_000;
+const postgresReadinessOperationDeadlineMs = 7_500;
+
+function postgresMutationTransactionTimeouts(
+  environment: Record<string, string | undefined> = process.env
+) {
+  const productionTimeouts = {
+    lockTimeoutMs: productionPostgresMutationLockTimeoutMs,
+    statementTimeoutMs: productionPostgresMutationStatementTimeoutMs
+  };
+  if (environment.NODE_ENV !== "test") return productionTimeouts;
+  const rawLockTimeout = environment.MAIS_TEST_POSTGRES_MUTATION_LOCK_TIMEOUT_MS?.trim() ?? "";
+  const rawStatementTimeout = environment.MAIS_TEST_POSTGRES_MUTATION_STATEMENT_TIMEOUT_MS?.trim() ?? "";
+  if (!/^\d+$/u.test(rawLockTimeout) || !/^\d+$/u.test(rawStatementTimeout)) {
+    return productionTimeouts;
+  }
+  const lockTimeoutMs = Number(rawLockTimeout);
+  const statementTimeoutMs = Number(rawStatementTimeout);
+  return Number.isSafeInteger(lockTimeoutMs)
+    && lockTimeoutMs >= productionPostgresMutationLockTimeoutMs
+    && lockTimeoutMs <= 30_000
+    && Number.isSafeInteger(statementTimeoutMs)
+    && statementTimeoutMs >= productionPostgresMutationStatementTimeoutMs
+    && statementTimeoutMs <= 60_000
+    && statementTimeoutMs > lockTimeoutMs
+    ? { lockTimeoutMs, statementTimeoutMs }
+    : productionTimeouts;
+}
+const postgresStorageReadinessRequiredColumns = [
+  { table: "app_state", column: "id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "tenant_id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "state_kind", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "schema_version", type: "int4", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "revision", type: "int8", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "payload", type: "jsonb", nullable: false, primaryKey: ["id"] },
+  { table: "app_state", column: "updated_at", type: "timestamptz", nullable: false, primaryKey: ["id"] },
+  { table: "app_state_readiness_markers", column: "state_id", type: "text", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "tenant_id", type: "text", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "state_kind", type: "text", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "schema_version", type: "int4", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "state_revision", type: "int8", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "contract_version", type: "int4", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "app_state_readiness_markers", column: "attested_at", type: "timestamptz", nullable: false, primaryKey: ["state_id", "tenant_id", "state_kind", "schema_version"] },
+  { table: "auth_schema_migrations", column: "version", type: "int4", nullable: false, primaryKey: ["version"] },
+  { table: "auth_schema_migrations", column: "applied_at", type: "timestamptz", nullable: false, primaryKey: ["version"] },
+  { table: "ai_tutor_message_journal", column: "id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_message_journal", column: "user_id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_message_journal", column: "created_at", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_message_journal", column: "record", type: "jsonb", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_usage_journal", column: "id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_usage_journal", column: "user_id", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_usage_journal", column: "created_at", type: "text", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_usage_journal", column: "accounted_tokens", type: "float8", nullable: false, primaryKey: ["id"] },
+  { table: "ai_tutor_usage_journal", column: "record", type: "jsonb", nullable: false, primaryKey: ["id"] }
+] as const;
+
+const postgresStorageCanonicalRelationNames = [
+  "app_state",
+  "app_state_readiness_markers",
+  "auth_schema_migrations",
+  "ai_tutor_message_journal",
+  "ai_tutor_usage_journal",
+  ...hotAuthTableNames
+] as const;
+
+type PostgresStorageReadinessCatalogRow = {
+  relation_name: unknown;
+  column_name: unknown;
+  relation_kind: unknown;
+  relation_persistence: unknown;
+  relation_row_security: unknown;
+  relation_force_row_security: unknown;
+  actual_column_name: unknown;
+  actual_type_kind: unknown;
+  actual_type_name: unknown;
+  actual_type_namespace: unknown;
+  actual_type_oid: unknown;
+  actual_is_nullable: unknown;
+  primary_key_columns: unknown;
+  primary_key_constraint_count: unknown;
+  primary_key_deferrable: unknown;
+  primary_key_deferred: unknown;
+  primary_key_index_dependency_exact: unknown;
+  primary_key_index_exact: unknown;
+  primary_key_validated: unknown;
+};
+
+type PostgresStorageInvalidationCatalogRow = {
+  function_dependency_exact: unknown;
+  function_config: unknown;
+  function_language: unknown;
+  function_name: unknown;
+  function_owner_matches_relation: unknown;
+  function_result_type: unknown;
+  function_schema: unknown;
+  function_security_definer: unknown;
+  function_source: unknown;
+  function_volatility: unknown;
+  relation_kind: unknown;
+  relation_dependency_exact: unknown;
+  rewrite_rule_count: unknown;
+  trigger_enabled: unknown;
+  trigger_argument_count: unknown;
+  trigger_arguments_empty: unknown;
+  trigger_definition: unknown;
+  trigger_name: unknown;
+  trigger_type: unknown;
+  trigger_update_columns: unknown;
+};
+
+const postgresStorageInvalidationTriggerName = "app_state_readiness_invalidate";
+const postgresStorageInvalidationFunctionName = "invalidate_app_state_readiness_marker";
+const postgresStorageCompatibilityTriggerName = "app_state_ai_tutor_compatibility";
+const postgresStorageCompatibilityFunctionName = "sync_ai_tutor_compatibility_from_state";
+const postgresStorageCompatibilityFunctionSourceSha256 =
+  "1306f5dabdda23815ef8f255f8c70f5aa72a8395fa0cdf985cd723245510bede";
+const postgresStorageInvalidationTriggerDefinition =
+  "CREATE TRIGGER app_state_readiness_invalidate AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version ON public.app_state FOR EACH ROW EXECUTE FUNCTION invalidate_app_state_readiness_marker()";
+const postgresStorageCompatibilityTriggerDefinition =
+  "CREATE TRIGGER app_state_ai_tutor_compatibility BEFORE INSERT OR UPDATE OF payload ON public.app_state FOR EACH ROW WHEN ((new.id = 'primary'::text)) EXECUTE FUNCTION sync_ai_tutor_compatibility_from_state()";
+const postgresStorageInvalidationUpdateColumns = [
+  "id",
+  "payload",
+  "revision",
+  "tenant_id",
+  "state_kind",
+  "schema_version"
+] as const;
+const postgresStorageCompatibilityUpdateColumns = ["payload"] as const;
+const postgresStorageInvalidationFunctionSource = `
+  BEGIN
+    IF TG_OP = 'UPDATE' THEN
+      DELETE FROM public.app_state_readiness_markers
+      WHERE state_id IN (OLD.id, NEW.id);
+    ELSE
+      DELETE FROM public.app_state_readiness_markers
+      WHERE state_id = NEW.id;
+    END IF;
+    RETURN NEW;
+  END
+`;
+
+const postgresBuiltinTypeOids = {
+  bool: 16,
+  int8: 20,
+  int4: 23,
+  float8: 701,
+  text: 25,
+  timestamptz: 1184,
+  jsonb: 3802
+} as const;
+
+const postgresHotAuthRequiredColumns = [
+  { table: "auth_users", column: "id", type: "text", nullable: false },
+  { table: "auth_users", column: "username", type: "text", nullable: false },
+  { table: "auth_users", column: "normalized_username", type: "text", nullable: false },
+  { table: "auth_users", column: "email", type: "text", nullable: true },
+  { table: "auth_users", column: "normalized_email", type: "text", nullable: true },
+  { table: "auth_users", column: "password_hash", type: "text", nullable: false },
+  { table: "auth_users", column: "password_salt", type: "text", nullable: false },
+  { table: "auth_users", column: "school_id", type: "text", nullable: true },
+  { table: "auth_users", column: "password_must_change", type: "bool", nullable: false },
+  { table: "auth_users", column: "session_revision", type: "int4", nullable: false },
+  { table: "auth_users", column: "disabled_at", type: "text", nullable: true },
+  { table: "auth_users", column: "role", type: "text", nullable: false },
+  { table: "auth_users", column: "created_at", type: "text", nullable: false },
+  { table: "auth_student_profiles", column: "user_id", type: "text", nullable: false },
+  { table: "auth_student_profiles", column: "name", type: "text", nullable: false },
+  { table: "auth_student_profiles", column: "grade", type: "text", nullable: false },
+  { table: "auth_student_profiles", column: "curriculum_track", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "curriculum_region", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "textbook_publisher", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "parent_invite_code", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "avatar_id", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "avatar_image_data_url", type: "text", nullable: true },
+  { table: "auth_student_profiles", column: "avatar_media_object_key", type: "text", nullable: true },
+  { table: "auth_user_settings", column: "user_id", type: "text", nullable: false },
+  { table: "auth_user_settings", column: "language", type: "text", nullable: false },
+  { table: "auth_user_settings", column: "theme", type: "text", nullable: false },
+  { table: "auth_user_settings", column: "selected_grade", type: "text", nullable: false },
+  { table: "auth_user_settings", column: "updated_at", type: "text", nullable: false },
+  { table: "auth_password_reset_tokens", column: "id", type: "text", nullable: false },
+  { table: "auth_password_reset_tokens", column: "user_id", type: "text", nullable: false },
+  { table: "auth_password_reset_tokens", column: "token_hash", type: "text", nullable: false },
+  { table: "auth_password_reset_tokens", column: "expires_at", type: "text", nullable: false },
+  { table: "auth_password_reset_tokens", column: "used_at", type: "text", nullable: true },
+  { table: "auth_password_reset_tokens", column: "created_at", type: "text", nullable: false }
+] as const;
+
+const postgresHotAuthPrimaryKeys = [
+  { table: "auth_users", columns: ["id"] },
+  { table: "auth_student_profiles", columns: ["user_id"] },
+  { table: "auth_user_settings", columns: ["user_id"] },
+  { table: "auth_password_reset_tokens", columns: ["id"] }
+] as const;
+
+type PostgresHotAuthPrimaryKeyContract = {
+  table: string;
+  columns: readonly string[];
+};
+
+function serializePostgresHotAuthPrimaryKeyAllowlist(
+  primaryKeys: readonly PostgresHotAuthPrimaryKeyContract[]
+) {
+  const tableNames = new Set<string>();
+  const normalized: Array<{ table: string; columns: string[] }> = [];
+  for (const entry of primaryKeys) {
+    if (
+      !/^[a-z][a-z0-9_]*$/u.test(entry.table) ||
+      tableNames.has(entry.table) ||
+      !Array.isArray(entry.columns) ||
+      entry.columns.length === 0 ||
+      entry.columns.some((column) => !/^[a-z][a-z0-9_]*$/u.test(column)) ||
+      new Set(entry.columns).size !== entry.columns.length
+    ) {
+      return null;
+    }
+    tableNames.add(entry.table);
+    normalized.push({ table: entry.table, columns: [...entry.columns] });
+  }
+  return normalized.length > 0 ? JSON.stringify(normalized) : null;
+}
+
+function currentPostgresStorageReadinessState(): PostgresStorageReadinessState {
+  return {
+    id: stateRecordId,
+    tenantId: stateTenantId,
+    stateKind,
+    schemaVersion
+  };
+}
+
+async function acquirePostgresStorageContractSharedAdvisoryLock(
+  sql: PostgresReadinessTransaction,
+  markerProbeContentionIsRetryable = false
+) {
+  try {
+    await sql`
+      /* postgres_storage_contract_shared_advisory_lock */
+      SELECT pg_catalog.pg_advisory_xact_lock_shared(
+        pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+      )
+    `;
+  } catch (error) {
+    if (
+      markerProbeContentionIsRetryable
+      && typeof error === "object"
+      && error !== null
+      && "code" in error
+      && (error as { code?: unknown }).code === "55P03"
+    ) {
+      throw new PostgresAdvisoryMarkerContentionError(error);
+    }
+    throw error;
+  }
+}
+
+async function withBoundedPostgresReadinessTransaction<T>(
+  client: PostgresReadinessClient,
+  operation: (sql: PostgresReadinessTransaction) => Promise<T>,
+  markerProbeContentionIsRetryable = false
+) {
+  return client.begin(async (sql) => {
+    await sql`SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY`;
+    await sql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '1000ms', true),
+        pg_catalog.set_config('statement_timeout', '5000ms', true)
+    `;
+    await acquirePostgresStorageContractSharedAdvisoryLock(
+      sql,
+      markerProbeContentionIsRetryable
+    );
+    await sql`
+      /* postgres_storage_readiness_relation_observation_lock */
+      LOCK TABLE
+        public.app_state,
+        public.app_state_readiness_markers,
+        public.auth_schema_migrations,
+        public.ai_tutor_message_journal,
+        public.ai_tutor_usage_journal,
+        public.auth_users,
+        public.auth_student_profiles,
+        public.auth_user_settings,
+        public.auth_password_reset_tokens
+      IN ACCESS SHARE MODE NOWAIT
+    `;
+    const testObservationLockHoldMs = process.env.NODE_ENV === "test"
+      ? Number.parseInt(process.env.MAIS_TEST_POSTGRES_READINESS_OBSERVATION_LOCK_HOLD_MS ?? "0", 10)
+      : 0;
+    if (
+      Number.isInteger(testObservationLockHoldMs)
+      && testObservationLockHoldMs >= 1_000
+      && testObservationLockHoldMs <= 2_000
+    ) {
+      await sql`SELECT pg_catalog.pg_sleep(${testObservationLockHoldMs / 1_000})`;
+    }
+    return operation(sql);
+  });
+}
+
+async function postgresStorageReadinessCatalogIsComplete(sql: PostgresReadinessTransaction) {
+  const rows = await sql`
+    /* postgres_storage_readiness_catalog_probe */
+    WITH required_columns(relation_name, column_name, ordinality) AS (
+      SELECT required.relation_name, required.column_name, required.ordinality
+      FROM unnest(
+        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.table)}::text[],
+        ${postgresStorageReadinessRequiredColumns.map((entry) => entry.column)}::text[]
+      ) WITH ORDINALITY AS required(relation_name, column_name, ordinality)
+    )
+    SELECT
+      required.relation_name,
+      required.column_name,
+      relation.relkind::text AS relation_kind,
+      relation.relpersistence::text AS relation_persistence,
+      relation.relrowsecurity AS relation_row_security,
+      relation.relforcerowsecurity AS relation_force_row_security,
+      attribute.attname::text AS actual_column_name,
+      column_type.typtype::text AS actual_type_kind,
+      column_type.typname::text AS actual_type_name,
+      type_namespace.nspname::text AS actual_type_namespace,
+      attribute.atttypid::integer AS actual_type_oid,
+      CASE
+        WHEN attribute.attname IS NULL THEN NULL
+        ELSE NOT attribute.attnotnull
+      END AS actual_is_nullable,
+      primary_key.primary_key_columns,
+      primary_key.primary_key_constraint_count,
+      primary_key.primary_key_deferrable,
+      primary_key.primary_key_deferred,
+      primary_key.primary_key_index_dependency_exact,
+      primary_key.primary_key_index_exact,
+      primary_key.primary_key_validated
+    FROM required_columns AS required
+    LEFT JOIN pg_catalog.pg_namespace AS namespace
+      ON namespace.nspname = 'public'
+    LEFT JOIN pg_catalog.pg_class AS relation
+      ON relation.relnamespace = namespace.oid
+     AND relation.relname::text = required.relation_name
+    LEFT JOIN pg_catalog.pg_attribute AS attribute
+      ON attribute.attrelid = relation.oid
+     AND attribute.attname::text = required.column_name
+     AND attribute.attnum > 0
+     AND NOT attribute.attisdropped
+    LEFT JOIN pg_catalog.pg_type AS column_type
+      ON column_type.oid = attribute.atttypid
+    LEFT JOIN pg_catalog.pg_namespace AS type_namespace
+      ON type_namespace.oid = column_type.typnamespace
+    LEFT JOIN LATERAL (
+      SELECT
+        array_agg(
+          primary_key_attribute.attname::text
+          ORDER BY primary_key_column.ordinality
+        ) AS primary_key_columns,
+        COUNT(DISTINCT primary_constraint.oid)::integer AS primary_key_constraint_count,
+        bool_or(primary_constraint.condeferrable) AS primary_key_deferrable,
+        bool_or(primary_constraint.condeferred) AS primary_key_deferred,
+        bool_and((
+          SELECT COUNT(*) = 1
+          FROM pg_catalog.pg_depend AS index_dependency
+          WHERE index_dependency.classid = 'pg_catalog.pg_class'::pg_catalog.regclass
+            AND index_dependency.objid = primary_constraint.conindid
+            AND index_dependency.refclassid = 'pg_catalog.pg_constraint'::pg_catalog.regclass
+            AND index_dependency.refobjid = primary_constraint.oid
+            AND index_dependency.deptype = 'i'
+        )) AS primary_key_index_dependency_exact,
+        bool_and(
+          primary_constraint.conindid = primary_index.indexrelid
+          AND primary_index.indrelid = relation.oid
+          AND primary_index.indisprimary
+          AND primary_index.indisunique
+          AND primary_index.indimmediate
+          AND primary_index.indisvalid
+          AND primary_index.indisready
+          AND primary_index.indislive
+          AND primary_index.indpred IS NULL
+          AND primary_index.indexprs IS NULL
+          AND primary_index_relation.relkind = 'i'
+          AND primary_index_relation.relnamespace = relation.relnamespace
+          AND primary_index_access_method.amname = 'btree'
+        ) AS primary_key_index_exact,
+        bool_and(primary_constraint.convalidated) AS primary_key_validated
+      FROM pg_catalog.pg_constraint AS primary_constraint
+      LEFT JOIN pg_catalog.pg_index AS primary_index
+        ON primary_index.indexrelid = primary_constraint.conindid
+      LEFT JOIN pg_catalog.pg_class AS primary_index_relation
+        ON primary_index_relation.oid = primary_constraint.conindid
+      LEFT JOIN pg_catalog.pg_am AS primary_index_access_method
+        ON primary_index_access_method.oid = primary_index_relation.relam
+      CROSS JOIN LATERAL unnest(primary_constraint.conkey) WITH ORDINALITY
+        AS primary_key_column(attribute_number, ordinality)
+      INNER JOIN pg_catalog.pg_attribute AS primary_key_attribute
+        ON primary_key_attribute.attrelid = primary_constraint.conrelid
+       AND primary_key_attribute.attnum = primary_key_column.attribute_number
+       AND primary_key_attribute.attnum > 0
+       AND NOT primary_key_attribute.attisdropped
+      WHERE primary_constraint.conrelid = relation.oid
+        AND primary_constraint.contype = 'p'
+    ) AS primary_key ON TRUE
+    ORDER BY required.ordinality
+  ` as PostgresStorageReadinessCatalogRow[];
+
+  if (rows.length !== postgresStorageReadinessRequiredColumns.length) return false;
+  const rowsByColumn = new Map<string, PostgresStorageReadinessCatalogRow>();
+  for (const row of rows) {
+    if (typeof row.relation_name !== "string" || typeof row.column_name !== "string") return false;
+    const key = `${row.relation_name}\u0000${row.column_name}`;
+    if (rowsByColumn.has(key)) return false;
+    rowsByColumn.set(key, row);
+  }
+
+  return postgresStorageReadinessRequiredColumns.every((required) => {
+    const row = rowsByColumn.get(`${required.table}\u0000${required.column}`);
+    return Boolean(
+      row
+      && row.relation_kind === "r"
+      && row.relation_persistence === "p"
+      && row.relation_row_security === false
+      && row.relation_force_row_security === false
+      && row.actual_column_name === required.column
+      && row.actual_type_name === required.type
+      && row.actual_type_oid === postgresBuiltinTypeOids[required.type]
+      && row.actual_type_namespace === "pg_catalog"
+      && row.actual_type_kind === "b"
+      && row.actual_is_nullable === required.nullable
+      && Array.isArray(row.primary_key_columns)
+      && row.primary_key_constraint_count === 1
+      && row.primary_key_deferrable === false
+      && row.primary_key_deferred === false
+      && row.primary_key_index_dependency_exact === true
+      && row.primary_key_index_exact === true
+      && row.primary_key_columns.length === required.primaryKey.length
+      && row.primary_key_columns.every((column, index) =>
+        typeof column === "string" && column === required.primaryKey[index]
+      )
+      && row.primary_key_validated === true
+    );
+  });
+}
+
+async function postgresStoragePhysicalRelationsAreCanonical(
+  sql: PostgresReadinessTransaction
+) {
+  const rows = await sql`
+    /* postgres_storage_bootstrap_physical_relation_probe */
+    SELECT
+      relation.relname::text AS relation_name,
+      relation.relkind::text AS relation_kind,
+      relation.relpersistence::text AS relation_persistence,
+      relation.relrowsecurity AS relation_row_security,
+      relation.relforcerowsecurity AS relation_force_row_security
+    FROM pg_catalog.pg_namespace AS namespace
+    INNER JOIN pg_catalog.pg_class AS relation
+      ON relation.relnamespace = namespace.oid
+    WHERE namespace.nspname = 'public'
+      AND relation.relname::text = ANY(${[...postgresStorageCanonicalRelationNames]}::text[])
+  ` as Array<{
+    relation_name: unknown;
+    relation_kind: unknown;
+    relation_persistence: unknown;
+    relation_row_security: unknown;
+    relation_force_row_security: unknown;
+  }>;
+  if (rows.length !== postgresStorageCanonicalRelationNames.length) return false;
+  const rowsByName = new Map(rows.map((row) => [row.relation_name, row]));
+  return postgresStorageCanonicalRelationNames.every((relationName) => {
+    const row = rowsByName.get(relationName);
+    return Boolean(
+      row
+      && row.relation_kind === "r"
+      && row.relation_persistence === "p"
+      && row.relation_row_security === false
+      && row.relation_force_row_security === false
+    );
+  });
+}
+
+function normalizedPostgresDefinition(value: unknown) {
+  return typeof value === "string" ? value.replace(/\s+/gu, " ").trim() : null;
+}
+
+async function postgresStorageReadinessInvalidationIsComplete(
+  sql: PostgresReadinessTransaction
+) {
+  const rows = await sql`
+    /* postgres_storage_readiness_invalidation_probe */
+    SELECT
+      relation.relkind::text AS relation_kind,
+      (
+        SELECT COUNT(*)::integer
+        FROM pg_catalog.pg_rewrite AS rewrite_rule
+        WHERE rewrite_rule.ev_class = relation.oid
+      ) AS rewrite_rule_count,
+      trigger.tgname::text AS trigger_name,
+      trigger.tgenabled::text AS trigger_enabled,
+      trigger.tgtype::integer AS trigger_type,
+      pg_catalog.pg_get_triggerdef(trigger.oid, false) AS trigger_definition,
+      trigger.tgnargs::integer AS trigger_argument_count,
+      pg_catalog.octet_length(trigger.tgargs) = 0 AS trigger_arguments_empty,
+      ARRAY(
+        SELECT trigger_attribute.attname::text
+        FROM unnest(trigger.tgattr::smallint[]) WITH ORDINALITY
+          AS trigger_column(attribute_number, ordinality)
+        INNER JOIN pg_catalog.pg_attribute AS trigger_attribute
+          ON trigger_attribute.attrelid = relation.oid
+         AND trigger_attribute.attnum = trigger_column.attribute_number
+         AND trigger_attribute.attnum > 0
+         AND NOT trigger_attribute.attisdropped
+        ORDER BY trigger_column.ordinality
+      ) AS trigger_update_columns,
+      function_namespace.nspname::text AS function_schema,
+      trigger_function.proname::text AS function_name,
+      pg_catalog.format_type(trigger_function.prorettype, NULL) AS function_result_type,
+      function_language.lanname::text AS function_language,
+      trigger_function.prosecdef AS function_security_definer,
+      trigger_function.provolatile::text AS function_volatility,
+      trigger_function.proconfig AS function_config,
+      trigger_function.prosrc AS function_source,
+      trigger_function.proowner = relation.relowner AS function_owner_matches_relation,
+      (
+        SELECT COUNT(*) = 1
+        FROM pg_catalog.pg_depend AS function_dependency
+        WHERE function_dependency.classid = 'pg_catalog.pg_trigger'::pg_catalog.regclass
+          AND function_dependency.objid = trigger.oid
+          AND function_dependency.refclassid = 'pg_catalog.pg_proc'::pg_catalog.regclass
+          AND function_dependency.refobjid = trigger.tgfoid
+          AND function_dependency.deptype = 'n'
+      ) AS function_dependency_exact,
+      (
+        SELECT COUNT(*) = 1
+        FROM pg_catalog.pg_depend AS relation_dependency
+        WHERE relation_dependency.classid = 'pg_catalog.pg_trigger'::pg_catalog.regclass
+          AND relation_dependency.objid = trigger.oid
+          AND relation_dependency.refclassid = 'pg_catalog.pg_class'::pg_catalog.regclass
+          AND relation_dependency.refobjid = relation.oid
+          AND relation_dependency.deptype = 'a'
+      ) AS relation_dependency_exact
+    FROM pg_catalog.pg_namespace AS namespace
+    INNER JOIN pg_catalog.pg_class AS relation
+      ON relation.relnamespace = namespace.oid
+     AND relation.relname = 'app_state'
+    LEFT JOIN pg_catalog.pg_trigger AS trigger
+      ON trigger.tgrelid = relation.oid
+     AND NOT trigger.tgisinternal
+    LEFT JOIN pg_catalog.pg_proc AS trigger_function
+      ON trigger_function.oid = trigger.tgfoid
+    LEFT JOIN pg_catalog.pg_namespace AS function_namespace
+      ON function_namespace.oid = trigger_function.pronamespace
+    LEFT JOIN pg_catalog.pg_language AS function_language
+      ON function_language.oid = trigger_function.prolang
+    WHERE namespace.nspname = 'public'
+  ` as PostgresStorageInvalidationCatalogRow[];
+
+  if (rows.length !== 2) return false;
+  const rowsByTrigger = new Map<string, PostgresStorageInvalidationCatalogRow>();
+  for (const row of rows) {
+    if (typeof row.trigger_name !== "string" || rowsByTrigger.has(row.trigger_name)) return false;
+    rowsByTrigger.set(row.trigger_name, row);
+  }
+  const invalidation = rowsByTrigger.get(postgresStorageInvalidationTriggerName);
+  const compatibility = rowsByTrigger.get(postgresStorageCompatibilityTriggerName);
+  const commonTriggerContractIsComplete = (
+    row: PostgresStorageInvalidationCatalogRow | undefined
+  ) => Boolean(
+    row
+    && (row.relation_kind === "r" || row.relation_kind === "p")
+    && row.rewrite_rule_count === 0
+    && row.trigger_enabled === "O"
+    && row.trigger_argument_count === 0
+    && row.trigger_arguments_empty === true
+    && row.function_schema === "public"
+    && row.function_result_type === "trigger"
+    && row.function_language === "plpgsql"
+    && row.function_security_definer === false
+    && row.function_volatility === "v"
+    && row.function_owner_matches_relation === true
+    && row.function_dependency_exact === true
+    && row.relation_dependency_exact === true
+    && Array.isArray(row.function_config)
+    && row.function_config.length === 1
+    && row.function_config[0] === "search_path=pg_catalog, public"
+  );
+  if (!commonTriggerContractIsComplete(invalidation)) return false;
+  if (!commonTriggerContractIsComplete(compatibility)) return false;
+  return Boolean(
+    invalidation
+    && invalidation.trigger_name === postgresStorageInvalidationTriggerName
+    && invalidation.trigger_type === 21
+    && normalizedPostgresDefinition(invalidation.trigger_definition)
+      === postgresStorageInvalidationTriggerDefinition
+    && Array.isArray(invalidation.trigger_update_columns)
+    && invalidation.trigger_update_columns.length === postgresStorageInvalidationUpdateColumns.length
+    && invalidation.trigger_update_columns.every((column, index) =>
+      column === postgresStorageInvalidationUpdateColumns[index]
+    )
+    && invalidation.function_name === postgresStorageInvalidationFunctionName
+    && normalizedPostgresDefinition(invalidation.function_source)
+      === normalizedPostgresDefinition(postgresStorageInvalidationFunctionSource)
+    && compatibility
+    && compatibility.trigger_name === postgresStorageCompatibilityTriggerName
+    && compatibility.trigger_type === 23
+    && normalizedPostgresDefinition(compatibility.trigger_definition)
+      === postgresStorageCompatibilityTriggerDefinition
+    && Array.isArray(compatibility.trigger_update_columns)
+    && compatibility.trigger_update_columns.length === postgresStorageCompatibilityUpdateColumns.length
+    && compatibility.trigger_update_columns.every((column, index) =>
+      column === postgresStorageCompatibilityUpdateColumns[index]
+    )
+    && compatibility.function_name === postgresStorageCompatibilityFunctionName
+    && typeof compatibility.function_source === "string"
+    && createHash("sha256")
+      .update(normalizedPostgresDefinition(compatibility.function_source) ?? "")
+      .digest("hex") === postgresStorageCompatibilityFunctionSourceSha256
+  );
+}
+
+async function postgresStorageReadinessMarkerIsCurrent(
+  sql: PostgresReadinessTransaction,
+  state: PostgresStorageReadinessState
+) {
+  const rows = await sql`
+    /* postgres_storage_readiness_marker_probe */
+    SELECT EXISTS (
+      SELECT 1
+      FROM public.app_state AS state
+      INNER JOIN public.app_state_readiness_markers AS marker
+        ON marker.state_id = state.id
+       AND marker.tenant_id = state.tenant_id
+       AND marker.state_kind = state.state_kind
+       AND marker.schema_version = state.schema_version
+       AND marker.state_revision = state.revision
+      WHERE state.id = ${state.id}
+        AND state.tenant_id = ${state.tenantId}
+        AND state.state_kind = ${state.stateKind}
+        AND state.schema_version = ${state.schemaVersion}
+        AND marker.contract_version = ${postgresStorageReadinessContractVersion}
+        AND EXISTS (
+          SELECT 1
+          FROM public.auth_schema_migrations
+          WHERE version = ${hotAuthSchemaVersion}
+        )
+    ) AS ready
+  ` as Array<{ ready: boolean }>;
+  return rows[0]?.ready === true;
+}
+
+export async function probePostgresStorageReadinessStrict(
+  client: PostgresReadinessClient,
+  state: PostgresStorageReadinessState,
+  markerProbeContentionIsRetryable = false
+) {
+  return withBoundedPostgresReadinessTransaction(client, async (sql) => {
+    if (!await postgresStorageReadinessCatalogIsComplete(sql)) return false;
+    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return false;
+    return postgresStorageReadinessMarkerIsCurrent(sql, state);
+  }, markerProbeContentionIsRetryable);
+}
+
+export async function probePostgresStorageReadiness(
+  client: PostgresReadinessClient,
+  state: PostgresStorageReadinessState
+) {
+  try {
+    return await probePostgresStorageReadinessStrict(client, state);
+  } catch {
+    return false;
+  }
+}
+
 type SqliteStateMetadata = {
   revision: number;
   updatedAt: string;
@@ -2928,12 +3632,14 @@ type SqliteStateMetadata = {
 
 let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
+let postgresReadinessClient: postgres.Sql | null = null;
 let aiTutorAuthAdmissionPostgresClient: postgres.Sql | null = null;
 let aiTutorPolicyAdmissionPostgresClient: postgres.Sql | null = null;
 let aiTutorRateAdmissionPostgresClient: postgres.Sql | null = null;
 const aiTutorAuthAdmissionSlot = createAbortableAuthAdmissionSlot();
 const aiTutorPolicyAdmissionSlot = createAbortableAuthAdmissionSlot();
 const aiTutorRateAdmissionSlot = createAbortableAuthAdmissionSlot();
+const postgresReadinessSlot = createAbortableAuthAdmissionSlot();
 const aiTutorPersistenceLane = createAiTutorPersistenceLane();
 let sqliteReadCache: Database | null = null;
 let sqliteReadCacheUpdatedAt: string | null = null;
@@ -3242,56 +3948,232 @@ function getPostgresClient() {
   return postgresClient;
 }
 
-async function hasCurrentPostgresSchemaMarker() {
-  const sql = getPostgresClient();
-  const rows = await sql<Array<{ ready: boolean }>>`
-    SELECT (
-      EXISTS (
-        SELECT 1
-        FROM auth_schema_migrations
-        WHERE version = ${hotAuthSchemaVersion}
-      )
-      AND to_regclass('public.app_state') IS NOT NULL
-    ) AS ready
-  `;
+function createPostgresReadinessClient() {
+  if (!postgresUrl) {
+    throw new Error("POSTGRES_URL is required for Postgres storage readiness.");
+  }
+  const readinessUrl = new URL(postgresUrl);
+  readinessUrl.searchParams.delete("statement_timeout");
+  return postgres(readinessUrl.toString(), {
+    max: 1,
+    idle_timeout: 20,
+    connect_timeout: 5,
+    prepare: false,
+    connection: {
+      application_name: "mais-storage-readiness"
+    }
+  });
+}
 
-  return rows[0]?.ready === true;
+function getPostgresReadinessClient() {
+  postgresReadinessClient ??= createPostgresReadinessClient();
+  return postgresReadinessClient;
+}
+
+async function destroyPostgresReadinessClient(
+  client: PostgresReadinessDestroyableClient
+) {
+  if (postgresReadinessClient === client) {
+    postgresReadinessClient = null;
+  }
+  await client.end({ timeout: 0 });
+}
+
+function postgresReadinessAbortError() {
+  return new DOMException("Postgres storage readiness exceeded its deadline.", "AbortError");
+}
+
+async function runAbortBoundedPostgresReadinessOperation<Result>({
+  abortOperation,
+  operation,
+  signal
+}: {
+  abortOperation: () => Promise<unknown> | unknown;
+  operation: () => Promise<Result>;
+  signal: AbortSignal;
+}): Promise<Result> {
+  if (signal.aborted) throw postgresReadinessAbortError();
+
+  let abortRequested = false;
+  let rejectForAbort!: (error: DOMException) => void;
+  const aborted = new Promise<never>((_resolve, reject) => {
+    rejectForAbort = reject;
+  });
+  const onAbort = () => {
+    if (abortRequested) return;
+    abortRequested = true;
+    void Promise.resolve()
+      .then(abortOperation)
+      .catch(() => undefined)
+      .then(() => rejectForAbort(postgresReadinessAbortError()));
+  };
+  signal.addEventListener("abort", onAbort, { once: true });
+  if (signal.aborted) onAbort();
+
+  let operationResult: Promise<Result>;
+  try {
+    operationResult = Promise.resolve(operation());
+  } catch (error) {
+    signal.removeEventListener("abort", onAbort);
+    if (signal.aborted) return aborted;
+    throw error;
+  }
+  void operationResult.catch(() => undefined);
+
+  try {
+    const result = await Promise.race([operationResult, aborted]);
+    if (signal.aborted) return aborted;
+    return result;
+  } catch (error) {
+    if (signal.aborted) return aborted;
+    throw error;
+  } finally {
+    signal.removeEventListener("abort", onAbort);
+  }
+}
+
+async function runPostgresDurableReadinessWithinDeadline(
+  includeDiagnosticsCounts = false
+) {
+  const signal = AbortSignal.timeout(postgresReadinessOperationDeadlineMs);
+  return postgresReadinessSlot.run(signal, async () => {
+    const client = getPostgresReadinessClient() as unknown as PostgresReadinessDestroyableClient;
+    return runAbortBoundedPostgresReadinessOperation({
+      abortOperation: () => destroyPostgresReadinessClient(client),
+      operation: async () => {
+        const durableReady = await probePostgresDurableReadinessStrict(
+          client,
+          currentPostgresStorageReadinessState()
+        );
+        if (!durableReady) return { counts: null, durableReady: false as const };
+        return {
+          counts: includeDiagnosticsCounts
+            ? await countPostgresHotAuthRowsForAdminDiagnostics(client)
+            : null,
+          durableReady: true as const
+        };
+      },
+      signal
+    });
+  });
+}
+
+async function hasCurrentPostgresSchemaMarker() {
+  return probePostgresStorageReadinessStrict(
+    getPostgresClient() as unknown as PostgresReadinessClient,
+    currentPostgresStorageReadinessState(),
+    true
+  );
 }
 
 async function bootstrapPostgresStateTables() {
   const sql = getPostgresClient();
   return sql.begin(async (migrationSql) => {
-    await migrationSql`SELECT pg_advisory_xact_lock(hashtextextended('mais-ai-tutor-schema-v3', 0))`;
     await migrationSql`
-      CREATE TABLE IF NOT EXISTS app_state (
-        id TEXT PRIMARY KEY,
-        tenant_id TEXT NOT NULL DEFAULT 'platform',
-        state_kind TEXT NOT NULL DEFAULT 'app-snapshot',
-        schema_version INTEGER NOT NULL,
-        revision BIGINT NOT NULL DEFAULT 0,
-        payload JSONB NOT NULL,
-        updated_at TIMESTAMPTZ NOT NULL
-      )
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '1000ms', true),
+        pg_catalog.set_config('statement_timeout', '5000ms', true)
     `;
-      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS tenant_id TEXT NOT NULL DEFAULT 'platform'`;
-      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS state_kind TEXT NOT NULL DEFAULT 'app-snapshot'`;
-      await migrationSql`ALTER TABLE app_state ADD COLUMN IF NOT EXISTS revision BIGINT NOT NULL DEFAULT 0`;
+    try {
+      await migrationSql`
+        /* postgres_storage_contract_exclusive_advisory_lock */
+        SELECT pg_catalog.pg_advisory_xact_lock(
+          pg_catalog.hashtextextended(${postgresStorageContractAdvisoryLockKey}, 0)
+        )
+      `;
+    } catch (error) {
+      if (
+        typeof error === "object"
+        && error !== null
+        && "code" in error
+        && (error as { code?: unknown }).code === "55P03"
+      ) {
+        throw new PostgresAdvisoryBootstrapContentionError(error);
+      }
+      throw error;
+    }
+    const testLockHoldMs = process.env.NODE_ENV === "test"
+      ? Number.parseInt(process.env.MAIS_TEST_POSTGRES_BOOTSTRAP_LOCK_HOLD_MS ?? "0", 10)
+      : 0;
+    if (Number.isInteger(testLockHoldMs) && testLockHoldMs >= 1_000 && testLockHoldMs <= 2_000) {
+      // Integration-only contention hook. The harness observes pg_locks before
+      // starting the competing process, so this is a deliberate hold rather
+      // than timing-based coordination.
+      await migrationSql`SELECT pg_catalog.pg_sleep(${testLockHoldMs / 1_000})`;
+    }
+      await migrationSql`
+        CREATE TABLE IF NOT EXISTS public.app_state (
+          id TEXT PRIMARY KEY,
+          tenant_id TEXT NOT NULL DEFAULT 'platform',
+          state_kind TEXT NOT NULL DEFAULT 'app-snapshot',
+          schema_version INTEGER NOT NULL,
+          revision BIGINT NOT NULL DEFAULT 0,
+          payload JSONB NOT NULL,
+          updated_at TIMESTAMPTZ NOT NULL
+        )
+      `;
+      await migrationSql`ALTER TABLE public.app_state ADD COLUMN IF NOT EXISTS tenant_id TEXT NOT NULL DEFAULT 'platform'`;
+      await migrationSql`ALTER TABLE public.app_state ADD COLUMN IF NOT EXISTS state_kind TEXT NOT NULL DEFAULT 'app-snapshot'`;
+      await migrationSql`ALTER TABLE public.app_state ADD COLUMN IF NOT EXISTS revision BIGINT NOT NULL DEFAULT 0`;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS app_state_updated_at_idx
-          ON app_state(updated_at)
+          ON public.app_state(updated_at)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS app_state_tenant_kind_updated_at_idx
-          ON app_state(tenant_id, state_kind, updated_at)
+          ON public.app_state(tenant_id, state_kind, updated_at)
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS auth_schema_migrations (
+        CREATE TABLE IF NOT EXISTS public.auth_schema_migrations (
           version INTEGER PRIMARY KEY,
           applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS auth_users (
+        CREATE TABLE IF NOT EXISTS public.app_state_readiness_markers (
+          state_id TEXT NOT NULL,
+          tenant_id TEXT NOT NULL,
+          state_kind TEXT NOT NULL,
+          schema_version INTEGER NOT NULL,
+          state_revision BIGINT NOT NULL,
+          contract_version INTEGER NOT NULL,
+          attested_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+          PRIMARY KEY (state_id, tenant_id, state_kind, schema_version)
+        )
+      `;
+      await migrationSql`
+        CREATE OR REPLACE FUNCTION public.invalidate_app_state_readiness_marker()
+        RETURNS trigger
+        LANGUAGE plpgsql
+        VOLATILE
+        SECURITY INVOKER
+        SET search_path = pg_catalog, public
+        AS $mais_readiness$
+        BEGIN
+          IF TG_OP = 'UPDATE' THEN
+            DELETE FROM public.app_state_readiness_markers
+            WHERE state_id IN (OLD.id, NEW.id);
+          ELSE
+            DELETE FROM public.app_state_readiness_markers
+            WHERE state_id = NEW.id;
+          END IF;
+          RETURN NEW;
+        END
+        $mais_readiness$
+      `;
+      await migrationSql`
+        DROP TRIGGER IF EXISTS app_state_readiness_invalidate ON public.app_state
+      `;
+      await migrationSql`
+        CREATE TRIGGER app_state_readiness_invalidate
+        AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version
+        ON public.app_state
+        FOR EACH ROW
+        EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
+      `;
+      await migrationSql`
+        CREATE TABLE IF NOT EXISTS public.auth_users (
           id TEXT PRIMARY KEY,
           username TEXT NOT NULL,
           normalized_username TEXT NOT NULL,
@@ -3307,10 +4189,10 @@ async function bootstrapPostgresStateTables() {
           created_at TEXT NOT NULL
         )
       `;
-      await migrationSql`ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS session_revision INTEGER NOT NULL DEFAULT 1`;
-      await migrationSql`ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS disabled_at TEXT`;
+      await migrationSql`ALTER TABLE public.auth_users ADD COLUMN IF NOT EXISTS session_revision INTEGER NOT NULL DEFAULT 1`;
+      await migrationSql`ALTER TABLE public.auth_users ADD COLUMN IF NOT EXISTS disabled_at TEXT`;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS auth_student_profiles (
+        CREATE TABLE IF NOT EXISTS public.auth_student_profiles (
           user_id TEXT PRIMARY KEY,
           name TEXT NOT NULL,
           grade TEXT NOT NULL,
@@ -3324,7 +4206,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS auth_user_settings (
+        CREATE TABLE IF NOT EXISTS public.auth_user_settings (
           user_id TEXT PRIMARY KEY,
           language TEXT NOT NULL,
           theme TEXT NOT NULL,
@@ -3333,7 +4215,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS auth_password_reset_tokens (
+        CREATE TABLE IF NOT EXISTS public.auth_password_reset_tokens (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           token_hash TEXT NOT NULL,
@@ -3344,37 +4226,37 @@ async function bootstrapPostgresStateTables() {
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_users_normalized_username_idx
-          ON auth_users(normalized_username)
+          ON public.auth_users(normalized_username)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_users_normalized_email_idx
-          ON auth_users(normalized_email)
+          ON public.auth_users(normalized_email)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_student_profiles_user_id_idx
-          ON auth_student_profiles(user_id)
+          ON public.auth_student_profiles(user_id)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_user_settings_user_id_idx
-          ON auth_user_settings(user_id)
+          ON public.auth_user_settings(user_id)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_password_reset_tokens_token_hash_idx
-          ON auth_password_reset_tokens(token_hash)
+          ON public.auth_password_reset_tokens(token_hash)
       `;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS auth_password_reset_tokens_expiry_idx
-          ON auth_password_reset_tokens(expires_at, used_at)
+          ON public.auth_password_reset_tokens(expires_at, used_at)
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_users (
+        CREATE TABLE IF NOT EXISTS public.projection_users (
           id TEXT PRIMARY KEY,
           role TEXT NOT NULL,
           record JSONB NOT NULL
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_student_profiles (
+        CREATE TABLE IF NOT EXISTS public.projection_student_profiles (
           user_id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
           curriculum_track TEXT,
@@ -3384,7 +4266,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_user_settings (
+        CREATE TABLE IF NOT EXISTS public.projection_user_settings (
           user_id TEXT PRIMARY KEY,
           selected_grade TEXT NOT NULL,
           updated_at TEXT NOT NULL,
@@ -3392,7 +4274,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_topics (
+        CREATE TABLE IF NOT EXISTS public.projection_topics (
           id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
           curriculum_track TEXT NOT NULL,
@@ -3403,7 +4285,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_questions (
+        CREATE TABLE IF NOT EXISTS public.projection_questions (
           id TEXT PRIMARY KEY,
           grade TEXT NOT NULL,
           topic_id TEXT NOT NULL,
@@ -3414,7 +4296,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_attempts (
+        CREATE TABLE IF NOT EXISTS public.projection_attempts (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           question_id TEXT NOT NULL,
@@ -3423,7 +4305,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_mistake_book_items (
+        CREATE TABLE IF NOT EXISTS public.projection_mistake_book_items (
           user_id TEXT NOT NULL,
           question_id TEXT NOT NULL,
           mastered BOOLEAN NOT NULL DEFAULT FALSE,
@@ -3433,7 +4315,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_learning_events (
+        CREATE TABLE IF NOT EXISTS public.projection_learning_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           type TEXT NOT NULL,
@@ -3446,7 +4328,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_lesson_progress (
+        CREATE TABLE IF NOT EXISTS public.projection_lesson_progress (
           user_id TEXT NOT NULL,
           topic_id TEXT NOT NULL,
           lesson_slug TEXT,
@@ -3457,7 +4339,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_visualization_events (
+        CREATE TABLE IF NOT EXISTS public.projection_visualization_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           topic_id TEXT NOT NULL,
@@ -3467,7 +4349,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_visualization_sessions (
+        CREATE TABLE IF NOT EXISTS public.projection_visualization_sessions (
           user_id TEXT NOT NULL,
           module_id TEXT NOT NULL,
           topic_id TEXT NOT NULL,
@@ -3480,7 +4362,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_school_memberships (
+        CREATE TABLE IF NOT EXISTS public.projection_school_memberships (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           class_id TEXT,
@@ -3489,7 +4371,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_teacher_classes (
+        CREATE TABLE IF NOT EXISTS public.projection_teacher_classes (
           id TEXT PRIMARY KEY,
           teacher_id TEXT NOT NULL,
           school_id TEXT,
@@ -3499,7 +4381,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_class_enrollments (
+        CREATE TABLE IF NOT EXISTS public.projection_class_enrollments (
           id TEXT PRIMARY KEY,
           class_id TEXT NOT NULL,
           student_id TEXT NOT NULL,
@@ -3507,13 +4389,13 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_class_ai_tutor_policies (
+        CREATE TABLE IF NOT EXISTS public.projection_class_ai_tutor_policies (
           class_id TEXT PRIMARY KEY,
           record JSONB NOT NULL
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_assignments (
+        CREATE TABLE IF NOT EXISTS public.projection_assignments (
           id TEXT PRIMARY KEY,
           class_id TEXT NOT NULL,
           target_id TEXT,
@@ -3523,7 +4405,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_submissions (
+        CREATE TABLE IF NOT EXISTS public.projection_submissions (
           id TEXT PRIMARY KEY,
           assignment_id TEXT NOT NULL,
           student_id TEXT NOT NULL,
@@ -3533,7 +4415,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_assignment_teacher_reviews (
+        CREATE TABLE IF NOT EXISTS public.projection_assignment_teacher_reviews (
           id TEXT PRIMARY KEY,
           submission_id TEXT NOT NULL,
           reviewed_by TEXT NOT NULL,
@@ -3542,7 +4424,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_teacher_messages (
+        CREATE TABLE IF NOT EXISTS public.projection_teacher_messages (
           id TEXT PRIMARY KEY,
           teacher_id TEXT NOT NULL,
           class_id TEXT,
@@ -3554,7 +4436,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_ai_tutor_messages (
+        CREATE TABLE IF NOT EXISTS public.projection_ai_tutor_messages (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           created_at TEXT NOT NULL,
@@ -3562,7 +4444,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS ai_tutor_message_journal (
+        CREATE TABLE IF NOT EXISTS public.ai_tutor_message_journal (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           created_at TEXT NOT NULL,
@@ -3570,7 +4452,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS ai_tutor_usage_journal (
+        CREATE TABLE IF NOT EXISTS public.ai_tutor_usage_journal (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           created_at TEXT NOT NULL,
@@ -3579,9 +4461,30 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE OR REPLACE FUNCTION sync_ai_tutor_compatibility_from_state()
+        /* postgres_storage_bootstrap_final_relation_lock */
+        LOCK TABLE
+          public.app_state,
+          public.app_state_readiness_markers,
+          public.auth_schema_migrations,
+          public.ai_tutor_message_journal,
+          public.ai_tutor_usage_journal,
+          public.auth_users,
+          public.auth_student_profiles,
+          public.auth_user_settings,
+          public.auth_password_reset_tokens
+        IN SHARE ROW EXCLUSIVE MODE
+      `;
+      if (!await postgresStoragePhysicalRelationsAreCanonical(
+        migrationSql as unknown as PostgresReadinessTransaction
+      )) {
+        throw new Error("Postgres storage readiness is unavailable.");
+      }
+      await migrationSql`
+        CREATE OR REPLACE FUNCTION public.sync_ai_tutor_compatibility_from_state()
         RETURNS trigger
         LANGUAGE plpgsql
+        SECURITY INVOKER
+        SET search_path = pg_catalog, public
         AS $function$
         DECLARE
           class_enrollments_changed BOOLEAN := TRUE;
@@ -3596,11 +4499,8 @@ async function bootstrapPostgresStateTables() {
             RETURN NEW;
           END IF;
 
-          new_state_payload := CASE
-            WHEN jsonb_typeof(NEW.payload) = 'string' THEN (NEW.payload #>> '{}')::jsonb
-            ELSE NEW.payload
-          END;
-          IF jsonb_typeof(new_state_payload) IS DISTINCT FROM 'object' THEN
+          new_state_payload := NEW.payload;
+          IF pg_catalog.jsonb_typeof(new_state_payload) IS DISTINCT FROM 'object' THEN
             RAISE EXCEPTION 'Primary app state payload must be a JSON object.'
               USING ERRCODE = '22023';
           END IF;
@@ -3608,7 +4508,8 @@ async function bootstrapPostgresStateTables() {
 
           IF TG_OP = 'UPDATE' THEN
             old_state_payload := CASE
-              WHEN jsonb_typeof(OLD.payload) = 'string' THEN (OLD.payload #>> '{}')::jsonb
+              WHEN pg_catalog.jsonb_typeof(OLD.payload) = 'string'
+                THEN (OLD.payload #>> '{}')::pg_catalog.jsonb
               ELSE OLD.payload
             END;
             class_enrollments_changed := old_state_payload->'class_enrollments'
@@ -3856,13 +4757,13 @@ async function bootstrapPostgresStateTables() {
       `;
       await migrationSql`
         CREATE OR REPLACE TRIGGER app_state_ai_tutor_compatibility
-        BEFORE INSERT OR UPDATE OF payload ON app_state
+        BEFORE INSERT OR UPDATE OF payload ON public.app_state
         FOR EACH ROW
         WHEN (NEW.id = 'primary')
-        EXECUTE FUNCTION sync_ai_tutor_compatibility_from_state()
+        EXECUTE FUNCTION public.sync_ai_tutor_compatibility_from_state()
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS ai_governance_rate_limit_events (
+        CREATE TABLE IF NOT EXISTS public.ai_governance_rate_limit_events (
           id TEXT PRIMARY KEY,
           user_id TEXT NOT NULL,
           capability TEXT NOT NULL,
@@ -3873,7 +4774,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_reward_point_ledger (
+        CREATE TABLE IF NOT EXISTS public.projection_reward_point_ledger (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
           created_at TEXT NOT NULL,
@@ -3881,7 +4782,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_reward_redemptions (
+        CREATE TABLE IF NOT EXISTS public.projection_reward_redemptions (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
           status TEXT NOT NULL,
@@ -3890,7 +4791,7 @@ async function bootstrapPostgresStateTables() {
         )
       `;
       await migrationSql`
-        CREATE TABLE IF NOT EXISTS projection_gamification_events (
+        CREATE TABLE IF NOT EXISTS public.projection_gamification_events (
           id TEXT PRIMARY KEY,
           student_id TEXT NOT NULL,
           source TEXT NOT NULL,
@@ -3899,51 +4800,56 @@ async function bootstrapPostgresStateTables() {
           record JSONB NOT NULL
         )
       `;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_users_role_idx ON projection_users(role)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_student_profiles_grade_idx ON projection_student_profiles(grade)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_grade_idx ON projection_topics(grade, sort_order)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_curriculum_idx ON projection_topics(curriculum_track, curriculum_region, textbook_publisher, grade, sort_order)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_topic_idx ON projection_questions(topic_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_grade_idx ON projection_questions(grade)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_user_created_at_idx ON projection_attempts(user_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_question_idx ON projection_attempts(question_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_mistake_book_user_last_attempt_idx ON projection_mistake_book_items(user_id, mastered, last_attempt_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_created_at_idx ON projection_learning_events(user_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_topic_created_at_idx ON projection_learning_events(user_id, topic_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_lesson_progress_user_topic_idx ON projection_lesson_progress(user_id, topic_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_events_user_topic_idx ON projection_visualization_events(user_id, topic_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_sessions_user_topic_idx ON projection_visualization_sessions(user_id, topic_id, updated_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_school_memberships_user_class_idx ON projection_school_memberships(user_id, class_id, role)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_classes_teacher_idx ON projection_teacher_classes(teacher_id, updated_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_class_idx ON projection_class_enrollments(class_id, student_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_student_idx ON projection_class_enrollments(student_id, class_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_ai_tutor_policies_class_idx ON projection_class_ai_tutor_policies(class_id)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignments_class_idx ON projection_assignments(class_id, updated_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_assignment_idx ON projection_submissions(assignment_id, updated_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_student_idx ON projection_submissions(student_id, updated_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignment_teacher_reviews_submission_idx ON projection_assignment_teacher_reviews(submission_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_teacher_idx ON projection_teacher_messages(teacher_id, last_message_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_class_idx ON projection_teacher_messages(class_id, last_message_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_ai_tutor_messages_user_idx ON projection_ai_tutor_messages(user_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_message_journal_user_idx ON ai_tutor_message_journal(user_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_usage_journal_user_idx ON ai_tutor_usage_journal(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_users_role_idx ON public.projection_users(role)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_student_profiles_grade_idx ON public.projection_student_profiles(grade)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_grade_idx ON public.projection_topics(grade, sort_order)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_topics_curriculum_idx ON public.projection_topics(curriculum_track, curriculum_region, textbook_publisher, grade, sort_order)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_topic_idx ON public.projection_questions(topic_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_questions_grade_idx ON public.projection_questions(grade)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_user_created_at_idx ON public.projection_attempts(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_attempts_question_idx ON public.projection_attempts(question_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_mistake_book_user_last_attempt_idx ON public.projection_mistake_book_items(user_id, mastered, last_attempt_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_created_at_idx ON public.projection_learning_events(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_learning_events_user_topic_created_at_idx ON public.projection_learning_events(user_id, topic_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_lesson_progress_user_topic_idx ON public.projection_lesson_progress(user_id, topic_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_events_user_topic_idx ON public.projection_visualization_events(user_id, topic_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_visualization_sessions_user_topic_idx ON public.projection_visualization_sessions(user_id, topic_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_school_memberships_user_class_idx ON public.projection_school_memberships(user_id, class_id, role)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_classes_teacher_idx ON public.projection_teacher_classes(teacher_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_class_idx ON public.projection_class_enrollments(class_id, student_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_enrollments_student_idx ON public.projection_class_enrollments(student_id, class_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_class_ai_tutor_policies_class_idx ON public.projection_class_ai_tutor_policies(class_id)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignments_class_idx ON public.projection_assignments(class_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_assignment_idx ON public.projection_submissions(assignment_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_submissions_student_idx ON public.projection_submissions(student_id, updated_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_assignment_teacher_reviews_submission_idx ON public.projection_assignment_teacher_reviews(submission_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_teacher_idx ON public.projection_teacher_messages(teacher_id, last_message_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_teacher_messages_class_idx ON public.projection_teacher_messages(class_id, last_message_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_ai_tutor_messages_user_idx ON public.projection_ai_tutor_messages(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_message_journal_user_idx ON public.ai_tutor_message_journal(user_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS ai_tutor_usage_journal_user_idx ON public.ai_tutor_usage_journal(user_id, created_at DESC)`;
       await migrationSql`
         CREATE INDEX IF NOT EXISTS ai_governance_rate_limit_events_user_capability_idx
-          ON ai_governance_rate_limit_events(user_id, capability, action, created_at ASC)
+          ON public.ai_governance_rate_limit_events(user_id, capability, action, created_at ASC)
       `;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_point_ledger_student_idx ON projection_reward_point_ledger(student_id, created_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_redemptions_student_idx ON projection_reward_redemptions(student_id, requested_at DESC)`;
-      await migrationSql`CREATE INDEX IF NOT EXISTS projection_gamification_events_student_idx ON projection_gamification_events(student_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_point_ledger_student_idx ON public.projection_reward_point_ledger(student_id, created_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_reward_redemptions_student_idx ON public.projection_reward_redemptions(student_id, requested_at DESC)`;
+      await migrationSql`CREATE INDEX IF NOT EXISTS projection_gamification_events_student_idx ON public.projection_gamification_events(student_id, created_at DESC)`;
       await ensureInitialPostgresState(migrationSql);
         await migrationSql`
-          UPDATE app_state
-          SET payload = (payload #>> '{}')::jsonb
+          UPDATE public.app_state
+          SET payload = (payload #>> '{}')::pg_catalog.jsonb
           WHERE id = ${stateRecordId}
-            AND jsonb_typeof(payload) = 'string'
+            AND pg_catalog.jsonb_typeof(payload) = 'string'
+            AND NOT EXISTS (
+              SELECT 1
+              FROM public.auth_schema_migrations
+              WHERE version = ${hotAuthSchemaVersion}
+            )
         `;
         await migrationSql`
           SELECT payload
-          FROM app_state
+          FROM public.app_state
           WHERE id = ${stateRecordId}
           FOR UPDATE OF app_state
         `;
@@ -4355,17 +5261,56 @@ async function bootstrapPostgresStateTables() {
           AND COALESCE(event_record->>'created_at', '') <> ''
         ON CONFLICT (id) DO NOTHING
         `;
+        const readinessSnapshotRows = await migrationSql<Array<{ payload: unknown; revision: unknown }>>`
+          SELECT payload, revision
+          FROM app_state
+          WHERE id = ${stateRecordId}
+            AND tenant_id = ${stateTenantId}
+            AND state_kind = ${stateKind}
+            AND schema_version = ${schemaVersion}
+          FOR UPDATE OF app_state
+        `;
+        const readinessSnapshot = readinessSnapshotRows[0]?.payload;
+        const readinessRevision = safePostgresRevision(readinessSnapshotRows[0]?.revision);
+        const validatedSnapshot = validateCompletePostgresStorageSnapshot(readinessSnapshot);
+        if (readinessSnapshotRows.length !== 1 || readinessRevision === null) {
+          throw new Error("Postgres storage readiness is unavailable.");
+        }
         await migrationSql`
         INSERT INTO auth_schema_migrations (version, applied_at)
         VALUES (${hotAuthSchemaVersion}, NOW())
         ON CONFLICT (version) DO NOTHING
         `;
+        if (!await postgresStorageReadinessCatalogIsComplete(
+          migrationSql as unknown as PostgresReadinessTransaction
+        )) {
+          throw new Error("Postgres storage readiness is unavailable.");
+        }
+        if (!await postgresStorageReadinessInvalidationIsComplete(
+          migrationSql as unknown as PostgresReadinessTransaction
+        )) {
+          throw new Error("Postgres storage readiness is unavailable.");
+        }
+        if (!await postgresHotAuthReadinessCatalogIsComplete(
+          migrationSql as unknown as PostgresReadinessTransaction
+        )) {
+          throw new Error("Postgres storage readiness is unavailable.");
+        }
+        await attestValidatedPostgresStorageSnapshot(
+          migrationSql as unknown as PostgresReadinessTransaction,
+          validatedSnapshot,
+          currentPostgresStorageReadinessState(),
+          readinessRevision
+        );
   });
 }
 
 const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
   readCurrentMarker: hasCurrentPostgresSchemaMarker,
-  bootstrap: bootstrapPostgresStateTables
+  bootstrap: () => runPostgresBootstrapWithContentionRecovery({
+    bootstrap: bootstrapPostgresStateTables,
+    readCurrentMarker: hasCurrentPostgresSchemaMarker
+  })
 });
 
 async function configureTeacherNoticeEmailOutboxPostgresTransaction(
@@ -4453,6 +5398,96 @@ async function runTeacherNoticeEmailOutboxPostgresAttestedTransaction<T>(
   });
 }
 
+async function runTeacherNoticeEmailOutboxPostgresPublicationTransaction<T>(
+  sql: postgres.TransactionSql,
+  {
+    lockTimeout,
+    statementTimeout,
+    idleTransactionTimeout = statementTimeout
+  }: {
+    lockTimeout: string;
+    statementTimeout: string;
+    idleTransactionTimeout?: string;
+  },
+  operation: (
+    sql: postgres.TransactionSql,
+    storageCapability: PostgresStorageMutationCapability
+  ) => Promise<T>,
+  operationKind: "publication" | "claim" = "publication"
+) {
+  return runTeacherNoticeEmailOutboxStorageAttestedTransaction({
+    sql,
+    configure: (transactionSql) => configureTeacherNoticeEmailOutboxPostgresTransaction(transactionSql, {
+      lockTimeout,
+      statementTimeout,
+      idleTransactionTimeout
+    }),
+    acquireStorageCooperativeAdvisoryLock: (transactionSql) =>
+      acquirePostgresStorageContractSharedAdvisoryLock(
+        transactionSql as unknown as PostgresReadinessTransaction
+      ),
+    acquireOutboxCooperativeAdvisoryLock: async (transactionSql) => {
+      await transactionSql`
+        SELECT pg_catalog.pg_advisory_xact_lock_shared(
+          pg_catalog.hashtextextended(${teacherNoticeEmailOutboxPostgresAdvisoryKey}, 0)
+        )
+      `;
+    },
+    lockStorageRelations: async (transactionSql) => {
+      if (process.env.NODE_ENV === "test") {
+        const beforeStorageRelationLock = __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
+          .beforeStorageRelationLock;
+        if (beforeStorageRelationLock) {
+          const backendRows = await transactionSql<Array<{ backend_pid: number }>>`
+            SELECT pg_catalog.pg_backend_pid()::pg_catalog.int4 AS backend_pid
+          `;
+          const backendPid = backendRows[0]?.backend_pid;
+          if (!Number.isInteger(backendPid) || backendPid <= 0) {
+            throw new Error("Teacher notice email outbox test backend identity is unavailable.");
+          }
+          await beforeStorageRelationLock(operationKind, backendPid);
+        }
+      }
+      await lockPostgresStorageMutationRelations(
+        transactionSql as unknown as PostgresReadinessTransaction
+      );
+    },
+    lockOutbox: async (transactionSql) => {
+      await transactionSql`LOCK TABLE public.teacher_notice_email_outbox IN ROW EXCLUSIVE MODE`;
+    },
+    lockMigrationMarker: async (transactionSql) => {
+      await transactionSql`LOCK TABLE public.teacher_notice_email_outbox_schema_migrations IN SHARE MODE`;
+    },
+    attestOutbox: (transactionSql) => hasTeacherNoticeEmailOutboxPostgresSchema(transactionSql, {
+      lockTimeout,
+      statementTimeout,
+      transactionConfigured: true
+    }),
+    acquireStorageCapability: async (transactionSql) => {
+      const capability = await acquirePostgresStorageMutationCapabilityAfterLocks(
+        transactionSql as unknown as PostgresReadinessTransaction,
+        currentPostgresStorageReadinessState()
+      );
+      if (process.env.NODE_ENV === "test") {
+        const afterStorageCapability = __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
+          .afterStorageCapability;
+        if (afterStorageCapability) {
+          const backendRows = await transactionSql<Array<{ backend_pid: number }>>`
+            SELECT pg_catalog.pg_backend_pid()::pg_catalog.int4 AS backend_pid
+          `;
+          const backendPid = backendRows[0]?.backend_pid;
+          if (!Number.isInteger(backendPid) || backendPid <= 0) {
+            throw new Error("Teacher notice email outbox test backend identity is unavailable.");
+          }
+          await afterStorageCapability(operationKind, backendPid);
+        }
+      }
+      return capability;
+    },
+    operation
+  });
+}
+
 async function hasTeacherNoticeEmailOutboxPostgresSchema(
   providedSql?: PostgresExecutor,
   timeouts: {
@@ -4524,7 +5559,7 @@ async function hasTeacherNoticeEmailOutboxPostgresSchema(
           constraint_record.conname AS name,
           constraint_record.contype::pg_catalog.text AS type,
           constraint_record.convalidated AS validated,
-          constraint_record.condeferrable AS deferrable,
+          constraint_record.condeferrable AS "deferrable",
           constraint_record.condeferred AS "initiallyDeferred",
           backing_index.relname AS "backingIndexName",
           constraint_record.conrelid = relation.oid AS "relationOidMatches",
@@ -4721,7 +5756,7 @@ async function hasTeacherNoticeEmailOutboxPostgresSchema(
               'name', name,
               'type', type,
               'validated', validated,
-              'deferrable', deferrable,
+              'deferrable', "deferrable",
               'initiallyDeferred', "initiallyDeferred",
               'backingIndexName', "backingIndexName",
               'relationOidMatches', "relationOidMatches",
@@ -6003,6 +7038,15 @@ async function readLegacyDatabase() {
   }
 }
 
+export const postgresStorageCriticalReadinessCollections = [
+  "guardian_links",
+  "teacher_classes",
+  "teacher_messages",
+  "teacher_message_entries",
+  "teacher_notices",
+  "teacher_notice_recipients"
+] as const satisfies readonly (keyof Database)[];
+
 function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Database) {
   return (
     !Array.isArray(parsed.questions) ||
@@ -6121,6 +7165,372 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
   );
 }
 
+export function postgresStorageSnapshotContractIsComplete(value: unknown) {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  const parsed = value;
+  if (!hasCoreTables(parsed)) return false;
+  if (postgresStorageCriticalReadinessCollections.some((collection) => !Array.isArray(parsed[collection]))) {
+    return false;
+  }
+  try {
+    const database = normalizeDatabase(parsed);
+    return !databaseNeedsPersistenceSync(parsed, database);
+  } catch {
+    return false;
+  }
+}
+
+const validatedPostgresStorageSnapshotBrand = Symbol("validated-postgres-storage-snapshot");
+const postgresStorageMutationCapabilityBrand = Symbol("postgres-storage-mutation-capability");
+
+type ValidatedPostgresStorageSnapshot = Readonly<{
+  [validatedPostgresStorageSnapshotBrand]: true;
+}>;
+
+export type PostgresStorageMutationCapability = Readonly<{
+  [postgresStorageMutationCapabilityBrand]: true;
+  previousRevision: number;
+  state: PostgresStorageReadinessState;
+}>;
+
+function validateCompletePostgresStorageSnapshot(
+  snapshot: unknown
+): ValidatedPostgresStorageSnapshot {
+  if (!postgresStorageSnapshotContractIsComplete(snapshot)) {
+    throw new Error("Postgres storage snapshot is incomplete.");
+  }
+  return Object.freeze({
+    [validatedPostgresStorageSnapshotBrand]: true as const
+  });
+}
+
+function safePostgresRevision(value: unknown) {
+  const revision = Number(value);
+  return Number.isSafeInteger(revision) && revision >= 1 ? revision : null;
+}
+
+async function restorePostgresStorageReadinessMarkerAtRevision(
+  sql: PostgresReadinessTransaction,
+  state: PostgresStorageReadinessState,
+  expectedRevision: number
+) {
+  await sql`
+    DELETE FROM public.app_state_readiness_markers
+    WHERE state_id = ${state.id}
+  `;
+  const rows = await sql`
+    /* postgres_storage_readiness_marker_attestation */
+    INSERT INTO public.app_state_readiness_markers (
+      state_id,
+      tenant_id,
+      state_kind,
+      schema_version,
+      state_revision,
+      contract_version,
+      attested_at
+    )
+    SELECT
+      current_state.id,
+      current_state.tenant_id,
+      current_state.state_kind,
+      current_state.schema_version,
+      current_state.revision,
+      ${postgresStorageReadinessContractVersion},
+      NOW()
+    FROM public.app_state AS current_state
+    WHERE current_state.id = ${state.id}
+      AND current_state.tenant_id = ${state.tenantId}
+      AND current_state.state_kind = ${state.stateKind}
+      AND current_state.schema_version = ${state.schemaVersion}
+      AND current_state.revision = ${expectedRevision}
+    ON CONFLICT (state_id, tenant_id, state_kind, schema_version) DO UPDATE SET
+      state_revision = excluded.state_revision,
+      contract_version = excluded.contract_version,
+      attested_at = excluded.attested_at
+    RETURNING state_revision
+  ` as Array<{ state_revision: unknown }>;
+  if (safePostgresRevision(rows[0]?.state_revision) !== expectedRevision) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+}
+
+async function attestValidatedPostgresStorageSnapshot(
+  sql: PostgresReadinessTransaction,
+  validatedSnapshot: ValidatedPostgresStorageSnapshot,
+  state: PostgresStorageReadinessState,
+  revision: number
+) {
+  if (validatedSnapshot[validatedPostgresStorageSnapshotBrand] !== true) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  await restorePostgresStorageReadinessMarkerAtRevision(sql, state, revision);
+}
+
+export async function attestCompletePostgresStorageSnapshot(
+  sql: PostgresReadinessTransaction,
+  snapshot: unknown,
+  state: PostgresStorageReadinessState
+) {
+  const validatedSnapshot = validateCompletePostgresStorageSnapshot(snapshot);
+  const rows = await sql`
+    /* postgres_storage_readiness_complete_snapshot_revision */
+    SELECT current_state.revision
+    FROM public.app_state AS current_state
+    WHERE current_state.id = ${state.id}
+      AND current_state.tenant_id = ${state.tenantId}
+      AND current_state.state_kind = ${state.stateKind}
+      AND current_state.schema_version = ${state.schemaVersion}
+    FOR UPDATE OF current_state
+  ` as Array<{ revision: unknown }>;
+  const revision = safePostgresRevision(rows[0]?.revision);
+  if (rows.length !== 1 || revision === null) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  await attestValidatedPostgresStorageSnapshot(sql, validatedSnapshot, state, revision);
+}
+
+async function lockPostgresStorageMutationRelations(
+  sql: PostgresReadinessTransaction
+) {
+  await sql`
+    /* postgres_storage_readiness_relation_lock */
+    LOCK TABLE
+      public.app_state,
+      public.app_state_readiness_markers,
+      public.auth_schema_migrations,
+      public.ai_tutor_message_journal,
+      public.ai_tutor_usage_journal,
+      public.auth_users,
+      public.auth_student_profiles,
+      public.auth_user_settings,
+      public.auth_password_reset_tokens
+    IN SHARE ROW EXCLUSIVE MODE
+  `;
+}
+
+async function acquirePostgresStorageMutationCapabilityAfterLocks(
+  sql: PostgresReadinessTransaction,
+  state: PostgresStorageReadinessState
+) : Promise<PostgresStorageMutationCapability> {
+  const lockedRows = await sql`
+    /* postgres_storage_readiness_state_lock */
+    SELECT current_state.revision
+    FROM public.app_state AS current_state
+    WHERE current_state.id = ${state.id}
+      AND current_state.tenant_id = ${state.tenantId}
+      AND current_state.state_kind = ${state.stateKind}
+      AND current_state.schema_version = ${state.schemaVersion}
+    FOR UPDATE OF current_state
+  ` as Array<{ revision: unknown }>;
+  const previousRevision = safePostgresRevision(lockedRows[0]?.revision);
+  if (lockedRows.length !== 1 || previousRevision === null) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  const testStateLockHoldMs = process.env.NODE_ENV === "test"
+    ? Number.parseInt(process.env.MAIS_TEST_POSTGRES_CAPABILITY_STATE_LOCK_HOLD_MS ?? "0", 10)
+    : 0;
+  if (
+    Number.isInteger(testStateLockHoldMs)
+    && testStateLockHoldMs >= 1_000
+    && testStateLockHoldMs <= 2_000
+  ) {
+    await sql`SELECT pg_catalog.pg_sleep(${testStateLockHoldMs / 1_000})`;
+  }
+  if (
+    process.env.NODE_ENV === "test"
+    && process.env.MAIS_TEST_POSTGRES_CAPABILITY_BARRIER === "true"
+  ) {
+    await sql`
+      /* postgres_storage_capability_integration_barrier */
+      SELECT pg_catalog.pg_advisory_xact_lock(
+        pg_catalog.hashtextextended(${postgresCapabilityIntegrationBarrierKey}, 0)
+      )
+    `;
+  }
+  if (!await postgresStorageReadinessCatalogIsComplete(sql)) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  if (!await postgresStorageReadinessInvalidationIsComplete(sql)) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  const rows = await sql`
+    /* postgres_storage_readiness_mutation_capability */
+    SELECT marker.state_revision AS revision
+    FROM public.app_state_readiness_markers AS marker
+    INNER JOIN public.auth_schema_migrations AS migration
+      ON migration.version = ${hotAuthSchemaVersion}
+    WHERE marker.state_id = ${state.id}
+      AND marker.tenant_id = ${state.tenantId}
+      AND marker.state_kind = ${state.stateKind}
+      AND marker.schema_version = ${state.schemaVersion}
+      AND marker.state_revision = ${previousRevision}
+      AND marker.contract_version = ${postgresStorageReadinessContractVersion}
+    FOR KEY SHARE OF marker, migration
+  ` as Array<{ revision: unknown }>;
+  if (rows.length !== 1 || safePostgresRevision(rows[0]?.revision) !== previousRevision) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  return Object.freeze({
+    [postgresStorageMutationCapabilityBrand]: true as const,
+    previousRevision,
+    state: Object.freeze({ ...state })
+  });
+}
+
+export async function acquirePostgresStorageMutationCapability(
+  sql: PostgresReadinessTransaction,
+  state: PostgresStorageReadinessState
+) : Promise<PostgresStorageMutationCapability> {
+  await sql`
+    SELECT pg_catalog.set_config('search_path', 'pg_catalog, public', true)
+  `;
+  await acquirePostgresStorageContractSharedAdvisoryLock(sql);
+  await lockPostgresStorageMutationRelations(sql);
+  return acquirePostgresStorageMutationCapabilityAfterLocks(sql, state);
+}
+
+export async function advancePostgresStorageReadinessAfterMutation(
+  sql: PostgresReadinessTransaction,
+  capability: PostgresStorageMutationCapability,
+  currentRevision: number
+) {
+  if (
+    !capability
+    || capability[postgresStorageMutationCapabilityBrand] !== true
+    || !Number.isSafeInteger(capability.previousRevision)
+  ) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  if (currentRevision === capability.previousRevision) return;
+  if (currentRevision !== capability.previousRevision + 1) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  await restorePostgresStorageReadinessMarkerAtRevision(
+    sql,
+    capability.state,
+    currentRevision
+  );
+}
+
+async function reattestCurrentPostgresStorageSnapshotForIntegrationTest() {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres storage re-attestation is available only to integration tests.");
+  }
+  await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '1000ms', true),
+        pg_catalog.set_config('statement_timeout', '5000ms', true)
+    `;
+    const rows = await sql<Array<{ payload: unknown; revision: unknown }>>`
+      SELECT payload, revision
+      FROM public.app_state
+      WHERE id = ${stateRecordId}
+        AND tenant_id = ${stateTenantId}
+        AND state_kind = ${stateKind}
+        AND schema_version = ${schemaVersion}
+      FOR UPDATE OF app_state
+    `;
+    const revision = safePostgresRevision(rows[0]?.revision);
+    if (rows.length !== 1 || revision === null) {
+      throw new Error("Postgres storage readiness is unavailable.");
+    }
+    const validatedSnapshot = validateCompletePostgresStorageSnapshot(rows[0]?.payload);
+    await attestValidatedPostgresStorageSnapshot(
+      sql as unknown as PostgresReadinessTransaction,
+      validatedSnapshot,
+      currentPostgresStorageReadinessState(),
+      revision
+    );
+  });
+}
+
+export const __userStorePostgresStorageReadinessTestHooks = {
+  attestHotAuthPrimaryKeyAllowlist: (
+    sql: PostgresReadinessTransaction,
+    primaryKeys: Array<{ table: string; columns: string[] }>
+  ) => postgresHotAuthReadinessCatalogIsComplete(sql, primaryKeys),
+  clearFullWriterFault: () => {
+    postgresFullWriterFaultModeForIntegrationTest = null;
+    postgresFullWriterStageObserverForIntegrationTest = null;
+  },
+  configureFullWriterFault: ({
+    mode,
+    observeStage
+  }: {
+    mode: PostgresFullWriterFaultMode;
+    observeStage: (stage: PostgresFullWriterTestStage) => void;
+  }) => {
+    if (process.env.NODE_ENV !== "test") {
+      throw new Error("Postgres full-writer fault injection is available only to integration tests.");
+    }
+    if (![
+      "suppress-returning",
+      "rewrite-returning",
+      "post-returning-drift"
+    ].includes(mode)) {
+      throw new Error("Postgres full-writer fault mode is invalid.");
+    }
+    postgresFullWriterFaultModeForIntegrationTest = mode;
+    postgresFullWriterStageObserverForIntegrationTest = observeStage;
+  },
+  createDeadlineHarness: () => {
+    const slot = createAbortableAuthAdmissionSlot();
+    return {
+      run: ({
+        client,
+        deadlineMs
+      }: {
+        client: {
+          begin: () => Promise<never>;
+          end: (options: { timeout: number }) => Promise<void>;
+        };
+        deadlineMs: number;
+      }) => {
+        const signal = AbortSignal.timeout(deadlineMs);
+        return slot.run(signal, () => runAbortBoundedPostgresReadinessOperation({
+          abortOperation: () => client.end({ timeout: 0 }),
+          operation: () => client.begin(),
+          signal
+        }));
+      }
+    };
+  },
+  createCompleteSnapshot: () => postgresDatabasePayload(createInitialDatabase()),
+  resolveMutationTransactionTimeouts: (
+    environment: Record<string, string | undefined>
+  ) => postgresMutationTransactionTimeouts(environment),
+  failPasswordResetBeforeStateWrite: null as null | (() => void | Promise<void>),
+  runDeadlineHarness: ({
+    client,
+    deadlineMs
+  }: {
+    client: {
+      begin: () => Promise<never>;
+      end: (options: { timeout: number }) => Promise<void>;
+    };
+    deadlineMs: number;
+  }) => {
+    const signal = AbortSignal.timeout(deadlineMs);
+    const slot = createAbortableAuthAdmissionSlot();
+    return slot.run(signal, () => runAbortBoundedPostgresReadinessOperation({
+      abortOperation: () => client.end({ timeout: 0 }),
+      operation: () => client.begin(),
+      signal
+    }));
+  },
+  readCurrentSnapshot: async () => {
+    await readPostgresDatabase();
+    return true as const;
+  },
+  reattestCurrentSnapshot: reattestCurrentPostgresStorageSnapshotForIntegrationTest,
+  rewriteCurrentSnapshot: rewriteCurrentPostgresStorageSnapshotForIntegrationTest
+};
+
 type NormalizedSqliteState = {
   database: Database;
   metadata: SqliteStateMetadata | null;
@@ -6200,8 +7610,8 @@ async function readSqliteDatabase() {
 async function ensureInitialPostgresState(sql: PostgresExecutor) {
   const database = createInitialDatabase();
   await sql`
-    INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${sql.json(postgresDatabasePayload(database))}::jsonb, ${new Date().toISOString()})
+    INSERT INTO public.app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
+    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${sql.json(postgresDatabasePayload(database))}::pg_catalog.jsonb, ${new Date().toISOString()})
     ON CONFLICT (id) DO NOTHING
   `;
 }
@@ -6212,16 +7622,19 @@ async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = fa
       SELECT
         payload,
         COALESCE((
-          SELECT jsonb_agg(record ORDER BY created_at, id)
-          FROM ai_tutor_message_journal
-        ), '[]'::jsonb) AS ai_tutor_message_records,
+          SELECT pg_catalog.jsonb_agg(record ORDER BY created_at, id)
+          FROM public.ai_tutor_message_journal
+        ), '[]'::pg_catalog.jsonb) AS ai_tutor_message_records,
         COALESCE((
-          SELECT jsonb_agg(record ORDER BY created_at, id)
-          FROM ai_tutor_usage_journal
-        ), '[]'::jsonb) AS ai_tutor_usage_records
-      FROM app_state
-      WHERE id = ${stateRecordId}
-      FOR UPDATE
+          SELECT pg_catalog.jsonb_agg(record ORDER BY created_at, id)
+          FROM public.ai_tutor_usage_journal
+        ), '[]'::pg_catalog.jsonb) AS ai_tutor_usage_records
+      FROM public.app_state AS state
+      WHERE state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion}
+      FOR UPDATE OF state
     `;
   }
 
@@ -6229,89 +7642,282 @@ async function selectPostgresStateRows(sql: PostgresExecutor, lockForUpdate = fa
     SELECT
       payload,
       COALESCE((
-        SELECT jsonb_agg(record ORDER BY created_at, id)
-        FROM ai_tutor_message_journal
-      ), '[]'::jsonb) AS ai_tutor_message_records,
+        SELECT pg_catalog.jsonb_agg(record ORDER BY created_at, id)
+        FROM public.ai_tutor_message_journal
+      ), '[]'::pg_catalog.jsonb) AS ai_tutor_message_records,
       COALESCE((
-        SELECT jsonb_agg(record ORDER BY created_at, id)
-        FROM ai_tutor_usage_journal
-      ), '[]'::jsonb) AS ai_tutor_usage_records
-    FROM app_state
-    WHERE id = ${stateRecordId}
+        SELECT pg_catalog.jsonb_agg(record ORDER BY created_at, id)
+        FROM public.ai_tutor_usage_journal
+      ), '[]'::pg_catalog.jsonb) AS ai_tutor_usage_records
+    FROM public.app_state AS state
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
   `;
 }
 
 async function normalizeLockedPostgresState(sql: PostgresExecutor) {
-  await ensureInitialPostgresState(sql);
   const rows = await selectPostgresStateRows(sql, true);
-  const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
-  if (hasCoreTables(parsed)) {
-    const normalized = normalizeDatabase(parsed);
-    const needsPersistenceSync = databaseNeedsPersistenceSync(parsed, normalized);
-    const database = overlayPostgresAiTutorJournals(normalized, rows[0]);
-    if (needsPersistenceSync) {
-      await writePostgresDatabaseWith(sql, database, true);
-    }
-    await syncPostgresHotAuthTablesWith(sql, database);
-    await syncPostgresProjectionTablesWith(sql, database);
-    return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+  if (
+    rows.length !== 1
+    || !postgresStorageSnapshotContractIsComplete(rows[0]?.payload)
+  ) {
+    throw new Error("Postgres storage snapshot is incomplete.");
   }
+  const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
+  if (!hasCoreTables(parsed)) {
+    throw new Error("Postgres storage snapshot is incomplete.");
+  }
+  const snapshotDatabase = overlayPostgresAiTutorJournals(normalizeDatabase(parsed), rows[0]);
+  const database = await overlayPostgresHotAuthRowsIfEnabled(sql, snapshotDatabase);
+  await syncPostgresHotAuthTablesWith(sql, database);
+  await syncPostgresProjectionTablesWith(sql, database);
+  return database;
+}
 
-  const database = createInitialDatabase();
-  await writePostgresDatabaseWith(sql, database, true);
+async function readPostgresDatabaseForMutation(sql: PostgresExecutor, tableReady = false) {
+  if (!tableReady) await ensurePostgresStateTable();
+  const storageCapability = await acquirePostgresStorageMutationCapability(
+    sql as unknown as PostgresReadinessTransaction,
+    currentPostgresStorageReadinessState()
+  );
+  const database = await normalizeLockedPostgresState(sql);
+  return { database, storageCapability };
+}
+
+async function readPostgresDatabaseFrom(sql: PostgresExecutor, tableReady = false) {
+  if (!tableReady) await ensurePostgresStateTable();
+  const rows = await selectPostgresStateRows(sql);
+  if (
+    rows.length !== 1
+    || !postgresStorageSnapshotContractIsComplete(rows[0]?.payload)
+  ) {
+    throw new Error("Postgres storage snapshot is incomplete.");
+  }
+  const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
+  if (!hasCoreTables(parsed)) {
+    throw new Error("Postgres storage snapshot is incomplete.");
+  }
   return overlayPostgresHotAuthRowsIfEnabled(
     sql,
-    overlayPostgresAiTutorJournals(database, rows[0])
+    overlayPostgresAiTutorJournals(normalizeDatabase(parsed), rows[0])
   );
-}
-
-async function synchronizePostgresStateForRead() {
-  await ensurePostgresStateTable();
-  // Read-triggered normalization writes a full JSONB snapshot, so lock the row first
-  // to avoid overwriting a newer registration, attempt, or reward mutation.
-  return getPostgresClient().begin(async (sql) => normalizeLockedPostgresState(sql));
-}
-
-async function readPostgresDatabaseFrom(sql: PostgresExecutor, lockForUpdate = false, tableReady = false) {
-  if (!tableReady) await ensurePostgresStateTable();
-  if (lockForUpdate) return normalizeLockedPostgresState(sql);
-
-  const rows = await selectPostgresStateRows(sql);
-  const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
-  if (hasCoreTables(parsed)) {
-    const database = normalizeDatabase(parsed);
-    if (databaseNeedsPersistenceSync(parsed, database)) {
-      return synchronizePostgresStateForRead();
-    }
-    return overlayPostgresHotAuthRowsIfEnabled(
-      sql,
-      overlayPostgresAiTutorJournals(database, rows[0])
-    );
-  }
-
-  return synchronizePostgresStateForRead();
 }
 
 async function readPostgresDatabase() {
   return readPostgresDatabaseFrom(getPostgresClient());
 }
 
-async function writePostgresDatabaseWith(sql: PostgresExecutor, database: Database, tableReady = false) {
-  if (!tableReady) await ensurePostgresStateTable();
+type PostgresFullWriterFaultMode =
+  | "suppress-returning"
+  | "rewrite-returning"
+  | "post-returning-drift";
+
+type PostgresFullWriterTestStage =
+  | "capability-acquired"
+  | "update-executing"
+  | "returning-received"
+  | "returning-validated"
+  | "final-reread-executing"
+  | "final-reread-received";
+
+let postgresFullWriterFaultModeForIntegrationTest: PostgresFullWriterFaultMode | null = null;
+let postgresFullWriterStageObserverForIntegrationTest:
+  | ((stage: PostgresFullWriterTestStage) => void)
+  | null = null;
+
+function recordPostgresFullWriterTestStage(stage: PostgresFullWriterTestStage) {
+  if (process.env.NODE_ENV !== "test") return;
+  postgresFullWriterStageObserverForIntegrationTest?.(stage);
+}
+
+async function installPostgresFullWriterFaultForIntegrationTest(sql: PostgresExecutor) {
+  const mode = postgresFullWriterFaultModeForIntegrationTest;
+  if (!mode) return;
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres full-writer fault injection is available only to integration tests.");
+  }
+
+  if (mode === "suppress-returning") {
+    await sql`
+      CREATE FUNCTION public.integration_full_writer_suppress_returning()
+      RETURNS trigger
+      LANGUAGE plpgsql
+      SECURITY INVOKER
+      SET search_path = pg_catalog, public
+      AS $fixture$
+      BEGIN
+        RETURN NULL;
+      END
+      $fixture$
+    `;
+    await sql`
+      CREATE TRIGGER integration_full_writer_suppress_returning
+      BEFORE UPDATE ON public.app_state
+      FOR EACH ROW
+      EXECUTE FUNCTION public.integration_full_writer_suppress_returning()
+    `;
+    return;
+  }
+
+  if (mode === "rewrite-returning") {
+    await sql`
+      CREATE FUNCTION public.integration_full_writer_rewrite_returning()
+      RETURNS trigger
+      LANGUAGE plpgsql
+      SECURITY INVOKER
+      SET search_path = pg_catalog, public
+      AS $fixture$
+      BEGIN
+        NEW.tenant_id := 'fixture-rewritten-tenant';
+        NEW.revision := NEW.revision + 10;
+        RETURN NEW;
+      END
+      $fixture$
+    `;
+    await sql`
+      CREATE TRIGGER integration_full_writer_rewrite_returning
+      BEFORE UPDATE ON public.app_state
+      FOR EACH ROW
+      EXECUTE FUNCTION public.integration_full_writer_rewrite_returning()
+    `;
+    return;
+  }
+
+  if (mode === "post-returning-drift") {
+    await sql`
+      CREATE FUNCTION public.integration_full_writer_post_returning_drift()
+      RETURNS trigger
+      LANGUAGE plpgsql
+      SECURITY INVOKER
+      SET search_path = pg_catalog, public
+      AS $fixture$
+      BEGIN
+        IF pg_catalog.pg_trigger_depth() = 1 THEN
+          UPDATE public.app_state
+          SET payload = payload || pg_catalog.jsonb_build_object(
+            'integration_post_returning_drift',
+            true
+          )
+          WHERE id = NEW.id;
+        END IF;
+        RETURN NULL;
+      END
+      $fixture$
+    `;
+    await sql`
+      CREATE TRIGGER integration_full_writer_post_returning_drift
+      AFTER UPDATE ON public.app_state
+      FOR EACH ROW
+      EXECUTE FUNCTION public.integration_full_writer_post_returning_drift()
+    `;
+    return;
+  }
+
+  throw new Error("Postgres full-writer fault mode is invalid.");
+}
+
+async function writePostgresDatabaseWith(
+  sql: PostgresExecutor,
+  database: Database,
+  storageCapability: PostgresStorageMutationCapability
+) {
+  recordPostgresFullWriterTestStage("capability-acquired");
+  await installPostgresFullWriterFaultForIntegrationTest(sql);
   databaseIndexCache.delete(database);
-  await sql`
-    INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
-    VALUES (${stateRecordId}, ${stateTenantId}, ${stateKind}, ${schemaVersion}, 1, ${sql.json(postgresDatabasePayload(database))}::jsonb, ${new Date().toISOString()})
-    ON CONFLICT (id) DO UPDATE SET
-      tenant_id = excluded.tenant_id,
-      state_kind = excluded.state_kind,
-      schema_version = excluded.schema_version,
-      revision = app_state.revision + 1,
-      payload = excluded.payload,
-      updated_at = excluded.updated_at
+  const payload = postgresDatabasePayload(database);
+  recordPostgresFullWriterTestStage("update-executing");
+  const stateRows = await sql<Array<{
+    payload: unknown;
+    payload_matches: boolean;
+    revision: unknown;
+    revision_matches: boolean;
+    state_identity_matches: boolean;
+  }>>`
+    UPDATE public.app_state AS state
+    SET
+      revision = state.revision + 1,
+      payload = ${sql.json(payload)}::pg_catalog.jsonb,
+      updated_at = ${new Date().toISOString()}
+    WHERE state.id = ${stateRecordId}
+      AND state.tenant_id = ${stateTenantId}
+      AND state.state_kind = ${stateKind}
+      AND state.schema_version = ${schemaVersion}
+      AND state.revision = ${storageCapability.previousRevision}
+    RETURNING
+      state.payload,
+      state.revision,
+      state.id = ${stateRecordId}
+        AND state.tenant_id = ${stateTenantId}
+        AND state.state_kind = ${stateKind}
+        AND state.schema_version = ${schemaVersion} AS state_identity_matches,
+      state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches,
+      state.revision = ${storageCapability.previousRevision + 1} AS revision_matches
   `;
+  recordPostgresFullWriterTestStage("returning-received");
+  const writtenState = stateRows[0];
+  const revision = safePostgresRevision(writtenState?.revision);
+  if (
+    !writtenState
+    || stateRows.length !== 1
+    || revision === null
+    || writtenState.state_identity_matches !== true
+    || writtenState.payload_matches !== true
+    || writtenState.revision_matches !== true
+  ) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  validateCompletePostgresStorageSnapshot(writtenState.payload);
+  recordPostgresFullWriterTestStage("returning-validated");
   await syncPostgresHotAuthTablesWith(sql, database);
   await syncPostgresProjectionTablesWith(sql, database);
+  recordPostgresFullWriterTestStage("final-reread-executing");
+  const finalStateRows = await sql<Array<{
+    payload_matches: boolean;
+    revision: unknown;
+  }>>`
+    /* postgres_storage_full_writer_final_state */
+    SELECT
+      current_state.revision,
+      current_state.payload = ${sql.json(payload)}::pg_catalog.jsonb AS payload_matches
+    FROM public.app_state AS current_state
+    WHERE current_state.id = ${stateRecordId}
+      AND current_state.tenant_id = ${stateTenantId}
+      AND current_state.state_kind = ${stateKind}
+      AND current_state.schema_version = ${schemaVersion}
+      AND current_state.revision = ${revision}
+    FOR UPDATE OF current_state
+  `;
+  recordPostgresFullWriterTestStage("final-reread-received");
+  if (
+    finalStateRows.length !== 1
+    || safePostgresRevision(finalStateRows[0]?.revision) !== revision
+    || finalStateRows[0]?.payload_matches !== true
+  ) {
+    throw new Error("Postgres storage readiness is unavailable.");
+  }
+  await advancePostgresStorageReadinessAfterMutation(
+    sql as unknown as PostgresReadinessTransaction,
+    storageCapability,
+    revision
+  );
+}
+
+async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest() {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres full snapshot rewrite is available only to integration tests.");
+  }
+  await getPostgresClient().begin(async (sql) => {
+    await sql`
+      SELECT
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', '1000ms', true),
+        pg_catalog.set_config('statement_timeout', '5000ms', true)
+    `;
+    const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
+    await writePostgresDatabaseWith(sql, database, storageCapability);
+  });
 }
 
 async function readDatabase() {
@@ -6351,10 +7957,16 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   if (storageProvider === "postgres") {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
-      const database = await readPostgresDatabaseFrom(sql, true, true);
+      await sql`
+        SELECT
+          pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+          pg_catalog.set_config('lock_timeout', '1000ms', true),
+          pg_catalog.set_config('statement_timeout', '5000ms', true)
+      `;
+      const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
       const result = await mutator(database);
       databaseIndexCache.delete(database);
-      await writePostgresDatabaseWith(sql, database, true);
+      await writePostgresDatabaseWith(sql, database, storageCapability);
       return result;
     });
   }
@@ -6721,14 +8333,16 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
 ): Promise<TeacherNoticeEmailOutboxMutationResult<T>> {
   if (storageProvider === "postgres") {
     await ensurePostgresStateTable();
-    return getPostgresClient().begin(async (sql) => runTeacherNoticeEmailOutboxPostgresAttestedTransaction(
+    const transactionTimeouts = postgresMutationTransactionTimeouts();
+    return getPostgresClient().begin(async (sql) => runTeacherNoticeEmailOutboxPostgresPublicationTransaction(
       sql,
       {
-        lockTimeout: "1000ms",
-        statementTimeout: "5000ms"
+        lockTimeout: `${transactionTimeouts.lockTimeoutMs}ms`,
+        statementTimeout: `${transactionTimeouts.statementTimeoutMs}ms`,
+        idleTransactionTimeout: `${transactionTimeouts.statementTimeoutMs}ms`
       },
-      async (sql) => {
-        const database = await readPostgresDatabaseFrom(sql, true, true);
+      async (sql, storageCapability) => {
+        const database = await normalizeLockedPostgresState(sql);
         const mutation = await mutator(database);
         const prepared = prepareTeacherNoticeEmailOutboxRows(database, teacherId, mutation, new Date().toISOString());
         if (prepared.noEligible && !mutation.commitWithoutEligibleRows) {
@@ -6741,8 +8355,16 @@ async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
           };
         }
         databaseIndexCache.delete(database);
-        await writePostgresDatabaseWith(sql, database, true);
+        await writePostgresDatabaseWith(sql, database, storageCapability);
+        if (process.env.NODE_ENV === "test") {
+          await __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
+            .beforePublicationOutboxDml?.();
+        }
         const inserted = await insertTeacherNoticeEmailOutboxRowsPostgres(sql, prepared.rows);
+        if (process.env.NODE_ENV === "test") {
+          await __userStoreTeacherNoticeEmailOutboxPostgresTestHooks
+            .failAfterPublicationOutboxInsert?.();
+        }
         return { result: mutation.result, outbox: { ...inserted, skipped: prepared.skipped } };
       }
     ));
@@ -6961,14 +8583,105 @@ async function postgresTeacherNoticeEmailClaimDatabase(
   return payload as Parameters<typeof validateTeacherNoticeEmailOutboxClaim>[0]["database"];
 }
 
+type TeacherNoticeEmailOutboxPostgresClaimOperationWrapper<Sql> = <T>(
+  sql: Sql,
+  operation: () => Promise<T>
+) => Promise<T>;
+
+async function runTeacherNoticeEmailOutboxPostgresClaimOperationWithTestWrapper<Sql, T>({
+  environment,
+  sql,
+  wrapper,
+  operation,
+  reattest
+}: {
+  environment: { NODE_ENV?: string };
+  sql: Sql;
+  wrapper: TeacherNoticeEmailOutboxPostgresClaimOperationWrapper<Sql> | null;
+  operation: () => Promise<T>;
+  reattest: (sql: Sql) => Promise<boolean>;
+}): Promise<T> {
+  if (environment.NODE_ENV !== "test" || !wrapper) return operation();
+
+  type OperationOutcome =
+    | { status: "fulfilled"; value: T }
+    | { status: "rejected"; error: unknown };
+
+  let invocationCount = 0;
+  let closed = false;
+  let contractError: Error | null = null;
+  let operationOutcomePromise: Promise<OperationOutcome> | null = null;
+
+  const rejectContract = () => {
+    contractError ??= new Error(
+      "Teacher notice email outbox claim test wrapper must invoke its operation exactly once."
+    );
+    const rejected = Promise.reject<T>(contractError);
+    void rejected.catch(() => undefined);
+    return rejected;
+  };
+
+  const runOperation = () => {
+    invocationCount += 1;
+    if (closed || operationOutcomePromise) {
+      return rejectContract();
+    }
+
+    // Defer invocation by one microtask so the observed outcome is installed
+    // before a synchronous throw can escape from a test operation.
+    const startedOperation = Promise.resolve().then(operation);
+    operationOutcomePromise = startedOperation.then(
+      (value): OperationOutcome => ({ status: "fulfilled", value }),
+      (error): OperationOutcome => ({ status: "rejected", error })
+    );
+    return startedOperation;
+  };
+
+  let wrapperRejected = false;
+  let wrapperError: unknown;
+  try {
+    await wrapper(sql, runOperation);
+  } catch (error) {
+    wrapperRejected = true;
+    wrapperError = error;
+  }
+  closed = true;
+
+  if (invocationCount !== 1) {
+    contractError ??= new Error(
+      "Teacher notice email outbox claim test wrapper must invoke its operation exactly once."
+    );
+  }
+  // TypeScript does not model assignments made through the wrapper callback,
+  // so take an explicitly widened snapshot after that callback has settled.
+  const observedOperationOutcomePromise = operationOutcomePromise as Promise<OperationOutcome> | null;
+  const operationOutcome = observedOperationOutcomePromise
+    ? await observedOperationOutcomePromise
+    : null;
+
+  if (operationOutcome && operationOutcome.status === "rejected") throw operationOutcome.error;
+  if (wrapperRejected && !observedOperationOutcomePromise) throw wrapperError;
+  if (contractError) throw contractError;
+  if (wrapperRejected) throw wrapperError;
+  if (!operationOutcome || operationOutcome.status !== "fulfilled") {
+    throw new Error("Teacher notice email outbox claim test wrapper must invoke its operation exactly once.");
+  }
+  if (!await reattest(sql)) {
+    throw new Error("Teacher notice email outbox PostgreSQL schema could not be re-attested.");
+  }
+  return operationOutcome.value;
+}
+
 async function withTeacherNoticeEmailOutboxPostgresDeadline<T>(
   deadline: TeacherNoticeEmailOutboxDeadline,
   preserveClaimReserve: boolean,
   operation: (sql: postgres.TransactionSql) => Promise<T>,
   {
-    providerMessageId = null
+    providerMessageId = null,
+    storageCapabilityRequired = false
   }: {
     providerMessageId?: string | null;
+    storageCapabilityRequired?: boolean;
   } = {}
 ): Promise<T> {
   if (!postgresUrl) {
@@ -6986,26 +8699,69 @@ async function withTeacherNoticeEmailOutboxPostgresDeadline<T>(
     idle_timeout: Math.max(1, Math.ceil(closeTimeoutSeconds)),
     prepare: false
   });
-  const lockTimeout = `${Math.min(1_000, statementTimeoutMs)}ms`;
-  const statementTimeout = `${statementTimeoutMs}ms`;
+  const storageCapabilityTimeouts = storageCapabilityRequired && process.env.NODE_ENV === "test"
+    ? postgresMutationTransactionTimeouts()
+    : {
+        lockTimeoutMs: productionPostgresMutationLockTimeoutMs,
+        statementTimeoutMs: productionPostgresMutationStatementTimeoutMs
+      };
+  const usesExtendedTestTimeouts =
+    storageCapabilityRequired &&
+    process.env.NODE_ENV === "test" &&
+    statementTimeoutMs === productionPostgresMutationStatementTimeoutMs &&
+    (
+      storageCapabilityTimeouts.lockTimeoutMs !== productionPostgresMutationLockTimeoutMs ||
+      storageCapabilityTimeouts.statementTimeoutMs !== productionPostgresMutationStatementTimeoutMs
+    );
+  const lockTimeout = `${usesExtendedTestTimeouts
+    ? storageCapabilityTimeouts.lockTimeoutMs
+    : Math.min(productionPostgresMutationLockTimeoutMs, statementTimeoutMs)}ms`;
+  const statementTimeout = `${usesExtendedTestTimeouts
+    ? storageCapabilityTimeouts.statementTimeoutMs
+    : statementTimeoutMs}ms`;
   try {
-    return (await lane.begin(async (sql) => runTeacherNoticeEmailOutboxPostgresAttestedTransaction(
-      sql,
-      {
+    return (await lane.begin(async (sql) => {
+      const transactionSettings = {
         lockTimeout,
         statementTimeout,
         idleTransactionTimeout: statementTimeout
-      },
-      async (sql) => {
-        const result = await operation(sql);
+      };
+      const deadlineBoundOperation = async (transactionSql: postgres.TransactionSql) => {
+        const result = await operation(transactionSql);
         const withinDeadline = preserveClaimReserve
           ? teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)
           : teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline);
         if (!withinDeadline) throw new TeacherNoticeEmailOutboxDeadlineError();
         return result;
-      },
-      providerMessageId
-    ))) as T;
+      };
+      if (storageCapabilityRequired) {
+        if (providerMessageId) {
+          throw new Error("Teacher notice email outbox storage claim cannot bind a provider mapping.");
+        }
+        return runTeacherNoticeEmailOutboxPostgresPublicationTransaction(
+          sql,
+          transactionSettings,
+          async (transactionSql) => runTeacherNoticeEmailOutboxPostgresClaimOperationWithTestWrapper({
+            environment: process.env,
+            sql: transactionSql,
+            wrapper: __userStoreTeacherNoticeEmailOutboxPostgresTestHooks.claimOperationWrapper,
+            operation: () => deadlineBoundOperation(transactionSql),
+            reattest: (reattestSql) => hasTeacherNoticeEmailOutboxPostgresSchema(reattestSql, {
+              lockTimeout,
+              statementTimeout,
+              transactionConfigured: true
+            })
+          }),
+          "claim"
+        );
+      }
+      return runTeacherNoticeEmailOutboxPostgresAttestedTransaction(
+        sql,
+        transactionSettings,
+        deadlineBoundOperation,
+        providerMessageId
+      );
+    })) as T;
   } finally {
     await lane.end({ timeout: closeTimeoutSeconds });
   }
@@ -7014,6 +8770,109 @@ async function withTeacherNoticeEmailOutboxPostgresDeadline<T>(
 export const __userStoreTeacherNoticeEmailOutboxPostgresTestHooks = {
   migrateSchema: migrateTeacherNoticeEmailOutboxPostgresSchema,
   attestSchema: preflightTeacherNoticeEmailOutboxPostgresSchema,
+  failAfterPublicationOutboxInsert: null as null | (() => void | Promise<void>),
+  beforePublicationOutboxDml: null as null | (() => void | Promise<void>),
+  beforeStorageRelationLock: null as null | ((
+    kind: "publication" | "claim",
+    backendPid: number
+  ) => void | Promise<void>),
+  afterStorageCapability: null as null | ((
+    kind: "publication" | "claim",
+    backendPid: number
+  ) => void | Promise<void>),
+  claimOperationWrapper: null as null | TeacherNoticeEmailOutboxPostgresClaimOperationWrapper<
+    postgres.TransactionSql
+  >,
+  runClaimOperationWrapperContractProbe: runTeacherNoticeEmailOutboxPostgresClaimOperationWithTestWrapper,
+  async queueNoticeEmailForAtomicityProbe({
+    teacherId,
+    noticeId
+  }: {
+    teacherId: string;
+    noticeId: string;
+  }) {
+    if (process.env.NODE_ENV !== "test" || storageProvider !== "postgres") {
+      throw new Error("Teacher notice email outbox atomicity probe is unavailable.");
+    }
+    return queueTeacherNoticeEmail({ teacherId, noticeId });
+  },
+  async claimNextForLockOrderProbe() {
+    if (process.env.NODE_ENV !== "test" || storageProvider !== "postgres") {
+      throw new Error("Teacher notice email outbox claim lock-order probe is unavailable.");
+    }
+    const startedAt = performance.now();
+    return claimTeacherNoticeEmailOutboxItem(new Date().toISOString(), {
+      deadlineAtMs: startedAt + 50_000,
+      claimReserveMs: 0,
+      monotonicNow: () => performance.now()
+    });
+  },
+  async runLegacyTerminalMaintenanceLockOrderProbe({
+    noticeId,
+    onTerminalTupleLocked
+  }: {
+    noticeId: string;
+    onTerminalTupleLocked: (backendPid: number) => Promise<void>;
+  }) {
+    if (
+      process.env.NODE_ENV !== "test" ||
+      storageProvider !== "postgres" ||
+      !isTeacherNoticeEmailOutboxIdentifier(noticeId) ||
+      typeof onTerminalTupleLocked !== "function"
+    ) {
+      throw new Error("Teacher notice email outbox legacy lock-order probe is unavailable.");
+    }
+    const startedAt = performance.now();
+    const transactionTimeouts = postgresMutationTransactionTimeouts();
+    return withTeacherNoticeEmailOutboxPostgresDeadline({
+      deadlineAtMs: startedAt + 50_000,
+      claimReserveMs: 0,
+      monotonicNow: () => performance.now()
+    }, false, async (sql) => {
+      await configureTeacherNoticeEmailOutboxPostgresTransaction(sql, {
+        lockTimeout: `${transactionTimeouts.lockTimeoutMs}ms`,
+        statementTimeout: `${transactionTimeouts.statementTimeoutMs}ms`,
+        idleTransactionTimeout: `${transactionTimeouts.statementTimeoutMs}ms`
+      });
+      const purgedRows = await sql<Array<{ id: string }>>`
+        UPDATE public.teacher_notice_email_outbox
+        SET recipient_id = NULL, student_id = NULL, guardian_id = NULL, teacher_id = NULL,
+            queued_by_id = NULL, class_id = NULL, email = NULL, locale = NULL,
+            pii_purged_at = pg_catalog.clock_timestamp(), updated_at = pg_catalog.clock_timestamp()
+        WHERE notice_id = ${noticeId}
+          AND status IN ('provider-accepted', 'blocked', 'dead-letter')
+          AND pii_purged_at IS NULL
+          AND pii_expires_at <= pg_catalog.clock_timestamp()
+          AND tombstone_expires_at > pg_catalog.clock_timestamp()
+        RETURNING id
+      `;
+      if (purgedRows.length !== 1 || !isTeacherNoticeEmailOutboxIdentifier(purgedRows[0]?.id)) {
+        throw new Error("Teacher notice email outbox legacy probe could not lock the terminal tuple.");
+      }
+      const backendRows = await sql<Array<{ backend_pid: number }>>`
+        SELECT pg_catalog.pg_backend_pid()::pg_catalog.int4 AS backend_pid
+      `;
+      const backendPid = backendRows[0]?.backend_pid;
+      if (!Number.isInteger(backendPid) || backendPid <= 0) {
+        throw new Error("Teacher notice email outbox legacy probe backend identity is unavailable.");
+      }
+      await onTerminalTupleLocked(backendPid);
+      await sql`SET LOCAL lock_timeout = '250ms'`;
+      const stateRows = await sql<Array<{ id: string }>>`
+        SELECT app_state.id
+        FROM public.app_state AS app_state
+        WHERE app_state.id = ${stateRecordId}
+          AND app_state.tenant_id = ${stateTenantId}
+          AND app_state.state_kind = ${stateKind}
+          AND app_state.schema_version = ${schemaVersion}
+        FOR UPDATE OF app_state
+      `;
+      if (stateRows.length !== 1 || stateRows[0]?.id !== stateRecordId) {
+        throw new Error("Teacher notice email outbox legacy probe storage row is unavailable.");
+      }
+      return true;
+    });
+  },
   async runAlterTableBarrierProbe({
     onLocked
   }: {
@@ -7115,23 +8974,8 @@ async function claimTeacherNoticeEmailOutboxItem(
   if (storageProvider === "postgres") {
     return withTeacherNoticeEmailOutboxPostgresDeadline(deadline, true, async (sql) => {
       if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
-      await sql`
-        DELETE FROM public.teacher_notice_email_outbox
-        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
-          AND tombstone_expires_at <= pg_catalog.clock_timestamp()
-      `;
-      await sql`
-        UPDATE public.teacher_notice_email_outbox
-        SET recipient_id = NULL, student_id = NULL, guardian_id = NULL, teacher_id = NULL,
-            queued_by_id = NULL, class_id = NULL, email = NULL, locale = NULL,
-            pii_purged_at = pg_catalog.clock_timestamp(), updated_at = pg_catalog.clock_timestamp()
-        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
-          AND pii_purged_at IS NULL
-          AND pii_expires_at <= pg_catalog.clock_timestamp()
-          AND tombstone_expires_at > pg_catalog.clock_timestamp()
-      `;
-      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
       const lockedState = await sql<Array<{ locked: boolean }>>`
+        /* teacher_notice_email_outbox_claim_authority_shape */
         SELECT TRUE AS locked
         FROM public.app_state AS app_state
         WHERE id = ${stateRecordId}
@@ -7153,6 +8997,22 @@ async function claimTeacherNoticeEmailOutboxItem(
       if (lockedState[0]?.locked !== true) {
         throw new Error("Teacher notice email outbox authority snapshot is unavailable.");
       }
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      await sql`
+        DELETE FROM public.teacher_notice_email_outbox
+        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+          AND tombstone_expires_at <= pg_catalog.clock_timestamp()
+      `;
+      await sql`
+        UPDATE public.teacher_notice_email_outbox
+        SET recipient_id = NULL, student_id = NULL, guardian_id = NULL, teacher_id = NULL,
+            queued_by_id = NULL, class_id = NULL, email = NULL, locale = NULL,
+            pii_purged_at = pg_catalog.clock_timestamp(), updated_at = pg_catalog.clock_timestamp()
+        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+          AND pii_purged_at IS NULL
+          AND pii_expires_at <= pg_catalog.clock_timestamp()
+          AND tombstone_expires_at > pg_catalog.clock_timestamp()
+      `;
       if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
       let remainingQuarantine = teacherNoticeEmailOutboxInvalidQuarantineLimit;
       const invalidExpiredLeaseRows = await sql<Array<{ id: string }>>`
@@ -7356,7 +9216,7 @@ async function claimTeacherNoticeEmailOutboxItem(
         };
       }
       return null;
-    });
+    }, { storageCapabilityRequired: true });
   }
 
   const cutoffAt = new Date(Date.parse(now) - teacherNoticeEmailOutboxCutoffMs).toISOString();
@@ -7714,43 +9574,26 @@ async function recordAITutorMessageFromPostgresJournal(
   if (storageProvider !== "postgres") return undefined;
   await aiTutorPersistenceLane.run(() => getPostgresClient().begin(async (sql) => {
     const recordPayload = record as unknown as postgres.JSONValue;
+    const transactionTimeouts = postgresMutationTransactionTimeouts();
     await sql`
       SELECT
-        set_config('lock_timeout', '1000ms', true),
-        set_config('statement_timeout', '5000ms', true)
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', ${`${transactionTimeouts.lockTimeoutMs}ms`}, true),
+        pg_catalog.set_config('statement_timeout', ${`${transactionTimeouts.statementTimeoutMs}ms`}, true)
     `;
-    const readinessRows = await sql<Array<{ schema_ready: boolean }>>`
-      SELECT EXISTS (
-        SELECT 1 FROM auth_schema_migrations WHERE version = ${hotAuthSchemaVersion}
-      ) AS schema_ready
-    `;
-    if (readinessRows[0]?.schema_ready !== true) {
-      throw new Error("AI Tutor message journal schema is unavailable.");
-    }
-    const lockedStateRows = await sql<Array<{ locked: boolean }>>`
-      SELECT TRUE AS locked
-      FROM app_state
-      WHERE id = ${stateRecordId}
-      FOR UPDATE OF app_state
-    `;
-    if (lockedStateRows[0]?.locked !== true) {
-      throw new Error("AI Tutor legacy message snapshot is unavailable.");
-    }
-    await sql`
-      UPDATE app_state
-      SET payload = (payload #>> '{}')::jsonb
-      WHERE id = ${stateRecordId}
-        AND jsonb_typeof(payload) = 'string'
-    `;
+    const storageCapability = await acquirePostgresStorageMutationCapability(
+      sql as unknown as PostgresReadinessTransaction,
+      currentPostgresStorageReadinessState()
+    );
     const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
-        jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
+        pg_catalog.jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
         COUNT(existing_record)::text AS match_count,
-        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
-      FROM app_state AS state
-      LEFT JOIN LATERAL jsonb_array_elements(
-        CASE WHEN jsonb_typeof(state.payload->'ai_tutor_messages') = 'array'
-          THEN state.payload->'ai_tutor_messages' ELSE '[]'::jsonb END
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::pg_catalog.jsonb), TRUE) AS records_match
+      FROM public.app_state AS state
+      LEFT JOIN LATERAL pg_catalog.jsonb_array_elements(
+        CASE WHEN pg_catalog.jsonb_typeof(state.payload->'ai_tutor_messages') = 'array'
+          THEN state.payload->'ai_tutor_messages' ELSE '[]'::pg_catalog.jsonb END
       ) AS existing_messages(existing_record)
         ON existing_record->>'id' = ${record.id}
       WHERE state.id = ${stateRecordId}
@@ -7758,12 +9601,12 @@ async function recordAITutorMessageFromPostgresJournal(
     `;
     const existingMatchCount = assertAiTutorLegacySnapshotMatch(beforeRows[0], "message");
     await sql`
-      INSERT INTO ai_tutor_message_journal (id, user_id, created_at, record)
+      INSERT INTO public.ai_tutor_message_journal (id, user_id, created_at, record)
       VALUES (
         ${record.id},
         ${record.user_id},
         ${record.created_at},
-        ${sql.json(recordPayload)}::jsonb
+        ${sql.json(recordPayload)}::pg_catalog.jsonb
       )
       ON CONFLICT (id) DO NOTHING
     `;
@@ -7771,34 +9614,45 @@ async function recordAITutorMessageFromPostgresJournal(
       SELECT
         user_id = ${record.user_id}
         AND created_at = ${record.created_at}
-        AND record = ${sql.json(recordPayload)}::jsonb AS record_matches
-      FROM ai_tutor_message_journal
+        AND record = ${sql.json(recordPayload)}::pg_catalog.jsonb AS record_matches
+      FROM public.ai_tutor_message_journal
       WHERE id = ${record.id}
     `;
     if (journalRows[0]?.record_matches !== true) {
       throw new Error("AI Tutor message journal contains a conflicting record.");
     }
+    let currentRevision = storageCapability.previousRevision;
     if (existingMatchCount === 0) {
-      await sql`
-        UPDATE app_state AS state
-        SET payload = jsonb_set(
+      const updatedStateRows = await sql<Array<{ revision: unknown }>>`
+        UPDATE public.app_state AS state
+        SET payload = pg_catalog.jsonb_set(
               state.payload,
               '{ai_tutor_messages}',
-              (state.payload->'ai_tutor_messages') || jsonb_build_array(${sql.json(recordPayload)}::jsonb),
+              (state.payload->'ai_tutor_messages') || pg_catalog.jsonb_build_array(${sql.json(recordPayload)}::pg_catalog.jsonb),
               true
             ),
             revision = state.revision + 1,
-            updated_at = NOW()
+            updated_at = pg_catalog.now()
         WHERE state.id = ${stateRecordId}
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion}
+          AND state.revision = ${storageCapability.previousRevision}
+        RETURNING state.revision
       `;
+      const updatedRevision = safePostgresRevision(updatedStateRows[0]?.revision);
+      if (updatedStateRows.length !== 1 || updatedRevision === null) {
+        throw new Error("AI Tutor legacy message snapshot is unavailable.");
+      }
+      currentRevision = updatedRevision;
     }
     const afterRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
-        jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
+        pg_catalog.jsonb_typeof(payload->'ai_tutor_messages') AS records_type,
         COUNT(existing_record)::text AS match_count,
-        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
-      FROM app_state AS state
-      LEFT JOIN LATERAL jsonb_array_elements(state.payload->'ai_tutor_messages')
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::pg_catalog.jsonb), TRUE) AS records_match
+      FROM public.app_state AS state
+      LEFT JOIN LATERAL pg_catalog.jsonb_array_elements(state.payload->'ai_tutor_messages')
         AS existing_messages(existing_record)
         ON existing_record->>'id' = ${record.id}
       WHERE state.id = ${stateRecordId}
@@ -7807,6 +9661,11 @@ async function recordAITutorMessageFromPostgresJournal(
     if (assertAiTutorLegacySnapshotMatch(afterRows[0], "message") !== 1) {
       throw new Error("AI Tutor legacy message snapshot write could not be attested.");
     }
+    await advancePostgresStorageReadinessAfterMutation(
+      sql as unknown as PostgresReadinessTransaction,
+      storageCapability,
+      currentRevision
+    );
   }));
   return true;
 }
@@ -7819,43 +9678,26 @@ async function recordAITutorUsageFromPostgresJournal(
     ?? (record.prompt_tokens ?? 0) + (record.completion_tokens ?? 0);
   await aiTutorPersistenceLane.run(() => getPostgresClient().begin(async (sql) => {
     const recordPayload = record as unknown as postgres.JSONValue;
+    const transactionTimeouts = postgresMutationTransactionTimeouts();
     await sql`
       SELECT
-        set_config('lock_timeout', '1000ms', true),
-        set_config('statement_timeout', '5000ms', true)
+        pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+        pg_catalog.set_config('lock_timeout', ${`${transactionTimeouts.lockTimeoutMs}ms`}, true),
+        pg_catalog.set_config('statement_timeout', ${`${transactionTimeouts.statementTimeoutMs}ms`}, true)
     `;
-    const readinessRows = await sql<Array<{ schema_ready: boolean }>>`
-      SELECT EXISTS (
-        SELECT 1 FROM auth_schema_migrations WHERE version = ${hotAuthSchemaVersion}
-      ) AS schema_ready
-    `;
-    if (readinessRows[0]?.schema_ready !== true) {
-      throw new Error("AI Tutor usage journal schema is unavailable.");
-    }
-    const lockedStateRows = await sql<Array<{ locked: boolean }>>`
-      SELECT TRUE AS locked
-      FROM app_state
-      WHERE id = ${stateRecordId}
-      FOR UPDATE OF app_state
-    `;
-    if (lockedStateRows[0]?.locked !== true) {
-      throw new Error("AI Tutor legacy usage snapshot is unavailable.");
-    }
-    await sql`
-      UPDATE app_state
-      SET payload = (payload #>> '{}')::jsonb
-      WHERE id = ${stateRecordId}
-        AND jsonb_typeof(payload) = 'string'
-    `;
+    const storageCapability = await acquirePostgresStorageMutationCapability(
+      sql as unknown as PostgresReadinessTransaction,
+      currentPostgresStorageReadinessState()
+    );
     const beforeRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
-        jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
+        pg_catalog.jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
         COUNT(existing_record)::text AS match_count,
-        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
-      FROM app_state AS state
-      LEFT JOIN LATERAL jsonb_array_elements(
-        CASE WHEN jsonb_typeof(state.payload->'ai_tutor_usage') = 'array'
-          THEN state.payload->'ai_tutor_usage' ELSE '[]'::jsonb END
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::pg_catalog.jsonb), TRUE) AS records_match
+      FROM public.app_state AS state
+      LEFT JOIN LATERAL pg_catalog.jsonb_array_elements(
+        CASE WHEN pg_catalog.jsonb_typeof(state.payload->'ai_tutor_usage') = 'array'
+          THEN state.payload->'ai_tutor_usage' ELSE '[]'::pg_catalog.jsonb END
       ) AS existing_usage(existing_record)
         ON existing_record->>'id' = ${record.id}
       WHERE state.id = ${stateRecordId}
@@ -7863,14 +9705,14 @@ async function recordAITutorUsageFromPostgresJournal(
     `;
     const existingMatchCount = assertAiTutorLegacySnapshotMatch(beforeRows[0], "usage");
     await sql`
-      INSERT INTO ai_tutor_usage_journal (
+      INSERT INTO public.ai_tutor_usage_journal (
         id, user_id, created_at, accounted_tokens, record
       ) VALUES (
         ${record.id},
         ${record.user_id},
         ${record.created_at},
         ${accountedTokens},
-        ${sql.json(recordPayload)}::jsonb
+        ${sql.json(recordPayload)}::pg_catalog.jsonb
       )
       ON CONFLICT (id) DO NOTHING
     `;
@@ -7879,34 +9721,45 @@ async function recordAITutorUsageFromPostgresJournal(
         user_id = ${record.user_id}
         AND created_at = ${record.created_at}
         AND accounted_tokens = ${accountedTokens}
-        AND record = ${sql.json(recordPayload)}::jsonb AS record_matches
-      FROM ai_tutor_usage_journal
+        AND record = ${sql.json(recordPayload)}::pg_catalog.jsonb AS record_matches
+      FROM public.ai_tutor_usage_journal
       WHERE id = ${record.id}
     `;
     if (journalRows[0]?.record_matches !== true) {
       throw new Error("AI Tutor usage journal contains a conflicting record.");
     }
+    let currentRevision = storageCapability.previousRevision;
     if (existingMatchCount === 0) {
-      await sql`
-        UPDATE app_state AS state
-        SET payload = jsonb_set(
+      const updatedStateRows = await sql<Array<{ revision: unknown }>>`
+        UPDATE public.app_state AS state
+        SET payload = pg_catalog.jsonb_set(
               state.payload,
               '{ai_tutor_usage}',
-              (state.payload->'ai_tutor_usage') || jsonb_build_array(${sql.json(recordPayload)}::jsonb),
+              (state.payload->'ai_tutor_usage') || pg_catalog.jsonb_build_array(${sql.json(recordPayload)}::pg_catalog.jsonb),
               true
             ),
             revision = state.revision + 1,
-            updated_at = NOW()
+            updated_at = pg_catalog.now()
         WHERE state.id = ${stateRecordId}
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion}
+          AND state.revision = ${storageCapability.previousRevision}
+        RETURNING state.revision
       `;
+      const updatedRevision = safePostgresRevision(updatedStateRows[0]?.revision);
+      if (updatedStateRows.length !== 1 || updatedRevision === null) {
+        throw new Error("AI Tutor legacy usage snapshot is unavailable.");
+      }
+      currentRevision = updatedRevision;
     }
     const afterRows = await sql<PostgresAiTutorLegacySnapshotMatchRow[]>`
       SELECT
-        jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
+        pg_catalog.jsonb_typeof(payload->'ai_tutor_usage') AS records_type,
         COUNT(existing_record)::text AS match_count,
-        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::jsonb), TRUE) AS records_match
-      FROM app_state AS state
-      LEFT JOIN LATERAL jsonb_array_elements(state.payload->'ai_tutor_usage')
+        COALESCE(BOOL_AND(existing_record = ${sql.json(recordPayload)}::pg_catalog.jsonb), TRUE) AS records_match
+      FROM public.app_state AS state
+      LEFT JOIN LATERAL pg_catalog.jsonb_array_elements(state.payload->'ai_tutor_usage')
         AS existing_usage(existing_record)
         ON existing_record->>'id' = ${record.id}
       WHERE state.id = ${stateRecordId}
@@ -7915,6 +9768,11 @@ async function recordAITutorUsageFromPostgresJournal(
     if (assertAiTutorLegacySnapshotMatch(afterRows[0], "usage") !== 1) {
       throw new Error("AI Tutor legacy usage snapshot write could not be attested.");
     }
+    await advancePostgresStorageReadinessAfterMutation(
+      sql as unknown as PostgresReadinessTransaction,
+      storageCapability,
+      currentRevision
+    );
   }));
   return true;
 }
@@ -7926,20 +9784,33 @@ async function closeAiTutorPostgresClientsForIntegrationTest() {
   await aiTutorGovernanceAdmissionPrimer.waitForActiveAttempt();
   const clients = Array.from(new Set([
     postgresClient,
+    postgresReadinessClient,
     aiTutorAuthAdmissionPostgresClient,
     aiTutorPolicyAdmissionPostgresClient,
     aiTutorRateAdmissionPostgresClient
   ].filter((client): client is postgres.Sql => client !== null)));
   await Promise.all(clients.map((client) => client.end({ timeout: 5 })));
   postgresClient = null;
+  postgresReadinessClient = null;
   aiTutorAuthAdmissionPostgresClient = null;
   aiTutorPolicyAdmissionPostgresClient = null;
   aiTutorRateAdmissionPostgresClient = null;
 }
 
+async function forcePostgresBootstrapForIntegrationTest() {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Postgres bootstrap forcing is available only to integration tests.");
+  }
+  await runPostgresBootstrapWithContentionRecovery({
+    bootstrap: bootstrapPostgresStateTables,
+    readCurrentMarker: hasCurrentPostgresSchemaMarker
+  });
+}
+
 export const __userStoreAiTutorPostgresTestHooks = {
   closePostgresClients: closeAiTutorPostgresClientsForIntegrationTest,
   ensureSchema: ensurePostgresStateTable,
+  forceBootstrap: forcePostgresBootstrapForIntegrationTest,
   recordMessage: recordAITutorMessageFromPostgresJournal,
   recordUsage: recordAITutorUsageFromPostgresJournal
 };
@@ -9199,6 +11070,17 @@ const parentPostgresScopedMutationAdapter = storageProvider === "postgres"
   ? createParentPostgresScopedMutationAdapter({
       ensureSchema: ensurePostgresStateTable,
       getClient: () => getPostgresClient() as unknown as ParentPostgresClient,
+      acquireStorageMutationCapability: (sql) => acquirePostgresStorageMutationCapability(
+        sql as unknown as PostgresReadinessTransaction,
+        currentPostgresStorageReadinessState()
+      ),
+      advanceStorageReadinessAfterMutation: (sql, capability, currentRevision) => (
+        advancePostgresStorageReadinessAfterMutation(
+          sql as unknown as PostgresReadinessTransaction,
+          capability as PostgresStorageMutationCapability,
+          currentRevision
+        )
+      ),
       state: {
         id: stateRecordId,
         tenantId: stateTenantId,
@@ -9878,25 +11760,6 @@ const authSessionPersistenceStore = createAuthSessionPersistenceStore({
   mediaObjectUrlForKey: mediaObjectAccessUrl
 });
 
-async function verifyPostgresMetadataReadiness() {
-  await ensurePostgresStateTable();
-  const rows = await getPostgresClient()<Array<{ ready: boolean }>>`
-    SELECT EXISTS (
-      SELECT 1
-      FROM app_state
-      WHERE id = ${stateRecordId}
-        AND tenant_id = ${stateTenantId}
-        AND state_kind = ${stateKind}
-        AND schema_version = ${schemaVersion}
-        AND jsonb_typeof(payload) = 'object'
-    ) AS ready
-  `;
-
-  if (rows[0]?.ready !== true) {
-    throw new Error("Postgres app_state metadata is not ready.");
-  }
-}
-
 const authProvisioningPersistenceStore = createAuthProvisioningPersistenceStore({
   createId: (prefix) => `${prefix}-${randomUUID()}`,
   createTemporaryPassword: createTemporaryPasswordFromAuthProvisioning,
@@ -9943,8 +11806,7 @@ const authAdminStoragePersistenceStore = createAuthAdminStoragePersistenceStore(
   stateKind,
   stateRecordId,
   stateTenantId,
-  storageProvider,
-  verifyPostgresMetadataReadiness
+  storageProvider
 });
 
 const authUserStore = createAuthUserStore({
@@ -11638,19 +13500,20 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
   try {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
-      const stateRows = await sql<Array<{ payload: unknown }>>`
-        SELECT payload
-        FROM app_state
-        WHERE id = ${stateRecordId}
-        FOR UPDATE
+      await sql`
+        SELECT
+          pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+          pg_catalog.set_config('lock_timeout', '1000ms', true),
+          pg_catalog.set_config('statement_timeout', '5000ms', true)
       `;
-      if (stateRows.length !== 1) {
-        throw new Error("The password reset state snapshot is unavailable.");
-      }
+      const storageCapability = await acquirePostgresStorageMutationCapability(
+        sql as unknown as PostgresReadinessTransaction,
+        currentPostgresStorageReadinessState()
+      );
 
       const candidateRows = await sql<Record<string, unknown>[]>`
         SELECT *
-        FROM auth_users
+        FROM public.auth_users
         WHERE disabled_at IS NULL
           AND (
             normalized_username = ${normalizedIdentifier}
@@ -11664,18 +13527,20 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
         LIMIT 1
       `;
       const user = candidateRows.map(projectedUserRecordFromAuthSessionPersistence).find((candidate): candidate is UserRecord => Boolean(candidate));
-      if (!user) return undefined;
+      if (!user) return null;
 
       const nowMs = Date.now();
+      const nowIso = new Date(nowMs).toISOString();
       await sql`
-        DELETE FROM auth_password_reset_tokens
-        WHERE used_at IS NULL
-          AND expires_at <= ${new Date(nowMs).toISOString()}
+        DELETE FROM public.auth_password_reset_tokens
+        WHERE used_at IS NOT NULL
+           OR expires_at !~ '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$'
+           OR expires_at <= ${nowIso}
       `;
 
       const resetToken = randomBytes(32).toString("base64url");
       const expiresAt = new Date(nowMs + passwordResetTokenMaxAgeMs).toISOString();
-      const createdAt = new Date(nowMs).toISOString();
+      const createdAt = nowIso;
       const tokenRecord: PasswordResetTokenRecord = {
         id: randomUUID(),
         user_id: user.id,
@@ -11685,21 +13550,33 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
         created_at: createdAt
       };
       const tokenRow = hotAuthPasswordResetTokenRows([tokenRecord])[0];
-      await sql`
-        INSERT INTO auth_password_reset_tokens ${sql([tokenRow], "id", "user_id", "token_hash", "expires_at", "used_at", "created_at")}
+      const insertedTokenRows = await sql<Array<{ id: unknown }>>`
+        INSERT INTO public.auth_password_reset_tokens ${sql([tokenRow], "id", "user_id", "token_hash", "expires_at", "used_at", "created_at")}
+        RETURNING id
       `;
-      const updatedStateRows = await sql<Array<{ id: string }>>`
-        UPDATE app_state AS state
-        SET payload = jsonb_set(
+      if (insertedTokenRows.length !== 1 || insertedTokenRows[0]?.id !== tokenRecord.id) {
+        throw new Error("The password reset token could not be persisted.");
+      }
+      const updatedStateRows = await sql<Array<{ revision: unknown }>>`
+        UPDATE public.app_state AS state
+        SET payload = pg_catalog.jsonb_set(
               state.payload,
               '{password_reset_tokens}',
-              (
-                CASE
-                  WHEN jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
-                    THEN state.payload->'password_reset_tokens'
-                  ELSE '[]'::jsonb
-                END
-              ) || jsonb_build_array(jsonb_build_object(
+              COALESCE((
+                SELECT pg_catalog.jsonb_agg(token_record ORDER BY ordinal)
+                FROM pg_catalog.jsonb_array_elements(
+                  CASE
+                    WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                      THEN state.payload->'password_reset_tokens'
+                    ELSE '[]'::pg_catalog.jsonb
+                  END
+                ) WITH ORDINALITY AS token_records(token_record, ordinal)
+                WHERE pg_catalog.jsonb_typeof(token_record) = 'object'
+                  AND COALESCE(token_record->>'used_at', '') = ''
+                  AND COALESCE(token_record->>'expires_at', '')
+                    ~ '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$'
+                  AND token_record->>'expires_at' > ${nowIso}
+              ), '[]'::pg_catalog.jsonb) || pg_catalog.jsonb_build_array(pg_catalog.jsonb_build_object(
                 'id', ${tokenRecord.id}::text,
                 'user_id', ${tokenRecord.user_id}::text,
                 'token_hash', ${tokenRecord.token_hash}::text,
@@ -11712,16 +13589,26 @@ async function createPasswordResetRequestInPostgresHotTables(identifier: string)
             revision = revision + 1,
             updated_at = ${createdAt}
         WHERE state.id = ${stateRecordId}
-        RETURNING state.id
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion}
+          AND state.revision = ${storageCapability.previousRevision}
+        RETURNING state.revision
       `;
-      if (updatedStateRows.length !== 1) {
+      const currentRevision = safePostgresRevision(updatedStateRows[0]?.revision);
+      if (updatedStateRows.length !== 1 || currentRevision === null) {
         throw new Error("The password reset token could not be persisted to the state snapshot.");
       }
+      await advancePostgresStorageReadinessAfterMutation(
+        sql as unknown as PostgresReadinessTransaction,
+        storageCapability,
+        currentRevision
+      );
 
       return { token: resetToken, expiresAt, email: user.email, username: user.username };
     });
   } catch {
-    return undefined;
+    return null;
   }
 }
 
@@ -11739,19 +13626,20 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
     await ensurePostgresStateTable();
     const tokenHash = hashPasswordResetTokenFromAuthSessionPersistence(trimmedToken);
     return getPostgresClient().begin(async (sql) => {
-      const stateRows = await sql<Array<{ payload: unknown }>>`
-        SELECT payload
-        FROM app_state
-        WHERE id = ${stateRecordId}
-        FOR UPDATE
+      await sql`
+        SELECT
+          pg_catalog.set_config('search_path', 'pg_catalog, public', true),
+          pg_catalog.set_config('lock_timeout', '1000ms', true),
+          pg_catalog.set_config('statement_timeout', '5000ms', true)
       `;
-      if (stateRows.length !== 1) {
-        throw new Error("The password reset state snapshot is unavailable.");
-      }
+      const storageCapability = await acquirePostgresStorageMutationCapability(
+        sql as unknown as PostgresReadinessTransaction,
+        currentPostgresStorageReadinessState()
+      );
 
       const tokenRows = await sql<Record<string, unknown>[]>`
         SELECT *
-        FROM auth_password_reset_tokens
+        FROM public.auth_password_reset_tokens
         WHERE token_hash = ${tokenHash}
         LIMIT 1
         FOR UPDATE
@@ -11773,7 +13661,7 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
       const hashedPassword = hashPasswordFromAuthSessionPersistence(password);
       const usedAt = new Date(nowMs).toISOString();
       const updatedUserRows = await sql<Array<{ session_revision: unknown }>>`
-        UPDATE auth_users
+        UPDATE public.auth_users
         SET password_hash = ${hashedPassword.hash},
             password_salt = ${hashedPassword.salt},
             password_must_change = FALSE,
@@ -11783,25 +13671,37 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
         RETURNING session_revision
       `;
       const sessionRevision = updatedUserRows[0]?.session_revision;
-      if (!Number.isSafeInteger(sessionRevision) || (sessionRevision as number) < 1) {
+      if (
+        updatedUserRows.length !== 1
+        || !Number.isSafeInteger(sessionRevision)
+        || (sessionRevision as number) < 1
+      ) {
         return { status: "invalid" as const };
       }
-      await sql`
-        UPDATE auth_password_reset_tokens
+      const updatedTokenRows = await sql<Array<{ id: unknown }>>`
+        UPDATE public.auth_password_reset_tokens
         SET used_at = ${usedAt}
         WHERE id = ${resetToken.id}
+          AND used_at IS NULL
+        RETURNING id
       `;
-      const updatedStateRows = await sql<Array<{ id: string }>>`
-        UPDATE app_state AS state
-        SET payload = jsonb_set(
-              jsonb_set(
+      if (updatedTokenRows.length !== 1 || updatedTokenRows[0]?.id !== resetToken.id) {
+        throw new Error("The password reset token could not be consumed.");
+      }
+      if (process.env.NODE_ENV === "test") {
+        await __userStorePostgresStorageReadinessTestHooks.failPasswordResetBeforeStateWrite?.();
+      }
+      const updatedStateRows = await sql<Array<{ revision: unknown }>>`
+        UPDATE public.app_state AS state
+        SET payload = pg_catalog.jsonb_set(
+              pg_catalog.jsonb_set(
                 state.payload,
                 '{users}',
                 (
-                  SELECT jsonb_agg(
+                  SELECT pg_catalog.jsonb_agg(
                     CASE
                       WHEN user_record->>'id' = ${user.id}
-                        THEN user_record || jsonb_build_object(
+                        THEN user_record || pg_catalog.jsonb_build_object(
                           'password_hash', ${hashedPassword.hash}::text,
                           'password_salt', ${hashedPassword.salt}::text,
                           'password_must_change', FALSE,
@@ -11811,7 +13711,7 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
                     END
                     ORDER BY ordinal
                   )
-                  FROM jsonb_array_elements(state.payload->'users')
+                  FROM pg_catalog.jsonb_array_elements(state.payload->'users')
                     WITH ORDINALITY AS user_records(user_record, ordinal)
                 ),
                 FALSE
@@ -11819,40 +13719,50 @@ async function resetUserPasswordInPostgresHotTables(token: string, password: str
               '{password_reset_tokens}',
               COALESCE(
                 (
-                  SELECT jsonb_agg(
+                  SELECT pg_catalog.jsonb_agg(
                     CASE
                       WHEN token_record->>'id' = ${resetToken.id}
-                        THEN token_record || jsonb_build_object('used_at', ${usedAt}::text)
+                        THEN token_record || pg_catalog.jsonb_build_object('used_at', ${usedAt}::text)
                       ELSE token_record
                     END
                     ORDER BY ordinal
                   )
-                  FROM jsonb_array_elements(
+                  FROM pg_catalog.jsonb_array_elements(
                     CASE
-                      WHEN jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
+                      WHEN pg_catalog.jsonb_typeof(state.payload->'password_reset_tokens') = 'array'
                         THEN state.payload->'password_reset_tokens'
-                      ELSE '[]'::jsonb
+                      ELSE '[]'::pg_catalog.jsonb
                     END
                   ) WITH ORDINALITY AS token_records(token_record, ordinal)
                 ),
-                '[]'::jsonb
+                '[]'::pg_catalog.jsonb
               ),
               FALSE
             ),
             revision = revision + 1,
             updated_at = ${usedAt}
         WHERE state.id = ${stateRecordId}
-          AND jsonb_typeof(state.payload->'users') = 'array'
+          AND state.tenant_id = ${stateTenantId}
+          AND state.state_kind = ${stateKind}
+          AND state.schema_version = ${schemaVersion}
+          AND state.revision = ${storageCapability.previousRevision}
+          AND pg_catalog.jsonb_typeof(state.payload->'users') = 'array'
           AND EXISTS (
             SELECT 1
-            FROM jsonb_array_elements(state.payload->'users') AS user_records(user_record)
+            FROM pg_catalog.jsonb_array_elements(state.payload->'users') AS user_records(user_record)
             WHERE user_record->>'id' = ${user.id}
           )
-        RETURNING state.id
+        RETURNING state.revision
       `;
-      if (updatedStateRows.length !== 1) {
+      const currentRevision = safePostgresRevision(updatedStateRows[0]?.revision);
+      if (updatedStateRows.length !== 1 || currentRevision === null) {
         throw new Error("The password reset user is missing from the state snapshot.");
       }
+      await advancePostgresStorageReadinessAfterMutation(
+        sql as unknown as PostgresReadinessTransaction,
+        storageCapability,
+        currentRevision
+      );
 
       const session = authenticatedUserFromAuthRecordsFromAuthSessionPersistence({
         mediaObjectUrlForKey: mediaObjectAccessUrl,
@@ -13478,17 +15388,237 @@ async function countPostgresHotAuthRows(sql: PostgresExecutor): Promise<AuthAdmi
   };
 }
 
-async function getPostgresHotAuthReadinessSnapshot() {
+async function postgresHotAuthReadinessCatalogIsComplete(
+  sql: PostgresReadinessTransaction,
+  primaryKeys: readonly PostgresHotAuthPrimaryKeyContract[] = postgresHotAuthPrimaryKeys
+) {
+  const primaryKeyAllowlistJson = serializePostgresHotAuthPrimaryKeyAllowlist(primaryKeys);
+  if (!primaryKeyAllowlistJson) return false;
+  const rows = await sql`
+    /* postgres_hot_auth_readiness_catalog_probe */
+    WITH required_columns(table_name, column_name, type_name, type_oid, is_nullable_int) AS (
+      SELECT required.*
+      FROM ROWS FROM (
+        pg_catalog.unnest(${postgresHotAuthRequiredColumns.map((entry) => entry.table)}::text[]),
+        pg_catalog.unnest(${postgresHotAuthRequiredColumns.map((entry) => entry.column)}::text[]),
+        pg_catalog.unnest(${postgresHotAuthRequiredColumns.map((entry) => entry.type)}::text[]),
+        pg_catalog.unnest(${postgresHotAuthRequiredColumns.map((entry) => postgresBuiltinTypeOids[entry.type])}::oid[]),
+        pg_catalog.unnest(${postgresHotAuthRequiredColumns.map((entry) => entry.nullable ? 1 : 0)}::int4[])
+      ) AS required(table_name, column_name, type_name, type_oid, is_nullable_int)
+    ), required_primary_keys(table_name, primary_key_columns) AS (
+      SELECT
+        primary_key_entry.entry->>'table' AS table_name,
+        ARRAY(
+          SELECT primary_key_column.column_name
+          FROM pg_catalog.jsonb_array_elements_text(primary_key_entry.entry->'columns') WITH ORDINALITY
+            AS primary_key_column(column_name, ordinality)
+          ORDER BY primary_key_column.ordinality
+        )::pg_catalog.text[] AS primary_key_columns
+      FROM pg_catalog.jsonb_array_elements(
+        ${primaryKeyAllowlistJson}::pg_catalog.text::pg_catalog.jsonb
+      ) WITH ORDINALITY
+        AS primary_key_entry(entry, ordinality)
+      ORDER BY primary_key_entry.ordinality
+    )
+    SELECT
+      EXISTS (
+        SELECT 1
+        FROM public.auth_schema_migrations
+        WHERE version = ${hotAuthSchemaVersion}
+      )
+      AND NOT EXISTS (
+        SELECT 1
+        FROM required_columns AS required
+        LEFT JOIN pg_catalog.pg_namespace AS namespace
+          ON namespace.nspname = 'public'
+        LEFT JOIN pg_catalog.pg_class AS relation
+          ON relation.relnamespace = namespace.oid
+         AND relation.relname::text = required.table_name
+         AND relation.relkind = 'r'
+         AND relation.relpersistence = 'p'
+         AND relation.relrowsecurity IS FALSE
+         AND relation.relforcerowsecurity IS FALSE
+        LEFT JOIN pg_catalog.pg_attribute AS attribute
+          ON attribute.attrelid = relation.oid
+         AND attribute.attname::text = required.column_name
+         AND attribute.attnum > 0
+         AND NOT attribute.attisdropped
+        LEFT JOIN pg_catalog.pg_type AS column_type
+          ON column_type.oid = attribute.atttypid
+        LEFT JOIN pg_catalog.pg_namespace AS type_namespace
+          ON type_namespace.oid = column_type.typnamespace
+        WHERE relation.oid IS NULL
+           OR attribute.attname IS NULL
+           OR column_type.typname::text IS DISTINCT FROM required.type_name
+           OR attribute.atttypid IS DISTINCT FROM required.type_oid
+           OR type_namespace.nspname IS DISTINCT FROM 'pg_catalog'
+           OR column_type.typtype IS DISTINCT FROM 'b'
+           OR attribute.attnotnull IS DISTINCT FROM (required.is_nullable_int = 0)
+      )
+      AND NOT EXISTS (
+        SELECT 1
+        FROM required_primary_keys AS required
+        LEFT JOIN pg_catalog.pg_namespace AS namespace
+          ON namespace.nspname = 'public'
+        LEFT JOIN pg_catalog.pg_class AS relation
+          ON relation.relnamespace = namespace.oid
+         AND relation.relname::text = required.table_name
+         AND relation.relkind = 'r'
+         AND relation.relpersistence = 'p'
+         AND relation.relrowsecurity IS FALSE
+         AND relation.relforcerowsecurity IS FALSE
+        LEFT JOIN LATERAL (
+          SELECT
+            (
+              SELECT COUNT(*)::integer
+              FROM pg_catalog.pg_constraint AS counted_primary_constraint
+              WHERE counted_primary_constraint.conrelid = relation.oid
+                AND counted_primary_constraint.contype = 'p'
+            ) AS primary_key_constraint_count,
+            ARRAY(
+              SELECT primary_key_attribute.attname::text
+              FROM pg_catalog.unnest(primary_constraint.conkey) WITH ORDINALITY
+                AS primary_key_column(attribute_number, ordinality)
+              INNER JOIN pg_catalog.pg_attribute AS primary_key_attribute
+                ON primary_key_attribute.attrelid = primary_constraint.conrelid
+               AND primary_key_attribute.attnum = primary_key_column.attribute_number
+               AND primary_key_attribute.attnum > 0
+               AND NOT primary_key_attribute.attisdropped
+              ORDER BY primary_key_column.ordinality
+            ) AS primary_key_columns,
+            primary_constraint.convalidated AS primary_key_validated,
+            primary_constraint.condeferrable AS primary_key_deferrable,
+            primary_constraint.condeferred AS primary_key_deferred,
+            primary_index.indisprimary,
+            primary_index.indisunique,
+            primary_index.indimmediate,
+            primary_index.indisvalid,
+            primary_index.indisready,
+            primary_index.indislive,
+            primary_index.indpred IS NULL AS primary_index_nonpartial,
+            primary_index.indexprs IS NULL AS primary_index_not_expression,
+            primary_index_relation.relkind = 'i' AS primary_index_relation_kind_exact,
+            primary_index_relation.relnamespace = relation.relnamespace
+              AS primary_index_namespace_exact,
+            primary_index_access_method.amname = 'btree' AS primary_index_access_method_exact,
+            (
+              SELECT COUNT(*) = 1
+              FROM pg_catalog.pg_depend AS index_dependency
+              WHERE index_dependency.classid = 'pg_catalog.pg_class'::pg_catalog.regclass
+                AND index_dependency.objid = primary_constraint.conindid
+                AND index_dependency.refclassid = 'pg_catalog.pg_constraint'::pg_catalog.regclass
+                AND index_dependency.refobjid = primary_constraint.oid
+                AND index_dependency.deptype = 'i'
+            ) AS primary_index_dependency_exact
+          FROM pg_catalog.pg_constraint AS primary_constraint
+          LEFT JOIN pg_catalog.pg_index AS primary_index
+            ON primary_index.indexrelid = primary_constraint.conindid
+           AND primary_index.indrelid = relation.oid
+          LEFT JOIN pg_catalog.pg_class AS primary_index_relation
+            ON primary_index_relation.oid = primary_constraint.conindid
+          LEFT JOIN pg_catalog.pg_am AS primary_index_access_method
+            ON primary_index_access_method.oid = primary_index_relation.relam
+          WHERE primary_constraint.conrelid = relation.oid
+            AND primary_constraint.contype = 'p'
+          GROUP BY
+            primary_constraint.oid,
+            primary_index.indexrelid,
+            primary_index.indisprimary,
+            primary_index.indisunique,
+            primary_index.indimmediate,
+            primary_index.indisvalid,
+            primary_index.indisready,
+            primary_index.indislive,
+            primary_index.indpred,
+            primary_index.indexprs,
+            primary_index_relation.relkind,
+            primary_index_relation.relnamespace,
+            primary_index_access_method.amname
+        ) AS primary_key ON TRUE
+        WHERE relation.oid IS NULL
+           OR primary_key.primary_key_constraint_count IS DISTINCT FROM 1
+           OR primary_key.primary_key_columns IS DISTINCT FROM required.primary_key_columns
+           OR primary_key.primary_key_validated IS DISTINCT FROM TRUE
+           OR primary_key.primary_key_deferrable IS DISTINCT FROM FALSE
+           OR primary_key.primary_key_deferred IS DISTINCT FROM FALSE
+           OR primary_key.indisprimary IS DISTINCT FROM TRUE
+           OR primary_key.indisunique IS DISTINCT FROM TRUE
+           OR primary_key.indimmediate IS DISTINCT FROM TRUE
+           OR primary_key.indisvalid IS DISTINCT FROM TRUE
+           OR primary_key.indisready IS DISTINCT FROM TRUE
+           OR primary_key.indislive IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_nonpartial IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_not_expression IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_relation_kind_exact IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_namespace_exact IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_access_method_exact IS DISTINCT FROM TRUE
+           OR primary_key.primary_index_dependency_exact IS DISTINCT FROM TRUE
+      ) AS schema_ready
+  ` as Array<{ schema_ready: boolean }>;
+  return rows[0]?.schema_ready === true;
+}
+
+async function countPostgresHotAuthReadinessRows(
+  sql: PostgresReadinessTransaction
+): Promise<AuthAdminStorageHotAuthCounts> {
+  const rows = await sql`
+    /* postgres_hot_auth_readiness_count_probe */
+    SELECT
+      (SELECT COUNT(*)::int FROM public.auth_users) AS auth_users,
+      (SELECT COUNT(*)::int FROM public.auth_student_profiles) AS auth_student_profiles,
+      (SELECT COUNT(*)::int FROM public.auth_user_settings) AS auth_user_settings,
+      (SELECT COUNT(*)::int FROM public.auth_password_reset_tokens) AS auth_password_reset_tokens
+  ` as AuthAdminStorageHotAuthCounts[];
+  return rows[0] ?? {
+    auth_users: 0,
+    auth_student_profiles: 0,
+    auth_user_settings: 0,
+    auth_password_reset_tokens: 0
+  };
+}
+
+export async function probePostgresDurableReadinessStrict(
+  client: PostgresReadinessClient,
+  state: PostgresStorageReadinessState
+) {
+  return withBoundedPostgresReadinessTransaction(client, async (sql) => {
+    if (!await postgresStorageReadinessCatalogIsComplete(sql)) return null;
+    if (!await postgresStorageReadinessInvalidationIsComplete(sql)) return null;
+    if (!await postgresStorageReadinessMarkerIsCurrent(sql, state)) return null;
+    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return null;
+    return true;
+  });
+}
+
+export async function countPostgresHotAuthRowsForAdminDiagnostics(
+  client: PostgresReadinessClient
+) {
+  return withBoundedPostgresReadinessTransaction(client, async (sql) => {
+    if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return null;
+    return countPostgresHotAuthReadinessRows(sql);
+  });
+}
+
+async function getPostgresHotAuthReadinessSnapshot({
+  includeDiagnosticsCounts
+}: {
+  includeDiagnosticsCounts: boolean;
+}) {
   if (storageProvider !== "postgres" || !postgresUrl) {
     return unavailableHotAuthReadinessSnapshotFromAuthAdminStoragePersistence(hotAuthDataLayerSummary());
   }
 
   try {
-    const counts = await countPostgresHotAuthRows(getPostgresClient());
+    const readiness = await runPostgresDurableReadinessWithinDeadline(
+      includeDiagnosticsCounts
+    );
+    if (!readiness.durableReady || (includeDiagnosticsCounts && !readiness.counts)) {
+      return unavailableHotAuthReadinessSnapshotFromAuthAdminStoragePersistence(hotAuthDataLayerSummary());
+    }
     return {
       ...hotAuthDataLayerSummary(),
       tablesReady: true as const,
-      counts
+      counts: readiness.counts
     };
   } catch {
     return unavailableHotAuthReadinessSnapshotFromAuthAdminStoragePersistence(hotAuthDataLayerSummary());
@@ -13499,10 +15629,18 @@ async function runPostgresHotAuthBackfillForAdmin(userId: string) {
   try {
     await ensurePostgresStateTable();
     return getPostgresClient().begin(async (sql) => {
-      await ensureInitialPostgresState(sql);
       const rows = await selectPostgresStateRows(sql, true);
+      if (
+        rows.length !== 1
+        || !postgresStorageSnapshotContractIsComplete(rows[0]?.payload)
+      ) {
+        throw new Error("Postgres storage snapshot is incomplete.");
+      }
       const parsed = rows[0] ? parseStoredStatePayload(rows[0].payload) : null;
-      const database = hasCoreTables(parsed) ? normalizeDatabase(parsed) : createInitialDatabase();
+      if (!hasCoreTables(parsed)) {
+        throw new Error("Postgres storage snapshot is incomplete.");
+      }
+      const database = normalizeDatabase(parsed);
       const actor = database.users.find((candidate) => candidate.id === userId);
       if (actor?.role !== "admin") {
         return {

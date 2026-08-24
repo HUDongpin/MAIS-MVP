@@ -7,6 +7,10 @@ import { authAdminStorageHotAuthUserRows } from "@/lib/server/userStore/authAdmi
 import { projectedUserRecord } from "@/lib/server/userStore/authSessionPersistence";
 
 const userStorePath = path.join(process.cwd(), "lib/server/userStore.ts");
+const integrationWorkerPath = path.join(
+  process.cwd(),
+  "scripts/nova-postgres-integration-worker.ts"
+);
 
 function persistedUser(overrides: Record<string, unknown> = {}) {
   return {
@@ -68,8 +72,8 @@ test("Postgres hot-auth schema and upsert persist session revision and disabled 
   assert.match(source, /const hotAuthSchemaVersion = 4/);
   assert.match(source, /session_revision INTEGER NOT NULL DEFAULT 1/);
   assert.match(source, /disabled_at TEXT/);
-  assert.match(source, /ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS session_revision INTEGER NOT NULL DEFAULT 1/);
-  assert.match(source, /ALTER TABLE auth_users ADD COLUMN IF NOT EXISTS disabled_at TEXT/);
+  assert.match(source, /ALTER TABLE public\.auth_users ADD COLUMN IF NOT EXISTS session_revision INTEGER NOT NULL DEFAULT 1/);
+  assert.match(source, /ALTER TABLE public\.auth_users ADD COLUMN IF NOT EXISTS disabled_at TEXT/);
   assert.match(
     source,
     /sql\(users,[\s\S]*?"session_revision", "disabled_at"[\s\S]*?\)/
@@ -104,7 +108,7 @@ test("Postgres authentication and reset enforce revision atomically", async () =
   );
   assert.match(
     createResetSource,
-    /SELECT payload[\s\S]*?FROM app_state[\s\S]*?FOR UPDATE[\s\S]*?INSERT INTO auth_password_reset_tokens[\s\S]*?UPDATE app_state[\s\S]*?password_reset_tokens/
+    /acquirePostgresStorageMutationCapability\([\s\S]*?INSERT INTO public\.auth_password_reset_tokens[\s\S]*?UPDATE public\.app_state[\s\S]*?password_reset_tokens[\s\S]*?AND state\.revision = \$\{storageCapability\.previousRevision\}[\s\S]*?RETURNING state\.revision[\s\S]*?advancePostgresStorageReadinessAfterMutation\(/
   );
   assert.match(
     createResetSource,
@@ -112,15 +116,17 @@ test("Postgres authentication and reset enforce revision atomically", async () =
   );
   assert.match(
     source,
-    /async function resetUserPasswordInPostgresHotTables\([\s\S]*?FROM auth_password_reset_tokens[\s\S]*?FOR UPDATE[\s\S]*?UPDATE auth_users[\s\S]*?session_revision = session_revision \+ 1[\s\S]*?disabled_at IS NULL[\s\S]*?RETURNING session_revision/
+    /async function resetUserPasswordInPostgresHotTables\([\s\S]*?FROM public\.auth_password_reset_tokens[\s\S]*?FOR UPDATE[\s\S]*?UPDATE public\.auth_users[\s\S]*?session_revision = session_revision \+ 1[\s\S]*?disabled_at IS NULL[\s\S]*?RETURNING session_revision/
   );
   assert.match(
     resetSource,
-    /SELECT payload[\s\S]*?FROM app_state[\s\S]*?FOR UPDATE[\s\S]*?UPDATE app_state[\s\S]*?session_revision[\s\S]*?revision = revision \+ 1/
+    /acquirePostgresStorageMutationCapability\([\s\S]*?UPDATE public\.app_state[\s\S]*?session_revision[\s\S]*?revision = revision \+ 1[\s\S]*?AND state\.revision = \$\{storageCapability\.previousRevision\}[\s\S]*?RETURNING state\.revision[\s\S]*?advancePostgresStorageReadinessAfterMutation\(/
   );
+  assert.doesNotMatch(createResetSource, /SELECT\s+(?:state\.)?payload\b|attestCurrentPostgresStorageSnapshot/iu);
+  assert.doesNotMatch(resetSource, /SELECT\s+(?:state\.)?payload\b|attestCurrentPostgresStorageSnapshot/iu);
   assert.match(
     resetSource,
-    /UPDATE app_state[\s\S]*?password_reset_tokens[\s\S]*?used_at[\s\S]*?\$\{usedAt\}/
+    /UPDATE public\.app_state[\s\S]*?password_reset_tokens[\s\S]*?used_at[\s\S]*?\$\{usedAt\}/
   );
   assert.match(
     resetSource,
@@ -134,4 +140,58 @@ test("Postgres authentication and reset enforce revision atomically", async () =
   );
   assert.match(resetSource, /if \(!user \|\| !profile\) return \{ status: "invalid" as const \}/);
   assert.doesNotMatch(resetSource, /catch\s*\{\s*return undefined/);
+});
+
+test("Postgres password-reset hot paths fail closed, return exact rows, and keep token cleanup symmetric", async () => {
+  const source = await readFile(userStorePath, "utf8");
+  const createResetStart = source.indexOf("async function createPasswordResetRequestInPostgresHotTables");
+  const createResetEnd = source.indexOf("\nexport const createPasswordResetRequest", createResetStart);
+  const createResetSource = source.slice(createResetStart, createResetEnd);
+  const resetStart = source.indexOf("async function resetUserPasswordInPostgresHotTables");
+  const resetEnd = source.indexOf("\nexport const resetUserPassword", resetStart);
+  const resetSource = source.slice(resetStart, resetEnd);
+  const lockedReadStart = source.indexOf("async function normalizeLockedPostgresState(");
+  const lockedReadEnd = source.indexOf("async function readPostgresDatabaseFrom(", lockedReadStart);
+  const lockedReadSource = source.slice(lockedReadStart, lockedReadEnd);
+
+  assert.match(createResetSource, /catch\s*\{\s*return null;\s*\}/u);
+  assert.doesNotMatch(createResetSource, /catch\s*\{\s*return undefined;\s*\}/u);
+  assert.match(createResetSource, /DELETE FROM public\.auth_password_reset_tokens[\s\S]*used_at IS NOT NULL[\s\S]*expires_at/u);
+  assert.match(createResetSource, /pg_catalog\.jsonb_array_elements[\s\S]*password_reset_tokens[\s\S]*token_record->>'used_at'[\s\S]*token_record->>'expires_at'/u);
+
+  assert.match(resetSource, /updatedUserRows\.length !== 1/u);
+  assert.match(resetSource, /UPDATE public\.auth_password_reset_tokens[\s\S]*RETURNING id/u);
+  assert.match(resetSource, /updatedTokenRows\.length !== 1/u);
+  assert.match(resetSource, /__userStorePostgresStorageReadinessTestHooks\.failPasswordResetBeforeStateWrite/u);
+
+  const overlayIndex = lockedReadSource.indexOf("overlayPostgresHotAuthRowsIfEnabled");
+  const hotSyncIndex = lockedReadSource.indexOf("syncPostgresHotAuthTablesWith");
+  assert.ok(overlayIndex >= 0 && hotSyncIndex > overlayIndex, "full rewrite must consume hot rows before shadow sync");
+});
+
+test("the password-reset rollback worker uses the in-transaction failpoint and exact evidence", async () => {
+  const source = await readFile(integrationWorkerPath, "utf8");
+  const start = source.indexOf('if (command === "session-reset-rollback")');
+  const end = source.indexOf('\n    if (command === "write-message")', start);
+  const rollbackSource = source.slice(start, end);
+
+  assert.ok(start >= 0 && end > start);
+  assert.match(
+    rollbackSource,
+    /failPasswordResetBeforeStateWrite\s*=\s*\(\)\s*=>\s*\{\s*throw new Error/u
+  );
+  assert.match(rollbackSource, /failPasswordResetBeforeStateWrite\s*=\s*null/u);
+  assert.match(
+    rollbackSource,
+    /tenant_id[\s\S]*state_kind[\s\S]*schema_version[\s\S]*revision[\s\S]*updated_at[\s\S]*payload/u
+  );
+  assert.match(rollbackSource, /app_state_readiness_markers/u);
+  assert.match(rollbackSource, /auth_users/u);
+  assert.match(rollbackSource, /auth_password_reset_tokens/u);
+  assert.match(rollbackSource, /integration-reset-cleanup-used/u);
+  assert.match(rollbackSource, /integration-reset-cleanup-expired/u);
+  assert.match(rollbackSource, /integration-reset-cleanup-malformed/u);
+  assert.match(rollbackSource, /cleanupSymmetric/u);
+  assert.match(rollbackSource, /fullRewriteDidNotResurrect/u);
+  assert.doesNotMatch(rollbackSource, /SET payload = pg_catalog\.jsonb_set|SET payload = jsonb_set/u);
 });

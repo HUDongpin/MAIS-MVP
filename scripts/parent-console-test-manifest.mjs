@@ -11,6 +11,7 @@ export const parentDomainTestFiles = Object.freeze([
   "app/parent/parentRscSafeBoundary.test.ts",
   "components/parent/parentErrorAnnouncements.test.ts",
   "components/parent/parentMessageUi.test.ts",
+  "lib/server/userStore/parentPostgresScopedMutationCapability.test.ts",
   "lib/server/userStore/parentPostgresScopedMutations.test.ts",
   "lib/server/userStoreParentAccessPersistence.test.ts",
   "lib/server/userStoreParentFoundationPersistence.test.ts",
@@ -62,19 +63,19 @@ export const parentConsoleTestFiles = Object.freeze([
   ...parentSecurityLifecycleTestFiles
 ]);
 
-export const expectedParentDomainTestCount = 138;
+export const expectedParentDomainTestCount = 140;
 export const expectedParentConsoleSupportTestCount = 15;
-export const expectedParentSecurityLifecycleTestCount = 144;
-export const expectedParentConsoleTestCount = 297;
+export const expectedParentSecurityLifecycleTestCount = 146;
+export const expectedParentConsoleTestCount = 301;
 
 // Runtime has two more tests than the source declaration count because two
 // teacher-report cases are declared inside a two-value loop. The runner below
 // therefore verifies the authoritative TAP runtime count rather than treating
 // a source regex as execution evidence.
-export const expectedParentDomainStaticDeclarationCount = 138;
+export const expectedParentDomainStaticDeclarationCount = 140;
 export const expectedParentConsoleSupportStaticDeclarationCount = 15;
-export const expectedParentSecurityLifecycleStaticDeclarationCount = 142;
-export const expectedParentConsoleStaticDeclarationCount = 295;
+export const expectedParentSecurityLifecycleStaticDeclarationCount = 144;
+export const expectedParentConsoleStaticDeclarationCount = 299;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);

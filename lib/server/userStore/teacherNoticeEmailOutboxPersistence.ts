@@ -168,6 +168,51 @@ export async function runTeacherNoticeEmailOutboxAttestedTransaction<Sql, Result
   return operation(sql);
 }
 
+export async function runTeacherNoticeEmailOutboxStorageAttestedTransaction<Sql, Capability, Result>({
+  sql,
+  configure,
+  acquireStorageCooperativeAdvisoryLock,
+  acquireOutboxCooperativeAdvisoryLock,
+  acquireWebhookSchemaAdvisoryLock,
+  acquireProviderMessageAdvisoryLock,
+  lockStorageRelations,
+  lockOutbox,
+  lockMigrationMarker,
+  attestOutbox,
+  acquireStorageCapability,
+  operation
+}: {
+  sql: Sql;
+  configure: (sql: Sql) => Promise<void>;
+  acquireStorageCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+  acquireOutboxCooperativeAdvisoryLock: (sql: Sql) => Promise<void>;
+  acquireWebhookSchemaAdvisoryLock?: (sql: Sql) => Promise<void>;
+  acquireProviderMessageAdvisoryLock?: (sql: Sql) => Promise<void>;
+  lockStorageRelations: (sql: Sql) => Promise<void>;
+  lockOutbox: (sql: Sql) => Promise<void>;
+  lockMigrationMarker: (sql: Sql) => Promise<void>;
+  attestOutbox: (sql: Sql) => Promise<boolean>;
+  acquireStorageCapability: (sql: Sql) => Promise<Capability>;
+  operation: (sql: Sql, capability: Capability) => Promise<Result>;
+}) {
+  await configure(sql);
+  // A publication spans both storage contracts. Acquire every cooperative
+  // advisory lock before any relation or row lock so storage bootstrap and
+  // outbox migration cannot form a cross-contract wait cycle.
+  await acquireStorageCooperativeAdvisoryLock(sql);
+  await acquireOutboxCooperativeAdvisoryLock(sql);
+  if (acquireWebhookSchemaAdvisoryLock) await acquireWebhookSchemaAdvisoryLock(sql);
+  if (acquireProviderMessageAdvisoryLock) await acquireProviderMessageAdvisoryLock(sql);
+  await lockStorageRelations(sql);
+  await lockOutbox(sql);
+  await lockMigrationMarker(sql);
+  if (!await attestOutbox(sql)) {
+    throw new Error("Teacher notice email outbox PostgreSQL schema could not be attested.");
+  }
+  const capability = await acquireStorageCapability(sql);
+  return operation(sql, capability);
+}
+
 // Terminal rows retain direct family delivery data for 30 days for bounded
 // support/recovery, then keep only opaque internal identifiers, one-way
 // fingerprints, delivery-state evidence, and retention timestamps. The entire
@@ -724,7 +769,7 @@ export const teacherNoticeEmailOutboxExpectedPostgresCatalog = {
       relationOidMatches: true,
       backingIndexOidMatches: true,
       keyColumns: [],
-      expression: "((((status = ANY (ARRAY['pending'::text, 'retryable'::text])) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (provider_message_id IS NULL) AND (completed_at IS NULL) AND (pii_expires_at IS NULL) AND (pii_purged_at IS NULL) AND (tombstone_expires_at IS NULL)) OR ((status = 'leased'::text) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL) AND (lease_token IS NOT NULL) AND (lease_token <> ''::text) AND (lease_expires_at IS NOT NULL) AND (provider_message_id IS NULL) AND (completed_at IS NULL) AND (pii_expires_at IS NULL) AND (pii_purged_at IS NULL) AND (tombstone_expires_at IS NULL)) OR ((status = 'provider-accepted'::text) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (provider_message_id IS NOT NULL) AND (provider_message_id <> ''::text) AND (completed_at IS NOT NULL) AND (pii_expires_at IS NOT NULL) AND (tombstone_expires_at IS NOT NULL) AND (((pii_purged_at IS NULL) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL)) OR ((pii_purged_at IS NOT NULL) AND (recipient_id IS NULL) AND (student_id IS NULL) AND (guardian_id IS NULL) AND (teacher_id IS NULL) AND (queued_by_id IS NULL) AND (class_id IS NULL) AND (email IS NULL) AND (locale IS NULL)))) OR ((status = ANY (ARRAY['blocked'::text, 'dead-letter'::text])) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (completed_at IS NOT NULL) AND (pii_expires_at IS NOT NULL) AND (tombstone_expires_at IS NOT NULL) AND (((pii_purged_at IS NULL) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL)) OR ((pii_purged_at IS NOT NULL) AND (recipient_id IS NULL) AND (student_id IS NULL) AND (guardian_id IS NULL) AND (teacher_id IS NULL) AND (queued_by_id IS NULL) AND (class_id IS NULL) AND (email IS NULL) AND (locale IS NULL)))))"
+      expression: "(((status = ANY (ARRAY['pending'::text, 'retryable'::text])) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (provider_message_id IS NULL) AND (completed_at IS NULL) AND (pii_expires_at IS NULL) AND (pii_purged_at IS NULL) AND (tombstone_expires_at IS NULL)) OR ((status = 'leased'::text) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL) AND (lease_token IS NOT NULL) AND (lease_token <> ''::text) AND (lease_expires_at IS NOT NULL) AND (provider_message_id IS NULL) AND (completed_at IS NULL) AND (pii_expires_at IS NULL) AND (pii_purged_at IS NULL) AND (tombstone_expires_at IS NULL)) OR ((status = 'provider-accepted'::text) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (provider_message_id IS NOT NULL) AND (provider_message_id <> ''::text) AND (completed_at IS NOT NULL) AND (pii_expires_at IS NOT NULL) AND (tombstone_expires_at IS NOT NULL) AND (((pii_purged_at IS NULL) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL)) OR ((pii_purged_at IS NOT NULL) AND (recipient_id IS NULL) AND (student_id IS NULL) AND (guardian_id IS NULL) AND (teacher_id IS NULL) AND (queued_by_id IS NULL) AND (class_id IS NULL) AND (email IS NULL) AND (locale IS NULL)))) OR ((status = ANY (ARRAY['blocked'::text, 'dead-letter'::text])) AND (lease_token IS NULL) AND (lease_expires_at IS NULL) AND (completed_at IS NOT NULL) AND (pii_expires_at IS NOT NULL) AND (tombstone_expires_at IS NOT NULL) AND (((pii_purged_at IS NULL) AND (recipient_id IS NOT NULL) AND (student_id IS NOT NULL) AND (guardian_id IS NOT NULL) AND (teacher_id IS NOT NULL) AND (queued_by_id IS NOT NULL) AND (class_id IS NOT NULL) AND (email IS NOT NULL) AND (locale IS NOT NULL)) OR ((pii_purged_at IS NOT NULL) AND (recipient_id IS NULL) AND (student_id IS NULL) AND (guardian_id IS NULL) AND (teacher_id IS NULL) AND (queued_by_id IS NULL) AND (class_id IS NULL) AND (email IS NULL) AND (locale IS NULL)))))"
     },
     {
       relation: "teacher_notice_email_outbox",

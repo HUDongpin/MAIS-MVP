@@ -1,7 +1,101 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createPostgresSchemaReadinessGate } from "./postgresSchemaReadiness";
+import {
+  createPostgresSchemaReadinessGate,
+  PostgresAdvisoryBootstrapContentionError,
+  PostgresAdvisoryMarkerContentionError,
+  runPostgresBootstrapWithContentionRecovery
+} from "./postgresSchemaReadiness";
+
+test("only exact advisory bootstrap contention may poll a strict marker and retry", async () => {
+  const lockError = Object.assign(new Error("advisory lock timeout"), { code: "55P03" });
+  let bootstraps = 0;
+  let markerReads = 0;
+  await runPostgresBootstrapWithContentionRecovery({
+    bootstrap: async () => {
+      bootstraps += 1;
+      if (bootstraps === 1) throw new PostgresAdvisoryBootstrapContentionError(lockError);
+    },
+    readCurrentMarker: async () => {
+      markerReads += 1;
+      return false;
+    }
+  });
+  assert.equal(bootstraps, 2);
+  assert.equal(markerReads, 1);
+
+  bootstraps = 0;
+  markerReads = 0;
+  await runPostgresBootstrapWithContentionRecovery({
+    bootstrap: async () => {
+      bootstraps += 1;
+      throw new PostgresAdvisoryBootstrapContentionError(lockError);
+    },
+    readCurrentMarker: async () => {
+      markerReads += 1;
+      return true;
+    }
+  });
+  assert.equal(bootstraps, 1);
+  assert.equal(markerReads, 1);
+
+  bootstraps = 0;
+  markerReads = 0;
+  await runPostgresBootstrapWithContentionRecovery({
+    bootstrap: async () => {
+      bootstraps += 1;
+      throw new PostgresAdvisoryBootstrapContentionError(lockError);
+    },
+    readCurrentMarker: async () => {
+      markerReads += 1;
+      if (markerReads === 1) throw new PostgresAdvisoryMarkerContentionError(lockError);
+      return true;
+    }
+  });
+  assert.equal(bootstraps, 2);
+  assert.equal(markerReads, 2);
+
+  const rawRelationLockTimeout = Object.assign(new Error("relation lock timeout"), { code: "55P03" });
+  await assert.rejects(
+    runPostgresBootstrapWithContentionRecovery({
+      bootstrap: async () => { throw new PostgresAdvisoryBootstrapContentionError(lockError); },
+      readCurrentMarker: async () => { throw rawRelationLockTimeout; }
+    }),
+    (actual) => actual === rawRelationLockTimeout
+  );
+});
+
+test("contention recovery never swallows permission, transport, statement, or DDL failures", async () => {
+  for (const code of ["42501", "57014", "ETIMEDOUT", "55P03"]) {
+    const error = Object.assign(new Error(`bootstrap ${code}`), { code });
+    let markerReads = 0;
+    await assert.rejects(
+      runPostgresBootstrapWithContentionRecovery({
+        bootstrap: async () => { throw error; },
+        readCurrentMarker: async () => {
+          markerReads += 1;
+          return true;
+        }
+      }),
+      (actual) => actual === error
+    );
+    assert.equal(markerReads, 0, `${code} must not enter advisory contention recovery`);
+  }
+
+  const markerTimeout = Object.assign(new Error("strict marker timeout"), { code: "57014" });
+  await assert.rejects(
+    runPostgresBootstrapWithContentionRecovery({
+      bootstrap: async () => {
+        throw new PostgresAdvisoryBootstrapContentionError(
+          Object.assign(new Error("advisory lock timeout"), { code: "55P03" })
+        );
+      },
+      readCurrentMarker: async () => { throw markerTimeout; }
+    }),
+    (actual) => actual === markerTimeout
+  );
+});
 
 test("marker hit skips bootstrap work and latches success", async () => {
   let markerReads = 0;

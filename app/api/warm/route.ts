@@ -10,34 +10,53 @@ import { getStorageReadinessSnapshot } from "@/lib/server/userStore";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function isAuthorized(request: Request): boolean {
-  const secret = process.env.CRON_SECRET?.trim();
-  // If no secret is configured, the endpoint is open (it only performs a read-only
-  // readiness probe and returns no sensitive data). Vercel Cron automatically sends
-  // `Authorization: Bearer <CRON_SECRET>` when the env var is set, so gate on it if present.
-  if (!secret) return true;
-  return request.headers.get("authorization") === `Bearer ${secret}`;
+type WarmRouteDependencies = {
+  getStorageReadinessSnapshot: () => Promise<{ durableReady?: boolean } | null>;
+  now?: () => number;
+  readCronSecret: () => string | undefined;
+};
+
+const privateNoStoreHeaders = {
+  "Cache-Control": "private, no-store, max-age=0"
+};
+
+export function createWarmRouteHandler({
+  getStorageReadinessSnapshot: readStorageReadinessSnapshot,
+  now = Date.now,
+  readCronSecret
+}: WarmRouteDependencies) {
+  return async function handleWarmRequest(request: Request) {
+    const secret = readCronSecret()?.trim();
+    if (!secret) {
+      return NextResponse.json(
+        { error: "Warm endpoint unavailable." },
+        { status: 503, headers: privateNoStoreHeaders }
+      );
+    }
+    if (request.headers.get("authorization") !== `Bearer ${secret}`) {
+      return NextResponse.json(
+        { error: "Unauthorized." },
+        { status: 401, headers: privateNoStoreHeaders }
+      );
+    }
+
+    const startedAt = now();
+    let storageReady = false;
+    try {
+      const snapshot = await readStorageReadinessSnapshot();
+      storageReady = Boolean(snapshot?.durableReady);
+    } catch {
+      storageReady = false;
+    }
+
+    return NextResponse.json(
+      { warm: true, storageReady, warmedInMs: Math.max(0, now() - startedAt) },
+      { headers: privateNoStoreHeaders }
+    );
+  };
 }
 
-export async function GET(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
-  }
-
-  const startedAt = Date.now();
-  let storageReady = false;
-  try {
-    // Establishes/verifies the pooled DB connection and touches the hot auth tables —
-    // the same durable path a login request exercises.
-    const snapshot = await getStorageReadinessSnapshot();
-    storageReady = Boolean(snapshot?.durableReady);
-  } catch {
-    // A warm ping must never fail the deployment health; report not-ready instead.
-    storageReady = false;
-  }
-
-  return NextResponse.json(
-    { warm: true, storageReady, warmedInMs: Date.now() - startedAt },
-    { headers: { "Cache-Control": "no-store, max-age=0" } }
-  );
-}
+export const GET = createWarmRouteHandler({
+  getStorageReadinessSnapshot,
+  readCronSecret: () => process.env.CRON_SECRET
+});

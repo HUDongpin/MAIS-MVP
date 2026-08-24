@@ -131,6 +131,9 @@ jobs:
       - name: Run Resend teacher-notice webhook verifier and durable-state gates
         run: npm run test:teacher-notice-resend-webhook
 
+      - name: Postgres readiness contract
+        run: npm run test:postgres-readiness
+
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 
@@ -170,7 +173,7 @@ jobs:
     # Runs the actual migration and compatibility SQL against PostgreSQL 16.
     # Source-regex tests remain useful, but cannot prove transaction, trigger,
     # rollback, or concurrent-bootstrap behavior.
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
@@ -190,6 +193,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -203,6 +213,33 @@ jobs:
         env:
           MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
         run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
+
+  visualization-browser:
+    # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
+    # Runs on every PR (first green run 2026-07-21) plus manual full_validation.
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    # Playwright's webServer builds the app; that Next build OOMs Node's default
+    # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
+    env:
+      NODE_OPTIONS: --max-old-space-size=6144
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run visualization DOM-contract spec
+        run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
 
   teacher-notice-outbox-postgres16:
     # Preserve PR coverage, verify the exact post-merge main SHA, and provide a
@@ -227,6 +264,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -264,6 +308,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Verify exact event SHA checkout
+        env:
+          EXPECTED_EVENT_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_EVENT_SHA"
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -278,33 +329,6 @@ jobs:
           MAIS_RESEND_WEBHOOK_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_resend_webhook_ci
           MAIS_RESEND_WEBHOOK_POSTGRES_INTEGRATION_CONFIRM: confirm:destroy-test:4eaef030804137b9a640f9a019a679901849cc84f1469f3368787a8a3a3593eb
         run: npm run test:teacher-notice-resend-webhook:postgres
-
-  visualization-browser:
-    # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
-    # Runs on every PR (first green run 2026-07-21) plus manual full_validation.
-    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
-    runs-on: ubuntu-latest
-    # Playwright's webServer builds the app; that Next build OOMs Node's default
-    # ~2 GB old-space on the runner. Match the `validate` job's larger heap.
-    env:
-      NODE_OPTIONS: --max-old-space-size=6144
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
-
-      - name: Run visualization DOM-contract spec
-        run: npx playwright test tests/e2e/visualization-contract.spec.ts --project=desktop-chrome
 
   teacher-parent-e2e:
     # Teacher + parent journey E2E in CI (plan P2-3). Runs on every PR (first
