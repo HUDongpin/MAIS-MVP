@@ -17,8 +17,10 @@ export type TeacherNoticeResendWebhookEventType =
 
 export type TeacherNoticeResendWebhookEnvelope = {
   eventId: string;
-  type: TeacherNoticeResendWebhookEventType | "ignored";
+  type: TeacherNoticeResendWebhookEventType;
   occurredAt: string;
+  occurredAtNs: string;
+  priority: number;
   providerMessageId: string;
 };
 
@@ -36,7 +38,7 @@ export type TeacherNoticeResendWebhookError =
   | "invalid-provider-message-id";
 
 export type TeacherNoticeResendWebhookResult =
-  | { ok: true; event: TeacherNoticeResendWebhookEnvelope }
+  | { ok: true; event: TeacherNoticeResendWebhookEnvelope | { type: "ignored" } }
   | { ok: false; error: TeacherNoticeResendWebhookError };
 
 type VerifiedHeaders = {
@@ -69,6 +71,35 @@ const providerMessageIdPattern =
 const providerTimestampPattern =
   /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,9}))?(Z|([+-])(\d{2}):(\d{2}))$/u;
 const providerEventTypePattern = /^[a-z][a-z0-9_.-]{0,99}$/u;
+const maxEnvelopeStringLength = 2_048;
+
+const eventPriority: Record<TeacherNoticeResendWebhookEventType, number> = {
+  "email.sent": 0,
+  "email.delivery_delayed": 10,
+  "email.delivered": 20,
+  "email.bounced": 30,
+  "email.failed": 40,
+  "email.suppressed": 50,
+  "email.complained": 60
+};
+
+export function teacherNoticeResendWebhookEventPriority(
+  type: TeacherNoticeResendWebhookEventType | "ignored"
+): number {
+  return type === "ignored" ? eventPriority["email.sent"] : eventPriority[type];
+}
+
+export function compareTeacherNoticeResendWebhookEvents(
+  left: Pick<TeacherNoticeResendWebhookEnvelope, "occurredAtNs" | "priority" | "eventId">,
+  right: Pick<TeacherNoticeResendWebhookEnvelope, "occurredAtNs" | "priority" | "eventId">
+): number {
+  const leftNs = BigInt(left.occurredAtNs);
+  const rightNs = BigInt(right.occurredAtNs);
+  if (leftNs < rightNs) return -1;
+  if (leftNs > rightNs) return 1;
+  if (left.priority !== right.priority) return left.priority < right.priority ? -1 : 1;
+  return left.eventId < right.eventId ? -1 : left.eventId > right.eventId ? 1 : 0;
+}
 
 function failure(error: TeacherNoticeResendWebhookError): TeacherNoticeResendWebhookResult {
   return { ok: false, error };
@@ -127,7 +158,9 @@ function readVerifiedHeaders(headers: Headers):
   };
 }
 
-function normalizeOccurredAt(value: unknown): string | undefined {
+function normalizeOccurredAt(
+  value: unknown
+): { occurredAt: string; occurredAtNs: string } | undefined {
   if (typeof value !== "string" || value.length > 64) {
     return undefined;
   }
@@ -187,17 +220,44 @@ function normalizeOccurredAt(value: unknown): string | undefined {
 
   try {
     const normalized = new Date(milliseconds).toISOString();
-    return /^\d{4}-/u.test(normalized) ? normalized : undefined;
+    if (!/^\d{4}-/u.test(normalized)) return undefined;
+    const subMillisecondDigits = fractionalSecond.padEnd(9, "0").slice(3, 9);
+    return {
+      occurredAt: normalized,
+      occurredAtNs: String(
+        BigInt(Math.trunc(milliseconds)) * BigInt(1_000_000) + BigInt(subMillisecondDigits)
+      )
+    };
   } catch {
     return undefined;
   }
+}
+
+function isBoundedString(value: unknown, allowEmpty = false): value is string {
+  return (
+    typeof value === "string" &&
+    value.length <= maxEnvelopeStringLength &&
+    (allowEmpty || value.length > 0)
+  );
+}
+
+function hasExactCommonResendDataSchema(data: Record<string, unknown>): boolean {
+  return (
+    normalizeOccurredAt(data.created_at) !== undefined &&
+    isBoundedString(data.from) &&
+    Array.isArray(data.to) &&
+    data.to.length > 0 &&
+    data.to.length <= 100 &&
+    data.to.every((recipient) => isBoundedString(recipient)) &&
+    isBoundedString(data.subject, true)
+  );
 }
 
 function normalizePayload(
   value: unknown,
   eventId: string
 ): TeacherNoticeResendWebhookResult {
-  if (!isPlainObject(value) || !isPlainObject(value.data)) {
+  if (!isPlainObject(value)) {
     return failure("invalid-payload");
   }
   if (
@@ -206,6 +266,11 @@ function normalizePayload(
   ) {
     return failure("invalid-payload");
   }
+
+  if (!supportedEventTypes.has(value.type as TeacherNoticeResendWebhookEventType)) {
+    return { ok: true, event: { type: "ignored" } };
+  }
+  if (!isPlainObject(value.data)) return failure("invalid-payload");
 
   const occurredAt = normalizeOccurredAt(value.created_at);
   if (!occurredAt) return failure("invalid-payload");
@@ -221,16 +286,18 @@ function normalizePayload(
     return failure("invalid-provider-message-id");
   }
 
-  const type = supportedEventTypes.has(value.type as TeacherNoticeResendWebhookEventType)
-    ? (value.type as TeacherNoticeResendWebhookEventType)
-    : "ignored";
+  const type = value.type as TeacherNoticeResendWebhookEventType;
+  if (!hasExactCommonResendDataSchema(value.data)) {
+    return failure("invalid-payload");
+  }
 
   return {
     ok: true,
     event: {
       eventId,
       type,
-      occurredAt,
+      ...occurredAt,
+      priority: teacherNoticeResendWebhookEventPriority(type),
       providerMessageId: providerMessageId.toLowerCase()
     }
   };

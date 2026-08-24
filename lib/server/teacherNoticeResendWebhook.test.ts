@@ -5,6 +5,8 @@ import { Webhook } from "svix";
 
 import {
   TEACHER_NOTICE_RESEND_WEBHOOK_MAX_BODY_BYTES,
+  compareTeacherNoticeResendWebhookEvents,
+  teacherNoticeResendWebhookEventPriority,
   verifyTeacherNoticeResendWebhook,
   type TeacherNoticeResendWebhookEventType
 } from "./teacherNoticeResendWebhook";
@@ -14,6 +16,7 @@ const otherSigningSecret = "whsec_NjKhX7v0hJnt3KlaQn4k4aoFz9khB7nW";
 const eventId = "msg_parent_notice_webhook_test_1";
 const providerMessageId = "550e8400-e29b-41d4-a716-446655440000";
 const occurredAt = "2026-08-23T01:02:03.004Z";
+const occurredAtNs = "1787446923004000000";
 
 const supportedTypes = [
   "email.sent",
@@ -33,7 +36,9 @@ function payload(
     type,
     created_at: occurredAt,
     data: {
+      created_at: occurredAt,
       email_id: providerMessageId,
+      from: "MAIS <notices@example.test>",
       to: ["guardian-private@example.test"],
       subject: "Private family notice subject",
       html: "<p>Private family notice body</p>",
@@ -84,6 +89,8 @@ test("all supported delivery lifecycle events verify and return only the safe en
         eventId,
         type,
         occurredAt,
+        occurredAtNs,
+        priority: teacherNoticeResendWebhookEventPriority(type),
         providerMessageId
       }
     });
@@ -92,6 +99,8 @@ test("all supported delivery lifecycle events verify and return only the safe en
       assert.deepEqual(Object.keys(result.event).sort(), [
         "eventId",
         "occurredAt",
+        "occurredAtNs",
+        "priority",
         "providerMessageId",
         "type"
       ]);
@@ -236,6 +245,8 @@ test("an exactly 64 KiB signed valid payload is accepted at the body boundary", 
       eventId,
       type: "email.sent",
       occurredAt,
+      occurredAtNs,
+      priority: teacherNoticeResendWebhookEventPriority("email.sent"),
       providerMessageId
     }
   });
@@ -280,14 +291,24 @@ test("unknown signed event types are normalized to ignored without echoing the t
 
   assert.deepEqual(result, {
     ok: true,
-    event: {
-      eventId,
-      type: "ignored",
-      occurredAt,
-      providerMessageId
-    }
+    event: { type: "ignored" }
   });
   assert.doesNotMatch(JSON.stringify(result), /future_private_event/u);
+});
+
+test("signed unknown event types are acknowledged before current email data fields are required", () => {
+  for (const value of [
+    { type: "email.future_without_data" },
+    { type: "email.future_without_email_id", data: {} }
+  ]) {
+    const rawBody = JSON.stringify(value);
+    const result = verify(rawBody, signedHeaders(rawBody));
+    assert.deepEqual(result, {
+      ok: true,
+      event: { type: "ignored" }
+    });
+    assert.doesNotMatch(JSON.stringify(result), /future_without/u);
+  }
 });
 
 test("supported events require one exact provider UUID", () => {
@@ -314,6 +335,52 @@ test("supported events require one exact provider UUID", () => {
       error: "invalid-provider-message-id"
     });
   }
+});
+
+test("supported events require the exact common Resend data schema", () => {
+  const invalidData = [
+    { email_id: providerMessageId, from: "MAIS <notices@example.test>", to: ["parent@example.test"], subject: "Notice" },
+    { created_at: occurredAt, email_id: providerMessageId, from: 42, to: ["parent@example.test"], subject: "Notice" },
+    { created_at: occurredAt, email_id: providerMessageId, from: "MAIS <notices@example.test>", to: "parent@example.test", subject: "Notice" },
+    { created_at: occurredAt, email_id: providerMessageId, from: "MAIS <notices@example.test>", to: ["parent@example.test", 42], subject: "Notice" },
+    { created_at: occurredAt, email_id: providerMessageId, from: "MAIS <notices@example.test>", to: ["parent@example.test"], subject: 42 }
+  ];
+  for (const data of invalidData) {
+    const rawBody = JSON.stringify({ type: "email.delivered", created_at: occurredAt, data });
+    assert.deepEqual(verify(rawBody, signedHeaders(rawBody)), { ok: false, error: "invalid-payload" });
+  }
+});
+
+test("nanosecond occurrence and event priority provide one deterministic total order", () => {
+  const first = verify(JSON.stringify({
+    type: "email.delivered",
+    created_at: "2026-08-23T01:02:03.004000001Z",
+    data: {
+      created_at: occurredAt,
+      email_id: providerMessageId,
+      from: "MAIS <notices@example.test>",
+      to: ["parent@example.test"],
+      subject: "Notice"
+    }
+  }));
+  const secondBody = JSON.stringify({
+    type: "email.bounced",
+    created_at: "2026-08-23T01:02:03.004000001Z",
+    data: {
+      created_at: occurredAt,
+      email_id: providerMessageId,
+      from: "MAIS <notices@example.test>",
+      to: ["parent@example.test"],
+      subject: "Notice"
+    }
+  });
+  const second = verify(secondBody, signedHeaders(secondBody, { id: "msg_parent_notice_webhook_test_2" }));
+  assert.ok(first.ok && first.event.type !== "ignored");
+  assert.ok(second.ok && second.event.type !== "ignored");
+  assert.equal(first.event.occurredAtNs, "1787446923004000001");
+  assert.equal(second.event.occurredAtNs, "1787446923004000001");
+  assert.equal(compareTeacherNoticeResendWebhookEvents(first.event, second.event), -1);
+  assert.equal(compareTeacherNoticeResendWebhookEvents(second.event, first.event), 1);
 });
 
 test("payload shape and occurrence timestamp are strictly normalized", () => {
@@ -392,7 +459,13 @@ test("valid leap days and numeric offsets round-trip to a canonical UTC instant"
     const rawBody = JSON.stringify({
       type: "email.delivered",
       created_at: providerOccurredAt,
-      data: { email_id: providerMessageId }
+      data: {
+        created_at: providerOccurredAt,
+        email_id: providerMessageId,
+        from: "MAIS <notices@example.test>",
+        to: ["parent@example.test"],
+        subject: "Notice"
+      }
     });
     assert.deepEqual(verify(rawBody, signedHeaders(rawBody)), {
       ok: true,
@@ -400,6 +473,8 @@ test("valid leap days and numeric offsets round-trip to a canonical UTC instant"
         eventId,
         type: "email.delivered",
         occurredAt: expectedOccurredAt,
+        occurredAtNs: String(BigInt(Date.parse(expectedOccurredAt)) * BigInt(1_000_000)),
+        priority: teacherNoticeResendWebhookEventPriority("email.delivered"),
         providerMessageId
       }
     });
@@ -426,6 +501,8 @@ test("Svix multi-signature rotation accepts a valid signature among unrelated si
       eventId,
       type: "email.sent",
       occurredAt,
+      occurredAtNs,
+      priority: teacherNoticeResendWebhookEventPriority("email.sent"),
       providerMessageId
     }
   });
