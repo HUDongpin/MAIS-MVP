@@ -22,10 +22,6 @@ const parentRequestSource = readFileSync(
   join(process.cwd(), "components", "parent", "parentMessageUi.ts"),
   "utf8"
 );
-const parentLoadingSource = readFileSync(
-  join(process.cwd(), "app", "parent", "loading.tsx"),
-  "utf8"
-);
 const appProvidersSource = readFileSync(
   join(process.cwd(), "components", "providers", "AppProviders.tsx"),
   "utf8"
@@ -92,15 +88,11 @@ test("external student navigation invalidates old reads and resolves from the ma
   assert.match(parentViewsSource, /expectedContextKey[\s\S]*?expectedDataGeneration[\s\S]*?return null;/);
 });
 
-test("thread reads use read-only feedback and loading copy follows all three languages", () => {
+test("thread reads use read-only feedback in all three languages", () => {
   assert.match(parentViewsSource, /function threadReadFailureFeedback/);
   assert.match(parentViewsSource, /No new message was sent/);
   assert.match(parentViewsSource, /沒有發送任何新訊息/);
   assert.match(parentViewsSource, /没有发送任何新消息/);
-  assert.match(parentLoadingSource, /useSettings/);
-  assert.match(parentLoadingSource, /Loading the family space/);
-  assert.match(parentLoadingSource, /正在載入家庭空間/);
-  assert.match(parentLoadingSource, /正在加载家庭空间/);
 });
 
 test("parent failures distinguish required HTTP and network outcomes", () => {

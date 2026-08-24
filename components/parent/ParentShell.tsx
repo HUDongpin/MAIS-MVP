@@ -80,7 +80,7 @@ export function ParentShell({
   };
 
   return (
-    <div className="page-container py-5 sm:py-7">
+    <div className="page-container py-5 sm:py-7" data-parent-shell>
       <header className="glass-panel overflow-hidden p-3 sm:p-4">
         <div className="grid gap-4 px-1 sm:px-2 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-end">
           <Link href={overviewHref} className="focus-ring block rounded-2xl px-2 py-2 transition hover:bg-slate-950/[0.03] dark:hover:bg-white/[0.05]">

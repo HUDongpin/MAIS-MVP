@@ -34,6 +34,8 @@ async function disposeContexts(contexts: APIRequestContext[]) {
 }
 
 test.describe("teacher and parent P1 regressions", () => {
+  test.describe.configure({ retries: 0 });
+
   test.beforeEach(async ({}, testInfo) => {
     test.skip(testInfo.project.name !== "desktop-chrome", "P1 regression coverage runs once on desktop Chrome.");
   });
@@ -106,8 +108,8 @@ test.describe("teacher and parent P1 regressions", () => {
       for (const route of ["/teacher", "/teacher/reports", "/teacher/rewards", "/teacher/classes/class-s3a-2026"]) {
         await teacherPage.goto(route);
         await expect(teacherPage.locator("main")).toBeVisible();
+        expect(teacherErrors, `teacher hydration errors after ${route}`).toEqual([]);
       }
-      expect(teacherErrors).toEqual([]);
 
       const parentLogin = await context.request.post("/api/auth/login", {
         data: {
@@ -124,8 +126,13 @@ test.describe("teacher and parent P1 regressions", () => {
       for (const route of ["/parent", "/parent/reports", "/parent/children/student-peter"]) {
         await parentPage.goto(route);
         await expect(parentPage.locator("main")).toBeVisible();
+        await expect(parentPage.locator("[data-parent-shell]"), `one parent shell after ${route}`).toHaveCount(1);
+        expect(parentErrors, `parent hydration errors after ${route}`).toEqual([]);
       }
-      expect(parentErrors).toEqual([]);
+
+      const parentHtml = await (await parentPage.request.get("/parent")).text();
+      expect(parentHtml).not.toContain('<template id="B:');
+      expect(parentHtml).not.toContain('<div hidden id="S:');
     } finally {
       await context.close();
       await app.attachLogs(testInfo);

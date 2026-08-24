@@ -91,7 +91,7 @@ test("student assignments route exposes the final heading while assignments load
   assert.match(loadingBranch, /Loading assignments/);
 });
 
-test("routes without slow server data carry no segment-level loading file", () => {
+test("known routes affected by the hidden-segment race carry no segment-level loading file", () => {
   // Any segment-level loading.tsx makes Next 15.5 stream the page into a
   // hidden segment (<div hidden id="S:N"> parked at body level) and the
   // vendored React defers the visible swap: $RC only marks the boundary "$~"
@@ -99,9 +99,12 @@ test("routes without slow server data carry no segment-level loading file", () =
   // load). Hydration plus provider updates client-render the boundary first,
   // so the document transiently holds TWO full copies of the page — Playwright
   // strict-mode "resolved to 2 elements" flakes and duplicate-id bugs.
-  // None of these routes awaits server data (they SSR client shells that fetch
+  // Most routes below await no server data (they SSR client shells that fetch
   // after hydration, or are pure redirects), so a route-level skeleton buys
-  // nothing and only carries the race. Verified 2026-07-26 against a prod
+  // nothing and only carries the race. Parent does await its foundation, but a
+  // production trace on 2026-08-24 reproduced React #418 during the same hidden
+  // segment swap, while the fallback was never observably useful. Verified the
+  // original route group 2026-07-26 against a prod
   // build: with these files present every route below served '<template
   // id="B:' + '<div hidden id="S:' markers; without them, none did. Only
   // reintroduce a loading.tsx where the route genuinely awaits slow server
@@ -112,6 +115,10 @@ test("routes without slow server data carry no segment-level loading file", () =
     "app/adaptive-learning/loading.tsx",
     "app/lesson/loading.tsx",
     "app/personalized-learning/loading.tsx",
+    // Production zero-retry loops reproduced React #418 while Next swapped the
+    // parent fallback and its hidden resolved segment. Keep parent loading
+    // feedback inside the hydrated console instead of a route-level boundary.
+    "app/parent/loading.tsx",
     "app/practice/loading.tsx",
     "app/student/assignments/loading.tsx",
     "app/student/lessons/loading.tsx",
