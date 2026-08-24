@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ItemEvaluationResultV1.schema.json",
+  "title": "ItemEvaluationResultV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "clusterId", "itemId", "referenceSourceType", "humanGoldClaimAllowed", "sealedFinalMachineReferenceLabelHash", "machineAttemptReceiptHashes", "requestedProvider", "observedProvider", "requestedModel", "observedModel", "rawMachineFindingCodes", "finalMachineFindingCodes", "finalMachineFindingFamilies", "finalMachineSeverity", "referenceFindingCodes", "referenceFindingFamilies", "matchRecords", "unresolvedReference", "resultHash"],
+  "properties": {
+    "schemaVersion": { "const": "ItemEvaluationResultV1" }, "designId": { "const": "MAIS-NATURAL-CA60-V2" },
+    "registrationHash": { "$ref": "#/$defs/sha256" }, "sampleManifestHash": { "$ref": "#/$defs/sha256" }, "clusterId": { "type": "string", "minLength": 1 }, "itemId": { "type": "string", "minLength": 1 },
+    "referenceSourceType": { "const": "SEALED_MACHINE_REFERENCE_PANEL" }, "humanGoldClaimAllowed": { "const": false }, "sealedFinalMachineReferenceLabelHash": { "$ref": "#/$defs/sha256" },
+    "machineAttemptReceiptHashes": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "requestedProvider": { "const": "DEEPSEEK_DIRECT" }, "observedProvider": { "const": "DEEPSEEK_DIRECT" }, "requestedModel": { "const": "deepseek-v4-pro" }, "observedModel": { "const": "deepseek-v4-pro" },
+    "rawMachineFindingCodes": { "$ref": "#/$defs/codes" }, "finalMachineFindingCodes": { "$ref": "#/$defs/codes" }, "finalMachineFindingFamilies": { "$ref": "#/$defs/families" }, "finalMachineSeverity": { "$ref": "#/$defs/severity" },
+    "referenceFindingCodes": { "$ref": "#/$defs/codes" }, "referenceFindingFamilies": { "$ref": "#/$defs/families" },
+    "matchRecords": { "type": "array", "uniqueItems": true, "items": { "type": "object", "additionalProperties": false, "required": ["machineFindingKey", "referenceFindingKey", "machineCode", "referenceCode", "family", "matchTier"], "properties": { "machineFindingKey": { "$ref": "#/$defs/findingKey" }, "referenceFindingKey": { "$ref": "#/$defs/findingKey" }, "machineCode": { "$ref": "#/$defs/operationalCode" }, "referenceCode": { "$ref": "#/$defs/operationalCode" }, "family": { "$ref": "#/$defs/family" }, "matchTier": { "enum": ["EXACT_CODE_AND_FAMILY", "FAMILY_ONLY"] } } } },
+    "unresolvedReference": { "type": "boolean" }, "resultHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }, "severity": { "enum": ["NONE", "P2", "P1", "P0", "UNRESOLVED"] },
+    "operationalCode": { "enum": ["WRONG_CANONICAL_ANSWER", "UNSOLVABLE_OR_INTERNALLY_INCONSISTENT", "FALSE_ACCEPT_NEAR_MISS", "FALSE_REJECT_CORRECT_RESPONSE", "ORACLE_OR_PROMPT_LEAKAGE", "EQUIVALENT_ANSWER_NOT_ACCEPTED", "MULTIPLE_CORRECT_OPTIONS", "MISSING_OR_MISMATCHED_OPTIONS", "EXPLANATION_ANSWER_MISMATCH", "EVIDENCE_MISMATCH", "LANGUAGE_SEMANTIC_MISMATCH", "CURRICULUM_OR_METADATA_MISMATCH", "MINOR_WORDING_OR_FORMAT", "MINOR_EXPLANATION_WEAKNESS", "REDUNDANT_OR_NEAR_DUPLICATE", "MINOR_METADATA_MISMATCH"] },
+    "codes": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/operationalCode" } },
+    "family": { "enum": ["CANONICAL_ANSWER_SOLVABILITY", "RESPONSE_ACCEPTANCE", "ORACLE_PROMPT_INTEGRITY", "OPTION_SET_INTEGRITY", "EXPLANATION_INTEGRITY", "EVIDENCE_INTEGRITY", "LANGUAGE_SEMANTICS", "CURRICULUM_METADATA", "WORDING_FORMAT", "DUPLICATION_HOMOLOGY"] },
+    "families": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/family" } },
+    "findingKey": { "type": "string", "minLength": 5, "pattern": "^[^|]+\\|[^|]+\\|[^|]+$" }
+  }
+}

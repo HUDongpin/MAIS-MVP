@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "NaturalCaStatisticalPowerV1",
+  "designId": "MAIS-NATURAL-CA60-V2",
+  "designRegistrationHash": "a1b7d7ac6cf23b059dddc015c75b876d26a3576f9e5e3e07724ef8c5b8429de8",
+  "calculationPolicy": {
+    "calculatedBy": "validate-design-registration.mjs",
+    "oneSidedConfidence": 0.95,
+    "oneSidedWilsonZ": 1.6448536269514722,
+    "twoSidedConfidence": 0.95,
+    "twoSidedWilsonZ": 1.959963984540054,
+    "rounding": "Stored IEEE-754 calculation outputs are validated within 1e-12; integer minima are exact."
+  },
+  "binaryThresholdOpportunity": {
+    "sensitivityTargetLowerBound": 0.9,
+    "minimumAllSuccessPositiveN": 25,
+    "positiveNMinusOneLowerBound": 0.8986898185110513,
+    "positiveNLowerBound": 0.9023464939939491,
+    "specificityTargetLowerBound": 0.95,
+    "minimumAllSuccessNegativeN": 52,
+    "negativeNMinusOneLowerBound": 0.9496226407911138,
+    "negativeNLowerBound": 0.9505435229545669,
+    "requiredTotal": 77,
+    "availableDistinctClusters": 60,
+    "structurallyPossibleWithin60": false,
+    "limitedConclusionAvailable": false,
+    "derivation": "For x=n, the one-sided Wilson lower bound is n/(n+z^2); 25+52=77>60."
+  },
+  "ca60WorstCasePrecision": {
+    "n": 60,
+    "assumedProportion": 0.5,
+    "method": "TWO_SIDED_95_PERCENT_WILSON",
+    "lower": 0.3773502424155577,
+    "upper": 0.6226497575844423,
+    "halfWidth": 0.12264975758444231
+  },
+  "zeroMissOpportunity": [
+    {
+      "targetMissRate": 0.05,
+      "zeroMissTailProbabilityAtRequiredN": 0.048494525249423104,
+      "requiredN": 59,
+      "formula": "ceil(log(0.05)/log(1-targetMissRate))"
+    },
+    {
+      "targetMissRate": 0.02,
+      "zeroMissTailProbabilityAtRequiredN": 0.04928165433008947,
+      "requiredN": 149,
+      "formula": "ceil(log(0.05)/log(1-targetMissRate))"
+    },
+    {
+      "targetMissRate": 0.01,
+      "zeroMissTailProbabilityAtRequiredN": 0.04953625663766235,
+      "requiredN": 299,
+      "formula": "ceil(log(0.05)/log(1-targetMissRate))"
+    }
+  ],
+  "planningScale": {
+    "worstCaseNormalApproximationNForFivePercentagePointHalfWidth": 384.14588206941244,
+    "recommendedIndependentClusters": 400,
+    "note": "Plan approximately 400 independent homology clusters for worst-case plus or minus 5 percentage-point precision; this is planning guidance, not a CA60 claim."
+  },
+  "ca60Conclusion": "LIMITED_UNAVAILABLE_INCONCLUSIVE_MACHINE_REFERENCE"
+}
