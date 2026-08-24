@@ -283,10 +283,14 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.equal(job.permissions?.contents, "read");
   assert.equal(job.env?.PROMOTION_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}");
   assert.equal(job.env?.PROMOTION_REPLAY_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}-replay");
+  assert.equal(job.env?.PROMOTION_VALIDATION_REPORT, "${{ runner.temp }}/promotion-validation-report.v1.json");
   assert.ok(Array.isArray(job.steps));
   assert.ok(job.steps.some((step) => step.uses === "actions/checkout@v4"));
   assert.ok(job.steps.some((step) => step.uses === "actions/setup-node@v4"));
-  assert.ok(job.steps.some((step) => step.uses === "actions/upload-artifact@v4"));
+  const uploadStep = job.steps.find((step) => step.uses === "actions/upload-artifact@v4");
+  assert.ok(uploadStep, "workflow must upload Promotion Shadow artifacts");
+  assert.match(uploadStep.with?.path, /promotion-validation-report\.v1\.json/u);
+  assert.equal(uploadStep.with?.["if-no-files-found"], "error");
 
   const runCommands = job.steps.flatMap((step) => typeof step.run === "string" ? [step.run] : []);
   assert.ok(runCommands.includes("npm ci"), "workflow must install from the lockfile with npm ci");
@@ -295,7 +299,7 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   const combinedRuns = runCommands.join("\n");
   assert.match(
     combinedRuns,
-    /npm run promotion:validate -- --manifest "\$PROMOTION_MANIFEST" --json/u
+    /npm --silent run promotion:validate -- --manifest "\$PROMOTION_MANIFEST" --json > "\$PROMOTION_VALIDATION_REPORT"/u
   );
   assert.match(
     combinedRuns,
@@ -322,13 +326,128 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   const semanticComparison = job.steps.find((step) => /Compare .* semantic receipt digests/iu.test(step.name));
   assert.ok(semanticComparison, "workflow must have a dedicated semantic receipt comparison step");
   assert.doesNotMatch(semanticComparison.run, /raw(?:Receipt)?Digest/iu);
-  assert.match(workflowSource, /legacy 492-question ratchet/iu);
-  assert.match(workflowSource, /selected-candidate live reachability/iu);
-
   const promotionRuns = runCommands.filter((command) => /promotion:(?:validate|shadow|verify-receipt)/u.test(command));
   for (const command of promotionRuns) {
     assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|live)\b/iu);
     assert.doesNotMatch(command, /--(?:out|output-root)\b/u);
+  }
+});
+
+test("Promotion Shadow validation report assertion executes fail closed for exact checks", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const assertionStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Assert validation report schema and required checks"
+  );
+  assert.ok(assertionStep, "workflow must execute a dedicated validation-report assertion step");
+  assert.equal(typeof assertionStep.run, "string");
+
+  const expectedCheckIds = [
+    "manifest-contract",
+    "candidate-integrity",
+    "evidence-currentness",
+    "mapping-compatibility",
+    "rollback-rehearsal",
+    "live-reachability",
+    "forbidden-diff",
+    "legacy-ratchet"
+  ];
+  const fixtureDir = await mkdtemp(path.join(tmpdir(), "mais-promotion-validation-"));
+  const manifestPath = path.join(fixtureDir, "promotion-manifest.v1.json");
+  const reportPath = path.join(fixtureDir, "promotion-validation-report.v1.json");
+  const manifest = {
+    candidateDigest: "b".repeat(64),
+    allowlistedCheckIds: expectedCheckIds
+  };
+  const validReport = {
+    schemaVersion: "promotion-validation.v1",
+    result: "pass",
+    manifestDigest: "a".repeat(64),
+    candidateDigest: manifest.candidateDigest,
+    checks: expectedCheckIds.map((checkId) => ({ checkId, result: "pass" }))
+  };
+
+  const runAssertion = () => spawnSync("bash", ["-c", assertionStep.run], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PROMOTION_MANIFEST: manifestPath,
+      PROMOTION_VALIDATION_REPORT: reportPath
+    }
+  });
+  const writeReport = async (report) => {
+    await writeFile(reportPath, `${JSON.stringify(report)}\n`);
+    return runAssertion();
+  };
+
+  try {
+    await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`);
+    const valid = await writeReport(validReport);
+    assert.equal(valid.status, 0, combinedOutput(valid));
+
+    const invalidCases = [
+      ["wrong schema", { ...validReport, schemaVersion: "promotion-validation.v0" }],
+      ["failed envelope", { ...validReport, result: "fail" }],
+      ["invalid manifest digest", { ...validReport, manifestDigest: "not-a-digest" }],
+      ["candidate digest mismatch", { ...validReport, candidateDigest: "c".repeat(64) }],
+      [
+        "legacy ratchet failure",
+        {
+          ...validReport,
+          checks: validReport.checks.map((check) => check.checkId === "legacy-ratchet"
+            ? { ...check, result: "fail" }
+            : check)
+        }
+      ],
+      [
+        "live reachability failure",
+        {
+          ...validReport,
+          checks: validReport.checks.map((check) => check.checkId === "live-reachability"
+            ? { ...check, result: "fail" }
+            : check)
+        }
+      ],
+      [
+        "duplicate check id",
+        {
+          ...validReport,
+          checks: validReport.checks.map((check, index) => index === 7
+            ? { ...check, checkId: "live-reachability" }
+            : check)
+        }
+      ],
+      ["missing check", { ...validReport, checks: validReport.checks.slice(0, -1) }],
+      [
+        "unexpected check fields",
+        {
+          ...validReport,
+          checks: validReport.checks.map((check, index) => index === 0
+            ? { ...check, label: "phrase-only is insufficient" }
+            : check)
+        }
+      ]
+    ];
+
+    for (const [label, report] of invalidCases) {
+      const result = await writeReport(report);
+      assert.notEqual(result.status, 0, `${label} must fail closed\n${combinedOutput(result)}`);
+    }
+
+    await writeReport(validReport);
+    await writeFile(
+      manifestPath,
+      `${JSON.stringify({ ...manifest, allowlistedCheckIds: [...expectedCheckIds].reverse() })}\n`
+    );
+    const manifestOrderDrift = runAssertion();
+    assert.notEqual(
+      manifestOrderDrift.status,
+      0,
+      `manifest allowlistedCheckIds order drift must fail closed\n${combinedOutput(manifestOrderDrift)}`
+    );
+  } finally {
+    await rm(fixtureDir, { recursive: true, force: true });
   }
 });
 
