@@ -611,11 +611,48 @@ import {
   isValidTeacherNoticeSourceKind as isValidTeacherNoticeSourceKindFromTeacherOpsNotice,
   normalizeTeacherOpsNoticeRecord as normalizeTeacherNoticeRecordFromTeacherOpsNotice,
   normalizeTeacherNoticeSourceKind as normalizeTeacherNoticeSourceKindFromTeacherOpsNotice,
-  sendTeacherOpsNoticeRecord as sendNoticeRecordFromTeacherOpsNotice,
   toTeacherOpsNotice as toTeacherNoticeFromTeacherOpsNotice,
-  toTeacherOpsNoticeDeliveryAttempt as toTeacherNoticeDeliveryAttemptFromTeacherOpsNotice,
   type TeacherOpsNoticePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsNoticePersistence";
+import { deliverTeacherNoticeEmail } from "@/lib/server/teacherNoticeEmailDelivery";
+import {
+  attestTeacherNoticeEmailOutboxPostgresCatalog,
+  attestTeacherNoticeEmailOutboxSqliteSchema,
+  createContinuousTeacherNoticeEmailOutboxReadiness,
+  createTeacherNoticeEmailOutboxWorker,
+  isTeacherNoticeEmailOutboxIdentifier,
+  isTeacherNoticeEmailOutboxProviderMessageId,
+  isTeacherNoticeEmailOutboxRfc3339Timestamp,
+  prepareTeacherNoticeEmailPublication,
+  resolveTeacherNoticeEmailOutboxRecovery,
+  runTeacherNoticeEmailOutboxAtomicMigration,
+  runTeacherNoticeEmailOutboxAttestedTransaction,
+  teacherNoticeEmailOutboxCutoffMs,
+  teacherNoticeEmailOutboxDeadlineHasAnyTime,
+  teacherNoticeEmailOutboxDeadlineHasClaimReserve,
+  teacherNoticeEmailOutboxDeadlineStatementTimeoutMs,
+  teacherNoticeEmailOutboxInvalidQuarantineLimit,
+  teacherNoticeEmailOutboxLeaseMs,
+  teacherNoticeEmailOutboxMaxAttempts,
+  teacherNoticeEmailOutboxPostgresAdvisoryKey,
+  teacherNoticeEmailOutboxProviderMappingAdvisoryPrefix,
+  teacherNoticeEmailOutboxPostgresTransactionSettings,
+  teacherNoticeEmailOutboxPostgresSchemaStatements,
+  teacherNoticeEmailOutboxWebhookPostgresAdvisoryKey,
+  teacherNoticeEmailOutboxPiiRetentionMs,
+  teacherNoticeEmailOutboxSqliteNoContactReleaseSql,
+  teacherNoticeEmailOutboxSqliteSchema,
+  teacherNoticeEmailOutboxTerminalRetention,
+  teacherNoticeEmailOutboxTombstoneRetentionMs,
+  TeacherNoticeEmailOutboxDeadlineError,
+  validateTeacherNoticeEmailOutboxCompletion,
+  validateTeacherNoticeEmailOutboxClaim,
+  validateTeacherNoticeEmailOutboxRow,
+  type TeacherNoticeEmailOutboxClaim,
+  type TeacherNoticeEmailOutboxCompletion,
+  type TeacherNoticeEmailOutboxDeadline,
+  type TeacherNoticeEmailOutboxRow
+} from "@/lib/server/userStore/teacherNoticeEmailOutboxPersistence";
 import {
   createTeacherOpsResourcePersistenceStore,
   normalizeTeacherOpsResourceCollections as normalizeTeachingResourceCollectionsFromTeacherOpsResource,
@@ -1434,6 +1471,10 @@ export type TeacherNoticeDeliveryAttemptRecord = {
   error_code?: string;
   error_message?: string;
   attempted_at: string;
+  request_idempotency_key_hash?: string;
+  request_idempotency_request_hash?: string;
+  queued_by_id?: string;
+  provider_contact_started_at?: string;
 };
 
 export type TeacherReminderRunRecord = {
@@ -1447,6 +1488,9 @@ export type TeacherReminderRunRecord = {
   status: TeacherNoticeDeliveryStatus | "skipped";
   reason: string;
   created_at: string;
+  request_idempotency_key_hash?: string;
+  request_idempotency_request_hash?: string;
+  request_next_cursor?: string | null;
 };
 
 export type TeachingResourceRecord = {
@@ -3058,7 +3102,12 @@ function ensureSqliteAppStateMetadataColumns(storage: DatabaseSync) {
 }
 
 function getSqliteDatabase() {
-  if (sqlite) return sqlite;
+  if (sqlite) {
+    if (!attestTeacherNoticeEmailOutboxSqliteSchema(sqlite)) {
+      throw new Error("Teacher notice email outbox SQLite schema could not be attested.");
+    }
+    return sqlite;
+  }
 
   sqlite = new DatabaseSync(dbPath);
   sqlite.exec(`
@@ -3089,6 +3138,21 @@ function getSqliteDatabase() {
     CREATE INDEX IF NOT EXISTS app_state_tenant_kind_updated_at_idx
       ON app_state(tenant_id, state_kind, updated_at);
   `);
+  sqlite.exec("BEGIN IMMEDIATE");
+  try {
+    sqlite.exec(teacherNoticeEmailOutboxSqliteSchema);
+    if (!attestTeacherNoticeEmailOutboxSqliteSchema(sqlite)) {
+      throw new Error("Teacher notice email outbox SQLite schema could not be attested.");
+    }
+    sqlite.exec("COMMIT");
+  } catch (error) {
+    try {
+      sqlite.exec("ROLLBACK");
+    } catch {
+      // Preserve the exact migration or attestation failure.
+    }
+    throw error;
+  }
 
   const migration = sqlite.prepare("SELECT version FROM schema_migrations WHERE version = ?").get(schemaVersion);
   if (!migration) {
@@ -3122,6 +3186,9 @@ async function withSqliteImmediateTransaction<T>(
   try {
     storage.exec("BEGIN IMMEDIATE");
     transactionOpen = true;
+    if (!attestTeacherNoticeEmailOutboxSqliteSchema(storage)) {
+      throw new Error("Teacher notice email outbox SQLite schema could not be attested.");
+    }
     const result = await operation(storage);
     storage.exec("COMMIT");
     transactionOpen = false;
@@ -4291,6 +4358,450 @@ async function bootstrapPostgresStateTables() {
 const ensurePostgresStateTable = createPostgresSchemaReadinessGate({
   readCurrentMarker: hasCurrentPostgresSchemaMarker,
   bootstrap: bootstrapPostgresStateTables
+});
+
+async function configureTeacherNoticeEmailOutboxPostgresTransaction(
+  sql: PostgresExecutor,
+  {
+    lockTimeout,
+    statementTimeout,
+    idleTransactionTimeout = statementTimeout
+  }: {
+    lockTimeout: string;
+    statementTimeout: string;
+    idleTransactionTimeout?: string;
+  }
+) {
+  const settings = teacherNoticeEmailOutboxPostgresTransactionSettings({
+    lockTimeout,
+    statementTimeout,
+    idleTransactionTimeout
+  });
+  await sql`
+    SELECT
+      pg_catalog.set_config('search_path', ${settings.searchPath}, true),
+      pg_catalog.set_config('lock_timeout', ${settings.lockTimeout}, true),
+      pg_catalog.set_config('statement_timeout', ${settings.statementTimeout}, true),
+      pg_catalog.set_config('idle_in_transaction_session_timeout', ${settings.idleTransactionTimeout}, true)
+  `;
+}
+
+async function runTeacherNoticeEmailOutboxPostgresAttestedTransaction<T>(
+  sql: postgres.TransactionSql,
+  {
+    lockTimeout,
+    statementTimeout,
+    idleTransactionTimeout = statementTimeout
+  }: {
+    lockTimeout: string;
+    statementTimeout: string;
+    idleTransactionTimeout?: string;
+  },
+  operation: (sql: postgres.TransactionSql) => Promise<T>,
+  providerMessageId: string | null = null
+) {
+  return runTeacherNoticeEmailOutboxAttestedTransaction({
+    sql,
+    configure: (transactionSql) => configureTeacherNoticeEmailOutboxPostgresTransaction(transactionSql, {
+      lockTimeout,
+      statementTimeout,
+      idleTransactionTimeout
+    }),
+    acquireCooperativeAdvisoryLock: async (transactionSql) => {
+      await transactionSql`
+        SELECT pg_catalog.pg_advisory_xact_lock_shared(
+          pg_catalog.hashtextextended(${teacherNoticeEmailOutboxPostgresAdvisoryKey}, 0)
+        )
+      `;
+    },
+    acquireWebhookSchemaAdvisoryLock: providerMessageId ? async (transactionSql) => {
+      await transactionSql`
+        SELECT pg_catalog.pg_advisory_xact_lock_shared(
+          pg_catalog.hashtextextended(${teacherNoticeEmailOutboxWebhookPostgresAdvisoryKey}, 0)
+        )
+      `;
+    } : undefined,
+    acquireProviderMessageAdvisoryLock: providerMessageId ? async (transactionSql) => {
+      await transactionSql`
+        SELECT pg_catalog.pg_advisory_xact_lock(
+          pg_catalog.hashtextextended(
+            ${`${teacherNoticeEmailOutboxProviderMappingAdvisoryPrefix}${providerMessageId}`}, 0
+          )
+        )
+      `;
+    } : undefined,
+    lockOutbox: async (transactionSql) => {
+      await transactionSql`LOCK TABLE public.teacher_notice_email_outbox IN ROW EXCLUSIVE MODE`;
+    },
+    lockMigrationMarker: async (transactionSql) => {
+      await transactionSql`LOCK TABLE public.teacher_notice_email_outbox_schema_migrations IN SHARE MODE`;
+    },
+    attest: (transactionSql) => hasTeacherNoticeEmailOutboxPostgresSchema(transactionSql, {
+      lockTimeout,
+      statementTimeout,
+      transactionConfigured: true
+    }),
+    operation
+  });
+}
+
+async function hasTeacherNoticeEmailOutboxPostgresSchema(
+  providedSql?: PostgresExecutor,
+  timeouts: {
+    lockTimeout?: string;
+    statementTimeout?: string;
+    transactionConfigured?: boolean;
+  } = {}
+) {
+  const inspect = async (sql: PostgresExecutor) => {
+    const lockTimeout = timeouts.lockTimeout ?? "1000ms";
+    const statementTimeout = timeouts.statementTimeout ?? "5000ms";
+    if (!timeouts.transactionConfigured) {
+      await configureTeacherNoticeEmailOutboxPostgresTransaction(sql, {
+        lockTimeout,
+        statementTimeout
+      });
+    }
+    const relationRows = await sql<Array<{ relation_count: number }>>`
+      SELECT pg_catalog.count(*)::pg_catalog.int4 AS relation_count
+      FROM pg_catalog.pg_class AS relation
+      JOIN pg_catalog.pg_namespace AS relation_namespace ON relation_namespace.oid = relation.relnamespace
+      WHERE relation_namespace.nspname = 'public'
+        AND relation.relname IN (
+          'teacher_notice_email_outbox',
+          'teacher_notice_email_outbox_schema_migrations'
+        )
+    `;
+    if (relationRows[0]?.relation_count !== 2) return false;
+    const rows = await sql<Array<{ catalog: unknown }>>`
+      WITH catalog_relations AS (
+        SELECT relation.oid,
+          relation.relname AS name,
+          relation.relkind::pg_catalog.text AS kind,
+          relation.relpersistence::pg_catalog.text AS persistence,
+          relation.relrowsecurity AS "rowSecurity",
+          relation.relforcerowsecurity AS "forceRowSecurity"
+        FROM pg_catalog.pg_class AS relation
+        JOIN pg_catalog.pg_namespace AS relation_namespace ON relation_namespace.oid = relation.relnamespace
+        WHERE relation_namespace.nspname = 'public'
+          AND relation.relname IN (
+            'teacher_notice_email_outbox',
+            'teacher_notice_email_outbox_schema_migrations'
+          )
+      ),
+      catalog_columns AS (
+        SELECT
+          relation.relname AS relation,
+          attribute.attname AS name,
+          attribute.attnum::pg_catalog.int4 AS position,
+          pg_catalog.format_type(attribute.atttypid, attribute.atttypmod) AS type,
+          attribute.attnotnull AS "notNull",
+          pg_catalog.pg_get_expr(attribute_default.adbin, attribute_default.adrelid, false) AS "defaultExpression"
+        FROM pg_catalog.pg_class AS relation
+        JOIN pg_catalog.pg_namespace AS relation_namespace ON relation_namespace.oid = relation.relnamespace
+        JOIN pg_catalog.pg_attribute AS attribute ON attribute.attrelid = relation.oid
+        LEFT JOIN pg_catalog.pg_attrdef AS attribute_default
+          ON attribute_default.adrelid = relation.oid AND attribute_default.adnum = attribute.attnum
+        WHERE relation_namespace.nspname = 'public'
+          AND relation.relname IN (
+            'teacher_notice_email_outbox',
+            'teacher_notice_email_outbox_schema_migrations'
+          )
+          AND attribute.attnum > 0
+          AND NOT attribute.attisdropped
+      ),
+      catalog_constraints AS (
+        SELECT
+          relation.relname AS relation,
+          constraint_record.conname AS name,
+          constraint_record.contype::pg_catalog.text AS type,
+          constraint_record.convalidated AS validated,
+          constraint_record.condeferrable AS deferrable,
+          constraint_record.condeferred AS "initiallyDeferred",
+          backing_index.relname AS "backingIndexName",
+          constraint_record.conrelid = relation.oid AS "relationOidMatches",
+          CASE
+            WHEN constraint_record.contype IN ('p', 'u') THEN
+              constraint_record.conindid <> 0
+              AND backing_index.oid = constraint_record.conindid
+              AND backing_index_record.indrelid = relation.oid
+            ELSE constraint_record.conindid = 0
+          END AS "backingIndexOidMatches",
+          CASE WHEN constraint_record.contype IN ('p', 'u') THEN COALESCE((
+            SELECT pg_catalog.jsonb_agg(attribute.attname ORDER BY key_record.position)
+            FROM pg_catalog.unnest(constraint_record.conkey) WITH ORDINALITY AS key_record(attnum, position)
+            JOIN pg_catalog.pg_attribute AS attribute
+              ON attribute.attrelid = relation.oid AND attribute.attnum = key_record.attnum
+          ), '[]'::pg_catalog.jsonb) ELSE '[]'::pg_catalog.jsonb END AS "keyColumns",
+          CASE WHEN constraint_record.contype = 'c'
+            THEN pg_catalog.pg_get_expr(constraint_record.conbin, constraint_record.conrelid, false)
+            ELSE NULL
+          END AS expression
+        FROM pg_catalog.pg_constraint AS constraint_record
+        JOIN pg_catalog.pg_class AS relation ON relation.oid = constraint_record.conrelid
+        JOIN pg_catalog.pg_namespace AS relation_namespace ON relation_namespace.oid = relation.relnamespace
+        LEFT JOIN pg_catalog.pg_class AS backing_index ON backing_index.oid = constraint_record.conindid
+        LEFT JOIN pg_catalog.pg_index AS backing_index_record ON backing_index_record.indexrelid = constraint_record.conindid
+        WHERE relation_namespace.nspname = 'public'
+          AND relation.relname IN (
+            'teacher_notice_email_outbox',
+            'teacher_notice_email_outbox_schema_migrations'
+          )
+      ),
+      catalog_indexes AS (
+        SELECT
+          table_class.relname AS relation,
+          index_class.relname AS name,
+          access_method.amname AS "accessMethod",
+          index_record.indisvalid AS valid,
+          index_record.indisready AS ready,
+          index_record.indislive AS live,
+          index_record.indisunique AS "unique",
+          index_record.indisprimary AS "primary",
+          index_record.indimmediate AS immediate,
+          index_record.indpred IS NOT NULL AS partial,
+          pg_catalog.pg_get_expr(index_record.indpred, index_record.indrelid, false) AS predicate,
+          index_record.indnkeyatts::pg_catalog.int4 AS "keyCount",
+          index_record.indnatts::pg_catalog.int4 AS "attributeCount",
+          COALESCE((
+            SELECT pg_catalog.jsonb_agg(attribute.attname ORDER BY index_key.position)
+            FROM pg_catalog.unnest(index_record.indkey) WITH ORDINALITY AS index_key(attnum, position)
+            JOIN pg_catalog.pg_attribute AS attribute
+              ON attribute.attrelid = table_class.oid AND attribute.attnum = index_key.attnum
+          ), '[]'::pg_catalog.jsonb) AS "keyColumns",
+          COALESCE((
+            SELECT pg_catalog.jsonb_agg(index_option.option_value ORDER BY index_option.position)
+            FROM pg_catalog.unnest(index_record.indoption) WITH ORDINALITY AS index_option(option_value, position)
+          ), '[]'::pg_catalog.jsonb) AS "indOptions",
+          COALESCE((
+            SELECT pg_catalog.jsonb_agg(
+              pg_catalog.jsonb_build_object(
+                'schema', operator_namespace.nspname,
+                'name', operator_class.opcname,
+                'inputType', pg_catalog.format_type(operator_class.opcintype, NULL),
+                'accessMethod', operator_access_method.amname,
+                'isDefault', operator_class.opcdefault
+              ) ORDER BY operator_record.position
+            )
+            FROM pg_catalog.unnest(index_record.indclass) WITH ORDINALITY AS operator_record(opclass_oid, position)
+            JOIN pg_catalog.pg_opclass AS operator_class ON operator_class.oid = operator_record.opclass_oid
+            JOIN pg_catalog.pg_namespace AS operator_namespace ON operator_namespace.oid = operator_class.opcnamespace
+            JOIN pg_catalog.pg_am AS operator_access_method ON operator_access_method.oid = operator_class.opcmethod
+          ), '[]'::pg_catalog.jsonb) AS opclasses,
+          COALESCE((
+            SELECT pg_catalog.jsonb_agg(
+              CASE WHEN collation_record.collation_oid = 0 THEN NULL ELSE pg_catalog.jsonb_build_object(
+                'schema', collation_namespace.nspname,
+                'name', index_collation.collname
+              ) END ORDER BY collation_record.position
+            )
+            FROM pg_catalog.unnest(index_record.indcollation) WITH ORDINALITY AS collation_record(collation_oid, position)
+            LEFT JOIN pg_catalog.pg_collation AS index_collation
+              ON index_collation.oid = collation_record.collation_oid
+            LEFT JOIN pg_catalog.pg_namespace AS collation_namespace
+              ON collation_namespace.oid = index_collation.collnamespace
+          ), '[]'::pg_catalog.jsonb) AS collations
+        FROM pg_catalog.pg_class AS table_class
+        JOIN pg_catalog.pg_namespace AS table_namespace ON table_namespace.oid = table_class.relnamespace
+        JOIN pg_catalog.pg_index AS index_record ON index_record.indrelid = table_class.oid
+        JOIN pg_catalog.pg_class AS index_class ON index_class.oid = index_record.indexrelid
+        JOIN pg_catalog.pg_am AS access_method ON access_method.oid = index_class.relam
+        WHERE table_namespace.nspname = 'public'
+          AND table_class.relname = 'teacher_notice_email_outbox'
+          AND index_class.relname IN (
+            'teacher_notice_email_outbox_eligible_idx',
+            'teacher_notice_email_outbox_provider_message_uq'
+          )
+      ),
+      catalog_integrity AS (
+        SELECT
+          (SELECT pg_catalog.count(DISTINCT oid)::pg_catalog.int4 FROM catalog_relations) AS "relationOidCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4 FROM catalog_columns) AS "columnCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4 FROM catalog_constraints) AS "constraintCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM pg_catalog.pg_index AS any_index
+            JOIN pg_catalog.pg_class AS indexed_relation ON indexed_relation.oid = any_index.indrelid
+            JOIN pg_catalog.pg_namespace AS indexed_namespace ON indexed_namespace.oid = indexed_relation.relnamespace
+            WHERE indexed_namespace.nspname = 'public'
+              AND indexed_relation.relname IN (
+                'teacher_notice_email_outbox',
+                'teacher_notice_email_outbox_schema_migrations'
+              )) AS "indexCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM pg_catalog.pg_index AS any_index
+            JOIN pg_catalog.pg_class AS indexed_relation ON indexed_relation.oid = any_index.indrelid
+            JOIN pg_catalog.pg_namespace AS indexed_namespace ON indexed_namespace.oid = indexed_relation.relnamespace
+            JOIN pg_catalog.pg_class AS any_index_class ON any_index_class.oid = any_index.indexrelid
+            WHERE indexed_namespace.nspname = 'public'
+              AND indexed_relation.relname IN (
+                'teacher_notice_email_outbox',
+                'teacher_notice_email_outbox_schema_migrations'
+              )
+              AND any_index_class.relname NOT IN (
+                'teacher_notice_email_outbox_pkey',
+                'teacher_notice_email_outbox_delivery_revision_uq',
+                'teacher_notice_email_outbox_eligible_idx',
+                'teacher_notice_email_outbox_provider_message_uq',
+                'teacher_notice_email_outbox_schema_migrations_pkey'
+              )) AS "unexpectedIndexCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM pg_catalog.pg_trigger AS trigger_record
+            JOIN catalog_relations AS trigger_relation ON trigger_relation.oid = trigger_record.tgrelid
+            WHERE NOT trigger_record.tgisinternal) AS "userTriggerCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM pg_catalog.pg_rewrite AS rule_record
+            JOIN catalog_relations AS rule_relation ON rule_relation.oid = rule_record.ev_class) AS "ruleCount",
+          (SELECT pg_catalog.count(*)::pg_catalog.int4
+            FROM pg_catalog.pg_inherits AS inheritance_record
+            WHERE inheritance_record.inhrelid IN (SELECT oid FROM catalog_relations)
+              OR inheritance_record.inhparent IN (SELECT oid FROM catalog_relations)) AS "inheritanceCount",
+          COALESCE((SELECT pg_catalog.bool_and("relationOidMatches") FROM catalog_constraints), FALSE)
+            AS "constraintRelationOidsMatch",
+          COALESCE((SELECT pg_catalog.bool_and("backingIndexOidMatches") FROM catalog_constraints), FALSE)
+            AS "constraintBackingIndexOidsMatch",
+          COALESCE((SELECT pg_catalog.bool_and(index_record.indrelid = relation_record.oid)
+            FROM pg_catalog.pg_index AS index_record
+            JOIN pg_catalog.pg_class AS index_record_class ON index_record_class.oid = index_record.indexrelid
+            JOIN pg_catalog.pg_class AS relation_record ON relation_record.oid = index_record.indrelid
+            JOIN pg_catalog.pg_namespace AS relation_record_namespace ON relation_record_namespace.oid = relation_record.relnamespace
+            WHERE relation_record_namespace.nspname = 'public'
+              AND relation_record.relname = 'teacher_notice_email_outbox'
+              AND index_record_class.relname IN (
+                'teacher_notice_email_outbox_eligible_idx',
+                'teacher_notice_email_outbox_provider_message_uq'
+              )), FALSE)
+            AS "indexRelationOidsMatch"
+      )
+      SELECT pg_catalog.jsonb_build_object(
+        'relations', COALESCE((
+          SELECT pg_catalog.jsonb_agg(
+            pg_catalog.jsonb_build_object(
+              'name', name,
+              'kind', kind,
+              'persistence', persistence,
+              'rowSecurity', "rowSecurity",
+              'forceRowSecurity', "forceRowSecurity"
+            )
+            ORDER BY CASE name
+              WHEN 'teacher_notice_email_outbox' THEN 1
+              ELSE 2
+            END
+          )
+          FROM catalog_relations
+        ), '[]'::pg_catalog.jsonb),
+        'columns', COALESCE((
+          SELECT pg_catalog.jsonb_agg(
+            pg_catalog.jsonb_build_object(
+              'relation', relation,
+              'name', name,
+              'position', position,
+              'type', type,
+              'notNull', "notNull",
+              'defaultExpression', "defaultExpression"
+            )
+            ORDER BY CASE relation
+              WHEN 'teacher_notice_email_outbox' THEN 1
+              ELSE 2
+            END, position
+          )
+          FROM catalog_columns
+        ), '[]'::pg_catalog.jsonb),
+        'constraints', COALESCE((
+          SELECT pg_catalog.jsonb_agg(
+            pg_catalog.jsonb_build_object(
+              'relation', relation,
+              'name', name,
+              'type', type,
+              'validated', validated,
+              'deferrable', deferrable,
+              'initiallyDeferred', "initiallyDeferred",
+              'backingIndexName', "backingIndexName",
+              'relationOidMatches', "relationOidMatches",
+              'backingIndexOidMatches', "backingIndexOidMatches",
+              'keyColumns', "keyColumns",
+              'expression', expression
+            )
+            ORDER BY CASE relation
+              WHEN 'teacher_notice_email_outbox' THEN 1
+              ELSE 2
+            END, name
+          )
+          FROM catalog_constraints
+        ), '[]'::pg_catalog.jsonb),
+        'indexes', COALESCE((
+          SELECT pg_catalog.jsonb_agg(
+            pg_catalog.jsonb_build_object(
+              'relation', relation,
+              'name', name,
+              'accessMethod', "accessMethod",
+              'valid', valid,
+              'ready', ready,
+              'live', live,
+              'unique', "unique",
+              'primary', "primary",
+              'immediate', immediate,
+              'partial', partial,
+              'predicate', predicate,
+              'keyCount', "keyCount",
+              'attributeCount', "attributeCount",
+              'keyColumns', "keyColumns",
+              'indOptions', "indOptions",
+              'opclasses', opclasses,
+              'collations', collations
+            ) ORDER BY name
+          )
+          FROM catalog_indexes
+        ), '[]'::pg_catalog.jsonb),
+        'integrity', (SELECT pg_catalog.to_jsonb(catalog_integrity) FROM catalog_integrity),
+        'markerComment', pg_catalog.obj_description(
+          pg_catalog.to_regclass('public.teacher_notice_email_outbox_schema_migrations'),
+          'pg_class'
+        ),
+        'markerRows', COALESCE((
+          SELECT pg_catalog.jsonb_agg(
+            pg_catalog.jsonb_build_object('singleton', singleton, 'version', version)
+            ORDER BY singleton, version
+          )
+          FROM public.teacher_notice_email_outbox_schema_migrations
+        ), '[]'::pg_catalog.jsonb)
+      ) AS catalog
+    `;
+    return attestTeacherNoticeEmailOutboxPostgresCatalog(rows[0]?.catalog);
+  };
+  return providedSql ? inspect(providedSql) : getPostgresClient().begin(inspect);
+}
+
+export async function migrateTeacherNoticeEmailOutboxPostgresSchema() {
+  await runTeacherNoticeEmailOutboxAtomicMigration<postgres.TransactionSql>({
+    begin: async (operation) => {
+      await getPostgresClient().begin(async (migrationSql) => operation(migrationSql));
+    },
+    migrate: async (migrationSql) => {
+      await configureTeacherNoticeEmailOutboxPostgresTransaction(migrationSql, {
+        lockTimeout: "1000ms",
+        statementTimeout: "5000ms"
+      });
+      await migrationSql`
+        SELECT pg_catalog.pg_advisory_xact_lock(
+          pg_catalog.hashtextextended(${teacherNoticeEmailOutboxPostgresAdvisoryKey}, 0)
+        )
+      `;
+      for (const statement of teacherNoticeEmailOutboxPostgresSchemaStatements) {
+        await migrationSql.unsafe(statement);
+      }
+    },
+    attest: (migrationSql) => hasTeacherNoticeEmailOutboxPostgresSchema(migrationSql, {
+      transactionConfigured: true
+    })
+  });
+}
+
+export async function preflightTeacherNoticeEmailOutboxPostgresSchema() {
+  return hasTeacherNoticeEmailOutboxPostgresSchema();
+}
+
+const ensureTeacherNoticeEmailOutboxPostgresSchema = createContinuousTeacherNoticeEmailOutboxReadiness({
+  attest: hasTeacherNoticeEmailOutboxPostgresSchema
 });
 
 function parseStoredStatePayload(value: unknown) {
@@ -5869,6 +6380,1286 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
   );
 
   return run;
+}
+
+type TeacherNoticeEmailOutboxMutation<T> = {
+  result: T;
+  noticeIds: string[];
+  noEligibleResult?: T;
+  commitWithoutEligibleRows?: boolean;
+};
+
+type TeacherNoticeEmailOutboxMutationResult<T> = {
+  result: T;
+  outbox: {
+    queued: number;
+    reused: number;
+    recovered: number;
+    skipped: number;
+  };
+};
+
+const teacherNoticeEmailOutboxStatuses = new Set([
+  "pending",
+  "leased",
+  "retryable",
+  "provider-accepted",
+  "blocked",
+  "dead-letter"
+]);
+
+function teacherNoticeEmailOutboxTimestamp(value: unknown, label: string) {
+  if (value instanceof Date && Number.isFinite(value.getTime())) return value.toISOString();
+  if (isTeacherNoticeEmailOutboxRfc3339Timestamp(value)) return value;
+  throw new Error(`Teacher notice email outbox contains an invalid ${label}.`);
+}
+
+function teacherNoticeEmailOutboxNullableString(value: unknown, label: string) {
+  if (value === null) return null;
+  if (typeof value === "string") return value;
+  throw new Error(`Teacher notice email outbox contains an invalid ${label}.`);
+}
+
+function teacherNoticeEmailOutboxNullableTimestamp(value: unknown, label: string) {
+  return value === null ? null : teacherNoticeEmailOutboxTimestamp(value, label);
+}
+
+function teacherNoticeEmailOutboxRowFromStorage(value: unknown): TeacherNoticeEmailOutboxRow {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error("Teacher notice email outbox contains an invalid row.");
+  }
+  const row = value as Record<string, unknown>;
+  const requiredStrings = [
+    "id", "notice_id", "recipient_fingerprint", "queued_by_fingerprint",
+    "durable_delivery_key", "content_revision"
+  ] as const;
+  for (const key of requiredStrings) {
+    if (typeof row[key] !== "string" || !row[key]) {
+      throw new Error(`Teacher notice email outbox contains an invalid ${key}.`);
+    }
+  }
+  if (row.locale !== null && row.locale !== "en" && row.locale !== "zh-Hant" && row.locale !== "zh-Hans") {
+    throw new Error("Teacher notice email outbox contains an invalid locale.");
+  }
+  if (typeof row.status !== "string" || !teacherNoticeEmailOutboxStatuses.has(row.status)) {
+    throw new Error("Teacher notice email outbox contains an invalid status.");
+  }
+  const attemptCount = row.attempt_count;
+  if (typeof attemptCount !== "number" || !Number.isInteger(attemptCount) || attemptCount < 0) {
+    throw new Error("Teacher notice email outbox contains an invalid attempt count.");
+  }
+  const completedAt = teacherNoticeEmailOutboxNullableTimestamp(row.completed_at, "completion time");
+  const leaseExpiresAt = teacherNoticeEmailOutboxNullableTimestamp(row.lease_expires_at, "lease expiry");
+  const id = row.id as string;
+  const noticeId = row.notice_id as string;
+  const recipientId = teacherNoticeEmailOutboxNullableString(row.recipient_id, "recipient identifier");
+  const studentId = teacherNoticeEmailOutboxNullableString(row.student_id, "student identifier");
+  const guardianId = teacherNoticeEmailOutboxNullableString(row.guardian_id, "guardian identifier");
+  const teacherId = teacherNoticeEmailOutboxNullableString(row.teacher_id, "teacher identifier");
+  const queuedById = teacherNoticeEmailOutboxNullableString(row.queued_by_id, "queue actor identifier");
+  const classId = teacherNoticeEmailOutboxNullableString(row.class_id, "class identifier");
+  const email = teacherNoticeEmailOutboxNullableString(row.email, "email");
+  const locale = row.locale;
+  const durableDeliveryKey = row.durable_delivery_key as string;
+  const contentRevision = row.content_revision as string;
+  const parsed: TeacherNoticeEmailOutboxRow = {
+    id,
+    notice_id: noticeId,
+    recipient_id: recipientId,
+    recipient_fingerprint: row.recipient_fingerprint as string,
+    student_id: studentId,
+    guardian_id: guardianId,
+    teacher_id: teacherId,
+    queued_by_id: queuedById,
+    queued_by_fingerprint: row.queued_by_fingerprint as string,
+    class_id: classId,
+    email,
+    locale,
+    durable_delivery_key: durableDeliveryKey,
+    content_revision: contentRevision,
+    status: row.status as TeacherNoticeEmailOutboxRow["status"],
+    attempt_count: attemptCount as number,
+    first_enqueued_at: teacherNoticeEmailOutboxTimestamp(row.first_enqueued_at, "first enqueue time"),
+    next_attempt_at: teacherNoticeEmailOutboxTimestamp(row.next_attempt_at, "next attempt time"),
+    lease_token: teacherNoticeEmailOutboxNullableString(row.lease_token, "lease token"),
+    lease_expires_at: leaseExpiresAt,
+    provider_message_id: teacherNoticeEmailOutboxNullableString(row.provider_message_id, "provider message identifier"),
+    last_error_code: teacherNoticeEmailOutboxNullableString(row.last_error_code, "error code"),
+    last_http_status: row.last_http_status === null || typeof row.last_http_status === "number"
+      ? row.last_http_status
+      : Number.NaN,
+    completed_at: completedAt,
+    created_at: teacherNoticeEmailOutboxTimestamp(row.created_at, "creation time"),
+    updated_at: teacherNoticeEmailOutboxTimestamp(row.updated_at, "update time"),
+    pii_expires_at: teacherNoticeEmailOutboxNullableTimestamp(row.pii_expires_at, "PII expiry"),
+    pii_purged_at: teacherNoticeEmailOutboxNullableTimestamp(row.pii_purged_at, "PII purge time"),
+    tombstone_expires_at: teacherNoticeEmailOutboxNullableTimestamp(row.tombstone_expires_at, "tombstone expiry"),
+    delivery: recipientId && email && locale
+      ? { recipientId, email, locale, durableDeliveryKey, contentRevision }
+      : null
+  };
+  if (!validateTeacherNoticeEmailOutboxRow(parsed)) {
+    throw new Error("Teacher notice email outbox contains an invalid state combination.");
+  }
+  return parsed;
+}
+
+function attestTeacherNoticeEmailOutboxRow(
+  actual: TeacherNoticeEmailOutboxRow,
+  expected: TeacherNoticeEmailOutboxRow
+) {
+  const immutableMatches =
+    actual.id === expected.id &&
+    actual.notice_id === expected.notice_id &&
+    actual.recipient_fingerprint === expected.recipient_fingerprint &&
+    actual.queued_by_fingerprint === expected.queued_by_fingerprint &&
+    actual.durable_delivery_key === expected.durable_delivery_key &&
+    actual.content_revision === expected.content_revision;
+  const retainedPiiMatches = actual.pii_purged_at !== null || (
+    actual.recipient_id === expected.recipient_id &&
+    actual.student_id === expected.student_id &&
+    actual.guardian_id === expected.guardian_id &&
+    actual.teacher_id === expected.teacher_id &&
+    actual.queued_by_id === expected.queued_by_id &&
+    actual.class_id === expected.class_id &&
+    actual.email === expected.email &&
+    actual.locale === expected.locale
+  );
+  if (!immutableMatches || !retainedPiiMatches) {
+    throw new Error("Teacher notice email outbox contains a conflicting immutable row.");
+  }
+}
+
+function teacherNoticeEmailOutboxInsertValues(row: TeacherNoticeEmailOutboxRow) {
+  return [
+    row.id, row.notice_id, row.recipient_id, row.recipient_fingerprint, row.student_id, row.guardian_id,
+    row.teacher_id, row.queued_by_id, row.queued_by_fingerprint, row.class_id, row.email, row.locale,
+    row.durable_delivery_key, row.content_revision, row.status,
+    row.attempt_count, row.first_enqueued_at, row.next_attempt_at, row.lease_token,
+    row.lease_expires_at, row.provider_message_id, row.last_error_code, row.last_http_status,
+    row.completed_at, row.created_at, row.updated_at, row.pii_expires_at, row.pii_purged_at,
+    row.tombstone_expires_at
+  ] as const;
+}
+
+function insertTeacherNoticeEmailOutboxRowsSqlite(
+  storage: DatabaseSync,
+  rows: TeacherNoticeEmailOutboxRow[]
+) {
+  let queued = 0;
+  let reused = 0;
+  let recovered = 0;
+  const insert = storage.prepare(`
+    INSERT INTO teacher_notice_email_outbox (
+      id, notice_id, recipient_id, recipient_fingerprint, student_id, guardian_id, teacher_id,
+      queued_by_id, queued_by_fingerprint, class_id, email, locale,
+      durable_delivery_key, content_revision, status, attempt_count, first_enqueued_at,
+      next_attempt_at, lease_token, lease_expires_at, provider_message_id, last_error_code,
+      last_http_status, completed_at, created_at, updated_at, pii_expires_at, pii_purged_at,
+      tombstone_expires_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT (notice_id, recipient_fingerprint, content_revision) DO NOTHING
+  `);
+  const read = storage.prepare(`
+    SELECT * FROM teacher_notice_email_outbox
+    WHERE notice_id = ? AND recipient_fingerprint = ? AND content_revision = ?
+  `);
+  for (const row of rows) {
+    if (!validateTeacherNoticeEmailOutboxRow(row)) {
+      throw new Error("Teacher notice email outbox refused an invalid row.");
+    }
+    const inserted = insert.run(...teacherNoticeEmailOutboxInsertValues(row));
+    if (Number(inserted.changes) === 1) queued += 1;
+    let persisted = teacherNoticeEmailOutboxRowFromStorage(
+      read.get(row.notice_id, row.recipient_fingerprint, row.content_revision)
+    );
+    attestTeacherNoticeEmailOutboxRow(persisted, row);
+    if (Number(inserted.changes) !== 1) {
+      const recovery = resolveTeacherNoticeEmailOutboxRecovery({ row: persisted, now: row.first_enqueued_at });
+      if (recovery.recover) {
+        const reset = storage.prepare(`
+          UPDATE teacher_notice_email_outbox
+          SET status = 'pending',
+              completed_at = NULL,
+              pii_expires_at = NULL,
+              pii_purged_at = NULL,
+              tombstone_expires_at = NULL,
+              updated_at = ?
+          WHERE id = ?
+            AND status = 'blocked'
+            AND provider_message_id IS NULL
+            AND last_error_code = ?
+        `).run(
+          row.updated_at,
+          persisted.id,
+          persisted.last_error_code
+        );
+        if (Number(reset.changes) !== 1) {
+          throw new Error("Teacher notice email outbox recovery could not be atomically attested.");
+        }
+        persisted = teacherNoticeEmailOutboxRowFromStorage(
+          read.get(row.notice_id, row.recipient_fingerprint, row.content_revision)
+        );
+        attestTeacherNoticeEmailOutboxRow(persisted, row);
+        recovered += 1;
+      } else {
+        reused += 1;
+      }
+    }
+  }
+  return { queued, reused, recovered };
+}
+
+async function insertTeacherNoticeEmailOutboxRowsPostgres(
+  sql: PostgresExecutor,
+  rows: TeacherNoticeEmailOutboxRow[]
+) {
+  let queued = 0;
+  let reused = 0;
+  let recovered = 0;
+  for (const row of rows) {
+    if (!validateTeacherNoticeEmailOutboxRow(row)) {
+      throw new Error("Teacher notice email outbox refused an invalid row.");
+    }
+    const inserted = await sql<Array<{ id: string }>>`
+      INSERT INTO public.teacher_notice_email_outbox (
+        id, notice_id, recipient_id, recipient_fingerprint, student_id, guardian_id, teacher_id,
+        queued_by_id, queued_by_fingerprint, class_id, email, locale,
+        durable_delivery_key, content_revision, status, attempt_count, first_enqueued_at,
+        next_attempt_at, lease_token, lease_expires_at, provider_message_id, last_error_code,
+        last_http_status, completed_at, created_at, updated_at, pii_expires_at, pii_purged_at,
+        tombstone_expires_at
+      ) VALUES (
+        ${row.id}, ${row.notice_id}, ${row.recipient_id}, ${row.recipient_fingerprint}, ${row.student_id},
+        ${row.guardian_id}, ${row.teacher_id}, ${row.queued_by_id}, ${row.queued_by_fingerprint},
+        ${row.class_id}, ${row.email}, ${row.locale}, ${row.durable_delivery_key},
+        ${row.content_revision}, ${row.status}, ${row.attempt_count}, ${row.first_enqueued_at},
+        ${row.next_attempt_at}, ${row.lease_token}, ${row.lease_expires_at}, ${row.provider_message_id},
+        ${row.last_error_code}, ${row.last_http_status}, ${row.completed_at}, ${row.created_at}, ${row.updated_at},
+        ${row.pii_expires_at}, ${row.pii_purged_at}, ${row.tombstone_expires_at}
+      )
+      ON CONFLICT (notice_id, recipient_fingerprint, content_revision) DO NOTHING
+      RETURNING id
+    `;
+    if (inserted.length === 1) queued += 1;
+    const persistedRows = await sql<Array<Record<string, unknown>>>`
+      SELECT * FROM public.teacher_notice_email_outbox
+      WHERE notice_id = ${row.notice_id}
+        AND recipient_fingerprint = ${row.recipient_fingerprint}
+        AND content_revision = ${row.content_revision}
+      FOR UPDATE
+    `;
+    if (persistedRows.length !== 1) {
+      throw new Error("Teacher notice email outbox row could not be uniquely attested.");
+    }
+    const persisted = teacherNoticeEmailOutboxRowFromStorage(persistedRows[0]);
+    attestTeacherNoticeEmailOutboxRow(persisted, row);
+    if (inserted.length !== 1) {
+      const recovery = resolveTeacherNoticeEmailOutboxRecovery({ row: persisted, now: row.first_enqueued_at });
+      if (recovery.recover) {
+        const recoveredRows = await sql<Array<{ id: string }>>`
+          UPDATE public.teacher_notice_email_outbox
+          SET status = 'pending',
+              completed_at = NULL,
+              pii_expires_at = NULL,
+              pii_purged_at = NULL,
+              tombstone_expires_at = NULL,
+              updated_at = ${row.updated_at}
+          WHERE id = ${persisted.id}
+            AND status = 'blocked'
+            AND provider_message_id IS NULL
+            AND last_error_code = ${persisted.last_error_code}
+          RETURNING id
+        `;
+        if (recoveredRows.length !== 1) {
+          throw new Error("Teacher notice email outbox recovery could not be atomically attested.");
+        }
+        recovered += 1;
+      } else {
+        reused += 1;
+      }
+    }
+  }
+  return { queued, reused, recovered };
+}
+
+function prepareTeacherNoticeEmailOutboxRows<T>(
+  database: Database,
+  teacherId: string,
+  mutation: TeacherNoticeEmailOutboxMutation<T>,
+  now: string
+) {
+  const rows: TeacherNoticeEmailOutboxRow[] = [];
+  let skipped = 0;
+  for (const noticeId of Array.from(new Set(mutation.noticeIds))) {
+    const publication = prepareTeacherNoticeEmailPublication({
+      database,
+      teacherId,
+      noticeId,
+      now
+    });
+    if (publication.status === "not-found") {
+      throw new Error("Teacher notice email publication authorization changed before commit.");
+    }
+    rows.push(...publication.rows);
+    skipped += publication.skipped;
+  }
+  return { rows, skipped, noEligible: mutation.noticeIds.length > 0 && rows.length === 0 };
+}
+
+async function mutateDatabaseWithTeacherNoticeEmailOutbox<T>(
+  teacherId: string,
+  mutator: (database: Database) => TeacherNoticeEmailOutboxMutation<T> | Promise<TeacherNoticeEmailOutboxMutation<T>>
+): Promise<TeacherNoticeEmailOutboxMutationResult<T>> {
+  if (storageProvider === "postgres") {
+    await ensurePostgresStateTable();
+    return getPostgresClient().begin(async (sql) => runTeacherNoticeEmailOutboxPostgresAttestedTransaction(
+      sql,
+      {
+        lockTimeout: "1000ms",
+        statementTimeout: "5000ms"
+      },
+      async (sql) => {
+        const database = await readPostgresDatabaseFrom(sql, true, true);
+        const mutation = await mutator(database);
+        const prepared = prepareTeacherNoticeEmailOutboxRows(database, teacherId, mutation, new Date().toISOString());
+        if (prepared.noEligible && !mutation.commitWithoutEligibleRows) {
+          if (mutation.noEligibleResult === undefined) {
+            throw new Error("Teacher notice email publication has no eligible family recipients.");
+          }
+          return {
+            result: mutation.noEligibleResult,
+            outbox: { queued: 0, reused: 0, recovered: 0, skipped: prepared.skipped }
+          };
+        }
+        databaseIndexCache.delete(database);
+        await writePostgresDatabaseWith(sql, database, true);
+        const inserted = await insertTeacherNoticeEmailOutboxRowsPostgres(sql, prepared.rows);
+        return { result: mutation.result, outbox: { ...inserted, skipped: prepared.skipped } };
+      }
+    ));
+  }
+
+  const run = mutationQueue.then(async () => {
+    clearSqliteReadCache();
+    try {
+      const committed = await withSqliteImmediateTransaction(async (storage) => {
+        const latest = readNormalizedSqliteState(storage);
+        const database = latest?.database ?? await readLegacyDatabase() ?? createInitialDatabase();
+        const mutation = await mutator(database);
+        const prepared = prepareTeacherNoticeEmailOutboxRows(database, teacherId, mutation, new Date().toISOString());
+        if (prepared.noEligible && !mutation.commitWithoutEligibleRows) {
+          if (mutation.noEligibleResult === undefined) {
+            throw new Error("Teacher notice email publication has no eligible family recipients.");
+          }
+          return {
+            database: latest?.database ?? database,
+            metadata: latest?.metadata ?? null,
+            result: mutation.noEligibleResult,
+            outbox: { queued: 0, reused: 0, recovered: 0, skipped: prepared.skipped },
+            skippedWrite: true
+          };
+        }
+        databaseIndexCache.delete(database);
+        const metadata = writeSqliteDatabaseWithConnection(storage, database);
+        const inserted = insertTeacherNoticeEmailOutboxRowsSqlite(storage, prepared.rows);
+        return {
+          database,
+          metadata,
+          result: mutation.result,
+          outbox: { ...inserted, skipped: prepared.skipped },
+          skippedWrite: false
+        };
+      });
+      if (!committed.skippedWrite && committed.metadata) {
+        cacheSqliteDatabase(committed.database, committed.metadata);
+      }
+      return { result: committed.result, outbox: committed.outbox };
+    } catch (error) {
+      clearSqliteReadCache();
+      throw error;
+    }
+  });
+  mutationQueue = run.then(() => undefined, () => undefined);
+  return run;
+}
+
+async function queueTeacherNoticeEmail({
+  teacherId,
+  noticeId
+}: {
+  teacherId: string;
+  noticeId: string;
+}): Promise<
+  | { status: "queued"; queued: number; reused: number; recovered: number; skipped: number }
+  | { status: "no-eligible"; skipped: number }
+  | { status: "not-found" }
+> {
+  type QueueResult = { status: "queued" } | { status: "no-eligible" } | { status: "not-found" };
+  const publication = await mutateDatabaseWithTeacherNoticeEmailOutbox<QueueResult>(
+    teacherId,
+    (database) => {
+      const teachers = database.users.filter((candidate) => candidate.id === teacherId);
+      const notices = database.teacher_notices.filter((candidate) => candidate.id === noticeId);
+      if (teachers.length > 1 || notices.length > 1) {
+        throw new Error("Teacher notice email publication contains a conflicting business identifier.");
+      }
+      const teacher = teachers[0];
+      const notice = notices[0];
+      if (
+        !teacher || teacher.role !== "teacher" || teacher.disabled_at !== null ||
+        !notice
+      ) {
+        return { result: { status: "not-found" as const }, noticeIds: [] };
+      }
+      const classes = database.teacher_classes.filter((candidate) => candidate.id === notice.class_id);
+      if (classes.length > 1) {
+        throw new Error("Teacher notice email publication contains a conflicting class identifier.");
+      }
+      if (!classes[0] || !teacherCanMutateOperationsClassFromTeacherOpsOperations(database, teacher, notice.class_id)) {
+        return { result: { status: "not-found" as const }, noticeIds: [] };
+      }
+      return {
+        result: { status: "queued" as const },
+        noEligibleResult: { status: "no-eligible" as const },
+        noticeIds: [noticeId]
+      };
+    }
+  );
+  if (publication.result.status === "not-found") return publication.result;
+  if (publication.result.status === "no-eligible") {
+    return { status: "no-eligible", skipped: publication.outbox.skipped };
+  }
+  return { status: "queued" as const, ...publication.outbox };
+}
+
+async function postgresTeacherNoticeEmailClaimDatabase(
+  sql: PostgresExecutor,
+  row: TeacherNoticeEmailOutboxRow
+) {
+  const scopeRows = await sql<Array<{ global_ids_unique: boolean; scoped_payload: unknown }>>`
+    SELECT
+      pg_catalog.jsonb_build_object(
+        'users', COALESCE((
+          SELECT pg_catalog.jsonb_agg(user_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'users') AS user_items(user_record)
+          WHERE user_record->>'id' IN (${row.teacher_id}, ${row.queued_by_id}, ${row.student_id}, ${row.guardian_id})
+            OR user_record->>'id' IN (
+              SELECT class_record->>'teacher_id'
+              FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_classes') AS authority_classes(class_record)
+              WHERE class_record->>'id' = ${row.class_id}
+              UNION
+              SELECT collaborator_record->>'teacher_id'
+              FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_class_collaborators') AS authority_collaborators(collaborator_record)
+              WHERE collaborator_record->>'class_id' = ${row.class_id}
+                AND collaborator_record->>'role' = 'co-teacher'
+                AND collaborator_record->>'status' = 'active'
+              UNION
+              SELECT membership_record->>'user_id'
+              FROM pg_catalog.jsonb_array_elements(app_state.payload->'school_memberships') AS authority_memberships(membership_record)
+              WHERE membership_record->>'class_id' = ${row.class_id}
+                AND membership_record->>'role' IN ('teacher', 'admin')
+            )
+        ), '[]'::pg_catalog.jsonb),
+        'user_settings', COALESCE((
+          SELECT pg_catalog.jsonb_agg(setting_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'user_settings') AS setting_items(setting_record)
+          WHERE setting_record->>'user_id' = ${row.guardian_id}
+        ), '[]'::pg_catalog.jsonb),
+        'teacher_classes', COALESCE((
+          SELECT pg_catalog.jsonb_agg(class_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_classes') AS class_items(class_record)
+          WHERE class_record->>'id' = ${row.class_id}
+        ), '[]'::pg_catalog.jsonb),
+        'teacher_class_collaborators', COALESCE((
+          SELECT pg_catalog.jsonb_agg(collaborator_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_class_collaborators') AS collaborator_items(collaborator_record)
+          WHERE collaborator_record->>'class_id' = ${row.class_id}
+        ), '[]'::pg_catalog.jsonb),
+        'school_memberships', COALESCE((
+          SELECT pg_catalog.jsonb_agg(membership_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'school_memberships') AS membership_items(membership_record)
+          WHERE membership_record->>'class_id' = ${row.class_id}
+        ), '[]'::pg_catalog.jsonb),
+        'class_enrollments', COALESCE((
+          SELECT pg_catalog.jsonb_agg(enrollment_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'class_enrollments') AS enrollment_items(enrollment_record)
+          WHERE enrollment_record->>'class_id' = ${row.class_id}
+            AND enrollment_record->>'student_id' = ${row.student_id}
+        ), '[]'::pg_catalog.jsonb),
+        'guardian_links', COALESCE((
+          SELECT pg_catalog.jsonb_agg(link_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'guardian_links') AS link_items(link_record)
+          WHERE link_record->>'parent_id' = ${row.guardian_id}
+            AND link_record->>'student_id' = ${row.student_id}
+        ), '[]'::pg_catalog.jsonb),
+        'teacher_notices', COALESCE((
+          SELECT pg_catalog.jsonb_agg(notice_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_notices') AS notice_items(notice_record)
+          WHERE notice_record->>'id' = ${row.notice_id}
+        ), '[]'::pg_catalog.jsonb),
+        'teacher_notice_recipients', COALESCE((
+          SELECT pg_catalog.jsonb_agg(recipient_record)
+          FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_notice_recipients') AS recipient_items(recipient_record)
+          WHERE recipient_record->>'id' = ${row.recipient_id}
+            OR (
+              recipient_record->>'notice_id' = ${row.notice_id}
+              AND recipient_record->>'student_id' = ${row.student_id}
+              AND recipient_record->>'guardian_id' = ${row.guardian_id}
+            )
+        ), '[]'::pg_catalog.jsonb)
+      ) AS scoped_payload,
+      (
+        (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT user_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'users') AS u(user_record)) AS user_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT class_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_classes') AS c(class_record)) AS class_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT collaborator_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_class_collaborators') AS c(collaborator_record)) AS collaborator_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT membership_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'school_memberships') AS m(membership_record)) AS membership_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT enrollment_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'class_enrollments') AS e(enrollment_record)) AS enrollment_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT link_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'guardian_links') AS g(link_record)) AS guardian_link_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT notice_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_notices') AS n(notice_record)) AS notice_ids)
+        AND (SELECT COALESCE(pg_catalog.bool_and(item_id IS NOT NULL AND item_id <> ''), TRUE)
+            AND pg_catalog.count(*) = pg_catalog.count(DISTINCT item_id)
+          FROM (SELECT recipient_record->>'id' AS item_id
+            FROM pg_catalog.jsonb_array_elements(app_state.payload->'teacher_notice_recipients') AS r(recipient_record)) AS recipient_ids)
+      ) AS global_ids_unique
+    FROM public.app_state AS app_state
+    WHERE id = ${stateRecordId}
+  `;
+  const scoped = scopeRows[0];
+  if (scoped?.global_ids_unique !== true) return null;
+  const payload = parseStoredStatePayload(scoped.scoped_payload);
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return null;
+  return payload as Parameters<typeof validateTeacherNoticeEmailOutboxClaim>[0]["database"];
+}
+
+async function withTeacherNoticeEmailOutboxPostgresDeadline<T>(
+  deadline: TeacherNoticeEmailOutboxDeadline,
+  preserveClaimReserve: boolean,
+  operation: (sql: postgres.TransactionSql) => Promise<T>,
+  {
+    providerMessageId = null
+  }: {
+    providerMessageId?: string | null;
+  } = {}
+): Promise<T> {
+  if (!postgresUrl) {
+    throw new Error("POSTGRES_URL is required when HK_MATH_STORAGE_PROVIDER=postgres.");
+  }
+  const statementTimeoutMs = teacherNoticeEmailOutboxDeadlineStatementTimeoutMs(
+    deadline,
+    preserveClaimReserve
+  );
+  if (statementTimeoutMs <= 0) throw new TeacherNoticeEmailOutboxDeadlineError();
+  const closeTimeoutSeconds = Math.max(0.01, Math.min(5, statementTimeoutMs / 1_000));
+  const lane = postgres(postgresUrl, {
+    max: 1,
+    connect_timeout: closeTimeoutSeconds,
+    idle_timeout: Math.max(1, Math.ceil(closeTimeoutSeconds)),
+    prepare: false
+  });
+  const lockTimeout = `${Math.min(1_000, statementTimeoutMs)}ms`;
+  const statementTimeout = `${statementTimeoutMs}ms`;
+  try {
+    return (await lane.begin(async (sql) => runTeacherNoticeEmailOutboxPostgresAttestedTransaction(
+      sql,
+      {
+        lockTimeout,
+        statementTimeout,
+        idleTransactionTimeout: statementTimeout
+      },
+      async (sql) => {
+        const result = await operation(sql);
+        const withinDeadline = preserveClaimReserve
+          ? teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)
+          : teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline);
+        if (!withinDeadline) throw new TeacherNoticeEmailOutboxDeadlineError();
+        return result;
+      },
+      providerMessageId
+    ))) as T;
+  } finally {
+    await lane.end({ timeout: closeTimeoutSeconds });
+  }
+}
+
+export const __userStoreTeacherNoticeEmailOutboxPostgresTestHooks = {
+  migrateSchema: migrateTeacherNoticeEmailOutboxPostgresSchema,
+  attestSchema: preflightTeacherNoticeEmailOutboxPostgresSchema,
+  async runAlterTableBarrierProbe({
+    onLocked
+  }: {
+    onLocked: () => Promise<void>;
+  }) {
+    if (process.env.NODE_ENV !== "test" || typeof onLocked !== "function") {
+      throw new Error("Teacher notice email outbox ALTER TABLE barrier probe is unavailable.");
+    }
+    const startedAt = performance.now();
+    return withTeacherNoticeEmailOutboxPostgresDeadline({
+      deadlineAtMs: startedAt + 5_000,
+      claimReserveMs: 0,
+      monotonicNow: () => performance.now()
+    }, false, async (sql) => {
+      await sql`
+        UPDATE public.teacher_notice_email_outbox
+        SET updated_at = updated_at
+        WHERE FALSE
+      `;
+      await onLocked();
+      return true;
+    });
+  },
+  async runProviderMappingBarrierProbe({
+    providerMessageId,
+    onLocked
+  }: {
+    providerMessageId: string;
+    onLocked: () => Promise<void>;
+  }) {
+    if (
+      process.env.NODE_ENV !== "test" ||
+      !isTeacherNoticeEmailOutboxProviderMessageId(providerMessageId) ||
+      typeof onLocked !== "function"
+    ) {
+      throw new Error("Teacher notice email outbox provider mapping barrier probe is unavailable.");
+    }
+    const startedAt = performance.now();
+    return withTeacherNoticeEmailOutboxPostgresDeadline({
+      deadlineAtMs: startedAt + 5_000,
+      claimReserveMs: 0,
+      monotonicNow: () => performance.now()
+    }, false, async (sql) => {
+      await sql`
+        UPDATE public.teacher_notice_email_outbox
+        SET updated_at = updated_at
+        WHERE FALSE
+      `;
+      await onLocked();
+      return true;
+    }, { providerMessageId });
+  },
+  async runDeadlineRollbackProbe({
+    probeId,
+    budgetMs,
+    pauseMs
+  }: {
+    probeId: string;
+    budgetMs: number;
+    pauseMs: number;
+  }) {
+    if (
+      process.env.NODE_ENV !== "test" ||
+      !isTeacherNoticeEmailOutboxIdentifier(probeId) ||
+      !Number.isInteger(budgetMs) || budgetMs < 10 || budgetMs > 5_000 ||
+      !Number.isInteger(pauseMs) || pauseMs < 1 || pauseMs > 10_000
+    ) {
+      throw new Error("Teacher notice email outbox deadline probe is unavailable.");
+    }
+    const startedAt = performance.now();
+    return withTeacherNoticeEmailOutboxPostgresDeadline({
+      deadlineAtMs: startedAt + budgetMs,
+      claimReserveMs: 0,
+      monotonicNow: () => performance.now()
+    }, false, async (sql) => {
+      await sql`
+        INSERT INTO public.teacher_notice_email_outbox_deadline_probe (id, phase)
+        VALUES (${probeId}, 'started')
+      `;
+      await sql`SELECT pg_catalog.pg_sleep(${pauseMs / 1_000})`;
+      await sql`
+        UPDATE public.teacher_notice_email_outbox_deadline_probe
+        SET phase = 'committed'
+        WHERE id = ${probeId}
+      `;
+      return true;
+    });
+  }
+};
+
+async function claimTeacherNoticeEmailOutboxItem(
+  now: string,
+  deadline: TeacherNoticeEmailOutboxDeadline
+): Promise<TeacherNoticeEmailOutboxClaim | null> {
+  if (!isTeacherNoticeEmailOutboxRfc3339Timestamp(now)) {
+    throw new Error("Teacher notice email outbox claim time is invalid.");
+  }
+  if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+  if (storageProvider === "postgres") {
+    return withTeacherNoticeEmailOutboxPostgresDeadline(deadline, true, async (sql) => {
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      await sql`
+        DELETE FROM public.teacher_notice_email_outbox
+        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+          AND tombstone_expires_at <= pg_catalog.clock_timestamp()
+      `;
+      await sql`
+        UPDATE public.teacher_notice_email_outbox
+        SET recipient_id = NULL, student_id = NULL, guardian_id = NULL, teacher_id = NULL,
+            queued_by_id = NULL, class_id = NULL, email = NULL, locale = NULL,
+            pii_purged_at = pg_catalog.clock_timestamp(), updated_at = pg_catalog.clock_timestamp()
+        WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+          AND pii_purged_at IS NULL
+          AND pii_expires_at <= pg_catalog.clock_timestamp()
+          AND tombstone_expires_at > pg_catalog.clock_timestamp()
+      `;
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      const lockedState = await sql<Array<{ locked: boolean }>>`
+        SELECT TRUE AS locked
+        FROM public.app_state AS app_state
+        WHERE id = ${stateRecordId}
+          AND tenant_id = ${stateTenantId}
+          AND state_kind = ${stateKind}
+          AND schema_version = ${schemaVersion}
+          AND pg_catalog.jsonb_typeof(payload) = 'object'
+          AND pg_catalog.jsonb_typeof(payload->'users') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'user_settings') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'teacher_classes') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'teacher_class_collaborators') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'school_memberships') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'class_enrollments') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'guardian_links') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'teacher_notices') = 'array'
+          AND pg_catalog.jsonb_typeof(payload->'teacher_notice_recipients') = 'array'
+        FOR UPDATE OF app_state
+      `;
+      if (lockedState[0]?.locked !== true) {
+        throw new Error("Teacher notice email outbox authority snapshot is unavailable.");
+      }
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      let remainingQuarantine = teacherNoticeEmailOutboxInvalidQuarantineLimit;
+      const invalidExpiredLeaseRows = await sql<Array<{ id: string }>>`
+        WITH invalid_expired_leases AS (
+          SELECT id
+          FROM public.teacher_notice_email_outbox
+          WHERE status = 'leased' AND lease_expires_at <= pg_catalog.clock_timestamp()
+            AND (
+              lease_token IS NULL OR lease_token = '' OR lease_expires_at IS NULL
+              OR provider_message_id IS NOT NULL OR completed_at IS NOT NULL
+            )
+          ORDER BY first_enqueued_at, id
+          FOR UPDATE SKIP LOCKED
+          LIMIT ${remainingQuarantine}
+        )
+        UPDATE public.teacher_notice_email_outbox AS outbox
+        SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row',
+            completed_at = COALESCE(outbox.completed_at, pg_catalog.clock_timestamp()),
+            lease_token = NULL, lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp(),
+            pii_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}),
+            pii_purged_at = NULL,
+            tombstone_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+        WHERE outbox.id IN (SELECT id FROM invalid_expired_leases)
+        RETURNING outbox.id
+      `;
+      remainingQuarantine -= invalidExpiredLeaseRows.length;
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      await sql`
+        WITH healthy_expired_leases AS (
+          SELECT id
+          FROM public.teacher_notice_email_outbox
+          WHERE status = 'leased' AND lease_expires_at <= pg_catalog.clock_timestamp()
+            AND lease_token IS NOT NULL AND lease_token <> ''
+            AND provider_message_id IS NULL AND completed_at IS NULL
+          ORDER BY first_enqueued_at, id
+          FOR UPDATE SKIP LOCKED
+          LIMIT ${teacherNoticeEmailOutboxInvalidQuarantineLimit}
+        )
+        UPDATE public.teacher_notice_email_outbox AS outbox
+        SET status = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN 'dead-letter'
+              ELSE 'retryable'
+            END,
+            next_attempt_at = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN next_attempt_at
+              ELSE pg_catalog.clock_timestamp()
+            END,
+            last_error_code = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN 'delivery-window-expired'
+              ELSE 'lease-expired'
+            END,
+            completed_at = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN pg_catalog.clock_timestamp()
+              ELSE NULL
+            END,
+            pii_expires_at = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000})
+              ELSE NULL
+            END,
+            pii_purged_at = NULL,
+            tombstone_expires_at = CASE
+              WHEN attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts} OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000})
+                THEN pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+              ELSE NULL
+            END,
+            lease_token = NULL,
+            lease_expires_at = NULL,
+            updated_at = pg_catalog.clock_timestamp()
+        WHERE outbox.id IN (SELECT id FROM healthy_expired_leases)
+      `;
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      const invalidDeliveryWindowRows = await sql<Array<{ id: string }>>`
+        WITH invalid_delivery_window AS (
+          SELECT id
+          FROM public.teacher_notice_email_outbox
+          WHERE status IN ('pending', 'retryable')
+            AND (attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts}
+              OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000}))
+            AND (
+              lease_token IS NOT NULL OR lease_expires_at IS NOT NULL
+              OR provider_message_id IS NOT NULL OR completed_at IS NOT NULL
+            )
+          ORDER BY first_enqueued_at, id
+          FOR UPDATE SKIP LOCKED
+          LIMIT ${remainingQuarantine}
+        )
+        UPDATE public.teacher_notice_email_outbox AS outbox
+        SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row',
+            completed_at = COALESCE(outbox.completed_at, pg_catalog.clock_timestamp()),
+            lease_token = NULL, lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp(),
+            pii_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}),
+            pii_purged_at = NULL,
+            tombstone_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+        WHERE outbox.id IN (SELECT id FROM invalid_delivery_window)
+        RETURNING outbox.id
+      `;
+      remainingQuarantine -= invalidDeliveryWindowRows.length;
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      await sql`
+        WITH healthy_delivery_window AS (
+          SELECT id
+          FROM public.teacher_notice_email_outbox
+          WHERE status IN ('pending', 'retryable')
+            AND (attempt_count >= ${teacherNoticeEmailOutboxMaxAttempts}
+              OR first_enqueued_at <= pg_catalog.clock_timestamp() - pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxCutoffMs / 1_000}))
+            AND lease_token IS NULL AND lease_expires_at IS NULL
+            AND provider_message_id IS NULL AND completed_at IS NULL
+          ORDER BY first_enqueued_at, id
+          FOR UPDATE SKIP LOCKED
+          LIMIT ${teacherNoticeEmailOutboxInvalidQuarantineLimit}
+        )
+        UPDATE public.teacher_notice_email_outbox AS outbox
+        SET status = 'dead-letter', last_error_code = 'delivery-window-expired',
+            completed_at = COALESCE(outbox.completed_at, pg_catalog.clock_timestamp()), updated_at = pg_catalog.clock_timestamp(),
+            pii_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}),
+            pii_purged_at = NULL,
+            tombstone_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+        WHERE outbox.id IN (SELECT id FROM healthy_delivery_window)
+      `;
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      for (let skipped = 0; skipped < remainingQuarantine; skipped += 1) {
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        const candidateRows = await sql<Array<Record<string, unknown>>>`
+          SELECT * FROM public.teacher_notice_email_outbox
+          WHERE status IN ('pending', 'retryable')
+            AND next_attempt_at <= pg_catalog.clock_timestamp()
+          ORDER BY first_enqueued_at, id
+          FOR UPDATE SKIP LOCKED
+          LIMIT 1
+        `;
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        if (!candidateRows[0]) return null;
+        let row: TeacherNoticeEmailOutboxRow;
+        try {
+          row = teacherNoticeEmailOutboxRowFromStorage(candidateRows[0]);
+        } catch {
+          const candidateId = candidateRows[0]?.id;
+          if (!isTeacherNoticeEmailOutboxIdentifier(candidateId)) {
+            throw new Error("Teacher notice email outbox contains an unaddressable invalid row.");
+          }
+          await sql`
+            UPDATE public.teacher_notice_email_outbox
+            SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row', completed_at = COALESCE(completed_at, pg_catalog.clock_timestamp()),
+                lease_token = NULL, lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp(),
+                pii_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}),
+                pii_purged_at = NULL,
+                tombstone_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+            WHERE id = ${candidateId} AND status IN ('pending', 'retryable')
+          `;
+          if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+          continue;
+        }
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        const scopedDatabase = await postgresTeacherNoticeEmailClaimDatabase(sql, row);
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        if (!scopedDatabase || !validateTeacherNoticeEmailOutboxClaim({ database: scopedDatabase, row })) {
+          await sql`
+            UPDATE public.teacher_notice_email_outbox
+            SET status = 'dead-letter', last_error_code = 'authorization-changed', completed_at = pg_catalog.clock_timestamp(),
+                lease_token = NULL, lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp(),
+                pii_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}),
+                pii_purged_at = NULL,
+                tombstone_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000})
+            WHERE id = ${row.id} AND status IN ('pending', 'retryable')
+          `;
+          if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+          continue;
+        }
+        if (row.status !== "pending" && row.status !== "retryable") {
+          throw new Error("Teacher notice email outbox claim status changed unexpectedly.");
+        }
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        const leaseToken = randomUUID();
+        const leasedRows = await sql<Array<Record<string, unknown>>>`
+          UPDATE public.teacher_notice_email_outbox
+          SET status = 'leased', attempt_count = attempt_count + 1, lease_token = ${leaseToken},
+              lease_expires_at = pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxLeaseMs / 1_000}),
+              updated_at = pg_catalog.clock_timestamp()
+          WHERE id = ${row.id} AND status IN ('pending', 'retryable')
+          RETURNING *
+        `;
+        if (leasedRows.length !== 1) continue;
+        const leased = teacherNoticeEmailOutboxRowFromStorage(leasedRows[0]);
+        if (!leased.delivery) {
+          throw new Error("Teacher notice email outbox leased row has no deliverable recipient.");
+        }
+        return {
+          id: leased.id,
+          leaseToken,
+          attempt_count: leased.attempt_count,
+          first_enqueued_at: leased.first_enqueued_at,
+          previousStatus: row.status,
+          previousAttemptCount: row.attempt_count,
+          previousNextAttemptAt: row.next_attempt_at,
+          delivery: leased.delivery
+        };
+      }
+      return null;
+    });
+  }
+
+  const cutoffAt = new Date(Date.parse(now) - teacherNoticeEmailOutboxCutoffMs).toISOString();
+  const terminalRetention = teacherNoticeEmailOutboxTerminalRetention(now);
+  if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+  return withSqliteImmediateTransaction((storage) => {
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    const latest = readNormalizedSqliteState(storage);
+    if (!latest) throw new Error("Teacher notice email outbox authority snapshot is unavailable.");
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    storage.prepare(`
+      DELETE FROM teacher_notice_email_outbox
+      WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+        AND tombstone_expires_at <= ?
+    `).run(now);
+    storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET recipient_id = NULL, student_id = NULL, guardian_id = NULL, teacher_id = NULL,
+          queued_by_id = NULL, class_id = NULL, email = NULL, locale = NULL,
+          pii_purged_at = ?, updated_at = ?
+      WHERE status IN ('provider-accepted', 'blocked', 'dead-letter')
+        AND pii_purged_at IS NULL
+        AND pii_expires_at <= ?
+        AND tombstone_expires_at > ?
+    `).run(now, now, now, now);
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    let remainingQuarantine = teacherNoticeEmailOutboxInvalidQuarantineLimit;
+    const invalidExpiredLeaseResult = storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row',
+          completed_at = COALESCE(completed_at, ?), lease_token = NULL,
+          lease_expires_at = NULL, updated_at = ?, pii_expires_at = ?, pii_purged_at = NULL,
+          tombstone_expires_at = ?
+      WHERE rowid IN (
+        SELECT rowid FROM teacher_notice_email_outbox
+        WHERE status = 'leased' AND lease_expires_at <= ?
+          AND (
+            lease_token IS NULL OR lease_token = '' OR lease_expires_at IS NULL
+            OR provider_message_id IS NOT NULL OR completed_at IS NOT NULL
+          )
+        ORDER BY first_enqueued_at, id LIMIT ?
+      )
+    `).run(now, now, terminalRetention.pii_expires_at, terminalRetention.tombstone_expires_at, now, remainingQuarantine);
+    remainingQuarantine -= Number(invalidExpiredLeaseResult.changes);
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET status = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN 'dead-letter' ELSE 'retryable' END,
+          next_attempt_at = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN next_attempt_at ELSE ? END,
+          last_error_code = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN 'delivery-window-expired' ELSE 'lease-expired' END,
+          completed_at = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN ? ELSE NULL END,
+          pii_expires_at = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN ? ELSE NULL END,
+          pii_purged_at = NULL,
+          tombstone_expires_at = CASE WHEN attempt_count >= ? OR first_enqueued_at <= ? THEN ? ELSE NULL END,
+          lease_token = NULL, lease_expires_at = NULL, updated_at = ?
+      WHERE rowid IN (
+        SELECT rowid FROM teacher_notice_email_outbox
+        WHERE status = 'leased' AND lease_expires_at <= ?
+          AND lease_token IS NOT NULL AND lease_token <> ''
+          AND provider_message_id IS NULL AND completed_at IS NULL
+        ORDER BY first_enqueued_at, id LIMIT ?
+      )
+    `).run(
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt, now,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt, now,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt, terminalRetention.pii_expires_at,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt, terminalRetention.tombstone_expires_at,
+      now, now, teacherNoticeEmailOutboxInvalidQuarantineLimit
+    );
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    const invalidDeliveryWindowResult = storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row',
+          completed_at = COALESCE(completed_at, ?), lease_token = NULL,
+          lease_expires_at = NULL, updated_at = ?, pii_expires_at = ?, pii_purged_at = NULL,
+          tombstone_expires_at = ?
+      WHERE rowid IN (
+        SELECT rowid FROM teacher_notice_email_outbox
+        WHERE status IN ('pending', 'retryable')
+          AND (attempt_count >= ? OR first_enqueued_at <= ?)
+          AND (
+            lease_token IS NOT NULL OR lease_expires_at IS NOT NULL
+            OR provider_message_id IS NOT NULL OR completed_at IS NOT NULL
+          )
+        ORDER BY first_enqueued_at, id LIMIT ?
+      )
+    `).run(
+      now, now, terminalRetention.pii_expires_at, terminalRetention.tombstone_expires_at,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt, remainingQuarantine
+    );
+    remainingQuarantine -= Number(invalidDeliveryWindowResult.changes);
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET status = 'dead-letter', last_error_code = 'delivery-window-expired',
+          completed_at = COALESCE(completed_at, ?), updated_at = ?,
+          pii_expires_at = ?, pii_purged_at = NULL, tombstone_expires_at = ?
+      WHERE rowid IN (
+        SELECT rowid FROM teacher_notice_email_outbox
+        WHERE status IN ('pending', 'retryable')
+          AND (attempt_count >= ? OR first_enqueued_at <= ?)
+          AND lease_token IS NULL AND lease_expires_at IS NULL
+          AND provider_message_id IS NULL AND completed_at IS NULL
+        ORDER BY first_enqueued_at, id LIMIT ?
+      )
+    `).run(
+      now, now, terminalRetention.pii_expires_at, terminalRetention.tombstone_expires_at,
+      teacherNoticeEmailOutboxMaxAttempts, cutoffAt,
+      teacherNoticeEmailOutboxInvalidQuarantineLimit
+    );
+    if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+    for (let skipped = 0; skipped < remainingQuarantine; skipped += 1) {
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      const candidate = storage.prepare(`
+        SELECT * FROM teacher_notice_email_outbox
+        WHERE status IN ('pending', 'retryable') AND next_attempt_at <= ?
+        ORDER BY first_enqueued_at, id LIMIT 1
+      `).get(now);
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      if (!candidate) return null;
+      let row: TeacherNoticeEmailOutboxRow;
+      try {
+        row = teacherNoticeEmailOutboxRowFromStorage(candidate);
+      } catch {
+        const candidateId = (candidate as Record<string, unknown>).id;
+        if (!isTeacherNoticeEmailOutboxIdentifier(candidateId)) {
+          throw new Error("Teacher notice email outbox contains an unaddressable invalid row.");
+        }
+        storage.prepare(`
+          UPDATE teacher_notice_email_outbox
+          SET status = 'dead-letter', last_error_code = 'quarantined-invalid-row', completed_at = COALESCE(completed_at, ?),
+              lease_token = NULL, lease_expires_at = NULL, updated_at = ?,
+              pii_expires_at = ?, pii_purged_at = NULL, tombstone_expires_at = ?
+          WHERE id = ? AND status IN ('pending', 'retryable')
+        `).run(now, now, terminalRetention.pii_expires_at, terminalRetention.tombstone_expires_at, candidateId);
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        continue;
+      }
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      if (!validateTeacherNoticeEmailOutboxClaim({ database: latest.database, row })) {
+        storage.prepare(`
+          UPDATE teacher_notice_email_outbox
+          SET status = 'dead-letter', last_error_code = 'authorization-changed', completed_at = ?,
+              lease_token = NULL, lease_expires_at = NULL, updated_at = ?,
+              pii_expires_at = ?, pii_purged_at = NULL, tombstone_expires_at = ?
+          WHERE id = ? AND status IN ('pending', 'retryable')
+        `).run(now, now, terminalRetention.pii_expires_at, terminalRetention.tombstone_expires_at, row.id);
+        if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+        continue;
+      }
+      if (row.status !== "pending" && row.status !== "retryable") {
+        throw new Error("Teacher notice email outbox claim status changed unexpectedly.");
+      }
+      if (!teacherNoticeEmailOutboxDeadlineHasClaimReserve(deadline)) return null;
+      const leaseToken = randomUUID();
+      const leaseExpiresAt = new Date(Date.parse(now) + teacherNoticeEmailOutboxLeaseMs).toISOString();
+      const leased = storage.prepare(`
+        UPDATE teacher_notice_email_outbox
+        SET status = 'leased', attempt_count = attempt_count + 1, lease_token = ?,
+            lease_expires_at = ?, updated_at = ?
+        WHERE id = ? AND status IN ('pending', 'retryable')
+      `).run(leaseToken, leaseExpiresAt, now, row.id);
+      if (Number(leased.changes) !== 1) continue;
+      if (!row.delivery) {
+        throw new Error("Teacher notice email outbox leased row has no deliverable recipient.");
+      }
+      return {
+        id: row.id,
+        leaseToken,
+        attempt_count: row.attempt_count + 1,
+        first_enqueued_at: row.first_enqueued_at,
+        previousStatus: row.status,
+        previousAttemptCount: row.attempt_count,
+        previousNextAttemptAt: row.next_attempt_at,
+        delivery: row.delivery
+      };
+    }
+    return null;
+  });
+}
+
+async function releaseTeacherNoticeEmailOutboxItemWithoutProviderContact({
+  id,
+  leaseToken,
+  now,
+  previousStatus,
+  previousAttemptCount,
+  previousNextAttemptAt,
+  deadline
+}: {
+  id: string;
+  leaseToken: string;
+  now: string;
+  previousStatus: "pending" | "retryable";
+  previousAttemptCount: number;
+  previousNextAttemptAt: string;
+  deadline: TeacherNoticeEmailOutboxDeadline;
+}) {
+  if (
+    !isTeacherNoticeEmailOutboxIdentifier(id) ||
+    !isTeacherNoticeEmailOutboxIdentifier(leaseToken) ||
+    !isTeacherNoticeEmailOutboxRfc3339Timestamp(now) ||
+    (previousStatus !== "pending" && previousStatus !== "retryable") ||
+    !Number.isInteger(previousAttemptCount) || previousAttemptCount < 0 ||
+    !isTeacherNoticeEmailOutboxRfc3339Timestamp(previousNextAttemptAt)
+  ) {
+    throw new Error("Teacher notice email outbox no-contact release is invalid.");
+  }
+  if (!teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline)) return false;
+  if (storageProvider === "postgres") {
+    return withTeacherNoticeEmailOutboxPostgresDeadline(deadline, false, async (sql) => {
+      if (!teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline)) return false;
+      const rows = await sql<Array<{ id: string }>>`
+        UPDATE public.teacher_notice_email_outbox
+        SET status = ${previousStatus}, attempt_count = ${previousAttemptCount},
+            next_attempt_at = ${previousNextAttemptAt}, lease_token = NULL,
+            lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp()
+        WHERE id = ${id} AND status = 'leased' AND lease_token = ${leaseToken}
+          AND attempt_count = ${previousAttemptCount + 1}
+        RETURNING id
+      `;
+      return rows.length === 1;
+    });
+  }
+  if (!teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline)) return false;
+  return withSqliteImmediateTransaction((storage) => {
+    if (!teacherNoticeEmailOutboxDeadlineHasAnyTime(deadline)) return false;
+    const result = storage.prepare(teacherNoticeEmailOutboxSqliteNoContactReleaseSql).run(
+      previousStatus, previousAttemptCount, previousNextAttemptAt, now,
+      id, leaseToken, previousAttemptCount + 1
+    );
+    return Number(result.changes) === 1;
+  });
+}
+
+async function completeTeacherNoticeEmailOutboxItem({
+  id,
+  leaseToken,
+  completion,
+  now,
+  deadline
+}: {
+  id: string;
+  leaseToken: string;
+  completion: TeacherNoticeEmailOutboxCompletion;
+  now: string;
+  deadline: TeacherNoticeEmailOutboxDeadline;
+}) {
+  if (
+    !isTeacherNoticeEmailOutboxIdentifier(id) ||
+    !isTeacherNoticeEmailOutboxIdentifier(leaseToken) ||
+    !isTeacherNoticeEmailOutboxRfc3339Timestamp(now) ||
+    !validateTeacherNoticeEmailOutboxCompletion(completion)
+  ) {
+    throw new Error("Teacher notice email outbox completion is invalid.");
+  }
+  const terminalRetention = completion.status === "retryable"
+    ? { pii_expires_at: null, pii_purged_at: null, tombstone_expires_at: null }
+    : teacherNoticeEmailOutboxTerminalRetention(now);
+  if (storageProvider === "postgres") {
+    return withTeacherNoticeEmailOutboxPostgresDeadline(deadline, false, async (sql) => {
+      const rows = await sql<Array<{ id: string }>>`
+        UPDATE public.teacher_notice_email_outbox
+        SET status = ${completion.status}, provider_message_id = ${completion.providerMessageId},
+            next_attempt_at = COALESCE(${completion.nextAttemptAt}, next_attempt_at),
+            last_error_code = ${completion.errorCode}, last_http_status = ${completion.httpStatus},
+            completed_at = CASE WHEN ${completion.status} = 'retryable' THEN NULL ELSE pg_catalog.clock_timestamp() END,
+            lease_token = NULL, lease_expires_at = NULL, updated_at = pg_catalog.clock_timestamp(),
+            pii_expires_at = CASE WHEN ${completion.status} = 'retryable' THEN NULL
+              ELSE pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxPiiRetentionMs / 1_000}) END,
+            pii_purged_at = NULL,
+            tombstone_expires_at = CASE WHEN ${completion.status} = 'retryable' THEN NULL
+              ELSE pg_catalog.clock_timestamp() + pg_catalog.make_interval(secs => ${teacherNoticeEmailOutboxTombstoneRetentionMs / 1_000}) END
+        WHERE id = ${id} AND status = 'leased' AND lease_token = ${leaseToken}
+        RETURNING id
+      `;
+      return rows.length === 1;
+    }, {
+      providerMessageId: completion.status === "provider-accepted"
+        ? completion.providerMessageId
+        : null
+    });
+  }
+  return withSqliteImmediateTransaction((storage) => {
+    const result = storage.prepare(`
+      UPDATE teacher_notice_email_outbox
+      SET status = ?, provider_message_id = ?, next_attempt_at = COALESCE(?, next_attempt_at),
+          last_error_code = ?, last_http_status = ?, completed_at = ?, lease_token = NULL,
+          lease_expires_at = NULL, updated_at = ?, pii_expires_at = ?, pii_purged_at = ?,
+          tombstone_expires_at = ?
+      WHERE id = ? AND status = 'leased' AND lease_token = ?
+    `).run(
+      completion.status, completion.providerMessageId, completion.nextAttemptAt, completion.errorCode,
+      completion.httpStatus, completion.completedAt, now, terminalRetention.pii_expires_at,
+      terminalRetention.pii_purged_at, terminalRetention.tombstone_expires_at, id, leaseToken
+    );
+    return Number(result.changes) === 1;
+  });
+}
+
+const teacherNoticeEmailOutboxWorker = createTeacherNoticeEmailOutboxWorker({
+  claimNext: claimTeacherNoticeEmailOutboxItem,
+  releaseWithoutProviderContact: releaseTeacherNoticeEmailOutboxItemWithoutProviderContact,
+  complete: completeTeacherNoticeEmailOutboxItem,
+  deliver: deliverTeacherNoticeEmail
+});
+
+export async function deliverTeacherNoticeEmailOutboxBatch(limit = 10) {
+  return teacherNoticeEmailOutboxWorker.runBatch(limit);
 }
 
 type PostgresAiTutorRateLimitEventRow = {
@@ -7745,9 +9536,11 @@ const teacherOpsPrepTeamPersistenceStore = createTeacherOpsPrepTeamPersistenceSt
 const teacherOpsReminderPersistenceStore = createTeacherOpsReminderPersistenceStore({
   createId: () => randomUUID(),
   now: () => new Date(),
-  mutateDatabase: async <T>(mutator: (database: TeacherOpsReminderPersistenceDatabase) => T | Promise<T>) => {
-    const result = await mutateDatabase((database) => mutator(database as TeacherOpsReminderPersistenceDatabase));
-    return result as T;
+  mutateDatabaseWithNoticeOutbox: async (teacherId, mutator) => {
+    return mutateDatabaseWithTeacherNoticeEmailOutbox(
+      teacherId,
+      (database) => mutator(database as unknown as TeacherOpsReminderPersistenceDatabase)
+    );
   },
   teacherOperationClassRecordsFor: (database, user) => teacherOperationClassRecordsForFromTeacherOpsOperations(database as Database, user as UserRecord),
   teacherCanMutateOperationsClass: (database, user, classId) =>
@@ -7782,14 +9575,13 @@ const teacherOpsReminderPersistenceStore = createTeacherOpsReminderPersistenceSt
     createId: randomUUID,
     getNotificationSummary: getWeComNotificationSummary
   }),
-  sendNoticeRecord: async (database, notice, origin) => sendNoticeRecordFromTeacherOpsNotice({
-    database: database as unknown as TeacherOpsNoticePersistenceDatabase,
-    notice: notice as TeacherOpsNoticePersistenceDatabase["teacher_notices"][number],
-    origin,
-    now: () => new Date(),
-    createId: randomUUID,
-    sendNotification: sendWeComGroupNotification
-  }),
+  sendNotice: (input) => teacherOpsNoticePersistenceStore.sendTeacherNotice(input),
+  recordDeliveryResult: async ({ runId, status }) => {
+    await mutateDatabase((database) => {
+      const run = database.teacher_reminder_runs.find((candidate) => candidate.id === runId);
+      if (run) run.status = status;
+    });
+  },
   toTeacherReminderRun: toTeacherReminderRunFromTeacherOpsReminder
 });
 
@@ -8122,8 +9914,8 @@ const teacherOpsNoticePersistenceStore = createTeacherOpsNoticePersistenceStore(
   createId: randomUUID,
   now: () => new Date(),
   getNotificationSummary: getWeComNotificationSummary,
+  queueNoticeEmail: queueTeacherNoticeEmail,
   sendNotification: sendWeComGroupNotification,
-  toDeliveryAttempt: toTeacherNoticeDeliveryAttemptFromTeacherOpsNotice,
   toNotice: (database, notice) => toTeacherNoticeFromTeacherOpsNotice(database, notice)
 });
 

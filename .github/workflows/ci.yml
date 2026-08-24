@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  merge_group:
   workflow_dispatch:
     inputs:
       full_validation:
@@ -124,6 +125,9 @@ jobs:
       - name: Run parent console persistence gate (notice acknowledgement receipts)
         run: npm run test:parent-console
 
+      - name: Run durable teacher-notice outbox unit and SQLite gates
+        run: npm run test:teacher-notice-outbox
+
       - name: Run US math item quality audit (CA/AR/FL independent re-solve + key integrity)
         run: npm run audit:us-math-items
 
@@ -196,6 +200,43 @@ jobs:
         env:
           MAIS_POSTGRES_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_nova_ci
         run: npx tsx --tsconfig tsconfig.json --test lib/server/userStoreNovaPostgresIntegration.test.ts
+
+  teacher-notice-outbox-postgres16:
+    # Preserve PR coverage, verify the exact post-merge main SHA, and provide a
+    # merge-queue check on GitHub's synthesized merge_group SHA.
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.full_validation) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: mais_outbox_ci
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mais_outbox_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run durable teacher-notice outbox against PostgreSQL 16
+        env:
+          MAIS_OUTBOX_POSTGRES16_INTEGRATION_URL: postgres://postgres:postgres@127.0.0.1:5432/mais_outbox_ci
+        run: npm run test:teacher-notice-outbox:postgres16
 
   visualization-browser:
     # Browser half of the visualization QA gate (transfer-doc F4 / Q1 -> Playwright).
