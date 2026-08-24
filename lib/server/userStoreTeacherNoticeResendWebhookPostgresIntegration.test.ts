@@ -88,7 +88,7 @@ async function insertAcceptedOutbox(
 }
 
 async function webhookCatalogDigest(sql: postgres.Sql) {
-  return sql<Array<{ digest: unknown }>>`
+  return Array.from(await sql<Array<{ digest: unknown }>>`
     WITH target_relations AS (
       SELECT relation.oid, relation.relname, relation.relkind
       FROM pg_catalog.pg_class AS relation
@@ -132,7 +132,7 @@ async function webhookCatalogDigest(sql: postgres.Sql) {
           pg_catalog.obj_description(relation.oid, 'pg_class')) ORDER BY relation.relname
       ) FROM target_relations AS relation), '[]'::pg_catalog.jsonb)
     ) AS digest
-  `;
+  `);
 }
 
 test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness are real", async () => {
@@ -232,18 +232,24 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
           FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
           WHERE singleton = TRUE) AS version
     `;
-    assert.deepEqual(heartbeatUpgrade, [{ failure_preserved: true, version: 2 }]);
+    assert.deepEqual(
+      Array.from(heartbeatUpgrade),
+      [{ failure_preserved: true, version: 2 }]
+    );
     await sql.unsafe(`
       DROP TABLE public.teacher_notice_email_cron_heartbeat CASCADE;
       DROP TABLE public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
     `);
     await migrateTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
     assert.equal(await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql), true);
-    assert.deepEqual(await sql<Array<{ version: number }>>`
-      SELECT version
-      FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
-      WHERE singleton = TRUE
-    `, [{ version: 2 }]);
+    assert.deepEqual(
+      Array.from(await sql<Array<{ version: number }>>`
+        SELECT version
+        FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+        WHERE singleton = TRUE
+      `),
+      [{ version: 2 }]
+    );
     const failedIdentity = {
       releaseSha: "b".repeat(40),
       runId: "11111111-1111-4111-8111-111111111111"
@@ -336,11 +342,14 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
     });
     assert.equal(maintenance.reconciledProviders, 1);
     assert.equal(maintenance.eventsMatched, 1);
-    assert.deepEqual(await sql<Array<{ latest_event_id: string }>>`
-      SELECT latest_event_id
-      FROM public.teacher_notice_resend_message_state
-      WHERE provider_message_id = ${unmatchedProvider}::pg_catalog.uuid
-    `, [{ latest_event_id: "evt-pg-unmatched" }]);
+    assert.deepEqual(
+      Array.from(await sql<Array<{ latest_event_id: string }>>`
+        SELECT latest_event_id
+        FROM public.teacher_notice_resend_message_state
+        WHERE provider_message_id = ${unmatchedProvider}::pg_catalog.uuid
+      `),
+      [{ latest_event_id: "evt-pg-unmatched" }]
+    );
     await sql`
       UPDATE public.teacher_notice_resend_webhook_events
       SET retention_expires_at = pg_catalog.clock_timestamp() - pg_catalog.make_interval(days => 1)
@@ -389,19 +398,22 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
       budgetResults.map((entry) => entry.hasMoreReconciliation),
       [true, true, false]
     );
-    assert.deepEqual(await sql<Array<{
-      matched_outbox_id: string;
-      latest_event_id: string;
-      latest_event_type: string;
-    }>>`
-      SELECT matched_outbox_id, latest_event_id, latest_event_type
-      FROM public.teacher_notice_resend_message_state
-      WHERE provider_message_id = ${budgetProvider}::pg_catalog.uuid
-    `, [{
-      matched_outbox_id: "outbox-pg-budget",
-      latest_event_id: "evt-pg-budget-212",
-      latest_event_type: "email.delivered"
-    }]);
+    assert.deepEqual(
+      Array.from(await sql<Array<{
+        matched_outbox_id: string;
+        latest_event_id: string;
+        latest_event_type: string;
+      }>>`
+        SELECT matched_outbox_id, latest_event_id, latest_event_type
+        FROM public.teacher_notice_resend_message_state
+        WHERE provider_message_id = ${budgetProvider}::pg_catalog.uuid
+      `),
+      [{
+        matched_outbox_id: "outbox-pg-budget",
+        latest_event_id: "evt-pg-budget-212",
+        latest_event_type: "email.delivered"
+      }]
+    );
 
     const operationalSnapshot = await sql.begin((transaction) =>
       readTeacherNoticeOperationalSnapshotWithinPostgresTransaction({

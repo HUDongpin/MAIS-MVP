@@ -1,6 +1,16 @@
 import type { TestInfo } from "@playwright/test";
 import { execFileSync, spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  readlinkSync,
+  realpathSync,
+  rmSync,
+  statSync,
+  writeFileSync
+} from "node:fs";
 import { createServer, type Server } from "node:http";
 import { createConnection } from "node:net";
 import path from "node:path";
@@ -101,13 +111,40 @@ async function assertNoLocalListener(port: number, logs: string[]) {
   logLine(logs, `preflightPortFree port=${port}`);
 }
 
-function sqliteHolderPids(dbPath: string) {
-  const candidates = [dbPath, `${dbPath}-wal`, `${dbPath}-shm`].filter((candidate) => existsSync(candidate));
+type SqliteHolderInspectionOptions = {
+  lsofCommand?: string;
+  platform?: NodeJS.Platform;
+  procRoot?: string;
+};
+
+type SqliteHolderInspection = {
+  inspector: "lsof" | "procfs" | "none-needed";
+  pids: string[];
+};
+
+function canonicalFileCandidates(dbPath: string) {
+  const candidates = [dbPath, `${dbPath}-wal`, `${dbPath}-shm`]
+    .map((candidate) => path.resolve(candidate))
+    .filter((candidate) => existsSync(candidate));
+  const canonicalCandidates = new Set(candidates);
+
+  for (const candidate of candidates) {
+    try {
+      canonicalCandidates.add(realpathSync.native(candidate));
+    } catch {
+      // A SQLite sidecar can disappear between existsSync and realpathSync.
+    }
+  }
+
+  return Array.from(canonicalCandidates);
+}
+
+function lsofSqliteHolderPids(candidates: string[], lsofCommand: string) {
   const pids = new Set<string>();
 
   for (const candidate of candidates) {
     try {
-      const output = execFileSync("lsof", ["-t", "--", candidate], {
+      const output = execFileSync(lsofCommand, ["-t", "--", candidate], {
         encoding: "utf8",
         stdio: ["ignore", "pipe", "ignore"]
       });
@@ -116,20 +153,106 @@ function sqliteHolderPids(dbPath: string) {
         .map((pid) => pid.trim())
         .filter(Boolean)
         .forEach((pid) => pids.add(pid));
-    } catch {
-      // lsof exits non-zero when no process holds the file.
+    } catch (error) {
+      const failure = error as NodeJS.ErrnoException & { status?: number | null };
+      // lsof uses status 1 for a valid no-match result. Hosted Linux runners do
+      // not guarantee that lsof exists, so every other failure needs procfs.
+      if (failure.status === 1) continue;
+      return null;
     }
   }
 
   return Array.from(pids).sort();
 }
 
-function assertNoSqliteHolder(dbPath: string, logs: string[]) {
-  const holders = sqliteHolderPids(dbPath);
-  if (holders.length) {
-    throw new Error(`Preflight failed: SQLite database is already held by process id(s) ${holders.join(", ")}: ${dbPath}`);
+function cleanProcFileTarget(target: string) {
+  return target.endsWith(" (deleted)") ? target.slice(0, -" (deleted)".length) : target;
+}
+
+function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
+  if (!existsSync(procRoot)) return null;
+  const candidateSet = new Set(candidates);
+  const currentUid = process.getuid?.();
+  const pids = new Set<string>();
+  let entries;
+
+  try {
+    entries = readdirSync(procRoot, { withFileTypes: true });
+  } catch {
+    return null;
   }
-  logLine(logs, `preflightDbFree dbPath=${dbPath}`);
+
+  for (const entry of entries) {
+    if (!entry.isDirectory() || !/^\d+$/u.test(entry.name)) continue;
+    const processRoot = path.join(procRoot, entry.name);
+
+    if (currentUid !== undefined) {
+      // The isolated app runs as this user; skip unrelated system processes
+      // instead of treating their protected fd directories as an inspection gap.
+      try {
+        if (statSync(processRoot).uid !== currentUid) continue;
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
+        return null;
+      }
+    }
+
+    const fdRoot = path.join(processRoot, "fd");
+    let fileDescriptors;
+    try {
+      fileDescriptors = readdirSync(fdRoot);
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code === "ENOENT" || code === "ESRCH") continue;
+      return null;
+    }
+
+    for (const descriptor of fileDescriptors) {
+      let target;
+      try {
+        target = readlinkSync(path.join(fdRoot, descriptor));
+      } catch (error) {
+        const code = (error as NodeJS.ErrnoException).code;
+        if (code === "ENOENT" || code === "ESRCH") continue;
+        return null;
+      }
+
+      const cleanTarget = cleanProcFileTarget(target);
+      if (path.isAbsolute(cleanTarget) && candidateSet.has(path.resolve(cleanTarget))) {
+        pids.add(entry.name);
+        break;
+      }
+    }
+  }
+
+  return Array.from(pids).sort();
+}
+
+function inspectSqliteHolders(dbPath: string, options: SqliteHolderInspectionOptions = {}): SqliteHolderInspection {
+  const candidates = canonicalFileCandidates(dbPath);
+  if (!candidates.length) return { inspector: "none-needed", pids: [] };
+
+  const lsofPids = lsofSqliteHolderPids(candidates, options.lsofCommand ?? "lsof");
+  if (lsofPids) return { inspector: "lsof", pids: lsofPids };
+
+  if ((options.platform ?? process.platform) === "linux") {
+    const procfsPids = procfsSqliteHolderPids(candidates, options.procRoot ?? "/proc");
+    if (procfsPids) return { inspector: "procfs", pids: procfsPids };
+  }
+
+  throw new Error(`Preflight failed: no SQLite holder inspector is available for ${path.resolve(dbPath)}.`);
+}
+
+export function sqliteHolderPids(dbPath: string, options: SqliteHolderInspectionOptions = {}) {
+  return inspectSqliteHolders(dbPath, options).pids;
+}
+
+function assertNoSqliteHolder(dbPath: string, logs: string[]) {
+  const inspection = inspectSqliteHolders(dbPath);
+  if (inspection.pids.length) {
+    throw new Error(`Preflight failed: SQLite database is already held by process id(s) ${inspection.pids.join(", ")}: ${dbPath}`);
+  }
+  logLine(logs, `preflightDbFree inspector=${inspection.inspector} dbPath=${dbPath}`);
 }
 
 function childProcessIds(parentPid: number) {

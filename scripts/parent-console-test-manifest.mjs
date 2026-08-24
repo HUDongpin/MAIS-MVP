@@ -23,14 +23,16 @@ export const parentDomainTestFiles = Object.freeze([
   "lib/server/userStoreParentSafeDto.test.ts"
 ]);
 
-// Preserve the original four prerequisites and the shared language-selector
-// keyboard contract so widening the gate cannot reduce supporting coverage.
+// Preserve the original prerequisites, the shared language-selector keyboard
+// contract, and the isolated SQLite process-safety preflight used by the parent
+// stress suite so widening the gate cannot reduce supporting coverage.
 export const parentConsoleSupportTestFiles = Object.freeze([
   "lib/server/authRouteGuards.test.ts",
   "lib/server/contentSafetySeed.test.ts",
   "lib/server/questionStore.test.ts",
   "app/api/questions/routeQuestionStore.test.ts",
-  "components/ui/LanguageToggle.test.ts"
+  "components/ui/LanguageToggle.test.ts",
+  "tests/e2e/isolated-app-preflight.test.ts"
 ]);
 
 // These tests own the P0/P1 authorization and lifecycle contracts that the
@@ -64,18 +66,18 @@ export const parentConsoleTestFiles = Object.freeze([
 ]);
 
 export const expectedParentDomainTestCount = 140;
-export const expectedParentConsoleSupportTestCount = 15;
+export const expectedParentConsoleSupportTestCount = 17;
 export const expectedParentSecurityLifecycleTestCount = 146;
-export const expectedParentConsoleTestCount = 301;
+export const expectedParentConsoleTestCount = 303;
 
 // Runtime has two more tests than the source declaration count because two
 // teacher-report cases are declared inside a two-value loop. The runner below
 // therefore verifies the authoritative TAP runtime count rather than treating
 // a source regex as execution evidence.
 export const expectedParentDomainStaticDeclarationCount = 140;
-export const expectedParentConsoleSupportStaticDeclarationCount = 15;
+export const expectedParentConsoleSupportStaticDeclarationCount = 17;
 export const expectedParentSecurityLifecycleStaticDeclarationCount = 144;
-export const expectedParentConsoleStaticDeclarationCount = 299;
+export const expectedParentConsoleStaticDeclarationCount = 301;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);

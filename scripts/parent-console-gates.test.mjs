@@ -47,10 +47,11 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/server/contentSafetySeed.test.ts",
     "lib/server/questionStore.test.ts",
     "app/api/questions/routeQuestionStore.test.ts",
-    "components/ui/LanguageToggle.test.ts"
+    "components/ui/LanguageToggle.test.ts",
+    "tests/e2e/isolated-app-preflight.test.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 15);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 15);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 17);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 17);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
@@ -88,9 +89,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 39);
-  assert.equal(manifest.expectedParentConsoleTestCount, 301);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 299);
+  assert.equal(manifest.parentConsoleTestFiles.length, 40);
+  assert.equal(manifest.expectedParentConsoleTestCount, 303);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 301);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -193,6 +194,21 @@ test("CI and package preserve the parent, delivery, webhook, and readiness union
     );
     assert.equal(shaAssertions.length, 1, `${jobName} must assert the checked-out event SHA`);
   }
+  assert.equal(
+    workflow.jobs["postgres-integration"]["timeout-minutes"],
+    15,
+    "the heavy Nova PostgreSQL gate must retain checkout and WAL-checkpoint headroom"
+  );
+  assert.equal(
+    workflow.jobs["teacher-notice-outbox-postgres16"]["timeout-minutes"],
+    15,
+    "the heavy outbox PostgreSQL gate must retain checkout and WAL-checkpoint headroom"
+  );
+  assert.equal(
+    workflow.jobs["resend-webhook-postgres-integration"]["timeout-minutes"],
+    10,
+    "the focused Resend PostgreSQL gate must keep its reviewed bounded timeout"
+  );
 
   const runnerSelfTest = readRepoFile("scripts/run-postgres-readiness-tests.test.mjs");
   assert.match(

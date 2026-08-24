@@ -2472,14 +2472,15 @@ test("default preflight all invokes dirty-map, release-source, and strict lifecy
   const tempDir = await mkdtemp(path.join(tmpdir(), "mais-preflight-all-"));
   const sourceRoot = path.join(tempDir, "clean-source");
   const markerPath = path.join(tempDir, "gate-marker.txt");
+  const failingGatePath = path.join(tempDir, "failing-gate.txt");
   const dirtyMapStub = path.join(tempDir, "dirty-map-stub.mjs");
   const releaseSourceStub = path.join(tempDir, "release-source-stub.mjs");
   const lifecycleStub = path.join(tempDir, "lifecycle-stub.mjs");
 
   const stubSource = (label, jsonOutput = false) => `
 import fs from "node:fs";
-fs.appendFileSync(process.env.MAIS_GATE_MARKER, ${JSON.stringify(label)} + "\\n");
-if (process.env.MAIS_FAIL_GATE === ${JSON.stringify(label)}) {
+fs.appendFileSync(${JSON.stringify(markerPath)}, ${JSON.stringify(label)} + "\\n");
+if (fs.existsSync(${JSON.stringify(failingGatePath)}) && fs.readFileSync(${JSON.stringify(failingGatePath)}, "utf8").trim() === ${JSON.stringify(label)}) {
   console.error(${JSON.stringify(label)} + " stub failure");
   process.exit(37);
 }
@@ -2513,7 +2514,6 @@ ${jsonOutput ? 'console.log(JSON.stringify({ gate: "dirty-map", result: "pass" }
       MAIS_RELEASE_SOURCE_ROOT: sourceRoot,
       MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
       MAIS_RELEASE_SOURCE_KIND: "clean-worktree",
-      MAIS_GATE_MARKER: markerPath,
       MAIS_DIRTY_TREE_MAP_GATE: dirtyMapStub,
       MAIS_RELEASE_SOURCE_CLEAN_GATE: releaseSourceStub,
       MAIS_WORKTREE_LIFECYCLE_GATE: lifecycleStub
@@ -2535,8 +2535,9 @@ ${jsonOutput ? 'console.log(JSON.stringify({ gate: "dirty-map", result: "pass" }
 
     for (const failingGate of ["dirty-map", "release-source", "lifecycle"]) {
       await rm(markerPath, { force: true });
+      await writeFile(failingGatePath, `${failingGate}\n`);
       const fail = runNode(["scripts/release-env-guard.mjs", "--json"], {
-        env: { ...baseEnv, MAIS_FAIL_GATE: failingGate }
+        env: baseEnv
       });
       assert.notEqual(fail.status, 0, `${failingGate} failure must fail default preflight`);
       assert.match(combinedOutput(fail), new RegExp(`${failingGate} stub failure`, "i"));

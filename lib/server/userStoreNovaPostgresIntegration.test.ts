@@ -1072,9 +1072,17 @@ test(
             genericWriter,
             forcedBootstrap
           ]);
-          assert.equal(genericWriterOutcome.exitCode, 0);
+          assert.equal(
+            genericWriterOutcome.exitCode,
+            0,
+            String(genericWriterOutcome.result.error ?? "generic full-snapshot writer failed")
+          );
           assert.deepEqual(genericWriterOutcome.result, { rewritten: true });
-          assert.equal(forcedBootstrapOutcome.exitCode, 0);
+          assert.equal(
+            forcedBootstrapOutcome.exitCode,
+            0,
+            String(forcedBootstrapOutcome.result.error ?? "forced bootstrap failed")
+          );
           assert.deepEqual(forcedBootstrapOutcome.result, { bootstrapped: true });
         } finally {
           if (lockOrderBarrierHeld) {
@@ -1289,8 +1297,7 @@ test(
               `,
               restore: () => driftSql`
                 ALTER TABLE public.app_state ALTER COLUMN updated_at SET NOT NULL
-              `,
-              waitForQueuedLock: true
+              `
             },
             {
               name: "drop and replace invalidation trigger",
@@ -1305,8 +1312,7 @@ test(
                   EXECUTE FUNCTION public.invalidate_app_state_readiness_marker()
                 `;
               },
-              restore: () => installCanonicalReadinessTrigger(driftSql),
-              waitForQueuedLock: false
+              restore: () => installCanonicalReadinessTrigger(driftSql)
             },
             {
               name: "marker drift",
@@ -1315,8 +1321,7 @@ test(
                 SET contract_version = 2
                 WHERE state_id = 'primary'
               `,
-              restore: async () => undefined,
-              waitForQueuedLock: false
+              restore: async () => undefined
             },
             {
               name: "migration drift",
@@ -1325,8 +1330,7 @@ test(
                 INSERT INTO auth_schema_migrations (version, applied_at)
                 VALUES (4, NOW())
                 ON CONFLICT (version) DO NOTHING
-              `,
-              waitForQueuedLock: false
+              `
             }
           ];
 
@@ -1339,48 +1343,44 @@ test(
               created_at: `2026-08-12T01:2${index}:00.000Z`,
               id: `integration-capability-drift-${index}`
             };
-            const writer = runWorker(
-              "write-message",
-              driftMessage,
-              { capabilityStateLockHoldMs: 1_500 }
-            );
-            void writer.catch(() => undefined);
-            await waitForAppStateLock(sql, { granted: true });
-            const driftMutation = Promise.resolve(drift.apply());
-            void driftMutation.catch(() => undefined);
-            if (drift.waitForQueuedLock) {
-              await waitForAppStateLock(sql, { granted: false });
+            let driftStarted = false;
+            try {
+              // Relation-lock ordering separately proves that concurrent DDL waits for an
+              // in-flight writer. Commit the drift first here so this case instead proves
+              // that every new partial writer revalidates its current capability.
+              driftStarted = true;
+              await drift.apply();
+              await assertStrictStorageReady(false);
+              const writerOutcome = await runWorker("write-message", driftMessage);
+              assert.equal(
+                writerOutcome.exitCode,
+                1,
+                `${drift.name}: writer must fail closed`
+              );
+              const afterDrift = await readState(sql);
+              assert.equal(afterDrift.revision, beforeDrift.revision, drift.name);
+              assert.equal(
+                arrayFromPayload(afterDrift.payload, "ai_tutor_messages")
+                  .some((candidate) => candidate.id === driftMessage.id),
+                false,
+                drift.name
+              );
+              assert.equal(
+                (await sql<Array<{ count: number }>>`
+                  SELECT COUNT(*)::int AS count
+                  FROM ai_tutor_message_journal
+                  WHERE id = ${driftMessage.id}
+                `)[0]?.count,
+                0,
+                drift.name
+              );
+            } finally {
+              if (driftStarted) {
+                await drift.restore();
+                await runSuccessfulWorker("reattest-readiness");
+                await assertStrictStorageReady(true);
+              }
             }
-            const [writerOutcome, driftOutcome] = await Promise.allSettled([
-              writer,
-              driftMutation
-            ]);
-            assert.equal(writerOutcome.status, "fulfilled", drift.name);
-            if (writerOutcome.status === "fulfilled") {
-              assert.equal(writerOutcome.value.exitCode, 1, `${drift.name}: writer must fail closed`);
-            }
-            assert.equal(driftOutcome.status, "fulfilled", `${drift.name}: drift fixture failed`);
-            const afterDrift = await readState(sql);
-            assert.equal(afterDrift.revision, beforeDrift.revision, drift.name);
-            assert.equal(
-              arrayFromPayload(afterDrift.payload, "ai_tutor_messages")
-                .some((candidate) => candidate.id === driftMessage.id),
-              false,
-              drift.name
-            );
-            assert.equal(
-              (await sql<Array<{ count: number }>>`
-                SELECT COUNT(*)::int AS count
-                FROM ai_tutor_message_journal
-                WHERE id = ${driftMessage.id}
-              `)[0]?.count,
-              0,
-              drift.name
-            );
-            await assertStrictStorageReady(false);
-            await drift.restore();
-            await runSuccessfulWorker("reattest-readiness");
-            await assertStrictStorageReady(true);
           }
         } finally {
           await driftSql.end({ timeout: 5 });
