@@ -1,0 +1,85 @@
+name: promotion-shadow-gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promotion-shadow-gate:
+    name: promotion-shadow-gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json
+      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json
+      PROMOTION_FRESH_RECEIPT: ${{ runner.temp }}/promotion-shadow-receipt.v1.json
+      PROMOTION_REPLAY_RECEIPT: ${{ runner.temp }}/promotion-shadow-replay-receipt.v1.json
+      PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies from lockfile
+        run: npm ci
+
+      - name: Run Promotion Gate unit and security tests
+        run: npm run test:promotion-gate
+
+      - name: Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability
+        run: npm run promotion:validate -- --manifest "$PROMOTION_MANIFEST" --json
+
+      - name: Execute real pilot shadow
+        run: npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_RUN_ID" --json > "$PROMOTION_FRESH_RECEIPT"
+
+      - name: Replay real pilot shadow with a distinct run identity
+        run: npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_REPLAY_RUN_ID" --json > "$PROMOTION_REPLAY_RECEIPT"
+
+      - name: Compare fresh, replay, and canonical semantic receipt digests
+        run: |
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            if (paths.length !== 3) throw new Error(`Expected three receipt paths, received ${paths.length}.`);
+            const receipts = paths.map((receiptPath) => JSON.parse(readFileSync(receiptPath, "utf8")));
+            const digests = receipts.map((receipt, index) => {
+              const digest = receipt.semanticReceiptDigest;
+              if (typeof digest !== "string" || !/^[a-f0-9]{64}$/.test(digest)) {
+                throw new Error(`Receipt ${paths[index]} has no valid semanticReceiptDigest.`);
+              }
+              return digest;
+            });
+            if (!digests.every((digest) => digest === digests[0])) {
+              throw new Error(`Semantic receipt digest mismatch: ${digests.join(", ")}`);
+            }
+          ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_CANONICAL_RECEIPT"
+
+      - name: Verify fresh, replayed, and canonical receipts
+        run: |
+          npm run promotion:verify-receipt -- --receipt "$PROMOTION_FRESH_RECEIPT" --json
+          npm run promotion:verify-receipt -- --receipt "$PROMOTION_REPLAY_RECEIPT" --json
+          npm run promotion:verify-receipt -- --receipt "$PROMOTION_CANONICAL_RECEIPT" --json
+
+      - name: Upload Promotion Shadow receipts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: promotion-shadow-receipts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/promotion-shadow-receipt.v1.json
+            ${{ runner.temp }}/promotion-shadow-replay-receipt.v1.json
+          if-no-files-found: error
+          retention-days: 14

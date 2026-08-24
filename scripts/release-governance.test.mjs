@@ -7,6 +7,7 @@ import { spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { setTimeout as delay } from "node:timers/promises";
 import test from "node:test";
+import { parse as parseYaml } from "yaml";
 
 const repoRoot = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const p0BaselineCommit = "ce2ae5258013ca5bd79dd0cc56e7b1681d5cd411";
@@ -237,6 +238,99 @@ function assertOwnerMapping(manifest, pathspec, owner, coordinatesWith) {
     `${pathspec} coordination owners`
   );
 }
+
+test("Promotion Shadow npm commands are exact and expose no live-capable alias", () => {
+  const current = readGitObjectJson(":package.json");
+  const expectedCommands = {
+    "promotion:validate": "node coordination/integration/promotion-gate.mjs validate",
+    "promotion:shadow": "node coordination/integration/promotion-gate.mjs shadow",
+    "promotion:verify-receipt": "node coordination/integration/promotion-gate.mjs verify-receipt",
+    "test:promotion-gate": "node --test --test-concurrency=1 coordination/integration/promotion-gate.test.mjs"
+  };
+
+  assert.deepEqual(
+    Object.fromEntries(Object.keys(expectedCommands).map((name) => [name, current.scripts?.[name]])),
+    expectedCommands
+  );
+  for (const forbiddenAlias of [
+    "promotion:preview",
+    "promotion:deploy",
+    "promotion:live",
+    "promotion:promote-live",
+    "promote:live",
+    "promote-live"
+  ]) {
+    assert.equal(current.scripts?.[forbiddenAlias], undefined, `${forbiddenAlias} must not exist`);
+  }
+});
+
+test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflowSource = await readFile(workflowPath, "utf8");
+  const workflow = parseYaml(workflowSource);
+
+  assert.equal(workflow.name, "promotion-shadow-gate");
+  assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
+  assert.equal(workflow.on.pull_request, null);
+  assert.deepEqual(workflow.on.push, { branches: ["main"] });
+  assert.equal(workflow.on.workflow_dispatch, null);
+  assert.doesNotMatch(workflowSource, /^\s*paths(?:-ignore)?\s*:/mu);
+  assert.doesNotMatch(workflowSource, /continue-on-error\s*:/u);
+
+  const job = workflow.jobs?.["promotion-shadow-gate"];
+  assert.ok(job, "promotion-shadow-gate job must exist");
+  assert.equal(job.name, "promotion-shadow-gate");
+  assert.equal(job.permissions?.contents, "read");
+  assert.equal(job.env?.PROMOTION_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}");
+  assert.equal(job.env?.PROMOTION_REPLAY_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}-replay");
+  assert.ok(Array.isArray(job.steps));
+  assert.ok(job.steps.some((step) => step.uses === "actions/checkout@v4"));
+  assert.ok(job.steps.some((step) => step.uses === "actions/setup-node@v4"));
+  assert.ok(job.steps.some((step) => step.uses === "actions/upload-artifact@v4"));
+
+  const runCommands = job.steps.flatMap((step) => typeof step.run === "string" ? [step.run] : []);
+  assert.ok(runCommands.includes("npm ci"), "workflow must install from the lockfile with npm ci");
+  assert.ok(runCommands.includes("npm run test:promotion-gate"), "workflow must run the unit/security suite");
+
+  const combinedRuns = runCommands.join("\n");
+  assert.match(
+    combinedRuns,
+    /npm run promotion:validate -- --manifest "\$PROMOTION_MANIFEST" --json/u
+  );
+  assert.match(
+    combinedRuns,
+    /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_RUN_ID" --json > "\$PROMOTION_FRESH_RECEIPT"/u
+  );
+  assert.match(
+    combinedRuns,
+    /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_REPLAY_RUN_ID" --json > "\$PROMOTION_REPLAY_RECEIPT"/u
+  );
+  assert.match(
+    combinedRuns,
+    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_FRESH_RECEIPT" --json/u
+  );
+  assert.match(
+    combinedRuns,
+    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_REPLAY_RECEIPT" --json/u
+  );
+  assert.match(
+    combinedRuns,
+    /npm run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT" --json/u
+  );
+  assert.match(combinedRuns, /semanticReceiptDigest/u);
+  assert.match(combinedRuns, /\$PROMOTION_CANONICAL_RECEIPT/u);
+  const semanticComparison = job.steps.find((step) => /Compare .* semantic receipt digests/iu.test(step.name));
+  assert.ok(semanticComparison, "workflow must have a dedicated semantic receipt comparison step");
+  assert.doesNotMatch(semanticComparison.run, /raw(?:Receipt)?Digest/iu);
+  assert.match(workflowSource, /legacy 492-question ratchet/iu);
+  assert.match(workflowSource, /selected-candidate live reachability/iu);
+
+  const promotionRuns = runCommands.filter((command) => /promotion:(?:validate|shadow|verify-receipt)/u.test(command));
+  for (const command of promotionRuns) {
+    assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|live)\b/iu);
+    assert.doesNotMatch(command, /--(?:out|output-root)\b/u);
+  }
+});
 
 test("dirty map preserves NUL-delimited paths with spaces, Unicode, quotes, and newlines", async () => {
   const fixture = await createDirtyMapFixtureRepo();
@@ -1581,6 +1675,7 @@ test("default package gate and exact owner mappings are valid", async () => {
   assertOwnerMapping(pathspecManifest, "scripts/next-clean-build.test.mjs", "A22", ["A10", "A11"]);
   assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-release-source-clean.mjs", "A22", ["A10", "A25"]);
   assertOwnerMapping(pathspecManifest, "coordination/release-intake/assert-worktree-lifecycle.mjs", "A22", ["A10", "A25"]);
+  assertOwnerMapping(pathspecManifest, ".github/workflows/promotion-shadow.yml", "A10", ["A11", "A22", "A23"]);
   assertOwnerMapping(pathspecManifest, "MAIS_Competitive_Analysis_K12_Math.docx", "A10", ["A16"]);
   assertOwnerMapping(pathspecManifest, ".env.local.example", "A19", ["A07", "A15", "A22"]);
   assertOwnerMapping(pathspecManifest, "package-lock.json", "A10", []);
@@ -1648,6 +1743,7 @@ test("shared owner resolver selects one most-specific owner across overlapping p
     ["coordination/reports/example.md", "A10"],
     ["coordination/release-intake/assert-release-source-clean.mjs", "A22"],
     ["coordination/release-intake/assert-worktree-lifecycle.mjs", "A22"],
+    [".github/workflows/promotion-shadow.yml", "A10"],
     ["scripts/release-env-guard.mjs", "A22"],
     ["scripts/cleanup-generated-artifacts.mjs", "A22"],
     ["scripts/cleanup-generated-artifacts.test.mjs", "A22"],
@@ -2228,6 +2324,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "eval:adaptive",
     "fit:bkt",
     "kill-port",
+    "promotion:shadow",
+    "promotion:validate",
+    "promotion:verify-receipt",
     "rag:hk-up-junior-english-exercises-manifest",
     "rag:hk-up-junior-english-textbook-manifest",
     "rag:hk-up-junior-resources-manifest",
@@ -2258,6 +2357,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:lesson-menu",
     "test:mvp",
     "test:parent-console",
+    "test:promotion-gate",
     "test:prod-certification",
     "test:question-bank",
     "test:question-figure",
@@ -2292,7 +2392,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "84168d8dae63b251410fdd0aa8e9403ce08632d0c463836a2ccadabb0266a6dd",
+    "1cc382fe95fb1fbf4cf0c167e1a22c32398697c17b5bb6cca102dd8a8133dc7d",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
