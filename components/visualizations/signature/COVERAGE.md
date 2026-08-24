@@ -5,6 +5,22 @@ labs cover the **US California** math curriculum only — California is the sole
 track carrying CCSS standard ids, which is the join key. Arkansas, Florida, and
 North Carolina keep the template renderer.
 
+## Surfaces (updated 2026-08-25)
+
+Where a California student meets a bench, after Phases 1 and 2a of
+"Claude's Plan on Replacing Codex's Visualization Labs":
+
+- **Visualization Lab page** — every CA topic renders its `primary` bench, with
+  `related` benches on the `SignatureBenchSwitcher` chip row (unchanged).
+- **Lesson embeds** — the lesson visualization block renders the topic's
+  `primary` bench through `LessonSignatureLab` (Phase 1 lifted the old Phase-0
+  boundary that kept lessons on the `ConfiguredVisualizationLab` template).
+  Lessons show the primary only; the fan-out stays a lab-page affordance.
+- **Premium 3D routes** — retired for CA (Phase 2a). The 12
+  `/student/tools/visualizations/us-ca-*` URLs redirect to the topic's bench on
+  the lab page, and the `california` launch-coverage band is pinned to 0-0 so a
+  CA id cannot silently relaunch.
+
 Regenerate the numbers with
 `npx tsx --tsconfig ./tsconfig.json scripts/build-signature-lab-candidates.ts`.
 

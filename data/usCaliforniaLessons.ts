@@ -1,6 +1,7 @@
 import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json";
 import { findStandard } from "./ccss";
 import { ccssLessonMetasForTopic, hasCcssLessonAssignment } from "./ccssLessonAssignments";
+import { getSignatureLabAssignment } from "./signatureLabAssignments";
 import {
   californiaKnowledgePointDisplayTitle,
   californiaKnowledgePointForTopic
@@ -419,6 +420,11 @@ function textOnly(value: string): LocalizedText {
   return local(value, value, value);
 }
 
+/** "HundredChartLab" -> "Hundred Chart"; consecutive capitals stay joined ("LCMLab" -> "LCM"). */
+function signatureBenchDisplayName(benchId: string) {
+  return benchId.replace(/Lab$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2");
+}
+
 function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | null {
   const lab = getPrimaryVisualizationLabForTopic(topicId);
   if (!lab || lab.publisher !== "US_CA_MATH") return null;
@@ -434,6 +440,24 @@ function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | 
   const standardIds = lab.californiaAlignment?.standardIds.slice(0, 4).join(", ") ?? "";
   const standardSuffix = standardIds ? ` (${standardIds}${(lab.californiaAlignment?.standardIds.length ?? 0) > 4 ? "..." : ""})` : "";
 
+  // Signature topics render the Claude bench in the lesson (Phase 1 of the
+  // 2026-08-25 replacement plan), so the block copy names the bench rather
+  // than the retired template category. Both variants keep the
+  // "Safeguard Review ... Read me first" preface tokens that
+  // cleanLessonVisualizationContent uses to hide this metadata in panels.
+  const signatureBench = lab.moduleId === "signature-lab" ? getSignatureLabAssignment(topicId)?.primary : undefined;
+  const content = signatureBench
+    ? local(
+      `Use the ${signatureBenchDisplayName(signatureBench)} interactive bench to manipulate this knowledge point before checkpoint practice. The bench is aligned to ${domainId}${standardSuffix}, carries a Safeguard Review record, and shows its Read me first note before students interact with the model.`,
+      `先用${signatureBenchDisplayName(signatureBench)}互動實驗操作這個知識點，再進入檢查練習。此實驗對齊 ${domainId}${standardSuffix}，帶有 Safeguard Review 記錄，並會在學生操作模型前顯示 Read me first 提示。`,
+      `先用${signatureBenchDisplayName(signatureBench)}互动实验操作这个知识点，再进入检查练习。此实验对齐 ${domainId}${standardSuffix}，带有 Safeguard Review 记录，并会在学生操作模型前显示 Read me first 提示。`
+    )
+    : local(
+      `Use the ${category.en.toLowerCase()} lab to manipulate this knowledge point before checkpoint practice. The lab is aligned to ${domainId}${standardSuffix}, carries a Safeguard Review record, and shows its Read me first note before students interact with the model.`,
+      `先用${category.zh}實驗操作這個知識點，再進入檢查練習。此實驗對齊 ${domainId}${standardSuffix}，帶有 Safeguard Review 記錄，並會在學生操作模型前顯示 Read me first 提示。`,
+      `先用${category.zhHans ?? category.zh}实验操作这个知识点，再进入检查练习。此实验对齐 ${domainId}${standardSuffix}，带有 Safeguard Review 记录，并会在学生操作模型前显示 Read me first 提示。`
+    );
+
   return {
     idSuffix: "visualization",
     type: "visualization",
@@ -442,11 +466,7 @@ function californiaVisualizationBlock(topicId: string): ProductionLessonBlock | 
       `Visualization Lab：${compactLabTitle.zh}`,
       `Visualization Lab：${compactLabTitle.zhHans}`
     ),
-    content: local(
-      `Use the ${category.en.toLowerCase()} lab to manipulate this knowledge point before checkpoint practice. The lab is aligned to ${domainId}${standardSuffix}, carries a Safeguard Review record, and shows its Read me first note before students interact with the model.`,
-      `先用${category.zh}實驗操作這個知識點，再進入檢查練習。此實驗對齊 ${domainId}${standardSuffix}，帶有 Safeguard Review 記錄，並會在學生操作模型前顯示 Read me first 提示。`,
-      `先用${category.zhHans ?? category.zh}实验操作这个知识点，再进入检查练习。此实验对齐 ${domainId}${standardSuffix}，带有 Safeguard Review 记录，并会在学生操作模型前显示 Read me first 提示。`
-    ),
+    content,
     visualizationConfig: {
       moduleId: lab.moduleId,
       source: lab.analyticsSource,
