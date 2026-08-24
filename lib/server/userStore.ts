@@ -665,6 +665,18 @@ import {
   type TeacherNoticeEmailOutboxRow
 } from "@/lib/server/userStore/teacherNoticeEmailOutboxPersistence";
 import {
+  attestTeacherNoticeEmailCronHeartbeatSqliteSchema,
+  migrateTeacherNoticeEmailCronHeartbeatPostgresSchema,
+  migrateTeacherNoticeEmailCronHeartbeatSqliteSchema,
+  recordTeacherNoticeEmailCronHeartbeatFailedPostgres,
+  recordTeacherNoticeEmailCronHeartbeatFailedSqlite,
+  recordTeacherNoticeEmailCronHeartbeatStartedPostgres,
+  recordTeacherNoticeEmailCronHeartbeatStartedSqlite,
+  recordTeacherNoticeEmailCronHeartbeatSucceededPostgres,
+  recordTeacherNoticeEmailCronHeartbeatSucceededSqlite,
+  type TeacherNoticeEmailCronHeartbeatIdentity
+} from "@/lib/server/userStore/teacherNoticeEmailCronHeartbeatPersistence";
+import {
   createTeacherOpsResourcePersistenceStore,
   normalizeTeacherOpsResourceCollections as normalizeTeachingResourceCollectionsFromTeacherOpsResource,
   safeUploadFileName as safeUploadFileNameFromTeacherOpsResource,
@@ -3817,7 +3829,10 @@ function ensureSqliteAppStateMetadataColumns(storage: DatabaseSync) {
 
 function getSqliteDatabase() {
   if (sqlite) {
-    if (!attestTeacherNoticeEmailOutboxSqliteSchema(sqlite)) {
+    if (
+      !attestTeacherNoticeEmailOutboxSqliteSchema(sqlite) ||
+      !attestTeacherNoticeEmailCronHeartbeatSqliteSchema(sqlite)
+    ) {
       throw new Error("Teacher notice email outbox SQLite schema could not be attested.");
     }
     return sqlite;
@@ -3867,6 +3882,8 @@ function getSqliteDatabase() {
     }
     throw error;
   }
+
+  migrateTeacherNoticeEmailCronHeartbeatSqliteSchema(sqlite);
 
   const migration = sqlite.prepare("SELECT version FROM schema_migrations WHERE version = ?").get(schemaVersion);
   if (!migration) {
@@ -9528,6 +9545,47 @@ const teacherNoticeEmailOutboxWorker = createTeacherNoticeEmailOutboxWorker({
 
 export async function deliverTeacherNoticeEmailOutboxBatch(limit = 10) {
   return teacherNoticeEmailOutboxWorker.runBatch(limit);
+}
+
+export async function recordTeacherNoticeEmailCronHeartbeatStarted(
+  identity: TeacherNoticeEmailCronHeartbeatIdentity
+): Promise<void> {
+  if (storageProvider === "postgres") {
+    const client = getPostgresClient();
+    await migrateTeacherNoticeEmailCronHeartbeatPostgresSchema(client);
+    await recordTeacherNoticeEmailCronHeartbeatStartedPostgres(client, identity);
+    return;
+  }
+  await withSqliteImmediateTransaction((storage) => {
+    recordTeacherNoticeEmailCronHeartbeatStartedSqlite(storage, identity);
+  });
+}
+
+export async function recordTeacherNoticeEmailCronHeartbeatSucceeded(
+  identity: TeacherNoticeEmailCronHeartbeatIdentity
+): Promise<void> {
+  if (storageProvider === "postgres") {
+    await recordTeacherNoticeEmailCronHeartbeatSucceededPostgres(
+      getPostgresClient(),
+      identity
+    );
+    return;
+  }
+  await withSqliteImmediateTransaction((storage) => {
+    recordTeacherNoticeEmailCronHeartbeatSucceededSqlite(storage, identity);
+  });
+}
+
+export async function recordTeacherNoticeEmailCronHeartbeatFailed(
+  identity: TeacherNoticeEmailCronHeartbeatIdentity
+): Promise<void> {
+  if (storageProvider === "postgres") {
+    await recordTeacherNoticeEmailCronHeartbeatFailedPostgres(getPostgresClient(), identity);
+    return;
+  }
+  await withSqliteImmediateTransaction((storage) => {
+    recordTeacherNoticeEmailCronHeartbeatFailedSqlite(storage, identity);
+  });
 }
 
 type PostgresAiTutorRateLimitEventRow = {

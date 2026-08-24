@@ -13,7 +13,7 @@ import {
   teacherNoticeEmailOutboxV2ExpectedPostgresCatalog
 } from "./teacherNoticeEmailOutboxV2Dependency";
 
-export const teacherNoticeResendWebhookSchemaVersion = 2;
+export const teacherNoticeResendWebhookSchemaVersion = 3;
 export const teacherNoticeResendWebhookRetentionMs = 400 * 24 * 60 * 60 * 1_000;
 export const teacherNoticeResendWebhookMaintenanceBudgetMs = 20_000;
 export const teacherNoticeResendWebhookMaintenanceReserveMs = 2_000;
@@ -60,11 +60,13 @@ export async function runTeacherNoticeResendWebhookAtomicMigration<Sql>({
   begin,
   inspect,
   migrate,
+  upgrade,
   attest
 }: {
   begin: (operation: (sql: Sql) => Promise<void>) => Promise<void>;
-  inspect: (sql: Sql) => Promise<"empty" | "exact" | "partial">;
+  inspect: (sql: Sql) => Promise<"empty" | "upgradeable" | "exact" | "partial">;
   migrate: (sql: Sql) => Promise<void>;
+  upgrade?: (sql: Sql) => Promise<void>;
   attest: (sql: Sql) => Promise<boolean>;
 }): Promise<void> {
   await begin(async (sql) => {
@@ -73,9 +75,16 @@ export async function runTeacherNoticeResendWebhookAtomicMigration<Sql>({
     if (state === "partial") {
       throw new Error("Teacher notice Resend webhook partial or malformed schema was rejected.");
     }
-    await migrate(sql);
+    if (state === "upgradeable") {
+      if (!upgrade) {
+        throw new Error("Teacher notice Resend webhook v2 upgrade is unavailable.");
+      }
+      await upgrade(sql);
+    } else {
+      await migrate(sql);
+    }
     if (!await attest(sql)) {
-      throw new Error("Teacher notice Resend webhook schema v2 could not be attested.");
+      throw new Error("Teacher notice Resend webhook schema v3 could not be attested.");
     }
   });
 }
@@ -115,7 +124,7 @@ export async function runTeacherNoticeResendWebhookPostgresAttestedTransaction<S
   const exact = await attest(sql);
   beforeStep?.();
   if (!exact) {
-    throw new Error("Teacher notice Resend webhook schema v2 could not be attested.");
+    throw new Error("Teacher notice Resend webhook schema v3 could not be attested.");
   }
   const result = await operation(sql);
   beforeStep?.();
@@ -168,7 +177,7 @@ const stateColumns = [
 
 const markerColumns = ["singleton", "version", "applied_at"] as const;
 
-export const teacherNoticeResendWebhookSqliteSchema = `
+export const teacherNoticeResendWebhookSqliteSchemaV2 = `
   CREATE TABLE teacher_notice_resend_webhook_events (
     event_id TEXT PRIMARY KEY,
     provider_message_id TEXT NOT NULL,
@@ -221,6 +230,20 @@ export const teacherNoticeResendWebhookSqliteSchema = `
   VALUES (1, 2, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));
 `;
 
+export const teacherNoticeResendWebhookSqliteSchema =
+  teacherNoticeResendWebhookSqliteSchemaV2
+    .replace(
+      `  CREATE INDEX teacher_notice_resend_webhook_events_retention_idx
+    ON teacher_notice_resend_webhook_events (retention_expires_at);`,
+      `  CREATE INDEX teacher_notice_resend_webhook_events_retention_idx
+    ON teacher_notice_resend_webhook_events (retention_expires_at);
+  CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+    ON teacher_notice_resend_webhook_events (received_at)
+    WHERE matched_outbox_id IS NULL;`
+    )
+    .replace("CHECK (version = 2)", "CHECK (version = 3)")
+    .replace("VALUES (1, 2, strftime", "VALUES (1, 3, strftime");
+
 export const teacherNoticeResendWebhookPostgresSchemaStatements = [
   `CREATE TABLE public.teacher_notice_resend_webhook_events (
     event_id pg_catalog.text CONSTRAINT teacher_notice_resend_webhook_events_pkey PRIMARY KEY,
@@ -240,6 +263,9 @@ export const teacherNoticeResendWebhookPostgresSchemaStatements = [
       (provider_message_id, occurred_at_ns, priority, event_id)`,
   `CREATE INDEX teacher_notice_resend_webhook_events_retention_idx
     ON public.teacher_notice_resend_webhook_events (retention_expires_at)`,
+  `CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+    ON public.teacher_notice_resend_webhook_events (received_at)
+    WHERE matched_outbox_id IS NULL`,
   `CREATE TABLE public.teacher_notice_resend_message_state (
     provider_message_id pg_catalog.uuid CONSTRAINT teacher_notice_resend_message_state_pkey PRIMARY KEY,
     matched_outbox_id pg_catalog.text,
@@ -259,14 +285,25 @@ export const teacherNoticeResendWebhookPostgresSchemaStatements = [
     WHERE matched_outbox_id IS NOT NULL`,
   `CREATE TABLE public.teacher_notice_resend_webhook_schema_migrations (
     singleton pg_catalog.bool CONSTRAINT teacher_notice_resend_webhook_schema_migrations_pkey PRIMARY KEY DEFAULT TRUE,
-    version pg_catalog.int4 NOT NULL DEFAULT 2 CONSTRAINT teacher_notice_resend_webhook_schema_version_ck CHECK (version = 2),
+    version pg_catalog.int4 NOT NULL DEFAULT 3 CONSTRAINT teacher_notice_resend_webhook_schema_version_ck CHECK (version = 3),
     applied_at pg_catalog.timestamptz NOT NULL DEFAULT pg_catalog.clock_timestamp()
   )`,
   `COMMENT ON TABLE public.teacher_notice_resend_webhook_schema_migrations
-    IS 'mais-resend-teacher-notice-webhook-schema-v2'`,
+    IS 'mais-resend-teacher-notice-webhook-schema-v3'`,
   `INSERT INTO public.teacher_notice_resend_webhook_schema_migrations (singleton, version)
-    VALUES (TRUE, 2)`
+    VALUES (TRUE, 3)`
 ] as const;
+
+export const teacherNoticeResendWebhookPostgresSchemaV2Statements =
+  teacherNoticeResendWebhookPostgresSchemaStatements
+    .filter((statement) => !statement.includes(
+      "teacher_notice_resend_webhook_events_unmatched_received_idx"
+    ))
+    .map((statement) => statement
+      .replace("DEFAULT 3", "DEFAULT 2")
+      .replace("CHECK (version = 3)", "CHECK (version = 2)")
+      .replace("webhook-schema-v3", "webhook-schema-v2")
+      .replace("VALUES (TRUE, 3)", "VALUES (TRUE, 2)"));
 
 const pgTextOpclass = {
   schema: "pg_catalog", name: "text_ops", inputType: "text", accessMethod: "btree", isDefault: true
@@ -316,7 +353,7 @@ export const teacherNoticeResendWebhookExpectedPostgresCatalog = {
     { relation: "teacher_notice_resend_webhook_events", name: "matched_outbox_id", position: 8, type: "text", notNull: false, defaultExpression: null },
     { relation: "teacher_notice_resend_webhook_events", name: "retention_expires_at", position: 9, type: "timestamp with time zone", notNull: true, defaultExpression: null },
     { relation: "teacher_notice_resend_webhook_schema_migrations", name: "singleton", position: 1, type: "boolean", notNull: true, defaultExpression: "true" },
-    { relation: "teacher_notice_resend_webhook_schema_migrations", name: "version", position: 2, type: "integer", notNull: true, defaultExpression: "2" },
+    { relation: "teacher_notice_resend_webhook_schema_migrations", name: "version", position: 2, type: "integer", notNull: true, defaultExpression: "3" },
     { relation: "teacher_notice_resend_webhook_schema_migrations", name: "applied_at", position: 3, type: "timestamp with time zone", notNull: true, defaultExpression: "clock_timestamp()" }
   ],
   constraints: [
@@ -330,7 +367,7 @@ export const teacherNoticeResendWebhookExpectedPostgresCatalog = {
     { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_priority_ck", type: "c", validated: true, deferrable: false, initiallyDeferred: false, backingIndexName: null, relationOidMatches: true, backingIndexOidMatches: true, keyColumns: [], referencedRelation: null, referencedColumns: [], updateAction: null, deleteAction: null, matchType: null, expression: "((priority >= 0) AND (priority <= 100))" },
     { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_type_ck", type: "c", validated: true, deferrable: false, initiallyDeferred: false, backingIndexName: null, relationOidMatches: true, backingIndexOidMatches: true, keyColumns: [], referencedRelation: null, referencedColumns: [], updateAction: null, deleteAction: null, matchType: null, expression: `(event_type = ANY (${supportedEventTypesPg}))` },
     { relation: "teacher_notice_resend_webhook_schema_migrations", name: "teacher_notice_resend_webhook_schema_migrations_pkey", type: "p", validated: true, deferrable: false, initiallyDeferred: false, backingIndexName: "teacher_notice_resend_webhook_schema_migrations_pkey", relationOidMatches: true, backingIndexOidMatches: true, keyColumns: ["singleton"], referencedRelation: null, referencedColumns: [], updateAction: null, deleteAction: null, matchType: null, expression: null },
-    { relation: "teacher_notice_resend_webhook_schema_migrations", name: "teacher_notice_resend_webhook_schema_version_ck", type: "c", validated: true, deferrable: false, initiallyDeferred: false, backingIndexName: null, relationOidMatches: true, backingIndexOidMatches: true, keyColumns: [], referencedRelation: null, referencedColumns: [], updateAction: null, deleteAction: null, matchType: null, expression: "(version = 2)" }
+    { relation: "teacher_notice_resend_webhook_schema_migrations", name: "teacher_notice_resend_webhook_schema_version_ck", type: "c", validated: true, deferrable: false, initiallyDeferred: false, backingIndexName: null, relationOidMatches: true, backingIndexOidMatches: true, keyColumns: [], referencedRelation: null, referencedColumns: [], updateAction: null, deleteAction: null, matchType: null, expression: "(version = 3)" }
   ],
   indexes: [
     { relation: "teacher_notice_resend_message_state", name: "teacher_notice_resend_message_state_outbox_uq", accessMethod: "btree", valid: true, ready: true, live: true, unique: true, primary: false, immediate: true, partial: true, predicate: "(matched_outbox_id IS NOT NULL)", keyColumns: ["matched_outbox_id"], indOptions: [0], opclasses: [pgTextOpclass], collations: [pgDefaultCollation] },
@@ -338,13 +375,14 @@ export const teacherNoticeResendWebhookExpectedPostgresCatalog = {
     { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_pkey", accessMethod: "btree", valid: true, ready: true, live: true, unique: true, primary: true, immediate: true, partial: false, predicate: null, keyColumns: ["event_id"], indOptions: [0], opclasses: [pgTextOpclass], collations: [pgDefaultCollation] },
     { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_provider_order_idx", accessMethod: "btree", valid: true, ready: true, live: true, unique: false, primary: false, immediate: true, partial: false, predicate: null, keyColumns: ["provider_message_id", "occurred_at_ns", "priority", "event_id"], indOptions: [0, 0, 0, 0], opclasses: [pgUuidOpclass, pgNumericOpclass, pgSmallintOpclass, pgTextOpclass], collations: [null, null, null, pgDefaultCollation] },
     { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_retention_idx", accessMethod: "btree", valid: true, ready: true, live: true, unique: false, primary: false, immediate: true, partial: false, predicate: null, keyColumns: ["retention_expires_at"], indOptions: [0], opclasses: [pgTimestampOpclass], collations: [null] },
+    { relation: "teacher_notice_resend_webhook_events", name: "teacher_notice_resend_webhook_events_unmatched_received_idx", accessMethod: "btree", valid: true, ready: true, live: true, unique: false, primary: false, immediate: true, partial: true, predicate: "(matched_outbox_id IS NULL)", keyColumns: ["received_at"], indOptions: [0], opclasses: [pgTimestampOpclass], collations: [null] },
     { relation: "teacher_notice_resend_webhook_schema_migrations", name: "teacher_notice_resend_webhook_schema_migrations_pkey", accessMethod: "btree", valid: true, ready: true, live: true, unique: true, primary: true, immediate: true, partial: false, predicate: null, keyColumns: ["singleton"], indOptions: [0], opclasses: [pgBooleanOpclass], collations: [null] }
   ],
   integrity: {
     relationOidCount: 3,
     columnCount: 20,
     constraintCount: 11,
-    indexCount: 6,
+    indexCount: 7,
     unexpectedIndexCount: 0,
     userTriggerCount: 0,
     ruleCount: 0,
@@ -352,6 +390,32 @@ export const teacherNoticeResendWebhookExpectedPostgresCatalog = {
     constraintRelationOidsMatch: true,
     constraintBackingIndexOidsMatch: true,
     indexRelationOidsMatch: true
+  },
+  markerComment: "mais-resend-teacher-notice-webhook-schema-v3",
+  markerRows: [{ singleton: true, version: 3 }]
+} as const;
+
+export const teacherNoticeResendWebhookExpectedPostgresCatalogV2 = {
+  ...teacherNoticeResendWebhookExpectedPostgresCatalog,
+  columns: teacherNoticeResendWebhookExpectedPostgresCatalog.columns.map((column) =>
+    column.relation === "teacher_notice_resend_webhook_schema_migrations" &&
+    column.name === "version"
+      ? { ...column, defaultExpression: "2" }
+      : column
+  ),
+  constraints: teacherNoticeResendWebhookExpectedPostgresCatalog.constraints.map(
+    (constraint) => constraint.name ===
+      "teacher_notice_resend_webhook_schema_version_ck"
+      ? { ...constraint, expression: "(version = 2)" }
+      : constraint
+  ),
+  indexes: teacherNoticeResendWebhookExpectedPostgresCatalog.indexes.filter(
+    (index) => index.name !==
+      "teacher_notice_resend_webhook_events_unmatched_received_idx"
+  ),
+  integrity: {
+    ...teacherNoticeResendWebhookExpectedPostgresCatalog.integrity,
+    indexCount: 6
   },
   markerComment: "mais-resend-teacher-notice-webhook-schema-v2",
   markerRows: [{ singleton: true, version: 2 }]
@@ -372,6 +436,15 @@ export function attestTeacherNoticeResendWebhookPostgresCatalog(value: unknown):
     value && typeof value === "object" && !Array.isArray(value) &&
     JSON.stringify(canonicalCatalogValue(value)) ===
       JSON.stringify(canonicalCatalogValue(teacherNoticeResendWebhookExpectedPostgresCatalog))
+  );
+}
+
+function attestTeacherNoticeResendWebhookPostgresCatalogV2(value: unknown): boolean {
+  return Boolean(
+    value && typeof value === "object" && !Array.isArray(value) &&
+    JSON.stringify(canonicalCatalogValue(value)) === JSON.stringify(
+      canonicalCatalogValue(teacherNoticeResendWebhookExpectedPostgresCatalogV2)
+    )
   );
 }
 
@@ -730,28 +803,66 @@ export async function attestTeacherNoticeResendWebhookPostgresSchema(
   );
 }
 
+async function attestTeacherNoticeResendWebhookPostgresSchemaV2(
+  sql: PostgresExecutor
+): Promise<boolean> {
+  const catalogs = await readTeacherNoticeResendWebhookPostgresCatalogs(sql);
+  return Boolean(
+    catalogs &&
+    attestTeacherNoticeEmailOutboxV2PostgresCatalog(catalogs.outbox) &&
+    catalogs.webhook !== null &&
+    attestTeacherNoticeResendWebhookPostgresCatalogV2(catalogs.webhook)
+  );
+}
+
+export async function inspectTeacherNoticeResendWebhookPostgresSchema(
+  sql: PostgresExecutor
+): Promise<{
+  outboxDependencyExact: boolean;
+  webhookState: "empty" | "upgradeable" | "exact" | "partial";
+}> {
+  const relationCount = await teacherNoticeResendWebhookPostgresOwnRelationCount(sql);
+  const catalogs = await readTeacherNoticeResendWebhookPostgresCatalogs(sql);
+  const outboxDependencyExact = Boolean(
+    catalogs && attestTeacherNoticeEmailOutboxV2PostgresCatalog(catalogs.outbox)
+  );
+  if (relationCount === 0) {
+    return { outboxDependencyExact, webhookState: "empty" };
+  }
+  if (relationCount !== 3 || !catalogs || catalogs.webhook === null) {
+    return { outboxDependencyExact, webhookState: "partial" };
+  }
+  if (
+    outboxDependencyExact &&
+    attestTeacherNoticeResendWebhookPostgresCatalog(catalogs.webhook)
+  ) {
+    return { outboxDependencyExact, webhookState: "exact" };
+  }
+  if (
+    outboxDependencyExact &&
+    attestTeacherNoticeResendWebhookPostgresCatalogV2(catalogs.webhook)
+  ) {
+    return { outboxDependencyExact, webhookState: "upgradeable" };
+  }
+  return { outboxDependencyExact, webhookState: "partial" };
+}
+
 async function configureTeacherNoticeResendWebhookPostgresTransaction(
   sql: PostgresExecutor
 ): Promise<void> {
-  await sql`
-    SELECT
-      pg_catalog.set_config('search_path', 'pg_catalog, public', true),
-      pg_catalog.set_config('lock_timeout', '2000ms', true),
-      pg_catalog.set_config('statement_timeout', '5000ms', true),
-      pg_catalog.set_config('idle_in_transaction_session_timeout', '5000ms', true)
-  `;
+  await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+  await sql.unsafe("SET LOCAL lock_timeout = '2000ms'");
+  await sql.unsafe("SET LOCAL statement_timeout = '5000ms'");
+  await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '5000ms'");
 }
 
 async function configureTeacherNoticeResendWebhookPostgresMaintenanceTransaction(
   sql: PostgresExecutor
 ): Promise<void> {
-  await sql`
-    SELECT
-      pg_catalog.set_config('search_path', 'pg_catalog, public', true),
-      pg_catalog.set_config('lock_timeout', '1000ms', true),
-      pg_catalog.set_config('statement_timeout', '1000ms', true),
-      pg_catalog.set_config('idle_in_transaction_session_timeout', '2000ms', true)
-  `;
+  await sql.unsafe("SET LOCAL search_path = pg_catalog, public");
+  await sql.unsafe("SET LOCAL lock_timeout = '1000ms'");
+  await sql.unsafe("SET LOCAL statement_timeout = '1000ms'");
+  await sql.unsafe("SET LOCAL idle_in_transaction_session_timeout = '2000ms'");
 }
 
 export async function migrateTeacherNoticeResendWebhookPostgresSchema(
@@ -781,12 +892,29 @@ export async function migrateTeacherNoticeResendWebhookPostgresSchema(
       await sql`LOCK TABLE public.teacher_notice_resend_webhook_events IN SHARE MODE`;
       await sql`LOCK TABLE public.teacher_notice_resend_message_state IN SHARE MODE`;
       await sql`LOCK TABLE public.teacher_notice_resend_webhook_schema_migrations IN SHARE MODE`;
-      return await attestTeacherNoticeResendWebhookPostgresSchema(sql) ? "exact" : "partial";
+      return (await inspectTeacherNoticeResendWebhookPostgresSchema(sql)).webhookState;
     },
     migrate: async (sql) => {
       for (const statement of teacherNoticeResendWebhookPostgresSchemaStatements) {
         await sql.unsafe(statement);
       }
+    },
+    upgrade: async (sql) => {
+      await sql.unsafe(`CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+        ON public.teacher_notice_resend_webhook_events (received_at)
+        WHERE matched_outbox_id IS NULL`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        DROP CONSTRAINT teacher_notice_resend_webhook_schema_version_ck`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        ALTER COLUMN version SET DEFAULT 3`);
+      await sql.unsafe(`UPDATE public.teacher_notice_resend_webhook_schema_migrations
+        SET version = 3, applied_at = pg_catalog.clock_timestamp()
+        WHERE singleton = TRUE AND version = 2`);
+      await sql.unsafe(`ALTER TABLE public.teacher_notice_resend_webhook_schema_migrations
+        ADD CONSTRAINT teacher_notice_resend_webhook_schema_version_ck
+        CHECK (version = 3)`);
+      await sql.unsafe(`COMMENT ON TABLE public.teacher_notice_resend_webhook_schema_migrations
+        IS 'mais-resend-teacher-notice-webhook-schema-v3'`);
     },
     attest: attestTeacherNoticeResendWebhookPostgresSchema
   });
@@ -1283,8 +1411,8 @@ function sqliteSchemaStatements(schema: string): string[] {
     .filter((statement) => /^CREATE\b/iu.test(statement));
 }
 
-function expectedTeacherNoticeResendWebhookSqliteObjects() {
-  const objects = sqliteSchemaStatements(teacherNoticeResendWebhookSqliteSchema).map((statement) => {
+function expectedTeacherNoticeResendWebhookSqliteObjectsForSchema(schema: string) {
+  const objects = sqliteSchemaStatements(schema).map((statement) => {
     const relation = /^CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+(\w+)/iu.exec(statement);
     if (relation) return {
       type: "table",
@@ -1318,6 +1446,18 @@ function expectedTeacherNoticeResendWebhookSqliteObjects() {
   return objects.sort((left, right) => left.name < right.name ? -1 : left.name > right.name ? 1 : 0);
 }
 
+function expectedTeacherNoticeResendWebhookSqliteObjects() {
+  return expectedTeacherNoticeResendWebhookSqliteObjectsForSchema(
+    teacherNoticeResendWebhookSqliteSchema
+  );
+}
+
+function expectedTeacherNoticeResendWebhookSqliteObjectsV2() {
+  return expectedTeacherNoticeResendWebhookSqliteObjectsForSchema(
+    teacherNoticeResendWebhookSqliteSchemaV2
+  );
+}
+
 function sqliteIndexKeys(storage: DatabaseSync, name: string) {
   return (storage.prepare(`PRAGMA index_xinfo('${name}')`).all() as Array<{
     name: string | null;
@@ -1341,7 +1481,14 @@ function sqliteIndexList(storage: DatabaseSync, name: string) {
     .sort((left, right) => String(left[0]) < String(right[0]) ? -1 : String(left[0]) > String(right[0]) ? 1 : 0);
 }
 
-export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSync): boolean {
+function attestTeacherNoticeResendWebhookSqliteSchemaVersion(
+  storage: DatabaseSync,
+  options: {
+    version: 2 | 3;
+    expectedObjects: ReturnType<typeof expectedTeacherNoticeResendWebhookSqliteObjects>;
+    includesUnmatchedReceivedIndex: boolean;
+  }
+): boolean {
   try {
     if (!attestTeacherNoticeEmailOutboxV2SqliteDependency(storage)) return false;
     const placeholders = sqliteOwnTableNames.map(() => "?").join(", ");
@@ -1356,13 +1503,16 @@ export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSy
       table: string;
       sql: string | null;
     }>).map((row) => ({ ...row, sql: normalizeTeacherNoticeSqliteSchemaSql(row.sql) }));
-    if (JSON.stringify(objects) !==
-      JSON.stringify(expectedTeacherNoticeResendWebhookSqliteObjects())) return false;
+    if (JSON.stringify(objects) !== JSON.stringify(options.expectedObjects)) return false;
 
     const marker = storage.prepare(
       "SELECT singleton, version FROM teacher_notice_resend_webhook_schema_migrations"
     ).all() as Array<{ singleton: number; version: number }>;
-    if (marker.length !== 1 || marker[0]?.singleton !== 1 || marker[0]?.version !== 2) return false;
+    if (
+      marker.length !== 1 ||
+      marker[0]?.singleton !== 1 ||
+      marker[0]?.version !== options.version
+    ) return false;
     if (JSON.stringify(sqliteTableColumns(storage, "teacher_notice_resend_webhook_events")) !==
       JSON.stringify([
         ["event_id", "TEXT", 0, null, 1, 0],
@@ -1392,12 +1542,21 @@ export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSy
         ["version", "INTEGER", 1, null, 0, 0],
         ["applied_at", "TEXT", 1, null, 0, 0]
       ])) return false;
+    const expectedEventIndexes: Array<[string, number, string, number]> = [
+      ["sqlite_autoindex_teacher_notice_resend_webhook_events_1", 1, "pk", 0],
+      ["teacher_notice_resend_webhook_events_provider_order_idx", 0, "c", 0],
+      ["teacher_notice_resend_webhook_events_retention_idx", 0, "c", 0]
+    ];
+    if (options.includesUnmatchedReceivedIndex) {
+      expectedEventIndexes.push([
+        "teacher_notice_resend_webhook_events_unmatched_received_idx",
+        0,
+        "c",
+        1
+      ]);
+    }
     if (JSON.stringify(sqliteIndexList(storage, "teacher_notice_resend_webhook_events")) !==
-      JSON.stringify([
-        ["sqlite_autoindex_teacher_notice_resend_webhook_events_1", 1, "pk", 0],
-        ["teacher_notice_resend_webhook_events_provider_order_idx", 0, "c", 0],
-        ["teacher_notice_resend_webhook_events_retention_idx", 0, "c", 0]
-      ])) return false;
+      JSON.stringify(expectedEventIndexes)) return false;
     if (JSON.stringify(sqliteIndexList(storage, "teacher_notice_resend_message_state")) !==
       JSON.stringify([
         ["sqlite_autoindex_teacher_notice_resend_message_state_1", 1, "pk", 0],
@@ -1417,7 +1576,7 @@ export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSy
       "NO ACTION",
       "NONE"
     ]])) return false;
-    return (
+    const commonIndexesMatch = (
       JSON.stringify(sqliteIndexKeys(storage, "sqlite_autoindex_teacher_notice_resend_webhook_events_1")) ===
         JSON.stringify([["event_id", 0, "BINARY"]]) &&
       JSON.stringify(sqliteIndexKeys(storage, "teacher_notice_resend_webhook_events_provider_order_idx")) ===
@@ -1429,9 +1588,31 @@ export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSy
       JSON.stringify(sqliteIndexKeys(storage, "teacher_notice_resend_message_state_outbox_uq")) ===
         JSON.stringify([["matched_outbox_id", 0, "BINARY"]])
     );
+    if (!commonIndexesMatch) return false;
+    return !options.includesUnmatchedReceivedIndex ||
+      JSON.stringify(sqliteIndexKeys(
+        storage,
+        "teacher_notice_resend_webhook_events_unmatched_received_idx"
+      )) === JSON.stringify([["received_at", 0, "BINARY"]]);
   } catch {
     return false;
   }
+}
+
+export function attestTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSync): boolean {
+  return attestTeacherNoticeResendWebhookSqliteSchemaVersion(storage, {
+    version: 3,
+    expectedObjects: expectedTeacherNoticeResendWebhookSqliteObjects(),
+    includesUnmatchedReceivedIndex: true
+  });
+}
+
+function attestTeacherNoticeResendWebhookSqliteSchemaV2(storage: DatabaseSync): boolean {
+  return attestTeacherNoticeResendWebhookSqliteSchemaVersion(storage, {
+    version: 2,
+    expectedObjects: expectedTeacherNoticeResendWebhookSqliteObjectsV2(),
+    includesUnmatchedReceivedIndex: false
+  });
 }
 
 export function migrateTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseSync): void {
@@ -1451,8 +1632,31 @@ export function migrateTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseS
         )
     `).get() as { count: number }).count);
     if (relationCount === sqliteOwnTableNames.length) {
-      if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
+      if (attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
+        storage.exec("COMMIT");
+        return;
+      }
+      if (!attestTeacherNoticeResendWebhookSqliteSchemaV2(storage)) {
         throw new Error("Teacher notice Resend webhook partial or malformed schema was rejected.");
+      }
+      storage.exec(`
+        CREATE INDEX teacher_notice_resend_webhook_events_unmatched_received_idx
+          ON teacher_notice_resend_webhook_events (received_at)
+          WHERE matched_outbox_id IS NULL;
+        ALTER TABLE teacher_notice_resend_webhook_schema_migrations
+          RENAME TO teacher_notice_resend_webhook_schema_migrations_v2_upgrade;
+        CREATE TABLE teacher_notice_resend_webhook_schema_migrations (
+          singleton INTEGER PRIMARY KEY CHECK (singleton = 1),
+          version INTEGER NOT NULL CHECK (version = 3),
+          applied_at TEXT NOT NULL
+        );
+        INSERT INTO teacher_notice_resend_webhook_schema_migrations
+          (singleton, version, applied_at)
+        VALUES (1, 3, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));
+        DROP TABLE teacher_notice_resend_webhook_schema_migrations_v2_upgrade;
+      `);
+      if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
+        throw new Error("Teacher notice Resend webhook schema v3 upgrade could not be attested.");
       }
       storage.exec("COMMIT");
       return;
@@ -1462,7 +1666,7 @@ export function migrateTeacherNoticeResendWebhookSqliteSchema(storage: DatabaseS
     }
     storage.exec(teacherNoticeResendWebhookSqliteSchema);
     if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
-      throw new Error("Teacher notice Resend webhook schema v2 could not be attested.");
+      throw new Error("Teacher notice Resend webhook schema v3 could not be attested.");
     }
     storage.exec("COMMIT");
   } catch (error) {
@@ -1559,7 +1763,7 @@ export function runTeacherNoticeResendWebhookSqliteMaintenanceTransaction<Result
   storage.exec("BEGIN IMMEDIATE");
   try {
     if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
-      throw new Error("Teacher notice Resend webhook schema v2 migration is required.");
+      throw new Error("Teacher notice Resend webhook schema v3 migration is required.");
     }
     const result = operation(storage);
     storage.exec("COMMIT");
@@ -1838,7 +2042,7 @@ function persistInsideSqliteTransaction(
 ): PersistResult {
   assertTimestamp(receivedAt);
   if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
-    throw new Error("Teacher notice Resend webhook schema v2 migration is required.");
+    throw new Error("Teacher notice Resend webhook schema v3 migration is required.");
   }
 
   const matches = storage.prepare(
@@ -1965,7 +2169,7 @@ export function readTeacherNoticeResendWebhookDeliverySafeSqlite(
   const storage = new DatabaseSync(dbPath, { readOnly: true });
   try {
     if (!attestTeacherNoticeResendWebhookSqliteSchema(storage)) {
-      throw new Error("Teacher notice Resend webhook schema v2 migration is required.");
+      throw new Error("Teacher notice Resend webhook schema v3 migration is required.");
     }
     const row = storage.prepare(`
       SELECT latest_event_type, latest_occurred_at

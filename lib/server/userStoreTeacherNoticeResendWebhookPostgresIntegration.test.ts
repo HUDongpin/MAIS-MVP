@@ -11,8 +11,21 @@ import {
   maintainTeacherNoticeResendWebhookPostgres,
   migrateTeacherNoticeResendWebhookPostgresSchema,
   persistTeacherNoticeResendWebhookEventPostgres,
-  readTeacherNoticeResendWebhookDeliverySafePostgres
+  readTeacherNoticeResendWebhookDeliverySafePostgres,
+  teacherNoticeResendWebhookPostgresSchemaV2Statements
 } from "./userStore/teacherNoticeResendWebhookPersistence";
+import {
+  attestTeacherNoticeEmailCronHeartbeatPostgresSchema,
+  migrateTeacherNoticeEmailCronHeartbeatPostgresSchema,
+  recordTeacherNoticeEmailCronHeartbeatFailedPostgres,
+  recordTeacherNoticeEmailCronHeartbeatStartedPostgres,
+  recordTeacherNoticeEmailCronHeartbeatSucceededPostgres,
+  teacherNoticeEmailCronHeartbeatPostgresSchemaV1Statements
+} from "./userStore/teacherNoticeEmailCronHeartbeatPersistence";
+import { readTeacherNoticeOperationalSnapshotWithinPostgresTransaction } from
+  "./userStore/teacherNoticeOperationalReadModel";
+import { evaluateTeacherNoticeOperationalHealth } from
+  "./teacherNoticeOperationalHealth";
 import { teacherNoticeEmailOutboxPostgresV2DependencyFixtureStatements } from
   "./userStore/teacherNoticeEmailOutboxV2Dependency";
 import type { TeacherNoticeResendWebhookEnvelope } from "./teacherNoticeResendWebhook";
@@ -130,6 +143,8 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
       DROP TABLE IF EXISTS public.teacher_notice_resend_message_state CASCADE;
       DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_events CASCADE;
       DROP TABLE IF EXISTS public.teacher_notice_resend_webhook_schema_migrations CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat CASCADE;
+      DROP TABLE IF EXISTS public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
       DROP TABLE IF EXISTS public.teacher_notice_email_outbox CASCADE;
       DROP TABLE IF EXISTS public.teacher_notice_email_outbox_schema_migrations CASCADE;
     `);
@@ -147,8 +162,134 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
     );
     assert.deepEqual(await webhookCatalogDigest(sql), malformedBefore);
     await sql`DROP TABLE public.teacher_notice_resend_webhook_events`;
+
+    for (const statement of teacherNoticeResendWebhookPostgresSchemaV2Statements) {
+      await sql.unsafe(statement);
+    }
+    await sql`
+      INSERT INTO public.teacher_notice_resend_webhook_events (
+        event_id, provider_message_id, event_type, occurred_at, occurred_at_ns,
+        priority, received_at, matched_outbox_id, retention_expires_at
+      ) VALUES (
+        'evt-pg-v2-preserved', ${providerMessageId}::pg_catalog.uuid, 'email.sent',
+        pg_catalog.clock_timestamp(), 1, 0, pg_catalog.clock_timestamp(), NULL,
+        pg_catalog.clock_timestamp() + pg_catalog.make_interval(days => 400)
+      )
+    `;
     await migrateTeacherNoticeResendWebhookPostgresSchema(sql);
     assert.equal(await attestTeacherNoticeResendWebhookPostgresSchema(sql), true);
+    const upgradeEvidence = await sql<Array<{
+      event_count: number;
+      index_ready: boolean;
+      version: number;
+    }>>`
+      SELECT
+        (SELECT pg_catalog.count(*)::pg_catalog.int4
+          FROM public.teacher_notice_resend_webhook_events
+          WHERE event_id = 'evt-pg-v2-preserved') AS event_count,
+        pg_catalog.to_regclass(
+          'public.teacher_notice_resend_webhook_events_unmatched_received_idx'
+        ) IS NOT NULL AS index_ready,
+        (SELECT version
+          FROM public.teacher_notice_resend_webhook_schema_migrations
+          WHERE singleton = TRUE) AS version
+    `;
+    assert.equal(upgradeEvidence[0]?.event_count, 1);
+    assert.equal(upgradeEvidence[0]?.index_ready, true);
+    assert.equal(upgradeEvidence[0]?.version, 3);
+
+    await sql.unsafe(`
+      DROP TABLE public.teacher_notice_resend_message_state CASCADE;
+      DROP TABLE public.teacher_notice_resend_webhook_events CASCADE;
+      DROP TABLE public.teacher_notice_resend_webhook_schema_migrations CASCADE;
+    `);
+    await migrateTeacherNoticeResendWebhookPostgresSchema(sql);
+    assert.equal(await attestTeacherNoticeResendWebhookPostgresSchema(sql), true);
+
+    for (const statement of teacherNoticeEmailCronHeartbeatPostgresSchemaV1Statements) {
+      await sql.unsafe(statement);
+    }
+    await sql`
+      INSERT INTO public.teacher_notice_email_cron_heartbeat (
+        singleton, run_id, release_sha, status, started_at, completed_at, updated_at
+      ) VALUES (
+        TRUE, '00000000-0000-4000-8000-000000000099', ${"9".repeat(40)}, 'failed',
+        pg_catalog.clock_timestamp(), pg_catalog.clock_timestamp(),
+        pg_catalog.clock_timestamp()
+      )
+    `;
+    await migrateTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
+    assert.equal(await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql), true);
+    const heartbeatUpgrade = await sql<Array<{
+      failure_preserved: boolean;
+      version: number;
+    }>>`
+      SELECT
+        (SELECT last_failed_at = completed_at
+          FROM public.teacher_notice_email_cron_heartbeat
+          WHERE singleton = TRUE) AS failure_preserved,
+        (SELECT version
+          FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+          WHERE singleton = TRUE) AS version
+    `;
+    assert.deepEqual(heartbeatUpgrade, [{ failure_preserved: true, version: 2 }]);
+    await sql.unsafe(`
+      DROP TABLE public.teacher_notice_email_cron_heartbeat CASCADE;
+      DROP TABLE public.teacher_notice_email_cron_heartbeat_schema_migrations CASCADE;
+    `);
+    await migrateTeacherNoticeEmailCronHeartbeatPostgresSchema(sql);
+    assert.equal(await attestTeacherNoticeEmailCronHeartbeatPostgresSchema(sql), true);
+    assert.deepEqual(await sql<Array<{ version: number }>>`
+      SELECT version
+      FROM public.teacher_notice_email_cron_heartbeat_schema_migrations
+      WHERE singleton = TRUE
+    `, [{ version: 2 }]);
+    const failedIdentity = {
+      releaseSha: "b".repeat(40),
+      runId: "11111111-1111-4111-8111-111111111111"
+    };
+    await recordTeacherNoticeEmailCronHeartbeatStartedPostgres(sql, failedIdentity);
+    await recordTeacherNoticeEmailCronHeartbeatFailedPostgres(sql, failedIdentity);
+    const failedHeartbeat = await sql<Array<{
+      completed: boolean;
+      status: string;
+    }>>`
+      SELECT completed_at IS NOT NULL AS completed, status
+      FROM public.teacher_notice_email_cron_heartbeat
+      WHERE singleton = TRUE
+    `;
+    assert.equal(failedHeartbeat[0]?.status, "failed");
+    assert.equal(failedHeartbeat[0]?.completed, true);
+
+    const staleIdentity = {
+      releaseSha: "c".repeat(40),
+      runId: "22222222-2222-4222-8222-222222222222"
+    };
+    const successfulIdentity = {
+      releaseSha: "a".repeat(40),
+      runId: "33333333-3333-4333-8333-333333333333"
+    };
+    await recordTeacherNoticeEmailCronHeartbeatStartedPostgres(sql, staleIdentity);
+    await recordTeacherNoticeEmailCronHeartbeatStartedPostgres(sql, successfulIdentity);
+    await assert.rejects(
+      recordTeacherNoticeEmailCronHeartbeatSucceededPostgres(sql, staleIdentity),
+      /no longer current/i
+    );
+    const stillCurrent = await sql<Array<{ run_id: string; status: string }>>`
+      SELECT run_id, status
+      FROM public.teacher_notice_email_cron_heartbeat
+      WHERE singleton = TRUE
+    `;
+    assert.equal(stillCurrent[0]?.run_id, successfulIdentity.runId);
+    assert.equal(stillCurrent[0]?.status, "started");
+    await recordTeacherNoticeEmailCronHeartbeatSucceededPostgres(
+      sql,
+      successfulIdentity
+    );
+    await assert.rejects(
+      recordTeacherNoticeEmailCronHeartbeatFailedPostgres(sql, successfulIdentity),
+      /no longer current/i
+    );
 
     const results = await Promise.all(
       Array.from({ length: 12 }, () => persistTeacherNoticeResendWebhookEventPostgres(sql, event()))
@@ -261,6 +402,33 @@ test("PostgreSQL 16 migration, concurrent replay, ordering, and exact readiness 
       latest_event_id: "evt-pg-budget-212",
       latest_event_type: "email.delivered"
     }]);
+
+    const operationalSnapshot = await sql.begin((transaction) =>
+      readTeacherNoticeOperationalSnapshotWithinPostgresTransaction({
+        expectedReleaseSha: successfulIdentity.releaseSha,
+        recentWindowSeconds: 3_600,
+        sql: transaction
+      })
+    );
+    assert.equal(operationalSnapshot.scheduler.candidateMatch, true);
+    assert.equal(operationalSnapshot.scheduler.heartbeatStatus, "succeeded");
+    assert.ok(
+      operationalSnapshot.scheduler.heartbeatAgeSeconds !== null &&
+      operationalSnapshot.scheduler.heartbeatAgeSeconds >= 0 &&
+      operationalSnapshot.scheduler.heartbeatAgeSeconds < 60
+    );
+    assert.ok(
+      operationalSnapshot.scheduler.lastFailureAgeSeconds !== null &&
+      operationalSnapshot.scheduler.lastFailureAgeSeconds >= 0 &&
+      operationalSnapshot.scheduler.lastFailureAgeSeconds < 60
+    );
+    const operationalHealth = evaluateTeacherNoticeOperationalHealth(
+      operationalSnapshot
+    );
+    assert.equal(operationalHealth.status, "unhealthy");
+    assert.ok(operationalHealth.reasons.includes("scheduler-heartbeat-failed"));
+    assert.equal(operationalSnapshot.webhookReconciliation.unmatchedCount, 0);
+    assert.ok(operationalSnapshot.outbox.counts.providerAccepted >= 2);
 
     await sql`ALTER TABLE public.teacher_notice_email_outbox SET UNLOGGED`;
     assert.equal(await attestTeacherNoticeResendWebhookPostgresSchema(sql), false);

@@ -295,6 +295,13 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
   });
 
   const cronSecret = "fixture-cron-secret-with-at-least-32-bytes";
+  const heartbeatDependencies = {
+    createRunId: () => "00000000-0000-4000-8000-000000000001",
+    readReleaseSha: () => "a".repeat(40),
+    recordHeartbeatFailed: async () => {},
+    recordHeartbeatStarted: async () => {},
+    recordHeartbeatSucceeded: async () => {}
+  };
   let workerCalls = 0;
 
   for (const invalidSecret of [
@@ -307,6 +314,7 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
     "x".repeat(513)
   ]) {
     const invalidConfiguration = await createHandler({
+      ...heartbeatDependencies,
       readCronSecret: () => invalidSecret,
       runWorker: async () => {
         workerCalls += 1;
@@ -320,7 +328,11 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
   }
   assert.equal(workerCalls, 0);
 
-  const wrong = await createHandler({ readCronSecret: () => cronSecret, runWorker: async () => ({}) })(request("Bearer wrong"));
+  const wrong = await createHandler({
+    ...heartbeatDependencies,
+    readCronSecret: () => cronSecret,
+    runWorker: async () => ({})
+  })(request("Bearer wrong"));
   assert.equal(wrong.status, 401);
 
   const aggregate = {
@@ -337,6 +349,7 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
     providerMessageId: "00000000-0000-4000-8000-000000000001"
   };
   const success = await createHandler({
+    ...heartbeatDependencies,
     readCronSecret: () => cronSecret,
     runWorker: async () => { workerCalls += 1; return aggregate; }
   })(request(`Bearer ${cronSecret}`));
@@ -355,11 +368,85 @@ test("cron handler requires the exact configured bearer and returns aggregate-on
   assert.equal(workerCalls, 1);
 
   const unavailable = await createHandler({
+    ...heartbeatDependencies,
     readCronSecret: () => cronSecret,
     runWorker: async () => { throw new Error("private database detail"); }
   })(request(`Bearer ${cronSecret}`));
   assert.equal(unavailable.status, 503);
   assert.deepEqual(await unavailable.json(), { error: "Service temporarily unavailable." });
+});
+
+test("cron handler durably records candidate-bound started and terminal heartbeat transitions", async () => {
+  const handlers = await handlersPromise;
+  assert.ok(handlers);
+  if (!handlers) return;
+  const createHandler = handlers.createTeacherNoticeEmailCronHandler as (dependencies: Record<string, unknown>) =>
+    (request: Request) => Promise<Response>;
+  const cronSecret = "fixture-cron-secret-with-at-least-32-bytes";
+  const releaseSha = "a".repeat(40);
+  const runId = "00000000-0000-4000-8000-000000000001";
+  const request = () => new Request("https://mais.example/api/cron/teacher-notice-email", {
+    headers: { Authorization: `Bearer ${cronSecret}` }
+  });
+  const aggregate = {
+    claimed: 0,
+    accepted: 0,
+    deferred: 0,
+    blocked: 0,
+    deadLetter: 0,
+    staleCompletions: 0,
+    releasedWithoutProviderContact: 0,
+    releaseFailures: 0
+  };
+
+  const successEvents: string[] = [];
+  const success = await createHandler({
+    createRunId: () => runId,
+    readCronSecret: () => cronSecret,
+    readReleaseSha: () => releaseSha,
+    recordHeartbeatStarted: async (input: unknown) => {
+      successEvents.push("started");
+      assert.deepEqual(input, { releaseSha, runId });
+    },
+    recordHeartbeatSucceeded: async (input: unknown) => {
+      successEvents.push("succeeded");
+      assert.deepEqual(input, { releaseSha, runId });
+    },
+    recordHeartbeatFailed: async () => {
+      successEvents.push("failed");
+    },
+    runWorker: async () => {
+      successEvents.push("worker");
+      return aggregate;
+    }
+  })(request());
+  assert.equal(success.status, 200);
+  assert.deepEqual(successEvents, ["started", "worker", "succeeded"]);
+  assert.doesNotMatch(JSON.stringify(await success.json()), /releaseSha|runId|heartbeat/iu);
+
+  const failureEvents: string[] = [];
+  const failure = await createHandler({
+    createRunId: () => runId,
+    readCronSecret: () => cronSecret,
+    readReleaseSha: () => releaseSha,
+    recordHeartbeatStarted: async () => {
+      failureEvents.push("started");
+    },
+    recordHeartbeatSucceeded: async () => {
+      failureEvents.push("succeeded");
+    },
+    recordHeartbeatFailed: async (input: unknown) => {
+      failureEvents.push("failed");
+      assert.deepEqual(input, { releaseSha, runId });
+    },
+    runWorker: async () => {
+      failureEvents.push("worker");
+      throw new Error("private worker failure");
+    }
+  })(request());
+  assert.equal(failure.status, 503);
+  assert.deepEqual(failureEvents, ["started", "worker", "failed"]);
+  assert.deepEqual(await failure.json(), { error: "Service temporarily unavailable." });
 });
 
 test("send, reminder-run, deliveries alias, and cron routes use the reviewed handlers and never read request origin", async () => {
@@ -375,6 +462,11 @@ test("send, reminder-run, deliveries alias, and cron routes use the reviewed han
   assert.match(aliasRoute, /export \{ POST \} from "\.\.\/send\/route"/);
   assert.match(cronRoute, /createTeacherNoticeEmailCronHandler/);
   assert.match(cronRoute, /CRON_SECRET/);
+  assert.match(cronRoute, /MAIS_RELEASE_SHA/);
+  assert.match(cronRoute, /recordTeacherNoticeEmailCronHeartbeatStarted/);
+  assert.match(cronRoute, /recordTeacherNoticeEmailCronHeartbeatSucceeded/);
+  assert.match(cronRoute, /recordTeacherNoticeEmailCronHeartbeatFailed/);
+  assert.match(cronRoute, /randomUUID/);
   assert.match(cronRoute, /export const maxDuration = 300/);
   assert.match(cronRoute, /deliverTeacherNoticeEmailOutboxBatch\(8\)/);
 });

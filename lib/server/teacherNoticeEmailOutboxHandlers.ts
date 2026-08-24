@@ -1,6 +1,11 @@
 import { createHash } from "node:crypto";
 
 import { authorizeCronBearer } from "@/lib/server/cronAuthorization";
+import {
+  isTeacherNoticeEmailCronHeartbeatReleaseSha,
+  isTeacherNoticeEmailCronHeartbeatRunId,
+  type TeacherNoticeEmailCronHeartbeatIdentity
+} from "@/lib/server/userStore/teacherNoticeEmailCronHeartbeatPersistence";
 
 type TeacherNoticeEmailAuthenticated = {
   user: {
@@ -139,10 +144,20 @@ export function createTeacherNoticeEmailSendHandler({
 }
 
 export function createTeacherNoticeEmailCronHandler({
+  createRunId,
   readCronSecret,
+  readReleaseSha,
+  recordHeartbeatFailed,
+  recordHeartbeatStarted,
+  recordHeartbeatSucceeded,
   runWorker
 }: {
+  createRunId: () => string;
   readCronSecret: () => string | undefined;
+  readReleaseSha: () => string | undefined;
+  recordHeartbeatFailed: (identity: TeacherNoticeEmailCronHeartbeatIdentity) => Promise<void>;
+  recordHeartbeatStarted: (identity: TeacherNoticeEmailCronHeartbeatIdentity) => Promise<void>;
+  recordHeartbeatSucceeded: (identity: TeacherNoticeEmailCronHeartbeatIdentity) => Promise<void>;
   runWorker: () => Promise<TeacherNoticeEmailWorkerAggregate>;
 }) {
   return async function teacherNoticeEmailCronHandler(request: Request) {
@@ -162,21 +177,51 @@ export function createTeacherNoticeEmailCronHandler({
     if (authorization === "unauthorized") {
       return privateJson({ error: "Not authorized." }, 401);
     }
+    let identity: TeacherNoticeEmailCronHeartbeatIdentity;
     try {
-      const aggregate = await runWorker();
-      return privateJson({
-        claimed: aggregate.claimed,
-        accepted: aggregate.accepted,
-        deferred: aggregate.deferred,
-        blocked: aggregate.blocked,
-        deadLetter: aggregate.deadLetter,
-        staleCompletions: aggregate.staleCompletions,
-        releasedWithoutProviderContact: aggregate.releasedWithoutProviderContact,
-        releaseFailures: aggregate.releaseFailures
-      }, 200);
+      const releaseSha = readReleaseSha();
+      const runId = createRunId();
+      if (
+        !isTeacherNoticeEmailCronHeartbeatReleaseSha(releaseSha) ||
+        !isTeacherNoticeEmailCronHeartbeatRunId(runId)
+      ) {
+        return privateJson({ error: "Service temporarily unavailable." }, 503);
+      }
+      identity = { releaseSha, runId };
+      await recordHeartbeatStarted(identity);
     } catch {
       return privateJson({ error: "Service temporarily unavailable." }, 503);
     }
+
+    let aggregate: TeacherNoticeEmailWorkerAggregate;
+    try {
+      aggregate = await runWorker();
+    } catch {
+      try {
+        await recordHeartbeatFailed(identity);
+      } catch {
+        // The worker failure remains authoritative; the started heartbeat is
+        // intentionally left incomplete when its terminal CAS cannot persist.
+      }
+      return privateJson({ error: "Service temporarily unavailable." }, 503);
+    }
+    try {
+      await recordHeartbeatSucceeded(identity);
+    } catch {
+      // Never fabricate a failed heartbeat after the worker actually
+      // succeeded. Leaving it started makes health fail closed.
+      return privateJson({ error: "Service temporarily unavailable." }, 503);
+    }
+    return privateJson({
+      claimed: aggregate.claimed,
+      accepted: aggregate.accepted,
+      deferred: aggregate.deferred,
+      blocked: aggregate.blocked,
+      deadLetter: aggregate.deadLetter,
+      staleCompletions: aggregate.staleCompletions,
+      releasedWithoutProviderContact: aggregate.releasedWithoutProviderContact,
+      releaseFailures: aggregate.releaseFailures
+    }, 200);
   };
 }
 

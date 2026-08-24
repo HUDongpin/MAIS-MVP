@@ -178,7 +178,10 @@ test("outbox tests are a named package gate and PostgreSQL 16 runs without a ski
   const realPostgresJob = workflow.match(/  teacher-notice-outbox-postgres16:[\s\S]*?(?=\n  [a-z][a-z0-9-]+:|$)/u)?.[0] ?? "";
   assert.match(realPostgresJob, /github\.event_name == 'push'[\s\S]*github\.ref == 'refs\/heads\/main'/u);
   assert.match(realPostgresJob, /github\.event_name == 'merge_group'/u);
-  assert.match(realPostgresJob, /uses: actions\/checkout@v4/u);
+  assert.match(
+    realPostgresJob,
+    /uses: actions\/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4\.2\.2/u
+  );
 });
 
 test("runtime schema readiness re-attests every operation and never latches success or invokes DDL", async () => {

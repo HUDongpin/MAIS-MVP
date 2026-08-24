@@ -25,7 +25,9 @@ import {
   teacherNoticeResendWebhookPostgresMigrationDependencyLockStatements,
   teacherNoticeResendWebhookPostgresRuntimeRelationLockStatements,
   teacherNoticeResendWebhookPostgresSchemaStatements,
+  teacherNoticeResendWebhookPostgresSchemaV2Statements,
   teacherNoticeResendWebhookExpectedPostgresCatalog,
+  teacherNoticeResendWebhookSqliteSchemaV2,
   TeacherNoticeResendWebhookMaintenanceDeadlineError,
   teacherNoticeResendWebhookRetentionMs,
   teacherNoticeResendWebhookSchemaVersion,
@@ -154,7 +156,7 @@ function sqliteSchemaDigest(storage: DatabaseSync): unknown {
   `).all();
 }
 
-test("schema v2 migration requires the frozen outbox and exact SQLite readiness fails closed", () => {
+test("schema v3 migration requires the frozen outbox and exact SQLite readiness fails closed", () => {
   const missingDependency = new DatabaseSync(":memory:");
   try {
     assert.throws(
@@ -176,9 +178,68 @@ test("schema v2 migration requires the frozen outbox and exact SQLite readiness 
     createFrozenOutboxFixture(storage);
     migrateTeacherNoticeResendWebhookSqliteSchema(storage);
     assert.equal(attestTeacherNoticeResendWebhookSqliteSchema(storage), true);
-    assert.equal(teacherNoticeResendWebhookSchemaVersion, 2);
+    assert.equal(teacherNoticeResendWebhookSchemaVersion, 3);
+    const unmatchedIndex = storage.prepare(`
+      SELECT name, partial FROM pragma_index_list('teacher_notice_resend_webhook_events')
+      WHERE name = 'teacher_notice_resend_webhook_events_unmatched_received_idx'
+    `).get() as { name: string; partial: number };
+    assert.equal(
+      unmatchedIndex.name,
+      "teacher_notice_resend_webhook_events_unmatched_received_idx"
+    );
+    assert.equal(unmatchedIndex.partial, 1);
+    const reconciliationPlan = storage.prepare(`
+      EXPLAIN QUERY PLAN
+      SELECT COUNT(*), MIN(received_at), MAX(received_at)
+      FROM teacher_notice_resend_webhook_events
+      WHERE matched_outbox_id IS NULL
+    `).all() as Array<{ detail: string }>;
+    assert.match(
+      reconciliationPlan.map((row) => row.detail).join("\n"),
+      /teacher_notice_resend_webhook_events_unmatched_received_idx/u
+    );
     storage.exec("ALTER TABLE teacher_notice_resend_webhook_events ADD COLUMN payload TEXT");
     assert.equal(attestTeacherNoticeResendWebhookSqliteSchema(storage), false);
+  } finally {
+    storage.close();
+  }
+});
+
+test("SQLite migration upgrades exact v2 to v3 without losing durable webhook events", () => {
+  const storage = new DatabaseSync(":memory:");
+  try {
+    createFrozenOutboxFixture(storage);
+    storage.exec(teacherNoticeResendWebhookSqliteSchemaV2);
+    storage.prepare(`
+      INSERT INTO teacher_notice_resend_webhook_events (
+        event_id, provider_message_id, event_type, occurred_at, occurred_at_ns,
+        priority, received_at, matched_outbox_id, retention_expires_at
+      ) VALUES (?, ?, 'email.delivered', ?, ?, 20, ?, NULL, ?)
+    `).run(
+      "evt-v2-preserved",
+      providerMessageId,
+      "2026-08-23T01:02:03.004Z",
+      "1787446923004000001",
+      "2026-08-23T01:02:04.000Z",
+      "2027-09-27T01:02:04.000Z"
+    );
+
+    migrateTeacherNoticeResendWebhookSqliteSchema(storage);
+
+    assert.equal(attestTeacherNoticeResendWebhookSqliteSchema(storage), true);
+    assert.equal(
+      (storage.prepare(`
+        SELECT count(*) AS count FROM teacher_notice_resend_webhook_events
+        WHERE event_id = 'evt-v2-preserved'
+      `).get() as { count: number }).count,
+      1
+    );
+    const marker = storage.prepare(`
+      SELECT singleton, version
+      FROM teacher_notice_resend_webhook_schema_migrations
+    `).get() as { singleton: number; version: number };
+    assert.equal(marker.singleton, 1);
+    assert.equal(marker.version, 3);
   } finally {
     storage.close();
   }
@@ -706,7 +767,15 @@ test("PostgreSQL schema and runtime contract use safe qualifications and per-mes
   assert.match(schema, /public\.teacher_notice_resend_webhook_events/u);
   assert.match(schema, /public\.teacher_notice_resend_message_state/u);
   assert.match(schema, /public\.teacher_notice_resend_webhook_schema_migrations/u);
-  assert.match(schema, /version\s*=\s*2/u);
+  assert.match(schema, /version\s*=\s*3/u);
+  assert.match(
+    schema,
+    /\(received_at\)\s+WHERE matched_outbox_id IS NULL/u
+  );
+  const schemaV2 = teacherNoticeResendWebhookPostgresSchemaV2Statements.join("\n");
+  assert.match(schemaV2, /version\s*=\s*2/u);
+  assert.match(schemaV2, /webhook-schema-v2/u);
+  assert.doesNotMatch(schemaV2, /unmatched_received_idx/u);
   assert.doesNotMatch(schema, /raw_body|payload|subject|recipient|email_address/iu);
 });
 
@@ -726,6 +795,15 @@ test("PostgreSQL lock order protects both exact catalogs before provider mapping
     path.join(process.cwd(), "lib/server/userStore/teacherNoticeResendWebhookPersistence.ts"),
     "utf8"
   );
+  const transactionConfiguration = source.slice(
+    source.indexOf("async function configureTeacherNoticeResendWebhookPostgresTransaction"),
+    source.indexOf("export async function migrateTeacherNoticeResendWebhookPostgresSchema")
+  );
+  assert.match(transactionConfiguration, /SET LOCAL search_path/u);
+  assert.match(transactionConfiguration, /SET LOCAL lock_timeout/u);
+  assert.match(transactionConfiguration, /SET LOCAL statement_timeout/u);
+  assert.match(transactionConfiguration, /SET LOCAL idle_in_transaction_session_timeout/u);
+  assert.doesNotMatch(transactionConfiguration, /set_config/u);
   assert.match(source, /WHERE provider_message_id = \$\{event\.providerMessageId\}[\s\S]*?LIMIT 2\s+FOR SHARE/u);
   assert.deepEqual(teacherNoticeEmailOutboxProviderMappingIntegrationContract, {
     providerUniqueIndexName: "teacher_notice_email_outbox_provider_message_uq",
@@ -755,7 +833,7 @@ test("PostgreSQL maintenance is bounded, uses the database clock, and skips lock
   assert.match(source, /AND event_id IN \$\{sql\(eventIds\)\}/u);
   assert.doesNotMatch(source, /GROUP BY event\.provider_message_id[\s\S]*?LIMIT \$\{reconciliationLimit\}/u);
   assert.match(source, /configureTeacherNoticeResendWebhookPostgresMaintenanceTransaction/u);
-  assert.match(source, /statement_timeout', '1000ms'/u);
+  assert.match(source, /SET LOCAL statement_timeout = '1000ms'/u);
   assert.match(source, /beforeStep: ensureTimeRemaining/u);
 });
 
@@ -879,15 +957,17 @@ test("PostgreSQL DML uses one transaction in fixed lock, exact-attest, then muta
       mutated = true;
       return "forbidden";
     }
-  }), /schema v2 could not be attested/i);
+  }), /schema v3 could not be attested/i);
   assert.equal(mutated, false);
 });
 
-test("atomic migration installs only from empty, is idempotent when exact, and rejects partial state", async () => {
-  type Transaction = { state: "empty" | "exact" | "partial" };
-  const run = async (initial: "empty" | "exact" | "partial") => {
+test("atomic migration installs empty, upgrades v2, is idempotent at v3, and rejects partial state", async () => {
+  type State = "empty" | "upgradeable" | "exact" | "partial";
+  type Transaction = { state: State };
+  const run = async (initial: State) => {
     let durable = initial;
     let migrated = 0;
+    let upgraded = 0;
     await runTeacherNoticeResendWebhookAtomicMigration<Transaction>({
       begin: async (operation) => {
         let transaction = durable;
@@ -902,11 +982,20 @@ test("atomic migration installs only from empty, is idempotent when exact, and r
         migrated += 1;
         transaction.state = "exact";
       },
+      upgrade: async (transaction) => {
+        upgraded += 1;
+        transaction.state = "exact";
+      },
       attest: async (transaction) => transaction.state === "exact"
     });
-    return { durable, migrated };
+    return { durable, migrated, upgraded };
   };
-  assert.deepEqual(await run("empty"), { durable: "exact", migrated: 1 });
-  assert.deepEqual(await run("exact"), { durable: "exact", migrated: 0 });
+  assert.deepEqual(await run("empty"), { durable: "exact", migrated: 1, upgraded: 0 });
+  assert.deepEqual(await run("upgradeable"), {
+    durable: "exact",
+    migrated: 0,
+    upgraded: 1
+  });
+  assert.deepEqual(await run("exact"), { durable: "exact", migrated: 0, upgraded: 0 });
   await assert.rejects(run("partial"), /partial or malformed schema/i);
 });
