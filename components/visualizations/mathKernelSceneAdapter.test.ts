@@ -22,6 +22,7 @@ import {
   buildGeometryKernelDemoScene,
   MATH_KERNEL_DEMO_TEACHING,
 } from "./three/manim/mathKernelDemoScenes";
+import { buildMathSceneTeachingQualityEvidence } from "./three/manim/mathSceneTeachingQuality";
 
 function unwrap<T>(result: KernelResult<T>): T {
   if (result.ok) return result.value;
@@ -79,6 +80,8 @@ test("body topology becomes stable edge curves with one math-to-world transform"
     [[0, 0, 0], [0, 3, 0]],
   );
   assert.equal(scene.formulas[0].latex, formula.latex);
+  assert.deepEqual(scene.bindings, []);
+  assert.equal(scene.diagnostics.expectedBindingCount, 0);
   assert.equal(scene.familyId, "three-space-vectors-lines-planes");
   assert.equal(JSON.stringify(positions), before);
   assert.deepEqual(
@@ -150,6 +153,13 @@ test("geometry solutions consume already-transformed renderPoints without swappi
   assert.deepEqual(vector.from, [1, 2, 3]);
   assert.deepEqual(vector.to, [4, 5, 6]);
   assert.equal(scene.formulas[0].latex, solution.answer.latex);
+  assert.deepEqual(scene.bindings, [{
+    conceptId: "direction",
+    formulaId: "math-kernel-result-formula",
+    objectId: "geometry-vector-direction",
+    tokenId: "math-kernel-result-token",
+  }]);
+  assert.equal(scene.formulas[0].tokens[0].text, "\\theta");
 });
 
 test("analytic range scenes preserve authoritative interval LaTeX and explicit render companions", () => {
@@ -208,6 +218,13 @@ test("analytic range scenes preserve authoritative interval LaTeX and explicit r
   const segment = scene.objects.find((object) => object.id === "analytic-segment-focal-chord");
   assert.ok(segment && segment.type === "parametricCurve");
   assert.deepEqual(segment.samples, [[-2, 0, 0], [2, 0, 0]]);
+  assert.deepEqual(scene.bindings, [{
+    conceptId: "analytic-segment-focal-chord",
+    formulaId: "math-kernel-result-formula",
+    objectId: "analytic-segment-focal-chord",
+    tokenId: "math-kernel-result-token",
+  }]);
+  assert.equal(scene.formulas[0].tokens[0].text, "L");
 });
 
 test("adapter fails closed for incomplete coordinates and non-finite render data", () => {
@@ -260,7 +277,11 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
   assert.deepEqual(Object.keys(MATH_KERNEL_DEMO_TEACHING), ["en", "zh-CN", "zh-HK"]);
   const geometry: GeometrySolutionDto = {
     schemaVersion: 1,
-    answer: exact(["Sqrt", 3], "\\sqrt{3}", Math.sqrt(3)),
+    answer: exact(
+      ["Divide", ["Sqrt", 3], 3],
+      "\\frac{\\sqrt{3}}{3}",
+      Math.sqrt(3) / 3,
+    ),
     points: {},
     renderPoints: { A: [0, 0, 0], B: [1, 1, 1] },
     intermediates: [],
@@ -314,17 +335,43 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
     const geometryScene = unwrap(buildGeometryKernelDemoScene({
       solution: geometry,
       topology: { vertices: ["A", "B"], edges: [{ a: "A", b: "B" }] },
+      vectors: [{ id: "AB", from: "A", to: "B", conceptId: "geometry-line-direction" }],
+      renderEdgeLength: Math.sqrt(3),
       locale,
     }));
     const analyticScene = unwrap(buildAnalyticKernelDemoScene({
       solution: analytic,
       conic,
       segments: [{ id: "witness", from: [-2, 0], to: [2, 0] }],
+      inverseSlope: 0,
+      chordLengthSquared: 16,
       locale,
     }));
     assert.equal(geometryScene.formulas[0].latex, geometry.answer.latex);
     assert.equal(analyticScene.formulas[0].latex, analytic.intervalLatex);
     assert.equal(geometryScene.sceneId.endsWith(locale), true);
     assert.equal(analyticScene.sceneId.endsWith(locale), true);
+    assert.deepEqual(
+      geometryScene.parameters?.map(({ id, role, value }) => ({ id, role, value })),
+      [
+        { id: "cube-render-edge-length", role: "control", value: Math.sqrt(3) },
+        { id: "line-plane-angle-sin", role: "derived", value: Math.sqrt(3) / 3 },
+      ],
+    );
+    assert.deepEqual(
+      analyticScene.parameters?.map(({ id, role, value }) => ({ id, role, value })),
+      [
+        { id: "inverse-slope", role: "control", value: 0 },
+        { id: "chord-length-squared", role: "derived", value: 16 },
+      ],
+    );
+    for (const scene of [geometryScene, analyticScene]) {
+      const evidence = buildMathSceneTeachingQualityEvidence(scene);
+      assert.equal(evidence.status, "ready-for-a18-review", evidence.summary);
+      assert.deepEqual(evidence.missingTeachingEvidence, []);
+      assert.equal(evidence.semanticBindingCount, 1);
+      assert.equal(evidence.nonWaitFocusedBeatCount > 0, true);
+      assert.equal(evidence.controlParameterCount, 1);
+    }
   }
 });

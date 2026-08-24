@@ -22,6 +22,27 @@ interface DemoTeachingPair {
   readonly analytic: MathKernelTeachingInput;
 }
 
+const MATH_KERNEL_PARAMETER_LABELS = Object.freeze({
+  en: Object.freeze({
+    renderEdgeLength: "Rendered cube edge length",
+    angleSin: "Line-plane angle sine",
+    inverseSlope: "Inverse slope m",
+    chordLengthSquared: "Chord length squared",
+  }),
+  "zh-CN": Object.freeze({
+    renderEdgeLength: "正方体渲染棱长",
+    angleSin: "线面角正弦",
+    inverseSlope: "反斜率 m",
+    chordLengthSquared: "弦长平方",
+  }),
+  "zh-HK": Object.freeze({
+    renderEdgeLength: "正方體渲染棱長",
+    angleSin: "線面角正弦",
+    inverseSlope: "反斜率 m",
+    chordLengthSquared: "弦長平方",
+  }),
+} satisfies Readonly<Record<MathKernelLocale, Readonly<Record<string, string>>>>);
+
 /** Explicit locale coverage; translation lookup remains owned by MAIS i18n. */
 export const MATH_KERNEL_DEMO_TEACHING: Readonly<
   Record<MathKernelLocale, DemoTeachingPair>
@@ -80,6 +101,8 @@ export interface GeometryKernelDemoInput {
   readonly solution: GeometrySolutionDto;
   readonly topology: BodyTopology;
   readonly vectors?: readonly GeometrySceneVectorInput[];
+  /** Server-declared render input, retained in scene export/replay metadata. */
+  readonly renderEdgeLength: number;
   readonly locale: MathKernelLocale;
 }
 
@@ -87,6 +110,8 @@ export interface AnalyticKernelDemoInput {
   readonly solution: AnalyticRangeSolutionDto;
   readonly conic: ConicRenderSpec;
   readonly segments: readonly AnalyticSceneSegmentInput[];
+  readonly inverseSlope: number;
+  readonly chordLengthSquared: number;
   readonly locale: MathKernelLocale;
 }
 
@@ -94,11 +119,34 @@ export interface AnalyticKernelDemoInput {
 export function buildGeometryKernelDemoScene(
   input: GeometryKernelDemoInput,
 ): KernelResult<MathSceneSpec> {
+  const labels = MATH_KERNEL_PARAMETER_LABELS[input.locale];
+  const derived = input.solution.answer.approx;
   return toMathSceneSpec({
     kind: "geometry",
     model: input.solution,
     topology: input.topology,
     vectors: input.vectors,
+    parameters: [
+      {
+        conceptId: "geometry-edge",
+        id: "cube-render-edge-length",
+        label: labels.renderEdgeLength,
+        min: 0,
+        role: "control",
+        value: input.renderEdgeLength,
+      },
+      ...(typeof derived === "number" && Number.isFinite(derived)
+        ? [{
+            conceptId: "geometry-line-direction",
+            id: "line-plane-angle-sin",
+            label: labels.angleSin,
+            min: 0,
+            max: 1,
+            role: "derived" as const,
+            value: derived,
+          }]
+        : []),
+    ],
     teaching: MATH_KERNEL_DEMO_TEACHING[input.locale].geometry,
   });
 }
@@ -107,10 +155,30 @@ export function buildGeometryKernelDemoScene(
 export function buildAnalyticKernelDemoScene(
   input: AnalyticKernelDemoInput,
 ): KernelResult<MathSceneSpec> {
+  const labels = MATH_KERNEL_PARAMETER_LABELS[input.locale];
   return toMathSceneSpec({
     kind: "analytic",
     model: input.solution,
     render: { conic: input.conic, segments: input.segments },
+    parameters: [
+      {
+        conceptId: "analytic-segment-focal-chord",
+        id: "inverse-slope",
+        label: labels.inverseSlope,
+        min: -2,
+        max: 2,
+        role: "control",
+        value: input.inverseSlope,
+      },
+      {
+        conceptId: "analytic-segment-focal-chord",
+        id: "chord-length-squared",
+        label: labels.chordLengthSquared,
+        min: 0,
+        role: "derived",
+        value: input.chordLengthSquared,
+      },
+    ],
     teaching: MATH_KERNEL_DEMO_TEACHING[input.locale].analytic,
   });
 }

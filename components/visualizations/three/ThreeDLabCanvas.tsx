@@ -193,7 +193,7 @@ import { threeDCanvasRendererContract } from "./threeDCanvasRendererContract";
 import { threeDCanvasWebGLContract } from "./threeDCanvasWebGLContract";
 import { sceneVariantForThreeDFamily } from "./threeDSceneMath";
 import { threeDSceneVariantMetadata } from "./threeDSceneVariantMetadata";
-import type { ThreeDFamilyId, ThreeDLabCanvasProps } from "./threeDSceneTypes";
+import type { ThreeDFamilyId, ThreeDLabCanvasProps, ThreeDLabRuntimeCopy } from "./threeDSceneTypes";
 import { CAMERA_FRAME_POINT_ROUNDTRIP_SOURCE_CONTRACT, CAMERA_FRAME_SOURCE_CONTRACT } from "./manim/mathCameraFrame";
 import type { CameraFrameState } from "./manim/mathCameraFrame";
 import {
@@ -209,6 +209,15 @@ import {
 } from "./manim/mathSceneCheckpoint";
 import type { MathSceneSpec } from "./manim/mathSceneTypes";
 import { PROJECTED_LABEL_SOURCE_CONTRACT, buildProjectedLabelAnchorsFromRuntimeState, serializeProjectedLabelAnchors, summarizeProjectedLabelAnchors, type ProjectionViewport } from "./manim/mathProjectedLabels";
+
+const DEFAULT_RUNTIME_COPY: ThreeDLabRuntimeCopy = Object.freeze({
+  formulaAriaLabel: "MAIS Manim formula",
+  formulaRegionAriaLabel: "Scrollable MAIS Manim formula",
+  pause: "Pause",
+  play: "Play",
+  timelineAriaLabel: "MAIS Manim timeline",
+  tokenMapsTo: "maps to",
+});
 
 type ManimAuthoringMode = "playback" | "run-from-beat" | "show-final";
 type ManimCameraMode = "guided" | "explore";
@@ -515,6 +524,8 @@ export function ThreeDLabCanvas({
   premiumLaunch = false,
   regionalPriority,
   runtime = "primitive",
+  runtimeCopy = DEFAULT_RUNTIME_COPY,
+  scene,
   state
 }: ThreeDLabCanvasProps) {
   const showAuthoringControls = presentation === "authoring";
@@ -554,7 +565,9 @@ export function ThreeDLabCanvas({
   const readyFrameRef = useRef<number | null>(null);
   const surfaceRef = useRef<HTMLDivElement | null>(null);
   const webglCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const activeSceneFamilyId = runtime === "mais-manim" ? manimSelectedSceneFamilyId : state.familyId;
+  const activeSceneFamilyId = runtime === "mais-manim"
+    ? scene?.familyId ?? manimSelectedSceneFamilyId
+    : state.familyId;
   const sceneVariant = sceneVariantForThreeDFamily(activeSceneFamilyId);
   const sceneMetadata = threeDSceneVariantMetadata[sceneVariant];
   const formulaText = formulaForThreeDScene(state.familyId, state.templateId);
@@ -563,8 +576,12 @@ export function ThreeDLabCanvas({
     [manimSelectedSceneFamilyId, state]
   );
   const manimScene = useMemo(
-    () => (runtime === "mais-manim" ? buildMathSceneSpecForThreeDFamily({ accent, state: selectedManimSceneState }) : null),
-    [accent, runtime, selectedManimSceneState]
+    () => (
+      runtime === "mais-manim"
+        ? scene ?? buildMathSceneSpecForThreeDFamily({ accent, state: selectedManimSceneState })
+        : null
+    ),
+    [accent, runtime, scene, selectedManimSceneState]
   );
   // Building the full 27-family selector catalog synchronously blocked the
   // main thread for ~8-10 seconds per recompute (and `state` changes identity
@@ -576,7 +593,7 @@ export function ThreeDLabCanvas({
   const catalogStateRef = useRef(state);
   catalogStateRef.current = state;
   useEffect(() => {
-    if (runtime !== "mais-manim") {
+    if (runtime !== "mais-manim" || scene) {
       setManimSceneSelectorCatalog([]);
       return;
     }
@@ -606,7 +623,7 @@ export function ThreeDLabCanvas({
     return () => {
       cancelled = true;
     };
-  }, [accent, runtime]);
+  }, [accent, runtime, scene]);
   const manimCameraShotCatalog = useMemo(() => (manimScene ? buildCameraShotCatalog(manimScene) : []), [manimScene]);
   const manimParameterPanelCatalog = useMemo(() => (manimScene ? buildParameterPanelCatalog(manimScene) : []), [manimScene]);
   const activeManimParameterId = useMemo(
@@ -9239,6 +9256,11 @@ export function ThreeDLabCanvas({
             activeConceptIds={manimFormulaLayerActiveIds}
             projectedLabelViewport={manimFormulaOverlayViewport}
             projectedLabelViewportSource={manimFormulaOverlayViewportSource}
+            runtimeCopy={{
+              formulaAriaLabel: runtimeCopy.formulaAriaLabel,
+              regionAriaLabel: runtimeCopy.formulaRegionAriaLabel,
+              tokenMapsTo: runtimeCopy.tokenMapsTo,
+            }}
             runtimeState={manimRuntimeState ?? undefined}
             scene={manimScene}
           />
@@ -11154,12 +11176,12 @@ export function ThreeDLabCanvas({
               onClick={toggleManimPlayback}
               className="focus-ring rounded-xl bg-cyan-200 px-2.5 py-1.5 text-slate-950 shadow-sm shadow-cyan-200/20 transition hover:bg-cyan-100"
             >
-              {manimPlaybackState === "playing" ? "Pause" : "Play"}
+              {manimPlaybackState === "playing" ? runtimeCopy.pause : runtimeCopy.play}
             </button>
             <div
               data-viz-manim-timeline-scrubber
               role="slider"
-              aria-label="MAIS Manim timeline"
+              aria-label={runtimeCopy.timelineAriaLabel}
               aria-valuemin={0}
               aria-valuemax={1000}
               aria-valuenow={Math.round(manimScrubProgress * 1000)}

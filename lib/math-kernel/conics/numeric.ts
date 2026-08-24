@@ -110,9 +110,24 @@ function containsOnlyFiniteNumbers(value: unknown): boolean {
   return true;
 }
 
+function normalizeNegativeZero<T>(value: T): T {
+  if (typeof value === "number") {
+    return (Object.is(value, -0) ? 0 : value) as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map(normalizeNegativeZero) as T;
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, normalizeNegativeZero(entry)]),
+    ) as T;
+  }
+  return value;
+}
+
 function finiteModel<T extends ConicModel<number>>(model: T): KernelResult<T> {
   return containsOnlyFiniteNumbers(model)
-    ? { ok: true, value: model }
+    ? { ok: true, value: normalizeNegativeZero(model) }
     : unsafeDerived("derived conic model");
 }
 

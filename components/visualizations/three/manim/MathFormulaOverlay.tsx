@@ -26,11 +26,35 @@ import { buildTexColorizedFormula, serializeTexColorizedFormula, texColorizedFor
 import type { MathSceneRuntimeState } from "./mathSceneRuntimeState";
 import type { MathSceneSpec } from "./mathSceneTypes";
 
+export type MathFormulaOverlayRuntimeCopy = {
+  readonly formulaAriaLabel: string;
+  readonly regionAriaLabel: string;
+  readonly tokenMapsTo: string;
+};
+
+const DEFAULT_RUNTIME_COPY: MathFormulaOverlayRuntimeCopy = Object.freeze({
+  formulaAriaLabel: "MAIS Manim formula",
+  regionAriaLabel: "Scrollable MAIS Manim formula",
+  tokenMapsTo: "maps to",
+});
+
+function FormulaTokenText({ text }: { readonly text: string }) {
+  if (!text.includes("\\")) return <>{text}</>;
+  return (
+    <MathText
+      text={text}
+      renderBareMath
+      normalizeMath={false}
+    />
+  );
+}
+
 export function MathFormulaOverlay({
   activeConceptId,
   activeConceptIds = [],
   projectedLabelViewport = { width: 800, height: 450 },
   projectedLabelViewportSource = "fallback",
+  runtimeCopy = DEFAULT_RUNTIME_COPY,
   runtimeState,
   scene
 }: {
@@ -38,6 +62,7 @@ export function MathFormulaOverlay({
   activeConceptIds?: string[];
   projectedLabelViewport?: ProjectionViewport;
   projectedLabelViewportSource?: "fallback" | "measured";
+  runtimeCopy?: MathFormulaOverlayRuntimeCopy;
   runtimeState?: MathSceneRuntimeState;
   scene: MathSceneSpec;
 }) {
@@ -120,7 +145,7 @@ export function MathFormulaOverlay({
         data-viz-three-formula
         data-viz-manim-formula={formula.id}
         data-viz-manim-formula-overlay
-        aria-label="Scrollable MAIS Manim formula"
+        aria-label={runtimeCopy.regionAriaLabel}
         role="region"
         tabIndex={0}
         data-viz-manim-formula-id={formula.id}
@@ -174,7 +199,12 @@ export function MathFormulaOverlay({
             : undefined
         }}
       >
-        <MathText text={colorizedFormula.latex} ariaLabel="MAIS Manim formula" normalizeMath={false} />
+        <MathText
+          text={colorizedFormula.latex}
+          ariaLabel={runtimeCopy.formulaAriaLabel}
+          renderBareMath
+          normalizeMath={false}
+        />
         <span aria-hidden="true" data-viz-manim-formula-svg={formula.id} className="sr-only" />
         <script
           type="application/json"
@@ -206,7 +236,7 @@ export function MathFormulaOverlay({
           {formula.tokens.map((token) => (
             <span
               key={token.id}
-              aria-label={token.ariaLabel}
+              aria-label={`${token.text} ${runtimeCopy.tokenMapsTo} ${token.conceptId}`}
               data-viz-manim-formula-token={token.id}
               data-viz-manim-concept-id={token.conceptId}
               data-viz-manim-token-active={String(token.active)}
@@ -220,7 +250,7 @@ export function MathFormulaOverlay({
                 token.active ? "bg-cyan-300 text-slate-950" : "bg-white/10 text-cyan-100"
               }`}
             >
-              {token.text}
+              <FormulaTokenText text={token.text} />
             </span>
           ))}
         </div>
@@ -259,7 +289,7 @@ export function MathFormulaOverlay({
               transform: placement.transform
             }}
           >
-            {label.text}
+            <FormulaTokenText text={label.text} />
           </span>
           );
         })}

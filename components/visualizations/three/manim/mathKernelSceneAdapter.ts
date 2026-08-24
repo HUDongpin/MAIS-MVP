@@ -27,6 +27,7 @@ import type {
   AnimationStep,
   AxisRangeSpec,
   MathObjectSpec,
+  MathSceneParameterSpec,
   MathSceneSpec,
   Vec3,
 } from "./mathSceneTypes";
@@ -48,6 +49,7 @@ export interface BodyMathKernelSceneInput {
   >;
   readonly formula: ExactValueDto;
   readonly scale?: number;
+  readonly parameters?: readonly MathSceneParameterSpec[];
   readonly teaching: MathKernelTeachingInput;
 }
 
@@ -55,6 +57,7 @@ export interface ConicMathKernelSceneInput {
   readonly kind: "conic";
   readonly model: ConicRenderSpec;
   readonly equation: ExactValueDto;
+  readonly parameters?: readonly MathSceneParameterSpec[];
   readonly teaching: MathKernelTeachingInput;
 }
 
@@ -71,6 +74,7 @@ export interface GeometryMathKernelSceneInput {
   readonly topology: BodyTopology;
   /** References world-space renderPoints already present in the solution DTO. */
   readonly vectors?: readonly GeometrySceneVectorInput[];
+  readonly parameters?: readonly MathSceneParameterSpec[];
   readonly teaching: MathKernelTeachingInput;
 }
 
@@ -88,6 +92,7 @@ export interface AnalyticMathKernelSceneInput {
     /** Explicit geometry companions computed upstream; the adapter never derives them. */
     readonly segments: readonly AnalyticSceneSegmentInput[];
   };
+  readonly parameters?: readonly MathSceneParameterSpec[];
   readonly teaching: MathKernelTeachingInput;
 }
 
@@ -383,30 +388,14 @@ function sceneBounds(points: readonly Vec3[]): KernelResult<AxisRangeSpec> {
 function sceneTimeline(
   objects: readonly MathObjectSpec[],
   explanationKeys: readonly string[],
+  focusConceptId?: string,
 ): AnimationStep[] {
   const timeline: AnimationStep[] = [];
   for (const object of objects) {
-    if (object.type === "parametricCurve") {
-      timeline.push({
-        type: "revealCurve",
-        objectId: object.id,
-        duration: 0.45,
-        easing: "smooth",
-      });
-    } else if (object.type === "vector") {
-      timeline.push({
-        type: "growFromCenter",
-        objectId: object.id,
-        duration: 0.4,
-        easing: "smooth",
-      });
-    } else if (object.type === "movingPoint") {
-      timeline.push({
-        type: "fadeInObject",
-        objectId: object.id,
-        duration: 0.25,
-        easing: "smooth",
-      });
+    // Learner presentation intentionally starts paused. Curves and vectors
+    // therefore remain fully visible at t=0 instead of being hidden behind a
+    // reveal/grow animation that the learner has not yet pressed Play to run.
+    if (object.type === "movingPoint") {
       timeline.push({
         type: "moveAlongPath",
         objectId: object.id,
@@ -418,7 +407,94 @@ function sceneTimeline(
   for (const note of explanationKeys) {
     timeline.push({ type: "wait", duration: 0.4, note });
   }
+  if (focusConceptId) {
+    timeline.push({ type: "highlight", conceptId: focusConceptId, duration: 0.8 });
+  }
   return timeline;
+}
+
+interface SemanticFormulaTarget {
+  readonly conceptId: string;
+  readonly objectId: string;
+  readonly tokenText: string;
+}
+
+function validateSceneParameters(
+  value: readonly MathSceneParameterSpec[] | undefined,
+): KernelResult<MathSceneParameterSpec[]> {
+  if (value === undefined) return { ok: true, value: [] };
+  if (!Array.isArray(value)) {
+    return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameters must be an array.");
+  }
+  const seen = new Set<string>();
+  const parameters: MathSceneParameterSpec[] = [];
+  for (const candidate of value) {
+    if (!isPlainRecord(candidate)) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Every scene parameter must be a plain object.");
+    }
+    const id = validateSafeId(candidate.id, "scene parameter id");
+    if (!id.ok) return id;
+    if (seen.has(id.value)) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameter ids must be unique.");
+    }
+    seen.add(id.value);
+    const label = candidate.label;
+    const role = candidate.role;
+    const parameterValue = candidate.value;
+    const min = candidate.min;
+    const max = candidate.max;
+    if (
+      typeof label !== "string" ||
+      label.trim().length === 0 ||
+      label.length > 160
+    ) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameter labels must be non-empty and bounded.");
+    }
+    if (
+      role !== "control" &&
+      role !== "derived" &&
+      role !== "timeline"
+    ) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameters require a supported role.");
+    }
+    if (typeof parameterValue !== "number" || !Number.isFinite(parameterValue)) {
+      return fail(KERNEL_ERROR_CODES.nonFiniteInput, "Scene parameter values must be finite.");
+    }
+    for (const bound of [min, max]) {
+      if (bound !== undefined && (typeof bound !== "number" || !Number.isFinite(bound))) {
+        return fail(KERNEL_ERROR_CODES.nonFiniteInput, "Scene parameter bounds must be finite.");
+      }
+    }
+    if (
+      typeof min === "number" &&
+      typeof max === "number" &&
+      min > max
+    ) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameter bounds must be ordered.");
+    }
+    if (
+      (typeof min === "number" && parameterValue < min) ||
+      (typeof max === "number" && parameterValue > max)
+    ) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Scene parameter values must lie within their bounds.");
+    }
+    let conceptId: string | undefined;
+    if (candidate.conceptId !== undefined) {
+      const validatedConcept = validateSafeId(candidate.conceptId, "scene parameter conceptId");
+      if (!validatedConcept.ok) return validatedConcept;
+      conceptId = validatedConcept.value;
+    }
+    parameters.push({
+      ...(conceptId === undefined ? {} : { conceptId }),
+      id: id.value,
+      label,
+      ...(typeof max === "number" ? { max } : {}),
+      ...(typeof min === "number" ? { min } : {}),
+      role,
+      value: Object.is(parameterValue, -0) ? 0 : parameterValue,
+    });
+  }
+  return { ok: true, value: parameters };
 }
 
 function assembleScene(
@@ -426,6 +502,10 @@ function assembleScene(
   objects: MathObjectSpec[],
   latex: string,
   teaching: MathKernelTeachingInput,
+  options: {
+    readonly parameters?: readonly MathSceneParameterSpec[];
+    readonly semanticFormulaTarget?: SemanticFormulaTarget;
+  } = {},
 ): KernelResult<MathSceneSpec> {
   if (objects.length === 0) {
     return fail(KERNEL_ERROR_CODES.invalidInput, "The adapter produced no scene objects.");
@@ -447,28 +527,33 @@ function assembleScene(
   if (!isFiniteVec3(position)) {
     return fail(KERNEL_ERROR_CODES.nonFiniteInput, "Camera coordinates must be finite.");
   }
+  const parameters = validateSceneParameters(options.parameters);
+  if (!parameters.ok) return parameters;
 
   const formulaId = "math-kernel-result-formula";
   const tokenId = "math-kernel-result-token";
-  const formulaConcept = teaching.titleKey;
+  const formulaConcept = options.semanticFormulaTarget?.conceptId ?? teaching.titleKey;
+  const bindings = options.semanticFormulaTarget === undefined ? [] : [{
+    conceptId: options.semanticFormulaTarget.conceptId,
+    formulaId,
+    objectId: options.semanticFormulaTarget.objectId,
+    tokenId,
+  }];
   const familyId = kind === "conic" || kind === "analytic"
     ? "three-conic-sections-deep"
     : "three-space-vectors-lines-planes";
   const scene: MathSceneSpec = {
-    bindings: [{
-      anchorName: "top",
-      conceptId: formulaConcept,
-      formulaId,
-      objectId: objects[0].id,
-      tokenId,
-    }],
+    // The authoritative result remains screen-fixed. A binding is emitted only
+    // when the caller supplied an explicit semantic vector/chord target; it is
+    // never attached to an arbitrary first edge or curve.
+    bindings,
     cameraShots: [{ id: "math-kernel-default-camera", position, target: center }],
     coordinateSpace: {
       mathRange: { x: [...x], y: [...y], z: [...z] },
       worldRange: { x: [...x], y: [...y], z: [...z] },
     },
     diagnostics: {
-      expectedBindingCount: 1,
+      expectedBindingCount: bindings.length,
       expectedObjectCount: objects.length,
       expectedTokenCount: 1,
     },
@@ -476,11 +561,20 @@ function assembleScene(
     formulas: [{
       id: formulaId,
       latex,
-      tokens: [{ conceptId: formulaConcept, id: tokenId, text: latex }],
+      tokens: [{
+        conceptId: formulaConcept,
+        id: tokenId,
+        text: options.semanticFormulaTarget?.tokenText ?? latex,
+      }],
     }],
     objects,
+    ...(parameters.value.length === 0 ? {} : { parameters: parameters.value }),
     sceneId: `math-kernel-${kind}-${teaching.locale}`,
-    timeline: sceneTimeline(objects, teaching.explanationKeys),
+    timeline: sceneTimeline(
+      objects,
+      teaching.explanationKeys,
+      options.semanticFormulaTarget?.conceptId,
+    ),
   };
   return { ok: true, value: deepFreeze(scene) };
 }
@@ -529,7 +623,9 @@ function adaptBody(
     colorRole: "function",
     conceptId: "body-edge",
   }));
-  return assembleScene("body", objects, formula.value.latex, teaching);
+  return assembleScene("body", objects, formula.value.latex, teaching, {
+    parameters: input.parameters,
+  });
 }
 
 function adaptConic(
@@ -545,6 +641,7 @@ function adaptConic(
     conicObjects(model.value, "conic"),
     equation.value.latex,
     teaching,
+    { parameters: input.parameters },
   );
 }
 
@@ -636,7 +733,17 @@ function adaptGeometry(
       conceptId: vector.conceptId,
     });
   }
-  return assembleScene("geometry", objects, model.value.answer.latex, teaching);
+  const semanticVector = objects.find((object) => object.type === "vector");
+  return assembleScene("geometry", objects, model.value.answer.latex, teaching, {
+    parameters: input.parameters,
+    semanticFormulaTarget: semanticVector && semanticVector.type === "vector"
+      ? {
+          conceptId: semanticVector.conceptId,
+          objectId: semanticVector.id,
+          tokenText: "\\theta",
+        }
+      : undefined,
+  });
 }
 
 function validateAnalyticRangeSolution(
@@ -716,10 +823,21 @@ function adaptAnalytic(
         [segment.to[0], segment.to[1], 0],
       ],
       colorRole: "probe",
-      conceptId: "analytic-companion",
+      conceptId: `analytic-segment-${id.value}`,
     });
   }
-  return assembleScene("analytic", objects, model.value.intervalLatex, teaching);
+  const semanticSegment = objects.find((object) => object.id.startsWith("analytic-segment-"));
+  return assembleScene("analytic", objects, model.value.intervalLatex, teaching, {
+    parameters: input.parameters,
+    semanticFormulaTarget:
+      semanticSegment && semanticSegment.type === "parametricCurve"
+        ? {
+            conceptId: semanticSegment.conceptId,
+            objectId: semanticSegment.id,
+            tokenText: "L",
+          }
+        : undefined,
+  });
 }
 
 /** Translate a validated kernel DTO into the existing renderer-neutral scene contract. */

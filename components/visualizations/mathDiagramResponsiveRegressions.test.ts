@@ -25,8 +25,13 @@ test("long visualization formulas remain keyboard-accessible instead of being cl
   const overlay = source("components/visualizations/three/manim/MathFormulaOverlay.tsx");
   const card = source("components/visualizations/VisualizationCard.tsx");
 
-  for (const [name, value] of [["3D formula", canvas], ["Manim formula", overlay], ["card formula", card]] as const) {
+  for (const [name, value] of [["3D formula", canvas], ["card formula", card]] as const) {
     assert.match(value, /aria-label="Scrollable [^"]+ formula"/u, `${name} needs an accessible scroll-region name`);
+  }
+  assert.match(overlay, /aria-label=\{runtimeCopy\.regionAriaLabel\}/u);
+  assert.match(overlay, /regionAriaLabel: "Scrollable [^"]+ formula"/u);
+
+  for (const [name, value] of [["3D formula", canvas], ["Manim formula", overlay], ["card formula", card]] as const) {
     assert.match(value, /role="region"/u, `${name} needs region semantics`);
     assert.match(value, /tabIndex=\{0\}/u, `${name} must be keyboard focusable`);
     assert.match(value, /overflow-(?:x-)?auto/u, `${name} must preserve the full long formula`);

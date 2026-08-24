@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { VisualizationTemplateId } from "../visualizationTemplateIds";
+import type { MathSceneSpec } from "./manim/mathSceneTypes";
 
 export const threeDFamilyIds = [
   "three-number-line",
@@ -66,6 +67,15 @@ export type ThreeDVisualizationMetadata = {
 export type ThreeDCanvasRuntime = "primitive" | "mais-manim";
 export type ThreeDPresentation = "authoring" | "learner";
 
+export type ThreeDLabRuntimeCopy = {
+  readonly formulaAriaLabel: string;
+  readonly formulaRegionAriaLabel: string;
+  readonly pause: string;
+  readonly play: string;
+  readonly timelineAriaLabel: string;
+  readonly tokenMapsTo: string;
+};
+
 export type ThreeDControlState = {
   comparison: number;
   mode: number;
@@ -103,5 +113,9 @@ export type ThreeDLabCanvasProps = {
   premiumLaunch?: boolean;
   regionalPriority?: ThreeDRegionalPriority;
   runtime?: ThreeDCanvasRuntime;
+  /** Optional localized learner-control and formula accessibility copy. */
+  runtimeCopy?: ThreeDLabRuntimeCopy;
+  /** Optional validated scene supplied by a client-safe MAIS adapter. */
+  scene?: MathSceneSpec;
   state: ThreeDStateSummary;
 };
