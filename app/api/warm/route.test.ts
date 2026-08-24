@@ -1,15 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-
-type WarmRouteDependencies = {
-  getStorageReadinessSnapshot: () => Promise<{ durableReady?: boolean } | null>;
-  now?: () => number;
-  readCronSecret: () => string | undefined;
-};
-
-type WarmRouteFactory = (
-  dependencies: WarmRouteDependencies
-) => (request: Request) => Promise<Response>;
+import { createWarmRouteHandler } from "./handler";
 
 function assertPrivateNoStore(response: Response) {
   const cacheControl = response.headers.get("cache-control") ?? "";
@@ -17,15 +8,12 @@ function assertPrivateNoStore(response: Response) {
   assert.match(cacheControl, /\bno-store\b/iu);
 }
 
-test("warm handler is private, fail-closed, and never probes storage without valid cron authorization", async () => {
-  const route = await import("./route") as Record<string, unknown>;
-  assert.equal(
-    typeof route.createWarmRouteHandler,
-    "function",
-    "the route must expose a production dependency boundary for read-only handler tests"
-  );
-  const createWarmRouteHandler = route.createWarmRouteHandler as WarmRouteFactory;
+test("warm route exposes only Next-supported route exports", async () => {
+  const route = await import("./route");
+  assert.deepEqual(Object.keys(route).sort(), ["GET", "dynamic", "runtime"]);
+});
 
+test("warm handler is private, fail-closed, and never probes storage without valid cron authorization", async () => {
   let probeCalls = 0;
   const missingSecretHandler = createWarmRouteHandler({
     getStorageReadinessSnapshot: async () => {
@@ -57,9 +45,6 @@ test("warm handler is private, fail-closed, and never probes storage without val
 });
 
 test("authorized warm handler exposes only a stable scalar readiness result", async () => {
-  const route = await import("./route") as Record<string, unknown>;
-  assert.equal(typeof route.createWarmRouteHandler, "function");
-  const createWarmRouteHandler = route.createWarmRouteHandler as WarmRouteFactory;
   const request = new Request("https://mais.example/api/warm", {
     headers: { authorization: "Bearer expected-secret" }
   });

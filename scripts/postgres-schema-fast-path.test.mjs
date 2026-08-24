@@ -4,6 +4,9 @@ import test from "node:test";
 
 const userStoreSource = readFileSync("lib/server/userStore.ts", "utf8");
 const warmRouteSource = readFileSync("app/api/warm/route.ts", "utf8");
+const warmHandlerSource = readFileSync("app/api/warm/handler.ts", "utf8");
+const storageHealthRouteSource = readFileSync("app/api/admin/storage/health/route.ts", "utf8");
+const storageHealthHandlerSource = readFileSync("app/api/admin/storage/health/handler.ts", "utf8");
 const storageAdminSource = readFileSync("scripts/storage-admin-snapshot-merge.mjs", "utf8");
 
 function sourceSection(source, startMarker, endMarker) {
@@ -14,7 +17,12 @@ function sourceSection(source, startMarker, endMarker) {
   return source.slice(start, end);
 }
 
-test("warm route has a read-only dependency boundary and never invokes the schema initializer", () => {
+function exportedConstNames(source) {
+  return [...source.matchAll(/\bexport\s+const\s+([A-Za-z_$][A-Za-z0-9_$]*)/gu)]
+    .map((match) => match[1]);
+}
+
+test("warm handler has a read-only dependency boundary and never invokes the schema initializer", () => {
   const verifierSource = sourceSection(
     userStoreSource,
     "async function runPostgresDurableReadinessWithinDeadline(",
@@ -26,10 +34,10 @@ test("warm route has a read-only dependency boundary and never invokes the schem
   );
   assert.match(verifierSource, /probePostgresDurableReadinessStrict\(/);
   assert.doesNotMatch(verifierSource, /SELECT\s+(?:state\.)?payload\b|FOR\s+UPDATE/i);
-  assert.match(warmRouteSource, /export function createWarmRouteHandler\(/);
-  assert.match(warmRouteSource, /if \(!secret\)[\s\S]*status: 503/);
-  assert.match(warmRouteSource, /Cache-Control["']?: ["']private, no-store, max-age=0["']/);
-  assert.doesNotMatch(warmRouteSource, /ensurePostgresStateTable|bootstrapPostgresStateTables/);
+  assert.match(warmHandlerSource, /export function createWarmRouteHandler\(/);
+  assert.match(warmHandlerSource, /if \(!secret\)[\s\S]*status: 503/);
+  assert.match(warmHandlerSource, /Cache-Control["']?: ["']private, no-store, max-age=0["']/);
+  assert.doesNotMatch(warmHandlerSource, /ensurePostgresStateTable|bootstrapPostgresStateTables/);
   const boundedProbeSource = sourceSection(
     userStoreSource,
     "async function withBoundedPostgresReadinessTransaction",
@@ -41,6 +49,37 @@ test("warm route has a read-only dependency boundary and never invokes the schem
   const timeoutIndex = boundedProbeSource.indexOf("set_config('lock_timeout', '1000ms', true)");
   assert.notEqual(readOnlyIndex, -1);
   assert.equal(readOnlyIndex < timeoutIndex, true, "read-only mode must precede every probe query");
+});
+
+test("readiness route modules only assemble server handlers through Next-supported exports", () => {
+  assert.deepEqual(exportedConstNames(storageHealthRouteSource), ["runtime", "GET"]);
+  assert.match(
+    storageHealthRouteSource,
+    /import \{ createStorageHealthRouteHandler \} from ["']\.\/handler["']/u
+  );
+  assert.match(storageHealthRouteSource, /export const GET = createStorageHealthRouteHandler\(\{/u);
+  assert.doesNotMatch(
+    storageHealthRouteSource,
+    /\bexport\s+(?:async\s+)?function\b|\bexport\s+(?:type|interface|class)\b|NextResponse|privateNoStoreHeaders|storageHealthSafeDto/u
+  );
+  assert.match(storageHealthHandlerSource, /export function createStorageHealthRouteHandler\(/u);
+  assert.match(
+    storageHealthHandlerSource,
+    /Cache-Control["']?: ["']private, no-store, max-age=0["']/u
+  );
+  assert.match(storageHealthHandlerSource, /function storageHealthSafeDto\(/u);
+
+  assert.deepEqual(exportedConstNames(warmRouteSource), ["runtime", "dynamic", "GET"]);
+  assert.match(
+    warmRouteSource,
+    /import \{ createWarmRouteHandler \} from ["']\.\/handler["']/u
+  );
+  assert.match(warmRouteSource, /export const GET = createWarmRouteHandler\(\{/u);
+  assert.doesNotMatch(
+    warmRouteSource,
+    /\bexport\s+(?:async\s+)?function\b|\bexport\s+(?:type|interface|class)\b|NextResponse|privateNoStoreHeaders/u
+  );
+  assert.match(warmHandlerSource, /export function createWarmRouteHandler\(/u);
 });
 
 test("userStore wires the migration marker probe ahead of the schema bootstrap", () => {

@@ -1,9 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createStorageHealthRouteHandler } from "@/app/api/admin/storage/health/route";
+import { createStorageHealthRouteHandler } from "@/app/api/admin/storage/health/handler";
 
 const privateNoStore = "private, no-store, max-age=0";
+
+test("storage-health route exposes only Next-supported route exports", async () => {
+  const route = await import("./route");
+  assert.deepEqual(Object.keys(route).sort(), ["GET", "runtime"]);
+});
 
 test("anonymous storage-health requests are private and never run diagnostics", async () => {
   let diagnosticsCalled = false;
