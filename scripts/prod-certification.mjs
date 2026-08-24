@@ -1,29 +1,26 @@
 #!/usr/bin/env node
-// Production certification — Phase 1.
-// Tier 0 (infrastructure) + Tier 1 (unauthenticated surface) checks against the live
-// production domains, plus the four deploy-time smokes (auth precheck, dashboard
-// latency, dashboard UI loading, AI-Tutor live latency) composed into a single
-// on-demand verdict: CERTIFIED / CERTIFIED_WITH_FINDINGS / FAILED.
+// Production certification — Phase 1, strictly read-only.
+// Tier 0 (infrastructure), Tier 1 (unauthenticated surface), parent/login contracts,
+// and explicit release-binding probes compose one point-in-time verdict.
 //
 // Usage:
-//   npm run certify:production                 # full run (includes demo-login smokes)
-//   node scripts/prod-certification.mjs --skip-smokes --skip-browser
-//   node scripts/prod-certification.mjs --json --out .tmp/prod-certification
+//   npm run certify:production -- --candidate-sha <40-hex> --deployment-id <dpl_id> \
+//     --deployment-url https://<deployment>.vercel.app --build-id <next-build-id>
+//   node scripts/prod-certification.mjs <binding args> --skip-browser --json
 //
-// Verdict policy: a P0 check failing fails certification; P1 failures and warnings
-// downgrade to CERTIFIED_WITH_FINDINGS. Exit code is 1 only on FAILED (use --strict
-// to also exit 1 on findings). A smoke gets one retry; passing only on retry is
-// reported as a warning, never a clean pass.
+// Verdict policy: a P0 failure fails certification; every other failure, warning,
+// or skip downgrades to CERTIFIED_WITH_FINDINGS. Strict mode is the non-disableable
+// default, so both FAILED and CERTIFIED_WITH_FINDINGS exit nonzero.
 //
-// Write footprint of a full run (all via the hardcoded demo smoke account):
-// demo logins from the dashboard/AI-Tutor smokes plus one AI-Tutor message round-trip.
-// Tier 0/1 checks are read-only.
+// Remote write footprint: none. This script issues only GET/HEAD requests and never
+// authenticates. The write-authorization arguments establish a fail-closed contract
+// for future, separate synthetic-family probes; Phase 1 executes no write probe.
 
 import dns from "node:dns/promises";
 import fs from "node:fs";
 import path from "node:path";
 import tls from "node:tls";
-import { spawn } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -56,39 +53,10 @@ export const BUDGETS = {
   maxAssetsPerPage: 60
 };
 
-// The four deploy-time smokes, unchanged, composed by path. Dashboard smokes target
-// .ac and the AI-Tutor smoke targets .hk so authenticated coverage lands on both
-// domains, matching the deploy pipeline's split.
-const SMOKES = [
-  {
-    id: "smoke-auth-precheck",
-    argv: ["scripts/dashboard-smoke-auth-precheck.mjs", "--json"],
-    severity: "P0",
-    timeoutMs: 30_000
-  },
-  {
-    id: "smoke-dashboard-latency",
-    argv: ["scripts/dashboard-latency-smoke.mjs", "--base-url", "https://www.mais.ac", "--json"],
-    severity: "P0",
-    timeoutMs: 240_000
-  },
-  {
-    id: "smoke-dashboard-ui-loading",
-    argv: ["scripts/dashboard-ui-loading-smoke.mjs", "--base-url", "https://www.mais.ac", "--json"],
-    severity: "P0",
-    timeoutMs: 300_000
-  },
-  {
-    id: "smoke-ai-tutor-live",
-    argv: ["scripts/ai-tutor-live-latency-smoke.mjs", "--base-url", "https://www.mais.hk", "--json"],
-    severity: "P0",
-    timeoutMs: 300_000,
-    // The sandbox egress proxy has historically timed out this smoke while the site
-    // itself was healthy; a network-layer failure downgrades to an inconclusive
-    // warning instead of failing certification outright.
-    environmentalOk: true
-  }
-];
+const CANDIDATE_SHA_PATTERN = /^[a-f0-9]{40}$/u;
+const DEPLOYMENT_ID_PATTERN = /^dpl_[A-Za-z0-9]{8,128}$/u;
+const BUILD_ID_PATTERN = /^[A-Za-z0-9_-]{8,128}$/u;
+const SYNTHETIC_FAMILY_ID_PATTERN = /^mais-synthetic-family-[a-z0-9][a-z0-9-]{2,63}$/u;
 
 export function evaluateBudget(value, warnAt, failAt) {
   if (value > failAt) return "fail";
@@ -104,10 +72,18 @@ export function extractNextAssets(html) {
   return [...assets].sort();
 }
 
-export function classifySmokeFailure(outputText) {
-  const environmental =
-    /request-timeout|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENOTFOUND|EAI_AGAIN|fetch failed|UND_ERR|HeadersTimeoutError|socket hang up/i;
-  return environmental.test(outputText) ? "environmental" : "real";
+export function classifyWarmProbeStatus(status) {
+  return status === 401 ? "pass" : "fail";
+}
+
+export function inspectCacheCookieContract(headers, { requirePrivate = false } = {}) {
+  const cacheControl = (headers.get("cache-control") ?? "").toLowerCase();
+  const directives = new Set(cacheControl.split(",").map((value) => value.trim()).filter(Boolean));
+  const missing = [];
+  if (!directives.has("no-store")) missing.push("no-store");
+  if (requirePrivate && !directives.has("private")) missing.push("private");
+  if (headers.get("set-cookie")) missing.push("no-set-cookie");
+  return { ok: missing.length === 0, missing };
 }
 
 export function daysUntil(dateText) {
@@ -118,8 +94,7 @@ export function aggregateVerdict(results) {
   let findings = false;
   for (const result of results) {
     if (result.severity === "P0" && result.status === "fail") return "FAILED";
-    if (result.status === "fail" || result.status === "warn") findings = true;
-    if (result.severity === "P0" && result.status === "skip") findings = true;
+    if (result.status === "fail" || result.status === "warn" || result.status === "skip") findings = true;
   }
   return findings ? "CERTIFIED_WITH_FINDINGS" : "CERTIFIED";
 }
@@ -130,6 +105,9 @@ export function formatReportMarkdown(report) {
     "",
     `- Generated: ${report.generatedAt}`,
     `- Domains: ${report.domains.join(", ")}`,
+    `- Candidate SHA: ${report.releaseBinding.candidateSha}`,
+    `- Deployment: ${report.releaseBinding.deploymentId} (${report.releaseBinding.deploymentUrl})`,
+    `- Next BUILD_ID: ${report.releaseBinding.buildId}`,
     `- Checks: ${report.results.length} (pass ${count(report, "pass")}, warn ${count(report, "warn")}, fail ${count(report, "fail")}, skip ${count(report, "skip")})`,
     `- Write footprint: ${report.writeFootprint}`,
     "",
@@ -140,7 +118,10 @@ export function formatReportMarkdown(report) {
     const detail = String(result.detail ?? "").replaceAll("|", "\\|").replaceAll("\n", " ");
     lines.push(`| ${result.status.toUpperCase()} | ${result.severity} | ${result.id} | ${result.domain ?? "—"} | ${detail} |`);
   }
-  lines.push("", "Point-in-time sample of the promoted build. Content correctness is certified by CI, not by this run.");
+  lines.push(
+    "",
+    "Point-in-time read-only sample only. Deployment promotion, provider writes, and content correctness are not inferred by this run."
+  );
   return lines.join("\n");
 }
 
@@ -282,15 +263,17 @@ async function runTier0(domain, push) {
 
   try {
     const warmProbe = await fetchTimed(`${domain}/api/warm`, { timeoutMs: 30_000 });
-    // 200 when CRON_SECRET is unset, 401 when set — both prove the route is deployed.
-    const healthy = warmProbe.response.status === 200 || warmProbe.response.status === 401;
+    // Production requires CRON_SECRET. An unauthenticated read-only probe must be
+    // rejected with 401; 503 means missing configuration and 200 is fail-open.
+    const contract = inspectCacheCookieContract(warmProbe.response.headers, { requirePrivate: true });
+    const status = classifyWarmProbeStatus(warmProbe.response.status);
     push({
       id: "api-warm-endpoint",
       tier: 0,
       severity: "P1",
       domain,
-      status: healthy ? "pass" : "fail",
-      detail: `HTTP ${warmProbe.response.status} in ${warmProbe.ms}ms`
+      status: status === "pass" && contract.ok ? "pass" : "fail",
+      detail: `HTTP ${warmProbe.response.status} in ${warmProbe.ms}ms; ${contract.ok ? "private no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
   } catch (error) {
     push({ id: "api-warm-endpoint", tier: 0, severity: "P1", domain, status: "fail", detail: String(error) });
@@ -461,16 +444,58 @@ async function runTier1(domain, push) {
   try {
     const me = await fetchTimed(`${domain}/api/me`, { timeoutMs: 30_000 });
     const status = me.response.status;
+    const contract = inspectCacheCookieContract(me.response.headers);
     push({
       id: "unauth-api-me",
       tier: 1,
       severity: "P1",
       domain,
-      status: status === 401 || status === 403 ? "pass" : "fail",
-      detail: `HTTP ${status} unauthenticated (expect 401/403; 500 or 200 is a defect)`
+      status: (status === 401 || status === 403) && contract.ok ? "pass" : "fail",
+      detail: `HTTP ${status} unauthenticated; ${contract.ok ? "no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
     });
   } catch (error) {
     push({ id: "unauth-api-me", tier: 1, severity: "P1", domain, status: "fail", detail: String(error) });
+  }
+
+  try {
+    const foundation = await fetchTimed(`${domain}/api/parent/foundation`, {
+      timeoutMs: 30_000,
+      redirect: "manual"
+    });
+    const status = foundation.response.status;
+    const contract = inspectCacheCookieContract(foundation.response.headers, { requirePrivate: true });
+    push({
+      id: "unauth-parent-foundation",
+      tier: 1,
+      severity: "P0",
+      domain,
+      status: (status === 401 || status === 403) && contract.ok ? "pass" : "fail",
+      detail: `HTTP ${status}; ${contract.ok ? "private no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
+    });
+  } catch (error) {
+    push({ id: "unauth-parent-foundation", tier: 1, severity: "P0", domain, status: "fail", detail: String(error) });
+  }
+
+  try {
+    const parent = await fetchTimed(`${domain}/parent`, { timeoutMs: 30_000, redirect: "manual" });
+    const location = parent.response.headers.get("location") ?? "";
+    const target = location ? new URL(location, domain) : null;
+    const redirectedToLogin =
+      [302, 303, 307, 308].includes(parent.response.status) &&
+      target?.origin === domain &&
+      target.pathname === "/login" &&
+      target.searchParams.get("next") === "/parent";
+    const contract = inspectCacheCookieContract(parent.response.headers);
+    push({
+      id: "unauth-parent-entry",
+      tier: 1,
+      severity: "P0",
+      domain,
+      status: redirectedToLogin && contract.ok ? "pass" : "fail",
+      detail: `HTTP ${parent.response.status} to ${target?.pathname ?? "(missing)"}; ${contract.ok ? "no-store, no cookie" : `contract missing ${contract.missing.join(", ")}`}`
+    });
+  } catch (error) {
+    push({ id: "unauth-parent-entry", tier: 1, severity: "P0", domain, status: "fail", detail: String(error) });
   }
 }
 
@@ -534,106 +559,269 @@ async function runBrowserConsoleScan(domains, push) {
   }
 }
 
-function runCommand(argv, { timeoutMs, env }) {
-  return new Promise((resolve) => {
-    const child = spawn(process.execPath, argv, {
-      cwd: REPO_ROOT,
-      env: { ...process.env, ...env },
-      stdio: ["ignore", "pipe", "pipe"]
-    });
-    let output = "";
-    const append = (chunk) => {
-      output += String(chunk);
-      if (output.length > 100_000) output = output.slice(-100_000);
-    };
-    child.stdout.on("data", append);
-    child.stderr.on("data", append);
-    const timer = setTimeout(() => {
-      child.kill("SIGKILL");
-      output += "\n[prod-certification] smoke timed out and was killed";
-    }, timeoutMs);
-    child.on("close", (code) => {
-      clearTimeout(timer);
-      resolve({ code: code ?? 1, output });
-    });
-  });
+function readRequiredArgument(argv, index, flag) {
+  const value = argv[index + 1];
+  if (!value || value.startsWith("--")) throw new Error(`${flag} requires a value.`);
+  return value;
 }
 
-async function runSmokes(push) {
-  const smokeEnv = {
-    DASHBOARD_SMOKE_USE_DEMO_LOGIN: "1",
-    AI_TUTOR_LIVE_USE_DEMO_LOGIN: "1",
-    // The first authenticated request after idle can exceed the smokes' default
-    // per-request timeouts purely from serverless cold start; 60s separates
-    // "cold" from "down". Caller-set values win.
-    DASHBOARD_SMOKE_TIMEOUT_MS: process.env.DASHBOARD_SMOKE_TIMEOUT_MS ?? "60000",
-    DASHBOARD_UI_SMOKE_TIMEOUT_MS: process.env.DASHBOARD_UI_SMOKE_TIMEOUT_MS ?? "60000"
-  };
-  for (const smoke of SMOKES) {
-    console.error(`[prod-certification] running ${smoke.id}…`);
-    const startedAt = Date.now();
-    const first = await runCommand(smoke.argv, { timeoutMs: smoke.timeoutMs, env: smokeEnv });
-    let final = first;
-    let retried = false;
-    if (first.code !== 0) {
-      // One retry, always flagged in the result — a smoke that only passes warm
-      // is a finding, not a clean pass.
-      console.error(`[prod-certification] ${smoke.id} failed (exit ${first.code}) — retrying once…`);
-      retried = true;
-      final = await runCommand(smoke.argv, { timeoutMs: smoke.timeoutMs, env: smokeEnv });
-    }
-    const ms = Date.now() - startedAt;
-    const seconds = Math.round(ms / 1000);
-    const tail = final.output.trim().split("\n").slice(-4).join(" ⏎ ").slice(0, 400);
-    if (final.code === 0) {
-      push({
-        id: smoke.id,
-        tier: "smoke",
-        severity: smoke.severity,
-        status: retried ? "warn" : "pass",
-        detail: retried
-          ? `passed on retry in ${seconds}s (first attempt exit ${first.code} — likely cold start) — ${tail}`
-          : `exit 0 in ${seconds}s — ${tail}`,
-        ms
-      });
-    } else if (smoke.environmentalOk && classifySmokeFailure(`${first.output}\n${final.output}`) === "environmental") {
-      push({
-        id: smoke.id,
-        tier: "smoke",
-        severity: smoke.severity,
-        status: "warn",
-        detail: `environmentally inconclusive from this sandbox (network-layer failure on both attempts) — rerun outside the sandbox to confirm. Tail: ${tail}`,
-        ms
-      });
-    } else {
-      push({
-        id: smoke.id,
-        tier: "smoke",
-        severity: smoke.severity,
-        status: "fail",
-        detail: `exit ${final.code} in ${seconds}s${retried ? " (failed twice)" : ""} — ${tail}`,
-        ms
-      });
-    }
+function canonicalDeploymentUrl(value) {
+  try {
+    const url = new URL(value);
+    if (
+      url.protocol !== "https:" ||
+      url.username ||
+      url.password ||
+      url.pathname !== "/" ||
+      url.search ||
+      url.hash ||
+      !url.hostname.endsWith(".vercel.app")
+    ) return null;
+    return url.origin;
+  } catch {
+    return null;
   }
 }
 
+function validateReleaseBinding(releaseBinding) {
+  if (!CANDIDATE_SHA_PATTERN.test(releaseBinding.candidateSha ?? "")) {
+    throw new Error("--candidate-sha must be an exact 40-character hexadecimal commit SHA.");
+  }
+  if (!DEPLOYMENT_ID_PATTERN.test(releaseBinding.deploymentId ?? "")) {
+    throw new Error("--deployment-id must be an exact Vercel dpl_ identifier.");
+  }
+  const deploymentUrl = canonicalDeploymentUrl(releaseBinding.deploymentUrl ?? "");
+  if (!deploymentUrl) {
+    throw new Error("--deployment-url must be a canonical HTTPS *.vercel.app origin.");
+  }
+  if (!BUILD_ID_PATTERN.test(releaseBinding.buildId ?? "")) {
+    throw new Error("--build-id must be an 8-128 character Next BUILD_ID.");
+  }
+  return {
+    candidateSha: releaseBinding.candidateSha.toLowerCase(),
+    deploymentId: releaseBinding.deploymentId,
+    deploymentUrl,
+    buildId: releaseBinding.buildId
+  };
+}
+
+function validateWriteAuthorization(raw) {
+  const supplied = Boolean(raw.syntheticFamilyId || raw.writeTarget || raw.confirmation);
+  if (!raw.allowProductionWrites) {
+    if (supplied) throw new Error("Synthetic write arguments require --allow-production-writes.");
+    return { authorized: false };
+  }
+  if (!SYNTHETIC_FAMILY_ID_PATTERN.test(raw.syntheticFamilyId ?? "")) {
+    throw new Error("--allow-production-writes requires an exact --synthetic-test-family-id.");
+  }
+  if (!DOMAINS.includes(raw.writeTarget)) {
+    throw new Error("--allow-production-writes requires --write-target to equal an approved production origin.");
+  }
+  const expected = `ALLOW_SYNTHETIC_TEST_FAMILY_WRITES:${raw.syntheticFamilyId}@${raw.writeTarget}`;
+  if (raw.confirmation !== expected) {
+    throw new Error("--allow-production-writes requires the exact synthetic test-family confirmation for its target.");
+  }
+  return {
+    authorized: true,
+    target: raw.writeTarget,
+    syntheticFamilyConfirmed: true
+  };
+}
+
 export function parseArgs(argv) {
-  const args = { json: false, strict: false, skipSmokes: false, skipBrowser: false, out: null };
+  const args = {
+    json: false,
+    strict: true,
+    skipBrowser: false,
+    out: null,
+    readOnly: true,
+    releaseBinding: {},
+    rawWriteAuthorization: {
+      allowProductionWrites: false,
+      syntheticFamilyId: null,
+      writeTarget: null,
+      confirmation: null
+    }
+  };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
     if (argument === "--json") args.json = true;
     else if (argument === "--strict") args.strict = true;
-    else if (argument === "--skip-smokes") args.skipSmokes = true;
     else if (argument === "--skip-browser") args.skipBrowser = true;
-    else if (argument === "--out") args.out = argv[++index];
+    else if (argument === "--out") args.out = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--candidate-sha") args.releaseBinding.candidateSha = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--deployment-id") args.releaseBinding.deploymentId = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--deployment-url") args.releaseBinding.deploymentUrl = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--build-id") args.releaseBinding.buildId = readRequiredArgument(argv, index++, argument);
+    else if (argument === "--allow-production-writes") args.rawWriteAuthorization.allowProductionWrites = true;
+    else if (argument === "--synthetic-test-family-id") {
+      args.rawWriteAuthorization.syntheticFamilyId = readRequiredArgument(argv, index++, argument);
+    } else if (argument === "--write-target") {
+      args.rawWriteAuthorization.writeTarget = readRequiredArgument(argv, index++, argument);
+    } else if (argument === "--synthetic-test-family-confirmation") {
+      args.rawWriteAuthorization.confirmation = readRequiredArgument(argv, index++, argument);
+    }
     else throw new Error(`Unknown argument: ${argument}`);
   }
-  return args;
+  const releaseBinding = validateReleaseBinding(args.releaseBinding);
+  const writeAuthorization = validateWriteAuthorization(args.rawWriteAuthorization);
+  return {
+    json: args.json,
+    strict: args.strict,
+    skipBrowser: args.skipBrowser,
+    out: args.out,
+    readOnly: true,
+    releaseBinding,
+    writeAuthorization
+  };
+}
+
+export function validateLocalReleaseBindingEvidence(
+  releaseBinding,
+  { localSha, localBuildId, attestation }
+) {
+  if (localSha !== releaseBinding.candidateSha) {
+    throw new Error("Candidate binding failed: --candidate-sha does not equal the local release-source HEAD.");
+  }
+  if (localBuildId !== releaseBinding.buildId) {
+    throw new Error("Build binding failed: --build-id does not equal the local .next/BUILD_ID.");
+  }
+
+  const buildStartedAt = Date.parse(attestation?.buildStartedAt ?? "");
+  const completedAt = Date.parse(attestation?.completedAt ?? "");
+  const attestationMatches =
+    attestation?.schemaVersion === 1 &&
+    attestation.candidateSha === releaseBinding.candidateSha &&
+    attestation.buildId === releaseBinding.buildId &&
+    attestation.distDir === ".next" &&
+    attestation.sourceTreeClean === true &&
+    attestation.sourceTreeStable === true &&
+    Number.isFinite(buildStartedAt) &&
+    Number.isFinite(completedAt) &&
+    completedAt >= buildStartedAt;
+  if (!attestationMatches) {
+    throw new Error(
+      "Build binding failed: .next/mais-build-attestation.json must prove a clean, stable default build from the exact candidate SHA."
+    );
+  }
+
+  return {
+    ...releaseBinding,
+    localHeadMatched: true,
+    localBuildIdMatched: true,
+    localBuildAttestationMatched: true,
+    buildStartedAt: attestation.buildStartedAt,
+    completedAt: attestation.completedAt
+  };
+}
+
+function assertLocalReleaseBinding(releaseBinding) {
+  const localSha = execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8"
+  }).trim().toLowerCase();
+
+  let localBuildId;
+  let attestation;
+  try {
+    localBuildId = fs.readFileSync(path.join(REPO_ROOT, ".next", "BUILD_ID"), "utf8").trim();
+    attestation = JSON.parse(
+      fs.readFileSync(
+        path.join(REPO_ROOT, ".next", "mais-build-attestation.json"),
+        "utf8"
+      )
+    );
+  } catch {
+    throw new Error(
+      "Build binding failed: a fresh local .next/BUILD_ID and mais-build-attestation.json are required before certification."
+    );
+  }
+  return validateLocalReleaseBindingEvidence(releaseBinding, {
+    localSha,
+    localBuildId,
+    attestation
+  });
+}
+
+function responseBindingHeader(headers, names) {
+  for (const name of names) {
+    const value = headers.get(name)?.trim();
+    if (value) return value;
+  }
+  return null;
+}
+
+async function runLiveBuildBinding(releaseBinding, push) {
+  const origins = [releaseBinding.deploymentUrl, ...DOMAINS];
+  const candidateHeaders = [];
+  const deploymentHeaders = [];
+  for (const origin of origins) {
+    const manifestUrl = `${origin}/_next/static/${encodeURIComponent(releaseBinding.buildId)}/_buildManifest.js`;
+    try {
+      const result = await fetchTimed(manifestUrl, { timeoutMs: 30_000 });
+      const contentType = (result.response.headers.get("content-type") ?? "").toLowerCase();
+      const noCookie = !result.response.headers.get("set-cookie");
+      const healthy = result.response.ok && /javascript|text\/plain/u.test(contentType) && noCookie;
+      push({
+        id: "live-build-manifest-binding",
+        tier: 0,
+        severity: "P0",
+        domain: origin,
+        status: healthy ? "pass" : "fail",
+        detail: `HTTP ${result.response.status}; BUILD_ID path ${healthy ? "present with no cookie" : "failed content/cookie contract"}`
+      });
+
+      const cacheControl = (result.response.headers.get("cache-control") ?? "").toLowerCase();
+      push({
+        id: "live-build-manifest-cache",
+        tier: 0,
+        severity: "P1",
+        domain: origin,
+        status: /public|immutable|max-age=/u.test(cacheControl) && noCookie ? "pass" : "warn",
+        detail: noCookie ? "static response cookie-free; cache policy inspected" : "unexpected Set-Cookie on static build asset"
+      });
+
+      const candidate = responseBindingHeader(result.response.headers, [
+        "x-mais-candidate-sha",
+        "x-vercel-git-commit-sha"
+      ]);
+      const deployment = responseBindingHeader(result.response.headers, [
+        "x-mais-deployment-id",
+        "x-vercel-deployment-id"
+      ]);
+      if (candidate) candidateHeaders.push(candidate.toLowerCase());
+      if (deployment) deploymentHeaders.push(deployment);
+    } catch (error) {
+      push({
+        id: "live-build-manifest-binding",
+        tier: 0,
+        severity: "P0",
+        domain: origin,
+        status: "fail",
+        detail: String(error)
+      });
+    }
+  }
+
+  const candidateMismatch = candidateHeaders.some((value) => value !== releaseBinding.candidateSha);
+  const deploymentMismatch = deploymentHeaders.some((value) => value !== releaseBinding.deploymentId);
+  const metadataComplete = candidateHeaders.length > 0 && deploymentHeaders.length > 0;
+  push({
+    id: "live-release-metadata-binding",
+    tier: 0,
+    severity: "P0",
+    status: candidateMismatch || deploymentMismatch ? "fail" : metadataComplete ? "pass" : "warn",
+    detail: candidateMismatch || deploymentMismatch
+      ? "candidate or deployment response metadata mismatched the supplied binding"
+      : metadataComplete
+        ? "candidate SHA and deployment ID response metadata matched"
+        : "live response metadata did not expose both candidate SHA and deployment ID; BUILD_ID path evidence remains separate"
+  });
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  const releaseBinding = assertLocalReleaseBinding(args.releaseBinding);
   const results = [];
   const push = (result) => {
     results.push(result);
@@ -641,6 +829,15 @@ async function main() {
       `[prod-certification] ${result.status.toUpperCase().padEnd(4)} ${result.severity} ${result.id}${result.domain ? ` @ ${result.domain}` : ""} — ${result.detail}`
     );
   };
+
+  push({
+    id: "local-release-binding",
+    tier: 0,
+    severity: "P0",
+    status: "pass",
+    detail: "candidate SHA matched local HEAD and BUILD_ID matched the fresh local build"
+  });
+  await runLiveBuildBinding(releaseBinding, push);
 
   const homeHtmlByDomain = {};
   for (const domain of DOMAINS) {
@@ -660,19 +857,21 @@ async function main() {
     await runBrowserConsoleScan(DOMAINS.filter((domain) => homeHtmlByDomain[domain] !== null), push);
   }
 
-  if (!args.skipSmokes) {
-    await runSmokes(push);
-  }
-
   const verdict = aggregateVerdict(results);
   const report = {
     generatedAt: new Date().toISOString(),
     domains: DOMAINS,
     phase: 1,
-    flags: { skipSmokes: args.skipSmokes, skipBrowser: args.skipBrowser },
-    writeFootprint: args.skipSmokes
-      ? "none (read-only run)"
-      : "demo-account logins (dashboard smokes) + one AI-Tutor message round-trip",
+    flags: {
+      strict: args.strict,
+      readOnly: true,
+      skipBrowser: args.skipBrowser,
+      writeAuthorization: args.writeAuthorization
+    },
+    releaseBinding,
+    writeFootprint: args.writeAuthorization.authorized
+      ? "none (GET/HEAD only; synthetic-family authorization supplied but no write probe is implemented or executed in Phase 1)"
+      : "none (GET/HEAD only; no authentication and no mutating route)",
     results,
     verdict
   };
