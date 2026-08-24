@@ -24,9 +24,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
   const discovered = manifest.discoverParentDomainTestFiles(repoRoot);
 
   assert.deepEqual(discovered, manifest.parentDomainTestFiles);
-  assert.equal(manifest.parentDomainTestFiles.length, 13);
-  assert.equal(manifest.expectedParentDomainTestCount, 106);
-  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 106);
+  assert.equal(manifest.parentDomainTestFiles.length, 16);
+  assert.equal(manifest.expectedParentDomainTestCount, 138);
+  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 138);
   assert.equal(
     countStaticNodeTests(manifest.parentDomainTestFiles),
     manifest.expectedParentDomainStaticDeclarationCount
@@ -78,9 +78,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 35);
-  assert.equal(manifest.expectedParentConsoleTestCount, 265);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 263);
+  assert.equal(manifest.parentConsoleTestFiles.length, 38);
+  assert.equal(manifest.expectedParentConsoleTestCount, 297);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 295);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
