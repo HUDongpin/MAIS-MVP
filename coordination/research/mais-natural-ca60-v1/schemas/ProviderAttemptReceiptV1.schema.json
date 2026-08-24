@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ProviderAttemptReceiptV1.schema.json",
+  "title": "ProviderAttemptReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "authorizationHash", "provider", "model", "role", "clusterId", "itemId", "attemptNumber", "requestPayloadHash", "responsePayloadHash", "startedAt", "completedAt", "outcome", "inputTokens", "outputTokens", "estimatedUsd", "previousReceiptHash", "receiptHash"],
+  "allOf": [
+    { "if": { "properties": { "provider": { "const": "QWEN" } }, "required": ["provider"] }, "then": { "properties": { "model": { "const": "qwen3.8-max" }, "role": { "const": "MACHINE_REFERENCE" } } } },
+    { "if": { "properties": { "provider": { "const": "DEEPSEEK" } }, "required": ["provider"] }, "then": { "properties": { "model": { "const": "deepseek-v4-pro" }, "role": { "const": "EVALUATED_PROVIDER" } } } }
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ProviderAttemptReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "authorizationHash": { "$ref": "#/$defs/sha256" },
+    "provider": { "enum": ["QWEN", "DEEPSEEK"] },
+    "model": { "enum": ["qwen3.8-max", "deepseek-v4-pro"] },
+    "role": { "enum": ["MACHINE_REFERENCE", "EVALUATED_PROVIDER"] },
+    "clusterId": { "type": "string" },
+    "itemId": { "type": "string" },
+    "attemptNumber": { "type": "integer", "minimum": 1 },
+    "requestPayloadHash": { "$ref": "#/$defs/sha256" },
+    "responsePayloadHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "outcome": { "enum": ["COMPLETED", "TRANSPORT_ERROR", "PROVIDER_ERROR", "TIMEOUT", "CANCELLED_AT_CAP"] },
+    "inputTokens": { "type": "integer", "minimum": 0, "maximum": 8000 },
+    "outputTokens": { "type": "integer", "minimum": 0, "maximum": 4000 },
+    "estimatedUsd": { "type": "number", "minimum": 0 },
+    "previousReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "receiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

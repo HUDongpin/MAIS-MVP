@@ -1,0 +1,286 @@
+{
+  "schemaVersion": "NaturalCaPilotDesignRegistrationV1",
+  "designId": "MAIS-NATURAL-CA60-V1",
+  "designKind": "IMMUTABLE_PRE_EXECUTION_DESIGN_REGISTRATION",
+  "version": 1,
+  "frozenAt": "2026-08-24T00:00:00.000Z",
+  "baselineCommitSha": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "provenance": {
+    "preservedPriorNaturalDesignSha256": "85bc51cec9e160c1a23e94e671c85d2de4b52e8b2b8e9afcbcf04b7b19528867",
+    "preservationArchiveSha256": "2656f336387ed85c495a6b08b96fdf1e34f1942f0e1b3f83421fdab7f7dd0c71",
+    "priorThreeRegionPlanStatus": "SUPERSEDED_NOT_EXECUTED"
+  },
+  "scope": {
+    "jurisdiction": "CALIFORNIA",
+    "targetPopulation": "California runtime-visible and provider-egress-eligible mathematics items",
+    "samplingUnit": "distinct homology cluster",
+    "targetClusterCount": 60,
+    "claimBasis": "MACHINE_REFERENCE_ONLY",
+    "humanGoldClaim": false,
+    "claimCeiling": "INCONCLUSIVE_MACHINE_REFERENCE",
+    "forbiddenClaims": [
+      "PASS",
+      "APPROVED",
+      "PRODUCTION",
+      "PROMOTION"
+    ]
+  },
+  "eligibility": {
+    "inclusion": [
+      "Item is visible through the California runtime inventory at frame freeze.",
+      "Prompt, response options, stored answer, and required metadata are complete.",
+      "Rights and privacy classification permits provider egress after separate authorization.",
+      "Item belongs to exactly one frozen response-form by difficulty cell."
+    ],
+    "exclusion": [
+      "Hidden, retired, draft-only, malformed, or non-California item.",
+      "Item contains personal data, secrets, restricted source text, or egress-prohibited content.",
+      "Item cannot be assigned to one response-form by difficulty cell before sampling.",
+      "Item joins a blocked homology component under the frozen clustering rules."
+    ]
+  },
+  "stratification": {
+    "responseForms": [
+      "FREE_RESPONSE",
+      "MULTIPLE_CHOICE",
+      "STRUCTURED_RESPONSE"
+    ],
+    "difficulties": [
+      "EASY",
+      "MEDIUM",
+      "HARD"
+    ],
+    "cells": [
+      {
+        "responseForm": "FREE_RESPONSE",
+        "difficulty": "EASY"
+      },
+      {
+        "responseForm": "FREE_RESPONSE",
+        "difficulty": "MEDIUM"
+      },
+      {
+        "responseForm": "FREE_RESPONSE",
+        "difficulty": "HARD"
+      },
+      {
+        "responseForm": "MULTIPLE_CHOICE",
+        "difficulty": "EASY"
+      },
+      {
+        "responseForm": "MULTIPLE_CHOICE",
+        "difficulty": "MEDIUM"
+      },
+      {
+        "responseForm": "MULTIPLE_CHOICE",
+        "difficulty": "HARD"
+      },
+      {
+        "responseForm": "STRUCTURED_RESPONSE",
+        "difficulty": "EASY"
+      },
+      {
+        "responseForm": "STRUCTURED_RESPONSE",
+        "difficulty": "MEDIUM"
+      },
+      {
+        "responseForm": "STRUCTURED_RESPONSE",
+        "difficulty": "HARD"
+      }
+    ],
+    "allocation": {
+      "method": "HAMILTON_LARGEST_REMAINDER",
+      "totalClusters": 60,
+      "minimumPerCell": 2,
+      "weights": "eligible distinct homology-cluster counts in the frozen frame",
+      "tieBreak": "ascending responseForm then difficulty code point order"
+    }
+  },
+  "homologyClustering": {
+    "normalization": "UNICODE_NFKC",
+    "representation": "template skeleton with case-folding, whitespace collapse, numeric literal slots, and option-order normalization",
+    "similarity": {
+      "trigramJaccardAtLeast": 0.9,
+      "normalizedEditSimilarityAtLeast": 0.92,
+      "edgeRule": "BOTH_THRESHOLDS_REQUIRED",
+      "componentRule": "UNDIRECTED_CONNECTED_COMPONENT"
+    },
+    "blockers": {
+      "frameShareStrictlyGreaterThan": 0.05,
+      "topicBridgeCountStrictlyGreaterThan": 2,
+      "disposition": "BLOCK_COMPONENT_AND_FREEZE_FRAME_FOR_REVIEW"
+    }
+  },
+  "deterministicSelection": {
+    "hashAlgorithm": "SHA-256",
+    "formula": "SHA256(registrationHash + '\\n' + samplingFrameHash + '\\n' + clusterId)",
+    "ordering": "ascending lowercase hexadecimal digest; clusterId ascending breaks an impossible digest tie",
+    "withinClusterRepresentative": "lowest SHA256(itemId + '\\n' + normalizedPrompt) digest among eligible members",
+    "resultBlind": true,
+    "rerollAfterAnyLabelOrResult": false,
+    "replacementAfterAnyLabelOrResult": false
+  },
+  "machineReferenceWorkflow": {
+    "referenceProvider": {
+      "provider": "QWEN",
+      "model": "qwen3.8-max",
+      "role": "MACHINE_REFERENCE"
+    },
+    "evaluatedProvider": {
+      "provider": "DEEPSEEK",
+      "model": "deepseek-v4-pro",
+      "role": "EVALUATED_PROVIDER"
+    },
+    "separation": "Reference label is frozen before the evaluated-provider response is revealed to the labeler.",
+    "humanGold": false,
+    "independentReviewRequiredForInterpretation": true
+  },
+  "taxonomy": {
+    "codes": [
+      "CORRECT",
+      "FINAL_ANSWER_ERROR",
+      "MATHEMATICAL_REASONING_ERROR",
+      "INCOMPLETE_JUSTIFICATION",
+      "INSTRUCTION_NONCOMPLIANCE",
+      "AMBIGUOUS_OR_UNSCORABLE",
+      "LANGUAGE_OR_NOTATION_ERROR",
+      "SAFETY_OR_PRIVACY_ERROR",
+      "MACHINE_REFERENCE_UNRESOLVED"
+    ],
+    "severityByCode": {
+      "CORRECT": "NONE",
+      "FINAL_ANSWER_ERROR": "CRITICAL",
+      "MATHEMATICAL_REASONING_ERROR": "MAJOR",
+      "INCOMPLETE_JUSTIFICATION": "MAJOR",
+      "INSTRUCTION_NONCOMPLIANCE": "MAJOR",
+      "AMBIGUOUS_OR_UNSCORABLE": "CRITICAL",
+      "LANGUAGE_OR_NOTATION_ERROR": "MINOR",
+      "SAFETY_OR_PRIVACY_ERROR": "CRITICAL",
+      "MACHINE_REFERENCE_UNRESOLVED": "UNRESOLVED"
+    },
+    "binaryLabels": [
+      "POSITIVE_DEFECT",
+      "NEGATIVE_NO_DEFECT",
+      "UNRESOLVED"
+    ],
+    "severities": [
+      "NONE",
+      "MINOR",
+      "MAJOR",
+      "CRITICAL",
+      "UNRESOLVED"
+    ],
+    "positiveCodes": [
+      "FINAL_ANSWER_ERROR",
+      "MATHEMATICAL_REASONING_ERROR",
+      "INCOMPLETE_JUSTIFICATION",
+      "INSTRUCTION_NONCOMPLIANCE",
+      "AMBIGUOUS_OR_UNSCORABLE",
+      "SAFETY_OR_PRIVACY_ERROR"
+    ],
+    "negativeCodes": [
+      "CORRECT",
+      "LANGUAGE_OR_NOTATION_ERROR"
+    ],
+    "unresolvedCodes": [
+      "MACHINE_REFERENCE_UNRESOLVED"
+    ]
+  },
+  "labeling": {
+    "rawLabelImmutable": true,
+    "finalLabelSeparateFromRaw": true,
+    "allowedLabelers": [
+      "A18_CURRICULUM_QA",
+      "INDEPENDENT_REVIEWER"
+    ],
+    "adjudication": "Two documented labels that disagree require an independent adjudicator who has not seen provider identity.",
+    "unresolvedRule": "Missing evidence, reference ambiguity, or unresolved disagreement is UNRESOLVED and excluded from binary denominators but reported in full.",
+    "noSilentRelabeling": true
+  },
+  "analysis": {
+    "estimands": [
+      "SENSITIVITY",
+      "SPECIFICITY",
+      "BALANCED_ACCURACY",
+      "UNRESOLVED_RATE",
+      "TAXONOMY_AGREEMENT"
+    ],
+    "matching": "One-to-one by designId + sampleManifestHash + clusterId + itemId; duplicates or missing counterparts invalidate the matched row.",
+    "confidenceIntervals": {
+      "sensitivity": "ONE_SIDED_95_PERCENT_WILSON_LOWER",
+      "specificity": "ONE_SIDED_95_PERCENT_WILSON_LOWER",
+      "proportionsExploratory": "TWO_SIDED_95_PERCENT_WILSON",
+      "zOneSided95": 1.6448536269514722,
+      "zTwoSided95": 1.959963984540054
+    },
+    "thresholds": {
+      "sensitivityLowerBoundAtLeast": 0.9,
+      "specificityLowerBoundAtLeast": 0.95,
+      "minimumResolvedPositiveClusters": 25,
+      "minimumResolvedNegativeClusters": 52,
+      "maximumUnresolvedRate": 0
+    },
+    "decisionPriority": [
+      "INVALID_REGISTRATION",
+      "BLOCKED_AUTHORIZATION",
+      "INCONCLUSIVE_UNRESOLVED",
+      "INCONCLUSIVE_MACHINE_REFERENCE",
+      "LIMITED_MACHINE_REFERENCE"
+    ],
+    "decisionStatuses": [
+      "NOT_STARTED",
+      "BLOCKED_AUTHORIZATION",
+      "INVALID_REGISTRATION",
+      "INCONCLUSIVE_UNRESOLVED",
+      "INCONCLUSIVE_MACHINE_REFERENCE",
+      "LIMITED_MACHINE_REFERENCE"
+    ],
+    "ca60DecisionCeiling": "INCONCLUSIVE_MACHINE_REFERENCE"
+  },
+  "providerControls": {
+    "firstProviderExecutionAllowed": false,
+    "requiredAuthorizationSchema": "ProviderAuthorizationV1",
+    "allowedOrigins": [
+      "FROZEN_RUNTIME_VISIBLE_CA_FRAME"
+    ],
+    "egress": {
+      "jurisdiction": "CALIFORNIA_ELIGIBLE_ONLY",
+      "personalDataAllowed": false,
+      "secretsAllowed": false,
+      "copyrightedLongFormSourceAllowed": false,
+      "exactPayloadHashRequired": true
+    },
+    "budgetEnvelope": {
+      "maximumReferenceAttempts": 60,
+      "maximumEvaluatedAttempts": 60,
+      "maximumTotalAttempts": 120,
+      "maximumInputTokensPerAttempt": 8000,
+      "maximumOutputTokensPerAttempt": 4000,
+      "maximumEstimatedUsd": 50,
+      "hardStopOnCap": true
+    }
+  },
+  "artifactKinds": {
+    "thisArtifact": "DESIGN_REGISTRATION",
+    "futureDistinctArtifacts": [
+      "SAMPLING_FRAME",
+      "SAMPLE_MANIFEST",
+      "PROVIDER_AUTHORIZATION",
+      "PROVIDER_EXECUTION_RECEIPTS",
+      "FINAL_EVALUATION",
+      "INDEPENDENT_REVIEW"
+    ]
+  },
+  "freezeChain": [
+    "DESIGN_REGISTRATION",
+    "SAMPLING_FRAME",
+    "SAMPLE_MANIFEST",
+    "PROVIDER_AUTHORIZATION",
+    "MACHINE_REFERENCE_LABELS",
+    "PROVIDER_ATTEMPT_RECEIPTS",
+    "ITEM_EVALUATION_RESULTS",
+    "FINAL_EVALUATION_RECEIPT",
+    "INDEPENDENT_REVIEW_RECEIPT"
+  ],
+  "registrationHash": "663303a7331f5c230f3e3238f0253edea81e37dbd9674ab84db28c02d64c6ce7"
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/ProviderAuthorizationV1.schema.json",
+  "title": "ProviderAuthorizationV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "samplingFrameHash", "sampleManifestHash", "provider", "model", "role", "allowedOrigin", "payloadSetHash", "issuedAt", "expiresAt", "maximumAttempts", "maximumInputTokensPerAttempt", "maximumOutputTokensPerAttempt", "maximumEstimatedUsd", "egressClassification", "authorizedBy", "authorizationHash"],
+  "allOf": [
+    { "if": { "properties": { "provider": { "const": "QWEN" } }, "required": ["provider"] }, "then": { "properties": { "model": { "const": "qwen3.8-max" }, "role": { "const": "MACHINE_REFERENCE" } } } },
+    { "if": { "properties": { "provider": { "const": "DEEPSEEK" } }, "required": ["provider"] }, "then": { "properties": { "model": { "const": "deepseek-v4-pro" }, "role": { "const": "EVALUATED_PROVIDER" } } } }
+  ],
+  "properties": {
+    "schemaVersion": { "const": "ProviderAuthorizationV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "provider": { "enum": ["QWEN", "DEEPSEEK"] },
+    "model": { "enum": ["qwen3.8-max", "deepseek-v4-pro"] },
+    "role": { "enum": ["MACHINE_REFERENCE", "EVALUATED_PROVIDER"] },
+    "allowedOrigin": { "const": "FROZEN_RUNTIME_VISIBLE_CA_FRAME" },
+    "payloadSetHash": { "$ref": "#/$defs/sha256" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "maximumAttempts": { "type": "integer", "minimum": 1, "maximum": 60 },
+    "maximumInputTokensPerAttempt": { "type": "integer", "minimum": 1, "maximum": 8000 },
+    "maximumOutputTokensPerAttempt": { "type": "integer", "minimum": 1, "maximum": 4000 },
+    "maximumEstimatedUsd": { "type": "number", "exclusiveMinimum": 0, "maximum": 50 },
+    "egressClassification": { "const": "CALIFORNIA_ELIGIBLE_NO_PERSONAL_DATA_NO_SECRETS" },
+    "authorizedBy": { "type": "string", "minLength": 1 },
+    "authorizationHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/FinalEvaluationReceiptV1.schema.json",
+  "title": "FinalEvaluationReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "authorizationHashes", "attemptChainHeadHash", "itemResultSetHash", "resolvedPositiveN", "resolvedNegativeN", "unresolvedN", "sensitivity", "sensitivityLowerBound", "specificity", "specificityLowerBound", "conclusion", "calculatedAt", "previousReceiptHash", "receiptHash"],
+  "properties": {
+    "schemaVersion": { "const": "FinalEvaluationReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "authorizationHashes": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/sha256" } },
+    "attemptChainHeadHash": { "$ref": "#/$defs/sha256" },
+    "itemResultSetHash": { "$ref": "#/$defs/sha256" },
+    "resolvedPositiveN": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "resolvedNegativeN": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "unresolvedN": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "sensitivity": { "anyOf": [{ "type": "number", "minimum": 0, "maximum": 1 }, { "type": "null" }] },
+    "sensitivityLowerBound": { "anyOf": [{ "type": "number", "minimum": 0, "maximum": 1 }, { "type": "null" }] },
+    "specificity": { "anyOf": [{ "type": "number", "minimum": 0, "maximum": 1 }, { "type": "null" }] },
+    "specificityLowerBound": { "anyOf": [{ "type": "number", "minimum": 0, "maximum": 1 }, { "type": "null" }] },
+    "conclusion": { "enum": ["INVALID_REGISTRATION", "BLOCKED_AUTHORIZATION", "INCONCLUSIVE_UNRESOLVED", "INCONCLUSIVE_MACHINE_REFERENCE", "LIMITED_MACHINE_REFERENCE"] },
+    "calculatedAt": { "type": "string", "format": "date-time" },
+    "previousReceiptHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "receiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

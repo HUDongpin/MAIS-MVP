@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/SamplingFrameRowV1.schema.json",
+  "title": "SamplingFrameRowV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "frameFrozenAt", "itemId", "itemContentHash", "runtimeOrigin", "runtimeVisible", "egressEligibility", "responseForm", "difficulty", "topicCodes", "normalizedPromptHash", "templateSkeletonHash", "homologyClusterId", "provenanceType"],
+  "properties": {
+    "schemaVersion": { "const": "SamplingFrameRowV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "frameFrozenAt": { "type": "string", "format": "date-time" },
+    "itemId": { "type": "string", "minLength": 1 },
+    "itemContentHash": { "$ref": "#/$defs/sha256" },
+    "runtimeOrigin": { "type": "string", "minLength": 1 },
+    "runtimeVisible": { "const": true },
+    "egressEligibility": { "enum": ["ELIGIBLE", "INELIGIBLE"] },
+    "responseForm": { "enum": ["FREE_RESPONSE", "MULTIPLE_CHOICE", "STRUCTURED_RESPONSE"] },
+    "difficulty": { "enum": ["EASY", "MEDIUM", "HARD"] },
+    "topicCodes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+    "normalizedPromptHash": { "$ref": "#/$defs/sha256" },
+    "templateSkeletonHash": { "$ref": "#/$defs/sha256" },
+    "homologyClusterId": { "type": "string", "minLength": 1 },
+    "provenanceType": { "enum": ["RUNTIME_NATURAL_ITEM"] }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

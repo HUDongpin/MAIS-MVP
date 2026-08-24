@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/SampleManifestV1.schema.json",
+  "title": "SampleManifestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "samplingFrameHash", "manifestFrozenAt", "selectionFormula", "allocationMethod", "clusterCount", "selectedRows", "sampleManifestHash"],
+  "properties": {
+    "schemaVersion": { "const": "SampleManifestV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+    "manifestFrozenAt": { "type": "string", "format": "date-time" },
+    "selectionFormula": { "const": "SHA256(registrationHash + '\\n' + samplingFrameHash + '\\n' + clusterId)" },
+    "allocationMethod": { "const": "HAMILTON_LARGEST_REMAINDER" },
+    "clusterCount": { "const": 60 },
+    "selectedRows": { "type": "array", "minItems": 60, "maxItems": 60, "items": { "type": "object", "additionalProperties": false, "required": ["clusterId", "itemId", "selectionDigest", "responseForm", "difficulty"], "properties": { "clusterId": { "type": "string" }, "itemId": { "type": "string" }, "selectionDigest": { "$ref": "#/$defs/sha256" }, "responseForm": { "enum": ["FREE_RESPONSE", "MULTIPLE_CHOICE", "STRUCTURED_RESPONSE"] }, "difficulty": { "enum": ["EASY", "MEDIUM", "HARD"] } } } },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

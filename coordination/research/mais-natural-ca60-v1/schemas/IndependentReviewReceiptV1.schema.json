@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/research/IndependentReviewReceiptV1.schema.json",
+  "title": "IndependentReviewReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "designId", "registrationHash", "sampleManifestHash", "finalEvaluationReceiptHash", "reviewerId", "reviewerIndependenceAttested", "provenanceType", "reviewStatus", "discrepancyCodes", "reviewedAt", "previousReceiptHash", "receiptHash"],
+  "properties": {
+    "schemaVersion": { "const": "IndependentReviewReceiptV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V1" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+    "finalEvaluationReceiptHash": { "$ref": "#/$defs/sha256" },
+    "reviewerId": { "type": "string", "minLength": 1 },
+    "reviewerIndependenceAttested": { "const": true },
+    "provenanceType": { "const": "HUMAN_INDEPENDENT_REVIEW" },
+    "reviewStatus": { "enum": ["CONCURRED", "DISCREPANCY", "UNREVIEWABLE"] },
+    "discrepancyCodes": { "type": "array", "uniqueItems": true, "items": { "enum": ["DESIGN_DRIFT", "FRAME_DRIFT", "SAMPLE_DRIFT", "AUTHORIZATION_DRIFT", "RECEIPT_CHAIN_DRIFT", "LABEL_DISCREPANCY", "METRIC_DISCREPANCY", "INSUFFICIENT_EVIDENCE"] } },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "previousReceiptHash": { "$ref": "#/$defs/sha256" },
+    "receiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}
