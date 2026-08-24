@@ -48,6 +48,32 @@ gates** on the live domains. The dry run performs everything except the deploy a
 - Vercel env is configured (A19). `npm run release:env-preflight` and
   `release:runtime-preflight` should pass; redacted-name gate is A19-owned.
 
+#### A19 production environment contract (redacted)
+
+`release:env-preflight` inspects only environment-variable **names** and their Vercel target. It
+requires every release variable to exist on the `production` target, but neither reads nor prints
+secret values. A green name/target result is therefore necessary, not sufficient: A19 must also
+record a value-free `configured and format-validated` / `blocked` attestation for the following
+parent-console dependencies before A22 publishes:
+
+| Variable | Redacted semantic expectation |
+|---|---|
+| `HK_MATH_POSTGRES_HOT_AUTH_TABLES` | Literal `true`, only after the exact production Postgres target has passed schema migration and readiness attestation. |
+| `CRON_SECRET` | One trimmed 32-512 character server-only secret shared by `/api/warm`, the teacher-notice outbox worker, and webhook maintenance. The unused `TEACHER_REMINDER_CRON_SECRET` alias is not supported. |
+| `TEACHER_NOTICE_EMAIL_ENABLED` | Literal `true` only when sender, provider, webhook, monitoring, and rollback gates are ready; otherwise production notice delivery remains blocked. |
+| `TEACHER_NOTICE_RESEND_API_KEY` | Dedicated teacher-notice Resend API key; never the shared password-reset key and never exposed to the browser. |
+| `TEACHER_NOTICE_FROM` | Resend-verified sender identity in the strict sender format accepted by the adapter. |
+| `TEACHER_NOTICE_BASE_URL` | Canonical public HTTPS origin only: no path, trailing slash, query, fragment, embedded credentials, or alternate host. |
+| `TEACHER_NOTICE_ALLOWED_ORIGIN` | Exactly the same canonical HTTPS origin as `TEACHER_NOTICE_BASE_URL`. |
+| `TEACHER_NOTICE_DELIVERY_TIMEOUT_MS` | Integer from 10 through 30000 milliseconds. |
+| `RESEND_WEBHOOK_SECRET` | Server-only `whsec_` signing secret issued for the exact registered Resend webhook endpoint; distinct from both Resend API keys. |
+
+The attestation may record the variable name, target, configured/missing state, validation status,
+timestamp, candidate SHA, and deployment identifier. It must never record the value, a reversible
+derivative, or CLI output that could contain the value. Environment placement, provider-side
+webhook registration, sender verification, schema migration, and same-SHA live behavior remain
+separate gates.
+
 ### 1. Refresh the dirty-tree map (A25 gate)
 ```bash
 npm run release:dirty-map -- --reason "<why you are releasing>"

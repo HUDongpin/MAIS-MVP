@@ -20,10 +20,19 @@ const REQUIRED_PRODUCTION_ENV = [
   "AUTH_SESSION_SECRET",
   "POSTGRES_URL",
   "HK_MATH_STORAGE_PROVIDER",
+  "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
   "RESEND_API_KEY",
   "PASSWORD_RESET_FROM",
   "PASSWORD_RESET_BASE_URL",
   "HK_MATH_EXPOSE_LOCAL_RESET_LINKS",
+  "CRON_SECRET",
+  "TEACHER_NOTICE_EMAIL_ENABLED",
+  "TEACHER_NOTICE_RESEND_API_KEY",
+  "TEACHER_NOTICE_FROM",
+  "TEACHER_NOTICE_BASE_URL",
+  "TEACHER_NOTICE_ALLOWED_ORIGIN",
+  "TEACHER_NOTICE_DELIVERY_TIMEOUT_MS",
+  "RESEND_WEBHOOK_SECRET",
   "QWEN_API_KEY",
   "QWEN_API_URL",
   "QWEN_TEXT_MODEL",
@@ -499,7 +508,7 @@ function formatVercelEnvBlock(result) {
     `Vercel ${result.target} environment is missing required release variables:`,
     ...result.missing.map((key) => `- ${key}`),
     "This check only inspects variable names and target environments; it does not read secret values.",
-    "S19 must complete redacted Vercel environment parity before publish."
+    "A19 must complete redacted Vercel environment parity before publish."
   ].join("\n");
 }
 

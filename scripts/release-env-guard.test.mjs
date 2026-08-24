@@ -157,6 +157,90 @@ console.log(JSON.stringify({
   }
 });
 
+test("production env guard requires parent persistence, notice delivery, cron, and webhook variables", async () => {
+  const binDir = await mkdtemp(path.join(tmpdir(), "mais-parent-release-env-guard-"));
+  const vercelBin = path.join(binDir, "vercel");
+  const parentProductionVariables = [
+    "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+    "CRON_SECRET",
+    "TEACHER_NOTICE_EMAIL_ENABLED",
+    "TEACHER_NOTICE_RESEND_API_KEY",
+    "TEACHER_NOTICE_FROM",
+    "TEACHER_NOTICE_BASE_URL",
+    "TEACHER_NOTICE_ALLOWED_ORIGIN",
+    "TEACHER_NOTICE_DELIVERY_TIMEOUT_MS",
+    "RESEND_WEBHOOK_SECRET"
+  ];
+
+  try {
+    await writeFile(vercelBin, `#!/usr/bin/env node
+console.log(JSON.stringify({
+  envs: [
+    { key: "AUTH_SESSION_SECRET", target: ["production"] },
+    { key: "POSTGRES_URL", target: ["production"] },
+    { key: "HK_MATH_STORAGE_PROVIDER", target: ["production"] },
+    { key: "RESEND_API_KEY", target: ["production"] },
+    { key: "PASSWORD_RESET_FROM", target: ["production"] },
+    { key: "PASSWORD_RESET_BASE_URL", target: ["production"] },
+    { key: "HK_MATH_EXPOSE_LOCAL_RESET_LINKS", target: ["production"] },
+    { key: "QWEN_API_KEY", target: ["production"] },
+    { key: "QWEN_API_URL", target: ["production"] },
+    { key: "QWEN_TEXT_MODEL", target: ["production"] },
+    { key: "AI_TUTOR_TOTAL_DEADLINE_MS", target: ["production"] },
+    { key: "AI_TUTOR_EDGE_RESPONSE_RESERVE_MS", target: ["production"] },
+    { key: "AI_TUTOR_PROVIDER_TIMEOUT_MS", target: ["production"] },
+    { key: "AI_TUTOR_LATENCY_ALERT_P95_MS", target: ["production"] },
+    { key: "AI_TUTOR_LATENCY_ALERT_TIMEOUT_RATE", target: ["production"] },
+    ...${JSON.stringify(parentProductionVariables)}.map((key) => ({ key, target: ["preview"] }))
+  ]
+}));
+`);
+    await chmod(vercelBin, 0o755);
+
+    const result = spawnSync(process.execPath, ["scripts/release-env-guard.mjs", "env", "--json"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        PATH: `${binDir}${path.delimiter}${process.env.PATH ?? ""}`,
+        MAIS_RELEASE_ENV_TARGET: "production",
+        MAIS_RELEASE_MIN_FREE_GB: "1",
+        VERCEL_SCOPE: "test-scope"
+      }
+    });
+
+    assert.notEqual(result.status, 0);
+    const output = `${result.stdout}\n${result.stderr}`;
+    for (const variable of parentProductionVariables) {
+      assert.match(output, new RegExp(variable));
+    }
+    assert.match(output, /only inspects variable names and target environments/i);
+  } finally {
+    await rm(binDir, { recursive: true, force: true });
+  }
+});
+
+test("tracked env example exposes only the canonical server-only parent production names", async () => {
+  const example = await readFile(path.join(repoRoot, ".env.local.example"), "utf8");
+  const requiredNames = [
+    "HK_MATH_POSTGRES_HOT_AUTH_TABLES",
+    "CRON_SECRET",
+    "TEACHER_NOTICE_EMAIL_ENABLED",
+    "TEACHER_NOTICE_RESEND_API_KEY",
+    "TEACHER_NOTICE_FROM",
+    "TEACHER_NOTICE_BASE_URL",
+    "TEACHER_NOTICE_ALLOWED_ORIGIN",
+    "TEACHER_NOTICE_DELIVERY_TIMEOUT_MS",
+    "RESEND_WEBHOOK_SECRET"
+  ];
+
+  for (const name of requiredNames) {
+    assert.match(example, new RegExp(`^${name}=`, "m"), `${name} must be documented`);
+    assert.doesNotMatch(example, new RegExp(`^NEXT_PUBLIC_${name}=`, "m"));
+  }
+  assert.doesNotMatch(example, /^TEACHER_REMINDER_CRON_SECRET=/m);
+});
+
 test("staged production publish guard allows pruned staging without direct root deploy gate", async () => {
   const tempDir = await makeRepoLocalTempDir("mais-staged-publish-");
   const latestJson = path.join(tempDir, "latest-A25-dirty-tree-map.json");
@@ -171,10 +255,19 @@ console.log(JSON.stringify({
     { key: "AUTH_SESSION_SECRET", target: ["production"] },
     { key: "POSTGRES_URL", target: ["production"] },
     { key: "HK_MATH_STORAGE_PROVIDER", target: ["production"] },
+    { key: "HK_MATH_POSTGRES_HOT_AUTH_TABLES", target: ["production"] },
     { key: "RESEND_API_KEY", target: ["production"] },
     { key: "PASSWORD_RESET_FROM", target: ["production"] },
     { key: "PASSWORD_RESET_BASE_URL", target: ["production"] },
     { key: "HK_MATH_EXPOSE_LOCAL_RESET_LINKS", target: ["production"] },
+    { key: "CRON_SECRET", target: ["production"] },
+    { key: "TEACHER_NOTICE_EMAIL_ENABLED", target: ["production"] },
+    { key: "TEACHER_NOTICE_RESEND_API_KEY", target: ["production"] },
+    { key: "TEACHER_NOTICE_FROM", target: ["production"] },
+    { key: "TEACHER_NOTICE_BASE_URL", target: ["production"] },
+    { key: "TEACHER_NOTICE_ALLOWED_ORIGIN", target: ["production"] },
+    { key: "TEACHER_NOTICE_DELIVERY_TIMEOUT_MS", target: ["production"] },
+    { key: "RESEND_WEBHOOK_SECRET", target: ["production"] },
     { key: "QWEN_API_KEY", target: ["production"] },
     { key: "QWEN_API_URL", target: ["production"] },
     { key: "QWEN_TEXT_MODEL", target: ["production"] },
@@ -232,7 +325,7 @@ console.log(JSON.stringify({
     assert.equal(parsed.rootDeploy, undefined);
     assert.equal(parsed.releaseSource.releaseSourceClean.passed, true);
     assert.equal(parsed.releaseSource.strictWorktreeLifecycle.passed, true);
-    assert.equal(parsed.stagedPublish.vercelEnv.present.length, 15);
+    assert.equal(parsed.stagedPublish.vercelEnv.present.length, 24);
     assert.match(parsed.stagedPublish.stagingRoot, /\.tmp[/\\]vercel-staging$/);
     assert.match(releaseGateLog, /release-source/);
     assert.match(releaseGateLog, /worktree --strict/);
