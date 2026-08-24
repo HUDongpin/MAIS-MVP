@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -18,6 +19,9 @@ import { assertNoBrokenStrayGeneratedTypes } from "./check-stray-generated-types
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_NEXT_DIST_DIR = ".next";
+const BUILD_ATTESTATION_FILENAME = "mais-build-attestation.json";
+const COMMIT_SHA_PATTERN = /^[a-f0-9]{40}$/u;
+const BUILD_ID_PATTERN = /^[A-Za-z0-9_-]{8,128}$/u;
 const execFileAsync = promisify(execFile);
 
 async function main() {
@@ -339,10 +343,104 @@ function isPathInsideRepo(candidatePath, repoRoot) {
 async function spawnNextBuild(config, env) {
   const require = createRequire(import.meta.url);
   const nextBin = require.resolve("next/dist/bin/next");
-  return await runCommand(process.execPath, [nextBin, "build"], {
+  const buildStartedAt = new Date().toISOString();
+  const sourceBefore = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
+  const exitCode = await runCommand(process.execPath, [nextBin, "build"], {
     cwd: config.repoRoot,
     env
   });
+  if (exitCode !== 0) return exitCode;
+
+  const sourceAfter = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
+  await writeBuildAttestation({
+    config,
+    sourceBefore,
+    sourceAfter,
+    buildStartedAt,
+    completedAt: new Date().toISOString()
+  });
+  return exitCode;
+}
+
+export async function captureBuildSourceState({ repoRoot = REPO_ROOT, env = process.env } = {}) {
+  try {
+    const [{ stdout: headOutput }, { stdout: statusOutput }] = await Promise.all([
+      execFileAsync("git", ["rev-parse", "HEAD"], {
+        cwd: repoRoot,
+        encoding: "utf8",
+        maxBuffer: 64 * 1024
+      }),
+      execFileAsync("git", ["status", "--porcelain=v1", "--untracked-files=all"], {
+        cwd: repoRoot,
+        encoding: "utf8",
+        maxBuffer: 4 * 1024 * 1024
+      })
+    ]);
+    const candidateSha = headOutput.trim().toLowerCase();
+    if (!COMMIT_SHA_PATTERN.test(candidateSha)) {
+      throw new Error("git returned an invalid commit SHA");
+    }
+    const status = statusOutput.replaceAll("\r\n", "\n");
+    return {
+      candidateSha,
+      clean: status.length === 0,
+      statusFingerprint: createHash("sha256").update(status, "utf8").digest("hex")
+    };
+  } catch {
+    const environmentSha = [env.VERCEL_GIT_COMMIT_SHA, env.GITHUB_SHA]
+      .find((value) => COMMIT_SHA_PATTERN.test(String(value ?? "").toLowerCase()));
+    return {
+      candidateSha: environmentSha ? String(environmentSha).toLowerCase() : null,
+      clean: null,
+      statusFingerprint: null
+    };
+  }
+}
+
+export async function writeBuildAttestation({
+  config,
+  sourceBefore,
+  sourceAfter,
+  buildStartedAt,
+  completedAt = new Date().toISOString()
+}) {
+  const buildId = (await fs.readFile(path.join(config.nextBuildDir, "BUILD_ID"), "utf8")).trim();
+  if (!BUILD_ID_PATTERN.test(buildId)) {
+    throw new Error("Next build completed without a valid BUILD_ID for release attestation.");
+  }
+
+  const candidateSha = COMMIT_SHA_PATTERN.test(String(sourceBefore?.candidateSha ?? ""))
+    ? sourceBefore.candidateSha
+    : null;
+  const sourceTreeStable = Boolean(
+    candidateSha &&
+    candidateSha === sourceAfter?.candidateSha &&
+    sourceBefore?.statusFingerprint &&
+    sourceBefore.statusFingerprint === sourceAfter?.statusFingerprint
+  );
+  const attestation = {
+    schemaVersion: 1,
+    candidateSha,
+    buildId,
+    distDir: config.distDir,
+    sourceTreeClean: sourceBefore?.clean === true && sourceAfter?.clean === true,
+    sourceTreeStable,
+    buildStartedAt,
+    completedAt
+  };
+
+  const targetPath = path.join(config.nextBuildDir, BUILD_ATTESTATION_FILENAME);
+  const temporaryPath = `${targetPath}.${process.pid}.tmp`;
+  try {
+    await fs.writeFile(temporaryPath, `${JSON.stringify(attestation, null, 2)}\n`, {
+      encoding: "utf8",
+      mode: 0o600
+    });
+    await fs.rename(temporaryPath, targetPath);
+  } finally {
+    await fs.rm(temporaryPath, { force: true });
+  }
+  return attestation;
 }
 
 function runCommand(command, args, options) {

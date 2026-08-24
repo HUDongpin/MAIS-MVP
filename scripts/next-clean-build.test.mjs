@@ -12,7 +12,8 @@ const {
   buildCleanBuildConfig,
   cleanNextBuildDirectory,
   findActiveNextProcesses,
-  parseActiveNextProcesses
+  parseActiveNextProcesses,
+  writeBuildAttestation
 } = nextCleanBuildModule;
 
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
@@ -106,6 +107,47 @@ test("next clean build allows isolated generated dist directories", () => {
 
   assert.equal(config.usesSharedNextDir, false);
   assert.equal(config.nextBuildDir, path.join(repoRoot, ".tmp", "dashboard-runtime-next-test"));
+});
+
+test("next clean build records an exact, privacy-safe source and BUILD_ID attestation", async (t) => {
+  const isolatedRepoRoot = await fs.mkdtemp(path.join(os.tmpdir(), "mais-build-attestation-"));
+  const nextBuildDir = path.join(isolatedRepoRoot, ".next");
+  t.after(() => fs.rm(isolatedRepoRoot, { recursive: true, force: true }));
+  await fs.mkdir(nextBuildDir, { recursive: true });
+  await fs.writeFile(path.join(nextBuildDir, "BUILD_ID"), "build_Abcdefghijklmnop\n");
+
+  const sourceState = {
+    candidateSha: "a".repeat(40),
+    clean: true,
+    statusFingerprint: "f".repeat(64)
+  };
+  const attestation = await writeBuildAttestation({
+    config: {
+      distDir: ".next",
+      nextBuildDir,
+      repoRoot: isolatedRepoRoot
+    },
+    sourceBefore: sourceState,
+    sourceAfter: sourceState,
+    buildStartedAt: "2026-08-24T08:00:00.000Z",
+    completedAt: "2026-08-24T08:10:00.000Z"
+  });
+
+  assert.deepEqual(attestation, {
+    schemaVersion: 1,
+    candidateSha: sourceState.candidateSha,
+    buildId: "build_Abcdefghijklmnop",
+    distDir: ".next",
+    sourceTreeClean: true,
+    sourceTreeStable: true,
+    buildStartedAt: "2026-08-24T08:00:00.000Z",
+    completedAt: "2026-08-24T08:10:00.000Z"
+  });
+  assert.deepEqual(
+    JSON.parse(await fs.readFile(path.join(nextBuildDir, "mais-build-attestation.json"), "utf8")),
+    attestation
+  );
+  assert.doesNotMatch(JSON.stringify(attestation), /email|recipient|secret|statusFingerprint/u);
 });
 
 test("next clean build refuses non-generated clean targets", () => {
