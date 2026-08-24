@@ -12,6 +12,7 @@ import type { MathSceneSpec } from "./mathSceneTypes";
 import {
   toMathSceneSpec,
   type AnalyticSceneSegmentInput,
+  type GeometryScenePlaneInput,
   type GeometrySceneVectorInput,
   type MathKernelLocale,
   type MathKernelTeachingInput,
@@ -101,6 +102,7 @@ export interface GeometryKernelDemoInput {
   readonly solution: GeometrySolutionDto;
   readonly topology: BodyTopology;
   readonly vectors?: readonly GeometrySceneVectorInput[];
+  readonly planes?: readonly GeometryScenePlaneInput[];
   /** Server-declared render input, retained in scene export/replay metadata. */
   readonly renderEdgeLength: number;
   readonly locale: MathKernelLocale;
@@ -126,6 +128,7 @@ export function buildGeometryKernelDemoScene(
     model: input.solution,
     topology: input.topology,
     vectors: input.vectors,
+    planes: input.planes,
     parameters: [
       {
         conceptId: "geometry-edge",
@@ -137,7 +140,7 @@ export function buildGeometryKernelDemoScene(
       },
       ...(typeof derived === "number" && Number.isFinite(derived)
         ? [{
-            conceptId: "geometry-line-direction",
+            conceptId: "geometry-line-plane-angle",
             id: "line-plane-angle-sin",
             label: labels.angleSin,
             min: 0,

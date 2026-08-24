@@ -168,7 +168,12 @@ export function MathKernelDemoLab({
       id: "A1C",
       from: "A1",
       to: "C",
-      conceptId: "geometry-line-direction",
+      conceptId: "geometry-line-plane-angle",
+    }],
+    planes: [{
+      id: "base",
+      pointGrid: [["A", "B"], ["D", "C"]],
+      conceptId: "geometry-line-plane-angle",
     }],
     renderEdgeLength: payload.geometry.renderEdgeLength,
     locale,

@@ -11,9 +11,14 @@ import {
   rangeOverLineFamily,
   setupLineConicIntersection,
 } from "../analytic/analyticKernel.server";
-import { regularQuadPyramidLinePlaneAngleFormula } from "../geometry/solvers.server";
+import {
+  regularQuadPyramidLinePlaneAngleFormula,
+  solveCubeLinePlaneAngle,
+  solveRegularQuadPyramidLinePlaneAngle,
+} from "../geometry/solvers.server";
 import {
   boxVolume,
+  dihedralHalfPlaneCos,
   lineLineAngleCos,
   pointPlaneDistance,
   prismVolume,
@@ -578,6 +583,7 @@ test("TypeScript body order and counts reproduce the pinned source oracle", () =
 });
 
 test("TypeScript exact geometry reproduces the pinned and supplemental SymPy goldens", () => {
+  const oracle = fixture.sourceObservedSemantics.geometry;
   const cube = {
     A: [0, 0, 0] as const,
     B: [1, 0, 0] as const,
@@ -594,22 +600,49 @@ test("TypeScript exact geometry reproduces the pinned and supplemental SymPy gol
     [lineLineAngleCos(
       [cube.C[0] - cube.A1[0], cube.C[1] - cube.A1[1], cube.C[2] - cube.A1[2]],
       [cube.B[0] - cube.A[0], cube.B[1] - cube.A[1], cube.B[2] - cube.A[2]],
-    ), ["Divide", ["Sqrt", 3], 3]],
-    [pointPlaneDistance(cube.A1, cube.A, [0, 0, 1]), 1],
-    [tetrahedronVolume(tetrahedron.A, tetrahedron.B, tetrahedron.C, tetrahedron.D), ["Divide", 8, 3]],
-    [boxVolume(2, 3, 4), 24],
-    [prismVolume(7, 5), 35],
-    [pyramidVolume(4, 3), 4],
+    ), parseSympyExact(oracle.cubeSkewLineAngleCos)],
+    [pointPlaneDistance(cube.A1, cube.A, [0, 0, 1]), parseSympyExact(oracle.cubePointPlaneDistance)],
+    [
+      dihedralHalfPlaneCos(
+        tetrahedron.A,
+        tetrahedron.B,
+        tetrahedron.C,
+        tetrahedron.D,
+      ),
+      parseSympyExact(oracle.regularTetrahedronDihedralCos),
+    ],
+    [
+      tetrahedronVolume(tetrahedron.A, tetrahedron.B, tetrahedron.C, tetrahedron.D),
+      parseSympyExact(oracle.regularTetrahedronVolume),
+    ],
+    [boxVolume(2, 3, 4), parseSympyExact(oracle.boxVolume_2_3_4)],
+    [prismVolume(7, 5), parseSympyExact(oracle.prismVolume_7_5)],
+    [pyramidVolume(4, 3), parseSympyExact(oracle.pyramidVolume_4_3)],
   ] as const;
   for (const [result, expected] of cases) {
     assert.equal(result.ok, true);
     if (result.ok) assertExact(result.value.mathJson, expected);
   }
-  assertExact(regularQuadPyramidLinePlaneAngleFormula("a", "h"), [
-    "Divide",
-    ["Multiply", 2, "a"],
-    ["Sqrt", ["Add", ["Multiply", 5, ["Square", "a"]], ["Multiply", 2, ["Square", "h"]]]],
-  ]);
+  const pyramidSolution = solveRegularQuadPyramidLinePlaneAngle();
+  assert.equal(pyramidSolution.ok, true);
+  if (pyramidSolution.ok) {
+    assertExact(
+      pyramidSolution.value.answer.mathJson,
+      parseSympyExact(oracle.pyramidLinePlaneAngleSin),
+    );
+  }
+  const cubeSolution = solveCubeLinePlaneAngle();
+  assert.equal(cubeSolution.ok, true);
+  if (cubeSolution.ok) {
+    assertExact(
+      cubeSolution.value.answer.mathJson,
+      parseSympyExact(oracle.cubeLinePlaneAngleSin),
+    );
+  }
+  assertExact(
+    regularQuadPyramidLinePlaneAngleFormula("a", "h"),
+    parseSympyExact(oracle.generalPyramidLinePlaneAngleSin),
+  );
 });
 
 test("TypeScript analytic setup and exact intervals reproduce every requested oracle golden", () => {

@@ -22,7 +22,10 @@ import {
   buildGeometryKernelDemoScene,
   MATH_KERNEL_DEMO_TEACHING,
 } from "./three/manim/mathKernelDemoScenes";
+import { buildFormulaLayerState } from "./three/manim/mathFormulaLayer";
 import { buildMathSceneTeachingQualityEvidence } from "./three/manim/mathSceneTeachingQuality";
+import { buildTexColorizedFormula } from "./three/manim/mathTexColorizedFormula";
+import type { MathSceneSpec } from "./three/manim/mathSceneTypes";
 
 function unwrap<T>(result: KernelResult<T>): T {
   if (result.ok) return result.value;
@@ -48,6 +51,26 @@ const teaching = {
   explanationKeys: ["visualization.mathKernel.explain"],
   locale: "zh-CN" as const,
 };
+
+function assertBoundFormulaTokensAreColorized(scene: MathSceneSpec) {
+  const layer = buildFormulaLayerState(scene);
+  for (const formula of layer.formulas) {
+    const boundTokenIds = new Set(
+      scene.bindings
+        .filter((binding) => binding.formulaId === formula.id)
+        .map((binding) => binding.tokenId),
+    );
+    const colorized = buildTexColorizedFormula(formula);
+    for (const tokenId of boundTokenIds) {
+      assert.equal(
+        colorized.coloredTokenIds.includes(tokenId),
+        true,
+        `bound token ${tokenId} must be an actual substring of ${formula.latex}`,
+      );
+      assert.equal(colorized.uncoloredTokenIds.includes(tokenId), false);
+    }
+  }
+}
 
 test("body topology becomes stable edge curves with one math-to-world transform", () => {
   const topology = unwrap(cube());
@@ -129,7 +152,13 @@ test("geometry solutions consume already-transformed renderPoints without swappi
       A: [exact(0, "0", 0), exact(0, "0", 0), exact(0, "0", 0)],
       B: [exact(0, "0", 0), exact(0, "0", 0), exact(0, "0", 0)],
     },
-    renderPoints: { A: [1, 2, 3], B: [4, 5, 6] },
+    renderPoints: {
+      A: [0, 0, 0],
+      B: [2, 0, 0],
+      C: [2, 0, 2],
+      D: [0, 0, 2],
+      A1: [0, 2, 0],
+    },
     intermediates: [],
     provenance: {
       kernel: "geometry",
@@ -137,29 +166,79 @@ test("geometry solutions consume already-transformed renderPoints without swappi
       sourceRevision: "cf0bc1d68b4ea64307f57d7fac64667e6a3148cc",
     },
   };
+  const topology = {
+    vertices: ["A", "B", "C", "D", "A1"],
+    edges: [
+      { a: "A", b: "B" },
+      { a: "B", b: "C" },
+      { a: "C", b: "D" },
+      { a: "D", b: "A" },
+      { a: "A", b: "A1" },
+    ],
+  } as const;
+  const vectors = [{
+    id: "direction",
+    from: "A1",
+    to: "C",
+    conceptId: "geometry-line-plane-angle",
+  }] as const;
   const scene = unwrap(toMathSceneSpec({
     kind: "geometry",
     model: solution,
-    topology: { vertices: ["A", "B"], edges: [{ a: "A", b: "B" }] },
-    vectors: [{ id: "direction", from: "A", to: "B", conceptId: "direction" }],
+    topology,
+    vectors,
+    planes: [{
+      id: "base",
+      pointGrid: [["A", "B"], ["D", "C"]],
+      conceptId: "geometry-line-plane-angle",
+    }],
     teaching: { ...teaching, locale: "zh-HK" },
   }));
 
   const edge = scene.objects.find((object) => object.id === "geometry-edge-0");
   assert.ok(edge && edge.type === "parametricCurve");
-  assert.deepEqual(edge.samples, [[1, 2, 3], [4, 5, 6]]);
+  assert.deepEqual(edge.samples, [[0, 0, 0], [2, 0, 0]]);
   const vector = scene.objects.find((object) => object.id === "geometry-vector-direction");
   assert.ok(vector && vector.type === "vector");
-  assert.deepEqual(vector.from, [1, 2, 3]);
-  assert.deepEqual(vector.to, [4, 5, 6]);
-  assert.equal(scene.formulas[0].latex, solution.answer.latex);
-  assert.deepEqual(scene.bindings, [{
-    conceptId: "direction",
-    formulaId: "math-kernel-result-formula",
-    objectId: "geometry-vector-direction",
-    tokenId: "math-kernel-result-token",
-  }]);
+  assert.deepEqual(vector.from, [0, 2, 0]);
+  assert.deepEqual(vector.to, [2, 0, 2]);
+  const plane = scene.objects.find((object) => object.id === "geometry-plane-base");
+  assert.ok(plane && plane.type === "parametricSurface");
+  assert.deepEqual(plane.samples, [
+    [[0, 0, 0], [2, 0, 0]],
+    [[0, 0, 2], [2, 0, 2]],
+  ]);
+  assert.equal(scene.formulas[0].latex, `\\sin\\theta=${solution.answer.latex}`);
+  assert.deepEqual(scene.bindings, [
+    {
+      conceptId: "geometry-line-plane-angle",
+      formulaId: "math-kernel-result-formula",
+      objectId: "geometry-vector-direction",
+      tokenId: "math-kernel-result-token",
+    },
+    {
+      conceptId: "geometry-line-plane-angle",
+      formulaId: "math-kernel-result-formula",
+      objectId: "geometry-plane-base",
+      tokenId: "math-kernel-result-token",
+    },
+  ]);
   assert.equal(scene.formulas[0].tokens[0].text, "\\theta");
+  assertBoundFormulaTokensAreColorized(scene);
+
+  const withoutPlane = unwrap(toMathSceneSpec({
+    kind: "geometry",
+    model: solution,
+    topology,
+    vectors,
+    teaching: { ...teaching, locale: "zh-HK" },
+  }));
+  assert.deepEqual(withoutPlane.bindings, []);
+  assert.equal(withoutPlane.formulas[0].latex, solution.answer.latex);
+  assert.equal(
+    buildMathSceneTeachingQualityEvidence(withoutPlane).readyForA18Review,
+    false,
+  );
 });
 
 test("analytic range scenes preserve authoritative interval LaTeX and explicit render companions", () => {
@@ -214,7 +293,7 @@ test("analytic range scenes preserve authoritative interval LaTeX and explicit r
     teaching,
   }));
 
-  assert.equal(scene.formulas[0].latex, solution.intervalLatex);
+  assert.equal(scene.formulas[0].latex, `L\\in${solution.intervalLatex}`);
   const segment = scene.objects.find((object) => object.id === "analytic-segment-focal-chord");
   assert.ok(segment && segment.type === "parametricCurve");
   assert.deepEqual(segment.samples, [[-2, 0, 0], [2, 0, 0]]);
@@ -225,6 +304,7 @@ test("analytic range scenes preserve authoritative interval LaTeX and explicit r
     tokenId: "math-kernel-result-token",
   }]);
   assert.equal(scene.formulas[0].tokens[0].text, "L");
+  assertBoundFormulaTokensAreColorized(scene);
 });
 
 test("adapter fails closed for incomplete coordinates and non-finite render data", () => {
@@ -256,6 +336,59 @@ test("adapter fails closed for incomplete coordinates and non-finite render data
   });
   assert.equal(invalidConic.ok, false);
   if (!invalidConic.ok) assert.equal(invalidConic.error.code, "NON_FINITE_INPUT");
+
+  const malformedPlane = toMathSceneSpec({
+    kind: "geometry",
+    model: {
+      schemaVersion: 1,
+      answer: exact(1, "1", 1),
+      points: {},
+      renderPoints: { A: [0, 0, 0], B: [1, 0, 0] },
+      intermediates: [],
+      provenance: {
+        kernel: "geometry",
+        operation: "cubeLinePlaneAngle",
+        sourceRevision: "cf0bc1d68b4ea64307f57d7fac64667e6a3148cc",
+      },
+    },
+    topology: { vertices: ["A", "B"], edges: [{ a: "A", b: "B" }] },
+    planes: [{
+      id: "base",
+      pointGrid: [["A", "B"]] as unknown as readonly [
+        readonly [string, string],
+        readonly [string, string],
+      ],
+      conceptId: "geometry-line-plane-angle",
+    }],
+    teaching,
+  });
+  assert.equal(malformedPlane.ok, false);
+  if (!malformedPlane.ok) assert.equal(malformedPlane.error.code, "INVALID_INPUT");
+
+  const degeneratePlane = toMathSceneSpec({
+    kind: "geometry",
+    model: {
+      schemaVersion: 1,
+      answer: exact(1, "1", 1),
+      points: {},
+      renderPoints: { A: [0, 0, 0], B: [1, 0, 0], C: [1, 0, 1] },
+      intermediates: [],
+      provenance: {
+        kernel: "geometry",
+        operation: "cubeLinePlaneAngle",
+        sourceRevision: "cf0bc1d68b4ea64307f57d7fac64667e6a3148cc",
+      },
+    },
+    topology: { vertices: ["A", "B"], edges: [{ a: "A", b: "B" }] },
+    planes: [{
+      id: "base",
+      pointGrid: [["A", "B"], ["A", "C"]],
+      conceptId: "geometry-line-plane-angle",
+    }],
+    teaching,
+  });
+  assert.equal(degeneratePlane.ok, false);
+  if (!degeneratePlane.ok) assert.equal(degeneratePlane.error.code, "DEGENERATE_PLANE");
 });
 
 test("adapter is client-safe and never recomputes formulas", () => {
@@ -283,7 +416,16 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
       Math.sqrt(3) / 3,
     ),
     points: {},
-    renderPoints: { A: [0, 0, 0], B: [1, 1, 1] },
+    renderPoints: {
+      A: [0, 0, 0],
+      B: [2, 0, 0],
+      C: [2, 0, 2],
+      D: [0, 0, 2],
+      A1: [0, 2, 0],
+      B1: [2, 2, 0],
+      C1: [2, 2, 2],
+      D1: [0, 2, 2],
+    },
     intermediates: [],
     provenance: {
       kernel: "geometry",
@@ -330,12 +472,23 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
   };
   const ellipse = unwrap(ellipseNumeric({ a: 2, b: 1 }));
   const conic = unwrap(toConicRenderSpec(ellipse, { sampleCount: 5 }));
+  const topology = unwrap(cube());
 
   for (const locale of ["en", "zh-CN", "zh-HK"] as const) {
     const geometryScene = unwrap(buildGeometryKernelDemoScene({
       solution: geometry,
-      topology: { vertices: ["A", "B"], edges: [{ a: "A", b: "B" }] },
-      vectors: [{ id: "AB", from: "A", to: "B", conceptId: "geometry-line-direction" }],
+      topology,
+      vectors: [{
+        id: "A1C",
+        from: "A1",
+        to: "C",
+        conceptId: "geometry-line-plane-angle",
+      }],
+      planes: [{
+        id: "base",
+        pointGrid: [["A", "B"], ["D", "C"]],
+        conceptId: "geometry-line-plane-angle",
+      }],
       renderEdgeLength: Math.sqrt(3),
       locale,
     }));
@@ -347,8 +500,8 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
       chordLengthSquared: 16,
       locale,
     }));
-    assert.equal(geometryScene.formulas[0].latex, geometry.answer.latex);
-    assert.equal(analyticScene.formulas[0].latex, analytic.intervalLatex);
+    assert.equal(geometryScene.formulas[0].latex, `\\sin\\theta=${geometry.answer.latex}`);
+    assert.equal(analyticScene.formulas[0].latex, `L\\in${analytic.intervalLatex}`);
     assert.equal(geometryScene.sceneId.endsWith(locale), true);
     assert.equal(analyticScene.sceneId.endsWith(locale), true);
     assert.deepEqual(
@@ -365,11 +518,15 @@ test("demo wrappers consume one kernel result safely in all three locales", () =
         { id: "chord-length-squared", role: "derived", value: 16 },
       ],
     );
+    assert.equal(geometryScene.bindings.length, 2);
+    assert.equal(analyticScene.bindings.length, 1);
+    assertBoundFormulaTokensAreColorized(geometryScene);
+    assertBoundFormulaTokensAreColorized(analyticScene);
     for (const scene of [geometryScene, analyticScene]) {
       const evidence = buildMathSceneTeachingQualityEvidence(scene);
       assert.equal(evidence.status, "ready-for-a18-review", evidence.summary);
       assert.deepEqual(evidence.missingTeachingEvidence, []);
-      assert.equal(evidence.semanticBindingCount, 1);
+      assert.equal(evidence.semanticBindingCount, scene.bindings.length);
       assert.equal(evidence.nonWaitFocusedBeatCount > 0, true);
       assert.equal(evidence.controlParameterCount, 1);
     }

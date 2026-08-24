@@ -68,12 +68,24 @@ export interface GeometrySceneVectorInput {
   readonly conceptId: string;
 }
 
+export interface GeometryScenePlaneInput {
+  readonly id: string;
+  /** Two-by-two world-point reference grid copied from GeometrySolutionDto. */
+  readonly pointGrid: readonly [
+    readonly [string, string],
+    readonly [string, string],
+  ];
+  readonly conceptId: string;
+}
+
 export interface GeometryMathKernelSceneInput {
   readonly kind: "geometry";
   readonly model: GeometrySolutionDto;
   readonly topology: BodyTopology;
   /** References world-space renderPoints already present in the solution DTO. */
   readonly vectors?: readonly GeometrySceneVectorInput[];
+  /** Explicit plane companions copied from renderPoints; no normal is recomputed here. */
+  readonly planes?: readonly GeometryScenePlaneInput[];
   readonly parameters?: readonly MathSceneParameterSpec[];
   readonly teaching: MathKernelTeachingInput;
 }
@@ -335,6 +347,10 @@ function collectPoints(objects: readonly MathObjectSpec[]): Vec3[] {
   for (const object of objects) {
     if (object.type === "parametricCurve") {
       for (const point of object.samples) points.push(copyVec3(point));
+    } else if (object.type === "parametricSurface") {
+      for (const row of object.samples) {
+        for (const point of row) points.push(copyVec3(point));
+      }
     } else if (object.type === "vector") {
       points.push(copyVec3(object.from), copyVec3(object.to));
     }
@@ -415,7 +431,7 @@ function sceneTimeline(
 
 interface SemanticFormulaTarget {
   readonly conceptId: string;
-  readonly objectId: string;
+  readonly objectIds: readonly string[];
   readonly tokenText: string;
 }
 
@@ -529,16 +545,28 @@ function assembleScene(
   }
   const parameters = validateSceneParameters(options.parameters);
   if (!parameters.ok) return parameters;
+  if (
+    options.semanticFormulaTarget !== undefined &&
+    !latex.includes(options.semanticFormulaTarget.tokenText)
+  ) {
+    return fail(
+      KERNEL_ERROR_CODES.invalidInput,
+      "A semantic formula token must occur in the authoritative display LaTeX.",
+    );
+  }
 
   const formulaId = "math-kernel-result-formula";
   const tokenId = "math-kernel-result-token";
-  const formulaConcept = options.semanticFormulaTarget?.conceptId ?? teaching.titleKey;
-  const bindings = options.semanticFormulaTarget === undefined ? [] : [{
-    conceptId: options.semanticFormulaTarget.conceptId,
-    formulaId,
-    objectId: options.semanticFormulaTarget.objectId,
-    tokenId,
-  }];
+  const semanticFormulaTarget = options.semanticFormulaTarget;
+  const formulaConcept = semanticFormulaTarget?.conceptId ?? teaching.titleKey;
+  const bindings = semanticFormulaTarget === undefined
+    ? []
+    : semanticFormulaTarget.objectIds.map((objectId) => ({
+        conceptId: semanticFormulaTarget.conceptId,
+        formulaId,
+        objectId,
+        tokenId,
+      }));
   const familyId = kind === "conic" || kind === "analytic"
     ? "three-conic-sections-deep"
     : "three-space-vectors-lines-planes";
@@ -711,11 +739,12 @@ function adaptGeometry(
     if (
       typeof vector.from !== "string" ||
       typeof vector.to !== "string" ||
-      typeof vector.conceptId !== "string" ||
-      vector.conceptId.trim().length === 0
+      typeof vector.conceptId !== "string"
     ) {
       return fail(KERNEL_ERROR_CODES.invalidInput, "Invalid geometry vector references.");
     }
+    const conceptId = validateSafeId(vector.conceptId, "geometry vector conceptId");
+    if (!conceptId.ok) return conceptId;
     const from = model.value.renderPoints[vector.from];
     const to = model.value.renderPoints[vector.to];
     if (!isFiniteVec3(from) || !isFiniteVec3(to)) {
@@ -730,19 +759,109 @@ function adaptGeometry(
       from: copyVec3(from),
       to: copyVec3(to),
       colorRole: "probe",
-      conceptId: vector.conceptId,
+      conceptId: conceptId.value,
     });
   }
-  const semanticVector = objects.find((object) => object.type === "vector");
-  return assembleScene("geometry", objects, model.value.answer.latex, teaching, {
-    parameters: input.parameters,
-    semanticFormulaTarget: semanticVector && semanticVector.type === "vector"
+
+  const seenPlanes = new Set<string>();
+  if (input.planes !== undefined && !Array.isArray(input.planes)) {
+    return fail(KERNEL_ERROR_CODES.invalidInput, "geometry.planes must be an array.");
+  }
+  for (const plane of input.planes ?? []) {
+    if (!isPlainRecord(plane)) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Every geometry plane must be a plain object.");
+    }
+    const id = validateSafeId(plane.id, "geometry plane id");
+    if (!id.ok) return id;
+    if (seenPlanes.has(id.value)) {
+      return fail(KERNEL_ERROR_CODES.invalidInput, "Geometry plane ids must be unique.");
+    }
+    seenPlanes.add(id.value);
+    const conceptId = validateSafeId(plane.conceptId, "geometry plane conceptId");
+    if (!conceptId.ok) return conceptId;
+    if (
+      !Array.isArray(plane.pointGrid) ||
+      plane.pointGrid.length !== 2 ||
+      !plane.pointGrid.every((row) => Array.isArray(row) && row.length === 2)
+    ) {
+      return fail(
+        KERNEL_ERROR_CODES.invalidInput,
+        "Geometry planes require a two-by-two renderPoint reference grid.",
+      );
+    }
+    const pointIds = plane.pointGrid.flat();
+    if (new Set(pointIds).size !== 4) {
+      return fail(
+        KERNEL_ERROR_CODES.degeneratePlane,
+        "Geometry plane reference grids require four distinct points.",
+      );
+    }
+    const samples: Vec3[][] = [];
+    for (const row of plane.pointGrid) {
+      const sampleRow: Vec3[] = [];
+      for (const pointId of row) {
+        if (typeof pointId !== "string") {
+          return fail(
+            KERNEL_ERROR_CODES.invalidInput,
+            "Geometry plane point references must be strings.",
+          );
+        }
+        const point = model.value.renderPoints[pointId];
+        if (!isFiniteVec3(point)) {
+          return fail(
+            KERNEL_ERROR_CODES.invalidInput,
+            "Geometry planes must reference existing finite renderPoints.",
+          );
+        }
+        sampleRow.push(copyVec3(point));
+      }
+      samples.push(sampleRow);
+    }
+    objects.push({
+      type: "parametricSurface",
+      id: `geometry-plane-${id.value}`,
+      samples,
+      uRange: [0, 1],
+      vRange: [0, 1],
+      colorRole: "reference",
+      conceptId: conceptId.value,
+      style: {
+        fillOpacity: 0.18,
+        fillRole: "reference",
+        strokeOpacity: 0.4,
+        strokeRole: "reference",
+        strokeWidth: 2,
+      },
+    });
+  }
+
+  const semanticPair = objects
+    .filter((object) => object.type === "vector")
+    .map((vector) => ({
+      vector,
+      plane: objects.find((object) => (
+        object.type === "parametricSurface" &&
+        object.conceptId === vector.conceptId
+      )),
+    }))
+    .find((pair) => pair.plane?.type === "parametricSurface");
+  const semanticVector = semanticPair?.vector;
+  const semanticPlane = semanticPair?.plane;
+  const semanticFormulaTarget =
+    semanticVector && semanticVector.type === "vector" &&
+    semanticPlane && semanticPlane.type === "parametricSurface"
       ? {
           conceptId: semanticVector.conceptId,
-          objectId: semanticVector.id,
+          objectIds: [semanticVector.id, semanticPlane.id],
           tokenText: "\\theta",
         }
-      : undefined,
+      : undefined;
+  const formulaLatex = semanticFormulaTarget === undefined
+    ? model.value.answer.latex
+    : `\\sin\\theta=${model.value.answer.latex}`;
+  return assembleScene("geometry", objects, formulaLatex, teaching, {
+    parameters: input.parameters,
+    semanticFormulaTarget,
   });
 }
 
@@ -827,16 +946,20 @@ function adaptAnalytic(
     });
   }
   const semanticSegment = objects.find((object) => object.id.startsWith("analytic-segment-"));
-  return assembleScene("analytic", objects, model.value.intervalLatex, teaching, {
+  const semanticFormulaTarget =
+    semanticSegment && semanticSegment.type === "parametricCurve"
+      ? {
+          conceptId: semanticSegment.conceptId,
+          objectIds: [semanticSegment.id],
+          tokenText: "L",
+        }
+      : undefined;
+  const formulaLatex = semanticFormulaTarget === undefined
+    ? model.value.intervalLatex
+    : `L\\in${model.value.intervalLatex}`;
+  return assembleScene("analytic", objects, formulaLatex, teaching, {
     parameters: input.parameters,
-    semanticFormulaTarget:
-      semanticSegment && semanticSegment.type === "parametricCurve"
-        ? {
-            conceptId: semanticSegment.conceptId,
-            objectId: semanticSegment.id,
-            tokenText: "L",
-          }
-        : undefined,
+    semanticFormulaTarget,
   });
 }
 

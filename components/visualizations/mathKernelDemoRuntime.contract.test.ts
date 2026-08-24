@@ -165,7 +165,7 @@ test("the client demo derives a live secant scene with the browser numeric kerne
   assert.equal(result.value?.intersection.chordLengthSquared, 9);
   assert.equal(result.value?.renderSource, "numeric");
   assert.equal(result.value?.scene.familyId, "three-conic-sections-deep");
-  assert.equal(result.value?.scene.formulas[0]?.latex, "[3,\\ 4]");
+  assert.equal(result.value?.scene.formulas[0]?.latex, "L\\in[3,\\ 4]");
   assert.deepEqual(
     result.value?.scene.parameters?.map(({ id, role, value }) => ({ id, role, value })),
     [
