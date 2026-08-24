@@ -305,6 +305,36 @@ test("analytic range scenes preserve authoritative interval LaTeX and explicit r
   }]);
   assert.equal(scene.formulas[0].tokens[0].text, "L");
   assertBoundFormulaTokensAreColorized(scene);
+
+  for (const metric of ["dot-product", "chord-length-squared", "triangle-area"] as const) {
+    const nonChordSolution: AnalyticRangeSolutionDto = { ...solution, metric };
+    const nonChordScene = unwrap(toMathSceneSpec({
+      kind: "analytic",
+      model: nonChordSolution,
+      render: {
+        conic,
+        segments: [{ id: "witness", from: [-2, 0], to: [2, 0] }],
+      },
+      teaching,
+    }));
+    assert.equal(nonChordScene.formulas[0].latex, solution.intervalLatex);
+    assert.deepEqual(nonChordScene.bindings, []);
+    assert.equal(
+      buildMathSceneTeachingQualityEvidence(nonChordScene).readyForA18Review,
+      false,
+    );
+
+    const demoScene = buildAnalyticKernelDemoScene({
+      solution: nonChordSolution,
+      conic,
+      segments: [{ id: "witness", from: [-2, 0], to: [2, 0] }],
+      inverseSlope: 0,
+      chordLengthSquared: 16,
+      locale: "en",
+    });
+    assert.equal(demoScene.ok, false);
+    if (!demoScene.ok) assert.equal(demoScene.error.code, "INVALID_INPUT");
+  }
 });
 
 test("adapter fails closed for incomplete coordinates and non-finite render data", () => {

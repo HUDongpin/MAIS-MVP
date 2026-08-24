@@ -947,6 +947,7 @@ function adaptAnalytic(
   }
   const semanticSegment = objects.find((object) => object.id.startsWith("analytic-segment-"));
   const semanticFormulaTarget =
+    model.value.metric === "chord-length" &&
     semanticSegment && semanticSegment.type === "parametricCurve"
       ? {
           conceptId: semanticSegment.conceptId,

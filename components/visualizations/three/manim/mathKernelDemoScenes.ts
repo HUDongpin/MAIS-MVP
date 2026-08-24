@@ -7,6 +7,7 @@ import type { AnalyticRangeSolutionDto } from "../../../../lib/math-kernel/analy
 import type { BodyTopology } from "../../../../lib/math-kernel/bodies";
 import type { ConicRenderSpec } from "../../../../lib/math-kernel/conics/model";
 import type { GeometrySolutionDto } from "../../../../lib/math-kernel/geometry/solutionTypes";
+import { KERNEL_ERROR_CODES } from "../../../../lib/math-kernel/shared/errors";
 import type { KernelResult } from "../../../../lib/math-kernel/shared/types";
 import type { MathSceneSpec } from "./mathSceneTypes";
 import {
@@ -158,6 +159,15 @@ export function buildGeometryKernelDemoScene(
 export function buildAnalyticKernelDemoScene(
   input: AnalyticKernelDemoInput,
 ): KernelResult<MathSceneSpec> {
+  if (input.solution.metric !== "chord-length") {
+    return {
+      ok: false,
+      error: {
+        code: KERNEL_ERROR_CODES.invalidInput,
+        message: "The analytic kernel demo only supports chord-length range solutions.",
+      },
+    };
+  }
   const labels = MATH_KERNEL_PARAMETER_LABELS[input.locale];
   return toMathSceneSpec({
     kind: "analytic",
