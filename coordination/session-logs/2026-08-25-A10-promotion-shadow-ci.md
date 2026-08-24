@@ -52,7 +52,7 @@ Review-fix TDD evidence:
 - Follow-up RED: the focused validation-report test failed because reversing the manifest's `allowlistedCheckIds` still exited zero; the assertion did not yet prove report-to-manifest check-order parity.
 - GREEN: the targeted Promotion Shadow command passed `3/3`, and the focused validation-report test passed after adding the parity check. Its executable fixture matrix accepted the exact valid envelope and rejected wrong schema, failed envelope, malformed digest, candidate mismatch, failed legacy ratchet, failed live reachability, duplicate/missing checks, unexpected check fields, and manifest allowlist order drift.
 - `npm run test:release-governance` — `87/87` passed.
-- YAML parsing and `bash -n` passed for all 11 workflow steps; the upload path contains the validation report and both runner-generated receipts.
+- YAML parsing confirmed 11 total workflow steps and 8 shell `run` blocks; all 8 `run` blocks passed `bash -n`. The upload path contains the validation report and both runner-generated receipts.
 - `npm run release:package-gate -- --json` — `valid: true` with the same 8 release packages, 37 owner-path packages, and 25 resolution checks.
 - `npm run type-check` — passed (`tsc --noEmit --incremental false`).
 
