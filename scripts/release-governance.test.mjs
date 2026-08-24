@@ -1584,6 +1584,30 @@ test("default package gate and exact owner mappings are valid", async () => {
   assertOwnerMapping(pathspecManifest, "MAIS_Competitive_Analysis_K12_Math.docx", "A10", ["A16"]);
   assertOwnerMapping(pathspecManifest, ".env.local.example", "A19", ["A07", "A15", "A22"]);
   assertOwnerMapping(pathspecManifest, "package-lock.json", "A10", []);
+  assertOwnerMapping(
+    pathspecManifest,
+    "lib/math-kernel/**",
+    "A06",
+    ["A08", "A10", "A11", "A12", "A18", "A22", "A25"]
+  );
+  assertOwnerMapping(
+    pathspecManifest,
+    ".github/workflows/ci.yml",
+    "A10",
+    ["A06", "A11", "A22", "A25"]
+  );
+  assertOwnerMapping(
+    pathspecManifest,
+    "public/third-party/**",
+    "A10",
+    ["A06", "A11", "A22", "A25"]
+  );
+  assertOwnerMapping(
+    pathspecManifest,
+    "third_party/**",
+    "A10",
+    ["A06", "A11", "A22", "A25"]
+  );
 
   const importTargetPackage = packageWithExactPathspec(pathspecManifest, "scripts/check-import-targets*.mjs");
   assert.ok(importTargetPackage, "scripts/check-import-targets*.mjs must have a durable owner mapping");

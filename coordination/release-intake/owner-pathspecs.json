@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "frozenAt": "2026-07-11",
+  "version": 3,
+  "frozenAt": "2026-08-24",
   "frozenBy": ["A25", "A10", "A22"],
   "policy": {
     "rootReleaseFrozen": true,
@@ -337,6 +337,14 @@
       ]
     },
     {
+      "id": "A06-math-kernel",
+      "owner": "A06",
+      "role": "Shared TypeScript math kernel",
+      "coordinatesWith": ["A08", "A10", "A11", "A12", "A18", "A22", "A25"],
+      "slice": "runtime app/API/data/public",
+      "pathspecs": ["lib/math-kernel/**"]
+    },
+    {
       "id": "A03-roadmap",
       "owner": "A03",
       "role": "Curriculum roadmap and grade/topic structure",
@@ -423,6 +431,18 @@
       ]
     },
     {
+      "id": "A10-math-kernel-governance",
+      "owner": "A10",
+      "role": "Math-kernel CI and third-party license governance",
+      "coordinatesWith": ["A06", "A11", "A22", "A25"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [
+        ".github/workflows/ci.yml",
+        "public/third-party/**",
+        "third_party/**"
+      ]
+    },
+    {
       "id": "A10-tooling-docs-config",
       "owner": "A10",
       "role": "Tooling, docs, report, and coordination contract",
@@ -496,6 +516,11 @@
     { "path": "scripts/unrelated-release-helper.test.mjs", "expectedOwner": "A10" },
     { "path": "scripts/bug-triage.js", "expectedOwner": "A10" },
     { "path": "package-lock.json", "expectedOwner": "A10" },
+    { "path": "lib/math-kernel/shared/types.ts", "expectedOwner": "A06" },
+    { "path": "app/api/math-kernel-demo/analytic-exact/route.ts", "expectedOwner": "A12" },
+    { "path": ".github/workflows/ci.yml", "expectedOwner": "A10" },
+    { "path": "public/third-party/edulab/LICENSE.txt", "expectedOwner": "A10" },
+    { "path": "third_party/edulab/LICENSE", "expectedOwner": "A10" },
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
     { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
     { "path": "app/api/users/route.ts", "expectedOwner": "A12" },
