@@ -266,6 +266,26 @@ test("CI routes the complete parent Playwright matrix without mixing isolated se
   }
 });
 
+test("CI uses a fresh production build for isolated parent tests and rejects flaky results", () => {
+  const ci = readRepoFile(".github/workflows/ci.yml");
+  const workflow = YAML.parse(ci);
+  const steps = workflow.jobs["teacher-parent-e2e"].steps;
+  const isolatedIndex = steps.findIndex((step) =>
+    typeof step.run === "string" && step.run.includes("tests/e2e/parent-console-stress.spec.ts")
+  );
+  assert.ok(isolatedIndex > 0, "isolated parent Playwright step must exist after setup");
+
+  const buildIndex = steps.findIndex((step) =>
+    typeof step.run === "string" && step.run === "npm run build"
+  );
+  assert.ok(buildIndex >= 0 && buildIndex < isolatedIndex, "a fresh default production build must precede isolated tests");
+  assert.equal(steps[isolatedIndex].env?.PLAYWRIGHT_ISOLATED_MODE, "production");
+  assert.match(String(steps[isolatedIndex].env?.PLAYWRIGHT_RUN_ID ?? ""), /parent-isolated/u);
+
+  const config = readRepoFile("playwright.config.ts");
+  assert.match(config, /failOnFlakyTests:\s*Boolean\(process\.env\.CI\)/u);
+});
+
 test("CI artifact globs match Playwright's run-owned output directories", () => {
   const ci = readRepoFile(".github/workflows/ci.yml");
   const workflow = YAML.parse(ci);

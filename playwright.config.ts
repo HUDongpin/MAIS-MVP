@@ -649,6 +649,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: process.env.CI ? 1 : 0,
+  failOnFlakyTests: Boolean(process.env.CI),
   // These are long, sequential teacher/parent journeys (navigate → create →
   // upload → publish → export in a single test). The default 30s per-test /
   // 5s expect timeouts are fine locally but too tight on the 2-core CI runner,
