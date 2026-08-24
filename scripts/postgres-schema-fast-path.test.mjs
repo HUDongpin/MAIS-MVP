@@ -90,7 +90,7 @@ test("userStore wires the migration marker probe ahead of the schema bootstrap",
   assert.match(userStoreSource, /async function hasCurrentPostgresSchemaMarker\(\)/);
   assert.match(
     userStoreSource,
-    /async function hasCurrentPostgresSchemaMarker\(\) \{\s+return probePostgresStorageReadinessStrict\(/
+    /async function hasCurrentPostgresSchemaMarker\(\) \{\s+return \(await probePostgresDurableReadinessStrict\([\s\S]*?\)\) === true;\s+\}/
   );
   assert.match(
     userStoreSource,
@@ -158,9 +158,11 @@ test("userStore wires the migration marker probe ahead of the schema bootstrap",
 });
 
 test("schema bootstrap is one canonical, bounded, validated readiness path", () => {
-  const bootstrapStart = userStoreSource.indexOf("async function bootstrapPostgresStateTables()");
-  const bootstrapEnd = userStoreSource.indexOf("function parseStoredStatePayload", bootstrapStart);
-  const bootstrapSource = userStoreSource.slice(bootstrapStart, bootstrapEnd);
+  const bootstrapSource = sourceSection(
+    userStoreSource,
+    "async function bootstrapPostgresStateTables()",
+    "const ensurePostgresStateTable"
+  );
   const timeoutStatement = bootstrapSource.indexOf("set_config('lock_timeout', '1000ms', true)");
   const statementTimeout = bootstrapSource.indexOf("set_config('statement_timeout', '5000ms', true)");
   const advisoryLock = bootstrapSource.indexOf("pg_advisory_xact_lock");
@@ -186,8 +188,6 @@ test("schema bootstrap is one canonical, bounded, validated readiness path", () 
     firstMigrationStatement + 1
   );
 
-  assert.notEqual(bootstrapStart, -1);
-  assert.notEqual(bootstrapEnd, -1);
   for (const index of [
     timeoutStatement,
     statementTimeout,
@@ -281,7 +281,7 @@ test("canonical bootstrap installs one transactional marker invalidation trigger
     /CREATE TRIGGER app_state_readiness_invalidate\s+AFTER INSERT OR UPDATE OF id, payload, revision, tenant_id, state_kind, schema_version\s+ON public\.app_state\s+FOR EACH ROW\s+EXECUTE FUNCTION public\.invalidate_app_state_readiness_marker\(\)/iu
   );
   assert.equal(
-    (userStoreSource.match(/CREATE TRIGGER app_state_readiness_invalidate/g) ?? []).length,
+    (bootstrapSource.match(/CREATE TRIGGER app_state_readiness_invalidate/g) ?? []).length,
     1,
     "there must be one canonical invalidation trigger DDL path"
   );

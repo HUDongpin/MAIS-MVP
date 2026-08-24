@@ -4076,11 +4076,11 @@ async function runPostgresDurableReadinessWithinDeadline(
 }
 
 async function hasCurrentPostgresSchemaMarker() {
-  return probePostgresStorageReadinessStrict(
+  return (await probePostgresDurableReadinessStrict(
     getPostgresClient() as unknown as PostgresReadinessClient,
     currentPostgresStorageReadinessState(),
     true
-  );
+  )) === true;
 }
 
 async function bootstrapPostgresStateTables() {
@@ -7925,12 +7925,21 @@ async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest() {
   if (process.env.NODE_ENV !== "test") {
     throw new Error("Postgres full snapshot rewrite is available only to integration tests.");
   }
+  const transactionTimeouts = postgresMutationTransactionTimeouts();
   await getPostgresClient().begin(async (sql) => {
     await sql`
       SELECT
         pg_catalog.set_config('search_path', 'pg_catalog, public', true),
-        pg_catalog.set_config('lock_timeout', '1000ms', true),
-        pg_catalog.set_config('statement_timeout', '5000ms', true)
+        pg_catalog.set_config(
+          'lock_timeout',
+          ${`${transactionTimeouts.lockTimeoutMs}ms`},
+          true
+        ),
+        pg_catalog.set_config(
+          'statement_timeout',
+          ${`${transactionTimeouts.statementTimeoutMs}ms`},
+          true
+        )
     `;
     const { database, storageCapability } = await readPostgresDatabaseForMutation(sql, true);
     await writePostgresDatabaseWith(sql, database, storageCapability);
@@ -15637,7 +15646,8 @@ async function countPostgresHotAuthReadinessRows(
 
 export async function probePostgresDurableReadinessStrict(
   client: PostgresReadinessClient,
-  state: PostgresStorageReadinessState
+  state: PostgresStorageReadinessState,
+  markerProbeContentionIsRetryable = false
 ) {
   return withBoundedPostgresReadinessTransaction(client, async (sql) => {
     if (!await postgresStorageReadinessCatalogIsComplete(sql)) return null;
@@ -15645,7 +15655,7 @@ export async function probePostgresDurableReadinessStrict(
     if (!await postgresStorageReadinessMarkerIsCurrent(sql, state)) return null;
     if (!await postgresHotAuthReadinessCatalogIsComplete(sql)) return null;
     return true;
-  });
+  }, markerProbeContentionIsRetryable);
 }
 
 export async function countPostgresHotAuthRowsForAdminDiagnostics(

@@ -12,6 +12,8 @@ const workerPath = path.join(repositoryRoot, "scripts/nova-postgres-integration-
 const tsxPath = path.join(repositoryRoot, "node_modules/.bin/tsx");
 const resultPrefix = "NOVA_POSTGRES_INTEGRATION_RESULT=";
 const workerTimeoutMs = 120_000;
+const lockObservationTimeoutMs = 30_000;
+const storageContractAdvisoryLockKey = "mais-postgres-storage-contract-v1";
 const fourWriterCapabilityBarrierKey = "mais-test-postgres-capability-barrier-v1";
 const fourWriterMutationLockTimeoutMs = 30_000;
 const fourWriterMutationStatementTimeoutMs = 45_000;
@@ -188,19 +190,33 @@ async function runSuccessfulWorker(
   return outcome.result;
 }
 
-async function waitForForeignAdvisoryLock(
+async function waitForStorageContractAdvisoryLock(
   sql: postgres.Sql,
   { granted }: { granted: boolean }
 ) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + lockObservationTimeoutMs;
   while (performance.now() < deadline) {
     const rows = await sql<Array<{ locked: boolean }>>`
       SELECT EXISTS (
         SELECT 1
         FROM pg_catalog.pg_locks
         WHERE locktype = 'advisory'
+          AND database = (
+            SELECT oid
+            FROM pg_catalog.pg_database
+            WHERE datname = pg_catalog.current_database()
+          )
           AND granted = ${granted}
           AND pid <> pg_backend_pid()
+          AND classid::bigint = (
+            (pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0) >> 32)
+            & 4294967295
+          )
+          AND objid::bigint = (
+            pg_catalog.hashtextextended(${storageContractAdvisoryLockKey}, 0)
+            & 4294967295
+          )
+          AND objsubid = 1
       ) AS locked
     `;
     if (rows[0]?.locked === true) return;
@@ -210,11 +226,11 @@ async function waitForForeignAdvisoryLock(
 }
 
 async function waitForBootstrapAdvisoryLock(sql: postgres.Sql) {
-  await waitForForeignAdvisoryLock(sql, { granted: true });
+  await waitForStorageContractAdvisoryLock(sql, { granted: true });
 }
 
 async function waitForAppStateLock(sql: postgres.Sql, { granted }: { granted: boolean }) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + lockObservationTimeoutMs;
   while (performance.now() < deadline) {
     const rows = await sql<Array<{ observed: boolean }>>`
       SELECT EXISTS (
@@ -236,7 +252,7 @@ async function waitForAppStateLock(sql: postgres.Sql, { granted }: { granted: bo
 }
 
 async function waitForAppStateCapabilityTableLock(sql: postgres.Sql) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + lockObservationTimeoutMs;
   while (performance.now() < deadline) {
     const rows = await sql<Array<{ observed: boolean }>>`
       SELECT EXISTS (
@@ -261,7 +277,7 @@ async function waitForAppStateCapabilityTableLockQueue(
   sql: postgres.Sql,
   expectedWaiting: number
 ) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + lockObservationTimeoutMs;
   while (performance.now() < deadline) {
     const rows = await sql<Array<{ granted_count: number; waiting_count: number }>>`
       SELECT
@@ -301,7 +317,7 @@ async function waitForAppStateObservationLock(
   sql: postgres.Sql,
   { granted }: { granted: boolean }
 ) {
-  const deadline = performance.now() + 10_000;
+  const deadline = performance.now() + lockObservationTimeoutMs;
   while (performance.now() < deadline) {
     const rows = await sql<Array<{ observed: boolean }>>`
       SELECT EXISTS (
@@ -434,6 +450,10 @@ function arrayFromPayload(payload: Record<string, unknown>, key: string) {
   const value = payload[key];
   assert.ok(Array.isArray(value), `${key} must remain a JSON array`);
   return value as Array<Record<string, unknown>>;
+}
+
+function postgresJson(value: unknown) {
+  return value as Parameters<postgres.Sql["json"]>[0];
 }
 
 test("Nova PostgreSQL harness rejects destructive targets before creating a client", () => {
@@ -1024,29 +1044,44 @@ test(
 
         /* generic_writer_bootstrap_lock_order_barrier */
         const beforeLockOrder = await readState(sql);
-        const genericWriter = runWorker(
-          "full-snapshot-rewrite",
-          {},
-          { capabilityStateLockHoldMs: 1_500 }
-        );
-        void genericWriter.catch(() => undefined);
-        await waitForAppStateLock(sql, { granted: true });
-        const forcedBootstrap = runWorker("force-bootstrap");
-        void forcedBootstrap.catch(() => undefined);
-        await waitForForeignAdvisoryLock(sql, { granted: false });
-        const [genericWriterOutcome, forcedBootstrapOutcome] = await Promise.allSettled([
-          genericWriter,
-          forcedBootstrap
-        ]);
-        assert.equal(genericWriterOutcome.status, "fulfilled");
-        assert.equal(forcedBootstrapOutcome.status, "fulfilled");
-        if (genericWriterOutcome.status === "fulfilled") {
-          assert.equal(genericWriterOutcome.value.exitCode, 0);
-          assert.deepEqual(genericWriterOutcome.value.result, { rewritten: true });
-        }
-        if (forcedBootstrapOutcome.status === "fulfilled") {
-          assert.equal(forcedBootstrapOutcome.value.exitCode, 0);
-          assert.deepEqual(forcedBootstrapOutcome.value.result, { bootstrapped: true });
+        const lockOrderBarrierSql = await sql.reserve();
+        let lockOrderBarrierHeld = false;
+        const lockOrderWorkers: Array<Promise<WorkerOutcome>> = [];
+        try {
+          await acquireFourWriterCapabilityBarrier(lockOrderBarrierSql);
+          lockOrderBarrierHeld = true;
+          const genericWriter = runWorker(
+            "full-snapshot-rewrite",
+            {},
+            {
+              capabilityBarrier: true,
+              mutationLockTimeoutMs: fourWriterMutationLockTimeoutMs,
+              mutationStatementTimeoutMs: fourWriterMutationStatementTimeoutMs
+            }
+          );
+          lockOrderWorkers.push(genericWriter);
+          void genericWriter.catch(() => undefined);
+          await waitForAppStateLock(sql, { granted: true });
+          const forcedBootstrap = runWorker("force-bootstrap");
+          lockOrderWorkers.push(forcedBootstrap);
+          void forcedBootstrap.catch(() => undefined);
+          await waitForStorageContractAdvisoryLock(sql, { granted: false });
+          await releaseFourWriterCapabilityBarrier(lockOrderBarrierSql);
+          lockOrderBarrierHeld = false;
+          const [genericWriterOutcome, forcedBootstrapOutcome] = await Promise.all([
+            genericWriter,
+            forcedBootstrap
+          ]);
+          assert.equal(genericWriterOutcome.exitCode, 0);
+          assert.deepEqual(genericWriterOutcome.result, { rewritten: true });
+          assert.equal(forcedBootstrapOutcome.exitCode, 0);
+          assert.deepEqual(forcedBootstrapOutcome.result, { bootstrapped: true });
+        } finally {
+          if (lockOrderBarrierHeld) {
+            await releaseFourWriterCapabilityBarrier(lockOrderBarrierSql);
+          }
+          await Promise.allSettled(lockOrderWorkers);
+          lockOrderBarrierSql.release();
         }
         const afterLockOrder = await readState(sql);
         assert.equal(
@@ -1494,7 +1529,7 @@ test(
           if (malformedStateInstalled) {
             await sql`
               UPDATE public.app_state
-              SET payload = ${JSON.stringify(canonicalState.payload)}::jsonb,
+              SET payload = ${sql.json(postgresJson(canonicalState.payload))}::jsonb,
                   revision = ${canonicalState.revision}::bigint,
                   updated_at = ${canonicalState.updated_at}::timestamptz
               WHERE id = 'primary'
@@ -1551,7 +1586,7 @@ test(
         ];
         await sql`
           UPDATE app_state
-          SET payload = ${JSON.stringify(rollbackPayload)}::jsonb,
+          SET payload = ${sql.json(postgresJson(rollbackPayload))}::jsonb,
               revision = revision + 1,
               updated_at = NOW()
           WHERE id = 'primary'
@@ -1693,7 +1728,7 @@ test(
         ];
         const conflictUpdate = sql`
           UPDATE app_state
-          SET payload = ${JSON.stringify(conflictPayload)}::jsonb,
+          SET payload = ${sql.json(postgresJson(conflictPayload))}::jsonb,
               revision = revision + 1
           WHERE id = 'primary'
         `;
@@ -1828,7 +1863,7 @@ test(
             id, tenant_id, state_kind, schema_version, revision, payload, updated_at
           ) VALUES (
             'primary', 'platform', 'app-snapshot', 1, 1,
-            ${JSON.stringify(payload)}::jsonb, NOW()
+            ${sql.json(postgresJson(payload))}::jsonb, NOW()
           )
         `;
         await sql`INSERT INTO auth_schema_migrations (version) VALUES (2)`;
@@ -1854,7 +1889,16 @@ test(
           null,
           "failed migration must roll back its v4-only tables"
         );
-        await assertStrictStorageReady(false);
+        const strictReadiness = await runWorker("strict-readiness");
+        assert.equal(
+          strictReadiness.exitCode,
+          1,
+          "strict durable readiness must fail closed when a canonical relation is absent"
+        );
+        assert.match(
+          String(strictReadiness.result.error),
+          /relation "public\.[a-z0-9_]+" does not exist/iu
+        );
 
         payload.class_enrollments = arrayFromPayload(payload, "class_enrollments")
           .filter((record) => record.id !== "integration-orphan-enrollment");
@@ -1863,7 +1907,7 @@ test(
             ? { ...record, mode: "fallback-only" }
             : record);
         await sql`
-          UPDATE app_state SET payload = ${JSON.stringify(payload)}::jsonb WHERE id = 'primary'
+          UPDATE app_state SET payload = ${sql.json(postgresJson(payload))}::jsonb WHERE id = 'primary'
         `;
         const retry = await runSuccessfulWorker("readiness");
         assert.equal(retry.schemaReady, true, "a corrected fixture must pass on a new readiness attempt");

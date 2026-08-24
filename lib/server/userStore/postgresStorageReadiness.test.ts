@@ -1293,9 +1293,17 @@ test("mutation contention budgets are test-only, bounded, and internally ordered
     "async function acquirePostgresStorageMutationCapabilityAfterLocks(",
     "export async function advancePostgresStorageReadinessAfterMutation("
   );
+  const integrationRewrite = sourceSection(
+    source,
+    "async function rewriteCurrentPostgresStorageSnapshotForIntegrationTest()",
+    "async function readDatabase()"
+  );
   assert.match(capability, /process\.env\.NODE_ENV === "test"/u);
   assert.match(capability, /MAIS_TEST_POSTGRES_CAPABILITY_BARRIER === "true"/u);
   assert.match(capability, /postgres_storage_capability_integration_barrier/u);
+  assert.match(integrationRewrite, /const transactionTimeouts = postgresMutationTransactionTimeouts\(\)/u);
+  assert.match(integrationRewrite, /transactionTimeouts\.lockTimeoutMs/u);
+  assert.match(integrationRewrite, /transactionTimeouts\.statementTimeoutMs/u);
 });
 
 test("storage catalog rejects deferrable or detached primary-key backing indexes", async () => {
@@ -1464,15 +1472,32 @@ test("the generic full snapshot path preserves lock order, actual-row defenses, 
     worker,
     /if \(command === "force-bootstrap"\)[\s\S]*?forceBootstrap\(\)[\s\S]*?bootstrapped: true/u
   );
+  assert.match(
+    worker,
+    /if \(command === "strict-readiness"\)[\s\S]*?probePostgresDurableReadinessStrict\(/u
+  );
   const section = sourceSection(
     integration,
     "/* generic_writer_bootstrap_lock_order_barrier */",
     "/* generic_writer_bootstrap_lock_order_barrier_end */"
   );
-  assert.match(section, /capabilityStateLockHoldMs: 1_500/u);
-  assert.match(section, /waitForForeignAdvisoryLock\(sql, \{ granted: false \}\)/u);
+  const advisoryObserver = sourceSection(
+    integration,
+    "async function waitForStorageContractAdvisoryLock(",
+    "async function waitForBootstrapAdvisoryLock("
+  );
+  assert.match(section, /acquireFourWriterCapabilityBarrier\(lockOrderBarrierSql\)/u);
+  assert.match(section, /capabilityBarrier: true/u);
+  assert.match(section, /mutationLockTimeoutMs: fourWriterMutationLockTimeoutMs/u);
+  assert.match(section, /mutationStatementTimeoutMs: fourWriterMutationStatementTimeoutMs/u);
+  assert.match(section, /waitForStorageContractAdvisoryLock\(sql, \{ granted: false \}\)/u);
+  assert.match(advisoryObserver, /hashtextextended\(\$\{storageContractAdvisoryLockKey\}, 0\)/u);
+  assert.match(advisoryObserver, /database = \([\s\S]*?pg_catalog\.current_database\(\)/u);
+  assert.match(advisoryObserver, /classid::bigint[\s\S]*?objid::bigint[\s\S]*?objsubid = 1/u);
   assert.match(section, /runWorker\("force-bootstrap"\)/u);
-  assert.match(section, /Promise\.allSettled/u);
+  assert.match(section, /releaseFourWriterCapabilityBarrier\(lockOrderBarrierSql\)/u);
+  assert.match(section, /Promise\.all\(\[/u);
+  assert.match(section, /Promise\.allSettled\(lockOrderWorkers\)/u);
   assert.match(section, /beforeLockOrder\.revision/u);
   assert.match(section, /assertStrictStorageReady\(true\)/u);
   }

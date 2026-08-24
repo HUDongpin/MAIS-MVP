@@ -38,6 +38,7 @@ import {
   teacherNoticeEmailOutboxProviderMappingIntegrationContract,
   teacherNoticeEmailOutboxV2ExpectedPostgresCatalog
 } from "./teacherNoticeEmailOutboxV2Dependency";
+import { teacherNoticeEmailOutboxExpectedPostgresCatalog } from "./teacherNoticeEmailOutboxPersistence";
 
 const providerMessageId = "550e8400-e29b-41d4-a716-446655440000";
 
@@ -837,7 +838,73 @@ test("PostgreSQL maintenance is bounded, uses the database clock, and skips lock
   assert.match(source, /beforeStep: ensureTimeRemaining/u);
 });
 
+test("the frozen webhook dependency matches every authoritative outbox catalog field it shares", () => {
+  const authoritativeIndexNames = new Set<string>(
+    teacherNoticeEmailOutboxExpectedPostgresCatalog.indexes.map((entry) => entry.name)
+  );
+  const dependencySharedCatalog = {
+    relations: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.relations,
+    columns: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.columns,
+    constraints: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.constraints.map((entry) => ({
+      relation: entry.relation,
+      name: entry.name,
+      type: entry.type,
+      validated: entry.validated,
+      deferrable: entry.deferrable,
+      initiallyDeferred: entry.initiallyDeferred,
+      backingIndexName: entry.backingIndexName,
+      relationOidMatches: entry.relationOidMatches,
+      backingIndexOidMatches: entry.backingIndexOidMatches,
+      keyColumns: entry.keyColumns,
+      expression: entry.expression
+    })),
+    indexes: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.indexes
+      .filter((entry) => authoritativeIndexNames.has(entry.name))
+      .map((entry) => ({
+        relation: entry.relation,
+        name: entry.name,
+        accessMethod: entry.accessMethod,
+        valid: entry.valid,
+        ready: entry.ready,
+        live: entry.live,
+        unique: entry.unique,
+        primary: entry.primary,
+        immediate: entry.immediate,
+        partial: entry.partial,
+        predicate: entry.predicate,
+        keyCount: entry.keyColumns.length,
+        attributeCount: entry.keyColumns.length,
+        keyColumns: entry.keyColumns,
+        indOptions: entry.indOptions,
+        opclasses: entry.opclasses,
+        collations: entry.collations
+      })),
+    integrity: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.integrity,
+    markerComment: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.markerComment,
+    markerRows: teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.markerRows
+  };
+
+  assert.deepEqual(
+    dependencySharedCatalog,
+    teacherNoticeEmailOutboxExpectedPostgresCatalog,
+    "the webhook dependency may extend the catalog, but every shared PostgreSQL semantic must stay authoritative"
+  );
+});
+
 test("PostgreSQL catalog attesters reject same-name semantic drift and incomplete outbox v2", () => {
+  const stateFieldsConstraintName = "teacher_notice_email_outbox_state_fields_ck";
+  const dependencyStateFieldsConstraint = teacherNoticeEmailOutboxV2ExpectedPostgresCatalog.constraints
+    .find((entry) => entry.name === stateFieldsConstraintName);
+  const authoritativeStateFieldsConstraint = teacherNoticeEmailOutboxExpectedPostgresCatalog.constraints
+    .find((entry) => entry.name === stateFieldsConstraintName);
+  assert.ok(dependencyStateFieldsConstraint);
+  assert.ok(authoritativeStateFieldsConstraint);
+  assert.equal(
+    dependencyStateFieldsConstraint.expression,
+    authoritativeStateFieldsConstraint.expression,
+    "the frozen webhook dependency must match the PostgreSQL-verified outbox constraint"
+  );
+
   assert.equal(
     attestTeacherNoticeResendWebhookPostgresCatalog(
       structuredClone(teacherNoticeResendWebhookExpectedPostgresCatalog)

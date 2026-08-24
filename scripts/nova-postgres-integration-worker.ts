@@ -115,12 +115,12 @@ async function main() {
       const sql = createDirectIntegrationClient();
       try {
         return {
-          ready: await store.probePostgresStorageReadinessStrict(sql as never, {
+          ready: await store.probePostgresDurableReadinessStrict(sql as never, {
             id: "primary",
             tenantId: "platform",
             stateKind: "app-snapshot",
             schemaVersion: 1
-          })
+          }) === true
         };
       } finally {
         await sql.end({ timeout: 5 });
@@ -526,7 +526,9 @@ async function main() {
                 state_kind = ${originalState.state_kind as string},
                 schema_version = ${originalState.schema_version as number},
                 revision = ${originalState.revision as string}::bigint,
-                payload = ${JSON.stringify(originalState.payload)}::pg_catalog.jsonb,
+                payload = ${restoreSql.json(
+                  originalState.payload as Parameters<postgres.Sql["json"]>[0]
+                )}::pg_catalog.jsonb,
                 updated_at = ${originalState.updated_at as string}::pg_catalog.timestamptz
             WHERE id = ${originalState.id as string}
             RETURNING id

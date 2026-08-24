@@ -313,7 +313,7 @@ test.describe("teacher operations queued client contracts", () => {
     const noticeCard = sendButton.locator("xpath=ancestor::article[1]");
 
     await sendButton.click();
-    await expect(page.getByRole("alert")).toContainText(/not confirmed/i);
+    await expect(page.getByRole("alert").filter({ hasText: /not confirmed/i })).toBeVisible();
     await page.reload();
     await expect(sendButton).toBeVisible({ timeout: 20_000 });
     await sendButton.click();
@@ -350,9 +350,13 @@ test.describe("teacher operations queued client contracts", () => {
     await expect(sendButton).toBeVisible({ timeout: 20_000 });
 
     await sendButton.click();
-    await expect(page.getByRole("alert")).toContainText(/request key conflicts with an earlier action/i);
+    await expect(page.getByRole("alert").filter({
+      hasText: /request key conflicts with an earlier action/i
+    })).toBeVisible();
     await sendButton.click();
-    await expect(page.getByRole("alert")).toContainText(/no eligible family email recipients/i);
+    await expect(page.getByRole("alert").filter({
+      hasText: /no eligible family email recipients/i
+    })).toBeVisible();
   });
 
   test("a production 202 with no eligible email is terminal partial success", async ({ page }) => {
@@ -448,7 +452,7 @@ test.describe("teacher operations queued client contracts", () => {
 
     await runButton.click();
     await expect.poll(() => observedBodies.length).toBe(2);
-    await expect(page.getByRole("alert")).toContainText(/same cursor/i);
+    await expect(page.getByRole("alert").filter({ hasText: /same cursor/i })).toBeVisible();
     const recoveryEntries = await page.evaluate(() => Object.entries(sessionStorage)
       .filter(([key]) => key.startsWith("mais.teacher-operations.")));
     expect(recoveryEntries).toHaveLength(1);
