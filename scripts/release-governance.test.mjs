@@ -287,6 +287,33 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.ok(job, "promotion-shadow-gate job must exist");
   assert.equal(job.name, "promotion-shadow-gate");
   assert.equal(job.permissions?.contents, "read");
+  assert.deepEqual(
+    Object.fromEntries(
+      [
+        "GIT_CONFIG_COUNT",
+        "GIT_CONFIG_KEY_0",
+        "GIT_CONFIG_VALUE_0",
+        "GIT_CONFIG_KEY_1",
+        "GIT_CONFIG_VALUE_1",
+        "GIT_CONFIG_KEY_2",
+        "GIT_CONFIG_VALUE_2",
+        "GIT_CONFIG_KEY_3",
+        "GIT_CONFIG_VALUE_3"
+      ].map((name) => [name, job.env?.[name]])
+    ),
+    {
+      GIT_CONFIG_COUNT: "4",
+      GIT_CONFIG_KEY_0: "gc.auto",
+      GIT_CONFIG_VALUE_0: "0",
+      GIT_CONFIG_KEY_1: "gc.autoDetach",
+      GIT_CONFIG_VALUE_1: "false",
+      GIT_CONFIG_KEY_2: "maintenance.auto",
+      GIT_CONFIG_VALUE_2: "false",
+      GIT_CONFIG_KEY_3: "maintenance.autoDetach",
+      GIT_CONFIG_VALUE_3: "false"
+    },
+    "Promotion Gate CI must suppress detached Git auto-maintenance in synthetic test repositories"
+  );
   assert.equal(job.env?.PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT, frozenRelease);
   assert.equal(
     job.env?.PROMOTION_TERMINAL_AUDIT_POLICY,

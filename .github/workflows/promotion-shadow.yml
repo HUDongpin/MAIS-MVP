@@ -17,6 +17,15 @@ jobs:
     permissions:
       contents: read
     env:
+      GIT_CONFIG_COUNT: "4"
+      GIT_CONFIG_KEY_0: gc.auto
+      GIT_CONFIG_VALUE_0: "0"
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: "false"
+      GIT_CONFIG_KEY_2: maintenance.auto
+      GIT_CONFIG_VALUE_2: "false"
+      GIT_CONFIG_KEY_3: maintenance.autoDetach
+      GIT_CONFIG_VALUE_3: "false"
       PROMOTION_TERMINAL_AUDIT_POLICY: coordination/integration/current-head-audit/policies/us-ca-math-rag-v2-g6-ratios-v1-attempt-001.v2.json
       PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT: ca89c923065a1b9dd6aee40fbc78326be13aae07
       PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json
