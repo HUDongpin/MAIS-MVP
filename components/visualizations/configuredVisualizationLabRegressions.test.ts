@@ -49,7 +49,7 @@ test("grade 1 add-subtract number-line lab uses Set, Start, and Step controls", 
   assert.match(source, /const gradeOneAddSubtractLabId = "us-ca-math-p1-1-oa-add-subtract"/);
   // Accept either the plain `mode` or the grade-band `cappedMode` fallback.
   assert.match(source, /const modelMode = usesGradeOneSetControls \? 1 : (?:mode|cappedMode)/);
-  assert.match(source, /const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
+  assert.match(source, /\(templateId === "number-line" && mode === 0 && !usesGradeOneSetControls\)/);
   // Single-mode labs keep grid-cols-1; four-mode labs (function-graph
   // exponential model) use grid-cols-2; the default stays grid-cols-3.
   assert.match(
@@ -65,7 +65,15 @@ test("probability lab reports both decimal and percent notation", () => {
   const branch = templateBranch("probability-simulation");
 
   assert.match(branch, /const probabilityPercent = formatNumber\(state\.probability \* 100, 0\)/);
-  assert.match(branch, /formatNumber\(state\.probability, 2\)} = \$\{probabilityPercent\}%/);
+  assert.match(branch, /\$\{probabilityDecimal\} \$\{percentRelation\} \$\{probabilityPercent\}%/);
+});
+
+test("probability lab never joins a rounded decimal to an exact value with an equals sign", () => {
+  // 1/3, 1/7 and 1/9 are all reachable on the success/failure sliders, so the
+  // relation symbol has to be derived, never hard-coded to "=".
+  assert.match(source, /const decimalRelation = roundedRelation\(state\.probability, probabilityDecimal\)/);
+  assert.match(source, /const percentRelation = roundedRelation\(state\.probability \* 100, probabilityPercent\)/);
+  assert.doesNotMatch(source, /formatNumber\(state\.probability, 2\)\} = \$\{probabilityPercent\}%/);
 });
 
 test("array-area layout keeps cells below the title badge clearance zone", () => {
@@ -267,7 +275,7 @@ test("configured visualization lab exposes a footer action slot for lesson embed
   assert.match(source, /threeDPresentation\?: ThreeDPresentation;/);
   assert.match(
     source,
-    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "authoring",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
+    /function ConfiguredVisualizationLabSurface\(\{[\s\S]*threeDPresentation = "learner",[\s\S]*\}: ConfiguredVisualizationLabProps\)/
   );
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /<ConfiguredVisualizationLabSurface \{\.\.\.props\} threeDPresentation="learner" \/>/);

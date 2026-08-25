@@ -511,7 +511,13 @@ export function ThreeDLabCanvas({
   fallback,
   label,
   onCanvasReady,
-  presentation = "authoring",
+  // Learner-safe by default. The authoring harness (27-family scene selector,
+  // checkpoint paste/save/restore, render-quality/capture, undo/redo, timeline
+  // scrubber) is Manim tooling, not curriculum: a learner who switches the
+  // scene keeps the original topic's formula strip, so the lab silently stops
+  // teaching its topic. Surfaces that genuinely author scenes opt in with
+  // presentation="authoring"; every student-facing surface inherits this.
+  presentation = "learner",
   premiumLaunch = false,
   regionalPriority,
   runtime = "primitive",

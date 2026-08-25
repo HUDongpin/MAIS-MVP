@@ -4214,7 +4214,7 @@ test("ThreeDLabCanvas keeps authoring tools out of the direct learner presentati
 
   assert.match(typeSource, /export type ThreeDPresentation = "authoring" \| "learner";/);
   assert.match(typeSource, /presentation\?: ThreeDPresentation;/);
-  assert.match(canvasSource, /presentation = "authoring"/);
+  assert.match(canvasSource, /presentation = "learner"/);
   assert.match(canvasSource, /const showAuthoringControls = presentation === "authoring";/);
   assert.match(
     canvasSource,
