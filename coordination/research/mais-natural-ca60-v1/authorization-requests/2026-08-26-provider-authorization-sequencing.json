@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "NaturalCaProviderAuthorizationSequencingV1",
+  "artifactKind": "OWNER_ACTION_SEQUENCING_AND_BLOCKER_REPORT_NOT_AUTHORIZATION",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "status": "FULL_PROVIDER_AUTHORIZATIONS_NOT_YET_ISSUABLE",
+  "registrationHash": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+  "activationReceiptHash": "086c84b661ba9f9720f6afea8c4e0fcd50e3c4d0247da318f23235c52c3d2442",
+  "frameSampleEvidence": {
+    "sourceCommit": "57d78fb0be194e3eaf035a4ea6e6448d60e64b67",
+    "frameRegistrationHash": "b8a4752e05fb8bf39a34afa6c63beb363731d08530069d9c454ad1b3e3fe975f",
+    "samplingFrameHash": "c5446c0cd2f29f00e865b949095045e439d1b946a46b132f811af398415046c7",
+    "sampleManifestHash": "d8856f0fb60f38eeecce5249e2018ba90417d68e0f84ef6e2ad9522016d9e159",
+    "sampleSelectionContentRootHash": "aebf850db9981d576a7d83f220423c808157340836b2936d8a1e59cb1bf69d57",
+    "samplePayloadSetHash": "952d8b54540e6ef000be2cbc9b3aff3e0686c8c49d65c283f1b98b2a3c3ccda0",
+    "samplePayloadSetHashFormula": "SHA256_UTF8_JCS_SORTED_SELECTED_ITEM_HASHES",
+    "selectedPrivacyScreenRootHash": "eaf318921d47d8832c54a5df42b0e6fb6abe4d7e7484bc65153bae4043a9e446",
+    "selectedPrivacyScreenRootHashFormula": "SHA256_UTF8_JCS_SORTED_SELECTED_ITEM_HASH_SCREEN_EVIDENCE_HASH_TUPLES",
+    "selectedRightsScreenRootHash": "62afebea22efc89645134100f082cfaf4d82d024e7c15a26c16861fac1d784cb",
+    "selectedRightsScreenRootHashFormula": "SHA256_UTF8_JCS_SORTED_SELECTED_ITEM_HASH_EGRESS_DECISION_HASH_TUPLES",
+    "c0RandomAuditHash": "f1f20cd071e7e95b0f344c123796aeb68a62a4d31dd23dbfaee2991fcdb2be4e",
+    "formalFreezeReceiptHash": "1da428bb5455ba1af33d263d213b7b7bb83f35e57c01f3a9fb17b8668931eb93",
+    "a11IndependentReviewHash": "431c06140638d9bd278f99c5bc9c373895ce8c133bc0bdf03e51ae152f6b38f9",
+    "a18ClaimBoundaryReviewHash": "74eebf0c90780036ebcd86f9b39cd14bbc13b4215504091bde1828ad346c5b96"
+  },
+  "preliminaryOpenAIPublicPriceEvidence": {
+    "evidenceStatus": "PUBLIC_LIST_PRICE_ONLY_NOT_PROJECT_BILLING_CONFIRMATION",
+    "checkedAt": "2026-08-25T20:52:00.000Z",
+    "model": "gpt-5.6-luna",
+    "sourceUrls": [
+      "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "https://platform.openai.com/docs/models/default-usage-policies-by-endpoint",
+      "https://platform.openai.com/pricing"
+    ],
+    "baseUsdPerMillionTokens": {
+      "input": 0.2,
+      "cachedInput": 0.02,
+      "outputIncludingReasoning": 1.2
+    },
+    "usRegionalProcessingUpliftRate": 0.1,
+    "derivedUsRegionalUsdPerMillionTokens": {
+      "input": 0.22,
+      "cachedInput": 0.022,
+      "outputIncludingReasoning": 1.32
+    },
+    "frozenTotalTokenCap": 4000000,
+    "conservativeAllOutputCostUsd": 5.28,
+    "costBufferMultiplier": 1.2,
+    "bufferedConservativeCostUsd": 6.336,
+    "frozenUsdCap": 25,
+    "publicPriceArithmeticWithinCap": true,
+    "mayReplaceCurrentProjectPriceAndBillingEvidence": false,
+    "evidenceHash": "5645313dd68c734a7e267774b246e5127575b57fc613d36dc786210ab1493d6d"
+  },
+  "runnerReadiness": {
+    "trackedDesignDeclaresV5RunnerImplemented": false,
+    "publicCliLiveLabelOpenAIImplemented": false,
+    "publicCliLiveDeepSeekImplemented": false,
+    "openAITransportKind": "FIXTURE_ONLY_NO_NETWORK_V2",
+    "openAIProjectRoutePreflightRunnerImplemented": false,
+    "deepSeekDirectAdapterImplemented": false,
+    "currentExecutionRunnerReviewIsPreActivationOnly": true,
+    "preActivationRunnerCommit": "1dc093a1d0a300495dcd671091c849d24410fd5e",
+    "preActivationRunnerHash": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c",
+    "preActivationOpenAIAdapterHash": "63beb1ca15a26c71563a73447f347383bdaa31cb27a2b932b33d534007767013",
+    "formalFrameFreezeRunnerCommit": "57d78fb0be194e3eaf035a4ea6e6448d60e64b67",
+    "formalFrameFreezeRunnerHash": "dccadc7bb7c2a93b690fe0da4ab7bb69a557d26592ad80953e982efeb942952e",
+    "preFirstProviderRunnerChangeDisposition": "NEW_VERSION_WITH_SUPERSEDES_AND_FRESH_A11_REVIEW",
+    "authorizationGuardWouldFailClosedNow": true
+  },
+  "authorizationSequence": [
+    {
+      "ordinal": 1,
+      "stage": "OFFLINE_LIVE_RUNNER_REMEDIATION",
+      "ownerAuthorizationRequired": false,
+      "providerCallAllowed": false,
+      "credentialReadAllowed": false,
+      "completionEvidence": [
+        "VERSIONED_OPENAI_PREFLIGHT_AND_REFERENCE_LIVE_RUNNER",
+        "VERSIONED_DEEPSEEK_ROUTE_PROBE_AND_EVALUATION_RUNNER",
+        "SUPERSEDES_RELATION",
+        "A11_POST_FREEZE_RUNNER_CONCURRENCE"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "stage": "OPENAI_CREDENTIAL_READINESS_AND_PROJECT_ROUTE_PREFLIGHT_AUTHORIZATION",
+      "ownerAuthorizationRequired": true,
+      "providerCallAllowedOnlyAfterAuthorization": true,
+      "containsNaturalQuestionText": false,
+      "purpose": "Confirm credential presence without disclosure, project residency, exact US endpoint, exact observed model, entitlement, and project billing route."
+    },
+    {
+      "ordinal": 3,
+      "stage": "OPENAI_MACHINE_REFERENCE_LABELING_AUTHORIZATION",
+      "ownerAuthorizationRequired": true,
+      "providerCallAllowedOnlyAfterAuthorization": true,
+      "requiresPriorOpenAIProjectRoutePreflightReceipt": true,
+      "maximumAttempts": 610,
+      "maximumSuccessfulCalls": 300,
+      "maximumTokens": 4000000,
+      "maximumEstimatedUsd": 25,
+      "currency": "USD",
+      "concurrencyCap": 4
+    },
+    {
+      "ordinal": 4,
+      "stage": "REFERENCE_LABEL_SEAL",
+      "ownerAuthorizationRequired": false,
+      "providerCallAllowed": false,
+      "requiresCompleteOpenAIAttemptChain": true
+    },
+    {
+      "ordinal": 5,
+      "stage": "DEEPSEEK_CREDENTIAL_READINESS_AND_ROUTE_PROBE_AUTHORIZATION",
+      "ownerAuthorizationRequired": true,
+      "providerCallAllowedOnlyAfterAuthorization": true,
+      "containsNaturalQuestionText": false,
+      "requiresReferenceLabelSeal": true
+    },
+    {
+      "ordinal": 6,
+      "stage": "DEEPSEEK_EVALUATION_AUTHORIZATION",
+      "ownerAuthorizationRequired": true,
+      "providerCallAllowedOnlyAfterAuthorization": true,
+      "requiresDeepSeekRouteProbeReceipt": true,
+      "requiresReferenceLabelSeal": true,
+      "maximumAttempts": 850,
+      "maximumSuccessfulCalls": 420,
+      "maximumTokens": 6000000,
+      "maximumEstimatedUsd": 25,
+      "currency": "USD",
+      "concurrencyCap": 4
+    }
+  ],
+  "futureFullAuthorizationTemplates": {
+    "openAI": {
+      "templateHash": "39ce293f78087d3bbc1c6694a69fc491f12bb5cec15772a6643e939dd834b2c1",
+      "status": "NOT_YET_ISSUABLE",
+      "provider": "OPENAI_DIRECT",
+      "projectResidency": "US_STORAGE_PROCESSING",
+      "endpoint": "https://us.api.openai.com/v1/responses",
+      "model": "gpt-5.6-luna",
+      "blockers": [
+        "LIVE_RUNNER_VERSION_AND_A11_REVIEW_MISSING",
+        "CREDENTIAL_READINESS_RECEIPT_MISSING",
+        "PROJECT_ROUTE_PREFLIGHT_RECEIPT_MISSING",
+        "CURRENT_PROJECT_PRICE_AND_BILLING_EVIDENCE_MISSING",
+        "HASH_BOUND_OWNER_GRANT_MISSING"
+      ]
+    },
+    "deepSeek": {
+      "templateHash": "088c75e6f47c1f46cfee01f2efb9e11628e71a4a5f2f544d5c7c46c322d916c5",
+      "status": "NOT_YET_ISSUABLE",
+      "provider": "DEEPSEEK_DIRECT",
+      "endpoint": "https://api.deepseek.com/chat/completions",
+      "model": "deepseek-v4-pro",
+      "blockers": [
+        "LIVE_RUNNER_VERSION_AND_A11_REVIEW_MISSING",
+        "REFERENCE_LABEL_SEAL_MISSING",
+        "DEEPSEEK_ROUTE_PROBE_AUTHORIZATION_AND_RECEIPT_MISSING",
+        "DIRECT_BILLING_EVIDENCE_MISSING",
+        "DATA_REGION_EVIDENCE_MISSING",
+        "CURRENT_PRICE_SNAPSHOT_MISSING",
+        "HASH_BOUND_OWNER_GRANT_MISSING"
+      ]
+    }
+  },
+  "currentAuthority": {
+    "frameSampleFreezeAuthorizedAndCompleted": true,
+    "credentialReadAuthorized": false,
+    "providerExecutionAuthorized": false,
+    "questionEgressAuthorized": false,
+    "tokenAuthorizationCreated": false,
+    "attemptAuthorizationCreated": false,
+    "usdAuthorizationCreated": false,
+    "providerRequestCount": 0,
+    "credentialReadCount": 0,
+    "naturalQuestionEgressCount": 0,
+    "referenceLabelCount": 0,
+    "naturalQuestionResultCount": 0
+  },
+  "claimCeiling": "FRAME_AND_SAMPLE_FROZEN_NOT_EXECUTED_INDEPENDENTLY_REVIEWED",
+  "decisionCeiling": "INCONCLUSIVE_MACHINE_REFERENCE",
+  "createdAt": "2026-08-25T20:52:00.000Z",
+  "previousReceiptHash": "74eebf0c90780036ebcd86f9b39cd14bbc13b4215504091bde1828ad346c5b96",
+  "selfHash": "9261eaa9300935be7ec2a73ba05be11107baa13ab5d8d031b7af621d863e47af"
+}
