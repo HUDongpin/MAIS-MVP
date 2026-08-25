@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/OwnerFrameRightsLineageDecisionReceiptV1.schema.json",
+  "title": "OwnerFrameRightsLineageDecisionReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "artifactKind", "designId", "registrationHash", "decisionStatus", "authorizer",
+    "authorizerIdentityBasis", "authorizerIdentityExternallyVerified", "ownerDecisionRequestHash", "rightsPolicyHash",
+    "lineageRuleHash", "readinessReceiptHash", "a22EnvironmentReceiptHash", "a11IndependentReadinessReviewHash",
+    "potentialEligibleContentRootHash", "potentialEligibleClusterSetHash", "allowedSourceIds", "deniedSourceIds",
+    "egressScope", "copyrightedLongFormSourceAllowed", "visualOrAssetEgressAllowed",
+    "contentRightsScopeApprovedForLaterHashBoundExecution", "questionEgressAuthorizedNow", "frameFreezeAuthorized",
+    "sampleFreezeAuthorized", "credentialReadAuthorized", "providerExecutionAuthorized", "tokenAuthorizationCreated",
+    "attemptAuthorizationCreated", "usdAuthorizationCreated", "providerRequestCount", "credentialReadCount",
+    "naturalQuestionEgressCount", "authorizationEvidence", "authorizationEvidenceHash", "issuedAt", "expiresAt",
+    "supersedesOwnerDecisionReceiptHash", "ownerDecisionReceiptHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "OwnerFrameRightsLineageDecisionReceiptV1" },
+    "artifactKind": { "const": "OWNER_GOVERNANCE_DECISION_NOT_PROVIDER_AUTHORIZATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "decisionStatus": { "const": "APPROVED_WITH_EXPLICIT_NON_EXECUTION_LIMITS" },
+    "authorizer": { "const": "OWNER_USER_IN_CURRENT_CODEX_TASK" },
+    "authorizerIdentityBasis": { "const": "THREAD_ROLE_ASSERTION_NOT_EXTERNAL_IDENTITY_VERIFICATION" },
+    "authorizerIdentityExternallyVerified": { "const": false },
+    "ownerDecisionRequestHash": { "$ref": "#/$defs/sha256" },
+    "rightsPolicyHash": { "$ref": "#/$defs/sha256" },
+    "lineageRuleHash": { "$ref": "#/$defs/sha256" },
+    "readinessReceiptHash": { "$ref": "#/$defs/sha256" },
+    "a22EnvironmentReceiptHash": { "$ref": "#/$defs/sha256" },
+    "a11IndependentReadinessReviewHash": { "$ref": "#/$defs/sha256" },
+    "potentialEligibleContentRootHash": { "$ref": "#/$defs/sha256" },
+    "potentialEligibleClusterSetHash": { "$ref": "#/$defs/sha256" },
+    "allowedSourceIds": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "type": "string" } },
+    "deniedSourceIds": { "type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true, "items": { "type": "string" } },
+    "egressScope": { "const": "FUTURE_FROZEN_CA60_SAMPLE_ITEMS_FROM_BOUND_POTENTIAL_CONTENT_ROOT_ONLY" },
+    "copyrightedLongFormSourceAllowed": { "const": false },
+    "visualOrAssetEgressAllowed": { "const": false },
+    "contentRightsScopeApprovedForLaterHashBoundExecution": { "const": true },
+    "questionEgressAuthorizedNow": { "const": false },
+    "frameFreezeAuthorized": { "const": true },
+    "sampleFreezeAuthorized": { "const": true },
+    "credentialReadAuthorized": { "const": false },
+    "providerExecutionAuthorized": { "const": false },
+    "tokenAuthorizationCreated": { "const": false },
+    "attemptAuthorizationCreated": { "const": false },
+    "usdAuthorizationCreated": { "const": false },
+    "providerRequestCount": { "const": 0 },
+    "credentialReadCount": { "const": 0 },
+    "naturalQuestionEgressCount": { "const": 0 },
+    "authorizationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion", "evidenceType", "authorizer", "authorizerIdentityBasis",
+        "authorizerIdentityExternallyVerified", "approvedOwnerDecisionRequestHash", "approvedRightsPolicyHash",
+        "approvedLineageRuleHash", "explicitLimitations", "observedAt"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "OwnerFrameRightsLineageAuthorizationEvidenceV1" },
+        "evidenceType": { "const": "DIRECT_OWNER_MESSAGE_IN_CURRENT_CODEX_TASK" },
+        "authorizer": { "const": "OWNER_USER_IN_CURRENT_CODEX_TASK" },
+        "authorizerIdentityBasis": { "const": "THREAD_ROLE_ASSERTION_NOT_EXTERNAL_IDENTITY_VERIFICATION" },
+        "authorizerIdentityExternallyVerified": { "const": false },
+        "approvedOwnerDecisionRequestHash": { "$ref": "#/$defs/sha256" },
+        "approvedRightsPolicyHash": { "$ref": "#/$defs/sha256" },
+        "approvedLineageRuleHash": { "$ref": "#/$defs/sha256" },
+        "explicitLimitations": { "type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": { "type": "string" } },
+        "observedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "authorizationEvidenceHash": { "$ref": "#/$defs/sha256" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "null" },
+    "supersedesOwnerDecisionReceiptHash": { "type": "null" },
+    "ownerDecisionReceiptHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}
