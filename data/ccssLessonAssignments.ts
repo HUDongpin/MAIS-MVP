@@ -267,19 +267,19 @@ export const ccssLessonAssignments: Record<string, CcssLessonAssignment> = {
     primary: "rational-irrational",
     related: ["approximate-irrationals","linear-equations","systems-of-equations"],
     rationale:
-      "S2 chapter 1 \"Linear Equations and Systems Readiness\": 4 ported lesson(s) match standard prefixes [8.EE.C, 8.NS] (title-over-tag curation: title 'Linear Equations and Systems Readiness' = 8.EE.C systems + 8.NS readiness (tag G8.NS is off-by-one)). Primary is first in document standard order."
+      "S2 chapter 1 \"Linear Equations and Systems Readiness\": 4 ported lesson(s) match standard prefixes [8.EE.C, 8.NS] (title-over-tag curation: title 'Linear Equations and Systems Readiness' = 8.EE.C systems + 8.NS readiness (bank tag was off-by-one G8.NS until the 2026-08-25 fix)). Primary is first in document standard order."
   },
   "us-ca-math-s2-chapter-02": {
     primary: "slope-unit-rate",
     related: ["slope-explorer","functions-intro","construct-linear-function","graph-stories"],
     rationale:
-      "S2 chapter 2 \"Functions and Rate of Change\": 5 ported lesson(s) match standard prefixes [8.F, 8.EE.B] (title-over-tag curation: title 'Functions and Rate of Change' = 8.F + 8.EE.B slope (tag G8.EE is off-by-one)). Primary is first in document standard order."
+      "S2 chapter 2 \"Functions and Rate of Change\": 5 ported lesson(s) match standard prefixes [8.F, 8.EE.B] (title-over-tag curation: title 'Functions and Rate of Change' = 8.F + 8.EE.B slope (bank tag was off-by-one G8.EE until the 2026-08-25 fix)). Primary is first in document standard order."
   },
   "us-ca-math-s2-chapter-03": {
     primary: "transformations",
     related: ["congruence","similarity","triangle-angles"],
     rationale:
-      "S2 chapter 3 \"Transformations and Similarity\": 4 ported lesson(s) match standard prefixes [8.G.A] (title-over-tag curation: title 'Transformations and Similarity' = 8.G.A (tag G8.F is off-by-one)). Primary is first in document standard order."
+      "S2 chapter 3 \"Transformations and Similarity\": 4 ported lesson(s) match standard prefixes [8.G.A] (title-over-tag curation: title 'Transformations and Similarity' = 8.G.A (bank tag was off-by-one G8.F until the 2026-08-25 fix)). Primary is first in document standard order."
   },
   "us-ca-math-s2-chapter-04": {
     primary: "integer-exponents",

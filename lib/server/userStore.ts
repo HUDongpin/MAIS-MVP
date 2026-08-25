@@ -3839,6 +3839,8 @@ function getSqliteDatabase() {
   }
 
   sqlite = new DatabaseSync(dbPath);
+  // Arm busy_timeout before WAL: journal conversion needs an exclusive lock,
+  // and parallel workers should retry instead of failing immediately with SQLITE_BUSY.
   sqlite.exec(`
     PRAGMA busy_timeout = ${sqliteBusyTimeoutMs};
     PRAGMA journal_mode = WAL;
@@ -3885,12 +3887,12 @@ function getSqliteDatabase() {
 
   migrateTeacherNoticeEmailCronHeartbeatSqliteSchema(sqlite);
 
-  const migration = sqlite.prepare("SELECT version FROM schema_migrations WHERE version = ?").get(schemaVersion);
-  if (!migration) {
-    sqlite
-      .prepare("INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)")
-      .run(schemaVersion, new Date().toISOString());
-  }
+  // Idempotent on purpose: `node --test` runs test files in parallel processes that all open the
+  // same .local/hk-math-db.sqlite, so a check-then-insert here loses the race on a fresh database
+  // (both workers see no row, both INSERT, the loser dies with UNIQUE constraint failed).
+  sqlite
+    .prepare("INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?) ON CONFLICT(version) DO NOTHING")
+    .run(schemaVersion, new Date().toISOString());
 
   return sqlite;
 }

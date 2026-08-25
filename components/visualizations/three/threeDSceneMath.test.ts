@@ -66,7 +66,10 @@ test("selects the approved regional premium launch bands", () => {
     "cross-region": 0
   };
 
-  assert.equal(premiumThreeDLaunchLabIds.size, 80);
+  // 80 -> 68 on 2026-08-25: the 12 California premium-3D topics were retired
+  // (Codex-lab replacement plan Phase 2a); their canonical lab is the Claude
+  // signature bench.
+  assert.equal(premiumThreeDLaunchLabIds.size, 68);
 
   for (const labId of premiumThreeDLaunchLabIds) {
     const region = regionalPriorityForThreeDLaunchLab(labId);
@@ -77,13 +80,13 @@ test("selects the approved regional premium launch bands", () => {
 
   assert.deepEqual(counts, {
     mainland: 40,
-    california: 12,
+    california: 0,
     "hong-kong": 9,
     "cross-region": 19
   });
 
   assert.equal(isPremiumThreeDLaunchLab("pep-high-s5-conics"), true);
-  assert.equal(isPremiumThreeDLaunchLab("us-ca-math-s6-chapter-05"), true);
+  assert.equal(isPremiumThreeDLaunchLab("us-ca-math-s6-chapter-05"), false);
   assert.equal(isPremiumThreeDLaunchLab("calculus"), true);
   assert.equal(isPremiumThreeDLaunchLab("capstone-hk-mainland-crosswalk-explorer"), true);
   assert.equal(isPremiumThreeDLaunchLab("p1-counting-number-bonds"), false);

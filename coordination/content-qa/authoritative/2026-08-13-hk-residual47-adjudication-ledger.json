@@ -1,0 +1,1074 @@
+{
+  "schemaVersion": 1,
+  "artifact": "hk-residual47-adjudication-ledger",
+  "generatedAtUtc": "2026-08-13T14:35:34.190Z",
+  "decision": "HOLD",
+  "intakeAuthorized": false,
+  "implementationAuthorized": false,
+  "productionFilesEditedByThisFreeze": false,
+  "scope": {
+    "hkActive": 1003,
+    "displayed": 255,
+    "displayedUnique": 255,
+    "ease": 701,
+    "displayedEaseIntersection": [],
+    "residual": 47,
+    "equation": "1003 = 255 + 701 + 47",
+    "residualOrderedIdSha256": "c33a5f05db153f39b7b7328177f7c3f894f711e12d642b182e77504051bc00b6",
+    "residualQuestionsPayloadSha256": "fb2d405426994d4fd2ede55ee706fc3ede7582ebaac2380a1f64fc3ece65f88c",
+    "serialization": {
+      "orderedIdDigest": "SHA256(JSON.stringify(residualIds))",
+      "questionPayloadDigest": "SHA256(JSON.stringify(residualQuestionsInResidualIdOrder))",
+      "perRowDigest": "SHA256(JSON.stringify(questionObject))"
+    }
+  },
+  "sourceSnapshot": {
+    "successorRoot": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt",
+    "branch": "codex/a18-hk-ease-v2-qa",
+    "headAndBaseline": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+    "currentQuestionsPath": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/data/questions.ts",
+    "currentQuestionsSha256": "24ec6fb77921f0d22a8281179ac3a07f55817351ad31894a94cf72cfa5cc8f7a",
+    "currentSnapshotRole": "authoritative source for this residual47 extraction",
+    "earlierDisplayed74Preimage": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/coordination/content-qa/authoritative/2026-08-13-data-questions-preimage.txt",
+      "sha256": "900ab6f081ee5e6e021fa50ec06155bfd13356cddf1d188e8d960b44937d5ef4",
+      "role": "historical displayed74/EASE successor preimage only; not the residual47 extraction source"
+    }
+  },
+  "evidence": {
+    "partition": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual.json",
+      "sha256": "d1f7c2eaeea5deaa41fafcf75be28498e0919ce3eff9eeace55cf7c55baeeb37"
+    },
+    "learnerContentDump": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-content.txt",
+      "sha256": "250aeec93a13ae0efd7b1ddc1dc161120eb785d8c4ea97bdc0b3e415912a1442"
+    },
+    "supersededAudit": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-semantic-audit.json",
+      "sha256": "5021bcdb57c085fc2d9fcc9a573554da69a6f5aa4555b9e3ddaf774d2d7cb7da",
+      "status": "superseded-by-addendum-v2"
+    },
+    "authoritativeAddendum": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-semantic-audit-addendum-v2.json",
+      "sha256": "302eeb11c0eb36a7ca254caf82dd1e167c6c8107872cb4fec622433a35b37d1b"
+    },
+    "proposedRewriteArtifact": {
+      "path": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+      "sha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda",
+      "status": "proposal-only; separately bound from current source and findings"
+    }
+  },
+  "counts": {
+    "reviewedRows": 47,
+    "confirmedDefectRows": 28,
+    "confirmedIssueInstances": 29,
+    "authoringTemplateRows": 27,
+    "commonCheckAuthoringRows": 25,
+    "firstStepAuthoringRows": 2,
+    "cleanRows": 19,
+    "unresolvedRows": 0
+  },
+  "claimBoundary": {
+    "confirmed": "This ledger freezes the current 47-row snapshot and the first independent semantic findings only.",
+    "notClaimed": [
+      "A18 final adjudication",
+      "implementation authorization",
+      "post-repair correctness",
+      "recipient intake approval",
+      "all HK 1003 semantically green"
+    ],
+    "nextGate": "A18 independently adjudicates these exact 47 per-row payload hashes before any residual repair edit."
+  },
+  "rows": [
+    {
+      "ordinal": 1,
+      "id": "pq-p4-angles-square-corner-5",
+      "currentQuestionPayloadSha256": "a59558ceb1e8718acb1160c1d67dd96f83a9031b6ee336f5db6d6e049ebeb8e8",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 2,
+      "id": "graph-quadratic-patterns-opening-v2",
+      "currentQuestionPayloadSha256": "8838f16c8e32ce7730be41c88086bf7e4c9856ac95f74d34b2c1a2eff73a98f6",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 3,
+      "id": "supp-p1-counting-number-bonds-common-check-v2",
+      "currentQuestionPayloadSha256": "44fcc143b4328da2ced4fa2f4ad042ecf711f29647b51afa14b4fe68cca103c1",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        },
+        {
+          "code": "bilingual-answer-option-semantic-mismatch",
+          "instanceOrdinal": 2,
+          "confirmedFields": [
+            "options[0].en",
+            "answer",
+            "explanation.en"
+          ],
+          "finding": "The English correct option and stored answer describe a before/after relation instead of distinguishing predecessor, successor, and a missing number-bond part."
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh",
+          "options[0].en",
+          "answer"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 4,
+      "id": "supp-p1-addition-subtraction-common-check-v2",
+      "currentQuestionPayloadSha256": "ed439266fe51bd719a412a863147c6658f563e3761d223ebd005c9aaea18357d",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 5,
+      "id": "supp-p1-shapes-patterns-common-check-v2",
+      "currentQuestionPayloadSha256": "7b11b58c292712d304c07b034de8672b5d73671435e0f99f11f41aada967c29d",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 6,
+      "id": "supp-p1-measurement-time-common-check-v2",
+      "currentQuestionPayloadSha256": "ca4525e9050fe46e20857fc0a741b3fd8afedcd266d9c315aa5e637a06c8d827",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 7,
+      "id": "supp-p2-place-value-common-check-v2",
+      "currentQuestionPayloadSha256": "2ed526e58df84582bb042a6b70537a7eae491bafdf2d389f0599cfc2e150c8e3",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 8,
+      "id": "supp-p2-multiplication-foundations-common-check-v2",
+      "currentQuestionPayloadSha256": "177a270a2b5e9199189dbb16c0fc201e4adaf29a147ee2c2dc44d2b22978d776",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 9,
+      "id": "supp-p2-money-time-common-check-v2",
+      "currentQuestionPayloadSha256": "d96c30f6ae36241bd7d0c4aff29612ee2d07c2203b7041889357b7b42b32fdeb",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 10,
+      "id": "supp-p2-length-data-common-check-v2",
+      "currentQuestionPayloadSha256": "432c86af84ec807ae78b7637c1f08199cb005d7a983eddecfa29c2449b1663d2",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 11,
+      "id": "supp-p3-multiplication-division-common-check-v2",
+      "currentQuestionPayloadSha256": "f6d9dd73d61bdea45b36f507b79f40266648b0081c43a209878f640c718550c8",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 12,
+      "id": "supp-p3-fractions-intro-common-check-v2",
+      "currentQuestionPayloadSha256": "b0f0003c2613f195cd280e2611912fe7e9f6fc7d57e60e35158cab960f77b2ab",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 13,
+      "id": "supp-p3-measurement-common-check-v2",
+      "currentQuestionPayloadSha256": "187c0baea753ef7f140721c84237426a0ceb347d6a35a05f12d19c4b53bb00b2",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 14,
+      "id": "supp-p3-geometry-patterns-common-check-v2",
+      "currentQuestionPayloadSha256": "2d01502bbb2726fbb6f328d0c9b014087fbdddd8af1cda95933816e4d2858265",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 15,
+      "id": "supp-p4-large-numbers-common-check-v2",
+      "currentQuestionPayloadSha256": "91c90e8a8886fd5164d98191c2505763fce4775dc7c057007443759f41e2ab6f",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 16,
+      "id": "supp-p4-decimals-guided-example",
+      "currentQuestionPayloadSha256": "f629a459a88c365db9bce6ca5b8f9694ce68bf79ebd5d49086d60a7360a2bc37",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "unstated-response-representation-restriction",
+          "instanceOrdinal": 1,
+          "confirmedFields": [
+            "prompt.en",
+            "prompt.zh"
+          ],
+          "finding": "The prompt does not request decimal form while the strict decimal response contract rejects the exact equivalent 17/5."
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "prompt.en",
+          "prompt.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 17,
+      "id": "supp-p4-decimals-common-check-v2",
+      "currentQuestionPayloadSha256": "692f4ff630941fa659fd374e844903f6eede7bb85121d2ac5b7ca2ca88958800",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 18,
+      "id": "supp-p4-angles-first-step-v2",
+      "currentQuestionPayloadSha256": "19cb96bd2996ad328dd736b1719d67ca600e030f72c5cd82d8bea63f710c6d91",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "first-step",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 19,
+      "id": "supp-p4-angles-guided-example-v2",
+      "currentQuestionPayloadSha256": "0f636c7e89d5536a397d3199d164e0c272e949380d872134aac2c6335bed5b73",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 20,
+      "id": "supp-p4-angles-common-check-v2",
+      "currentQuestionPayloadSha256": "4f0faf1ce3a4fcefcd2307dbab4d96adf9f016cffb5a6415d8447d4d13150eab",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 21,
+      "id": "supp-p4-perimeter-area-common-check-v2",
+      "currentQuestionPayloadSha256": "efa25eea77aca128d9b0ce950e676a2b45e28c302062858deee2578b0271056a",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 22,
+      "id": "supp-p5-fractions-operations-common-check-v2",
+      "currentQuestionPayloadSha256": "19952bae85e86f777bbb7936f2270b86982cb30a5c126da8bc186e3070b3e335",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 23,
+      "id": "supp-p5-volume-guided-example-v2",
+      "currentQuestionPayloadSha256": "2ddceb4f384417e8a480c3623d65add7f0a451eb1c630f33d2cb680c164d9c7e",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 24,
+      "id": "supp-p5-volume-common-check-v2",
+      "currentQuestionPayloadSha256": "96d4394b05c651ebad68407dd02d9681113a971113bcce7dc25361ce9c9b14ab",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 25,
+      "id": "supp-p5-rates-common-check-v2",
+      "currentQuestionPayloadSha256": "40245b2ff6ba6bad6e2e92d7c744aeabf3bbb30fda4dfd095bc7dd8f7bc54922",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 26,
+      "id": "supp-p5-charts-averages-key-fact-v2",
+      "currentQuestionPayloadSha256": "06cf947b2cbe4d413b9ac261fc270445c0726e70aca27d83734eff11eace3cbb",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 27,
+      "id": "supp-p5-charts-averages-guided-example-v2",
+      "currentQuestionPayloadSha256": "871bc83b87736c4f7db645b6234bbf2c969858190f0f18bacd72e64c3a5adf13",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 28,
+      "id": "supp-p5-charts-averages-common-check-v2",
+      "currentQuestionPayloadSha256": "a0da8e25bad3f34e5b009b4fa4655ec87c1b47227300dd1bb6de1c979e17450e",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 29,
+      "id": "supp-p6-percentages-common-check-v2",
+      "currentQuestionPayloadSha256": "0a454852e4e6b341db61f063ef375e2a461b92fad18e05b193a09ef4abeed520",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 30,
+      "id": "supp-p6-ratio-proportion-common-check-v2",
+      "currentQuestionPayloadSha256": "f4fa437d752d137970800b860dca44f75434b07877cde861cdb3eaa39180b158",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 31,
+      "id": "supp-p6-speed-guided-example-v2",
+      "currentQuestionPayloadSha256": "4687c1d2143b0cbe866f30fb215d926467910c4d94a5e8f305e0c1098ec460ee",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 32,
+      "id": "supp-p6-speed-common-check-v2",
+      "currentQuestionPayloadSha256": "ead8c507ae1e122c3fd67b2c70dd1048e7b12767ccd41035679a5c6c50b45602",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 33,
+      "id": "supp-p6-pre-secondary-problem-solving-common-check-v2",
+      "currentQuestionPayloadSha256": "fa8e4f1b79f28111732a270768ae99b36849f1fab2178a13dc4ce8b38638f8d3",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 34,
+      "id": "supp-angles-common-check-v2",
+      "currentQuestionPayloadSha256": "4014b846c240a6c4cbc5dbcd48af24cdc4e6e9d8825714f37b9abceee2fc6cee",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 35,
+      "id": "supp-coordinates-key-fact",
+      "currentQuestionPayloadSha256": "785120071651e161d3b55a302fdf65972e458b1d510eaabc54468eb6f809eea1",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 36,
+      "id": "supp-coordinates-guided-example",
+      "currentQuestionPayloadSha256": "4a54ed637706df904a2664b73711e76eec548e8ce1199a376c71d75f52d457e1",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 37,
+      "id": "supp-coordinates-common-check-v2",
+      "currentQuestionPayloadSha256": "86027893af2b61a1d70c4d6fb439fb387f5395182e7da3fd6109c9066759d077",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 38,
+      "id": "supp-transformations-common-check-v2",
+      "currentQuestionPayloadSha256": "d79f43a33be2ab94336667da5787c2b1a37708653e9745ce4d557160c3a200ea",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 39,
+      "id": "supp-functions-guided-example",
+      "currentQuestionPayloadSha256": "1f4aa4120cad0f9623afeb8f962ad14c3e57e6a50c954e72a090ab961f20a486",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 40,
+      "id": "supp-functions-common-check-v2",
+      "currentQuestionPayloadSha256": "b14a67ef9f2c44056f2749bf5e52de855be4d3f6136fdd666bf5fc1c7afb57d2",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 41,
+      "id": "supp-quadratic-patterns-first-step-v2",
+      "currentQuestionPayloadSha256": "034a15eba4b09da9c08bdcac2d34dbc3cb0741b44fc7c4f8b5c82db423eff780",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "first-step",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 42,
+      "id": "supp-quadratic-patterns-key-fact-v2",
+      "currentQuestionPayloadSha256": "1e2ba9f9ce72257a022d56b076eb2087a4d17f36f891db23b4b154474f06953e",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 43,
+      "id": "supp-quadratic-patterns-guided-example-v2",
+      "currentQuestionPayloadSha256": "7b55b6820dbb2ada9bb9199ea915d9123c182c334923764f49a56af423b6bb55",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 44,
+      "id": "supp-quadratic-patterns-common-check-v2",
+      "currentQuestionPayloadSha256": "6d0b440d2e1c1c7bf762b6c4adfb22de3b6d7c3bec3083865d44961a0b56a315",
+      "classification": "confirmed-defect",
+      "confirmedIssues": [
+        {
+          "code": "learner-facing-authoring-template-voice",
+          "instanceOrdinal": 1,
+          "templateFamily": "common-check",
+          "confirmedFields": [
+            "explanation.en",
+            "explanation.zh"
+          ]
+        }
+      ],
+      "proposal": {
+        "status": "recommendation-only-awaiting-A18-adjudication-and-expanded-write-authorization",
+        "allowedCandidateFields": [
+          "explanation.en",
+          "explanation.zh"
+        ],
+        "exactWordingArtifact": "/Volumes/Starship/MAIS-hk-ease-v2-qa-wt/.tmp/hk-residual-audit/evidence/residual-rewrite-recommendations.md",
+        "exactWordingArtifactSha256": "a6c15272c5dcd0ff81e9f55205fc2ea711244c6c261b7769238b25f67d531eda"
+      }
+    },
+    {
+      "ordinal": 45,
+      "id": "supp-coordinate-geometry-guided-example",
+      "currentQuestionPayloadSha256": "34f8328b4d3883d695341580a743935ccd58b5816ad070d60eb8c4d1f759a200",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 46,
+      "id": "supp-coordinate-geometry-common-check-v2",
+      "currentQuestionPayloadSha256": "5c3936c204da3d1440d0c753528031d271de21be37d27cf5b1a874170ff9458d",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    },
+    {
+      "ordinal": 47,
+      "id": "supp-data-handling-common-check-v2",
+      "currentQuestionPayloadSha256": "6b9e7b3e5a6bc608681bbef6ddc92c30cba8721432c6778e9c472cbb678989d4",
+      "classification": "independently-clean-on-bound-snapshot",
+      "confirmedIssues": [],
+      "proposal": {
+        "status": "none",
+        "allowedCandidateFields": [],
+        "exactWordingArtifact": null,
+        "exactWordingArtifactSha256": null
+      }
+    }
+  ]
+}
+
+

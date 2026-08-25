@@ -145,18 +145,6 @@ export const threeDLaunchRegionByLabId: Partial<Record<string, ThreeDRegionalPri
   "pep-high-s4-trigonometry": "mainland",
   "bnu-junior-s3-lower-right-triangle-trigonometry": "mainland",
   "hjb-junior-s3-upper-acute-trigonometry": "mainland",
-  "us-ca-math-s6-chapter-05": "california",
-  "us-ca-math-s5-chapter-03": "california",
-  "us-ca-math-s2-chapter-02": "california",
-  "us-ca-math-s4-chapter-04": "california",
-  "us-ca-math-s6-chapter-02": "california",
-  "us-ca-math-s6-chapter-04": "california",
-  "us-ca-math-s5-chapter-01": "california",
-  "us-ca-math-s5-chapter-02": "california",
-  "us-ca-math-s3-chapter-03": "california",
-  "us-ca-math-s3-chapter-02": "california",
-  "us-ca-math-s4-chapter-05": "california",
-  "us-ca-math-s6-chapter-03": "california",
   calculus: "hong-kong",
   "differentiation-intro": "hong-kong",
   "trigonometry-s5": "hong-kong",
@@ -189,6 +177,35 @@ export const threeDLaunchRegionByLabId: Partial<Record<string, ThreeDRegionalPri
 
 export const premiumThreeDLaunchLabIds = new Set(Object.keys(threeDLaunchRegionByLabId));
 
+/**
+ * California premium-3D topics retired on 2026-08-25 (Phase 2a of the Codex-lab
+ * replacement plan). Every one of these topics has a curated Claude signature
+ * bench as its canonical lab, so the Codex 3D scene no longer launches for
+ * them; the old direct-route URLs redirect to the topic's bench on the
+ * Visualization Lab page. The `california` coverage band below is pinned to
+ * zero so a CA id reappearing in `threeDLaunchRegionByLabId` fails the
+ * coverage contract instead of silently relaunching.
+ */
+export const retiredCaliforniaPremiumThreeDLabIds = new Set<string>([
+  "us-ca-math-s2-chapter-02",
+  "us-ca-math-s3-chapter-02",
+  "us-ca-math-s3-chapter-03",
+  "us-ca-math-s4-chapter-04",
+  "us-ca-math-s4-chapter-05",
+  "us-ca-math-s5-chapter-01",
+  "us-ca-math-s5-chapter-02",
+  "us-ca-math-s5-chapter-03",
+  "us-ca-math-s6-chapter-02",
+  "us-ca-math-s6-chapter-03",
+  "us-ca-math-s6-chapter-04",
+  "us-ca-math-s6-chapter-05"
+]);
+
+export function hubRouteForRetiredPremiumThreeDLab(labId: string) {
+  if (!retiredCaliforniaPremiumThreeDLabIds.has(labId)) return null;
+  return `/visualization-lab?lab=${encodeURIComponent(labId)}`;
+}
+
 export type PremiumThreeDTopicStaticParam = {
   labId: string;
 };
@@ -199,7 +216,6 @@ export function buildPremiumThreeDTopicStaticParams(): PremiumThreeDTopicStaticP
 
 const threeDRegionalSmokeOrder: readonly ThreeDRegionalPriority[] = [
   "mainland",
-  "california",
   "hong-kong",
   "cross-region"
 ];
@@ -264,10 +280,12 @@ export type ThreeDLaunchCoverageBand = {
 
 export const threeDLaunchCoverageRequirement = {
   familyCount: { min: 24, max: 28 },
-  topicPageCount: { min: 80, max: 100 },
+  topicPageCount: { min: 60, max: 90 },
   regionalCounts: {
     mainland: { min: 35, max: 45 },
-    california: { min: 10, max: 15 },
+    // Descoped 2026-08-25: California topics render Claude signature benches;
+    // any CA id back in the launch map trips this band on purpose.
+    california: { min: 0, max: 0 },
     "hong-kong": { min: 8, max: 10 }
   }
 } as const;

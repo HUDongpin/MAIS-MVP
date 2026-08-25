@@ -329,6 +329,10 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": "function-family",
   "us-ar-math-g11-chapter-05-statistical-inference-and-claims": "statistics-distribution",
   "us-ar-math-g12-chapter-01-quantities-units-and-precision": "statistics-distribution",
+  // Pinned: ch-04/ch-05 templates must not drift with domainTag wording; the
+  // premium direct-route snapshot (premiumThreeDDirectLabs.ts) mirrors these.
+  "us-ar-math-g12-chapter-04-function-analysis-and-rates": "function-family",
+  "us-ar-math-g12-chapter-05-capstone-modeling": "calculus-rate-area",
   "us-ar-math-k-gm-6": "measurement-scale",
   "us-ar-math-k-npv-3": "number-line",
   "us-ar-math-g1-gm-3": "measurement-scale",
@@ -421,8 +425,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "p5-volume": {
     en: "unit cubes = volume",
-    zh: "單位正方體 = 體積",
-    zhHans: "单位正方体 = 体积"
+    zh: "單位立方體 = 體積",
+    zhHans: "单位立方体 = 体积"
   },
   "p6-pre-secondary-problem-solving": {
     en: "diagram -> table -> check",
@@ -866,8 +870,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "us-ca-math-p5-5-md-volume-data": {
     en: "unit cubes -> volume data",
-    zh: "單位正方體 -> 體積數據",
-    zhHans: "单位正方体 -> 体积数据"
+    zh: "單位立方體 -> 體積數據",
+    zhHans: "单位立方体 -> 体积数据"
   },
   "us-ca-math-s5-chapter-02": {
     en: "exponential <-> logarithmic model",
@@ -1156,8 +1160,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "hjb-primary-p5-lower-cuboid-cube": {
     en: "unit cubes -> cuboid volume",
-    zh: "單位正方體 -> 長方體體積",
-    zhHans: "单位正方体 -> 长方体体积"
+    zh: "單位立方體 -> 長方體體積",
+    zhHans: "单位立方体 -> 长方体体积"
   },
   "hjb-primary-p6-lower-cylinder-cone": {
     en: "cylinder volume -> cone volume",
@@ -1301,18 +1305,18 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "us-ar-math-g3-gm-8": {
     en: "unit cubes -> volume estimate",
-    zh: "單位正方體 -> 體積估計",
-    zhHans: "单位正方体 -> 体积估计"
+    zh: "單位立方體 -> 體積估計",
+    zhHans: "单位立方体 -> 体积估计"
   },
   "us-ar-math-g3-gm-9": {
     en: "unit cubes -> volume problem",
-    zh: "單位正方體 -> 體積問題",
-    zhHans: "单位正方体 -> 体积问题"
+    zh: "單位立方體 -> 體積問題",
+    zhHans: "单位立方体 -> 体积问题"
   },
   "us-ar-math-g5-gm-3": {
     en: "unit cubes = volume",
-    zh: "單位正方體 = 體積",
-    zhHans: "单位正方体 = 体积"
+    zh: "單位立方體 = 體積",
+    zhHans: "单位立方体 = 体积"
   },
   "us-ar-math-g5-gm-4": {
     en: "length x width x height = volume",
@@ -1508,7 +1512,7 @@ const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
   "us-ar-math-g4-gm-3": usStandardsFocus("Arkansas 4.GM.3", "Unknown Angle Measures", "幾何角度", "几何角度"),
   "us-ar-math-g10-chapter-03-circle-geometry": usStandardsFocus("Arkansas AR.Math.HS.G-C", "Circle Geometry", "幾何", "几何"),
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": usStandardsFocus("Arkansas AR.Math.HS.F-LE", "Exponential and Logarithmic Models", "函數族", "函数族"),
-  "us-ar-math-g12-chapter-03-decision-statistics": usStandardsFocus("Arkansas AR.Math.HS.F-IF", "Decision Statistics", "統計與分佈", "统计与分布"),
+  "us-ar-math-g12-chapter-03-decision-statistics": usStandardsFocus("Arkansas AR.Math.HS.S-MD", "Decision Statistics", "統計與分佈", "统计与分布"),
   "us-ca-math-s4-chapter-03": {
     en: "California Math Practice Beta Chapter 3 strand for Circle Geometry, with MAIS-authored standards-aligned practice questions.",
     zh: "用幾何模型，觀察California Grade 10: 圓的幾何中的關鍵關係。",
@@ -2162,9 +2166,15 @@ function californiaAlignmentForTopic(topic: Topic, templateId: VisualizationTemp
 function californiaSafeguardForTopic(
   topic: Topic,
   templateId: VisualizationTemplateId,
-  qaProfile: VisualizationQaProfile
+  qaProfile: VisualizationQaProfile,
+  moduleId: VisualizationLabModuleId
 ): VisualizationSafeguardReview | undefined {
   if (!isCaliforniaTopic(topic)) return undefined;
+
+  // The review must describe what actually renders (2026-08-25 truthfulness
+  // pass): signature topics show a Claude Math Visual canvas bench, template
+  // topics the deterministic SVG renderer.
+  const rendersSignatureBench = moduleId === "signature-lab";
 
   const hasApproximationRisk =
     qaProfile === "simulation" ||
@@ -2179,12 +2189,18 @@ function californiaSafeguardForTopic(
     status: "reviewed",
     verdict: "concerns",
     generator: "heuristic",
-    reviewedAt: "2026-06-19T00:00:00.000Z",
-    summary: localizedText(
-      "Heuristic review found this deterministic California math SVG suitable for guided practice, but teacher approval is still required before public, code, snapshot, or API sharing.",
-      "啟發式審查認為這個確定性 California 數學 SVG 適合引導練習，但在公開、程式碼、快照或 API 分享前仍需要教師批准。",
-      "启发式审查认为这个确定性 California 数学 SVG 适合引导练习，但在公开、代码、快照或 API 分享前仍需要教师批准。"
-    ),
+    reviewedAt: rendersSignatureBench ? "2026-08-25T00:00:00.000Z" : "2026-06-19T00:00:00.000Z",
+    summary: rendersSignatureBench
+      ? localizedText(
+          "Heuristic review found this California math canvas bench — a ported Claude Math Visual lab with a mutation-tested audit proof — suitable for guided practice, but teacher approval is still required before public, code, snapshot, or API sharing.",
+          "啟發式審查認為這個 California 數學畫布實驗（移植自 Claude Math Visual、附帶變異測試審計證明）適合引導練習，但在公開、程式碼、快照或 API 分享前仍需要教師批准。",
+          "启发式审查认为这个 California 数学画布实验（移植自 Claude Math Visual、附带变异测试审计证明）适合引导练习，但在公开、代码、快照或 API 分享前仍需要教师批准。"
+        )
+      : localizedText(
+          "Heuristic review found this deterministic California math SVG suitable for guided practice, but teacher approval is still required before public, code, snapshot, or API sharing.",
+          "啟發式審查認為這個確定性 California 數學 SVG 適合引導練習，但在公開、程式碼、快照或 API 分享前仍需要教師批准。",
+          "启发式审查认为这个确定性 California 数学 SVG 适合引导练习，但在公开、代码、快照或 API 分享前仍需要教师批准。"
+        ),
     dimensions: [
       {
         label: "Age Appropriateness",
@@ -2198,11 +2214,17 @@ function californiaSafeguardForTopic(
       {
         label: "Factual Accuracy",
         rating: "pass",
-        findings: localizedText(
-          "The SVG uses deterministic template fields, formulas, labels, and scale transforms rather than generated script.",
-          "SVG 使用確定性的模板欄位、公式、標籤與尺度轉換，而不是生成式腳本。",
-          "SVG 使用确定性的模板字段、公式、标签与尺度转换，而不是生成式脚本。"
-        )
+        findings: rendersSignatureBench
+          ? localizedText(
+              "The bench ships with an audit script that slices the model out of the shipped file, re-derives every quiz key, and proves the calibration stamp holds exact arithmetic.",
+              "此實驗附帶審計腳本：從交付檔案切出模型、重新推導每個測驗答案，並證明校準判定使用精確算術。",
+              "此实验附带审计脚本：从交付文件切出模型、重新推导每个测验答案，并证明校准判定使用精确算术。"
+            )
+          : localizedText(
+              "The SVG uses deterministic template fields, formulas, labels, and scale transforms rather than generated script.",
+              "SVG 使用確定性的模板欄位、公式、標籤與尺度轉換，而不是生成式腳本。",
+              "SVG 使用确定性的模板字段、公式、标签与尺度转换，而不是生成式脚本。"
+            )
       },
       {
         label: "Potential Misconceptions",
@@ -2230,11 +2252,17 @@ function californiaSafeguardForTopic(
       {
         label: "Pedagogical Soundness",
         rating: "pass",
-        findings: localizedText(
-          "The activity keeps one mathematical relationship in focus and links learner controls to visible SVG marks and live feedback.",
-          "活動聚焦一個數學關係，並把學習者控制項連到可見 SVG 標記與即時回饋。",
-          "活动聚焦一个数学关系，并把学习者控件连到可见 SVG 标记与即时反馈。"
-        )
+        findings: rendersSignatureBench
+          ? localizedText(
+              "The bench teaches through staged steps — predict, check, then a final calibration — keeping one mathematical relationship in focus with dials that unlock per step.",
+              "實驗以分段步驟教學——先預測、再檢查、最後校準——聚焦一個數學關係，旋鈕按步驟解鎖。",
+              "实验以分段步骤教学——先预测、再检查、最后校准——聚焦一个数学关系，旋钮按步骤解锁。"
+            )
+          : localizedText(
+              "The activity keeps one mathematical relationship in focus and links learner controls to visible SVG marks and live feedback.",
+              "活動聚焦一個數學關係，並把學習者控制項連到可見 SVG 標記與即時回饋。",
+              "活动聚焦一个数学关系，并把学习者控件连到可见 SVG 标记与即时反馈。"
+            )
       },
       {
         label: "Safety & Harm",
@@ -2249,11 +2277,17 @@ function californiaSafeguardForTopic(
       {
         label: "Inclusivity & Accessibility",
         rating: "minor",
-        findings: localizedText(
-          "The component includes responsive SVG labels and named controls, but a teacher should still check screen-reader flow, color contrast, and mobile label fit before approval.",
-          "元件包含響應式 SVG 標籤與具名控制項，但教師批准前仍應檢查螢幕閱讀器流程、色彩對比與手機標籤適配。",
-          "组件包含响应式 SVG 标签与具名控件，但教师批准前仍应检查屏幕阅读器流程、色彩对比与手机标签适配。"
-        ),
+        findings: rendersSignatureBench
+          ? localizedText(
+              "The bench draws on a canvas with a labelled surface and named staged controls, but a canvas interior exposes fewer semantic marks than an SVG template, so a teacher should still check screen-reader flow, color contrast, and mobile fit before approval.",
+              "實驗在畫布上繪製，附有標籤表面與具名分段控制項，但畫布內部的語義標記少於 SVG 模板，教師批准前仍應檢查螢幕閱讀器流程、色彩對比與手機適配。",
+              "实验在画布上绘制，附有标签表面与具名分段控件，但画布内部的语义标记少于 SVG 模板，教师批准前仍应检查屏幕阅读器流程、色彩对比与手机适配。"
+            )
+          : localizedText(
+              "The component includes responsive SVG labels and named controls, but a teacher should still check screen-reader flow, color contrast, and mobile label fit before approval.",
+              "元件包含響應式 SVG 標籤與具名控制項，但教師批准前仍應檢查螢幕閱讀器流程、色彩對比與手機標籤適配。",
+              "组件包含响应式 SVG 标签与具名控件，但教师批准前仍应检查屏幕阅读器流程、色彩对比与手机标签适配。"
+            ),
         recommendation: localizedText(
           "Verify the lab on the target classroom devices before approving external sharing.",
           "批准外部分發前，請在目標課堂裝置上驗證實驗。",
@@ -2267,11 +2301,27 @@ function californiaSafeguardForTopic(
 function californiaStudentNoteForTopic(
   topic: Topic,
   alignment: VisualizationCaliforniaAlignment,
-  templateId: VisualizationTemplateId
+  templateId: VisualizationTemplateId,
+  moduleId: VisualizationLabModuleId
 ): VisualizationStudentNote {
   const standards = alignment.standardIds.slice(0, 4).join(", ");
   const moreStandards = alignment.standardIds.length > 4 ? "..." : "";
   const modelType = templateMetadata[templateId].category.en.toLowerCase();
+
+  // Signature topics render a Claude Math Visual canvas bench, so the note
+  // describes staged steps and exact arithmetic instead of the template's
+  // slider model (2026-08-25 truthfulness pass).
+  if (moduleId === "signature-lab") {
+    return {
+      authorId: "S06-visualization-safeguard",
+      updatedAt: "2026-08-25T00:00:00.000Z",
+      text: {
+        en: `Read me first: This interactive math bench is a California standards-aligned lab for ${topic.title.en}. It supports ${alignment.domainId} (${standards}${moreStandards}) and teaches through staged steps — predict, check, then calibrate. Values are exact unless labelled as rounded; do not treat the picture as a complete California course or official standards text.`,
+        zh: `Read me first：這個互動數學實驗是面向 ${topic.title.zh} 的 California 標準對齊實驗，支援 ${alignment.domainId}（${standards}${moreStandards}），以分段步驟教學——先預測、再檢查、最後校準。除標明為約數外，數值均為精確值；不要把圖像視為完整 California 課程或官方標準原文。`,
+        zhHans: `Read me first：这个互动数学实验是面向 ${simplifiedCatalogText(topic.title)} 的 California 标准对齐实验，支持 ${alignment.domainId}（${standards}${moreStandards}），以分段步骤教学——先预测、再检查、最后校准。除标明为约数外，数值均为精确值；不要把图像视为完整 California 课程或官方标准原文。`
+      }
+    };
+  }
 
   return {
     authorId: "S06-visualization-safeguard",
@@ -2512,7 +2562,7 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   // keeps the shared template renderer untouched.
   const moduleId = hasSignatureLab(topic.id) ? signatureModuleId : configuredModuleId;
   const californiaAlignment = californiaAlignmentForTopic(topic, templateId);
-  const safeguard = californiaSafeguardForTopic(topic, templateId, template.qaProfile);
+  const safeguard = californiaSafeguardForTopic(topic, templateId, template.qaProfile, moduleId);
   const threeDFamilyId = familyForVisualizationLab(topic.id, templateId);
   const launchRegionalPriority = regionalPriorityForThreeDLaunchLab(topic.id);
   const threeD: ThreeDVisualizationMetadata = {
@@ -2554,7 +2604,7 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
     threeD,
     qaProfile: template.qaProfile,
     safeguard,
-    studentNote: californiaAlignment ? californiaStudentNoteForTopic(topic, californiaAlignment, templateId) : undefined
+    studentNote: californiaAlignment ? californiaStudentNoteForTopic(topic, californiaAlignment, templateId, moduleId) : undefined
   };
 }
 
