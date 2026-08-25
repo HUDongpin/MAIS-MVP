@@ -396,12 +396,20 @@ export function sqliteAppLeaseStatePath(dbPath: string) {
 }
 
 function processStartIdentity(pid: number) {
+  const stableProcessInspectionEnv: NodeJS.ProcessEnv = {
+    ...process.env,
+    LC_ALL: "C",
+    LANG: "C",
+    LANGUAGE: "C",
+    TZ: "UTC"
+  };
   let commandLine: Buffer | string;
   try {
     commandLine = process.platform === "linux"
       ? readFileSync(path.join("/proc", String(pid), "cmdline"))
-      : execFileSync("ps", ["-ww", "-o", "command=", "-p", String(pid)], {
+      : execFileSync("/bin/ps", ["-ww", "-o", "command=", "-p", String(pid)], {
           encoding: "utf8",
+          env: stableProcessInspectionEnv,
           stdio: ["ignore", "pipe", "ignore"]
         });
   } catch {
@@ -425,8 +433,9 @@ function processStartIdentity(pid: number) {
 
   if (process.platform === "win32") return null;
   try {
-    const startedAt = execFileSync("ps", ["-o", "lstart=", "-p", String(pid)], {
+    const startedAt = execFileSync("/bin/ps", ["-o", "lstart=", "-p", String(pid)], {
       encoding: "utf8",
+      env: stableProcessInspectionEnv,
       stdio: ["ignore", "pipe", "ignore"]
     }).trim().replace(/\s+/gu, " ");
     return startedAt ? `ps-start:${startedAt}:command-sha256:${commandHash}` : null;

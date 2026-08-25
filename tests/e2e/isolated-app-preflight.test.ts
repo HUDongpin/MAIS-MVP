@@ -26,6 +26,7 @@ import {
   captureIsolatedAppTempTsconfigIdentity,
   cleanupIsolatedAppLifecycle,
   isolatedAppProcessEnvironment,
+  isolatedAppProcessIdentity,
   removeCapturedIsolatedAppRunRoot,
   removeCapturedIsolatedAppTempTsconfig,
   sqliteAppLeaseDatabasePath,
@@ -2027,6 +2028,25 @@ test("isolated app cleanup refuses a reused process group and retains its SQLite
   try {
     await once(replacement.stdout, "data");
     assert.ok(replacement.pid);
+
+    if (process.platform === "darwin") {
+      const originalTimezone = process.env.TZ;
+      try {
+        process.env.TZ = "UTC";
+        const utcIdentity = isolatedAppProcessIdentity(replacement.pid);
+        process.env.TZ = "Asia/Hong_Kong";
+        const hongKongIdentity = isolatedAppProcessIdentity(replacement.pid);
+        assert.ok(utcIdentity, "the owned replacement process must expose a birth identity");
+        assert.equal(
+          hongKongIdentity,
+          utcIdentity,
+          "the same process identity must not change with the observer timezone"
+        );
+      } finally {
+        if (originalTimezone === undefined) delete process.env.TZ;
+        else process.env.TZ = originalTimezone;
+      }
+    }
 
     const exitedHandleErrors = await cleanupIsolatedAppLifecycle({
       appProcess: {
