@@ -17,4 +17,9 @@
 
 ## Handoff / closeout
 
-- Pending.
+- Removed both HJB primary and HJB high topic/metadata imports from `data/mainlandHjbRoadmap.ts`; the live HJB roadmap now derives only from the independently approved HJB junior V2 topic set.
+- `npm ci` completed (dependency audit separately reports 1 moderate and 4 high advisories; no dependency mutation was attempted).
+- `npm run type-check` passed.
+- A direct TypeScript runtime inspection reported exactly 22 HJB junior roadmap topics and zero primary or high topics.
+- Candidate source files were not modified. Broad roadmap assertion updates remain A11-owned and must prove both absence of retired candidate routes and retention of the junior route.
+- No live promotion, Preview, deployment, provider, database, credential, or production write occurred; `liveAllowed` remains false.
