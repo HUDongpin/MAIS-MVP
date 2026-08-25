@@ -83,10 +83,10 @@ async function loadCandidateFixture() {
 
 async function loadEvidenceFixture() {
   const files = {
-    A18: `${pilotRoot}/inputs/evidence/a18-independent-qa.v2.json`,
-    A04: `${pilotRoot}/inputs/evidence/a04-practice-semantics.v2.json`,
-    A05: `${pilotRoot}/inputs/evidence/a05-lesson-semantics.v2.json`,
-    A24: `${pilotRoot}/inputs/evidence/a24-exact-layer.v2.json`
+    A18: `${pilotRoot}/inputs/evidence/a18-independent-qa.v2.1.json`,
+    A04: `${pilotRoot}/inputs/evidence/a04-practice-semantics.v2.1.json`,
+    A05: `${pilotRoot}/inputs/evidence/a05-lesson-semantics.v2.1.json`,
+    A24: `${pilotRoot}/inputs/evidence/a24-exact-layer.v2.1.json`
   };
   const entries = await Promise.all(Object.entries(files).map(async ([role, relativePath]) => [role, await readJson(relativePath)]));
   return new Map(entries);
@@ -179,7 +179,7 @@ test("shadow adapter explicitly maps safe-card to standards and preserves compat
 });
 
 test("evidence currentness digest excludes time but binds all semantic inputs", async () => {
-  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a18-independent-qa.v2.json`);
+  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a18-independent-qa.v2.1.json`);
   validateV2Evidence(evidence);
   const digest = computeV2EvidenceSemanticDigest(evidence);
   assert.equal(digest, computeV2EvidenceSemanticDigest({ ...evidence, producedAt: "2030-01-01T00:00:00Z" }));
@@ -189,7 +189,7 @@ test("evidence currentness digest excludes time but binds all semantic inputs", 
 });
 
 test("A24 not_applicable requires a substantive machine-readable rationale", async () => {
-  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a24-exact-layer.v2.json`);
+  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a24-exact-layer.v2.1.json`);
   validateV2Evidence(evidence);
   assert.throws(
     () => validateV2Evidence({ ...evidence, semanticPayload: { ...evidence.semanticPayload, rationale: "none" } }),

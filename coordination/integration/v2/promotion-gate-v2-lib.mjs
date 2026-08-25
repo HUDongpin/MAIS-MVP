@@ -32,7 +32,7 @@ import {
 
 const execFile = promisify(execFileCallback);
 
-export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2";
+export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.1";
 export const PROMOTION_V2_MANIFEST_SCHEMA = "promotion-manifest.v2";
 export const PROMOTION_V2_RECEIPT_SCHEMA = "promotion-receipt.v2";
 export const PROMOTION_V2_EVIDENCE_SCHEMA = "promotion-evidence.v2";
