@@ -299,10 +299,17 @@ function formatUnitExponentsForMathText(value: string) {
 
 type PracticeQuestionCardProps = {
   question: PublicQuestion;
-  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback) => void;
+  initialFeedback?: AttemptFeedback | null;
+  initialSelectedAnswer?: string;
+  onAnswered?: (question: PublicQuestion, feedback: AttemptFeedback, selectedAnswer: string) => void;
 };
 
-export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionCardProps) {
+export function PracticeQuestionCard({
+  question,
+  initialFeedback = null,
+  initialSelectedAnswer = "",
+  onAnswered
+}: PracticeQuestionCardProps) {
   const { currentUser, language, recordLearningEvent, refreshMistakeRecordsAfterAttempt, text: settingsText, t: settingsT } = useSettings();
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
@@ -314,14 +321,14 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   const answerControlRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const photoInputRef = useRef<HTMLInputElement | null>(null);
   const photoAttachmentsRef = useRef<PhotoAttachment[]>([]);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(initialSelectedAnswer);
   const [answerInputMode, setAnswerInputMode] = useState<AnswerInputMode>("keyboard");
   const [photoAttachments, setPhotoAttachments] = useState<PhotoAttachment[]>([]);
   // Null until probed. The attachment control stays hidden unless the governed
   // media store is actually usable — a control that is guaranteed to error is
   // worse than no control.
   const [photoUploadsAvailable, setPhotoUploadsAvailable] = useState<boolean | null>(null);
-  const [feedback, setFeedback] = useState<AttemptFeedback | null>(null);
+  const [feedback, setFeedback] = useState<AttemptFeedback | null>(initialFeedback);
   const [error, setError] = useState("");
   const [needsLogin, setNeedsLogin] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -391,12 +398,12 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
   useEffect(() => () => stopPracticeReadAloud(), []);
 
   useEffect(() => {
-    setSelected("");
+    setSelected(initialSelectedAnswer);
     setPhotoAttachments((current) => {
       revokePhotoAttachments(current);
       return [];
     });
-    setFeedback(null);
+    setFeedback(initialFeedback);
     setError("");
     setNeedsLogin(false);
     setIsChecking(false);
@@ -407,7 +414,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
     stopPracticeReadAloud();
     setIsReadingAloud(false);
     if (photoInputRef.current) photoInputRef.current.value = "";
-  }, [question.id]);
+  }, [initialFeedback, initialSelectedAnswer, question.id]);
 
   function handleReadAloudToggle() {
     if (isReadingAloud) {
@@ -482,7 +489,7 @@ export function PracticeQuestionCard({ question, onAnswered }: PracticeQuestionC
         durationSeconds
       });
       setFeedback(result);
-      onAnswered?.(question, result);
+      onAnswered?.(question, result, selected);
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : "Could not check this answer yet.");
     } finally {

@@ -25,6 +25,21 @@ function practiceRegion(page: Page) {
   return page.getByRole("region", { name: /Practice questions/i });
 }
 
+async function chooseGuidedUnitExercise(page: Page) {
+  const guidedButton = page.getByRole("button", { name: /Choose Unit Exercise/i });
+  await expect(guidedButton).toBeVisible();
+  await expect(guidedButton).toBeEnabled();
+  await guidedButton.click();
+  await expect(page.locator('[data-practice-mode="unit"]')).toHaveCount(1);
+}
+
+async function chooseFreeExploration(page: Page) {
+  const exploreButton = page.getByRole("button", { name: /Choose Free Exploration/i });
+  await expect(exploreButton).toBeVisible();
+  await exploreButton.click();
+  await expect(page.locator('[data-practice-mode="explore"]')).toHaveCount(1);
+}
+
 async function registerStudentThroughApi(
   page: Page,
   testInfo: TestInfo,
@@ -51,6 +66,24 @@ async function registerStudentThroughApi(
       });
       expect(response.ok(), `student API registration failed with ${response.status()}: ${await response.text()}`).toBeTruthy();
       return await response.json() as AuthenticatedResponse;
+    } catch (error) {
+      lastError = error;
+      if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
+      await page.waitForTimeout(350 * attempt);
+    }
+  }
+
+  throw lastError;
+}
+
+async function readPageHtmlWithTransientRetry(page: Page, path: string) {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await page.request.get(path);
+      expect(response.ok(), `HTML evidence request failed with ${response.status()}`).toBeTruthy();
+      return await response.text();
     } catch (error) {
       lastError = error;
       if (attempt === 3 || !isTransientApiTransportError(error)) throw error;
@@ -93,6 +126,60 @@ async function currentQuestionCount(page: Page) {
   expect(Number.isFinite(count)).toBeTruthy();
   expect(count).toBeGreaterThan(1);
   return count;
+}
+
+async function missionTrailLabels(page: Page) {
+  return await page.getByTestId("mission-trail").getByRole("button").evaluateAll((buttons) =>
+    buttons.map((button) => button.getAttribute("aria-label") ?? "")
+  );
+}
+
+async function practiceRewardLabel(page: Page) {
+  const reward = practiceRegion(page).locator('[aria-label*="stars earned so far"]').first();
+  await expect(reward).toBeVisible();
+  return await reward.getAttribute("aria-label");
+}
+
+async function visiblePracticeCardState(page: Page) {
+  const card = page.locator("article:visible").first();
+  const feedback = (await card.getByText(/Correct|Not yet/i).first().textContent())?.trim() ?? "";
+  const textbox = card.getByRole("textbox").first();
+  const selectedAnswer = await textbox.isVisible().catch(() => false)
+    ? await textbox.inputValue()
+    : await card.locator("button.border-cyan-400").first().getAttribute("aria-label") ?? "";
+
+  return { feedback, selectedAnswer };
+}
+
+async function answerFirstFourQuestions(page: Page, answerPrefix: string) {
+  const total = await currentQuestionCount(page);
+  expect(total).toBe(5);
+  let firstCardState: Awaited<ReturnType<typeof visiblePracticeCardState>> | null = null;
+
+  for (let questionNumber = 1; questionNumber <= 4; questionNumber += 1) {
+    await expectQuestion(page, questionNumber, total);
+    await makeVisibleQuestionAnswerable(page, `${answerPrefix}-${questionNumber}`);
+    await submitVisibleQuestion(page);
+    if (questionNumber === 1) firstCardState = await visiblePracticeCardState(page);
+
+    if (questionNumber < 4) {
+      await page.getByTestId("mission-trail").getByRole("button").nth(questionNumber).click();
+      await expectQuestion(page, questionNumber + 1, total);
+    }
+  }
+
+  expect(firstCardState).not.toBeNull();
+  return firstCardState!;
+}
+
+async function expectCompletedRoundMatchesReward(page: Page, answerKind: "personalized" | "free-selection") {
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText(new RegExp(`5 ${answerKind} answers checked`, "i"));
+  const scoreText = (await dialog.getByText(/\d+\/5 correct/i).textContent())?.trim() ?? "";
+  const correctCount = Number.parseInt(scoreText.split("/")[0] ?? "", 10);
+  expect(Number.isFinite(correctCount)).toBeTruthy();
+  expect(await practiceRewardLabel(page)).toBe(`${correctCount} of 5 stars earned so far`);
 }
 
 async function makeVisibleQuestionAnswerable(page: Page, typedAnswer = "not the answer") {
@@ -295,6 +382,105 @@ async function findVisibleLessonPracticeCard(page: Page, text: RegExp, maxSteps 
 }
 
 test.describe("Practice Arena question pager", () => {
+  test("a new locked student can use Explore's main, Question Cavern, and Challenge Shore entries", async ({ page }, testInfo) => {
+    test.slow();
+
+    const session = await registerStudentThroughApi(page, testInfo, "locked-explore");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    expect(await page.evaluate((userId) => {
+      const prefix = `hk-math-practice-free-selection-unlocked:${userId}:`;
+      return Object.keys(window.localStorage).some((key) => key.startsWith(prefix));
+    }, session.user.id)).toBe(false);
+
+    await chooseFreeExploration(page);
+    await openPracticeFiltersPanel(page);
+    const topicFilter = page.getByRole("combobox", { name: /Topic/i });
+    await expect(topicFilter).toHaveValue("all");
+    await page.getByRole("button", { name: /^Start Mission$/i }).click();
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expect(topicFilter).not.toHaveValue("all");
+    await expectQuestion(page, 1, 5);
+
+    await topicFilter.selectOption("all");
+    await page.locator('[data-island-region-chip="question-cavern"]').click();
+    await expect(topicFilter).not.toHaveValue("all");
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expectQuestion(page, 1, 5);
+
+    await page.locator('[data-island-region-chip="challenge-shore"]').click();
+    await expect(topicFilter).toHaveValue("all");
+    await expect(page.locator("#free-selection")).toBeVisible();
+    await expectQuestion(page, 1, 5);
+  });
+
+  test("Guided mode round trips preserve card, trail, reward, and summary state", async ({ page }, testInfo) => {
+    test.slow();
+
+    await registerStudentThroughApi(page, testInfo, "guided-round-trip");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await chooseGuidedUnitExercise(page);
+
+    const firstCardState = await answerFirstFourQuestions(page, "guided-round-trip");
+    const trailBefore = await missionTrailLabels(page);
+    const rewardBefore = await practiceRewardLabel(page);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.locator("[data-choose-practice-mode]").click();
+    await expect(page.locator('[data-practice-mode="chooser"]')).toBeVisible();
+    await chooseGuidedUnitExercise(page);
+
+    await expectQuestion(page, 5, 5);
+    expect(await missionTrailLabels(page)).toEqual(trailBefore);
+    expect(await practiceRewardLabel(page)).toBe(rewardBefore);
+    await page.getByTestId("mission-trail").getByRole("button").first().click();
+    await expectQuestion(page, 1, 5);
+    expect(await visiblePracticeCardState(page)).toEqual(firstCardState);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.getByTestId("mission-trail").getByRole("button").nth(4).click();
+    await expectQuestion(page, 5, 5);
+    await makeVisibleQuestionAnswerable(page, "guided-round-trip-5");
+    await submitVisibleQuestion(page);
+    await expectCompletedRoundMatchesReward(page, "personalized");
+  });
+
+  test("Explore mode round trips preserve card, trail, reward, and summary state", async ({ page }, testInfo) => {
+    test.slow();
+
+    const session = await registerStudentThroughApi(page, testInfo, "explore-round-trip");
+    await page.goto("/practice");
+    await expect(page.getByRole("heading", { name: /Practice Arena/i })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    await unlockFreeSelection(page, session.user.id);
+
+    const firstCardState = await answerFirstFourQuestions(page, "explore-round-trip");
+    const trailBefore = await missionTrailLabels(page);
+    const rewardBefore = await practiceRewardLabel(page);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.locator("[data-adjust-practice]").click();
+    await expect(page.locator('[data-practice-mode="chooser"]')).toBeVisible();
+    await chooseFreeExploration(page);
+
+    await expectQuestion(page, 5, 5);
+    expect(await missionTrailLabels(page)).toEqual(trailBefore);
+    expect(await practiceRewardLabel(page)).toBe(rewardBefore);
+    await page.getByTestId("mission-trail").getByRole("button").first().click();
+    await expectQuestion(page, 1, 5);
+    expect(await visiblePracticeCardState(page)).toEqual(firstCardState);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await page.getByTestId("mission-trail").getByRole("button").nth(4).click();
+    await expectQuestion(page, 5, 5);
+    await makeVisibleQuestionAnswerable(page, "explore-round-trip-5");
+    await submitVisibleQuestion(page);
+    await expectCompletedRoundMatchesReward(page, "free-selection");
+  });
+
   test("adaptive locked mode supports navigation, jump bounds, state persistence, and auto-advance guards", async ({ page }, testInfo) => {
     test.slow();
 
@@ -391,6 +577,11 @@ test.describe("Practice Arena question pager", () => {
     await page.waitForTimeout(1500);
     await expectQuestion(page, 2, total);
 
+    // Narrowing to the answered question's own topic keeps that question in the
+    // new round. A filter change must still start a fresh round at question 1.
+    await page.getByRole("combobox", { name: /Topic/i }).selectOption("quadratic-patterns");
+    await expectQuestion(page, 1);
+
     await page.getByRole("combobox", { name: /Question type/i }).selectOption("short-answer");
     await expectQuestion(page, 1);
     await expect(page.locator("article:visible")).toHaveCount(1);
@@ -410,7 +601,7 @@ test.describe("Practice Arena question pager", () => {
     // the document briefly holds two full copies of the lesson, which is what
     // made the strict-mode assertions above flake.
     expect(await page.locator("#lesson-practice").count()).toBe(1);
-    const lessonHtml = await (await page.request.get("/student/lessons/quadratic-functions")).text();
+    const lessonHtml = await readPageHtmlWithTransientRetry(page, "/student/lessons/quadratic-functions");
     expect(lessonHtml).not.toContain('<template id="B:');
     expect(lessonHtml).not.toContain('<div hidden id="S:');
   });
@@ -841,6 +1032,21 @@ test.describe("Practice Arena question pager", () => {
 
   test("short-answer handwriting board coexists with photo upload controls", async ({ page }, testInfo) => {
     test.slow();
+
+    // The isolated E2E server intentionally has no media encryption key. This
+    // scenario verifies the two controls' layout, so make only the capability
+    // probe deterministic without exercising or weakening the upload route.
+    await page.route("**/api/media-objects", async (route) => {
+      if (route.request().method() !== "GET") {
+        await route.continue();
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ uploadsAvailable: true })
+      });
+    });
 
     const session = await registerStudentThroughApi(page, testInfo, "handwriting-short", "S1");
     await page.goto("/practice");
