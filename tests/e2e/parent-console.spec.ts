@@ -459,6 +459,10 @@ test.describe("parent console viewport smoke", () => {
       for (const combination of combinations) {
         const settings = await page.request.patch("/api/me/settings", {
           headers: expectedParentHeaders(),
+          // This is an idempotent set operation. Playwright retries only
+          // ECONNRESET here (never HTTP failures), covering a dropped local
+          // keep-alive connection without weakening the 200 response contract.
+          maxRetries: 1,
           data: {
             language: combination.language,
             theme: combination.theme,
@@ -530,6 +534,7 @@ test.describe("parent console viewport smoke", () => {
     } finally {
       const restore = await page.request.patch("/api/me/settings", {
         headers: expectedParentHeaders(),
+        maxRetries: 1,
         data: { language: "en", theme: "dark", expectedUserId: demoParentUserId }
       });
       expect(restore.status()).toBe(200);

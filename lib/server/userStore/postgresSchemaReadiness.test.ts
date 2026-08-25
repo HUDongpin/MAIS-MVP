@@ -3,10 +3,40 @@ import test from "node:test";
 
 import {
   createPostgresSchemaReadinessGate,
+  normalizePostgresSchemaBootstrapError,
   PostgresAdvisoryBootstrapContentionError,
   PostgresAdvisoryMarkerContentionError,
   runPostgresBootstrapWithContentionRecovery
 } from "./postgresSchemaReadiness";
+
+test("relation lock timeout after the advisory boundary becomes a stable retryable readiness error", () => {
+  const sensitiveLockError = Object.assign(
+    new Error("SENSITIVE projection_questions_topic_idx lock diagnostic"),
+    { code: "55P03" }
+  );
+  const normalized = normalizePostgresSchemaBootstrapError(sensitiveLockError);
+
+  assert.ok(normalized instanceof Error);
+  assert.equal(normalized.message, "Postgres storage readiness is unavailable.");
+  assert.equal(normalized.cause, sensitiveLockError);
+  assert.doesNotMatch(String(normalized), /SENSITIVE|55P03|projection_questions_topic_idx/u);
+
+  const advisoryContention = new PostgresAdvisoryBootstrapContentionError(sensitiveLockError);
+  assert.equal(
+    normalizePostgresSchemaBootstrapError(advisoryContention),
+    advisoryContention,
+    "the exact advisory-lock signal must remain eligible for bounded contention recovery"
+  );
+
+  for (const code of ["42501", "57014", "ETIMEDOUT"]) {
+    const unrelated = Object.assign(new Error(`bootstrap ${code}`), { code });
+    assert.equal(
+      normalizePostgresSchemaBootstrapError(unrelated),
+      unrelated,
+      `${code} must keep its existing diagnostic and recovery semantics`
+    );
+  }
+});
 
 test("only exact advisory bootstrap contention may poll a strict marker and retry", async () => {
   const lockError = Object.assign(new Error("advisory lock timeout"), { code: "55P03" });

@@ -28,7 +28,11 @@ test("visualization lab current grade badge uses US K-G12 labels for US curricul
 });
 
 test("visualization lab scopes US curriculum users before cross-region capstone labs", () => {
-  assert.match(source, /function isUnitedStatesMathUser\(currentUser: StudentSession\)/);
+  assert.match(
+    source,
+    /type VisualizationSessionUser = Pick<StudentSession, "curriculumProfile" \| "curriculumTrack">;/
+  );
+  assert.match(source, /function isUnitedStatesMathUser\(currentUser: VisualizationSessionUser\)/);
   assert.match(source, /return lab\.curriculumTrack === "US" && lab\.publisher === publisher;/);
 
   const usScopeIndex = source.indexOf("if (isUnitedStatesMathUser(currentUser))");

@@ -28,6 +28,25 @@ function isUndefinedTableError(error: unknown): boolean {
   );
 }
 
+export function normalizePostgresSchemaBootstrapError(error: unknown): unknown {
+  if (
+    typeof error !== "object"
+    || error === null
+    || !("code" in error)
+    || (error as { code?: unknown }).code !== "55P03"
+  ) {
+    return error;
+  }
+
+  // Once the contract advisory lock has been acquired, a relation-lock timeout
+  // must not enter advisory-contention recovery: a current marker could belong
+  // to a schema that this transaction failed to validate. Keep that fail-closed
+  // behavior while preventing PostgreSQL relation names or provider diagnostics
+  // from escaping through storage callers. The readiness latch clears rejected
+  // attempts, so a later operation may safely retry the complete bootstrap.
+  return new Error("Postgres storage readiness is unavailable.", { cause: error });
+}
+
 export async function runPostgresBootstrapWithContentionRecovery({
   bootstrap,
   readCurrentMarker

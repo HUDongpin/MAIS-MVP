@@ -60,6 +60,7 @@ import {
 } from "@/lib/server/userStore/questionFilter";
 import {
   createPostgresSchemaReadinessGate,
+  normalizePostgresSchemaBootstrapError,
   PostgresAdvisoryBootstrapContentionError,
   PostgresAdvisoryMarkerContentionError,
   runPostgresBootstrapWithContentionRecovery
@@ -5321,6 +5322,8 @@ async function bootstrapPostgresStateTables() {
           currentPostgresStorageReadinessState(),
           readinessRevision
         );
+  }).catch((error) => {
+    throw normalizePostgresSchemaBootstrapError(error);
   });
 }
 
