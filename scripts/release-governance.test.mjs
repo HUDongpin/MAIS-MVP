@@ -526,7 +526,7 @@ test("Promotion Shadow CI extracts only a committed, exact canonical execution b
   );
   assert.ok(resolveStep, "workflow must have a canonical execution resolver");
 
-  const fixtureRoot = await mkdtemp(path.join(tmpdir(), "mais-promotion-execution-resolver-"));
+  const fixtureRoot = await realpath(await mkdtemp(path.join(tmpdir(), "mais-promotion-execution-resolver-")));
   const canonicalReceiptPath = "coordination/integration/pilots/example/shadow-receipt.v1.json";
   const manifestPath = "coordination/integration/pilots/example/promotion-manifest.v1.json";
   const absoluteReceiptPath = path.join(fixtureRoot, canonicalReceiptPath);
