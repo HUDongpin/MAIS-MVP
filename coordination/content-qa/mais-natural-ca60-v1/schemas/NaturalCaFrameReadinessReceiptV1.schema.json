@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaFrameReadinessReceiptV1.schema.json",
+  "title": "NaturalCaFrameReadinessReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "artifactKind", "designId", "registrationHash", "activationReceiptHash", "status", "sourceCommit",
+    "runnerCommit", "runnerHash", "runtimeConfigHash", "runtimeVisibleItemCount", "runtimeInventoryRootHash", "fullFrameClusterCount",
+    "fullFrameSingletonCount", "fullFrameHomologyRootHash", "frameFailureCount", "frameFailureLedgerRootHash", "batchCounts",
+    "sourceIdCounts", "observedSourceIdSetHash", "rightsPolicyHash", "lineageRuleHash", "potentialEligibleBatch",
+    "potentialEligibleItemCount", "potentialEligibleContentRootHash", "potentialEligibleClusterCount", "potentialEligibleClusterSetHash",
+    "visualOrAssetRestrictedCount", "piiRestrictedCount", "secretRestrictedCount", "scannerPolicyHash", "scannerResultRootHash",
+    "nonemptyPotentialStrata", "potentialStratumClusterCounts", "unclassifiedSourceIds", "missingPolicySourceIds", "formalFrameFrozen",
+    "formalSampleFrozen", "questionEgressAuthorized", "providerExecutionAuthorized", "providerRequestCount", "credentialReadCount",
+    "naturalQuestionEgressCount", "protectedCustodyManifestHash", "decisionCeiling", "claimCeiling", "blockers", "createdAt", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaFrameReadinessReceiptV1" },
+    "artifactKind": { "const": "DESCRIPTIVE_LOCAL_FRAME_READINESS_NOT_FRAME_REGISTRATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "activationReceiptHash": { "$ref": "#/$defs/sha256" },
+    "status": { "const": "OWNER_RIGHTS_AND_LINEAGE_CONFIRMATION_REQUIRED" },
+    "sourceCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerHash": { "$ref": "#/$defs/sha256" },
+    "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+    "runtimeVisibleItemCount": { "$ref": "#/$defs/count" },
+    "runtimeInventoryRootHash": { "$ref": "#/$defs/sha256" },
+    "fullFrameClusterCount": { "$ref": "#/$defs/count" },
+    "fullFrameSingletonCount": { "$ref": "#/$defs/count" },
+    "fullFrameHomologyRootHash": { "$ref": "#/$defs/sha256" },
+    "frameFailureCount": { "$ref": "#/$defs/count" },
+    "frameFailureLedgerRootHash": { "$ref": "#/$defs/sha256" },
+    "batchCounts": { "$ref": "#/$defs/countRows" },
+    "sourceIdCounts": { "$ref": "#/$defs/countRows" },
+    "observedSourceIdSetHash": { "$ref": "#/$defs/sha256" },
+    "rightsPolicyHash": { "$ref": "#/$defs/sha256" },
+    "lineageRuleHash": { "$ref": "#/$defs/sha256" },
+    "potentialEligibleBatch": { "const": "us-ca-k5-knowledge-point-practice-v1" },
+    "potentialEligibleItemCount": { "$ref": "#/$defs/count" },
+    "potentialEligibleContentRootHash": { "$ref": "#/$defs/sha256" },
+    "potentialEligibleClusterCount": { "$ref": "#/$defs/count" },
+    "potentialEligibleClusterSetHash": { "$ref": "#/$defs/sha256" },
+    "visualOrAssetRestrictedCount": { "$ref": "#/$defs/count" },
+    "piiRestrictedCount": { "$ref": "#/$defs/count" },
+    "secretRestrictedCount": { "$ref": "#/$defs/count" },
+    "scannerPolicyHash": { "$ref": "#/$defs/sha256" },
+    "scannerResultRootHash": { "$ref": "#/$defs/sha256" },
+    "nonemptyPotentialStrata": { "$ref": "#/$defs/count" },
+    "potentialStratumClusterCounts": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["stratum", "clusterCount"],
+        "properties": { "stratum": { "type": "string" }, "clusterCount": { "$ref": "#/$defs/count" } }
+      }
+    },
+    "unclassifiedSourceIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "missingPolicySourceIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "formalFrameFrozen": { "const": false },
+    "formalSampleFrozen": { "const": false },
+    "questionEgressAuthorized": { "const": false },
+    "providerExecutionAuthorized": { "const": false },
+    "providerRequestCount": { "const": 0 },
+    "credentialReadCount": { "const": 0 },
+    "naturalQuestionEgressCount": { "const": 0 },
+    "protectedCustodyManifestHash": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "claimCeiling": { "const": "READINESS_ONLY_NOT_A_FRAME_OR_SAMPLE_REGISTRATION" },
+    "blockers": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "selfHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitOid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "count": { "type": "integer", "minimum": 0 },
+    "countRows": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["value", "count"],
+        "properties": { "value": { "type": "string" }, "count": { "$ref": "#/$defs/count" } }
+      }
+    }
+  }
+}

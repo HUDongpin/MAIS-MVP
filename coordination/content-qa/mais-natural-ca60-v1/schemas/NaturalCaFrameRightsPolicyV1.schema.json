@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaFrameRightsPolicyV1.schema.json",
+  "title": "NaturalCaFrameRightsPolicyV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "artifactKind", "designId", "registrationHash", "policyVersion",
+    "potentialEgressBatch", "ownerApprovalRequiredSourceIds", "deniedSourceIds", "decisions",
+    "copyrightedLongFormSourceAllowed", "providerEgressAuthorized", "rightsApprovalHash", "selfHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaFrameRightsPolicyV1" },
+    "artifactKind": { "const": "CONSERVATIVE_OWNER_DECISION_REQUEST_NOT_EGRESS_AUTHORIZATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "policyVersion": { "const": "ca60-frame-rights-v5-1" },
+    "potentialEgressBatch": { "const": "us-ca-k5-knowledge-point-practice-v1" },
+    "ownerApprovalRequiredSourceIds": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "type": "string" } },
+    "deniedSourceIds": { "type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true, "items": { "type": "string" } },
+    "decisions": {
+      "type": "array", "minItems": 11, "maxItems": 11,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["sourceId", "disposition", "providerEgressAllowed", "rationaleCode"],
+        "properties": {
+          "sourceId": { "type": "string", "minLength": 1 },
+          "disposition": { "enum": ["OWNER_APPROVAL_REQUIRED_FOR_MAIS_ORIGINAL_OUTPUT_EGRESS", "DENIED_FOR_CA60_V1_PROVIDER_EGRESS"] },
+          "providerEgressAllowed": { "const": false },
+          "rationaleCode": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "copyrightedLongFormSourceAllowed": { "const": false },
+    "providerEgressAuthorized": { "const": false },
+    "rightsApprovalHash": { "type": "null" },
+    "selfHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

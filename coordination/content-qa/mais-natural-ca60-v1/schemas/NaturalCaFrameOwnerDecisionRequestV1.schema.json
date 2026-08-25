@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaFrameOwnerDecisionRequestV1.schema.json",
+  "title": "NaturalCaFrameOwnerDecisionRequestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "artifactKind", "designId", "registrationHash", "sourceCommit", "runnerCommit", "runnerHash",
+    "readinessReceiptHash", "runtimeConfigHash", "runtimeInventoryRootHash", "fullFrameHomologyRootHash", "rightsPolicyHash",
+    "requestedOwnerApprovedSourceIds", "explicitDeniedSourceIds", "requestedLineageRuleHash", "potentialEligibleItemCount",
+    "potentialEligibleClusterCount", "potentialEligibleContentRootHash", "requestedDecision", "requestedEgressScope",
+    "copyrightedLongFormSourceAllowed", "visualOrAssetEgressAllowed", "questionEgressAuthorized", "providerExecutionAuthorized",
+    "authorizationCreatedByThisArtifact", "createdAt", "requestHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaFrameOwnerDecisionRequestV1" },
+    "artifactKind": { "const": "OWNER_DECISION_REQUEST_NOT_AUTHORIZATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "sourceCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerHash": { "$ref": "#/$defs/sha256" },
+    "readinessReceiptHash": { "$ref": "#/$defs/sha256" },
+    "runtimeConfigHash": { "$ref": "#/$defs/sha256" },
+    "runtimeInventoryRootHash": { "$ref": "#/$defs/sha256" },
+    "fullFrameHomologyRootHash": { "$ref": "#/$defs/sha256" },
+    "rightsPolicyHash": { "$ref": "#/$defs/sha256" },
+    "requestedOwnerApprovedSourceIds": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "type": "string" } },
+    "explicitDeniedSourceIds": { "type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true, "items": { "type": "string" } },
+    "requestedLineageRuleHash": { "$ref": "#/$defs/sha256" },
+    "potentialEligibleItemCount": { "type": "integer", "minimum": 0 },
+    "potentialEligibleClusterCount": { "type": "integer", "minimum": 0 },
+    "potentialEligibleContentRootHash": { "$ref": "#/$defs/sha256" },
+    "requestedDecision": { "const": "APPROVE_EXACT_THREE_SOURCE_MAIS_ORIGINAL_TEXT_EGRESS_AND_FINE_GRAINED_LINEAGE_RULE_OR_KEEP_FRAME_BLOCKED" },
+    "requestedEgressScope": { "const": "FROZEN_CA60_SAMPLE_ITEMS_SELECTED_ONLY_FROM_THE_POTENTIAL_ELIGIBLE_CONTENT_ROOT" },
+    "copyrightedLongFormSourceAllowed": { "const": false },
+    "visualOrAssetEgressAllowed": { "const": false },
+    "questionEgressAuthorized": { "const": false },
+    "providerExecutionAuthorized": { "const": false },
+    "authorizationCreatedByThisArtifact": { "const": false },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "requestHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitOid": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+  }
+}

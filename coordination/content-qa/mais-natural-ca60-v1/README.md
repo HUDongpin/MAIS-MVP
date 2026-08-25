@@ -5,20 +5,22 @@
 This package implements the A21 offline execution substrate for the California
 60-item machine-reference pilot. Its current state is:
 
-> `OFFLINE_RUNNER_V5_MIGRATION_IMPLEMENTED / LIVE_EXECUTION_BLOCKED`
+> `V5_METHOD_ACTIVE / FRAME_READINESS_IMPLEMENTED / LIVE_EXECUTION_BLOCKED`
 
-It does not freeze a design, frame, sample, provider authorization, reference
-label seal, or execution registration. It has made no OpenAI or DeepSeek
-request, has produced no natural-item result, and cannot emit `PASS`,
-`APPROVED`, `PRODUCTION_READY`, or `LIMITED_GENERALIZATION_EVIDENCE`.
+This runner step does not itself freeze a design, frame, sample, provider
+authorization, reference label seal, or execution registration. It has made no
+OpenAI or DeepSeek request, has produced no natural-item result, and cannot emit
+`PASS`, `APPROVED`, `PRODUCTION_READY`, or
+`LIMITED_GENERALIZATION_EVIDENCE`.
 
-The tracked V5 design is an immutable
-`SEALED_CANDIDATE_PENDING_INDEPENDENT_REVIEW`. It freezes the owner-selected
-reference tuple as `OPENAI_DIRECT` / `US_STORAGE_PROCESSING` /
+The tracked V5 design passed its preactivation A11 review and is now the active
+method registration. It freezes the owner-selected reference tuple as
+`OPENAI_DIRECT` / `US_STORAGE_PROCESSING` /
 `https://us.api.openai.com/v1/responses` / `gpt-5.6-luna`, but this is a design
-selection, not a live-execution grant. The active design pointer remains V3.
-The production package entrypoint pins both on-disk roots, so it returns zero
-dispatches even if a caller supplies a frozen-looking authorization object.
+selection, not a live-execution grant. The active pointer and activation receipt
+both keep `firstProviderExecutionAllowed = false`. The production guard accepts
+the reviewed V5 roots, then returns zero dispatches until every downstream frame,
+sample, route, price, credential-readiness, and authorization gate is present.
 
 ## Implemented contracts
 
@@ -126,8 +128,35 @@ component statistics, blocker counts, and aggregate roots only. In particular:
 - `providerRequestCount = 0`
 - `claimCeiling = DIAGNOSTIC_ONLY_NOT_A_FRAME_REGISTRATION`
 
-The full item records and assignments exist only in process memory unless a
-future hash-bound, protected-artifact command is authorized and implemented.
+For this diagnostic command, the full item records and assignments remain only
+in process memory. Protected persistence is a separate exact-SHA command below.
+
+## Exact-SHA frame-readiness command
+
+The next local-only intake step is implemented separately from formal frame
+freeze:
+
+```bash
+node --import tsx coordination/content-qa/mais-natural-ca60-v1/frame-readiness-v5-cli.ts \
+  --created-at 2026-08-26T12:00:00.000Z
+```
+
+The canonical UTC execution timestamp is mandatory so a rerun can reproduce the
+same append-only bytes. The command refuses a dirty worktree, hashes the
+committed extractor/clustering/runner source bytes, traverses the full
+California runtime inventory, applies the
+frozen homology algorithm, runs local PII/secret screening, and records a
+conservative source-rights decision request. Natural item bodies are written
+only under the content-addressed protected root
+`.local/mais-natural-ca60-v1/frame-readiness-v5/<source-commit>/` with directory
+mode `0700` and file mode `0600`. Its stdout contains aggregate counts, hashes,
+and blockers only.
+
+The persisted owner-decision request binds the final custody-bearing readiness
+receipt hash. It requests exact owner decisions for three identified source IDs
+and the frozen fine-grained lineage-rule hash. It grants no egress or provider
+execution itself, and it leaves both `formalFrameFrozen` and
+`formalSampleFrozen` false.
 
 ## Verification
 
@@ -138,6 +167,7 @@ node --test coordination/content-qa/mais-natural-ca60-v1/*.test.mjs
 node --import tsx --test coordination/content-qa/mais-natural-ca60-v1/runtime-extractor.test.ts
 node --import tsx --test coordination/content-qa/mais-natural-ca60-v1/question-store-source.integration.test.ts
 node --import tsx --test coordination/content-qa/mais-natural-ca60-v1/runtime-diagnostic.integration.test.ts
+node --import tsx --test coordination/content-qa/mais-natural-ca60-v1/frame-readiness-v5.test.ts
 ```
 
 The integration tests access only local repository content. They do not load
@@ -147,25 +177,23 @@ credentials or call a model provider.
 
 Before any natural-item provider execution, the following remain mandatory:
 
-1. A11 independently reviews the exact V5 package and A21 runner migration;
-   only a subsequent append-only activation receipt/pointer update may make V5
-   active. The runner itself cannot update that pointer.
-2. A18/owner bind the fine-grained lineage rule and rights/egress decision roots.
-3. A22 creates an exact-SHA clean execution worktree and produces source,
+1. A18/owner bind the fine-grained lineage rule and rights/egress decision roots.
+2. A11 independently reruns the exact extractor roots, while A22 creates an
+   exact-SHA clean execution worktree and produces source,
    dependency-closure, runtime-config, and route-parity evidence.
-4. The complete protected frame and 60-cluster sample are frozen and bound to
+3. The complete protected frame and 60-cluster sample are frozen and bound to
    the runner/adapter hashes.
-5. A07 supplies independently reviewed OpenAI Responses and DeepSeek live
+4. A07 supplies independently reviewed OpenAI Responses and DeepSeek live
    transports; no fallback provider/model/route is allowed. It must first prove
    that the owner project is entitled to the exact US route and exact model.
-6. A19 performs redacted credential readiness checks. A current US-route price
+5. A19 performs redacted credential readiness checks. A current US-route price
    snapshot and two separate, unexpired, hash-bound owner authorization receipts
    must bind the exact design/frame/sample/prompt/schema/runner/adapter/payload
    roots and nontransferable attempts, tokens, and USD caps.
-7. GPT-5.6 Luna reference labels are completed and sealed before any DeepSeek
+6. GPT-5.6 Luna reference labels are completed and sealed before any DeepSeek
    item request; DeepSeek remains blind to those labels. The same-model A/B and
    adjudicator panel remains correlated machine evidence, not human gold.
-8. A11 independently recomputes the final evidence, and A18 approves the claim
+7. A11 independently recomputes the final evidence, and A18 approves the claim
    boundary before any aggregate report is exported.
 
 Even after a valid 60-item execution, the registered decision ceiling remains
