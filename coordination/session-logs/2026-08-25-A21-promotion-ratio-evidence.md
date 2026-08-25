@@ -26,6 +26,7 @@ All candidate facts were recomputed from Git object `b6c7c347a49a813e454e707dd3c
 - Practice: exact pointer `/questions/30`, ID `s04-ca-rag-v2-q031-6-rp-ratios`, source inventory `68`, unique IDs `68`.
 - Lesson: exact pointer `/lessons/30`, ID `s05-ca-rag-v2-lesson-031-6-rp-ratios`, source inventory `68`, unique IDs `68`.
 - Recomputed aggregate candidate digest: `35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7`.
+- Candidate package source version: `sha256:35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7`.
 - The evidence semantic payload follows the current A23 `promotion-a21-candidate.v1` exact contract and binds checker `promotion-gate-shadow-v1`.
 
 ## Baseline checks
@@ -34,11 +35,13 @@ All candidate facts were recomputed from Git object `b6c7c347a49a813e454e707dd3c
 - `npm run test:release-governance`: pass; 84 tests, 0 failures.
 - `npm run type-check`: pass.
 - Current A23 `validatePromotionEvidence` against the exact A21 role contract: pass.
-- Evidence raw SHA-256: `38c9ea477938316df38613d400e0a2616bcf0fb6df3fb0c8c577fa1b81b4edfd`.
-- Evidence semantic payload SHA-256: `a25b1889a8abeaa2eda80f2b8ca91374ca547316b424800164a4dd996b45991e`.
+- Evidence raw SHA-256: `faeeba4bcc20630ac29dbb6a430aad2ed26b5a9e88f6caa638e84a5e9bf0d38d`.
+- Evidence semantic payload SHA-256: `9e55e15c7d1c69df5e8a43c2338b83de55531b3432484426afc4fce1b759b6c5`.
+- Precision follow-up validation: pass; JSON parse, exact `sourceVersion`, raw and canonical semantic summaries, and all three Git-object artifact/pointer/hash/parent/state/inventory bindings were verified; `git diff --check` passed.
 
 ## Handoff boundary
 
 - Next owner: `A23` for Manifest binding and Shadow execution.
 - Missing gates remain independent A18, A04, A05, A11, A22, A24, A25, and A23 evidence/decisions.
 - A21 claim: candidate provenance and immutable digest binding only.
+- Final action: reviewed commit; retain the branch/worktree clean after the authorized upstream push for A23 composition intake.
