@@ -148,6 +148,13 @@ async function main() {
       return { read: true };
     }
 
+    if (command === "guardian-invitation-read") {
+      return {
+        invitations: await store.__userStorePostgresStorageReadinessTestHooks
+          .readGuardianInvitationProjection()
+      };
+    }
+
     if (command === "full-snapshot-rewrite") {
       await store.__userStorePostgresStorageReadinessTestHooks.rewriteCurrentSnapshot();
       return { rewritten: true };

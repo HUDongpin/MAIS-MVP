@@ -260,8 +260,15 @@ test.describe("visualization lab, Nova Tutor, and live classroom", () => {
     });
 
     await loginAsDemoStudent(page);
+    const meResponse = await page.request.get("/api/me?includeLessonEntry=false");
+    const meBody = await meResponse.text();
+    expect(meResponse.ok(), meBody).toBeTruthy();
+    const me = JSON.parse(meBody) as { user?: { id?: string } };
+    expect(me.user?.id).toBeTruthy();
+    const expectedUserId = me.user?.id ?? "";
     await page.request.post("/api/attempts", {
-      data: { questionId: "q1", selectedAnswer: "wrong answer", durationSeconds: 12 }
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
+      data: { expectedUserId, questionId: "q1", selectedAnswer: "wrong answer", durationSeconds: 12 }
     });
     await page.goto("/mistake-book");
     await page.getByRole("button", { name: /^Ask Nova Tutor$/i }).first().click();

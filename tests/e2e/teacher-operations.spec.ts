@@ -38,6 +38,10 @@ type NovaLensPolicy = {
   blockedPatterns: string[];
 };
 
+function expectedParentHeaders(parentUserId: string) {
+  return { "X-MAIS-Expected-User-Id": parentUserId };
+}
+
 async function newApiContext(contexts: APIRequestContext[], cookieHeader?: string) {
   const context = await apiRequest.newContext({
     baseURL,
@@ -65,7 +69,15 @@ async function loginApi(contexts: APIRequestContext[], username: string, passwor
   });
   expect(response.ok()).toBeTruthy();
   const session = await response.json() as AuthSession;
-  return { context, session };
+  if (session.user.role !== "parent") return { context, session };
+
+  const parentContext = await apiRequest.newContext({
+    baseURL,
+    storageState: await context.storageState(),
+    extraHTTPHeaders: expectedParentHeaders(session.user.id)
+  });
+  contexts.push(parentContext);
+  return { context: parentContext, session };
 }
 
 async function teacherOperations(context: APIRequestContext, classId?: string) {

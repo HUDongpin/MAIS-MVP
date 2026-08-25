@@ -91,6 +91,15 @@ test("student assignments route exposes the final heading while assignments load
   assert.match(loadingBranch, /Loading assignments/);
 });
 
+test("parent navigation provides hydrated loading feedback without a racy segment boundary", async () => {
+  const parentShell = await source("components/parent/ParentShell.tsx");
+
+  assert.match(parentShell, /const \[isNavigating, startNavigation\] = useTransition\(\)/u);
+  assert.match(parentShell, /role="status"/u);
+  assert.match(parentShell, /Loading family view/u);
+  assert.match(parentShell, /aria-busy=\{isNavigating\}/u);
+});
+
 test("known routes affected by the hidden-segment race carry no segment-level loading file", () => {
   // Any segment-level loading.tsx makes Next 15.5 stream the page into a
   // hidden segment (<div hidden id="S:N"> parked at body level) and the

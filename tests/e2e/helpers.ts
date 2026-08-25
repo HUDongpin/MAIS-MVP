@@ -80,9 +80,18 @@ export async function closeLearnerStartSetupIfVisible(page: Page) {
   await closeSetup.waitFor({ state: "visible", timeout: 1000 }).catch(() => undefined);
   if (!(await closeSetup.isVisible().catch(() => false))) return;
 
+  const meResponse = await page.request.get("/api/me?includeLessonEntry=false").catch(() => null);
+  const mePayload = meResponse?.ok()
+    ? await meResponse.json().catch(() => null) as { user?: { id?: unknown } } | null
+    : null;
+  const expectedUserId = typeof mePayload?.user?.id === "string" ? mePayload.user.id : null;
+  if (!expectedUserId) return;
+
   await page.request.patch("/api/me/learner-profile", {
+    headers: { "X-MAIS-Expected-User-Id": expectedUserId },
     data: {
       status: "skipped",
+      expectedUserId,
       answers: {
         goal: "repair",
         challenge: "balanced",
@@ -189,11 +198,31 @@ async function selectRegistrationCurriculum(page: Page, publisher = "HK_UNITED_P
 }
 
 export async function loginAs(page: Page, username: string, password: string, expectedPath: RegExp | string) {
-  await page.goto("/login");
-  await page.getByLabel(/email or username|email or user name|user name/i).fill(username);
+  const identifier = page.getByLabel(/email or username|email or user name|user name/i);
+  const currentPathname = new URL(page.url()).pathname;
+  if (currentPathname !== "/login") {
+    await page.goto("/login");
+  }
+  // A logout uses a full-document replacement. Its URL can update before the
+  // replacement document is ready, so wait for the stable login form instead
+  // of starting a competing same-URL navigation that can be aborted.
+  await expect(identifier).toBeVisible();
+  await identifier.fill(username);
   await page.getByLabel(/^password$/i).fill(password);
+  const destinationDocument = page.waitForNavigation({
+    waitUntil: "domcontentloaded",
+    timeout: LOGIN_NAVIGATION_TIMEOUT_MS
+  });
   await clickLoginSubmit(page);
+  await destinationDocument;
   await expect(page).toHaveURL(expectedPath, { timeout: LOGIN_NAVIGATION_TIMEOUT_MS });
+  // `window.location.replace` updates the visible URL before the replacement
+  // document has necessarily committed. Wait for the destination AppProviders
+  // guard to hydrate so a following `page.goto` cannot race and abort that
+  // security-critical document transition.
+  await expect(page.locator('[data-mais-session-react-guard-ready="true"]')).toBeAttached({
+    timeout: LOGIN_NAVIGATION_TIMEOUT_MS
+  });
 }
 
 export async function loginAsDemoStudent(page: Page) {
@@ -210,9 +239,31 @@ export async function sessionCookieHeaderForUserId(userId: string) {
   return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}`;
 }
 
-export async function authenticateAsUserId(page: Page, userId: string) {
+export async function authenticateAsUserId(
+  page: Page,
+  userId: string,
+  userRole: "student" | "teacher" | "parent" | "admin" = userId.startsWith("teacher-")
+    ? "teacher"
+    : userId.startsWith("parent-")
+      ? "parent"
+      : userId.startsWith("admin-")
+        ? "admin"
+        : "student"
+) {
   ensureDefaultE2eSessionSecret();
   const token = await createSessionToken({ userId, sessionRevision: 1 });
+  const sessionSignal = JSON.stringify({ userId, userRole, at: Date.now() });
+  const seedMarker = `mais-e2e-session-seed:${Date.now()}:${Math.random().toString(36).slice(2)}`;
+  // Direct-cookie authentication bypasses the product login callback that
+  // publishes the durable identity signal. Seed the same coherent signal
+  // exactly once before the destination document's inline privacy guard runs.
+  // Re-applying an old identity on every later navigation would resurrect it
+  // after logout and correctly trigger the product's fail-closed reload loop.
+  await page.addInitScript(({ marker, storageKey, value }) => {
+    if (window.sessionStorage.getItem(marker) === "done") return;
+    window.sessionStorage.setItem(marker, "done");
+    window.localStorage.setItem(storageKey, value);
+  }, { marker: seedMarker, storageKey: "hk-math-session-sync", value: sessionSignal });
   await page.context().addCookies([
     {
       name: SESSION_COOKIE_NAME,

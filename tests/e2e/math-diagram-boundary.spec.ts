@@ -2521,7 +2521,7 @@ test.describe("mathematical diagram boundary integrity", () => {
           : standalone.interaction === "stored-question-figure"
             ? "P4"
             : "S4";
-        const { context, page } = await registerAuditStudent(
+        const { context, page, userId } = await registerAuditStudent(
           browser,
           testInfo,
           standalone.publisher ?? "US_CA_MATH",
@@ -2543,7 +2543,9 @@ test.describe("mathematical diagram boundary integrity", () => {
         try {
           if (standalone.interaction === "stored-question-figure") {
             const attempt = await page.request.post("/api/attempts", {
+              headers: { "X-MAIS-Expected-User-Id": userId },
               data: {
+                expectedUserId: userId,
                 questionId: "graph-p4-angles-straight-line",
                 selectedAnswer: "__diagram_audit_intentionally_wrong__",
                 durationSeconds: 17
@@ -2552,7 +2554,9 @@ test.describe("mathematical diagram boundary integrity", () => {
             const attemptBody = await attempt.json() as { correct?: boolean; error?: string };
             expect(attempt.status(), JSON.stringify(attemptBody)).toBe(200);
             expect(attemptBody.correct).toBe(false);
-            const mistakes = await page.request.get("/api/mistakes");
+            const mistakes = await page.request.get("/api/mistakes", {
+              headers: { "X-MAIS-Expected-User-Id": userId }
+            });
             const mistakesBody = await mistakes.json() as {
               mistakes?: Array<{ questionId?: string }>;
               error?: string;

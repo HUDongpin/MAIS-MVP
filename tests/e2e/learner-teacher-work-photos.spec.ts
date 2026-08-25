@@ -110,13 +110,16 @@ test("a teacher can open the working a learner photographed, and other learners 
     }
 
     // Uploads must actually be available, or the rest of this test proves nothing.
-    const probe = await learner.context.get("/api/media-objects");
+    const probe = await learner.context.get("/api/media-objects", {
+      headers: { "X-MAIS-Expected-User-Id": learner.userId }
+    });
     expect(probe.status(), await probe.text()).toBe(200);
     expect((await probe.json() as { uploadsAvailable: boolean }).uploadsAvailable).toBe(true);
 
     for (const capability of teacherReadableCapabilities) {
       const upload = await learner.context.post("/api/media-objects", {
-        data: { capability, dataUrl: onePixelPngDataUrl }
+        headers: { "X-MAIS-Expected-User-Id": learner.userId },
+        data: { expectedUserId: learner.userId, capability, dataUrl: onePixelPngDataUrl }
       });
       expect(upload.status(), `${capability} upload: ${await upload.text()}`).toBe(201);
       const uploaded = await upload.json() as { accessUrl: string; media: { objectKey: string } };
@@ -148,7 +151,8 @@ test("a teacher can open the working a learner photographed, and other learners 
     // profile-avatar is deliberately excluded from the teacher clause: a learner's
     // profile photo is not schoolwork, so a teacher must not be able to fetch it.
     const avatarUpload = await learner.context.post("/api/media-objects", {
-      data: { capability: "profile-avatar", dataUrl: onePixelPngDataUrl }
+      headers: { "X-MAIS-Expected-User-Id": learner.userId },
+      data: { expectedUserId: learner.userId, capability: "profile-avatar", dataUrl: onePixelPngDataUrl }
     });
     expect(avatarUpload.status(), await avatarUpload.text()).toBe(201);
     const avatar = await avatarUpload.json() as { accessUrl: string };

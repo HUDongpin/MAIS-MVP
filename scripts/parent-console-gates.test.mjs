@@ -35,8 +35,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
 
   assert.deepEqual(discovered, manifest.parentDomainTestFiles);
   assert.equal(manifest.parentDomainTestFiles.length, 17);
-  assert.equal(manifest.expectedParentDomainTestCount, 140);
-  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 140);
+  assert.equal(manifest.expectedParentDomainTestCount, 153);
+  assert.equal(manifest.expectedParentDomainStaticDeclarationCount, 153);
   assert.equal(
     countStaticNodeTests(manifest.parentDomainTestFiles),
     manifest.expectedParentDomainStaticDeclarationCount
@@ -47,6 +47,7 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/server/contentSafetySeed.test.ts",
     "lib/server/questionStore.test.ts",
     "app/api/questions/routeQuestionStore.test.ts",
+    "components/providers/appProvidersSessionIsolation.test.ts",
     "components/ui/LanguageToggle.test.ts",
     "tests/e2e/isolated-app-preflight.test.ts"
   ]);
@@ -55,14 +56,15 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "tests/e2e/isolated-app-lease-guardian.ts",
     "tests/e2e/isolated-app-process-supervisor.ts"
   ]);
-  assert.equal(manifest.expectedParentConsoleSupportTestCount, 47);
-  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 47);
+  assert.equal(manifest.expectedParentConsoleSupportTestCount, 52);
+  assert.equal(manifest.expectedParentConsoleSupportStaticDeclarationCount, 52);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleSupportTestFiles),
     manifest.expectedParentConsoleSupportStaticDeclarationCount
   );
 
   assert.deepEqual(manifest.parentSecurityLifecycleTestFiles, [
+    "app/api/ai-tutor/expectedUser.test.ts",
     "app/api/attempts/routeSessionRevision.test.ts",
     "app/api/auth/logout-all/route.test.ts",
     "app/api/auth/password-change/routeSessionRevision.test.ts",
@@ -72,6 +74,8 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "app/api/teacher/teacherReportPreviewRoute.test.ts",
     "components/teacher/GuardianAccessControls.test.ts",
     "components/teacher/teacherReportFormState.test.ts",
+    "components/ai/aiTutorSessionIsolation.test.ts",
+    "lib/server/expectedUserGuard.test.ts",
     "lib/server/sessionCookie.test.ts",
     "lib/server/userStoreAuthSessionPersistence.test.ts",
     "lib/server/userStoreGuardianInvitationPersistence.test.ts",
@@ -81,9 +85,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "lib/server/userStoreTeacherReportPreviewDecoder.test.ts",
     "lib/session.test.ts"
   ]);
-  assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 17);
-  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 146);
-  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 144);
+  assert.equal(manifest.parentSecurityLifecycleTestFiles.length, 20);
+  assert.equal(manifest.expectedParentSecurityLifecycleTestCount, 194);
+  assert.equal(manifest.expectedParentSecurityLifecycleStaticDeclarationCount, 191);
   assert.equal(
     countStaticNodeTests(manifest.parentSecurityLifecycleTestFiles),
     manifest.expectedParentSecurityLifecycleStaticDeclarationCount
@@ -94,9 +98,9 @@ test("the parent Node gate uses an explicit, complete manifest and matching tsco
     "live Postgres integration must stay a separately provisioned acceptance gate"
   );
 
-  assert.equal(manifest.parentConsoleTestFiles.length, 40);
-  assert.equal(manifest.expectedParentConsoleTestCount, 333);
-  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 331);
+  assert.equal(manifest.parentConsoleTestFiles.length, 44);
+  assert.equal(manifest.expectedParentConsoleTestCount, 399);
+  assert.equal(manifest.expectedParentConsoleStaticDeclarationCount, 396);
   assert.equal(
     countStaticNodeTests(manifest.parentConsoleTestFiles),
     manifest.expectedParentConsoleStaticDeclarationCount
@@ -405,7 +409,48 @@ test("desktop-only duplicate suppression remains explicit in parent specs", () =
   }
 });
 
-test("the Playwright gate freezes all 40 project-test instances as 24 runs and 16 explicit duplicate skips", async () => {
+test("the coherent parent hydration fixture publishes its identity and revalidates once before mounting account UI", () => {
+  const source = readRepoFile("tests/e2e/teacher-parent-p1-regressions.spec.ts");
+  const testStart = source.indexOf(
+    'test("teacher and parent SSR timestamps hydrate without page errors across UTC server and Hong Kong browser"'
+  );
+  const nextTest = source.indexOf("\n  test(", testStart + 1);
+  assert.ok(testStart >= 0 && nextTest > testStart, "the parent hydration regression must remain discoverable");
+
+  const hydrationTest = source.slice(testStart, nextTest);
+  const parentLogin = hydrationTest.indexOf('const parentLogin = await context.request.post("/api/auth/login"');
+  const matchingSignal = hydrationTest.indexOf(
+    'await writeSessionSyncSignal(teacherPage, demoParentUserId, "parent")'
+  );
+  const parentDocument = hydrationTest.indexOf("const parentPage = await context.newPage()");
+
+  assert.ok(parentLogin >= 0, "the fixture must authenticate the parent first");
+  assert.ok(
+    matchingSignal > parentLogin,
+    "APIRequestContext login must publish the equivalent durable parent identity"
+  );
+  assert.ok(
+    parentDocument > matchingSignal,
+    "the parent document must not start with the previous teacher identity signal"
+  );
+  assert.match(
+    hydrationTest,
+    /initialSessionStateRequests[\s\S]*?exactly one mount-time cookie validation[\s\S]*?\.toBe\(1\)/u,
+    "every authenticated document must authoritatively revalidate its cookie exactly once"
+  );
+  assert.match(
+    hydrationTest,
+    /firstParentHtml\)\.toContain\('data-session-verification-mode="identity"'\)/u,
+    "the server document must expose the React-owned identity gate"
+  );
+  assert.match(
+    hydrationTest,
+    /firstParentHtml\)\.not\.toContain\('data-parent-shell="true"'\)/u,
+    "the server document must not expose the parent account tree before validation"
+  );
+});
+
+test("the Playwright gate freezes all 44 project-test instances as 26 runs and 18 explicit duplicate skips", async () => {
   const distribution = await import(`./parent-console-playwright-distribution.mjs?contract=${Date.now()}`);
   const { default: ParentConsolePlaywrightReporter } = await import(
     `./parent-console-playwright-reporter.mjs?contract=${Date.now()}`
@@ -413,14 +458,14 @@ test("the Playwright gate freezes all 40 project-test instances as 24 runs and 1
   const discovered = distribution.discoverParentConsolePlaywrightInstances(repoRoot);
 
   assert.deepEqual(discovered, distribution.parentConsolePlaywrightInstances);
-  assert.equal(distribution.parentConsolePlaywrightInstances.length, 40);
+  assert.equal(distribution.parentConsolePlaywrightInstances.length, 44);
   assert.equal(
     distribution.parentConsolePlaywrightInstances.filter((instance) => instance.expectedStatus === "passed").length,
-    24
+    26
   );
   assert.equal(
     distribution.parentConsolePlaywrightInstances.filter((instance) => instance.expectedStatus === "skipped").length,
-    16
+    18
   );
   assert.deepEqual(
     distribution.parentConsolePlaywrightGroups.map((group) => ({
@@ -431,7 +476,7 @@ test("the Playwright gate freezes all 40 project-test instances as 24 runs and 1
     })),
     [
       { name: "shared", instances: 26, passed: 16, skipped: 10 },
-      { name: "isolated", instances: 14, passed: 8, skipped: 6 }
+      { name: "isolated", instances: 18, passed: 10, skipped: 8 }
     ]
   );
 
@@ -592,6 +637,90 @@ test("the existing parent stress instance freezes five-width long-content overfl
   assert.match(viewportSmoke, /document\.documentElement\.scrollWidth/u);
 });
 
+test("teacher guardian-invitation and direct-report E2E requests bind the authenticated identity", () => {
+  const expectedCalls = new Map([
+    ["tests/e2e/parent-console-feature-matrix.spec.ts", 1],
+    ["tests/e2e/parent-console.spec.ts", 1],
+    ["tests/e2e/parent-console-stress.spec.ts", 2]
+  ]);
+
+  for (const [relativePath, expectedCount] of expectedCalls) {
+    const source = readRepoFile(relativePath);
+    const invitationEndpoints = Array.from(source.matchAll(/\/guardian-invitations`/gu));
+    assert.equal(invitationEndpoints.length, expectedCount, `${relativePath} invitation setup count drifted`);
+
+    for (const endpoint of invitationEndpoints) {
+      const callStart = source.lastIndexOf(".post(", endpoint.index);
+      const callEnd = source.indexOf(");", endpoint.index);
+      assert.ok(callStart >= 0 && callEnd > callStart, `${relativePath} invitation setup must remain a direct POST`);
+      assert.match(
+        source.slice(callStart, callEnd + 2),
+        /headers:\s*\{\s*"X-MAIS-Expected-User-Id":\s*[^}\n]+\s*\}/u,
+        `${relativePath} invitation setup must bind the authenticated teacher identity`
+      );
+    }
+  }
+
+  const backendApi = readRepoFile("tests/e2e/backend-api.spec.ts");
+  const backendReportStart = backendApi.indexOf("const reportQuery =");
+  const backendReportEnd = backendApi.indexOf("const messageThread =", backendReportStart);
+  assert.ok(backendReportStart >= 0 && backendReportEnd > backendReportStart);
+  const backendReportFlow = backendApi.slice(backendReportStart, backendReportEnd);
+  assert.match(
+    backendApi,
+    /const \{ context: teacher, session: teacherSession \} = await loginDemoTeacher\(contexts\);/u,
+    "backend report probes must derive identity from the authenticated teacher session"
+  );
+  assert.equal(
+    (backendReportFlow.match(/headers: expectedUserHeaders\(teacherSession\.user\.id\)/gu) ?? []).length,
+    4,
+    "backend preview, CSV, PDF, and save requests must bind the authenticated teacher identity"
+  );
+  assert.match(
+    backendReportFlow,
+    /expectedUserId: teacherSession\.user\.id/u,
+    "backend report save must repeat the authenticated identity in its JSON body"
+  );
+
+  const apiStress = readRepoFile("tests/e2e/teacher-console-api-stress.spec.ts");
+  const stressExportStart = apiStress.indexOf("const exports = await Promise.all([");
+  const stressExportEnd = apiStress.indexOf("for (const [index, response]", stressExportStart);
+  assert.ok(stressExportStart >= 0 && stressExportEnd > stressExportStart);
+  const stressExportFlow = apiStress.slice(stressExportStart, stressExportEnd);
+  assert.match(
+    apiStress,
+    /const \{ context: teacher, userId: teacherUserId \} = await loginContext/u,
+    "teacher API stress must retain the authenticated teacher ID"
+  );
+  assert.equal(
+    (stressExportFlow.match(/headers: expectedUserHeaders\(teacherUserId\)/gu) ?? []).length,
+    2,
+    "teacher API stress CSV and PDF requests must bind the authenticated teacher identity"
+  );
+  assert.match(apiStress, /sendProbe\(student, probe, studentUserId\)/u);
+  assert.match(apiStress, /sendProbe\(parent, probe, parentUserId\)/u);
+
+  const buttonMatrix = readRepoFile("tests/e2e/teacher-console-button-matrix.spec.ts");
+  const endpointStart = buttonMatrix.indexOf("const reportPdf =");
+  const endpointEnd = buttonMatrix.indexOf("const draftReply =", endpointStart);
+  assert.ok(endpointStart >= 0 && endpointEnd > endpointStart);
+  const endpointReportFlow = buttonMatrix.slice(endpointStart, endpointEnd);
+  assert.equal(
+    (endpointReportFlow.match(/headers:\s*\{ "X-MAIS-Expected-User-Id": demoTeacherUserId \}/gu) ?? []).length,
+    2,
+    "button-matrix PDF and save requests must bind the demo teacher used by loginAsTeacher"
+  );
+  assert.match(endpointReportFlow, /expectedUserId: demoTeacherUserId/u);
+
+  const featureMatrix = readRepoFile("tests/e2e/parent-console-feature-matrix.spec.ts");
+  const saveHelperStart = featureMatrix.indexOf("async function saveParentSummaryReport(");
+  const saveHelperEnd = featureMatrix.indexOf("\nasync function", saveHelperStart + 1);
+  assert.ok(saveHelperStart >= 0 && saveHelperEnd > saveHelperStart);
+  const saveHelper = featureMatrix.slice(saveHelperStart, saveHelperEnd);
+  assert.match(saveHelper, /headers: expectedUserHeaders\(input\.teacherId\)/u);
+  assert.match(saveHelper, /expectedUserId: input\.teacherId/u);
+});
+
 test("the existing feature-matrix instances freeze real browser message-context race coverage", () => {
   const featureMatrix = readRepoFile("tests/e2e/parent-console-feature-matrix.spec.ts");
 
@@ -608,6 +737,7 @@ test("the existing feature-matrix instances freeze real browser message-context 
   assert.match(featureMatrix, /window\.history\.pushState/u);
   assert.match(featureMatrix, /page\.goBack\(\)/u);
   assert.match(featureMatrix, /page\.goForward\(\)/u);
+  assert.match(featureMatrix, /getByRole\("combobox", \{ name: \/Child focus\/i \}\)/u);
   assert.match(featureMatrix, /expectRuntimeLabelAssociation/u);
   assert.match(featureMatrix, /control\.labels\?\.\[0\]/u);
   assert.doesNotMatch(

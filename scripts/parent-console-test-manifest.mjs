@@ -31,6 +31,7 @@ export const parentConsoleSupportTestFiles = Object.freeze([
   "lib/server/contentSafetySeed.test.ts",
   "lib/server/questionStore.test.ts",
   "app/api/questions/routeQuestionStore.test.ts",
+  "components/providers/appProvidersSessionIsolation.test.ts",
   "components/ui/LanguageToggle.test.ts",
   "tests/e2e/isolated-app-preflight.test.ts"
 ]);
@@ -46,6 +47,7 @@ export const parentConsoleSupportHarnessFiles = Object.freeze([
 // modules: teacher report authorization, guardian invitation rotation, and
 // revocable authentication sessions (including the real SQLite process races).
 export const parentSecurityLifecycleTestFiles = Object.freeze([
+  "app/api/ai-tutor/expectedUser.test.ts",
   "app/api/attempts/routeSessionRevision.test.ts",
   "app/api/auth/logout-all/route.test.ts",
   "app/api/auth/password-change/routeSessionRevision.test.ts",
@@ -55,6 +57,8 @@ export const parentSecurityLifecycleTestFiles = Object.freeze([
   "app/api/teacher/teacherReportPreviewRoute.test.ts",
   "components/teacher/GuardianAccessControls.test.ts",
   "components/teacher/teacherReportFormState.test.ts",
+  "components/ai/aiTutorSessionIsolation.test.ts",
+  "lib/server/expectedUserGuard.test.ts",
   "lib/server/sessionCookie.test.ts",
   "lib/server/userStoreAuthSessionPersistence.test.ts",
   "lib/server/userStoreGuardianInvitationPersistence.test.ts",
@@ -71,19 +75,19 @@ export const parentConsoleTestFiles = Object.freeze([
   ...parentSecurityLifecycleTestFiles
 ]);
 
-export const expectedParentDomainTestCount = 140;
-export const expectedParentConsoleSupportTestCount = 47;
-export const expectedParentSecurityLifecycleTestCount = 146;
-export const expectedParentConsoleTestCount = 333;
+export const expectedParentDomainTestCount = 153;
+export const expectedParentConsoleSupportTestCount = 52;
+export const expectedParentSecurityLifecycleTestCount = 194;
+export const expectedParentConsoleTestCount = 399;
 
-// Runtime has two more tests than the source declaration count because two
-// teacher-report cases are declared inside a two-value loop. The runner below
-// therefore verifies the authoritative TAP runtime count rather than treating
-// a source regex as execution evidence.
-export const expectedParentDomainStaticDeclarationCount = 140;
-export const expectedParentConsoleSupportStaticDeclarationCount = 47;
-export const expectedParentSecurityLifecycleStaticDeclarationCount = 144;
-export const expectedParentConsoleStaticDeclarationCount = 331;
+// Runtime has three more tests than the source declaration count because the
+// teacher-report and expected-user transport cases include loop-declared test
+// variants. The runner below therefore verifies authoritative TAP runtime
+// counts rather than treating a source regex as execution evidence.
+export const expectedParentDomainStaticDeclarationCount = 153;
+export const expectedParentConsoleSupportStaticDeclarationCount = 52;
+export const expectedParentSecurityLifecycleStaticDeclarationCount = 191;
+export const expectedParentConsoleStaticDeclarationCount = 396;
 
 function repoRelativeFilesBelow(repoRoot, relativeRoot, predicate) {
   const absoluteRoot = path.join(repoRoot, relativeRoot);

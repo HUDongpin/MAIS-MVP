@@ -5,6 +5,7 @@ import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import {
   demoParent,
+  demoParentUserId,
   demoStudent,
   demoTeacher,
   logoutIfVisible
@@ -282,6 +283,10 @@ function uniqueSlug(testInfo: TestInfo, label: string) {
     .slice(0, 90);
 }
 
+function expectedParentHeaders(parentUserId: string) {
+  return { "X-MAIS-Expected-User-Id": parentUserId };
+}
+
 async function newApiContext(app: IsolatedApp, contexts: APIRequestContext[]) {
   const context = await apiRequest.newContext({ baseURL: app.baseURL });
   contexts.push(context);
@@ -305,7 +310,15 @@ async function loginApi(app: IsolatedApp, contexts: APIRequestContext[], usernam
     }
   });
   const session = await readJson<AuthSession>(response);
-  return { context, session };
+  if (session.user.role !== "parent") return { context, session };
+
+  const parentContext = await apiRequest.newContext({
+    baseURL: app.baseURL,
+    storageState: await context.storageState(),
+    extraHTTPHeaders: expectedParentHeaders(session.user.id)
+  });
+  contexts.push(parentContext);
+  return { context: parentContext, session };
 }
 
 async function registerParentViaApi(app: IsolatedApp, contexts: APIRequestContext[], testInfo: TestInfo, label: string) {
@@ -413,7 +426,7 @@ async function issueGuardianInvitationForStudent(
   student: TestUser,
   label: string
 ) {
-  const { context } = await loginApi(app, contexts, demoTeacher.username, demoTeacher.password);
+  const { context, session } = await loginApi(app, contexts, demoTeacher.username, demoTeacher.password);
   const classResponse = await context.post("/api/teacher/classes", {
     data: {
       name: `Guardian stress ${uniqueSlug(testInfo, label)}`,
@@ -429,7 +442,8 @@ async function issueGuardianInvitationForStudent(
   });
   expect(addResponse.ok(), `Add student failed: ${addResponse.status()}`).toBeTruthy();
   const issueResponse = await context.post(
-    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`,
+    { headers: { "X-MAIS-Expected-User-Id": session.user.id } }
   );
   expect(issueResponse.status()).toBe(201);
   const payload = await issueResponse.json() as { invitation: { token: string } };
@@ -676,7 +690,12 @@ async function createParentOverflowFixture(
     "overflow-teacher",
     overflowFixtures.longTeacherName
   );
-  const { context: teacherContext } = await loginApi(app, contexts, teacher.username, teacher.password);
+  const { context: teacherContext, session: teacherSession } = await loginApi(
+    app,
+    contexts,
+    teacher.username,
+    teacher.password
+  );
   const classPayload = await readJson<{ class: { id: string; name: string } }>(
     await teacherContext.post("/api/teacher/classes", {
       data: {
@@ -697,7 +716,8 @@ async function createParentOverflowFixture(
   expect(enrollmentResponse.ok(), `Overflow student enrollment failed: ${enrollmentResponse.status()}`).toBeTruthy();
 
   const invitationResponse = await teacherContext.post(
-    `/api/teacher/classes/${encodeURIComponent(classPayload.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+    `/api/teacher/classes/${encodeURIComponent(classPayload.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`,
+    { headers: { "X-MAIS-Expected-User-Id": teacherSession.user.id } }
   );
   const invitationPayload = await readJson<{ invitation: { token: string } }>(invitationResponse, 201);
   expect(invitationPayload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
@@ -798,7 +818,9 @@ test.describe("parent console robustness stress suite", () => {
       await expect(page.getByRole("navigation", { name: /Parent navigation/i })).toBeVisible();
       await expect(page.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
 
-      const foundation = await readJson<ParentFoundationResponse>(await page.request.get(app.url("/api/parent/foundation")));
+      const foundation = await readJson<ParentFoundationResponse>(await page.request.get(app.url("/api/parent/foundation"), {
+        headers: expectedParentHeaders(demoParentUserId)
+      }));
       const child = foundation.data.selectedChild ?? foundation.data.children[0];
       expect(child, "Demo parent should have at least one linked child for page stress.").toBeTruthy();
       if (!child) return;

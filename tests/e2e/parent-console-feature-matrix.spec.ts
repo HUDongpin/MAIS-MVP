@@ -1,6 +1,7 @@
 import { expect, request as apiRequest, test, type APIRequestContext, type Locator, type Page, type TestInfo } from "@playwright/test";
 import {
   collectPageErrors,
+  demoParentUserId,
   demoTeacher,
   demoStudent,
   demoStudentUserId,
@@ -95,6 +96,14 @@ function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function expectedParentHeaders() {
+  return expectedUserHeaders(demoParentUserId);
+}
+
+function expectedUserHeaders(userId: string) {
+  return { "X-MAIS-Expected-User-Id": userId };
+}
+
 async function newApiContext(contexts: APIRequestContext[]) {
   const context = await apiRequest.newContext({ baseURL });
   contexts.push(context);
@@ -140,13 +149,41 @@ async function registerStudentViaApi(contexts: APIRequestContext[], testInfo: Te
   return { ...student, userId: session.user.id };
 }
 
+async function registerTeacherViaApi(contexts: APIRequestContext[], testInfo: TestInfo, label: string) {
+  const context = await newApiContext(contexts);
+  const suffix = uniqueSuffix(testInfo).slice(0, 40);
+  const teacher = {
+    name: `Parent Matrix ${label} ${suffix}`,
+    username: `parent-matrix-${label}-${suffix}@example.test`.toLowerCase(),
+    password: "start12345"
+  };
+  const response = await context.post("/api/auth/register", {
+    data: {
+      role: "teacher",
+      name: teacher.name,
+      username: teacher.username,
+      email: teacher.username,
+      password: teacher.password,
+      grade: "S3",
+      curriculumTrack: "HK",
+      curriculumProfile: { region: "HK", publisher: "HK_UNITED_PRIME_MIA" },
+      language: "en",
+      theme: "dark"
+    }
+  });
+  expect(response.ok(), `Teacher registration failed: ${response.status()}`).toBeTruthy();
+  const session = await response.json() as AuthSession;
+  expect(session.user.role).toBe("teacher");
+  return { context, session };
+}
+
 async function issueGuardianInvitationForStudent(
   contexts: APIRequestContext[],
   testInfo: TestInfo,
   student: { username: string; userId: string },
   label: string
 ) {
-  const { context } = await loginApi(contexts, demoTeacher.username, demoTeacher.password);
+  const { context, session } = await loginApi(contexts, demoTeacher.username, demoTeacher.password);
   const suffix = uniqueSuffix(testInfo).slice(0, 28);
   const classResponse = await context.post("/api/teacher/classes", {
     data: {
@@ -163,7 +200,8 @@ async function issueGuardianInvitationForStudent(
   });
   expect(addResponse.ok(), `Add student failed: ${addResponse.status()}`).toBeTruthy();
   const issueResponse = await context.post(
-    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`
+    `/api/teacher/classes/${encodeURIComponent(teacherClass.class.id)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`,
+    { headers: { "X-MAIS-Expected-User-Id": session.user.id } }
   );
   expect(issueResponse.status()).toBe(201);
   const payload = await issueResponse.json() as { invitation: { token: string } };
@@ -173,15 +211,17 @@ async function issueGuardianInvitationForStudent(
 
 async function saveParentSummaryReport(
   teacherContext: APIRequestContext,
-  input: { classId: string; studentId: string; language: "en" | "zh"; marker: string }
+  input: { teacherId: string; classId: string; studentId: string; language: "en" | "zh"; marker: string }
 ) {
   const response = await teacherContext.post("/api/teacher/reports/save", {
+    headers: expectedUserHeaders(input.teacherId),
     data: {
       type: "parent-summary",
       language: input.language,
       classId: input.classId,
       studentId: input.studentId,
-      remarks: input.marker
+      remarks: input.marker,
+      expectedUserId: input.teacherId
     }
   });
   expect(response.status()).toBe(201);
@@ -304,7 +344,14 @@ async function pushParentMessageContext(page: Page, href: string) {
 
 async function expectParentReportComposeContext(
   page: Page,
-  expected: { studentId: string; reportId: string; classId: string; subject: string }
+  expected: {
+    studentId: string;
+    reportId: string;
+    classId: string;
+    subject: string;
+    className?: string;
+    teacherName?: string;
+  }
 ) {
   const compose = parentComposeForm(page);
   await expectParentComposeLabels(compose);
@@ -313,6 +360,9 @@ async function expectParentReportComposeContext(
   await expect(compose.locator('[name="reportId"]')).toHaveValue(expected.reportId);
   await expect(compose.locator('[name="category"]')).toHaveValue("report-question");
   await expect(compose.locator('[name="subject"]')).toHaveValue(expected.subject);
+  const selectedClassAndTeacher = compose.locator('[name="classId"] option:checked');
+  if (expected.className) await expect(selectedClassAndTeacher).toContainText(expected.className);
+  if (expected.teacherName) await expect(selectedClassAndTeacher).toContainText(expected.teacherName);
 }
 
 function parentComposeForm(page: Page) {
@@ -344,6 +394,140 @@ async function expectParentComposeLabels(compose: Locator) {
     ["body", "Message"]
   ] as const) {
     await expectRuntimeLabelAssociation(compose.locator(`[name="${name}"]`), label);
+  }
+}
+
+async function verifyLostResponseIdempotency(page: Page, testInfo: TestInfo) {
+  const suffix = uniqueSuffix(testInfo).slice(0, 24);
+  const subject = `Lost response ${suffix}`;
+  const messageBody = `One durable message for ${suffix}.`;
+
+  await page.goto("/parent/messages");
+  const compose = parentComposeForm(page);
+  await compose.locator('[name="studentId"]').selectOption(demoStudentUserId);
+  const classSelect = compose.locator('[name="classId"]');
+  if (await classSelect.inputValue() === "") {
+    const firstClassId = await classSelect.locator('option:not([value=""])').first().getAttribute("value");
+    expect(firstClassId, "The demo child must have an authorized teacher target.").toBeTruthy();
+    await classSelect.selectOption(firstClassId!);
+  }
+  await compose.locator('[name="subject"]').fill(subject);
+  await compose.locator('[name="body"]').fill(messageBody);
+
+  let committedThreadId = "";
+  let firstIdempotencyKey = "";
+  let droppedFirstResponse = false;
+  await page.route("**/api/parent/messages", async (route) => {
+    if (route.request().method() !== "POST" || droppedFirstResponse) {
+      await route.continue();
+      return;
+    }
+    droppedFirstResponse = true;
+    const requestBody = route.request().postDataJSON() as { idempotencyKey?: unknown };
+    firstIdempotencyKey = typeof requestBody.idempotencyKey === "string" ? requestBody.idempotencyKey : "";
+    const committedResponse = await route.fetch();
+    expect(committedResponse.status()).toBe(201);
+    const committedPayload = await committedResponse.json() as { thread?: { id?: unknown } };
+    committedThreadId = typeof committedPayload.thread?.id === "string" ? committedPayload.thread.id : "";
+    expect(committedThreadId).not.toBe("");
+    await route.abort("connectionfailed");
+  });
+
+  try {
+    await compose.getByRole("button", { name: /Send message/i }).click();
+    await expect(page.locator("main").getByRole("alert")).toContainText(/Retry safely|安全重試|安全重试/i);
+    await expect(compose.getByRole("button", { name: /Send message/i })).toBeEnabled();
+    await expect(compose.locator('[name="subject"]')).toHaveValue(subject);
+    await expect(compose.locator('[name="body"]')).toHaveValue(messageBody);
+
+    const replayResponsePromise = page.waitForResponse((response) => (
+      new URL(response.url()).pathname === "/api/parent/messages"
+      && response.request().method() === "POST"
+    ));
+    await compose.getByRole("button", { name: /Send message/i }).click();
+    const replayResponse = await replayResponsePromise;
+    expect(replayResponse.status()).toBe(200);
+    const replayRequest = replayResponse.request().postDataJSON() as { idempotencyKey?: unknown };
+    const replayPayload = await replayResponse.json() as { replayed?: unknown; thread?: { id?: unknown } };
+    expect(replayRequest.idempotencyKey).toBe(firstIdempotencyKey);
+    expect(replayPayload).toMatchObject({ replayed: true, thread: { id: committedThreadId } });
+  } finally {
+    await page.unroute("**/api/parent/messages");
+  }
+
+  const messagesResponse = await page.request.get("/api/parent/messages", {
+    headers: expectedParentHeaders()
+  });
+  expect(messagesResponse.status()).toBe(200);
+  const messagesPayload = await messagesResponse.json() as ParentMessagesResponse;
+  expect(messagesPayload.data.threads.filter((thread) => thread.subject.en === subject)).toHaveLength(1);
+}
+
+async function verifyMessageTransportFailures(page: Page, testInfo: TestInfo) {
+  type FailureScenario = "offline" | "timeout" | "rate-limited" | "unavailable";
+  let scenario: FailureScenario = "offline";
+
+  await page.goto("/parent/messages");
+  const compose = parentComposeForm(page);
+  await compose.locator('[name="studentId"]').selectOption(demoStudentUserId);
+  const classSelect = compose.locator('[name="classId"]');
+  if (await classSelect.inputValue() === "") {
+    const firstClassId = await classSelect.locator('option:not([value=""])').first().getAttribute("value");
+    expect(firstClassId).toBeTruthy();
+    await classSelect.selectOption(firstClassId!);
+  }
+
+  await page.route("**/api/parent/messages", async (route) => {
+    if (route.request().method() !== "POST") {
+      await route.continue();
+      return;
+    }
+    if (scenario === "offline") {
+      await route.abort("internetdisconnected");
+      return;
+    }
+    if (scenario === "timeout") {
+      await route.abort("timedout");
+      return;
+    }
+    if (scenario === "rate-limited") {
+      await route.fulfill({
+        status: 429,
+        headers: { "Content-Type": "application/json", "Retry-After": "7" },
+        body: JSON.stringify({ error: "Too many requests." })
+      });
+      return;
+    }
+    await route.fulfill({
+      status: 503,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Temporarily unavailable." })
+    });
+  });
+
+  try {
+    const cases: Array<{ scenario: FailureScenario; feedback: RegExp }> = [
+      { scenario: "offline", feedback: /connection ended before delivery could be confirmed/i },
+      { scenario: "timeout", feedback: /connection ended before delivery could be confirmed/i },
+      { scenario: "rate-limited", feedback: /Try again in about 7 seconds/i },
+      { scenario: "unavailable", feedback: /service is temporarily unavailable/i }
+    ];
+    const suffix = uniqueSuffix(testInfo).slice(0, 20);
+    for (const [index, item] of cases.entries()) {
+      scenario = item.scenario;
+      const subject = `${item.scenario} ${suffix} ${index}`;
+      const body = `Retain this ${item.scenario} draft.`;
+      await compose.locator('[name="subject"]').fill(subject);
+      await compose.locator('[name="body"]').fill(body);
+      const send = compose.getByRole("button", { name: /Send message/i });
+      await send.click();
+      await expect(page.locator("main").getByRole("alert")).toContainText(item.feedback);
+      await expect(send).toBeEnabled();
+      await expect(compose.locator('[name="subject"]')).toHaveValue(subject);
+      await expect(compose.locator('[name="body"]')).toHaveValue(body);
+    }
+  } finally {
+    await page.unroute("**/api/parent/messages");
   }
 }
 
@@ -392,7 +576,9 @@ async function sendParentNotice(contexts: APIRequestContext[], testInfo: TestInf
 }
 
 async function parentNotices(page: Page) {
-  const response = await page.request.get("/api/parent/notices");
+  const response = await page.request.get("/api/parent/notices", {
+    headers: expectedParentHeaders()
+  });
   expect(response.ok()).toBeTruthy();
   return await response.json() as ParentNoticesResponse;
 }
@@ -435,7 +621,9 @@ test.describe.serial("parent console feature matrix", () => {
       await expect(noticeFilter(page, name)).toBeVisible();
     }
 
-    const foundation = await page.request.get("/api/parent/foundation");
+    const foundation = await page.request.get("/api/parent/foundation", {
+      headers: expectedParentHeaders()
+    });
     const child = (await foundation.json() as ParentFoundationResponse).data.children[0];
     expect(child, "Expected a linked demo child.").toBeTruthy();
     await expect(page.getByRole("link", { name: /All children/i })).toBeVisible();
@@ -481,7 +669,9 @@ test.describe.serial("parent console feature matrix", () => {
     expect(recipient?.acknowledgedAt).toBeTruthy();
 
     // A receipt is evidence of WHEN a guardian confirmed; a repeat POST must not re-stamp it.
-    const repeat = await page.request.post(`/api/parent/notices/${encodeURIComponent(recipient!.id)}/ack`);
+    const repeat = await page.request.post(`/api/parent/notices/${encodeURIComponent(recipient!.id)}/ack`, {
+      headers: expectedParentHeaders()
+    });
     expect(repeat.status()).toBe(200);
     const afterRepeat = await parentNotices(page);
     expect(
@@ -499,7 +689,9 @@ test.describe.serial("parent console feature matrix", () => {
     const recipientId = notices.data.notices.find((notice) => notice.subject.en === subject)?.recipients[0]?.id;
     expect(recipientId).toBeTruthy();
 
-    expect((await page.request.post("/api/parent/notices/notice-recipient-does-not-exist/ack")).status()).toBe(404);
+    expect((await page.request.post("/api/parent/notices/notice-recipient-does-not-exist/ack", {
+      headers: expectedParentHeaders()
+    })).status()).toBe(404);
     await logoutIfVisible(page);
 
     await loginAsDemoStudent(page);
@@ -513,7 +705,7 @@ test.describe.serial("parent console feature matrix", () => {
   });
 
   test("the Child focus selector re-scopes list routes and swaps the child detail route", async ({ page }, testInfo) => {
-    test.setTimeout(120_000);
+    test.setTimeout(240_000);
     const pageErrors = collectPageErrors(page);
     const extraChild = await registerStudentViaApi(contexts, testInfo, "focus");
     const { inviteCode, classId: extraClassId } = await issueGuardianInvitationForStudent(
@@ -525,6 +717,7 @@ test.describe.serial("parent console feature matrix", () => {
 
     await loginAsDemoParent(page);
     const linkResponse = await page.request.post("/api/parent/children/link", {
+      headers: expectedParentHeaders(),
       data: { inviteCode, relationship: "guardian" }
     });
     expect(linkResponse.status()).toBe(200);
@@ -553,53 +746,150 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(page).toHaveURL(new RegExp(`/parent/children/${escapeRegex(encodeURIComponent(extraChild.userId))}$`));
     await expect(page.locator("main").getByRole("heading", { name: extraChild.name }).first()).toBeVisible();
 
-    const allMessagesResponse = await page.request.get("/api/parent/messages");
+    const allMessagesResponse = await page.request.get("/api/parent/messages", {
+      headers: expectedParentHeaders()
+    });
     expect(allMessagesResponse.status()).toBe(200);
     const allMessagesBeforeReports = await allMessagesResponse.json() as ParentMessagesResponse;
-    const demoClassId = allMessagesBeforeReports.data.composeTargets.find(
-      (target) => target.studentId === demoStudentUserId
-    )?.classId;
-    expect(demoClassId, "The demo child must expose an authorized teacher target.").toBeTruthy();
+    const { context: teacherContext, session: teacherSession } = await loginApi(
+      contexts,
+      demoTeacher.username,
+      demoTeacher.password
+    );
+    const demoTarget = allMessagesBeforeReports.data.composeTargets.find((target) => (
+      target.studentId === demoStudentUserId && target.teacherName === teacherSession.user.name
+    ));
+    expect(demoTarget, "The demo child must expose the demo teacher's authorized target.").toBeTruthy();
 
-    const { context: teacherContext } = await loginApi(contexts, demoTeacher.username, demoTeacher.password);
     const reportA = await saveParentSummaryReport(teacherContext, {
-      classId: demoClassId!,
+      teacherId: teacherSession.user.id,
+      classId: demoTarget!.classId,
       studentId: demoStudentUserId,
       language: "en",
       marker: `report-context-a ${uniqueSuffix(testInfo)}`
     });
     const reportB = await saveParentSummaryReport(teacherContext, {
+      teacherId: teacherSession.user.id,
       classId: extraClassId,
       studentId: extraChild.userId,
       language: "en",
       marker: `report-context-b ${uniqueSuffix(testInfo)}`
     });
 
+    // Build one child -> two stable classes -> two different teachers -> two
+    // reports. This is deliberately separate from the two-child history case:
+    // neither studentId nor display names can disambiguate these report routes.
+    const foreignStudent = await registerStudentViaApi(contexts, testInfo, "foreign-report-scope");
+    const { context: secondTeacherContext, session: secondTeacherSession } = await registerTeacherViaApi(
+      contexts,
+      testInfo,
+      "second-teacher"
+    );
+    const secondClassName = `Parent Matrix second teacher ${uniqueSuffix(testInfo).slice(0, 28)}`;
+    const secondClassResponse = await secondTeacherContext.post("/api/teacher/classes", {
+      headers: expectedUserHeaders(secondTeacherSession.user.id),
+      data: {
+        name: secondClassName,
+        grade: "S3",
+        academicYear: "2026-2027",
+        description: "Two-teacher parent report routing acceptance fixture."
+      }
+    });
+    expect(secondClassResponse.status()).toBe(201);
+    const secondClass = await secondClassResponse.json() as { class: { id: string } };
+    for (const username of [demoStudent.username, foreignStudent.username]) {
+      const addStudentResponse = await secondTeacherContext.post(
+        `/api/teacher/classes/${encodeURIComponent(secondClass.class.id)}/students`,
+        {
+          headers: expectedUserHeaders(secondTeacherSession.user.id),
+          data: { username }
+        }
+      );
+      expect(addStudentResponse.ok(), `Second teacher could not add ${username}.`).toBeTruthy();
+    }
+
+    // Real HTTP authorization regression: an accessible class paired with a
+    // studentId that only belongs to another teacher's class must fail closed
+    // for both preview and save. A fallback to the first student/class would
+    // turn either assertion green for the wrong data, so inspect the exact 404.
+    const foreignPreviewResponse = await teacherContext.get(
+      `/api/teacher/reports/preview?type=parent-summary&language=en&classId=${encodeURIComponent(demoTarget!.classId)}&studentId=${encodeURIComponent(foreignStudent.userId)}`,
+      { headers: expectedUserHeaders(teacherSession.user.id) }
+    );
+    expect(foreignPreviewResponse.status()).toBe(404);
+    expect(await foreignPreviewResponse.json()).toEqual({ error: "Report preview unavailable." });
+    const foreignSaveResponse = await teacherContext.post("/api/teacher/reports/save", {
+      headers: expectedUserHeaders(teacherSession.user.id),
+      data: {
+        type: "parent-summary",
+        language: "en",
+        classId: demoTarget!.classId,
+        studentId: foreignStudent.userId,
+        remarks: "MUST_NOT_BE_SAVED",
+        expectedUserId: teacherSession.user.id
+      }
+    });
+    expect(foreignSaveResponse.status()).toBe(404);
+    expect(await foreignSaveResponse.json()).toEqual({ error: "Report preview unavailable." });
+
+    const reportC = await saveParentSummaryReport(secondTeacherContext, {
+      teacherId: secondTeacherSession.user.id,
+      classId: secondClass.class.id,
+      studentId: demoStudentUserId,
+      language: "en",
+      marker: `report-context-second-teacher ${uniqueSuffix(testInfo)}`
+    });
+
     // Load one unfiltered server batch containing both reports. The client-only
     // history sequence below proves A -> B -> back -> forward never resolves a
     // report/class/student/subject from another data generation.
     await page.goto("/parent/messages");
-    const reportPayloadResponse = await page.request.get("/api/parent/messages");
+    const reportPayloadResponse = await page.request.get("/api/parent/messages", {
+      headers: expectedParentHeaders()
+    });
     expect(reportPayloadResponse.status()).toBe(200);
     const reportPayload = await reportPayloadResponse.json() as ParentMessagesResponse;
     const parentReportA = reportPayload.data.reports.find((report) => report.id === reportA.report.id);
     const parentReportB = reportPayload.data.reports.find((report) => report.id === reportB.report.id);
+    const parentReportC = reportPayload.data.reports.find((report) => report.id === reportC.report.id);
+    const secondTeacherTarget = reportPayload.data.composeTargets.find((target) => (
+      target.studentId === demoStudentUserId
+      && target.classId === secondClass.class.id
+      && target.teacherName === secondTeacherSession.user.name
+    ));
     expect(parentReportA).toBeTruthy();
     expect(parentReportB).toBeTruthy();
+    expect(parentReportC).toBeTruthy();
+    expect(secondTeacherTarget).toMatchObject({
+      classId: secondClass.class.id,
+      className: secondClassName,
+      teacherName: secondTeacherSession.user.name
+    });
 
     const reportHrefA = `/parent/messages?studentId=${encodeURIComponent(demoStudentUserId)}&category=report-question&reportId=${encodeURIComponent(parentReportA!.id)}`;
     const reportHrefB = `/parent/messages?studentId=${encodeURIComponent(extraChild.userId)}&category=report-question&reportId=${encodeURIComponent(parentReportB!.id)}`;
+    const reportHrefC = `/parent/messages?studentId=${encodeURIComponent(demoStudentUserId)}&category=report-question&reportId=${encodeURIComponent(parentReportC!.id)}`;
     const expectedReportA = {
       studentId: demoStudentUserId,
       reportId: parentReportA!.id,
-      classId: demoClassId!,
-      subject: `Question about ${parentReportA!.title.en}`
+      classId: demoTarget!.classId,
+      subject: `Question about ${parentReportA!.title.en}`,
+      className: demoTarget!.className,
+      teacherName: teacherSession.user.name
     };
     const expectedReportB = {
       studentId: extraChild.userId,
       reportId: parentReportB!.id,
       classId: extraClassId,
       subject: `Question about ${parentReportB!.title.en}`
+    };
+    const expectedReportC = {
+      studentId: demoStudentUserId,
+      reportId: parentReportC!.id,
+      classId: secondClass.class.id,
+      subject: `Question about ${parentReportC!.title.en}`,
+      className: secondClassName,
+      teacherName: secondTeacherSession.user.name
     };
     await pushParentMessageContext(page, reportHrefA);
     await expectParentReportComposeContext(page, expectedReportA);
@@ -612,11 +902,24 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(page).toHaveURL(`${baseURL}${reportHrefB}`);
     await expectParentReportComposeContext(page, expectedReportB);
 
+    // Now keep studentId fixed and switch only the report. The browser must
+    // follow each report's stable classId and generating teacher exactly.
+    await pushParentMessageContext(page, reportHrefA);
+    await expectParentReportComposeContext(page, expectedReportA);
+    await pushParentMessageContext(page, reportHrefC);
+    await expectParentReportComposeContext(page, expectedReportC);
+    await page.goBack();
+    await expect(page).toHaveURL(`${baseURL}${reportHrefA}`);
+    await expectParentReportComposeContext(page, expectedReportA);
+    await page.goForward();
+    await expect(page).toHaveURL(`${baseURL}${reportHrefC}`);
+    await expectParentReportComposeContext(page, expectedReportC);
+
     expectNoPageErrors(pageErrors);
   });
 
   test("the Ask teacher form creates a thread and the Threads list switches between them", async ({ page }, testInfo) => {
-    test.setTimeout(120_000);
+    test.setTimeout(300_000);
     const pageErrors = collectPageErrors(page);
     const suffix = uniqueSuffix(testInfo).slice(0, 24);
     const firstSubject = `Matrix compose A ${suffix}`;
@@ -626,6 +929,7 @@ test.describe.serial("parent console feature matrix", () => {
 
     await loginAsDemoParent(page);
     const linkResponse = await page.request.post("/api/parent/children/link", {
+      headers: expectedParentHeaders(),
       data: { inviteCode, relationship: "guardian" }
     });
     expect(linkResponse.status()).toBe(200);
@@ -708,9 +1012,36 @@ test.describe.serial("parent console feature matrix", () => {
     await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
     await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
 
-    const messages = await page.request.get("/api/parent/messages");
+    // The unfiltered All state is a durable navigation state, not an implicit
+    // first-child selection. Prove it survives a document refresh and a real
+    // filtered -> All -> back -> forward browser-history sequence.
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
+    const childFocus = page.getByRole("combobox", { name: /Child focus/i });
+    await childFocus.selectOption(extraChild.userId);
+    await expect(page).toHaveURL(new RegExp(`studentId=${escapeRegex(encodeURIComponent(extraChild.userId))}`));
+    await threads.getByRole("link", { name: /^All$/i }).click();
+    await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await page.goBack();
+    await expect(page).toHaveURL(new RegExp(`studentId=${escapeRegex(encodeURIComponent(extraChild.userId))}`));
+    await page.goForward();
+    await expect(page).toHaveURL(`${baseURL}/parent/messages`);
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(firstSubject), "i") })).toBeVisible();
+    await expect(threads.getByRole("button", { name: new RegExp(escapeRegex(secondSubject), "i") })).toBeVisible();
+
+    const messages = await page.request.get("/api/parent/messages", {
+      headers: expectedParentHeaders()
+    });
     const payload = await messages.json() as ParentMessagesResponse;
     expect(payload.data.threads.filter((thread) => [firstSubject, secondSubject].includes(thread.subject.en))).toHaveLength(2);
+
+    // Preserve the full write-path acceptance while keeping this suite's
+    // frozen 44 project-instance distribution: the transport and lost-response
+    // cases are sub-scenarios of the existing compose/thread contract.
+    await verifyLostResponseIdempotency(page, testInfo);
+    await verifyMessageTransportFailures(page, testInfo);
 
     expectNoPageErrors(pageErrors);
   });

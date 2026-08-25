@@ -169,6 +169,17 @@ async function main() {
     return;
   }
 
+  if (command === "guardian-read-normalize") {
+    const foundation = await store.getParentFoundationData(
+      "sqlite-guardian-provider-boundary-missing-parent"
+    );
+    emitResult({
+      foundation: foundation === null ? "missing" : "found",
+      status: "read"
+    });
+    return;
+  }
+
   throw new Error(`Unsupported worker command: ${command}`);
 }
 

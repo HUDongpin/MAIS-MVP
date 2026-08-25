@@ -70,7 +70,9 @@ const specs = [
     file: "tests/e2e/teacher-parent-p1-regressions.spec.ts",
     tests: [
       "ended live-classroom join codes are no longer readable by students",
-      "teacher and parent SSR timestamps hydrate without page errors across UTC server and Hong Kong browser"
+      "teacher and parent SSR timestamps hydrate without page errors across UTC server and Hong Kong browser",
+      "cross-tab identity replacement quarantines stale parent content before session validation returns",
+      "same-role parent replacement keeps the hard gate until a fresh document belongs to the new family"
     ],
     passedProjects: [desktop]
   }
@@ -114,9 +116,9 @@ export const parentConsolePlaywrightGroups = [
       "tests/e2e/parent-console-stress.spec.ts",
       "tests/e2e/teacher-parent-p1-regressions.spec.ts"
     ],
-    expectedInstances: 14,
-    expectedPassed: 8,
-    expectedSkipped: 6
+    expectedInstances: 18,
+    expectedPassed: 10,
+    expectedSkipped: 8
   }
 ];
 
