@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { questionAnswerMatches } from "./answerMatching";
+import { parseScalarAnswer, questionAnswerMatches } from "./answerMatching";
 
 const shortAnswerQuestion = (answer: string) => ({
   answer,
@@ -100,4 +100,54 @@ test("multiple-choice grading accepts rendered TeX unit option values", () => {
     }, "\\(20\\,\\text{cm}^{2}\\)"),
     true
   );
+});
+
+test("scalar grading accepts an explicit leading plus and a bare trailing decimal point", () => {
+  for (const [stored, typed] of [
+    ["9", "+9"],
+    ["9", "9."],
+    ["40", "+40"],
+    ["40", "40."],
+    ["1/2", "+1/2"],
+    ["-3", "-3."]
+  ] as const) {
+    assert.equal(
+      questionAnswerMatches({ answer: stored, accepted_answers: null, options: null }, typed),
+      true,
+      `stored ${stored} must accept typed ${typed}`
+    );
+  }
+
+  // The leniency is scalar-only: algebraic strings keep their signs and dots.
+  assert.equal(parseScalarAnswer("+9"), 9);
+  assert.equal(parseScalarAnswer("9."), 9);
+  assert.equal(parseScalarAnswer("9.5."), null);
+  assert.equal(questionAnswerMatches({ answer: "x+2", accepted_answers: null, options: null }, "+x+2"), false);
+});
+
+test("short answers tolerate terminal punctuation and digit-grouping commas", () => {
+  for (const [stored, typed] of [
+    ["f", "f."],
+    ["marker", "marker."],
+    ["circles", "circles."],
+    ["1.5", "1.5."],
+    ["4/6", "4/6."],
+    ["5523", "5,523"],
+    ["1234567", "1,234,567"]
+  ] as const) {
+    assert.equal(
+      questionAnswerMatches({ answer: stored, accepted_answers: null, options: null }, typed),
+      true,
+      `stored ${stored} must accept typed ${typed}`
+    );
+  }
+
+  // Bare leading decimals read as their zero-prefixed values.
+  assert.equal(parseScalarAnswer(".7"), 0.7);
+  assert.equal(parseScalarAnswer("-.5"), -0.5);
+  assert.equal(questionAnswerMatches({ answer: "0.25", accepted_answers: null, options: null }, ".25"), true);
+
+  // Grouping requires full three-digit groups: a coordinate pair stays distinct.
+  assert.equal(parseScalarAnswer("3,4"), null);
+  assert.equal(questionAnswerMatches({ answer: "34", accepted_answers: null, options: null }, "3,4"), false);
 });
