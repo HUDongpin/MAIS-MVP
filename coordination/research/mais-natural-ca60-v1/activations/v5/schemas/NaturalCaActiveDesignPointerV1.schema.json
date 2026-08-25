@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaActiveDesignPointerV1.schema.json",
+  "title": "NaturalCaActiveDesignPointerV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "artifactKind",
+    "designFamily",
+    "activeDesignId",
+    "activeDesignPath",
+    "activeRegistrationHash",
+    "predecessorDesignId",
+    "predecessorRegistrationHash",
+    "pointerUpdatedAt",
+    "reason",
+    "firstProviderExecutionAllowed"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaActiveDesignPointerV1" },
+    "artifactKind": { "const": "ACTIVE_DESIGN_POINTER_NOT_A_REGISTRATION" },
+    "designFamily": { "const": "MAIS-NATURAL-CA60" },
+    "activeDesignId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "activeDesignPath": { "const": "versions/design-v5/design-registration.json" },
+    "activeRegistrationHash": {
+      "const": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632"
+    },
+    "predecessorDesignId": { "const": "MAIS-NATURAL-CA60-V3" },
+    "predecessorRegistrationHash": {
+      "const": "08e89a4d0c6736b48c1dde0048d8f620c35fc486e1d1feaf272e30a1aae4973d"
+    },
+    "pointerUpdatedAt": { "const": "2026-08-25T18:05:00.000Z" },
+    "reason": { "type": "string", "minLength": 1 },
+    "firstProviderExecutionAllowed": { "const": false }
+  }
+}
