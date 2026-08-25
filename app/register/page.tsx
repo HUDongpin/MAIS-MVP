@@ -713,7 +713,7 @@ export default function RegisterPage() {
 
       if (result.ok) {
         setMessage(t(successMessage));
-        window.location.assign(successRedirect);
+        window.location.replace(successRedirect);
         return;
       }
 

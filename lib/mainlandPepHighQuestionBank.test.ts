@@ -715,7 +715,7 @@ test("question API defaults to HK and returns publisher-scoped Mainland question
 });
 
 test("authenticated question route cannot be widened to another curriculum by query params", async () => {
-  const hkToken = await createSessionToken("student-peter");
+  const hkToken = await createSessionToken({ userId: "student-peter", sessionRevision: 1 });
   const hkResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&curriculumTrack=MAINLAND_PEP_HIGH&publisher=MAINLAND_PEP", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(hkToken)}` }
   }));
@@ -723,7 +723,7 @@ test("authenticated question route cannot be widened to another curriculum by qu
   assert.equal(hkResponse.status, 200);
   assert.deepEqual(hkBody.questions, []);
 
-  const usToken = await createSessionToken("student-shirleen-us");
+  const usToken = await createSessionToken({ userId: "student-shirleen-us", sessionRevision: 1 });
   const usResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_PEP", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(usToken)}` }
   }));
@@ -736,7 +736,7 @@ test("authenticated question route cannot be widened to another curriculum by qu
   assert.equal(guestResponse.status, 200);
   assert.deepEqual(guestBody.questions, []);
 
-  const mainlandToken = await createSessionToken("student-li-mainland");
+  const mainlandToken = await createSessionToken({ userId: "student-li-mainland", sessionRevision: 1 });
   const mainlandResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_PEP", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(mainlandToken)}` }
   }));
@@ -757,7 +757,7 @@ test("authenticated question route cannot be widened to another curriculum by qu
   assert.equal(bnuStudent.status, "created");
   if (bnuStudent.status !== "created") return;
 
-  const bnuToken = await createSessionToken(bnuStudent.session.user.id);
+  const bnuToken = await createSessionToken({ userId: bnuStudent.session.user.id, sessionRevision: 1 });
   const bnuSeniorResponse = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S4&publisher=MAINLAND_BNU", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(bnuToken)}` }
   }));
@@ -929,7 +929,7 @@ test("US California K-G5 knowledge-point practice is live while North Carolina r
     assert.equal(lesson?.topic.curriculumTrack, "US_FL_MATH");
   }
 
-  const usToken = await createSessionToken("student-shirleen-us");
+  const usToken = await createSessionToken({ userId: "student-shirleen-us", sessionRevision: 1 });
   const response = await getAdaptiveNextRoute(new Request("http://localhost/api/adaptive-learning/next?grade=P1", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(usToken)}` }
   }));
@@ -964,7 +964,10 @@ test("US California K-G5 knowledge-point practice is live while North Carolina r
   });
   assert.equal(northCarolinaStudent.status, "created");
   if (northCarolinaStudent.status === "created") {
-    const northCarolinaToken = await createSessionToken(northCarolinaStudent.session.user.id);
+    const northCarolinaToken = await createSessionToken({
+      userId: northCarolinaStudent.session.user.id,
+      sessionRevision: 1
+    });
     const northCarolinaResponse = await getAdaptiveNextRoute(new Request("http://localhost/api/adaptive-learning/next?grade=S3", {
       headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(northCarolinaToken)}` }
     }));

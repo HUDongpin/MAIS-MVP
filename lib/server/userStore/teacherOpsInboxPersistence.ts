@@ -53,6 +53,8 @@ type TeacherOpsInboxMessageRecord = {
   starred: boolean;
   last_message_at: string;
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 type TeacherOpsInboxMessageEntryRecord = {
@@ -64,6 +66,8 @@ type TeacherOpsInboxMessageEntryRecord = {
   body: string;
   attachments: TeacherMessageAttachment[];
   created_at: string;
+  parent_idempotency_key_hash?: string;
+  parent_idempotency_request_hash?: string;
 };
 
 export type TeacherOpsInboxPersistenceDatabase = {

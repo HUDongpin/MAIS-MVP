@@ -228,8 +228,16 @@ test.describe("student frontend workflows", () => {
     test.skip(testInfo.project.name !== "desktop-chrome", "Adaptive Practice Arena UI verification runs once.");
 
     await registerStudent(page, testInfo, "S3");
+    const meResponse = await page.request.get("/api/me?includeLessonEntry=false");
+    const meBody = await meResponse.text();
+    expect(meResponse.ok(), meBody).toBeTruthy();
+    const me = JSON.parse(meBody) as { user?: { id?: string } };
+    expect(me.user?.id).toBeTruthy();
+    const expectedUserId = me.user?.id ?? "";
     const lessonAttempt = await page.request.post("/api/attempts", {
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId },
       data: {
+        expectedUserId,
         questionId: "supp-polynomials-key-fact",
         selectedAnswer: "7x^2",
         durationSeconds: 35

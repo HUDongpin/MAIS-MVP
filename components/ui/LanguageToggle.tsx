@@ -2,14 +2,38 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
-import { isChineseLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import type { Language } from "@/types";
 
 const languageOptions = [
   { value: "en", triggerLabel: "English", menuLabel: "English", ariaLabel: { en: "Use English", zh: "使用英文", zhHans: "使用英文" } },
   { value: "zh-Hans", triggerLabel: "简体中文", menuLabel: "简体中文", ariaLabel: { en: "Use Simplified Chinese", zh: "使用簡體中文", zhHans: "使用简体中文" } },
   { value: "zh", triggerLabel: "繁體中文", menuLabel: "繁體中文", ariaLabel: { en: "Use Traditional Chinese", zh: "使用繁體中文", zhHans: "使用繁体中文" } }
 ] as const;
+
+const languageToggleLabelMap: Record<Language, { selector: string; menu: string }> = {
+  en: { selector: "Language selector", menu: "Language menu" },
+  zh: { selector: "語言選擇", menu: "語言選單" },
+  "zh-Hans": { selector: "语言选择", menu: "语言菜单" }
+};
+
+export function languageToggleLabels(language: Language) {
+  return languageToggleLabelMap[language];
+}
+
+type LanguageMenuMoveKey = "ArrowDown" | "ArrowUp" | "Home" | "End";
+
+export function nextLanguageMenuIndex(
+  currentIndex: number,
+  key: LanguageMenuMoveKey,
+  optionCount: number
+) {
+  if (optionCount <= 0) return -1;
+  if (key === "Home") return 0;
+  if (key === "End") return optionCount - 1;
+  const direction = key === "ArrowDown" ? 1 : -1;
+  return (currentIndex + direction + optionCount) % optionCount;
+}
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -47,13 +71,49 @@ function CheckIcon() {
 
 export function LanguageToggle() {
   const { language, setLanguage, t } = useSettings();
+  const labels = languageToggleLabels(language);
   const [open, setOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const menuId = useId();
   // Every account keeps access to the full language menu. Restricting US-curriculum
   // users to English made the header selector a silent no-op even though the product
   // UI is fully bilingual (and Reports already offers all three languages).
   const visibleLanguageOptions = languageOptions;
+  const activeIndex = Math.max(
+    0,
+    visibleLanguageOptions.findIndex((option) => option.value === language)
+  );
+  const activeLanguage = visibleLanguageOptions[activeIndex] ?? languageOptions[0];
+  const canChangeLanguage = visibleLanguageOptions.length > 1;
+
+  const openMenuAndFocus = () => {
+    setFocusedIndex(activeIndex);
+    setOpen(true);
+  };
+
+  const closeMenuAndRestoreFocus = () => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  };
+
+  const moveMenuFocus = (key: LanguageMenuMoveKey) => {
+    const nextIndex = nextLanguageMenuIndex(
+      focusedIndex,
+      key,
+      visibleLanguageOptions.length
+    );
+    setFocusedIndex(nextIndex);
+    optionRefs.current[nextIndex]?.focus();
+  };
+
+  useEffect(() => {
+    if (open) {
+      optionRefs.current[focusedIndex]?.focus();
+    }
+  }, [focusedIndex, open]);
 
   useEffect(() => {
     if (!open) return;
@@ -65,7 +125,7 @@ export function LanguageToggle() {
     };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setOpen(false);
+        closeMenuAndRestoreFocus();
       }
     };
 
@@ -78,9 +138,6 @@ export function LanguageToggle() {
     };
   }, [open]);
 
-  const activeLanguage = visibleLanguageOptions.find((option) => option.value === language) ?? visibleLanguageOptions[0] ?? languageOptions[0];
-  const canChangeLanguage = visibleLanguageOptions.length > 1;
-
   useEffect(() => {
     if (!canChangeLanguage) {
       setOpen(false);
@@ -90,14 +147,28 @@ export function LanguageToggle() {
   return (
     <div ref={containerRef} className="relative inline-flex shrink-0">
       <button
+        ref={triggerRef}
         type="button"
-        aria-label={isChineseLanguage(language) ? "語言選擇" : "Language selector"}
+        aria-label={labels.selector}
         aria-haspopup={canChangeLanguage ? "menu" : undefined}
         aria-expanded={canChangeLanguage ? open : undefined}
         aria-controls={canChangeLanguage && open ? menuId : undefined}
         onClick={() => {
           if (canChangeLanguage) {
-            setOpen((current) => !current);
+            if (open) {
+              setOpen(false);
+            } else {
+              openMenuAndFocus();
+            }
+          }
+        }}
+        onKeyDown={(event) => {
+          if (
+            canChangeLanguage &&
+            (event.key === "Enter" || event.key === " " || event.key === "ArrowDown")
+          ) {
+            event.preventDefault();
+            openMenuAndFocus();
           }
         }}
         className={cn(
@@ -116,22 +187,46 @@ export function LanguageToggle() {
         <div
           id={menuId}
           role="menu"
-          aria-label={isChineseLanguage(language) ? "語言選單" : "Language menu"}
+          aria-label={labels.menu}
           className="absolute right-0 top-[calc(100%+0.65rem)] z-[60] w-[13.5rem] rounded-[1.75rem] border border-slate-200/75 bg-white/[0.96] p-2 shadow-2xl shadow-slate-900/15 ring-1 ring-white/80 backdrop-blur-2xl dark:border-cyan-300/20 dark:bg-slate-950/95 dark:ring-white/10"
         >
-          {visibleLanguageOptions.map((option) => {
+          {visibleLanguageOptions.map((option, index) => {
             const active = language === option.value;
 
             return (
               <button
                 key={option.value}
+                ref={(element) => {
+                  optionRefs.current[index] = element;
+                }}
                 type="button"
                 role="menuitemradio"
                 aria-label={t(option.ariaLabel)}
                 aria-checked={active}
+                tabIndex={focusedIndex === index ? 0 : -1}
+                onFocus={() => setFocusedIndex(index)}
                 onClick={() => {
                   setLanguage(option.value);
-                  setOpen(false);
+                  closeMenuAndRestoreFocus();
+                }}
+                onKeyDown={(event) => {
+                  if (
+                    event.key === "ArrowDown" ||
+                    event.key === "ArrowUp" ||
+                    event.key === "Home" ||
+                    event.key === "End"
+                  ) {
+                    event.preventDefault();
+                    moveMenuFocus(event.key);
+                  } else if (event.key === "Escape") {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeMenuAndRestoreFocus();
+                  } else if (event.key === "Tab") {
+                    // Keep the browser's normal forward/backward focus movement,
+                    // but do not leave an orphaned menu open after focus departs.
+                    setOpen(false);
+                  }
                 }}
                 className={cn(
                   "focus-ring flex h-12 w-full items-center justify-between gap-3 rounded-[1.15rem] px-4 text-left text-[15px] font-black transition",

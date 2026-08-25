@@ -33,6 +33,7 @@ function childSummary(studentId: string, name: string): ParentChildSummary {
     strengths: [],
     supportTopics: [],
     assignments: [],
+    pendingAssignmentCount: 0,
     rewardSummary: {
       balance: 0,
       available: 0,
@@ -66,6 +67,11 @@ function createDatabase(): ParentNoticePersistenceDatabase {
         parent_id: "parent-2",
         student_id: "student-1",
         status: "active"
+      },
+      {
+        parent_id: "parent-revoked",
+        student_id: "student-3",
+        status: "revoked"
       }
     ],
     student_profiles: [
@@ -127,6 +133,15 @@ function createDatabase(): ParentNoticePersistenceDatabase {
         status: "pending",
         acknowledged_at: null,
         created_at: "2026-06-19T09:00:00.000Z"
+      },
+      {
+        id: "recipient-revoked",
+        notice_id: "notice-1",
+        student_id: "student-3",
+        guardian_id: "parent-revoked",
+        status: "pending",
+        acknowledged_at: null,
+        created_at: "2026-06-19T10:00:00.000Z"
       }
     ],
     teacher_notices: [
@@ -190,6 +205,8 @@ function createDatabase(): ParentNoticePersistenceDatabase {
     users: [
       { id: "parent-1", username: "Pat Parent", role: "parent" },
       { id: "parent-2", username: "Other Parent", role: "parent" },
+      { id: "parent-revoked", username: "Revoked Parent", role: "parent" },
+      { id: "admin-1", username: "Support Admin", role: "admin" },
       { id: "teacher-1", username: "Teacher Chan", role: "teacher" },
       { id: "student-1", username: "Ada", role: "student" },
       { id: "student-2", username: "Ben", role: "student" }
@@ -197,7 +214,13 @@ function createDatabase(): ParentNoticePersistenceDatabase {
   };
 }
 
-function createTestStore(database = createDatabase()) {
+function createTestStore(
+  database = createDatabase(),
+  readers: {
+    readDatabase?: () => Promise<ParentNoticePersistenceDatabase>;
+    readParentDatabase?: (parentId: string) => Promise<ParentNoticePersistenceDatabase>;
+  } = {}
+) {
   return createParentNoticePersistenceStore({
     now: () => new Date(generatedAt),
     getParentChildSummaries: (_database, user) => {
@@ -206,10 +229,34 @@ function createTestStore(database = createDatabase()) {
         .filter((link) => link.parent_id === user.id && link.status === "active")
         .map((link) => childSummary(link.student_id, link.student_id === "student-1" ? "Ada Student" : "Ben Student"));
     },
-    readDatabase: async () => database,
+    readDatabase: readers.readDatabase ?? (async () => database),
+    ...(readers.readParentDatabase ? { readParentDatabase: readers.readParentDatabase } : {}),
     mutateDatabase: async (mutator) => mutator(database)
   });
 }
+
+test("parent notice GET reads use the parent-scoped database dependency", async () => {
+  const database = createDatabase();
+  const scopedParentIds: string[] = [];
+  let genericReadCount = 0;
+  const store = createTestStore(database, {
+    readDatabase: async () => {
+      genericReadCount += 1;
+      return database;
+    },
+    readParentDatabase: async (parentId) => {
+      scopedParentIds.push(parentId);
+      return database;
+    }
+  });
+
+  assert.deepEqual((await store.getParentNoticeData("parent-1"))?.notices.map((notice) => notice.id), [
+    "notice-2",
+    "notice-1"
+  ]);
+  assert.deepEqual(scopedParentIds, ["parent-1"]);
+  assert.equal(genericReadCount, 0);
+});
 
 test("parent notice persistence filters visible notices without legacy userStore imports", async () => {
   const source = await readFile(path.join(process.cwd(), "lib/server/userStore/parentNoticePersistence.ts"), "utf8");
@@ -223,6 +270,10 @@ test("parent notice persistence filters visible notices without legacy userStore
   assert.deepEqual(data?.children.map((child) => child.student.id), ["student-1", "student-2"]);
   assert.deepEqual(data?.notices.map((notice) => notice.id), ["notice-1"]);
   assert.deepEqual(data?.notices[0].recipients.map((recipient) => recipient.id), ["recipient-1"]);
+  assert.equal(
+    data?.notices.flatMap((notice) => notice.recipients).some((recipient) => recipient.id === "recipient-other-parent"),
+    false
+  );
   assert.deepEqual(data?.notices[0].acknowledgement, { total: 1, acknowledged: 0, pending: 1 });
   assert.equal(data?.notices[0].className, "S3 Algebra");
   assert.equal(data?.notices[0].deliveryAttempts[0].id, "delivery-1");
@@ -237,6 +288,33 @@ test("parent notice persistence filters visible notices without legacy userStore
     teacherName: "Teacher Chan",
     title: "Review lesson ready"
   }]);
+});
+
+test("parent notice names never fall back to student, teacher, or guardian email usernames", async () => {
+  const studentEmail = "student.private@example.test";
+  const teacherEmail = "teacher.private@example.test";
+  const guardianEmail = "guardian.private@example.test";
+  const database = createDatabase();
+  database.student_profiles = [];
+  database.users = database.users.map((user) => {
+    if (user.id === "student-1") return { ...user, username: studentEmail };
+    if (user.id === "teacher-1") return { ...user, username: teacherEmail };
+    if (user.id === "parent-1") return { ...user, username: guardianEmail };
+    return user;
+  });
+
+  const data = await createTestStore(database).getParentNoticeData("parent-1", {
+    selectedStudentId: "student-1"
+  });
+  const recipient = data?.notices[0]?.recipients[0];
+
+  assert.equal(recipient?.studentName, "Unknown student");
+  assert.equal(recipient?.guardianName, "Guardian");
+  assert.equal(data?.parentSafeDrafts[0]?.teacherName, "Teacher");
+  assert.doesNotMatch(
+    JSON.stringify(data),
+    new RegExp(`${studentEmail}|${teacherEmail}|${guardianEmail}`, "i")
+  );
 });
 
 test("parent notice persistence targets a recipient and acknowledges allowed notices", async () => {
@@ -254,16 +332,80 @@ test("parent notice persistence targets a recipient and acknowledges allowed not
   assert.equal(database.teacher_notice_recipients[0].acknowledged_by, "parent-1");
   assert.equal(database.teacher_notice_recipients[0].acknowledged_at, generatedAt);
   assert.equal(database.teacher_notices[0].updated_at, generatedAt);
-  assert.equal(result.notice?.acknowledgement.acknowledged, 1);
+  assert.deepEqual(result, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: generatedAt
+    }
+  });
 });
 
-test("parent notice persistence rejects unavailable or unauthorized acknowledgement", async () => {
+test("every explicitly invalid or conflicting notice filter fails closed", async () => {
+  const store = createTestStore();
+  const invalidFilters = [
+    { selectedStudentId: "" },
+    { selectedStudentId: "student-does-not-exist" },
+    { recipientId: "" },
+    { recipientId: "recipient-does-not-exist" },
+    { recipientId: "recipient-other-parent" },
+    { selectedStudentId: "student-1", recipientId: "recipient-2" }
+  ];
+
+  for (const filters of invalidFilters) {
+    assert.equal(
+      await store.getParentNoticeData("parent-1", filters),
+      null,
+      `explicit filters ${JSON.stringify(filters)} must not expand to visible notices`
+    );
+  }
+
+  assert.deepEqual(
+    (await store.getParentNoticeData("parent-1"))?.notices.map((notice) => notice.id),
+    ["notice-2", "notice-1"],
+    "omitting every filter must preserve the all-linked-children view"
+  );
+});
+
+test("parent notice acknowledgement returns only the current guardian receipt", async () => {
+  const store = createTestStore();
+
+  const result = await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "recipient-1" });
+
+  assert.deepEqual(result, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: generatedAt
+    }
+  });
+});
+
+test("admin cannot write a guardian acknowledgement", async () => {
+  const database = createDatabase();
+  const store = createTestStore(database);
+
+  const result = await store.acknowledgeParentNotice({ parentId: "admin-1", recipientId: "recipient-1" });
+
+  assert.deepEqual(result, { status: "forbidden" });
+  assert.equal(database.teacher_notice_recipients[0].status, "pending");
+  assert.equal(database.teacher_notice_recipients[0].acknowledged_at, null);
+});
+
+test("parent notice persistence hides foreign, revoked and absent recipients behind the same result", async () => {
   const store = createTestStore();
 
   assert.equal(await store.getParentNoticeData("teacher-1"), null);
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "teacher-1", recipientId: "recipient-1" }), { status: "forbidden" });
   assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-1", recipientId: "missing" }), { status: "not-found" });
-  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" }), { status: "forbidden" });
+  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" }), { status: "not-found" });
+  assert.deepEqual(await store.acknowledgeParentNotice({ parentId: "parent-revoked", recipientId: "recipient-revoked" }), { status: "not-found" });
+});
+
+test("parent notice persistence rejects admin reads", async () => {
+  assert.equal(await createTestStore().getParentNoticeData("admin-1"), null);
 });
 
 test("parent notice persistence owns parent-safe review lesson draft helpers for legacy userStore", async () => {
@@ -439,7 +581,14 @@ test("parent notice acknowledgement is idempotent and never re-stamps the receip
 
   // Still succeeds, so callers and the UI are unaffected...
   assert.equal(second.status, "acknowledged");
-  assert.equal(second.notice?.acknowledgement.acknowledged, 1);
+  assert.deepEqual(second, {
+    status: "acknowledged",
+    receipt: {
+      recipientId: "recipient-1",
+      status: "acknowledged",
+      acknowledgedAt: "2026-06-20T11:00:00.000Z"
+    }
+  });
   // ...but the receipt of record is untouched.
   assert.equal(
     database.teacher_notice_recipients[0].acknowledged_at,
@@ -470,6 +619,6 @@ test("the idempotent acknowledgement path still enforces authorization", async (
   assert.equal(database.teacher_notice_recipients[0].acknowledged_at, "2026-06-20T11:00:00.000Z");
 
   const stranger = await store.acknowledgeParentNotice({ parentId: "parent-2", recipientId: "recipient-1" });
-  assert.equal(stranger.status, "forbidden", "an unrelated guardian must not reach the idempotent path");
+  assert.equal(stranger.status, "not-found", "an unrelated guardian must not reach the idempotent path or learn that it exists");
   assert.equal(database.teacher_notice_recipients[0].acknowledged_by, "parent-1");
 });

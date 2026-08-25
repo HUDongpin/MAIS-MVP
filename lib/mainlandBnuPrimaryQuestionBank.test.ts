@@ -303,7 +303,7 @@ test("question API returns BNUP primary questions only for a BNUP primary authen
   assert.equal(result.status, "created");
   if (result.status !== "created") return;
 
-  const token = await createSessionToken(result.session.user.id);
+  const token = await createSessionToken({ userId: result.session.user.id, sessionRevision: 1 });
   const response = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=P1&publisher=MAINLAND_BNU", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}` }
   }));

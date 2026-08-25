@@ -165,6 +165,7 @@ export function LearnerStartSetupGate() {
 
     fetch("/api/me/learner-profile", {
       cache: "no-store",
+      headers: { "X-MAIS-Expected-User-Id": currentUserId },
       signal: controller.signal
     })
       .then(async (response) => {
@@ -207,11 +208,13 @@ export function LearnerStartSetupGate() {
       const response = await fetch("/api/me/learner-profile", {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": currentUserId
         },
         body: JSON.stringify({
           status,
-          answers: normalizedAnswers
+          answers: normalizedAnswers,
+          expectedUserId: currentUserId
         })
       });
 

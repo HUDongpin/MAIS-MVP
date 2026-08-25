@@ -6,7 +6,13 @@ import {
   type StoredMediaObjectReference
 } from "@/lib/server/mediaObjectStore";
 import { practiceAttemptFastPathPersistsRows, submitQuestionAttemptFast } from "@/lib/server/practiceAttemptStore";
-import { SESSION_COOKIE_NAME, verifySessionToken } from "@/lib/session";
+import {
+  bodyExpectedUserConstraints,
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
+import type { CurriculumProfile } from "@/types";
 
 export const runtime = "nodejs";
 
@@ -23,17 +29,6 @@ const maxAnswerWorkPhotoCount = 6;
  */
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
-}
-
-function readCookie(header: string | null, name: string) {
-  if (!header) return null;
-
-  const match = header
-    .split(";")
-    .map((part) => part.trim())
-    .find((part) => part.startsWith(`${name}=`));
-
-  return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
 }
 
 async function readAnswerWorkPhotos(
@@ -77,49 +72,70 @@ async function readAnswerWorkPhotos(
   return { photos };
 }
 
-async function verifiedSessionPayload(request: Request) {
-  const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE_NAME);
-  if (!token) return null;
-
-  return verifySessionToken(token);
-}
-
 async function persistLocalAttempt({
   durationSeconds,
   questionId,
   selectedAnswer,
   userId,
-  answerWorkPhotos
+  answerWorkPhotos,
+  curriculumProfile
 }: {
   durationSeconds?: number;
   questionId: string;
   selectedAnswer: string;
   userId: string;
   answerWorkPhotos?: StoredMediaObjectReference[];
+  curriculumProfile: CurriculumProfile;
 }) {
-  const [{ getAuthenticatedUserById }, { submitQuestionAttempt }] = await Promise.all([
-    import("@/lib/server/userStore/auth"),
-    import("@/lib/server/userStore/studentActivity")
-  ]);
-  const authenticated = await getAuthenticatedUserById(userId);
+  const { submitQuestionAttempt } = await import("@/lib/server/userStore/studentActivity");
 
   return submitQuestionAttempt({
     userId,
     questionId,
     selectedAnswer,
     durationSeconds,
-    curriculumTrack: authenticated?.user.curriculumProfile,
+    curriculumTrack: curriculumProfile,
     answerWorkPhotos
   });
 }
 
 export async function POST(request: Request) {
+  // Authenticate before parsing or validating account-owned content. A caller
+  // with a stale page may otherwise finish an asynchronous photo/read step
+  // after the browser cookie has moved to another signed-in account.
+  const authenticated = await requireAuthenticatedUser(request);
+  if (!authenticated) {
+    return NextResponse.json({ error: "Log in before submitting tracked practice attempts." }, { status: 401 });
+  }
+
+  const transportExpectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request)
+  );
+  if (transportExpectedUserConflict) return transportExpectedUserConflict;
+
   let body: unknown;
   try {
     body = await request.json();
   } catch {
+    const expectedUserConflict = guardExpectedAuthenticatedUser(
+      authenticated,
+      expectedUserConstraintsFromRequest(request),
+      { requireConstraint: true }
+    );
+    if (expectedUserConflict) return expectedUserConflict;
     return NextResponse.json({ error: "Invalid JSON request body." }, { status: 400 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    [
+      ...expectedUserConstraintsFromRequest(request),
+      ...bodyExpectedUserConstraints(body)
+    ],
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   if (!isRecord(body)) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
@@ -135,21 +151,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Question ID and selected answer are required." }, { status: 400 });
   }
 
-  // Auth first: validating work-photo references reads the media store, so it
-  // must not run for an unauthenticated caller.
-  const session = await verifiedSessionPayload(request);
-  if (!session) {
-    return NextResponse.json({ error: "Log in before submitting tracked practice attempts." }, { status: 401 });
-  }
-
-  const workPhotos = await readAnswerWorkPhotos(body.answerWorkPhotos, { id: session.sub, role: "student" });
+  const userId = authenticated.user.id;
+  const workPhotos = await readAnswerWorkPhotos(body.answerWorkPhotos, { id: userId, role: authenticated.user.role });
   if (workPhotos.error) {
     return NextResponse.json({ error: workPhotos.error }, { status: workPhotos.status ?? 400 });
   }
   const answerWorkPhotos = workPhotos.photos ?? [];
 
   const feedback = await submitQuestionAttemptFast({
-    userId: session.sub,
+    userId,
     questionId,
     selectedAnswer,
     durationSeconds,
@@ -159,11 +169,12 @@ export async function POST(request: Request) {
   if (!feedback) {
     if (!practiceAttemptFastPathPersistsRows()) {
       const persistedFeedback = await persistLocalAttempt({
-        userId: session.sub,
+        userId,
         questionId,
         selectedAnswer,
         durationSeconds,
-        answerWorkPhotos
+        answerWorkPhotos,
+        curriculumProfile: authenticated.user.curriculumProfile
       });
 
       if (persistedFeedback) {
@@ -176,11 +187,12 @@ export async function POST(request: Request) {
 
   if (!practiceAttemptFastPathPersistsRows()) {
     const persistedFeedback = await persistLocalAttempt({
-      userId: session.sub,
+      userId,
       questionId,
       selectedAnswer,
       durationSeconds,
-      answerWorkPhotos
+      answerWorkPhotos,
+      curriculumProfile: authenticated.user.curriculumProfile
     });
 
     return NextResponse.json(persistedFeedback ?? feedback);

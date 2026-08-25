@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "frozenAt": "2026-07-11",
+  "version": 4,
+  "frozenAt": "2026-08-25",
   "frozenBy": ["A25", "A10", "A22"],
   "policy": {
     "rootReleaseFrozen": true,
@@ -81,6 +81,25 @@
         "scripts/next-clean-build.test.mjs",
         "scripts/resend-local-smoke.mjs"
       ]
+    },
+    {
+      "id": "A22-production-workflows",
+      "owner": "A22",
+      "role": "Serialized production release and operational-health workflows",
+      "coordinatesWith": ["A10", "A11", "A12", "A19", "A25"],
+      "slice": "release hygiene tooling/config",
+      "pathspecs": [
+        ".github/workflows/production-deploy.yml",
+        ".github/workflows/teacher-notice-health-monitor.yml"
+      ]
+    },
+    {
+      "id": "A11-ci-workflow",
+      "owner": "A11",
+      "role": "Required regression and release-quality checks",
+      "coordinatesWith": ["A10", "A22"],
+      "slice": "tests/regression evidence",
+      "pathspecs": [".github/workflows/ci.yml"]
     },
     {
       "id": "A04-hjb-question-localization",
@@ -392,6 +411,7 @@
         "lib/utils.ts",
         "lib/difficulty.ts",
         "lib/difficulty.test.ts",
+        "lib/appShellBootstrap.ts",
         "types/**",
         "scripts/run-analytics-tests.mjs",
         "tsconfig.analytics.json"
@@ -412,6 +432,8 @@
         "app/change-password/**",
         "app/about/**",
         "app/not-found.tsx",
+        "app/error.tsx",
+        "app/global-error.tsx",
         "app/icon.*",
         "components/layout/**",
         "components/home/**",
@@ -430,11 +452,13 @@
       "pathspecs": [
         "AGENTS.md",
         "README.md",
+        "RELEASE.md",
         ".gitignore",
         "package.json",
         "package-lock.json",
         "next.config.ts",
         "tsconfig.json",
+        "tsconfig.parent-console.json",
         "tailwind.config.ts",
         "postcss.config.mjs",
         "app/globals.css",
@@ -462,6 +486,7 @@
         ".local/**",
         ".tmp/**",
         ".next/**",
+        "node_modules",
         "node_modules/**",
         "private/**",
         "Users/**",
@@ -493,9 +518,18 @@
     { "path": "scripts/cleanup-generated-artifacts.test.mjs", "expectedOwner": "A22" },
     { "path": "scripts/next-clean-build.mjs", "expectedOwner": "A22" },
     { "path": "scripts/next-clean-build.test.mjs", "expectedOwner": "A22" },
+    { "path": ".github/workflows/production-deploy.yml", "expectedOwner": "A22" },
+    { "path": ".github/workflows/teacher-notice-health-monitor.yml", "expectedOwner": "A22" },
+    { "path": ".github/workflows/ci.yml", "expectedOwner": "A11" },
+    { "path": "RELEASE.md", "expectedOwner": "A10" },
+    { "path": "node_modules", "expectedOwner": "A25" },
     { "path": "scripts/unrelated-release-helper.test.mjs", "expectedOwner": "A10" },
     { "path": "scripts/bug-triage.js", "expectedOwner": "A10" },
     { "path": "package-lock.json", "expectedOwner": "A10" },
+    { "path": "tsconfig.parent-console.json", "expectedOwner": "A10" },
+    { "path": "app/error.tsx", "expectedOwner": "A01" },
+    { "path": "app/global-error.tsx", "expectedOwner": "A01" },
+    { "path": "lib/appShellBootstrap.ts", "expectedOwner": "A08" },
     { "path": "app/api/ai-tutor/route.ts", "expectedOwner": "A07" },
     { "path": "app/api/adaptive-learning/route.ts", "expectedOwner": "A15" },
     { "path": "app/api/users/route.ts", "expectedOwner": "A12" },

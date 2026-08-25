@@ -2,8 +2,20 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import {
+  createTeacherReminderRequestState,
+  createTeacherNoticeQueueIntent,
+  queueTeacherNoticeRequest,
+  reconcileTeacherNoticeCollection,
+  reconcileTeacherNoticeOverride,
+  runTeacherReminderPages,
+  TeacherOperationIntentRegistry,
+  TeacherOperationRecoveryStore,
+  teacherOperationFailureMessage,
+  type TeacherReminderRequestState
+} from "@/components/teacher/teacherOperationsRequestState";
 import { formatGradeLabel, textForLanguage } from "@/lib/i18n";
 import { cn, formatDateInHongKong } from "@/lib/utils";
 import type {
@@ -93,6 +105,15 @@ function missingWorkAnchorId(assignmentId: string, studentId: string) {
   return `missing-work-${domIdPart(assignmentId)}-${domIdPart(studentId)}`;
 }
 
+function browserSessionStorage() {
+  if (typeof window === "undefined") return undefined;
+  try {
+    return window.sessionStorage;
+  } catch {
+    return undefined;
+  }
+}
+
 function csvCell(value: string | number | boolean | undefined) {
   const text = String(value ?? "");
   return `"${text.replace(/"/g, "\"\"")}"`;
@@ -112,7 +133,17 @@ function credentialsToCsv(credentials: ProvisioningCredential[]) {
   return [header, ...rows].map((row) => row.map(csvCell).join(",")).join("\n");
 }
 
-function NoticeCard({ notice, onSend }: { notice: TeacherNotice; onSend: (noticeId: string) => void }) {
+function NoticeCard({
+  notice,
+  onSend,
+  busy,
+  retryBlocked
+}: {
+  notice: TeacherNotice;
+  onSend: (notice: TeacherNotice) => void;
+  busy: boolean;
+  retryBlocked: boolean;
+}) {
   const { language, t, text } = useSettings();
   return (
     <article id={`notice-${notice.id}`} className="soft-panel min-w-0 scroll-mt-24 p-4">
@@ -140,10 +171,12 @@ function NoticeCard({ notice, onSend }: { notice: TeacherNotice; onSend: (notice
         <div className="min-w-0 sm:text-right">
           <button
             type="button"
-            onClick={() => onSend(notice.id)}
-            className="focus-ring w-full rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white dark:bg-white dark:text-slate-950 sm:w-auto"
+            onClick={() => onSend(notice)}
+            disabled={busy || retryBlocked || notice.status === "sent"}
+            aria-busy={busy}
+            className="focus-ring w-full rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950 sm:w-auto"
           >
-            {notice.status === "draft" ? t({ en: "Send", zh: "發送" }) : t({ en: "Retry", zh: "重試" })}
+            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "sent" ? t({ en: "Sent", zh: "已發送" }) : notice.status === "draft" ? t({ en: "Send", zh: "發送" }) : t({ en: "Retry", zh: "重試" })}
           </button>
         </div>
       </div>
@@ -173,7 +206,17 @@ function NoticeCard({ notice, onSend }: { notice: TeacherNotice; onSend: (notice
   );
 }
 
-function NoticeReadyPanel({ notice, onSend }: { notice: TeacherNotice; onSend: (noticeId: string) => void }) {
+function NoticeReadyPanel({
+  notice,
+  onSend,
+  busy,
+  retryBlocked
+}: {
+  notice: TeacherNotice;
+  onSend: (notice: TeacherNotice) => void;
+  busy: boolean;
+  retryBlocked: boolean;
+}) {
   const { t, text } = useSettings();
 
   return (
@@ -187,8 +230,14 @@ function NoticeReadyPanel({ notice, onSend }: { notice: TeacherNotice; onSend: (
           </p>
         </div>
         <div className="flex min-w-0 flex-wrap gap-2">
-          <button type="button" onClick={() => onSend(notice.id)} className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white dark:bg-white dark:text-slate-950">
-            {notice.status === "draft" ? t({ en: "Send now", zh: "立即發送" }) : t({ en: "Retry send", zh: "重新發送" })}
+          <button
+            type="button"
+            onClick={() => onSend(notice)}
+            disabled={busy || retryBlocked || notice.status === "sent"}
+            aria-busy={busy}
+            className="focus-ring rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950"
+          >
+            {busy ? t({ en: "Queueing…", zh: "正在加入隊列…" }) : notice.status === "sent" ? t({ en: "Sent", zh: "已發送" }) : notice.status === "draft" ? t({ en: "Send now", zh: "立即發送" }) : t({ en: "Retry send", zh: "重新發送" })}
           </button>
           <a href={`#notice-${notice.id}`} className="focus-ring rounded-full border border-emerald-300/70 bg-white/75 px-4 py-2 text-xs font-black text-emerald-900 dark:border-emerald-200/30 dark:bg-white/[0.08] dark:text-emerald-100">
             {t({ en: "Open receipts", zh: "查看回執" })}
@@ -246,14 +295,14 @@ function ReminderRunReadyPanel({
     : null;
 
   return (
-    <section aria-live="polite" className="mt-5 rounded-2xl border border-emerald-300/55 bg-emerald-400/12 p-4">
+    <section role="status" className="mt-5 rounded-2xl border border-emerald-300/55 bg-emerald-400/12 p-4">
       <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-100">
-            {t({ en: "Reminder run ready", zh: "提醒任務已就緒" })}
+            {t({ en: "Reminder requests queued", zh: "提醒請求已加入隊列" })}
           </p>
           <p className="mt-1 break-words font-black text-slate-950 dark:text-white">
-            {attemptedCount} {t({ en: "attempted", zh: "已嘗試" })}{skippedCount ? ` · ${skippedCount} ${t({ en: "skipped", zh: "已跳過" })}` : ""}
+            {attemptedCount} {t({ en: "requests created", zh: "項請求已建立" })}{skippedCount ? ` · ${skippedCount} ${t({ en: "skipped", zh: "已跳過" })}` : ""}
           </p>
           <p className="mt-1 break-words text-xs font-bold text-emerald-900 dark:text-emerald-100">
             {firstItem
@@ -284,7 +333,17 @@ function ReminderRunReadyPanel({
   );
 }
 
-function MissingWorkTable({ items, onRunManual }: { items: TeacherMissingWorkItem[]; onRunManual: (assignmentId?: string) => void }) {
+function MissingWorkTable({
+  items,
+  onRunManual,
+  busy,
+  retryBlocked
+}: {
+  items: TeacherMissingWorkItem[];
+  onRunManual: (assignmentId?: string) => void;
+  busy: boolean;
+  retryBlocked: boolean;
+}) {
   const { language, t, text } = useSettings();
   return (
     <div className="min-w-0 max-w-full overflow-x-auto">
@@ -311,9 +370,11 @@ function MissingWorkTable({ items, onRunManual }: { items: TeacherMissingWorkIte
                 <button
                   type="button"
                   onClick={() => onRunManual(item.assignmentId)}
-                  className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
+                  disabled={busy || retryBlocked}
+                  aria-busy={busy}
+                  className="focus-ring rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-black text-slate-700 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200"
                 >
-                  {t({ en: "Manual send", zh: "手動補發" })}
+                  {busy ? t({ en: "Running…", zh: "執行中…" }) : t({ en: "Manual send", zh: "手動補發" })}
                 </button>
               </td>
             </tr>
@@ -896,20 +957,46 @@ export function TeacherOperationsView({
   const queryTab = searchParams.get("tab");
   const resolvedInitialTab = tabs.some((tab) => tab.id === queryTab) ? (queryTab as OperationsTab) : initialTab;
   const [activeTab, setActiveTab] = useState<OperationsTab>(resolvedInitialTab);
-  const [message, setMessage] = useState("");
+  const [message, setMessageState] = useState("");
+  const [messageRole, setMessageRole] = useState<"status" | "alert">("status");
   const [rosterCsv, setRosterCsv] = useState(sampleRosterCsv);
   const [validation, setValidation] = useState<TeacherRosterImportValidation | null>(null);
   const [importCredentials, setImportCredentials] = useState<ProvisioningCredential[]>([]);
   const [credentialStatus, setCredentialStatus] = useState("");
   const [createdNotice, setCreatedNotice] = useState<TeacherNotice | null>(null);
+  const [noticeOverrides, setNoticeOverrides] = useState<Record<string, TeacherNotice>>({});
   const [createdArchive, setCreatedArchive] = useState<TermArchive | null>(null);
   const [latestReminderRuns, setLatestReminderRuns] = useState<TeacherReminderRun[] | null>(null);
+  const [busyNoticeIds, setBusyNoticeIds] = useState<Set<string>>(() => new Set());
+  const [reminderBusy, setReminderBusy] = useState(false);
+  const [retryBlockedUntil, setRetryBlockedUntil] = useState(0);
   const [prepTeamOverrides, setPrepTeamOverrides] = useState<Record<string, PrepTeam>>({});
   const [selectedPrepTeamId, setSelectedPrepTeamId] = useState(data.prepTeams[0]?.id ?? "");
   const [createdPrepTeamId, setCreatedPrepTeamId] = useState("");
   const [createdPrepShareId, setCreatedPrepShareId] = useState("");
+  const operationScopeClassId = data.selectedClassId ?? data.classes[0]?.id ?? "none";
+  const operationRecoveryStore = useMemo(() => new TeacherOperationRecoveryStore(
+    { teacherId: data.teacher.id, classId: operationScopeClassId },
+    browserSessionStorage()
+  ), [data.teacher.id, operationScopeClassId]);
+  const operationIntentRegistry = useMemo(
+    () => new TeacherOperationIntentRegistry(undefined, operationRecoveryStore),
+    [operationRecoveryStore]
+  );
+  const reminderRequestStates = useMemo(() => new Map<string, TeacherReminderRequestState>(), [operationRecoveryStore]);
+  const reminderBusyRef = useRef(false);
+  const retryBlockedUntilRef = useRef(0);
+  const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const selectedClass = useMemo(() => data.classes.find((teacherClass) => teacherClass.id === data.selectedClassId) ?? data.classes[0] ?? null, [data.classes, data.selectedClassId]);
-  const activeCreatedNotice = createdNotice?.classId === selectedClass?.id ? createdNotice : null;
+  const retryBlocked = retryBlockedUntil > Date.now();
+  const createdNoticeServerRecord = createdNotice
+    ? data.notices.find((notice) => notice.id === createdNotice.id)
+    : null;
+  const createdNoticeBaseline = createdNoticeServerRecord ?? createdNotice;
+  const createdNoticeOverride = createdNoticeBaseline
+    ? reconcileTeacherNoticeOverride(createdNoticeBaseline, noticeOverrides[createdNoticeBaseline.id])
+    : null;
+  const activeCreatedNotice = createdNoticeOverride?.classId === selectedClass?.id ? createdNoticeOverride : null;
   const activeCreatedArchive = createdArchive?.classId === selectedClass?.id ? createdArchive : null;
   const visiblePrepTeams = useMemo(() => {
     const sourceIds = new Set(data.prepTeams.map((team) => team.id));
@@ -922,13 +1009,46 @@ export function TeacherOperationsView({
   const selectedPrepTeam = visiblePrepTeams.find((team) => team.id === selectedPrepTeamId) ?? visiblePrepTeams[0] ?? null;
   const highlightedPrepTeam = createdPrepTeamId ? visiblePrepTeams.find((team) => team.id === createdPrepTeamId) ?? null : null;
   const visibleNotices = useMemo(() => {
-    if (!activeCreatedNotice) return data.notices;
-    return [activeCreatedNotice, ...data.notices.filter((notice) => notice.id !== activeCreatedNotice.id)];
-  }, [activeCreatedNotice, data.notices]);
+    const notices = reconcileTeacherNoticeCollection(data.notices, noticeOverrides);
+    if (!activeCreatedNotice) return notices;
+    return [activeCreatedNotice, ...notices.filter((notice) => notice.id !== activeCreatedNotice.id)];
+  }, [activeCreatedNotice, data.notices, noticeOverrides]);
   const visibleArchives = useMemo(() => {
     if (!activeCreatedArchive) return data.termArchives;
     return [activeCreatedArchive, ...data.termArchives.filter((archive) => archive.id !== activeCreatedArchive.id)];
   }, [activeCreatedArchive, data.termArchives]);
+
+  useEffect(() => () => {
+    if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+  }, []);
+
+  function setMessage(value: string, role: "status" | "alert" = "status") {
+    setMessageState(value);
+    setMessageRole(role);
+  }
+
+  function setNoticeBusy(noticeId: string, busy: boolean) {
+    setBusyNoticeIds((current) => {
+      const next = new Set(current);
+      if (busy) next.add(noticeId);
+      else next.delete(noticeId);
+      return next;
+    });
+  }
+
+  function scheduleRetryAfter(retryAfterMs: number | null) {
+    if (retryAfterMs === null || retryAfterMs <= 0) return;
+    const boundedDelay = Math.min(retryAfterMs, 2_147_483_647);
+    const blockedUntil = Date.now() + boundedDelay;
+    retryBlockedUntilRef.current = blockedUntil;
+    setRetryBlockedUntil(blockedUntil);
+    if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    retryTimerRef.current = setTimeout(() => {
+      retryBlockedUntilRef.current = 0;
+      setRetryBlockedUntil(0);
+      retryTimerRef.current = null;
+    }, boundedDelay);
+  }
 
   function setTab(tab: OperationsTab) {
     setActiveTab(tab);
@@ -965,29 +1085,106 @@ export function TeacherOperationsView({
     router.refresh();
   }
 
-  async function sendNotice(noticeId: string) {
-    const response = await fetch(`/api/teacher/notices/${encodeURIComponent(noticeId)}/deliveries`, { method: "POST" });
-    const payload = await response.json().catch(() => null) as { notice?: TeacherNotice; error?: string } | null;
-    if (response.ok && payload?.notice && createdNotice?.id === payload.notice.id) {
-      setCreatedNotice(payload.notice);
+  async function sendNotice(notice: TeacherNotice) {
+    if (retryBlockedUntilRef.current > Date.now()) return;
+    const queueIntent = createTeacherNoticeQueueIntent(notice);
+    const intent = `notice:${queueIntent.noticeId}:${queueIntent.teacherId}:${queueIntent.classId}:${queueIntent.channelId}`;
+    const started = await operationIntentRegistry.begin(intent);
+    if (started.status === "busy") return;
+    const { idempotencyKey } = started;
+    let retainForRetry = true;
+    setNoticeBusy(queueIntent.noticeId, true);
+    setMessage("");
+    try {
+      const result = await queueTeacherNoticeRequest({ intent: queueIntent, idempotencyKey });
+      if (result.ok) {
+        retainForRetry = false;
+        setNoticeOverrides((current) => ({ ...current, [result.payload.notice.id]: result.payload.notice }));
+        setCreatedNotice((current) => current?.id === result.payload.notice.id ? result.payload.notice : current);
+        setMessage(result.payload.email.status === "no-eligible"
+          ? t({
+              en: "Notice request was accepted, but no eligible family email recipients were available. Review the channel status in the notice details.",
+              zh: "通知請求已獲接受，但沒有符合條件的家庭電郵收件人。請在通知詳情中查看渠道狀態。"
+            })
+          : t({
+              en: "Notice accepted and queued. Delivery has not been confirmed yet.",
+              zh: "通知已獲接受並加入隊列，尚未確認完成送達。"
+            }), "status");
+        router.refresh();
+      } else {
+        retainForRetry = result.retainForRetry;
+        scheduleRetryAfter(result.retryAfterMs);
+        setMessage(teacherOperationFailureMessage(result, "notice", 0, t), "alert");
+      }
+    } catch {
+      retainForRetry = true;
+      setMessage(t({
+        en: "Queueing was not confirmed. You may be offline or the request timed out; retrying will reuse the same request key.",
+        zh: "未能確認請求是否已加入隊列。裝置可能離線或請求逾時；重試時會沿用相同請求識別碼。"
+      }), "alert");
+    } finally {
+      await operationIntentRegistry.finish(intent, idempotencyKey, retainForRetry);
+      setNoticeBusy(queueIntent.noticeId, false);
     }
-    setMessage(response.ok ? t({ en: "Notice send attempt recorded.", zh: "通知發送記錄已更新。" }) : t({ en: "Could not send notice.", zh: "暫時未能發送通知。" }));
-    router.refresh();
   }
 
   async function runReminders(manual: boolean, assignmentId?: string) {
-    setLatestReminderRuns(null);
-    const response = await fetch("/api/teacher/reminder-runs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ classId: selectedClass?.id, assignmentId, manual })
-    });
-    const payload = await response.json().catch(() => null) as { runs?: TeacherReminderRun[]; error?: string } | null;
-    if (response.ok && payload?.runs) {
-      setLatestReminderRuns(payload.runs);
+    if (reminderBusyRef.current || retryBlockedUntilRef.current > Date.now()) return;
+    const requestIntent = {
+      teacherId: data.teacher.id,
+      classId: selectedClass?.id ?? null,
+      assignmentId: assignmentId ?? null,
+      manual
+    };
+    const intent = `reminder:${requestIntent.classId ?? "none"}:${manual ? "manual" : "automatic"}:${requestIntent.assignmentId ?? "all"}`;
+    const started = await operationIntentRegistry.begin(intent);
+    if (started.status === "busy") return;
+    const { idempotencyKey } = started;
+    const previousState = reminderRequestStates.get(intent);
+    const requestState = previousState?.baseIdempotencyKey === idempotencyKey
+      ? previousState
+      : createTeacherReminderRequestState(idempotencyKey);
+    let retainForRetry = true;
+    reminderBusyRef.current = true;
+    setReminderBusy(true);
+    if (!requestState.runs.length) setLatestReminderRuns(null);
+    setMessage("");
+    try {
+      const result = await runTeacherReminderPages({
+        intent: requestIntent,
+        state: requestState
+      });
+      setLatestReminderRuns(result.state.runs);
+      if (result.ok) {
+        retainForRetry = false;
+        reminderRequestStates.delete(intent);
+        setMessage(t({
+          en: "Reminder requests queued. Delivery has not been confirmed yet.",
+          zh: "提醒請求已加入隊列，尚未確認完成送達。"
+        }), "status");
+        router.refresh();
+      } else {
+        retainForRetry = result.failure.retainForRetry;
+        if (retainForRetry) {
+          reminderRequestStates.set(intent, result.state);
+        } else {
+          reminderRequestStates.delete(intent);
+        }
+        scheduleRetryAfter(result.failure.retryAfterMs);
+        setMessage(teacherOperationFailureMessage(result.failure, "reminder", result.state.acceptedRunCount, t), "alert");
+      }
+    } catch {
+      retainForRetry = true;
+      reminderRequestStates.set(intent, requestState);
+      setMessage(t({
+        en: "Queueing was not confirmed. You may be offline or the request timed out; retrying will reuse the same request key.",
+        zh: "未能確認請求是否已加入隊列。裝置可能離線或請求逾時；重試時會沿用相同請求識別碼。"
+      }), "alert");
+    } finally {
+      await operationIntentRegistry.finish(intent, idempotencyKey, retainForRetry);
+      reminderBusyRef.current = false;
+      setReminderBusy(false);
     }
-    setMessage(response.ok ? t({ en: "Reminder run completed.", zh: "提醒任務已完成。" }) : t({ en: "Could not run reminders.", zh: "暫時未能執行提醒。" }));
-    router.refresh();
   }
 
   async function validateRoster(commit = false) {
@@ -1162,7 +1359,19 @@ export function TeacherOperationsView({
             </button>
           ))}
         </div>
-        {message ? <p className="mt-4 break-words rounded-2xl border border-cyan-300/40 bg-cyan-400/10 px-4 py-3 text-sm font-bold text-cyan-800 dark:text-cyan-100">{message}</p> : null}
+        {message ? (
+          <p
+            role={messageRole}
+            className={cn(
+              "mt-4 break-words rounded-2xl border px-4 py-3 text-sm font-bold",
+              messageRole === "alert"
+                ? "border-rose-300/50 bg-rose-400/10 text-rose-800 dark:text-rose-100"
+                : "border-cyan-300/40 bg-cyan-400/10 text-cyan-800 dark:text-cyan-100"
+            )}
+          >
+            {message}
+          </p>
+        ) : null}
       </section>
 
       {activeTab === "notices" ? (
@@ -1191,8 +1400,23 @@ export function TeacherOperationsView({
             <button className="focus-ring min-w-0 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="submit">{t({ en: "Create draft", zh: "建立草稿" })}</button>
           </form>
           <div className="grid min-w-0 gap-4">
-            {activeCreatedNotice ? <NoticeReadyPanel notice={activeCreatedNotice} onSend={sendNotice} /> : null}
-            {visibleNotices.map((notice) => <NoticeCard key={notice.id} notice={notice} onSend={sendNotice} />)}
+            {activeCreatedNotice ? (
+              <NoticeReadyPanel
+                notice={activeCreatedNotice}
+                onSend={sendNotice}
+                busy={busyNoticeIds.has(activeCreatedNotice.id)}
+                retryBlocked={retryBlocked}
+              />
+            ) : null}
+            {visibleNotices.map((notice) => (
+              <NoticeCard
+                key={notice.id}
+                notice={notice}
+                onSend={sendNotice}
+                busy={busyNoticeIds.has(notice.id)}
+                retryBlocked={retryBlocked}
+              />
+            ))}
             {!visibleNotices.length ? <div className="glass-panel p-6 text-sm font-bold text-slate-500 dark:text-slate-400">{t({ en: "No notices yet.", zh: "暫無通知。" })}</div> : null}
           </div>
         </section>
@@ -1205,13 +1429,24 @@ export function TeacherOperationsView({
               <h2 className="break-words text-xl font-black text-slate-950 dark:text-white">{t({ en: "Missing-work reminders", zh: "未交作業提醒" })}</h2>
               <p className="mt-1 break-words text-sm font-bold text-slate-500 dark:text-slate-400">{data.reminderPolicy.thresholds.join(" · ")}</p>
             </div>
-            <button onClick={() => runReminders(false)} className="focus-ring min-w-0 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white dark:bg-white dark:text-slate-950" type="button">
-              {t({ en: "Run due reminders", zh: "執行到期提醒" })}
+            <button
+              onClick={() => runReminders(false)}
+              disabled={reminderBusy || retryBlocked}
+              aria-busy={reminderBusy}
+              className="focus-ring min-w-0 rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-slate-950"
+              type="button"
+            >
+              {reminderBusy ? t({ en: "Running…", zh: "執行中…" }) : t({ en: "Run due reminders", zh: "執行到期提醒" })}
             </button>
           </div>
           {latestReminderRuns ? <ReminderRunReadyPanel runs={latestReminderRuns} missingWork={data.missingWork} /> : null}
           <div className="mt-5 min-w-0 max-w-full">
-            <MissingWorkTable items={data.missingWork} onRunManual={(assignmentId) => runReminders(true, assignmentId)} />
+            <MissingWorkTable
+              items={data.missingWork}
+              onRunManual={(assignmentId) => runReminders(true, assignmentId)}
+              busy={reminderBusy}
+              retryBlocked={retryBlocked}
+            />
           </div>
         </section>
       ) : null}
