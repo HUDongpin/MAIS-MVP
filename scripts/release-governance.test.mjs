@@ -273,6 +273,7 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
     setupNode: "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
     uploadArtifact: "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
   };
+  const frozenRelease = "ca89c923065a1b9dd6aee40fbc78326be13aae07";
 
   assert.equal(workflow.name, "promotion-shadow-gate");
   assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
@@ -286,6 +287,11 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.ok(job, "promotion-shadow-gate job must exist");
   assert.equal(job.name, "promotion-shadow-gate");
   assert.equal(job.permissions?.contents, "read");
+  assert.equal(job.env?.PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT, frozenRelease);
+  assert.equal(
+    job.env?.PROMOTION_TERMINAL_AUDIT_POLICY,
+    "coordination/integration/current-head-audit/policies/us-ca-math-rag-v2-g6-ratios-v1-attempt-001.v2.json"
+  );
   assert.equal(job.env?.PROMOTION_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}");
   assert.equal(job.env?.PROMOTION_REPLAY_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}-replay");
   for (const [name, value] of Object.entries(job.env ?? {})) {
@@ -295,14 +301,44 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.equal(job.steps.filter((step) => step.uses === actionPins.checkout).length, 1);
   assert.equal(job.steps.filter((step) => step.uses === actionPins.setupNode).length, 1);
   const checkoutStep = job.steps.find((step) => step.uses === actionPins.checkout);
+  assert.equal(checkoutStep.with?.["fetch-depth"], 0);
   assert.equal(checkoutStep.with?.["persist-credentials"], false);
-  const configureStep = job.steps.find((step) => step.name === "Configure isolated Promotion Shadow paths");
+
+  const stepByName = new Map(job.steps.map((step) => [step.name, step]));
+  const configureStep = stepByName.get("Configure isolated Promotion Shadow paths");
   assert.ok(configureStep, "workflow must configure runner-temp paths at step runtime");
   assert.match(configureStep.run, /: "\$\{RUNNER_TEMP:\?RUNNER_TEMP is required\}"/u);
-  assert.match(configureStep.run, /PROMOTION_ARTIFACT_ROOT=/u);
+  assert.match(configureStep.run, /PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE=/u);
+  assert.match(configureStep.run, /PROMOTION_TERMINAL_AUDIT_REPORT=/u);
   assert.match(configureStep.run, /PROMOTION_CANONICAL_RECEIPT_COPY=/u);
   assert.match(configureStep.run, /PROMOTION_EXECUTION_WORKTREE=/u);
   assert.match(configureStep.run, />> "\$GITHUB_ENV"/u);
+
+  const prepareAudit = stepByName.get("Prepare detached frozen terminal audit release");
+  const installAudit = stepByName.get("Install frozen terminal audit dependencies");
+  const testAudit = stepByName.get("Run frozen Promotion Gate unit and security tests");
+  const currentAudit = stepByName.get("Audit exact current HEAD with frozen terminal release");
+  const assertAudit = stepByName.get("Assert terminal current-HEAD audit envelope");
+  for (const step of [prepareAudit, installAudit, testAudit, currentAudit, assertAudit]) {
+    assert.ok(step, "frozen terminal audit preparation, execution, and assertion steps must all exist");
+    assert.equal(Object.hasOwn(step, "continue-on-error"), false);
+  }
+  assert.match(prepareAudit.run, /git worktree add --detach "\$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" "\$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT"/u);
+  assert.match(prepareAudit.run, /git merge-base --is-ancestor "\$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" HEAD/u);
+  assert.doesNotMatch(prepareAudit.run, /\bgit\s+(?:fetch|pull|clone)\b/u);
+  assert.match(installAudit.run, /npm ci --ignore-scripts/u);
+  assert.match(installAudit.run, /require\.resolve\("typescript"\)/u);
+  assert.match(testAudit.run, /promotion-terminal-audit-v2\.test\.mjs/u);
+  assert.match(testAudit.run, /promotion-gate\.test\.mjs/u);
+  assert.match(currentAudit.run, /target_head="\$\(git rev-parse --verify HEAD\)"/u);
+  assert.match(currentAudit.run, /promotion-terminal-audit-v2\.mjs/u);
+  assert.match(currentAudit.run, /--target-root "\$GITHUB_WORKSPACE"/u);
+  assert.match(currentAudit.run, /--expected-head "\$target_head"/u);
+  assert.match(currentAudit.run, /--expected-release "\$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT"/u);
+  assert.match(currentAudit.run, /\{ pass: 0, fail: 1, blocked: 2, internal: 3 \}/u);
+  assert.match(assertAudit.run, /validateAuditReport\(report\)/u);
+  assert.match(assertAudit.run, /report\.auditReleaseProof\.releaseCommit !== expectedRelease/u);
+
   const uploadStep = job.steps.find((step) => step.uses === actionPins.uploadArtifact);
   assert.ok(uploadStep, "workflow must upload Promotion Shadow artifacts");
   assert.equal(uploadStep.with?.path, "${{ runner.temp }}/promotion-shadow-gate-artifacts/");
@@ -310,42 +346,21 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.equal(uploadStep.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
 
   const runCommands = job.steps.flatMap((step) => typeof step.run === "string" ? [step.run] : []);
-  assert.ok(runCommands.includes("npm ci"), "workflow must install from the lockfile with npm ci");
-  assert.ok(runCommands.includes("npm run test:promotion-gate"), "workflow must run the unit/security suite");
-
   const combinedRuns = runCommands.join("\n");
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:validate -- --manifest "\$PROMOTION_MANIFEST" --json > "\$PROMOTION_VALIDATION_REPORT"/u
-  );
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_RUN_ID" --json > "\$PROMOTION_FRESH_RECEIPT"/u
-  );
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_REPLAY_RUN_ID" --json > "\$PROMOTION_REPLAY_RECEIPT"/u
-  );
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_FRESH_RECEIPT" --json > "\$PROMOTION_FRESH_VERIFICATION_REPORT"/u
-  );
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_REPLAY_RECEIPT" --json > "\$PROMOTION_REPLAY_VERIFICATION_REPORT"/u
-  );
-  assert.match(
-    combinedRuns,
-    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT_COPY" --json > "\$PROMOTION_CANONICAL_VERIFICATION_REPORT"/u
-  );
+  assert.match(combinedRuns, /npm ci --ignore-scripts/u);
+  assert.doesNotMatch(combinedRuns, /promotion:validate/u, "current checkout must not self-validate the terminal Gate");
+  assert.match(combinedRuns, /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_RUN_ID" --json > "\$PROMOTION_FRESH_RECEIPT"/u);
+  assert.match(combinedRuns, /npm --silent run promotion:shadow -- --manifest "\$PROMOTION_MANIFEST" --run-id "\$PROMOTION_REPLAY_RUN_ID" --json > "\$PROMOTION_REPLAY_RECEIPT"/u);
+  assert.match(combinedRuns, /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_FRESH_RECEIPT" --json > "\$PROMOTION_FRESH_VERIFICATION_REPORT"/u);
+  assert.match(combinedRuns, /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_REPLAY_RECEIPT" --json > "\$PROMOTION_REPLAY_VERIFICATION_REPORT"/u);
+  assert.match(combinedRuns, /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT_COPY" --json > "\$PROMOTION_CANONICAL_VERIFICATION_REPORT"/u);
   assert.match(combinedRuns, /semanticReceiptDigest/u);
-  assert.match(combinedRuns, /\$PROMOTION_CANONICAL_RECEIPT_COPY/u);
-  const semanticComparison = job.steps.find((step) => /Compare .* semantic receipt digests/iu.test(step.name));
-  assert.ok(semanticComparison, "workflow must have a dedicated semantic receipt comparison step");
+  const semanticComparison = stepByName.get("Compare fresh, replay, and canonical semantic receipt digests");
+  assert.ok(semanticComparison, "workflow must have a dedicated historical semantic Receipt comparison step");
   assert.doesNotMatch(semanticComparison.run, /raw(?:Receipt)?Digest/iu);
-  const promotionRuns = runCommands.filter((command) => /promotion:(?:validate|shadow|verify-receipt)/u.test(command));
-  for (const command of promotionRuns) {
-    assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|live)\b/iu);
+
+  for (const command of runCommands.filter((value) => /promotion:(?:shadow|verify-receipt)/u.test(value))) {
+    assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|promote-live)\b/iu);
     assert.doesNotMatch(command, /--(?:out|output-root)\b/u);
   }
 });
@@ -358,6 +373,8 @@ test("Promotion Shadow CI authenticates expected-fail receipts and leaves the fi
 
   const stepByName = new Map(steps.map((step) => [step.name, step]));
   const failureArtifactStepNames = [
+    "Audit exact current HEAD with frozen terminal release",
+    "Assert terminal current-HEAD audit envelope",
     "Execute real pilot shadow",
     "Replay real pilot shadow with a distinct run identity",
     "Compare fresh, replay, and canonical semantic receipt digests",
@@ -378,7 +395,7 @@ test("Promotion Shadow CI authenticates expected-fail receipts and leaves the fi
   }
 
   const capturedCliStepNames = [
-    "Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability",
+    "Audit exact current HEAD with frozen terminal release",
     "Execute real pilot shadow",
     "Replay real pilot shadow with a distinct run identity",
     "Verify fresh receipt",
@@ -387,10 +404,15 @@ test("Promotion Shadow CI authenticates expected-fail receipts and leaves the fi
   ];
   for (const stepName of capturedCliStepNames) {
     const step = stepByName.get(stepName);
+    assert.ok(step, `Missing captured CLI step: ${stepName}`);
     assert.equal(Object.hasOwn(step, "continue-on-error"), false, `${stepName} must not use continue-on-error`);
     assert.match(step.run, /set \+e/u, `${stepName} must capture the CLI status explicitly`);
     assert.match(step.run, /cli_exit=\$\?/u, `${stepName} must capture the exact CLI status`);
-    assert.match(step.run, /\{ pass: 0, fail: 1, blocked: 2 \}/u, `${stepName} must map result to the v1 exit contract`);
+    if (stepName === "Audit exact current HEAD with frozen terminal release") {
+      assert.match(step.run, /\{ pass: 0, fail: 1, blocked: 2, internal: 3 \}/u, `${stepName} must map the v2 exit contract`);
+    } else {
+      assert.match(step.run, /\{ pass: 0, fail: 1, blocked: 2 \}/u, `${stepName} must map the v1 exit contract`);
+    }
     assert.match(step.run, /cliExit !== expectedExit/u, `${stepName} must reject exit/result drift`);
   }
 
@@ -447,7 +469,7 @@ test("Promotion Shadow CI replays the canonical execution commit from a fixed de
   assert.equal(resolveStep.id, "resolve-promotion-execution");
 
   for (const step of [resolveStep, prepareStep, installStep]) {
-    assert.equal(step.if, "${{ always() }}", `${step.name} must run after a red current-HEAD validation`);
+    assert.equal(step.if, "${{ always() }}", `${step.name} must run after a red current-HEAD audit`);
     assert.equal(Object.hasOwn(step, "continue-on-error"), false, `${step.name} must fail closed`);
   }
   assert.equal(
@@ -500,14 +522,20 @@ test("Promotion Shadow CI replays the canonical execution commit from a fixed de
   assert.doesNotMatch(canonicalVerifyStep.run, /--receipt "\$PROMOTION_CANONICAL_RECEIPT"/u);
   assert.doesNotMatch(canonicalVerifyStep.run, /--receipt "\$PROMOTION_CANONICAL_RECEIPT_ABSOLUTE"/u);
 
-  const currentUnitStep = stepByName.get("Run Promotion Gate unit and security tests");
-  const currentValidationStep = stepByName.get(
-    "Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability"
-  );
-  assert.equal(Object.hasOwn(currentUnitStep, "working-directory"), false);
-  assert.equal(Object.hasOwn(currentValidationStep, "working-directory"), false);
-  assert.ok(steps.indexOf(currentUnitStep) < steps.indexOf(resolveStep));
-  assert.ok(steps.indexOf(currentValidationStep) < steps.indexOf(resolveStep));
+  const prepareAuditStep = stepByName.get("Prepare detached frozen terminal audit release");
+  const installAuditStep = stepByName.get("Install frozen terminal audit dependencies");
+  const frozenUnitStep = stepByName.get("Run frozen Promotion Gate unit and security tests");
+  const currentAuditStep = stepByName.get("Audit exact current HEAD with frozen terminal release");
+  const assertAuditStep = stepByName.get("Assert terminal current-HEAD audit envelope");
+  for (const step of [prepareAuditStep, installAuditStep, frozenUnitStep, currentAuditStep, assertAuditStep]) {
+    assert.ok(step, "frozen current-HEAD audit chain must be complete before historical replay");
+    assert.equal(Object.hasOwn(step, "working-directory"), false);
+  }
+  assert.ok(steps.indexOf(prepareAuditStep) < steps.indexOf(installAuditStep));
+  assert.ok(steps.indexOf(installAuditStep) < steps.indexOf(frozenUnitStep));
+  assert.ok(steps.indexOf(frozenUnitStep) < steps.indexOf(currentAuditStep));
+  assert.ok(steps.indexOf(currentAuditStep) < steps.indexOf(assertAuditStep));
+  assert.ok(steps.indexOf(assertAuditStep) < steps.indexOf(resolveStep));
   assert.ok(steps.indexOf(resolveStep) < steps.indexOf(prepareStep));
   assert.ok(steps.indexOf(prepareStep) < steps.indexOf(installStep));
   assert.ok(steps.indexOf(installStep) < steps.indexOf(stepByName.get("Execute real pilot shadow")));
@@ -726,6 +754,90 @@ test("Promotion Shadow CI rejects injected, non-ancestor, and colliding historic
   }
 });
 
+test("Promotion Shadow CI prepares only the externally pinned frozen audit release", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const prepareStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Prepare detached frozen terminal audit release"
+  );
+  assert.ok(prepareStep, "workflow must have a frozen terminal audit worktree preparation step");
+
+  const fixtureBase = await mkdtemp(path.join(tmpdir(), "mais-promotion-frozen-audit-worktree-"));
+  const fixtureRepo = path.join(fixtureBase, "repo");
+  const runnerTemp = path.join(fixtureBase, "runner");
+  const auditWorktree = path.join(runnerTemp, "promotion-terminal-audit-release");
+  const markerPath = path.join(fixtureBase, "injection-marker");
+  await mkdir(fixtureRepo, { recursive: true });
+  await mkdir(runnerTemp, { recursive: true });
+  const git = (args, options = {}) => spawnSync("git", args, {
+    cwd: fixtureRepo,
+    encoding: "utf8",
+    env: { ...process.env, ...options.env }
+  });
+  const requireGit = (args, options) => {
+    const result = git(args, options);
+    assert.equal(result.status, 0, combinedOutput(result));
+    return result.stdout.trim();
+  };
+
+  try {
+    requireGit(["init", "-q"]);
+    requireGit(["config", "user.name", "Promotion Test"]);
+    requireGit(["config", "user.email", "promotion-test@example.invalid"]);
+    await writeFile(path.join(fixtureRepo, "tracked.txt"), "frozen release\n");
+    requireGit(["add", "--", "tracked.txt"]);
+    requireGit(["commit", "-qm", "frozen release"]);
+    const releaseCommit = requireGit(["rev-parse", "HEAD"]);
+    await writeFile(path.join(fixtureRepo, "tracked.txt"), "current target\n");
+    requireGit(["add", "--", "tracked.txt"]);
+    requireGit(["commit", "-qm", "current target"]);
+    const currentHead = requireGit(["rev-parse", "HEAD"]);
+    const tree = requireGit(["rev-parse", "HEAD^{tree}"]);
+    const orphanCommit = requireGit(["commit-tree", tree, "-m", "unrelated"], {
+      env: {
+        GIT_AUTHOR_NAME: "Promotion Test",
+        GIT_AUTHOR_EMAIL: "promotion-test@example.invalid",
+        GIT_COMMITTER_NAME: "Promotion Test",
+        GIT_COMMITTER_EMAIL: "promotion-test@example.invalid"
+      }
+    });
+    const runPrepare = (commit, worktree = auditWorktree) => spawnSync("bash", ["-c", prepareStep.run], {
+      cwd: fixtureRepo,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        RUNNER_TEMP: runnerTemp,
+        PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT: commit,
+        PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE: worktree
+      }
+    });
+
+    const injected = runPrepare(`${releaseCommit};touch ${markerPath}`);
+    assert.notEqual(injected.status, 0, "release commit injection must fail closed");
+    await assert.rejects(stat(markerPath), { code: "ENOENT" });
+
+    const wrongTarget = runPrepare(releaseCommit, path.join(runnerTemp, "other"));
+    assert.notEqual(wrongTarget.status, 0, "frozen audit worktree must use the fixed runner-temp path");
+
+    const unrelated = runPrepare(orphanCommit);
+    assert.notEqual(unrelated.status, 0, "an existing but non-ancestor release commit must fail closed");
+
+    await mkdir(auditWorktree);
+    const collision = runPrepare(releaseCommit);
+    assert.notEqual(collision.status, 0, "a pre-existing frozen audit worktree target must fail closed");
+    await rm(auditWorktree, { recursive: true, force: true });
+
+    const valid = runPrepare(releaseCommit);
+    assert.equal(valid.status, 0, combinedOutput(valid));
+    assert.equal(requireGit(["-C", auditWorktree, "rev-parse", "HEAD"]), releaseCommit);
+    assert.equal(requireGit(["-C", auditWorktree, "status", "--porcelain=v1", "--untracked-files=all"]), "");
+    assert.notEqual(git(["-C", auditWorktree, "symbolic-ref", "-q", "HEAD"]).status, 0);
+    assert.equal(requireGit(["rev-parse", "HEAD"]), currentHead);
+  } finally {
+    await rm(fixtureBase, { recursive: true, force: true });
+  }
+});
+
 test("Promotion Shadow receipt verification reports execute fail closed for exact receipt bindings", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
@@ -819,7 +931,7 @@ test("Promotion Shadow artifact preflight requires every exact non-empty JSON fi
 
   const fixtureDir = await realpath(await mkdtemp(path.join(tmpdir(), "mais-promotion-artifact-set-")));
   const namesByEnv = {
-    PROMOTION_VALIDATION_REPORT: "promotion-validation-report.v1.json",
+    PROMOTION_TERMINAL_AUDIT_REPORT: "promotion-terminal-current-head-audit.v2.json",
     PROMOTION_FRESH_RECEIPT: "promotion-shadow-receipt.v1.json",
     PROMOTION_REPLAY_RECEIPT: "promotion-shadow-replay-receipt.v1.json",
     PROMOTION_FRESH_VERIFICATION_REPORT: "promotion-fresh-receipt-verification.v1.json",
@@ -857,9 +969,9 @@ test("Promotion Shadow artifact preflight requires every exact non-empty JSON fi
     assert.notEqual(runPreflight().status, 0, "an unexpected artifact must fail closed");
     await rm(unexpectedPath);
 
-    await writeFile(artifactPaths.PROMOTION_VALIDATION_REPORT, "not-json\n");
+    await writeFile(artifactPaths.PROMOTION_TERMINAL_AUDIT_REPORT, "not-json\n");
     assert.notEqual(runPreflight().status, 0, "invalid artifact JSON must fail closed");
-    await restore(artifactPaths.PROMOTION_VALIDATION_REPORT);
+    await restore(artifactPaths.PROMOTION_TERMINAL_AUDIT_REPORT);
 
     const symlinkTarget = path.join(path.dirname(fixtureDir), `${path.basename(fixtureDir)}-target.json`);
     await writeFile(symlinkTarget, "{}\n");
@@ -882,7 +994,7 @@ test("Promotion Shadow final enforcement remains red for an authentic failed Rec
 
   const fixtureDir = await realpath(await mkdtemp(path.join(tmpdir(), "mais-promotion-final-outcome-")));
   const envNames = [
-    "PROMOTION_VALIDATION_REPORT",
+    "PROMOTION_TERMINAL_AUDIT_REPORT",
     "PROMOTION_FRESH_RECEIPT",
     "PROMOTION_REPLAY_RECEIPT",
     "PROMOTION_CANONICAL_RECEIPT_COPY",
@@ -907,6 +1019,18 @@ test("Promotion Shadow final enforcement remains red for an authentic failed Rec
     assert.equal(passing.status, 0, combinedOutput(passing));
 
     await writeFile(
+      pathsByEnv.PROMOTION_TERMINAL_AUDIT_REPORT,
+      `${JSON.stringify({ result: "fail" })}\n`
+    );
+    const terminalFailure = runFinal();
+    assert.notEqual(terminalFailure.status, 0, "a failed terminal current-HEAD audit must keep the Gate red");
+    assert.match(combinedOutput(terminalFailure), /terminalCurrentHeadAudit=fail/u);
+    await writeFile(
+      pathsByEnv.PROMOTION_TERMINAL_AUDIT_REPORT,
+      `${JSON.stringify({ result: "pass" })}\n`
+    );
+
+    await writeFile(
       pathsByEnv.PROMOTION_CANONICAL_RECEIPT_COPY,
       `${JSON.stringify({ result: "fail" })}\n`
     );
@@ -918,47 +1042,61 @@ test("Promotion Shadow final enforcement remains red for an authentic failed Rec
   }
 });
 
-test("Promotion Shadow validation report assertion executes fail closed for exact checks", async () => {
+test("Promotion Shadow terminal current-HEAD report assertion executes fail closed", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
-  const assertionStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
-    (step) => step.name === "Assert validation report schema and required checks"
+  const job = workflow.jobs?.["promotion-shadow-gate"];
+  const assertionStep = job?.steps?.find(
+    (step) => step.name === "Assert terminal current-HEAD audit envelope"
   );
-  assert.ok(assertionStep, "workflow must execute a dedicated validation-report assertion step");
+  assert.ok(assertionStep, "workflow must execute a dedicated terminal current-HEAD assertion step");
   assert.equal(typeof assertionStep.run, "string");
 
-  const expectedCheckIds = [
-    "manifest-contract",
-    "candidate-integrity",
-    "evidence-currentness",
-    "mapping-compatibility",
-    "rollback-rehearsal",
-    "live-reachability",
-    "forbidden-diff",
-    "legacy-ratchet"
-  ];
-  const fixtureDir = await mkdtemp(path.join(tmpdir(), "mais-promotion-validation-"));
-  const manifestPath = path.join(fixtureDir, "promotion-manifest.v1.json");
-  const reportPath = path.join(fixtureDir, "promotion-validation-report.v1.json");
-  const manifest = {
-    candidateDigest: "b".repeat(64),
-    allowlistedCheckIds: expectedCheckIds
+  const auditLibrary = await import(pathToFileURL(path.join(
+    repoRoot,
+    "coordination/integration/current-head-audit/promotion-terminal-audit-v2-lib.mjs"
+  )).href);
+  const expectedRelease = job.env.PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT;
+  const expectedPolicy = job.env.PROMOTION_TERMINAL_AUDIT_POLICY;
+  const headResult = spawnSync("git", ["rev-parse", "--verify", "HEAD"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  assert.equal(headResult.status, 0, combinedOutput(headResult));
+  const expectedHead = headResult.stdout.trim();
+  const passOperations = {
+    "terminal-attempt-binding": async () => ({ terminalState: "repair_required" }),
+    "audit-checker-release": async () => ({ releaseCommit: expectedRelease }),
+    "candidate-integrity": async () => ({ candidateDigest: auditLibrary.FIXED_ATTEMPT.candidateDigest }),
+    "evidence-currentness": async () => ({ ownerCount: 9 }),
+    "selected-live-reachability": async () => ({ selectedCandidateReachable: false }),
+    "legacy-ratchet": async () => ({ knownConflictCount: 1, newConflictCount: 0, opaqueConflictCount: 0 }),
+    "no-repository-mutation": async () => ({ headStable: true, statusStable: true, candidateStable: true })
   };
-  const validReport = {
-    schemaVersion: "promotion-validation.v1",
-    result: "pass",
-    manifestDigest: "a".repeat(64),
-    candidateDigest: manifest.candidateDigest,
-    checks: expectedCheckIds.map((checkId) => ({ checkId, result: "pass" }))
-  };
-
+  const validReport = await auditLibrary.runOrderedAuditForTest({
+    targetHead: expectedHead,
+    expectedHead,
+    policyRawSha256: "a".repeat(64),
+    policySelfDigest: "b".repeat(64),
+    policyPath: expectedPolicy,
+    runMetadata: {
+      auditId: "release-governance-fixture",
+      evaluatedAt: "2026-08-25T12:00:00.000Z",
+      ciJobId: null
+    },
+    operations: passOperations
+  });
+  const fixtureDir = await mkdtemp(path.join(tmpdir(), "mais-promotion-terminal-audit-"));
+  const reportPath = path.join(fixtureDir, "promotion-terminal-current-head-audit.v2.json");
   const runAssertion = () => spawnSync("bash", ["-c", assertionStep.run], {
     cwd: repoRoot,
     encoding: "utf8",
     env: {
       ...process.env,
-      PROMOTION_MANIFEST: manifestPath,
-      PROMOTION_VALIDATION_REPORT: reportPath
+      PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE: repoRoot,
+      PROMOTION_TERMINAL_AUDIT_REPORT: reportPath,
+      PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT: expectedRelease,
+      PROMOTION_TERMINAL_AUDIT_POLICY: expectedPolicy
     }
   });
   const writeReport = async (report) => {
@@ -967,87 +1105,35 @@ test("Promotion Shadow validation report assertion executes fail closed for exac
   };
 
   try {
-    await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`);
     const valid = await writeReport(validReport);
     assert.equal(valid.status, 0, combinedOutput(valid));
 
-    const controlledFailure = await writeReport({
-      schemaVersion: "promotion-gate-error.v1",
-      result: "fail",
-      code: "LEGACY_NEW_CONFLICT",
-      message: "Observed one or more unratcheted reachable candidate/live conflicts.",
-      details: { newConflictCount: 1 }
-    });
-    assert.equal(controlledFailure.status, 0, combinedOutput(controlledFailure));
-
-    const controlledBlock = await writeReport({
-      schemaVersion: "promotion-gate-error.v1",
-      result: "blocked",
-      code: "LEGACY_DISCOVERY_INCOMPLETE",
-      message: "Live reachability discovery was incomplete."
-    });
-    assert.equal(controlledBlock.status, 0, combinedOutput(controlledBlock));
-
     const invalidCases = [
-      ["wrong schema", { ...validReport, schemaVersion: "promotion-validation.v0" }],
-      ["failed envelope", { ...validReport, result: "fail" }],
-      ["invalid manifest digest", { ...validReport, manifestDigest: "not-a-digest" }],
-      ["candidate digest mismatch", { ...validReport, candidateDigest: "c".repeat(64) }],
+      ["wrong target HEAD", { ...validReport, targetHead: "c".repeat(40) }],
+      ["wrong expected HEAD", { ...validReport, expectedHead: "d".repeat(40) }],
       [
-        "legacy ratchet failure",
+        "wrong frozen release",
         {
           ...validReport,
-          checks: validReport.checks.map((check) => check.checkId === "legacy-ratchet"
-            ? { ...check, result: "fail" }
-            : check)
+          auditReleaseProof: { ...validReport.auditReleaseProof, releaseCommit: "e".repeat(40) }
         }
       ],
+      ["wrong policy path", { ...validReport, policy: { ...validReport.policy, path: "wrong/policy.json" } }],
+      ["live authorization", { ...validReport, liveAllowed: true }],
+      ["maturity escalation", { ...validReport, maturityClaim: "Shadow-mature / live-unproven" }],
       [
-        "live reachability failure",
-        {
-          ...validReport,
-          checks: validReport.checks.map((check) => check.checkId === "live-reachability"
-            ? { ...check, result: "fail" }
-            : check)
-        }
-      ],
-      [
-        "duplicate check id",
-        {
-          ...validReport,
-          checks: validReport.checks.map((check, index) => index === 7
-            ? { ...check, checkId: "live-reachability" }
-            : check)
-        }
-      ],
-      ["missing check", { ...validReport, checks: validReport.checks.slice(0, -1) }],
-      [
-        "unexpected check fields",
-        {
-          ...validReport,
-          checks: validReport.checks.map((check, index) => index === 0
-            ? { ...check, label: "phrase-only is insufficient" }
-            : check)
-        }
+        "top-level proof drift",
+        { ...validReport, legacyProof: { ...validReport.legacyProof, newConflictCount: 99 } }
       ]
     ];
-
     for (const [label, report] of invalidCases) {
       const result = await writeReport(report);
       assert.notEqual(result.status, 0, `${label} must fail closed\n${combinedOutput(result)}`);
     }
 
-    await writeReport(validReport);
-    await writeFile(
-      manifestPath,
-      `${JSON.stringify({ ...manifest, allowlistedCheckIds: [...expectedCheckIds].reverse() })}\n`
-    );
-    const manifestOrderDrift = runAssertion();
-    assert.notEqual(
-      manifestOrderDrift.status,
-      0,
-      `manifest allowlistedCheckIds order drift must fail closed\n${combinedOutput(manifestOrderDrift)}`
-    );
+    await writeFile(reportPath, "not-json\n");
+    const malformed = runAssertion();
+    assert.notEqual(malformed.status, 0, `malformed terminal report must fail closed\n${combinedOutput(malformed)}`);
   } finally {
     await rm(fixtureDir, { recursive: true, force: true });
   }
