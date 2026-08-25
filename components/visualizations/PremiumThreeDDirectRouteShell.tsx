@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType } from "react";
 import { useEffect, useRef, useState } from "react";
 import { VisualizationCard } from "@/components/visualizations/VisualizationCard";
 import VisualizationLabLoading from "@/components/visualizations/VisualizationLabLoading";
@@ -10,7 +10,6 @@ import { studentVisualizationToolsPath } from "@/lib/visualizationRoutes";
 import type { FeaturedLabDefinition } from "@/data/visualizationLabs";
 
 type DirectConfiguredVisualizationLabProps = {
-  controlFooterAction?: ReactNode;
   lab?: FeaturedLabDefinition | null;
   labId?: string;
   topicId?: string;
