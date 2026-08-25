@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/NaturalCaFormalFreezeCustodyManifestV1.schema.json",
+  "title": "NaturalCaFormalFreezeCustodyManifestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "sourceCommit",
+    "runnerCommit",
+    "runnerHash",
+    "ownerDecisionReceiptHash",
+    "fileCount",
+    "entries",
+    "containsNaturalQuestionText",
+    "originalItemIdsProtected",
+    "directoryMode",
+    "fileMode",
+    "protectedStorageRequired",
+    "gitTrackingAllowed",
+    "providerExecutionAuthorized",
+    "credentialReadAuthorized",
+    "questionEgressAuthorizedNow",
+    "excludedNonContentFiles",
+    "c0FrozenAt",
+    "custodyManifestHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "NaturalCaFormalFreezeCustodyManifestV1" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "const": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632" },
+    "sourceCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerCommit": { "$ref": "#/$defs/gitOid" },
+    "runnerHash": { "$ref": "#/$defs/sha256" },
+    "ownerDecisionReceiptHash": { "const": "855af9696548359bc7364a987aa0dc3a3f9cd5883f87911edd8067bc78ac3ad0" },
+    "fileCount": { "const": 23 },
+    "entries": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/entry" }
+    },
+    "containsNaturalQuestionText": { "const": true },
+    "originalItemIdsProtected": { "const": true },
+    "directoryMode": { "const": "0700" },
+    "fileMode": { "const": "0600" },
+    "protectedStorageRequired": { "const": true },
+    "gitTrackingAllowed": { "const": false },
+    "providerExecutionAuthorized": { "const": false },
+    "credentialReadAuthorized": { "const": false },
+    "questionEgressAuthorizedNow": { "const": false },
+    "excludedNonContentFiles": { "const": ["custody-manifest.json", "formal-freeze-receipt.json"] },
+    "c0FrozenAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "custodyManifestHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitOid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relativePath", "byteLength", "sha256"],
+      "properties": {
+        "relativePath": { "type": "string", "minLength": 1, "pattern": "^[^/]+$" },
+        "byteLength": { "type": "integer", "minimum": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}
