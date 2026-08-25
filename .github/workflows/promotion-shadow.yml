@@ -1,0 +1,688 @@
+name: promotion-shadow-gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promotion-shadow-gate:
+    name: promotion-shadow-gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GIT_CONFIG_COUNT: "4"
+      GIT_CONFIG_KEY_0: gc.auto
+      GIT_CONFIG_VALUE_0: "0"
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: "false"
+      GIT_CONFIG_KEY_2: maintenance.auto
+      GIT_CONFIG_VALUE_2: "false"
+      GIT_CONFIG_KEY_3: maintenance.autoDetach
+      GIT_CONFIG_VALUE_3: "false"
+      PROMOTION_TERMINAL_AUDIT_POLICY: coordination/integration/current-head-audit/policies/us-ca-math-rag-v2-g6-ratios-v1-attempt-001.v2.json
+      PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT: ca89c923065a1b9dd6aee40fbc78326be13aae07
+      PROMOTION_MANIFEST: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json
+      PROMOTION_CANONICAL_RECEIPT: coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json
+      PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: ${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json
+      PROMOTION_TERMINAL_AUDIT_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-current-head
+      PROMOTION_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}
+      PROMOTION_REPLAY_RUN_ID: ci-${{ github.run_id }}-${{ github.run_attempt }}-replay
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Configure isolated Promotion Shadow paths
+        run: |
+          set -euo pipefail
+          : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
+          : "${GITHUB_ENV:?GITHUB_ENV is required}"
+          runner_temp="${RUNNER_TEMP%/}"
+          if [[ "$runner_temp" != /* || "$runner_temp" == "/" || "$runner_temp" == *$'\n'* ]]; then
+            echo "RUNNER_TEMP must be a non-root absolute path without newlines." >&2
+            exit 1
+          fi
+          artifact_root="$runner_temp/promotion-shadow-gate-artifacts"
+          canonical_copy="$runner_temp/promotion-canonical-receipt.v1.json"
+          execution_worktree="$runner_temp/promotion-shadow-execution"
+          audit_release_worktree="$runner_temp/promotion-terminal-audit-release"
+          for target in "$artifact_root" "$canonical_copy" "$execution_worktree" "$audit_release_worktree"; do
+            if [[ -e "$target" || -L "$target" ]]; then
+              echo "Promotion Shadow isolated target already exists: $target" >&2
+              exit 1
+            fi
+          done
+          install -d -m 0700 "$artifact_root"
+          {
+            printf 'PROMOTION_ARTIFACT_ROOT=%s\n' "$artifact_root"
+            printf 'PROMOTION_CANONICAL_RECEIPT_COPY=%s\n' "$canonical_copy"
+            printf 'PROMOTION_EXECUTION_WORKTREE=%s\n' "$execution_worktree"
+            printf 'PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE=%s\n' "$audit_release_worktree"
+            printf 'PROMOTION_TERMINAL_AUDIT_REPORT=%s\n' "$artifact_root/promotion-terminal-current-head-audit.v2.json"
+            printf 'PROMOTION_FRESH_RECEIPT=%s\n' "$artifact_root/promotion-shadow-receipt.v1.json"
+            printf 'PROMOTION_REPLAY_RECEIPT=%s\n' "$artifact_root/promotion-shadow-replay-receipt.v1.json"
+            printf 'PROMOTION_FRESH_VERIFICATION_REPORT=%s\n' "$artifact_root/promotion-fresh-receipt-verification.v1.json"
+            printf 'PROMOTION_REPLAY_VERIFICATION_REPORT=%s\n' "$artifact_root/promotion-replay-receipt-verification.v1.json"
+            printf 'PROMOTION_CANONICAL_VERIFICATION_REPORT=%s\n' "$artifact_root/promotion-canonical-receipt-verification.v1.json"
+          } >> "$GITHUB_ENV"
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies from lockfile
+        run: npm ci --ignore-scripts
+
+      - name: Prepare detached frozen terminal audit release
+        run: |
+          set -euo pipefail
+          : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
+          : "${PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT:?Frozen audit release commit is required}"
+          if [[ ! "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "Frozen terminal audit release must be exactly 40 lowercase hexadecimal characters." >&2
+            exit 1
+          fi
+          expected_worktree="${RUNNER_TEMP%/}/promotion-terminal-audit-release"
+          if [[ "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" != "$expected_worktree" ]]; then
+            echo "Frozen terminal audit worktree must equal the fixed runner-temp path." >&2
+            exit 1
+          fi
+          if [[ -e "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" || -L "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" ]]; then
+            echo "Frozen terminal audit worktree target already exists." >&2
+            exit 1
+          fi
+          git cat-file -e "${PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT}^{commit}"
+          git merge-base --is-ancestor "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" HEAD
+          git worktree add --detach "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT"
+          if [[ "$(git -C "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" rev-parse --verify HEAD)" != "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" ]]; then
+            echo "Frozen terminal audit worktree HEAD does not match its externally pinned release commit." >&2
+            exit 1
+          fi
+          if git -C "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" symbolic-ref -q HEAD >/dev/null; then
+            echo "Frozen terminal audit worktree must remain detached." >&2
+            exit 1
+          fi
+          if [[ -n "$(git -C "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE" status --porcelain=v1 --untracked-files=all)" ]]; then
+            echo "Frozen terminal audit worktree must be clean before dependency installation." >&2
+            exit 1
+          fi
+
+      - name: Install frozen terminal audit dependencies
+        run: |
+          set -euo pipefail
+          cd "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE"
+          npm ci --ignore-scripts
+          node --input-type=module -e '
+            import { createRequire } from "node:module";
+            const require = createRequire(`${process.cwd()}/package.json`);
+            require.resolve("typescript");
+          '
+
+      - name: Run frozen Promotion Gate unit and security tests
+        run: |
+          set -euo pipefail
+          cd "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE"
+          node --test coordination/integration/current-head-audit/promotion-terminal-audit-v2.test.mjs
+          node --test coordination/integration/promotion-gate.test.mjs
+
+      - name: Audit exact current HEAD with frozen terminal release
+        id: terminal-current-head-audit
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          target_head="$(git rev-parse --verify HEAD)"
+          if [[ ! "$target_head" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "Current target HEAD must be exactly 40 lowercase hexadecimal characters." >&2
+            exit 1
+          fi
+          set +e
+          PROMOTION_TERMINAL_AUDIT_RUN_ID="$PROMOTION_TERMINAL_AUDIT_RUN_ID" \
+            node "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE/coordination/integration/current-head-audit/promotion-terminal-audit-v2.mjs" \
+              audit \
+              --policy "$PROMOTION_TERMINAL_AUDIT_POLICY" \
+              --target-root "$GITHUB_WORKSPACE" \
+              --expected-head "$target_head" \
+              --expected-release "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" \
+              --json > "$PROMOTION_TERMINAL_AUDIT_REPORT"
+          cli_exit=$?
+          set -e
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [reportPath, cliExitText] = process.argv.slice(1);
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2, internal: 3 }[report.result];
+            const cliExit = Number(cliExitText);
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Terminal audit CLI exit ${cliExit} does not match result ${String(report.result)}.`);
+            }
+          ' "$PROMOTION_TERMINAL_AUDIT_REPORT" "$cli_exit"
+
+      - name: Assert terminal current-HEAD audit envelope
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          target_head="$(git rev-parse --verify HEAD)"
+          cd "$PROMOTION_TERMINAL_AUDIT_RELEASE_WORKTREE"
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            import { validateAuditReport } from "./coordination/integration/current-head-audit/promotion-terminal-audit-v2-lib.mjs";
+            const [reportPath, expectedHead, expectedRelease, expectedPolicy] = process.argv.slice(1);
+            if (!reportPath || !expectedHead || !expectedRelease || !expectedPolicy) {
+              throw new Error("Terminal report, current HEAD, release commit, and policy path are required.");
+            }
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            validateAuditReport(report);
+            if (report.targetHead !== expectedHead || report.expectedHead !== expectedHead) {
+              throw new Error("Terminal audit report must bind the exact checked-out current HEAD.");
+            }
+            if (report.auditReleaseProof.releaseCommit !== expectedRelease) {
+              throw new Error("Terminal audit report must bind the externally pinned frozen release commit.");
+            }
+            if (report.policy.path !== expectedPolicy) {
+              throw new Error("Terminal audit report must bind the fixed v2 policy path.");
+            }
+            if (report.liveAllowed !== false || report.maturityClaim !== "not-shadow-mature") {
+              throw new Error("Terminal audit must remain non-live and must not claim Shadow maturity.");
+            }
+          ' \
+            "$PROMOTION_TERMINAL_AUDIT_REPORT" \
+            "$target_head" \
+            "$PROMOTION_TERMINAL_AUDIT_RELEASE_COMMIT" \
+            "$PROMOTION_TERMINAL_AUDIT_POLICY"
+
+      - name: Resolve canonical Receipt execution commit
+        id: resolve-promotion-execution
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { execFileSync } from "node:child_process";
+            import { createHash } from "node:crypto";
+            import { closeSync, lstatSync, openSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
+            import path from "node:path";
+            const [receiptPath, expectedReceiptPath, manifestPath, receiptCopyPath, runnerTemp, outputPath] = process.argv.slice(1);
+            if (!receiptPath || !expectedReceiptPath || !manifestPath || !receiptCopyPath || !runnerTemp || !outputPath) {
+              throw new Error("Canonical Receipt source/copy paths, repository path, manifest path, runner temp, and GitHub output are required.");
+            }
+            const assertSafeRepoPath = (value, label) => {
+              if (
+                path.posix.isAbsolute(value) ||
+                path.posix.normalize(value) !== value ||
+                value.startsWith("../") ||
+                value.includes("\\") ||
+                value.includes("\u0000")
+              ) {
+                throw new Error(`${label} must be a canonical POSIX repository-relative path.`);
+              }
+            };
+            const assertExactKeys = (value, expectedKeys, label) => {
+              if (!value || typeof value !== "object" || Array.isArray(value)) {
+                throw new Error(`${label} must be an object.`);
+              }
+              const actual = Object.keys(value).sort();
+              const expected = [...expectedKeys].sort();
+              if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+                throw new Error(`${label} fields must be exactly ${expected.join(", ")}.`);
+              }
+            };
+            assertSafeRepoPath(expectedReceiptPath, "Canonical Receipt path");
+            assertSafeRepoPath(manifestPath, "Promotion Manifest path");
+            if (
+              !path.isAbsolute(receiptPath) ||
+              !path.isAbsolute(receiptCopyPath) ||
+              !path.isAbsolute(runnerTemp) ||
+              !path.isAbsolute(outputPath)
+            ) {
+              throw new Error("Canonical Receipt source/copy, runner temp, and GitHub output paths must be absolute.");
+            }
+            const repositoryRoot = realpathSync(process.cwd());
+            const expectedAbsoluteReceiptPath = path.resolve(repositoryRoot, expectedReceiptPath);
+            if (receiptPath !== expectedAbsoluteReceiptPath || realpathSync(receiptPath) !== expectedAbsoluteReceiptPath) {
+              throw new Error("Canonical Receipt absolute path must resolve to its exact current-checkout path.");
+            }
+            if (!lstatSync(receiptPath).isFile()) throw new Error("Canonical Receipt must be a regular file.");
+            const workingBytes = readFileSync(receiptPath);
+            const committedBytes = execFileSync("git", ["show", `HEAD:${expectedReceiptPath}`], {
+              cwd: repositoryRoot,
+              encoding: null,
+              maxBuffer: 16 * 1024 * 1024
+            });
+            if (!workingBytes.equals(committedBytes)) {
+              throw new Error("Canonical Receipt bytes must match the current committed HEAD object.");
+            }
+            const canonicalRunnerTemp = realpathSync(runnerTemp);
+            const expectedCopyPath = path.join(canonicalRunnerTemp, "promotion-canonical-receipt.v1.json");
+            if (receiptCopyPath !== expectedCopyPath) {
+              throw new Error("Canonical Receipt copy must equal the fixed runner-temp path.");
+            }
+            const receipt = JSON.parse(workingBytes.toString("utf8"));
+            assertExactKeys(receipt.manifest, ["path", "rawSha256"], "Receipt manifest binding");
+            if (receipt.manifest.path !== manifestPath) {
+              throw new Error("Canonical Receipt manifest path must equal PROMOTION_MANIFEST.");
+            }
+            if (!/^[a-f0-9]{64}$/.test(receipt.manifest.rawSha256)) {
+              throw new Error("Canonical Receipt manifest digest must be a lowercase SHA-256 digest.");
+            }
+            assertExactKeys(receipt.worktreeProof, [
+              "executionCommit",
+              "preClean",
+              "postClean",
+              "preStatusSha256",
+              "postStatusSha256",
+              "preStatusEntryCount",
+              "postStatusEntryCount",
+              "trackedInputCount",
+              "trackedInputAggregateDigest",
+              "attemptHistoryProof"
+            ], "Receipt worktreeProof");
+            const executionCommit = receipt.worktreeProof.executionCommit;
+            if (typeof executionCommit !== "string" || !/^[a-f0-9]{40}$/.test(executionCommit)) {
+              throw new Error("Canonical Receipt executionCommit must be exactly 40 lowercase hexadecimal characters.");
+            }
+            let copyDescriptor;
+            try {
+              copyDescriptor = openSync(receiptCopyPath, "wx", 0o600);
+              writeFileSync(copyDescriptor, workingBytes);
+            } finally {
+              if (copyDescriptor !== undefined) closeSync(copyDescriptor);
+            }
+            const copyEntry = lstatSync(receiptCopyPath);
+            if (
+              !copyEntry.isFile() ||
+              copyEntry.nlink !== 1 ||
+              (copyEntry.mode & 0o777) !== 0o600 ||
+              realpathSync(receiptCopyPath) !== receiptCopyPath
+            ) {
+              throw new Error("Canonical Receipt copy must be one regular 0600 file at the fixed runner-temp path.");
+            }
+            const copiedBytes = readFileSync(receiptCopyPath);
+            const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
+            const sourceDigest = digest(workingBytes);
+            const copyDigest = digest(copiedBytes);
+            if (!copiedBytes.equals(workingBytes) || copyDigest !== sourceDigest) {
+              throw new Error("Canonical Receipt copy bytes must equal the committed source bytes.");
+            }
+            writeFileSync(outputPath, `execution_commit=${executionCommit}\n`, { flag: "a" });
+          ' \
+            "$PROMOTION_CANONICAL_RECEIPT_ABSOLUTE" \
+            "$PROMOTION_CANONICAL_RECEIPT" \
+            "$PROMOTION_MANIFEST" \
+            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            "$RUNNER_TEMP" \
+            "$GITHUB_OUTPUT"
+
+      - name: Prepare detached canonical execution worktree
+        if: ${{ always() }}
+        env:
+          PROMOTION_EXECUTION_COMMIT: ${{ steps.resolve-promotion-execution.outputs.execution_commit }}
+        run: |
+          set -euo pipefail
+          : "${RUNNER_TEMP:?RUNNER_TEMP is required}"
+          : "${PROMOTION_EXECUTION_COMMIT:?Canonical execution commit is required}"
+          if [[ ! "$PROMOTION_EXECUTION_COMMIT" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "Canonical execution commit must be exactly 40 lowercase hexadecimal characters." >&2
+            exit 1
+          fi
+          expected_worktree="${RUNNER_TEMP%/}/promotion-shadow-execution"
+          if [[ "$PROMOTION_EXECUTION_WORKTREE" != "$expected_worktree" ]]; then
+            echo "Historical worktree path must equal the fixed runner-temp path." >&2
+            exit 1
+          fi
+          if [[ -e "$PROMOTION_EXECUTION_WORKTREE" || -L "$PROMOTION_EXECUTION_WORKTREE" ]]; then
+            echo "Historical worktree target already exists." >&2
+            exit 1
+          fi
+          git cat-file -e "${PROMOTION_EXECUTION_COMMIT}^{commit}"
+          git merge-base --is-ancestor "$PROMOTION_EXECUTION_COMMIT" HEAD
+          git worktree add --detach "$PROMOTION_EXECUTION_WORKTREE" "$PROMOTION_EXECUTION_COMMIT"
+          if [[ "$(git -C "$PROMOTION_EXECUTION_WORKTREE" rev-parse --verify HEAD)" != "$PROMOTION_EXECUTION_COMMIT" ]]; then
+            echo "Historical worktree HEAD does not match the canonical execution commit." >&2
+            exit 1
+          fi
+          if git -C "$PROMOTION_EXECUTION_WORKTREE" symbolic-ref -q HEAD >/dev/null; then
+            echo "Historical worktree must remain detached." >&2
+            exit 1
+          fi
+          if [[ -n "$(git -C "$PROMOTION_EXECUTION_WORKTREE" status --porcelain=v1 --untracked-files=all)" ]]; then
+            echo "Historical worktree must be clean before dependency installation." >&2
+            exit 1
+          fi
+
+      - name: Install canonical execution dependencies
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          npm ci
+
+      - name: Execute real pilot shadow
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_RUN_ID" --json > "$PROMOTION_FRESH_RECEIPT"
+          cli_exit=$?
+          set -e
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [receiptPath, expectedRunId, cliExitText] = process.argv.slice(1);
+            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2 }[receipt.result];
+            const cliExit = Number(cliExitText);
+            if (receipt.schemaVersion !== "promotion-receipt.v1") {
+              throw new Error(`Shadow output must be promotion-receipt.v1, received ${String(receipt.schemaVersion)}.`);
+            }
+            if (receipt.runMetadata?.runId !== expectedRunId) {
+              throw new Error("Shadow Receipt runId does not match the requested run identity.");
+            }
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Shadow CLI exit ${cliExit} does not match result ${String(receipt.result)}.`);
+            }
+          ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_RUN_ID" "$cli_exit"
+
+      - name: Replay real pilot shadow with a distinct run identity
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:shadow -- --manifest "$PROMOTION_MANIFEST" --run-id "$PROMOTION_REPLAY_RUN_ID" --json > "$PROMOTION_REPLAY_RECEIPT"
+          cli_exit=$?
+          set -e
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [receiptPath, expectedRunId, cliExitText] = process.argv.slice(1);
+            const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2 }[receipt.result];
+            const cliExit = Number(cliExitText);
+            if (receipt.schemaVersion !== "promotion-receipt.v1") {
+              throw new Error(`Shadow output must be promotion-receipt.v1, received ${String(receipt.schemaVersion)}.`);
+            }
+            if (receipt.runMetadata?.runId !== expectedRunId) {
+              throw new Error("Shadow Receipt runId does not match the requested replay identity.");
+            }
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Shadow CLI exit ${cliExit} does not match result ${String(receipt.result)}.`);
+            }
+          ' "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_RUN_ID" "$cli_exit"
+
+      - name: Compare fresh, replay, and canonical semantic receipt digests
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            if (paths.length !== 3) throw new Error(`Expected three receipt paths, received ${paths.length}.`);
+            const receipts = paths.map((receiptPath) => JSON.parse(readFileSync(receiptPath, "utf8")));
+            const results = receipts.map((receipt) => receipt.result);
+            if (!results.every((result) => result === results[0])) {
+              throw new Error(`Receipt result mismatch: ${results.join(", ")}`);
+            }
+            const digests = receipts.map((receipt, index) => {
+              const digest = receipt.semanticReceiptDigest;
+              if (typeof digest !== "string" || !/^[a-f0-9]{64}$/.test(digest)) {
+                throw new Error(`Receipt ${paths[index]} has no valid semanticReceiptDigest.`);
+              }
+              return digest;
+            });
+            if (!digests.every((digest) => digest === digests[0])) {
+              throw new Error(`Semantic receipt digest mismatch: ${digests.join(", ")}`);
+            }
+          ' "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_CANONICAL_RECEIPT_COPY"
+
+      - name: Verify fresh receipt
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_FRESH_RECEIPT" --json > "$PROMOTION_FRESH_VERIFICATION_REPORT"
+          cli_exit=$?
+          set -e
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [reportPath, cliExitText] = process.argv.slice(1);
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2 }[report.result];
+            const cliExit = Number(cliExitText);
+            if (report.schemaVersion !== "promotion-receipt-verification.v1") {
+              throw new Error(`Unexpected verification schema ${String(report.schemaVersion)}.`);
+            }
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Receipt verification CLI exit ${cliExit} does not match result ${String(report.result)}.`);
+            }
+          ' "$PROMOTION_FRESH_VERIFICATION_REPORT" "$cli_exit"
+
+      - name: Verify replayed receipt
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_REPLAY_RECEIPT" --json > "$PROMOTION_REPLAY_VERIFICATION_REPORT"
+          cli_exit=$?
+          set -e
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [reportPath, cliExitText] = process.argv.slice(1);
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2 }[report.result];
+            const cliExit = Number(cliExitText);
+            if (report.schemaVersion !== "promotion-receipt-verification.v1") {
+              throw new Error(`Unexpected verification schema ${String(report.schemaVersion)}.`);
+            }
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Receipt verification CLI exit ${cliExit} does not match result ${String(report.result)}.`);
+            }
+          ' "$PROMOTION_REPLAY_VERIFICATION_REPORT" "$cli_exit"
+
+      - name: Verify canonical receipt
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          set -euo pipefail
+          cd "$PROMOTION_EXECUTION_WORKTREE"
+          set +e
+          npm --silent run promotion:verify-receipt -- --receipt "$PROMOTION_CANONICAL_RECEIPT_COPY" --json > "$PROMOTION_CANONICAL_VERIFICATION_REPORT"
+          cli_exit=$?
+          set -e
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [reportPath, cliExitText] = process.argv.slice(1);
+            const report = JSON.parse(readFileSync(reportPath, "utf8"));
+            const expectedExit = { pass: 0, fail: 1, blocked: 2 }[report.result];
+            const cliExit = Number(cliExitText);
+            if (report.schemaVersion !== "promotion-receipt-verification.v1") {
+              throw new Error(`Unexpected verification schema ${String(report.schemaVersion)}.`);
+            }
+            if (expectedExit === undefined || cliExit !== expectedExit) {
+              throw new Error(`Receipt verification CLI exit ${cliExit} does not match result ${String(report.result)}.`);
+            }
+          ' "$PROMOTION_CANONICAL_VERIFICATION_REPORT" "$cli_exit"
+
+      - name: Assert receipt verification envelopes
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            if (paths.length !== 6) throw new Error(`Expected three receipt/report pairs, received ${paths.length / 2}.`);
+            const assertExactKeys = (value, expectedKeys, label) => {
+              if (!value || typeof value !== "object" || Array.isArray(value)) {
+                throw new Error(`${label} must be an object.`);
+              }
+              const actualKeys = Object.keys(value).sort();
+              const sortedExpectedKeys = [...expectedKeys].sort();
+              if (JSON.stringify(actualKeys) !== JSON.stringify(sortedExpectedKeys)) {
+                throw new Error(`${label} fields must be exactly ${sortedExpectedKeys.join(", ")}.`);
+              }
+            };
+            for (let index = 0; index < paths.length; index += 2) {
+              const receiptPath = paths[index];
+              const reportPath = paths[index + 1];
+              const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+              const report = JSON.parse(readFileSync(reportPath, "utf8"));
+              const label = `verification report ${reportPath}`;
+              assertExactKeys(
+                report,
+                [
+                  "schemaVersion",
+                  "result",
+                  "manifestPath",
+                  "manifestDigest",
+                  "semanticReceiptDigest",
+                  "rawReceiptDigest"
+                ],
+                label
+              );
+              if (report.schemaVersion !== "promotion-receipt-verification.v1") {
+                throw new Error(`${label} has unexpected schema ${report.schemaVersion}.`);
+              }
+              if (!receipt.manifest || typeof receipt.manifest.path !== "string") {
+                throw new Error(`Receipt ${receiptPath} has no manifest path.`);
+              }
+              if (report.result !== receipt.result || !["pass", "fail", "blocked"].includes(report.result)) {
+                throw new Error(`${label} result must equal Receipt result ${receipt.result}, received ${report.result}.`);
+              }
+              const expected = {
+                manifestPath: receipt.manifest.path,
+                manifestDigest: receipt.manifest.rawSha256,
+                semanticReceiptDigest: receipt.semanticReceiptDigest,
+                rawReceiptDigest: receipt.rawReceiptDigest
+              };
+              for (const [field, expectedValue] of Object.entries(expected)) {
+                if (report[field] !== expectedValue) {
+                  throw new Error(`${label} ${field} does not match receipt ${receiptPath}.`);
+                }
+              }
+              for (const digestName of ["manifestDigest", "semanticReceiptDigest", "rawReceiptDigest"]) {
+                if (!/^[a-f0-9]{64}$/.test(report[digestName])) {
+                  throw new Error(`${label} ${digestName} must be a lowercase SHA-256 digest.`);
+                }
+              }
+            }
+          ' \
+            "$PROMOTION_FRESH_RECEIPT" "$PROMOTION_FRESH_VERIFICATION_REPORT" \
+            "$PROMOTION_REPLAY_RECEIPT" "$PROMOTION_REPLAY_VERIFICATION_REPORT" \
+            "$PROMOTION_CANONICAL_RECEIPT_COPY" "$PROMOTION_CANONICAL_VERIFICATION_REPORT"
+
+      - name: Assert exact Promotion Shadow artifact set
+        id: assert-artifact-set
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { lstatSync, readFileSync, readdirSync, realpathSync } from "node:fs";
+            import path from "node:path";
+            const [artifactRoot, ...expectedPaths] = process.argv.slice(1);
+            if (!path.isAbsolute(artifactRoot) || realpathSync(artifactRoot) !== artifactRoot) {
+              throw new Error("Promotion artifact root must be an existing canonical absolute path.");
+            }
+            const expectedNames = [
+              "promotion-terminal-current-head-audit.v2.json",
+              "promotion-shadow-receipt.v1.json",
+              "promotion-shadow-replay-receipt.v1.json",
+              "promotion-fresh-receipt-verification.v1.json",
+              "promotion-replay-receipt-verification.v1.json",
+              "promotion-canonical-receipt-verification.v1.json"
+            ].sort();
+            if (expectedPaths.length !== expectedNames.length) {
+              throw new Error(`Expected ${expectedNames.length} artifact paths, received ${expectedPaths.length}.`);
+            }
+            const suppliedNames = expectedPaths.map((entry) => {
+              if (!path.isAbsolute(entry) || path.dirname(entry) !== artifactRoot) {
+                throw new Error(`Artifact path escapes the exact artifact root: ${entry}`);
+              }
+              return path.basename(entry);
+            }).sort();
+            if (JSON.stringify(suppliedNames) !== JSON.stringify(expectedNames)) {
+              throw new Error(`Supplied artifact names are incomplete or unexpected: ${suppliedNames.join(", ")}`);
+            }
+            const actualNames = readdirSync(artifactRoot).sort();
+            if (JSON.stringify(actualNames) !== JSON.stringify(expectedNames)) {
+              throw new Error(`Artifact directory contents are incomplete or unexpected: ${actualNames.join(", ")}`);
+            }
+            for (const artifactPath of expectedPaths) {
+              const entry = lstatSync(artifactPath);
+              if (!entry.isFile() || entry.isSymbolicLink() || entry.nlink !== 1 || entry.size === 0) {
+                throw new Error(`Artifact must be one non-empty regular file with one link: ${artifactPath}`);
+              }
+              if (realpathSync(artifactPath) !== artifactPath) {
+                throw new Error(`Artifact must not resolve through a symlink: ${artifactPath}`);
+              }
+              JSON.parse(readFileSync(artifactPath, "utf8"));
+            }
+          ' \
+            "$PROMOTION_ARTIFACT_ROOT" \
+            "$PROMOTION_TERMINAL_AUDIT_REPORT" \
+            "$PROMOTION_FRESH_RECEIPT" \
+            "$PROMOTION_REPLAY_RECEIPT" \
+            "$PROMOTION_FRESH_VERIFICATION_REPORT" \
+            "$PROMOTION_REPLAY_VERIFICATION_REPORT" \
+            "$PROMOTION_CANONICAL_VERIFICATION_REPORT"
+
+      - name: Upload Promotion Shadow gate artifacts
+        if: ${{ always() && steps.assert-artifact-set.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: promotion-shadow-gate-artifacts-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/promotion-shadow-gate-artifacts/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce Promotion Shadow Gate outcome
+        if: ${{ always() }}
+        run: |
+          # shellcheck disable=SC2016
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const paths = process.argv.slice(1);
+            if (paths.length !== 7) throw new Error(`Expected seven gate artifacts/inputs, received ${paths.length}.`);
+            const [terminalAudit, fresh, replay, canonical, freshVerification, replayVerification, canonicalVerification] =
+              paths.map((artifactPath) => JSON.parse(readFileSync(artifactPath, "utf8")));
+            const outcomes = {
+              terminalCurrentHeadAudit: terminalAudit.result,
+              freshReceipt: fresh.result,
+              replayReceipt: replay.result,
+              canonicalReceipt: canonical.result,
+              freshVerification: freshVerification.result,
+              replayVerification: replayVerification.result,
+              canonicalVerification: canonicalVerification.result
+            };
+            const nonPassing = Object.entries(outcomes).filter(([, result]) => result !== "pass");
+            if (nonPassing.length > 0) {
+              throw new Error(`Promotion Shadow Gate remains red: ${nonPassing.map(([name, result]) => `${name}=${String(result)}`).join(", ")}`);
+            }
+          ' \
+            "$PROMOTION_TERMINAL_AUDIT_REPORT" \
+            "$PROMOTION_FRESH_RECEIPT" \
+            "$PROMOTION_REPLAY_RECEIPT" \
+            "$PROMOTION_CANONICAL_RECEIPT_COPY" \
+            "$PROMOTION_FRESH_VERIFICATION_REPORT" \
+            "$PROMOTION_REPLAY_VERIFICATION_REPORT" \
+            "$PROMOTION_CANONICAL_VERIFICATION_REPORT"

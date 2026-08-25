@@ -1,0 +1,328 @@
+{
+  "schemaVersion": "promotion-manifest.v1",
+  "gateId": "promotion-gate-shadow-v1",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "attemptId": "attempt-001",
+  "mode": "shadow",
+  "parentPackage": {
+    "id": "us-ca-math-rag-v2-candidate",
+    "sourceVersion": "sha256:35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+    "candidatePackagingVersion": "promotion-package.v1",
+    "status": "candidate-only"
+  },
+  "sourceCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "targetBaselineCommit": "b6c7c347a49a813e454e707dd3c16399dcf29909",
+  "checkerVersion": "promotion-gate-shadow-v1",
+  "checkerRelease": {
+    "version": "promotion-gate-shadow-v1",
+    "releaseCommit": "35f4a358b960058e6b9af2698d56a6446310b496",
+    "mappingPath": "coordination/integration/checker-releases.v1.json",
+    "mappingRawSha256": "80d7c8c1db6e71b72ade5caa45de4f074a23ace4cf5e922111c2ea64a819cb5c",
+    "bundleDigest": "517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf"
+  },
+  "candidateArtifacts": [
+    {
+      "kind": "safe-card",
+      "id": "ca-rag-v2-cluster-grade-6-6-rp-ratios",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/safe-card-drafts.json",
+      "jsonPointer": "/108",
+      "rawFileSha256": "55dbd69f3155c395800ae7ab5f756e9ffc46ebfb749aa5da8bde665f98d7becb",
+      "recordSha256": "7190eb88b93a8fb609b0531e5a374ea52e719a36d74295fbad2f67d9cb10f284"
+    },
+    {
+      "kind": "practice",
+      "id": "s04-ca-rag-v2-q031-6-rp-ratios",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s04-question-candidate-pack.json",
+      "jsonPointer": "/questions/30",
+      "rawFileSha256": "e86451098fce936f00b804ba8247486e3fb0bb7be80c5833ed6e9035f9b2ae50",
+      "recordSha256": "d75e077adcf71fb6af89f0939479d2be99265495a8bcb5d571faa5d32bf1a305"
+    },
+    {
+      "kind": "lesson",
+      "id": "s05-ca-rag-v2-lesson-031-6-rp-ratios",
+      "path": "coordination/content-qa/us-ca-math-rag-v2-candidate/s05-lesson-candidate-pack.json",
+      "jsonPointer": "/lessons/30",
+      "rawFileSha256": "5904f83d47620749c97fa2471029e7d0c56d41cdefa5f57649f78d7131e23de3",
+      "recordSha256": "7f3afb81f52b92854009ca5be3be62310e304736c554f9dba5caafe4bf0e3c0d"
+    }
+  ],
+  "candidateDigest": "35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd780c7",
+  "knownBlockers": [
+    {
+      "code": "item-standard-scope-overclaim",
+      "owner": "A18",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "fine-grained-standard-id-live-mapping-unbound",
+      "owner": "A04",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "unresolved-live-source-ids",
+      "owner": "A23",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "missing-bilingual-fields",
+      "owner": "A05",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "known-grammar-issue",
+      "owner": "A18",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "student-feedback-exposes-internal-misconception-label",
+      "owner": "A04",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "open-ended-practice-without-answer-or-rubric",
+      "owner": "A05",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "prior-s18-evidence-record-mismatch",
+      "owner": "A18",
+      "status": "preserved-outside-runtime",
+      "liveBlocking": true
+    },
+    {
+      "code": "legacy-live-package-conflict",
+      "owner": "A23",
+      "status": "ratcheted-temporary",
+      "liveBlocking": true
+    }
+  ],
+  "accessPolicy": {
+    "allowedReadPaths": [
+      "coordination/content-qa",
+      "coordination/integration",
+      "app",
+      "components",
+      "data",
+      "lib",
+      "public",
+      "middleware.ts",
+      "tsconfig.json",
+      "tsconfig.next.json",
+      "next.config.ts",
+      "package.json",
+      "package-lock.json"
+    ],
+    "allowedTemporaryWritePaths": [
+      "cluster-safe-card.shadow.v1.json",
+      "practice-item.shadow.v1.json",
+      "lesson.shadow.v1.json"
+    ],
+    "forbiddenModificationPaths": [
+      "coordination/content-qa",
+      "coordination/integration",
+      "app",
+      "components",
+      "data",
+      "lib",
+      "public",
+      "middleware.ts",
+      "tsconfig.json",
+      "tsconfig.next.json",
+      "next.config.ts",
+      "package.json",
+      "package-lock.json"
+    ],
+    "tempRootPolicy": "os-temp-only"
+  },
+  "requiredOwners": [
+    "A21",
+    "A18",
+    "A04",
+    "A05",
+    "A23",
+    "A11",
+    "A22",
+    "A24",
+    "A25"
+  ],
+  "evidenceBindings": [
+    {
+      "kind": "candidate-generation",
+      "role": "A21",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a21-candidate-generation.v1.json",
+      "rawSha256": "faeeba4bcc20630ac29dbb6a430aad2ed26b5a9e88f6caa638e84a5e9bf0d38d",
+      "semanticSha256": "9e55e15c7d1c69df5e8a43c2338b83de55531b3432484426afc4fce1b759b6c5",
+      "reviewedCommit": "3b395c6ebd8899876c08e314a56cef02f439c7bc"
+    },
+    {
+      "kind": "independent-qa",
+      "role": "A18",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a18-independent-qa.v1.json",
+      "rawSha256": "874beed128491d1355eeb79b5dcd1f109f75a5efabd86db9cf4e3f2adb6968cf",
+      "semanticSha256": "033c32293262ff0066bed2c0afd54f42f9909c1d028c570bf4c2edb604150ca0",
+      "reviewedCommit": "b9a330064fc4d07eabb0a478b8c778de7967a01a"
+    },
+    {
+      "kind": "practice-semantics",
+      "role": "A04",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a04-practice-semantics.v1.json",
+      "rawSha256": "8a30a33f83e9dac2dd6429bad86683395ffa7ec55af53f4b3e1dc77a98b40622",
+      "semanticSha256": "6f071d0bdbceeaad598d13e4dcb627ffbc5ca7c9acb8031e1285204e1e826260",
+      "reviewedCommit": "a1689ab28a2962e3a5d4376b1f15c5223fd64ba8"
+    },
+    {
+      "kind": "lesson-semantics",
+      "role": "A05",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a05-lesson-semantics.v1.json",
+      "rawSha256": "3b8b0320ce61b3510d9386a4d0e826ea8bd8b5416562f883ca858f196a269366",
+      "semanticSha256": "cf2c656c21c3d3427ed0272a0bae32ad8ef65c1a7c4301f6e53949beab53494f",
+      "reviewedCommit": "ea9d0e59813ec8ca8e3ed058cfece410535aad27"
+    },
+    {
+      "kind": "promotion-plan",
+      "role": "A23",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a23-promotion-plan.v1.json",
+      "rawSha256": "c594da73cbd82ff6dec9af425bb3bdb6eeec5b14466d6073e70603b51c2febbb",
+      "semanticSha256": "942d5a58fa64a9c296794e6ea49ea9c6ea9e2a11383346521304bf4a0570ff42",
+      "reviewedCommit": "f9a81cbb390b6e00e94bcd63c2b9681b226fb1e5"
+    },
+    {
+      "kind": "targeted-regression",
+      "role": "A11",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a11-targeted-regression.v1.json",
+      "rawSha256": "c2eee55f08ec3d63a1549565be3a84ca3769a746524ca502f90a2db0a1190bae",
+      "semanticSha256": "cf60d0bdb8e23915cc047963ae8a1f8c28de6aca7c4337bd41bae1357c138e66",
+      "reviewedCommit": "65b41c1c1803e4b7356a689ed9e85f744c98e4f2"
+    },
+    {
+      "kind": "release-readiness",
+      "role": "A22",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a22-release-isolation.v1.json",
+      "rawSha256": "a9ed646f1e0c76b87c540fd941dc1202598e1388d28b794dfcdef949526c7855",
+      "semanticSha256": "5f5ffecba953a9e62972eb15aabb7e7380848a4ee8ac38dd1b8d94bddf572ae1",
+      "reviewedCommit": "98e9098864bd601bcb8b2e2ed2b625b4b8dfa95e"
+    },
+    {
+      "kind": "exact-layer",
+      "role": "A24",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a24-exact-layer.v1.json",
+      "rawSha256": "fceef4f7a70959b85edf7acc07687b29e48a432eea5c36f3c9e5165978b94dde",
+      "semanticSha256": "4acf3dbb1405326d304611e26e622f68cf424ced47058fdae11419a666fc0d75",
+      "reviewedCommit": "02cebeea8f074c4c21d3823c85ba320a9ff34eec"
+    },
+    {
+      "kind": "release-intake",
+      "role": "A25",
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence/a25-release-intake.v1.json",
+      "rawSha256": "b39a77850ba7514dc936322167f0f354b0e2f707334bba803853fb8bccb9a102",
+      "semanticSha256": "00c37fd79832c87e0412b0a3e929e2efc69aa50424e33e292e0ffae101ee6b18",
+      "reviewedCommit": "d41b11042d7ab7e793af8d3ce2f4433e3329889b"
+    }
+  ],
+  "evidenceIndex": {
+    "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence-index.v1.json",
+    "rawSha256": "257384dc22fa6d46c2a9220c9de12c8fb164412bf2bec673685fde1277760297"
+  },
+  "allowlistedCheckIds": [
+    "manifest-contract",
+    "candidate-integrity",
+    "evidence-currentness",
+    "mapping-compatibility",
+    "rollback-rehearsal",
+    "live-reachability",
+    "forbidden-diff",
+    "legacy-ratchet"
+  ],
+  "operationPlan": {
+    "expectedOperationCount": 3,
+    "expectedOutputTypes": [
+      "safe-card",
+      "practice",
+      "lesson"
+    ],
+    "outputs": [
+      {
+        "kind": "safe-card",
+        "path": "cluster-safe-card.shadow.v1.json"
+      },
+      {
+        "kind": "practice",
+        "path": "practice-item.shadow.v1.json"
+      },
+      {
+        "kind": "lesson",
+        "path": "lesson.shadow.v1.json"
+      }
+    ],
+    "rollback": "delete-and-verify-absent"
+  },
+  "authorizations": {
+    "shadow": true,
+    "integration": false,
+    "live": false,
+    "preview": false,
+    "deploy": false
+  },
+  "lifecycle": {
+    "currentState": "shadow_ready",
+    "requestedState": "shadow_passed"
+  },
+  "liveReachability": {
+    "policy": "selected-candidate-unreachable",
+    "roots": [
+      "app",
+      "components",
+      "data",
+      "lib",
+      "public"
+    ],
+    "entrypoints": [
+      "data/rag/usMath.ts",
+      "lib/rag/usMath.ts",
+      "data/usCaliforniaTopics.ts",
+      "data/usCaliforniaQuestions.ts",
+      "data/questions.ts",
+      "data/usCaliforniaLessons.ts",
+      "data/lessons.ts",
+      "lib/server/questionStore.ts",
+      "lib/server/userStore.ts",
+      "app/api/questions/route.ts",
+      "app/api/lesson-entry/route.ts",
+      "app/api/lessons/[slug]/route.ts",
+      "app/practice/page.tsx",
+      "components/providers/AppProviders.tsx",
+      "components/lesson/lessonEntryTarget.ts",
+      "components/lesson/StudentLessonPage.tsx",
+      "components/lesson/StudentLessonEntryPage.tsx",
+      "components/lesson/LessonView.tsx",
+      "app/student/lessons/route.ts"
+    ],
+    "specialFiles": [
+      "middleware.ts"
+    ],
+    "registry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/promotion-live-registry.v1.json",
+      "rawSha256": "84f0eea9febd91f4bcc116bff3003c2b444a1d621184b3bda6e68c21abde6faf"
+    }
+  },
+  "legacyDiscovery": {
+    "policy": "reachable-candidate-package-conflicts-v1",
+    "roots": [
+      "coordination/content-qa",
+      "data/generated-content",
+      "data/rag"
+    ],
+    "registry": {
+      "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/promotion-legacy-discovery.v1.json",
+      "rawSha256": "7ad84112937ddf03d1c3868a76ae9339cca1ffbe24067a3f2eccff168201365e"
+    }
+  },
+  "legacyRatchet": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/legacy-drift-baseline.v1.json"
+}

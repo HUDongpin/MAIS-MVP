@@ -1,0 +1,41 @@
+# 2026-08-25 A23 Promotion Gate Shadow v1
+
+- Owner/lane: A23 Integration and Promotion. The gate contract routes independently authored inputs from A21, A18, A04, A05, A23, A11, A22, A24, and A25; this core slice does not claim those separate owner artifacts as authored here.
+- Branch: `codex/a23-promotion-shadow-v1-20260825`
+- Worktree: `/Volumes/Starship/MAIS-MVP/.worktrees/a23-promotion-shadow-v1-20260825`
+- Baseline: `origin/main` at `b6c7c347a49a813e454e707dd3c16399dcf29909`, verified by live `git ls-remote` on 2026-08-25 HKT.
+- Target PR: pending.
+- Creation date: 2026-08-25.
+- Expected closeout date: 2026-08-26.
+- Authorized implementation scope: Promotion Gate core library, standalone CLI, synthetic/real-shaped contract tests, Manifest/Receipt JSON Schemas, and this session log. CI wiring, the real pilot Manifest/Receipt, owner evidence files, registry/ratchet inputs, independent replay, and lifecycle closeout remain separate slices.
+- Explicit exclusions: Preview or production deployment, live data or route mutation, provider/database calls, production aliases, credentials, and claims that the parent candidate package is approved.
+
+## Preserve-first preflight
+
+- The primary `/Volumes/Starship/MAIS-MVP` checkout remains a dirty integration inventory and is not the implementation or validation source.
+- `npm run release:dirty-map -- --reason "A23 promotion shadow v1 implementation preflight" --json --no-report` recorded 52 collapsed status entries and no secret-quarantine entries. Repository inspection subsequently confirmed that `--no-report` still refreshes the ignored `latest-A25-dirty-tree-map.json`; it does not create timestamped reports or tracked changes, but it is not a zero-write mode.
+- The truly read-only `--assert-current --max-age-minutes 60 --json` check fails on the primary root's 56 existing strict unmapped entries. The inventory is therefore recorded, but A25 strict release intake is not claimed as passing.
+- This session uses a clean linked worktree from the refreshed remote baseline and stages only exact authored paths.
+
+## Handoff status
+
+- Core implementation is frozen for composition review at exact library SHA-256 `f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b` and test SHA-256 `6b68f6e219acc13ff2a5599f2f871d9d63d978fb8b3b2191ebd56d656c86888d`. It remains non-live and has not executed the real pilot.
+- TDD evidence: focused tests were introduced before their implementations and observed failing for the Manifest, owner-evidence, real-record adapter, worktree, reachability, ratchet, controlled Receipt, schema, Worker/SharedWorker, generic runtime capability, checker self-audit, and Function-constructor contracts. A schema-sync review also found and corrected the stale executable/schema agreement assertion for `attemptHistoryProof`.
+- Draft 2020 runtime validation constructs an executable Manifest and core-generated `pass`, `blocked`, and `fail` Receipts. It compiles both schemas with Ajv `8.17.1` using `{ allErrors: true, strict: true, strictTypes: false, strictRequired: false }` plus a local RFC 3339 `date-time` format, and rejects unknown fields, uppercase reviewed commits, invalid content-addressed source versions, missing Receipt mode/evidence digests, and unknown check-result fields.
+- Independent security review repeatedly rejected earlier byte pairs. The final pure-AST runtime resolver is scope-aware for emitted runtime values while ignoring erased type/interface/type-only/ambient declarations. It covers direct and bounded `const`/destructuring/for/for-of/switch aliases; transparent TypeScript, optional, await, comma, logical, and conditional forms; `globalThis`/`window`/`self`/`global` roots and nested roots; `Reflect` apply/construct/get surfaces; Worker/SharedWorker; require/module/process/createRequire; eval/Function; and fail-closed dynamic members on recognized roots. Local parameter/import/class/function shadows remain safe negatives.
+- Function-constructor acquisition is shared with checker self-audit and covers bounded static/computed `constructor` keys, string concatenation, function/class carriers, nested object/array containers, nested destructuring, singular/plural descriptors, `Reflect.get`, `call`/`apply`/`bind`, tagged templates, and bounded conditional/logical/for-of propagation. Passive `material.constructor.name` and ordinary local-function container calls remain zero-risk controls.
+- Checker self-audit first binds the exact seven-file checker bundle digest, then applies semantic capability checks. It permits only the exact registered `/usr/bin/git` read-only probe, exact executable/path constants, exact direct `execFile` import/call, fixed argv/options, and no shell. Re-exports, dynamic imports/requires, network/provider/database/deploy modules, executable retargeting, shell escape, constructor acquisition, and unregistered process execution fail closed. Capability-neutral re-binding is explicit; stale bundle digests block.
+- Four deterministic caches (`scopeStatementBindingCache`, `lexicalBindingCache`, `staticPropertyKeyCache`, and `browserCapabilityCache`) are created inside each `analyzeRuntimeLoaderCalls` invocation and keyed only by that fresh TypeScript AST. Static-key/browser caches are bypassed for nonempty alias-provenance sets. They cannot cross source bytes, paths, or analyzer calls. This reduced the real-b6 runtime golden from an invalidated greater-than-five-minute pair to `38.10 s` on the first cold-ish run, `12.90 s` warm, and `9.71 s` in the final full suite. The golden timeout is `180 s`; correctness remains digest/count/zero-baseline based rather than machine-speed based.
+- Verification on 2026-08-25 HKT:
+  - `node --check coordination/integration/promotion-gate-lib.mjs`, `promotion-gate.mjs`, and `promotion-gate.test.mjs` passed.
+  - Both v1 JSON Schema documents parse as JSON.
+  - Wide focused runtime/reachability/checker/bundle tests passed `21/21`.
+  - With `TMPDIR=/Volumes/Starship/.promotion-gate-test-tmp.hVyj3o` and `NODE_PATH=/Volumes/Starship/.promotion-gate-ajv-ci-20260825.7OHYVY/node_modules`, the final local full suite passed `120/120`, `0` failures, in `167663 ms`.
+  - Independent review one passed exact-byte focused security tests `17/17`; its 36 constructor/container cases, two safe controls, 52 Worker/SharedWorker forms, and checker corpus all matched the expected fail-closed classifications. It also verified same-path/different-byte and A-to-B-to-A cache provenance separation.
+  - Independent review two passed exact-byte security/checker tests `17/17`, path/rollback/bundle/Receipt tests `12/12`, and an independent full suite `120/120` in `213078 ms`.
+  - Both independent reviewers returned `FREEZE` on the exact library/test hashes above; neither edited target bytes. `git diff --check` passed.
+  - This isolated baseline branch predates the separate A10 `package.json`/lockfile Ajv slice, so the final composition must rerun normal package resolution and the complete suite after merge. This branch does not claim composition-level dependency installation or CI success.
+- Worker/runtime analysis trust boundary: v1 does not claim arbitrary `Proxy`, arbitrary function-return, mutation, or general `let`/`var` data-flow coverage. Those forms remain outside the proven bounded alias contract and must not be represented as covered.
+- Proven boundary: local core behavior, synthetic/real-shaped fixture contracts, exact-byte independent review, and branch-local test execution only. No Preview, deploy, live mutation, provider/network/database call, canonical real-pilot Receipt, independent real-pilot replay, CI success, branch protection, PR, merge, or production behavior is claimed.
+- Known live boundary: the selected unit is eligible only for Shadow. Eight content/compatibility blockers plus the time-bounded legacy 492-question conflict remain explicit and live-blocking; blocked attempts leave `shadow_ready` unchanged and name the next owner.
+- Closeout state: this follow-up is authorized to exact-stage, commit, and push only the Promotion Gate core library, core test, and this session log. Schemas/CLI remain unchanged from the prior core commit. Real pilot inputs, Receipts, lifecycle artifacts, CI workflow, package files, and application/live surfaces are excluded.
