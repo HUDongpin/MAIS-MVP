@@ -40,3 +40,9 @@
   - `lesson.v2.json`: `e23e6d67378ec9b3e3016616fb7dffda8d78aa6a8bbaa4b523d3dcbcece39913`
 - The A23 v2 manifest will compute and freeze the aggregate semantic candidate
   digest from the three record identities after this source commit exists.
+- Immutable source commit: `faf57280778c4b6543d15ce675638ac480b42864`.
+- Aggregate semantic candidate digest (package ID + version + ordered artifact
+  identity rows): `c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6`.
+- Added a distinct A21 machine evidence record bound to that digest, source
+  commit, runtime baseline `d7ce01d9406d717451b7c43b6d7c48d70fd99ec1`, and checker version
+  `promotion-gate-shadow-v2`.
