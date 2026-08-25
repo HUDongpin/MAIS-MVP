@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.local/schemas/IndependentFrameSampleFreezeReviewReceiptV1.schema.json",
+  "title": "IndependentFrameSampleFreezeReviewReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "artifactKind", "designId", "registrationHash",
+    "reviewResult", "reviewedExecutionReportHash", "reviewedSourceCommit",
+    "reviewedRunnerCommit", "reviewedRunnerHash", "verifierCommit",
+    "verifierHash", "independence", "checkCount", "matchedCheckCount",
+    "mismatchCount", "checks", "recomputedCounts", "recomputedRoots",
+    "ownerSourceScopeConcurred", "visualAssetExclusionConcurred",
+    "publicReceiptContentBlindnessConcurred", "providerExecutionAuthorized",
+    "credentialReadAuthorized", "questionEgressAuthorizedNow",
+    "providerRequestCount", "credentialReadCount", "naturalQuestionEgressCount",
+    "naturalQuestionResultCount", "aggregateConclusionPublicationAllowedNow",
+    "decisionCeiling", "claimCeiling", "reviewedAt", "independentReviewHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "IndependentFrameSampleFreezeReviewReceiptV1" },
+    "artifactKind": { "const": "A11_INDEPENDENT_RECOMPUTATION_NOT_GOLD_LABEL_REVIEW_NOT_PROVIDER_AUTHORIZATION" },
+    "designId": { "const": "MAIS-NATURAL-CA60-V5" },
+    "registrationHash": { "$ref": "#/$defs/sha256" },
+    "reviewResult": { "const": "CONCURRED" },
+    "reviewedExecutionReportHash": { "$ref": "#/$defs/sha256" },
+    "reviewedSourceCommit": { "$ref": "#/$defs/gitOid" },
+    "reviewedRunnerCommit": { "$ref": "#/$defs/gitOid" },
+    "reviewedRunnerHash": { "$ref": "#/$defs/sha256" },
+    "verifierCommit": { "$ref": "#/$defs/gitOid" },
+    "verifierHash": { "$ref": "#/$defs/sha256" },
+    "independence": { "$ref": "#/$defs/independence" },
+    "checkCount": { "const": 108 },
+    "matchedCheckCount": { "const": 108 },
+    "mismatchCount": { "const": 0 },
+    "checks": {
+      "type": "array", "minItems": 108, "maxItems": 108, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["checkId", "status"],
+        "properties": {
+          "checkId": { "type": "string", "minLength": 1 },
+          "status": { "const": "MATCH" }
+        }
+      }
+    },
+    "recomputedCounts": { "$ref": "#/$defs/recomputedCounts" },
+    "recomputedRoots": { "$ref": "#/$defs/recomputedRoots" },
+    "ownerSourceScopeConcurred": { "const": true },
+    "visualAssetExclusionConcurred": { "const": true },
+    "publicReceiptContentBlindnessConcurred": { "const": true },
+    "providerExecutionAuthorized": { "const": false },
+    "credentialReadAuthorized": { "const": false },
+    "questionEgressAuthorizedNow": { "const": false },
+    "providerRequestCount": { "const": 0 },
+    "credentialReadCount": { "const": 0 },
+    "naturalQuestionEgressCount": { "const": 0 },
+    "naturalQuestionResultCount": { "const": 0 },
+    "aggregateConclusionPublicationAllowedNow": { "const": false },
+    "decisionCeiling": { "const": "INCONCLUSIVE_MACHINE_REFERENCE" },
+    "claimCeiling": { "const": "FRAME_AND_SAMPLE_FROZEN_NOT_EXECUTED_INDEPENDENTLY_REVIEWED" },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "independentReviewHash": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "gitOid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "independence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "importedA21FormalBuilder", "importedA21SampleContract",
+        "importedA21StorageImplementation", "importedMainScorerOrDecisionEngine",
+        "recomputedHomologyEdgesAndComponents", "recomputedHamiltonSample",
+        "recomputedC0Selection", "recomputedCustodyAndGitClosure"
+      ],
+      "properties": {
+        "importedA21FormalBuilder": { "const": false },
+        "importedA21SampleContract": { "const": false },
+        "importedA21StorageImplementation": { "const": false },
+        "importedMainScorerOrDecisionEngine": { "const": false },
+        "recomputedHomologyEdgesAndComponents": { "const": true },
+        "recomputedHamiltonSample": { "const": true },
+        "recomputedC0Selection": { "const": true },
+        "recomputedCustodyAndGitClosure": { "const": true }
+      }
+    },
+    "recomputedCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frameRowCount", "eligibleRowCount", "eligibleClusterCount",
+        "sampleClusterCount", "c0SelectedCount", "protectedFileCount"
+      ],
+      "properties": {
+        "frameRowCount": { "const": 2802 },
+        "eligibleRowCount": { "const": 482 },
+        "eligibleClusterCount": { "const": 106 },
+        "sampleClusterCount": { "const": 60 },
+        "c0SelectedCount": { "const": 12 },
+        "protectedFileCount": { "const": 25 }
+      }
+    },
+    "recomputedRoots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "samplingFrameHash", "frameSelectionContentRootHash", "clusterAuditHash",
+        "frameRegistrationHash", "sampleManifestHash",
+        "sampleSelectionContentRootHash", "c0RandomAuditHash",
+        "custodyManifestHash", "formalFreezeReceiptHash"
+      ],
+      "properties": {
+        "samplingFrameHash": { "$ref": "#/$defs/sha256" },
+        "frameSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "clusterAuditHash": { "$ref": "#/$defs/sha256" },
+        "frameRegistrationHash": { "$ref": "#/$defs/sha256" },
+        "sampleManifestHash": { "$ref": "#/$defs/sha256" },
+        "sampleSelectionContentRootHash": { "$ref": "#/$defs/sha256" },
+        "c0RandomAuditHash": { "$ref": "#/$defs/sha256" },
+        "custodyManifestHash": { "$ref": "#/$defs/sha256" },
+        "formalFreezeReceiptHash": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

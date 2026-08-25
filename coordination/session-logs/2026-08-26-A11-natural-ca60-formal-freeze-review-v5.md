@@ -25,7 +25,25 @@ The protected A22 custody root is read-only input. This session has no provider,
 credential, egress, token, attempt, USD, labeling, scoring, deployment, or live
 content authority.
 
-## Status
+## Clean exact-SHA review result
 
-Verifier implementation is pending clean exact-SHA execution. No concurrence
-claim is made until that run completes and its aggregate receipt is sealed.
+- Verifier commit: `e8390bf899cb3da19d1283a1b7ea1c3b510bdcd2`.
+- Verifier hash:
+  `e478e7df9fc3b9bac4d3e9d8fbcd496e5a7d48a9a0f9e7daa160d0d1b315016b`.
+- Reviewed at: `2026-08-25T20:37:03.000Z`.
+- Result: `CONCURRED`.
+- Checks: `108/108 MATCH`; discrepancies: `0`.
+- Independent review receipt hash:
+  `431c06140638d9bd278f99c5bc9c373895ce8c133bc0bdf03e51ae152f6b38f9`.
+
+Recomputed roots matched A22 for the complete sampling frame, selection
+content, cluster audit, frame registration, 60-cluster sample, sample-selection
+content, 12-item C0 audit, custody manifest, and final formal-freeze receipt.
+All provider/credential/egress/result counters remained zero.
+
+## Handoff
+
+The formal California frame/sample freeze is now independently reviewed. This
+does not authorize provider execution and does not constitute human gold-label
+review or machine-QA validation. A18 claim-boundary review and two new,
+hash-bound provider authorizations remain future gates.
