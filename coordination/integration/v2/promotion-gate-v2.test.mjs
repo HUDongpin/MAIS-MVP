@@ -20,6 +20,7 @@ import { parseV2CommandLine } from "./promotion-gate-v2.mjs";
 import {
   PROMOTION_V2_CANDIDATE,
   PROMOTION_V2_CHECKER_BUNDLE_PATHS,
+  PROMOTION_V2_CHECKER_VERSION,
   PROMOTION_V2_REQUIRED_CHECK_IDS,
   attachV2ReceiptDigests,
   buildV2ShadowDtos,
@@ -38,7 +39,7 @@ const execFile = promisify(execFileCallback);
 
 const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../..");
 const pilotRoot = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002";
-const manifestPath = `${pilotRoot}/promotion-manifest.v2.json`;
+const manifestPath = "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-003/promotion-manifest.v2.json";
 
 async function readJson(relativePath) {
   const loaded = await readAuthoritativeFile(repoRoot, relativePath);
@@ -179,7 +180,10 @@ test("shadow adapter explicitly maps safe-card to standards and preserves compat
 });
 
 test("evidence currentness digest excludes time but binds all semantic inputs", async () => {
-  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a18-independent-qa.v2.1.json`);
+  const evidence = {
+    ...await readJson(`${pilotRoot}/inputs/evidence/a18-independent-qa.v2.1.json`),
+    checkerVersion: PROMOTION_V2_CHECKER_VERSION
+  };
   validateV2Evidence(evidence);
   const digest = computeV2EvidenceSemanticDigest(evidence);
   assert.equal(digest, computeV2EvidenceSemanticDigest({ ...evidence, producedAt: "2030-01-01T00:00:00Z" }));
@@ -189,7 +193,10 @@ test("evidence currentness digest excludes time but binds all semantic inputs", 
 });
 
 test("A24 not_applicable requires a substantive machine-readable rationale", async () => {
-  const evidence = await readJson(`${pilotRoot}/inputs/evidence/a24-exact-layer.v2.1.json`);
+  const evidence = {
+    ...await readJson(`${pilotRoot}/inputs/evidence/a24-exact-layer.v2.1.json`),
+    checkerVersion: PROMOTION_V2_CHECKER_VERSION
+  };
   validateV2Evidence(evidence);
   assert.throws(
     () => validateV2Evidence({ ...evidence, semanticPayload: { ...evidence.semanticPayload, rationale: "none" } }),
@@ -374,6 +381,38 @@ test("attempt-001 and its original candidate source bytes remain immutable", asy
   for (const [relativePath, digest] of expected) {
     assert.equal(sha256(await readFile(path.join(repoRoot, relativePath))), digest, relativePath);
   }
+});
+
+test("pure Manifest validation rejects currentness drift before evidence I/O", async () => {
+  const previous = await readJson(`${pilotRoot}/promotion-manifest.v2.json`);
+  const manifest = {
+    ...previous,
+    attemptId: "attempt-003",
+    checkerVersion: PROMOTION_V2_CHECKER_VERSION,
+    checkerRelease: {
+      ...previous.checkerRelease,
+      version: PROMOTION_V2_CHECKER_VERSION
+    },
+    evidenceBindings: previous.evidenceBindings.map((entry) => ({
+      ...entry,
+      currentness: {
+        ...entry.currentness,
+        checkerVersion: PROMOTION_V2_CHECKER_VERSION
+      }
+    }))
+  };
+  validateV2Manifest(manifest);
+  assert.throws(
+    () => validateV2Manifest({
+      ...manifest,
+      evidenceBindings: manifest.evidenceBindings.map((entry, index) =>
+        index === 0
+          ? { ...entry, currentness: { ...entry.currentness, targetBaselineCommit: "0".repeat(40) } }
+          : entry
+      )
+    }),
+    (error) => error instanceof PromotionGateError && error.code === "V2_EVIDENCE_BINDING_MISMATCH"
+  );
 });
 
 test("real manifest is exact and fail-closed when present", async (t) => {

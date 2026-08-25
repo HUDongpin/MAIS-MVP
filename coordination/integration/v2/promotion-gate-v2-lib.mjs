@@ -32,7 +32,7 @@ import {
 
 const execFile = promisify(execFileCallback);
 
-export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.1";
+export const PROMOTION_V2_CHECKER_VERSION = "promotion-gate-shadow-v2.2";
 export const PROMOTION_V2_MANIFEST_SCHEMA = "promotion-manifest.v2";
 export const PROMOTION_V2_RECEIPT_SCHEMA = "promotion-receipt.v2";
 export const PROMOTION_V2_EVIDENCE_SCHEMA = "promotion-evidence.v2";
@@ -510,13 +510,13 @@ export function validateV2Manifest(manifest) {
   if (
     manifest.gateId !== "promotion-shadow-gate-v2" ||
     manifest.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    manifest.attemptId !== "attempt-002" ||
+    manifest.attemptId !== "attempt-003" ||
     manifest.mode !== "shadow" ||
     manifest.checkerVersion !== PROMOTION_V2_CHECKER_VERSION
   ) {
     throw new PromotionGateError(
       "V2_MANIFEST_IDENTITY_INVALID",
-      "Manifest identity must describe the immutable attempt-002 shadow pilot."
+      "Manifest identity must describe the immutable attempt-003 shadow pilot."
     );
   }
   validateCheckerReleaseBinding(manifest.checkerRelease);
@@ -611,7 +611,20 @@ export function validateV2Manifest(manifest) {
   if (!Array.isArray(manifest.evidenceBindings) || manifest.evidenceBindings.length !== 9) {
     throw new PromotionGateError("V2_EVIDENCE_SET_INVALID", "Manifest must bind exactly nine owner evidence records.");
   }
-  manifest.evidenceBindings.forEach(validateEvidenceBinding);
+  manifest.evidenceBindings.forEach((binding, index) => {
+    validateEvidenceBinding(binding, index);
+    if (stableJson(binding.currentness) !== stableJson({
+      candidateDigest: manifest.candidateDigest,
+      sourceCommit: manifest.sourceCommit,
+      targetBaselineCommit: manifest.targetBaselineCommit,
+      checkerVersion: manifest.checkerVersion
+    })) {
+      throw new PromotionGateError(
+        "V2_EVIDENCE_BINDING_MISMATCH",
+        "Manifest evidence currentness differs from the immutable candidate, source, baseline, or checker binding."
+      );
+    }
+  });
   const boundRoles = manifest.evidenceBindings.map(({ role }) => role);
   assertUniqueCanonicalStrings(boundRoles, "evidence roles");
   if (stableJson(boundRoles) !== stableJson(PROMOTION_V2_REQUIRED_OWNER_ROLES)) {
@@ -651,7 +664,7 @@ export function validateV2Manifest(manifest) {
   ) {
     throw new PromotionGateError(
       "V2_STATE_TRANSITION_INVALID",
-      "Attempt-002 must record candidate_hold -> shadow_ready -> shadow_passed without skipping."
+      "Attempt-003 must record candidate_hold -> shadow_ready -> shadow_passed without skipping."
     );
   }
   validateOperationPlan(manifest.operationPlan);
@@ -2340,7 +2353,7 @@ export function validateV2ReceiptStructure(receipt) {
   if (
     receipt.binding.gateId !== "promotion-shadow-gate-v2" ||
     receipt.binding.pilotUnitId !== PROMOTION_V2_CANDIDATE.promotionUnitId ||
-    receipt.binding.attemptId !== "attempt-002" ||
+    receipt.binding.attemptId !== "attempt-003" ||
     receipt.binding.parentPackageId !== PROMOTION_V2_CANDIDATE.parentPackageId ||
     receipt.binding.parentPackageStatus !== "candidate-only" ||
     receipt.binding.checkerVersion !== PROMOTION_V2_CHECKER_VERSION ||
@@ -2863,7 +2876,7 @@ export function renderV2PromotionDecisionMarkdown(receipt) {
   validateV2ReceiptStructure(receipt);
   const transition = receipt.lifecycle.recommendedState;
   const lines = [
-    "# Promotion Gate Shadow Decision — attempt-002",
+    "# Promotion Gate Shadow Decision — attempt-003",
     "",
     "> This file is derived from the machine Receipt. It is not an approval source.",
     "",
