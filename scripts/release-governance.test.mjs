@@ -334,10 +334,10 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   );
   assert.match(
     combinedRuns,
-    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT" --json > "\$PROMOTION_CANONICAL_VERIFICATION_REPORT"/u
+    /npm --silent run promotion:verify-receipt -- --receipt "\$PROMOTION_CANONICAL_RECEIPT_COPY" --json > "\$PROMOTION_CANONICAL_VERIFICATION_REPORT"/u
   );
   assert.match(combinedRuns, /semanticReceiptDigest/u);
-  assert.match(combinedRuns, /\$PROMOTION_CANONICAL_RECEIPT/u);
+  assert.match(combinedRuns, /\$PROMOTION_CANONICAL_RECEIPT_COPY/u);
   const semanticComparison = job.steps.find((step) => /Compare .* semantic receipt digests/iu.test(step.name));
   assert.ok(semanticComparison, "workflow must have a dedicated semantic receipt comparison step");
   assert.doesNotMatch(semanticComparison.run, /raw(?:Receipt)?Digest/iu);
@@ -394,6 +394,318 @@ test("Promotion Shadow CI preserves failed receipts without masking the gate res
   );
 });
 
+test("Promotion Shadow CI replays the canonical execution commit from a fixed detached worktree", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflowSource = await readFile(workflowPath, "utf8");
+  const workflow = parseYaml(workflowSource);
+  const job = workflow.jobs?.["promotion-shadow-gate"];
+  const steps = job?.steps;
+  assert.ok(Array.isArray(steps), "promotion-shadow-gate steps must exist");
+
+  assert.equal(
+    job.env?.PROMOTION_CANONICAL_RECEIPT_ABSOLUTE,
+    "${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json"
+  );
+  assert.equal(
+    job.env?.PROMOTION_EXECUTION_WORKTREE,
+    "${{ runner.temp }}/promotion-shadow-execution"
+  );
+  assert.equal(
+    job.env?.PROMOTION_CANONICAL_RECEIPT_COPY,
+    "${{ runner.temp }}/promotion-canonical-receipt.v1.json"
+  );
+
+  const checkoutSteps = steps.filter((step) => step.uses === "actions/checkout@v4");
+  assert.equal(checkoutSteps.length, 1, "workflow must have exactly one repository checkout");
+  assert.equal(checkoutSteps[0].with?.["fetch-depth"], 0);
+  assert.equal(Object.hasOwn(checkoutSteps[0].with ?? {}, "ref"), false);
+  assert.equal(Object.hasOwn(checkoutSteps[0].with ?? {}, "persist-credentials"), false);
+
+  const stepByName = new Map(steps.map((step) => [step.name, step]));
+  const resolveStep = stepByName.get("Resolve canonical Receipt execution commit");
+  const prepareStep = stepByName.get("Prepare detached canonical execution worktree");
+  const installStep = stepByName.get("Install canonical execution dependencies");
+  assert.ok(resolveStep, "workflow must resolve the canonical Receipt execution commit");
+  assert.ok(prepareStep, "workflow must prepare the detached historical worktree");
+  assert.ok(installStep, "workflow must install the historical commit lockfile");
+  assert.equal(resolveStep.id, "resolve-promotion-execution");
+
+  for (const step of [resolveStep, prepareStep, installStep]) {
+    assert.equal(step.if, "${{ always() }}", `${step.name} must run after a red current-HEAD validation`);
+    assert.equal(Object.hasOwn(step, "continue-on-error"), false, `${step.name} must fail closed`);
+  }
+  assert.equal(
+    prepareStep.env?.PROMOTION_EXECUTION_COMMIT,
+    "${{ steps.resolve-promotion-execution.outputs.execution_commit }}"
+  );
+  assert.equal(installStep["working-directory"], "${{ env.PROMOTION_EXECUTION_WORKTREE }}");
+  assert.equal(installStep.run, "npm ci");
+
+  assert.match(resolveStep.run, /receipt\.manifest\.path !== manifestPath/u);
+  assert.match(resolveStep.run, /\^\[a-f0-9\]\{40\}\$/u);
+  assert.match(resolveStep.run, /execFileSync\("git", \["show", `HEAD:\$\{expectedReceiptPath\}`\]/u);
+  assert.match(resolveStep.run, /openSync\(receiptCopyPath, "wx", 0o600\)/u);
+  assert.match(resolveStep.run, /createHash\("sha256"\)/u);
+  assert.match(resolveStep.run, /copyDigest !== sourceDigest/u);
+  assert.match(prepareStep.run, /git cat-file -e "\$\{PROMOTION_EXECUTION_COMMIT\}\^\{commit\}"/u);
+  assert.match(
+    prepareStep.run,
+    /git merge-base --is-ancestor "\$PROMOTION_EXECUTION_COMMIT" HEAD/u
+  );
+  assert.match(
+    prepareStep.run,
+    /git worktree add --detach "\$PROMOTION_EXECUTION_WORKTREE" "\$PROMOTION_EXECUTION_COMMIT"/u
+  );
+  assert.doesNotMatch(prepareStep.run, /\bgit\s+(?:fetch|pull|clone)\b/u);
+
+  const historicalStepNames = [
+    "Execute real pilot shadow",
+    "Replay real pilot shadow with a distinct run identity",
+    "Verify fresh receipt",
+    "Verify replayed receipt",
+    "Verify canonical receipt"
+  ];
+  for (const stepName of historicalStepNames) {
+    const step = stepByName.get(stepName);
+    assert.ok(step, `Missing historical execution step: ${stepName}`);
+    assert.equal(step.if, "${{ always() }}");
+    assert.equal(step["working-directory"], "${{ env.PROMOTION_EXECUTION_WORKTREE }}");
+    assert.equal(Object.hasOwn(step, "continue-on-error"), false);
+  }
+
+  const canonicalVerifyStep = stepByName.get("Verify canonical receipt");
+  const semanticCompareStep = stepByName.get("Compare fresh, replay, and canonical semantic receipt digests");
+  assert.match(canonicalVerifyStep.run, /--receipt "\$PROMOTION_CANONICAL_RECEIPT_COPY"/u);
+  assert.match(semanticCompareStep.run, /"\$PROMOTION_CANONICAL_RECEIPT_COPY"/u);
+  assert.doesNotMatch(canonicalVerifyStep.run, /--receipt "\$PROMOTION_CANONICAL_RECEIPT"/u);
+  assert.doesNotMatch(canonicalVerifyStep.run, /--receipt "\$PROMOTION_CANONICAL_RECEIPT_ABSOLUTE"/u);
+
+  const currentUnitStep = stepByName.get("Run Promotion Gate unit and security tests");
+  const currentValidationStep = stepByName.get(
+    "Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability"
+  );
+  assert.equal(Object.hasOwn(currentUnitStep, "working-directory"), false);
+  assert.equal(Object.hasOwn(currentValidationStep, "working-directory"), false);
+  assert.ok(steps.indexOf(currentUnitStep) < steps.indexOf(resolveStep));
+  assert.ok(steps.indexOf(currentValidationStep) < steps.indexOf(resolveStep));
+  assert.ok(steps.indexOf(resolveStep) < steps.indexOf(prepareStep));
+  assert.ok(steps.indexOf(prepareStep) < steps.indexOf(installStep));
+  assert.ok(steps.indexOf(installStep) < steps.indexOf(stepByName.get("Execute real pilot shadow")));
+
+  const historicalRuns = [resolveStep.run, prepareStep.run, ...historicalStepNames.map((name) => stepByName.get(name).run)];
+  for (const command of historicalRuns) {
+    assert.doesNotMatch(command, /\b(?:curl|wget|fetch|provider|vercel|preview|deploy|production|promote-live)\b/iu);
+  }
+});
+
+test("Promotion Shadow CI extracts only a committed, exact canonical execution binding", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const resolveStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Resolve canonical Receipt execution commit"
+  );
+  assert.ok(resolveStep, "workflow must have a canonical execution resolver");
+
+  const fixtureRoot = await mkdtemp(path.join(tmpdir(), "mais-promotion-execution-resolver-"));
+  const canonicalReceiptPath = "coordination/integration/pilots/example/shadow-receipt.v1.json";
+  const manifestPath = "coordination/integration/pilots/example/promotion-manifest.v1.json";
+  const absoluteReceiptPath = path.join(fixtureRoot, canonicalReceiptPath);
+  const outputPath = path.join(fixtureRoot, "github-output.txt");
+  const runnerTemp = path.join(fixtureRoot, "runner-temp");
+  const receiptCopyPath = path.join(runnerTemp, "promotion-canonical-receipt.v1.json");
+  const markerPath = path.join(fixtureRoot, "injection-marker");
+  const git = (args) => spawnSync("git", args, { cwd: fixtureRoot, encoding: "utf8" });
+  const requireGit = (args) => {
+    const result = git(args);
+    assert.equal(result.status, 0, combinedOutput(result));
+    return result.stdout.trim();
+  };
+
+  try {
+    requireGit(["init", "-q"]);
+    requireGit(["config", "user.name", "Promotion Test"]);
+    requireGit(["config", "user.email", "promotion-test@example.invalid"]);
+    await mkdir(path.dirname(absoluteReceiptPath), { recursive: true });
+    await mkdir(runnerTemp);
+    await writeFile(path.join(fixtureRoot, manifestPath), "{}\n");
+    requireGit(["add", "--", manifestPath]);
+    requireGit(["commit", "-qm", "execution"]);
+    const executionCommit = requireGit(["rev-parse", "HEAD"]);
+    const baseReceipt = {
+      manifest: { path: manifestPath, rawSha256: "a".repeat(64) },
+      worktreeProof: {
+        executionCommit,
+        preClean: true,
+        postClean: true,
+        preStatusSha256: "b".repeat(64),
+        postStatusSha256: "b".repeat(64),
+        preStatusEntryCount: 0,
+        postStatusEntryCount: 0,
+        trackedInputCount: 1,
+        trackedInputAggregateDigest: "c".repeat(64),
+        attemptHistoryProof: null
+      }
+    };
+    const commitReceipt = async (receipt, message) => {
+      await writeFile(absoluteReceiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
+      requireGit(["add", "--", canonicalReceiptPath]);
+      requireGit(["commit", "-qm", message]);
+    };
+    const runResolver = async ({ resetCopy = true } = {}) => {
+      await writeFile(outputPath, "");
+      if (resetCopy) await rm(receiptCopyPath, { force: true });
+      return spawnSync("bash", ["-c", resolveStep.run], {
+        cwd: fixtureRoot,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          PROMOTION_CANONICAL_RECEIPT: canonicalReceiptPath,
+          PROMOTION_CANONICAL_RECEIPT_ABSOLUTE: absoluteReceiptPath,
+          PROMOTION_CANONICAL_RECEIPT_COPY: receiptCopyPath,
+          PROMOTION_MANIFEST: manifestPath,
+          RUNNER_TEMP: runnerTemp,
+          GITHUB_OUTPUT: outputPath
+        }
+      });
+    };
+
+    await commitReceipt(baseReceipt, "canonical receipt");
+    const valid = await runResolver();
+    assert.equal(valid.status, 0, combinedOutput(valid));
+    assert.equal(await readFile(outputPath, "utf8"), `execution_commit=${executionCommit}\n`);
+    assert.deepEqual(await readFile(receiptCopyPath), await readFile(absoluteReceiptPath));
+    assert.equal((await stat(receiptCopyPath)).mode & 0o777, 0o600);
+
+    const wrongManifest = structuredClone(baseReceipt);
+    wrongManifest.manifest.path = "coordination/integration/pilots/other/promotion-manifest.v1.json";
+    await commitReceipt(wrongManifest, "wrong manifest binding");
+    assert.notEqual((await runResolver()).status, 0);
+
+    const extraManifestKey = structuredClone(baseReceipt);
+    extraManifestKey.manifest.unexpected = true;
+    await commitReceipt(extraManifestKey, "extra manifest key");
+    assert.notEqual((await runResolver()).status, 0);
+
+    const extraWorktreeKey = structuredClone(baseReceipt);
+    extraWorktreeKey.worktreeProof.unexpected = true;
+    await commitReceipt(extraWorktreeKey, "extra worktree key");
+    assert.notEqual((await runResolver()).status, 0);
+
+    const injectedCommit = structuredClone(baseReceipt);
+    injectedCommit.worktreeProof.executionCommit = `${executionCommit};touch ${markerPath}`;
+    await commitReceipt(injectedCommit, "injected execution commit");
+    assert.notEqual((await runResolver()).status, 0);
+    await assert.rejects(stat(markerPath), { code: "ENOENT" });
+
+    await commitReceipt(baseReceipt, "restore exact receipt");
+    await writeFile(receiptCopyPath, "collision sentinel\n", { mode: 0o600 });
+    const collision = await runResolver({ resetCopy: false });
+    assert.notEqual(collision.status, 0, "pre-existing canonical Receipt copy must fail closed");
+    assert.equal(await readFile(receiptCopyPath, "utf8"), "collision sentinel\n");
+
+    const symlinkTarget = path.join(fixtureRoot, "receipt-symlink-target.json");
+    await writeFile(symlinkTarget, await readFile(absoluteReceiptPath));
+    await rm(absoluteReceiptPath);
+    await symlink(symlinkTarget, absoluteReceiptPath);
+    assert.notEqual((await runResolver()).status, 0, "symlinked canonical Receipt source must fail closed");
+    await rm(absoluteReceiptPath);
+    await writeFile(absoluteReceiptPath, `${JSON.stringify(baseReceipt, null, 2)}\n`);
+
+    await writeFile(absoluteReceiptPath, `${JSON.stringify(baseReceipt)}\n `);
+    assert.notEqual(
+      (await runResolver()).status,
+      0,
+      "source/committed canonical Receipt byte mismatch must fail closed"
+    );
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test("Promotion Shadow CI rejects injected, non-ancestor, and colliding historical worktrees", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const prepareStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Prepare detached canonical execution worktree"
+  );
+  assert.ok(prepareStep, "workflow must have a historical worktree preparation step");
+
+  const fixtureBase = await mkdtemp(path.join(tmpdir(), "mais-promotion-historical-worktree-"));
+  const fixtureRepo = path.join(fixtureBase, "repo");
+  const runnerTemp = path.join(fixtureBase, "runner");
+  const executionWorktree = path.join(runnerTemp, "promotion-shadow-execution");
+  const markerPath = path.join(fixtureBase, "injection-marker");
+  await mkdir(fixtureRepo, { recursive: true });
+  await mkdir(runnerTemp, { recursive: true });
+  const git = (args, options = {}) => spawnSync("git", args, {
+    cwd: fixtureRepo,
+    encoding: "utf8",
+    env: { ...process.env, ...options.env }
+  });
+  const requireGit = (args, options) => {
+    const result = git(args, options);
+    assert.equal(result.status, 0, combinedOutput(result));
+    return result.stdout.trim();
+  };
+
+  try {
+    requireGit(["init", "-q"]);
+    requireGit(["config", "user.name", "Promotion Test"]);
+    requireGit(["config", "user.email", "promotion-test@example.invalid"]);
+    await writeFile(path.join(fixtureRepo, "tracked.txt"), "execution\n");
+    requireGit(["add", "--", "tracked.txt"]);
+    requireGit(["commit", "-qm", "execution"]);
+    const executionCommit = requireGit(["rev-parse", "HEAD"]);
+    await writeFile(path.join(fixtureRepo, "tracked.txt"), "current head\n");
+    requireGit(["add", "--", "tracked.txt"]);
+    requireGit(["commit", "-qm", "current"]);
+    const currentHead = requireGit(["rev-parse", "HEAD"]);
+    const tree = requireGit(["rev-parse", "HEAD^{tree}"]);
+    const orphanCommit = requireGit(["commit-tree", tree, "-m", "unrelated"], {
+      env: {
+        GIT_AUTHOR_NAME: "Promotion Test",
+        GIT_AUTHOR_EMAIL: "promotion-test@example.invalid",
+        GIT_COMMITTER_NAME: "Promotion Test",
+        GIT_COMMITTER_EMAIL: "promotion-test@example.invalid"
+      }
+    });
+    const runPrepare = (commit, worktree = executionWorktree) => spawnSync("bash", ["-c", prepareStep.run], {
+      cwd: fixtureRepo,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        RUNNER_TEMP: runnerTemp,
+        PROMOTION_EXECUTION_COMMIT: commit,
+        PROMOTION_EXECUTION_WORKTREE: worktree
+      }
+    });
+
+    const injected = runPrepare(`${executionCommit};touch ${markerPath}`);
+    assert.notEqual(injected.status, 0);
+    await assert.rejects(stat(markerPath), { code: "ENOENT" });
+
+    const wrongTarget = runPrepare(executionCommit, path.join(runnerTemp, "other"));
+    assert.notEqual(wrongTarget.status, 0, "historical worktree target must be the fixed runner-temp path");
+
+    const unrelated = runPrepare(orphanCommit);
+    assert.notEqual(unrelated.status, 0, "existing but non-ancestor execution commit must fail closed");
+
+    await mkdir(executionWorktree);
+    const collision = runPrepare(executionCommit);
+    assert.notEqual(collision.status, 0, "pre-existing worktree target must fail closed");
+    await rm(executionWorktree, { recursive: true, force: true });
+
+    const valid = runPrepare(executionCommit);
+    assert.equal(valid.status, 0, combinedOutput(valid));
+    assert.equal(requireGit(["-C", executionWorktree, "rev-parse", "HEAD"]), executionCommit);
+    assert.equal(requireGit(["-C", executionWorktree, "status", "--porcelain=v1", "--untracked-files=all"]), "");
+    assert.notEqual(git(["-C", executionWorktree, "symbolic-ref", "-q", "HEAD"]).status, 0);
+    assert.equal(requireGit(["rev-parse", "HEAD"]), currentHead);
+  } finally {
+    await rm(fixtureBase, { recursive: true, force: true });
+  }
+});
+
 test("Promotion Shadow receipt verification reports execute fail closed for exact receipt bindings", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
@@ -432,7 +744,7 @@ test("Promotion Shadow receipt verification reports execute fail closed for exac
     ...process.env,
     PROMOTION_FRESH_RECEIPT: receiptPaths.fresh,
     PROMOTION_REPLAY_RECEIPT: receiptPaths.replay,
-    PROMOTION_CANONICAL_RECEIPT: receiptPaths.canonical,
+    PROMOTION_CANONICAL_RECEIPT_COPY: receiptPaths.canonical,
     PROMOTION_FRESH_VERIFICATION_REPORT: reportPaths.fresh,
     PROMOTION_REPLAY_VERIFICATION_REPORT: reportPaths.replay,
     PROMOTION_CANONICAL_VERIFICATION_REPORT: reportPaths.canonical
