@@ -5,10 +5,12 @@ import { mainlandPepJuniorDroppedGraphQuestionIds } from "../data/mainlandPepJun
 import { deriveGraphAnswer, isExpectedAnswerRepresented } from "./questionBankSolvability";
 import {
   buildCoordinateGridLayout,
+  buildDataDisplayLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
   buildTenFrameLayout,
+  dataDisplayValueText,
   normalizeQuestionDiagram,
   numberLinePointValue,
   planeFigureAngleDegrees,
@@ -21,7 +23,7 @@ import {
   validateQuestionDiagram
 } from "./questionFigure";
 import type { FigureTextResolver } from "./questionFigure";
-import type { PlaneFigureQuestionDiagram, Question } from "@/types";
+import type { DataDisplayQuestionDiagram, PlaneFigureQuestionDiagram, Question } from "@/types";
 
 const englishText: FigureTextResolver = (value) => (typeof value === "string" ? value : value.en);
 
@@ -441,4 +443,151 @@ test("generated banks fail closed: no graph question ships without a valid diagr
   const bankGraphQuestions = questions.filter((question) => question.type === "graph");
   const graphWithoutDiagram = bankGraphQuestions.filter((question) => !question.diagram).map((question) => question.id);
   assert.deepEqual(graphWithoutDiagram, []);
+});
+
+const ribbonLinePlot: DataDisplayQuestionDiagram = {
+  kind: "data-display",
+  display: "line-plot",
+  title: { en: "Ribbon Lengths", zh: "絲帶長度", zhHans: "丝带长度" },
+  unit: { en: "inches", zh: "英寸", zhHans: "英寸" },
+  values: [1, 1.25, 1.5, 1.5, 1.75, 2],
+  range: [1, 2],
+  tickInterval: 0.25
+};
+
+test("normalizeQuestionDiagram accepts the three data-display forms and rejects un-drawable ones", () => {
+  const pictureGraph = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "picture-graph",
+    unit: { en: "pet", zh: "隻寵物", zhHans: "只宠物" },
+    scale: 2,
+    categories: [
+      { label: { en: "Dogs", zh: "狗" }, value: 6 },
+      { label: { en: "Cats", zh: "貓", zhHans: "猫" }, value: 4 }
+    ]
+  });
+  assert.equal(pictureGraph?.kind, "data-display");
+  if (pictureGraph?.kind === "data-display") {
+    assert.equal(pictureGraph.categories?.[1].label.zhHans, "猫");
+  }
+
+  const barGraph = normalizeQuestionDiagram({
+    kind: "data-display",
+    display: "bar-graph",
+    categories: [
+      { label: { en: "Apples", zh: "蘋果" }, value: 6 },
+      { label: { en: "Bananas", zh: "香蕉" }, value: 9 }
+    ]
+  });
+  assert.equal(barGraph?.kind, "data-display");
+
+  assert.equal(normalizeQuestionDiagram(ribbonLinePlot)?.kind, "data-display");
+
+  const linePlotFields = { kind: "data-display", display: "line-plot", values: [1, 1.5] };
+  const categoryFields = {
+    kind: "data-display",
+    display: "picture-graph",
+    categories: [{ label: { en: "Dogs", zh: "狗" }, value: 4 }]
+  };
+  assert.equal(normalizeQuestionDiagram({ ...categoryFields, display: "dot-plot" }), undefined);
+  assert.equal(normalizeQuestionDiagram({ ...categoryFields, values: [1, 2] }), undefined);
+  assert.equal(normalizeQuestionDiagram({ ...linePlotFields, categories: categoryFields.categories }), undefined);
+  // 5 pets per symbol cannot draw a 4-pet row.
+  assert.equal(normalizeQuestionDiagram({ ...categoryFields, scale: 5 }), undefined);
+  // 0.3 sits between the drawable quarter-grid ticks.
+  assert.equal(normalizeQuestionDiagram({ ...linePlotFields, values: [1, 1.3] }), undefined);
+  assert.equal(normalizeQuestionDiagram({ ...linePlotFields, values: [1, 3], range: [1, 2] }), undefined);
+});
+
+test("data-display layouts draw exactly the data the spec states", () => {
+  const pictureLayout = buildDataDisplayLayout(
+    {
+      kind: "data-display",
+      display: "picture-graph",
+      unit: { en: "pet", zh: "隻寵物", zhHans: "只宠物" },
+      scale: 1,
+      categories: [
+        { label: { en: "Dogs", zh: "狗" }, value: 6 },
+        { label: { en: "Cats", zh: "貓" }, value: 4 }
+      ]
+    },
+    englishText
+  );
+  assert.deepEqual(pictureLayout.pictureRows.map((row) => row.symbols.length), [6, 4]);
+  assert.deepEqual(pictureLayout.pictureRows.map((row) => row.labelText), ["Dogs", "Cats"]);
+  assert.equal(pictureLayout.legendText, "Each symbol = 1 pet");
+  assert.deepEqual(pictureLayout.issues, []);
+
+  const barLayout = buildDataDisplayLayout(
+    {
+      kind: "data-display",
+      display: "bar-graph",
+      unit: { en: "votes", zh: "票" },
+      categories: [
+        { label: { en: "Apples", zh: "蘋果" }, value: 6 },
+        { label: { en: "Bananas", zh: "香蕉" }, value: 9 }
+      ]
+    },
+    englishText
+  );
+  assert.equal(barLayout.bars.length, 2);
+  const [appleBar, bananaBar] = barLayout.bars;
+  assert.ok(Math.abs(bananaBar.height / appleBar.height - 9 / 6) < 0.000001);
+  const baseline = barLayout.valueTicks.find((tick) => tick.labelText === "0");
+  assert.ok(baseline && Math.abs(appleBar.y + appleBar.height - baseline.y) < 0.000001);
+  assert.deepEqual(barLayout.issues, []);
+
+  const plotLayout = buildDataDisplayLayout(ribbonLinePlot, englishText);
+  assert.equal(plotLayout.marks.length, 6);
+  assert.deepEqual(plotLayout.ticks.map((tick) => tick.labelText), ["1", "1¼", "1½", "1¾", "2"]);
+  const halfTick = plotLayout.ticks[2];
+  const stacked = plotLayout.marks.filter((mark) => Math.abs(mark.x - halfTick.x) < 0.000001);
+  assert.equal(stacked.length, 2);
+  assert.ok(stacked.every((mark) => plotLayout.axis && mark.y < plotLayout.axis.y));
+  assert.deepEqual(plotLayout.issues, []);
+});
+
+test("dataDisplayValueText matches the option notation on the quarter grid", () => {
+  assert.equal(dataDisplayValueText(1.5), "1½");
+  assert.equal(dataDisplayValueText(0.25), "¼");
+  assert.equal(dataDisplayValueText(1.75), "1¾");
+  assert.equal(dataDisplayValueText(2), "2");
+  assert.equal(dataDisplayValueText(1.3), "1.3");
+});
+
+test("data-display alt text states the plotted data bilingually without the answer", () => {
+  const alt = questionDiagramAltText(ribbonLinePlot);
+  assert.equal(alt.en, 'Line plot "Ribbon Lengths" with values 1, 1¼, 1½, 1½, 1¾, 2 inches.');
+  assert.ok(alt.zh.includes("數據點圖"));
+  assert.ok((alt.zhHans ?? "").includes("数据点图"));
+
+  const pictureQuestion = questionById("ccss-textbook-practice-v1-picture-graph-q01");
+  assert.equal(pictureQuestion.diagram?.kind, "data-display");
+  assert.ok(pictureQuestion.diagram);
+  const pictureAlt = questionDiagramAltText(pictureQuestion.diagram);
+  assert.ok(pictureAlt.en.includes("Dogs 6"));
+  assert.ok(pictureAlt.en.includes("Fish 8"));
+  // The total (the stored answer) is for the learner to compute, not to read.
+  assert.ok(!pictureAlt.en.includes("18"));
+});
+
+test("the K-P5 data-display practice questions ship their figures through the live bank", () => {
+  const dataDisplayIds = [
+    "ccss-textbook-practice-v1-picture-graph-q01",
+    "ccss-textbook-practice-v1-picture-graph-q02",
+    "ccss-textbook-practice-v1-bar-graph-q01",
+    "ccss-textbook-practice-v1-bar-graph-q02",
+    "ccss-textbook-practice-v1-measure-line-plot-q01",
+    "ccss-textbook-practice-v1-measure-line-plot-q02",
+    "ccss-textbook-practice-v1-line-plot-operations-q01",
+    "ccss-textbook-practice-v1-line-plot-operations-q02",
+    "ccss-textbook-practice-v1-line-plot-operations-q03"
+  ];
+  for (const id of dataDisplayIds) {
+    const question = questionById(id);
+    assert.equal(question.diagram?.kind, "data-display", `${id} must serve its data display`);
+    const normalized = normalizeQuestionDiagram(question.diagram);
+    assert.ok(normalized, `${id} diagram must conform to the figure spec`);
+    assert.deepEqual(validateQuestionDiagram(normalized), [], `${id} diagram must pass figure QA`);
+  }
 });

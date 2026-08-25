@@ -6,7 +6,16 @@ import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textb
 import { californiaKnowledgePointDisplayTitle } from "./usCaliforniaKnowledgePoints";
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
 import { mapDifficultyToActive } from "@/lib/difficulty";
-import type { CurriculumProfile, Difficulty, DifficultyRecord, GradeId, LocalizedText, QuestionType, Topic } from "@/types";
+import type {
+  CurriculumProfile,
+  Difficulty,
+  DifficultyRecord,
+  GradeId,
+  LocalizedText,
+  QuestionDiagram,
+  QuestionType,
+  Topic
+} from "@/types";
 
 export type CaliforniaK5GradeId = Extract<GradeId, "K" | "P1" | "P2" | "P3" | "P4" | "P5">;
 export type CaliforniaG6G12GradeId = Extract<GradeId, "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6">;
@@ -109,6 +118,13 @@ export type GeneratedCaliforniaCcssTextbookPracticeQuestion = GeneratedCaliforni
   sourcePackageId: string;
   sourceLessonSlug: string;
   sourceLessonTitle: string;
+  /**
+   * Student-visible figure for the data-literacy lessons (picture graph, bar
+   * graph, line plots). The independent K-P5 gate derives its expected
+   * answers from this payload, so it ships inside the pack rather than the
+   * practice-figure spec table.
+   */
+  diagram?: QuestionDiagram;
 };
 
 export type GeneratedCaliforniaQuestion =

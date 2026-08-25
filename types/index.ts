@@ -1775,12 +1775,47 @@ export type TenFrameQuestionDiagram = {
   frames?: number;
 };
 
+/**
+ * One labelled category of a picture graph or bar graph. `value` is the
+ * category's data value in data units (not symbol count — see `scale`).
+ */
+export type DataDisplayCategory = {
+  label: LocalizedText;
+  value: number;
+};
+
+/**
+ * Student-visible data displays for the CCSS data-literacy standards
+ * (1.MD.C.4 picture graphs, 2.MD.D.10 bar graphs, 3.MD.B.4 / 5.MD.B.2 line
+ * plots). `categories` drives picture and bar graphs; `values` drives line
+ * plots, one entry per recorded measurement, repeats included. The
+ * independent K-P5 review gate derives expected answers from exactly these
+ * fields, so a data-display question must be solvable from what the figure
+ * shows and nothing else.
+ */
+export type DataDisplayQuestionDiagram = {
+  kind: "data-display";
+  display: "picture-graph" | "bar-graph" | "line-plot";
+  title?: LocalizedText;
+  /** Data unit named by the axis/legend (e.g. "votes", "inches", "cups"). */
+  unit?: LocalizedText;
+  /** Picture graph only: how many data units one symbol stands for (default 1). */
+  scale?: number;
+  categories?: DataDisplayCategory[];
+  values?: number[];
+  /** Line plot only: axis bounds; derived from `values` when omitted. */
+  range?: [number, number];
+  /** Line plot only: tick spacing; derived from `values` when omitted. */
+  tickInterval?: number;
+};
+
 export type QuestionDiagram =
   | CoordinateGridQuestionDiagram
   | PlaneFigureQuestionDiagram
   | NumberLineQuestionDiagram
   | SolidFigureQuestionDiagram
-  | TenFrameQuestionDiagram;
+  | TenFrameQuestionDiagram
+  | DataDisplayQuestionDiagram;
 
 export type QuestionAsset = {
   kind: "image";
