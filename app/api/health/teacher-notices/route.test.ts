@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import path from "node:path";
 import test from "node:test";
 
 import type { TeacherNoticeOperationalSnapshot } from
@@ -21,8 +22,9 @@ test("teacher-notice health route exposes only a dynamic Node GET endpoint", asy
 });
 
 test("teacher-notice health route authenticates only with its dedicated health-check secret", async () => {
-  const source = await readFile(new URL("./route.ts", import.meta.url), "utf8");
-  const handlerSource = await readFile(new URL("./handler.ts", import.meta.url), "utf8");
+  const routeRoot = path.join(process.cwd(), "app", "api", "health", "teacher-notices");
+  const source = await readFile(path.join(routeRoot, "route.ts"), "utf8");
+  const handlerSource = await readFile(path.join(routeRoot, "handler.ts"), "utf8");
 
   assert.match(source, /process\.env\.TEACHER_NOTICE_HEALTH_SECRET/u);
   assert.match(source, /readCronSecret:\s*\(\)\s*=>\s*process\.env\.CRON_SECRET/u);
