@@ -26,6 +26,7 @@ import {
   fetchVercelApiJson,
   readVercelToken
 } from "./vercel-provider-evidence.mjs";
+import { MAIS_GITHUB_REPOSITORY } from "./github-candidate-checks.mjs";
 
 const webhookStates = new Set(["empty", "upgradeable", "exact", "partial"]);
 const heartbeatStates = new Set(["empty", "v1", "exact", "partial"]);
@@ -37,6 +38,7 @@ const databaseOidPattern = /^(?:[1-9][0-9]{0,19})$/u;
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const maxGitOutputBytes = 1024 * 1024;
 const maxVercelEnvironmentBytes = 4 * 1024 * 1024;
+const productionSchemaEnvironmentSource = "vercel-api-pull-v1";
 
 export function buildTeacherNoticeProductionSchemaPlan({
   heartbeatState,
@@ -274,25 +276,6 @@ async function assertLocalCandidateBinding({
   }
 }
 
-function normalizeEnvironmentTargets(record) {
-  const value = record?.target ?? record?.targets;
-  if (Array.isArray(value)) return value.filter((entry) => typeof entry === "string");
-  if (typeof value === "string") return [value];
-  if (value && typeof value === "object") {
-    return Object.entries(value)
-      .filter(([, enabled]) => enabled === true)
-      .map(([target]) => target);
-  }
-  return [];
-}
-
-function extractEnvironmentRecords(payload) {
-  if (Array.isArray(payload)) return payload;
-  if (Array.isArray(payload?.envs)) return payload.envs;
-  if (Array.isArray(payload?.environmentVariables)) return payload.environmentVariables;
-  return [];
-}
-
 function validateProductionPostgresUrl(value) {
   if (
     typeof value !== "string" ||
@@ -333,12 +316,39 @@ function validateProductionPostgresUrl(value) {
   };
 }
 
+function assertProductionProviderPullBinding({
+  candidateSha,
+  env
+}) {
+  const expectedWorkflow =
+    `${MAIS_GITHUB_REPOSITORY}/.github/workflows/production-deploy.yml@refs/heads/main`;
+  const runId = String(env?.GITHUB_RUN_ID ?? "");
+  const runAttempt = String(env?.GITHUB_RUN_ATTEMPT ?? "");
+  if (
+    env?.CI !== "true" ||
+    env?.GITHUB_ACTIONS !== "true" ||
+    env?.GITHUB_EVENT_NAME !== "workflow_dispatch" ||
+    env?.GITHUB_REF !== "refs/heads/main" ||
+    env?.GITHUB_REF_PROTECTED !== "true" ||
+    env?.GITHUB_REPOSITORY !== MAIS_GITHUB_REPOSITORY ||
+    String(env?.GITHUB_SHA ?? "").trim().toLowerCase() !== candidateSha ||
+    env?.GITHUB_WORKFLOW_REF !== expectedWorkflow ||
+    env?.MAIS_PRODUCTION_SCHEMA_ENV_SOURCE !== productionSchemaEnvironmentSource ||
+    !/^[1-9][0-9]{0,19}$/u.test(runId) ||
+    !/^[1-9][0-9]{0,5}$/u.test(runAttempt)
+  ) {
+    throw new Error("Teacher notice production provider-pull context was rejected.");
+  }
+}
+
 async function withProductionPostgresSecret({
+  candidateSha,
   env,
   fetchImpl,
   fetchJsonImpl,
   readTokenImpl
 }, operation) {
+  assertProductionProviderPullBinding({ candidateSha, env });
   const token = await readTokenImpl({ env });
   const projectUrl = new URL(
     `https://api.vercel.com/v9/projects/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}`
@@ -357,26 +367,42 @@ async function withProductionPostgresSecret({
     throw new Error("Teacher notice production Vercel identity was rejected.");
   }
   const environmentUrl = new URL(
-    `https://api.vercel.com/v10/projects/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}/env`
+    `https://api.vercel.com/v3/env/pull/${encodeURIComponent(APPROVED_VERCEL_PROJECT_ID)}/production`
   );
-  environmentUrl.searchParams.set("decrypt", "true");
-  environmentUrl.searchParams.set("source", "vercel-cli:pull");
+  environmentUrl.searchParams.set("source", "vercel-cli:env:run");
   environmentUrl.searchParams.set("teamId", APPROVED_VERCEL_TEAM_ID);
-  const payload = await fetchJsonImpl(environmentUrl.href, token, {
+  let payload = await fetchJsonImpl(environmentUrl.href, token, {
     fetchImpl,
     maxBytes: maxVercelEnvironmentBytes,
     timeoutMs: 30_000
   });
-  const matches = extractEnvironmentRecords(payload).filter((record) =>
-    record?.key === "POSTGRES_URL" &&
-    record?.type === "encrypted" &&
-    normalizeEnvironmentTargets(record).includes("production") &&
-    (record.gitBranch === undefined || record.gitBranch === null)
-  );
-  if (matches.length !== 1) {
+  let runtimeEnvironment = payload?.env;
+  let buildEnvironment = payload?.buildEnv;
+  if (
+    !runtimeEnvironment ||
+    typeof runtimeEnvironment !== "object" ||
+    Array.isArray(runtimeEnvironment) ||
+    !buildEnvironment ||
+    typeof buildEnvironment !== "object" ||
+    Array.isArray(buildEnvironment)
+  ) {
     throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
   }
-  let secret = validateProductionPostgresUrl(matches[0]?.value).raw;
+  let runtimeSecret = validateProductionPostgresUrl(
+    runtimeEnvironment.POSTGRES_URL
+  ).raw;
+  let buildSecret = validateProductionPostgresUrl(
+    buildEnvironment.POSTGRES_URL
+  ).raw;
+  if (!constantTimeStringEqual(runtimeSecret, buildSecret)) {
+    throw new Error("Teacher notice production POSTGRES_URL binding was rejected.");
+  }
+  let secret = runtimeSecret;
+  payload = null;
+  runtimeEnvironment = null;
+  buildEnvironment = null;
+  runtimeSecret = null;
+  buildSecret = null;
   try {
     return await operation(secret);
   } finally {

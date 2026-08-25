@@ -84,6 +84,22 @@ test("production child environments grant only purpose-specific credentials", ()
     schemaEnv.MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM,
     fixture.MAIS_TEACHER_NOTICE_PRODUCTION_SCHEMA_CONFIRM
   );
+  assert.equal(schemaEnv.MAIS_PRODUCTION_SCHEMA_ENV_SOURCE, "vercel-api-pull-v1");
+  for (const key of [
+    "CI",
+    "GITHUB_ACTIONS",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_REF",
+    "GITHUB_REF_PROTECTED",
+    "GITHUB_REPOSITORY",
+    "GITHUB_RUN_ATTEMPT",
+    "GITHUB_RUN_ID",
+    "GITHUB_SHA",
+    "GITHUB_WORKFLOW_REF",
+    "MAIS_PRODUCTION_DEPLOY_EXECUTION_CONTEXT"
+  ]) {
+    assert.equal(schemaEnv[key], fixture[key], key);
+  }
   assert.equal(schemaEnv.GITHUB_TOKEN, undefined);
 
   const smokeEnv = buildProductionChildEnvironment("smoke", fixture);
@@ -546,6 +562,13 @@ test("production deploy proves one clean candidate, smokes before promotion, the
     source,
     /\["scripts\/release-env-guard\.mjs", "production-workflow-staged-publish"\]/u
   );
+  const schemaRunner = source.slice(
+    source.indexOf("async function runTeacherNoticeProductionSchemaGate"),
+    source.indexOf("export function assertProductionDeploymentExecutionContext")
+  );
+  assert.match(schemaRunner, /runCommand\(\s*process\.execPath/u);
+  assert.doesNotMatch(schemaRunner, /node_modules["'],\s*["']\.bin/u);
+  assert.doesNotMatch(schemaRunner, /["']--vercel-env-run["']/u);
   assert.doesNotMatch(
     source,
     /\["scripts\/release-env-guard\.mjs", "staged-publish"\]/u

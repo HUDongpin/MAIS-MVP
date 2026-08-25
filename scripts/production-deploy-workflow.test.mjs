@@ -8,6 +8,8 @@ const workflowUrl = new URL(
   "../.github/workflows/production-deploy.yml",
   import.meta.url
 );
+const packageUrl = new URL("../package.json", import.meta.url);
+const packageLockUrl = new URL("../package-lock.json", import.meta.url);
 
 async function readWorkflow() {
   const text = await readFile(workflowUrl, "utf8");
@@ -100,6 +102,7 @@ test("schema preflight emits only the schema gate safe JSON evidence and confirm
 
   assert.ok(job["timeout-minutes"] >= 20);
   assert.deepEqual(gate.env, {
+    MAIS_PRODUCTION_SCHEMA_ENV_SOURCE: "vercel-api-pull-v1",
     VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
   });
   assert.match(
@@ -108,6 +111,19 @@ test("schema preflight emits only the schema gate safe JSON evidence and confirm
   );
   assert.equal(job.outputs, undefined);
   assert.equal(job.steps.at(-1), gate, "No later step may decorate or leak schema evidence.");
+});
+
+test("production schema execution does not vendor the Vercel CLI dependency", async () => {
+  const [packageText, lockText] = await Promise.all([
+    readFile(packageUrl, "utf8"),
+    readFile(packageLockUrl, "utf8")
+  ]);
+  const packageJson = JSON.parse(packageText);
+  const packageLock = JSON.parse(lockText);
+
+  assert.equal(packageJson.devDependencies?.vercel, undefined);
+  assert.equal(packageLock.packages?.["node_modules/vercel"], undefined);
+  assert.equal(packageLock.packages?.[""]?.devDependencies?.vercel, undefined);
 });
 
 test("deploy requires the exact confirmation and invokes the serialized production wrapper", async () => {
