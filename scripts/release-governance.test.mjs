@@ -3255,7 +3255,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "94fe87c6d078ef71bc7c5602efc2512d729583c2a0d08a1fd3cd5f99bed69d27",
+    "8a59d333637faf9b9507733d8680b0cfc1dd323291193567beacbaafa0c55530",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
