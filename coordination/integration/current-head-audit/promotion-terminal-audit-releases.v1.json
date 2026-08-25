@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "promotion-terminal-audit-releases.v1",
+  "entries": [
+    {
+      "version": "promotion-terminal-current-head-audit-v1",
+      "bundleAlgorithm": "sha256-stable-json-path-raw-v1",
+      "auditBundlePaths": [
+        "coordination/integration/current-head-audit/promotion-terminal-audit-lib.mjs",
+        "coordination/integration/current-head-audit/promotion-terminal-audit.mjs",
+        "coordination/integration/current-head-audit/schemas/promotion-terminal-current-head-audit.v1.schema.json",
+        "coordination/integration/current-head-audit/schemas/promotion-terminal-current-head-audit-policy.v1.schema.json",
+        "coordination/integration/current-head-audit/promotion-terminal-audit.test.mjs"
+      ],
+      "auditBundleFiles": [
+        {
+          "path": "coordination/integration/current-head-audit/promotion-terminal-audit-lib.mjs",
+          "rawSha256": "54bda14216219ea336be1a2ae4eed9883e5a05d210af94e139049ac9c39b4609"
+        },
+        {
+          "path": "coordination/integration/current-head-audit/promotion-terminal-audit.mjs",
+          "rawSha256": "1a359133068ad8bd885ababde5f7afbe8373363cb01425f09f8a3208375e928a"
+        },
+        {
+          "path": "coordination/integration/current-head-audit/schemas/promotion-terminal-current-head-audit.v1.schema.json",
+          "rawSha256": "37d673f09fd8219b7cb74fa9304feebab12f14f13ffcb3f3fd58489692f37e51"
+        },
+        {
+          "path": "coordination/integration/current-head-audit/schemas/promotion-terminal-current-head-audit-policy.v1.schema.json",
+          "rawSha256": "34ce9ecaabc4f2ef144ceda071546c6197bb5115dcb197ad9296bd80694fbf13"
+        },
+        {
+          "path": "coordination/integration/current-head-audit/promotion-terminal-audit.test.mjs",
+          "rawSha256": "dd170430169bc06303316fbf38418dc8dec1b41794e003e0e2a11f1ae3a103db"
+        }
+      ],
+      "auditBundleDigest": "2562953e2a72bd17f7bd2825c8d7778f7c36801e07a262fe2483545b30a26f47",
+      "frozenCoreBundlePaths": [
+        "coordination/integration/promotion-gate-lib.mjs",
+        "coordination/integration/promotion-gate.mjs",
+        "coordination/integration/schemas/promotion-manifest.v1.schema.json",
+        "coordination/integration/schemas/promotion-receipt.v1.schema.json",
+        "coordination/integration/promotion-gate.test.mjs",
+        "package.json",
+        "package-lock.json"
+      ],
+      "frozenCoreBundleFiles": [
+        {
+          "path": "coordination/integration/promotion-gate-lib.mjs",
+          "rawSha256": "f968d45359bdd74819ef1dff0a461e441e53f52dfa7854173b7bfe7292c16f2b"
+        },
+        {
+          "path": "coordination/integration/promotion-gate.mjs",
+          "rawSha256": "1b2cae8c547bd708c670db8043d41df2f9d80550a993490fba8735095b841f80"
+        },
+        {
+          "path": "coordination/integration/schemas/promotion-manifest.v1.schema.json",
+          "rawSha256": "dadb3200073721c97ce83a8d3c5d65b2ad68195593db0a565ae6370e2429da2a"
+        },
+        {
+          "path": "coordination/integration/schemas/promotion-receipt.v1.schema.json",
+          "rawSha256": "6ca67060b9af2f1e069cdd554794a290227d8125ee8ddd5915cc8ff788a2cfbd"
+        },
+        {
+          "path": "coordination/integration/promotion-gate.test.mjs",
+          "rawSha256": "6b68f6e219acc13ff2a5599f2f871d9d63d978fb8b3b2191ebd56d656c86888d"
+        },
+        {
+          "path": "package.json",
+          "rawSha256": "38b73b183d06aa87670533a396386b469144c7799b70234cc9b2b0940138a46f"
+        },
+        {
+          "path": "package-lock.json",
+          "rawSha256": "d2ce8b4862d6cb0789ed5075f450dac6c342ff7dc493f592bd6d824729daf18b"
+        }
+      ],
+      "frozenCoreBundleDigest": "517f670a46ce82be60b11ee1b179f63e274517ca5f431d95be58805fa96ededf"
+    }
+  ]
+}
