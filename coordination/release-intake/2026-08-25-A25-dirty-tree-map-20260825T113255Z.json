@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-08-25T11:32:55.959Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "20260825 content-train release preflight",
+  "statusSignature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T113255Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-08-25-A25-dirty-tree-map-20260825T113255Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 0,
+    "expandedStatusEntries": 0,
+    "trackedModified": 0,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 0,
+    "untrackedFiles": 0,
+    "unmappedEntries": 0,
+    "unblockedUnmappedEntries": 0,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 0,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {},
+  "sliceBuckets": {},
+  "releaseHygieneEntries": [],
+  "unmappedEntries": [],
+  "unblockedUnmappedEntries": [],
+  "ambiguousOwnerEntries": [],
+  "entries": []
+}
