@@ -263,7 +263,7 @@ function CompareEquation({ a, b }) {
       <span style={NUM_STYLE('#c81e4f')}>{a}</span>
       <span style={SYM_STYLE}>{relSym(a, b)}</span>
       <span style={NUM_STYLE('#3f74a6')}>{b}</span>
-      <span style={{ ...CHIP_BASE, color: '#2e8b6f', background: 'rgba(46,139,111,0.1)' }}>
+      <span style={{ ...CHIP_BASE, color: '#176248', background: '#e9f3ee' }}>
         {b} {relSym(b, a)} {a}
       </span>
     </span>
@@ -321,8 +321,8 @@ export default function ComparingLab() {
     const INK = '#1C2B3A';
     const INK_SOFT = '#5B6B7B';
     const CARMINE = '#C81E4F';
-    const BLUE = '#3F74A6';
-    const GREEN = '#2E8B6F';
+    const BLUE = '#2B5D8E';
+    const GREEN = '#1F6B55';
     const OK = '#1F8A5B';
 
     const S = sceneRef.current;
@@ -378,7 +378,11 @@ export default function ComparingLab() {
       g.fill();
       // fill proportional to value
       const w = (val / scale) * barMaxW;
-      g.fillStyle = color;
+      // A darker solid fill keeps the proportional magnitude readable against
+      // the shared track without surrounding it with an edge that isolates the
+      // fill from its comparison background.
+      const barColor = color === CARMINE ? '#a91543' : '#2b5d8e';
+      g.fillStyle = barColor;
       rr(originX, y, Math.max(2, w), barH, 6);
       g.fill();
       // letter chip at the left
@@ -1020,7 +1024,8 @@ export default function ComparingLab() {
           bottom: 9px;
           font-size: 11px;
           color: var(--ink-soft);
-          background: rgba(251, 251, 248, 0.78);
+          background: #fbfbf8;
+          border: 1px solid rgba(28, 43, 58, 0.16);
           padding: 3px 7px;
           border-radius: 5px;
           pointer-events: none;
@@ -1085,8 +1090,15 @@ export default function ComparingLab() {
           color: #fff;
         }
         .btn:disabled {
-          opacity: 0.4;
+          background: #596979;
+          border-color: #596979;
+          color: #fff;
           cursor: not-allowed;
+        }
+        .btn.ghost:disabled {
+          background: #f0f2f3;
+          border-color: #83909d;
+          color: #596979;
         }
         .btn:not(:disabled):hover {
           filter: brightness(1.08);
@@ -1177,7 +1189,9 @@ export default function ComparingLab() {
           color: var(--ink-soft);
         }
         .choice.dim {
-          opacity: 0.55;
+          border-color: #83909d;
+          background: #f0f2f3;
+          color: #596979;
         }
         .choice:disabled {
           cursor: default;
@@ -1286,14 +1300,14 @@ export default function ComparingLab() {
    ------------------------------------------------------------------------- */
 function DigitDials({ which, label, color, value, digits, unlocked, unlockMsg, roleMsg, onDigit }) {
   return (
-    <div style={{ opacity: unlocked ? 1 : 0.5 }}>
+    <div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '6px' }}>
         <span
           style={{
             fontFamily: '"Iowan Old Style", Palatino, Georgia, serif',
             fontWeight: 700,
             fontSize: '18px',
-            color,
+            color: unlocked ? color : '#596979',
           }}
         >
           {label}

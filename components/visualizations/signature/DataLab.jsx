@@ -279,9 +279,9 @@ const STEPS = [
   {
     title: 'Meet data — build a dot plot',
     body:
-      'A data set is just a collection of numbers. Click the number line to drop a dot for each ' +
-      'value; click a dot to remove it, or drag it to a new value. Dots stack up where a value ' +
-      'repeats. The stacks make a picture of the data — its shape: where it clusters, where it ' +
+      'A data set is just a collection of numbers. Add, remove, or move dots with the point editor; ' +
+      'the number line also supports clicking and dragging. Dots stack up where a value repeats. ' +
+      'The stacks make a picture of the data — its shape: where it clusters, where it ' +
       'spreads, whether it leans one way.',
     q: 'On a dot plot, what does a TALL stack of dots mean?',
     choices: ['That value happened many times', 'That value is very large', 'There is one big number there'],
@@ -358,8 +358,9 @@ const STEPS = [
     title: 'Spread, and the outlier trap',
     body:
       'The RANGE measures spread: range = max − min, the width of the bracket under the line. Now ' +
-      'test the centers: drag one dot far to the right to make an OUTLIER. Watch the carmine fulcrum ' +
-      '(mean) slide toward it — the mean chases extreme values. The blue median barely moves. Try it.',
+      'test the centers: move one dot far to the right with the editor or by dragging it to make an ' +
+      'OUTLIER. Watch the carmine fulcrum follow while the blue median barely moves and the gold mode ' +
+      'does not move at all.',
     q: 'You add one huge outlier to a data set. Which center is pulled the most?',
     choices: ['The mean — it is the balance point, so distance drags it', 'The median — the middle jumps to the outlier', 'The mode — the tallest stack moves'],
     answer: 0,
@@ -389,6 +390,7 @@ export default function DataLab() {
   const [target, setTarget] = useState(null); // target mean during calibration
   const [levelOn, setLevelOn] = useState(false); // fair-share leveling animation
   const [lensOn, setLensOn] = useState({ mode: false, median: false, mean: false, range: false });
+  const [editValue, setEditValue] = useState(5);
 
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
@@ -744,7 +746,7 @@ export default function DataLab() {
       ctx.font = '600 13px system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Click the number line to add data points', (padL + Wd - padR) / 2, (plotTop + baseY) / 2);
+      ctx.fillText('Add data with the controls below', (padL + Wd - padR) / 2, (plotTop + baseY) / 2);
     }
 
     /* ====================== FAIR-SHARE TOWERS (bottom) ==================== */
@@ -1001,6 +1003,37 @@ export default function DataLab() {
   };
   const clearData = () => applyPreset([]);
 
+  /* A real keyboard equivalent for the canvas gestures: select a value, then
+     add, remove, or nudge one dot without needing a pointer. */
+  const editData = (updater) => {
+    if (levelOn) setLevelOn(false);
+    levelTRef.current = 0;
+    setData(updater);
+  };
+  const addEditedPoint = () => {
+    editData((arr) =>
+      arr.length < MAX_POINTS && countOf(arr, editValue) < MAX_STACK ? [...arr, editValue] : arr
+    );
+  };
+  const removeEditedPoint = () => {
+    editData((arr) => {
+      const i = arr.indexOf(editValue);
+      return i < 0 ? arr : arr.filter((_, k) => k !== i);
+    });
+  };
+  const moveEditedPoint = (delta) => {
+    const nextValue = clampVal(editValue + delta);
+    if (nextValue === editValue) return;
+    editData((arr) => {
+      const i = arr.indexOf(editValue);
+      if (i < 0 || countOf(arr, nextValue) >= MAX_STACK) return arr;
+      const next = arr.slice();
+      next[i] = nextValue;
+      return next;
+    });
+    setEditValue(nextValue);
+  };
+
   const resetData = () => {
     if (levelOn) setLevelOn(false);
     levelTRef.current = 0;
@@ -1027,7 +1060,7 @@ export default function DataLab() {
   /* spoken description (accessibility) */
   const spoken =
     n === 0
-      ? 'The data set is empty. Click the number line to add points.'
+      ? 'The data set is empty. Use the point editor below to add points.'
       : `A data set of ${n} value${n === 1 ? '' : 's'}. ` +
         `The mean is ${meanFmt.approx ? 'about ' : ''}${meanFmt.text}. ` +
         (eff.median ? `The median is ${medianFmt.text}. ` : '') +
@@ -1095,7 +1128,7 @@ export default function DataLab() {
             aria-label={spoken}
           >
             <canvas ref={canvasRef} />
-            <span className="hint mono">click to add · click a dot to remove · drag to move</span>
+            <span className="hint mono">click or drag dots · keyboard controls below</span>
           </div>
           <p className="sr-only" aria-live="polite">
             {spoken}
@@ -1121,6 +1154,51 @@ export default function DataLab() {
               <span className="fact-k">Range</span>
               <span className="fact-v mono">{rangeStr}</span>
             </div>
+          </div>
+
+          <div className="point-editor" role="group" aria-label="Keyboard point editor" data-viz-keyboard-equivalent="point-editor">
+            <label>
+              Point value
+              <select value={editValue} onChange={(e) => setEditValue(Number(e.target.value))}>
+                {Array.from({ length: VMAX - VMIN + 1 }, (_, i) => VMIN + i).map((v) => (
+                  <option key={v} value={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={addEditedPoint}
+              disabled={n >= MAX_POINTS || countOf(data, editValue) >= MAX_STACK}
+            >
+              Add point
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={removeEditedPoint}
+              disabled={!data.includes(editValue)}
+            >
+              Remove one
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => moveEditedPoint(-1)}
+              disabled={editValue <= VMIN || !data.includes(editValue) || countOf(data, editValue - 1) >= MAX_STACK}
+              aria-label={`Move one point at ${editValue} one step left`}
+            >
+              Move −
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => moveEditedPoint(1)}
+              disabled={editValue >= VMAX || !data.includes(editValue) || countOf(data, editValue + 1) >= MAX_STACK}
+              aria-label={`Move one point at ${editValue} one step right`}
+            >
+              Move +
+            </button>
           </div>
 
           <div className="toolbar">
@@ -1476,6 +1554,41 @@ export default function DataLab() {
           display: flex;
           gap: 8px;
           flex-wrap: wrap;
+        }
+        .point-editor {
+          margin: 12px 4px 2px;
+          padding: 8px;
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          align-items: end;
+          border: 1px dashed rgba(28, 43, 58, 0.22);
+          border-radius: 9px;
+          background: rgba(251, 251, 248, 0.72);
+        }
+        .point-editor label {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 3px;
+          color: var(--ink-soft);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+        .point-editor select {
+          min-width: 76px;
+          min-height: 44px;
+          padding: 5px 28px 5px 8px;
+          border: 1px solid rgba(28, 43, 58, 0.28);
+          border-radius: 8px;
+          background: #fff;
+          color: var(--ink);
+          font: 700 13px/1 var(--mono);
+        }
+        .point-editor .btn {
+          min-width: 44px;
+          min-height: 44px;
         }
         .btn {
           font: 600 13px/1 system-ui, sans-serif;

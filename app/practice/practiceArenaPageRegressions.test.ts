@@ -83,6 +83,198 @@ test("Practice Arena omits the Mission Setup controls block", () => {
   assert.doesNotMatch(practicePageSource, /Mission Setup/);
 });
 
+test("Practice Arena owns the chooser mode and returns from Unit Exercise through its mission summary", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.ok(summaryStart >= 0, "The shared mission summary component must be present.");
+  assert.match(practicePageSource, /useState<PracticeAdventureArenaMode>\("chooser"\)/);
+  assert.match(practicePageSource, /mode=\{practiceArenaMode\}/);
+  assert.match(practicePageSource, /onModeChange=\{handlePracticeArenaModeChange\}/);
+  assert.match(summarySource, /data-unit-exercise-mission-summary/);
+  assert.match(summarySource, /data-choose-practice-mode/);
+  assert.match(summarySource, /data-unit-exercise-mode-label/);
+  assert.match(summarySource, /en: "Choose mode", zh: "選擇模式", zhHans: "选择模式"/);
+  assert.match(summarySource, /en: "Unit Exercise", zh: "單元練習", zhHans: "单元练习"/);
+  assert.match(summarySource, /min-h-11/, "Choose mode must retain a 44px touch target.");
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "unit" \? \(\s*<PracticeMissionSummary[\s\S]*?showUnitModeContext[\s\S]*?onChooseMode=\{\(\) => handlePracticeArenaModeChange\("chooser"\)\}/,
+    "Unit mode must render the integrated card and return to the chooser through real state."
+  );
+});
+
+test("Unit Exercise keeps the candidate's roomy large-desktop mission composition", () => {
+  const summaryStart = practicePageSource.indexOf("function PracticeMissionSummary");
+  const summaryEnd = practicePageSource.indexOf("type QuestionPagerProps", summaryStart);
+  const summarySource = practicePageSource.slice(summaryStart, summaryEnd);
+
+  assert.match(practicePageSource, /max-w-\[1650px\]/);
+  assert.match(practicePageSource, /2xl:py-8/);
+  assert.match(summarySource, /2xl:p-7/);
+  assert.match(summarySource, /2xl:min-h-\[52px\]/);
+  assert.match(summarySource, /2xl:min-w-\[198px\]/);
+  assert.match(summarySource, /2xl:size-\[72px\]/);
+  assert.match(summarySource, /2xl:text-2xl/);
+  assert.match(practicePageSource, /2xl:min-h-\[393px\]/);
+  assert.match(practicePageSource, /roomyOnLargeScreens/);
+  assert.match(practiceQuestPagerSource, /2xl:min-w-\[210px\]/);
+  assert.match(practiceQuestPagerSource, /2xl:size-14/);
+});
+
+test("hidden practice rounds stop reacting while the learner chooses a mode", () => {
+  const pagerStart = practicePageSource.indexOf("function QuestionPager");
+  const pagerEnd = practicePageSource.indexOf("export default function PracticePage", pagerStart);
+  const pagerSource = practicePageSource.slice(pagerStart, pagerEnd);
+  const unitInteractionWiringCount = (
+    practicePageSource.match(/interactionEnabled=\{practiceArenaMode === "unit"\}/g) ?? []
+  ).length;
+  const exploreInteractionWiringCount = (
+    practicePageSource.match(/interactionEnabled=\{practiceArenaMode === "explore"\}/g) ?? []
+  ).length;
+
+  assert.match(pagerSource, /interactionEnabled = true/);
+  assert.match(pagerSource, /const pagerActivityRef = useRef\(interactionEnabled\)/);
+  assert.match(pagerSource, /if \(!pagerActivityRef\.current \|\| !questionCount\) return;/);
+  assert.match(pagerSource, /pagerActivityRef\.current = false;\s*clearAutoAdvance\(\);\s*stopReadAloud\(\);/);
+  assert.match(pagerSource, /questionStartedAtRef\.current = \{\};/);
+  assert.match(pagerSource, /if \(!interactionEnabled \|\| questionCount < 2\) return;/);
+  assert.match(pagerSource, /if \(!pagerActivityRef\.current\) return;\s*questionStartedAtRef/);
+  assert.equal(
+    unitInteractionWiringCount,
+    2,
+    "Both adaptive and fallback Unit pagers must be live only in Guided mode."
+  );
+  assert.equal(
+    exploreInteractionWiringCount,
+    1,
+    "The free-selection pager must be live only in Explore mode."
+  );
+});
+
+test("Practice Arena mode changes preserve focus and intentional scroll behavior", () => {
+  const handlerStart = practicePageSource.indexOf("const handlePracticeArenaModeChange");
+  const handlerEnd = practicePageSource.indexOf("const handleAdventureStartMission", handlerStart);
+  const handler = practicePageSource.slice(handlerStart, handlerEnd);
+
+  assert.match(handler, /setPracticeArenaMode\(nextMode\)/);
+  assert.match(handler, /nextMode !== "unit"/);
+  assert.match(handler, /prefersReducedMotion \? "auto" : "smooth"/);
+  assert.match(handler, /"unit-exercise-mission-title"/);
+  assert.match(handler, /"practice-adventure-title"/);
+  assert.match(handler, /focus\(\{ preventScroll: true \}\)/);
+});
+
+test("Practice Arena keeps Guided and Explore selection state isolated", () => {
+  assert.match(
+    practicePageSource,
+    /const exploreFiltersRef = useRef/,
+    "Explore-owned filters need a separate snapshot before Guided resets its unit context."
+  );
+  assert.match(
+    practicePageSource,
+    /nextMode === "unit"[\s\S]*?setDifficultyFilter\("all"\)[\s\S]*?setQuestionTypeFilter\("all"\)/,
+    "Entering Guided must clear Explore-only narrowing filters."
+  );
+  assert.match(
+    practicePageSource,
+    /nextMode === "explore"[\s\S]*?exploreFiltersRef\.current/,
+    "Returning to Explore must restore its own saved selection rather than inheriting Guided state."
+  );
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "unit" && adaptivePlan/,
+    "Guided must keep the adaptive unit authoritative even after an Explore topic was selected."
+  );
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "explore" && shouldRenderFreeSelectionRound/,
+    "Explore questions must render only inside the Explore mode."
+  );
+});
+
+test("Practice Arena unmounts inactive pagers and rejects stale answer callbacks", () => {
+  assert.match(
+    practicePageSource,
+    /const pagerActivityRef = useRef\(interactionEnabled\)/,
+    "Pager callbacks need a live activity ref rather than a captured interactionEnabled value."
+  );
+  assert.match(
+    practicePageSource,
+    /pagerActivityRef\.current = false;/,
+    "Unmounting or deactivating a pager must invalidate delayed callbacks."
+  );
+  assert.match(
+    practicePageSource,
+    /if \(!pagerActivityRef\.current\) return;/,
+    "Delayed answer callbacks must consult the live pager activity state."
+  );
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "unit" && adaptivePlan[\s\S]*?<QuestionPager/,
+    "The adaptive pager must mount only after Guided is selected."
+  );
+  assert.match(
+    practicePageSource,
+    /practiceArenaMode === "explore" && shouldRenderFreeSelectionRound[\s\S]*?<QuestionPager/,
+    "The Explore pager must mount only after Explore is selected."
+  );
+});
+
+test("Unit Exercise reports loading, ready, and unavailable states honestly", () => {
+  assert.match(practicePageSource, /PracticeUnitMissionStatus/);
+  assert.match(practicePageSource, /status === "loading"/);
+  assert.match(practicePageSource, /status === "ready"/);
+  assert.match(practicePageSource, /status === "unavailable"/);
+  assert.doesNotMatch(
+    practicePageSource,
+    /Math\.max\(1, questionCount \|\| freeSelectionRoundQuestionCount\)/,
+    "An empty or failed Unit round must not be presented as five ready questions."
+  );
+  assert.match(
+    practicePageSource,
+    /question\.questionCount >= freeSelectionRoundQuestionCount/,
+    "The deterministic fallback must select a catalog topic with a complete five-question round."
+  );
+  assert.match(
+    practicePageSource,
+    /const unitDoorStatus: PracticeUnitMissionStatus/,
+    "The chooser needs an availability status independent from the selected Unit round's loading state."
+  );
+  assert.match(
+    practicePageSource,
+    /unitStatus=\{unitDoorStatus\}/,
+    "The chooser must receive catalog/adaptive availability instead of the mode-dependent summary status."
+  );
+});
+
+test("all Practice Arena mission scrolling honors reduced motion", () => {
+  const helperStart = practicePageSource.indexOf("const scrollToPracticeSection");
+  const helperEnd = practicePageSource.indexOf("const handlePracticeArenaModeChange", helperStart);
+  const helper = practicePageSource.slice(helperStart, helperEnd);
+
+  assert.match(
+    helper,
+    /behavior: prefersReducedMotion \? "auto" : "smooth"/,
+    "Guided's Start Mission scroll must not force smooth motion."
+  );
+  assert.match(helper, /\[prefersReducedMotion\]/);
+});
+
+test("Practice Arena hides the current Nova Tutor launcher using its stable marker", () => {
+  assert.match(
+    practicePageSource,
+    /button\[data-tour="student-tutor"\]/,
+    "The immersive Practice surface must target the launcher's current stable data marker."
+  );
+  assert.doesNotMatch(
+    practicePageSource,
+    /button\[aria-label\*="AI Tutor"\]/,
+    "The obsolete aria-label selector does not match the aria-labelledby Nova launcher."
+  );
+});
+
 test("Practice Arena does not load student adaptive practice for teacher accounts", () => {
   const studentRoleFlagIndex = practicePageSource.indexOf('const isStudentAccount = currentUser?.role === "student";');
   const adaptiveRoleGuardIndex = practicePageSource.indexOf("if (!isStudentAccount) {");
@@ -306,6 +498,11 @@ test("Start Mission scrolls to a section that is actually rendered", () => {
     handler,
     /"mission-setup-filters"/,
     "must use the same final fallback as every sibling scrollToPracticeSection call"
+  );
+  assert.match(
+    handler,
+    /practiceArenaMode === "explore"[\s\S]*?setTopicFilter\(firstQuestionCatalogTopicId\)/,
+    "Explore's hero Start Mission must still resolve a complete single-topic round."
   );
 });
 

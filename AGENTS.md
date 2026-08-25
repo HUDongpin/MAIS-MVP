@@ -1,6 +1,6 @@
 # AGENTS.md - MAIS-MVP Parallel Agent Guide
 
-This file is the coordination contract for AI agent roles (Codex, Claude, and other tools) and their work sessions in `/Users/dongpinhu/Desktop/MAIS-MVP`.
+This file is the coordination contract for AI agent roles (Codex, Claude, and other tools) and their work sessions in `/Volumes/Starship/MAIS-MVP`.
 
 ## Project Snapshot
 
@@ -49,7 +49,7 @@ Every agent/session must:
 ## Root And Worktree Policy
 
 - The always-loaded digest of this policy lives in `CLAUDE.md` (auto-injected into every Claude Code session) — when editing this section, keep `CLAUDE.md` in sync. Hard guardrails back it: `.claude/settings.json` denies broad `git add`, and `scripts/claude-root-git-guard.mjs` blocks `git switch`/`checkout`/`stash`/`rebase`/`reset --hard` in the primary root.
-- Treat `/Users/dongpinhu/Desktop/MAIS-MVP` on `main` as a read-only integration inventory and release-intake area, not as the default feature-development workspace.
+- Treat `/Volumes/Starship/MAIS-MVP` on `main` as a read-only integration inventory and release-intake area, not as the default feature-development workspace.
 - A01-A25 feature, QA, content, release, or tooling work must happen in an isolated branch/worktree (naming in practice: `feat/*`, `fix/*`, `chore/*`, `docs/*`, session-generated `claude/*`, or legacy `codex/Axx-short-scope`) or an owner-approved clean clone unless the owner explicitly assigns a root-only inventory/reporting task.
 - Before starting an isolated worktree, the agent must confirm the baseline branch/commit, dependency state, and relevant baseline check or documented pre-existing failure.
 - At handoff, the agent must commit only its assigned slice from that worktree. Do not mix unrelated dirty-root inventory files into the slice.
@@ -83,7 +83,7 @@ These gates are now part of the standing coordination rhythm until the owner exp
 
 ## Local API Key Source
 
-- Owner-approved local credential source: `/Users/dongpinhu/Desktop/MAIS-MVP/All API Keys.docx`.
+- Owner-approved local credential source: `/Volumes/Starship/MAIS-MVP/All API Keys.docx`.
 - When MAIS-MVP work needs an API key or provider credential, first check that local DOCX for the required provider before asking the owner. This includes DeepSeek API credentials, which the owner has authorized Codex to read and use for assigned MAIS-MVP tasks that require live DeepSeek access.
 - Never copy, print, summarize, commit, stage, screenshot, or log real credential values from `All API Keys.docx`, `.env.local`, Vercel, or any other secret source. Only record variable names, provider names, target environments, and redacted status.
 - If the needed credential is absent from the DOCX, such as an OpenAI API key the owner has not purchased or another provider key needed for a feature like video generation, stop and ask the owner to provide or acquire it.
@@ -393,7 +393,7 @@ The final artifact should be `coordination/reports/YYYY-MM-DD-president-report.d
 If the environment supports recurring Codex automations, ask Codex to create a daily 8:00 AM Asia/Hong_Kong automation for this project with a prompt like:
 
 ```text
-Every day at 8:00 AM Asia/Hong_Kong, inspect /Users/dongpinhu/Desktop/MAIS-MVP. Read AGENTS.md, collect the latest session logs and blockers from coordination/, inspect the project status, run safe relevant checks when practical, and produce a concise bilingual DOCX president report for Dr. Peter Hu at coordination/reports/YYYY-MM-DD-president-report.docx. The reporting window is previous calendar day 08:00 through report date 08:00 Asia/Hong_Kong. The report must include a Chinese Executive Summary, English Executive Summary, reporting-window summary, project progress update, A01-A25 agent session status table, blockers, risks, test/build status, files changed, tomorrow priorities, and owner decisions needed. Use simple business formatting with readable tables and restrained typography. If no assignment or fresh work is found in the reporting window, state "No assigned work in this reporting window" and summarize the latest available project status. Do not edit feature code.
+Every day at 8:00 AM Asia/Hong_Kong, inspect /Volumes/Starship/MAIS-MVP. Read AGENTS.md, collect the latest session logs and blockers from coordination/, inspect the project status, run safe relevant checks when practical, and produce a concise bilingual DOCX president report for Dr. Peter Hu at coordination/reports/YYYY-MM-DD-president-report.docx. The reporting window is previous calendar day 08:00 through report date 08:00 Asia/Hong_Kong. The report must include a Chinese Executive Summary, English Executive Summary, reporting-window summary, project progress update, A01-A25 agent session status table, blockers, risks, test/build status, files changed, tomorrow priorities, and owner decisions needed. Use simple business formatting with readable tables and restrained typography. If no assignment or fresh work is found in the reporting window, state "No assigned work in this reporting window" and summarize the latest available project status. Do not edit feature code.
 ```
 
 Do not ask the automation to edit feature code unless the owner explicitly assigns that work. The morning automation's default job is reporting and triage.

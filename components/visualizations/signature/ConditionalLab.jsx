@@ -146,6 +146,210 @@ const closeness = (i, dPick, fPick) => {
 const isCalibrated = (i, dPick, fPick) => calibChecks(i, dPick, fPick).every(Boolean);
 
 /* ---------------------------------------------------------------------------
+   CANVAS GEOMETRY — desktop keeps the original bench; narrow stages stack.
+
+   The learner shell can make this stage much narrower than the viewport.  A
+   Pixel 5 route, for example, produces a 225 px-wide stage.  Reserving a fixed
+   300 px census column from that width makes the dot grid negative.  Keep the
+   original side-by-side geometry whenever it genuinely fits, and give narrow
+   canvases three explicit, disjoint regions: label band, square dot field,
+   then census.  This pure function is exported for deterministic viewport
+   regression tests; drawing never invents a second layout.
+   ------------------------------------------------------------------------- */
+const CONDITIONAL_CANVAS_DESKTOP_MIN_WIDTH = 560;
+const CONDITIONAL_CANVAS_DESKTOP_MIN_HEIGHT = 360;
+
+function conditionalCanvasLayout(rawWidth, rawHeight) {
+  const width = Number.isFinite(rawWidth) ? Math.max(1, rawWidth) : 1;
+  const height = Number.isFinite(rawHeight) ? Math.max(1, rawHeight) : 1;
+  const desktop =
+    width >= CONDITIONAL_CANVAS_DESKTOP_MIN_WIDTH &&
+    height >= CONDITIONAL_CANVAS_DESKTOP_MIN_HEIGHT;
+
+  if (desktop) {
+    const bandHeight = 52;
+    const gridSize = Math.min(width - 300, height - bandHeight - 60);
+    const grid = { x: 30, y: bandHeight + 30, width: gridSize, height: gridSize };
+    const readoutX = grid.x + grid.width + 26;
+    const cell = gridSize / 10;
+
+    return {
+      band: { x: 0, y: 0, width, height: bandHeight },
+      cell,
+      dotRadius: cell * 0.28,
+      grid,
+      mode: 'desktop',
+      readout: {
+        x: readoutX,
+        y: grid.y,
+        width: width - readoutX - 12,
+        height: height - grid.y - 12,
+      },
+    };
+  }
+
+  const inset = Math.min(12, Math.max(4, width * 0.06));
+  const gap = Math.min(8, Math.max(4, height * 0.02));
+  const bandHeight = Math.min(54, Math.max(42, height * 0.2));
+  const readoutHeight = Math.min(92, Math.max(72, height * 0.26));
+  const gridSize = Math.min(
+    Math.max(1, width - 2 * inset),
+    Math.max(1, height - bandHeight - readoutHeight - 3 * gap)
+  );
+  const cell = gridSize / 10;
+  const gridX = (width - gridSize) / 2;
+  const gridY = bandHeight + gap;
+  const readoutY = gridY + gridSize + gap;
+
+  return {
+    band: { x: inset, y: 0, width: width - 2 * inset, height: bandHeight },
+    cell,
+    dotRadius: cell * 0.28,
+    grid: { x: gridX, y: gridY, width: gridSize, height: gridSize },
+    mode: 'compact',
+    readout: {
+      x: inset,
+      y: readoutY,
+      width: width - 2 * inset,
+      height: Math.min(readoutHeight, height - readoutY - gap),
+    },
+  };
+}
+
+function fitConditionalCanvasFont(ctx, text, maxWidth, preferredSize, minimumSize, fontFamily, fontWeight) {
+  let size = preferredSize;
+  do {
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    if (ctx.measureText(text).width <= maxWidth || size <= minimumSize) return size;
+    size = Math.max(minimumSize, size - 0.5);
+  } while (size >= minimumSize);
+  return minimumSize;
+}
+
+function wrapConditionalCanvasText(ctx, text, maxWidth, maxLines) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length === 0) return [''];
+
+  const lines = [];
+  let line = words.shift();
+  for (const word of words) {
+    const candidate = `${line} ${word}`;
+    if (ctx.measureText(candidate).width <= maxWidth || lines.length >= maxLines - 1) {
+      line = candidate;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  }
+  lines.push(line);
+  return lines.slice(0, maxLines);
+}
+
+function drawConditionalCanvasBand(ctx, label, layout) {
+  const { band, mode } = layout;
+  const maxTextWidth = Math.max(1, band.width - (mode === 'compact' ? 8 : 0));
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(band.x, band.y, band.width, band.height);
+  ctx.clip();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = CARMINE;
+
+  if (mode === 'desktop') {
+    ctx.font = '700 14.5px ui-monospace, monospace';
+    ctx.fillText(label, band.x + band.width / 2, band.y + band.height / 2, maxTextWidth);
+    ctx.restore();
+    return;
+  }
+
+  const fontFamily = 'ui-monospace, monospace';
+  let fontSize = fitConditionalCanvasFont(ctx, label, maxTextWidth * 3, 10.5, 8, fontFamily, '700');
+  ctx.font = `700 ${fontSize}px ${fontFamily}`;
+  let lines = wrapConditionalCanvasText(ctx, label, maxTextWidth, 3);
+  const widestLine = lines.reduce((widest, line) =>
+    ctx.measureText(line).width > ctx.measureText(widest).width ? line : widest
+  , '');
+  fontSize = fitConditionalCanvasFont(ctx, widestLine, maxTextWidth, fontSize, 7.5, fontFamily, '700');
+  ctx.font = `700 ${fontSize}px ${fontFamily}`;
+  lines = wrapConditionalCanvasText(ctx, label, maxTextWidth, 3);
+  const lineHeight = Math.min(13, Math.max(9, fontSize + 2));
+  const firstY = band.y + (band.height - lines.length * lineHeight) / 2 + lineHeight / 2;
+  lines.forEach((line, index) => {
+    ctx.fillText(line, band.x + band.width / 2, firstY + index * lineHeight, maxTextWidth);
+  });
+  ctx.restore();
+}
+
+function conditionalCanvasReadoutLines(scene) {
+  const lines = [
+    { color: SLATE, fontStyle: 'italic', text: 'the census' },
+    { color: CARMINE, text: `glowing: ${scene.cA} of 100` },
+    { color: BLUE, text: `left block: ${scene.cB} of 100` },
+    { color: INK_HEX, text: `both: ${scene.cAB}` },
+  ];
+  if (scene.cropMode !== 'none') {
+    const denom = scene.cropMode === 'B' ? scene.cB : scene.cA;
+    lines.push(
+      { color: GOLD, text: scene.calib ? 'in frame: ?' : `in frame: ${denom} dots` },
+      {
+        color: CARMINE,
+        text: scene.calib
+          ? 'the share: ?'
+          : `the share: ${fracText([scene.cAB, denom])}  (${scene.cAB} of ${denom})`,
+      }
+    );
+  }
+  return lines;
+}
+
+function drawConditionalCanvasReadout(ctx, scene, layout) {
+  const { mode, readout } = layout;
+  const lines = conditionalCanvasReadoutLines(scene);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(readout.x, readout.y, readout.width, readout.height);
+  ctx.clip();
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+
+  if (mode === 'desktop') {
+    const y = readout.y;
+    lines.forEach((line, index) => {
+      ctx.fillStyle = line.color;
+      ctx.font = `${line.fontStyle === 'italic' ? 'italic ' : ''}600 11.5px ${index === 0 ? 'system-ui, sans-serif' : 'ui-monospace, monospace'}`;
+      const offset = index === 0 ? 0 : index <= 3 ? 22 + (index - 1) * 18 : 84 + (index - 4) * 18;
+      ctx.fillText(line.text, readout.x, y + offset, readout.width);
+    });
+    ctx.restore();
+    return;
+  }
+
+  ctx.strokeStyle = 'rgba(185,135,24,0.45)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(readout.x, readout.y + 0.5);
+  ctx.lineTo(readout.x + readout.width, readout.y + 0.5);
+  ctx.stroke();
+
+  const paddingTop = 5;
+  const lineHeight = Math.min(13, Math.max(9, (readout.height - paddingTop - 2) / lines.length));
+  const preferredFontSize = Math.min(10.5, lineHeight - 1);
+  const maxTextWidth = Math.max(1, readout.width - 4);
+  lines.forEach((line, index) => {
+    const family = index === 0 ? 'system-ui, sans-serif' : 'ui-monospace, monospace';
+    const weight = index === 0 ? 'italic 600' : '600';
+    const fontSize = fitConditionalCanvasFont(ctx, line.text, maxTextWidth, preferredFontSize, 7.5, family, weight);
+    ctx.font = `${weight} ${fontSize}px ${family}`;
+    ctx.fillStyle = line.color;
+    ctx.fillText(line.text, readout.x + 2, readout.y + paddingTop + index * lineHeight, maxTextWidth);
+  });
+  ctx.restore();
+}
+
+/* ---------------------------------------------------------------------------
    THE LESSON — six steps; every scene is pinned to the words describing it.
    ------------------------------------------------------------------------- */
 const STEPS = [
@@ -355,11 +559,10 @@ export default function ConditionalLab() {
     }
     ctx.stroke();
 
-    const bandH = 52;
-    const gridW = Math.min(W - 300, H2 - bandH - 60);
-    const cell = gridW / 10;
-    const gx0 = 30;
-    const gy0 = bandH + 30;
+    const canvasLayout = conditionalCanvasLayout(W, H2);
+    const { cell, dotRadius, grid } = canvasLayout;
+    const gx0 = grid.x;
+    const gy0 = grid.y;
     const inCrop = (r, c) =>
       S.cropMode === 'none' ? true : S.cropMode === 'B' ? inB(r, c) : LAYOUTS[S.layout].inA(r, c);
 
@@ -371,7 +574,7 @@ export default function ConditionalLab() {
         ctx.globalAlpha = inside ? 1 : 0.18;
         ctx.fillStyle = glow ? CARMINE : BLUE;
         ctx.beginPath();
-        ctx.arc(gx0 + c * cell + cell / 2, gy0 + r * cell + cell / 2, cell * 0.28, 0, 2 * Math.PI);
+        ctx.arc(gx0 + c * cell + cell / 2, gy0 + r * cell + cell / 2, dotRadius, 0, 2 * Math.PI);
         ctx.fill();
       }
     ctx.globalAlpha = 1;
@@ -390,40 +593,8 @@ export default function ConditionalLab() {
           if (LAYOUTS[S.layout].inA(r, c)) ctx.strokeRect(gx0 + c * cell + 1, gy0 + r * cell + 1, cell - 2, cell - 2);
     }
 
-    /* the readout card */
-    const cx0 = gx0 + 10 * cell + 26;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = SLATE;
-    ctx.font = 'italic 600 11.5px system-ui, sans-serif';
-    ctx.fillText('the census', cx0, gy0);
-    ctx.font = '600 11.5px ui-monospace, monospace';
-    ctx.fillStyle = CARMINE;
-    ctx.fillText(`glowing: ${S.cA} of 100`, cx0, gy0 + 22);
-    ctx.fillStyle = BLUE;
-    ctx.fillText(`left block: ${S.cB} of 100`, cx0, gy0 + 40);
-    ctx.fillStyle = INK_HEX;
-    ctx.fillText(`both: ${S.cAB}`, cx0, gy0 + 58);
-    if (S.cropMode !== 'none') {
-      const denom = S.cropMode === 'B' ? S.cB : S.cA;
-      ctx.fillStyle = GOLD;
-      ctx.fillText(S.calib ? 'in frame: ?' : `in frame: ${denom} dots`, cx0, gy0 + 84);
-      ctx.fillStyle = CARMINE;
-      ctx.fillText(
-        S.calib
-          ? 'the share: ?'
-          : `the share: ${fracText([S.cAB, denom])}  (${S.cAB} of ${denom})`,
-        cx0,
-        gy0 + 102
-      );
-    }
-
-    /* ---- the readout band ---- */
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = CARMINE;
-    ctx.font = '700 14.5px ui-monospace, monospace';
-    ctx.fillText(S.bandLabel, W / 2, bandH / 2);
+    drawConditionalCanvasReadout(ctx, S, canvasLayout);
+    drawConditionalCanvasBand(ctx, S.bandLabel, canvasLayout);
   }, []);
 
   useEffect(() => {
@@ -1068,3 +1239,5 @@ export default function ConditionalLab() {
     </div>
   );
 }
+
+export { conditionalCanvasLayout };

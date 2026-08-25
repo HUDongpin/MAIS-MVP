@@ -380,6 +380,8 @@ export default function CongruenceLab() {
   const current = STEPS[step];
   const calib = !!current.calib;
   const B = CASES[caseId].B;
+  const aSideSquares = edgesSq(A_BASE);
+  const bSideSquares = edgesSq(B);
   const img = applyChain(A_BASE, chain);
   const landed = sameSet(img, B);
 
@@ -502,6 +504,19 @@ export default function CongruenceLab() {
           ctx.lineTo(x2, y2);
           ctx.stroke();
         }
+        const edgeLength = Math.hypot(x2 - x1, y2 - y1) || 1;
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+        const normalX = -(y2 - y1) / edgeLength;
+        const normalY = (x2 - x1) / edgeLength;
+        const outwardSign = (normalX * (midX - bx) + normalY * (midY - by)) >= 0 ? 1 : -1;
+        const labelX = Math.max(12, Math.min(W - 12, midX + normalX * outwardSign * 14));
+        const labelY = Math.max(bandH + 12, Math.min(H - 12, midY + normalY * outwardSign * 14));
+        ctx.fillStyle = S.tapped === i ? GOLD : GREEN;
+        ctx.font = '700 12px ui-monospace, monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(i + 1), labelX, labelY);
       });
     }
 
@@ -646,7 +661,31 @@ export default function CongruenceLab() {
               Reset
             </button>
           </div>
-          {current.tapAlibi && <p className="hint">suspicious? tap a side of B to name the alibi</p>}
+          {current.tapAlibi && (
+            <div
+              className="side-picker"
+              role="group"
+              aria-label={`Figure A has squared side lengths ${aSideSquares.join(', ')}. Choose the alibi side of figure B.`}
+              data-viz-keyboard-equivalent="congruence-alibi-sides"
+            >
+              <span className="picker-label">Choose a side of B:</span>
+              {B.map((_, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className={'side-btn' + (tapped === i ? ' active' : '')}
+                  aria-pressed={tapped === i}
+                  aria-label={`Select side ${i + 1} of figure B, from (${B[i][0]}, ${B[i][1]}) to (${B[(i + 1) % B.length][0]}, ${B[(i + 1) % B.length][1]}), squared length ${bSideSquares[i]}, as the alibi`}
+                  onClick={() => setTapped(i)}
+                >
+                  Side {i + 1} · d²={bSideSquares[i]}
+                </button>
+              ))}
+            </div>
+          )}
+          {current.tapAlibi && (
+            <p className="hint">suspicious? select a side of B on the diagram or with the side buttons</p>
+          )}
         </section>
 
         {/* ---------- TUTOR ---------- */}
@@ -911,7 +950,37 @@ export default function CongruenceLab() {
           font-style: italic;
           color: var(--ink-soft);
         }
+        .side-picker {
+          margin: 10px 4px 0;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          flex-wrap: wrap;
+        }
+        .picker-label {
+          color: var(--ink-soft);
+          font-size: 12px;
+          font-weight: 650;
+        }
+        .side-btn {
+          min-width: 44px;
+          min-height: 44px;
+          padding: 7px 11px;
+          border: 1.5px solid rgba(185, 135, 24, 0.55);
+          border-radius: 8px;
+          background: var(--paper);
+          color: var(--ink);
+          cursor: pointer;
+          font: 650 12px/1 system-ui, sans-serif;
+        }
+        .side-btn.active {
+          border-color: var(--gold);
+          background: rgba(185, 135, 24, 0.14);
+          color: #765400;
+        }
         .chipbtn {
+          min-width: 44px;
+          min-height: 44px;
           font: 600 12px/1.2 system-ui, sans-serif;
           padding: 8px 11px;
           border-radius: 8px;

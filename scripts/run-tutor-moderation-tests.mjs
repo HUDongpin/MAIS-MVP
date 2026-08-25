@@ -51,7 +51,9 @@ try {
 
   const passed = run("node", [
     "--test",
-    join(outputDir, "lib/server/tutorModeration.test.js")
+    join(outputDir, "lib/server/tutorModeration.test.js"),
+    join(outputDir, "lib/server/tutorModerationProvider.test.js"),
+    join(outputDir, "lib/server/tutorVoiceModeration.test.js")
   ]);
   if (!passed) process.exit(process.exitCode);
 } finally {

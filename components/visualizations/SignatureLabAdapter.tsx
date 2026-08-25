@@ -68,14 +68,28 @@ export function SignatureLabAdapter({ LabComponent, lab = null, labId, topicId }
    * the lab's `audit-*.mjs` proof is what covers its mathematics instead.
    */
   useEffect(() => {
-    const canvas = rootRef.current?.querySelector("canvas");
-    if (!canvas) return;
+    const canvases = Array.from(rootRef.current?.querySelectorAll("canvas") ?? []);
+    if (canvases.length === 0) return;
 
-    canvas.setAttribute("data-viz-mark", "");
-    canvas.setAttribute("data-viz-name", "signature lab canvas");
-    canvas.setAttribute("data-viz-lab-id", lab?.labId ?? labId ?? "signature-lab");
-    if (!canvas.getAttribute("role")) canvas.setAttribute("role", "img");
-    if (!canvas.getAttribute("aria-label")) canvas.setAttribute("aria-label", surfaceLabel);
+    for (const canvas of canvases) {
+      canvas.setAttribute("data-viz-mark", "");
+      canvas.setAttribute("data-viz-name", "signature lab canvas");
+      canvas.setAttribute("data-viz-lab-id", lab?.labId ?? labId ?? "signature-lab");
+      if (!canvas.getAttribute("role")) canvas.setAttribute("role", "img");
+      if (!canvas.getAttribute("aria-label")) canvas.setAttribute("aria-label", surfaceLabel);
+
+      // The adapter owns the one opaque Canvas paper. Ported benches still
+      // carry their original page, panel, and stage paint between the Canvas
+      // and this surface; mark only that exact descendant chain so the scoped
+      // style below can remove competing compositing layers without changing
+      // any tutor/control styling elsewhere in the bench.
+      const surface = canvas.closest<HTMLElement>("[data-viz-surface-kind='signature-canvas']");
+      let paperLayer = canvas.parentElement;
+      while (paperLayer && paperLayer !== surface) {
+        paperLayer.setAttribute("data-viz-signature-paper-layer", "");
+        paperLayer = paperLayer.parentElement;
+      }
+    }
   }, [lab?.labId, labId, resetNonce, surfaceLabel]);
 
   useEffect(() => {
@@ -99,7 +113,8 @@ export function SignatureLabAdapter({ LabComponent, lab = null, labId, topicId }
         data-viz-surface
         data-viz-surface-kind="signature-canvas"
         aria-label={surfaceLabel}
-        className="overflow-hidden rounded-2xl border border-slate-200 bg-[#fbfbf8] shadow-inner dark:border-slate-100/15"
+        className="overflow-hidden rounded-2xl border border-slate-200 bg-[#fbfbf8] dark:border-slate-100/15"
+        style={{ colorScheme: "light" }}
       >
         <LabComponent key={resetNonce} />
       </div>
@@ -108,11 +123,51 @@ export function SignatureLabAdapter({ LabComponent, lab = null, labId, topicId }
           type="button"
           onClick={handleReset}
           data-viz-reset-model
-          className="rounded-full border border-slate-300 px-4 py-1.5 text-xs font-black text-slate-700 transition hover:bg-slate-100 dark:border-slate-100/20 dark:text-slate-100 dark:hover:bg-slate-100/10"
+          className="min-h-11 rounded-full border border-slate-300 px-4 py-1.5 text-xs font-black text-slate-700 transition hover:bg-slate-100 dark:border-slate-100/20 dark:text-slate-100 dark:hover:bg-slate-100/10"
         >
           {t({ en: "Reset model", zh: "重設模型", zhHans: "重设模型" })}
         </button>
       </div>
+      <style jsx global>{`
+        [data-viz-surface-kind="signature-canvas"] [data-viz-signature-paper-layer] {
+          -webkit-backdrop-filter: none !important;
+          -webkit-mask-image: none !important;
+          backdrop-filter: none !important;
+          background-color: transparent !important;
+          background-image: none !important;
+          box-shadow: none !important;
+          filter: none !important;
+          mask-image: none !important;
+          mix-blend-mode: normal !important;
+          opacity: 1 !important;
+        }
+        [data-viz-surface-kind="signature-canvas"] [data-viz-signature-paper-layer]::before,
+        [data-viz-surface-kind="signature-canvas"] [data-viz-signature-paper-layer]::after {
+          -webkit-mask-image: none !important;
+          background-color: transparent !important;
+          background-image: none !important;
+          filter: none !important;
+          mask-image: none !important;
+          mix-blend-mode: normal !important;
+          opacity: 1 !important;
+        }
+        [data-viz-signature-lab] button {
+          min-height: 46px;
+        }
+        [data-viz-signature-lab] button:not(:disabled):hover {
+          box-shadow: 0 0 0 2px rgba(28, 43, 58, 0.28);
+          filter: none !important;
+        }
+        [data-viz-signature-lab] .choice .mark {
+          display: inline-block !important;
+          margin-left: -20px;
+          min-width: 20px;
+          position: static !important;
+        }
+        [data-viz-signature-lab] .choice.correct .mark {
+          color: #176248 !important;
+        }
+      `}</style>
     </div>
   );
 }

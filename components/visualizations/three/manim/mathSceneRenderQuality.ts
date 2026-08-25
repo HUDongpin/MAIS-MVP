@@ -1,5 +1,6 @@
 export const MANIM_RENDER_QUALITY_SOURCE_CONTRACT =
   "Manim config quality: pixel_width, pixel_height, frame_rate, transparent background, and renderer sampling are normalized before capture";
+export const MANIM_DEFAULT_BACKGROUND_COLOR = "#020617";
 
 export type MathSceneRenderQualityPreset = "preview" | "interactive" | "hd" | "production" | "fourk";
 
@@ -105,8 +106,10 @@ function stableDevicePixelRatio(value: number | undefined, fallback: number) {
 }
 
 function stableColor(value: string | undefined) {
-  const normalized = (value ?? "#020617").trim();
-  return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : "#020617";
+  const normalized = (value ?? MANIM_DEFAULT_BACKGROUND_COLOR).trim();
+  return /^#[0-9a-f]{6}$/i.test(normalized)
+    ? normalized
+    : MANIM_DEFAULT_BACKGROUND_COLOR;
 }
 
 function stableAlpha(value: number | undefined, fallback: number) {
