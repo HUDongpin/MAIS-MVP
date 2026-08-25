@@ -1,0 +1,45 @@
+{
+  "attemptId": "attempt-001",
+  "events": [
+    {
+      "attemptId": "attempt-001",
+      "closure": null,
+      "disposition": null,
+      "eventDigest": "4a0d5ccce603ccda5c7b91a8c0c286419331389dec63021fc63486474e9eb080",
+      "eventId": "attempt-001-candidate-hold",
+      "evidenceIndex": null,
+      "fromState": null,
+      "manifest": null,
+      "previousEventDigest": null,
+      "sequence": 1,
+      "toState": "candidate_hold"
+    },
+    {
+      "attemptId": "attempt-001",
+      "closure": null,
+      "disposition": null,
+      "eventDigest": "d8c315b63c16c1ab445b8824015acc99a7cf76bcd66e457870f6405f928559e7",
+      "eventId": "attempt-001-shadow-ready",
+      "evidenceIndex": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/inputs/evidence-index.v1.json",
+        "rawSha256": "257384dc22fa6d46c2a9220c9de12c8fb164412bf2bec673685fde1277760297"
+      },
+      "fromState": "candidate_hold",
+      "manifest": {
+        "path": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/promotion-manifest.v1.json",
+        "rawSha256": "7bcb27d6b9604a1dd4c41f75fba18718b03a7d97046f44923790aa7f207943bc"
+      },
+      "previousEventDigest": "4a0d5ccce603ccda5c7b91a8c0c286419331389dec63021fc63486474e9eb080",
+      "sequence": 2,
+      "toState": "shadow_ready"
+    }
+  ],
+  "liveAllowed": false,
+  "liveEvidence": "none",
+  "maturityClaim": "not-shadow-mature",
+  "parentPackageStatus": "candidate-only",
+  "pilotUnitId": "us-ca-math-rag-v2-g6-ratios-v1",
+  "pilotUnitStatus": "shadow_ready",
+  "schemaVersion": "promotion-lifecycle-registry.v1",
+  "registryDigest": "c67e12a6031ccee726376b40cf3de5d9664a778a385040ecd6d2eac2e325c487"
+}
