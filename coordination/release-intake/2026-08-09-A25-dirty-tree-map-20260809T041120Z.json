@@ -1,0 +1,279 @@
+{
+  "generatedAt": "2026-08-09T04:11:21.479Z",
+  "timezone": "Asia/Hong_Kong",
+  "sessions": [
+    "A25 git hygiene and release intake",
+    "A22 production reliability and release engineering",
+    "A10 tooling, docs, and report"
+  ],
+  "reason": "HK all-math lesson-page QA loop baseline and isolated-slice planning",
+  "statusSignature": "d25852d43b4e8fee3a0caa8f4d9677227b834b1396c5e6cbe25737ac1674626b",
+  "ownerPathspecs": "coordination/release-intake/owner-pathspecs.json",
+  "outputPaths": {
+    "latestJson": "coordination/release-intake/latest-A25-dirty-tree-map.json",
+    "latestMarkdown": "coordination/release-intake/latest-A25-dirty-tree-map.md",
+    "reportJson": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T041120Z.json",
+    "reportMarkdown": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T041120Z.md"
+  },
+  "policy": {
+    "rootReleaseFrozen": true,
+    "dirtyMapMaxAgeMinutes": 60,
+    "forbidGitAddDot": true,
+    "unmappedOwnerRule": "Strict release intake requires zero unmapped owner entries.",
+    "allowedReleaseSources": [
+      "clean-worktree",
+      "clean-clone",
+      "reviewed-clean-slice",
+      "owner-approved-pruned-staging"
+    ]
+  },
+  "statusCounts": {
+    "collapsedStatusEntries": 9,
+    "expandedStatusEntries": 9,
+    "trackedModified": 1,
+    "trackedDeleted": 0,
+    "untrackedStatusEntries": 8,
+    "untrackedFiles": 8,
+    "unmappedEntries": 0,
+    "unblockedUnmappedEntries": 0,
+    "ambiguousOwnerEntries": 0,
+    "topSpecificityTies": 0,
+    "rawMultiMatchEntries": 8,
+    "secretQuarantineEntries": 0
+  },
+  "ownerBuckets": {
+    "A25 Git hygiene and release intake": 8,
+    "A22 Production reliability and isolated development": 1
+  },
+  "sliceBuckets": {
+    "docs/coordination evidence": 8,
+    "release hygiene tooling/config": 1
+  },
+  "releaseHygieneEntries": [
+    {
+      "status": "M ",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    }
+  ],
+  "unmappedEntries": [],
+  "unblockedUnmappedEntries": [],
+  "ambiguousOwnerEntries": [],
+  "entries": [
+    {
+      "status": "M ",
+      "path": ".claude/launch.json",
+      "owner": "A22 Production reliability and isolated development",
+      "ownerId": "A22",
+      "packageId": "A22-dev-isolation",
+      "matchedPathspec": ".claude/launch.json",
+      "secretQuarantine": false,
+      "resolvedSlice": "release hygiene tooling/config",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A22"
+        ],
+        "rawMatchCount": 1,
+        "topCandidateCount": 1,
+        "specificity": 1900,
+        "precedence": 0,
+        "matchedPathspec": ".claude/launch.json"
+      },
+      "slice": "release hygiene tooling/config"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T031704Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T031704Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T040759Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T040759Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T040849Z.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-20260809T040849Z.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-preview-auth-secret-redeploy.json",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    },
+    {
+      "status": "??",
+      "path": "coordination/release-intake/2026-08-09-A25-dirty-tree-map-preview-auth-secret-redeploy.md",
+      "owner": "A25 Git hygiene and release intake",
+      "ownerId": "A25",
+      "packageId": "A25-release-intake",
+      "matchedPathspec": "coordination/release-intake/**",
+      "secretQuarantine": false,
+      "resolvedSlice": "docs/coordination evidence",
+      "ownerResolution": {
+        "status": "resolved",
+        "finalOwners": [
+          "A25"
+        ],
+        "rawMatchCount": 2,
+        "topCandidateCount": 1,
+        "specificity": 2798,
+        "precedence": 0,
+        "matchedPathspec": "coordination/release-intake/**"
+      },
+      "slice": "docs/coordination evidence"
+    }
+  ]
+}

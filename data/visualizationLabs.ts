@@ -329,6 +329,10 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": "function-family",
   "us-ar-math-g11-chapter-05-statistical-inference-and-claims": "statistics-distribution",
   "us-ar-math-g12-chapter-01-quantities-units-and-precision": "statistics-distribution",
+  // Pinned: ch-04/ch-05 templates must not drift with domainTag wording; the
+  // premium direct-route snapshot (premiumThreeDDirectLabs.ts) mirrors these.
+  "us-ar-math-g12-chapter-04-function-analysis-and-rates": "function-family",
+  "us-ar-math-g12-chapter-05-capstone-modeling": "calculus-rate-area",
   "us-ar-math-k-gm-6": "measurement-scale",
   "us-ar-math-k-npv-3": "number-line",
   "us-ar-math-g1-gm-3": "measurement-scale",
@@ -1508,7 +1512,7 @@ const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
   "us-ar-math-g4-gm-3": usStandardsFocus("Arkansas 4.GM.3", "Unknown Angle Measures", "幾何角度", "几何角度"),
   "us-ar-math-g10-chapter-03-circle-geometry": usStandardsFocus("Arkansas AR.Math.HS.G-C", "Circle Geometry", "幾何", "几何"),
   "us-ar-math-g11-chapter-02-exponential-and-logarithmic-models": usStandardsFocus("Arkansas AR.Math.HS.F-LE", "Exponential and Logarithmic Models", "函數族", "函数族"),
-  "us-ar-math-g12-chapter-03-decision-statistics": usStandardsFocus("Arkansas AR.Math.HS.F-IF", "Decision Statistics", "統計與分佈", "统计与分布"),
+  "us-ar-math-g12-chapter-03-decision-statistics": usStandardsFocus("Arkansas AR.Math.HS.S-MD", "Decision Statistics", "統計與分佈", "统计与分布"),
   "us-ca-math-s4-chapter-03": {
     en: "California Math Practice Beta Chapter 3 strand for Circle Geometry, with MAIS-authored standards-aligned practice questions.",
     zh: "用幾何模型，觀察California Grade 10: 圓的幾何中的關鍵關係。",

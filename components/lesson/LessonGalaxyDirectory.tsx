@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { californiaCourseTitleForGrade, cleanLessonDisplayTitle, cleanLessonUnitTitle } from "@/components/lesson/lessonContentText";
+import { formatLessonPartDisplay } from "@/components/lesson/lessonPartDisplay";
 import { useSettings } from "@/components/providers/AppProviders";
 import { formatGradeLabel } from "@/lib/i18n";
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
@@ -31,22 +32,11 @@ type LessonGalaxyDirectoryProps = {
   items: LessonGalaxyItem[];
   lesson: LessonDetail;
   modules: LessonSummary[];
+  onSelectLessonItem: (targetId: string) => void;
 };
 
 function compactModuleTitle(title: string) {
   return cleanLessonUnitTitle(title);
-}
-
-function formatLessonPartTitle({
-  itemIndex,
-  title,
-  unitIndex
-}: {
-  itemIndex: number;
-  title: string;
-  unitIndex: number;
-}) {
-  return `${unitIndex + 1}.${itemIndex + 1} ${title}`;
 }
 
 function modulePreviewItems({
@@ -96,7 +86,13 @@ function modulePreviewItems({
 
 const californiaK5LessonBetaGrades = new Set(["K", "P1", "P2", "P3", "P4", "P5"]);
 
-export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: LessonGalaxyDirectoryProps) {
+export function LessonGalaxyDirectory({
+  currentSlug,
+  items,
+  lesson,
+  modules,
+  onSelectLessonItem
+}: LessonGalaxyDirectoryProps) {
   const { language, t, text } = useSettings();
   const visibleModules = modules.length ? modules : [lesson];
   const activeModuleIndex = Math.max(0, visibleModules.findIndex((module) => module.slug === currentSlug || module.slug === lesson.slug));
@@ -132,13 +128,6 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
   useEffect(() => {
     setSelectedModuleIndex(activeModuleIndex);
   }, [activeModuleIndex]);
-
-  function scrollToLessonItem(targetId: string) {
-    document.getElementById(targetId)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
 
   return (
     <aside
@@ -207,17 +196,17 @@ export function LessonGalaxyDirectory({ currentSlug, items, lesson, modules }: L
                 <div className="px-4 pb-5 sm:px-5">
                   <div className="grid gap-2">
                     {moduleItems.map((item, itemIndex) => {
-                      const numberedItemTitle = formatLessonPartTitle({
+                      const numberedItemTitle = formatLessonPartDisplay({
                         itemIndex,
                         title: item.title,
                         unitIndex: index
-                      });
+                      }).menuTitle;
 
                       return isCurrent && item.targetId ? (
                         <button
                           key={item.id}
                           type="button"
-                          onClick={() => scrollToLessonItem(item.targetId)}
+                          onClick={() => onSelectLessonItem(item.targetId)}
                           className="focus-ring rounded-[1.15rem] border border-slate-200 bg-white px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-cyan-300 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.045] dark:hover:bg-cyan-300/10"
                         >
                           <MathText as="span" text={numberedItemTitle} className="block line-clamp-2 text-sm font-black leading-5 text-slate-900 dark:text-white" />
