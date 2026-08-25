@@ -45,6 +45,7 @@ No caret, tilde, wildcard, override, runtime dependency, npm script, core implem
 - The P0 contract now adds only exact `ajv: 8.17.1`, requires root-lock parity, deep-compares the complete Ajv lock node including its exact registry URL, SHA-512 integrity, dev flag, license, dependency edges, and funding metadata, and fixes the exact resolved versions of all four dependency nodes. It does not relax any other dependency or script delta.
 - Assertion RED: an initial assertion assumed an `engines` record on `fast-uri`; the actual npm-generated lock node has no such field. That invented constraint was removed, while the exact Ajv-node deep comparison continues to reject any unreviewed field or metadata drift. The focused P0 test then passed `1/1`.
 - Full `scripts/release-governance.test.mjs` passed `89/89` with zero failures after the exact contract update.
+- The parent integration controller independently reran the same full release-governance suite from this worktree and observed `89/89` passing in 21.8 seconds.
 - `git diff --cached --check` passed for the exact four-file staged slice. Exact commit, upstream, and final clean-status evidence are recorded in the parent handoff after Git closeout.
 
 ## Claim boundary
