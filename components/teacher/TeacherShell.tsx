@@ -86,6 +86,12 @@ const teacherNavGroups: TeacherNavGroup[] = [
         label: { en: "Resources", zh: "資料庫" },
         activePaths: ["/teacher/resources"],
         icon: "resources"
+      },
+      {
+        href: "/teacher/visualizations",
+        label: { en: "Visualization studio", zh: "動畫創作室" },
+        activePaths: ["/teacher/visualizations"],
+        icon: "visualizations"
       }
     ]
   },
@@ -146,6 +152,10 @@ const teacherNavGroups: TeacherNavGroup[] = [
 
 const teacherNavItems = teacherNavGroups.flatMap((group) => group.items);
 
+export function isTeacherVisualizationAuthoringPath(pathname: string) {
+  return pathname === "/teacher/visualizations" || pathname.startsWith("/teacher/visualizations/");
+}
+
 function isActivePath(pathname: string, item: TeacherNavItem) {
   if (item.href === "/teacher/dashboard") return pathname === "/teacher" || pathname === "/teacher/dashboard";
   return item.activePaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
@@ -180,7 +190,9 @@ export function TeacherShell({
   const [tourOpen, setTourOpen] = useState(false);
   const navSignalsFetchedAtRef = useRef(0);
   const isEmptyWorkspace = classes.length === 0;
-  const effectivePathname = isEmptyWorkspace ? emptyWorkspacePath : pathname;
+  const isVisualizationAuthoringPath = isTeacherVisualizationAuthoringPath(pathname);
+  const shouldShowEmptyWorkspace = isEmptyWorkspace && !isVisualizationAuthoringPath;
+  const effectivePathname = shouldShowEmptyWorkspace ? emptyWorkspacePath : pathname;
   const activeZone = activeZoneForPath(effectivePathname);
   const selectedClassId = searchParams.get("classId") ?? "all";
   const classFocusValue = classes.some((teacherClass) => teacherClass.id === selectedClassId) ? selectedClassId : "all";
@@ -250,12 +262,13 @@ export function TeacherShell({
   }
 
   function warmTeacherRoute(href: string) {
-    if (isEmptyWorkspace) return;
+    if (isEmptyWorkspace && !isTeacherVisualizationAuthoringPath(href)) return;
     router.prefetch(href);
   }
 
   function navigateEmptyWorkspace(event: MouseEvent<HTMLAnchorElement>, href: string) {
     if (classes.length !== 0) return false;
+    if (isTeacherVisualizationAuthoringPath(href)) return false;
     event.preventDefault();
     setPendingNavHref(null);
     setMobileNavOpen(false);
@@ -322,7 +335,7 @@ export function TeacherShell({
                       <Link
                         key={item.href}
                         href={item.href}
-                        prefetch={isEmptyWorkspace ? false : undefined}
+                        prefetch={isEmptyWorkspace && !isTeacherVisualizationAuthoringPath(item.href) ? false : undefined}
                         aria-current={active ? "page" : undefined}
                         onClick={(event) => {
                           if (navigateEmptyWorkspace(event, item.href)) return;
@@ -439,7 +452,7 @@ export function TeacherShell({
           </header>
 
           <div className="mt-5 min-w-0">
-            {classes.length === 0 ? <TeacherEmptyWorkspace path={emptyWorkspacePath} user={user} /> : children}
+            {shouldShowEmptyWorkspace ? <TeacherEmptyWorkspace path={emptyWorkspacePath} user={user} /> : children}
           </div>
         </div>
       </div>

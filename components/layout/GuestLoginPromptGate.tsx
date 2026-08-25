@@ -19,6 +19,18 @@ const promptDelayMs = 10_000;
 // in-flight action. Idle guests are unaffected and still see it at promptDelayMs.
 const interactionGraceMs = 3_500;
 const dismissalStoragePrefix = "mais-guest-login-prompt-dismissed";
+const visualizationTimelineCompleteEvent = "mais:visualization-guided-timeline-complete";
+
+const visualizationTimelineSelector =
+  '[data-viz-manim-playback-state]:not([data-viz-manim-playback-state="primitive"])';
+
+export function hasCompletedVisualizationGuidedTimeline(root: Pick<Document, "querySelectorAll">) {
+  return Array.from(root.querySelectorAll<HTMLElement>(visualizationTimelineSelector)).some((timeline) => {
+    const progress = Number(timeline.getAttribute("data-viz-manim-timeline-progress"));
+    const stepCount = Number(timeline.getAttribute("data-viz-manim-timeline-step-count"));
+    return Number.isFinite(progress) && progress >= 0.999 && Number.isInteger(stepCount) && stepCount > 0;
+  });
+}
 
 function guestPromptRouteForPathname(pathname: string): GuestPromptRoute | null {
   if (pathname === "/lesson" || pathname.startsWith("/lesson/") || pathname === "/student/lessons" || pathname.startsWith("/student/lessons/")) {
@@ -68,10 +80,17 @@ export function GuestLoginPromptGate() {
   const [isOpen, setIsOpen] = useState(false);
   const [dismissedRouteKey, setDismissedRouteKey] = useState<GuestPromptRouteKey | null>(null);
   const [nextPath, setNextPath] = useState(pathname);
+  const [visualizationTimelineReady, setVisualizationTimelineReady] = useState(false);
   const lastInteractionAtRef = useRef(0);
   const dialogRef = useRef<HTMLElement | null>(null);
   const routeKey = route?.key ?? null;
-  const canPrompt = Boolean(settingsReady && !currentUser && route && dismissedRouteKey !== route.key);
+  const canPrompt = Boolean(
+    settingsReady
+    && !currentUser
+    && route
+    && dismissedRouteKey !== route.key
+    && (route.key !== "visualization" || visualizationTimelineReady)
+  );
   const loginHref = `/login?next=${encodeURIComponent(nextPath)}`;
   const registerHref = `/register?next=${encodeURIComponent(nextPath)}`;
 
@@ -93,6 +112,63 @@ export function GuestLoginPromptGate() {
     } catch {
       setDismissedRouteKey(null);
     }
+  }, [routeKey]);
+
+  useEffect(() => {
+    if (routeKey !== "visualization") {
+      setVisualizationTimelineReady(false);
+      return;
+    }
+
+    let complete = false;
+    const lastObservedProgress = new WeakMap<HTMLElement, number>();
+    const markComplete = () => {
+      if (complete) return;
+      const timelines = Array.from(
+        document.querySelectorAll<HTMLElement>(visualizationTimelineSelector)
+      );
+      const wrappedAfterFirstPass = timelines.some((timeline) => {
+        const progress = Number(timeline.getAttribute("data-viz-manim-timeline-progress"));
+        const stepCount = Number(timeline.getAttribute("data-viz-manim-timeline-step-count"));
+        const playbackState = timeline.getAttribute("data-viz-manim-playback-state");
+        const previousProgress = lastObservedProgress.get(timeline);
+        if (Number.isFinite(progress)) lastObservedProgress.set(timeline, progress);
+        return Number.isInteger(stepCount)
+          && stepCount > 0
+          && playbackState === "playing"
+          && Number.isFinite(progress)
+          && previousProgress !== undefined
+          && previousProgress >= 0.9
+          && progress <= 0.1
+          && progress < previousProgress;
+      });
+      if (!hasCompletedVisualizationGuidedTimeline(document) && !wrappedAfterFirstPass) return;
+      complete = true;
+      setVisualizationTimelineReady(true);
+    };
+    const handleExplicitCompletion = () => {
+      if (complete) return;
+      complete = true;
+      setVisualizationTimelineReady(true);
+    };
+    setVisualizationTimelineReady(false);
+    const observer = new MutationObserver(markComplete);
+    observer.observe(document.documentElement, {
+      attributeFilter: [
+        "data-viz-manim-playback-state",
+        "data-viz-manim-timeline-progress",
+        "data-viz-manim-timeline-step-count"
+      ],
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
+    window.addEventListener(visualizationTimelineCompleteEvent, handleExplicitCompletion);
+    markComplete();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener(visualizationTimelineCompleteEvent, handleExplicitCompletion);
+    };
   }, [routeKey]);
 
   useEffect(() => {
@@ -122,7 +198,7 @@ export function GuestLoginPromptGate() {
         setIsOpen(true);
       }, delay);
     };
-    scheduleOpen(promptDelayMs);
+    scheduleOpen(routeKey === "visualization" ? 0 : promptDelayMs);
 
     return () => {
       window.clearTimeout(handle);
@@ -130,7 +206,7 @@ export function GuestLoginPromptGate() {
       window.removeEventListener("keydown", markInteraction, true);
       window.removeEventListener("input", markInteraction, true);
     };
-  }, [canPrompt, pathname]);
+  }, [canPrompt, pathname, routeKey]);
 
   const dismissPrompt = useCallback(() => {
     if (routeKey) {
@@ -145,7 +221,7 @@ export function GuestLoginPromptGate() {
   }, [routeKey]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || routeKey === "visualization") return;
 
     const previousOverflow = document.body.style.overflow;
     const previouslyFocused = document.activeElement as HTMLElement | null;
@@ -198,9 +274,57 @@ export function GuestLoginPromptGate() {
       window.removeEventListener("keydown", handleKeyDown, true);
       previouslyFocused?.focus?.();
     };
-  }, [dismissPrompt, isOpen]);
+  }, [dismissPrompt, isOpen, routeKey]);
 
   if (!isOpen || !route || currentUser || !settingsReady) return null;
+
+  if (route.key === "visualization") {
+    return (
+      <aside
+        role="region"
+        aria-labelledby="guest-login-prompt-title"
+        aria-describedby="guest-login-prompt-description"
+        data-guest-login-prompt-mode="non-modal-after-guided-timeline"
+        className="fixed inset-x-3 bottom-3 z-[120] ml-auto w-auto max-w-[28rem] overflow-hidden rounded-[1.15rem] border border-cyan-200/80 bg-white/95 p-4 text-slate-950 shadow-[0_22px_70px_rgba(15,23,42,0.26)] backdrop-blur-xl dark:border-cyan-200/20 dark:bg-slate-950/95 dark:text-white sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[min(28rem,calc(100vw-2.5rem))] sm:p-5"
+      >
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_22%_0%,rgba(34,211,238,0.2),transparent_42%),radial-gradient(circle_at_82%_0%,rgba(167,139,250,0.16),transparent_38%)]" aria-hidden="true" />
+        <button
+          type="button"
+          onClick={dismissPrompt}
+          aria-label={t({ en: "Close login prompt", zh: "關閉登入提示", zhHans: "关闭登录提示" })}
+          className="focus-ring absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-slate-200/80 bg-white/90 text-lg font-black leading-none text-slate-500 shadow-sm transition hover:text-slate-950 dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-300 dark:hover:text-white"
+        >
+          ×
+        </button>
+        <div className="relative pr-9">
+          <span className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-200">
+            {t({ en: "Timeline complete", zh: "引導動畫已完成", zhHans: "引导动画已完成" })}
+          </span>
+          <h2 id="guest-login-prompt-title" className="mt-1 text-lg font-black leading-tight sm:text-xl">
+            {t({ en: "Save this learning progress", zh: "保存這次學習進度", zhHans: "保存这次学习进度" })}
+          </h2>
+          <p id="guest-login-prompt-description" className="mt-2 text-sm font-semibold leading-5 text-slate-600 dark:text-slate-300">
+            {t({
+              en: "Keep exploring as a guest, or use a MAIS account to carry progress across devices.",
+              zh: "你可以繼續以訪客身份探索，或使用 MAIS 帳戶跨裝置保存進度。",
+              zhHans: "你可以继续以游客身份探索，或使用 MAIS 账号跨设备保存进度。"
+            })}
+          </p>
+        </div>
+        <div className="relative mt-4 flex flex-wrap gap-2">
+          <Link href={loginHref} className="focus-ring inline-flex min-h-10 flex-1 items-center justify-center rounded-full bg-slate-950 px-4 py-2 text-sm font-black text-white dark:bg-white dark:text-slate-950">
+            {t(dictionary.nav.login)}
+          </Link>
+          <Link href={registerHref} className="focus-ring inline-flex min-h-10 flex-1 items-center justify-center rounded-full border border-cyan-300/70 bg-cyan-400/15 px-4 py-2 text-sm font-black text-cyan-800 dark:border-cyan-200/30 dark:text-cyan-100">
+            {t({ en: "Register", zh: "註冊", zhHans: "注册" })}
+          </Link>
+          <button type="button" onClick={dismissPrompt} className="focus-ring min-h-10 w-full rounded-full px-4 py-2 text-sm font-black text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10">
+            {t({ en: "Keep exploring", zh: "繼續探索", zhHans: "继续探索" })}
+          </button>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[160] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-md">

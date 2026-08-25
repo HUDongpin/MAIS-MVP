@@ -467,6 +467,12 @@ import {
   type TeacherOpsLearningPathRecord
 } from "@/lib/server/userStore/teacherOpsLearningPathPersistence";
 import {
+  createTeacherOpsVisualizationDraftPersistenceStore,
+  normalizeTeacherVisualizationDraftRecords,
+  type TeacherOpsVisualizationDraftPersistenceDatabase,
+  type TeacherVisualizationDraftRecord
+} from "@/lib/server/userStore/teacherOpsVisualizationDraftPersistence";
+import {
   createTeacherOpsStudentProfilePersistenceStore,
   type TeacherOpsStudentProfilePersistenceDatabase
 } from "@/lib/server/userStore/teacherOpsStudentProfilePersistence";
@@ -1803,6 +1809,7 @@ type Database = {
   teacher_student_groups: TeacherOpsStudentGroupRecord[];
   teacher_learning_paths: TeacherOpsLearningPathRecord[];
   learning_path_step_progress: TeacherOpsLearningPathProgressRecord[];
+  teacher_visualization_drafts: TeacherVisualizationDraftRecord[];
   adaptive_skill_state: AdaptiveSkillStateRecord[];
   adaptive_recommendation_cache: AdaptiveRecommendationCacheRecord[];
   visualization_events: VisualizationEventRecord[];
@@ -2773,6 +2780,7 @@ function createInitialDatabase(): Database {
     teacher_student_groups: [],
     teacher_learning_paths: [],
     learning_path_step_progress: [],
+    teacher_visualization_drafts: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -5285,6 +5293,7 @@ function normalizeDatabase(database: Partial<Database>) {
     teacher_student_groups: normalizeTeacherStudentGroupRecordsFromTeacherOpsStudentGroup(database.teacher_student_groups ?? [], now),
     teacher_learning_paths: normalizeTeacherLearningPathRecordsFromTeacherOpsLearningPath(database.teacher_learning_paths ?? [], now),
     learning_path_step_progress: normalizeLearningPathProgressRecordsFromTeacherOpsLearningPath(database.learning_path_step_progress ?? [], now),
+    teacher_visualization_drafts: normalizeTeacherVisualizationDraftRecords(database.teacher_visualization_drafts),
     adaptive_skill_state: normalizeAdaptiveSkillStateRecordsFromStudentActivityPersistence(database.adaptive_skill_state ?? [], now),
     adaptive_recommendation_cache: normalizeAdaptiveRecommendationCacheRecordsFromAiGovernancePersistence(database.adaptive_recommendation_cache ?? [], now),
     visualization_events: database.visualization_events ?? [],
@@ -5414,6 +5423,7 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
     (parsed.teacher_student_groups !== undefined && !Array.isArray(parsed.teacher_student_groups)) ||
     (parsed.teacher_learning_paths !== undefined && !Array.isArray(parsed.teacher_learning_paths)) ||
     (parsed.learning_path_step_progress !== undefined && !Array.isArray(parsed.learning_path_step_progress)) ||
+    !Array.isArray(parsed.teacher_visualization_drafts) ||
     !Array.isArray(parsed.adaptive_skill_state) ||
     !Array.isArray(parsed.adaptive_recommendation_cache) ||
     !Array.isArray(parsed.visualization_events) ||
@@ -7564,6 +7574,23 @@ const teacherOpsLearningPathPersistenceStore = createTeacherOpsLearningPathPersi
   }
 });
 
+const teacherOpsVisualizationDraftPersistenceStore = createTeacherOpsVisualizationDraftPersistenceStore({
+  createId: () => randomUUID(),
+  now: () => new Date(),
+  readDatabase: async () => {
+    const database = await readDatabase();
+    return database as TeacherOpsVisualizationDraftPersistenceDatabase;
+  },
+  mutateDatabase: async <T>(
+    mutator: (database: TeacherOpsVisualizationDraftPersistenceDatabase) => T | Promise<T>
+  ) => {
+    const result = await mutateDatabase((database) =>
+      mutator(database as TeacherOpsVisualizationDraftPersistenceDatabase)
+    );
+    return result as T;
+  }
+});
+
 const teacherOpsStudentProfilePersistenceStore = createTeacherOpsStudentProfilePersistenceStore({
   now: () => new Date(),
   readDatabase: async () => {
@@ -8054,6 +8081,7 @@ const teacherOpsUserStore = createTeacherOpsUserStore({
   teacherOpsMasteryTargetPersistenceStore,
   teacherOpsStudentGroupPersistenceStore,
   teacherOpsLearningPathPersistenceStore,
+  teacherOpsVisualizationDraftPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -9498,6 +9526,7 @@ function emptyTeacherDashboardDatabase(overrides: Partial<Database>): Database {
     teacher_student_groups: [],
     teacher_learning_paths: [],
     learning_path_step_progress: [],
+    teacher_visualization_drafts: [],
     adaptive_skill_state: [],
     adaptive_recommendation_cache: [],
     visualization_events: [],
@@ -10254,6 +10283,16 @@ export const createTeacherLearningPath = teacherOpsUserStore.createTeacherLearni
 export const updateTeacherLearningPath = teacherOpsUserStore.updateTeacherLearningPath;
 
 export const deleteTeacherLearningPath = teacherOpsUserStore.deleteTeacherLearningPath;
+
+export const listTeacherVisualizationDrafts = teacherOpsUserStore.listTeacherVisualizationDrafts;
+
+export const getTeacherVisualizationDraft = teacherOpsUserStore.getTeacherVisualizationDraft;
+
+export const createTeacherVisualizationDraft = teacherOpsUserStore.createTeacherVisualizationDraft;
+
+export const updateTeacherVisualizationDraft = teacherOpsUserStore.updateTeacherVisualizationDraft;
+
+export const archiveTeacherVisualizationDraft = teacherOpsUserStore.archiveTeacherVisualizationDraft;
 
 export const getStudentLearningPaths = studentActivityUserStore.getStudentLearningPaths;
 

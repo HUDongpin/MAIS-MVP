@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:turbo": "next dev --turbo",
     "dev:isolated": "node scripts/dev-isolated.mjs",
+    "manim:mp4": "node --import tsx scripts/render-mais-manim-mp4.ts",
     "kill-port": "node scripts/kill-port.mjs",
     "build": "node scripts/next-clean-build.mjs",
     "start": "next start",

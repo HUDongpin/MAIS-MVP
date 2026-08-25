@@ -97,6 +97,14 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   skipMiddlewareUrlNormalize: true,
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei", "three-stdlib"],
+  webpack(config) {
+    // Large isolated evidence builds can run on workstations with less free
+    // disk than webpack's disposable filesystem cache alone requires. The
+    // opt-in flag affects build caching only; compiled server/static output is
+    // unchanged and the default product build keeps Next's normal cache.
+    if (process.env.MAIS_DISABLE_WEBPACK_CACHE === "1") config.cache = false;
+    return config;
+  },
   async redirects() {
     return [
       {

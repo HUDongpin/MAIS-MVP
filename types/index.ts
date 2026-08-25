@@ -1571,6 +1571,27 @@ export type StudentSession = {
   role: "student" | "teacher" | "parent" | "admin";
 };
 
+export type TeacherVisualizationDraftStatus = "editing" | "ready-for-review" | "archived";
+
+export type TeacherVisualizationDraftRecord = {
+  id: string;
+  ownerId: string;
+  title: string;
+  schemaVersion: "mais-manim-scene-package/v3";
+  status: TeacherVisualizationDraftStatus;
+  revision: number;
+  packageJson: import("@/components/visualizations/three/manim/mathScenePackageV3").MathScenePackageV3;
+  createdAt: string;
+  updatedAt: string;
+  archivedAt: string | null;
+};
+
+export type TeacherVisualizationDraftRevisionConflict = {
+  error: "revision-conflict";
+  currentRevision: number;
+  serverVersion: TeacherVisualizationDraftRecord;
+};
+
 export type LearnerProfileOnboardingVersion = "learner-start-v1";
 export type LearnerProfileOnboardingStatus = "not-started" | "completed" | "skipped";
 export type LearnerProfileGoal = "repair" | "homework" | "preview" | "exam";

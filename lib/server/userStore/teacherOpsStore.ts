@@ -12,6 +12,7 @@ import type { TeacherOpsLiveSessionPersistenceStore } from "./teacherOpsLiveSess
 import type { TeacherOpsMasteryTargetPersistenceStore } from "./teacherOpsMasteryTargetPersistence";
 import type { TeacherOpsStudentGroupPersistenceStore } from "./teacherOpsStudentGroupPersistence";
 import type { TeacherOpsLearningPathPersistenceStore } from "./teacherOpsLearningPathPersistence";
+import type { TeacherOpsVisualizationDraftPersistenceStore } from "./teacherOpsVisualizationDraftPersistence";
 import type { TeacherOpsNoticePersistenceStore } from "./teacherOpsNoticePersistence";
 import type { TeacherOpsOperationsPersistenceStore } from "./teacherOpsOperationsPersistence";
 import type { TeacherOpsPrepTeamPersistenceStore } from "./teacherOpsPrepTeamPersistence";
@@ -38,6 +39,7 @@ export type TeacherOpsUserStoreDependencies = {
   teacherOpsMasteryTargetPersistenceStore: TeacherOpsMasteryTargetPersistenceStore;
   teacherOpsStudentGroupPersistenceStore: TeacherOpsStudentGroupPersistenceStore;
   teacherOpsLearningPathPersistenceStore: TeacherOpsLearningPathPersistenceStore;
+  teacherOpsVisualizationDraftPersistenceStore: TeacherOpsVisualizationDraftPersistenceStore;
   teacherOpsNoticePersistenceStore: TeacherOpsNoticePersistenceStore;
   teacherOpsOperationsPersistenceStore: TeacherOpsOperationsPersistenceStore;
   teacherOpsPrepTeamPersistenceStore: TeacherOpsPrepTeamPersistenceStore;
@@ -67,6 +69,7 @@ export function createTeacherOpsUserStore({
   teacherOpsMasteryTargetPersistenceStore,
   teacherOpsStudentGroupPersistenceStore,
   teacherOpsLearningPathPersistenceStore,
+  teacherOpsVisualizationDraftPersistenceStore,
   teacherOpsNoticePersistenceStore,
   teacherOpsOperationsPersistenceStore,
   teacherOpsPrepTeamPersistenceStore,
@@ -125,6 +128,11 @@ export function createTeacherOpsUserStore({
     createTeacherLearningPath: teacherOpsLearningPathPersistenceStore.createTeacherLearningPath,
     updateTeacherLearningPath: teacherOpsLearningPathPersistenceStore.updateTeacherLearningPath,
     deleteTeacherLearningPath: teacherOpsLearningPathPersistenceStore.deleteTeacherLearningPath,
+    listTeacherVisualizationDrafts: teacherOpsVisualizationDraftPersistenceStore.listTeacherVisualizationDrafts,
+    getTeacherVisualizationDraft: teacherOpsVisualizationDraftPersistenceStore.getTeacherVisualizationDraft,
+    createTeacherVisualizationDraft: teacherOpsVisualizationDraftPersistenceStore.createTeacherVisualizationDraft,
+    updateTeacherVisualizationDraft: teacherOpsVisualizationDraftPersistenceStore.updateTeacherVisualizationDraft,
+    archiveTeacherVisualizationDraft: teacherOpsVisualizationDraftPersistenceStore.archiveTeacherVisualizationDraft,
     createTeacherClass: teacherOpsClassPersistenceStore.createTeacherClass,
     addStudentToTeacherClass: teacherOpsClassPersistenceStore.addStudentToTeacherClass,
     joinClassByInviteCode: teacherOpsClassPersistenceStore.joinClassByInviteCode,

@@ -120,7 +120,7 @@ function createRuntimeReadyLabComponent(LoadedLabComponent: ComponentType<LabCom
 }
 
 const ConfiguredVisualizationLab = dynamic<LabComponentProps>(
-  () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => createRuntimeReadyLabComponent(module.ConfiguredVisualizationLab as ComponentType<LabComponentRuntimeProps>)),
+  () => import("@/components/visualizations/ConfiguredVisualizationLab").then((module) => createRuntimeReadyLabComponent(module.ConfiguredVisualizationLabDirect as ComponentType<LabComponentRuntimeProps>)),
   { loading: () => <LabRuntimeLoading /> }
 );
 
