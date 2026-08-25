@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "promotion-evidence.v2",
+  "evidenceId": "a11-us-ca-g6-ratios-v2-shadow-preflight",
+  "role": "A11",
+  "result": "pass",
+  "producedAt": "2026-08-26T15:00:00.000+08:00",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+  "checkerVersion": "promotion-gate-shadow-v2",
+  "semanticPayload": {
+    "contractVersion": "promotion-a11-shadow-preflight.v2",
+    "targetBaselineCommit": "d7ce01d9406d717451b7c43b6d7c48d70fd99ec1",
+    "legacyResolutionRegistryRawSha256": "dbe8b881d575028a46bc38492f7403b1d3618f1941435e300608fac270d45a71",
+    "independentReplayRequired": true,
+    "replayMustUseExactExecutionCommit": true,
+    "semanticReceiptDigestEqualityRequired": true,
+    "preflightResults": [
+      {
+        "check": "npm-run-type-check",
+        "result": "pass"
+      },
+      {
+        "check": "california-lessons-and-teacher-persistence-targeted-regression",
+        "result": "pass",
+        "passed": 65,
+        "failed": 0
+      },
+      {
+        "check": "promotion-gate-v2-pure-and-security-tests",
+        "result": "pass",
+        "passed": 18,
+        "failed": 0,
+        "expectedSkippedUntilManifestFreeze": 1
+      }
+    ],
+    "ratchetedAssertions": [
+      "492-question candidate package is absent from live California questions",
+      "unapproved K-5 textbook candidate seeds are absent",
+      "Grade 1 micro-lesson candidate seeds and topics are absent",
+      "hand-checked CCSS practice remains live",
+      "hand-built CCSS cardinality replacement remains live"
+    ],
+    "negativeCoverage": [
+      "absolute-path",
+      "path-traversal",
+      "NUL-path",
+      "case-collision",
+      "symlink-escape",
+      "output-creation-collision",
+      "source-drift",
+      "unknown-cli-command",
+      "live-command-alias",
+      "fuzzy-answer-form"
+    ],
+    "postRunOwner": "A11",
+    "liveAllowed": false
+  }
+}
