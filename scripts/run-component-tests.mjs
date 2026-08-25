@@ -97,7 +97,7 @@ try {
 
   const aliasRoot = join(outputDir, "node_modules", "@");
   mkdirSync(aliasRoot, { recursive: true });
-  for (const dir of ["data", "lib", "components", "types"]) {
+  for (const dir of ["app", "data", "lib", "components", "types"]) {
     try {
       symlinkSync(join("..", "..", dir), join(aliasRoot, dir));
     } catch (error) {

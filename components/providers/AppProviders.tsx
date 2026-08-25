@@ -1,9 +1,20 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, Fragment, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { isValidGradeId } from "@/data/grades";
+import {
+  appShellBootstrapIsAuthorized,
+  appShellIdentityFromBootstrap,
+  appShellSessionSyncStorageKey,
+  sameAppShellIdentity,
+  toAuthenticatedAppShellBootstrap,
+  type AppShellBootstrap,
+  type AppShellIdentity,
+  type AppShellUserSafe
+} from "@/lib/appShellBootstrap";
 import { isImmersiveStudentPracticeGamePath } from "@/lib/gameBasedLearning";
 import { dictionary, isValidLanguage, localeForLanguage, textForLanguage } from "@/lib/i18n";
 import { curriculumProfileForTrack, curriculumTrackForProfile, normalizeCurriculumProfile } from "@/lib/curriculumProfile";
@@ -79,7 +90,7 @@ type SettingsContextValue = {
   toggleTheme: () => void;
   selectedGrade: GradeId;
   setSelectedGrade: (grade: GradeId) => void;
-  currentUser: StudentSession | null;
+  currentUser: AppShellUserSafe | null;
   studentLessonHref: string | null;
   refreshLessonEntryTarget: (grade?: GradeId) => Promise<void>;
   login: (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile) => Promise<AuthActionResult>;
@@ -124,6 +135,82 @@ type AuthSessionResponse = {
   settingsPersisted?: boolean;
 };
 
+type AppProviderCoreState = {
+  language: Language;
+  theme: ThemeMode;
+  selectedGrade: GradeId;
+  currentUser: AppShellUserSafe | null;
+  lessonEntryTarget: LessonEntryTarget | null;
+  settingsReady: boolean;
+};
+
+type AppProviderCoreAction =
+  | { type: "replace"; state: AppProviderCoreState }
+  | {
+      type: "apply-session";
+      user: AppShellUserSafe;
+      settings: AuthSessionResponse["settings"];
+      lessonEntryTarget: LessonEntryTarget | null;
+      preserveSettings: boolean;
+    }
+  | { type: "clear-session" }
+  | { type: "set-language"; language: Language }
+  | { type: "set-theme"; theme: ThemeMode }
+  | { type: "set-grade"; grade: GradeId }
+  | { type: "set-lesson-entry"; lessonEntryTarget: LessonEntryTarget | null };
+
+function coreStateFromBootstrap(bootstrap: AppShellBootstrap): AppProviderCoreState {
+  if (bootstrap.kind === "authenticated") {
+    return {
+      language: bootstrap.settings.language,
+      theme: bootstrap.settings.theme,
+      selectedGrade: bootstrap.settings.selectedGrade,
+      currentUser: bootstrap.user,
+      lessonEntryTarget: null,
+      settingsReady: true
+    };
+  }
+
+  return {
+    language: "en",
+    theme: "light",
+    selectedGrade: "S3",
+    currentUser: null,
+    lessonEntryTarget: null,
+    settingsReady: false
+  };
+}
+
+function appProviderCoreReducer(state: AppProviderCoreState, action: AppProviderCoreAction): AppProviderCoreState {
+  switch (action.type) {
+    case "replace":
+      return action.state;
+    case "apply-session":
+      return {
+        language: action.preserveSettings ? state.language : action.settings.language,
+        theme: action.preserveSettings ? state.theme : action.settings.theme,
+        selectedGrade: action.preserveSettings ? state.selectedGrade : action.settings.selectedGrade,
+        currentUser: action.user,
+        lessonEntryTarget: action.lessonEntryTarget,
+        settingsReady: true
+      };
+    case "clear-session":
+      return { ...state, currentUser: null, lessonEntryTarget: null, settingsReady: true };
+    case "set-language":
+      return { ...state, language: action.language };
+    case "set-theme":
+      return { ...state, theme: action.theme };
+    case "set-grade":
+      return { ...state, selectedGrade: action.grade };
+    case "set-lesson-entry":
+      return { ...state, lessonEntryTarget: action.lessonEntryTarget };
+  }
+}
+
+function bootstrapFingerprint(bootstrap: AppShellBootstrap) {
+  return JSON.stringify(bootstrap);
+}
+
 type RegisterInput = {
   role?: "student" | "teacher" | "parent";
   name: string;
@@ -160,7 +247,13 @@ type AuthActionResult = {
     username: string;
     grade: GradeId;
   };
-  reason?: "duplicate" | "invalid" | "setup" | "error" | "requires-curriculum-track";
+  reason?:
+    | "duplicate"
+    | "invalid"
+    | "setup"
+    | "error"
+    | "requires-curriculum-track"
+    | "password-updated-sign-in-required";
 };
 
 async function readAuthErrorCode(response: Response) {
@@ -380,13 +473,54 @@ function persistedSettingsKey(userId: string, language: Language, theme: ThemeMo
   return `${userId}:${language}:${theme}:${selectedGrade}`;
 }
 
-const sessionSyncStorageKey = "hk-math-session-sync";
+const sessionSyncStorageKey = appShellSessionSyncStorageKey;
+const sessionSyncDocumentId = typeof globalThis.crypto?.randomUUID === "function"
+  ? globalThis.crypto.randomUUID()
+  : `mais-session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-function broadcastSessionChange(userId: string | null) {
+function readLocalStorageItem(key: string) {
   try {
-    window.localStorage.setItem(sessionSyncStorageKey, JSON.stringify({ userId, at: Date.now() }));
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeLocalStorageItem(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Preferences still work in memory when storage is unavailable.
+  }
+}
+
+function removeLocalStorageItem(key: string) {
+  try {
+    window.localStorage.removeItem(key);
+  } catch {
+    // Legacy storage cleanup is best-effort only.
+  }
+}
+
+function broadcastSessionChange(user: Pick<AppShellUserSafe, "id" | "role"> | null) {
+  const payload = {
+    userId: user?.id ?? null,
+    userRole: user?.role ?? null,
+    sourceDocumentId: sessionSyncDocumentId,
+    at: Date.now()
+  };
+  try {
+    window.localStorage.setItem(sessionSyncStorageKey, JSON.stringify(payload));
   } catch {
     // Cross-tab session sync is best-effort only.
+  }
+  try {
+    const channel = new BroadcastChannel(sessionSyncStorageKey);
+    channel.postMessage(payload);
+    channel.close();
+  } catch {
+    // Foreground/pagehide quarantine remains the fail-closed fallback when
+    // both browser messaging transports are unavailable.
   }
 }
 
@@ -396,33 +530,188 @@ function isRoleProtectedPath(pathname: string) {
   return roleProtectedPathPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
-export function AppProviders({ children }: { children: ReactNode }) {
+function sameAccountBoundary(
+  left: Pick<AppShellUserSafe, "id" | "role"> | null | undefined,
+  right: Pick<AppShellUserSafe, "id" | "role"> | null | undefined
+) {
+  return Boolean(left && right && left.id === right.id && left.role === right.role);
+}
+
+type SessionSyncIdentity =
+  | { valid: true; userId: null; userRole: null }
+  | { valid: true; userId: string; userRole: AppShellUserSafe["role"] }
+  | { valid: false; userId: null; userRole: null };
+
+type SessionVerificationMode = "none" | "foreground" | "identity";
+type SessionVerificationTarget = AppShellIdentity;
+
+function readSessionSyncIdentity(value: string | null): SessionSyncIdentity {
+  if (!value) return { valid: false, userId: null, userRole: null };
+  try {
+    const parsed = JSON.parse(value) as { userId?: unknown; userRole?: unknown } | null;
+    if (parsed?.userId === null && parsed.userRole === null) {
+      return { valid: true, userId: null, userRole: null };
+    }
+    if (
+      typeof parsed?.userId === "string" &&
+      (parsed.userRole === "student" ||
+        parsed.userRole === "teacher" ||
+        parsed.userRole === "parent" ||
+        parsed.userRole === "admin")
+    ) {
+      return { valid: true, userId: parsed.userId, userRole: parsed.userRole };
+    }
+  } catch {
+    // An unparseable identity signal must be treated as uncertain.
+  }
+  return { valid: false, userId: null, userRole: null };
+}
+
+export function AppProviders({
+  children,
+  initialBootstrap
+}: {
+  children: ReactNode;
+  initialBootstrap: AppShellBootstrap;
+}) {
   const pathname = usePathname();
   const router = useRouter();
-  const [language, setLanguage] = useState<Language>("en");
-  const [theme, setTheme] = useState<ThemeMode>("light");
-  const [selectedGrade, setSelectedGradeState] = useState<GradeId>("S3");
-  const [currentUser, setCurrentUser] = useState<StudentSession | null>(null);
-  const [lessonEntryTarget, setLessonEntryTarget] = useState<LessonEntryTarget | null>(null);
+  const [coreState, dispatchCore] = useReducer(appProviderCoreReducer, initialBootstrap, coreStateFromBootstrap);
+  const { language, theme, selectedGrade, currentUser, lessonEntryTarget, settingsReady } = coreState;
+  const coreStateRef = useRef(coreState);
+  const currentUserRef = useRef<AppShellUserSafe | null>(currentUser);
+  // Authenticated HTML and the first client render expose only the neutral
+  // identity gate. The account tree mounts after the cookie is rechecked by
+  // the authoritative session endpoint, so no script has to mutate <html> or
+  // body children while React is still hydrating the document singleton.
+  const initialSessionVerificationMode: SessionVerificationMode =
+    initialBootstrap.kind === "authenticated" ? "identity" : "none";
+  const initialSessionVerificationPending = initialSessionVerificationMode !== "none";
+  const [sessionVerificationMode, setSessionVerificationMode] = useState<SessionVerificationMode>(
+    initialSessionVerificationMode
+  );
+  const sessionVerificationPendingRef = useRef(initialSessionVerificationPending);
+  const sessionVerificationModeRef = useRef<SessionVerificationMode>(initialSessionVerificationMode);
+  const sessionVerificationTargetRef = useRef<SessionVerificationTarget | null>(null);
+  const acceptedBootstrapIdentityRef = useRef<SessionVerificationTarget>(
+    appShellIdentityFromBootstrap(initialBootstrap)
+  );
+  const bootstrapBoundaryMismatch = !appShellBootstrapIsAuthorized({
+    acceptedIdentity: acceptedBootstrapIdentityRef.current,
+    incomingBootstrap: initialBootstrap
+  });
+  const displayedSessionVerificationMode: SessionVerificationMode = bootstrapBoundaryMismatch
+    ? "identity"
+    : sessionVerificationMode;
+  const displayedSessionVerificationPending = displayedSessionVerificationMode !== "none";
+  const bootstrapMismatchReloadStartedRef = useRef(false);
+  const accountWorkBlockedRef = useRef(initialSessionVerificationPending);
+  const quarantinedUserRef = useRef<AppShellUserSafe | null>(currentUser);
+  const initialSessionValidationStartedRef = useRef(false);
+  const [reactGuardReady, setReactGuardReady] = useState(false);
+  const sessionVerificationGateRef = useRef<HTMLElement | null>(null);
   const [mistakeRecords, setMistakeRecords] = useState<MistakeRecord[]>([]);
   const [learningAnalyticsEvents, setLearningAnalyticsEvents] = useState<LearningAnalyticsEvent[]>([]);
   const [pendingLearningEvents, setPendingLearningEvents] = useState<LearningAnalyticsEvent[]>([]);
-  const [settingsReady, setSettingsReady] = useState(false);
   const analyticsFlushGenerationRef = useRef(0);
   const pendingLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
   const highFrequencyLearningEventsRef = useRef<LearningAnalyticsEvent[]>([]);
   const highFrequencyFlushHandleRef = useRef<number | null>(null);
   const lessonEntryRequestKeyRef = useRef<string | null>(null);
-  const persistedSettingsKeyRef = useRef<string | null>(null);
+  const lessonEntryReadGenerationRef = useRef(0);
+  const lessonEntryReadAbortRef = useRef<AbortController | null>(null);
+  const mistakeReadGenerationRef = useRef(0);
+  const mistakeReadAbortRef = useRef<AbortController | null>(null);
+  const authEpochRef = useRef(0);
+  const settingsMutationEpochRef = useRef(0);
+  const sessionRevalidationGenerationRef = useRef(0);
+  const sessionRevalidationAbortRef = useRef<AbortController | null>(null);
+  const settingsWriteGenerationRef = useRef(0);
+  const settingsWriteChainRef = useRef<Promise<void>>(Promise.resolve());
+  const settingsWriteAbortRef = useRef<AbortController | null>(null);
+  const pendingSettingsKeyRef = useRef<string | null>(null);
+  const settingsDirtyRef = useRef(false);
+  const settingsRetryAttemptRef = useRef(0);
+  const settingsRetryHandleRef = useRef<number | null>(null);
+  const [settingsRetryNonce, setSettingsRetryNonce] = useState(0);
+  const invalidCookieClearAttemptedRef = useRef<"idle" | "running" | "done">("idle");
+  const lastBootstrapFingerprintRef = useRef(bootstrapFingerprint(initialBootstrap));
+  const persistedSettingsKeyRef = useRef<string | null>(
+    initialBootstrap.kind === "authenticated"
+      ? persistedSettingsKey(
+          initialBootstrap.user.id,
+          initialBootstrap.settings.language,
+          initialBootstrap.settings.theme,
+          initialBootstrap.settings.selectedGrade
+        )
+      : null
+  );
   const skipGlobalStudentWarmups = currentUser?.role === "student" && isFirstPaintSensitiveStudentPath(pathname);
   const studentLessonHref = currentUser?.role === "student"
     ? lessonEntryTargetForGrade(lessonEntryTarget, selectedGrade)?.href ?? null
     : null;
+  useLayoutEffect(() => {
+    coreStateRef.current = coreState;
+    currentUserRef.current = currentUser;
+  }, [coreState, currentUser]);
   const clearHighFrequencyFlushHandle = useCallback(() => {
     if (highFrequencyFlushHandleRef.current === null) return;
     window.clearTimeout(highFrequencyFlushHandleRef.current);
     highFrequencyFlushHandleRef.current = null;
   }, []);
+  const setSessionVerificationState = useCallback((
+    pending: boolean,
+    mode: Exclude<SessionVerificationMode, "none"> = "identity"
+  ) => {
+    sessionVerificationPendingRef.current = pending;
+    sessionVerificationModeRef.current = pending ? mode : "none";
+    if (!pending) sessionVerificationTargetRef.current = null;
+    accountWorkBlockedRef.current = pending;
+    setSessionVerificationMode(pending ? mode : "none");
+  }, []);
+  const clearSettingsRetryHandle = useCallback(() => {
+    if (settingsRetryHandleRef.current === null) return;
+    window.clearTimeout(settingsRetryHandleRef.current);
+    settingsRetryHandleRef.current = null;
+  }, []);
+  const abortPerUserReads = useCallback(() => {
+    mistakeReadGenerationRef.current += 1;
+    mistakeReadAbortRef.current?.abort();
+    mistakeReadAbortRef.current = null;
+    lessonEntryReadGenerationRef.current += 1;
+    lessonEntryReadAbortRef.current?.abort();
+    lessonEntryReadAbortRef.current = null;
+    lessonEntryRequestKeyRef.current = null;
+  }, []);
+  const quarantineForSessionCheck = useCallback((
+    requestedMode: Exclude<SessionVerificationMode, "none"> = "identity"
+  ) => {
+    const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+    if (previousUser) quarantinedUserRef.current = previousUser;
+
+    // Block synchronously before React can paint again. This closes the short
+    // interval between a cross-tab cookie replacement and the session-state
+    // response, when the old tab must not issue account-bound work or render
+    // the previous account's server-provided children.
+    accountWorkBlockedRef.current = true;
+    sessionVerificationPendingRef.current = true;
+    const previousMode = sessionVerificationModeRef.current;
+    const mode = previousMode === "identity" ? "identity" : requestedMode;
+    if (mode === "identity" && previousMode !== "identity") {
+      sessionVerificationTargetRef.current = null;
+    }
+    sessionVerificationModeRef.current = mode;
+    setSessionVerificationMode(mode);
+    abortPerUserReads();
+    if (mode === "identity") {
+      setMistakeRecords([]);
+      // Only an identity boundary invalidates an already-issued analytics
+      // request. Foreground checks retain its generation so a network failure
+      // can still restore the batch to the verified same user's queue.
+      analyticsFlushGenerationRef.current += 1;
+    }
+    return previousUser;
+  }, [abortPerUserReads]);
   const appendLearningEventsToQueues = useCallback((events: LearningAnalyticsEvent[]) => {
     if (events.length === 0) return;
     const coalescedEvents = coalesceLearningAnalyticsEvents(events);
@@ -458,7 +747,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     }, throttledLearningAnalyticsFlushMs);
   }, [flushBufferedHighFrequencyLearningEvents]);
   const recordLearningEvent = useCallback((event: LearningAnalyticsInput) => {
-    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
+    if (accountWorkBlockedRef.current || !settingsReady || !currentUser || currentUser.role !== "student") return;
 
     const analyticsEvent = createLearningAnalyticsEvent(event, selectedGrade);
     if (isHighFrequencyLearningAnalyticsEvent(analyticsEvent)) {
@@ -473,23 +762,56 @@ export function AppProviders({ children }: { children: ReactNode }) {
     appendLearningEventsToQueues([analyticsEvent]);
   }, [appendLearningEventsToQueues, currentUser?.id, currentUser?.role, scheduleHighFrequencyLearningEventFlush, selectedGrade, settingsReady]);
   const refreshMistakeRecords = useCallback(async () => {
-    if (!currentUser) {
+    if (accountWorkBlockedRef.current || !currentUser) {
+      mistakeReadGenerationRef.current += 1;
+      mistakeReadAbortRef.current?.abort();
       setMistakeRecords([]);
       return;
     }
 
+    const requestedUserId = currentUser.id;
+    const requestedUserRole = currentUser.role;
+    const requestAuthEpoch = authEpochRef.current;
+    const requestGeneration = mistakeReadGenerationRef.current + 1;
+    mistakeReadGenerationRef.current = requestGeneration;
+    mistakeReadAbortRef.current?.abort();
+    const controller = new AbortController();
+    mistakeReadAbortRef.current = controller;
     try {
-      const response = await fetch("/api/mistakes", { cache: "no-store" });
+      const response = await fetch("/api/mistakes", {
+        cache: "no-store",
+        headers: { "X-MAIS-Expected-User-Id": requestedUserId },
+        signal: controller.signal
+      });
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
+        quarantineForSessionCheck();
+        router.refresh();
+        return;
+      }
       if (!response.ok) return;
-      setMistakeRecords(readMistakeRecords(await response.json()));
+      const records = readMistakeRecords(await response.json());
+      if (
+        accountWorkBlockedRef.current ||
+        requestGeneration !== mistakeReadGenerationRef.current ||
+        requestAuthEpoch !== authEpochRef.current ||
+        !sameAccountBoundary(currentUserRef.current, { id: requestedUserId, role: requestedUserRole })
+      ) return;
+      setMistakeRecords(records);
     } catch {
-      // Keep the last known mistake records if the request fails.
+      if (!sameAccountBoundary(currentUserRef.current, { id: requestedUserId, role: requestedUserRole })) {
+        setMistakeRecords([]);
+      }
+      // For the same verified account, keep the last known records on failure.
+    } finally {
+      if (mistakeReadAbortRef.current === controller) mistakeReadAbortRef.current = null;
     }
-  }, [currentUser?.id]);
+  }, [currentUser?.id, currentUser?.role, quarantineForSessionCheck, router]);
   const refreshLessonEntryTarget = useCallback(async (grade?: GradeId) => {
-    if (!currentUser || currentUser.role !== "student") {
+    if (accountWorkBlockedRef.current || !currentUser || currentUser.role !== "student") {
+      lessonEntryReadGenerationRef.current += 1;
+      lessonEntryReadAbortRef.current?.abort();
       lessonEntryRequestKeyRef.current = null;
-      setLessonEntryTarget(null);
+      dispatchCore({ type: "set-lesson-entry", lessonEntryTarget: null });
       return;
     }
 
@@ -497,84 +819,249 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const requestKey = `${currentUser.id}:${targetGrade}`;
     if (lessonEntryRequestKeyRef.current === requestKey) return;
     lessonEntryRequestKeyRef.current = requestKey;
+    const requestedUserId = currentUser.id;
+    const requestedUserRole = currentUser.role;
+    const requestAuthEpoch = authEpochRef.current;
+    const requestGeneration = lessonEntryReadGenerationRef.current + 1;
+    lessonEntryReadGenerationRef.current = requestGeneration;
+    lessonEntryReadAbortRef.current?.abort();
+    const controller = new AbortController();
+    lessonEntryReadAbortRef.current = controller;
 
     try {
-      const response = await fetch(`/api/lesson-entry?grade=${encodeURIComponent(targetGrade)}`, { cache: "no-store" });
+      const response = await fetch(`/api/lesson-entry?grade=${encodeURIComponent(targetGrade)}`, {
+        cache: "no-store",
+        headers: { "X-MAIS-Expected-User-Id": requestedUserId },
+        signal: controller.signal
+      });
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
+        quarantineForSessionCheck();
+        router.refresh();
+        return;
+      }
       const body = (await response.json()) as { lessonEntryTarget?: unknown };
       const nextTarget = readLessonEntryTarget(body.lessonEntryTarget);
       if (!response.ok || !nextTarget) throw new Error("Lesson entry target unavailable.");
-      storeLessonEntryTarget(currentUser.id, nextTarget);
-      setLessonEntryTarget(nextTarget);
+      if (
+        accountWorkBlockedRef.current ||
+        requestGeneration !== lessonEntryReadGenerationRef.current ||
+        requestAuthEpoch !== authEpochRef.current ||
+        !sameAccountBoundary(currentUserRef.current, { id: requestedUserId, role: requestedUserRole })
+      ) return;
+      storeLessonEntryTarget(requestedUserId, nextTarget);
+      dispatchCore({ type: "set-lesson-entry", lessonEntryTarget: nextTarget });
     } catch {
-      setLessonEntryTarget(readStoredLessonEntryTarget(currentUser.id, targetGrade));
+      if (
+        accountWorkBlockedRef.current ||
+        requestGeneration !== lessonEntryReadGenerationRef.current ||
+        requestAuthEpoch !== authEpochRef.current ||
+        !sameAccountBoundary(currentUserRef.current, { id: requestedUserId, role: requestedUserRole })
+      ) return;
+      dispatchCore({
+        type: "set-lesson-entry",
+        lessonEntryTarget: readStoredLessonEntryTarget(requestedUserId, targetGrade)
+      });
     } finally {
+      if (lessonEntryReadAbortRef.current === controller) lessonEntryReadAbortRef.current = null;
       if (lessonEntryRequestKeyRef.current === requestKey) {
         lessonEntryRequestKeyRef.current = null;
       }
     }
-  }, [currentUser, selectedGrade]);
+  }, [currentUser, quarantineForSessionCheck, router, selectedGrade]);
+
+  useLayoutEffect(() => {
+    if (!bootstrapBoundaryMismatch || bootstrapMismatchReloadStartedRef.current) return;
+    bootstrapMismatchReloadStartedRef.current = true;
+    // A server payload whose identity differs from the last accepted document
+    // is untrusted even when no storage/session gate happens to be active. Hide
+    // it in this commit and replace the whole document before passive effects
+    // can adopt it. This also neutralizes an A-scoped RSC response that arrives
+    // after a completed A -> B account replacement.
+    quarantineForSessionCheck("identity");
+    window.location.reload();
+  }, [bootstrapBoundaryMismatch, quarantineForSessionCheck]);
 
   useEffect(() => {
-    let cancelled = false;
+    const nextFingerprint = bootstrapFingerprint(initialBootstrap);
+    const bootstrapChanged = lastBootstrapFingerprintRef.current !== nextFingerprint;
+    const pendingVerificationMode = sessionVerificationModeRef.current;
+    if (pendingVerificationMode !== "none") {
+      // No RSC response may resolve a privacy gate. It can have started before
+      // the cookie transition (including a target-looking B response in a fast
+      // A -> B -> C sequence). Only the authoritative session-state response
+      // may clear a same-boundary gate; a replacement boundary reloads the
+      // document so old server children cannot commit afterward.
+      return;
+    }
+    lastBootstrapFingerprintRef.current = nextFingerprint;
+    acceptedBootstrapIdentityRef.current = appShellIdentityFromBootstrap(initialBootstrap);
+    removeLocalStorageItem("hk-math-user");
+    removeLocalStorageItem("hk-math-mistakes");
 
-    async function loadSettings() {
-      const savedLanguage = window.localStorage.getItem("hk-math-language") as Language | null;
-      const savedTheme = window.localStorage.getItem("hk-math-theme") as ThemeMode | null;
-      const savedGrade = window.localStorage.getItem("hk-math-grade") as GradeId | null;
-      if (isValidLanguage(savedLanguage)) setLanguage(savedLanguage);
-      if (savedTheme === "dark" || savedTheme === "light") setTheme(savedTheme);
-      if (isGrade(savedGrade)) {
-        setSelectedGradeState(savedGrade);
-      }
-      window.localStorage.removeItem("hk-math-user");
-      window.localStorage.removeItem("hk-math-mistakes");
+    if (initialBootstrap.kind === "authenticated") {
+      invalidCookieClearAttemptedRef.current = "idle";
+      removeLocalStorageItem("hk-math-theme");
+      removeLocalStorageItem("hk-math-language");
+      removeLocalStorageItem("hk-math-grade");
+      const previousUser = coreStateRef.current.currentUser;
+      const identityChanged = !sameAccountBoundary(previousUser, initialBootstrap.user);
+      const preserveSettings = !identityChanged && (
+        pendingSettingsKeyRef.current !== null ||
+        settingsDirtyRef.current
+      );
+      const effectiveGrade = preserveSettings
+        ? coreStateRef.current.selectedGrade
+        : initialBootstrap.settings.selectedGrade;
+      const storedTarget = initialBootstrap.user.role === "student"
+        ? readStoredLessonEntryTarget(initialBootstrap.user.id, effectiveGrade)
+        : null;
 
-      try {
-        const response = await fetch("/api/auth/session-state?includeLessonEntry=false", { cache: "no-store" });
-        if (response.ok) {
-          const session = readAuthSession(await response.json());
-          if (session && !cancelled) {
-            const sessionSelectedGrade = session.settings.selectedGrade;
-            const storedLessonEntryTarget = session.user.role === "student"
-              ? readStoredLessonEntryTarget(session.user.id, sessionSelectedGrade)
-              : null;
-            const sessionLessonEntryTarget = session.user.role === "student"
-              ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
-              : null;
-            setCurrentUser(session.user);
-            setLessonEntryTarget(sessionLessonEntryTarget);
-            setLanguage(session.settings.language);
-            setTheme(session.settings.theme);
-            setSelectedGradeState(sessionSelectedGrade);
-            if (session.lessonEntryTarget) {
-              storeLessonEntryTarget(session.user.id, session.lessonEntryTarget);
-            }
-            if (sessionLessonEntryTarget?.href) {
-              router.prefetch(sessionLessonEntryTarget.href);
-            }
-            persistedSettingsKeyRef.current = persistedSettingsKey(
-              session.user.id,
-              session.settings.language,
-              session.settings.theme,
-              session.settings.selectedGrade
-            );
-          }
+      if (bootstrapChanged || identityChanged) {
+        sessionRevalidationGenerationRef.current += 1;
+        sessionRevalidationAbortRef.current?.abort();
+        if (identityChanged) {
+          analyticsFlushGenerationRef.current += 1;
+          authEpochRef.current += 1;
+          settingsMutationEpochRef.current += 1;
+          settingsWriteAbortRef.current?.abort();
+          settingsWriteGenerationRef.current += 1;
+          pendingSettingsKeyRef.current = null;
+          settingsDirtyRef.current = false;
+          settingsRetryAttemptRef.current = 0;
+          clearSettingsRetryHandle();
+          abortPerUserReads();
+          setMistakeRecords([]);
+          pendingLearningEventsRef.current = [];
+          highFrequencyLearningEventsRef.current = [];
+          clearHighFrequencyFlushHandle();
+          setLearningAnalyticsEvents([]);
+          setPendingLearningEvents([]);
         }
-      } catch {
-        // Guests keep using local settings if the session check is unavailable.
+        if (!preserveSettings) {
+          settingsDirtyRef.current = false;
+          persistedSettingsKeyRef.current = persistedSettingsKey(
+            initialBootstrap.user.id,
+            initialBootstrap.settings.language,
+            initialBootstrap.settings.theme,
+            initialBootstrap.settings.selectedGrade
+          );
+        }
+        dispatchCore({
+          type: "apply-session",
+          user: initialBootstrap.user,
+          settings: initialBootstrap.settings,
+          lessonEntryTarget: storedTarget,
+          preserveSettings
+        });
+        currentUserRef.current = initialBootstrap.user;
+      } else if (storedTarget) {
+        dispatchCore({ type: "set-lesson-entry", lessonEntryTarget: storedTarget });
       }
-
-      if (!cancelled) {
-        setSettingsReady(true);
-      }
+      if (storedTarget?.href) router.prefetch(storedTarget.href);
+      quarantinedUserRef.current = null;
+      setSessionVerificationState(false);
+      return;
     }
 
-    loadSettings();
+    const savedLanguage = readLocalStorageItem("hk-math-language") as Language | null;
+    const savedTheme = readLocalStorageItem("hk-math-theme") as ThemeMode | null;
+    const savedGrade = readLocalStorageItem("hk-math-grade") as GradeId | null;
+    if (bootstrapChanged) {
+      const hadAuthenticatedUser = coreStateRef.current.currentUser !== null;
+      sessionRevalidationGenerationRef.current += 1;
+      authEpochRef.current += 1;
+      sessionRevalidationAbortRef.current?.abort();
+      settingsWriteAbortRef.current?.abort();
+      settingsWriteGenerationRef.current += 1;
+      pendingSettingsKeyRef.current = null;
+      settingsDirtyRef.current = false;
+      settingsRetryAttemptRef.current = 0;
+      clearSettingsRetryHandle();
+      abortPerUserReads();
+      persistedSettingsKeyRef.current = null;
+      setMistakeRecords([]);
+      if (hadAuthenticatedUser) {
+        analyticsFlushGenerationRef.current += 1;
+        pendingLearningEventsRef.current = [];
+        highFrequencyLearningEventsRef.current = [];
+        clearHighFrequencyFlushHandle();
+        setLearningAnalyticsEvents([]);
+        setPendingLearningEvents([]);
+      }
+    }
+    dispatchCore({
+      type: "replace",
+      state: {
+        language: isValidLanguage(savedLanguage) ? savedLanguage : "en",
+        theme: savedTheme === "dark" || savedTheme === "light" ? savedTheme : "light",
+        selectedGrade: isGrade(savedGrade) ? savedGrade : "S3",
+        currentUser: null,
+        lessonEntryTarget: null,
+        settingsReady: true
+      }
+    });
+    currentUserRef.current = null;
+    quarantinedUserRef.current = null;
+    setSessionVerificationState(false);
+  }, [
+    abortPerUserReads,
+    clearHighFrequencyFlushHandle,
+    clearSettingsRetryHandle,
+    initialBootstrap,
+    quarantineForSessionCheck,
+    router,
+    setSessionVerificationState
+  ]);
+
+  useEffect(() => {
+    if (initialBootstrap.kind !== "guest" || !initialBootstrap.hadSessionCookie) {
+      invalidCookieClearAttemptedRef.current = "idle";
+      return;
+    }
+    if (invalidCookieClearAttemptedRef.current !== "idle") return;
+
+    invalidCookieClearAttemptedRef.current = "running";
+    let cancelled = false;
+    const attemptControllers = new Set<AbortController>();
+    const retryDelays = [0, 1_000, 3_000] as const;
+
+    void (async () => {
+      for (const delay of retryDelays) {
+        if (delay > 0) {
+          await new Promise<void>((resolve) => window.setTimeout(resolve, delay));
+        }
+        if (cancelled) return;
+        const attemptController = new AbortController();
+        attemptControllers.add(attemptController);
+        const timeoutHandle = window.setTimeout(() => attemptController.abort(), 5_000);
+        try {
+          const response = await fetch("/api/auth/logout", {
+            method: "POST",
+            signal: attemptController.signal
+          });
+          if (response.ok) {
+            invalidCookieClearAttemptedRef.current = "done";
+            return;
+          }
+        } catch {
+          if (cancelled) return;
+        } finally {
+          window.clearTimeout(timeoutHandle);
+          attemptControllers.delete(attemptController);
+        }
+      }
+      if (!cancelled) invalidCookieClearAttemptedRef.current = "idle";
+    })();
 
     return () => {
       cancelled = true;
+      attemptControllers.forEach((controller) => controller.abort());
+      attemptControllers.clear();
+      if (invalidCookieClearAttemptedRef.current === "running") {
+        invalidCookieClearAttemptedRef.current = "idle";
+      }
     };
-  }, [router]);
+  }, [initialBootstrap]);
 
   useEffect(() => {
     if (!settingsReady) return;
@@ -599,35 +1086,140 @@ export function AppProviders({ children }: { children: ReactNode }) {
       )
     );
     if (currentUser) {
-      window.localStorage.removeItem("hk-math-theme");
-      window.localStorage.removeItem("hk-math-language");
-      window.localStorage.removeItem("hk-math-grade");
-      window.localStorage.removeItem("hk-math-user");
+      removeLocalStorageItem("hk-math-theme");
+      removeLocalStorageItem("hk-math-language");
+      removeLocalStorageItem("hk-math-grade");
+      removeLocalStorageItem("hk-math-user");
       const nextSettingsKey = persistedSettingsKey(currentUser.id, language, theme, selectedGrade);
-      if (persistedSettingsKeyRef.current !== nextSettingsKey) {
-        persistedSettingsKeyRef.current = nextSettingsKey;
-        void fetch("/api/me/settings", {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ language, theme, selectedGrade })
-        }).catch(() => {
-          if (persistedSettingsKeyRef.current === nextSettingsKey) {
-            persistedSettingsKeyRef.current = null;
-          }
-        });
+      if (
+        !accountWorkBlockedRef.current &&
+        (
+          settingsDirtyRef.current ||
+          persistedSettingsKeyRef.current !== nextSettingsKey ||
+          (pendingSettingsKeyRef.current !== null && pendingSettingsKeyRef.current !== nextSettingsKey)
+        ) &&
+        pendingSettingsKeyRef.current !== nextSettingsKey
+      ) {
+        const writeGeneration = settingsWriteGenerationRef.current + 1;
+        settingsWriteGenerationRef.current = writeGeneration;
+        pendingSettingsKeyRef.current = nextSettingsKey;
+        const writeAuthEpoch = authEpochRef.current;
+        const requestedSettings = { language, theme, selectedGrade };
+        settingsWriteChainRef.current = settingsWriteChainRef.current
+          .catch(() => undefined)
+          .then(async () => {
+            if (
+              accountWorkBlockedRef.current ||
+              currentUserRef.current?.id !== currentUser.id ||
+              writeGeneration !== settingsWriteGenerationRef.current ||
+              writeAuthEpoch !== authEpochRef.current
+            ) return;
+
+            const controller = new AbortController();
+            settingsWriteAbortRef.current = controller;
+            let response: Response;
+            try {
+              response = await fetch("/api/me/settings", {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-MAIS-Expected-User-Id": currentUser.id
+                },
+                body: JSON.stringify({ ...requestedSettings, expectedUserId: currentUser.id }),
+                signal: controller.signal
+              });
+            } finally {
+              if (settingsWriteAbortRef.current === controller) settingsWriteAbortRef.current = null;
+            }
+            if (writeAuthEpoch !== authEpochRef.current) return;
+            if (response.status === 401 || response.status === 403 || response.status === 409) {
+              settingsWriteGenerationRef.current += 1;
+              pendingSettingsKeyRef.current = null;
+              settingsDirtyRef.current = false;
+              settingsRetryAttemptRef.current = 0;
+              clearSettingsRetryHandle();
+              persistedSettingsKeyRef.current = null;
+              quarantineForSessionCheck();
+              router.refresh();
+              return;
+            }
+            if (!response.ok) throw new Error("Settings persistence failed.");
+
+            const payload = await response.json().catch(() => null) as {
+              settings?: Partial<AuthSessionResponse["settings"]>;
+            } | null;
+            if (
+              payload?.settings?.language !== requestedSettings.language ||
+              payload.settings.theme !== requestedSettings.theme ||
+              payload.settings.selectedGrade !== requestedSettings.selectedGrade
+            ) {
+              throw new Error("Settings persistence returned a different snapshot.");
+            }
+            if (
+              writeGeneration === settingsWriteGenerationRef.current &&
+              writeAuthEpoch === authEpochRef.current
+            ) {
+              persistedSettingsKeyRef.current = nextSettingsKey;
+              settingsDirtyRef.current = false;
+              settingsRetryAttemptRef.current = 0;
+              clearSettingsRetryHandle();
+            }
+          })
+          .catch(() => {
+            if (
+              writeGeneration === settingsWriteGenerationRef.current &&
+              writeAuthEpoch === authEpochRef.current
+            ) {
+              persistedSettingsKeyRef.current = null;
+              settingsDirtyRef.current = true;
+              if (settingsRetryHandleRef.current === null && settingsRetryAttemptRef.current < 3) {
+                const retryAttempt = settingsRetryAttemptRef.current + 1;
+                settingsRetryAttemptRef.current = retryAttempt;
+                settingsRetryHandleRef.current = window.setTimeout(() => {
+                  settingsRetryHandleRef.current = null;
+                  setSettingsRetryNonce((current) => current + 1);
+                }, 500 * (2 ** (retryAttempt - 1)));
+              }
+            }
+          })
+          .finally(() => {
+            if (pendingSettingsKeyRef.current === nextSettingsKey) {
+              pendingSettingsKeyRef.current = null;
+            }
+          });
       }
     } else {
       persistedSettingsKeyRef.current = null;
-      window.localStorage.setItem("hk-math-theme", theme);
-      window.localStorage.setItem("hk-math-language", language);
-      window.localStorage.setItem("hk-math-grade", selectedGrade);
-      window.localStorage.removeItem("hk-math-user");
+      writeLocalStorageItem("hk-math-theme", theme);
+      writeLocalStorageItem("hk-math-language", language);
+      writeLocalStorageItem("hk-math-grade", selectedGrade);
+      removeLocalStorageItem("hk-math-user");
     }
 
     return () => titleHandles.forEach((handle) => window.clearTimeout(handle));
-  }, [pathname, theme, language, selectedGrade, currentUser?.id, settingsReady]);
+  }, [
+    clearSettingsRetryHandle,
+    pathname,
+    theme,
+    language,
+    selectedGrade,
+    currentUser?.id,
+    quarantineForSessionCheck,
+    router,
+    settingsReady,
+    settingsRetryNonce
+  ]);
+
+  useEffect(() => {
+    const retryWhenOnline = () => {
+      if (!settingsDirtyRef.current || accountWorkBlockedRef.current) return;
+      settingsRetryAttemptRef.current = 0;
+      clearSettingsRetryHandle();
+      setSettingsRetryNonce((current) => current + 1);
+    };
+    window.addEventListener("online", retryWhenOnline);
+    return () => window.removeEventListener("online", retryWhenOnline);
+  }, [clearSettingsRetryHandle]);
 
   useEffect(() => {
     if (!settingsReady || skipGlobalStudentWarmups) return;
@@ -654,7 +1246,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       lessonEntryTargetForGrade(lessonEntryTarget, selectedGrade)
     ) return;
     const storedTarget = readStoredLessonEntryTarget(currentUser.id, selectedGrade);
-    if (storedTarget) setLessonEntryTarget(storedTarget);
+    if (storedTarget) dispatchCore({ type: "set-lesson-entry", lessonEntryTarget: storedTarget });
   }, [currentUser?.id, currentUser?.role, lessonEntryTarget, selectedGrade, settingsReady]);
 
   useEffect(() => {
@@ -674,17 +1266,20 @@ export function AppProviders({ children }: { children: ReactNode }) {
     clearHighFrequencyFlushHandle();
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-  }, [clearHighFrequencyFlushHandle, currentUser?.id]);
+  }, [clearHighFrequencyFlushHandle, currentUser?.id, currentUser?.role]);
 
   useEffect(() => {
     pendingLearningEventsRef.current = pendingLearningEvents;
   }, [pendingLearningEvents]);
 
-  const sendLearningEventsDuringPageExit = useCallback((events: LearningAnalyticsEvent[]) => {
-    if (events.length === 0) return;
+  const sendLearningEventsDuringPageExit = useCallback((events: LearningAnalyticsEvent[], expectedUserId: string) => {
+    if (accountWorkBlockedRef.current || events.length === 0) return;
 
     for (let index = 0; index < events.length; index += 100) {
-      const payload = JSON.stringify({ events: events.slice(index, index + 100) });
+      const payload = JSON.stringify({
+        events: events.slice(index, index + 100),
+        expectedUserId
+      });
       if (typeof navigator.sendBeacon === "function") {
         const queued = navigator.sendBeacon("/api/learning-events", new Blob([payload], { type: "application/json" }));
         if (queued) continue;
@@ -693,7 +1288,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
       void fetch("/api/learning-events", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
         body: payload,
         keepalive: true
@@ -705,7 +1301,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
 
   const flushLearningAnalyticsOnPageExit = useCallback((event?: Event) => {
     if (event?.type === "visibilitychange" && document.visibilityState !== "hidden") return;
-    if (!settingsReady || !currentUser || currentUser.role !== "student") return;
+    if (accountWorkBlockedRef.current || !settingsReady || !currentUser || currentUser.role !== "student") return;
 
     const bufferedEvents = takeBufferedHighFrequencyLearningEvents();
     const events = coalesceLearningAnalyticsEvents([
@@ -720,7 +1316,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       pendingLearningEventsRef.current = nextEvents;
       return nextEvents;
     });
-    sendLearningEventsDuringPageExit(events);
+    sendLearningEventsDuringPageExit(events, currentUser.id);
   }, [
     currentUser?.id,
     currentUser?.role,
@@ -745,9 +1341,21 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, [currentUser?.role, flushLearningAnalyticsOnPageExit, settingsReady]);
 
   useEffect(() => {
-    if (!settingsReady || !currentUser || pendingLearningEvents.length === 0) return;
+    if (
+      accountWorkBlockedRef.current ||
+      !settingsReady ||
+      !currentUser ||
+      currentUser.role !== "student" ||
+      pendingLearningEvents.length === 0
+    ) return;
 
     const handle = window.setTimeout(() => {
+      const expectedUserId = currentUser.id;
+      const expectedUserRole = currentUser.role;
+      if (
+        accountWorkBlockedRef.current ||
+        !sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole })
+      ) return;
       const flushGeneration = analyticsFlushGenerationRef.current;
       const events = pendingLearningEvents.slice(0, 100);
       const eventIds = new Set(events.map((event) => event.id));
@@ -760,27 +1368,25 @@ export function AppProviders({ children }: { children: ReactNode }) {
       void fetch("/api/learning-events", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
-        body: JSON.stringify({ events })
+        body: JSON.stringify({ events, expectedUserId })
       })
         .then((response) => {
-          if (response.status === 401 || response.status === 403) {
+          if (response.status === 401 || response.status === 403 || response.status === 409) {
             if (analyticsFlushGenerationRef.current === flushGeneration) {
-              analyticsFlushGenerationRef.current += 1;
-              setCurrentUser(null);
-              setLessonEntryTarget(null);
-              pendingLearningEventsRef.current = [];
-              highFrequencyLearningEventsRef.current = [];
-              clearHighFrequencyFlushHandle();
-              setLearningAnalyticsEvents([]);
-              setPendingLearningEvents([]);
+              quarantineForSessionCheck();
+              router.refresh();
             }
             return;
           }
           if (response.status === 400) return;
           if (!response.ok) throw new Error("Could not flush learning events.");
-          if (analyticsFlushGenerationRef.current === flushGeneration) {
+          if (
+            analyticsFlushGenerationRef.current === flushGeneration &&
+            sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole })
+          ) {
             window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
           }
         })
@@ -797,11 +1403,53 @@ export function AppProviders({ children }: { children: ReactNode }) {
     }, 1000);
 
     return () => window.clearTimeout(handle);
-  }, [clearHighFrequencyFlushHandle, currentUser?.id, pendingLearningEvents, settingsReady]);
+  }, [
+    currentUser?.id,
+    currentUser?.role,
+    pendingLearningEvents,
+    quarantineForSessionCheck,
+    router,
+    settingsReady
+  ]);
 
   const setSelectedGrade = useCallback((grade: GradeId) => {
-    setSelectedGradeState(grade);
-  }, []);
+    if (accountWorkBlockedRef.current) return;
+    settingsMutationEpochRef.current += 1;
+    settingsDirtyRef.current = true;
+    settingsRetryAttemptRef.current = 0;
+    clearSettingsRetryHandle();
+    dispatchCore({ type: "set-grade", grade });
+  }, [clearSettingsRetryHandle]);
+
+  const setLanguage = useCallback((nextLanguage: Language) => {
+    if (accountWorkBlockedRef.current) return;
+    settingsMutationEpochRef.current += 1;
+    settingsDirtyRef.current = true;
+    settingsRetryAttemptRef.current = 0;
+    clearSettingsRetryHandle();
+    dispatchCore({ type: "set-language", language: nextLanguage });
+  }, [clearSettingsRetryHandle]);
+
+  const toggleLanguage = useCallback(() => {
+    if (accountWorkBlockedRef.current) return;
+    settingsMutationEpochRef.current += 1;
+    settingsDirtyRef.current = true;
+    settingsRetryAttemptRef.current = 0;
+    clearSettingsRetryHandle();
+    dispatchCore({
+      type: "set-language",
+      language: language === "en" ? "zh" : language === "zh" ? "zh-Hans" : "en"
+    });
+  }, [clearSettingsRetryHandle, language]);
+
+  const toggleTheme = useCallback(() => {
+    if (accountWorkBlockedRef.current) return;
+    settingsMutationEpochRef.current += 1;
+    settingsDirtyRef.current = true;
+    settingsRetryAttemptRef.current = 0;
+    clearSettingsRetryHandle();
+    dispatchCore({ type: "set-theme", theme: theme === "dark" ? "light" : "dark" });
+  }, [clearSettingsRetryHandle, theme]);
 
   useEffect(() => {
     const source = analyticsSourceForPath(pathname);
@@ -849,39 +1497,107 @@ export function AppProviders({ children }: { children: ReactNode }) {
     };
   }, [pathname, recordLearningEvent]);
 
-  const applyAuthSession = useCallback((session: AuthSessionResponse) => {
-    const sessionSelectedGrade = session.settings.selectedGrade;
+  const applyAuthSession = useCallback((
+    session: AuthSessionResponse,
+    options: {
+      preserveSettings?: boolean;
+      broadcast?: boolean;
+      resetLearningState?: boolean;
+      invalidateRevalidation?: boolean;
+      keepVerificationGate?: boolean;
+    } = {}
+  ) => {
+    const preserveSettings = options.preserveSettings === true;
+    const shouldRetryDirtySettings = preserveSettings && settingsDirtyRef.current;
+    const resetLearningState = options.resetLearningState !== false;
+    const sessionSelectedGrade = preserveSettings
+      ? coreStateRef.current.selectedGrade
+      : session.settings.selectedGrade;
     const storedLessonEntryTarget = session.user.role === "student"
       ? readStoredLessonEntryTarget(session.user.id, sessionSelectedGrade)
       : null;
     const sessionLessonEntryTarget = session.user.role === "student"
       ? lessonEntryTargetForGrade(session.lessonEntryTarget, sessionSelectedGrade) ?? storedLessonEntryTarget
       : null;
-    analyticsFlushGenerationRef.current += 1;
-    lessonEntryRequestKeyRef.current = null;
-    persistedSettingsKeyRef.current = session.settingsPersisted === false
-      ? null
-      : persistedSettingsKey(
-          session.user.id,
-          session.settings.language,
-          session.settings.theme,
-          session.settings.selectedGrade
-        );
-    setLearningAnalyticsEvents([]);
-    setPendingLearningEvents([]);
-    setCurrentUser(session.user);
-    setLessonEntryTarget(sessionLessonEntryTarget);
-    setLanguage(session.settings.language);
-    setTheme(session.settings.theme);
-    setSelectedGradeState(sessionSelectedGrade);
+    if (resetLearningState || options.invalidateRevalidation === true) {
+      sessionRevalidationGenerationRef.current += 1;
+      sessionRevalidationAbortRef.current?.abort();
+    }
+    if (resetLearningState) {
+      analyticsFlushGenerationRef.current += 1;
+      authEpochRef.current += 1;
+      settingsMutationEpochRef.current += 1;
+      settingsWriteAbortRef.current?.abort();
+      settingsWriteGenerationRef.current += 1;
+      pendingSettingsKeyRef.current = null;
+      settingsDirtyRef.current = false;
+      settingsRetryAttemptRef.current = 0;
+      clearSettingsRetryHandle();
+      abortPerUserReads();
+      lessonEntryRequestKeyRef.current = null;
+      persistedSettingsKeyRef.current = null;
+      setMistakeRecords([]);
+      pendingLearningEventsRef.current = [];
+      highFrequencyLearningEventsRef.current = [];
+      clearHighFrequencyFlushHandle();
+      setLearningAnalyticsEvents([]);
+      setPendingLearningEvents([]);
+    }
+    if (!preserveSettings) {
+      settingsDirtyRef.current = false;
+      persistedSettingsKeyRef.current = session.settingsPersisted === false
+        ? null
+        : persistedSettingsKey(
+            session.user.id,
+            session.settings.language,
+            session.settings.theme,
+            session.settings.selectedGrade
+      );
+    }
+    const safeBootstrap = toAuthenticatedAppShellBootstrap(session);
+    currentUserRef.current = safeBootstrap.user;
+    dispatchCore({
+      type: "apply-session",
+      user: safeBootstrap.user,
+      settings: session.settings,
+      lessonEntryTarget: sessionLessonEntryTarget,
+      preserveSettings
+    });
     if (session.lessonEntryTarget) {
       storeLessonEntryTarget(session.user.id, session.lessonEntryTarget);
     }
     if (sessionLessonEntryTarget?.href) {
       router.prefetch(sessionLessonEntryTarget.href);
     }
-    broadcastSessionChange(session.user.id);
-  }, [router]);
+    if (options.keepVerificationGate !== true) {
+      quarantinedUserRef.current = null;
+      setSessionVerificationState(false);
+    }
+    if (shouldRetryDirtySettings) {
+      setSettingsRetryNonce((current) => current + 1);
+    }
+    if (options.broadcast !== false) broadcastSessionChange(safeBootstrap.user);
+  }, [abortPerUserReads, clearHighFrequencyFlushHandle, clearSettingsRetryHandle, router, setSessionVerificationState]);
+
+  const beginAuthenticatedDocumentTransition = useCallback((session: AuthSessionResponse) => {
+    const safeBootstrap = toAuthenticatedAppShellBootstrap(session);
+
+    // A login, registration or password-reset confirmation replaces the
+    // browser cookie. Never adopt that identity inside the old React/RSC tree:
+    // a late Flight response from the previous account could otherwise be
+    // accepted before the destination document commits. Gate synchronously,
+    // invalidate every captured account continuation, publish the new durable
+    // identity, and let the calling page perform a full-document replacement.
+    flushSync(() => quarantineForSessionCheck("identity"));
+    authEpochRef.current += 1;
+    settingsMutationEpochRef.current += 1;
+    sessionRevalidationGenerationRef.current += 1;
+    sessionRevalidationAbortRef.current?.abort();
+    settingsWriteAbortRef.current?.abort();
+    settingsWriteGenerationRef.current += 1;
+    sessionVerificationTargetRef.current = appShellIdentityFromBootstrap(safeBootstrap);
+    broadcastSessionChange(safeBootstrap.user);
+  }, [quarantineForSessionCheck]);
 
   const login = useCallback(async (identifier: string, password: string, grade?: GradeId, curriculumProfile?: CurriculumProfile): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/login", {
@@ -921,9 +1637,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const session = readAuthSession(body);
     if (!session) return { ok: false, reason: "error" };
 
-    applyAuthSession(session);
+    beginAuthenticatedDocumentTransition(session);
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession, language, theme]);
+  }, [beginAuthenticatedDocumentTransition, language, theme]);
 
   const register = useCallback(async ({ role = "student", name, username, email, password, grade, curriculumProfile }: RegisterInput): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/register", {
@@ -955,9 +1671,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const session = readAuthSession(await response.json());
     if (!session) return { ok: false, reason: "error" };
 
-    applyAuthSession(session);
+    beginAuthenticatedDocumentTransition(session);
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession, language, theme]);
+  }, [beginAuthenticatedDocumentTransition, language, theme]);
 
   const completePasswordReset = useCallback(async (token: string, password: string): Promise<AuthActionResult> => {
     const response = await fetch("/api/auth/password-reset/confirm", {
@@ -982,31 +1698,62 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const session = readAuthSession(await response.json());
     if (!session) return { ok: false, reason: "error" };
 
-    applyAuthSession(session);
+    beginAuthenticatedDocumentTransition(session);
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession]);
+  }, [beginAuthenticatedDocumentTransition]);
 
   const changePassword = useCallback(async (currentPassword: string, password: string): Promise<AuthActionResult> => {
+    const expectedUser = currentUserRef.current;
+    if (!expectedUser || accountWorkBlockedRef.current) return { ok: false, reason: "error" };
+    const expectedUserId = expectedUser.id;
+    const expectedUserRole = expectedUser.role;
     const response = await fetch("/api/auth/password-change", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-MAIS-Expected-User-Id": expectedUserId
       },
-      body: JSON.stringify({ currentPassword, password })
+      body: JSON.stringify({ currentPassword, password, expectedUserId })
     });
 
     if (!response.ok) {
+      const responseCode = await readAuthErrorCode(response);
+      if (responseCode === "account-updated-session-refresh-required") {
+        quarantineForSessionCheck();
+        // The password mutation committed even though the new session could
+        // not be issued. Tell every sibling tab to gate immediately instead
+        // of leaving another copy of the old, now-revoked account visible.
+        broadcastSessionChange(null);
+        window.location.replace("/login?reason=password-updated-sign-in-required");
+        return { ok: false, reason: "password-updated-sign-in-required" };
+      }
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
+        quarantineForSessionCheck();
+        router.refresh();
+      }
       return { ok: false, reason: response.status === 400 ? "invalid" : response.status === 401 ? "invalid" : "error" };
     }
 
     const session = readAuthSession(await response.json());
     if (!session) return { ok: false, reason: "error" };
+    if (
+      accountWorkBlockedRef.current ||
+      !sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole }) ||
+      !sameAccountBoundary(expectedUser, session.user)
+    ) {
+      return { ok: false, reason: "error" };
+    }
 
     applyAuthSession(session);
     return { ok: true, role: session.user.role, passwordMustChange: Boolean(session.user.passwordMustChange) };
-  }, [applyAuthSession]);
+  }, [applyAuthSession, quarantineForSessionCheck, router]);
 
   const updateProfile = useCallback(async ({ name, avatarId, avatarImageDataUrl }: ProfileUpdateInput): Promise<AuthActionResult> => {
+    const expectedUser = currentUserRef.current;
+    if (!expectedUser || accountWorkBlockedRef.current) return { ok: false, reason: "error" };
+    const expectedUserId = expectedUser.id;
+    const expectedUserRole = expectedUser.role;
+
     const patchProfile = async (body: {
       name?: string;
       avatarId?: StudentAvatarId;
@@ -1016,20 +1763,36 @@ export function AppProviders({ children }: { children: ReactNode }) {
       const response = await fetch("/api/me/profile", {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-MAIS-Expected-User-Id": expectedUserId
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify({ ...body, expectedUserId })
       });
 
       if (!response.ok) {
+        if (response.status === 401 || response.status === 403 || response.status === 409) {
+          quarantineForSessionCheck();
+          router.refresh();
+        }
         if (response.status === 400) return { ok: false, reason: "invalid" } satisfies AuthActionResult;
         return { ok: false, reason: "error" } satisfies AuthActionResult;
       }
 
       const session = readAuthSession(await response.json());
       if (!session) return { ok: false, reason: "error" } satisfies AuthActionResult;
+      if (
+        accountWorkBlockedRef.current ||
+        !sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole }) ||
+        !sameAccountBoundary(expectedUser, session.user)
+      ) {
+        return { ok: false, reason: "error" } satisfies AuthActionResult;
+      }
 
-      applyAuthSession(session);
+      applyAuthSession(session, {
+        preserveSettings: true,
+        resetLearningState: false,
+        invalidateRevalidation: true
+      });
       return { ok: true, role: session.user.role } satisfies AuthActionResult;
     };
 
@@ -1041,10 +1804,27 @@ export function AppProviders({ children }: { children: ReactNode }) {
         const uploadResponse = await fetch("/api/media-objects", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "X-MAIS-Expected-User-Id": expectedUserId
           },
-          body: JSON.stringify({ capability: "profile-avatar", dataUrl: avatarImageDataUrl })
+          body: JSON.stringify({
+            capability: "profile-avatar",
+            dataUrl: avatarImageDataUrl,
+            expectedUserId
+          })
         });
+
+        if (uploadResponse.status === 401 || uploadResponse.status === 403 || uploadResponse.status === 409) {
+          quarantineForSessionCheck();
+          router.refresh();
+          return { ok: false, reason: "error" };
+        }
+        if (
+          accountWorkBlockedRef.current ||
+          !sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole })
+        ) {
+          return { ok: false, reason: "error" };
+        }
 
         if (uploadResponse.status === 201) {
           const uploadPayload = await uploadResponse.json().catch(() => null) as { media?: unknown } | null;
@@ -1067,154 +1847,447 @@ export function AppProviders({ children }: { children: ReactNode }) {
     } catch {
       return { ok: false, reason: "error" };
     }
-  }, [applyAuthSession]);
+  }, [applyAuthSession, quarantineForSessionCheck, router]);
 
   const clearLocalSession = useCallback(() => {
     analyticsFlushGenerationRef.current += 1;
+    authEpochRef.current += 1;
+    settingsMutationEpochRef.current += 1;
+    sessionRevalidationGenerationRef.current += 1;
+    sessionRevalidationAbortRef.current?.abort();
+    settingsWriteAbortRef.current?.abort();
+    settingsWriteGenerationRef.current += 1;
+    settingsWriteChainRef.current = Promise.resolve();
+    pendingSettingsKeyRef.current = null;
+    settingsDirtyRef.current = false;
+    settingsRetryAttemptRef.current = 0;
+    clearSettingsRetryHandle();
+    abortPerUserReads();
     lessonEntryRequestKeyRef.current = null;
     persistedSettingsKeyRef.current = null;
-    setCurrentUser(null);
-    setLessonEntryTarget(null);
+    pendingLearningEventsRef.current = [];
+    highFrequencyLearningEventsRef.current = [];
+    clearHighFrequencyFlushHandle();
+    setMistakeRecords([]);
+    currentUserRef.current = null;
+    dispatchCore({ type: "clear-session" });
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-  }, []);
+  }, [abortPerUserReads, clearHighFrequencyFlushHandle, clearSettingsRetryHandle]);
 
   const logout = useCallback(async () => {
+    const expectedUserId = currentUserRef.current?.id ?? null;
+    quarantineForSessionCheck();
+    const controller = new AbortController();
+    const timeoutHandle = window.setTimeout(() => controller.abort(), 8_000);
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: expectedUserId ? { "X-MAIS-Expected-User-Id": expectedUserId } : undefined,
+        signal: controller.signal
+      });
+      if (response.status === 409) {
+        // The cookie now belongs to a different account. Preserve that session
+        // and replace this stale document instead of signing the new user out.
+        window.location.reload();
+        return;
+      }
     } catch {
       // The browser state should still clear if the network request fails.
+    } finally {
+      window.clearTimeout(timeoutHandle);
     }
     clearLocalSession();
     broadcastSessionChange(null);
-  }, [clearLocalSession]);
-
-  const currentUserRef = useRef<StudentSession | null>(null);
-
-  useEffect(() => {
-    currentUserRef.current = currentUser;
-  }, [currentUser]);
-
-  const sessionRevalidationInFlightRef = useRef(false);
+    window.location.replace("/login");
+  }, [clearLocalSession, quarantineForSessionCheck]);
 
   // Reconciles the in-memory session with the server cookie. Without this, a tab
   // keeps rendering a stale identity after the session cookie is replaced in
   // another tab (or dropped), and every protected API call fails with 401/403.
-  const revalidateSession = useCallback(async () => {
-    if (sessionRevalidationInFlightRef.current) return;
-    sessionRevalidationInFlightRef.current = true;
+  const revalidateSession = useCallback(async (
+    previousUserOverride?: AppShellUserSafe | null,
+    verificationGateActive?: boolean
+  ) => {
+    const previousUser = previousUserOverride ?? currentUserRef.current ?? quarantinedUserRef.current;
+    const shouldGateDuringCheck = verificationGateActive ?? Boolean(previousUser);
+    if (shouldGateDuringCheck && !sessionVerificationPendingRef.current) {
+      quarantineForSessionCheck();
+    }
+
+    const requestGeneration = sessionRevalidationGenerationRef.current + 1;
+    sessionRevalidationGenerationRef.current = requestGeneration;
+    sessionRevalidationAbortRef.current?.abort();
+    const controller = new AbortController();
+    sessionRevalidationAbortRef.current = controller;
+    const requestAuthEpoch = authEpochRef.current;
+    const requestSettingsEpoch = settingsMutationEpochRef.current;
     try {
-      const response = await fetch("/api/auth/session-state?includeLessonEntry=false", { cache: "no-store" });
-      const previousUser = currentUserRef.current;
+      const response = await fetch("/api/auth/session-state?includeLessonEntry=false", {
+        cache: "no-store",
+        signal: controller.signal
+      });
+      if (
+        requestGeneration !== sessionRevalidationGenerationRef.current ||
+        requestAuthEpoch !== authEpochRef.current
+      ) return;
 
       if (!response.ok && response.status !== 401) return;
       const payload: unknown = response.status === 401 ? { user: null } : await response.json();
+      if (
+        requestGeneration !== sessionRevalidationGenerationRef.current ||
+        requestAuthEpoch !== authEpochRef.current
+      ) return;
 
       // Signed out: the guest-tolerant endpoint answers 200 `{ user: null }`
       // (a 401 is kept equivalent in case an auth boundary intercepts first).
       if ((payload as { user?: unknown } | null)?.user === null) {
-        if (previousUser) {
-          clearLocalSession();
-          const pathname = window.location.pathname;
-          if (isRoleProtectedPath(pathname)) {
-            router.replace(`/login?next=${encodeURIComponent(pathname)}`);
-          }
+        // A foreground check keeps local drafts mounted only while the server
+        // may still confirm the same identity. Once sign-out is authoritative,
+        // hard-unmount the account tree before clearing or navigating.
+        quarantineForSessionCheck("identity");
+        sessionVerificationTargetRef.current = { userId: null, userRole: null };
+        // Replace any stale durable cross-tab identity before a public-route
+        // reload; otherwise the next guest document would read the same stale
+        // signal on mount and re-enter the verification loop.
+        broadcastSessionChange(null);
+        clearLocalSession();
+        const currentPathname = window.location.pathname;
+        if (isRoleProtectedPath(currentPathname)) {
+          window.location.replace(`/login?next=${encodeURIComponent(currentPathname)}`);
+        } else {
+          // A trusted guest document must replace the authenticated React tree
+          // even on public routes. Do not clear the identity gate in the same
+          // batch and let account-local component state survive into guest UI.
+          window.location.reload();
         }
         return;
       }
 
       const session = readAuthSession(payload);
       if (!session) return;
-
-      if (session.user.id !== previousUser?.id) {
-        applyAuthSession(session);
+      const durableIdentity = readSessionSyncIdentity(readLocalStorageItem(sessionSyncStorageKey));
+      if (
+        !durableIdentity.valid ||
+        durableIdentity.userId !== session.user.id ||
+        durableIdentity.userRole !== session.user.role
+      ) {
+        // Seed a missing/corrupt signal after an authoritative server check.
+        // Use localStorage without a same-document BroadcastChannel echo; other
+        // tabs receive one storage event, while this tab avoids a revalidation
+        // loop and future full loads can pass the pre-hydration guard directly.
+        writeLocalStorageItem(sessionSyncStorageKey, JSON.stringify({
+          userId: session.user.id,
+          userRole: session.user.role,
+          at: Date.now()
+        }));
+      }
+      const sameUser = sameAccountBoundary(previousUser, session.user);
+      const acceptedBootstrapIdentity = acceptedBootstrapIdentityRef.current;
+      const acceptedBootstrapMatchesSession =
+        acceptedBootstrapIdentity.userId !== null &&
+        sameAccountBoundary(session.user, {
+          id: acceptedBootstrapIdentity.userId,
+          role: acceptedBootstrapIdentity.userRole
+        });
+      if (!acceptedBootstrapMatchesSession) {
+        // The in-memory identity may already have advanced after an earlier
+        // session-state response while the accepted RSC tree still belongs to
+        // the previous account. Keep the hard identity gate until a matching
+        // server bootstrap commits; a second same-user validation must not
+        // reopen stale server children.
+        quarantineForSessionCheck("identity");
+        sessionVerificationTargetRef.current = {
+          userId: session.user.id,
+          userRole: session.user.role
+        };
+      }
+      const preserveSettings = sameUser && (
+        requestSettingsEpoch !== settingsMutationEpochRef.current ||
+        pendingSettingsKeyRef.current !== null ||
+        settingsDirtyRef.current
+      );
+      applyAuthSession(session, {
+        preserveSettings,
+        broadcast: false,
+        resetLearningState: !sameUser,
+        keepVerificationGate: shouldGateDuringCheck && !acceptedBootstrapMatchesSession
+      });
+      if (sameUser) {
+        // Foreground quarantine aborts account-bound reads before the cookie
+        // is trusted. Resume those exact same-account jobs after verification
+        // without resetting local UI or dropping queued learning events.
+        if (!skipGlobalStudentWarmups) void refreshMistakeRecords();
+        if (session.user.role === "student" && !skipGlobalStudentWarmups) {
+          void refreshLessonEntryTarget(coreStateRef.current.selectedGrade);
+        }
+        if (pendingLearningEventsRef.current.length > 0) {
+          setPendingLearningEvents((current) => current.length > 0 ? [...current] : current);
+        }
       }
 
-      const pathname = window.location.pathname;
+      const currentPathname = window.location.pathname;
       const canUseTeacherArea = session.user.role === "teacher" || session.user.role === "admin";
-      const canUseParentArea = session.user.role === "parent" || session.user.role === "admin";
-      if (pathname.startsWith("/teacher") && !canUseTeacherArea) {
-        router.replace(`/login?next=${encodeURIComponent(pathname)}&reason=teacher-account-required`);
-      } else if (pathname.startsWith("/parent") && !canUseParentArea) {
-        router.replace(`/login?next=${encodeURIComponent(pathname)}`);
+      const canUseParentArea = session.user.role === "parent";
+      if (currentPathname.startsWith("/teacher") && !canUseTeacherArea) {
+        window.location.replace(`/login?next=${encodeURIComponent(currentPathname)}&reason=teacher-account-required`);
+      } else if (currentPathname.startsWith("/parent") && !canUseParentArea) {
+        window.location.replace(`/login?next=${encodeURIComponent(currentPathname)}`);
+      } else if (!acceptedBootstrapMatchesSession) {
+        // Replace the complete document for a cross-account boundary. A client
+        // RSC refresh can race an older navigation response and reintroduce the
+        // previous account's children after the gate has cleared.
+        window.location.reload();
       }
-    } catch {
+    } catch (error) {
+      if (controller.signal.aborted || (error instanceof DOMException && error.name === "AbortError")) return;
       // Keep the current state when the session check is unavailable.
     } finally {
-      sessionRevalidationInFlightRef.current = false;
+      if (sessionRevalidationAbortRef.current === controller) {
+        sessionRevalidationAbortRef.current = null;
+      }
     }
-  }, [applyAuthSession, clearLocalSession, router]);
+  }, [
+    applyAuthSession,
+    clearLocalSession,
+    quarantineForSessionCheck,
+    refreshLessonEntryTarget,
+    refreshMistakeRecords,
+    router,
+    setSessionVerificationState,
+    skipGlobalStudentWarmups
+  ]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!settingsReady) return;
 
+    const reconcileSignalledIdentity = (
+      signalledIdentity: SessionSyncIdentity,
+      revalidateMatchingIdentity: boolean
+    ) => {
+      const currentIdentity = currentUserRef.current ?? quarantinedUserRef.current;
+      const identityIsUncertain =
+        !signalledIdentity.valid ||
+        (signalledIdentity.userId === null
+          ? currentIdentity !== null
+          : !sameAccountBoundary(currentIdentity, {
+              id: signalledIdentity.userId,
+              role: signalledIdentity.userRole
+            }));
+      if (!identityIsUncertain && !revalidateMatchingIdentity) return false;
+      const previousUser = identityIsUncertain
+        ? quarantineForSessionCheck()
+        : currentIdentity;
+      if (identityIsUncertain) {
+        if (!signalledIdentity.valid) {
+          sessionVerificationTargetRef.current = null;
+        } else if (signalledIdentity.userId === null) {
+          sessionVerificationTargetRef.current = { userId: null, userRole: null };
+        } else {
+          sessionVerificationTargetRef.current = {
+            userId: signalledIdentity.userId,
+            userRole: signalledIdentity.userRole
+          };
+        }
+      }
+      void revalidateSession(previousUser, identityIsUncertain || sessionVerificationPendingRef.current);
+      return true;
+    };
     const handleStorage = (event: StorageEvent) => {
-      if (event.key !== sessionSyncStorageKey || !event.newValue) return;
-      void revalidateSession();
+      if (event.key !== sessionSyncStorageKey) return;
+      reconcileSignalledIdentity(readSessionSyncIdentity(event.newValue), true);
+    };
+    const handleBroadcastMessage = (event: MessageEvent<unknown>) => {
+      if (
+        event.data &&
+        typeof event.data === "object" &&
+        "sourceDocumentId" in event.data &&
+        event.data.sourceDocumentId === sessionSyncDocumentId
+      ) return;
+      let serialized: string;
+      try {
+        serialized = JSON.stringify(event.data);
+      } catch {
+        serialized = "";
+      }
+      reconcileSignalledIdentity(readSessionSyncIdentity(serialized), true);
+    };
+    let sessionBroadcastChannel: BroadcastChannel | null = null;
+    try {
+      sessionBroadcastChannel = new BroadcastChannel(sessionSyncStorageKey);
+      sessionBroadcastChannel.addEventListener("message", handleBroadcastMessage);
+    } catch {
+      sessionBroadcastChannel = null;
+    }
+
+    // A document may hydrate while its tab is already backgrounded, in which
+    // case it never observes the transition to `hidden`. Validate on the first
+    // foreground event instead of trusting that unobserved interval.
+    let needsForegroundValidation = document.visibilityState === "hidden";
+    const handleBlur = () => {
+      needsForegroundValidation = true;
+      const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+      if (previousUser) quarantineForSessionCheck("foreground");
+    };
+    const validateAfterForegroundReturn = () => {
+      if (!needsForegroundValidation) return;
+      needsForegroundValidation = false;
+      const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+      if (previousUser) quarantineForSessionCheck("foreground");
+      void revalidateSession(previousUser, Boolean(previousUser));
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState === "hidden") {
+        needsForegroundValidation = true;
+        const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+        if (previousUser) quarantineForSessionCheck("foreground");
+        return;
+      }
+      validateAfterForegroundReturn();
     };
 
-    let lastCheckAt = Date.now();
-    const handleVisibility = () => {
-      if (document.visibilityState !== "visible") return;
-      if (Date.now() - lastCheckAt < 15_000) return;
-      lastCheckAt = Date.now();
-      void revalidateSession();
+    const handlePageHide = () => {
+      needsForegroundValidation = true;
+      const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+      if (!previousUser) return;
+      // Commit the privacy cover into a possible BFCache snapshot before the
+      // browser freezes the document. A deferred state update can otherwise
+      // let the old account flash before pageshow validation runs.
+      flushSync(() => quarantineForSessionCheck("foreground"));
+    };
+
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (!event.persisted) return;
+      needsForegroundValidation = false;
+      const previousUser = currentUserRef.current ?? quarantinedUserRef.current;
+      if (previousUser) quarantineForSessionCheck("foreground");
+      void revalidateSession(previousUser, Boolean(previousUser));
     };
 
     window.addEventListener("storage", handleStorage);
-    window.addEventListener("focus", handleVisibility);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", validateAfterForegroundReturn);
+    window.addEventListener("pagehide", handlePageHide);
+    window.addEventListener("pageshow", handlePageShow);
     document.addEventListener("visibilitychange", handleVisibility);
+
+    // Every authenticated document starts behind the React-owned identity
+    // gate. Reconcile the durable signal for target selection, then require an
+    // authoritative cookie check before mounting any account tree. This also
+    // closes the response-to-hydration gap without a document-mutating inline
+    // script or a race against React's <html>/<head> singleton hydration.
+    const persistedSessionSignal = readLocalStorageItem(sessionSyncStorageKey);
+    if (initialSessionVerificationPending && !initialSessionValidationStartedRef.current) {
+      initialSessionValidationStartedRef.current = true;
+      const mountedIdentity = currentUserRef.current ?? quarantinedUserRef.current;
+      const validationStartedFromSignal = persistedSessionSignal !== null
+        ? reconcileSignalledIdentity(readSessionSyncIdentity(persistedSessionSignal), true)
+        : false;
+      if (!validationStartedFromSignal) void revalidateSession(mountedIdentity, true);
+    } else if (persistedSessionSignal !== null) {
+      reconcileSignalledIdentity(readSessionSyncIdentity(persistedSessionSignal), false);
+    }
+
     return () => {
       window.removeEventListener("storage", handleStorage);
-      window.removeEventListener("focus", handleVisibility);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", validateAfterForegroundReturn);
+      window.removeEventListener("pagehide", handlePageHide);
+      window.removeEventListener("pageshow", handlePageShow);
       document.removeEventListener("visibilitychange", handleVisibility);
+      sessionBroadcastChannel?.removeEventListener("message", handleBroadcastMessage);
+      sessionBroadcastChannel?.close();
     };
-  }, [revalidateSession, settingsReady]);
+  }, [initialSessionVerificationPending, quarantineForSessionCheck, revalidateSession, settingsReady]);
+
+  useEffect(() => {
+    setReactGuardReady(true);
+  }, []);
 
   const refreshMistakeRecordsAfterAttempt = useCallback(() => {
     void refreshMistakeRecords();
   }, [refreshMistakeRecords]);
 
+  const mutateMistakes = useCallback((path: string, method: "PATCH" | "DELETE") => {
+    const expectedUser = currentUserRef.current;
+    if (!expectedUser || accountWorkBlockedRef.current) return;
+    const expectedUserId = expectedUser.id;
+    const expectedUserRole = expectedUser.role;
+
+    void fetch(path, {
+      method,
+      headers: { "X-MAIS-Expected-User-Id": expectedUserId }
+    }).then((response) => {
+      if (response.status === 401 || response.status === 403 || response.status === 409) {
+        quarantineForSessionCheck();
+        router.refresh();
+        return;
+      }
+      if (
+        response.ok &&
+        sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole })
+      ) {
+        void refreshMistakeRecords();
+      }
+    }).catch(() => {
+      // The visible record stays unchanged when the mutation is unavailable.
+    });
+  }, [quarantineForSessionCheck, refreshMistakeRecords, router]);
+
   const markMistakeMastered = useCallback((questionId: string) => {
-    void fetch(`/api/mistakes/${encodeURIComponent(questionId)}`, { method: "PATCH" })
-      .then(() => refreshMistakeRecords());
-  }, [refreshMistakeRecords]);
+    mutateMistakes(`/api/mistakes/${encodeURIComponent(questionId)}`, "PATCH");
+  }, [mutateMistakes]);
 
   const removeMistake = useCallback((questionId: string) => {
-    void fetch(`/api/mistakes/${encodeURIComponent(questionId)}`, { method: "DELETE" })
-      .then(() => refreshMistakeRecords());
-  }, [refreshMistakeRecords]);
+    mutateMistakes(`/api/mistakes/${encodeURIComponent(questionId)}`, "DELETE");
+  }, [mutateMistakes]);
 
   const clearMistakes = useCallback(() => {
-    void fetch("/api/mistakes", { method: "DELETE" })
-      .then(() => refreshMistakeRecords());
-  }, [refreshMistakeRecords]);
+    mutateMistakes("/api/mistakes", "DELETE");
+  }, [mutateMistakes]);
 
   const clearLearningAnalytics = useCallback(() => {
+    const expectedUser = currentUserRef.current;
+    if (accountWorkBlockedRef.current) return;
     const clearGeneration = analyticsFlushGenerationRef.current + 1;
     analyticsFlushGenerationRef.current = clearGeneration;
     setLearningAnalyticsEvents([]);
     setPendingLearningEvents([]);
-    if (currentUser) {
-      void fetch("/api/learning-events", { method: "DELETE" })
-        .finally(() => {
-          if (analyticsFlushGenerationRef.current === clearGeneration) {
+    if (expectedUser) {
+      const expectedUserId = expectedUser.id;
+      const expectedUserRole = expectedUser.role;
+      void fetch("/api/learning-events", {
+        method: "DELETE",
+        headers: { "X-MAIS-Expected-User-Id": expectedUserId }
+      }).then((response) => {
+          if (response.status === 401 || response.status === 403 || response.status === 409) {
+            quarantineForSessionCheck();
+            router.refresh();
+            return;
+          }
+          if (
+            response.ok &&
+            sameAccountBoundary(currentUserRef.current, { id: expectedUserId, role: expectedUserRole }) &&
+            analyticsFlushGenerationRef.current === clearGeneration
+          ) {
             window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
           }
+        }).catch(() => {
+          // The local clear remains visible; a later refresh restores server truth.
         });
     } else {
       window.dispatchEvent(new Event(learningAnalyticsUpdatedEventName));
     }
-  }, [currentUser?.id]);
+  }, [quarantineForSessionCheck, router]);
 
   const value = useMemo<SettingsContextValue>(
     () => ({
       settingsReady,
       language,
       setLanguage,
-      toggleLanguage: () => setLanguage((current) => current === "en" ? "zh" : current === "zh" ? "zh-Hans" : "en"),
+      toggleLanguage,
       theme,
-      toggleTheme: () => setTheme((current) => (current === "dark" ? "light" : "dark")),
+      toggleTheme,
       selectedGrade,
       setSelectedGrade,
       currentUser,
@@ -1262,11 +2335,137 @@ export function AppProviders({ children }: { children: ReactNode }) {
       settingsReady,
       studentLessonHref,
       theme,
+      toggleLanguage,
+      toggleTheme,
       updateProfile
     ]
   );
 
-  return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;
+  const sessionVerificationCopy = {
+    title: textForLanguage({
+      en: "Verifying your account",
+      zh: "正在核實你的帳戶",
+      zhHans: "正在核实你的账户"
+    }, language),
+    detail: textForLanguage({
+      en: "For your privacy, account information is hidden until this browser tab confirms the active session.",
+      zh: "為保障私隱，此瀏覽器分頁確認目前登入狀態前，帳戶資料將暫時隱藏。",
+      zhHans: "为保护隐私，此浏览器标签页确认当前登录状态前，账户资料将暂时隐藏。"
+    }, language),
+    retry: textForLanguage({
+      en: "Check again",
+      zh: "重新核實",
+      zhHans: "重新核实"
+    }, language)
+  };
+
+  useLayoutEffect(() => {
+    if (displayedSessionVerificationMode === "none") return;
+
+    const isolatedBodyChildren = new Map<HTMLElement, {
+      inert: boolean;
+      ariaHidden: string | null;
+      visibility: string;
+      pointerEvents: string;
+    }>();
+    const isolateBodyChild = (element: Element) => {
+      if (!(element instanceof HTMLElement)) return;
+      if (
+        element.matches('[data-session-verification-gate="true"]') ||
+        element.querySelector('[data-session-verification-gate="true"]')
+      ) return;
+      if (!isolatedBodyChildren.has(element)) {
+        isolatedBodyChildren.set(element, {
+          inert: element.inert,
+          ariaHidden: element.getAttribute("aria-hidden"),
+          visibility: element.style.visibility,
+          pointerEvents: element.style.pointerEvents
+        });
+      }
+      element.inert = true;
+      element.setAttribute("aria-hidden", "true");
+      element.style.visibility = "hidden";
+      element.style.pointerEvents = "none";
+    };
+
+    let bodyObserver: MutationObserver | null = null;
+    // Move focus out of foreground-preserved account content (or a body
+    // portal) before applying aria-hidden, avoiding an inaccessible focused
+    // descendant during the gated frame.
+    sessionVerificationGateRef.current?.focus();
+    if (displayedSessionVerificationMode === "foreground") {
+      // The normal app nodes and React portals are direct body children. Keep
+      // their React state mounted, but isolate each one (including nodes added
+      // while validation is pending) so stale UI is not visible or focusable.
+      Array.from(document.body.children).forEach(isolateBodyChild);
+      bodyObserver = new MutationObserver((records) => {
+        for (const record of records) {
+          for (const node of Array.from(record.addedNodes)) {
+            if (node instanceof Element && node.parentElement === document.body) isolateBodyChild(node);
+          }
+        }
+      });
+      bodyObserver.observe(document.body, { childList: true });
+    }
+
+    return () => {
+      bodyObserver?.disconnect();
+      for (const [element, snapshot] of isolatedBodyChildren) {
+        element.inert = snapshot.inert;
+        if (snapshot.ariaHidden === null) element.removeAttribute("aria-hidden");
+        else element.setAttribute("aria-hidden", snapshot.ariaHidden);
+        element.style.visibility = snapshot.visibility;
+        element.style.pointerEvents = snapshot.pointerEvents;
+      }
+    };
+  }, [displayedSessionVerificationMode]);
+
+  const sessionVerificationGate = displayedSessionVerificationPending ? (
+    <main
+      ref={sessionVerificationGateRef}
+      tabIndex={-1}
+      className="fixed inset-0 z-[9999] flex min-h-screen w-full items-center justify-center overflow-y-auto bg-slate-50 px-4 py-12 dark:bg-slate-950 sm:px-6"
+      data-session-verification-gate="true"
+      data-session-verification-mode={displayedSessionVerificationMode}
+      role="status"
+      aria-live="polite"
+    >
+      <section className="glass-panel w-full max-w-xl space-y-4 p-6 text-center sm:p-8">
+        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+          {sessionVerificationCopy.title}
+        </h1>
+        <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
+          {sessionVerificationCopy.detail}
+        </p>
+        <button
+          type="button"
+          className="focus-ring rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+          onClick={() => {
+            void revalidateSession(quarantinedUserRef.current, true);
+          }}
+        >
+          {sessionVerificationCopy.retry}
+        </button>
+      </section>
+    </main>
+  ) : null;
+  const accountTreeKey = currentUser
+    ? `${currentUser.id}:${currentUser.role}`
+    : "guest";
+
+  return (
+    <SettingsContext.Provider value={value}>
+      {reactGuardReady ? (
+        <span hidden data-mais-session-react-guard-ready="true" />
+      ) : null}
+      {displayedSessionVerificationMode === "identity" ? sessionVerificationGate : (
+        <>
+          <Fragment key={accountTreeKey}>{children}</Fragment>
+          {displayedSessionVerificationMode === "foreground" ? sessionVerificationGate : null}
+        </>
+      )}
+    </SettingsContext.Provider>
+  );
 }
 
 export function useSettings() {

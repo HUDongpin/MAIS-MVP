@@ -39,11 +39,12 @@ console.log(JSON.stringify({
   e2eRoot: process.env.PLAYWRIGHT_E2E_ROOT,
   nextDist: process.env.PLAYWRIGHT_NEXT_DIST_DIR,
   tempTsconfig: process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH,
-  webServerCommand: config.webServer?.command ?? null
+  webServerCommand: config.webServer?.command ?? null,
+  webServerGracefulShutdown: config.webServer?.gracefulShutdown ?? null
 }));
 `;
 
-function loadPlaywrightConfig(overrides = {}, unset = []) {
+function loadPlaywrightConfig(overrides = {}, unset = [], cliArgs = []) {
   const env = {
     ...process.env,
     HOME: path.join(environmentRoot, "home"),
@@ -79,7 +80,7 @@ function loadPlaywrightConfig(overrides = {}, unset = []) {
 
   const result = spawnSync(
     process.execPath,
-    ["--import", "tsx", "--input-type=module", "--eval", importConfigScript],
+    ["--import", "tsx", "--input-type=module", "--eval", importConfigScript, "playwright", ...cliArgs],
     { cwd: repoRoot, encoding: "utf8", env }
   );
   result.configEnvironment = env;
@@ -255,6 +256,45 @@ test("Playwright defaults every generated path to its isolated worktree runtime 
   );
 });
 
+test("a line-qualified isolated-stateful spec does not start the global web server", () => {
+  const result = loadPlaywrightConfig(
+    { PLAYWRIGHT_SKIP_WEBSERVER: "" },
+    [],
+    ["tests/e2e/parent-console-stress.spec.ts:398"]
+  );
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  assert.equal(loaded.webServerCommand, null);
+});
+
+test("teacher-parent P1 regressions are recognized as isolated-stateful", () => {
+  const result = loadPlaywrightConfig(
+    { PLAYWRIGHT_SKIP_WEBSERVER: "" },
+    [],
+    ["tests/e2e/teacher-parent-p1-regressions.spec.ts"]
+  );
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  assert.equal(loaded.webServerCommand, null);
+});
+
+test("mixing a shared-server spec with an isolated-stateful spec keeps the global server", () => {
+  const result = loadPlaywrightConfig(
+    { PLAYWRIGHT_SKIP_WEBSERVER: "" },
+    [],
+    [
+      "tests/e2e/parent-console-stress.spec.ts:398",
+      "tests/e2e/parent-console-feature-matrix.spec.ts:191"
+    ]
+  );
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  assert.equal(typeof loaded.webServerCommand, "string");
+});
+
 test("the webServer passes a repository-relative Next dist path to the clean-build wrapper", () => {
   const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
 
@@ -292,6 +332,29 @@ test("the webServer passes a repository-relative tsconfig path to the Next loade
     path.resolve(repoRoot, tsconfigMatch[1]),
     path.join(runRoot, "tsconfig.playwright.tmp.json")
   );
+});
+
+test("the webServer wraps the isolated Next build with next-env restoration", () => {
+  const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  const buildCommand = loaded.webServerCommand
+    .split(" && ")
+    .find((command) => command.includes("npm run build"));
+  assert.equal(typeof buildCommand, "string", "webServer should contain the Next build command");
+  assert.match(buildCommand, /node scripts\/with-next-env-restore\.mjs -- env /u);
+});
+
+test("the webServer gives the next-env wrapper a catchable SIGTERM restoration window", () => {
+  const result = loadPlaywrightConfig({ PLAYWRIGHT_SKIP_WEBSERVER: "" });
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  const loaded = JSON.parse(result.stdout.trim());
+  assert.deepEqual(loaded.webServerGracefulShutdown, {
+    signal: "SIGTERM",
+    timeout: 20_000
+  });
 });
 
 test("the .tmp-local temporary tsconfig resolves repository sources and only its isolated dist types", () => {

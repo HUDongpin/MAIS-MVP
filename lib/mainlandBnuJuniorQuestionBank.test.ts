@@ -252,7 +252,7 @@ test("Mainland BNU S1-S3 Lesson, Roadmap, Practice, and question API expose appr
   assert.equal(result.status, "created");
   if (result.status !== "created") return;
 
-  const token = await createSessionToken(result.session.user.id);
+  const token = await createSessionToken({ userId: result.session.user.id, sessionRevision: 1 });
   const response = await getQuestionsRoute(new Request("http://localhost/api/questions?grade=S1&publisher=MAINLAND_BNU", {
     headers: { cookie: `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}` }
   }));

@@ -5,8 +5,11 @@ import { parentMessageBodyMaxLength, parentMessageSubjectMaxLength } from "../..
 import {
   collectPageErrors,
   demoParent,
+  demoParentUserId,
   demoStudent,
+  demoTeacherUserId,
   expectNoPageErrors,
+  getWithResetRetry,
   loginAs,
   loginAsDemoParent,
   loginAsDemoStudent,
@@ -53,7 +56,6 @@ type AppStatePayload = {
     user_id: string;
     name: string;
     grade: string;
-    parent_invite_code?: string;
     avatar_id?: string;
   }>;
   guardian_links?: Array<{
@@ -65,7 +67,7 @@ type AppStatePayload = {
 };
 
 type ParentChildSummary = {
-  student: { id: string; name: string; role: string; grade: string };
+  student: { id: string; name: string; grade: string };
   averageMastery: number;
   learningMinutes7d: number;
   supportTopics: unknown[];
@@ -77,13 +79,15 @@ type ParentChildSummary = {
 type TeacherReport = {
   id: string;
   type: string;
+  classId?: string;
   studentId?: string;
+  teacherId: string;
   title: { en: string; zh: string };
 };
 
 type ParentFoundationResponse = {
   data: {
-    parent: { id: string; name: string; role: string };
+    parent: { id: string; name: string };
     children: ParentChildSummary[];
     selectedChild: ParentChildSummary | null;
     totals: {
@@ -105,17 +109,20 @@ type ParentReportsResponse = {
 
 type ParentMessagesResponse = {
   data: {
+    selectedChild: ParentChildSummary | null;
     threads: ParentMessageThread[];
     selectedThread: ParentMessageThread | null;
     reports: TeacherReport[];
+    composeTargets: Array<{ studentId: string; classId: string; className: string; teacherName: string }>;
   };
 };
 
 type ParentMessageThread = {
   id: string;
+  classId: string;
+  className: string;
   studentId: string;
   studentName: string;
-  guardianId?: string;
   parentCategory?: string;
   reportId?: string;
   subject: { en: string; zh: string };
@@ -142,20 +149,8 @@ function escapeRegex(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function parentInviteCodeForStudent(studentId: string) {
-  const sqlite = new DatabaseSync(e2eDbPath);
-  try {
-    const row = sqlite
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
-      .get("primary") as AppStateRow | undefined;
-    expect(row).toBeTruthy();
-    const payload = JSON.parse(row?.payload ?? "{}") as AppStatePayload;
-    const inviteCode = payload.student_profiles?.find((profile) => profile.user_id === studentId)?.parent_invite_code;
-    expect(inviteCode, `Missing stored parent invite code for ${studentId}`).toMatch(/^MAIS-[A-Z0-9]{10}$/);
-    return inviteCode!;
-  } finally {
-    sqlite.close();
-  }
+function expectedParentHeaders(parentUserId = demoParentUserId) {
+  return { "X-MAIS-Expected-User-Id": parentUserId };
 }
 
 async function newApiContext(contexts: APIRequestContext[]) {
@@ -213,7 +208,7 @@ async function registerStudentViaApi(contexts: APIRequestContext[], testInfo: Te
 }
 
 async function createTeacherClassForStudent(contexts: APIRequestContext[], testInfo: TestInfo, student: TestStudent) {
-  const { context } = await loginApi(contexts, "HK Teacher Chan", "12345");
+  const { context, session } = await loginApi(contexts, "HK Teacher Chan", "12345");
   const suffix = uniqueSuffix(testInfo).slice(0, 28);
   const classResponse = await context.post("/api/teacher/classes", {
     data: {
@@ -230,7 +225,25 @@ async function createTeacherClassForStudent(contexts: APIRequestContext[], testI
     data: { username: student.username }
   });
   expect(addResponse.ok()).toBeTruthy();
-  return classPayload.class.id;
+  return { classId: classPayload.class.id, teacherContext: context, teacherUserId: session.user.id };
+}
+
+async function issueGuardianInvitationForStudent(
+  contexts: APIRequestContext[],
+  testInfo: TestInfo,
+  student: TestStudent
+) {
+  const { classId, teacherContext, teacherUserId } = await createTeacherClassForStudent(contexts, testInfo, student);
+  const response = await teacherContext.post(
+    `/api/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(student.userId)}/guardian-invitations`,
+    { headers: { "X-MAIS-Expected-User-Id": teacherUserId } }
+  );
+  expect(response.status()).toBe(201);
+  const payload = await response.json() as {
+    invitation: { token: string; version: number; expiresAt: string };
+  };
+  expect(payload.invitation.token).toMatch(/^MAIS-[A-F0-9]{24}$/);
+  return { classId, inviteCode: payload.invitation.token };
 }
 
 function mutateAppState(mutator: (payload: AppStatePayload) => void) {
@@ -282,8 +295,10 @@ async function disposeAll(contexts: APIRequestContext[]) {
   await Promise.all(contexts.map((context) => context.dispose()));
 }
 
-async function parentFoundation(page: Page) {
-  const response = await page.request.get("/api/parent/foundation");
+async function parentFoundation(page: Page, parentUserId = demoParentUserId) {
+  const response = await getWithResetRetry(page.request, "/api/parent/foundation", {
+    headers: expectedParentHeaders(parentUserId)
+  });
   expect(response.ok()).toBeTruthy();
   return await response.json() as ParentFoundationResponse;
 }
@@ -297,17 +312,267 @@ async function gotoWithDevRetry(page: Page, path: string) {
   }
 }
 
+async function expectNoPageHorizontalOverflow(page: Page, routeLabel: string) {
+  const overflow = await page.evaluate(() => (
+    document.documentElement.scrollWidth - document.documentElement.clientWidth
+  ));
+  expect(overflow, `${routeLabel} must not create page-level horizontal overflow`).toBeLessThanOrEqual(1);
+}
+
 test.describe("parent console viewport smoke", () => {
   test("parent overview renders without page errors on the active viewport", async ({ page }) => {
+    test.setTimeout(420_000);
     const pageErrors = collectPageErrors(page);
 
     await loginAsDemoParent(page);
-    await expect(page.getByRole("navigation", { name: /Parent navigation/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Today’s home-school picture/i })).toBeVisible();
-    await expect(page.getByLabel(/Child focus/i)).toBeVisible();
-    await expect(page.getByRole("link", { name: /Messages/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /^Celebrate$/i }).first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: /^Support$/i }).first()).toBeVisible();
+    const foundation = await parentFoundation(page);
+    const child = foundation.data.selectedChild ?? foundation.data.children[0];
+    if (!child) throw new Error("Expected a linked demo child for the parent locale/theme route matrix.");
+    const childPath = `/parent/children/${encodeURIComponent(child.student.id)}`;
+    // parent-locale-theme-matrix: this existing desktop+mobile test exercises
+    // all three UI languages in both themes without increasing the 44-item
+    // Playwright project-test enumeration.
+    const combinations = [
+      {
+        language: "en",
+        theme: "light",
+        htmlLang: "en-HK",
+        navigation: "Parent navigation",
+        focus: "Today’s focus",
+        week: "This week",
+        childFocus: "Child focus",
+        messages: "Messages",
+        details: "View learning details",
+        chart: "Weekly learning activity",
+        dailyUnit: "minutes",
+        separator: ", ",
+        support: "Support topics",
+        reportsHeading: "Teacher-published summaries",
+        threadsHeading: "Threads",
+        askTeacherHeading: "Ask teacher",
+        noticesHeading: "Confirm school notices",
+        connectHeading: "Use a parent invite code"
+      },
+      {
+        language: "en",
+        theme: "dark",
+        htmlLang: "en-HK",
+        navigation: "Parent navigation",
+        focus: "Today’s focus",
+        week: "This week",
+        childFocus: "Child focus",
+        messages: "Messages",
+        details: "View learning details",
+        chart: "Weekly learning activity",
+        dailyUnit: "minutes",
+        separator: ", ",
+        support: "Support topics",
+        reportsHeading: "Teacher-published summaries",
+        threadsHeading: "Threads",
+        askTeacherHeading: "Ask teacher",
+        noticesHeading: "Confirm school notices",
+        connectHeading: "Use a parent invite code"
+      },
+      {
+        language: "zh",
+        theme: "light",
+        htmlLang: "zh-Hant-HK",
+        navigation: "家長導覽",
+        focus: "今日關注",
+        week: "本週概覽",
+        childFocus: "孩子焦點",
+        messages: "家校私信",
+        details: "查看學習詳情",
+        chart: "每週學習活動",
+        dailyUnit: "分鐘",
+        separator: "；",
+        support: "支援課題",
+        reportsHeading: "教師發佈摘要",
+        threadsHeading: "對話",
+        askTeacherHeading: "聯絡教師",
+        noticesHeading: "確認學校通知",
+        connectHeading: "使用家長邀請碼"
+      },
+      {
+        language: "zh",
+        theme: "dark",
+        htmlLang: "zh-Hant-HK",
+        navigation: "家長導覽",
+        focus: "今日關注",
+        week: "本週概覽",
+        childFocus: "孩子焦點",
+        messages: "家校私信",
+        details: "查看學習詳情",
+        chart: "每週學習活動",
+        dailyUnit: "分鐘",
+        separator: "；",
+        support: "支援課題",
+        reportsHeading: "教師發佈摘要",
+        threadsHeading: "對話",
+        askTeacherHeading: "聯絡教師",
+        noticesHeading: "確認學校通知",
+        connectHeading: "使用家長邀請碼"
+      },
+      {
+        language: "zh-Hans",
+        theme: "light",
+        htmlLang: "zh-Hans-CN",
+        navigation: "家长导航",
+        focus: "今日关注",
+        week: "本周概览",
+        childFocus: "孩子焦点",
+        messages: "家校私信",
+        details: "查看学习详情",
+        chart: "每周学习活动",
+        dailyUnit: "分钟",
+        separator: "；",
+        support: "支援课题",
+        reportsHeading: "教师发布摘要",
+        threadsHeading: "对话",
+        askTeacherHeading: "联系教师",
+        noticesHeading: "确认学校通知",
+        connectHeading: "使用家长邀请码"
+      },
+      {
+        language: "zh-Hans",
+        theme: "dark",
+        htmlLang: "zh-Hans-CN",
+        navigation: "家长导航",
+        focus: "今日关注",
+        week: "本周概览",
+        childFocus: "孩子焦点",
+        messages: "家校私信",
+        details: "查看学习详情",
+        chart: "每周学习活动",
+        dailyUnit: "分钟",
+        separator: "；",
+        support: "支援课题",
+        reportsHeading: "教师发布摘要",
+        threadsHeading: "对话",
+        askTeacherHeading: "联系教师",
+        noticesHeading: "确认学校通知",
+        connectHeading: "使用家长邀请码"
+      }
+    ] as const;
+    expect(combinations).toHaveLength(6);
+
+    try {
+      for (const combination of combinations) {
+        const settings = await page.request.patch("/api/me/settings", {
+          headers: expectedParentHeaders(),
+          // This is an idempotent set operation. Playwright retries only
+          // ECONNRESET here (never HTTP failures), covering a dropped local
+          // keep-alive connection without weakening the 200 response contract.
+          maxRetries: 1,
+          data: {
+            language: combination.language,
+            theme: combination.theme,
+            expectedUserId: demoParentUserId
+          }
+        });
+        expect(settings.status()).toBe(200);
+        await gotoWithDevRetry(page, "/parent");
+
+        const html = page.locator("html");
+        await expect(html).toHaveAttribute("lang", combination.htmlLang);
+        if (combination.theme === "dark") {
+          await expect(html).toHaveClass(/\bdark\b/);
+        } else {
+          await expect(html).not.toHaveClass(/\bdark\b/);
+        }
+        await expect(page.getByRole("navigation", { name: combination.navigation })).toBeVisible();
+        await expect(page.getByRole("heading", { name: combination.focus })).toBeVisible();
+        await expect(page.getByRole("heading", { name: combination.week })).toBeVisible();
+        await expect(page.getByLabel(combination.childFocus)).toBeVisible();
+        await expect(page.getByRole("link", { name: combination.messages })).toBeVisible();
+        await expect(page.getByRole("link", { name: combination.details })).toBeVisible();
+
+        const weeklyChart = page.getByRole("img", { name: new RegExp(`^${escapeRegex(combination.chart)}\\.`) });
+        await expect(weeklyChart).toBeVisible();
+        const weeklyDescription = await weeklyChart.getAttribute("aria-label");
+        expect(weeklyDescription).toContain(combination.dailyUnit);
+        expect(weeklyDescription?.split(combination.separator)).toHaveLength(7);
+        await expectNoPageHorizontalOverflow(page, `${combination.language}/${combination.theme} overview`);
+
+        const routeChecks = [
+          { path: childPath, headings: [child.student.name, combination.support], label: "child detail" },
+          {
+            path: `/parent/reports?studentId=${encodeURIComponent(child.student.id)}`,
+            headings: [combination.reportsHeading],
+            label: "reports"
+          },
+          {
+            path: `/parent/messages?studentId=${encodeURIComponent(child.student.id)}`,
+            headings: [combination.threadsHeading, combination.askTeacherHeading],
+            label: "messages"
+          },
+          {
+            path: `/parent/notices?studentId=${encodeURIComponent(child.student.id)}`,
+            headings: [combination.noticesHeading],
+            label: "notices"
+          },
+          { path: "/parent/connect", headings: [combination.connectHeading], label: "connect" }
+        ] as const;
+        for (const route of routeChecks) {
+          await gotoWithDevRetry(page, route.path);
+          const routeHtml = page.locator("html");
+          await expect(routeHtml).toHaveAttribute("lang", combination.htmlLang);
+          if (combination.theme === "dark") {
+            await expect(routeHtml).toHaveClass(/\bdark\b/);
+          } else {
+            await expect(routeHtml).not.toHaveClass(/\bdark\b/);
+          }
+          await expect(page.getByRole("navigation", { name: combination.navigation })).toBeVisible();
+          for (const heading of route.headings) {
+            await expect(page.getByRole("heading", { name: heading }).first()).toBeVisible();
+          }
+          await expectNoPageHorizontalOverflow(
+            page,
+            `${combination.language}/${combination.theme} ${route.label}`
+          );
+        }
+      }
+    } finally {
+      const restore = await page.request.patch("/api/me/settings", {
+        headers: expectedParentHeaders(),
+        maxRetries: 1,
+        data: { language: "en", theme: "dark", expectedUserId: demoParentUserId }
+      });
+      expect(restore.status()).toBe(200);
+      await page.goto("/parent");
+    }
+
+    const languageSelector = page.getByRole("button", { name: "Language selector" });
+    await languageSelector.focus();
+    await expect(languageSelector).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("End");
+    await expect(page.getByRole("menuitemradio", { name: "Use Traditional Chinese" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(languageSelector).toBeFocused();
+
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeHidden();
+    await expect(page.getByRole("button", { name: "Switch to light mode" })).toBeFocused();
+
+    await languageSelector.focus();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeVisible();
+    await page.keyboard.press("Shift+Tab");
+    await expect(page.getByRole("menu", { name: "Language menu" })).toBeHidden();
+    await expect(languageSelector).toBeFocused();
+
+    const messagesLink = page
+      .getByRole("navigation", { name: "Parent navigation" })
+      .getByRole("link", { name: "Messages", exact: true });
+    await messagesLink.focus();
+    await expect(messagesLink).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/\/parent\/messages/);
+    await expect(page.getByRole("heading", { name: /^Threads$/i })).toBeVisible();
 
     expectNoPageErrors(pageErrors);
   });
@@ -338,11 +603,11 @@ test.describe("parent console viewport smoke", () => {
 
     await parentNavigation.getByRole("link", { name: /^Overview$/i }).click();
     await expect(page).toHaveURL(/\/parent(?:\?studentId=[^&]+)?$/);
-    await expect(page.getByRole("heading", { name: /Today’s home-school picture/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
 
-    const childCard = page.locator("main").locator(`a[href="${childPath}"]`);
-    await expect(childCard).toHaveCount(1);
-    await childCard.click();
+    const childDetailsLink = page.getByRole("link", { name: /View learning details/i });
+    await expect(childDetailsLink).toHaveAttribute("href", childPath);
+    await childDetailsLink.click();
     await expect(page).toHaveURL(new RegExp(`${escapeRegex(childPath)}$`));
     await expect(page.getByRole("heading", { name: /Support topics/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Latest parent report/i })).toBeVisible();
@@ -367,14 +632,17 @@ test.describe.serial("parent console end-to-end verification", () => {
     await expect(page).toHaveURL(/\/parent/);
     await expect(page.getByText(demoParent.username).first()).toBeVisible();
 
-    const parentApi = await page.request.get("/api/parent/foundation");
+    const parentApi = await getWithResetRetry(page.request, "/api/parent/foundation", {
+      headers: expectedParentHeaders()
+    });
     expect(parentApi.status()).toBe(200);
 
     await page.goto("/teacher");
     // A teacher URL must never serve a parent account's workspace (QA BUG-003/004/005):
-    // non-teacher sessions get an explicit teacher-login ask, not a silent dashboard swap.
+    // non-teacher sessions get an explicit teacher-login ask that preserves the
+    // exact protected route, not a silent dashboard swap or a fabricated target.
     await expect(page).toHaveURL(
-      /\/login\?next=(?:%2Fteacher%2Fdashboard|\/teacher\/dashboard)&reason=teacher-account-required/
+      /\/login\?next=(?:%2Fteacher|\/teacher)&reason=teacher-account-required/
     );
     // The parent now lands on /login (no dashboard logout control), so clear the session
     // through the API before switching accounts.
@@ -382,14 +650,16 @@ test.describe.serial("parent console end-to-end verification", () => {
 
     await loginAsDemoStudent(page);
     await page.goto("/parent");
-    await expect(page).toHaveURL(/\/dashboard/);
-    expect((await page.request.get("/api/parent/foundation")).status()).toBe(403);
-    await logoutIfVisible(page);
+    await expect(page).toHaveURL(/\/login\?next=(?:%2Fparent|\/parent)$/);
+    expect((await getWithResetRetry(page.request, "/api/parent/foundation")).status()).toBe(403);
+    // A role-incompatible account is kept signed in on the explicit switch-account
+    // page, so clear it through the API before exercising the teacher boundary.
+    await page.request.post("/api/auth/logout");
 
     await loginAsTeacher(page);
     await page.goto("/parent");
-    await expect(page).toHaveURL(/\/teacher/);
-    expect((await page.request.get("/api/parent/foundation")).status()).toBe(403);
+    await expect(page).toHaveURL(/\/login\?next=(?:%2Fparent|\/parent)$/);
+    expect((await getWithResetRetry(page.request, "/api/parent/foundation")).status()).toBe(403);
 
     expectNoPageErrors(pageErrors);
   });
@@ -400,10 +670,13 @@ test.describe.serial("parent console end-to-end verification", () => {
 
     try {
       const unlinkedStudent = await registerStudentViaApi(contexts, testInfo, "unlinked");
+      const { inviteCode: unlinkedInviteCode } = await issueGuardianInvitationForStudent(contexts, testInfo, unlinkedStudent);
 
       await loginAsDemoParent(page);
       const foundation = await parentFoundation(page);
-      expect(foundation.data.parent.role).toBe("parent");
+      expect(Object.keys(foundation.data.parent).sort()).toEqual(["id", "name"]);
+      expect(foundation.data.parent.id).toEqual(expect.any(String));
+      expect(foundation.data.parent.name).toEqual(expect.any(String));
       expect(foundation.data.children.length).toBeGreaterThanOrEqual(1);
       expect(foundation.data.selectedChild).toBeTruthy();
       expect(foundation.data.totals.children).toBe(foundation.data.children.length);
@@ -414,9 +687,14 @@ test.describe.serial("parent console end-to-end verification", () => {
       const child = foundation.data.selectedChild;
       if (!child) throw new Error("Expected a linked demo child.");
       const childId = child.student.id;
-      await expect(page.locator("main").getByRole("heading", { name: child.student.name }).first()).toBeVisible();
+      const overview = page.locator("main");
+      await expect(overview.getByRole("heading", { name: /Today’s focus/i })).toBeVisible();
+      await expect(overview.getByText(child.student.name, { exact: true }).first()).toBeVisible();
+      await expect(overview.locator(`a[href="/parent/children/${encodeURIComponent(childId)}"]`)).toHaveCount(1);
 
-      const childSummaryResponse = await page.request.get(`/api/parent/children/${encodeURIComponent(childId)}/summary`);
+      const childSummaryResponse = await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(childId)}/summary`, {
+        headers: expectedParentHeaders()
+      });
       expect(childSummaryResponse.status()).toBe(200);
       const childSummary = await childSummaryResponse.json() as { summary: ParentChildSummary };
       expect(childSummary.summary.student.id).toBe(childId);
@@ -435,28 +713,39 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page.getByText(/points/i).first()).toBeVisible();
       await expect(page.getByText(/Messages and AI Tutor|Last AI message|Create assignment|Generate report|Save report|Edit profile/i)).toHaveCount(0);
 
-      expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`)).status()).toBe(404);
+      expect((await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
+        headers: expectedParentHeaders()
+      })).status()).toBe(404);
       const linkResponse = await page.request.post("/api/parent/children/link", {
+        headers: expectedParentHeaders(),
         data: {
-          inviteCode: parentInviteCodeForStudent(unlinkedStudent.userId),
+          inviteCode: unlinkedInviteCode,
           relationship: "guardian"
         }
       });
       expect(linkResponse.status()).toBe(200);
-      expect((await page.request.get(`/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`)).status()).toBe(200);
+      expect((await getWithResetRetry(page.request, `/api/parent/children/${encodeURIComponent(unlinkedStudent.userId)}/summary`, {
+        headers: expectedParentHeaders()
+      })).status()).toBe(200);
 
-      const allReportsResponse = await page.request.get("/api/parent/reports");
+      const allReportsResponse = await getWithResetRetry(page.request, "/api/parent/reports", {
+        headers: expectedParentHeaders()
+      });
       expect(allReportsResponse.status()).toBe(200);
       const allReports = await allReportsResponse.json() as ParentReportsResponse;
       expect(allReports.data.reports.every((report) => report.type === "parent-summary")).toBeTruthy();
       expect(allReports.data.reports.some((report) => report.studentId === childId)).toBeTruthy();
 
-      const demoReportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(childId)}`);
+      const demoReportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(childId)}`, {
+        headers: expectedParentHeaders()
+      });
       const demoReports = await demoReportsResponse.json() as ParentReportsResponse;
       expect(demoReports.data.selectedChild?.student.id).toBe(childId);
       expect(demoReports.data.reports.every((report) => report.studentId === childId && report.type === "parent-summary")).toBeTruthy();
 
-      const linkedReportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(unlinkedStudent.userId)}`);
+      const linkedReportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(unlinkedStudent.userId)}`, {
+        headers: expectedParentHeaders()
+      });
       const linkedReports = await linkedReportsResponse.json() as ParentReportsResponse;
       expect(linkedReports.data.selectedChild?.student.id).toBe(unlinkedStudent.userId);
       expect(linkedReports.data.reports.every((report) => report.studentId === unlinkedStudent.userId && report.type === "parent-summary")).toBeTruthy();
@@ -480,14 +769,17 @@ test.describe.serial("parent console end-to-end verification", () => {
       const noChildParentName = `No Child Parent ${uniqueSuffix(testInfo).slice(0, 24)}`;
       promoteUserToParent(noChildParentStudent.userId, noChildParentName);
       const studentToLink = await registerStudentViaApi(contexts, testInfo, "link-child");
-      await createTeacherClassForStudent(contexts, testInfo, studentToLink);
-      const inviteCode = parentInviteCodeForStudent(studentToLink.userId);
+      const { classId, inviteCode: firstInviteCode } = await issueGuardianInvitationForStudent(contexts, testInfo, studentToLink);
 
       await loginAsTeacher(page);
-      await page.goto(`/teacher/students/${encodeURIComponent(studentToLink.userId)}`);
+      await page.goto(`/teacher/classes/${encodeURIComponent(classId)}/students/${encodeURIComponent(studentToLink.userId)}`);
       await expect(page.getByRole("heading", { name: /Parent access/i })).toBeVisible();
-      await expect(page.getByText(inviteCode)).toBeVisible();
+      await expect(page.getByText(firstInviteCode, { exact: true })).toHaveCount(0);
       await expect(page.getByText(/No parent accounts linked yet/i)).toBeVisible();
+      await page.getByRole("button", { name: /Issue \/ rotate code/i }).click();
+      const inviteCode = (await page.locator("code").filter({ hasText: /^MAIS-[A-F0-9]{24}$/ }).textContent())?.trim() ?? "";
+      expect(inviteCode).toMatch(/^MAIS-[A-F0-9]{24}$/);
+      expect(inviteCode).not.toBe(firstInviteCode);
       await logoutIfVisible(page);
 
       await loginAs(page, noChildParentStudent.username, noChildParentStudent.password, /\/parent/);
@@ -497,14 +789,14 @@ test.describe.serial("parent console end-to-end verification", () => {
 
       await page.getByLabel(/Invite code/i).fill("MAIS-NOPE");
       await page.getByRole("button", { name: /^Connect$/i }).click();
-      // getByText alone passes whether or not the failure is announced. A parent who
+      // Text alone passes whether or not the failure is announced. A parent who
       // cannot see the red text gets no signal that the link failed, so assert the
       // alert role — the login form's convention for exactly this.
       // Filtered by text because Next.js always renders its own empty route announcer
       // (<div role="alert" id="__next-route-announcer__">), so a bare getByRole("alert")
       // is a strict-mode violation rather than an assertion about this message.
       await expect(
-        page.getByRole("alert").filter({ hasText: /Invite code could not be linked/i })
+        page.getByRole("alert").filter({ hasText: /Check the invite code and relationship/i })
       ).toBeVisible();
 
       await page.getByLabel(/Invite code/i).fill(inviteCode);
@@ -513,15 +805,21 @@ test.describe.serial("parent console end-to-end verification", () => {
       await expect(page).toHaveURL(/\/parent/);
       await expect(page.locator("main").getByRole("heading", { name: studentToLink.name }).first()).toBeVisible();
 
-      const parentSessionResponse = await page.request.get("/api/me");
+      const parentSessionResponse = await getWithResetRetry(page.request, "/api/me");
       const parentSession = await parentSessionResponse.json() as AuthSession;
       const repeatLinkResponse = await page.request.post("/api/parent/children/link", {
-        data: { inviteCode, relationship: "mother" }
+        headers: expectedParentHeaders(parentSession.user.id),
+        data: { inviteCode, relationship: "guardian" }
       });
       expect(repeatLinkResponse.status()).toBe(200);
+      const changedRelationshipReplay = await page.request.post("/api/parent/children/link", {
+        headers: expectedParentHeaders(parentSession.user.id),
+        data: { inviteCode, relationship: "mother" }
+      });
+      expect(changedRelationshipReplay.status()).toBe(409);
       expect(guardianLinksFor(parentSession.user.id, studentToLink.userId)).toHaveLength(1);
 
-      const foundation = await parentFoundation(page);
+      const foundation = await parentFoundation(page, parentSession.user.id);
       expect(foundation.data.children.filter((child) => child.student.id === studentToLink.userId)).toHaveLength(1);
 
       expectNoPageErrors(pageErrors);
@@ -539,6 +837,7 @@ test.describe.serial("parent console end-to-end verification", () => {
     const parentBody = `Could we get a home practice focus for ${suffix}?`;
     const teacherReply = `Teacher parent reply ${suffix}: review two factorisation examples.`;
     const parentFollowUp = `Parent follow-up ${suffix}: we will try that tonight.`;
+    const createIdempotencyKey = `parent-create-${suffix}`;
 
     try {
       const { context: studentContext } = await loginApi(contexts, demoStudent.username, demoStudent.password);
@@ -556,14 +855,24 @@ test.describe.serial("parent console end-to-end verification", () => {
       const child = foundation.data.selectedChild;
       if (!child) throw new Error("Expected a linked demo child.");
 
-      const reportsResponse = await page.request.get(`/api/parent/reports?studentId=${encodeURIComponent(child.student.id)}`);
+      const reportsResponse = await getWithResetRetry(page.request, `/api/parent/reports?studentId=${encodeURIComponent(child.student.id)}`, {
+        headers: expectedParentHeaders()
+      });
       const reports = await reportsResponse.json() as ParentReportsResponse;
-      const linkedReport = reports.data.reports[0];
+      const linkedReport = reports.data.reports.find((report) => (
+        report.teacherId === demoTeacherUserId && Boolean(report.classId)
+      ));
       expect(linkedReport?.type).toBe("parent-summary");
+      expect(linkedReport?.classId).toBeTruthy();
+      expect(linkedReport?.teacherId).toBe(demoTeacherUserId);
+      const classId = linkedReport?.classId ?? "";
 
       const invalidMessageResponse = await page.request.post("/api/parent/messages", {
+        headers: expectedParentHeaders(),
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `invalid-empty-${suffix}`,
           category: "homework",
           subject: "",
           body: parentBody,
@@ -573,8 +882,11 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect(invalidMessageResponse.status()).toBe(400);
 
       const invalidReportResponse = await page.request.post("/api/parent/messages", {
+        headers: expectedParentHeaders(),
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `invalid-report-${suffix}`,
           category: "report-question",
           subject: "Invalid report probe",
           body: parentBody,
@@ -584,8 +896,11 @@ test.describe.serial("parent console end-to-end verification", () => {
       expect(invalidReportResponse.status()).toBe(404);
 
       const oversizedMessageResponse = await page.request.post("/api/parent/messages", {
+        headers: expectedParentHeaders(),
         data: {
           studentId: child.student.id,
+          classId,
+          idempotencyKey: `oversized-create-${suffix}`,
           category: "homework",
           subject: "x".repeat(parentMessageSubjectMaxLength + 1),
           body: "x".repeat(parentMessageBodyMaxLength + 1),
@@ -594,32 +909,83 @@ test.describe.serial("parent console end-to-end verification", () => {
       });
       expect(oversizedMessageResponse.status()).toBe(413);
 
+      const createPayload = {
+        studentId: child.student.id,
+        classId,
+        idempotencyKey: createIdempotencyKey,
+        category: "homework",
+        subject: parentSubject,
+        body: parentBody,
+        reportId: linkedReport?.id
+      };
       const createMessageResponse = await page.request.post("/api/parent/messages", {
-        data: {
-          studentId: child.student.id,
-          category: "homework",
-          subject: parentSubject,
-          body: parentBody,
-          reportId: linkedReport?.id
-        }
+        headers: expectedParentHeaders(),
+        data: createPayload
       });
-      expect(createMessageResponse.status()).toBe(200);
-      const created = await createMessageResponse.json() as { thread: ParentMessageThread };
+      expect(createMessageResponse.status()).toBe(201);
+      const created = await createMessageResponse.json() as { thread: ParentMessageThread; replayed: boolean };
+      expect(created.replayed).toBe(false);
       expect(created.thread.parentCategory).toBe("homework");
       expect(created.thread.reportId).toBe(linkedReport?.id);
+      expect(created.thread.classId).toBe(classId);
       expect(created.thread.messages[0]?.senderRole).toBe("parent");
 
+      const replayedCreateResponse = await page.request.post("/api/parent/messages", {
+        headers: expectedParentHeaders(),
+        data: createPayload
+      });
+      expect(replayedCreateResponse.status()).toBe(200);
+      const replayedCreate = await replayedCreateResponse.json() as { thread: ParentMessageThread; replayed: boolean };
+      expect(replayedCreate.replayed).toBe(true);
+      expect(replayedCreate.thread.id).toBe(created.thread.id);
+      const conflictingCreateResponse = await page.request.post("/api/parent/messages", {
+        headers: expectedParentHeaders(),
+        data: { ...createPayload, body: `${parentBody} changed` }
+      });
+      expect(conflictingCreateResponse.status()).toBe(409);
+
       const oversizedReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
-        data: { body: "x".repeat(parentMessageBodyMaxLength + 1) }
+        headers: expectedParentHeaders(),
+        data: {
+          idempotencyKey: `oversized-reply-${suffix}`,
+          body: "x".repeat(parentMessageBodyMaxLength + 1)
+        }
       });
       expect(oversizedReplyResponse.status()).toBe(413);
 
-      const parentMessagesResponse = await page.request.get("/api/parent/messages");
+      const directReplyPayload = {
+        idempotencyKey: `parent-reply-${suffix}`,
+        body: `Parent API idempotency follow-up ${suffix}.`
+      };
+      const directReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        headers: expectedParentHeaders(),
+        data: directReplyPayload
+      });
+      expect(directReplyResponse.status()).toBe(201);
+      const directReply = await directReplyResponse.json() as { entryId: string; replayed: boolean };
+      expect(directReply.replayed).toBe(false);
+      const replayedReplyResponse = await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        headers: expectedParentHeaders(),
+        data: directReplyPayload
+      });
+      expect(replayedReplyResponse.status()).toBe(200);
+      const replayedReply = await replayedReplyResponse.json() as { entryId: string; replayed: boolean };
+      expect(replayedReply.replayed).toBe(true);
+      expect(replayedReply.entryId).toBe(directReply.entryId);
+      expect((await page.request.post(`/api/parent/messages/${encodeURIComponent(created.thread.id)}/reply`, {
+        headers: expectedParentHeaders(),
+        data: { ...directReplyPayload, body: `${directReplyPayload.body} changed` }
+      })).status()).toBe(409);
+
+      const parentMessagesResponse = await getWithResetRetry(page.request, "/api/parent/messages", {
+        headers: expectedParentHeaders()
+      });
       const parentMessages = await parentMessagesResponse.json() as ParentMessagesResponse;
+      expect(parentMessages.data.selectedChild, "All messages must remain unfiltered without an explicit studentId").toBeNull();
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === parentSubject)).toBeTruthy();
       expect(parentMessages.data.threads.some((thread) => thread.subject.en === studentOnlySubject)).toBeFalsy();
 
-      const studentMessagesAfterParentThread = await studentContext.get("/api/messages");
+      const studentMessagesAfterParentThread = await getWithResetRetry(studentContext, "/api/messages");
       const studentMessages = await studentMessagesAfterParentThread.json() as ParentMessagesResponse;
       expect(studentMessages.data.threads.some((thread) => thread.subject.en === parentSubject)).toBeFalsy();
       expect(studentMessages.data.threads.some((thread) => thread.subject.en === studentOnlySubject)).toBeTruthy();
@@ -636,7 +1002,10 @@ test.describe.serial("parent console end-to-end verification", () => {
       await page.getByRole("button", { name: /Send reply/i }).click();
       await expect(page.getByPlaceholder(/Reply to the parent/i)).toBeEmpty();
 
-      const teacherInboxResponse = await page.request.get(`/api/teacher/inbox?thread=${encodeURIComponent(created.thread.id)}`);
+      const teacherInboxResponse = await getWithResetRetry(
+        page.request,
+        `/api/teacher/inbox?thread=${encodeURIComponent(created.thread.id)}`
+      );
       const teacherInbox = await teacherInboxResponse.json() as TeacherInboxResponse;
       expect(teacherInbox.inbox.selectedThread?.parentContext?.guardianName).toBe(demoParent.username);
       expect(teacherInbox.inbox.selectedThread?.parentContext?.category).toBe("homework");
@@ -657,7 +1026,10 @@ test.describe.serial("parent console end-to-end verification", () => {
         response.request().method() === "GET"
       );
       await page.getByRole("button", { name: /Send reply/i }).click();
-      expect((await parentReplyResponse).ok()).toBeTruthy();
+      const sentParentReply = await parentReplyResponse;
+      expect(sentParentReply.status()).toBe(201);
+      const parentReplyRequest = sentParentReply.request().postDataJSON() as { idempotencyKey?: unknown };
+      expect(parentReplyRequest.idempotencyKey).toMatch(/^[A-Za-z0-9._:~-]{16,128}$/);
       expect((await parentReloadResponse).ok()).toBeTruthy();
       await expect(page.locator("main").getByText(parentFollowUp).last()).toBeVisible();
       await logoutIfVisible(page);

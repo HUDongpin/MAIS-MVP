@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { isValidGradeId } from "@/data/grades";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { getLessonEntryTarget } from "@/lib/server/userStore";
 import type { GradeId } from "@/types";
 
@@ -11,6 +15,13 @@ export async function GET(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   const url = new URL(request.url);
   const gradeParam = url.searchParams.get("grade");

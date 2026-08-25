@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ParentReportsView } from "@/components/parent/ParentViews";
 import { getParentReportData } from "@/lib/server/userStore";
+import { toParentReportDataSafe } from "@/lib/server/userStore/parentSafeDto";
 import { getParentFoundationForPage } from "../getParentFoundation";
 
 export default async function ParentReportsPage({ searchParams }: { searchParams: Promise<{ studentId?: string }> }) {
@@ -9,6 +10,7 @@ export default async function ParentReportsPage({ searchParams }: { searchParams
   const data = await getParentReportData(foundation.parent.id, params.studentId);
 
   if (!data) notFound();
+  const safeData = toParentReportDataSafe(data);
 
-  return <ParentReportsView data={data} />;
+  return <ParentReportsView data={safeData} />;
 }

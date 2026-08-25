@@ -227,12 +227,40 @@ async function prepareAvatarImage(file: File) {
   return dataUrl;
 }
 
+type StudentProfilePanelForUserProps = {
+  userId: string;
+  initialName: string;
+  initialAvatarId?: StudentAvatarId;
+  initialAvatarImageDataUrl?: string;
+};
+
 export function StudentProfilePanel() {
+  const { currentUser } = useSettings();
+
+  if (!currentUser || currentUser.role !== "student") return null;
+
+  return (
+    <StudentProfilePanelForUser
+      key={`${currentUser.id}:${currentUser.role}`}
+      userId={currentUser.id}
+      initialName={currentUser.name}
+      initialAvatarId={currentUser.avatarId}
+      initialAvatarImageDataUrl={currentUser.avatarImageDataUrl}
+    />
+  );
+}
+
+function StudentProfilePanelForUser({
+  userId,
+  initialName,
+  initialAvatarId,
+  initialAvatarImageDataUrl
+}: StudentProfilePanelForUserProps) {
   const { currentUser, language, t, text, updateProfile } = useSettings();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [draftName, setDraftName] = useState("");
-  const [draftAvatarId, setDraftAvatarId] = useState<StudentAvatarId>("delta");
-  const [draftAvatarImagePreviewUrl, setDraftAvatarImagePreviewUrl] = useState<string | undefined>();
+  const [draftName, setDraftName] = useState(initialName);
+  const [draftAvatarId, setDraftAvatarId] = useState<StudentAvatarId>(initialAvatarId ?? "delta");
+  const [draftAvatarImagePreviewUrl, setDraftAvatarImagePreviewUrl] = useState<string | undefined>(initialAvatarImageDataUrl);
   const [freshAvatarImageDataUrl, setFreshAvatarImageDataUrl] = useState<string | undefined>();
   const [isPreparingImage, setIsPreparingImage] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -268,7 +296,7 @@ export function StudentProfilePanel() {
     [currentUser?.name, language, t]
   );
 
-  if (!currentUser || currentUser.role !== "student") return null;
+  if (!currentUser || currentUser.role !== "student" || currentUser.id !== userId) return null;
 
   const handleSave = async () => {
     if (!canSave) return;
@@ -325,7 +353,7 @@ export function StudentProfilePanel() {
           aria-hidden="true"
         >
           {draftAvatarImagePreviewUrl ? (
-            <img src={draftAvatarImagePreviewUrl} alt="" className="h-full w-full object-cover" />
+            <img key={currentUser.id} src={draftAvatarImagePreviewUrl} alt="" className="h-full w-full object-cover" />
           ) : (
             <MascotAvatar mascot={activeAvatar.mascot} />
           )}

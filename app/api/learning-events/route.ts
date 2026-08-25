@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { isValidLearningAnalyticsEventLog, maxStoredLearningAnalyticsEvents } from "@/lib/learningAnalytics";
-import { requireAuthenticatedUser } from "@/lib/server/auth";
+import {
+  bodyExpectedUserConstraints,
+  expectedUserConstraintsFromRequest,
+  guardExpectedAuthenticatedUser,
+  requireAuthenticatedUser
+} from "@/lib/server/auth";
 import { emitLearningEventsToLrs } from "@/lib/server/lrsClient";
 import { appendLearningEventsFast, clearLearningEventsFast, learningEventFastPathPersistsRows } from "@/lib/server/practiceAttemptStore";
 import { appendLearningEvents, clearLearningEventsForUser } from "@/lib/server/userStore";
@@ -13,7 +18,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ accepted: 0, ignored: true }, { status: 202 });
   }
 
+  const transportExpectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request)
+  );
+  if (transportExpectedUserConflict) return transportExpectedUserConflict;
+
   if (authenticated.user.role !== "student") {
+    const expectedUserConflict = guardExpectedAuthenticatedUser(
+      authenticated,
+      expectedUserConstraintsFromRequest(request),
+      { requireConstraint: true }
+    );
+    if (expectedUserConflict) return expectedUserConflict;
     return NextResponse.json({ accepted: 0, ignored: true }, { status: 202 });
   }
 
@@ -21,8 +38,24 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
+    const expectedUserConflict = guardExpectedAuthenticatedUser(
+      authenticated,
+      expectedUserConstraintsFromRequest(request),
+      { requireConstraint: true }
+    );
+    if (expectedUserConflict) return expectedUserConflict;
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
+
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    [
+      ...expectedUserConstraintsFromRequest(request),
+      ...bodyExpectedUserConstraints(body)
+    ],
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
 
   const events = (body as { events?: unknown } | null)?.events;
   if (!isValidLearningAnalyticsEventLog(events)) {
@@ -53,6 +86,12 @@ export async function DELETE(request: Request) {
   if (!authenticated) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
+  const expectedUserConflict = guardExpectedAuthenticatedUser(
+    authenticated,
+    expectedUserConstraintsFromRequest(request),
+    { requireConstraint: true }
+  );
+  if (expectedUserConflict) return expectedUserConflict;
   if (authenticated.user.role !== "student") {
     return NextResponse.json({
       error: "Student access required.",

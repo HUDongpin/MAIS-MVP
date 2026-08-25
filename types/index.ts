@@ -3543,6 +3543,7 @@ export type TeacherReport = {
   classId?: string;
   studentId?: string;
   generatedBy: string;
+  generatedByName?: string;
   generatedAt: string;
   summary: LocalizedText;
   preview?: TeacherReportPreview;
@@ -3852,11 +3853,227 @@ export type ParentChildSummary = {
   strengths: Topic[];
   supportTopics: Topic[];
   assignments: StudentAssignmentItem[];
+  pendingAssignmentCount: number;
   rewardSummary: RewardPointSummary;
   motivationSummary: GamificationSummary | null;
   latestParentReport: TeacherReport | null;
   celebrate: LocalizedText[];
   support: LocalizedText[];
+};
+
+/**
+ * Parent API DTOs are deliberately separate from the richer server models above. Every
+ * property is an allowlisted value that a guardian-facing client currently needs; adding a
+ * field to StudentSession, TeacherClass, Submission, TeacherReport, or TeacherNotice cannot
+ * silently add it to a parent response.
+ */
+export type ParentIdentitySafe = {
+  id: string;
+  name: string;
+};
+
+export type ParentStudentSafe = ParentIdentitySafe & {
+  grade: GradeId;
+};
+
+export type ParentClassSafe = {
+  id: string;
+  name: string;
+  grade: GradeId;
+};
+
+export type ParentTopicSafe = {
+  id: string;
+  title: LocalizedText;
+  mastery: number;
+};
+
+export type ParentSubmissionSafe = {
+  id: string;
+  status: SubmissionStatus;
+  score: number | null;
+  submittedAt: string | null;
+  gradedAt: string | null;
+  feedback: LocalizedText | null;
+  correctionRequest: LocalizedText | null;
+  correctionDueAt: string | null;
+  correctionRound: number;
+  maxCorrectionRounds: number;
+  resolvedAt: string | null;
+  updatedAt: string;
+};
+
+export type ParentAssignmentItemSafe = {
+  assignment: {
+    id: string;
+    title: LocalizedText;
+    status: AssignmentStatus;
+    dueAt: string | null;
+  };
+  submission: ParentSubmissionSafe;
+  className: string;
+  classGrade: GradeId;
+};
+
+export type ParentReportPreviewSafe = {
+  id: string;
+  type: TeacherReportType;
+  language: TeacherReportLanguage;
+  title: string;
+  subtitle: string;
+  generatedAt: string;
+  subjectName: string;
+  classId?: string;
+  className?: string;
+  studentId?: string;
+  metrics: {
+    learningMinutes: number;
+    masteryChange: number;
+    averageMastery: number;
+    accuracy: number | null;
+    completionRate: number | null;
+  };
+  strengths: string[];
+  weaknesses: string[];
+  mistakeTypes: string[];
+  suggestedPractice: string[];
+};
+
+export type ParentReportSafe = {
+  id: string;
+  type: TeacherReportType;
+  title: LocalizedText;
+  classId?: string;
+  studentId?: string;
+  teacherId: string;
+  teacherName: string;
+  generatedAt: string;
+  summary: LocalizedText;
+  preview?: ParentReportPreviewSafe;
+};
+
+export type ParentMotivationSummarySafe = {
+  generatedAt: string;
+  studentId: string;
+  xp: number;
+  level: {
+    current: LevelDefinition;
+    next: LevelDefinition | null;
+    xpIntoLevel: number;
+    xpForNextLevel: number;
+    progressPercent: number;
+  };
+  streakDays: number;
+  badges: StudentBadge[];
+  earnedBadges: StudentBadge[];
+  quests: StudentQuestProgress[];
+  rewardSummary: RewardPointSummary;
+  motivation: {
+    celebrate: LocalizedText[];
+    support: LocalizedText[];
+  };
+};
+
+export type ParentChildSummarySafe = {
+  student: ParentStudentSafe;
+  classes: ParentClassSafe[];
+  generatedAt: string;
+  averageMastery: number;
+  learningMinutes7d: number;
+  latestActivityAt: string | null;
+  weeklyActivity: WeeklyActivity[];
+  strengths: ParentTopicSafe[];
+  supportTopics: ParentTopicSafe[];
+  assignments: ParentAssignmentItemSafe[];
+  pendingAssignmentCount: number;
+  rewardSummary: RewardPointSummary;
+  motivationSummary: ParentMotivationSummarySafe | null;
+  latestParentReport: ParentReportSafe | null;
+  celebrate: LocalizedText[];
+  support: LocalizedText[];
+};
+
+export type ParentGuardianLinkSafe = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  studentGrade: GradeId;
+  relationship: GuardianRelationship;
+  status: GuardianLinkStatus;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ParentFoundationSafeData = {
+  parent: ParentIdentitySafe;
+  children: ParentChildSummarySafe[];
+  selectedChild: ParentChildSummarySafe | null;
+  links: ParentGuardianLinkSafe[];
+  totals: ParentFoundationData["totals"];
+};
+
+export type ParentReportSafeData = {
+  generatedAt: string;
+  children: ParentChildSummarySafe[];
+  selectedChild: ParentChildSummarySafe | null;
+  reports: ParentReportSafe[];
+};
+
+export type ParentNoticeRecipientSafe = {
+  id: string;
+  noticeId: string;
+  studentId: string;
+  studentName: string;
+  status: TeacherNoticeRecipientStatus;
+  acknowledgedAt: string | null;
+  createdAt: string;
+};
+
+export type ParentNoticeSafe = {
+  id: string;
+  className: string;
+  audience: TeacherNoticeAudience;
+  channelName: string;
+  subject: LocalizedText;
+  body: LocalizedText;
+  status: TeacherNoticeStatus;
+  assignmentId?: string;
+  source?: {
+    kind: TeacherNoticeSourceKind;
+  };
+  dueAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  sentAt: string | null;
+  recipients: ParentNoticeRecipientSafe[];
+  acknowledgement: {
+    total: number;
+    acknowledged: number;
+    pending: number;
+  };
+};
+
+export type ParentSafeTeacherDraftDto = {
+  id: string;
+  noticeId: string;
+  className: string;
+  teacherName: string;
+  title: LocalizedText;
+  summary: LocalizedText;
+  status: TeacherNoticeStatus;
+  publishedAt: string | null;
+  acknowledgement: {
+    total: number;
+    acknowledged: number;
+    pending: number;
+  };
+};
+
+export type ParentNoticeSafeData = {
+  generatedAt: string;
+  children: ParentChildSummarySafe[];
+  notices: ParentNoticeSafe[];
+  parentSafeDrafts: ParentSafeTeacherDraftDto[];
 };
 
 export type ParentFoundationData = {
@@ -3885,24 +4102,69 @@ export type ParentMessageThread = TeacherMessage & {
   messages: TeacherMessageEntry[];
 };
 
-export type ParentMessagesData = {
+export type ParentMessageEntrySafe = {
+  id: string;
+  senderRole: TeacherMessageSenderRole;
+  senderName: string;
+  body: string;
+  createdAt: string;
+};
+
+export type ParentMessageThreadSafe = {
+  id: string;
+  classId: string;
+  className: string;
+  studentId: string;
+  studentName: string;
+  teacherName: string;
+  reportId?: string;
+  parentCategory?: ParentMessageCategory;
+  subject: LocalizedText;
+  latestMessage: string;
+  status: TeacherMessageStatus;
+  priority: TeacherMessagePriority;
+  lastMessageAt: string;
+  createdAt: string;
+  messages: ParentMessageEntrySafe[];
+};
+
+export type ParentMessageComposeTargetSafe = {
+  studentId: string;
+  classId: string;
+  className: string;
+  teacherId: string;
+  teacherName: string;
+  reportId?: string;
+};
+
+export type ParentMessagesSafeData = {
   generatedAt: string;
-  children: ParentChildSummary[];
-  selectedChild: ParentChildSummary | null;
-  threads: ParentMessageThread[];
-  selectedThread: ParentMessageThread | null;
+  children: ParentChildSummarySafe[];
+  selectedChild: ParentChildSummarySafe | null;
+  threads: ParentMessageThreadSafe[];
+  selectedThread: ParentMessageThreadSafe | null;
   categories: Array<{
     id: ParentMessageCategory;
     label: LocalizedText;
   }>;
-  reports: TeacherReport[];
+  reports: ParentReportSafe[];
+  composeTargets: ParentMessageComposeTargetSafe[];
 };
+
+/** @deprecated Use the explicitly parent-safe response type. */
+export type ParentMessagesData = ParentMessagesSafeData;
 
 export type ParentNoticeData = {
   generatedAt: string;
   children: ParentChildSummary[];
   notices: TeacherNotice[];
   parentSafeDrafts: ParentSafeTeacherDraft[];
+};
+
+export type ParentNoticeReceiptSafe = {
+  recipientId: string;
+  status: "acknowledged";
+  acknowledgedAt: string;
 };
 
 export type TeacherFoundationData = {
@@ -4245,7 +4507,6 @@ export type TeacherStudentMasteryTarget = {
 export type TeacherStudentProfileData = {
   student: StudentSession;
   classes: TeacherClass[];
-  parentInviteCode: string;
   guardianLinks: GuardianLink[];
   averageMastery: number;
   recentActivityAt: string | null;
@@ -4777,7 +5038,9 @@ export type TeacherReportPreview = {
   subtitle: string;
   generatedAt: string;
   subjectName: string;
+  classId?: string;
   className?: string;
+  studentId?: string;
   metrics: {
     learningMinutes: number;
     masteryChange: number;

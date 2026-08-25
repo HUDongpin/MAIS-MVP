@@ -3134,9 +3134,29 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "release:publish-preflight": "node scripts/release-env-guard.mjs publish",
     "release:staged-publish-preflight": "node scripts/release-env-guard.mjs staged-publish",
     "release:root-deploy-preflight": "node scripts/release-env-guard.mjs root-deploy",
-    "test:release-governance": "node --test --test-concurrency=1 scripts/release-governance.test.mjs",
+    "test:release-governance": "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs",
     "test:release-evidence": "node --test --test-concurrency=1 coordination/release-intake/refresh-linked-worktree-archive-evidence.test.mjs",
     "test:imports": "node --test scripts/check-import-targets.test.mjs"
+  };
+  const expectedParentDeliveryAndReadinessScripts = {
+    "maintain:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-maintenance.mjs",
+    "migrate:teacher-notice-resend-webhook":
+      "node --import tsx scripts/teacher-notice-resend-webhook-migration.mjs",
+    "teacher-notice-outbox:migrate":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --apply",
+    "teacher-notice-outbox:preflight":
+      "node --import tsx scripts/teacher-notice-outbox-migration.mjs --preflight",
+    "test:postgres-readiness":
+      "node --test scripts/run-postgres-readiness-tests.test.mjs && node scripts/run-postgres-readiness-tests.mjs",
+    "test:teacher-notice-outbox":
+      "node --import tsx --test scripts/teacher-notice-outbox-migration.test.mjs lib/server/teacherNoticeEmailDelivery.test.ts lib/server/teacherNoticeEmailOutboxHandlers.test.ts lib/server/userStoreTeacherNoticeEmailOutboxPersistence.test.ts lib/server/userStoreTeacherNoticeEmailOutboxStorage.test.ts lib/server/userStoreTeacherNoticeEmailOutboxSqliteIntegration.test.ts lib/server/userStoreTeacherNoticeEmailOutboxRemediation.test.ts lib/server/userStoreTeacherOpsNoticePersistence.test.ts lib/server/userStoreTeacherOpsReminderPersistence.test.ts",
+    "test:teacher-notice-outbox:postgres16":
+      "node -e \"if (!process.env.MAIS_OUTBOX_POSTGRES16_INTEGRATION_URL) process.exit(2)\" && node --import tsx --test lib/server/userStoreTeacherNoticeEmailOutboxIntegration.test.ts",
+    "test:teacher-notice-resend-webhook":
+      "node scripts/run-teacher-notice-resend-webhook-tests.mjs",
+    "test:teacher-notice-resend-webhook:postgres":
+      "node --import tsx --test lib/server/userStoreTeacherNoticeResendWebhookPostgresIntegration.test.ts"
   };
   const allowedScriptChanges = new Set([
     "audit:ccss-depth",
@@ -3158,6 +3178,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "eval:adaptive",
     "fit:bkt",
     "kill-port",
+    "maintain:teacher-notice-resend-webhook",
+    "migrate:teacher-notice-resend-webhook",
     "promotion:shadow",
     "promotion:validate",
     "promotion:verify-receipt",
@@ -3180,6 +3202,8 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "smoke:dashboard-latency",
     "smoke:dashboard-ui-loading",
     "smoke:resend:local",
+    "teacher-notice-outbox:migrate",
+    "teacher-notice-outbox:preflight",
     "test:accommodations",
     "test:analytics",
     "test:ccss-depth",
@@ -3191,6 +3215,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:lesson-menu",
     "test:mvp",
     "test:parent-console",
+    "test:postgres-readiness",
     "test:promotion-gate",
     "test:prod-certification",
     "test:question-bank",
@@ -3201,6 +3226,10 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "test:signature-labs",
     "test:source-regressions",
     "test:stray-types",
+    "test:teacher-notice-outbox",
+    "test:teacher-notice-outbox:postgres16",
+    "test:teacher-notice-resend-webhook",
+    "test:teacher-notice-resend-webhook:postgres",
     "test:tutor-moderation",
     "test:tutor-transcript",
     "test:visualizations",
@@ -3226,7 +3255,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
   );
   assert.equal(
     createHash("sha256").update(JSON.stringify(changedScripts)).digest("hex"),
-    "1cc382fe95fb1fbf4cf0c167e1a22c32398697c17b5bb6cca102dd8a8133dc7d",
+    "f13a6ec76e3c07e92edf13e44b1d3dca8d68073ecc9a372e78bb10bc548d5179",
     "Reviewed command bodies must remain exact"
   );
   for (const [name, command] of Object.entries(expectedP0Scripts)) {
@@ -3234,6 +3263,9 @@ test("P0 package delta and default release gates are self-contained in Git objec
     const localTarget = command.split(/\s+/).find((token) => /\.(?:c?js|mjs)$/.test(token));
     assert.ok(localTarget, `${name} must resolve one local Node target`);
     assertTrackedInIndex(localTarget);
+  }
+  for (const [name, command] of Object.entries(expectedParentDeliveryAndReadinessScripts)) {
+    assert.equal(current.scripts[name], command, `${name} command`);
   }
 
   for (const command of Object.values(changedScripts)) {
@@ -3249,6 +3281,7 @@ test("P0 package delta and default release gates are self-contained in Git objec
     "@react-three/fiber": "9.6.1",
     next: "15.5.23",
     pptxgenjs: "^4.0.1",
+    svix: "^2.0.0",
     three: "0.184.0",
     "three-stdlib": "2.36.1",
     ws: "^8.21.0"
@@ -3396,14 +3429,15 @@ test("default preflight all invokes dirty-map, release-source, and strict lifecy
   const tempDir = await mkdtemp(path.join(tmpdir(), "mais-preflight-all-"));
   const sourceRoot = path.join(tempDir, "clean-source");
   const markerPath = path.join(tempDir, "gate-marker.txt");
+  const failingGatePath = path.join(tempDir, "failing-gate.txt");
   const dirtyMapStub = path.join(tempDir, "dirty-map-stub.mjs");
   const releaseSourceStub = path.join(tempDir, "release-source-stub.mjs");
   const lifecycleStub = path.join(tempDir, "lifecycle-stub.mjs");
 
   const stubSource = (label, jsonOutput = false) => `
 import fs from "node:fs";
-fs.appendFileSync(process.env.MAIS_GATE_MARKER, ${JSON.stringify(label)} + "\\n");
-if (process.env.MAIS_FAIL_GATE === ${JSON.stringify(label)}) {
+fs.appendFileSync(${JSON.stringify(markerPath)}, ${JSON.stringify(label)} + "\\n");
+if (fs.existsSync(${JSON.stringify(failingGatePath)}) && fs.readFileSync(${JSON.stringify(failingGatePath)}, "utf8").trim() === ${JSON.stringify(label)}) {
   console.error(${JSON.stringify(label)} + " stub failure");
   process.exit(37);
 }
@@ -3437,7 +3471,6 @@ ${jsonOutput ? 'console.log(JSON.stringify({ gate: "dirty-map", result: "pass" }
       MAIS_RELEASE_SOURCE_ROOT: sourceRoot,
       MAIS_CANONICAL_RELEASE_ROOT: repoRoot,
       MAIS_RELEASE_SOURCE_KIND: "clean-worktree",
-      MAIS_GATE_MARKER: markerPath,
       MAIS_DIRTY_TREE_MAP_GATE: dirtyMapStub,
       MAIS_RELEASE_SOURCE_CLEAN_GATE: releaseSourceStub,
       MAIS_WORKTREE_LIFECYCLE_GATE: lifecycleStub
@@ -3459,8 +3492,9 @@ ${jsonOutput ? 'console.log(JSON.stringify({ gate: "dirty-map", result: "pass" }
 
     for (const failingGate of ["dirty-map", "release-source", "lifecycle"]) {
       await rm(markerPath, { force: true });
+      await writeFile(failingGatePath, `${failingGate}\n`);
       const fail = runNode(["scripts/release-env-guard.mjs", "--json"], {
-        env: { ...baseEnv, MAIS_FAIL_GATE: failingGate }
+        env: baseEnv
       });
       assert.notEqual(fail.status, 0, `${failingGate} failure must fail default preflight`);
       assert.match(combinedOutput(fail), new RegExp(`${failingGate} stub failure`, "i"));
@@ -3489,7 +3523,7 @@ test("package and coordination contracts preserve security versions and closure 
   assert.equal(packageJson.scripts["release:package-gate"], "node scripts/release-package-gate.mjs");
   assert.equal(
     packageJson.scripts["test:release-governance"],
-    "node --test --test-concurrency=1 scripts/release-governance.test.mjs"
+    "node --test --test-concurrency=1 scripts/release-build-gate.test.mjs scripts/release-governance.test.mjs"
   );
   assert.match(gitignore, /^Users\/$/m);
   assert.match(agents, /git add \./i);

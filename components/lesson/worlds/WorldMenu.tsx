@@ -138,7 +138,7 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide, onSelec
   const gradeLabel = formatGradeLabel(lesson.grade, language, true);
   const courseTitle = californiaCourseTitleForGrade(lesson.grade);
   const stopNoun = t(theme.stopNoun);
-  const firstName = currentUser?.username?.split(" ").pop() ?? "";
+  const firstName = currentUser?.name?.trim().split(/\s+/u).pop() ?? "";
   const currentAvatar = lessonWorldCurrentAvatarDisplay({
     avatarId: currentUser?.avatarId,
     avatarImageDataUrl: currentUser?.avatarImageDataUrl

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { spawn } from "node:child_process";
@@ -19,6 +20,22 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const DEFAULT_NEXT_DIST_DIR = ".next";
 const NEXT_ENV_SIDECAR = "next-env.d.ts";
+const BUILD_ATTESTATION_FILENAME = "mais-build-attestation.json";
+const BUILD_ATTESTATION_ARTIFACT_PATHS = Object.freeze([
+  "BUILD_ID",
+  "required-server-files.json",
+  "server/app-paths-manifest.json"
+]);
+export const BUILD_ARTIFACT_TREE_EXCLUSIONS = Object.freeze([
+  BUILD_ATTESTATION_FILENAME,
+  "cache/**",
+  "diagnostics/**",
+  "trace",
+  "trace-build"
+]);
+const COMMIT_SHA_PATTERN = /^[a-f0-9]{40}$/u;
+const BUILD_ID_PATTERN = /^[A-Za-z0-9_-]{8,128}$/u;
+const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 const execFileAsync = promisify(execFile);
 
 async function main() {
@@ -138,7 +155,7 @@ export async function assertSharedNextBuildIsIsolated(
 
   const summary = conflicts
     .slice(0, 6)
-    .map((processInfo) => `- pid ${processInfo.pid}: ${processInfo.command}`)
+    .map((processInfo) => `- pid ${processInfo.pid}: active Next.js process`)
     .join("\n");
 
   throw new Error(
@@ -393,10 +410,260 @@ function isPathInsideRepo(candidatePath, repoRoot) {
 async function spawnNextBuild(config, env) {
   const require = createRequire(import.meta.url);
   const nextBin = require.resolve("next/dist/bin/next");
-  return await runCommand(process.execPath, [nextBin, "build"], {
+  const buildStartedAt = new Date().toISOString();
+  const sourceBefore = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
+  const exitCode = await runCommand(process.execPath, [nextBin, "build"], {
     cwd: config.repoRoot,
     env
   });
+  if (exitCode !== 0) return exitCode;
+
+  const sourceAfter = await captureBuildSourceState({ repoRoot: config.repoRoot, env });
+  await writeBuildAttestation({
+    config,
+    sourceBefore,
+    sourceAfter,
+    buildStartedAt,
+    completedAt: new Date().toISOString()
+  });
+  return exitCode;
+}
+
+export async function captureBuildSourceState({ repoRoot = REPO_ROOT, env = process.env } = {}) {
+  try {
+    const [{ stdout: headOutput }, { stdout: statusOutput }] = await Promise.all([
+      execFileAsync("git", ["rev-parse", "HEAD"], {
+        cwd: repoRoot,
+        encoding: "utf8",
+        maxBuffer: 64 * 1024
+      }),
+      execFileAsync("git", ["status", "--porcelain=v1", "--untracked-files=all"], {
+        cwd: repoRoot,
+        encoding: "utf8",
+        maxBuffer: 4 * 1024 * 1024
+      })
+    ]);
+    const candidateSha = headOutput.trim().toLowerCase();
+    if (!COMMIT_SHA_PATTERN.test(candidateSha)) {
+      throw new Error("git returned an invalid commit SHA");
+    }
+    const status = statusOutput.replaceAll("\r\n", "\n");
+    return {
+      candidateSha,
+      clean: status.length === 0,
+      statusFingerprint: createHash("sha256").update(status, "utf8").digest("hex")
+    };
+  } catch {
+    const environmentSha = [env.VERCEL_GIT_COMMIT_SHA, env.GITHUB_SHA]
+      .find((value) => COMMIT_SHA_PATTERN.test(String(value ?? "").toLowerCase()));
+    return {
+      candidateSha: environmentSha ? String(environmentSha).toLowerCase() : null,
+      clean: null,
+      statusFingerprint: null
+    };
+  }
+}
+
+export async function writeBuildAttestation({
+  config,
+  sourceBefore,
+  sourceAfter,
+  buildStartedAt,
+  completedAt = new Date().toISOString()
+}) {
+  const { artifacts, artifactDigests } = await captureBuildAttestationArtifacts(config);
+  const artifactTree = await captureBuildArtifactTree(config);
+  const buildId = artifacts.get("BUILD_ID").toString("utf8").trim();
+  if (!BUILD_ID_PATTERN.test(buildId)) {
+    throw new Error("Next build completed without a valid BUILD_ID for release attestation.");
+  }
+
+  const candidateSha = COMMIT_SHA_PATTERN.test(String(sourceBefore?.candidateSha ?? ""))
+    ? sourceBefore.candidateSha
+    : null;
+  const sourceTreeStable = Boolean(
+    candidateSha &&
+    candidateSha === sourceAfter?.candidateSha &&
+    sourceBefore?.statusFingerprint &&
+    sourceBefore.statusFingerprint === sourceAfter?.statusFingerprint
+  );
+  const attestation = {
+    schemaVersion: 3,
+    candidateSha,
+    buildId,
+    distDir: config.distDir,
+    sourceTreeClean: sourceBefore?.clean === true && sourceAfter?.clean === true,
+    sourceTreeStable,
+    buildStartedAt,
+    completedAt,
+    artifactDigests,
+    artifactTree
+  };
+
+  const targetPath = path.join(config.nextBuildDir, BUILD_ATTESTATION_FILENAME);
+  const temporaryPath = `${targetPath}.${process.pid}.tmp`;
+  try {
+    await fs.writeFile(temporaryPath, `${JSON.stringify(attestation, null, 2)}\n`, {
+      encoding: "utf8",
+      mode: 0o600
+    });
+    await fs.rename(temporaryPath, targetPath);
+  } finally {
+    await fs.rm(temporaryPath, { force: true });
+  }
+  return attestation;
+}
+
+export async function verifyBuildAttestationArtifactDigests({ config, attestation }) {
+  if (
+    attestation?.schemaVersion !== 3 ||
+    !isExactArtifactDigestRecord(attestation.artifactDigests) ||
+    !isValidBuildArtifactTree(attestation.artifactTree)
+  ) {
+    throw new Error("Build attestation artifact digests are invalid.");
+  }
+
+  const [{ artifactDigests }, artifactTree] = await Promise.all([
+    captureBuildAttestationArtifacts(config),
+    captureBuildArtifactTree(config)
+  ]);
+  for (const relativePath of BUILD_ATTESTATION_ARTIFACT_PATHS) {
+    if (attestation.artifactDigests[relativePath] !== artifactDigests[relativePath]) {
+      throw new Error(`Build attestation artifact digest mismatch: ${relativePath}.`);
+    }
+  }
+  if (
+    attestation.artifactTree.root !== artifactTree.root ||
+    attestation.artifactTree.fileCount !== artifactTree.fileCount ||
+    attestation.artifactTree.totalBytes !== artifactTree.totalBytes
+  ) {
+    throw new Error("Build attestation artifact tree mismatch.");
+  }
+  return true;
+}
+
+export async function captureBuildArtifactTree(config) {
+  const files = [];
+  await collectBuildArtifactFiles(config.nextBuildDir, "", files);
+  files.sort((left, right) => left.relativePath.localeCompare(right.relativePath));
+  if (files.length === 0) {
+    throw new Error("Next build completed without release artifacts.");
+  }
+
+  const rootHash = createHash("sha256");
+  let totalBytes = 0;
+  for (const file of files) {
+    const contents = await fs.readFile(file.absolutePath);
+    const size = contents.byteLength;
+    const digest = createHash("sha256").update(contents).digest("hex");
+    totalBytes += size;
+    rootHash.update("file\0", "utf8");
+    rootHash.update(file.relativePath, "utf8");
+    rootHash.update("\0", "utf8");
+    rootHash.update(String(size), "utf8");
+    rootHash.update("\0", "utf8");
+    rootHash.update(digest, "utf8");
+    rootHash.update("\n", "utf8");
+  }
+
+  return {
+    algorithm: "sha256",
+    exclusions: [...BUILD_ARTIFACT_TREE_EXCLUSIONS],
+    fileCount: files.length,
+    totalBytes,
+    root: rootHash.digest("hex")
+  };
+}
+
+async function collectBuildArtifactFiles(absoluteDirectory, relativeDirectory, files) {
+  let entries;
+  try {
+    entries = await fs.readdir(absoluteDirectory, { withFileTypes: true });
+  } catch {
+    throw new Error("Next build artifact tree is unavailable.");
+  }
+  entries.sort((left, right) => left.name.localeCompare(right.name));
+  for (const entry of entries) {
+    const relativePath = relativeDirectory
+      ? `${relativeDirectory}/${entry.name}`
+      : entry.name;
+    if (isExcludedBuildArtifactPath(relativePath)) continue;
+    if (
+      relativePath.includes("\\") ||
+      relativePath.split("/").some((segment) => !segment || segment === "." || segment === "..") ||
+      /[\u0000-\u001f\u007f]/u.test(relativePath)
+    ) {
+      throw new Error("Next build artifact path is invalid.");
+    }
+    const absolutePath = path.join(absoluteDirectory, entry.name);
+    if (entry.isDirectory()) {
+      await collectBuildArtifactFiles(absolutePath, relativePath, files);
+    } else if (entry.isFile()) {
+      files.push({ absolutePath, relativePath });
+    } else {
+      throw new Error("Next build artifact tree contains an unsupported file type.");
+    }
+  }
+}
+
+function isExcludedBuildArtifactPath(relativePath) {
+  return relativePath === BUILD_ATTESTATION_FILENAME ||
+    relativePath.startsWith(`${BUILD_ATTESTATION_FILENAME}.`) ||
+    relativePath === "cache" ||
+    relativePath.startsWith("cache/") ||
+    relativePath === "diagnostics" ||
+    relativePath.startsWith("diagnostics/") ||
+    relativePath === "trace" ||
+    relativePath === "trace-build";
+}
+
+async function captureBuildAttestationArtifacts(config) {
+  const artifacts = new Map();
+  const artifactDigests = {};
+  for (const relativePath of BUILD_ATTESTATION_ARTIFACT_PATHS) {
+    let contents;
+    try {
+      contents = await fs.readFile(
+        path.join(config.nextBuildDir, ...relativePath.split("/"))
+      );
+    } catch {
+      throw new Error(`Next build completed without required release artifact: ${relativePath}.`);
+    }
+    artifacts.set(relativePath, contents);
+    artifactDigests[relativePath] = createHash("sha256").update(contents).digest("hex");
+  }
+  return { artifacts, artifactDigests };
+}
+
+function isExactArtifactDigestRecord(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const paths = Object.keys(value);
+  return paths.length === BUILD_ATTESTATION_ARTIFACT_PATHS.length
+    && BUILD_ATTESTATION_ARTIFACT_PATHS.every(
+      (relativePath) => Object.hasOwn(value, relativePath)
+        && typeof value[relativePath] === "string"
+        && SHA256_PATTERN.test(value[relativePath])
+    );
+}
+
+function isValidBuildArtifactTree(value) {
+  return Boolean(
+    value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    value.algorithm === "sha256" &&
+    Array.isArray(value.exclusions) &&
+    value.exclusions.length === BUILD_ARTIFACT_TREE_EXCLUSIONS.length &&
+    value.exclusions.every(
+      (entry, index) => entry === BUILD_ARTIFACT_TREE_EXCLUSIONS[index]
+    ) &&
+    Number.isSafeInteger(value.fileCount) &&
+    value.fileCount > 0 &&
+    Number.isSafeInteger(value.totalBytes) &&
+    value.totalBytes >= 0 &&
+    typeof value.root === "string" &&
+    SHA256_PATTERN.test(value.root)
+  );
 }
 
 function runCommand(command, args, options) {

@@ -6,6 +6,7 @@ import {
   normalizeStoredCurriculumProfile
 } from "@/lib/curriculumProfile";
 import { textForLanguage } from "@/lib/i18n";
+import { readTeacherReportPreview } from "@/lib/server/userStore/teacherReportPreviewDecoder";
 import type {
   CurriculumProfile,
   CurriculumRegion,
@@ -107,7 +108,9 @@ export function teacherOpsSeedTeacherReportRecords(
       subtitle: "HK Student Peter · S3A Mathematics",
       generatedAt: now,
       subjectName: "HK Student Peter",
+      classId: "class-s3a-2026",
       className: "S3A Mathematics",
+      studentId: options.demoUserId,
       metrics: {
         learningMinutes: 95,
         masteryChange: 8,
@@ -373,18 +376,6 @@ function teacherStudentIdsForClass(database: TeacherOpsReportPersistenceDatabase
   return (database.class_enrollments ?? [])
     .filter((enrollment) => enrollment.class_id === classId)
     .map((enrollment) => enrollment.student_id);
-}
-
-function teacherClassForStudent(
-  database: TeacherOpsReportPersistenceDatabase,
-  user: TeacherOpsReportUserRecord,
-  studentId: string
-) {
-  const accessibleClassIds = new Set(teacherClassRecordsFor(database, user).map((teacherClass) => teacherClass.id));
-  const enrollment = (database.class_enrollments ?? []).find((candidate) => (
-    candidate.student_id === studentId && accessibleClassIds.has(candidate.class_id)
-  ));
-  return enrollment ? teacherCanAccessClass(database, user, enrollment.class_id) : null;
 }
 
 function teacherClassStudentPairs(
@@ -663,7 +654,9 @@ function buildReportPreviewFromScope({
   type,
   language,
   subjectName,
+  classId,
   className,
+  studentId,
   studentIds,
   topicIds,
   generatedAt,
@@ -676,7 +669,9 @@ function buildReportPreviewFromScope({
   type: TeacherReportType;
   language: TeacherReportLanguage;
   subjectName: string;
+  classId?: string;
   className?: string;
+  studentId?: string;
   studentIds: string[];
   topicIds: string[];
   generatedAt: string;
@@ -715,7 +710,9 @@ function buildReportPreviewFromScope({
     subtitle,
     generatedAt,
     subjectName,
+    classId,
     className,
+    studentId,
     metrics: {
       learningMinutes: studentLearningMinutes(database, studentIdSet, nowMs, 30),
       masteryChange: masteryChangeSignal(database, studentIdSet, nowMs),
@@ -732,28 +729,7 @@ function buildReportPreviewFromScope({
 }
 
 export function readTeacherOpsReportPreview(value?: string): TeacherReportPreview | undefined {
-  if (!value) return undefined;
-  try {
-    const parsed = JSON.parse(value) as Partial<TeacherReportPreview> | null;
-    if (
-      typeof parsed?.id === "string" &&
-      typeof parsed.type === "string" &&
-      typeof parsed.title === "string" &&
-      typeof parsed.subtitle === "string" &&
-      typeof parsed.generatedAt === "string" &&
-      typeof parsed.subjectName === "string" &&
-      parsed.metrics &&
-      Array.isArray(parsed.strengths) &&
-      Array.isArray(parsed.weaknesses) &&
-      Array.isArray(parsed.mistakeTypes) &&
-      Array.isArray(parsed.suggestedPractice)
-    ) {
-      return parsed as TeacherReportPreview;
-    }
-  } catch {
-    return undefined;
-  }
-  return undefined;
+  return readTeacherReportPreview(value);
 }
 
 export function toTeacherOpsReport(record: TeacherOpsReportRecord): TeacherReport {
@@ -789,7 +765,19 @@ export function createTeacherOpsReportPersistenceStore({
 
     const classIds = new Set(teacherClassRecordsFor(database, user).map((teacherClass) => teacherClass.id));
     return database.teacher_reports
-      .filter((report) => user.role === "admin" || !report.class_id || classIds.has(report.class_id))
+      .filter((report) => {
+        if (report.type === "student" || report.type === "parent-summary") {
+          return Boolean(
+            report.class_id &&
+            report.student_id &&
+            classIds.has(report.class_id) &&
+            teacherStudentIdsForClass(database, report.class_id).includes(report.student_id)
+          );
+        }
+        if (user.role === "admin") return true;
+        if (report.class_id) return classIds.has(report.class_id);
+        return report.generated_by === user.id;
+      })
       .sort((a, b) => b.generated_at.localeCompare(a.generated_at))
       .map(toTeacherOpsReport);
   }
@@ -823,8 +811,11 @@ export function createTeacherOpsReportPersistenceStore({
     if (!firstClass) return null;
 
     if (type === "assignment") {
-      const assignment = (assignmentId ? (database.assignments ?? []).find((candidate) => candidate.id === assignmentId) : null) ??
-        (database.assignments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      const hasExplicitAssignmentId = assignmentId !== undefined && assignmentId !== null;
+      const assignment = hasExplicitAssignmentId
+        ? (database.assignments ?? []).find((candidate) => candidate.id === assignmentId)
+        : (database.assignments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      if (classId !== undefined && classId !== null && assignment?.class_id !== classId) return null;
       const teacherClass = assignment ? teacherCanAccessClass(database, user, assignment.class_id) : null;
       if (!assignment || !teacherClass) return null;
       const submissions = (database.submissions ?? []).filter((submission) => submission.assignment_id === assignment.id);
@@ -834,6 +825,7 @@ export function createTeacherOpsReportPersistenceStore({
         type,
         language,
         subjectName: localized({ en: assignment.title_en, zh: assignment.title_zh }, language),
+        classId: teacherClass.id,
         className: teacherClass.name,
         studentIds,
         topicIds: topicIdsForClass(database, teacherClass),
@@ -846,8 +838,11 @@ export function createTeacherOpsReportPersistenceStore({
     }
 
     if (type === "assessment") {
-      const assessment = (assessmentId ? (database.assessments ?? []).find((candidate) => candidate.id === assessmentId) : null) ??
-        (database.assessments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      const hasExplicitAssessmentId = assessmentId !== undefined && assessmentId !== null;
+      const assessment = hasExplicitAssessmentId
+        ? (database.assessments ?? []).find((candidate) => candidate.id === assessmentId)
+        : (database.assessments ?? []).find((candidate) => candidate.class_id === (classId ?? firstClass.id));
+      if (classId !== undefined && classId !== null && assessment?.class_id !== classId) return null;
       const teacherClass = assessment ? teacherCanAccessClass(database, user, assessment.class_id) : null;
       if (!assessment || !teacherClass) return null;
       const submissions = (database.assessment_submissions ?? []).filter((submission) => submission.assessment_id === assessment.id);
@@ -859,6 +854,7 @@ export function createTeacherOpsReportPersistenceStore({
         type,
         language,
         subjectName: localized({ en: assessment.title_en, zh: assessment.title_zh }, language),
+        classId: teacherClass.id,
         className: teacherClass.name,
         studentIds,
         topicIds: topicIdsForClass(database, teacherClass),
@@ -873,14 +869,21 @@ export function createTeacherOpsReportPersistenceStore({
       });
     }
 
+    const isStudentScoped = type === "student" || type === "parent-summary";
+    let scopedStudentId: string | undefined;
+    if (isStudentScoped) {
+      if (!studentId || !classId) return null;
+      scopedStudentId = studentId;
+    }
     const teacherClass = classId
       ? teacherCanAccessClass(database, user, classId)
-      : studentId
-        ? teacherClassForStudent(database, user, studentId) ?? firstClass
-        : firstClass;
+      : firstClass;
     if (!teacherClass) return null;
-    const studentIds = type === "student" || type === "parent-summary"
-      ? [studentId ?? teacherStudentIdsForClass(database, teacherClass.id)[0]].filter((value): value is string => Boolean(value))
+    if (scopedStudentId && !teacherStudentIdsForClass(database, teacherClass.id).includes(scopedStudentId)) {
+      return null;
+    }
+    const studentIds = scopedStudentId
+      ? [scopedStudentId]
       : teacherStudentIdsForClass(database, teacherClass.id);
     if (!studentIds.length) return null;
     const profile = studentIds.length === 1
@@ -898,7 +901,9 @@ export function createTeacherOpsReportPersistenceStore({
       type,
       language,
       subjectName,
+      classId: teacherClass.id,
       className: teacherClass.name,
+      studentId: scopedStudentId,
       studentIds,
       topicIds: topicIdsForClass(database, teacherClass),
       generatedAt,
@@ -943,17 +948,25 @@ export function createTeacherOpsReportPersistenceStore({
       const user = database.users.find((candidate) => candidate.id === teacherId);
       if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
 
+      const teacherClass = preview.classId
+        ? teacherCanAccessClass(database, user, preview.classId)
+        : null;
+      if (!teacherClass) return { status: "not-found" as const };
+      const isStudentScoped = preview.type === "student" || preview.type === "parent-summary";
+      if (
+        isStudentScoped &&
+        (!preview.studentId || !teacherStudentIdsForClass(database, teacherClass.id).includes(preview.studentId))
+      ) {
+        return { status: "not-found" as const };
+      }
+
       const report: TeacherOpsReportRecord = {
         id: createId(),
         type: preview.type,
         title_en: preview.title,
         title_zh: preview.title,
-        class_id: preview.className
-          ? database.teacher_classes.find((teacherClass) => teacherClass.name === preview.className)?.id
-          : undefined,
-        student_id: preview.type === "student" || preview.type === "parent-summary"
-          ? database.student_profiles.find((profile) => profile.name === preview.subjectName)?.user_id
-          : undefined,
+        class_id: teacherClass.id,
+        student_id: isStudentScoped ? preview.studentId : undefined,
         generated_by: user.id,
         generated_at: preview.generatedAt,
         summary_en: [

@@ -4,68 +4,149 @@ import { join } from "node:path";
 import test from "node:test";
 
 /**
- * Every failure the parent console can surface is written into a single `message`
- * state and rendered as a red paragraph. Those paragraphs carried no ARIA role, so
- * a parent using a screen reader got no signal at all that sending a message,
- * sending a reply, or linking a child had failed — the form simply appeared to do
- * nothing.
- *
- * `app/login/page.tsx` already renders its form errors as `<p role="alert">`; this
- * keeps the parent console to the same convention.
- *
- * The assertions are on source rather than a render because this repo's component
- * gate runs `node --test` over plain modules with no DOM harness — and the defect
- * is in the markup, which is exactly what source can see.
+ * Parent actions now distinguish successful state updates from failures. Success
+ * is announced politely through `role="status"`; validation, authorization,
+ * rate-limit, service and network failures use `role="alert"`. Source assertions
+ * remain appropriate because this repository's component gate has no DOM harness.
  */
 
 const parentViewsSource = readFileSync(
   join(process.cwd(), "components", "parent", "ParentViews.tsx"),
   "utf8"
 );
+const parentNoticesSource = readFileSync(
+  join(process.cwd(), "components", "parent", "ParentNoticesView.tsx"),
+  "utf8"
+);
+const parentRequestSource = readFileSync(
+  join(process.cwd(), "components", "parent", "parentMessageUi.ts"),
+  "utf8"
+);
+const appProvidersSource = readFileSync(
+  join(process.cwd(), "components", "providers", "AppProviders.tsx"),
+  "utf8"
+);
 
-const errorParagraph = /<p role="alert" className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">\{message\}<\/p>/g;
+const adaptiveAnnouncement = /role=\{feedback\.kind === "error" \? "alert" : "status"\}/g;
 
-test("every parent console error paragraph is announced", () => {
-  const announced = parentViewsSource.match(errorParagraph) ?? [];
-  assert.equal(
-    announced.length,
-    2,
-    "both parent error surfaces (message compose/reply, and connect child) must render role=\"alert\""
-  );
+test("every parent action feedback surface distinguishes alerts from success status", () => {
+  assert.equal((parentViewsSource.match(adaptiveAnnouncement) ?? []).length, 2, "messages and connect must expose adaptive announcements");
+  assert.equal((parentNoticesSource.match(adaptiveAnnouncement) ?? []).length, 1, "notice receipts must expose adaptive announcements");
+  assert.equal((`${parentViewsSource}\n${parentNoticesSource}`.match(/aria-live=\{feedback\.kind === "error" \? "assertive" : "polite"\}/g) ?? []).length, 3);
 });
 
-test("no parent error paragraph renders without an alert role", () => {
-  // Catches a third surface being added later in the same un-announced shape.
-  const unannounced = parentViewsSource.match(
-    /<p className="mt-4 text-sm font-bold text-rose-700 dark:text-rose-200">\{message\}<\/p>/g
-  );
-  assert.equal(
-    unannounced,
-    null,
-    "found a parent error paragraph with no role=\"alert\""
-  );
+test("no legacy unannounced parent message channel remains", () => {
+  assert.doesNotMatch(parentViewsSource, /setMessage\(|>\{message\}<\/p>/);
+  assert.doesNotMatch(parentNoticesSource, /setMessage\(|>\{message\}<\/p>/);
 });
 
-test("every failure path writes into an announced message channel", () => {
-  // The three failures a parent can actually hit. If a new setMessage failure is
-  // added, this count moves and the author has to confirm it renders announced.
-  const failures = [
-    "Could not send this parent message.",
-    "Could not send reply.",
-    "Invite code could not be linked."
-  ];
-  for (const failure of failures) {
-    assert.ok(
-      parentViewsSource.includes(failure),
-      `expected failure copy to still exist: ${failure}`
-    );
+test("parent write actions recover busy state and use a bounded request", () => {
+  assert.equal((parentViewsSource.match(/finally \{/g) ?? []).length, 4, "thread selection, create, reply and child-link actions must recover busy state");
+  assert.equal((parentNoticesSource.match(/finally \{/g) ?? []).length, 1, "notice acknowledgement must recover busy state");
+  assert.equal((parentViewsSource.match(/parentFetchWithTimeout\(/g) ?? []).length, 4, "reload, create, reply and child-link must be bounded");
+  assert.equal((parentNoticesSource.match(/parentFetchWithTimeout\(/g) ?? []).length, 1, "notice acknowledgement must be bounded");
+  assert.match(parentRequestSource, /controller\.abort\(\)/, "the bounded request helper must abort timed-out fetches");
+});
+
+test("every parent client API request binds the current parent identity and revalidates only the auth-conflict response", () => {
+  assert.match(parentViewsSource, /currentUser, revalidateSession/);
+  assert.match(parentNoticesSource, /currentUser, revalidateSession/);
+  assert.equal(
+    (parentViewsSource.match(/parentExpectedUserRequestInit\(expectedParentId,/g) ?? []).length,
+    4,
+    "message reload, create, reply, and child-link must bind the captured parent"
+  );
+  assert.equal(
+    (parentNoticesSource.match(/parentExpectedUserRequestInit\(expectedParentId,/g) ?? []).length,
+    1,
+    "notice acknowledgement must bind the captured parent"
+  );
+  assert.equal(
+    (`${parentViewsSource}\n${parentNoticesSource}`.match(/parentResponseRequiresSessionRevalidation\(response\.status, payload\)/g) ?? []).length,
+    5,
+    "all client parent API paths must quarantine and revalidate a stable identity conflict"
+  );
+  assert.match(parentViewsSource, /const expectedParentId = currentUser\?\.role === "parent" \? currentUser\.id : "";/);
+  assert.match(parentNoticesSource, /const expectedParentId = currentUser\?\.role === "parent" \? currentUser\.id : "";/);
+  assert.match(`${parentViewsSource}\n${parentNoticesSource}`, /if \(parentResponseRequiresSessionRevalidation\(response\.status, payload\)\) \{[\s\S]*?void revalidateSession\(\);/);
+});
+
+test("thread navigation isolates drafts and prevents stale selection commits", () => {
+  assert.match(parentViewsSource, /data-parent-messages-layout="three-panel"/);
+  assert.match(parentViewsSource, /replyThreadRef\.current = selectedThreadId;[\s\S]*?setReply\(""\);[\s\S]*?replyAttemptRef\.current = null;/);
+  assert.match(parentViewsSource, /setReportId\(nextReport\?\.id \?\? ""\)/, "a removed report query must clear the report binding");
+  assert.match(parentViewsSource, /setSubject\(\(nextSubject \?\? \(nextReport \? parentReportPrefillSubject/, "navigation must replace, rather than retain, another context's subject");
+  assert.match(parentViewsSource, /setBody\(""\);[\s\S]*?setReply\(""\);[\s\S]*?createAttemptRef\.current = null;[\s\S]*?replyAttemptRef\.current = null;/);
+  assert.match(parentViewsSource, /threadSelectionControllerRef\.current\?\.abort\(\)/);
+  assert.match(parentViewsSource, /mayCommit: isCurrentSelection/);
+  assert.match(parentViewsSource, /if \(!isCurrentSelection\(\)\) return;/, "stale failures must not replace the latest selection feedback");
+});
+
+test("a linked report locks the compose form to its exact safe author target", () => {
+  assert.match(parentViewsSource, /id="parent-ask-teacher-heading"/);
+  assert.match(parentViewsSource, /<form aria-labelledby="parent-ask-teacher-heading"/);
+  for (const [fieldId, fieldName] of [
+    ["parent-message-student", "studentId"],
+    ["parent-message-class", "classId"],
+    ["parent-message-category", "category"],
+    ["parent-message-report", "reportId"],
+    ["parent-message-subject", "subject"],
+    ["parent-message-body", "body"]
+  ] as const) {
+    assert.match(parentViewsSource, new RegExp(`htmlFor="${fieldId}"`));
+    assert.match(parentViewsSource, new RegExp(`id="${fieldId}"[\\s\\S]*?name="${fieldName}"`));
   }
+  assert.match(parentViewsSource, /resolveParentComposeTarget\(/);
+  assert.match(parentViewsSource, /selectedReportTarget\?\.teacherName/);
+  assert.match(parentViewsSource, /selectedReport && !selectedReportTarget/);
+  assert.match(parentViewsSource, /disabled=\{Boolean\(selectedReport\) \|\| !availableComposeTargets\.length\}/);
+  assert.match(parentViewsSource, /classId: effectiveClassId,[\s\S]*?reportId: normalizedReportId \|\| null/);
+});
 
-  const setMessageCalls = parentViewsSource.match(/setMessage\(t\(\{/g) ?? [];
-  assert.equal(
-    setMessageCalls.length,
-    failures.length,
-    "a setMessage failure path was added or removed — confirm it renders through an announced paragraph"
+test("external student navigation invalidates old reads and resolves from the matching server props", () => {
+  assert.match(
+    parentViewsSource,
+    /useLayoutEffect\(\(\) => \{\s*renderedNavigationContextKeyRef\.current = navigationContextKey;\s*\}, \[navigationContextKey\]\)/u
+  );
+  assert.match(parentViewsSource, /threadSelectionGenerationRef\.current \+= 1;[\s\S]*?threadSelectionControllerRef\.current\?\.abort\(\);[\s\S]*?setSelectingThreadId\(""\)/);
+  assert.match(parentViewsSource, /const nextReport = nextReportId \? initialData\.reports\.find/);
+  assert.match(parentViewsSource, /const availableTargets = initialData\.composeTargets/);
+  assert.match(parentViewsSource, /expectedContextKey[\s\S]*?expectedDataGeneration[\s\S]*?return null;/);
+});
+
+test("thread reads use read-only feedback in all three languages", () => {
+  assert.match(parentViewsSource, /function threadReadFailureFeedback/);
+  assert.match(parentViewsSource, /No new message was sent/);
+  assert.match(parentViewsSource, /沒有發送任何新訊息/);
+  assert.match(parentViewsSource, /没有发送任何新消息/);
+});
+
+test("parent failures distinguish required HTTP and network outcomes", () => {
+  for (const status of ["400", "404", "413", "429", "503"]) {
+    assert.ok(parentViewsSource.includes(`status === ${status}`) || parentRequestSource.includes(`status === ${status}`), `missing parent outcome for HTTP ${status}`);
+  }
+  assert.match(parentViewsSource, /network-ambiguous/);
+  assert.match(parentViewsSource, /sent-refresh-failed/);
+  assert.match(parentNoticesSource, /response\.status === 429/);
+  assert.match(parentNoticesSource, /response\.status === 503/);
+});
+
+test("parent pending totals use the full safe summary count instead of the six-row display list", () => {
+  assert.match(parentViewsSource, /<h1 className="mt-2[^\"]*\[overflow-wrap:anywhere\][^\"]*">\{child\.student\.name\}<\/h1>/);
+  assert.match(parentViewsSource, /function pendingAssignmentCount\(child: ParentChildSummarySafe\) \{\s*return child\.pendingAssignmentCount;\s*\}/);
+  assert.doesNotMatch(parentViewsSource, /child\.assignments\.filter\(\(item\) => openAssignmentStatuses\.has/);
+});
+
+test("session revalidation never treats an admin account as a parent account", () => {
+  assert.match(
+    appProvidersSource,
+    /const canUseTeacherArea = session\.user\.role === "teacher" \|\| session\.user\.role === "admin";/,
+    "teacher session revalidation must retain explicit admin support"
+  );
+  assert.match(
+    appProvidersSource,
+    /const canUseParentArea = session\.user\.role === "parent";/,
+    "parent session revalidation must be parent-only"
   );
 });
 

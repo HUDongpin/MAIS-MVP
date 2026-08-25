@@ -231,9 +231,14 @@ test.describe("S11 release matrix continuation", () => {
         }
       });
       expect(register.status()).toBe(200);
+      const registeredSession = await register.json() as { user?: { id?: string } };
+      expect(registeredSession.user?.id).toBeTruthy();
+      const firstExpectedUserId = registeredSession.user?.id ?? "";
 
       const wrongAttempt = await firstContext.post("/api/attempts", {
+        headers: { "X-MAIS-Expected-User-Id": firstExpectedUserId },
         data: {
+          expectedUserId: firstExpectedUserId,
           questionId: "q5",
           selectedAnswer: "__not_the_axis__",
           durationSeconds: 42
@@ -267,8 +272,13 @@ test.describe("S11 release matrix continuation", () => {
         }
       });
       expect(loginAgain.status()).toBe(200);
+      const secondSession = await loginAgain.json() as { user?: { id?: string } };
+      expect(secondSession.user?.id).toBeTruthy();
+      const secondExpectedUserId = secondSession.user?.id ?? "";
 
-      const activeMistakes = await secondContext.get("/api/mistakes?status=active");
+      const activeMistakes = await secondContext.get("/api/mistakes?status=active", {
+        headers: { "X-MAIS-Expected-User-Id": secondExpectedUserId }
+      });
       expect(activeMistakes.status()).toBe(200);
       const activeMistakeBody = await activeMistakes.json() as { mistakes: Array<{ question: { id: string }; mastered: boolean }> };
       expect(activeMistakeBody.mistakes).toEqual(
@@ -293,7 +303,9 @@ test.describe("S11 release matrix continuation", () => {
       expect(progressBody.progress.totalMinutes).toBeGreaterThanOrEqual(10);
       expect(progressBody.progress.weeklyActivity.length).toBeGreaterThan(0);
 
-      const mastered = await secondContext.patch("/api/mistakes/q5");
+      const mastered = await secondContext.patch("/api/mistakes/q5", {
+        headers: { "X-MAIS-Expected-User-Id": secondExpectedUserId }
+      });
       expect(mastered.status()).toBe(200);
       expect((await mastered.json() as { mistake: { mastered: boolean } }).mistake.mastered).toBe(true);
       await secondContext.dispose();
@@ -308,7 +320,12 @@ test.describe("S11 release matrix continuation", () => {
         }
       });
       expect(finalLogin.status()).toBe(200);
-      const masteredMistakes = await thirdContext.get("/api/mistakes?status=mastered");
+      const thirdSession = await finalLogin.json() as { user?: { id?: string } };
+      expect(thirdSession.user?.id).toBeTruthy();
+      const thirdExpectedUserId = thirdSession.user?.id ?? "";
+      const masteredMistakes = await thirdContext.get("/api/mistakes?status=mastered", {
+        headers: { "X-MAIS-Expected-User-Id": thirdExpectedUserId }
+      });
       expect(masteredMistakes.status()).toBe(200);
       const masteredBody = await masteredMistakes.json() as { mistakes: Array<{ question: { id: string }; mastered: boolean }> };
       expect(masteredBody.mistakes).toEqual(
