@@ -3,17 +3,13 @@ import { withResolvedMainlandPepQuestionAssets } from "@/lib/mainlandPepQuestion
 import { hongKongEasePracticeQuestions } from "./hongKongEasePracticeQuestions";
 import { mainlandBnuHighQuestions } from "./mainlandBnuHighQuestions";
 import { mainlandBnuJuniorQuestions } from "./mainlandBnuJuniorQuestions";
-import { mainlandBnuPrimaryQuestions } from "./mainlandBnuPrimaryQuestions";
-import { mainlandHjbHighQuestions } from "./mainlandHjbHighQuestions";
 import { mainlandHjbJuniorQuestions } from "./mainlandHjbJuniorQuestions";
-import { mainlandHjbPrimaryQuestions } from "./mainlandHjbPrimaryQuestions";
 import { mainlandPepHighQuestions } from "./mainlandPepHighQuestions";
 import { mainlandPepJuniorQuestions } from "./mainlandPepJuniorQuestions";
 import { mainlandPepPrimaryRagV1Questions } from "./mainlandPepPrimaryQuestions";
 import { topics } from "./topics";
 import { usArkansasQuestions } from "./usArkansasQuestions";
 import { usCaliforniaQuestions } from "./usCaliforniaQuestions";
-import { usFloridaMiddleSchoolQuestions } from "./usFloridaMiddleSchoolQuestions";
 import { usMathLiveQuestions } from "./usMathQuestions";
 
 const math = (expression: string) => `\\(${expression}\\)`;
@@ -2295,13 +2291,9 @@ const curatedQuestions: Question[] = [
   ...mainlandPepJuniorQuestions,
   ...mainlandPepHighQuestions,
   ...mainlandBnuJuniorQuestions,
-  ...mainlandBnuPrimaryQuestions,
   ...mainlandBnuHighQuestions,
   ...mainlandHjbJuniorQuestions,
-  ...mainlandHjbPrimaryQuestions,
-  ...mainlandHjbHighQuestions,
   ...usArkansasQuestions,
-  ...usFloridaMiddleSchoolQuestions,
   ...usMathLiveQuestions.filter((question) => question.curriculumTrack !== "US_CA_MATH"),
   ...usCaliforniaQuestions
 ];

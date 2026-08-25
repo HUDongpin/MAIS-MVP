@@ -1,7 +1,5 @@
 import ccssTextbookPracticePackJson from "./generated-content/ccss-textbook-practice-v1/question-pack.json";
 import g6G12QuestionPackJson from "./generated-content/us-ca-math-g6-g12-generated-bank-v2-1500/question-pack.json";
-import kG5KnowledgePointQuestionPackJson from "./generated-content/us-ca-k5-knowledge-point-practice-v1/question-pack.json";
-import kG5QuestionPackJson from "./generated-content/us-ca-math-k-g5-generated-bank-v3-deepseek-1500/question-pack.json";
 import kG5TextbookLessonPackJson from "./generated-content/us-ca-math-k-g5-textbooks-v1/lessons.json";
 import { californiaKnowledgePointDisplayTitle } from "./usCaliforniaKnowledgePoints";
 import { californiaElementaryMicroLessonSpecs } from "./usCaliforniaMicroLessons";
@@ -12,8 +10,6 @@ export type CaliforniaK5GradeId = Extract<GradeId, "K" | "P1" | "P2" | "P3" | "P
 export type CaliforniaG6G12GradeId = Extract<GradeId, "P6" | "S1" | "S2" | "S3" | "S4" | "S5" | "S6">;
 export type CaliforniaGradeId = CaliforniaK5GradeId | CaliforniaG6G12GradeId;
 export type CaliforniaQuestionBatch =
-  | "us-ca-k-g5-v3-deepseek"
-  | "us-ca-k5-knowledge-point-practice-v1"
   | "us-ca-g6-g12-v2"
   | "ccss-textbook-practice-v1";
 
@@ -63,28 +59,6 @@ type GeneratedCaliforniaQuestionBase = {
   reviewNotes?: string;
 };
 
-export type GeneratedCaliforniaK5Question = GeneratedCaliforniaQuestionBase & {
-  batch: "us-ca-k-g5-v3-deepseek";
-  grade: CaliforniaK5GradeId;
-  unitNumber: number;
-  unitTitle: string;
-};
-
-export type GeneratedCaliforniaK5KnowledgePointQuestion = GeneratedCaliforniaQuestionBase & {
-  batch: "us-ca-k5-knowledge-point-practice-v1";
-  grade: CaliforniaK5GradeId;
-  sourcePackageId: string;
-  sourceKind: "k-g5-textbook-lesson" | "grade1-micro-lesson";
-  domainId: string;
-  domainTitle: string;
-  clusterId: string;
-  clusterTitle: string;
-  knowledgePointId: string;
-  knowledgePointCode: string;
-  knowledgePointTitle: string;
-  integrationStatus?: string;
-};
-
 export type GeneratedCaliforniaG6G12Question = GeneratedCaliforniaQuestionBase & {
   batch: "us-ca-g6-g12-v2";
   grade: CaliforniaG6G12GradeId;
@@ -112,8 +86,6 @@ export type GeneratedCaliforniaCcssTextbookPracticeQuestion = GeneratedCaliforni
 };
 
 export type GeneratedCaliforniaQuestion =
-  | GeneratedCaliforniaK5Question
-  | GeneratedCaliforniaK5KnowledgePointQuestion
   | GeneratedCaliforniaG6G12Question
   | GeneratedCaliforniaCcssTextbookPracticeQuestion;
 
@@ -160,58 +132,26 @@ type TopicSeed = {
   sortKey: string;
 };
 
-const kG5QuestionPack = kG5QuestionPackJson as GeneratedCaliforniaQuestionPack;
-const kG5KnowledgePointQuestionPack = kG5KnowledgePointQuestionPackJson as GeneratedCaliforniaQuestionPack;
 const g6G12QuestionPack = g6G12QuestionPackJson as GeneratedCaliforniaQuestionPack;
 const ccssTextbookPracticePack = ccssTextbookPracticePackJson as GeneratedCaliforniaQuestionPack;
 const kG5TextbookLessonPack = kG5TextbookLessonPackJson as GeneratedCaliforniaK5TextbookLessonPack;
 
-// The DeepSeek K–G5 1,500-question pack (practiceLive:false below) stays retired.
-// Decision + promotion path: coordination/decisions/2026-07-18-deepseek-k-g5-pack-decision.md.
-// Any DeepSeek QA note describes the dormant candidate, NOT served content.
+// Candidate practice banks are not imported by this runtime module. A false
+// status is documentation only; live exclusion is proved by the absence of the
+// candidate import, identifiers, and conditional selection path.
 export const californiaK5LiveContentStatus = {
   live: true,
   downlistedAt: "2026-06-19",
   practiceLive: false,
   adaptiveBetaPracticeLive: false,
-  adaptiveBetaPackageId: "us-ca-adaptive-k-g5-beta-seed-v1",
-  knowledgePointPracticeLive: true,
-  knowledgePointPracticePackageId: "us-ca-k5-knowledge-point-practice-v1",
-  knowledgePointPracticeImportedAt: "2026-06-22",
+  knowledgePointPracticeLive: false,
   textbookLive: true,
-  reason: "Owner requested the old California K-5 practice-derived content downlisted and the S18 QA-passed 492-question knowledge-point practice package imported into live K-G5 practice.",
-  replacementCandidatePackageId: "us-ca-math-k-g5-textbooks-v1",
-  livePracticePackageId: "us-ca-k5-knowledge-point-practice-v1"
+  reason: "K-G5 candidate practice remains downlisted pending exact row-level recertification and a complete promotion record. Hand-checked textbook practice remains available through its separate live package."
 } as const;
 
-export const californiaK5AdaptiveBetaQuestionIds = [
-  "us-ca-k-g5-v3-deepseek-k-u01-q01",
-  "us-ca-k-g5-v3-deepseek-k-u01-q02",
-  "us-ca-k-g5-v3-deepseek-g1-u01-q01",
-  "us-ca-k-g5-v3-deepseek-g1-u01-q02",
-  "us-ca-k-g5-v3-deepseek-g2-u01-q01",
-  "us-ca-k-g5-v3-deepseek-g2-u01-q02",
-  "us-ca-k-g5-v3-deepseek-g3-u01-q01",
-  "us-ca-k-g5-v3-deepseek-g3-u01-q02",
-  "us-ca-k-g5-v3-deepseek-g4-u01-q01",
-  "us-ca-k-g5-v3-deepseek-g4-u01-q02",
-  "us-ca-k-g5-v3-deepseek-g5-u01-q01",
-  "us-ca-k-g5-v3-deepseek-g5-u01-q02"
-] as const;
-
-const californiaK5AdaptiveBetaQuestionIdSet = new Set<string>(californiaK5AdaptiveBetaQuestionIds);
-const californiaK5AdaptiveBetaQuestionPack = {
-  questions: kG5QuestionPack.questions.filter((question) => californiaK5AdaptiveBetaQuestionIdSet.has(question.id))
-} satisfies GeneratedCaliforniaQuestionPack;
-
-export const californiaK5KnowledgePointPracticeQuestionCount = kG5KnowledgePointQuestionPack.questions.length;
-export const californiaK5KnowledgePointPracticeQuestionIds = kG5KnowledgePointQuestionPack.questions.map((question) => question.id);
 export const californiaCcssTextbookPracticeQuestionCount = ccssTextbookPracticePack.questions.length;
 
 const questionPacks = [
-  ...(californiaK5LiveContentStatus.adaptiveBetaPracticeLive ? [californiaK5AdaptiveBetaQuestionPack] : []),
-  ...(californiaK5LiveContentStatus.knowledgePointPracticeLive ? [kG5KnowledgePointQuestionPack] : []),
-  ...(californiaK5LiveContentStatus.practiceLive ? [kG5QuestionPack] : []),
   g6G12QuestionPack,
   // Hand-checked practice ported with the CCSS textbook lessons (Phase 0).
   ccssTextbookPracticePack
@@ -246,28 +186,17 @@ function dominantDifficulty(questions: GeneratedCaliforniaQuestion[]) {
 }
 
 function topicLabelFor(question: GeneratedCaliforniaQuestion) {
-  if (question.batch === "us-ca-k-g5-v3-deepseek") return `Unit ${question.unitNumber}`;
-  if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return "Knowledge Point";
   if (question.batch === "ccss-textbook-practice-v1") return "Interactive Lesson";
   return `Chapter ${question.chapterNumber}`;
 }
 
 function topicTitleFor(question: GeneratedCaliforniaQuestion): LocalizedText {
-  if (question.batch === "us-ca-k-g5-v3-deepseek") return localized(question.unitTitle);
-  if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return localized(question.knowledgePointTitle);
   if (question.batch === "ccss-textbook-practice-v1") return localized(question.sourceLessonTitle);
   return question.chapterTitle;
 }
 
 function topicSortKeyFor(question: GeneratedCaliforniaQuestion) {
-  if (question.batch === "us-ca-k-g5-v3-deepseek") {
-    return `${String(question.unitNumber).padStart(2, "0")}-${question.topicId}`;
-  }
-
-  if (
-    question.batch === "us-ca-k5-knowledge-point-practice-v1" ||
-    question.batch === "ccss-textbook-practice-v1"
-  ) {
+  if (question.batch === "ccss-textbook-practice-v1") {
     return question.topicId;
   }
 

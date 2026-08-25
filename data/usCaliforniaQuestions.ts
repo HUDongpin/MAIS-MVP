@@ -1,11 +1,8 @@
-import { usCaliforniaPracticeFigureFor } from "./usCaliforniaPracticeFigures";
 import {
   type CaliforniaGradeId,
   type CaliforniaQuestionBatch,
   type GeneratedCaliforniaQuestion,
   californiaCcssTextbookPracticeQuestionCount,
-  californiaK5KnowledgePointPracticeQuestionCount,
-  californiaK5LiveContentStatus,
   generatedCaliforniaQuestions,
   usCaliforniaTopicById
 } from "./usCaliforniaTopics";
@@ -67,8 +64,6 @@ function optionsFor(question: GeneratedCaliforniaQuestion) {
 }
 
 function topicLabelFor(question: GeneratedCaliforniaQuestion) {
-  if (question.batch === "us-ca-k-g5-v3-deepseek") return `Unit ${question.unitNumber}`;
-  if (question.batch === "us-ca-k5-knowledge-point-practice-v1") return "Knowledge Point";
   if (question.batch === "ccss-textbook-practice-v1") return "Interactive Lesson";
   return `Chapter ${question.chapterNumber}`;
 }
@@ -84,16 +79,9 @@ function manualQaStatusFor(question: GeneratedCaliforniaQuestion): CaliforniaQue
     : "auto-accepted-clean";
 }
 
-function reviewNotesForQuestion(question: GeneratedCaliforniaQuestion) {
-  if (question.batch !== "us-ca-k5-knowledge-point-practice-v1") return question.reviewNotes;
-  return "S18 quality/difficulty QA pass; S04/S23 live import of the 492-question California K-G5 knowledge-point practice package on 2026-06-22.";
-}
-
 function toQuestion(question: GeneratedCaliforniaQuestion): Question {
   const topic = usCaliforniaTopicById.get(question.topicId);
   if (!topic) throw new Error(`Missing California topic for ${question.topicId}`);
-  const figure = usCaliforniaPracticeFigureFor(question.id);
-
   return {
     id: question.id,
     curriculumTrack: "US_CA_MATH",
@@ -110,8 +98,7 @@ function toQuestion(question: GeneratedCaliforniaQuestion): Question {
     options: optionsFor(question),
     answer: question.answer,
     acceptedAnswers: acceptedAnswersFor(question),
-    explanation: question.explanation,
-    ...(figure ? { diagram: figure } : {})
+    explanation: question.explanation
   };
 }
 
@@ -134,17 +121,11 @@ function metadataForQuestion(question: GeneratedCaliforniaQuestion): CaliforniaQ
     manualQaStatus: manualQaStatusFor(question),
     independentAnswer: question.type === "multiple-choice" ? question.answer : question.independentAnswer,
     independentSolution: independentSolutionText(question),
-    reviewNotes: reviewNotesForQuestion(question)
+    reviewNotes: question.reviewNotes
   };
 }
 
-export const expectedUnitedStatesCaliforniaK5QuestionCount = californiaK5LiveContentStatus.practiceLive
-  ? 1500
-  : californiaK5LiveContentStatus.knowledgePointPracticeLive
-    ? californiaK5KnowledgePointPracticeQuestionCount
-    : californiaK5LiveContentStatus.adaptiveBetaPracticeLive
-      ? 12
-      : 0;
+export const expectedUnitedStatesCaliforniaK5QuestionCount = 0;
 export const expectedUnitedStatesCaliforniaG6G12QuestionCount = 1500;
 export const expectedUnitedStatesCaliforniaQuestionCount =
   expectedUnitedStatesCaliforniaK5QuestionCount +
