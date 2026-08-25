@@ -331,6 +331,21 @@ test("CI artifact globs match Playwright's run-owned output directories", () => 
   assert.doesNotMatch(ci, /\.tmp\/e2e-run-\*\/(?:test-results|playwright-report)/u);
 });
 
+test("the tracked Next type reference cannot point at a run-owned build", () => {
+  const nextEnv = readRepoFile("next-env.d.ts");
+
+  assert.match(
+    nextEnv,
+    /^\/\/\/ <reference path="\.\/\.next\/types\/routes\.d\.ts" \/>$/mu,
+    "the tracked reference must stay on the canonical default .next route types"
+  );
+  assert.doesNotMatch(
+    nextEnv,
+    /(?:\.tmp|e2e-isolated|china-lesson-e2e-runtime|worker-\d+|\.next-[^/]+)/u,
+    "a run-owned Next build must never rewrite the tracked next-env.d.ts"
+  );
+});
+
 test("isolated servers use a run-owned SQLite guardian and process group while next-env restoration stays wrapped", () => {
   const isolatedApp = readRepoFile("tests/e2e/isolated-app.ts");
   const leaseGuardian = readRepoFile("tests/e2e/isolated-app-lease-guardian.ts");
