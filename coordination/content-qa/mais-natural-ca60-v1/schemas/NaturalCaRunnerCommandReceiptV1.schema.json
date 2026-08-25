@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/NaturalCaRunnerCommandReceiptV1.schema.json",
+  "title": "NaturalCaRunnerCommandReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "command",
+    "arguments",
+    "commands",
+    "ok",
+    "status",
+    "executionMode",
+    "designLifecycleStatus",
+    "designFreezeAllowed",
+    "designRegistrationHash",
+    "blockingDecisionCodes",
+    "providerRequestCount",
+    "fixtureDispatchCount",
+    "protectedArtifactMutationCount",
+    "naturalItemResultCount",
+    "formalDecision",
+    "decisionCeiling",
+    "claimScopeCeiling",
+    "messages",
+    "createdAt",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "NaturalCaRunnerCommandReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "command": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "arguments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "commands": {
+      "const": [
+        "register",
+        "freeze-frame",
+        "audit-clusters",
+        "freeze-sample",
+        "label-qwen",
+        "seal-reference-labels",
+        "dry-run",
+        "authorize-check",
+        "execute-deepseek",
+        "score",
+        "verify",
+        "export-aggregate-report"
+      ],
+      "items": {
+        "enum": [
+          "register",
+          "freeze-frame",
+          "audit-clusters",
+          "freeze-sample",
+          "label-qwen",
+          "seal-reference-labels",
+          "dry-run",
+          "authorize-check",
+          "execute-deepseek",
+          "score",
+          "verify",
+          "export-aggregate-report"
+        ]
+      }
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "HELP",
+        "OFFLINE_DRY_RUN_READY",
+        "DESIGN_FREEZE_BLOCKED",
+        "UPSTREAM_DESIGN_NOT_FROZEN",
+        "FRAME_NOT_FROZEN",
+        "QWEN_AUTHORIZATION_NOT_FROZEN",
+        "REFERENCE_LABELS_NOT_COMPLETE",
+        "AUTHORIZATION_BLOCKED",
+        "NO_NATURAL_RESULTS",
+        "NO_EXECUTION_RECEIPTS",
+        "AGGREGATE_PUBLICATION_BLOCKED",
+        "USAGE_ERROR"
+      ]
+    },
+    "executionMode": {
+      "enum": [
+        "READ_ONLY",
+        "OFFLINE_NO_PROVIDER",
+        "READ_ONLY_PREFLIGHT",
+        "NO_EXECUTION"
+      ]
+    },
+    "designLifecycleStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "designFreezeAllowed": {
+      "type": "boolean"
+    },
+    "designRegistrationHash": {
+      "$ref": "#/$defs/nullableSha256"
+    },
+    "blockingDecisionCodes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "providerRequestCount": {
+      "const": 0
+    },
+    "fixtureDispatchCount": {
+      "const": 0
+    },
+    "protectedArtifactMutationCount": {
+      "const": 0
+    },
+    "naturalItemResultCount": {
+      "const": 0
+    },
+    "formalDecision": {
+      "type": "null"
+    },
+    "decisionCeiling": {
+      "const": "INCONCLUSIVE_MACHINE_REFERENCE"
+    },
+    "claimScopeCeiling": {
+      "const": "CALIFORNIA_RUNTIME_EGRESS_ELIGIBLE_MACHINE_REFERENCE_PILOT_ONLY"
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "receiptHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "not": {
+    "required": [
+      "PASS"
+    ]
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

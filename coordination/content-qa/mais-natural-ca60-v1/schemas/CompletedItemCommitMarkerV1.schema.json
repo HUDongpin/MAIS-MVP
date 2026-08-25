@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/CompletedItemCommitMarkerV1.schema.json",
+  "title": "CompletedItemCommitMarkerV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "registrationHash",
+    "sampleManifestHash",
+    "referenceSealHash",
+    "executionRegistrationHash",
+    "itemId",
+    "itemHash",
+    "clusterId",
+    "roleOrder",
+    "attemptReceiptHashes",
+    "outputHashes",
+    "atomicWrite",
+    "fileMode",
+    "markerHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "CompletedItemCommitMarkerV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "registrationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "sampleManifestHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "referenceSealHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "executionRegistrationHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "itemId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "itemHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "clusterId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roleOrder": {
+      "oneOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "B_PRIME_CRITIQUE"
+            },
+            {
+              "const": "B_PRIME_REVISION"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "B_PRIME_CRITIQUE"
+            },
+            {
+              "const": "B_PRIME_REVISION"
+            },
+            {
+              "const": "C0_PRIME_ROLE_1"
+            },
+            {
+              "const": "C0_PRIME_ROLE_2"
+            },
+            {
+              "const": "C0_PRIME_ROLE_3"
+            },
+            {
+              "const": "C0_PRIME_ROLE_4"
+            },
+            {
+              "const": "C0_PRIME_ROLE_5"
+            }
+          ],
+          "items": false,
+          "minItems": 7,
+          "maxItems": 7
+        }
+      ]
+    },
+    "attemptReceiptHashes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "outputHashes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "atomicWrite": {
+      "const": true
+    },
+    "fileMode": {
+      "const": "0600"
+    },
+    "markerHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "roleOrder": {
+            "const": [
+              "B_PRIME_CRITIQUE",
+              "B_PRIME_REVISION"
+            ]
+          }
+        },
+        "required": [
+          "roleOrder"
+        ]
+      },
+      "then": {
+        "properties": {
+          "attemptReceiptHashes": {
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "outputHashes": {
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "roleOrder": {
+            "const": [
+              "B_PRIME_CRITIQUE",
+              "B_PRIME_REVISION",
+              "C0_PRIME_ROLE_1",
+              "C0_PRIME_ROLE_2",
+              "C0_PRIME_ROLE_3",
+              "C0_PRIME_ROLE_4",
+              "C0_PRIME_ROLE_5"
+            ]
+          }
+        },
+        "required": [
+          "roleOrder"
+        ]
+      },
+      "then": {
+        "properties": {
+          "attemptReceiptHashes": {
+            "minItems": 7,
+            "maxItems": 7
+          },
+          "outputHashes": {
+            "minItems": 7,
+            "maxItems": 7
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

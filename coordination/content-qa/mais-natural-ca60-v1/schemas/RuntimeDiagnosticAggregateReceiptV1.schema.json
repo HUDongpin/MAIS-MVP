@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.hk/schemas/content-qa/RuntimeDiagnosticAggregateReceiptV1.schema.json",
+  "title": "RuntimeDiagnosticAggregateReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "designId",
+    "designLifecycleStatus",
+    "diagnosticOnly",
+    "sourceCleanProofBound",
+    "frameFreezeAuthorized",
+    "sampleFreezeAuthorized",
+    "runtimeSemanticChecksPassed",
+    "homologyChecksPassed",
+    "runtimeVisibleItemCount",
+    "independentClusterCount",
+    "singletonCount",
+    "singletonRate",
+    "edgeCount",
+    "largestComponentItemCount",
+    "largestComponentShare",
+    "gradeCounts",
+    "frameFailureCount",
+    "blockingAnomalyCounts",
+    "runtimeInventoryRootHash",
+    "homologyAuditRootHash",
+    "claimCeiling",
+    "providerRequestCount",
+    "createdAt",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "RuntimeDiagnosticAggregateReceiptV1"
+    },
+    "designId": {
+      "const": "MAIS-NATURAL-CA60-V4"
+    },
+    "designLifecycleStatus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "diagnosticOnly": {
+      "const": true
+    },
+    "sourceCleanProofBound": {
+      "const": false
+    },
+    "frameFreezeAuthorized": {
+      "const": false
+    },
+    "sampleFreezeAuthorized": {
+      "const": false
+    },
+    "runtimeSemanticChecksPassed": {
+      "type": "boolean"
+    },
+    "homologyChecksPassed": {
+      "type": "boolean"
+    },
+    "runtimeVisibleItemCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "independentClusterCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "singletonCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "singletonRate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "edgeCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "largestComponentItemCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "largestComponentShare": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "gradeCounts": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "grade",
+          "itemCount"
+        ],
+        "properties": {
+          "grade": {
+            "enum": [
+              "K",
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5",
+              "P6",
+              "S1",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6"
+            ]
+          },
+          "itemCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "frameFailureCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "blockingAnomalyCounts": {
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "OVERSIZED_COMPONENT_GT_5_PERCENT",
+          "BRIDGE_COMPONENT_GT_2_TOPICS"
+        ]
+      },
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "runtimeInventoryRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "homologyAuditRootHash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "claimCeiling": {
+      "const": "DIAGNOSTIC_ONLY_NOT_A_FRAME_REGISTRATION"
+    },
+    "providerRequestCount": {
+      "const": 0
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "receiptHash": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
