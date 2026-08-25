@@ -118,7 +118,7 @@ export function WorldMenu({ currentSlug, items, lesson, modules, onHide }: World
   const gradeLabel = formatGradeLabel(lesson.grade, language, true);
   const courseTitle = californiaCourseTitleForGrade(lesson.grade);
   const stopNoun = t(theme.stopNoun);
-  const firstName = currentUser?.username?.split(" ").pop() ?? "";
+  const firstName = currentUser?.name?.trim().split(/\s+/u).pop() ?? "";
   const greeting = nextModule
     ? t({
         en: `${firstName ? `${firstName}, the` : "The"} ${cleanLessonUnitTitle(text(nextModule.title))} ${stopNoun} is just ahead →`,

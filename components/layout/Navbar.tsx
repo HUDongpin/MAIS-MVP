@@ -131,9 +131,6 @@ export function Navbar() {
 
     setIsLoggingOut(true);
     await logout();
-    setOpen(false);
-    router.push("/login");
-    setIsLoggingOut(false);
   };
 
   return (

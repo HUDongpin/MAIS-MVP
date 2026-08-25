@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { dictionary, useSettings } from "@/components/providers/AppProviders";
 import { PasswordInputWithReveal } from "@/components/ui/PasswordInputWithReveal";
@@ -43,7 +42,6 @@ function workspaceForRole(role?: StudentSession["role"]) {
 }
 
 export default function ResetPasswordPage() {
-  const router = useRouter();
   const { completePasswordReset, t } = useSettings();
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
@@ -75,7 +73,7 @@ export default function ResetPasswordPage() {
       const result = await completePasswordReset(token, password);
       if (result.ok) {
         setMessage(t(resetPasswordCopy.success));
-        router.push(workspaceForRole(result.role));
+        window.location.replace(workspaceForRole(result.role));
         return;
       }
 
