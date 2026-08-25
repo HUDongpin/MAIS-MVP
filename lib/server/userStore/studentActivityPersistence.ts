@@ -11,6 +11,16 @@ import { difficultyMatchesActiveFilter, mapDifficultyToActive } from "@/lib/diff
 import { lessonHrefForSlug } from "@/lib/lessonLinks";
 import { analyticsWindowDays, exportLearningAnalyticsSummary, summarizeLearningAnalytics } from "@/lib/learningAnalytics";
 import { isSafeMediaObjectKey, mediaObjectAccessUrl } from "@/lib/server/mediaObjectStore";
+import {
+  mergeStoredLearningEventLrsDelivery,
+  pendingLearningEventLrsDelivery,
+  type LearningEventLrsDeliveryUpdate,
+  type StoredLearningEventLrsDelivery
+} from "@/lib/server/learningEventLrsDelivery";
+import {
+  learningEventFastPathPersistsRows,
+  readLearningEventsFastForUsers
+} from "@/lib/server/practiceAttemptStore";
 import { normalizeAssessmentAnalysisSettings } from "@/lib/teacherAssessmentAnalysis";
 import type {
   Assessment,
@@ -119,13 +129,31 @@ type LearningEventRecord = {
   grade: GradeId;
   topic_id: string;
   question_id?: string;
+  class_id?: string;
+  assignment_id?: string;
+  competency_id?: string;
   duration_seconds?: number;
   created_at: string;
+  lrs_delivery?: StoredLearningEventLrsDelivery;
 };
 
 type LearningEventClearRecord = {
   user_id: string;
   cleared_at: string;
+  generation?: number;
+};
+
+export type LearningEventPersistenceDisposition = {
+  id: string;
+  disposition: "inserted" | "already-persisted" | "id-conflict" | "stale-generation" | "not-processed";
+};
+
+export type LearningEventAppendResult = {
+  status: "ok" | "generation-mismatch" | "id-conflict";
+  generation: number;
+  clearedAt: string | null;
+  acknowledgedEventIds: string[];
+  dispositions: LearningEventPersistenceDisposition[];
 };
 
 type VisualizationEventRecord = {
@@ -262,6 +290,7 @@ export type StudentActivityLessonProgressNormalizationOptions = {
   demoUserId: string;
   lessonSlugForTopic: (topicId: string) => string;
   seedTopics: StudentActivityLessonProgressSeedTopic[];
+  topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
 };
 
 export type StudentActivityAdaptiveSkillStateRecord = {
@@ -739,6 +768,10 @@ export type StudentActivityPersistenceStoreDependencies = {
   translateLessonTextEn?: (value: string) => string;
   readDatabase: () => Promise<StudentActivityPersistenceDatabase>;
   readPublicDatabase?: () => StudentActivityPersistenceDatabase | Promise<StudentActivityPersistenceDatabase>;
+  readFastLearningAnalyticsEvents?: (
+    userId: string,
+    sinceIso: string
+  ) => Promise<LearningAnalyticsEvent[] | null>;
   getFastDashboardData?: (
     userId: string,
     grade: GradeId,
@@ -761,7 +794,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       records: LearningEventRecord[];
       latestRecord: LearningEventRecord;
     }
-  ) => void | Promise<void>;
+  ) => void;
   afterMarkMistakeMastered?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -771,7 +804,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       topic: TopicRecord | null;
       masteredAt: string;
     }
-  ) => void | Promise<void>;
+  ) => void;
   afterMarkVisualizationSession?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -784,7 +817,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       updatedAt: string;
       session: VisualizationSessionRecord;
     }
-  ) => void | Promise<void>;
+  ) => void;
   afterMarkResourceViewed?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -793,7 +826,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       viewedAt: string;
       resource: StudentActivityTeachingResourceRecord;
     }
-  ) => void | Promise<void>;
+  ) => void;
   afterSubmitAssessment?: (
     database: StudentActivityPersistenceDatabase,
     context: {
@@ -803,7 +836,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       score: number;
       graded: true;
     }
-  ) => void | Promise<void>;
+  ) => void;
   topicMatchesCurriculum?: (
     topic: TopicRecord,
     curriculumTrack: StudentActivityCurriculumScope
@@ -819,7 +852,7 @@ export type StudentActivityPersistenceStoreDependencies = {
       firstCompletion: boolean;
       updatedAt: string;
     }
-  ) => void | Promise<void>;
+  ) => void;
   adaptiveLearningDecision?: (
     input: StudentActivityAdaptiveLearningInput
   ) => AdaptiveLearningDecision | null | Promise<AdaptiveLearningDecision | null>;
@@ -844,10 +877,27 @@ export type StudentActivityPersistenceStoreDependencies = {
       correct: boolean;
       now: string;
     }
-  ) => void | Promise<void>;
+  ) => void;
 };
 
 export type StudentActivityPersistenceStore = ReturnType<typeof createStudentActivityPersistenceStore>;
+
+export class StudentActivityAsyncMutationHookError extends Error {
+  constructor() {
+    super("Student activity mutation hooks must be synchronous; run external I/O after the durable mutation commits.");
+    this.name = "StudentActivityAsyncMutationHookError";
+  }
+}
+
+function runSynchronousMutationHook(invoke: () => void) {
+  const result = invoke() as unknown;
+  if (!result || typeof (result as PromiseLike<unknown>).then !== "function") return;
+
+  // Avoid an unhandled rejection from an invalid Promise-returning hook while
+  // the enclosing durable mutation rejects and rolls back.
+  void Promise.resolve(result).catch(() => undefined);
+  throw new StudentActivityAsyncMutationHookError();
+}
 
 type PublicQuestionFilters = Partial<{
   grade: GradeId;
@@ -873,25 +923,58 @@ export function eventRecordToAnalyticsEvent(event: LearningEventRecord): Learnin
     grade: event.grade,
     topicId: event.topic_id,
     questionId: event.question_id,
+    ...(event.class_id ? { classId: event.class_id } : {}),
+    ...(event.assignment_id ? { assignmentId: event.assignment_id } : {}),
+    ...(event.competency_id ? { competencyId: event.competency_id } : {}),
     durationSeconds: event.duration_seconds
   };
+}
+
+function normalizedLearningEventDuration(durationSeconds?: number) {
+  return typeof durationSeconds === "number" && Number.isFinite(durationSeconds) && durationSeconds > 0
+    ? Math.round(durationSeconds)
+    : undefined;
+}
+
+function learningEventRecordMatches(
+  record: LearningEventRecord,
+  userId: string,
+  event: LearningAnalyticsEvent
+) {
+  return (
+    record.user_id === userId &&
+    record.type === event.type &&
+    record.source === event.source &&
+    record.grade === event.grade &&
+    record.topic_id === event.topicId &&
+    (record.question_id ?? null) === (event.questionId ?? null) &&
+    (record.class_id ?? null) === (event.classId ?? null) &&
+    (record.assignment_id ?? null) === (event.assignmentId ?? null) &&
+    (record.competency_id ?? null) === (event.competencyId ?? null) &&
+    (record.duration_seconds ?? null) === (normalizedLearningEventDuration(event.durationSeconds) ?? null) &&
+    Date.parse(record.created_at) === Date.parse(event.timestamp)
+  );
 }
 
 function analyticsEventToRecord(
   userId: string,
   event: LearningAnalyticsEvent,
-  createId: () => string
+  lrsQueuedAt: string
 ): LearningEventRecord {
   return {
-    id: event.id || createId(),
+    id: event.id,
     user_id: userId,
     type: event.type,
     source: event.source,
     grade: event.grade,
     topic_id: event.topicId,
     question_id: event.questionId,
-    duration_seconds: event.durationSeconds,
-    created_at: event.timestamp
+    class_id: event.classId,
+    assignment_id: event.assignmentId,
+    competency_id: event.competencyId,
+    duration_seconds: normalizedLearningEventDuration(event.durationSeconds),
+    created_at: event.timestamp,
+    lrs_delivery: pendingLearningEventLrsDelivery(lrsQueuedAt)
   };
 }
 
@@ -907,6 +990,28 @@ function learningEventsFor(database: StudentActivityPersistenceDatabase) {
 function learningEventClearsFor(database: StudentActivityPersistenceDatabase) {
   database.learning_event_clears ??= [];
   return database.learning_event_clears;
+}
+
+function canonicalLearningEventClearedAt(value: unknown) {
+  if (typeof value !== "string" && !(value instanceof Date)) return null;
+  const parsed = new Date(value);
+  return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : null;
+}
+
+function requireCanonicalLearningEventClearedAt(value: unknown) {
+  const canonical = canonicalLearningEventClearedAt(value);
+  if (!canonical) {
+    throw new TypeError("Learning-event clearedAt must be a canonical ISO timestamp.");
+  }
+  return canonical;
+}
+
+function learningEventGenerationStateForClearRecord(clearRecord?: LearningEventClearRecord) {
+  if (!clearRecord) return { generation: 0, clearedAt: null };
+  return {
+    generation: Math.max(1, clearRecord.generation ?? 1),
+    clearedAt: canonicalLearningEventClearedAt(clearRecord.cleared_at)
+  };
 }
 
 function visualizationEventsFor(database: StudentActivityPersistenceDatabase) {
@@ -981,28 +1086,35 @@ type StudentActivityLessonProgressSeedBuilderInput = {
   now: string;
   lessonSlugForTopic: StudentActivityLessonProgressNormalizationOptions["lessonSlugForTopic"];
   seedTopics: StudentActivityLessonProgressSeedTopic[];
+  topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
 };
 
 export function studentActivityEmptyLessonProgressRecords({
   userId,
   now,
   lessonSlugForTopic,
-  seedTopics
+  seedTopics,
+  topicIdsRequiringExplicitInteraction
 }: StudentActivityLessonProgressSeedBuilderInput) {
-  return seedTopics.map((topic) =>
-    baselineStudentActivityLessonProgressRecord(userId, topic, now, false, lessonSlugForTopic)
-  );
+  return seedTopics
+    .filter((topic) => !topicIdsRequiringExplicitInteraction?.has(topic.id))
+    .map((topic) =>
+      baselineStudentActivityLessonProgressRecord(userId, topic, now, false, lessonSlugForTopic)
+    );
 }
 
 export function studentActivitySeedLessonProgressRecords({
   userId,
   now,
   lessonSlugForTopic,
-  seedTopics
+  seedTopics,
+  topicIdsRequiringExplicitInteraction
 }: StudentActivityLessonProgressSeedBuilderInput) {
-  return seedTopics.map((topic) =>
-    baselineStudentActivityLessonProgressRecord(userId, topic, now, true, lessonSlugForTopic)
-  );
+  return seedTopics
+    .filter((topic) => !topicIdsRequiringExplicitInteraction?.has(topic.id))
+    .map((topic) =>
+      baselineStudentActivityLessonProgressRecord(userId, topic, now, true, lessonSlugForTopic)
+    );
 }
 
 export function normalizeStudentActivityAttemptRecords<Record extends StudentActivityAttemptRecord>(
@@ -1021,7 +1133,12 @@ export function normalizeStudentActivityLessonProgressRecords(
   existingRecords: StudentActivityLessonProgressRecord[] | undefined,
   profiles: Array<Pick<StudentActivityStudentProfileRecord, "user_id">>,
   now: string,
-  { demoUserId, lessonSlugForTopic, seedTopics }: StudentActivityLessonProgressNormalizationOptions
+  {
+    demoUserId,
+    lessonSlugForTopic,
+    seedTopics,
+    topicIdsRequiringExplicitInteraction
+  }: StudentActivityLessonProgressNormalizationOptions
 ) {
   const records: StudentActivityLessonProgressRecord[] = (existingRecords ?? []).map((progress) => ({
     ...progress,
@@ -1036,6 +1153,7 @@ export function normalizeStudentActivityLessonProgressRecords(
     seedTopics.forEach((topic) => {
       const key = `${profile.user_id}:${topic.id}`;
       if (recordKeys.has(key)) return;
+      if (topicIdsRequiringExplicitInteraction?.has(topic.id)) return;
       records.push(
         baselineStudentActivityLessonProgressRecord(
           profile.user_id,
@@ -3161,6 +3279,22 @@ export function createStudentActivityPersistenceStore({
   },
   readDatabase,
   readPublicDatabase = readDatabase,
+  readFastLearningAnalyticsEvents = async (userId, sinceIso) => {
+    if (!learningEventFastPathPersistsRows()) return null;
+    const rows = await readLearningEventsFastForUsers([userId], sinceIso);
+    return rows.map((row) => ({
+      id: row.id,
+      type: row.type,
+      source: row.source,
+      timestamp: row.created_at,
+      grade: row.grade,
+      topicId: row.topic_id,
+      ...(row.question_id ? { questionId: row.question_id } : {}),
+      ...(typeof row.duration_seconds === "number"
+        ? { durationSeconds: row.duration_seconds }
+        : {})
+    }));
+  },
   mutateDatabase,
   afterAppend,
   afterMarkMistakeMastered,
@@ -3290,7 +3424,7 @@ export function createStudentActivityPersistenceStore({
     },
 
     async updateLessonProgress(input: StudentActivityUpdateLessonProgressInput): Promise<LessonSummary | null> {
-      return runMutation(async (database) => {
+      return runMutation((database) => {
         const curriculumTrack = input.curriculumTrack ?? defaultCurriculumTrack;
         const lesson = (database.lessons ?? []).find((candidate) => candidate.slug === input.slug);
         if (!lesson) return null;
@@ -3340,14 +3474,16 @@ export function createStudentActivityPersistenceStore({
         clearDatabaseCache(database);
 
         if (status === "completed") {
-          await afterUpdateLessonProgress?.(database, {
-            userId: input.userId,
-            lesson,
-            progress,
-            existingProgress: existing,
-            firstCompletion: existing?.status !== "completed",
-            updatedAt
-          });
+          if (afterUpdateLessonProgress) {
+            runSynchronousMutationHook(() => afterUpdateLessonProgress(database, {
+              userId: input.userId,
+              lesson,
+              progress,
+              existingProgress: existing,
+              firstCompletion: existing?.status !== "completed",
+              updatedAt
+            }));
+          }
         }
 
         return lessonSummaryForDatabase(database, input.userId, lesson, translateLessonTextEn);
@@ -3488,7 +3624,7 @@ export function createStudentActivityPersistenceStore({
       curriculumTrack?: StudentActivityCurriculumScope;
       answerWorkPhotos?: { objectKey: string }[];
     }): Promise<AttemptFeedback | null> {
-      return runMutation(async (database) => {
+      return runMutation((database) => {
         const question = questionForId(database, questionId);
         if (!question) return null;
         if (!questionMatchesCurriculum(question, curriculumTrack)) return null;
@@ -3515,14 +3651,16 @@ export function createStudentActivityPersistenceStore({
         } else {
           upsertMistakeFromAttempt(database, userId, question, selectedAnswer, submittedAt);
         }
-        await afterSubmitQuestionAttempt?.(database, {
-          userId,
-          question,
-          attempt,
-          selectedAnswer,
-          correct,
-          now: submittedAt
-        });
+        if (afterSubmitQuestionAttempt) {
+          runSynchronousMutationHook(() => afterSubmitQuestionAttempt(database, {
+            userId,
+            question,
+            attempt,
+            selectedAnswer,
+            correct,
+            now: submittedAt
+          }));
+        }
 
         return {
           correct,
@@ -3551,7 +3689,7 @@ export function createStudentActivityPersistenceStore({
         .filter((mistake): mistake is MistakeBookItem => Boolean(mistake));
     },
     async markMistakeMastered(userId: string, questionId: string) {
-      return runMutation(async (database) => {
+      return runMutation((database) => {
         const existing = mistakeRowsFor(database).find(
           (mistake) => mistake.user_id === userId && mistake.question_id === questionId
         );
@@ -3564,13 +3702,15 @@ export function createStudentActivityPersistenceStore({
 
         const question = questionForId(database, questionId);
         if (!wasMastered) {
-          await afterMarkMistakeMastered?.(database, {
-            userId,
-            questionId,
-            question,
-            topic: question ? topicForId(database, question.topic_id) : null,
-            masteredAt
-          });
+          if (afterMarkMistakeMastered) {
+            runSynchronousMutationHook(() => afterMarkMistakeMastered(database, {
+              userId,
+              questionId,
+              question,
+              topic: question ? topicForId(database, question.topic_id) : null,
+              masteredAt
+            }));
+          }
         }
 
         return toMistakeBookItem(database, existing);
@@ -3591,20 +3731,73 @@ export function createStudentActivityPersistenceStore({
         database.mistakes = mistakeRowsFor(database).filter((mistake) => mistake.user_id !== userId);
       });
     },
-    async appendLearningEvents(userId: string, events: LearningAnalyticsEvent[]) {
-      return runMutation(async (database) => {
+    async appendLearningEvents(userId: string, events: LearningAnalyticsEvent[], generation?: number) {
+      return runMutation((database) => {
         const learningEvents = learningEventsFor(database);
         const visualizationEvents = visualizationEventsFor(database);
         const existingIds = new Set(learningEvents.map((event) => event.id));
-        const clearedAt = learningEventClearsFor(database).find((clear) => clear.user_id === userId)?.cleared_at;
-        const clearedAtMs = clearedAt ? new Date(clearedAt).getTime() : null;
-        const records = events
+        const clearRecord = learningEventClearsFor(database).find((clear) => clear.user_id === userId);
+        const currentGenerationState = learningEventGenerationStateForClearRecord(clearRecord);
+        const currentGeneration = currentGenerationState.generation;
+        const clearedAtMs = currentGenerationState.clearedAt
+          ? new Date(currentGenerationState.clearedAt).getTime()
+          : clearRecord
+            ? Number.POSITIVE_INFINITY
+            : null;
+        const batchIds = new Set<string>();
+        const uniqueEvents = events.filter((event) => {
+          if (batchIds.has(event.id)) return false;
+          batchIds.add(event.id);
+          return true;
+        });
+        if (typeof generation === "number") {
+          if (generation !== currentGeneration) {
+            return {
+              status: "generation-mismatch",
+              generation: currentGeneration,
+              clearedAt: currentGenerationState.clearedAt,
+              acknowledgedEventIds: [],
+              dispositions: uniqueEvents.map((event) => ({
+                id: event.id,
+                disposition: "stale-generation" as const
+              }))
+            } satisfies LearningEventAppendResult;
+          }
+          const conflictingIds = new Set(
+            uniqueEvents
+              .filter((event) => learningEvents
+                .filter((record) => record.id === event.id)
+                .some((record) => !learningEventRecordMatches(record, userId, event)))
+              .map((event) => event.id)
+          );
+          if (conflictingIds.size > 0) {
+            return {
+              status: "id-conflict",
+              generation: currentGeneration,
+              clearedAt: currentGenerationState.clearedAt,
+              acknowledgedEventIds: [],
+              dispositions: uniqueEvents.map((event) => ({
+                id: event.id,
+                disposition: conflictingIds.has(event.id) ? "id-conflict" as const : "not-processed" as const
+              }))
+            } satisfies LearningEventAppendResult;
+          }
+        }
+        const lrsQueuedAt = now().toISOString();
+        uniqueEvents.forEach((event) => {
+          const existing = learningEvents.find((record) => record.id === event.id && record.user_id === userId);
+          if (existing && !existing.lrs_delivery) {
+            existing.lrs_delivery = pendingLearningEventLrsDelivery(lrsQueuedAt);
+          }
+        });
+        const records = uniqueEvents
           .filter((event) => {
             if (existingIds.has(event.id)) return false;
+            if (typeof generation === "number") return true;
             if (clearedAtMs === null) return true;
             return new Date(event.timestamp).getTime() > clearedAtMs;
           })
-          .map((event) => analyticsEventToRecord(userId, event, createId));
+          .map((event) => analyticsEventToRecord(userId, event, lrsQueuedAt));
 
         records.forEach((record) => {
           learningEvents.push(record);
@@ -3623,20 +3816,83 @@ export function createStudentActivityPersistenceStore({
           const latestRecord = records.reduce((latest, record) =>
             Date.parse(record.created_at) > Date.parse(latest.created_at) ? record : latest
           );
-          await afterAppend?.(database, { userId, records, latestRecord });
+          if (afterAppend) {
+            runSynchronousMutationHook(() => afterAppend(database, { userId, records, latestRecord }));
+          }
         }
 
-        return records.length;
+        if (typeof generation !== "number") return records.length;
+        const insertedIds = new Set(records.map((record) => record.id));
+        return {
+          status: "ok",
+          generation: currentGeneration,
+          clearedAt: currentGenerationState.clearedAt,
+          acknowledgedEventIds: uniqueEvents.map((event) => event.id),
+          dispositions: uniqueEvents.map((event) => ({
+            id: event.id,
+            disposition: insertedIds.has(event.id) ? "inserted" as const : "already-persisted" as const
+          }))
+        } satisfies LearningEventAppendResult;
       });
     },
-    async clearLearningEventsForUser(userId: string, clearedAt = now().toISOString()) {
-      await runMutation((database) => {
+    async recordLearningEventLrsDelivery(
+      userId: string,
+      deliveries: LearningEventLrsDeliveryUpdate[]
+    ) {
+      return runMutation((database) => {
+        const events = learningEventsFor(database);
+        const records = deliveries.map((delivery) => events.find((event) =>
+          event.id === delivery.eventId && event.user_id === userId
+        ));
+        if (records.some((record) => !record)) return false;
+
+        const updatedAt = now().toISOString();
+        const merged = deliveries.map((delivery, index) =>
+          mergeStoredLearningEventLrsDelivery(records[index]!.lrs_delivery, delivery, updatedAt)
+        );
+        if (merged.some((delivery) => !delivery)) return false;
+        merged.forEach((delivery, index) => {
+          records[index]!.lrs_delivery = delivery!;
+        });
+        return true;
+      });
+    },
+    async clearLearningEventsForUser(
+      userId: string,
+      clearedAt = now().toISOString(),
+      authoritativeGeneration?: number
+    ) {
+      const canonicalClearedAt = requireCanonicalLearningEventClearedAt(clearedAt);
+      return runMutation((database) => {
+        const clears = learningEventClearsFor(database);
+        const currentGenerationState = learningEventGenerationStateForClearRecord(
+          clears.find((clear) => clear.user_id === userId)
+        );
+        const currentGeneration = currentGenerationState.generation;
+        const hasAuthoritativeGeneration =
+          typeof authoritativeGeneration === "number" &&
+          Number.isSafeInteger(authoritativeGeneration) &&
+          authoritativeGeneration >= 0;
+        const preserveNewerMirroredReceipt =
+          hasAuthoritativeGeneration &&
+          authoritativeGeneration <= currentGeneration &&
+          currentGenerationState.clearedAt !== null &&
+          Date.parse(currentGenerationState.clearedAt) >= Date.parse(canonicalClearedAt);
+        const generation = preserveNewerMirroredReceipt
+          ? currentGeneration
+          : hasAuthoritativeGeneration
+            ? authoritativeGeneration
+            : currentGeneration + 1;
+        const effectiveClearedAt = preserveNewerMirroredReceipt
+          ? currentGenerationState.clearedAt!
+          : canonicalClearedAt;
         database.learning_events = learningEventsFor(database).filter((event) => event.user_id !== userId);
         database.visualization_events = visualizationEventsFor(database).filter((event) => event.user_id !== userId);
         database.learning_event_clears = [
-          ...learningEventClearsFor(database).filter((clear) => clear.user_id !== userId),
-          { user_id: userId, cleared_at: clearedAt }
+          ...clears.filter((clear) => clear.user_id !== userId),
+          { user_id: userId, cleared_at: effectiveClearedAt, generation }
         ];
+        return { generation, clearedAt: effectiveClearedAt };
       });
     },
     async getAnalyticsSummary(
@@ -3644,26 +3900,38 @@ export function createStudentActivityPersistenceStore({
       window?: string | null,
       grade?: GradeId
     ): Promise<LearningAnalyticsSummary> {
-      const database = await readDatabase();
       const windowDays = windowDaysFrom(window);
-      const events = (database.learning_events ?? [])
-        .filter((event) => event.user_id === userId && (!grade || event.grade === grade))
-        .map(eventRecordToAnalyticsEvent);
+      const analyticsNow = now();
+      const sinceIso = new Date(
+        analyticsNow.getTime() - windowDays * 24 * 60 * 60 * 1000
+      ).toISOString();
+      const fastEvents = await readFastLearningAnalyticsEvents(userId, sinceIso);
+      const events = fastEvents === null
+        ? ((await readDatabase()).learning_events ?? [])
+            .filter((event) => event.user_id === userId && (!grade || event.grade === grade))
+            .map(eventRecordToAnalyticsEvent)
+        : fastEvents.filter((event) => !grade || event.grade === grade);
 
-      return summarizeLearningAnalytics(events, { now: now(), windowDays });
+      return summarizeLearningAnalytics(events, { now: analyticsNow, windowDays });
     },
     async getAnalyticsExport(
       userId: string,
       grade: GradeId,
       window?: string | null
     ): Promise<LearningAnalyticsExportSummary> {
-      const database = await readDatabase();
       const windowDays = windowDaysFrom(window);
-      const events = (database.learning_events ?? [])
-        .filter((event) => event.user_id === userId && event.grade === grade)
-        .map(eventRecordToAnalyticsEvent);
+      const analyticsNow = now();
+      const sinceIso = new Date(
+        analyticsNow.getTime() - windowDays * 24 * 60 * 60 * 1000
+      ).toISOString();
+      const fastEvents = await readFastLearningAnalyticsEvents(userId, sinceIso);
+      const events = fastEvents === null
+        ? ((await readDatabase()).learning_events ?? [])
+            .filter((event) => event.user_id === userId && event.grade === grade)
+            .map(eventRecordToAnalyticsEvent)
+        : fastEvents.filter((event) => event.grade === grade);
 
-      return exportLearningAnalyticsSummary({ events, studentId: userId, grade, now: now(), windowDays });
+      return exportLearningAnalyticsSummary({ events, studentId: userId, grade, now: analyticsNow, windowDays });
     },
     async markVisualizationSession({
       userId,
@@ -3676,12 +3944,26 @@ export function createStudentActivityPersistenceStore({
       topicId: string;
       source: LearningAnalyticsEvent["source"];
     }) {
-      return runMutation(async (database) => {
+      const existingCompletedSession = (await readDatabase()).visualization_sessions?.find(
+        (candidate) =>
+          candidate.user_id === userId &&
+          candidate.module_id === moduleId &&
+          candidate.topic_id === topicId &&
+          candidate.source === source &&
+          Boolean(candidate.completed_at)
+      );
+      if (existingCompletedSession) return { ...existingCompletedSession };
+
+      return runMutation((database) => {
         const updatedAt = now().toISOString();
         const sessions = visualizationSessionsFor(database);
         let session = sessions.find(
-          (candidate) => candidate.user_id === userId && candidate.module_id === moduleId
+          (candidate) =>
+            candidate.user_id === userId &&
+            candidate.module_id === moduleId &&
+            candidate.topic_id === topicId
         );
+        if (session?.completed_at && session.source === source) return { ...session };
         const wasCompleted = Boolean(session?.completed_at);
 
         if (session) {
@@ -3704,20 +3986,17 @@ export function createStudentActivityPersistenceStore({
         }
 
         const completedAt = session.completed_at ?? updatedAt;
-        const afterMarkResult = afterMarkVisualizationSession?.(database, {
-          userId,
-          moduleId,
-          topicId,
-          source,
-          wasCompleted,
-          completedAt,
-          updatedAt,
-          session: { ...session }
-        });
-        if (afterMarkResult && typeof afterMarkResult.then === "function") {
-          void afterMarkResult.catch((error) => {
-            console.error("Visualization session side effect failed.", error);
-          });
+        if (afterMarkVisualizationSession) {
+          runSynchronousMutationHook(() => afterMarkVisualizationSession(database, {
+            userId,
+            moduleId,
+            topicId,
+            source,
+            wasCompleted,
+            completedAt,
+            updatedAt,
+            session: { ...session }
+          }));
         }
 
         return session;
@@ -3985,17 +4264,19 @@ export function createStudentActivityPersistenceStore({
       return resourceDownloadPayloadForDatabase(database, record);
     },
     async markStudentResourceViewed(userId: string, resourceId: string) {
-      return runMutation(async (database) => {
+      return runMutation((database) => {
         const record = (database.teaching_resources ?? []).find((resource) => resource.id === resourceId);
         if (!record || !studentCanAccessResource(database, userId, resourceId)) return { status: "not-found" as const };
 
         const viewedAt = now().toISOString();
-        await afterMarkResourceViewed?.(database, {
-          userId,
-          resourceId,
-          viewedAt,
-          resource: record
-        });
+        if (afterMarkResourceViewed) {
+          runSynchronousMutationHook(() => afterMarkResourceViewed(database, {
+            userId,
+            resourceId,
+            viewedAt,
+            resource: record
+          }));
+        }
 
         return {
           status: "viewed" as const,
@@ -4073,7 +4354,7 @@ export function createStudentActivityPersistenceStore({
       assessmentId: string;
       answers: Array<{ questionId: string; answer: string }>;
     }): Promise<StudentAssessmentSubmitResult> {
-      return runMutation(async (database) => {
+      return runMutation((database) => {
         const assessment = (database.assessments ?? []).find((candidate) => candidate.id === assessmentId);
         if (!assessment) return { status: "not-found" as const };
         const enrolled = (database.class_enrollments ?? []).some(
@@ -4140,13 +4421,15 @@ export function createStudentActivityPersistenceStore({
         submission.answers = scoredAnswers;
         submission.updated_at = submittedAt;
 
-        await afterSubmitAssessment?.(database, {
-          userId,
-          assessmentId,
-          submittedAt,
-          score: percentage,
-          graded: true
-        });
+        if (afterSubmitAssessment) {
+          runSynchronousMutationHook(() => afterSubmitAssessment(database, {
+            userId,
+            assessmentId,
+            submittedAt,
+            score: percentage,
+            graded: true
+          }));
+        }
 
         return {
           status: "submitted" as const,

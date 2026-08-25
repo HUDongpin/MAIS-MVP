@@ -249,14 +249,16 @@ test("teacher ops notice persistence owns notice composition helpers used by rem
     "teacherOpsNoticeAckLink",
     "buildTeacherOpsNoticeMarkdown",
     "createTeacherOpsNoticeRecord",
-    "sendTeacherOpsNoticeRecord"
+    "sendTeacherOpsNoticeRecord",
+    "queueTeacherOpsNoticeDeliveryAttempt",
+    "settleTeacherOpsNoticeDeliveryAttempt"
   ]) {
     assert.equal(typeof helpers[name], "function", `${name} should be exported by teacherOpsNoticePersistence`);
     assert.match(helperSource, new RegExp(`export (async )?function ${name}\\b`));
   }
 
   assert.match(rootSource, /createTeacherOpsNoticeRecord as createNoticeRecordFromTeacherOpsNotice/);
-  assert.match(rootSource, /sendTeacherOpsNoticeRecord as sendNoticeRecordFromTeacherOpsNotice/);
+  assert.match(rootSource, /teacherOpsNoticePersistenceStore\.sendTeacherNotice/);
   assert.doesNotMatch(rootSource, /function noticeRecipientRecordsForClass\b/);
   assert.doesNotMatch(rootSource, /function noticeAckLink\b/);
   assert.doesNotMatch(rootSource, /function buildWeComNoticeMarkdown\b/);
@@ -517,6 +519,108 @@ test("teacher ops notice persistence sends notices and records delivery attempts
   assert.equal(deliveries[0]?.channelId, "channel-class");
   assert.match(deliveries[0]?.markdown ?? "", /Existing/);
   assert.match(deliveries[0]?.markdown ?? "", /https:\/\/mais\.example\/parent\/notices/);
+});
+
+test("teacher notice delivery persists a queued reservation before network I/O and never awaits inside a mutation", async () => {
+  const database = createDatabase();
+  let insideMutation = false;
+  let mutationCount = 0;
+  let networkCalls = 0;
+  const store = createTeacherOpsNoticePersistenceStore({
+    createId: (() => {
+      let value = 0;
+      return () => `boundary-${++value}`;
+    })(),
+    getNotificationSummary: () => ({ channels: [{ id: "channel-class", name: "Class group" }] }),
+    mutateDatabase: async (mutator) => {
+      insideMutation = true;
+      mutationCount += 1;
+      try {
+        const result = mutator(database);
+        assert.equal(result instanceof Promise, false, "notice database mutators must be synchronous");
+        return result;
+      } finally {
+        insideMutation = false;
+      }
+    },
+    now: () => new Date(fixedNow),
+    readDatabase: async () => database,
+    sendNotification: async () => {
+      networkCalls += 1;
+      assert.equal(insideMutation, false, "notification I/O must not hold the database writer lock");
+      assert.equal(database.teacher_notice_delivery_attempts[0]?.status, "queued");
+      assert.equal(database.teacher_notices[0]?.status, "queued");
+      return { status: "sent", providerMessageId: "outside-lock" };
+    },
+    toDeliveryAttempt: (attempt) => ({
+      id: attempt.id,
+      noticeId: attempt.notice_id,
+      channelId: attempt.channel_id,
+      channelName: attempt.channel_name,
+      status: attempt.status,
+      providerMessageId: attempt.provider_message_id,
+      errorCode: attempt.error_code,
+      errorMessage: attempt.error_message,
+      attemptedAt: attempt.attempted_at
+    }),
+    toNotice: (sourceDatabase, notice) => projectNotice(sourceDatabase, notice.id)
+  });
+
+  const result = await store.sendTeacherNotice({ teacherId: "teacher-1", noticeId: "notice-existing" });
+  assert.equal(result.status, "sent");
+  assert.equal(mutationCount, 2, "reservation and settlement must be separate synchronous commits");
+  assert.equal(networkCalls, 1);
+  assert.equal(database.teacher_notice_delivery_attempts[0]?.status, "sent");
+});
+
+test("an ambiguous notice settlement preserves the queued reservation and prevents duplicate delivery", async () => {
+  const database = createDatabase();
+  let mutationCount = 0;
+  let failSettlement = true;
+  let networkCalls = 0;
+  const store = createTeacherOpsNoticePersistenceStore({
+    createId: (() => {
+      let value = 0;
+      return () => `ambiguous-${++value}`;
+    })(),
+    getNotificationSummary: () => ({ channels: [{ id: "channel-class", name: "Class group" }] }),
+    mutateDatabase: async (mutator) => {
+      mutationCount += 1;
+      if (failSettlement && mutationCount === 2) throw new Error("settlement unavailable");
+      return mutator(database);
+    },
+    now: () => new Date(fixedNow),
+    readDatabase: async () => database,
+    sendNotification: async () => {
+      networkCalls += 1;
+      return { status: "sent", providerMessageId: "ambiguous-provider-id" };
+    },
+    toDeliveryAttempt: (attempt) => ({
+      id: attempt.id,
+      noticeId: attempt.notice_id,
+      channelId: attempt.channel_id,
+      channelName: attempt.channel_name,
+      status: attempt.status,
+      providerMessageId: attempt.provider_message_id,
+      errorCode: attempt.error_code,
+      errorMessage: attempt.error_message,
+      attemptedAt: attempt.attempted_at
+    }),
+    toNotice: (sourceDatabase, notice) => projectNotice(sourceDatabase, notice.id)
+  });
+
+  await assert.rejects(
+    store.sendTeacherNotice({ teacherId: "teacher-1", noticeId: "notice-existing" }),
+    /settlement unavailable/
+  );
+  assert.equal(database.teacher_notice_delivery_attempts[0]?.status, "queued");
+  assert.equal(networkCalls, 1);
+
+  failSettlement = false;
+  const replay = await store.sendTeacherNotice({ teacherId: "teacher-1", noticeId: "notice-existing" });
+  assert.equal(replay.status, "sent");
+  assert.equal(replay.status === "sent" ? replay.attempt.status : null, "queued");
+  assert.equal(networkCalls, 1, "an ambiguous queued reservation must not emit a duplicate notification");
 });
 
 test("teacher ops notice persistence maps disabled delivery to queued notice status", async () => {

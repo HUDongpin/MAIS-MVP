@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type Dispatch, type 
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { MathText } from "@/components/math/MathText";
+import { useSettings } from "@/components/providers/AppProviders";
 import { MathFormulaOverlay } from "./manim/MathFormulaOverlay";
 import { ALWAYS_METHOD_UPDATER_SOURCE_CONTRACT, buildAlwaysMethodUpdaterEvidence, serializeAlwaysMethodUpdaterEvidence, type AlwaysMethodUpdaterEvidence } from "./manim/mathAlwaysMethodUpdater";
 import { ALWAYS_UPDATER_AUTHORING_SOURCE_CONTRACT, buildAlwaysUpdaterAuthoringCatalog, serializeAlwaysUpdaterAuthoringCatalog, type AlwaysUpdaterAuthoringCatalog } from "./manim/mathAlwaysRedraw";
@@ -510,11 +511,13 @@ export function ThreeDLabCanvas({
   fallback,
   label,
   onCanvasReady,
+  presentation = "learner",
   premiumLaunch = false,
   regionalPriority,
   runtime = "primitive",
   state
 }: ThreeDLabCanvasProps) {
+  const { t } = useSettings();
   const [canvasReady, setCanvasReady] = useState(false);
   const [cameraState, setCameraState] = useState(formatThreeDCanvasCameraState(threeDCanvasCameraContract.defaultCamera));
   const [manimAuthoringMode, setManimAuthoringMode] = useState<ManimAuthoringMode>("playback");
@@ -541,6 +544,22 @@ export function ThreeDLabCanvas({
   const [manimSelectedParameterId, setManimSelectedParameterId] = useState("value");
   const [resetSignal, setResetSignal] = useState(0);
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
+  const showAuthoringControls = presentation === "authoring";
+  const resetCameraLabel = t({ en: "Reset camera", zh: "重設視角", zhHans: "重置视角" });
+  const playLabel = t({ en: "Play", zh: "播放", zhHans: "播放" });
+  const pauseLabel = t({ en: "Pause", zh: "暫停", zhHans: "暂停" });
+  const timelineLabel = t({ en: "Animation timeline", zh: "動畫時間軸", zhHans: "动画时间轴" });
+  const loadingModelLabel = t({ en: "Loading 3D model", zh: "正在載入 3D 模型", zhHans: "正在加载 3D 模型" });
+  const rendererLoadingLabel = t({
+    en: `${label} 3D renderer loading`,
+    zh: `${label} 3D 渲染器載入中`,
+    zhHans: `${label} 3D 渲染器加载中`
+  });
+  const formulaAriaLabel = t({
+    en: "Three dimensional visualization formula",
+    zh: "三維視覺化公式",
+    zhHans: "三维可视化公式"
+  });
 
   useEffect(() => {
     if (canvasReady) onCanvasReady?.();
@@ -3809,7 +3828,7 @@ export function ThreeDLabCanvas({
       <div
         data-viz-three-webgl-status={threeDCanvasWebGLContract.detectingStatus}
         role="status"
-        aria-label={`${label} 3D renderer loading`}
+        aria-label={rendererLoadingLabel}
         className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px] border border-slate-900/10 bg-slate-950 shadow-inner shadow-cyan-500/10 dark:border-white/10"
       >
         <span
@@ -3817,7 +3836,7 @@ export function ThreeDLabCanvas({
           data-viz-name="three-d-webgl-detecting"
           className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/35 bg-cyan-300/15 shadow-lg shadow-cyan-300/20"
         />
-        <span className="sr-only">Loading 3D model</span>
+        <span className="sr-only">{loadingModelLabel}</span>
       </div>
     );
   }
@@ -3848,6 +3867,8 @@ export function ThreeDLabCanvas({
       data-viz-renderer={threeDCanvasRendererContract.renderer}
       data-viz-runtime={runtime}
       data-viz-manim-mobile-layout={manimScene ? "docked" : "primitive"}
+      data-viz-manim-presentation={presentation}
+      data-viz-manim-authoring-controls-visible={showAuthoringControls ? "true" : "false"}
       data-viz-manim-authoring-mode={manimScene ? manimAuthoringMode : "primitive"}
       data-viz-manim-camera-mode={manimScene ? manimCameraMode : "primitive"}
       data-viz-manim-formula-viewport-height={manimFormulaOverlayViewport.height.toFixed(0)}
@@ -11005,19 +11026,23 @@ export function ThreeDLabCanvas({
           ))}
           <div
             data-viz-manim-control-dock
-            className="relative z-10 flex flex-col gap-2 border-t border-white/10 bg-slate-950/88 p-2 text-[11px] font-black text-cyan-50 shadow-inner shadow-slate-950/20 sm:p-3"
+            data-viz-manim-presentation={presentation}
+            data-viz-manim-authoring-controls-visible={showAuthoringControls ? "true" : "false"}
+            className="relative z-10 flex flex-col gap-2 border-t border-white/10 bg-slate-950/88 p-2 text-sm font-black text-cyan-50 shadow-inner shadow-slate-950/20 sm:p-3"
           >
             <div data-viz-manim-control-row="camera" className="flex min-w-0 flex-wrap items-center gap-2">
               <button
                 type="button"
                 data-viz-three-reset-camera
                 onClick={resetCameraAndTimeline}
-                className="focus-ring rounded-xl border border-white/15 bg-white/92 px-2.5 py-1.5 text-slate-900 shadow-sm shadow-cyan-200/10 transition hover:bg-cyan-100 dark:bg-slate-900/88 dark:text-cyan-50 dark:hover:bg-slate-800"
+                className="focus-ring min-h-11 rounded-xl border border-white/15 bg-white/92 px-3 py-2 text-slate-900 shadow-sm shadow-cyan-200/10 transition hover:bg-cyan-100 dark:bg-slate-900/88 dark:text-cyan-50 dark:hover:bg-slate-800"
               >
-                Reset camera
+                {resetCameraLabel}
               </button>
           <div
             data-viz-manim-camera-mode-control
+            hidden={!showAuthoringControls}
+            style={showAuthoringControls ? undefined : { display: "none" }}
             role="group"
             aria-label="MAIS Manim camera mode"
             className="flex flex-wrap items-center gap-1 rounded-2xl border border-white/15 bg-slate-950/70 p-1 text-[11px] font-black text-cyan-50 shadow-lg shadow-slate-950/20 backdrop-blur"
@@ -11063,9 +11088,16 @@ export function ThreeDLabCanvas({
             </select>
           </div>
             </div>
-            <div data-viz-manim-control-row="capture" className="flex min-w-0 flex-wrap items-center gap-2">
+            <div
+              hidden={!showAuthoringControls}
+              style={showAuthoringControls ? undefined : { display: "none" }}
+              data-viz-manim-control-row="capture"
+              className="flex min-w-0 flex-wrap items-center gap-2"
+            >
           <div
             data-viz-manim-capture-control
+            hidden={!showAuthoringControls}
+            style={showAuthoringControls ? undefined : { display: "none" }}
             role="group"
             aria-label="MAIS Manim capture"
             className="flex min-w-0 flex-wrap items-center gap-1 rounded-2xl border border-white/15 bg-slate-950/70 p-1 text-[11px] font-black text-cyan-50 shadow-lg shadow-slate-950/20 backdrop-blur"
@@ -11130,37 +11162,42 @@ export function ThreeDLabCanvas({
             <div data-viz-manim-control-row="playback" className="flex min-w-0 flex-wrap items-center gap-2">
           <div
             data-viz-manim-playback-control
-            className="flex min-w-0 flex-1 flex-wrap items-center gap-2 rounded-2xl border border-white/15 bg-slate-950/72 p-2 text-[11px] font-black text-cyan-50 shadow-lg shadow-slate-950/20 backdrop-blur"
+            className="flex min-w-0 flex-1 flex-wrap items-center gap-2 rounded-2xl border border-white/15 bg-slate-950/72 p-2 text-sm font-black text-cyan-50 shadow-lg shadow-slate-950/20 backdrop-blur"
           >
             <button
               type="button"
               data-viz-manim-playback-toggle
               onClick={toggleManimPlayback}
-              className="focus-ring rounded-xl bg-cyan-200 px-2.5 py-1.5 text-slate-950 shadow-sm shadow-cyan-200/20 transition hover:bg-cyan-100"
+              className="focus-ring min-h-11 rounded-xl bg-cyan-200 px-3 py-2 text-slate-950 shadow-sm shadow-cyan-200/20 transition hover:bg-cyan-100"
             >
-              {manimPlaybackState === "playing" ? "Pause" : "Play"}
+              {manimPlaybackState === "playing" ? pauseLabel : playLabel}
             </button>
             <div
               data-viz-manim-timeline-scrubber
               role="slider"
-              aria-label="MAIS Manim timeline"
+              aria-label={timelineLabel}
               aria-valuemin={0}
               aria-valuemax={1000}
               aria-valuenow={Math.round(manimScrubProgress * 1000)}
               tabIndex={0}
               onClick={scrubManimTimelineFromPointer}
               onKeyDown={scrubManimTimelineFromKeyboard}
-              className="focus-ring relative h-4 min-w-0 flex-1 cursor-pointer rounded-full bg-white/15"
+              className="focus-ring relative h-11 min-w-[8rem] flex-1 cursor-pointer rounded-full bg-white/15"
             >
               <span
                 className="absolute left-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-cyan-300"
                 style={{ width: `${Math.round(manimScrubProgress * 100)}%` }}
               />
             </div>
-            <span data-viz-manim-timeline-label className="tabular-nums text-cyan-50/85">
+            <span data-viz-manim-timeline-label className="flex min-h-11 items-center tabular-nums text-cyan-50/85">
               {manimElapsedSeconds.toFixed(1)}s / {manimTotalDuration.toFixed(1)}s
             </span>
-            <div data-viz-manim-parameter-panel-control className="flex items-center gap-1">
+            <div
+              hidden={!showAuthoringControls}
+              style={showAuthoringControls ? undefined : { display: "none" }}
+              data-viz-manim-parameter-panel-control
+              className="flex items-center gap-1"
+            >
               <select
                 aria-label="Inspect MAIS Manim parameter"
                 value={activeManimParameterId}
@@ -11181,7 +11218,12 @@ export function ThreeDLabCanvas({
                 {activeManimParameter ? activeManimParameter.value.toFixed(2) : "n/a"}
               </span>
             </div>
-            <div data-viz-manim-checkpoint-control className="flex items-center gap-1">
+            <div
+              hidden={!showAuthoringControls}
+              style={showAuthoringControls ? undefined : { display: "none" }}
+              data-viz-manim-checkpoint-control
+              className="flex items-center gap-1"
+            >
               <input
                 data-viz-manim-checkpoint-paste-input
                 aria-label="MAIS Manim checkpoint paste snippet"
@@ -11216,7 +11258,12 @@ export function ThreeDLabCanvas({
                 Restore {manimCheckpointKeys.length}
               </button>
             </div>
-            <div data-viz-manim-history-control className="flex items-center gap-1">
+            <div
+              hidden={!showAuthoringControls}
+              style={showAuthoringControls ? undefined : { display: "none" }}
+              data-viz-manim-history-control
+              className="flex items-center gap-1"
+            >
               <button
                 type="button"
                 data-viz-manim-undo
@@ -11236,7 +11283,12 @@ export function ThreeDLabCanvas({
                 Redo
               </button>
             </div>
-            <div data-viz-manim-authoring-control className="flex items-center gap-1">
+            <div
+              hidden={!showAuthoringControls}
+              style={showAuthoringControls ? undefined : { display: "none" }}
+              data-viz-manim-authoring-control
+              className="flex items-center gap-1"
+            >
               <select
                 data-viz-manim-run-from-beat
                 aria-label="Run MAIS Manim from beat"
@@ -11268,7 +11320,7 @@ export function ThreeDLabCanvas({
           data-viz-three-formula
           className="pointer-events-none absolute left-3 top-3 rounded-2xl border border-white/10 bg-slate-950/72 px-3.5 py-2.5 text-sm font-black leading-tight text-cyan-50 shadow-lg shadow-slate-950/20 [&_.katex]:text-[1.08em]"
         >
-          <MathText text={formulaText} ariaLabel="Three dimensional visualization formula" normalizeMath={false} />
+          <MathText text={formulaText} ariaLabel={formulaAriaLabel} normalizeMath={false} />
         </div>
       )}
       {!manimScene ? (
@@ -11276,9 +11328,9 @@ export function ThreeDLabCanvas({
           type="button"
           data-viz-three-reset-camera
           onClick={resetCameraAndTimeline}
-          className="focus-ring absolute bottom-3 right-3 rounded-2xl border border-white/15 bg-white/92 px-3 py-2 text-xs font-black text-slate-900 shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-cyan-100 dark:bg-slate-900/88 dark:text-cyan-50 dark:hover:bg-slate-800"
+          className="focus-ring absolute bottom-3 right-3 min-h-11 rounded-2xl border border-white/15 bg-white/92 px-3 py-2 text-sm font-black text-slate-900 shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-cyan-100 dark:bg-slate-900/88 dark:text-cyan-50 dark:hover:bg-slate-800"
         >
-          Reset camera
+          {resetCameraLabel}
         </button>
       ) : null}
     </div>

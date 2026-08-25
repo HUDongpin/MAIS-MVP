@@ -119,9 +119,11 @@ export type TeacherOpsReminderPersistenceStoreDependencies = {
     now: string;
   }) => TeacherOpsReminderNoticeRecord;
   sendNoticeRecord: (
-    database: TeacherOpsReminderPersistenceDatabase,
-    notice: TeacherOpsReminderNoticeRecord,
-    origin?: string
+    input: {
+      teacherId: string;
+      noticeId: string;
+      origin?: string;
+    }
   ) => Promise<TeacherOpsReminderDeliveryAttemptRecord>;
   toTeacherReminderRun: (
     database: TeacherOpsReminderPersistenceDatabase,
@@ -263,7 +265,7 @@ export function createTeacherOpsReminderPersistenceStore({
       manual?: boolean;
       origin?: string;
     }) {
-      return mutateDatabase(async (database) => {
+      const reservation = await mutateDatabase((database) => {
         const user = database.users.find((candidate) => candidate.id === teacherId);
         if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
         const classRecords = teacherOperationClassRecordsFor(database, user)
@@ -275,7 +277,7 @@ export function createTeacherOpsReminderPersistenceStore({
           .filter((item) => !assignmentId || item.assignmentId === assignmentId)
           .filter((item) => manual || Boolean(item.nextThreshold))
           .slice(0, 100);
-        const runs: TeacherOpsReminderRunRecord[] = [];
+        const prepared: Array<{ noticeId: string; runId: string }> = [];
 
         for (const item of items) {
           const threshold = manual ? "manual" : item.nextThreshold;
@@ -304,7 +306,6 @@ export function createTeacherOpsReminderPersistenceStore({
             studentIds: [item.studentId],
             now: now().toISOString()
           });
-          const attempt = await sendNoticeRecord(database, notice, origin);
           const run: TeacherOpsReminderRunRecord = {
             id: `teacher-reminder-run-${createId()}`,
             teacher_id: user.id,
@@ -313,14 +314,45 @@ export function createTeacherOpsReminderPersistenceStore({
             student_id: item.studentId,
             notice_id: notice.id,
             threshold,
-            status: attempt.status,
+            status: "queued",
             reason: manual ? "Manual reminder sent by teacher." : `Automatic missing-work threshold ${threshold}.`,
-            created_at: attempt.attempted_at
+            created_at: now().toISOString()
           };
           database.teacher_reminder_runs.unshift(run);
-          runs.push(run);
+          prepared.push({ noticeId: notice.id, runId: run.id });
         }
 
+        return { status: "reserved" as const, prepared };
+      });
+      if (reservation.status === "forbidden" || reservation.status === "not-found") return reservation;
+      if (!reservation.prepared.length) return { status: "ran" as const, runs: [] };
+
+      const outcomes = await Promise.all(reservation.prepared.map(async (prepared) => {
+        try {
+          return {
+            ...prepared,
+            attempt: await sendNoticeRecord({ teacherId, noticeId: prepared.noticeId, origin })
+          };
+        } catch {
+          return {
+            ...prepared,
+            attempt: {
+              status: "failed" as const,
+              attempted_at: now().toISOString()
+            }
+          };
+        }
+      }));
+
+      return mutateDatabase((database) => {
+        const runs: TeacherOpsReminderRunRecord[] = [];
+        outcomes.forEach(({ runId, attempt }) => {
+          const run = database.teacher_reminder_runs.find((candidate) => candidate.id === runId);
+          if (!run) return;
+          run.status = attempt.status;
+          run.created_at = attempt.attempted_at;
+          runs.push(run);
+        });
         return { status: "ran" as const, runs: runs.map((run) => toTeacherReminderRun(database, run)) };
       });
     }

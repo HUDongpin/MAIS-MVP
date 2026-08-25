@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, open, unlink } from "node:fs/promises";
 import path from "node:path";
 import { validGradeSet } from "@/data/grades";
 import {
@@ -219,6 +219,7 @@ export type TeacherOpsLessonKitPersistenceStoreDependencies<TGenerationContext =
   normalizeSections: (sections: TeacherLessonKitSection[]) => TeacherLessonKitSection[];
   now?: () => Date;
   readDatabase: () => Promise<TeacherOpsLessonKitPersistenceDatabase>;
+  removeResourceFile?: (storagePath: string) => Promise<void>;
   resourceUploadDirectory: string;
   resolveLessonKitTopic: (
     database: TeacherOpsLessonKitPersistenceDatabase,
@@ -234,6 +235,7 @@ export type TeacherOpsLessonKitPersistenceStoreDependencies<TGenerationContext =
     database: TeacherOpsLessonKitPersistenceDatabase,
     classRecords: TeacherOpsLessonKitClassRecord[]
   ) => TeacherTopicOption[];
+  writeResourceFile?: (storagePath: string, html: string) => Promise<void>;
 };
 
 export type TeacherOpsLessonKitPersistenceStore = ReturnType<typeof createTeacherOpsLessonKitPersistenceStore>;
@@ -700,6 +702,74 @@ export function teacherOpsLessonKitHtml(
 </html>`;
 }
 
+export function prepareTeacherOpsLessonKitResource({
+  createResourceId = (suffix: string) => `resource-${randomUUID()}`,
+  html,
+  lessonKit,
+  now,
+  suffix,
+  type,
+  uploadDirectory
+}: {
+  createResourceId?: (suffix: string) => string;
+  html: string;
+  lessonKit: TeacherOpsLessonKitRecord;
+  now: string;
+  suffix: string;
+  type: TeachingResourceType;
+  uploadDirectory: string;
+}): TeacherOpsLessonKitResourceRecord {
+  const resourceId = createResourceId(suffix);
+  const fileName = `${resourceId}-${suffix}.html`;
+  const storagePath = path.join(uploadDirectory, fileName);
+  if (path.dirname(path.resolve(storagePath)) !== path.resolve(uploadDirectory)) {
+    throw new Error("Teacher lesson-kit resource path must stay inside the configured upload directory.");
+  }
+  return {
+    id: resourceId,
+    title_en: `${lessonKit.lesson_title_en ?? lessonKit.id} ${suffix}`,
+    title_zh: `${lessonKit.lesson_title_zh ?? lessonKit.id}${suffix === "slides" ? "课件" : suffix === "guide" ? "导学案" : "练习作业"}`,
+    type,
+    file_name: fileName,
+    file_type: "HTML",
+    mime_type: "text/html; charset=utf-8",
+    file_size_bytes: Buffer.byteLength(html, "utf8"),
+    storage_path: storagePath,
+    grade: lessonKit.grade,
+    topic_id: lessonKit.topic_id,
+    uploaded_by: lessonKit.teacher_id,
+    created_at: now
+  };
+}
+
+async function writeExclusiveTeacherOpsLessonKitResourceFile(storagePath: string, html: string) {
+  let file = null as Awaited<ReturnType<typeof open>> | null;
+  try {
+    file = await open(storagePath, "wx");
+    await file.writeFile(html, { encoding: "utf8" });
+    await file.close();
+    file = null;
+  } catch (error) {
+    if (file) {
+      const cleanupFailures: unknown[] = [];
+      try {
+        await file.close();
+      } catch (closeError) {
+        cleanupFailures.push(closeError);
+      }
+      try {
+        await unlink(storagePath);
+      } catch (unlinkError) {
+        if ((unlinkError as NodeJS.ErrnoException).code !== "ENOENT") cleanupFailures.push(unlinkError);
+      }
+      if (cleanupFailures.length) {
+        throw new AggregateError([error, ...cleanupFailures], "Teacher lesson-kit partial file compensation failed.");
+      }
+    }
+    throw error;
+  }
+}
+
 export async function writeTeacherOpsLessonKitResource({
   createResourceId = (suffix: string) => `resource-${randomUUID()}`,
   database,
@@ -719,26 +789,17 @@ export async function writeTeacherOpsLessonKitResource({
   type: TeachingResourceType;
   uploadDirectory: string;
 }): Promise<TeacherOpsLessonKitResourceRecord> {
-  const resourceId = createResourceId(suffix);
-  const fileName = `${resourceId}-${suffix}.html`;
-  const storagePath = path.join(uploadDirectory, fileName);
-  await mkdir(uploadDirectory, { recursive: true });
-  await writeFile(storagePath, html, "utf8");
-  const record: TeacherOpsLessonKitResourceRecord = {
-    id: resourceId,
-    title_en: `${lessonKit.lesson_title_en ?? lessonKit.id} ${suffix}`,
-    title_zh: `${lessonKit.lesson_title_zh ?? lessonKit.id}${suffix === "slides" ? "课件" : suffix === "guide" ? "导学案" : "练习作业"}`,
+  const record = prepareTeacherOpsLessonKitResource({
+    createResourceId,
+    html,
+    lessonKit,
+    now,
+    suffix,
     type,
-    file_name: fileName,
-    file_type: "HTML",
-    mime_type: "text/html; charset=utf-8",
-    file_size_bytes: Buffer.byteLength(html, "utf8"),
-    storage_path: storagePath,
-    grade: lessonKit.grade,
-    topic_id: lessonKit.topic_id,
-    uploaded_by: lessonKit.teacher_id,
-    created_at: now
-  };
+    uploadDirectory
+  });
+  await mkdir(uploadDirectory, { recursive: true });
+  await writeExclusiveTeacherOpsLessonKitResourceFile(record.storage_path, html);
   database.teaching_resources.unshift(record);
   return record;
 }
@@ -781,10 +842,21 @@ export function createTeacherOpsLessonKitPersistenceStore<TGenerationContext = u
   normalizeSections,
   now = () => new Date(),
   readDatabase,
+  removeResourceFile = async (storagePath) => {
+    try {
+      await unlink(storagePath);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+  },
   resourceUploadDirectory,
   resolveLessonKitTopic,
   toTeacherClass,
-  topicOptionsForClasses
+  topicOptionsForClasses,
+  writeResourceFile = async (storagePath, html) => {
+    await mkdir(resourceUploadDirectory, { recursive: true });
+    await writeExclusiveTeacherOpsLessonKitResourceFile(storagePath, html);
+  }
 }: TeacherOpsLessonKitPersistenceStoreDependencies<TGenerationContext>) {
   const runMutation = async <T>(mutator: (database: TeacherOpsLessonKitPersistenceDatabase) => T | Promise<T>) => {
     if (!mutateDatabase) {
@@ -984,65 +1056,129 @@ export function createTeacherOpsLessonKitPersistenceStore<TGenerationContext = u
     teacherId,
     kitId
   }: TeacherOpsLessonKitPublishInput): Promise<TeacherOpsLessonKitPublishStoreResult> {
-    return runMutation(async (database) => {
-      const user = database.users.find((candidate) => candidate.id === teacherId);
-      if (!canUseTeacherArea(user)) return { status: "forbidden" };
+    const preflightDatabase = await readDatabase();
+    const preflightUser = preflightDatabase.users.find((candidate) => candidate.id === teacherId);
+    if (!canUseTeacherArea(preflightUser)) return { status: "forbidden" };
 
-      const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === kitId);
-      const teacherClass = kit ? teacherCanAccessClass(database, user, kit.class_id) : null;
-      if (!kit || !teacherClass) return { status: "not-found" };
-      if (kit.review_status !== "approved") return { status: "needs-review" };
+    const preflightKit = preflightDatabase.teacher_lesson_kits.find((candidate) => candidate.id === kitId);
+    const preflightClass = preflightKit
+      ? teacherCanAccessClass(preflightDatabase, preflightUser, preflightKit.class_id)
+      : null;
+    if (!preflightKit || !preflightClass) return { status: "not-found" };
+    if (preflightKit.review_status !== "approved") return { status: "needs-review" };
+    if (preflightKit.status === "published") {
+      return {
+        status: "published",
+        result: {
+          resourceIds: preflightKit.published_resource_ids ?? [],
+          assignmentId: preflightKit.assignment_id,
+          assessmentId: preflightKit.assessment_id,
+          liveSessionId: preflightKit.live_session_id
+        },
+        kit: teacherOpsLessonKitProjection(preflightDatabase, preflightKit)
+      };
+    }
 
-      if (kit.status === "published") {
-        return {
-          status: "published",
-          result: {
-            resourceIds: kit.published_resource_ids ?? [],
-            assignmentId: kit.assignment_id,
-            assessmentId: kit.assessment_id,
-            liveSessionId: kit.live_session_id
-          },
-          kit: teacherOpsLessonKitProjection(database, kit)
-        };
+    const preflightUpdatedAt = preflightKit.updated_at;
+    const preflightStatus = preflightKit.status;
+    const nowDate = now();
+    const nowIso = nowDate.toISOString();
+    const resourceArtifacts = [
+      { kind: "slides" as const, suffix: "slides", type: "slides" as const },
+      { kind: "learning-guide" as const, suffix: "guide", type: "worksheet" as const },
+      { kind: "homework" as const, suffix: "practice", type: "practice" as const }
+    ].map(({ kind, suffix, type }) => {
+      const html = teacherOpsLessonKitHtml(preflightKit, kind);
+      return {
+        html,
+        record: prepareTeacherOpsLessonKitResource({
+          createResourceId,
+          html,
+          lessonKit: preflightKit,
+          now: nowIso,
+          suffix,
+          type,
+          uploadDirectory: resourceUploadDirectory
+        })
+      };
+    });
+    const [slideArtifact, guideArtifact, practiceArtifact] = resourceArtifacts;
+    if (!slideArtifact || !guideArtifact || !practiceArtifact) {
+      throw new Error("Teacher lesson-kit publication must prepare exactly three resources.");
+    }
+
+    const writtenPaths: string[] = [];
+    const removeWrittenResources = async () => {
+      const failures: unknown[] = [];
+      for (const storagePath of [...writtenPaths].reverse()) {
+        try {
+          await removeResourceFile(storagePath);
+        } catch (error) {
+          failures.push(error);
+        }
       }
+      if (failures.length) {
+        throw new AggregateError(failures, "Could not compensate teacher lesson-kit resource files.");
+      }
+    };
 
-      const nowDate = now();
-      const nowIso = nowDate.toISOString();
-      const lessonTitleEn = kit.lesson_title_en ?? kit.id;
-      const lessonTitleZh = kit.lesson_title_zh ?? kit.id;
-      const topicTitleEn = kit.topic_title_en ?? lessonTitleEn;
-      const topicTitleZh = kit.topic_title_zh ?? lessonTitleZh;
+    try {
+      for (const artifact of resourceArtifacts) {
+        await writeResourceFile(artifact.record.storage_path, artifact.html);
+        writtenPaths.push(artifact.record.storage_path);
+      }
+    } catch (error) {
+      try {
+        await removeWrittenResources();
+      } catch (cleanupError) {
+        throw new AggregateError([error, cleanupError], "Teacher lesson-kit resource preparation and compensation both failed.");
+      }
+      throw error;
+    }
 
-      const slideResource = await writeTeacherOpsLessonKitResource({
-        createResourceId,
-        database,
-        html: teacherOpsLessonKitHtml(kit, "slides"),
-        lessonKit: kit,
-        now: nowIso,
-        suffix: "slides",
-        type: "slides",
-        uploadDirectory: resourceUploadDirectory
-      });
-      const guideResource = await writeTeacherOpsLessonKitResource({
-        createResourceId,
-        database,
-        html: teacherOpsLessonKitHtml(kit, "learning-guide"),
-        lessonKit: kit,
-        now: nowIso,
-        suffix: "guide",
-        type: "worksheet",
-        uploadDirectory: resourceUploadDirectory
-      });
-      const practiceResource = await writeTeacherOpsLessonKitResource({
-        createResourceId,
-        database,
-        html: teacherOpsLessonKitHtml(kit, "homework"),
-        lessonKit: kit,
-        now: nowIso,
-        suffix: "practice",
-        type: "practice",
-        uploadDirectory: resourceUploadDirectory
-      });
+    const slideResource = slideArtifact.record;
+    const guideResource = guideArtifact.record;
+    const practiceResource = practiceArtifact.record;
+    const plannedResourceIds = resourceArtifacts.map(({ record }) => record.id);
+
+    let result: TeacherOpsLessonKitPublishStoreResult;
+    try {
+      result = await runMutation((database) => {
+        const user = database.users.find((candidate) => candidate.id === teacherId);
+        if (!canUseTeacherArea(user)) return { status: "forbidden" };
+
+        const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === kitId);
+        const teacherClass = kit ? teacherCanAccessClass(database, user, kit.class_id) : null;
+        if (!kit || !teacherClass) return { status: "not-found" };
+        if (kit.review_status !== "approved") return { status: "needs-review" };
+
+        if (kit.status === "published") {
+          return {
+            status: "published",
+            result: {
+              resourceIds: kit.published_resource_ids ?? [],
+              assignmentId: kit.assignment_id,
+              assessmentId: kit.assessment_id,
+              liveSessionId: kit.live_session_id
+            },
+            kit: teacherOpsLessonKitProjection(database, kit)
+          };
+        }
+        if (kit.updated_at !== preflightUpdatedAt || kit.status !== preflightStatus) {
+          throw new Error("Teacher lesson-kit changed after publication preflight.");
+        }
+        if (resourceArtifacts.some(({ record }) => database.teaching_resources.some((resource) => resource.id === record.id))) {
+          throw new Error("Teacher lesson-kit resource identity already exists.");
+        }
+
+        database.teaching_resources.unshift(slideResource);
+        database.teaching_resources.unshift(guideResource);
+        database.teaching_resources.unshift(practiceResource);
+
+        const lessonTitleEn = kit.lesson_title_en ?? kit.id;
+        const lessonTitleZh = kit.lesson_title_zh ?? kit.id;
+        const topicTitleEn = kit.topic_title_en ?? lessonTitleEn;
+        const topicTitleZh = kit.topic_title_zh ?? lessonTitleZh;
       const resourceIds = [slideResource.id, guideResource.id, practiceResource.id];
 
       const assignmentId = `assignment-${createId()}`;
@@ -1184,7 +1320,40 @@ export function createTeacherOpsLessonKitPersistenceStore<TGenerationContext = u
         },
         kit: teacherOpsLessonKitProjection(database, kit)
       };
-    });
+      });
+    } catch (error) {
+      const durableDatabase = await readDatabase().catch(() => null);
+      const durableKit = durableDatabase?.teacher_lesson_kits.find((candidate) => candidate.id === kitId);
+      if (
+        durableDatabase &&
+        durableKit?.status === "published" &&
+        plannedResourceIds.every((resourceId) => durableKit.published_resource_ids?.includes(resourceId))
+      ) {
+        return {
+          status: "published",
+          result: {
+            resourceIds: durableKit.published_resource_ids ?? [],
+            assignmentId: durableKit.assignment_id,
+            assessmentId: durableKit.assessment_id,
+            liveSessionId: durableKit.live_session_id
+          },
+          kit: teacherOpsLessonKitProjection(durableDatabase, durableKit)
+        };
+      }
+      try {
+        await removeWrittenResources();
+      } catch (cleanupError) {
+        throw new AggregateError([error, cleanupError], "Teacher lesson-kit database mutation and compensation both failed.");
+      }
+      throw error;
+    }
+
+    const ownsPublishedFiles = result.status === "published" &&
+      plannedResourceIds.every((resourceId) => result.result.resourceIds.includes(resourceId));
+    if (!ownsPublishedFiles) {
+      await removeWrittenResources();
+    }
+    return result;
   }
 
   return {

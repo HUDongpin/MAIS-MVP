@@ -112,8 +112,8 @@ function createTestStore(database: TeacherOpsReminderPersistenceDatabase) {
       noticeCalls.push({ assignmentId, now, studentIds });
       return notice;
     },
-    sendNoticeRecord: async (_db, notice, origin) => {
-      sendCalls.push({ noticeId: notice.id, origin });
+    sendNoticeRecord: async ({ noticeId, origin }) => {
+      sendCalls.push({ noticeId, origin });
       return {
         status: "sent",
         attempted_at: "2026-06-21T08:01:00.000Z"
@@ -158,6 +158,64 @@ test("teacher ops reminder persistence runs automatic reminders without legacy u
   }]);
   assert.deepEqual(sendCalls, [{ noticeId: "notice-1", origin: "teacher-console" }]);
   assert.equal(database.teacher_reminder_runs[0]?.threshold, "overdue-24h");
+});
+
+test("reminder delivery runs after a durable queued reservation and outside the database mutation", async () => {
+  const database = createDatabase();
+  let insideMutation = false;
+  let mutationCount = 0;
+  const store = createTeacherOpsReminderPersistenceStore({
+    createId: () => "outside-lock",
+    now: () => new Date("2026-06-21T08:00:00.000Z"),
+    mutateDatabase: async (mutator) => {
+      insideMutation = true;
+      mutationCount += 1;
+      try {
+        const result = mutator(database);
+        assert.equal(result instanceof Promise, false, "reminder database mutators must be synchronous");
+        return result;
+      } finally {
+        insideMutation = false;
+      }
+    },
+    teacherOperationClassRecordsFor: (db, user) => user.id === "teacher-1" ? db.teacher_classes : [],
+    teacherCanMutateOperationsClass: (db, user, classId) =>
+      user.id === "teacher-1" && classId === "class-owned"
+        ? db.teacher_classes.find((teacherClass) => teacherClass.id === classId) ?? null
+        : null,
+    missingWorkItemsForClasses: () => [{
+      assignmentId: "assignment-1",
+      assignmentTitle: { en: "Assignment 1", zh: "Assignment 1" },
+      classId: "class-owned",
+      className: "S3A",
+      studentId: "student-1",
+      studentName: "Ada",
+      submissionId: "missing-assignment-1-student-1",
+      submissionStatus: "not-started",
+      dueAt: "2026-06-20T08:00:00.000Z",
+      nextThreshold: "overdue-24h",
+      lastReminderAt: null
+    }],
+    createNoticeRecord: ({ database: source }) => {
+      const notice = { id: "notice-outside-lock" };
+      (source as TeacherOpsReminderPersistenceDatabase & { notices?: Array<{ id: string }> }).notices ??= [];
+      (source as TeacherOpsReminderPersistenceDatabase & { notices: Array<{ id: string }> }).notices.push(notice);
+      return notice;
+    },
+    sendNoticeRecord: async ({ teacherId, noticeId }) => {
+      assert.equal(insideMutation, false, "notification I/O must not hold the database writer lock");
+      assert.equal(teacherId, "teacher-1");
+      assert.equal(noticeId, "notice-outside-lock");
+      assert.equal(database.teacher_reminder_runs[0]?.status, "queued");
+      return { status: "sent", attempted_at: "2026-06-21T08:01:00.000Z" };
+    },
+    toTeacherReminderRun: (_db, record) => toRun(record)
+  });
+
+  const result = await store.runTeacherMissingWorkReminders({ teacherId: "teacher-1" });
+  assert.equal(result.status, "ran");
+  assert.equal(mutationCount, 2);
+  assert.equal(database.teacher_reminder_runs[0]?.status, "sent");
 });
 
 test("teacher ops reminder persistence skips duplicate automatic runs and supports manual runs", async () => {

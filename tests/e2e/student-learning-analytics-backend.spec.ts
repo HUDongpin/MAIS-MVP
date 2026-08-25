@@ -86,8 +86,14 @@ test.describe("student learning analytics backend", () => {
       );
       expect(student.user.role).toBe("student");
       expect(student.settings.selectedGrade).toBe("S3");
+      const learningEventHeaders = {
+        "X-MAIS-Analytics-User-Id": encodeURIComponent(student.user.id)
+      };
 
-      const invalidEvent = await anonymous.post("/api/learning-events", { data: { events: [{ id: "bad" }] } });
+      const invalidEvent = await anonymous.post("/api/learning-events", {
+        headers: learningEventHeaders,
+        data: { generation: 0, events: [{ id: "bad" }] }
+      });
       expect(invalidEvent.status()).toBe(400);
 
       const event = {
@@ -99,16 +105,34 @@ test.describe("student learning analytics backend", () => {
         topicId: "analytics-smoke-topic",
         durationSeconds: 30
       };
-      const accepted = await readJson<{ accepted: number; lrs?: { status?: string; code?: string } }>(
-        await anonymous.post("/api/learning-events", { data: { events: [event] } })
+      const accepted = await readJson<{
+        accepted: number;
+        acknowledgedEventIds: string[];
+        acknowledgedUserId: string;
+        durablyPersisted: boolean;
+        generation: number;
+        lrs?: { status?: string; code?: string };
+      }>(
+        await anonymous.post("/api/learning-events", {
+          headers: learningEventHeaders,
+          data: { generation: 0, events: [event] }
+        })
       );
       expect(accepted.accepted).toBe(1);
+      expect(accepted.acknowledgedEventIds).toEqual([event.id]);
+      expect(accepted.acknowledgedUserId).toBe(student.user.id);
+      expect(accepted.durablyPersisted).toBe(true);
+      expect(accepted.generation).toBe(0);
       expect(["disabled", "sent", "deferred"]).toContain(accepted.lrs?.status);
 
-      const duplicate = await readJson<{ accepted: number }>(
-        await anonymous.post("/api/learning-events", { data: { events: [event] } })
+      const duplicate = await readJson<{ accepted: number; acknowledgedEventIds: string[] }>(
+        await anonymous.post("/api/learning-events", {
+          headers: learningEventHeaders,
+          data: { generation: 0, events: [event] }
+        })
       );
       expect(duplicate.accepted).toBe(0);
+      expect(duplicate.acknowledgedEventIds).toEqual([event.id]);
 
       const summary = await readJson<{ summary: { eventCount: number; counts: { pageViews: number } } }>(
         await anonymous.get("/api/analytics/summary?grade=S3&window=7d")
@@ -124,7 +148,15 @@ test.describe("student learning analytics backend", () => {
       expect(exported.grade).toBe("S3");
       expect(exported.summary.eventCount).toBeGreaterThanOrEqual(1);
 
-      await readJson<{ ok: true }>(await anonymous.delete("/api/learning-events"));
+      const clearedDelivery = await readJson<{
+        acknowledgedUserId: string;
+        durablyPersisted: boolean;
+        generation: number;
+        ok: true;
+      }>(await anonymous.delete("/api/learning-events", { headers: learningEventHeaders }));
+      expect(clearedDelivery.acknowledgedUserId).toBe(student.user.id);
+      expect(clearedDelivery.durablyPersisted).toBe(true);
+      expect(clearedDelivery.generation).toBe(1);
       const cleared = await readJson<{ summary: { eventCount: number } }>(
         await anonymous.get("/api/analytics/summary?grade=S3&window=7d")
       );

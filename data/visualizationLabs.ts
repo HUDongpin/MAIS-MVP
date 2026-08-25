@@ -57,6 +57,42 @@ export type VisualizationCurriculumTrack =
 export type VisualizationTrackFilter = "all" | VisualizationCurriculumTrack;
 export type VisualizationQaProfile = "standard" | "simulation" | "graph-heavy" | "geometry-heavy";
 
+/**
+ * Mainland 3D topics whose current Three.js family consumes the exact same
+ * semantic control state and proves the same curriculum invariant as the 2D
+ * learner model. The 2026-08-09 cross-contract audit invalidated every former
+ * entry, so the approved set is intentionally empty. Registered candidates
+ * remain in metadata for traceability, but learner routes use accurate 2D
+ * until a 3D family passes this stronger equivalence gate.
+ */
+export const mainlandSemanticallyVerifiedThreeDLabIds = [] as const;
+
+const mainlandSemanticallyVerifiedThreeDLabIdSet: ReadonlySet<string> = new Set(
+  mainlandSemanticallyVerifiedThreeDLabIds
+);
+
+/**
+ * Hong Kong 3D topics whose current Three.js family has passed the same exact
+ * 2D-to-3D semantic equivalence contract. The 2026-08-09 pass-through audit
+ * invalidated all fourteen registered HK candidates: their controls, modes,
+ * formulas, or curriculum invariants diverge from the accurate 2D learner
+ * models. Keep the registry metadata for candidate audit only until a scene
+ * is independently re-verified against this contract.
+ */
+export const hongKongSemanticallyVerifiedThreeDLabIds = [] as const;
+
+const hongKongSemanticallyVerifiedThreeDLabIdSet: ReadonlySet<string> = new Set(
+  hongKongSemanticallyVerifiedThreeDLabIds
+);
+
+function isMainlandVisualizationTrack(track: VisualizationCurriculumTrack) {
+  return track === "MAINLAND_PEP_PRIMARY" ||
+    track === "MAINLAND_PEP_JUNIOR" ||
+    track === "MAINLAND_PEP_HIGH" ||
+    track === "MAINLAND_HJB" ||
+    track === "MAINLAND_BNU";
+}
+
 export type VisualizationSafeguardVerdict = "pass" | "concerns" | "fail";
 export type VisualizationSafeguardStatus = "reviewed" | "approved" | "revoked";
 export type VisualizationSafeguardDimensionRating = "pass" | "minor" | "major";
@@ -107,6 +143,11 @@ export type VisualizationTemplateConfig = {
   accent?: string;
 };
 
+export type VisualizationTextbookPlacement = {
+  semester?: "upper" | "lower";
+  volume?: string;
+};
+
 export type FeaturedLabDefinition = {
   labId: string;
   grade: GradeId;
@@ -114,6 +155,8 @@ export type FeaturedLabDefinition = {
   description: LocalizedText;
   category: LocalizedText;
   gradeLabel: LocalizedText;
+  displayDisambiguator?: LocalizedText;
+  textbookPlacement?: VisualizationTextbookPlacement;
   topicId: string;
   curriculumTrack: VisualizationCurriculumTrack;
   publisher?: TextbookPublisher;
@@ -247,10 +290,17 @@ function isVisibleVisualizationLab(lab: FeaturedLabDefinition) {
 }
 
 const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> = {
-  "p2-length-data": "measurement-scale",
+  "identities-square-patterns": "array-area",
+  "arc-length-sector-area": "angle-geometry",
+  "p2-length-data": "statistics-distribution",
+  "p3-measurement": "clock-money-data",
   "p4-decimals": "number-line",
+  "p4-large-numbers": "array-area",
   "p4-angles": "angle-geometry",
+  "p5-rates": "measurement-scale",
+  "p6-percentages": "fraction-bar",
   "p6-pre-secondary-problem-solving": "fraction-bar",
+  "p6-ratio-proportion": "statistics-distribution",
   "p6-speed": "array-area",
   "more-algebra": "function-family",
   "bnu-primary-p5-upper-multiples-factors": "array-area",
@@ -374,6 +424,21 @@ const topicTemplateOverrides: Partial<Record<string, VisualizationTemplateId>> =
 };
 
 const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
+  "bnu-primary-p1-upper-comparison": {
+    en: "A ? B; difference = |A - B|",
+    zh: "A ? B；相差 = |A - B|",
+    zhHans: "A ? B；相差 = |A - B|"
+  },
+  "identities-square-patterns": {
+    en: "(a+b)^2 ≡ a^2+2ab+b^2; (a-b)^2 ≡ a^2-2ab+b^2; a^2-b^2 ≡ (a-b)(a+b)",
+    zh: "(a+b)^2 ≡ a^2+2ab+b^2；(a-b)^2 ≡ a^2-2ab+b^2；a^2-b^2 ≡ (a-b)(a+b)",
+    zhHans: "(a+b)^2 ≡ a^2+2ab+b^2；(a-b)^2 ≡ a^2-2ab+b^2；a^2-b^2 ≡ (a-b)(a+b)"
+  },
+  "arc-length-sector-area": {
+    en: "arc = (theta/360) x 2πr; sector = (theta/360) x πr^2",
+    zh: "弧長 = (theta/360) x 2πr；扇形面積 = (theta/360) x πr^2",
+    zhHans: "弧长 = (theta/360) x 2πr；扇形面积 = (theta/360) x πr^2"
+  },
   "p1-counting-number-bonds": {
     en: "known part + missing part = total",
     zh: "已知部分 + 未知部分 = 總數",
@@ -385,19 +450,44 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
     zhHans: "图形规律 -> 下一个图形"
   },
   "p2-length-data": {
-    en: "cm measure -> bar chart",
-    zh: "厘米量度 -> 棒形圖",
-    zhHans: "厘米测量 -> 柱形图"
+    en: "1 icon = 1 object; length in metres",
+    zh: "1 個圖示 = 1 個物件；長度用米",
+    zhHans: "1 个图标 = 1 个物体；长度用米"
   },
   "p4-decimals": {
     en: "tenths/10 + hundredths/100 = decimal",
     zh: "十分位/10 + 百分位/100 = 小數",
     zhHans: "十分位/10 + 百分位/100 = 小数"
   },
+  "p3-measurement": {
+    en: "measured value -> labelled bar height",
+    zh: "量度值 -> 具標籤的棒高",
+    zhHans: "测量值 -> 带标签的条形高度"
+  },
+  "p4-large-numbers": {
+    en: "factor pair: a x b = n; HCF(a,b); LCM(a,b)",
+    zh: "因數配對：a x b = n；HCF(a,b)；LCM(a,b)",
+    zhHans: "因数配对：a x b = n；HCF(a,b)；LCM(a,b)"
+  },
   "p4-angles": {
-    en: "angle size in degrees",
-    zh: "角的大小（度）",
-    zhHans: "角的大小（度）"
+    en: "properties -> quadrilateral family; parts -> composite shape",
+    zh: "圖形性質 -> 四邊形家族；部分 -> 組合圖形",
+    zhHans: "图形性质 -> 四边形家族；部分 -> 组合图形"
+  },
+  "p5-rates": {
+    en: "unitary method: total cost / quantity = unit price",
+    zh: "歸一法：總價 / 數量 = 單位價格",
+    zhHans: "归一法：总价 / 数量 = 单位价格"
+  },
+  "p6-percentages": {
+    en: "percentage = part / whole x 100%",
+    zh: "百分數 = 部分 / 整體 x 100%",
+    zhHans: "百分数 = 部分 / 整体 x 100%"
+  },
+  "p6-ratio-proportion": {
+    en: "mean = total / count = fair share; ordered points -> broken-line graph",
+    zh: "平均數 = 總數 / 個數 = 公平分配；有序數據點 -> 折線圖",
+    zhHans: "平均数 = 总数 / 个数 = 公平分配；有序数据点 -> 折线图"
   },
   "circles": {
     en: "chord/tangent/arc -> angle relation",
@@ -1461,7 +1551,125 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
 };
 
+const topicDescriptionOverrides: Partial<Record<string, LocalizedText>> = {
+  "bnu-primary-p1-upper-comparison": {
+    en: "Compare two visible quantities or attributes as more, fewer, equal, longer, shorter, taller, or heavier, and read their difference.",
+    zh: "比較兩個可見數量或屬性，判斷較多、較少、相等、較長、較短、較高或較重，並讀出相差多少。",
+    zhHans: "比较两个可见数量或属性，判断较多、较少、相等、较长、较短、较高或较重，并读出相差多少。"
+  },
+  "identities-square-patterns": {
+    en: "Use exact signed-area pieces to prove the square-sum, square-difference, and difference-of-squares identities.",
+    zh: "用帶正負號的精確面積拼片證明和平方、差平方與平方差恆等式。",
+    zhHans: "用带正负号的精确面积拼片证明和平方、差平方与平方差恒等式。"
+  },
+  "arc-length-sector-area": {
+    en: "Connect a real sector to θ/360, arc length, and sector area while distinguishing exact π forms from approximations.",
+    zh: "把真實扇形連繫到 θ/360、弧長和扇形面積，並區分含 π 的精確值與近似值。",
+    zhHans: "把真实扇形联系到 θ/360、弧长和扇形面积，并区分含 π 的精确值与近似值。"
+  },
+  "quadratic-patterns": {
+    en: "Explore quadratic functions with a non-zero quadratic coefficient, including the vertex, axis of symmetry, opening, and real roots.",
+    zh: "探索二次項系數不為零的二次函數，包括頂點、對稱軸、開口方向和實根。",
+    zhHans: "探索二次项系数不为零的二次函数，包括顶点、对称轴、开口方向和实根。"
+  },
+  "circles": {
+    en: "Investigate circle geometry through chords, tangents, arcs, and angles subtended by the same arc.",
+    zh: "透過弦、切線、弧和同弧所對的圓周角探索圓幾何。",
+    zhHans: "通过弦、切线、弧和同弧所对的圆周角探索圆几何。"
+  },
+  "p2-length-data": {
+    en: "Measure length in metres and read a one-to-one pictogram where exactly 1 icon represents 1 object.",
+    zh: "以米量度長度，並閱讀嚴格的一對一象形圖；每 1 個圖示只代表 1 個物件。",
+    zhHans: "以米测量长度，并阅读严格的一对一象形图；每 1 个图标只代表 1 个物体。"
+  },
+  "p3-measurement": {
+    en: "Choose suitable measurement units, record measured values, and display them in a labelled bar chart.",
+    zh: "選擇合適的度量單位，記錄量度值，並把數據顯示在具標籤的棒形圖中。",
+    zhHans: "选择合适的测量单位，记录测量值，并把数据显示在带标签的条形图中。"
+  },
+  "p4-large-numbers": {
+    en: "Build factor pairs, identify multiples, and determine the HCF and LCM of two whole numbers.",
+    zh: "建立因數配對、辨認倍數，並求兩個整數的最大公因數與最小公倍數。",
+    zhHans: "建立因数配对、辨认倍数，并求两个整数的最大公因数与最小公倍数。"
+  },
+  "p4-angles": {
+    en: "Classify quadrilateral families from their properties, then compose and decompose shapes.",
+    zh: "根據圖形性質分類四邊形家族，再拼合和分拆圖形。",
+    zhHans: "根据图形性质分类四边形家族，再拼合和拆分图形。"
+  },
+  "p5-rates": {
+    en: "Use the unitary method to find one unit first, then calculate and compare unit prices.",
+    zh: "用歸一法先求一個單位，再計算和比較單位價格。",
+    zhHans: "用归一法先求一个单位，再计算和比较单位价格。"
+  },
+  "p6-percentages": {
+    en: "Convert among fractions, decimals, and percentages, and connect each form to the same part-whole quantity.",
+    zh: "在分數、小數和百分數之間轉換，並把每種表示連繫到同一個部分與整體數量。",
+    zhHans: "在分数、小数和百分数之间转换，并把每种表示联系到同一个部分与整体数量。"
+  },
+  "p6-ratio-proportion": {
+    en: "Interpret the mean as a fair share and connect ordered data points with a broken-line graph.",
+    zh: "把平均數理解為公平分配，並用折線圖連接有順序的數據點。",
+    zhHans: "把平均数理解为公平分配，并用折线图连接有顺序的数据点。"
+  }
+};
+
 const topicTitleOverrides: Partial<Record<string, LocalizedText>> = {
+  "identities-square-patterns": {
+    en: "Square Identities and Area Patterns",
+    zh: "平方恆等式與面積拼圖",
+    zhHans: "平方恒等式与面积拼图"
+  },
+  "arc-length-sector-area": {
+    en: "Arc Length and Sector Area",
+    zh: "弧長與扇形面積",
+    zhHans: "弧长与扇形面积"
+  },
+  "quadratic-patterns": {
+    en: "Quadratic Functions",
+    zh: "二次函數",
+    zhHans: "二次函数"
+  },
+  "circles": {
+    en: "Circle Geometry",
+    zh: "圓幾何",
+    zhHans: "圆几何"
+  },
+  "p2-length-data": {
+    en: "Metres and One-to-one Pictograms",
+    zh: "米與一對一象形圖",
+    zhHans: "米与一对一象形图"
+  },
+  "p3-measurement": {
+    en: "Measurement and Bar Charts",
+    zh: "度量與棒形圖",
+    zhHans: "测量与条形图"
+  },
+  "p4-large-numbers": {
+    en: "Factors, Multiples, HCF and LCM",
+    zh: "因數、倍數、最大公因數與最小公倍數",
+    zhHans: "因数、倍数、最大公因数与最小公倍数"
+  },
+  "p4-angles": {
+    en: "Quadrilateral Families and Shape Composition",
+    zh: "四邊形家族與圖形拼組",
+    zhHans: "四边形家族与图形拼组"
+  },
+  "p5-rates": {
+    en: "Unitary Method for Unit Price",
+    zh: "用歸一法求單位價格",
+    zhHans: "用归一法求单位价格"
+  },
+  "p6-percentages": {
+    en: "Fractions, Decimals and Percentages",
+    zh: "分數、小數與百分數",
+    zhHans: "分数、小数与百分数"
+  },
+  "p6-ratio-proportion": {
+    en: "Mean, Fair Sharing and Broken-line Graphs",
+    zh: "平均數、公平分配與折線圖",
+    zhHans: "平均数、公平分配与折线图"
+  },
   "us-ca-math-k-k-cc-count-sequence": localizedUsTopicTitle("K-A.1 Kindergarten Counting and Cardinality: Count Sequence"),
   "us-ca-math-k-k-cc-cardinality-compare": localizedUsTopicTitle("K-B.1 Kindergarten Counting and Cardinality: Cardinality Compare"),
   "us-ca-math-k-k-oa-compose-decompose": localizedUsTopicTitle("K-C.1 Kindergarten Operations and Algebraic Thinking: Compose and Decompose"),
@@ -1474,7 +1682,568 @@ const topicTitleOverrides: Partial<Record<string, LocalizedText>> = {
   "us-ar-math-g12-chapter-03-decision-statistics": localizedUsTopicTitle("Arkansas Decision Statistics"),
 };
 
+type MainlandNarrowedSemanticPromise = {
+  focus: LocalizedText;
+  formula: LocalizedText;
+};
+
+function narrowedSemanticPromise(
+  focusEn: string,
+  focusZh: string,
+  focusZhHans: string,
+  formulaEn: string,
+  formulaZh = formulaEn,
+  formulaZhHans = formulaZh
+): MainlandNarrowedSemanticPromise {
+  return {
+    focus: { en: focusEn, zh: focusZh, zhHans: focusZhHans },
+    formula: { en: formulaEn, zh: formulaZh, zhHans: formulaZhHans }
+  };
+}
+
+/**
+ * Learner-facing promise presets for the independently audited Mainland labs
+ * whose chapter title is broader than the currently rendered, correct model.
+ * These labels describe only controls and invariants that are already visible;
+ * they are not semantic approval for the still-open exact-repair set.
+ */
+const mainlandNarrowedSemanticPromisePresets = {
+  "unit-circle-sine-wave": narrowedSemanticPromise(
+    "Link one angle on the unit circle to the matching sine-wave height and one full period.",
+    "把單位圓上的同一個角連繫到正弦波的對應高度與一個完整週期。",
+    "把单位圆上的同一个角联系到正弦波的对应高度与一个完整周期。",
+    "P=(cos θ, sin θ) -> y=sin θ; T=2π"
+  ),
+  "identity-transform": narrowedSemanticPromise(
+    "Keep one angle fixed while both sides of a trigonometric identity evaluate to the same value.",
+    "固定同一個角，觀察三角恆等式兩邊得到相同的值。",
+    "固定同一个角，观察三角恒等式两边得到相同的值。",
+    "sin²θ + cos²θ ≡ 1"
+  ),
+  "function-representations": narrowedSemanticPromise(
+    "Connect a function rule to its graph, domain, range, and input-output values.",
+    "把函數規則連繫到圖像、定義域、值域與輸入輸出值。",
+    "把函数规则联系到图象、定义域、值域与输入输出值。",
+    "x ∈ D -> f(x) ∈ R"
+  ),
+  "exp-log-inverse": narrowedSemanticPromise(
+    "Compare exponential and logarithmic graphs as inverse relationships with valid domains.",
+    "比較指數與對數圖像的反函數關係及其有效定義域。",
+    "比较指数与对数图象的反函数关系及其有效定义域。",
+    "y=aˣ <-> x=log_a(y)"
+  ),
+  "measurement-vector-model": narrowedSemanticPromise(
+    "Keep one measured angle shared by a right triangle, a reference circle, and the visible trigonometric ratio.",
+    "讓直角三角形、參考圓與可見三角比共用同一個量得的角。",
+    "让直角三角形、参考圆与可见三角比共用同一个测得的角。",
+    "opposite / reference length = sin θ",
+    "對邊 / 參考長度 = sin θ",
+    "对边 / 参考长度 = sin θ"
+  ),
+  "seeded-trial-machine": narrowedSemanticPromise(
+    "Compare reproducible experimental frequency with theoretical probability while keeping the trial total visible.",
+    "在保留試驗總數的同時，比較可重現的實驗頻率與理論概率。",
+    "在保留试验总数的同时，比较可重现的实验频率与理论概率。",
+    "experimental probability = successes / trials",
+    "實驗概率 = 成功次數 / 試驗總數",
+    "实验概率 = 成功次数 / 试验总数"
+  ),
+  "line-plane-distance-angle": narrowedSemanticPromise(
+    "Use a plane normal and a point on the plane to inspect incidence and the line-plane angle relationship.",
+    "用平面法向量與平面上的點，觀察關聯條件及線面角關係。",
+    "用平面法向量与平面上的点，观察关联条件及线面角关系。",
+    "n·P + d = 0"
+  ),
+  "sample-mean-spread-observed-z": narrowedSemanticPromise(
+    "Select one of five observations and connect it to the sample mean, spread, and observed z-score.",
+    "選擇五個觀測值之一，並連繫樣本平均數、離散程度與該觀測值的 z 分數。",
+    "选择五个观测值之一，并联系样本平均数、离散程度与该观测值的 z 分数。",
+    "z=(x−mean)/spread",
+    "z=(x−平均數)/離散程度",
+    "z=(x−平均数)/离散程度"
+  ),
+  "ellipse-parabola-hyperbola": narrowedSemanticPromise(
+    "Switch among ellipse, parabola, and hyperbola equations and keep a plotted point on the active conic.",
+    "切換橢圓、拋物線與雙曲線方程，並保持標示點位於目前曲線上。",
+    "切换椭圆、抛物线与双曲线方程，并保持标示点位于当前曲线上。",
+    "ellipse: x²/a²+y²/b²=1; parabola: y²=4ax; hyperbola: x²/a²−y²/b²=1",
+    "橢圓: x²/a²+y²/b²=1; 拋物線: y²=4ax; 雙曲線: x²/a²−y²/b²=1",
+    "椭圆: x²/a²+y²/b²=1; 抛物线: y²=4ax; 双曲线: x²/a²−y²/b²=1"
+  ),
+  "assumption-variable-geometry": narrowedSemanticPromise(
+    "Change width, height, and scale while checking a geometric model's stated assumption and predicted measure.",
+    "改變寬、高與比例，同時檢查幾何模型的明確假設與預測量。",
+    "改变宽、高与比例，同时检查几何模型的明确假设与预测量。",
+    "scaled area = width × height × scale²",
+    "縮放後面積 = 寬 × 高 × 比例²",
+    "缩放后面积 = 宽 × 高 × 比例²"
+  ),
+  "counting-outcomes": narrowedSemanticPromise(
+    "Count a finite sample space with permutation and combination choices.",
+    "用排列與組合選擇計算有限樣本空間的數目。",
+    "用排列与组合选择计算有限样本空间的数目。",
+    "P(n,r)=n!/(n−r)!; C(n,r)=n!/[r!(n−r)!]"
+  ),
+  "tangent-secant-area": narrowedSemanticPromise(
+    "Compare tangent and nearby secant slopes with the analytic derivative at the same x-value.",
+    "在同一個 x 值比較切線斜率、鄰近割線斜率與解析導數。",
+    "在同一个 x 值比较切线斜率、邻近割线斜率与解析导数。",
+    "f′(x)=lim[h->0](f(x+h)−f(x))/h"
+  ),
+  "discrete-sequence": narrowedSemanticPromise(
+    "Switch between arithmetic and geometric sequences and verify each displayed term from its recurrence.",
+    "切換等差與等比數列，並用遞推關係檢驗每個顯示項。",
+    "切换等差与等比数列，并用递推关系检验每个显示项。",
+    "arithmetic: a_n=a_1+(n−1)d; geometric: a_n=a_1q^(n−1)",
+    "等差: a_n=a_1+(n−1)d; 等比: a_n=a_1q^(n−1)",
+    "等差: a_n=a_1+(n−1)d; 等比: a_n=a_1q^(n−1)"
+  ),
+  "solid-nets-and-views": narrowedSemanticPromise(
+    "Switch between linked solid views and the net of the same solid while matching corresponding features.",
+    "在同一立體的聯動視圖與展開圖之間切換，並配對對應特徵。",
+    "在同一立体的联动视图与展开图之间切换，并配对对应特征。",
+    "same solid -> linked views <-> net",
+    "同一立體 -> 聯動視圖 <-> 展開圖",
+    "同一立体 -> 联动视图 <-> 展开图"
+  ),
+  "pythagorean-converse-similarity": narrowedSemanticPromise(
+    "Check the Pythagorean equation and its converse for the displayed triangle.",
+    "用顯示的三角形檢驗勾股等式及其逆定理。",
+    "用显示的三角形检验勾股等式及其逆定理。",
+    "a²+b²=c²"
+  ),
+  "whole-number-0-to-100": narrowedSemanticPromise(
+    "Use forward and backward jumps to add or subtract whole numbers from 0 to 100.",
+    "用向前與向後跳步，在 0 至 100 內進行整數加減。",
+    "用向前与向后跳步，在 0 至 100 内进行整数加减。",
+    "start ± jump = endpoint",
+    "起點 ± 跳步 = 終點",
+    "起点 ± 跳步 = 终点"
+  ),
+  "whole-number-0-to-20": narrowedSemanticPromise(
+    "Use forward and backward jumps to add or subtract whole numbers from 0 to 20.",
+    "用向前與向後跳步，在 0 至 20 內進行整數加減。",
+    "用向前与向后跳步，在 0 至 20 内进行整数加减。",
+    "start ± jump = endpoint",
+    "起點 ± 跳步 = 終點",
+    "起点 ± 跳步 = 终点"
+  ),
+  "whole-number-jumps": narrowedSemanticPromise(
+    "Use visible whole-number jumps to check one addition or subtraction equation.",
+    "用可見的整數跳步檢查一道加法或減法算式。",
+    "用可见的整数跳步检查一道加法或减法算式。",
+    "start ± jump = endpoint",
+    "起點 ± 跳步 = 終點",
+    "起点 ± 跳步 = 终点"
+  ),
+  "category-bars": narrowedSemanticPromise(
+    "Read each categorical bar as a count and verify the total across all categories.",
+    "把每條分類柱讀作數量，並檢驗所有類別的總數。",
+    "把每条分类柱读作数量，并检验所有类别的总数。",
+    "total = sum of category counts",
+    "總數 = 各類別數量之和",
+    "总数 = 各类别数量之和"
+  ),
+  "unit-interval-measure": narrowedSemanticPromise(
+    "Measure one visible interval by counting equal millimetre, centimetre, or decimetre units.",
+    "數出相等的毫米、厘米或分米單位，量度一段可見線段。",
+    "数出相等的毫米、厘米或分米单位，测量一段可见线段。",
+    "measure = unit count × unit length",
+    "量度 = 單位數 × 單位長度",
+    "测量 = 单位数 × 单位长度"
+  ),
+  "clock-or-elapsed-time": narrowedSemanticPromise(
+    "Read the clock hands and normalize the elapsed hours and minutes.",
+    "讀取時針與分針，並把經過的時與分作正確換算。",
+    "读取时针与分针，并把经过的时与分作正确换算。",
+    "60 minutes = 1 hour",
+    "60 分鐘 = 1 小時",
+    "60 分钟 = 1 小时"
+  ),
+  "quotient-remainder": narrowedSemanticPromise(
+    "Arrange equal groups to verify a quotient and a remainder smaller than the divisor.",
+    "排列相等組別，檢驗商以及小於除數的餘數。",
+    "排列相等组别，检验商以及小于除数的余数。",
+    "dividend = divisor × quotient + remainder",
+    "被除數 = 除數 × 商 + 餘數",
+    "被除数 = 除数 × 商 + 余数"
+  ),
+  "part-whole-equivalent": narrowedSemanticPromise(
+    "Match a shaded part-whole fraction to an equivalent fraction by checking cross-products.",
+    "把部分與整體的著色分數配對到等值分數，並用交叉乘積檢驗。",
+    "把部分与整体的涂色分数配对到等值分数，并用交叉乘积检验。",
+    "a/b = c/d <-> ad = bc"
+  ),
+  "countable-category-bars": narrowedSemanticPromise(
+    "Read countable category bars and compute a summary directly from their heights.",
+    "讀取可數的分類柱，並直接由柱高計算摘要。",
+    "读取可数的分类柱，并直接由柱高计算摘要。",
+    "total = sum of bar heights",
+    "總數 = 各柱高之和",
+    "总数 = 各柱高之和"
+  ),
+  "unit-cube-layers": narrowedSemanticPromise(
+    "Build a cuboid from unit-cube layers and verify its visible cube count and volume.",
+    "用單位立方體逐層建立長方體，檢驗可見方塊數與體積。",
+    "用单位立方体逐层建立长方体，检验可见方块数与体积。",
+    "V=length × width × layers",
+    "V=長 × 寬 × 層數",
+    "V=长 × 宽 × 层数"
+  ),
+  "shared-vertex-angle": narrowedSemanticPromise(
+    "Move two rays from one shared vertex and read the included angle in degrees.",
+    "移動共用同一頂點的兩條射線，讀取其夾角度數。",
+    "移动共用同一顶点的两条射线，读取其夹角度数。",
+    "angle = |direction B − direction A|",
+    "角度 = |方向 B − 方向 A|",
+    "角度 = |方向 B − 方向 A|"
+  ),
+  "equivalent-ratios": narrowedSemanticPromise(
+    "Scale both terms of a ratio by the same factor and verify the equivalent proportion.",
+    "用同一倍數縮放比的兩項，檢驗所得等值比例。",
+    "用同一倍数缩放比的两项，检验所得等值比例。",
+    "a:b = ka:kb <-> a/b = ka/kb"
+  ),
+  "radius-arc-sector": narrowedSemanticPromise(
+    "Keep radius and central angle synchronized with arc length and sector area.",
+    "同步半徑與圓心角、弧長及扇形面積。",
+    "同步半径与圆心角、弧长及扇形面积。",
+    "arc=(θ/360)·2πr; sector=(θ/360)·πr²",
+    "弧長=(θ/360)·2πr; 扇形面積=(θ/360)·πr²",
+    "弧长=(θ/360)·2πr; 扇形面积=(θ/360)·πr²"
+  ),
+  "domain-range-behavior": narrowedSemanticPromise(
+    "Change a function coefficient and vertical shift while tracking its graph, domain, and range.",
+    "改變函數係數與垂直平移，同時追蹤圖像、定義域與值域。",
+    "改变函数系数与垂直平移，同时追踪图象、定义域与值域。",
+    "x ∈ domain -> f(x) ∈ range",
+    "x ∈ 定義域 -> f(x) ∈ 值域",
+    "x ∈ 定义域 -> f(x) ∈ 值域"
+  ),
+  "division-check": narrowedSemanticPromise(
+    "Use an array to reconstruct the dividend from divisor, quotient, and remainder.",
+    "用陣列由除數、商與餘數重建被除數。",
+    "用阵列由除数、商与余数重建被除数。",
+    "dividend = divisor × quotient + remainder",
+    "被除數 = 除數 × 商 + 餘數",
+    "被除数 = 除数 × 商 + 余数"
+  ),
+  "multiplication-check": narrowedSemanticPromise(
+    "Count every visible cell in an equal-groups array to verify the product.",
+    "數出等組陣列中的每個可見方格，檢驗乘積。",
+    "数出等组阵列中的每个可见方格，检验乘积。",
+    "rows × columns = product",
+    "行數 × 列數 = 乘積",
+    "行数 × 列数 = 乘积"
+  ),
+  "array-perimeter-area-check": narrowedSemanticPromise(
+    "Use one rectangle's side lengths to compare boundary length with covered area.",
+    "用同一長方形的邊長比較邊界長度與覆蓋面積。",
+    "用同一长方形的边长比较边界长度与覆盖面积。",
+    "P=2(length+width); A=length×width",
+    "P=2(長+寬); A=長×寬",
+    "P=2(长+宽); A=长×宽"
+  ),
+  "family-aware-optimization-controls": narrowedSemanticPromise(
+    "Vary a rectangle's width under a fixed perimeter and verify the critical point gives the greatest area.",
+    "在固定周長下改變長方形的寬，檢驗臨界點給出最大面積。",
+    "在固定周长下改变长方形的宽，检验临界点给出最大面积。",
+    "A(w)=w(P/2−w); A′(P/4)=0"
+  ),
+  "family-aware-controls": narrowedSemanticPromise(
+    "Switch among vector, conic, and space-plane strategies while keeping each mode's controls and formula matched.",
+    "切換向量、圓錐曲線與空間平面策略，保持每個模式的控件與公式相配。",
+    "切换向量、圆锥曲线与空间平面策略，保持每个模式的控件与公式相配。",
+    "strategy -> matching state and formula",
+    "策略 -> 相配狀態與公式",
+    "策略 -> 相配状态与公式"
+  ),
+  "function-derivative-extrema": narrowedSemanticPromise(
+    "Link a function graph to its analytic derivative and locate the displayed critical points.",
+    "把函數圖像連繫到解析導數，並定位顯示的臨界點。",
+    "把函数图象联系到解析导数，并定位显示的临界点。",
+    "f(x)=x³−3x+k; f′(x)=3x²−3"
+  ),
+  "discrete-random-variable": narrowedSemanticPromise(
+    "Adjust a discrete probability distribution while keeping total probability, expectation, and variance synchronized.",
+    "調整離散概率分佈，同步概率總和、期望與方差。",
+    "调整离散概率分布，同步概率总和、期望与方差。",
+    "Σp(x)=1; E(X)=Σxp(x); Var(X)=Σ(x−μ)²p(x)"
+  ),
+  "decimal-grid-product": narrowedSemanticPromise(
+    "Use a decimal grid to keep the scaled-integer product equal to the represented area.",
+    "用小數方格保持縮放整數乘積與所表示面積相等。",
+    "用小数方格保持缩放整数乘积与所表示面积相等。",
+    "decimal product = grid area",
+    "小數乘積 = 方格面積",
+    "小数乘积 = 方格面积"
+  ),
+  "signed-or-irrational": narrowedSemanticPromise(
+    "Use origin-stable number-line jumps to add and subtract signed numbers.",
+    "以固定原點的數線跳步進行有符號數加減。",
+    "以固定原点的数线跳步进行有符号数加减。",
+    "start ± signed step = endpoint",
+    "起點 ± 有符號步長 = 終點",
+    "起点 ± 有符号步长 = 终点"
+  ),
+  "composite-high-entry": narrowedSemanticPromise(
+    "Switch among set membership, signed linear inequalities, and quadratic roots with their graphs.",
+    "切換集合隸屬、有符號一次不等式及一元二次方程的根與圖像。",
+    "切换集合归属、有符号一次不等式及一元二次方程的根与图象。",
+    "x∈A; ax+b ≷ 0; y=ax²+bx+c"
+  ),
+  "composite-p1-pattern-count": narrowedSemanticPromise(
+    "Switch between arithmetic or geometric picture patterns and addition or subtraction count checks.",
+    "切換等差或等比圖形規律，以及加法或減法計數檢查。",
+    "切换等差或等比图形规律，以及加法或减法计数检查。",
+    "next pattern term; start ± count = endpoint",
+    "下一個圖形規律項; 起點 ± 數量 = 終點",
+    "下一个图形规律项; 起点 ± 数量 = 终点"
+  ),
+  "composite-p3-division-transform-area-fraction": narrowedSemanticPromise(
+    "Switch among quotient-remainder checks, four coordinate transformations, rectangle area-perimeter, and equivalent fractions.",
+    "切換商餘檢查、四種坐標變換、長方形面積周長及等值分數。",
+    "切换商余检查、四种坐标变换、长方形面积周长及等值分数。",
+    "dividend=dq+r; (x,y)->(x′,y′); A=lw; a/b=c/d",
+    "被除數=dq+r; (x,y)->(x′,y′); A=lw; a/b=c/d",
+    "被除数=dq+r; (x,y)->(x′,y′); A=lw; a/b=c/d"
+  ),
+  "composite-p3-operation-calendar": narrowedSemanticPromise(
+    "Switch among operation order, multiplication-division checks, rectangle area-perimeter, and elapsed calendar days.",
+    "切換運算順序、乘除檢查、長方形面積周長及日曆經過天數。",
+    "切换运算顺序、乘除检查、长方形面积周长及日历经过天数。",
+    "operation order; rows×columns; P=2(l+w); elapsed days",
+    "運算次序; 行數×列數; P=2(l+w); 經過日數",
+    "运算次序; 行数×列数; P=2(l+w); 经过天数"
+  ),
+  "composite-p4-number-angle-product-laws": narrowedSemanticPromise(
+    "Switch among whole-number jumps to 10,000, shared-vertex angles, multi-digit products, and operation laws.",
+    "切換萬以內整數跳步、共頂點角、多位數乘積及運算律。",
+    "切换万以内整数跳步、共顶点角、多位数乘积及运算律。",
+    "start±jump; angle; multi-digit product; operation law",
+    "起點±跳步; 角度; 多位數乘積; 運算律",
+    "起点±跳步; 角度; 多位数乘积; 运算律"
+  ),
+  "composite-p5-factor-area-fraction-volume": narrowedSemanticPromise(
+    "Switch among factor pairs, three base-height area models, four exact fraction operations, and unit-cube volume.",
+    "切換因數配對、三種底高面積模型、四則精確分數運算及單位立方體體積。",
+    "切换因数配对、三种底高面积模型、四则精确分数运算及单位立方体体积。",
+    "ab=n; polygon area; exact fraction operation; V=lwh",
+    "ab=n; 多邊形面積; 精確分數運算; V=lwh",
+    "ab=n; 多边形面积; 精确分数运算; V=lwh"
+  ),
+  "composite-p5-decimal-transform-equation-data": narrowedSemanticPromise(
+    "Switch among decimal-grid products, four coordinate transformations, equation balance, and category bars.",
+    "切換小數方格乘積、四種坐標變換、方程平衡及分類柱。",
+    "切换小数方格乘积、四种坐标变换、方程平衡及分类柱。",
+    "decimal grid; (x,y)->(x′,y′); left=right; total=Σbars",
+    "小數方格; (x,y)->(x′,y′); 左邊=右邊; 總數=Σ柱高",
+    "小数方格; (x,y)->(x′,y′); 左边=右边; 总数=Σ柱高"
+  ),
+  "composite-p6-fraction-coordinate-circle-percent": narrowedSemanticPromise(
+    "Switch among four exact fraction operations, coordinate position, circle sectors, and fraction-decimal-percent equivalence.",
+    "切換四則精確分數運算、坐標位置、圓與扇形，以及分數小數百分數等值關係。",
+    "切换四则精确分数运算、坐标位置、圆与扇形，以及分数小数百分数等值关系。",
+    "fraction operation; (x,y); θ/360; fraction=decimal=percent",
+    "分數運算; (x,y); θ/360; 分數=小數=百分數",
+    "分数运算; (x,y); θ/360; 分数=小数=百分数"
+  ),
+  "composite-sequence-counting": narrowedSemanticPromise(
+    "Switch between arithmetic or geometric sequences and finite sample-space counting.",
+    "切換等差或等比數列與有限樣本空間計數。",
+    "切换等差或等比数列与有限样本空间计数。",
+    "a_n recurrence; P(n,r) and C(n,r)",
+    "a_n 遞推; P(n,r) 與 C(n,r)",
+    "a_n 递推; P(n,r) 与 C(n,r)"
+  ),
+  "composite-probability-statistics": narrowedSemanticPromise(
+    "Switch among sample-space counting, seeded experiment and theory, a discrete random variable, and five observed z-scores.",
+    "切換樣本空間計數、可重現實驗與理論、離散隨機變量及五個觀測 z 分數。",
+    "切换样本空间计数、可重现实验与理论、离散随机变量及五个观测 z 分数。",
+    "count; successes/trials; Σp=1; z=(x−mean)/spread",
+    "計數; 成功次數/試驗總數; Σp=1; z=(x−平均數)/離散程度",
+    "计数; 成功次数/试验总数; Σp=1; z=(x−平均数)/离散程度"
+  ),
+  "composite-p1-place-jump-time-length": narrowedSemanticPromise(
+    "Switch among tens-and-ones place value, whole-number jumps, clock time, and equal length units.",
+    "切換十位個位、整數跳步、鐘面時間及相等長度單位。",
+    "切换十位个位、整数跳步、钟面时间及相等长度单位。",
+    "10×tens+ones; start±jump; 60 min=1 h; units×length",
+    "10×十位+個位; 起點±跳步; 60 分=1 時; 單位數×單位長度",
+    "10×十位+个位; 起点±跳步; 60 分=1 时; 单位数×单位长度"
+  ),
+  "composite-p3-decimal-rectangle-bars": narrowedSemanticPromise(
+    "Switch among ones-tenths-hundredths place value, rectangle area-perimeter, and countable category bars.",
+    "切換個位十分位百分位、長方形面積周長及可數分類柱。",
+    "切换个位十分位百分位、长方形面积周长及可数分类柱。",
+    "ones+tenths/10+hundredths/100; A=lw; total=Σbars",
+    "個位+十分位/10+百分位/100; A=lw; 總數=Σ柱高",
+    "个位+十分位/10+百分位/100; A=lw; 总数=Σ柱高"
+  ),
+  "composite-p4-number-area-mass-length": narrowedSemanticPromise(
+    "Switch among whole-number jumps, rectangle area-perimeter, gram-kilogram-tonne mass, and equal length units.",
+    "切換整數跳步、長方形面積周長、克千克噸質量及相等長度單位。",
+    "切换整数跳步、长方形面积周长、克千克吨质量及相等长度单位。",
+    "start±jump; A=lw; 1000 g=1 kg; units×length",
+    "起點±跳步; A=lw; 1000 g=1 kg; 單位數×單位長度",
+    "起点±跳步; A=lw; 1000 g=1 kg; 单位数×单位长度"
+  ),
+  "composite-p4-number-laws-angle-fraction": narrowedSemanticPromise(
+    "Switch among whole-number jumps, operation laws, shared-vertex angles, and equivalent fractions.",
+    "切換整數跳步、運算律、共頂點角及等值分數。",
+    "切换整数跳步、运算律、共顶点角及等值分数。",
+    "start±jump; operation law; angle; a/b=c/d",
+    "起點±跳步; 運算律; 角度; a/b=c/d",
+    "起点±跳步; 运算律; 角度; a/b=c/d"
+  ),
+  "composite-lines-signed-coordinate-transform": narrowedSemanticPromise(
+    "Switch among parallel-transversal relations, signed-number jumps, ordered pairs, and four coordinate transformations.",
+    "切換平行線截線關係、有符號數跳步、有序數對及四種坐標變換。",
+    "切换平行线截线关系、有符号数跳步、有序数对及四种坐标变换。",
+    "parallel relation; signed endpoint; (x,y); (x,y)->(x′,y′)",
+    "平行關係; 有符號終點; (x,y); (x,y)->(x′,y′)",
+    "平行关系; 有符号终点; (x,y); (x,y)->(x′,y′)"
+  ),
+  "composite-quadratic-circle-transform-probability": narrowedSemanticPromise(
+    "Switch among upward or downward quadratics, circle sectors, four coordinate transformations, and seeded probability.",
+    "切換開口向上或向下的二次函數、圓與扇形、四種坐標變換及可重現概率實驗。",
+    "切换开口向上或向下的二次函数、圆与扇形、四种坐标变换及可重现概率实验。",
+    "y=ax²+bx+c; θ/360; (x,y)->(x′,y′); successes/trials",
+    "y=ax²+bx+c; θ/360; (x,y)->(x′,y′); 成功次數/試驗總數",
+    "y=ax²+bx+c; θ/360; (x,y)->(x′,y′); 成功次数/试验总数"
+  )
+} as const satisfies Record<string, MainlandNarrowedSemanticPromise>;
+
+type MainlandNarrowedSemanticPromiseKey = keyof typeof mainlandNarrowedSemanticPromisePresets;
+
+const mainlandNarrowedSemanticPromiseLabGroups = [
+  ["unit-circle-sine-wave", ["bnu-high-s4-三角函数", "hjb-high-s4-三角", "hjb-high-s4-三角函数", "pep-high-s4-trigonometry"]],
+  ["identity-transform", ["bnu-high-s4-三角恒等变换"]],
+  ["function-representations", ["bnu-high-s4-函数", "bnu-high-s4-函数应用", "bnu-junior-s1-lower-variable-relationships"]],
+  ["exp-log-inverse", ["bnu-high-s4-对数运算与对数函数", "bnu-high-s4-指数运算与指数函数", "hjb-high-s4-幂-指数与对数", "hjb-high-s4-幂函数-指数函数与对数函数", "pep-high-s4-exp-log"]],
+  ["measurement-vector-model", ["bnu-high-s4-数学建模活动-二"]],
+  ["seeded-trial-machine", ["bnu-high-s4-概率", "bnu-high-s5-概率", "hjb-high-s5-概率初步", "hjb-high-s6-概率初步续", "pep-high-s4-probability"]],
+  ["line-plane-distance-angle", ["bnu-high-s4-立体几何初步", "bnu-high-s5-空间向量与立体几何", "hjb-high-s5-空间向量及其应用", "hjb-high-s5-空间直线与平面", "hjb-high-s6-空间向量综合复习", "hjb-high-s6-立体几何与空间向量综合", "pep-high-s4-solid-geometry-intro", "pep-high-s5-space-vectors"]],
+  ["sample-mean-spread-observed-z", ["bnu-high-s4-统计", "hjb-high-s5-统计", "pep-high-s4-statistics"]],
+  ["composite-high-entry", ["bnu-high-s4-预备知识"]],
+  ["ellipse-parabola-hyperbola", ["bnu-high-s5-圆锥曲线", "hjb-high-s5-圆锥曲线", "hjb-high-s6-圆锥曲线综合复习", "pep-high-s5-conics"]],
+  ["assumption-variable-geometry", ["bnu-high-s5-数学建模活动-三"]],
+  ["counting-outcomes", ["bnu-high-s5-计数原理", "hjb-high-s6-计数原理", "pep-high-s6-counting"]],
+  ["tangent-secant-area", ["bnu-high-s6-导数及其应用", "hjb-high-s6-导数及其运用"]],
+  ["discrete-sequence", ["bnu-high-s6-数列", "hjb-high-s5-数列", "hjb-high-s6-数列综合复习", "pep-high-s5-sequences"]],
+  ["solid-nets-and-views", ["bnu-junior-s1-upper-spatial-figures"]],
+  ["pythagorean-converse-similarity", ["bnu-junior-s2-upper-pythagorean-theorem", "hjb-junior-s2-upper-right-triangles"]],
+  ["composite-p1-pattern-count", ["bnu-primary-p1-lower-math-play-review"]],
+  ["whole-number-0-to-100", ["bnu-primary-p1-lower-within-100-add-sub-nonregrouping", "pep-primary-p1-lower-within-100-add-sub"]],
+  ["whole-number-jumps", ["bnu-primary-p1-upper-review", "bnu-primary-p2-upper-add-sub-review", "hjb-primary-p1-upper-review"]],
+  ["category-bars", ["bnu-primary-p2-lower-data-recording-review"]],
+  ["unit-interval-measure", ["bnu-primary-p2-lower-measurement", "bnu-primary-p2-upper-measurement", "hjb-primary-p1-lower-length-measurement"]],
+  ["clock-or-elapsed-time", ["bnu-primary-p2-lower-time", "hjb-primary-p2-lower-time"]],
+  ["quotient-remainder", ["bnu-primary-p2-upper-division-facts-review"]],
+  ["part-whole-equivalent", ["bnu-primary-p3-lower-fraction-introduction", "bnu-primary-p5-upper-fraction-meaning", "hjb-primary-p4-upper-fraction-extension", "hjb-primary-p6-upper-fractions"]],
+  ["composite-p3-division-transform-area-fraction", ["bnu-primary-p3-lower-math-play-review"]],
+  ["composite-p3-operation-calendar", ["bnu-primary-p3-upper-math-play-review"]],
+  ["countable-category-bars", ["bnu-primary-p4-lower-math-play-review", "hjb-primary-p4-lower-review-integration", "pep-primary-p3-lower-statistics-review"]],
+  ["composite-p4-number-angle-product-laws", ["bnu-primary-p4-upper-math-play-review"]],
+  ["unit-cube-layers", ["bnu-primary-p5-lower-cuboid-introduction", "bnu-primary-p5-lower-cuboid-volume", "hjb-primary-p5-lower-cuboid-cube", "hjb-primary-p6-lower-cuboid"]],
+  ["composite-p5-factor-area-fraction-volume", ["bnu-primary-p5-lower-review-activity"]],
+  ["composite-p5-decimal-transform-equation-data", ["bnu-primary-p5-upper-review-activity"]],
+  ["shared-vertex-angle", ["bnu-primary-p6-lower-math-play", "pep-primary-p4-upper-angles-geometry"]],
+  ["equivalent-ratios", ["bnu-primary-p6-lower-proportion", "bnu-primary-p6-upper-ratio", "hjb-primary-p6-lower-ratio-proportion", "hjb-primary-p6-upper-ratio-proportion"]],
+  ["radius-arc-sector", ["bnu-primary-p6-upper-circles", "hjb-primary-p6-lower-circle-sector", "hjb-primary-p6-upper-circle-sector"]],
+  ["composite-p6-fraction-coordinate-circle-percent", ["bnu-primary-p6-upper-review-activity"]],
+  ["domain-range-behavior", ["hjb-high-s4-函数的概念-性质及应用", "pep-high-s4-function-properties"]],
+  ["composite-sequence-counting", ["hjb-high-s6-数列与计数综合"]],
+  ["composite-probability-statistics", ["hjb-high-s6-概率统计综合"]],
+  ["composite-p1-place-jump-time-length", ["hjb-primary-p1-lower-review"]],
+  ["whole-number-0-to-20", ["hjb-primary-p1-upper-within-20-number-add-sub", "pep-primary-p1-upper-number-sense"]],
+  ["division-check", ["hjb-primary-p2-lower-math-square-review"]],
+  ["multiplication-check", ["hjb-primary-p2-upper-math-square-review"]],
+  ["composite-p3-decimal-rectangle-bars", ["hjb-primary-p3-lower-math-square-review"]],
+  ["array-perimeter-area-check", ["hjb-primary-p3-upper-math-square-review"]],
+  ["composite-p4-number-area-mass-length", ["hjb-primary-p4-upper-large-numbers-measurement"]],
+  ["composite-p4-number-laws-angle-fraction", ["hjb-primary-p4-upper-review-integration"]],
+  ["family-aware-optimization-controls", ["pep-high-s5-derivatives"]],
+  ["family-aware-controls", ["pep-high-s6-analytic-geometry-synthesis"]],
+  ["function-derivative-extrema", ["pep-high-s6-derivative-synthesis"]],
+  ["discrete-random-variable", ["pep-high-s6-random-variables"]],
+  ["composite-lines-signed-coordinate-transform", ["pep-junior-s1-lower-lines-coordinates"]],
+  ["composite-quadratic-circle-transform-probability", ["pep-junior-s3-upper-quadratics-circle-probability"]],
+  ["decimal-grid-product", ["pep-primary-p3-lower-area-decimals"]],
+  ["signed-or-irrational", ["pep-primary-p6-lower-negative-review"]]
+] as const satisfies readonly (readonly [MainlandNarrowedSemanticPromiseKey, readonly string[]])[];
+
+export const mainlandNarrowedSemanticPromiseLabIds = Object.freeze(
+  mainlandNarrowedSemanticPromiseLabGroups.flatMap(([, labIds]) => labIds)
+);
+
+const mainlandNarrowedSemanticPromiseByLabId = new Map<string, MainlandNarrowedSemanticPromise>(
+  mainlandNarrowedSemanticPromiseLabGroups.flatMap(([promiseKey, labIds]) =>
+    labIds.map((labId) => [labId, mainlandNarrowedSemanticPromisePresets[promiseKey]] as const)
+  )
+);
+
 const topicFocusOverrides: Partial<Record<string, LocalizedText>> = {
+  "bnu-primary-p1-upper-comparison": {
+    en: "Keep A, B, their comparison relation, and |A - B| synchronized across quantity, length, height, and mass representations.",
+    zh: "在數量、長度、高度與質量表示之間，同步 A、B、比較關係及 |A - B|。",
+    zhHans: "在数量、长度、高度与质量表示之间，同步 A、B、比较关系及 |A - B|。"
+  },
+  "identities-square-patterns": {
+    en: "Keep every signed area piece synchronized while proving identities for all allowed a > b.",
+    zh: "同步每塊帶正負號的面積拼片，證明對所有允許的 a > b 都成立的恆等式。",
+    zhHans: "同步每块带正负号的面积拼片，证明对所有允许的 a > b 都成立的恒等式。"
+  },
+  "arc-length-sector-area": {
+    en: "Keep radius, central angle, full-circle fraction, arc length, and sector area synchronized.",
+    zh: "同步半徑、圓心角、整圓分數、弧長和扇形面積。",
+    zhHans: "同步半径、圆心角、整圆分数、弧长和扇形面积。"
+  },
+  "quadratic-patterns": {
+    en: "Connect a non-degenerate quadratic equation to its graph, vertex, axis of symmetry, opening, and real roots.",
+    zh: "把非退化二次方程連繫到圖像、頂點、對稱軸、開口方向和實根。",
+    zhHans: "把非退化二次方程联系到图象、顶点、对称轴、开口方向和实根。"
+  },
+  "circles": {
+    en: "Connect chords, tangents, arcs, and angles subtended by the same arc in one circle-geometry model.",
+    zh: "在同一個圓幾何模型中連繫弦、切線、弧和同弧所對的圓周角。",
+    zhHans: "在同一个圆几何模型中联系弦、切线、弧和同弧所对的圆周角。"
+  },
+  "p2-length-data": {
+    en: "Measure in metres and compare pictogram counts using the fixed key 1 icon = 1 object.",
+    zh: "以米量度，並用固定圖例「1 個圖示 = 1 個物件」比較象形圖數量。",
+    zhHans: "以米测量，并用固定图例“1 个图标 = 1 个物体”比较象形图数量。"
+  },
+  "p3-measurement": {
+    en: "Connect each measured value to the height of its labelled bar.",
+    zh: "把每個量度值連繫到對應且具標籤的棒高。",
+    zhHans: "把每个测量值联系到对应且带标签的条形高度。"
+  },
+  "p4-large-numbers": {
+    en: "Use factor arrays to connect factor pairs and multiples to HCF and LCM.",
+    zh: "用因數陣列把因數配對和倍數連繫到最大公因數與最小公倍數。",
+    zhHans: "用因数阵列把因数配对和倍数联系到最大公因数与最小公倍数。"
+  },
+  "p4-angles": {
+    en: "Connect side, angle, and parallel-line properties to quadrilateral families and shape composition.",
+    zh: "把邊、角和平行線性質連繫到四邊形家族與圖形拼組。",
+    zhHans: "把边、角和平行线性质联系到四边形家族与图形拼组。"
+  },
+  "p5-rates": {
+    en: "Divide a total cost by its quantity to find and compare unit prices.",
+    zh: "用總價除以數量，求出並比較單位價格。",
+    zhHans: "用总价除以数量，求出并比较单位价格。"
+  },
+  "p6-percentages": {
+    en: "Represent one part-whole quantity as an equivalent fraction, decimal, and percentage.",
+    zh: "把同一個部分與整體數量表示成等值的分數、小數和百分數。",
+    zhHans: "把同一个部分与整体数量表示成等值的分数、小数和百分数。"
+  },
+  "p6-ratio-proportion": {
+    en: "Redistribute a total fairly to find the mean, then read changes in a broken-line graph.",
+    zh: "公平重新分配總數以求平均數，再閱讀折線圖中的變化。",
+    zhHans: "公平重新分配总数以求平均数，再阅读折线图中的变化。"
+  },
   "us-ca-math-k-k-cc-count-sequence": {
     en: "A kindergarten counting-path lab where children tap small steps, say the number sequence, and connect the next number to one more object.",
     zh: "幼兒園數數路徑實驗：孩子輕觸小步，說出數序，並把下一個數連到多一個物件。",
@@ -2411,6 +3180,9 @@ function labTitleForTopic(topic: Topic, track: VisualizationCurriculumTrack): Lo
 }
 
 function labDescriptionForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): LocalizedText {
+  const topicDescriptionOverride = topicDescriptionOverrides[topic.id];
+  if (topicDescriptionOverride) return topicDescriptionOverride;
+
   const template = templateMetadata[templateId];
   const mainland = track !== "HK" && track !== "US" && track !== "CAPSTONE";
   const title = displayTitleForTopic(topic);
@@ -2436,6 +3208,8 @@ function gradeLabelForTopic(topic: Topic, track: VisualizationCurriculumTrack): 
 function labFocusForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): LocalizedText {
   const template = templateMetadata[templateId];
   const mainland = track === "MAINLAND_PEP_PRIMARY" || track === "MAINLAND_PEP_JUNIOR" || track === "MAINLAND_PEP_HIGH";
+  const narrowedMainlandPromise = mainlandNarrowedSemanticPromiseByLabId.get(topic.id);
+  if (narrowedMainlandPromise) return narrowedMainlandPromise.focus;
   const topicFocusOverride = topicFocusOverrides[topic.id];
   if (topicFocusOverride) return topicFocusOverride;
   const title = displayTitleForTopic(topic);
@@ -2450,10 +3224,11 @@ function labFocusForTopic(topic: Topic, templateId: VisualizationTemplateId, tra
 }
 
 function templateConfigForTopic(topic: Topic, templateId: VisualizationTemplateId, track: VisualizationCurriculumTrack): VisualizationTemplateConfig {
+  const narrowedMainlandPromise = mainlandNarrowedSemanticPromiseByLabId.get(topic.id);
   return {
     variant: topic.id,
     focus: labFocusForTopic(topic, templateId, track),
-    formula: topicFormulaOverrides[topic.id] ?? formulaForTemplate(templateId),
+    formula: narrowedMainlandPromise?.formula ?? topicFormulaOverrides[topic.id] ?? formulaForTemplate(templateId),
     xLabel: xLabelForTemplate(templateId),
     yLabel: yLabelForTemplate(templateId),
     accent: accentForTopic(topic)
@@ -2506,8 +3281,16 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const curriculumTrack = visualizationTrackForTopic(topic);
   const templateId = templateForTopic(topic);
   const template = templateMetadata[templateId];
-  const premiumLaunch = isPremiumThreeDLaunchLab(topic.id);
+  const registeredPremiumLaunch = isPremiumThreeDLaunchLab(topic.id);
   const standardThreeDLab = isStandardThreeDLab(topic.id);
+  const registeredThreeDCandidate = registeredPremiumLaunch || standardThreeDLab;
+  const regionalThreeDSemanticsVerified = isMainlandVisualizationTrack(curriculumTrack)
+    ? mainlandSemanticallyVerifiedThreeDLabIdSet.has(topic.id)
+    : curriculumTrack === "HK"
+      ? hongKongSemanticallyVerifiedThreeDLabIdSet.has(topic.id)
+      : true;
+  const threeDEnabled = registeredThreeDCandidate && regionalThreeDSemanticsVerified;
+  const premiumLaunch = registeredPremiumLaunch && regionalThreeDSemanticsVerified;
   // Topics with a curated signature lab render that bench; every other topic
   // keeps the shared template renderer untouched.
   const moduleId = hasSignatureLab(topic.id) ? signatureModuleId : configuredModuleId;
@@ -2516,10 +3299,10 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
   const threeDFamilyId = familyForVisualizationLab(topic.id, templateId);
   const launchRegionalPriority = regionalPriorityForThreeDLaunchLab(topic.id);
   const threeD: ThreeDVisualizationMetadata = {
-    enabled: premiumLaunch || standardThreeDLab,
+    enabled: threeDEnabled,
     fallbackTemplateId: templateId,
     familyId: threeDFamilyId,
-    coverageTier: premiumLaunch ? "premium-3d" : "standard-3d",
+    coverageTier: registeredPremiumLaunch ? "premium-3d" : "standard-3d",
     premiumLaunch,
     regionalPriority: launchRegionalPriority ??
       (curriculumTrack === "MAINLAND_PEP_PRIMARY" ||
@@ -2556,6 +3339,27 @@ function createTopicLab(topic: Topic): FeaturedLabDefinition {
     safeguard,
     studentNote: californiaAlignment ? californiaStudentNoteForTopic(topic, californiaAlignment, templateId) : undefined
   };
+}
+
+function hongKongGradeLabel(grade: GradeId): LocalizedText {
+  return {
+    en: `${grade} · Hong Kong P1-S6`,
+    zh: `${grade} · 香港小一至中六`,
+    zhHans: `${grade} · 香港小学一年级至高三`
+  };
+}
+
+const hongKongS4RelocatedLabIds = new Set(["quadratic-patterns", "circles"]);
+
+function withHongKongFinalGradeRouting(labs: FeaturedLabDefinition[]) {
+  return labs.map((lab) => {
+    if (lab.curriculumTrack !== "HK" || !hongKongS4RelocatedLabIds.has(lab.labId)) return lab;
+    return {
+      ...lab,
+      grade: "S4" as const,
+      gradeLabel: hongKongGradeLabel("S4")
+    };
+  });
 }
 
 const capstoneLabDefinitions: FeaturedLabDefinition[] = [
@@ -2681,10 +3485,110 @@ const capstoneLabDefinitions: FeaturedLabDefinition[] = [
   }
 ];
 
-export const visualizationLabCatalog: FeaturedLabDefinition[] = [
-  ...topics.map(createTopicLab).filter(isVisibleVisualizationLab),
-  ...capstoneLabDefinitions.filter(isVisibleVisualizationLab)
-];
+const mainlandPublisherValues = new Set<TextbookPublisher>([
+  "MAINLAND_PEP",
+  "MAINLAND_BNU",
+  "MAINLAND_HJB"
+]);
+
+function hasMainlandPublisher(lab: FeaturedLabDefinition) {
+  return Boolean(lab.publisher && mainlandPublisherValues.has(lab.publisher));
+}
+
+const nonSemesterDisplayDisambiguators: Record<string, LocalizedText> = {
+  "hjb-high-s6-数列与计数综合": {
+    en: "With counting",
+    zh: "與計數綜合",
+    zhHans: "与计数综合"
+  },
+  "hjb-high-s6-数列综合复习": {
+    en: "Review",
+    zh: "綜合複習",
+    zhHans: "综合复习"
+  }
+};
+
+function textbookPlacementForLab(lab: FeaturedLabDefinition): VisualizationTextbookPlacement | undefined {
+  if (!hasMainlandPublisher(lab)) return undefined;
+  if (lab.labId.includes("-upper-")) return { semester: "upper" };
+  if (lab.labId.includes("-lower-")) return { semester: "lower" };
+  return undefined;
+}
+
+function semesterDisplayDisambiguator(
+  placement: VisualizationTextbookPlacement | undefined
+): LocalizedText | undefined {
+  if (placement?.semester === "upper") {
+    return { en: "Upper volume", zh: "上冊", zhHans: "上册" };
+  }
+  if (placement?.semester === "lower") {
+    return { en: "Lower volume", zh: "下冊", zhHans: "下册" };
+  }
+  return undefined;
+}
+
+function withCatalogDisplayMetadata(labs: FeaturedLabDefinition[]) {
+  const mainlandLabs = labs.filter(hasMainlandPublisher);
+  const duplicateLabIds = new Set<string>();
+
+  (["en", "zhHans"] as const).forEach((language) => {
+    const groups = new Map<string, FeaturedLabDefinition[]>();
+    mainlandLabs.forEach((lab) => {
+      const title = language === "en" ? lab.title.en : lab.title.zhHans ?? lab.title.zh;
+      const key = [lab.publisher, lab.grade, title].join("\u0000");
+      groups.set(key, [...(groups.get(key) ?? []), lab]);
+    });
+    groups.forEach((group) => {
+      if (group.length > 1) group.forEach((lab) => duplicateLabIds.add(lab.labId));
+    });
+  });
+
+  return labs.map((lab) => {
+    const textbookPlacement = textbookPlacementForLab(lab);
+    const displayDisambiguator = duplicateLabIds.has(lab.labId)
+      ? semesterDisplayDisambiguator(textbookPlacement) ?? nonSemesterDisplayDisambiguators[lab.labId]
+      : undefined;
+
+    return {
+      ...lab,
+      ...(displayDisambiguator ? { displayDisambiguator } : {}),
+      ...(textbookPlacement ? { textbookPlacement } : {})
+    };
+  });
+}
+
+export function buildVisualizationLabCatalog(
+  topicDefinitions: readonly Topic[]
+): FeaturedLabDefinition[] {
+  return [
+    ...withCatalogDisplayMetadata(withHongKongFinalGradeRouting(
+      topicDefinitions.map(createTopicLab).filter(isVisibleVisualizationLab)
+    )),
+    ...capstoneLabDefinitions.filter(isVisibleVisualizationLab)
+  ];
+}
+
+export const visualizationLabCatalog = buildVisualizationLabCatalog(topics);
+
+function isRegisteredThreeDCandidateLab(lab: FeaturedLabDefinition) {
+  return isPremiumThreeDLaunchLab(lab.labId) || isStandardThreeDLab(lab.labId);
+}
+
+/**
+ * Catalog-scoped candidate inventories. These are intentionally distinct
+ * from both the historical global premium authoring manifest and the live
+ * learner registry. They preserve registered regional candidates even while
+ * the verified allowlists above keep every Mainland/HK candidate disabled.
+ */
+export const mainlandThreeDCandidateLabIds = visualizationLabCatalog
+  .filter((lab) => isMainlandVisualizationTrack(lab.curriculumTrack))
+  .filter(isRegisteredThreeDCandidateLab)
+  .map((lab) => lab.labId);
+
+export const hongKongThreeDCandidateLabIds = visualizationLabCatalog
+  .filter((lab) => lab.curriculumTrack === "HK")
+  .filter(isRegisteredThreeDCandidateLab)
+  .map((lab) => lab.labId);
 
 export const primaryVisualizationLabs = visualizationLabCatalog.filter((lab) => lab.primaryForTopic);
 export const capstoneVisualizationLabs = visualizationLabCatalog.filter((lab) => lab.curriculumTrack === "CAPSTONE");

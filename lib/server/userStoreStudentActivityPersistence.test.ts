@@ -178,6 +178,22 @@ test("legacy userStore scopes and de-duplicates student dashboard cache safely",
   assert.match(cachedSource, /if \(value && ttlMs > 0 &&/, "Only real dashboard payloads should be cached; misses must fall back to readDatabase().");
 });
 
+test("Postgres dashboard reads do not retain resolved process-local values across workers", async () => {
+  const source = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
+  const ttlStart = source.indexOf("function studentDashboardCacheTtlMs()");
+  const ttlEnd = source.indexOf("function studentDashboardCurriculumCacheKey", ttlStart);
+  const ttlSource = source.slice(ttlStart, ttlEnd);
+
+  assert.notEqual(ttlStart, -1);
+  assert.notEqual(ttlEnd, -1);
+  assert.match(ttlSource, /return 0/);
+  assert.doesNotMatch(
+    ttlSource,
+    /MAIS_STUDENT_DASHBOARD_CACHE_TTL_MS/,
+    "a per-process TTL cannot prove freshness after another server worker ACKs a durable write"
+  );
+});
+
 function adaptiveDecisionFixture(source: string): AdaptiveLearningDecision {
   return {
     action: "practice",
@@ -506,6 +522,7 @@ test("student activity persistence owns lesson progress normalization", async ()
         demoUserId: string;
         lessonSlugForTopic: (topicId: string) => string;
         seedTopics: Array<{ id: string; status: "not-started" | "in-progress" | "completed"; mastery: number }>;
+        topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
       }
     ) => Array<Record<string, unknown>>;
 
@@ -526,8 +543,10 @@ test("student activity persistence owns lesson progress normalization", async ()
     lessonSlugForTopic: (topicId) => `lesson-${topicId}`,
     seedTopics: [
       { id: "topic-1", status: "completed", mastery: 90 },
-      { id: "topic-2", status: "in-progress", mastery: 35 }
-    ]
+      { id: "topic-2", status: "in-progress", mastery: 35 },
+      { id: "topic-explicit", status: "not-started", mastery: 0 }
+    ],
+    topicIdsRequiringExplicitInteraction: new Set(["topic-explicit"])
   }), [
     {
       user_id: "demo-user",
@@ -579,6 +598,38 @@ test("student activity persistence owns lesson progress normalization", async ()
     }
   ]);
 
+  const preservedExplicitRows = normalizeStudentActivityLessonProgressRecords([
+    {
+      user_id: "student-explicit",
+      topic_id: "topic-explicit",
+      status: "in-progress",
+      mastery: 47,
+      completed_at: null,
+      updated_at: "2026-06-20T09:00:00.000Z"
+    }
+  ], [
+    { user_id: "student-explicit" }
+  ], "2026-06-21T08:00:00.000Z", {
+    demoUserId: "demo-user",
+    lessonSlugForTopic: (topicId) => `lesson-${topicId}`,
+    seedTopics: [
+      { id: "topic-explicit", status: "not-started", mastery: 0 }
+    ],
+    topicIdsRequiringExplicitInteraction: new Set(["topic-explicit"])
+  });
+  assert.equal(preservedExplicitRows.length, 1);
+  assert.deepEqual({
+    mastery: preservedExplicitRows[0]?.mastery,
+    status: preservedExplicitRows[0]?.status,
+    topic_id: preservedExplicitRows[0]?.topic_id,
+    user_id: preservedExplicitRows[0]?.user_id
+  }, {
+    mastery: 47,
+    status: "in-progress",
+    topic_id: "topic-explicit",
+    user_id: "student-explicit"
+  });
+
   const rootSource = await readFile(path.join(process.cwd(), "lib/server/userStore.ts"), "utf8");
   assert.doesNotMatch(rootSource, /function normalizeLessonProgressRecords\b/);
 });
@@ -593,6 +644,7 @@ test("student activity persistence owns lesson progress seed builders for legacy
       now: string;
       lessonSlugForTopic: (topicId: string) => string;
       seedTopics: Array<{ id: string; status: "not-started" | "in-progress" | "completed"; mastery: number }>;
+      topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
     }) => Array<Record<string, unknown>>;
   const seedLessonProgressRecords =
     persistenceExports.studentActivitySeedLessonProgressRecords as (input: {
@@ -600,6 +652,7 @@ test("student activity persistence owns lesson progress seed builders for legacy
       now: string;
       lessonSlugForTopic: (topicId: string) => string;
       seedTopics: Array<{ id: string; status: "not-started" | "in-progress" | "completed"; mastery: number }>;
+      topicIdsRequiringExplicitInteraction?: ReadonlySet<string>;
     }) => Array<Record<string, unknown>>;
   const seedTopics = [
     { id: "topic-1", status: "completed" as const, mastery: 92 },
@@ -610,7 +663,8 @@ test("student activity persistence owns lesson progress seed builders for legacy
     userId: "student-1",
     now: "2026-06-21T08:00:00.000Z",
     lessonSlugForTopic: (topicId: string) => `lesson-${topicId}`,
-    seedTopics
+    seedTopics,
+    topicIdsRequiringExplicitInteraction: new Set(["topic-3"])
   };
 
   assert.equal(typeof emptyLessonProgressRecords, "function");
@@ -646,18 +700,6 @@ test("student activity persistence owns lesson progress seed builders for legacy
       duration_seconds: null,
       checklist_state: {},
       updated_at: "2026-06-21T08:00:00.000Z"
-    },
-    {
-      user_id: "student-1",
-      topic_id: "topic-3",
-      lesson_slug: "lesson-topic-3",
-      status: "not-started",
-      mastery: 0,
-      started_at: null,
-      completed_at: null,
-      duration_seconds: null,
-      checklist_state: {},
-      updated_at: "2026-06-21T08:00:00.000Z"
     }
   ]);
 
@@ -684,16 +726,22 @@ test("student activity persistence owns lesson progress seed builders for legacy
       mastery: 35,
       started_at: "2026-06-21T08:00:00.000Z",
       completed_at: null
-    },
-    {
-      topic_id: "topic-3",
-      lesson_slug: "lesson-topic-3",
-      status: "not-started",
-      mastery: 0,
-      started_at: null,
-      completed_at: null
     }
   ]);
+
+  assert.match(rootSource, /const topicIdsRequiringExplicitLessonProgressInteraction = new Set\(\[/);
+  const explicitTopicSetSource = rootSource.match(
+    /const topicIdsRequiringExplicitLessonProgressInteraction = new Set\(\[([\s\S]*?)\]\);/
+  )?.[1];
+  assert.ok(explicitTopicSetSource);
+  assert.deepEqual(
+    [...explicitTopicSetSource.matchAll(/"([^"]+)"/g)].map((match) => match[1]),
+    ["identities-square-patterns", "arc-length-sector-area"]
+  );
+  assert.equal(
+    rootSource.match(/topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction/g)?.length,
+    3
+  );
 });
 
 function resourceFixture(resource: {
@@ -921,8 +969,15 @@ test("student activity persistence marks visualization sessions through fake sto
     visualization_sessions: []
   };
   const sideEffects: unknown[] = [];
+  let currentNow = now;
+  let mutationCalls = 0;
   const store = createTestStore(database, {
-    afterMarkVisualizationSession: async (_database, context) => {
+    now: () => currentNow,
+    mutateDatabase: async (mutator) => {
+      mutationCalls += 1;
+      return mutator(database);
+    },
+    afterMarkVisualizationSession: (_database, context) => {
       sideEffects.push(JSON.parse(JSON.stringify(context)));
     }
   });
@@ -957,14 +1012,14 @@ test("student activity persistence marks visualization sessions through fake sto
     }
   ]);
 
-  const repeatSession = await store.markVisualizationSession({
+  const secondTopicSession = await store.markVisualizationSession({
     userId: "student-1",
     moduleId: "coordinate-plane",
     topicId: "topic-2",
     source: "lesson"
   });
 
-  assert.deepEqual(repeatSession, {
+  assert.deepEqual(secondTopicSession, {
     user_id: "student-1",
     module_id: "coordinate-plane",
     topic_id: "topic-2",
@@ -973,20 +1028,36 @@ test("student activity persistence marks visualization sessions through fake sto
     completed_at: now.toISOString(),
     updated_at: now.toISOString()
   });
+  assert.equal(database.visualization_sessions?.length, 2);
   assert.deepEqual(sideEffects.at(-1), {
     userId: "student-1",
     moduleId: "coordinate-plane",
     topicId: "topic-2",
     source: "lesson",
-    wasCompleted: true,
+    wasCompleted: false,
     completedAt: now.toISOString(),
     updatedAt: now.toISOString(),
-    session: repeatSession
+    session: secondTopicSession
   });
   assert.equal(sideEffects.length, 2);
+  assert.equal(mutationCalls, 2);
+
+  const sessionBytesBeforeReplay = JSON.stringify(database.visualization_sessions);
+  currentNow = new Date("2026-06-20T10:15:00.000Z");
+  const exactReplay = await store.markVisualizationSession({
+    userId: "student-1",
+    moduleId: "coordinate-plane",
+    topicId: "topic-2",
+    source: "lesson"
+  });
+  assert.deepEqual(exactReplay, secondTopicSession);
+  assert.equal(JSON.stringify(database.visualization_sessions), sessionBytesBeforeReplay);
+  assert.equal(database.visualization_sessions?.length, 2);
+  assert.equal(sideEffects.length, 2);
+  assert.equal(mutationCalls, 2);
 });
 
-test("student activity persistence returns visualization session before slow side effects settle", async () => {
+test("student activity persistence rejects Promise-returning visualization hooks before an ACK", async () => {
   const database: StudentActivityPersistenceDatabase = {
     visualization_sessions: []
   };
@@ -995,26 +1066,21 @@ test("student activity persistence returns visualization session before slow sid
     releaseSideEffect = resolve;
   });
   const store = createTestStore(database, {
-    afterMarkVisualizationSession: () => sideEffectSettled
+    afterMarkVisualizationSession: (() => sideEffectSettled) as unknown as NonNullable<
+      Parameters<typeof createStudentActivityPersistenceStore>[0]["afterMarkVisualizationSession"]
+    >
   });
 
-  const result = await Promise.race([
+  await assert.rejects(
     store.markVisualizationSession({
       userId: "student-1",
       moduleId: "coordinate-plane",
       topicId: "topic-1",
       source: "visualization-lab"
-    }).then((session) => ({ status: "resolved" as const, session })),
-    new Promise<{ status: "pending" }>((resolve) => setTimeout(() => resolve({ status: "pending" }), 20))
-  ]);
-
+    }),
+    studentActivityPersistence.StudentActivityAsyncMutationHookError
+  );
   releaseSideEffect();
-
-  assert.equal(result.status, "resolved");
-  if (result.status === "resolved") {
-    assert.equal(result.session.module_id, "coordinate-plane");
-    assert.equal(database.visualization_sessions?.length, 1);
-  }
 });
 
 test("student activity persistence appends analytics events without legacy userStore imports", async () => {
@@ -1042,7 +1108,7 @@ test("student activity persistence appends analytics events without legacy userS
   };
   const afterAppendCalls: string[] = [];
   const store = createTestStore(database, {
-    afterAppend: async (_database, { latestRecord }) => {
+    afterAppend: (_database, { latestRecord }) => {
       afterAppendCalls.push(latestRecord.id);
     }
   });
@@ -1188,7 +1254,8 @@ test("student activity persistence summarizes, exports, and clears analytics eve
   assert.deepEqual(database.learning_event_clears, [
     {
       user_id: "student-1",
-      cleared_at: "2026-06-20T11:00:00.000Z"
+      cleared_at: "2026-06-20T11:00:00.000Z",
+      generation: 2
     }
   ]);
 });
@@ -1429,7 +1496,8 @@ test("student activity persistence records question attempts and updates mistake
     selected_answer: "A",
     is_correct: false,
     duration_seconds: 13,
-    created_at: "2026-06-20T10:00:00.000Z"
+    created_at: "2026-06-20T10:00:00.000Z",
+    answer_work_photos: null
   });
   assert.deepEqual(database.mistakes?.[0], {
     user_id: "student-1",

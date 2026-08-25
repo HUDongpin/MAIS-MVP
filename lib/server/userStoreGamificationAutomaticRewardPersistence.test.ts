@@ -10,6 +10,7 @@ import {
   awardVisualizationCompletionReward,
   maybeAwardLearningStreakReward,
   maybeAwardPracticeAccuracyReward,
+  visualizationCompletionRewardSourceKey,
   type GamificationRewardRedemptionPersistenceDatabase
 } from "@/lib/server/userStore/gamificationRewardRedemptionPersistence";
 
@@ -191,7 +192,7 @@ test("mistake review reward helper awards one mastered-question reward", () => {
   assert.equal(database.gamification_events?.[0]?.label_en, "Reviewed a Fractions mistake");
 });
 
-test("visualization completion reward helper awards one module completion reward", () => {
+test("visualization completion reward helper awards each exact module/topic once", () => {
   const database = createDatabase();
 
   assert.equal(
@@ -226,9 +227,103 @@ test("visualization completion reward helper awards one module completion reward
   assert.equal(database.reward_point_ledger[0].id, "reward-ledger-visualization-id");
   assert.equal(database.reward_point_ledger[0].amount, 20);
   assert.equal(database.reward_point_ledger[0].reason, "visualization-complete");
-  assert.equal(database.reward_point_ledger[0].source_key, "visualization-complete:student-1:function-graph");
+  assert.equal(
+    database.reward_point_ledger[0].source_key,
+    visualizationCompletionRewardSourceKey("student-1", "function-graph", "topic-functions")
+  );
   assert.equal(database.gamification_events?.[0]?.source, "visualization-complete");
-  assert.equal(database.gamification_events?.[0]?.label_en, "Explored the Function graphs visualization");
+
+  assert.equal(
+    awardVisualizationCompletionReward(database, {
+      userId: "student-1",
+      moduleId: "function-graph",
+      topicId: "topic-linear-functions",
+      topic: {
+        id: "topic-linear-functions",
+        title_en: "Linear functions",
+        title_zh: "線性函數"
+      },
+      completedAt: "2026-06-20T12:10:00.000Z"
+    }, () => "visualization-second-topic-id"),
+    true,
+    "the shared configured module must award each distinct topic exactly once"
+  );
+  assert.equal(database.reward_point_ledger.length, 2);
+  assert.ok(
+    database.reward_point_ledger.some(
+      (entry) => entry.source_key === visualizationCompletionRewardSourceKey(
+        "student-1",
+        "function-graph",
+        "topic-linear-functions"
+      )
+    )
+  );
+  assert.ok(
+    database.gamification_events?.some(
+      (entry) => entry.label_en === "Explored the Function graphs visualization"
+    )
+  );
+});
+
+test("visualization reward keys preserve tuple boundaries without truncation or whitespace collisions", () => {
+  const longPrefix = "m".repeat(255);
+  const firstModule = `${longPrefix}a`;
+  const secondModule = `${longPrefix}b`;
+  const firstKey = visualizationCompletionRewardSourceKey("student-1", firstModule, "topic");
+  const secondKey = visualizationCompletionRewardSourceKey("student-1", secondModule, "topic");
+
+  assert.match(firstKey, /^visualization-complete:v2:[a-f0-9]{64}$/);
+  assert.match(secondKey, /^visualization-complete:v2:[a-f0-9]{64}$/);
+  assert.notEqual(firstKey, secondKey);
+  assert.notEqual(
+    visualizationCompletionRewardSourceKey("student-1", "a:b", "c"),
+    visualizationCompletionRewardSourceKey("student-1", "a", "b:c")
+  );
+  assert.notEqual(
+    visualizationCompletionRewardSourceKey("student-1", "a b", "topic"),
+    visualizationCompletionRewardSourceKey("student-1", "a-b", "topic")
+  );
+
+  const database = createDatabase();
+  assert.equal(awardVisualizationCompletionReward(database, {
+    userId: "student-1",
+    moduleId: firstModule,
+    topicId: "topic",
+    completedAt: awardedAt
+  }, () => "first-long-tuple"), true);
+  assert.equal(awardVisualizationCompletionReward(database, {
+    userId: "student-1",
+    moduleId: secondModule,
+    topicId: "topic",
+    completedAt: awardedAt
+  }, () => "second-long-tuple"), true);
+  assert.deepEqual(
+    new Set(database.reward_point_ledger.map((entry) => entry.source_key)),
+    new Set([firstKey, secondKey])
+  );
+});
+
+test("v2 visualization reward keys do not re-award an exact legacy tuple during migration", () => {
+  const database = createDatabase();
+  database.reward_point_ledger.push({
+    id: "legacy-visualization-reward",
+    student_id: "student-1",
+    amount: 20,
+    reason: "visualization-complete",
+    label_en: "Legacy visualization reward",
+    label_zh: "舊視覺化獎勵",
+    source_key: "visualization-complete:student-1:function-graph",
+    created_at: "2026-06-19T12:00:00.000Z"
+  });
+
+  assert.equal(awardVisualizationCompletionReward(database, {
+    userId: "student-1",
+    moduleId: "function-graph",
+    topicId: "topic-functions",
+    completedAt: awardedAt
+  }, () => "must-not-reward-again"), false);
+  assert.equal(database.reward_point_ledger.length, 1);
+  assert.equal(database.gamification_events?.length, 0);
 });
 
 test("lesson completion reward helper awards one lesson completion reward", () => {

@@ -1,6 +1,7 @@
 import type { StudentActivityUserStore } from "./domainContracts";
 import {
   appendLearningEvents,
+  recordLearningEventLrsDelivery,
   clearLearningEventsForUser,
   clearMistakesForUser,
   createStudentMessageThread,
@@ -44,6 +45,7 @@ export type { StudentActivityUserStore } from "./domainContracts";
 
 export {
   appendLearningEvents,
+  recordLearningEventLrsDelivery,
   clearLearningEventsForUser,
   clearMistakesForUser,
   createStudentMessageThread,
@@ -95,6 +97,7 @@ export const studentActivityUserStore = {
   deleteMistake,
   clearMistakesForUser,
   appendLearningEvents,
+  recordLearningEventLrsDelivery,
   clearLearningEventsForUser,
   getAnalyticsSummary,
   getAnalyticsExport,

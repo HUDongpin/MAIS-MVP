@@ -99,6 +99,9 @@ export type TeacherOpsResourcePersistenceStoreDependencies = {
     storedFileName: string;
     bytes: Uint8Array;
   }) => Promise<string> | string;
+  removeResourceFile: (input: {
+    storagePath: string;
+  }) => Promise<void> | void;
   resourceProjection: (
     database: TeacherOpsResourcePersistenceDatabase,
     resource: TeacherOpsResourceRecord
@@ -361,6 +364,7 @@ export function createTeacherOpsResourcePersistenceStore({
   gradeIsValid,
   difficultyIsActive,
   storeResourceFile,
+  removeResourceFile,
   resourceProjection,
   topicMatchesUserCurriculum,
   topicOptionProjection
@@ -381,43 +385,76 @@ export function createTeacherOpsResourcePersistenceStore({
         return { status: "invalid" };
       }
       const resourceType = type && validTeachingResourceTypes.has(type) ? type : inferResourceTypeFromFile(file.name);
+      const preflightDatabase = await readDatabase();
+      const preflightUser = preflightDatabase.users.find((candidate) => candidate.id === teacherId);
+      if (!canUseTeacherArea(preflightUser)) return { status: "forbidden" };
 
-      return mutateDatabase(async (database) => {
-        const user = database.users.find((candidate) => candidate.id === teacherId);
-        if (!canUseTeacherArea(user)) return { status: "forbidden" };
+      const resourceId = `resource-${createId()}`;
+      const fileName = safeUploadFileName(file.name);
+      const storedFileName = `${resourceId}-${fileName}`;
+      const storagePath = await storeResourceFile({ storedFileName, bytes: file.bytes });
+      try {
+        const result = await mutateDatabase((database) => {
+          const user = database.users.find((candidate) => candidate.id === teacherId);
+          if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
+          if (database.teaching_resources.some((resource) => resource.id === resourceId)) {
+            throw new Error("Teacher resource identity already exists.");
+          }
 
-        const cleanTopicId =
-          topicId && database.topics.some((topic) =>
-            topicMatchesUserCurriculum(database, topic, user) && topic.id === topicId && topic.grade === grade
-          )
-            ? topicId
-            : undefined;
-        const cleanDifficulty = difficultyIsActive(difficulty) ? difficulty : undefined;
-        const resourceId = `resource-${createId()}`;
-        const fileName = safeUploadFileName(file.name);
-        const storedFileName = `${resourceId}-${fileName}`;
-        const storagePath = await storeResourceFile({ storedFileName, bytes: file.bytes });
+          const cleanTopicId =
+            topicId && database.topics.some((topic) =>
+              topicMatchesUserCurriculum(database, topic, user) && topic.id === topicId && topic.grade === grade
+            )
+              ? topicId
+              : undefined;
+          const cleanDifficulty = difficultyIsActive(difficulty) ? difficulty : undefined;
+          const record: TeacherOpsResourceRecord = {
+            id: resourceId,
+            title_en: trimmedTitle,
+            title_zh: trimmedTitle,
+            type: resourceType,
+            file_name: fileName,
+            file_type: extension.toUpperCase(),
+            mime_type: file.type,
+            file_size_bytes: file.size,
+            storage_path: storagePath,
+            grade,
+            topic_id: cleanTopicId,
+            difficulty: cleanDifficulty,
+            uploaded_by: user.id,
+            created_at: now().toISOString()
+          };
+          database.teaching_resources.unshift(record);
 
-        const record: TeacherOpsResourceRecord = {
-          id: resourceId,
-          title_en: trimmedTitle,
-          title_zh: trimmedTitle,
-          type: resourceType,
-          file_name: fileName,
-          file_type: extension.toUpperCase(),
-          mime_type: file.type,
-          file_size_bytes: file.size,
-          storage_path: storagePath,
-          grade,
-          topic_id: cleanTopicId,
-          difficulty: cleanDifficulty,
-          uploaded_by: user.id,
-          created_at: now().toISOString()
-        };
-        database.teaching_resources.unshift(record);
-
-        return { status: "created", resource: resourceProjection(database, record) };
-      });
+          return { status: "created" as const, resource: resourceProjection(database, record) };
+        });
+        if (result.status !== "created") {
+          await removeResourceFile({ storagePath });
+        }
+        return result;
+      } catch (error) {
+        const durableDatabase = await readDatabase().catch(() => null);
+        const durableResource = durableDatabase?.teaching_resources.find((resource) =>
+          resource.id === resourceId &&
+          resource.storage_path === storagePath &&
+          resource.uploaded_by === teacherId
+        );
+        if (durableDatabase && durableResource) {
+          return {
+            status: "created" as const,
+            resource: resourceProjection(durableDatabase, durableResource)
+          };
+        }
+        try {
+          await removeResourceFile({ storagePath });
+        } catch (cleanupError) {
+          throw new AggregateError(
+            [error, cleanupError],
+            "Teacher resource persistence failed and its stored file could not be removed."
+          );
+        }
+        throw error;
+      }
     },
     async getTeacherResourceLibraryData(userId: string): Promise<TeacherResourceLibraryData | null> {
       const database = await readDatabase();

@@ -1,0 +1,972 @@
+{
+  "schemaVersion": "mainland-visualization-semantic-oracle-delta-candidate.v1",
+  "generatedAt": "2026-08-10",
+  "source": {
+    "worktree": "/Volumes/Starship/MAIS-china-viz-labs-wt",
+    "branch": "codex/a06-china-visualization-labs-loop",
+    "baseCommit": "3f8f12c4d3fd2efe938d1b07cab6289315f108dd",
+    "frozenOraclePath": "coordination/content-qa/mainland-visualization-semantic-oracle.v1.json",
+    "frozenOracleSha256": "3ba1a22a40afed2cd4c6a315f88921df5ae179f3901bd9f17d4287672023abee",
+    "dataVisualizationLabsSha256": "6c833137ea5be4826f5a901157832f71d6a6a5396147bf71c7f940ec980faecf"
+  },
+  "evidenceBoundary": "Independent static curriculum-to-renderer delta audit. Node SSR and data-URL Chromium microfixture evidence are recorded, but there is no real lesson/directory route, locale, telemetry, persistence, or full 335 browser acceptance claim.",
+  "decision": "approved-for-integration-review",
+  "counts": {
+    "catalog": 335,
+    "frozenPass": 160,
+    "frozenRepairRequired": 175,
+    "promiseMismatches": 109,
+    "routeMismatches": 6,
+    "changedUnion": 114,
+    "approvedChanged": 110,
+    "remainingChangedRed": 4,
+    "untouchedRed": 61,
+    "candidatePassIfApplied": 270,
+    "candidateRepairRequiredIfApplied": 65
+  },
+  "setProofs": {
+    "promiseMismatchIdsSha256": "85a97aecceeaca07d5ced8488f65133c33287052904a2f377b32c6e8dfd7b2b9",
+    "routeMismatchIdsSha256": "00d3f73da853b935b419b775847b6b34120f84966da10662ba8e326a76b70042",
+    "changedUnionIdsSha256": "3bfdc4f8a5b75c07f97073de7f1685adc489631d6ac69e4edd28030ba950809e",
+    "narrowPromiseIdsSha256": "093dcb9b53d70c092d06dec2a6ddd1103eba7367e04bffb78e21c2eebc30f7fd",
+    "narrowPromiseMismatchIntersectionCount": 108,
+    "promiseMismatchOutsideNarrowIds": [
+      "bnu-primary-p1-upper-comparison"
+    ],
+    "routeMismatchIds": [
+      "bnu-primary-p1-upper-comparison",
+      "bnu-primary-p3-lower-area",
+      "bnu-primary-p5-lower-fraction-add-sub",
+      "bnu-primary-p5-lower-fraction-division",
+      "bnu-primary-p5-lower-fraction-multiplication",
+      "hjb-primary-p5-lower-fractions-equivalence-operations"
+    ]
+  },
+  "narrowPromiseDecision": {
+    "entryCount": 108,
+    "expectedAuditStatus": "pass",
+    "expectedFocusPolicy": "exact",
+    "expectedDisposition": "unchanged-from-frozen-v1",
+    "expectedRequiredModes": "unchanged-from-frozen-v1",
+    "expectedForbiddenModes": "unchanged-from-frozen-v1",
+    "expectedRequiredInvariantIds": "unchanged-from-frozen-v1",
+    "reason": "Each entry was independently frozen as repair-required:narrow-before-live because its renderer was an accurate but narrower chapter submodel. Current code changes only the three-language focus/formula projection for this explicit set, preserves the specialized title and frozen route, and names the already-reviewed modes and invariants.",
+    "entries": [
+      {
+        "labId": "bnu-high-s4-三角函数",
+        "expectedNormalizedPromiseSha256": "71a8e5701e6c510617bc4cec9566695d043d8a5172dcd6d0cb480ddc60de0242"
+      },
+      {
+        "labId": "bnu-high-s4-三角恒等变换",
+        "expectedNormalizedPromiseSha256": "1f4d65004b45518d9e6537de9f427e87e03fe1ff121086c7eb723a842d14f516"
+      },
+      {
+        "labId": "bnu-high-s4-函数",
+        "expectedNormalizedPromiseSha256": "4442ad994ecd42d37690c8eef8a62c7c626a9cb7a8974547f36014408d4606fc"
+      },
+      {
+        "labId": "bnu-high-s4-函数应用",
+        "expectedNormalizedPromiseSha256": "08f437d62aeab8b65933b342ce2a2bec45561ce505d141b2e4eb088f40b89fd7"
+      },
+      {
+        "labId": "bnu-high-s4-对数运算与对数函数",
+        "expectedNormalizedPromiseSha256": "fecd249f0982e0a35eabb41410c39c8958bfd4ee82c153b30d9b444cee51fbd2"
+      },
+      {
+        "labId": "bnu-high-s4-指数运算与指数函数",
+        "expectedNormalizedPromiseSha256": "27edd3af5b89d0345ef7dde395976757f15f8fd8141511512721a367cb2ea7de"
+      },
+      {
+        "labId": "bnu-high-s4-数学建模活动-二",
+        "expectedNormalizedPromiseSha256": "46a3ab27cb17357c9c89c7640ee05277b0444b81209690cfd8287ed3b3fbe114"
+      },
+      {
+        "labId": "bnu-high-s4-概率",
+        "expectedNormalizedPromiseSha256": "e8e95f75f1c32f18445334ff3799b2f285eea26f96e12ee400d8203b862359c0"
+      },
+      {
+        "labId": "bnu-high-s4-立体几何初步",
+        "expectedNormalizedPromiseSha256": "4fadc33d2d51951e7ec93ad421b96eb85987c5af0ae5d12749dd738506e8c22d"
+      },
+      {
+        "labId": "bnu-high-s4-统计",
+        "expectedNormalizedPromiseSha256": "5b181b31e206a34d3968355fe2b53311f4487f5ced68d9d519b0ec7c224a73a5"
+      },
+      {
+        "labId": "bnu-high-s4-预备知识",
+        "expectedNormalizedPromiseSha256": "38777a6eff80a49b2eac731137cc723787f27557994003b96b35a703e20f0f13"
+      },
+      {
+        "labId": "bnu-high-s5-圆锥曲线",
+        "expectedNormalizedPromiseSha256": "b8e8a89453d2eca3bd1e90ad1eaad9884641651b30b3d8fda68ed170ffb2fcc6"
+      },
+      {
+        "labId": "bnu-high-s5-数学建模活动-三",
+        "expectedNormalizedPromiseSha256": "198374d9d78195114eac3d87b077fe188ddea2c7e95be2896f8fade92417435d"
+      },
+      {
+        "labId": "bnu-high-s5-概率",
+        "expectedNormalizedPromiseSha256": "e8e95f75f1c32f18445334ff3799b2f285eea26f96e12ee400d8203b862359c0"
+      },
+      {
+        "labId": "bnu-high-s5-空间向量与立体几何",
+        "expectedNormalizedPromiseSha256": "63fa6020a0ef3b15cd9547bfa0713e07391a6e0e5e120a6be3b18ad24d85b573"
+      },
+      {
+        "labId": "bnu-high-s5-计数原理",
+        "expectedNormalizedPromiseSha256": "33bfbcc346d5f0615fa95622c354fb34728d31ab56b1f8480ed8945badc18eab"
+      },
+      {
+        "labId": "bnu-high-s6-导数及其应用",
+        "expectedNormalizedPromiseSha256": "3c4650bcc596d12d27e22ebb5358e7a9321a225230bbd74c0d863dad8b0f9d44"
+      },
+      {
+        "labId": "bnu-high-s6-数列",
+        "expectedNormalizedPromiseSha256": "3fd5e82975cabd71bf362a334e7ed31445426095b2b53f488cb1f3b6238f7ac7"
+      },
+      {
+        "labId": "bnu-junior-s1-lower-variable-relationships",
+        "expectedNormalizedPromiseSha256": "5a1a35c5cbdbb67e8f573b8439f492358722f7bfebbfe420d3bcca19ea339f79"
+      },
+      {
+        "labId": "bnu-junior-s1-upper-spatial-figures",
+        "expectedNormalizedPromiseSha256": "3fbc4a08d231de85362c464a362f2644d6bc0920f52db0a25f1dfdffd531aa5e"
+      },
+      {
+        "labId": "bnu-junior-s2-upper-pythagorean-theorem",
+        "expectedNormalizedPromiseSha256": "8c73062936e0e3acad90ac67b24235a03e00646064810e29b0d9a14d8d560379"
+      },
+      {
+        "labId": "bnu-primary-p1-lower-math-play-review",
+        "expectedNormalizedPromiseSha256": "f30b04d4cddae05753744eed5895cd50087d8f48ac41c20fed15063228d73e67"
+      },
+      {
+        "labId": "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+        "expectedNormalizedPromiseSha256": "08a0a39f30a15464e38decdafd8ade7a44e456687bbd6e6dcf56b880383de003"
+      },
+      {
+        "labId": "bnu-primary-p1-upper-review",
+        "expectedNormalizedPromiseSha256": "a83ca671a9b17e80131bdb5f02206b618fd7f983c10743db3a92cdfc1625dac8"
+      },
+      {
+        "labId": "bnu-primary-p2-lower-data-recording-review",
+        "expectedNormalizedPromiseSha256": "247fa2872c83f16770564605ec7a37dca346ebe077ac132addf89a9e4020ad0c"
+      },
+      {
+        "labId": "bnu-primary-p2-lower-measurement",
+        "expectedNormalizedPromiseSha256": "7d1c9e41fb9d639dcf08cbb9900dafe208e1a997783c3b7ca3b98aef54868dbb"
+      },
+      {
+        "labId": "bnu-primary-p2-lower-time",
+        "expectedNormalizedPromiseSha256": "35f2d7a6e0939db832509d47d1cfa84ae86506658b30325a70e565f318d54fd5"
+      },
+      {
+        "labId": "bnu-primary-p2-upper-add-sub-review",
+        "expectedNormalizedPromiseSha256": "b31ddde400917e9a7d82a55071b0ab9403d55334c40686fa98111d1270dabfbe"
+      },
+      {
+        "labId": "bnu-primary-p2-upper-division-facts-review",
+        "expectedNormalizedPromiseSha256": "37c71075fc11a06fd6dcab93a46a66bb261c44ce9265dcbc41983381d9152b69"
+      },
+      {
+        "labId": "bnu-primary-p2-upper-measurement",
+        "expectedNormalizedPromiseSha256": "7d1c9e41fb9d639dcf08cbb9900dafe208e1a997783c3b7ca3b98aef54868dbb"
+      },
+      {
+        "labId": "bnu-primary-p3-lower-fraction-introduction",
+        "expectedNormalizedPromiseSha256": "df4f54a2bfa17fab347df83c04c96b1e752daafc4fee9ef1899b50600bd73eb7"
+      },
+      {
+        "labId": "bnu-primary-p3-lower-math-play-review",
+        "expectedNormalizedPromiseSha256": "fd340b7caae55e66f5d17c17355123e0580d09d60313709ed5f9ecfbb0ce53f6"
+      },
+      {
+        "labId": "bnu-primary-p3-upper-math-play-review",
+        "expectedNormalizedPromiseSha256": "fb5f3656f9fe913b607fc4338ed8590d2e297c04727c7b3579ad2818f6fc8e3e"
+      },
+      {
+        "labId": "bnu-primary-p4-lower-math-play-review",
+        "expectedNormalizedPromiseSha256": "fb682a329ba35a446d04cc7dde9862ddac38dedbe407fff02d7c840b4628ef5f"
+      },
+      {
+        "labId": "bnu-primary-p4-upper-math-play-review",
+        "expectedNormalizedPromiseSha256": "3d49ac01e50deb17828a5377ed6b8b7fa338427a919685219d00db519d324c27"
+      },
+      {
+        "labId": "bnu-primary-p5-lower-cuboid-introduction",
+        "expectedNormalizedPromiseSha256": "cc12404a5a3a3109af67ec7b5ac400fdfd41886e53b407221d7d99ade93919f4"
+      },
+      {
+        "labId": "bnu-primary-p5-lower-cuboid-volume",
+        "expectedNormalizedPromiseSha256": "48a9e73e8a9a39cee0e7e40d05b2f20ff4f69dac1616013ae133033c7fbfa36c"
+      },
+      {
+        "labId": "bnu-primary-p5-lower-review-activity",
+        "expectedNormalizedPromiseSha256": "9d083830445f1b3e7ceb1168b661c3da545f3bbd4bee8f8fdb89ece05dc41673"
+      },
+      {
+        "labId": "bnu-primary-p5-upper-fraction-meaning",
+        "expectedNormalizedPromiseSha256": "d9a376dab74c8dde2fda5538ca6df7830841d5f1873866f01acf5b596496e118"
+      },
+      {
+        "labId": "bnu-primary-p5-upper-review-activity",
+        "expectedNormalizedPromiseSha256": "d717448383480f4a25cea695428ccc957fcb059716b1ed026fff31620af20a06"
+      },
+      {
+        "labId": "bnu-primary-p6-lower-math-play",
+        "expectedNormalizedPromiseSha256": "3ab945c4a36ac5f13f1448cd5c609d032a9c2c9125bb5ac0a9aceb84e339af81"
+      },
+      {
+        "labId": "bnu-primary-p6-lower-proportion",
+        "expectedNormalizedPromiseSha256": "86980e4d2b7af478c396a627a2b69d67da36981b1763023caeae91e8c2d423a3"
+      },
+      {
+        "labId": "bnu-primary-p6-upper-circles",
+        "expectedNormalizedPromiseSha256": "d5bbf29ddd7ad3ce954ea25e3f09f96065513022e81888c126c0f0e93699b748"
+      },
+      {
+        "labId": "bnu-primary-p6-upper-ratio",
+        "expectedNormalizedPromiseSha256": "1feb9be78d95a2a4da4dfa40895bd0eb9f51a46cd1a6974e1810ba7c27fa9368"
+      },
+      {
+        "labId": "bnu-primary-p6-upper-review-activity",
+        "expectedNormalizedPromiseSha256": "5a9f9fe1dd2cc82e27080aca756d784518ff68bff9fcb28424e346865837ce23"
+      },
+      {
+        "labId": "hjb-high-s4-三角",
+        "expectedNormalizedPromiseSha256": "e400538ffdde3f89476ec87281afc953b4a91623d4effec06fc044f420fcae42"
+      },
+      {
+        "labId": "hjb-high-s4-三角函数",
+        "expectedNormalizedPromiseSha256": "71a8e5701e6c510617bc4cec9566695d043d8a5172dcd6d0cb480ddc60de0242"
+      },
+      {
+        "labId": "hjb-high-s4-函数的概念-性质及应用",
+        "expectedNormalizedPromiseSha256": "1af8598ed8f1fb6d49c0ca0e1c76994f7a7e5b66724fd01db4cdeabf9e94a801"
+      },
+      {
+        "labId": "hjb-high-s4-幂-指数与对数",
+        "expectedNormalizedPromiseSha256": "19158a926a1ed5db627d8286b9374f58c96ecde66a6431fe61981d3c4c583f1c"
+      },
+      {
+        "labId": "hjb-high-s4-幂函数-指数函数与对数函数",
+        "expectedNormalizedPromiseSha256": "0256e66983e5a0df1197a895deda2ddbedcb7175c0e9f06b7a872b8939034abd"
+      },
+      {
+        "labId": "hjb-high-s5-圆锥曲线",
+        "expectedNormalizedPromiseSha256": "b8e8a89453d2eca3bd1e90ad1eaad9884641651b30b3d8fda68ed170ffb2fcc6"
+      },
+      {
+        "labId": "hjb-high-s5-数列",
+        "expectedNormalizedPromiseSha256": "3fd5e82975cabd71bf362a334e7ed31445426095b2b53f488cb1f3b6238f7ac7"
+      },
+      {
+        "labId": "hjb-high-s5-概率初步",
+        "expectedNormalizedPromiseSha256": "5d2f7024556e4d903a29875943f5ade72083f1263eb5306c726b3fb63e8c756c"
+      },
+      {
+        "labId": "hjb-high-s5-空间向量及其应用",
+        "expectedNormalizedPromiseSha256": "12b99c70325841df820cfb68829d56f841b576a8136c3bbb9e73ffd9098b5bd1"
+      },
+      {
+        "labId": "hjb-high-s5-空间直线与平面",
+        "expectedNormalizedPromiseSha256": "41bab97fbc2c3ed325927858786e17a37599eb6637b064ace7b00c1e1d833e58"
+      },
+      {
+        "labId": "hjb-high-s5-统计",
+        "expectedNormalizedPromiseSha256": "5b181b31e206a34d3968355fe2b53311f4487f5ced68d9d519b0ec7c224a73a5"
+      },
+      {
+        "labId": "hjb-high-s6-圆锥曲线综合复习",
+        "expectedNormalizedPromiseSha256": "bb1d1f73248c8f076bac6024a4f59512701f1e52e28a74f5e894dd56174dcaad"
+      },
+      {
+        "labId": "hjb-high-s6-导数及其运用",
+        "expectedNormalizedPromiseSha256": "31bb3701000d1f8ac89e56769bc1a58006868f443ca7941ec357c45858804fcf"
+      },
+      {
+        "labId": "hjb-high-s6-数列与计数综合",
+        "expectedNormalizedPromiseSha256": "98713dac3930e9272c4be0e7df3946d9a16ccdb0ecdd0e480960032a5f76dfe9"
+      },
+      {
+        "labId": "hjb-high-s6-数列综合复习",
+        "expectedNormalizedPromiseSha256": "02642c0c77c29fbf0d1d210dda98050398c5409d6ed7acb73f0ee5e5ebbd99b6"
+      },
+      {
+        "labId": "hjb-high-s6-概率初步续",
+        "expectedNormalizedPromiseSha256": "c7df853720d054bf4aa87b8435cc8adab12dd9dcbd3e51e51abd5ba99f5cc55b"
+      },
+      {
+        "labId": "hjb-high-s6-概率统计综合",
+        "expectedNormalizedPromiseSha256": "dd4d1d6b758d16a55448bfb4db88759aef02ed18f6aff5ae56a7e130ec0fb0e0"
+      },
+      {
+        "labId": "hjb-high-s6-空间向量综合复习",
+        "expectedNormalizedPromiseSha256": "267fcd830fade6f87ac10122edc1382ea46db9c8ef03f22f18c8fa8f68fb6d77"
+      },
+      {
+        "labId": "hjb-high-s6-立体几何与空间向量综合",
+        "expectedNormalizedPromiseSha256": "9608e92e8ec58a9ea8ef2ab9619ded5e0408e4227b53e4da3a971ee7beb6df46"
+      },
+      {
+        "labId": "hjb-high-s6-计数原理",
+        "expectedNormalizedPromiseSha256": "33bfbcc346d5f0615fa95622c354fb34728d31ab56b1f8480ed8945badc18eab"
+      },
+      {
+        "labId": "hjb-junior-s2-upper-right-triangles",
+        "expectedNormalizedPromiseSha256": "60667e02a481cdc5ff741dd6ab1bfa99c15f30f98213d7288ebecace9548b48b"
+      },
+      {
+        "labId": "hjb-primary-p1-lower-length-measurement",
+        "expectedNormalizedPromiseSha256": "5c12bf1e804679a4e5c1bcb91f62b0d452aa067cb92266a0e2dee6c250a5d1e8"
+      },
+      {
+        "labId": "hjb-primary-p1-lower-review",
+        "expectedNormalizedPromiseSha256": "88497ec9d21f217d1064cf0155192e9264a982747aa1936f27c2415c8bfdf55d"
+      },
+      {
+        "labId": "hjb-primary-p1-upper-review",
+        "expectedNormalizedPromiseSha256": "a20db2346b13e63e2b9554b0f769ce5af9610caded749276610a7d3ec7f33201"
+      },
+      {
+        "labId": "hjb-primary-p1-upper-within-20-number-add-sub",
+        "expectedNormalizedPromiseSha256": "0817e490dfeafa98789e2687954c04e8f1011d120c133d462edd6c32e5bec596"
+      },
+      {
+        "labId": "hjb-primary-p2-lower-math-square-review",
+        "expectedNormalizedPromiseSha256": "dd4d942673ac192a74e7b2c94364d0524de45669cf3dbbdb7aecfd645165b89e"
+      },
+      {
+        "labId": "hjb-primary-p2-lower-time",
+        "expectedNormalizedPromiseSha256": "1dac2c7e89499deefe74577618aea75e4ca3b5d400f75e940fe6e57ae26ab0c4"
+      },
+      {
+        "labId": "hjb-primary-p2-upper-math-square-review",
+        "expectedNormalizedPromiseSha256": "2953dc392cf6f299a21302260c44115966adba10e8df5d811f1cfed9c8f320dd"
+      },
+      {
+        "labId": "hjb-primary-p3-lower-math-square-review",
+        "expectedNormalizedPromiseSha256": "d638d00c0327a95f6c26b959941c8255941387bbdc154f107d95a4317e6b9e6d"
+      },
+      {
+        "labId": "hjb-primary-p3-upper-math-square-review",
+        "expectedNormalizedPromiseSha256": "c0cdd5e8a052e4f417ab2e7a100288539a0f0acedadbd01a1c72bde1cb00c6ce"
+      },
+      {
+        "labId": "hjb-primary-p4-lower-review-integration",
+        "expectedNormalizedPromiseSha256": "3606b831497fad0a5a92ccaa77a2f428ea48ed805b4c3bcbf781b11e77695309"
+      },
+      {
+        "labId": "hjb-primary-p4-upper-fraction-extension",
+        "expectedNormalizedPromiseSha256": "4918cde00b80e6fc95699cb2120ea130122b3bb4d84cc5c0d381092ba89c4a4c"
+      },
+      {
+        "labId": "hjb-primary-p4-upper-large-numbers-measurement",
+        "expectedNormalizedPromiseSha256": "6f5d4f5a21fb04cd9211d1ce1fa0ff097625178ea311d60aab17ddc83d7ef069"
+      },
+      {
+        "labId": "hjb-primary-p4-upper-review-integration",
+        "expectedNormalizedPromiseSha256": "f911efe6081a980138b76983ab8b0b0fa88845cc2953f9acddda8ce1553aaa94"
+      },
+      {
+        "labId": "hjb-primary-p5-lower-cuboid-cube",
+        "expectedNormalizedPromiseSha256": "bbc48d38b5db670903d22cae2e0542b4fc02bcb8c35334f2e9bf5a6655cc0bc1"
+      },
+      {
+        "labId": "hjb-primary-p6-lower-circle-sector",
+        "expectedNormalizedPromiseSha256": "8536f584b27ab81f3f2d6ceb09ad34865940a31a466247b2ea7c96b9b9a3cea6"
+      },
+      {
+        "labId": "hjb-primary-p6-lower-cuboid",
+        "expectedNormalizedPromiseSha256": "b78be8ab0a826f3f9cb33c551b3d3538a1fcdb4594b16ff1a5cbb058933cd273"
+      },
+      {
+        "labId": "hjb-primary-p6-lower-ratio-proportion",
+        "expectedNormalizedPromiseSha256": "652d2535d5b0ddfd01df7475d2f5cddf08a5eebf28c3b8709ab5ba28c666c4b3"
+      },
+      {
+        "labId": "hjb-primary-p6-upper-circle-sector",
+        "expectedNormalizedPromiseSha256": "db8d32aaa225939a2264d1f9dc7a202b2075c12fed5fdf4279453505dff936d4"
+      },
+      {
+        "labId": "hjb-primary-p6-upper-fractions",
+        "expectedNormalizedPromiseSha256": "8000656f2a55376a67b726200806acd1f37ec1401ae8b9cd26aa220d0a8e0145"
+      },
+      {
+        "labId": "hjb-primary-p6-upper-ratio-proportion",
+        "expectedNormalizedPromiseSha256": "13adf78a5bf2b423df083b11ffd585f2bdf7885c7a77f75418003dc9eaf081ea"
+      },
+      {
+        "labId": "pep-high-s4-exp-log",
+        "expectedNormalizedPromiseSha256": "6da9e3045bd114062d4db8debe924d1d1955fcf5543a3c7175f58d1387e57839"
+      },
+      {
+        "labId": "pep-high-s4-function-properties",
+        "expectedNormalizedPromiseSha256": "a26ed9c0e985f1e73aa61c59a57bbd9001af3c128f091c1862ca63d366500ac2"
+      },
+      {
+        "labId": "pep-high-s4-probability",
+        "expectedNormalizedPromiseSha256": "e8e95f75f1c32f18445334ff3799b2f285eea26f96e12ee400d8203b862359c0"
+      },
+      {
+        "labId": "pep-high-s4-solid-geometry-intro",
+        "expectedNormalizedPromiseSha256": "4fadc33d2d51951e7ec93ad421b96eb85987c5af0ae5d12749dd738506e8c22d"
+      },
+      {
+        "labId": "pep-high-s4-statistics",
+        "expectedNormalizedPromiseSha256": "5b181b31e206a34d3968355fe2b53311f4487f5ced68d9d519b0ec7c224a73a5"
+      },
+      {
+        "labId": "pep-high-s4-trigonometry",
+        "expectedNormalizedPromiseSha256": "71a8e5701e6c510617bc4cec9566695d043d8a5172dcd6d0cb480ddc60de0242"
+      },
+      {
+        "labId": "pep-high-s5-conics",
+        "expectedNormalizedPromiseSha256": "9a0c1f1ffff6a8ae2ab71d35b518e93409310a6f742ce3315f28eb4dd8397433"
+      },
+      {
+        "labId": "pep-high-s5-derivatives",
+        "expectedNormalizedPromiseSha256": "6943208f75c8319da7bcac1866907c0ca6c1c5b530ec0b4fab57fad16f51259a"
+      },
+      {
+        "labId": "pep-high-s5-sequences",
+        "expectedNormalizedPromiseSha256": "3fd5e82975cabd71bf362a334e7ed31445426095b2b53f488cb1f3b6238f7ac7"
+      },
+      {
+        "labId": "pep-high-s5-space-vectors",
+        "expectedNormalizedPromiseSha256": "63fa6020a0ef3b15cd9547bfa0713e07391a6e0e5e120a6be3b18ad24d85b573"
+      },
+      {
+        "labId": "pep-high-s6-analytic-geometry-synthesis",
+        "expectedNormalizedPromiseSha256": "00817624e25ce3a0f38b4c64b5617fa0d81d79a0bb324d4b448c207249f2c144"
+      },
+      {
+        "labId": "pep-high-s6-counting",
+        "expectedNormalizedPromiseSha256": "33bfbcc346d5f0615fa95622c354fb34728d31ab56b1f8480ed8945badc18eab"
+      },
+      {
+        "labId": "pep-high-s6-derivative-synthesis",
+        "expectedNormalizedPromiseSha256": "2532ef18ff97f0db5bc66296fa59b6b06fbe05c63a0661b2c465b2e6ab9de2f9"
+      },
+      {
+        "labId": "pep-high-s6-random-variables",
+        "expectedNormalizedPromiseSha256": "a3f6afdcec1eceae6c71a4b4021a347e0649483a0efe099ee390d4bbc4a02dac"
+      },
+      {
+        "labId": "pep-junior-s1-lower-lines-coordinates",
+        "expectedNormalizedPromiseSha256": "7f2e0c96482e30b99e87ff5738695362f5e251a833f6f0cbb007d651162c0918"
+      },
+      {
+        "labId": "pep-junior-s3-upper-quadratics-circle-probability",
+        "expectedNormalizedPromiseSha256": "d353a128b48870bf0bfcd964f7c4fd2a05286c932f28cd00309272b6221ab23c"
+      },
+      {
+        "labId": "pep-primary-p1-lower-within-100-add-sub",
+        "expectedNormalizedPromiseSha256": "92bdf85817dfd7b3092718afef4f3a7885541551f77fa00eaf12a925647546da"
+      },
+      {
+        "labId": "pep-primary-p1-upper-number-sense",
+        "expectedNormalizedPromiseSha256": "35c130d12ebb3f1ce730eeff36e5011131189d51fcbe09cff65c31ed727c7dff"
+      },
+      {
+        "labId": "pep-primary-p3-lower-area-decimals",
+        "expectedNormalizedPromiseSha256": "4092f450debbe9a9586e66d212dd6e9522c69ced812315a8482f84f3c166d8f6"
+      },
+      {
+        "labId": "pep-primary-p3-lower-statistics-review",
+        "expectedNormalizedPromiseSha256": "8ffb1b4b9d4779c1772d9256be5e10173f3dd75586d325d6a28f16a9ee8e77c8"
+      },
+      {
+        "labId": "pep-primary-p4-upper-angles-geometry",
+        "expectedNormalizedPromiseSha256": "7ef3a346a37ee3f2f92ed15191d117aa4b48ce790c4b1e0ff07df1706290d873"
+      },
+      {
+        "labId": "pep-primary-p6-lower-negative-review",
+        "expectedNormalizedPromiseSha256": "aa7934408366c02f995f67573292807a332f5fbc8ca503abd6af1d1855378e1f"
+      }
+    ]
+  },
+  "routeDecisions": [
+    {
+      "labId": "bnu-primary-p1-upper-comparison",
+      "changeKinds": [
+        "promise",
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "56986add958f3468566dfc358d573c2dac1885225b30bc6405413be82d5a1a4f",
+        "disposition": {
+          "kind": "direct",
+          "family": "measurement-model",
+          "variant": "unit-interval-measure"
+        },
+        "requiredModes": [
+          "millimetres",
+          "centimetres",
+          "decimetres"
+        ],
+        "forbiddenModes": [],
+        "requiredInvariantIds": [
+          "measurement-physical-length",
+          "unit-interval-count"
+        ]
+      },
+      "expected": {
+        "auditStatus": "pass",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "0314c04f3bd2c490ca1edd220c0e072cf359532b9b544d675e333ef9c164ee5e",
+        "disposition": {
+          "kind": "direct",
+          "family": "attribute-comparison",
+          "variant": "quantity-length-height-mass"
+        },
+        "requiredModes": [
+          "quantity",
+          "length",
+          "height",
+          "mass"
+        ],
+        "forbiddenModes": [],
+        "requiredInvariantIds": [
+          "attribute-comparison-relation",
+          "absolute-attribute-difference"
+        ]
+      }
+    },
+    {
+      "labId": "bnu-primary-p3-lower-area",
+      "changeKinds": [
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "e60134aba4f6dac350149598a2646ca934c0c25a900fad541b3244666bc01cc4",
+        "disposition": {
+          "kind": "direct",
+          "family": "equal-groups-array",
+          "variant": "rows-columns-product"
+        },
+        "requiredModes": [
+          "default"
+        ],
+        "forbiddenModes": [],
+        "requiredInvariantIds": [
+          "array-product",
+          "visible-cell-count"
+        ]
+      },
+      "expected": {
+        "auditStatus": "pass",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "e60134aba4f6dac350149598a2646ca934c0c25a900fad541b3244666bc01cc4",
+        "disposition": {
+          "kind": "direct",
+          "family": "area-perimeter",
+          "variant": "rectangle-boundary-and-cover"
+        },
+        "requiredModes": [
+          "default"
+        ],
+        "forbiddenModes": [],
+        "requiredInvariantIds": [
+          "area-boundary-cover",
+          "rectangle-dimension-consistency"
+        ]
+      }
+    },
+    {
+      "labId": "bnu-primary-p5-lower-fraction-add-sub",
+      "changeKinds": [
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "8fc6afe59f4b50c329ad9f12abd4c32a2c13400a28548000e05d106d9a247a33",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "exact-fraction-operation"
+        },
+        "requiredModes": [
+          "add",
+          "subtract"
+        ],
+        "forbiddenModes": [
+          "multiply",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ]
+      },
+      "expected": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "8fc6afe59f4b50c329ad9f12abd4c32a2c13400a28548000e05d106d9a247a33",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "fraction-add-subtract"
+        },
+        "requiredModes": [
+          "add",
+          "subtract"
+        ],
+        "forbiddenModes": [
+          "multiply",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ],
+        "rationale": "The add/subtract mode filter and exact rational result are correct, but the visible tenths-only two-bar model does not show the promised common-denominator conversion, mixed-number work, simplification, or estimation; the catalog formula still says only part / whole."
+      }
+    },
+    {
+      "labId": "bnu-primary-p5-lower-fraction-division",
+      "changeKinds": [
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "4ba11460e5d829251b46df69cc665292570b130f2356cb9aae6667c08c01c69c",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "exact-fraction-operation"
+        },
+        "requiredModes": [
+          "divide"
+        ],
+        "forbiddenModes": [
+          "add",
+          "subtract",
+          "multiply"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ]
+      },
+      "expected": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "4ba11460e5d829251b46df69cc665292570b130f2356cb9aae6667c08c01c69c",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "fraction-divide"
+        },
+        "requiredModes": [
+          "divide"
+        ],
+        "forbiddenModes": [
+          "add",
+          "subtract",
+          "multiply"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ],
+        "rationale": "The divide-only route computes an exact quotient, but the visible two-bar model does not show inverse-operation, reciprocal, measurement/sharing, or equation-solving reasoning promised by the focus."
+      }
+    },
+    {
+      "labId": "bnu-primary-p5-lower-fraction-multiplication",
+      "changeKinds": [
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "9df98a90dcc29bd686e1f149c87c5e99a5dfa0305f5e1fadea76ba4f0f5ef660",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "exact-fraction-operation"
+        },
+        "requiredModes": [
+          "multiply"
+        ],
+        "forbiddenModes": [
+          "add",
+          "subtract",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ]
+      },
+      "expected": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "9df98a90dcc29bd686e1f149c87c5e99a5dfa0305f5e1fadea76ba4f0f5ef660",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "fraction-multiply"
+        },
+        "requiredModes": [
+          "multiply"
+        ],
+        "forbiddenModes": [
+          "add",
+          "subtract",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ],
+        "rationale": "The multiply-only route computes an exact product, but the visible two-bar model does not show repeated groups, part-of-a-quantity, scaling, an area model, or visible simplification promised by the focus."
+      }
+    },
+    {
+      "labId": "hjb-primary-p5-lower-fractions-equivalence-operations",
+      "changeKinds": [
+        "route"
+      ],
+      "from": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "ac16ef7b62409562b59027c3876f75e2f4c77e617f6a5082211b4e32df264bdb",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "exact-fraction-operation"
+        },
+        "requiredModes": [
+          "add",
+          "subtract"
+        ],
+        "forbiddenModes": [
+          "multiply",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ]
+      },
+      "expected": {
+        "auditStatus": "repair-required",
+        "focusPolicy": "exact",
+        "normalizedPromiseSha256": "ac16ef7b62409562b59027c3876f75e2f4c77e617f6a5082211b4e32df264bdb",
+        "disposition": {
+          "kind": "direct",
+          "family": "fraction-operations",
+          "variant": "fraction-add-subtract"
+        },
+        "requiredModes": [
+          "add",
+          "subtract"
+        ],
+        "forbiddenModes": [
+          "multiply",
+          "divide"
+        ],
+        "requiredInvariantIds": [
+          "fraction-denominator-nonzero",
+          "fraction-exact-rational"
+        ],
+        "rationale": "The add/subtract route computes exact rational results, but the visible tenths-only model does not implement the title/focus promises for equivalence, simplifying, common denominators, comparison, and keeping the whole explicit."
+      }
+    }
+  ],
+  "approvedChangedLabIds": [
+    "bnu-high-s4-三角函数",
+    "bnu-high-s4-三角恒等变换",
+    "bnu-high-s4-函数",
+    "bnu-high-s4-函数应用",
+    "bnu-high-s4-对数运算与对数函数",
+    "bnu-high-s4-指数运算与指数函数",
+    "bnu-high-s4-数学建模活动-二",
+    "bnu-high-s4-概率",
+    "bnu-high-s4-立体几何初步",
+    "bnu-high-s4-统计",
+    "bnu-high-s4-预备知识",
+    "bnu-high-s5-圆锥曲线",
+    "bnu-high-s5-数学建模活动-三",
+    "bnu-high-s5-概率",
+    "bnu-high-s5-空间向量与立体几何",
+    "bnu-high-s5-计数原理",
+    "bnu-high-s6-导数及其应用",
+    "bnu-high-s6-数列",
+    "bnu-junior-s1-lower-variable-relationships",
+    "bnu-junior-s1-upper-spatial-figures",
+    "bnu-junior-s2-upper-pythagorean-theorem",
+    "bnu-primary-p1-lower-math-play-review",
+    "bnu-primary-p1-lower-within-100-add-sub-nonregrouping",
+    "bnu-primary-p1-upper-comparison",
+    "bnu-primary-p1-upper-review",
+    "bnu-primary-p2-lower-data-recording-review",
+    "bnu-primary-p2-lower-measurement",
+    "bnu-primary-p2-lower-time",
+    "bnu-primary-p2-upper-add-sub-review",
+    "bnu-primary-p2-upper-division-facts-review",
+    "bnu-primary-p2-upper-measurement",
+    "bnu-primary-p3-lower-area",
+    "bnu-primary-p3-lower-fraction-introduction",
+    "bnu-primary-p3-lower-math-play-review",
+    "bnu-primary-p3-upper-math-play-review",
+    "bnu-primary-p4-lower-math-play-review",
+    "bnu-primary-p4-upper-math-play-review",
+    "bnu-primary-p5-lower-cuboid-introduction",
+    "bnu-primary-p5-lower-cuboid-volume",
+    "bnu-primary-p5-lower-review-activity",
+    "bnu-primary-p5-upper-fraction-meaning",
+    "bnu-primary-p5-upper-review-activity",
+    "bnu-primary-p6-lower-math-play",
+    "bnu-primary-p6-lower-proportion",
+    "bnu-primary-p6-upper-circles",
+    "bnu-primary-p6-upper-ratio",
+    "bnu-primary-p6-upper-review-activity",
+    "hjb-high-s4-三角",
+    "hjb-high-s4-三角函数",
+    "hjb-high-s4-函数的概念-性质及应用",
+    "hjb-high-s4-幂-指数与对数",
+    "hjb-high-s4-幂函数-指数函数与对数函数",
+    "hjb-high-s5-圆锥曲线",
+    "hjb-high-s5-数列",
+    "hjb-high-s5-概率初步",
+    "hjb-high-s5-空间向量及其应用",
+    "hjb-high-s5-空间直线与平面",
+    "hjb-high-s5-统计",
+    "hjb-high-s6-圆锥曲线综合复习",
+    "hjb-high-s6-导数及其运用",
+    "hjb-high-s6-数列与计数综合",
+    "hjb-high-s6-数列综合复习",
+    "hjb-high-s6-概率初步续",
+    "hjb-high-s6-概率统计综合",
+    "hjb-high-s6-空间向量综合复习",
+    "hjb-high-s6-立体几何与空间向量综合",
+    "hjb-high-s6-计数原理",
+    "hjb-junior-s2-upper-right-triangles",
+    "hjb-primary-p1-lower-length-measurement",
+    "hjb-primary-p1-lower-review",
+    "hjb-primary-p1-upper-review",
+    "hjb-primary-p1-upper-within-20-number-add-sub",
+    "hjb-primary-p2-lower-math-square-review",
+    "hjb-primary-p2-lower-time",
+    "hjb-primary-p2-upper-math-square-review",
+    "hjb-primary-p3-lower-math-square-review",
+    "hjb-primary-p3-upper-math-square-review",
+    "hjb-primary-p4-lower-review-integration",
+    "hjb-primary-p4-upper-fraction-extension",
+    "hjb-primary-p4-upper-large-numbers-measurement",
+    "hjb-primary-p4-upper-review-integration",
+    "hjb-primary-p5-lower-cuboid-cube",
+    "hjb-primary-p6-lower-circle-sector",
+    "hjb-primary-p6-lower-cuboid",
+    "hjb-primary-p6-lower-ratio-proportion",
+    "hjb-primary-p6-upper-circle-sector",
+    "hjb-primary-p6-upper-fractions",
+    "hjb-primary-p6-upper-ratio-proportion",
+    "pep-high-s4-exp-log",
+    "pep-high-s4-function-properties",
+    "pep-high-s4-probability",
+    "pep-high-s4-solid-geometry-intro",
+    "pep-high-s4-statistics",
+    "pep-high-s4-trigonometry",
+    "pep-high-s5-conics",
+    "pep-high-s5-derivatives",
+    "pep-high-s5-sequences",
+    "pep-high-s5-space-vectors",
+    "pep-high-s6-analytic-geometry-synthesis",
+    "pep-high-s6-counting",
+    "pep-high-s6-derivative-synthesis",
+    "pep-high-s6-random-variables",
+    "pep-junior-s1-lower-lines-coordinates",
+    "pep-junior-s3-upper-quadratics-circle-probability",
+    "pep-primary-p1-lower-within-100-add-sub",
+    "pep-primary-p1-upper-number-sense",
+    "pep-primary-p3-lower-area-decimals",
+    "pep-primary-p3-lower-statistics-review",
+    "pep-primary-p4-upper-angles-geometry",
+    "pep-primary-p6-lower-negative-review"
+  ],
+  "remainingChangedRedLabIds": [
+    "bnu-primary-p5-lower-fraction-add-sub",
+    "bnu-primary-p5-lower-fraction-division",
+    "bnu-primary-p5-lower-fraction-multiplication",
+    "hjb-primary-p5-lower-fractions-equivalence-operations"
+  ],
+  "untouchedRedLabIds": [
+    "bnu-high-s5-统计案例",
+    "bnu-junior-s1-upper-algebraic-expressions",
+    "bnu-junior-s1-upper-plane-figures",
+    "bnu-junior-s1-upper-rational-numbers",
+    "bnu-junior-s2-lower-algebraic-fractions-equations",
+    "bnu-junior-s2-lower-inequalities-systems",
+    "bnu-junior-s2-upper-linear-systems",
+    "bnu-junior-s2-upper-position-coordinates",
+    "bnu-junior-s2-upper-real-numbers",
+    "bnu-junior-s3-lower-circle",
+    "bnu-primary-p3-lower-two-digit-multiplication",
+    "bnu-primary-p3-upper-multi-digit-multiplication",
+    "bnu-primary-p3-upper-multiplication-division-fluency",
+    "bnu-primary-p4-lower-decimal-meaning-add-sub",
+    "bnu-primary-p4-upper-division",
+    "bnu-primary-p4-upper-lines-angles",
+    "bnu-primary-p4-upper-multiplication",
+    "bnu-primary-p5-upper-decimal-division",
+    "bnu-primary-p6-upper-percentage-applications",
+    "hjb-high-s6-三角-向量与解析几何综合",
+    "hjb-high-s6-函数-导数与不等式综合",
+    "hjb-junior-s1-lower-isosceles-triangles",
+    "hjb-junior-s1-upper-algebraic-fractions",
+    "hjb-junior-s1-upper-polynomial-add-subtract",
+    "hjb-junior-s2-lower-coordinate-plane",
+    "hjb-junior-s2-upper-quadratic-radicals",
+    "hjb-junior-s2-upper-real-numbers",
+    "hjb-junior-s3-lower-circle-regular-polygons",
+    "hjb-primary-p1-upper-school-math-habits",
+    "hjb-primary-p3-lower-two-digit-multiplication-division",
+    "hjb-primary-p3-upper-multiplication-division-extension",
+    "hjb-primary-p3-upper-one-digit-multiplication",
+    "hjb-primary-p4-lower-decimals-meaning-add-sub",
+    "hjb-primary-p4-upper-four-operations-problem-solving",
+    "hjb-primary-p4-upper-geometry-circle-lines-angles",
+    "hjb-primary-p5-upper-decimal-operations",
+    "hjb-primary-p6-lower-rational-numbers",
+    "hjb-primary-p6-lower-segments-angles",
+    "hjb-primary-p6-lower-simple-algebraic-expressions",
+    "pep-high-s4-sets-logic",
+    "pep-junior-s1-lower-equations-inequalities-data",
+    "pep-junior-s1-upper-expressions-linear-equations",
+    "pep-junior-s1-upper-geometric-figures",
+    "pep-junior-s1-upper-rational-numbers",
+    "pep-junior-s2-lower-linear-functions-data",
+    "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+    "pep-junior-s2-upper-polynomials-fractions",
+    "pep-junior-s2-upper-triangles-congruence",
+    "pep-junior-s3-lower-inverse-similarity-trigonometry",
+    "pep-primary-p1-lower-money-data-review",
+    "pep-primary-p1-upper-shapes-position-time",
+    "pep-primary-p3-upper-operations-fractions",
+    "pep-primary-p4-lower-decimals-average",
+    "pep-primary-p4-lower-perimeter-area-lines",
+    "pep-primary-p4-upper-large-numbers-multiplication",
+    "pep-primary-p5-lower-factors-fractions",
+    "pep-primary-p5-upper-decimals-equations",
+    "pep-primary-p5-upper-polygon-area",
+    "pep-primary-p6-lower-ratio-proportion-scale",
+    "pep-primary-p6-upper-coordinate-data",
+    "pep-primary-p6-upper-percent-fractions"
+  ],
+  "applicationRules": [
+    "Do not overwrite the frozen v1 artifact; apply this only as a reviewed candidate delta.",
+    "Do not mark the 61 untouched RED entries green.",
+    "Do not mark the four fraction route deltas green until the visible model or learner promise is repaired and re-audited.",
+    "Browser and durability acceptance remain separate A11/A22 gates."
+  ]
+}

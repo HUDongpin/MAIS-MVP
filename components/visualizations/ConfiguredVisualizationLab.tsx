@@ -1,29 +1,109 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ComponentType, ReactNode } from "react";
-import { useEffect, useId, useMemo, useState } from "react";
+import type { ComponentType, ReactNode, SyntheticEvent } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useSettings } from "@/components/providers/AppProviders";
+import {
+  buildConfiguredSemanticPrimaryState,
+  ConfiguredSemanticPrimaryMarks,
+  configuredSemanticPrimaryFamilies,
+  type ConfiguredSemanticPrimaryFamily,
+  type SemanticPrimaryLocalizedStrings
+} from "@/components/visualizations/ConfiguredSemanticPrimaryMarks";
+import {
+  buildConfiguredSemanticSecondaryMathState,
+  ConfiguredSemanticSecondaryMarks,
+  formatConfiguredSemanticSecondaryDisplayValue,
+  supportsConfiguredSemanticSecondaryDisplayProjection,
+  supportsConfiguredSemanticSecondaryFamily,
+  type ConfiguredSemanticSecondaryFamily,
+  type ConfiguredSemanticSecondaryStrings
+} from "@/components/visualizations/ConfiguredSemanticSecondaryMarks";
+import {
+  resolveConfiguredVisualizationCompositeStrands,
+  type ConfiguredVisualizationCompositeStrand
+} from "@/components/visualizations/configuredVisualizationCompositeStrands";
+import {
+  resolveConfiguredVisualizationSemanticModel,
+  type ConfiguredVisualizationSemanticModel
+} from "@/components/visualizations/configuredVisualizationSemanticModel";
+import {
+  getConfiguredVisualizationSemanticControlContract,
+  projectConfiguredVisualizationSemanticControlState,
+  type ConfiguredVisualizationSemanticControlContract,
+  type ConfiguredVisualizationSemanticSlider,
+  type ConfiguredVisualizationSemanticSliderInput
+} from "@/components/visualizations/configuredVisualizationSemanticControls";
+import {
+  DecimalArithmeticLab,
+  isMainlandDecimalArithmeticLabId
+} from "@/components/visualizations/mainland/DecimalArithmeticLab";
+import {
+  FractionOperationsLab,
+  isMainlandFractionOperationsLabId
+} from "@/components/visualizations/mainland/FractionOperationsLab";
+import {
+  isMainlandMultiDigitOperationsLabId,
+  MultiDigitOperationsLab
+} from "@/components/visualizations/mainland/MultiDigitOperationsLab";
+import {
+  isMainlandPercentApplicationsLabId,
+  PercentApplicationsLab
+} from "@/components/visualizations/mainland/PercentApplicationsLab";
+import {
+  isMainlandRatioProportionScaleLabId,
+  RatioProportionScaleLab
+} from "@/components/visualizations/mainland/RatioProportionScaleLab";
+import {
+  isMainlandSignedRealNumberLineLabId,
+  SignedRealNumberLineLab
+} from "@/components/visualizations/mainland/SignedRealNumberLineLab";
+import {
+  isMainlandSymbolicExpressionsLabId,
+  SymbolicExpressionsLab
+} from "@/components/visualizations/mainland/SymbolicExpressionsLab";
 import { sliderBoundsForThreeDTemplate } from "@/components/visualizations/three/configuredThreeDControls";
 import { resolveConfiguredThreeDRenderPlan } from "@/components/visualizations/three/configuredThreeDRenderPlan";
 import type { ThreeDLabCanvasProps } from "@/components/visualizations/three/threeDSceneTypes";
+import { HKVisualizationLab } from "@/components/visualizations/hk/HKVisualizationLab";
+import {
+  hkVisualizationLabRegistryKind,
+  isHKDedicatedLabId
+} from "@/components/visualizations/hk/hkVisualizationLabRegistry";
 import { ThreeDGraphSvg } from "@/components/visualizations/ThreeDGraphSvg";
 import { formatThreeDGraphSummary, threeDGraphScalesFromControls } from "@/components/visualizations/ThreeDGraphSvgGeometry";
 import { useVisualizationTheme, type VisualizationTheme } from "@/components/visualizations/visualizationTheme";
 import type { FeaturedLabDefinition, VisualizationTemplateId } from "@/data/visualizationLabs";
 import { clamp, formatNumber } from "@/lib/math";
+import {
+  queueVisualizationSessionOutbox,
+  visualizationSessionOutboxUpdatedEventName,
+  type VisualizationSessionOutboxRecord
+} from "@/lib/visualizationSessionOutbox";
+
+function ThreeDLabRuntimeLoading() {
+  const { t } = useSettings();
+  const loadingLabel = t({
+    en: "Loading 3D model...",
+    zh: "正在載入 3D 模型...",
+    zhHans: "正在加载 3D 模型..."
+  });
+
+  return (
+    <div
+      className="grid min-h-[360px] place-items-center rounded-2xl border border-cyan-200 bg-cyan-50/80 p-6 text-center text-sm font-black text-cyan-800 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-300/[0.08] dark:text-cyan-100"
+      data-viz-three-runtime-loading
+    >
+      {loadingLabel}
+    </div>
+  );
+}
 
 const ThreeDLabCanvas = dynamic<ThreeDLabCanvasProps>(
   () => import("@/components/visualizations/three/ThreeDLabCanvas").then((module) => module.ThreeDLabCanvas as ComponentType<ThreeDLabCanvasProps>),
   {
-    loading: () => (
-      <div
-        className="grid min-h-[360px] place-items-center rounded-2xl border border-cyan-200 bg-cyan-50/80 p-6 text-center text-sm font-black text-cyan-800 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-300/[0.08] dark:text-cyan-100"
-        data-viz-three-runtime-loading
-      >
-        Loading 3D model...
-      </div>
-    ),
+    loading: () => <ThreeDLabRuntimeLoading />,
     ssr: false
   }
 );
@@ -35,10 +115,215 @@ type ConfiguredVisualizationLabProps = {
   topicId?: string;
 };
 
+const configuredVisualizationModuleId = "configured-visualization-lab";
 const gradeOneAddSubtractLabId = "us-ca-math-p1-1-oa-add-subtract";
 const width = 640;
 const height = 360;
 const panel = { x: 34, y: 34, width: 572, height: 292 };
+const titleBadgeMaxWidth = 456;
+const titleBadgeHorizontalPadding = 40;
+const titleBadgeEstimatedSafetyFactor = 1.25;
+const configuredVisualizationControlKeys = new Set([
+  " ",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "End",
+  "Enter",
+  "Home",
+  "PageDown",
+  "PageUp"
+]);
+
+type ConfiguredVisualizationMachineState = Readonly<Record<string, unknown>>;
+
+export function isConfiguredVisualizationControlKey(value: unknown): value is string {
+  return typeof value === "string" && configuredVisualizationControlKeys.has(value);
+}
+
+export function isConfiguredVisualizationSessionInteraction(
+  eventType: string,
+  key?: unknown
+) {
+  if (eventType === "keyup") return isConfiguredVisualizationControlKey(key);
+  return (
+    eventType === "pointerup" ||
+    eventType === "click" ||
+    eventType === "input" ||
+    eventType === "change"
+  );
+}
+
+export function buildConfiguredVisualizationLessonSessionRecord({
+  currentUserId,
+  lab,
+  labId,
+  queuedAt,
+  topicId
+}: {
+  currentUserId: string | null | undefined;
+  lab: FeaturedLabDefinition | null | undefined;
+  labId: string | undefined;
+  queuedAt: number;
+  topicId: string | undefined;
+}): VisualizationSessionOutboxRecord | null {
+  // VisualizationLabPage passes labId and owns persistence through its outer
+  // VisualizationCard. LessonView deliberately omits labId, so this host owns
+  // the first-control-interaction session for both configured and HK-dedicated
+  // branches without creating anything on render or mount.
+  if (labId || !currentUserId || !lab || !Number.isSafeInteger(queuedAt) || queuedAt < 0) {
+    return null;
+  }
+  const exactTopicId = lab.labId || topicId;
+  if (!exactTopicId) return null;
+  return {
+    userId: currentUserId,
+    moduleId: configuredVisualizationModuleId,
+    topicId: exactTopicId,
+    source: lab.analyticsSource,
+    queuedAt
+  };
+}
+
+export type ConfiguredVisualizationProductionRenderer =
+  | "configured"
+  | "hk-dedicated"
+  | "mainland-decimal-arithmetic"
+  | "mainland-fraction-operations"
+  | "mainland-multi-digit-operations"
+  | "mainland-percent-applications"
+  | "mainland-ratio-proportion-scale"
+  | "mainland-signed-real-number-line"
+  | "mainland-symbolic-expressions";
+
+export function resolveConfiguredVisualizationProductionRenderer(
+  lab: FeaturedLabDefinition | null | undefined
+): ConfiguredVisualizationProductionRenderer {
+  if (!lab) return "configured";
+
+  if (isMainlandVisualizationLab(lab)) {
+    if (isMainlandMultiDigitOperationsLabId(lab.labId)) {
+      return "mainland-multi-digit-operations";
+    }
+    if (isMainlandDecimalArithmeticLabId(lab.labId)) {
+      return "mainland-decimal-arithmetic";
+    }
+    if (isMainlandFractionOperationsLabId(lab.labId)) {
+      return "mainland-fraction-operations";
+    }
+    if (isMainlandPercentApplicationsLabId(lab.labId)) {
+      return "mainland-percent-applications";
+    }
+    if (isMainlandSignedRealNumberLineLabId(lab.labId)) {
+      return "mainland-signed-real-number-line";
+    }
+    if (isMainlandRatioProportionScaleLabId(lab.labId)) {
+      return "mainland-ratio-proportion-scale";
+    }
+    if (isMainlandSymbolicExpressionsLabId(lab.labId)) {
+      return "mainland-symbolic-expressions";
+    }
+  }
+
+  if (lab.curriculumTrack !== "HK" || !isHKDedicatedLabId(lab.labId)) {
+    return "configured";
+  }
+  const registryKind = hkVisualizationLabRegistryKind(lab.labId);
+  return registryKind === "primary-dedicated" || registryKind === "secondary-dedicated"
+    ? "hk-dedicated"
+    : "configured";
+}
+
+function deriveConfiguredVisualizationMachineState({
+  comparison,
+  family,
+  height: semanticHeight,
+  mode,
+  strand,
+  topic,
+  value,
+  variant
+}: {
+  comparison: number;
+  family?: string;
+  height: number;
+  mode: number;
+  strand?: string | null;
+  topic: string;
+  value: number;
+  variant?: string;
+}): ConfiguredVisualizationMachineState {
+  const baseState = {
+    comparison,
+    height: semanticHeight,
+    mode,
+    model: family ?? "configured-visualization",
+    strand: strand ?? null,
+    topic,
+    value,
+    variant: variant ?? null
+  };
+
+  if (!family) return baseState;
+
+  const primaryState = buildConfiguredSemanticPrimaryState(family, {
+    comparison,
+    height: semanticHeight,
+    mode,
+    value,
+    variant: variant ?? ""
+  });
+  if (primaryState) {
+    const compatibilityState = primaryState.kind === "array" && variant === "p2-multiplication-foundations"
+      ? { area: primaryState.product }
+      : primaryState.kind === "fraction" && variant === "p3-fractions-intro"
+        ? {
+            controllerValue: value,
+            eqDen: primaryState.resultDenominator,
+            eqNum: primaryState.resultNumerator,
+            equivalentDenominator: primaryState.resultDenominator,
+            equivalentNumerator: primaryState.resultNumerator,
+            value: primaryState.numerator / primaryState.denominator
+          }
+        : {};
+    return { ...baseState, ...primaryState, ...compatibilityState };
+  }
+
+  if (!supportsConfiguredSemanticSecondaryFamily(family)) return baseState;
+  const secondaryState = buildConfiguredSemanticSecondaryMathState({
+    comparison,
+    family,
+    mode,
+    value,
+    variant: variant ?? ""
+  });
+  const metrics = secondaryState.metrics;
+  const compatibilityState = variant === "advanced-functions"
+    ? {
+        family: metrics.primaryFamily,
+        scale: metrics.scaleParameter,
+        semanticFamily: secondaryState.family
+      }
+    : variant === "calculus"
+      ? {
+          approximateArea: metrics.midpointApproximation,
+          areaError: metrics.signedError,
+          exactArea: metrics.exactIntegral
+        }
+      : {};
+
+  return {
+    ...baseState,
+    ...metrics,
+    ...compatibilityState,
+    check: secondaryState.check,
+    formula: secondaryState.formula,
+    kind: secondaryState.kind,
+    semanticFamily: secondaryState.family
+  };
+}
+
 const arrayAreaLayout = {
   cellHeight: 20,
   cellWidth: 30,
@@ -642,6 +927,25 @@ function safeAccent(lab: FeaturedLabDefinition | null) {
   return lab?.templateConfig.accent ?? "#22d3ee";
 }
 
+function isMainlandVisualizationLab(lab: FeaturedLabDefinition | null) {
+  return lab?.curriculumTrack === "MAINLAND_PEP_PRIMARY" ||
+    lab?.curriculumTrack === "MAINLAND_PEP_JUNIOR" ||
+    lab?.curriculumTrack === "MAINLAND_PEP_HIGH" ||
+    lab?.curriculumTrack === "MAINLAND_HJB" ||
+    lab?.curriculumTrack === "MAINLAND_BNU";
+}
+
+function supportsConfiguredSemanticPrimaryFamily(family: string) {
+  return (configuredSemanticPrimaryFamilies as readonly string[]).includes(family);
+}
+
+function snapConfiguredControlValue(value: number, minimum: number, maximum: number, step: number) {
+  const bounded = clamp(value, minimum, maximum);
+  if (!Number.isFinite(step) || step <= 0) return bounded;
+  const snapped = minimum + Math.round((bounded - minimum) / step) * step;
+  return Number(clamp(snapped, minimum, maximum).toFixed(8));
+}
+
 type VisualizationGradeBand = "early-primary" | "upper-primary" | "secondary";
 
 function gradeBandForLab(lab: FeaturedLabDefinition | null): VisualizationGradeBand {
@@ -668,7 +972,11 @@ function estimateBadgeWidth(label: string) {
     return total + 6;
   }, 0);
 
-  return clamp(textWidth + 40, 76, 340);
+  return clamp(
+    textWidth * titleBadgeEstimatedSafetyFactor + titleBadgeHorizontalPadding,
+    76,
+    titleBadgeMaxWidth
+  );
 }
 
 function useLabFromProps({
@@ -718,7 +1026,16 @@ function ConfiguredSvgSurface({
   comparison,
   gradeBand,
   label,
+  mobilePanHint,
   mode,
+  semanticHeight,
+  semanticCompositeStrands,
+  semanticModel,
+  semanticPrimaryStrings,
+  semanticSecondaryStrings,
+  statisticsSummaryLabels,
+  configuredMachineState,
+  semanticStrandIndex,
   showStandardGraphOverlay,
   templateId,
   titleBadgeLabel,
@@ -731,7 +1048,16 @@ function ConfiguredSvgSurface({
   comparison: number;
   gradeBand: VisualizationGradeBand;
   label: string;
+  mobilePanHint: string;
   mode: number;
+  semanticHeight: number;
+  semanticCompositeStrands: readonly ConfiguredVisualizationCompositeStrand[] | null;
+  semanticModel: ConfiguredVisualizationSemanticModel | null;
+  semanticPrimaryStrings: SemanticPrimaryLocalizedStrings;
+  semanticSecondaryStrings: ConfiguredSemanticSecondaryStrings;
+  statisticsSummaryLabels: { mean: string; spread: string };
+  configuredMachineState: ConfiguredVisualizationMachineState;
+  semanticStrandIndex: number;
   showStandardGraphOverlay: boolean;
   templateId: VisualizationTemplateId;
   titleBadgeLabel: string;
@@ -740,36 +1066,218 @@ function ConfiguredSvgSurface({
   value: number;
   vizTheme: VisualizationTheme;
 }) {
+  const mobilePanHintId = useId();
+  const scrollSurfaceRef = useRef<HTMLDivElement>(null);
+  const [hasHorizontalOverflow, setHasHorizontalOverflow] = useState(false);
+  const titleBadgeMeasurementRef = useRef<SVGTextElement>(null);
+  const [titleBadgeMeasurement, setTitleBadgeMeasurement] = useState<{ label: string; width: number } | null>(null);
+
+  useLayoutEffect(() => {
+    const labelNode = titleBadgeMeasurementRef.current;
+    if (!labelNode) return;
+
+    // Measure natural browser-rendered glyphs on a separate hidden node. The
+    // visible text remains fully React-owned, including its cap constraint.
+    const measuredWidth = Math.max(labelNode.getComputedTextLength(), labelNode.getBBox().width);
+    if (!Number.isFinite(measuredWidth) || measuredWidth <= 0) return;
+    setTitleBadgeMeasurement((current) =>
+      current?.label === titleBadgeLabel && Math.abs(current.width - measuredWidth) < 0.1
+        ? current
+        : { label: titleBadgeLabel, width: measuredWidth }
+    );
+  }, [titleBadgeLabel]);
+
+  useLayoutEffect(() => {
+    const scrollSurface = scrollSurfaceRef.current;
+    if (!scrollSurface) return;
+
+    const updateHorizontalOverflow = () => {
+      const nextValue = scrollSurface.scrollWidth - scrollSurface.clientWidth > 2;
+      setHasHorizontalOverflow((current) => (current === nextValue ? current : nextValue));
+    };
+    updateHorizontalOverflow();
+    const resizeObserver = new ResizeObserver(updateHorizontalOverflow);
+    resizeObserver.observe(scrollSurface);
+    const innerSurface = scrollSurface.querySelector("[data-viz-surface]");
+    if (innerSurface) resizeObserver.observe(innerSurface);
+    window.addEventListener("resize", updateHorizontalOverflow);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHorizontalOverflow);
+    };
+  }, []);
+
+  const fallbackTitleBadgeTextWidth = Math.max(0, titleBadgeWidth - titleBadgeHorizontalPadding);
+  const measuredTitleBadgeTextWidth =
+    titleBadgeMeasurement?.label === titleBadgeLabel ? titleBadgeMeasurement.width : fallbackTitleBadgeTextWidth;
+  const titleBadgeBackgroundWidth = clamp(
+    measuredTitleBadgeTextWidth + titleBadgeHorizontalPadding,
+    76,
+    titleBadgeMaxWidth
+  );
+  const titleBadgeTextMaxWidth = titleBadgeMaxWidth - titleBadgeHorizontalPadding;
+  const titleBadgeTextLength =
+    measuredTitleBadgeTextWidth > titleBadgeTextMaxWidth ? titleBadgeTextMaxWidth : undefined;
+  const renderSemanticFamily = (
+    family: ConfiguredSemanticPrimaryFamily | ConfiguredSemanticSecondaryFamily,
+    variant: string
+  ) => supportsConfiguredSemanticPrimaryFamily(family)
+    ? (
+        <ConfiguredSemanticPrimaryMarks
+          accent={accent}
+          comparison={comparison}
+          family={family}
+          localizedStrings={semanticPrimaryStrings}
+          height={semanticHeight}
+          mode={mode}
+          value={value}
+          variant={variant}
+          vizTheme={vizTheme}
+        />
+      )
+    : supportsConfiguredSemanticSecondaryFamily(family)
+        ? (
+          <ConfiguredSemanticSecondaryMarks
+            accent={accent}
+            comparison={comparison}
+            family={family}
+            mode={mode}
+            strings={semanticSecondaryStrings}
+            value={value}
+            variant={variant}
+            vizTheme={vizTheme}
+          />
+        )
+        : null;
+  const activeSemanticStrand = semanticCompositeStrands?.[
+    Math.min(semanticStrandIndex, Math.max(0, semanticCompositeStrands.length - 1))
+  ];
+  const activeSemanticStrandMarks = activeSemanticStrand
+    ? renderSemanticFamily(activeSemanticStrand.family, activeSemanticStrand.variant)
+    : null;
+  const semanticMarks = semanticModel
+    ? activeSemanticStrand && activeSemanticStrandMarks
+      ? (
+        <g
+          data-viz-semantic-family={semanticModel.semanticFamily}
+          data-viz-semantic-variant={semanticModel.variant}
+          data-viz-semantic-kind="composite"
+          data-viz-semantic-strand={activeSemanticStrand.family}
+          data-viz-composite-plan-size={semanticCompositeStrands?.length}
+          data-viz-composite-strand-index={semanticStrandIndex}
+          data-viz-math-state={JSON.stringify({
+            family: semanticModel.semanticFamily,
+            strandFamily: activeSemanticStrand.family,
+            strandVariant: activeSemanticStrand.variant
+          })}
+        >
+          {activeSemanticStrandMarks}
+        </g>
+      )
+      : renderSemanticFamily(
+        semanticModel.semanticFamily as ConfiguredSemanticPrimaryFamily | ConfiguredSemanticSecondaryFamily,
+        semanticModel.variant
+      )
+    : null;
+  const usesCssOnlySvgBackdrop =
+    semanticModel?.semanticFamily === "fraction-equivalence" &&
+    semanticModel.variant === "p3-fractions-intro";
+
   return (
-    <svg
-      data-viz-surface
-      data-viz-active-mode={mode}
-      role="img"
-      aria-label={label}
-      viewBox={`0 0 ${width} ${height}`}
-      className="aspect-[16/9] h-auto w-full"
-    >
-      <rect width={width} height={height} fill={vizTheme.svgBackground} />
-      {Array.from({ length: 8 }, (_, index) => (
-        <line key={`v-${index}`} x1={70 + index * 70} x2={70 + index * 70} y1="54" y2="306" stroke={vizTheme.grid} />
-      ))}
-      {Array.from({ length: 5 }, (_, index) => (
-        <line key={`h-${index}`} x1="54" x2="586" y1={76 + index * 50} y2={76 + index * 50} stroke={vizTheme.grid} />
-      ))}
-      <rect x={panel.x} y={panel.y} width={panel.width} height={panel.height} rx="28" fill={vizTheme.panelFill} stroke={vizTheme.panelStroke} />
-      <CoordinateGridFrame gradeBand={gradeBand} templateId={templateId} vizTheme={vizTheme} />
-      <TemplateMarks accent={accent} comparison={comparison} gradeBand={gradeBand} mode={mode} templateId={templateId} userPoints={userPoints} vizTheme={vizTheme} value={value} />
+    <div data-viz-responsive-surface className="min-w-0">
+      <p
+        id={mobilePanHintId}
+        data-viz-mobile-pan-hint
+        data-viz-pan-hint
+        hidden={!hasHorizontalOverflow}
+        className="mb-2 px-1 text-xs font-bold text-slate-500 dark:text-slate-300"
+      >
+        <span aria-hidden="true">←</span> {mobilePanHint} <span aria-hidden="true">→</span>
+      </p>
+      <div
+        ref={scrollSurfaceRef}
+        data-viz-scroll-surface
+        role="region"
+        aria-label={label}
+        aria-describedby={hasHorizontalOverflow ? mobilePanHintId : undefined}
+        tabIndex={0}
+        className="focus-ring min-w-0 overflow-x-auto overflow-y-hidden overscroll-x-contain rounded-2xl"
+      >
+        <svg
+          data-viz-surface
+          data-viz-opaque-backdrop="surface"
+          data-viz-svg-backdrop-source={usesCssOnlySvgBackdrop ? "css" : "svg-paint"}
+          data-viz-surface-model={templateId}
+          data-viz-surface-state={JSON.stringify(configuredMachineState)}
+          data-viz-mode={mode}
+          data-viz-active-mode={mode}
+          data-viz-semantic-family={semanticModel?.semanticFamily}
+          data-viz-semantic-variant={semanticModel?.variant}
+          data-viz-semantic-renderer={semanticModel ? (semanticMarks ? "implemented" : "missing") : undefined}
+          role="img"
+          aria-label={label}
+          viewBox={`0 0 ${width} ${height}`}
+          className="aspect-[16/9] h-auto w-full min-w-[640px]"
+          style={{ backgroundColor: vizTheme.svgBackground }}
+        >
+      {!usesCssOnlySvgBackdrop ? (
+        <rect width={width} height={height} fill={vizTheme.svgBackground} />
+      ) : null}
+      {!semanticModel ? (
+        <>
+          {Array.from({ length: 8 }, (_, index) => (
+            <line key={`v-${index}`} x1={70 + index * 70} x2={70 + index * 70} y1="54" y2="306" stroke={vizTheme.grid} />
+          ))}
+          {Array.from({ length: 5 }, (_, index) => (
+            <line key={`h-${index}`} x1="54" x2="586" y1={76 + index * 50} y2={76 + index * 50} stroke={vizTheme.grid} />
+          ))}
+        </>
+      ) : null}
+      {!usesCssOnlySvgBackdrop ? (
+        <rect x={panel.x} y={panel.y} width={panel.width} height={panel.height} rx="28" fill={vizTheme.panelFill} stroke={vizTheme.panelStroke} />
+      ) : null}
+      {semanticMarks ?? (
+        <>
+          <CoordinateGridFrame gradeBand={gradeBand} templateId={templateId} vizTheme={vizTheme} />
+          <TemplateMarks accent={accent} comparison={comparison} gradeBand={gradeBand} mode={mode} statisticsSummaryLabels={statisticsSummaryLabels} templateId={templateId} userPoints={userPoints} vizTheme={vizTheme} value={value} />
+        </>
+      )}
       {showStandardGraphOverlay ? (
-        <g data-viz-overlap-ok>
-          <rect x="64" y="52" width={titleBadgeWidth} height="40" rx="14" fill={vizTheme.badgeFill} stroke={vizTheme.labelStroke} />
-          <text x="84" y="78" fill={vizTheme.badgeText} className="text-sm font-black">
+        <g data-viz-title-badge>
+          <text
+            ref={titleBadgeMeasurementRef}
+            data-viz-title-badge-measurement
+            aria-hidden="true"
+            visibility="hidden"
+            x="84"
+            y="78"
+            className="text-sm font-black"
+          >
+            {titleBadgeLabel}
+          </text>
+          {!usesCssOnlySvgBackdrop ? (
+            <rect data-viz-title-badge-background x="64" y="52" width={titleBadgeBackgroundWidth} height="40" rx="14" fill={vizTheme.badgeFill} stroke={vizTheme.labelStroke} />
+          ) : null}
+          <text
+            data-viz-label
+            data-viz-title-badge-label
+            x="84"
+            y="78"
+            fill={vizTheme.badgeText}
+            className="text-sm font-black"
+            textLength={titleBadgeTextLength}
+            lengthAdjust={titleBadgeTextLength ? "spacingAndGlyphs" : undefined}
+          >
             {titleBadgeLabel}
           </text>
           <circle cx="558" cy="70" r="18" fill={accent} opacity="0.25" />
           <circle cx="558" cy="70" r="8" fill={accent} />
         </g>
       ) : null}
-    </svg>
+        </svg>
+      </div>
+    </div>
   );
 }
 
@@ -991,6 +1499,7 @@ function TemplateMarks({
   comparison,
   gradeBand,
   mode,
+  statisticsSummaryLabels,
   templateId,
   userPoints,
   vizTheme,
@@ -1000,6 +1509,7 @@ function TemplateMarks({
   comparison: number;
   gradeBand: VisualizationGradeBand;
   mode: number;
+  statisticsSummaryLabels: { mean: string; spread: string };
   templateId: VisualizationTemplateId;
   userPoints?: Array<{ x: number; y: number }>;
   vizTheme: VisualizationTheme;
@@ -2279,7 +2789,7 @@ function TemplateMarks({
       return Math.exp(-(z ** 2) / 2);
     };
     const rawMeanX = xForValue(state.mean);
-    const meanX = clamp(rawMeanX, frame.left + 14, frame.right - 14);
+    const meanX = rawMeanX;
     const summarySamples = Array.from({ length: 6 }, (_, index) => {
       const xValue = ((index + 1) / 7) * 10;
       const density = relativeDensity(xValue);
@@ -2336,7 +2846,7 @@ function TemplateMarks({
           />
         ))}
         <text x="82" y={statisticsFrame.summaryY} fill={vizTheme.labelText} className="text-xs font-black">
-          mean = {formatNumber(state.mean, 1)}, spread = {formatNumber(state.spread, 2)}
+          {statisticsSummaryLabels.mean} = {formatNumber(state.mean, 1)}, {statisticsSummaryLabels.spread} = {formatNumber(state.spread, 2)}
         </text>
       </g>
     );
@@ -2609,6 +3119,11 @@ function Slider({
   min,
   onCommit,
   onValue,
+  parameter,
+  rangeAffects,
+  rangeProjection,
+  rangeProjectionReason,
+  step = 1,
   value
 }: {
   disabled?: boolean;
@@ -2618,13 +3133,20 @@ function Slider({
   min: number;
   onCommit: () => void;
   onValue: (value: number) => void;
+  parameter?: string;
+  rangeAffects?: string;
+  rangeProjection?: string;
+  rangeProjectionReason?: string;
+  step?: number;
   value: number;
 }) {
   return (
     <label className={`block rounded-2xl border border-slate-200/70 bg-white/70 p-4 transition dark:border-white/10 dark:bg-white/[0.055] ${disabled ? "opacity-55" : ""}`}>
-      <span className="flex items-center justify-between gap-3 text-sm font-bold text-slate-700 dark:text-slate-200">
-        {label}
-        <strong className="rounded-full bg-cyan-500/15 px-2 py-1 text-cyan-700 dark:text-cyan-200">
+      <span data-viz-slider-heading className="flex min-w-0 flex-wrap items-start justify-between gap-x-3 gap-y-2 text-sm font-bold text-slate-700 dark:text-slate-200">
+        <span data-viz-slider-label className="min-w-0 flex-1 break-words [overflow-wrap:anywhere]">
+          {label}
+        </span>
+        <strong data-viz-slider-value className="shrink-0 tabular-nums rounded-full bg-cyan-500/15 px-2 py-1 text-cyan-700 dark:text-cyan-200">
           {displayValue ?? formatNumber(value, 0)}
         </strong>
       </span>
@@ -2632,15 +3154,20 @@ function Slider({
         type="range"
         min={min}
         max={max}
-        step="1"
+        step={step}
         value={value}
         aria-label={label}
+        aria-valuetext={displayValue}
         disabled={disabled}
+        data-viz-parameter={parameter}
+        data-viz-range-affects={rangeAffects}
+        data-viz-range-projection={rangeProjection}
+        data-viz-range-projection-reason={rangeProjectionReason}
         onInput={(event) => onValue(Number(event.currentTarget.value))}
         onChange={(event) => onValue(Number(event.currentTarget.value))}
         onPointerUp={onCommit}
         onKeyUp={onCommit}
-        className="mt-4 w-full accent-cyan-500 disabled:cursor-not-allowed"
+        className="mt-2 h-11 w-full accent-cyan-500 disabled:cursor-not-allowed"
       />
     </label>
   );
@@ -2649,36 +3176,143 @@ function Slider({
 function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
   const { recordLearningEvent, t, text } = useSettings();
   const vizTheme = useVisualizationTheme();
-  const [value, setValue] = useState(5);
-  const [comparison, setComparison] = useState(4);
-  const [mode, setMode] = useState(0);
+  const configuredModuleId = configuredVisualizationModuleId;
+  const configuredTopicId = lab?.labId ?? labId ?? topicId ?? lab?.topicId ?? "configured-visualization";
+  const semanticModel = useMemo(
+    () => {
+      if (!lab || (!isMainlandVisualizationLab(lab) && lab.curriculumTrack !== "HK")) return null;
+      const resolved = resolveConfiguredVisualizationSemanticModel(lab);
+      if (resolved.variant !== "p3-fractions-intro") return resolved;
+      const exactTopicIdentity = lab.labId === "p3-fractions-intro" && lab.topicId === "p3-fractions-intro";
+      return exactTopicIdentity && lab.templateId === "fraction-bar" ? resolved : null;
+    },
+    [lab]
+  );
+  const semanticCompositeStrands = useMemo(
+    () => semanticModel && lab ? resolveConfiguredVisualizationCompositeStrands(lab) : null,
+    [lab, semanticModel]
+  );
+  const initialSemanticStrand = semanticCompositeStrands?.[0];
+  const initialSemanticFamily = initialSemanticStrand?.family ?? semanticModel?.semanticFamily;
+  const initialSemanticVariant = initialSemanticStrand?.variant ?? semanticModel?.variant ?? "";
+  const initialSemanticControlContract = initialSemanticFamily
+    ? getConfiguredVisualizationSemanticControlContract(initialSemanticFamily, initialSemanticVariant)
+    : undefined;
+  const initialSemanticValueControl = initialSemanticControlContract?.sliders.find(({ id }) => id === "value");
+  const initialSemanticComparisonControl = initialSemanticControlContract?.sliders.find(({ id }) => id === "comparison");
+  const initialSemanticHeightControl = initialSemanticControlContract?.sliders.find(({ id }) => id === "height");
+  const initialValue = initialSemanticValueControl?.initial ?? 5;
+  const initialComparison = initialSemanticComparisonControl?.initial ?? 4;
+  const initialSemanticHeight = initialSemanticHeightControl?.initial ?? 3;
+  const initialSemanticMode = initialSemanticControlContract?.modes[0]?.value ?? 0;
+  const [value, setValue] = useState(initialValue);
+  const [comparison, setComparison] = useState(initialComparison);
+  const [semanticHeight, setSemanticHeight] = useState(initialSemanticHeight);
+  const [semanticStrandIndex, setSemanticStrandIndex] = useState(0);
+  const [mode, setMode] = useState(initialSemanticMode);
   const [userPoints, setUserPoints] = useState<Array<{ x: number; y: number }>>([]);
   const [pointDraft, setPointDraft] = useState({ x: "", y: "" });
   const [pointError, setPointError] = useState("");
   const accent = safeAccent(lab);
   const templateId = lab?.templateId ?? "number-line";
   const gradeBand = gradeBandForLab(lab);
+  const activeSemanticStrand = semanticCompositeStrands?.[
+    Math.min(semanticStrandIndex, Math.max(0, semanticCompositeStrands.length - 1))
+  ];
+  const activeSemanticFamily = activeSemanticStrand?.family ?? semanticModel?.semanticFamily;
+  const activeSemanticVariant = activeSemanticStrand?.variant ?? semanticModel?.variant ?? "";
+  const baseActiveSemanticControlContract = useMemo(
+    () => activeSemanticFamily
+      ? getConfiguredVisualizationSemanticControlContract(activeSemanticFamily, activeSemanticVariant, mode)
+      : undefined,
+    [activeSemanticFamily, activeSemanticVariant, mode]
+  );
+  const activeSemanticProjection = useMemo(
+    () => baseActiveSemanticControlContract
+      ? projectConfiguredVisualizationSemanticControlState(
+          baseActiveSemanticControlContract,
+          { comparison, height: semanticHeight, value },
+          mode
+        )
+      : null,
+    [baseActiveSemanticControlContract, comparison, mode, semanticHeight, value]
+  );
+  const activeSemanticControlContract = useMemo(() => {
+    if (!baseActiveSemanticControlContract || !activeSemanticProjection) {
+      return baseActiveSemanticControlContract;
+    }
+    return {
+      ...baseActiveSemanticControlContract,
+      sliders: baseActiveSemanticControlContract.sliders.map((control) => ({
+        ...control,
+        ...activeSemanticProjection.bounds[control.id]
+      }))
+    };
+  }, [activeSemanticProjection, baseActiveSemanticControlContract]);
+  useEffect(() => {
+    if (!activeSemanticProjection) return;
+    const projectedValue = activeSemanticProjection.values.value;
+    const projectedComparison = activeSemanticProjection.values.comparison;
+    const projectedHeight = activeSemanticProjection.values.height;
+    if (projectedValue !== undefined) setValue((current) => current === projectedValue ? current : projectedValue);
+    if (projectedComparison !== undefined) {
+      setComparison((current) => current === projectedComparison ? current : projectedComparison);
+    }
+    if (projectedHeight !== undefined) {
+      setSemanticHeight((current) => current === projectedHeight ? current : projectedHeight);
+    }
+  }, [
+    activeSemanticProjection
+  ]);
+  useEffect(() => {
+    setValue(initialValue);
+    setComparison(initialComparison);
+    setSemanticHeight(initialSemanticHeight);
+    setSemanticStrandIndex(0);
+    setMode(initialSemanticMode);
+    setUserPoints([]);
+    setPointDraft({ x: "", y: "" });
+    setPointError("");
+  }, [initialComparison, initialSemanticHeight, initialSemanticMode, initialValue, lab?.labId]);
   const usesGradeOneSetControls = templateId === "number-line" && isGradeOneAddSubtractLab(lab, labId, topicId);
   // Early-primary position lessons only use Move; upper-primary curriculum
   // covers translate/reflect but not dilation.
   const coordinateModeCount = gradeBand === "early-primary" ? 1 : gradeBand === "upper-primary" ? 2 : 3;
-  const cappedMode = templateId === "coordinate-transform" ? Math.min(mode, coordinateModeCount - 1) : mode;
+  const activeSemanticMode = activeSemanticControlContract?.modes.find(({ value: modeValue }) => modeValue === mode)
+    ?? activeSemanticControlContract?.modes[0];
+  const cappedMode = semanticModel
+    ? activeSemanticMode?.value ?? 0
+    : templateId === "coordinate-transform"
+      ? Math.min(mode, coordinateModeCount - 1)
+      : mode;
   const modelMode = usesGradeOneSetControls ? 1 : cappedMode;
   const visibleMode = usesGradeOneSetControls ? 0 : cappedMode;
+  const semanticStrandLabels = semanticCompositeStrands?.map((strand) => text(strand.label));
   const formula = lab?.templateConfig.formula;
   // Primary statistics labs render a countable bar chart, so the continuous
   // "mean +/- spread" template default would mislabel the model.
   const usesPrimaryBarChartBadge =
     templateId === "statistics-distribution" && gradeBand !== "secondary" && formula?.en === "mean +/- spread";
-  const titleBadgeLabel = usesPrimaryBarChartBadge
-    ? t({ en: "count -> bar chart", zh: "數量 -> 棒形圖", zhHans: "数量 -> 条形图" })
-    : formula
-      ? text(formula)
-      : lab
-        ? text(lab.category)
-        : t({ en: "Interactive model", zh: "互動模型", zhHans: "互动模型" });
+  const semanticModeLabel = activeSemanticMode ? text(activeSemanticMode.label) : undefined;
+  const titleBadgeLabel = activeSemanticStrand
+    ? text(activeSemanticStrand.label)
+    : semanticModeLabel
+    ? semanticModeLabel
+    : semanticModel && lab
+      // Once a Mainland lab is routed to an exact semantic renderer, an old
+      // template formula may describe a different relation entirely. The
+      // localized curriculum category is a safe direct-model badge; the
+      // executable formula remains visible inside the semantic marks.
+      ? text(lab.category)
+    : usesPrimaryBarChartBadge
+      ? t({ en: "count -> bar chart", zh: "數量 -> 棒形圖", zhHans: "数量 -> 条形图" })
+      : formula
+        ? text(formula)
+        : lab
+          ? text(lab.category)
+          : t({ en: "Interactive model", zh: "互動模型", zhHans: "互动模型" });
   const titleBadgeWidth = estimateBadgeWidth(titleBadgeLabel);
-  const controlCopy = useMemo(() => {
+  const legacyControlCopy = useMemo(() => {
     if (templateId === "equation-balance") {
       const state = equationBalanceState(value, comparison);
       return {
@@ -3171,7 +3805,19 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
       })
     };
   }, [cappedMode, comparison, coordinateModeCount, gradeBand, mode, modelMode, t, templateId, usesGradeOneSetControls, value]);
-  const sliderDisplay: { comparison?: string; value?: string } = useMemo(() => {
+  const controlCopy = legacyControlCopy;
+  const modeOptions = semanticModel
+    ? (activeSemanticControlContract?.modes ?? []).map((semanticMode) => ({
+      id: semanticMode.id,
+      label: text(semanticMode.label),
+      value: semanticMode.value
+    }))
+    : controlCopy.modeLabels.map((label, index) => ({
+      id: `legacy-mode-${index}`,
+      label,
+      value: index
+    }));
+  const legacySliderDisplay: { comparison?: string; value?: string } = useMemo(() => {
     if (templateId === "fraction-bar") {
       const state = fractionState(value, comparison);
       return {
@@ -3303,9 +3949,96 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
 
     return {};
   }, [comparison, gradeBand, mode, templateId, value]);
-  const sliderBounds = useMemo(() => sliderBoundsForThreeDTemplate(templateId), [templateId]);
-  const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls;
+  const sliderDisplay = legacySliderDisplay;
+  const legacySliderBounds = useMemo(() => sliderBoundsForThreeDTemplate(templateId), [templateId]);
+  const sliderBounds = legacySliderBounds;
+  const comparisonDisabled = !semanticModel && templateId === "number-line" && mode === 0 && !usesGradeOneSetControls;
   const showStandardGraphOverlay = !(templateId === "vector-conic-3d/strategy-map" && modelMode === 2 && gradeBand === "secondary");
+
+  function semanticSliderValue(input: ConfiguredVisualizationSemanticSliderInput) {
+    if (input === "comparison") return comparison;
+    if (input === "height") return semanticHeight;
+    return value;
+  }
+
+  function setSemanticSliderValue(
+    input: ConfiguredVisualizationSemanticSliderInput,
+    nextValue: number
+  ) {
+    if (!Number.isFinite(nextValue)) return;
+    if (
+      activeSemanticControlContract?.stateDomain.id === "fraction-bar-numerator-v1" &&
+      input === "value"
+    ) {
+      const denominatorMinusOne = snapConfiguredControlValue(nextValue, 1, 9, 1);
+      const denominator = denominatorMinusOne + 1;
+      // The controller and its affected numerator are committed in one React
+      // batch, so lowering d can never leave a hidden numerator that later
+      // resurfaces when d grows again.
+      setValue(denominatorMinusOne);
+      setComparison((current) => snapConfiguredControlValue(current, 0, denominator, 1));
+      return;
+    }
+    if (input === "comparison") {
+      setComparison(nextValue);
+    } else if (input === "height") {
+      setSemanticHeight(nextValue);
+    } else {
+      setValue(nextValue);
+    }
+  }
+
+  function applySemanticSliderInitials(
+    contract: ConfiguredVisualizationSemanticControlContract | undefined
+  ) {
+    if (!contract) return;
+    const nextValue = contract.sliders.find(({ id }) => id === "value");
+    const nextComparison = contract.sliders.find(({ id }) => id === "comparison");
+    const nextHeight = contract.sliders.find(({ id }) => id === "height");
+    setValue(nextValue?.initial ?? 5);
+    setComparison(nextComparison?.initial ?? 4);
+    setSemanticHeight(nextHeight?.initial ?? 3);
+  }
+
+  function applySemanticControlContract(
+    contract: ConfiguredVisualizationSemanticControlContract | undefined
+  ) {
+    if (!contract) return;
+    applySemanticSliderInitials(contract);
+    setMode(contract.modes[0]?.value ?? 0);
+  }
+
+  function semanticSliderDisplay(control: ConfiguredVisualizationSemanticSlider) {
+    if (activeSemanticControlContract?.stateDomain.id === "fraction-bar-numerator-v1") {
+      return control.id === "value"
+        ? `d=${formatNumber(value + 1, 0)}`
+        : control.id === "comparison"
+          ? `n=${formatNumber(comparison, 0)}`
+          : formatNumber(semanticSliderValue(control.id), 0);
+    }
+    if (
+      control.id !== "height" &&
+      activeSemanticFamily &&
+      supportsConfiguredSemanticSecondaryDisplayProjection(activeSemanticFamily)
+    ) {
+      const projected = formatConfiguredSemanticSecondaryDisplayValue(
+        {
+          comparison,
+          family: activeSemanticFamily,
+          mode: cappedMode,
+          value,
+          variant: activeSemanticVariant
+        },
+        control.id
+      );
+      if (projected) return projected;
+    }
+
+    const digits = control.step < 1
+      ? Math.min(4, Math.max(1, Math.ceil(-Math.log10(control.step))))
+      : 0;
+    return formatNumber(semanticSliderValue(control.id), digits);
+  }
 
   function record(type: "visualization-slider" | "visualization-probe" | "visualization-reset") {
     recordLearningEvent({
@@ -3315,7 +4048,56 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
     });
   }
 
-  const surfaceLabel = lab ? text(lab.title) : t({ en: "Configured visualization lab", zh: "配置化視覺化實驗" });
+  const surfaceLabel = lab
+    ? text(lab.title)
+    : t({ en: "Configured visualization lab", zh: "配置化視覺化實驗", zhHans: "配置化可视化实验" });
+  const mobilePanHint = t({
+    en: "Swipe or use arrow keys to explore the full model",
+    zh: "左右滑動或使用方向鍵查看完整模型",
+    zhHans: "左右滑动或使用方向键查看完整模型"
+  });
+  const semanticPrimaryStrings: SemanticPrimaryLocalizedStrings = {
+    count: t({ en: "count", zh: "數量", zhHans: "数量" }),
+    cubes: t({ en: "unit cubes", zh: "單位立方體", zhHans: "单位立方体" }),
+    days: t({ en: "days", zh: "日數", zhHans: "天数" }),
+    error: t({ en: "error", zh: "誤差", zhHans: "误差" }),
+    estimate: t({ en: "estimate", zh: "估計值", zhHans: "估计值" }),
+    expectedValue: t({ en: "expected value", zh: "期望值", zhHans: "期望值" }),
+    failures: t({ en: "failures", zh: "失敗", zhHans: "失败" }),
+    formula: t({ en: "formula", zh: "算式", zhHans: "算式" }),
+    hundredths: t({ en: "hundredths", zh: "百分位", zhHans: "百分位" }),
+    layers: t({ en: "layers", zh: "層", zhHans: "层" }),
+    measured: t({ en: "measured", zh: "測量值", zhHans: "测量值" }),
+    mean: t({ en: "mean", zh: "平均數", zhHans: "平均数" }),
+    median: t({ en: "median", zh: "中位數", zhHans: "中位数" }),
+    ones: t({ en: "ones", zh: "個位", zhHans: "个位" }),
+    range: t({ en: "range", zh: "極差", zhHans: "极差" }),
+    remainder: t({ en: "remainder", zh: "餘數", zhHans: "余数" }),
+    successes: t({ en: "successes", zh: "成功", zhHans: "成功" }),
+    tenths: t({ en: "tenths", zh: "十分位", zhHans: "十分位" }),
+    total: t({ en: "total", zh: "總數", zhHans: "总数" }),
+    trials: t({ en: "trials", zh: "試驗次數", zhHans: "试验次数" }),
+    uniqueOutcomes: t({ en: "unique outcomes", zh: "不同結果", zhHans: "不同结果" })
+  };
+  const semanticSecondaryStrings: ConfiguredSemanticSecondaryStrings = {
+    checkLabel: t({ en: "Check", zh: "驗證", zhHans: "验证" }),
+    formulaLabel: t({ en: "Formula", zh: "公式", zhHans: "公式" }),
+    noModelLabel: t({
+      en: "Choose a topic strand to show its related model.",
+      zh: "請選擇主題分支以顯示相關模型。",
+      zhHans: "请选择主题分支以显示相关模型。"
+    }),
+    strandLabel: t({ en: "Topic strand", zh: "主題分支", zhHans: "主题分支" })
+  };
+  const statisticsSummaryLabels = {
+    mean: t({ en: "mean", zh: "平均數", zhHans: "平均数" }),
+    spread: t({ en: "spread", zh: "離散程度", zhHans: "离散程度" })
+  };
+  const threeDLoadingLabel = t({
+    en: "Loading 3D model...",
+    zh: "正在載入 3D 模型...",
+    zhHans: "正在加载 3D 模型..."
+  });
   const threeDRenderPlan = resolveConfiguredThreeDRenderPlan({
     comparison,
     coverageTier: lab?.threeD?.coverageTier,
@@ -3339,13 +4121,44 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
   useEffect(() => {
     setThreeDCanvasReady(false);
   }, [threeDCanvasRuntimeKey]);
+  const configuredMachineState = useMemo(
+    () => deriveConfiguredVisualizationMachineState({
+      comparison,
+      family: activeSemanticFamily,
+      height: semanticHeight,
+      mode: modelMode,
+      strand: activeSemanticStrand?.family,
+      topic: configuredTopicId,
+      value,
+      variant: activeSemanticVariant
+    }),
+    [
+      activeSemanticFamily,
+      activeSemanticStrand?.family,
+      activeSemanticVariant,
+      comparison,
+      configuredTopicId,
+      modelMode,
+      semanticHeight,
+      value
+    ]
+  );
   const svgSurface = (
     <ConfiguredSvgSurface
       accent={accent}
       comparison={comparison}
       gradeBand={gradeBand}
       label={surfaceLabel}
+      mobilePanHint={mobilePanHint}
       mode={modelMode}
+      semanticHeight={semanticHeight}
+      semanticCompositeStrands={semanticCompositeStrands}
+      semanticModel={semanticModel}
+      semanticPrimaryStrings={semanticPrimaryStrings}
+      semanticSecondaryStrings={semanticSecondaryStrings}
+      statisticsSummaryLabels={statisticsSummaryLabels}
+      configuredMachineState={configuredMachineState}
+      semanticStrandIndex={semanticStrandIndex}
       showStandardGraphOverlay={showStandardGraphOverlay}
       templateId={templateId}
       titleBadgeLabel={titleBadgeLabel}
@@ -3357,7 +4170,16 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
   );
 
   return (
-    <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]">
+    <div
+      className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_320px]"
+      data-viz-configured-module={configuredModuleId}
+      data-viz-configured-model={templateId}
+      data-viz-range-domain-id={activeSemanticControlContract?.stateDomain.id}
+      data-viz-configured-state={JSON.stringify(configuredMachineState)}
+      data-viz-configured-topic={configuredTopicId}
+      data-viz-mode={visibleMode}
+      data-viz-renderer-mode={modelMode}
+    >
       <div className={`min-w-0 ${vizTheme.paddedSurfaceClassName}`}>
         {showThreeDCanvas ? (
           <div
@@ -3382,6 +4204,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                 label={surfaceLabel}
                 onCanvasReady={() => setThreeDCanvasReady(true)}
                 premiumLaunch={threeDRenderPlan.premiumLaunch}
+                presentation="learner"
                 regionalPriority={threeDRenderPlan.regionalPriority}
                 runtime={threeDRenderPlan.runtime}
                 state={threeDRenderPlan.state}
@@ -3389,7 +4212,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
             </div>
             {!threeDCanvasReady ? (
               <div className="pointer-events-none absolute right-4 top-4 rounded-full border border-cyan-200/75 bg-white/90 px-3 py-1 text-xs font-black text-cyan-800 shadow-sm dark:border-cyan-200/25 dark:bg-slate-950/80 dark:text-cyan-100">
-                Loading 3D model...
+                {threeDLoadingLabel}
               </div>
             ) : null}
           </div>
@@ -3399,39 +4222,100 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
       </div>
 
       <div className="flex min-w-0 flex-col gap-4">
-        <div className={`grid gap-2 ${controlCopy.modeLabels.length === 1 ? "grid-cols-1" : controlCopy.modeLabels.length === 4 ? "grid-cols-2" : "grid-cols-3"}`}>
-          {controlCopy.modeLabels.map((label, index) => (
-            <button
-              key={label}
-              type="button"
-              data-viz-mode-button
-              data-viz-mode-index={index}
-              data-viz-mode-active={String(visibleMode === index)}
-              onClick={() => {
-                setMode(index);
-                record("visualization-probe");
-              }}
-              className={`focus-ring rounded-2xl px-3 py-3 text-xs font-black transition ${
-                visibleMode === index
-                  ? modeButtonActiveClassNames[index % modeButtonActiveClassNames.length]
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/[0.08] dark:text-slate-200"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        {semanticStrandLabels ? (
+          <div
+            data-viz-strand-grid
+            className={`grid gap-2 ${
+              semanticStrandLabels.length === 1
+                ? "grid-cols-1"
+                : "grid-cols-1 min-[360px]:grid-cols-2"
+            }`}
+          >
+            {semanticStrandLabels.map((label, index) => (
+              <button
+                key={`${label}-${index}`}
+                type="button"
+                data-viz-strand-button
+                data-viz-strand-index={index}
+                data-viz-strand-active={String(semanticStrandIndex === index)}
+                onClick={() => {
+                  const strand = semanticCompositeStrands?.[index];
+                  setSemanticStrandIndex(index);
+                  applySemanticControlContract(
+                    strand
+                      ? getConfiguredVisualizationSemanticControlContract(strand.family, strand.variant)
+                      : undefined
+                  );
+                  record("visualization-probe");
+                }}
+                className={`focus-ring min-h-11 min-w-0 break-words rounded-2xl px-3 py-2.5 text-xs font-black transition [overflow-wrap:anywhere] ${
+                  semanticStrandIndex === index
+                    ? modeButtonActiveClassNames[index % modeButtonActiveClassNames.length]
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/[0.08] dark:text-slate-200"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        ) : null}
+        {!semanticModel || modeOptions.length > 1 ? (
+          <div
+            data-viz-mode-grid
+            data-viz-mode-count={modeOptions.length}
+            className={`grid gap-2 ${
+              modeOptions.length === 1
+                ? "grid-cols-1"
+                : modeOptions.length === 4
+                  ? "grid-cols-1 min-[360px]:grid-cols-2"
+                  : "grid-cols-1 min-[360px]:grid-cols-2 min-[768px]:grid-cols-3"
+            }`}
+          >
+            {modeOptions.map((option, index) => (
+              <button
+                key={option.id}
+                type="button"
+                data-viz-mode-button
+                data-viz-mode={option.value}
+                data-viz-mode-id={option.id}
+                data-viz-mode-index={index}
+                data-viz-mode-value={option.value}
+                data-viz-mode-active={String(visibleMode === option.value)}
+                onClick={() => {
+                  if (activeSemanticFamily === "advanced-strategy") {
+                    applySemanticSliderInitials(
+                      getConfiguredVisualizationSemanticControlContract(
+                        activeSemanticFamily,
+                        activeSemanticVariant,
+                        option.value
+                      )
+                    );
+                  }
+                  setMode(option.value);
+                  record("visualization-probe");
+                }}
+                className={`focus-ring min-h-11 min-w-0 break-words rounded-2xl px-3 py-2.5 text-xs font-black transition [overflow-wrap:anywhere] ${
+                  visibleMode === option.value
+                    ? modeButtonActiveClassNames[index % modeButtonActiveClassNames.length]
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-white/[0.08] dark:text-slate-200"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
 
-        {templateId === "coordinate-transform" ? (
+        {templateId === "coordinate-transform" && !semanticModel ? (
           <div className="grid gap-2 rounded-2xl border border-slate-200/80 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.06]">
-            <div className="grid grid-cols-2 gap-2">
+            <div data-viz-coordinate-input-grid className="grid grid-cols-1 gap-2 min-[360px]:grid-cols-2">
               <label className="grid gap-1 text-xs font-black text-slate-600 dark:text-slate-300">
                 {t({ en: "Point x", zh: "點 x", zhHans: "点 x" })}
                 <input
                   type="number"
                   value={pointDraft.x}
                   onChange={(event) => setPointDraft((draft) => ({ ...draft, x: event.target.value }))}
-                  className="focus-ring w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
+                  className="focus-ring min-h-11 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
                 />
               </label>
               <label className="grid gap-1 text-xs font-black text-slate-600 dark:text-slate-300">
@@ -3440,7 +4324,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                   type="number"
                   value={pointDraft.y}
                   onChange={(event) => setPointDraft((draft) => ({ ...draft, y: event.target.value }))}
-                  className="focus-ring w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
+                  className="focus-ring min-h-11 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-700 dark:border-white/10 dark:bg-slate-950 dark:text-slate-100"
                 />
               </label>
             </div>
@@ -3470,7 +4354,7 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
                 setPointDraft({ x: "", y: "" });
                 record("visualization-probe");
               }}
-              className="focus-ring w-full rounded-xl bg-slate-950 px-3 py-2 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
+              className="focus-ring min-h-11 w-full rounded-xl bg-slate-950 px-3 py-2 text-sm font-black text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-slate-950"
             >
               {t({ en: "Add point", zh: "加入點", zhHans: "添加点" })}
             </button>
@@ -3482,43 +4366,127 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
           </div>
         ) : null}
 
-        <Slider
-          displayValue={sliderDisplay.value}
-          label={controlCopy.valueLabel}
-          min={sliderBounds.valueMin}
-          max={sliderBounds.valueMax}
-          value={value}
-          onValue={(nextValue) => setValue(Math.round(clamp(nextValue, sliderBounds.valueMin, sliderBounds.valueMax)))}
-          onCommit={() => record("visualization-slider")}
-        />
-        <Slider
-          disabled={comparisonDisabled}
-          displayValue={sliderDisplay.comparison}
-          label={controlCopy.comparisonLabel}
-          min={sliderBounds.comparisonMin}
-          max={sliderBounds.comparisonMax}
-          value={comparison}
-          onValue={(nextValue) => setComparison(Math.round(clamp(nextValue, sliderBounds.comparisonMin, sliderBounds.comparisonMax)))}
-          onCommit={() => record("visualization-slider")}
-        />
+        {semanticModel ? (
+          <div
+            className="contents"
+            data-viz-semantic-control-family={activeSemanticControlContract?.family}
+            data-viz-semantic-control-variant={activeSemanticVariant}
+            data-viz-semantic-control-mode={cappedMode}
+            data-viz-semantic-control-count={activeSemanticControlContract?.sliders.length ?? 0}
+            data-viz-range-domain-id={activeSemanticControlContract?.stateDomain.id}
+            data-viz-range-domain-version={activeSemanticControlContract?.stateDomain.version}
+            data-viz-range-domain-kind={activeSemanticControlContract?.stateDomain.kind}
+            data-viz-range-domain-affected-controls={activeSemanticControlContract?.stateDomain.affectedControlIds.join(",")}
+            data-viz-range-domain-controller-inputs={activeSemanticControlContract?.stateDomain.controllerInputs.join(",")}
+            data-viz-range-domain-projection={activeSemanticControlContract?.stateDomain.projection}
+          >
+            {(activeSemanticControlContract?.sliders ?? []).map((control) => {
+              const isRangeDomainController = activeSemanticControlContract?.stateDomain.controllerInputs.some(
+                (controllerInput) => controllerInput === control.id
+              ) ?? false;
+              const rangeAffects = isRangeDomainController
+                ? activeSemanticControlContract?.stateDomain.affectedControlIds.join(",")
+                : undefined;
+              const isHongKongFractionController =
+                activeSemanticControlContract?.stateDomain.id === "fraction-bar-numerator-v1" &&
+                control.id === "value";
+              return <div
+                key={`${activeSemanticControlContract?.family}-${control.id}`}
+                data-viz-semantic-slider
+                data-viz-semantic-slider-parameter={control.id}
+                data-viz-semantic-slider-input={control.id}
+                data-viz-semantic-slider-role={control.role}
+                data-viz-range-domain-affected={String(
+                  activeSemanticControlContract?.stateDomain.affectedControlIds.some(
+                    (affectedControlId) => affectedControlId === control.id
+                  ) ?? false
+                )}
+                data-viz-range-affects={rangeAffects}
+              >
+                <Slider
+                  disabled={control.disabled}
+                  displayValue={semanticSliderDisplay(control)}
+                  label={text(control.label)}
+                  min={control.min}
+                  max={control.max}
+                  parameter={control.id}
+                  step={control.step}
+                  value={semanticSliderValue(control.id)}
+                  rangeAffects={rangeAffects}
+                  rangeProjection={isHongKongFractionController ? "clamp-max" : undefined}
+                  rangeProjectionReason={isHongKongFractionController ? "numerator-cannot-exceed-denominator" : undefined}
+                  onValue={(nextValue) => setSemanticSliderValue(
+                    control.id,
+                    snapConfiguredControlValue(nextValue, control.min, control.max, control.step)
+                  )}
+                  onCommit={() => record("visualization-slider")}
+                />
+              </div>;
+            })}
+          </div>
+        ) : (
+          <>
+            <div data-viz-parameter="value">
+              <Slider
+                displayValue={sliderDisplay.value}
+                label={controlCopy.valueLabel}
+                min={sliderBounds.valueMin}
+                max={sliderBounds.valueMax}
+                step={1}
+                value={value}
+                onValue={(nextValue) => setValue(
+                  snapConfiguredControlValue(nextValue, sliderBounds.valueMin, sliderBounds.valueMax, 1)
+                )}
+                onCommit={() => record("visualization-slider")}
+              />
+            </div>
+            <div data-viz-parameter="comparison">
+              <Slider
+                disabled={comparisonDisabled}
+                displayValue={sliderDisplay.comparison}
+                label={controlCopy.comparisonLabel}
+                min={sliderBounds.comparisonMin}
+                max={sliderBounds.comparisonMax}
+                step={1}
+                value={comparison}
+                onValue={(nextValue) => setComparison(
+                  snapConfiguredControlValue(nextValue, sliderBounds.comparisonMin, sliderBounds.comparisonMax, 1)
+                )}
+                onCommit={() => record("visualization-slider")}
+              />
+            </div>
+          </>
+        )}
         <button
           type="button"
           data-viz-reset-model
+          data-viz-module-id={configuredModuleId}
+          data-viz-topic-id={configuredTopicId}
+          data-viz-reset-module={configuredModuleId}
+          data-viz-reset-module-id={configuredModuleId}
+          data-viz-reset-topic={configuredTopicId}
+          data-viz-reset-topic-id={configuredTopicId}
           data-viz-reset-value={value}
           data-viz-reset-comparison={comparison}
           data-viz-reset-mode={mode}
           onClick={() => {
-            setValue(5);
-            setComparison(4);
-            setMode(0);
+            if (semanticModel) {
+              applySemanticControlContract(initialSemanticControlContract);
+            } else {
+              setValue(initialValue);
+              setComparison(initialComparison);
+              setSemanticHeight(initialSemanticHeight);
+              setMode(0);
+            }
+            setSemanticStrandIndex(0);
             setUserPoints([]);
             setPointDraft({ x: "", y: "" });
             setPointError("");
             record("visualization-reset");
           }}
-          className="focus-ring w-full rounded-2xl border border-slate-200/80 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-100 dark:hover:bg-white/[0.12]"
+          className="focus-ring min-h-11 w-full rounded-2xl border border-slate-200/80 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-100 dark:hover:bg-white/[0.12]"
         >
-          {t({ en: "Reset model", zh: "重設模型" })}
+          {t({ en: "Reset model", zh: "重設模型", zhHans: "重置模型" })}
         </button>
         {controlFooterAction ? (
           <div data-viz-lesson-action-slot className="mt-auto pt-4">
@@ -3531,18 +4499,155 @@ function ConfiguredVisualizationLabSurface({ controlFooterAction, lab = null, la
 }
 
 export function ConfiguredVisualizationLabDirect(props: ConfiguredVisualizationLabProps) {
-  return <ConfiguredVisualizationLabSurface {...props} />;
+  return <ResolvedConfiguredVisualizationLab {...props} lab={props.lab ?? null} />;
 }
 
 export function ConfiguredVisualizationLab({ controlFooterAction, lab: providedLab = null, labId, topicId }: ConfiguredVisualizationLabProps) {
   const lab = useLabFromProps({ lab: providedLab, labId, topicId });
 
   return (
-    <ConfiguredVisualizationLabSurface
+    <ResolvedConfiguredVisualizationLab
       controlFooterAction={controlFooterAction}
       lab={lab}
       labId={labId}
       topicId={topicId}
     />
+  );
+}
+
+function ResolvedConfiguredVisualizationLab({
+  controlFooterAction,
+  lab,
+  labId,
+  topicId
+}: ConfiguredVisualizationLabProps) {
+  const { currentUser, recordLearningEvent } = useSettings();
+  const configuredTopicId = lab?.labId ?? labId ?? topicId ?? lab?.topicId ?? "configured-visualization";
+  const productionRenderer = resolveConfiguredVisualizationProductionRenderer(lab);
+  function recordDedicatedPhysicalCommit(
+    type: "visualization-slider" | "visualization-probe" | "visualization-reset"
+  ) {
+    recordLearningEvent(
+      {
+        type,
+        source: lab?.analyticsSource ?? "visualization-lab",
+        topicId: lab?.topicId ?? topicId ?? "configured-visualization"
+      },
+      type === "visualization-reset"
+        ? undefined
+        : { preservePhysicalCommit: true }
+    );
+  }
+  // VisualizationLabPage and the premium direct shell pass labId and already
+  // own the one canonical workspace identity. LessonView omits labId, so the
+  // configured host supplies that otherwise-missing topic boundary there.
+  const ownsActiveLabIdentity = !labId;
+  const queuedLessonSessionScopeRef = useRef<string | null>(null);
+  const recordLessonSessionFromInteraction = (event: SyntheticEvent<HTMLDivElement>) => {
+    if (!ownsActiveLabIdentity || currentUser?.role !== "student") return;
+    if (!isConfiguredVisualizationSessionInteraction(
+      event.type,
+      (event.nativeEvent as Event & { key?: unknown }).key
+    )) return;
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const control = target.closest<HTMLElement>(
+      'button, input, select, textarea, [role="button"], [role="slider"]'
+    );
+    if (!control || control.closest("[data-viz-lesson-action-slot]")) return;
+    if (control.getAttribute("aria-disabled") === "true") return;
+    if (
+      (control instanceof HTMLButtonElement ||
+        control instanceof HTMLInputElement ||
+        control instanceof HTMLSelectElement ||
+        control instanceof HTMLTextAreaElement) &&
+      control.disabled
+    ) return;
+    const record = buildConfiguredVisualizationLessonSessionRecord({
+      currentUserId: currentUser.id,
+      lab,
+      labId,
+      queuedAt: Date.now(),
+      topicId
+    });
+    if (!record) return;
+    const scopeKey = JSON.stringify([record.userId, record.moduleId, record.topicId]);
+    if (queuedLessonSessionScopeRef.current === scopeKey) return;
+    try {
+      queueVisualizationSessionOutbox(window.localStorage, record);
+      queuedLessonSessionScopeRef.current = scopeKey;
+      window.dispatchEvent(new Event(visualizationSessionOutboxUpdatedEventName));
+    } catch {
+      // The durable write is the ownership boundary. Leaving the ref unchanged
+      // permits the next real control interaction to retry without claiming a
+      // session that never reached local storage.
+    }
+  };
+
+  return (
+    <div
+      className="min-w-0"
+      data-viz-active-lab-id={ownsActiveLabIdentity ? configuredTopicId : undefined}
+      data-viz-lesson-session-owner={ownsActiveLabIdentity ? "first-control-interaction" : "external-card"}
+      data-viz-module-id={configuredVisualizationModuleId}
+      data-viz-production-renderer={productionRenderer}
+      data-viz-topic-id={configuredTopicId}
+      onChange={recordLessonSessionFromInteraction}
+      onChangeCapture={recordLessonSessionFromInteraction}
+      onClickCapture={recordLessonSessionFromInteraction}
+      onInput={recordLessonSessionFromInteraction}
+      onInputCapture={recordLessonSessionFromInteraction}
+      onKeyUpCapture={recordLessonSessionFromInteraction}
+      onPointerUpCapture={recordLessonSessionFromInteraction}
+    >
+      {productionRenderer === "mainland-multi-digit-operations" && lab ? (
+        <MultiDigitOperationsLab
+          labId={lab.labId}
+          controlFooterAction={controlFooterAction}
+          onLearningEvent={recordDedicatedPhysicalCommit}
+        />
+      ) : productionRenderer === "mainland-decimal-arithmetic" && lab ? (
+        <DecimalArithmeticLab
+          lab={lab}
+          controlFooterAction={controlFooterAction}
+          onLearningEvent={recordDedicatedPhysicalCommit}
+        />
+      ) : productionRenderer === "mainland-fraction-operations" && lab ? (
+        <FractionOperationsLab
+          labId={lab.labId}
+          controlFooterAction={controlFooterAction}
+        />
+      ) : productionRenderer === "mainland-percent-applications" && lab ? (
+        <PercentApplicationsLab
+          labId={lab.labId}
+          controlFooterAction={controlFooterAction}
+        />
+      ) : productionRenderer === "mainland-signed-real-number-line" && lab ? (
+        <SignedRealNumberLineLab
+          lab={lab}
+          controlFooterAction={controlFooterAction}
+        />
+      ) : productionRenderer === "mainland-ratio-proportion-scale" && lab ? (
+        <RatioProportionScaleLab
+          labId={lab.labId}
+          controlFooterAction={controlFooterAction}
+        />
+      ) : productionRenderer === "mainland-symbolic-expressions" && lab ? (
+        <SymbolicExpressionsLab
+          labId={lab.labId}
+          controlFooterAction={controlFooterAction}
+          onLearningEvent={recordDedicatedPhysicalCommit}
+        />
+      ) : productionRenderer === "hk-dedicated" && lab ? (
+        <HKVisualizationLab lab={lab} controlFooterAction={controlFooterAction} />
+      ) : (
+        <ConfiguredVisualizationLabSurface
+          controlFooterAction={controlFooterAction}
+          lab={lab}
+          labId={labId}
+          topicId={topicId}
+        />
+      )}
+    </div>
   );
 }

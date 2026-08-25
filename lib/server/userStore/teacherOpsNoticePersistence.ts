@@ -519,25 +519,61 @@ export async function sendTeacherOpsNoticeRecord({
   sendNotification: (input: { channelId: string; markdown: string }) => Promise<TeacherOpsNoticeDeliveryResult>;
 }) {
   const attemptedAt = now().toISOString();
+  const attempt = queueTeacherOpsNoticeDeliveryAttempt({
+    database,
+    notice,
+    attemptedAt,
+    createId
+  });
   const result = await sendNotification({
     channelId: notice.channel_id,
     markdown: buildTeacherOpsNoticeMarkdown({ database, notice, origin })
   });
+  settleTeacherOpsNoticeDeliveryAttempt({ notice, attempt, result });
+  return attempt;
+}
+
+export function queueTeacherOpsNoticeDeliveryAttempt({
+  database,
+  notice,
+  attemptedAt,
+  createId
+}: {
+  database: TeacherOpsNoticePersistenceDatabase;
+  notice: TeacherOpsNoticeRecord;
+  attemptedAt: string;
+  createId: () => string;
+}) {
   const attempt: TeacherOpsNoticeDeliveryAttemptRecord = {
     id: `notice-delivery-${createId()}`,
     notice_id: notice.id,
     channel_id: notice.channel_id,
     channel_name: notice.channel_name,
-    status: result.status,
-    provider_message_id: result.providerMessageId,
-    error_code: result.errorCode,
-    error_message: result.errorMessage,
+    status: "queued",
     attempted_at: attemptedAt
   };
   database.teacher_notice_delivery_attempts.unshift(attempt);
-  notice.status = result.status === "sent" ? "sent" : result.status === "disabled" ? "queued" : "failed";
-  notice.sent_at = result.status === "sent" || result.status === "disabled" ? attemptedAt : notice.sent_at;
+  notice.status = "queued";
   notice.updated_at = attemptedAt;
+  return attempt;
+}
+
+export function settleTeacherOpsNoticeDeliveryAttempt({
+  notice,
+  attempt,
+  result
+}: {
+  notice: TeacherOpsNoticeRecord;
+  attempt: TeacherOpsNoticeDeliveryAttemptRecord;
+  result: TeacherOpsNoticeDeliveryResult;
+}) {
+  attempt.status = result.status;
+  attempt.provider_message_id = result.providerMessageId;
+  attempt.error_code = result.errorCode;
+  attempt.error_message = result.errorMessage;
+  notice.status = result.status === "sent" ? "sent" : result.status === "disabled" ? "queued" : "failed";
+  notice.sent_at = result.status === "sent" || result.status === "disabled" ? attempt.attempted_at : notice.sent_at;
+  notice.updated_at = attempt.attempted_at;
   return attempt;
 }
 
@@ -598,7 +634,7 @@ export function createTeacherOpsNoticePersistenceStore({
       noticeId,
       origin
     }: SendTeacherNoticeParams): Promise<SendTeacherNoticeResult> {
-      return mutateDatabase(async (database) => {
+      const reservation = await mutateDatabase((database) => {
         const user = database.users.find((candidate) => candidate.id === teacherId);
         if (!canUseTeacherArea(user)) return { status: "forbidden" as const };
         const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
@@ -617,16 +653,57 @@ export function createTeacherOpsNoticePersistenceStore({
             })
           );
         }
-
-        const attempt = await sendTeacherOpsNoticeRecord({
+        const existingTerminalAttempt = database.teacher_notice_delivery_attempts.find((attempt) =>
+          attempt.notice_id === notice.id &&
+          (attempt.status === "queued" || attempt.status === "sent")
+        );
+        if (existingTerminalAttempt) {
+          return {
+            status: "already-reserved" as const,
+            notice: toNotice(database, notice),
+            attempt: toDeliveryAttempt(existingTerminalAttempt)
+          };
+        }
+        const attemptedAt = now().toISOString();
+        const attempt = queueTeacherOpsNoticeDeliveryAttempt({
           database,
           notice,
-          origin,
-          now,
-          createId,
-          sendNotification
+          attemptedAt,
+          createId
         });
+        return {
+          status: "reserved" as const,
+          attemptId: attempt.id,
+          channelId: notice.channel_id,
+          markdown: buildTeacherOpsNoticeMarkdown({ database, notice, origin })
+        };
+      });
+      if (reservation.status === "forbidden" || reservation.status === "not-found") return reservation;
+      if (reservation.status === "already-reserved") {
+        return { status: "sent", notice: reservation.notice, attempt: reservation.attempt };
+      }
 
+      let deliveryResult: TeacherOpsNoticeDeliveryResult;
+      try {
+        deliveryResult = await sendNotification({
+          channelId: reservation.channelId,
+          markdown: reservation.markdown
+        });
+      } catch (error) {
+        deliveryResult = {
+          status: "failed",
+          errorCode: "notification-exception",
+          errorMessage: error instanceof Error ? error.message : "Notification delivery failed."
+        };
+      }
+
+      return mutateDatabase((database) => {
+        const notice = database.teacher_notices.find((candidate) => candidate.id === noticeId);
+        const attempt = database.teacher_notice_delivery_attempts.find((candidate) =>
+          candidate.id === reservation.attemptId && candidate.notice_id === noticeId
+        );
+        if (!notice || !attempt) return { status: "not-found" as const };
+        settleTeacherOpsNoticeDeliveryAttempt({ notice, attempt, result: deliveryResult });
         return { status: "sent" as const, notice: toNotice(database, notice), attempt: toDeliveryAttempt(attempt) };
       });
     }

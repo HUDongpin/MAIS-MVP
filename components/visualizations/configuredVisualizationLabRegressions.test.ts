@@ -49,12 +49,12 @@ test("grade 1 add-subtract number-line lab uses Set, Start, and Step controls", 
   assert.match(source, /const gradeOneAddSubtractLabId = "us-ca-math-p1-1-oa-add-subtract"/);
   // Accept either the plain `mode` or the grade-band `cappedMode` fallback.
   assert.match(source, /const modelMode = usesGradeOneSetControls \? 1 : (?:mode|cappedMode)/);
-  assert.match(source, /const comparisonDisabled = templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
-  // Single-mode labs keep grid-cols-1; four-mode labs (function-graph
-  // exponential model) use grid-cols-2; the default stays grid-cols-3.
+  assert.match(source, /const comparisonDisabled = !semanticModel && templateId === "number-line" && mode === 0 && !usesGradeOneSetControls/);
+  // Narrow screens stack or use two columns; wider screens retain the
+  // template-specific two/three-column layout.
   assert.match(
     source,
-    /controlCopy\.modeLabels\.length === 1 \? "grid-cols-1" : controlCopy\.modeLabels\.length === 4 \? "grid-cols-2" : "grid-cols-3"/
+    /modeOptions\.length === 1[\s\S]*"grid-cols-1"[\s\S]*modeOptions\.length === 4[\s\S]*"grid-cols-1 min-\[360px\]:grid-cols-2"[\s\S]*"grid-cols-1 min-\[360px\]:grid-cols-2 min-\[768px\]:grid-cols-3"/
   );
   assert.match(source, /modeLabels: usesGradeOneSetControls[\s\S]*en: "Set"/);
   assert.match(source, /valueLabel: usesGradeOneSetControls[\s\S]*en: "Start"/);
@@ -127,7 +127,6 @@ test("3D labs show the 2D configured surface while the heavy runtime loads", () 
 test("fraction bar shaded overlays are clipped to rounded bar outlines", () => {
   const branch = templateBranch("fraction-bar");
 
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
   assert.match(source, /useId/);
   assert.match(branch, /const fractionBarClipId =/);
   assert.match(branch, /const equivalentFractionBarClipId =/);
@@ -176,9 +175,11 @@ test("array and statistics summaries avoid graph collisions at reported slider e
   assert.doesNotMatch(arrayArea, /<text x="82" y="292"[\s\S]*state\.columns/);
 
   assert.match(statisticsDistribution, /const rawMeanX = xForValue\(state\.mean\)/);
-  assert.match(statisticsDistribution, /const meanX = clamp\(rawMeanX, frame\.left \+ 14, frame\.right - 14\)/);
+  assert.match(statisticsDistribution, /const meanX = rawMeanX/);
   assert.match(statisticsDistribution, /data-viz-raw-x=\{formatNumber\(rawMeanX, 1\)\}/);
+  assert.match(statisticsDistribution, /data-viz-x=\{formatNumber\(meanX, 1\)\}/);
   assert.match(statisticsDistribution, /y=\{statisticsFrame\.summaryY\}/);
+  assert.match(statisticsDistribution, /\{statisticsSummaryLabels\.mean\}[\s\S]*\{statisticsSummaryLabels\.spread\}/);
   assert.doesNotMatch(statisticsDistribution, /<text x="82" y="292"[\s\S]*state\.mean/);
 });
 
@@ -201,7 +202,7 @@ test("configured visualization renderer omits introductory metadata panels from 
 });
 
 test("configured visualization lab exposes a footer action slot for lesson embeds", () => {
-  assert.match(source, /import type \{ ComponentType, ReactNode \} from "react";/);
+  assert.match(source, /import type \{[^}]*\bReactNode\b[^}]*\} from "react";/);
   assert.match(source, /type ConfiguredVisualizationLabProps = \{[\s\S]*controlFooterAction\?: ReactNode;[\s\S]*lab\?: FeaturedLabDefinition \| null;/);
   assert.match(source, /function ConfiguredVisualizationLabSurface\(\{ controlFooterAction, lab = null, labId, topicId \}: ConfiguredVisualizationLabProps\)/);
   assert.match(source, /export function ConfiguredVisualizationLabDirect\(props: ConfiguredVisualizationLabProps\)/);
@@ -212,8 +213,100 @@ test("configured visualization lab exposes a footer action slot for lesson embed
 
 test("configured visualization range sliders respond to input and change events", () => {
   assert.match(source, /function Slider\(/);
+  assert.match(source, /aria-valuetext=\{displayValue\}/);
   assert.match(source, /onInput=\{\(event\) => onValue\(Number\(event\.currentTarget\.value\)\)\}/);
   assert.match(source, /onChange=\{\(event\) => onValue\(Number\(event\.currentTarget\.value\)\)\}/);
+});
+
+test("configured visualization controls reflow without clipping at narrow widths", () => {
+  assert.match(source, /data-viz-mode-grid/);
+  assert.match(source, /grid-cols-1 min-\[360px\]:grid-cols-2/);
+  assert.match(source, /data-viz-mode-button[\s\S]{0,900}min-h-11 min-w-0 break-words/);
+
+  assert.match(source, /data-viz-slider-heading/);
+  assert.match(source, /data-viz-slider-label/);
+  assert.match(source, /min-w-0 flex-1 break-words \[overflow-wrap:anywhere\]/);
+  assert.match(source, /data-viz-slider-value/);
+  assert.match(source, /shrink-0 tabular-nums/);
+  assert.match(source, /type="range"[\s\S]{0,900}className="mt-2 h-11 w-full/);
+
+  assert.match(source, /data-viz-coordinate-input-grid/);
+  assert.match(source, /grid grid-cols-1 gap-2 min-\[360px\]:grid-cols-2/);
+  assert.match(source, /type="number"[\s\S]{0,340}min-h-11/);
+});
+
+test("configured visualization title badge contains long Mainland formulas and remains auditable", () => {
+  assert.match(source, /const titleBadgeMaxWidth = 456/);
+  assert.match(source, /const titleBadgeHorizontalPadding = 40/);
+  assert.match(source, /const titleBadgeEstimatedSafetyFactor = 1\.25/);
+  assert.match(source, /textWidth \* titleBadgeEstimatedSafetyFactor \+ titleBadgeHorizontalPadding/);
+  assert.match(source, /useLayoutEffect\(\(\) => \{/);
+  assert.match(source, /getComputedTextLength\(\)/);
+  assert.match(source, /getBBox\(\)\.width/);
+  assert.match(source, /data-viz-title-badge-measurement/);
+  assert.match(source, /aria-hidden="true"/);
+  assert.match(source, /visibility="hidden"/);
+  assert.doesNotMatch(source, /removeAttribute\("textLength"\)|removeAttribute\("lengthAdjust"\)/);
+  assert.match(source, /measuredTitleBadgeTextWidth/);
+  assert.match(source, /textLength=\{titleBadgeTextLength\}/);
+  assert.match(source, /lengthAdjust=\{titleBadgeTextLength \? "spacingAndGlyphs" : undefined\}/);
+  assert.doesNotMatch(source, /clamp\(textWidth \+ 40, 76, 340\)/);
+  assert.match(source, /data-viz-title-badge/);
+  assert.match(source, /data-viz-title-badge-label/);
+  assert.doesNotMatch(source, /<g data-viz-overlap-ok>[\s\S]{0,260}titleBadgeLabel/);
+});
+
+test("configured 3D explicitly owns the learner presentation and localized loading copy", () => {
+  assert.match(source, /function ThreeDLabRuntimeLoading\(\)/);
+  assert.match(source, /en: "Loading 3D model\.\.\."[\s\S]{0,120}zh: "正在載入 3D 模型\.\.\."[\s\S]{0,120}zhHans: "正在加载 3D 模型\.\.\."/);
+  assert.match(source, /loading: \(\) => <ThreeDLabRuntimeLoading \/>/);
+  assert.match(source, /const threeDLoadingLabel = t\(/);
+  assert.match(source, /<ThreeDLabCanvas[\s\S]{0,500}presentation="learner"/);
+  assert.doesNotMatch(source, />\s*Loading 3D model\.\.\.\s*</);
+});
+
+test("configured SVG keeps educational text readable through a keyboard-accessible mobile pan surface", () => {
+  assert.match(source, /data-viz-mobile-pan-hint/);
+  assert.match(source, /data-viz-pan-hint/);
+  assert.match(source, /const mobilePanHintId = useId\(\)/);
+  assert.match(source, /const \[hasHorizontalOverflow, setHasHorizontalOverflow\] = useState\(false\)/);
+  assert.match(source, /new ResizeObserver\(updateHorizontalOverflow\)/);
+  assert.match(source, /aria-describedby=\{hasHorizontalOverflow \? mobilePanHintId : undefined\}/);
+  assert.match(source, /hidden=\{!hasHorizontalOverflow\}/);
+  assert.match(source, /aria-hidden="true">←<\/span>/);
+  assert.doesNotMatch(source, /data-viz-mobile-pan-hint[\s\S]{0,260}sm:hidden/);
+  assert.match(source, /data-viz-scroll-surface/);
+  assert.match(source, /tabIndex=\{0\}/);
+  assert.match(source, /overflow-x-auto/);
+  assert.match(source, /overscroll-x-contain/);
+  assert.match(source, /min-w-\[640px\]/);
+  assert.match(source, /data-viz-opaque-backdrop="surface"/);
+  assert.match(source, /style=\{\{ backgroundColor: vizTheme\.svgBackground \}\}/);
+  assert.match(source, /en: "Swipe or use arrow keys to explore the full model"/);
+  assert.match(source, /zhHans: "左右滑动或使用方向键查看完整模型"/);
+});
+
+test("HK P3 fraction formula uses the opaque CSS surface without intersecting SVG backdrop painters", () => {
+  assert.match(
+    source,
+    /semanticModel\?\.semanticFamily === "fraction-equivalence"[\s\S]*semanticModel\.variant === "p3-fractions-intro"/
+  );
+  assert.match(
+    source,
+    /data-viz-svg-backdrop-source=\{usesCssOnlySvgBackdrop \? "css" : "svg-paint"\}/
+  );
+  assert.match(
+    source,
+    /!usesCssOnlySvgBackdrop \? \(\s*<rect width=\{width\} height=\{height\} fill=\{vizTheme\.svgBackground\} \/>/
+  );
+  assert.match(
+    source,
+    /!usesCssOnlySvgBackdrop \? \(\s*<rect x=\{panel\.x\} y=\{panel\.y\} width=\{panel\.width\} height=\{panel\.height\}/
+  );
+  assert.match(
+    source,
+    /!usesCssOnlySvgBackdrop \? \(\s*<rect data-viz-title-badge-background/
+  );
 });
 
 test("configured Three.js canvas readiness is stable across slider value changes", () => {
@@ -246,4 +339,134 @@ test("angle-geometry labels use collision-aware positions at equal high values",
   assert.match(branch, /data-viz-label-x=\{formatNumber\(angleLabels\.labelA\.x, 2\)\}/);
   assert.doesNotMatch(branch, /x=\{rayA\.x \+ 8\} y=\{rayA\.y - 8\}/);
   assert.doesNotMatch(branch, /x=\{rayB\.x \+ 8\} y=\{rayB\.y - 8\}/);
+});
+
+test("Mainland composite and former catalog-scope labs render exact child strands", () => {
+  assert.match(source, /resolveConfiguredVisualizationCompositeStrands/);
+  assert.match(source, /const semanticCompositeStrands = useMemo\(/);
+  assert.match(source, /const activeSemanticStrand = semanticCompositeStrands\?\.\[/);
+  assert.match(source, /renderSemanticFamily\(activeSemanticStrand\.family, activeSemanticStrand\.variant\)/);
+  assert.match(source, /data-viz-semantic-kind="composite"/);
+  assert.match(source, /data-viz-composite-plan-size=\{semanticCompositeStrands\?\.length\}/);
+  assert.match(source, /data-viz-math-state=\{JSON\.stringify\(/);
+  assert.match(source, /data-viz-strand-grid/);
+  assert.match(source, /data-viz-strand-button/);
+  assert.match(source, /data-viz-strand-active=\{String\(semanticStrandIndex === index\)\}/);
+  assert.match(source, /setSemanticStrandIndex\(index\);[\s\S]{0,260}applySemanticControlContract\(/);
+  assert.match(source, /getConfiguredVisualizationSemanticControlContract\(strand\.family, strand\.variant\)/);
+  assert.match(source, /applySemanticControlContract\(initialSemanticControlContract\);[\s\S]{0,360}setSemanticStrandIndex\(0\)/);
+});
+
+test("active family and composite child use one exact learner-control contract", () => {
+  assert.match(source, /getConfiguredVisualizationSemanticControlContract/);
+  assert.match(source, /const activeSemanticFamily = activeSemanticStrand\?\.family \?\? semanticModel\?\.semanticFamily/);
+  assert.match(source, /getConfiguredVisualizationSemanticControlContract\(activeSemanticFamily, activeSemanticVariant, mode\)/);
+  assert.match(source, /const activeSemanticMode = activeSemanticControlContract\?\.modes\.find/);
+  assert.match(source, /const semanticModeLabel = activeSemanticMode \? text\(activeSemanticMode\.label\) : undefined/);
+  assert.match(source, /const initialSemanticMode = initialSemanticControlContract\?\.modes\[0\]\?\.value \?\? 0/);
+  assert.match(source, /const \[mode, setMode\] = useState\(initialSemanticMode\)/);
+  assert.match(source, /setMode\(initialSemanticMode\)/);
+  assert.match(source, /modeOptions\.length > 1/);
+  assert.match(source, /data-viz-mode-id=\{option\.id\}/);
+  assert.match(source, /data-viz-mode-value=\{option\.value\}/);
+  assert.match(source, /activeSemanticControlContract\?\.sliders \?\? \[\]\)\.map/);
+  assert.match(source, /data-viz-semantic-slider-input=\{control\.id\}/);
+  assert.match(source, /data-viz-semantic-slider-role=\{control\.role\}/);
+  assert.match(source, /supportsConfiguredSemanticSecondaryDisplayProjection\(activeSemanticFamily\)/);
+  assert.match(source, /formatConfiguredSemanticSecondaryDisplayValue\(/);
+  assert.match(source, /setSemanticSliderValue\([\s\S]{0,180}snapConfiguredControlValue/);
+  assert.doesNotMatch(source, /configuredSemanticPrimaryControlRequirements/);
+  assert.doesNotMatch(source, /configuredSemanticSecondaryRequiredModeCount/);
+});
+
+test("configured labs expose stable language-independent model, state, parameter, mode, and reset selectors", () => {
+  assert.match(source, /const configuredVisualizationModuleId = "configured-visualization-lab"/);
+  assert.match(source, /const configuredModuleId = configuredVisualizationModuleId/);
+  assert.match(source, /const configuredTopicId = lab\?\.labId \?\? labId \?\? topicId \?\? lab\?\.topicId \?\? "configured-visualization"/);
+  assert.match(source, /data-viz-configured-module=\{configuredModuleId\}/);
+  assert.match(source, /data-viz-configured-topic=\{configuredTopicId\}/);
+  assert.match(source, /data-viz-configured-model=\{templateId\}/);
+  assert.match(source, /data-viz-configured-model=\{templateId\}[\s\S]{0,220}data-viz-range-domain-id=\{activeSemanticControlContract\?\.stateDomain\.id\}/);
+  assert.match(source, /data-viz-semantic-family=\{semanticModel\?\.semanticFamily\}/);
+  assert.match(source, /data-viz-surface-model=\{templateId\}/);
+  assert.match(source, /data-viz-surface-state=\{JSON\.stringify\(configuredMachineState\)\}/);
+  assert.match(source, /deriveConfiguredVisualizationMachineState\([\s\S]*mode: modelMode/);
+  assert.match(source, /data-viz-configured-state=\{JSON\.stringify\(configuredMachineState\)\}/);
+  assert.match(source, /data-viz-mode=\{visibleMode\}/);
+  assert.match(source, /data-viz-renderer-mode=\{modelMode\}/);
+  assert.match(source, /data-viz-mode=\{mode\}/);
+  assert.match(source, /data-viz-mode=\{option\.value\}/);
+  assert.match(source, /\sparameter=\{control\.id\}/);
+  assert.match(source, /<input[\s\S]{0,420}data-viz-parameter=\{parameter\}/);
+  assert.match(source, /data-viz-parameter="value"/);
+  assert.match(source, /data-viz-parameter="comparison"/);
+  assert.match(source, /data-viz-reset-module-id=\{configuredModuleId\}/);
+  assert.match(source, /data-viz-reset-topic-id=\{configuredTopicId\}/);
+  assert.equal(
+    [...source.matchAll(/data-viz-configured-model=/g)].length,
+    1,
+    "one configured lab must expose exactly one machine-model owner"
+  );
+  assert.equal(
+    [...source.matchAll(/data-viz-configured-state=/g)].length,
+    1,
+    "one configured lab must expose exactly one serialized-state owner"
+  );
+  assert.equal(
+    [...source.matchAll(/data-viz-reset-module-id=/g)].length,
+    1,
+    "the actionable reset control must be the sole reset module-identity owner"
+  );
+  assert.equal(
+    [...source.matchAll(/data-viz-reset-topic-id=/g)].length,
+    1,
+    "the actionable reset control must be the sole reset topic-identity owner"
+  );
+});
+
+test("Hong Kong pass-through labs use the shared semantic model and expose exact derived reset state", () => {
+  assert.match(
+    source,
+    /!isMainlandVisualizationLab\(lab\) && lab\.curriculumTrack !== "HK"/
+  );
+  assert.match(source, /function deriveConfiguredVisualizationMachineState/);
+  assert.match(source, /data-viz-configured-state=\{JSON\.stringify\(configuredMachineState\)\}/);
+  assert.match(source, /variant === "p2-multiplication-foundations"[\s\S]*area: primaryState\.product/);
+  assert.match(
+    source,
+    /variant === "p3-fractions-intro"[\s\S]*controllerValue: value[\s\S]*eqDen: primaryState\.resultDenominator[\s\S]*eqNum: primaryState\.resultNumerator[\s\S]*equivalentDenominator: primaryState\.resultDenominator[\s\S]*equivalentNumerator: primaryState\.resultNumerator[\s\S]*value: primaryState\.numerator \/ primaryState\.denominator/
+  );
+  assert.match(source, /variant === "advanced-functions"[\s\S]*family: metrics\.primaryFamily[\s\S]*scale: metrics\.scaleParameter/);
+  assert.match(source, /variant === "calculus"[\s\S]*approximateArea: metrics\.midpointApproximation[\s\S]*exactArea: metrics\.exactIntegral/);
+});
+
+test("versioned dynamic domains project live bounds and values for every affected semantic control", () => {
+  assert.match(source, /projectConfiguredVisualizationSemanticControlState\(/);
+  assert.match(source, /activeSemanticProjection\.bounds\[control\.id\]/);
+  assert.match(source, /activeSemanticProjection\.values\.value/);
+  assert.match(source, /activeSemanticProjection\.values\.comparison/);
+  assert.match(source, /data-viz-range-domain-id=\{activeSemanticControlContract\?\.stateDomain\.id\}/);
+  assert.match(source, /data-viz-range-domain-version=\{activeSemanticControlContract\?\.stateDomain\.version\}/);
+  assert.match(source, /data-viz-range-domain-affected-controls/);
+  assert.match(source, /data-viz-range-domain-controller-inputs/);
+  assert.match(source, /disabled=\{control\.disabled\}/);
+  assert.match(source, /stateDomain\.id === "fraction-bar-numerator-v1"[\s\S]*input === "value"/);
+  assert.match(source, /setComparison\(\(current\) => snapConfiguredControlValue\(current, 0, denominator, 1\)\)/);
+  assert.match(source, /data-viz-range-affects=\{rangeAffects\}/);
+  assert.match(source, /rangeProjection=\{isHongKongFractionController \? "clamp-max" : undefined\}/);
+  assert.match(source, /rangeProjectionReason=\{isHongKongFractionController \? "numerator-cannot-exceed-denominator" : undefined\}/);
+});
+
+test("direct semantic labs never reuse a potentially unrelated legacy template formula badge", () => {
+  assert.match(
+    source,
+    /const titleBadgeLabel = activeSemanticStrand[\s\S]*semanticModeLabel[\s\S]*semanticModel && lab[\s\S]*text\(lab\.category\)[\s\S]*usesPrimaryBarChartBadge[\s\S]*text\(formula\)/
+  );
+});
+
+test("semantic SVG text never sits on the decorative template grid", () => {
+  assert.match(
+    source,
+    /\{!semanticModel \? \([\s\S]{0,500}Array\.from\(\{ length: 8 \}[\s\S]{0,500}Array\.from\(\{ length: 5 \}/
+  );
 });

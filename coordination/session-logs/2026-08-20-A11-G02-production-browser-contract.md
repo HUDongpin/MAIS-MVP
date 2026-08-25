@@ -1,0 +1,344 @@
+# 2026-08-20 A11 G02 production browser contract
+
+- Lane: A11 QA, consuming the A06-owned approved G02 production plan.
+- Scope: five new G02 browser-contract files only; no product, runner, partition, config, supervisor, C8, build, browser, network, or DB activity.
+- TDD RED:
+  - The first receipt test failed with `MODULE_NOT_FOUND` for the absent validator, then passed after the minimal exact desktop receipt was implemented.
+  - The expanded source canary initially failed on an invalid sentinel-regex escape, then passed after the canary itself was corrected; no production contract was weakened.
+- Added contract files:
+  - `tests/e2e/china-mainland-g02-production-receipt.ts`
+  - `tests/e2e/china-mainland-g02-production-receipt.test.ts`
+  - `tests/e2e/china-mainland-g02-production-browser.spec.ts`
+  - `tests/e2e/china-mainland-g02-production-browser-source.test.ts`
+- Exact browser contract:
+  - all four live G02 lab IDs and all 48 visual plus 576 interaction plan states split across the canonical desktop/mobile projects;
+  - rejects grep, grepInvert, project, shard, retry, skip, fixme, and only narrowing;
+  - every setup, primary, and reset physical subaction owns exactly one live learning-event POST/200 ACK and one globally unique event ID; a preceding event cannot satisfy a later subaction;
+  - desktop subactions use mouse/keyboard and mobile subactions use real touchscreen taps; mobile visual states include bidirectional CDP touch swipes;
+  - every state carries non-hollow collision, contrast, overflow, clipping, touch-target, console, page-error, and request-failure evidence;
+  - each disposable learner seeds all three sibling G02 lab sessions, then proves byte-for-byte sibling stability and exact four-lab counts at baseline, after the target first action, after reset, after the second action, reload, and final state;
+  - the first target visualization-session POST/200 gate completes inside the primary-first-action callback before any reset; reset and later actions add zero session POSTs;
+  - source evidence recomputes SHA-256 from four exact named raw files; sentinels and unnamed sources fail closed.
+- Preserved product truth: `DecimalArithmeticLab.tsx` currently has no dedicated per-action learning-event emission. The future real browser run is therefore expected to fail at `zero per-subaction analytics request` until an A06/A08-owned product fix exists; this contract does not route, fabricate, skip, or accept empty analytics.
+- Pure verification under `TEMP`, `TMP`, and `TMPDIR` = `/Volumes/Starship/mais-g02-contract-curie`:
+  - approved plan + receipt + source tests: 101/101 pass;
+  - receipt tests alone: 56/56 pass after visual-reset mutations were added;
+  - source canaries: 9/9 pass;
+  - full `npm run type-check`: pass (`tsc --noEmit --incremental false`).
+- Frozen source hashes:
+  - receipt: `cc2a42e82c58063139871ca6928c016c4b3e4139c281f51abe1a7db2ee050562`
+  - receipt test: `25a3eca8462944eb7d10e22130a6143a7e9ddf074167227344bd02be6be22970`
+  - browser producer: `df1a0104b5e1c0acc70ce1b923a58dfd6ac836094ff823eec720e2e56b32c584`
+  - browser source canary: `76403898357e38e010db395b276febd05c4aefaacfb31a5c22ab4e6162c24350`
+  - consumed approved plan: `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755`
+- Tests not run: no Playwright collection/browser, build, dev server, network, or DB by assignment.
+- Assumptions: the future canonical runner provides exactly the two configured projects and default `/.*/` grep; direct exact lesson routes allow one disposable Mainland learner to seed the three sibling G02 sessions.
+- Risks/follow-up: a future physical run may expose exact native range-coordinate or cross-publisher route behavior after the intentional analytics blocker is fixed; those must remain browser-evidenced rather than source-assumed.
+- Dirty state final action: evidence archive pending DIFFERENT-agent review; no Git operation performed.
+- Worktree lifecycle action: retained shared isolated worktree; no cleanup or artifact deletion performed.
+
+## C3 DIFFERENT-HOLD remediation
+
+- Reviewer disposition entering this remediation: DIFFERENT HOLD with five P1 and two P2 evidence-integrity findings. This A11 session did not self-approve.
+- TDD RED preserved before implementation: seven named `G02 C3` canaries ran `0 pass / 7 fail`, independently exposing the absent raw analytics envelope, temporal/payload coverage, topic/user/source binding, post-visual final durability boundary, two-way swipe evidence, full interaction UI audit, and real scroll geometry.
+- C3 receipt/producer changes:
+  - retains the raw `/api/learning-events` request body and raw events array; every physical subaction requires exact body keys, exactly one sole full-shape event, exact event-ID list, exact owner-user header, response `200`, and exact ACK-ID list. Valid-plus-malformed and valid-plus-unrelated surplus events fail closed without pre-validation filtering;
+  - closes every subaction with a pre-action quiet interval, action plus UI settlement, and post-action quiet interval. Global capture sequence and payload-level captured/consumed event-ID equality reject late, unconsumed, duplicated, or shifted deliveries;
+  - binds every receipt/event/raw body to the catalog `analyticsSource`, exact lab `topicId`, catalog grade, and the same durability `userId`; forged source/topic/user and cross-lab mutations are killed;
+  - performs every visual reset axis before constructing the authoritative `afterVisualFinal` durability receipt, including exact target and all-three-sibling same-user snapshots, four-lab counts, and zero new session POSTs;
+  - serializes exactly two mobile horizontal CDP swipes in order (`toward-end`, `toward-start`), each with four moves, before/after `scrollLeft`, and signed displacement; mobile scroll audits use real vertical CDP gestures;
+  - persists every interaction state's complete collision, contrast, clipping, overflow, touch-target, and non-hollow UI scan, plus top/center/bottom `scrollY`, root bounds, viewport height, and physical scroll method.
+- Self-audit against the engineering code-review checklist: exact raw-body and response retention, async quiet-window closure, catalog/user identity, post-visual ordering, touch/scroll evidence, diagnostics, canonical CLI/project restrictions, and no-fabrication paths were checked. No unresolved self-audit defect remains; approval is still reserved for a different reviewer.
+- Preserved product truth: the dedicated decimal-arithmetic component still emits zero per-action learning analytics. The future physical browser run therefore still fails closed at `zero per-subaction analytics request`; no event, ACK, route, skip, or receipt is fabricated.
+- C3 pure verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial C3 mutation canaries: `0/7` RED as required;
+  - receipt contract after remediation: `99/99` GREEN;
+  - source canaries before freeze: `10/11` GREEN with only the intentionally stale hash canary RED;
+  - approved plan + receipt + source final gate: `146/146` GREEN;
+  - full `npx tsc --noEmit --pretty false`: GREEN;
+  - no browser, Playwright collection, build, dev server, network, database, Git, product, config, runner, partition, supervisor, or C8 action occurred.
+- C3 frozen code/test hashes and sizes:
+  - receipt: `2b5f82a7c48d63b1fb2541452c47a9fba5b8860283d00a8bf09fd2bb75e58126` (`50,730` bytes; `1,452` lines);
+  - receipt mutation tests: `1fabbfaf042bd7c518d2b4afb343f4498d815e497fc8c7a5f11e1f3001f9eb8f` (`18,932` bytes; `292` lines);
+  - browser producer: `e60b295105fd275cdc05413c1d661889fd5b521cc3f91ca16fbb6efb146d32cc` (`63,945` bytes; `1,703` lines);
+  - browser source canaries: `11a089e514b4efa39b623beb81b98473d73ee5a5686a9f5df92522cbb8f3c6ff` (`12,391` bytes; `232` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755`.
+- Editing state after this entry: PAUSED pending a new DIFFERENT-agent review. No further file edit is authorized unless that review returns a concrete finding.
+
+## C4 DIFFERENT-HOLD remediation
+
+- Entering verdict: DIFFERENT C3 HOLD, `0 P0 / 3 P1 / 1 P2`. The C3 freeze was reopened only for the four G02 code/test files plus this existing log.
+- Strict TDD RED: four named C4 contract canaries ran `0/4`, proving that runner authority, physical-action timestamp binding, exact ordered G02 siblings, and verified scroll landmarks were not yet jointly enforced.
+- Trusted-runner boundary:
+  - added a frozen future canonical invocation schema for Playwright `1.59.1`, two configured projects, exact spec/config, one worker, zero retries, and line reporter;
+  - exact caller JSON plus matching SHA-256 remains explicitly non-authoritative because this scope has no trusted native runner with spawn/wait and immutable receipt authority;
+  - `execution.complete` is false, `authorityAvailable` is false, `releaseReady` is false, and `runnerReceiptSha256` is null. Direct Playwright, desktop-only, project/grep/grep-invert/shard/retry narrowing, and forged exact environment evidence fail closed before browser evidence collection;
+  - source canaries read the installed Playwright `1.59.1` package and CLI implementation, proving CLI arguments populate private selection fields before project filtering and that public `FullConfig` is not CLI-selection authority.
+- Physical analytics time binding:
+  - each subaction records `actionStartedAt`, `requestObservedAt`, and `actionSettledAt`, plus monotonic counterparts derived from `performance.timeOrigin + performance.now()`;
+  - raw event time must fall inside the exact physical action/request interval with a fixed `1,000 ms` tolerance; stale `2000-01-01`, delayed prior-action, reversed wall-clock, reversed monotonic, and widened-tolerance mutations fail closed.
+- Exact final siblings: `afterVisualFinal.siblings.sessions` must equal the G02 plan lab IDs minus the target in plan order, with exact topic/source/configured-module tuples and exact counts. A different but valid catalog lab now fails closed.
+- Verified scroll landmarks: both desktop and mobile require top `scrollY <= 1`, bottom `scrollY >= documentMaxScrollY - 1`, and visualization root center within `40 px` of the viewport center. Receipts serialize document maximum, root/viewport centers, root bounds, viewport height, and tolerance; a plausible-looking `[100, 200, 300]` triplet fails.
+- Preserved C3 strengths: raw unfiltered one-event envelopes, exact ACK/owner/source/topic/user, pre/post quiet windows and payload-wide equality, post-visual durability, two signed horizontal CDP swipes, full UI scans, 4 labs / 48 visual / 576 interaction states, and zero-analytics fail-closed remain intact.
+- Verification under `TEMP`, `TMP`, and `TMPDIR` = `/Volumes/Starship/mais-g02-contract-curie`:
+  - C4 canaries before implementation: `0/4` RED;
+  - release-unready receipt contract and mutations: `119/119` GREEN;
+  - source and installed-CLI semantic canaries: `13/13` GREEN;
+  - approved plan + receipt + source aggregate: `168/168` GREEN;
+  - targeted TypeScript program using the repository `tsconfig.json` with exactly the four G02 roots: GREEN;
+  - the earlier whole-tree type attempt was blocked only by concurrent G01 edits; root coordination owns the final combined whole-tree type gate after both freezes. No G02 diagnostic was reported, and this log does not misstate the targeted type gate as whole-tree proof.
+  - no browser, Playwright execution/collection, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or C8 action occurred.
+- C4 frozen code/test hashes and sizes:
+  - receipt: `24e0124e2a98eca07ba2729663b5529732a5f9b4f79bf55ffa02b5c16b8a4508` (`59,954` bytes; `1,682` lines);
+  - receipt tests: `21f1a360131cd78c53f4e67dd5ecda3d0db079f8e66df54f77d2d1c1d26cf80a` (`25,109` bytes; `400` lines);
+  - browser producer: `abc19b41954fd7a65ad4252639207befe4841bde8e1ed8b41775e2a8c88aef3a` (`67,345` bytes; `1,777` lines);
+  - browser source/CLI canaries: `e2fc2b279aea07a1718c062d5d96ab44da899b347f01e787fb7895aaa9dcb028` (`16,722` bytes; `305` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755`.
+- Interpretation: `119/119`, `13/13`, `168/168`, and targeted type GREEN prove the pure fail-closed contract only. They are not executable browser coverage and cannot authorize release while `releaseReady:false`.
+- Editing state after this entry: PAUSED on the exact C4 freeze pending a new DIFFERENT-agent review. This A11 author has not self-approved.
+
+## C5 DIFFERENT-HOLD remediation
+
+- Entering verdict: DIFFERENT C4 HOLD, `0 P0 / 3 P1 / 1 P2`. The C4 freeze was reopened only for the same four G02 code/test files plus this existing log; this A11 author did not self-approve.
+- Strict TDD RED: four named C5 canaries ran `0/4` before implementation. They independently exposed the absent unfiltered raw-session checkpoints, absent joint clock-origin proof, absent document-space root coherence, and absent mobile swipe round-trip continuity.
+- Raw-session exactness:
+  - the producer now checks the complete raw `/api/visualization-sessions` array before any G02 filtering or durable serialization;
+  - immediately after registration the raw array must be empty, after sibling seeding it must equal the exact three G02 plan siblings in plan order, and after first action/reset/second action/reload/all visual axes it must equal those three siblings followed by the target;
+  - every raw snapshot binds exact topic, catalog analytics source, configured module ID, explored state, and durable timestamps. A valid non-G02 catalog surplus, raw order drift, or after-registration surplus fails closed.
+- Joint physical timeline:
+  - every action/request/settle sample serializes wall-clock and monotonic time plus the shared wall-clock-minus-monotonic origin;
+  - the fixed `2 ms` tolerance is documented solely for integer-millisecond ISO endpoint rounding and cannot become a delayed-event allowance;
+  - all claimed and derived origins must share that joint tolerance, capture sequences are contiguous, and each later action begins strictly after the prior action settles in both clock domains;
+  - the sole raw event timestamp must remain inside its own action/request/settle interval. Origin drift, locally tolerated but globally divergent origins, a copied prior event plus prior interval, a future/post-settle event, stale time, and delayed prior-action time all fail closed.
+- Physical visual coherence:
+  - each top/center/bottom audit serializes root viewport bounds, root document top/bottom/center, actual `scrollY`, viewport height/center, and document maximum;
+  - all three landmarks must share viewport height, document maximum, and one document-space root within `1 px`, while retaining the exact top, centered-root, and bottom gates. The corrected fixture and an internally coherent but physically impossible moving-root mutant prove closure.
+- Mobile swipe continuity:
+  - the exact two signed CDP swipes remain ordered `toward-end` then `toward-start`, four moves each;
+  - the return swipe must start within `2 px` of the outward end and finish within `25%` of the outward displacement from the initial region, strictly closer than its start. Discontinuous and no-material-return mutations fail closed.
+- Preserved prior strengths: exact raw learning-event envelope/ACK/owner/topic/source/user, per-subaction quiet windows, global event uniqueness and payload equality, first session POST/200 before reset, zero later session POSTs, authoritative post-visual durability, exact four labs and every plan state, non-hollow UI/diagnostic scans, canonical desktop/mobile pair, CLI narrowing rejection, raw source hashes, and fail-closed native-runner authority all remain enforced.
+- Preserved product truth: the dedicated decimal-arithmetic component still emits zero per-action learning analytics. A future physical browser run is expected to fail at `zero per-subaction analytics request`; no event, ACK, route, skip, trusted runner receipt, or coverage claim was fabricated. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial C5 canaries: `0/4` RED;
+  - receipt contract and mutation suite: `133/133` GREEN;
+  - source and installed-Playwright-CLI semantic canaries: stale-freeze phase `12/13` with only the intentionally stale source-hash canary RED, then `13/13` GREEN after exact freeze;
+  - approved plan plus receipt plus source aggregate: `182/182` GREEN;
+  - targeted TypeScript program using the repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate after concurrent slices freeze. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or C8 action occurred.
+- C5 frozen code/test hashes and sizes:
+  - receipt: `df044c43111007c06a6386ff67558edf50edf15f28369715c57e5bda76434560` (`67,926` bytes; `1,869` lines);
+  - receipt tests: `8bae03fca8217a0bbf8eacf30a10fc9f84ddf8142b8402c8be7ce73651351db9` (`32,051` bytes; `531` lines);
+  - browser producer: `353aea7fafc2ff9f60f7690e6018e871277a8bbc71ee011d12996c1311481b33` (`71,399` bytes; `1,881` lines);
+  - browser source/CLI canaries: `6b2fdf90b11e8697db90b5c2f7a47d5f032ef71d3134c31ed81976edcb4dab51` (`18,895` bytes; `335` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Interpretation: `133/133`, `13/13`, `182/182`, and targeted type GREEN prove only the pure fail-closed contract. They are not executable browser coverage and cannot authorize release while trusted native runner authority is unavailable.
+- Engineering code-review self-audit found no unresolved in-scope defect across raw-before-filter ordering, temporal origin/sequence closure, document-space geometry, swipe continuity, analytics exactness, durability ordering, runner fail-closure, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C5 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C6 DIFFERENT-HOLD remediation
+
+- Entering verdict: DIFFERENT C5 HOLD, `0 P0 / 2 P1 / 1 P2`. The exact C5 freeze was reopened only for the same four G02 code/test files plus this existing log. This A11 author did not self-approve.
+- Strict TDD RED: three independent C6 canaries ran `0/3` before implementation, proving the prior validator accepted valid cross-checkpoint timestamp drift, the fixture placed visual capture sequences before interactions, and the mobile producer still lacked calibrated native-range touch logic. The same canaries turned `3/3` GREEN after the minimal implementation; the final focused C6 set is `5/5` GREEN after adding source-boundary and coherent phase-swap canaries.
+- Serialized durability stability:
+  - at every target checkpoint (`afterFirst`, `afterReset`, `afterSecond`, `afterReload`, `afterVisualFinal`), the exact ordered sibling portion must be byte-for-byte equal to `afterSiblingSeed`;
+  - the target snapshot at reset, second action, reload, and visual final must be byte-for-byte equal to its first-action snapshot, matching the existing exactly-one first visualization-session POST/200 and zero later POST contract;
+  - `afterVisualFinal.siblings.sessions` and `.target.sessions` are exact projections of the final unfiltered raw checkpoint rather than separately satisfiable evidence;
+  - valid ISO `updatedAt` and `completedAt` drift mutants for sibling and target snapshots at every checkpoint, plus valid final-projection timestamp drift mutants, all fail closed.
+- Semantic phase chronology:
+  - fixture capture sequences are now allocated by G02 plan lab order, with every actual interaction subaction for one lab preceding all of that lab's visual reset actions;
+  - each `afterVisualFinal` receipt carries an exact capture boundary with wall time, monotonic time, shared origin, lab sequence index, last visual action sequence, and the next lab's first semantic action sequence (or null for the last lab);
+  - the validator requires last interaction settle before first visual reset in both clocks, last visual reset settle before the final checkpoint, and that checkpoint before the next plan lab's first semantic action. This serializes all four labs in exact plan order;
+  - a coherent mutant that swaps the first visual reset with the last interaction, reseals all local temporal/event evidence, and recomputes global event ordering fails specifically at the semantic chronology gate. Boundary-before-visual, origin, lab-index, and next-sequence mutants also fail.
+- Mobile native-range touch:
+  - removed the mobile one-shot guessed `10 px` thumb mapping;
+  - mobile range actions now use at most 24 real `page.touchscreen.tap` attempts with observed native `inputValue()` feedback and deterministic bounded bisection until the exact target is read back;
+  - there is no JS value setter, prototype override, dispatchEvent, evaluate setter, mouse fallback, or keyboard fallback in the calibration routine. Failure to reach the exact native value throws and leaves coverage unavailable;
+  - all calibration/correction taps remain inside one semantic `record` window. The existing raw request array length exactly one, one qualifying delivery, exact ACK, and post-action quiet interval reject extra per-tap semantic analytics. Mobile range receipt methods must encode `calibrated-bisection:1..24:exact-native-value`; a generic single tap fails closed.
+- Preserved prior strengths: unfiltered raw session cardinality/order, catalog topic/source/module/user binding, joint 2 ms wall/monotonic origin proof, strict cross-action capture ordering, raw one-event request/ACK envelopes, global event uniqueness and payload equality, post-visual durability, document-space scroll coherence, swipe round-trip continuity, non-hollow UI/diagnostic scans, all four labs/every plan state, canonical desktop/mobile projects, CLI narrowing rejection, and source hash recomputation remain enforced.
+- Preserved product and runner truth: the dedicated decimal-arithmetic component still emits zero per-action learning analytics, so any future physical run remains expected to fail at `zero per-subaction analytics request`. Trusted native runner authority is also unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; no coverage, event, ACK, runner receipt, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial C6 canaries: `0/3` RED; final focused C6 canaries: `5/5` GREEN;
+  - receipt contract plus mutations: `166/166` GREEN;
+  - source plus installed Playwright CLI semantic canaries: stale-freeze phase `14/15` with only the expected source-hash RED, then `15/15` GREEN after exact freeze;
+  - approved plan plus receipt plus source aggregate: `217/217` GREEN;
+  - targeted TypeScript program using repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or C8 action occurred.
+- C6 frozen code/test hashes and sizes:
+  - receipt: `ecb970f3516f46d117d816995855a42a4fa828f25e3ff44393205da1efc6f407` (`75,717` bytes; `2,011` lines);
+  - receipt tests: `803ca821583767e12652bc042e1af8aa95ed523ccfc0fe5556c4d81fa4579b21` (`40,767` bytes; `706` lines);
+  - browser producer: `c28b09f91a8fba5aab1dd3b0a67e21485f3c98a104d9d021d0e1ed0a116aacf1` (`73,936` bytes; `1,942` lines);
+  - browser source/CLI canaries: `4783633dafd3649551ae3e34a9c8c06e1c4745127d48766f2f672aaca20258fd` (`21,786` bytes; `374` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Interpretation: all GREEN counts prove only the pure fail-closed evidence contract. They are not executable browser coverage and cannot authorize release.
+- Engineering code-review self-audit found no unresolved in-scope defect across byte-stable checkpoint comparison, final raw projection, semantic capture boundaries, cross-lab ordering, calibrated real-touch range closure, analytics exactness, runner fail-closure, and frozen source evidence. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C6 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C7 DIFFERENT-HOLD remediation
+
+- Entering verdict: DIFFERENT C6 HOLD, `0 P0 / 1 P1`. The C6 freeze was reopened only for the same four G02 code/test files plus this existing log. This A11 author did not self-approve.
+- Strict TDD RED: the initial C7 source/receipt canaries ran `0/9`, exposing the missing per-tap ledger, the prior one-event wrapper around potentially many native commits, absent terminal ownership, absent aggregate-count binding, and absent no-op commit policy. The final focused C7 set is `13/13` GREEN.
+- Honest physical calibration ledger:
+  - every real calibration tap is serialized in exact attempt order with its tap coordinate, native `beforeValue` and `afterValue`, actual `valueChanged` result, wall-clock and monotonic start/settle interval, shared clock origin, attempt index, and global calibration physical-capture sequence;
+  - the producer first performs a real midpoint tap and then repeats that exact physical coordinate. The repeated midpoint tap is the deterministic planned no-op probe; if its native value changes, collection fails closed. A true no-op must carry `delivery:null` and cannot fabricate a semantic event;
+  - every actual value-changing attempt must own exactly one request observed inside that attempt's wall/monotonic interval, one sole full-shape raw visualization event, the exact owner-user header, response status `200`, and an exact ACK of that event ID. A value-changing attempt with no delivery and a no-op with any delivery both fail;
+  - when the first midpoint lands on the target, the producer uses real-touch correction to a different native value and then returns by real touch, ensuring that the explicit final settling attempt is value-changing and target-owning. No setter, `evaluate`, synthetic event, mouse fallback, or keyboard fallback exists in the mobile calibration path;
+  - the method's `calibrated-bisection:N` count, `aggregateTapCount`, attempt-array length, ordered physical sequence, value-changing count, retained delivery IDs, consumed delivery IDs, terminal native value, target value, and payload-wide captured/consumed event IDs must all agree exactly;
+  - the top-level subaction analytics event is an exact projection of the final settling attempt only. Earlier calibration commits remain nested, uniquely identified, consumed, and included once in the global capture sequence and payload coverage rather than being hidden or reused.
+- Mutation closure: the C7 suite rejects an early-only event followed by silent correction, `:24` with only one retained attempt/event, aggregate tap drift, retained-ID drift, a fabricated no-op delivery, a non-repeated no-op coordinate, reused early/final event IDs, and an early event timestamp outside its own tap interval. The positive fixture includes two distinct value-changing taps with independent POST/200 ACKs plus one repeated-coordinate no-op.
+- Preserved product and runner truth: the dedicated decimal-arithmetic component still emits zero per-action learning analytics, so a future physical run remains expected to fail at `zero per-value-changing-calibration-attempt analytics request` (or the existing non-calibration zero-event gate). Trusted native runner authority remains unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; no browser coverage, event, ACK, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial focused C7 canaries: `0/9` RED; final focused C7 canaries: `13/13` GREEN;
+  - receipt contract and mutation suite: `178/178` GREEN;
+  - browser source plus installed Playwright CLI semantic canaries: `16/16` GREEN after exact source-hash refresh;
+  - approved plan plus receipt plus source aggregate: `230/230` GREEN;
+  - targeted TypeScript program using the repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - no browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or C8 action occurred.
+- C7 frozen code/test hashes and sizes:
+  - receipt: `7f36a7f92d20a94da59ab8b5fb71e0a77bbffa620aea2b3729b3e316e040beb0` (`99,612` bytes; `2,592` lines);
+  - receipt tests: `6f2c117946291be0d565365d1fc35f5dba7a9b8ad7c164297344c2c204631ee7` (`48,267` bytes; `882` lines);
+  - browser producer: `4312dfe1d4c5f6369aaee3fe8a9aeecbcecd42073c9a710c4ba6310762d7656e` (`82,571` bytes; `2,146` lines);
+  - browser source/CLI canaries: `3387205c99241bb576d6287a0ec911d4a0119d5ff639d9bb8b92bb05287e2f45` (`22,852` bytes; `395` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Interpretation: all GREEN counts prove only the pure fail-closed evidence contract. They are not executable browser coverage and cannot authorize release.
+- Engineering code-review self-audit found no unresolved in-scope defect across per-tap physical chronology, actual commit classification, raw delivery/ACK ownership, terminal projection, global event uniqueness, payload coverage, no-op policy, prior C3-C6 durability/chronology/geometry controls, runner fail-closure, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C7 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C8 DIFFERENT-HOLD remediation
+
+- Entering verdict and policy: the DIFFERENT C7 review returned `0 P0 / 3 P1`; root with A06/A08 selected the platform physical-commit rule that every physical native-range tap/pointer-up emits exactly one `visualization-slider` event, including an unchanged/no-op tap. This rule supersedes C7's earlier no-op-without-event expectation. The C7 freeze was reopened only for the same four G02 code/test files plus this existing log; this A11 author did not self-approve.
+- Strict TDD evidence: five new named C8 canaries first ran `0/5` RED, independently exposing missing plan-control binding, immutable input geometry, exact touch-category union, and per-tap slider delivery semantics. After implementation, the focused C8 set is `7/7` GREEN; the added x/y admissibility-key extension also produced a focused RED before its corrected fixture turned GREEN.
+- Exact plan control and native values:
+  - every mobile range calibration validator receives the exact interaction state's frozen plan control rather than accepting an isolated target;
+  - `targetValue` must equal `control.selected`, while every attempt's `beforeValue` and `afterValue` must be a safe integer inside exact `control.min..control.max` and aligned to `control.step`;
+  - a coherently resealed calibration shifted by `+10000` fails closed.
+- Immutable physical input geometry:
+  - each calibrated action serializes the single native input rectangle (`x`, `y`, `width`, `height`) captured before the first tap, exact half-pixel admissible x/y bounds, geometry-derived midpoint x, and centerline tap y;
+  - every retained physical coordinate must be finite and inside both admissible axes; the first correction and the repeated no-op probe must use the exact geometry-derived midpoint coordinate;
+  - negative/impossible x and y mutations fail closed.
+- Exact mobile touch union:
+  - `realTapCount` must equal the exact sum of calibration attempts, non-range interaction taps, visual-axis setup taps, visual reset taps, and session-seed taps;
+  - calibration attempts and non-range interaction taps are recomputed from the exact interaction receipts, visual resets equal all visual states, and the canonical visual locale/theme sequence requires exactly `56` mobile setup taps;
+  - sibling session seeding is now explicitly non-UI `page.request.post`, with `sessionSeedTapCount:0` and exactly `4 * 3 = 12` acknowledged seed posts. This avoids disguising API setup as learner touch evidence. A consistent setup-category/total drift and `realTapCount:1` both fail closed.
+- One slider delivery for every physical range tap:
+  - the calibration attempt ledger now requires a non-null delivery for every attempt regardless of `valueChanged`; every delivery retains one sole full-shape raw `visualization-slider` event, exact owner user, exact plan topic/source/grade, response `200`, and exact ACK ID inside that attempt's wall/monotonic interval;
+  - `valueChanged` remains the independent exact comparison of observed native before/after values and `valueChangingAttemptCount` remains independent of total deliveries;
+  - the final settling tap must still be value-changing, reach the exact plan-selected target, and own the top-level subaction event/ACK. Every earlier correction and no-op delivery remains in the ordered retained/consumed terminal union, global unique capture sequence, and payload-wide captured/consumed equality;
+  - missing no-op delivery, wrong event type, duplicate/reused event, aggregate count drift, and terminal projection drift fail closed. The method/policy is frozen as `page.touchscreen.tap:calibrated-bisection:N:exact-native-value` plus `one-visualization-slider-event-per-physical-tap-including-native-no-op`.
+- Preserved product and runner truth: the dedicated decimal-arithmetic product currently emits zero per-action learning analytics. A future physical run therefore remains expected to fail at `zero per-physical-range-tap visualization-slider request` (or the non-range zero-event gate) until a separately coordinated product patch implements the same platform commit rule. Trusted native runner authority also remains unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; no event, ACK, browser coverage, runner receipt, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial named C8 canaries: `0/5` RED; final focused C8 canaries: `7/7` GREEN;
+  - receipt contract and mutation suite: `182/182` GREEN;
+  - source plus installed Playwright `1.59.1` CLI semantic canaries: stale-freeze phase `16/17` with only the intentionally stale source-hash canary RED, then `17/17` GREEN after exact refresh;
+  - approved plan plus receipt plus source aggregate: `235/235` GREEN;
+  - targeted TypeScript program using the repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or C8 product action occurred.
+- C8 frozen code/test hashes and sizes:
+  - receipt: `1379d4f3bb49b4e694af9e88498d6a2e49285c089db2cf74594777d6b10e4608` (`108,471` bytes; `2,825` lines);
+  - receipt tests: `04e2688f0d9731445c2d6d50c0f7d72e2e1896a5fe20dc74105c4f0c6866a9f7` (`54,431` bytes; `1,039` lines);
+  - browser producer: `653b9c7b886abe6788410ee95f22d416b607cb2c5931afd5aacb54c8e15ff81a` (`84,528` bytes; `2,202` lines);
+  - browser source/CLI canaries: `f8dfb147e1089df6061b3c64737eb4cfc2c0100ba750c4b9344309c935d22efb` (`24,149` bytes; `424` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Engineering code-review self-audit found no unresolved in-scope defect across exact plan control/value binding, immutable two-axis input geometry, total/category touch accounting, explicit non-UI sibling seeding, per-pointer-up slider delivery/ACK ownership, no-op truth, final projection, terminal/global event union, prior C3-C7 durability/chronology/scroll/runner controls, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C8 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C9 DIFFERENT-HOLD remediation
+
+- Entering verdict: the DIFFERENT C8 review returned `0 P0 / 2 P1`. The C8 freeze was reopened only for the same four G02 code/test files plus this existing log. This A11 author did not self-approve.
+- Strict TDD: four new named C9 canaries first ran `0/4` RED, independently exposing the non-production `visualization-action` placeholder, divergent producer/validator/fixture taxonomy, absent all-tap fresh geometry ledger, and absent post-page-bottom header actionability proof. The same focused C9 set is now `4/4` GREEN.
+- Shared production analytics taxonomy:
+  - one exported `expectedG02AnalyticsEventType` function is used by the producer, validator, calibration validator, and fixture builder;
+  - every range commit on desktop and mobile is `visualization-slider`, every mode selection is `visualization-probe`, and both interaction resets and all visual-axis resets are `visualization-reset`;
+  - receipt and producer event types are extracted only from the production `LearningAnalyticsEventType` union. `visualization-action` no longer appears in either production contract source;
+  - every positive fixture raw event passes `isValidLearningAnalyticsEvent`, while a resealed `visualization-action` mutant fails both the production validator and the G02 semantic validator. Source canaries bind the producer and fixture/validator to the same function.
+- Fresh geometry before every raw touchscreen tap:
+  - the only two raw `page.touchscreen.tap` sites now call a shared preparation routine before each tap. The routine performs `locator.scrollIntoViewIfNeeded()`, then reads a fresh `boundingBox()` and live `page.viewportSize()`;
+  - every raw tap serializes its global tap sequence, exact category, coordinate, fresh target rect, live viewport, preparation method, and optional calibration physical sequence. The validator requires the coordinate to be inside both the target rect and the viewport, requires contiguous tap sequence, recomputes exact category totals, and binds every range entry one-to-one to its calibration attempt;
+  - calibration captures its immutable range rect and viewport only after the initial preparation. Before every correction/no-op/final tap it repeats preparation and requires the fresh rect and viewport to equal that immutable capture before using the coordinate. Every range tap entry projects the exact attempt coordinate, immutable rect, and live viewport;
+  - off-target, independently off-viewport, and stale calibration-viewport mutations fail closed. No setter, evaluate-based input mutation, synthetic dispatch, mouse fallback, or keyboard fallback was added to mobile range calibration.
+- Post-bottom header actionability:
+  - every visual-axis receipt still ends at the audited `page-bottom` landmark;
+  - before each subsequent mobile visual axis, the producer carries that exact prior-boundary boolean into `assertMobileHeaderActionableAfterPriorPageBottom`, scrolls the live header into view, captures its fresh rect/viewport, and proves its center coordinate is actionable before locale/theme setup taps;
+  - every actual locale-menu, locale-selector, locale-option, theme-toggle, interaction, calibration, and reset tap then performs its own fresh preparation again.
+- Preserved C8 and earlier strengths: one `visualization-slider` delivery/200 ACK per physical range pointer-up including native no-op, independent `valueChanged`, exact plan control/value/step, final target-owning projection, terminal/global event union, touch category union and explicit non-UI sibling seeding, raw request/ACK ownership, same-user durability, semantic chronology, scroll/swipe coherence, diagnostics, source hashes, canonical project/CLI narrowing rejection, and fail-closed runner authority remain enforced.
+- Preserved product and runner truth: the decimal-arithmetic component still emits zero per-action learning analytics. A future physical run remains expected to fail closed at the per-range `visualization-slider` gate or the non-range semantic-event gate until a separately coordinated product patch implements the production taxonomy. Trusted native runner authority is also unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; no event, ACK, browser coverage, runner receipt, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial named C9 canaries: `0/4` RED; final focused C9 canaries: `4/4` GREEN;
+  - receipt contract and mutation suite: `184/184` GREEN;
+  - source plus installed Playwright `1.59.1` CLI semantic canaries: stale-freeze phase `18/19` with only the intentionally stale source-hash canary RED, then `19/19` GREEN after exact refresh;
+  - approved plan plus receipt plus source aggregate: `239/239` GREEN;
+  - targeted TypeScript program using repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or product analytics action occurred.
+- C9 frozen code/test hashes and sizes:
+  - receipt: `ab6a94f611cef158e96276c0222cb6e02a93c74dff6c308a2d3fd57d92d097cb` (`117,603` bytes; `3,017` lines);
+  - receipt tests: `25481f35f51c4d62c4f495b1c059e701db1765aeee52c8c84b0ce5118d345a59` (`58,873` bytes; `1,142` lines);
+  - browser producer: `bfe39ab8f16674262728ea76bcd6f541076b064953cd388f7d7f98a402a659b5` (`88,957` bytes; `2,326` lines);
+  - browser source/CLI canaries: `81b0ff4a4a9d18f2348f9db45bb3a98b82a6dcaa16695d533dcd6592e1a271cd` (`27,089` bytes; `465` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Engineering code-review self-audit found no unresolved in-scope defect across production event taxonomy, platform validator compatibility, producer/fixture equality, pre-tap preparation order, target/viewport containment, immutable range geometry, calibration one-to-one projection, post-bottom header actionability, prior C3-C8 controls, fail-closed product/runner truth, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C9 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C10 DIFFERENT-HOLD remediation
+
+- Entering verdict: the DIFFERENT C9 review returned `0 P0 / 3 P1`. The C9 freeze was reopened only for the same four G02 code/test files plus this existing log. This A11 author did not self-approve.
+- Strict TDD: six named C10 canaries first ran `0/6` GREEN (`6/6` expected RED), independently exposing missing interaction-axis live observations, missing plan-bound tap identities and header transitions, absent retained range measurements, hard-coded registration locale/theme, and an awaited range value read between final target preparation and the physical tap. The same focused C10 set is now `6/6` GREEN.
+- Exact selected interaction surface:
+  - each disposable learner registration now uses the selected interaction axis's exact `locale` and `theme` rather than a hard-coded setup;
+  - before the initial logical state and immediately after reload, the producer idempotently applies that same axis, asserts the live exact `html[lang]` and `html.dark` state, and serializes the ordered `before-initial` / `after-reload` observations for every plan lab;
+  - the canonical registration and persisted reload are required to need zero UI correction taps. If mobile setup ever does require a physical tap, the producer records it in the global semantic ledger and `interactionAxisSetupTapCount`; the exact contract then fails closed instead of concealing setup drift.
+- Global physical tap ledger:
+  - every mobile tap now retains its exact plan `labId`, `stateId`, `axisId`, `phase`, `subactionId`, `target`, category, global `tapSequence`, pre/post wall-clock and monotonic moments, fresh target rect/live viewport, and optional exact native range before/after/value-changed measurement;
+  - interaction taps are projected from every exact compound subaction in plan order; calibration attempts remain contiguous and globally numbered; visual setup taps are derived from the current interaction surface and exact locale/theme transition; every visual reset owns its exact reset identity;
+  - the validator reconstructs the whole expected semantic ledger from the frozen plan/receipts, requires strict global physical chronology and one joint clock origin, binds interaction/reset taps inside their exact analytics subaction windows, binds calibration tap start to its exact physical attempt interval, and requires all visual setup taps to precede their own visual reset. Reverse-and-renumber, duplicate-valid setup identity, calibration sequence, action-window, category, geometry, and native-value drift fail closed.
+- Prior-bottom to next-header continuity:
+  - each non-initial mobile visual axis serializes a transition from the immediately prior same-lab visual state and its exact final `page-bottom` audit to the next axis's live header;
+  - the transition contains its global sequence, from/to state and axis IDs, exact lab, fresh header rect/live viewport, and in-bounds actionable coordinate. Desktop and each lab's first mobile visual axis require `null`; the other `4 * 5 = 20` mobile transitions are exact and ordered.
+- Immediate range tap geometry:
+  - mobile range calibration reads the native `beforeValue` before its final preparation; it then performs `scrollIntoViewIfNeeded`, fresh `boundingBox`, and live viewport capture, followed only by synchronous equality/containment checks and the raw `page.touchscreen.tap`;
+  - there is no awaited operation between that final geometry capture and the raw tap. The post-tap native value becomes the ledger's exact `rangeMeasurement`, while the existing one-`visualization-slider` request/`200` ACK per pointer-up policy, including no-op taps, remains unchanged.
+- Preserved product and runner truth: the decimal-arithmetic component still emits zero per-action learning analytics. A future physical run remains expected to fail closed at the per-range `visualization-slider` or non-range semantic-event gate until a separately coordinated product patch implements the frozen platform policy. Trusted native runner authority remains unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; the pure `245/245` aggregate is not executable browser coverage and no event, ACK, runner receipt, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial focused C10 canaries: `0/6` GREEN, `6/6` expected RED; final focused C10 canaries: `6/6` GREEN;
+  - receipt contract and mutation suite: `187/187` GREEN;
+  - source plus installed Playwright `1.59.1` CLI semantic canaries: stale-freeze phase `21/22` with only the intentionally stale source-hash canary RED, then `22/22` GREEN after exact refresh;
+  - approved plan plus receipt plus source aggregate: `245/245` GREEN;
+  - targeted TypeScript program using repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or product analytics action occurred.
+- C10 frozen code/test hashes and sizes:
+  - receipt: `ce5341f725eac3f1af1f946994f7654bfa4742e19192557bb49a3ccc786c1fd2` (`138,018` bytes; `3,478` lines);
+  - receipt tests: `8215bbdb4f4b1994774a52d19fd465feffb58af02769249e6b660b4ade824b4c` (`63,389` bytes; `1,243` lines);
+  - browser producer: `546eef0324df96da5e98877ed4cf8b35c62b8f549e4558d406b4d975b2e86b48` (`97,163` bytes; `2,564` lines);
+  - browser source/CLI canaries: `121e4177faafc5e1319c0053b8f048d3c75addb592eb4a6ac5ed8abca37ebafb` (`29,306` bytes; `506` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Engineering code-review self-audit found no unresolved in-scope defect across selected interaction-surface persistence, registration/setup consistency, mobile setup accounting, exact plan-derived tap semantics, strict physical chronology, calibration/action-window binding, prior-bottom header continuity, fresh geometry and immediate tap ordering, retained range measurement, production event taxonomy, per-pointer-up ACK ownership, durability/session stability, scroll/swipe coherence, diagnostics, runner fail-closure, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C10 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.
+
+## C11 DIFFERENT-HOLD remediation
+
+- Entering verdict: the DIFFERENT C10 review returned `0 P0 / 2 P1`. The C10 freeze was reopened only for the same four G02 code/test files plus this existing log. This A11 author did not self-approve.
+- Strict TDD: four named C11 canaries first ran `0/4` GREEN (`4/4` expected RED), independently exposing setter-before-observation behavior, missing explicit zero-correction evidence, absent live pre-scroll page-bottom capture, and absent post-scroll header fingerprint/next-tap chronology. The same focused C11 set is now `4/4` GREEN.
+- Passive interaction-surface checkpoints:
+  - the `before-initial` and `after-reload` phases now call a dedicated observation-only function. It reads live `html[lang]` and the live `html.dark` class, asserts both against the exact selected interaction axis, and returns without calling locale/theme setters, tap/click helpers, or any repair path;
+  - both desktop and mobile serialize `setupActions:[]` and `setupTapCount:0` at every one of the eight exact checkpoints. A live mismatch therefore fails immediately and cannot be repaired, hidden, or relabeled as the opposite phase;
+  - registration still writes the exact selected interaction locale/theme. Visual-axis changes remain in their separately ordered physical setup path; they cannot be used to launder an interaction checkpoint.
+- Fresh page-bottom to next-header boundary:
+  - every visual scroll audit now carries its own wall-clock timestamp, monotonic timestamp, joint origin, and full viewport width/height in addition to the pre-existing scroll/root geometry;
+  - for each of the `4 * 5 = 20` non-initial mobile visual axes, immediately before scrolling the header into view the producer rereads live `scrollY`, document maximum, root document top/center/bottom, and viewport width/height, timestamps that `fromBoundary`, and requires it to equal the immediately preceding same-lab `page-bottom` audit;
+  - after `scrollIntoViewIfNeeded` and fresh header rect/live viewport capture, the producer checks the coordinate, calls live `document.elementFromPoint`, requires the target to be inside `header`, serializes its tag/id/role fingerprint, and timestamps the `toHeader` capture;
+  - the validator binds exact from/to state, axis, lab, transition sequence, prior audit geometry and chronology, joint clock origin, unobscured target fingerprint, and strict global transition freshness. Each `toHeader` must finish before the first physical setup-or-reset tap of the next exact state. Reused complete evidence across transitions, wrong/overlaid targets, origin/time reorder, stale page-bottom geometry, and next-tap inversion fail closed.
+- Preserved earlier strengths: selected-axis registration, exact plan-derived mobile tap identities and range measurements, immediate final range geometry-to-tap ordering, one `visualization-slider` request/`200` ACK per physical pointer-up including no-op, production taxonomy, compound subaction ACK ownership, same-user durability, scroll/swipe coherence, diagnostics, exact raw source hashing, and fail-closed runner authority remain enforced.
+- Preserved product and runner truth: the decimal-arithmetic component still emits zero per-action learning analytics. A future physical run remains expected to fail closed at the semantic analytics gate until a separately coordinated product patch implements the frozen platform policy. Trusted native runner authority remains unavailable. `execution.complete:false`, `authorityAvailable:false`, and `releaseReady:false` remain authoritative; the pure `249/249` aggregate is not executable browser coverage and no event, ACK, runner receipt, or release claim was fabricated.
+- Verification with `TEMP`, `TMP`, and `TMPDIR` all set to `/Volumes/Starship/mais-g02-contract-curie`:
+  - initial focused C11 canaries: `0/4` GREEN, `4/4` expected RED; final focused C11 canaries: `4/4` GREEN;
+  - receipt contract and mutation suite: `189/189` GREEN;
+  - source plus installed Playwright `1.59.1` CLI semantic canaries: stale-freeze phase `23/24` with only the intentionally stale source-hash canary RED, then `24/24` GREEN after exact refresh;
+  - approved plan plus receipt plus source aggregate: `249/249` GREEN;
+  - targeted TypeScript program using repository `tsconfig.json` with exactly the four G02 roots: GREEN, zero diagnostics;
+  - root coordination owns the final combined whole-tree type gate. No browser, Playwright collection/execution, build, dev server, product, Git, network, database, config, runner, partition, supervisor, or product analytics action occurred.
+- C11 frozen code/test hashes and sizes:
+  - receipt: `55b09df49990d4115d7e17f79a3e2dcb4d1918a77b3d4726b95373791bf3d031` (`146,669` bytes; `3,644` lines);
+  - receipt tests: `ee5f087bb27028421f31cb86f5b822948203b24f112edb86d1961a3a94916eda` (`68,782` bytes; `1,377` lines);
+  - browser producer: `fd8955a15008961279fc9b90637d706969f6c9eb38b5c234a591bcb119801139` (`99,204` bytes; `2,617` lines);
+  - browser source/CLI canaries: `02300d1f1a4f489d634849c87c49506f332b2ae3bfdda69a503b3339bc406acd` (`31,446` bytes; `544` lines);
+  - consumed approved plan remains `645490037c9bc5963b5923c5dd072b9ab744a48e8d5c0235b2dd8785af974755` (`4,900` bytes; `165` lines).
+- Engineering code-review self-audit found no unresolved in-scope defect across passive mismatch-first interaction observations, explicit zero correction actions, exact registration persistence, live page-bottom recapture, scroll-audit timing, full viewport binding, header target visibility/fingerprint, strict transition freshness, next-state tap chronology, prior C3-C10 analytics/durability/input/geometry controls, fail-closed product/runner truth, and source freeze. Approval remains reserved for a fresh DIFFERENT reviewer.
+- Editing state after this entry: PAUSED on the exact C11 freeze pending fresh DIFFERENT review. No further edit is authorized unless that review returns a concrete finding.

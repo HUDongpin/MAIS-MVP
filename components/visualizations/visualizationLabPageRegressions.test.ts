@@ -4,6 +4,28 @@ import test from "node:test";
 
 const source = fs.readFileSync("components/visualizations/VisualizationLabPage.tsx", "utf8");
 
+function classNameFollowingSelector(selector: string) {
+  const selectorIndex = source.indexOf(selector);
+  assert.notEqual(selectorIndex, -1, `missing selector: ${selector}`);
+  const nearbySource = source.slice(selectorIndex, selectorIndex + 720);
+  const className = nearbySource.match(/className="([^"]+)"/)?.[1];
+  assert.ok(className, `missing className after selector: ${selector}`);
+  return className;
+}
+
+test("learner shell navigation and sharing controls keep a 44px hit target", () => {
+  for (const selector of [
+    "data-viz-back-to-control-panel-link",
+    "data-viz-copy-lab-link",
+    "data-viz-copy-lab-snapshot",
+  ]) {
+    const className = classNameFollowingSelector(selector);
+    for (const requiredClass of ["inline-flex", "min-h-11", "min-w-11", "items-center", "justify-center"]) {
+      assert.ok(className.split(/\s+/).includes(requiredClass), `${selector} is missing ${requiredClass}`);
+    }
+  }
+});
+
 test("visualization lab detail view omits the Start Practice CTA", () => {
   assert.doesNotMatch(source, /data-viz-start-practice-link/);
   assert.doesNotMatch(source, /Start Practice/);

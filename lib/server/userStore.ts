@@ -1,5 +1,5 @@
 import { createHash, randomBytes, randomUUID } from "crypto";
-import { mkdir, readFile, writeFile } from "fs/promises";
+import { mkdir, open, readFile, unlink, writeFile } from "fs/promises";
 import { DatabaseSync } from "node:sqlite";
 import { tmpdir } from "os";
 import path from "path";
@@ -58,6 +58,7 @@ import {
 import {
   isValidQuestionFilter as isValidQuestionFilterFromQuestionFilter
 } from "@/lib/server/userStore/questionFilter";
+import { runSqliteMutationBoundary } from "@/lib/server/userStore/sqliteMutationBoundary";
 import {
   buildKnowledgeComponents,
   classifyAdaptiveLLMError,
@@ -323,6 +324,7 @@ import {
   type GamificationCampaignPersistenceDatabase
 } from "@/lib/server/userStore/gamificationCampaignPersistence";
 import {
+  awardThreeDayLearningStreakReward,
   awardLessonCompletionReward,
   awardMistakeReviewReward,
   awardVisualizationCompletionReward,
@@ -331,6 +333,7 @@ import {
   maybeAwardPracticeAccuracyReward,
   rewardSummaryForStudent as rewardSummaryForStudentFromPersistence,
   teacherRewardDashboardSummary as teacherRewardDashboardSummaryFromPersistence,
+  threeDayLearningStreakRewardSourceKey,
   type GamificationRewardRedemptionPersistenceDatabase
 } from "@/lib/server/userStore/gamificationRewardRedemptionPersistence";
 import {
@@ -581,7 +584,6 @@ import {
   isValidTeacherNoticeSourceKind as isValidTeacherNoticeSourceKindFromTeacherOpsNotice,
   normalizeTeacherOpsNoticeRecord as normalizeTeacherNoticeRecordFromTeacherOpsNotice,
   normalizeTeacherNoticeSourceKind as normalizeTeacherNoticeSourceKindFromTeacherOpsNotice,
-  sendTeacherOpsNoticeRecord as sendNoticeRecordFromTeacherOpsNotice,
   toTeacherOpsNotice as toTeacherNoticeFromTeacherOpsNotice,
   toTeacherOpsNoticeDeliveryAttempt as toTeacherNoticeDeliveryAttemptFromTeacherOpsNotice,
   type TeacherOpsNoticePersistenceDatabase
@@ -626,7 +628,14 @@ import {
 } from "@/lib/teacherReviewLesson";
 import { renderTeacherReviewLessonPptx } from "@/lib/teacherReviewLessonPptx";
 import { questionAnswerMatches } from "@/lib/server/answerGrading";
-import { readLearningEventsFastForUsers } from "@/lib/server/practiceAttemptStore";
+import {
+  ensurePostgresStudentActivityTables,
+  readLearningEventsFastForUsers
+} from "@/lib/server/practiceAttemptStore";
+import {
+  overlayHotPracticeAccuracyRewards,
+  type HotPracticeAccuracyReward
+} from "@/lib/server/userStore/practiceAccuracyRewardOverlay";
 import { getWeComNotificationSummary, sendWeComGroupNotification } from "@/lib/server/wecomNotifications";
 import type {
   AdaptiveLearningCandidate,
@@ -1065,6 +1074,7 @@ export type LearningEventRecord = {
   question_id?: string;
   duration_seconds?: number;
   created_at: string;
+  lrs_delivery?: import("@/lib/server/learningEventLrsDelivery").StoredLearningEventLrsDelivery;
 };
 
 export type LearningEventClearRecord = {
@@ -2135,6 +2145,34 @@ const teacherResourceUploadDirectory = path.join(dbDirectory, "teacher-resources
 const dayMs = 24 * 60 * 60 * 1000;
 const passwordResetTokenMaxAgeMs = 1000 * 60 * 30;
 
+async function writeTeacherResourceFileExclusively(storagePath: string, bytes: Uint8Array) {
+  let file = null as Awaited<ReturnType<typeof open>> | null;
+  try {
+    file = await open(storagePath, "wx");
+    await file.writeFile(Buffer.from(bytes));
+    await file.close();
+    file = null;
+  } catch (error) {
+    if (file) {
+      const cleanupFailures: unknown[] = [];
+      try {
+        await file.close();
+      } catch (closeError) {
+        cleanupFailures.push(closeError);
+      }
+      try {
+        await unlink(storagePath);
+      } catch (unlinkError) {
+        if ((unlinkError as NodeJS.ErrnoException).code !== "ENOENT") cleanupFailures.push(unlinkError);
+      }
+      if (cleanupFailures.length) {
+        throw new AggregateError([error, ...cleanupFailures], "Teacher resource partial file compensation failed.");
+      }
+    }
+    throw error;
+  }
+}
+
 const math = (expression: string) => `\\(${expression}\\)`;
 
 function answerLooksLikeMathExpression(value: string) {
@@ -2161,12 +2199,18 @@ function getDemoPassword() {
   return displayedDemoPassword;
 }
 
+const topicIdsRequiringExplicitLessonProgressInteraction = new Set([
+  "identities-square-patterns",
+  "arc-length-sector-area"
+]);
+
 const emptyLessonProgressRecords = (userId: string, now: string): LessonProgressRecord[] =>
   emptyLessonProgressRecordsFromStudentActivityPersistence({
     userId,
     now,
     lessonSlugForTopic,
-    seedTopics
+    seedTopics,
+    topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
   });
 
 function seedQuestionRecords(): QuestionRecord[] {
@@ -2492,7 +2536,8 @@ const seedLessonProgressRecords = (userId: string, now: string): LessonProgressR
     userId,
     now,
     lessonSlugForTopic,
-    seedTopics
+    seedTopics,
+    topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
   });
 
 function isLocalizedRecord(value: unknown): value is LocalizedText {
@@ -2819,8 +2864,9 @@ let sqlite: DatabaseSync | null = null;
 let postgresClient: postgres.Sql | null = null;
 let postgresReady: Promise<void> | null = null;
 let sqliteReadCache: Database | null = null;
-let sqliteReadCacheUpdatedAt: string | null = null;
+let sqliteReadCacheStateToken: string | null = null;
 let sqliteReadPromise: Promise<Database> | null = null;
+let mutationQueue: Promise<void> = Promise.resolve();
 const databaseIndexCache = new WeakMap<Database, DatabaseIndexes>();
 
 function lessonPerfDebugEnabled() {
@@ -2855,35 +2901,52 @@ function logLessonPerf(label: string, startedAt: number) {
 function readCachedSqliteDatabase() {
   if (sqliteReadCacheDisabled()) return null;
   if (!sqliteReadCache) return null;
-  const currentUpdatedAt = currentSqliteStateUpdatedAt();
-  if (!currentUpdatedAt || currentUpdatedAt !== sqliteReadCacheUpdatedAt) {
+  const currentStateToken = currentSqliteStateToken();
+  if (!currentStateToken || currentStateToken !== sqliteReadCacheStateToken) {
     clearSqliteReadCache();
     return null;
   }
   return sqliteReadCache;
 }
 
-function cacheSqliteDatabase(database: Database, updatedAt?: string | null) {
+function cacheSqliteDatabase(database: Database, stateToken?: string | null) {
   if (sqliteReadCacheDisabled()) {
     clearSqliteReadCache();
     return;
   }
   sqliteReadCache = database;
-  sqliteReadCacheUpdatedAt = updatedAt ?? currentSqliteStateUpdatedAt();
+  sqliteReadCacheStateToken = stateToken ?? currentSqliteStateToken();
 }
 
 function clearSqliteReadCache() {
   sqliteReadCache = null;
-  sqliteReadCacheUpdatedAt = null;
+  sqliteReadCacheStateToken = null;
   sqliteReadPromise = null;
 }
 
-function currentSqliteStateUpdatedAt() {
+function enqueueSqliteStateOperation<T>(operation: () => Promise<T>) {
+  const run = mutationQueue.then(operation);
+  mutationQueue = run.then(
+    () => undefined,
+    () => undefined
+  );
+  return run;
+}
+
+function sqliteStateTokenForRow(row: Pick<StateRow, "revision" | "updated_at"> | undefined) {
+  return (
+    typeof row?.revision === "number" &&
+    Number.isSafeInteger(row.revision) &&
+    typeof row.updated_at === "string"
+  ) ? `${row.revision}:${row.updated_at}` : null;
+}
+
+function currentSqliteStateToken(storage = getSqliteDatabase()) {
   try {
-    const row = getSqliteDatabase()
-      .prepare("SELECT updated_at FROM app_state WHERE id = ?")
-      .get(stateRecordId) as { updated_at?: unknown } | undefined;
-    return typeof row?.updated_at === "string" ? row.updated_at : null;
+    const row = storage
+      .prepare("SELECT revision, updated_at FROM app_state WHERE id = ?")
+      .get(stateRecordId) as StateRow | undefined;
+    return sqliteStateTokenForRow(row);
   } catch {
     return null;
   }
@@ -2969,10 +3032,13 @@ function getSqliteDatabase() {
   if (sqlite) return sqlite;
 
   sqlite = new DatabaseSync(dbPath);
+  // This must be the first connection pragma. Concurrent cold processes can
+  // otherwise race while journal_mode or the bootstrap DDL holds SQLite's
+  // schema/write lock before this connection has any busy handler installed.
+  sqlite.exec("PRAGMA busy_timeout = 30000;");
   sqlite.exec(`
     PRAGMA journal_mode = WAL;
     PRAGMA foreign_keys = ON;
-    PRAGMA busy_timeout = 5000;
 
     CREATE TABLE IF NOT EXISTS schema_migrations (
       version INTEGER PRIMARY KEY,
@@ -4133,6 +4199,58 @@ async function overlayPostgresHotAuthRowsIfEnabled(sql: PostgresExecutor, databa
   return hotRows.users.length ? overlayAuthSessionDatabaseWithHotAuthRows(database, hotRows) as Database : database;
 }
 
+function canonicalPostgresRewardTimestamp(value: unknown) {
+  const parsed = value instanceof Date ? value : new Date(String(value));
+  return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : null;
+}
+
+async function readPostgresHotPracticeAccuracyRewards(sql: PostgresExecutor) {
+  const rows = await sql<Array<{
+    amount: string | number;
+    created_at: unknown;
+    id: unknown;
+    label_en: unknown;
+    label_zh: unknown;
+    source_key: unknown;
+    student_id: unknown;
+  }>>`
+    SELECT id, student_id, amount, label_en, label_zh, source_key, created_at
+    FROM reward_point_ledger
+    WHERE reason = 'practice-accuracy'
+  `;
+
+  return rows.flatMap((row): HotPracticeAccuracyReward[] => {
+    const createdAt = canonicalPostgresRewardTimestamp(row.created_at);
+    const amount = Number(row.amount);
+    if (
+      typeof row.id !== "string" || !row.id ||
+      typeof row.student_id !== "string" || !row.student_id ||
+      typeof row.label_en !== "string" ||
+      typeof row.label_zh !== "string" ||
+      typeof row.source_key !== "string" || !row.source_key ||
+      !Number.isFinite(amount) || amount <= 0 ||
+      !createdAt
+    ) return [];
+    return [{
+      id: row.id,
+      student_id: row.student_id,
+      amount,
+      reason: "practice-accuracy",
+      label_en: row.label_en,
+      label_zh: row.label_zh,
+      source_key: row.source_key,
+      created_at: createdAt
+    }];
+  });
+}
+
+async function overlayPostgresHotRowsIfEnabled(sql: PostgresExecutor, database: Database) {
+  const withAuthRows = await overlayPostgresHotAuthRowsIfEnabled(sql, database);
+  const hotRewards = await readPostgresHotPracticeAccuracyRewards(sql);
+  overlayHotPracticeAccuracyRewards(withAuthRows, hotRewards);
+  return withAuthRows;
+}
+
 function mergeSeedRecords<T>(existingRecords: T[] | undefined, seedRecords: T[], keyFor: (record: T) => string) {
   const seedKeys = new Set(seedRecords.map(keyFor));
   const extraRecords = (existingRecords ?? []).filter((record) => !seedKeys.has(keyFor(record)));
@@ -4151,23 +4269,41 @@ function mergeSeedRecordsPreservingExisting<T>(
   return [...seedOrExistingRecords, ...extraRecords];
 }
 
-function removeSeedRecords<T>(records: T[], seedRecords: T[], keyFor: (record: T) => string) {
-  const seedKeys = new Set(seedRecords.map(keyFor));
+function removeSeedRecords<T>(records: T[], seedKeys: ReadonlySet<string>, keyFor: (record: T) => string) {
   return records.filter((record) => !seedKeys.has(keyFor(record)));
 }
 
-function compactDatabaseForPostgres(database: Database): Database {
+const persistenceSeedTopicIds = new Set(seedTopics.map((topic) => topic.id));
+const persistenceSeedQuestionIds = new Set(seedQuestions.map((question) => question.id));
+let persistenceSeedLessonSlugs: Set<string> | null = null;
+let persistenceSeedLessonBlockIds: Set<string> | null = null;
+
+function seedLessonSlugsForPersistence() {
+  persistenceSeedLessonSlugs ??= new Set(seedLessonRecords().map((lesson) => lesson.slug));
+  return persistenceSeedLessonSlugs;
+}
+
+function seedLessonBlockIdsForPersistence() {
+  persistenceSeedLessonBlockIds ??= new Set(seedLessonBlockRecords().map((block) => block.id));
+  return persistenceSeedLessonBlockIds;
+}
+
+function compactDatabaseForPersistence(database: Database): Database {
   return {
     ...database,
-    topics: removeSeedRecords(database.topics, seedTopicRecords(), (topic) => topic.id),
-    lessons: removeSeedRecords(database.lessons, seedLessonRecords(), (lesson) => lesson.slug),
-    lesson_blocks: removeSeedRecords(database.lesson_blocks, seedLessonBlockRecords(), (block) => block.id),
-    questions: removeSeedRecords(database.questions, seedQuestionRecords(), (question) => question.id)
+    topics: removeSeedRecords(database.topics, persistenceSeedTopicIds, (topic) => topic.id),
+    lessons: removeSeedRecords(database.lessons, seedLessonSlugsForPersistence(), (lesson) => lesson.slug),
+    lesson_blocks: removeSeedRecords(database.lesson_blocks, seedLessonBlockIdsForPersistence(), (block) => block.id),
+    questions: removeSeedRecords(database.questions, persistenceSeedQuestionIds, (question) => question.id)
   };
 }
 
+function stringifyPersistentDatabase(database: Database) {
+  return JSON.stringify(compactDatabaseForPersistence(database));
+}
+
 function stringifyPostgresDatabase(database: Database) {
-  return JSON.stringify(compactDatabaseForPostgres(database));
+  return stringifyPersistentDatabase(database);
 }
 
 function localizedFromUnknown(value: unknown, fallback: LocalizedText): LocalizedText {
@@ -4401,7 +4537,8 @@ function normalizeDatabase(database: Partial<Database>) {
       {
         demoUserId,
         lessonSlugForTopic,
-        seedTopics
+        seedTopics,
+        topicIdsRequiringExplicitInteraction: topicIdsRequiringExplicitLessonProgressInteraction
       }
     ),
     teacher_mastery_targets: normalizeTeacherMasteryTargetRecordsFromTeacherOpsMasteryTarget(database.teacher_mastery_targets ?? [], now),
@@ -4626,36 +4763,60 @@ function databaseNeedsPersistenceSync(parsed: Partial<Database>, database: Datab
   );
 }
 
+async function synchronizeSqliteDatabaseForRead(storage: DatabaseSync) {
+  const startedAt = Date.now();
+  let transactionStarted = false;
+  try {
+    const fallbackDatabase = await sqliteMutationFallbackDatabase(storage);
+    // Cold initialization and schema normalization both rewrite the complete
+    // snapshot. Re-read only after taking the same lock used by mutations so
+    // another process cannot commit between the payload read and rewrite.
+    storage.exec("BEGIN IMMEDIATE");
+    transactionStarted = true;
+    const database = loadSqliteDatabaseForMutation(storage, fallbackDatabase);
+    const cacheStateToken = writeSqliteDatabaseRow(storage, database);
+    storage.exec("COMMIT");
+    transactionStarted = false;
+    cacheSqliteDatabase(database, cacheStateToken);
+    logLessonPerf("readDatabase(sqlite:sync)", startedAt);
+    return database;
+  } catch (error) {
+    if (transactionStarted) {
+      try {
+        storage.exec("ROLLBACK");
+      } catch {
+        // Preserve the original synchronization failure.
+      }
+    }
+    clearSqliteReadCache();
+    throw error;
+  }
+}
+
 async function loadSqliteDatabase() {
   const startedAt = Date.now();
   await mkdir(dbDirectory, { recursive: true });
   const storage = getSqliteDatabase();
 
-  try {
-    const row = storage
-      .prepare("SELECT payload FROM app_state WHERE id = ?")
-      .get(stateRecordId) as StateRow | undefined;
-    const parsed = row ? parseStoredStatePayload(row.payload) : null;
-    if (hasCoreTables(parsed)) {
-      const database = normalizeDatabase(parsed);
-      const cacheUpdatedAt = databaseNeedsPersistenceSync(parsed, database)
-        ? await writeSqliteDatabase(database, { invalidateReadCache: false })
-        : typeof row?.updated_at === "string"
-          ? row.updated_at
-          : null;
-      cacheSqliteDatabase(database, cacheUpdatedAt);
-      logLessonPerf("readDatabase(sqlite)", startedAt);
-      return database;
+  const row = storage
+    .prepare("SELECT payload, revision, updated_at FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
+  const parsed = row ? parseStoredStatePayload(row.payload) : null;
+  if (hasCoreTables(parsed)) {
+    const database = normalizeDatabase(parsed);
+    // A readable state must never be replaced with a fresh database merely
+    // because its normalization/compaction write fails. Propagate the write
+    // error and leave the original row intact for a later retry.
+    if (databaseNeedsPersistenceSync(parsed, database)) {
+      return synchronizeSqliteDatabaseForRead(storage);
     }
-  } catch (error) {
-    console.warn("Could not read SQLite application state. Recreating it.", error);
+    const cacheStateToken = sqliteStateTokenForRow(row);
+    cacheSqliteDatabase(database, cacheStateToken);
+    logLessonPerf("readDatabase(sqlite)", startedAt);
+    return database;
   }
 
-  const database = await readLegacyDatabase() ?? createInitialDatabase();
-  const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-  cacheSqliteDatabase(database, cacheUpdatedAt);
-  logLessonPerf("readDatabase(sqlite:init)", startedAt);
-  return database;
+  return synchronizeSqliteDatabaseForRead(storage);
 }
 
 async function readSqliteDatabase() {
@@ -4663,7 +4824,7 @@ async function readSqliteDatabase() {
   if (cached) return cached;
   if (sqliteReadPromise) return sqliteReadPromise;
 
-  const readPromise = loadSqliteDatabase().finally(() => {
+  const readPromise = enqueueSqliteStateOperation(loadSqliteDatabase).finally(() => {
     if (sqliteReadPromise === readPromise) {
       sqliteReadPromise = null;
     }
@@ -4709,12 +4870,12 @@ async function normalizeLockedPostgresState(sql: PostgresExecutor) {
     }
     await syncPostgresHotAuthTablesWith(sql, database);
     await syncPostgresProjectionTablesWith(sql, database);
-    return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+    return overlayPostgresHotRowsIfEnabled(sql, database);
   }
 
   const database = createInitialDatabase();
   await writePostgresDatabaseWith(sql, database, true);
-  return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+  return overlayPostgresHotRowsIfEnabled(sql, database);
 }
 
 async function synchronizePostgresStateForRead() {
@@ -4735,13 +4896,14 @@ async function readPostgresDatabaseFrom(sql: PostgresExecutor, lockForUpdate = f
     if (databaseNeedsPersistenceSync(parsed, database)) {
       return synchronizePostgresStateForRead();
     }
-    return overlayPostgresHotAuthRowsIfEnabled(sql, database);
+    return overlayPostgresHotRowsIfEnabled(sql, database);
   }
 
   return synchronizePostgresStateForRead();
 }
 
 async function readPostgresDatabase() {
+  await ensurePostgresStudentActivityTables();
   return readPostgresDatabaseFrom(getPostgresClient());
 }
 
@@ -4771,11 +4933,10 @@ async function readDatabase() {
   return storageProvider === "postgres" ? readPostgresDatabase() : readSqliteDatabase();
 }
 
-async function writeSqliteDatabase(database: Database, options: { invalidateReadCache?: boolean } = {}) {
-  await mkdir(dbDirectory, { recursive: true });
+function writeSqliteDatabaseRow(storage: DatabaseSync, database: Database) {
   const now = new Date().toISOString();
   databaseIndexCache.delete(database);
-  getSqliteDatabase()
+  storage
     .prepare(`
       INSERT INTO app_state (id, tenant_id, state_kind, schema_version, revision, payload, updated_at)
       VALUES (?, ?, ?, ?, 1, ?, ?)
@@ -4787,27 +4948,34 @@ async function writeSqliteDatabase(database: Database, options: { invalidateRead
         payload = excluded.payload,
         updated_at = excluded.updated_at
     `)
-    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, JSON.stringify(database), now);
-  if (options.invalidateReadCache ?? true) {
-    clearSqliteReadCache();
-  }
-  return now;
+    .run(stateRecordId, stateTenantId, stateKind, schemaVersion, stringifyPersistentDatabase(database), now);
+  return currentSqliteStateToken(storage);
 }
 
-async function writeDatabase(database: Database) {
-  if (storageProvider === "postgres") {
-    await writePostgresDatabase(database);
-    return;
-  }
-
-  await writeSqliteDatabase(database);
+function loadSqliteDatabaseForMutation(storage: DatabaseSync, fallbackDatabase: Database | null) {
+  const row = storage
+    .prepare("SELECT payload FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
+  const parsed = row ? parseStoredStatePayload(row.payload) : null;
+  if (hasCoreTables(parsed)) return normalizeDatabase(parsed);
+  return fallbackDatabase ?? createInitialDatabase();
 }
 
-let mutationQueue: Promise<void> = Promise.resolve();
+async function sqliteMutationFallbackDatabase(storage: DatabaseSync) {
+  const row = storage
+    .prepare("SELECT payload FROM app_state WHERE id = ?")
+    .get(stateRecordId) as StateRow | undefined;
+  const parsed = row ? parseStoredStatePayload(row.payload) : null;
+  if (hasCoreTables(parsed)) return null;
+  return await readLegacyDatabase() ?? createInitialDatabase();
+}
 
 async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>) {
   if (storageProvider === "postgres") {
-    await ensurePostgresStateTable();
+    await Promise.all([
+      ensurePostgresStateTable(),
+      ensurePostgresStudentActivityTables()
+    ]);
     return getPostgresClient().begin(async (sql) => {
       const database = await readPostgresDatabaseFrom(sql, true, true);
       const result = await mutator(database);
@@ -4817,15 +4985,28 @@ async function mutateDatabase<T>(mutator: (database: Database) => T | Promise<T>
     });
   }
 
-  const run = mutationQueue.then(async () => {
-    clearSqliteReadCache();
-    const database = await readDatabase();
-    const result = await mutator(database);
-    databaseIndexCache.delete(database);
-    const cacheUpdatedAt = await writeSqliteDatabase(database, { invalidateReadCache: false });
-    cacheSqliteDatabase(database, cacheUpdatedAt);
-    return result;
-  });
+  const run = mutationQueue
+    .then(async () => {
+      await mkdir(dbDirectory, { recursive: true });
+      clearSqliteReadCache();
+      const storage = getSqliteDatabase();
+      const fallbackDatabase = await sqliteMutationFallbackDatabase(storage);
+      return runSqliteMutationBoundary({
+        storage,
+        loadState: () => loadSqliteDatabaseForMutation(storage, fallbackDatabase),
+        mutate: mutator,
+        writeState: (database) => writeSqliteDatabaseRow(storage, database),
+        afterCommit: (database, cacheStateToken) => {
+          cacheSqliteDatabase(database, cacheStateToken);
+        }
+      });
+    })
+    .catch((error) => {
+      // The mutator works on the same object loaded into the SQLite read
+      // cache. Never expose a partially mutated object after a failed write.
+      clearSqliteReadCache();
+      throw error;
+    });
 
   mutationQueue = run.then(
     () => undefined,
@@ -5154,8 +5335,11 @@ function projectedStudentDashboardArray<T>(value: unknown): T[] {
 }
 
 function studentDashboardCacheTtlMs() {
-  const parsed = Number.parseInt(process.env.MAIS_STUDENT_DASHBOARD_CACHE_TTL_MS ?? "", 10);
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : 15_000;
+  // A resolved value cached in one Node worker cannot be invalidated by a
+  // durable write committed by another worker. Keep only the in-flight
+  // single-flight map; every request that begins after a writer ACK re-reads
+  // the indexed Postgres projections.
+  return 0;
 }
 
 function studentDashboardCurriculumCacheKey(curriculumTrack?: CurriculumScope) {
@@ -5192,6 +5376,41 @@ function clearStudentDashboardCacheForUser(userId: string) {
   }
 }
 
+export function invalidateStudentDashboardCacheForUser(userId: string) {
+  clearStudentDashboardCacheForUser(userId);
+}
+
+export async function ensureFastLearningStreakReward(userId: string, asOf: string) {
+  const parsedAsOf = new Date(asOf);
+  if (!userId || !Number.isFinite(parsedAsOf.getTime()) || parsedAsOf.toISOString() !== asOf) {
+    return false;
+  }
+  const sourceKey = threeDayLearningStreakRewardSourceKey(userId);
+  const current = await readDatabase();
+  if (current.reward_point_ledger.some((entry) =>
+    entry.student_id === userId && entry.source_key === sourceKey
+  )) {
+    // A different server process may have created the reward while this
+    // process still holds a short-lived dashboard cache entry.
+    clearStudentDashboardCacheForUser(userId);
+    return true;
+  }
+
+  const durable = await mutateDatabase((database) => {
+    if (database.reward_point_ledger.some((entry) =>
+      entry.student_id === userId && entry.source_key === sourceKey
+    )) {
+      return true;
+    }
+    awardThreeDayLearningStreakReward(database, userId, parsedAsOf);
+    return database.reward_point_ledger.some((entry) =>
+      entry.student_id === userId && entry.source_key === sourceKey
+    );
+  });
+  if (durable) clearStudentDashboardCacheForUser(userId);
+  return durable;
+}
+
 function mergeStudentDashboardRecordsBy<T>(
   snapshotRecords: T[],
   hotRecords: T[],
@@ -5220,7 +5439,10 @@ async function getStudentDashboardDataFromPostgresProjection(
   if (storageProvider !== "postgres") return undefined;
 
   try {
-    await ensurePostgresStateTable();
+    await Promise.all([
+      ensurePostgresStateTable(),
+      ensurePostgresStudentActivityTables()
+    ]);
     const rows = await getPostgresClient()<StudentDashboardProjectionRow[]>`
       WITH user_match AS (
         SELECT record AS user_record
@@ -5261,6 +5483,11 @@ async function getStudentDashboardDataFromPostgresProjection(
           AND (
             grade = ${grade}
             OR topic_id IN (SELECT topic_id FROM grade_topic_ids)
+          )
+          AND NOT EXISTS (
+            SELECT 1
+            FROM learning_event_clears AS event_clear
+            WHERE event_clear.user_id = ${userId}
           )
       ),
       hot_attempt_records AS (
@@ -5369,6 +5596,11 @@ async function getStudentDashboardDataFromPostgresProjection(
             FROM projection_visualization_events
             WHERE user_id = ${userId}
               AND topic_id IN (SELECT topic_id FROM grade_topic_ids)
+              AND NOT EXISTS (
+                SELECT 1
+                FROM learning_event_clears AS event_clear
+                WHERE event_clear.user_id = ${userId}
+              )
             UNION ALL
             SELECT event_record
             FROM hot_visualization_event_records
@@ -5950,14 +6182,22 @@ const teacherOpsReminderPersistenceStore = createTeacherOpsReminderPersistenceSt
     createId: randomUUID,
     getNotificationSummary: getWeComNotificationSummary
   }),
-  sendNoticeRecord: async (database, notice, origin) => sendNoticeRecordFromTeacherOpsNotice({
-    database: database as unknown as TeacherOpsNoticePersistenceDatabase,
-    notice: notice as TeacherOpsNoticePersistenceDatabase["teacher_notices"][number],
-    origin,
-    now: () => new Date(),
-    createId: randomUUID,
-    sendNotification: sendWeComGroupNotification
-  }),
+  sendNoticeRecord: async ({ teacherId, noticeId, origin }) => {
+    const result = await teacherOpsNoticePersistenceStore.sendTeacherNotice({
+      teacherId,
+      noticeId,
+      origin
+    });
+    return result.status === "sent"
+      ? {
+        status: result.attempt.status,
+        attempted_at: result.attempt.attemptedAt
+      }
+      : {
+        status: "failed" as const,
+        attempted_at: new Date().toISOString()
+      };
+  },
   toTeacherReminderRun: toTeacherReminderRunFromTeacherOpsReminder
 });
 
@@ -6311,8 +6551,20 @@ const teacherOpsResourcePersistenceStore = createTeacherOpsResourcePersistenceSt
   storeResourceFile: async ({ storedFileName, bytes }) => {
     const storagePath = path.join(teacherResourceUploadDirectory, storedFileName);
     await mkdir(teacherResourceUploadDirectory, { recursive: true });
-    await writeFile(storagePath, Buffer.from(bytes));
+    await writeTeacherResourceFileExclusively(storagePath, bytes);
     return storagePath;
+  },
+  removeResourceFile: async ({ storagePath }) => {
+    const uploadDirectory = path.resolve(teacherResourceUploadDirectory);
+    const resolvedStoragePath = path.resolve(storagePath);
+    if (path.dirname(resolvedStoragePath) !== uploadDirectory) {
+      throw new Error("Refusing to remove a teacher resource outside the upload directory.");
+    }
+    try {
+      await unlink(resolvedStoragePath);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
   },
   resourceProjection: (database, resource) =>
     toTeachingResourceFromTeacherOpsResource(database as TeacherOpsResourcePersistenceDatabase, resource),
@@ -6383,6 +6635,7 @@ type StudentGamificationSummaryProjectionRow = {
   reward_point_ledger_records: unknown;
   reward_redemption_records: unknown;
   gamification_event_records: unknown;
+  hot_practice_accuracy_reward_count: unknown;
 };
 
 async function getStudentGamificationSummaryFromPostgresProjection(
@@ -6391,7 +6644,10 @@ async function getStudentGamificationSummaryFromPostgresProjection(
   if (storageProvider !== "postgres") return undefined;
 
   try {
-    await ensurePostgresStateTable();
+    await Promise.all([
+      ensurePostgresStateTable(),
+      ensurePostgresStudentActivityTables()
+    ]);
     const rows = await getPostgresClient()<StudentGamificationSummaryProjectionRow[]>`
       WITH user_match AS (
         SELECT
@@ -6438,6 +6694,11 @@ async function getStudentGamificationSummaryFromPostgresProjection(
         FROM user_match
         CROSS JOIN LATERAL jsonb_array_elements(COALESCE(user_match.payload->'learning_events', '[]'::jsonb)) AS event_items(event_record)
         WHERE event_items.event_record->>'user_id' IN (SELECT student_id FROM classmate_ids)
+          AND NOT EXISTS (
+            SELECT 1
+            FROM learning_event_clears AS event_clear
+            WHERE event_clear.user_id = event_items.event_record->>'user_id'
+          )
       ),
       hot_attempt_records AS (
         SELECT jsonb_build_object(
@@ -6512,13 +6773,31 @@ async function getStudentGamificationSummaryFromPostgresProjection(
           SELECT jsonb_agg(event_record)
           FROM jsonb_array_elements(COALESCE(user_match.payload->'gamification_events', '[]'::jsonb)) AS event_items(event_record)
           WHERE event_record->>'student_id' IN (SELECT student_id FROM classmate_ids)
-        ), '[]'::jsonb) AS gamification_event_records
+        ), '[]'::jsonb) AS gamification_event_records,
+        (
+          SELECT COUNT(*)::int
+          FROM reward_point_ledger AS hot_reward
+          WHERE hot_reward.student_id = ${studentId}
+            AND hot_reward.reason = 'practice-accuracy'
+            AND NOT EXISTS (
+              SELECT 1
+              FROM jsonb_array_elements(COALESCE(user_match.payload->'reward_point_ledger', '[]'::jsonb))
+                AS canonical_reward_items(canonical_reward_record)
+              WHERE canonical_reward_record->>'source_key' = hot_reward.source_key
+            )
+        ) AS hot_practice_accuracy_reward_count
       FROM user_match
       LIMIT 1
     `;
 
     const row = rows[0];
     if (!row) return undefined;
+    if (Number(row.hot_practice_accuracy_reward_count) > 0) {
+      // The full reader overlays the durable hot reward outbox into both the
+      // ledger and gamification event stream. A stale snapshot projection may
+      // not claim a complete reward summary while such rows exist.
+      return undefined;
+    }
 
     const attempts = mergeStudentDashboardRecordsBy(
       projectionArray<AttemptRecord>(row.attempt_records),
@@ -7675,6 +7954,7 @@ type TeacherDashboardProjectionRow = {
   hot_attempt_records: unknown;
   hot_mistake_records: unknown;
   hot_learning_event_records: unknown;
+  hot_practice_accuracy_reward_count: unknown;
 };
 
 type TeacherAnalyticsProjectionRow = TeacherDashboardProjectionRow;
@@ -7796,7 +8076,10 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
   if (storageProvider !== "postgres") return undefined;
 
   try {
-    await ensurePostgresStateTable();
+    await Promise.all([
+      ensurePostgresStateTable(),
+      ensurePostgresStudentActivityTables()
+    ]);
     const rows = await getPostgresClient()<TeacherDashboardProjectionRow[]>`
       WITH user_match AS (
         SELECT record AS user_record
@@ -7868,6 +8151,11 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
         SELECT record AS event_record
         FROM projection_learning_events
         WHERE user_id IN (SELECT student_id FROM student_ids)
+          AND NOT EXISTS (
+            SELECT 1
+            FROM learning_event_clears AS event_clear
+            WHERE event_clear.user_id = projection_learning_events.user_id
+          )
       ),
       hot_attempt_records AS (
         SELECT jsonb_build_object(
@@ -7999,13 +8287,25 @@ async function getTeacherDashboardDataFromPostgresProjection(userId: string): Pr
         ), '[]'::jsonb) AS reward_redemption_records,
         COALESCE((SELECT jsonb_agg(attempt_record) FROM hot_attempt_records), '[]'::jsonb) AS hot_attempt_records,
         COALESCE((SELECT jsonb_agg(mistake_record) FROM hot_mistake_records), '[]'::jsonb) AS hot_mistake_records,
-        COALESCE((SELECT jsonb_agg(event_record) FROM hot_learning_event_records), '[]'::jsonb) AS hot_learning_event_records
+        COALESCE((SELECT jsonb_agg(event_record) FROM hot_learning_event_records), '[]'::jsonb) AS hot_learning_event_records,
+        (
+          SELECT COUNT(*)::int
+          FROM reward_point_ledger AS hot_reward
+          WHERE hot_reward.student_id IN (SELECT student_id FROM student_ids)
+            AND hot_reward.reason = 'practice-accuracy'
+            AND NOT EXISTS (
+              SELECT 1
+              FROM projection_reward_point_ledger AS canonical_reward
+              WHERE canonical_reward.record->>'source_key' = hot_reward.source_key
+            )
+        ) AS hot_practice_accuracy_reward_count
       FROM user_match
       LIMIT 1
     `;
 
     const row = rows[0];
     if (!row) return undefined;
+    if (Number(row.hot_practice_accuracy_reward_count) > 0) return undefined;
 
     const user = projectedUserRecordFromAuthSessionPersistence(row.user_record);
     if (!canUseTeacherArea(user)) return null;
@@ -8055,7 +8355,10 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
   if (storageProvider !== "postgres") return undefined;
 
   try {
-    await ensurePostgresStateTable();
+    await Promise.all([
+      ensurePostgresStateTable(),
+      ensurePostgresStudentActivityTables()
+    ]);
     const rows = await getPostgresClient()<TeacherAnalyticsProjectionRow[]>`
       WITH user_match AS (
         SELECT record AS user_record
@@ -8123,6 +8426,11 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
         SELECT record AS event_record
         FROM projection_learning_events
         WHERE user_id IN (SELECT student_id FROM student_ids)
+          AND NOT EXISTS (
+            SELECT 1
+            FROM learning_event_clears AS event_clear
+            WHERE event_clear.user_id = projection_learning_events.user_id
+          )
       ),
       hot_attempt_records AS (
         SELECT jsonb_build_object(
@@ -8239,13 +8547,25 @@ async function getTeacherAnalyticsDataFromPostgresProjection(
         ), '[]'::jsonb) AS reward_redemption_records,
         COALESCE((SELECT jsonb_agg(attempt_record) FROM hot_attempt_records), '[]'::jsonb) AS hot_attempt_records,
         COALESCE((SELECT jsonb_agg(mistake_record) FROM hot_mistake_records), '[]'::jsonb) AS hot_mistake_records,
-        COALESCE((SELECT jsonb_agg(event_record) FROM hot_learning_event_records), '[]'::jsonb) AS hot_learning_event_records
+        COALESCE((SELECT jsonb_agg(event_record) FROM hot_learning_event_records), '[]'::jsonb) AS hot_learning_event_records,
+        (
+          SELECT COUNT(*)::int
+          FROM reward_point_ledger AS hot_reward
+          WHERE hot_reward.student_id IN (SELECT student_id FROM student_ids)
+            AND hot_reward.reason = 'practice-accuracy'
+            AND NOT EXISTS (
+              SELECT 1
+              FROM projection_reward_point_ledger AS canonical_reward
+              WHERE canonical_reward.record->>'source_key' = hot_reward.source_key
+            )
+        ) AS hot_practice_accuracy_reward_count
       FROM user_match
       LIMIT 1
     `;
 
     const row = rows[0];
     if (!row) return null;
+    if (Number(row.hot_practice_accuracy_reward_count) > 0) return undefined;
 
     const user = projectedUserRecordFromAuthSessionPersistence(row.user_record);
     if (!canUseTeacherArea(user)) return null;
@@ -10363,6 +10683,7 @@ export const deleteMistake = studentActivityUserStore.deleteMistake;
 export const clearMistakesForUser = studentActivityUserStore.clearMistakesForUser;
 
 export const appendLearningEvents = studentActivityUserStore.appendLearningEvents;
+export const recordLearningEventLrsDelivery = studentActivityUserStore.recordLearningEventLrsDelivery;
 export const clearLearningEventsForUser = studentActivityUserStore.clearLearningEventsForUser;
 export const getAnalyticsSummary = studentActivityUserStore.getAnalyticsSummary;
 export const getAnalyticsExport = studentActivityUserStore.getAnalyticsExport;

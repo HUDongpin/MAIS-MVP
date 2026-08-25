@@ -4,6 +4,18 @@ import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MathText } from "@/components/math/MathText";
 import { useSettings } from "@/components/providers/AppProviders";
+import {
+  beginVisualizationCompletionTelemetryOnce,
+  completeVisualizationCompletionTelemetryOnce,
+} from "@/lib/learningAnalytics";
+import {
+  isVisualizationSessionOutboxRecord,
+  queueVisualizationSessionOutbox,
+  visualizationSessionOutboxAcknowledgedEventName,
+  visualizationSessionOutboxFailedEventName,
+  visualizationSessionOutboxUpdatedEventName,
+  type VisualizationSessionOutboxRecord,
+} from "@/lib/visualizationSessionOutbox";
 import type { LearningAnalyticsEventSource } from "@/types";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
@@ -23,7 +35,7 @@ export function VisualizationCard({
   initialExplored = false,
   moduleId: explicitModuleId,
   onExplored,
-  topicId
+  topicId,
 }: {
   title: string;
   children: ReactNode;
@@ -41,10 +53,38 @@ export function VisualizationCard({
 }) {
   const { currentUser, recordLearningEvent } = useSettings();
   const moduleId = explicitModuleId ?? `${analyticsSource}:${topicId}`;
-  const stateScopeKey = useMemo(() => `${explorationScopeKey ?? "anonymous"}:${moduleId}`, [explorationScopeKey, moduleId]);
+  const stateScopeKey = useMemo(
+    () =>
+      JSON.stringify([
+        currentUser?.id ?? "guest",
+        explorationScopeKey ?? "",
+        moduleId,
+        topicId,
+        analyticsSource,
+      ]),
+    [analyticsSource, currentUser?.id, explorationScopeKey, moduleId, topicId],
+  );
   const previousStateScopeKey = useRef(stateScopeKey);
-  const [saveState, setSaveState] = useState<SaveState>(() => initialExplored ? "saved" : "idle");
-  const localExploredStorageKey = useMemo(() => `mais:viz-explored:${stateScopeKey}`, [stateScopeKey]);
+  const [saveState, setSaveState] = useState<SaveState>(() =>
+    initialExplored ? "saved" : "idle",
+  );
+  const localExploredStorageKey = useMemo(
+    () => `mais:viz-explored:${stateScopeKey}`,
+    [stateScopeKey],
+  );
+  const activeStateScopeKeyRef = useRef(stateScopeKey);
+  const autoExploredScopeRef = useRef<string | null>(null);
+  const completionRecordedScopeRef = useRef<string | null>(null);
+  activeStateScopeKeyRef.current = stateScopeKey;
+
+  const notifyExplored = useCallback(() => {
+    try {
+      onExplored?.(moduleId);
+    } catch {
+      // A host callback is observational. It must never reinterpret a durable
+      // local/server acknowledgement as a failed visualization persistence.
+    }
+  }, [moduleId, onExplored]);
 
   useEffect(() => {
     setSaveState((current) => {
@@ -59,42 +99,179 @@ export function VisualizationCard({
 
   useEffect(() => {
     if (currentUser || initialExplored || typeof window === "undefined") return;
-    if (window.localStorage.getItem(localExploredStorageKey) === "1") {
-      onExplored?.(moduleId);
-      setSaveState("saved");
-    }
-  }, [currentUser, initialExplored, localExploredStorageKey, moduleId, onExplored]);
-
-  const recordExplored = useCallback(async () => {
-    recordLearningEvent({
-      type: "visualization-complete",
-      source: analyticsSource,
-      topicId
-    });
-    if (!currentUser && typeof window !== "undefined") {
-      window.localStorage.setItem(localExploredStorageKey, "1");
-      onExplored?.(moduleId);
-      setSaveState("saved");
-      return;
-    }
     try {
-      const response = await fetch("/api/visualization-sessions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          moduleId,
-          topicId,
-          source: analyticsSource
-        })
-      });
-
-      if (!response.ok) throw new Error("Unable to save visualization session.");
-      onExplored?.(moduleId);
-      setSaveState("saved");
+      if (window.localStorage.getItem(localExploredStorageKey) === "1") {
+        notifyExplored();
+        setSaveState("saved");
+      }
     } catch {
       setSaveState("error");
     }
-  }, [analyticsSource, currentUser, localExploredStorageKey, moduleId, onExplored, recordLearningEvent, topicId]);
+  }, [currentUser, initialExplored, localExploredStorageKey, notifyExplored]);
+
+  const recordExplored = useCallback(() => {
+    const requestScopeKey = stateScopeKey;
+    const recordCompletionOnce = () => {
+      if (completionRecordedScopeRef.current === requestScopeKey) return;
+      if (!currentUser) {
+        completionRecordedScopeRef.current = requestScopeKey;
+        recordLearningEvent({
+          type: "visualization-complete",
+          source: analyticsSource,
+          topicId,
+        });
+        return;
+      }
+
+      const completion = beginVisualizationCompletionTelemetryOnce(
+        window.localStorage,
+        currentUser.id,
+        moduleId,
+        topicId,
+        window.crypto.randomUUID(),
+      );
+      if (completion.status === "complete") {
+        completionRecordedScopeRef.current = requestScopeKey;
+        return;
+      }
+      const persistence = recordLearningEvent(
+        {
+          type: "visualization-complete",
+          source: analyticsSource,
+          topicId,
+        },
+        {
+          eventId: completion.marker.eventId,
+          eventTimestamp: completion.marker.eventTimestamp,
+        },
+      );
+      if (persistence === "ignored") return;
+
+      // confirmed and unconfirmed are both exact-user localStorage states.
+      // A refresh-only sessionStorage fallback or volatile in-memory row must
+      // retain the pending marker, so a later mount can replay the same
+      // deterministic event identity rather than falsely claiming completion.
+      if (persistence === "confirmed" || persistence === "unconfirmed") {
+        completeVisualizationCompletionTelemetryOnce(
+          window.localStorage,
+          completion.marker,
+        );
+      }
+      completionRecordedScopeRef.current = requestScopeKey;
+    };
+    if (!currentUser && typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem(localExploredStorageKey, "1");
+      } catch {
+        if (activeStateScopeKeyRef.current === requestScopeKey) {
+          autoExploredScopeRef.current = null;
+          setSaveState("error");
+        }
+        return;
+      }
+      try {
+        recordCompletionOnce();
+      } catch {
+        // The guest explored marker is already durable. Analytics degradation
+        // must not strand the learner in a permanent saving state.
+      }
+      notifyExplored();
+      if (activeStateScopeKeyRef.current === requestScopeKey)
+        setSaveState("saved");
+      return;
+    }
+    if (!currentUser || typeof window === "undefined") return;
+    if (currentUser.role !== "student") {
+      notifyExplored();
+      if (activeStateScopeKeyRef.current === requestScopeKey)
+        setSaveState("saved");
+      return;
+    }
+
+    const sessionRecord: VisualizationSessionOutboxRecord = {
+      userId: currentUser.id,
+      moduleId,
+      topicId,
+      source: analyticsSource,
+      queuedAt: Date.now(),
+    };
+    try {
+      queueVisualizationSessionOutbox(window.localStorage, sessionRecord);
+    } catch {
+      if (activeStateScopeKeyRef.current !== requestScopeKey) return;
+      if (autoExploredScopeRef.current === requestScopeKey) {
+        autoExploredScopeRef.current = null;
+      }
+      setSaveState("error");
+      return;
+    }
+    try {
+      recordCompletionOnce();
+    } catch {
+      // Session persistence is already durable. Keep the completion protocol
+      // fail-closed and pending without suppressing its exact session write.
+    }
+    // AppProviders is the single network owner for visualization sessions.
+    // Keeping the card as a durable producer prevents a late direct-request
+    // failure from overwriting a successful central acknowledgement.
+    window.dispatchEvent(new Event(visualizationSessionOutboxUpdatedEventName));
+  }, [
+    analyticsSource,
+    currentUser,
+    localExploredStorageKey,
+    moduleId,
+    notifyExplored,
+    recordLearningEvent,
+    stateScopeKey,
+    topicId,
+  ]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    const matchesCurrentScope = (event: Event) => {
+      const record = (event as CustomEvent<unknown>).detail;
+      return (
+        isVisualizationSessionOutboxRecord(record) &&
+        record.userId === currentUser.id &&
+        record.moduleId === moduleId &&
+        record.topicId === topicId &&
+        record.source === analyticsSource
+      );
+    };
+    const handleAcknowledged = (event: Event) => {
+      if (!matchesCurrentScope(event)) return;
+      notifyExplored();
+      if (activeStateScopeKeyRef.current === stateScopeKey)
+        setSaveState("saved");
+    };
+    const handleFailed = (event: Event) => {
+      if (
+        !matchesCurrentScope(event) ||
+        activeStateScopeKeyRef.current !== stateScopeKey
+      )
+        return;
+      autoExploredScopeRef.current = null;
+      setSaveState("error");
+    };
+    window.addEventListener(
+      visualizationSessionOutboxAcknowledgedEventName,
+      handleAcknowledged,
+    );
+    window.addEventListener(
+      visualizationSessionOutboxFailedEventName,
+      handleFailed,
+    );
+    return () => {
+      window.removeEventListener(
+        visualizationSessionOutboxAcknowledgedEventName,
+        handleAcknowledged,
+      );
+      window.removeEventListener(
+        visualizationSessionOutboxFailedEventName,
+        handleFailed,
+      );
+    };
+  }, [analyticsSource, currentUser, moduleId, notifyExplored, stateScopeKey, topicId]);
 
   // Keep the latest recorder in a ref so unrelated re-renders (e.g. a new inline
   // onExplored closure from the parent) never retrigger the auto-explore effect.
@@ -108,34 +285,52 @@ export function VisualizationCard({
   // and (b) interact with the lab body at least once. Both may happen in any
   // order; exploration records once the last condition is met. Replaces the
   // old manual "Mark explored" button without rewarding a drive-by page load.
-  const [dwellSatisfied, setDwellSatisfied] = useState(false);
-  const [interacted, setInteracted] = useState(false);
+  const [dwellSatisfiedScopeKey, setDwellSatisfiedScopeKey] = useState<
+    string | null
+  >(null);
+  const [interactionScopeKey, setInteractionScopeKey] = useState<string | null>(
+    null,
+  );
+  const dwellSatisfied = dwellSatisfiedScopeKey === stateScopeKey;
+  const interacted = interactionScopeKey === stateScopeKey;
 
   useEffect(() => {
-    setDwellSatisfied(false);
-    setInteracted(false);
-  }, [moduleId]);
+    setDwellSatisfiedScopeKey(null);
+    setInteractionScopeKey(null);
+    autoExploredScopeRef.current = null;
+    completionRecordedScopeRef.current = null;
+  }, [stateScopeKey]);
 
   useEffect(() => {
     if (!autoExplore || typeof window === "undefined") return;
-    const timer = window.setTimeout(() => setDwellSatisfied(true), engagedDwellMs);
+    const timer = window.setTimeout(
+      () => setDwellSatisfiedScopeKey(stateScopeKey),
+      engagedDwellMs,
+    );
     return () => window.clearTimeout(timer);
-  }, [autoExplore, moduleId]);
+  }, [autoExplore, stateScopeKey]);
 
   const handleBodyEngagement = useCallback(() => {
-    setInteracted(true);
-  }, []);
+    setInteractionScopeKey(stateScopeKey);
+    setSaveState((current) => (current === "error" ? "idle" : current));
+  }, [stateScopeKey]);
 
-  const autoExploredModuleRef = useRef<string | null>(null);
   useEffect(() => {
     if (!autoExplore || !dwellSatisfied || !interacted) return;
     if (initialExplored) return;
     if (saveState !== "idle") return;
-    if (autoExploredModuleRef.current === moduleId) return;
-    autoExploredModuleRef.current = moduleId;
+    if (autoExploredScopeRef.current === stateScopeKey) return;
+    autoExploredScopeRef.current = stateScopeKey;
     setSaveState("saving");
     void recordExploredRef.current();
-  }, [autoExplore, dwellSatisfied, initialExplored, interacted, moduleId, saveState]);
+  }, [
+    autoExplore,
+    dwellSatisfied,
+    initialExplored,
+    interacted,
+    saveState,
+    stateScopeKey,
+  ]);
 
   return (
     <section
@@ -143,21 +338,40 @@ export function VisualizationCard({
       data-viz-module-id={moduleId}
       data-viz-topic-id={topicId}
       data-viz-save-state={saveState}
-      data-viz-explore-gate={autoExplore ? (interacted ? (dwellSatisfied ? "engaged" : "dwell") : "awaiting-interaction") : "inactive"}
-      className="glass-panel overflow-hidden p-4 sm:p-6"
+      data-viz-explore-gate={
+        autoExplore
+          ? interacted
+            ? dwellSatisfied
+              ? "engaged"
+              : "dwell"
+            : "awaiting-interaction"
+          : "inactive"
+      }
+      className="soft-panel overflow-hidden bg-white p-4 dark:bg-slate-950 sm:p-6"
     >
       <div className="mb-5 min-w-0">
-        <h2 className="text-2xl font-black text-slate-950 dark:text-white">{title}</h2>
+        <h2 className="text-2xl font-black text-slate-950 dark:text-white">
+          {title}
+        </h2>
         {formula ? (
           <div
             data-viz-card-formula
             className="mt-3 inline-flex max-w-full items-center rounded-lg border border-cyan-200 bg-cyan-50 px-3 py-2 text-sm font-black text-cyan-800 shadow-sm dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100"
           >
-            <MathText as="span" text={formula} normalizeMath={false} className="min-w-0 break-words" />
+            <MathText
+              as="span"
+              text={formula}
+              normalizeMath={false}
+              className="min-w-0 break-words"
+            />
           </div>
         ) : null}
       </div>
-      <div data-viz-card-body onPointerDownCapture={handleBodyEngagement} onKeyDownCapture={handleBodyEngagement}>
+      <div
+        data-viz-card-body
+        onPointerDownCapture={handleBodyEngagement}
+        onKeyDownCapture={handleBodyEngagement}
+      >
         {children}
       </div>
     </section>

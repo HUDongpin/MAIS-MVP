@@ -57,6 +57,7 @@ export const studentActivityUserStoreOperations = [
   "deleteMistake",
   "clearMistakesForUser",
   "appendLearningEvents",
+  "recordLearningEventLrsDelivery",
   "clearLearningEventsForUser",
   "getAnalyticsSummary",
   "getAnalyticsExport",

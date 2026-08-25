@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -75,6 +75,7 @@ type TeacherOpsLessonKitTestDatabase = TeacherOpsLessonKitPersistenceDatabase & 
 };
 
 const generatedAt = new Date("2026-06-21T08:30:00.000Z");
+let testStoreSequence = 0;
 
 function createDatabase(): TeacherOpsLessonKitTestDatabase {
   return {
@@ -276,7 +277,10 @@ function createTestStore(
     mutateDatabase: async (mutator) => mutator(database),
     now: () => generatedAt,
     readDatabase: async () => database,
-    resourceUploadDirectory: path.join(tmpdir(), "mais-lesson-kit-persistence-test"),
+    resourceUploadDirectory: path.join(
+      tmpdir(),
+      `mais-lesson-kit-persistence-test-${process.pid}-${++testStoreSequence}`
+    ),
     buildInitialSections: (_database, kit) => [
       {
         id: "section-generated",
@@ -1278,6 +1282,134 @@ test("teacher ops lesson-kit persistence publishes approved kits through injecte
   assert.equal(kit.status, "published");
   assert.equal(kit.published_at, generatedAt.toISOString());
   assert.equal(kit.updated_at, generatedAt.toISOString());
+});
+
+test("teacher lesson-kit publication writes files outside the durable mutation", async () => {
+  const database = createDatabase();
+  const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === "kit-old");
+  if (!kit) throw new Error("missing kit fixture");
+  kit.status = "reviewed";
+  kit.review_status = "approved";
+  kit.sections = [createGeneratedSection("section-to-publish")];
+
+  let insideMutation = false;
+  const writtenPaths: string[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async (mutator) => {
+      insideMutation = true;
+      try {
+        const result = mutator(database);
+        assert.equal(result instanceof Promise, false, "lesson-kit database callback must stay synchronous");
+        return result;
+      } finally {
+        insideMutation = false;
+      }
+    },
+    writeResourceFile: async (storagePath) => {
+      assert.equal(insideMutation, false, "resource file I/O must run before or after the database transaction");
+      writtenPaths.push(storagePath);
+    }
+  });
+
+  assert.equal((await store.publishTeacherLessonKit({ teacherId: "teacher-1", kitId: "kit-old" })).status, "published");
+  assert.equal(writtenPaths.length, 3);
+});
+
+test("teacher lesson-kit publication compensates every planned file when persistence fails", async () => {
+  const database = createDatabase();
+  const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === "kit-old");
+  if (!kit) throw new Error("missing kit fixture");
+  kit.status = "reviewed";
+  kit.review_status = "approved";
+  kit.sections = [createGeneratedSection("section-to-publish")];
+
+  const writtenPaths: string[] = [];
+  const removedPaths: string[] = [];
+  const store = createTestStore(database, {
+    mutateDatabase: async () => {
+      throw new Error("simulated durable mutation failure");
+    },
+    writeResourceFile: async (storagePath) => {
+      writtenPaths.push(storagePath);
+    },
+    removeResourceFile: async (storagePath) => {
+      removedPaths.push(storagePath);
+    }
+  });
+
+  await assert.rejects(
+    store.publishTeacherLessonKit({ teacherId: "teacher-1", kitId: "kit-old" }),
+    /simulated durable mutation failure/
+  );
+  assert.equal(writtenPaths.length, 3);
+  assert.deepEqual(removedPaths, [...writtenPaths].reverse());
+  assert.equal(database.teaching_resources.length, 0);
+  assert.equal(kit.status, "reviewed");
+});
+
+test("teacher lesson-kit publication never overwrites or removes a colliding resource file", async () => {
+  const database = createDatabase();
+  const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === "kit-old");
+  if (!kit) throw new Error("missing kit fixture");
+  kit.status = "reviewed";
+  kit.review_status = "approved";
+  kit.sections = [createGeneratedSection("section-to-publish")];
+
+  const uploadDirectory = await mkdtemp(path.join(tmpdir(), "mais-lesson-kit-collision-"));
+  const collidingPath = path.join(uploadDirectory, "resource-slides-slides.html");
+  await writeFile(collidingPath, "owner-data", "utf8");
+
+  try {
+    const store = createTestStore(database, { resourceUploadDirectory: uploadDirectory });
+    await assert.rejects(
+      store.publishTeacherLessonKit({ teacherId: "teacher-1", kitId: "kit-old" }),
+      (error: NodeJS.ErrnoException) => error.code === "EEXIST"
+    );
+    assert.equal(await readFile(collidingPath, "utf8"), "owner-data");
+    assert.equal(database.teaching_resources.length, 0);
+    assert.equal(kit.status, "reviewed");
+  } finally {
+    await rm(uploadDirectory, { recursive: true, force: true });
+  }
+});
+
+test("teacher lesson-kit publication rereads an ambiguous committed result without deleting durable files", async () => {
+  const database = createDatabase();
+  const kit = database.teacher_lesson_kits.find((candidate) => candidate.id === "kit-old");
+  if (!kit) throw new Error("missing kit fixture");
+  kit.status = "reviewed";
+  kit.review_status = "approved";
+  kit.sections = [createGeneratedSection("section-to-publish")];
+
+  const writtenPaths: string[] = [];
+  const removedPaths: string[] = [];
+  let mutationCalls = 0;
+  const store = createTestStore(database, {
+    mutateDatabase: async (mutator) => {
+      mutationCalls += 1;
+      const result = mutator(database);
+      assert.equal(result instanceof Promise, false);
+      if (mutationCalls === 1) throw new Error("simulated lost ACK after commit");
+      return result;
+    },
+    writeResourceFile: async (storagePath) => {
+      writtenPaths.push(storagePath);
+    },
+    removeResourceFile: async (storagePath) => {
+      removedPaths.push(storagePath);
+    }
+  });
+
+  const first = await store.publishTeacherLessonKit({ teacherId: "teacher-1", kitId: "kit-old" });
+  assert.equal(first.status, "published");
+  assert.equal(kit.status, "published");
+  assert.equal(writtenPaths.length, 3);
+  assert.deepEqual(removedPaths, []);
+
+  const replay = await store.publishTeacherLessonKit({ teacherId: "teacher-1", kitId: "kit-old" });
+  assert.equal(replay.status, "published");
+  assert.equal(mutationCalls, 1, "an exact replay must use the durable published record without another mutation");
+  assert.equal(writtenPaths.length, 3, "an exact replay must not rewrite the resource files");
 });
 
 test("teacher ops lesson-kit persistence keeps already published kits idempotent and rejects unavailable publishes", async () => {

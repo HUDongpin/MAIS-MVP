@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import {
   createGamificationRecordId,
   recordGamificationEventOnce
@@ -328,10 +328,23 @@ export function maybeAwardLearningStreakReward(
   const streakDays = learningStreakDays(database, userId, asOf);
   if (streakDays < 3) return false;
 
+  return awardThreeDayLearningStreakReward(database, userId, asOf, createId);
+}
+
+export function threeDayLearningStreakRewardSourceKey(userId: string) {
+  return `streak:${userId}:3-day`;
+}
+
+export function awardThreeDayLearningStreakReward(
+  database: GamificationRewardRedemptionPersistenceDatabase,
+  userId: string,
+  asOf: Date,
+  createId: () => string = randomUUID
+) {
   return awardAutomaticRewardOnce(database, {
     studentId: userId,
     reason: "streak",
-    sourceKey: `streak:${userId}:3-day`,
+    sourceKey: threeDayLearningStreakRewardSourceKey(userId),
     label: {
       en: "Kept a three-day learning streak",
       zh: "保持三日連續學習"
@@ -436,16 +449,39 @@ export function awardVisualizationCompletionReward(
   createId: () => string = randomUUID
 ) {
   const title = topic ? { en: topic.title_en, zh: topic.title_zh } : { en: topicId, zh: topicId };
+  // Before the v2 tuple digest, visualization rewards were keyed only by
+  // user + module. Preserve that exact normalized/truncated shape so an
+  // upgrade replay cannot award the same historical completion again.
+  const legacySourceKey = `visualization-complete:${userId}:${moduleId}`
+    .trim()
+    .replace(/\s+/g, "-")
+    .slice(0, 240);
+  if (database.reward_point_ledger.some((entry) =>
+    entry.reason === "visualization-complete" && entry.source_key === legacySourceKey
+  )) {
+    return false;
+  }
   return awardAutomaticRewardOnce(database, {
     studentId: userId,
     reason: "visualization-complete",
-    sourceKey: `visualization-complete:${userId}:${moduleId}`,
+    sourceKey: visualizationCompletionRewardSourceKey(userId, moduleId, topicId),
     label: {
       en: `Explored the ${title.en} visualization`,
       zh: `完成${title.zh}視覺化探索`
     },
     createdAt: completedAt
   }, createId);
+}
+
+export function visualizationCompletionRewardSourceKey(
+  userId: string,
+  moduleId: string,
+  topicId: string
+) {
+  const tupleDigest = createHash("sha256")
+    .update(JSON.stringify([userId, moduleId, topicId]), "utf8")
+    .digest("hex");
+  return `visualization-complete:v2:${tupleDigest}`;
 }
 
 export function awardLessonCompletionReward(

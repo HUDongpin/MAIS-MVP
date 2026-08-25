@@ -598,7 +598,13 @@ test.describe("backend API integration", () => {
       expect(lesson.lesson.slug).toBe("quadratic-functions");
       expect((await student.context.get("/api/lessons/missing-lesson")).status()).toBe(404);
 
-      expect((await student.context.post("/api/learning-events", { data: { events: [{ id: "bad" }] } })).status()).toBe(400);
+      const learningEventHeaders = {
+        "X-MAIS-Analytics-User-Id": encodeURIComponent(student.userId)
+      };
+      expect((await student.context.post("/api/learning-events", {
+        headers: learningEventHeaders,
+        data: { generation: 0, events: [{ id: "bad" }] }
+      })).status()).toBe(400);
       const analyticsEvent = {
         id: `${student.id}-page-view`,
         type: "page-view",
@@ -608,10 +614,23 @@ test.describe("backend API integration", () => {
         topicId: lesson.lesson.topic.id,
         durationSeconds: 30
       };
-      const accepted = await readJson<{ accepted: number }>(
-        await student.context.post("/api/learning-events", { data: { events: [analyticsEvent] } })
+      const accepted = await readJson<{
+        accepted: number;
+        acknowledgedEventIds: string[];
+        acknowledgedUserId: string;
+        durablyPersisted: boolean;
+        generation: number;
+      }>(
+        await student.context.post("/api/learning-events", {
+          headers: learningEventHeaders,
+          data: { generation: 0, events: [analyticsEvent] }
+        })
       );
       expect(accepted.accepted).toBe(1);
+      expect(accepted.acknowledgedEventIds).toEqual([analyticsEvent.id]);
+      expect(accepted.acknowledgedUserId).toBe(student.userId);
+      expect(accepted.durablyPersisted).toBe(true);
+      expect(accepted.generation).toBe(0);
 
       expect((await student.context.post("/api/lesson-progress", { data: { action: "complete" } })).status()).toBe(400);
       const lessonProgress = await readJson<{ lesson: { slug: string; status: string; mastery: number } }>(
@@ -637,9 +656,24 @@ test.describe("backend API integration", () => {
           }
         })).status()
       ).toBe(401);
-      expect((await student.context.post("/api/visualization-sessions", { data: { moduleId: "coordinate-plane-demo" } })).status()).toBe(400);
+      const visualizationHeaders = {
+        "X-MAIS-Visualization-User-Id": encodeURIComponent(student.userId)
+      };
+      const visualizationTuple = {
+        moduleId: "geometry:arc-length-sector-area:arc-length-sector-area",
+        topicId: "arc-length-sector-area",
+        source: "geometry"
+      };
+      expect((await student.context.post("/api/visualization-sessions", {
+        data: { moduleId: "coordinate-plane-demo" }
+      })).status()).toBe(409);
+      expect((await student.context.post("/api/visualization-sessions", {
+        headers: visualizationHeaders,
+        data: { moduleId: "coordinate-plane-demo" }
+      })).status()).toBe(400);
       expect(
         (await student.context.post("/api/visualization-sessions", {
+          headers: visualizationHeaders,
           data: {
             moduleId: "coordinate-plane-demo",
             topicId: "coordinates",
@@ -647,29 +681,95 @@ test.describe("backend API integration", () => {
           }
         })).status()
       ).toBe(400);
-      const visualization = await readJson<{ session: { explored: boolean; moduleId: string } }>(
-        await student.context.post("/api/visualization-sessions", {
+      expect(
+        (await student.context.post("/api/visualization-sessions", {
+          headers: visualizationHeaders,
           data: {
             moduleId: "coordinate-plane-demo",
             topicId: "coordinates",
-            source: "coordinate-plane"
+            source: "coordinate-plane",
+            explored: true
           }
+        })).status()
+      ).toBe(400);
+      const legacyVisualization = await student.context.post("/api/visualization-sessions", {
+        headers: visualizationHeaders,
+        data: {
+          moduleId: "coordinate-plane-demo",
+          topicId: "coordinates",
+          source: "coordinate-plane"
+        }
+      });
+      expect(legacyVisualization.status()).toBe(400);
+      expect(await legacyVisualization.json()).toEqual({
+        error: "Unknown visualization session identity.",
+        reason: "unknown-visualization-session"
+      });
+      const sessionsBeforeAllowedVisualization = await readJson<{
+        sessions: Array<{ moduleId: string; topicId: string; source: string }>;
+      }>(await student.context.get("/api/visualization-sessions"));
+      expect(sessionsBeforeAllowedVisualization.sessions).not.toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            moduleId: "coordinate-plane-demo",
+            topicId: "coordinates",
+            source: "coordinate-plane"
+          })
+        ])
+      );
+      const visualization = await readJson<{
+        acknowledgedUserId: string;
+        durablyPersisted: boolean;
+        session: {
+          completedAt: string | null;
+          explored: boolean;
+          moduleId: string;
+          source: string;
+          topicId: string;
+          updatedAt: string | null;
+        };
+      }>(
+        await student.context.post("/api/visualization-sessions", {
+          headers: visualizationHeaders,
+          data: visualizationTuple
         })
       );
+      expect(Object.keys(visualization).sort()).toEqual([
+        "acknowledgedUserId",
+        "durablyPersisted",
+        "session"
+      ]);
+      expect(Object.keys(visualization.session).sort()).toEqual([
+        "completedAt",
+        "explored",
+        "moduleId",
+        "source",
+        "topicId",
+        "updatedAt"
+      ]);
+      expect(visualization.acknowledgedUserId).toBe(student.userId);
+      expect(visualization.durablyPersisted).toBe(true);
       expect(visualization.session.explored).toBe(true);
+      expect(visualization.session.moduleId).toBe(visualizationTuple.moduleId);
+      expect(visualization.session.topicId).toBe(visualizationTuple.topicId);
+      expect(visualization.session.source).toBe(visualizationTuple.source);
 
-      const duplicateVisualization = await readJson<{ session: { explored: boolean; moduleId: string; topicId: string } }>(
+      const duplicateVisualization = await readJson<{
+        acknowledgedUserId: string;
+        durablyPersisted: boolean;
+        session: { explored: boolean; moduleId: string; source: string; topicId: string };
+      }>(
         await student.context.post("/api/visualization-sessions", {
-          data: {
-            moduleId: "coordinate-plane-demo",
-            topicId: "coordinates",
-            source: "coordinate-plane"
-          }
+          headers: visualizationHeaders,
+          data: visualizationTuple
         })
       );
+      expect(duplicateVisualization.acknowledgedUserId).toBe(student.userId);
+      expect(duplicateVisualization.durablyPersisted).toBe(true);
       expect(duplicateVisualization.session.explored).toBe(true);
-      expect(duplicateVisualization.session.moduleId).toBe("coordinate-plane-demo");
-      expect(duplicateVisualization.session.topicId).toBe("coordinates");
+      expect(duplicateVisualization.session.moduleId).toBe(visualizationTuple.moduleId);
+      expect(duplicateVisualization.session.topicId).toBe(visualizationTuple.topicId);
+      expect(duplicateVisualization.session.source).toBe(visualizationTuple.source);
 
       const visualizationSessions = await readJson<{ sessions: Array<{ explored: boolean; moduleId: string; topicId: string }> }>(
         await student.context.get("/api/visualization-sessions")
@@ -678,12 +778,15 @@ test.describe("backend API integration", () => {
         expect.arrayContaining([
           expect.objectContaining({
             explored: true,
-            moduleId: "coordinate-plane-demo",
-            topicId: "coordinates"
+            moduleId: visualizationTuple.moduleId,
+            topicId: visualizationTuple.topicId
           })
         ])
       );
-      expect(visualizationSessions.sessions.filter((session) => session.moduleId === "coordinate-plane-demo")).toHaveLength(1);
+      expect(visualizationSessions.sessions.filter((session) =>
+        session.moduleId === visualizationTuple.moduleId &&
+        session.topicId === visualizationTuple.topicId
+      )).toHaveLength(1);
 
       const attempt = await readJson<{ correct: boolean; correctAnswer?: string }>(
         await student.context.post("/api/attempts", {

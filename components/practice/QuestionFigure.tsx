@@ -1,16 +1,18 @@
 import { textForLanguage } from "@/lib/i18n";
 import {
+  buildBarChartLayout,
   buildCoordinateGridLayout,
   buildNumberLineLayout,
   buildPlaneFigureLayout,
   buildSolidFigureLayout,
   buildTenFrameLayout,
-  questionDiagramAltText,
+  buildQuestionDiagramSemanticSummary,
   type FigureLabel,
   type FigureTextResolver
 } from "@/lib/questionFigure";
 import { cn } from "@/lib/utils";
 import type {
+  BarChartQuestionDiagram,
   CoordinateGridQuestionDiagram,
   Language,
   NumberLineQuestionDiagram,
@@ -89,10 +91,12 @@ function FigureLabels({ labels, theme }: { labels: FigureLabel[]; theme: FigureT
 
 function CoordinateGridFigure({
   diagram,
-  theme
+  theme,
+  textFor
 }: {
   diagram: CoordinateGridQuestionDiagram;
   theme: FigureTheme;
+  textFor: FigureTextResolver;
 }) {
   const layout = buildCoordinateGridLayout(diagram);
   const { plot, xTicks, yTicks, xFor, yFor } = layout;
@@ -104,7 +108,7 @@ function CoordinateGridFigure({
   const graphStrokeWidth = isDay ? 3.4 : 4;
 
   return (
-    <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+    <svg aria-hidden="true" viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
       <rect x={plot.left} y={plot.top} width={plot.width} height={plot.height} rx={isDay ? 0 : 8} className={theme.plotFillClassName} />
       {xTicks.map((tick) => (
         <line key={`x-${tick}`} x1={xFor(tick)} x2={xFor(tick)} y1={plot.top} y2={plot.top + plot.height} stroke={gridColor} strokeWidth={gridStrokeWidth} opacity={gridOpacity} />
@@ -174,12 +178,75 @@ function CoordinateGridFigure({
         </text>
       ))}
       <text x={plot.left + plot.width + 14} y={yFor(0) + 4} className={theme.axisLabelClassName}>
-        x
+        {textFor(diagram.xAxisLabel)}
       </text>
       <text x={theme.isDay ? xFor(0) : xFor(0) - 4} y={plot.top - 7} textAnchor={theme.isDay ? "middle" : "end"} className={theme.axisLabelClassName}>
-        y
+        {textFor(diagram.yAxisLabel)}
       </text>
     </svg>
+  );
+}
+
+function BarChartView({
+  diagram,
+  theme,
+  textFor
+}: {
+  diagram: BarChartQuestionDiagram;
+  theme: FigureTheme;
+  textFor: FigureTextResolver;
+}) {
+  const layout = buildBarChartLayout(diagram, textFor);
+  const baseline = layout.plot.top + layout.plot.height;
+  const gridStroke = theme.isDay ? "#d8e0ea" : "rgb(203 213 225)";
+
+  return (
+    <div className="grid gap-2">
+      <svg aria-hidden="true" viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+        <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
+        <text x={layout.viewBox.width / 2} y={24} textAnchor="middle" className={theme.pointLabelClassName}>
+          {layout.title}
+        </text>
+        {layout.yTicks.map((tick) => (
+          <g key={`bar-y-${tick.value}`}>
+            <line x1={layout.plot.left} x2={layout.plot.left + layout.plot.width} y1={tick.y} y2={tick.y} stroke={gridStroke} strokeWidth={1} />
+            <text x={layout.plot.left - 8} y={tick.y + 4} textAnchor="end" className={theme.tickLabelClassName}>
+              {tick.value}
+            </text>
+          </g>
+        ))}
+        <line x1={layout.plot.left} x2={layout.plot.left} y1={layout.plot.top} y2={baseline} stroke={theme.mainStroke} strokeWidth={2} />
+        <line x1={layout.plot.left} x2={layout.plot.left + layout.plot.width} y1={baseline} y2={baseline} stroke={theme.mainStroke} strokeWidth={2} />
+        {layout.bars.map((bar) => (
+          <rect key={bar.key} x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill={bar.fill} rx={2} />
+        ))}
+        {layout.categories.map((category) => (
+          <text key={category.key} x={category.x} y={category.y} textAnchor="middle" className={theme.tickLabelClassName}>
+            {category.text}
+          </text>
+        ))}
+        <text x={layout.plot.left + layout.plot.width / 2} y={layout.viewBox.height - 20} textAnchor="middle" className={theme.axisLabelClassName}>
+          {layout.xAxisLabel}
+        </text>
+        <text
+          x={16}
+          y={layout.plot.top + layout.plot.height / 2}
+          textAnchor="middle"
+          transform={`rotate(-90 16 ${layout.plot.top + layout.plot.height / 2})`}
+          className={theme.axisLabelClassName}
+        >
+          {layout.yAxisLabel}
+        </text>
+      </svg>
+      <ul aria-hidden="true" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5">
+        {layout.legend.map((entry) => (
+          <li key={entry.key} className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200">
+            <span className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ backgroundColor: entry.fill }} />
+            {entry.text}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -195,7 +262,7 @@ function PlaneFigureView({
   const layout = buildPlaneFigureLayout(diagram, textFor);
 
   return (
-    <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+    <svg aria-hidden="true" viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
       <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
       {layout.polygons.map((polygon) => (
         <polygon
@@ -252,7 +319,7 @@ function NumberLineView({
   const layout = buildNumberLineLayout(diagram, textFor);
 
   return (
-    <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+    <svg aria-hidden="true" viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
       <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
       <line x1={layout.axis.x1} y1={layout.axis.y} x2={layout.axis.x2} y2={layout.axis.y} stroke={theme.mainStroke} strokeWidth={2} />
       {layout.arrowPaths.map((path, index) => (
@@ -302,7 +369,7 @@ function SolidFigureView({
   const layout = buildSolidFigureLayout(diagram, textFor);
 
   return (
-    <svg viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
+    <svg aria-hidden="true" viewBox={`0 0 ${layout.viewBox.width} ${layout.viewBox.height}`} className="h-auto w-full">
       <rect x={0} y={0} width={layout.viewBox.width} height={layout.viewBox.height} rx={theme.isDay ? 0 : 8} className={theme.plotFillClassName} />
       {layout.circles.map((circle) => (
         <circle key={circle.key} cx={circle.cx} cy={circle.cy} r={circle.r} fill="none" stroke={theme.mainStroke} strokeWidth={2} />
@@ -381,6 +448,7 @@ function TenFrameView({
         {layout.frames.map((frame) => (
           <svg
             key={frame.key}
+            aria-hidden="true"
             viewBox={`0 0 ${frame.viewBox.width} ${frame.viewBox.height}`}
             // Counters stay finger-sized instead of ballooning to fill the
             // figure shell the way a coordinate grid wants to.
@@ -439,15 +507,38 @@ type QuestionFigureProps = {
 export function QuestionFigure({ diagram, variant = "default", compact = false, language = "en" }: QuestionFigureProps) {
   const theme = figureTheme(variant);
   const textFor: FigureTextResolver = (value) => (typeof value === "string" ? value : textForLanguage(value, language));
-  const altText = textForLanguage(questionDiagramAltText(diagram), language);
+  const semantics = buildQuestionDiagramSemanticSummary(diagram, language);
 
   return (
-    <div className={figureShellClassName(variant, compact)} role="img" aria-label={altText}>
-      {diagram.kind === "coordinate-grid" ? <CoordinateGridFigure diagram={diagram} theme={theme} /> : null}
+    <figure className={figureShellClassName(variant, compact)}>
+      {diagram.kind === "coordinate-grid" ? <CoordinateGridFigure diagram={diagram} theme={theme} textFor={textFor} /> : null}
+      {diagram.kind === "bar-chart" ? <BarChartView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "plane-figure" ? <PlaneFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "number-line" ? <NumberLineView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "solid-figure" ? <SolidFigureView diagram={diagram} theme={theme} textFor={textFor} /> : null}
       {diagram.kind === "ten-frame" ? <TenFrameView diagram={diagram} theme={theme} textFor={textFor} /> : null}
-    </div>
+      <figcaption className="mt-2 text-center text-xs font-medium text-slate-600 dark:text-slate-300">
+        {semantics.caption}
+      </figcaption>
+      {semantics.table ? (
+        <table className="sr-only">
+          <caption>{semantics.table.caption}</caption>
+          <thead>
+            <tr>
+              {semantics.table.headers.map((header, index) => <th key={`${index}-${header}`} scope="col">{header}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {semantics.table.rows.map((row) => (
+              <tr key={row.key}>
+                {row.cells.map((cell, index) => index === 0
+                  ? <th key={`${row.key}-${index}`} scope="row">{cell}</th>
+                  : <td key={`${row.key}-${index}`}>{cell}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
+    </figure>
   );
 }

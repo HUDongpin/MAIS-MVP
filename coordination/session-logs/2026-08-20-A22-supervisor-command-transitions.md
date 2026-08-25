@@ -1,0 +1,37 @@
+# A22/A11 Supervisor Command-Transition Slice
+
+- Date: 2026-08-20
+- Agent ID: A22, consuming A11 fail-closed QA requirements
+- Workstream: Starship Playwright supervisor process-identity evidence
+- Objective: Treat same-PID, same-start-token, same-PGID command retitle/exec changes as audited command transitions without weakening stronger process identity, registry, preload, or terminal-result gates.
+- Allowed write scope:
+  - `scripts/run-starship-playwright-supervised.mjs`
+  - `scripts/run-starship-playwright-supervised.test.mjs`
+  - this session log
+- Forbidden write scope: runner/config/C8/producers/product files; Git operations; build/browser/network/database execution.
+- Planned method: focused RED test from the real token-scrubbed exec fixture, minimal strong-identity classifier change, focused and full pure Node supervisor tests, source syntax checks, frozen hashes, then DIFFERENT-agent review.
+- Initial evidence: retained exact-run receipts show command SHA changes while PID, start token, and PGID remain exact; these currently produce `live-registry-identity-mismatch` violations.
+- RED evidence:
+  - Focused same-process command-transition test failed on the pre-change model with `Child registry identity validation failed`; the registered and observed command SHA values differed while the intended immutable identity fields were unchanged.
+  - A first diagnostic correctly showed that the historical detached fixture also calls `setsid()`. That fixture was retained as a PGID-migration negative rather than misclassified as a command-only transition.
+- Implementation:
+  - Identity comparison now treats exact PID registration, OS start token, and PGID as the strong chain.
+  - A changed command SHA under that exact chain is appended to `registry.commandTransitions` with the registered and observed SHA values; it is not appended to `identityMismatches`.
+  - A changed start token or PGID remains a `live-registry-identity-mismatch`, even if an environment scan sees the PID.
+  - Signal-time revalidation uses the same PID/start-token/PGID chain and no longer mistakes a command retitle for PID replacement.
+  - Registry intent/result hashes, runtime preload source binding, nonce/token discovery, unmatched terminal disposition, foreign-process non-signaling, and cleanup receipts were not weakened.
+- Checks run:
+  - Exact focused RED: 0/1 as expected before implementation.
+  - Focused command-transition plus PGID-migration negative: 2/2 pass.
+  - Focused PID/PGID reuse, preload environment deletion, registry replacement, unmatched intent, wrong nonce, and runtime preload replacement negatives: 7/7 pass.
+  - `node --check scripts/run-starship-playwright-supervised.mjs`: pass.
+  - `node --check scripts/run-starship-playwright-supervised.test.mjs`: pass.
+  - Full pure supervisor suite: 53/53 pass in 55.6 seconds.
+- Checks not run: build and browser intentionally not run by assignment; no network or database operations.
+- Frozen hashes pending DIFFERENT review:
+  - `scripts/run-starship-playwright-supervised.mjs`: `71cc41a94d2389d398e529e3f2fee64f3702fdc35e388f0a5ecdc8f8df7bf32c`
+  - `scripts/run-starship-playwright-supervised.test.mjs`: `3db8a3f15c14ab92ddf30a16db38f6d4f75726cd19665ac399669e739d66613d`
+- Review status: DIFFERENT reviewer requested through the parent. Direct reviewer spawn was refused by the collaboration thread limit; no self-approval was issued.
+- Dirty state final action: evidence archive pending independent approval; no Git operation authorized or run.
+- Worktree lifecycle action: retained for the parent loop and independent review.
+- Status: In progress — implementation and pure gates complete; independent review pending.

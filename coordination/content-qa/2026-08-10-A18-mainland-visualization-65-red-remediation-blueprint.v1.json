@@ -1,0 +1,386 @@
+{
+  "schemaVersion": "mainland-visualization-65-red-remediation-blueprint.v1",
+  "generatedAt": "2026-08-10",
+  "lane": "A18 curriculum QA",
+  "decision": "candidate-only",
+  "source": {
+    "frozenOraclePath": "coordination/content-qa/mainland-visualization-semantic-oracle.v1.json",
+    "frozenOracleSha256": "3ba1a22a40afed2cd4c6a315f88921df5ae179f3901bd9f17d4287672023abee",
+    "deltaCandidatePath": "coordination/content-qa/2026-08-10-A18-mainland-visualization-semantic-oracle-delta-candidate.v1.json",
+    "deltaCandidateSha256": "6adf678d75461bf5852cec7b54429a73a751b4ba54ed7ab1a222b467eee031ca",
+    "effectiveOverlayTestPath": "components/visualizations/mainlandVisualizationSemanticOracle.test.ts"
+  },
+  "evidenceBoundary": "Read-only curriculum remediation blueprint derived from the exact frozen-oracle plus reviewed delta overlay. It does not edit runtime, catalog, E2E, or either oracle artifact and does not claim browser, build, persistence, or production acceptance.",
+  "counts": {
+    "effectiveCatalog": 335,
+    "effectivePass": 270,
+    "effectiveRepairRequired": 65,
+    "changedRouteRed": 4,
+    "untouchedFrozenRed": 61,
+    "remediationGroups": 21
+  },
+  "setProofs": {
+    "sortedEffectiveRedLabIdsSha256": "df92ab887b0192639ef93f5fc959902567e89c31894ab775eb3f843983658d7c",
+    "groupMembershipMustBeExact": true,
+    "duplicateMembershipAllowed": false
+  },
+  "globalAcceptanceContract": {
+    "specializedTitlesMayBeNarrowed": false,
+    "focusMayDeleteNamedCoreStrands": false,
+    "formulaBadgeAloneCountsAsVisibleMathematics": false,
+    "metadataWithoutRendererBranchCountsAsImplementation": false,
+    "requiredState": [
+      "Every visible mark, formula, summary, and control derives from one serialized semantic state.",
+      "Exact values remain exact; approximations expose precision and error rather than silently replacing exact mathematics.",
+      "Each declared mode has distinct reachable state and distinct visible mathematics.",
+      "Dependent control domains update atomically and never resurrect stale hidden raw values."
+    ],
+    "requiredMachineBoundaries": [
+      "language-independent model, mode, parameter, state, invariant, mark, and reset selectors",
+      "requested, expected, and observed state receipts",
+      "module plus topic identity for exploration and persistence",
+      "no unrelated family fallback when the exact family or composite is unavailable"
+    ],
+    "laterBrowserBoundary": "Every implemented group still requires fresh real-route desktop/mobile, all-locale, light/dark, all-mode/all-control endpoint, collision, touch-target, fail-closed contrast, reset, telemetry, and durable reread gates."
+  },
+  "supersedingRationaleOverrides": {
+    "bnu-primary-p5-lower-fraction-add-sub": "The add/subtract mode filter and exact rational result are correct, but the visible tenths-only two-bar model does not show the promised common-denominator conversion, mixed-number work, simplification, or estimation; the catalog formula still says only part / whole.",
+    "bnu-primary-p5-lower-fraction-division": "The divide-only route computes an exact quotient, but the visible two-bar model does not show inverse-operation, reciprocal, measurement/sharing, or equation-solving reasoning promised by the focus.",
+    "bnu-primary-p5-lower-fraction-multiplication": "The multiply-only route computes an exact product, but the visible two-bar model does not show repeated groups, part-of-a-quantity, scaling, an area model, or visible simplification promised by the focus.",
+    "hjb-primary-p5-lower-fractions-equivalence-operations": "The add/subtract route computes exact rational results, but the visible tenths-only model does not implement the title/focus promises for equivalence, simplifying, common denominators, comparison, and keeping the whole explicit."
+  },
+  "minimalImplementationOrder": [
+    {
+      "phase": 1,
+      "groupIds": ["G01", "G02", "G03", "G04"],
+      "reason": "Build the four highest-reuse exact arithmetic foundations first; together they cover 24 of 65 RED Labs and unblock several later composites."
+    },
+    {
+      "phase": 2,
+      "groupIds": ["G07", "G08"],
+      "reason": "Create exact symbolic state, residuals, domain restrictions, equations, inequalities, and systems before mixed algebra/function composites."
+    },
+    {
+      "phase": 3,
+      "groupIds": ["G12", "G13", "G14", "G15", "G16", "G17"],
+      "reason": "Finish reusable geometry primitives and invariants before chapter composites that depend on them."
+    },
+    {
+      "phase": 4,
+      "groupIds": ["G05", "G06", "G09", "G10", "G11", "G18", "G19"],
+      "reason": "Add application, statistics, set/logic, function/derivative, vector, and review-specific families after the shared arithmetic/algebra/geometry state contracts exist."
+    },
+    {
+      "phase": 5,
+      "groupIds": ["G20"],
+      "reason": "Assemble the six exact multi-strand Labs only from already verified child families, preserving strand order and visible capability labels."
+    },
+    {
+      "phase": 6,
+      "groupIds": ["G21"],
+      "reason": "Prefer omission for a non-visualization habits chapter; retain only if A18 approves a dedicated metacognitive interaction rather than unrelated mathematics."
+    }
+  ],
+  "groups": [
+    {
+      "groupId": "G01",
+      "name": "multi-digit whole-number operations",
+      "strategy": "new-shared-family",
+      "targetFamily": "multi-digit-operations",
+      "labIds": [
+        "bnu-primary-p3-lower-two-digit-multiplication",
+        "bnu-primary-p3-upper-multi-digit-multiplication",
+        "bnu-primary-p3-upper-multiplication-division-fluency",
+        "bnu-primary-p4-upper-division",
+        "bnu-primary-p4-upper-multiplication",
+        "hjb-primary-p3-lower-two-digit-multiplication-division",
+        "hjb-primary-p3-upper-multiplication-division-extension",
+        "hjb-primary-p3-upper-one-digit-multiplication",
+        "hjb-primary-p4-upper-four-operations-problem-solving"
+      ],
+      "requiredVisibleState": ["operands and operation", "place-value decomposition", "partial products or partial quotients", "regrouping/carry state", "quotient and remainder", "estimate and error", "inverse reconstruction"],
+      "requiredInvariants": ["partial-products-sum", "division-reconstruction", "remainder-bound", "place-value-reconstruction", "estimate-error", "visible-cell-count"],
+      "controls": ["operand-a", "operand-b", "operation", "strategy-step", "estimate-toggle"],
+      "modes": ["multiply", "divide", "add", "subtract", "estimate-check"],
+      "reusePlan": "Small equal-groups arrays and quotient/remainder arrays may remain as child views, but their bounds and state are insufficient. One exact integer engine should feed the array, place-value algorithm, and reconstruction views."
+    },
+    {
+      "groupId": "G02",
+      "name": "decimal arithmetic",
+      "strategy": "new-shared-family",
+      "targetFamily": "decimal-arithmetic",
+      "labIds": [
+        "bnu-primary-p4-lower-decimal-meaning-add-sub",
+        "bnu-primary-p5-upper-decimal-division",
+        "hjb-primary-p4-lower-decimals-meaning-add-sub",
+        "hjb-primary-p5-upper-decimal-operations"
+      ],
+      "requiredVisibleState": ["scaled-integer exact operands", "aligned place-value columns", "decimal point alignment", "carry/borrow state", "product partition", "division transformation", "quotient/remainder or exact terminating result", "rounding and estimation error"],
+      "requiredInvariants": ["decimal-scaled-integer-exactness", "place-value-reconstruction", "division-reconstruction", "area-product", "estimate-error"],
+      "controls": ["operand-a", "operand-b", "decimal-scale", "operation", "precision"],
+      "modes": ["add", "subtract", "multiply", "divide", "estimate-check"],
+      "reusePlan": "Reuse decimal place-value and decimal area-product as synchronized views; neither may stand in for the named arithmetic operation."
+    },
+    {
+      "groupId": "G03",
+      "name": "signed rational, real, and radical numbers",
+      "strategy": "extend-existing-family",
+      "targetFamily": "signed-real-number-line",
+      "labIds": [
+        "bnu-junior-s1-upper-rational-numbers",
+        "bnu-junior-s2-upper-real-numbers",
+        "hjb-junior-s2-upper-quadratic-radicals",
+        "hjb-junior-s2-upper-real-numbers",
+        "hjb-primary-p6-lower-rational-numbers",
+        "pep-junior-s1-upper-rational-numbers"
+      ],
+      "requiredVisibleState": ["exact rational numerator and denominator", "radicand and radical index", "exact symbolic point", "decimal approximation", "precision/error bound", "origin and absolute-value distance", "operation start and endpoint"],
+      "requiredInvariants": ["rational-point", "radical-square-error", "absolute-value-distance", "signed-origin-stability", "additive-endpoint"],
+      "controls": ["number-kind", "numerator", "denominator", "radicand", "precision", "operation", "start", "step"],
+      "modes": ["locate", "compare", "add", "subtract", "absolute-value", "radical"],
+      "reusePlan": "Extend the existing signed line with exact rational/radical variants and error receipts. Integer-only jumps cannot satisfy these titles."
+    },
+    {
+      "groupId": "G04",
+      "name": "fraction operations and pedagogy",
+      "strategy": "extend-existing-family",
+      "targetFamily": "fraction-operations-v2",
+      "labIds": [
+        "bnu-primary-p5-lower-fraction-add-sub",
+        "bnu-primary-p5-lower-fraction-division",
+        "bnu-primary-p5-lower-fraction-multiplication",
+        "hjb-primary-p5-lower-fractions-equivalence-operations",
+        "pep-primary-p5-lower-factors-fractions"
+      ],
+      "requiredVisibleState": ["two exact fractions", "whole and mixed-number form", "least/common denominator conversion", "equivalent fractions", "factor/GCF simplification", "comparison", "operator-isolated exact result", "estimation", "multiplication area/repeated-group/scaling interpretation", "division reciprocal plus measurement/sharing interpretation", "equation check"],
+      "requiredInvariants": ["fraction-denominator-nonzero", "fraction-exact-rational", "fraction-cross-product", "fraction-common-denominator", "fraction-simplification", "fraction-whole-explicit", "fraction-operation-interpretation"],
+      "controls": ["left-numerator", "left-denominator", "right-numerator", "right-denominator", "operation", "representation", "estimate-toggle"],
+      "modes": ["equivalence", "compare", "add", "subtract", "multiply", "divide", "simplify", "estimate"],
+      "reusePlan": "Keep one exact rational state and operation-specific visible representations. Mode allowlists remain per Lab; a two-bar result badge or part/whole formula is not enough."
+    },
+    {
+      "groupId": "G05",
+      "name": "percent applications",
+      "strategy": "extend-existing-family",
+      "targetFamily": "percent-model",
+      "labIds": ["bnu-primary-p6-upper-percentage-applications", "pep-primary-p6-upper-percent-fractions"],
+      "requiredVisibleState": ["part", "whole/base", "rate", "original value", "new value", "absolute change", "percent change", "discount", "inverse unknown"],
+      "requiredInvariants": ["fraction-decimal-percent-sync", "percent-forward-inverse", "percent-change-reconstruction", "discount-base-consistency"],
+      "controls": ["base", "rate", "change", "unknown-target", "application-kind"],
+      "modes": ["convert", "find-part", "find-whole", "increase", "decrease", "discount", "inverse"],
+      "reusePlan": "Representation conversion is a child view; application state must expose forward and inverse quantities without overloading one slider."
+    },
+    {
+      "groupId": "G06",
+      "name": "ratio, proportion, and scale",
+      "strategy": "extend-existing-family",
+      "targetFamily": "ratio-proportion",
+      "labIds": ["pep-primary-p6-lower-ratio-proportion-scale"],
+      "requiredVisibleState": ["two ratios", "scale factor", "cross products", "direct constant k", "inverse product k", "scale drawing dimensions and units"],
+      "requiredInvariants": ["proportion-cross-product", "ratio-scale-factor", "direct-proportion-constant", "inverse-proportion-product", "scale-drawing-consistency"],
+      "controls": ["ratio-a", "ratio-b", "scale-factor", "relation-kind", "drawing-length"],
+      "modes": ["equivalent-ratios", "direct-proportion", "inverse-proportion", "scale-drawing"],
+      "reusePlan": "Compose equivalent-ratio, proportional-function, reciprocal-function, and scale-drawing views from one explicit relation-kind state."
+    },
+    {
+      "groupId": "G07",
+      "name": "symbolic expressions, polynomials, and algebraic fractions",
+      "strategy": "extend-plus-new-child-family",
+      "targetFamily": "symbolic-transform-suite",
+      "labIds": [
+        "bnu-junior-s1-upper-algebraic-expressions",
+        "bnu-junior-s2-lower-algebraic-fractions-equations",
+        "hjb-junior-s1-upper-algebraic-fractions",
+        "hjb-junior-s1-upper-polynomial-add-subtract",
+        "hjb-primary-p6-lower-simple-algebraic-expressions",
+        "pep-junior-s1-upper-expressions-linear-equations",
+        "pep-junior-s2-upper-polynomials-fractions"
+      ],
+      "requiredVisibleState": ["coefficient vector", "like-term groups", "sign and operation", "substitution value", "expanded/factored expression", "algebraic-fraction numerator/denominator", "domain restrictions", "cancelled factors and residual", "equation solution check when named"],
+      "requiredInvariants": ["polynomial-expansion", "polynomial-visible-tiles", "like-term-coefficient-conservation", "algebraic-fraction-domain", "algebraic-fraction-equivalence", "equation-substitution-residual"],
+      "controls": ["expression-form", "coefficients", "operation", "substitution-value", "factor-choice", "domain-value"],
+      "modes": ["collect-like-terms", "add", "subtract", "expand", "factor", "substitute", "fraction-simplify", "solve"],
+      "reusePlan": "Extend algebra tiles for polynomial conservation and add an exact algebraic-fraction child model. Mixed titles must be composite rather than routed to a single generic transform."
+    },
+    {
+      "groupId": "G08",
+      "name": "equations, inequalities, and systems",
+      "strategy": "composite-existing-families",
+      "targetFamily": "algebra-solver-suite",
+      "labIds": [
+        "bnu-junior-s2-lower-inequalities-systems",
+        "bnu-junior-s2-upper-linear-systems",
+        "pep-junior-s1-lower-equations-inequalities-data",
+        "pep-primary-p5-upper-decimals-equations"
+      ],
+      "requiredVisibleState": ["equation or inequality coefficients", "balance operations", "open/closed endpoints", "sign-reversal step", "two equations", "intersection", "dual residuals", "decimal exactness", "data strand when named"],
+      "requiredInvariants": ["equation-balance", "equation-substitution-residual", "inequality-endpoint-openness", "inequality-sign-reversal", "line-intersection", "linear-system-dual-residual", "decimal-scaled-integer-exactness"],
+      "controls": ["coefficients", "relation", "operation-step", "system-method", "decimal-scale", "dataset"],
+      "modes": ["equation", "inequality", "inequality-system", "substitution", "elimination", "graph-intersection", "data"],
+      "reusePlan": "Reuse equation, inequality, and linear-system engines, but expose explicit mode/strand boundaries and both residuals; do not let one family silently stand in for a chapter bundle."
+    },
+    {
+      "groupId": "G09",
+      "name": "sets and logic",
+      "strategy": "extend-existing-family",
+      "targetFamily": "set-logic",
+      "labIds": ["pep-high-s4-sets-logic"],
+      "requiredVisibleState": ["universe and set membership", "Venn regions", "proposition truth state", "necessary/sufficient direction", "counterexample"],
+      "requiredInvariants": ["set-membership", "set-operation-region", "logic-truth-direction", "necessary-sufficient-counterexample"],
+      "controls": ["universe-elements", "set-a", "set-b", "set-operation", "predicate", "implication-direction"],
+      "modes": ["membership", "union", "intersection", "complement", "necessary", "sufficient", "counterexample"],
+      "reusePlan": "Extend membership-and-condition into explicit set operations and directional logic; a text badge without truth/counterexample state is insufficient."
+    },
+    {
+      "groupId": "G10",
+      "name": "functions, data, derivatives, extrema, and inequalities",
+      "strategy": "composite-existing-families",
+      "targetFamily": "function-analysis-suite",
+      "labIds": ["hjb-high-s6-函数-导数与不等式综合", "pep-junior-s2-lower-linear-functions-data"],
+      "requiredVisibleState": ["formula, table, and graph", "domain/range", "slope or derivative", "critical points", "increasing/decreasing intervals", "inequality sign chart", "dataset/trend when named"],
+      "requiredInvariants": ["function-table-graph-consistency", "linear-slope", "derivative-residual", "critical-point", "inequality-solution-interval", "data-trend-consistency"],
+      "controls": ["function-family", "parameters", "probe-x", "representation", "analysis-kind", "dataset"],
+      "modes": ["table", "graph", "data", "derivative", "extrema", "monotonicity", "inequality"],
+      "reusePlan": "Compose linear-function, derivative-synthesis, inequality, and data children from a shared function state; each named strand must remain visible and independently selectable."
+    },
+    {
+      "groupId": "G11",
+      "name": "data and statistics",
+      "strategy": "new-child-families",
+      "targetFamily": "statistics-analysis-suite",
+      "labIds": ["bnu-high-s5-统计案例", "pep-primary-p4-lower-decimals-average"],
+      "requiredVisibleState": ["raw observations", "units and converted values", "mean/median/range", "bivariate points", "regression line", "correlation/residual", "contingency observed and expected counts", "independence comparison"],
+      "requiredInvariants": ["dataset-derived-mean", "dataset-derived-median-range", "unit-conversion-consistency", "regression-residual", "correlation-state", "contingency-expected-count", "independence-residual"],
+      "controls": ["observations", "unit", "dataset", "selected-point", "regression-toggle", "contingency-cells"],
+      "modes": ["summary", "unit-conversion", "scatter", "regression", "correlation", "independence"],
+      "reusePlan": "Keep editable-observations for primary mean work; add bivariate/regression and independence children for the high-school case study."
+    },
+    {
+      "groupId": "G12",
+      "name": "geometry primitives, lines, and angles",
+      "strategy": "new-shared-family",
+      "targetFamily": "line-angle-geometry",
+      "labIds": ["bnu-junior-s1-upper-plane-figures", "bnu-primary-p4-upper-lines-angles", "hjb-primary-p6-lower-segments-angles"],
+      "requiredVisibleState": ["point/line/ray/segment identity", "shared vertex", "ray endpoints", "angle measure", "parallel direction vectors", "perpendicular dot product", "intersection"],
+      "requiredInvariants": ["shared-vertex", "angle-degree-ray", "parallel-cross-zero", "perpendicular-dot-zero", "primitive-endpoint-consistency"],
+      "controls": ["primitive-kind", "point-a", "point-b", "point-c", "angle", "relation-kind"],
+      "modes": ["primitives", "measure-angle", "draw-angle", "parallel", "perpendicular", "intersecting"],
+      "reusePlan": "A generic two-ray angle cannot represent all named line/segment/plane relations. Build primitive identities once and reuse them in later geometry composites."
+    },
+    {
+      "groupId": "G13",
+      "name": "circle theorems and regular polygons",
+      "strategy": "new-shared-family",
+      "targetFamily": "circle-geometry-suite",
+      "labIds": ["bnu-junior-s3-lower-circle", "hjb-junior-s3-lower-circle-regular-polygons", "hjb-primary-p4-upper-geometry-circle-lines-angles"],
+      "requiredVisibleState": ["center/radius/diameter", "arc and chord endpoints", "central and inscribed angles", "tangent point and radius", "perpendicular diameter/chord relation", "regular polygon side count and central angle"],
+      "requiredInvariants": ["circle-radius-formula", "sector-angle-fraction", "inscribed-central-angle", "tangent-radius-perpendicular", "diameter-chord-bisector", "regular-polygon-central-angle"],
+      "controls": ["radius", "arc-angle", "chord-endpoints", "point-on-circle", "tangent-point", "polygon-sides"],
+      "modes": ["radius-sector", "chord", "inscribed-angle", "tangent", "diameter-chord", "regular-polygon"],
+      "reusePlan": "Use the sector renderer only as one child. Named theorem relations require explicit marks and residuals rather than a generic circle formula."
+    },
+    {
+      "groupId": "G14",
+      "name": "coordinate position, routes, transforms, and data",
+      "strategy": "extend-existing-family",
+      "targetFamily": "coordinate-route-transform",
+      "labIds": ["bnu-junior-s2-upper-position-coordinates", "hjb-junior-s2-lower-coordinate-plane", "pep-primary-p6-upper-coordinate-data"],
+      "requiredVisibleState": ["origin/reference object", "start and target", "ordered route segments", "distance and direction", "transform rule", "before/after coordinates", "data points/table when named"],
+      "requiredInvariants": ["coordinate-point-consistency", "coordinate-movement", "relative-position", "route-endpoint", "transform-coordinate-consistency", "rigid-distance-preservation"],
+      "controls": ["start-x", "start-y", "target-x", "target-y", "route-step", "transform-kind", "transform-parameter", "dataset"],
+      "modes": ["position", "route", "translation", "reflection", "rotation", "dilation", "data-display"],
+      "reusePlan": "Extend ordered-pair plotting to at least two objects and an explicit route/transform. A single point does not satisfy these titles."
+    },
+    {
+      "groupId": "G15",
+      "name": "triangle invariants, isosceles properties, and congruence",
+      "strategy": "extend-existing-family",
+      "targetFamily": "triangle-geometry",
+      "labIds": ["hjb-junior-s1-lower-isosceles-triangles", "pep-junior-s2-upper-triangles-congruence"],
+      "requiredVisibleState": ["side lengths and angle measures", "equal-side/equal-angle marks", "symmetry axis/perpendicular bisector", "two compared triangles", "correspondence", "congruence criterion", "residuals"],
+      "requiredInvariants": ["triangle-angle-sum", "triangle-variant-residual", "isosceles-base-angle", "perpendicular-bisector", "congruence-correspondence", "congruence-criterion"],
+      "controls": ["triangle-a-sides", "triangle-a-angle", "triangle-b-sides", "triangle-b-angle", "criterion", "variant"],
+      "modes": ["isosceles", "equilateral", "symmetry", "SSS", "SAS", "ASA", "AAS", "RHS"],
+      "reusePlan": "Extend triangle-invariants with paired-triangle correspondence and criterion-specific marks. One generic triangle is insufficient."
+    },
+    {
+      "groupId": "G16",
+      "name": "perimeter, area, and line relations",
+      "strategy": "composite-existing-families",
+      "targetFamily": "area-lines-composite",
+      "labIds": ["pep-primary-p4-lower-perimeter-area-lines"],
+      "requiredVisibleState": ["rectangle dimensions", "unit cover", "boundary length", "parallel/perpendicular/intersecting line state"],
+      "requiredInvariants": ["area-boundary-cover", "rectangle-dimension-consistency", "parallel-cross-zero", "perpendicular-dot-zero"],
+      "controls": ["width", "height", "line-relation", "line-angle"],
+      "modes": ["area-perimeter", "parallel", "perpendicular", "intersecting"],
+      "reusePlan": "Compose the verified rectangle model with G12 line relations; the area model alone may not absorb the title's line strand."
+    },
+    {
+      "groupId": "G17",
+      "name": "polygon area decomposition",
+      "strategy": "extend-existing-family",
+      "targetFamily": "polygon-area",
+      "labIds": ["pep-primary-p5-upper-polygon-area"],
+      "requiredVisibleState": ["base/top-base/height", "source polygon", "movable or highlighted pieces", "recomposed target", "exact area formula and value"],
+      "requiredInvariants": ["polygon-area-formula", "polygon-decomposition", "piece-area-conservation", "base-height-consistency"],
+      "controls": ["base", "top-base", "height", "decomposition-step", "shape-kind"],
+      "modes": ["parallelogram", "triangle", "trapezoid"],
+      "reusePlan": "Keep the existing formulas but add visible decomposition/recomposition marks and area-conservation receipts for every declared mode."
+    },
+    {
+      "groupId": "G18",
+      "name": "trigonometry, vectors, and analytic geometry synthesis",
+      "strategy": "composite-existing-plus-new-family",
+      "targetFamily": "vector-analytic-trig-composite",
+      "labIds": ["hjb-high-s6-三角-向量与解析几何综合"],
+      "requiredVisibleState": ["vector components", "vector sum", "dot product and angle", "trigonometric ratio", "line/circle equations", "intersection/tangency residual"],
+      "requiredInvariants": ["vector-component-operation", "vector-dot-angle", "triangle-shared-angle", "analytic-equation-residual", "line-circle-relation"],
+      "controls": ["vector-a", "vector-b", "angle", "line-parameters", "circle-parameters", "analysis-kind"],
+      "modes": ["vector-add", "dot-angle", "trigonometry", "line-circle", "analytic-relation"],
+      "reusePlan": "The vector model is only one child; the synthesis promise cannot be fulfilled by vector arithmetic while omitting trigonometry and analytic geometry."
+    },
+    {
+      "groupId": "G19",
+      "name": "money, time, and data review",
+      "strategy": "composite-existing-families",
+      "targetFamily": "primary-review-composite",
+      "labIds": ["pep-primary-p1-lower-money-data-review"],
+      "requiredVisibleState": ["denomination counts and sum", "equivalent money composition", "clock hands and whole/elapsed time", "category counts and bars"],
+      "requiredInvariants": ["money-denomination-sum", "money-equivalent-composition", "clock-angle-normalization", "elapsed-time-normalization", "bar-height-count"],
+      "controls": ["denomination-counts", "clock-hour", "elapsed-step", "category-counts"],
+      "modes": ["money", "time", "data"],
+      "reusePlan": "Compose money, clock, and countable-bar children. A money-only renderer does not satisfy the review title."
+    },
+    {
+      "groupId": "G20",
+      "name": "exact multi-strand chapter composites",
+      "strategy": "composite-only-after-children-pass",
+      "targetFamily": "composite-split",
+      "labIds": [
+        "pep-junior-s1-upper-geometric-figures",
+        "pep-junior-s2-lower-roots-pythagorean-quadrilaterals",
+        "pep-junior-s3-lower-inverse-similarity-trigonometry",
+        "pep-primary-p1-upper-shapes-position-time",
+        "pep-primary-p3-upper-operations-fractions",
+        "pep-primary-p4-upper-large-numbers-multiplication"
+      ],
+      "requiredVisibleState": ["ordered strand identity", "one visible capability label per strand", "child model/state/mode selectors", "independent child controls", "shared reset that restores every child"],
+      "requiredInvariants": ["composite-strand-order", "composite-visible-capability", "all per-child frozen invariant IDs", "no missing or extra strand", "reset-all-child-state"],
+      "controls": ["strand-selector", "all child controls named by the frozen oracle", "reset"],
+      "modes": ["all exact strand-prefixed modes named by the effective oracle overlay"],
+      "reusePlan": "Do not invent a generic composite surface. Resolve the exact ordered strands from the independent oracle and fail closed until every child family passes its own model and browser gates."
+    },
+    {
+      "groupId": "G21",
+      "name": "school mathematics habits",
+      "strategy": "omit-preferred",
+      "targetFamily": "none-or-dedicated-metacognitive-routine",
+      "labIds": ["hjb-primary-p1-upper-school-math-habits"],
+      "requiredVisibleState": ["only if retained: count/check/explain routine state tied to the actual habits lesson"],
+      "requiredInvariants": ["no-unrelated-math-model", "metacognitive-step-order", "learner-action-evidence"],
+      "controls": ["only if retained: count", "check", "explain", "reset"],
+      "modes": ["observe", "check", "explain"],
+      "reusePlan": "Prefer removal from the Visualization Lab catalog. A small whole-number line or other convenient template must not be presented as a visualization of school-math habits."
+    }
+  ]
+}

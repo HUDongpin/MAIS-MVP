@@ -2,6 +2,10 @@ import { randomUUID } from "crypto";
 import postgres from "postgres";
 import { questionAnswerMatches } from "@/lib/server/answerMatching";
 import { getQuestionForAttemptFromStore } from "@/lib/server/questionStore";
+import {
+  learningEventLrsDeliveryTransitionAllowed,
+  type LearningEventLrsDeliveryUpdate
+} from "@/lib/server/learningEventLrsDelivery";
 import type { StoredMediaObjectReference } from "@/lib/server/mediaObjectStore";
 import type { AttemptFeedback, CurriculumProfile, CurriculumTrack, LearningAnalyticsEvent, Question } from "@/types";
 
@@ -94,9 +98,31 @@ const postgresStudentActivitySchemaStatements = [
     grade TEXT NOT NULL,
     topic_id TEXT NOT NULL,
     question_id TEXT,
+    class_id TEXT,
+    assignment_id TEXT,
+    competency_id TEXT,
     duration_seconds INTEGER,
+    lrs_delivery_status TEXT NOT NULL DEFAULT 'pending',
+    lrs_attempts INTEGER NOT NULL DEFAULT 0,
+    lrs_statement_id TEXT,
+    lrs_queued_at TIMESTAMPTZ,
+    lrs_next_retry_at TIMESTAMPTZ,
+    lrs_reason TEXT,
+    lrs_http_status INTEGER,
+    lrs_updated_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL
   )`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS class_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS assignment_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS competency_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_delivery_status TEXT NOT NULL DEFAULT 'pending'`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_attempts INTEGER NOT NULL DEFAULT 0`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_statement_id TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_queued_at TIMESTAMPTZ`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_next_retry_at TIMESTAMPTZ`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_reason TEXT`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_http_status INTEGER`,
+  `ALTER TABLE learning_events ADD COLUMN IF NOT EXISTS lrs_updated_at TIMESTAMPTZ`,
   `CREATE INDEX IF NOT EXISTS learning_events_user_created_at_idx
     ON learning_events(user_id, created_at DESC)`,
   `CREATE INDEX IF NOT EXISTS learning_events_user_topic_created_at_idx
@@ -105,8 +131,11 @@ const postgresStudentActivitySchemaStatements = [
     ON learning_events(topic_id, created_at DESC)`,
   `CREATE TABLE IF NOT EXISTS learning_event_clears (
     user_id TEXT PRIMARY KEY,
-    cleared_at TIMESTAMPTZ NOT NULL
+    cleared_at TIMESTAMPTZ NOT NULL,
+    generation BIGINT NOT NULL DEFAULT 0
   )`,
+  `ALTER TABLE learning_event_clears ADD COLUMN IF NOT EXISTS generation BIGINT NOT NULL DEFAULT 0`,
+  `UPDATE learning_event_clears SET generation = 1 WHERE generation = 0`,
   `CREATE TABLE IF NOT EXISTS reward_point_ledger (
     id TEXT PRIMARY KEY,
     student_id TEXT NOT NULL,
@@ -147,7 +176,7 @@ function getPostgresClient() {
   return postgresClient;
 }
 
-async function ensurePostgresStudentActivityTables() {
+export async function ensurePostgresStudentActivityTables() {
   if (!postgresActivityReady) {
     const sql = getPostgresClient();
     postgresActivityReady = (async () => {
@@ -191,6 +220,47 @@ function dayWindow(now: string) {
   };
 }
 
+function utcLearningDayKey(value: string) {
+  const timestamp = new Date(value);
+  if (!Number.isFinite(timestamp.getTime())) return null;
+  return timestamp.toISOString().slice(0, 10);
+}
+
+function hasThreeConsecutiveUtcLearningDays(
+  eventTimestamps: readonly string[],
+  asOf: string
+) {
+  const asOfTimestamp = new Date(asOf);
+  if (!Number.isFinite(asOfTimestamp.getTime())) return false;
+  const asOfDay = Date.UTC(
+    asOfTimestamp.getUTCFullYear(),
+    asOfTimestamp.getUTCMonth(),
+    asOfTimestamp.getUTCDate()
+  );
+  const activeDays = new Set(eventTimestamps.map(utcLearningDayKey).filter(Boolean));
+  return [0, 1, 2].every((daysAgo) =>
+    activeDays.has(new Date(asOfDay - daysAgo * 24 * 60 * 60 * 1000).toISOString().slice(0, 10))
+  );
+}
+
+async function fastLearningStreakRewardAt(sql: PostgresExecutor, input: {
+  userId: string;
+  asOf: string;
+}) {
+  const window = dayWindow(input.asOf);
+  const streakStart = new Date(Date.parse(window.start) - 2 * 24 * 60 * 60 * 1000).toISOString();
+  const rows = await sql<Array<{ created_at: string }>>`
+    SELECT created_at::text AS created_at
+    FROM learning_events
+    WHERE user_id = ${input.userId}
+      AND created_at >= ${streakStart}
+      AND created_at < ${window.end}
+  `;
+  return hasThreeConsecutiveUtcLearningDays(rows.map((row) => row.created_at), input.asOf)
+    ? input.asOf
+    : null;
+}
+
 function attemptFeedback(question: Question, selectedAnswer: string): AttemptFeedback {
   const correct = questionAnswerMatches(
     {
@@ -214,70 +284,368 @@ function analyticsEventDurationSeconds(event: LearningAnalyticsEvent) {
     : null;
 }
 
-function eventIsAfterClear(event: LearningAnalyticsEvent, clearedAt: string | null) {
-  if (!clearedAt) return true;
-  return new Date(event.timestamp).getTime() > new Date(clearedAt).getTime();
+export type FastLearningEventPersistenceDisposition = {
+  id: string;
+  disposition: "inserted" | "already-persisted" | "id-conflict" | "stale-generation" | "not-processed";
+};
+
+export type FastLearningEventAppendResult = {
+  status: "ok" | "generation-mismatch" | "id-conflict";
+  generation: number;
+  clearedAt: string | null;
+  acknowledgedEventIds: string[];
+  dispositions: FastLearningEventPersistenceDisposition[];
+  learningStreakRewardAt?: string;
+};
+
+type StoredFastLearningEventRow = {
+  id: string;
+  user_id: string;
+  type: LearningAnalyticsEvent["type"];
+  source: LearningAnalyticsEvent["source"];
+  grade: LearningAnalyticsEvent["grade"];
+  topic_id: string;
+  question_id: string | null;
+  class_id: string | null;
+  assignment_id: string | null;
+  competency_id: string | null;
+  duration_seconds: number | null;
+  created_at: string;
+};
+
+function firstWriteWinsLearningEvents(events: LearningAnalyticsEvent[]) {
+  const seenIds = new Set<string>();
+  return events.filter((event) => {
+    if (seenIds.has(event.id)) return false;
+    seenIds.add(event.id);
+    return true;
+  });
 }
 
-export async function appendLearningEventsFast(
+function learningEventRowMatches(
+  row: StoredFastLearningEventRow,
   userId: string,
-  events: LearningAnalyticsEvent[]
-): Promise<number | null> {
-  if (!postgresRowsEnabled()) return null;
-  if (!events.length) return 0;
+  event: LearningAnalyticsEvent
+) {
+  return (
+    row.user_id === userId &&
+    row.type === event.type &&
+    row.source === event.source &&
+    row.grade === event.grade &&
+    row.topic_id === event.topicId &&
+    row.question_id === (event.questionId ?? null) &&
+    row.class_id === (event.classId ?? null) &&
+    row.assignment_id === (event.assignmentId ?? null) &&
+    row.competency_id === (event.competencyId ?? null) &&
+    row.duration_seconds === analyticsEventDurationSeconds(event) &&
+    Date.parse(row.created_at) === Date.parse(event.timestamp)
+  );
+}
 
-  await ensurePostgresStudentActivityTables();
-  const sql = getPostgresClient();
-  const clearRows = await sql<{ cleared_at: string }[]>`
-    SELECT cleared_at
+async function acquireLearningEventUserLock(sql: PostgresExecutor, userId: string) {
+  await sql`
+    SELECT pg_advisory_xact_lock(
+      hashtextextended(${`mais-learning-events:${userId}`}, 0)
+    )
+  `;
+}
+
+function canonicalLearningEventClearedAt(value: unknown) {
+  if (typeof value !== "string" && !(value instanceof Date)) return null;
+  const parsed = new Date(value);
+  return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : null;
+}
+
+function requireCanonicalLearningEventClearedAt(value: unknown) {
+  const canonical = canonicalLearningEventClearedAt(value);
+  if (!canonical) {
+    throw new TypeError("Learning-event clearedAt must be a canonical ISO timestamp.");
+  }
+  return canonical;
+}
+
+async function currentLearningEventGeneration(sql: PostgresExecutor, userId: string) {
+  const rows = await sql<Array<{ cleared_at: unknown; generation: string | number }>>`
+    SELECT generation, cleared_at
     FROM learning_event_clears
     WHERE user_id = ${userId}
     LIMIT 1
   `;
-  const clearedAt = clearRows[0]?.cleared_at ?? null;
-  const rows = events
-    .filter((event) => eventIsAfterClear(event, clearedAt))
-    .map((event) => ({
+  return {
+    generation: Number(rows[0]?.generation ?? 0),
+    clearedAt: canonicalLearningEventClearedAt(rows[0]?.cleared_at)
+  };
+}
+
+function conflictResult(
+  generation: number,
+  clearedAt: string | null,
+  events: LearningAnalyticsEvent[],
+  conflictingIds: ReadonlySet<string>
+): FastLearningEventAppendResult {
+  return {
+    status: "id-conflict",
+    generation,
+    clearedAt,
+    acknowledgedEventIds: [],
+    dispositions: events.map((event) => ({
       id: event.id,
-      user_id: userId,
-      type: event.type,
-      source: event.source,
-      grade: event.grade,
-      topic_id: event.topicId,
-      question_id: event.questionId ?? null,
-      duration_seconds: analyticsEventDurationSeconds(event),
-      created_at: event.timestamp
-    }));
+      disposition: conflictingIds.has(event.id) ? "id-conflict" : "not-processed"
+    }))
+  };
+}
 
-  if (!rows.length) return 0;
+class FastLearningEventConflictError extends Error {
+  constructor(readonly result: FastLearningEventAppendResult) {
+    super("Learning event id conflicts with another owner or payload.");
+    this.name = "FastLearningEventConflictError";
+  }
+}
 
-  const inserted = await sql`
-    INSERT INTO learning_events ${sql(rows, "id", "user_id", "type", "source", "grade", "topic_id", "question_id", "duration_seconds", "created_at")}
-    ON CONFLICT (id) DO NOTHING
-    RETURNING id
-  ` as Array<{ id: string }>;
+export async function appendLearningEventsFast(
+  userId: string,
+  events: LearningAnalyticsEvent[],
+  generation: number
+): Promise<FastLearningEventAppendResult | null> {
+  if (!postgresRowsEnabled()) return null;
 
-  return inserted.length;
+  await ensurePostgresStudentActivityTables();
+  const uniqueEvents = firstWriteWinsLearningEvents(events);
+  try {
+    return await getPostgresClient().begin(async (sql) => {
+      await acquireLearningEventUserLock(sql, userId);
+      const currentGenerationState = await currentLearningEventGeneration(sql, userId);
+      const currentGeneration = currentGenerationState.generation;
+      if (generation !== currentGeneration) {
+        return {
+          status: "generation-mismatch",
+          generation: currentGeneration,
+          clearedAt: currentGenerationState.clearedAt,
+          acknowledgedEventIds: [],
+          dispositions: uniqueEvents.map((event) => ({
+            id: event.id,
+            disposition: "stale-generation" as const
+          }))
+        } satisfies FastLearningEventAppendResult;
+      }
+
+      const eventIds = uniqueEvents.map((event) => event.id);
+      const existingRows = eventIds.length
+        ? await sql<StoredFastLearningEventRow[]>`
+            SELECT id, user_id, type, source, grade, topic_id, question_id,
+              class_id, assignment_id, competency_id, duration_seconds,
+              created_at::text AS created_at
+            FROM learning_events
+            WHERE id IN ${sql(eventIds)}
+          `
+        : [];
+      const existingById = new Map(existingRows.map((row) => [row.id, row]));
+      const conflictingIds = new Set(
+        uniqueEvents
+          .filter((event) => {
+            const existing = existingById.get(event.id);
+            return Boolean(existing && !learningEventRowMatches(existing, userId, event));
+          })
+          .map((event) => event.id)
+      );
+      if (conflictingIds.size > 0) {
+        return conflictResult(
+          currentGeneration,
+          currentGenerationState.clearedAt,
+          uniqueEvents,
+          conflictingIds
+        );
+      }
+
+      const newEvents = uniqueEvents.filter((event) => !existingById.has(event.id));
+      const lrsQueuedAt = new Date().toISOString();
+      const rows = newEvents.map((event) => ({
+        id: event.id,
+        user_id: userId,
+        type: event.type,
+        source: event.source,
+        grade: event.grade,
+        topic_id: event.topicId,
+        question_id: event.questionId ?? null,
+        class_id: event.classId ?? null,
+        assignment_id: event.assignmentId ?? null,
+        competency_id: event.competencyId ?? null,
+        duration_seconds: analyticsEventDurationSeconds(event),
+        lrs_delivery_status: "pending",
+        lrs_attempts: 0,
+        lrs_queued_at: lrsQueuedAt,
+        lrs_updated_at: lrsQueuedAt,
+        created_at: event.timestamp
+      }));
+      const inserted = rows.length
+        ? await sql`
+            INSERT INTO learning_events ${sql(
+              rows,
+              "id",
+              "user_id",
+              "type",
+              "source",
+              "grade",
+              "topic_id",
+              "question_id",
+              "class_id",
+              "assignment_id",
+              "competency_id",
+              "duration_seconds",
+              "lrs_delivery_status",
+              "lrs_attempts",
+              "lrs_queued_at",
+              "lrs_updated_at",
+              "created_at"
+            )}
+            ON CONFLICT (id) DO NOTHING
+            RETURNING id
+          ` as Array<{ id: string }>
+        : [];
+      const insertedIds = new Set(inserted.map((row) => row.id));
+
+      // Another user can race on the global event-id primary key while holding
+      // a different per-user lock. Re-read after INSERT and roll this whole
+      // transaction back if the winning row is not an exact same-owner replay.
+      const resolvedRows = eventIds.length
+        ? await sql<StoredFastLearningEventRow[]>`
+            SELECT id, user_id, type, source, grade, topic_id, question_id,
+              class_id, assignment_id, competency_id, duration_seconds,
+              created_at::text AS created_at
+            FROM learning_events
+            WHERE id IN ${sql(eventIds)}
+          `
+        : [];
+      const resolvedById = new Map(resolvedRows.map((row) => [row.id, row]));
+      const racedConflictIds = new Set(
+        uniqueEvents
+          .filter((event) => {
+            const resolved = resolvedById.get(event.id);
+            return !resolved || !learningEventRowMatches(resolved, userId, event);
+          })
+          .map((event) => event.id)
+      );
+      if (racedConflictIds.size > 0) {
+        throw new FastLearningEventConflictError(
+          conflictResult(
+            currentGeneration,
+            currentGenerationState.clearedAt,
+            uniqueEvents,
+            racedConflictIds
+          )
+        );
+      }
+
+      const latestResolvedEvent = uniqueEvents.length > 0
+        ? uniqueEvents.reduce((latest, event) =>
+            Date.parse(event.timestamp) > Date.parse(latest.timestamp) ? event : latest
+          )
+        : null;
+      const learningStreakRewardAt = latestResolvedEvent
+        ? await fastLearningStreakRewardAt(sql, {
+          userId,
+          asOf: latestResolvedEvent.timestamp
+        })
+        : null;
+
+      return {
+        status: "ok",
+        generation: currentGeneration,
+        clearedAt: currentGenerationState.clearedAt,
+        acknowledgedEventIds: eventIds,
+        dispositions: uniqueEvents.map((event) => ({
+          id: event.id,
+          disposition: insertedIds.has(event.id) ? "inserted" as const : "already-persisted" as const
+        })),
+        ...(learningStreakRewardAt ? { learningStreakRewardAt } : {})
+      } satisfies FastLearningEventAppendResult;
+    });
+  } catch (error) {
+    if (error instanceof FastLearningEventConflictError) return error.result;
+    throw error;
+  }
+}
+
+export async function recordLearningEventLrsDeliveryFast(
+  userId: string,
+  deliveries: LearningEventLrsDeliveryUpdate[]
+): Promise<boolean | null> {
+  if (!postgresRowsEnabled()) return null;
+
+  await ensurePostgresStudentActivityTables();
+  return getPostgresClient().begin(async (sql) => {
+    await acquireLearningEventUserLock(sql, userId);
+    const eventIds = Array.from(new Set(deliveries.map((delivery) => delivery.eventId)));
+    const ownedRows = eventIds.length
+      ? await sql<Array<{ id: string; lrs_attempts: string | number; lrs_delivery_status: string }>>`
+          SELECT id, lrs_attempts, lrs_delivery_status
+          FROM learning_events
+          WHERE user_id = ${userId}
+            AND id IN ${sql(eventIds)}
+        `
+      : [];
+    if (ownedRows.length !== eventIds.length) return false;
+    const ownedById = new Map(ownedRows.map((row) => [row.id, row]));
+    if (deliveries.some((delivery) => {
+      const current = ownedById.get(delivery.eventId);
+      return !current || !learningEventLrsDeliveryTransitionAllowed(
+        current.lrs_delivery_status as "disabled" | "pending" | "queued" | "sent",
+        delivery.status
+      );
+    })) return false;
+
+    const updatedAt = new Date().toISOString();
+    for (const delivery of deliveries) {
+      const current = ownedById.get(delivery.eventId)!;
+      const followsNetworkAttempt = current.lrs_delivery_status === "queued" ||
+        current.lrs_delivery_status === "sent";
+      const isNetworkAttempt = delivery.status === "queued" || delivery.status === "sent";
+      const attempts = isNetworkAttempt && followsNetworkAttempt
+        ? Number(current.lrs_attempts) + delivery.attempts
+        : Math.max(Number(current.lrs_attempts), delivery.attempts);
+      await sql`
+        UPDATE learning_events
+        SET
+          lrs_delivery_status = ${delivery.status},
+          lrs_attempts = ${attempts},
+          lrs_statement_id = COALESCE(${delivery.statementId ?? null}, lrs_statement_id),
+          lrs_queued_at = COALESCE(${delivery.queuedAt ?? null}, lrs_queued_at, ${updatedAt}),
+          lrs_next_retry_at = ${delivery.status === "queued" ? delivery.nextRetryAt ?? null : null},
+          lrs_reason = ${delivery.status === "queued" ? delivery.reason ?? null : null},
+          lrs_http_status = ${delivery.status === "queued" ? delivery.httpStatus ?? null : null},
+          lrs_updated_at = ${updatedAt}
+        WHERE id = ${delivery.eventId}
+          AND user_id = ${userId}
+      `;
+    }
+    return true;
+  });
 }
 
 export async function clearLearningEventsFast(userId: string, clearedAt = new Date().toISOString()) {
-  if (!postgresRowsEnabled()) return false;
+  if (!postgresRowsEnabled()) return null;
 
+  const canonicalClearedAt = requireCanonicalLearningEventClearedAt(clearedAt);
   await ensurePostgresStudentActivityTables();
-  await getPostgresClient().begin(async (sql) => {
+  return getPostgresClient().begin(async (sql) => {
+    await acquireLearningEventUserLock(sql, userId);
     await sql`
       DELETE FROM learning_events
       WHERE user_id = ${userId}
     `;
-    await sql`
-      INSERT INTO learning_event_clears (user_id, cleared_at)
-      VALUES (${userId}, ${clearedAt})
+    const rows = await sql<Array<{ cleared_at: unknown; generation: string | number }>>`
+      INSERT INTO learning_event_clears (user_id, cleared_at, generation)
+      VALUES (${userId}, ${canonicalClearedAt}, 1)
       ON CONFLICT (user_id) DO UPDATE SET
-        cleared_at = excluded.cleared_at
+        cleared_at = excluded.cleared_at,
+        generation = learning_event_clears.generation + 1
+      RETURNING generation, cleared_at
     `;
+    return {
+      generation: Number(rows[0]?.generation ?? 0),
+      clearedAt: requireCanonicalLearningEventClearedAt(rows[0]?.cleared_at)
+    };
   });
-
-  return true;
 }
 
 export type FastLearningEventRow = {
@@ -316,7 +684,8 @@ export async function readLearningEventsFastForUsers(
     duration_seconds: number | null;
     created_at: string;
   }>>`
-    SELECT id, user_id, type, source, grade, topic_id, question_id, duration_seconds, created_at
+    SELECT id, user_id, type, source, grade, topic_id, question_id, duration_seconds,
+      created_at::text AS created_at
     FROM learning_events
     WHERE user_id IN ${sql(userIds)}
       AND created_at >= ${sinceIso}
@@ -495,6 +864,7 @@ async function persistQuestionAttempt(input: {
   const profile = profileFields(input.question);
 
   await getPostgresClient().begin(async (sql) => {
+    await acquireLearningEventUserLock(sql, input.userId);
     await sql`
       INSERT INTO practice_attempts (
         id,
@@ -541,6 +911,10 @@ async function persistQuestionAttempt(input: {
         topic_id,
         question_id,
         duration_seconds,
+        lrs_delivery_status,
+        lrs_attempts,
+        lrs_queued_at,
+        lrs_updated_at,
         created_at
       )
       VALUES (
@@ -552,6 +926,10 @@ async function persistQuestionAttempt(input: {
         ${input.question.topicId},
         ${input.question.id},
         ${input.durationSeconds},
+        ${"disabled"},
+        0,
+        ${input.now},
+        ${input.now},
         ${input.now}
       )
     `;
@@ -603,6 +981,7 @@ export async function submitQuestionAttemptFast({
 }
 
 export const __practiceAttemptStoreTestHooks = {
+  hasThreeConsecutiveUtcLearningDays,
   postgresStudentActivitySchemaSql() {
     return [...postgresStudentActivitySchemaStatements];
   }

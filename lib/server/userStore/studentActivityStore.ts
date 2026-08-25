@@ -33,6 +33,7 @@ export function createStudentActivityUserStore({
     deleteMistake: studentActivityPersistenceStore.deleteMistake,
     clearMistakesForUser: studentActivityPersistenceStore.clearMistakesForUser,
     appendLearningEvents: studentActivityPersistenceStore.appendLearningEvents,
+    recordLearningEventLrsDelivery: studentActivityPersistenceStore.recordLearningEventLrsDelivery,
     clearLearningEventsForUser: studentActivityPersistenceStore.clearLearningEventsForUser,
     getAnalyticsSummary: studentActivityPersistenceStore.getAnalyticsSummary,
     getAnalyticsExport: studentActivityPersistenceStore.getAnalyticsExport,

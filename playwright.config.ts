@@ -1,20 +1,142 @@
 import { defineConfig, devices } from "@playwright/test";
+import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import ts from "typescript";
+
+import {
+  assertStarshipE2eEnvironment,
+  assertStarshipPath,
+  buildStarshipE2ePathManifest
+} from "./scripts/starship-e2e-path-gate.mjs";
+import { validateStarshipPlaywrightPrebuildReceipt } from "./scripts/run-starship-playwright.mjs";
 
 const port = Number(process.env.PLAYWRIGHT_PORT ?? 3020);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
 const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL ?? "chrome";
+if (browserChannel !== "chrome") {
+  throw new Error(`Starship E2E requires PLAYWRIGHT_BROWSER_CHANNEL=chrome; actual=${browserChannel}.`);
+}
 const runId = sanitizePathSegment(process.env.PLAYWRIGHT_RUN_ID ?? `${port}-${process.pid}`);
-const e2eRunRoot = process.env.PLAYWRIGHT_E2E_ROOT?.trim() || path.join(".tmp", `e2e-run-${runId}`);
-const e2eNextDistDir = process.env.PLAYWRIGHT_NEXT_DIST_DIR ?? path.join(e2eRunRoot, "next-dist");
-const e2eNextTsconfigPath = process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH ?? `tsconfig.playwright-${runId}.tmp.json`;
-const e2eDbPath = path.resolve(process.env.HK_MATH_DB_PATH?.trim() || path.join(e2eRunRoot, "hk-math-db.sqlite"));
-const e2eOutputDir = process.env.PLAYWRIGHT_OUTPUT_DIR?.trim() || path.join(e2eRunRoot, "test-results");
-const e2eReportDir = process.env.PLAYWRIGHT_REPORT_DIR?.trim() || path.join(e2eRunRoot, "playwright-report");
+const starshipPathManifest = buildStarshipE2ePathManifest({
+  repositoryRoot: process.cwd(),
+  runId,
+  overrides: {
+    browserProfileEvidencePath: process.env.PLAYWRIGHT_BROWSER_PROFILE_EVIDENCE_PATH?.trim(),
+    browserProcessEvidencePath: process.env.PLAYWRIGHT_BROWSER_PROCESS_EVIDENCE_PATH?.trim(),
+    browserTempDir: process.env.PLAYWRIGHT_BROWSER_TEMP_DIR?.trim(),
+    crashDumpDir: process.env.PLAYWRIGHT_CRASH_DUMP_DIR?.trim(),
+    databasePath: process.env.HK_MATH_DB_PATH?.trim(),
+    e2eRunRoot: process.env.PLAYWRIGHT_E2E_ROOT?.trim(),
+    nextDistDir: process.env.PLAYWRIGHT_NEXT_DIST_DIR?.trim(),
+    nextTsconfigPath: process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH?.trim(),
+    nodeCompileCacheDir: process.env.NODE_COMPILE_CACHE?.trim(),
+    npmCacheDir: process.env.npm_config_cache?.trim(),
+    outputDir: process.env.PLAYWRIGHT_OUTPUT_DIR?.trim(),
+    pathManifestPath: process.env.PLAYWRIGHT_PATH_MANIFEST_PATH?.trim(),
+    reportDir: process.env.PLAYWRIGHT_REPORT_DIR?.trim(),
+    serverCommandOwnerPidPath: process.env.PLAYWRIGHT_SERVER_COMMAND_OWNER_PID_PATH?.trim(),
+    serverLogPath: process.env.PLAYWRIGHT_SERVER_LOG_PATH?.trim()
+  }
+});
+const e2eRunRoot = starshipPathManifest.paths.e2eRunRoot;
+const e2eNextDistDir = starshipPathManifest.paths.nextDistDir;
+const e2eNextDistRelative = path.relative(starshipPathManifest.paths.repositoryRoot, e2eNextDistDir);
+const e2eNextTsconfigPath = starshipPathManifest.paths.nextTsconfigPath;
+const e2eDbPath = starshipPathManifest.paths.databasePath;
+const e2eNodeCompileCacheDir = starshipPathManifest.paths.nodeCompileCacheDir;
+const e2eNpmCacheDir = starshipPathManifest.paths.npmCacheDir;
+const e2eOutputDir = starshipPathManifest.paths.outputDir;
+const e2eReportDir = starshipPathManifest.paths.reportDir;
+const e2eBrowserTempDir = starshipPathManifest.paths.browserTempDir;
+const e2eCrashDumpDir = starshipPathManifest.paths.crashDumpDir;
+const e2eServerLogPath = starshipPathManifest.paths.serverLogPath;
+const e2eServerCommandOwnerPidPath = starshipPathManifest.paths.serverCommandOwnerPidPath;
+const e2ePathManifestPath = starshipPathManifest.paths.pathManifestPath;
+assertStarshipE2eEnvironment(
+  process.env,
+  e2eBrowserTempDir,
+  e2eNodeCompileCacheDir,
+  e2eNpmCacheDir
+);
+validateStarshipPlaywrightPrebuildReceipt({
+  baseURL,
+  environment: process.env,
+  pathManifest: starshipPathManifest,
+  port,
+  processIdentity: process
+});
+const reporterPathEnvironmentNames = [
+  "PLAYWRIGHT_BLOB_OUTPUT_DIR",
+  "PLAYWRIGHT_BLOB_OUTPUT_FILE",
+  "PLAYWRIGHT_HTML_OUTPUT_DIR",
+  "PLAYWRIGHT_HTML_REPORT",
+  "PLAYWRIGHT_JSON_OUTPUT_FILE",
+  "PLAYWRIGHT_JUNIT_OUTPUT_DIR",
+  "PLAYWRIGHT_JUNIT_OUTPUT_FILE"
+];
+const reporterExternalPaths: Record<string, string> = {};
+for (const name of reporterPathEnvironmentNames) {
+  const value = process.env[name]?.trim();
+  if (value) reporterExternalPaths[name] = assertStarshipPath(name, value);
+}
+const jsonReportPath = reporterExternalPaths.PLAYWRIGHT_JSON_OUTPUT_FILE;
+const outputArgumentIndex = process.argv.findIndex((argument) => argument === "--output");
+const outputArgument = process.argv.find((argument) => argument.startsWith("--output="));
+const outputOverride = outputArgumentIndex >= 0
+  ? process.argv[outputArgumentIndex + 1]
+  : outputArgument?.slice("--output=".length);
+if (outputOverride) {
+  const canonicalOutputOverride = assertStarshipPath("Playwright --output", outputOverride);
+  if (canonicalOutputOverride !== e2eOutputDir) {
+    throw new Error(
+      `Playwright --output must equal the canonical run outputDir ${e2eOutputDir}; ` +
+      `actual=${canonicalOutputOverride}.`
+    );
+  }
+}
 process.env.PLAYWRIGHT_RUN_ID = runId;
 process.env.PLAYWRIGHT_E2E_ROOT = e2eRunRoot;
+process.env.PLAYWRIGHT_BROWSER_PROFILE_EVIDENCE_PATH = starshipPathManifest.paths.browserProfileEvidencePath;
+process.env.PLAYWRIGHT_BROWSER_PROCESS_EVIDENCE_PATH = starshipPathManifest.paths.browserProcessEvidencePath;
+process.env.PLAYWRIGHT_BROWSER_TEMP_DIR = e2eBrowserTempDir;
+process.env.PLAYWRIGHT_CRASH_DUMP_DIR = e2eCrashDumpDir;
+process.env.PLAYWRIGHT_NEXT_DIST_DIR = e2eNextDistDir;
+process.env.PLAYWRIGHT_NEXT_TSCONFIG_PATH = e2eNextTsconfigPath;
+process.env.PLAYWRIGHT_OUTPUT_DIR = e2eOutputDir;
+process.env.PLAYWRIGHT_PATH_MANIFEST_PATH = e2ePathManifestPath;
+process.env.PLAYWRIGHT_REPORT_DIR = e2eReportDir;
+process.env.PLAYWRIGHT_SERVER_COMMAND_OWNER_PID_PATH = e2eServerCommandOwnerPidPath;
+process.env.PLAYWRIGHT_SERVER_LOG_PATH = e2eServerLogPath;
 process.env.HK_MATH_DB_PATH = e2eDbPath;
+process.env.npm_config_cache = e2eNpmCacheDir;
+for (const directory of [
+  e2eBrowserTempDir,
+  e2eCrashDumpDir,
+  path.dirname(e2eDbPath),
+  path.dirname(e2eNextTsconfigPath),
+  e2eNodeCompileCacheDir,
+  e2eNpmCacheDir,
+  e2eOutputDir,
+  path.dirname(e2ePathManifestPath),
+  path.dirname(starshipPathManifest.paths.browserProcessEvidencePath),
+  e2eReportDir,
+  path.dirname(e2eServerCommandOwnerPidPath),
+  path.dirname(e2eServerLogPath)
+]) {
+  mkdirSync(directory, { recursive: true });
+}
+writeFileSync(
+  e2ePathManifestPath,
+  `${JSON.stringify({
+    ...starshipPathManifest,
+    externalEvidencePaths: {
+      ...reporterExternalPaths,
+      ...(jsonReportPath ? { jsonReportPath: path.resolve(jsonReportPath) } : {})
+    },
+    process: { cwd: process.cwd(), pid: process.pid, ppid: process.ppid },
+    status: "preflight-passed"
+  }, null, 2)}\n`,
+  "utf8"
+);
 const disabledProviderEnv = [
   "LLM_API_KEY=",
   "OPENAI_API_KEY=",
@@ -32,7 +154,10 @@ const disabledProviderEnv = [
   "QWEN_IMAGE_API_URL=",
   "QWEN_REALTIME_MODEL=",
   "QWEN_REALTIME_API_URL=",
-  "AI_TUTOR_PROVIDER_PROFILE=offline-fixture"
+  "AI_TUTOR_PROVIDER_PROFILE=offline-fixture",
+  "NEXT_TELEMETRY_DISABLED=1",
+  `npm_config_cache=${shellQuote(e2eNpmCacheDir)}`,
+  "npm_config_update_notifier=false"
 ].join(" ");
 const isolatedStatefulSpecs = [
   "tests/e2e/rewards.spec.ts",
@@ -74,8 +199,8 @@ function assertSafeE2eGeneratedPath(label: string, value: string) {
     throw new Error(`${label} must not point at the shared .next directory for Playwright release runs.`);
   }
 
-  if (process.env.MAIS_ALLOW_EXTERNAL_ARTIFACTS !== "1" && !isPathInside(absolutePath, tmpDir)) {
-    throw new Error(`${label} must stay under .tmp unless MAIS_ALLOW_EXTERNAL_ARTIFACTS=1 is set.`);
+  if (!isPathInside(absolutePath, tmpDir)) {
+    throw new Error(`${label} must stay under the Starship worktree's .tmp directory.`);
   }
 }
 
@@ -83,63 +208,8 @@ function shellQuote(value: string) {
   return `'${value.replace(/'/g, "'\\''")}'`;
 }
 
-// Extra build-output globs the e2e temp tsconfig excludes on top of the
-// canonical set. These are non-dot dirs `**/*.ts` would otherwise sweep;
-// `.tmp` is intentionally NOT here because the temp config's own dist-types
-// include lives under it.
-const e2eTempTsconfigHardeningExcludes = [
-  ".next-*",
-  ".s??-*",
-  "tmp",
-  "temp",
-  "output",
-  "outputs",
-  "coverage",
-  "playwright-report",
-  "test-results",
-  "var",
-  "var/**/*",
-  "MAIS-MVP-*",
-  "MAIS-MVP-*/**/*"
-];
-
-// Reuse tsconfig.json's own `exclude` as the single source of truth so the
-// generated e2e temp tsconfig can't drift out of sync with it. That drift once
-// dropped `private/**/*` here and let a stale private/tmp/*-next validator.ts
-// (referencing a since-deleted route) fail the e2e build before any test ran.
-// tsconfig.json is the right base — it's the config the custom-distDir build
-// actually uses, and unlike tsconfig.next.json it does not exclude `.tmp`,
-// where the temp config's dist-types include lives.
-function e2eTempTsconfigExcludeGlobs() {
-  const baseTsconfigPath = path.resolve("tsconfig.json");
-  const { config, error } = ts.readConfigFile(baseTsconfigPath, (file) => ts.sys.readFile(file));
-  const canonical = Array.isArray(config?.exclude) ? (config.exclude as string[]) : null;
-  if (error || !canonical) {
-    throw new Error(
-      `Could not read \`exclude\` from ${baseTsconfigPath} for the e2e temp tsconfig` +
-      `${error ? `: ${ts.flattenDiagnosticMessageText(error.messageText, "\n")}` : "."}`
-    );
-  }
-  return Array.from(new Set([...canonical, ...e2eTempTsconfigHardeningExcludes]));
-}
-
-function writeTempTsconfigCommand(tsconfigPath: string, nextDistDir: string) {
-  const content = JSON.stringify({
-    extends: "./tsconfig.json",
-    include: [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx",
-      ".next/types/**/*.ts",
-      `${nextDistDir}/types/**/*.ts`
-    ],
-    exclude: e2eTempTsconfigExcludeGlobs()
-  }, null, 2);
-  const script = `require("fs").writeFileSync(${JSON.stringify(tsconfigPath)}, ${JSON.stringify(content)})`;
-  return `node -e ${shellQuote(script)}`;
-}
-
 export default defineConfig({
+  globalSetup: "./tests/e2e/starship-e2e-global-setup.ts",
   testDir: "./tests/e2e",
   outputDir: e2eOutputDir,
   fullyParallel: false,
@@ -156,6 +226,13 @@ export default defineConfig({
   use: {
     baseURL,
     channel: browserChannel || undefined,
+    launchOptions: {
+      args: [
+        "--disable-breakpad",
+        "--disable-crash-reporter",
+        `--crash-dumps-dir=${e2eCrashDumpDir}`
+      ]
+    },
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
@@ -164,13 +241,8 @@ export default defineConfig({
     ? undefined
     : {
         command: [
-          `rm -rf ${shellQuote(e2eRunRoot)} ${shellQuote(e2eNextDistDir)}`,
-          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `mkdir -p ${shellQuote(path.dirname(e2eDbPath))} ${shellQuote(path.dirname(e2eNextTsconfigPath))} ${shellQuote(e2eOutputDir)}`,
-          writeTempTsconfigCommand(e2eNextTsconfigPath, e2eNextDistDir),
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} NEXT_TSCONFIG_PATH=${shellQuote(e2eNextTsconfigPath)} ${disabledProviderEnv} NEXT_PUBLIC_SHOW_EXAMPLE_ACCOUNTS=true npm run build`,
-          `rm -f ${shellQuote(e2eNextTsconfigPath)}`,
-          `env NEXT_DIST_DIR=${shellQuote(e2eNextDistDir)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port}`
+          `echo $$ > ${shellQuote(e2eServerCommandOwnerPidPath)}`,
+          `exec env NEXT_DIST_DIR=${shellQuote(e2eNextDistRelative)} ${disabledProviderEnv} AUTH_SESSION_SECRET=e2e-session-secret HK_MATH_DB_PATH=${shellQuote(e2eDbPath)} HK_MATH_EXPOSE_LOCAL_RESET_LINKS=true HK_MATH_ENABLE_DEMO_USER=true AI_TUTOR_MAX_REQUESTS_PER_MINUTE=2 HK_MATH_E2E_LOGIN_IDENTIFIER_MAX=400 npm run start -- --hostname 127.0.0.1 --port ${port} >> ${shellQuote(e2eServerLogPath)} 2>&1`
         ].join(" && "),
         url: baseURL,
         reuseExistingServer: false,

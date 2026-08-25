@@ -186,7 +186,8 @@ function createTestStore(
   storedFiles: Array<{
     storedFileName: string;
     bytes: number[];
-  }> = []
+  }> = [],
+  removedFiles: string[] = []
 ) {
   return createTeacherOpsResourcePersistenceStore({
     now: () => now,
@@ -198,6 +199,9 @@ function createTestStore(
     storeResourceFile: async ({ storedFileName, bytes }) => {
       storedFiles.push({ storedFileName, bytes: Array.from(bytes) });
       return `/uploads/${storedFileName}`;
+    },
+    removeResourceFile: async ({ storagePath }) => {
+      removedFiles.push(storagePath);
     },
     resourceProjection: (_database, resource) => resourceFixture(resource),
     topicMatchesUserCurriculum: (_database, topic) => topic.id !== "topic-hidden",
@@ -216,6 +220,113 @@ test("teacher ops resource persistence returns owned downloads without legacy us
   assert.match(Buffer.from(download?.bytes ?? []).toString("utf8"), /Seed resource placeholder/);
   assert.equal(download?.mimeType, "text/plain; charset=utf-8");
   assert.equal(download?.fileName, "owned.txt");
+});
+
+test("teacher resource file I/O runs outside the database mutation and is compensated after a failed commit", async () => {
+  const database = createDatabase();
+  let insideMutation = false;
+  let failCommit = false;
+  const storedFiles: string[] = [];
+  const removedFiles: string[] = [];
+  const store = createTeacherOpsResourcePersistenceStore({
+    now: () => now,
+    readDatabase: async () => database,
+    mutateDatabase: async (mutator) => {
+      insideMutation = true;
+      try {
+        const mutable = failCommit ? structuredClone(database) : database;
+        const result = mutator(mutable);
+        assert.equal(result instanceof Promise, false, "resource database mutators must be synchronous");
+        if (failCommit) throw new Error("simulated commit failure");
+        return result;
+      } finally {
+        insideMutation = false;
+      }
+    },
+    createId: () => failCommit ? "failed" : "outside-lock",
+    gradeIsValid: (grade) => grade === "S2",
+    difficultyIsActive: (difficulty): difficulty is Difficulty => difficulty === "Medium",
+    storeResourceFile: async ({ storedFileName }) => {
+      assert.equal(insideMutation, false, "filesystem writes must not run under the database writer lock");
+      storedFiles.push(`/uploads/${storedFileName}`);
+      return `/uploads/${storedFileName}`;
+    },
+    removeResourceFile: async ({ storagePath }) => {
+      assert.equal(insideMutation, false, "filesystem compensation must not run under the database writer lock");
+      removedFiles.push(storagePath);
+    },
+    resourceProjection: (_source, resource) => resourceFixture(resource),
+    topicMatchesUserCurriculum: () => true,
+    topicOptionProjection: (_source, topic) => topicOptionFixture(topic)
+  });
+
+  const input = {
+    teacherId: "teacher-1",
+    title: "Outside lock",
+    grade: "S2" as const,
+    file: {
+      name: "outside.pdf",
+      type: "application/pdf",
+      size: 1,
+      bytes: new Uint8Array([1])
+    }
+  };
+  assert.equal((await store.createTeacherResource(input)).status, "created");
+  assert.deepEqual(removedFiles, []);
+
+  failCommit = true;
+  await assert.rejects(store.createTeacherResource({ ...input, title: "Failed commit" }), /simulated commit failure/);
+  assert.deepEqual(storedFiles, [
+    "/uploads/resource-outside-lock-outside.pdf",
+    "/uploads/resource-failed-outside.pdf"
+  ]);
+  assert.deepEqual(removedFiles, ["/uploads/resource-failed-outside.pdf"]);
+});
+
+test("teacher resource persistence rereads an ambiguous committed record before file compensation", async () => {
+  const database = createDatabase();
+  const storedFiles: string[] = [];
+  const removedFiles: string[] = [];
+  const store = createTeacherOpsResourcePersistenceStore({
+    now: () => now,
+    readDatabase: async () => database,
+    mutateDatabase: async (mutator) => {
+      const result = mutator(database);
+      assert.equal(result instanceof Promise, false);
+      throw new Error("simulated lost ACK after commit");
+    },
+    createId: () => "ambiguous",
+    gradeIsValid: (grade) => grade === "S2",
+    difficultyIsActive: (difficulty): difficulty is Difficulty => difficulty === "Medium",
+    storeResourceFile: async ({ storedFileName }) => {
+      const storagePath = `/uploads/${storedFileName}`;
+      storedFiles.push(storagePath);
+      return storagePath;
+    },
+    removeResourceFile: async ({ storagePath }) => {
+      removedFiles.push(storagePath);
+    },
+    resourceProjection: (_source, resource) => resourceFixture(resource),
+    topicMatchesUserCurriculum: () => true,
+    topicOptionProjection: (_source, topic) => topicOptionFixture(topic)
+  });
+
+  const result = await store.createTeacherResource({
+    teacherId: "teacher-1",
+    title: "Ambiguous commit",
+    grade: "S2",
+    file: {
+      name: "ambiguous.pdf",
+      type: "application/pdf",
+      size: 1,
+      bytes: new Uint8Array([1])
+    }
+  });
+
+  assert.equal(result.status, "created");
+  assert.deepEqual(storedFiles, ["/uploads/resource-ambiguous-ambiguous.pdf"]);
+  assert.deepEqual(removedFiles, [], "a durable record must keep its exact resource file after an ambiguous ACK");
+  assert.equal(database.teaching_resources.filter((resource) => resource.id === "resource-ambiguous").length, 1);
 });
 
 test("teacher ops resource persistence keeps downloads scoped to admins and resource uploaders", async () => {

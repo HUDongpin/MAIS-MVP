@@ -4091,12 +4091,14 @@ test("ThreeDLabCanvas exposes a MAIS Manim scene-spec selector for authoring", (
     threeDCanvasRequiredSelectors.includes("data-viz-manim-scene-selector-control" as (typeof threeDCanvasRequiredSelectors)[number]),
     "MAIS Manim scene selector should be discoverable by browser smoke tests"
   );
-  assert.match(canvasSource, /import \{ buildMathSceneSelectorCatalog, mathSceneSelectorDataAttributes, summarizeMathSceneSelectorCatalog \} from "\.\/manim\/mathSceneSelectorCatalog"/);
+  assert.match(canvasSource, /import \{[\s\S]*buildMathSceneSelectorCatalogEntry,[\s\S]*mathSceneSelectorDataAttributes,[\s\S]*summarizeMathSceneSelectorCatalog,[\s\S]*type MathSceneSelectorCatalogEntry[\s\S]*\} from "\.\/manim\/mathSceneSelectorCatalog"/);
   assert.match(canvasSource, /const \[manimSelectedSceneFamilyId, setManimSelectedSceneFamilyId\] = useState<ThreeDFamilyId>\(state\.familyId\)/);
   assert.match(canvasSource, /const selectedManimSceneState = useMemo/);
   assert.match(canvasSource, /familyId: manimSelectedSceneFamilyId/);
-  assert.match(canvasSource, /const manimSceneSelectorCatalog = useMemo/);
-  assert.match(canvasSource, /buildMathSceneSelectorCatalog\(\{ accent, state \}\)/);
+  assert.match(canvasSource, /const \[manimSceneSelectorCatalog, setManimSceneSelectorCatalog\] = useState<MathSceneSelectorCatalogEntry\[]>\(\[]\)/);
+  assert.match(canvasSource, /const familyQueue = \[\.\.\.maisManimFamilyIds\]/);
+  assert.match(canvasSource, /const entry = buildMathSceneSelectorCatalogEntry\(\{ accent, familyId, state: catalogStateRef\.current \}\)/);
+  assert.match(canvasSource, /scheduleSlice\(buildNextFamily\)/);
   assert.match(canvasSource, /buildMathSceneSpecForThreeDFamily\(\{ accent, state: selectedManimSceneState \}\)/);
   assert.match(canvasSource, /data-viz-manim-scene-selector-control/);
   assert.match(canvasSource, /value=\{manimSelectedSceneFamilyId\}/);
@@ -4134,7 +4136,7 @@ test("ThreeDLabCanvas exposes browser timeline scrubber and checkpoint controls 
   assert.match(canvasSource, /import \{ buildScenePlaybackPlan[\s\S]*\} from "\.\/manim\/mathScenePlayback"/);
   assert.match(canvasSource, /import \{[\s\S]*createCheckpointStore[\s\S]*listCheckpointKeys[\s\S]*restoreCheckpoint[\s\S]*saveCheckpoint[\s\S]*type SceneCheckpointStore[\s\S]*\} from "\.\/manim\/mathSceneCheckpoint"/);
   assert.match(canvasSource, /type ManimPlaybackState = "playing" \| "paused" \| "scrubbing" \| "checkpoint"/);
-  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("playing"\)/);
+  assert.match(canvasSource, /const \[manimPlaybackState, setManimPlaybackState\] = useState<ManimPlaybackState>\("paused"\)/);
   assert.match(canvasSource, /buildScenePlaybackPlan\(manimScene\.timeline/);
   assert.match(canvasSource, /const \[manimCheckpointStore, setManimCheckpointStore\] = useState<SceneCheckpointStore<ManimCheckpointState>>/);
   assert.match(canvasSource, /saveCheckpoint\(currentStore/);
@@ -8565,4 +8567,53 @@ test("ThreeDLabCanvas keeps SVG fallback reserved for confirmed WebGL-unavailabl
   assert.match(canvasSource, /data-viz-three-webgl-status=\{threeDCanvasWebGLContract\.readyStatus\}/);
   assert.doesNotMatch(canvasSource, /webglSupported !== true\) return <>\{fallback\}<\/>/);
   assert.doesNotMatch(contractSource, /"use client"|@react-three\/drei|@react-three\/fiber|from "three"/);
+});
+
+test("ThreeDLabCanvas defaults to a localized learner control surface while authoring explicitly opts in", () => {
+  const canvasSource = fs.readFileSync("components/visualizations/three/ThreeDLabCanvas.tsx", "utf8");
+  const typeSource = fs.readFileSync("components/visualizations/three/threeDSceneTypes.ts", "utf8");
+
+  assert.match(typeSource, /export type ThreeDCanvasPresentation = "learner" \| "authoring"/);
+  assert.match(typeSource, /presentation\?: ThreeDCanvasPresentation/);
+  assert.match(canvasSource, /presentation = "learner"/);
+  assert.match(canvasSource, /const showAuthoringControls = presentation === "authoring"/);
+  assert.match(canvasSource, /data-viz-manim-presentation=\{presentation\}/);
+  assert.match(canvasSource, /data-viz-manim-authoring-controls-visible=\{showAuthoringControls \? "true" : "false"\}/);
+
+  for (const selector of [
+    "data-viz-manim-camera-mode-control",
+    "data-viz-manim-capture-control",
+    "data-viz-manim-parameter-panel-control",
+    "data-viz-manim-checkpoint-control",
+    "data-viz-manim-history-control",
+    "data-viz-manim-authoring-control"
+  ]) {
+    assert.match(
+      canvasSource,
+      new RegExp(`hidden=\\{!showAuthoringControls\\}[\\s\\S]{0,180}${selector}|${selector}[\\s\\S]{0,180}hidden=\\{!showAuthoringControls\\}`),
+      `${selector} should require explicit authoring presentation`
+    );
+    assert.match(
+      canvasSource,
+      new RegExp(`${selector}[\\s\\S]{0,260}style=\\{showAuthoringControls \\? undefined : \\{ display: "none" \\}\\}|style=\\{showAuthoringControls \\? undefined : \\{ display: "none" \\}\\}[\\s\\S]{0,260}${selector}`),
+      `${selector} must use inline display:none so Tailwind display utilities cannot override learner hiding`
+    );
+  }
+
+  assert.match(canvasSource, /import \{ useSettings \} from "@\/components\/providers\/AppProviders"/);
+  assert.match(canvasSource, /const \{ t \} = useSettings\(\)/);
+  assert.match(canvasSource, /en: "Reset camera", zh: "重設視角", zhHans: "重置视角"/);
+  assert.match(canvasSource, /en: "Play", zh: "播放", zhHans: "播放"/);
+  assert.match(canvasSource, /en: "Pause", zh: "暫停", zhHans: "暂停"/);
+  assert.match(canvasSource, /en: "Loading 3D model"[\s\S]{0,120}zh: "正在載入 3D 模型"[\s\S]{0,120}zhHans: "正在加载 3D 模型"/);
+  assert.match(canvasSource, /en: `\$\{label\} 3D renderer loading`[\s\S]{0,120}zh: `\$\{label\} 3D 渲染器載入中`[\s\S]{0,120}zhHans: `\$\{label\} 3D 渲染器加载中`/);
+  assert.match(canvasSource, /en: "Three dimensional visualization formula"[\s\S]{0,120}zh: "三維視覺化公式"[\s\S]{0,120}zhHans: "三维可视化公式"/);
+  assert.doesNotMatch(canvasSource, /ariaLabel="Three dimensional visualization formula"/);
+
+  assert.match(canvasSource, /data-viz-three-reset-camera[\s\S]{0,260}min-h-11/);
+  assert.match(canvasSource, /data-viz-manim-playback-toggle[\s\S]{0,260}min-h-11/);
+  assert.match(canvasSource, /data-viz-manim-timeline-scrubber[\s\S]{0,520}h-11/);
+  const formulaOverlayIndex = canvasSource.indexOf("<MathFormulaOverlay");
+  const learnerDockIndex = canvasSource.indexOf("data-viz-manim-control-dock", formulaOverlayIndex);
+  assert.ok(formulaOverlayIndex >= 0 && learnerDockIndex > formulaOverlayIndex, "learner presentation must retain the formula/QA overlay before its control dock");
 });
