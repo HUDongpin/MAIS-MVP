@@ -2,7 +2,14 @@
   "schemaVersion": 2,
   "scope": {
     "packageId": "ccss-textbook-practice-v1",
-    "grades": ["K", "P1", "P2", "P3", "P4", "P5"],
+    "grades": [
+      "K",
+      "P1",
+      "P2",
+      "P3",
+      "P4",
+      "P5"
+    ],
     "expectedQuestionCount": 336
   },
   "policy": "Expectations were independently derived from each item's English prompt and choices. Each expectation is bound to the reviewed prompt, English choices, and student-visible diagram by SHA-256. Stored answer, explanation, independentAnswer, and independentSolution fields are not review sources.",
@@ -12,9 +19,9 @@
     "ccss-textbook-practice-v1-counting-ten-frame-q03": "097627418f04bdb7b6fe868bd5960b4f936c0425716f69f120ded42c6a8ab793",
     "ccss-textbook-practice-v1-count-to-100-q01": "d85a7b1e92d909e1ad9c4ecf62281cdc3b10ee9681f69aaa00e96f2792fb4881",
     "ccss-textbook-practice-v1-count-to-100-q02": "90f87bb1dd7cad494bb48d338b548688416ed3d0fcabf6ded1e53881ca392f1f",
-    "ccss-textbook-practice-v1-count-to-100-q03": "9077e7934a445d2c27408dd1807267b5d2337ba5b8faf0cb3e6fb47206d35566",
+    "ccss-textbook-practice-v1-count-to-100-q03": "3b730b3b5b307145da4c41a3e115359d0d28ee3d38d8d0fb3e22d7c120f25e1a",
     "ccss-textbook-practice-v1-compare-groups-q01": "49bd18b727242748f29895cfd02cd1d6fee1d617e62cea9d7f13c704b95321b4",
-    "ccss-textbook-practice-v1-compare-groups-q02": "ec3b176b8616d63fb0fe029d51e882c2c0d2238e4fd26adbec6a10b61526f006",
+    "ccss-textbook-practice-v1-compare-groups-q02": "18de4ead2ddc6f42a390b345fbb7d22d2bf803b7d4c2f254a05c83d9bd9e4a66",
     "ccss-textbook-practice-v1-compare-groups-q03": "b6d29d08cc4728d2832242a3cfabca7710e920410216313280f13d5367ea2e51",
     "ccss-textbook-practice-v1-number-bonds-q01": "a6c3ffc6a5ca598a7a2abeba47cb5a3ab6c55ac3ff3fbd80425e18ec68d8807c",
     "ccss-textbook-practice-v1-number-bonds-q02": "44377a27aa79c279e71e855d930acf61922436a2cf4ab671489d84b4cf0c192e",
@@ -24,14 +31,14 @@
     "ccss-textbook-practice-v1-teen-numbers-q03": "c68389481fb314164d1644fa25a0a1a5472aae1c3ca3c6e5d5b89eed96a68947",
     "ccss-textbook-practice-v1-compare-length-q01": "7995d0e5990206c2015ce462fa69459da7f76df13c744b07dcf48ed4cdb9ca4d",
     "ccss-textbook-practice-v1-compare-length-q02": "6073b8159f54797174dbdf4c7ac0f40f2b21b7ab74a383c31dc1f474b7ae47ad",
-    "ccss-textbook-practice-v1-compare-length-q03": "e88eb707a57dd24f509c3d1f78480b5492132062d8b6eaa5705a05b5a6f20537",
+    "ccss-textbook-practice-v1-compare-length-q03": "e2f764d2bf2c9a19627b0bd9adff5a5c385e22a5d90b3768836993732353563d",
     "ccss-textbook-practice-v1-sort-and-count-q01": "ddf9a590675c7e4879d4ff3fc8c9b919fa10fa8f200f0df07c58f78d2310d0c3",
     "ccss-textbook-practice-v1-sort-and-count-q02": "5bd3ecd2a817bfdd69b2d7fcecb2957fabeeb22c0356360ebffc1e4072cdf656",
     "ccss-textbook-practice-v1-sort-and-count-q03": "dee4a8daa560a8799d8cedd3b981b31de1740268191d833534f192d6aa701293",
     "ccss-textbook-practice-v1-flat-shapes-q01": "d87598ae7b2d96525362896aaa27dd01e8869767cf810ad907c490b9e3ee833a",
     "ccss-textbook-practice-v1-flat-shapes-q02": "f77d9fc34cb1b6d0cb4ca1babaf11f6db531de66c50540baf6729e9e570acbfa",
     "ccss-textbook-practice-v1-flat-shapes-q03": "af1951e704548b287649884948708d74b47800b44d3bbef7a7399eee37558f4a",
-    "ccss-textbook-practice-v1-compose-shapes-q01": "e216b16c90750a5b7cfca605cee03add87a94fc6cac5d445f45312f75c758d21",
+    "ccss-textbook-practice-v1-compose-shapes-q01": "1cffd9e5811e74282757bdc7d461e1f64c82fdca434b5a95414cd46d688cf83a",
     "ccss-textbook-practice-v1-compose-shapes-q02": "3adfac22b823a7a5ffb360f644bb1636a40cbed83202c66458337b81abca3e7d",
     "ccss-textbook-practice-v1-compose-shapes-q03": "a44abeeb882b02940f708ca048efd6d159485a7abe80959ba8c167ce6b568342",
     "ccss-textbook-practice-v1-position-words-q01": "ff34a65e67710689c419f283e837e99b1e0656fe002696b649149b52281a81b2",
@@ -70,14 +77,14 @@
     "ccss-textbook-practice-v1-telling-time-q01": "699d1e8c89db72c29aa6d618d8cd4eaf55128b58d5047677509825ace26ce693",
     "ccss-textbook-practice-v1-telling-time-q02": "0352a15e48aaf2701edabe51421bafe2144ad2c6e1beaff3fdc9b154a6cc6f96",
     "ccss-textbook-practice-v1-telling-time-q03": "46be8d207a61bab7315757e78d23f1b322fa0dba4743196d0638e45bda5d2fd5",
-    "ccss-textbook-practice-v1-picture-graph-q01": "2564ca14b6da4660f280b603c74d0136b01fa5d6544dc4d622492cf35d2c6357",
-    "ccss-textbook-practice-v1-picture-graph-q02": "fbe79c507335f1a39ab3ee7675d8183a2740f75eab5f963a60f95849f7b6b23c",
+    "ccss-textbook-practice-v1-picture-graph-q01": "26e6789e4a501a168d2df1b7cc82119205696408fea2ef95da8eb940a99c39b8",
+    "ccss-textbook-practice-v1-picture-graph-q02": "511ec1e21ae22583a7980c6370fb9ae855929a476a9e2d04b2e7ce0d6d99a832",
     "ccss-textbook-practice-v1-picture-graph-q03": "035a02f070f50b4b664cedd49e2de33c30bd85fe1dd37a084c35760c2fc71acb",
     "ccss-textbook-practice-v1-shape-attributes-q01": "69b6f27084d00b4fac1a8454b09a9bd54836295d0dcac5e586eb6cbbcd16f463",
     "ccss-textbook-practice-v1-shape-attributes-q02": "c8fdfd5e2a7a3c434fd3bf930f7beb81f9dcccc3007b07af45b63dd9dffa426c",
     "ccss-textbook-practice-v1-shape-attributes-q03": "9b350ad7b6c322e8f70ea9e50df8208c8a3af3825bdf77304d3b1517329601d2",
-    "ccss-textbook-practice-v1-compose-2d-q01": "a112d97d062551a952bd0a88269440123ee0c7df34571beaf26d2b0eb34d94bc",
-    "ccss-textbook-practice-v1-compose-2d-q02": "f8b393eff5d1e0e6a00f856bd9fc035a756c63ba445ebb920e7c095022bb1aeb",
+    "ccss-textbook-practice-v1-compose-2d-q01": "713c980e1252984060d0111edf50bf473ecc6723ea68a291c3605bbad005a274",
+    "ccss-textbook-practice-v1-compose-2d-q02": "93728273e7ee08b22f568ba512bbbaf8a3449dc852f617be6add39d9dc389642",
     "ccss-textbook-practice-v1-compose-2d-q03": "c642952659aacf352e84c42d6e2a97742402914ecbdcccce56d676a4a33f1775",
     "ccss-textbook-practice-v1-partition-shapes-q01": "bdb7b36081db9cad85e4cddd0a16b0ecda65007a990dcb62bc1348b58b20968e",
     "ccss-textbook-practice-v1-partition-shapes-q02": "1d581b210414d59efa2715e96c14c05e2229f1ea23b7a4da19a00d4aae4b6531",
@@ -93,7 +100,7 @@
     "ccss-textbook-practice-v1-odd-even-q03": "aa31e75d0021465427ce9e00a2af35d8f92111702b8eb64f168376459f0ab7cf",
     "ccss-textbook-practice-v1-arrays-repeated-addition-q01": "81aba26926dd0c6378817c4755fca98993b51ecb868b6eb587ba9d5a9ca17d3b",
     "ccss-textbook-practice-v1-arrays-repeated-addition-q02": "9a4510c89dcaa858d6a5fa91b7b2494acf79a3ac2a3a1fcb24ac6aab1bd9be97",
-    "ccss-textbook-practice-v1-arrays-repeated-addition-q03": "e733f1daf7bd74b4474fda8d88c3211712a3012ba6363c13e9e753392acd5767",
+    "ccss-textbook-practice-v1-arrays-repeated-addition-q03": "76dcc0456d58fd2a49c3e68455453ee43693ef9691e3c97f70719a59bd0b2f25",
     "ccss-textbook-practice-v1-place-value-blocks-q01": "ba12837b221edaa62945bae9715c0a8b15d3bf8af1daef8558b11f38b49b609b",
     "ccss-textbook-practice-v1-place-value-blocks-q02": "70ff3d5f4cd7a4a1c0ba5e63bcac701e50cfb85b3380e51b5db8313f259a60c1",
     "ccss-textbook-practice-v1-place-value-blocks-q03": "7a98cd16ba2ec78cb7a89de7a8d28bf33a7553cd9799f3fc1c953087e075c4a7",
@@ -133,8 +140,8 @@
     "ccss-textbook-practice-v1-line-plot-q01": "2704e991f5de8ca2da2546458dc052d5c0005da9854c81dc9be150b6ff1a536b",
     "ccss-textbook-practice-v1-line-plot-q02": "6df8ca09c4262a6d722d85cb36fe7a25a46e6f9a7d6e929feb4bee24e0a700d7",
     "ccss-textbook-practice-v1-line-plot-q03": "f489db250e7c0a80518c77cf627673e70f4c6093efea9ea2f369e00d104fd8cc",
-    "ccss-textbook-practice-v1-bar-graph-q01": "1150eb804504d216dc3d3f1e6031c231778bc10d983086f009e50e60b3b80156",
-    "ccss-textbook-practice-v1-bar-graph-q02": "84347ef44bb00359bf454c057f245e8f4b93e42f6ea001ee82055ce9d99279b3",
+    "ccss-textbook-practice-v1-bar-graph-q01": "a7bdb0567fac5ee8650f499facffbbf52770d59ef56cc3cb7b3cc29e8b25ce01",
+    "ccss-textbook-practice-v1-bar-graph-q02": "cb42243069957abd88cf98272b938feb7e9525676540fb2c053748aaf528aa99",
     "ccss-textbook-practice-v1-bar-graph-q03": "dc0c976963d1c664f85da63ce3299a7f3e2a6e28063ead529a4d2db5bceeaa92",
     "ccss-textbook-practice-v1-shapes-by-attributes-q01": "0907bde96eba92f64af21def38703344e1348eec1809fda9e7e4c84feb08914e",
     "ccss-textbook-practice-v1-shapes-by-attributes-q02": "5fd07505a286c84a0bd23b66da1d181078efc70bf99dd26333d0ef3930caa266",
@@ -173,7 +180,7 @@
     "ccss-textbook-practice-v1-multiply-by-tens-q02": "f88b2deed068e5ad0a09ff462cd218e21e574835ae4d01a80f534c1c3e5a0da4",
     "ccss-textbook-practice-v1-multiply-by-tens-q03": "caa4128607fc2836efd4298572173ad04aa90e0812eab18ea0cfe1be830f87ef",
     "ccss-textbook-practice-v1-compare-fractions-q01": "ab112a3833a753be8e1c79f391f9385a9bac4af1598509bb14b2f10f34739f55",
-    "ccss-textbook-practice-v1-compare-fractions-q02": "8c9df79d19f97172ec1b566f42823cf67792f9ca941270a6ece2724a218ba7cc",
+    "ccss-textbook-practice-v1-compare-fractions-q02": "cc36b7980681078d7e07c4918d17f0431acd2bd4fd8ae49042176a064ae75760",
     "ccss-textbook-practice-v1-compare-fractions-q03": "cf80d92acc29f8142fcb959c4504b85b13cd52d140adcd72ce59c0f12492730c",
     "ccss-textbook-practice-v1-time-to-minute-q01": "7e3a5ddc8b1bff6fa2c75c51b7110758afbe6c1584a61ed1a82118ef83b89895",
     "ccss-textbook-practice-v1-time-to-minute-q02": "75137442b50d44c7f27de1e48364bf6f105e663903cfcf07a54add6be9414c6d",
@@ -184,8 +191,8 @@
     "ccss-textbook-practice-v1-scaled-graphs-q01": "bf80e9a766aa813ac8bd3b15270e9090d780ed5a9441351a19fe16040e448238",
     "ccss-textbook-practice-v1-scaled-graphs-q02": "1ee6fc59331fc381ef63ed7821f76e7a183f68f4da892eab76c70864a7ab7917",
     "ccss-textbook-practice-v1-scaled-graphs-q03": "eee785a5d38c569fdf8a30761584456b9c26ac02cf277133a9830755355d992f",
-    "ccss-textbook-practice-v1-measure-line-plot-q01": "5f75ebe7a4d575a6d1f832302688e1c80e4a28fa298e3ddc6495e025001d37d7",
-    "ccss-textbook-practice-v1-measure-line-plot-q02": "29491859c463b298c9aeef2fbbc643245f7f1bb10c29634b11d5ba855ec8a00a",
+    "ccss-textbook-practice-v1-measure-line-plot-q01": "25bfd025001a42a5106001be85912ce71c77d6d8e420c76f3332dfac83be9fe9",
+    "ccss-textbook-practice-v1-measure-line-plot-q02": "2ddd4214d24173f3b436bc69abbd95b086e1449ce82c11a788a710fa63f48a2a",
     "ccss-textbook-practice-v1-measure-line-plot-q03": "f38395212562c918ae1f51eb13f8b9e17be09ba02cc7fea7c46ebc4d6d33d65f",
     "ccss-textbook-practice-v1-area-count-q01": "2e7a8095cb8a1b0ffee3b3584e70bacfdb56a4cd253786f0edc269c54bca027c",
     "ccss-textbook-practice-v1-area-count-q02": "c282454535fca08419e06072463b00648970e4b8c9e8d45ce50806036fe27c32",
@@ -290,7 +297,7 @@
     "ccss-textbook-practice-v1-write-expressions-q02": "06304e56e9409aa9232897bf4671dfe6ab97cb79da5879969f66a7d862620c2a",
     "ccss-textbook-practice-v1-write-expressions-q03": "37606334893914fe48e8d8d26adaa559ab6556d96b9d78c4f58505ff47da5439",
     "ccss-textbook-practice-v1-two-patterns-graph-q01": "bdc66e444cd019031e8fe21cfe705bc991e9a97360385a1dc5aef1c6a1388562",
-    "ccss-textbook-practice-v1-two-patterns-graph-q02": "3b4ed4efae2a0cf2ff31bdeb1f21610ecdc3f1fcb50ee2ea5cb3dbdaeb51650f",
+    "ccss-textbook-practice-v1-two-patterns-graph-q02": "12b64cc971fbc1ecf09b3b414b4c649ccb6a0579829e1e67f80270cb17594853",
     "ccss-textbook-practice-v1-two-patterns-graph-q03": "68b891435da284684ef3d72887079400ed8e1f2d95eaa5b9abe4e7127f4e58c3",
     "ccss-textbook-practice-v1-decimal-place-value-q01": "54ad5b57c8dc1903d0297f5336e331b604651424184a340757c6158d3ad2824d",
     "ccss-textbook-practice-v1-decimal-place-value-q02": "d7c2700faf0c9fb2a5fce2540f723a84e9d6d967e2395db8b6a230882b2c4a97",
@@ -312,7 +319,7 @@
     "ccss-textbook-practice-v1-divide-two-digit-q03": "bf23785d8e6a8c665bafc291d989a0fc25c57a2db2d25d4cd656a557e6b33e63",
     "ccss-textbook-practice-v1-decimal-operations-q01": "d4568b956559c3f87ef0e7e16bd35b41ee451a452c5441e5e47c1cd9a4fd2798",
     "ccss-textbook-practice-v1-decimal-operations-q02": "aedaf07b185e57123164eb47359aaee0413c67b73523de2ee5840ca2109c4282",
-    "ccss-textbook-practice-v1-decimal-operations-q03": "af1e5fc4845ee5d1d4c42273708d533f7c99ae19da0cd8557bef217a95686d6e",
+    "ccss-textbook-practice-v1-decimal-operations-q03": "d9bd20a0422fe902a248f882e09446e169e2a5e893bb7d165267d886cc4d256d",
     "ccss-textbook-practice-v1-add-fractions-unlike-q01": "5aa09703a478ab9d8ccdf75129db4dc53b20597a1b454e2a1c889aebce1709d1",
     "ccss-textbook-practice-v1-add-fractions-unlike-q02": "5aac1f609de0847d4cd3b0171ded629bf98d400155e1e2a4a702e1b6491ab124",
     "ccss-textbook-practice-v1-add-fractions-unlike-q03": "125bffacbaff0cc257b31dffb5667ece9dd50840b3b7c0e03b0b27dd6574cb06",
@@ -328,9 +335,9 @@
     "ccss-textbook-practice-v1-metric-conversion-q01": "6f44ca813a556e3171a9ce6e71a095db6fca83fa24214ff7d3e46996ff08e33d",
     "ccss-textbook-practice-v1-metric-conversion-q02": "f00f4298253171e61d80da4583c0191f42afc3ca809102a8e7d4850741068d5e",
     "ccss-textbook-practice-v1-metric-conversion-q03": "e4312ac6f854543fe25f2c2b57c087bc811946185eadeed2680aedbdd283f10d",
-    "ccss-textbook-practice-v1-line-plot-operations-q01": "5b283ff4c499f82cdd44eec177e90787b065ee7762d81f3f04c9df1e06854211",
-    "ccss-textbook-practice-v1-line-plot-operations-q02": "6dbbee8412b5decef9d5a37cdb02325c4db501427401e777c9964aaa8e131ca6",
-    "ccss-textbook-practice-v1-line-plot-operations-q03": "c483d32d1ff545bbbcca63754172499de282b2061560695ad0207807aa44b3c5",
+    "ccss-textbook-practice-v1-line-plot-operations-q01": "874f7d38e8c91c1c6639794162c5cc3d8923987b2c9c351fce43c83585f92c0c",
+    "ccss-textbook-practice-v1-line-plot-operations-q02": "d964cd48decddf87bf38c80e95c2ac6d6d2d00c7f3ec4a3377f847c74d0b4f61",
+    "ccss-textbook-practice-v1-line-plot-operations-q03": "effe72e411e9b2b7d21fed52750f3884fc2266f6e36f59b5b9c92a5870ef8a5f",
     "ccss-textbook-practice-v1-shape-hierarchy-q01": "19176f1f384e5f81820d021d38829207748668374117a92913ded11ffc081f2f",
     "ccss-textbook-practice-v1-shape-hierarchy-q02": "5e28244ab9129c4e52ab2fe1833ef4542ff33a9e80bcc7d7072718f017d3d1d5",
     "ccss-textbook-practice-v1-shape-hierarchy-q03": "cf6f36c2ababd54ef508d68642fa8803f7916bb700f50c3b4b1536e04aa65d84",
@@ -346,569 +353,1572 @@
   },
   "lessons": {
     "counting-ten-frame": [
-      { "expected": "10", "reason": "A full ten-frame has ten cells." },
-      { "expected": "3", "reason": "Ten cells minus seven counters leaves three." },
-      { "expected": "5", "reason": "The spoken one-to-one count ends at five." }
+      {
+        "expected": "10",
+        "reason": "A full ten-frame has ten cells."
+      },
+      {
+        "expected": "3",
+        "reason": "Ten cells minus seven counters leaves three."
+      },
+      {
+        "expected": "5",
+        "reason": "The spoken one-to-one count ends at five."
+      }
     ],
     "count-to-100": [
-      { "expected": "40", "reason": "Add ten to thirty." },
-      { "expected": "28", "reason": "The successor of twenty-seven is twenty-eight." },
-      { "expected": "10", "reason": "Ten through one hundred by tens contains ten terms." }
+      {
+        "expected": "40",
+        "reason": "Add ten to thirty."
+      },
+      {
+        "expected": "28",
+        "reason": "The successor of twenty-seven is twenty-eight."
+      },
+      {
+        "expected": "10",
+        "reason": "Skip-counting to 100 by tens says 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 — ten numbers."
+      }
     ],
     "compare-groups": [
-      { "expected": "7", "reason": "Seven is greater than four." },
-      { "expected": "3 is less than 8", "reason": "Three is numerically less than eight." },
-      { "expected": "equal", "reason": "Both groups contain five objects." }
+      {
+        "expected": "7",
+        "reason": "Seven is greater than four."
+      },
+      {
+        "expected": "<",
+        "reason": "Three is less than eight, so the symbol that makes 3 __ 8 true is <."
+      },
+      {
+        "expected": "equal",
+        "reason": "Both groups contain five objects."
+      }
     ],
     "number-bonds": [
-      { "expected": "3", "reason": "Two plus three makes five." },
-      { "expected": "4", "reason": "Six needs four to make ten." },
-      { "expected": "5", "reason": "Three apples plus two apples is five." }
+      {
+        "expected": "3",
+        "reason": "Two plus three makes five."
+      },
+      {
+        "expected": "4",
+        "reason": "Six needs four to make ten."
+      },
+      {
+        "expected": "5",
+        "reason": "Three apples plus two apples is five."
+      }
     ],
     "teen-numbers": [
-      { "expected": "4", "reason": "Fourteen is ten plus four." },
-      { "expected": "1 ten and 7 ones", "reason": "Seventeen decomposes into one ten and seven ones." },
-      { "expected": "18", "reason": "Ten plus eight is eighteen." }
+      {
+        "expected": "4",
+        "reason": "Fourteen is ten plus four."
+      },
+      {
+        "expected": "1 ten and 7 ones",
+        "reason": "Seventeen decomposes into one ten and seven ones."
+      },
+      {
+        "expected": "18",
+        "reason": "Ten plus eight is eighteen."
+      }
     ],
     "compare-length": [
-      { "expected": "longer", "reason": "Eight units exceeds five units." },
-      { "expected": "line up one end of each", "reason": "A common endpoint permits a fair length comparison." },
-      { "expected": "length", "reason": "Length is the attribute describing how long an object is." }
+      {
+        "expected": "longer",
+        "reason": "Eight units exceeds five units."
+      },
+      {
+        "expected": "line up one end of each",
+        "reason": "A common endpoint permits a fair length comparison."
+      },
+      {
+        "expected": "length",
+        "reason": "Length is the only measurable attribute among the options; a color, a song, and a dream are not measurable."
+      }
     ],
     "sort-and-count": [
-      { "expected": "apples", "reason": "Five apples is the largest group." },
-      { "expected": "12", "reason": "Five plus three plus four is twelve." },
-      { "expected": "count each group", "reason": "Sorting separates categories for reliable counting." }
+      {
+        "expected": "apples",
+        "reason": "Five apples is the largest group."
+      },
+      {
+        "expected": "12",
+        "reason": "Five plus three plus four is twelve."
+      },
+      {
+        "expected": "count each group",
+        "reason": "Sorting separates categories for reliable counting."
+      }
     ],
     "flat-shapes": [
-      { "expected": "3", "reason": "A triangle has three vertices." },
-      { "expected": "square", "reason": "Rotation does not change a square's defining attributes." },
-      { "expected": "flat (2-D)", "reason": "A drawn circle is a two-dimensional figure." }
+      {
+        "expected": "3",
+        "reason": "A triangle has three vertices."
+      },
+      {
+        "expected": "square",
+        "reason": "Rotation does not change a square's defining attributes."
+      },
+      {
+        "expected": "flat (2-D)",
+        "reason": "A drawn circle is a two-dimensional figure."
+      }
     ],
     "compose-shapes": [
-      { "expected": "square", "reason": "The two stated half-squares recombine into a square." },
-      { "expected": "rectangle", "reason": "Two equal squares joined edge-to-edge form a rectangle." },
-      { "expected": "composing", "reason": "Joining smaller shapes into a larger one is composing." }
+      {
+        "expected": "square",
+        "reason": "Two right triangles joined along their hypotenuses compose a square; no other option can be formed from two triangles."
+      },
+      {
+        "expected": "rectangle",
+        "reason": "Two equal squares joined edge-to-edge form a rectangle."
+      },
+      {
+        "expected": "composing",
+        "reason": "Joining smaller shapes into a larger one is composing."
+      }
     ],
     "position-words": [
-      { "expected": "above", "reason": "On top of means above." },
-      { "expected": "below", "reason": "Under the bed means below it." },
-      { "expected": "beside", "reason": "Right next to means beside." }
+      {
+        "expected": "above",
+        "reason": "On top of means above."
+      },
+      {
+        "expected": "below",
+        "reason": "Under the bed means below it."
+      },
+      {
+        "expected": "beside",
+        "reason": "Right next to means beside."
+      }
     ],
-
     "make-ten-to-add": [
-      { "expected": "2", "reason": "Eight plus two makes ten." },
-      { "expected": "15", "reason": "Nine plus six is fifteen." },
-      { "expected": "3 and 2", "reason": "Three completes seven to ten and two remains." }
+      {
+        "expected": "2",
+        "reason": "Eight plus two makes ten."
+      },
+      {
+        "expected": "15",
+        "reason": "Nine plus six is fifteen."
+      },
+      {
+        "expected": "3 and 2",
+        "reason": "Three completes seven to ten and two remains."
+      }
     ],
     "add-subtract-stories": [
-      { "expected": "11", "reason": "Six plus five is eleven." },
-      { "expected": "5", "reason": "Eight minus three is five." },
-      { "expected": "9", "reason": "Four plus two plus three is nine." }
+      {
+        "expected": "11",
+        "reason": "Six plus five is eleven."
+      },
+      {
+        "expected": "5",
+        "reason": "Eight minus three is five."
+      },
+      {
+        "expected": "9",
+        "reason": "Four plus two plus three is nine."
+      }
     ],
     "count-on-count-back": [
-      { "expected": "12", "reason": "Five forward from seven lands on twelve." },
-      { "expected": "6", "reason": "Four backward from ten lands on six." },
-      { "expected": "backward", "reason": "Subtraction moves backward on the number line." }
+      {
+        "expected": "12",
+        "reason": "Five forward from seven lands on twelve."
+      },
+      {
+        "expected": "6",
+        "reason": "Four backward from ten lands on six."
+      },
+      {
+        "expected": "backward",
+        "reason": "Subtraction moves backward on the number line."
+      }
     ],
     "missing-addend": [
-      { "expected": "5", "reason": "Three plus five is eight." },
-      { "expected": "4", "reason": "Ten minus six is four." },
-      { "expected": "5 plus what makes 8?", "reason": "Subtraction can be interpreted as a missing-addend equation." }
+      {
+        "expected": "5",
+        "reason": "Three plus five is eight."
+      },
+      {
+        "expected": "4",
+        "reason": "Ten minus six is four."
+      },
+      {
+        "expected": "5 plus what makes 8?",
+        "reason": "Subtraction can be interpreted as a missing-addend equation."
+      }
     ],
     "equal-sign-balance": [
-      { "expected": "the same as", "reason": "An equal sign asserts equal value on both sides." },
-      { "expected": "false", "reason": "Four plus three is seven, not eight." },
-      { "expected": "4", "reason": "Five plus four balances nine." }
+      {
+        "expected": "the same as",
+        "reason": "An equal sign asserts equal value on both sides."
+      },
+      {
+        "expected": "false",
+        "reason": "Four plus three is seven, not eight."
+      },
+      {
+        "expected": "4",
+        "reason": "Five plus four balances nine."
+      }
     ],
     "count-to-120": [
-      { "expected": "110", "reason": "The successor of 109 is 110." },
-      { "expected": "120", "reason": "Add ten to 110." },
-      { "expected": "120", "reason": "One more than 119 is 120." }
+      {
+        "expected": "110",
+        "reason": "The successor of 109 is 110."
+      },
+      {
+        "expected": "120",
+        "reason": "Add ten to 110."
+      },
+      {
+        "expected": "120",
+        "reason": "One more than 119 is 120."
+      }
     ],
     "tens-and-ones": [
-      { "expected": "4", "reason": "Thirty-four has four ones." },
-      { "expected": "55", "reason": "Ten more than forty-five is fifty-five." },
-      { "expected": "52", "reason": "Ten less than sixty-two is fifty-two." }
+      {
+        "expected": "4",
+        "reason": "Thirty-four has four ones."
+      },
+      {
+        "expected": "55",
+        "reason": "Ten more than forty-five is fifty-five."
+      },
+      {
+        "expected": "52",
+        "reason": "Ten less than sixty-two is fifty-two."
+      }
     ],
     "compare-two-digit": [
-      { "expected": "42", "reason": "Forty-two is greater than thirty-eight." },
-      { "expected": "<", "reason": "Fifty-one is less than fifty-seven." },
-      { "expected": "tens", "reason": "Compare the highest available place first." }
+      {
+        "expected": "42",
+        "reason": "Forty-two is greater than thirty-eight."
+      },
+      {
+        "expected": "<",
+        "reason": "Fifty-one is less than fifty-seven."
+      },
+      {
+        "expected": "tens",
+        "reason": "Compare the highest available place first."
+      }
     ],
     "add-within-100": [
-      { "expected": "39", "reason": "Thirty-four plus five is thirty-nine." },
-      { "expected": "70", "reason": "Four tens plus three tens is seven tens." },
-      { "expected": "50", "reason": "Eight tens minus three tens is five tens." }
+      {
+        "expected": "39",
+        "reason": "Thirty-four plus five is thirty-nine."
+      },
+      {
+        "expected": "70",
+        "reason": "Four tens plus three tens is seven tens."
+      },
+      {
+        "expected": "50",
+        "reason": "Eight tens minus three tens is five tens."
+      }
     ],
     "order-and-measure": [
-      { "expected": "6", "reason": "Six gapless unit tiles measure six units." },
-      { "expected": "red", "reason": "Red exceeds blue, which exceeds green." },
-      { "expected": "the same size", "reason": "Repeated measurement units must be equal-sized." }
+      {
+        "expected": "6",
+        "reason": "Six gapless unit tiles measure six units."
+      },
+      {
+        "expected": "red",
+        "reason": "Red exceeds blue, which exceeds green."
+      },
+      {
+        "expected": "the same size",
+        "reason": "Repeated measurement units must be equal-sized."
+      }
     ],
     "telling-time": [
-      { "expected": "o'clock", "reason": "A minute hand at twelve marks zero minutes." },
-      { "expected": "half past the hour", "reason": "A minute hand at six marks thirty minutes." },
-      { "expected": "3:30", "reason": "Half past three is 3:30." }
+      {
+        "expected": "o'clock",
+        "reason": "A minute hand at twelve marks zero minutes."
+      },
+      {
+        "expected": "half past the hour",
+        "reason": "A minute hand at six marks thirty minutes."
+      },
+      {
+        "expected": "3:30",
+        "reason": "Half past three is 3:30."
+      }
     ],
     "picture-graph": [
-      { "expected": "18", "reason": "The visible diagram values 6, 4, and 8 sum to eighteen." },
-      { "expected": "2", "reason": "The visible diagram shows six dogs and four cats, a difference of two." },
-      { "expected": "fish", "reason": "Eight fish exceeds six dogs and four cats." }
+      {
+        "expected": "18",
+        "reason": "The prompt states 6 dogs, 4 cats, and 8 fish, and 6 + 4 + 8 = 18 pets in all."
+      },
+      {
+        "expected": "2",
+        "reason": "With 6 dogs and 4 cats, the difference 6 - 4 = 2 more dogs."
+      },
+      {
+        "expected": "fish",
+        "reason": "Eight fish exceeds six dogs and four cats."
+      }
     ],
     "shape-attributes": [
-      { "expected": "having 3 sides", "reason": "Three sides define a triangle." },
-      { "expected": "both triangles", "reason": "Color and size do not alter triangle attributes." },
-      { "expected": "its color", "reason": "Color does not determine a geometric shape's name." }
+      {
+        "expected": "having 3 sides",
+        "reason": "Three sides define a triangle."
+      },
+      {
+        "expected": "both triangles",
+        "reason": "Color and size do not alter triangle attributes."
+      },
+      {
+        "expected": "its color",
+        "reason": "Color does not determine a geometric shape's name."
+      }
     ],
     "compose-2d": [
-      { "expected": "5 sides", "reason": "The shared edge becomes internal, leaving five exterior segments." },
-      { "expected": "hexagon", "reason": "The stated matching trapezoid composition can form six outer sides." },
-      { "expected": "composite", "reason": "A figure built from smaller figures is composite." }
+      {
+        "expected": "house shape",
+        "reason": "A square with a triangle on its top edge composes the five-sided house-shape pentagon, the only matching option."
+      },
+      {
+        "expected": "hexagon",
+        "reason": "Two congruent trapezoids joined along their long bases form a hexagon, the only achievable option."
+      },
+      {
+        "expected": "composite",
+        "reason": "A figure built from smaller figures is composite."
+      }
     ],
     "partition-shapes": [
-      { "expected": "a half", "reason": "One of two equal parts is a half." },
-      { "expected": "a fourth", "reason": "One of four equal parts is a fourth." },
-      { "expected": "one half", "reason": "For the same whole, one-half exceeds one-fourth." }
+      {
+        "expected": "a half",
+        "reason": "One of two equal parts is a half."
+      },
+      {
+        "expected": "a fourth",
+        "reason": "One of four equal parts is a fourth."
+      },
+      {
+        "expected": "one half",
+        "reason": "For the same whole, one-half exceeds one-fourth."
+      }
     ],
-
     "word-problems-100": [
-      { "expected": "63", "reason": "Forty-five plus eighteen is sixty-three." },
-      { "expected": "35", "reason": "Sixty minus twenty-five is thirty-five." },
-      { "expected": "15", "reason": "Twelve minus five plus eight is fifteen." }
+      {
+        "expected": "63",
+        "reason": "Forty-five plus eighteen is sixty-three."
+      },
+      {
+        "expected": "35",
+        "reason": "Sixty minus twenty-five is thirty-five."
+      },
+      {
+        "expected": "15",
+        "reason": "Twelve minus five plus eight is fifteen."
+      }
     ],
     "fluent-within-20": [
-      { "expected": "14", "reason": "Seven plus seven is fourteen." },
-      { "expected": "13", "reason": "Six plus seven is thirteen." },
-      { "expected": "13", "reason": "Eight plus five is thirteen." }
+      {
+        "expected": "14",
+        "reason": "Seven plus seven is fourteen."
+      },
+      {
+        "expected": "13",
+        "reason": "Six plus seven is thirteen."
+      },
+      {
+        "expected": "13",
+        "reason": "Eight plus five is thirteen."
+      }
     ],
     "odd-even": [
-      { "expected": "odd", "reason": "Nine is not divisible by two." },
-      { "expected": "even", "reason": "Fourteen is divisible by two." },
-      { "expected": "two equal groups", "reason": "An even count partitions into two equal whole-number groups." }
+      {
+        "expected": "odd",
+        "reason": "Nine is not divisible by two."
+      },
+      {
+        "expected": "even",
+        "reason": "Fourteen is divisible by two."
+      },
+      {
+        "expected": "two equal groups",
+        "reason": "An even count partitions into two equal whole-number groups."
+      }
     ],
     "arrays-repeated-addition": [
-      { "expected": "12", "reason": "Four plus four plus four is twelve." },
-      { "expected": "10", "reason": "Five rows of two contain ten objects." },
-      { "expected": "12", "reason": "Three groups of four total twelve." }
+      {
+        "expected": "12",
+        "reason": "Four plus four plus four is twelve."
+      },
+      {
+        "expected": "10",
+        "reason": "Five rows of two contain ten objects."
+      },
+      {
+        "expected": "3 × 4",
+        "reason": "Repeated addition 4 + 4 + 4 means three groups of four, written 3 × 4 (the only option equal to 12)."
+      }
     ],
     "place-value-blocks": [
-      { "expected": "243", "reason": "Two hundreds plus four tens plus three ones is 243." },
-      { "expected": "7 tens", "reason": "The seven occupies the tens place in 471." },
-      { "expected": "10", "reason": "Ten ones regroup as one ten." }
+      {
+        "expected": "243",
+        "reason": "Two hundreds plus four tens plus three ones is 243."
+      },
+      {
+        "expected": "7 tens",
+        "reason": "The seven occupies the tens place in 471."
+      },
+      {
+        "expected": "10",
+        "reason": "Ten ones regroup as one ten."
+      }
     ],
     "skip-counting": [
-      { "expected": "70", "reason": "The sequence increases by ten." },
-      { "expected": "30", "reason": "The sequence increases by five." },
-      { "expected": "500", "reason": "The sequence increases by one hundred." }
+      {
+        "expected": "70",
+        "reason": "The sequence increases by ten."
+      },
+      {
+        "expected": "30",
+        "reason": "The sequence increases by five."
+      },
+      {
+        "expected": "500",
+        "reason": "The sequence increases by one hundred."
+      }
     ],
     "compare-three-digit": [
-      { "expected": "324", "reason": "324 exceeds 319." },
-      { "expected": "<", "reason": "256 is less than 265." },
-      { "expected": "hundreds", "reason": "Compare the highest place first." }
+      {
+        "expected": "324",
+        "reason": "324 exceeds 319."
+      },
+      {
+        "expected": "<",
+        "reason": "256 is less than 265."
+      },
+      {
+        "expected": "hundreds",
+        "reason": "Compare the highest place first."
+      }
     ],
     "add-subtract-regroup": [
-      { "expected": "85", "reason": "Forty-seven plus thirty-eight is eighty-five." },
-      { "expected": "36", "reason": "Sixty-three minus twenty-seven is thirty-six." },
-      { "expected": "carry a ten", "reason": "Ten or more ones regroup into a ten." }
+      {
+        "expected": "85",
+        "reason": "Forty-seven plus thirty-eight is eighty-five."
+      },
+      {
+        "expected": "36",
+        "reason": "Sixty-three minus twenty-seven is thirty-six."
+      },
+      {
+        "expected": "carry a ten",
+        "reason": "Ten or more ones regroup into a ten."
+      }
     ],
     "add-four-numbers": [
-      { "expected": "84", "reason": "23 + 15 + 34 + 12 equals 84." },
-      { "expected": "100", "reason": "10 + 20 + 30 + 40 equals 100." },
-      { "expected": "44", "reason": "Four groups of eleven total forty-four." }
+      {
+        "expected": "84",
+        "reason": "23 + 15 + 34 + 12 equals 84."
+      },
+      {
+        "expected": "100",
+        "reason": "10 + 20 + 30 + 40 equals 100."
+      },
+      {
+        "expected": "44",
+        "reason": "Four groups of eleven total forty-four."
+      }
     ],
     "add-subtract-1000": [
-      { "expected": "423", "reason": "256 plus 167 is 423." },
-      { "expected": "300", "reason": "500 minus 200 is 300." },
-      { "expected": "hundred", "reason": "Ten tens equal one hundred." }
+      {
+        "expected": "423",
+        "reason": "256 plus 167 is 423."
+      },
+      {
+        "expected": "300",
+        "reason": "500 minus 200 is 300."
+      },
+      {
+        "expected": "hundred",
+        "reason": "Ten tens equal one hundred."
+      }
     ],
     "mental-10-100": [
-      { "expected": "356", "reason": "Adding ten changes 346 to 356." },
-      { "expected": "446", "reason": "Adding one hundred changes 346 to 446." },
-      { "expected": "412", "reason": "Subtracting one hundred changes 512 to 412." }
+      {
+        "expected": "356",
+        "reason": "Adding ten changes 346 to 356."
+      },
+      {
+        "expected": "446",
+        "reason": "Adding one hundred changes 346 to 446."
+      },
+      {
+        "expected": "412",
+        "reason": "Subtracting one hundred changes 512 to 412."
+      }
     ],
     "measure-with-ruler": [
-      { "expected": "bigger", "reason": "Smaller units require a larger unit count for the same length." },
-      { "expected": "8", "reason": "Each big unit contains two half-units, so four contain eight." },
-      { "expected": "0", "reason": "A ruler measurement starts at the zero mark." }
+      {
+        "expected": "bigger",
+        "reason": "Smaller units require a larger unit count for the same length."
+      },
+      {
+        "expected": "8",
+        "reason": "Each big unit contains two half-units, so four contain eight."
+      },
+      {
+        "expected": "0",
+        "reason": "A ruler measurement starts at the zero mark."
+      }
     ],
     "estimate-compare-length": [
-      { "expected": "3", "reason": "Seven minus four is three." },
-      { "expected": "subtract", "reason": "A difference question calls for subtraction." },
-      { "expected": "7 inches", "reason": "Seven inches is a plausible pencil length." }
+      {
+        "expected": "3",
+        "reason": "Seven minus four is three."
+      },
+      {
+        "expected": "subtract",
+        "reason": "A difference question calls for subtraction."
+      },
+      {
+        "expected": "7 inches",
+        "reason": "Seven inches is a plausible pencil length."
+      }
     ],
     "length-number-line": [
-      { "expected": "20", "reason": "Eight centimeters plus twelve is twenty." },
-      { "expected": "15", "reason": "Twenty-five centimeters minus ten is fifteen." },
-      { "expected": "length", "reason": "A coordinate's distance from zero represents a length." }
+      {
+        "expected": "20",
+        "reason": "Eight centimeters plus twelve is twenty."
+      },
+      {
+        "expected": "15",
+        "reason": "Twenty-five centimeters minus ten is fifteen."
+      },
+      {
+        "expected": "length",
+        "reason": "A coordinate's distance from zero represents a length."
+      }
     ],
     "time-five-minutes": [
-      { "expected": "20", "reason": "Clock number four represents four groups of five minutes." },
-      { "expected": "9:15 a.m.", "reason": "A morning time uses the a.m. designation." },
-      { "expected": "5", "reason": "Adjacent clock numerals are five minutes apart." }
+      {
+        "expected": "20",
+        "reason": "Clock number four represents four groups of five minutes."
+      },
+      {
+        "expected": "9:15 a.m.",
+        "reason": "A morning time uses the a.m. designation."
+      },
+      {
+        "expected": "5",
+        "reason": "Adjacent clock numerals are five minutes apart."
+      }
     ],
     "money": [
-      { "expected": "30", "reason": "Three ten-cent dimes total thirty cents." },
-      { "expected": "35", "reason": "Twenty-five cents plus ten cents is thirty-five." },
-      { "expected": "100", "reason": "One dollar equals one hundred cents." }
+      {
+        "expected": "30",
+        "reason": "Three ten-cent dimes total thirty cents."
+      },
+      {
+        "expected": "35",
+        "reason": "Twenty-five cents plus ten cents is thirty-five."
+      },
+      {
+        "expected": "100",
+        "reason": "One dollar equals one hundred cents."
+      }
     ],
     "line-plot": [
-      { "expected": "one measurement", "reason": "Each X records one observation." },
-      { "expected": "4", "reason": "Four stacked X marks represent four objects." },
-      { "expected": "most", "reason": "The tallest stack has the greatest frequency." }
+      {
+        "expected": "one measurement",
+        "reason": "Each X records one observation."
+      },
+      {
+        "expected": "4",
+        "reason": "Four stacked X marks represent four objects."
+      },
+      {
+        "expected": "most",
+        "reason": "The tallest stack has the greatest frequency."
+      }
     ],
     "bar-graph": [
-      { "expected": "3", "reason": "The visible diagram shows nine banana votes and six apple votes." },
-      { "expected": "23", "reason": "The visible diagram values 6, 9, 3, and 5 sum to twenty-three." },
-      { "expected": "scale", "reason": "A bar's height is interpreted against the graph scale." }
+      {
+        "expected": "3",
+        "reason": "Banana's 9 votes minus apple's 6 votes leaves 3 more votes for banana."
+      },
+      {
+        "expected": "23",
+        "reason": "The bar values 6 + 9 + 3 + 5 sum to 23."
+      },
+      {
+        "expected": "scale",
+        "reason": "A bar's height is interpreted against the graph scale."
+      }
     ],
     "shapes-by-attributes": [
-      { "expected": "pentagon", "reason": "A five-sided polygon is a pentagon." },
-      { "expected": "6", "reason": "A hexagon has six sides." },
-      { "expected": "6", "reason": "A cube has six faces." }
+      {
+        "expected": "pentagon",
+        "reason": "A five-sided polygon is a pentagon."
+      },
+      {
+        "expected": "6",
+        "reason": "A hexagon has six sides."
+      },
+      {
+        "expected": "6",
+        "reason": "A cube has six faces."
+      }
     ],
     "rows-and-columns": [
-      { "expected": "12", "reason": "Three rows times four columns is twelve squares." },
-      { "expected": "10", "reason": "Two rows times five squares is ten." },
-      { "expected": "area", "reason": "Tiling a rectangle with unit squares measures area." }
+      {
+        "expected": "12",
+        "reason": "Three rows times four columns is twelve squares."
+      },
+      {
+        "expected": "10",
+        "reason": "Two rows times five squares is ten."
+      },
+      {
+        "expected": "area",
+        "reason": "Tiling a rectangle with unit squares measures area."
+      }
     ],
     "equal-shares": [
-      { "expected": "third", "reason": "One of three equal shares is a third." },
-      { "expected": "size", "reason": "Equal shares of one whole have equal area or size." },
-      { "expected": "one whole", "reason": "Three thirds recombine into one whole." }
+      {
+        "expected": "third",
+        "reason": "One of three equal shares is a third."
+      },
+      {
+        "expected": "size",
+        "reason": "Equal shares of one whole have equal area or size."
+      },
+      {
+        "expected": "one whole",
+        "reason": "Three thirds recombine into one whole."
+      }
     ],
-
     "division-meaning": [
-      { "expected": "4", "reason": "Twelve shared across three groups gives four each." },
-      { "expected": "4", "reason": "Twenty-four divided by six is four." },
-      { "expected": "6 × ? = 24", "reason": "Division asks for the missing factor paired with six." }
+      {
+        "expected": "4",
+        "reason": "Twelve shared across three groups gives four each."
+      },
+      {
+        "expected": "4",
+        "reason": "Twenty-four divided by six is four."
+      },
+      {
+        "expected": "6 × ? = 24",
+        "reason": "Division asks for the missing factor paired with six."
+      }
     ],
     "multiply-divide-words": [
-      { "expected": "20", "reason": "Four groups of five total twenty." },
-      { "expected": "5", "reason": "Twenty split among four baskets gives five each." },
-      { "expected": "4", "reason": "Twenty packed five per basket fills four baskets." }
+      {
+        "expected": "20",
+        "reason": "Four groups of five total twenty."
+      },
+      {
+        "expected": "5",
+        "reason": "Twenty split among four baskets gives five each."
+      },
+      {
+        "expected": "4",
+        "reason": "Twenty packed five per basket fills four baskets."
+      }
     ],
     "multiplication-properties": [
-      { "expected": "commutative", "reason": "Swapping factor order illustrates commutativity." },
-      { "expected": "56", "reason": "Seven times eight is fifty-six." },
-      { "expected": "distributive", "reason": "Breaking a factor across a sum uses distribution." }
+      {
+        "expected": "commutative",
+        "reason": "Swapping factor order illustrates commutativity."
+      },
+      {
+        "expected": "56",
+        "reason": "Seven times eight is fifty-six."
+      },
+      {
+        "expected": "distributive",
+        "reason": "Breaking a factor across a sum uses distribution."
+      }
     ],
     "multiplication-fluency": [
-      { "expected": "42", "reason": "Six times seven is forty-two." },
-      { "expected": "7", "reason": "Fifty-six divided by eight is seven." },
-      { "expected": "81", "reason": "Nine times nine is eighty-one." }
+      {
+        "expected": "42",
+        "reason": "Six times seven is forty-two."
+      },
+      {
+        "expected": "7",
+        "reason": "Fifty-six divided by eight is seven."
+      },
+      {
+        "expected": "81",
+        "reason": "Nine times nine is eighty-one."
+      }
     ],
     "two-step-problems": [
-      { "expected": "13", "reason": "Three packs of six minus five leaves thirteen." },
-      { "expected": "multiply 4 × 5", "reason": "Multiplication precedes subtraction." },
-      { "expected": "19", "reason": "Two groups of eight plus three is nineteen." }
+      {
+        "expected": "13",
+        "reason": "Three packs of six minus five leaves thirteen."
+      },
+      {
+        "expected": "multiply 4 × 5",
+        "reason": "Multiplication precedes subtraction."
+      },
+      {
+        "expected": "19",
+        "reason": "Two groups of eight plus three is nineteen."
+      }
     ],
     "arithmetic-patterns": [
-      { "expected": "0", "reason": "Every multiple of ten has a zero ones digit." },
-      { "expected": "0 or 5", "reason": "Multiples of five end in zero or five." },
-      { "expected": "even", "reason": "The sum of two even integers is even." }
+      {
+        "expected": "0",
+        "reason": "Every multiple of ten has a zero ones digit."
+      },
+      {
+        "expected": "0 or 5",
+        "reason": "Multiples of five end in zero or five."
+      },
+      {
+        "expected": "even",
+        "reason": "The sum of two even integers is even."
+      }
     ],
     "rounding": [
-      { "expected": "60", "reason": "Sixty-three rounds down to sixty by tens." },
-      { "expected": "400", "reason": "Three hundred fifty rounds up to four hundred by hundreds." },
-      { "expected": "50", "reason": "Forty-seven rounds up to fifty by tens." }
+      {
+        "expected": "60",
+        "reason": "Sixty-three rounds down to sixty by tens."
+      },
+      {
+        "expected": "400",
+        "reason": "Three hundred fifty rounds up to four hundred by hundreds."
+      },
+      {
+        "expected": "50",
+        "reason": "Forty-seven rounds up to fifty by tens."
+      }
     ],
     "add-subtract-algorithm": [
-      { "expected": "613", "reason": "365 plus 248 is 613." },
-      { "expected": "324", "reason": "500 minus 176 is 324." },
-      { "expected": "467", "reason": "428 plus 39 is 467." }
+      {
+        "expected": "613",
+        "reason": "365 plus 248 is 613."
+      },
+      {
+        "expected": "324",
+        "reason": "500 minus 176 is 324."
+      },
+      {
+        "expected": "467",
+        "reason": "428 plus 39 is 467."
+      }
     ],
     "multiply-by-tens": [
-      { "expected": "720", "reason": "Nine times eighty is 720." },
-      { "expected": "240", "reason": "Six times forty is 240." },
-      { "expected": "350", "reason": "Five times seventy is 350." }
+      {
+        "expected": "720",
+        "reason": "Nine times eighty is 720."
+      },
+      {
+        "expected": "240",
+        "reason": "Six times forty is 240."
+      },
+      {
+        "expected": "350",
+        "reason": "Five times seventy is 350."
+      }
     ],
     "compare-fractions": [
-      { "expected": "3/4", "reason": "With equal denominators, three fourths exceeds two fourths." },
-      { "expected": "1/2", "reason": "One-half exceeds one-fourth of the same whole." },
-      { "expected": "equivalent", "reason": "Two-fourths simplifies to one-half." }
+      {
+        "expected": "3/4",
+        "reason": "With equal denominators, three fourths exceeds two fourths."
+      },
+      {
+        "expected": "1/2",
+        "reason": "With the same whole, 1/2 equals 2/4, which is greater than 1/4."
+      },
+      {
+        "expected": "equivalent",
+        "reason": "Two-fourths simplifies to one-half."
+      }
     ],
     "time-to-minute": [
-      { "expected": "13", "reason": "From 2:47 to 3:00 is thirteen minutes." },
-      { "expected": "45", "reason": "Twenty-five minutes after 4:20 is 4:45." },
-      { "expected": "5", "reason": "Adjacent clock numerals are five minutes apart." }
+      {
+        "expected": "13",
+        "reason": "From 2:47 to 3:00 is thirteen minutes."
+      },
+      {
+        "expected": "45",
+        "reason": "Twenty-five minutes after 4:20 is 4:45."
+      },
+      {
+        "expected": "5",
+        "reason": "Adjacent clock numerals are five minutes apart."
+      }
     ],
     "volume-mass": [
-      { "expected": "1000", "reason": "One liter contains one thousand milliliters." },
-      { "expected": "1000", "reason": "One kilogram contains one thousand grams." },
-      { "expected": "grams", "reason": "Grams measure mass." }
+      {
+        "expected": "1000",
+        "reason": "One liter contains one thousand milliliters."
+      },
+      {
+        "expected": "1000",
+        "reason": "One kilogram contains one thousand grams."
+      },
+      {
+        "expected": "grams",
+        "reason": "Grams measure mass."
+      }
     ],
     "scaled-graphs": [
-      { "expected": "20", "reason": "Four symbols times five books is twenty." },
-      { "expected": "60", "reason": "Six symbols times a scale of ten is sixty." },
-      { "expected": "multiply symbols by the scale", "reason": "A scaled count is symbol frequency times symbol value." }
+      {
+        "expected": "20",
+        "reason": "Four symbols times five books is twenty."
+      },
+      {
+        "expected": "60",
+        "reason": "Six symbols times a scale of ten is sixty."
+      },
+      {
+        "expected": "multiply symbols by the scale",
+        "reason": "A scaled count is symbol frequency times symbol value."
+      }
     ],
     "measure-line-plot": [
-      { "expected": "1½", "reason": "The visible diagram lists 1.5 twice and every other length once." },
-      { "expected": "4", "reason": "Four visible measurements exceed 1.25 inches." },
-      { "expected": "1¾ inches", "reason": "An X at 1¾ records a measurement of 1¾ inches." }
+      {
+        "expected": "1 1/2",
+        "reason": "The midpoint of 1 inch and 2 inches is 1 1/2 inches."
+      },
+      {
+        "expected": "4",
+        "reason": "One inch divided into quarter-inches gives 1 ÷ 1/4 = 4 quarter-inch marks."
+      },
+      {
+        "expected": "1¾ inches",
+        "reason": "An X at 1¾ records a measurement of 1¾ inches."
+      }
     ],
     "area-count": [
-      { "expected": "15", "reason": "Fifteen unit squares cover fifteen square units." },
-      { "expected": "15", "reason": "Five times three is fifteen unit squares." },
-      { "expected": "unit squares", "reason": "Area uses square units." }
+      {
+        "expected": "15",
+        "reason": "Fifteen unit squares cover fifteen square units."
+      },
+      {
+        "expected": "15",
+        "reason": "Five times three is fifteen unit squares."
+      },
+      {
+        "expected": "unit squares",
+        "reason": "Area uses square units."
+      }
     ],
     "perimeter": [
-      { "expected": "18", "reason": "Six plus three plus six plus three is eighteen." },
-      { "expected": "20", "reason": "Four sides of length five total twenty." },
-      { "expected": "around", "reason": "Perimeter measures distance around a figure." }
+      {
+        "expected": "18",
+        "reason": "Six plus three plus six plus three is eighteen."
+      },
+      {
+        "expected": "20",
+        "reason": "Four sides of length five total twenty."
+      },
+      {
+        "expected": "around",
+        "reason": "Perimeter measures distance around a figure."
+      }
     ],
     "quadrilaterals": [
-      { "expected": "4", "reason": "A quadrilateral has four sides." },
-      { "expected": "rectangle", "reason": "A square satisfies the definition of a rectangle." },
-      { "expected": "attributes", "reason": "Geometric categories use shared defining attributes." }
+      {
+        "expected": "4",
+        "reason": "A quadrilateral has four sides."
+      },
+      {
+        "expected": "rectangle",
+        "reason": "A square satisfies the definition of a rectangle."
+      },
+      {
+        "expected": "attributes",
+        "reason": "Geometric categories use shared defining attributes."
+      }
     ],
     "partition-equal-areas": [
-      { "expected": "1/6 of the area", "reason": "One of six equal-area parts is one-sixth." },
-      { "expected": "area", "reason": "Equal-area parts must have equal area, not necessarily shape." },
-      { "expected": "4", "reason": "Four fourths make the whole." }
+      {
+        "expected": "1/6 of the area",
+        "reason": "One of six equal-area parts is one-sixth."
+      },
+      {
+        "expected": "area",
+        "reason": "Equal-area parts must have equal area, not necessarily shape."
+      },
+      {
+        "expected": "4",
+        "reason": "Four fourths make the whole."
+      }
     ],
     "fractions-number-line": [
-      { "expected": "3 copies of 1/4", "reason": "Three-fourths is three unit fractions of one-fourth." },
-      { "expected": "at 1", "reason": "Five fifths equals one whole." },
-      { "expected": "4", "reason": "Fourths require four equal intervals from zero to one." }
+      {
+        "expected": "3 copies of 1/4",
+        "reason": "Three-fourths is three unit fractions of one-fourth."
+      },
+      {
+        "expected": "at 1",
+        "reason": "Five fifths equals one whole."
+      },
+      {
+        "expected": "4",
+        "reason": "Fourths require four equal intervals from zero to one."
+      }
     ],
     "area-model": [
-      { "expected": "24", "reason": "Four rows times six columns is twenty-four." },
-      { "expected": "distributive property", "reason": "The factor six is distributed across five plus two." },
-      { "expected": "24", "reason": "Three times eight is twenty-four square units." }
+      {
+        "expected": "24",
+        "reason": "Four rows times six columns is twenty-four."
+      },
+      {
+        "expected": "distributive property",
+        "reason": "The factor six is distributed across five plus two."
+      },
+      {
+        "expected": "24",
+        "reason": "Three times eight is twenty-four square units."
+      }
     ],
-
     "multiplicative-comparison": [
-      { "expected": "5", "reason": "Thirty-five divided by seven is five." },
-      { "expected": "35", "reason": "Five times seven is thirty-five." },
-      { "expected": "6 × 4", "reason": "Times as many denotes multiplication." }
+      {
+        "expected": "5",
+        "reason": "Thirty-five divided by seven is five."
+      },
+      {
+        "expected": "35",
+        "reason": "Five times seven is thirty-five."
+      },
+      {
+        "expected": "6 × 4",
+        "reason": "Times as many denotes multiplication."
+      }
     ],
     "multistep-problems": [
-      { "expected": "7", "reason": "Six vans hold only 48, so 53 students need seven vans." },
-      { "expected": "31", "reason": "Three times twelve minus five is thirty-one." },
-      { "expected": "8", "reason": "Seven cars hold 28, so 30 children need eight cars." }
+      {
+        "expected": "7",
+        "reason": "Six vans hold only 48, so 53 students need seven vans."
+      },
+      {
+        "expected": "31",
+        "reason": "Three times twelve minus five is thirty-one."
+      },
+      {
+        "expected": "8",
+        "reason": "Seven cars hold 28, so 30 children need eight cars."
+      }
     ],
     "factors-multiples": [
-      { "expected": "7", "reason": "Seven has exactly two positive factors." },
-      { "expected": "composite", "reason": "Twelve has factors other than one and itself." },
-      { "expected": "4", "reason": "The listed factors of six number four." }
+      {
+        "expected": "7",
+        "reason": "Seven has exactly two positive factors."
+      },
+      {
+        "expected": "composite",
+        "reason": "Twelve has factors other than one and itself."
+      },
+      {
+        "expected": "4",
+        "reason": "The listed factors of six number four."
+      }
     ],
     "growing-patterns": [
-      { "expected": "11", "reason": "Add three to eight." },
-      { "expected": "alternating odd and even", "reason": "Adding three switches parity each term." },
-      { "expected": "18", "reason": "The fourth term after 3, 8, 13 is 18." }
+      {
+        "expected": "11",
+        "reason": "Add three to eight."
+      },
+      {
+        "expected": "alternating odd and even",
+        "reason": "Adding three switches parity each term."
+      },
+      {
+        "expected": "18",
+        "reason": "The fourth term after 3, 8, 13 is 18."
+      }
     ],
     "place-value-relationship": [
-      { "expected": "10", "reason": "A hundreds-place digit is ten times its tens-place value." },
-      { "expected": "300", "reason": "Three hundreds is 300." },
-      { "expected": "10", "reason": "Each place is ten times the place to its right." }
+      {
+        "expected": "10",
+        "reason": "A hundreds-place digit is ten times its tens-place value."
+      },
+      {
+        "expected": "300",
+        "reason": "Three hundreds is 300."
+      },
+      {
+        "expected": "10",
+        "reason": "Each place is ten times the place to its right."
+      }
     ],
     "read-compare-multidigit": [
-      { "expected": "4,825", "reason": "4,825 exceeds 4,790." },
-      { "expected": "4825", "reason": "The expanded place values sum to 4,825." },
-      { "expected": "3,506 < 3,560", "reason": "The tens comparison makes 3,506 smaller." }
+      {
+        "expected": "4,825",
+        "reason": "4,825 exceeds 4,790."
+      },
+      {
+        "expected": "4825",
+        "reason": "The expanded place values sum to 4,825."
+      },
+      {
+        "expected": "3,506 < 3,560",
+        "reason": "The tens comparison makes 3,506 smaller."
+      }
     ],
     "rounding-multidigit": [
-      { "expected": "3500", "reason": "3,472 rounds to 3,500 by hundreds." },
-      { "expected": "3000", "reason": "3,472 rounds to 3,000 by thousands." },
-      { "expected": "9000", "reason": "8,650 rounds to 9,000 by thousands." }
+      {
+        "expected": "3500",
+        "reason": "3,472 rounds to 3,500 by hundreds."
+      },
+      {
+        "expected": "3000",
+        "reason": "3,472 rounds to 3,000 by thousands."
+      },
+      {
+        "expected": "9000",
+        "reason": "8,650 rounds to 9,000 by thousands."
+      }
     ],
     "add-subtract-bignum": [
-      { "expected": "5523", "reason": "3,648 plus 1,875 is 5,523." },
-      { "expected": "3624", "reason": "5,000 minus 1,376 is 3,624." },
-      { "expected": "3,600 + 1,900 = 5,500", "reason": "Rounding to hundreds gives an estimate of 5,500." }
+      {
+        "expected": "5523",
+        "reason": "3,648 plus 1,875 is 5,523."
+      },
+      {
+        "expected": "3624",
+        "reason": "5,000 minus 1,376 is 3,624."
+      },
+      {
+        "expected": "3,600 + 1,900 = 5,500",
+        "reason": "Rounding to hundreds gives an estimate of 5,500."
+      }
     ],
     "multiply-multidigit": [
-      { "expected": "1035", "reason": "Twenty-three times forty-five is 1,035." },
-      { "expected": "204", "reason": "Six times thirty-four is 204." },
-      { "expected": "1035", "reason": "The four partial areas sum to 1,035." }
+      {
+        "expected": "1035",
+        "reason": "Twenty-three times forty-five is 1,035."
+      },
+      {
+        "expected": "204",
+        "reason": "Six times thirty-four is 204."
+      },
+      {
+        "expected": "1035",
+        "reason": "The four partial areas sum to 1,035."
+      }
     ],
     "long-division": [
-      { "expected": "17", "reason": "The whole-number quotient of 87 divided by 5 is 17." },
-      { "expected": "2", "reason": "Five times seventeen is 85, leaving remainder two." },
-      { "expected": "24", "reason": "Ninety-six divided by four is twenty-four." }
+      {
+        "expected": "17",
+        "reason": "The whole-number quotient of 87 divided by 5 is 17."
+      },
+      {
+        "expected": "2",
+        "reason": "Five times seventeen is 85, leaving remainder two."
+      },
+      {
+        "expected": "24",
+        "reason": "Ninety-six divided by four is twenty-four."
+      }
     ],
     "compare-fractions-4": [
-      { "expected": "2/3", "reason": "Cross-products 10 and 9 show two-thirds is greater." },
-      { "expected": "10", "reason": "Multiplying numerator and denominator by five gives 10/15." },
-      { "expected": "12", "reason": "Twelve is a common multiple of four and three." }
+      {
+        "expected": "2/3",
+        "reason": "Cross-products 10 and 9 show two-thirds is greater."
+      },
+      {
+        "expected": "10",
+        "reason": "Multiplying numerator and denominator by five gives 10/15."
+      },
+      {
+        "expected": "12",
+        "reason": "Twelve is a common multiple of four and three."
+      }
     ],
     "add-subtract-fractions": [
-      { "expected": "7", "reason": "Like-denominator addition gives numerator three plus four." },
-      { "expected": "1 2/5", "reason": "Seven fifths is one whole and two fifths." },
-      { "expected": "4", "reason": "Like-denominator subtraction gives numerator six minus two." }
+      {
+        "expected": "7",
+        "reason": "Like-denominator addition gives numerator three plus four."
+      },
+      {
+        "expected": "1 2/5",
+        "reason": "Seven fifths is one whole and two fifths."
+      },
+      {
+        "expected": "4",
+        "reason": "Like-denominator subtraction gives numerator six minus two."
+      }
     ],
     "multiply-fraction-whole": [
-      { "expected": "6", "reason": "Three times numerator two gives six fifths." },
-      { "expected": "1 1/5", "reason": "Six fifths is one whole and one fifth." },
-      { "expected": "4", "reason": "Four times one-third is four-thirds." }
+      {
+        "expected": "6",
+        "reason": "Three times numerator two gives six fifths."
+      },
+      {
+        "expected": "1 1/5",
+        "reason": "Six fifths is one whole and one fifth."
+      },
+      {
+        "expected": "4",
+        "reason": "Four times one-third is four-thirds."
+      }
     ],
     "fractions-10-100": [
-      { "expected": "30", "reason": "Three tenths equals thirty hundredths." },
-      { "expected": "34", "reason": "Thirty hundredths plus four hundredths is thirty-four." },
-      { "expected": "60", "reason": "Six tenths equals sixty hundredths." }
+      {
+        "expected": "30",
+        "reason": "Three tenths equals thirty hundredths."
+      },
+      {
+        "expected": "34",
+        "reason": "Thirty hundredths plus four hundredths is thirty-four."
+      },
+      {
+        "expected": "60",
+        "reason": "Six tenths equals sixty hundredths."
+      }
     ],
     "decimals-fractions": [
-      { "expected": "0.37", "reason": "Thirty-seven hundredths is 0.37." },
-      { "expected": "3/10", "reason": "Three tenths is 3/10." },
-      { "expected": "50", "reason": "0.50 is fifty hundredths." }
+      {
+        "expected": "0.37",
+        "reason": "Thirty-seven hundredths is 0.37."
+      },
+      {
+        "expected": "3/10",
+        "reason": "Three tenths is 3/10."
+      },
+      {
+        "expected": "50",
+        "reason": "0.50 is fifty hundredths."
+      }
     ],
     "compare-decimals": [
-      { "expected": "0.4", "reason": "Forty hundredths exceeds thirty-seven hundredths." },
-      { "expected": "they are equal", "reason": "A trailing decimal zero does not change value." },
-      { "expected": "tenths", "reason": "Decimal comparison begins at the greatest fractional place." }
+      {
+        "expected": "0.4",
+        "reason": "Forty hundredths exceeds thirty-seven hundredths."
+      },
+      {
+        "expected": "they are equal",
+        "reason": "A trailing decimal zero does not change value."
+      },
+      {
+        "expected": "tenths",
+        "reason": "Decimal comparison begins at the greatest fractional place."
+      }
     ],
     "measurement-conversion": [
-      { "expected": "180", "reason": "Three hours times sixty minutes is 180." },
-      { "expected": "48", "reason": "Four feet times twelve inches is 48." },
-      { "expected": "2000", "reason": "Two kilometers equal two thousand meters." }
+      {
+        "expected": "180",
+        "reason": "Three hours times sixty minutes is 180."
+      },
+      {
+        "expected": "48",
+        "reason": "Four feet times twelve inches is 48."
+      },
+      {
+        "expected": "2000",
+        "reason": "Two kilometers equal two thousand meters."
+      }
     ],
     "area-perimeter-formulas": [
-      { "expected": "28", "reason": "Seven times four is twenty-eight square units." },
-      { "expected": "22", "reason": "Twice seven plus twice four is twenty-two." },
-      { "expected": "6", "reason": "Area twenty-four divided by width four gives length six." }
+      {
+        "expected": "28",
+        "reason": "Seven times four is twenty-eight square units."
+      },
+      {
+        "expected": "22",
+        "reason": "Twice seven plus twice four is twenty-two."
+      },
+      {
+        "expected": "6",
+        "reason": "Area twenty-four divided by width four gives length six."
+      }
     ],
     "line-plot-fractions": [
-      { "expected": "3/8", "reason": "Three-eighths exceeds two-eighths, which is one-fourth." },
-      { "expected": "2", "reason": "Three-fourths minus one-fourth leaves numerator two over four." },
-      { "expected": "1/2", "reason": "Four-eighths simplifies to one-half." }
+      {
+        "expected": "3/8",
+        "reason": "Three-eighths exceeds two-eighths, which is one-fourth."
+      },
+      {
+        "expected": "2",
+        "reason": "Three-fourths minus one-fourth leaves numerator two over four."
+      },
+      {
+        "expected": "1/2",
+        "reason": "Four-eighths simplifies to one-half."
+      }
     ],
     "angles-fraction-circle": [
-      { "expected": "360", "reason": "A full turn measures 360 degrees." },
-      { "expected": "90", "reason": "One-fourth of 360 degrees is 90." },
-      { "expected": "180", "reason": "Half of 360 degrees is 180." }
+      {
+        "expected": "360",
+        "reason": "A full turn measures 360 degrees."
+      },
+      {
+        "expected": "90",
+        "reason": "One-fourth of 360 degrees is 90."
+      },
+      {
+        "expected": "180",
+        "reason": "Half of 360 degrees is 180."
+      }
     ],
     "protractor": [
-      { "expected": "a right angle", "reason": "A 90-degree angle is right." },
-      { "expected": "acute", "reason": "A 45-degree angle is less than 90 degrees." },
-      { "expected": "obtuse", "reason": "A 120-degree angle is between 90 and 180 degrees." }
+      {
+        "expected": "a right angle",
+        "reason": "A 90-degree angle is right."
+      },
+      {
+        "expected": "acute",
+        "reason": "A 45-degree angle is less than 90 degrees."
+      },
+      {
+        "expected": "obtuse",
+        "reason": "A 120-degree angle is between 90 and 180 degrees."
+      }
     ],
     "add-angles": [
-      { "expected": "55", "reason": "Ninety minus thirty-five is fifty-five." },
-      { "expected": "70", "reason": "One hundred eighty minus 110 is seventy." },
-      { "expected": "90°", "reason": "Forty degrees plus fifty degrees is ninety degrees." }
+      {
+        "expected": "55",
+        "reason": "Ninety minus thirty-five is fifty-five."
+      },
+      {
+        "expected": "70",
+        "reason": "One hundred eighty minus 110 is seventy."
+      },
+      {
+        "expected": "90°",
+        "reason": "Forty degrees plus fifty degrees is ninety degrees."
+      }
     ],
     "lines-angles": [
-      { "expected": "one endpoint", "reason": "A ray begins at one endpoint and extends indefinitely." },
-      { "expected": "right angle", "reason": "Perpendicular lines intersect at right angles." },
-      { "expected": "never meet", "reason": "Coplanar parallel lines do not intersect." }
+      {
+        "expected": "one endpoint",
+        "reason": "A ray begins at one endpoint and extends indefinitely."
+      },
+      {
+        "expected": "right angle",
+        "reason": "Perpendicular lines intersect at right angles."
+      },
+      {
+        "expected": "never meet",
+        "reason": "Coplanar parallel lines do not intersect."
+      }
     ],
     "classify-triangles": [
-      { "expected": "right triangle", "reason": "A triangle containing a 90-degree angle is right." },
-      { "expected": "acute", "reason": "Three angles below 90 degrees define an acute triangle." },
-      { "expected": "obtuse", "reason": "One angle above 90 degrees defines an obtuse triangle." }
+      {
+        "expected": "right triangle",
+        "reason": "A triangle containing a 90-degree angle is right."
+      },
+      {
+        "expected": "acute",
+        "reason": "Three angles below 90 degrees define an acute triangle."
+      },
+      {
+        "expected": "obtuse",
+        "reason": "One angle above 90 degrees defines an obtuse triangle."
+      }
     ],
     "symmetry": [
-      { "expected": "4", "reason": "A square has two median and two diagonal symmetry lines." },
-      { "expected": "2", "reason": "A nonsquare rectangle has horizontal and vertical symmetry." },
-      { "expected": "3", "reason": "An equilateral triangle has one symmetry line per vertex." }
+      {
+        "expected": "4",
+        "reason": "A square has two median and two diagonal symmetry lines."
+      },
+      {
+        "expected": "2",
+        "reason": "A nonsquare rectangle has horizontal and vertical symmetry."
+      },
+      {
+        "expected": "3",
+        "reason": "An equilateral triangle has one symmetry line per vertex."
+      }
     ],
     "equivalent-fractions": [
-      { "expected": "3/6", "reason": "Three-sixths simplifies to one-half." },
-      { "expected": "4", "reason": "Multiplying one-third by four-fourths gives 4/12." },
-      { "expected": "1", "reason": "Multiplying numerator and denominator by the same nonzero number multiplies by one." }
+      {
+        "expected": "3/6",
+        "reason": "Three-sixths simplifies to one-half."
+      },
+      {
+        "expected": "4",
+        "reason": "Multiplying one-third by four-fourths gives 4/12."
+      },
+      {
+        "expected": "1",
+        "reason": "Multiplying numerator and denominator by the same nonzero number multiplies by one."
+      }
     ],
-
     "order-of-operations": [
-      { "expected": "33", "reason": "Parentheses give seven, then 35 minus two is 33." },
-      { "expected": "17", "reason": "Multiply first: four plus fifteen minus two is seventeen." },
-      { "expected": "6 × 3", "reason": "Multiplication precedes addition." }
+      {
+        "expected": "33",
+        "reason": "Parentheses give seven, then 35 minus two is 33."
+      },
+      {
+        "expected": "17",
+        "reason": "Multiply first: four plus fifteen minus two is seventeen."
+      },
+      {
+        "expected": "6 × 3",
+        "reason": "Multiplication precedes addition."
+      }
     ],
     "write-expressions": [
-      { "expected": "2 × (8 + 7)", "reason": "The sum is grouped before multiplying by two." },
-      { "expected": "3 times", "reason": "Multiplication by three makes the grouped value three times as large." },
-      { "expected": "2 × (9 + 1)", "reason": "Double the sum means two times the grouped sum." }
+      {
+        "expected": "2 × (8 + 7)",
+        "reason": "The sum is grouped before multiplying by two."
+      },
+      {
+        "expected": "3 times",
+        "reason": "Multiplication by three makes the grouped value three times as large."
+      },
+      {
+        "expected": "2 × (9 + 1)",
+        "reason": "Double the sum means two times the grouped sum."
+      }
     ],
     "two-patterns-graph": [
-      { "expected": "9", "reason": "Add three to six." },
-      { "expected": "2 times", "reason": "At each step y has twice x's value." },
-      { "expected": "a straight line", "reason": "The coordinate pairs satisfy y equals two x." }
+      {
+        "expected": "9",
+        "reason": "Add three to six."
+      },
+      {
+        "expected": "2 times",
+        "reason": "Pattern 1 gives x = 0,1,2,3,… and pattern 2 gives y = 0,2,4,6,…, so each y is 2 times its x."
+      },
+      {
+        "expected": "a straight line",
+        "reason": "The coordinate pairs satisfy y equals two x."
+      }
     ],
     "decimal-place-value": [
-      { "expected": "10 times", "reason": "Four ones is ten times four tenths." },
-      { "expected": "10", "reason": "Four tenths divided by four hundredths is ten." },
-      { "expected": "4", "reason": "A four in the ones place has value four." }
+      {
+        "expected": "10 times",
+        "reason": "Four ones is ten times four tenths."
+      },
+      {
+        "expected": "10",
+        "reason": "Four tenths divided by four hundredths is ten."
+      },
+      {
+        "expected": "4",
+        "reason": "A four in the ones place has value four."
+      }
     ],
     "powers-of-ten": [
-      { "expected": "450", "reason": "Multiplying 4.5 by 100 moves the decimal two places." },
-      { "expected": "0.45", "reason": "Dividing 4.5 by ten moves the decimal one place left." },
-      { "expected": "1000", "reason": "Ten cubed is ten times ten times ten." }
+      {
+        "expected": "450",
+        "reason": "Multiplying 4.5 by 100 moves the decimal two places."
+      },
+      {
+        "expected": "0.45",
+        "reason": "Dividing 4.5 by ten moves the decimal one place left."
+      },
+      {
+        "expected": "1000",
+        "reason": "Ten cubed is ten times ten times ten."
+      }
     ],
     "read-compare-decimals-thousandths": [
-      { "expected": "0.475", "reason": "At the thousandths place, five exceeds two." },
-      { "expected": "0.5 is bigger", "reason": "Five tenths exceeds five hundredths." },
-      { "expected": "475", "reason": "The tenths, hundredths, and thousandths digits are 4, 7, and 5." }
+      {
+        "expected": "0.475",
+        "reason": "At the thousandths place, five exceeds two."
+      },
+      {
+        "expected": "0.5 is bigger",
+        "reason": "Five tenths exceeds five hundredths."
+      },
+      {
+        "expected": "475",
+        "reason": "The tenths, hundredths, and thousandths digits are 4, 7, and 5."
+      }
     ],
     "round-decimals": [
-      { "expected": "3.5", "reason": "The hundredths digit seven rounds the tenths up." },
-      { "expected": "3", "reason": "The tenths digit four rounds to the whole number three." },
-      { "expected": "3.47", "reason": "The thousandths digit two leaves the hundredths unchanged." }
+      {
+        "expected": "3.5",
+        "reason": "The hundredths digit seven rounds the tenths up."
+      },
+      {
+        "expected": "3",
+        "reason": "The tenths digit four rounds to the whole number three."
+      },
+      {
+        "expected": "3.47",
+        "reason": "The thousandths digit two leaves the hundredths unchanged."
+      }
     ],
     "multiply-whole-numbers": [
-      { "expected": "918", "reason": "Thirty-four times twenty-seven is 918." },
-      { "expected": "238", "reason": "Thirty-four times seven is 238." },
-      { "expected": "680", "reason": "Thirty-four times twenty is 680." }
+      {
+        "expected": "918",
+        "reason": "Thirty-four times twenty-seven is 918."
+      },
+      {
+        "expected": "238",
+        "reason": "Thirty-four times seven is 238."
+      },
+      {
+        "expected": "680",
+        "reason": "Thirty-four times twenty is 680."
+      }
     ],
     "divide-two-digit": [
-      { "expected": "27", "reason": "Four hundred thirty-two divided by sixteen is twenty-seven." },
-      { "expected": "22", "reason": "432 divided by 20 is 21.6, which rounds to whole-number estimate 22." },
-      { "expected": "25", "reason": "Three hundred seventy-five divided by fifteen is twenty-five." }
+      {
+        "expected": "27",
+        "reason": "Four hundred thirty-two divided by sixteen is twenty-seven."
+      },
+      {
+        "expected": "22",
+        "reason": "432 divided by 20 is 21.6, which rounds to whole-number estimate 22."
+      },
+      {
+        "expected": "25",
+        "reason": "Three hundred seventy-five divided by fifteen is twenty-five."
+      }
     ],
     "decimal-operations": [
-      { "expected": "1.65", "reason": "1.25 plus 0.40 is 1.65." },
-      { "expected": "0.85", "reason": "1.25 minus 0.40 is 0.85." },
-      { "expected": "0.12", "reason": "Three tenths times four tenths is twelve hundredths." }
+      {
+        "expected": "1.65",
+        "reason": "1.25 plus 0.40 is 1.65."
+      },
+      {
+        "expected": "0.85",
+        "reason": "1.25 minus 0.40 is 0.85."
+      },
+      {
+        "expected": "0.12",
+        "reason": "0.3 × 0.4 = 3 tenths × 4 tenths = 12 hundredths = 0.12."
+      }
     ],
     "add-fractions-unlike": [
-      { "expected": "5/6", "reason": "Three-sixths plus two-sixths is five-sixths." },
-      { "expected": "5", "reason": "The common-denominator numerator is three plus two." },
-      { "expected": "1", "reason": "Three-fourths minus two-fourths leaves one-fourth." }
+      {
+        "expected": "5/6",
+        "reason": "Three-sixths plus two-sixths is five-sixths."
+      },
+      {
+        "expected": "5",
+        "reason": "The common-denominator numerator is three plus two."
+      },
+      {
+        "expected": "1",
+        "reason": "Three-fourths minus two-fourths leaves one-fourth."
+      }
     ],
     "fraction-as-division": [
-      { "expected": "3/4", "reason": "Three divided by four is the fraction three-fourths." },
-      { "expected": "1", "reason": "Five-fourths is one whole and one-fourth." },
-      { "expected": "7 ÷ 8", "reason": "A fraction bar represents division." }
+      {
+        "expected": "3/4",
+        "reason": "Three divided by four is the fraction three-fourths."
+      },
+      {
+        "expected": "1",
+        "reason": "Five-fourths is one whole and one-fourth."
+      },
+      {
+        "expected": "7 ÷ 8",
+        "reason": "A fraction bar represents division."
+      }
     ],
     "multiply-mixed-numbers": [
-      { "expected": "7/4", "reason": "One and three-fourths equals seven-fourths." },
-      { "expected": "4.5", "reason": "Three times one and one-half is four and one-half." },
-      { "expected": "14", "reason": "Two times seven-fourths is fourteen-fourths." }
+      {
+        "expected": "7/4",
+        "reason": "One and three-fourths equals seven-fourths."
+      },
+      {
+        "expected": "4.5",
+        "reason": "Three times one and one-half is four and one-half."
+      },
+      {
+        "expected": "14",
+        "reason": "Two times seven-fourths is fourteen-fourths."
+      }
     ],
     "divide-unit-fractions": [
-      { "expected": "8", "reason": "Four wholes contain eight halves." },
-      { "expected": "1/6", "reason": "One-half divided into three equal shares is one-sixth." },
-      { "expected": "12", "reason": "Three wholes contain twelve fourths." }
+      {
+        "expected": "8",
+        "reason": "Four wholes contain eight halves."
+      },
+      {
+        "expected": "1/6",
+        "reason": "One-half divided into three equal shares is one-sixth."
+      },
+      {
+        "expected": "12",
+        "reason": "Three wholes contain twelve fourths."
+      }
     ],
     "metric-conversion": [
-      { "expected": "3000", "reason": "Three kilometers equal three thousand meters." },
-      { "expected": "2.5", "reason": "Two hundred fifty centimeters equal 2.5 meters." },
-      { "expected": "500", "reason": "Five meters equal five hundred centimeters." }
+      {
+        "expected": "3000",
+        "reason": "Three kilometers equal three thousand meters."
+      },
+      {
+        "expected": "2.5",
+        "reason": "Two hundred fifty centimeters equal 2.5 meters."
+      },
+      {
+        "expected": "500",
+        "reason": "Five meters equal five hundred centimeters."
+      }
     ],
     "line-plot-operations": [
-      { "expected": "1", "reason": "The visible amounts 0.25, 0.25, and 0.5 sum to one cup." },
-      { "expected": "1/3 cup", "reason": "One visible total cup shared across three beakers is one-third cup each." },
-      { "expected": "1.5", "reason": "The visible amounts total six cups across four beakers, giving 1.5 cups each." }
+      {
+        "expected": "1",
+        "reason": "1/4 + 1/4 + 1/2 = 1 cup total."
+      },
+      {
+        "expected": "divide",
+        "reason": "Sharing a total equally among the beakers is division; divide is the only operation among the options that gives equal shares."
+      },
+      {
+        "expected": "1.5",
+        "reason": "6 cups divided equally among 4 beakers is 6/4 = 1.5 cups each."
+      }
     ],
     "shape-hierarchy": [
-      { "expected": "rectangle", "reason": "A square satisfies all rectangle attributes." },
-      { "expected": "No", "reason": "Rectangles need not have four equal sides." },
-      { "expected": "parallelogram", "reason": "A rhombus has two pairs of parallel opposite sides." }
+      {
+        "expected": "rectangle",
+        "reason": "A square satisfies all rectangle attributes."
+      },
+      {
+        "expected": "No",
+        "reason": "Rectangles need not have four equal sides."
+      },
+      {
+        "expected": "parallelogram",
+        "reason": "A rhombus has two pairs of parallel opposite sides."
+      }
     ],
     "volume-unit-cubes": [
-      { "expected": "24", "reason": "Three times four times two is twenty-four cubic units." },
-      { "expected": "l × w × h", "reason": "Rectangular-prism volume is base area times height." },
-      { "expected": "60", "reason": "Twelve cubes per layer times five layers is sixty." }
+      {
+        "expected": "24",
+        "reason": "Three times four times two is twenty-four cubic units."
+      },
+      {
+        "expected": "l × w × h",
+        "reason": "Rectangular-prism volume is base area times height."
+      },
+      {
+        "expected": "60",
+        "reason": "Twelve cubes per layer times five layers is sixty."
+      }
     ],
     "coordinate-plane": [
-      { "expected": "3 right, 5 up", "reason": "The first coordinate is horizontal and the second vertical." },
-      { "expected": "No", "reason": "Swapping unequal coordinates changes the point." },
-      { "expected": "0", "reason": "Moving up zero gives y-coordinate zero." }
+      {
+        "expected": "3 right, 5 up",
+        "reason": "The first coordinate is horizontal and the second vertical."
+      },
+      {
+        "expected": "No",
+        "reason": "Swapping unequal coordinates changes the point."
+      },
+      {
+        "expected": "0",
+        "reason": "Moving up zero gives y-coordinate zero."
+      }
     ],
     "multiply-fractions": [
-      { "expected": "1/6", "reason": "Multiply numerators and denominators to get one-sixth." },
-      { "expected": "6", "reason": "Before simplification, two times three gives numerator six." },
-      { "expected": "smaller than both", "reason": "The product of two positive proper fractions is smaller than either factor." }
+      {
+        "expected": "1/6",
+        "reason": "Multiply numerators and denominators to get one-sixth."
+      },
+      {
+        "expected": "6",
+        "reason": "Before simplification, two times three gives numerator six."
+      },
+      {
+        "expected": "smaller than both",
+        "reason": "The product of two positive proper fractions is smaller than either factor."
+      }
     ]
   }
 }
