@@ -7,7 +7,7 @@ import postgres from "postgres";
 import { hasCcssLessonAssignment } from "@/data/ccssLessonAssignments";
 import { forumSeedThreads } from "@/data/forum";
 import { gradeIds, validGradeSet } from "@/data/grades";
-import { translateHjbHighDisplayTextEn } from "@/data/mainlandHjbHighTopics";
+import { translateHjbHighDisplayTextEn } from "@/lib/hjbHighDisplayText";
 import { productionLessonByTopicId, type ProductionLessonSeed } from "@/data/lessons";
 import { questions as seedQuestions } from "@/data/questions";
 import { topics as seedTopics } from "@/data/topics";

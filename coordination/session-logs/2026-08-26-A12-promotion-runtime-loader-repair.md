@@ -35,3 +35,13 @@
 - Candidate source files, immutable Promotion Gate attempt-001 artifacts, live
   authorization, deployment surfaces, credentials, and production state were not
   changed.
+- Follow-up graph audit found that `lib/server/userStore.ts` still reached the
+  HJB high v2 candidate JSON solely through a display-translation import. Moved
+  that byte-independent translation table to `lib/hjbHighDisplayText.ts`, kept
+  the existing HJB topic exports source-compatible, and made `userStore` import
+  the pure helper directly. This preserves the exact translations while removing
+  the candidate package from the runtime import chain.
+- Follow-up verification: type-check passed; direct translation parity for known
+  chapter, volume, and combined display text passed; diff check passed. The
+  canonical Promotion Gate graph is re-audited in the parent A23 composition
+  after this commit is merged.
