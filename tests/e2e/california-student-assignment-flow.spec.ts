@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page, type TestInfo } from "@playwright/test";
 import { collectPageErrors, expectNoPageErrors, logoutIfVisible, uniqueSuffix } from "./helpers";
+import type { LocalizedText } from "../../types";
 
 type LocalizedTitle = {
   en?: string;
@@ -315,7 +316,7 @@ test.describe("California student, practice, adaptive, dashboard, and assignment
     await expect(adaptivePanel).toContainText(/California/i);
     await closeLearnerSetupIfVisible(page);
     const requiredQuestionCount = 5;
-    const attemptFeedbackItems: Array<{ correct: boolean; correctAnswer?: string }> = [];
+    const attemptFeedbackItems: Array<{ correct: boolean; correctAnswer?: LocalizedText }> = [];
 
     for (let questionNumber = 1; questionNumber <= requiredQuestionCount; questionNumber += 1) {
       await expect(page.getByText(new RegExp(`Question ${questionNumber} of ${requiredQuestionCount}`, "i"))).toBeVisible();
@@ -324,7 +325,7 @@ test.describe("California student, practice, adaptive, dashboard, and assignment
         response.url().includes("/api/attempts") && response.request().method() === "POST"
       );
       await practiceCard.getByRole("button", { name: /Check Answer/i }).click();
-      attemptFeedbackItems.push(await expectOkJson<{ correct: boolean; correctAnswer?: string }>(await attemptResponsePromise));
+      attemptFeedbackItems.push(await expectOkJson<{ correct: boolean; correctAnswer?: LocalizedText }>(await attemptResponsePromise));
 
       if (questionNumber < requiredQuestionCount) {
         await expect(page.getByText(new RegExp(`Question ${questionNumber + 1} of ${requiredQuestionCount}`, "i"))).toBeVisible({ timeout: 8_000 });

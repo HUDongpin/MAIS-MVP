@@ -100,7 +100,7 @@ type LessonPracticeContext = {
 };
 type PracticeAnswerResult = {
   correct: boolean;
-  correctAnswer?: string;
+  correctAnswer?: LocalizedText;
   durationSeconds: number;
   answeredAt: number;
 };
@@ -2590,7 +2590,8 @@ export default function PracticePage() {
                           </p>
                           {result.correctAnswer ? (
                             <p className="mt-1">
-                              {t({ en: "Correct answer:", zh: "正確答案：" })} {result.correctAnswer}
+                              {t({ en: "Correct answer:", zh: "正確答案：" })}{" "}
+                              {practiceTextForLanguage(result.correctAnswer, language, result.question.publisher)}
                             </p>
                           ) : (
                             <p className="mt-1">{t({ en: "Open the card feedback above for the worked explanation.", zh: "可回到上方題卡查看詳細解釋。" })}</p>

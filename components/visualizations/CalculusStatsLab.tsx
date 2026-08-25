@@ -11,6 +11,10 @@ import { clamp, formatNumber } from "@/lib/math";
 
 type LabMode = "tangent" | "normal";
 
+export function calculusStatsModesForTopic(topicId: string): readonly LabMode[] {
+  return topicId === "statistics-s6" ? ["normal"] : ["tangent", "normal"];
+}
+
 const width = 640;
 const height = 420;
 const padding = 42;
@@ -107,7 +111,9 @@ function clippedLineSegment({
 export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string }) {
   const { language, recordLearningEvent, t } = useSettings();
   const vizTheme = useVisualizationTheme();
-  const [mode, setMode] = useState<LabMode>(topicId === "statistics-s6" ? "normal" : "tangent");
+  const availableModes = calculusStatsModesForTopic(topicId);
+  const [mode, setMode] = useState<LabMode>(availableModes[0]);
+  const activeMode = availableModes.includes(mode) ? mode : availableModes[0];
   const [tangentX, setTangentX] = useState(2);
   const [mean, setMean] = useState(50);
   const [sd, setSd] = useState(10);
@@ -172,7 +178,7 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
   }
 
   function resetModel() {
-    setMode(topicId === "statistics-s6" ? "normal" : "tangent");
+    setMode(availableModes[0]);
     setTangentX(2);
     setMean(50);
     setSd(10);
@@ -190,14 +196,14 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
         <svg
           data-viz-surface
           role="img"
-          aria-label={mode === "tangent"
+          aria-label={activeMode === "tangent"
             ? t({ en: "Calculus tangent line explorer", zh: "微積分切線探索器" })
             : t({ en: "Normal distribution z-score explorer", zh: "常態分佈標準分數探索器" })}
           viewBox={`0 0 ${width} ${height}`}
           className="h-[360px] w-full sm:h-[420px]"
         >
           <rect x="0" y="0" width={width} height={height} fill={vizTheme.svgBackground} />
-          {mode === "tangent" ? (
+          {activeMode === "tangent" ? (
             <>
               {[-4, -2, 0, 2, 4, 6].map((tick) => (
                 <g key={`x-${tick}`}>
@@ -340,26 +346,30 @@ export function CalculusStatsLab({ topicId = "calculus" }: { topicId?: string })
       </div>
 
       <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-2 rounded-3xl border border-slate-200/70 bg-white/70 p-2 dark:border-white/10 dark:bg-white/[0.055]">
-          {([
-            ["tangent", t({ en: "Tangent", zh: "切線" })],
-            ["normal", t({ en: "Normal", zh: "常態分佈" })]
-          ] as const).map(([value, label]) => (
-            <button
-              key={value}
-              type="button"
-              onClick={() => {
-                setMode(value);
-                recordInteraction("visualization-probe");
-              }}
-              className={`focus-ring rounded-2xl px-4 py-3 text-sm font-black transition ${mode === value ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/[0.08]"}`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+        {availableModes.length > 1 ? (
+          <div className="grid grid-cols-2 gap-2 rounded-3xl border border-slate-200/70 bg-white/70 p-2 dark:border-white/10 dark:bg-white/[0.055]">
+            {availableModes.map((value) => {
+              const label = value === "tangent"
+                ? t({ en: "Tangent", zh: "切線" })
+                : t({ en: "Normal", zh: "常態分佈" });
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => {
+                    setMode(value);
+                    recordInteraction("visualization-probe");
+                  }}
+                  className={`focus-ring rounded-2xl px-4 py-3 text-sm font-black transition ${activeMode === value ? "bg-slate-950 text-white dark:bg-white dark:text-slate-950" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/[0.08]"}`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
 
-        {mode === "tangent" ? (
+        {activeMode === "tangent" ? (
           <label className="block rounded-3xl border border-slate-200/70 bg-white/70 p-5 dark:border-white/10 dark:bg-white/[0.055]">
             <span className="flex items-center justify-between text-sm font-bold text-slate-700 dark:text-slate-200">
               {t({ en: "Tangent point x", zh: "切點 x 坐標" })}

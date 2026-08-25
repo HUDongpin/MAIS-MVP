@@ -421,8 +421,8 @@ const topicFormulaOverrides: Partial<Record<string, LocalizedText>> = {
   },
   "p5-volume": {
     en: "unit cubes = volume",
-    zh: "單位正方體 = 體積",
-    zhHans: "单位正方体 = 体积"
+    zh: "單位立方體 = 體積",
+    zhHans: "单位立方体 = 体积"
   },
   "p6-pre-secondary-problem-solving": {
     en: "diagram -> table -> check",
