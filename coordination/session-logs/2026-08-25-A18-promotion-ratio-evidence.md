@@ -43,6 +43,13 @@ Candidate digest: `35c1d947840453fde081f80f32f1e0f47d080fdb6d2da2007f566084ebd78
 - The evidence preserves the exact eight live blockers: item-level standard overclaim, unbound fine-grained live standard mapping, two unresolved live source IDs, missing bilingual fields, the known lesson grammar error, an internal misconception label exposed as student feedback, open-ended guided/independent tasks without answer or rubric, and prior S18 record mismatch.
 - The source-ID blocker uses the four actual provenance IDs from the candidate record. `CA.CCSS.Math.G6.RP.1/.2/.3` remain standard IDs and are not represented as source IDs.
 
+## Checker-currentness correction
+
+- Bound `semanticPayload.priorReviewDrift` to the frozen source review's raw bytes with `rawSha256: 7b3bfa54b84e105e703e31b5f27e3a135e5a48d5e0ebac1805129056e05318f4`.
+- Verified that hash directly from `s18-representative-sample-review.md` at source commit `b6c7c347a49a813e454e707dd3c16399dcf29909`.
+- Corrected A18 evidence raw SHA-256: `874beed128491d1355eeb79b5dcd1f109f75a5efabd86db9cf4e3f2adb6968cf`.
+- Corrected stable semantic-payload SHA-256: `033c32293262ff0066bed2c0afd54f42f9909c1d028c570bf4c2edb604150ca0`.
+
 ## Verification and closeout
 
 Before commit, this slice must prove:
