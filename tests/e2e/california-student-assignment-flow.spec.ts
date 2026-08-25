@@ -249,7 +249,8 @@ test.describe("California student, practice, adaptive, dashboard, and assignment
     await page.goto(`/student/lessons/${encodeURIComponent(californiaLessonSlug)}`);
     await closeLearnerSetupIfVisible(page);
     await expect(page.getByText(new RegExp(escapeRegex(lesson.title?.en ?? "Lesson Module"), "i")).first()).toBeVisible();
-    await expect(page.getByRole("button", { name: /Go to next item/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Go to next item|前往下一項|前往下一项/i })).toHaveCount(0);
+    await expect(page.locator("[data-lesson-next-item-button]")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
     await expect(page.getByText(/Question 1 of/i)).toBeVisible();
     await expect(page.locator('section[aria-label="Teacher guide"]')).toHaveCount(0);

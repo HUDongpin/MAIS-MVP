@@ -328,6 +328,88 @@ async function expectKeyboardButtonsDoNotOverlap(keyboard: Locator) {
   }
 }
 
+async function expectCompactMathKeyboardGeometry(keyboard: Locator, maxHeight: number) {
+  await expect(keyboard).toHaveAttribute("data-math-keyboard-layout", "compact");
+  await expect(keyboard.getByText(
+    /Swipe or scroll each row for more keys|滑動或捲動每一列以查看更多按鍵|滑动或滚动每一行以查看更多按键/
+  )).toBeVisible();
+
+  const geometry = await keyboard.evaluate((element) => {
+    const keyboardRect = element.getBoundingClientRect();
+    const buttons = Array.from(element.querySelectorAll<HTMLElement>("button:enabled, button:disabled"));
+    const rows = Array.from(element.querySelectorAll<HTMLElement>("[data-math-keyboard-row]"));
+    return {
+      buttons: buttons.map((button) => {
+        const rect = button.getBoundingClientRect();
+        const content = button.querySelector<HTMLElement>(":scope > span");
+        const contentRect = content?.getBoundingClientRect();
+        const mainLabel = content?.firstElementChild as HTMLElement | null;
+        const subLabel = content?.children[1] as HTMLElement | undefined;
+        return {
+          bottom: rect.bottom,
+          contentBottom: contentRect?.bottom ?? Number.NaN,
+          contentLeft: contentRect?.left ?? Number.NaN,
+          contentRight: contentRect?.right ?? Number.NaN,
+          contentTop: contentRect?.top ?? Number.NaN,
+          height: rect.height,
+          label: button.getAttribute("aria-label") ?? "",
+          left: rect.left,
+          mainLabelFontSize: mainLabel ? Number.parseFloat(getComputedStyle(mainLabel).fontSize) : null,
+          right: rect.right,
+          size: button.getAttribute("data-math-key-size"),
+          subLabelFontSize: subLabel ? Number.parseFloat(getComputedStyle(subLabel).fontSize) : null,
+          top: rect.top,
+          width: rect.width
+        };
+      }),
+      clientWidth: element.clientWidth,
+      height: keyboardRect.height,
+      rows: rows.map((row) => {
+        const keyTops = Array.from(row.querySelectorAll<HTMLElement>('button[data-math-key="true"]'))
+          .map((key) => key.getBoundingClientRect().top);
+        return {
+          keyTopDelta: keyTops.length ? Math.max(...keyTops) - Math.min(...keyTops) : Number.POSITIVE_INFINITY,
+          overscrollBehaviorX: getComputedStyle(row).overscrollBehaviorX,
+          overflowX: getComputedStyle(row).overflowX,
+          scrollbarWidth: getComputedStyle(row).scrollbarWidth
+        };
+      }),
+      scrollWidth: element.scrollWidth,
+      width: keyboardRect.width
+    };
+  });
+
+  expect(geometry.width).toBeLessThanOrEqual(609);
+  expect(geometry.height).toBeLessThanOrEqual(maxHeight);
+  expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth + 1);
+  for (const row of geometry.rows) {
+    expect(row.keyTopDelta).toBeLessThanOrEqual(1);
+    expect(["auto", "scroll"]).toContain(row.overflowX);
+    expect(row.overscrollBehaviorX).toBe("contain");
+    expect(row.scrollbarWidth).toBe("thin");
+  }
+  for (const button of geometry.buttons) {
+    expect(button.width, `${button.label} must retain a 44px touch width`).toBeGreaterThanOrEqual(44);
+    expect(button.height, `${button.label} must retain a 44px touch height`).toBeGreaterThanOrEqual(44);
+    expect(button.height, `${button.label} must remain compact`).toBeLessThanOrEqual(48);
+    if (button.size === "editing") {
+      expect(button.width, `${button.label} editing control must remain compact`).toBeLessThanOrEqual(48);
+    }
+    if (button.size) {
+      const widthLimit = button.size === "extra-wide" ? 192 : button.size === "wide" ? 128 : 96;
+      expect(button.width, `${button.label} must respect its ${button.size} width budget`).toBeLessThanOrEqual(widthLimit);
+      expect(button.contentLeft, `${button.label} content must stay painted inside its key`).toBeGreaterThanOrEqual(button.left - 1);
+      expect(button.contentRight, `${button.label} content must stay painted inside its key`).toBeLessThanOrEqual(button.right + 1);
+      expect(button.contentTop, `${button.label} content must stay painted inside its key`).toBeGreaterThanOrEqual(button.top - 1);
+      expect(button.contentBottom, `${button.label} content must stay painted inside its key`).toBeLessThanOrEqual(button.bottom + 1);
+      expect(button.mainLabelFontSize, `${button.label} main label must remain readable`).toBeGreaterThanOrEqual(14);
+      if (button.subLabelFontSize !== null) {
+        expect(button.subLabelFontSize, `${button.label} sub-label must remain readable`).toBeGreaterThanOrEqual(10);
+      }
+    }
+  }
+}
+
 async function openMathKeyboardForFillIn(page: Page, testInfo: TestInfo) {
   const session = await registerStudentThroughApi(page, testInfo, "keyboard", "S1");
   await page.goto("/practice");
@@ -588,7 +670,7 @@ test.describe("Practice Arena question pager", () => {
 
     await page.goto("/student/lessons/quadratic-functions");
     await expect(page.getByRole("heading", { name: /Quadratic Functions/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Lesson practice/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Practice check/i })).toBeVisible();
     await expect(page.getByRole("spinbutton", { name: /Jump to/i })).toBeVisible();
     // Scoped to main: the pager status paragraph has a hidden SSR duplicate
     // outside it, which intermittently trips strict mode.
@@ -611,10 +693,13 @@ test.describe("Practice Arena question pager", () => {
 
     const { keyboard, answer } = await openMathKeyboardForFillIn(page, testInfo);
     const tabNames = ["123", "∞≠∈", "abc", "αβγ"];
+    const initialCompactHeightLimit = Boolean(testInfo.project.use.isMobile) ? 410 : 390;
 
     for (const tabName of tabNames) {
       await selectKeyboardTab(keyboard, tabName);
       await expect(keyboard.getByRole("tabpanel").locator("button[data-math-key='true']")).not.toHaveCount(0);
+      await expectCompactMathKeyboardGeometry(keyboard, initialCompactHeightLimit);
+      await expectKeyboardButtonsDoNotOverlap(keyboard);
     }
 
     for (const tabName of tabNames) {
@@ -704,10 +789,25 @@ test.describe("Practice Arena question pager", () => {
     await expect(answer).toHaveValue("3+2+4");
     await keyboard.getByRole("button", { name: /Redo soft keyboard input/i }).click();
     await expect(answer).toHaveValue("3+2+4=9");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("3+2+4=9");
+
+    const undoButton = keyboard.getByRole("button", { name: /Undo soft keyboard input/i });
+    const redoButton = keyboard.getByRole("button", { name: /Redo soft keyboard input/i });
+    await undoButton.click();
+    await expect(answer).toHaveValue("3+2+4");
+    await answer.fill("7+1");
+    await expect(redoButton).toBeDisabled();
+    await redoButton.evaluate((button: HTMLButtonElement) => button.click());
+    await expect(answer).toHaveValue("7+1");
 
     await setAnswerValue(answer, "3+2+4=");
     await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
     await expect(answer).toHaveValue("3+2+4=9");
+
+    await setAnswerValue(answer, "f(x)=");
+    await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
+    await expect(answer).toHaveValue("f(x)=");
 
     await setAnswerValue(answer, "123", 1);
     await pressSoftKey(keyboard, "123", "Calculate or insert equals sign");
@@ -776,7 +876,11 @@ test.describe("Practice Arena question pager", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await expect(keyboard).toBeVisible();
     await expectNoHorizontalDocumentOverflow(page);
-    await expectKeyboardButtonsDoNotOverlap(keyboard);
+    for (const tabName of tabNames) {
+      await selectKeyboardTab(keyboard, tabName);
+      await expectCompactMathKeyboardGeometry(keyboard, 410);
+      await expectKeyboardButtonsDoNotOverlap(keyboard);
+    }
   });
 
   test("fill-in questions support handwriting board draft, answer text, and reset", async ({ page }, testInfo) => {
