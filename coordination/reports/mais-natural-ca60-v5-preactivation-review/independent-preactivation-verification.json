@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "PreActivationIndependentVerificationV1",
+  "reviewerLane": "A11",
+  "provenanceType": "A11_INDEPENDENT_STATIC_AND_HASH_RECOMPUTATION",
+  "designId": "MAIS-NATURAL-CA60-V5",
+  "designRegistrationHash": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+  "designPackageRootHash": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+  "runnerCommit": "1dc093a1d0a300495dcd671091c849d24410fd5e",
+  "runnerSourceManifestRootHash": "2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0",
+  "runnerHash": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c",
+  "adapterHash": "63beb1ca15a26c71563a73447f347383bdaa31cb27a2b932b33d534007767013",
+  "custodyRegistryHash": "aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1",
+  "activeDesignId": "MAIS-NATURAL-CA60-V3",
+  "activeRegistrationHash": "08e89a4d0c6736b48c1dde0048d8f620c35fc486e1d1feaf272e30a1aae4973d",
+  "activeV5AtReview": false,
+  "providerEventCount": 0,
+  "providerExecutionAuthorized": false,
+  "aggregatePublicationAuthorized": false,
+  "mainA21ModuleImported": false,
+  "networkPrimitiveDetected": false,
+  "credentialPrimitiveDetected": false,
+  "checks": [
+    {
+      "code": "DESIGN_ID_EXACT",
+      "passed": true,
+      "expected": "MAIS-NATURAL-CA60-V5",
+      "observed": "MAIS-NATURAL-CA60-V5"
+    },
+    {
+      "code": "DESIGN_REGISTRATION_SELF_HASH",
+      "passed": true,
+      "expected": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+      "observed": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632"
+    },
+    {
+      "code": "DESIGN_REGISTRATION_EXPECTED_ROOT",
+      "passed": true,
+      "expected": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+      "observed": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632"
+    },
+    {
+      "code": "DESIGN_ZERO_PROVIDER_EVENTS",
+      "passed": true,
+      "expected": 0,
+      "observed": 0
+    },
+    {
+      "code": "DESIGN_REMAINS_NONAUTHORIZING",
+      "passed": true,
+      "expected": false,
+      "observed": false
+    },
+    {
+      "code": "OPENAI_REFERENCE_TUPLE_EXACT",
+      "passed": true,
+      "expected": "OPENAI_DIRECT|US_STORAGE_PROCESSING|https://us.api.openai.com/v1/responses|gpt-5.6-luna|RESPONSES_API_V1",
+      "observed": null
+    },
+    {
+      "code": "DECISION_CEILING_EXACT",
+      "passed": true,
+      "expected": "INCONCLUSIVE_MACHINE_REFERENCE",
+      "observed": "INCONCLUSIVE_MACHINE_REFERENCE"
+    },
+    {
+      "code": "THRESHOLD_CHRONOLOGY_PRE_EXECUTION",
+      "passed": true,
+      "expected": "thresholdsFrozenAt<=frozenAt before provider event",
+      "observed": null
+    },
+    {
+      "code": "DESIGN_PACKAGE_ENTRY_BYTES",
+      "passed": true,
+      "expected": "all package manifest bytes",
+      "observed": "matched"
+    },
+    {
+      "code": "DESIGN_PACKAGE_ROOT",
+      "passed": true,
+      "expected": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+      "observed": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1"
+    },
+    {
+      "code": "DESIGN_PACKAGE_EXPECTED_ROOT",
+      "passed": true,
+      "expected": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+      "observed": "66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1"
+    },
+    {
+      "code": "DESIGN_PACKAGE_SELF_HASH",
+      "passed": true,
+      "expected": "4259ab209d61dfec458e54c5343e30be4533492411a52b07bb23af0b7425b5b3",
+      "observed": "4259ab209d61dfec458e54c5343e30be4533492411a52b07bb23af0b7425b5b3"
+    },
+    {
+      "code": "DESIGN_PACKAGE_BINDS_REGISTRATION",
+      "passed": true,
+      "expected": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632",
+      "observed": "e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632"
+    },
+    {
+      "code": "ACTIVE_POINTER_REMAINS_V3",
+      "passed": true,
+      "expected": "MAIS-NATURAL-CA60-V3",
+      "observed": "MAIS-NATURAL-CA60-V3"
+    },
+    {
+      "code": "CUSTODY_FILE_MODE_0600",
+      "passed": true,
+      "expected": "0600",
+      "observed": "0600"
+    },
+    {
+      "code": "CUSTODY_SELF_HASH",
+      "passed": true,
+      "expected": "aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1",
+      "observed": "aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1"
+    },
+    {
+      "code": "CUSTODY_EXPECTED_ROOT",
+      "passed": true,
+      "expected": "aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1",
+      "observed": "aa48b5d02996ceed02daff2579b8961a4e5ea3c373dfdc023085fa181c2914a1"
+    },
+    {
+      "code": "CUSTODY_DESIGN_BINDING",
+      "passed": true,
+      "expected": "MAIS-NATURAL-CA60-V5|e240f1fb1af588fb3dbf085b8f57af1c41635bdb8576be8019838d4512fa0632|66a78409c64d65fa8d7e0208386f2046b276de5295602261fdb41e53e08544a1",
+      "observed": null
+    },
+    {
+      "code": "CUSTODY_NONAUTHORIZING",
+      "passed": true,
+      "expected": false,
+      "observed": false
+    },
+    {
+      "code": "CUSTODY_RUNNER_COMMIT",
+      "passed": true,
+      "expected": "1dc093a1d0a300495dcd671091c849d24410fd5e",
+      "observed": "1dc093a1d0a300495dcd671091c849d24410fd5e"
+    },
+    {
+      "code": "RUNNER_COMMIT_EXISTS",
+      "passed": true,
+      "expected": true,
+      "observed": null
+    },
+    {
+      "code": "RUNNER_COMMIT_ANCESTOR_OF_REVIEW_HEAD",
+      "passed": true,
+      "expected": true,
+      "observed": null
+    },
+    {
+      "code": "RUNNER_SOURCE_MANIFEST_ROOT",
+      "passed": true,
+      "expected": "2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0",
+      "observed": "2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0"
+    },
+    {
+      "code": "RUNNER_SOURCE_EXPECTED_ROOT",
+      "passed": true,
+      "expected": "2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0",
+      "observed": "2d333700f464fc856beea60f8f96c276eaaaaaed10b476b841c06ba4b9a127b0"
+    },
+    {
+      "code": "RUNNER_SOURCE_FILE_COUNT",
+      "passed": true,
+      "expected": 17,
+      "observed": 17
+    },
+    {
+      "code": "RUNNER_COMMITTED_BYTES",
+      "passed": true,
+      "expected": "all 17 Git object rows match",
+      "observed": "matched"
+    },
+    {
+      "code": "ADAPTER_UNIQUE_SOURCE_ROW",
+      "passed": true,
+      "expected": 1,
+      "observed": 1
+    },
+    {
+      "code": "ADAPTER_HASH",
+      "passed": true,
+      "expected": "63beb1ca15a26c71563a73447f347383bdaa31cb27a2b932b33d534007767013",
+      "observed": "63beb1ca15a26c71563a73447f347383bdaa31cb27a2b932b33d534007767013"
+    },
+    {
+      "code": "RUNNER_HASH",
+      "passed": true,
+      "expected": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c",
+      "observed": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c"
+    },
+    {
+      "code": "RUNNER_EXPECTED_ROOT",
+      "passed": true,
+      "expected": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c",
+      "observed": "cfef4f67e1c294e60f10de594dea59828c4f4a94b8465e55ab36b5b65285789c"
+    },
+    {
+      "code": "NO_LIVE_NETWORK_PRIMITIVE",
+      "passed": true,
+      "expected": 0,
+      "observed": 0
+    },
+    {
+      "code": "NO_CREDENTIAL_PRIMITIVE",
+      "passed": true,
+      "expected": 0,
+      "observed": 0
+    },
+    {
+      "code": "CLI_LABEL_OPENAI_ONLY",
+      "passed": true,
+      "expected": "label-openai",
+      "observed": null
+    },
+    {
+      "code": "PRODUCTION_GUARD_PINS_ON_DISK_ROOTS",
+      "passed": true,
+      "expected": true,
+      "observed": null
+    }
+  ],
+  "decision": "CONCURRED",
+  "limitations": [
+    "PREACTIVATION_DESIGN_AND_RUNNER_REVIEW_ONLY",
+    "NO_PROVIDER_CALL_OR_ROUTE_PROBE",
+    "NOT_THE_POST_EXECUTION_60_ITEM_INDEPENDENT_RECOMPUTATION",
+    "NOT_HUMAN_GOLD_LABEL_REVIEW",
+    "DOES_NOT_AUTHORIZE_ACTIVE_POINTER_MUTATION_OR_PROVIDER_EXECUTION"
+  ],
+  "verificationHash": "f57d16b7a6603960511d2aae59b36911cbb9fec1bffaa63967cbd125da98ade4"
+}
