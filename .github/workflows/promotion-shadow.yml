@@ -47,7 +47,7 @@ jobs:
       - name: Install current dependencies from lockfile
         run: npm ci --ignore-scripts
 
-      - name: Run Promotion Gate unit and security tests
+      - name: Validate Promotion Shadow finalization contract
         run: npm run test:promotion-gate
 
       - name: Configure isolated Promotion Shadow paths
