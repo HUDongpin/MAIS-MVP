@@ -268,6 +268,11 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflowSource = await readFile(workflowPath, "utf8");
   const workflow = parseYaml(workflowSource);
+  const actionPins = {
+    checkout: "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+    setupNode: "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+    uploadArtifact: "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02"
+  };
 
   assert.equal(workflow.name, "promotion-shadow-gate");
   assert.deepEqual(Object.keys(workflow.on).sort(), ["pull_request", "push", "workflow_dispatch"]);
@@ -283,29 +288,26 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   assert.equal(job.permissions?.contents, "read");
   assert.equal(job.env?.PROMOTION_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}");
   assert.equal(job.env?.PROMOTION_REPLAY_RUN_ID, "ci-${{ github.run_id }}-${{ github.run_attempt }}-replay");
-  assert.equal(job.env?.PROMOTION_VALIDATION_REPORT, "${{ runner.temp }}/promotion-validation-report.v1.json");
-  assert.equal(
-    job.env?.PROMOTION_FRESH_VERIFICATION_REPORT,
-    "${{ runner.temp }}/promotion-fresh-receipt-verification.v1.json"
-  );
-  assert.equal(
-    job.env?.PROMOTION_REPLAY_VERIFICATION_REPORT,
-    "${{ runner.temp }}/promotion-replay-receipt-verification.v1.json"
-  );
-  assert.equal(
-    job.env?.PROMOTION_CANONICAL_VERIFICATION_REPORT,
-    "${{ runner.temp }}/promotion-canonical-receipt-verification.v1.json"
-  );
+  for (const [name, value] of Object.entries(job.env ?? {})) {
+    assert.doesNotMatch(String(value), /runner\.temp/u, `${name} must not use runner.temp at job scope`);
+  }
   assert.ok(Array.isArray(job.steps));
-  assert.ok(job.steps.some((step) => step.uses === "actions/checkout@v4"));
-  assert.ok(job.steps.some((step) => step.uses === "actions/setup-node@v4"));
-  const uploadStep = job.steps.find((step) => step.uses === "actions/upload-artifact@v4");
+  assert.equal(job.steps.filter((step) => step.uses === actionPins.checkout).length, 1);
+  assert.equal(job.steps.filter((step) => step.uses === actionPins.setupNode).length, 1);
+  const checkoutStep = job.steps.find((step) => step.uses === actionPins.checkout);
+  assert.equal(checkoutStep.with?.["persist-credentials"], false);
+  const configureStep = job.steps.find((step) => step.name === "Configure isolated Promotion Shadow paths");
+  assert.ok(configureStep, "workflow must configure runner-temp paths at step runtime");
+  assert.match(configureStep.run, /: "\$\{RUNNER_TEMP:\?RUNNER_TEMP is required\}"/u);
+  assert.match(configureStep.run, /PROMOTION_ARTIFACT_ROOT=/u);
+  assert.match(configureStep.run, /PROMOTION_CANONICAL_RECEIPT_COPY=/u);
+  assert.match(configureStep.run, /PROMOTION_EXECUTION_WORKTREE=/u);
+  assert.match(configureStep.run, />> "\$GITHUB_ENV"/u);
+  const uploadStep = job.steps.find((step) => step.uses === actionPins.uploadArtifact);
   assert.ok(uploadStep, "workflow must upload Promotion Shadow artifacts");
-  assert.match(uploadStep.with?.path, /promotion-validation-report\.v1\.json/u);
-  assert.match(uploadStep.with?.path, /promotion-fresh-receipt-verification\.v1\.json/u);
-  assert.match(uploadStep.with?.path, /promotion-replay-receipt-verification\.v1\.json/u);
-  assert.match(uploadStep.with?.path, /promotion-canonical-receipt-verification\.v1\.json/u);
+  assert.equal(uploadStep.with?.path, "${{ runner.temp }}/promotion-shadow-gate-artifacts/");
   assert.equal(uploadStep.with?.["if-no-files-found"], "error");
+  assert.equal(uploadStep.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
 
   const runCommands = job.steps.flatMap((step) => typeof step.run === "string" ? [step.run] : []);
   assert.ok(runCommands.includes("npm ci"), "workflow must install from the lockfile with npm ci");
@@ -348,7 +350,7 @@ test("Promotion Shadow CI is an all-change fail-closed non-live gate", async () 
   }
 });
 
-test("Promotion Shadow CI preserves failed receipts without masking the gate result", async () => {
+test("Promotion Shadow CI authenticates expected-fail receipts and leaves the final gate red", async () => {
   const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
   const workflow = parseYaml(await readFile(workflowPath, "utf8"));
   const steps = workflow.jobs?.["promotion-shadow-gate"]?.steps;
@@ -363,26 +365,43 @@ test("Promotion Shadow CI preserves failed receipts without masking the gate res
     "Verify replayed receipt",
     "Verify canonical receipt",
     "Assert receipt verification envelopes",
-    "Upload Promotion Shadow gate artifacts"
+    "Assert exact Promotion Shadow artifact set",
+    "Upload Promotion Shadow gate artifacts",
+    "Enforce Promotion Shadow Gate outcome"
   ];
   for (const stepName of failureArtifactStepNames) {
     const step = stepByName.get(stepName);
     assert.ok(step, `Missing failure-artifact step: ${stepName}`);
-    assert.equal(step.if, "${{ always() }}", `${stepName} must run after an earlier nonzero result`);
+    if (stepName !== "Upload Promotion Shadow gate artifacts") {
+      assert.equal(step.if, "${{ always() }}", `${stepName} must run after an earlier nonzero result`);
+    }
   }
 
-  const failClosedStepNames = [
+  const capturedCliStepNames = [
     "Validate real pilot, legacy 492-question ratchet, and selected-candidate live reachability",
-    ...failureArtifactStepNames.slice(0, -1)
+    "Execute real pilot shadow",
+    "Replay real pilot shadow with a distinct run identity",
+    "Verify fresh receipt",
+    "Verify replayed receipt",
+    "Verify canonical receipt"
   ];
-  for (const stepName of failClosedStepNames) {
+  for (const stepName of capturedCliStepNames) {
     const step = stepByName.get(stepName);
-    assert.equal(
-      Object.hasOwn(step, "continue-on-error"),
-      false,
-      `${stepName} must leave a nonzero command visible to the job result`
-    );
+    assert.equal(Object.hasOwn(step, "continue-on-error"), false, `${stepName} must not use continue-on-error`);
+    assert.match(step.run, /set \+e/u, `${stepName} must capture the CLI status explicitly`);
+    assert.match(step.run, /cli_exit=\$\?/u, `${stepName} must capture the exact CLI status`);
+    assert.match(step.run, /\{ pass: 0, fail: 1, blocked: 2 \}/u, `${stepName} must map result to the v1 exit contract`);
+    assert.match(step.run, /cliExit !== expectedExit/u, `${stepName} must reject exit/result drift`);
   }
+
+  const uploadStep = stepByName.get("Upload Promotion Shadow gate artifacts");
+  assert.equal(uploadStep.if, "${{ always() && steps.assert-artifact-set.outcome == 'success' }}");
+  const artifactStep = stepByName.get("Assert exact Promotion Shadow artifact set");
+  assert.equal(artifactStep.id, "assert-artifact-set");
+  assert.match(artifactStep.run, /JSON\.parse\(readFileSync\(artifactPath, "utf8"\)\)/u);
+  const finalStep = stepByName.get("Enforce Promotion Shadow Gate outcome");
+  assert.match(finalStep.run, /result !== "pass"/u);
+  assert.match(finalStep.run, /Promotion Shadow Gate remains red/u);
 
   const stepIndexes = failureArtifactStepNames.map((stepName) =>
     steps.findIndex((step) => step.name === stepName)
@@ -406,25 +425,22 @@ test("Promotion Shadow CI replays the canonical execution commit from a fixed de
     job.env?.PROMOTION_CANONICAL_RECEIPT_ABSOLUTE,
     "${{ github.workspace }}/coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v1/shadow-receipt.v1.json"
   );
-  assert.equal(
-    job.env?.PROMOTION_EXECUTION_WORKTREE,
-    "${{ runner.temp }}/promotion-shadow-execution"
-  );
-  assert.equal(
-    job.env?.PROMOTION_CANONICAL_RECEIPT_COPY,
-    "${{ runner.temp }}/promotion-canonical-receipt.v1.json"
-  );
+  assert.equal(Object.hasOwn(job.env ?? {}, "PROMOTION_EXECUTION_WORKTREE"), false);
+  assert.equal(Object.hasOwn(job.env ?? {}, "PROMOTION_CANONICAL_RECEIPT_COPY"), false);
 
-  const checkoutSteps = steps.filter((step) => step.uses === "actions/checkout@v4");
+  const checkoutPin = "actions/checkout@11d5960a326750d5838078e36cf38b85af677262";
+  const checkoutSteps = steps.filter((step) => step.uses === checkoutPin);
   assert.equal(checkoutSteps.length, 1, "workflow must have exactly one repository checkout");
   assert.equal(checkoutSteps[0].with?.["fetch-depth"], 0);
   assert.equal(Object.hasOwn(checkoutSteps[0].with ?? {}, "ref"), false);
-  assert.equal(Object.hasOwn(checkoutSteps[0].with ?? {}, "persist-credentials"), false);
+  assert.equal(checkoutSteps[0].with?.["persist-credentials"], false);
 
   const stepByName = new Map(steps.map((step) => [step.name, step]));
+  const configureStep = stepByName.get("Configure isolated Promotion Shadow paths");
   const resolveStep = stepByName.get("Resolve canonical Receipt execution commit");
   const prepareStep = stepByName.get("Prepare detached canonical execution worktree");
   const installStep = stepByName.get("Install canonical execution dependencies");
+  assert.ok(configureStep, "workflow must configure historical paths after checkout");
   assert.ok(resolveStep, "workflow must resolve the canonical Receipt execution commit");
   assert.ok(prepareStep, "workflow must prepare the detached historical worktree");
   assert.ok(installStep, "workflow must install the historical commit lockfile");
@@ -438,8 +454,11 @@ test("Promotion Shadow CI replays the canonical execution commit from a fixed de
     prepareStep.env?.PROMOTION_EXECUTION_COMMIT,
     "${{ steps.resolve-promotion-execution.outputs.execution_commit }}"
   );
-  assert.equal(installStep["working-directory"], "${{ env.PROMOTION_EXECUTION_WORKTREE }}");
-  assert.equal(installStep.run, "npm ci");
+  assert.equal(Object.hasOwn(installStep, "working-directory"), false);
+  assert.match(installStep.run, /cd "\$PROMOTION_EXECUTION_WORKTREE"/u);
+  assert.match(installStep.run, /npm ci/u);
+  assert.match(configureStep.run, /canonical_copy="\$runner_temp\/promotion-canonical-receipt\.v1\.json"/u);
+  assert.match(configureStep.run, /execution_worktree="\$runner_temp\/promotion-shadow-execution"/u);
 
   assert.match(resolveStep.run, /receipt\.manifest\.path !== manifestPath/u);
   assert.match(resolveStep.run, /\^\[a-f0-9\]\{40\}\$/u);
@@ -469,7 +488,8 @@ test("Promotion Shadow CI replays the canonical execution commit from a fixed de
     const step = stepByName.get(stepName);
     assert.ok(step, `Missing historical execution step: ${stepName}`);
     assert.equal(step.if, "${{ always() }}");
-    assert.equal(step["working-directory"], "${{ env.PROMOTION_EXECUTION_WORKTREE }}");
+    assert.equal(Object.hasOwn(step, "working-directory"), false);
+    assert.match(step.run, /cd "\$PROMOTION_EXECUTION_WORKTREE"/u);
     assert.equal(Object.hasOwn(step, "continue-on-error"), false);
   }
 
@@ -725,6 +745,7 @@ test("Promotion Shadow receipt verification reports execute fail closed for exac
   );
   const digestFor = (character) => character.repeat(64);
   const receipts = Object.fromEntries(variants.map((variant, index) => [variant, {
+    result: "fail",
     manifest: {
       path: "coordination/integration/pilots/example/promotion-manifest.v1.json",
       rawSha256: digestFor(String(index + 1))
@@ -734,7 +755,7 @@ test("Promotion Shadow receipt verification reports execute fail closed for exac
   }]));
   const reports = Object.fromEntries(variants.map((variant) => [variant, {
     schemaVersion: "promotion-receipt-verification.v1",
-    result: "pass",
+    result: receipts[variant].result,
     manifestPath: receipts[variant].manifest.path,
     manifestDigest: receipts[variant].manifest.rawSha256,
     semanticReceiptDigest: receipts[variant].semanticReceiptDigest,
@@ -771,7 +792,7 @@ test("Promotion Shadow receipt verification reports execute fail closed for exac
 
     const invalidCases = [
       ["wrong schema", { ...reports.fresh, schemaVersion: "promotion-receipt-verification.v0" }],
-      ["failed result", { ...reports.fresh, result: "fail" }],
+      ["result mismatch", { ...reports.fresh, result: "pass" }],
       ["unexpected field", { ...reports.fresh, unexpected: true }],
       ["manifest path mismatch", { ...reports.fresh, manifestPath: "coordination/integration/other.json" }],
       ["manifest digest mismatch", { ...reports.fresh, manifestDigest: digestFor("f") }],
@@ -783,6 +804,115 @@ test("Promotion Shadow receipt verification reports execute fail closed for exac
       const result = await writeFixtures({ fresh: invalidFreshReport });
       assert.notEqual(result.status, 0, `${label} must fail closed\n${combinedOutput(result)}`);
     }
+  } finally {
+    await rm(fixtureDir, { recursive: true, force: true });
+  }
+});
+
+test("Promotion Shadow artifact preflight requires every exact non-empty JSON file before upload", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const artifactStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Assert exact Promotion Shadow artifact set"
+  );
+  assert.ok(artifactStep, "workflow must execute an exact artifact-set preflight");
+
+  const fixtureDir = await realpath(await mkdtemp(path.join(tmpdir(), "mais-promotion-artifact-set-")));
+  const namesByEnv = {
+    PROMOTION_VALIDATION_REPORT: "promotion-validation-report.v1.json",
+    PROMOTION_FRESH_RECEIPT: "promotion-shadow-receipt.v1.json",
+    PROMOTION_REPLAY_RECEIPT: "promotion-shadow-replay-receipt.v1.json",
+    PROMOTION_FRESH_VERIFICATION_REPORT: "promotion-fresh-receipt-verification.v1.json",
+    PROMOTION_REPLAY_VERIFICATION_REPORT: "promotion-replay-receipt-verification.v1.json",
+    PROMOTION_CANONICAL_VERIFICATION_REPORT: "promotion-canonical-receipt-verification.v1.json"
+  };
+  const artifactPaths = Object.fromEntries(
+    Object.entries(namesByEnv).map(([name, filename]) => [name, path.join(fixtureDir, filename)])
+  );
+  const runPreflight = () => spawnSync("bash", ["-c", artifactStep.run], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PROMOTION_ARTIFACT_ROOT: fixtureDir,
+      ...artifactPaths
+    }
+  });
+  const restore = async (artifactPath) => writeFile(artifactPath, "{}\n");
+
+  try {
+    for (const artifactPath of Object.values(artifactPaths)) await restore(artifactPath);
+    const valid = runPreflight();
+    assert.equal(valid.status, 0, combinedOutput(valid));
+
+    for (const [name, artifactPath] of Object.entries(artifactPaths)) {
+      await rm(artifactPath);
+      const missing = runPreflight();
+      assert.notEqual(missing.status, 0, `${name} missing must fail closed\n${combinedOutput(missing)}`);
+      await restore(artifactPath);
+    }
+
+    const unexpectedPath = path.join(fixtureDir, "unexpected.json");
+    await writeFile(unexpectedPath, "{}\n");
+    assert.notEqual(runPreflight().status, 0, "an unexpected artifact must fail closed");
+    await rm(unexpectedPath);
+
+    await writeFile(artifactPaths.PROMOTION_VALIDATION_REPORT, "not-json\n");
+    assert.notEqual(runPreflight().status, 0, "invalid artifact JSON must fail closed");
+    await restore(artifactPaths.PROMOTION_VALIDATION_REPORT);
+
+    const symlinkTarget = path.join(path.dirname(fixtureDir), `${path.basename(fixtureDir)}-target.json`);
+    await writeFile(symlinkTarget, "{}\n");
+    await rm(artifactPaths.PROMOTION_REPLAY_RECEIPT);
+    await symlink(symlinkTarget, artifactPaths.PROMOTION_REPLAY_RECEIPT);
+    assert.notEqual(runPreflight().status, 0, "a symlinked artifact must fail closed");
+    await rm(symlinkTarget);
+  } finally {
+    await rm(fixtureDir, { recursive: true, force: true });
+  }
+});
+
+test("Promotion Shadow final enforcement remains red for an authentic failed Receipt", async () => {
+  const workflowPath = path.join(repoRoot, ".github/workflows/promotion-shadow.yml");
+  const workflow = parseYaml(await readFile(workflowPath, "utf8"));
+  const finalStep = workflow.jobs?.["promotion-shadow-gate"]?.steps?.find(
+    (step) => step.name === "Enforce Promotion Shadow Gate outcome"
+  );
+  assert.ok(finalStep, "workflow must have a final outcome-enforcement step");
+
+  const fixtureDir = await realpath(await mkdtemp(path.join(tmpdir(), "mais-promotion-final-outcome-")));
+  const envNames = [
+    "PROMOTION_VALIDATION_REPORT",
+    "PROMOTION_FRESH_RECEIPT",
+    "PROMOTION_REPLAY_RECEIPT",
+    "PROMOTION_CANONICAL_RECEIPT_COPY",
+    "PROMOTION_FRESH_VERIFICATION_REPORT",
+    "PROMOTION_REPLAY_VERIFICATION_REPORT",
+    "PROMOTION_CANONICAL_VERIFICATION_REPORT"
+  ];
+  const pathsByEnv = Object.fromEntries(
+    envNames.map((name, index) => [name, path.join(fixtureDir, `${index}-${name}.json`)])
+  );
+  const runFinal = () => spawnSync("bash", ["-c", finalStep.run], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    env: { ...process.env, ...pathsByEnv }
+  });
+
+  try {
+    for (const artifactPath of Object.values(pathsByEnv)) {
+      await writeFile(artifactPath, `${JSON.stringify({ result: "pass" })}\n`);
+    }
+    const passing = runFinal();
+    assert.equal(passing.status, 0, combinedOutput(passing));
+
+    await writeFile(
+      pathsByEnv.PROMOTION_CANONICAL_RECEIPT_COPY,
+      `${JSON.stringify({ result: "fail" })}\n`
+    );
+    const authenticFailure = runFinal();
+    assert.notEqual(authenticFailure.status, 0, "an authentic failed canonical Receipt must keep the Gate red");
+    assert.match(combinedOutput(authenticFailure), /canonicalReceipt=fail/u);
   } finally {
     await rm(fixtureDir, { recursive: true, force: true });
   }
@@ -840,6 +970,23 @@ test("Promotion Shadow validation report assertion executes fail closed for exac
     await writeFile(manifestPath, `${JSON.stringify(manifest)}\n`);
     const valid = await writeReport(validReport);
     assert.equal(valid.status, 0, combinedOutput(valid));
+
+    const controlledFailure = await writeReport({
+      schemaVersion: "promotion-gate-error.v1",
+      result: "fail",
+      code: "LEGACY_NEW_CONFLICT",
+      message: "Observed one or more unratcheted reachable candidate/live conflicts.",
+      details: { newConflictCount: 1 }
+    });
+    assert.equal(controlledFailure.status, 0, combinedOutput(controlledFailure));
+
+    const controlledBlock = await writeReport({
+      schemaVersion: "promotion-gate-error.v1",
+      result: "blocked",
+      code: "LEGACY_DISCOVERY_INCOMPLETE",
+      message: "Live reachability discovery was incomplete."
+    });
+    assert.equal(controlledBlock.status, 0, combinedOutput(controlledBlock));
 
     const invalidCases = [
       ["wrong schema", { ...validReport, schemaVersion: "promotion-validation.v0" }],
