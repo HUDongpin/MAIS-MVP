@@ -13,11 +13,9 @@ import {
 import { isChineseLanguage, simplifyChineseText } from "@/lib/i18n";
 import { clamp, formatNumber } from "@/lib/math";
 
-type LabMode = "tangent" | "normal";
+import { calculusStatsModesForTopic, type CalculusStatsLabMode as LabMode } from "./calculusStatsModes";
 
-export function calculusStatsModesForTopic(topicId: string): readonly LabMode[] {
-  return topicId === "statistics-s6" ? ["normal"] : ["tangent", "normal"];
-}
+export { calculusStatsModesForTopic };
 
 const width = 640;
 const height = 420;
