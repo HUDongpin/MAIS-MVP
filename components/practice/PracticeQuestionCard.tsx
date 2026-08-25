@@ -782,7 +782,7 @@ export function PracticeQuestionCard({
                   requestAnimationFrame(() => answerControlRef.current?.focus({ preventScroll: true }));
                 }}
                 className={cn(
-                  "focus-ring inline-flex items-center gap-3 rounded-full border px-4 py-2.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
+                  "focus-ring inline-flex min-h-11 items-center gap-3 rounded-full border px-4 py-2.5 text-sm font-black shadow-sm transition hover:-translate-y-0.5",
                   softKeyboardOpen
                     ? "border-cyan-300 bg-cyan-400/18 text-cyan-800 dark:border-cyan-200/35 dark:bg-cyan-300/15 dark:text-cyan-100"
                     : "border-slate-200/80 bg-white/75 text-slate-700 hover:border-cyan-300 hover:bg-cyan-50 dark:border-white/10 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.1]"
