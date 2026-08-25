@@ -4,6 +4,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import {
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_TEAM_ID
+} from "./vercel-provider-evidence.mjs";
+
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, "..");
 const TMP_ROOT = path.join(REPO_ROOT, ".tmp");
@@ -97,6 +102,13 @@ function buildReleaseGuardChildEnvironment(purpose, env = process.env) {
     : [];
   for (const key of [...RELEASE_GUARD_CHILD_BASE_ENV_KEYS, ...extraKeys]) {
     if (typeof env?.[key] === "string") child[key] = env[key];
+  }
+  if (purpose === "vercel") {
+    // A clean checkout intentionally has no local `.vercel/project.json`.
+    // Pin the reviewed project/team identity in the restricted Vercel child
+    // process so the CLI cannot drift to a caller-controlled linked project.
+    child.VERCEL_ORG_ID = APPROVED_VERCEL_TEAM_ID;
+    child.VERCEL_PROJECT_ID = APPROVED_VERCEL_PROJECT_ID;
   }
   if (purpose === "git" || purpose === "node") {
     Object.assign(child, {

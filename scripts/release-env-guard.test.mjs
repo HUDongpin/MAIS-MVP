@@ -5,6 +5,11 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 
+import {
+  APPROVED_VERCEL_PROJECT_ID,
+  APPROVED_VERCEL_TEAM_ID
+} from "./vercel-provider-evidence.mjs";
+
 const repoRoot = path.resolve(new URL("..", import.meta.url).pathname);
 
 async function makeRepoLocalTempDir(prefix) {
@@ -115,12 +120,49 @@ async function writeCompleteProductionVercelStub(binDir) {
   ];
   const vercelBin = path.join(binDir, "vercel");
   await writeFile(vercelBin, `#!/usr/bin/env node
+if (
+  process.env.VERCEL_PROJECT_ID !== ${JSON.stringify(APPROVED_VERCEL_PROJECT_ID)} ||
+  process.env.VERCEL_ORG_ID !== ${JSON.stringify(APPROVED_VERCEL_TEAM_ID)}
+) {
+  console.error("approved project identity was not pinned");
+  process.exit(42);
+}
 console.log(${JSON.stringify(JSON.stringify({
     envs: required.map((key) => ({ key, target: ["production"] }))
   }))});
 `);
   await chmod(vercelBin, 0o755);
 }
+
+test("production env guard pins the approved Vercel project in an unlinked clean checkout", async () => {
+  const tempDir = await mkdtemp(path.join(tmpdir(), "mais-unlinked-vercel-project-"));
+
+  try {
+    await writeCompleteProductionVercelStub(tempDir);
+    const result = spawnSync(process.execPath, ["scripts/release-env-guard.mjs", "env", "--json"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        HOME: tempDir,
+        XDG_CONFIG_HOME: tempDir,
+        PATH: `${tempDir}${path.delimiter}${process.env.PATH ?? ""}`,
+        MAIS_RELEASE_ENV_TARGET: "production",
+        MAIS_RELEASE_MIN_FREE_GB: "1",
+        VERCEL_ORG_ID: "caller-controlled-org-must-not-win",
+        VERCEL_PROJECT_ID: "caller-controlled-project-must-not-win",
+        VERCEL_SCOPE: "test-scope"
+      }
+    });
+
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+    const parsed = JSON.parse(result.stdout);
+    assert.equal(parsed.vercelEnv.present.length, 25);
+    assert.equal(parsed.vercelEnv.missing.length, 0);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+});
 
 function productionWorkflowEnv({ binDir, candidateSha, releaseSourceRoot }) {
   return {
