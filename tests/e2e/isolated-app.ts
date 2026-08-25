@@ -259,6 +259,7 @@ function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
   const candidateSet = new Set(candidates);
   const currentUid = process.getuid?.();
   const pids = new Set<string>();
+  let inspectedDescriptorCount = 0;
   let entries;
 
   try {
@@ -277,7 +278,8 @@ function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
       try {
         if (statSync(processRoot).uid !== currentUid) continue;
       } catch (error) {
-        if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
+        const code = (error as NodeJS.ErrnoException).code;
+        if (["EACCES", "ENOENT", "EPERM", "ESRCH"].includes(code ?? "")) continue;
         return null;
       }
     }
@@ -288,7 +290,10 @@ function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
       fileDescriptors = readdirSync(fdRoot);
     } catch (error) {
       const code = (error as NodeJS.ErrnoException).code;
-      if (code === "ENOENT" || code === "ESRCH") continue;
+      // GitHub-hosted runners can expose same-UID supervisor processes whose
+      // fd directories are protected. Skip only that individual process; a
+      // completely unreadable procfs still fails closed below.
+      if (["EACCES", "ENOENT", "EPERM", "ESRCH"].includes(code ?? "")) continue;
       return null;
     }
 
@@ -298,9 +303,10 @@ function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
         target = readlinkSync(path.join(fdRoot, descriptor));
       } catch (error) {
         const code = (error as NodeJS.ErrnoException).code;
-        if (code === "ENOENT" || code === "ESRCH") continue;
+        if (["EACCES", "ENOENT", "EPERM", "ESRCH"].includes(code ?? "")) continue;
         return null;
       }
+      inspectedDescriptorCount += 1;
 
       const cleanTarget = cleanProcFileTarget(target);
       if (path.isAbsolute(cleanTarget)) {
@@ -318,7 +324,7 @@ function procfsSqliteHolderPids(candidates: string[], procRoot: string) {
     }
   }
 
-  return Array.from(pids).sort();
+  return inspectedDescriptorCount > 0 ? Array.from(pids).sort() : null;
 }
 
 function inspectSqliteHolders(dbPath: string, options: SqliteHolderInspectionOptions = {}): SqliteHolderInspection {

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { execFileSync, spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import {
+  chmodSync,
   existsSync,
   linkSync,
   mkdirSync,
@@ -197,6 +198,41 @@ test("SQLite preflight uses procfs when lsof is unavailable or reports no holder
     }
   } finally {
     await stopChild(child);
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("SQLite procfs inspection skips protected unrelated processes after proving readable coverage", () => {
+  const root = mkdtempSync(path.join(tmpdir(), "mais-isolated-preflight-"));
+  const dbPath = path.join(root, "protected-neighbor.sqlite");
+  const procRoot = path.join(root, "proc");
+  const readablePid = String(process.pid);
+  const protectedPid = String(process.pid + 1_000_000);
+  const readableFdRoot = path.join(procRoot, readablePid, "fd");
+  const protectedFdRoot = path.join(procRoot, protectedPid, "fd");
+
+  try {
+    writeFileSync(dbPath, "sqlite-inspection-sentinel");
+    mkdirSync(readableFdRoot, { recursive: true });
+    mkdirSync(protectedFdRoot, { recursive: true });
+    symlinkSync("/dev/null", path.join(readableFdRoot, "0"));
+    chmodSync(protectedFdRoot, 0o000);
+
+    const options = {
+      lsofCommand: path.join(root, "missing-lsof"),
+      platform: "linux",
+      procRoot
+    } as const;
+    assert.deepEqual(sqliteHolderPids(dbPath, options), []);
+
+    symlinkSync(dbPath, path.join(readableFdRoot, "11"));
+    assert.deepEqual(sqliteHolderPids(dbPath, options), [readablePid]);
+  } finally {
+    try {
+      chmodSync(protectedFdRoot, 0o700);
+    } catch {
+      // The fixture might not have reached the permission boundary.
+    }
     rmSync(root, { recursive: true, force: true });
   }
 });
