@@ -39,5 +39,26 @@
 - Red test observed: missing independent verifier module.
 - CLI/independence tests: `2/2` passed after implementation.
 - TypeScript type-check: passed.
-- Live independent review remains pending until this verifier is committed and
-  therefore has an exact clean verifier commit/hash.
+- At that point live independent review remained pending until the verifier had
+  an exact clean commit/hash; the result below records the subsequent run.
+
+## Live review result
+
+- Verifier commit: `201fcc093c68c59587c8074c36cfb9d96749b7ae`.
+- Review decision: `CONCURRED`.
+- Checks: `32/32` passed.
+- Runtime rows: `2,802/2,802` matched; mismatch count `0`.
+- Homology: root, `694` clusters, and `147` singletons matched.
+- Scanner rows and conservative candidate roots matched; mismatch count `0`.
+- Review receipt self-hash:
+  `8ab31d8269558a9544566e45a90afc8538c35e35567a46a5b38ea9a6d91c6657`.
+- Two reruns produced identical stdout hash:
+  `8e96e23fec924e3825ed26c34b473e8b6e188bd67084c212b1579e9bfcec529d`.
+- Provider requests, credential reads, question egress, and results: `0`.
+
+## Handoff
+
+A11 concurrence resolves only the independent extractor-readiness blocker. The
+owner rights and lineage decisions and both formal freeze artifacts remain
+absent. This receipt must not be represented as final evaluation review or as
+evidence that machine QA passed.
