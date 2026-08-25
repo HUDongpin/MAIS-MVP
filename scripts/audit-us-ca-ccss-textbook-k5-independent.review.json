@@ -1,0 +1,914 @@
+{
+  "schemaVersion": 2,
+  "scope": {
+    "packageId": "ccss-textbook-practice-v1",
+    "grades": ["K", "P1", "P2", "P3", "P4", "P5"],
+    "expectedQuestionCount": 336
+  },
+  "policy": "Expectations were independently derived from each item's English prompt and choices. Each expectation is bound to the reviewed prompt, English choices, and student-visible diagram by SHA-256. Stored answer, explanation, independentAnswer, and independentSolution fields are not review sources.",
+  "visibleInputSha256ById": {
+    "ccss-textbook-practice-v1-counting-ten-frame-q01": "c79dc8f51149dde996bbbaf45e7909d9ee9fe95874847283e54d5ec0df6970a1",
+    "ccss-textbook-practice-v1-counting-ten-frame-q02": "30cb73582707632dfebc158a38a98e5be23fdcc37897718351d0bf0aa9713119",
+    "ccss-textbook-practice-v1-counting-ten-frame-q03": "097627418f04bdb7b6fe868bd5960b4f936c0425716f69f120ded42c6a8ab793",
+    "ccss-textbook-practice-v1-count-to-100-q01": "d85a7b1e92d909e1ad9c4ecf62281cdc3b10ee9681f69aaa00e96f2792fb4881",
+    "ccss-textbook-practice-v1-count-to-100-q02": "90f87bb1dd7cad494bb48d338b548688416ed3d0fcabf6ded1e53881ca392f1f",
+    "ccss-textbook-practice-v1-count-to-100-q03": "9077e7934a445d2c27408dd1807267b5d2337ba5b8faf0cb3e6fb47206d35566",
+    "ccss-textbook-practice-v1-compare-groups-q01": "49bd18b727242748f29895cfd02cd1d6fee1d617e62cea9d7f13c704b95321b4",
+    "ccss-textbook-practice-v1-compare-groups-q02": "ec3b176b8616d63fb0fe029d51e882c2c0d2238e4fd26adbec6a10b61526f006",
+    "ccss-textbook-practice-v1-compare-groups-q03": "b6d29d08cc4728d2832242a3cfabca7710e920410216313280f13d5367ea2e51",
+    "ccss-textbook-practice-v1-number-bonds-q01": "a6c3ffc6a5ca598a7a2abeba47cb5a3ab6c55ac3ff3fbd80425e18ec68d8807c",
+    "ccss-textbook-practice-v1-number-bonds-q02": "44377a27aa79c279e71e855d930acf61922436a2cf4ab671489d84b4cf0c192e",
+    "ccss-textbook-practice-v1-number-bonds-q03": "675a819866023ce0b7be643c5d2038813928c223c6b4d9c7ee49bb1eb872f4af",
+    "ccss-textbook-practice-v1-teen-numbers-q01": "6751dfaf67b827c037d9c51fbce1be8887fc539a52cd0c02edba162da05c2749",
+    "ccss-textbook-practice-v1-teen-numbers-q02": "da6ec85b1997927439314d921dda02278a0d0b0ac89d34e11e5759a3d71749a6",
+    "ccss-textbook-practice-v1-teen-numbers-q03": "c68389481fb314164d1644fa25a0a1a5472aae1c3ca3c6e5d5b89eed96a68947",
+    "ccss-textbook-practice-v1-compare-length-q01": "7995d0e5990206c2015ce462fa69459da7f76df13c744b07dcf48ed4cdb9ca4d",
+    "ccss-textbook-practice-v1-compare-length-q02": "6073b8159f54797174dbdf4c7ac0f40f2b21b7ab74a383c31dc1f474b7ae47ad",
+    "ccss-textbook-practice-v1-compare-length-q03": "e88eb707a57dd24f509c3d1f78480b5492132062d8b6eaa5705a05b5a6f20537",
+    "ccss-textbook-practice-v1-sort-and-count-q01": "ddf9a590675c7e4879d4ff3fc8c9b919fa10fa8f200f0df07c58f78d2310d0c3",
+    "ccss-textbook-practice-v1-sort-and-count-q02": "5bd3ecd2a817bfdd69b2d7fcecb2957fabeeb22c0356360ebffc1e4072cdf656",
+    "ccss-textbook-practice-v1-sort-and-count-q03": "dee4a8daa560a8799d8cedd3b981b31de1740268191d833534f192d6aa701293",
+    "ccss-textbook-practice-v1-flat-shapes-q01": "d87598ae7b2d96525362896aaa27dd01e8869767cf810ad907c490b9e3ee833a",
+    "ccss-textbook-practice-v1-flat-shapes-q02": "f77d9fc34cb1b6d0cb4ca1babaf11f6db531de66c50540baf6729e9e570acbfa",
+    "ccss-textbook-practice-v1-flat-shapes-q03": "af1951e704548b287649884948708d74b47800b44d3bbef7a7399eee37558f4a",
+    "ccss-textbook-practice-v1-compose-shapes-q01": "e216b16c90750a5b7cfca605cee03add87a94fc6cac5d445f45312f75c758d21",
+    "ccss-textbook-practice-v1-compose-shapes-q02": "3adfac22b823a7a5ffb360f644bb1636a40cbed83202c66458337b81abca3e7d",
+    "ccss-textbook-practice-v1-compose-shapes-q03": "a44abeeb882b02940f708ca048efd6d159485a7abe80959ba8c167ce6b568342",
+    "ccss-textbook-practice-v1-position-words-q01": "ff34a65e67710689c419f283e837e99b1e0656fe002696b649149b52281a81b2",
+    "ccss-textbook-practice-v1-position-words-q02": "5bed5199880e12ebd9fb11537eeb05ce9bfe010cb02d49df3855cabe494ea4ad",
+    "ccss-textbook-practice-v1-position-words-q03": "dfc0a80a6800905f7c4fa2bc2220078aeb3fd146cd3684012391ade8ad3179c2",
+    "ccss-textbook-practice-v1-make-ten-to-add-q01": "bf9b7d66be651ae6aefe769c538250b12eacfe56063da74b17870fdcc62e777d",
+    "ccss-textbook-practice-v1-make-ten-to-add-q02": "be8337f2f8fe57008f023cacdf90e82dada40f3aaed5ef58a06e03fe32dd5d73",
+    "ccss-textbook-practice-v1-make-ten-to-add-q03": "880fedc4e6f8e3bd59eaf5e98a6fd39bed9a6117ba1434891b0da905402b4bc1",
+    "ccss-textbook-practice-v1-add-subtract-stories-q01": "bd9f26eb9937ed58b7cf7278dd34197e5e74dda9a3055b9cbea20698a79f9c3f",
+    "ccss-textbook-practice-v1-add-subtract-stories-q02": "caf7393c40ea413f531d92fef5295b07789b91f21cfe46086a41edf680f15998",
+    "ccss-textbook-practice-v1-add-subtract-stories-q03": "e69995bdb8455b80efe02ce33287b1c961b2e25865c18a9af88c71b835afcfa0",
+    "ccss-textbook-practice-v1-count-on-count-back-q01": "e4f0fa3e1cb834444aa76204d4e02fb9e3dadf5104b423ca71093251a482c83a",
+    "ccss-textbook-practice-v1-count-on-count-back-q02": "c5bc7e6e3955eed0f9c613cb19f883127c205dabb1aae3ae8019bc94d2d371b1",
+    "ccss-textbook-practice-v1-count-on-count-back-q03": "964b3cf39e585f089e0e7848659bf046cdbcf7eddc88c816c06e85093d0a1cd0",
+    "ccss-textbook-practice-v1-missing-addend-q01": "a96f5dd83a4e3239d93734b4576bbf552e8919384c4e9e177d1704a96d4b8abd",
+    "ccss-textbook-practice-v1-missing-addend-q02": "6c0cfa0f8b829b8bf336ca34123cd254ef82f8d0ff967486e1743816d4f83e7e",
+    "ccss-textbook-practice-v1-missing-addend-q03": "a60465f002d64aa2ffc7edd2212cf49e072f824617c739cae3bd866ccce3b775",
+    "ccss-textbook-practice-v1-equal-sign-balance-q01": "0965d12b1437012e42f5aa12e1f1d37fe5b2101eb2211b3cea0ca46208613f00",
+    "ccss-textbook-practice-v1-equal-sign-balance-q02": "c6aa9030b6b8273c60b96ca9ecaf0d6da84d4156390781e84eebd33cd36e0095",
+    "ccss-textbook-practice-v1-equal-sign-balance-q03": "5e1ce46902d4097eee34631c1b70b3229b984fd5b7b1a271266fb761de45d773",
+    "ccss-textbook-practice-v1-count-to-120-q01": "a6307ee701f25e4ad9d48985f16bd2ce13a4b3bd36f30456c6b0e5716607ec76",
+    "ccss-textbook-practice-v1-count-to-120-q02": "0272a429482d9c42080c434e2ba505ef3cf5142ca2024a97b089f9fe0dfa28c3",
+    "ccss-textbook-practice-v1-count-to-120-q03": "aeb50ddc3e361b9a2d7b1bf29ca810bce1fa5f754278398ab4b808148f4183c2",
+    "ccss-textbook-practice-v1-tens-and-ones-q01": "7f3bb810a2e9fe3df5b31c253da6afeeef48660844c4eef07ce2e128ffd8e2af",
+    "ccss-textbook-practice-v1-tens-and-ones-q02": "5d449a5d193b5ec3bd45737d74f2bb9d4e62cd3af208a64f6ee831f46a4a12a5",
+    "ccss-textbook-practice-v1-tens-and-ones-q03": "5e4adc8b1e73b6ddf392833825e45e269612d9f4839628d8841a262f736b1f82",
+    "ccss-textbook-practice-v1-compare-two-digit-q01": "54fedbacba0319d6bc99e149d9ec4347b349f3a7abc938a9d3d67933e944e43e",
+    "ccss-textbook-practice-v1-compare-two-digit-q02": "1598690e9c226536097559ed028ff10039d08c687c4f7b97d3e6fc7db1cb77ca",
+    "ccss-textbook-practice-v1-compare-two-digit-q03": "38ff4d4e7ecdd6b61def53b663c0a1d6de3f9112b84e905b8a7c8551939d8729",
+    "ccss-textbook-practice-v1-add-within-100-q01": "95c5653ec89be1b5dc18db84de83eab5d5d063c2eac55487a352f73e0eee4eec",
+    "ccss-textbook-practice-v1-add-within-100-q02": "562205d08846779ef1320eb194da84b49d55eab1aa4f0b0cdc174846e6a43f3f",
+    "ccss-textbook-practice-v1-add-within-100-q03": "ef7fde9b06a7334725fc0f2fe266ecb777c51f6207efca6f38f8764a3b784bd2",
+    "ccss-textbook-practice-v1-order-and-measure-q01": "e196afd2c0786ae5445407e96ab77b243e5d6a7b1e64a8fcc1fc41374717ccb4",
+    "ccss-textbook-practice-v1-order-and-measure-q02": "339a0aa28deec13d4823cba0cb202a7814148e8d970f81ae25326411e151264e",
+    "ccss-textbook-practice-v1-order-and-measure-q03": "9f30c8ad14973ebfa50bdeb453127089952c2074970f064e97642791fffb86af",
+    "ccss-textbook-practice-v1-telling-time-q01": "699d1e8c89db72c29aa6d618d8cd4eaf55128b58d5047677509825ace26ce693",
+    "ccss-textbook-practice-v1-telling-time-q02": "0352a15e48aaf2701edabe51421bafe2144ad2c6e1beaff3fdc9b154a6cc6f96",
+    "ccss-textbook-practice-v1-telling-time-q03": "46be8d207a61bab7315757e78d23f1b322fa0dba4743196d0638e45bda5d2fd5",
+    "ccss-textbook-practice-v1-picture-graph-q01": "2564ca14b6da4660f280b603c74d0136b01fa5d6544dc4d622492cf35d2c6357",
+    "ccss-textbook-practice-v1-picture-graph-q02": "fbe79c507335f1a39ab3ee7675d8183a2740f75eab5f963a60f95849f7b6b23c",
+    "ccss-textbook-practice-v1-picture-graph-q03": "035a02f070f50b4b664cedd49e2de33c30bd85fe1dd37a084c35760c2fc71acb",
+    "ccss-textbook-practice-v1-shape-attributes-q01": "69b6f27084d00b4fac1a8454b09a9bd54836295d0dcac5e586eb6cbbcd16f463",
+    "ccss-textbook-practice-v1-shape-attributes-q02": "c8fdfd5e2a7a3c434fd3bf930f7beb81f9dcccc3007b07af45b63dd9dffa426c",
+    "ccss-textbook-practice-v1-shape-attributes-q03": "9b350ad7b6c322e8f70ea9e50df8208c8a3af3825bdf77304d3b1517329601d2",
+    "ccss-textbook-practice-v1-compose-2d-q01": "a112d97d062551a952bd0a88269440123ee0c7df34571beaf26d2b0eb34d94bc",
+    "ccss-textbook-practice-v1-compose-2d-q02": "f8b393eff5d1e0e6a00f856bd9fc035a756c63ba445ebb920e7c095022bb1aeb",
+    "ccss-textbook-practice-v1-compose-2d-q03": "c642952659aacf352e84c42d6e2a97742402914ecbdcccce56d676a4a33f1775",
+    "ccss-textbook-practice-v1-partition-shapes-q01": "bdb7b36081db9cad85e4cddd0a16b0ecda65007a990dcb62bc1348b58b20968e",
+    "ccss-textbook-practice-v1-partition-shapes-q02": "1d581b210414d59efa2715e96c14c05e2229f1ea23b7a4da19a00d4aae4b6531",
+    "ccss-textbook-practice-v1-partition-shapes-q03": "a8840d9eb7dc3b7fd1161449b7b6f11f9ea36766641c3e8bf01b6946c11096b4",
+    "ccss-textbook-practice-v1-word-problems-100-q01": "9d8202918abd0a948a24b1870ef8271f30de7d99b6956edc394481f8c76882ab",
+    "ccss-textbook-practice-v1-word-problems-100-q02": "beb4b77d7d773cb2071103d1cf8abf55e7ec8aef95eba5cf74ee5d2f8445fa72",
+    "ccss-textbook-practice-v1-word-problems-100-q03": "9caa6b918cb31d788e183684ce51a2ad8ef72e6a412ddb4b12589804c4d02c16",
+    "ccss-textbook-practice-v1-fluent-within-20-q01": "c89f4cbee4995bdc1df8ce3a2dc76a71df7e3fb32432b100c755d881acd6ca24",
+    "ccss-textbook-practice-v1-fluent-within-20-q02": "5a575422ca7682f527da36d7959b347f77d07fd853d1dea2ca8b240ba912a749",
+    "ccss-textbook-practice-v1-fluent-within-20-q03": "6c83ecf148dc0d0395f19a1c0b683e48f6e6dfdaa56fdb02d0bbdab8c8b0d471",
+    "ccss-textbook-practice-v1-odd-even-q01": "c0c0c76bfd73a1a867c0bd10aa6eec5161896d45fb71c4d833c3ab9022f4cc55",
+    "ccss-textbook-practice-v1-odd-even-q02": "5db8150d85b7c6765013df7423af54bacd1186ce19710fb1b4bf7831026a3586",
+    "ccss-textbook-practice-v1-odd-even-q03": "aa31e75d0021465427ce9e00a2af35d8f92111702b8eb64f168376459f0ab7cf",
+    "ccss-textbook-practice-v1-arrays-repeated-addition-q01": "81aba26926dd0c6378817c4755fca98993b51ecb868b6eb587ba9d5a9ca17d3b",
+    "ccss-textbook-practice-v1-arrays-repeated-addition-q02": "9a4510c89dcaa858d6a5fa91b7b2494acf79a3ac2a3a1fcb24ac6aab1bd9be97",
+    "ccss-textbook-practice-v1-arrays-repeated-addition-q03": "e733f1daf7bd74b4474fda8d88c3211712a3012ba6363c13e9e753392acd5767",
+    "ccss-textbook-practice-v1-place-value-blocks-q01": "ba12837b221edaa62945bae9715c0a8b15d3bf8af1daef8558b11f38b49b609b",
+    "ccss-textbook-practice-v1-place-value-blocks-q02": "70ff3d5f4cd7a4a1c0ba5e63bcac701e50cfb85b3380e51b5db8313f259a60c1",
+    "ccss-textbook-practice-v1-place-value-blocks-q03": "7a98cd16ba2ec78cb7a89de7a8d28bf33a7553cd9799f3fc1c953087e075c4a7",
+    "ccss-textbook-practice-v1-skip-counting-q01": "dc6bc27fd029ca72c2b107553cdffa1d99ee9b8df44bdd4aba9dc0a2cc600937",
+    "ccss-textbook-practice-v1-skip-counting-q02": "0340305da7ed83061373489d60eda16f7848adb2fa8c5805a1470be6d84d8082",
+    "ccss-textbook-practice-v1-skip-counting-q03": "66323878bb28230a3c404799e37dd9affedecc411c0482339a12826f4301c818",
+    "ccss-textbook-practice-v1-compare-three-digit-q01": "ed39ac9bde56447f8477e60d7aec20b4fbef9ecae6cb764e5b0746833ae47518",
+    "ccss-textbook-practice-v1-compare-three-digit-q02": "1203f69374481ca1d65d3880350dde1f80ef075c6960495cd789c8525a9ff026",
+    "ccss-textbook-practice-v1-compare-three-digit-q03": "e67df3dda0098262b834ff700eab04380daa7f40aeaef53f7011203570d657a2",
+    "ccss-textbook-practice-v1-add-subtract-regroup-q01": "354d6f8dc0122bdc29390079b015f21d1f8da9c1ca9d9996bcac61a479d2dedf",
+    "ccss-textbook-practice-v1-add-subtract-regroup-q02": "d555d3b0b97362ee59fa138e07facb4de67961edffb2b8e3e9fd9a9f577dbc70",
+    "ccss-textbook-practice-v1-add-subtract-regroup-q03": "d98c653edb0df2967705c526adfc884e5e906e75355029af2c92fc36c58a664d",
+    "ccss-textbook-practice-v1-add-four-numbers-q01": "b6e34e3e0711e53e3ec51eed3062e8cdf8d6a0ffde5a716aa2d3bb35284b6e17",
+    "ccss-textbook-practice-v1-add-four-numbers-q02": "6ab80d2f5c831f0e10fac687680e2bc5893fbb24453180430d4a28168d7e247d",
+    "ccss-textbook-practice-v1-add-four-numbers-q03": "82b20e1aa010e22c90b00a1c76c961a28464e107c30903e4a9bd7804950e00c2",
+    "ccss-textbook-practice-v1-add-subtract-1000-q01": "0ee50231e6dca385665d2bde016951c7013ebfc6f4f1fdb671d3e793ee6986b5",
+    "ccss-textbook-practice-v1-add-subtract-1000-q02": "f21991c591c308820fd5de9b0b0216b46e289acce827d4d78d7f8c1ade4e46cf",
+    "ccss-textbook-practice-v1-add-subtract-1000-q03": "e46f4bae0f8f2f599735d5fccbf44b69386a1d119adff2387c4f22ed2784c1b1",
+    "ccss-textbook-practice-v1-mental-10-100-q01": "0b712a2fe4510d77a1c01a4f4fbfa5cdeefd2e47b15db41911b0654bd8173b5f",
+    "ccss-textbook-practice-v1-mental-10-100-q02": "1d0332dc82d72fa3aea4892e5b01be6154bfcb870ccb2ad1455c90daaadefdab",
+    "ccss-textbook-practice-v1-mental-10-100-q03": "0ad2a8253b9783165ab3d3e0eef3fa155258f7670c037c25d32c65437dc49a9e",
+    "ccss-textbook-practice-v1-measure-with-ruler-q01": "c2642dd8c7e72e67cdfe977678f3f334c052b9e23b46fa966849acaec7298c02",
+    "ccss-textbook-practice-v1-measure-with-ruler-q02": "2a65d7159f54091f2199d65fbb631cfdfffa6a0c670ed4dcfe2dc268ec3320eb",
+    "ccss-textbook-practice-v1-measure-with-ruler-q03": "780107526b52a39f72d4f8931014499b6d84310653bbc6018beb1432115626ee",
+    "ccss-textbook-practice-v1-estimate-compare-length-q01": "7a0a715802790068ad5425eff0e28510149d496d15f6c2b4cd215b390dc7285f",
+    "ccss-textbook-practice-v1-estimate-compare-length-q02": "21bcd2e651cf4efe4fc538dde20f1b7b7f3b14a1a7c214d6f2cc1419f75fd583",
+    "ccss-textbook-practice-v1-estimate-compare-length-q03": "ff02170e1bf4f9fde9b1cc70b28c5b62e5047021a4b5abe930016f3e83a0d947",
+    "ccss-textbook-practice-v1-length-number-line-q01": "312ff6bb1fbe7d9ce2998b5e663d518e526ce7c6a4e32658c8364e22f93821e5",
+    "ccss-textbook-practice-v1-length-number-line-q02": "ce2d3ac7713674553ad59cd45f6af0d2922ee78c54247f7c3c24d52e554cd84f",
+    "ccss-textbook-practice-v1-length-number-line-q03": "533f3e2f7e24162111cbfa5ddb7d9f84adedee3bb192a9f4cdfa721f8fdffc13",
+    "ccss-textbook-practice-v1-time-five-minutes-q01": "ebc18189eadb7078363e46025dc06de84af23c231b37c7c07498172124f7deb7",
+    "ccss-textbook-practice-v1-time-five-minutes-q02": "0593816b2c8384c6438c39f16b7dbf120680263721467bd150e56b7e7a1211e4",
+    "ccss-textbook-practice-v1-time-five-minutes-q03": "6d599cbd6383ff23d1df77a016a5e14f7cb877515e0568f12bc4a0b38ae2f3cb",
+    "ccss-textbook-practice-v1-money-q01": "d73b69c19365bdbf5f86fecf19ad318a9a4f257d2714bfd3c8e9766689bc3478",
+    "ccss-textbook-practice-v1-money-q02": "cb5c3ef11470c028bb85c899416434534ab4dc58ba7d99f13ca1b90de0c7c422",
+    "ccss-textbook-practice-v1-money-q03": "74ba8be8f5e3097cc576b1159190ac3f361613cf0fa505711686a5dc8d0d8c39",
+    "ccss-textbook-practice-v1-line-plot-q01": "2704e991f5de8ca2da2546458dc052d5c0005da9854c81dc9be150b6ff1a536b",
+    "ccss-textbook-practice-v1-line-plot-q02": "6df8ca09c4262a6d722d85cb36fe7a25a46e6f9a7d6e929feb4bee24e0a700d7",
+    "ccss-textbook-practice-v1-line-plot-q03": "f489db250e7c0a80518c77cf627673e70f4c6093efea9ea2f369e00d104fd8cc",
+    "ccss-textbook-practice-v1-bar-graph-q01": "1150eb804504d216dc3d3f1e6031c231778bc10d983086f009e50e60b3b80156",
+    "ccss-textbook-practice-v1-bar-graph-q02": "84347ef44bb00359bf454c057f245e8f4b93e42f6ea001ee82055ce9d99279b3",
+    "ccss-textbook-practice-v1-bar-graph-q03": "dc0c976963d1c664f85da63ce3299a7f3e2a6e28063ead529a4d2db5bceeaa92",
+    "ccss-textbook-practice-v1-shapes-by-attributes-q01": "0907bde96eba92f64af21def38703344e1348eec1809fda9e7e4c84feb08914e",
+    "ccss-textbook-practice-v1-shapes-by-attributes-q02": "5fd07505a286c84a0bd23b66da1d181078efc70bf99dd26333d0ef3930caa266",
+    "ccss-textbook-practice-v1-shapes-by-attributes-q03": "25b78ef9b6a9d2fa23e536bbd049204ae81cb83f9ad872944cc26e20c2e0e3b1",
+    "ccss-textbook-practice-v1-rows-and-columns-q01": "6ca695aa14dd6a481898a211e7767eebb85a2b5dc5474311cd118857a75e6907",
+    "ccss-textbook-practice-v1-rows-and-columns-q02": "fb8baeebe1c4fb679e42696ecad92ebd0be652482172f68fde5371374f50d35b",
+    "ccss-textbook-practice-v1-rows-and-columns-q03": "01d5964abfc1f73f831e795f86c3f9c983ea58c7747e8ee07b7cbe1b61df9105",
+    "ccss-textbook-practice-v1-equal-shares-q01": "d47acee33acfb735a2b7f79a29014c100791661c5ef9b206054e119f647c4724",
+    "ccss-textbook-practice-v1-equal-shares-q02": "69e6dda7c440c957e68107ddc59fb5cb10c59858b08e62a038ab82ad222878c8",
+    "ccss-textbook-practice-v1-equal-shares-q03": "c75887c1475bf395470583a0c6ba046073fa0ab12f96ae28fc3ee873724feec6",
+    "ccss-textbook-practice-v1-division-meaning-q01": "73f92192b903a41bcd8f81c5e7d3db2235a1f2f797c3eb6611e0030c20e2b548",
+    "ccss-textbook-practice-v1-division-meaning-q02": "18e42bea90874084ec66172e09c0e0b794c1cb477a6a55cb9d2274177a0b4d19",
+    "ccss-textbook-practice-v1-division-meaning-q03": "710c42e739ee6502b366e0fa772dc4f2824e7e307f3320b3c605cfbd3aa37d29",
+    "ccss-textbook-practice-v1-multiply-divide-words-q01": "d45f73c5f7b806398976bfde77ce051af5d7125bdd2403697adbf3617e28a095",
+    "ccss-textbook-practice-v1-multiply-divide-words-q02": "4f88231efd36354ea3fe87cec65aa0cffdcb203ff0a05471567a3c191d1886e6",
+    "ccss-textbook-practice-v1-multiply-divide-words-q03": "2a36a34d85c9dd9346daeec17ca34aa45fce5c0ed18dcfdb981c650756f576b2",
+    "ccss-textbook-practice-v1-multiplication-properties-q01": "a794876b4f2bc9a55802f369aba4ad4373f2705cf3d562f4841b107a35040757",
+    "ccss-textbook-practice-v1-multiplication-properties-q02": "61f0445f91c454b617343d0273aea61f09d250289e61f399f7040a0e8970bccd",
+    "ccss-textbook-practice-v1-multiplication-properties-q03": "1099431d87a49115389fdf84036dbfcff62fa178f1d76c60dc3dba0e993ce7ff",
+    "ccss-textbook-practice-v1-multiplication-fluency-q01": "b45e47d64bb2c5814c258ecf8f1866184696ed92279ad78c765b4f1de22c522e",
+    "ccss-textbook-practice-v1-multiplication-fluency-q02": "f3d72ce39be94595a514716faf71ab33b3d9d31773633c19d6d00888d380831f",
+    "ccss-textbook-practice-v1-multiplication-fluency-q03": "0d3b6b9d88222c442f543caa2d0402d1e1e4376f6df78a73121c73720bf6c6c0",
+    "ccss-textbook-practice-v1-two-step-problems-q01": "cdcac454317ee409aebac2c0984965c24b3f386c3eeb825ad8f8b4daf673ad0e",
+    "ccss-textbook-practice-v1-two-step-problems-q02": "1d05e8462c7f695302d1dce285497d459eb5d0d4333391bdebec55aec088345e",
+    "ccss-textbook-practice-v1-two-step-problems-q03": "ec4167fdb7ef6c3c7b11a7e84297e71a8ee0b3247628664e63519a010d6fd220",
+    "ccss-textbook-practice-v1-arithmetic-patterns-q01": "efd67a5e5a14261ac5a69b2906e5e00a61a7ba7ee1c769a31c68a4455971d40a",
+    "ccss-textbook-practice-v1-arithmetic-patterns-q02": "86f044f83a9e34cef34da70db18349014591598cc89d18c6bc85d2e0783492e3",
+    "ccss-textbook-practice-v1-arithmetic-patterns-q03": "ea9bda994bcbbec9b8440f2ba7302294235df6e3abbddb945ae0f38edf17bffd",
+    "ccss-textbook-practice-v1-rounding-q01": "7690f0c7b0f1a66763d0f998ee88cf1de06ea65ec08ef11076ea23eaae6a4248",
+    "ccss-textbook-practice-v1-rounding-q02": "9d72e547166d8faad56bdddd2bce2fa31d3ac9b8c99904cd41092db632ecfacb",
+    "ccss-textbook-practice-v1-rounding-q03": "d8bb3f9b264c7eb3efc563ef33cfbcc4e90afad28870667061946ab8d3554386",
+    "ccss-textbook-practice-v1-add-subtract-algorithm-q01": "8cb9799266c0390faa4a754faadb9a1d97d53f5d1ce5efe228ee4bf27c0de7c1",
+    "ccss-textbook-practice-v1-add-subtract-algorithm-q02": "210f1e187f0249e18502c5123ef7075a024fe7ffcdba4e633acd83b1a14f956a",
+    "ccss-textbook-practice-v1-add-subtract-algorithm-q03": "9f4691bbf3b220ebbecd7bb56b550a425575898139124ff433d8164ea359d2e1",
+    "ccss-textbook-practice-v1-multiply-by-tens-q01": "eccc41895a2dc9e8b628194016e8479442b62ecd8aa68e351ec6b79e685d47c9",
+    "ccss-textbook-practice-v1-multiply-by-tens-q02": "f88b2deed068e5ad0a09ff462cd218e21e574835ae4d01a80f534c1c3e5a0da4",
+    "ccss-textbook-practice-v1-multiply-by-tens-q03": "caa4128607fc2836efd4298572173ad04aa90e0812eab18ea0cfe1be830f87ef",
+    "ccss-textbook-practice-v1-compare-fractions-q01": "ab112a3833a753be8e1c79f391f9385a9bac4af1598509bb14b2f10f34739f55",
+    "ccss-textbook-practice-v1-compare-fractions-q02": "8c9df79d19f97172ec1b566f42823cf67792f9ca941270a6ece2724a218ba7cc",
+    "ccss-textbook-practice-v1-compare-fractions-q03": "cf80d92acc29f8142fcb959c4504b85b13cd52d140adcd72ce59c0f12492730c",
+    "ccss-textbook-practice-v1-time-to-minute-q01": "7e3a5ddc8b1bff6fa2c75c51b7110758afbe6c1584a61ed1a82118ef83b89895",
+    "ccss-textbook-practice-v1-time-to-minute-q02": "75137442b50d44c7f27de1e48364bf6f105e663903cfcf07a54add6be9414c6d",
+    "ccss-textbook-practice-v1-time-to-minute-q03": "1f60dd2e6dde5bcf5514ed0525312f19146e33459f193297ebbe38e2839f6d30",
+    "ccss-textbook-practice-v1-volume-mass-q01": "5ed0949800cf11f7a3113b185c230fb006cb90c8aaa7f8299ae94d8879e7cd77",
+    "ccss-textbook-practice-v1-volume-mass-q02": "67cff571ebdce6b41159f2af656b7024fab3b5c29ec5e2afc08a85c23bb9853b",
+    "ccss-textbook-practice-v1-volume-mass-q03": "868310dfabc2871f8fdc8513c8eeec5023c86cc8668c771680478c5b27b1e06e",
+    "ccss-textbook-practice-v1-scaled-graphs-q01": "bf80e9a766aa813ac8bd3b15270e9090d780ed5a9441351a19fe16040e448238",
+    "ccss-textbook-practice-v1-scaled-graphs-q02": "1ee6fc59331fc381ef63ed7821f76e7a183f68f4da892eab76c70864a7ab7917",
+    "ccss-textbook-practice-v1-scaled-graphs-q03": "eee785a5d38c569fdf8a30761584456b9c26ac02cf277133a9830755355d992f",
+    "ccss-textbook-practice-v1-measure-line-plot-q01": "5f75ebe7a4d575a6d1f832302688e1c80e4a28fa298e3ddc6495e025001d37d7",
+    "ccss-textbook-practice-v1-measure-line-plot-q02": "29491859c463b298c9aeef2fbbc643245f7f1bb10c29634b11d5ba855ec8a00a",
+    "ccss-textbook-practice-v1-measure-line-plot-q03": "f38395212562c918ae1f51eb13f8b9e17be09ba02cc7fea7c46ebc4d6d33d65f",
+    "ccss-textbook-practice-v1-area-count-q01": "2e7a8095cb8a1b0ffee3b3584e70bacfdb56a4cd253786f0edc269c54bca027c",
+    "ccss-textbook-practice-v1-area-count-q02": "c282454535fca08419e06072463b00648970e4b8c9e8d45ce50806036fe27c32",
+    "ccss-textbook-practice-v1-area-count-q03": "93941192ec68ed5cd3a2ab3692759ff2078493cc9217c0b53b10790d1ac19eb0",
+    "ccss-textbook-practice-v1-perimeter-q01": "fdafe8f33b2312bae7a482b45bc9f1603d15701eb9a77785c370365cbde56ab6",
+    "ccss-textbook-practice-v1-perimeter-q02": "f2fd261a2804e8cb33b2135d7fa0d55484990f9552876f053b2ea24493e3a29f",
+    "ccss-textbook-practice-v1-perimeter-q03": "e9ed06c22240ff10204c778be84d79cc20d36dc58835013484b31eb75b9ed90d",
+    "ccss-textbook-practice-v1-quadrilaterals-q01": "180fbac5235d23802e1dae41937b39dbc2ecc3a60b85ce5bf0c1a25d4b0ff35a",
+    "ccss-textbook-practice-v1-quadrilaterals-q02": "26c1d04382c21fb41c8614ffd6c1789000350b54e4c7ad62b8289eacefcd7a9e",
+    "ccss-textbook-practice-v1-quadrilaterals-q03": "595b25fd22d6a073481c6ad4ba81b73b0a81ad7a5c4b6b132bf6805a3917a5d7",
+    "ccss-textbook-practice-v1-partition-equal-areas-q01": "77ad7137397d937d828a1422f3b4f3ed2a911fb72f8adb7339911eeb600b96c7",
+    "ccss-textbook-practice-v1-partition-equal-areas-q02": "b2d18e18005a1937b3378123f8883227c4079abb9acbf8cac95e63c74e34378d",
+    "ccss-textbook-practice-v1-partition-equal-areas-q03": "d84fbbc4797b3d9162472ba43c5570b98d013368344d609a9543c8aa196f2605",
+    "ccss-textbook-practice-v1-fractions-number-line-q01": "854f9cb4a4672a82f17bf6d955e8979599af21d0032656e161657fbf97be849a",
+    "ccss-textbook-practice-v1-fractions-number-line-q02": "de9792f1b91ad4b4911913a60dd0d58000d110e4c4ff71a4c0c77062ee5b959f",
+    "ccss-textbook-practice-v1-fractions-number-line-q03": "13c0e3fd9163cb6c4b7678216c8fc51c032d20232d03694209409b15819b1e69",
+    "ccss-textbook-practice-v1-area-model-q01": "4e6d86120450915b00f10ede6e3f6d5bd8a80a1ad1c735a637526fdde535add4",
+    "ccss-textbook-practice-v1-area-model-q02": "79e5767414a8ae96fd690850e54f2fce3679f4d1f5c0155475ba2f66e386a209",
+    "ccss-textbook-practice-v1-area-model-q03": "a57332d1546ae2dda085f2af633766c9caafdcea6cf1953b5fffa7ce2a008c0b",
+    "ccss-textbook-practice-v1-multiplicative-comparison-q01": "bc67dfa5eb0b98ba68ef35b8f5d6d7ac30e948d674e640af2c804113ec9d8820",
+    "ccss-textbook-practice-v1-multiplicative-comparison-q02": "a849c2d9f4d500d3c092b12f8643ca81f6b7343db0cab3d3e208fe0dd2ba45ad",
+    "ccss-textbook-practice-v1-multiplicative-comparison-q03": "c2acedd687bef7755b80faaf5c00dc1c94a09ac6f74ee8801867ea34f3d66fb4",
+    "ccss-textbook-practice-v1-multistep-problems-q01": "2b30ca6af930328b0147931431eb1c5d84fbbfa5db10e9fa8d3466db055a1a91",
+    "ccss-textbook-practice-v1-multistep-problems-q02": "cee165635438a15f628f7fb8b32e49d6ad2142d24ac9ac418e72500a1f693766",
+    "ccss-textbook-practice-v1-multistep-problems-q03": "00804038da20e82ec4e6b5d06d8d23c94877ae692e116c614c56f843b6c1ac26",
+    "ccss-textbook-practice-v1-factors-multiples-q01": "a90f8a3af7967a9afb482a7ed94daa53fb0a9774563340d05048e8869105c9fe",
+    "ccss-textbook-practice-v1-factors-multiples-q02": "e4fa0f2853e71df2460d6fed5f4c106437e80d48995c9d7b5bd2b3e5dc55c9fc",
+    "ccss-textbook-practice-v1-factors-multiples-q03": "4e399894c2cd525ab82492cfb00071e76d78ffb42cd90b2777f69aa07d8caa53",
+    "ccss-textbook-practice-v1-growing-patterns-q01": "fc911247c4ceb0921bf1dbb62b9de58cd64d870e889fa82aa1f9f5b94aa50881",
+    "ccss-textbook-practice-v1-growing-patterns-q02": "532971db0253419945bdf2e97b86f7fb4d34c57f5f0f6d9c267b50a16cfa821e",
+    "ccss-textbook-practice-v1-growing-patterns-q03": "14d576abeecd66ee3944d0b2b4df219084c6bdc9277a034da71da5d49e33489c",
+    "ccss-textbook-practice-v1-place-value-relationship-q01": "0ec274c414963b15c853c1851d7e2d2f672dde57e362bf8dbc627ede8dab556f",
+    "ccss-textbook-practice-v1-place-value-relationship-q02": "a1083b176bbc9b52633662096cfac7369d63ca5a38dd5bf48917c8caf3c8d371",
+    "ccss-textbook-practice-v1-place-value-relationship-q03": "09249c5cef7473002c15ed9e2a9a05db07f0f4d896b1d81d75353d4424e9bb82",
+    "ccss-textbook-practice-v1-read-compare-multidigit-q01": "33340e7e371b01c6d6dada09ee27604b8941fbba00783721676b658d2adac266",
+    "ccss-textbook-practice-v1-read-compare-multidigit-q02": "75bdec962138dd73c88eb1cf7b135bc62fc53e3cb07923b7676e34007dfcfe0c",
+    "ccss-textbook-practice-v1-read-compare-multidigit-q03": "0863ea7d08f59d7f243cb7f131616ef4067bc42860767014147f0136b3b4def9",
+    "ccss-textbook-practice-v1-rounding-multidigit-q01": "b232cda9409f10d5e2301adb331d7944a81b962101de0972165975b0f1d71570",
+    "ccss-textbook-practice-v1-rounding-multidigit-q02": "5e3de556f8e7f008b35d51c29cf786a5476b0bf94cf018d17edbcafc69165947",
+    "ccss-textbook-practice-v1-rounding-multidigit-q03": "b3f8decba08797d2fdf29fcdf61b2f105bb77f86790d0025a55e6a63ff7e3d68",
+    "ccss-textbook-practice-v1-add-subtract-bignum-q01": "5828cc1214fd643c75f519b57332ee0a05effdce31019dcaa856e93e2ac7136f",
+    "ccss-textbook-practice-v1-add-subtract-bignum-q02": "f5752cc3bbd16261fe6ca111e0ffd1af383137c923607492cfcb57792be9612b",
+    "ccss-textbook-practice-v1-add-subtract-bignum-q03": "cbaf796618e7a90ef78db820b9242468aeef4f7ac9ac05d4c9236736e3f9ae7e",
+    "ccss-textbook-practice-v1-multiply-multidigit-q01": "25ade0f6d9801ce2ceba8e6e3be189944cb6d71f42344198b13d61e780286ee9",
+    "ccss-textbook-practice-v1-multiply-multidigit-q02": "40ea1846ca8bde45e502c05a933e2c2c806c750b773d1e61836b345be9d450ae",
+    "ccss-textbook-practice-v1-multiply-multidigit-q03": "6573e3e4a8b6d291ce9cf2bbbc8712795673eefad5f1233673deed31c68557e5",
+    "ccss-textbook-practice-v1-long-division-q01": "b23304fabf7cccd2d0ea4384a94a2cf66664e37643f0c2682f877b82532a0859",
+    "ccss-textbook-practice-v1-long-division-q02": "12f5ccdba70fa4514bb4ec0347ee73d1c76141388020bab05839f8621e147a38",
+    "ccss-textbook-practice-v1-long-division-q03": "8673b71b0391157dc4231661630b13a235d37b15adc2bc37a2c4fad4b2f932ca",
+    "ccss-textbook-practice-v1-compare-fractions-4-q01": "adf07ab73ee40584aa9f44ece6c5cd6507795ad9a9cbfa83612e7cf9292fa0f5",
+    "ccss-textbook-practice-v1-compare-fractions-4-q02": "8d62df79200b21baf81765caa01dd46a25525a5bf6f48ec571902a4e0af4eb4e",
+    "ccss-textbook-practice-v1-compare-fractions-4-q03": "517ab1a772724a76e5e484e8cb85f94b3e6611df04af66f89b8d43520cdee0a5",
+    "ccss-textbook-practice-v1-add-subtract-fractions-q01": "fcb1f843e193dac7383d145823ca4dbd35530e13c2a2e64620aa5b795bec7dcf",
+    "ccss-textbook-practice-v1-add-subtract-fractions-q02": "b4764c621f6759a0774c46e9ce11d46020174151139c4540159822d23b16e5e9",
+    "ccss-textbook-practice-v1-add-subtract-fractions-q03": "9c2345900e9e0a79443d7a2952e82f16f23001b73005e5310f51e172b15d32f4",
+    "ccss-textbook-practice-v1-multiply-fraction-whole-q01": "50356a4d9d8647218d98ce42160cf6577eb84697ab295c66389f0d0661a075b0",
+    "ccss-textbook-practice-v1-multiply-fraction-whole-q02": "8f33b0c27d0d02b4afb5e0924b53bab04f2f9da59da2fbeb268ca0e8e02b44b8",
+    "ccss-textbook-practice-v1-multiply-fraction-whole-q03": "70ec5c678b0a4b141a4836e04986ec90ed835c05f0fdae4e2693c1e1099dc5ee",
+    "ccss-textbook-practice-v1-fractions-10-100-q01": "488e54b56be715e5426e4617c9f9922191274c47c089b63e12d16de8418611ee",
+    "ccss-textbook-practice-v1-fractions-10-100-q02": "3c44c541dce41132b083c2513029cb31634d3884ab29735ca4875d43f0d3e42c",
+    "ccss-textbook-practice-v1-fractions-10-100-q03": "63ab3f750d3eb28cc98a062571859a5fae92d827b2f63a3e08f6e8ec3b39b8bd",
+    "ccss-textbook-practice-v1-decimals-fractions-q01": "03ab68873e53dcf6e95de5542fb14b2235380ae2e5ce1b378b93782e68e85cae",
+    "ccss-textbook-practice-v1-decimals-fractions-q02": "bf272b695fe276a54214e4e18a94c279834b2eeff80ff382cedbe61a0f3be5d9",
+    "ccss-textbook-practice-v1-decimals-fractions-q03": "229cbc6ae77077af19b9054ea6ce75d84f8f2e5683495b94600f9682a44435b2",
+    "ccss-textbook-practice-v1-compare-decimals-q01": "5ddf48cd32ccd5eb1d8a66b823a59e6e355676d54bc79fe601c4b5fa03c32b97",
+    "ccss-textbook-practice-v1-compare-decimals-q02": "9d76d66ea7fbe7b2c99aa96e2ba8be2a6306ad9c7774011f9da9edb5620c3658",
+    "ccss-textbook-practice-v1-compare-decimals-q03": "cdfdb47d74afd9deb0c177ff84b0a8399ec9fe4c0c25e5b3fd2122ba35ac88de",
+    "ccss-textbook-practice-v1-measurement-conversion-q01": "77cc84f1af52603f1366c80058669c7264ea72c2ce91d43c2bc9c235a200527f",
+    "ccss-textbook-practice-v1-measurement-conversion-q02": "30e8df4099b3a88112de8576c8df7620924d52eee14bc8ee54ed00f7ff5fbf3f",
+    "ccss-textbook-practice-v1-measurement-conversion-q03": "ffd005cd5ce1c2a3c07768c90e42647596f4c05218f21b80ed39315da364752b",
+    "ccss-textbook-practice-v1-area-perimeter-formulas-q01": "d1a21738703024eb2ea82fd28ea78539a5d7b705540861db0462f7f5b18325eb",
+    "ccss-textbook-practice-v1-area-perimeter-formulas-q02": "96699042d1a8f71a9588ec9d944b9bef05fde043472516bf6fd0fb4f8b21cfa1",
+    "ccss-textbook-practice-v1-area-perimeter-formulas-q03": "0ef4fe500b51d581dd2b614fd8f988f0fbbc773d891b052692894a33479060a7",
+    "ccss-textbook-practice-v1-line-plot-fractions-q01": "ba98c291a2595c68eb76bb1b902db0e3180ecf995d3620fd4d2ef4733f1a4ebf",
+    "ccss-textbook-practice-v1-line-plot-fractions-q02": "2be79b0bc39dbef8deab863b03779cdb67ccd88351209406dd42dafc0dfe6ed7",
+    "ccss-textbook-practice-v1-line-plot-fractions-q03": "4fdd5e550e796f06c31ad0c123bfce841fb34cf95d9087dea0030e8532fadcce",
+    "ccss-textbook-practice-v1-angles-fraction-circle-q01": "1f89b01cd6be912f7ac0ca0add9689746e0a6d88b28be3c9902132a58d52db7f",
+    "ccss-textbook-practice-v1-angles-fraction-circle-q02": "1e31609915bac7bb4b1aa2bac1befb7ed5af619fe2da1cec23158fd908f23f08",
+    "ccss-textbook-practice-v1-angles-fraction-circle-q03": "9f28f1a43ef155da642379e5c0c30d6f9e811e1d6f047d24eeab927f8ecf2b98",
+    "ccss-textbook-practice-v1-protractor-q01": "3a2cb267784377c63e6f5bb13c914138bd29a8a5a2d9e66e0a5beeb39b31eb9b",
+    "ccss-textbook-practice-v1-protractor-q02": "65e8bf71bf0b983e57ea1275fa2e2714e15b3c03ffb2e866110cf69f33d83867",
+    "ccss-textbook-practice-v1-protractor-q03": "c6f8f3475cb673d956b93b7dcc348e4f9ca101675d545463c5622782e5f1d829",
+    "ccss-textbook-practice-v1-add-angles-q01": "7dea35a86d65f9c6e9faa2d7d26892fc3a3e1e6b002de536a38f390467d1efad",
+    "ccss-textbook-practice-v1-add-angles-q02": "209ccc09cb8f89c604adb52534fd137ae02c6c0d1e6a4b7e1a1b2f5e0e58edb2",
+    "ccss-textbook-practice-v1-add-angles-q03": "c89c3703422341ae7e3bdd3a8ac3063c105408d3397c71547fdf1d97a0e00be2",
+    "ccss-textbook-practice-v1-lines-angles-q01": "766de67326c3daa62994f8b9b1511de7de1c24bd0899cfdbe090dc9433d50b2f",
+    "ccss-textbook-practice-v1-lines-angles-q02": "4b3abcaaa40ad95c141091a84b8f6ba58621f2c7269f53c5041dfa10c6a6adaf",
+    "ccss-textbook-practice-v1-lines-angles-q03": "b2fd31435ad6679264dc81dc5d0a17db4a231b7e0f143396f70cb9a0d5a111d5",
+    "ccss-textbook-practice-v1-classify-triangles-q01": "5fbae1dab3a64d2e5d03e35cdd55fe1b8f785fbc8ef71977dae28ba8dc0ce25b",
+    "ccss-textbook-practice-v1-classify-triangles-q02": "83780a60c3b867eb9535cfa8d809588ed269fb7d512156a21510fbdaec8eec0e",
+    "ccss-textbook-practice-v1-classify-triangles-q03": "23b85d4011e120817a892e8f645f89eb16f17c8f18d36628868650d5502e6ef1",
+    "ccss-textbook-practice-v1-symmetry-q01": "fa1db0da1e735474b628f7de609c6e0973be8184338af656f34c9e723667342c",
+    "ccss-textbook-practice-v1-symmetry-q02": "dd4ee7d0bfaa501f4d8c0d23418b830fb666596dc062f97de5660c59d239dc5a",
+    "ccss-textbook-practice-v1-symmetry-q03": "f3647d9b3b733c0e871842c4dda0b35ebc738e971ff01a1a8cb614f7ac335c19",
+    "ccss-textbook-practice-v1-equivalent-fractions-q01": "02aad8b7ff26928178a0e2ac01dbcb2c5e3991f0e8fe2a5cccf119405fdbb9de",
+    "ccss-textbook-practice-v1-equivalent-fractions-q02": "9f2f1ebd83388bed6cf1a95756fdc4b3f41b356faa08faf14ae6a94a41744222",
+    "ccss-textbook-practice-v1-equivalent-fractions-q03": "3727cdc6e1057924348e1a92fc00c567f52f3ed7db70a44d111826a15c474efd",
+    "ccss-textbook-practice-v1-order-of-operations-q01": "b2250fcd5101ca515db6365744084c072f2ebb10418e23c0b013109e6ada3a60",
+    "ccss-textbook-practice-v1-order-of-operations-q02": "b9ba28232210adcb3120afcf5239f39bbcf97e533e0815965a7e5be9668a5392",
+    "ccss-textbook-practice-v1-order-of-operations-q03": "7a838deea09aee3ea9e0acb82a2562306915300510ac82f3a24e6e26c2789a59",
+    "ccss-textbook-practice-v1-write-expressions-q01": "39f034bb62e4e4a7d6f166087dc56c26b14e80e6a20ff1d36895615da32f921d",
+    "ccss-textbook-practice-v1-write-expressions-q02": "06304e56e9409aa9232897bf4671dfe6ab97cb79da5879969f66a7d862620c2a",
+    "ccss-textbook-practice-v1-write-expressions-q03": "37606334893914fe48e8d8d26adaa559ab6556d96b9d78c4f58505ff47da5439",
+    "ccss-textbook-practice-v1-two-patterns-graph-q01": "bdc66e444cd019031e8fe21cfe705bc991e9a97360385a1dc5aef1c6a1388562",
+    "ccss-textbook-practice-v1-two-patterns-graph-q02": "3b4ed4efae2a0cf2ff31bdeb1f21610ecdc3f1fcb50ee2ea5cb3dbdaeb51650f",
+    "ccss-textbook-practice-v1-two-patterns-graph-q03": "68b891435da284684ef3d72887079400ed8e1f2d95eaa5b9abe4e7127f4e58c3",
+    "ccss-textbook-practice-v1-decimal-place-value-q01": "54ad5b57c8dc1903d0297f5336e331b604651424184a340757c6158d3ad2824d",
+    "ccss-textbook-practice-v1-decimal-place-value-q02": "d7c2700faf0c9fb2a5fce2540f723a84e9d6d967e2395db8b6a230882b2c4a97",
+    "ccss-textbook-practice-v1-decimal-place-value-q03": "f372fb71e76d863c5b5ec67e4f023690e63a582c0cad58eb655a8271ac72327c",
+    "ccss-textbook-practice-v1-powers-of-ten-q01": "a3cfda0008f5504d91e98c08a48acecbdf57931ef2afa93be509dcfd81e53197",
+    "ccss-textbook-practice-v1-powers-of-ten-q02": "957d77cd344b7eb5858fefdcee44493e6062e3daf857a045a0cc3e672a64952a",
+    "ccss-textbook-practice-v1-powers-of-ten-q03": "4832f747bca53613773e3a60c2a152048395db6f7d1e7feb65f958441118d90d",
+    "ccss-textbook-practice-v1-read-compare-decimals-thousandths-q01": "8cf900d5528c8611dedfbd848a6099b68523666625d3ade423d1c3e8c304ed10",
+    "ccss-textbook-practice-v1-read-compare-decimals-thousandths-q02": "f066e3e501fc8f3325e1e42d4cc9cb8e73a9902d95b0b63bfba40731c26dca5a",
+    "ccss-textbook-practice-v1-read-compare-decimals-thousandths-q03": "83ba070d29f8e71f10631dc1126a4cc4bc3f39908cf26543d82cfbf2065d6f4f",
+    "ccss-textbook-practice-v1-round-decimals-q01": "3e6d31e70b7132876866132db9670f8a8f10a538b13fb0b8ac396572c70af152",
+    "ccss-textbook-practice-v1-round-decimals-q02": "f0048ffe4c9288bc7383773a6ea91f6ee0de5643440692c61b3b76d8a93b6602",
+    "ccss-textbook-practice-v1-round-decimals-q03": "09c76bf37829269c0d933de078cb01eb30f9fa0f1b95a89bbfb0f512f97b9a74",
+    "ccss-textbook-practice-v1-multiply-whole-numbers-q01": "6186c57c3cc39586d48c5f183e2cee772944a22e1710e1126def4a9bb2efd1a3",
+    "ccss-textbook-practice-v1-multiply-whole-numbers-q02": "e908a5fe8d3dd916613df12e835d404b62cda049c12e06b97a692fe02097b4cd",
+    "ccss-textbook-practice-v1-multiply-whole-numbers-q03": "3103d8bfedd8beaee5eec042e7bd67e333818dcd80cac4a79f18e39da0c27c73",
+    "ccss-textbook-practice-v1-divide-two-digit-q01": "8e2fb7274583aa646985016f739c0f28507144411cea3dc338ceb8d4857583a5",
+    "ccss-textbook-practice-v1-divide-two-digit-q02": "a5b4ae2d6aa86cfca397ae758b7622e9156688eb0651b781dc6221bc2ff276ea",
+    "ccss-textbook-practice-v1-divide-two-digit-q03": "bf23785d8e6a8c665bafc291d989a0fc25c57a2db2d25d4cd656a557e6b33e63",
+    "ccss-textbook-practice-v1-decimal-operations-q01": "d4568b956559c3f87ef0e7e16bd35b41ee451a452c5441e5e47c1cd9a4fd2798",
+    "ccss-textbook-practice-v1-decimal-operations-q02": "aedaf07b185e57123164eb47359aaee0413c67b73523de2ee5840ca2109c4282",
+    "ccss-textbook-practice-v1-decimal-operations-q03": "af1e5fc4845ee5d1d4c42273708d533f7c99ae19da0cd8557bef217a95686d6e",
+    "ccss-textbook-practice-v1-add-fractions-unlike-q01": "5aa09703a478ab9d8ccdf75129db4dc53b20597a1b454e2a1c889aebce1709d1",
+    "ccss-textbook-practice-v1-add-fractions-unlike-q02": "5aac1f609de0847d4cd3b0171ded629bf98d400155e1e2a4a702e1b6491ab124",
+    "ccss-textbook-practice-v1-add-fractions-unlike-q03": "125bffacbaff0cc257b31dffb5667ece9dd50840b3b7c0e03b0b27dd6574cb06",
+    "ccss-textbook-practice-v1-fraction-as-division-q01": "3017ad2ae2331efa842dd8254dc3f9772110900c1f8daf70ddb064117b49a643",
+    "ccss-textbook-practice-v1-fraction-as-division-q02": "95d94cb2737d6a3b8db307e712ca12d58ec9267f5189b79111596c126bdb31de",
+    "ccss-textbook-practice-v1-fraction-as-division-q03": "9f1850aa561c5766c86700074f55f56729de6e70db2e9568586691f96d897cfa",
+    "ccss-textbook-practice-v1-multiply-mixed-numbers-q01": "af82708c76c4b6b54c3130c49b320d437135dc9c796e4b47c7622f2a4cbec11d",
+    "ccss-textbook-practice-v1-multiply-mixed-numbers-q02": "12dd88df6d9129ce1e0225b02e3191d261889ff4305159f908bbe63bd2574c9d",
+    "ccss-textbook-practice-v1-multiply-mixed-numbers-q03": "a6d5598b79858498ac12c66e43ba89689686ebfb1bddc1c3fbc67c9bbc1828d9",
+    "ccss-textbook-practice-v1-divide-unit-fractions-q01": "4e0ed6241424d3d88dea54e8ed37d210363b61d8e5eea5e7a67aed61b4d71938",
+    "ccss-textbook-practice-v1-divide-unit-fractions-q02": "72b772f272cefbfb986bd722d7eba1502a0d6b087e1387cf12a4c4c4b5ee6da0",
+    "ccss-textbook-practice-v1-divide-unit-fractions-q03": "69b6d1ae56243ef701114341c4b92a8ec0b549d95123cce0fc708184f20b5c58",
+    "ccss-textbook-practice-v1-metric-conversion-q01": "6f44ca813a556e3171a9ce6e71a095db6fca83fa24214ff7d3e46996ff08e33d",
+    "ccss-textbook-practice-v1-metric-conversion-q02": "f00f4298253171e61d80da4583c0191f42afc3ca809102a8e7d4850741068d5e",
+    "ccss-textbook-practice-v1-metric-conversion-q03": "e4312ac6f854543fe25f2c2b57c087bc811946185eadeed2680aedbdd283f10d",
+    "ccss-textbook-practice-v1-line-plot-operations-q01": "5b283ff4c499f82cdd44eec177e90787b065ee7762d81f3f04c9df1e06854211",
+    "ccss-textbook-practice-v1-line-plot-operations-q02": "6dbbee8412b5decef9d5a37cdb02325c4db501427401e777c9964aaa8e131ca6",
+    "ccss-textbook-practice-v1-line-plot-operations-q03": "c483d32d1ff545bbbcca63754172499de282b2061560695ad0207807aa44b3c5",
+    "ccss-textbook-practice-v1-shape-hierarchy-q01": "19176f1f384e5f81820d021d38829207748668374117a92913ded11ffc081f2f",
+    "ccss-textbook-practice-v1-shape-hierarchy-q02": "5e28244ab9129c4e52ab2fe1833ef4542ff33a9e80bcc7d7072718f017d3d1d5",
+    "ccss-textbook-practice-v1-shape-hierarchy-q03": "cf6f36c2ababd54ef508d68642fa8803f7916bb700f50c3b4b1536e04aa65d84",
+    "ccss-textbook-practice-v1-volume-unit-cubes-q01": "28450a7ddf5522fe8f7e98d6b115d4897bf44df5e2288a21909d5b7763439fce",
+    "ccss-textbook-practice-v1-volume-unit-cubes-q02": "83d83a5ed46c60eea0f49954f1ee2fd2f6ab45478dd93b0fd5c63f72e9ccf060",
+    "ccss-textbook-practice-v1-volume-unit-cubes-q03": "a6b8a649d488cb297843a7bffe21a122df534dcb10edae8243fa5ff1fc84ff97",
+    "ccss-textbook-practice-v1-coordinate-plane-q01": "da78d9d0d1677b5244c10018c40476e0aff8c04538d047605d81dfa4e718bf1d",
+    "ccss-textbook-practice-v1-coordinate-plane-q02": "6682dad397ffc7a8662216cfc66409e9a574bea8d2b06fd1d4896b79677d1b66",
+    "ccss-textbook-practice-v1-coordinate-plane-q03": "78c67ea33096b855d84e861f49ec3499fcf283f278afcebb623930d964aa65ed",
+    "ccss-textbook-practice-v1-multiply-fractions-q01": "09f1e07328d650b2a4d8163db95c30b8bd45c696733d2865ca1285b08ca3e607",
+    "ccss-textbook-practice-v1-multiply-fractions-q02": "5e415cf9cb5bac04e67ce67080ddc2b6251e92e475b2f1ee8e3500eeb5324216",
+    "ccss-textbook-practice-v1-multiply-fractions-q03": "f2acf5c6c5dc9dfcc220a775e5bafbce5750588d5d23b1ecf1c8c50dc5b0063c"
+  },
+  "lessons": {
+    "counting-ten-frame": [
+      { "expected": "10", "reason": "A full ten-frame has ten cells." },
+      { "expected": "3", "reason": "Ten cells minus seven counters leaves three." },
+      { "expected": "5", "reason": "The spoken one-to-one count ends at five." }
+    ],
+    "count-to-100": [
+      { "expected": "40", "reason": "Add ten to thirty." },
+      { "expected": "28", "reason": "The successor of twenty-seven is twenty-eight." },
+      { "expected": "10", "reason": "Ten through one hundred by tens contains ten terms." }
+    ],
+    "compare-groups": [
+      { "expected": "7", "reason": "Seven is greater than four." },
+      { "expected": "3 is less than 8", "reason": "Three is numerically less than eight." },
+      { "expected": "equal", "reason": "Both groups contain five objects." }
+    ],
+    "number-bonds": [
+      { "expected": "3", "reason": "Two plus three makes five." },
+      { "expected": "4", "reason": "Six needs four to make ten." },
+      { "expected": "5", "reason": "Three apples plus two apples is five." }
+    ],
+    "teen-numbers": [
+      { "expected": "4", "reason": "Fourteen is ten plus four." },
+      { "expected": "1 ten and 7 ones", "reason": "Seventeen decomposes into one ten and seven ones." },
+      { "expected": "18", "reason": "Ten plus eight is eighteen." }
+    ],
+    "compare-length": [
+      { "expected": "longer", "reason": "Eight units exceeds five units." },
+      { "expected": "line up one end of each", "reason": "A common endpoint permits a fair length comparison." },
+      { "expected": "length", "reason": "Length is the attribute describing how long an object is." }
+    ],
+    "sort-and-count": [
+      { "expected": "apples", "reason": "Five apples is the largest group." },
+      { "expected": "12", "reason": "Five plus three plus four is twelve." },
+      { "expected": "count each group", "reason": "Sorting separates categories for reliable counting." }
+    ],
+    "flat-shapes": [
+      { "expected": "3", "reason": "A triangle has three vertices." },
+      { "expected": "square", "reason": "Rotation does not change a square's defining attributes." },
+      { "expected": "flat (2-D)", "reason": "A drawn circle is a two-dimensional figure." }
+    ],
+    "compose-shapes": [
+      { "expected": "square", "reason": "The two stated half-squares recombine into a square." },
+      { "expected": "rectangle", "reason": "Two equal squares joined edge-to-edge form a rectangle." },
+      { "expected": "composing", "reason": "Joining smaller shapes into a larger one is composing." }
+    ],
+    "position-words": [
+      { "expected": "above", "reason": "On top of means above." },
+      { "expected": "below", "reason": "Under the bed means below it." },
+      { "expected": "beside", "reason": "Right next to means beside." }
+    ],
+
+    "make-ten-to-add": [
+      { "expected": "2", "reason": "Eight plus two makes ten." },
+      { "expected": "15", "reason": "Nine plus six is fifteen." },
+      { "expected": "3 and 2", "reason": "Three completes seven to ten and two remains." }
+    ],
+    "add-subtract-stories": [
+      { "expected": "11", "reason": "Six plus five is eleven." },
+      { "expected": "5", "reason": "Eight minus three is five." },
+      { "expected": "9", "reason": "Four plus two plus three is nine." }
+    ],
+    "count-on-count-back": [
+      { "expected": "12", "reason": "Five forward from seven lands on twelve." },
+      { "expected": "6", "reason": "Four backward from ten lands on six." },
+      { "expected": "backward", "reason": "Subtraction moves backward on the number line." }
+    ],
+    "missing-addend": [
+      { "expected": "5", "reason": "Three plus five is eight." },
+      { "expected": "4", "reason": "Ten minus six is four." },
+      { "expected": "5 plus what makes 8?", "reason": "Subtraction can be interpreted as a missing-addend equation." }
+    ],
+    "equal-sign-balance": [
+      { "expected": "the same as", "reason": "An equal sign asserts equal value on both sides." },
+      { "expected": "false", "reason": "Four plus three is seven, not eight." },
+      { "expected": "4", "reason": "Five plus four balances nine." }
+    ],
+    "count-to-120": [
+      { "expected": "110", "reason": "The successor of 109 is 110." },
+      { "expected": "120", "reason": "Add ten to 110." },
+      { "expected": "120", "reason": "One more than 119 is 120." }
+    ],
+    "tens-and-ones": [
+      { "expected": "4", "reason": "Thirty-four has four ones." },
+      { "expected": "55", "reason": "Ten more than forty-five is fifty-five." },
+      { "expected": "52", "reason": "Ten less than sixty-two is fifty-two." }
+    ],
+    "compare-two-digit": [
+      { "expected": "42", "reason": "Forty-two is greater than thirty-eight." },
+      { "expected": "<", "reason": "Fifty-one is less than fifty-seven." },
+      { "expected": "tens", "reason": "Compare the highest available place first." }
+    ],
+    "add-within-100": [
+      { "expected": "39", "reason": "Thirty-four plus five is thirty-nine." },
+      { "expected": "70", "reason": "Four tens plus three tens is seven tens." },
+      { "expected": "50", "reason": "Eight tens minus three tens is five tens." }
+    ],
+    "order-and-measure": [
+      { "expected": "6", "reason": "Six gapless unit tiles measure six units." },
+      { "expected": "red", "reason": "Red exceeds blue, which exceeds green." },
+      { "expected": "the same size", "reason": "Repeated measurement units must be equal-sized." }
+    ],
+    "telling-time": [
+      { "expected": "o'clock", "reason": "A minute hand at twelve marks zero minutes." },
+      { "expected": "half past the hour", "reason": "A minute hand at six marks thirty minutes." },
+      { "expected": "3:30", "reason": "Half past three is 3:30." }
+    ],
+    "picture-graph": [
+      { "expected": "18", "reason": "The visible diagram values 6, 4, and 8 sum to eighteen." },
+      { "expected": "2", "reason": "The visible diagram shows six dogs and four cats, a difference of two." },
+      { "expected": "fish", "reason": "Eight fish exceeds six dogs and four cats." }
+    ],
+    "shape-attributes": [
+      { "expected": "having 3 sides", "reason": "Three sides define a triangle." },
+      { "expected": "both triangles", "reason": "Color and size do not alter triangle attributes." },
+      { "expected": "its color", "reason": "Color does not determine a geometric shape's name." }
+    ],
+    "compose-2d": [
+      { "expected": "5 sides", "reason": "The shared edge becomes internal, leaving five exterior segments." },
+      { "expected": "hexagon", "reason": "The stated matching trapezoid composition can form six outer sides." },
+      { "expected": "composite", "reason": "A figure built from smaller figures is composite." }
+    ],
+    "partition-shapes": [
+      { "expected": "a half", "reason": "One of two equal parts is a half." },
+      { "expected": "a fourth", "reason": "One of four equal parts is a fourth." },
+      { "expected": "one half", "reason": "For the same whole, one-half exceeds one-fourth." }
+    ],
+
+    "word-problems-100": [
+      { "expected": "63", "reason": "Forty-five plus eighteen is sixty-three." },
+      { "expected": "35", "reason": "Sixty minus twenty-five is thirty-five." },
+      { "expected": "15", "reason": "Twelve minus five plus eight is fifteen." }
+    ],
+    "fluent-within-20": [
+      { "expected": "14", "reason": "Seven plus seven is fourteen." },
+      { "expected": "13", "reason": "Six plus seven is thirteen." },
+      { "expected": "13", "reason": "Eight plus five is thirteen." }
+    ],
+    "odd-even": [
+      { "expected": "odd", "reason": "Nine is not divisible by two." },
+      { "expected": "even", "reason": "Fourteen is divisible by two." },
+      { "expected": "two equal groups", "reason": "An even count partitions into two equal whole-number groups." }
+    ],
+    "arrays-repeated-addition": [
+      { "expected": "12", "reason": "Four plus four plus four is twelve." },
+      { "expected": "10", "reason": "Five rows of two contain ten objects." },
+      { "expected": "12", "reason": "Three groups of four total twelve." }
+    ],
+    "place-value-blocks": [
+      { "expected": "243", "reason": "Two hundreds plus four tens plus three ones is 243." },
+      { "expected": "7 tens", "reason": "The seven occupies the tens place in 471." },
+      { "expected": "10", "reason": "Ten ones regroup as one ten." }
+    ],
+    "skip-counting": [
+      { "expected": "70", "reason": "The sequence increases by ten." },
+      { "expected": "30", "reason": "The sequence increases by five." },
+      { "expected": "500", "reason": "The sequence increases by one hundred." }
+    ],
+    "compare-three-digit": [
+      { "expected": "324", "reason": "324 exceeds 319." },
+      { "expected": "<", "reason": "256 is less than 265." },
+      { "expected": "hundreds", "reason": "Compare the highest place first." }
+    ],
+    "add-subtract-regroup": [
+      { "expected": "85", "reason": "Forty-seven plus thirty-eight is eighty-five." },
+      { "expected": "36", "reason": "Sixty-three minus twenty-seven is thirty-six." },
+      { "expected": "carry a ten", "reason": "Ten or more ones regroup into a ten." }
+    ],
+    "add-four-numbers": [
+      { "expected": "84", "reason": "23 + 15 + 34 + 12 equals 84." },
+      { "expected": "100", "reason": "10 + 20 + 30 + 40 equals 100." },
+      { "expected": "44", "reason": "Four groups of eleven total forty-four." }
+    ],
+    "add-subtract-1000": [
+      { "expected": "423", "reason": "256 plus 167 is 423." },
+      { "expected": "300", "reason": "500 minus 200 is 300." },
+      { "expected": "hundred", "reason": "Ten tens equal one hundred." }
+    ],
+    "mental-10-100": [
+      { "expected": "356", "reason": "Adding ten changes 346 to 356." },
+      { "expected": "446", "reason": "Adding one hundred changes 346 to 446." },
+      { "expected": "412", "reason": "Subtracting one hundred changes 512 to 412." }
+    ],
+    "measure-with-ruler": [
+      { "expected": "bigger", "reason": "Smaller units require a larger unit count for the same length." },
+      { "expected": "8", "reason": "Each big unit contains two half-units, so four contain eight." },
+      { "expected": "0", "reason": "A ruler measurement starts at the zero mark." }
+    ],
+    "estimate-compare-length": [
+      { "expected": "3", "reason": "Seven minus four is three." },
+      { "expected": "subtract", "reason": "A difference question calls for subtraction." },
+      { "expected": "7 inches", "reason": "Seven inches is a plausible pencil length." }
+    ],
+    "length-number-line": [
+      { "expected": "20", "reason": "Eight centimeters plus twelve is twenty." },
+      { "expected": "15", "reason": "Twenty-five centimeters minus ten is fifteen." },
+      { "expected": "length", "reason": "A coordinate's distance from zero represents a length." }
+    ],
+    "time-five-minutes": [
+      { "expected": "20", "reason": "Clock number four represents four groups of five minutes." },
+      { "expected": "9:15 a.m.", "reason": "A morning time uses the a.m. designation." },
+      { "expected": "5", "reason": "Adjacent clock numerals are five minutes apart." }
+    ],
+    "money": [
+      { "expected": "30", "reason": "Three ten-cent dimes total thirty cents." },
+      { "expected": "35", "reason": "Twenty-five cents plus ten cents is thirty-five." },
+      { "expected": "100", "reason": "One dollar equals one hundred cents." }
+    ],
+    "line-plot": [
+      { "expected": "one measurement", "reason": "Each X records one observation." },
+      { "expected": "4", "reason": "Four stacked X marks represent four objects." },
+      { "expected": "most", "reason": "The tallest stack has the greatest frequency." }
+    ],
+    "bar-graph": [
+      { "expected": "3", "reason": "The visible diagram shows nine banana votes and six apple votes." },
+      { "expected": "23", "reason": "The visible diagram values 6, 9, 3, and 5 sum to twenty-three." },
+      { "expected": "scale", "reason": "A bar's height is interpreted against the graph scale." }
+    ],
+    "shapes-by-attributes": [
+      { "expected": "pentagon", "reason": "A five-sided polygon is a pentagon." },
+      { "expected": "6", "reason": "A hexagon has six sides." },
+      { "expected": "6", "reason": "A cube has six faces." }
+    ],
+    "rows-and-columns": [
+      { "expected": "12", "reason": "Three rows times four columns is twelve squares." },
+      { "expected": "10", "reason": "Two rows times five squares is ten." },
+      { "expected": "area", "reason": "Tiling a rectangle with unit squares measures area." }
+    ],
+    "equal-shares": [
+      { "expected": "third", "reason": "One of three equal shares is a third." },
+      { "expected": "size", "reason": "Equal shares of one whole have equal area or size." },
+      { "expected": "one whole", "reason": "Three thirds recombine into one whole." }
+    ],
+
+    "division-meaning": [
+      { "expected": "4", "reason": "Twelve shared across three groups gives four each." },
+      { "expected": "4", "reason": "Twenty-four divided by six is four." },
+      { "expected": "6 × ? = 24", "reason": "Division asks for the missing factor paired with six." }
+    ],
+    "multiply-divide-words": [
+      { "expected": "20", "reason": "Four groups of five total twenty." },
+      { "expected": "5", "reason": "Twenty split among four baskets gives five each." },
+      { "expected": "4", "reason": "Twenty packed five per basket fills four baskets." }
+    ],
+    "multiplication-properties": [
+      { "expected": "commutative", "reason": "Swapping factor order illustrates commutativity." },
+      { "expected": "56", "reason": "Seven times eight is fifty-six." },
+      { "expected": "distributive", "reason": "Breaking a factor across a sum uses distribution." }
+    ],
+    "multiplication-fluency": [
+      { "expected": "42", "reason": "Six times seven is forty-two." },
+      { "expected": "7", "reason": "Fifty-six divided by eight is seven." },
+      { "expected": "81", "reason": "Nine times nine is eighty-one." }
+    ],
+    "two-step-problems": [
+      { "expected": "13", "reason": "Three packs of six minus five leaves thirteen." },
+      { "expected": "multiply 4 × 5", "reason": "Multiplication precedes subtraction." },
+      { "expected": "19", "reason": "Two groups of eight plus three is nineteen." }
+    ],
+    "arithmetic-patterns": [
+      { "expected": "0", "reason": "Every multiple of ten has a zero ones digit." },
+      { "expected": "0 or 5", "reason": "Multiples of five end in zero or five." },
+      { "expected": "even", "reason": "The sum of two even integers is even." }
+    ],
+    "rounding": [
+      { "expected": "60", "reason": "Sixty-three rounds down to sixty by tens." },
+      { "expected": "400", "reason": "Three hundred fifty rounds up to four hundred by hundreds." },
+      { "expected": "50", "reason": "Forty-seven rounds up to fifty by tens." }
+    ],
+    "add-subtract-algorithm": [
+      { "expected": "613", "reason": "365 plus 248 is 613." },
+      { "expected": "324", "reason": "500 minus 176 is 324." },
+      { "expected": "467", "reason": "428 plus 39 is 467." }
+    ],
+    "multiply-by-tens": [
+      { "expected": "720", "reason": "Nine times eighty is 720." },
+      { "expected": "240", "reason": "Six times forty is 240." },
+      { "expected": "350", "reason": "Five times seventy is 350." }
+    ],
+    "compare-fractions": [
+      { "expected": "3/4", "reason": "With equal denominators, three fourths exceeds two fourths." },
+      { "expected": "1/2", "reason": "One-half exceeds one-fourth of the same whole." },
+      { "expected": "equivalent", "reason": "Two-fourths simplifies to one-half." }
+    ],
+    "time-to-minute": [
+      { "expected": "13", "reason": "From 2:47 to 3:00 is thirteen minutes." },
+      { "expected": "45", "reason": "Twenty-five minutes after 4:20 is 4:45." },
+      { "expected": "5", "reason": "Adjacent clock numerals are five minutes apart." }
+    ],
+    "volume-mass": [
+      { "expected": "1000", "reason": "One liter contains one thousand milliliters." },
+      { "expected": "1000", "reason": "One kilogram contains one thousand grams." },
+      { "expected": "grams", "reason": "Grams measure mass." }
+    ],
+    "scaled-graphs": [
+      { "expected": "20", "reason": "Four symbols times five books is twenty." },
+      { "expected": "60", "reason": "Six symbols times a scale of ten is sixty." },
+      { "expected": "multiply symbols by the scale", "reason": "A scaled count is symbol frequency times symbol value." }
+    ],
+    "measure-line-plot": [
+      { "expected": "1½", "reason": "The visible diagram lists 1.5 twice and every other length once." },
+      { "expected": "4", "reason": "Four visible measurements exceed 1.25 inches." },
+      { "expected": "1¾ inches", "reason": "An X at 1¾ records a measurement of 1¾ inches." }
+    ],
+    "area-count": [
+      { "expected": "15", "reason": "Fifteen unit squares cover fifteen square units." },
+      { "expected": "15", "reason": "Five times three is fifteen unit squares." },
+      { "expected": "unit squares", "reason": "Area uses square units." }
+    ],
+    "perimeter": [
+      { "expected": "18", "reason": "Six plus three plus six plus three is eighteen." },
+      { "expected": "20", "reason": "Four sides of length five total twenty." },
+      { "expected": "around", "reason": "Perimeter measures distance around a figure." }
+    ],
+    "quadrilaterals": [
+      { "expected": "4", "reason": "A quadrilateral has four sides." },
+      { "expected": "rectangle", "reason": "A square satisfies the definition of a rectangle." },
+      { "expected": "attributes", "reason": "Geometric categories use shared defining attributes." }
+    ],
+    "partition-equal-areas": [
+      { "expected": "1/6 of the area", "reason": "One of six equal-area parts is one-sixth." },
+      { "expected": "area", "reason": "Equal-area parts must have equal area, not necessarily shape." },
+      { "expected": "4", "reason": "Four fourths make the whole." }
+    ],
+    "fractions-number-line": [
+      { "expected": "3 copies of 1/4", "reason": "Three-fourths is three unit fractions of one-fourth." },
+      { "expected": "at 1", "reason": "Five fifths equals one whole." },
+      { "expected": "4", "reason": "Fourths require four equal intervals from zero to one." }
+    ],
+    "area-model": [
+      { "expected": "24", "reason": "Four rows times six columns is twenty-four." },
+      { "expected": "distributive property", "reason": "The factor six is distributed across five plus two." },
+      { "expected": "24", "reason": "Three times eight is twenty-four square units." }
+    ],
+
+    "multiplicative-comparison": [
+      { "expected": "5", "reason": "Thirty-five divided by seven is five." },
+      { "expected": "35", "reason": "Five times seven is thirty-five." },
+      { "expected": "6 × 4", "reason": "Times as many denotes multiplication." }
+    ],
+    "multistep-problems": [
+      { "expected": "7", "reason": "Six vans hold only 48, so 53 students need seven vans." },
+      { "expected": "31", "reason": "Three times twelve minus five is thirty-one." },
+      { "expected": "8", "reason": "Seven cars hold 28, so 30 children need eight cars." }
+    ],
+    "factors-multiples": [
+      { "expected": "7", "reason": "Seven has exactly two positive factors." },
+      { "expected": "composite", "reason": "Twelve has factors other than one and itself." },
+      { "expected": "4", "reason": "The listed factors of six number four." }
+    ],
+    "growing-patterns": [
+      { "expected": "11", "reason": "Add three to eight." },
+      { "expected": "alternating odd and even", "reason": "Adding three switches parity each term." },
+      { "expected": "18", "reason": "The fourth term after 3, 8, 13 is 18." }
+    ],
+    "place-value-relationship": [
+      { "expected": "10", "reason": "A hundreds-place digit is ten times its tens-place value." },
+      { "expected": "300", "reason": "Three hundreds is 300." },
+      { "expected": "10", "reason": "Each place is ten times the place to its right." }
+    ],
+    "read-compare-multidigit": [
+      { "expected": "4,825", "reason": "4,825 exceeds 4,790." },
+      { "expected": "4825", "reason": "The expanded place values sum to 4,825." },
+      { "expected": "3,506 < 3,560", "reason": "The tens comparison makes 3,506 smaller." }
+    ],
+    "rounding-multidigit": [
+      { "expected": "3500", "reason": "3,472 rounds to 3,500 by hundreds." },
+      { "expected": "3000", "reason": "3,472 rounds to 3,000 by thousands." },
+      { "expected": "9000", "reason": "8,650 rounds to 9,000 by thousands." }
+    ],
+    "add-subtract-bignum": [
+      { "expected": "5523", "reason": "3,648 plus 1,875 is 5,523." },
+      { "expected": "3624", "reason": "5,000 minus 1,376 is 3,624." },
+      { "expected": "3,600 + 1,900 = 5,500", "reason": "Rounding to hundreds gives an estimate of 5,500." }
+    ],
+    "multiply-multidigit": [
+      { "expected": "1035", "reason": "Twenty-three times forty-five is 1,035." },
+      { "expected": "204", "reason": "Six times thirty-four is 204." },
+      { "expected": "1035", "reason": "The four partial areas sum to 1,035." }
+    ],
+    "long-division": [
+      { "expected": "17", "reason": "The whole-number quotient of 87 divided by 5 is 17." },
+      { "expected": "2", "reason": "Five times seventeen is 85, leaving remainder two." },
+      { "expected": "24", "reason": "Ninety-six divided by four is twenty-four." }
+    ],
+    "compare-fractions-4": [
+      { "expected": "2/3", "reason": "Cross-products 10 and 9 show two-thirds is greater." },
+      { "expected": "10", "reason": "Multiplying numerator and denominator by five gives 10/15." },
+      { "expected": "12", "reason": "Twelve is a common multiple of four and three." }
+    ],
+    "add-subtract-fractions": [
+      { "expected": "7", "reason": "Like-denominator addition gives numerator three plus four." },
+      { "expected": "1 2/5", "reason": "Seven fifths is one whole and two fifths." },
+      { "expected": "4", "reason": "Like-denominator subtraction gives numerator six minus two." }
+    ],
+    "multiply-fraction-whole": [
+      { "expected": "6", "reason": "Three times numerator two gives six fifths." },
+      { "expected": "1 1/5", "reason": "Six fifths is one whole and one fifth." },
+      { "expected": "4", "reason": "Four times one-third is four-thirds." }
+    ],
+    "fractions-10-100": [
+      { "expected": "30", "reason": "Three tenths equals thirty hundredths." },
+      { "expected": "34", "reason": "Thirty hundredths plus four hundredths is thirty-four." },
+      { "expected": "60", "reason": "Six tenths equals sixty hundredths." }
+    ],
+    "decimals-fractions": [
+      { "expected": "0.37", "reason": "Thirty-seven hundredths is 0.37." },
+      { "expected": "3/10", "reason": "Three tenths is 3/10." },
+      { "expected": "50", "reason": "0.50 is fifty hundredths." }
+    ],
+    "compare-decimals": [
+      { "expected": "0.4", "reason": "Forty hundredths exceeds thirty-seven hundredths." },
+      { "expected": "they are equal", "reason": "A trailing decimal zero does not change value." },
+      { "expected": "tenths", "reason": "Decimal comparison begins at the greatest fractional place." }
+    ],
+    "measurement-conversion": [
+      { "expected": "180", "reason": "Three hours times sixty minutes is 180." },
+      { "expected": "48", "reason": "Four feet times twelve inches is 48." },
+      { "expected": "2000", "reason": "Two kilometers equal two thousand meters." }
+    ],
+    "area-perimeter-formulas": [
+      { "expected": "28", "reason": "Seven times four is twenty-eight square units." },
+      { "expected": "22", "reason": "Twice seven plus twice four is twenty-two." },
+      { "expected": "6", "reason": "Area twenty-four divided by width four gives length six." }
+    ],
+    "line-plot-fractions": [
+      { "expected": "3/8", "reason": "Three-eighths exceeds two-eighths, which is one-fourth." },
+      { "expected": "2", "reason": "Three-fourths minus one-fourth leaves numerator two over four." },
+      { "expected": "1/2", "reason": "Four-eighths simplifies to one-half." }
+    ],
+    "angles-fraction-circle": [
+      { "expected": "360", "reason": "A full turn measures 360 degrees." },
+      { "expected": "90", "reason": "One-fourth of 360 degrees is 90." },
+      { "expected": "180", "reason": "Half of 360 degrees is 180." }
+    ],
+    "protractor": [
+      { "expected": "a right angle", "reason": "A 90-degree angle is right." },
+      { "expected": "acute", "reason": "A 45-degree angle is less than 90 degrees." },
+      { "expected": "obtuse", "reason": "A 120-degree angle is between 90 and 180 degrees." }
+    ],
+    "add-angles": [
+      { "expected": "55", "reason": "Ninety minus thirty-five is fifty-five." },
+      { "expected": "70", "reason": "One hundred eighty minus 110 is seventy." },
+      { "expected": "90°", "reason": "Forty degrees plus fifty degrees is ninety degrees." }
+    ],
+    "lines-angles": [
+      { "expected": "one endpoint", "reason": "A ray begins at one endpoint and extends indefinitely." },
+      { "expected": "right angle", "reason": "Perpendicular lines intersect at right angles." },
+      { "expected": "never meet", "reason": "Coplanar parallel lines do not intersect." }
+    ],
+    "classify-triangles": [
+      { "expected": "right triangle", "reason": "A triangle containing a 90-degree angle is right." },
+      { "expected": "acute", "reason": "Three angles below 90 degrees define an acute triangle." },
+      { "expected": "obtuse", "reason": "One angle above 90 degrees defines an obtuse triangle." }
+    ],
+    "symmetry": [
+      { "expected": "4", "reason": "A square has two median and two diagonal symmetry lines." },
+      { "expected": "2", "reason": "A nonsquare rectangle has horizontal and vertical symmetry." },
+      { "expected": "3", "reason": "An equilateral triangle has one symmetry line per vertex." }
+    ],
+    "equivalent-fractions": [
+      { "expected": "3/6", "reason": "Three-sixths simplifies to one-half." },
+      { "expected": "4", "reason": "Multiplying one-third by four-fourths gives 4/12." },
+      { "expected": "1", "reason": "Multiplying numerator and denominator by the same nonzero number multiplies by one." }
+    ],
+
+    "order-of-operations": [
+      { "expected": "33", "reason": "Parentheses give seven, then 35 minus two is 33." },
+      { "expected": "17", "reason": "Multiply first: four plus fifteen minus two is seventeen." },
+      { "expected": "6 × 3", "reason": "Multiplication precedes addition." }
+    ],
+    "write-expressions": [
+      { "expected": "2 × (8 + 7)", "reason": "The sum is grouped before multiplying by two." },
+      { "expected": "3 times", "reason": "Multiplication by three makes the grouped value three times as large." },
+      { "expected": "2 × (9 + 1)", "reason": "Double the sum means two times the grouped sum." }
+    ],
+    "two-patterns-graph": [
+      { "expected": "9", "reason": "Add three to six." },
+      { "expected": "2 times", "reason": "At each step y has twice x's value." },
+      { "expected": "a straight line", "reason": "The coordinate pairs satisfy y equals two x." }
+    ],
+    "decimal-place-value": [
+      { "expected": "10 times", "reason": "Four ones is ten times four tenths." },
+      { "expected": "10", "reason": "Four tenths divided by four hundredths is ten." },
+      { "expected": "4", "reason": "A four in the ones place has value four." }
+    ],
+    "powers-of-ten": [
+      { "expected": "450", "reason": "Multiplying 4.5 by 100 moves the decimal two places." },
+      { "expected": "0.45", "reason": "Dividing 4.5 by ten moves the decimal one place left." },
+      { "expected": "1000", "reason": "Ten cubed is ten times ten times ten." }
+    ],
+    "read-compare-decimals-thousandths": [
+      { "expected": "0.475", "reason": "At the thousandths place, five exceeds two." },
+      { "expected": "0.5 is bigger", "reason": "Five tenths exceeds five hundredths." },
+      { "expected": "475", "reason": "The tenths, hundredths, and thousandths digits are 4, 7, and 5." }
+    ],
+    "round-decimals": [
+      { "expected": "3.5", "reason": "The hundredths digit seven rounds the tenths up." },
+      { "expected": "3", "reason": "The tenths digit four rounds to the whole number three." },
+      { "expected": "3.47", "reason": "The thousandths digit two leaves the hundredths unchanged." }
+    ],
+    "multiply-whole-numbers": [
+      { "expected": "918", "reason": "Thirty-four times twenty-seven is 918." },
+      { "expected": "238", "reason": "Thirty-four times seven is 238." },
+      { "expected": "680", "reason": "Thirty-four times twenty is 680." }
+    ],
+    "divide-two-digit": [
+      { "expected": "27", "reason": "Four hundred thirty-two divided by sixteen is twenty-seven." },
+      { "expected": "22", "reason": "432 divided by 20 is 21.6, which rounds to whole-number estimate 22." },
+      { "expected": "25", "reason": "Three hundred seventy-five divided by fifteen is twenty-five." }
+    ],
+    "decimal-operations": [
+      { "expected": "1.65", "reason": "1.25 plus 0.40 is 1.65." },
+      { "expected": "0.85", "reason": "1.25 minus 0.40 is 0.85." },
+      { "expected": "0.12", "reason": "Three tenths times four tenths is twelve hundredths." }
+    ],
+    "add-fractions-unlike": [
+      { "expected": "5/6", "reason": "Three-sixths plus two-sixths is five-sixths." },
+      { "expected": "5", "reason": "The common-denominator numerator is three plus two." },
+      { "expected": "1", "reason": "Three-fourths minus two-fourths leaves one-fourth." }
+    ],
+    "fraction-as-division": [
+      { "expected": "3/4", "reason": "Three divided by four is the fraction three-fourths." },
+      { "expected": "1", "reason": "Five-fourths is one whole and one-fourth." },
+      { "expected": "7 ÷ 8", "reason": "A fraction bar represents division." }
+    ],
+    "multiply-mixed-numbers": [
+      { "expected": "7/4", "reason": "One and three-fourths equals seven-fourths." },
+      { "expected": "4.5", "reason": "Three times one and one-half is four and one-half." },
+      { "expected": "14", "reason": "Two times seven-fourths is fourteen-fourths." }
+    ],
+    "divide-unit-fractions": [
+      { "expected": "8", "reason": "Four wholes contain eight halves." },
+      { "expected": "1/6", "reason": "One-half divided into three equal shares is one-sixth." },
+      { "expected": "12", "reason": "Three wholes contain twelve fourths." }
+    ],
+    "metric-conversion": [
+      { "expected": "3000", "reason": "Three kilometers equal three thousand meters." },
+      { "expected": "2.5", "reason": "Two hundred fifty centimeters equal 2.5 meters." },
+      { "expected": "500", "reason": "Five meters equal five hundred centimeters." }
+    ],
+    "line-plot-operations": [
+      { "expected": "1", "reason": "The visible amounts 0.25, 0.25, and 0.5 sum to one cup." },
+      { "expected": "1/3 cup", "reason": "One visible total cup shared across three beakers is one-third cup each." },
+      { "expected": "1.5", "reason": "The visible amounts total six cups across four beakers, giving 1.5 cups each." }
+    ],
+    "shape-hierarchy": [
+      { "expected": "rectangle", "reason": "A square satisfies all rectangle attributes." },
+      { "expected": "No", "reason": "Rectangles need not have four equal sides." },
+      { "expected": "parallelogram", "reason": "A rhombus has two pairs of parallel opposite sides." }
+    ],
+    "volume-unit-cubes": [
+      { "expected": "24", "reason": "Three times four times two is twenty-four cubic units." },
+      { "expected": "l × w × h", "reason": "Rectangular-prism volume is base area times height." },
+      { "expected": "60", "reason": "Twelve cubes per layer times five layers is sixty." }
+    ],
+    "coordinate-plane": [
+      { "expected": "3 right, 5 up", "reason": "The first coordinate is horizontal and the second vertical." },
+      { "expected": "No", "reason": "Swapping unequal coordinates changes the point." },
+      { "expected": "0", "reason": "Moving up zero gives y-coordinate zero." }
+    ],
+    "multiply-fractions": [
+      { "expected": "1/6", "reason": "Multiply numerators and denominators to get one-sixth." },
+      { "expected": "6", "reason": "Before simplification, two times three gives numerator six." },
+      { "expected": "smaller than both", "reason": "The product of two positive proper fractions is smaller than either factor." }
+    ]
+  }
+}
