@@ -3021,9 +3021,12 @@ function getSqliteDatabase() {
 
   sqlite = new DatabaseSync(dbPath);
   sqlite.exec(`
+    -- busy_timeout must come first: converting the journal to WAL takes an exclusive lock, and
+    -- until the timeout is armed that conversion fails outright with SQLITE_BUSY instead of
+    -- retrying whenever parallel test workers bootstrap the same fresh database at once.
+    PRAGMA busy_timeout = 5000;
     PRAGMA journal_mode = WAL;
     PRAGMA foreign_keys = ON;
-    PRAGMA busy_timeout = 5000;
 
     CREATE TABLE IF NOT EXISTS schema_migrations (
       version INTEGER PRIMARY KEY,
@@ -3049,12 +3052,12 @@ function getSqliteDatabase() {
       ON app_state(tenant_id, state_kind, updated_at);
   `);
 
-  const migration = sqlite.prepare("SELECT version FROM schema_migrations WHERE version = ?").get(schemaVersion);
-  if (!migration) {
-    sqlite
-      .prepare("INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?)")
-      .run(schemaVersion, new Date().toISOString());
-  }
+  // Idempotent on purpose: `node --test` runs test files in parallel processes that all open the
+  // same .local/hk-math-db.sqlite, so a check-then-insert here loses the race on a fresh database
+  // (both workers see no row, both INSERT, the loser dies with UNIQUE constraint failed).
+  sqlite
+    .prepare("INSERT INTO schema_migrations (version, applied_at) VALUES (?, ?) ON CONFLICT(version) DO NOTHING")
+    .run(schemaVersion, new Date().toISOString());
 
   return sqlite;
 }
