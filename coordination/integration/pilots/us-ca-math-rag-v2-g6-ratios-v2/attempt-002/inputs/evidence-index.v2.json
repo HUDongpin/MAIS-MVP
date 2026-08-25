@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "promotion-evidence-index.v2",
+  "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+  "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+  "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+  "checkerVersion": "promotion-gate-shadow-v2.1",
+  "entries": [
+    {
+      "role": "A21",
+      "evidenceId": "a21-us-ca-g6-ratios-v2-candidate-source-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a21-candidate-generation.v2.1.json",
+      "rawSha256": "b60d4287beac1b57e12e57125f331c106585bb2339a2255cd8c351c831623baa",
+      "semanticDigest": "b05265d1cdf91bef049209cc045a262d850a78aec3be368dd417acffd5c7b231",
+      "reviewedCommit": "affa06809f3ad312bf628a1b7592a264e41d361e",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A18",
+      "evidenceId": "a18-us-ca-g6-ratios-v2-independent-qa-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a18-independent-qa.v2.1.json",
+      "rawSha256": "2a85b068794a72cc8f5a7ee433e1dcc5ca3689260558ae7c1211f3cbb5a6d930",
+      "semanticDigest": "65de2c4b98d8dfe6a0af53c86228655d685bc9434933c6673245ee313edfc15e",
+      "reviewedCommit": "0ba008a6f65e7fd5134a58c0365a20a5150f31fd",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A23",
+      "evidenceId": "a23-us-ca-g6-ratios-v2-shadow-readiness-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a23-shadow-readiness.v2.1.json",
+      "rawSha256": "ee7860967ec6726f2a997783275e44c99610f73a8bcc98ef397c3595695db5f6",
+      "semanticDigest": "8fc37a6047cb36e9df235f1dca8b97c48a01be78c15979dcf80bd249c9200ea3",
+      "reviewedCommit": "c69c3ead3156b14a0cc931dea37d62bc73b1a5ad",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A04",
+      "evidenceId": "a04-us-ca-g6-ratios-v2-practice-semantics-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a04-practice-semantics.v2.1.json",
+      "rawSha256": "a7bb27976bb9faa6bf6388aee16f94b1801474c863a09f04ff9775d26e71ed1e",
+      "semanticDigest": "08bcbdfaa30125d7bc56690ec18432a4c9cee09791ee6ef087bd7cbc79f68b01",
+      "reviewedCommit": "ad4a812d7f4cf1a3becb13aab85e4a6104cfc246",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A05",
+      "evidenceId": "a05-us-ca-g6-ratios-v2-lesson-semantics-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a05-lesson-semantics.v2.1.json",
+      "rawSha256": "0ba4627104771b8d6806b6d2f84a2074cd99a08ce999aa4308fc6987a07b5d49",
+      "semanticDigest": "1cda5661bd697db11fe82164b93ea80a7275456a77ce69085b2da4d3c40089c8",
+      "reviewedCommit": "885d6cadb2188472958ffdc6452c9d2e9a352371",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A11",
+      "evidenceId": "a11-us-ca-g6-ratios-v2-independent-preflight-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a11-independent-preflight.v2.1.json",
+      "rawSha256": "06c05ad33056e7b34feced79fd775ab24942c98c5a72e7f09614a76e66dcc5ac",
+      "semanticDigest": "59192bc7b7d94694657e2322ed26a1ef899ac56a10066fadc572f7bdc3ea6568",
+      "reviewedCommit": "c5fae55f1559a4840de27bfe03452796630b617f",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A22",
+      "evidenceId": "a22-us-ca-g6-ratios-v2-build-isolation-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a22-build-isolation.v2.1.json",
+      "rawSha256": "8014131fe9b00a2ea445e6d72fd021608be7adb6c65d09cc80ce61ddfbed7d8f",
+      "semanticDigest": "2f5cf3a74f7ec35916337fceec24515ade30b7a8e5810e73e243ac9fe95ff148",
+      "reviewedCommit": "23cf0574e0d41bfd244cd35b27f81dd30cdca713",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A24",
+      "evidenceId": "a24-us-ca-g6-ratios-v2-exact-layer-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a24-exact-layer.v2.1.json",
+      "rawSha256": "8119ad19a33b2364e0eb13bf8dbbb4e0713313529d8fbfb8234dd784b25d56cd",
+      "semanticDigest": "a802e39597c1d4779c834b98ca6afe099a278329c9ad86f40d1310bff5aee04d",
+      "reviewedCommit": "281ea4507e13cf935e587f99bfca0efbee5e9e58",
+      "expectedResult": "not_applicable",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    },
+    {
+      "role": "A25",
+      "evidenceId": "a25-us-ca-g6-ratios-v2-release-intake-baseline-c689",
+      "evidencePath": "coordination/integration/pilots/us-ca-math-rag-v2-g6-ratios-v2/attempt-002/inputs/evidence/a25-release-intake.v2.1.json",
+      "rawSha256": "6edf88af1b3fb01c1caf8ca191ea70dded8092be738f47e4029f9a8cb87e9940",
+      "semanticDigest": "d486c55dba74f1597f2c1fca6b7c9d19b5a35440f09c1d8d1ad547be9d187ea4",
+      "reviewedCommit": "5e5b5dae4c438fdd988c1d834ab19fa2e04992ff",
+      "expectedResult": "pass",
+      "currentness": {
+        "candidateDigest": "c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6",
+        "sourceCommit": "faf57280778c4b6543d15ce675638ac480b42864",
+        "targetBaselineCommit": "c6893ce380b1b22e5e74b3f3e4fe2cb7970f8e77",
+        "checkerVersion": "promotion-gate-shadow-v2.1"
+      }
+    }
+  ]
+}
