@@ -20,4 +20,8 @@
 
 ## Handoff / closeout
 
-- Pending.
+- Runtime de-reach owner slices were composed through target baseline `d7ce01d9406d717451b7c43b6d7c48d70fd99ec1`; the 492-question package and 14 other unapproved historical candidates are no longer reachable from the registered runtime graph.
+- Three remaining candidate/live correlations are exact approved projections (BNU high, BNU junior, and California middle-school lessons) with distinct approval records; the v2 registry will bind those bytes and fail on drift.
+- A fresh v2 ratios candidate (`us-ca-math-rag-v2-g6-ratios-v2-candidate`) and independent A21/A18/A04/A05/A24 evidence were composed. Candidate digest: `c83c47392c79256ee47726dafe3c53b72e5e7454edcb313a421eb3b32066cbf6`.
+- The additive v2 checker, schemas, CLI core, pure Shadow adapter, receipt digest rules, isolation/rollback code, and first security test set are implemented under `coordination/integration/v2/`. It has no Preview, deploy, provider, database, or live command.
+- Pending: immutable checker release ledger, 18-entry resolution registry, A23/A11/A22/A25 evidence, manifest freeze, real Shadow run, independent replay, CI enforcement, and final closeout.

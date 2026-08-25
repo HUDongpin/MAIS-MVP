@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.example/schemas/promotion-receipt.v2.schema.json",
+  "title": "Promotion Gate Shadow receipt v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "manifest",
+    "run",
+    "mode",
+    "result",
+    "exitReasons",
+    "binding",
+    "worktreeProof",
+    "provenanceProof",
+    "baselineProof",
+    "checkerReleaseProof",
+    "evidenceProof",
+    "contentProof",
+    "candidateSourceProof",
+    "shadowOutputProof",
+    "compatibilityReportDigest",
+    "runtimeAndLegacyProof",
+    "liveReachabilityProof",
+    "forbiddenPathDiff",
+    "externalSideEffectProof",
+    "rollbackProof",
+    "checks",
+    "lifecycle",
+    "unmetConditions",
+    "semanticReceiptDigest",
+    "rawReceiptDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "promotion-receipt.v2" },
+    "manifest": { "$ref": "#/$defs/fileBinding" },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runId", "producedAt", "ciMetadata"],
+      "properties": {
+        "runId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+        "producedAt": { "type": "string", "format": "date-time" },
+        "ciMetadata": { "type": ["object", "null"] }
+      }
+    },
+    "mode": { "const": "shadow" },
+    "result": { "enum": ["pass", "fail", "blocked"] },
+    "exitReasons": { "type": "array" },
+    "binding": { "type": "object" },
+    "worktreeProof": { "type": ["object", "null"] },
+    "provenanceProof": { "type": ["object", "null"] },
+    "baselineProof": { "type": ["object", "null"] },
+    "checkerReleaseProof": { "type": ["object", "null"] },
+    "evidenceProof": { "type": ["object", "null"] },
+    "contentProof": { "type": ["object", "null"] },
+    "candidateSourceProof": { "type": ["object", "null"] },
+    "shadowOutputProof": { "type": ["object", "null"] },
+    "compatibilityReportDigest": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "runtimeAndLegacyProof": { "type": ["object", "null"] },
+    "liveReachabilityProof": { "type": ["object", "null"] },
+    "forbiddenPathDiff": { "type": ["object", "null"] },
+    "externalSideEffectProof": { "type": ["object", "null"] },
+    "rollbackProof": { "type": ["object", "null"] },
+    "checks": { "type": "array", "minItems": 1 },
+    "lifecycle": { "type": "object" },
+    "unmetConditions": { "type": "array" },
+    "semanticReceiptDigest": { "$ref": "#/$defs/sha256" },
+    "rawReceiptDigest": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "fileBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rawSha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "rawSha256": { "$ref": "#/$defs/sha256" }
+      }
+    }
+  }
+}

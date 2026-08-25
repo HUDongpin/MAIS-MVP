@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mais.example/schemas/promotion-evidence.v2.schema.json",
+  "title": "Promotion Gate owner evidence v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "evidenceId",
+    "role",
+    "result",
+    "producedAt",
+    "candidateDigest",
+    "sourceCommit",
+    "targetBaselineCommit",
+    "checkerVersion",
+    "semanticPayload"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "promotion-evidence.v2" },
+    "evidenceId": { "type": "string", "minLength": 1 },
+    "role": {
+      "enum": ["A21", "A18", "A23", "A04", "A05", "A11", "A22", "A24", "A25"]
+    },
+    "result": { "enum": ["pass", "not_applicable"] },
+    "producedAt": { "type": "string", "format": "date-time" },
+    "candidateDigest": { "$ref": "#/$defs/sha256" },
+    "sourceCommit": { "$ref": "#/$defs/commit" },
+    "targetBaselineCommit": { "$ref": "#/$defs/commit" },
+    "checkerVersion": { "const": "promotion-gate-shadow-v2" },
+    "semanticPayload": { "type": "object" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+  }
+}
